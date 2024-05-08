@@ -14,32 +14,57 @@ patch(BarcodeModel.prototype, {
      * @override
      */
     async noProductToast(barcodeData) {
+        // Applicable for the group ["base.group_system"]
         // Applicable for models ["stock.picking", "stock.quant"]
         // Applicable for the picking operation ["receipts"]
-        if (this.isValidForBarcodeLookup) {
-            const barcodeVals = await this.orm.call("product.template", "barcode_lookup", [barcodeData.barcode]);
-            if (barcodeVals) {
-                this.trigger("playSound");
-                return await this.action.doAction(
-                    "stock_barcode_barcodelookup.product_barcodelookup_action",
-                    {
-                        additionalContext: {
-                            "default_barcode": barcodeData?.barcode,
-                            "default_is_storable": true,
-                            "dialog_size": "medium",
-                        },
-                        props: {
-                            onSave: async (record) => {
-                                this.notification(_t("Product created successfully"), { type: "success" });
-                                await this.createNewProductLine(barcodeData);
-                                return this.action.doAction({ type: "ir.actions.act_window_close" });
+        const canManageBarcodelookup = await this.groups.group_user_admin;
+        if (canManageBarcodelookup && this.isValidForBarcodeLookup) {
+            const response = await this.orm.call("product.template", "barcode_lookup", []);
+            if (response?.authenticated) {
+                if (!barcodeData.error) {
+                    if (this.groups.group_tracking_lot) {
+                        barcodeData.error = _t(
+                            `This product doesn't exists either scan a package
+                            available at the picking location or create new product`
+                        );
+                    } else {
+                        barcodeData.error = _t("This product doesn't exists");
+                    }
+                }
+                return this.notification(barcodeData.error, {
+                    type: "danger",
+                    buttons: [
+                        {
+                            name: _t("Create New Product"),
+                            primary: true,
+                            onClick: () => {
+                                return this.openProductForm(barcodeData);
                             },
                         },
-                    }
-                );
+                    ],
+                });
             }
         }
         return super.noProductToast(barcodeData);
+    },
+
+    async openProductForm(barcodeData=false) {
+        return await this.action.doAction(
+            "stock_barcode_barcodelookup.product_barcodelookup_action",
+            {
+                additionalContext: {
+                    "default_barcode": barcodeData?.barcode,
+                    "dialog_size": "medium",
+                },
+                props: {
+                    onSave: async (record) => {
+                        this.notification(_t("Product created successfully"), { type: "success" });
+                        barcodeData ? await this.createNewProductLine(barcodeData) : false;
+                        return this.action.doAction({ type: "ir.actions.act_window_close" });
+                    },
+                },
+            }
+        );
     },
 
     async createNewProductLine(barcodeData) {

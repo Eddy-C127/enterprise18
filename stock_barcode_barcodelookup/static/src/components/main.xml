@@ -1,0 +1,9 @@
+<templates>
+    <t t-inherit="stock_barcode.MainComponent" t-inherit-mode="extension" t-translation="off">
+        <xpath expr="//button[hasclass('o_cancel_operation')]" position="after">
+            <button t-if="groups.group_user_admin and env.model.isValidForBarcodeLookup" class="btn-lg btn btn-light text-uppercase" t-on-click="onOpenProductForm">
+                Create Product
+            </button>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="point_of_sale.barcodeformbarcode" t-inherit="web.CharField">
+        <xpath expr="//input" position="after">
+            <button
+                t-on-click="onBarcodeBtnClick"
+                type="button"
+                class="h-100 btn-lg ms-1 o_barcode"
+                tabindex="-1"
+            />
+        </xpath>
+    </t>
+</templates>

@@ -1,5 +1,6 @@
 import base64
 import re
+import contextlib
 
 from odoo import api, models, Command
 from odoo.addons.product_barcodelookup.tools import barcode_lookup_service
@@ -13,7 +14,7 @@ class ProductTemplate(models.Model):
     @api.onchange('barcode')
     def _onchange_barcode(self):
         for product in self:
-            if product.barcode and len(product.barcode) >= 8:
+            if self.env.user.has_group('base.group_system') and product.barcode and len(product.barcode) > 7:
                 product._update_product_by_barcodelookup(product, product.barcode)
 
     def _to_float(self, value):
@@ -34,11 +35,17 @@ class ProductTemplate(models.Model):
             return False
         product_data = products[0]
 
-        if not product.image_1920 and (images := product_data.get('images')):
-            if image := images[0]:
+        if images := product_data.get('images'):
+            for image in images:
                 img_response = barcode_lookup_service.barcode_lookup_request(image)
-                if img_response:
+                if img_response and not product.image_1920:
                     product.image_1920 = base64.b64encode(img_response.content)
+                elif img_response and 'product_template_image_ids' in self.env['product.template']:
+                    self.product_template_image_ids = [Command.create({
+                        'name': product_data.get('title'),
+                        'image_1920': base64.b64encode(img_response.content),
+                        'product_tmpl_id': self.id,
+                    })]
 
         if not product.weight and (barcode_lookup_weight := product_data.get('weight', '')):
             weight_re_match = re.match(BARCODE_WEIGHT_REGEX, barcode_lookup_weight)
@@ -79,7 +86,7 @@ class ProductTemplate(models.Model):
                 attribute = self.env['product.attribute'].search([
                     ('name', 'ilike', attr_name),
                 ], limit=1)
-                if attribute:
+                if attribute and (attr_name != 'color' or attr_value.replace(' ', '').isalpha()):
                     attribute_value = self.env['product.attribute.value'].search([
                         ('name', 'ilike', attr_value),
                         ('attribute_id', '=', attribute.id)
@@ -102,6 +109,11 @@ class ProductTemplate(models.Model):
         if not product.name:
             product.name = product_data.get('title')
 
+        if not product.volume:
+            if (product_data.get('length') and product_data.get('width') and product_data.get('height')):
+                with contextlib.suppress(ValueError):
+                    product.volume = float(product_data.get('length')) * float(product_data.get('width')) * float(product_data.get('height'))
+
         if not product.description:
             product.description = product_data.get('description')
 
@@ -109,10 +121,10 @@ class ProductTemplate(models.Model):
         return self.env['ir.config_parameter'].sudo().get_param('product_barcodelookup.api_key', False)
 
     @api.model
-    def barcode_lookup(self, barcode):
+    def barcode_lookup(self, barcode=False):
         api_key = self._get_barcode_lookup_key()
-        if not api_key or not barcode:
+        if not api_key:
             return False
         params = {'barcode': barcode, 'key': api_key}
         response = barcode_lookup_service.barcode_lookup_request('https://api.barcodelookup.com/v3/products', params)
-        return response.json() if response else {}
+        return response.json() if not isinstance(response, dict) else response

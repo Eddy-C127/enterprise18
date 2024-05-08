@@ -1,36 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-    <record id="product_product_view_form_stock_barcode_barcodelookup" model="ir.ui.view">
-        <field name="name">product.product.view.form.stock.barcode.barcodelookup</field>
-        <field name="model">product.product</field>
-        <field name="arch" type="xml">
-            <form>
-                <group name="pricing">
-                    <field name="company_id" invisible="1"/>  <!-- used in _update_product_by_barcodelookup -->
-                    <field name="currency_id" invisible="1"/>  <!-- used in _update_product_by_barcodelookup -->
-                    <field name="cost_currency_id" invisible="1"/>  <!-- used in _update_product_by_barcodelookup -->
-                    <field name="image_1920" invisible="1"/>  <!-- used in _update_product_by_barcodelookup -->
-                    <field name="description" invisible="1"/>  <!-- used in _update_product_by_barcodelookup -->
-                    <field name="weight" invisible="1"/> <!-- used in _update_product_by_barcodelookup -->
-                    <field name="categ_id" invisible="1"/>  <!-- used in _update_product_by_barcodelookup -->
-                    <field name="name" placeholder="e.g. Cheese Burger" string="Product Name"/>
-                    <field name="barcode" placeholder="e.g. 1234567890"/>
-                    <label for="list_price" class="mt-1"/>
-                    <div name="sales_price">
-                        <field name="list_price" class="oe_inline" widget="monetary"
-                               options="{'currency_field': 'currency_id', 'field_digits': True}"/>
-                    </div>
-                </group>
-            </form>
-        </field>
-    </record>
-
     <record id="product_barcodelookup_action" model="ir.actions.act_window">
+        <field name="name">New Product</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="view_id" ref="stock_barcode_barcodelookup.product_product_view_form_stock_barcode_barcodelookup"/>
+        <field name="view_id" ref="product.product_product_view_form_normalized"/>
     </record>
-
 </odoo>
