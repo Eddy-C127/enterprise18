@@ -137,8 +137,9 @@ class PosOrder(models.Model):
                 'l10n_mx_edi_usage': self.env.context.get('default_l10n_mx_edi_usage') or self.l10n_mx_edi_usage,
                 'l10n_mx_edi_payment_method_id': self.l10n_mx_edi_payment_method_id.id,
             })
-            if self.refunded_order_id.account_move:
-                vals['l10n_mx_edi_cfdi_origin'] = '03|' + self.refunded_order_id.account_move.l10n_mx_edi_cfdi_uuid
+            account_fiscal_folio = self.refunded_order_id.account_move.l10n_mx_edi_cfdi_uuid
+            if account_fiscal_folio:
+                vals['l10n_mx_edi_cfdi_origin'] = self.env['account.move']._l10n_mx_edi_write_cfdi_origin('03', [account_fiscal_folio])
         return vals
 
     # -------------------------------------------------------------------------
