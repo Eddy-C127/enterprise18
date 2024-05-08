@@ -2,15 +2,13 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { user } from "@web/core/user";
+import { memoize } from "@web/core/utils/functions";
 import { renderToElement } from "@web/core/utils/render";
 import { CalendarRenderer } from "@web/views/calendar/calendar_renderer";
-import { CohortRenderer } from "@web_cohort/cohort_renderer";
-import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import { GraphRenderer } from "@web/views/graph/graph_renderer";
 import { HierarchyRenderer } from "@web_hierarchy/hierarchy_renderer";
 import { KanbanRenderer } from "@web/views/kanban/kanban_renderer";
 import { ListRenderer } from "@web/views/list/list_renderer";
-import { MapRenderer } from "@web_map/map_view/map_renderer";
 import { patch } from "@web/core/utils/patch";
 import { PivotRenderer } from "@web/views/pivot/pivot_renderer";
 import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
@@ -222,27 +220,71 @@ const EmbeddedViewListRendererPatch = () => ({
 });
 
 patch(CalendarRenderer.prototype, EmbeddedViewRendererPatch());
-patch(CohortRenderer.prototype, EmbeddedViewRendererPatch());
-patch(GanttRenderer.prototype, EmbeddedViewRendererPatch());
 patch(GraphRenderer.prototype, EmbeddedViewRendererPatch());
 patch(HierarchyRenderer.prototype, EmbeddedViewRendererPatch());
 patch(KanbanRenderer.prototype, EmbeddedViewRendererPatch());
 patch(ListRenderer.prototype, EmbeddedViewRendererPatch());
 patch(ListRenderer.prototype, EmbeddedViewListRendererPatch());
-patch(MapRenderer.prototype, EmbeddedViewRendererPatch());
 patch(PivotRenderer.prototype, EmbeddedViewRendererPatch());
 
 const supportedEmbeddedViews = new Set([
     'calendar',
-    'cohort',
-    'gantt',
     'graph',
     'hierarchy',
     'kanban',
     'list',
-    'map',
     'pivot',
 ]);
+
+const externalModules = {
+    "@web_cohort/cohort_renderer": {
+        renderer: "CohortRenderer",
+        view: "cohort",
+    },
+    "@web_gantt/gantt_renderer": {
+        renderer: "GanttRenderer",
+        view: "gantt",
+    },
+    "@web_map/map_view/map_renderer": {
+        renderer: "MapRenderer",
+        view: "map",
+    },
+};
+
+/**
+ * Ensure that a patch is only applied once for each module.
+ */
+const patchExternalModule = memoize((path) => {
+    const { [externalModules[path].renderer]: Renderer } = odoo.loader.modules.get(path) || {};
+    if (Renderer) {
+        patch(Renderer.prototype, EmbeddedViewRendererPatch());
+        supportedEmbeddedViews.add(externalModules[path].view);
+    }
+});
+
+/**
+ * Apply all patches.
+ */
+const patchExternalModules = () => {
+    for (const path of Object.keys(externalModules)) {
+        patchExternalModule(path);
+    }
+};
+
+// Apply a patch to a lazy-loaded module.
+odoo.loader.bus.addEventListener("module-started", (e) => {
+    if (e.detail.moduleName in externalModules) {
+        patchExternalModule(e.detail.moduleName);
+    }
+});
+
+if (odoo.loader.checkErrorProm) {
+    // Apply all patches after every non-lazy module finished loading.
+    odoo.loader.checkErrorProm.then(patchExternalModules);
+} else {
+    // Apply all patches in case the current file is a lazy-loaded module.
+    patchExternalModules();
+}
 
 export {
     supportedEmbeddedViews,

@@ -14,9 +14,6 @@
         'portal',
         'web_unsplash',
         'web_hierarchy',
-        'web_map',
-        'web_gantt',
-        'web_cohort',
     ],
     'data': [
         'data/article_templates.xml',
