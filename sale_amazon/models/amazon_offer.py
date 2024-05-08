@@ -103,7 +103,8 @@ class AmazonOffer(models.Model):
                 # as we don't add any fulfillment channel to the feed. Amazon won't  change their
                 # quantity on hand, but by forcing the quantity here, we make sure Amazon will not
                 # consider we are selling it through another channel.
-                quantity_ = offer_.product_id.free_qty if offer_ not in fba_offers_ else 0
+                free_qty_ = offer_.product_id.free_qty
+                quantity_ = free_qty_ if offer_ not in fba_offers_ and free_qty_ > 0 else 0
                 ElementTree.SubElement(inventory_, 'Quantity').text = str(int(quantity_))
 
         xml_feed = amazon_utils.build_feed(account, 'Inventory', build_feed_messages)
