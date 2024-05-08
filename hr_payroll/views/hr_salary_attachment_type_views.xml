@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="hr_salary_attachment_type_view_search" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.type.view.search</field>
+        <field name="model">hr.salary.attachment.type</field>
+        <field name="arch" type="xml">
+            <search string="Salary Attachment Type">
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
     <record id="hr_salary_attachment_type_view_form" model="ir.ui.view">
         <field name="name">hr.salary.attachment.type.view.form</field>
         <field name="model">hr.salary.attachment.type</field>
         <field name="arch" type="xml">
             <form string="Salary Attachment Type" >
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <group>
                         <group>
                             <field name="name"/>
@@ -62,5 +73,6 @@
         <field name="name">Salary Attachment Types</field>
         <field name="res_model">hr.salary.attachment.type</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hr_salary_attachment_type_view_search"/>
     </record>
 </odoo>
