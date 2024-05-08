@@ -38,12 +38,8 @@ Features:
         'mail.assets_public': [
             'website_helpdesk_livechat/static/src/**/*',
         ],
-        'web.tests_assets': [
-            'website_helpdesk_livechat/static/tests/helpers/**/*',
-        ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'website_helpdesk_livechat/static/tests/**/*',
-            ('remove', 'website_helpdesk_livechat/static/tests/helpers/**/*'),
         ],
     },
 }
