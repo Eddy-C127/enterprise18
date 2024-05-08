@@ -51,6 +51,7 @@ class L10nBeHrPayrollEcoVoucherController(http.Controller):
             "Adresse de livraison boite",
             "Adresse de livraison code postal",
             "Adresse de livraison ville",
+            "Statut contrat",
         ]
 
         rows = []
@@ -76,10 +77,11 @@ class L10nBeHrPayrollEcoVoucherController(http.Controller):
                 quantity,
                 amount,
                 quantity * amount,
-                '%s/%s/%s' % (birthdate.day, birthdate.month, birthdate.year),
+                f'{birthdate:%m/%d/%Y}',
                 'F' if employee.gender == 'female' else 'M',
                 lang,
-                ' ', ' ', ' ', ' ', ' ', ' ', ' '
+                ' ', ' ', ' ', ' ', ' ', ' ', ' ',
+                'Actif' if employee.contract_id.state == 'open' else 'Fin de la collaboration',
             ))
 
         col = 0
