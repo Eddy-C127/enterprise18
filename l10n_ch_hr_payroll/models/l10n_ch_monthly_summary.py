@@ -88,7 +88,7 @@ class L10nChMonthlySummaryWizard(models.Model):
 
         rules = self.env['hr.payroll.structure'].search([
             ('country_id', '=', self.env.ref('base.ch').id)
-        ]).rule_ids.sorted(lambda r: int(r.l10n_ch_code))
+        ]).rule_ids.filtered('l10n_ch_code').sorted(lambda r: int(r.l10n_ch_code))
         line_values = payslips._get_line_values(rules.mapped('code'), compute_sum=True)
 
         result = defaultdict(lambda: defaultdict(lambda: 0))
