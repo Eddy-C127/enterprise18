@@ -137,6 +137,25 @@ class TestEcEdiCommon(AccountEdiTestCommon):
             }))
         return line_vals
 
+    def get_liquidation_invoice_line_vals(self, same_tax=False):
+        # Lines with 2 taxes in order to validate reimbursements
+        second_tax_xml_id = (same_tax and 'tax_vat_510_sup_01') or 'tax_vat_517_sup_07'
+        return [
+            Command.create({
+                'product_id': self.product_a.id,
+                'price_unit': 10.0,
+                'quantity': 1.0,
+                'discount': 0.0,
+                'tax_ids': [Command.set(self._get_tax_by_xml_id('tax_vat_510_sup_01').ids)],
+            }),
+            Command.create({
+                'product_id': self.product_b.id,
+                'price_unit': 10.0,
+                'quantity': 1.0,
+                'discount': 0.0,
+                'tax_ids': [Command.set(self._get_tax_by_xml_id(second_tax_xml_id).ids)],
+            })]
+
     def get_wizard_and_purchase_invoice(self):
         purchase_journal = self.env['account.journal'].search([
             ('company_id', '=', self.company_data['company'].id),
@@ -732,5 +751,194 @@ L10N_EC_EDI_XPATH_INVOICE_IN_CUSTOM_TAXPAYER = """
             <valorRetenido>35.00</valorRetenido>
         </retencion>
     </retenciones>
+</xpath>
+"""
+
+L10N_EC_EDI_REIMBURSEMENT_LIQUIDATION = """
+<liquidacionCompra version="1.1.0" id="comprobante">
+    <infoTributaria>
+        <ambiente>1</ambiente>
+        <tipoEmision>1</tipoEmision>
+        <razonSocial>PRUEBAS SERVICIO DE RENTAS INTERNAS</razonSocial>
+        <nombreComercial>PRUEBAS SERVICIO DE RENTAS INTERNAS</nombreComercial>
+        <ruc>1792366836001</ruc>
+        <claveAcceso>2501202203179236683600110010010000000013121521413</claveAcceso>
+        <codDoc>03</codDoc>
+        <estab>001</estab>
+        <ptoEmi>001</ptoEmi>
+        <secuencial>000000001</secuencial>
+        <dirMatriz>Avenida Machala 42</dirMatriz>
+    </infoTributaria>
+    <infoLiquidacionCompra>
+        <fechaEmision>25/01/2022</fechaEmision>
+        <obligadoContabilidad>SI</obligadoContabilidad>
+        <tipoIdentificacionProveedor>05</tipoIdentificacionProveedor>
+        <razonSocialProveedor>EC Test Partner AàÁ³$£€èêÈÊöÔÇç¡⅛&amp;@™</razonSocialProveedor>
+        <identificacionProveedor>0453661050</identificacionProveedor>
+        <direccionProveedor>Av. Libertador Simón Bolívar 1155</direccionProveedor>
+        <totalSinImpuestos>20.000000</totalSinImpuestos>
+        <totalDescuento>0.00</totalDescuento>
+        <codDocReembolso>41</codDocReembolso>
+        <totalComprobantesReembolso>22.40</totalComprobantesReembolso>
+        <totalBaseImponibleReembolso>20.00</totalBaseImponibleReembolso>
+        <totalImpuestoReembolso>2.40</totalImpuestoReembolso>
+        <totalConImpuestos>
+            <totalImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>2</codigoPorcentaje>
+                <baseImponible>20.000000</baseImponible>
+                <valor>2.40</valor>
+            </totalImpuesto>
+        </totalConImpuestos>
+        <importeTotal>22.40</importeTotal>
+        <moneda>DOLAR</moneda>
+        <pagos>
+            <pago>
+                <formaPago>16</formaPago>
+                <total>6.72</total>
+                <plazo>0</plazo>
+                <unidadTiempo>dias</unidadTiempo>
+            </pago>
+            <pago>
+                <formaPago>16</formaPago>
+                <total>15.68</total>
+                <plazo>34</plazo>
+                <unidadTiempo>dias</unidadTiempo>
+            </pago>
+        </pagos>
+    </infoLiquidacionCompra>
+    <detalles>
+        <detalle>
+            <codigoPrincipal>N/A</codigoPrincipal>
+            <descripcion>product_a</descripcion>
+            <cantidad>1.000000</cantidad>
+            <precioUnitario>10.000000</precioUnitario>
+            <descuento>0.00</descuento>
+            <precioTotalSinImpuesto>10.00</precioTotalSinImpuesto>
+            <impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12.000000</tarifa>
+                    <baseImponible>10.000000</baseImponible>
+                    <valor>1.20</valor>
+                </impuesto>
+            </impuestos>
+        </detalle>
+        <detalle>
+            <codigoPrincipal>N/A</codigoPrincipal>
+            <descripcion>product_b</descripcion>
+            <cantidad>1.000000</cantidad>
+            <precioUnitario>10.000000</precioUnitario>
+            <descuento>0.00</descuento>
+            <precioTotalSinImpuesto>10.00</precioTotalSinImpuesto>
+            <impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12.000000</tarifa>
+                    <baseImponible>10.000000</baseImponible>
+                    <valor>1.20</valor>
+                </impuesto>
+            </impuestos>
+        </detalle>
+    </detalles>
+    <reembolsos>
+        <reembolsoDetalle>
+            <tipoIdentificacionProveedorReembolso>04</tipoIdentificacionProveedorReembolso>
+            <identificacionProveedorReembolso>0453661050152</identificacionProveedorReembolso>
+            <codPaisPagoProveedorReembolso>593</codPaisPagoProveedorReembolso>
+            <tipoProveedorReembolso>01</tipoProveedorReembolso>
+            <codDocReembolso>01</codDocReembolso>
+            <estabDocReembolso>001</estabDocReembolso>
+            <ptoEmiDocReembolso>001</ptoEmiDocReembolso>
+            <secuencialDocReembolso>000000156</secuencialDocReembolso>
+            <fechaEmisionDocReembolso>25/01/2022</fechaEmisionDocReembolso>
+            <numeroautorizacionDocReemb>1234567890</numeroautorizacionDocReemb>
+            <detalleImpuestos>
+                <detalleImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>2</codigoPorcentaje>
+                <tarifa>12</tarifa>
+                <baseImponibleReembolso>20.00</baseImponibleReembolso>
+                <impuestoReembolso>2.40</impuestoReembolso>
+                </detalleImpuesto>
+            </detalleImpuestos>
+        </reembolsoDetalle>
+    </reembolsos>
+    <infoAdicional>
+        <campoAdicional nombre="Referencia">LiqCo 001-001-000000001</campoAdicional>
+    </infoAdicional>
+</liquidacionCompra>
+"""
+
+L10N_EC_EDI_REIMBURSEMENT_LIQUIDATION_WTH_XPATH = """
+<xpath expr="//pagoLocExt" position="after">
+    <totalComprobantesReembolso>21.20</totalComprobantesReembolso>
+    <totalBaseImponibleReembolso>20.00</totalBaseImponibleReembolso>
+    <totalImpuestoReembolso>1.20</totalImpuestoReembolso>
+</xpath>
+<xpath expr="//docsSustento" position="replace">
+    <docsSustento>
+        <docSustento>
+            <codSustento>01</codSustento>
+            <codDocSustento>41</codDocSustento>
+            <numDocSustento>001001000000001</numDocSustento>
+            <fechaEmisionDocSustento>25/01/2022</fechaEmisionDocSustento>
+            <pagoLocExt>01</pagoLocExt>
+            <totalComprobantesReembolso>22.40</totalComprobantesReembolso>
+            <totalBaseImponibleReembolso>20.00</totalBaseImponibleReembolso>
+            <totalImpuestoReembolso>2.40</totalImpuestoReembolso>
+            <totalSinImpuestos>20.00</totalSinImpuestos>
+            <importeTotal>22.40</importeTotal>
+            <impuestosDocSustento>
+                <impuestoDocSustento>
+                    <codImpuestoDocSustento>2</codImpuestoDocSustento>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <baseImponible>20.00</baseImponible>
+                    <tarifa>12.00</tarifa>
+                    <valorImpuesto>2.40</valorImpuesto>
+                </impuestoDocSustento>
+            </impuestosDocSustento>
+            <retenciones>
+                <retencion>
+                    <codigo>2</codigo>
+                    <codigoRetencion>3</codigoRetencion>
+                    <baseImponible>20.00</baseImponible>
+                    <porcentajeRetener>100.00</porcentajeRetener>
+                    <valorRetenido>20.00</valorRetenido>
+                </retencion>
+            </retenciones>
+            <reembolsos>
+            <reembolsoDetalle>
+                <tipoIdentificacionProveedorReembolso>04</tipoIdentificacionProveedorReembolso>
+                <identificacionProveedorReembolso>0453661050152</identificacionProveedorReembolso>
+                <codPaisPagoProveedorReembolso>593</codPaisPagoProveedorReembolso>
+                <tipoProveedorReembolso>01</tipoProveedorReembolso>
+                <codDocReembolso>01</codDocReembolso>
+                <estabDocReembolso>001</estabDocReembolso>
+                <ptoEmiDocReembolso>001</ptoEmiDocReembolso>
+                <secuencialDocReembolso>000000156</secuencialDocReembolso>
+                <fechaEmisionDocReembolso>25/01/2022</fechaEmisionDocReembolso>
+                <numeroAutorizacionDocReemb>1234567890</numeroAutorizacionDocReemb>
+                <detalleImpuestos>
+                    <detalleImpuesto>
+                        <codigo>2</codigo>
+                        <codigoPorcentaje>2</codigoPorcentaje>
+                        <tarifa>12</tarifa>
+                        <baseImponibleReembolso>20.00</baseImponibleReembolso>
+                        <impuestoReembolso>2.40</impuestoReembolso>
+                    </detalleImpuesto>
+                </detalleImpuestos>
+            </reembolsoDetalle>
+            </reembolsos>
+            <pagos>
+                <pago>
+                    <formaPago>16</formaPago>
+                    <total>22.40</total>
+                </pago>
+            </pagos>
+        </docSustento>
+    </docsSustento>
 </xpath>
 """

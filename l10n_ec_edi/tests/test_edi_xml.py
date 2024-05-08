@@ -5,6 +5,7 @@ from freezegun import freeze_time
 from lxml import etree
 from odoo import Command
 from odoo.tests import tagged
+from odoo.exceptions import ValidationError
 
 from .common import (L10N_EC_EDI_XML_CREDIT_NOTE, L10N_EC_EDI_XML_DEBIT_NOTE,
                      L10N_EC_EDI_XML_IN_WTH, L10N_EC_EDI_XML_OUT_INV,
@@ -12,6 +13,8 @@ from .common import (L10N_EC_EDI_XML_CREDIT_NOTE, L10N_EC_EDI_XML_DEBIT_NOTE,
                      L10N_EC_EDI_XML_PURCHASE_LIQ_WTH,
                      L10N_EC_EDI_XPATH_INVOICE_IN,
                      L10N_EC_EDI_XPATH_INVOICE_IN_CUSTOM_TAXPAYER,
+                     L10N_EC_EDI_REIMBURSEMENT_LIQUIDATION,
+                     L10N_EC_EDI_REIMBURSEMENT_LIQUIDATION_WTH_XPATH,
                      TestEcEdiCommon)
 
 
@@ -622,9 +625,43 @@ class TestEcEdiXmls(TestEcEdiCommon):
             xpath += custom_xpath
         self.assert_xml_tree_equal(withhold, L10N_EC_EDI_XML_IN_WTH, post_move=False, xpath=xpath)
 
+    def test_xml_reimbursement_liquidation(self):
+        # Test the prebuild xml with Reimbursements sections
+        with freeze_time(self.frozen_today):
+            purchase_liq = self.get_purchase_liq(self.get_reimbursement_line_vals(tax_base=20))
+            # Check amounts validation between invoice lines and reimbursements
+            with self.assertRaises(ValidationError):
+                purchase_liq._post()
+            # Set correct lines
+            purchase_liq.write(
+                {'invoice_line_ids': [(5, 0, 0)] + self.get_liquidation_invoice_line_vals(same_tax=True)})
+
+            self.assert_xml_tree_equal(purchase_liq, L10N_EC_EDI_REIMBURSEMENT_LIQUIDATION)
+
+    def test_xml_purchase_liquidation_wth_with_reimbursement(self):
+        # Test the prebuild xml with withhold Reimbursements
+        def create_wth_lines(wizard, invoice):
+            # Method for the line creation for withhold lines
+            self.env['l10n_ec.wizard.account.withhold.line'].create({
+                'invoice_id': invoice.id,
+                'wizard_id': wizard.id,
+                'base': 20,
+                'tax_id': self._get_tax_by_xml_id('tax_withhold_vat_100').ids[0],
+                'taxsupport_code': '01',
+                'amount': 20,
+            })
+        with freeze_time(self.frozen_today):
+            purchase_liq = self.get_purchase_liq(self.get_reimbursement_line_vals(tax_base=20))
+            purchase_liq.write(
+                {'invoice_line_ids': [Command.clear()] + self.get_liquidation_invoice_line_vals(same_tax=True)})
+            purchase_liq.action_post()
+            withhold = self.get_withhold(purchase_liq, create_wth_lines)
+            xpath = L10N_EC_EDI_REIMBURSEMENT_LIQUIDATION_WTH_XPATH
+            self.assert_xml_tree_equal(withhold, L10N_EC_EDI_XML_PURCHASE_LIQ_WTH, post_move=False, xpath=xpath)
+
     # ===== HELPERS =====
 
-    def get_purchase_liq(self):
+    def get_purchase_liq(self, l10n_ec_reimbursement_ids=[]):
         """Creates a purchase liquidation with two lines with different tax supports."""
         def get_purchase_liq_line_vals():
             return [Command.create({
@@ -649,7 +686,8 @@ class TestEcEdiXmls(TestEcEdiCommon):
             'move_type': 'in_invoice',
             'partner_id': self.partner_b.id,
             'journal_id': journal_liq.id,
-            'invoice_line_ids': get_purchase_liq_line_vals()
+            'invoice_line_ids': get_purchase_liq_line_vals(),
+            'l10n_ec_reimbursement_ids': l10n_ec_reimbursement_ids
         })
         return purchase_liquidation
 
@@ -670,6 +708,21 @@ class TestEcEdiXmls(TestEcEdiCommon):
         # Create withhold
         withhold = wizard.action_create_and_post_withhold()
         return withhold
+
+    def get_reimbursement_line_vals(self, tax_base=100.0, tax_xml_id='tax_vat_510_sup_01'):
+        # Reimbursement data to be used in purchase invoice
+        return [Command.create({
+            'authorization_number': '1234567890',
+            'partner_id': self.partner_a.id,
+            'l10n_latam_document_type_id': self.env.ref('l10n_ec.ec_dt_01').id,
+            'partner_vat_number': self.partner_a.vat,
+            'partner_vat_type_id': self.partner_a.l10n_latam_identification_type_id.id,
+            'partner_country_id': self.partner_a.country_id.id,
+            'document_number': '001-001-000000156',
+            'date': self.frozen_today,
+            'tax_id': self._get_tax_by_xml_id(tax_xml_id).id,
+            'tax_base': tax_base,
+        })]
 
     def get_withhold_xpath_for_taxes(self, tax_percent, tax_code, withhold_amount, payment_code='01'):
         """Provides an xpath modifying a withhold XML in accordance with the provided taxes."""

@@ -41,8 +41,7 @@
                     <valorRetServicios t-out="format_float(purch_vals['valorRetServicios'])"/>
                     <valRetServ100 t-out="format_float(purch_vals['valRetServ100'])"/>
                     <valorRetencionNc t-out="format_float(purch_vals['valorRetencionNc'])"/>
-                    <!-- Purchase refunds are not supported. It is assumed to be zero. -->
-                    <totbasesImpReemb>0.00</totbasesImpReemb>
+                    <totbasesImpReemb t-out="format_float(purch_vals.get('totbasesImpReemb'))"/>
 
                     <pagoExterior>
                         <pagoLocExt t-out="purch_vals['pagoLocExt']"/>
@@ -60,6 +59,25 @@
                     <formasDePago t-if="'formasDePago' in purch_vals">
                         <formaPago t-foreach="purch_vals['formasDePago']" t-as="forma_pago" t-out="forma_pago"/>
                     </formasDePago>
+
+                    <reembolsos t-if="purch_vals.get('reimbursement_vals')">
+                        <reembolso t-foreach="purch_vals.get('reimbursement_vals')" t-as="reimburs_val">
+                            <tipoComprobanteReemb t-out="reimburs_val['tipoComprobanteReemb']"/>
+                            <tpIdProvReemb t-out="reimburs_val['tpIdProvReemb']"/>
+                            <idProvReemb t-out="reimburs_val['idProvReemb']"/>
+                            <establecimientoReemb t-out="reimburs_val['establecimientoReemb']"/>
+                            <puntoEmisionReemb t-out="reimburs_val['puntoEmisionReemb']"/>
+                            <secuencialReemb t-out="reimburs_val['secuencialReemb']"/>
+                            <fechaEmisionReemb t-out="reimburs_val['fechaEmisionReemb']"/>
+                            <autorizacionReemb t-out="reimburs_val['autorizacionReemb']"/>
+                            <baseImponibleReemb t-out="format_float(reimburs_val['baseImponibleReemb'])"/>
+                            <baseImpGravReemb t-out="format_float(reimburs_val['baseImpGravReemb'])"/>
+                            <baseNoGraIvaReemb t-out="format_float(reimburs_val['baseNoGraIvaReemb'])"/>
+                            <baseImpExeReemb t-out="format_float(reimburs_val['baseImpExeReemb'])"/>
+                            <montoIceRemb t-out="format_float(reimburs_val['montoIceRemb'])"/>
+                            <montoIvaRemb t-out="format_float(reimburs_val['montoIvaRemb'])"/>
+                        </reembolso>
+                    </reembolsos>
 
                     <air t-if="purch_vals.get('air_vals')">
                         <detalleAir t-foreach="purch_vals['air_vals']" t-as="withholding_vals">

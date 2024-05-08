@@ -181,6 +181,180 @@ msgid ""
 msgstr ""
 
 #. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+msgid "<i class=\"fa fa-book fa-fw\"/> Auto fill Invoice lines"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "Account reimbursement Client"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "Amounts"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__l10n_latam_document_type_id
+msgid "Document Type"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "Document info"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model,name:l10n_ec_edi.model_l10n_ec_reimbursement
+msgid "Expenses Reimbursement Details"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_bank_statement_line__reimbursement_totals
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_move__reimbursement_totals
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_payment__reimbursement_totals
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_totals
+msgid "Functional fields to calculate amount totals."
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_bank_statement_line__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_move__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_payment__l10n_ec_reimbursement_ids
+msgid "List of purchase invoices used in this reimbursement"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__document_number
+msgid "Document number"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__move_id
+msgid "Reimbursement Invoice"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_payment__l10n_ec_reimbursement_ids
+msgid "Reimbursement Lines"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+msgid "Reimbursements"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__reimbursement_totals
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move__reimbursement_totals
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_payment__reimbursement_totals
+msgid "Reimbursements Totals"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__partner_id
+msgid "Select the partner asociated to the purchase document"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__date
+msgid "Set the date of document generation"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_base
+msgid "Tax Base"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_group_id
+msgid "Tax Group"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_totals
+msgid "Tax Totals"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_amount
+msgid "Tax Value"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_group_id
+msgid "Tax group for the purchase invoice"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_base
+msgid ""
+"The VAT taxable amount (whether VAT 15%, VAT 5% or other percentages) can be"
+" found in the subtotal of the purchase invoice."
+msgstr ""
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/account_move.py:0
+msgid ""
+"The invoice total (%(total)s) does not match the reimbursement total "
+"(%(reim_total)s)."
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_amount
+msgid "The tax value of purchase invoice"
+msgstr ""
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/account_move.py:0
+msgid ""
+"The tax supports used in reimbursements lines must also be in taxes of invoice lines.\n"
+"Tax supports in reimbursements: %(rec)s, "
+msgstr ""
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/l10n_ec_reimbursement_line.py:0
+msgid ""
+"Please ensure all the taxes in reimbursement lines use the same tax support. Creating reimbursement lines with multiple tax supports is not allowed.\n"
+"Tax supports in reimbursements: %s"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__total
+msgid "The total value of purchase invoice"
+msgstr ""
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/account_move.py:0
+msgid "You can only be applied to invoices in draft status."
+msgstr ""
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/l10n_ec_reimbursement.py:0
+msgid ""
+"You cannot create reimbursements with document number, tax group and partner"
+" duplicated in the same invoice."
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+msgid "reimbursement Data Lines"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_ec_edi
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.res_config_settings_l10n_ec_edi
 msgid ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
@@ -409,6 +583,7 @@ msgstr ""
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__l10n_ec_authorization_number
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__authorization_number
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move__l10n_ec_authorization_number
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_payment__l10n_ec_authorization_number
 msgid "Authorization number"
@@ -523,7 +698,18 @@ msgstr ""
 
 #. module: l10n_ec_edi
 #: model:ir.model,name:l10n_ec_edi.model_res_country
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_country_id
 msgid "Country"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_vat_number
+msgid "Vat Number"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_vat_type_id
+msgid "Vat Type"
 msgstr ""
 
 #. module: l10n_ec_edi
@@ -571,6 +757,7 @@ msgid ""
 msgstr ""
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__currency_id
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__currency_id
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold_line__currency_id
 msgid "Currency"
@@ -578,6 +765,7 @@ msgstr ""
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__date
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__date
 msgid "Date"
 msgstr ""
 
@@ -1244,6 +1432,7 @@ msgstr ""
 #: model:ir.model,name:l10n_ec_edi.model_account_tax
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold_line__tax_id
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
 msgid "Tax"
 msgstr ""
 
@@ -1666,6 +1855,35 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_ec_edi/models/account_edi_format.py:0
 msgid "You must select a valid certificate in the settings for company %s"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                      Tip: When registering reimbursements from foreign partners it is common to include the\n"
+"                      foreign tax into the tax base (adding both amounts into one) and selecting as tax the VAT 0%"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                      The partner selected has a different identification type than RUC and VAT"
+msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "If no value is entered, 999999999 will be assigned."
+msgstr ""
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/wizard/l10n_ec_wizard_account_withhold.py:0
+msgid "The reimbursement withhold can not have a profit tax.\n\n"
+"According to art. 36 of the RTLI:\n Expense reimbursements will not be subject to withholding tax when the sales receipts are issued in the name of the intermediary, "
+"i.e., the person in favor of whom such reimbursements are made, and comply with the "
+"requirements established in the Sales and Withholding Receipts Regulations."
 msgstr ""
 
 #. module: l10n_ec_edi

@@ -3,10 +3,11 @@
 
 from functools import partial
 
-from odoo import _, api, fields, models
-from odoo.tools import frozendict, float_round
+from odoo import _, api, fields, models, Command
+from odoo.tools import frozendict, float_round, groupby
 from odoo.tools.misc import formatLang, format_date
 from odoo.exceptions import ValidationError
+from datetime import datetime
 
 from odoo.addons.l10n_ec_edi.models.account_tax import L10N_EC_TAXSUPPORTS
 
@@ -146,6 +147,20 @@ class AccountMove(models.Model):
         string="Foreign Fiscal Regime",
     )
 
+    # ==== PURCHASE REIMBURSEMENT ====
+    l10n_ec_reimbursement_ids = fields.One2many(
+        'l10n_ec.reimbursement',
+        'move_id',
+        string='Reimbursement Line',
+        help='List of purchase invoices used in this reimbursement'
+    )
+
+    reimbursement_totals = fields.Binary(
+        compute='_compute_l10n_ec_reimbursement_totals',
+        exportable=False,
+        help='Functional fields to calculate amount totals.'
+    )
+
     # ===== COMPUTE / ONCHANGE / CONSTRAINTS METHODS =====
 
     @api.depends('l10n_latam_document_type_id', 'l10n_ec_authorization_number', 'journal_id')
@@ -263,6 +278,23 @@ class AccountMove(models.Model):
                                         "Please change the journal entry date or check the fiscal lock date (%s) to proceed."),
                                       format_date(self.env, lock_date))
 
+    @api.depends('l10n_ec_reimbursement_ids.tax_base', 'l10n_ec_reimbursement_ids.tax_amount', 'l10n_ec_reimbursement_ids.tax_id')
+    def _compute_l10n_ec_reimbursement_totals(self):
+        for move in self:
+            reference_lines = move.l10n_ec_reimbursement_ids
+            tax_totals = self.env['account.tax']._prepare_tax_totals(
+                [x._prepare_tax_totals() for x in reference_lines],
+                move.currency_id or move.company_id.currency_id, move.company_id
+            )
+
+            if sum(move.l10n_ec_reimbursement_ids.mapped('total')) != tax_totals['amount_total']:
+                name_key = tax_totals['subtotals'][0]['name']
+                for tax_values in tax_totals['groups_by_subtotal'][name_key]:
+                    group_amount = sum(move.l10n_ec_reimbursement_ids.filtered(lambda x: x.tax_id.tax_group_id.id == tax_values['group_key']).mapped('tax_amount'))
+                    tax_values['tax_group_amount'] = group_amount
+                    tax_values['tax_group_amount_company_currency'] = move.currency_id.round(group_amount * move.invoice_currency_rate)
+            move.reimbursement_totals = tax_totals
+
     # ===== BUTTONS =====
 
     def l10n_ec_add_withhold(self):
@@ -342,6 +374,33 @@ class AccountMove(models.Model):
             'context': ctx,
         }
 
+    def l10n_ec_action_compute_lines_from_reimbursements(self):
+        # Compute invoice lines from reimbursements group by product if exists
+        self.ensure_one()
+        if self.state != 'draft':
+            raise ValidationError(_('You can only be applied to invoices in draft status.'))
+        if self.invoice_line_ids:  # if exists, Remove all lines to recreate the reimbursement lines.
+            self.invoice_line_ids = [Command.clear()]
+
+        vals = []
+        for reimburs in self.l10n_ec_reimbursement_ids:
+            vals.append(
+                Command.create({
+                    'display_type': 'product',
+                    'quantity': 1,
+                    'tax_ids': reimburs.tax_id.ids,
+                    'price_unit': reimburs.tax_base,
+                })
+            )
+        self.line_ids = vals
+        # Update the lines tax because the tax amount in reimbursements is editable. Only occurs when the currency is not foreign.
+        #  When move has a foreign currency, it shouldn't have a tax different than 0%, i.e., the tax amount $0.0.
+        if self.currency_id == self.company_id.currency_id:
+            for tax_id, reimburs_moves in groupby(self.l10n_ec_reimbursement_ids.sorted(lambda l: l.tax_id), lambda i: i.tax_id):
+                line = self.line_ids.filtered(lambda l: l.display_type == 'tax' and l.tax_line_id.id == tax_id.id)
+                if line:
+                    line.debit = sum(r.tax_amount for r in reimburs_moves)
+
     # ===== OVERRIDES PORTAL WITHHOLD AND PURCHASE LIQUIDATION =====
 
     def _compute_amount(self):
@@ -418,6 +477,19 @@ class AccountMove(models.Model):
             number = withhold.sequence_prefix
             if prefix != number:
                 raise ValidationError(_('Check the document number "%(number)s", the expected prefix is "%(prefix)s".', number=number, prefix=prefix))
+
+    def _l10n_ec_check_in_reimbursements_amounts(self):
+        # Check the amount total with reimbursements total. Neither the Sri nor the ATS validate this
+        if self.l10n_ec_reimbursement_ids:
+            reimbursement_total = sum(self.l10n_ec_reimbursement_ids.mapped('total'))
+            if self.currency_id.compare_amounts(self.amount_total, reimbursement_total) != 0:
+                raise ValidationError(_("The invoice total (%(total)s) does not match the reimbursement total (%(reim_total)s).", total=self.amount_total, reim_total=reimbursement_total))
+            # Check taxsupports used in invoice lines
+            taxsupports_used_in_reimburs = set(self.l10n_ec_reimbursement_ids.tax_id.mapped('l10n_ec_code_taxsupport'))
+            invoice_taxsupports = set(self.invoice_line_ids.tax_ids.mapped('l10n_ec_code_taxsupport'))
+            if not all(taxsupport in invoice_taxsupports for taxsupport in taxsupports_used_in_reimburs):
+                raise ValidationError(_("The tax supports used in reimbursements lines must also be in taxes of invoice lines.\nTax supports in reimbursements: %(rec)s",
+                                      rec=', '.join(taxsupports_used_in_reimburs)))
 
     # ===== INVOICE XML GENERATION=====
 
@@ -586,7 +658,7 @@ class AccountMove(models.Model):
                 taxsupport_lines[taxsupport] = {
                     'invoice_taxsupport_code': taxsupport,  # repeated from key, for readibility
                     'invoice_document_type': invoice.l10n_latam_document_type_id.name,
-                    'invoice_document_type_code': invoice.l10n_latam_document_type_id_code,
+                    'invoice_document_type_code': invoice._l10n_ec_is_purchase_reimbursement() and '41' or invoice.l10n_latam_document_type_id_code,
                     'invoice_document_number': invoice.l10n_latam_document_number.replace('-', '').rjust(15, '0')[-15:],
                     'invoice_document_date': invoice.invoice_date.strftime('%d/%m/%Y'),
                     'invoice_amount_untaxed': taxsupport_amount_untaxed,
@@ -720,6 +792,7 @@ class AccountMove(models.Model):
         # Company must assign the unique authorization number before sending to SRI, it can be used in offline mode
         moves = super()._post(soft)
         self._l10n_ec_check_in_withhold_number_prefix() # Only for in withholds
+        self._l10n_ec_check_in_reimbursements_amounts()
         for move in moves.filtered(lambda m: m.country_code == 'EC'):
             if any(x.code == 'ecuadorian_edi' for x in move.journal_id.edi_format_ids):
                 move._l10n_ec_set_authorization_number()
@@ -751,6 +824,85 @@ class AccountMove(models.Model):
         if sum_check >= 10:
             sum_check = 11 - sum_check
         return sum_check
+
+    def _l10n_ec_get_reimbursement_common_values(self, move):
+        # Get the reimbursements values to show in xml
+        reimbursement_total, total_doc_reimbursement, total_tax_reimbursement = 0.0, 0.0, 0.0
+        lines_ids = []
+        for reimbursement in move.l10n_ec_reimbursement_ids:
+            reimbursement_total += reimbursement._get_tax_amounts_converted(reimbursement.total)
+            total_doc_reimbursement += reimbursement._get_tax_amounts_converted(reimbursement.tax_base)
+            total_tax_reimbursement += reimbursement._get_tax_amounts_converted(reimbursement.tax_amount)
+            vat = reimbursement.partner_vat_number
+            lines_ids.append({
+                'record': reimbursement,
+                'supplier_id_type': reimbursement._get_reimbursement_partner_identification_type(),
+                'supplier_identification': vat,
+                'supplier_country_code': reimbursement.partner_country_id.l10n_ec_code_ats,
+                # if the third digit of it's vat is 6 or 9, the supplier type is identified as a company or a natural person
+                'supplier_type_edi': '02' if vat[2] in ['6', '9'] else '01',
+                'supplier_type_id_code': reimbursement.l10n_latam_document_type_id.code,
+                'auth_number': reimbursement.authorization_number or '9999999999',
+                'number_vals': reimbursement._get_reimbursement_line_vals(),
+            })
+        return {
+            'lines_ids': lines_ids,
+            'reimbursement_total': reimbursement_total,
+            'total_doc_reimbursement': total_doc_reimbursement,
+            'total_tax_reimbursement': total_tax_reimbursement
+        }
+
+    def _l10n_ec_extract_data_from_access_key(self, authorization_number=False):
+        """
+        Extract the key access fields
+                Key acces structure :
+                length         field
+                8              emission date
+                2              document type
+                13             vat (RUC)
+                1              environment type
+                3              shop
+                3              Emission point
+                9              document number
+                8              filler
+                1              emission type
+                1              verification digit
+        """
+        access_key = authorization_number or self.l10n_ec_authorization_number
+        document_date = datetime.strptime(access_key[0:8], "%d%m%Y").date()
+        source_code = access_key[8:10]
+        l10n_latam_document_type_id = self.env['l10n_latam.document.type'].search(
+            [('code', '=', source_code),
+             ('country_id.code', '=', 'EC')],
+            limit=1)
+        partner_vat = access_key[10:23]
+        partner_id = self.env['res.partner'].search([('vat', '=', partner_vat)], limit=1).commercial_partner_id
+        environment_type = access_key[23:24]
+        document_number = "-".join([access_key[24:27], access_key[27:30], access_key[30:39]])
+        emission_type = access_key[47:48]
+        parity = access_key[48:49]  # verification digit
+        return {
+            'document_date': document_date,
+            'source_code': source_code,
+            'l10n_latam_document_type_id': l10n_latam_document_type_id,
+            'partner_vat': partner_vat,
+            'partner_id': partner_id,
+            'environment_type': environment_type,
+            'document_number': document_number,
+            'emission_type': emission_type,
+            'parity': parity,
+        }
+
+    def _l10n_ec_is_purchase_reimbursement(self):
+        return self.l10n_ec_reimbursement_ids and self.is_purchase_document()
+
+    @api.constrains("l10n_ec_reimbursement_ids")
+    def _check_l10n_ec_taxsupport_reimbursement_lines(self):
+        taxsupports_used = set(self.l10n_ec_reimbursement_ids.tax_id.mapped('l10n_ec_code_taxsupport'))
+        if taxsupports_used and len(taxsupports_used) != 1:
+            raise ValidationError(
+                _("Please ensure all the taxes in reimbursement lines use the same tax support. Creating reimbursement lines with multiple tax supports is not allowed.\n"
+                    "Tax supports in reimbursements: %s", ', '.join(taxsupports_used)))
 
 
 class AccountMoveLine(models.Model):
@@ -868,3 +1020,30 @@ class AccountMoveLine(models.Model):
             'price_discount': float_round(results['price_discount'] * currency_rate, precision_digits=6),
             'price_unit': float_round(price_unit, precision_digits=6),  # balance is already in company currency
         }
+
+    # ============================================
+    # Compute overrides when exists purchase reimbursements lines
+    # ============================================
+    def _compute_name(self):
+        amls = self
+        if self.move_id._l10n_ec_is_purchase_reimbursement():
+            amls = self.filtered(lambda ac: not ac.price_unit)
+        super(AccountMoveLine, amls)._compute_name()
+
+    def _compute_product_uom_id(self):
+        amls = self
+        if self.move_id._l10n_ec_is_purchase_reimbursement():
+            amls = self.filtered(lambda ac: not ac.price_unit)
+        super(AccountMoveLine, amls)._compute_product_uom_id()
+
+    def _compute_price_unit(self):
+        amls = self
+        if self.move_id._l10n_ec_is_purchase_reimbursement():
+            amls = self.filtered(lambda ac: not ac.price_unit)
+        super(AccountMoveLine, amls)._compute_price_unit()
+
+    def _compute_tax_ids(self):
+        amls = self
+        if self.move_id._l10n_ec_is_purchase_reimbursement():
+            amls = self.filtered(lambda ac: not ac.price_unit)
+        super(AccountMoveLine, amls)._compute_tax_ids()

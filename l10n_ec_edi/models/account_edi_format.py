@@ -226,6 +226,11 @@ class AccountEdiFormat(models.Model):
 
     def _l10n_ec_get_xml_common_values(self, move):
         internal_type = move.l10n_latam_document_type_id.internal_type
+        # Reimbursements
+        # If it's withholding, we must return the origin invoice that has the reimbursements
+        reimbursement_move_ids = (move._l10n_ec_is_withholding() and move.line_ids.l10n_ec_withhold_invoice_id) or move
+        reimbursement_vals = move._l10n_ec_get_reimbursement_common_values(reimbursement_move_ids)
+
         return {
             'move': move,
             'sequential': move.name.split('-')[2].rjust(9, '0'),
@@ -238,6 +243,7 @@ class AccountEdiFormat(models.Model):
             'is_liquidation': internal_type == 'purchase_liquidation',
             'is_invoice': internal_type == 'invoice',
             'is_withhold': move.journal_id.l10n_ec_withhold_type == 'in_withhold',
+            'reimbursement_vals': reimbursement_vals,
             'format_num_2': self._l10n_ec_format_number,
             'format_num_6': partial(self._l10n_ec_format_number, decimals=6),
             'currency_round': move.company_currency_id.round,

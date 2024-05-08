@@ -37,7 +37,6 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
     def l10n_ec_export_ats(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         xml_str, errors = self._generate_ats(options)
-
         if errors and not options.get('l10n_ec_ats_ignore_errors'):
             error_msg = _('While preparing the data for the ATS export, we noticed the following missing or incorrect data.') + '\n\n'
             error_msg += '\n'.join(errors)
@@ -244,6 +243,10 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                         'autModificado': get_authorization_number(modified_move),
                     })
 
+            inv_values.update({
+                'totbasesImpReemb': sum(reimbursement._get_tax_amounts_converted(reimbursement.tax_base)
+                                        for reimbursement in in_inv.l10n_ec_reimbursement_ids)
+            })
             # 2. INVOICE LINE VALUES BY TAX SUPPORT
             for taxsupport in base_amounts:
                 values = inv_values.copy()
@@ -316,6 +319,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                 #   - Quantity of standard banana boxes
                 #   - Price of standard banana boxes
                 #   - Banana box price
+                self._get_reimbursements_values(in_inv, values, errors)
 
                 purchase_vals.append(values)
 
@@ -323,6 +327,80 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             errors.append(f'{tax.name}: ' + _('IR tax without 3 digit ats code'))
 
         return purchase_vals, errors
+
+    def _get_reimbursements_values(self, in_inv, values, errors):
+        def _append_error_messages_seq(reimbursement):
+            sequential_inv = self.with_context(from_reimbursement=True)._l10n_ec_get_number_vals(reimbursement.document_number)[2]  # sequential
+            if not sequential_inv:
+                errors.append('In reimbursement %s the invoice %s does not have sequential.' %
+                              (reimbursement.move_id.l10n_latam_document_number, reimbursement.document_number))
+            if reimbursement.authorization_number and len(reimbursement.authorization_number) not in [10, 37, 49]:
+                errors.append('In reimbursement %s the invoice %s has an incomplete authorization.' %
+                              (reimbursement.move_id.l10n_latam_document_number, reimbursement.document_number))
+
+        def _append_error_messages_partner_vat(reimbursements):
+            no_vat_reimbursements = reimbursements.filtered(lambda r: not r.partner_id.vat)
+            if no_vat_reimbursements:
+                mess_error = ', '.join('%s' % name for name in no_vat_reimbursements.partner_id.mapped('name'))
+                errors.append('In reimbursement %s  exists a partner without VAT number setted (%s).' % (no_vat_reimbursements.move_id.name, mess_error))
+
+        if not in_inv._l10n_ec_is_purchase_reimbursement():
+            return False
+
+        _append_error_messages_partner_vat(in_inv.l10n_ec_reimbursement_ids)
+
+        reimbursements_vals = []
+        # Whether there are more than one reimbursement with the same document_number, it's because this invoice has multiple vat tax
+        # In the ATS we must group by document number and accumulate the tax bases
+        for number_and_partner, reimburs_move in groupby(in_inv.l10n_ec_reimbursement_ids.sorted(lambda l: l.document_number), lambda i: (i.document_number, i.partner_id.commercial_partner_id)):
+            amounts_vals = defaultdict(float)
+            reimburs_list = list(reimburs_move)
+            reimbursement_val = {}
+            for reimbursement in reimburs_list:
+                _append_error_messages_seq(reimbursement)
+                amounts_by_tax_type = self._get_reimbursements_amounts(reimburs=reimbursement)
+                amounts_vals['base_vat_0'] += amounts_by_tax_type['base_vat_0']
+                amounts_vals['base_vat_no0'] += amounts_by_tax_type['base_vat_no0']
+                amounts_vals['no_vat_amount'] += amounts_by_tax_type['no_vat_amount']
+                amounts_vals['base_tax_free'] += amounts_by_tax_type['base_tax_free']
+                amounts_vals['ice_amount'] += amounts_by_tax_type['ice_amount']
+                amounts_vals['vat_amount_no0'] += amounts_by_tax_type['vat_amount_no0']
+
+            reimburs = reimburs_list[0]
+            estab_inv, emision_inv, secuencial_inv = self.with_context(from_reimbursement=True)._l10n_ec_get_number_vals(reimburs.document_number)
+            reimbursement_val.update({
+                'tipoComprobanteReemb': reimburs.l10n_latam_document_type_id.code or '',
+                'tpIdProvReemb': reimburs._get_reimbursement_partner_identification_type(),
+                'idProvReemb': reimburs.partner_vat_number,
+                'establecimientoReemb': estab_inv,
+                'puntoEmisionReemb': emision_inv,
+                'secuencialReemb': secuencial_inv,
+                'fechaEmisionReemb': reimburs.date.strftime('%d/%m/%Y'),
+                'autorizacionReemb': reimburs.authorization_number or '9999999999',
+                'baseImponibleReemb': reimburs._get_tax_amounts_converted(amounts_vals['base_vat_0']),
+                'baseImpGravReemb': reimburs._get_tax_amounts_converted(amounts_vals['base_vat_no0']),
+                'baseNoGraIvaReemb': reimburs._get_tax_amounts_converted(amounts_vals['no_vat_amount']),
+                'baseImpExeReemb': reimburs._get_tax_amounts_converted(amounts_vals['base_tax_free']),
+                'montoIceRemb': reimburs._get_tax_amounts_converted(amounts_vals['ice_amount']),
+                'montoIvaRemb': reimburs._get_tax_amounts_converted(amounts_vals['vat_amount_no0']),
+
+            })
+            reimbursements_vals.append(reimbursement_val)
+        values.update({
+            'reimbursement_vals': reimbursements_vals
+        })
+
+    def _get_reimbursements_amounts(self, reimburs):
+        # We need separate the amounts by tax_group type because of the tags in ATS
+        ec_type = reimburs.tax_id.tax_group_id.l10n_ec_type
+        return {
+            'base_vat_no0': ec_type in L10N_EC_VAT_TAX_NOT_ZERO_GROUPS and reimburs.tax_base or 0.0,
+            'vat_amount_no0': ec_type in L10N_EC_VAT_TAX_NOT_ZERO_GROUPS and reimburs.tax_amount or 0.0,
+            'base_vat_0': ec_type == 'zero_vat' and reimburs.tax_base or 0.0,
+            'no_vat_amount': ec_type == 'not_charged_vat' and reimburs.tax_base or 0.0,
+            'base_tax_free':  ec_type == 'exempt_vat' and reimburs.tax_base or 0.0,
+            'ice_amount': 0.0,  # ICE is not supported yet
+        }
 
     def _get_void_moves(self, date_start, date_finish, journals):
         # Creates the cancelled document section
@@ -598,19 +676,23 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         # Get the values ​​of the authorization number, establishment, emission point and sequential
         # of the document to be reported in the ATS
         move.ensure_one()
-        num_match = re.match(r'(?:Ret )?(\d{1,3})-(\d{1,3})-(\d{1,9})', move.l10n_latam_document_number.strip())
-        if num_match:
-            estab, emision, secuencial = num_match.groups()
-        elif (
+        estab, emision, sequential = self._l10n_ec_get_number_vals(move.l10n_latam_document_number)
+        if (
+                estab + emision + sequential == '0' * 15 and
                 move.country_code == 'EC' and  # Is an Ecuadorian document
                 move.l10n_latam_document_number and  # Has a document number
                 not move.l10n_latam_document_type_id.l10n_ec_check_format  # Document type format not checked
         ):
-            estab, emision, secuencial = '999', '999', move.l10n_latam_document_number[-8:]
-        else:
-            estab, emision, secuencial = '', '', ''
+            estab, emision, sequential = '999', '999', move.l10n_latam_document_number[-8:]
 
-        return estab.zfill(3), emision.zfill(3), secuencial.zfill(9)
+        return estab.zfill(3), emision.zfill(3), sequential.zfill(9)
+
+    def _l10n_ec_get_number_vals(self, number):
+        estab, emision, sequential = '', '', ''
+        num_match = re.match(r'(?:Ret )?(\d{1,3})-(\d{1,3})-(\d{1,9})', number.strip())
+        if num_match:
+            estab, emision, sequential = num_match.groups()
+        return estab.zfill(3), emision.zfill(3), sequential.zfill(9)
 
     @api.model
     def _l10n_ec_get_normalized_name(self, name):

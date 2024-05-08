@@ -34,6 +34,7 @@
                 </infoFactura>
 
                 <t t-call="l10n_ec_edi.common_details_info_template"/>
+                <t t-call="l10n_ec_edi.detail_reimbursement"/>
                 <t t-call="l10n_ec_edi.common_additional_info_template"/>
             </factura>
         </template>
@@ -47,6 +48,7 @@
                 </infoLiquidacionCompra>
 
                 <t t-call="l10n_ec_edi.common_details_info_template"/>
+                <t t-call="l10n_ec_edi.detail_reimbursement"/>
                 <t t-call="l10n_ec_edi.common_additional_info_template"/>
             </liquidacionCompra>
         </template>
@@ -77,6 +79,7 @@
                     <aplicConvDobTrib t-if="identification == '02'" t-out="taxsupport['double_taxation']"/>
                     <pagExtSujRetNorLeg t-if="identification == '02' and taxsupport['double_taxation'] == 'NO'" t-out="taxsupport['subject_withhold']"/>
                     <pagoRegFis t-if="identification == '02'" t-out="taxsupport['fiscal_payment']"/>
+                    <t t-if="reimbursement_vals['lines_ids']" t-call="l10n_ec_edi.reimbursement_common_info_template"/>
                     <totalSinImpuestos t-out="format_num_2(taxsupport['invoice_amount_untaxed'])"/>
                     <importeTotal t-out="format_num_2(taxsupport['invoice_amount_total'])"/>
                     <impuestosDocSustento>
@@ -98,6 +101,7 @@
                             <valorRetenido t-out="format_num_2(withhold_line['tax_amount'])"/>
                         </retencion>
                     </retenciones>
+                    <t t-call="l10n_ec_edi.detail_reimbursement"/>
                     <pagos>
                         <pago>
                             <formaPago t-out="taxsupport['invoice_payments'][0]['payment_code']"/>
@@ -163,7 +167,8 @@
             <valorModificacion t-if="is_cnote" t-out="format_num_2(abs(move.amount_total_signed))"/>
             <moneda t-if="is_cnote">DOLAR</moneda>
             <totalDescuento t-if="is_invoice or is_liquidation" t-out="format_num_2(discount_total)"/>
-
+             <!-- Reimbursements section -->
+            <t t-if="reimbursement_vals['lines_ids'] and not is_withhold" t-call="l10n_ec_edi.reimbursement_common_info_template"/>
             <!-- Tax-included totals (all docs except withholds) -->
             <t t-set="tax_totals" t-value="taxes_data['tax_details']"/>
             <totalConImpuestos t-if="tax_totals and (is_cnote or is_invoice or is_liquidation)">
@@ -274,6 +279,49 @@
                     t-att-nombre="additional_item[0]"
                     t-out="clean_str(additional_item[1])"/>
             </infoAdicional>
+        </template>
+
+        <!-- reimbursements Template -->
+        <template id="reimbursement_common_info_template">
+            <!-- Code 41 because has reimbursement.
+                 "codDocReembolso" tag is just for liquidation purchase-->
+            <codDocReembolso t-if="not is_withhold">41</codDocReembolso>
+            <totalComprobantesReembolso t-out="format_num_2(reimbursement_vals['reimbursement_total'])"/>
+            <totalBaseImponibleReembolso t-out="format_num_2(reimbursement_vals['total_doc_reimbursement'])"/>
+            <totalImpuestoReembolso t-out="format_num_2(reimbursement_vals['total_tax_reimbursement'])"/>
+        </template>
+
+        <!-- Details reimbursements Template -->
+        <template id="detail_reimbursement">
+            <reembolsos t-if="reimbursement_vals['lines_ids']">
+                <reembolsoDetalle t-foreach="reimbursement_vals['lines_ids']" t-as="r_line_item">
+                    <tipoIdentificacionProveedorReembolso t-out="r_line_item['supplier_id_type']"/>
+                    <identificacionProveedorReembolso t-out="r_line_item['supplier_identification']"/>
+                    <codPaisPagoProveedorReembolso t-out="r_line_item['supplier_country_code']"/>
+                    <tipoProveedorReembolso t-out="r_line_item['supplier_type_edi']"/>
+                    <codDocReembolso t-out="r_line_item['supplier_type_id_code']"/>
+                    <estabDocReembolso t-out="r_line_item['number_vals']['entity_number']"/>
+                    <ptoEmiDocReembolso t-out="r_line_item['number_vals']['emission_number']"/>
+                    <secuencialDocReembolso t-out="r_line_item['number_vals']['doc_number']"/>
+                    <fechaEmisionDocReembolso t-out="strftime(r_line_item['record'].date)"/>
+                    <t t-if="is_withhold">
+                        <numeroAutorizacionDocReemb t-out="r_line_item['auth_number']"/>
+                    </t>
+                    <t t-else=""> <!-- The difference is the letter 'A' in 'autorizacion' -->
+                        <numeroautorizacionDocReemb t-out="r_line_item['auth_number']"/>
+                    </t>
+                    <detalleImpuestos t-if="r_line_item['number_vals']['tax_reimbursement_vals']">
+                        <t t-set="tax_reim_item" t-value="r_line_item['number_vals']['tax_reimbursement_vals']"/>
+                        <detalleImpuesto> <!-- There is only one tax always -->
+                            <codigo t-out="tax_reim_item['code']"/>
+                            <codigoPorcentaje t-out="tax_reim_item['code_percent']"/>
+                            <tarifa t-out="tax_reim_item['vat_tax']"/>
+                            <baseImponibleReembolso t-out="format_num_2(tax_reim_item['tax_base'])"/>
+                            <impuestoReembolso t-out="format_num_2(tax_reim_item['tax_amount'])"/>
+                        </detalleImpuesto>
+                    </detalleImpuestos>
+                </reembolsoDetalle>
+            </reembolsos>
         </template>
 
     </data>

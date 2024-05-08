@@ -2,13 +2,13 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     "name": "Ecuadorian Accounting EDI",
-    "version": "1.1",
+    "version": "1.2",
     "description": """
 EDI Ecuadorian Localization
 ===========================
 Adds electronic documents with its XML, RIDE, with electronic signature and direct connection to tax authority SRI,
 
-The supported documents are Invoices, Credit Notes, Debit Notes, Purchase Liquidations and Withholds
+The supported documents are Invoices, Credit Notes, Debit Notes, Purchase Liquidations, Purchase Reimbursements and Withholds
 
 Includes automations to easily predict the withholding tax to be applied to each purchase invoice
 """,
@@ -28,9 +28,11 @@ Includes automations to easily predict the withholding tax to be applied to each
         "data/res.country.csv",
 
         "security/ir.model.access.csv",
+        "security/security.xml",
 
         "views/account_journal_view.xml",
         "views/account_move_views.xml",
+        "views/l10n_ec_reimbursement_views.xml",
         "views/account_tax_view.xml",
         "views/product_view.xml",
         "views/l10n_ec_taxpayer_type_view.xml",

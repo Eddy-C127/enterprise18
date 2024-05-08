@@ -223,6 +223,11 @@ msgstr ""
 "            "
 
 #. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+msgid "<i class=\"fa fa-book fa-fw\"/> Auto fill Invoice lines"
+msgstr "<i class=\"fa fa-book fa-fw\"/> Llenar lineas de factura"
+
+#. module: l10n_ec_edi
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.res_config_settings_l10n_ec_edi
 msgid ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
@@ -230,6 +235,31 @@ msgid ""
 msgstr ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos aquí son empresa-"
 "specific.\"/>"
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                      Tip: When registering reimbursements from foreign partners it is common to include the\n"
+"                      foreign tax into the tax base (adding both amounts into one) and selecting as tax the VAT 0%"
+msgstr ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"Sugerencia: Al registrar reembolsos de empresas extranjeras es común incluir el impuesto extranjero dentro "
+"de la base imponible (sumando ambos valores en uno solo) y seleccionando como impuesto el IVA 0%"
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                      The partner selected has a different identification type than RUC and VAT"
+msgstr ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                      El contacto seleccionado tiene un tipo de identificación diferente a RUC y VAT"
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "If no value is entered, 999999999 will be assigned."
+msgstr "En caso de no ingresar un valor, se asignará 999999999."
 
 #. module: l10n_ec_edi
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
@@ -372,6 +402,11 @@ msgid "Account Chart Template"
 msgstr "Plantilla de Plan de Cuentas"
 
 #. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "Account reimbursement Client"
+msgstr "Datos de reembolso"
+
+#. module: l10n_ec_edi
 #: model:ir.model.fields,help:l10n_ec_edi.field_res_company__l10n_ec_tax_base_purchase_account_id
 msgid ""
 "Account that will be set on lines created to represent the tax base amounts "
@@ -425,6 +460,11 @@ msgid "Amount"
 msgstr "Monto"
 
 #. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "Amounts"
+msgstr "Montos"
+
+#. module: l10n_ec_edi
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_bank_statement_line__l10n_latam_internal_type
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_move__l10n_latam_internal_type
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_payment__l10n_latam_internal_type
@@ -462,6 +502,7 @@ msgstr "Fecha de autorización"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__l10n_ec_authorization_number
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__authorization_number
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move__l10n_ec_authorization_number
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_payment__l10n_ec_authorization_number
 msgid "Authorization number"
@@ -519,9 +560,10 @@ msgstr ""
 #. module: l10n_ec_edi
 #. odoo-python
 #: code:addons/l10n_ec_edi/models/account_move.py:0
-#: code:addons/l10n_ec_edi/models/account_move.py:0
-msgid "Check the document number \"%s\", the expected prefix is \"%s\"."
-msgstr "Revise el número de documento \"%s\", el prefijo esperado es \"%s\"."
+msgid ""
+"Check the document number \"%(number)s\", the expected prefix is "
+"\"%(prefix)s\"."
+msgstr "Revise el número de documento \"%(number)s\", el prefijo esperado es \"%(prefix)s\"."
 
 #. module: l10n_ec_edi
 #: model_terms:ir.actions.act_window,help:l10n_ec_edi.action_taxpayer_type
@@ -579,8 +621,19 @@ msgstr "Contacto"
 
 #. module: l10n_ec_edi
 #: model:ir.model,name:l10n_ec_edi.model_res_country
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_country_id
 msgid "Country"
 msgstr "País"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_vat_number
+msgid "Vat Number"
+msgstr "Identificación"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_vat_type_id
+msgid "Vat Type"
+msgstr "Tipo Identificación"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__partner_country_code
@@ -598,6 +651,7 @@ msgid "Create and Post"
 msgstr "Crear y publicar"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__create_uid
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__create_uid
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__create_uid
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__create_uid
@@ -606,6 +660,7 @@ msgid "Created by"
 msgstr "Creado por"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__create_date
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__create_date
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__create_date
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__create_date
@@ -629,6 +684,7 @@ msgstr ""
 "Nota' de la factura"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__currency_id
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__currency_id
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold_line__currency_id
 msgid "Currency"
@@ -636,6 +692,7 @@ msgstr "Divisa"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__date
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__date
 msgid "Date"
 msgstr "Fecha"
 
@@ -675,6 +732,7 @@ msgid "Digital Certificates SRI"
 msgstr "Certificados digitales SRI"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__display_name
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__display_name
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__display_name
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__display_name
@@ -686,6 +744,16 @@ msgstr "Mostrar nombre"
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__document_number
 msgid "Document Number"
 msgstr "Número del Documento"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__l10n_latam_document_type_id
+msgid "Document Type"
+msgstr "Tipo documento"
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
+msgid "Document info"
+msgstr "Información"
 
 #. module: l10n_ec_edi
 #. odoo-python
@@ -866,6 +934,11 @@ msgid "Every line must have a tax support code"
 msgstr "Cada línea debe tener un sustento tributario"
 
 #. module: l10n_ec_edi
+#: model:ir.model,name:l10n_ec_edi.model_l10n_ec_reimbursement
+msgid "Expenses Reimbursement Details"
+msgstr "Detalle de reembolsos de gastos"
+
+#. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__date_end
 msgid "Expiration Date"
 msgstr "Fecha de caducidad"
@@ -908,11 +981,20 @@ msgid "Foreign Fiscal Regime"
 msgstr "Régimen Fiscal Extranjero"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_bank_statement_line__reimbursement_totals
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_move__reimbursement_totals
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_payment__reimbursement_totals
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_totals
+msgid "Functional fields to calculate amount totals."
+msgstr "Campo funcional para calcular los montos totales"
+
+#. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__vat_goods_withhold_tax_id
 msgid "Goods VAT Withhold"
 msgstr "Retención IVA Bienes"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__id
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__id
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__id
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__id
@@ -941,14 +1023,12 @@ msgstr ""
 "Indica si la factura de compra admite crédito fiscal o costo o gastos, "
 "conforme tabla 5 de ATS"
 
-
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__l10n_latam_internal_type
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move__l10n_latam_internal_type
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_payment__l10n_latam_internal_type
 msgid "Internal Type"
 msgstr "Tipo interno"
-
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move_line__l10n_ec_withhold_invoice_id
@@ -1002,6 +1082,7 @@ msgid "L10n Latam Internal Type"
 msgstr "L10n Tipo Interno (Latam)"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__write_uid
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__write_uid
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__write_uid
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__write_uid
@@ -1010,6 +1091,7 @@ msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__write_date
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__write_date
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__write_date
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__write_date
@@ -1036,6 +1118,13 @@ msgstr "Últimos 8 dígitos"
 #: model:ir.model.fields,help:l10n_ec_edi.field_account_move_line__l10n_ec_withhold_invoice_id
 msgid "Link the withholding line to its invoice"
 msgstr "Vincular la línea de retención a su factura"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_bank_statement_line__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_move__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,help:l10n_ec_edi.field_account_payment__l10n_ec_reimbursement_ids
+msgid "List of purchase invoices used in this reimbursement"
+msgstr "Lista de facturas de compra usada en los reembolsos"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__manual_document_number
@@ -1119,6 +1208,11 @@ msgid "Non-Obligated Natural Person - Purchase Liquidations"
 msgstr "Persona Física No Obligada - Liquidaciones de Compra"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__document_number
+msgid "Document number"
+msgstr "Número de documento"
+
+#. module: l10n_ec_edi
 #: model:l10n_ec.taxpayer.type,name:l10n_ec_edi.l10n_ec_taxpayer_type_14
 msgid "OTHERS - Without automatic calculation of VAT withholding"
 msgstr "OTROS - Sin cálculo automático de retención de IVA"
@@ -1127,6 +1221,11 @@ msgstr "OTROS - Sin cálculo automático de retención de IVA"
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__partner_id
 msgid "Partner"
 msgstr "Asociado"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__partner_id
+msgid "Partner"
+msgstr "Contacto"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_edi_certificate__password
@@ -1239,6 +1338,30 @@ msgid "Regular Regime (without additional messages in the RIDE)"
 msgstr "Régimen Regular (sin mensajes adicionales en el RIDE)"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__move_id
+msgid "Reimbursement Invoice"
+msgstr "Reembolso"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move__l10n_ec_reimbursement_ids
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_payment__l10n_ec_reimbursement_ids
+msgid "Reimbursement Lines"
+msgstr "Lineas de Reembolso"
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+msgid "Reimbursements"
+msgstr "Reembolsos"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__reimbursement_totals
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_move__reimbursement_totals
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_account_payment__reimbursement_totals
+msgid "Reimbursements Totals"
+msgstr "Total Reembolsos"
+
+#. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold__related_invoices_count
 msgid "Related Invoice Count"
 msgstr "Recuento de facturas relacionadas"
@@ -1309,6 +1432,23 @@ msgid "Sales/Purchases subtotals, and total"
 msgstr "Subtotales de ventas/compras y total"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__partner_id
+msgid "Select the partner asociated to the purchase document"
+msgstr "Selecciona el contacto asociado del documento de compra"
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/wizard/l10n_ec_wizard_account_withhold.py:0
+msgid "The reimbursement withhold can not have a profit tax.\n\n"
+"According to art. 36 of the RTLI:\n Expense reimbursements will not be subject to withholding tax when the sales receipts are issued in the name of the intermediary, "
+"i.e., the person in favor of whom such reimbursements are made, and comply with the "
+"requirements established in the Sales and Withholding Receipts Regulations."
+msgstr "Segun el art. 36 del RTLI: La retención de reembolso no puede tener un impuesto de RENTA.\n\n"
+"No estará sujetos a retención en la fuente los reembolsos de gastos, cuando los comprobantes de venta "
+"sean emitidos a nombre del intermediario, es decir, de la persona a favor de quien se hacen dichos reembolsos y "
+"cumplan los requisitos establecidos en el Reglamento de Comprobantes de Venta y de Retención."
+
+#. module: l10n_ec_edi
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
 msgid "Send By Email"
 msgstr "Enviar por correo electrónico"
@@ -1328,6 +1468,11 @@ msgstr "Servicios"
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_taxpayer_type__vat_services_withhold_tax_id
 msgid "Services VAT Withhold"
 msgstr "Retención de IVA de servicios"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__date
+msgid "Set the date of document generation"
+msgstr "Fecha de la generacion del documento"
 
 #. module: l10n_ec_edi
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_account_bank_statement_line__l10n_show_ec_authorization
@@ -1362,7 +1507,18 @@ msgstr "Nombre común del sujeto"
 #: model:ir.model,name:l10n_ec_edi.model_account_tax
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold_line__tax_id
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.view_account_l10n_ec_reimbursement_client_form
 msgid "Tax"
+msgstr "Impuesto"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_base
+msgid "Tax Base"
+msgstr "Base imponible"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_group_id
+msgid "Tax Group"
 msgstr "Impuesto"
 
 #. module: l10n_ec_edi
@@ -1371,6 +1527,21 @@ msgstr "Impuesto"
 #: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_wizard_account_withhold_line__taxsupport_code
 msgid "Tax Support"
 msgstr "Sustento Tributario"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_totals
+msgid "Tax Totals"
+msgstr "Total"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,field_description:l10n_ec_edi.field_l10n_ec_reimbursement__tax_amount
+msgid "Tax Value"
+msgstr "Valor impuesto"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_group_id
+msgid "Tax group for the purchase invoice"
+msgstr "Grupo de impuesto del documento de compra"
 
 #. module: l10n_ec_edi
 #. odoo-python
@@ -1458,10 +1629,34 @@ msgid "The SRI service failed with the following message: %s"
 msgstr "El servicio del SRI falló con el siguiente mensaje: %s"
 
 #. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_base
+msgid ""
+"The VAT taxable amount (whether VAT 15%, VAT 5% or other percentages) can be"
+" found in the subtotal of the purchase invoice."
+msgstr "La base imponible (IVA 15%, IVA 5% u otros porcentajes) puede ser ubicado en el subtotal de la factura de compra"
+
+#. module: l10n_ec_edi
 #. odoo-python
 #: code:addons/l10n_ec_edi/wizard/l10n_ec_wizard_account_withhold.py:0
 msgid "The invoice needs to be posted. "
 msgstr "La factura necesita estar publicada. "
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/account_move.py:0
+msgid ""
+"The invoice total (%(total)s) does not match the reimbursement total "
+"(%(reim_total)s)."
+msgstr "El total del documento (%(total)s does not match the reimbursement total (%(reim_total)s)."
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/account_move.py:0
+msgid ""
+"The tax supports used in reimbursements lines must also be in taxes of invoice lines.\n"
+"Tax supports in reimbursements: %(rec)s"
+msgstr "Los sustentos tributarios utilizados en las líneas de reembolso también deben estar en los impuestos de las líneas de factura.\n"
+"Sustento tributarios en reembolsos: %(rec)s"
 
 #. module: l10n_ec_edi
 #. odoo-python
@@ -1480,6 +1675,35 @@ msgstr ""
 #: code:addons/l10n_ec_edi/wizard/l10n_ec_wizard_account_withhold.py:0
 msgid "The selected document type does not support withholds."
 msgstr "El tipo de documento seleccionado no soporta retenciones"
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__tax_amount
+msgid "The tax value of purchase invoice"
+msgstr "El valor de impuesto del documento de compra"
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/account_move.py:0
+msgid ""
+"The taxsupports used in reimbursements lines must also be in taxes of invoice lines.\n"
+"Tax supports in reimbursements: %s"
+msgstr ""
+"Los sustentos tributarios en las lineas de reembolso tambien deben estar presentes en "
+"los impuestos de las lineas de factura.\n Sustentos tributarios en reembolsos: %s"
+
+#. module: l10n_ec_edi
+#: code:addons/l10n_ec_edi/models/l10n_ec_reimbursement_line.py:0
+msgid ""
+"Please ensure all the taxes in reimbursement lines use the same tax support. Creating reimbursement lines with multiple tax supports is not allowed.\n"
+"Tax supports in reimbursements: %s"
+msgstr ""
+"Por favor asegúrese que todos los impuestos de las lineas de reembolso usen el mismo sustento tributario. "
+"Crear lineas de reembolso con múltiples sustentos no está permitido.\n Sustentos tributarios en reembolsos: %s "
+
+#. module: l10n_ec_edi
+#: model:ir.model.fields,help:l10n_ec_edi.field_l10n_ec_reimbursement__total
+msgid "The total value of purchase invoice"
+msgstr "El valor total del documento de compra"
 
 #. module: l10n_ec_edi
 #. odoo-python
@@ -1767,13 +1991,25 @@ msgstr "Sí"
 
 #. module: l10n_ec_edi
 #. odoo-python
+#: code:addons/l10n_ec_edi/models/account_move.py:0
+msgid "You can only be applied to invoices in draft status."
+msgstr "Sólo puede aplicarse a facturas en estado de borrador"
+
+#. module: l10n_ec_edi
+#. odoo-python
 #: code:addons/l10n_ec_edi/models/account_edi_format.py:0
 msgid ""
 "You cannot cancel a document that is still authorized (%s, %s), check the "
 "SRI portal"
 msgstr ""
-"No puede anular un documento que todavía consta autorizado (%s, %s), revise "
-"el portal del SRI"
+
+#. module: l10n_ec_edi
+#. odoo-python
+#: code:addons/l10n_ec_edi/models/l10n_ec_reimbursement.py:0
+msgid ""
+"You cannot create reimbursements with document number, tax group and partner"
+" duplicated in the same invoice."
+msgstr "No puedes crear reembolsos con numero de documento, impuesto y contacto duplicados en la misma factura"
 
 #. module: l10n_ec_edi
 #. odoo-python
@@ -1894,6 +2130,11 @@ msgstr "Debe setear el Método de Pago del SRI en el documento %s"
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.ec_edi_signature
 msgid "contenido comprobante"
 msgstr ""
+
+#. module: l10n_ec_edi
+#: model_terms:ir.ui.view,arch_db:l10n_ec_edi.account_move_form_invoice_and_withhold_view
+msgid "reimbursement Data Lines"
+msgstr "Datos de reembolso"
 
 #. module: l10n_ec_edi
 #: model_terms:ir.ui.view,arch_db:l10n_ec_edi.ec_edi_signature

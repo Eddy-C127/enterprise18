@@ -349,6 +349,14 @@ class L10nEcWizardAccountWithhold(models.TransientModel):
         error = self._validate_helper_for_foreign_tax_codes()
         if any(self.date < i.invoice_date for i in self.related_invoice_ids):
             error += _("The withhold can not have an earlier date than its invoice(s)")
+        # validates profit tax  cannot be in withhold with reimbursements
+        if self.related_invoice_ids.l10n_ec_reimbursement_ids:
+            tax_types = self.withhold_line_ids.tax_id.tax_group_id.mapped('l10n_ec_type')
+            if any(t == 'withhold_income_purchase' for t in tax_types):
+                error += _("The reimbursement withhold can not have a profit tax.\n\n"
+                           "According to art. 36 of the RTLI:\n Expense reimbursements will not be subject to withholding tax when the sales receipts are issued in the name of the intermediary, "
+                           "i.e., the person in favor of whom such reimbursements are made, and comply with the "
+                           "requirements established in the Sales and Withholding Receipts Regulations.")
         if error:
             raise ValidationError(error)
 
