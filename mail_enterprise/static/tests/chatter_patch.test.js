@@ -1,18 +1,23 @@
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+import {
+    click,
+    contains,
+    defineMailModels,
+    insertText,
+    openFormView,
+    patchUiSize,
+    registerArchs,
+    scroll,
+    SIZES,
+    start,
+    startServer,
+} from "@mail/../tests/mail_test_helpers";
+import { beforeEach, describe, test } from "@odoo/hoot";
 
-import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
-import { openFormView, start } from "@mail/../tests/helpers/test_utils";
+describe.current.tags("desktop");
+defineMailModels();
+beforeEach(() => patchUiSize({ size: SIZES.XXL }));
 
-import { getFixture } from "@web/../tests/helpers/utils";
-import { click, contains, insertText, scroll } from "@web/../tests/utils";
-
-QUnit.module("chatter (patch)", {
-    beforeEach() {
-        patchUiSize({ size: SIZES.XXL });
-    },
-});
-
-QUnit.test("Message list loads new messages on scroll", async () => {
+test("Message list loads new messages on scroll", async () => {
     const pyEnv = await startServer();
     const partnerId = pyEnv["res.partner"].create({
         display_name: "Partner 11",
@@ -25,7 +30,7 @@ QUnit.test("Message list loads new messages on scroll", async () => {
             res_id: partnerId,
         });
     }
-    const views = {
+    registerArchs({
         "res.partner,false,form": `
             <form string="Partners">
                 <sheet>
@@ -34,20 +39,16 @@ QUnit.test("Message list loads new messages on scroll", async () => {
                 </sheet>
                 <chatter/>
             </form>`,
-    };
-    const target = getFixture();
-    target.classList.add("o_web_client");
-    await start({
-        serverData: { views },
-        target,
     });
+
+    await start();
     await openFormView("res.partner", partnerId);
     await contains(".o-mail-Message", { count: 30 });
     await scroll(".o-mail-Chatter", "bottom");
     await contains(".o-mail-Message", { count: 60 });
 });
 
-QUnit.test("Message list is scrolled to new message after posting a message", async () => {
+test("Message list is scrolled to new message after posting a message", async () => {
     const pyEnv = await startServer();
     const partnerId = pyEnv["res.partner"].create({
         activity_ids: [],
@@ -63,7 +64,7 @@ QUnit.test("Message list is scrolled to new message after posting a message", as
             res_id: partnerId,
         });
     }
-    const views = {
+    registerArchs({
         "res.partner,false,form": `
             <form string="Partners">
                 <header>
@@ -75,27 +76,22 @@ QUnit.test("Message list is scrolled to new message after posting a message", as
                 </sheet>
                 <chatter reload_on_post="True" reload_on_attachment="True"/>
             </form>`,
-    };
-    const target = getFixture();
-    target.classList.add("o_web_client");
-    await start({
-        serverData: { views },
-        target,
     });
+    await start();
     await openFormView("res.partner", partnerId);
     await contains(".o-mail-Message", { count: 30 });
     await contains(".o-mail-Form-chatter.o-aside");
-    await contains(".o_content", { scroll: 0 });
-    await contains(".o-mail-Chatter", { scroll: 0 });
+    await scroll(".o_content", 0);
+    await scroll(".o-mail-Chatter", 0);
     await scroll(".o-mail-Chatter", "bottom");
     await contains(".o-mail-Message", { count: 60 });
-    await contains(".o_content", { scroll: 0 });
+    await scroll(".o_content", 0);
     await click("button", { text: "Log note" });
     await insertText(".o-mail-Composer-input", "New Message");
     await click(".o-mail-Composer-send:not(:disabled)");
     await contains(".o-mail-Composer-input", { count: 0 });
     await contains(".o-mail-Message", { count: 61 });
     await contains(".o-mail-Message-content", { text: "New Message" });
-    await contains(".o_content", { scroll: 0 });
-    await contains(".o-mail-Chatter", { scroll: 0 });
+    await scroll(".o_content", 0);
+    await scroll(".o-mail-Chatter", 0);
 });

@@ -22,9 +22,8 @@ screen devices.
         'web.assets_tests': [
             'mail_enterprise/static/tests/tours/**/*',
         ],
-        'web.qunit_suite_tests': [
-            'mail_enterprise/static/tests/**/*.js',
-            ('remove', 'mail_enterprise/static/tests/tours/**/*'),
+        'web.assets_unit_tests': [
+            'mail_enterprise/static/tests/**/*',
         ],
     }
 }
