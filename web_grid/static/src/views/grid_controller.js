@@ -17,7 +17,7 @@ import { SearchBar } from "@web/search/search_bar/search_bar";
 import { useSearchBarToggler } from "@web/search/search_bar/search_bar_toggler";
 import { browser } from "@web/core/browser/browser";
 
-import { Component, useState, onWillUpdateProps, onWillUnmount, useRef } from "@odoo/owl";
+import { Component, useState, onWillUnmount, useRef } from "@odoo/owl";
 
 const { DateTime } = luxon;
 
@@ -49,8 +49,6 @@ export class GridController extends Component {
             activeRangeName = state.activeRangeName;
         } else if (this.isMobile && "day" in this.props.archInfo.ranges) {
             activeRangeName = "day";
-        } else if ("grid_range" in this.props.context) {
-            activeRangeName = this.props.context.grid_range;
         }
         if (state.anchor) {
             defaultAnchor = state.anchor;
@@ -92,15 +90,8 @@ export class GridController extends Component {
             afterExecuteAction: this.afterExecuteActionButton.bind(this),
             reload: this.reload.bind(this),
         });
-        onWillUpdateProps(this.onWillUpdateProps);
         onWillUnmount(() => this.closeDialog?.());
         this.searchBarToggler = useSearchBarToggler();
-    }
-
-    onWillUpdateProps(nextProps) {
-        if ("grid_range" in nextProps.context) {
-            this.state.activeRangeName = nextProps.context.grid_range;
-        }
     }
 
     get isMobile() {

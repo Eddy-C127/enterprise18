@@ -18,8 +18,6 @@ class AnalyticLine(models.Model):
     # As this model has his own data merge, avoid to enable the generic data_merge on that model.
     _disable_data_merge = True
 
-    employee_id = fields.Many2one(group_expand="_group_expand_employee_ids")
-
     # reset amount on copy
     amount = fields.Monetary(copy=False)
     validated = fields.Boolean("Validated line", aggregator="bool_and", store=True, copy=False, readonly=True)
@@ -402,58 +400,6 @@ class AnalyticLine(models.Model):
             column_field: day,
             cell_field: change,
         }
-
-    def _group_expand_employee_ids(self, employees, domain):
-        """ Group expand by employee_ids in grid view
-
-            This group expand allow to add some record by employee, where
-            the employee has been timesheeted in a task of a project in the
-            past 7 days.
-
-            Example: Filter timesheet from my team this week:
-            [['project_id', '!=', False],
-             '|',
-                 ['employee_id.timesheet_manager_id', '=', 2],
-                 '|',
-                     ['employee_id.parent_id.user_id', '=', 2],
-                     '|',
-                         ['project_id.user_id', '=', 2],
-                         ['user_id', '=', 2]]
-             '&',
-                 ['date', '>=', '2020-06-01'],
-                 ['date', '<=', '2020-06-07']
-
-            Becomes:
-            [('project_id', '!=', False),
-             ('date', '>=', datetime.date(2020, 5, 28)),
-             ('date', '<=', '2020-06-04'),
-             ['project_id', '!=', False],
-             '|',
-                 ['employee_id.timesheet_manager_id', '=', 2],
-                 '|',
-                    ['employee_id.parent_id.user_id', '=', 2],
-                    '|',
-                        ['project_id.user_id', '=', 2],
-                        ['user_id', '=', 2]]
-             '&',
-                 ['date', '>=', '1970-01-01'],
-                 ['date', '<=', '2250-01-01']
-        """
-        if not self.env.context.get('group_expand', False):
-            return employees
-
-        grid_anchor, last_week = self._get_last_week()
-        domain_search = expression.AND([
-            [('project_id.allow_timesheets', '=', True),
-             ('date', '>=', last_week),
-             ('date', '<=', grid_anchor),
-             '|',
-                ('task_id.active', '=', True),
-                ('task_id', '=', False),
-            ], filter_domain_leaf(domain, lambda field: field != 'date')
-        ])
-
-        return self.search(domain_search).employee_id
 
     def _get_last_week(self):
         today = fields.Date.to_string(fields.Date.today())
