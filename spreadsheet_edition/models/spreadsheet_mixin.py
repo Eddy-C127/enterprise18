@@ -38,6 +38,7 @@ class SpreadsheetMixin(models.AbstractModel):
         for spreadsheet in self:
             revisions = spreadsheet.spreadsheet_revision_ids
             if revisions:
+                revisions.fetch(["revision_uuid"])
                 spreadsheet.current_revision_uuid = revisions[-1].revision_uuid
             else:
                 snapshot = spreadsheet._get_spreadsheet_snapshot()
