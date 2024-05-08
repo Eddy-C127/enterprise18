@@ -1,14 +1,11 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-import ast
-import re
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import SU
 from collections import defaultdict
 
-from odoo import tools, models, fields, api, _
+from odoo import models, fields, api, _
 from odoo.addons.resource.models.utils import make_aware
 from odoo.addons.resource.models.utils import filter_domain_leaf
 from odoo.exceptions import RedirectWarning, UserError, AccessError
@@ -687,35 +684,6 @@ class AnalyticLine(models.Model):
         })
         self.user_timer_id.res_id = new_timesheet
         return new_timesheet.id
-
-    def _action_open_to_validate_timesheet_view(self, type_view=None):
-        action = self.env['ir.actions.act_window']._for_xml_id('timesheet_grid.timesheet_grid_to_validate_action')
-        context = action.get('context', {}) and ast.literal_eval(action['context'])
-        if (type_view == 'week'):
-            context['grid_range'] = 'week'
-            context['grid_anchor'] = fields.Date.today() - relativedelta(weeks=1)
-        else:
-            context['grid_range'] = 'month'
-            if type_view == 'month':
-                context['grid_anchor'] = fields.Date.today() - relativedelta(months=1)
-            else:
-                context['grid_anchor'] = fields.Date.today()
-                context.pop('search_default_my_team_timesheet', None)
-
-        if type_view in ('week', 'month'):
-            action['view_mode'] = ','.join([
-                mode
-                for mode in action['view_mode'].split(",")
-                if mode != "pivot"
-            ])
-            action['views'] = [
-                view
-                for view in action['views']
-                if view[1] != "pivot"
-            ]
-        action['context'] = context
-        action['path'] = 'validate-timesheets'
-        return action
 
     def _get_domain_for_validation_timesheets(self, validated=False):
         """ Get the domain to check if the user can validate/invalidate which timesheets

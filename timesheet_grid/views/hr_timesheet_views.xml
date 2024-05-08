@@ -299,6 +299,18 @@
             </field>
         </record>
 
+        <record id="timesheet_view_grid_by_employee_validation_last_period_by_defaut" model="ir.ui.view">
+            <field name="name">account.analytic.line.grid.employee.validation</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="timesheet_grid.timesheet_view_grid_by_employee_validation"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="/grid" position="attributes">
+                    <attribute name="js_class">timesheet_to_validate_grid</attribute>
+                </xpath>
+            </field>
+        </record>
+
         <record id="timesheet_view_search" model="ir.ui.view">
             <field name="name">account.analytic.search</field>
             <field name="model">account.analytic.line</field>
@@ -504,26 +516,6 @@
             <field name="view_id" ref="hr_timesheet.timesheet_view_form_user"/>
         </record>
 
-        <record id="hr_timesheet.timesheet_action_from_employee" model="ir.actions.act_window">
-            <field name="help" type="html">
-                <p class="o_view_nocontent_smiling_face">
-                    Record a new activity
-                </p><p>
-                    You can register and track your workings hours by project every
-                    day. Every time spent on a project will become a cost and can be re-invoiced to
-                    customers if required.
-                </p>
-                <p>Download our web/mobile apps to track your time from anywhere, even offline.</p>
-                <div>
-                    <a href="http://www.odoo.com/app/timesheet?platform=chrome" target="_blank" class="o_chrome_store_link d-none d-sm-inline-block">
-                        <img alt="Google Chrome Store" class="img img-fluid h-100" src="/project/static/src/img/chrome_store.png"/>
-                    </a>
-                    <img alt="Apple App Store" class="img img-fluid h-100 o_config_app_store" style="cursor: pointer;" src="/project/static/src/img/app_store.png"/>
-                    <img alt="Google Play Store" class="img img-fluid h-100 o_config_play_store" style="cursor: pointer;" src="/project/static/src/img/play_store.png"/>
-                </div>
-            </field>
-        </record>
-
         <record id="timesheet_action_view_form_employee_grid" model="ir.actions.act_window.view">
             <field name="sequence" eval="2"/>
             <field name="view_mode">grid</field>
@@ -534,95 +526,6 @@
         <record id="hr_timesheet.timesheet_action_view_from_employee_form" model="ir.actions.act_window.view">
             <field name="view_id" ref="hr_timesheet.timesheet_view_form_user"/>
         </record>
-
-        <record id="action_timesheet_previous_week" model="ir.actions.act_window">
-            <field name="name">Timesheets to Validate</field>
-            <field name="res_model">account.analytic.line</field>
-            <field name="view_mode">grid,tree</field>
-            <field name="domain">[('is_timesheet', '=', True)]</field>
-            <field name="search_view_id" ref="hr_timesheet.hr_timesheet_line_search"/>
-            <field name="context">{
-                'grid_anchor': (datetime.date.today() - relativedelta(weeks=1)).strftime('%Y-%m-%d'),
-                'search_default_nonvalidated': True,
-                'search_default_my_team_timesheet': True,
-                'is_timesheet': 1,
-            }</field>
-            <field name="help" type="html">
-                <p>
-                    No activities to validate.
-                </p>
-                <p>
-                    Congratulations, you are up to date. <br/>
-                    Let's wait for your employees to start new activities.
-                </p>
-            </field>
-        </record>
-
-        <record id="timesheet_action_view_previous_week_grid" model="ir.actions.act_window.view">
-            <field name="sequence" eval="1"/>
-            <field name="view_mode">grid</field>
-            <field name="view_id" ref="timesheet_grid.timesheet_view_grid_by_employee_validation"/>
-            <field name="act_window_id" ref="action_timesheet_previous_week"/>
-        </record>
-
-        <record id="timesheet_action_view_previous_week_tree" model="ir.actions.act_window.view">
-            <field name="sequence" eval="3"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
-            <field name="act_window_id" ref="action_timesheet_previous_week"/>
-        </record>
-
-        <record id="timesheet_action_view_previous_week_form" model="ir.actions.act_window.view">
-            <field name="sequence" eval="5"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="hr_timesheet.timesheet_view_form_user"/>
-            <field name="act_window_id" ref="action_timesheet_previous_week"/>
-        </record>
-
-        <record id="action_timesheet_previous_month" model="ir.actions.act_window">
-            <field name="name">Timesheets to Validate</field>
-            <field name="res_model">account.analytic.line</field>
-            <field name="view_mode">grid,tree</field>
-            <field name="domain">[('is_timesheet', '=', True)]</field>
-            <field name="search_view_id" ref="hr_timesheet.hr_timesheet_line_search"/>
-            <field name="context">{
-                'grid_anchor': (datetime.date.today() - relativedelta(months=1)).strftime('%Y-%m-%d'), 'grid_range': 'month',
-                'search_default_nonvalidated': True,
-                'search_default_my_team_timesheet': True,
-                "is_timesheet": 1,
-            }</field>
-            <field name="help" type="html">
-                <p>
-                    No activities to validate.
-                </p>
-                <p>
-                    Congratulations, you are up to date. <br/>
-                    Let's wait for your employees to start new activities.
-                </p>
-            </field>
-        </record>
-
-        <record id="timesheet_action_view_previous_month_grid" model="ir.actions.act_window.view">
-            <field name="sequence" eval="1"/>
-            <field name="view_mode">grid</field>
-            <field name="view_id" ref="timesheet_grid.timesheet_view_grid_by_employee_validation"/>
-            <field name="act_window_id" ref="action_timesheet_previous_month"/>
-        </record>
-
-        <record id="timesheet_action_view_previous_month_tree" model="ir.actions.act_window.view">
-            <field name="sequence" eval="3"/>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
-            <field name="act_window_id" ref="action_timesheet_previous_month"/>
-        </record>
-
-        <record id="timesheet_action_view_previous_month_form" model="ir.actions.act_window.view">
-            <field name="sequence" eval="5"/>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="hr_timesheet.timesheet_view_form_user"/>
-            <field name="act_window_id" ref="action_timesheet_previous_month"/>
-        </record>
-
 
         <record id="hr_employee_view_form_inherit_timesheet_validation" model="ir.ui.view">
             <field name="name">hr.employee.form.timesheet.validation</field>
@@ -669,34 +572,6 @@
             </field>
         </record>
 
-        <record id="timesheet_grid_week_action_server" model="ir.actions.server">
-            <field name="name">Validation Timesheet Week_view Server Action</field>
-            <field name="model_id" ref="hr_timesheet.model_account_analytic_line"/>
-            <field name="state">code</field>
-            <field name="code">
-action = model._action_open_to_validate_timesheet_view('week')
-            </field>
-        </record>
-
-        <record id="timesheet_grid_month_action_server" model="ir.actions.server">
-            <field name="name">Validation Timesheet month_view Server Action</field>
-            <field name="model_id" ref="hr_timesheet.model_account_analytic_line"/>
-            <field name="state">code</field>
-            <field name="code">
-action = model._action_open_to_validate_timesheet_view('month')
-            </field>
-        </record>
-
-        <record id="timesheet_grid_all_timesheets_action_server" model="ir.actions.server">
-            <field name="name">Validation All Timesheet Server Action</field>
-            <field name="model_id" ref="hr_timesheet.model_account_analytic_line"/>
-            <field name="state">code</field>
-            <field name="code">
-action = model._action_open_to_validate_timesheet_view()
-            </field>
-        </record>
-
-        <!-- This action is not used directly, and is not to be updated, see comments in `_action_open_validate_timesheet_view` -->
         <record id="timesheet_grid_to_validate_action" model="ir.actions.act_window">
             <field name="name">Timesheets to Validate</field>
             <field name="res_model">account.analytic.line</field>
@@ -709,7 +584,7 @@ action = model._action_open_to_validate_timesheet_view()
                 'group_expand': True,
                 "is_timesheet": 1,
             }</field>
-            <field name="view_mode">pivot,grid,tree,kanban,form</field>
+            <field name="view_mode">grid,tree,kanban,form</field>
             <field name="mobile_view_mode">grid</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
@@ -720,17 +595,9 @@ action = model._action_open_to_validate_timesheet_view()
             </field>
         </record>
 
-        <record id="hr_timesheet_to_validate_action_pivot" model="ir.actions.act_window.view">
-            <field name="view_mode">pivot</field>
-            <field name="view_id"
-                   ref="timesheet_grid.timesheet_grid_pivot_view_all_validate"/>
-            <field name="act_window_id" ref="timesheet_grid_to_validate_action"/>
-            <field name="sequence">5</field>
-        </record>
-
         <record id="hr_timesheet_to_validate_action_grid" model="ir.actions.act_window.view">
             <field name="view_mode">grid</field>
-            <field name="view_id" ref="timesheet_grid.timesheet_view_grid_by_employee_validation" />
+            <field name="view_id" ref="timesheet_grid.timesheet_view_grid_by_employee_validation_last_period_by_defaut" />
             <field name="act_window_id" ref="timesheet_grid_to_validate_action" />
             <field name="sequence">10</field>
         </record>
@@ -756,19 +623,75 @@ action = model._action_open_to_validate_timesheet_view()
             <field name="sequence">60</field>
         </record>
 
+        <record id="timesheet_grid_to_validate_all_timesheets_action" model="ir.actions.act_window">
+            <field name="name">Timesheets to Validate</field>
+            <field name="res_model">account.analytic.line</field>
+            <field name="path">validate-all-timesheets</field>
+            <field name="domain">[('is_timesheet', '=', True), ('date', '&lt;=', context_today().strftime('%Y-%m-%d'))]</field>
+            <field name="search_view_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+            <field name="context">{
+                'search_default_nonvalidated': True,
+                'search_default_my_team_timesheet': True,
+                'group_expand': True,
+                "is_timesheet": 1,
+            }</field>
+            <field name="view_mode">pivot,grid,tree,kanban,form</field>
+            <field name="mobile_view_mode">grid</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No timesheets to validate
+              </p><p>
+                Check that your employees correctly filled in their timesheets and that their time is billable.
+              </p>
+            </field>
+        </record>
+
+        <record id="hr_timesheet_to_validate_action_pivot" model="ir.actions.act_window.view">
+            <field name="view_mode">pivot</field>
+            <field name="view_id"
+                   ref="timesheet_grid.timesheet_grid_pivot_view_all_validate"/>
+            <field name="act_window_id" ref="timesheet_grid_to_validate_all_timesheets_action"/>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="hr_timesheet_to_validate_all_timesheets_action_grid" model="ir.actions.act_window.view">
+            <field name="view_mode">grid</field>
+            <field name="view_id" ref="timesheet_grid.timesheet_view_grid_by_employee_validation" />
+            <field name="act_window_id" ref="timesheet_grid_to_validate_all_timesheets_action" />
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="hr_timesheet_to_validate_all_timesheets_action_tree" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="timesheet_view_tree_user_inherited"/>
+            <field name="act_window_id" ref="timesheet_grid_to_validate_all_timesheets_action" />
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="hr_timesheet_to_validate_all_timesheets_action_kanban" model="ir.actions.act_window.view">
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="timesheet_grid.view_kanban_account_analytic_line_inherit_timesheet_grid_validation" />
+            <field name="act_window_id" ref="timesheet_grid_to_validate_all_timesheets_action" />
+            <field name="sequence">30</field>
+        </record>
+
+        <record id="hr_timesheet_to_validate_all_timesheets_action_form" model="ir.actions.act_window.view">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_timesheet.timesheet_view_form_user" />
+            <field name="act_window_id" ref="timesheet_grid_to_validate_all_timesheets_action" />
+            <field name="sequence">60</field>
+        </record>
+
         <menuitem name="To Validate" id="menu_timesheet_grid_validate"
                   parent="hr_timesheet.timesheet_menu_root"
                   groups="hr_timesheet.group_hr_timesheet_approver"
                   sequence="10"/>
-        <menuitem name="Last Week" id="menu_timesheet_grid_validate_previous_week"
+        <menuitem name="Last Period" id="menu_timesheet_grid_validate_previous_week"
                   parent="menu_timesheet_grid_validate"
-                  action="timesheet_grid_week_action_server"/>
-        <menuitem name="Last Month" id="menu_timesheet_grid_validate_previous_month"
-                  parent="menu_timesheet_grid_validate"
-                  action="timesheet_grid_month_action_server"/>
+                  action="timesheet_grid_to_validate_action"/>
         <menuitem name="All Timesheets" id="menu_timesheet_grid_validate_all_timesheets"
                   parent="menu_timesheet_grid_validate"
-                  action="timesheet_grid_all_timesheets_action_server"/>
+                  action="timesheet_grid_to_validate_all_timesheets_action"/>
 
         <record id="invalidate_timesheet_action" model="ir.actions.server">
             <field name="name">Reset to draft</field>
