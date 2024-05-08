@@ -15,7 +15,7 @@ from odoo.addons.sale.controllers import portal as payment_portal
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 from odoo.addons.sale.controllers import portal as sale_portal
-from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_PROGRESS_STATE
+from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_PROGRESS_STATE, SUBSCRIPTION_CLOSED_STATE
 
 class CustomerPortal(payment_portal.PaymentPortal):
 
@@ -144,7 +144,17 @@ class CustomerPortal(payment_portal.PaymentPortal):
         }
         progress_child = order_sudo.subscription_child_ids.filtered(lambda s: s.subscription_state in SUBSCRIPTION_PROGRESS_STATE)
         # prevent churned SO with a confirmed renewal to be reactivated. The child should be updated.
-        display_payment_message = order_sudo.subscription_state in ['3_progress', '4_paused', '6_churn'] and not progress_child
+        # Additionally, prevent customers from reopening any closed subscription by paying either
+        # the plan or the subscription plan is archived.
+        display_payment_message = False
+        if order_sudo.subscription_state in ['3_progress', '4_paused'] and not progress_child:
+            # In progress orders are always payable.
+            display_payment_message = True
+        elif order_sudo.subscription_state in SUBSCRIPTION_CLOSED_STATE and not progress_child:
+            # The SO is payable if it has an active plan and products
+            active_products = all(prod.active for prod in order_sudo.order_line.product_template_id)
+            display_payment_message = order_sudo.plan_id.active and active_products
+
         backend_url = '/web#' + url_encode({
                 'model': order_sudo._name,
                 'id': order_sudo.id,

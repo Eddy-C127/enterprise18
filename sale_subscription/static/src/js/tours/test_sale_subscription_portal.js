@@ -11,3 +11,13 @@ registry.category("web_tour.tours").add("test_sale_subscription_portal", {
         },
     ],
 });
+
+registry.category("web_tour.tours").add("test_sale_subscription_portal_payment", {
+    test: true,
+    steps: () => [
+        {
+            content: "Check that payment_message section is  not rendered",
+            trigger: ":not(:contains(section#payment_message))",
+        },
+    ],
+});

@@ -32,3 +32,17 @@ class TestSubscription(TestSubscriptionCommon, HttpCase):
         invoice = sub._cron_recurring_create_invoice()
         res = self.url_open(f'/my/invoices/{invoice.id}?access_token={invoice.access_token}')
         self.assertEqual(res.status_code, 200)
+
+    def test_visibility_of_display_payment_message_in_portal(self):
+        """
+        Check visibility of payment section in portal when subscription is closed
+        and the plan set on that subscription is archived
+        """
+        self.provider.write({'payment_method_ids': [Command.set([self.payment_method_id])]})
+        sub = self.subscription
+        sub.plan_id.write({'active': False})
+        sub.action_confirm()
+        inv = sub._create_invoices()
+        inv._post()
+        sub.set_close()
+        self.start_tour(self.subscription.get_portal_url(), 'test_sale_subscription_portal_payment')
