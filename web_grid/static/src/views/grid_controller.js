@@ -79,7 +79,7 @@ export class GridController extends Component {
         })
         const isWeekendVisible = browser.localStorage.getItem("grid.isWeekendVisible");
         this.state = useState({
-            activeRangeName,
+            activeRangeName: this.model.navigationInfo.range?.name,
             isWeekendVisible: isWeekendVisible !== null && isWeekendVisible !== undefined
                 ? JSON.parse(isWeekendVisible)
                 : true,
