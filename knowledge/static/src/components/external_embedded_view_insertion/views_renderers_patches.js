@@ -1,10 +1,9 @@
 /** @odoo-module */
 
 import { _t } from "@web/core/l10n/translation";
+import { memoize } from "@web/core/utils/functions";
 import { renderToElement } from "@web/core/utils/render";
 import { CalendarRenderer } from "@web/views/calendar/calendar_renderer";
-import { CohortRenderer } from "@web_cohort/cohort_renderer";
-import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import { GraphRenderer } from "@web/views/graph/graph_renderer";
 import { HierarchyRenderer } from "@web_hierarchy/hierarchy_renderer";
 import { KanbanRenderer } from "@web/views/kanban/kanban_renderer";
@@ -222,8 +221,6 @@ const EmbeddedViewListRendererPatch = () => ({
 });
 
 patch(CalendarRenderer.prototype, EmbeddedViewRendererPatch());
-patch(CohortRenderer.prototype, EmbeddedViewRendererPatch());
-patch(GanttRenderer.prototype, EmbeddedViewRendererPatch());
 patch(GraphRenderer.prototype, EmbeddedViewRendererPatch());
 patch(HierarchyRenderer.prototype, EmbeddedViewRendererPatch());
 patch(KanbanRenderer.prototype, EmbeddedViewRendererPatch());
@@ -234,8 +231,6 @@ patch(PivotRenderer.prototype, EmbeddedViewRendererPatch());
 
 const supportedEmbeddedViews = new Set([
     'calendar',
-    'cohort',
-    'gantt',
     'graph',
     'hierarchy',
     'kanban',
@@ -243,6 +238,52 @@ const supportedEmbeddedViews = new Set([
     'map',
     'pivot',
 ]);
+
+const externalModules = {
+    "@web_cohort/cohort_renderer": {
+        renderer: "CohortRenderer",
+        view: "cohort",
+    },
+    "@web_gantt/gantt_renderer": {
+        renderer: "GanttRenderer",
+        view: "gantt",
+    },
+};
+
+/**
+ * Ensure that a patch is only applied once for each module.
+ */
+const patchExternalModule = memoize((path) => {
+    const { [externalModules[path].renderer]: Renderer } = odoo.loader.modules.get(path) || {};
+    if (Renderer) {
+        patch(Renderer.prototype, EmbeddedViewRendererPatch());
+        supportedEmbeddedViews.add(externalModules[path].view);
+    }
+});
+
+/**
+ * Apply all patches.
+ */
+const patchExternalModules = () => {
+    for (const path of Object.keys(externalModules)) {
+        patchExternalModule(path);
+    }
+};
+
+// Apply a patch to a lazy-loaded module.
+odoo.loader.bus.addEventListener("module-started", (e) => {
+    if (e.detail.moduleName in externalModules) {
+        patchExternalModule(e.detail.moduleName);
+    }
+});
+
+if (odoo.loader.checkErrorProm) {
+    // Apply all patches after every non-lazy module finished loading.
+    odoo.loader.checkErrorProm.then(patchExternalModules);
+} else {
+    // Apply all patches in case the current file is a lazy-loaded module.
+    patchExternalModules();
+}
 
 export {
     supportedEmbeddedViews,
