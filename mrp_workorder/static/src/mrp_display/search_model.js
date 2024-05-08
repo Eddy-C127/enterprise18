@@ -11,12 +11,12 @@ export class MrpDisplaySearchModel extends SearchModel {
                 {
                     name: "ready",
                     string: _t("Ready"),
-                    isActive: !args.show_progress_workorders && !args.show_all_workorders,
+                    isActive: !args.show_progress_workorders,
                 },
                 {
                     name: "progress",
                     string: _t("In Progress"),
-                    isActive: !args.show_ready_workorders && !args.show_all_workorders,
+                    isActive: !args.show_ready_workorders,
                 },
                 {
                     name: "waiting",
