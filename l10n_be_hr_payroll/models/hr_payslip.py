@@ -376,53 +376,33 @@ class Payslip(models.Model):
         for day in rrule.rrule(rrule.DAILY, dtstart=date_from + relativedelta(day=1), until=date_to + relativedelta(day=31)):
             invalid_days_by_year[day.year][day.month][day.date()] = True
 
+        public_holidays = [(leave.date_from.date(), leave.date_to.date()) for leave in self.employee_id._get_public_holidays(date_from, date_to)]
         for contract in contracts:
-            # In case the 1rst/2nd days are saturday/sunday, be kinder on the
-            # notion of complete months
-            if contract.date_start.day <= 7:
-                contract_start = contract.date_start + relativedelta(day=1)
-            else:
-                contract_start = contract.date_start
             work_days = {int(d) for d in contract.resource_calendar_id._get_global_attendances().mapped('dayofweek')}
 
-            previous_week_start = max(contract_start + relativedelta(weeks=-1, weekday=MO(-1)), date_from + relativedelta(day=1))
+            previous_week_start = max(contract.date_start + relativedelta(weeks=-1, weekday=MO(-1)), date_from + relativedelta(day=1))
             next_week_end = min(contract.date_end + relativedelta(weeks=+1, weekday=SU(+1)) if contract.date_end else date.max, date_to)
             days_to_check = rrule.rrule(rrule.DAILY, dtstart=previous_week_start, until=next_week_end)
             for day in days_to_check:
                 day = day.date()
                 out_of_schedule = True
+
                 # Full time credit time doesn't count
                 if contract.time_credit and not contract.work_time_rate:
                     continue
-                if contract_start <= day <= (contract.date_end or date.max):
-                    out_of_schedule = False
-                elif day.weekday() not in work_days:
+                if (contract.date_start <= day <= (contract.date_end or date.max) or
+                        day.weekday() not in work_days or
+                        any(date_from <= day <= date_to for date_from, date_to in public_holidays)):
                     out_of_schedule = False
                 invalid_days_by_year[day.year][day.month][day] &= out_of_schedule
 
-        if self.struct_id.code == "CP200THIRTEEN":
-            complete_months = [
-                month
-                for year, invalid_days_by_months in invalid_days_by_year.items()
-                for month, days in invalid_days_by_months.items()
-                if not any(days.values())
-            ]
-            return len(complete_months)
-        else:
-            # If X = valid days
-            # -  0 <= X <= 10 days :   0 month
-            # - 11 <= X <= 20 days : 0.5 month
-            # - 21 <= X <= 31 days :   1 month
-            # If X = invalid days
-            # -  0 <= X <= 10 days :   1 month
-            # - 11 <= X <= 20 days : 0.5 month
-            # - 21 <= X <= 31 days :   0 month
-            complete_months = [
-                1 if sum(days.values()) <= 10 else 0.5 if 11 <= sum(days.values()) <= 20 else 0
-                for year, invalid_days_by_months in invalid_days_by_year.items()
-                for month, days in invalid_days_by_months.items()
-            ]
-            return sum(complete_months)
+        complete_months = [
+            month
+            for year, invalid_days_by_months in invalid_days_by_year.items()
+            for month, days in invalid_days_by_months.items()
+            if not any(days.values())
+        ]
+        return len(complete_months)
 
     def _compute_presence_prorata(self, date_from, date_to, contracts):
         unpaid_work_entry_types = self.struct_id.unpaid_work_entry_type_ids
