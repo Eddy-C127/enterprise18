@@ -342,7 +342,6 @@ class MrpProductionWorkcenterLine(models.Model):
     def action_open_mes(self):
         action = self.env['ir.actions.actions']._for_xml_id('mrp_workorder.action_mrp_display')
         action['context'] = {
-            'show_all_workorders': True,
             'workcenter_id': self.workcenter_id.id,
             'search_default_name': self.production_id.name,
             'shouldHideNewWorkcenterButton': True,
