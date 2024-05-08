@@ -409,7 +409,7 @@
 
                     <!-- analytic_distribution -->
                     <div name="analytic_distribution"
-                         t-if="hasGroupAnalyticAccounting and line.data.flag !== 'liquidity'"
+                         t-if="hasGroupAnalyticAccounting"
                          class="o_wrap_field d-flex d-sm-contents flex-column mb-3 mb-sm-0">
                         <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
                             <label class="o_form_label">Analytic</label>
