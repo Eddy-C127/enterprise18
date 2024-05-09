@@ -55,6 +55,7 @@ class ApprovalRequest(models.Model):
         ('cancel', 'Canceled')], compute="_compute_user_status")
     has_access_to_request = fields.Boolean(string="Has Access To Request", compute="_compute_has_access_to_request")
     change_request_owner = fields.Boolean(string='Can Change Request Owner', compute='_compute_has_access_to_request')
+    attachment_ids = fields.One2many(comodel_name='ir.attachment', inverse_name='res_id', domain=[('res_model', '=', 'approval.request')], string='Attachments')
     attachment_number = fields.Integer('Number of Attachments', compute='_compute_attachment_number')
     product_line_ids = fields.One2many('approval.product.line', 'approval_request_id', check_company=True)
 
