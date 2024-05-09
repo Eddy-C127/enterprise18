@@ -409,7 +409,7 @@ class L10nInGSTReturnPeriod(models.Model):
         tax_vals_map = {}
         tags_id = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True)
         all_gst_tag = (tags_id['igst'], tags_id['cgst'], tags_id['sgst'])
-        journal_items = self.env['account.move.line'].search(domain)
+        journal_items_ids = set(self.env['account.move.line'].with_context(prefetch_fields=False).search(domain).ids)
         tax_details_query = self.env['account.move.line']._get_query_tax_details_from_domain(domain=domain)
         self._cr.execute(SQL(
             '''
@@ -466,11 +466,13 @@ class L10nInGSTReturnPeriod(models.Model):
             tags_id_sgst=tags_id['sgst'],
             tags_id_cess=tags_id['cess'],
         ))
-        for tax_vals in self._cr.dictfetchall():
-            base_line = self.env['account.move.line'].browse(tax_vals.get('base_line_id'))
-            journal_items -= base_line
-            tax_line = self.env['account.move.line'].browse(tax_vals.get('tax_line_id'))
-            journal_items -= tax_line
+        tax_vals_list = self._cr.dictfetchall()
+        base_lines = self.env['account.move.line'].browse(el['base_line_id'] for el in tax_vals_list)
+        base_lines.fetch(['move_id'])
+        for tax_vals in tax_vals_list:
+            journal_items_ids -= {tax_vals.get('base_line_id')}
+            journal_items_ids -= {tax_vals.get('tax_line_id')}
+            base_line = base_lines.browse(tax_vals.get('base_line_id'))
             move_id = base_line.move_id
             tax_vals_map.setdefault(move_id, {})
             tax_vals_map[move_id].setdefault(base_line, {
@@ -493,6 +495,8 @@ class L10nInGSTReturnPeriod(models.Model):
             elif tax_vals.get('tax_type') == 'CESS':
                 tax_vals_map[move_id][base_line]['cess'] += (tax_vals['tax_amount'])
         # IF line have 0% tax or not have tax then we add it manually
+        journal_items = self.env['account.move.line'].browse(list(journal_items_ids))
+        journal_items.fetch(['move_id', 'balance'])
         for journal_item in journal_items:
             move_id = journal_item.move_id
             tax_vals_map.setdefault(move_id, {})
@@ -528,6 +532,8 @@ class L10nInGSTReturnPeriod(models.Model):
                 }]
             }
         """
+        uoms = self.env['uom.uom'].browse(journal_items.product_uom_id.ids)
+        uoms.fetch(['l10n_in_code'])
         hsn_json = {}
         for move_id in journal_items.mapped('move_id'):
             # We sum value of invoice and credit note
@@ -537,7 +543,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 tax_rate = line_tax_details['gst_tax_rate']
                 if tax_rate.is_integer():
                     tax_rate = int(tax_rate)
-                uqc = line.product_uom_id.l10n_in_code and line.product_uom_id.l10n_in_code.split("-")[0] or "OTH"
+                uqc = uoms.browse(line.product_uom_id.id).l10n_in_code and uoms.browse(line.product_uom_id.id).l10n_in_code.split("-")[0] or "OTH"
                 if line.product_id.type == 'service':
                     # If product is service then UQC is Not Applicable (NA)
                     uqc = "NA"
