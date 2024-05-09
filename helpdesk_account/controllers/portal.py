@@ -13,8 +13,7 @@ from odoo.addons.portal.controllers.portal import pager as portal_pager
 class CustomerPortal(HelpdeskCustomerPortal, AccountCustomerPortal):
     def _ticket_get_page_view_values(self, ticket, access_token, **kwargs):
         values = super()._ticket_get_page_view_values(ticket, access_token, **kwargs)
-        if ticket.invoice_ids and ticket.use_credit_notes:
-            moves = request.env['account.move'].search([('id', 'in', ticket.invoice_ids.ids)])
+        if ticket.use_credit_notes and (moves := ticket.invoice_ids.sudo(False)._filtered_access('read')):
             if moves:
                 if len(moves) == 1:
                     ticket_invoice_url = f'/my/invoices/{moves.id}'
