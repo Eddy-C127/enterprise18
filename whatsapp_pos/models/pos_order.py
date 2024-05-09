@@ -28,6 +28,7 @@ class PosOrder(models.Model):
             }
         )
         whatsapp_composer._send_whatsapp_template()
+        self.mobile = phone
         if self.to_invoice and self.config_id.invoice_template_id:
             whatsapp_composer = self.env['whatsapp.composer'].with_context({'active_id': self.account_move.id}).create(
                 {

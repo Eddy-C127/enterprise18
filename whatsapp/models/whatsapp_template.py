@@ -815,7 +815,7 @@ class WhatsAppTemplate(models.Model):
             ('res_model', '=', 'whatsapp.composer'),
             ('binding_model_id', 'in', self.model_id.ids)
         ])
-        self.env['ir.actions.act_window'].sudo().create([
+        actions = self.env['ir.actions.act_window'].sudo().create([
             {
                 'binding_model_id': model.id,
                 'name': _('WhatsApp Message'),
@@ -826,6 +826,7 @@ class WhatsAppTemplate(models.Model):
             }
             for model in (self.model_id - actions.binding_model_id)
         ])
+        return actions
 
     def button_delete_action(self):
         self.check_access_rule('write')
