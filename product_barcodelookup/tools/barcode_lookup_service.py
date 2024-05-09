@@ -4,6 +4,13 @@ import requests
 _logger = logging.getLogger(__name__)
 
 
+def get_barcode_lookup_key(self):
+    '''
+    Get the Barcode Lookup API Key from the system.
+    '''
+    return self.env['ir.config_parameter'].sudo().get_param('product_barcodelookup.api_key', False)
+
+
 def barcode_lookup_request(url, params={}):
     '''
     Make a request to the given URL and return the response.

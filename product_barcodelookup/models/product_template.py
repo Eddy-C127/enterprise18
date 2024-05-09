@@ -117,12 +117,9 @@ class ProductTemplate(models.Model):
         if not product.description:
             product.description = product_data.get('description')
 
-    def _get_barcode_lookup_key(self):
-        return self.env['ir.config_parameter'].sudo().get_param('product_barcodelookup.api_key', False)
-
     @api.model
     def barcode_lookup(self, barcode=False):
-        api_key = self._get_barcode_lookup_key()
+        api_key = barcode_lookup_service.get_barcode_lookup_key(self)
         if not api_key:
             return False
         params = {'barcode': barcode, 'key': api_key}
