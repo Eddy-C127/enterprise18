@@ -3,7 +3,6 @@
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { getFixture } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
-import { start } from "@mail/../tests/helpers/test_utils";
 import { checkLabels, checkLegend, selectMode } from "@web/../tests/views/graph_view_tests";
 import {
     patchDialog,
@@ -84,52 +83,18 @@ QUnit.module("helpdesk", (hooks) => {
         setupViewRegistries();
     });
 
-    QUnit.module("helpdesk_ticket_list");
-
-    QUnit.test("Test group label for empty SLA Deadline in tree", async function (assert) {
-        const views = {
-            "helpdesk.ticket,false,list": `<tree js_class="helpdesk_ticket_list">
-                    <field name="sla_deadline" widget="remaining_days"/>
-                </tree>`,
-            "helpdesk.ticket,false,search": `<search/>`,
-        };
-        const { openView } = await start({
-            serverData: { views },
-        });
-        await openView({
-            res_model: "helpdesk.ticket",
-            views: [[false, "tree"]],
-            context: { group_by: ["sla_deadline"] },
-        });
-
-        assert.strictEqual(target.querySelector(".o_group_name").innerText, "Deadline reached (3)");
-    });
-
     QUnit.module("helpdesk_ticket_kanban");
 
-    QUnit.test("Test group label for empty SLA Deadline in kanban", async function (assert) {
-        const { openView } = await start({
-            serverData,
-        });
-        await openView({
-            res_model: "helpdesk.ticket",
-            views: [[1, "kanban"]],
-        });
-
-        assert.strictEqual(target.querySelector(".o_column_title").innerText, "Deadline reached");
-    });
-
     QUnit.test("delete a column in grouped on m2o", async function (assert) {
-        let dialogProps;
-
-        patchDialog((_cls, props) => {
-            assert.ok(true, "a confirm modal should be displayed");
-            dialogProps = props;
+        patchDialog((_cls) => {
+            assert.step("open confirmation dialog");
         });
 
-        const { openView } = await start({
+        await makeView({
             serverData,
-            async mockRPC(route, { ids, method, model }) {
+            type: "kanban",
+            resModel: "helpdesk.ticket",
+            mockRPC(route, { ids, method, model }) {
                 if (model === "helpdesk.stage" && method === "action_unlink_wizard") {
                     assert.step(`${model}/${method}`);
                     return {
@@ -138,10 +103,6 @@ QUnit.module("helpdesk", (hooks) => {
                     };
                 }
             },
-        });
-        await openView({
-            res_model: "helpdesk.ticket",
-            views: [[false, "kanban"]],
         });
 
         assert.containsN(target, ".o_kanban_group", 2, "should have 2 columns");
@@ -158,37 +119,14 @@ QUnit.module("helpdesk", (hooks) => {
 
         const clickColumnAction = await toggleColumnActions(target, 1);
         await clickColumnAction("Delete");
-        assert.strictEqual(dialogProps, undefined, "No dialog should be displayed");
         assert.verifySteps(["helpdesk.stage/action_unlink_wizard"]);
     });
 
-    QUnit.test(
-        "Cannot create group if we are not in tickets of specific helpdesk team",
-        async function (assert) {
-            const { openView } = await start({
-                serverData,
-            });
-            await openView({
-                res_model: "helpdesk.ticket",
-                views: [[false, "kanban"]],
-            });
-
-            assert.containsN(target, ".o_kanban_group", 2);
-            assert.containsNone(
-                target,
-                ".o_column_quick_create",
-                "should have no quick create column"
-            );
-        }
-    );
-
     QUnit.test("Can create group if we are a specific helpdesk team", async function (assert) {
-        const { openView } = await start({
+        await makeView({
             serverData,
-        });
-        await openView({
-            res_model: "helpdesk.ticket",
-            views: [[false, "kanban"]],
+            type: "kanban",
+            resModel: "helpdesk.ticket",
             context: {
                 active_model: "helpdesk.team",
                 active_id: 1,
@@ -207,34 +145,12 @@ QUnit.module("helpdesk", (hooks) => {
 
         assert.containsOnce(target, ".o_column_quick_create input", "the input should be visible");
     });
-    QUnit.module("helpdesk_ticket_pivot");
-
-    QUnit.test("Test group label for empty SLA Deadline in pivot", async function (assert) {
-        const views = {
-            "helpdesk.ticket,false,pivot": `<pivot js_class="helpdesk_ticket_pivot">
-                    <field name="sla_deadline" type="row"/>
-                </pivot>`,
-            "helpdesk.ticket,false,search": `<search/>`,
-        };
-        const { openView } = await start({
-            serverData: { views },
-        });
-        await openView({
-            res_model: "helpdesk.ticket",
-            views: [[false, "pivot"]],
-        });
-
-        assert.strictEqual(
-            target.querySelector("tr:nth-of-type(2) .o_pivot_header_cell_closed").innerText,
-            "Deadline reached"
-        );
-    });
 
     QUnit.module("helpdesk_ticket_graph");
 
     QUnit.test("Test group label for empty SLA Deadline in graph", async function (assert) {
         const graph = await makeView({
-            serverData,
+            serverData: { views: {} },
             type: "graph",
             resModel: "helpdesk.ticket",
             groupBy: ["sla_deadline"],

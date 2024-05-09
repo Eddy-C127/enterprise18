@@ -74,8 +74,12 @@ Features:
             'helpdesk/static/src/views/**/*',
             'helpdesk/static/src/js/tours/helpdesk.js',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'helpdesk/static/tests/**/*',
+            ('remove', 'helpdesk/static/tests/legacy/**/*'),
+        ],
+        'web.qunit_suite_tests': [
+            'helpdesk/static/tests/legacy/**/*',
         ],
     }
 }
