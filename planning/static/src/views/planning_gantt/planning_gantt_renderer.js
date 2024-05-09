@@ -76,7 +76,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
             const [resId, displayName] = record.employee_id;
             pill.hasAvatar = true;
             pill.avatarProps = {
-                resModel: this.model.metaData.fields.employee_id.relation,
+                resModel: "hr.employee.public",
                 resId,
                 displayName,
             };
