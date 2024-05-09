@@ -84,6 +84,7 @@ class AccountMove(models.Model):
                 'quantity': qty,
                 'uom_name': lot_id.product_uom_id.name,
                 'lot_name': lot_id.name,
+                'lot_id': lot_id.id,
             })
 
         return lot_values
