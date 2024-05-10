@@ -20,6 +20,7 @@ Generic Payroll system Integrated with Accounting.
         'views/hr_payroll_structure_views.xml',
         'views/res_config_settings_views.xml',
         'views/account_move_views.xml',
+        'views/res_partner_bank_views.xml',
         'report/hr_contract_history_report_views.xml',
     ],
     'demo': [

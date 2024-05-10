@@ -16,6 +16,7 @@
     'assets': {
         'web.assets_backend': [
             'hr_payroll_account_sepa/static/src/**/*.js',
+            'hr_payroll_account_sepa/static/src/**/*.scss',
             'hr_payroll_account_sepa/static/src/**/*.xml',
         ],
     },
