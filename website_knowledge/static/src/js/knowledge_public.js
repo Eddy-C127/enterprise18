@@ -34,7 +34,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
      */
     start: function () {
         return this._super.apply(this, arguments).then(() => {
-            this.$id = this.$el.data('article-id');
+            this.id = parseInt(this.el.dataset.articleId);
             this.storageKey = "knowledge.unfolded.ids";
             this.unfoldedArticlesIds = localStorage.getItem(this.storageKey)?.split(";").map(Number) || [];
             this._renderTree();
@@ -54,7 +54,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
 
         let addedArticles;
         const rpcParams = {
-            active_article_id: this.$id || false,
+            active_article_id: this.id || false,
             parent_id: ev.target.dataset['parentId'] || false,
             limit: ev.target.dataset['limit'],
             offset: ev.target.dataset['offset'] || 0,
@@ -80,7 +80,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
      */
     _searchArticles: async function (ev) {
         ev.preventDefault();
-        const searchTerm = this.$('.knowledge_search_bar').val();
+        const searchTerm = this.el.querySelector(".knowledge_search_bar").value;
         if (!searchTerm) {
             // Renders the basic user article tree (with only its cached articles unfolded)
             await this._renderTree();
@@ -91,7 +91,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
         try {
             const htmlTree = await rpc('/knowledge/public_sidebar/', {
                 search_term: searchTerm,
-                active_article_id: this.$id,
+                active_article_id: this.id,
             });
             container.innerHTML = htmlTree;
         } catch {
@@ -138,7 +138,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
     renderEmbeddedViews: function () {
         for (const embeddedView of this.el.querySelectorAll('.o_knowledge_behavior_type_embedded_view')) {
             const placeholder = renderToElement('website_knowledge.embedded_view_placeholder', {
-                url: `/knowledge/article/${this.$id}`,
+                url: `/knowledge/article/${this.id}`,
             });
             embeddedView.replaceChildren(placeholder);
         }
@@ -167,11 +167,11 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
         const container = this.el.querySelector('.o_knowledge_tree');
         const params = new URLSearchParams(document.location.search);
         if (Boolean(params.get('auto_unfold'))) {
-            this.unfoldedArticlesIds.push(this.$id);
+            this.unfoldedArticlesIds.push(this.id);
         }
         try {
             const htmlTree = await rpc('/knowledge/public_sidebar', {
-                active_article_id: this.$id,
+                active_article_id: this.id,
                 unfolded_articles_ids: this.unfoldedArticlesIds,
             });
             container.innerHTML = htmlTree;
@@ -246,43 +246,49 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
      */
      _onFold: async function (event) {
         event.stopPropagation();
-        const $button = $(event.currentTarget);
-        this._fold($button);
+        const buttonEl = event.currentTarget;
+        this._fold(buttonEl);
      },
-    _fold: async function ($button) {
-        const $icon = $button.find('i');
-        const $li = $button.closest('li');
-        const articleId = $li.data('articleId');
-        const $ul = $li.find('> ul');
+    _fold: async function (buttonEl) {
+        const iconEl = buttonEl.querySelector("i");
+        const liEl = buttonEl.closest("li");
+        const articleId = parseInt(liEl.dataset.articleId);
+        const ulEl = liEl.querySelector("ul");
 
-        if ($icon.hasClass('fa-caret-down')) {
-            $ul.hide();
+        if (iconEl.classList.contains("fa-caret-down")) {
+            ulEl.classList.add("d-none");
             if (this.unfoldedArticlesIds.indexOf(articleId) !== -1) {
                 this.unfoldedArticlesIds.splice(this.unfoldedArticlesIds.indexOf(articleId), 1);
             }
-            $icon.removeClass('fa-caret-down');
-            $icon.addClass('fa-caret-right');
+            iconEl.classList.remove("fa-caret-down");
+            iconEl.classList.add("fa-caret-right");
         } else {
-            if ($ul.length) {
+            if (ulEl) {
                 // Show hidden children
-                $ul.show();
+                ulEl.classList.remove("d-none");
             } else {
-                let children;
+                let childrenEls;
                 try {
-                    children = await this._fetchChildrenArticles($li.data('articleId'));
+                    childrenEls = await this._fetchChildrenArticles(
+                        parseInt(liEl.dataset.articleId)
+                    );
                 } catch (error) {
                     // Article is not accessible anymore, remove it from the sidebar
-                    $li.remove();
+                    liEl.remove();
                     throw error;
                 }
-                const $newUl = $('<ul/>').append(children);
-                $li.append($newUl);
+                const newUlEl = document.createElement("ul");
+                childrenEls = new DOMParser().parseFromString(childrenEls, "text/html").body.childNodes;
+                childrenEls.forEach((child) => {
+                    newUlEl.appendChild(child);
+                });
+                liEl.appendChild(newUlEl);
             }
             if (this.unfoldedArticlesIds.indexOf(articleId) === -1) {
                 this.unfoldedArticlesIds.push(articleId);
             }
-            $icon.removeClass('fa-caret-right');
-            $icon.addClass('fa-caret-down');
+            iconEl.classList.remove("fa-caret-right");
+            iconEl.classList.add("fa-caret-down");
         }
         localStorage.setItem(this.storageKey, this.unfoldedArticlesIds.join(";"),
         );
@@ -349,7 +355,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
     _onTocLinkClick: function (event) {
         event.preventDefault();
         const headingIndex = parseInt(event.target.getAttribute('data-oe-nodeid'));
-        const targetHeading = fetchValidHeadings(this.$el[0])[headingIndex];
+        const targetHeading = fetchValidHeadings(this.el)[headingIndex];
         if (targetHeading) {
             targetHeading.scrollIntoView({
                 behavior: 'smooth',
