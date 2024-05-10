@@ -58,9 +58,7 @@ class StockPicking(models.Model):
         return res
 
     def _action_done(self):
-        # Do the check before transferring
-        product_to_check = self.mapped('move_line_ids').filtered(lambda x: x.picked).mapped('product_id')
-        if self.mapped('check_ids').filtered(lambda x: x.quality_state == 'none' and x.product_id in product_to_check):
+        if self._check_for_quality_checks():
             raise UserError(_('You still need to do the quality checks!'))
         return super(StockPicking, self)._action_done()
 
@@ -76,7 +74,7 @@ class StockPicking(models.Model):
         quality_pickings = self.env['stock.picking']
         for picking in self:
             product_to_check = picking.mapped('move_line_ids').filtered(lambda ml: ml.picked).mapped('product_id')
-            if picking.mapped('check_ids').filtered(lambda qc: qc.quality_state == 'none' and qc.product_id in product_to_check):
+            if picking.mapped('check_ids').filtered(lambda qc: qc.quality_state == 'none' and (qc.product_id in product_to_check or qc.measure_on == 'operation')):
                 quality_pickings |= picking
         return quality_pickings
 
