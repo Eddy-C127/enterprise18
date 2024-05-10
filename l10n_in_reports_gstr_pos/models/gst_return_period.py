@@ -97,7 +97,9 @@ class L10nInReportAccount(models.Model):
         details_pos_lines_by_move = _set_details_pos_lines(pos_order_lines)
         for move_id in pos_journal_items.mapped("move_id"):
             tax_details = tax_details_by_move.get(move_id)
-            details_pos_lines = details_pos_lines_by_move[move_id.id]
+            details_pos_lines = details_pos_lines_by_move.get(move_id.id)
+            if not details_pos_lines:
+                continue
             for line, line_tax_details in tax_details.items():
                 tax_rate = line_tax_details['gst_tax_rate']
                 if tax_rate.is_integer():
@@ -116,7 +118,7 @@ class L10nInReportAccount(models.Model):
                     pos_ratio = abs(price_subtotal / abs(line.balance))
                     product_uom_code = details_pos_line['product_uom_code']
                     product_hsn_code = details_pos_line['product_hsn_code']
-                    group_key = "%s-%s-%s"%(tax_rate, product_hsn_code, product_uom_code)
+                    group_key = "%s-%s-%s" % (tax_rate, product_hsn_code, product_uom_code)
                     hsn_json.setdefault(group_key, {
                         "hsn_sc": product_hsn_code,
                         "uqc": product_uom_code,
