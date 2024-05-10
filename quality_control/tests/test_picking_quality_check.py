@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import Command
+from odoo.exceptions import UserError
 from .test_common import TestQualityCommon
 from odoo.tests import Form, tagged
 
@@ -567,6 +567,12 @@ class TestQualityCheck(TestQualityCommon):
         self.assertEqual(len(receipt.check_ids), 1)
         self.assertEqual(receipt.check_ids.point_id, quality_point_operation_type)
         self.assertEqual(receipt.check_ids.picking_id, receipt)
+
+        with self.assertRaises(UserError):
+            receipt._action_done()
+
+        receipt.check_ids.do_pass()
+        receipt._action_done()
 
     def test_checks_removal_on_SM_cancellation(self):
         """
