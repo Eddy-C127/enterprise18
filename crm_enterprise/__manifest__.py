@@ -21,7 +21,7 @@ Contains advanced features for CRM such as new views
         'web.assets_backend': [
             'crm_enterprise/static/src/**/*',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'crm_enterprise/static/tests/**/*',
         ],
     }
