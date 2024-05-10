@@ -98,7 +98,7 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
         with self._mock_iap_extract(extract_response=extract_response):
             invoice._check_ocr_status()
 
-        self.assertTrue(invoice.id in self.purchase_order.invoice_ids.ids)
+        self.assertTrue(invoice.id in self.purchase_order.account_move_ids.ids)
 
     def test_match_po_by_supplier_and_total(self):
         invoice = self.env['account.move'].create({'move_type': 'in_invoice', 'extract_state': 'waiting_extraction'})
@@ -108,7 +108,7 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
         with self._mock_iap_extract(extract_response=extract_response):
             invoice._check_ocr_status()
 
-        self.assertTrue(invoice.id in self.purchase_order.invoice_ids.ids)
+        self.assertTrue(invoice.id in self.purchase_order.account_move_ids.ids)
 
     def test_match_subset_of_order_lines(self):
         # Test the case were only one subset of order lines match the total found by the OCR
@@ -121,7 +121,7 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
         with self._mock_iap_extract(extract_response=extract_response):
             invoice._check_ocr_status()
 
-        self.assertTrue(invoice.id in self.purchase_order.invoice_ids.ids)
+        self.assertTrue(invoice.id in self.purchase_order.account_move_ids.ids)
         self.assertEqual(invoice.amount_total, 200)
 
     def test_no_match_subset_of_order_lines(self):
@@ -135,7 +135,7 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
         with self._mock_iap_extract(extract_response=extract_response):
             invoice._check_ocr_status()
 
-        self.assertTrue(invoice.id in self.purchase_order.invoice_ids.ids)
+        self.assertTrue(invoice.id in self.purchase_order.account_move_ids.ids)
         # The PO should be used instead of the OCR result
         self.assertEqual(invoice.amount_total, 300)
 
@@ -147,7 +147,7 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
         with self._mock_iap_extract(extract_response=extract_response):
             invoice._check_ocr_status()
 
-        self.assertTrue(invoice.id not in self.purchase_order.invoice_ids.ids)
+        self.assertTrue(invoice.id not in self.purchase_order.account_move_ids.ids)
 
     def test_action_reload_ai_data(self):
         invoice = self.env['account.move'].create({
@@ -172,7 +172,7 @@ class TestInvoiceExtractPurchase(AccountTestInvoicingCommon, TestExtractMixin):
             invoice.action_reload_ai_data()
 
         # Check that the fields have been overwritten with the content of the PO matched by the OCR
-        self.assertTrue(invoice.id in self.purchase_order.invoice_ids.ids)
+        self.assertTrue(invoice.id in self.purchase_order.account_move_ids.ids)
         self.assertEqual(invoice.amount_total, 300)
         self.assertEqual(invoice.amount_untaxed, 300)
         self.assertEqual(invoice.amount_tax, 0)

@@ -80,7 +80,7 @@ class CustomerPortal(SaleCustomerPortal, AccountCustomerPortal):
         if not task.exists() or not task.project_id._check_project_sharing_access():
             return NotFound()
         url = f'/my/projects/{project_id}/task/{task_id}/invoices'
-        values = self._prepare_my_invoices_values(page, date_begin, date_end, sortby, filterby, [('id', 'in', task.sale_order_id.sudo().invoice_ids.ids)], url)
+        values = self._prepare_my_invoices_values(page, date_begin, date_end, sortby, filterby, [('id', 'in', task.sale_order_id.sudo().account_move_ids.ids)], url)
         pager = portal_pager(**values['pager'])
         invoices = values['invoices'](pager['offset'])
         values.update(

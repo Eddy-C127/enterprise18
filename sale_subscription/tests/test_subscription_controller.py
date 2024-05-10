@@ -193,7 +193,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         self.make_jsonrpc_request(url, data)
         subscription.transaction_ids.provider_id.support_manual_capture = 'full_only'
         subscription.transaction_ids._set_authorized()
-        subscription.invoice_ids.filtered(lambda am: am.state == 'draft')._post()
+        subscription.account_move_ids.filtered(lambda am: am.state == 'draft')._post()
         subscription.transaction_ids.token_id = self.payment_token.id
         self.assertEqual(subscription.next_invoice_date, datetime.date.today())
         self.assertEqual(subscription.state, 'sale')
@@ -201,20 +201,20 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         subscription.transaction_ids._post_process()  # Create the payment
         self.assertEqual(subscription.invoice_count, 1, "One invoice should be created")
         # subscription has a payment_token_id, the invoice is created by the flow.
-        subscription.invoice_ids.invoice_line_ids.account_id.account_type = 'income'
-        subscription.invoice_ids.auto_post = 'at_date'
+        subscription.account_move_ids.invoice_line_ids.account_id.account_type = 'income'
+        subscription.account_move_ids.auto_post = 'at_date'
         self.env.ref('account.ir_cron_auto_post_draft_entry').method_direct_trigger()
         self.assertTrue(subscription.next_invoice_date > datetime.date.today(), "the next invoice date should be updated")
         self.env['account.payment.register'] \
-            .with_context(active_model='account.move', active_ids=subscription.invoice_ids.ids) \
+            .with_context(active_model='account.move', active_ids=subscription.account_move_ids.ids) \
             .create({
             'currency_id': subscription.currency_id.id,
             'amount': subscription.amount_total,
         })._create_payments()
-        self.assertEqual(subscription.invoice_ids.mapped('state'), ['posted'])
-        self.assertTrue(subscription.invoice_ids.payment_state in ['paid', 'in_payment'])
+        self.assertEqual(subscription.account_move_ids.mapped('state'), ['posted'])
+        self.assertTrue(subscription.account_move_ids.payment_state in ['paid', 'in_payment'])
         subscription._cron_recurring_create_invoice()
-        invoices = subscription.invoice_ids.filtered(lambda am: am.state in ['draft', 'posted']) # avoid counting canceled invoices
+        invoices = subscription.account_move_ids.filtered(lambda am: am.state in ['draft', 'posted'])  # avoid counting canceled invoices
         self.assertEqual(len(invoices), 1, "Only one invoice should be created")
         # test transaction flow when paying from the portal
         self.assertEqual(len(subscription.transaction_ids), 1, "Only one transaction should be created")
@@ -229,26 +229,26 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 }
         self.make_jsonrpc_request(url, data)
         # the transaction is associated to the invoice in tx._post_process()
-        invoice_transactions = subscription.invoice_ids.transaction_ids
+        invoice_transactions = subscription.account_move_ids.transaction_ids
         self.assertEqual(len(invoice_transactions), 2, "Two transactions should be created. Calling /my/subscriptions/transaction/ creates a new one")
         last_transaction_id = subscription.transaction_ids - first_transaction_id
         self.assertEqual(len(subscription.transaction_ids), 2)
         self.assertEqual(last_transaction_id.sale_order_ids, subscription)
         last_transaction_id._set_done()
-        self.assertEqual(subscription.invoice_ids.sorted('id').mapped('state'), ['posted', 'draft'])
-        subscription.invoice_ids.filtered(lambda am: am.state == 'draft')._post()
+        self.assertEqual(subscription.account_move_ids.sorted('id').mapped('state'), ['posted', 'draft'])
+        subscription.account_move_ids.filtered(lambda am: am.state == 'draft')._post()
         subscription.transaction_ids._post_process()  # Create the payment
         # subscription has a payment_token_id, the invoice is created by the flow.
-        subscription.invoice_ids.invoice_line_ids.account_id.account_type = 'asset_cash'
-        subscription.invoice_ids.auto_post = 'at_date'
-        subscription.invoice_ids.filtered(lambda am: am.state == 'draft')._post()
+        subscription.account_move_ids.invoice_line_ids.account_id.account_type = 'asset_cash'
+        subscription.account_move_ids.auto_post = 'at_date'
+        subscription.account_move_ids.filtered(lambda am: am.state == 'draft')._post()
         self.env['account.payment.register'] \
-            .with_context(active_model='account.move', active_ids=subscription.invoice_ids.ids) \
+            .with_context(active_model='account.move', active_ids=subscription.account_move_ids.ids) \
             .create({
             'currency_id': subscription.currency_id.id,
             'amount': subscription.amount_total,
         })._create_payments()
-        self.assertFalse(set(subscription.invoice_ids.mapped('payment_state')) & {'not_paid', 'partial'},
+        self.assertFalse(set(subscription.account_move_ids.mapped('payment_state')) & {'not_paid', 'partial'},
                          "All invoices should be in paid or in_payment status")
         return subscription
 
@@ -291,7 +291,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 'flow': 'direct',
                 }
         self.make_jsonrpc_request(url, data)
-        invoice_transactions = subscription.invoice_ids.transaction_ids
+        invoice_transactions = subscription.account_move_ids.transaction_ids
         # the amount should be equal to the last
         self.assertEqual(invoice_transactions.amount, subscription.amount_total,
                          "The last transaction should be equal to the total")
@@ -461,7 +461,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
                 tx_sudo._post_process()
             # Ensure token was assigned after completing the payment in invoices route.
             self.assertEqual(subscription.payment_token_id.id, test_payment_token.id, "Token must be assigned to subscription after transaction creation.")
-            # Create transaction with new token without sending invoice_ids in custom_create_values.
+            # Create transaction with new token without sending account_move_ids in custom_create_values.
             test_payment_token_2 = self.env['payment.token'].create({
                 'payment_details': 'Test-2',
                 'partner_id': subscription.partner_id.id,

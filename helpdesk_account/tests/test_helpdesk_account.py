@@ -32,7 +32,7 @@ class TestHelpdeskAccount(common.HelpdeskCommon):
         })
         self.so.action_confirm()
         self.so._create_invoices()
-        invoice = self.so.invoice_ids
+        invoice = self.so.account_move_ids
         invoice.action_post()
         # helpdesk.ticket access rights
         ticket = self.env['helpdesk.ticket'].create({
@@ -45,7 +45,7 @@ class TestHelpdeskAccount(common.HelpdeskCommon):
         credit_note_form = Form(self.env['account.move.reversal'].with_context({
             'default_helpdesk_ticket_id': ticket.id,
         }), view=self.env.ref('helpdesk_account.view_account_move_reversal_inherit_helpdesk_account'))
-        for inv in self.so.invoice_ids:
+        for inv in self.so.account_move_ids:
             credit_note_form.move_ids.add(inv)
         credit_note_form.reason = 'test'
         credit_note = credit_note_form.save()
@@ -91,7 +91,7 @@ class TestHelpdeskAccount(common.HelpdeskCommon):
         })
         self.so.action_confirm()
         self.so._create_invoices()
-        invoice = self.so.invoice_ids
+        invoice = self.so.account_move_ids
         invoice.action_post()
         # helpdesk.ticket access rights
         ticket = self.env['helpdesk.ticket'].create({
@@ -106,7 +106,7 @@ class TestHelpdeskAccount(common.HelpdeskCommon):
             'helpdesk_ticket_id': ticket.id,
             'reason': 'test',
             'journal_id': journal_id,
-            'move_ids': self.so.invoice_ids,
+            'move_ids': self.so.account_move_ids,
         })
         res = credit_note.refund_moves()
         move = self.env['account.move'].browse(res['res_id'])
@@ -129,7 +129,7 @@ class TestHelpdeskAccount(common.HelpdeskCommon):
         credit_note_form = Form(self.env['account.move.reversal'].with_context({
             'default_helpdesk_ticket_id': ticket.id,
         }), view=self.env.ref('helpdesk_account.view_account_move_reversal_inherit_helpdesk_account'))
-        for inv in self.so.invoice_ids:
+        for inv in self.so.account_move_ids:
             credit_note_form.move_ids.add(inv)
         credit_note_form.reason = 'test'
         credit_note_form.save()

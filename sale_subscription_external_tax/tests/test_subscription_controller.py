@@ -29,7 +29,7 @@ class TestExternalTaxSubscriptionController(TestSaleSubscriptionExternalCommon, 
             self.subscription.action_confirm()
         self.subscription._portal_ensure_token()
         self.assertEqual(
-            len(self.subscription.invoice_ids), 0, "There should be no invoices yet."
+            len(self.subscription.account_move_ids), 0, "There should be no invoices yet."
         )
 
         url = self._build_url("/my/subscriptions/%s/transaction/" % self.subscription.id)
@@ -46,10 +46,10 @@ class TestExternalTaxSubscriptionController(TestSaleSubscriptionExternalCommon, 
             self.make_jsonrpc_request(url, data)
 
         self.assertEqual(
-            len(self.subscription.invoice_ids), 1, "One invoice should have been created."
+            len(self.subscription.account_move_ids), 1, "One invoice should have been created."
         )
         self.assertEqual(
-            [self.subscription.invoice_ids[0]],
+            [self.subscription.account_move_ids[0]],
             [args[0] for args, kwargs in mocked_set.call_args_list],
             "Should have queried avatax on the created invoice when manually initiating a payment.",
         )

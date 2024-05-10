@@ -33,7 +33,7 @@ class TestCFDIInvoiceDocuments(TestMxEdiCommon):
         invoice.action_post()
         self.assertRecordValues(sale_order, [{
             'invoice_status': "invoiced",
-            'invoice_ids': invoice.ids,
+            'account_move_ids': invoice.ids,
         }])
         self.assertRecordValues(sale_order.order_line, [{'qty_invoiced': 3}])
 
@@ -59,7 +59,7 @@ class TestCFDIInvoiceDocuments(TestMxEdiCommon):
         invoice.invalidate_recordset(fnames=['l10n_mx_edi_cfdi_cancel_id'])
         self.assertRecordValues(sale_order, [{
             'invoice_status': "invoiced",
-            'invoice_ids': (invoice + new_invoice).ids,
+            'account_move_ids': (invoice + new_invoice).ids,
         }])
         self.assertRecordValues(sale_order.order_line, [{'qty_invoiced': 3}])
 
@@ -72,6 +72,6 @@ class TestCFDIInvoiceDocuments(TestMxEdiCommon):
                 .action_cancel_invoice()
         self.assertRecordValues(sale_order, [{
             'invoice_status': "to invoice",
-            'invoice_ids': (invoice + new_invoice).ids,
+            'account_move_ids': (invoice + new_invoice).ids,
         }])
         self.assertRecordValues(sale_order.order_line, [{'qty_invoiced': 2}])
