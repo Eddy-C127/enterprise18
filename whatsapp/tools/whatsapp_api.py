@@ -65,7 +65,7 @@ class WhatsAppApi:
             return (desc if desc else _("Non-descript Error"), code)
         return (_("Something went wrong when contacting WhatsApp, please try again later. If this happens frequently, contact support."), -1)
 
-    def _get_all_template(self):
+    def _get_all_template(self, fetch_all=False):
         """
             This method is used to get all the template from the WhatsApp Business Account
 
@@ -74,10 +74,32 @@ class WhatsAppApi:
         if self.is_shared_account:
             raise WhatsAppError(failure_type='account')
 
+        template_url = f"/{self.wa_account_id.account_uid}/message_templates"
         _logger.info("Sync templates for account %s [%s]", self.wa_account_id.name, self.wa_account_id.id)
-        response = self.__api_requests("GET", f"/{self.wa_account_id.account_uid}/message_templates",
-                                       auth_type="bearer")
-        return response.json()
+
+        if fetch_all:
+            final_response_json = {}
+            # Fetch 200 templates at once
+            template_url += "?limit=200"
+            endpoint_include = False
+            while template_url:
+                response = self.__api_requests("GET", url=template_url, auth_type="bearer", endpoint_include=endpoint_include)
+                response_json = response.json()
+                if final_response_json:
+                    # Add fetched data to existing response
+                    response_data = response_json.get("data", [])
+                    final_response_json.setdefault("data", []).extend(response_data)
+                else:
+                    final_response_json = response_json
+
+                # Fetch the next URL if it exists in response to fetch more templates
+                template_url = response_json.get("paging", {}).get("next")
+                endpoint_include = bool(template_url)
+        else:
+            response = self.__api_requests("GET", url=template_url, auth_type="bearer")
+            final_response_json = response.json()
+
+        return final_response_json
 
     def _get_template_data(self, wa_template_uid):
         """

@@ -74,7 +74,7 @@ class WhatsAppAccount(models.Model):
         """
         self.ensure_one()
         try:
-            response = WhatsAppApi(self)._get_all_template()
+            response = WhatsAppApi(self)._get_all_template(fetch_all=True)
         except WhatsAppError as err:
             raise ValidationError(str(err)) from err
 
