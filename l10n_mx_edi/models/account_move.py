@@ -2433,8 +2433,9 @@ class AccountMove(models.Model):
                     ('type_tax_use', '=', 'sale' if self.journal_id.type == 'sale' else 'purchase'),
                     ('amount_type', '=', 'percent'),
                 ]
-                if tipo_factor == 'Exento':
-                    domain.append(('tax_group_id', '=', self.env.ref(f'account.{line.company_id.id}_tax_group_exe_0', raise_if_not_found=False).id))
+                tax_group = self.env.ref(f'account.{line.company_id.id}_tax_group_exe_0', raise_if_not_found=False)
+                if tax_group and tipo_factor == 'Exento':
+                    domain.append(('tax_group_id', '=', tax_group.id))
                 if tax_type:
                     domain.append(('repartition_line_ids.tag_ids.name', '=', tax_type))
                 tax = self.env['account.tax'].search(domain, limit=1)

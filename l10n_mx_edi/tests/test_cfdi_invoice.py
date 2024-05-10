@@ -985,6 +985,31 @@ class TestCFDIInvoice(TestMxEdiCommon):
                 partner = invoice.partner_id.with_company(company=invoice.company_id)
                 self.assertRecordValues(partner, [subtest['expected_partner_vals']])
 
+    def test_upload_xml_to_generate_invoice_with_exento_tax(self):
+        self.env['account.tax'].search([('name', '=', 'Exento')]).unlink()
+        self.env['account.tax.group'].search([('name', '=', 'Exento')]).unlink()
+
+        file_name = "test_import_bill_with_extento"
+        full_file_path = misc.file_path(f'{self.test_module}/tests/test_files/{file_name}.xml')
+
+        with file_open(full_file_path, "rb") as file:
+            new_bill = self._upload_document_on_journal(
+                journal=self.company_data['default_journal_purchase'],
+                content=file.read(),
+                filename=file_name,
+            )
+
+        self.assertRecordValues(new_bill.invoice_line_ids, (
+            {
+                'quantity': 1,
+                'price_unit': 54017.48,
+            },
+            {
+                'quantity': 1,
+                'price_unit': 17893.00,
+            }
+        ))
+
     def test_cfdi_rounding_1(self):
         def run(rounding_method):
             with self.mx_external_setup(self.frozen_today):
