@@ -26,9 +26,9 @@ publicWidget.registry.knowledgeBaseAutocomplete = publicWidget.Widget.extend({
 
 
     start: function () {
-        this.$input = this.$('.search-query');
-        this.$url = this.$el.data('ac-url');
-        this.enabled = this.$el.data('autocomplete');
+        this.inputEl = this.el.querySelector(".search-query");
+        this.url = this.el.dataset.acUrl;
+        this.enabled = parseInt(this.el.dataset.autocomplete);
 
         return this._super.apply(this, arguments);
     },
@@ -37,30 +37,31 @@ publicWidget.registry.knowledgeBaseAutocomplete = publicWidget.Widget.extend({
      * @private
      */
     async _fetch() {
-        const search = this.$input.val();
+        const search = this.inputEl.value;
         if (!search || search.length < 3)
             return;
 
-        return rpc(this.$url, { 'term': search });
+        return rpc(this.url, { 'term': search });
     },
 
     /**
      * @private
      */
     _render: function (res) {
-        const $prevMenu = this.$menu;
-        const search = this.$input.val();
-        this.$el.toggleClass('dropdown show', !!res);
+        const prevMenuEl = this.menuEl;
+        const search = this.inputEl.value;
+        this.el.classList.toggle("dropdown", !!res);
+        this.el.classList.toggle("show", !!res);
         if (!!res) {
-            this.$menu = $(renderToElement('website_helpdesk.knowledge_base_autocomplete', {
+            this.menuEl = renderToElement("website_helpdesk.knowledge_base_autocomplete", {
                 results: res.results,
                 showMore: res.showMore,
                 term: search,
-            }));
-            this.$el.append(this.$menu);
+            });
+            this.el.append(this.menuEl);
         }
-        if ($prevMenu) {
-            $prevMenu.remove();
+        if (prevMenuEl) {
+            prevMenuEl.remove();
         }
     },
 
@@ -80,7 +81,7 @@ publicWidget.registry.knowledgeBaseAutocomplete = publicWidget.Widget.extend({
      * @private
      */
     _onFocusOut: function () {
-        if (!this.$el.has(document.activeElement).length) {
+        if (!this.el.contains(document.activeElement)) {
             this._render();
         }
     },
@@ -95,9 +96,12 @@ publicWidget.registry.knowledgeBaseAutocomplete = publicWidget.Widget.extend({
             case "ArrowUp":
             case "ArrowDown":
                 ev.preventDefault();
-                if (this.$menu) {
-                    let $element = ev.key === "ArrowUp" ? this.$menu.children().last() : this.$menu.children().first();
-                    $element.focus();
+                if (this.menuEl) {
+                    const element =
+                        ev.key === "ArrowUp"
+                            ? this.menuEl.lastElementChild
+                            : this.menuEl.firstElementChild;
+                    element.focus();
                 }
                 break;
         }
