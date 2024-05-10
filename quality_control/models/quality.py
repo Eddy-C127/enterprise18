@@ -393,7 +393,7 @@ class QualityCheck(models.Model):
         if self.qty_line and self.uom_id:
             action_name += ' - %s %s' % (self.qty_line, self.uom_id.name)
         if self.lot_name or self.lot_line_id:
-            action_name += ' - %s' % self.lot_name or self.lot_line_id.name
+            action_name += ' - %s' % (self.lot_name or self.lot_line_id.name)
         return action_name
 
 
