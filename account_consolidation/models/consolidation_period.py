@@ -604,7 +604,7 @@ class ConsolidationCompanyPeriod(models.Model):
         self.ensure_one()
         journal_lines_values = self._get_journal_lines_values()
         self.env['consolidation.journal'].create({
-            'name': _("%s Consolidated Accounting", self.company_name),
+            'name': _("%(company)s Consolidated Accounting", company=self.company_name),
             'auto_generated': True,
             'company_period_id': self.id,
             'period_id': self.period_id.id,

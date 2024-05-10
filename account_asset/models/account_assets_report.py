@@ -187,8 +187,8 @@ class AssetsReportCustomHandler(models.AbstractModel):
                 months = total_months % 12
                 years = total_months // 12
                 asset_depreciation_rate = " ".join(part for part in [
-                    years and _("%s y", years),
-                    months and _("%s m", months),
+                    years and _("%(years)s y", years=years),
+                    months and _("%(months)s m", months=months),
                 ] if part)
             elif al['asset_method'] == 'linear':
                 asset_depreciation_rate = '0.00 %'

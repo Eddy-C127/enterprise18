@@ -166,7 +166,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         name = self.env['consolidation.period'].browse(period_id).display_name or _("Trial Balance")
         return {
             'type': 'ir.actions.act_window',
-            'name': _("Edit %s", name),
+            'name': _("Edit %(name)s", name=name),
             'res_model': 'consolidation.journal.line',
             'view_mode': 'grid,graph,form',
             'view_type': 'grid',

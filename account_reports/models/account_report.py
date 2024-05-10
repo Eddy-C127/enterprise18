@@ -5363,7 +5363,7 @@ class AccountReport(models.Model):
         for report_options in options_list:
             report = self.env['account.report'].browse(report_options['report_id'])
 
-            filters_sheet.write(y_offset, 0, _("%s", report.name), name_style)
+            filters_sheet.write(y_offset, 0, report.name, name_style)
             y_offset += 1
             new_offset = report._inject_report_options_into_xlsx_sheet(report_options, filters_sheet, y_offset, uncommon_options_keys)
 

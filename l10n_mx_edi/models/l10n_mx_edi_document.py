@@ -1784,7 +1784,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         if code:
             errors.append(_("Code : %s", code))
         if msg:
-            errors.append(_("Message : %s") % msg)
+            errors.append(_("Message : %s", msg))
         if errors:
             return {'errors': errors}
 
