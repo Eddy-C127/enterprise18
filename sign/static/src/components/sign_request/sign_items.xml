@@ -16,7 +16,7 @@
                 <img t-if="frame_value" t-att-src="frame_value" alt="Frame"/>
                 <img t-if="value" t-att-src="value" alt="Signature"/>
                 <t t-if="!value">
-                    <span class="o_placeholder">
+                    <span class="o_placeholder ps-0">
                         <t t-esc="placeholder"/>
                     </span>
                 </t>
@@ -58,7 +58,7 @@
     <div t-name="sign.selectionSignItem" t-att-title="role" t-attf-class="{{classes}} o_sign_sign_item" t-att-data-id="id" t-att-style="style + 'white-space: normal;text-align: center;'">
         <div class="sign_item_body">
             <t t-if="!value">
-                <span class="o_placeholder">
+                <span class="o_placeholder ps-0">
                     <t t-esc="placeholder"/>
                 </span>
             </t>
@@ -80,7 +80,7 @@
             <img t-if="frame_value" t-att-src="frame_value" alt="Frame" class="o_sign_frame"/>
             <img t-if="value" t-att-src="value" alt="Signature"/>
             <t t-if="!value">
-                <span class="o_placeholder">
+                <span class="o_placeholder ps-0">
                     <t t-esc="placeholder"/>
                 </span>
             </t>
@@ -91,7 +91,7 @@
     <div t-name="sign.textareaSignItem" t-att-title="role" t-attf-class="{{classes}} o_sign_sign_item o_sign_sign_textarea" t-att-style="style" t-att-data-id="id">
         <div class="sign_item_body">
             <t t-if="!value">
-                <p class="o_placeholder o_sign_field_alignment">
+                <p class="o_placeholder ps-0 o_sign_field_alignment">
                     <t t-esc="placeholder"/>
                 </p>
             </t>
@@ -105,9 +105,9 @@
             <t t-if="value == 'on'">&#9745;</t>
             <t t-if="value == 'off'">&#9744;</t>
             <t t-if="!value">
-                <span class="o_placeholder">
-                    <t t-if="placeholder == '☑'">&#9745;</t>
-                    <t t-else="">&#9744;</t>
+                <span class="o_placeholder ps-0">
+                    <t t-if="placeholder == '☑'"><span class="o_custom_checkbox"/></t>
+                    <t t-else=""><span class="o_custom_checkbox unchecked"/></t>
                 </span>
             </t>
             <t t-if="editMode" t-call="sign.signItemConfiguration"/>
@@ -122,7 +122,7 @@
             </t>
             <t t-else="">
                 <t t-if="!value">
-                    <p class="o_placeholder o_sign_field_alignment">
+                    <p class="o_placeholder ps-0 o_sign_field_alignment">
                         <t t-esc="placeholder"/>
                     </p>
                 </t>
