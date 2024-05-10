@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="appointments_cards" inherit_id="website_appointment_account_payment.appointments_cards">
+    <xpath expr="//strong[@t-esc='appointment.product_id.lst_price']" position="replace">
+        <strong t-if="website.show_line_subtotals_tax_selection == 'tax_included'"
+            class="text-primary"
+            t-out="appointment.price_incl"
+            t-options="{'widget': 'monetary', 'display_currency': appointment.product_id.currency_id}"/>
+        <strong t-else=""
+            class="text-primary"
+            t-out="appointment.product_id.lst_price"
+            t-options="{'widget': 'monetary', 'display_currency': appointment.product_id.currency_id}"/>
+    </xpath>
+</template>
+
+<template id="appointment_info" inherit_id="appointment_account_payment.appointment_info">
+    <xpath expr="//span[@t-esc='appointment_type.product_id.lst_price']" position="replace">
+        <span t-if="website.show_line_subtotals_tax_selection == 'tax_included'"
+            t-out="appointment_type.price_incl"
+            t-options="{'widget': 'monetary', 'display_currency': appointment_type.product_id.currency_id}"/>
+        <span t-else=""
+            t-out="appointment_type.product_id.lst_price"
+            t-options="{'widget': 'monetary', 'display_currency': appointment_type.product_id.currency_id}"/>
+    </xpath>
+</template>
+</odoo>

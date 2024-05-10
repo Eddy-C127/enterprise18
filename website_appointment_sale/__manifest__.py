@@ -10,6 +10,7 @@
     'auto_install': True,
     'depends': ['website_appointment_account_payment', 'website_sale'],
     'data': [
+        'views/appointment_templates_appointments.xml',
         'views/calendar_booking_views.xml',
         'views/sale_order_views.xml',
         'views/website_sale_templates.xml',
