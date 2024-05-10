@@ -31,7 +31,7 @@ class MockOutgoingWhatsApp(common.BaseCase):
         # Whatsapp API
         # ------------------------------------------------------------
 
-        def _get_all_template():
+        def _get_all_template(fetch_all=False):
             return template_data
 
         def _get_template_data(wa_template_uid):
