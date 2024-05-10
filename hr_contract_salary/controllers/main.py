@@ -388,6 +388,8 @@ class HrContractSalary(http.Controller):
         # of the mandatory benefits, separated by semicolon.
         mapped_mandatory_benefits_names = defaultdict(lambda: '')
         for dependent_benefit in benefits:
+            if not dependent_benefit.field:
+                continue
             mapped_mandatory_benefits_names[dependent_benefit] = (dependent_benefit.fold_label or dependent_benefit.name) + ';'
             if dependent_benefit.folded:
                 dependent_name = 'fold_%s' % (dependent_benefit.field)
