@@ -13,10 +13,11 @@ class ResUsers(models.Model):
     is_non_resident = fields.Boolean(related='employee_ids.is_non_resident', readonly=False)
 
     def _get_personal_info_partner_ids_to_notify(self, employee):
+        partner_ids = super()._get_personal_info_partner_ids_to_notify(employee)
         if employee.contract_id.hr_responsible_id:
             return (
-                _("You are receiving this message because you are the HR Responsible of this employee."),
-                employee.contract_id.hr_responsible_id.partner_id.ids,
+                _("You are receiving this message because either you are set as notifier or you are the HR Responsible of this employee."),
+                [*employee.contract_id.hr_responsible_id.partner_id.ids, *partner_ids[1]],
             )
         return ('', [])
 
