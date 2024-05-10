@@ -1119,14 +1119,16 @@ export class GridModel extends Model {
         const groupBys = [];
         let notificationDisplayed = false;
         for (const groupBy of searchParams.groupBy) {
-            if (groupBy.startsWith(this.columnFieldName) && !notificationDisplayed) {
-                this.notificationService.add(
-                    _t(
-                        "Grouping by the field used in the column of the grid view is not possible."
-                    ),
-                    { type: "warning" }
-                );
-                notificationDisplayed = true;
+            if (groupBy.startsWith(this.columnFieldName)) {
+                if (!notificationDisplayed) {
+                    this.notificationService.add(
+                        _t(
+                            "Grouping by the field used in the column of the grid view is not possible."
+                        ),
+                        { type: "warning" }
+                    );
+                    notificationDisplayed = true;
+                }
             } else {
                 groupBys.push(groupBy);
             }

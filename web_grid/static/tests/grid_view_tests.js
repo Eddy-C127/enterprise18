@@ -776,6 +776,9 @@ QUnit.module("Views", (hooks) => {
                 if (args.method === "grid_unavailability") {
                     return {};
                 }
+                if (args.method === "web_read_group") {
+                    assert.deepEqual(args.kwargs.groupby, ["date:day", "task_id", "project_id"]);
+                }
             },
         });
 
@@ -796,6 +799,7 @@ QUnit.module("Views", (hooks) => {
         await toggleMenuItem(target, "Date");
         const dateOptionNodes = groupByDropdown.querySelectorAll(".o_item_option");
         await click(dateOptionNodes[0], "");
+        await click(dateOptionNodes[1], "");
     });
 
     QUnit.test("DOM keys are unique", async function (assert) {
