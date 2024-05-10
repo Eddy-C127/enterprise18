@@ -6,21 +6,28 @@ from odoo.exceptions import UserError
 
 
 def _l10n_be_codabox_pre_init_hook(env):
-    domain = [
+    valid_companies = env['res.company'].search([
+        ('partner_id.country_id.code', '=', 'BE'),
+        ('account_representative_id.vat', '!=', False),
+        ('vat', '!=', False),
+    ])
+    if valid_companies:
+        return
+
+    if not env['ir.module.module'].search_count([('demo', '=', True)]):
+        raise UserError(_lt("The CodaBox module must be installed and configured by an Accounting Firm."))
+
+    accounting_firm = env['res.partner'].create({
+        'name': 'Demo Accounting Firm',
+        'vat': 'BE0428759497',
+        'country_id': env.ref('base.be').id,
+    })
+    env['res.company'].search([
         ('partner_id.country_id.code', '=', 'BE'),
         ('vat', '!=', False),
-    ]
-    # If we are in a demo db, create a demo accounting firm.
-    if bool(env['ir.module.module'].search_count([('demo', '=', True)])):
-        accounting_firm = env['res.partner'].create({
-            'name': 'Demo Accounting Firm',
-            'vat': 'BE0428759497',
-            'country_id': env.ref('base.be').id,
-        })
-        env['res.company'].search(domain).write({
-            'account_representative_id': accounting_firm.id,
-        })
-    domain.append(('account_representative_id.vat', '!=', False))
-    companies = env['res.company'].search(domain)
-    if not companies:
-        raise UserError(_lt("The CodaBox module must be installed and configured by an Accounting Firm."))
+        '|',
+            ('account_representative_id', '=', False),
+            ('account_representative_id.vat', '=', False),
+    ]).write({
+        'account_representative_id': accounting_firm.id,
+    })
