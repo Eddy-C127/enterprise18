@@ -683,6 +683,12 @@ class TestQualityCheck(TestQualityCommon):
         self.assertEqual(ml.check_ids.lot_line_id, ml.lot_id)
         self.assertEqual(ml.check_ids.lot_id, ml.lot_id)
 
+        # Get lot from lot name
+        self.assertEqual(ml.check_ids._get_check_action_name(), 'Quality Check : Office Chair - 1.0 Units - 1458')
+        ml.lot_name = False
+        # Get lot from lot id
+        self.assertEqual(ml.check_ids._get_check_action_name(), 'Quality Check : Office Chair - 1.0 Units - 1458')
+
     def test_update_sml_done_qty(self):
         """
         When changing the done quantity of a SML, the related QC should be
