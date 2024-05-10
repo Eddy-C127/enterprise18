@@ -11,7 +11,7 @@ NotificationWidget.include({
     _askPermission: function () {
         var self = this;
 
-        if ($('.o_wereg_js_confirmed').length === 0) {
+        if (!document.querySelector(".o_wereg_js_confirmed")) {
             return this._super(...arguments);
         }
 
@@ -30,7 +30,7 @@ NotificationWidget.include({
      * on the registration confirmed page.
      */
     _showNotificationRequestPopup: function (popupConfig, pushConfig) {
-        if ($('.o_wereg_js_confirmed').length === 0) {
+        if (!document.querySelector(".o_wereg_js_confirmed")) {
             return this._super(...arguments);
         }
 
