@@ -1986,7 +1986,7 @@ msgstr "%s 收入準備金"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Inconsistent Statements"
-msgstr "Inconsistent Statements"
+msgstr "不一致結單"
 
 #. module: account_reports
 #. odoo-python
@@ -3357,6 +3357,13 @@ msgid ""
 msgstr "使用此稅務單位對你公司的稅務報表申報進行分組的國家/地區。"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
+#, python-format
+msgid "The currency rate cannot be equal to zero"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
@@ -3971,7 +3978,7 @@ msgstr "應收憑單"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "journal items"
-msgstr "journal items"
+msgstr "日記賬項目"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4023,7 +4030,7 @@ msgstr "每半年"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "statements"
-msgstr "statements"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_tax_unit_form

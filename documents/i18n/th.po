@@ -29,6 +29,13 @@ msgstr " + เพิ่มแท็ก"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#, python-format
+msgid "%s (remaining pages)"
+msgstr "%s (หน้าที่เหลือ)"
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #, python-format
 msgid "%s Documents"
@@ -937,6 +944,12 @@ msgstr "เก็บถาวรไฟล์ต้นฉบับ"
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "Archived"
 msgstr "เก็บถาวรแล้ว"
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved to trash"
+msgstr "ย้ายไปถังขยะแล้ว"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
@@ -2274,6 +2287,7 @@ msgstr "ย้ายไปที่เวิร์กสเปซ"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #, python-format
 msgid "Move to trash"
 msgstr "ย้ายไปที่ถังขยะ"
@@ -2788,6 +2802,12 @@ msgstr "ผู้ใช้ที่รับผิดชอบ"
 #, python-format
 msgid "Restore"
 msgstr "คืนค่า"
+
+#. module: documents
+#: code:addons/documents/models/folder.py:0
+#, python-format
+msgid "Restricted Folder"
+msgstr "โฟลเดอร์ที่ถูกจำกัด"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error

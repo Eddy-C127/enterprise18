@@ -4,7 +4,6 @@
 # 
 # Translators:
 # JH CHOI <hwangtog@gmail.com>, 2023
-# Daye Jeong, 2023
 # Sarah Park, 2023
 # Wil Odoo, 2024
 # 
@@ -21,13 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#. module: account_online_synchronization
-#. odoo-python
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid " If you've already opened this issue don't report it again."
-msgstr "해당 문제를 이미 진행 중인 경우, 다시 보고하지 마세요."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -332,6 +324,14 @@ msgid "Cancel"
 msgstr "취소"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "Check the documentation"
+msgstr ""
+
+#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
 msgstr "거래를 가져올 날짜와 전표를 선택하세요."
@@ -474,7 +474,10 @@ msgid "Done"
 msgstr "완료"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_bank_statement.py:0
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__error
+#, python-format
 msgid "Error"
 msgstr "오류"
 
@@ -578,6 +581,7 @@ msgstr "연결이 해제된 계정이 있습니다."
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Here"
 msgstr "여기"
@@ -633,6 +637,15 @@ msgid ""
 "If possible, we will try to automatically fetch new transactions for this "
 "record"
 msgstr "가능한 경우 자동으로 해당 자료에 대한 새로운 거래 내역을 가져옵니다."
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"If you've already opened a ticket for this issue, don't report it again: a "
+"support agent will contact you shortly."
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -782,11 +795,6 @@ msgstr "내 활동 마감일"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__name
 msgid "Name"
 msgstr "이름"
-
-#. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "다음 활동 캘린더 행사"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_date_deadline
@@ -952,11 +960,6 @@ msgid "Provider Type"
 msgstr "공급업체 유형"
 
 #. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__rating_ids
-msgid "Ratings"
-msgstr "평가"
-
-#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Reconnect"
 msgstr "재연결"
@@ -1088,6 +1091,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Thank You!"
 msgstr "감사합니다!"
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "The consent for the selected account has expired."
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

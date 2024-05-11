@@ -4,12 +4,12 @@
 # 
 # Translators:
 # Tibor Kőnig <konig.tibor@evitalit.hu>, 2023
-# Szabolcs Rádi, 2023
+# 5768b353f27900ae76ad88cc42dfd5b8_3bb349f, 2023
 # Tamás Németh <ntomasz81@gmail.com>, 2023
 # Martin Trigaux, 2023
-# Tamás Dombos, 2023
-# gezza <geza.nagy@oregional.hu>, 2023
 # krnkris, 2023
+# gezza <geza.nagy@oregional.hu>, 2023
+# Tamás Dombos, 2023
 # Ákos Nagy <akos.nagy@oregional.hu>, 2024
 # 
 msgid ""
@@ -25,13 +25,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: account_online_synchronization
-#. odoo-python
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid " If you've already opened this issue don't report it again."
-msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -278,6 +271,14 @@ msgid "Cancel"
 msgstr "Töröl"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "Check the documentation"
+msgstr ""
+
+#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
 msgstr ""
@@ -420,7 +421,10 @@ msgid "Done"
 msgstr "Befejezve"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_bank_statement.py:0
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__error
+#, python-format
 msgid "Error"
 msgstr "Hiba"
 
@@ -524,6 +528,7 @@ msgstr ""
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Here"
 msgstr ""
@@ -579,6 +584,15 @@ msgstr ""
 msgid ""
 "If possible, we will try to automatically fetch new transactions for this "
 "record"
+msgstr ""
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"If you've already opened a ticket for this issue, don't report it again: a "
+"support agent will contact you shortly."
 msgstr ""
 
 #. module: account_online_synchronization
@@ -729,11 +743,6 @@ msgstr "Tevékenységeim határideje"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__name
 msgid "Name"
 msgstr "Név"
-
-#. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Következő tevékenység naptár esemény"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_date_deadline
@@ -899,11 +908,6 @@ msgid "Provider Type"
 msgstr "Szolgáltató típus"
 
 #. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__rating_ids
-msgid "Ratings"
-msgstr "Értékelések"
-
-#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Reconnect"
 msgstr ""
@@ -1035,6 +1039,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Thank You!"
 msgstr "Köszönöm!"
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "The consent for the selected account has expired."
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

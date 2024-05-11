@@ -891,14 +891,26 @@ msgid "Service user number"
 msgstr "شماره‌ی کاربر سرویس"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service user number of your company within BACS"
 msgstr "شماره‌ی کاربر سرویس شرکت شما در BACS"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if you "
+"bank does not provide one."
+msgstr ""
+
+#. module: account_bacs
 msgid "Service user number of your company within BACS, given by the bank."
 msgstr "شماره‌ی کاربر سرویس شرکت شما در BACS، که توسط بانک ارائه شده است."
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+msgid ""
+"Service user number of your company within BACS, given by the bank. Write "
+"'HSBC' here if your bank does not provide one."
+msgstr ""
 
 #. module: account_bacs
 #. odoo-python
@@ -1044,6 +1056,14 @@ msgstr "شماره‌ی کاربر سرویس باید 6 رقمی باشد."
 #, python-format
 msgid "The service user number must be numeric."
 msgstr "شماره‌ی کاربر سیستم باید به عدد باشد. "
+
+#. module: account_bacs
+#. odoo-python
+#: code:addons/account_bacs/models/res_company.py:0
+#, python-format
+msgid ""
+"The service user number must be numeric, or 'HSBC' if you don't have any."
+msgstr ""
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state

@@ -170,6 +170,20 @@ msgid "Created on"
 msgstr "作成日"
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description cannot exceed 5000 characters."
+msgstr "説明は5000字を超えることはできません。"
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description should not contain > or < symbol."
+msgstr "説明に記号 > または <を含めることはできません。 "
+
+#. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__display_name
 msgid "Display Name"
 msgstr "表示名"
@@ -451,6 +465,20 @@ msgid "There is no channel linked with this YouTube account."
 msgstr "このYouTubeアカウントにリンクされたチャンネルはありません。"
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title cannot exceed 100 characters."
+msgstr "タイトルは100文字以下にして下さい。"
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title should not contain > or < symbol."
+msgstr "タイトルに記号 > または < を含めることはできません。 "
+
+#. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid ""
 "To provide our application services, note that we store the following data "
@@ -574,6 +602,13 @@ msgid "Yes, delete it"
 msgstr "はい、削除します。"
 
 #. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You cannot use '>' or '<' in both title and description."
+msgstr "タイトルと説明文の両方で '>' または '<' を使用することはできません。"
+
+#. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_media.py:0
 #, python-format
@@ -586,6 +621,20 @@ msgstr "アクティブなサブスクリプションを持っていません。
 #, python-format
 msgid "You have to upload a video when posting on YouTube."
 msgstr "YouTubeに投稿する際には動画をアップロードする必要があります。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a description."
+msgstr "動画に説明をつけて下さい。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a title."
+msgstr "動画にタイトルを付けて下さい。"
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube
@@ -748,6 +797,20 @@ msgstr "YouTubeが有効な認証コードを提供しませんでした。"
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Your channel name and picture"
 msgstr "チャンネル名と写真"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your description cannot exceed 5000 characters."
+msgstr "説明は5000字以内にして下さい。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your title cannot exceed 100 characters."
+msgstr "タイトルは100字以下にして下さい。"
 
 #. module: social_youtube
 #. odoo-python

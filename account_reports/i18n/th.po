@@ -47,7 +47,7 @@ msgstr "ไม่รองรับรายงานสมุดรายวั
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "\" account balance is affected by"
-msgstr ""
+msgstr "\" ยอดเงินในบัญชีได้รับผลกระทบจาก"
 
 #. module: account_reports
 #. odoo-python
@@ -102,12 +102,12 @@ msgstr "(%s บรรทัด)"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_receipts
 msgid "(+) Outstanding Receipts"
-msgstr ""
+msgstr "(+) ใบเสร็จรับเงินคงค้าง"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_payments
 msgid "(-) Outstanding Payments"
-msgstr ""
+msgstr "(-) การชำระเงินคงค้าง"
 
 #. module: account_reports
 #. odoo-python
@@ -660,12 +660,12 @@ msgstr "ยอดคงเหลือในสกุลเงินต่าง
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr "ยอดคงเหลือของ '%s'"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "ยอดคงเหลือของธนาคาร"
 
 #. module: account_reports
 #. odoo-python
@@ -696,12 +696,12 @@ msgstr "Bank Reconciliation Move Presets"
 #. module: account_reports
 #: model:account.report,name:account_reports.bank_reconciliation_report
 msgid "Bank Reconciliation Report"
-msgstr ""
+msgstr "รายงานการกระทบยอดธนาคาร"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_bank_reconciliation_report_handler
 msgid "Bank Reconciliation Report Custom Handler"
-msgstr ""
+msgstr "รายงานการกระทบยอดธนาคาร ตัวจัดการแบบกำหนดเอง"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_bank_view0
@@ -1171,6 +1171,8 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"เอ็นจิ้นแบบกำหนดเอง _report_custom_engine_last_statement_balance_amount "
+"ไม่รองรับ groupby"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1205,7 +1207,7 @@ msgstr "เดบิต"
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
 #, python-format
 msgid "Deductible"
-msgstr ""
+msgstr "ค่าลดหย่อน"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1280,7 +1282,7 @@ msgstr "ค่าเสื่อมสภาพ"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "ความแตกต่างจากการปัดเศษภาษี"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
@@ -1772,7 +1774,7 @@ msgstr "ตัวจัดการรายงานภาษีทั่วไ
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Global Tax Summary"
-msgstr ""
+msgstr "สรุปภาษีทั่วโลก"
 
 #. module: account_reports
 #. odoo-python
@@ -1932,7 +1934,7 @@ msgstr "ตารางภาษีที่ได้รับผลกระท
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "In %s"
-msgstr ""
+msgstr "ใน %s"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
@@ -1973,13 +1975,13 @@ msgstr "รวมถึงการจำลองเชิงวิเครา
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "รวมถึงการชำระเงินที่ไม่กระทบยอด"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "รวมถึงใบเสร็จรับเงินที่ไม่กระทบยอด"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2009,7 +2011,7 @@ msgstr "สำรองรายได้สำหรับ%s"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Inconsistent Statements"
-msgstr ""
+msgstr "งบที่ไม่สอดคล้องกัน"
 
 #. module: account_reports
 #. odoo-python
@@ -2291,7 +2293,7 @@ msgstr "อัปเดตครั้งล่าสุดเมื่อ"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "ยอดคงเหลือในใบแจ้งยอดครั้งล่าสุด"
 
 #. module: account_reports
 #. odoo-python
@@ -2388,7 +2390,7 @@ msgstr "วิธีการ '%s' ต้องเริ่มต้นด้ว
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "การดำเนินงานเบ็ดเตล็ด"
 
 #. module: account_reports
 #. odoo-python
@@ -2562,7 +2564,7 @@ msgstr "ไม่ใช่ลูกหนี้การค้า"
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
 #, python-format
 msgid "Non-Deductible"
-msgstr ""
+msgstr "ไม่สามารถหักลดหย่อนได้"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2675,7 +2677,7 @@ msgstr "รายได้อื่นๆ"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr ""
+msgstr "ใบเสร็จรับเงิน/การชำระเงินคงค้าง"
 
 #. module: account_reports
 #. odoo-python
@@ -2969,7 +2971,7 @@ msgstr "ลูกหนี้"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Reconciliation Report"
-msgstr ""
+msgstr "รายงานการกระทบยอด"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity_reminder_day
@@ -3122,7 +3124,7 @@ msgstr "แสดงคำเตือนการเคลื่อนย้า
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
-msgstr ""
+msgstr "บาง"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3390,11 +3392,18 @@ msgid ""
 msgstr "ประเทศที่ใช้หน่วยภาษีนี้ เพื่อจัดกลุ่มการรายงานภาษีของบริษัทของคุณ"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
+#, python-format
+msgid "The currency rate cannot be equal to zero"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "ยอดคงเหลือปัจจุบันใน"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3567,7 +3576,7 @@ msgstr "รายงานนี้แสดงเฉพาะข้อมูล
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This subformula references an unknown expression: %s"
-msgstr ""
+msgstr "สูตรย่อยนี้อ้างอิงถึงนิพจน์ที่ไม่รู้จัก:%s"
 
 #. module: account_reports
 #. odoo-python
@@ -3629,7 +3638,7 @@ msgstr "พาร์ทเนอร์คู่ค้า"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "ธุรกรรมที่ไม่มีใบแจ้งยอด"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3980,7 +3989,7 @@ msgstr "วันหลังจากงวด"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "ไม่ตรงกับยอดคงเหลือของคุณ"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -3997,7 +4006,7 @@ msgstr "ทุก 4 เดือน"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "มียอดคงเหลือเริ่มต้นแตกต่างจากยอดคงเหลือสุดท้ายก่อนหน้า"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4020,14 +4029,14 @@ msgstr "การแจ้งหนี้"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "journal items"
-msgstr ""
+msgstr "รายการสมุดรายวัน"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "ใบแจ้งยอดธนาคารล่าสุด"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
@@ -4072,7 +4081,7 @@ msgstr "ทุกครึ่งปี"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "statements"
-msgstr ""
+msgstr "รายการเดินบัญชี"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_tax_unit_form
@@ -4120,7 +4129,7 @@ msgstr "ได้ถูกยกมาสู่บรรทัดนี้จา
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "ซึ่งไม่ได้มาจากใบแจ้งยอดธนาคารหรือการชำระเงิน"
 
 #. module: account_reports
 #. odoo-javascript

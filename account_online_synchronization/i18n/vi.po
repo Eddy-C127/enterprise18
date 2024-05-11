@@ -22,13 +22,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: account_online_synchronization
-#. odoo-python
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid " If you've already opened this issue don't report it again."
-msgstr "Nếu bạn đã mở vấn đề này, vui lòng không báo cáo lại nữa."
-
-#. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/transient_bank_statement_line_list_view/transient_bank_statement_line_list_view.xml:0
 #, python-format
@@ -167,22 +160,6 @@ msgstr ""
 "                    </tr>\n"
 "                </table>\n"
 "            "
-
-#. module: account_online_synchronization
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid ""
-"If you've already opened a ticket for this issue, don't report it again: a "
-"support agent will contact you shortly."
-msgstr ""
-"Nếu bạn đã mở một phiếu hỗ trợ cho vấn đề này, vui lòng không báo cáo lại "
-"nữa: đại diện hỗ trợ sẽ sớm liên hệ với bạn."
-
-#. module: account_online_synchronization
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid "Check the documentation."
-msgstr "Xem tài liệu."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__access_token
@@ -348,6 +325,14 @@ msgid "Cancel"
 msgstr "Hủy"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "Check the documentation"
+msgstr "Xem tài liệu"
+
+#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
 msgstr "Chọn ngày và sổ nhật ký mà bạn muốn lấy giao dịch"
@@ -492,7 +477,10 @@ msgid "Done"
 msgstr "Hoàn tất"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_bank_statement.py:0
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__error
+#, python-format
 msgid "Error"
 msgstr "Lỗi"
 
@@ -596,6 +584,7 @@ msgstr "Có tài khoản ngừng liên kết"
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Here"
 msgstr "Ở đây"
@@ -653,6 +642,17 @@ msgid ""
 msgstr ""
 "Nếu có thể, chúng tôi sẽ cố gắng tự động lấy các giao dịch mới cho tập dữ "
 "liệu này"
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"If you've already opened a ticket for this issue, don't report it again: a "
+"support agent will contact you shortly."
+msgstr ""
+"Nếu bạn đã mở một phiếu hỗ trợ cho vấn đề này, vui lòng không báo cáo lại "
+"nữa: đại diện hỗ trợ sẽ sớm liên hệ với bạn."
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -802,11 +802,6 @@ msgstr "Hạn chót hoạt động của tôi"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__name
 msgid "Name"
 msgstr "Tên"
-
-#. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Sự kiện theo lịch cho hoạt động tiếp theo"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_date_deadline
@@ -972,11 +967,6 @@ msgid "Provider Type"
 msgstr "Loại nhà cung cấp"
 
 #. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__rating_ids
-msgid "Ratings"
-msgstr "Đánh giá"
-
-#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Reconnect"
 msgstr "Kết nối lại"
@@ -1110,6 +1100,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Thank You!"
 msgstr "Cảm ơn bạn!"
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "The consent for the selected account has expired."
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

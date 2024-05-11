@@ -10,12 +10,12 @@
 # שהאב חוסיין <shhab89@gmail.com>, 2023
 # Sagi Ahiel, 2023
 # Amit Spilman <amit@laylinetech.com>, 2023
+# Lilach Gilliam <lilach.gilliam@gmail.com>, 2023
 # hed shefer <hed@laylinetech.com>, 2023
 # Netta Waizer, 2023
 # Yihya Hugirat <hugirat@gmail.com>, 2023
 # Martin Trigaux, 2023
 # MichaelHadar, 2023
-# Lilach Gilliam <lilach.gilliam@gmail.com>, 2023
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2023
 # yael terner, 2023
 # Ha Ketem <haketem@gmail.com>, 2024
@@ -33,14 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
-
-#. module: account_online_synchronization
-#. odoo-python
-#: code:addons/account_online_synchronization/models/account_online.py:0
-#, python-format
-msgid " If you've already opened this issue don't report it again."
-msgstr ""
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -287,6 +280,14 @@ msgid "Cancel"
 msgstr "בטל"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "Check the documentation"
+msgstr ""
+
+#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
 msgid "Choose a date and a journal from which you want to fetch transactions"
 msgstr ""
@@ -429,7 +430,10 @@ msgid "Done"
 msgstr "בוצע"
 
 #. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_bank_statement.py:0
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__error
+#, python-format
 msgid "Error"
 msgstr "שגיאה"
 
@@ -533,6 +537,7 @@ msgstr "יש חשבונות לא מקושרים"
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
+#: code:addons/account_online_synchronization/models/account_online.py:0
 #, python-format
 msgid "Here"
 msgstr ""
@@ -587,6 +592,15 @@ msgstr ""
 msgid ""
 "If possible, we will try to automatically fetch new transactions for this "
 "record"
+msgstr ""
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid ""
+"If you've already opened a ticket for this issue, don't report it again: a "
+"support agent will contact you shortly."
 msgstr ""
 
 #. module: account_online_synchronization
@@ -737,11 +751,6 @@ msgstr "מועד אחרון לפעילות שלי"
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__name
 msgid "Name"
 msgstr "שם"
-
-#. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "הפעילות הבאה ביומן"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_date_deadline
@@ -907,11 +916,6 @@ msgid "Provider Type"
 msgstr "סוג ספק"
 
 #. module: account_online_synchronization
-#: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__rating_ids
-msgid "Ratings"
-msgstr "דירוגים"
-
-#. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Reconnect"
 msgstr ""
@@ -1043,6 +1047,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "Thank You!"
 msgstr "תודה לך!"
+
+#. module: account_online_synchronization
+#. odoo-python
+#: code:addons/account_online_synchronization/models/account_online.py:0
+#, python-format
+msgid "The consent for the selected account has expired."
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

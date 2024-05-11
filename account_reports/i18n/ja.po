@@ -6,8 +6,8 @@
 # Andy Yiu, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Junko Augias, 2024
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -655,12 +655,12 @@ msgstr "外貨での残高"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr " '%s'の残高"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "銀行残高"
 
 #. module: account_reports
 #. odoo-python
@@ -1164,6 +1164,8 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"Custom engine _report_custom_engine_last_statement_balance_amount "
+"はグループ化をサポートしていません。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1273,7 +1275,7 @@ msgstr "減価償却"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "丸めによる税金の差額"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
@@ -1955,13 +1957,13 @@ msgstr "分析用シミュレーションを含む"
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "未消込支払額を含む"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "未消込領収書を含む"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2270,7 +2272,7 @@ msgstr "最終更新日"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "最終明細残高"
 
 #. module: account_reports
 #. odoo-python
@@ -2367,7 +2369,7 @@ msgstr "メソッド「%s」はプレフィックス'%s' で始まる必要が�
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "その他業務"
 
 #. module: account_reports
 #. odoo-python
@@ -2653,7 +2655,7 @@ msgstr "その他収益"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr ""
+msgstr "未収入金/未払金"
 
 #. module: account_reports
 #. odoo-python
@@ -3098,7 +3100,7 @@ msgstr "警告移動を表示"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
-msgstr ""
+msgstr "いくつか"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3362,11 +3364,18 @@ msgid ""
 msgstr "会社の税務申告書をグループ化するために、この税務単位が使用される国。"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
+#, python-format
+msgid "The currency rate cannot be equal to zero"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "次の中の現在の残高"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3536,7 +3545,7 @@ msgstr "このレポートはアクティブな会社のデータのみ表示し
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This subformula references an unknown expression: %s"
-msgstr ""
+msgstr "この部分式は未知の式を参照しています: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3593,7 +3602,7 @@ msgstr "営業取引先"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "明細書のない取引"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3879,7 +3888,7 @@ msgstr "ロックされている期間のエントリは作成できません。
 msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
-msgstr ""
+msgstr "後日、別の決算仕訳が投稿されたため、この決算仕訳をドラフトにリセットすることはできません。"
 
 #. module: account_reports
 #. odoo-python
@@ -3937,7 +3946,7 @@ msgstr "日後 (期間後)"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "あなたの収支と一致しません:"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -3954,7 +3963,7 @@ msgstr "4月毎に"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "開始残高が前回の終了残高と異なる場合。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3984,7 +3993,7 @@ msgstr "仕訳項目"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "最後の銀行取引明細書"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
@@ -4077,7 +4086,7 @@ msgstr "は前期間のこの明細に繰越しました。"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "これは、銀行取引明細書や支払に由来するものではありません。"
 
 #. module: account_reports
 #. odoo-javascript

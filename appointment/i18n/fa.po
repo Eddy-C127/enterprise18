@@ -13,9 +13,9 @@
 # fardin mardani <fmardani0@gmail.com>, 2023
 # Hamed Mohammadi <hamed@dehongi.com>, 2024
 # F Hariri <fhari1234@gmail.com>, 2024
+# Martin Trigaux, 2024
 # Hanna Kheradroosta, 2024
 # Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
-# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,64 +44,66 @@ msgstr " (کپی)"
 #, python-format
 msgid "\"%(resource_name_list)s\" cannot be used for \"%(appointment_type_name)s\""
 msgstr ""
+"نمی‌توان از %(resource_name_list)s برای %(appointment_type_name)s استفاده "
+"کرد"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count
 msgid "# Appointments"
-msgstr ""
+msgstr "# قرار ملاقات‌ها"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_report
 msgid "# Appointments in the last 30 days"
-msgstr ""
+msgstr "# قرار ملاقات‌های 30 روز اخیر"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_count
 msgid "# Bookings"
-msgstr ""
+msgstr "# ملاقات‌ها"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_count
 msgid "# Invitation Links"
-msgstr ""
+msgstr "# لینک‌های دعوت"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_count
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_count
 msgid "# Resources"
-msgstr ""
+msgstr "# منابع"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_count
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__staff_user_count
 msgid "# Staff Users"
-msgstr ""
+msgstr "# کارکنان"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_calendar
 msgid "#{day['today_cls'] and 'Today' or ''}"
-msgstr ""
+msgstr "#{روز['today_cls'] و «امروز» یا}"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "%(appointment_name)s with %(partner_name)s"
-msgstr ""
+msgstr "%(appointment_name)s با %(partner_name)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "%(attendee_name)s - %(appointment_name)s Booking"
-msgstr ""
+msgstr "قرار ملاقات %(attendee_name)s - %(appointment_name)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_resource.py:0
 #, python-format
 msgid "%(original_name)s (copy)"
-msgstr ""
+msgstr "%(original_name)s (کپی)"
 
 #. module: appointment
 #. odoo-python
@@ -120,7 +122,7 @@ msgstr "(مجموع:"
 #: code:addons/appointment/controllers/calendar.py:0
 #, python-format
 msgid ", All Day"
-msgstr ""
+msgstr "، تمام روز"
 
 #. module: appointment
 #. odoo-javascript
@@ -130,6 +132,8 @@ msgid ""
 ".stgrey0{fill:#E3E3E3}\n"
 "                .stgrey1{fill:#F2F2F2}"
 msgstr ""
+".stgrey0{fill:#E3E3E3}\n"
+"                .stgrey1{fill:#F2F2F2}"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -137,6 +141,8 @@ msgid ""
 "<br/>\n"
 "                                        <span>Duration</span>"
 msgstr ""
+"<br/>\n"
+"                                        <span>مدت</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -144,6 +150,8 @@ msgid ""
 "<br/>\n"
 "                                    <span>(Last 30 Days)</span>"
 msgstr ""
+"<br/>\n"
+"                                    <span>(30 روز اخیر)</span>"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -269,6 +277,126 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"colors\" t-value=\"{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}\"></t>\n"
+"    <t t-set=\"customer\" t-value=\" object.event_id.find_partner_customer()\"></t>\n"
+"    <t t-set=\"target_responsible\" t-value=\"object.partner_id == object.event_id.partner_id\"></t>\n"
+"    <t t-set=\"target_customer\" t-value=\"object.partner_id == customer\"></t>\n"
+"    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
+"\n"
+"    <p>\n"
+"        Hello <t t-out=\"object.common_name or ''\">Wood Corner</t>,<br><br>\n"
+"\n"
+"        <t t-if=\"target_customer\">\n"
+"            قرار ملاقات شما<strong t-out=\"object.event_id.appointment_type_id.name or ''\">یک نسخه‌ی نمایشی را ایجاد کنید</strong> <t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> with <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t>رزرو شده است.\n"
+"            <t t-if=\"object.state != 'accepted' and object.event_id.appointment_type_id.schedule_based_on == 'resources' and object.event_id.appointment_type_id.resource_manual_confirmation\">\n"
+"                هنگامی که قرار ملاقات شما تأیید شود یک ایمیل تأیید حجاوی جزئیات بیشتر دریافت می‌کنید.\n"
+"            </t>\n"
+"        </t>\n"
+"        <t t-elif=\"target_responsible\">\n"
+"            <t t-if=\"customer\">\n"
+"                <t t-out=\"customer.name or ''\"></t> sملاقات زیر را برنامه‌ریزی کنید <strong t-out=\"object.event_id.appointment_type_id.name or ''\">یک نسخه‌ی آزمایشی ایجاد کنید</strong> with you.\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                قرار ملاقات شما <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</strong> رزرو شده است.\n"
+"            </t>\n"
+"        </t>\n"
+"    </p>\n"
+"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
+"        <t t-if=\"object.state != 'accepted'\">\n"
+"            <a t-attf-href=\"/calendar/meeting/accept?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"                Accept</a>\n"
+"            <a t-attf-href=\"/calendar/meeting/decline?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"                لغو</a>\n"
+"        </t>\n"
+"        <a t-attf-href=\"/calendar/meeting/view?token={{object.access_token}}&amp;id={{object.event_id.id}}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\"><t t-out=\"'Reschedule' if target_customer else 'View'\">View</t></a>\n"
+"    </div>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
+"        <td width=\"130px;\" style=\"min-width: 130px;\">\n"
+"            <div style=\"border-top-start-radius: 3px; border-top-end-radius: 3px; font-size: 12px; border-collapse: separate; text-align: center; font-weight: bold; color: #ffffff; min-height: 18px; background-color: #875A7B; border: 1px solid #875A7B;\">\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='EEEE', lang_code=object.env.lang) or ''\">Tuesday</t>\n"
+"            </div>\n"
+"            <div style=\"font-size: 48px; min-height: auto; font-weight: bold; text-align: center; color: #5F5F5F; background-color: #F8F8F8; border: 1px solid #875A7B;\">\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='d', lang_code=object.env.lang) or ''\">4</t>\n"
+"            </div>\n"
+"            <div style=\"font-size: 12px; text-align: center; font-weight: bold; color: #ffffff; background-color: #875A7B;\">\n"
+"                <t t-out=\"format_datetime(dt=object.event_id.start, tz=object.mail_tz if not object.event_id.allday else None, dt_format='MMMM y', lang_code=object.env.lang) or ''\">May 2021</t>\n"
+"            </div>\n"
+"            <div style=\"border-collapse: separate; color: #5F5F5F; text-align: center; font-size: 12px; border-bottom-end-radius: 3px; font-weight: bold ; border: 1px solid #875A7B; border-bottom-start-radius: 3px;\">\n"
+"                <t t-if=\"not object.event_id.allday\">\n"
+"                    <div>\n"
+"                        <t t-out=\"format_time(time=object.event_id.start, tz=object.mail_tz, time_format='short', lang_code=object.env.lang) or ''\">11:00 AM</t>\n"
+"                    </div>\n"
+"                    <t t-if=\"object.mail_tz\">\n"
+"                        <div style=\"font-size: 10px; font-weight: normal\">\n"
+"                            (<t t-out=\"object.mail_tz or ''\">Europe/Brussels</t>)\n"
+"                        </div>\n"
+"                    </t>\n"
+"                </t>\n"
+"            </div>\n"
+"        </td>\n"
+"        <td width=\"20px;\"></td>\n"
+"        <td style=\"padding-top: 5px;\">\n"
+"            <p><strong>Details of the event</strong></p>\n"
+"            <ul>\n"
+"                <li>Appointment Type: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Schedule a Demo</t></li>\n"
+"                <t t-if=\"object.event_id.location\">\n"
+"                    <li>Location: <t t-out=\"object.event_id.location or ''\">Bruxelles</t>\n"
+"                        (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}\">View Map</a>)\n"
+"                    </li>\n"
+"                </t>\n"
+"                <t t-if=\"recurrent\">\n"
+"                    <li>When: <t t-out=\"object.recurrence_id.name or ''\">یک هفته یک بار برای 3 رویداد</t></li>\n"
+"                </t>\n"
+"                <t t-if=\"not object.event_id.allday and object.event_id.duration\">\n"
+"                    <li>Duration: <t t-out=\"('%dH%02d' % (object.event_id.duration,round(object.event_id.duration*60)%60)) or ''\">0H30</t></li>\n"
+"                </t>\n"
+"                <li>شرکت‌کنندگان\n"
+"                <ul>\n"
+"                    <li t-foreach=\"object.event_id.attendee_ids\" t-as=\"attendee\">\n"
+"                        <div t-attf-style=\"display: inline-block; border-radius: 50%; width: 10px; height: 10px; background:{{ colors.get(attendee.state) or 'white' }};\"> </div>\n"
+"                        <t t-if=\"attendee.common_name != object.common_name\">\n"
+"                            <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\">Mitchell Admin</span>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <span style=\"margin-left:5px\">You</span>\n"
+"                        </t>\n"
+"                    </li>\n"
+"                </ul></li>\n"
+"                <li t-if=\"object.event_id.appointment_type_id.resource_manage_capacity\">\n"
+"                    For: <t t-out=\"object.event_id.resource_total_capacity_reserved\"></t> people\n"
+"                </li>\n"
+"                <li t-if=\"object.event_id.appointment_type_id.assign_method != 'time_auto_assign'\">\n"
+"                    Resources\n"
+"                    <ul>\n"
+"                        <li t-foreach=\"object.event_id.appointment_resource_ids\" t-as=\"resource\">\n"
+"                            <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Table 1</span>\n"
+"                        </li>\n"
+"                    </ul>\n"
+"                </li>\n"
+"                <t t-if=\"object.event_id.videocall_location\">\n"
+"                    <li>\n"
+"                        How to Join:\n"
+"                        <t t-if=\"object.get_base_url() in object.event_id.videocall_location\"> Join with Odoo Discuss</t>\n"
+"                        <t t-else=\"\"> Join at</t><br>\n"
+"                        <a t-att-href=\"object.event_id.videocall_location\" target=\"_blank\" t-out=\"object.event_id.videocall_location or ''\">www.mycompany.com/calendar/join_videocall/xyz</a>\n"
+"                    </li>\n"
+"                </t>\n"
+"                <t t-if=\"not is_html_empty(object.event_id.description)\">\n"
+"                    <li>شرح رویداد:\n"
+"                    <t t-out=\"object.event_id.description\">Internal meeting گفت و گو برای قیمت‌گذاری جدید محصولات و خدمات.</t></li>\n"
+"                </t>\n"
+"            </ul>\n"
+"        </td>\n"
+"    </tr></table>\n"
+"    <br>\n"
+"    Thank you,\n"
+"    <t t-if=\"object.event_id.user_id.signature\">\n"
+"        <br>\n"
+"        <t t-out=\"object.event_id.user_id.signature or ''\">--<br>Mitchell Admin</t>\n"
+"    </t>\n"
+"</div>\n"
+"            "
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.appointment_booked_mail_template
@@ -359,6 +487,91 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"colors\" t-value=\"{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}\"></t>\n"
+"    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
+"    <t t-set=\"mail_tz\" t-value=\"object._get_mail_tz() or ctx.get('mail_tz')\"></t>\n"
+"    <p>\n"
+"   رزرو ملاقات برای <t t-out=\"object.appointment_type_id.name or ''\">نسخه‌ی فنی آزمایشی</t>\n"
+"    <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> with <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t>.\n"
+"    </p>\n"
+"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/calendar/meeting/join?token={{ object.access_token }}\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"            Join</a>\n"
+"        <a t-attf-href=\"/web?#id={{ object.id }}&amp;view_type=form&amp;model=calendar.event\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">\n"
+"            View</a>\n"
+"    </div>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
+"            <td width=\"130px;\" style=\"min-width: 130px;\">\n"
+"                <div style=\"border-top-start-radius: 3px; border-top-end-radius: 3px; font-size: 12px; border-collapse: separate; text-align: center; font-weight: bold; color: #ffffff; min-height: 18px; background-color: #875A7B; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz if not object.allday else None, dt_format=&quot;EEEE&quot;, lang_code=object.env.lang) or ''\">Wednesday</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 48px; min-height: auto; font-weight: bold; text-align: center; color: #5F5F5F; background-color: #F8F8F8; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz if not object.allday else None, dt_format=&quot;d&quot;, lang_code=object.env.lang) or ''\">1</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 12px; text-align: center; font-weight: bold; color: #ffffff; background-color: #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz if not object.allday else None, dt_format=&quot;MMMM y&quot;, lang_code=object.env.lang) or ''\">January 2020</t>\n"
+"                </div>\n"
+"                <div style=\"border-collapse: separate; color: #5F5F5F; text-align: center; font-size: 12px; border-bottom-end-radius: 3px; font-weight: bold; border: 1px solid #875A7B; border-bottom-start-radius: 3px;\">\n"
+"                    <t t-if=\"not object.allday\">\n"
+"                        <div>\n"
+"                            <t t-out=\"format_time(time=object.start, tz=mail_tz, time_format=&quot;short&quot;, lang_code=object.env.lang) or ''\">8:00</t>\n"
+"                        </div>\n"
+"                        <t t-if=\"mail_tz\">\n"
+"                            <div style=\"font-size: 10px; font-weight: normal;\">\n"
+"                                (<t t-out=\"mail_tz\"></t>)\n"
+"                            </div>\n"
+"                        </t>\n"
+"                    </t>\n"
+"                </div>\n"
+"            </td>\n"
+"            <td width=\"20px;\"></td>\n"
+"            <td style=\"padding-top: 5px;\">\n"
+"                <p><strong>Details of the event</strong></p>\n"
+"                <ul>\n"
+"                    <li t-if=\"object.location\">Location: <t t-out=\"object.location or ''\">Bruxelles</t>\n"
+"                        (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{ object.location }}\">View Map</a>)\n"
+"                    </li>\n"
+"                    <li t-if=\"recurrent\">When: <t t-out=\"object.recurrence_id.name or ''\">هر یک هفته یک بار برای 3 رویداد</t></li>\n"
+"                    <li t-if=\"not object.allday and object.duration\">Duration: <t t-out=\"('%dH%02d' % (object.duration,round(object.duration*60)%60)) or ''\">0H30</t></li>\n"
+"                    <li>شرکت‌کنندگان\n"
+"                    <ul>\n"
+"                        <li t-foreach=\"object.attendee_ids\" t-as=\"attendee\">\n"
+"                            <div t-attf-style=\"display: inline-block; border-radius: 50%; width: 10px; height: 10px; background:{{ colors.get(attendee.state) or 'white' }};\"> </div>\n"
+"                            <t t-if=\"attendee.common_name\">\n"
+"                                <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\">Mitchell Admin</span>\n"
+"                            </t>\n"
+"                            <t t-else=\"\">\n"
+"                                <span style=\"margin-left:5px\">شما</span>\n"
+"                            </t>\n"
+"                        </li>\n"
+"                    </ul></li>\n"
+"                    <li t-if=\"object.appointment_type_id.resource_manage_capacity\">\n"
+"                        For: <t t-out=\"object.resource_total_capacity_reserved\"></t> people\n"
+"                    </li>\n"
+"                    <li t-if=\"object.appointment_type_id.assign_method != 'time_auto_assign'\">\n"
+"                        Resources\n"
+"                        <ul>\n"
+"                            <li t-foreach=\"object.appointment_resource_ids\" t-as=\"resource\">\n"
+"                                <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Table 1</span>\n"
+"                            </li>\n"
+"                        </ul>\n"
+"                    </li>\n"
+"                    <li t-if=\"object.videocall_redirection\">\n"
+"                        How to Join:\n"
+"                        <t t-if=\"object.videocall_source == 'discuss'\"> Join with Odoo Discuss</t>\n"
+"                        <t t-else=\"\"> Join at</t><br>\n"
+"                        <a t-attf-href=\"{{ object.videocall_redirection }}\" target=\"_blank\" t-out=\"object.videocall_redirection or ''\">www.mycompany.com/calendar/join_videocall/xyz</a>\n"
+"                    </li>\n"
+"                </ul>\n"
+"                <t t-if=\"not is_html_empty(object.description)\">\n"
+"                    <li>Description of the event:\n"
+"                    <t t-out=\"object.description\"></t></li>\n"
+"                </t>\n"
+"            </td>\n"
+"    </tr></table>\n"
+"</div>\n"
+"            "
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.appointment_canceled_mail_template
@@ -431,11 +644,78 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"colors\" t-value=\"{'needsAction': 'grey', 'accepted': 'green', 'tentative': '#FFFF00', 'declined': 'red'}\"></t>\n"
+"    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
+"    <t t-set=\"mail_tz\" t-value=\"object._get_mail_tz() or ctx.get('mail_tz')\"></t>\n"
+"    <p>\n"
+"    The appointment for <t t-out=\"object.appointment_type_id.name or ''\">نسخه‌ی فنی آزمایشی</t> <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> with <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t> has been canceled.\n"
+"    </p>\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
+"            <td width=\"130px;\" style=\"min-width: 130px;\">\n"
+"                <div style=\"border-top-start-radius: 3px; border-top-end-radius: 3px; font-size: 12px; border-collapse: separate; text-align: center; font-weight: bold; color: #ffffff; min-height: 18px; background-color: #875A7B; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz, dt_format=&quot;EEEE&quot;, lang_code=object.env.lang) or ''\">Wednesday</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 48px; min-height: auto; font-weight: bold; text-align: center; color: #5F5F5F; background-color: #F8F8F8; border: 1px solid #875A7B;\">\n"
+"                    <t t-out=\"str(object.start.day) or ''\">1</t>\n"
+"                </div>\n"
+"                <div style=\"font-size: 12px; text-align: center; font-weight: bold; color: #ffffff; background-color: #875A7B;\">\n"
+"                    <t t-out=\"format_datetime(dt=object.start, tz=mail_tz, dt_format=&quot;MMMM y&quot;, lang_code=object.env.lang) or ''\">January 2020</t>\n"
+"                </div>\n"
+"                <div style=\"border-collapse: separate; color: #5F5F5F; text-align: center; font-size: 12px; border-bottom-end-radius: 3px; font-weight: bold; border: 1px solid #875A7B; border-bottom-start-radius: 3px;\">\n"
+"                    <t t-if=\"not object.allday\">\n"
+"                        <div><t t-out=\"format_time(time=object.start, tz=mail_tz, time_format=&quot;short&quot;, lang_code=object.env.lang) or ''\">8:00</t></div>\n"
+"                        <t t-if=\"mail_tz\">\n"
+"                            <div style=\"font-size: 10px; font-weight: normal;\">\n"
+"                                (<t t-out=\"mail_tz\"></t>)\n"
+"                            </div>\n"
+"                        </t>\n"
+"                    </t>\n"
+"                </div>\n"
+"            </td>\n"
+"            <td width=\"20px;\"></td>\n"
+"            <td style=\"padding-top: 5px;\">\n"
+"                <del>\n"
+"                    <p><strong>Details of the event</strong></p>\n"
+"                    <ul>\n"
+"                            <li t-if=\"object.location\">Location: <t t-out=\"object.location or ''\">Bruxelles</t>\n"
+"                                (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{ object.location }}\">View Map</a>)\n"
+"                            </li>\n"
+"                            <li t-if=\"recurrent\">When: <t t-out=\"object.recurrence_id.name or ''\">هر یک هفته یک بار برای 3 رویداد</t></li>\n"
+"                            <li t-if=\"not object.allday and object.duration\">مدت: <t t-out=\"('%dH%02d' % (object.duration,round(object.duration*60)%60)) or ''\">0H30</t></li>\n"
+"                        <li>شرکت‌کنندگان\n"
+"                        <ul t-foreach=\"object.attendee_ids\" t-as=\"attendee\">\n"
+"                            <li>\n"
+"                                <div t-attf-style=\"display: inline-block; border-radius: 50%; width: 10px; height: 10px; background:{{ colors.get(attendee.state) or 'white' }};\"> </div>\n"
+"                                <t t-if=\"attendee.common_name\">\n"
+"                                    <span style=\"margin-left:5px\" t-out=\"attendee.common_name or ''\"></span>\n"
+"                                </t>\n"
+"                                <t t-else=\"\">\n"
+"                                    <span style=\"margin-left:5px\">You</span>\n"
+"                                </t>\n"
+"                            </li>\n"
+"                        </ul></li>\n"
+"                        <li t-if=\"object.videocall_location\">\n"
+"                            How to Join:\n"
+"                            <t t-if=\"object.get_base_url() in object.videocall_location\"> Join with Odoo Discuss</t>\n"
+"                            <t t-else=\"\"> Join at</t><br>\n"
+"                            <a t-attf-href=\"{{ object.videocall_location }}\" target=\"_blank\" t-out=\"object.videocall_location or ''\">www.mycompany.com/calendar/join_videocall/xyz</a>\n"
+"                        </li>\n"
+"                    </ul>\n"
+"                    <t t-if=\"not is_html_empty(object.description)\">\n"
+"                        <li>شرح رویداد:\n"
+"                        <t t-out=\"object.description\"></t></li>\n"
+"                    </t>\n"
+"                </del>\n"
+"            </td>\n"
+"    </tr></table>\n"
+"</div>\n"
+"            "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
 msgid "<i class=\"fa fa-info-circle\" title=\"Info\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-info-circle\" title=\"Info\"/>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -443,16 +723,18 @@ msgid ""
 "<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
 "title=\"Create custom questions in backend\"/>Add Custom Questions"
 msgstr ""
+"<i class=\"fa fa-pencil me-2\" role=\"img\" aria-label=\"Edit\" "
+"title=\"Create custom questions in backend\"/>سوالات مروبطه را وارد کنید"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "<i class=\"fa fa-plus me-1\"/> Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/> افزودن مهمانان"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<i class=\"fa fa-plus me-1\"/>Add Guests"
-msgstr ""
+msgstr "<i class=\"fa fa-plus me-1\"/>افزودن مهمانان"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
@@ -460,6 +742,8 @@ msgid ""
 "<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
 "                <span class=\"o_not_editable\">Online</span>"
 msgstr ""
+"<i class=\"fa fa-video-camera fa-fw me-2 mt-1 text-muted\"/>\n"
+"                <span class=\"o_not_editable\">آنلاین</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -468,6 +752,9 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">Impossible to share a link for an appointment type that has no user assigned.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">Impossible to share a link for an appointment type that has no resource assigned.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">Iبه اشتراک گذاشتن لینک برای قرار ملاقاتی که هیچ کاربری به ان اختصاص داده نشده غیرممکن است.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -476,41 +763,44 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'users'\">You need to be part of an appointment type to be able to share a personal link.</span>\n"
 "                    <span invisible=\"schedule_based_on != 'resources'\">You can't create a personal link for an appointment type based on resources.</span>"
 msgstr ""
+"<i class=\"fa fa-warning me-2\"/>\n"
+"                    <span invisible=\"schedule_based_on != 'users'\">You برای به اشتراک گذاری یک لینک شخصی باید عضوی از قرار ملاقات باشید.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">نمی‌توانید لینک شخصی را برای یک قرار ملاقات مبتنی بر منابع ایجاد کنید.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
 msgid "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">Date &amp; time</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
-msgstr ""
+msgstr "<small class=\"text-uppercase text-muted\">جزئیات جلسه</small>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"d-block\">Scheduled</span>"
-msgstr ""
+msgstr "<span class=\"d-block\">برنامه‌ریزی شده</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-globe\"/> Preview"
-msgstr ""
+msgstr "<span class=\"fa fa-globe\"/> پیش‌نمایش"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-pencil\"/> Edit"
-msgstr ""
+msgstr "<span class=\"fa fa-pencil\"/> ویرایش"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-share-alt\"/> Share"
-msgstr ""
+msgstr "<span class=\"fa fa-share-alt\"/> اشتراک‌گذاری"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"fa fa-trash\"/> Delete"
-msgstr ""
+msgstr "<span class=\"fa fa-trash\"/> حذف"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -518,11 +808,13 @@ msgid ""
 "<span class=\"px-2\" invisible=\"start_datetime or category == "
 "'anytime'\">or</span>"
 msgstr ""
+"<span class=\"px-2\" invisible=\"start_datetime or category == "
+"'anytime'\">or</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "<span class=\"text-bg-danger\">Archived</span>"
-msgstr ""
+msgstr "<span class=\"text-bg-danger\">بایگانی شده</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -533,18 +825,20 @@ msgstr "<span> ساعت</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "<span>Online</span>"
-msgstr ""
+msgstr "<span>آنلاین</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid ""
 "<span>You are scheduling a booking outside the available hours of</span>"
 msgstr ""
+"<span>شما در حال برنامه‌ریزی یک قرار ملاقات خارج از ساعات موجود هستید "
+"of</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "<span>people</span>"
-msgstr ""
+msgstr "<span>افراد</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -552,6 +846,8 @@ msgid ""
 "<strong>Appointment canceled!</strong>\n"
 "                                            You can schedule another appointment from here."
 msgstr ""
+"<strong>قرار ملاقات لغو شد!</strong>\n"
+"                                            از اینجا می‌توانید قرار ملاقات دیگری را برنامه‌ریزی کنید."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -561,6 +857,9 @@ msgid ""
 "                                            Someone has booked the same time slot a few\n"
 "                                            seconds before you."
 msgstr ""
+"<strong>قرار ملاقات لغو شد!</strong>\n"
+"                                            بازه‌ی زمانی برنامه‌ریزی شده دیگر موجود نیست.\n"
+"                                            فرد دیگری چند ثانیه قبل از شما همین بازه‌ی زمانی را رزرو کرده است."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -569,31 +868,34 @@ msgid ""
 "                                            The selected timeslot is not available.\n"
 "                                            It appears you already have another meeting with us at that date."
 msgstr ""
+"<strong>قرار ملاقات لغو شد!</strong>\n"
+"                                            بازه‌ی زمانی انتخاب شده موجود نیست.\n"
+"                                            به نظر می‌رسد در آن تاریخ شما جلسه‌ی دیگری با ما دارید ."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Booked for: </strong>"
-msgstr ""
+msgstr "<strong>رزرو برای: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Contact Information</strong>"
-msgstr ""
+msgstr "<strong>اطلاعات تماس</strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr ""
+msgstr "<strong>ایمیل: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Name: </strong>"
-msgstr ""
+msgstr "<strong>نام: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Phone: </strong>"
-msgstr ""
+msgstr "<strong>شماره تلفن: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -615,7 +917,7 @@ msgstr "<strong>نوع: </strong>"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "A %s appointment type shouldn't be limited by datetimes."
-msgstr ""
+msgstr "یک قرارملاقات %s نباید محدود به زمان یا تاریخ باشد."
 
 #. module: appointment
 #. odoo-python
@@ -623,7 +925,7 @@ msgstr ""
 #, python-format
 msgid ""
 "A list of slots information is needed to create a custom appointment type"
-msgstr ""
+msgstr "فهرستی از اطلاعات مختلف برای ایجاد یک قرار ملاقات اختصاصی لازم است"
 
 #. module: appointment
 #. odoo-python
@@ -632,7 +934,7 @@ msgstr ""
 msgid ""
 "A punctual appointment type should be limited between a start and end "
 "datetime."
-msgstr ""
+msgstr "یک قرار ملاقات دقیق باید دارای زمان شروع و پایان باشد."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__access_token
@@ -666,56 +968,56 @@ msgstr "فعال"
 #: code:addons/appointment/static/src/views/list/list_renderer.xml:0
 #, python-format
 msgid "Add Closing Day(s)"
-msgstr ""
+msgstr "روز(های) پایان را اضافه کنید"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add Guests"
-msgstr ""
+msgstr "مهمانان را اضافه کنید"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated_card
 msgid "Add a function here..."
-msgstr ""
+msgstr "کارکردی را در اینجا اضافه کنید ..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated_card
 msgid "Add a resource description here..."
-msgstr ""
+msgstr "در اینجا شرح منابع را اضافه کنید ..."
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Add a specific appointment"
-msgstr ""
+msgstr "یک قرار ملاقات مشخص را اضافه کنید"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Add an intro message here..."
-msgstr ""
+msgstr "در اینجا یک پیام معرفی را اضافه کنید ..."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Add more details about you"
-msgstr ""
+msgstr "جزئیات بیشتری را در مورد خودتان اضافه کنید"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_manage_leaves
 msgid "Add or remove leaves from appointments"
-msgstr ""
+msgstr "مرخصی‌ها را به قرار ملاقات‌ها اضافه یا حذف کنید"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add to Google Agenda"
-msgstr ""
+msgstr "افزودن به دستور کار گوگل"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Add to iCal/Outlook"
-msgstr ""
+msgstr "افزودن به iCall/Outlook"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_manager
@@ -751,36 +1053,36 @@ msgstr "اجازه‌ی لغو"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__allow_guests
 msgid "Allow Guests"
-msgstr ""
+msgstr "اجازه دادن به کاربر مهمان"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__country_ids
 msgid "Allowed Countries"
-msgstr ""
+msgstr "کشورهای مجاز"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_answer_input_value_check
 msgid "An answer input must either have a text value or a predefined answer."
-msgstr ""
+msgstr "یک پاسخ باید هم شامل یک ارزش متنی باشد و هم یک پاسخ از پیش تعیین شده."
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/calendar_view.py:0
 #, python-format
 msgid "An appointment type is needed to get the link."
-msgstr ""
+msgstr "تعیین نوع قرار ملاقات برای دریافت لینک ضروری است."
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_calendar_event_check_resource_and_appointment_type
 msgid "An event cannot book resources without an appointment type."
-msgstr ""
+msgstr "یک رویداد نمی‌تواند منابع را بدون تعیین نوع قرار ملاقات رزرو کند."
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_slot.py:0
 #, python-format
 msgid "An unique type slot should have a start and end datetime"
-msgstr ""
+msgstr "یک قرار ملاقات منحصر به فرد باید دارای تاریخ و زمان شروع و پایان باشد"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__name
@@ -795,12 +1097,12 @@ msgstr "پاسخ"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_tree
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Answer Breakdown"
-msgstr ""
+msgstr "تجزیه پاسخ"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_form
 msgid "Answer Input"
-msgstr ""
+msgstr "ورود پاسخ"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -814,12 +1116,12 @@ msgstr "پاسخ‌ها"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 #, python-format
 msgid "Any Time"
-msgstr ""
+msgstr "هر زمان"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
 msgid "Any User/Resource"
-msgstr ""
+msgstr "هر کاربر/منبع"
 
 #. module: appointment
 #. odoo-python
@@ -827,6 +1129,8 @@ msgstr ""
 #, python-format
 msgid "Anytime appointment types should only have one user but got %s users"
 msgstr ""
+"قرار ملاقات‌هایی که دارای زمان مشخصی نیستند تنها باید یک کاربر داشته باشند "
+"نه چند کاربر %s"
 
 #. module: appointment
 #. odoo-javascript
@@ -835,34 +1139,34 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_id
 #, python-format
 msgid "Appointment"
-msgstr ""
+msgstr "قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_answer_input
 msgid "Appointment Answer Inputs"
-msgstr ""
+msgstr "ورودی‌های مربوط به پاسخ قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_answer_input_ids
 msgid "Appointment Answers"
-msgstr ""
+msgstr "پاسخ‌های مربوط به قرار ملاقات"
 
 #. module: appointment
 #: model:mail.message.subtype,description:appointment.mt_calendar_event_booked
 #: model:mail.message.subtype,name:appointment.mt_appointment_type_booked
 #: model:mail.message.subtype,name:appointment.mt_calendar_event_booked
 msgid "Appointment Booked"
-msgstr ""
+msgstr "قرار ملاقات‌های رزرو شده"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.appointment_booked_mail_template
 msgid "Appointment Booked: {{ object.appointment_type_id.name }}"
-msgstr ""
+msgstr "قرار ملاقات‌‎های رزرو شده: {{object.appointment_type_id.name }}"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_booking_line
 msgid "Appointment Booking Line"
-msgstr ""
+msgstr "سطر رزرو قرار ملاقات"
 
 #. module: appointment
 #: model:mail.message.subtype,description:appointment.mt_calendar_event_canceled
@@ -879,34 +1183,34 @@ msgstr "قرار ملاقات کنسل شده: {{ object.appointment_type_id.nam
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 msgid "Appointment Details"
-msgstr ""
+msgstr "جزئیات قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_duration_formatted
 msgid "Appointment Duration Formatted "
-msgstr ""
+msgstr "تنظیم مدت قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__appointment_duration_formatted
 msgid "Appointment Duration formatted in words"
-msgstr ""
+msgstr "تنظیم مدت قرار ملاقات به حروف"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "Appointment Duration should be higher than 0.00."
-msgstr ""
+msgstr "مدت قرار ملاقات باید بیشتر از 0.00 باشد."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_invite_id
 msgid "Appointment Invitation"
-msgstr ""
+msgstr "دعوت‌نامه‌ی قرار ملاقات"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_search
 msgid "Appointment Invitation Links"
-msgstr ""
+msgstr "لینک‌های دعوت‌نامه‌ی قرار ملاقات"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_tree_invitation
@@ -916,12 +1220,12 @@ msgstr "دعوت‌های قرار ملاقات"
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_invite
 msgid "Appointment Invite"
-msgstr ""
+msgstr "دعوت برای قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__meeting_ids
 msgid "Appointment Meetings"
-msgstr ""
+msgstr "جلسات قرار ملاقات"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
@@ -931,17 +1235,17 @@ msgstr "نام قرار ملاقات"
 #. module: appointment
 #: model:onboarding.onboarding,name:appointment.onboarding_onboarding_appointment
 msgid "Appointment Onboarding"
-msgstr ""
+msgstr "وارد کردن قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_answer
 msgid "Appointment Question Answers"
-msgstr ""
+msgstr "پاسخ‌‌های مربوط به قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_question
 msgid "Appointment Questions"
-msgstr ""
+msgstr "سوالات مربوط به قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_resource
@@ -949,19 +1253,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__name
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_resource_id
 msgid "Appointment Resource"
-msgstr ""
+msgstr "منبع قرار ملاقات"
 
 #. module: appointment
 #: model:ir.actions.server,name:appointment.resource_calendar_leaves_action_show_appointment_resources
 msgid "Appointment Resource Leaves"
-msgstr ""
+msgstr "نبود منابع قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_ids
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_resource_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_search
 msgid "Appointment Resources"
-msgstr ""
+msgstr "شرکت‌کنندگان قرار ملاقات"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
@@ -969,11 +1273,13 @@ msgid ""
 "Appointment Resources are the places or equipment people can book\n"
 "                (e.g. Tables, Tennis Courts, Meeting Rooms, ...)"
 msgstr ""
+"منابع قرار ملاقات‌ها مکان‌ها یا تجهیزاتی هستند که امکان ثبت آنها وجود دارد "
+"(مانند میزها، زمین‌های تنیس، اتاق‌های جلسه، ...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
 msgid "Appointment Title"
-msgstr ""
+msgstr "عنوان قرار ملاقات"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_type
@@ -999,41 +1305,41 @@ msgstr "انواع قرار ملاقات"
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment canceled"
-msgstr ""
+msgstr "قرار ملاقات لغو شد"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment canceled by: %(partners)s"
-msgstr ""
+msgstr "لغو قرار ملاقات توسط: %(partners)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment re-booked"
-msgstr ""
+msgstr "رزرو مجدد قرار ملاقات"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_booked_mail_template
 msgid "Appointment: Appointment Booked"
-msgstr ""
+msgstr "قرار ملاقات: قرار ملاقات رزرو شده"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_canceled_mail_template
 msgid "Appointment: Appointment Canceled"
-msgstr ""
+msgstr "قرار ملاقات: دعوت‌نامه‌ی قرار ملاقات"
 
 #. module: appointment
 #: model:mail.template,name:appointment.attendee_invitation_mail_template
 msgid "Appointment: Attendee Invitation"
-msgstr ""
+msgstr "قرار ملاقات: دعوت‌نامه‌ی شرکت‌کننده"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_slot
 msgid "Appointment: Time Slot"
-msgstr ""
+msgstr "قرار ملاقات: بازه‌ی زمانی"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_type_action
@@ -1068,7 +1374,7 @@ msgstr "بایگانی شده"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__resources_choice
 msgid "Assign to"
-msgstr ""
+msgstr "محول کردن به"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__assign_method
@@ -1081,7 +1387,7 @@ msgstr "روش واگذاری"
 #, python-format
 msgid ""
 "At least one slot duration is shorter than the meeting duration (%s hours)"
-msgstr ""
+msgstr "حداقل یک بازه‌ی زمانی کوتاه‌تر از مدت جلسه است (%s ساعات)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_attachment_count
@@ -1097,7 +1403,7 @@ msgstr "شرکت‌کنندگان"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_attended
 msgid "Attendees Arrived"
-msgstr ""
+msgstr "شرکت‌کنندگان رسیدند"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__slot_ids
@@ -1109,22 +1415,22 @@ msgstr "ساعات در دسترس بودن"
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__schedule_based_on
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_schedule_based_on
 msgid "Availability on"
-msgstr ""
+msgstr "موجود در تاریخ"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__answer_ids
 msgid "Available Answers"
-msgstr ""
+msgstr "پاسخ‌های موجود "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_search
 msgid "Available In"
-msgstr ""
+msgstr "موجود در "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__appointment_type_ids
 msgid "Available in"
-msgstr ""
+msgstr "موجود در"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__avatar_1920
@@ -1134,38 +1440,38 @@ msgstr "آواتار"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__avatar_1024
 msgid "Avatar 1024"
-msgstr ""
+msgstr "آواتار 1024"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__avatar_128
 msgid "Avatar 128"
-msgstr ""
+msgstr "آواتار 128"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__avatar_256
 msgid "Avatar 256"
-msgstr ""
+msgstr "آواتار 256"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__avatar_512
 msgid "Avatar 512"
-msgstr ""
+msgstr "آواتار 512"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Back to edit mode"
-msgstr ""
+msgstr "بازگشت به حالت ویرایش"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__base_book_url
 #: model:ir.model.fields,field_description:appointment.field_appointment_onboarding_link__base_book_url
 msgid "Base Link URL"
-msgstr ""
+msgstr "نشانی لینک مبدأ"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_ids
 msgid "Booked Appointments"
-msgstr ""
+msgstr "قرار ملاقات‌های رزرو شده"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
@@ -1175,43 +1481,43 @@ msgstr "رزرو شده توسط"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__calendar_event_id
 msgid "Booking"
-msgstr ""
+msgstr "رزرو کردن"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Booking Details"
-msgstr ""
+msgstr "جزئیات رزرو"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_stop
 msgid "Booking End"
-msgstr ""
+msgstr "پایان رزرو"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__booking_line_ids
 msgid "Booking Lines"
-msgstr ""
+msgstr "سطرهای رزرو"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Booking Name"
-msgstr ""
+msgstr "نام رزرو"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__event_start
 msgid "Booking Start"
-msgstr ""
+msgstr "شروع رزرو"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Bookings"
-msgstr ""
+msgstr "رزروها"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_partner_ids
 msgid "CC to"
-msgstr ""
+msgstr "ایمیل ارسال شده به"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_calendar_attendee
@@ -1240,12 +1546,12 @@ msgstr "لغو قبل از (ساعت)"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Cancel/Reschedule"
-msgstr ""
+msgstr "لغو/برنامه‌ریزی مجدد"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__canceled_mail_template_id
 msgid "Cancelation Email"
-msgstr ""
+msgstr "ایمیل لغو"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__capacity
@@ -1255,27 +1561,27 @@ msgstr "ظرفیت"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manual_confirmation_percentage
 msgid "Capacity Percentage"
-msgstr ""
+msgstr "درصد ظرفیت"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__capacity_reserved
 msgid "Capacity Reserved"
-msgstr ""
+msgstr "ظرفیت رزرو شده"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__capacity_used
 msgid "Capacity Used"
-msgstr ""
+msgstr "ظرفیت مورد استفاده"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__capacity_reserved
 msgid "Capacity reserved by the user"
-msgstr ""
+msgstr "ظرفیت رزرو شده توسط کاربر"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__capacity_used
 msgid "Capacity that will be used based on the capacity and resource selected"
-msgstr ""
+msgstr "ظرفیتی که بر اساس ظرفیت و منابع انتخاب شده مورد استفاده قرار می‌گیرد"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__category
@@ -1290,7 +1596,7 @@ msgstr "چک‌باکس (چند پاسخه)"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Choose your appointment"
-msgstr ""
+msgstr "قرار ملاقات موردنظر خود را انتخاب کنید"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__company_id
@@ -1300,7 +1606,7 @@ msgstr "شرکت"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__disable_save_button
 msgid "Computes if alert is present"
-msgstr ""
+msgstr "در صورت دریافت هشدار محاسبه می‌کند"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.appointment_menu_config
@@ -1319,6 +1625,9 @@ msgid ""
 "Configure links that allow booking appointments with custom settings<br>\n"
 "                (e.g. a specific user only, a list of appointment types, ...)"
 msgstr ""
+"لینک‌هایی را پیکربندی می‌کند که امکان رزرو قرار ملاقات با تنظیمات اختصاصی را"
+" فراهم می‌کنند<br> (به طورمثال تنها برای یک کاربر، فهرستی از انواع قرار "
+"ملاقات‌ها و ...)"
 
 #. module: appointment
 #. odoo-javascript
@@ -1330,14 +1639,14 @@ msgstr "تایید کردن"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Confirm Appointment"
-msgstr ""
+msgstr "تأیید قرار ملاقات"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/gantt/gantt_popover.xml:0
 #, python-format
 msgid "Confirm Check-In"
-msgstr ""
+msgstr "تأیید پذیرش"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
@@ -1369,7 +1678,7 @@ msgstr "تقویم خود را وصل کنید"
 #. module: appointment
 #: model:onboarding.onboarding.step,title:appointment.appointment_onboarding_configure_calendar_provider_step
 msgid "Connect your calendar"
-msgstr ""
+msgstr "به گاهشمار خود متصل شوید"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_res_partner
@@ -1390,18 +1699,20 @@ msgid ""
 "canceled,                                                  regardless of "
 "whether they attend or not"
 msgstr ""
+"مخاطبینی که باید از رزرو یا لغو شدن یک قرار ملاقات مطلع شوند، صرف نظر اینکه "
+"حضور دارند یا نه"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Continue <span class=\"oi oi-arrow-right\"/>"
-msgstr ""
+msgstr "ادامه دهید <span class=\"oi oi-arrow-right\"/>"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.js:0
 #, python-format
 msgid "Copied!"
-msgstr ""
+msgstr "کپی شده!"
 
 #. module: appointment
 #. odoo-javascript
@@ -1409,17 +1720,17 @@ msgstr ""
 #: code:addons/appointment/static/src/components/appointment_onboarding/appointment_onboarding_invite_buttons.xml:0
 #, python-format
 msgid "Copy Link & Close"
-msgstr ""
+msgstr "لینک را کپی کرده و ببندید"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Create Closing Day(s)"
-msgstr ""
+msgstr "ایجاد روز(های) پایانی"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
-msgstr ""
+msgstr "ایجاد یک منبع قرار ملاقات"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
@@ -1427,13 +1738,15 @@ msgid ""
 "Create invites on the fly from your calendar and share them with anyone by "
 "using the Share Availabilities button."
 msgstr ""
+"ایجاد دعوت‌نامه‌ی فوری و به اشتراک‌گذاری آنها با همه از طریق دکمه‌ی "
+"قابلیت‌های به اشتراک‌گذاری"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/onboarding_onboarding_step.py:0
 #, python-format
 msgid "Create your first Appointment"
-msgstr ""
+msgstr "اولین قرار ملاقات خود را ایجاد کنید"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__create_uid
@@ -1473,7 +1786,7 @@ msgstr "سفارشی"
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Custom Link"
-msgstr ""
+msgstr "لینک سفارشی‌سازی شده"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__partner_id
@@ -1486,6 +1799,7 @@ msgstr "مشتری"
 msgid ""
 "DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL APPOINTMENTS"
 msgstr ""
+"زیرساخت‌ها را اینجا قرار دهید تا در تمام قرار ملاقات‌ها قابل دسترسی باشند"
 
 #. module: appointment
 #. odoo-python
@@ -1500,7 +1814,7 @@ msgstr "تاریخ"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Date &amp; time"
-msgstr ""
+msgstr "تاریخ و زمان"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -1517,7 +1831,7 @@ msgstr "رد شد"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "Default slots cannot be applied to the %s appointment type category."
-msgstr ""
+msgstr "نمی‌توان بازه‌های زمانی پیشفرض را برای قرار ملاقات‌های %s اعمال کرد"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__slot_type
@@ -1527,6 +1841,8 @@ msgid ""
 "        The one shot type is only used when an user create a custom appointment type for a client by\n"
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
+"نوع بازه‌ی زمانی را مشخص کنید. بازه‌ی زمانی تکراری یک بازه‌ی پیشفرض است که برای قرار ملاقات‌های مکرر مورداستفاده قرار می‌گیرد مانند قرار ملاقات با پزشک.\n"
+"بازه‌ی زمانی یک باره تنها زمانی مورد استفاده قرار می‌گیرد که کاربر با تعیین یک بازه‌ی زمانی غیرتکراری از تقویم (به طورمثال 10 آوریل 2021 از ساعت 10 تا 11 صبح) قرار ملاقات اختصاصی را برای مشتری ایجاد کند."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -1534,11 +1850,13 @@ msgid ""
 "Defines the type of video call link that will be used for the generated "
 "events. Keep it empty to prevent generating meeting url."
 msgstr ""
+"نوع لینک تماس تصویری که برای رویدادهای ایجاد شده مورد استفاده قرار می‌گیرد "
+"را مشخص می‌کند. برای جلوگیری از ایجاد نشانی جلسه آن را خالی نگه دارید."
 
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_dental_care
 msgid "Dental Care"
-msgstr ""
+msgstr "خدمات دندان‌پزشکی"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__description
@@ -1550,7 +1868,7 @@ msgstr "توصیف"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__destination_resource_ids
 msgid "Destination combination"
-msgstr ""
+msgstr "ترکیب مقصد"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -1563,6 +1881,8 @@ msgid ""
 "Determine if the slot englobe the whole day, mainly used for unique slot "
 "type"
 msgstr ""
+"مشخص کنید که آیا بازه‌ی زمانی کل روز را در بر می‌گیرد یا نه، عمدتاًٌ برای یک"
+" بازه‌ی زمانی انحصاری مورد استفاده قرار می‌گیرد"
 
 #. module: appointment
 #. odoo-javascript
@@ -1591,7 +1911,7 @@ msgstr "نام نمایش داده شده"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
 msgid "Display the Users'/Resources' picture on the Website."
-msgstr ""
+msgstr "تصویر کاربران/منابع را روی وب‌سایت نمایش دهید."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__resource_manual_confirmation
@@ -1600,6 +1920,9 @@ msgid ""
 "            reserved for a slot exceeds the percentage chosen. The appointment is still considered as reserved for\n"
 "            the slots availability."
 msgstr ""
+"هنگامی که کل ظرفیت رزرو شده برای یک بازه‌ی زمانی از درصد انتخاب شده فراتر "
+"رفت، از پذیرش خودکار جلسات ایجاد شده از قرار ملاقات‌ها خودداری کنید. قرار "
+"ملاقات هنوز برای بازه‌های زمانی موجود رزرو تلقی می‌شود."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__select
@@ -1617,14 +1940,14 @@ msgstr "مدت زمان"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Email*"
-msgstr ""
+msgstr "ایمیل"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Email: %(email)s"
-msgstr ""
+msgstr "ایمیل: %(email)s"
 
 #. module: appointment
 #. odoo-python
@@ -1641,17 +1964,17 @@ msgstr "تاریخ پایان"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__end_datetime
 msgid "End Datetime"
-msgstr ""
+msgstr "تاریخ و زمان پایان"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__end_datetime
 msgid "End datetime for unique slot type management"
-msgstr ""
+msgstr "تاریخ و زمان پایان برای مدیریت بازه‌های زمانی انحصاری"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__end_hour
 msgid "Ending Hour"
-msgstr ""
+msgstr "ساعت پایان"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_calendar_alarm
@@ -1661,7 +1984,7 @@ msgstr "اطلاع رسانی رویداد"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Event Details"
-msgstr ""
+msgstr "جزئیات رویداد"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -1671,12 +1994,12 @@ msgstr "هر"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Extra Comments..."
-msgstr ""
+msgstr "توضیحات بیشتر"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Extra Message on Confirmation"
-msgstr ""
+msgstr "پیام دیگری برای تأیید "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_confirmation
@@ -3458,7 +3781,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "from"
-msgstr ""
+msgstr "از"
 
 #. module: appointment
 #. odoo-javascript

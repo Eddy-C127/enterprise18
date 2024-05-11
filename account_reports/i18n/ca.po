@@ -3418,6 +3418,13 @@ msgstr ""
 "declaració d'informes fiscals de les vostres empreses."
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
+#, python-format
+msgid "The currency rate cannot be equal to zero"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
@@ -4091,7 +4098,7 @@ msgstr "socis"
 #: code:addons/account_reports/static/src/components/account_report/warnings.xml:0
 #, python-format
 msgid "prior or included in this period."
-msgstr ""
+msgstr "prèvies o incloses en aquest període"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__trimester

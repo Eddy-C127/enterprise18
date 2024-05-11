@@ -33,6 +33,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-triangle\"/> Do not forget to select a service "
 "for a valid configuration."
 msgstr ""
+"<i class=\"fa fa-exclamation-triangle\"/> "
+"อย่าลืมเลือกบริการเพื่อการกำหนดค่าที่ถูกต้อง"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
@@ -49,6 +51,9 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Available shipping services depend on "
 "enabled carriers in your Starshipit account."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/> "
+"บริการจัดส่งที่ใช้ได้ขึ้นอยู่กับผู้ให้บริการที่เปิดใช้งานในบัญชี Starshipit "
+"ของคุณ"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_shipping_method_starshipit
@@ -65,12 +70,12 @@ msgstr "ผู้ให้บริการ"
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Choose Starshipit Shipping Service"
-msgstr ""
+msgstr "เลือกบริการจัดส่ง Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_starshipit_shipping_wizard
 msgid "Choose from the available starshipit shipping methods"
-msgstr ""
+msgstr "เลือกจากวิธีจัดส่ง starshipit ที่มีให้บริการ"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_shipping_method_starshipit
@@ -82,7 +87,7 @@ msgstr "ยืนยัน"
 msgid ""
 "Contains the list of available services for the starshipit account to select"
 " from."
-msgstr ""
+msgstr "ประกอบด้วยรายการบริการที่มีให้เลือกสำหรับบัญชี starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__create_uid
@@ -102,7 +107,7 @@ msgstr "ประเภทของบรรจุภัณฑ์เริ่ม
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_default_package_type_id
 msgid "Default Package Type for Starshipit"
-msgstr ""
+msgstr "ประเภทแพ็คเกจเริ่มต้นสำหรับ Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__carrier_id
@@ -112,7 +117,7 @@ msgstr "การจัดส่ง"
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_shipping_method_starshipit
 msgid "Delivery Service"
-msgstr ""
+msgstr "บริการจัดส่ง"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__display_name
@@ -124,7 +129,7 @@ msgstr "แสดงชื่อ"
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Error: this delivery method is not available for this order."
-msgstr ""
+msgstr "ข้อผิดพลาด: ไม่สามารถใช้วิธีการจัดส่งนี้ได้สำหรับคำสั่งซื้อนี้"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__id
@@ -141,14 +146,14 @@ msgstr "การผสานรวม"
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Invalid Starshipit credentials."
-msgstr ""
+msgstr "ข้อมูลรับรอง Starshipit ไม่ถูกต้อง"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Labels were generated for the order %s"
-msgstr ""
+msgstr "มีการสร้างป้ายกำกับสำหรับคำสั่งซื้อ %s"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__write_uid
@@ -173,13 +178,15 @@ msgid ""
 "Order %s was already sent to the carrier during label creation.\n"
 "Manifest number: %s"
 msgstr ""
+"คำสั่งซื้อ %s ถูกส่งไปยังผู้ให้บริการแล้วในระหว่างการสร้างป้ายกำกับ\n"
+"หมายเลขรายการ: %s"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Order %s was archived."
-msgstr ""
+msgstr "เก็บถาวรคำสั่งซื้อ %s แล้ว"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -197,12 +204,12 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Order %s was sent to the carrier."
-msgstr ""
+msgstr "คำสั่งซื้อ %s ถูกส่งไปยังผู้ให้บริการแล้ว"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_origin_address
 msgid "Origin Address"
-msgstr ""
+msgstr "ที่อยู่ต้นทาง"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_default_package_type_id
@@ -218,14 +225,14 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Please delete the order on Starshipit then try again."
-msgstr ""
+msgstr "โปรดลบคำสั่งซื้อบน Starshipit แล้วลองอีกครั้ง"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Please fill in the fields %s on the %s partner."
-msgstr ""
+msgstr "กรุณากรอกข้อมูลในช่อง %s บนพาร์ทเนอร์ %s"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__delivery_type
@@ -242,7 +249,7 @@ msgstr "ส่งคืนการรับ"
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return labels were generated for the order %s"
-msgstr ""
+msgstr "มีการสร้างป้ายกำกับการส่งคืนสำหรับคำสั่งซื้อ %s"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -252,13 +259,15 @@ msgid ""
 "Return order %s was already sent to the carrier during label creation.\n"
 "Manifest number: %s"
 msgstr ""
+"ใบส่งคืนสินค้า %s ถูกส่งไปยังผู้ให้บริการขนส่งแล้วในระหว่างการสร้างป้ายกำกับ\n"
+"หมายเลขรายการ: %s"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return order %s was archived."
-msgstr ""
+msgstr "เก็บถาวรใบส่งคืนสินค้า %s แล้ว"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -276,22 +285,22 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return order %s was sent to the carrier."
-msgstr ""
+msgstr "ใบสั่งส่งคืน %s ถูกส่งไปยังผู้ให้บริการขนส่งแล้ว"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
 msgid "Select a service linked to your starshipit account"
-msgstr ""
+msgstr "เลือกบริการที่เชื่อมโยงกับบัญชี starshipit ของคุณ"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__selected_service_code
 msgid "Selected Service"
-msgstr ""
+msgstr "บริการที่เลือก"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_service_code
 msgid "Service Code"
-msgstr ""
+msgstr "รหัสบริการ"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_service_name
@@ -313,61 +322,61 @@ msgstr "สินค้าจัดส่ง"
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Something went wrong, please try again later: %s"
-msgstr ""
+msgstr "มีข้อผิดพลาดเกิดขึ้น โปรดลองอีกครั้งในภายหลัง: %s"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields.selection,name:delivery_starshipit.selection__delivery_carrier__delivery_type__starshipit
 #: model:ir.model.fields.selection,name:delivery_starshipit.selection__stock_package_type__package_carrier_type__starshipit
 msgid "Starshipit"
-msgstr ""
+msgstr "Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_api_key
 msgid "Starshipit API Integration key"
-msgstr ""
+msgstr "คีย์การรวม Starshipit API"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_subscription_key
 msgid "Starshipit API Subscription key"
-msgstr ""
+msgstr "รหัสสมัครสมาชิก Starshipit API"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Starshipit API rate exceeded. Please try again later."
-msgstr ""
+msgstr "เกินอัตรา Starshipit API โปรดลองอีกครั้งในภายหลัง"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_api_key
 msgid "Starshipit Api Key"
-msgstr ""
+msgstr "คีย์ API ของ Starshipit"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
 msgid "Starshipit Configuration"
-msgstr ""
+msgstr "การกำหนดค่า Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_stock_picking__starshipit_parcel_reference
 msgid "Starshipit Parcel Reference"
-msgstr ""
+msgstr "การอ้างอิงพัสดุ Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_stock_picking__starshipit_return_parcel_reference
 msgid "Starshipit Return Parcel Reference"
-msgstr ""
+msgstr "การอ้างอิงพัสดุส่งคืน Starshipit"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.res_config_settings_view_form_sale_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.res_config_settings_view_form_stock_starshipit
 msgid "Starshipit Shipping Methods"
-msgstr ""
+msgstr "วิธีการขนส่งทาง Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_subscription_key
 msgid "Starshipit Subscription Key"
-msgstr ""
+msgstr "รหัสสมัครสมาชิก Starshipit"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -377,13 +386,15 @@ msgid ""
 "Starshipit cannot generate returns for the carrier %s. Please handle this "
 "return with the carrier directly."
 msgstr ""
+"Starshipit ไม่สามารถสร้างผลตอบแทนให้กับผู้ให้บริการ %s ได้ "
+"โปรดจัดการการคืนสินค้านี้กับผู้ให้บริการขนส่งโดยตรง"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Starshipit returned an error: %(message)s"
-msgstr ""
+msgstr "Starshipit ส่งคืนข้อผิดพลาด: %(message)s"
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_stock_package_type
@@ -396,6 +407,7 @@ msgid ""
 "The carrier on starshipit used by this carrier. The service code belongs to "
 "it."
 msgstr ""
+"การขนส่งบน starshipit ซึ่งใช้โดยการขนส่งนี้ รหัสบริการเป็นของการขนส่งนั้น"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -413,7 +425,7 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "The return label creation failed."
-msgstr ""
+msgstr "การสร้างป้ายกำกับการคืนสินค้าล้มเหลว"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -446,6 +458,8 @@ msgid ""
 "The shipping label creation failed with the following error:\n"
 "%(error)s"
 msgstr ""
+"การสร้างป้ายกำกับการจัดส่งล้มเหลวโดยมีข้อผิดพลาดต่อไปนี้:\n"
+"%(error)s"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -471,14 +485,14 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "This action requires a Starshipit carrier."
-msgstr ""
+msgstr "การดำเนินการนี้ต้องใช้การจัดส่งจาก Starshipit"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_origin_address
 msgid ""
 "This address will be used when fetching the available services from "
 "starshipit."
-msgstr ""
+msgstr "ที่อยู่นี้จะถูกใช้เมื่อดึงบริการที่มีจาก starshipit."
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_stock_picking

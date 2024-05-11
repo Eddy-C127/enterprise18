@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# Junko Augias, 2024
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:12+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +47,7 @@ msgstr "%(billableTime)s / %(billable_time_target)s (%(billingRate)s%)"
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 #, python-format
 msgid "%(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
-msgstr ""
+msgstr "%(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -85,6 +85,10 @@ msgid ""
 "                            Creating the invoice will automatically stop these timers.\n"
 "                        </span>"
 msgstr ""
+"<span>\n"
+"                            現在、顧客請求書を作成しようとしているタイムシートのタイマーを有効にしている従業員がいます。\n"
+"                            顧客請求書を作成すると、これらのタイマーは自動的に停止します。\n"
+"                        </span>"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -144,7 +148,7 @@ msgstr "従業員の請求率目標"
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 #, python-format
 msgid "Billing:"
-msgstr ""
+msgstr "請求:"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
