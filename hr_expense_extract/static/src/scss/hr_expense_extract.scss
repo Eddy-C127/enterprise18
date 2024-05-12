@@ -25,3 +25,30 @@
 .o_extract_sample_4 {
     background-image: url('/hr_expense_extract/static/img/sample_4.jpeg' );
 }
+
+@keyframes ellipsis {
+    0% {
+        content: "Scanning\00a0\00a0\00a0";
+    }
+
+    25% {
+        content: "Scanning.\00a0\00a0";
+    }
+
+    50% {
+        content: "Scanning..\00a0";
+    }
+
+    75% {
+        content: "Scanning...";
+    }
+
+    100% {
+        content: "Scanning\00a0\00a0\00a0";
+    }
+}
+
+.o_expense_scanning::before {
+    content: "";
+    animation: ellipsis 2s infinite;
+}

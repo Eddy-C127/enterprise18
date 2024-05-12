@@ -111,32 +111,20 @@ class HrExpense(models.Model):
             ])
             if is_html_empty(help_message):
                 help_message = Markup(_("""
-<p class="o_view_nocontent_expense_receipt">
-    <h2 class="d-none d-md-block">
-        Drag and drop files to create expenses
-    </h2>
-    <p>
-        Or
-    </p>
-    <h2 class="d-none d-md-block">
-        Did you try the mobile app?
-    </h2>
-</p>
-<p>Snap pictures of your receipts and let Odoo<br/> automatically create expenses for you.</p>
-<p class="d-none d-md-block">
-    <a href="https://apps.apple.com/be/app/odoo/id1272543640" target="_blank" class="o_expense_mobile_app">
-        <img alt="Apple App Store" class="img img-fluid h-100 o_expense_apple_store" src="/hr_expense/static/img/app_store.png"/>
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.odoo.mobile" target="_blank" class="o_expense_mobile_app">
-        <img alt="Google Play Store" class="img img-fluid h-100 o_expense_google_store" src="/hr_expense/static/img/play_store.png"/>
-    </a>
-</p>"""))
+                    <p class="o_view_nocontent_expense_receipt">
+                        <div class="o_view_pink_overlay">
+                            <p class="o_view_nocontent_expense_receipt_image"/>
+                            <h2 class="d-md-block">
+                                Upload or drop an expense receipt
+                            </h2>
+                        </div>
+                    </p>"""))
             # add hint for extract if not already present and user might now have already used it
-            extract_txt = _("Try Sample Receipt")
+            extract_txt = _("try a sample receipt")
             if not expenses and extract_txt not in help_message:
                 action_id = self.env.ref('hr_expense_extract.action_expense_sample_receipt').id
                 help_message += Markup(
-                    """<p><a type="action" name="%(action_id)s" class="btn btn-primary text-white">%(extract_txt)s</a></p>"""
+                    """<p class="text-muted mt-4">or <a type="action" name="%(action_id)s" class="">%(extract_txt)s</a></p>"""
                 ) % {
                     'action_id': action_id,
                     'extract_txt': extract_txt,
