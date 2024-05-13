@@ -8,7 +8,7 @@
                     <span class="ps-2"><b class="fw-bolder text-truncate" t-att-title="contact.displayName" t-esc="contact.displayName"/></span>
                 </div>
             </t>
-            <p t-elif="voip.softphone.searchBarInputValue" class="m-4 text-center">No search results 💔</p>
+            <p t-elif="voip.softphone.searchBarInputValue.trim()" class="m-4 text-center">No search results 💔</p>
             <p t-else="" class="m-4 text-center">Contacts with a phone number will be shown here.</p>
         </div>
     </t>

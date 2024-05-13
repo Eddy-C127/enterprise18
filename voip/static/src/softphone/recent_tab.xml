@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </t>
-            <p t-elif="voip.softphone.searchBarInputValue" class="m-4 text-center">No search results 💔</p>
+            <p t-elif="voip.softphone.searchBarInputValue.trim()" class="m-4 text-center">No search results 💔</p>
             <p t-else="" class="m-4 text-center">Your call history is empty! Make a call now and have it listed here 💡</p>
         </div>
     </t>

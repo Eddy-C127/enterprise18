@@ -29,20 +29,21 @@ export class Softphone {
     }
 
     get activities() {
+        const searchBarInputValue = this.searchBarInputValue.trim();
         return Object.values(this.store.Activity.records).filter(
             (activity) =>
                 activity.activity_category === "phonecall" &&
                 ["today", "overdue"].includes(activity.state) &&
                 ["phone", "mobile"].some((field) => activity[field]) &&
                 activity.user_id[0] === this.store.self.userId &&
-                (!this.searchBarInputValue ||
+                (!searchBarInputValue ||
                     [
                         activity.partner.name,
                         activity.partner.displayName,
                         activity.mobile,
                         activity.phone,
                         activity.name,
-                    ].some((x) => isSubstring(x, this.searchBarInputValue)))
+                    ].some((x) => isSubstring(x, searchBarInputValue)))
         );
     }
 

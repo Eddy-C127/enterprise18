@@ -17,7 +17,7 @@
                     <CorrespondenceDetails t-elif="shouldDisplayCorrespondenceDetails" correspondence="softphone.selectedCorrespondence" extraClass="'flex-grow-1'"/>
                     <t t-else="">
                         <div class="d-flex">
-                            <input class="flex-grow-1 w-100 p-2 border-0" placeholder="Search" t-model.trim="softphone.searchBarInputValue" t-ref="search" t-on-input="onInputSearchBar"/>
+                            <input class="flex-grow-1 w-100 p-2 border-0" placeholder="Search" t-model="softphone.searchBarInputValue" t-ref="search" t-on-input="onInputSearchBar"/>
                             <button class="oi oi-search btn shadow-none px-2"/>
                         </div>
                         <div class="d-flex flex-column flex-grow-1 overflow-auto">
