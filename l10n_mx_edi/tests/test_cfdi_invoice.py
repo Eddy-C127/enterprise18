@@ -711,13 +711,6 @@ class TestCFDIInvoice(TestMxEdiCommon):
             filename='new_bill.xml',
         ).action_post()
 
-        with self.assertRaisesRegex(RedirectWarning, 'Duplicated vendor reference detected. You probably encoded twice the same vendor bill/credit note.'):
-            self._upload_document_on_journal(
-                journal=self.company_data['default_journal_purchase'],
-                content=bill_content,
-                filename='duplicate_bill.xml',
-            ).action_post()
-
     @freeze_time('2017-01-01')
     def test_import_bill_cfdi(self):
         # Invoice with payment policy = PUE, otherwise 'FormaPago' (payment method) is set to '99' ('Por Definir')

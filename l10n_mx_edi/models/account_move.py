@@ -739,11 +739,6 @@ class AccountMove(models.Model):
             if not cfdi_values['tipo_relacion'] or not cfdi_values['cfdi_relationado_list']:
                 raise ValidationError(error_message % move.l10n_mx_edi_cfdi_origin)
 
-    @api.constrains('state', 'l10n_mx_edi_cfdi_uuid')
-    def _check_duplicate_fiscal_folio(self):
-        """ Assert the move which is about to be posted isn't a duplicated move from another posted entry"""
-        return self.filtered(lambda m: m.state == 'posted')._check_duplicate_supplier_reference()
-
     # -------------------------------------------------------------------------
     # BUSINESS METHODS
     # -------------------------------------------------------------------------
