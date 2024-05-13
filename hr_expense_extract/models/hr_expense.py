@@ -21,6 +21,11 @@ class HrExpense(models.Model):
 
     sample = fields.Boolean(help='Expenses created from sample receipt')
 
+    def _needs_product_price_computation(self):
+        # OVERRIDES 'hr_expense'
+        self.ensure_one()
+        is_extracted = self.extract_state in {'waiting_validation', 'to_validate', 'done'} and self.is_editable
+        return self.product_has_cost and not is_extracted
 
     @api.depends('state')
     def _compute_is_in_extractable_state(self):

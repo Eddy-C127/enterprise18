@@ -1,6 +1,6 @@
 from odoo.addons.hr_expense.tests.common import TestExpenseCommon
 from odoo.addons.iap_extract.tests.test_extract_mixin import TestExtractMixin
-from odoo.tests import tagged
+from odoo.tests import tagged, Form
 from odoo.tools import float_compare
 
 from ..models.hr_expense import OCR_VERSION
@@ -208,3 +208,28 @@ class TestExpenseExtractProcess(TestExpenseCommon, TestExtractMixin):
 
         move = expense_sheet.account_move_ids
         self.assertFalse(move._needs_auto_extract())
+
+    def test_no_change_in_price_unit_with_expense_no_extract(self):
+        """
+        Test that the price unit does not change when the quantity changes after uploading an attachment
+        when there is no digitisation
+        """
+        self.product_a.write({'standard_price': 800})
+        expense = self.env['hr.expense'].create({
+            'name': 'expense',
+            'employee_id': self.expense_employee.id,
+            'product_id': self.product_a.id,
+        })
+        with Form(expense) as form:
+            self.assertEqual(form.price_unit, 800)
+
+        self.env['ir.attachment'].create({
+            'raw': b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs=",
+            'name': 'file1.png',
+            'res_model': 'hr.expense',
+            'res_id': expense.id,
+        })
+
+        with Form(expense) as form:
+            form.quantity = 2
+            self.assertEqual(form.price_unit, 800)
