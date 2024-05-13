@@ -43,11 +43,9 @@ creates next activities for the related approvers.
         'web.assets_tests': [
             'approvals/static/tests/tours/**/*',
         ],
-        'web.tests_assets': [
-            'approvals/static/tests/helpers/**/*',
-        ],
-        'web.qunit_suite_tests': [
-            'approvals/static/tests/**/*tests.js',
+        'web.assets_unit_tests': [
+            'approvals/static/tests/**/*',
+            ('remove', 'approvals/static/tests/tours/**/*'),
         ],
     },
     'license': 'OEEL-1',

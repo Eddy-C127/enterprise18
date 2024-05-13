@@ -1,15 +1,22 @@
-/* @odoo-module */
+import { describe, expect, test } from "@odoo/hoot";
+import { Deferred } from "@odoo/hoot-mock";
 
-import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
+import {
+    assertSteps,
+    click,
+    contains,
+    start,
+    startServer,
+    step,
+    openFormView,
+} from "@mail/../tests/mail_test_helpers";
+import { serverState, onRpc } from "@web/../tests/web_test_helpers";
+import { defineApprovalsModels } from "@approvals/../tests/approvals_test_helpers";
 
-import { openFormView, start } from "@mail/../tests/helpers/test_utils";
+describe.current.tags("desktop");
+defineApprovalsModels();
 
-import { makeDeferred } from "@web/../tests/helpers/utils";
-import { click, contains } from "@web/../tests/utils";
-
-QUnit.module("activity (patch)");
-
-QUnit.test("activity with approval to be made by logged user", async () => {
+test("activity with approval to be made by logged user", async () => {
     const pyEnv = await startServer();
     const requestId = pyEnv["approval.request"].create({});
     pyEnv["approval.approver"].create({
@@ -39,10 +46,12 @@ QUnit.test("activity with approval to be made by logged user", async () => {
     await contains(".o-mail-Activity button", { text: "Refuse" });
 });
 
-QUnit.test("activity with approval to be made by another user", async () => {
+test("activity with approval to be made by another user", async () => {
     const pyEnv = await startServer();
     const requestId = pyEnv["approval.request"].create({});
-    const userId = pyEnv["res.users"].create({});
+    const userId = pyEnv["res.users"].create({
+        partner_id: pyEnv["res.partner"].create({}),
+    });
     pyEnv["approval.approver"].create({
         request_id: requestId,
         status: "pending",
@@ -71,7 +80,7 @@ QUnit.test("activity with approval to be made by another user", async () => {
     await contains(".o-mail-Activity span", { text: "To Approve" });
 });
 
-QUnit.test("approve approval", async (assert) => {
+test("approve approval", async () => {
     const pyEnv = await startServer();
     const requestId = pyEnv["approval.request"].create({});
     pyEnv["approval.approver"].create({
@@ -85,24 +94,21 @@ QUnit.test("approve approval", async (assert) => {
         res_model: "approval.request",
         user_id: serverState.userId,
     });
-    const def = makeDeferred();
-    await start({
-        async mockRPC(route, args) {
-            if (args.method === "action_approve") {
-                assert.strictEqual(args.args.length, 1);
-                assert.strictEqual(args.args[0], requestId);
-                assert.step("action_approve");
-                def.resolve();
-            }
-        },
+    const def = new Deferred();
+    onRpc("approval.approver", "action_approve", (args) => {
+        expect(args.args.length).toBe(1);
+        expect(args.args[0]).toBe(requestId);
+        step("action_approve");
+        def.resolve();
     });
+    await start();
     await openFormView("approval.request", requestId);
     await click(".o-mail-Activity button", { text: "Approve" });
     await def;
-    assert.verifySteps(["action_approve"]);
+    assertSteps(["action_approve"]);
 });
 
-QUnit.test("refuse approval", async (assert) => {
+test("refuse approval", async () => {
     const pyEnv = await startServer();
     const requestId = pyEnv["approval.request"].create({});
     pyEnv["approval.approver"].create({
@@ -116,19 +122,16 @@ QUnit.test("refuse approval", async (assert) => {
         res_model: "approval.request",
         user_id: serverState.userId,
     });
-    const def = makeDeferred();
-    await start({
-        async mockRPC(route, args) {
-            if (args.method === "action_refuse") {
-                assert.strictEqual(args.args.length, 1);
-                assert.strictEqual(args.args[0], requestId);
-                assert.step("action_refuse");
-                def.resolve();
-            }
-        },
+    const def = new Deferred();
+    onRpc("approval.approver", "action_refuse", (args) => {
+        expect(args.args.length).toBe(1);
+        expect(args.args[0]).toBe(requestId);
+        step("action_refuse");
+        def.resolve();
     });
+    await start();
     await openFormView("approval.request", requestId);
     await click(".o-mail-Activity button", { text: "Refuse" });
     await def;
-    assert.verifySteps(["action_refuse"]);
+    assertSteps(["action_refuse"]);
 });
