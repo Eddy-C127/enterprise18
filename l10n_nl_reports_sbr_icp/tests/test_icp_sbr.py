@@ -140,11 +140,12 @@ class TestNlICPSBR(AccountSalesReportCommon):
         ''')
         self.assertXmlTreeEqual(generated_xbrl, expected_xbrl)
 
-@tagged('external_l10n', 'post_install', '-at_install', 'external')
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
 @skipIf(not os.getenv("NL_SBR_CERT"), "No SBR certificate")
 class TestNlSBRFlow(TestAccountReportsCommon):
     @classmethod
-    def setUpClass(cls, chart_template_ref='l10n_nl.l10nnl_chart_template'):
+    def setUpClass(cls, chart_template_ref='nl'):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
         company_vals = {
