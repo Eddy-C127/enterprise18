@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .common import TestMxEdiCommon
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests import tagged
 
 from freezegun import freeze_time
@@ -1680,3 +1680,74 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_global_invoice_try_send()
         self.assertEqual(len(invoice.l10n_mx_edi_invoice_document_ids), 1)
+
+    def test_invoice_cancellation_then_replacement_foreign_currency(self):
+        date_1 = '2017-01-01'
+        date_2 = '2017-01-02'
+        foreign_currency = self.setup_other_currency('USD', rates=[(date_1, 0.05), (date_2, 0.06)])
+
+        with freeze_time(date_1):
+            # create an invoice in USD when currency rate is 0.05
+            invoice = self._create_invoice(
+                invoice_date=date_1,
+                date=date_1,
+                currency_id=foreign_currency.id,
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                        'price_unit': 100,
+                        'quantity': 1,
+                        'tax_ids': [Command.set(self.tax_16.ids)],
+                    }),
+                ],
+            )
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        self.assertRecordValues(invoice.line_ids, [{
+            'amount_currency': -100.0,
+            'balance': -2000.0,
+            'debit': 0.0,
+            'credit': 2000.0,
+            'tax_base_amount': 0.0,
+        }, {
+            'amount_currency': -16.0,
+            'balance': -320.0,
+            'debit': 0.0,
+            'credit': 320.0,
+            'tax_base_amount': 2000.0,
+        }, {
+            'amount_currency': 116.0,
+            'balance': 2320.0,
+            'debit': 2320.0,
+            'credit': 0.0,
+            'tax_base_amount': 0.0,
+        }])
+
+        with freeze_time(date_2):
+            # create a replacement invoice when currency rate is 0.06
+            action_results = self.env['l10n_mx_edi.invoice.cancel'] \
+                .with_context(invoice.button_request_cancel()['context']) \
+                .create({}) \
+                .action_create_replacement_invoice()
+            new_invoice = self.env['account.move'].browse(action_results['res_id'])
+        # the amounts of the replacement invoice should use the current rate
+        self.assertRecordValues(new_invoice.line_ids, [{
+            'amount_currency': -100.0,
+            'balance': -1666.67,
+            'debit': 0.0,
+            'credit': 1666.67,
+            'tax_base_amount': 0.0,
+        }, {
+            'amount_currency': -16.0,
+            'balance': -266.67,
+            'debit': 0.0,
+            'credit': 266.67,
+            'tax_base_amount': 1666.67,
+        }, {
+            'amount_currency': 116.0,
+            'balance': 1933.34,
+            'debit': 1933.34,
+            'credit': 0.0,
+            'tax_base_amount': 0.0,
+        }])
