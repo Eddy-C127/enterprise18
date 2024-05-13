@@ -3077,6 +3077,7 @@ class TestSubscription(TestSubscriptionCommon):
     def test_close_reason_wizard(self):
         self.subscription._onchange_sale_order_template_id()
         self.subscription.action_confirm()
+        self.subscription._create_recurring_invoice()
         new_reason = self.env['sale.order.close.reason'].create({'name': "test reason"})
         wiz = self.env['sale.subscription.close.reason.wizard'].with_context(active_id=self.subscription.id).create({
             'close_reason_id': new_reason.id
