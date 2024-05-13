@@ -180,14 +180,17 @@ class HrPayslip(models.Model):
                         'code': line.code,
                         'amount': line.total,
                         'payslip_id': payslip.id,
+                        'date': payslip.date_from
                     }
                     line_vals.append(log_line)
         return line_vals
 
     def _get_is_log_line_values(self):
+
         result = defaultdict(lambda: defaultdict(float))
         if not self:
             return result
+
         self.env.flush_all()
         self.env.cr.execute("""
             SELECT
@@ -202,6 +205,7 @@ class HrPayslip(models.Model):
         """, (tuple(self.ids),))
 
         request_rows = self.env.cr.dictfetchall()
+        result = defaultdict(lambda: defaultdict(float))
         for row in request_rows:
             is_code = row['is_code']
             result[is_code].update({
