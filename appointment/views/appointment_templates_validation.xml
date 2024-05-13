@@ -29,17 +29,18 @@
                         <span t-out="event.name"/>
                     </h4>
                     <div class="oe_structure"/>
-                    <div class="o_appointment_validation_details row justify-content-between">
-                        <div t-attf-class="col-12 o_not_editable {{'col-md-8 pe-md-4 pe-lg-5' if (staff_user and based_on_users) or (len(resources) == 1 and appointment_type.assign_method != 'time_auto_assign') else ''}}">
+                    <div class="o_appointment_validation_details o_wappointment_type_options row justify-content-between" t-att-data-appointment-type-id="appointment_type.id">
+                        <div t-attf-class="col-12 {{'col-md-8 pe-md-4 pe-lg-5' if (staff_user and based_on_users) or (len(resources) == 1 and appointment_type.assign_method != 'time_auto_assign') else ''}}">
                             <div class="row mb-4">
                                 <div class="col-3">
                                     <label class="text-muted">Date &amp; time</label>
                                 </div>
                                 <div class="col-9 col-lg-6">
-                                    <strong t-out="datetime_start"/><span class="text-muted"> (<t t-out="request.session.timezone"/>)</span>
+                                    <strong t-out="datetime_start"/>
+                                    <span t-if="not appointment_type.hide_timezone" class="text-muted"> (<t t-out="request.session.timezone"/>)</span>
                                 </div>
                             </div>
-                            <div class="row mb-4">
+                            <div t-if="not appointment_type.hide_duration" class="row mb-4">
                                 <div class="col-3">
                                     <label class="text-muted">Duration</label>
                                 </div>

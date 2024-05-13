@@ -50,6 +50,7 @@ Allow clients to Schedule Appointments through your Website
         ],
         'website.assets_wysiwyg': [
             'website_appointment/static/src/snippets/s_online_appointment/options.js',
+            'website_appointment/static/src/snippets/s_appointment_type/options.js',
         ],
     }
 }

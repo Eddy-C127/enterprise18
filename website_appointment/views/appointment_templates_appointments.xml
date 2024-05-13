@@ -69,7 +69,7 @@
         <t t-set="no_breadcrumbs" t-value="True"/>
         <t t-call="website.layout">
             <div id="wrap" class="o_wappointment_wrap h-100 overflow-x-hidden">
-                <div class="container-lg o_appointment o_wappointment_select_operator h-100">
+                <div class="container-lg o_appointment o_wappointment_select_operator o_wappointment_type_options h-100" t-att-data-appointment-type-id="appointment_type.id">
                     <div class="row mt-4">
                         <div class="col-12 col-md-8">
                             <nav t-if="appointment_type.category in ['punctual', 'recurring']" class="d-print-none d-flex justify-content-between mb-4">

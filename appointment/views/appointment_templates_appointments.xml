@@ -64,7 +64,7 @@
                     <div t-attf-class="row mt-4 #{'bg-o-color-4 rounded-3 border' if not website else ''}">
                         <div t-attf-class="col-12 col-md-8 #{'p-4' if not website else ''}">
                             <div class="o_appointment">
-                                <div class="o_appointment_info_main o_not_editable">
+                                <div class="o_appointment_info_main o_wappointment_type_options o_not_editable" t-att-data-appointment-type-id="appointment_type.id">
                                     <h4 class="pb-3">Select a date &amp; time</h4>
                                     <div t-if="state in ['failed-staff-user', 'failed-resource']" class="alert alert-danger" role="alert">
                                         <p>
@@ -130,7 +130,7 @@
                                     <div class="row">
                                         <div class="col-12 col-xl-8">
                                             <t t-call="appointment.appointment_calendar"/>
-                                            <div t-attf-class="o_appointment_timezone_selection #{'d-none' if month_first_available is False or not appointment_type.active else ''}">
+                                            <div t-if="not appointment_type.hide_timezone" t-attf-class="o_appointment_timezone_selection #{'d-none' if month_first_available is False or not appointment_type.active else ''}">
                                                 <form autocomplete="off">
                                                     <div class="d-flex gap-2 align-items-center mt-2">
                                                         <label class="small fw-normal" for="timezone">Timezone: </label>
@@ -320,7 +320,7 @@
                 <i class="fa fa-video-camera fa-fw me-2 mt-1 text-muted"/>
                 <span class="o_not_editable">Online</span>
             </div>
-            <div t-if="appointment_type.category != 'custom' or isDetails" class="d-flex py-1 px-0 bg-transparent o-cc1-text border-0">
+            <div t-if="not appointment_type.hide_duration and (appointment_type.category != 'custom' or isDetails)" class="d-flex py-1 px-0 bg-transparent o-cc1-text border-0">
                 <i class="fa fa-clock-o fa-fw me-2 mt-1 text-muted"/>
                 <span t-out="appointment_type.appointment_duration if appointment_type.category != 'custom' else duration"
                     t-options="{'widget': 'duration', 'unit': 'hour'}"/>
@@ -391,7 +391,7 @@
                     <span class="fw-bold" t-out="date_locale"/>
                     <div>
                         <span t-out="time_locale"/>
-                        <span class="text-muted" t-out="request.session.get('timezone') or appointment_type.appointment_tz"/>
+                        <span t-if="not appointment_type.hide_timezone" class="text-muted" t-out="request.session.get('timezone') or appointment_type.appointment_tz"/>
                     </div>
                 </div>
             </div>

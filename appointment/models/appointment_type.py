@@ -110,6 +110,10 @@ class AppointmentType(models.Model):
         sanitize_attributes=False,
         help="Small description of the appointment type.")
 
+    # Display Settings
+    hide_duration = fields.Boolean('Hide Duration')
+    hide_timezone = fields.Boolean('Hide Time Zone')
+
     # Scheduling Configuration
     min_cancellation_hours = fields.Float('Cancel Before (hours)', required=True, default=1.0)
     min_schedule_hours = fields.Float('Schedule before (hours)', required=True, default=1.0)
