@@ -39,7 +39,7 @@ class LuxembourgishFinancialReportCustomHandler(models.AbstractModel):
     def get_electronic_report_values(self, options):
         company = self.env.company
         report = self.env['account.report'].browse(options['report_id'])
-        vat = report.get_vat_for_export(options)
+        vat = report.get_vat_for_export(options, raise_warning=False)
         if vat and vat.startswith("LU"):  # Remove LU prefix in the XML
             vat = vat[2:]
         return {

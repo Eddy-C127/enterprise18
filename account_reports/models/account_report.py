@@ -5369,7 +5369,7 @@ class AccountReport(models.Model):
             # the date is not parsable thus is returned as text
             return ('text', cell['name'])
 
-    def get_vat_for_export(self, options):
+    def get_vat_for_export(self, options, raise_warning=True):
         """ Returns the VAT number to use when exporting this report with the provided
         options. If a single fiscal_position option is set, its VAT number will be
         used; else the current company's will be, raising an error if its empty.
@@ -5382,7 +5382,7 @@ class AccountReport(models.Model):
 
         if options['fiscal_position'] in {'all', 'domestic'}:
             company = self._get_sender_company_for_export(options)
-            if not company.vat:
+            if not company.vat and raise_warning:
                 action = self.env.ref('base.action_res_company_form')
                 raise RedirectWarning(_('No VAT number associated with your company. Please define one.'), action.id, _("Company Settings"))
             return company.vat

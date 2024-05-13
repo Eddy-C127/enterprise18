@@ -43,7 +43,7 @@ class L10nLuGenerateTaxReport(models.TransientModel):
     def _get_export_vat(self):
         report = self.env.ref('l10n_lu.tax_report')
         options = report.get_options()
-        return report.get_vat_for_export(options)
+        return report.get_vat_for_export(options, raise_warning=False)
 
     def _lu_get_declarations(self, declaration_template_values):
         """
