@@ -1,7 +1,7 @@
 import { getFixture, patchDate } from "@web/../tests/helpers/utils";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { registry } from "@web/core/registry";
-import { servicesToDefineInGantt } from "@project_enterprise/../tests/task_gantt_dependency_tests";
+import { servicesToDefineInGantt } from "@project_enterprise/../tests/legacy/task_gantt_dependency_tests";
 
 servicesToDefineInGantt.push("timesheet_uom");
 const serviceRegistry = registry.category("services");

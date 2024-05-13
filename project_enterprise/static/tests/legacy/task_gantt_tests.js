@@ -18,7 +18,7 @@ import {
     hoverGridCell,
     SELECTORS,
 } from "@web_gantt/../tests/legacy/helpers";
-import { servicesToDefineInGantt } from "@project_enterprise/../tests/task_gantt_dependency_tests";
+import { servicesToDefineInGantt } from "./task_gantt_dependency_tests";
 import { browser } from "@web/core/browser/browser";
 
 const serviceRegistry = registry.category("services");
