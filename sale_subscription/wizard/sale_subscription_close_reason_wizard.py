@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
+
+from odoo import _, fields, models
+from odoo.exceptions import ValidationError
 
 
 class SaleSubscriptionCloseReasonWizard(models.TransientModel):
@@ -7,6 +9,13 @@ class SaleSubscriptionCloseReasonWizard(models.TransientModel):
     _description = 'Subscription Close Reason Wizard'
 
     close_reason_id = fields.Many2one("sale.order.close.reason", string="Close Reason", required=True)
+
+    def new(self, values=None, origin=None, ref=None):
+        sale_order = self.env['sale.order'].browse(self.env.context.get('active_id'))
+        invoice_free = not any(state in ['draft', 'posted'] for state in sale_order.order_line.invoice_lines.move_id.mapped('state'))
+        if invoice_free:
+            raise ValidationError(_("""You can not churn a contract that has not been invoiced. Please cancel the contract instead."""))
+        return super().new(values=values, origin=origin, ref=ref)
 
     def set_close(self):
         self.ensure_one()
