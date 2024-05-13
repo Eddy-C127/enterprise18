@@ -9,12 +9,6 @@ from odoo.addons.sale_timesheet_enterprise.models.sale import DEFAULT_INVOICED_T
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    billing_rate_target = fields.Integer(
-        string="Target",
-        related="company_id.billing_rate_target",
-        readonly=False,
-        help="Billing rate target for the employees",
-    )
     timesheet_show_rates = fields.Boolean(
         string="Billing Rate Target",
         related="company_id.timesheet_show_rates",

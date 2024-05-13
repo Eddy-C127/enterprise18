@@ -77,7 +77,7 @@ export class TimesheetLeaderboard extends Component {
     }
 
     get currentTargetTotalTimeText() {
-        return this.format(this.props.leaderboard.current_employee.billable_time_target);
+        return this.format(this.props.leaderboard.current_employee.total_time_target);
     }
 
     get totalTimeSuffix() {

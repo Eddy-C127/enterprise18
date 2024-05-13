@@ -28,11 +28,9 @@ class ResCompany(models.Model):
         )
         SELECT A.id,
                he.name,
-               he.billable_time_target,
                billable_time,
                total_time,
-               total_valid_time,
-               billable_time / he.billable_time_target * 100 AS billing_rate
+               total_valid_time
           FROM A
-     LEFT JOIN hr_employee AS he ON A.id = he.id WHERE he.billable_time_target > 0
+     LEFT JOIN hr_employee AS he ON A.id = he.id WHERE he.billing_rate_target > 0
     """

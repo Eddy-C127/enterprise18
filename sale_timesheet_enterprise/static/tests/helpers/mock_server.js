@@ -12,8 +12,8 @@ patch(MockServer.prototype, {
             if (method === "read" && args[1].length === 2 && args[1][0] === "timesheet_show_rates" && args[1][1] === "timesheet_show_leaderboard") {
                 return this._mockReadTimesheetShowRatesLeaderboard();
             }
-        } else if (model === "hr.employee" && method === "get_billable_time_target") {
-            return this._mockGetBillableTimeTarget(args);
+        } else if (model === "hr.employee" && method === "get_billing_rate_target") {
+            return this._mockGetBillingRateTarget(args);
         }
         return super._performRPC(...arguments);
     },
@@ -23,7 +23,7 @@ patch(MockServer.prototype, {
     _mockReadTimesheetShowRatesLeaderboard() {
         return [true, true];
     },
-    _mockGetBillableTimeTarget() {
-        return [{ billable_time_target: 150 }];
+    _mockGetBillingRateTarget() {
+        return [{ billing_rate_target: 80 }];
     },
 });
