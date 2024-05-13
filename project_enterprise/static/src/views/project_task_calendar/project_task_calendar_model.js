@@ -1,12 +1,32 @@
-/** @odoo-module */
-
 import { deserializeDate } from "@web/core/l10n/dates";
-import { ProjectTaskCalendarModel } from '@project/views/project_task_calendar/project_task_calendar_model';
+import { ProjectTaskCalendarModel } from "@project/views/project_task_calendar/project_task_calendar_model";
+import { useProjectModelActions } from "../../project_conflicted_tasks";
 
 export class ProjectEnterpriseTaskCalendarModel extends ProjectTaskCalendarModel {
+    setup() {
+        super.setup(...arguments);
+        this.getHighlightIds = useProjectModelActions({
+            getContext: () => this.env.searchModel._context,
+            resModel: this.resModel,
+        }).getHighlightIds;
+    }
+
+    /**
+     * @override
+     */
+    async loadRecords(data) {
+        this.highlightIds = await this.getHighlightIds();
+        return await super.loadRecords(data);
+    }
+
     makeContextDefaults(record) {
         const { default_planned_date_start, ...context } = super.makeContextDefaults(record);
-        if (!deserializeDate(default_planned_date_start).hasSame(deserializeDate(context["default_date_deadline"]), 'day')) {
+        if (
+            !deserializeDate(default_planned_date_start).hasSame(
+                deserializeDate(context["default_date_deadline"]),
+                "day"
+            )
+        ) {
             context.default_planned_date_begin = default_planned_date_start;
         }
         return context;
