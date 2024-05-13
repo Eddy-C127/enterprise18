@@ -81,6 +81,9 @@ class L10nMxEdiInvoiceCancel(models.TransientModel):
             new_invoice_data = invoice\
                 .with_context(include_business_fields=True)\
                 .copy_data({'l10n_mx_edi_cfdi_origin': f'04|{invoice.l10n_mx_edi_cfdi_uuid}'})[0]
+            # non product-type lines should be removed from the copied data
+            # as we want them to be recomputed using the current currency rate
+            new_invoice_data['line_ids'] = [line for line in new_invoice_data['line_ids'] if line[2]['display_type'] == 'product']
             new_invoice = self.env['account.move'].create(new_invoice_data)
 
             return {
