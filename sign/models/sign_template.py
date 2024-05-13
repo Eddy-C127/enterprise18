@@ -407,6 +407,7 @@ class SignItemType(models.Model):
     _description = "Signature Item Type"
 
     name = fields.Char(string="Field Name", required=True, translate=True)
+    icon = fields.Char()
     item_type = fields.Selection([
         ('signature', "Signature"),
         ('initial', "Initial"),
