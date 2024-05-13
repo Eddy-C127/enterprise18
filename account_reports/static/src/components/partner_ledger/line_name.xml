@@ -8,7 +8,7 @@
         </xpath>
 
         <xpath expr="//td[@data-id='line_name']//div[hasclass('wrapper')]//div[hasclass('content')]" position="inside">
-            <t t-if="props.line.unfoldable">
+            <t t-if="props.line.unfoldable and props.line.id.includes('res.partner')">
                 <button
                     class="btn btn_action"
                     t-on-click="(ev) => controller.reportAction(ev, 'action_open_partner', { id: props.line.id })"
