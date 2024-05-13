@@ -754,30 +754,6 @@ class AccountMove(models.Model):
             if not cfdi_values['tipo_relacion'] or not cfdi_values['cfdi_relationado_list']:
                 raise ValidationError(error_message % move.l10n_mx_edi_cfdi_origin)
 
-    @api.constrains('state', 'l10n_mx_edi_cfdi_uuid')
-    def _check_duplicate_fiscal_folio(self):
-        """Check customer invoices for duplicate fiscal folio.
-        Vendor bills will be handled by the generic check.
-        """
-        move_to_duplicates = self.filtered(
-            lambda m: m.state == "posted" and m.is_sale_document()
-        )._fetch_duplicate_fiscal_folio(matching_states=("posted",))
-        if any(move_to_duplicates.values()):
-            duplicate_move_ids = list(
-                set(flatten([move.ids + dup_moves.ids for move, dup_moves in move_to_duplicates.items() if dup_moves]))
-            )
-            action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_line_form")
-            action["domain"] = [("id", "in", duplicate_move_ids)]
-            action["views"] = [
-                ((view_id, "list") if view_type == "tree" else (view_id, view_type))
-                for view_id, view_type in action["views"]
-            ]
-            raise RedirectWarning(
-                message=_("Duplicate fiscal folio detected. You probably encoded the same document twice."),
-                action=action,
-                button_text=_("Open list"),
-            )
-
     # -------------------------------------------------------------------------
     # BUSINESS METHODS
     # -------------------------------------------------------------------------
