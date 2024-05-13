@@ -334,7 +334,7 @@ class L10nBe28110(models.Model):
                 # 'f10_2055_datumvanindienstt': employee.first_contract_date.strftime('%d/%m/%Y') if employee.first_contract_date.year == self.year else '',
                 'f10_2055_datumvanindienstt': first_contract_date.strftime('%d-%m-%Y') if first_contract_date else '',
                 'f10_2056_datumvanvertrek': employee.end_notice_period.strftime('%d-%m-%Y') if employee.end_notice_period and employee.end_notice_period > first_contract_date else '',
-                'f10_2058_km': int(cycle_days_count * employee.km_home_work),
+                'f10_2058_km': int(cycle_days_count * employee.km_home_work * 2),
                 # f10_2059_totaalcontrole
                 'f10_2060_gewonebezoldiginge': _to_eurocent(round(common_gross, 2)),
                 'f10_2061_bedragoveruren300horeca': 0,
