@@ -476,21 +476,22 @@ class TestHrPayrollAccount(TestHrPayrollAccountCommon):
         self.assertEqual(self.hr_payslip_john.state, 'done', 'State not changed!')
         self.assertTrue(self.hr_payslip_john.move_id, 'Accounting entry has not been created!')
 
-        invoice_lines = self.hr_payslip_john.move_id.line_ids
+        invoice_lines = self.hr_payslip_john.move_id.line_ids.sorted('amount_currency')
 
         # Verify that there are 2 invoice lines
-        # 1. amount = 2000, credit = 0, debit = 2000
-        # 2. amount = -2000, credit = 2000, debit = 0
+        # 1. amount = -2000, credit = 2000, debit = 0
+        # 2. amount = 2000, credit = 0, debit = 2000
         line_amount = self.hra_rule.amount_percentage / 100 * self.hr_payslip_john._get_contract_wage()
 
         self.assertEqual(len(invoice_lines), 2, 'There should be 2 invoice lines')
-        self.assertEqual(invoice_lines[0].amount_currency, line_amount)
-        self.assertEqual(invoice_lines[0].credit, 0)
-        self.assertEqual(invoice_lines[0].debit, line_amount)
 
-        self.assertEqual(invoice_lines[1].amount_currency, -line_amount)
-        self.assertEqual(invoice_lines[1].credit, line_amount)
-        self.assertEqual(invoice_lines[1].debit, 0)
+        self.assertEqual(invoice_lines[0].amount_currency, -line_amount)
+        self.assertEqual(invoice_lines[0].credit, line_amount)
+        self.assertEqual(invoice_lines[0].debit, 0)
+
+        self.assertEqual(invoice_lines[1].amount_currency, line_amount)
+        self.assertEqual(invoice_lines[1].credit, 0)
+        self.assertEqual(invoice_lines[1].debit, line_amount)
 
         # Post the invoice
         self.hr_payslip_john.move_id.action_post()
