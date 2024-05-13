@@ -16,6 +16,43 @@ class AccountTaxUnit(models.Model):
     main_company_id = fields.Many2one(string="Main Company", comodel_name='res.company', required=True, help="Main company of this unit; the one actually reporting and paying the taxes.")
     fpos_synced = fields.Boolean(string="Fiscal Positions Synchronised", compute='_compute_fiscal_position_completion', help="Technical field indicating whether Fiscal Positions exist for all companies in the unit")
 
+    def create(self, vals_list):
+        res = super().create(vals_list)
+
+        horizontal_groups = self.env['account.report.horizontal.group'].create([
+            {
+                'name': tax_unit.name,
+                'rule_ids': [
+                    Command.create({
+                        'field_name': 'company_id',
+                        'domain': f"[('account_tax_unit_ids', 'in', {tax_unit.id})]",
+                    }),
+                ],
+            }
+            for tax_unit in res
+        ])
+
+        generic_tax_report = self.env.ref('account.generic_tax_report')
+        generic_tax_report.horizontal_group_ids |= horizontal_groups
+
+        generic_tax_report_account_tax = self.env.ref('account.generic_tax_report_account_tax')
+        generic_tax_report_account_tax.horizontal_group_ids |= horizontal_groups
+
+        generic_tax_report_tax_account = self.env.ref('account.generic_tax_report_tax_account')
+        generic_tax_report_tax_account.horizontal_group_ids |= horizontal_groups
+
+        generic_ec_sales_report = self.env.ref('account_reports.generic_ec_sales_report')
+        generic_ec_sales_report.horizontal_group_ids |= horizontal_groups
+
+        for tax_unit in res:
+            generic_tax_report.variant_report_ids.filtered(lambda variant: variant.country_id == tax_unit.country_id).write(
+                {
+                    'horizontal_group_ids': [Command.link(group.id) for group in horizontal_groups],
+                }
+            )
+
+        return res
+
     @api.depends('company_ids')
     def _compute_fiscal_position_completion(self):
         for unit in self:

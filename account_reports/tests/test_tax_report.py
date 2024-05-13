@@ -1874,6 +1874,42 @@ class TestTaxReport(TestAccountReportsCommon):
             ],
         })
 
+    def test_tax_unit_create_horizontal_group(self):
+        """ This test will try to create two tax units to see if the creation of horizontal group works as expected """
+        company_1 = self.company_data['company']
+        company_2 = self.company_data_2['company']
+        company_2.currency_id = company_1.currency_id
+        unit_companies_1 = company_1 + company_2
+
+        company_3 = self.setup_other_company(name="Company 3")['company']
+        company_4 = self.setup_other_company(name="Company 4")['company']
+        unit_companies_2 = company_3 + company_4
+
+        self.env['account.tax.unit'].create([
+            {
+                'name': "First Tax Unit",
+                'country_id': self.fiscal_country.id,
+                'vat': "DW1234567890",
+                'company_ids': [Command.set(unit_companies_1.ids)],
+                'main_company_id': company_1.id,
+            },
+            {
+                'name': "Second Tax Unit",
+                'country_id': self.fiscal_country.id,
+                'vat': "DW1234567890",
+                'company_ids': [Command.set(unit_companies_2.ids)],
+                'main_company_id': company_3.id,
+            },
+        ])
+
+        # Check if the two last horizontal_group are the one created from the tax unit
+        horizontal_groups = self.env['account.report.horizontal.group'].search([])[-2:]
+        self.assertEqual(['First Tax Unit', 'Second Tax Unit'], horizontal_groups.mapped('name'))
+
+        # Check if the generic_tax_report has the two groups
+        generic_tax_report = self.env.ref('account.generic_tax_report')
+        self.assertTrue(all(horizontal_group_id in generic_tax_report.horizontal_group_ids.ids for horizontal_group_id in horizontal_groups.ids))
+
     def test_tax_unit_auto_fiscal_position(self):
         # setup companies
         company_1 = self.company_data['company']
