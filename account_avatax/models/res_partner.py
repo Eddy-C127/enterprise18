@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models, _
+from odoo import fields, models, api, _
 
 import logging
 
@@ -29,19 +29,12 @@ class ResPartner(models.Model):
         string='Avalara Show Address Validation',
     )
 
-    show_avalara_fields = fields.Boolean(
-        compute='_compute_show_avalara_fields',
-    )
-
-    def _compute_show_avalara_fields(self):
-        valid_country_codes = ('US', 'CA')
-        for partner in self:
-            partner.show_avalara_fields = self.env.company.country_id.code in valid_country_codes
-
+    @api.depends('country_id')
     def _compute_avalara_show_address_validation(self):
+        valid_country_ids = self.env.ref('base.us') | self.env.ref('base.ca')
         for partner in self:
             company = partner.company_id or self.env.company
-            partner.avalara_show_address_validation = company.avalara_address_validation and partner.street and (not partner.country_id or partner.show_avalara_fields)
+            partner.avalara_show_address_validation = company.avalara_address_validation and partner.street and (not partner.country_id or partner.country_id in valid_country_ids)
 
     def _get_avatax_description(self):
         return 'Contact'

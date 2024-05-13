@@ -26,12 +26,6 @@
         <field name="inherit_id" ref="account.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <field name="module_account_avatax" position="replace"/>
-            <setting id="avatax_settings" position="before">
-                <field name="show_setting_account_avatax" invisible="True"/>
-            </setting>
-            <setting id="avatax_settings" position="attributes">
-                <attribute name="invisible">not show_setting_account_avatax</attribute>
-            </setting>
             <setting id="avatax_settings" position="inside">
                     <field name="setting_account_avatax"/>
                     <div class="content-group" invisible="not setting_account_avatax">

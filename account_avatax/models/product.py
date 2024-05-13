@@ -41,15 +41,6 @@ class ProductTemplate(models.Model):
         help="https://taxcode.avatax.avalara.com/",
     )
 
-    show_avalara_fields = fields.Boolean(
-        compute='_compute_show_avalara_fields',
-    )
-
-    def _compute_show_avalara_fields(self):
-        valid_country_codes = ('US', 'CA')
-        for product in self:
-            product.show_avalara_fields = self.env.company.country_id.code in valid_country_codes
-
     def _get_avatax_category_id(self):
         return self.avatax_category_id or self.categ_id._get_avatax_category_id()
 
