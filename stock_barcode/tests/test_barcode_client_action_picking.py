@@ -220,7 +220,13 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         grp_lot = self.env.ref('stock.group_production_lot')
         self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
         self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
-
+        # Create a sibling stock location to check we can scan not only picking's
+        # destination and its sublocations for immediate transfers.
+        stock_2 = self.env['stock.location'].create({
+            'name': "Stock 2",
+            'location_id': self.stock_location.location_id.id,
+            'barcode': 'WH-STOCK-2',
+        })
         receipt_picking = self.env['stock.picking'].create({
             'location_id': self.supplier_location.id,
             'location_dest_id': self.stock_location.id,
@@ -228,7 +234,11 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         })
         url = self._get_client_action_url(receipt_picking.id)
         self.start_tour(url, 'test_receipt_from_scratch_with_lots_1', login='admin', timeout=180)
-        self.assertEqual(receipt_picking.move_line_ids.mapped('lot_name'), ['lot1', 'lot2'])
+        self.assertRecordValues(receipt_picking.move_line_ids, [
+            {'lot_name': 'lot1', 'location_dest_id': self.stock_location.id},
+            {'lot_name': 'lot2', 'location_dest_id': self.shelf1.id},
+            {'lot_name': 'lot3', 'location_dest_id': stock_2.id},
+        ])
 
     def test_receipt_from_scratch_with_lots_2(self):
         self.clean_access_rights()
@@ -471,7 +481,8 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
     def test_delivery_source_location(self):
         """ Ensures a location who isn't the picking's source location or one of its sublocations
-        can't be scanned as the source while processing a delivery."""
+        can't be scanned as the source while processing a delivery.
+        Ensures also this constraint is not applyable for immediate transfers."""
         self.clean_access_rights()
         grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
         self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})

@@ -90,11 +90,10 @@ export default class LineComponent extends Component {
 
     _getLocationPath(rootLocation, currentLocation) {
         let locationName = currentLocation.display_name;
-        if (this.env.model.shouldShortenLocationName) {
-            if (rootLocation && rootLocation.id != currentLocation.id) {
-                const name = rootLocation.display_name;
-                locationName = locationName.replace(name, '...');
-            }
+        if (this.env.model.shouldShortenLocationName && this.env.model._isSublocation &&
+            this.env.model._isSublocation(currentLocation, rootLocation) &&
+            rootLocation && rootLocation.id != currentLocation.id) {
+            locationName = locationName.replace(rootLocation.display_name, '...');
         }
         return locationName.replace(new RegExp(currentLocation.name + '$'), '');
     }

@@ -684,6 +684,23 @@ registry.category("web_tour.tours").add("test_delivery_source_location", {test: 
     { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
     { trigger: '.o_barcode_line.o_selected', run: 'scan product1' },
     ...stepUtils.validateBarcodeOperation('.o_validate_page.btn-success'),
+
+    // Create a delivery on the fly and try to use both locations as source.
+    // Since the delivery is not planned and there is no way for the user to set
+    // that from the Barcode app, it should be possible.
+    { trigger: ".o_stock_barcode_main_menu", run: 'scan WH-DELIVERY' },
+    { trigger: '.o_barcode_client_action', run: 'scan WH-SECOND-STOCK' },
+    { trigger: '.o_scan_message.o_scan_product', run: 'scan product1' },
+    { trigger: '.o_barcode_line', run: 'scan LOC-01-00-00' },
+    { trigger: '.o_scan_message.o_scan_validate', run: 'scan product1' },
+    {
+        trigger: '.o_barcode_line+.o_barcode_line',
+        run: () => {
+            helper.assertLinesCount(2);
+            helper.assertLineSourceLocation(0, "WH/Second Stock");
+            helper.assertLineSourceLocation(1, "WH/Stock");
+        }
+    },
 ]});
 
 registry.category("web_tour.tours").add("test_delivery_lot_with_multi_companies", {test: true, steps: () => [
@@ -1268,6 +1285,19 @@ registry.category("web_tour.tours").add('test_receipt_from_scratch_with_lots_1',
     {
         trigger: '.o_line_lot_name:contains("lot2")',
         run: 'scan LOC-01-01-00'
+    },
+
+    { trigger: '.o_scan_message.o_scan_validate', run: 'scan productserial1' },
+    { trigger: '.o_scan_message.o_scan_serial', run: 'scan lot3' },
+    { trigger: '.o_scan_message.o_scan_product_or_dest', run: 'scan WH-STOCK-2' },
+    {
+        trigger: '.o_scan_message.o_scan_validate',
+        run: () => {
+            helper.assertLinesCount(3);
+            helper.assertLineDestinationLocation(0, "WH/Stock");
+            helper.assertLineDestinationLocation(1, ".../Section 1");
+            helper.assertLineDestinationLocation(2, "WH/Stock 2");
+        }
     },
     ...stepUtils.validateBarcodeOperation(),
 ]});
