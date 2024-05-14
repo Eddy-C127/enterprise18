@@ -255,7 +255,8 @@ export default class BarcodePickingModel extends BarcodeModel {
             };
         }
         // Takes the parent line if the current line is part of a group.
-        const line = this._getParentLine(this.selectedLine) || this.selectedLine;
+        const parentLine = this._getParentLine(this.selectedLine);
+        const line = parentLine && this.getQtyDemand(parentLine) ? parentLine : this.selectedLine;
         // Defines some messages who can appear in multiple cases.
         const infos = {
             scanScrLoc: {
@@ -1258,9 +1259,9 @@ export default class BarcodePickingModel extends BarcodeModel {
         }
     }
 
-    async _processLocationSource(barcodeData){
-        // Checks the scanned location belongs to the picking's source (do nothing if not the case.)
-        if (!this._isSublocation(barcodeData.location, this._defaultLocation())) {
+    async _processLocationSource(barcodeData) {
+        // For planned transfers, check the scanned location is a part of transfer source location.
+        if (this._useReservation && !this._isSublocation(barcodeData.location, this._defaultLocation())) {
             barcodeData.stopped = true;
             const message = _t("The scanned location doesn't belong to this operation's location");
             return this.notification(message, { type: 'danger' });
@@ -1322,7 +1323,7 @@ export default class BarcodePickingModel extends BarcodeModel {
             return;
         }
         // For planned transfers, check the scanned location is a part of transfer destination.
-        if (!this.record.immediate_transfer && !this._isSublocation(barcodeData.destLocation, this._defaultDestLocation())) {
+        if (this._useReservation && !this._isSublocation(barcodeData.destLocation, this._defaultDestLocation())) {
             barcodeData.stopped = true;
             const message = _t("The scanned location doesn't belong to this operation's destination");
             return this.notification(message, { type: 'danger' });
