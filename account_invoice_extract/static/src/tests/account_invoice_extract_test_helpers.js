@@ -1,4 +1,15 @@
-/** @odoo-module **/
+import { ResCurrency } from "./mock_server/mock_models/res_currency";
+import { accountModels } from "@account/../tests/account_test_helpers";
+import { mailModels } from "@mail/../tests/mail_test_helpers";
+import { defineModels } from "@web/../tests/web_test_helpers";
+
+export const accountInvoiceExtractModels = {
+    ResCurrency,
+};
+
+export function defineAccountInvoiceExtractModels() {
+    return defineModels({ ...accountModels, ...mailModels, ...accountInvoiceExtractModels });
+}
 
 /**
  * @param {Object} params
@@ -30,8 +41,8 @@ function createBoxData(params) {
  *
  * @returns {Object[]}
  */
-function createBoxesData() {
-    var vatBoxes = [
+export function createBoxesData() {
+    const vatBoxes = [
         createBoxData({
             fieldName: "VAT_Number",
             id: 1,
@@ -52,7 +63,7 @@ function createBoxesData() {
             user_selected: true,
         }),
     ];
-    var invoiceIdBoxes = [
+    const invoiceIdBoxes = [
         createBoxData({
             fieldName: "invoice_id",
             id: 4,
@@ -66,7 +77,7 @@ function createBoxesData() {
             user_selected: true,
         }),
     ];
-    var supplierBoxes = [
+    const supplierBoxes = [
         createBoxData({
             fieldName: "supplier",
             id: 6,
@@ -87,7 +98,7 @@ function createBoxesData() {
             user_selected: false,
         }),
     ];
-    var totalBoxes = [
+    const totalBoxes = [
         createBoxData({
             fieldName: "total",
             id: 9,
@@ -101,7 +112,7 @@ function createBoxesData() {
             user_selected: false,
         }),
     ];
-    var dateBoxes = [
+    const dateBoxes = [
         createBoxData({
             fieldName: "date",
             id: 11,
@@ -121,7 +132,7 @@ function createBoxesData() {
             user_selected: false,
         }),
     ];
-    var dueDateBoxes = [
+    const dueDateBoxes = [
         createBoxData({
             fieldName: "due_date",
             id: 14,
@@ -135,7 +146,7 @@ function createBoxesData() {
             user_selected: true,
         }),
     ];
-    var currencyBoxes = [
+    const currencyBoxes = [
         createBoxData({
             fieldName: "currency",
             id: 16,
@@ -159,8 +170,3 @@ function createBoxesData() {
         currencyBoxes
     );
 }
-
-export default {
-    createBoxData: createBoxData,
-    createBoxesData: createBoxesData,
-};

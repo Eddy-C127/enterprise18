@@ -22,9 +22,8 @@
             'account_invoice_extract/static/src/css/*.css',
             'account_invoice_extract/static/src/xml/*.xml',
         ],
-        'web.qunit_suite_tests': [
-            'account_invoice_extract/static/src/tests/helpers/*',
-            'account_invoice_extract/static/src/tests/*',
+        'web.assets_unit_tests': [
+            'account_invoice_extract/static/src/tests/**/*',
         ],
     }
 }
