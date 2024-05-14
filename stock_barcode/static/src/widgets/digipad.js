@@ -19,9 +19,11 @@ export class Digipad extends Component {
             return { index, value };
         });
         this.value = String(this.props.record.data[this.props.quantityField]);
+        this.precision = 2;
         onWillStart(async () => {
             this.displayUOM = await user.hasGroup('uom.group_uom');
             await this._fetchPackagingButtons();
+            this.precision = this.props.record.model.config.fields[this.props.quantityField].digits[1];
         });
     }
 
@@ -54,9 +56,8 @@ export class Digipad extends Component {
      */
     async _increment(interval=1) {
         this._checkInputValue();
-        const fraction = this.value.split('.')[1]
         const numberValue = Number(this.value || 0);
-        this.value = (numberValue + interval).toFixed(fraction?.length);
+        this.value = (numberValue + interval).toFixed(this.precision);
         await this.props.record.update(this.changes);
     }
 

@@ -19,7 +19,7 @@ class StockMoveLine(models.Model):
     hide_lot = fields.Boolean(compute='_compute_hide_lot_name')
     image_1920 = fields.Image(related="product_id.image_1920")
     product_reference_code = fields.Char(related="product_id.code", string="Product Reference Code")
-    qty_done = fields.Float(compute='_compute_qty_done', inverse='_inverse_qty_done')  # Dummy field
+    qty_done = fields.Float(compute='_compute_qty_done', inverse='_inverse_qty_done', digits='Product Unit of Measure')  # Dummy field
 
     @api.depends('tracking', 'picking_type_use_existing_lots', 'picking_type_use_create_lots', 'lot_name')
     def _compute_hide_lot_name(self):
