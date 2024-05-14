@@ -32,7 +32,7 @@ registry.category("web_tour.tours").add("sign_tour", {
                 '")',
             content: markup(_t("<b>Drag & drop “Signature”</b> into the bottom of the document.")),
             position: "bottom",
-            run: "click",
+            run: "drag_and_drop",
         },
         {
             trigger: ".o_control_panel .o_sign_template_send",
