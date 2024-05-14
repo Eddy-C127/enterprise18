@@ -81,6 +81,9 @@ class BankRecWidget(models.Model):
         related='st_line_id.company_id',
         depends=['st_line_id'],
     )
+
+    country_code = fields.Char(related='company_id.country_id.code', depends=['company_id'])
+
     company_currency_id = fields.Many2one(
         string="Wizard Company Currency",
         related='company_id.currency_id',

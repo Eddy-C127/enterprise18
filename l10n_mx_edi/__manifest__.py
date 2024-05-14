@@ -39,6 +39,7 @@ This module allows the creation of the EDI documents and the communication with 
         'views/account_payment_register_views.xml',
         'views/account_tax_view.xml',
         'views/l10n_mx_edi_addenda_views.xml',
+        'views/bank_rec_widget_views.xml',
         'views/l10n_mx_edi_certificate_view.xml',
         'views/l10n_mx_edi_payment_method_view.xml',
         "views/report_invoice.xml",
