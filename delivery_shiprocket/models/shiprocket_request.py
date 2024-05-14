@@ -193,7 +193,7 @@ class ShipRocket:
         products = picking and picking.move_ids.product_id or order.order_line.product_id
         self._check_required_value(
             recipient, shipper,
-            products and products.filtered(lambda p: p.detailed_type in ['consu', 'product'])
+            products and products.filtered(lambda p: p.type == 'consu')
         )
         if package:
             total_weight = package.weight
@@ -403,7 +403,7 @@ class ShipRocket:
         self._check_required_value(
             picking.partner_id,
             picking.picking_type_id.warehouse_id.partner_id or picking.company_id.partner_id,
-            products and products.filtered(lambda p: p.detailed_type in ['consu', 'product'])
+            products and products.filtered(lambda p: p.type == 'consu')
         )
         res = {
             'exact_price': 0.00,

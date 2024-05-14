@@ -590,7 +590,7 @@ class TestQualityCheck(TestQualityCommon):
 
         p01, p02 = self.env['product.product'].create([{
             'name': name,
-            'type': 'product',
+            'is_storable': True,
         } for name in ('SuperProduct01', 'SuperProduct02')])
 
         self.env['quality.point'].create([{
@@ -654,7 +654,7 @@ class TestQualityCheck(TestQualityCommon):
             'test_type_id': self.env.ref('quality_control.test_type_passfail').id
         })
         self.product.write({
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
 
@@ -793,7 +793,7 @@ class TestQualityCheck(TestQualityCommon):
         })
 
         (self.product | self.product_2).write({
-            'type': 'product',
+            'is_storable': True,
         })
 
         receipt = self.env['stock.picking'].create({

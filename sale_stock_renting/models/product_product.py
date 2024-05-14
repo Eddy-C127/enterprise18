@@ -18,7 +18,7 @@ class ProductProduct(models.Model):
         super()._compute_display_name()
         if self.env.context.get('sale_stock_renting_show_total_qty'):
             storable_rental_products = self.filtered(
-                lambda product: product.rent_ok and product.type == 'product'
+                lambda product: product.rent_ok and product.is_storable
             )
             if not storable_rental_products:
                 return

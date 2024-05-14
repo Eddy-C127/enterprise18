@@ -17,7 +17,7 @@ class RentalSchedule(models.Model):
         quoted_rentals_with_product = self.filtered(
             lambda r: r.rental_status not in ['return', 'returned', 'cancel']
                 and r.return_date > fields.Datetime.now()
-                and r.product_id.type == 'product')
+                and r.product_id.is_storable)
         for rental in quoted_rentals_with_product:
             sol = rental.order_line_id
             rental.is_available = sol.virtual_available_at_date - sol.product_uom_qty >= 0

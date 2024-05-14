@@ -68,7 +68,7 @@ class TestQualityCheckWorkorder(TestMrpCommon):
         finished = self.bom_4.product_id
         component = self.bom_4.bom_line_ids.product_id
         (finished | component).write({
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
 

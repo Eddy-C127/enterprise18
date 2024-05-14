@@ -46,7 +46,7 @@
             <field name="categ_id" ref="product.product_category_5"/>
             <field name="standard_price">500.0</field>
             <field name="list_price">500.0</field>
-            <field name="detailed_type">product</field>
+            <field name="is_storable" eval="True"/>
             <field name="weight">2</field>
             <field name="default_code">D_0045</field>
             <field name="tracking">serial</field>
@@ -116,7 +116,7 @@
             <field name="default_code">FURN_1145</field>
             <field name="categ_id" ref="product.product_category_5"/>
             <field name="standard_price">5</field>
-            <field name="detailed_type">product</field>
+            <field name="is_storable" eval="True"/>
             <field name="weight">2</field>
             <field name="sale_ok" eval="False"/>
             <field name="uom_id" ref="uom.product_uom_unit"/>
@@ -192,7 +192,7 @@
             <field name="categ_id" ref="product.product_category_5"/>
             <field name="standard_price">7</field>
             <field name="tracking">lot</field>
-            <field name="detailed_type">product</field>
+            <field name="is_storable" eval="True"/>
             <field name="weight">2</field>
             <field name="sale_ok" eval="False"/>
             <field name="uom_id" ref="uom.product_uom_unit"/>

@@ -25,7 +25,7 @@ class TestRentalCommon(common.TransactionCase):
             'uom_id': cls.env.ref('uom.product_uom_unit').id,
             'uom_po_id': cls.env.ref('uom.product_uom_unit').id,
             'rent_ok': True,
-            'type': 'product',
+            'is_storable': True,
             'extra_daily': 10.0
         })
         cls.tracked_product_id = cls.env['product.product'].create({
@@ -34,7 +34,7 @@ class TestRentalCommon(common.TransactionCase):
             'uom_id': cls.env.ref('uom.product_uom_unit').id,
             'uom_po_id': cls.env.ref('uom.product_uom_unit').id,
             'rent_ok': True,
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
 

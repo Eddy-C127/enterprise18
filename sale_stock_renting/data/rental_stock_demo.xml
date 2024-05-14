@@ -12,7 +12,7 @@
   <record id="rental_stock_product_1" model="product.product">
     <field name="name">Printer</field>
     <field name="categ_id" ref="sale_renting.cat_renting"/>
-    <field name="type">product</field>
+    <field name="is_storable" eval="True"/>
     <field name="uom_id" ref="uom.product_uom_unit"/>
     <field name="uom_po_id" ref="uom.product_uom_unit"/>
     <field name="default_code">RENT003</field>

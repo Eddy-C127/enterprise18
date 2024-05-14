@@ -352,7 +352,7 @@ class MrpProductionSchedule(models.Model):
                 continue
             dummy, components = bom.explode(record.product_id, 1)
             for component in components:
-                if component[0].product_id.type != 'consu':
+                if component[0].product_id.is_storable:
                     components_list.add((component[0].product_id.id, record.warehouse_id.id, record.company_id.id))
         for component in components_list:
             if self.env['mrp.production.schedule'].search_count([

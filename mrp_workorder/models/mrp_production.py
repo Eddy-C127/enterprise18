@@ -122,7 +122,7 @@ class MrpProduction(models.Model):
         products = [{'xml_id': xmlid, 'noupdate': True, 'values': {
             'name': name,
             'categ_id': self.env.ref('product.product_category_all').id,
-            'detailed_type': 'product',
+            'is_storable': True,
             'uom_id': self.env.ref('uom.product_uom_unit').id,
             'uom_po_id': self.env.ref('uom.product_uom_unit').id,
             'description': desc,

@@ -820,7 +820,7 @@ class AccountMoveLine(models.Model):
         taxpayer_type = self.move_id.commercial_partner_id.l10n_ec_taxpayer_type_id
         is_domestic = self.move_id.commercial_partner_id.country_id.code == 'EC'
         product_type = 'services'  # it includes service, event, course and others
-        if self.product_id.type in ['consu', 'product']:
+        if self.product_id.type == 'consu':
             product_type = 'goods'
 
         # suggest profit withhold

@@ -104,7 +104,7 @@ class QualityPoint(models.Model):
     component_ids = fields.One2many('product.product', compute='_compute_component_ids')
     product_ids = fields.Many2many(
         default=_default_product_ids,
-        domain="operation_id and [('id', 'in', bom_product_ids)] or [('type', 'in', ('product', 'consu')), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
+        domain="operation_id and [('id', 'in', bom_product_ids)] or [('type', '=', 'consu'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
     bom_product_ids = fields.One2many('product.product', compute="_compute_bom_product_ids")
     test_type_id = fields.Many2one(
         'quality.point.test_type',

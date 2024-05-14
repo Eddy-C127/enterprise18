@@ -1116,11 +1116,11 @@ class AmazonAccount(models.Model):
             return
 
         # Cache `free_qty` of all products to avoid recomputing it for each offer.
-        accounts.offer_ids.product_id.filtered(lambda p: p.type == 'product')._compute_quantities()
+        accounts.offer_ids.product_id.filtered(lambda p: p.is_storable)._compute_quantities()
 
         for account in accounts:
             amazon_utils.ensure_account_is_set_up(account)
-            offers = account.offer_ids.filtered(lambda o: o.product_id.type == 'product')
+            offers = account.offer_ids.filtered(lambda o: o.product_id.is_storable)
             offers._update_inventory_availability(account)
 
         # As Amazon needs some time to process the feed, we trigger the cron to check the status of

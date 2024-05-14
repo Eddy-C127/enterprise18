@@ -12,32 +12,32 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
 
         self.component01 = self.env['product.product'].create({
             'name': 'Compo 01',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo01',
         })
         self.component_lot = self.env['product.product'].create({
             'name': 'Compo Lot',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo_lot',
             'tracking': 'lot',
         })
 
         self.final_product = self.env['product.product'].create({
             'name': 'Final Product',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'final',
         })
 
         self.final_product_lot = self.env['product.product'].create({
             'name': 'Final Product2',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'final_lot',
             'tracking': 'lot',
         })
 
         self.by_product = self.env['product.product'].create({
             'name': 'By Product',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'byproduct'
         })
 
@@ -106,7 +106,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         # Creates a BoM.
         component02 = self.env['product.product'].create({
             'name': 'Compo 02',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo02',
         })
         self.env['mrp.bom'].create({
@@ -336,7 +336,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         # Creates a BoM.
         component02 = self.env['product.product'].create({
             'name': 'Compo 02',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo02',
         })
         self.env['mrp.bom'].create({
@@ -372,7 +372,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         # Creates a BoM.
         component02 = self.env['product.product'].create({
             'name': 'Compo 02',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo02',
         })
         self.env['mrp.bom'].create({
@@ -406,7 +406,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         # Creates a product with a BoM.
         product_final = self.env['product.product'].create({
             'name': 'Final Product',
-            'type': 'product',
+            'is_storable': True,
         })
         bom = self.env['mrp.bom'].create({
             'product_id': product_final.id,

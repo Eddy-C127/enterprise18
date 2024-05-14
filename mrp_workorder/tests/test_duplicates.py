@@ -22,21 +22,21 @@ class TestDuplicateProducts(common.TransactionCase):
         # Products and lots
         cls.painted_boat = cls.env['product.product'].create({
             'name': 'Painted boat',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial'})
         cls.pb1 = cls.env['stock.lot'].create({
             'product_id': cls.painted_boat.id,
             'name': 'pb1'})
         cls.blank_boat = cls.env['product.product'].create({
             'name': 'Blank Boat',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial'})
         cls.bb1 = cls.env['stock.lot'].create({
             'product_id': cls.blank_boat.id,
             'name': 'bb1'})
         cls.painting = cls.env['product.product'].create({
             'name': 'Color Painting',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot'})
         cls.p1 = cls.env['stock.lot'].create({
             'product_id': cls.painting.id,

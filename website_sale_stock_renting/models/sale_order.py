@@ -94,7 +94,7 @@ class SaleOrder(models.Model):
             return False
         for line in self.order_line:
             product = line.product_id
-            if product.type == 'product' and not product.allow_out_of_stock_order:
+            if product.is_storable and not product.allow_out_of_stock_order:
                 cart_qty, avl_qty = self._get_cart_and_free_qty(product, line=line)
                 if cart_qty > avl_qty:
                     line._set_shop_warning_stock(cart_qty, max(avl_qty, 0))

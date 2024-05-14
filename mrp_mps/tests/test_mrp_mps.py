@@ -34,23 +34,23 @@ class TestMpsMps(common.TransactionCase):
 
         cls.table = cls.env['product.product'].create({
             'name': 'Table',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.drawer = cls.env['product.product'].create({
             'name': 'Drawer',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.table_leg = cls.env['product.product'].create({
             'name': 'Table Leg',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.screw = cls.env['product.product'].create({
             'name': 'Screw',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.bolt = cls.env['product.product'].create({
             'name': 'Bolt',
-            'type': 'product',
+            'is_storable': True,
         })
         bom_form_table = Form(cls.env['mrp.bom'])
         bom_form_table.product_tmpl_id = cls.table.product_tmpl_id
@@ -93,7 +93,7 @@ class TestMpsMps(common.TransactionCase):
 
         cls.wardrobe = cls.env['product.product'].create({
             'name': 'Wardrobe',
-            'type': 'product',
+            'is_storable': True,
         })
 
         bom_form_wardrobe = Form(cls.env['mrp.bom'])
@@ -109,7 +109,7 @@ class TestMpsMps(common.TransactionCase):
 
         cls.chair = cls.env['product.product'].create({
             'name': 'Chair',
-            'type': 'product',
+            'is_storable': True,
         })
 
         bom_form_chair = Form(cls.env['mrp.bom'])
@@ -523,15 +523,15 @@ class TestMpsMps(common.TransactionCase):
         """
         cabinet = self.env['product.product'].create({
             'name': 'Cabinet',
-            'type': 'product',
+            'is_storable': True,
         })
         wood_kit = self.env['product.product'].create({
             'name': 'Wood Kit',
-            'type': 'product',
+            'is_storable': True,
         })
         wood = self.env['product.product'].create({
             'name': 'Wood',
-            'type': 'product',
+            'is_storable': True,
         })
 
         self.env['mrp.bom'].create({
@@ -622,7 +622,7 @@ class TestMpsMps(common.TransactionCase):
 
         product = self.env['product.product'].create({
             'name': 'SuperProduct',
-            'type': 'product',
+            'is_storable': True,
             'route_ids': [(6, 0, interwh_route.ids)],
         })
 
@@ -660,7 +660,7 @@ class TestMpsMps(common.TransactionCase):
         ], limit=1)
         delivery_rule.delay = 15
 
-        product = self.env['product.product'].create({'name': 'SuperProduct', 'type': 'product'})
+        product = self.env['product.product'].create({'name': 'SuperProduct', 'is_storable': True})
         procurement = self.env["procurement.group"].Procurement(
             product, 1, product.uom_id,
             customer_location,
@@ -698,7 +698,7 @@ class TestMpsMps(common.TransactionCase):
         } for name in ('M', 'L')])
         product, c1, c2 = self.env['product.product'].create([{
             'name': i,
-            'type': 'product',
+            'is_storable': True,
         } for i in range(3)])
         product_template = product.product_tmpl_id
         size_attribute_line = self.env['product.template.attribute.line'].create([{

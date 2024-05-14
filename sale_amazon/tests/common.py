@@ -101,7 +101,7 @@ class TestAmazonCommon(TransactionCase):
 
         # Create an offer linked to the product
         self.product = self.env['product.product'].create(
-            {'name': "This is a storable product", 'type': 'product'}
+            {'name': "This is a storable product", 'is_storable': True}
         )
         self.offer = self.env['amazon.offer'].create({
             'account_id': self.account.id,

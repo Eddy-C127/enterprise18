@@ -17,7 +17,7 @@ class TestHelpdeskStock(common.HelpdeskCommon):
 
         product = self.env['product.product'].create({
             'name': 'product 1',
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'order',
         })
         so = self.env['sale.order'].create({
@@ -84,7 +84,7 @@ class TestHelpdeskStock(common.HelpdeskCommon):
         """
         product = self.env['product.product'].create({
             'name': 'test product',
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'order',
         })
         partner = self.env['res.partner'].create({

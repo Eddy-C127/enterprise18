@@ -18,7 +18,7 @@ class TestDeliveryEasypostTour(HttpCase, EasypostTestCommon):
     def test_carrier_type_selection_field(self):
         product = self.env['product.product'].create({
             'name': 'product1',
-            'type': 'product',
+            'is_storable': True,
         })
 
         easypost_carrier = self.env['delivery.carrier'].create({

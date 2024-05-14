@@ -17,7 +17,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.computer.type = 'product'
+        cls.computer.is_storable = True
         cls.computer.allow_out_of_stock_order = False
 
         cls.company.update({

@@ -13,29 +13,29 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
         self.component01 = self.env['product.product'].create({
             'name': 'Compo 01',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo01',
         })
         self.component02 = self.env['product.product'].create({
             'name': 'Compo 02',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo02',
         })
         self.component_lot = self.env['product.product'].create({
             'name': 'Compo Lot',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'compo_lot',
             'tracking': 'lot',
         })
 
         self.simple_kit = self.env['product.product'].create({
             'name': 'Simple Kit',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'simple_kit',
         })
         self.kit_lot = self.env['product.product'].create({
             'name': 'Kit Lot',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'kit_lot',
         })
 

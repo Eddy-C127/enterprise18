@@ -18,7 +18,7 @@ class TestWebsiteSaleStockRentingAbandonedCartEmail(TestWebsiteSaleCartAbandoned
 
         renting_product_template = self.env['product.template'].create({
             'name': 'renting_product_template',
-            'type': 'product',
+            'is_storable': True,
             'rent_ok': True,
             'allow_out_of_stock_order': False
         })

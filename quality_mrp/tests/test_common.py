@@ -14,7 +14,7 @@ class TestQualityMrpCommon(common.TransactionCase):
         cls.product_uom_id = cls.env.ref('uom.product_uom_unit').id
         cls.product = cls.env['product.product'].create({
             'name': 'Drawer',
-            'type': 'product',
+            'is_storable': True,
             'uom_id': cls.product_uom_id,
             'uom_po_id': cls.product_uom_id,
             'tracking': 'lot',

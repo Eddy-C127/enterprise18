@@ -21,19 +21,19 @@ class TestBarcodeBatchClientAction(TestBarcodeClientAction):
         # Create some products
         self.product3 = self.env['product.product'].create({
             'name': 'product3',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'product3',
         })
         self.product4 = self.env['product.product'].create({
             'name': 'product4',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'product4',
         })
         self.product5 = self.env['product.product'].create({
             'name': 'product5',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'product5',
         })

@@ -18,19 +18,19 @@ class TestBarcodeClientAction(HttpCase):
             'name': 'product1',
             'barcode': '01304510',
             'categ_id': product_category_all.id,
-            'type': 'product',
+            'is_storable': True,
         })
         product2 = Product.create({
             'name': 'product2',
             'barcode': '73411048',
             'categ_id': product_category_all.id,
-            'type': 'product',
+            'is_storable': True,
         })
         product3 = Product.create({
             'name': 'product3',
             'barcode': '00000073411048',  # Ambiguous with the product2 barcode.
             'categ_id': product_category_all.id,
-            'type': 'product',
+            'is_storable': True,
         })
 
         # Searches while using the default barcode nomenclature.
@@ -189,7 +189,7 @@ class TestBarcodeClientAction(HttpCase):
         """
         product = self.env['product.product'].create({
             'name': 'product1',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         # create 2 lots

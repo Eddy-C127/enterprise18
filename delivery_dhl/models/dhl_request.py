@@ -297,7 +297,7 @@ class DHLProvider():
 
     def _set_export_declaration(self, carrier, picking, is_return=False):
         export_lines = []
-        move_lines = picking.move_line_ids.filtered(lambda line: line.product_id.type in ['product', 'consu'])
+        move_lines = picking.move_line_ids.filtered(lambda line: line.product_id.type == 'consu')
         currency_id = picking.sale_id and picking.sale_id.currency_id or picking.company_id.currency_id
         for sequence, line in enumerate(move_lines, start=1):
             if line.move_id.sale_line_id:

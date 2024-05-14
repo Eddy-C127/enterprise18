@@ -118,10 +118,10 @@
             <field name="inherit_id" ref="product.product_product_tree_view"/>
             <field name="arch" type="xml">
                 <field name="type" position="after">
-                    <field name="intrastat_code_id" invisible="type != 'product'" optional="hide"/>
-                    <field name="intrastat_supplementary_unit_amount" invisible="type != 'product'" optional="hide"/>
-                    <field name="intrastat_supplementary_unit" invisible="type != 'product'" optional="hide"/>
-                    <field name="intrastat_origin_country_id" invisible="type != 'product'" optional="hide"/>
+                    <field name="intrastat_code_id" invisible="type != 'consu'" optional="hide"/>
+                    <field name="intrastat_supplementary_unit_amount" invisible="type != 'consu'" optional="hide"/>
+                    <field name="intrastat_supplementary_unit" invisible="type != 'consu'" optional="hide"/>
+                    <field name="intrastat_origin_country_id" invisible="type != 'consu'" optional="hide"/>
                 </field>
             </field>
         </record>

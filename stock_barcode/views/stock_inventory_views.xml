@@ -17,8 +17,8 @@
                             </div>
                             <div>
                                 <field name="product_id" placeholder="Product"
-                                    context="{'default_detailed_type': 'product'}"
-                                    domain="[('type', 'in', ['product'])]"
+                                    context="{'default_is_storable': True}"
+                                    domain="[('is_storable', '=', True)]"
                                     required="1"
                                     readonly="id"/>
                             </div>

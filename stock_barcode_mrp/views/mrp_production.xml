@@ -138,8 +138,8 @@
                     <div class="col-12 d-flex align-items-baseline">
                         <i class="fa fa-fw fa-lg fa-tags me-3" title="Product"/>
                         <field name="product_id" placeholder="Product"
-                            context="{'default_detailed_type': 'product'}"
-                            domain="[('type', 'in', ['product', 'consu']), '|', ('company_id', '=', False), ('company_id', '=', company_id)]"
+                            context="{'default_is_storable': True}"
+                            domain="[('type', '=', 'consu'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]"
                             required="1"
                             readonly="id" nolabel="1" />
                     </div>

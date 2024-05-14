@@ -29,7 +29,7 @@ class ProductTemplate(models.Model):
 
         products_infinite_qty = products_finite_qty = self.env['product.template']
         for product in self:
-            if not product.rent_ok or product.type != 'product' or product.allow_out_of_stock_order:
+            if not product.rent_ok or not product.is_storable or product.allow_out_of_stock_order:
                 products_infinite_qty |= product
             else:
                 products_finite_qty |= product

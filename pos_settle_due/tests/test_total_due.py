@@ -19,7 +19,7 @@ class TestPointOfSaleFlow(TestPointOfSaleCommon):
 
         self.product1 = self.env['product.product'].create({
             'name': 'Product A',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
         })
         self.partner1.write({'parent_id': self.env['res.partner'].create({'name': 'Parent'}).id})
@@ -115,7 +115,7 @@ class TestPointOfSaleFlow(TestPointOfSaleCommon):
 
         self.product1 = self.env['product.product'].create({
             'name': 'Product A',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
         })
         self.partner1.write({'parent_id': self.env['res.partner'].create({'name': 'Parent'}).id})

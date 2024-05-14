@@ -13,22 +13,22 @@ class TestPlmCommon(common.TransactionCase):
         cls.env.user.write({'groups_id': [(4, grp_workorder.id)]})
         cls.table = cls.env['product.product'].create({
             'name': 'Table (MTO)',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         cls.table_sheet = cls.env['product.product'].create({
             'name': 'Table Top',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         cls.table_leg = cls.env['product.product'].create({
             'name': 'Table Leg',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         cls.table_bolt = cls.env['product.product'].create({
             'name': 'Bolt',
-            'type': 'product',
+            'is_storable': True,
         })
 
         cls.workcenter_1 = cls.env['mrp.workcenter'].create({

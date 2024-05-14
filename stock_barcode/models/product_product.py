@@ -17,7 +17,7 @@ class Product(models.Model):
 
     @api.model
     def _get_fields_stock_barcode(self):
-        return ['barcode', 'default_code', 'categ_id', 'code', 'detailed_type', 'tracking', 'display_name', 'uom_id']
+        return ['barcode', 'default_code', 'categ_id', 'code', 'detailed_type', 'tracking', 'display_name', 'is_storable', 'uom_id']
 
     def _get_stock_barcode_specific_data(self):
         return {

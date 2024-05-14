@@ -15,7 +15,7 @@ class TestMrpPlm(TestPlmCommon):
         uom_unit = self.env.ref('uom.product_uom_unit')
         uom_dozen = self.env.ref('uom.product_uom_dozen')
         # Creates a BoM.
-        common_vals = {'type': "product"}
+        common_vals = {'is_storable': True}
         finished_product = self.env['product.product'].create(dict(common_vals, name="Clover"))
         component_1 = self.env['product.product'].create(dict(common_vals, name="Clover's stem"))
         component_2 = self.env['product.product'].create(dict(common_vals, name="Clover's leaf"))

@@ -82,13 +82,13 @@ class TestL10nClEdiStockCommon(ValuationReconciliationTestCommon):
         cls.product_with_taxes_a = cls.env['product.product'].create({
             'name': 'Tapa Ranurada UL FM 300 6"',
             'uom_id': cls.env.ref('uom.product_uom_unit').id,
-            'type': 'product',
+            'is_storable': True,
             'list_price': 172050.0,
             'taxes_id': [(6, 0, [cls.tax_19.id])]
         })
         cls.product_with_taxes_b = cls.env['product.product'].create({
             'name': 'Copla Flexible 1NS 6"',
-            'type': 'product',
+            'is_storable': True,
             'uom_id': cls.env.ref('uom.product_uom_unit').id,
             'list_price': 51240.0,
             'taxes_id': [(6, 0, [cls.tax_19.id])]
@@ -96,13 +96,13 @@ class TestL10nClEdiStockCommon(ValuationReconciliationTestCommon):
         cls.product_without_taxes_a = cls.env['product.product'].create({
             'name': 'Tapa Ranurada',
             'uom_id': cls.env.ref('uom.product_uom_unit').id,
-            'type': 'product',
+            'is_storable': True,
             'list_price': 10000.0,
             'taxes_id': [],
         })
         cls.product_without_taxes_b = cls.env['product.product'].create({
             'name': 'Copla Flexible 1NS 5.3"',
-            'type': 'product',
+            'is_storable': True,
             'uom_id': cls.env.ref('uom.product_uom_unit').id,
             'list_price': 2500.0,
             'taxes_id': [],

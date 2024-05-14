@@ -317,7 +317,7 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             upsell_so = self.env['sale.order'].browse(action['res_id'])
             stored_prod = self.env['product.product'].create({
                 'name': 'Stored product',
-                'type': 'product',
+                'is_storable': True,
             })
             upsell_so.write({'order_line': [
                 Command.create({
@@ -336,7 +336,7 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             self.skipTest("If the 'sale_mrp' module isn't installed, we can't test bom!")
         self.additional_kit_product = self.env['product.product'].create({
             'name': 'Mug',
-            'type': 'product',
+            'is_storable': True,
             'standard_price': 10.0,
             'uom_id': self.uom_unit.id,
             'recurring_invoice': False,

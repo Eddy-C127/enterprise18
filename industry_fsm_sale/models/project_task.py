@@ -331,7 +331,7 @@ class Task(models.Model):
         domain = [
             ('company_id', 'in', [self.company_id.id, False]),
             ('sale_ok', '=', True),
-            '|', ('detailed_type', 'in', ['consu', 'product']),
+            '|', ('type', '=', 'consu'),
                 '&', '&',
                     ('detailed_type', '=', 'service'),
                     ('invoice_policy', '=', 'delivery'),

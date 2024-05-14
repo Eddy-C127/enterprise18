@@ -17,7 +17,7 @@ class TestPoSRental(TestPointOfSaleHttpCommon):
             'uom_po_id': self.env.ref('uom.product_uom_unit').id,
             'available_in_pos': True,
             'rent_ok': True,
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
 

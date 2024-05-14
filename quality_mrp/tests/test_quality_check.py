@@ -69,7 +69,7 @@ class TestQualityCheck(TestQualityMrpCommon):
 
         product_without_tracking = self.env['product.product'].create({
             'name': 'Product not tracked',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'none',
         })
 
@@ -195,16 +195,16 @@ class TestQualityCheck(TestQualityMrpCommon):
         # Set up Products
         product_to_build = self.env['product.product'].create({
             'name': 'Young Tom',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         product_to_use_1 = self.env['product.product'].create({
             'name': 'Botox',
-            'type': 'product',
+            'is_storable': True,
         })
         product_to_use_2 = self.env['product.product'].create({
             'name': 'Old Tom',
-            'type': 'product',
+            'is_storable': True,
         })
         bom_1 = self.env['mrp.bom'].create({
             'product_id': product_to_build.id,

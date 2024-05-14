@@ -21,7 +21,7 @@ class SaleOrderLine(models.Model):
         result = super()._action_launch_stock_rule(previous_product_uom_qty)
         ml_to_create = []
         for sol_to_treat in self:
-            if not (sol_to_treat.task_id.is_fsm and sol_to_treat.product_id.type in ('consu', 'product')):
+            if not (sol_to_treat.task_id.is_fsm and sol_to_treat.product_id.type == 'consu'):
                 continue
             for move in sol_to_treat.move_ids:
                 if move.state in ('done', 'cancel'):

@@ -25,7 +25,7 @@ patch(BarcodeModel.prototype, {
                     {
                         additionalContext: {
                             "default_barcode": barcodeData?.barcode,
-                            "default_detailed_type": "product",
+                            "default_is_storable": true,
                             "dialog_size": "medium",
                         },
                         props: {

@@ -25,7 +25,7 @@ class TestUi(HttpCase, TestWebsiteSaleRentingCommon):
         })
         cls.env.ref('base.user_admin').sudo().partner_id.company_id = cls.env.company
         cls.env.ref('website.default_website').company_id = cls.env.company
-        cls.computer.type = 'product'
+        cls.computer.is_storable = True
         cls.computer.allow_out_of_stock_order = False
         cls.computer.show_availability = True
 
@@ -59,7 +59,7 @@ class TestUi(HttpCase, TestWebsiteSaleRentingCommon):
         and the sale.order.lines to check availability of the rental product.
         """
         self.env['product.product'].create({
-            'type': 'product',
+            'is_storable': True,
             'name': 'Test product',
             'rent_ok': True,
             'allow_out_of_stock_order': False,

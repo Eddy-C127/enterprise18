@@ -93,7 +93,7 @@ class TestQuality(TransactionCase):
         Test that a quality check is deleted when its linked move is deleted.
         """
         self.bom.bom_line_ids.product_id.tracking = 'lot'
-        self.bom.bom_line_ids.product_id.type = 'product'
+        self.bom.bom_line_ids.product_id.is_storable = True
         self.bom.operation_ids[0].quality_point_ids = [Command.create({
             'product_ids': [(4, self.product_1.id)],
             'picking_type_ids': [(4, self.env['stock.picking.type'].search([('code', '=', 'mrp_operation')], limit=1).id)],

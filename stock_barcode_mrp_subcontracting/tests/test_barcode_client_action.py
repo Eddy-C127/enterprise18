@@ -18,12 +18,12 @@ class TestSubcontractingBarcodeClientAction(TestBarcodeClientAction):
         })
         self.subcontracted_product = self.env['product.product'].create({
             'name': 'Chocolate Eclairs',
-            'type': 'product',
+            'is_storable': True,
             'barcode': 'product_subcontracted',
         })
         self.subcontracted_component = self.env['product.product'].create({
             'name': 'Chocolate',
-            'type': 'product',
+            'is_storable': True,
         })
         self.bom = self.env['mrp.bom'].create({
             'type': 'subcontract',

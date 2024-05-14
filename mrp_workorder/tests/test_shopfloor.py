@@ -34,21 +34,21 @@ class TestShopFloor(HttpCase):
 
         giraffe = self.env['product.product'].create({
             'name': 'Giraffe',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         leg = self.env['product.product'].create({
             'name': 'Leg',
-            'type': 'product',
+            'is_storable': True,
         })
         neck = self.env['product.product'].create({
             'name': 'Neck',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         color = self.env['product.product'].create({
             'name': 'Color',
-            'type': 'product',
+            'is_storable': True,
         })
         neck_sn_1, neck_sn_2 = self.env['stock.lot'].create([{
             'name': 'NE1',
@@ -157,19 +157,19 @@ class TestShopFloor(HttpCase):
     def test_generate_serials_in_shopfloor(self):
         component1 = self.env['product.product'].create({
             'name': 'comp1',
-            'type': 'product',
+            'is_storable': True,
         })
         component2 = self.env['product.product'].create({
             'name': 'comp2',
-            'type': 'product',
+            'is_storable': True,
         })
         finished = self.env['product.product'].create({
             'name': 'finish',
-            'type': 'product',
+            'is_storable': True,
         })
         byproduct = self.env['product.product'].create({
             'name': 'byprod',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         warehouse = self.env['stock.warehouse'].search([], limit=1)
@@ -210,7 +210,7 @@ class TestShopFloor(HttpCase):
     def test_canceled_wo(self):
         finished = self.env['product.product'].create({
             'name': 'finish',
-            'type': 'product',
+            'is_storable': True,
         })
         workcenter = self.env['mrp.workcenter'].create({
             'name': 'Assembly Line',

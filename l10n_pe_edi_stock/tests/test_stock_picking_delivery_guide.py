@@ -21,7 +21,7 @@ class TestPEDeliveryGuideCommon(TestPeEdiCommon):
 
         cls.productA = cls.env['product.product'].create({
             'name': 'Product A',
-            'type': 'product',
+            'is_storable': True,
             'unspsc_code_id': cls.env.ref('product_unspsc.unspsc_code_01010101').id,
             'weight': 1,
             'barcode': '123456789',

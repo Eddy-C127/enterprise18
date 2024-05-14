@@ -43,7 +43,7 @@
                     <div class="col-12 d-flex align-items-baseline">
                         <i class="fa fa-fw fa-lg fa-tags me-3" title="Product"/>
                         <field name="product_id" placeholder="Product" domain="[('id', 'in', context.get('product_ids', []))]"
-                            context="{'default_detailed_type': 'product'}"
+                            context="{'default_is_storable': True}"
                             options="{'no_create': True}"
                             required="1"
                             readonly="state == 'done'" nolabel="1"/>

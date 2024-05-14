@@ -98,7 +98,7 @@ class TestInterCompanyPurchaseToSaleWithStock(TestInterCompanyRulesCommonStock):
         product_storable = self.env['product.product'].create({
             'name': 'Storable',
             'categ_id': self.env.ref('product.product_category_all').id,
-            'type': 'product',
+            'is_storable': True,
             'taxes_id': [(6, 0, (self.company_a.account_sale_tax_id + self.company_b.account_sale_tax_id).ids)],
             'supplier_taxes_id': [(6, 0, (self.company_a.account_purchase_tax_id + self.company_b.account_purchase_tax_id).ids)],
             'route_ids': [(6, 0, [buy_route.id, mto_route.id])],
@@ -153,7 +153,7 @@ class TestInterCompanyPurchaseToSaleWithStock(TestInterCompanyRulesCommonStock):
     def test_03_inter_company_sale_to_purchase_with_stock_picking(self):
         product = self.env['product.product'].create({
             'name': 'Product TEST',
-            'type': 'product'
+            'is_storable': True
         })
 
         partner = self.env['res.partner'].create({

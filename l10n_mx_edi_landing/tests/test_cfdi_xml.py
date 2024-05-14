@@ -36,7 +36,7 @@ class TestEdiResults(TestMxExtendedEdiCommon, ValuationReconciliationTestCommon)
         with freeze_time(self.frozen_today):
             self.product.write({
                 'categ_id': self.stock_account_product_categ.id,
-                'type': 'product',
+                'is_storable': True,
                 'landed_cost_ok': True,
                 'invoice_policy': 'delivery',
             })

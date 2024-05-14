@@ -49,26 +49,26 @@ class TestBarcodeClientAction(HttpCase):
         self.product1 = self.env['product.product'].create({
             'name': 'product1',
             'default_code': 'TEST',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'product1',
         })
         self.product2 = self.env['product.product'].create({
             'name': 'product2',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'product2',
         })
         self.productserial1 = self.env['product.product'].create({
             'name': 'productserial1',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'productserial1',
             'tracking': 'serial',
         })
         self.productlot1 = self.env['product.product'].create({
             'name': 'productlot1',
-            'type': 'product',
+            'is_storable': True,
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'productlot1',
             'tracking': 'lot',
@@ -84,7 +84,7 @@ class TestBarcodeClientAction(HttpCase):
         self.product_tln_gtn8 = self.env['product.product'].create({
             'name': 'Battle Droid',
             'default_code': 'B1',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': '76543210',  # (01)00000076543210 (GTIN-8 format)

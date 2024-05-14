@@ -31,7 +31,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         cls.product_lot = cls.env['product.product'].create({
             'name': 'Acoustic Magic Bloc',
             'list_price': 2950.0,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'delivery',
             'taxes_id': False,
             'tracking': 'lot',
@@ -76,14 +76,14 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         cls.storable_product_ordered = cls.env['product.product'].create({
             'name': 'Storable product ordered',
             'list_price': 60,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'order',
             'taxes_id': False,
         })
         cls.storable_product_delivered = cls.env['product.product'].create({
             'name': 'Storable product delivered',
             'list_price': 75.6,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'delivery',
             'taxes_id': False,
         })
@@ -106,28 +106,28 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         cls.product_lot_stock, cls.product_lot_no_stock, cls.product_sn_stock, cls.product_sn_no_stock = cls.env['product.product'].create([{
             'name': 'Storable product with lot 1',
             'list_price': 60,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'order',
             'taxes_id': False,
             'tracking': 'lot',
         }, {
             'name': 'Storable product with lot 2 no stock',
             'list_price': 60,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'order',
             'taxes_id': False,
             'tracking': 'lot',
         }, {
             'name': 'Storable product with SN',
             'list_price': 60,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'order',
             'taxes_id': False,
             'tracking': 'serial',
         }, {
             'name': 'Storable product with SN no stock',
             'list_price': 60,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'order',
             'taxes_id': False,
             'tracking': 'serial',
@@ -359,7 +359,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         product_tracked_by_sn = self.env['product.product'].create({
             'name': 'Product Storable by Serial Number',
             'list_price': 600,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'delivery',
             'tracking': 'serial',
         })
@@ -521,7 +521,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         # 3 steps
         self.warehouse.delivery_steps = 'pick_pack_ship'
 
-        product.type = 'product'
+        product.is_storable = True
         self.env['stock.quant']._update_available_quantity(product, self.warehouse.lot_stock_id, 5)
 
         task.write({'partner_id': self.partner_1.id})
@@ -1126,7 +1126,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         })
         product = self.env['product.product'].create({
             'name': 'Cereal',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         sn1 = self.env['stock.lot'].create({
@@ -1187,13 +1187,13 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         }, {
             'name': 'product A',
             'list_price': 2950.0,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'delivery',
             'taxes_id': False,
         }, {
             'name': 'product B',
             'list_price': 2950.0,
-            'type': 'product',
+            'is_storable': True,
             'invoice_policy': 'delivery',
             'taxes_id': False,
         }])
@@ -1455,15 +1455,15 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
 
         product_01_sn, product_02_sn, product_03_lot = self.env['product.product'].create([{
             'name': 'Product SN 01',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         }, {
             'name': 'Product SN 02',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         }, {
             'name': 'Product LOT',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         }]).with_context({'fsm_task_id': self.task.id})
 
@@ -1664,10 +1664,10 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         self.assertDictEqual(
             products_catalog,
             {
-                self.product_lot_no_stock.id: {'quantity': 3.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': True, 'minimumQuantityOnProduct': 0.0, 'price': 60, 'productType': 'product'},
-                self.storable_product_ordered.id: {'quantity': 4.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': False, 'minimumQuantityOnProduct': 0.0, 'price': 60, 'productType': 'product'},
-                self.storable_product_delivered.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': False, 'minimumQuantityOnProduct': 0, 'price': 75.6, 'productType': 'product'},
-                self.product_sn_no_stock.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': True, 'minimumQuantityOnProduct': 0, 'price': 60, 'productType': 'product'}
+                self.product_lot_no_stock.id: {'quantity': 3.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': True, 'minimumQuantityOnProduct': 0.0, 'price': 60, 'productType': 'consu'},
+                self.storable_product_ordered.id: {'quantity': 4.0, 'readOnly': False, 'deliveredQty': 0.0, 'tracking': False, 'minimumQuantityOnProduct': 0.0, 'price': 60, 'productType': 'consu'},
+                self.storable_product_delivered.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': False, 'minimumQuantityOnProduct': 0, 'price': 75.6, 'productType': 'consu'},
+                self.product_sn_no_stock.id: {'quantity': 0, 'readOnly': False, 'deliveredQty': 0, 'tracking': True, 'minimumQuantityOnProduct': 0, 'price': 60, 'productType': 'consu'}
             },
             "The tracked product should have the 'tracking' key set to True, even if the product was not added to the task."
         )

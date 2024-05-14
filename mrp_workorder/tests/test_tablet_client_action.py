@@ -20,7 +20,7 @@ class TestWorkorderClientActionCommon(TestMrpWorkorderCommon):
         cls.user_admin = cls.env.ref('base.user_admin')
         cls.potion = cls.env['product.product'].create({
             'name': 'Magic Potion',
-            'type': 'product'})
+            'is_storable': True})
         cls.ingredient_1 = cls.env['product.product'].create({
             'name': 'Magic',
             'type': 'consu'})

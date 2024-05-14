@@ -21,7 +21,7 @@ class TestSaleSubscriptionStockRule(TestSubscriptionStockCommon):
 
         prod = self.env['product.product'].create({
             'name': 'Test',
-            'type': 'product',
+            'is_storable': True,
             'recurring_invoice': True,
             'route_ids': [Command.link(route_manufacture), Command.link(route_mto)],
         })

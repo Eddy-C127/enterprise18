@@ -222,21 +222,21 @@ class TestL10nClEdiStock(TestL10nClEdiStockCommon):
         product_a = self.env['product.product'].create({
             'name': 'Product A',
             'uom_id': uom_unit.id,
-            'type': 'product',
+            'is_storable': True,
             'list_price': 100.0,
             'taxes_id': [],
         })
         product_b = self.env['product.product'].create({
             'name': 'Product B',
             'uom_id': uom_unit.id,
-            'type': 'product',
+            'is_storable': True,
             'list_price': 30.0,
             'taxes_id': [],
         })
         product_c = self.env['product.product'].create({
             'name': 'Product C',
             'uom_id': uom_unit.id,
-            'type': 'product',
+            'is_storable': True,
             'list_price': 50.0,
             'taxes_id': [],
         })

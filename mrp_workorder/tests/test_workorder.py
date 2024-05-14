@@ -21,7 +21,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         # Products and lots
         cls.submarine_pod = cls.env['product.product'].create({
             'name': 'Submarine pod',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial'})
         cls.sp1 = cls.env['stock.lot'].create({
             'product_id': cls.submarine_pod.id,
@@ -37,7 +37,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         })
         cls.elon_musk = cls.env['product.product'].create({
             'name': 'Elon Musk',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial'})
         cls.elon1 = cls.env['stock.lot'].create({
             'product_id': cls.elon_musk.id,
@@ -53,7 +53,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         })
         cls.metal_cylinder = cls.env['product.product'].create({
             'name': 'Metal cylinder',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot'})
         cls.mc1 = cls.env['stock.lot'].create({
             'product_id': cls.metal_cylinder.id,
@@ -61,7 +61,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         })
         cls.trapped_child = cls.env['product.product'].create({
             'name': 'Trapped child',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'none'})
         # Bill of material
         cls.bom_submarine = cls.env['mrp.bom'].create({
@@ -154,20 +154,20 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         self.stock_location = self.env.ref('stock.stock_location_stock')
         custom_laptop = self.env['product.product'].create({
             'name': 'Drawer',
-            'type': 'product',
+            'is_storable': True,
             'uom_id': unit,
             'uom_po_id': unit,
         })
         custom_laptop.tracking = 'none'
         product_charger = self.env['product.product'].create({
             'name': 'Charger',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
             'uom_id': unit,
             'uom_po_id': unit})
         product_keybord = self.env['product.product'].create({
             'name': 'Usb Keybord',
-            'type': 'product',
+            'is_storable': True,
             'uom_id': unit,
             'uom_po_id': unit})
         bom_custom_laptop = self.env['mrp.bom'].create({
@@ -427,7 +427,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         """
         location = self.location_1.child_ids[0]
         compo = self.bom_4.bom_line_ids.product_id
-        compo.type = 'product'
+        compo.is_storable = True
 
         self.env['stock.quant']._update_available_quantity(compo, location, 3)
 
@@ -532,7 +532,7 @@ class TestShopFloor(HttpCase, TestMrpWorkorderCommon):
         })
         submarine_pod = self.env['product.product'].with_company(company1).with_user(user_admin).create({
             'name': 'Submarine pod',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial'})
         workcenter_2 = self.env['mrp.workcenter'].with_company(company1).with_user(user_admin).create({
             'name': 'Nuclear Workcenter',

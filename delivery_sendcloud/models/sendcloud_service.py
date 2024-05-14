@@ -408,7 +408,7 @@ class SendCloud:
         if picking.sale_id:
             total_value = sum(line.price_reduce_taxinc * line.product_uom_qty for line in
                 picking.sale_id.order_line.filtered(
-                    lambda l: l.product_id.type in ('consu', 'product') and not l.display_type
+                    lambda l: l.product_id.type == 'consu' and not l.display_type
                 )
             )
         else:
@@ -519,7 +519,7 @@ class SendCloud:
             return products_values
 
         for line in sale_order.order_line:
-            if line.product_id.type not in ('consu', 'product') or line.display_type:
+            if line.product_id.type == 'consu' or line.display_type:
                 continue
             if line.product_id.id in products_values:
                 products_values[line.product_id.id]['tot_qty'] += line.product_uom_qty

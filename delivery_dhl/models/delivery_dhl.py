@@ -130,7 +130,7 @@ class Providerdhl(models.Model):
         else:
             warehouse_partner_id = order.warehouse_id.partner_id
             currency_id = order.currency_id or order.company_id.currency_id
-            total_value = sum(line.price_reduce_taxinc * line.product_uom_qty for line in order.order_line.filtered(lambda l: l.product_id.type in ('consu', 'product') and not l.display_type))
+            total_value = sum(line.price_reduce_taxinc * line.product_uom_qty for line in order.order_line.filtered(lambda l: l.product_id.type == 'consu' and not l.display_type))
             destination_partner_id = order.partner_shipping_id
 
         rating_request = {}
@@ -364,7 +364,7 @@ class Providerdhl(models.Model):
         if sale_order:
             total_value = sum(line.price_reduce_taxinc * line.product_uom_qty for line in
                               sale_order.order_line.filtered(
-                                  lambda l: l.product_id.type in ('consu', 'product') and not l.display_type))
+                                  lambda l: l.product_id.type == 'consu' and not l.display_type))
             currency_name = picking.sale_id.currency_id.name
         else:
             total_value = sum([line.product_id.lst_price * line.product_qty for line in picking.move_ids])

@@ -23,15 +23,15 @@ class TestWorkOrderDependencies(TestMrpWorkorderCommon):
         })
         cls.finished = cls.env['product.product'].create({
             'name': 'Finished Product',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.component1 = cls.env['product.product'].create({
             'name': 'Component#1',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.component2 = cls.env['product.product'].create({
             'name': 'Component#2',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.bom = cls.env['mrp.bom'].create({
             'product_id': cls.finished.id,

@@ -37,7 +37,7 @@ class TestReportsCommon(TestMrpAccount):
         byproduct_cost_share = 10
         byproduct = self.env['product.product'].create({
             'name': 'Plank',
-            'type': 'product',
+            'is_storable': True,
         })
 
         self.env['stock.move'].create({

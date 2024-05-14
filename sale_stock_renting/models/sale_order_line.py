@@ -36,7 +36,7 @@ class RentalOrderLine(models.Model):
         non_rental = self.filtered(lambda sol: not sol.is_rental)
         super(RentalOrderLine, non_rental)._compute_qty_at_date()
         rented_product_lines = (self - non_rental).filtered(
-            lambda l: l.product_id and l.product_id.type == "product"
+            lambda l: l.product_id and l.product_id.is_storable
         )
         line_default_values = {
             'virtual_available_at_date': 0.0,
@@ -96,7 +96,7 @@ class RentalOrderLine(models.Model):
         movable_confirmed_rental_lines = self.filtered(
             lambda sol: sol.is_rental
                 and sol.state == 'sale'
-                and sol.product_id.type in ["product", "consu"])
+                and sol.product_id.type == "consu")
         for sol in movable_confirmed_rental_lines:
             old_vals[sol.id] = (sol.pickedup_lot_ids, sol.returned_lot_ids) if sol.product_id.tracking == 'serial' else (sol.qty_delivered, sol.qty_returned)
             if vals.get('pickedup_lot_ids', False) and vals['pickedup_lot_ids'][0][0] == 6:

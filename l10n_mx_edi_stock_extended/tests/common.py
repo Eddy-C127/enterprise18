@@ -25,7 +25,7 @@ class TestMXEdiStockCommon(TestMxEdiCommon):
 
         cls.product_c = cls.env['product.product'].create({
             'name': "product_c",
-            'type': 'product',
+            'is_storable': True,
             'unspsc_code_id': cls.env.ref('product_unspsc.unspsc_code_56101500').id,
             'weight': 1,
         })

@@ -46,7 +46,7 @@ class QualityPoint(models.Model):
     product_ids = fields.Many2many(
         'product.product', string='Products',
         check_company=True,
-        domain="[('type', 'in', ('product', 'consu'))]",
+        domain="[('type', '=', 'consu')]",
         help="Quality Point will apply to every selected Products.")
     product_category_ids = fields.Many2many(
         'product.category', string='Product Categories',
@@ -182,7 +182,7 @@ class QualityCheck(models.Model):
     control_date = fields.Datetime('Control Date', tracking=True)
     product_id = fields.Many2one(
         'product.product', 'Product', check_company=True,
-        domain="[('type', 'in', ['consu', 'product'])]")
+        domain="[('type', '=', 'consu')]")
     picking_id = fields.Many2one('stock.picking', 'Picking', check_company=True)
     partner_id = fields.Many2one(
         related='picking_id.partner_id', string='Partner')
@@ -307,7 +307,7 @@ class QualityAlert(models.Model):
     check_id = fields.Many2one('quality.check', 'Check', check_company=True)
     product_tmpl_id = fields.Many2one(
         'product.template', 'Product', check_company=True,
-        domain="[('type', 'in', ['consu', 'product'])]")
+        domain="[('type', '=', 'consu')]")
     product_id = fields.Many2one(
         'product.product', 'Product Variant',
         domain="[('product_tmpl_id', '=', product_tmpl_id)]")

@@ -77,11 +77,11 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
         """
         product = self.env['product.product'].create({
             'name': 'Test Product',
-            'type': 'product',
+            'is_storable': True,
         })
         component = self.env['product.product'].create({
             'name': 'Test  Component',
-            'type': 'product',
+            'is_storable': True,
         })
         mo_form = Form(self.env['mrp.production'])
         mo_form.product_id = product

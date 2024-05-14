@@ -50,26 +50,26 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
             ]})
         cls.dining_table = cls.env['product.product'].create({
             'name': 'Table (MTO)',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         cls.product_table_sheet = cls.env['product.product'].create({
             'name': 'Table Top',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         cls.product_table_leg = cls.env['product.product'].create({
             'name': 'Table Leg',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         cls.product_bolt = cls.env['product.product'].create({
             'name': 'Bolt',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.product_screw = cls.env['product.product'].create({
             'name': 'Screw',
-            'type': 'product',
+            'is_storable': True,
         })
 
         cls.mrp_workcenter = cls.env['mrp.workcenter'].create({
@@ -147,15 +147,15 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
         # Create MO
         product_to_build = self.env['product.product'].create({
             'name': 'Young Tom',
-            'type': 'product',
+            'is_storable': True,
         })
         product_to_use_1 = self.env['product.product'].create({
             'name': 'Botox',
-            'type': 'product',
+            'is_storable': True,
         })
         product_to_use_2 = self.env['product.product'].create({
             'name': 'Old Tom',
-            'type': 'product',
+            'is_storable': True,
         })
         bom = self.env['mrp.bom'].create({
             'product_id': product_to_build.id,
@@ -297,15 +297,15 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
         # what its intended purpose is.
         self.finished1 = self.env['product.product'].create({
             'name': 'finished1',
-            'type': 'product',
+            'is_storable': True,
         })
         self.compfinished1 = self.env['product.product'].create({
             'name': 'compfinished1',
-            'type': 'product',
+            'is_storable': True,
         })
         self.compfinished2 = self.env['product.product'].create({
             'name': 'compfinished2',
-            'type': 'product',
+            'is_storable': True,
         })
         self.workcenter1 = self.env['mrp.workcenter'].create({
             'name': 'workcenter1',
@@ -381,12 +381,12 @@ class TestWorkOrderProcessCommon(TestMrpWorkorderCommon):
 
         finished_product = self.env['product.product'].create({
             'name': 'finished_product',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'serial',
         })
         component = self.env['product.product'].create({
             'name': 'component',
-            'type': 'product',
+            'is_storable': True,
         })
         workcenter = self.env['mrp.workcenter'].create({
             'name': 'workcenter',
@@ -718,7 +718,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         man_order_form.product_uom_id = self.product_6.uom_id
         man_order = man_order_form.save()
         # reset quantities
-        self.product_1.type = "product"
+        self.product_1.is_storable = True
         self.env['stock.quant'].with_context(inventory_mode=True).create({
             'product_id': self.product_1.id,
             'inventory_quantity': 0.0,
@@ -831,7 +831,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         unit = self.ref("uom.product_uom_unit")
         custom_laptop = self.env['product.product'].create({
             'name': 'Drawer',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
 
@@ -839,13 +839,13 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         # --------------------------------------
         product_charger = self.env['product.product'].create({
             'name': 'Charger',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
             'uom_id': unit,
             'uom_po_id': unit})
         product_keybord = self.env['product.product'].create({
             'name': 'Usb Keybord',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
             'uom_id': unit,
             'uom_po_id': unit})
@@ -1059,17 +1059,17 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         """
         drawer = self.env['product.product'].create({
             'name': 'Drawer',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         drawer_drawer = self.env['product.product'].create({
             'name': 'Drawer Black',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         drawer_case = self.env['product.product'].create({
             'name': 'Drawer Case Black',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         bom = self.env['mrp.bom'].create({
@@ -1235,17 +1235,17 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
     def test_unlink_workorder(self):
         drawer = self.env['product.product'].create({
             'name': 'Drawer',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         drawer_drawer = self.env['product.product'].create({
             'name': 'Drawer Black',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         drawer_case = self.env['product.product'].create({
             'name': 'Drawer Case Black',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'lot',
         })
         bom = self.env['mrp.bom'].create({
@@ -1799,7 +1799,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
             - wo line 2 (comp1, qty=4)
             - wo line 3 (comp2, qty=1) """
         # avoid having reservation issues by making all components consu
-        self.product_2.type = 'consu'
+        self.product_2.is_storable = False
         # Kit bom
         self.env['mrp.bom'].create({
             'product_id': self.product_4.id,
@@ -1999,15 +1999,15 @@ class TestRoutingAndKits(TransactionCase):
         })
         cls.compkit1 = cls.env['product.product'].create({
             'name': 'compkit1',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.finished1 = cls.env['product.product'].create({
             'name': 'finished1',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.compfinished1 = cls.env['product.product'].create({
             'name': 'compfinished',
-            'type': 'product',
+            'is_storable': True,
         })
         cls.workcenter_finished1 = cls.env['mrp.workcenter'].create({
             'name': 'workcenter1',
@@ -2110,7 +2110,7 @@ class TestRoutingAndKits(TransactionCase):
         })
         compkit2 = self.env['product.product'].create({
             'name': 'compkit2',
-            'type': 'product',
+            'is_storable': True,
         })
         bom_kit2 = self.env['mrp.bom'].create({
             'product_id': kit2.id,
@@ -2154,7 +2154,7 @@ class TestRoutingAndKits(TransactionCase):
         })
         compkit2 = self.env['product.product'].create({
             'name': 'compkit2',
-            'type': 'product',
+            'is_storable': True,
         })
         bom_kit2 = self.env['mrp.bom'].create({
             'product_id': kit2.id,
@@ -2230,7 +2230,7 @@ class TestRoutingAndKits(TransactionCase):
         self.bom_finished1.consumption = 'flexible'
         add_product = self.env['product.product'].create({
             'name': 'Additional',
-            'type': 'product',
+            'is_storable': True,
         })
         mo_form = Form(self.env['mrp.production'])
         mo_form.product_id = self.finished1
@@ -2265,7 +2265,7 @@ class TestRoutingAndKits(TransactionCase):
         self.bom_finished1.consumption = 'flexible'
         add_product = self.env['product.product'].create({
             'name': 'Additional',
-            'type': 'product',
+            'is_storable': True,
         })
         mo_form = Form(self.env['mrp.production'])
         mo_form.product_id = self.finished1

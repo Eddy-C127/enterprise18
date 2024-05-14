@@ -32,7 +32,7 @@ class Paymentprovider(models.Model):
 
         sale_order = self.env['sale.order'].browse(sale_order_id).exists()
         if sale_order.carrier_id.delivery_type != 'ups' or not any(
-            product.type in ('consu', 'product')
+            product.type == 'consu'
             for product in sale_order.order_line.product_id
         ):
             unfiltered_providers = compatible_providers

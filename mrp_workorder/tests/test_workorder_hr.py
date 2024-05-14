@@ -25,11 +25,11 @@ class TestWorkorderDurationHr(common.TransactionCase):
         cls.employee_2 = cls.workcenter.employee_ids[1]
         cls.final_product = cls.env['product.product'].create({
             'name': 'DF-41',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'none'})
         cls.component = cls.env['product.product'].create({
             'name': 'RBCC engine',
-            'type': 'product',
+            'is_storable': True,
             'tracking': 'none'})
         cls.bom = cls.env['mrp.bom'].create({
             'product_tmpl_id': cls.final_product.product_tmpl_id.id,

@@ -80,7 +80,7 @@ class RentalProcessingLine(models.TransientModel):
                     'qty_delivered': len(reserved_lots),
                 })
 
-            if line.product_id.type == 'product':
+            if line.product_id.is_storable:
                 default_line_vals.update({
                     'qty_available': line.product_id.with_context(
                         from_date=max(line.reservation_begin, fields.Datetime.now()),
@@ -128,7 +128,7 @@ class RentalProcessingLine(models.TransientModel):
     def _compute_is_product_storable(self):
         """Product type ?= storable product."""
         for line in self:
-            line.is_product_storable = line.product_id and line.product_id.type == "product"
+            line.is_product_storable = line.product_id and line.product_id.is_storable
 
     @api.onchange('pickedup_lot_ids')
     def _onchange_pickedup_lot_ids(self):

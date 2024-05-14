@@ -15,8 +15,8 @@ class TestRentalKits(TestRentalCommon):
 
         cls.env['res.config.settings'].create({'group_rental_stock_picking': True}).execute()
 
-        cls.component_1 = cls.env['product.product'].create({'name': 'compo 1', 'type': 'product'})
-        cls.component_2 = cls.env['product.product'].create({'name': 'compo 2', 'type': 'product'})
+        cls.component_1 = cls.env['product.product'].create({'name': 'compo 1', 'is_storable': True})
+        cls.component_2 = cls.env['product.product'].create({'name': 'compo 2', 'is_storable': True})
         cls.env['mrp.bom'].create({
             'product_id': cls.product_id.id,
             'product_tmpl_id': cls.product_id.product_tmpl_id.id,
