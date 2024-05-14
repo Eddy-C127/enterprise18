@@ -47,6 +47,9 @@ patch(PlanningGanttRenderer.prototype, {
             )}</p>
         `;
         props.noContentHelp = renderToMarkup(template);
+        props.onCreateEdit = () => {
+            this.props.create(props.context);
+        };
         return props;
     },
     displayFailedPlanningNotification(message) {
