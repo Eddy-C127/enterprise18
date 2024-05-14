@@ -648,6 +648,10 @@ class WebStudioController(http.Controller):
                         else:
                             field = self.create_new_field(op['node']['field_description'])
                     op['node']['attrs']['name'] = field.name
+                    if field.ttype == "many2one" and op["type"] == "add":
+                        create_name_field = request.env.registry[field.relation]._rec_name
+                        if create_name_field and create_name_field != "name":
+                            op['node']['attrs']['options'] = "{'create_name_field': '%s'}" % create_name_field
 
                 if op['node'].get('tag') == 'filter' and op['node']['attrs'].get('create_group'):
                     op['node']['attrs'].pop('create_group')

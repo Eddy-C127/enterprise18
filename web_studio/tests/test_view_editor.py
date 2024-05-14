@@ -567,3 +567,52 @@ class TestEditView(TestStudioController):
         """
         arch = self.env['res.users'].with_context(studio=True).get_view(self.env.ref('base.view_users_form').id)['arch']
         self.assertTrue(arch)
+
+    def test_add_many2one_with_custom_rec_name(self):
+        base_view = self.env['ir.ui.view'].create({
+            'name': 'TestForm',
+            'type': 'form',
+            'model': 'res.partner',
+            'arch': """
+                    <form>
+                        <field name="display_name" />
+                    </form>"""
+        })
+
+        relation_id = self.env['ir.model'].search([["model", "=", "res.partner.bank"]]).id
+
+        add_many2one_field_op = {
+            "type": "add",
+            "target": {
+                "tag": "field",
+                "attrs": {"name": "display_name"},
+                "xpath_info": [
+                    {"tag": "form", "indice": 1},
+                    {"tag": "field", "indice": 1},
+                ],
+            },
+            "position": "after",
+            "node": {
+                "tag": "field",
+                "attrs": {},
+                "field_description": {
+                    "type": "many2one",
+                    "field_description": "ddd",
+                    "special": False,
+                    "name": "x_studio_many2one_field_sNT7g",
+                    "model_name": "res.partner",
+                    "relation_id": relation_id,
+                },
+            },
+        }
+
+        self.edit_view(base_view, operations=[add_many2one_field_op])
+        self.assertViewArchEqual(
+            base_view.get_combined_arch(),
+            """
+              <form>
+                <field name="display_name" />
+                <field name="x_studio_many2one_field_sNT7g" options="{'create_name_field': 'acc_number'}"/>
+              </form>
+            """
+        )
