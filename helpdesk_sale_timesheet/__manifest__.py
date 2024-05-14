@@ -18,7 +18,6 @@
         'views/helpdesk_sla_views.xml',
         'views/helpdesk_portal_templates.xml',
         'views/project_project_views.xml',
-        'views/product_views.xml',
         'views/sale_views.xml',
         'report/helpdesk_ticket_analysis_views.xml',
         'report/helpdesk_sla_analysis_views.xml',

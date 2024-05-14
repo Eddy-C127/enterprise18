@@ -6,6 +6,8 @@ from odoo import fields, models
 class HelpdeskSLA(models.Model):
     _inherit = 'helpdesk.sla'
 
-    sale_line_ids = fields.Many2many(
-        'sale.order.line', string="Sales Order Items",
-        domain=lambda self: self.env['sale.order.line']._domain_sale_line_service(check_state=False))
+    product_ids = fields.Many2many('product.template',
+        string="Services",
+        domain="[('sale_ok', '=', True), ('type', '=', 'service')]",
+    )
+    use_helpdesk_sale_timesheet = fields.Boolean(related="team_id.use_helpdesk_sale_timesheet")

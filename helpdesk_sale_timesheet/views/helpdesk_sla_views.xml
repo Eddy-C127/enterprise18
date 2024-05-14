@@ -10,14 +10,14 @@
                 <attribute name="class" separator=" " add="oe_inline"/>
             </xpath>
             <xpath expr="//field[@name='partner_ids']" position="after">
-                <div class="ps-2 text-muted text-center text-md-end">OR</div>
+                <div class="ps-2 text-muted text-center text-md-end" invisible="not use_helpdesk_sale_timesheet">OR</div>
             </xpath>
             <xpath expr="//div[@name='partners']" position="after">
-                <label for="sale_line_ids" class="fw-bold"/>
-                <div>
-                    <field name="sale_line_ids" widget="many2many_tags"
+                <label for="product_ids" invisible="not use_helpdesk_sale_timesheet"/>
+                <div invisible="not use_helpdesk_sale_timesheet">
+                    <field name="product_ids" widget="many2many_tags"
                         options="{'no_create_edit': True, 'no_create': True, 'color_field': 'color', 'no_edit_color': True}"
-                        context="{'with_remaining_hours': True, 'with_price_unit': True}" groups="sales_team.group_sale_salesman"/>
+                        groups="sales_team.group_sale_salesman"/>
                 </div>
             </xpath>
         </field>
@@ -29,9 +29,12 @@
         <field name="inherit_id" ref="helpdesk.helpdesk_sla_view_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_ids']" position="after">
-                <field name="sale_line_ids" widget="many2many_tags" optional="hide"
+                <field name="product_ids"
+                    widget="many2many_tags"
+                    optional="hide"
+                    invisible="not use_helpdesk_sale_timesheet"
                     options="{'no_create_edit': True, 'no_create': True, 'color_field': 'color', 'no_edit_color': True}"
-                    context="{'with_remaining_hours': True, 'with_price_unit': True}" groups="sales_team.group_sale_salesman"/>
+                    groups="sales_team.group_sale_salesman"/>
             </xpath>
         </field>
     </record>

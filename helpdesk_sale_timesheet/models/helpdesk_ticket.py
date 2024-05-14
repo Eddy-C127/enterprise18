@@ -130,16 +130,18 @@ class HelpdeskTicket(models.Model):
         field_list.append('sale_line_id')
         return field_list
 
+    def _sla_find_false_domain(self):
+        return expression.AND([
+            super()._sla_find_false_domain(),
+            [('product_ids', '=', False)],
+        ])
+
     def _sla_find_extra_domain(self):
         self.ensure_one()
-        domain = super()._sla_find_extra_domain()
-        return expression.AND([domain, [
-            '|', '|', ('partner_ids', 'parent_of', self.partner_id.ids),
-                      '|', ('partner_ids', 'child_of', self.partner_id.ids),
-                           ('sale_line_ids', 'in', self.sale_line_id.ids),
-                 '&', ('partner_ids', '=', False),
-                      ('sale_line_ids', '=', False)
-        ]])
+        return expression.OR([
+            super()._sla_find_extra_domain(),
+            [('product_ids', 'in', self.sale_line_id.product_template_id.ids)],
+        ])
 
     def action_view_so(self):
         self.ensure_one()

@@ -7,17 +7,30 @@
 
     <record id="product.product_product_1" model="product.product">
         <field name="project_id" model="product.product" eval="obj().env.ref('helpdesk.helpdesk_team3').project_id.id"/>
-        <field name="sla_id" ref="helpdesk.helpdesk_sla_3"/>
     </record>
-    <record id="product.product_product_2" model="product.product">
-        <field name="sla_id" ref="helpdesk.helpdesk_sla_2"/>
-    </record>
-    <record id="sale_timesheet.product_service_order_timesheet" model="product.product">
-        <field name="sla_id" ref="helpdesk.helpdesk_sla_2"/>
-    </record>
-    <record id="sale_timesheet.product_service_deliver_timesheet_1" model="product.product">
-        <field name="sla_id" ref="helpdesk.helpdesk_sla_3"/>
-    </record>
+
+    <!-- set product template from product varient on helpdesk.sla -->
+    <function model="helpdesk.sla" name="write">
+        <value model="helpdesk.sla" eval="obj().search([('id', '=', ref('helpdesk.helpdesk_sla_2'))]).ids"/>
+        <value model="product.product" eval="{
+            'product_ids': obj().search([
+                ('id', 'in', [
+                    ref('product.product_product_2'),
+                    ref('sale_timesheet.product_service_order_timesheet')
+                ])
+            ]).product_tmpl_id.ids}"/>
+    </function>
+
+    <function model="helpdesk.sla" name="write">
+        <value model="helpdesk.sla" eval="obj().search([('id', '=', ref('helpdesk.helpdesk_sla_3'))]).ids"/>
+        <value model="product.product" eval="{
+            'product_ids': obj().search([
+                ('id', 'in', [
+                    ref('product.product_product_1'),
+                    ref('sale_timesheet.product_service_deliver_timesheet_1')
+                ])
+            ]).product_tmpl_id.ids}"/>
+    </function>
 
     <!-- timesheet on ticket -->
     <record id="helpdesk_sale_timesheet_1" model="account.analytic.line">
@@ -74,9 +87,18 @@
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>
         <field name="stage_id" ref="helpdesk.stage_solved"/>
         <field name="time">4</field>
-        <field name="sale_line_ids" eval="[Command.link(ref('sale_order_line_helpdesk_sale_timesheet_1')), Command.link(ref('sale_timesheet.sale_line_11'))]"/>
         <field name="exclude_stage_ids" eval="[Command.link(ref('helpdesk.stage_in_progress'))]"/>
     </record>
+    <function model="helpdesk.sla" name="write">
+        <value model="helpdesk.sla" eval="obj().search([('id', '=', ref('helpdesk_sla_4'))]).ids"/>
+        <value model="product.product" eval="{
+            'product_ids': obj().search([
+                ('id', 'in', [
+                    ref('product.product_product_1'),
+                    ref('sale_timesheet.product_service_order_timesheet')
+                ])
+            ]).product_tmpl_id.ids}"/>
+    </function>
     <record id="helpdesk_ticket_24" model="helpdesk.ticket">
         <field name="name">Where can I shop the chair cover?</field>
         <field name="team_id" ref="helpdesk.helpdesk_team3"/>

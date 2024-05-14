@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import Command, fields, models, _
+from odoo import fields, models, _
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -21,15 +21,6 @@ class SaleOrder(models.Model):
         mapped_data = {sale_order.id: count for sale_order, count in ticket_data}
         for so in self:
             so.ticket_count = mapped_data.get(so.id, 0)
-
-    def _action_confirm(self):
-        res = super()._action_confirm()
-        for sla in self.order_line.product_template_id.sla_id:
-            order_lines = self.order_line.filtered(lambda x: x.product_template_id.sla_id == sla)
-            sla.write({
-                'sale_line_ids': [Command.link(l.id) for l in order_lines],
-            })
-        return res
 
     def action_view_tickets(self):
         self.ensure_one()

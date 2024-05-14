@@ -617,10 +617,16 @@ class HelpdeskTicket(models.Model):
         sla_status_to_remove.unlink()
         return self.env['helpdesk.sla.status'].create(sla_status_value_list)
 
+    @api.model
+    def _sla_find_false_domain(self):
+        return [('partner_ids', '=', False)]
+
     def _sla_find_extra_domain(self):
         self.ensure_one()
         return [
-            '|', '|', ('partner_ids', 'parent_of', self.partner_id.ids), ('partner_ids', 'child_of', self.partner_id.ids), ('partner_ids', '=', False)
+            '|',
+                ('partner_ids', 'parent_of', self.partner_id.ids),
+                ('partner_ids', 'child_of', self.partner_id.ids),
         ]
 
     def _sla_find(self):
@@ -653,7 +659,7 @@ class HelpdeskTicket(models.Model):
                     sla_domain_map[key] = expression.AND([[
                         ('team_id', '=', ticket.team_id.id), ('priority', '=', ticket.priority),
                         ('stage_id.sequence', '>=', ticket.stage_id.sequence),
-                    ], ticket._sla_find_extra_domain()])
+                    ], expression.OR([ticket._sla_find_extra_domain(), self._sla_find_false_domain()])])
 
         result = {}
         for key, tickets in tickets_map.items():  # only one search per ticket group
