@@ -20,19 +20,8 @@ class SignContract(Sign):
                 contract.car_id.future_driver_id = contract.employee_id.work_contact_id
         # Both applicant/employee and HR responsible have signed
         if request_item.sign_request_id.nb_closed == 2:
-            if contract.new_car or contract.new_bike_model_id:
-                state_new_request = request.env.ref('fleet.fleet_vehicle_state_new_request', raise_if_not_found=False)
-                Vehicle = request.env['fleet.vehicle'].sudo()
-                vehicle_vals = {
-                    'state_id': state_new_request and state_new_request.id,
-                    'future_driver_id': contract.employee_id.work_contact_id.id,
-                    'company_id': contract.company_id.id,
-                }
-                contracts_vals = {
-                    'cost_frequency': 'no',
-                    'purchaser_id': contract.employee_id.work_contact_id.id,
-                }
             if contract.new_car and not contract.ordered_car_id:
+                state_new_request = request.env.ref('fleet.fleet_vehicle_state_new_request', raise_if_not_found=False)
                 contract.ordered_car_id = request.env['fleet.vehicle'].sudo().create({
                     'model_id': contract.new_car_model_id.id,
                     'state_id': state_new_request and state_new_request.id,
@@ -51,18 +40,15 @@ class SignContract(Sign):
                     'new_bike_model_id': False,
                     'transport_mode_bike': True,
                 })
-                contract.bike_id = Vehicle.create(dict(vehicle_vals, **{
+                contract.bike_id = request.env['fleet.vehicle'].sudo().create({
+                    'state_id': state_new_request and state_new_request.id,
+                    'future_driver_id': contract.employee_id.work_contact_id.id,
+                    'company_id': contract.company_id.id,
                     'model_id': model.id,
                     'car_value': model.default_car_value,
                     'co2': model.default_co2,
                     'fuel_type': model.default_fuel_type,
-                }))
-                vehicle_contract = contract.bike_id.log_contracts and contract.bike_id.log_contracts[0]
-                if vehicle_contract:
-                    vehicle_contract.write(dict(contracts_vals, **{
-                        'recurring_cost_amount_depreciated': model.default_recurring_cost_amount_depreciated,
-                        'cost_generated': model.default_recurring_cost_amount_depreciated,
-                    }))
+                })
 
 class HrContractSalary(main.HrContractSalary):
 
