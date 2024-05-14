@@ -332,3 +332,32 @@ class TestTaskFlow(common.TransactionCase):
             'the planned date begin should be the one selected by the user')
         self.assertEqual('2024-03-30', task_C.date_deadline.strftime('%Y-%m-%d'),
             'the planned date end should be the one selected by the user')
+
+    @freeze_time('2023-01-02')
+    def test_cancelling_future_task_reset_planned_date(self):
+        task = self.env['project.task'].create({
+            'name': 'Task',
+            'project_id': self.project_test.id,
+        })
+        # 1) Cancel a task which has no begin date or deadline
+        task.state = '1_canceled'
+        self.assertFalse(task.planned_date_begin, 'The begin date should remain unset')
+        self.assertFalse(task.date_deadline, 'The deadline should remain unset')
+
+        # 2) Cancel a task which has only a deadline
+        task.date_deadline = datetime.now() + relativedelta(hours=4)
+        task.state = '1_canceled'
+        self.assertFalse(task.planned_date_begin, 'The begin date should remain unset')
+        self.assertEqual(task.date_deadline, datetime.now() + relativedelta(hours=4), 'The deadline should not have changed')
+
+        # 3) Cancel a task which has both a begin date and a deadline, the begin date being prior than today's date (this is not a future task)
+        task.planned_date_begin = datetime.now() - relativedelta(hours=1)
+        task.state = '1_canceled'
+        self.assertEqual(task.planned_date_begin, datetime.now() - relativedelta(hours=1), 'The begin date should not have changed as this is not a future task')
+        self.assertEqual(task.date_deadline, datetime.now() + relativedelta(hours=4), 'The deadline should not have changed as this is not a future task')
+
+        # 4) Cancel a task which has both a begin date and a deadline, the begin date being later than today's date (this is future task)
+        task.planned_date_begin = datetime.now() + relativedelta(hours=1)
+        task.state = '1_canceled'
+        self.assertFalse(task.planned_date_begin, 'The begin date should be reset as this is a future task')
+        self.assertFalse(task.date_deadline, 'The deadline should be reset as this is a future task')

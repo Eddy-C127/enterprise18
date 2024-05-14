@@ -407,6 +407,18 @@ class Task(models.Model):
             else:  # to keep the right hour in the date_deadline
                 task.date_deadline = task.planned_date_start
 
+    def _inverse_state(self):
+        super()._inverse_state()
+        self.filtered(
+            lambda t:
+                t.state == '1_canceled'
+                and t.planned_date_begin
+                and t.planned_date_begin > fields.Datetime.now()
+        ).write({
+            'planned_date_begin': False,
+            'date_deadline': False,
+        })
+
     def _search_planned_date_start(self, operator, value):
         return [
             '|',
