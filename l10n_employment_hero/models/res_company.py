@@ -75,9 +75,10 @@ class ResCompany(models.Model):
                 tax = item_taxes.filtered(lambda t: t.employment_hero_tax_identifier == journal_item['taxCode'])[:1]
 
             if tax:
-                tax_compute_result = self.currency_id.round(tax.with_context(force_price_include=True)._compute_amount(abs(journal_item['amount']), 1.0))
-                tax_results[tax.id]['debit' if journal_item['isDebit'] else 'credit'] += tax_compute_result
-                amount = abs(journal_item['amount']) - tax_compute_result
+                tax_res = tax.with_context(force_price_include=True).compute_all(abs(journal_item['amount']))
+                tax_round_currency = self.currency_id.round(sum(tax_item['amount'] for tax_item in tax_res['taxes']))
+                tax_results[tax.id]['debit' if journal_item['isDebit'] else 'credit'] += tax_round_currency
+                amount = abs(journal_item['amount']) - tax_round_currency
             else:
                 amount = abs(journal_item['amount'])
 
