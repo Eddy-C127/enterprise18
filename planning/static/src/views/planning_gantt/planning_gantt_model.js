@@ -45,6 +45,7 @@ export class PlanningGanttModel extends GanttModel {
     load(searchParams) {
         const { context, domain } = searchParams;
         this.hideOpenShift = Boolean(context.hide_open_shift);
+        const displayRoleOpenShift = Boolean(context.show_role_open_shifts);
         let displayOpenShift = false;
         for (const node of domain) {
             if (
@@ -65,7 +66,10 @@ export class PlanningGanttModel extends GanttModel {
                 displayOpenShift = true;
             }
         }
-        if (displayOpenShift) {
+        if (displayRoleOpenShift){
+            searchParams.domain = Domain.and([domain, [["is_users_role", "=", true]]]).toList();
+        }
+        else if (displayOpenShift) {
             searchParams.domain = Domain.or([domain, "[('resource_id', '=', false)]"]).toList();
         }
         return super.load({ ...searchParams, context: { ...context, show_job_title: true } });

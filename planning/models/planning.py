@@ -80,7 +80,7 @@ class Planning(models.Model):
     conflicting_slot_ids = fields.Many2many('planning.slot', compute='_compute_overlap_slot_count', export_string_translation=False)
     overlap_slot_count = fields.Integer(compute='_compute_overlap_slot_count', search='_search_overlap_slot_count', export_string_translation=False)
     is_past = fields.Boolean('Is This Shift In The Past?', compute='_compute_past_shift', export_string_translation=False)
-    is_users_role = fields.Boolean('Is the shifts role one of the current user roles', compute='_compute_is_users_role', export_string_translation=False)
+    is_users_role = fields.Boolean('Is the shifts role one of the current user roles', compute='_compute_is_users_role', search='_search_is_users_role', export_string_translation=False)
     request_to_switch = fields.Boolean('Has there been a request to switch on this shift slot?', default=False, readonly=True, export_string_translation=False)
 
     # time allocation
@@ -217,6 +217,16 @@ class Planning(models.Model):
         user_resource_roles = self.env['resource.resource'].search([('user_id', '=', self.env.user.id)]).role_ids
         for slot in self:
             slot.is_users_role = (slot.role_id in user_resource_roles) or not user_resource_roles or not slot.role_id
+
+    def _search_is_users_role(self, operator, value):
+        if operator not in ('=', '!=') or not isinstance(value, bool):
+            raise NotImplementedError(_("Search operation not supported"))
+        user_resource_roles = self.env['resource.resource'].search([('user_id', '=', self.env.user.id)]).role_ids
+        if not user_resource_roles:
+            return [(1, '=', 1)]
+        if (operator, value) in [('!=', True), ('=', False)]:
+            return [('role_id', 'not in', user_resource_roles.ids)]
+        return ['|', ('role_id', 'in', user_resource_roles.ids), ('role_id', '=', False)]
 
     @api.depends('start_datetime', 'end_datetime')
     def _compute_allocation_type(self):
