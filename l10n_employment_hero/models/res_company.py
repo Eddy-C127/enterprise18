@@ -61,9 +61,9 @@ class ResCompany(models.Model):
         ])
 
         for journal_item in journal_items:
-            item_account = next(iter(item_accounts.filtered(
+            item_account = item_accounts.filtered(
                 lambda a: a.employment_hero_account_identifier == journal_item['accountCode'] or a.code == journal_item['accountCode']
-            )))
+            )[:1]
             if not item_account:
                 raise UserError(
                     _("Account not found: %(account_code)s, either create an account with that code or link an existing one to that Employment Hero code",
@@ -72,7 +72,7 @@ class ResCompany(models.Model):
 
             tax = False
             if journal_item.get('taxCode'):
-                tax = next(iter(item_taxes.filtered(lambda t: t.employment_hero_tax_identifier == journal_item['taxCode'])))
+                tax = item_taxes.filtered(lambda t: t.employment_hero_tax_identifier == journal_item['taxCode'])[:1]
 
             if tax:
                 tax_compute_result = self.currency_id.round(tax.with_context(force_price_include=True)._compute_amount(abs(journal_item['amount']), 1.0))
