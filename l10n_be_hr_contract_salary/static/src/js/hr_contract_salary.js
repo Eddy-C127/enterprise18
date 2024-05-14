@@ -22,55 +22,72 @@ hrContractSalary.include({
 
     getBenefits() {
         var res = this._super.apply(this, arguments);
-        res.contract.l10n_be_canteen_cost = parseFloat($("input[name='l10n_be_canteen_cost']").val() || "0.0");
+        res.contract.l10n_be_canteen_cost = parseFloat(
+            this.el.querySelector("input[name='l10n_be_canteen_cost']").value || "0.0"
+        );
         return res
     },
 
     updateGrossToNetModal(data) {
         this._super(data);
-        $("input[name='double_holiday_wage']").val(data['double_holiday_wage']);
+        const dblHolidayWageEl = this.el.querySelector("input[name='double_holiday_wage']");
+        if (dblHolidayWageEl) {
+            dblHolidayWageEl.value = data["double_holiday_wage"];
+        }
         if (data["wishlist_simulation"]) {
             const modal_body = renderToElement('hr_contract_salary.salary_package_resume', {
                 'lines': data.wishlist_simulation.resume_lines_mapped,
                 'categories': data.wishlist_simulation.resume_categories,
                 'hide_details': true
             });
-            this.$('main[name="wishlist_modal_body"]').html(modal_body);
+            const wishlistModalEl = this.el.querySelector('main[name="wishlist_modal_body"]');
+            wishlistModalEl.innerHTML = "";
+            wishlistModalEl.appendChild(modal_body);
         }
     },
 
     onchangeCompanyCar: function(event) {
-        var private_car_input = $("input[name='fold_private_car_reimbursed_amount']")
-        if (event.target.checked && private_car_input.length && private_car_input[0].checked) {
-            private_car_input.click()
+        const privateCarInputEl = this.el.querySelector(
+            "input[name='fold_private_car_reimbursed_amount']"
+        );
+        if (event.target.checked && privateCarInputEl && privateCarInputEl.checked) {
+            privateCarInputEl.click();
         }
     },
 
     onchangePrivateCar: function(event) {
-        var company_car_input = $("input[name='fold_company_car_total_depreciated_cost']")
-        if (event.target.checked && company_car_input.length && company_car_input[0].checked) {
-            company_car_input.click()
+        const companyCarInputEl = this.el.querySelector(
+            "input[name='fold_company_car_total_depreciated_cost']"
+        );
+        if (event.target.checked && companyCarInputEl && companyCarInputEl.checked) {
+            companyCarInputEl.click();
         }
     },
 
     onchangeWishlistCar: function(event) {
         if (event.target.checked) {
-            const $button = $('<a/>', {
-                class: 'btn btn-link ps-0 pt-0 pb-2 m-3',
-                role: 'button',
-                'data-bs-toggle': 'modal',
-                'data-bs-target': '#hr_cs_modal_wishlist',
-                'data-bs-backdrop': 'false',
-                'data-bs-dismiss': 'modal',
-                name: 'wishlist_simulation_button',
-                text: 'Simulation',
-            });
-            const $element_next_to_select = this.$('input[name="wishlist_car_total_depreciated_cost"]').parent();
-            $button.insertAfter($element_next_to_select);
+            const anchorEl = document.createElement("a");
+            anchorEl.classList.add("btn", "btn-link", "ps-0", "pt-0", "pb-2", "m-3");
+            anchorEl.setAttribute("role", "button");
+            anchorEl.dataset.bsToggle = "modal";
+            anchorEl.dataset.bsTarget = "#hr_cs_modal_wishlist";
+            anchorEl.dataset.bsBackdrop = "false";
+            anchorEl.dataset.bsDismiss = "modal";
+            anchorEl.setAttribute("name", "wishlist_simulation_button");
+            anchorEl.textContent = "Simulation";
+            const nextToSelectEl = this.el.querySelector(
+                'input[name="wishlist_car_total_depreciated_cost"]'
+            ).parentElement;
+            nextToSelectEl.parentNode.insertBefore(
+                anchorEl,
+                nextToSelectEl.nextSibling
+            );
         } else {
-            const wishlistSimulationButton = document.querySelector('a[name="wishlist_simulation_button"]');
-            if (wishlistSimulationButton){
-                wishlistSimulationButton.remove();
+            const wishlistSimulationButtonEl = this.el.querySelector(
+                'a[name="wishlist_simulation_button"]'
+            );
+            if (wishlistSimulationButtonEl) {
+                wishlistSimulationButtonEl.remove();
             }
         }
     },
@@ -78,11 +95,18 @@ hrContractSalary.include({
     onchangePrivateBike: function(event) {
         if (event.target.checked) {
             // Set the fuel card slider value to 0 and disable it
-            $("input[name='fuel_card_slider']").val(0).prop('disabled', true);
-            $("input[name='fuel_card']").val(0);
+            const fuelCardSliderEl = this.el.querySelector("input[name='fuel_card_slider']");
+            const fuelCardEl = this.el.querySelector("input[name='fuel_card']");
+            if (fuelCardSliderEl) {
+                fuelCardEl.value = 0;
+                fuelCardEl.disabled = true;
+            }
+            if (fuelCardEl) {
+                fuelCardEl.value = 0;
+            }
         } else {
             // Enable the fuel card slider when "Private Bike" is unchecked
-            $("input[name='fuel_card_slider']").prop('disabled', false);
+            this.el.querySelector("input[name='fuel_card_slider']")?.removeAttribute("disabled");
         }
     },
 
@@ -99,120 +123,242 @@ hrContractSalary.include({
         this.onchangeChildren();
         this.onchangeHospital();
         // Hack to make these benefits required. TODO: remove when required benefits are supported.
-        $("textarea[name='l10n_be_hospital_insurance_notes_text']").prop('required', true);
-        $("textarea[name='l10n_be_ambulatory_insurance_notes_text']").prop('required', true);
+        this.el
+            .querySelector("textarea[name='l10n_be_hospital_insurance_notes_text']")
+            ?.setAttribute("required", true);
+        this.el
+            .querySelector("textarea[name='l10n_be_ambulatory_insurance_notes_text']")
+            ?.setAttribute("required", true);
 
-        $("input[name='insured_relative_children']").parent().addClass('d-none');
-        $("input[name='insured_relative_adults']").parent().addClass('d-none');
-        $("input[name='insured_relative_spouse']").parent().addClass('d-none');
-        $("input[name='l10n_be_hospital_insurance_notes']").parent().addClass('d-none');
-        $("input[name='insured_relative_children_manual']").before($('<strong>', {
-            class: 'mt8',
-            text: '# Children < 19'
-        }));
-        $("input[name='insured_relative_adults_manual']").before($('<strong>', {
-            class: 'mt8',
-            text: '# Children >= 19'
-        }));
-        $("textarea[name='l10n_be_hospital_insurance_notes_text']").before($('<strong>', {
-            class: 'mt8',
-            text: 'Additional Information'
-        }));
+        this.el
+            .querySelector("input[name='insured_relative_children']")
+            ?.parentElement.classList.add("d-none");
+        this.el
+            .querySelector("input[name='insured_relative_adults']")
+            ?.parentElement.classList.add("d-none");
+        this.el
+            .querySelector("input[name='insured_relative_spouse']")
+            ?.parentElement.classList.add("d-none");
+        this.el
+            .querySelector("input[name='l10n_be_hospital_insurance_notes']")
+            ?.parentElement.classList.add("d-none");
+        const childrenEl = this.el.querySelector("input[name='insured_relative_children_manual']");
+        const childrenStrongEl = document.createElement("strong");
+        childrenStrongEl.classList.add("mt8");
+        childrenStrongEl.textContent = "# Children < 19";
+        childrenEl?.parentNode.insertBefore(childrenStrongEl, childrenEl);
+
+        const adultsEl = this.el.querySelector("input[name='insured_relative_adults_manual']");
+        const adultStrongEl = document.createElement("strong");
+        adultStrongEl.classList.add("mt8");
+        adultStrongEl.textContent = "# Children >= 19";
+        adultsEl?.parentNode.insertBefore(adultStrongEl, adultsEl);
+
+        const insuranceEl = this.el.querySelector(
+            "textarea[name='l10n_be_hospital_insurance_notes_text']"
+        );
+        const insuranceNoteStrongEl = document.createElement("strong");
+        insuranceNoteStrongEl.classList.add("mt8");
+        insuranceNoteStrongEl.textContent = "Additional Information";
+        insuranceEl?.parentNode.insertBefore(insuranceNoteStrongEl, insuranceEl);
         this.onchangeAmbulatory();
-        $("input[name='l10n_be_ambulatory_insured_children']").parent().addClass('d-none');
-        $("input[name='l10n_be_ambulatory_insured_adults']").parent().addClass('d-none');
-        $("input[name='l10n_be_ambulatory_insured_spouse']").parent().addClass('d-none');
-        $("input[name='l10n_be_ambulatory_insurance_notes']").parent().addClass('d-none');
-        $("input[name='l10n_be_ambulatory_insured_children_manual']").before($('<strong>', {
-            class: 'mt8',
-            text: '# Children < 19'
-        }));
-        $("input[name='l10n_be_ambulatory_insured_adults_manual']").before($('<strong>', {
-            class: 'mt8',
-            text: '# Children >= 19'
-        }));
-        $("textarea[name='l10n_be_ambulatory_insurance_notes_text']").before($('<strong>', {
-            class: 'mt8',
-            text: 'Additional Information'
-        }));
+        this.el
+            .querySelector("input[name='l10n_be_ambulatory_insured_children']")
+            ?.parentElement.classList.add("d-none");
+        this.el
+            .querySelector("input[name='l10n_be_ambulatory_insured_adults']")
+            ?.parentElement.classList.add("d-none");
+        this.el
+            .querySelector("input[name='l10n_be_ambulatory_insured_spouse']")
+            ?.parentElement.classList.add("d-none");
+        this.el
+            .querySelector("input[name='l10n_be_ambulatory_insurance_notes']")
+            ?.parentElement.classList.add("d-none");
+        const ambulatoryChildrenEl = this.el.querySelector(
+            "input[name='l10n_be_ambulatory_insured_children_manual']"
+        );
+        ambulatoryChildrenEl?.parentNode.insertBefore(
+            childrenStrongEl.cloneNode(true), ambulatoryChildrenEl
+        );
+
+        const ambulatoryAdultEl = this.el.querySelector(
+            "input[name='l10n_be_ambulatory_insured_adults_manual']"
+        );
+        ambulatoryAdultEl?.parentNode.insertBefore(
+            adultStrongEl.cloneNode(true), ambulatoryAdultEl
+        );
+
+        const ambulatoryInsuranceEl = this.el.querySelector(
+            "textarea[name='l10n_be_ambulatory_insurance_notes_text']"
+        );
+        ambulatoryInsuranceEl?.parentNode.insertBefore(
+            insuranceNoteStrongEl.cloneNode(true), ambulatoryInsuranceEl
+        );
         return res;
     },
 
     onchangeHospital: function() {
-        const hasInsurance = $("input[name='has_hospital_insurance_radio']:last").prop('checked');
+        const insranceRadioEls = this.el.querySelectorAll(
+            "input[name='has_hospital_insurance_radio']"
+        );
+        const hasInsurance = insranceRadioEls[insranceRadioEls.length - 1]?.checked;
         if (hasInsurance) {
             // Show fields
-            $("label[for='insured_relative_children']").parent().removeClass('d-none');
-            $("label[for='insured_relative_adults']").parent().removeClass('d-none');
-            $("label[for='insured_relative_spouse']").parent().removeClass('d-none');
+            this.el
+                .querySelector("label[for='insured_relative_children']")
+                .parentElement.classList.remove("d-none");
+            this.el
+                .querySelector("label[for='insured_relative_adults']")
+                .parentElement.classList.remove("d-none");
+            this.el
+                .querySelector("label[for='insured_relative_spouse']")
+                .parentElement.classList.remove("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_hospital_insurance_notes']")
+                .parentElement.classList.remove("d-none");
             // Only show notes when either an extra spouse or children are insured.
-            const insuredSpouse = $("input[name='fold_insured_relative_spouse']").prop('checked');
-            const insuredRelativeChildren = parseInt($("input[name='insured_relative_children_manual']").val()) > 0;
-            const insuredRelativeAdults = parseInt($("input[name='insured_relative_adults_manual']").val()) > 0;
+            const insuredSpouse = this.el
+                .querySelector("input[name='fold_insured_relative_spouse']")
+                ?.checked;
+            const insuredRelativeChildren =
+                parseInt(
+                    this.el.querySelector("input[name='insured_relative_children_manual']").value
+                ) > 0;
+            const insuredRelativeAdults =
+                parseInt(
+                    this.el.querySelector("input[name='insured_relative_adults_manual']").value
+                ) > 0;
             if (insuredSpouse || insuredRelativeChildren || insuredRelativeAdults ) {
-                $("label[for='l10n_be_hospital_insurance_notes']").parent().removeClass('d-none');
+                this.el
+                    .querySelector("label[for='l10n_be_hospital_insurance_notes']")
+                    .parentElement.classList.remove("d-none");
             }
             else {
-                $("label[for='l10n_be_hospital_insurance_notes']").parent().addClass('d-none');
+                this.el
+                    .querySelector("label[for='l10n_be_hospital_insurance_notes']")
+                    .parentElement.classList.add("d-none");
             }
         } else {
             // Reset values
-            $("input[name='fold_insured_relative_spouse']").prop('checked', false);
-            $("input[name='insured_relative_children_manual']").val(0);
-            $("input[name='insured_relative_adults_manual']").val(0);
+            this.el.querySelector("input[name='fold_insured_relative_spouse']")?.removeAttribute('checked');
+            const relativeChildrenEl = this.el
+                .querySelector("input[name='insured_relative_children_manual']");
+            const relativeAdultsEl = this.el
+                .querySelector("input[name='insured_relative_adults_manual']");
+            if (relativeChildrenEl) {
+                relativeChildrenEl.value = 0;
+            }
+            if (relativeAdultsEl) {
+                relativeAdultsEl.value = 0;
+            }
             // Hide fields
-            $("label[for='insured_relative_children']").parent().addClass('d-none');
-            $("label[for='insured_relative_adults']").parent().addClass('d-none');
-            $("label[for='insured_relative_spouse']").parent().addClass('d-none');
-            $("label[for='l10n_be_hospital_insurance_notes']").parent().addClass('d-none');
+            this.el
+                .querySelector("label[for='insured_relative_children']")
+                ?.parentElement.classList.add("d-none");
+            this.el
+                .querySelector("label[for='insured_relative_adults']")
+                ?.parentElement.classList.add("d-none");
+            this.el
+                .querySelector("label[for='insured_relative_spouse']")
+                ?.parentElement.classList.add("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_hospital_insurance_notes']")
+                ?.parentElement.classList.add("d-none");
         }
     },
 
     onchangeAmbulatory: function() {
-        const hasInsurance = $("input[name='l10n_be_has_ambulatory_insurance_radio']:last").prop('checked');
+        const insuranceRadiosEls = this.el.querySelectorAll(
+            "input[name='l10n_be_has_ambulatory_insurance_radio']"
+        );
+        const hasInsurance = insuranceRadiosEls[insuranceRadiosEls.length - 1]?.checked;
         if (hasInsurance) {
             // Show fields
-            $("label[for='l10n_be_ambulatory_insured_children']").parent().removeClass('d-none');
-            $("label[for='l10n_be_ambulatory_insured_adults']").parent().removeClass('d-none');
-            $("label[for='l10n_be_ambulatory_insured_spouse']").parent().removeClass('d-none');
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insured_children']")
+                .parentElement.classList.remove("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insured_adults']")
+                .parentElement.classList.remove("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insured_spouse']")
+                .parentElement.classList.remove("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insurance_notes']")
+                .parentElement.classList.remove("d-none");
             // Only show notes when either an extra spouse or children are insured.
-            const insuredSpouse = $("input[name='fold_l10n_be_ambulatory_insured_spouse']").prop('checked');
-            const insuredRelativeChildren = parseInt($("input[name='l10n_be_ambulatory_insured_children_manual']").val()) > 0;
-            const insuredRelativeAdults = parseInt($("input[name='l10n_be_ambulatory_insured_adults_manual']").val()) > 0;
+            const insuredSpouse = this.el
+                .querySelector("input[name='fold_l10n_be_ambulatory_insured_spouse']")
+                ?.checked;
+            const insuredRelativeChildren =
+                parseInt(
+                    this.el.querySelector(
+                        "input[name='l10n_be_ambulatory_insured_children_manual']"
+                    ).value
+                ) > 0;
+            const insuredRelativeAdults =
+                parseInt(
+                    this.el.querySelector("input[name='l10n_be_ambulatory_insured_adults_manual']")
+                        .value
+                ) > 0;
             if (insuredSpouse || insuredRelativeChildren || insuredRelativeAdults ) {
-                $("label[for='l10n_be_ambulatory_insurance_notes']").parent().removeClass('d-none');
-            }
-            else {
-                $("label[for='l10n_be_ambulatory_insurance_notes']").parent().addClass('d-none');
+                this.el
+                    .querySelector("label[for='l10n_be_ambulatory_insurance_notes']")
+                    .parentElement.classList.remove("d-none");
+            } else {
+                this.el
+                    .querySelector("label[for='l10n_be_ambulatory_insurance_notes']")
+                    .parentElement.classList.add("d-none");
             }
         } else {
             // Reset values
-            $("input[name='fold_l10n_be_ambulatory_insured_spouse']").prop('checked', false);
-            $("input[name='l10n_be_ambulatory_insured_children_manual']").val(0);
-            $("input[name='l10n_be_ambulatory_insured_adults_manual']").val(0);
+            this.el.querySelector(
+                "input[name='fold_l10n_be_ambulatory_insured_spouse']"
+            )?.removeAttribute('checked')
+            const ambulatoryChildrenEl = this.el
+                .querySelector("input[name='l10n_be_ambulatory_insured_children_manual']");
+            const ambulatoryAdultsEl = this.el
+                .querySelector("input[name='l10n_be_ambulatory_insured_adults_manual']");
+            if (ambulatoryChildrenEl) {
+                ambulatoryChildrenEl.value = 0;
+            }
+            if (ambulatoryAdultsEl) {
+                ambulatoryAdultsEl.value = 0;
+            }
             // Hide fields
-            $("label[for='l10n_be_ambulatory_insured_children']").parent().addClass('d-none');
-            $("label[for='l10n_be_ambulatory_insured_adults']").parent().addClass('d-none');
-            $("label[for='l10n_be_ambulatory_insured_spouse']").parent().addClass('d-none');
-            $("label[for='l10n_be_ambulatory_insurance_notes']").parent().addClass('d-none');
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insured_children']")
+                ?.parentElement.classList.add("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insured_adults']")
+                ?.parentElement.classList.add("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insured_spouse']")
+                ?.parentElement.classList.add("d-none");
+            this.el
+                .querySelector("label[for='l10n_be_ambulatory_insurance_notes']")
+                ?.parentElement.classList.add("d-none");
         }
     },
 
-    onchangeChildren() {
-        const disabledChildren = $("input[name='disabled_children_bool']");
-        const disabledChildrenNumber = $("input[name='disabled_children_number']");
-        const childrenInput = $("input[name='children']", this.el)
-        const childCount = parseInt(childrenInput.length > 0 && childrenInput.val());
+    onchangeChildren(event) {
+        const disabledChildrenEl = this.el.querySelector("input[name='disabled_children_bool']");
+        const disabledChildrenNumberEl = this.el.querySelector(
+            "input[name='disabled_children_number']"
+        );
+        const childCount = parseInt(event && event.currentTarget && event.currentTarget.value);
 
         if (isNaN(childCount) || childCount === 0) {
-            disabledChildrenNumber.val(0);
-
-            if (disabledChildren.prop('checked')) {
-                disabledChildren.click();
+            if (disabledChildrenNumberEl) {
+                disabledChildrenNumberEl.value = 0;
             }
-            disabledChildren.parent().addClass('d-none');
+
+            if (disabledChildrenEl?.checked) {
+                disabledChildrenEl.click();
+            }
+            disabledChildrenEl?.parentElement.classList.add("d-none");
         } else {
-            disabledChildren.parent().removeClass('d-none');
+            disabledChildrenEl?.parentElement.classList.remove("d-none");
         }
     },
 });
