@@ -68,21 +68,23 @@
             <div id="wrap" class="oe_structure oe_empty h-100">
                 <div class="container d-flex flex-column justify-content-center h-100">
                     <div class="oe_structure" id="oe_structure_website_helpdesk_thanks_you"/>
-                    <div class="row justify-content-center mb16">
+                    <div class="d-flex flex-column align-items-center mb16 p-4 text-center">
                         <t t-if="request.session.get('form_builder_model_model', '') == 'helpdesk.ticket'">
                             <t t-set="ticket" t-value="request.website._website_form_last_record()"/>
                         </t>
-                        <h1 class="text-center">
-                            <i class="fa fa-check-circle fa-1x text-success me-2" role="img" aria-label="Success" title="Success"/>
-                            <t t-if="ticket">
-                                <span>Your Ticket Number is <a t-if="request.session.uid" t-attf-href="/helpdesk/ticket/#{ticket.id}">#<span t-field="ticket.sudo().ticket_ref"/></a><t t-if="not request.session.get('uid')">#<span t-field="ticket.sudo().ticket_ref"/></t>.</span>
-                            </t>
-                        </h1>
-                        <h2 class="text-center">Thank you for contacting us, our team will get right on it!</h2>
-                        <div class="text-center">
-                            <a class="btn btn-primary" t-if="ticket and request.session.uid" t-attf-href="/helpdesk/ticket/#{ticket.id}">View Ticket</a>
-                            <a class="btn btn-primary" href='/'>Go to the Homepage</a>
-                        </div>
+                        <i class="fa fa-paper-plane fa-2x mb-3 rounded-circle text-bg-success" role="presentation"/>
+                        <h1 class="fw-bolder">Thank you!</h1>
+                        <t t-if="ticket">
+                            <p class="lead mb-0">Your ticket has been sent.</p>
+                            <p class="lead">Our team will get right on it.</p>
+                            <a t-if="request.session.uid" class="my-3 border rounded px-4 py-3 bg-100 fs-5 fw-bold shadow-sm text-decoration-none" t-attf-href="/helpdesk/ticket/#{ticket.id}" t-att-title="'Ticket #' + ticket.sudo().ticket_ref">
+                                Ticket #<span t-field="ticket.sudo().ticket_ref"/>
+                            </a>
+                            <span t-if="not request.session.get('uid')" class="my-3 border rounded px-4 py-3 fs-5 fw-bold shadow-sm">
+                                Ticket #<span t-field="ticket.sudo().ticket_ref"/>
+                            </span>
+                        </t>
+                        <a href="/">Go to Homepage</a>
                     </div>
                     <div class="oe_structure" id="oe_structure_website_helpdesk_thanks_you_bottom"/>
                 </div>

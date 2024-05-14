@@ -50,7 +50,7 @@ class HelpDeskPortal(HttpCase):
         self.assertEqual(ticket_submitted_response.status_code, 200)
         ticket_submitted_response_ticket_id = (
             re.search(
-                rb'Your Ticket Number is #<span>(?P<ticket_id>.*?)</span>',
+                rb'Ticket #<span>(?P<ticket_id>.*?)</span>',
                 ticket_submitted_response.content)
             .group('ticket_id')
         ).decode()
