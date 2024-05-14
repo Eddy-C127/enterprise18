@@ -5,6 +5,7 @@ import { CharField } from "@web/views/fields/char/char_field";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { Component, useState } from "@odoo/owl";
 import { Field } from "@web/views/fields/field";
+import { formatFloat } from "@web/views/fields/formatters";
 import { StockMove } from "./mrp_record_line/stock_move";
 import { MrpWorkorder } from "./mrp_record_line/mrp_workorder";
 import { QualityCheck } from "./mrp_record_line/quality_check";
@@ -64,6 +65,7 @@ export class MrpDisplayRecord extends Component {
         }
         this.quantityToProduce = this.record.product_qty || this.props.production.data.product_qty;
         this.displayUOM = this.props.groups.uom;
+        this.decimalPrecision = this.props.record.fields.qty_producing?.digits;
     }
 
     /**
@@ -114,6 +116,12 @@ export class MrpDisplayRecord extends Component {
             return Boolean(production.qty_producing === 1 && production.lot_producing_id);
         }
         return production.qty_producing !== 0;
+    }
+
+    formatFloat(val) {
+        const digits = this.decimalPrecision;
+        const strVal = formatFloat(val, { digits });
+        return String(parseFloat(strVal));
     }
 
     get quantityProducing() {

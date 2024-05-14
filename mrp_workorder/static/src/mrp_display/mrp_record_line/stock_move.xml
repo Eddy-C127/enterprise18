@@ -15,7 +15,7 @@
                 <t t-if="quantityDone &amp;&amp; quantityDone != toConsumeQuantity">
                     <t t-out="quantityDone"/> /
                 </t>
-                <t t-esc="toConsumeQuantity"/>
+                <t t-esc="formatFloat(toConsumeQuantity)"/>
                 <span class="ms-1" t-esc="uom"/>
             </button>
         </li>

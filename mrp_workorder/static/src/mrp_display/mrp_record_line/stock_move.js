@@ -3,6 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 
 import { Component } from "@odoo/owl";
+import { formatFloat } from "@web/views/fields/formatters";
 
 export class StockMove extends Component {
     static props = {
@@ -18,6 +19,7 @@ export class StockMove extends Component {
     setup() {
         this.fieldState = "state";
         this.isLongPressable = false;
+        this.decimalPrecision = this.props.record.fields?.product_uom_qty?.digits;
         this.longPressed = false;
         this.resModel = this.props.record.resModel;
         this.resId = this.props.record.resId;
@@ -29,6 +31,12 @@ export class StockMove extends Component {
             cssClass += " text-muted";
         }
         return cssClass;
+    }
+
+    formatFloat(val) {
+        const digits = this.decimalPrecision;
+        const strVal = formatFloat(val, { digits });
+        return String(parseFloat(strVal));
     }
 
     get isComplete() {

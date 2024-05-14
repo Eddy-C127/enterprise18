@@ -15,9 +15,9 @@
                         <span class="text-truncate me-1"><t t-esc="record.product_id[1]"/> - </span>
                         <span class="text-nowrap">
                             <t t-if="quantityProducing">
-                                <t t-esc="quantityProducing"/> /
+                                <t t-esc="formatFloat(quantityProducing)"/> /
                             </t>
-                            <t t-esc="quantityToProduce"/>
+                            <t t-esc="formatFloat(quantityToProduce)"/>
                             <span class="ms-1">
                                 <t t-if="displayUOM" t-esc="uom"/>
                                 <t t-else="">Unit<t t-if="quantityToProduce != 1">s</t></t>
@@ -50,9 +50,9 @@
                     <button t-else="" t-on-click.stop="quickRegisterProduction" class="btn btn-secondary btn-sm text-nowrap"
                             t-att-class="productionComplete ? 'opacity-50 bg-transparent text-black' : ''">
                             <span t-if="quantityProducing &amp;&amp; quantityProducing != quantityToProduce">
-                                <t t-out="quantityProducing"/> /
+                                <t t-out="formatFloat(quantityProducing)"/> /
                             </span>
-                        <t t-out="quantityToProduce"/>
+                        <t t-out="formatFloat(quantityToProduce)"/>
                         <span class="ms-1" t-esc="uom"/>
                     </button>
                 </li>
