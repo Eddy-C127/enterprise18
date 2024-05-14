@@ -21,9 +21,12 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
     trigger: '.o_article .o_article_name:contains("ChildArticle")',
     run: 'click',
 }, { // wait ChildArticle loading
-    trigger: '.breadcrumb .active:contains("ChildArticle")',
+    trigger: '.o_hierarchy_article_name input:value("ChildArticle")',
     run: () => {},
-}, { // click on add properties
+}, { // click on add properties button in dropdown
+    trigger: '#dropdown_tools_panel',
+    run: 'click',
+}, {
     trigger: 'button.o_knowledge_add_properties',
     run: 'click',
 }, {
@@ -40,7 +43,7 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
     trigger: '.o_article .o_article_name:contains("InheritPropertiesArticle")',
     run: 'click',
 }, { // wait InheritPropertiesArticle loading and move InheritPropertiesArticle under ParentArticle
-    trigger: '.breadcrumb .active:contains("InheritPropertiesArticle")',
+    trigger: '.o_hierarchy_article_name input:value("InheritPropertiesArticle")',
     run: () => {
         dragAndDropArticle(
             '.o_article_handle:contains("InheritPropertiesArticle")',

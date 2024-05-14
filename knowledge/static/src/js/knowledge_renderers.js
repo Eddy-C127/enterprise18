@@ -22,7 +22,6 @@ export class KnowledgeArticleFormRenderer extends FormRenderer {
         useChildSubEnv({
             openCoverSelector: this.openCoverSelector.bind(this),
             config: this.env.config,
-            _resizeNameInput: this._resizeNameInput.bind(this),
             toggleFavorite: this.toggleFavorite.bind(this),
             _saveIfDirty: this._saveIfDirty.bind(this),
         });
@@ -82,14 +81,6 @@ export class KnowledgeArticleFormRenderer extends FormRenderer {
     //--------------------------------------------------------------------------
     // Private
     //--------------------------------------------------------------------------
-
-    /**
-     * Resize the name input by updating the value of the span hidden behind
-     * the input.
-     */
-    _resizeNameInput(name) {
-        this.root.el.querySelector('.o_breadcrumb_article_name_container > span').innerText = name;
-    }
 
     async _saveIfDirty() {
         if (await this.props.record.isDirty()) {

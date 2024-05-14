@@ -75,19 +75,33 @@ export class ArticleBehavior extends AbstractBehavior {
     // HANDLERS
     //--------------------------------------------------------------------------
 
-    async openArticle () {
-        try {
-            await this.actionService.doAction('knowledge.ir_actions_server_knowledge_home_page', {
-                additionalContext: {
-                    res_id: parseInt(this.props.article_id)
-                }
-            });
-        } catch {
-            this.dialogService.add(AlertDialog, {
-                title: _t('Error'),
-                body: _t("This article was deleted or you don't have the rights to access it."),
-                confirmLabel: _t('Ok'),
-            });
+    /**
+     * Open the article. If the link is inside a knowledge article, the article will be loaded
+     * from the KnowledgeController through the method provided in the environment (allowing to
+     * preserve the navigation history).
+     */
+    async openArticle() {
+        if (this.env.openArticle) {
+            await this.env.openArticle(this.props.article_id);
+        } else {
+            try {
+                await this.actionService.doAction(
+                    "knowledge.ir_actions_server_knowledge_home_page",
+                    {
+                        additionalContext: {
+                            res_id: parseInt(this.props.article_id),
+                        },
+                    },
+                );
+            } catch {
+                this.dialogService.add(AlertDialog, {
+                    title: _t("Access Denied"),
+                    body: _t(
+                        "The article you are trying to open has either been removed or is inaccessible.",
+                    ),
+                    confirmLabel: _t("Close"),
+                });
+            }
         }
     }
 }

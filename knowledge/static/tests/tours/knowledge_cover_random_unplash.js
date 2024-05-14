@@ -47,7 +47,7 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
     trigger: '.o_knowledge_remove_cover',
 }, {
     // Set the name of the article
-    trigger: '.o_breadcrumb_article_name > input',
+    trigger: '.o_hierarchy_article_name > input',
     run: "edit Birds && click body",
 }, {
     // Make the add cover button visible

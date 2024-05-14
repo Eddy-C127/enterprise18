@@ -255,9 +255,10 @@ class TestKnowledgeArticleUtilities(KnowledgeCommonWData):
         article_8 = self.env['knowledge.article'].create({'name': 'Article 8', 'parent_id': article_4.id})
         article_11 = self.env['knowledge.article'].create({'name': 'Article 11', 'parent_id': article_6.id})
 
-        self.assertSetEqual(article_8._get_ancestor_ids(), {article_2.id, article_4.id})
-        self.assertSetEqual((article_8 | article_4)._get_ancestor_ids(), {article_2.id, article_4.id})
-        self.assertSetEqual((article_8 | article_11)._get_ancestor_ids(), {article_2.id, article_4.id, article_6.id})
+        # Use lists to assert correct order (_get_ancestor_ids returns an OrderedSet)
+        self.assertEqual(list(article_8._get_ancestor_ids()), [article_4.id, article_2.id])
+        self.assertEqual(list((article_8 | article_4)._get_ancestor_ids()), [article_4.id, article_2.id])
+        self.assertEqual(list((article_8 | article_11)._get_ancestor_ids()), [article_4.id, article_2.id, article_6.id])
 
 
 @tagged('knowledge_internals', 'knowledge_management')

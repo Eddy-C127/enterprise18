@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { FormController } from '@web/views/form/form_controller';
 import { KnowledgeSidebar } from '@knowledge/components/sidebar/sidebar';
@@ -25,6 +26,7 @@ export class KnowledgeArticleFormController extends FormController {
         this.root = useRef('root');
         this.orm = useService('orm');
         this.actionService = useService('action');
+        this.dialogService = useService("dialog");
 
         /*
             Because of the way OWL is designed we are never sure when OWL finishes mounting this component.
@@ -191,10 +193,13 @@ export class KnowledgeArticleFormController extends FormController {
         try {
             await this.model.load({ resId });
         } catch {
-            this.actionService.doAction(
-                await this.orm.call('knowledge.article', 'action_home_page', [false]),
-                {stackPosition: 'replaceCurrentAction'}
-            );
+            this.dialogService.add(AlertDialog, {
+                title: _t("Access Denied"),
+                body: _t(
+                    "The article you are trying to open has either been removed or is inaccessible.",
+                ),
+                confirmLabel: _t("Close"),
+            });
         }
 
         if (scrollView) {

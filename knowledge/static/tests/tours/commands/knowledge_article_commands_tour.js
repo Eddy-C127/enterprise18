@@ -187,7 +187,7 @@ const tocCommandSteps = [{ // open the command bar
 const clipboardCommandSteps = [{ // go to the custom article
     trigger: '.o_article .o_article_name:contains("EditorCommandsArticle")',
 }, { // wait for article to be correctly loaded
-    trigger: '.o_breadcrumb_article_name_container:contains("EditorCommandsArticle")',
+    trigger: '.o_hierarchy_article_name input:value("EditorCommandsArticle")',
     run: () => {},
 }, { // open the command bar
     trigger: '.odoo-editor-editable > p',
@@ -479,20 +479,12 @@ const embedViewFiltersSteps = [{
 }, { // Open the filtered article
     trigger: 'tbody > tr > td[name="display_name"]'
 }, { // Wait for the article to be open
-    trigger: '.o_breadcrumb_article_name_container > span:contains("Child 1")',
+    trigger: '.o_hierarchy_article_name input:value("Child 1")',
     run: () => {}
-}, { // Open parent via the sidebar
-    trigger: '.o_article_name:contains("EditorCommandsArticle")'
-}, { // Check that there is no filter in the searchBar
-    trigger: '.o_searchview_input_container:not(:has(> div))',
-    run: () => {}
-}, { // Check that we have 2 elements in the embedded view
-    trigger: 'tbody tr.o_data_row:nth-child(2)',
-    run: () => {}
-}, { // Go back via the breadcrumb
-    trigger: '.o_back_button'
+}, { // Go back via the pager
+    trigger: '.o_knowledge_header i.oi-chevron-left',
 }, { // Check that there is the filter in the searchBar
-    trigger: '.o_searchview_input_container > div',
+    trigger: '.o_searchview_input_container',
     run: () => {}
 }, { // Check that the filter is effective
     trigger: 'tbody:not(tr.o_data_row:nth-child(2))',
@@ -511,10 +503,10 @@ const embedKanbanEditArticleSteps = [{ // Create a new article using quick creat
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_quick_create .o_kanban_edit`,
     run: 'click'
 }, { // verify that the view switched to the article item
-    trigger: '.o_knowledge_header .o_breadcrumb_article_name_container:contains("Quick Create Ongoing Item")',
+    trigger: '.o_knowledge_header .o_hierarchy_article_name input:value("Quick Create Ongoing Item")',
     run: () => {},
-}, { // Go back via the breadcrumb
-    trigger: '.o_back_button'
+}, { // Go back via the pager
+    trigger: '.o_knowledge_header i.oi-chevron-left',
 }, { // Wait for the article to be properly loaded
     trigger: '.odoo-editor-editable:contains("EditorCommandsArticle Content")',
     run: () => {}
@@ -561,10 +553,10 @@ const articleCommandComposerSteps = [{ // open the chatter
 const articleCommandUsageSteps = [{ // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_article:contains("LinkedArticle")',
     run: 'click',
-}, { // check that the view switched to the corresponding article while keeping the breadcrumbs history
-    trigger: '.o_knowledge_header:has(.o_breadcrumb_article_name_container:contains("LinkedArticle")):has(.breadcrumb-item > a:contains("EditorCommandsArticle"))'
-}, { // Go back via the breadcrumb
-    trigger: '.o_back_button'
+}, { // check that the view switched to the corresponding article
+    trigger: '.o_knowledge_header:has(.o_hierarchy_article_name input:value("LinkedArticle"))'
+}, { // Go back via the pager
+    trigger: '.o_knowledge_header i.oi-chevron-left',
 }, { // Wait for the article to be properly loaded
     trigger: '.odoo-editor-editable:contains("EditorCommandsArticle Content")',
     run: () => {}
@@ -622,7 +614,7 @@ const clipboardUsageSteps = [{ // open the chatter
     trigger: '.o_command_default:contains(EditorCommandsArticle)',
     run: 'click',
 }, { // wait for article to be correctly loaded
-    trigger: '.o_breadcrumb_article_name_container:contains("EditorCommandsArticle")',
+    trigger: '.o_hierarchy_article_name input:value("EditorCommandsArticle")',
     run: () => {},
 }, { // use the template as description for the contact record
     trigger: '.o_knowledge_behavior_type_template button:contains(Use as)',

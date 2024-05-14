@@ -16,7 +16,7 @@ from odoo import api, Command, fields, models, _
 from odoo.addons.web_editor.tools import handle_history_divergence
 from odoo.exceptions import AccessError, ValidationError, UserError
 from odoo.osv import expression
-from odoo.tools import get_lang, is_html_empty
+from odoo.tools import get_lang, is_html_empty, OrderedSet
 from odoo.tools.translate import html_translate
 from odoo.tools.sql import SQL
 
@@ -120,7 +120,7 @@ class Article(models.Model):
     category = fields.Selection(
         [('workspace', 'Workspace'), ('private', 'Private'), ('shared', 'Shared')],
         compute="_compute_category", compute_sudo=True, store=True, index=True, string="Section",
-        help='Used to categozie articles in UI, depending on their main permission definitions.')
+        help='Used to categorize articles in UI, depending on their main permission definitions.')
         # Stored to improve performance when loading the article tree. (avoid looping through members if 'workspace')
     # Same as write_uid/_date but limited to the body
     last_edition_uid = fields.Many2one(
@@ -2759,9 +2759,9 @@ class Article(models.Model):
          * if article `11` is a child of `6` and is also in `self`, return
            `{2, 4, 6}`;
 
-        :rtype: set
+        :rtype: OrderedSet
         """
-        ancestor_ids = set()
+        ancestor_ids = OrderedSet()
         for article in self:
             if article.id in ancestor_ids:
                 continue
@@ -2940,3 +2940,17 @@ class Article(models.Model):
             "favorite_ids": favorite_articles_ids,
             "active_article_accessible_root_id": active_article_accessible_ancestors[-1].id if active_article_accessible_ancestors else False
         }
+
+    def get_article_hierarchy(self, exclude_article_ids=False):
+        """ Return the `display_name` and `user_has_access` values of the articles that are in the
+        hierarchy (parent_path) of the given article from the furthest ancestor to the closest one,
+        excluding the ones provided in exclude_article_ids.
+        Requires a sudo to get the values of articles that are not accessible by the user (as the
+        display name of the root and parent articles are shown even if the user does not have
+        access to them, we consider it safe to show it for the entire hierarchy)
+        """
+        self.ensure_one()
+        ancestor_ids = self._get_ancestor_ids()
+        if exclude_article_ids:
+            ancestor_ids.difference_update(exclude_article_ids)
+        return self.sudo().browse(reversed(list(ancestor_ids))).read(["display_name", "user_has_access"])

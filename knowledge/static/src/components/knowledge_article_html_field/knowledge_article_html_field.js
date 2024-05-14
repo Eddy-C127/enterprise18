@@ -53,6 +53,17 @@ export class KnowledgeArticleHtmlField extends HtmlField {
         })
     }
 
+    /**
+     * @override
+     * Add openArticle to the behaviors' environment to allow opening articles without reloading
+     * the form view and preserve the navigation history
+     */
+    get behaviorsEnvExtensions() {
+        return {
+            openArticle: this.env.openArticle,
+        };
+    }
+
     get wysiwygOptions() {
         const wysiwygOptions = super.wysiwygOptions;
         wysiwygOptions.editorPlugins = [...wysiwygOptions.editorPlugins, KnowledgePlugin];

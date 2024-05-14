@@ -9,24 +9,17 @@
         overflow-x: hidden;
     }
 
-    // = Navbar
-    // --------------------------------------------------------------------------
-    .o_breadcrumb_article_name_container {
-        > span {
-            white-space: pre;
-            color: transparent;
-            min-width: 150px;
-            display: inline-block;
+    .o_knowledge_header {
+        .o_hierarchy_item {
+            max-width: 40%;
         }
-        input {
-            height: 100%;
+        .o_form_status_indicator_buttons.invisible {
+            width: 0;
         }
-        .o_breadcrumb_article_name {
-            span, input {
-                position: absolute;
-                inset: 0;
-                overflow-x: hidden;
-                text-overflow: ellipsis;
+        .o_hierarchy_article_name input {
+            &:hover, &:focus {
+                border-bottom: $input-border-width solid $o-brand-primary !important;
+                border-top: $input-border-width solid transparent !important;  // keeps input centered
             }
         }
     }
@@ -34,10 +27,6 @@
     .o_knowledge_behavior_type_embedded_view .o_list_renderer thead {
         position: relative;
         z-index: auto;
-    }
-
-    .o_breadcrumb_article_name > input:not(.o_readonly_modifier):hover {
-        border-bottom: $input-border-width solid $o-brand-primary;
     }
 
     span.o_knowledge_add_properties {
@@ -447,12 +436,10 @@
 
 @media (hover: hover) { // Devices supporting hover
     .o_knowledge_article_view_form_view {
-        .o_knowledge_edit_cover_buttons,
-        .o_knowledge_add_buttons {
+        .o_knowledge_edit_cover_buttons {
             transition: opacity 0.3s ease-in-out;
         }
-        .o_knowledge_cover:not(:hover) .o_knowledge_edit_cover_buttons,
-        .o_knowledge_header:not(:hover) .o_knowledge_add_buttons {
+        .o_knowledge_cover:not(:hover) .o_knowledge_edit_cover_buttons {
             opacity: 0;
         }
         .o_section_header:not(:hover) .o_section_create,
