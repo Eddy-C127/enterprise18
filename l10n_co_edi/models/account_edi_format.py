@@ -324,6 +324,7 @@ class AccountEdiFormat(models.Model):
                 price_unit = price_subtotal_before_discount / line.quantity
             else:
                 price_unit = line.price_unit * currency_rate_number
+            line.name = line.product_id.display_name if not line.name else line.name
             invoice_lines_values[line.id] = {
                 'price_unit': price_unit,
                 'price_subtotal': price_subtotal,

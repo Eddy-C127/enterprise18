@@ -190,12 +190,15 @@ class XmlPolizasExportWizard(models.TransientModel):
         """
         table_references, search_condition = ledger._get_sql_table_expression(options, domain=False, date_scope='strict_range')
         ct_query = self.env['account.report']._get_query_currency_table(options)
+        lang = self.env.user.lang or tools.get_lang(self.env).code
+        product_name = self.with_context(lang=lang).env['product.template']._field_to_sql('product_template', 'name')
         query = SQL(
             '''
             SELECT
                 account_move_line.id,
                 account_move_line.name,
                 account_move_line.date,
+                account_move_line.product_id,
                 account_move_line.currency_id,
                 account_move_line.amount_currency,
                 ROUND(account_move_line.debit * currency_table.rate, currency_table.precision)   AS debit,
@@ -210,6 +213,8 @@ class XmlPolizasExportWizard(models.TransientModel):
                 move.name                     AS move_name,
                 move.l10n_mx_edi_cfdi_uuid    AS l10n_mx_edi_cfdi_uuid,
                 partner.vat                   AS partner_vat,
+                product.default_code          AS product_default_code,
+                %(product_name)s              AS product_name,
                 country.code                  AS country_code
             FROM %(table_references)s
             LEFT JOIN account_move move          ON move.id = account_move_line.move_id
@@ -220,9 +225,12 @@ class XmlPolizasExportWizard(models.TransientModel):
             LEFT JOIN res_currency currency      ON currency.id = account_move_line.currency_id
             LEFT JOIN res_partner partner        ON account_move_line.partner_id = partner.id
             LEFT JOIN res_country country        ON partner.country_id = country.id
+            LEFT JOIN product_product product    ON product.id = account_move_line.product_id
+            LEFT JOIN product_template product_template ON product_template.id = product.product_tmpl_id
             WHERE %(search_condition)s
             ORDER BY account_move_line.date, account_move_line.id
             ''',
+            product_name=product_name,
             table_references=table_references,
             ct_query=ct_query,
             search_condition=search_condition,
@@ -251,6 +259,8 @@ class XmlPolizasExportWizard(models.TransientModel):
         move_data = MoveExportData()
 
         for line in accounts_results:
+            recomputed_line_name = f"[{line['product_default_code']}] {line['product_name']}" if line['product_default_code'] else line['product_name'] or ''
+            line['name'] = recomputed_line_name if not line['name'] else line['name']
             data = {
                 'line_label': textwrap.shorten(
                     line['journal_name'] + ((' - ' + line['name']) if line['name'] else ''),

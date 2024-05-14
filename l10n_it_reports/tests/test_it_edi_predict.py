@@ -55,6 +55,7 @@ class TestItEdiPredict(TestItEdi):
             'invoice_line_ids': [
                 (0, 0, {
                     'product_id': self.product_c.id,
+                    'name': self.product_c.display_name,
                     'quantity': 1.0,
                     'tax_ids': [fields.Command.set([self.tax_purchase_c.id])],
                     'account_id': self.predictable_account.id,

@@ -132,6 +132,8 @@ services reception has been received as well.
                           x.company_id.l10n_cl_dte_service_provider in ['SII', 'SIITEST', 'SIIDEMO'] and
                           x.journal_id.l10n_latam_use_documents):
             msg_demo = _(' in DEMO mode.') if move.company_id.l10n_cl_dte_service_provider == 'SIIDEMO' else '.'
+            for line in move.invoice_line_ids:
+                line.name = line.product_id.display_name if not line.name else line.name
             # check if we have the currency active, in order to receive vendor bills correctly.
             if move.move_type in ['in_invoice', 'in_refund'] and not move.currency_id.active:
                 raise UserError(

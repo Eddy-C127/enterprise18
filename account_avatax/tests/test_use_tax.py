@@ -52,4 +52,4 @@ class TestAccountAvalaraUseTaxProductManagement(TestAccountAvataxCommon):
             invoice = self._create_invoice()
             invoice.button_external_tax_calculation()
         line_description = capture.val['json']['createTransactionModel']['lines'][0]['description']
-        self.assertEqual(invoice.invoice_line_ids.name, line_description)
+        self.assertEqual(invoice.invoice_line_ids.product_id.display_name, line_description)

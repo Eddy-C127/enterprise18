@@ -88,6 +88,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
         journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
         uom_name = self_lang.env['uom.uom']._field_to_sql('uom', 'name')
+        product_name = self_lang.env['product.template']._field_to_sql('product_template', 'name')
         query = SQL(
             '''
             SELECT
@@ -124,6 +125,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 journal.type                                AS journal_type,
                 account.account_type                        AS account_type,
                 currency.name                               AS currency_code,
+                %(product_name)s                            AS product_name,
                 product.default_code                        AS product_default_code,
                 %(uom_name)s                                AS product_uom_name
             FROM %(table_references)s
@@ -132,6 +134,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             JOIN account_account account ON account.id = account_move_line.account_id
             JOIN res_currency currency ON currency.id = account_move_line.currency_id
             LEFT JOIN product_product product ON product.id = account_move_line.product_id
+            LEFT JOIN product_template product_template ON product_template.id = product.product_tmpl_id
             LEFT JOIN uom_uom uom ON uom.id = account_move_line.product_uom_id
             LEFT JOIN account_tax tax ON tax.id = account_move_line.tax_line_id
             WHERE %(search_condition)s
@@ -139,6 +142,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             ''',
             tax_name=tax_name,
             journal_name=journal_name,
+            product_name=product_name,
             uom_name=uom_name,
             table_references=table_references,
             search_condition=search_condition,
@@ -181,6 +185,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 move_vals_map.setdefault(line_vals['move_id'], move_vals)
                 journal_vals['move_vals_map'].setdefault(line_vals['move_id'], move_vals)
 
+                computed_line_name = f"[{line_vals['product_default_code']}] {line_vals['product_name']}" if line_vals['product_default_code'] else line_vals['product_name'] or ''
+                line_vals['name'] = computed_line_name if not line_vals['name'] else line_vals['name']
                 move_vals = move_vals_map[line_vals['move_id']]
                 move_vals['line_vals_list'].append(line_vals)
 

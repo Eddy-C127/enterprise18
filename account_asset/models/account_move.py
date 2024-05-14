@@ -192,7 +192,10 @@ class AccountMove(models.Model):
                     and not (move.move_type in ('out_invoice', 'out_refund') and move_line.account_id.internal_group == 'asset')
                 ):
                     if not move_line.name:
-                        raise UserError(_('Journal Items of %(account)s should have a label in order to generate an asset', account=move_line.account_id.display_name))
+                        if move_line.product_id:
+                            move_line.name = move_line.product_id.display_name
+                        else:
+                            raise UserError(_('Journal Items of %(account)s should have a label in order to generate an asset', account=move_line.account_id.display_name))
                     if move_line.account_id.multiple_assets_per_line:
                         # decimal quantities are not supported, quantities are rounded to the lower int
                         units_quantity = max(1, int(move_line.quantity))

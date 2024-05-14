@@ -960,7 +960,7 @@ class AccountMove(models.Model):
             {
                 **invl._convert_to_tax_base_line_dict(),
                 'uom': invl.product_uom_id,
-                'name': invl.name,
+                'name': invl.product_id.display_name or invl.name,
                 'product_unspsc_code': invl._get_product_unspsc_code(),
                 'uom_unspsc_code': invl._get_uom_unspsc_code(),
             }

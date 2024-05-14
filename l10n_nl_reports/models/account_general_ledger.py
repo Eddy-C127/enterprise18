@@ -133,6 +133,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
         lang = self.env.user.lang or get_lang(self.env).code
         journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if self.pool['account.journal'].name.translate else 'journal.name'
+        product_name = f"COALESCE(product_template.name->>'{lang}', product_template.name->>'en_US')" if self.pool['product.template'].name.translate else 'product_template.name'
         return SQL(
             f"""
             SELECT journal.id AS journal_id,
@@ -159,6 +160,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                    ROUND(account_move_line.balance, 2) AS line_balance,
                    ROUND(account_move_line.amount_currency, 2) AS line_amount_currency,
                    reconcile.id AS line_reconcile_name,
+                   {product_name} AS product_name,
+                   product.default_code AS product_default_code,
                    currency.id AS line_currency_id,
                    currency2.id AS line_company_currency_id,
                    currency.name AS line_currency_name,
@@ -170,6 +173,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
          LEFT JOIN account_full_reconcile reconcile ON account_move_line.full_reconcile_id = reconcile.id
          LEFT JOIN res_currency currency ON account_move_line.currency_id = currency.id
          LEFT JOIN res_currency currency2 ON account_move_line.company_currency_id = currency2.id
+         LEFT JOIN product_product product ON product.id = account_move_line.product_id
+         LEFT JOIN product_template product_template ON product_template.id = product.product_tmpl_id
              WHERE %(search_condition)s
                AND account_move_line.display_type NOT IN ('line_note', 'line_section')
           ORDER BY account_move_line.journal_id, account_move_line.id
@@ -402,6 +407,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             journal_id, move_id = None, None
             while transaction_values := self.env.cr.dictfetchmany(batch_size):
                 for row in transaction_values:
+                    recomputed_row_name = f"[{row['product_default_code']}] {row['product_name']}" if row['product_default_code'] else row['product_name'] or ''
+                    row['line_name'] = recomputed_row_name if not row['line_name'] else row['line_name']
                     if row['journal_id'] != journal_id:
                         if journal_id is not None:
                             yield Markup("""
