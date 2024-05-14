@@ -54,12 +54,12 @@ It assigns manager and user access rights to the Administrator for the accountin
             'account_accountant/static/src/components/**/*',
             'account_accountant/static/src/**/*.xml',
         ],
+        'web.assets_unit_tests': [
+            'account_accountant/static/tests/**/*',
+            ('remove', 'account_accountant/static/tests/tours/**/*'),
+        ],
         'web.assets_tests': [
             'account_accountant/static/tests/tours/**/*',
-        ],
-        'web.qunit_suite_tests': [
-            'account_accountant/static/tests/*.js',
-            'account_accountant/static/tests/helpers/*.js',
         ],
     }
 }
