@@ -106,6 +106,15 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             'file_export_type': _('XML'),
         })
 
+    def open_account_report_sales(self, options):
+        action = self.env['ir.actions.actions']._for_xml_id('account_reports.action_account_report_sales')
+        action['params'] = {
+            'options': options,
+            'ignore_session': True,
+        }
+
+        return action
+
     def print_tax_report_to_xml(self, options):
         # add options to context and return action to open transient model
         new_wizard = self.env['l10n_be_reports.periodic.vat.xml.export'].create({})
