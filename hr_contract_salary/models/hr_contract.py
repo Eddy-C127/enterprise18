@@ -207,10 +207,6 @@ class HrContract(models.Model):
         for contract in self:
             contract.monthly_yearly_costs = contract.final_yearly_costs / 12.0
 
-    def _get_salary_costs_factor(self):
-        self.ensure_one()
-        return 12.0
-
     def _get_benefits_costs(self):
         self.ensure_one()
         benefits = self.env['hr.contract.salary.benefit'].search([

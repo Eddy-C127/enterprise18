@@ -66,8 +66,16 @@ class HrEmployee(models.Model):
             ('ca_status_2', 'CA: Married: One Income'),
             ('ca_status_4', 'CA: Unmarried Head of Household'),
             ('ny_status_1', 'NY: Single or Head of Household'),
-            ('ny_status_2', 'NY: Married (filling jointly)'),
-            ('ny_status_3', 'NY: Married, but withhold at a higher single rate')],
+            ('ny_status_2', 'NY: Married (filing jointly)'),
+            ('ny_status_3', 'NY: Married, but withhold at a higher single rate'),
+            ('al_status_1', 'AL: 0: No Exemption Made (withhold at the highest rate)'),
+            ('al_status_2', 'AL: S: Single'),
+            ('al_status_3', 'AL: MS: Married filing Separately'),
+            ('al_status_4', 'AL: M: Married'),
+            ('al_status_5', 'AL: H: Head of Household'),
+            ('co_status_1', 'CO: Single or Married filing Separately'),
+            ('co_status_2', 'CO: Married filing Jointly or Qualifying Surviving Spouse'),
+            ('co_status_3', 'CO: Head of Household')],
         string="State Tax Filing Status",
         compute="_compute_l10n_us_state_filing_status",
         precompute=True,
@@ -94,7 +102,11 @@ class HrEmployee(models.Model):
         for employee in self:
             state_code = employee.address_id.state_id.code
             filing_status = employee.l10n_us_state_filing_status
-            if not state_code or state_code not in ['NY', 'CA']:
+            if not state_code:
+                continue
+            if state_code not in ['NY', 'CA', 'AL', 'CO'] and filing_status:
+                raise UserError(_('The employee state filing status should be empty for this working address state. (Work Address State: %s)', employee.address_id.state_id.name))
+            if state_code not in ['NY', 'CA', 'AL', 'CO']:
                 continue
             if not filing_status:
                 raise UserError(_('The employee state filing status is empty and should match the working address state. (Work Address State: %s)', employee.address_id.state_id.name))
@@ -108,13 +120,17 @@ class HrEmployee(models.Model):
         for employee in self:
             state_code = employee.address_id.state_id.code
             filing_status = employee.l10n_us_state_filing_status
-            if not state_code or state_code not in ['NY', 'CA']:
-                continue
-            if not filing_status or state_code != filing_status.split('_')[0].upper():
+            if not state_code or state_code not in ['NY', 'CA', 'AL', 'CO']:
+                employee.l10n_us_state_filing_status = False
+            elif not filing_status or state_code != filing_status.split('_')[0].upper():
                 if state_code == 'NY':
                     employee.l10n_us_state_filing_status = 'ny_status_1'
                 elif state_code == 'CA':
                     employee.l10n_us_state_filing_status = 'ca_status_1'
+                elif state_code == 'AL':
+                    employee.l10n_us_state_filing_status = 'al_status_1'
+                elif state_code == 'CO':
+                    employee.l10n_us_state_filing_status = 'co_status_1'
 
     @api.constrains('ssnid')
     def _check_ssnid(self):

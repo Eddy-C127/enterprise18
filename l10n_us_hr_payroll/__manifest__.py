@@ -5,7 +5,13 @@
     'name': 'United States - Payroll',
     'countries': ['us'],
     'category': 'Human Resources/Payroll',
-    'depends': ['hr_payroll', 'hr_contract_reports', 'hr_work_entry_holidays', 'hr_payroll_holidays'],
+    'depends': [
+        'hr_payroll',
+        'hr_contract_reports',
+        'hr_work_entry_holidays',
+        'hr_payroll_holidays',
+        'base_address_extended'
+    ],
     'version': '1.0',
     'description': """
 United States Payroll Rules.
@@ -20,6 +26,8 @@ United States Payroll Rules.
     * Integrated with Leaves Management
     """,
     'data': [
+        'data/res_country_data.xml',
+        'data/res.city.csv',
         'data/hr_salary_rule_category_data.xml',
         'data/hr_payroll_structure_type_data.xml',
         'data/hr_contract_type_data.xml',
