@@ -57,36 +57,6 @@ class DocumentFolder(models.Model):
                     message = _('This workspace should remain in the same company as the following projects to which it is linked:\n%s\n\nPlease update the company of those projects, or leave the company of this workspace empty.', '\n'.join(lines))
                 raise UserError(message)
 
-    def _copy_and_merge(self, vals=None):
-        if not self:
-            return self.env['documents.folder']
-        if vals is None:
-            vals = {}
-
-        if 'name' not in vals:
-            vals['name'] = _('Merged Workspace')
-        merged_folder = self.create(vals)
-        descriptions = []
-
-        for folder in self:
-            if folder.description:
-                descriptions.append(folder.description)
-            for facet in folder.facet_ids:
-                facet.copy({'folder_id': merged_folder.id})
-            self.env['documents.tag'].flush_model(['folder_id'])
-
-            old_facet_id_to_new_facet_id, old_tag_id_to_new_tag_id = folder._get_old_id_to_new_id_maps(merged_folder)
-            folder._copy_workflow_rules_and_actions(merged_folder, old_facet_id_to_new_facet_id, old_tag_id_to_new_tag_id)
-
-            for child_folder in folder.children_folder_ids:
-                child_folder.with_context({
-                    'ancestors_facet_map': old_facet_id_to_new_facet_id,
-                    'ancestors_tag_map': old_tag_id_to_new_tag_id,
-                }).copy({'parent_folder_id': merged_folder.id})
-
-        merged_folder.description = '<br/>'.join(descriptions)
-        return merged_folder
-
     def _get_project_from_closest_ancestor(self):
         """
         If the current folder is linked to exactly one project, this method returns

@@ -134,58 +134,6 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
 
         self.assertTrue(self.attachment_txt.is_shared, "The document should be shared by a link sharing it by id and not expired yet")
 
-    def test_copy_and_merge_folders(self):
-        """
-        Create 3 folders (folderA, folderB, folderC) with different properties (subfolders, tags, workflow actions)
-        and merge them. The merged folder should have all the properties of the original folders combined.
-        """
-        folderA, folderB, folderC = self.env['documents.folder'].create([{
-            'name': f'folder{l}',
-        } for l in 'ABC'])
-
-        folderA_child = self.env['documents.folder'].create({
-            'name': 'folderA_child',
-            'parent_folder_id': folderA.id,
-        })
-        folderB_facet = self.env['documents.facet'].create({
-            'name': 'folderB_facet',
-            'folder_id': folderB.id,
-        })
-        folderB_tag = self.env['documents.tag'].create({
-            'name': 'folderB_tag',
-            'facet_id': folderB_facet.id,
-        })
-        folderC_workflow_rule = self.env['documents.workflow.rule'].create({
-            'name': 'folderC_workflow_rule',
-            'domain_folder_id': folderC.id,
-            'condition_type': 'criteria',
-            'criteria_partner_id': self.partner_1.id,
-        })
-        self.env['documents.workflow.action'].create({
-            'workflow_rule_id': folderC_workflow_rule.id,
-            'action': 'remove',
-        })
-
-        copied_folder = (folderA + folderB + folderC)._copy_and_merge()
-
-        self.assertEqual(len(copied_folder.children_folder_ids), 1)
-        self.assertEqual(folderA_child.name, copied_folder.children_folder_ids[0].name)
-
-        self.assertEqual(len(copied_folder.facet_ids), 1)
-        facet_copy = copied_folder.facet_ids[0]
-        self.assertEqual(folderB_facet.name, facet_copy.name)
-
-        self.assertEqual(len(facet_copy.tag_ids), 1)
-        self.assertEqual(folderB_tag.name, facet_copy.tag_ids[0].name)
-
-        workflow_rule_copy_search = self.env['documents.workflow.rule'].search([('domain_folder_id', '=', copied_folder.id)])
-        self.assertEqual(len(workflow_rule_copy_search), 1)
-        workflow_rule_copy = workflow_rule_copy_search[0]
-        self.assertEqual(folderC_workflow_rule.name, workflow_rule_copy.name)
-
-        workflow_action_search = self.env['documents.workflow.action'].search([('workflow_rule_id', '=', workflow_rule_copy.id)])
-        self.assertEqual(len(workflow_action_search), 1)
-
     def test_project_document_count(self):
         projects = self.project_pigs | self.project_goats
         self.assertEqual(self.project_pigs.document_count, 0)

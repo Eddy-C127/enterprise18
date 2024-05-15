@@ -26,24 +26,19 @@
             <field name="facet_id" ref="documents_folder_facet_1"/>
         </record>
     
-        <record id="documents_folder_template" model="documents.folder">
-            <field name="name">Template</field>
-            <field name="parent_folder_id" ref="documents_folder"/>
-        </record>
-    
         <record id="documents_folder_template_child_1" model="documents.folder">
             <field name="name">Plans</field>
-            <field name="parent_folder_id" ref="documents_folder_template"/>
+            <field name="parent_folder_id" ref="documents_folder"/>
         </record>
     
         <record id="documents_folder_template_child_2" model="documents.folder">
             <field name="name">Photos</field>
-            <field name="parent_folder_id" ref="documents_folder_template"/>
+            <field name="parent_folder_id" ref="documents_folder"/>
         </record>
     
         <record id="documents_folder_template_child_3" model="documents.folder">
             <field name="name">Miscellaneous</field>
-            <field name="parent_folder_id" ref="documents_folder_template"/>
+            <field name="parent_folder_id" ref="documents_folder"/>
         </record>
     </data>
 </odoo>

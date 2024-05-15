@@ -9,9 +9,6 @@
 Adds the ability to set workspace templates on products.
 """,
     'depends': ['documents_project', 'sale_project'],
-    'data': [
-        'views/product_views.xml',
-    ],
     'demo': [
         'data/documents_demo.xml',
         'data/project_sale_demo.xml',
