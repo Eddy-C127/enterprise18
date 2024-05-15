@@ -1247,7 +1247,7 @@ class AmazonAccount(models.Model):
                                 )
                                 for failed_picking in failed_pickings:
                                     errors_by_record.setdefault(failed_picking, set())
-                                    errors_by_record[failed_picking].append(error_desc)
+                                    errors_by_record[failed_picking].add(error_desc)
                             else:  # Amazon doesn't specify which order (and thus picking) failed.
                                 consider_unprocessed_records_as_failed = True
                     feed_records.filtered(
