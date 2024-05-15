@@ -126,29 +126,36 @@ class TestMpsMps(common.TransactionCase):
         cls.mps_table = cls.env['mrp.production.schedule'].create({
             'product_id': cls.table.id,
             'warehouse_id': cls.warehouse.id,
+            'bom_id': cls.bom_table.id,
         })
         cls.mps_wardrobe = cls.env['mrp.production.schedule'].create({
             'product_id': cls.wardrobe.id,
             'warehouse_id': cls.warehouse.id,
+            'bom_id': cls.bom_wardrobe.id,
         })
         cls.mps_chair = cls.env['mrp.production.schedule'].create({
             'product_id': cls.chair.id,
             'warehouse_id': cls.warehouse.id,
+            'bom_id': cls.bom_chair.id,
         })
         cls.mps_drawer = cls.env['mrp.production.schedule'].create({
             'product_id': cls.drawer.id,
             'warehouse_id': cls.warehouse.id,
+            'bom_id': cls.bom_drawer.id,
         })
         cls.mps_table_leg = cls.env['mrp.production.schedule'].create({
             'product_id': cls.table_leg.id,
             'warehouse_id': cls.warehouse.id,
+            'bom_id': cls.bom_table_leg.id,
         })
-        cls.mps_screw = cls.env['mrp.production.schedule'].create({
-            'product_id': cls.screw.id,
-            'warehouse_id': cls.warehouse.id,
-        })
+        cls.mps_screw = cls.env['mrp.production.schedule'].search([
+            ('product_id', '=', cls.screw.id)
+        ])
+        cls.mps_bolt = cls.env['mrp.production.schedule'].search([
+            ('product_id', '=', cls.bolt.id)
+        ])
         cls.mps = cls.mps_table | cls.mps_wardrobe | cls.mps_chair |\
-            cls.mps_drawer | cls.mps_table_leg | cls.mps_screw
+            cls.mps_drawer | cls.mps_table_leg | cls.mps_screw | cls.mps_bolt
 
     def test_basic_state(self):
         """ Testing master product scheduling default values for client
@@ -159,8 +166,8 @@ class TestMpsMps(common.TransactionCase):
 
         # Remove demo data
         production_schedule_ids = [s for s in mps_state['production_schedule_ids'] if s['id'] in self.mps.ids]
-        # Check that 6 states are returned (one by production schedule)
-        self.assertEqual(len(production_schedule_ids), 6)
+        # Check that 7 states are returned (one by production schedule)
+        self.assertEqual(len(production_schedule_ids), 7)
         self.assertEqual(mps_state['company_id'], self.env.user.company_id.id)
         company_groups = mps_state['groups'][0]
         self.assertTrue(company_groups['mrp_mps_show_starting_inventory'])
@@ -204,6 +211,7 @@ class TestMpsMps(common.TransactionCase):
         self.assertEqual(forecast_at_first_period['replenish_qty'], 50)
         self.assertEqual(forecast_at_first_period['safety_stock_qty'], 0)
 
+        self.mps_screw.enable_max_replenish = True
         self.mps_screw.max_to_replenish_qty = 20
         screw_mps_state = self.mps_screw.get_production_schedule_view_state()[0]
         forecast_at_first_period = screw_mps_state['forecast_ids'][0]
@@ -226,6 +234,7 @@ class TestMpsMps(common.TransactionCase):
         a forecast and run the replenishment again, ensure the purchase order
         line is updated.
         """
+        self.mps_screw.replenish_trigger = 'manual'
         mps_dates = self.env.company._get_date_range()
         forecast_screw = self.env['mrp.product.forecast'].create({
             'production_schedule_id': self.mps_screw.id,
@@ -305,6 +314,7 @@ class TestMpsMps(common.TransactionCase):
         })
         self.screw.seller_ids = [(6, 0, [seller.id])]
 
+        self.mps_screw.replenish_trigger = 'manual'
         mps_dates = self.env.company._get_date_range()
         self.env['mrp.product.forecast'].create({
             'production_schedule_id': self.mps_screw.id,
@@ -401,6 +411,56 @@ class TestMpsMps(common.TransactionCase):
         self.assertFalse(screw_forecast_1['forced_replenish'])
         self.assertFalse(screw_forecast_2['forced_replenish'])
         self.assertFalse(screw_forecast_3['forced_replenish'])
+
+    def test_lead_times_2(self):
+        """ In the case of a multilevel bom with each their own lead time, we want
+        to make sure that indirect demand forecast is made at the correct time.
+
+        E.g.:
+        - table bom has a lead time of 10 day
+        - drawer bom has a lead time of 15 day
+        - table leg bom has a lead time of 10 day
+
+        if a forecast demand of 1 table is made for June, the indirect demand for all components will be:
+        - 1 drawer for May: 1st of June minus lead time of 10 days
+        - 4 table legs for May: 2 from table bom (June 1st - 10 days) and 2 from table>drawer boms (June 1st - 10+15 days)
+        - 12 screws for May: 4 from table>drawer (June 1st - 10+15 days)
+            and 8 from table>table leg (June 1st - 10+10 days)
+        - 8 screws for April: table>drawer>table leg (June 1st - 10+15+10 days)
+        - 8 bolts for May: table>table leg (June 1st - 10+10 days)
+        - 8 bolts for April: table>drawer>table leg (June 1st - 10+15+10 days)
+        """
+        self.env.company.manufacturing_period = 'month'
+        self.table.write({
+            'route_ids': [(6, 0, [self.ref('mrp.route_warehouse0_manufacture')])]
+        })
+        self.drawer.write({
+            'route_ids': [(6, 0, [self.ref('mrp.route_warehouse0_manufacture')])]
+        })
+        self.table_leg.write({
+            'route_ids': [(6, 0, [self.ref('mrp.route_warehouse0_manufacture')])]
+        })
+        self.bom_table.produce_delay = 10
+        self.bom_drawer.produce_delay = 15
+        self.bom_table_leg.produce_delay = 10
+
+        # Create a forecast demand of 1 for table 4 months from now, on the 1st
+        mps_dates = self.env.company._get_date_range()
+        self.env['mrp.product.forecast'].create({
+            'production_schedule_id': self.mps_table.id,
+            'date': mps_dates[3][0],
+            'forecast_qty': 1
+        })
+        drawer_forecasts = self.mps_drawer.get_production_schedule_view_state()[0]['forecast_ids']
+        self.assertEqual(drawer_forecasts[2]['indirect_demand_qty'], 1)
+        table_leg_forecasts = self.mps_table_leg.get_production_schedule_view_state()[0]['forecast_ids']
+        self.assertEqual(table_leg_forecasts[2]['indirect_demand_qty'], 4)
+        screw_forecasts = self.mps_screw.get_production_schedule_view_state()[0]['forecast_ids']
+        self.assertEqual(screw_forecasts[2]['indirect_demand_qty'], 12)
+        self.assertEqual(screw_forecasts[1]['indirect_demand_qty'], 8)
+        bolt_forecasts = self.mps_bolt.get_production_schedule_view_state()[0]['forecast_ids']
+        self.assertEqual(bolt_forecasts[2]['indirect_demand_qty'], 8)
+        self.assertEqual(bolt_forecasts[1]['indirect_demand_qty'], 8)
 
     def test_indirect_demand(self):
         """ On a multiple BoM relation, ensure that the replenish quantity on
@@ -517,17 +577,18 @@ class TestMpsMps(common.TransactionCase):
 
     def test_impacted_schedule(self):
         impacted_schedules = self.mps_screw.get_impacted_schedule()
-        self.assertEqual(sorted(impacted_schedules), sorted((self.mps - self.mps_screw).ids))
+        self.assertEqual(sorted(impacted_schedules), sorted((self.mps - (self.mps_screw | self.mps_bolt)).ids))
 
         impacted_schedules = self.mps_drawer.get_impacted_schedule()
         self.assertEqual(sorted(impacted_schedules), sorted((self.mps_table |
-            self.mps_wardrobe | self.mps_table_leg | self.mps_screw).ids))
+            self.mps_wardrobe | self.mps_table_leg | self.mps_screw | self.mps_bolt).ids))
 
     def test_3_steps(self):
         self.warehouse.manufacture_steps = 'pbm_sam'
         self.table_leg.write({
             'route_ids': [(6, 0, [self.ref('mrp.route_warehouse0_manufacture')])]
         })
+        self.mps_table_leg.replenish_trigger = 'manual'
 
         self.env['mrp.product.forecast'].create({
             'production_schedule_id': self.mps_table_leg.id,
@@ -678,3 +739,89 @@ class TestMpsMps(common.TransactionCase):
         mps_impacted = mps_p_l[0].get_impacted_schedule()
         self.assertEqual(len(mps_impacted), 1)
         self.assertEqual(mps_impacted[0], mps_c2.id)
+
+    def test_replenish_trigger(self):
+        """Test that the replenish_trigger of components is 'never'
+        and that 'automated' correctly triggers in the cron.
+        """
+        mps_components = self.mps_drawer + self.mps_table_leg + self.mps_screw + self.mps_bolt
+        self.assertTrue(all(record.replenish_trigger == 'never' for record in mps_components))
+
+        partner = self.env['res.partner'].create({'name': 'Bob Palindrome MacScam'})
+        seller = self.env['product.supplierinfo'].create({
+            'partner_id': partner.id,
+            'price': 2,
+            'delay': 3
+        })
+        self.screw.seller_ids = [(6, 0, [seller.id])]
+        self.mps_screw.write({
+            'replenish_trigger': 'automated',
+            'supplier_id': seller.id
+        })
+
+        self.env.company.manufacturing_period = 'month'
+        mps_dates = self.env.company._get_date_range()
+        self.env['mrp.product.forecast'].create({
+            'production_schedule_id': self.mps_table.id,
+            'date': datetime.today(),
+            'forecast_qty': 1
+        })
+
+        self.env['mrp.production.schedule'].action_cron_replenish()
+        purchase_order_line = self.env['purchase.order.line'].search([('product_id', '=', self.screw.id)])
+        self.assertTrue(purchase_order_line)
+        self.assertEqual(purchase_order_line.date_planned.date(), mps_dates[0][0])
+        self.assertEqual(purchase_order_line.date_order.date(), mps_dates[0][0] - timedelta(days=3))
+        self.assertEqual(purchase_order_line.product_qty, 20)
+        self.assertEqual(purchase_order_line.price_subtotal, 40)
+
+    def test_set_forecast_qty(self):
+        """ Test that adding/removing quantities from the MPS
+        when manufacturing_period is 'month' or 'week'.
+        """
+        self.env.company.manufacturing_period = 'month'
+        mps_dates = self.env.company._get_date_range()
+        for delta in (3, 6, 12, 21):
+            self.env['mrp.product.forecast'].create({
+                'production_schedule_id': self.mps_table.id,
+                'date': mps_dates[1][0] + timedelta(days=delta),
+                'forecast_qty': delta
+            })
+
+        forecast_records = self.env['mrp.product.forecast'].search([('production_schedule_id', '=', self.mps_table.id)])
+        self.assertEqual(len(forecast_records), 4)
+        self.assertEqual(sum(forecast_records.mapped('forecast_qty')), 42, 'This is not the Answer to Life, the Universe, and Everything.')
+
+        self.mps_table.set_forecast_qty(1, 64)
+        forecast_records = self.env['mrp.product.forecast'].search([('production_schedule_id', '=', self.mps_table.id)])
+        self.assertEqual(len(forecast_records), 5)
+        self.assertEqual(forecast_records.mapped('forecast_qty'), [22, 3, 6, 12, 21])
+        self.assertEqual(forecast_records[0].date, mps_dates[1][0])
+
+        self.mps_table.set_forecast_qty(1, 84)
+        self.assertEqual(forecast_records.mapped('forecast_qty'), [42, 3, 6, 12, 21])
+
+        self.mps_table.set_forecast_qty(1, 72)
+        self.assertEqual(forecast_records.mapped('forecast_qty'), [42, 3, 6, 12, 9])
+
+        self.mps_table.set_forecast_qty(1, 50)
+        self.assertEqual(forecast_records.mapped('forecast_qty'), [42, 3, 5, 0, 0])
+
+        self.mps_table.set_forecast_qty(1, 21)
+        self.assertEqual(forecast_records.mapped('forecast_qty'), [21, 0, 0, 0, 0])
+
+        self.mps_table.set_forecast_qty(1, -13)
+        self.assertEqual(forecast_records.mapped('forecast_qty'), [-13, 0, 0, 0, 0])
+
+    def test_mps_sequence(self):
+        """ Test that products added automatically have a higher sequence than their parent. """
+        self.assertEqual(self.mps_table.mps_sequence, 10)
+        self.assertEqual(self.mps_table_leg.mps_sequence, 11)
+        self.assertEqual(self.mps_drawer.mps_sequence, 11)
+        self.assertEqual(self.mps_screw.mps_sequence, 12)
+        self.assertEqual(self.mps_bolt.mps_sequence, 12)
+
+    def test_is_indirect(self):
+        """ Test that products added automatically are flagged as indirect demand products. """
+        mps_components = self.mps_drawer + self.mps_table_leg + self.mps_screw + self.mps_bolt
+        self.assertTrue(all(record.is_indirect for record in mps_components))
