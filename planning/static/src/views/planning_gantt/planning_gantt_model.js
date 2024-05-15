@@ -108,6 +108,9 @@ export class PlanningGanttModel extends GanttModel {
     getDialogContext() {
         const context = super.getDialogContext(...arguments);
         delete context.show_job_title;
+        if (this.metaData.scale.id == 'day') {
+            context.planning_keep_default_datetime = true;
+        }
         return context;
     }
 
