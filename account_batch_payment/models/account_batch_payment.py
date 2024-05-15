@@ -126,18 +126,23 @@ class AccountBatchPayment(models.Model):
     @api.depends('currency_id', 'payment_ids.amount')
     def _compute_from_payment_ids(self):
         for batch in self:
-            amount_currency = 0.0
+            amount = 0.0
             amount_residual = 0.0
             amount_residual_currency = 0.0
             for payment in batch.payment_ids:
                 liquidity_lines, _counterpart_lines, _writeoff_lines = payment._seek_for_lines()
                 for line in liquidity_lines:
-                    amount_currency += line.amount_currency
+                    amount += line.currency_id._convert(
+                        from_amount=line.amount_currency,
+                        to_currency=batch.currency_id,
+                        company=line.company_id,
+                        date=line.date,
+                    )
                     amount_residual += line.amount_residual
                     amount_residual_currency += line.amount_residual_currency
 
             batch.amount_residual = amount_residual
-            batch.amount = amount_currency
+            batch.amount = amount
             batch.amount_residual_currency = amount_residual_currency
 
     @api.constrains('batch_type', 'journal_id', 'payment_ids')
