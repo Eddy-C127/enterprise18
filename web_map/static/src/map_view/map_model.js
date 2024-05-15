@@ -57,6 +57,15 @@ export class MapModel extends Model {
             ...this.metaData,
             ...params,
         };
+
+        // remove the properties fields from the group by
+        metaData.groupBy = (metaData.groupBy || []).filter((groupBy) => {
+            // properties fields are in the form `[propert_field_name].[property_entry_key]`
+            const [fieldName] = groupBy.split(".");
+            const field = metaData.fields[fieldName];
+            return field?.type !== "properties";
+        });
+
         this.data = await this._fetchData(metaData);
         this.metaData = metaData;
 

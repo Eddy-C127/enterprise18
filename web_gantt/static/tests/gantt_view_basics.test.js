@@ -906,7 +906,11 @@ test("Day scale with 24-hours format", async () => {
 });
 
 test("group tasks by task_properties", async () => {
-    Tasks._fields.task_properties = fields.Properties({ string: "Task properties" });
+    Tasks._fields.task_properties = fields.Properties({
+        string: "Task properties",
+        definition_record: "project_id",
+        definition_record_field: "properties_definitions",
+    });
     Tasks._records = [
         {
             id: 1,
@@ -915,11 +919,13 @@ test("group tasks by task_properties", async () => {
             stop: "2018-12-24 08:00:00",
             user_id: 1,
             project_id: 1,
-            task_properties: {
-                name: "bd6404492c244cff",
-                type: "char",
-                value: "test value 1",
-            },
+            task_properties: [
+                {
+                    name: "bd6404492c244cff",
+                    type: "char",
+                    value: "test value 1",
+                },
+            ],
         },
         {
             id: 2,
@@ -928,11 +934,13 @@ test("group tasks by task_properties", async () => {
             stop: "2018-12-12 08:00:00",
             user_id: 2,
             project_id: 1,
-            task_properties: {
-                name: "bd6404492c244cff",
-                type: "char",
-                value: "test value 1",
-            },
+            task_properties: [
+                {
+                    name: "bd6404492c244cff",
+                    type: "char",
+                    value: "test value 1",
+                },
+            ],
         },
     ];
     await mountGanttView({
