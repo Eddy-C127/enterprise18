@@ -99,6 +99,10 @@ class AppointmentType(models.Model):
             - Punctual: recurring slots limited between 2 datetimes. Accessible from the website\n
             - Custom: the user will create and share to another user a custom appointment type with hand-picked time slots\n
             - Anytime: the user will create and share to another user an appointment type covering all their time slots""")
+    category_time_display = fields.Selection([
+        ('recurring_fields', 'Available now'),
+        ('punctual_fields', 'Within a date range')],
+        string="Displayed category time fields", compute="_compute_category_time_display", readonly=False)
     country_ids = fields.Many2many(
         'res.country', 'appointment_type_country_rel', string='Allowed Countries',
         help="Keep empty to allow visitors from any country, otherwise you only allow visitors from selected countries")
@@ -219,10 +223,10 @@ class AppointmentType(models.Model):
             elif not record.avatars_display:
                 record.avatars_display = 'hide'
 
-    @api.depends('end_datetime')
+    @api.depends('start_datetime', 'end_datetime')
     def _compute_category(self):
         for appointment_type in self:
-            appointment_type.category = 'punctual' if appointment_type.end_datetime else 'recurring'
+            appointment_type.category = 'punctual' if appointment_type.start_datetime or appointment_type.end_datetime else 'recurring'
             if not appointment_type.slot_ids:
                 appointment_type.slot_ids = appointment_type._get_default_slots(appointment_type.category)
 
@@ -232,6 +236,19 @@ class AppointmentType(models.Model):
         anytime_appointment_types = self.filtered_domain([('category', '=', 'anytime')])
         anytime_appointment_types.slot_ids = False # Reset slots if existing
         anytime_appointment_types.slot_ids = self._get_default_slots('anytime')
+
+    @api.depends('category')
+    def _compute_category_time_display(self):
+        for appointment_type in self:
+            appointment_type.category_time_display = 'punctual_fields' if appointment_type.category == 'punctual' else 'recurring_fields'
+
+    @api.onchange('category_time_display')
+    def _onchange_category_time_display(self):
+        if self.category_time_display == 'recurring_fields':
+            self.update({
+                'start_datetime': False,
+                'end_datetime': False,
+            })
 
     @api.depends('location_id')
     def _compute_location(self):
@@ -300,6 +317,8 @@ class AppointmentType(models.Model):
                 raise ValidationError(_('A punctual appointment type should be limited between a start and end datetime.'))
             elif appointment_type.category != 'punctual' and (appointment_type.start_datetime or appointment_type.end_datetime):
                 raise ValidationError(_("A %s appointment type shouldn't be limited by datetimes.", appointment_type.category))
+            if appointment_type.start_datetime and appointment_type.end_datetime and appointment_type.start_datetime > appointment_type.end_datetime:
+                raise ValidationError(_("Start date should precede the end date."))
 
     @api.constrains('appointment_duration')
     def _check_appointment_duration(self):
