@@ -84,7 +84,9 @@ class ChileanReportCustomHandler(models.AbstractModel):
         domain = [
             '|',
             ('date', '>=', options['date']['date_from']),
+            '&',
             ('account_id.include_initial_balance', '=', True),
+            ('account_id.account_type', '!=', 'equity_unaffected'),
         ]
         table_references, search_condition = report._get_sql_table_expression(options, 'from_beginning', domain=domain)
 
