@@ -46,17 +46,12 @@
                 <ValidationMessages messages="[unusedPivotWarning]" msgType="'warning'"/>
             </div>
         </div>
-        <Section class="'d-flex flex-row justify-content-between align-items-center py-1 border-top pivot-defer-update'">
-            <Checkbox
-                label="deferUpdatesLabel"
-                title="deferUpdatesTooltip"
-                value="store.updatesAreDeferred"
-                onChange="(value) => store.deferUpdates(value)"
-            />
-            <div>
-                <i t-if="store.isDirty" class="btn btn-sm pe-0 fa fa-undo" title="Discard all changes" t-on-click="() => store.discardPendingUpdate()"></i>
-                <span t-if="store.isDirty" class="btn btm-sm btn-link" title="Apply all changes" t-on-click="() => store.applyUpdate()">Update</span>
-            </div>
-        </Section>
+        <PivotDeferUpdate
+            deferUpdate="store.updatesAreDeferred"
+            toggleDeferUpdate="(value) => store.deferUpdates(value)"
+            isDirty="store.isDirty"
+            discard="store.discardPendingUpdate"
+            apply="store.applyUpdate"
+        />
     </div>
 </templates>

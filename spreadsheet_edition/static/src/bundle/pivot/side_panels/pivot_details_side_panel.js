@@ -10,7 +10,7 @@ import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 import { OdooPivotLayoutConfigurator } from "./odoo_pivot_layout_configurator/odoo_pivot_layout_configurator";
 
 const uuidGenerator = new helpers.UuidGenerator();
-const { Checkbox, Section, ValidationMessages, EditableName } = components;
+const { Checkbox, Section, ValidationMessages, EditableName, PivotDeferUpdate } = components;
 const { useHighlights } = hooks;
 const { useLocalStore, PivotSidePanelStore } = stores;
 const { getPivotHighlights } = helpers;
@@ -24,6 +24,7 @@ export class PivotDetailsSidePanel extends Component {
         Checkbox,
         Section,
         OdooPivotLayoutConfigurator,
+        PivotDeferUpdate,
     };
     static props = {
         onCloseSidePanel: Function,
