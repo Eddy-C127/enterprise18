@@ -1231,7 +1231,7 @@ export default class BarcodeModel extends EventBus {
             if (this.groups.group_tracking_lot) {
                 barcodeData.error = _t("You are expected to scan one or more products or a package available at the picking location");
             } else {
-                barcodeData.error = _t("You are expected to scan one or more products.");
+                barcodeData.error = _t("This product doesn't exist.");
             }
         }
         return this.notification(barcodeData.error, { type: "danger" });

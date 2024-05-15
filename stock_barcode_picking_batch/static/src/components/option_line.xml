@@ -7,8 +7,14 @@
         <div>
             <i class="fa fa-fw fa-truck me-2 text-muted"/>
             <span class="o_barcode_line_title me-2" t-esc="props.line.name"/>
-            <span t-if="props.line.state" t-esc="props.line.state"
-                class="badge rounded-pill text-capitalize fw-bold"/>
+            <span t-if="props.line.batch_id" class="badge rounded-pill text-capitalize fw-bold px-0 me-2">
+                ( <t t-esc="props.line.batch_id.name"/> )
+            </span>
+            <span t-if="props.line.partner_id">
+                <span>-</span>
+                <span t-esc="props.line.partner_id.name"
+                    class="badge rounded-pill text-capitalize fw-bold"/>
+            </span>
         </div>
         <div t-if="props.responsible" name="Responsible">
             <i class="fa fa-fw fa-user me-2 text-muted"/>

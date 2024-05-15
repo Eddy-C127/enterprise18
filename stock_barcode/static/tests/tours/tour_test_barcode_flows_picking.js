@@ -1550,7 +1550,7 @@ registry.category("web_tour.tours").add('test_receipt_from_scratch_with_lots_1',
     {
         trigger: '.o_barcode_client_action',
         run: function () {
-            helper.assertErrorMessage('You are expected to scan one or more products.');
+            helper.assertErrorMessage("This product doesn't exist.");
         },
     },
 
@@ -4528,7 +4528,7 @@ registry.category("web_tour.tours").add('test_avoid_useless_line_creation', {tes
     {
         trigger: '.o_notification_bar.bg-danger',
         run: function () {
-            helper.assertErrorMessage('You are expected to scan one or more products.');
+            helper.assertErrorMessage("This product doesn't exist.");
         },
     },
     // Open the form view to trigger a save

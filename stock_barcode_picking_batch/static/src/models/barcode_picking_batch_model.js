@@ -23,6 +23,12 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
                 if (picking.user_id) {
                     picking.user_id = this.cache.getRecord('res.users', picking.user_id);
                 }
+                if (picking.batch_id) {
+                    picking.batch_id = this.cache.getRecord('stock.picking.batch', picking.batch_id);
+                }
+                if (picking.partner_id) {
+                    picking.partner_id = this.cache.getRecord('res.partner', picking.partner_id);
+                }
             }
             if (!this.record.picking_type_code) {
                 this.selectedPickingTypeId = false;
