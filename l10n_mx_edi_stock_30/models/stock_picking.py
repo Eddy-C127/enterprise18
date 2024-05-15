@@ -34,6 +34,8 @@ class Picking(models.Model):
             if picking.l10n_mx_edi_is_cfdi_needed and not picking.l10n_mx_edi_idccp:
                 # The IdCCP must be a 36 characters long RFC 4122 identifier starting with 'CCC'.
                 picking.l10n_mx_edi_idccp = f'CCC{str(uuid.uuid4())[3:]}'
+            else:
+                picking.l10n_mx_edi_idccp = False
 
     @api.depends('l10n_mx_edi_vehicle_id')
     def _compute_l10n_mx_edi_gross_vehicle_weight(self):
