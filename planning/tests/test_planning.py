@@ -583,3 +583,10 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         ])
         slots.write({'resource_id': self.resource_bert.id})
         self.assertEqual(slots.resource_id, self.resource_bert)
+
+    def test_compute_company_planning_slot(self):
+        self.assertEqual(self.slot.company_id, self.env.company, "The slot's company should be the current one.")
+        company = self.env['res.company'].create({"name": "Test company"})
+        self.resource_bert.company_id = company.id
+        self.slot.resource_id = self.resource_bert.id
+        self.assertEqual(self.slot.company_id, company, "The slot's company should be the resource's one.")
