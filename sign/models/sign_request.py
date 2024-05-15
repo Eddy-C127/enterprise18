@@ -33,6 +33,7 @@ from odoo import api, fields, models, http, _, Command
 from odoo.tools import config, email_normalize, get_lang, is_html_empty, format_date, formataddr, groupby, consteq
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import hmac
+from odoo.tools.arabic_reshaper.arabic_reshaper import reshape
 
 TTFSearchPath.append(os.path.join(config["root_path"], "..", "addons", "web", "static", "fonts", "sign"))
 
@@ -546,6 +547,7 @@ class SignRequest(models.Model):
         first_letter_is_rtl = unicodedata.bidirectional(maybe_rtl_letter) in ('AL', 'R')
         no_letter_is_ltr = not any(unicodedata.bidirectional(letter) == 'L' for letter in maybe_ltr_text)
         if first_letter_is_rtl and no_letter_is_ltr:
+            text = reshape(text)
             text = text[::-1]
 
         return text
@@ -682,6 +684,7 @@ class SignRequest(models.Model):
                             elif item.alignment == 'right':
                                 x_shift = empty_space
                             y -= normalFontSize * 0.9
+                            line = self._get_displayed_text(line)
                             can.drawString(width * item.posX + x_shift, height * y, line)
                             y -= normalFontSize * 0.1
 
