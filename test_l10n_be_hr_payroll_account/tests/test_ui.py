@@ -58,6 +58,5 @@ class Testl10nBeHrPayrollAccountUi(common.TestPayrollAccountCommon):
         self.assertEqual(vehicle.model_id, model_corsa, 'Car is right model')
         self.assertEqual(vehicle.future_driver_id, new_employee_id.work_contact_id, 'Future Driver is set correctly')
         self.assertEqual(vehicle, new_contract_id.ordered_car_id, 'Ordered Car appears in contract')
-        self.assertFalse(new_contract_id.new_car, 'Technical field new_car is now False')
         self.assertEqual(vehicle.state_id, self.env.ref('fleet.fleet_vehicle_state_new_request'), 'Car created in right state')
         self.assertEqual(vehicle.company_id, new_contract_id.company_id, 'Vehicle is in the right company')

@@ -124,9 +124,14 @@ class HrContract(models.Model):
         }
 
     def _get_benefit_values_wishlist_car_total_depreciated_cost(self, contract, benefits):
-        # make sure the key `fold_wishlist_car_total_depreciated_cost` is present, super() needs it
-        benefits['fold_wishlist_car_total_depreciated_cost'] = benefits.get('fold_wishlist_car_total_depreciated_cost')
-        return {}
+        if benefits.get('fold_wishlist_car_total_depreciated_cost', False):
+            model_id = benefits['select_wishlist_car_total_depreciated_cost'].split('-')[1]
+            return {
+                'new_car': True,
+                'new_car_model_id': int(model_id)
+            }
+        else:
+            return {}
 
     def _get_benefit_values_insured_relative_spouse(self, contract, benefits):
         return {'insured_relative_spouse': benefits['fold_insured_relative_spouse']}

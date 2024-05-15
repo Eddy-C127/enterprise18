@@ -32,7 +32,7 @@ class SignContract(Sign):
                     'cost_frequency': 'no',
                     'purchaser_id': contract.employee_id.work_contact_id.id,
                 }
-            if contract.new_car:
+            if contract.new_car and not contract.ordered_car_id:
                 contract.ordered_car_id = request.env['fleet.vehicle'].sudo().create({
                     'model_id': contract.new_car_model_id.id,
                     'state_id': state_new_request and state_new_request.id,
@@ -42,10 +42,6 @@ class SignContract(Sign):
                     'acquisition_date': fields.Date.today(),
                     'company_id': contract.employee_id.company_id.id,
                     'future_driver_id': contract.employee_id.work_contact_id.id
-                })
-                contract.update({
-                    'new_car': False,
-                    'new_car_model_id': False,
                 })
 
             if contract.new_bike_model_id:
@@ -121,12 +117,7 @@ class HrContractSalary(main.HrContractSalary):
             else:
                 res['new_value'] = round(request.env['fleet.vehicle'].sudo().with_company(contract.company_id).browse(int(vehicle_id)).total_depreciated_cost, 2)
         elif benefit_field == 'wishlist_car_total_depreciated_cost' and new_value:
-            car_options, vehicle_id = new_value.split('-')
-            if car_options == 'new':
-                contract = self._check_access_rights(contract_id)
-                res['new_value'] = round(request.env['fleet.vehicle.model'].with_company(contract.company_id).sudo().browse(int(vehicle_id)).default_total_depreciated_cost, 2)
-            else:
-                res['new_value'] = round(request.env['fleet.vehicle'].sudo().browse(int(vehicle_id)).total_depreciated_cost, 2)
+            res['new_value'] = 0
         elif benefit_field == 'fold_company_car_total_depreciated_cost' and not res['new_value']:
             res['extra_values'] = [('company_car_total_depreciated_cost', 0)]
         elif benefit_field == 'fold_wishlist_car_total_depreciated_cost' and not res['new_value']:
@@ -339,10 +330,6 @@ class HrContractSalary(main.HrContractSalary):
             initial_values['select_company_car_total_depreciated_cost'] = 'old-%s' % contract.car_id.id
             initial_values['fold_company_car_total_depreciated_cost'] = True
             initial_values['company_car_total_depreciated_cost'] = contract.car_id.total_depreciated_cost
-        elif contract.new_car_model_id:
-            initial_values['select_company_car_total_depreciated_cost'] = 'new-%s' % contract.new_car_model_id.id
-            initial_values['fold_company_car_total_depreciated_cost'] = True
-            initial_values['company_car_total_depreciated_cost'] = contract.new_car_model_id.default_total_depreciated_cost
         else:
             initial_values['fold_company_car_total_depreciated_cost'] = False
         if contract.bike_id:
@@ -400,7 +387,7 @@ class HrContractSalary(main.HrContractSalary):
         if kw.get('package_submit', False):
             # If the chosen existing car is already taken by someone else (for example if the
             # window was open for a long time)
-            if new_contract.transport_mode_car and not new_contract.new_car:
+            if new_contract.transport_mode_car and new_contract.car_id:
                 # In case in the car was reserved for the applicant
                 partner_ids = offer.applicant_id.partner_id | new_contract.employee_id.work_contact_id
                 available_cars_domain = new_contract._get_available_vehicles_domain(partner_ids)
@@ -408,15 +395,9 @@ class HrContractSalary(main.HrContractSalary):
                 if not is_selected_car_available and new_contract.car_id != offer.car_id:
                     return {'error': True, 'error_msg': _("Sorry, the selected car has been selected by someone else. Please refresh and try again.")}
 
-            # Don't create simulation cars but create the wishlist car is set
-            wishlist_car = benefits['contract'].get('fold_wishlist_car_total_depreciated_cost', False)
-            if wishlist_car:
-                dummy, model_id = benefits['contract']['select_wishlist_car_total_depreciated_cost'].split('-')
-                new_contract.new_car = True
-                new_contract.new_car_model_id = int(model_id)
             return new_contract, contract_diff
 
-        if new_contract.transport_mode_car and new_contract.new_car:
+        if new_contract.new_car and kw.get('wishlist_simulation', False):
             employee = new_contract.employee_id
             model = request.env['fleet.vehicle.model'].sudo().with_company(new_contract.company_id).browse(int(new_contract.new_car_model_id))
             state_new_request = request.env.ref('fleet.fleet_vehicle_state_new_request', raise_if_not_found=False)
@@ -460,7 +441,7 @@ class HrContractSalary(main.HrContractSalary):
                 'select_company_car_total_depreciated_cost': benefits['contract']['select_wishlist_car_total_depreciated_cost'],
             })
 
-            new_contract = self.create_new_contract(contract, offer_id, benefits)[0]
+            new_contract = self.create_new_contract(contract, offer_id, benefits, wishlist_simulation=True)[0]
             final_yearly_costs = float(benefits['contract']['final_yearly_costs'] or 0.0)
             new_gross = new_contract._get_gross_from_employer_costs(final_yearly_costs)
             new_contract.write({
