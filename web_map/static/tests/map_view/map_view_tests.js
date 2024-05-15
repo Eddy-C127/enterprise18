@@ -1982,6 +1982,86 @@ QUnit.module("Views", (hooks) => {
         await toggleMenuItemOption(target, "scheduled_date", "year");
     });
 
+    QUnit.test("Check groupBy on properties field", async function (assert) {
+        patchWithCleanup(session, { map_box_token: MAP_BOX_TOKEN });
+        const models = serverData.models;
+        models["res.partner"].fields["properties_definition"] = {
+            string: "Properties Definition",
+            type: "properties_definitions",
+        };
+        models["project.task"].fields["task_properties"] = {
+            string: "Properties",
+            type: "properties",
+            definition_record: "partner_id",
+            definition_record_field: "properties_definition",
+        };
+        models["res.partner"].records = [
+            {
+                id: 2,
+                name: "Foo",
+                partner_latitude: 10.0,
+                partner_longitude: 10.5,
+                sequence: 3,
+                properties_definition: [
+                    {
+                        name: "bd6404492c244cff",
+                        type: "char",
+                        string: "Reference Number",
+                    },
+                ],
+            },
+        ];
+        models["project.task"].records = [
+            {
+                id: 1,
+                name: "FooProject",
+                sequence: 1,
+                partner_id: 1,
+                task_properties: [
+                    {
+                        name: "bd6404492c244cff",
+                        type: "char",
+                        string: "Reference Number",
+                        value: "1234",
+                    },
+                ],
+            },
+        ];
+
+        await makeView({
+            serverData,
+            type: "map",
+            resModel: "project.task",
+            arch: `<map res_partner="partner_id" />`,
+            searchViewId: false,
+            searchViewArch: `
+                <search>
+                    <group expand='0' string='Group By'>
+                        <filter string="task_properties" name="task_properties"
+                            context="{'group_by': 'task_properties'}"/>
+                    </group>
+                </search>
+            `,
+        });
+
+        assert.containsNone(
+            target,
+            ".o-map-renderer--pin-list-group-header",
+            "Should not have any groups"
+        );
+
+        await toggleSearchBarMenu(target);
+
+        // don't throw an error when grouping on a property
+        await toggleMenuItem(target, "task_properties");
+        await nextTick();
+        await click(target, ".o_accordion_values .o_menu_item");
+
+        // check that the property has been added in the facet without crashing
+        assert.containsOnce(target, `.o_facet_value:contains("Reference Number")`);
+        assert.containsNone(target, ".o-map-renderer--pin-list-group-header");
+    });
+
     QUnit.test("Change groupBy", async function (assert) {
         patchWithCleanup(session, { map_box_token: MAP_BOX_TOKEN });
 

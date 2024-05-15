@@ -6728,6 +6728,8 @@ QUnit.test("group tasks by task_properties", async (assert) => {
     serverData.models.tasks.fields.task_properties = {
         string: "Properties",
         type: "properties",
+        definition_record: "project_id",
+        definition_record_field: "properties_definitions",
     };
     serverData.models.tasks.records = [
         {
@@ -6737,11 +6739,13 @@ QUnit.test("group tasks by task_properties", async (assert) => {
             stop: "2018-12-24 08:00:00",
             user_id: 100,
             project_id: 1,
-            task_properties: {
-                name: "bd6404492c244cff",
-                type: "char",
-                value: "test value 1",
-            },
+            task_properties: [
+                {
+                    name: "bd6404492c244cff",
+                    type: "char",
+                    value: "test value 1",
+                },
+            ],
         },
         {
             id: 2,
@@ -6750,11 +6754,13 @@ QUnit.test("group tasks by task_properties", async (assert) => {
             stop: "2018-12-12 08:00:00",
             user_id: 101,
             project_id: 1,
-            task_properties: {
-                name: "bd6404492c244cff",
-                type: "char",
-                value: "test value 1",
-            },
+            task_properties: [
+                {
+                    name: "bd6404492c244cff",
+                    type: "char",
+                    value: "test value 1",
+                },
+            ],
         },
     ];
     await makeView({
