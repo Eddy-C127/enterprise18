@@ -83,8 +83,9 @@ class ChileanReportCustomHandler(models.AbstractModel):
 
     @api.model
     def _prepare_query(self, report, options, column_group_key):
-        tables, where_clause, where_params = report._query_get(options, 'normal')
-
+        domain = ['|', ('account_id.account_type', '!=', 'equity_unaffected'),
+                       ('date', '>=', options['date']['date_from'])]
+        tables, where_clause, where_params = report._query_get(options, 'normal', domain)
         if self.pool['account.account'].name.translate:
             lang = self.env.user.lang or get_lang(self.env).code
             aa_name = f"COALESCE(aa.name->>'{lang}', aa.name->>'en_US')"
