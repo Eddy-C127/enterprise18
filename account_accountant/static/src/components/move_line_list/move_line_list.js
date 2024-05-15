@@ -22,8 +22,9 @@ export class AccountMoveLineListController extends ListController {
         /** @type {import("@mail/core/common/store_service").Store} */
         this.store = useState(useService("mail.store"));
         this.ui = useService("ui");
+        this.mailPopoutService = useState(useService("mail.popout"));
         this.attachmentPreviewState = useState({
-            previewEnabled: !this.env.searchModel.context.disable_preview && this.ui.size >= SIZES.XXL,
+            previewEnabled: !this.env.searchModel.context.disable_preview && (this.ui.size >= SIZES.XXL || this.mailPopoutService.externalWindow),
             displayAttachment: localStorage.getItem('account.move_line_pdf_previewer_hidden') !== 'false',
             selectedRecord: false,
             thread: null,
@@ -51,7 +52,7 @@ export class AccountMoveLineListController extends ListController {
     }
 
     evaluatePreviewEnabled() {
-        this.attachmentPreviewState.previewEnabled = !this.env.searchModel.context.disable_preview && this.ui.size >= SIZES.XXL;
+        this.attachmentPreviewState.previewEnabled = !this.env.searchModel.context.disable_preview && (this.ui.size >= SIZES.XXL || this.mailPopoutService.externalWindow);
     }
 
     setSelectedRecord(accountMoveLineData) {

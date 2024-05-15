@@ -27,6 +27,7 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
         this.store = useState(useService("mail.store"));
         this.dialog = useService("dialog");
         this.orm = useService("orm");
+        this.mailPopoutService = useService("mail.popout");
 
         this._fieldsMapping = {
             'partner_id': 'supplier',
@@ -59,7 +60,7 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
         });
 
         useExternalListener(window, "focusout", (event) => {
-            if (event.target.closest(".o_field_widget")){
+            if (event.target.closest(".o_field_widget") && !this.mailPopoutService.externalWindow){
                 this.onBlurFieldWidget();
             }
         });
@@ -111,7 +112,8 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
             // Dynamically add css on the pdf viewer
             const pdfDocument = element.contentDocument;
             if (!pdfDocument.querySelector('head link#box_layer')) {
-                const boxLayerStylesheet = document.createElement('link');
+                const win = this.mailPopoutService.externalWindow || window;
+                const boxLayerStylesheet = win.document.createElement('link');
                 boxLayerStylesheet.setAttribute('id', 'box_layer');
                 boxLayerStylesheet.setAttribute('rel', 'stylesheet');
                 boxLayerStylesheet.setAttribute('type', 'text/css');
@@ -197,7 +199,8 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
      */
     showBoxesForField(fieldName) {
         // Case pdf (iframe)
-        const iframe = document.querySelector('.o_attachment_preview iframe');
+        const win = this.mailPopoutService.externalWindow || window;
+        const iframe = win.document.querySelector('.o-mail-Attachment iframe');
         if (iframe) {
             const iframeDoc = iframe.contentDocument;
             if (iframeDoc) {
@@ -206,7 +209,7 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
             }
         }
         // Case img
-        const attachment = document.getElementById('attachment_img');
+        const attachment = win.document.getElementById('attachment_img');
         if (attachment && attachment.complete) {
             this.renderInvoiceExtract(attachment);
             return;

@@ -21,6 +21,7 @@ import { companyService } from "@web/webclient/company_service";
 import { dialogService } from "@web/core/dialog/dialog_service";
 import { notificationService } from "@web/core/notifications/notification_service";
 import { popoverService } from "@web/core/popover/popover_service";
+import { mailPopoutService } from "@mail/core/common/mail_popout_service";
 
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
@@ -114,6 +115,7 @@ export function registerViewEditorDependencies() {
     serviceRegistry.add("hotkey", hotkeyService);
     serviceRegistry.add("command", commandService);
     serviceRegistry.add("localization", makeFakeLocalizationService(), { force: true });
+    serviceRegistry.add("mail.popout", mailPopoutService);
 
     serviceRegistry.add("company", companyService);
     serviceRegistry.add("messaging", makeFakeMessagingService());

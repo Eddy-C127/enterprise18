@@ -16,8 +16,8 @@
     </t>
 
     <t t-name="account_accountant.AttachmentPreview">
-        <div class="o_attachment_preview" t-att-class="{'hidden': !attachmentPreviewState.displayAttachment}">
-            <t t-if="this.attachmentPreviewState.displayAttachment">
+        <div class="o_attachment_preview" t-att-class="{'hidden': !attachmentPreviewState.displayAttachment || mailPopoutService.externalWindow}">
+            <t t-if="this.attachmentPreviewState.displayAttachment || mailPopoutService.externalWindow">
                 <t t-if="this.attachmentPreviewState.thread and this.attachmentPreviewState.thread.attachmentsInWebClientView.length > 0">
                     <AttachmentView
                         threadId="this.attachmentPreviewState.thread.id"
@@ -31,7 +31,7 @@
                     <p class="text-center">No attachments linked.</p>
                 </t>
             </t>
-            <div class="o_attachment_control" t-on-click="togglePreview"/>
+            <div class="o_attachment_control toggle" t-on-click="togglePreview" t-if="!mailPopoutService.externalWindow"/>
         </div>
     </t>
 </templates>
