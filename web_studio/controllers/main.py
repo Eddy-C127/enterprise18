@@ -135,6 +135,8 @@ class WebStudioController(http.Controller):
             "product.report_producttemplatelabel_dymo",
             "stock.report_reception_report_label",
             "mrp.label_production_view_pdf",
+            "delivery_iot.report_shipping_labels",
+            "delivery_iot.report_shipping_docs",
         ]
         report_domain = expression.AND([
             # One can edit only reports backed by persisting models
