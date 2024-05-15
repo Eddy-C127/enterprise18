@@ -298,9 +298,17 @@ class L10nInGSTReturnPeriod(models.Model):
 
     @api.ondelete(at_uninstall=False)
     def _restrict_delete_on_gstr_status(self):
-        for record in self:
-            if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
-                raise UserError("You cannot delete GST Return Period after sending/receiving GSTR data")
+        if self._context.get('force_delete'):
+            _logger.info(
+                'Force deleted GST Return Period %s by %s (%s)',
+                self.ids,
+                self.env.user.name,
+                self.env.user.id
+            )
+        else:
+            for record in self:
+                if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
+                    raise UserError("You cannot delete GST Return Period after sending/receiving GSTR data")
 
     def open_invoice_action(self):
         domain = [
