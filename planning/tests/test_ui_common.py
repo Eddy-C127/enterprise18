@@ -15,7 +15,7 @@ class TestUiCommon(HttpCase):
         cls.employee_thibault = cls.env['hr.employee'].create({
             'name': 'Aaron',
             'work_email': 'aaron@a.be',
-            'tz': 'UTC',
+            'tz': 'Europe/Brussels',
             'employee_type': 'freelance',
             'resource_calendar_id': False,
         })
