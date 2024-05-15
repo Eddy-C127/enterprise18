@@ -842,10 +842,11 @@ class AppointmentType(models.Model):
                                     })
                                 else:
                                     start_hour = format_time(slots[0][timezone][0].time(), format='short', locale=locale)
-                                    end_hour = format_time(slots[0][timezone][1].time(), format='short', locale=locale)
+                                    end_hour = format_time(slots[0][timezone][1].time(), format='short', locale=locale) if self.category == 'custom' else False
                                     slot_duration = str((slots[0][timezone][1] - slots[0][timezone][0]).total_seconds() / 3600)
                                     slot.update({
-                                        'hours': "%s - %s" % (start_hour, end_hour) if self.category == 'custom' else start_hour,
+                                        'start_hour': start_hour,
+                                        'end_hour': end_hour,
                                         'slot_duration': slot_duration,
                                     })
                                 url_parameters = {

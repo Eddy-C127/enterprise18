@@ -7,7 +7,7 @@
             <t t-set="staff_user" t-value="event.user_id"/>
             <t t-set="resources" t-value="event.appointment_resource_ids"/>
             <t t-set="based_on_users" t-value="appointment_type.schedule_based_on == 'users'"/>
-            <div id="wrap" class="o_appointment d-flex bg-o-color-4 p-4 mt-3 border rounded">
+            <div id="wrap" t-attf-class="o_appointment d-flex bg-o-color-4 p-4 #{'mt-3' if website else ''}">
                 <div class="oe_structure"/>
                 <div class="oe_structure container">
                     <div class="alert alert-success d-flex align-items-center justify-content-between" t-if="state == 'new'" role="status">

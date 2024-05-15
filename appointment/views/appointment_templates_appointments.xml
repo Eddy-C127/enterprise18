@@ -52,6 +52,28 @@
         </div>
     </template>
 
+    <template id="appointment_progress_bar" name="Appointment: Progress Bar">
+        <t t-set="STEP_TIME" t-value="20"/>
+        <t t-set="STEP_FORM" t-value="30"/>
+        <t t-set="STEP_VALIDATION" t-value="40"/>
+        <t t-set="users_or_resources_possible" t-value="users_possible if appointment_type.schedule_based_on == 'users' else resources_possible"/>
+        <ul class="list-unstyled d-none d-lg-flex m-0">
+            <li class="d-flex align-items-center">
+                <a t-att-class="'text-decoration-none text-truncate ' + (step==STEP_TIME and 'fw-bold text-reset cursor-default' or step&gt;STEP_TIME and ' ' or 'cursor-default text-muted')"
+                   t-att-href="'#' if step&lt;STEP_TIME or step==STEP_TIME else '/appointment/%s?%s' % (appointment_type.id, keep_query('*'))">
+                Date &amp; time
+                </a>
+                <span class="d-inline-block mx-sm-3 fa fa-angle-right text-muted fs-5"/>
+            </li>
+            <li t-att-class="'d-flex align-items-center ' + (step==STEP_FORM and 'fw-bold cursor-default' or step&gt;STEP_FORM and 'cursor-default text-primary' or 'cursor-default text-muted')">
+                Details<span class="d-inline-block mx-sm-3 fa fa-angle-right text-muted fs-5"/>
+            </li>
+            <li t-att-class="'text-truncate ' + (step==STEP_VALIDATION and 'fw-bold' or step&gt;STEP_VALIDATION and 'cursor-default text-primary' or 'cursor-default text-muted')">
+                Booked
+            </li>
+        </ul>
+    </template>
+
     <!-- Appointment Info & Availabilities-->
     <template id="appointment_info" name="Appointment: Appointment Info">
         <t t-set="no_breadcrumbs" t-value="True"/>
@@ -61,8 +83,13 @@
                     <t t-call="appointment.appointment_edit_in_backend"/>
                 </t>
                 <div class="container-lg h-100">
-                    <div t-attf-class="row mt-4 #{'bg-o-color-4 rounded-3 border' if not website else ''}">
+                    <div t-attf-class="row #{'mt-4' if website else ''}">
                         <div t-attf-class="col-12 col-md-8 #{'p-4' if not website else ''}">
+                            <nav class="d-print-none d-flex justify-content-between mb-4" name="navbar">
+                                <t t-call="appointment.appointment_progress_bar">
+                                    <t t-set="step" t-value="20"/>
+                                </t>
+                            </nav>
                             <div class="o_appointment">
                                 <div class="o_appointment_info_main o_wappointment_type_options o_not_editable" t-att-data-appointment-type-id="appointment_type.id">
                                     <h4 class="pb-3">Select a date &amp; time</h4>
@@ -287,7 +314,7 @@
 
     <!-- Details column displayed on the right of the screen -->
     <template id="appointment_details_column" name="Details column">
-        <aside t-attf-class="o_appointment_details_column o_not_editable col-12 col-md-4 col-lg-3 offset-lg-1 position-relative #{'p-4 bg-light' if not website else 'mb-4 mb-lg-0'}">
+        <aside t-attf-class="o_appointment_details_column o_not_editable col-12 col-md-4 col-lg-3 offset-lg-1 position-relative #{'p-4' if not website else 'mb-4 mb-lg-0'}">
             <h4 class="my-4 d-md-none">Your Appointment</h4>
             <div class="position-relative">
                 <t t-call="appointment.appointment_meeting_details"/>
