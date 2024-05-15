@@ -154,7 +154,7 @@
 
                 <CDE>
                     <CDE_1 t-out="'2' if sales_partner.type == 'delivery' else '1'"/>
-                    <CDE_2 t-out="sales_partner.function or 'Representante de Ventas'"/>
+                    <CDE_2 t-out="sales_partner.function[:30] if sales_partner.function else 'Representante de Ventas'"/>
                     <CDE_3 t-out="format_domestic_phone_number(company_partner.phone)"/>
                     <CDE_4 t-out="company_partner.email"/>
                 </CDE>
@@ -440,7 +440,7 @@
                 </ECA>
 
                 <VMT>
-                    <VMT_1 t-out="format_monetary(invoice.amount_untaxed, invoice.currency_id)"/>
+                    <VMT_1 t-out="currency_rate"/>
                     <VMT_2 t-out="invoice.currency_id.name"/>
                     <VMT_3 t-out="format_monetary(invoice.amount_untaxed, invoice.currency_id)"/>
                     <VMT_4 t-out="0.00"/>

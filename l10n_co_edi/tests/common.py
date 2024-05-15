@@ -50,7 +50,7 @@ class TestCoEdiCommon(AccountEdiTestCommon):
         cls.frozen_today = datetime.datetime(year=2020, month=8, day=27, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
 
         cls.salesperson = cls.env.ref('base.user_admin')
-        cls.salesperson.function = 'Sales'
+        cls.salesperson.function = 'Funcionario de ventas y trato al cliente final'
 
         report_text = 'GRANDES CONTRIBUYENTES SHD Res. DDI-042065 13-10-17'
         cls.company_data['company'].write({
