@@ -1405,6 +1405,10 @@ class L10nMxEdiDocument(models.Model):
     def _finkok_sign(self, credentials, cfdi):
         ''' Send the CFDI XML document to Finkok for signature. Does not depend on a recordset
         '''
+        def get_in_error(error, key):
+            if key in error:
+                return error[key]
+
         try:
             client = Client(credentials['sign_url'], timeout=20)
             response = client.service.stamp(cfdi, credentials['username'], credentials['password'])
@@ -1415,19 +1419,19 @@ class L10nMxEdiDocument(models.Model):
             }
 
         if response.Incidencias and not response.xml:
-            if 'CodigoError' in response.Incidencias.Incidencia[0]:
-                code = response.Incidencias.Incidencia[0].CodigoError
-            else:
-                code = None
-            if 'MensajeIncidencia' in response.Incidencias.Incidencia[0]:
-                msg = response.Incidencias.Incidencia[0].MensajeIncidencia
-            else:
-                msg = None
+            error = response.Incidencias.Incidencia[0]
+
+            code = get_in_error(error, 'CodigoError')
+            msg = get_in_error(error, 'MensajeIncidencia')
+            extra = get_in_error(error, 'ExtraInfo')
+
             errors = []
             if code:
                 errors.append(_("Code : %s", code))
             if msg:
                 errors.append(_("Message : %s", msg))
+            if extra:
+                errors.append(_("Extra Info : %s", extra))
             return {'errors': errors}
 
         cfdi_signed = response.xml if 'xml' in response else None
