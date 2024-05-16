@@ -75,22 +75,4 @@
         </field>
     </record>
 
-    <record id="model_hr_employee_action_planning_view" model="ir.actions.server">
-        <field name="name">View Planning</field>
-        <field name="model_id" ref="planning.model_hr_employee"/>
-        <field name="binding_model_id" ref="planning.model_hr_employee"/>
-        <field name="binding_view_types">list</field>
-        <field name="state">code</field>
-        <field name="code">action = records.action_view_planning()</field>
-    </record>
-
-    <record id="model_hr_employee_public_action_planning_view" model="ir.actions.server">
-        <field name="name">View Planning</field>
-        <field name="model_id" ref="hr.model_hr_employee_public"/>
-        <field name="binding_model_id" ref="hr.model_hr_employee_public"/>
-        <field name="binding_view_types">list</field>
-        <field name="state">code</field>
-        <field name="code">action = records.action_view_planning()</field>
-    </record>
-
 </odoo>
