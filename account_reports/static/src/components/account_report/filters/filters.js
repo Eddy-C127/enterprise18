@@ -154,7 +154,7 @@ export class AccountReportFilters extends Component {
             selectedExtraOptions.push(
                 this.controller.options.all_entries
                     ? _t("With Draft Entries")
-                    : _t("Posted Entries Only"),
+                    : _t("Posted Entries"),
             );
         }
         if (this.controller.filters.show_unreconciled && this.controller.options.unreconciled) {
