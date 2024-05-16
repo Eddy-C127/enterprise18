@@ -1,14 +1,12 @@
-/* @odoo-module */
+import { click, contains, start, startServer } from "@mail/../tests/mail_test_helpers";
+import { serverState } from "@web/../tests/web_test_helpers";
+import { describe, test } from "@odoo/hoot";
+import { defineVoipCRMModels } from "@voip_crm/../tests/voip_crm_test_helpers";
 
-import { startServer } from "@bus/../tests/helpers/mock_python_environment";
+describe.current.tags("desktop");
+defineVoipCRMModels();
 
-import { start } from "@mail/../tests/helpers/test_utils";
-
-import { click, contains } from "@web/../tests/utils";
-
-QUnit.module("correspondence_details");
-
-QUnit.test("Clicking on the “open record” button opens the corresponding record.", async () => {
+test("Clicking on the “open record” button opens the corresponding record.", async () => {
     const pyEnv = await startServer();
     const [activityTypeId] = pyEnv["mail.activity.type"].search([["category", "=", "phonecall"]]);
     const leadId = pyEnv["crm.lead"].create({
@@ -20,15 +18,9 @@ QUnit.test("Clicking on the “open record” button opens the corresponding rec
         date_deadline: "1998-08-13",
         res_id: leadId,
         res_model: "crm.lead",
-        user_id: pyEnv.currentUserId,
+        user_id: serverState.userId,
     });
-    await start({
-        serverData: {
-            views: {
-                "crm.lead,false,form": "<form></form>",
-            },
-        },
-    });
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".o-voip-ActivitiesTab .list-group-item-action", { text: "Vincent's Birthday" });
     await contains(".o_form_view", { count: 0 });
