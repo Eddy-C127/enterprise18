@@ -248,9 +248,11 @@ class L10nEcWizardAccountWithhold(models.TransientModel):
 
         # 1. Create the base line (and its counterpart to cancel out) for every withhold line.  Tax lines will be created automatically.
         for line in self.withhold_line_ids:
-            account = self.company_id.l10n_ec_tax_base_sale_account_id.id if self.withhold_type == 'out_withhold' else self.company_id.l10n_ec_tax_base_purchase_account_id.id
-            if not account:
-                dummy, account = line._tax_compute_all_helper(1.0, line.tax_id)
+            account = self.company_id.l10n_ec_tax_base_sale_account_id if self.withhold_type == 'out_withhold' else self.company_id.l10n_ec_tax_base_purchase_account_id
+            if account:
+                account_id = account.id
+            else:  # fallback account
+                __, account_id = line._tax_compute_all_helper(1.0, line.tax_id)
             total_per_invoice[line.invoice_id][0] += line.amount
             total_per_invoice[line.invoice_id][1] = line
 
@@ -264,14 +266,14 @@ class L10nEcWizardAccountWithhold(models.TransientModel):
                 **self._get_move_line_default_values(line, line.base, 'in_withhold'),
                 'name': 'Base Ret: ' + nice_base_label,
                 'tax_ids': [Command.set(line.tax_id.ids)],
-                'account_id': account,
+                'account_id': account_id,
             }
             total_lines.append(vals_base_line)
 
             vals_base_line_counterpart = {
                 **self._get_move_line_default_values(line, line.base, 'out_withhold'),  # Counterpart 0 operation
                 'name': 'Base Ret Cont: ' + nice_base_label,
-                'account_id': account,
+                'account_id': account_id,
             }
             total_lines.append(vals_base_line_counterpart)
 

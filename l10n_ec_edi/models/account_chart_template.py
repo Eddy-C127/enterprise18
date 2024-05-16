@@ -162,5 +162,5 @@ class AccountChartTemplate(models.AbstractModel):
 
     def _l10n_ec_configure_default_withhold_accounts(self, companies):
         for company in companies:
-            company.l10n_ec_tax_base_sale_account_id = self.env.ref("account.%s_ec_sale_withhold_tax_base" % company.id)
-            company.l10n_ec_tax_base_purchase_account_id = self.env.ref("account.%s_ec_purchase_withhold_tax_base" % company.id)
+            company.l10n_ec_tax_base_sale_account_id = self.env.ref("account.%s_ec_sale_withhold_tax_base" % company.id, raise_if_not_found=False)
+            company.l10n_ec_tax_base_purchase_account_id = self.env.ref("account.%s_ec_purchase_withhold_tax_base" % company.id, raise_if_not_found=False)
