@@ -76,6 +76,7 @@
                 <button string="Refund" name="refund_sheet" type='object' invisible="not has_refund_slip or credit_note or state not in ('done', 'paid')"
                     confirm="Another refund payslip with the same amount has been found. Do you want to create a new one?"/>
                 <button string="Set to Draft" name="action_payslip_draft" type="object" invisible="state != 'cancel'"/>
+                <button string="Unpaid" name="action_payslip_unpaid" type="object" invisible="state != 'paid'"/>
                 <button string="Compute Sheet" name="compute_sheet" type="object" invisible="state != 'draft' or credit_note" class="oe_highlight" help="Recompute the payslip lines only, not the worked days / input lines"/>
                 <button string="Compute Sheet" name="compute_sheet" type="object" invisible="state != 'verify' or credit_note" help="Recompute the payslip lines only, not the worked days / input lines"/>
                 <button string="Cancel" name="action_payslip_cancel" type="object" invisible="state not in ('draft', 'done', 'verify')"/>
