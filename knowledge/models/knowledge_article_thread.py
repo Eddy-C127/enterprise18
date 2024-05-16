@@ -110,7 +110,7 @@ class KnowledgeArticleThread(models.Model):
         which is a simple template comprised of the comment sent and the person that tagged the notified user.
         """
 
-        kwargs['msg_vals'] = {**kwargs['msg_vals'], 'email_layout_xmlid': 'knowledge.knowledge_mail_notification_layout'}
+        kwargs['msg_vals'] = {**kwargs.get('msg_vals', {}), 'email_layout_xmlid': 'knowledge.knowledge_mail_notification_layout'}
 
         return super()._notify_thread_by_email(message, recipients_data, **kwargs)
 
