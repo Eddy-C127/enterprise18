@@ -217,17 +217,3 @@ class HrEmployee(models.Model):
                     active super accounts! Currently, it is at %d%%!",
                     proportions[emp.id] * 100,
                 )
-
-    def action_terminate_contract(self):
-        self.ensure_one()
-        ctx = self.env.context.copy()
-        ctx['default_employee_id'] = self.id
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Termination'),
-            'res_model': 'l10n_au.termination.payment',
-            'views': [[self.env.ref("l10n_au_hr_payroll.l10n_au_termination_payment_view_form").id, 'form']],
-            'view_mode': 'form',
-            'target': 'new',
-            'context': ctx
-        }

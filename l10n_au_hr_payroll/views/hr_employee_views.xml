@@ -62,15 +62,4 @@
             </xpath>
         </field>
     </record>
-
-    <record model="ir.actions.server" id="action_terminate_contract">
-        <field name="name">Terminate Employee</field>
-        <field name="model_id" ref="model_hr_employee"/>
-        <field name="binding_model_id" ref="model_hr_employee"/>
-        <field name="state">code</field>
-        <field name="code">
-            if records:
-                action = records.action_terminate_contract()
-        </field>
-    </record>
 </odoo>
