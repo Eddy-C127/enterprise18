@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, _
@@ -56,7 +55,7 @@ class HrApplicant(models.Model):
         if self.proposed_contracts_count == 1:
             action_vals.update({
                 "views": [[False, "form"]],
-                "res_id": self.env['hr.contract'].search([["applicant_id", "=", self.id], '|', ["active", "=", False], ["active", "=", True]]).id,
+                "res_id": self.env['hr.contract'].search([("applicant_id", "=", self.id)]).id,
             })
         else:
             action_vals.update({
