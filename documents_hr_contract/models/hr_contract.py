@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+from odoo import models
 
 
 class HrContract(models.Model):
@@ -25,8 +25,3 @@ class HrContract(models.Model):
     def _get_sign_request_folder(self):
         self.ensure_one()
         return self.company_id.documents_hr_folder
-
-    @api.ondelete(at_uninstall=False)
-    def _unlink_except_contract_signature_tag(self):
-        # TODO: remove me in master
-        return
