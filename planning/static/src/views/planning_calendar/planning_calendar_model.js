@@ -83,4 +83,15 @@ export class PlanningCalendarModel extends CalendarModel {
             colorIndex: rawFilter['colorIndex'],
         };
     }
+
+    /**
+     * @override
+     */
+    makeContextDefaults(rawRecord) {
+        const context = super.makeContextDefaults(...arguments);
+        if (["day", "week"].includes(this.meta.scale)) {
+            context['planning_keep_default_datetime'] = true;
+        }
+        return context;
+    }
 }

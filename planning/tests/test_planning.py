@@ -157,6 +157,17 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         self.assertEqual(defaults.get('start_datetime'), datetime(2019, 6, 27, 9, 0), 'It should be adjusted to employee calendar: 0am -> 9pm')
         self.assertEqual(defaults.get('end_datetime'), datetime(2019, 6, 27, 18, 0), 'It should be adjusted to employee calendar: 0am -> 18pm')
 
+    def test_specific_time_creation(self):
+        self.env.user.tz = 'UTC'
+        PlanningSlot = self.env['planning.slot'].with_context(
+            tz='UTC',
+            default_start_datetime='2020-10-05 06:00:00',
+            default_end_datetime='2020-10-05 12:30:00',
+            planning_keep_default_datetime=True)
+        defaults = PlanningSlot.default_get(['start_datetime', 'end_datetime'])
+        self.assertEqual(defaults.get('start_datetime'), datetime(2020, 10, 5, 6, 0), 'start_datetime should not change')
+        self.assertEqual(defaults.get('end_datetime'), datetime(2020, 10, 5, 12, 30), 'end_datetime should not change')
+
     def test_create_with_employee_outside_schedule(self):
         """ This test objective is to test the default values when creating a new shift for an employee when provided defaults are not within employee's calendar workdays """
         self.env.user.tz = 'UTC'

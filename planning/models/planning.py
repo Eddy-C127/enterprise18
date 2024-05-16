@@ -707,7 +707,7 @@ class Planning(models.Model):
                                                                                        previous_template_id,
                                                                                        res.get('template_reset'))
         else:
-            if 'start_datetime' in fields_list:
+            if 'start_datetime' in fields_list and not self._context.get('planning_keep_default_datetime', False):
                 start_datetime = fields.Datetime.from_string(res.get('start_datetime')) if res.get('start_datetime') else self._default_start_datetime()
                 end_datetime = fields.Datetime.from_string(res.get('end_datetime')) if res.get('end_datetime') else self._default_end_datetime()
                 start = pytz.utc.localize(start_datetime)

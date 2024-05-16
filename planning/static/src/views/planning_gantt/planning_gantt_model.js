@@ -109,6 +109,9 @@ export class PlanningGanttModel extends GanttModel {
         delete context.show_job_title;
         delete context.highlight_planned;
         delete context.highlight_conflicting;
+        if (this.metaData.scale.id == 'day') {
+            context.planning_keep_default_datetime = true;
+        }
         return context;
     }
 
