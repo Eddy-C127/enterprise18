@@ -540,6 +540,7 @@ class AccountReconcileWizard(models.TransientModel):
                 'account_id': self.account_id.id,
                 'partner_id': to_partner.id,
                 'currency_id': self.reco_currency_id.id,
+                'tax_ids': self.tax_id.ids,
                 'tax_tag_ids': None if not tax_data else tax_data['base_tax_tag_ids'],
                 'amount_currency': amount_currency if not tax_data else tax_data['base_amount_currency'],
                 'balance': amount if not tax_data else tax_data['base_amount'],
@@ -571,7 +572,10 @@ class AccountReconcileWizard(models.TransientModel):
             'to_check': self.to_check,
             'line_ids': self._create_write_off_lines(partner=partner)
         }
-        write_off_move = self.env['account.move'].create(write_off_vals)
+        write_off_move = self.env['account.move'].with_context(
+            skip_invoice_sync=True,
+            skip_invoice_line_sync=True,
+        ).create(write_off_vals)
         write_off_move.action_post()
         return write_off_move
 
