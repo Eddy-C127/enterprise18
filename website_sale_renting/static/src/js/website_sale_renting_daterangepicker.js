@@ -9,6 +9,7 @@ const { DateTime } = luxon;
 
 publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(RentingMixin, {
     selector: '.o_website_sale_daterange_picker',
+    disabledInEditableMode: true,
 
     /**
      * During start, load the renting constraints to validate renting pickup and return dates.
@@ -33,10 +34,21 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
         this.isShopDatePicker = this.el.classList.contains("o_website_sale_shop_daterange_picker");
         this.startDate = this._getDefaultRentingDate('start_date');
         this.endDate = this._getDefaultRentingDate('end_date');
+        this.disableDateTimePickers = [];
         this.el.querySelectorAll(".o_daterange_picker").forEach((el) => {
             this._initSaleRentingDateRangePicker(el);
         });
         this._verifyValidPeriod();
+    },
+
+    /**
+     * @override
+     */
+    destroy() {
+        for (const disableDateTimePicker of this.disableDateTimePickers) {
+            disableDateTimePicker();
+        }
+        return this._super(...arguments);
     },
 
     /**
@@ -85,7 +97,7 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
         const value =
             this.isShopDatePicker && !hasDefaultDates ? ["", ""] : [this.startDate, this.endDate];
         const datetimeWebsiteTz = DateTime.now().setZone(this.websiteTz);
-        this.call(
+        this.disableDateTimePickers.push(this.call(
             "datetime_picker",
             "create",
             {
@@ -115,7 +127,7 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
                 el.querySelector("input[name=renting_start_date]"),
                 el.querySelector("input[name=renting_end_date]"),
             ]
-        ).enable();
+        ).enable());
     },
 
     // ------------------------------------------
