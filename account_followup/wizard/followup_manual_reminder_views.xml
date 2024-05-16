@@ -9,36 +9,11 @@
                 <field name="lang" invisible="1"/>
                 <field name="render_model" invisible="1"/>
 
-                <group name="main" col="4" style="margin-bottom: 30px;">
-                    <group colspan="1">
-                        <group string="Actions" name="options" colspan="2" col="1">
-                            <group name="print" colspan="1">
-                                <field name="print" nolabel="1"/><label for="print" string="Print"/>
-                            </group>
-                            <group name="email" colspan="1">
-                                <field name="email" nolabel="1"/><label for="email"/>
-                            </group>
-                            <group name="sms" colspan="1">
-                                <field name="sms" nolabel="1"/><label for="sms"/>
-                            </group>
-                        </group>
-                    </group>
-
-                    <group colspan="3">
-                        <group string="SMS" name="sms" invisible="not sms" colspan="2">
-                            <group colspan="2">
-                                <field name="sms_template_id" options="{'no_create': True}"
-                                       context="{'default_model': 'res.partner', 'default_body': sms_body}"/>
-                            </group>
-                            <group colspan="2">
-                                <label for="sms_body" colspan="2"/>
-                                <field name="sms_body" string="Sms Content" class="oe-bordered-editor" widget="text"
-                                       placeholder="Write your message here..." force_save="1" nolabel="1"
-                                       readonly="not can_edit_body" colspan="2"/>
-                            </group>
-                        </group>
-                    </group>
-                </group>
+                <div class="mb-2" name="options">
+                     <field name="print" nolabel="1"/><label for="print"/>
+                     <field name="email" nolabel="1"/><label for="email"/>
+                     <field name="sms" nolabel="1"/><label for="sms"/>
+                </div>
 
                 <group name="email_header" invisible="not email">
                     <group colspan="2" col="6">
@@ -85,6 +60,15 @@
                         <field name="attachment_ids" widget="many2many_binary" nolabel="1"
                                colspan="2" invisible="not join_invoices"/>
                     </group>
+                </group>
+
+                <group string="SMS" name="sms" invisible="not sms">
+                    <field name="sms_template_id" options="{'no_create': True}"
+                           context="{'default_model': 'res.partner', 'default_body': sms_body}"/>
+                    <label for="sms_body"/>
+                    <field name="sms_body" string="Sms Content" class="oe-bordered-editor" widget="text"
+                           placeholder="Write your message here..." force_save="1" nolabel="1"
+                           readonly="not can_edit_body" colspan="2"/>
                 </group>
 
                 <footer>
