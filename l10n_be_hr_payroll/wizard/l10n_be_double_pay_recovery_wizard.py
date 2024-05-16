@@ -36,7 +36,6 @@ class L10nBeDoublePayRecoveryWizard(models.TransientModel):
     months_count = fields.Float(string="Current Occupation Duration (Months)", compute='_compute_months_count')
     months_count_description = fields.Char(string="Current Occupation Duration (Description)", compute='_compute_months_count')
 
-    classic_holiday_pay = fields.Monetary(compute='_compute_amounts_to_recover', store=True, readonly=False)
     threshold = fields.Monetary(compute='_compute_amounts_to_recover', store=True, readonly=False)
     double_pay_to_recover = fields.Monetary(compute='_compute_amounts_to_recover', store=True, readonly=False)
 
@@ -72,24 +71,13 @@ class L10nBeDoublePayRecoveryWizard(models.TransientModel):
         'gross_salary', 'months_count', 'line_ids.months_count', 'line_ids.occupation_rate')
     def _compute_amounts_to_recover(self):
         for wizard in self:
-            wizard.double_pay_to_recover = 0
-
-            total_occupation = wizard.months_count + sum([l.months_count for l in wizard.line_ids])
-            # Step 1:
-            # Computation of the "Departure Holiday Pay" (To be split into 2 and prorated according to the holiday right)
-            wizard.classic_holiday_pay = wizard.gross_salary * total_occupation * 0.1534
-
-            # Step 2:
             # Computation of the limit = Current monthly remuneration * number of months of
-            # employment in the previous year * fraction of occupancy on the certificate * 15.34%
+            # employment in the previous year * fraction of occupancy on the certificate * 7.67%
             # If vacation certificate amount < the limit: NO limit applicable
             wizard.threshold = sum(wizard.gross_salary * l.months_count * l.occupation_rate / 100.0 * 0.0767 for l in wizard.line_ids)
 
-            # Step 3:
             # Calculation of amounts to be recovered
-            amount = min(wizard.threshold, sum(wizard.line_ids.mapped('amount')))
-
-            wizard.double_pay_to_recover = amount
+            wizard.double_pay_to_recover = min(wizard.threshold, sum(wizard.line_ids.mapped('amount')))
 
     def action_validate(self):
         self.ensure_one()
