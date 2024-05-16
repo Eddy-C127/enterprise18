@@ -131,6 +131,13 @@
     overflow-wrap: break-word;
 }
 
+body[dir="rtl"] {
+    .o_line_name_level {
+        white-space: normal !important;
+        overflow-wrap: break-word;
+    }
+}
+
 .o_footer_font_size { font-size: 0.7rem }
 
 .o_footnote { list-style: none }
