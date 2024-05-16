@@ -14,7 +14,7 @@ const { toNumber } = spreadsheet.helpers;
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 /**
- * @typedef {import("@spreadsheet/data_sources/metadata_repository").Field} Field
+ * @typedef {import("@spreadsheet").OdooField} OdooField
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").FieldMatching} FieldMatching
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
  *
@@ -150,7 +150,7 @@ export class AbstractFilterEditorSidePanel extends Component {
     }
 
     /**
-     * @param {Field} field
+     * @param {OdooField} field
      * @returns {boolean}
      */
     isFieldValid(field) {
@@ -160,7 +160,7 @@ export class AbstractFilterEditorSidePanel extends Component {
     /**
      * Function that will be called by ModelFieldSelector on each fields, to
      * filter the ones that should be displayed
-     * @param {Field} field
+     * @param {OdooField} field
      * @returns {boolean}
      */
     filterModelFieldSelectorField(field) {
@@ -182,7 +182,7 @@ export class AbstractFilterEditorSidePanel extends Component {
     /**
      * @param {number} index
      * @param {string|undefined} chain
-     * @param {Field|undefined} field
+     * @param {OdooField|undefined} field
      */
     onSelectedField(index, chain, field) {
         //ensure index type to use it in a set

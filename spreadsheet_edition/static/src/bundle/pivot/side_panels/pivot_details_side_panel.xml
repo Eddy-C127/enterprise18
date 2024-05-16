@@ -16,12 +16,13 @@
                 <div class="o_side_panel_title">Model</div>
                 <div class="o_model_name"><t t-esc="modelDisplayName"/> (<t t-esc="definition.model"/>)</div>
             </div>
-            <PivotDimensions
+            <OdooPivotLayoutConfigurator
                 unusedGroupableFields="store.unusedGroupableFields"
                 unusedMeasureFields="store.unusedMeasureFields"
                 unusedDateTimeGranularities="store.unusedDateTimeGranularities"
                 definition="definition"
                 onDimensionsUpdated.bind="onDimensionsUpdated"
+                allGranularities="store.allGranularities"
             />
             <div class="o_side_panel_section">
                 <div class="o_side_panel_title">Domain</div>

@@ -6,7 +6,6 @@ import { Component } from "@odoo/owl";
 
 /**
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").FieldMatching} FieldMatching
- * @typedef {import("@spreadsheet/data_sources/metadata_repository").Field} Field
  */
 
 export class FilterEditorFieldMatching extends Component {

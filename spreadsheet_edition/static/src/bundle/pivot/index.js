@@ -10,30 +10,12 @@ import { PivotDetailsSidePanel } from "./side_panels/pivot_details_side_panel";
 import "./autofill";
 import { insertPivot } from "./pivot_init_callback";
 
-const { featurePluginRegistry, sidePanelRegistry, cellMenuRegistry } = spreadsheet.registries;
-const { AllPivotsSidePanel } = spreadsheet.components;
+const { featurePluginRegistry, cellMenuRegistry, pivotSidePanelRegistry } = spreadsheet.registries;
 
 featurePluginRegistry.add("odooPivotAutofillPlugin", PivotAutofillPlugin);
 
-sidePanelRegistry.add("ALL_PIVOTS_PANEL", {
-    title: () => _t("Pivot properties"),
-    Body: AllPivotsSidePanel,
-    computeState(getters) {
-        return {
-            isOpen: getters.getPivotIds().length > 0,
-        };
-    },
-});
-sidePanelRegistry.add("PIVOT_PROPERTIES_PANEL", {
-    title: () => _t("Pivot properties"),
-    Body: PivotDetailsSidePanel,
-    computeState(getters, initialProps) {
-        return {
-            isOpen: getters.isExistingPivot(initialProps.pivotId),
-            props: initialProps,
-            key: initialProps.pivotId,
-        };
-    },
+pivotSidePanelRegistry.add("ODOO", {
+    editor: PivotDetailsSidePanel,
 });
 
 initCallbackRegistry.add("insertPivot", insertPivot);
@@ -44,7 +26,7 @@ cellMenuRegistry.add("pivot_properties", {
     execute(env) {
         const position = env.model.getters.getActivePosition();
         const pivotId = env.model.getters.getPivotIdFromPosition(position);
-        env.openSidePanel("PIVOT_PROPERTIES_PANEL", { pivotId });
+        env.openSidePanel("PivotSidePanel", { pivotId });
     },
     isVisible: (env) => {
         const position = env.model.getters.getActivePosition();

@@ -5,13 +5,12 @@ import { nextTick } from "@web/../tests/helpers/utils";
 import { getBasicServerData } from "@spreadsheet/../tests/utils/data";
 import { getCellContent, getCellFormula, getCellValue } from "@spreadsheet/../tests/utils/getters";
 import { setupCollaborativeEnv } from "../../utils/collaborative_helpers";
-import { OdooPivot } from "@spreadsheet/pivot/pivot_data_source";
+import { OdooPivot } from "@spreadsheet/pivot/odoo_pivot";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 
 /**
  * @typedef {import("@spreadsheet").OdooSpreadsheetModel} Model
  * @typedef {import("@spreadsheet").OdooPivotDefinition} OdooPivotDefinition
- * @typedef {import("@spreadsheet").SPTableData} SPTableData
  */
 
 /**

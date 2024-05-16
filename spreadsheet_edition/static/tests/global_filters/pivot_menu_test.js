@@ -33,7 +33,7 @@ QUnit.module("spreadsheet_edition > menu", {}, () => {
             selectCell(model, "A6");
             const reinsertPivotPath = [
                 "data",
-                "insert_pivot",
+                "insert_pivot_odoo",
                 "reinsert_pivot",
                 "reinsert_pivot_1",
             ];

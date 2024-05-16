@@ -264,7 +264,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             name: "Partners by Foo",
             sortedColumn: null,
             type: "ODOO",
-            formulaId: "1",
         });
         assert.equal(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"date","04/2016")');
         assert.equal(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"date","10/2016")');
@@ -330,7 +329,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             name: "Partners by Date",
             sortedColumn: null,
             type: "ODOO",
-            formulaId: "1",
         });
     });
 
