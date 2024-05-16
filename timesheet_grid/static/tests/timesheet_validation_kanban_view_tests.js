@@ -47,7 +47,7 @@ QUnit.module("timesheet_grid", (hooks) => {
                 }
             },
         });
-        await click(".o_control_panel_collapsed_create button", { text: "Validate" });
+        await click(".o_control_panel_main_buttons button", { text: "Validate" });
         await contains(".o_notification:has(.o_notification_bar.bg-danger)", { text: "dummy title" });
         assert.verifySteps(["action_validate_timesheet"]);
     });

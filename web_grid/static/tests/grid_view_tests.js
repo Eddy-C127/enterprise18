@@ -2092,11 +2092,10 @@ QUnit.module("Views", (hooks) => {
             },
         });
 
-        assert.containsN(
+        assert.containsOnce(
             target,
             "button[name='action_test']",
-            2, // the second one is invisible for responsive.
-            "The custom button should be visible",
+            "The custom button should be visible"
         );
         assert.containsNone(target, "button[name='action_test_invisible']");
     });

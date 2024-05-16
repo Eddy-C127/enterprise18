@@ -72,7 +72,7 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
                 } else {
                     return defaultMockRPC(route);
                 }
-            }
+            },
         };
 
         const webClient = await createDocumentWebClient(config, serverData);
@@ -96,12 +96,11 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
             target.querySelectorAll(".o_sign_resend_access_button")[1].textContent,
             "Send"
         );
-        assert.containsOnce(target, ".d-xl-inline-flex .o_sign_sign_directly");
+        assert.containsOnce(target, ".o_sign_sign_directly");
 
         // click on resend
         await click(target.querySelectorAll(".o_sign_resend_access_button")[0]);
         assert.verifySteps(["send_messages"]);
-
     });
 
     QUnit.test("render shared document", async function (assert) {
@@ -125,7 +124,7 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
         );
 
         assert.containsN(target, ".o_sign_resend_access_button", 0);
-        assert.containsOnce(target, ".d-xl-inline-flex .o_sign_sign_directly");
+        assert.containsOnce(target, ".o_sign_sign_directly");
     });
 
     QUnit.test("do not crash when leaving the action", async function (assert) {
@@ -158,8 +157,8 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
 
         await doAction(webClient, actionId);
 
-        assert.containsOnce(target, ".d-xl-inline-flex .o_sign_download_document_button");
-        assert.containsOnce(target, ".d-xl-inline-flex .o_sign_download_log_button");
+        assert.containsOnce(target, ".o_sign_download_document_button");
+        assert.containsOnce(target, ".o_sign_download_log_button");
         assert.ok(
             target
                 .querySelector(".o_sign_download_document_button")

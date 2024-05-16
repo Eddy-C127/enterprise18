@@ -69,16 +69,8 @@ QUnit.module("signable_document_backend_tests", ({ beforeEach }) => {
             "should display text from server"
         );
 
-        assert.containsNone(
-            target,
-            ".d-xl-inline-flex .o_sign_edit_button",
-            "should show edit while signing button"
-        );
-        assert.containsNone(
-            target,
-            ".d-xl-inline-flex .o_sign_refuse_document_button",
-            "should show refuse button"
-        );
+        assert.containsNone(target, ".o_sign_edit_button", "should show edit while signing button");
+        assert.containsNone(target, ".o_sign_refuse_document_button", "should show refuse button");
     });
 
     QUnit.test("rendering with allow edit to sign", async (assert) => {
@@ -87,11 +79,7 @@ QUnit.module("signable_document_backend_tests", ({ beforeEach }) => {
 
         await doAction(webClient, actionId);
 
-        assert.containsOnce(
-            target,
-            ".d-xl-inline-flex .o_sign_edit_button",
-            "should show edit while signing button"
-        );
+        assert.containsOnce(target, ".o_sign_edit_button", "should show edit while signing button");
     });
 
     QUnit.test("rendering with allow refusal", async (assert) => {
@@ -114,10 +102,6 @@ QUnit.module("signable_document_backend_tests", ({ beforeEach }) => {
 
         await doAction(webClient, actionId);
 
-        assert.containsOnce(
-            target,
-            ".d-xl-inline-flex .o_sign_refuse_document_button",
-            "should show refuse button"
-        );
+        assert.containsOnce(target, ".o_sign_refuse_document_button", "should show refuse button");
     });
 });

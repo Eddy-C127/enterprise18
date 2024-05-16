@@ -383,10 +383,9 @@ QUnit.module("documents", {}, function () {
                     target.querySelector(".o_documents_kanban_upload").disabled === false,
                     "the upload button should be enabled when a folder is selected"
                 );
-                assert.containsN(
+                assert.containsOnce(
                     target,
                     ".o_cp_buttons button.o_documents_kanban_url",
-                    2,
                     "should allow to save a URL on small / xl screen"
                 );
                 assert.ok(

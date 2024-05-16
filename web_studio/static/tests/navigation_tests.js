@@ -1133,7 +1133,7 @@ QUnit.module("Studio", (hooks) => {
             (el) => el.textContent === "Automations"
         );
         await click(menuAutomations);
-        await click(target.querySelectorAll(".o_web_studio_editor .o_list_button_add")[1]);
+        await click(target.querySelector(".o_web_studio_editor .o_list_button_add"));
         await editInput(
             target,
             ".o_field_widget[name='display_name'] input",

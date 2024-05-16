@@ -543,7 +543,7 @@ QUnit.module("Views", (hooks) => {
         });
 
         await click(target, ".o_grid_navigation_buttons > div > button > span.oi-arrow-right");
-        await click(target, ".o_control_panel_main_buttons .d-none.d-xl-inline-flex .o_grid_button_add");
+        await click(target, ".o_control_panel_main_buttons .o_grid_button_add");
         assert.containsOnce(target, ".modal");
         assert.strictEqual(
             target.querySelector(".modal .o_field_widget[name=date] input").value,
@@ -566,7 +566,7 @@ QUnit.module("Views", (hooks) => {
         });
 
         await click(target, ".o_grid_navigation_buttons > div > button > span.oi-arrow-left");
-        await click(target, ".o_control_panel_main_buttons .d-none.d-xl-inline-flex .o_grid_button_add");
+        await click(target, ".o_control_panel_main_buttons .o_grid_button_add");
         assert.containsOnce(target, ".modal");
         assert.strictEqual(
             target.querySelector(".modal .o_field_widget[name=date] input").value,

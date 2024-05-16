@@ -766,19 +766,19 @@ test("Test highlight shifts added by executed action", async function () {
             </search>`,
     });
 
-    expect(".o_gantt_button_copy_previous_week").toHaveCount(2, {
-            message: "2 copy buttons should be in the gantt view (one for mobile view and another for desktop view)."
+    expect(".o_gantt_button_copy_previous_week").toHaveCount(1, {
+            message: "1 copy button should be in the gantt view."
         }
     );
-    expect(".o_gantt_button_auto_plan").toHaveCount(2, {
-            message: "2 copy buttons should be in the gantt view (one for mobile view and another for desktop view)."
+    expect(".o_gantt_button_auto_plan").toHaveCount(1, {
+            message: "1 copy button should be in the gantt view."
         }
     );
     expect(".o_gantt_pill").toHaveCount(1, { message: "1 pill should be in the gantt view." });
     let { rows } = getGridContent();
     expect(rows.map((r) => r.title)).toEqual(["Open Shifts"]);
 
-    click(".o_control_panel_main_buttons .d-none .o_gantt_buttons_container button.d-xl-block > i.fa-caret-down");
+    click(".o_control_panel_main_buttons .o_gantt_buttons_container button > i.fa-caret-down");
     await animationFrame();
 
     click(".o_popover.dropdown-menu .o_gantt_button_copy_previous_week");
@@ -791,7 +791,7 @@ test("Test highlight shifts added by executed action", async function () {
     rows = getGridContent().rows;
     expect(rows.map((r) => r.title)).toEqual(["Open Shifts", "Resource 1"]);
 
-    click(".o_control_panel_main_buttons .d-none .o_gantt_buttons_container button.d-xl-block > i.fa-caret-down");
+    click(".o_control_panel_main_buttons .o_gantt_buttons_container button > i.fa-caret-down");
     await animationFrame();
     click(".o_popover.dropdown-menu .o_gantt_button_auto_plan"); // click on copy button in desktop view
     await animationFrame();

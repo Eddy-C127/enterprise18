@@ -155,7 +155,7 @@ QUnit.module(
     () => {
         QUnit.test("Create spreadsheet from kanban view opens a modal", async function (assert) {
             await initTestEnvWithKanban();
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             assert.containsOnce(
@@ -180,7 +180,7 @@ QUnit.module(
                 res_model: "documents.document",
                 views: [[false, "list"]],
             });
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             assert.containsOnce(
@@ -197,7 +197,7 @@ QUnit.module(
 
         QUnit.test("Can search template in modal with searchbar", async function (assert) {
             await initTestEnvWithKanban();
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             const dialog = target.querySelector(".o-spreadsheet-templates-dialog");
@@ -244,7 +244,7 @@ QUnit.module(
             };
             await initTestEnvWithKanban({ additionalTemplates: TEST_TEMPLATES, mockRPC });
 
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
@@ -262,7 +262,7 @@ QUnit.module(
             assert.expect(2);
             await initTestEnvWithKanban({ additionalTemplates: TEST_TEMPLATES });
             // open template dialog
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
@@ -300,7 +300,7 @@ QUnit.module(
             mockActionService(env, mockDoAction);
 
             // ### With confirm button
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             let dialog = document.querySelector(".o-spreadsheet-templates-dialog");
@@ -358,7 +358,7 @@ QUnit.module(
                 views: [[false, "kanban"]],
             });
 
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
@@ -397,7 +397,7 @@ QUnit.module(
             mockActionService(env, mockDoAction);
 
             // ### With confirm button
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             let dialog = document.querySelector(".o-spreadsheet-templates-dialog");
@@ -431,9 +431,7 @@ QUnit.module(
             "The workspace selection should not display Trash workspace",
             async function (assert) {
                 await initTestEnvWithKanban();
-                const menu = target.querySelector(
-                    ".o_control_panel .btn-group:not(.o_control_panel_collapsed_create .btn-group)"
-                );
+                const menu = target.querySelector(".o_control_panel .btn-group");
                 await click(target, ".o_search_panel_category_value:nth-of-type(1) header");
                 await click(menu, ".dropdown-toggle");
                 await click(menu, ".o_documents_kanban_spreadsheet");
@@ -464,7 +462,7 @@ QUnit.module(
 
                 await initTestEnvWithKanban({ additionalTemplates: TEST_TEMPLATES, mockRPC });
 
-                const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+                const menu = target.querySelector(".o_control_panel .btn-group");
                 await click(menu, ".dropdown-toggle");
                 await click(menu, ".o_documents_kanban_spreadsheet");
                 const dialog = document.querySelector(".o-spreadsheet-templates-dialog");
@@ -505,7 +503,7 @@ QUnit.module(
             await initTestEnvWithKanban({ additionalTemplates: TEST_TEMPLATES });
 
             // Open template dialog
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
+            const menu = target.querySelector(".o_control_panel .btn-group");
             await click(menu, ".dropdown-toggle");
             await click(menu, ".o_documents_kanban_spreadsheet");
             const dialog = document.querySelector(".o-spreadsheet-templates-dialog");

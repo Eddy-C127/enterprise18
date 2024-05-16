@@ -183,7 +183,7 @@ QUnit.module("Views", (hooks) => {
 
         assert.containsOnce(target, ".o_grid_view");
         assert.containsOnce(target, ".o_grid_renderer");
-        assert.containsOnce(target, ".o_control_panel_main_buttons .d-xl-none .o_grid_buttons");
+        assert.containsOnce(target, ".o_control_panel_main_buttons .o_grid_buttons");
         assert.containsNone(target, ".o_grid_custom_buttons");
         assert.containsOnce(target, ".o_grid_navigation_buttons");
         assert.strictEqual(

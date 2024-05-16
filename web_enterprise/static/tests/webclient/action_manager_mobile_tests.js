@@ -151,22 +151,22 @@ QUnit.test(
 
         assert.containsOnce(
             target.querySelector(".o_control_panel"),
-            ".o_cp_switch_buttons.d-xl-none > button"
+            ".o_cp_switch_buttons > button"
         );
         assert.containsNone(
             target.querySelector(".o_control_panel"),
-            ".o_cp_switch_buttons.d-xl-none .o_switch_view.o_kanban"
+            ".o_cp_switch_buttons .o_switch_view.o_kanban"
         );
         assert.containsNone(
             target.querySelector(".o_control_panel"),
-            ".o_cp_switch_buttons.d-xl-none button.o_switch_view"
+            ".o_cp_switch_buttons button.o_switch_view"
         );
 
         assert.hasClass(
-            target.querySelector(".o_control_panel .o_cp_switch_buttons.d-xl-none > button > i"),
+            target.querySelector(".o_control_panel .o_cp_switch_buttons > button > i"),
             "oi-view-kanban"
         );
-        await click(target, ".o_control_panel .o_cp_switch_buttons.d-xl-none > button");
+        await click(target, ".o_control_panel .o_cp_switch_buttons > button");
 
         assert.hasClass(
             target.querySelector(".dropdown-item .oi-view-kanban").parentElement,

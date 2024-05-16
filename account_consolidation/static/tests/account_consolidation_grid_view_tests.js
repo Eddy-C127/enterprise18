@@ -177,10 +177,9 @@ QUnit.module("consolidation_grid", (hooks) => {
             context: { default_period_id: 1 },
         });
 
-        assert.containsN(
+        assert.containsOnce(
             target,
             ".o_grid_button_add_column",
-            2, // one button is not displayed (responsive)
             "'Add a column' button should be displayed in the view since 'default_period_id' is defined in the context."
         );
     })

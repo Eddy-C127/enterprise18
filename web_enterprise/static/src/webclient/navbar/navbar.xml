@@ -14,16 +14,16 @@
             </svg>
 
             <img
-                t-if="currentApp &amp;&amp; currentApp.webIconData"
+                t-if="!env.isSmall and currentApp and currentApp.webIconData"
                 t-att-src="currentApp.webIconData"
-                class="o_menu_brand_icon d-none d-lg-inline position-absolute start-0 h-100 ps-1 ms-2"
+                class="o_menu_brand_icon d-inline position-absolute start-0 h-100 ps-1 ms-2"
                 t-att-alt="currentApp.name"
                 t-ref="appIcon"/>
 
             <span
-                t-if="currentApp"
+                t-if="!env.isSmall and currentApp"
                 t-esc="currentApp.name"
-                class="o_menu_brand d-none d-md-flex ms-3 pe-0"/>
+                class="o_menu_brand d-flex ms-3 pe-0"/>
         </a>
     </xpath>
 
