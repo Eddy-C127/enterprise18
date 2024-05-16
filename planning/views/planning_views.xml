@@ -105,7 +105,7 @@
                     <field name="recurrence_update" widget="radio" class="mb-0 d-lg-block d-none" options="{'horizontal': true}"/>
                 </div>
                 <div role="alert" class="alert alert-warning text-center" invisible="overlap_slot_count == 0 and (not request_to_switch or allow_self_unassign)">
-                    <field name="conflicting_slot_ids" widget="conflicting_slot_ids"/>
+                    <field name="conflicting_slot_ids" widget="conflicting_slot_ids" invisible="not conflicting_slot_ids.length"/>
                     <p class="align-middle"
                         invisible="not request_to_switch or allow_self_unassign"
                         style="margin-bottom: 5.5px; margin-top: 5px">
