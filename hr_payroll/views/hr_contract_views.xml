@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="action_hr_payslip_new" model="ir.actions.act_window">
+        <field name="name">Payslip</field>
+        <field name="res_model">hr.payslip</field>
+        <field name="view_mode">form</field>
+    </record>
+
     <!-- Contract View -->
     <record id="hr_contract_form_inherit" model="ir.ui.view">
         <field name="name">hr.contract.view.form.inherit</field>
@@ -45,6 +51,15 @@
                         type="object" icon="fa-dollar" groups="hr_payroll.group_hr_payroll_user"
                         invisible="payslips_count == 0 or state == 'draft'">
                     <field name="payslips_count" string="Payslips" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" name="%(action_hr_payslip_new)d"
+                        type="action" icon="fa-dollar" groups="hr_payroll.group_hr_payroll_user"
+                        context="{'default_employee_id': employee_id, 'default_contract_id': id}"
+                        invisible="not employee_id or payslips_count or state == 'draft'">
+                        <div class="o_stat_info">
+                            <span class="o_stat_text"> Payslips </span>
+                            <span class="o_stat_value"> New </span>
+                        </div>
                 </button>
                 <button class="oe_stat_button" string="Salary Attachments" name="action_open_salary_attachments"
                         groups="hr_payroll.group_hr_payroll_user"
