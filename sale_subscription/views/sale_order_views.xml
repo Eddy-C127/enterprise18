@@ -181,7 +181,7 @@
                     <field name="first_contract_date" invisible="not origin_order_id"/>
                     <field name="origin_order_id" readonly="1" invisible="not origin_order_id"/>
                     <field name="subscription_id" groups="base.group_no_one" readonly="1"/>
-                    <field name="payment_token_id" groups="base.group_no_one" options="{'no_create': 'True'}"/>
+                    <field name="payment_token_id" groups="base.group_no_one" options="{'no_create': True}"/>
                     <field name="payment_exception" groups="base.group_no_one"/>
                     <field name="pending_transaction" groups="base.group_no_one"/>
                 </group>
