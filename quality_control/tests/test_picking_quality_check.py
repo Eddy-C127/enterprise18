@@ -595,7 +595,7 @@ class TestQualityCheck(TestQualityCommon):
 
         self.env['quality.point'].create([{
             'product_ids': [(4, product.id)],
-            'picking_type_ids': [(4, warehouse.int_type_id.id)],
+            'picking_type_ids': [(4, warehouse.store_type_id.id)],
         } for product in (p01, p02)])
 
         receipt = self.env['stock.picking'].create({
@@ -617,10 +617,10 @@ class TestQualityCheck(TestQualityCommon):
         receipt.move_ids.quantity = 1
         receipt.button_validate()
 
-        internal_transfer = self.env['stock.picking'].search(
-            [('location_id', '=', warehouse.wh_input_stock_loc_id.id), ('picking_type_id', '=', warehouse.int_type_id.id)],
+        storage_transfer = self.env['stock.picking'].search(
+            [('location_id', '=', warehouse.wh_input_stock_loc_id.id), ('picking_type_id', '=', warehouse.store_type_id.id)],
             order='id desc', limit=1)
-        self.assertEqual(internal_transfer.check_ids.product_id, p01 + p02)
+        self.assertEqual(storage_transfer.check_ids.product_id, p01 + p02)
 
         receipt = self.env['stock.picking'].create({
             'picking_type_id': self.picking_type_id,
@@ -641,11 +641,11 @@ class TestQualityCheck(TestQualityCommon):
         receipt.move_ids.quantity = 1
         receipt.button_validate()
 
-        self.assertRecordValues(internal_transfer.move_ids, [
+        self.assertRecordValues(storage_transfer.move_ids, [
             {'product_id': p01.id, 'product_uom_qty': 2},
             {'product_id': p02.id, 'product_uom_qty': 1},
         ])
-        self.assertEqual(internal_transfer.check_ids.product_id, p01 + p02)
+        self.assertEqual(storage_transfer.check_ids.product_id, p01 + p02)
 
     def test_propagate_sml_lot_name(self):
         self.env['quality.point'].create({

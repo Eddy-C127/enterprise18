@@ -2136,11 +2136,12 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         # Receipt: no put in pack, can not be directly validate.
         self.picking_type_in.barcode_validation_full = False
         self.picking_type_in.restrict_put_in_pack = 'no'
-        # Storage (internal transfer): no put in pack, scan dest. after each product.
-        self.picking_type_internal.barcode_validation_full = False
-        self.picking_type_internal.restrict_put_in_pack = 'no'
-        self.picking_type_internal.restrict_scan_dest_location = 'mandatory'
-        self.picking_type_internal.show_reserved_sns = True
+        # Quality Control / Storage (internal transfer): no put in pack, scan dest. after each product.
+        internal_types = warehouse.qc_type_id | warehouse.store_type_id
+        internal_types.barcode_validation_full = False
+        internal_types.restrict_put_in_pack = 'no'
+        internal_types.restrict_scan_dest_location = 'mandatory'
+        internal_types.show_reserved_sns = True
         # Pick: source mandatory, lots reserved only.
         warehouse.pick_type_id.barcode_validation_full = False
         warehouse.pick_type_id.restrict_scan_source_location = 'mandatory'
