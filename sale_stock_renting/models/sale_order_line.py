@@ -51,7 +51,7 @@ class RentalOrderLine(models.Model):
                 rentable_qty = line.product_id.with_context(
                     from_date=from_date,
                     to_date=to_date,
-                    warehouse=warehouse_id).qty_available
+                    warehouse_id=warehouse_id).qty_available
                 if from_date > fields.Datetime.now():
                     rentable_qty += line.product_id.with_context(warehouse_id=line.order_id.warehouse_id.id).qty_in_rent
                 rented_qty_during_period = line.product_id._get_unavailable_qty(

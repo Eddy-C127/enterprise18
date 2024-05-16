@@ -161,5 +161,5 @@ class ProductProduct(models.Model):
             warehouse_id = self.env['stock.warehouse'].with_company(task.company_id.id).search([], limit=1, order='sequence').id
 
         action['context'] = literal_eval(action.get('context', '{}'))
-        action['context']['warehouse'] = warehouse_id
+        action['context']['warehouse_id'] = warehouse_id
         return action

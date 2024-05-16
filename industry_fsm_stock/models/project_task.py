@@ -168,5 +168,5 @@ class Task(models.Model):
 
     def action_fsm_view_material(self):
         action = super(Task, self).action_fsm_view_material()
-        action['context'].update({"warehouse": self.env.user._get_default_warehouse_id().id})
+        action['context'].update({"warehouse_id": self.env.user._get_default_warehouse_id().id})
         return action

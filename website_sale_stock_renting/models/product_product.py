@@ -60,9 +60,9 @@ class ProductProduct(models.Model):
         qty_available = self.with_context(
             from_date=from_date,
             to_date=to_date,
-            warehouse=warehouse_id
+            warehouse_id=warehouse_id
         ).qty_available
-        qty_available += self.with_context(warehouse=warehouse_id).qty_in_rent
+        qty_available += self.with_context(warehouse_id=warehouse_id).qty_in_rent
         rented_quantities, key_dates = self._get_rented_quantities(from_date, to_date, domain=[
             ('order_id.warehouse_id', '=', warehouse_id)
         ])

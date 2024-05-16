@@ -439,7 +439,7 @@ class MrpProductionSchedule(models.Model):
                 production_schedule_state['precision_digits'] = precision_digits
                 production_schedule_state['forecast_ids'] = []
 
-            starting_inventory_qty = production_schedule.product_id.with_context(warehouse=production_schedule.warehouse_id.id).qty_available
+            starting_inventory_qty = production_schedule.product_id.with_context(warehouse_id=production_schedule.warehouse_id.id).qty_available
             if len(date_range):
                 starting_inventory_qty -= incoming_qty_done.get((date_range[0], production_schedule.product_id, production_schedule.warehouse_id), 0.0)
                 starting_inventory_qty += outgoing_qty_done.get((date_range[0], production_schedule.product_id, production_schedule.warehouse_id), 0.0)

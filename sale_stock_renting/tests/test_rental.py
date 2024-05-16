@@ -160,7 +160,7 @@ class TestRentalWizard(TestRentalCommon):
         """ In sale order warehouse """
         self.assertEqual(
             self.product_id.with_context(
-                warehouse=self.order_line_id1.order_id.warehouse_id.id,
+                warehouse_id=self.order_line_id1.order_id.warehouse_id.id,
                 from_date=self.order_line_id1.reservation_begin,
                 to_date=self.order_line_id1.return_date,
             ).qty_available,
@@ -209,7 +209,7 @@ class TestRentalWizard(TestRentalCommon):
         """ In sale order warehouse """
         self.assertEqual(
             self.product_id.with_context(
-                warehouse=self.order_line_id1.order_id.warehouse_id.id
+                warehouse_id=self.order_line_id1.order_id.warehouse_id.id
             ).qty_available,
             3
         )

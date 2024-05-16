@@ -41,7 +41,7 @@ class ProductTemplate(models.Model):
         variants_to_check = products_finite_qty.with_context(
             from_date=from_date,
             to_date=to_date,
-            warehouse=warehouse_id,
+            warehouse_id=warehouse_id,
         ).product_variant_ids.filtered(lambda p: bool(p.qty_available > 0 or p.qty_in_rent > 0))
         templates_with_available_qty = self.env['product.template']
         if variants_to_check:

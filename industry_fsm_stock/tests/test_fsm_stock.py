@@ -1555,16 +1555,16 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         })
         self.env.user.property_warehouse_id = self.warehouse_B
         product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
-        self.assertEqual(product_forecast_report_action['context']['warehouse'], self.warehouse_A.id, "Should follow the warehouse set in the sale order linked to the fsm task.")
+        self.assertEqual(product_forecast_report_action['context']['warehouse_id'], self.warehouse_A.id, "Should follow the warehouse set in the sale order linked to the fsm task.")
 
         self.task.sale_order_id = False
         product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
-        self.assertEqual(product_forecast_report_action['context']['warehouse'], self.warehouse_B.id, "Should follow the user's warehouse")
+        self.assertEqual(product_forecast_report_action['context']['warehouse_id'], self.warehouse_B.id, "Should follow the user's warehouse")
 
         self.env.user.property_warehouse_id = False
         warehouse = self.env['stock.warehouse'].with_company(self.task.company_id.id).search([], limit=1, order='sequence')
         product_forecast_report_action = self.product_lot.with_context(fsm_task_id=self.task.id).action_product_forecast_report()
-        self.assertEqual(product_forecast_report_action['context']['warehouse'], warehouse.id, "The warehouse set should be the first one found")
+        self.assertEqual(product_forecast_report_action['context']['warehouse_id'], warehouse.id, "The warehouse set should be the first one found")
 
     def test_stock_move_customer_product_count(self):
         """ Flows to tests on the stock_move_customer_product_count field
