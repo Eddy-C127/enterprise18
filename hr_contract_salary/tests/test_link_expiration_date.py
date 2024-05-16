@@ -1,4 +1,3 @@
-# # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import datetime
@@ -87,3 +86,27 @@ class TestLinkExpirationDate(HttpCase):
             self.authenticate(simple_user.login, simple_user.login)
             late_res = self.url_open(url)
         self.assertTrue(self.fail_text in str(late_res.content), 'The Employee should be redirected to the invalid link page')
+
+    def test_applicant_with_archived_contract(self):
+        applicant = self.env['hr.applicant'].create({
+            'name': 'demo',
+            'partner_name': 'demo',
+        })
+
+        applicant_contract = self.env['hr.contract'].create({
+            'name': "Contract",
+            'applicant_id': applicant.id,
+            'wage': 6500,
+            'structure_type_id': self.structure_type.id,
+            'job_id': self.job.id,
+        })
+
+        applicant_contract.copy({
+            'active': False,
+        })
+
+        proposed_contract = applicant.action_show_proposed_contracts()
+
+        self.assertEqual(applicant.proposed_contracts_count, 1)
+        self.assertEqual(proposed_contract.get('views'), [[False, 'form']])
+        self.assertEqual(proposed_contract.get('res_id'), applicant_contract.id)
