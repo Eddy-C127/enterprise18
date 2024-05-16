@@ -499,6 +499,7 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
         general_ledger_action = self.env['ir.actions.actions']._for_xml_id('account_reports.action_account_report_general_ledger')
         general_ledger_action['params'] = {
             'options': options,
+            'ignore_session': True,
         }
 
         return general_ledger_action
