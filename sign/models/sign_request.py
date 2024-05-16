@@ -5,7 +5,6 @@ import base64
 import io
 import os
 import time
-import unicodedata
 import uuid
 
 from PyPDF2 import PdfFileReader, PdfFileWriter
@@ -33,7 +32,7 @@ from odoo import api, fields, models, http, _, Command
 from odoo.tools import config, email_normalize, get_lang, is_html_empty, format_date, formataddr, groupby, consteq
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import hmac
-from odoo.tools.arabic_reshaper.arabic_reshaper import reshape
+from odoo.tools.pdf import reshape_text
 
 TTFSearchPath.append(os.path.join(config["root_path"], "..", "addons", "web", "static", "fonts", "sign"))
 
@@ -521,37 +520,6 @@ class SignRequest(models.Model):
     def _get_normal_font_size(self):
         return 0.015
 
-    def _get_displayed_text(self, text):
-        """
-        Display the text based on his first character unicode name to choose Right-to-left or Left-to-right
-        This is just a hotfix to make things work
-        In the future the clean way be to use arabic-reshaper and python3-bidi libraries
-
-
-        Here we want to check the text is in a right-to-left language and if then, flip before returning it.
-        Depending on the language, the type should be Left-to-Right, Right-to-Left, or Right-to-Left Arabic
-        (Refer to this https://www.unicode.org/reports/tr9/#Bidirectional_Character_Types)
-        The base module ```unicodedata``` with his function ```bidirectional(str)``` helps us by taking a character in
-        argument and returns his type:
-        - 'L' for Left-to-Right character
-        - 'R' or 'AL' for Right-to-Left character
-
-        So we have to check if the first character of the text is of type 'R' or 'AL', and check that there is no
-        character in the rest of the text that is of type 'L'. Based on that we can confirm we have a fully Right-to-Left language,
-        then we can flip the text before returning it.
-        """
-        if not text:
-            return ''
-        maybe_rtl_letter = text.lstrip()[:1] or ' '
-        maybe_ltr_text = text[1:]
-        first_letter_is_rtl = unicodedata.bidirectional(maybe_rtl_letter) in ('AL', 'R')
-        no_letter_is_ltr = not any(unicodedata.bidirectional(letter) == 'L' for letter in maybe_ltr_text)
-        if first_letter_is_rtl and no_letter_is_ltr:
-            text = reshape(text)
-            text = text[::-1]
-
-        return text
-
     @staticmethod
     def get_page_size(pdf_reader):
         first_page = pdf_reader.pages and pdf_reader.pages[0]
@@ -647,7 +615,7 @@ class SignRequest(models.Model):
                         )
 
                     if item.type_id.item_type == "text":
-                        value = self._get_displayed_text(value)
+                        value = reshape_text(value)
                         can.setFont(font, height*item.height*0.8)
                         if item.alignment == "left":
                             can.drawString(width*item.posX, height*(1-item.posY-item.height*0.9), value)
@@ -684,7 +652,7 @@ class SignRequest(models.Model):
                             elif item.alignment == 'right':
                                 x_shift = empty_space
                             y -= normalFontSize * 0.9
-                            line = self._get_displayed_text(line)
+                            line = reshape_text(line)
                             can.drawString(width * item.posX + x_shift, height * y, line)
                             y -= normalFontSize * 0.1
 
