@@ -17,6 +17,7 @@ export class KnowledgePortalWebClient extends Component {
         this.state = useState({
             fullscreen: false,
         });
+        useBus(this.env.bus, "ROUTE_CHANGE", this._showView);
         useBus(this.env.bus, "ACTION_MANAGER:UI-UPDATED", (mode) => {
             if (mode !== "new") {
                 this.state.fullscreen = mode === "fullscreen";
@@ -26,7 +27,28 @@ export class KnowledgePortalWebClient extends Component {
         useExternalListener(window, "keydown", this.onGlobalKeyDown, { capture: true });
     }
 
+    /**
+     * Loads the article specified in the URL hash (eg. /knowledge/article#id=42)
+     */
     async _showView() {
+        const isOnKnowledgeArticleFormView = () => {
+            if (this.actionService.currentController) {
+                const { action } = this.actionService.currentController;
+                return action && action.xml_id === "knowledge.knowledge_article_action_form";
+            }
+            return false;
+        };
+
+        // When the user is already on the Knowledge form view, we can load
+        // another record in the model to avoid reloading the sidebar.
+
+        if (isOnKnowledgeArticleFormView() && this.router.current.hash.id) {
+            this.env.bus.trigger("KNOWLEDGE:OPEN_ARTICLE", {
+                id: this.router.current.hash.id,
+            });
+            return;
+        }
+
         await this.actionService.doAction("knowledge.ir_actions_server_knowledge_home_page", {
             additionalContext: this.router.current.hash.id
                 ? { res_id: this.router.current.hash.id }
