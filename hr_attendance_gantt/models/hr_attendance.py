@@ -1,10 +1,15 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api
-from odoo.addons.resource.models.utils import string_to_datetime
+from collections import defaultdict
+from dateutil.relativedelta import relativedelta
+from pytz import timezone, UTC
+
+from odoo import api, fields, models
 from odoo.osv import expression
 from odoo.tools import float_is_zero
-from dateutil.relativedelta import relativedelta
+
+from odoo.addons.resource.models.utils import Intervals, string_to_datetime, timezone_datetime
+
 
 class HrAttendance(models.Model):
     _inherit = "hr.attendance"
@@ -82,3 +87,121 @@ class HrAttendance(models.Model):
                 open_ended_gantt_data['length'] += 1
 
         return open_ended_gantt_data
+
+    @api.model
+    def gantt_unavailability(self, str_start_date, str_end_date, scale, group_bys=None, rows=None):
+        def tag_employee_rows(rows):
+            """
+                Add `employee_id` key in rows and subsrows recursively if necessary
+                :return: a set of ids with all concerned employees (subrows included)
+            """
+            employee_ids = set()
+            for row in rows:
+                group_bys = row.get('groupedBy')
+                res_id = row.get('resId')
+                if not group_bys:
+                    continue
+                # if employee_id is the first grouping attribute, we mark the row
+                if group_bys[0] == 'employee_id' and res_id:
+                    employee_id = res_id
+                    employee_ids.add(employee_id)
+                    row['employee_id'] = employee_id
+                # else we recursively traverse the rows where employee_id appears in the group_by
+                elif 'employee_id' in group_bys:
+                    employee_ids.update(tag_employee_rows(row.get('rows')))
+            return employee_ids
+
+        def inject_unvailabilty(row):
+            new_row = row.copy()
+            employee_id = new_row.get('employee_id')
+            if not employee_id:
+                return new_row
+
+            for sub_row in new_row.get('rows', []):
+                sub_row['employee_id'] = employee_id
+            new_row['rows'] = [inject_unvailabilty(inner_row) for inner_row in new_row.get('rows', [])]
+
+            # When an employee doesn't have any calendar,
+            # he is considered unavailable for the entire interval
+            if employee_id not in unavailable_intervals_by_employees:
+                new_row['unavailabilities'] = [{
+                    'start': start_datetime.astimezone(UTC),
+                    'stop': end_datetime.astimezone(UTC),
+                }]
+                return new_row
+
+            # When an employee doesn't have a calendar for a part of the entire interval,
+            # he will be unavailable for this part
+            if employee_id in periods_without_calendar_by_employee:
+                unavailable_intervals_by_employees[employee_id] |= periods_without_calendar_by_employee[employee_id]
+            new_row['unavailabilities'] = [{
+                'start': interval[0].astimezone(UTC),
+                'stop': interval[1].astimezone(UTC),
+            } for interval in unavailable_intervals_by_employees[employee_id]]
+            return new_row
+
+        start_datetime = fields.Datetime.from_string(str_start_date)
+        end_datetime = fields.Datetime.from_string(str_end_date)
+        employees_by_calendar = defaultdict(lambda: self.env['hr.employee'])
+        rows_employees = self.env['hr.employee'].browse(list(tag_employee_rows(rows)))
+
+        # Retrieve for each employee, their period linked to their calendars
+        calendar_periods_by_employee = rows_employees._get_calendar_periods(
+            timezone_datetime(start_datetime),
+            timezone_datetime(end_datetime),
+        )
+
+        full_interval_UTC = Intervals([(
+            start_datetime.astimezone(UTC),
+            end_datetime.astimezone(UTC),
+            self.env['resource.calendar'],
+        )])
+
+        # calculate the intervals not covered by employee-specific calendars.
+        # store these uncovered intervals for each employee.
+        # store by calendar, employees involved with them
+        periods_without_calendar_by_employee = defaultdict(list)
+        for employee, calendar_periods in calendar_periods_by_employee.items():
+            employee_interval_UTC = Intervals([])
+            for (start, stop, calendar) in calendar_periods:
+                calendar_periods_interval_UTC = Intervals([(
+                    start.astimezone(UTC),
+                    stop.astimezone(UTC),
+                    self.env['resource.calendar'],
+                )])
+                employee_interval_UTC |= calendar_periods_interval_UTC
+                employees_by_calendar[calendar] |= employee
+            interval_without_calendar = full_interval_UTC - employee_interval_UTC
+            if interval_without_calendar:
+                periods_without_calendar_by_employee[employee.id] = interval_without_calendar
+
+        # retrieve, for each calendar, unavailability periods for employees linked to this calendar
+        unavailable_intervals_by_calendar = {}
+        for calendar, employees in employees_by_calendar.items():
+            calendar_work_intervals = calendar._work_intervals_batch(
+                timezone_datetime(start_datetime),
+                timezone_datetime(end_datetime),
+                resources=employees.resource_id,
+                tz=timezone(calendar.tz)
+            )
+            full_interval = Intervals([(
+                start_datetime.astimezone(timezone(calendar.tz)),
+                end_datetime.astimezone(timezone(calendar.tz)),
+                calendar
+            )])
+            unavailable_intervals_by_calendar[calendar] = {
+                employee.id: full_interval - calendar_work_intervals[employee.resource_id.id]
+                for employee in employees}
+
+        # calculate employee's unavailability periods based on his calendar's periods
+        # (e.g. calendar A on monday and tuesday and calendar b for the rest of the week)
+        unavailable_intervals_by_employees = {}
+        for employee, calendar_periods in calendar_periods_by_employee.items():
+            employee_unavailable_full_interval = Intervals([])
+            for (start, stop, calendar) in calendar_periods:
+                interval = Intervals([(start, stop, self.env['resource.calendar'])])
+                calendar_unavailable_interval_list = unavailable_intervals_by_calendar[calendar][employee.id]
+                employee_unavailable_full_interval |= interval & calendar_unavailable_interval_list
+            unavailable_intervals_by_employees[employee.id] = employee_unavailable_full_interval
+
+        return [inject_unvailabilty(row) for row in rows]
