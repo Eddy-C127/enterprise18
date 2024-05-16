@@ -5,7 +5,7 @@ import { useBus, useService } from '@web/core/utils/hooks';
 import { ActionContainer } from '@web/webclient/actions/action_container';
 import { MainComponentsContainer } from "@web/core/main_components_container";
 import { useOwnDebugContext } from "@web/core/debug/debug_context";
-import { Component, onMounted, useExternalListener, useState } from "@odoo/owl";
+import { Component, onMounted, useExternalListener } from "@odoo/owl";
 
 export class KnowledgePortalWebClient extends Component {
     static props = {};
@@ -15,17 +15,8 @@ export class KnowledgePortalWebClient extends Component {
     setup() {
         window.parent.document.body.style.margin = "0"; // remove the margin in the parent body
         this.actionService = useService("action");
-        this.orm = useService("orm");
         useOwnDebugContext({ categories: ["default"] });
-        this.state = useState({
-            fullscreen: false,
-        });
         useBus(routerBus, "ROUTE_CHANGE", this._showView);
-        useBus(this.env.bus, "ACTION_MANAGER:UI-UPDATED", (mode) => {
-            if (mode !== "new") {
-                this.state.fullscreen = mode === "fullscreen";
-            }
-        });
         onMounted(() => { this._showView(); });
         useExternalListener(window, "keydown", this.onGlobalKeyDown, { capture: true });
     }
