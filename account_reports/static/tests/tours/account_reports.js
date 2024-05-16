@@ -271,6 +271,7 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Unfold not previously unfolded line",
             trigger: "tr:nth-child(22):contains('Current Liabilities') td:first()",
+            extra_trigger: "tr:nth-child(11) td:nth-child(2):contains('50.00')",
             run: "click",
         },
         {
@@ -279,7 +280,7 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Sortable (asc)",
-            trigger: "tr:nth-child(8) td:nth-child(2):contains('25.00')",
+            trigger: "tr:nth-child(11) td:nth-child(2):contains('50.00')",
             run: () => {
                 // Bank and Cash Accounts
                 Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
@@ -302,7 +303,7 @@ registry.category("web_tour.tours").add('account_reports', {
         },
         {
             content: "Sortable (desc)",
-            trigger: "tr:nth-child(5) td:nth-child(2):contains('75.00')",
+            trigger: "tr:nth-child(11) td:nth-child(2):contains('100.00')",
             run: () => {
                 // Bank and Cash Accounts
                 Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
