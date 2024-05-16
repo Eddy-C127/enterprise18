@@ -54,7 +54,7 @@
                 <p><strong>Details of the event</strong></p>
                 <ul>
                     <li t-if="object.location">Location: <t t-out="object.location or ''">Bruxelles</t>
-                        (<a target="_blank" t-attf-href="http://maps.google.com/maps?oi=map&amp;q={{ object.location }}">View Map</a>)
+                        <a target="_blank" t-if="object.location != object.appointment_type_id.location_id.name" t-attf-href="http://maps.google.com/maps?oi=map&amp;q={{ object.location }}">(View Map)</a>
                     </li>
                     <li t-if="recurrent">When: <t t-out="object.recurrence_id.name or ''">Every 1 Weeks, for 3 events</t></li>
                     <li t-if="not object.appointment_type_id.hide_duration and not object.allday and object.duration">Duration: <t t-out="('%dH%02d' % (object.duration,round(object.duration*60)%60)) or ''">0H30</t></li>
@@ -73,7 +73,7 @@
                     <li t-if="object.appointment_type_id.resource_manage_capacity">
                         For: <t t-out="object.resource_total_capacity_reserved"/> people
                     </li>
-                    <li t-if="object.appointment_type_id.assign_method != 'time_auto_assign'">
+                    <li t-if="object.appointment_type_id.assign_method != 'time_auto_assign' and object.appointment_resource_ids">
                         Resources
                         <ul>
                             <li t-foreach="object.appointment_resource_ids" t-as="resource">
@@ -159,7 +159,7 @@
                     <p><strong>Details of the event</strong></p>
                     <ul>
                             <li t-if="object.location">Location: <t t-out="object.location or ''">Bruxelles</t>
-                                (<a target="_blank" t-attf-href="http://maps.google.com/maps?oi=map&amp;q={{ object.location }}">View Map</a>)
+                                <a target="_blank" t-if="object.location != object.appointment_type_id.location_id.name" t-attf-href="http://maps.google.com/maps?oi=map&amp;q={{ object.location }}">(View Map)</a>
                             </li>
                             <li t-if="recurrent">When: <t t-out="object.recurrence_id.name or ''">Every 1 Weeks, for 3 events</t></li>
                             <li t-if="not object.appointment_type_id.hide_duration and not object.allday and object.duration">Duration: <t t-out="('%dH%02d' % (object.duration,round(object.duration*60)%60)) or ''">0H30</t></li>
@@ -278,7 +278,7 @@
                 <li>Appointment Type: <t t-out="object.event_id.appointment_type_id.name or ''">Schedule a Demo</t></li>
                 <t t-if="object.event_id.location">
                     <li>Location: <t t-out="object.event_id.location or ''">Bruxelles</t>
-                        (<a target="_blank" t-attf-href="http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}">View Map</a>)
+                        <a target="_blank" t-if="object.event_id.location != object.event_id.appointment_type_id.location_id.name" t-attf-href="http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}">(View Map)</a>
                     </li>
                 </t>
                 <t t-if="recurrent">
@@ -302,7 +302,7 @@
                 <li t-if="object.event_id.appointment_type_id.resource_manage_capacity">
                     For: <t t-out="object.event_id.resource_total_capacity_reserved"/> people
                 </li>
-                <li t-if="object.event_id.appointment_type_id.assign_method != 'time_auto_assign'">
+                <li t-if="object.event_id.appointment_type_id.assign_method != 'time_auto_assign' and object.event_id.appointment_resource_ids">
                     Resources
                     <ul>
                         <li t-foreach="object.event_id.appointment_resource_ids" t-as="resource">
