@@ -711,7 +711,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_delivery_lot_with_package_delivery_step', login='admin', timeout=180)
         self.assertEqual(delivery_picking.state, "done")
         self.assertRecordValues(move.move_line_ids, [
-            {'lot_id': sn.id, 'product_id': self.productlot1.id, 'qty_done': 1, 'package_id': package2.id, 'result_package_id': False},
+            {'lot_id': sn.id, 'product_id': self.productlot1.id, 'quantity': 1, 'package_id': package2.id, 'result_package_id': False},
         ])
 
     def test_delivery_reserved_1(self):

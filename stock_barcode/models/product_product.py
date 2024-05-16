@@ -24,14 +24,13 @@ class Product(models.Model):
             'uom.uom': self.uom_id.read(self.env['uom.uom']._get_fields_stock_barcode(), load=False)
         }
 
-    def prefilled_owner_package_stock_barcode(self, lot_id=False, lot_name=False):
+    def prefilled_owner_package_stock_barcode(self, lot_id=False, lot_name=False, location_id=False):
         domain = [
             lot_id and ('lot_id', '=', lot_id) or lot_name and ('lot_id.name', '=', lot_name),
             ('product_id', '=', self.id),
             '|', ('package_id', '!=', False), ('owner_id', '!=', False),
         ]
 
-        location_id = self.env.context.get('location_id', {}).get('id')
         if location_id:
             domain = expression.AND([domain, [('location_id', '=', location_id)]])
         else:

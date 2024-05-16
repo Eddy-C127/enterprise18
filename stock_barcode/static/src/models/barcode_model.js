@@ -1129,6 +1129,7 @@ export default class BarcodeModel extends EventBus {
             const prefilledPackage = (!currentLine || (currentLine && !currentLine.package_id)) && this.groups.group_tracking_lot && !barcodeData.package;
             if (this.useExistingLots && (prefilledOwner || prefilledPackage)) {
                 const lotId = (barcodeData.lot && barcodeData.lot.id) || (currentLine && currentLine.lot_id && currentLine.lot_id.id) || false;
+                const locationId = (currentLine && currentLine.location_id && currentLine.location_id.id) || false;
                 const res = await this.orm.call(
                     'product.product',
                     'prefilled_owner_package_stock_barcode',
@@ -1136,7 +1137,7 @@ export default class BarcodeModel extends EventBus {
                     {
                         lot_id: lotId,
                         lot_name: (!lotId && barcodeData.lotName) || false,
-                        context: { location_id: currentLine.location_id },
+                        location_id: locationId,
                     },
                 );
                 this.cache.setCache(res.records);
