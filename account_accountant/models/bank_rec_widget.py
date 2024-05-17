@@ -1340,7 +1340,11 @@ class BankRecWidget(models.Model):
 
         # Assign exchange move to partials.
         for index, line in enumerate(lines_with_exch_diff):
-            (line.matched_debit_ids + line.matched_credit_ids).exchange_move_id = exchange_diff_moves[index]
+            exchange_move = exchange_diff_moves[index]
+            for debit_credit in ('debit', 'credit'):
+                partials = line[f'matched_{debit_credit}_ids'] \
+                    .filtered(lambda partial: partial[f'{debit_credit}_move_id'].move_id != exchange_move)
+                partials.exchange_move_id = exchange_move
 
         # Fill missing partner.
         st_line_ctx = st_line.with_context(skip_account_move_synchronization=True, skip_readonly_check=True)
