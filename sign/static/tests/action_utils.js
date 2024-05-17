@@ -4,6 +4,7 @@ import { patchWithCleanup } from "@web/../tests/helpers/utils";
 import { createWebClient } from "@web/../tests/webclient/helpers";
 import { Document } from "@sign/components/sign_request/document_signable";
 
+
 export const actionId = 9;
 export const defaultMockRPC = (route) => {
     if (route === "/sign/get_document/5/abc") {
@@ -16,7 +17,9 @@ export const defaultMockRPC = (route) => {
                         <p class="o_sign_signer_status o_sign_signer_waiting" data-id="1"></p>
                         <p class="o_sign_signer_status o_sign_signer_waiting" data-id="2"></p>
                     </div>
+                    <input id="o_sign_input_sign_request_state" type="hidden" value="sent"/>
                 </div>
+                <iframe srcdoc="<body></body>" src="/sign/get_document/5/abc" class="o_iframe o_sign_pdf_iframe"/>
             </span>
             `,
             context: {},
@@ -50,7 +53,13 @@ export async function createDocumentWebClient(config, serverData = {}) {
     };
 
     patchWithCleanup(Document.prototype, {
-        getDataFromHTML: config.getDataFromHTML,
+        getDataFromHTML() {
+            config.getDataFromHTML();
+            this.requestState = "sent";
+        },
+        initializeIframe() {
+            return;
+        },
     });
 
     Object.assign(serverData, { actions });

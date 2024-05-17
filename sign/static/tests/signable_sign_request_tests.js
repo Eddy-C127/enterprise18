@@ -90,6 +90,7 @@ QUnit.module("signable_document_backend_tests", ({ beforeEach }) => {
                     <span>
                         def
                         <div class='o_sign_cp_pager'></div>
+                        <iframe class="o_iframe o_sign_pdf_iframe"/>
                     </span>
                     `,
                     context: { refusal_allowed: true },

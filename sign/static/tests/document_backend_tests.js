@@ -5,7 +5,8 @@ import { doAction } from "@web/../tests/webclient/helpers";
 import { createDocumentWebClient, actionId, defaultMockRPC } from "./action_utils";
 import { signInfoService } from "@sign/services/sign_info_service";
 import { registry } from "@web/core/registry";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
+
 
 let serverData;
 let config;
@@ -53,7 +54,7 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
 
     QUnit.test("simple rendering", async function (assert) {
         assert.expect(9);
-        patchWithCleanup(session, { uid: 1 });
+        patchWithCleanup(user, { userId: 1 });
 
         const getDataFromHTML = () => {
             assert.step("getDataFromHTML");
@@ -134,14 +135,18 @@ QUnit.module("document_backend_tests", ({ beforeEach }) => {
             if (route === "/sign/get_document/5/abc") {
                 assert.step(route);
                 return Promise.resolve({
-                    html: "<span>def<div class='o_sign_cp_pager'></div></span>",
+                    html: `
+                    <span>
+                        def
+                        <div class='o_sign_cp_pager'></div>
+                    </span>
+                    <iframe srcdoc="" class="o_iframe o_sign_pdf_iframe"/>`,
                     context: {},
                 });
             }
         };
 
         const webClient = await createDocumentWebClient(config, serverData);
-
         await doAction(webClient, actionId);
         await doAction(webClient, actionId);
 

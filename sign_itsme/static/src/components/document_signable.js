@@ -56,10 +56,11 @@ patch(SignablePDFIframe.prototype, {
 patch(Document.prototype, {
     getDataFromHTML() {
         super.getDataFromHTML();
+        const { el: parentEl } = this.props.parent;
         this.showThankYouDialog = Boolean(
-            this.props.parent.querySelector("#o_sign_show_thank_you_dialog")
+            parentEl.querySelector("#o_sign_show_thank_you_dialog")
         );
-        this.errorMessage = this.props.parent.querySelector("#o_sign_show_error_message")?.value;
+        this.errorMessage = parentEl.querySelector("#o_sign_show_error_message")?.value;
     },
 
     get iframeProps() {

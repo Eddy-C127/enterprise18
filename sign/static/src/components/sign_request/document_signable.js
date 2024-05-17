@@ -48,63 +48,46 @@ export class Document extends Component {
     }
 
     getDataFromHTML() {
-        this.attachmentLocation = this.props.parent.querySelector(
+        const { el: parentEl } = this.props.parent;
+        this.attachmentLocation = parentEl.querySelector(
             "#o_sign_input_attachment_location"
         )?.value;
-        this.templateName = this.props.parent.querySelector("#o_sign_input_template_name")?.value;
-        this.templateID = parseInt(
-            this.props.parent.querySelector("#o_sign_input_template_id")?.value
-        );
+        this.templateName = parentEl.querySelector("#o_sign_input_template_name")?.value;
+        this.templateID = parseInt(parentEl.querySelector("#o_sign_input_template_id")?.value);
         this.templateItemsInProgress = parseInt(
-            this.props.parent.querySelector("#o_sign_input_template_in_progress_count")?.value
+            parentEl.querySelector("#o_sign_input_template_in_progress_count")?.value
         );
-        this.requestID = parseInt(
-            this.props.parent.querySelector("#o_sign_input_sign_request_id")?.value
-        );
-        this.requestToken = this.props.parent.querySelector(
-            "#o_sign_input_sign_request_token"
-        )?.value;
-        this.requestState = this.props.parent.querySelector(
-            "#o_sign_input_sign_request_state"
-        )?.value;
-        this.accessToken = this.props.parent.querySelector("#o_sign_input_access_token")?.value;
-        this.templateEditable = Boolean(
-            this.props.parent.querySelector("#o_sign_input_template_editable")
-        );
-        this.authMethod = this.props.parent.querySelector("#o_sign_input_auth_method")?.value;
-        this.signerName = this.props.parent.querySelector("#o_sign_signer_name_input_info")?.value;
-        this.signerPhone = this.props.parent.querySelector(
-            "#o_sign_signer_phone_input_info"
-        )?.value;
-        this.redirectURL = this.props.parent.querySelector(
+        this.requestID = parseInt(parentEl.querySelector("#o_sign_input_sign_request_id")?.value);
+        this.requestToken = parentEl.querySelector("#o_sign_input_sign_request_token")?.value;
+        this.requestState = parentEl.querySelector("#o_sign_input_sign_request_state")?.value;
+        this.accessToken = parentEl.querySelector("#o_sign_input_access_token")?.value;
+        this.templateEditable = Boolean(parentEl.querySelector("#o_sign_input_template_editable"));
+        this.authMethod = parentEl.querySelector("#o_sign_input_auth_method")?.value;
+        this.signerName = parentEl.querySelector("#o_sign_signer_name_input_info")?.value;
+        this.signerPhone = parentEl.querySelector("#o_sign_signer_phone_input_info")?.value;
+        this.redirectURL = parentEl.querySelector("#o_sign_input_optional_redirect_url")?.value;
+        this.redirectURLText = parentEl.querySelector(
             "#o_sign_input_optional_redirect_url"
         )?.value;
-        this.redirectURLText = this.props.parent.querySelector(
+        this.redirectURLText = parentEl.querySelector(
             "#o_sign_input_optional_redirect_url_text"
         )?.value;
         this.types = datasetFromElements(
-            this.props.parent.querySelectorAll(".o_sign_field_type_input_info")
+            parentEl.querySelectorAll(".o_sign_field_type_input_info")
         );
-        this.items = datasetFromElements(
-            this.props.parent.querySelectorAll(".o_sign_item_input_info")
-        );
+        this.items = datasetFromElements(parentEl.querySelectorAll(".o_sign_item_input_info"));
         this.selectOptions = datasetFromElements(
-            this.props.parent.querySelectorAll(".o_sign_select_options_input_info")
+            parentEl.querySelectorAll(".o_sign_select_options_input_info")
         );
-        this.validateBanner = this.props.parent.querySelector(".o_sign_validate_banner");
-        this.validateButton = this.props.parent.querySelector(".o_sign_validate_banner button");
+        this.validateBanner = parentEl.querySelector(".o_sign_validate_banner");
+        this.validateButton = parentEl.querySelector(".o_sign_validate_banner button");
         this.validateButtonText = this.validateButton?.textContent;
-        this.currentRole = parseInt(
-            this.props.parent.querySelector("#o_sign_input_current_role")?.value
-        );
-        this.currentName = this.props.parent.querySelector(
-            "#o_sign_input_current_role_name"
-        )?.value;
-        this.isUnknownPublicUser = Boolean(
-            this.props.parent.querySelector("#o_sign_is_public_user")
-        );
-        this.frameHash = this.props.parent.querySelector("#o_sign_input_sign_frame_hash")?.value;
-        this.PDFIframe = this.props.parent.querySelector("iframe.o_sign_pdf_iframe");
+        this.currentRole = parseInt(parentEl.querySelector("#o_sign_input_current_role")?.value);
+        this.currentName = parentEl.querySelector("#o_sign_input_current_role_name")?.value;
+
+        this.isUnknownPublicUser = Boolean(parentEl.querySelector("#o_sign_is_public_user"));
+        this.frameHash = parentEl.querySelector("#o_sign_input_sign_frame_hash")?.value;
+        this.PDFIframe = parentEl.querySelector("iframe.o_sign_pdf_iframe");
         this.PDFIframe.setAttribute(
             "src",
             buildPDFViewerURL(this.attachmentLocation, this.env.isSmall)
@@ -113,7 +96,6 @@ export class Document extends Component {
             setTimeout(() => this.initializeIframe(), 1);
         };
     }
-
     initializeIframe() {
         this.iframe = new this.props.PDFIframeClass(
             this.PDFIframe.contentDocument,
@@ -163,7 +145,7 @@ function usePublicRefuseButton() {
         () => {
             const refuseButtons = document.querySelectorAll(".o_sign_refuse_document_button");
             if (refuseButtons) {
-                refuseButtons.forEach(button =>
+                refuseButtons.forEach((button) =>
                     button.addEventListener("click", () => {
                         component.dialog.add(SignRefusalDialog);
                     })
@@ -188,7 +170,8 @@ export class SignableDocument extends Document {
             () => {
                 if (this.requestID) {
                     // Geolocation
-                    const askLocation = this.props.parent.getElementById(
+                    const { el: parentEl } = this.props.parent;
+                    const askLocation = parentEl.getElementById(
                         "o_sign_ask_location_input"
                     );
                     if (askLocation && navigator.geolocation) {
@@ -234,7 +217,9 @@ export async function initDocumentToSign(parent) {
     const app = new App(SignableDocument, {
         name: "Signable Document",
         env,
-        props: { parent, PDFIframeClass: SignablePDFIframe },
+        props: {
+            parent: {el: parent},
+            PDFIframeClass: SignablePDFIframe },
         getTemplate,
         dev: env.debug,
         translatableAttributes: ["data-tooltip"],

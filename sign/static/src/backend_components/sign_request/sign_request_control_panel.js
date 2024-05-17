@@ -6,7 +6,6 @@ import { Component, useEffect, useComponent, markup } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { ControlPanel } from "@web/search/control_panel/control_panel";
 import multiFileUpload from "@sign/backend_components/multi_file_upload";
-import { session } from "@web/session";
 
 function useResendButtons() {
     const component = useComponent();
@@ -21,9 +20,9 @@ function useResendButtons() {
         );
         e.target.innerText = _t("Resent!");
     };
-    return useEffect(
-        () => {
-            if (!component.showResendButtons) {
+    useEffect(
+        (showResendButtons) => {
+            if (!showResendButtons) {
                 return;
             }
             const status = document.querySelector("div.signer-status");
@@ -44,7 +43,7 @@ function useResendButtons() {
                 button.addEventListener("click", onClickResend);
             });
         },
-        () => []
+        () => [component.showResendButtons]
     );
 }
 
@@ -76,7 +75,7 @@ export class SignRequestControlPanel extends Component {
 
     get showResendButtons() {
         const documentSent = this.signInfo.get("signRequestState") === "sent";
-        const isAuthor = this.signInfo.get("createUid") === session.uid;
+        const isAuthor = this.signInfo.get("createUid") === user.userId;
         return isAuthor && documentSent;
     }
 
