@@ -156,6 +156,10 @@ export default class BarcodeModel extends EventBus {
         return false;
     }
 
+    get displaySignatureButton() {
+        return false;
+    }
+
     get displayDestinationLocation() {
         return false;
     }

@@ -87,7 +87,7 @@ class StockPicking(models.Model):
         self = self.with_context(display_default_code=False)
         move_lines = self.move_line_ids
         lots = move_lines.lot_id
-        owners = move_lines.owner_id
+        partners = move_lines.owner_id | self.partner_id
         # Fetch all implied products in `self` and adds last used products to avoid additional rpc.
         products = self.move_ids.product_id | move_lines.product_id
         packagings = products.packaging_ids
@@ -120,7 +120,7 @@ class StockPicking(models.Model):
                 # `self` can be a record set (e.g.: a picking batch), set only the first partner in the context.
                 "product.product": products.with_context(partner_id=self[:1].partner_id.id).read(products._get_fields_stock_barcode(), load=False),
                 "product.packaging": packagings.read(packagings._get_fields_stock_barcode(), load=False),
-                "res.partner": owners.read(owners._get_fields_stock_barcode(), load=False),
+                "res.partner": partners.read(partners._get_fields_stock_barcode(), load=False),
                 "stock.location": locations.read(locations._get_fields_stock_barcode(), load=False),
                 "stock.package.type": package_types.read(package_types._get_fields_stock_barcode(), False),
                 "stock.quant.package": packages.read(packages._get_fields_stock_barcode(), load=False),
@@ -189,6 +189,8 @@ class StockPicking(models.Model):
             'use_existing_lots',
             'user_id',
             'return_id',
+            'signature',
+            'partner_id',
         ]
 
     @api.model

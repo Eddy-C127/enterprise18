@@ -9,6 +9,9 @@ import { escape } from '@web/core/utils/strings';
 import { user } from '@web/core/user';
 import { markup } from '@odoo/owl';
 import { formatFloat } from "@web/core/utils/numbers";
+import { SignatureDialog } from '@web/core/signature/signature_dialog';
+import { useService } from "@web/core/utils/hooks";
+
 
 export default class BarcodePickingModel extends BarcodeModel {
     constructor(resModel, resId, services) {
@@ -26,6 +29,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         this.actionName = "stock_barcode.stock_barcode_picking_client_action";
         this.backorderModel = 'stock.picking';
         this.needSourceConfirmation = {};
+        this.ui = useService('ui');
     }
 
     setData(data) {
@@ -465,6 +469,10 @@ export default class BarcodePickingModel extends BarcodeModel {
         return !['cancel', 'done'].includes(this.record.state);
     }
 
+    get displaySignatureButton() {
+        return this.record.picking_type_code === 'outgoing' && this.groups.group_stock_sign_delivery;
+    }
+
     /**
      * Depending of the config, a transfer can be fully validate even if nothing was scanned (like
      * with an immediate transfer) or if at least one product was scanned.
@@ -809,6 +817,45 @@ export default class BarcodePickingModel extends BarcodeModel {
         return this.record.use_existing_lots;
     }
 
+    async uploadSignature({ signatureImage }) {
+        const file = signatureImage.split(",")[1];
+
+        this.ui.block();
+        await this.orm.write(this.resModel, [this.resId], {
+            signature: file,
+        });
+        this.ui.unblock();
+        await this.save();
+        this.trigger('refresh');
+    }
+
+    openSignatureDialog(validateAfterSignature = false) {
+        const nameAndSignatureProps = {
+            mode: "draw",
+            displaySignatureRatio: 3,
+            signatureType: "signature",
+            noInputName: true,
+        };
+        const defaultName = this.record.partner_id?.display_name;
+
+        const dialogProps = {
+            defaultName,
+            nameAndSignatureProps,
+            uploadSignature: async (data) => {
+                await this.uploadSignature(data);
+                if (validateAfterSignature) {
+                    await super.validate();
+                }
+            },
+        };
+        this.dialogService.add(SignatureDialog, dialogProps);
+    }
+
+    get shouldOpenSignatureModal() {
+        const { picking_type_code: pickingTypeCode, signature } = this.record;
+        return pickingTypeCode === 'outgoing' && !signature && this.groups.group_stock_sign_delivery;
+    }
+
     async validate() {
         if (this.config.restrict_scan_dest_location == 'mandatory' &&
             !this.lastScanned.destLocation && this.selectedLine) {
@@ -856,6 +903,10 @@ export default class BarcodePickingModel extends BarcodeModel {
         }
         if (this.record.return_id) {
             this.validateContext = {...this.validateContext, picking_ids_not_to_backorder: this.resId};
+        }
+        if (this.shouldOpenSignatureModal) {
+            this.openSignatureDialog(true);
+            return;
         }
         return await super.validate();
     }
@@ -1139,6 +1190,9 @@ export default class BarcodePickingModel extends BarcodeModel {
         const record = this.cache.getRecord(this.resModel, this.resId);
         if (record.picking_type_id && record.state !== "cancel") {
             record.picking_type_id = this.cache.getRecord('stock.picking.type', record.picking_type_id);
+        }
+        if (record.partner_id) {
+            record.partner_id = this.cache.getRecord('res.partner', record.partner_id);
         }
         return record;
     }

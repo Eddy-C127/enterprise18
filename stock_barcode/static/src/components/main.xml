@@ -89,6 +89,9 @@
                     t-attf-class="{{button.class}}" t-esc="button.name"
                     t-on-click="button.onclick ? () => this[button.onclick]() : () => env.model.print(button.action, button.method)"/>
             </t>
+            <button t-if="env.model.displaySignatureButton"
+                class="btn-lg btn btn-light text-uppercase o_sign"
+                t-on-click="(ev) => this.env.model.openSignatureDialog()">Sign</button>
             <button t-if="env.model.displayCancelButton"
                 t-on-click="cancel" t-out="env.model.cancelLabel"
                 class="o_cancel_operation btn-lg btn btn-light text-uppercase"/>

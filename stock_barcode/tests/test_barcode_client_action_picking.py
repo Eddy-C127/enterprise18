@@ -3251,3 +3251,53 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertRecordValues(pack2.quant_ids, [
             {'product_id': self.product2.id, 'quantity': 3, 'location_id': self.shelf4.id},
         ])
+
+    def test_barcode_signature_flow(self):
+        """
+        1. Create two new delivery pickings to test two different signing flows
+        2. Assert that delivery does not have a signature assigned to it
+        3. After the tour is run, verify that the signature is set
+        4. Verify that the two delivery orders have been validated in the end
+        """
+        self.clean_access_rights()
+        group_sign_delivery = self.env.ref('stock.group_stock_sign_delivery')
+        self.env.user.write({'groups_id': [(4, group_sign_delivery.id, 0)]})
+
+        self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 5)
+
+        partner = self.env['res.partner'].create({'name': 'My partner'})
+
+        def create_delivery_picking(picking_name):
+            delivery = self.env['stock.picking'].create({
+                'name': picking_name,
+                'picking_type_id': self.picking_type_out.id,
+                'location_id': self.stock_location.id,
+                'location_dest_id': self.customer_location.id,
+                'partner_id': partner.id,
+                'user_id': False,
+                'move_ids': [(0, 0, {
+                    'name': '/',
+                    'product_id': self.product1.id,
+                    'product_uom': self.product1.uom_id.id,
+                    'product_uom_qty': 1,
+                    'procure_method': 'make_to_stock',
+                    'location_id': self.stock_location.id,
+                    'location_dest_id': self.customer_location.id,
+                })],
+            })
+            delivery.action_confirm()
+            delivery.action_assign()
+            return delivery
+
+        delivery1 = create_delivery_picking('Delivery Order 1')
+        delivery2 = create_delivery_picking('Delivery Order 2')
+
+        self.assertFalse(delivery2.signature)
+
+        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_picking_type_action_kanban")
+        url = '/web?#action=%s' % (action['id'])
+        self.start_tour(url, 'test_barcode_signature_flow', login="admin")
+
+        self.assertTrue(delivery2.signature)
+        self.assertEqual(delivery1.state, 'done')
+        self.assertEqual(delivery2.state, 'done')

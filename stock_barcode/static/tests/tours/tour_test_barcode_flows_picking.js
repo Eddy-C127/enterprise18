@@ -4980,3 +4980,66 @@ registry.category("web_tour.tours").add("test_sml_sort_order_by_product_category
         }
     },
 ]});
+
+registry.category("web_tour.tours").add('test_barcode_signature_flow', {test: true, steps: () => [
+    {
+        trigger: "div.o_kanban_record_title > span:contains(Delivery Orders)",
+        run: "click",
+    },
+    {
+        trigger: "button.o_kanban_record_title > span:contains(Delivery Order 1)",
+        run: "click",
+    },
+    // Press validate before signing the picking
+    {
+        trigger: "button.o_validate_page",
+        run: "click",
+    },
+    // Signature modal should be opened. Choose auto signature
+    {
+        trigger: "a.o_web_sign_auto_button",
+        run: "click",
+    },
+    // Sign the picking
+    {
+        trigger: ".modal-footer button.btn-primary",
+        run: "click",
+    },
+    // The picking now should be validated automatically. Wait until the picking is validated
+    {
+        trigger: "span:contains(Scan a transfer or a product to filter your records)",
+    },
+    {
+        trigger: "button.o_kanban_record_title > span:contains(Delivery Order 2)",
+        run: "click",
+    },
+    // Open picking settings menu
+    {
+        trigger: "button.o_barcode_actions",
+        run: "click",
+    },
+    // Press sign button
+    {
+        trigger: "button.o_sign",
+        run: "click",
+    },
+    // Signature modal should be opened. Choose auto signature
+    {
+        trigger: "a.o_web_sign_auto_button",
+        run: "click",
+    },
+    // Sign the picking
+    {
+        trigger: ".modal-footer button.btn-primary",
+        run: "click",
+    },
+    // Validate the picking
+    {
+        trigger: "button.o_validate_page",
+        run: "click",
+    },
+    // Wait until the picking is validated
+    {
+        trigger: "span:contains(Scan a transfer or a product to filter your records)",
+    },
+]});
