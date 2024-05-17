@@ -1524,7 +1524,7 @@ registry.category("web_tour.tours").add('test_remaining_decimal_accuracy', {test
     },
     // Adds 0.12 (entire demand, less than 1) of the second product
     {
-        trigger: '.o_barcode_line:last-child .o_add_quantity:contains("0.12")',
+        trigger: '.o_barcode_line:nth-child(2) .o_add_quantity:contains("0.12")',
         run: "click",
     },
     {
@@ -1532,6 +1532,35 @@ registry.category("web_tour.tours").add('test_remaining_decimal_accuracy', {test
         run: function() {
             helper.assertButtonShouldBeVisible(1, 'add_quantity', false);
             helper.assertLineQty(1, '0.12 / 0.12');
+        }
+    },
+
+    // test qty buttons are correct for grouped lines
+    {
+        trigger: '.o_line_button.o_toggle_sublines',
+        run: "click",
+    },
+    // Go on the form view and update the lot1 with 2.345 .
+    {
+        trigger: '.o_sublines .o_barcode_line:first-child .fa-pencil',
+        run: "click",
+    },
+    {
+        trigger: 'div[name=qty_done] input',
+        run() {
+            this.anchor.value = "2.345";
+        }
+    },
+    {
+        trigger: '.o_save',
+        run: "click",
+    },
+    // Check the lot2 qty button display "+1.65" 
+    {
+        trigger: '.o_sublines .o_barcode_line:first-child',
+        run: function() {
+            const buttonAddQty = document.querySelector(".o_sublines .o_barcode_line:first-child .o_add_quantity");
+            helper.assert(buttonAddQty.innerText, "+1.65", "Something wrong with the quantities");
         }
     },
 ]});

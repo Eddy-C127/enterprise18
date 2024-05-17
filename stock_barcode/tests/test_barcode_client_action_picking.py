@@ -1336,10 +1336,17 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
     def test_remaining_decimal_accuracy(self):
         """ Checks if the remaining value of a move is correct
         """
+        self.picking_type_out.show_reserved_sns = True
+        lot01, lot02 = self.env['stock.lot'].create([{
+            'name': lot_name,
+            'product_id': self.productlot1.id,
+        } for lot_name in ["LOT01", "LOT02"]])
+
         self.clean_access_rights()
         self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 4)
         self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 1)
-
+        self.env['stock.quant']._update_available_quantity(self.productlot1, self.shelf1, 2, lot_id=lot01)
+        self.env['stock.quant']._update_available_quantity(self.productlot1, self.shelf1, 2, lot_id=lot02)
         # Create the delivery transfer.
         delivery_form = Form(self.env['stock.picking'])
         delivery_form.picking_type_id = self.picking_type_out
@@ -1350,6 +1357,10 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         with delivery_form.move_ids_without_package.new() as move:
             move.product_id = self.product2
             move.product_uom_qty = 0.12
+
+        with delivery_form.move_ids_without_package.new() as move:
+            move.product_id = self.productlot1
+            move.product_uom_qty = 4
 
         delivery_picking = delivery_form.save()
         delivery_picking.action_confirm()
