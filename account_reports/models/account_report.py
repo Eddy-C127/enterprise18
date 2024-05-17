@@ -2233,6 +2233,14 @@ class AccountReport(models.Model):
         if options.get('available_tax_units') and options['tax_unit'] == 'company_only':
             warnings['account_reports.common_warning_tax_unit'] = {}
 
+        report_company_ids = self.get_report_company_ids(options)
+        # The _accessible_branches function will return the accessible branches from the ones that are already selected,
+        # and the report_company_ids function will return the current company and its branches (that are selected) with the same VAT
+        # or tax unit. Therefore, we will display the warning only when the selected companies do not have the same VAT
+        # and in the context of branches.
+        if self.filter_multi_company == 'tax_units' and any(accessible_branch.id not in report_company_ids for accessible_branch in self.env.company._accessible_branches()):
+            warnings['account_reports.tax_report_warning_tax_id_selected_companies'] = {'alert_type': 'warning'}
+
         # Check whether there are unposted entries for the selected period or not (if the report allows it)
         if options.get('date') and options.get('all_entries') is not None:
             if self.env['account.move'].search_count(
