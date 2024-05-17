@@ -85,6 +85,7 @@ Prerequisites:
         'views/281_45_xml_export_template.xml',
         'views/withholding_tax_xml_export_template.xml',
         'views/hr_job_views.xml',
+        'views/hr_leave_views.xml',
         'data/res_partner_data.xml',
         'data/contract_type_data.xml',
         'data/ir_default_data.xml',

@@ -580,87 +580,94 @@ class HrContract(models.Model):
         # day of sick leave)
         # LEAVE110 = classic sick leave
         if result.code == "LEAVE110":
-            sick_work_entry_type = self.env.ref('hr_work_entry_contract.work_entry_type_sick_leave')
-            partial_sick_work_entry_type = self.env.ref('l10n_be_hr_payroll.work_entry_type_part_sick')
-            long_sick_work_entry_type = self.env.ref('l10n_be_hr_payroll.work_entry_type_long_sick')
-            sick_work_entry_types = sick_work_entry_type + partial_sick_work_entry_type + long_sick_work_entry_type
-            sick_less_than_30days_before = self.env['hr.leave'].search([
-                ('employee_id', '=', self.employee_id.id),
-                ('date_to', '>=', leave.date_from + relativedelta(days=-30)),
-                ('date_from', '<=', leave.holiday_id.date_from),
-                ('holiday_status_id.work_entry_type_id', 'in', sick_work_entry_types.ids),
-                ('state', '=', 'validate'),
-                ('id', '!=', leave.holiday_id.id),
-            ], order="date_from asc")
             if not leave.holiday_id:
                 return result
-            # The current time off is longer than 30 days -> Partial Time Off
-            if (date_from - leave.holiday_id.date_from).days + 1 > 30:
+
+            sick_work_entry_type = self.env.ref("hr_work_entry_contract.work_entry_type_sick_leave")
+            partial_sick_work_entry_type = self.env.ref("l10n_be_hr_payroll.work_entry_type_part_sick")
+            long_sick_work_entry_type = self.env.ref("l10n_be_hr_payroll.work_entry_type_long_sick")
+            sick_work_entry_types = sick_work_entry_type + partial_sick_work_entry_type + long_sick_work_entry_type
+
+            # In the following code, we will determine if the current day of the leave has
+            # a guaranteed salary or not. Days beyond the 30th calendar day of a sick leave
+            # do not have a guaranteed salary. A sickness can also span multiple sick leaves
+            # if the gap between the leaves is less than or equal to 14 days. To know if
+            # a sickness spans multiple leaves, it fetches all sick leaves prior to the current day.
+            # The code then loops through all the leaves, starting at the most recent one.
+            # The duration of the leaves is accumulated with the current leave until it either
+            # finds a gap bigger than 14 days, the sum exceeeds 30 days, or it finds a leave
+            # that is not a relapse.
+
+            # Example (all dates are inclusive):
+            # | Name | Date from   | Date to     | Relapse | Calendar Days | Work Days  |
+            # | ---- | ----------- | ----------- | ------- | ------------- | ---------- |
+            # | 1st  | 10/Jun/2024 | 12/Jun/2024 | False   | 03 (c)days    | 03 (w)days |
+            # | 2nd  | 01/Jul/2024 | 08/Jul/2024 | False   | 08 (c)days    | 06 (w)days |
+            # | 3rd  | 15/Jul/2024 | 30/Jul/2024 | True    | 16 (c)days    | 12 (w)days |
+            # | 4th  | 05/Aug/2024 | 15/Aug/2024 | True    | 11 (c)days    | 09 (w)days |
+
+            # Note: 1st and 2nd leave will have a relapse value of True in practice because
+            # that is the default value for the field. In this example, the value is set to
+            # False to hopefully make the example clearer.
+
+            # The first leave is shorter than 30 (calendar) days.
+            # All (work) days within this leave have a guaranteed salary.
+
+            # The second leave is shorter than 30 (c) days.
+            # The gap between it and the first leave is greater than 14 days.
+            # All (w) days within this leave have a guaranteed salary.
+
+            # The third leave is shorter than 30 (c) days.
+            # The gap between it and the second leave is less than 14 days.
+            # It is a relapse, sum the duration of this and previous related leaves.
+            # The sum is 8 + 16 = 24 (c) days, which is less than 30 days.
+            # All (w) days within this leave have a guaranteed salary.
+
+            # The fourth leave is shorter than 30 (c) days.
+            # The gap between it and the third leave is less than 14 days.
+            # It is a relapse, sum the duration of this and previous related leaves.
+            # That sum is 8 + 16 + 11 = 35 (c) days, which is greater than 30 days.
+            # The first 6 (c) days have a guaranteed salary.
+            # (w) days 12/08 - 15/08 do not have a guaranteed salary.
+
+            # If the fourth leave was not a relapse, every day of that leave would have a
+            # guaranteed salary as the leave is shorter than 30 (c) days.
+
+            # Also note that public holidays do not impact this calculation.
+            # If 07/08 was a public holiday, 12/08-15/08 would still not be covered.
+
+            current_leave_duration = (date_from - leave.holiday_id.date_from).days + 1
+            if current_leave_duration > 30:
                 return partial_sick_work_entry_type
-            # No previous sick time off -> Sick Time Off
-            if not sick_less_than_30days_before:
+
+            if not leave.holiday_id.l10n_be_sickness_relapse:
                 return result
-            # If there a gap of more than 15 days between 2 sick time offs,
-            # the salary is guaranteed -> Sick Time Off
-            all_leaves = sick_less_than_30days_before | leave.holiday_id
-            for i in range(len(all_leaves) - 1):
-                if (all_leaves[i+1].date_from - all_leaves[i].date_to).days > 15:
+
+            all_sick_leaves = self.env["hr.leave"].search(
+                [
+                    ("employee_id", "=", self.employee_id.id),
+                    ("date_from", "<", leave.date_from),
+                    ("holiday_status_id.work_entry_type_id", "in", sick_work_entry_types.ids),
+                    ("state", "=", "validate"),
+                ],
+                order="date_from desc",
+            )
+
+            prev_leaves_sum = current_leave_duration
+            prev_leave_start = leave.holiday_id.date_from
+
+            for leave in all_sick_leaves:
+                if (prev_leave_start - leave.date_to).days > 14:
                     return result
-            # No gap and more than 30 calendar days -> Partial Time Off
-            # only the first 30 calendar days of sickness are covered by guaranteed wages, which
-            # does not mean 30 days of sickness.
-            # Example :
-            # - Sick from September 1 to 7 included
-            # - Rework from 8 to 14
-            # - Re-ill from September 15 to October 13
-            # Here, are therefore covered by guaranteed wages:
-            # from 01 to 07/09 (i.e. 7 days)
-            # from 15/09 to 07/10 (i.e. the balance of 23 days).
-            # In fact, we and public holidays which fall within a period covered by a medical
-            # certificate are taken into account in the period of 30 calendar days of guaranteed
-            # salary.
-            # Sick days from 08/10 are therefore not covered by the employer (mutual from 08/10
-            # to 13/10).
-            total_sick_days = sum([(l.date_to - l.date_from).days + 1 for l in sick_less_than_30days_before])
-            this_leave_current_duration = (date_from - leave.holiday_id.date_from).days + 1
-            # Include off days (eg: weekends) that are not convered by time off
-            # in case the sick time off is split and not covering the whole
-            # interval
-            min_date_from = min(sick_less_than_30days_before.mapped('date_from'))
-            max_date_to = leave.holiday_id.date_to
-            employee_contracts = employee._get_contracts(min_date_from, max_date_to, states=['open', 'close'])
-            work_hours_data_by_calendar = {
-                c.resource_calendar_id: [work_day for work_day, work_hours in employee.with_context(
-                    compute_leaves=False)._list_work_time_per_day(min_date_from, max_date_to, c.resource_calendar_id)[employee.id]]
-                for c in employee_contracts}
-            effective_worked_days = {
-                calendar: [
-                    work_day for work_day in work_days \
-                    if all(work_day < l.date_from.date() or work_day > l.date_to.date() for l in sick_less_than_30days_before + leave.holiday_id)
-                ] for calendar, work_days in work_hours_data_by_calendar.items()
-            }
-            uncovered_off_days = 0
-            last_seen_work_day = (min_date_from + relativedelta(days=-1)).date()
-            last_seen_off_day = min_date_from.date()
-            for day in rrule(DAILY, min_date_from, until=max_date_to):
-                day = day.date()
-                if day >= date_from.date():
-                    continue
-                day_contract = employee_contracts.filtered(lambda c: c.date_start <= day and (not c.date_end or c.date_end >= day))
-                if day in effective_worked_days[day_contract.resource_calendar_id]:
-                    last_seen_work_day = day
-                    continue
-                if all(day < l.date_from.date() or day > l.date_to.date() for l in sick_less_than_30days_before + leave.holiday_id):
-                    if day not in work_hours_data_by_calendar[day_contract.resource_calendar_id]:
-                        # Backward check, only count the day if only time off before
-                        # (eg: Avoid counting Sat/Sun if worked the days before)
-                        if last_seen_work_day > last_seen_off_day:
-                            continue
-                        uncovered_off_days += 1
-                else:
-                    last_seen_off_day = day
-            if total_sick_days + this_leave_current_duration + uncovered_off_days > 30:
-                return partial_sick_work_entry_type
+                prev_leaves_sum += (leave.date_to - leave.date_from).days + 1
+                if prev_leaves_sum > 30:
+                    return partial_sick_work_entry_type
+                if leave.l10n_be_sickness_relapse is False:
+                    return result
+                prev_leave_start = leave.date_from
+
+            return result
+
         return result
 
     def _get_bypassing_work_entry_type_codes(self):
