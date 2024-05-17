@@ -78,23 +78,20 @@
             'knowledge/static/src/js/knowledge_utils.js',
         ],
         'web.assets_unit_tests': [
-            'knowledge/static/tests/knowledge_hierarchy.test.js',
+            'knowledge/static/tests/**/*',
+            ('remove', 'knowledge/static/tests/legacy/**/*'),
+            ('remove', 'knowledge/static/tests/tours/**/*'),
         ],
         'web.assets_tests': [
             'knowledge/static/tests/tours/**/*',
         ],
         'web.qunit_suite_tests': [
-            'knowledge/static/tests/knowledge_form_view_tests.js',
-            'knowledge/static/tests/form_controller_patch_tests.js',
-            'knowledge/static/tests/knowledge_external_embeds_tests.js',
-            'knowledge/static/tests/knowledge_form_view_tests.js',
-            'knowledge/static/tests/knowledge_behaviors_upgrade_tests.js',
-            'knowledge/static/tests/knowledge_thread_tests.js',
-            'knowledge/static/tests/knowledge_wysiwyg_collaboration_tests.js',
+            'knowledge/static/tests/legacy/**/*',
+            ('remove', 'knowledge/static/tests/legacy/mock_services.js'),
             ('include', 'knowledge.assets_wysiwyg'),
         ],
         'web.tests_assets': [
-            'knowledge/static/tests/mock_services.js',
+            'knowledge/static/tests/legacy/mock_services.js',
         ],
         'web_editor.backend_assets_wysiwyg': [
             'knowledge/static/src/xml/knowledge_wysiwyg.xml',
