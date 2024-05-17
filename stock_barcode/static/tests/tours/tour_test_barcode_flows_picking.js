@@ -1237,6 +1237,23 @@ registry.category("web_tour.tours").add('test_remaining_decimal_accuracy', {test
             helper.assert(buttonAddQty.innerText, "+1.8", "Something wrong with the quantities");
         }
     },
+
+    // check button is correctly set for digits < 1
+    { trigger: '.o_barcode_line:first-child .o_edit' },
+    {
+        trigger: 'input.o_input[id=qty_done_1]',
+        run: 'text 3.5',
+    },
+    { trigger: '.o_save' },
+    {
+        trigger: '.o_barcode_lines',
+        run: function() {
+            helper.assertButtonShouldBeVisible(0, "add_quantity");
+            helper.assertLineQty(0, '3.5 / 4');
+            const buttonAddQty = document.querySelector(".o_add_quantity");
+            helper.assert(buttonAddQty.innerText, "+0.5", "Something wrong with the quantities");
+        }
+    },
 ]});
 
 registry.category("web_tour.tours").add('test_receipt_from_scratch_with_lots_1', {test: true, steps: () => [

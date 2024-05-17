@@ -95,7 +95,14 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     getIncrementQuantity(line) {
-        const quantityToFormat = Math.max(this.getQtyDemand(line) - this.getQtyDone(line), 1);
+        let remainingQty = this.getQtyDemand(line) - this.getQtyDone(line);
+        const groupLines = this.groupedLines.filter(gl => gl.lines);
+        const parentLine = groupLines.find(gl => gl.virtual_ids.indexOf(line.virtual_id) !== -1);
+        if (parentLine) {
+            const parentRemainingQty = this.getQtyDemand(parentLine) - this.getQtyDone(parentLine);
+            remainingQty = Math.min(remainingQty, parentRemainingQty);
+        }
+        const quantityToFormat = remainingQty <= 0 ? 1 : remainingQty;
         return parseFloat(formatFloat(quantityToFormat, { digits: [false, this.precision], thousandsSep: "", decimalPoint: "." }));
     }
 
