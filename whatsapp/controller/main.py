@@ -58,7 +58,9 @@ class Webhook(http.Controller):
                                 template.message_post(body=body)
                             continue
                         if changes['field'] == 'message_template_quality_update':
-                            template.write({'quality': value['new_quality_score'].lower()})
+                            new_quality_score = value['new_quality_score'].lower()
+                            new_quality_score = {'unknown': 'none'}.get(new_quality_score, new_quality_score)
+                            template.write({'quality': new_quality_score})
                             continue
                         if changes['field'] == 'template_category_update':
                             template.write({'template_type': value['new_category'].lower()})
