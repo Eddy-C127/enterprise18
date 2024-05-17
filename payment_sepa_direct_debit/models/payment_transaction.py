@@ -159,8 +159,8 @@ class PaymentTransaction(models.Model):
         else:
             mandate = self.mandate_id
 
-        payment_method_line = mandate.payment_journal_id.inbound_payment_method_line_ids.filtered(
-            lambda l: l.code == 'sepa_direct_debit'
+        payment_method_line = self.provider_id.journal_id.inbound_payment_method_line_ids.filtered(
+            lambda l: l.payment_provider_id == self.provider_id
         )
         return super()._create_payment(
             payment_method_line_id=payment_method_line.id, sdd_mandate_id=mandate.id
