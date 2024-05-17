@@ -677,8 +677,8 @@ class MrpProductionSchedule(models.Model):
         but a replenish modification require a new procurement.
         - to_correct: The actual replenishment is greater than planned, the MPS
         should be updated in order to match reality.
-        - launched: Nothing todo. Either the cell is in the lead time range but
-        the forecast match the actual replenishment. Or a foreced replenishment
+        - launched: Nothing to do. Either the cell is in the lead time range but
+        the forecast match the actual replenishment. Or a forced replenishment
         happens but the forecast and the actual demand still the same.
         - to_launch: The actual replenishment is lower than forecasted.
 
