@@ -46,6 +46,7 @@
     'license': 'OEEL-1',
     'pre_init_hook': 'pre_init_knowledge',
     'post_init_hook': '_init_private_article_per_user',
+    'uninstall_hook': '_uninstall_knowledge',
     'assets': {
         'web.assets_backend': [
             'knowledge/static/src/scss/knowledge_common.scss',

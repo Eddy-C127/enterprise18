@@ -662,9 +662,8 @@ class TestKnowledgeArticleSearch(KnowledgeArticlePermissionsCase):
 
     @users('admin')
     def test_article_business_flow_search_admin(self):
-        """ For business flows (move_to, command palette search, ...), we want
-        to limit the articles based on what the user has a real access to (as
-        opposed to ACL access).
+        """ For business flows, we want to limit the articles based on what the
+        user has a real access to (as opposed to ACL access).
 
         This is especially true for the admin that has access to everything in
         terms of ACLs, but should not see other users' private articles when
@@ -692,13 +691,6 @@ class TestKnowledgeArticleSearch(KnowledgeArticlePermissionsCase):
         self.assertTrue(article_header in accessible_articles)
         self.assertTrue(private_employee_root in accessible_articles)
         self.assertTrue(explicit_no_access in accessible_articles)
-
-        # Articles found via command palette should not include those articles
-        command_palette_articles = Article.get_user_sorted_articles('', limit=30)
-        command_palette_article_ids = [article['id'] for article in command_palette_articles]
-        self.assertTrue(article_header.id in command_palette_article_ids)
-        self.assertFalse(private_employee_root.id in command_palette_article_ids)
-        self.assertFalse(explicit_no_access.id in command_palette_article_ids)
 
         # Potential parents for move To should not include those articles (nor the child of the article to move)
         move_to_candidates = self.article_write_contents_children[1].with_env(self.env).get_valid_parent_options()

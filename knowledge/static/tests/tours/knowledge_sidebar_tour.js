@@ -181,6 +181,9 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Open the CP
     trigger: '#knowledge_search_bar',
 }, {
+    trigger: '.o_command_palette_search input',
+    run: 'edit Private Article',
+}, {
     // Click on an article
     trigger: '.o_command_name:not(.small):contains("Private Article")',
 }, {

@@ -4,7 +4,8 @@
 import base64
 from markupsafe import Markup
 
-from odoo.tests.common import tagged, HttpCase
+from odoo.tests.common import HttpCase, tagged
+from odoo.tools import mute_logger
 
 
 @tagged('post_install', '-at_install', 'knowledge', 'knowledge_tour')
@@ -15,7 +16,11 @@ class TestHelpdeskKnowledgeCrossModuleFeatures(HttpCase):
     @classmethod
     def setUpClass(cls):
         super(TestHelpdeskKnowledgeCrossModuleFeatures, cls).setUpClass()
-        cls.env['knowledge.article'].search([]).unlink()
+        cls.admin = cls.env.ref('base.user_admin')
+
+        with mute_logger('odoo.models.unlink'):
+            cls.env['knowledge.article'].search([]).unlink()
+
         article = cls.env['knowledge.article'].create({
             'name': 'EditorCommandsArticle',
             'body': Markup("""
@@ -31,6 +36,9 @@ class TestHelpdeskKnowledgeCrossModuleFeatures(HttpCase):
                 <p><br></p>
             """),
             'is_article_visible_by_everyone': True,
+            'favorite_ids': [(0, 0, {
+                'user_id': cls.admin.id
+            })],
         })
         cls.env['ir.attachment'].create({
             'datas': base64.b64encode(b'Content'),
