@@ -4,7 +4,7 @@
     <template id="sign_request_logs_user">
         <t t-call="web.html_container">
             <div class="oe_structure"></div>
-            <t t-set="print_date" t-value="datetime.datetime.utcnow().strftime('%Y-%m-%d - %H:%M:%S')"/>
+            <t t-set="print_date" t-value="datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d - %H:%M:%S')"/>
             <t t-foreach="docs" t-as="o">
                 <div class="oe_structure"></div>
                 <!-- we want UTC for the reports-->
