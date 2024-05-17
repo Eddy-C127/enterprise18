@@ -566,9 +566,12 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         }
 
         if (!this.record.company_id) {
-            res['company_id'] = this._getCompanyId();
+            res.company_id = this._getCompanyId();
         }
-        return res
+        if (!this.record.picking_type_id) {
+            res.picking_type_id = this.picking_type_id;
+        }
+        return res;
     }
 
     _createCommandVals(line) {
