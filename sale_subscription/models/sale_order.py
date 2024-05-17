@@ -1144,7 +1144,7 @@ class SaleOrder(models.Model):
     @api.model
     def _cron_recurring_create_invoice(self):
         deferred_account = self.env.company.deferred_revenue_account_id
-        deferred_journal = self.env.company.deferred_journal_id
+        deferred_journal = self.env.company.deferred_revenue_journal_id
         if not deferred_account or not deferred_journal:
             raise ValidationError(_("The deferred settings are not properly set. Please complete them to generate subscription deferred revenues"))
         return self._create_recurring_invoice()

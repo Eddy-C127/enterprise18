@@ -340,7 +340,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             )
             for column in options['columns']
         ]
-        deferred_amounts_by_line = self.env['account.move']._get_deferred_amounts_by_line(lines, periods)
+        deferred_amounts_by_line = self.env['account.move']._get_deferred_amounts_by_line(lines, periods, self._get_deferred_report_type())
         totals_per_account, totals_all_accounts = self._group_deferred_amounts_by_account(deferred_amounts_by_line, periods, self._get_deferred_report_type() == 'expense')
 
         report_lines = []
@@ -384,7 +384,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         }
 
     def _generate_deferral_entry(self, options):
-        journal = self.env.company.deferred_journal_id
+        journal = self.env.company.deferred_expense_journal_id if self._get_deferred_report_type() == "expense" else self.env.company.deferred_revenue_journal_id
         if not journal:
             raise UserError(_("Please set the deferred journal in the accounting settings."))
         date_from = fields.Date.to_date(DEFERRED_DATE_MIN)
@@ -455,7 +455,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         """
         if not deferred_account:
             raise UserError(_("Please set the deferred accounts in the accounting settings."))
-        deferred_amounts_by_line = self.env['account.move']._get_deferred_amounts_by_line(lines, [period])
+        deferred_amounts_by_line = self.env['account.move']._get_deferred_amounts_by_line(lines, [period], is_reverse)
         deferred_amounts_by_key, deferred_amounts_totals = self._group_deferred_amounts_by_account(deferred_amounts_by_line, [period], is_reverse, filter_already_generated=True)
         if deferred_amounts_totals['totals_aggregated'] == deferred_amounts_totals[period]:
             return [], set()

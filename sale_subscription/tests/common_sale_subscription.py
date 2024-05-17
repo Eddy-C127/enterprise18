@@ -40,7 +40,8 @@ class TestSubscriptionCommon(TestSaleCommon):
         cls.account_payable = cls.company_data['default_account_payable']
         cls.account_receivable = cls.company_data['default_account_receivable']
         cls.account_income = cls.company_data['default_account_revenue']
-        cls.company_data['company'].deferred_journal_id = cls.company_data['default_journal_misc'].id
+        cls.company_data['company'].deferred_expense_journal_id = cls.company_data['default_journal_misc'].id
+        cls.company_data['company'].deferred_revenue_journal_id = cls.company_data['default_journal_misc'].id
         cls.company_data['company'].deferred_expense_account_id = cls.company_data['default_account_deferred_expense'].id
         cls.company_data['company'].deferred_revenue_account_id = cls.company_data['default_account_deferred_revenue'].id
 

@@ -48,32 +48,44 @@
                 </setting>
             </xpath>
 
-            <setting id="post_bank_transactions_and_payments_setting" position="after">
-                <setting string="Post Deferred entries in:" company_dependent="1">
+            <setting id="post_bank_transactions_and_payments_setting" position="before">
+                <setting string="Post Deferred Expense Entries in:" company_dependent="1">
                     <div class="content-group">
                         <div class="row mt8">
-                            <label for="deferred_journal_id" class="col-lg-5 o_light_label" string="Journal"/>
-                            <field name="deferred_journal_id" domain="[('type', '=', 'general'), ('active', '=', True)]"/>
+                            <label for="deferred_expense_journal_id" class="col-lg-5 o_light_label" string="Journal"/>
+                            <field name="deferred_expense_journal_id" domain="[('type', '=', 'general'), ('active', '=', True)]"/>
                         </div>
                         <div class="row mt8">
-                            <label for="deferred_expense_account_id" class="col-lg-5 o_light_label"/>
+                            <label for="deferred_expense_account_id" class="col-lg-5 o_light_label" string="Deferred Account"/>
                             <field name="deferred_expense_account_id" domain="[('account_type', '=', 'asset_current'), ('deprecated', '=', False)]"/>
                         </div>
                         <div class="row mt8">
-                            <label for="deferred_revenue_account_id" class="col-lg-5 o_light_label"/>
-                            <field name="deferred_revenue_account_id" domain="[('account_type', '=', 'liability_current'), ('deprecated', '=', False)]"/>
-                        </div>
-                        <div class="row mt8">
-                            <label for="generate_deferred_expense_entries_method" class="col-lg-5 o_light_label" string="Generate Expense Entries" />
+                            <label for="generate_deferred_expense_entries_method" class="col-lg-5 o_light_label" string="Generate Entries"/>
                             <field name="generate_deferred_expense_entries_method"/>
                         </div>
                         <div class="row mt8">
-                            <label for="generate_deferred_revenue_entries_method" class="col-lg-5 o_light_label" string="Generate Revenue Entries"/>
+                            <label for="deferred_expense_amount_computation_method" class="col-lg-5 o_light_label" string="Based on"/>
+                            <field name="deferred_expense_amount_computation_method"/>
+                        </div>
+                    </div>
+                </setting>
+                <setting string="Post Deferred Revenue Entries in:" company_dependent="1">
+                    <div class="content-group">
+                        <div class="row mt8">
+                            <label for="deferred_revenue_journal_id" class="col-lg-5 o_light_label" string="Journal"/>
+                            <field name="deferred_revenue_journal_id" domain="[('type', '=', 'general'), ('active', '=', True)]"/>
+                        </div>
+                        <div class="row mt8">
+                            <label for="deferred_revenue_account_id" class="col-lg-5 o_light_label" string="Deferred Account"/>
+                            <field name="deferred_revenue_account_id" domain="[('account_type', '=', 'liability_current'), ('deprecated', '=', False)]"/>
+                        </div>
+                        <div class="row mt8">
+                            <label for="generate_deferred_revenue_entries_method" class="col-lg-5 o_light_label" string="Generate Entries"/>
                             <field name="generate_deferred_revenue_entries_method"/>
                         </div>
                         <div class="row mt8">
-                            <label for="deferred_amount_computation_method" class="col-lg-5 o_light_label" string="Amount Computation" />
-                            <field name="deferred_amount_computation_method"/>
+                            <label for="deferred_revenue_amount_computation_method" class="col-lg-5 o_light_label" string="Based on"/>
+                            <field name="deferred_revenue_amount_computation_method"/>
                         </div>
                     </div>
                 </setting>

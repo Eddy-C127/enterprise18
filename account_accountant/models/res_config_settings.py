@@ -22,40 +22,50 @@ class ResConfigSettings(models.TransientModel):
     group_fiscal_year = fields.Boolean(string='Fiscal Years', implied_group='account_accountant.group_fiscal_year')
     predict_bill_product = fields.Boolean(string="Predict Bill Product", related='company_id.predict_bill_product', readonly=False)
 
-    # Deferred management
-    deferred_journal_id = fields.Many2one(
+    # Deferred expense management
+    deferred_expense_journal_id = fields.Many2one(
         comodel_name='account.journal',
-        string='Deferred Entries Journal',
         help='Journal used for deferred entries',
         readonly=False,
-        related='company_id.deferred_journal_id',
+        related='company_id.deferred_expense_journal_id',
     )
     deferred_expense_account_id = fields.Many2one(
         comodel_name='account.account',
-        string='Deferred Expense',
         help='Account used for deferred expenses',
         readonly=False,
         related='company_id.deferred_expense_account_id',
     )
+    generate_deferred_expense_entries_method = fields.Selection(
+        related='company_id.generate_deferred_expense_entries_method',
+        readonly=False, required=True,
+        help='Method used to generate deferred entries',
+    )
+    deferred_expense_amount_computation_method = fields.Selection(
+        related='company_id.deferred_expense_amount_computation_method',
+        readonly=False, required=True,
+        help='Method used to compute the amount of deferred entries',
+    )
+
+    # Deferred revenue management
+    deferred_revenue_journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        help='Journal used for deferred entries',
+        readonly=False,
+        related='company_id.deferred_revenue_journal_id',
+    )
     deferred_revenue_account_id = fields.Many2one(
         comodel_name='account.account',
-        string='Deferred Revenue',
         help='Account used for deferred revenues',
         readonly=False,
         related='company_id.deferred_revenue_account_id',
     )
-    generate_deferred_expense_entries_method = fields.Selection(
-        related='company_id.generate_deferred_expense_entries_method',
-        readonly=False, required=True,
-        help='Method used to generate deferred expense entries',
-    )
     generate_deferred_revenue_entries_method = fields.Selection(
         related='company_id.generate_deferred_revenue_entries_method',
         readonly=False, required=True,
-        help='Method used to generate deferred revenue entries',
+        help='Method used to generate deferred entries',
     )
-    deferred_amount_computation_method = fields.Selection(
-        related='company_id.deferred_amount_computation_method',
+    deferred_revenue_amount_computation_method = fields.Selection(
+        related='company_id.deferred_revenue_amount_computation_method',
         readonly=False, required=True,
         help='Method used to compute the amount of deferred entries',
     )

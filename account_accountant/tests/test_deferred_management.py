@@ -24,7 +24,8 @@ class TestDeferredManagement(AccountTestInvoicingCommon):
             'account_type': 'income',
         }) for i in range(3)]
 
-        cls.company.deferred_journal_id = cls.company_data['default_journal_misc'].id
+        cls.company.deferred_expense_journal_id = cls.company_data['default_journal_misc'].id
+        cls.company.deferred_revenue_journal_id = cls.company_data['default_journal_misc'].id
         cls.company.deferred_expense_account_id = cls.company_data['default_account_deferred_expense'].id
         cls.company.deferred_revenue_account_id = cls.company_data['default_account_deferred_revenue'].id
 
@@ -292,7 +293,7 @@ class TestDeferredManagement(AccountTestInvoicingCommon):
         If we have an invoice covering only one period, we should only avoid creating deferral entries when the
         accounting date is the same as the period for the deferral. Otherwise we should still generate a deferral entry.
         """
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         move = self.create_invoice('in_invoice', self.company_data['default_journal_purchase'], self.partner_a, [(self.expense_accounts[0], 1680, '2023-02-01', '2023-02-28')])
         self.assertRecordValues(move.deferred_move_ids, [
             {'date': fields.Date.to_date('2023-01-01')},

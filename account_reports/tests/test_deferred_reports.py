@@ -28,7 +28,8 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
 
         cls.company = cls.company_data['company']
         cls.deferral_account = cls.company_data['default_account_deferred_expense']
-        cls.company.deferred_journal_id = cls.company_data['default_journal_misc'].id
+        cls.company.deferred_expense_journal_id = cls.company_data['default_journal_misc'].id
+        cls.company.deferred_revenue_journal_id = cls.company_data['default_journal_misc'].id
         cls.company.deferred_expense_account_id = cls.company_data['default_account_deferred_expense'].id
         cls.company.deferred_revenue_account_id = cls.company_data['default_account_deferred_revenue'].id
 
@@ -81,7 +82,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         Test the deferred expense report with the 'month' method.
         We use multiple report months/quarters/years to check that the computation is correct.
         """
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         self.create_invoice(self.expense_lines)
 
         # December 2022
@@ -213,7 +214,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         Test the deferred revenue report with the 'month' method.
         We use multiple report months/quarters/years to check that the computation is correct.
         """
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_revenue_amount_computation_method = 'month'
         self.create_invoice(self.revenue_lines, 'out_invoice')
 
         # December 2022
@@ -345,7 +346,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         Test the deferred expense report with the 'day' method.
         We use multiple report months/quarters/years to check that the computation is correct.
         """
-        self.company.deferred_amount_computation_method = 'day'
+        self.company.deferred_expense_amount_computation_method = 'day'
         self.create_invoice(self.expense_lines)
 
         # December 2022
@@ -411,7 +412,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         """
         Test the 'All entries' option on the deferred expense report.
         """
-        self.company.deferred_amount_computation_method = 'day'
+        self.company.deferred_expense_amount_computation_method = 'day'
         self.create_invoice(self.expense_lines, post=True)
         self.create_invoice(self.expense_lines, post=False)
 
@@ -560,7 +561,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         """
         Test the credit notes on the deferred expense report.
         """
-        self.company.deferred_amount_computation_method = 'day'
+        self.company.deferred_expense_amount_computation_method = 'day'
         self.create_invoice(self.expense_lines, move_type='in_refund')
 
         options = self.get_options('2023-02-01', '2023-02-28')
@@ -724,7 +725,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         """
         Test the Generate entries button when we have a deferral starting after the invoice period.
         """
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         self.company.generate_deferred_expense_entries_method = 'manual'
         self.create_invoice([[self.expense_accounts[0], 750, '2023-03-01', '2023-04-15']])
 
@@ -868,7 +869,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         is done correctly.
         """
         self.company.generate_deferred_expense_entries_method = 'manual'
-        self.company.deferred_amount_computation_method = 'day'
+        self.company.deferred_expense_amount_computation_method = 'day'
         self.create_invoice([[self.expense_accounts[0], 600, '2023-04-04', '2023-05-25']])
         self.create_invoice([[self.expense_accounts[1], 600, '2023-04-05', '2023-05-16']])
         self.create_invoice([[self.expense_accounts[0], 600, '2023-04-04', '2023-05-08']])
@@ -883,7 +884,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         automatically for the difference.
         """
         self.company.generate_deferred_expense_entries_method = 'manual'
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         self.create_invoice([[self.expense_accounts[0], 4.95, '2023-01-01', '2023-10-31']])
 
         # This shouldn't raise an error like this 'The total of debits equals $4.96 and the total of credits equals $4.95.'
@@ -905,7 +906,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         If the invoice is fully inside the report period, nothing should be generated.
         """
         self.company.generate_deferred_expense_entries_method = 'manual'
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
 
         # The report should be empty because the invoice date, and the deferred dates are all in inside the report period
         # Nothing should be reversed, displayed or generated because the invoice is already in the correct period
@@ -979,7 +980,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         Here, the deferred dates are not inside the report period.
         """
         self.company.generate_deferred_expense_entries_method = 'manual'
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         self.create_invoice([[self.expense_accounts[0], 1000, '2023-10-30', '2023-10-30']])
 
         options_sept = self.get_options('2023-09-01', '2023-09-30')
@@ -1101,7 +1102,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
     def test_deferred_expense_manual_generation_old_moves(self):
         """Test that old moves are not taken into account when generating deferred entries."""
         self.company.generate_deferred_expense_entries_method = 'manual'
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
 
         self.create_invoice([(self.expense_accounts[0], 1200, '2022-01-01', '2022-12-31')])
         self.create_invoice([(self.expense_accounts[0], 1200, '2023-01-01', '2023-12-31')])
@@ -1131,7 +1132,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
     def test_deferred_expense_manual_generation_deprecated_account(self):
         """Test that deferred on deprecated accounts are still visible in the report, but cannot be generated."""
         self.company.generate_deferred_expense_entries_method = 'manual'
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
 
         self.create_invoice([self.expense_lines[0]])
         self.expense_accounts[0].deprecated = True
@@ -1167,7 +1168,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         a given month, we should still be able to generate the entries for
         the months prior to this one.
         """
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         self.company.generate_deferred_expense_entries_method = 'manual'
 
         # No entries yet for August
@@ -1232,7 +1233,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         If we have an invoice covering only one period, we should only avoid creating deferral entries when the invoice
         date is the same as the period for the deferral. Otherwise we should still generate a deferral entry.
         """
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         self.company.generate_deferred_expense_entries_method = 'manual'
 
         self.create_invoice([[self.expense_accounts[0], 1000, '2023-02-01', '2023-02-28']])
@@ -1244,7 +1245,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         """
         Test that we cannot generate entries for a period that is locked.
         """
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         self.company.generate_deferred_expense_entries_method = 'manual'
 
         move = self.create_invoice([[self.expense_accounts[0], 1000, '2023-01-01', '2023-04-30']])
@@ -1258,7 +1259,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
         """Test that the deferred entries cannot be deleted in the manual mode"""
 
         # On validation, we can reset to draft
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
         move = self.create_invoice([(self.expense_accounts[0], 1680, '2023-01-21', '2023-04-14')])
         self.assertEqual(len(move.deferred_move_ids), 5)
         move.button_draft()

@@ -17,7 +17,7 @@ class TestDeferredFleet(TestAccountReportsCommon):
             'account_type': 'expense',
         }) for i in range(3)]
 
-        cls.company.deferred_journal_id = cls.company_data['default_journal_misc'].id
+        cls.company.deferred_expense_journal_id = cls.company_data['default_journal_misc'].id
         cls.company.deferred_expense_account_id = cls.company_data['default_account_deferred_expense'].id
 
         cls.expense_lines = [
@@ -75,7 +75,7 @@ class TestDeferredFleet(TestAccountReportsCommon):
         deferral lines as we have unique combinations of (account_id, vehicle_id).
         """
         self.company.generate_deferred_expense_entries_method = 'manual'
-        self.company.deferred_amount_computation_method = 'month'
+        self.company.deferred_expense_amount_computation_method = 'month'
 
         def get_line(vehicle, account, amount):
             return Command.create({

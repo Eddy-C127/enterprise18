@@ -14,21 +14,17 @@ class ResCompany(models.Model):
     invoicing_switch_threshold = fields.Date(string="Invoicing Switch Threshold", help="Every payment and invoice before this date will receive the 'From Invoicing' status, hiding all the accounting entries related to it. Use this option after installing Accounting if you were using only Invoicing before, before importing all your actual accounting data in to Odoo.")
     predict_bill_product = fields.Boolean(string="Predict Bill Product")
 
-    # Deferred management
-    deferred_journal_id = fields.Many2one(
+    # Deferred expense management
+    deferred_expense_journal_id = fields.Many2one(
         comodel_name='account.journal',
-        string="Deferred Journal",
+        string="Deferred Expense Journal",
     )
     deferred_expense_account_id = fields.Many2one(
         comodel_name='account.account',
-        string="Deferred Expense",
-    )
-    deferred_revenue_account_id = fields.Many2one(
-        comodel_name='account.account',
-        string="Deferred Revenue",
+        string="Deferred Expense Account",
     )
     generate_deferred_expense_entries_method = fields.Selection(
-        string="Generate Deferred Expense Entries Method",
+        string="Generate Deferred Expense Entries",
         selection=[
             ('on_validation', 'On bill validation'),
             ('manual', 'Manually & Grouped'),
@@ -36,17 +32,36 @@ class ResCompany(models.Model):
         default='on_validation',
         required=True,
     )
-    generate_deferred_revenue_entries_method = fields.Selection(
-        string="Generate Deferred Revenue Entries Method",
+    deferred_expense_amount_computation_method = fields.Selection(
+        string="Deferred Expense Based on",
         selection=[
-            ('on_validation', 'On invoice validation'),
+            ('day', 'Based on days'),
+            ('month', 'Equal per month'),
+        ],
+        default='month',
+        required=True,
+    )
+
+    # Deferred revenue management
+    deferred_revenue_journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        string="Deferred Revenue Journal",
+    )
+    deferred_revenue_account_id = fields.Many2one(
+        comodel_name='account.account',
+        string="Deferred Revenue Account",
+    )
+    generate_deferred_revenue_entries_method = fields.Selection(
+        string="Generate Deferred Revenue Entries",
+        selection=[
+            ('on_validation', 'On bill validation'),
             ('manual', 'Manually & Grouped'),
         ],
         default='on_validation',
         required=True,
     )
-    deferred_amount_computation_method = fields.Selection(
-        string="Deferred Amount Computation Method",
+    deferred_revenue_amount_computation_method = fields.Selection(
+        string="Deferred Revenue Based on",
         selection=[
             ('day', 'Based on days'),
             ('month', 'Equal per month'),

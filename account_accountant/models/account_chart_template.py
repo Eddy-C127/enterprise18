@@ -17,7 +17,8 @@ class AccountChartTemplate(models.AbstractModel):
 
         return {
             company.id: {
-                'deferred_journal_id': company.deferred_journal_id.id or company_data.get('deferred_journal_id'),
+                'deferred_expense_journal_id': company.deferred_expense_journal_id.id or company_data.get('deferred_expense_journal_id'),
+                'deferred_revenue_journal_id': company.deferred_revenue_journal_id.id or company_data.get('deferred_revenue_journal_id'),
                 'deferred_expense_account_id': company.deferred_expense_account_id.id or company_data.get('deferred_expense_account_id'),
                 'deferred_revenue_account_id': company.deferred_revenue_account_id.id or company_data.get('deferred_revenue_account_id'),
             }
@@ -29,8 +30,13 @@ class AccountChartTemplate(models.AbstractModel):
         data = super()._get_chart_template_data(chart_template)
 
         for _company_id, company_data in data['res.company'].items():
-            company_data['deferred_journal_id'] = (
-                company_data.get('deferred_journal_id')
+            company_data['deferred_expense_journal_id'] = (
+                company_data.get('deferred_expense_journal_id')
+                or next((xid for xid, d in data['account.journal'].items() if d['type'] == 'general'), None)
+            )
+
+            company_data['deferred_revenue_journal_id'] = (
+                company_data.get('deferred_revenue_journal_id')
                 or next((xid for xid, d in data['account.journal'].items() if d['type'] == 'general'), None)
             )
 

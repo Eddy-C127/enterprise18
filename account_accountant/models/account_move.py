@@ -133,7 +133,7 @@ class AccountMove(models.Model):
             return nb_months_period * amount_per_month if period_end > line_start and period_end > period_start else 0
 
     @api.model
-    def _get_deferred_amounts_by_line(self, lines, periods):
+    def _get_deferred_amounts_by_line(self, lines, periods, deferred_type):
         """
         :return: a list of dictionaries containing the deferred amounts for each line and each period
         E.g. (where period1 = (date1, date2, label1), period2 = (date2, date3, label2), ...)
@@ -174,7 +174,7 @@ class AccountMove(models.Model):
                     # - not in the 'Not Started', 'Before' or 'Later' period
                     period_start -= relativedelta(days=1)
                 columns[period] = self._get_deferred_period_amount(
-                    self.env.company.deferred_amount_computation_method,
+                    self.env.company.deferred_expense_amount_computation_method if deferred_type == "expense" else self.env.company.deferred_revenue_amount_computation_method,
                     period_start, period_end,
                     line_start - relativedelta(days=1), line_end,  # -1 because we want to include the start date
                     line['balance']
@@ -187,11 +187,11 @@ class AccountMove(models.Model):
         return values
 
     @api.model
-    def _get_deferred_lines(self, line, deferred_account, period, ref, force_balance=None):
+    def _get_deferred_lines(self, line, deferred_account, deferred_type, period, ref, force_balance=None):
         """
         :return: a list of Command objects to create the deferred lines of a single given period
         """
-        deferred_amounts = self._get_deferred_amounts_by_line(line, [period])[0]
+        deferred_amounts = self._get_deferred_amounts_by_line(line, [period], deferred_type)[0]
         balance = deferred_amounts[period] if force_balance is None else force_balance
         return [
             Command.create({
@@ -210,9 +210,9 @@ class AccountMove(models.Model):
         if self.is_entry():
             raise UserError(_("You cannot generate deferred entries for a miscellaneous journal entry."))
         assert not self.deferred_move_ids, "The deferred entries have already been generated for this document."
-        is_deferred_expense = self.is_purchase_document()
-        deferred_account = self.company_id.deferred_expense_account_id if is_deferred_expense else self.company_id.deferred_revenue_account_id
-        deferred_journal = self.company_id.deferred_journal_id
+        deferred_type = "expense" if self.is_purchase_document() else "revenue"
+        deferred_account = self.company_id.deferred_expense_account_id if deferred_type == "expense" else self.company_id.deferred_revenue_account_id
+        deferred_journal = self.company_id.deferred_expense_journal_id if deferred_type == "expense" else self.company_id.deferred_revenue_journal_id
         if not deferred_journal:
             raise UserError(_("Please set the deferred journal in the accounting settings."))
         if not deferred_account:
@@ -261,7 +261,7 @@ class AccountMove(models.Model):
                 force_balance = remaining_balance if period_index == len(periods) - 1 else None
                 # Same as before, to avoid adding taxes for deferred moves.
                 deferral_move.write({
-                    'line_ids': self._get_deferred_lines(line, deferred_account, period, ref, force_balance=force_balance),
+                    'line_ids': self._get_deferred_lines(line, deferred_account, deferred_type, period, ref, force_balance=force_balance),
                 })
                 remaining_balance -= deferral_move.line_ids[0].balance
 
