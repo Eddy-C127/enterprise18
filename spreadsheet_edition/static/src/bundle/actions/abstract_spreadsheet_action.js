@@ -230,7 +230,8 @@ export class AbstractSpreadsheetAction extends Component {
      * @protected
      */
     async makeCopy() {
-        const { data, thumbnail } = this.getSaveData();
+        const thumbnail = this.getThumbnail();
+        const data = this.model.exportData();
         const defaultValues = {
             spreadsheet_data: JSON.stringify(data),
             spreadsheet_snapshot: false,
@@ -251,7 +252,7 @@ export class AbstractSpreadsheetAction extends Component {
         this.model.leaveSession();
         this.model.off("update", this);
         if (!this.isReadonly) {
-            return this.onSpreadsheetLeft(this.getSaveData());
+            return this.onSpreadsheetLeft();
         }
     }
 
@@ -267,19 +268,15 @@ export class AbstractSpreadsheetAction extends Component {
         throw new Error("not implemented by children");
     }
 
-    async onSpreadsheetLeft({ thumbnail, data }) {
+    async onSpreadsheetLeft() {
         if (this.accessToken) {
             return;
         }
-        await this.orm.write(
-            this.resModel,
-            [this.resId],
-            this.onSpreadsheetLeftUpdateVals({ thumbnail, data })
-        );
+        await this.orm.write(this.resModel, [this.resId], this.onSpreadsheetLeftUpdateVals());
     }
 
-    onSpreadsheetLeftUpdateVals({ data, thumbnail }) {
-        return { thumbnail };
+    onSpreadsheetLeftUpdateVals() {
+        return { thumbnail: this.getThumbnail() };
     }
 
     /**
@@ -375,19 +372,6 @@ export class AbstractSpreadsheetAction extends Component {
         } finally {
             this.ui.unblock();
         }
-    }
-
-    /**
-     * Retrieve the spreadsheet_data and the thumbnail associated to the
-     * current spreadsheet
-     */
-    getSaveData() {
-        const data = this.model.exportData();
-        return {
-            data,
-            revisionId: data.revisionId,
-            thumbnail: this.getThumbnail(),
-        };
     }
 
     _getLinesNumber(callback) {
