@@ -657,13 +657,11 @@ class SaleOrder(models.Model):
                         note=cancel_activity_body,
                         user_id=order.subscription_id.user_id.id
                     )
-                order.order_log_ids.sudo().unlink()
                 order.subscription_state = False
             elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + ['5_renewed']:
                 raise ValidationError(_('You cannot cancel a subscription that has been invoiced.'))
             if order.is_subscription:
                 order.subscription_state = False
-                order.order_log_ids.sudo().unlink()
         return super()._action_cancel()
 
 
@@ -787,11 +785,6 @@ class SaleOrder(models.Model):
                                     ('subscription_state', 'in', SUBSCRIPTION_PROGRESS_STATE),
                                     ('id', 'not in', [parent.id, renew.id])], limit=1):
                 raise ValidationError(_("You cannot renew a contract that already has an active subscription. "))
-            elif parent.state in ['sale', 'done'] and parent.subscription_state == '6_churn' and parent.next_invoice_date == renew.start_date:
-                parent.reopen_order()
-                auto_commit = not bool(config['test_enable'] or config['test_file'])
-                # Force the creation of the reopen logs.
-                self._subscription_commit_cursor(auto_commit=auto_commit)
             other_renew_so_ids = parent.subscription_child_ids.filtered(lambda so: so.subscription_state == '2_renewal' and so.state != 'cancel') - renew
             if other_renew_so_ids:
                 other_renew_so_ids._action_cancel()
