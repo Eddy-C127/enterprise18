@@ -176,7 +176,7 @@ registry.category("web_tour.tours").add('test_canceled_wo', {
         },
         {
             content: 'Check MO',
-            trigger: 'button.btn-light:contains("All MO")',
+            trigger: 'button.btn-light:contains("Assembly Line")',
             isCheck: true,
             run: () => {
                 if (document.querySelectorAll("ul button:not(.btn-secondary)").length > 1)

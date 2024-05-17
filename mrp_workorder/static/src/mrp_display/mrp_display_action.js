@@ -4,7 +4,7 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { WithSearch } from "@web/search/with_search/with_search";
 import { MrpDisplay } from "@mrp_workorder/mrp_display/mrp_display";
-import { Component, onWillStart } from "@odoo/owl";
+import { Component, onWillStart, useSubEnv } from "@odoo/owl";
 import { MrpDisplaySearchModel } from "@mrp_workorder/mrp_display/search_model";
 
 // from record.js
@@ -123,11 +123,25 @@ export class MrpDisplayAction extends Component {
         this.viewService = useService("view");
         this.fieldService = useService("field");
         this.orm = useService("orm");
+        this.userService = useService("user");
         this.resModel = "mrp.production";
         this.models = [];
-
+        const { context } = this.props.action;
+        const domain = [
+            ["state", "in", ["confirmed", "progress", "to_close"]],
+            "|",
+            ["bom_id", "=", false],
+            ["bom_id.type", "in", ["normal", "phantom"]],
+        ];
+        let pickingTypeId = false;
+        if (context.active_model === "stock.picking.type" && context.active_id) {
+            domain.push(["picking_type_id", "=", context.active_id]);
+            pickingTypeId = context.active_id;
+        }
+        useSubEnv({
+            localStorageName: `mrp_workorder.db_${this.userService.db.name}.user_${this.userService.userId}.picking_type_${pickingTypeId}`,
+        });
         onWillStart(async () => {
-            const { context } = this.props.action;
             for (const [resModel, fieldNames] of Object.entries(this.fieldsStructure)) {
                 const fields = await this.fieldService.loadFields(resModel, { fieldNames });
                 for (const [fName, fInfo] of Object.entries(fields)) {
@@ -136,23 +150,16 @@ export class MrpDisplayAction extends Component {
                 }
                 this.models.push({ fields, resModel });
             }
-
-            const searchViews = await this.viewService.loadViews({
-                resModel: this.resModel,
-                views: [[false, "search"]],
-            }, {
-                load_filters: true,
-                action_id: this.props.action.id
-            });
-            const domain = [
-                ["state", "in", ["confirmed", "progress", "to_close"]],
-                "|",
-                ["bom_id", "=", false],
-                ["bom_id.type", "in", ["normal", "phantom"]],
-            ];
-            if (context.active_model === "stock.picking.type" && context.active_id) {
-                domain.push(["picking_type_id", "=", context.active_id]);
-            }
+            const searchViews = await this.viewService.loadViews(
+                {
+                    resModel: this.resModel,
+                    views: [[false, "search"]],
+                },
+                {
+                    load_filters: true,
+                    action_id: this.props.action.id,
+                }
+            );
             this.withSearchProps = {
                 resModel: this.resModel,
                 searchViewArch: searchViews.views.search.arch,
@@ -165,9 +172,17 @@ export class MrpDisplayAction extends Component {
                 orderBy: [
                     { name: "state", asc: false },
                     { name: "date_start", asc: true },
+                    { name: "name", asc: true },
                 ],
                 SearchModel: MrpDisplaySearchModel,
-                searchModelArgs: context,
+                searchModelArgs: {
+                    ...context,
+                    loadedWorkcenters:
+                        JSON.parse(localStorage.getItem(this.env.localStorageName)) || [],
+                    enableWorkcenterFilter:
+                        !context.workcenter_id &&
+                        (await this.userService.hasGroup("mrp.group_mrp_routings")),
+                },
                 loadIrFilters: true,
             };
         });

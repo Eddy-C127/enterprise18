@@ -52,29 +52,20 @@ export class MrpDisplay extends Component {
             ...this.props.display,
         };
 
-        this.pickingTypeId = false;
         this.validationStack = {
             "mrp.production": [],
             "mrp.workorder": [],
         };
         this.adminId = false;
         this.barcodeTargetRecordId = false;
-        if (
-            this.props.context.active_model === "stock.picking.type" &&
-            this.props.context.active_id
-        ) {
-            this.pickingTypeId = this.props.context.active_id;
-        }
-        useSubEnv({
-            localStorageName: `mrp_workorder.db_${this.userService.db.name}.user_${this.userService.userId}.picking_type_${this.pickingTypeId}`,
-        });
+        const workcenters = this.env.searchModel.loadedWorkcenters;
+        const workcenterToOpen =
+            this.props.context.workcenter_id || (workcenters.length ? workcenters[0].id : false);
 
         this.state = useState({
-            activeResModel: this.props.context.workcenter_id
-                ? "mrp.workorder"
-                : this.props.resModel,
-            activeWorkcenter: this.props.context.workcenter_id || false,
-            workcenters: JSON.parse(localStorage.getItem(this.env.localStorageName)) || [],
+            activeResModel: workcenterToOpen ? "mrp.workorder" : this.props.resModel,
+            activeWorkcenter: workcenterToOpen,
+            workcenters: workcenters,
             showEmployeesPanel: localStorage.getItem("mrp_workorder.show_employees") === "true",
             canLoadSamples: false,
         });
@@ -239,6 +230,7 @@ export class MrpDisplay extends Component {
         const localStorageName = this.env.localStorageName;
         localStorage.setItem(localStorageName, JSON.stringify(workcenters));
         this.state.workcenters = workcenters;
+        this.env.searchModel.setWorkcenterFilter(this.state.workcenters);
     }
 
     toggleEmployeesPanel() {
@@ -416,7 +408,7 @@ export class MrpDisplay extends Component {
         }
         const params = {
             config: { resModel, fields, activeFields },
-            limit: Number.MAX_SAFE_INTEGER,
+            limit: 40,
         };
         const workorderFields = this.props.models.find(
             (m) => m.resModel === "mrp.workorder"

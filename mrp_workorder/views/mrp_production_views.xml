@@ -46,6 +46,10 @@
             <filter name="filter_planned" position="attributes">
                 <attribute name="domain">[('is_planned', '=', True)]</attribute>
             </filter>
+            <xpath expr="//filter[@name='activities_exception']" position="before">
+                <filter name="shop_floor_this_station" string="This Station" groups="mrp.group_mrp_routings"/>
+                <separator/>
+            </xpath>
         </field>
     </record>
 
