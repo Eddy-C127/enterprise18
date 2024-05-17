@@ -89,7 +89,7 @@ class AccountMoveSend(models.TransientModel):
             if not invoice_data.get("l10n_br_edi_is_enabled") or not invoice.l10n_br_edi_is_needed:
                 continue
 
-            if errors := invoice._l10n_br_edi_send():
+            if errors := invoice.with_company(invoice.company_id)._l10n_br_edi_send():
                 invoice.l10n_br_edi_error = "\n".join(errors)
                 invoice_data["error"] = {
                     "error_title": _("Errors when submitting the e-invoice:"),
