@@ -112,7 +112,7 @@ patch(PosStore.prototype, {
             NULL: [],
         };
         order.get_tax_details().forEach((detail) => {
-            rateIds[this.vatRateMapping[detail.tax.amount]].push(detail.tax.id);
+            rateIds[this.vatRateMapping[detail.tax_percentage]].push(detail.id);
         });
         const amountPerVatRate = {
             NORMAL: 0,
