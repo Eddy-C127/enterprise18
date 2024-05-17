@@ -174,6 +174,7 @@ export const DocumentsRecordMixin = (component) => class extends component {
         // Make sure to keep the record if we were in a multi select
         const isMultiSelect = root.selection.length > 1;
         let thisSelected = !this.selected;
+        this.isKeepSelection = isKeepSelection ? false : true;
         if (isRangeSelection && anchor) {
             const indexFrom = root.records.indexOf(root.records.find((rec) => rec.resId === anchor.resId));
             const indexTo = root.records.indexOf(this);

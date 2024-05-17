@@ -82,6 +82,7 @@ export class DocumentsInspector extends Component {
         this.orm = useService("orm");
         this.action = useService("action");
         this.dialogService = useService("dialog");
+        this.documentService = useService("document.document");
         this.notificationService = useService("notification");
         this.documentsReplaceInput = useRef("replaceFileInput");
         this.chatterContainer = useRef("chatterContainer");
@@ -172,16 +173,19 @@ export class DocumentsInspector extends Component {
         }
         this.inspectorMobileRef = useRef("inspectorMobile");
         this.shouldOpenInspector = false;
+        this.isKeepSelection = false;
         onWillUpdateProps((nextProps) => {
             // Only open the inspector if there is only one selected element and
             //  it was not previously selected.
             this.shouldOpenInspector = nextProps.documents.length === 1;
+            this.isKeepSelection =
+                nextProps.documents.length === 1 ? nextProps.documents[0].isKeepSelection : false;
         });
         onPatched(() => {
             if (!this.inspectorMobileRef.el) {
                 return;
             }
-            if (this.shouldOpenInspector) {
+            if (this.shouldOpenInspector && this.isKeepSelection && !this.documentService.documentList) {
                 this.inspectorMobileRef.el.setAttribute("open", "");
             }
         });

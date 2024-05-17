@@ -196,7 +196,7 @@ QUnit.module("documents", {}, function () {
                     );
 
                     // select a first record
-                    await click(document.querySelector(".o_kanban_record .o_record_selector"));
+                    await click(document.querySelector(".o_kanban_record"));
                     assert.containsOnce(
                         document.body,
                         ".o_kanban_record.o_record_selected:not(.o_kanban_ghost)",
