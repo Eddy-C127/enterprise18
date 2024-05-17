@@ -7,14 +7,14 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     steps: () => [
     {
         content: 'Select the workcenter the first time we enter in shopfloor',
-        trigger: '.form-check:has(input[name="Jungle"])', 
+        trigger: '.form-check:has(input[name="Jungle"])',
         run: "click",
     },
     {
         trigger: '.form-check:has(input[name="Jungle"]:checked)',
     },
     {
-        trigger: 'footer.modal-footer button.btn-primary', 
+        trigger: 'footer.modal-footer button.btn-primary',
         run: "click",
     },
     {
@@ -22,7 +22,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         content: 'Open the employee panel',
-        trigger: 'button[name="employeePanelButton"]', 
+        trigger: 'button[name="employeePanelButton"]',
         run: "click",
     },
     {
@@ -73,14 +73,14 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         content: 'Validate production check',
-        trigger: 'button:contains("Validate")', 
+        trigger: 'button:contains("Validate")',
         run: "click",
     },
     {
         trigger: '.modal-title:contains("Instructions")',
     },
     {
-        trigger: 'button[barcode_trigger="NEXT"]', 
+        trigger: 'button[barcode_trigger="NEXT"]',
         run: "click",
     },
     {
@@ -88,7 +88,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         content: 'Component not tracked registration and continue production',
-        trigger: 'button[barcode_trigger="CONT"]', 
+        trigger: 'button[barcode_trigger="CONT"]',
         run: "click",
     },
     {
@@ -151,7 +151,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         trigger: '.o_field_widget[name=product_id] input',
         run: "edit color",
     },
-    { 
+    {
         trigger: '.ui-menu-item > a:contains("Color")',
         run: "click",
     },
@@ -159,9 +159,9 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         trigger: 'button[name=add_product]',
         run: "click",
     },
-    { 
+    {
         trigger: 'button[barcode_trigger=CLWO]',
-        run: "click", 
+        run: "click",
     },
     {
         trigger: 'button[barcode_trigger=CLMO]',
@@ -175,8 +175,8 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         trigger: '.o_home_menu .fa-sign-out',
         run: "click",
     },
-    { 
-        trigger: '.o_apps', 
+    {
+        trigger: '.o_apps',
     }
     ],
 });
@@ -257,7 +257,7 @@ registry.category("web_tour.tours").add("test_canceled_wo", {
         },
         {
             content: 'Check MO',
-            trigger: 'button.btn-light:contains("All MO")',
+            trigger: 'button.btn-light:contains("Assembly Line")',
             run: () => {
                 if (document.querySelectorAll("ul button:not(.btn-secondary)").length > 1)
                     console.error("Multiple Workorders");
