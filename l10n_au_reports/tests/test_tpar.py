@@ -17,6 +17,7 @@ class TestAustraliaTparReport(TestAccountReportsCommon):
     def test_tpar(self):
         purch_tpar_tax = self.env.ref(f'account.{self.env.company.id}_au_tax_purchase_10_service_tpar')
         purch_tpar_no_abn_tax = self.env.ref(f'account.{self.env.company.id}_au_tax_purchase_10_service_tpar_no_abn')
+        (purch_tpar_tax + purch_tpar_no_abn_tax).write({'active': True})
 
         date_invoice = '2023-01-01'
         bills = self.env['account.move'].create([
