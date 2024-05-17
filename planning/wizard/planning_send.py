@@ -125,7 +125,7 @@ class PlanningSend(models.TransientModel):
                 'tag': 'display_notification',
                 'params': {
                     'type': 'success',
-                    'message': _("The schedule was successfully sent to your employees."),
+                    'message': _("Schedule sent to your employees"),
                     'next': {'type': 'ir.actions.act_window_close'},
                 }
             }

@@ -15,7 +15,7 @@ patch(PlanningControllerActions.prototype, {
         ]).toList();
     },
     autoPlanSuccessNotification() {
-        return _t("The open shifts and sales orders have been successfully assigned.");
+        return _t("Open shifts and sales orders assigned");
     },
 
     autoPlanFailureNotification() {
@@ -25,8 +25,6 @@ patch(PlanningControllerActions.prototype, {
     },
 
     autoPlanRollbackSuccessNotification() {
-        return _t(
-            "The open shifts and sales orders that had been planned have successfully been unscheduled."
-        );
+        return _t("Open shifts and sales orders unscheduled");
     },
 });

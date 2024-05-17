@@ -40,7 +40,7 @@ export class PlanningFormController extends FormController {
 
     async onRecordSaved(record, changes) {
         if ("repeat" in changes && record.data["repeat"]) {
-            const message = _t("The recurring shifts have successfully been created.");
+            const message = _t("Recurring shifts created");
             this.notification.add(
                 markup(
                     `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(message)}</span>`
@@ -120,7 +120,7 @@ export class PlanningFormController extends FormController {
         }
         if (shift.data.allow_template_creation && clickParams.name === 'action_save_template') {
             // then the shift should be saved as a template too.
-            const message = _t("This shift is now saved as a template. Use it to easily schedule your shifts.");
+            const message = _t("Shift saved as template");
             this.notification.add(
                 markup(`<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(message)}</span>`),
                 { type: "success" },

@@ -51,7 +51,7 @@ export class PlanningControllerActions {
             const notificationRemove = this.notifications.add(
                 markup(
                     `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(_t(
-                        "The shifts from the previous week have successfully been copied."
+                        "Previous week's shifts copied"
                     ))}</span>`
                 ),
                 {
@@ -71,7 +71,7 @@ export class PlanningControllerActions {
                             this.notifications.add(
                                 markup(
                                     `<i class="fa fa-fw fa-check"></i><span class="ms-1">${escape(_t(
-                                        "The shifts that had been copied from the previous week have successfully been removed."
+                                        "Previous week's copied shifts removed"
                                     ))}</span>`
                                 ),
                                 { type: 'success' },
@@ -173,7 +173,7 @@ export class PlanningControllerActions {
     }
 
     autoPlanSuccessNotification() {
-        return _t("The open shifts have been successfully assigned.");
+        return _t("Open shifts assigned");
     }
 
     autoPlanFailureNotification() {
@@ -183,7 +183,7 @@ export class PlanningControllerActions {
     }
 
     autoPlanRollbackSuccessNotification() {
-        return _t("The open shifts that had been planned have successfully been unscheduled.");
+        return _t("Open shifts unscheduled");
     }
 }
 

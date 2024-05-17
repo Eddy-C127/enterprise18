@@ -1467,7 +1467,7 @@ class Planning(models.Model):
             self.state = 'published'
         employee_ids = self._get_employees_to_send_slot()
         self._send_slot(employee_ids, self.start_datetime, self.end_datetime)
-        message = _("The shift has successfully been sent.")
+        message = _("Shift sent")
         return self._get_notification_action('success', message)
 
     def action_save_template(self):
@@ -1478,12 +1478,12 @@ class Planning(models.Model):
 
     def action_unpublish(self):
         if not self.env.user.has_group('planning.group_planning_manager'):
-            raise AccessError(_('You are not allowed to reset to draft shifts.'))
+            raise AccessError(_('You are not allowed to reset shifts to draft.'))
         published_shifts = self.filtered(lambda shift: shift.state == 'published' and shift.resource_type != 'material')
         if published_shifts:
             published_shifts.write({'state': 'draft', 'publication_warning': False,})
             notif_type = "success"
-            message = _('The shifts have been successfully reset to draft.')
+            message = _('Shifts reset to draft')
         else:
             notif_type = "warning"
             message = _('There are no shifts to reset to draft.')
