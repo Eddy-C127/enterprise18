@@ -84,7 +84,8 @@ class L10nInReportAccount(models.Model):
                 and details_pos_line['tax_ids'] == account_move_line.tax_ids.ids
 
         pos_journal_items = journal_items.filtered(lambda l: l.move_id.l10n_in_pos_session_ids and l.move_id.move_type == "entry")
-        hsn_json = super()._get_gstr1_hsn_json(journal_items - pos_journal_items, tax_details_by_move)
+        ignore_reversal_pos_jounal_items = journal_items.filtered(lambda l: l.move_id.reversed_pos_order_id and l.move_id.move_type == "entry")
+        hsn_json = super()._get_gstr1_hsn_json(journal_items - pos_journal_items - ignore_reversal_pos_jounal_items, tax_details_by_move)
         pos_orders = pos_journal_items.move_id.l10n_in_pos_session_ids.order_ids.filtered(lambda l: not l.is_invoiced)
         details_pos_lines_by_move = _set_details_pos_lines(pos_orders.lines)
         for move_id in pos_journal_items.mapped("move_id"):
@@ -145,7 +146,8 @@ class L10nInReportAccount(models.Model):
             "&", ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
                 ("move_id.l10n_in_gst_treatment", "in", ("unregistered", "consumer")),
             "&", ("move_id.move_type", "=", "entry"),
-                ("move_id.l10n_in_pos_session_ids", "!=", False)
+            "|", ("move_id.l10n_in_pos_session_ids", "!=", False),
+                ('move_id.reversed_pos_order_id', '!=', False),
             ]
         if section_code == "nil":
             domain.remove(("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]))
@@ -158,7 +160,8 @@ class L10nInReportAccount(models.Model):
             domain.remove(("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]))
             domain += ["|", "&",
                 ("move_id.move_type", "=", "entry"),
-                ("move_id.l10n_in_pos_session_ids", "!=", False),
+                "|", ("move_id.l10n_in_pos_session_ids", "!=", False),
+                    ('move_id.reversed_pos_order_id', '!=', False),
                 ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
             ]
         return domain
@@ -171,7 +174,8 @@ class L10nInReportAccount(models.Model):
             '|',
                 '&',
                 ('move_type', '=', 'entry'),
-                ('l10n_in_pos_session_ids', '!=', False),
+                '|', ('l10n_in_pos_session_ids', '!=', False),
+                    ('reversed_pos_order_id', '!=', False),
             ('move_type', 'in', self.env['account.move'].get_sale_types(True)),
         ]
         return action
@@ -187,7 +191,8 @@ class L10nInReportAccount(models.Model):
                 ("date", "<=", record.end_date),
                 ("state", "=", "posted"),
                 ('move_type', '=', 'entry'),
-                ('l10n_in_pos_session_ids', '!=', False),
+                "|", ('l10n_in_pos_session_ids', '!=', False),
+                    ('reversed_pos_order_id', '!=', False),
             ]
             total_by_companies = AccountMove._read_group(domain, [], ['amount_total_signed:sum'])
             record.invoice_amount += total_by_companies[0][0]

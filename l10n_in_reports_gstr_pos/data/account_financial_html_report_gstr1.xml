@@ -9,7 +9,10 @@
         '&amp;',
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_gst_treatment', 'in', ['unregistered', 'consumer']),
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
 
             ('tax_tag_ids', 'in', [ref('l10n_in.tax_tag_base_sgst'), ref('l10n_in.tax_tag_base_cgst'), ref('l10n_in.tax_tag_base_igst'), ref('l10n_in.tax_tag_base_cess')]),
         '|',
@@ -24,7 +27,11 @@
         '&amp;',
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_gst_treatment', 'in', ['unregistered', 'consumer']),
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_sgst')),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
+            ('tax_tag_ids', '=', ref('l10n_in.tax_tag_sgst')),
         '|',
             ('move_id.l10n_in_transaction_type', '=', 'intra_state'),
         '&amp;',
@@ -37,7 +44,11 @@
         '&amp;',
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_gst_treatment', 'in', ['unregistered', 'consumer']),
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cgst')),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
+            ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cgst')),
         '|',
             ('move_id.l10n_in_transaction_type', '=', 'intra_state'),
         '&amp;',
@@ -50,7 +61,11 @@
         '&amp;',
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_gst_treatment', 'in', ['unregistered', 'consumer']),
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_igst')),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
+            ('tax_tag_ids', '=', ref('l10n_in.tax_tag_igst')),
         '|',
             ('move_id.l10n_in_transaction_type', '=', 'intra_state'),
         '&amp;',
@@ -63,7 +78,11 @@
         '&amp;',
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']), ('move_id.l10n_in_gst_treatment', 'in', ['unregistered', 'consumer']),
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False), ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cess')),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
+            ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cess')),
         '|',
             ('move_id.l10n_in_transaction_type', '=', 'intra_state'),
         '&amp;',
@@ -76,7 +95,10 @@
         <field name="formula" eval="[
         '|',
         '&amp;',
-            ('move_id.move_type', '=', 'entry'),('move_id.l10n_in_pos_session_ids', '!=', False),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund']),
         ('move_id.l10n_in_gst_treatment', '!=', 'overseas'), ('tax_tag_ids', 'in', [ref('l10n_in.tax_tag_exempt'), ref('l10n_in.tax_tag_nil_rated'), ref('l10n_in.tax_tag_non_gst_supplies')])]"/>
     </record>
@@ -87,7 +109,10 @@
         <field name="formula" eval="[
         '|',
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund']),
         ('tax_tag_ids', 'in', [ref('l10n_in.tax_tag_base_sgst'), ref('l10n_in.tax_tag_base_cgst'), ref('l10n_in.tax_tag_base_igst'), ref('l10n_in.tax_tag_base_cess'), ref('l10n_in.tax_tag_exempt'), ref('l10n_in.tax_tag_nil_rated'), ref('l10n_in.tax_tag_non_gst_supplies'), ref('l10n_in.tax_tag_zero_rated')])]"/>
     </record>
@@ -96,7 +121,10 @@
         <field name="formula" eval="[
         '|',
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund']),
         ('tax_tag_ids', '=', ref('l10n_in.tax_tag_sgst'))]"/>
     </record>
@@ -105,7 +133,10 @@
         <field name="formula" eval="[
         '|',
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund']),
         ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cgst'))]"/>
     </record>
@@ -114,7 +145,10 @@
         <field name="formula" eval="[
         '|',
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund']),
         ('tax_tag_ids', '=', ref('l10n_in.tax_tag_igst'))]"/>
     </record>
@@ -123,7 +157,10 @@
         <field name="formula" eval="[
         '|',
         '&amp;',
-            ('move_id.move_type', '=', 'entry'), ('move_id.l10n_in_pos_session_ids', '!=', False),
+            ('move_id.move_type', '=', 'entry'),
+            '|',
+                ('move_id.l10n_in_pos_session_ids', '!=', False),
+                ('move_id.reversed_pos_order_id', '!=', False),
             ('move_id.move_type', 'in', ['out_invoice', 'out_refund']),
         ('tax_tag_ids', '=', ref('l10n_in.tax_tag_cess'))]"/>
     </record>
