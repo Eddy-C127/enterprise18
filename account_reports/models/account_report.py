@@ -4750,19 +4750,22 @@ class AccountReport(models.Model):
             else:
                 prefix_groups[line_name[char_index].lower()].append(line)
 
+        float_figure_types = {'monetary', 'integer', 'float'}
         unfold_all = options['export_mode'] == 'print' or options.get('unfold_all')
         for prefix_key, prefix_sublines in sorted(prefix_groups.items(), key=lambda x: x[0]):
             # Compute the total of this prefix line, summming all of its content
-            prefix_expression_totals_by_group = {column_group_key: defaultdict(float) for column_group_key in options['column_groups']}
+            prefix_expression_totals_by_group = {}
             for column_index, column_data in enumerate(options['columns']):
-                if column_data['figure_type'] in {'monetary', 'integer', 'float'}:
+                if column_data['figure_type'] in float_figure_types:
                     # Then we want to sum this column's value in our children
                     for prefix_subline in prefix_sublines:
-                        prefix_expression_totals_by_group[column_data['column_group_key']][column_data['expression_label']] += (prefix_subline['columns'][column_index]['no_format'] or 0)
+                        prefix_expr_label_result = prefix_expression_totals_by_group.setdefault(column_data['column_group_key'], {})
+                        prefix_expr_label_result.setdefault(column_data['expression_label'], 0)
+                        prefix_expr_label_result[column_data['expression_label']] += (prefix_subline['columns'][column_index]['no_format'] or 0)
 
             column_values = []
             for column in options['columns']:
-                col_value = prefix_expression_totals_by_group[column['column_group_key']][column['expression_label']]
+                col_value = prefix_expression_totals_by_group.get(column['column_group_key'], {}).get(column['expression_label'])
 
                 column_values.append(self._build_column_dict(col_value, column, options=options))
 
