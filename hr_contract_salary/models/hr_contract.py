@@ -107,13 +107,18 @@ class HrContract(models.Model):
     def _get_yearly_cost_sacrifice_fixed(self):
         return 0.0
 
-    def _get_yearly_cost(self, inverse=False):
+    def _get_yearly_cost_from_wage_with_holidays(self, wage_with_holidays=False):
         self.ensure_one()
         ratio = self._get_yearly_cost_sacrifice_ratio()
         fixed = self._get_yearly_cost_sacrifice_fixed()
-        if inverse:
-            return (self._get_benefits_costs() + self._get_salary_costs_factor() * self.wage_with_holidays + fixed) / ratio
+        if wage_with_holidays:
+            return (self._get_benefits_costs() + self._get_salary_costs_factor() * wage_with_holidays + fixed) / ratio
         return self.final_yearly_costs * ratio - fixed
+
+    def _get_yearly_cost_from_wage(self):
+        self.ensure_one()
+        fixed = self._get_yearly_cost_sacrifice_fixed()
+        return self._get_benefits_costs() + self._get_salary_costs_factor() * self.wage + fixed
 
     def _is_salary_sacrifice(self):
         self.ensure_one()
@@ -123,7 +128,7 @@ class HrContract(models.Model):
     def _compute_wage_with_holidays(self):
         for contract in self:
             if contract._is_salary_sacrifice():
-                yearly_cost = contract._get_yearly_cost()
+                yearly_cost = contract._get_yearly_cost_from_wage_with_holidays()
                 contract.wage_with_holidays = contract._get_gross_from_employer_costs(yearly_cost)
             else:
                 contract.wage_with_holidays = contract.wage
@@ -131,14 +136,8 @@ class HrContract(models.Model):
     def _inverse_wage_with_holidays(self):
         for contract in self:
             if contract._is_salary_sacrifice():
-                if abs(contract.final_yearly_costs - contract._get_yearly_cost(inverse=True)) <= 0.10:
-                    # Small convertion errors issuing when setting the final_yearly_costs
-                    # The wage (Monetary) is rounded and could lead to a small amount diff
-                    # when setting the wage with holidays, that will re-trigger the final_yearly_costs
-                    # computation
-                    continue
-                contract.final_yearly_costs = contract._get_yearly_cost(inverse=True)
-                contract.wage = contract._get_gross_from_employer_costs(contract.final_yearly_costs)
+                yearly = contract._get_yearly_cost_from_wage_with_holidays(self.wage_with_holidays)
+                contract.wage = contract._get_gross_from_employer_costs(yearly)
             else:
                 if contract.wage != contract.wage_with_holidays:
                     contract.wage = contract.wage_with_holidays
@@ -179,7 +178,8 @@ class HrContract(models.Model):
         *self._get_benefit_fields()))
     def _compute_final_yearly_costs(self):
         for contract in self:
-            contract.final_yearly_costs = contract._get_benefits_costs() + contract._get_salary_costs_factor() * contract.wage
+            if abs(contract.final_yearly_costs - contract._get_yearly_cost_from_wage()) > 0.10:
+                contract.final_yearly_costs = contract._get_yearly_cost_from_wage()
 
     @api.depends('company_id', 'job_id')
     def _compute_structure_type_id(self):

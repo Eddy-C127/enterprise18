@@ -9843,6 +9843,42 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         }
         self._validate_payslip(payslip, payslip_results)
 
+    def test_with_car_with_atn_with_car_based_on_yearly_cost(self):
+        # ATN + No leave + IP (2019) + car
+        self.contract.employee_id.write({
+            'marital': 'cohabitant',
+            'spouse_fiscal_status': 'high_income',
+        })
+        self.contract.car_id.write({
+            'acquisition_date': datetime.date(2014, 12, 10),
+            'first_contract_date': datetime.date(2014, 12, 10),
+            'car_value': 28138.86,
+            'fuel_type': 'diesel',
+            'co2': 88.00,
+        })
+        vehicle = self.contract.car_id
+        self.env['fleet.vehicle.log.contract'].create({
+            'vehicle_id': vehicle.id,
+            'recurring_cost_amount_depreciated': vehicle.model_id.default_recurring_cost_amount_depreciated,
+            'purchaser_id': vehicle.driver_id.id,
+            'company_id': vehicle.company_id.id,
+            'user_id': vehicle.manager_id.id if vehicle.manager_id else self.env.user.id
+        })
+        self.contract.car_id.log_contracts.recurring_cost_amount_depreciated = 503.12
+        self.contract.write({
+            'wage_with_holidays': 3450.89,
+            'holidays': 1,
+            'mobile': 0,
+            'ip_wage_rate': 25,
+            'ip': True,
+        })
+
+        cost_before = self.contract.final_yearly_costs
+        the_car = self.contract.car_id
+        self.contract.car_id = False
+        self.contract.car_id = the_car
+        self.assertEqual(self.contract.final_yearly_costs, cost_before)
+
     def test_no_ip_emp_bonus(self):
         # No IP, with employment bonus
         self.contract.write({
