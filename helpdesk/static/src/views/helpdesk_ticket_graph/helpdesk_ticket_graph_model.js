@@ -14,6 +14,6 @@ export class HelpdeskTicketGraphModel extends GraphModel {
         if (field.fieldName == "user_id") {
             return _t("Unassigned");
         }
-        return super._getEmptyGroupLabel(field);
+        return super._getDefaultFilterLabel(field);
     }
 }
