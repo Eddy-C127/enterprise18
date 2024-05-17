@@ -83,8 +83,8 @@ class TestForecastCreationAndEditing(TestCommonForecast):
 
     @freeze_time("2023-11-20")
     def test_shift_creation_from_project(self):
-        self.env.user.tz = 'Asia/Calcutta'
-        self.env.user.company_id.resource_calendar_id.tz = 'Asia/Calcutta'
+        self.env.user.tz = 'Asia/Kolkata'
+        self.env.user.company_id.resource_calendar_id.tz = 'Asia/Kolkata'
         PlanningTemplate = self.env['planning.slot.template']
         Project = self.env['project.project']
 

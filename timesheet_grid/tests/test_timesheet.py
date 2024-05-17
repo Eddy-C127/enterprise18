@@ -554,7 +554,7 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
             Create a timesheet with a future date.
             Check for a new entry when a new timesheet is added from timer.
         """
-        self.user_employee.tz = 'Asia/Calcutta'
+        self.user_employee.tz = 'Asia/Kolkata'
         timesheet = self.env['account.analytic.line'].with_user(self.user_employee).create({
             'name': "My_timesheet",
             'project_id': self.project_customer.id,

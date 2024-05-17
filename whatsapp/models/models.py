@@ -110,7 +110,7 @@ class BaseModel(models.AbstractModel):
 
     def _whatsapp_get_timezone(self):
         """To be override to get desired timezone of the model
-        :returns: selected timezone (e.g. 'UTC' or 'Asia/Calcutta')
+        :returns: selected timezone (e.g. 'UTC' or 'Asia/Kolkata')
         """
         if self:
             self.ensure_one()
