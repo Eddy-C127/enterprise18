@@ -276,7 +276,7 @@ class AccountMove(models.Model):
             'name': _("Deferred Entries"),
             'res_model': 'account.move.line',
             'domain': [('id', 'in', self.deferred_move_ids.line_ids.ids)],
-            'views': [(False, 'tree'), (False, 'form')],
+            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'tree')],
             'context': {
                 'search_default_group_by_move': True,
                 'expand': True,

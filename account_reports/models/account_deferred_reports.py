@@ -262,7 +262,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             'name': _('Deferred Entries'),
             'res_model': 'account.move.line',
             'domain': [('id', 'in', line_ids)],
-            'views': [(False, 'list'), (False, 'form'), (False, 'pivot'), (False, 'graph'), (False, 'kanban')],
+            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'tree')],
             # Most filters are set here to allow auditing flexibility to the user
             'context': {
                 'search_default_pl_accounts': True,
@@ -296,10 +296,21 @@ class DeferredReportCustomHandler(models.AbstractModel):
 
     def open_journal_items(self, options, params):
         report = self.env['account.report'].browse(options['report_id'])
-        action = report.open_journal_items(options=options, params=params)
-        action.get('context', {}).pop('search_default_date_between', None)
-        action['domain'] = action.get('domain', []) + self._get_domain(report, options)
-        return action
+        record_model, record_id = report._get_model_info_from_id(params.get('line_id'))
+        domain = self._get_domain(report, options)
+        if record_model == 'account.account' and record_id:
+            domain += [('account_id', '=', record_id)]
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _("Deferred Entries"),
+            'res_model': 'account.move.line',
+            'domain': domain,
+            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'tree')],
+            'context': {
+                'search_default_group_by_move': True,
+                'expand': True,
+            }
+        }
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
         def get_columns(totals):
