@@ -34,7 +34,7 @@ class WorkflowActionRuleAccount(models.Model):
     def _compute_move_type(self):
         for rule in self:
             move_type = False
-            if rule.create_model and (rule.create_model.startswith('account.move') or rule.create_model.startswith('account.bank.statement')):
+            if rule.create_model and (rule.create_model.startswith(('account.move', 'account.bank.statement'))):
                 move_type = rule.create_model.split('.')[2]
             rule.move_type = move_type
 
