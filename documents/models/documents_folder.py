@@ -32,15 +32,24 @@ class DocumentFolder(models.Model):
 
         return res
 
-    @api.depends('parent_folder_id')
-    @api.depends_context('hierarchical_naming')
+    @api.depends("parent_folder_id", "company_id")
+    @api.depends_context("hierarchical_naming", "uid", "allowed_company_ids")
     def _compute_display_name(self):
+        def get_name(folder):
+            return (
+                _("Restricted Folder")
+                if folder.company_id - self.env.companies
+                else folder.name
+            )
+
         hierarchical_naming = self.env.context.get('hierarchical_naming', True)
         for record in self:
+            display_name = get_name(record)
             if hierarchical_naming and record.parent_folder_id:
-                record.display_name = f"{record.parent_folder_id.sudo().name} / {record.name}"
-            else:
-                record.display_name = record.name
+                display_name = (
+                    f"{get_name(record.parent_folder_id.sudo())} / {display_name}"
+                )
+            record.display_name = display_name
 
     active = fields.Boolean(string="Active", default=True)
     company_id = fields.Many2one('res.company', 'Company',
@@ -78,13 +87,6 @@ class DocumentFolder(models.Model):
 
     deletion_delay = fields.Integer("Deletion delay", compute="_compute_deletion_delay",
                                     help="Delay after permanent deletion of the document in the trash (days)")
-
-    @api.depends('company_id')
-    @api.depends_context('uid', 'allowed_company_ids')
-    def _compute_display_name(self):
-        restricted_folders = self.filtered(lambda f: f.company_id - self.env.companies)
-        restricted_folders.display_name = _('Restricted Folder')
-        super(DocumentFolder, self - restricted_folders)._compute_display_name()
 
     def _compute_deletion_delay(self):
         self.deletion_delay = self.env['documents.document'].get_deletion_delay()

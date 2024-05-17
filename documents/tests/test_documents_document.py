@@ -535,6 +535,16 @@ class TestCaseDocuments(TransactionCase):
             'folder A', "The folder should not be restricted")
         self.assertEqual(self.folder_a.with_user(user_b).sudo().display_name,
             'Restricted Folder', "The folder should be restricted")
+        self.assertEqual(
+            self.folder_a_a.display_name,
+            "folder A / folder A - A",
+            "The parent folder name should not be restricted",
+        )
+        self.assertEqual(
+            self.folder_a_a.with_user(user_b).sudo().display_name,
+            "Restricted Folder / folder A - A",
+            "The parent folder name should be restricted",
+        )
 
     def test_unlink_attachments_with_documents(self):
         """
