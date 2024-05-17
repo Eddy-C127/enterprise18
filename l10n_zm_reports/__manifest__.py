@@ -2,7 +2,6 @@
 
 {
     'name': 'Zambia - Accounting Reports',
-    'countries': ['zm'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

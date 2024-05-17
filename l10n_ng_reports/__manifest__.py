@@ -3,7 +3,6 @@
 {
     'name': 'Nigeria - Accounting Reports',
     'version': '1.0',
-    'countries': ['ng'],
     'category': 'Accounting/Localizations/Reporting',
     'description': """
 Accounting Reports for Nigeria

@@ -2,7 +2,6 @@
 
 {
     'name': 'Malaysia - Accounting Reports',
-    'countries': ['my'],
     'version': '1.0',
     'category': 'Accounting/Localizations/Reporting',
     'description': """

@@ -3,7 +3,6 @@
 
 {
     "name": "Indian - GSTR India eFiling",
-    "countries": ["in"],
     "version": "1.0",
     "description": """
 GST return filing using IAP

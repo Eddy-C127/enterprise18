@@ -4,7 +4,6 @@
 {
     'name': 'Czech Republic- Accounting Reports',
     'icon': '/account/static/description/l10n.png',
-    'countries': ['cz'],
     'version': '1.0',
     'description': """
 Accounting reports for Czech Republic

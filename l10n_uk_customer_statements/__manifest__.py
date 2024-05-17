@@ -7,7 +7,6 @@
 This is a bridge module to install the customer statements module by default with the UK localization
     """,
     'summary': "Customer Statements",
-    'countries': ['gb'],
     'depends': [
         'l10n_uk',
         'l10n_account_customer_statements'

@@ -2,7 +2,6 @@
 
 {
     'name': 'Spain - Amazon Connector',
-    'countries': ['es'],
     'version': '1.0',
     'category': 'Localization',
     'summary': "Bridge module between the Spanish localization and Amazon",
