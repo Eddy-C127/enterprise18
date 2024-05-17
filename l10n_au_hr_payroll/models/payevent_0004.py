@@ -188,7 +188,9 @@ class L10nAuPayEvent0004(models.Model):
                         "PaymentA": leave.amount,
                     })
                 # == Allowance ==
-                allowance_lines = input_lines_ids.sudo().filtered(lambda l: l.input_type_id.l10n_au_is_allowance)
+                allowance_lines = input_lines_ids.sudo().filtered(
+                    lambda l: l.input_type_id.l10n_au_payment_type == 'allowance'
+                )
                 Remuneration["AllowanceCollection"] = []
                 for allowance in allowance_lines:
                     Remuneration["AllowanceCollection"].append({

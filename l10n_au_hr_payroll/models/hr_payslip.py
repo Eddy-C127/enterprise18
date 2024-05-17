@@ -348,7 +348,7 @@ class HrPayslip(models.Model):
         withholding_amount = 0.0
         # We need to always deal with the payment subject to the ETP cap first.
         for input_line in self.input_line_ids.sorted(key=lambda i: 0 if i.input_type_id.l10n_au_etp_type == 'excluded' else 1):
-            if not input_line.input_type_id.l10n_au_is_etp:
+            if input_line.input_type_id.l10n_au_payment_type != 'etp':
                 continue
             taxable_amount = input_line.amount
             applicable_tax_free_limit = 0

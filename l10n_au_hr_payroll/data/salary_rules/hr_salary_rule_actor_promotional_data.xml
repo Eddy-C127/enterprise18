@@ -15,7 +15,7 @@
         <field name="sequence">20</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
+ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_superannuation_treatment == 'ote')
 ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
 result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
         </field>
@@ -52,11 +52,11 @@ result = -contract.l10n_au_workplace_giving
         <field name="code">ETP.GROSS</field>
         <field name="sequence">101</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_payment_type == 'etp'))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 etp_withholding, tax_free_component = payslip._l10n_au_compute_termination_withhold(employee, ytd_total)
-result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp).mapped('amount'))
+result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_payment_type == 'etp').mapped('amount'))
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
     </record>
@@ -67,7 +67,7 @@ result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_i
         <field name="code">TAX.FREE</field>
         <field name="sequence">102</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_payment_type == 'etp'))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = tax_free_component
@@ -82,10 +82,10 @@ result = tax_free_component
         <field name="code">ETP.BASE</field>
         <field name="sequence">103</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_payment_type == 'etp'))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp).mapped('amount')) - tax_free_component
+result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_payment_type == 'etp').mapped('amount')) - tax_free_component
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>
         <field name="appears_on_payslip">False</field>
@@ -138,7 +138,7 @@ result_rate *= -1
         <field name="code">ETP.WITHHOLD</field>
         <field name="sequence">160</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_is_etp))</field>
+        <field name="condition_python">result = payslip.l10n_au_termination_type and any(payslip.input_line_ids.filtered(lambda l: l.input_type_id.l10n_au_payment_type == 'etp'))</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -etp_withholding
@@ -201,10 +201,10 @@ result = -payslip._l10n_au_compute_child_support(net_salary)
         <field name="sequence">199</field>
         <field name="code">ALW</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = payslip.input_line_ids.filtered(lambda x: x.input_type_id.l10n_au_is_allowance)</field>
+        <field name="condition_python">result = payslip.input_line_ids.filtered(lambda x: x.input_type_id.l10n_au_payment_type == 'allowance')</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-allowances = payslip.input_line_ids.filtered(lambda x: x.input_type_id.l10n_au_is_allowance)
+allowances = payslip.input_line_ids.filtered(lambda x: x.input_type_id.l10n_au_payment_type == 'allowance')
 result = sum(allowances.mapped('amount'))
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_actor_promotional"/>

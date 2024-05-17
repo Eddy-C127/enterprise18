@@ -15,7 +15,7 @@
         <field name="sequence">20</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_is_ote)
+ote_inputs = payslip.input_line_ids.filtered(lambda i: i.input_type_id.l10n_au_superannuation_treatment == 'ote')
 ote_worked_day = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_is_ote)
 result = sum(ote_inputs.mapped('amount')) + sum(ote_worked_day.mapped('amount'))
         </field>

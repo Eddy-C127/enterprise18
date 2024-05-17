@@ -5,16 +5,20 @@
         <field name="model">hr.payslip.input.type</field>
         <field name="inherit_id" ref="hr_payroll.hr_payslip_input_type_view_form"/>
         <field name="arch" type="xml">
-            <field name="struct_ids" position="after">
+            <xpath expr="//sheet" position="inside">
                 <field name="country_code" invisible="1"/>
                 <group name="l10n_au" string="Australia" invisible="country_code != 'AU'">
+                    <field name="currency_id"/>
                     <field name="l10n_au_default_amount" />
-                    <field name="l10n_au_is_allowance"/>
-                    <field name="l10n_au_is_etp"/>
-                    <field name="l10n_au_etp_type" invisible="not l10n_au_is_etp"/>
-                    <field name="l10n_au_is_ote"/>
+                    <field name="l10n_au_payment_type" required="1"/>
+                    <field name="l10n_au_paygw_treatment" invisible="l10n_au_payment_type != 'allowance'" required="l10n_au_payment_type == 'allowance'"/>
+                    <field name="l10n_au_ato_rate_limit" invisible="l10n_au_payment_type != 'allowance' or l10n_au_paygw_treatment != 'excess'"/>
+                    <field name="l10n_au_etp_type" invisible="l10n_au_payment_type != 'etp'" required="l10n_au_payment_type == 'etp'"/>
+                    <field name="l10n_au_payroll_code" groups="base.group_no_one"/>
+                    <field name="l10n_au_payroll_code_description" invisible="l10n_au_payment_type != 'allowance'" groups="base.group_no_one"/>
+                    <field name="l10n_au_superannuation_treatment" required="1"/>
                 </group>
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>
