@@ -71,4 +71,11 @@ export class DiscussChannel extends mailModels.DiscussChannel {
         }
         return this._channel_info([channel.id])[0];
     }
+    /**
+     * @override
+     * @type {typeof mailModels.DiscussChannel["prototype"]["_types_allowing_seen_infos"]}
+     */
+    _types_allowing_seen_infos() {
+        return super._types_allowing_seen_infos(...arguments).concat(["whatsapp"]);
+    }
 }

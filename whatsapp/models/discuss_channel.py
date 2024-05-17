@@ -294,6 +294,9 @@ class DiscussChannel(models.Model):
 
         return list(channel_infos_dict.values())
 
+    def _types_allowing_seen_infos(self):
+        return super()._types_allowing_seen_infos() + ["whatsapp"]
+
     # ------------------------------------------------------------
     # COMMANDS
     # ------------------------------------------------------------

@@ -17,8 +17,10 @@ old_get_init_store_data_result = TestDiscussFullPerformance._get_init_store_data
 def _get_init_store_data_result(self):
     res = old_get_init_store_data_result(self)
     provider = self.env.ref("voip.default_voip_provider")
+    channel_types_with_seen_infos = res["Store"]["channel_types_with_seen_infos"] + ["whatsapp"]
     res["Store"].update(
         {
+            "channel_types_with_seen_infos": sorted(channel_types_with_seen_infos),
             "hasDocumentsUserGroup": False,
             "helpdesk_livechat_active": False,
             "voipConfig": {
