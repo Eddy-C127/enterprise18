@@ -7,6 +7,7 @@ export class ProjectTask extends projectModels.ProjectTask {
     planned_date_begin = fields.Datetime({ string: "Start Date" });
     planned_date_end = fields.Datetime({ string: "End Date" });
     planning_overlap = fields.Html();
+    planned_date_start = fields.Date({ string: "Date Start" });
 }
 
 projectModels.ProjectTask = ProjectTask;

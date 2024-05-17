@@ -36,8 +36,9 @@ Create Sales order with timesheets and products from tasks
         'web.assets_frontend': [
             'industry_fsm_sale/static/src/js/tours/**/*',
         ],
-        'web.qunit_suite_tests': [
-            'industry_fsm_sale/static/tests/**/*',
+        'web.assets_unit_tests': [
+            'industry_fsm_sale/static/tests/product_catalog.test.js',
+            'industry_fsm_sale/static/tests/industry_fsm_sale_mock_model.js',
         ],
     },
     'license': 'OEEL-1',

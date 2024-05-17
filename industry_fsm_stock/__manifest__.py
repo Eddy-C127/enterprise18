@@ -20,11 +20,11 @@ Validate stock moves for Field Service
         'web.assets_backend': [
             'industry_fsm_stock/static/src/**/*',
         ],
-        'web.qunit_suite_tests': [
-            'industry_fsm_stock/static/tests/**/*',
-        ],
         'web.assets_tests': [
             'industry_fsm_stock/static/tests/tours/**/*',
+        ],
+        'web.assets_unit_tests': [
+            'industry_fsm_stock/static/tests/product_catalog.test.js',
         ],
     },
     'auto_install': True,
