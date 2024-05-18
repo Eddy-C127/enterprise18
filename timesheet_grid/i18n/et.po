@@ -17,6 +17,7 @@
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Leaanika Randmets, 2023
 # Anna, 2023
+# Tairi Tiimann, 2024
 # 
 msgid ""
 msgstr ""
@@ -24,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Tairi Tiimann, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +45,7 @@ msgstr "%s kulutatud"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "+ [A] to add"
-msgstr ""
+msgstr "+ [A] lisamiseks"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_kanban
@@ -378,7 +379,7 @@ msgstr ""
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "A timer is running in another company."
-msgstr ""
+msgstr "Teises ettevõttes jookseb taimer."
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_all_timesheets
@@ -438,6 +439,7 @@ msgstr ""
 msgid ""
 "Click on the cell to set the number of hours you spent on this project."
 msgstr ""
+"Klõpsake lahtril, et määrata, mitu tundi te sellele projektile kulutasite."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_res_company
@@ -502,7 +504,7 @@ msgstr "Loodud"
 #: code:addons/timesheet_grid/static/src/views/timer_timesheet_grid/timer_timesheet_grid_renderer.xml:0
 #, python-format
 msgid "Daily overtime"
-msgstr ""
+msgstr "Igapäevased ületunnid"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__date
@@ -598,13 +600,15 @@ msgid ""
 "Difference between the number of hours recorded and the number of hours the "
 "employee was supposed to work according to his contract"
 msgstr ""
+"Erinevus registreeritud tundide ja töötaja lepingu kohaseks töötamiseks ette"
+" nähtud tundide vahel"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_overtime_indication/timesheet_overtime_indication.js:0
 #, python-format
 msgid "Difference between the time allocated and the time recorded"
-msgstr ""
+msgstr "Erinevus projektile eraldatud ja registreeritud aja vahel."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -909,7 +913,7 @@ msgstr "Pane pausile"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "Press"
-msgstr ""
+msgstr "Vajuta"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1387,7 +1391,7 @@ msgstr "Nädal"
 #: code:addons/timesheet_grid/static/src/views/timer_timesheet_grid/timer_timesheet_grid_renderer.xml:0
 #, python-format
 msgid "Weekly overtime"
-msgstr ""
+msgstr "Iganädalased ületunnid"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__user_can_validate
@@ -1401,7 +1405,7 @@ msgstr "Paegune kasutaja saab kirje mustandit kinnitada/lähtestada."
 #: code:addons/timesheet_grid/models/res_users.py:0
 #, python-format
 msgid "You are not allowed to see timesheets."
-msgstr ""
+msgstr "Teil pole lubatud tööaja arvestuslehti näha."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1442,6 +1446,8 @@ msgid ""
 "You cannot adjust the time of the timesheet for a project with timesheets "
 "disabled."
 msgstr ""
+"Te ei saa korrigeerida aega projekti puhul, millel on tööaja arvestuslehed "
+"keelatud."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1486,6 +1492,9 @@ msgid ""
 "employees who are not part of your team or are not in a state that can be "
 "validated. This may be due to the fact that they are dated in the future."
 msgstr ""
+"Valitud tööaja arvestuslehti ei saa kinnitada, kuna need kuuluvad kas teise "
+"meeskonna töötajatele või ei ole sellises olekus, mida saaks kinnitada. See "
+"võib olla tingitud sellest, et nende kuupäevad on tulevikus."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1495,6 +1504,9 @@ msgid ""
 "Your timesheet entry is missing a project. Please either group the Grid view"
 " by project or enter your timesheets through another view."
 msgstr ""
+"Teie tööaja arvestuslehe kirje on ilma projektita. Palun grupeerige "
+"ruudustikuvaade projekti järgi või sisestage oma tööaja arvestusleht teise "
+"vaate kaudu."
 
 #. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_employee_interval__months
@@ -1546,7 +1558,7 @@ msgstr "muudetud"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "or [a] to launch the timer"
-msgstr ""
+msgstr "või [a] taimeri käivitamiseks"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1560,11 +1572,11 @@ msgstr ""
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "to add 15 min"
-msgstr ""
+msgstr "15 minuti lisamiseks"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "to launch the timer"
-msgstr ""
+msgstr "taimeri käivitamiseks"

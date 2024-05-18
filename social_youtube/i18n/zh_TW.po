@@ -170,6 +170,20 @@ msgid "Created on"
 msgstr "建立於"
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description cannot exceed 5000 characters."
+msgstr "影片描述不可超過 5,000 個字元。"
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description should not contain > or < symbol."
+msgstr "影片描述不應有 > 或 < 符號。"
+
+#. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__display_name
 msgid "Display Name"
 msgstr "顯示名稱"
@@ -451,6 +465,20 @@ msgid "There is no channel linked with this YouTube account."
 msgstr "未有頻道連結至此 YouTube 帳戶。"
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title cannot exceed 100 characters."
+msgstr "影片標題不可超過 100 個字元。"
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title should not contain > or < symbol."
+msgstr "影片標題不應有 > 或 < 符號。"
+
+#. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid ""
 "To provide our application services, note that we store the following data "
@@ -573,6 +601,13 @@ msgid "Yes, delete it"
 msgstr "沒錯，刪除它"
 
 #. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You cannot use '>' or '<' in both title and description."
+msgstr "影片標題及描述均不可使用 > 或 <。"
+
+#. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_media.py:0
 #, python-format
@@ -585,6 +620,20 @@ msgstr "您尚未訂閱。請點選連結添購：%s"
 #, python-format
 msgid "You have to upload a video when posting on YouTube."
 msgstr "發佈至 YouTube 時，必須上載影片。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a description."
+msgstr "你須為影片提供描述。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a title."
+msgstr "你須為影片提供標題。"
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube
@@ -747,6 +796,20 @@ msgstr "YouTube 未有提供有效的授權碼。"
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Your channel name and picture"
 msgstr "你的頻道名稱及圖片"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your description cannot exceed 5000 characters."
+msgstr "你的影片描述不可超過 5,000 個字元。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your title cannot exceed 100 characters."
+msgstr "你的影片標題不可超過 100 個字元。"
 
 #. module: social_youtube
 #. odoo-python

@@ -890,15 +890,31 @@ msgid "Service user number"
 msgstr "Número de usuário do serviço"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service user number of your company within BACS"
 msgstr "O número de usuário do serviço da sua empresa no BACS"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if you "
+"bank does not provide one."
+msgstr ""
+"Número de usuário de serviço da sua empresa no BACS. Escreva 'HSBC' aqui se "
+"o seu banco não o fornece."
+
+#. module: account_bacs
 msgid "Service user number of your company within BACS, given by the bank."
 msgstr ""
 "O número de usuário do serviço da sua empresa no BACS, fornecido pelo banco"
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+msgid ""
+"Service user number of your company within BACS, given by the bank. Write "
+"'HSBC' here if your bank does not provide one."
+msgstr ""
+"Número de usuário de serviço da sua empresa no BACS, fornecido pelo banco. "
+"Escreva 'HSBC' aqui se o seu banco não o fornece."
 
 #. module: account_bacs
 #. odoo-python
@@ -1046,6 +1062,16 @@ msgstr "O número do usuário do serviço deve ter seis caracteres."
 #, python-format
 msgid "The service user number must be numeric."
 msgstr "O número do usuário do serviço deve ser numérica."
+
+#. module: account_bacs
+#. odoo-python
+#: code:addons/account_bacs/models/res_company.py:0
+#, python-format
+msgid ""
+"The service user number must be numeric, or 'HSBC' if you don't have any."
+msgstr ""
+"O número do usuário do serviço deve ser numérico ou \"HSBC\", se você não "
+"tiver."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state

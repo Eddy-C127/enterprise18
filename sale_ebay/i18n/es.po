@@ -271,7 +271,7 @@ msgstr "Ebay: recuperación de pedidos"
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.ir_cron_sale_ebay_stock_sync_ir_actions_server
 msgid "Ebay: synchronise stock"
-msgstr "Ebay: sincronizar las existencias"
+msgstr "Ebay: sincronizar stock"
 
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.ir_cron_sale_ebay_categories_ir_actions_server
@@ -405,7 +405,7 @@ msgstr "Categoría de productos"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.ebay_link_listing_view
 msgid "Link Existing Listing"
-msgstr "Enlace a lista existente"
+msgstr "Enlazar lista existente"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
@@ -471,7 +471,7 @@ msgstr "Sin políticas empresariales"
 #. module: sale_ebay
 #: model:ir.model.fields.selection,name:sale_ebay.selection__ebay_category__category_type__ebay
 msgid "Official eBay Category"
-msgstr "Categoría oficial eBay"
+msgstr "Categoría oficial de eBay"
 
 #. module: sale_ebay
 #. odoo-python
@@ -485,7 +485,7 @@ msgstr "Falta un parámetro."
 #: code:addons/sale_ebay/models/product.py:0
 #, python-format
 msgid "Or the condition is not compatible with the category."
-msgstr "O la condición no es compatible con la categoría"
+msgstr "O la condición no es compatible con la categoría."
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_out_of_stock
@@ -555,17 +555,17 @@ msgstr "Producción"
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_prod_app_id
 msgid "Production App Key"
-msgstr "Clave aplicación producción"
+msgstr "Clave de aplicación de producción"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_prod_cert_id
 msgid "Production Cert Key"
-msgstr "Production Cert Key"
+msgstr "Clave de certificado de producción"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_prod_token
 msgid "Production Token"
-msgstr "Production Token"
+msgstr "Token de producción"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_use
@@ -713,7 +713,7 @@ msgstr "El comprador elige el siguiente método de entrega:\n"
 #: code:addons/sale_ebay/models/sale_order.py:0
 #, python-format
 msgid "The Buyer Posted :\n"
-msgstr "El comprador publicó :\n"
+msgstr "El comprador publicó:\n"
 
 #. module: sale_ebay
 #. odoo-python
@@ -733,14 +733,14 @@ msgid ""
 "The subtitle is restricted to 55 characters. Fees can be claimed by eBay for"
 " this feature"
 msgstr ""
-"El subtítulo está restringido a 55 caracteres, eBay puede reclamar cargos "
-"por esta causa"
+"El subtítulo está limitado a 55 caracteres, es posible que eBay cobre "
+"tarifas adicionales por esta función"
 
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_title
 #: model:ir.model.fields,help:sale_ebay.field_product_template__ebay_title
 msgid "The title is restricted to 80 characters"
-msgstr "El título está restringido a 80 caracteres"
+msgstr "El título está limitado a 80 caracteres"
 
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_category_2_id
@@ -749,8 +749,8 @@ msgid ""
 "The use of a secondary category is not allowed on every eBay sites. Fees can"
 " be claimed by eBay for this feature"
 msgstr ""
-"El uso de una categoría secundaria no está permitido en todos los sitios de "
-"eBay, quien puede reclamar cargos por esta causa"
+"No se permite el uso de una categoría secundaria en algunos sitios de eBay, "
+"es posible que se cobre una tarifa adicional por esta función."
 
 #. module: sale_ebay
 #. odoo-python
@@ -762,10 +762,10 @@ msgid ""
 " the date of the oldest order you wish to synchronize in the format \"YYYY-"
 "MM-DD\"."
 msgstr ""
-"No hay una última fecha de sincronización en tus Parámetros del Sistema. "
-"Crea un registro de Parámetros del Sistema con la clave \"ebay_last_sync\" y"
-" el valor establecido en la fecha del pedido más antiguo que deseas "
-"sincronizar siguiendo el formato \"AAAA-MM-DD\"."
+"No hay una fecha de última sincronización en sus parámetros del sistema. "
+"Establezca un registro de parámetros del sistema con la clave "
+"\"ebay_last_sync\" y el valor definido como la fecha del pedido más antiguo "
+"que desea sincronizar con el formato \"AAAA-MM-DD\"."
 
 #. module: sale_ebay
 #. odoo-python
@@ -818,7 +818,7 @@ msgstr "Utilice \"cantidad en stock\""
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_use
 msgid "Use eBay"
-msgstr "Utilice eBay"
+msgstr "Usar eBay"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_country__ebay_available
@@ -1004,7 +1004,7 @@ msgstr "eBay: Volver a poner los productos en la lista"
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.action_revise_items
 msgid "eBay: Revise products"
-msgstr "eBay: Modificar productos"
+msgstr "eBay: modificar productos"
 
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.action_unlink_items_listings
@@ -1014,7 +1014,7 @@ msgstr "eBay: Desvincular las listas de productos"
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.action_ebay_update_carrier
 msgid "eBay: Update carrier information"
-msgstr "eBay: Actualizar la información de transporte"
+msgstr "eBay: actualizar la información del transportista"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_currency

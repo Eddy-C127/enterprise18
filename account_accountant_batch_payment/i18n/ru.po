@@ -22,13 +22,6 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. module: account_accountant_batch_payment
-#. odoo-javascript
-#: code:addons/account_accountant_batch_payment/static/src/components/bank_reconciliation/bank_rec_form.xml:0
-#, python-format
-msgid "'Batch Payments'"
-msgstr "'Пакетные платежи'"
-
-#. module: account_accountant_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_accountant_batch_payment.view_account_batch_payment_rejection_form
 msgid ""
 "<br/>\n"
@@ -52,6 +45,13 @@ msgstr "Виджет сверки банковских счетов для од�
 #, python-format
 msgid "Batch Payment"
 msgstr "Пакетная оплата"
+
+#. module: account_accountant_batch_payment
+#. odoo-javascript
+#: code:addons/account_accountant_batch_payment/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Batch Payments"
+msgstr "Групповые платежи"
 
 #. module: account_accountant_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_accountant_batch_payment.view_account_batch_payment_rejection_form

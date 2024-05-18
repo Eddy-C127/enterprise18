@@ -20,6 +20,7 @@
 # Leaanika Randmets, 2023
 # Mihkel avalah, 2023
 # Anna, 2023
+# Tairi Tiimann, 2024
 # 
 msgid ""
 msgstr ""
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Tairi Tiimann, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +48,7 @@ msgstr "%(user)s otsustas %(role)s, et avaldab töötaja tagasiside"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "%s's Goals"
-msgstr ""
+msgstr "%seesmärgid"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -127,6 +128,26 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Hea <t t-out=\"ctx.get('employee_to_name', 'employee')\">töötaja</t>,\n"
+"                        <br>\n"
+"                        <t t-out=\"ctx.get('author_name', '')\">Addison Olson</t> (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@example.com</t>) soovib hindamist.\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">Iga-aastane hindamine</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Vaata hindamist\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model:mail.template,body_html:hr_appraisal.mail_template_appraisal_request
@@ -155,6 +176,29 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Hea <t t-out=\"ctx.get('employee_to_name', 'employee')\">töötaja</t>,\n"
+"                        <br>\n"
+"                        Hinnangut palub <t t-out=\"ctx.get('author_name', '')\">Addison Olson</t>\n"
+"                        <br>\n"
+"                        (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@example.com</t>).\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">Iga-aastane hindamine</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Vaata hindamist\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                        <br>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -164,6 +208,9 @@ msgid ""
 "                the company.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Kirjeldage midagi, mis tekitas teis uhkust ja andis panuse ettevõttesse.\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -173,6 +220,9 @@ msgid ""
 "                obstacles?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Kas te olete kokku puutunud uute raskustega? Kas olete silmitsi seisnud uute takistustega?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -182,6 +232,9 @@ msgid ""
 "                you enjoy the most/the least?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Igal tööl on tugevad küljed. Millised on teie arvates ülesanded, mida te kõige rohkem/ vähem naudite?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -191,6 +244,9 @@ msgid ""
 "                overcome their weaknesses?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Kuidas saaksite juhina aidata töötajal nende nõrkusi ületada?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -200,6 +256,10 @@ msgid ""
 "                for you to reach your goals and look for the best collaboration.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Kuidas saab ettevõte aidata teie vajaduste ja eesmärkidega,\n"
+"                et saaksite oma eesmärke saavutada ning tagada parim koostöö.\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -209,6 +269,10 @@ msgid ""
 "                employee's desire?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Kuidas näete töötajat tulevikus, kas teie visioon ühtib\n"
+"                töötaja soovidega?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -218,11 +282,15 @@ msgid ""
 "                issues.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Mõned saavutused, mis kinnitavad teie tugevusi tööalaste probleemidega\n"
+"                toimetulekul.\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Autonomy</em>"
-msgstr ""
+msgstr "<em>Iseseisvus</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -232,21 +300,25 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Kultuur/Käitumine:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-1\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Do you need rapid answer to the current situation?</em>"
-msgstr ""
+msgstr "<em>Kas vajate praegusele olukorrale kiiret vastust?</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "<em>Give an example of long-term objective (&gt; 6 months)</em>"
-msgstr ""
+msgstr "<em>Too näide pikaajalise eesmärgi kohta (&gt; 6 kuud)</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "<em>Give an example of short-term objective (&lt; 6 months)</em>"
-msgstr ""
+msgstr "<em>Too näide lühiajalise eesmärgi kohta (&lt; 6 kuud)</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -256,6 +328,10 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Sisemine suhtlus:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-2\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -265,11 +341,15 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Töö sisu:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-3\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Pro-activity</em>"
-msgstr ""
+msgstr "<em>Proaktiivsus</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -279,21 +359,25 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Tasustamine:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-5\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Stress Resistance</em>"
-msgstr ""
+msgstr "<em>Stressitaluvus</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Teamwork</em>"
-msgstr ""
+msgstr "<em>Meeskonnatöö</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Time Management</em>"
-msgstr ""
+msgstr "<em>Ajajuhtimine</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -303,6 +387,10 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Töökorraldus:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-4\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -356,12 +444,12 @@ msgstr "<span class=\"o_stat_text\">Eesmärgid</span>"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_kanban
 msgid "<span class=\"text-bg-danger\">Canceled</span>"
-msgstr ""
+msgstr "<span class=\"text-bg-danger\">Tühistatud</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_view_kanban
 msgid "<span class=\"text-bg-success\">Done</span>"
-msgstr ""
+msgstr "<span class=\"text-bg-success\">Tehtud</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
@@ -370,6 +458,9 @@ msgid ""
 "                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state == 'new'\">Visible to Manager</span>\n"
 "                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state != 'new'\">Visible &amp; Editable by Manager</span>"
 msgstr ""
+"<span class=\"text-end\" invisible=\"employee_feedback_published\">Ei ole juhatajale nähtav</span>\n"
+"                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state == 'new'\">Juhatajale nähtav</span>\n"
+"                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state != 'new'\">Nähtav &amp; muudetav juhataja poolt</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
@@ -377,6 +468,8 @@ msgid ""
 "<span class=\"text-end\" invisible=\"manager_feedback_published or not can_see_manager_publish\">Not Visible to Employee</span>\n"
 "                                            <span class=\"text-end\" invisible=\"not manager_feedback_published or not can_see_manager_publish\">Visible to Employee</span>"
 msgstr ""
+"<span class=\"text-end\" invisible=\"manager_feedback_published or not can_see_manager_publish\">Ei ole töötajale nähtav</span>\n"
+"                                            <span class=\"text-end\" invisible=\"not manager_feedback_published or not can_see_manager_publish\">Töötajale nähtav</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -385,6 +478,9 @@ msgid ""
 "                Evaluation\n"
 "            </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                Hinnang\n"
+"            </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -393,6 +489,9 @@ msgid ""
 "                Feedback\n"
 "            </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                Tagasiside\n"
+"            </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -401,6 +500,9 @@ msgid ""
 "                Improvements\n"
 "            </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                Arengud\n"
+"            </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -409,6 +511,9 @@ msgid ""
 "                My feelings\n"
 "            </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                Minu tunded\n"
+"            </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -417,6 +522,9 @@ msgid ""
 "                My future\n"
 "            </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                Minu tulevik\n"
+"            </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -425,6 +533,9 @@ msgid ""
 "                My work\n"
 "            </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                Minu töö\n"
+"            </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_kanban
@@ -562,7 +673,7 @@ msgstr "Hindamise eesmärk"
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_hr_appraisal_goal_tag
 msgid "Appraisal Goal Tags"
-msgstr ""
+msgstr "Hindamiseesmärkide sildid"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__appraisal_manager_feedback_template
@@ -585,7 +696,7 @@ msgstr "Hindamise plaan postitatud"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_department__appraisal_properties_definition
 msgid "Appraisal Properties"
-msgstr ""
+msgstr "Hindamise omadused"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -621,7 +732,7 @@ msgstr "Hindamise mallid"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal for %s to fill"
-msgstr ""
+msgstr "%s täitmata hindamine"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -635,7 +746,7 @@ msgstr "Hinnang %s kohta"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal to fill"
-msgstr ""
+msgstr "Täitmata hindamine"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_action_from_department
@@ -660,7 +771,7 @@ msgstr "Hindamised"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Appraisals Plans"
-msgstr ""
+msgstr "Hindamiskavad"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_department__appraisals_to_process_count
@@ -689,6 +800,8 @@ msgid ""
 "Assign Goals to motivate your Employees and keep track of their objectives "
 "between Appraisals."
 msgstr ""
+"Määra eesmärgid, et motiveerida oma töötajaid ja jälgida eesmärkide "
+"saavutamist hindamiste vahel."
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__message_attachment_count
@@ -1097,7 +1210,7 @@ msgstr "Eesmärk"
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_goal_tag_action
 msgid "Goal Tags"
-msgstr ""
+msgstr "Eesmärkide sildid"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.action_hr_appraisal_goal
@@ -1140,7 +1253,7 @@ msgstr "On sõnum"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "How could the employee improve?"
-msgstr ""
+msgstr "Kuidas saaks töötaja areneda?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -1432,7 +1545,7 @@ msgstr "Järgmise tegevuse tüüp"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_search
 msgid "Next Appraisal"
-msgstr ""
+msgstr "Järgmine hindamine"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__next_appraisal_date
@@ -1700,7 +1813,7 @@ msgstr "Seaded"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "Short term (6-months) actions / decisions / objectives"
-msgstr ""
+msgstr "Lühiajalised (6-kuulised) tegevused / otsused / eesmärgid"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__show_employee_feedback_full
@@ -1823,6 +1936,8 @@ msgid ""
 "The employee %s arrived %s months ago. The appraisal is created and you can "
 "fill it here."
 msgstr ""
+"Töötaja %s alustas tööd %s kuu(d) tagasi. Hindamine on loodud ja saate selle"
+" täita siin."
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1850,6 +1965,8 @@ msgid ""
 "The last appraisal of %s was %s months ago. The appraisal is created and you"
 " can fill it here."
 msgstr ""
+"Viimane hindamine %s oli %s kuud tagasi. Hindamine on loodud ja saate selle "
+"täita siin."
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1907,7 +2024,7 @@ msgstr "Avaldamata"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_search
 msgid "Upcoming Appraisals"
-msgstr ""
+msgstr "Järgmised hindamised"
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_res_users
@@ -1940,7 +2057,7 @@ msgstr "Veebilehe suhtluse ajalugu"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "What are my best achievement(s) since my last appraisal?"
-msgstr ""
+msgstr "Millised on minu parimad saavutused alates viimasest hindamisest?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -1948,6 +2065,8 @@ msgid ""
 "What are my short and long-term goals with the company, and for my\n"
 "            career?"
 msgstr ""
+"Millised on minu lühi- ja pikaajalised eesmärgid ettevõttes\n"
+"            ja karjääris?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -1955,11 +2074,13 @@ msgid ""
 "What has been the most challenging aspect of my work this past year and\n"
 "            why?"
 msgstr ""
+"Mis on olnud minu töös kõige keerulisem aspekt möödunud aastal ja \n"
+"            miks?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "What would I need to improve my work?"
-msgstr ""
+msgstr "Mida ma vajaksin, et oma töös paremaks saada?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
@@ -1967,11 +2088,13 @@ msgid ""
 "When the Appraisals plan is saved, it will overwrite all empty Next "
 "Appraisal Dates for every employee."
 msgstr ""
+"Kui hindamisplaan salvestatakse, kirjutatakse üle kõik töötajate tühjad "
+"järgmise hindamise kuupäevad."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "Which parts of my job do I most / least enjoy?"
-msgstr ""
+msgstr "Millist osa oma tööst naudin kõige rohkem / kõige vähem?"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1981,6 +2104,8 @@ msgid ""
 "You arrived %s months ago. Your appraisal is created and you can fill it "
 "here."
 msgstr ""
+"Te alustasite %s kuud tagasi. Teie hindamine on loodud ja te saate selle "
+"siin täita."
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1995,14 +2120,14 @@ msgstr ""
 #: code:addons/hr_appraisal/models/hr_employee.py:0
 #, python-format
 msgid "You cannot set 'Next Appraisal Date' in the past."
-msgstr ""
+msgstr "Te ei saa määrata \"Järgmise hindamise kuupäeva\" minevikku"
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Your Appraisal has been completed"
-msgstr ""
+msgstr "Teie hindamine on lõpetatud"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2012,6 +2137,8 @@ msgid ""
 "Your last appraisal was %s months ago. Your appraisal is created and you can"
 " fill it here."
 msgstr ""
+"Sinu viimane hindamine toimus %s kuud tagasi. Teie hindamine on loodud ja te"
+" saate selle siin täita."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form

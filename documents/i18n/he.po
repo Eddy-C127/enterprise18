@@ -37,13 +37,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
 #, python-format
 msgid " + Add a tag"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#, python-format
+msgid "%s (remaining pages)"
 msgstr ""
 
 #. module: documents
@@ -131,6 +138,13 @@ msgstr "<b>הסרת דף זה</b> כי בכוונתנו קודם לעבד את �
 msgid ""
 "<br/>\n"
 "                    is sharing content with you"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "<b>Select</b> this page to continue."
 msgstr ""
 
 #. module: documents
@@ -736,6 +750,12 @@ msgid "Archived"
 msgstr "בארכיון"
 
 #. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved to trash"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
 msgstr ""
@@ -967,6 +987,13 @@ msgstr "סגור"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close split tools"
+msgstr ""
+
+#. module: documents
+#. openerp-web
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
 msgstr ""
 
 #. module: documents
@@ -2064,6 +2091,7 @@ msgstr "העבר לסביבת עבודה"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #, python-format
 msgid "Move to trash"
 msgstr ""
@@ -2200,7 +2228,7 @@ msgstr "לא נבחר מסמך"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "No limit"
-msgstr ""
+msgstr "לא מוגבל"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.share_action
@@ -2570,6 +2598,12 @@ msgstr "משתמש אחראי"
 #, python-format
 msgid "Restore"
 msgstr "שחזר"
+
+#. module: documents
+#: code:addons/documents/models/folder.py:0
+#, python-format
+msgid "Restricted Folder"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error

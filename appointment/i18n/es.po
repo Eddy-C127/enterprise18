@@ -1001,7 +1001,7 @@ msgstr "Agregar más detalles sobre usted"
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_manage_leaves
 msgid "Add or remove leaves from appointments"
-msgstr "Agregar o eliminar pausas de las citas "
+msgstr "Agregar o eliminar vacaciones de las citas"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -1078,7 +1078,8 @@ msgstr "Un evento no puede reservar recursos sin tipo de cita. "
 #: code:addons/appointment/models/appointment_slot.py:0
 #, python-format
 msgid "An unique type slot should have a start and end datetime"
-msgstr "Un tipo de espacio único debe tener una fecha de inicio y fin"
+msgstr ""
+"Un tipo de espacio único debe tener una fecha de inicio y finalización"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__name
@@ -1230,7 +1231,7 @@ msgstr "Nombre de la cita"
 #. module: appointment
 #: model:onboarding.onboarding,name:appointment.onboarding_onboarding_appointment
 msgid "Appointment Onboarding"
-msgstr "Intergación de citas"
+msgstr "Incorporación de citas"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_answer
@@ -1253,7 +1254,7 @@ msgstr "Recurso de la cita "
 #. module: appointment
 #: model:ir.actions.server,name:appointment.resource_calendar_leaves_action_show_appointment_resources
 msgid "Appointment Resource Leaves"
-msgstr "Pausa de recursos de citas"
+msgstr "No disponibilidad del recurso para citas"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_ids
@@ -1269,7 +1270,7 @@ msgid ""
 "                (e.g. Tables, Tennis Courts, Meeting Rooms, ...)"
 msgstr ""
 "Los recursos de la cita son los lugares o el equipo que la gente puede reservar\n"
-"                (por ejemplo, mesas, canchas de tenis, salas de reuniones, ...)"
+"                (p. ej. mesas, pistas de tenis, salas de reuniones, ...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
@@ -1822,7 +1823,7 @@ msgstr "Fechas"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Declined"
-msgstr "Rechazada"
+msgstr "Rechazado"
 
 #. module: appointment
 #. odoo-python
@@ -1971,7 +1972,8 @@ msgstr "Fecha y hora de finalización"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__end_datetime
 msgid "End datetime for unique slot type management"
-msgstr "Administración de fecha de fin un tipo de cita único"
+msgstr ""
+"Fecha y hora de finalización para la administración de un tipo de espacio"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__end_hour
@@ -2033,7 +2035,7 @@ msgstr "Viernes"
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__start_datetime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "From"
-msgstr "Desde"
+msgstr "Desde el"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__avatars_display
@@ -2083,7 +2085,7 @@ msgstr "Obtenga su enlace"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Google Agenda"
-msgstr "Agenda de Google"
+msgstr "Calendario de Google"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
@@ -2181,7 +2183,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, the meeting is considered as taking place online"
-msgstr "Si está vacío, se considera que la reunión será virtual"
+msgstr "Si está vacío, se considera que la reunión tiene lugar en línea"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2207,8 +2209,8 @@ msgid ""
 "If the active field is set to False, it will allow you to hide the resource "
 "record without removing it."
 msgstr ""
-"Si el campo activo se desmarca, permite ocultar el registro del recurso sin "
-"eliminarlo."
+"Si el campo activo es falso, le permitirá ocultar el registro del recurso "
+"sin eliminarlo."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__active
@@ -2216,7 +2218,7 @@ msgid ""
 "If the active field is set to false, it will allow you to hide the event "
 "alarm information without removing it."
 msgstr ""
-"Si el campo activo es falso, te permitirá ocultar la notificación de aviso "
+"Si el campo activo es falso, le permitirá ocultar la notificación de aviso "
 "del evento sin eliminarlo."
 
 #. module: appointment
@@ -2327,8 +2329,8 @@ msgid ""
 "Keep empty to allow visitors from any country, otherwise you only allow "
 "visitors from selected countries"
 msgstr ""
-"Deje esto en blanco para permitir visitas de otros países; si no, solo "
-"estará permitiendo visitas de los países seleccionados"
+"Manténgalo vacío para permitir visitas desde cualquier país, de lo contrario"
+" solo se permitirán las visitas de los países seleccionados"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__write_uid
@@ -2505,7 +2507,7 @@ msgstr "Mensajes"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Min"
-msgstr "mínimo"
+msgstr "Al menos"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__1
@@ -2566,7 +2568,7 @@ msgstr "Sin cita configurada"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
-msgstr "No se encontró una cita o un recurso."
+msgstr "No se encontró una cita o recurso."
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
@@ -2701,7 +2703,7 @@ msgstr ""
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Open"
-msgstr "Abierto"
+msgstr "Abrir"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
@@ -2851,7 +2853,7 @@ msgstr "Radio (una respuesta)"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__reason
@@ -2913,7 +2915,7 @@ msgstr "Calendario de recursos"
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_resource_leaves
 msgid "Resource Leaves"
-msgstr "Recursos en pausa"
+msgstr "No disponibilidad de recursos"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_resource_action
@@ -2938,7 +2940,7 @@ msgstr "Reservas de recursos"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resources_on_leave
 msgid "Resources intersecting with leave time"
-msgstr "Recursos que se empalman con tiempo personal "
+msgstr "Recursos que se empalman con vacaciones"
 
 #. module: appointment
 #. odoo-python
@@ -3305,9 +3307,7 @@ msgstr "Fecha y hora de inicio"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_start
 msgid "Start date of an event, without time for full days events"
-msgstr ""
-"Fecha de inicio del evento, sin tiempo para eventos que duran un día "
-"completo"
+msgstr "Fecha de inicio del evento, sin tiempo para eventos de días completos"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__start_datetime
@@ -3328,7 +3328,9 @@ msgstr "¡Paso completado!"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_stop
 msgid "Stop date of an event, without time for full days events"
-msgstr "Fecha de fin del evento, sin horas para eventos de día completo"
+msgstr ""
+"Fecha de finalización de un evento, sin tiempo para eventos de días "
+"completos"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
@@ -3353,7 +3355,7 @@ msgstr "Síntomas"
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_tennis_court
 msgid "Tennis Court"
-msgstr "Cancha de tenis "
+msgstr "Pista de tenis "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__value_text_box
@@ -3485,8 +3487,8 @@ msgid ""
 "This appointment type has no availabilities because it does not have any "
 "opening hours configured"
 msgstr ""
-"Este tipo de cita no tiene fechas disponibles porque no tiene horas libres "
-"configuradas"
+"Este tipo de cita no tiene disponibilidad porque no tiene ningún horario de "
+"apertura configurado"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3510,7 +3512,7 @@ msgstr ""
 msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 msgstr ""
-"Este tipo de cita no tiene fechas libres porque no tiene personal asignado"
+"Este tipo de cita no tiene disponibilidad porque no tiene personal asignado"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3518,8 +3520,8 @@ msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 " and does not have any opening hours configured"
 msgstr ""
-"Este tipo de citas no tiene fechas disponibles porque no tiene personal "
-"asignado y no tiene horas libres configuradas"
+"Este tipo de cita no tiene disponibilidad porque no tiene personal asignado "
+"y no tiene ningún horario de apertura configurado"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__tz
@@ -3527,13 +3529,13 @@ msgid ""
 "This field is used in order to define in which timezone the resources will "
 "work."
 msgstr ""
-"Este campo se utiliza para definir en qué zona horaria funcionarán los "
+"Este campo se utiliza para definir en qué zona horaria trabajarán los "
 "recursos."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_edit_in_backend
 msgid "This is a preview of the customer appointment form."
-msgstr "Esta es una vista previa del formulario para la cita del cliente"
+msgstr "Esta es una vista previa del formulario para la cita del cliente."
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3624,7 +3626,7 @@ msgstr "Incierto"
 #: code:addons/appointment/static/src/views/gantt/gantt_popover.xml:0
 #, python-format
 msgid "Unconfirm Check-In"
-msgstr "Anular registro"
+msgstr "Anular registro de entrada"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3790,7 +3792,7 @@ msgstr "p. ej. \"Tengo náuseas...\""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "e.g. \"John Doe - Tennis Court Booking\""
-msgstr "p. ej. \"Juan Pérez - Reservación de la cancha de tenis\""
+msgstr "p. ej. \"Juan Pérez - Reservación de la pista de tenis\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3825,7 +3827,7 @@ msgstr "p. ej. John Smith"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "e.g. Tennis Court 1"
-msgstr "por ejemplo, cancha de tenis 1 "
+msgstr "p. ej. pista de tenis 1 "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated

@@ -306,7 +306,7 @@ msgstr "キャッシュフロー比率"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/accounting_dashboard.json:0
 #, python-format
 msgid "Cash received"
-msgstr "現金入金"
+msgstr "現預金増加"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -314,7 +314,7 @@ msgstr "現金入金"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/accounting_dashboard.json:0
 #, python-format
 msgid "Cash spent"
-msgstr "現金出金"
+msgstr "現預金減少"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -322,7 +322,7 @@ msgstr "現金出金"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/accounting_dashboard.json:0
 #, python-format
 msgid "Cash surplus"
-msgstr "余裕金"
+msgstr "現預金余剰"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -330,7 +330,7 @@ msgstr "余裕金"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/accounting_dashboard.json:0
 #, python-format
 msgid "Closing bank balance"
-msgstr "期末銀行口座残高"
+msgstr "現預金残高"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -344,7 +344,7 @@ msgstr "コード"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/benchmark_dashboard.json:0
 #, python-format
 msgid "Cost of Revenue"
-msgstr "営業原価"
+msgstr "売上原価"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -413,7 +413,7 @@ msgstr "経常費用"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/accounting_dashboard.json:0
 #, python-format
 msgid "Current income"
-msgstr "現在の収入"
+msgstr "現在の売上"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -474,7 +474,7 @@ msgstr "財政的自立"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/benchmark_dashboard.json:0
 #, python-format
 msgid "Fixed Assets"
-msgstr "固定資産"
+msgstr "有形固定資産"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -601,14 +601,14 @@ msgstr "純売上高"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/benchmark_dashboard.json:0
 #, python-format
 msgid "Non-current Assets"
-msgstr "固定資産"
+msgstr "その他固定資産"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/benchmark_dashboard.json:0
 #, python-format
 msgid "Non-current Liabilities"
-msgstr "非流動負債"
+msgstr "固定負債"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -1021,7 +1021,7 @@ msgstr "買掛金 + クレジットカード + 流動負債"
 #: code:addons/spreadsheet_dashboard_account_accountant/data/files/benchmark_dashboard.json:0
 #, python-format
 msgid "payable + credit card + current liabilities + non-current liabilities"
-msgstr "買掛金 + クレジットカード + 流動負債 + 非流動負債"
+msgstr "買掛金 + クレジットカード + 流動負債 + 固定負債"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript
@@ -1096,7 +1096,7 @@ msgstr "売掛金"
 msgid ""
 "receivable + bank and cash + current assets + non-current assets + "
 "prepayments + fixed assets"
-msgstr "売掛金 + 現金及び預金 + 流動資産＋非流動資産＋前払金＋固定資産"
+msgstr "売掛金 + 現金及び預金 + 流動資産＋その他固定資産＋前払金＋有形固定資産"
 
 #. module: spreadsheet_dashboard_account_accountant
 #. odoo-javascript

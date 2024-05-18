@@ -966,7 +966,7 @@ msgstr "プロダクトバリアント"
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 #, python-format
 msgid "Put In Pack"
-msgstr "パックに入れる"
+msgstr "梱包する"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
@@ -1409,6 +1409,13 @@ msgstr "\"最終検証\"グループを表示すべきかどうかを計算す�
 #, python-format
 msgid "The inventory adjustment has been validated"
 msgstr "在庫調整が検証されました"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "The scanned location doesn't belong to this operation's destination"
+msgstr ""
 
 #. module: stock_barcode
 #. odoo-javascript

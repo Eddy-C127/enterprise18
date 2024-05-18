@@ -315,6 +315,7 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Analytic"
 msgstr "Analític"
@@ -516,15 +517,6 @@ msgstr "No teniu cap tasca pendent"
 #, python-format
 msgid "Connect your bank and get your latest transactions."
 msgstr "Connecti's amb el banc i consulti les seves últimes transferències."
-
-#. module: account_accountant
-#. odoo-python
-#: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
-msgid "Couldn't find an appropriate currency to reconcile selected lines."
-msgstr ""
-"No s'ha pogut trobar una moneda apropiada per a conciliar les línies "
-"seleccionades."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
@@ -885,7 +877,7 @@ msgstr "De comptes comercials pagables"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "From Trade Receivable accounts"
-msgstr "Des dels comptes comptables"
+msgstr "Des de comptes comercials a cobrar"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_0
@@ -1041,6 +1033,11 @@ msgid "Is Reconciled"
 msgstr "Està Reconciliat"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_write_off_required
+msgid "Is a write-off move required to reconcile"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
 msgid "Is an account transfer required"
 msgstr "És una transferència de compte requerida"
@@ -1049,11 +1046,6 @@ msgstr "És una transferència de compte requerida"
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_warning_message
 msgid "Is an account transfer required to reconcile"
 msgstr "És una transferència de compte requerida per a conciliar"
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__can_silently_reconcile
-msgid "Is silent reconcile possible"
-msgstr "És possible conciliació silenciosa ?"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
@@ -1183,17 +1175,6 @@ msgstr "Tornem al tauler de control."
 #, python-format
 msgid "Let’s see how a bill looks like in form view."
 msgstr "Vegem com es veu una factura a la vista de formulari."
-
-#. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
-msgid ""
-"Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done "
-"yet, wait a few more seconds and try again.</i>"
-msgstr ""
-"Utilitzem la IA per omplir el formulari<br/><br/><i>Consell: si encara no "
-"s'ha fet l'OCR, espereu uns segons més i torneu-ho a provar.</i>"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__line_ids
@@ -1379,12 +1360,8 @@ msgid "Not Matched"
 msgstr "Sense conciliar"
 
 #. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
-#, python-format
 msgid "Notes"
 msgstr "Notes"
 
@@ -1653,7 +1630,7 @@ msgstr "A cobrar"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Receivable:"
-msgstr "Receptible:"
+msgstr "A cobrar:"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__search_mode
@@ -2097,7 +2074,6 @@ msgstr "Divisa de la transacció"
 
 #. module: account_accountant
 #. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Transaction Details"

@@ -28,7 +28,7 @@ msgstr "Es existiert bereits ein Pricer-Etikett mit dieser Barcode-ID"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__pricer_store_id
 msgid "Associated Pricer Store"
-msgstr "Zugehöriger Pricer-Filiale"
+msgstr "Zugehöriger Pricer-Shop"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__product_id
@@ -100,7 +100,7 @@ msgstr "ID"
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_store_identifier
 msgid "Identifier of the store in the Pricer system"
-msgstr "Kennung der Filiale im Pricer-System"
+msgstr "Kennung des Shops im Pricer-System"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_tag__name
@@ -189,12 +189,12 @@ msgstr "Pricer-Produkt zu verknüpfen"
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_form_view
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_view_list
 msgid "Pricer Store"
-msgstr "Pricer-Filiale"
+msgstr "Pricer-Shop"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_store_identifier
 msgid "Pricer Store ID"
-msgstr "Pricer-Filialen-ID"
+msgstr "Pricer-Shop-ID"
 
 #. module: pos_pricer
 #. odoo-python
@@ -204,24 +204,24 @@ msgid ""
 "Pricer Store ID must only contain lowercase a-z, 0-9 or '-' and not start "
 "with '-'"
 msgstr ""
-"Die Pricer-Filialen-ID darf nur Kleinbuchstaben a-z, 0-9 oder „-“ enthalten "
-"und nicht mit „-“ beginnen."
+"Die Pricer-Shop-ID darf nur Kleinbuchstaben a-z, 0-9 oder „-“ enthalten und "
+"nicht mit „-“ beginnen."
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__name
 msgid "Pricer Store name in Odoo database"
-msgstr "Name der Pricer-Filiale in Odoo-Datenbank"
+msgstr "Name des Pricer-Shops in Odoo-Datenbank"
 
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_pricer_store
 msgid "Pricer Store regrouping pricer tags"
-msgstr "Pricer-Filiale Umgruppierung von Pricer-Etiketten"
+msgstr "Pricer-Shop Umgruppierung von Pricer-Etiketten"
 
 #. module: pos_pricer
 #: model:ir.actions.act_window,name:pos_pricer.action_open_pricer_stores
 #: model:ir.ui.menu,name:pos_pricer.menu_pos_pricer_stores
 msgid "Pricer Stores"
-msgstr "Pricer-Filialen"
+msgstr "Pricer-Shops"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__name
@@ -274,7 +274,7 @@ msgstr "Statusmeldung der letzten Synchronisation mit Pricer"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__name
 msgid "Store Name"
-msgstr "Filialname"
+msgstr "Shop-Name"
 
 #. module: pos_pricer
 #. odoo-python
@@ -295,7 +295,7 @@ msgid ""
 "This product will be linked to and displayed on the Pricer tags of the store"
 " selected here"
 msgstr ""
-"Dieses Produkt wird mit den Pricer-Etiketten der hier ausgewählten Filiale "
+"Dieses Produkt wird mit den Pricer-Etiketten der hier ausgewählten Shop "
 "verknüpft und dort angezeigt."
 
 #. module: pos_pricer

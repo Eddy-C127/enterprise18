@@ -283,6 +283,7 @@ msgstr ""
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Analytic"
 msgstr "Analītika"
@@ -480,13 +481,6 @@ msgstr ""
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
 msgid "Connect your bank and get your latest transactions."
-msgstr ""
-
-#. module: account_accountant
-#. odoo-python
-#: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
-#, python-format
-msgid "Couldn't find an appropriate currency to reconcile selected lines."
 msgstr ""
 
 #. module: account_accountant
@@ -989,6 +983,11 @@ msgid "Is Reconciled"
 msgstr "Jūs saskaņojāt"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_write_off_required
+msgid "Is a write-off move required to reconcile"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
 msgid "Is an account transfer required"
 msgstr ""
@@ -996,11 +995,6 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_warning_message
 msgid "Is an account transfer required to reconcile"
-msgstr ""
-
-#. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__can_silently_reconcile
-msgid "Is silent reconcile possible"
 msgstr ""
 
 #. module: account_accountant
@@ -1129,17 +1123,6 @@ msgstr ""
 #, python-format
 msgid "Let’s see how a bill looks like in form view."
 msgstr ""
-
-#. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-#, python-format
-msgid ""
-"Let’s use AI to fill in the form<br/><br/><i>Tip: If the OCR is not done "
-"yet, wait a few more seconds and try again.</i>"
-msgstr ""
-"Izmantojiet māksīgo intelektu, lai aizpildīt formu.<br/><br/><i>Padoms: Ja "
-"OCR vēl nav pabeigts, uzgaidiet vēl dažas sekundes un mēģiniet vēlreiz.</i>"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__line_ids
@@ -1325,12 +1308,8 @@ msgid "Not Matched"
 msgstr ""
 
 #. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
-#, python-format
 msgid "Notes"
 msgstr "Piezīmes"
 
@@ -2016,7 +1995,6 @@ msgstr ""
 
 #. module: account_accountant
 #. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Transaction Details"

@@ -37,6 +37,9 @@ msgid ""
 "%(date_start)s at %(time_start)s to\n"
 "%(date_end)s at %(time_end)s (%(timezone)s)"
 msgstr ""
+"%(name)s\n"
+"%(date_start)s at %(time_start)s to\n"
+"%(date_end)s at %(time_end)s (%(timezone)s)"
 
 #. module: appointment_account_payment
 #. odoo-python
@@ -47,11 +50,14 @@ msgid ""
 "%(date_start)s at %(time_start)s to\n"
 "%(date_end)s at %(time_end)s (%(timezone)s)"
 msgstr ""
+"%(name)s with %(staff_user)s\n"
+"%(date_start)s at %(time_start)s to\n"
+"%(date_end)s at %(time_end)s (%(timezone)s)"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "(timezone:"
-msgstr ""
+msgstr "(منطقه‌ی زمانی: "
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -60,11 +66,14 @@ msgid ""
 "title=\"Configure Providers in backend\"/><em>Configure Payment "
 "Providers</em>"
 msgstr ""
+"<br/><i class=\"fa fa-cog me-1\" role=\"img\" aria-label=\"Edit\" "
+"title=\"Configure Providers in backend\"/><em>Configure Payment "
+"Providers</em>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "<i class=\"fa fa-pencil fa-fw me-1\"/>Edit my appointment"
-msgstr ""
+msgstr "<i class=\"fa fa-pencil fa-fw me-1\"/>قرار ملاقات مرا ویرایش کن"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_type_view_form
@@ -72,6 +81,8 @@ msgid ""
 "<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/> Configure Payment "
 "Providers"
 msgstr ""
+"<i class=\"oi oi-fw o_button_icon oi-arrow-right\"/> Configure Payment "
+"Providers"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -79,6 +90,8 @@ msgid ""
 "<span class=\"text-nowrap\"><i class=\"oi oi-arrow-right mx-2\"/>Back to "
 "edit mode</span>"
 msgstr ""
+"<span class=\"text-nowrap\"><i class=\"oi oi-arrow-right mx-2\"/>Back to "
+"edit mode</span>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -91,6 +104,8 @@ msgid ""
 "<strong>No suitable payment option could be found.</strong>\n"
 "                    If you believe that it is an error, please contact the website administrator."
 msgstr ""
+"<strong>نمی‌توان گزینه‌ی پرداخت مناسبی را یافت.</strong>\n"
+"                    اگر معتقدید خطایی وجود دارد، لطفاً با مدیری وب‌سایت تماس بگیرید."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -98,16 +113,18 @@ msgid ""
 "<strong>Warning</strong> Make sure you are logged in as the right partner "
 "before making this payment."
 msgstr ""
+"<strong>Warning</strong> پیش از انجام این پرداخت اطمینان حاصل کنید که عنوان "
+"خود را درست وارد کرده‌اید."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "<strong>Warning</strong> The currency is missing or incorrect."
-msgstr ""
+msgstr "<strong>Warning</strong> ارز موردنظر موجود نیست یا نادرست است."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "<strong>Warning</strong> You must be logged in to pay."
-msgstr ""
+msgstr "<strong>Warning</strong> برای پرداخت باید وارد سیستم شوید."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,help:appointment_account_payment.field_product_product__detailed_type
@@ -129,7 +146,7 @@ msgstr "توکن دسترسی"
 #. module: appointment_account_payment
 #: model:ir.model.constraint,message:appointment_account_payment.constraint_appointment_type_check_product_and_payment_step
 msgid "Activating the payment step requires a product"
-msgstr ""
+msgstr "فعال‌سازی مرحله‌ی پرداخت نیازمند یک محصول است"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -164,7 +181,7 @@ msgstr "دعوت برای قرار ملاقات"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__account_move_id
 msgid "Appointment Invoice"
-msgstr ""
+msgstr "فاکتور قرار ملاقات"
 
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_appointment_type
@@ -175,7 +192,7 @@ msgstr "نوع قرار ملاقات"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__asked_capacity
 msgid "Asked Capacity"
-msgstr ""
+msgstr "ظرفیت درخواستی"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -191,7 +208,7 @@ msgstr "رزرو کردن"
 #: model:ir.model.fields.selection,name:appointment_account_payment.selection__product_template__detailed_type__booking_fees
 #: model:product.template,name:appointment_account_payment.default_booking_product_product_template
 msgid "Booking Fees"
-msgstr ""
+msgstr "هزینه‌های رزرو"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__booking_line_ids
@@ -256,6 +273,8 @@ msgid ""
 "Discover the secrets kept in high-end kitchens with one of our starred "
 "chefs, from the comfort of your own home."
 msgstr ""
+"از داخل خانه‌ی خود، همراه با یکی از بهترین سرآشپزهای ما رازهای آشپزخانه‌های "
+"پیشرفته‌‌مان را کشف کنید."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__display_name
@@ -272,12 +291,12 @@ msgstr "مدت زمان"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "For"
-msgstr ""
+msgstr "برای"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__guest_ids
 msgid "Guests"
-msgstr ""
+msgstr "مهمانان"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__id
@@ -288,7 +307,7 @@ msgstr "شناسه"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__not_available
 msgid "Is Not Available"
-msgstr ""
+msgstr "موجود نیست"
 
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_account_move
@@ -325,18 +344,18 @@ msgstr "ملاقات"
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_answer_input__calendar_booking_id
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__calendar_booking_id
 msgid "Meeting Booking"
-msgstr ""
+msgstr "رزرو جلسه"
 
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_calendar_booking_line
 msgid "Meeting Resource Booking"
-msgstr ""
+msgstr "رزرو منابع جلسه"
 
 #. module: appointment_account_payment
 #: model:appointment.type,name:appointment_account_payment.appointment_type_online_cooking_lesson
 #: model:product.template,name:appointment_account_payment.product_appointment_type_online_cooking_lesson_product_template
 msgid "Online Cooking Lesson"
-msgstr ""
+msgstr "تدریس آنلاین آشپزی"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__staff_user_id
@@ -346,17 +365,17 @@ msgstr "اپراتور"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "Payment for \""
-msgstr ""
+msgstr "پرداخت برای"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_type_view_form
 msgid "Pick a Product"
-msgstr ""
+msgstr "محصولی را انتخاب کنید"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_form
 msgid "Proceed to Payment"
-msgstr ""
+msgstr "برای پرداخت ادامه دهید"
 
 #. module: appointment_account_payment
 #: model:ir.model,name:appointment_account_payment.model_product_template
@@ -374,7 +393,7 @@ msgstr "نوع محصول"
 #. module: appointment_account_payment
 #: model:ir.model.fields,help:appointment_account_payment.field_appointment_type__has_payment_step
 msgid "Require visitors to pay to confirm their booking"
-msgstr ""
+msgstr "بازدیدکنندگان برای تأیید رزرو خود هزینه پرداخت کنند"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking_line__appointment_resource_id
@@ -390,7 +409,7 @@ msgstr "منابع"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "Schedule another appointment"
-msgstr ""
+msgstr "قرار ملاقات دیگری را تنظیم کنید"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -413,11 +432,13 @@ msgid ""
 "Thank you for your reservation. We will soon contact you to discuss menu "
 "options."
 msgstr ""
+"از رزرو شما متشکریم. به زودی برای گفت و گو در مورد گزینه‌های منو با شما تماس"
+" خواهیم گرفت."
 
 #. module: appointment_account_payment
 #: model:ir.model.constraint,message:appointment_account_payment.constraint_appointment_answer_input_check_event_or_booking
 msgid "The answer inputs must be linked to a meeting or to a booking"
-msgstr ""
+msgstr "پاسخ‌ها باید با جلسه یا رزرو در ارتباط باشند"
 
 #. module: appointment_account_payment
 #. odoo-python
@@ -426,22 +447,22 @@ msgstr ""
 msgid ""
 "The following booking was not confirmed due to insufficient availability or "
 "configuration changes: %s"
-msgstr ""
+msgstr "رزرو زیر به دلیل نبود امکانات کافی یا تغییر پیکربندی لغو شد: %s"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "There is nothing to pay."
-msgstr ""
+msgstr "هیچ موردی برای پرداخت وجود ندارد."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "This invoice is already paid for."
-msgstr ""
+msgstr "این فاکتور قبلاً پرداخت شده است."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "This is a preview of the customer appointment payment form."
-msgstr ""
+msgstr "این پیش نمایشی از فرم پرداخت هزینه قرار ملاقات مشتری است."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -449,30 +470,32 @@ msgid ""
 "Unfortunately, it looks like this booking is not possible anymore. Please "
 "contact us to find an alternative."
 msgstr ""
+"متأسفانه، به نظر می‌رسد این رزرو دیگر امکان‌پذیر نیست. لطفاً برای یافتن "
+"موردی دیگر با ما تماس بگیرید."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__has_payment_step
 msgid "Up-front Payment"
-msgstr ""
+msgstr "پیش پرداخت"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "When"
-msgstr ""
+msgstr "زمانی که"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid ""
 "Your appointment has not been booked yet. It will be confirmed upon payment "
 "confirmation."
-msgstr ""
+msgstr "قرار ملاقات شما هنوز رزرو نشده است. پس از تأیید پرداخت، تأیید می‌شود."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "people"
-msgstr ""
+msgstr "افراد"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "with"
-msgstr ""
+msgstr "با"

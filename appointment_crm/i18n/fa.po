@@ -48,7 +48,7 @@ msgstr "رخداد گاهشمار"
 #: code:addons/appointment_crm/static/src/views/appointment_calendar/appointment_crm_calendar_controller.xml:0
 #, python-format
 msgid "Click in your calendar to pick meeting time proposals for"
-msgstr ""
+msgstr "برای انتخاب زمان پیشنهادی جلسه بر روی گاهشمار خود کلیک کنید"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_type__lead_create
@@ -61,6 +61,8 @@ msgid ""
 "For each scheduled appointment, create a new opportunity and assign it to "
 "the responsible user."
 msgstr ""
+"برای هر قرار ملاقات برنامه‌ریزی شده، فرصت جدیدی را ایجاد کرده و آن را به "
+"کاربر مسئول اختصاص دهید."
 
 #. module: appointment_crm
 #: model_terms:ir.ui.view,arch_db:appointment_crm.appointment_type_view_form
@@ -75,7 +77,7 @@ msgstr "تعداد سرنخ ها"
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_type__lead_ids
 msgid "Leads/Opportunity"
-msgstr ""
+msgstr "سرنخ‌ها/فرصت"
 
 #. module: appointment_crm
 #: model:ir.model.fields,help:appointment_crm.field_appointment_invite__opportunity_id
@@ -83,13 +85,15 @@ msgid ""
 "Link an opportunity/lead to the appointment invite created.\n"
 "Used when creating an invitation from the Meeting action in the crm form view."
 msgstr ""
+"یک فرصت/سرنخ را به دعوت‌نامه‌ی ایجاد شده برای قرار ملاقات ربط دهید.\n"
+"هنگام ایجاد یک فرم دعوت‌نامه برای جلسه در صفحه‌ی فرم ارتباط با مشتری مورد استفاده قرار می‌گیرد."
 
 #. module: appointment_crm
 #. odoo-python
 #: code:addons/appointment_crm/models/calendar_event.py:0
 #, python-format
 msgid "Meeting linked to Lead/Opportunity %s"
-msgstr ""
+msgstr "جلسه‌ی مرتبط با سرنخ/فرصت %s"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_calendar_event__opportunity_id
@@ -99,4 +103,4 @@ msgstr "فرصت"
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_invite__opportunity_id
 msgid "Opportunity/Lead"
-msgstr ""
+msgstr "فرصت/سرنخ"

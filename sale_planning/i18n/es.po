@@ -85,7 +85,7 @@ msgstr "Desarrollador (plan de servicios)"
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__end_datetime
 msgid "End Date"
-msgstr "Fecha final"
+msgstr "Fecha de finalización"
 
 #. module: sale_planning
 #: model:planning.role,name:sale_planning.planning_role_tester
@@ -116,10 +116,10 @@ msgid ""
 "when confirming the Sales Order. Only employees with this role will "
 "automatically be assigned shifts for Sales Orders containing this service."
 msgstr ""
-"Si se habilita, se generará un turno de forma automática para la función "
-"seleccionada al confirmar la orden de venta. Solo se asignarán turnos a los "
-"empleados con esta función se asignarán de forma automática para las órdenes"
-" de venta que contienen este servicio."
+"Si se habilita, se generará automáticamente un turno para el rol "
+"seleccionado al confirmar la orden de venta. Sólo a los empleados con este "
+"rol se les asignarán automáticamente turnos para las órdenes de venta que "
+"contengan este servicio."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -138,7 +138,7 @@ msgid ""
 "unscheduled."
 msgstr ""
 "Solo se puede anular la programación de los espacios vinculados a una orden "
-"de venta con servicios planeables. "
+"de venta con servicios planificables."
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template
@@ -187,7 +187,7 @@ msgstr "Informe de análisis de planificación"
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order__planning_first_sale_line_id
 msgid "Planning First Sale Line"
-msgstr "Planear primera línea de venta"
+msgstr "Primera línea de venta de planificación"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_sale_order__planning_hours_planned
@@ -231,7 +231,7 @@ msgstr "Producto"
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_analysis_report__role_product_ids
 msgid "Role Product"
-msgstr "Función del producto"
+msgstr "Producto del rol"
 
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_sale_order
@@ -264,9 +264,9 @@ msgid ""
 "well as the role defined on the service, are taken into account."
 msgstr ""
 "Artículo de orden de venta para el que se realizará este turno. Cuando las "
-"órdenes de venta se planean de forma automática, se consideran las horas "
-"restantes del artículo de la orden de venta, así como la función que se "
-"define en el servicio."
+"órdenes de venta se planifican automáticamente, se consideran las horas "
+"restantes del artículo de la orden de venta, así como el rol que se define "
+"en el servicio."
 
 #. module: sale_planning
 #: model:ir.actions.act_window,name:sale_planning.sale_planning_action_schedule_by_sale_order
@@ -279,8 +279,8 @@ msgid ""
 "Schedule your human and material resources across roles, projects and sales "
 "orders."
 msgstr ""
-"Programe sus recursos humanos y materiales entre funciones, proyectos y "
-"órdenes de venta."
+"Programe sus recursos humanos y materiales entre roles, proyectos y órdenes "
+"de venta."
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_role__product_ids
@@ -303,7 +303,7 @@ msgstr "Fecha de inicio"
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.technical_maintainance_product_product_template
 msgid "Take a rest. We'll do our best."
-msgstr "Descanse. Haremos nuestro mejor esfuerzo."
+msgstr "Usted descanse, nosotros nos encargamos."
 
 #. module: sale_planning
 #. odoo-javascript

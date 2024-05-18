@@ -1113,7 +1113,7 @@ msgstr "添加新計劃"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Add a new rule"
-msgstr ""
+msgstr "加入新規則"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_pricelist_view
@@ -1129,7 +1129,7 @@ msgstr "新增價格規則"
 msgid ""
 "Add a recurring plan for this product, or create a new one with the desired "
 "recurrence (e.g., Monthly)"
-msgstr ""
+msgstr "為此產品加入重複性計劃，或按所需的重複周期（例如：每月）建立新計劃"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1458,7 +1458,7 @@ msgstr "選擇產品名稱。<br/><small>（例：存取網上學習平台）</s
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Choose the invoice duration for your subscription"
-msgstr ""
+msgstr "為定期訂購計劃選擇發票期有多長"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log__event_type__2_churn
@@ -1484,7 +1484,7 @@ msgstr "已流失"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Click here to add some products or services"
-msgstr ""
+msgstr "按此處以加入一些產品或服務"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
@@ -2448,14 +2448,14 @@ msgstr "讓我們加入一個有重複周期的定價"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Let's add price for selected recurrence"
-msgstr ""
+msgstr "讓我們為所選重複周期加入價格"
 
 #. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Let's choose the customer for your subscription"
-msgstr ""
+msgstr "讓我們為你的定期訂購計劃選擇客戶"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4645,7 +4645,7 @@ msgstr "貨量"
 msgid ""
 "Want a recurring billing through subscription management? Get started by "
 "clicking here"
-msgstr ""
+msgstr "想透過管理定期訂購計劃，進行重複定期收費嗎？請按此處開始"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4751,6 +4751,15 @@ msgid ""
 "You can not change the recurring property of this product because it has "
 "been sold already."
 msgstr "你無法變更此產品的經常屬性，因為它已售出。"
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/wizard/sale_subscription_close_reason_wizard.py:0
+#, python-format
+msgid ""
+"You can not churn a contract that has not been invoiced. Please cancel the "
+"contract instead."
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-python

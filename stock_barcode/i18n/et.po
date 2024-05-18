@@ -16,6 +16,7 @@
 # Triine Aavik <triine@avalah.ee>, 2023
 # Katrin Kampura, 2023
 # Leaanika Randmets, 2023
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Leaanika Randmets, 2023\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -543,14 +544,14 @@ msgstr "Lõplik kinnitamine"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorder was created:"
-msgstr ""
+msgstr "Loodi järeltellimus:"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorders were created:"
-msgstr ""
+msgstr "Loodi järeltellimus:"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
@@ -619,7 +620,7 @@ msgstr ""
 #, python-format
 msgid ""
 "If you validate now, the remaining products will be added to a backorder."
-msgstr ""
+msgstr "Kui valideerida siire, luuakse ülejäänud kaubale järeltellimus:"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__image_1920
@@ -637,7 +638,7 @@ msgstr "In #{kanban_getcolorname(record.color.raw_value)}"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.js:0
 #, python-format
 msgid "Incomplete Transfer"
-msgstr ""
+msgstr "Pooleldi täidetud siire"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
@@ -774,7 +775,7 @@ msgstr "Ükski korje ega toode ei vasta triipkoodile %(barcode)s"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No product, lot or package found for barcode %s"
-msgstr ""
+msgstr "Triipkoodile ei leitud vastet %s"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
@@ -967,7 +968,7 @@ msgstr "Toote pakend"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_reference_code
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_quant__product_reference_code
 msgid "Product Reference Code"
-msgstr ""
+msgstr "Toote viitekood"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_stock_quant_ids
@@ -1043,6 +1044,8 @@ msgid ""
 "Returns can only be created for pickings that are done, please validate "
 "first."
 msgstr ""
+"Tagastused on võimalik luua ainult peale pakkimist, eelnevalt vajalik "
+"valideerimine."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1174,7 +1177,7 @@ msgstr "Skaneeri toode ning seejärel sihtkoht"
 #, python-format
 msgid ""
 "Scan a product, a lot/serial number or a package to filter the transfers."
-msgstr ""
+msgstr "Skanneeri toode, seerianumber või pakk, et filtreerida siirdeid."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1349,6 +1352,13 @@ msgstr ""
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "Scanning package"
+msgstr ""
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: model:ir.model,name:stock_barcode.model_stock_scrap
 #, python-format
 msgid "Scrap"
@@ -1431,6 +1441,20 @@ msgstr ""
 #, python-format
 msgid "The inventory adjustment has been validated"
 msgstr "Inventuur on kinnitatud"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "The scanned location doesn't belong to this operation's destination"
+msgstr ""
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "The scanned location doesn't belong to this operation's location"
+msgstr "Skanneeritud asukoht ei kuulu operatsiooni asukohta"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1610,6 +1634,8 @@ msgid ""
 "You are about to take the product %(productName)s from the location %(locationName)s but this product isn't reserved in this location.\n"
 "Scan the current location to confirm that."
 msgstr ""
+"Te olete võtmas toodet %(productName)s asukohast %(locationName)s, aga see toode ei ole reserveeritus siin asukohas.\n"
+"Skaneeriga praegust toodet et kinnitada."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1650,7 +1676,18 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You can't register scrap at this state of the operation"
+msgstr "Ei saa registreerida praaki selles operatsiooni staatuses."
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid ""
+"You have already scanned %s items of this package. Do you want to scan the "
+"whole package?"
 msgstr ""
+"Te olete skanneerinud %s toodet selles pakendis. Kas te soovite skaneerica "
+"kogu pakendi?"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
@@ -1683,7 +1720,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "commands and operation types"
-msgstr ""
+msgstr "Käsud ja operatsiooni tüübid"
 
 #. module: stock_barcode
 #. odoo-javascript

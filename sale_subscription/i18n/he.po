@@ -2680,7 +2680,7 @@ msgstr "ממתין "
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__pending_transaction
 msgid "Pending Transaction"
-msgstr ""
+msgstr "המתנה לעסקה"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -4368,6 +4368,15 @@ msgstr ""
 msgid ""
 "You can not change the recurring property of this product because it has "
 "been sold already."
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/wizard/sale_subscription_close_reason_wizard.py:0
+#, python-format
+msgid ""
+"You can not churn a contract that has not been invoiced. Please cancel the "
+"contract instead."
 msgstr ""
 
 #. module: sale_subscription

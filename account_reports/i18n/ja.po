@@ -6,8 +6,8 @@
 # Andy Yiu, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # Junko Augias, 2024
+# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -397,7 +397,7 @@ msgstr "前受金"
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Advance payments made to suppliers"
-msgstr "サプライヤへの前払金"
+msgstr "仕入先への前払金"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -838,7 +838,7 @@ msgstr "その他未分類活動によるキャッシュフロー"
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Cash in"
-msgstr "入金"
+msgstr "収入"
 
 #. module: account_reports
 #. odoo-python
@@ -847,7 +847,7 @@ msgstr "入金"
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Cash out"
-msgstr "出金"
+msgstr "支出"
 
 #. module: account_reports
 #. odoo-python
@@ -859,24 +859,24 @@ msgstr "営業活動による支出"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_received0
 msgid "Cash received"
-msgstr "現金入金"
+msgstr "現預金増加"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Cash received from operating activities"
-msgstr "営業活動による現金入金"
+msgstr "営業活動による収入"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_spent0
 msgid "Cash spent"
-msgstr "現金出金"
+msgstr "現預金減少"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_surplus0
 msgid "Cash surplus"
-msgstr "余裕金"
+msgstr "現預金余剰"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_change_lock_date
@@ -912,7 +912,7 @@ msgstr "締切仕訳"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
 msgid "Closing bank balance"
-msgstr "期末銀行口座残高"
+msgstr "現預金残高"
 
 #. module: account_reports
 #. odoo-javascript
@@ -929,7 +929,7 @@ msgstr "列"
 #. module: account_reports
 #: model:account.report.column,name:account_reports.general_ledger_report_communication
 msgid "Communication"
-msgstr "通信費"
+msgstr "通信"
 
 #. module: account_reports
 #. odoo-python
@@ -1011,7 +1011,7 @@ msgstr "連絡先"
 #: model:account.report.line,name:account_reports.account_financial_report_cost_sales0
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_direct_costs0
 msgid "Cost of Revenue"
-msgstr "営業原価"
+msgstr "売上原価"
 
 #. module: account_reports
 #. odoo-python
@@ -1134,7 +1134,7 @@ msgstr "当期割当利益"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings_line_1
 msgid "Current Year Earnings"
-msgstr "当期収益"
+msgstr "当期利益"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings0
@@ -2825,17 +2825,17 @@ msgstr "税締切仕訳に必要な勘定科目を指定してください。"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_fixed_assets_view0
 msgid "Plus Fixed Assets"
-msgstr "加算: 固定資産"
+msgstr "加算: 有形固定資産"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_assets_view0
 msgid "Plus Non-current Assets"
-msgstr "加算: 非流動資産"
+msgstr "加算: その他固定資産"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_liabilities0
 msgid "Plus Non-current Liabilities"
-msgstr "加算: 非流動負債"
+msgstr "加算: 固定負債"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_position0
@@ -3368,7 +3368,7 @@ msgstr "会社の税務申告書をグループ化するために、この税務
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "The currency rate cannot be equal to zero"
-msgstr ""
+msgstr "通貨レートをゼロにすることはできません。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3421,7 +3421,7 @@ msgstr "使用された演算子はこの式ではサポートされていませ
 #: code:addons/account_reports/static/src/components/account_report/warnings.xml:0
 #, python-format
 msgid "There are"
-msgstr "今期またはそれ以前の期間に"
+msgstr "この期間、またはこの期間以前に"
 
 #. module: account_reports
 #. odoo-javascript
