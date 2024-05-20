@@ -106,21 +106,7 @@ class HrEmployee(models.Model):
         ('enterpriseEducation', 'Swiss: In-company training only'),
         ('mandatorySchoolOnly', 'Swiss: Compulsory schooling, without full vocational training'),
         ('doctorate', 'Swiss: Doctorate, habilitation'),
-    ], ondelete={
-        'universityMaster': 'set default',
-        'universityBachelor': 'set default',
-        'higherEducationMaster': 'set default',
-        'higherEducationBachelor': 'set default',
-        'higherVocEducation': 'set default',
-        'higherVocEducationMaster': 'set default',
-        'higherVocEducationBachelor': 'set default',
-        'teacherCertificate': 'set default',
-        'universityEntranceCertificate': 'set default',
-        'vocEducationCompl': 'set default',
-        'enterpriseEducation': 'set default',
-        'mandatorySchoolOnly': 'set default',
-        'doctorate': 'set default'
-    })
+    ])
     # YTI TO Display on res.users + check 13 digits
     l10n_ch_retirement_insurance_number = fields.Char(
         string="Retirement insurance number", groups="hr.group_hr_user",

@@ -40,8 +40,13 @@
                 <attribute name="class">o_appraisal_form</attribute>
             </xpath>
 
-            <xpath expr="//field[@name='parent_id']" position="after">
-                <field name="custom_appraisal_templates"/>
+            <xpath expr="//field[@name='color']" position="after">
+                <section colspan="2">
+                    <div class="o_horizontal_separator mb-3 mt-4 text-uppercase fw-bolder small">Appraisal</div>
+                    <group>
+                        <field name="custom_appraisal_templates"/>
+                    </group>
+                </section>
             </xpath>
 
             <xpath expr="//sheet" position="inside">
