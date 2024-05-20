@@ -228,3 +228,48 @@ class TestSoLineDeterminedInTimesheet(TestFsmFlowSaleCommon):
         # 5) Check that nothing has changed for the manager as this employee has no mapping
         self.assertEqual(employee_manager_timesheet.so_line, task.sale_line_id, 'This timesheet should have the same SOL than the one in the task because the employee is not in the employee mappings.')
         self.assertEqual(task.sale_line_id.qty_delivered, 1.0, 'The quantity delivered should be equal to 1 for the SOL linked to the task.')
+
+    def test_sol_determined_on_timesheet_with_task_is_under_warranty(self):
+        """ Test the functionality to ensure that the SOL in the timesheet is not set in the FSM project after task validation.
+            - Created two tasks, one designated as "Under Warranty" and another not.
+            - Validate both task.
+            - Ensure that the SOL in the timesheet remains unset
+                for the task marked as "Under Warranty"
+        """
+        warranty_task, without_warranty_task = self.env['project.task'].with_context({
+            'mail_create_nolog': True,
+            'default_user_ids': self.project_user,
+        }).create([{
+                'name': 'Fsm Task 1',
+                'project_id': self.fsm_project_employee_rate.id,
+                'under_warranty': True,
+                'timesheet_ids': [
+                    Command.create({
+                        'name': '/',
+                        'employee_id': self.employee_user.id,
+                        'unit_amount': 20,
+                    })
+                ],
+            }, {
+                'name': 'Fsm Task 2',
+                'project_id': self.fsm_project_employee_rate.id,
+                'timesheet_ids': [
+                    Command.create({
+                        'name': '/',
+                        'employee_id': self.employee_user.id,
+                        'unit_amount': 20,
+                    })
+                ],
+            },
+        ])
+
+        self.consu_product_delivered.with_context({'fsm_task_id': warranty_task.id}).set_fsm_quantity(2)
+        self.consu_product_delivered.with_context({'fsm_task_id': without_warranty_task.id}).set_fsm_quantity(2)
+
+        warranty_task.action_fsm_validate()
+        self.assertFalse(warranty_task.timesheet_ids.so_line, 'The timesheet should not be linked to a SOL.')
+        self.assertFalse(warranty_task.sale_line_id, 'The task should not be linked to a SOL.')
+
+        without_warranty_task.action_fsm_validate()
+        self.assertTrue(without_warranty_task.timesheet_ids.so_line, 'The timesheet should be linked to a SOL.')
+        self.assertTrue(without_warranty_task.sale_line_id, 'The task should be linked to a SOL.')

@@ -18,7 +18,7 @@
                 <attribute name="required">is_fsm</attribute>
             </field>
             <xpath expr="//field[@name='sale_line_id']" position="after">
-                <field name="under_warranty" optional="hide"/>
+                <field name="under_warranty" optional="hide" invisible="not is_fsm or not allow_material"/>
             </xpath>
         </field>
     </record>
@@ -232,7 +232,7 @@
                 }</attribute>
             </field>
             <xpath expr="//field[@name='allow_billable']" position="before">
-                <field name="under_warranty" invisible="not allow_material"/>
+                <field name="under_warranty" invisible="not is_fsm or not allow_material"/>
             </xpath>
         </field>
     </record>

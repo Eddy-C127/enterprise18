@@ -383,10 +383,12 @@ class Task(models.Model):
             timesheet_count_by_task_dict = {task.id: count for task, count in timesheets_read_group}
             for task in billable_tasks:
                 timesheet_count = timesheet_count_by_task_dict.get(task.id)
-                if not task.sale_order_id and not timesheet_count:  # Prevent creating/confirming a SO if there are no products and timesheets
+                # Prevent creating/confirming a SO if there are no products and timesheets
+                # or task is under warranty and there is no material product on the task
+                if (not task.sale_order_id and not timesheet_count) or (task.under_warranty and task.material_line_product_count == 0):
                     continue
                 task._fsm_ensure_sale_order()
-                if task.allow_timesheets:
+                if task.allow_timesheets and not task.under_warranty:
                     task._fsm_create_sale_order_line()
                 if task.sudo().sale_order_id.state in ['draft', 'sent']:
                     task.sudo().sale_order_id.action_confirm()

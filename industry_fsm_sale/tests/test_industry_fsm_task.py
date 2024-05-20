@@ -63,3 +63,25 @@ class TestIndustryFsmTask(TestFsmFlowSaleCommon):
         })
         self.task.action_fsm_validate()
         self.assertEqual(self.task.sale_line_id.price_unit, 0.0, "If task is under warranty, the price of the sale order line should be 0.0")
+
+    def test_fsm_task_sale_line_id(self):
+        """Ensure that no Sale Order is generated on task if task is under warranty
+            and there are timesheets but no product on the task.
+                Test Case:
+                =========
+                1. Create a task and add timesheet line to it
+                2. Set the task under warranty
+                3. Validate the task without any product
+                4. Sale order should not be generated
+        """
+        self.task.write({'under_warranty': True, 'partner_id': self.partner_1.id})
+        self.env['account.analytic.line'].create({
+            'name': 'Timesheet',
+            'task_id': self.task.id,
+            'unit_amount': 0.50,
+            'date': '2024-07-07',
+            'employee_id': self.employee_user2.id,
+        })
+        self.task.action_fsm_validate()
+        self.assertFalse(self.task.sale_order_id, 'Sale order should not be generated on the task.')
+        self.assertFalse(self.task.timesheet_ids.so_line, 'The timesheet should not be linked to a SOL.')
