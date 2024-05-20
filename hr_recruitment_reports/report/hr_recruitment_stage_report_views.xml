@@ -31,11 +31,18 @@
                 <field name="job_id"/>
                 <field name="date_begin"/>
                 <field name="date_end"/>
+                <field name="state"/>
                 <filter string="Last 365 Days Applicant" name="year" domain="[
                     ('date_begin', '>=', (context_today() + relativedelta(days=-365)).strftime('%Y-%m-%d')),
                     ('date_begin', '&lt;', (context_today() + relativedelta(days=1)).strftime('%Y-%m-%d'))]"/>
                 <separator/>
                 <filter name="filter_date_begin" date="date_begin"/>
+                <separator/>
+                <filter string="Hired" name="filter_hired" domain="[('state', '=', 'is_hired')]"/>
+                <filter string="Refused" name="filter_refused" domain="[('state', '=', 'refused')]"/>
+                <separator/>
+                <filter string="Archived" name="filter_archived" domain="[('state', '=', 'archived')]"/>
+
                 <group expand="1" string="Group By">
                     <filter string="State" name="groupby_state" context="{'group_by': 'state'}"/>
                     <filter string="Job Position" name="groupby_job" context="{'group_by':'job_id'}"/>

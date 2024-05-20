@@ -21,6 +21,7 @@ class HrRecruitmentStageReport(models.Model):
         ('is_hired', 'Hired'),
         ('in_progress', 'In Progress'),
         ('refused', 'Refused'),
+        ('archived', 'Archived'),
     ], readonly=True)
 
     company_id = fields.Many2one('res.company', readonly=True)
@@ -37,7 +38,8 @@ SELECT
     ha.job_id AS job_id,
     ha.company_id AS company_id,
     CASE
-        WHEN ha.active IS FALSE THEN 'refused'
+        WHEN ha.active IS FALSE and ha.refuse_reason_id IS NOT NULL THEN 'refused'
+        WHEN ha.active IS FALSE and ha.refuse_reason_id IS NULL THEN 'archived'
         WHEN ha.date_closed IS NOT NULL THEN 'is_hired'
         ELSE 'in_progress'
     END AS state,
@@ -75,13 +77,18 @@ SELECT
     ha.job_id AS job_id,
     ha.company_id AS company_id,
     CASE
-        WHEN ha.active IS FALSE THEN 'refused'
+        WHEN ha.active IS FALSE AND ha.refuse_reason_id IS NOT NULL THEN 'refused'
+        WHEN ha.active IS FALSE AND ha.refuse_reason_id IS NULL THEN 'archived'
         WHEN ha.date_closed IS NOT NULL THEN 'is_hired'
         ELSE 'in_progress'
     END AS state,
     COALESCE(md.date, ha.create_date) AS date_begin,
     NOW() AT TIME ZONE 'utc' AS date_end,
-    EXTRACT(EPOCH FROM NOW() AT TIME ZONE 'utc' - COALESCE(md.date, ha.create_date))/(24*60*60)::decimal(16,2) AS days_in_stage,
+	CASE
+		WHEN ha.refuse_date IS NOT NULL THEN ABS(EXTRACT(EPOCH FROM md.date - COALESCE (ha.refuse_date, ha.create_date)))/(24*60*60)
+		ELSE
+	EXTRACT(EPOCH FROM NOW() AT TIME ZONE 'utc' - COALESCE(md.date, ha.create_date))/(24*60*60)
+	END AS days_in_stage,
     ha.stage_id
 FROM
     hr_applicant ha
