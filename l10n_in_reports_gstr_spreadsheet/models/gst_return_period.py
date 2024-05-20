@@ -47,8 +47,8 @@ class L10nInGSTReturnPeriod(models.Model):
         self._prepare_exp_sheet(gstr1_json.get('exp', {}), workbook, cell_formats)
         self._prepare_nil_sheet(gstr1_json.get('nil', {}), workbook, cell_formats)
         self._prepare_hsn_sheet(gstr1_json.get('hsn', {}), workbook, cell_formats)
-        self._prepare_supeco_sheet(gstr1_json.get('supeco', {}), 'clttx', workbook, cell_formats) # Table 14(a) u/s 52(TCS)
-        self._prepare_supeco_sheet(gstr1_json.get('supeco', {}), 'paytx', workbook, cell_formats) # Table 14 (b) u/s 9(5)
+        # self._prepare_supeco_sheet(gstr1_json.get('supeco', {}), 'clttx', workbook, cell_formats) # Table 14(a) u/s 52(TCS)
+        # self._prepare_supeco_sheet(gstr1_json.get('supeco', {}), 'paytx', workbook, cell_formats) # Table 14 (b) u/s 9(5)
         workbook.close()
         xlsx_data = output.getvalue()
         xlsx_doc = self.env['documents.document'].create({

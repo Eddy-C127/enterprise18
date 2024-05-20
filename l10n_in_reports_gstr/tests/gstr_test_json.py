@@ -238,10 +238,10 @@ gstr1_test_json = {
       }
     ]
   },
-  'supeco': {
-    'clttx': [],
-    'paytx': [],
-  }
+  # 'supeco': {
+  #   'clttx': [],
+  #   'paytx': [],
+  # }
 }
 
 gstr2b_test_json = {

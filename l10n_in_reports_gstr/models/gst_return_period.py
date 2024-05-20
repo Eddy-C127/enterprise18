@@ -1088,10 +1088,11 @@ class L10nInGSTReturnPeriod(models.Model):
             'cdnr': _get_cdnr_json(AccountMoveLine.search(self._get_section_domain('cdnr'))),
             'cdnur': _get_cdnur_json(AccountMoveLine.search(self._get_section_domain('cdnur'))),
             'exp': _get_exp_json(AccountMoveLine.search(self._get_section_domain('exp'))),
-            'supeco': {
-                'clttx': _get_supeco_clttx_json(AccountMoveLine.search(self._get_section_domain('supeco_clttx'))), # details for section 52 (TCS)
-                'paytx': _get_supeco_paytx_json(AccountMoveLine.search(self._get_section_domain('supeco_paytx'))) #details for section 9(5)
-            }
+            # Indian Government is not supporting supeco in the production
+            # 'supeco': {
+            #     'clttx': _get_supeco_clttx_json(AccountMoveLine.search(self._get_section_domain('supeco_clttx'))), # details for section 52 (TCS)
+            #     'paytx': _get_supeco_paytx_json(AccountMoveLine.search(self._get_section_domain('supeco_paytx'))) #details for section 9(5)
+            # }
         }
         if nil_json:
             return_json.update({'nil': nil_json})
