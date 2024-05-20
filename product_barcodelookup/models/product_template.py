@@ -52,7 +52,7 @@ class ProductTemplate(models.Model):
                     if uom:
                         weight = uom._compute_quantity(
                             weight,
-                            to_unit=self.env['uom.uom']._get_weight_uom_id_from_ir_config_parameter(),
+                            to_unit=self._get_weight_uom_id_from_ir_config_parameter(),
                         )
                 product.weight = weight
 
