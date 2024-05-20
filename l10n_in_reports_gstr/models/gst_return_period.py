@@ -1021,7 +1021,6 @@ class L10nInGSTReturnPeriod(models.Model):
                     "cess": 0,
             }]
             """
-            tax_tags = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True)
             clttx_json = {}
             for move_id in journal_items.mapped('move_id'):
                 tax_details = tax_details_by_move.get(move_id)
@@ -1036,19 +1035,17 @@ class L10nInGSTReturnPeriod(models.Model):
                         "cess": 0.00,
                     })
                     clttx_json[eco_gstin]['suppval'] += line_tax['base_amount'] * -1
-                    for ltd in line_tax['line_tax_details']:
-                        if tax_tags['cgst'] in ltd['tag_ids']:
-                            clttx_json[eco_gstin]['cgst'] += line_tax['base_amount'] * 0.005 * -1
-                        elif tax_tags['sgst'] in ltd['tag_ids']:
-                            clttx_json[eco_gstin]['sgst'] += line_tax['base_amount'] * 0.005 * -1
-                        elif tax_tags['igst'] in ltd['tag_ids']:
-                            clttx_json[eco_gstin]['igst'] += line_tax['base_amount'] * 0.01 * -1
+                    clttx_json[eco_gstin]['cgst'] += line_tax['cgst'] * -1
+                    clttx_json[eco_gstin]['sgst'] += line_tax['sgst'] * -1
+                    clttx_json[eco_gstin]['igst'] += line_tax['igst'] * -1
+                    clttx_json[eco_gstin]['cess'] += line_tax['cess'] * -1
             return [{
                 **d,
                 "suppval": AccountEdiFormat._l10n_in_round_value(d['suppval']),
                 "igst": AccountEdiFormat._l10n_in_round_value(d['igst']),
                 "cgst": AccountEdiFormat._l10n_in_round_value(d['cgst']),
                 "sgst": AccountEdiFormat._l10n_in_round_value(d['sgst']),
+                "cess": AccountEdiFormat._l10n_in_round_value(d['cess']),
             } for d in clttx_json.values()]
 
         def _get_supeco_paytx_json(journal_items):
@@ -1407,7 +1404,7 @@ class L10nInGSTReturnPeriod(models.Model):
                         ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
                         ("move_id.l10n_in_reseller_partner_id.vat", "!=", False),
                         ("move_id.l10n_in_reseller_partner_id.industry_id", "=", self.env.ref('l10n_in.eco_under_section_52').id),
-                        ("tax_tag_ids", "in", [taxes_tag_ids[f'base_{gst}'] for gst in ['cgst', 'sgst', 'igst']]),
+                        ("tax_tag_ids", "in", gst_tags),
                     ]
                 )
             case 'supeco_paytx':
