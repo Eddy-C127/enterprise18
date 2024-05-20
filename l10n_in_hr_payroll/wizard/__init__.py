@@ -3,3 +3,4 @@
 
 from . import hr_yearly_salary_detail
 from . import hr_salary_register
+from . import hr_tds_calculation

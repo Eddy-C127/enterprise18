@@ -71,6 +71,89 @@
         <field name="date_from" eval="datetime(2000, 1, 1).date()"/>
     </record>
 
+    <record id="l10n_in_rule_parameter_tds_percent" model="hr.rule.parameter">
+        <field name="name">India: TDS Rate Chart</field>
+        <field name="code">l10n_in_tds_rate_chart</field>
+        <field name="country_id" ref="base.in"/>
+    </record>
+    <record id="l10n_in_rule_parameter_tds_percent_value" model="hr.rule.parameter.value">
+        <field name="parameter_value">[
+            (0.0, (0, 300000)),
+            (0.05, (300000, 600000)),
+            (0.1, (600000, 900000)),
+            (0.15, (900000, 1200000)),
+            (0.2, (1200000, 1500000)),
+            (0.3, (1500000, 'inf'))
+        ]</field>
+        <field name="rule_parameter_id" ref="l10n_in_rule_parameter_tds_percent"/>
+        <field name="date_from" eval="datetime(2000, 1, 1).date()"/>
+    </record>
+
+    <record id="l10n_in_rule_parameter_surcharg_percent" model="hr.rule.parameter">
+        <field name="name">India: Surcharge Rate</field>
+        <field name="code">l10n_in_surcharge_rate</field>
+        <field name="country_id" ref="base.in"/>
+    </record>
+    <record id="l10n_in_rule_parameter_surcharge_percent_value" model="hr.rule.parameter.value">
+        <field name="parameter_value">[
+            (0.0, (0, 5000000)),
+            (0.1, (5000000, 10000000)),
+            (0.15, (10000000, 20000000)),
+            (0.25, (20000000, 'inf')),
+        ]</field>
+        <field name="rule_parameter_id" ref="l10n_in_rule_parameter_surcharg_percent"/>
+        <field name="date_from" eval="datetime(2000, 1, 1).date()"/>
+    </record>
+
+    <record id="l10n_in_rule_parameter_standard_deduction" model="hr.rule.parameter">
+        <field name="name">India: Standard Deduction</field>
+        <field name="code">l10n_in_standard_deduction</field>
+        <field name="country_id" ref="base.in"/>
+    </record>
+    <record id="l10n_in_rule_parameter_standard_deduction_value" model="hr.rule.parameter.value">
+        <field name="parameter_value">50000</field>
+        <field name="rule_parameter_id" ref="l10n_in_rule_parameter_standard_deduction"/>
+        <field name="date_from" eval="datetime(2000, 1, 1).date()"/>
+    </record>
+
+    <record id="l10n_in_rule_parameter_min_income_tax_rebate" model="hr.rule.parameter">
+        <field name="name">India: Minimun Income for Tax Rebate</field>
+        <field name="code">l10n_in_min_income_tax_rebate</field>
+        <field name="country_id" ref="base.in"/>
+    </record>
+    <record id="l10n_in_rule_parameter_min_income_tax_rebate_value" model="hr.rule.parameter.value">
+        <field name="parameter_value">700000</field>
+        <field name="rule_parameter_id" ref="l10n_in_rule_parameter_min_income_tax_rebate"/>
+        <field name="date_from" eval="datetime(2000, 1, 1).date()"/>
+    </record>
+
+    <record id="l10n_in_rule_parameter_min_income_surcharge" model="hr.rule.parameter">
+        <field name="name">India: Miminum Income for Surcharge</field>
+        <field name="code">l10n_in_min_income_surcharge</field>
+        <field name="country_id" ref="base.in"/>
+    </record>
+    <record id="l10n_in_rule_parameter_min_income_surcharge_value" model="hr.rule.parameter.value">
+        <field name="parameter_value">5000000</field>
+        <field name="rule_parameter_id" ref="l10n_in_rule_parameter_min_income_surcharge"/>
+        <field name="date_from" eval="datetime(2000, 1, 1).date()"/>
+    </record>
+
+    <record id="l10n_in_rule_parameter_max_surcharge_tax_rate" model="hr.rule.parameter">
+        <field name="name">India: Maximum Tax Rate for Surcharge</field>
+        <field name="code">l10n_in_max_surcharge_tax_rate</field>
+        <field name="country_id" ref="base.in"/>
+    </record>
+    <record id="l10n_in_rule_parameter_max_surcharge_tax_rate_value" model="hr.rule.parameter.value">
+        <field name="parameter_value">[
+            (5000000, 1200000, 0),
+            (10000000, 2700000, 270000),
+            (20000000, 5700000, 855000),
+            (50000000, 14700000, 3675000),
+        ]</field>
+        <field name="rule_parameter_id" ref="l10n_in_rule_parameter_max_surcharge_tax_rate"/>
+        <field name="date_from" eval="datetime(2000, 1, 1).date()"/>
+    </record>
+
     <record id="l10n_in_rule_parameter_lta_percent" model="hr.rule.parameter">
         <field name="name">India: Leave Travel Allowance Value and Percentage</field>
         <field name="code">l10n_in_lta_percent</field>
