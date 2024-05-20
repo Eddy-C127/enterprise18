@@ -50,6 +50,12 @@
                         string="Close" invisible="subscription_state not in ['3_progress', '4_paused'] or not id"
                         data-hotkey="x"/>
             </button>
+            <button name="action_unlock" position="attributes">
+                <attribute name="invisible" add="subscription_state == '5_renewed'" separator="or"></attribute>
+            </button>
+            <xpath expr="//sheet/div[hasclass('badge')]" position="attributes">
+                <attribute name="invisible" add="subscription_state == '5_renewed'" separator="or"></attribute>
+            </xpath>
             <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
                 <button invisible="not is_renewing"
                     name="open_subscription_renewal"
