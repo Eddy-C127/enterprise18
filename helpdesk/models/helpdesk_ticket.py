@@ -509,10 +509,9 @@ class HelpdeskTicket(models.Model):
                     new_partner = partner_per_email.get(email)
                     if new_partner:
                         partners_with_internal_user |= new_partner
-                if not partners_with_internal_user:
-                    continue
-                ticket._send_email_notify_to_cc(partners_with_internal_user)
-                partner_ids += partners_with_internal_user.ids
+                if partners_with_internal_user:
+                    ticket._send_email_notify_to_cc(partners_with_internal_user)
+                    partner_ids += partners_with_internal_user.ids
             if partner_ids:
                 ticket.message_subscribe(partner_ids)
 

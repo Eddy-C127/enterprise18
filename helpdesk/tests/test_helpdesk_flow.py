@@ -740,3 +740,17 @@ should be in the ticket's description
         self.assertEqual(helpdesk_ticket.partner_id, partner)
 
         self.assertEqual(helpdesk_ticket.description, Markup("<p>should be in the ticket's description\n</p>"), "the email body should be in the ticket's description")
+
+    def test_create_ticket_cc(self):
+        ''' Make sure creating a ticket with an email_cc field creates a follower. '''
+        ticket = self.env['helpdesk.ticket'].create({
+            'partner_name': 'Test Name',
+            'partner_email': 'testmail@test.com',
+            'name': 'Ticket Name',
+            'email_cc': 'testcc@test.com',
+        })
+        follow = self.env['mail.followers'].search([
+            ('res_model', '=', 'helpdesk.ticket'),
+            ('res_id', '=', ticket.id),
+        ], limit=1)
+        self.assertTrue(follow)
