@@ -13,7 +13,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
             run: "click",
         },
         {
-            trigger: ".o_cp_buttons:contains('Upload') .dropdown-toggle.dropdown-toggle-split",
+            trigger: ".o_cp_buttons:contains('New') .dropdown-toggle",
             content: "Open dropdown",
         },
         {

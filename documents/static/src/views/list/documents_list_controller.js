@@ -3,13 +3,14 @@
 import { ListController } from "@web/views/list/list_controller";
 import { _t } from "@web/core/l10n/translation";
 import { preSuperSetup, useDocumentView } from "@documents/views/hooks";
-import { useState } from "@odoo/owl";
+import { useRef, useState } from "@odoo/owl";
 
 export class DocumentsListController extends ListController {
     static template = "documents.DocumentsListController";
     setup() {
         preSuperSetup();
         super.setup(...arguments);
+        this.uploadFileInputRef = useRef("uploadFileInput");
         const properties = useDocumentView(this.documentsViewHelpers());
         Object.assign(this, properties);
 

@@ -246,9 +246,7 @@ QUnit.module(
                 views: [[false, "kanban"]],
             });
             await click(target, ".o_kanban_record:nth-of-type(1) .o_record_selector");
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
-            await click(menu, ".dropdown-toggle");
-            await click(menu, "button.dropdown-item.o_documents_kanban_share_domain");
+            await click(target, ".o_control_panel .d-xl-inline-flex button.o_documents_kanban_share_domain");
             assert.verifySteps(["spreadsheet_shared"]);
         });
 
@@ -305,9 +303,7 @@ QUnit.module(
                 res_model: "documents.document",
                 views: [[false, "kanban"]],
             });
-            const menu = target.querySelector(".o_control_panel .d-xl-inline-flex .btn-group");
-            await click(menu, ".dropdown-toggle");
-            await click(menu, "button.dropdown-item.o_documents_kanban_share_domain");
+            await click(target, ".o_control_panel .d-xl-inline-flex button.o_documents_kanban_share_domain");
             assert.verifySteps(["spreadsheet_shared"]);
         });
 

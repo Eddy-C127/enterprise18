@@ -253,16 +253,6 @@ export class DocumentsInspector extends Component {
         );
     }
 
-    async _reloadSearchModel() {
-        await this.env.searchModel._fetchSections(
-            this.env.searchModel.getSections(
-                (s) => s.type === "category" && s.fieldName === "folder_id"
-            ),
-            []
-        );
-        await this.env.searchModel._notify();
-    }
-
     getCurrentFolder() {
         return this.env.searchModel.getSelectedFolder();
     }
@@ -442,7 +432,7 @@ export class DocumentsInspector extends Component {
         const record = this.props.documents[0];
         await toggleArchive(record.model, record.resModel, this.resIds, false);
         this.env.documentsView.bus.trigger("documents-close-preview");
-        await this._reloadSearchModel();
+        await this.env.searchModel._reloadSearchModel(true);
     }
 
     onDelete() {

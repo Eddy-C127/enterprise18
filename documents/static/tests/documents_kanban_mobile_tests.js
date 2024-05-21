@@ -31,7 +31,7 @@ QUnit.module("documents", {}, function () {
         function () {
             QUnit.module("DocumentsKanbanViewMobile", function () {
                 QUnit.test("basic rendering on mobile", async function (assert) {
-                    assert.expect(13);
+                    assert.expect(15);
 
                     const pyEnv = await startServer();
                     const documentsFolderId1 = pyEnv["documents.folder"].create({
@@ -83,10 +83,10 @@ QUnit.module("documents", {}, function () {
                     const controlPanelButtons = target.querySelector(
                         ".o_control_panel .o_cp_buttons"
                     );
-                    assert.containsNone(
+                    assert.containsOnce(
                         controlPanelButtons,
                         "> .btn",
-                        "there should be no button left in the ControlPanel's left part"
+                        "there should be one button left (Share) in the ControlPanel's left part"
                     );
 
                     let searchPanel = document.querySelector(".o_search_panel");
@@ -96,19 +96,22 @@ QUnit.module("documents", {}, function () {
                         searchPanel.querySelector(".o-dropdown:first-child").textContent,
                         "Workspace"
                     );
-                    assert.containsOnce(
-                        target.querySelector(".o_cp_buttons"),
-                        ".o_documents_kanban_upload.pe-none.opacity-25",
+                    assert.ok(
+                        target.querySelector(".o_documents_kanban_upload").disabled,
                         "the upload button should be disabled on global view"
                     );
 
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_url").disabled,
-                        "the upload url button should be disabled on global view"
+                        "the upload url button should be enabled on global view"
                     );
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_request").disabled,
-                        "the request button should be disabled on global view"
+                        "the request button should be enabled on global view"
+                    );
+                    assert.notOk(
+                        target.querySelector(".o_documents_kanban_workspace"),
+                        "the workspace button should only be visible for documents manager on global view"
                     );
 
                     await click(target, ".o_kanban_record:nth-of-type(1) .o_record_selector");
@@ -136,6 +139,10 @@ QUnit.module("documents", {}, function () {
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_request").disabled,
                         "the request button should be enabled when a folder is selected"
+                    );
+                    assert.notOk(
+                        target.querySelector(".o_documents_kanban_workspace"),
+                        "the workspace button should only be visible for documents manager"
                     );
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_share_domain").disabled,
@@ -271,7 +278,7 @@ QUnit.module("documents", {}, function () {
 
             QUnit.module("DocumentsListViewMobile", function () {
                 QUnit.test("basic rendering on mobile", async function (assert) {
-                    assert.expect(13);
+                    assert.expect(15);
 
                     const pyEnv = await startServer();
                     const documentsFolderId1 = pyEnv["documents.folder"].create({
@@ -317,10 +324,10 @@ QUnit.module("documents", {}, function () {
                     const controlPanelButtons = target.querySelector(
                         ".o_control_panel .o_cp_buttons"
                     );
-                    assert.containsNone(
+                    assert.containsOnce(
                         controlPanelButtons,
                         "> .btn",
-                        "there should be no button left in the ControlPanel's left part"
+                        "there should be one button left (Share) in the ControlPanel's left part"
                     );
                     let searchPanel = document.querySelector(".o_search_panel");
                     await click(searchPanel, ".o-dropdown:first-child");
@@ -329,9 +336,8 @@ QUnit.module("documents", {}, function () {
                         searchPanel.querySelector(".o-dropdown:first-child").textContent,
                         "Workspace"
                     );
-                    assert.containsOnce(
-                        target.querySelector(".o_cp_buttons"),
-                        ".o_documents_kanban_upload.pe-none.opacity-25",
+                    assert.ok(
+                        target.querySelector(".o_documents_kanban_upload").disabled,
                         "the upload button should be disabled on global view"
                     );
                     assert.notOk(
@@ -341,6 +347,10 @@ QUnit.module("documents", {}, function () {
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_request").disabled,
                         "the request button should be disabled on global view"
+                    );
+                    assert.notOk(
+                        target.querySelector(".o_documents_kanban_workspace"),
+                        "the workspace button should only be visible for documents manager on global view"
                     );
 
                     await click(target, ".o_data_row:nth-of-type(1) .o_list_record_selector");
@@ -368,6 +378,10 @@ QUnit.module("documents", {}, function () {
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_request").disabled,
                         "the request button should be enabled when a folder is selected"
+                    );
+                    assert.notOk(
+                        target.querySelector(".o_documents_kanban_workspace"),
+                        "the workspace button should only be visible for documents manager"
                     );
                     assert.notOk(
                         target.querySelector(".o_documents_kanban_share_domain").disabled,

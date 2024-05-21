@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="spreadsheet.DocumentsViews.Buttons" t-inherit="documents.DocumentsViews.ControlPanel" t-inherit-mode="extension">
-        <xpath expr="//ul" position="inside">
+        <xpath expr="//button[hasclass('o_documents_kanban_url')]" position="after">
             <button type="button" class="btn btn-link dropdown-item o_documents_kanban_spreadsheet"
-                t-att-disabled="folder.id and !folder.has_write_access"
-                t-on-click.stop.prevent="onClickCreateSpreadsheet" data-hotkey="x">
-                New Spreadsheet
+                t-att-disabled="!hasShareableWorkspace or folder.id === 'TRASH' or (folder.id and !folder.has_write_access)"
+                t-on-click.prevent="onClickCreateSpreadsheet" data-hotkey="x">
+                <i class="fa fa-table me-2"/>Spreadsheet
             </button>
         </xpath>
     </t>

@@ -137,4 +137,12 @@
               (0, 0, {'view_mode': 'tree', 'view_id': ref('documents.folder_view_tree')}),
               (0, 0, {'view_mode': 'form', 'view_id': ref('documents.folder_view_form')})]"/>
       </record>
+
+    <record id="action_workspace_form" model="ir.actions.act_window">
+        <field name="name">Add Workspace</field>
+        <field name="res_model">documents.folder</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'form_view_ref': 'documents.folder_view_form'}</field>
+        <field name="target">new</field>
+    </record>
 </odoo>

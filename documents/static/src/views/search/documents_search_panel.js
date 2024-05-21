@@ -103,7 +103,7 @@ export class DocumentsSearchPanel extends SearchPanel {
                     parentFolderId,
                     beforeFolderId,
                 ]);
-                await this._reloadSearchModel(true);
+                await this.env.searchModel._reloadSearchModel(true);
             },
         });
     }
@@ -151,20 +151,6 @@ export class DocumentsSearchPanel extends SearchPanel {
                 return ["documents.facet", resId];
             }
         }
-    }
-
-    async _reloadSearchModel(reloadCategories) {
-        const searchModel = this.env.searchModel;
-        // By default the category is not reloaded.
-        if (reloadCategories) {
-            await searchModel._fetchSections(
-                searchModel.getSections(
-                    (s) => s.type === "category" && s.fieldName === "folder_id"
-                ),
-                []
-            );
-        }
-        await searchModel._notify();
     }
 
     // Support for edition on mobile
@@ -259,7 +245,7 @@ export class DocumentsSearchPanel extends SearchPanel {
                 create_from_search_panel: true,
             },
         });
-        await this._reloadSearchModel(resModel === "documents.folder" && !section.enableCounters);
+        await this.env.searchModel._reloadSearchModel(resModel === "documents.folder" && !section.enableCounters);
         if (resModel === "documents.folder") {
             this.state.expanded[section.id][parentValue] = true;
         }
@@ -280,7 +266,7 @@ export class DocumentsSearchPanel extends SearchPanel {
                 },
             },
             {
-                onClose: this._reloadSearchModel.bind(this, true),
+                onClose: () => this.env.searchModel._reloadSearchModel(true),
             }
         );
         await this.env.model.env.documentsView.bus.trigger("documents-close-preview");

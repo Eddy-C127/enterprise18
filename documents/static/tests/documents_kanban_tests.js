@@ -258,7 +258,7 @@ QUnit.module("documents", {}, function () {
         },
         function () {
             QUnit.test("kanban basic rendering", async function (assert) {
-                assert.expect(28);
+                assert.expect(30);
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
@@ -293,19 +293,22 @@ QUnit.module("documents", {}, function () {
 
                 await legacyClick(target, ".o_search_panel_category_value:nth-of-type(1) header");
 
-                assert.containsOnce(
-                    target.querySelector(".o_cp_buttons"),
-                    ".o_documents_kanban_upload.pe-none.opacity-25",
+                assert.ok(
+                    target.querySelector(".o_documents_kanban_upload").disabled,
                     "the upload button should be disabled on global view"
                 );
 
                 assert.notOk(
                     target.querySelector(".o_documents_kanban_url").disabled,
-                    "the upload url button should be disabled on global view"
+                    "the upload url button should be enabled on global view"
                 );
                 assert.notOk(
                     target.querySelector(".o_documents_kanban_request").disabled,
-                    "the request button should be disabled on global view"
+                    "the request button should be enabled on global view"
+                );
+                assert.notOk(
+                    target.querySelector(".o_documents_kanban_workspace"),
+                    "the workspace button should only be visible for documents manager on global view"
                 );
 
                 await legacyClick(target, ".o_kanban_record:nth-of-type(1) .o_record_selector");
@@ -367,18 +370,17 @@ QUnit.module("documents", {}, function () {
                 // check control panel buttons
                 assert.containsOnce(
                     target,
-                    ".o_cp_buttons .btn-primary:not(.dropdown-toggle):visible"
+                    ".o_cp_buttons .btn-primary.dropdown-toggle:visible"
                 );
                 assert.strictEqual(
-                    $(".o_cp_buttons .btn-primary:not(.dropdown-toggle):visible")
+                    $(".o_cp_buttons .btn-primary.dropdown-toggle:visible")
                         .get(0)
                         .textContent.trim(),
-                    "Upload",
-                    "should have a primary 'Upload' button"
+                    "New",
+                    "should have a primary 'New' button"
                 );
-                assert.containsNone(
-                    target,
-                    ".o_documents_kanban_upload.pe-none.opacity-25",
+                assert.ok(
+                    target.querySelector(".o_documents_kanban_upload").disabled === false,
                     "the upload button should be enabled when a folder is selected"
                 );
                 assert.containsN(
@@ -402,23 +404,26 @@ QUnit.module("documents", {}, function () {
                     target.querySelector(".o_documents_kanban_request").disabled === false,
                     "the request button should be enabled when a folder is selected"
                 );
+                assert.containsOnce(
+                    target,
+                    ".o_cp_buttons .btn-secondary:visible"
+                );
                 assert.strictEqual(
                     target
                         .querySelector(
-                            ".o_cp_buttons .dropdown-item.o_documents_kanban_share_domain"
+                            ".o_cp_buttons .o_documents_kanban_share_domain"
                         )
                         .textContent.trim(),
                     "Share",
-                    "should have a 'Share' button on dropdown"
+                    "should have a secondary 'Share' button"
                 );
                 assert.ok(
                     target.querySelector(".o_documents_kanban_share_domain").disabled === false,
                     "the share button should be enabled when a folder is selected"
                 );
                 await legacyClick(target, ".o_search_panel_category_value[title='Trash'] header");
-                assert.containsOnce(
-                    target.querySelector(".o_cp_buttons"),
-                    ".o_documents_kanban_upload.pe-none.opacity-25",
+                assert.ok(
+                    target.querySelector(".o_documents_kanban_upload").disabled,
                     "the upload button should be disabled inside TRASH folder."
                 );
             });
@@ -900,7 +905,7 @@ QUnit.module("documents", {}, function () {
                     "should have 2 records in the renderer"
                 );
 
-                await legacyClick($(".o_cp_buttons .dropdown-toggle-split:visible").get(0));
+                await legacyClick($(".o_cp_buttons .dropdown-toggle:visible").get(0));
                 await legacyClick($(".o_documents_kanban_share_domain:visible").get(0));
             });
 
@@ -930,7 +935,7 @@ QUnit.module("documents", {}, function () {
                 await legacyClick(
                     target.querySelector(".o_search_panel_category_value:nth-of-type(2) header")
                 );
-                await legacyClick($(".o_cp_buttons .dropdown-toggle-split:visible").get(0));
+                await legacyClick($(".o_cp_buttons .dropdown-toggle:visible").get(0));
                 await legacyClick($(".o_documents_kanban_url:visible").get(0));
             });
 
@@ -960,7 +965,7 @@ QUnit.module("documents", {}, function () {
                 await legacyClick(
                     target.querySelector(".o_search_panel_category_value:nth-of-type(2) header")
                 );
-                await legacyClick($(".o_cp_buttons .dropdown-toggle-split:visible").get(0));
+                await legacyClick($(".o_cp_buttons .dropdown-toggle:visible").get(0));
                 await legacyClick($(".o_documents_kanban_request:visible").get(0));
             });
 
@@ -5405,7 +5410,7 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test(
-                "when no sharable workspace is present, check the visibility of dropdown button inside 'All' workspace",
+                "when no sharable workspace is present, check the visibility of control panel buttons inside 'All' workspace",
                 async function (assert) {
                     pyEnv["documents.folder"].unlink(pyEnv["documents.folder"].search([]));
                     await createDocumentsView({
@@ -5425,8 +5430,24 @@ QUnit.module("documents", {}, function () {
                     await click(".o_search_panel_category_value:nth-of-type(1) header");
                     await nextTick();
                     assert.ok(
-                        target.querySelector(".btn-group button.dropdown-toggle-split").disabled,
-                        "the dropdown button should be disabled"
+                        target.querySelector(".o_documents_kanban_upload").disabled,
+                        "the upload button should be disabled"
+                    );
+                    assert.ok(
+                        target.querySelector(".o_documents_kanban_url").disabled,
+                        "the link button should be disabled"
+                    );
+                    assert.ok(
+                        target.querySelector(".o_documents_kanban_request").disabled,
+                        "the request button should be disabled"
+                    );
+                    assert.ok(
+                        target.querySelector(".o_documents_kanban_spreadsheet").disabled,
+                        "the spreadsheet button should be disabled"
+                    );
+                    assert.ok(
+                        target.querySelector(".o_documents_kanban_share_domain").disabled,
+                        "the share button should be disabled"
                     );
                 }
             );

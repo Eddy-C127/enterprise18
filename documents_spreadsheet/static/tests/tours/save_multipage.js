@@ -12,7 +12,7 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
             content: "Open document app",
         },
         {
-            trigger: ".o_cp_buttons:contains('Upload') .dropdown-toggle.dropdown-toggle-split",
+            trigger: ".o_cp_buttons:contains('New') .dropdown-toggle",
             content: "Open dropdown",
         },
         {

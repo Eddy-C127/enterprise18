@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { escape } from "@web/core/utils/strings";
 import { memoize } from "@web/core/utils/functions";
@@ -137,6 +138,7 @@ export function useDocumentView(helpers) {
     });
     onWillStart(async () => {
         component.maxUploadSize = await loadMaxUploadSize(null, orm);
+        component.isDocumentsManager = await user.hasGroup("documents.group_documents_manager");
     });
 
     return {
@@ -193,6 +195,17 @@ export function useDocumentView(helpers) {
                     await env.model.load();
                     env.model.useSampleModel = env.model.root.records.length === 0;
                     env.model.notify();
+                },
+            });
+        },
+        onClickAddWorkspace: () => {
+            action.doAction("documents.action_workspace_form", {
+                additionalContext: {
+                    default_parent_folder_id: env.searchModel.getSelectedFolderId() || false,
+                },
+                fullscreen: env.isSmall,
+                onClose: async () => {
+                    await env.searchModel._reloadSearchModel(true);
                 },
             });
         },

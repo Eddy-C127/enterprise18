@@ -186,6 +186,19 @@ export class DocumentsSearchModel extends SearchModel {
         return result;
     }
 
+    async _reloadSearchModel(reloadCategories) {
+        // By default the categories are not reloaded.
+        if (reloadCategories) {
+            await this._fetchSections(
+                this.getSections(
+                    (s) => s.type === "category" && s.fieldName === "folder_id"
+                ),
+                []
+            );
+        }
+        await this._notify();
+    }
+
     /**
      * Make sure we use the correct domain instead of folder_id = 0.
      * @override

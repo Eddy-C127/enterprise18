@@ -3,7 +3,7 @@
 import { KanbanController } from "@web/views/kanban/kanban_controller";
 
 import { preSuperSetup, useDocumentView } from "@documents/views/hooks";
-import { onMounted, useState } from "@odoo/owl";
+import { onMounted, useRef, useState } from "@odoo/owl";
 import { browser } from "@web/core/browser/browser";
 import { parseSearchQuery } from "@web/core/browser/router";
 
@@ -12,6 +12,7 @@ export class DocumentsKanbanController extends KanbanController {
     setup() {
         preSuperSetup();
         super.setup(...arguments);
+        this.uploadFileInputRef = useRef("uploadFileInput");
         const properties = useDocumentView(this.documentsViewHelpers());
         Object.assign(this, properties);
 
