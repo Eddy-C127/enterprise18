@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from .common import TestMxEdiCommon
 from odoo import Command, fields
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 
 from freezegun import freeze_time
@@ -1758,3 +1759,13 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
                 'tax_base_amount': 0.0,
             },
         ])
+
+    def test_cannot_delete_edi_document(self):
+        invoice = self._create_invoice(invoice_date_due='2017-01-01')
+
+        with freeze_time('2017-01-07'), self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        self.assertEqual(len(invoice.l10n_mx_edi_invoice_document_ids), 1)
+
+        with self.assertRaises(UserError, msg="You can't unlink an attachment being an EDI document sent to the government."):
+            invoice.l10n_mx_edi_invoice_document_ids.attachment_id.unlink()
