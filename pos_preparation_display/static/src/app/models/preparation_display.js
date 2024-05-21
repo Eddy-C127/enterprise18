@@ -6,7 +6,6 @@ import { Stage } from "@pos_preparation_display/app/models/stage";
 import { Category } from "@pos_preparation_display/app/models/category";
 import { deserializeDateTime } from "@web/core/l10n/dates";
 import { Product } from "@pos_preparation_display/app/models/product";
-import { ConnectionLostError } from "@web/core/network/rpc";
 import { session } from "@web/session";
 
 // in the furur, maybe just set "filterOrders" as a getter and directly call the function.
@@ -414,29 +413,12 @@ export class PreparationDisplay extends Reactive {
         );
     }
 
-    async loadDemoDataProducts() {
+    async loadScenarioRestaurantData() {
         this.loadingProducts = true;
         try {
-            // The load_product_frontend will load every products, categories and orders of the onboarding data in the backend.
-            // The orders will create preparation_display orders that will be loaded by the preparation display through websocket message.
-            // This message is send thanks through a call to _send_orders_to_preparation_display in the onboarding files.
-            this.rawData.categories = await this.orm.call(
-                "pos_preparation_display.display",
-                "load_product_frontend",
-                [this.id],
-                {}
-            );
-            this.processCategories();
-            this.posHasProducts = await this.loadPosHasProducts();
-        } catch (e) {
-            if (e instanceof ConnectionLostError) {
-                Promise.reject(e);
-                return e;
-            } else {
-                throw e;
-            }
+            await this.orm.call("pos.config", "load_onboarding_restaurant_scenario");
         } finally {
-            this.loadingProducts = false;
+            window.location.reload();
         }
     }
 
