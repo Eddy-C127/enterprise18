@@ -325,3 +325,18 @@ class AppointmentSecurityCommon(AppointmentCommon):
             'staff_user_ids': False,
         }])
         cls.all_apt_types = cls.apt_type_apt_manager + cls.apt_type_apt_user + cls.apt_type_internal_user + cls.apt_type_resource + cls.apt_type_no_staff
+
+        cls.share_link_apt_manager, cls.share_link_apt_user, cls.share_link_internal_user = cls.env['appointment.invite'].create([{
+            'appointment_type_ids': cls.apt_type_apt_manager,
+            'resources_choice': 'specific_resources',
+            'staff_user_ids': [(4, cls.apt_manager.id)],
+        }, {
+            'appointment_type_ids': cls.apt_type_apt_user,
+            'resources_choice': 'specific_resources',
+            'staff_user_ids': [(4, cls.apt_user.id)],
+        }, {
+            'appointment_type_ids': cls.apt_type_internal_user,
+            'resources_choice': 'specific_resources',
+            'staff_user_ids': [(4, cls.internal_user.id)],
+        }])
+        cls.all_share_link = cls.share_link_apt_manager + cls.share_link_apt_user + cls.share_link_internal_user
