@@ -1613,6 +1613,44 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             {'flag': 'tax_line',    'balance': -173.55},
         ])
 
+    def test_percentage_st_line_with_reco_model(self):
+        journal_curr = self.other_currency
+        foreign_curr = self.other_currency_2
+        self.company_data['default_journal_bank'].currency_id = journal_curr
+
+        # Setup triple currency.
+        st_line = self._create_st_line(
+            1000.0,
+            date='2018-01-01',
+            foreign_currency_id=foreign_curr.id,
+            amount_currency=4000.0,
+        )
+
+        reco_model = self.env['account.reconcile.model'].create({
+            'name': "test_percentage_st_line_with_reco_model",
+            'rule_type': 'writeoff_button',
+            'line_ids': [
+                Command.create({
+                    'amount_type': 'percentage_st_line',
+                    'amount_string': str(percentage),
+                    'label': str(i),
+                    'account_id': self.account_revenue1.id,
+                })
+                for i, percentage in enumerate((74.0, 24.0, 12.0, -10.0))
+            ],
+        })
+
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        wizard._action_select_reconcile_model(reco_model)
+
+        self.assertRecordValues(wizard.line_ids, [
+            {'flag': 'liquidity',   'currency_id': journal_curr.id,     'amount_currency': 1000.0,      'balance': 500.0},
+            {'flag': 'manual',      'currency_id': journal_curr.id,     'amount_currency': -740.0,      'balance': -370.0},
+            {'flag': 'manual',      'currency_id': journal_curr.id,     'amount_currency': -240.0,      'balance': -120.0},
+            {'flag': 'manual',      'currency_id': journal_curr.id,     'amount_currency': -120.0,      'balance': -60.0},
+            {'flag': 'manual',      'currency_id': journal_curr.id,     'amount_currency': 100.0,       'balance': 50.0},
+        ])
+
     def test_manual_edits_not_replaced(self):
         """ 2 partial payments should keep the edited balance """
         st_line = self._create_st_line(
