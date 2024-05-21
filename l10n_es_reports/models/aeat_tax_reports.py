@@ -4,6 +4,7 @@
 from odoo import fields, models, _
 from odoo.exceptions import UserError
 import odoo.release
+from odoo.tools import SQL
 from odoo.tools.float_utils import float_split_str
 
 from datetime import datetime
@@ -879,11 +880,8 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
             HAVING SUM(currency_table.rate * account_move_line.balance * (CASE WHEN account_move_line__move_id.move_type IN ('in_invoice', 'in_refund', 'in_receipt') THEN -1 ELSE 1 END)) <= %s
         """
 
-        self._cr.execute(partners_to_exclude_query, partners_to_exclude_params)
-        partner_ids_to_exclude = [partner_id for (partner_id,) in self._cr.fetchall()]
-
         # Then, add a forced domain because it could be too long later when ast.literal_eval will be applied on it
-        forced_domain = [*options.get('forced_domain', []), ('partner_id', 'not in', partner_ids_to_exclude)]
+        forced_domain = [*options.get('forced_domain', []), ('partner_id', 'not in', SQL(f"({partners_to_exclude_query})", *partners_to_exclude_params))]
         domain_options = {**options, 'forced_domain': forced_domain}
         domain_formulas_dict = {str(domain): expressions}
         domain_result = report._compute_formula_batch_with_engine_domain(domain_options, date_scope, domain_formulas_dict, current_groupby, next_groupby,
