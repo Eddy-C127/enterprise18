@@ -435,7 +435,7 @@ class AppointmentType(models.Model):
 
     def action_share_invite(self):
         return {
-            'name': _('Share Link'),
+            'name': _('Create a Share Link'),
             'type': 'ir.actions.act_window',
             'res_model': 'appointment.invite',
             'view_mode': 'form',
