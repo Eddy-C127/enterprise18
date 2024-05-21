@@ -51,7 +51,7 @@ QUnit.module("timesheet_grid", (hooks) => {
                     return Promise.resolve({
                         params: {
                             type: "dummy type",
-                            title: "dummy title",
+                            message: "dummy message",
                         },
                     });
                 }
