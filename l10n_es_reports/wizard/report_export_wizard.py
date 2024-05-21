@@ -28,8 +28,9 @@ class ReportExportWizard(models.TransientModel):
                 # its validation will then set the l10n_es_reports_boe_wizard_id and l10n_es_reports_boe_wizard_model
                 # fields, before recalling export_report, so that the manual values are used in the export.
                 if boe_action['type'] == 'ir.actions.act_window':
-                    boe_wizard = self.env[boe_action['res_model']].browse(boe_action['res_id'])
+                    boe_wizard = self.env[boe_action['res_model']].create({'report_id': report.id})
                     boe_wizard.calling_export_wizard_id = self
+                    boe_action['res_id'] = boe_wizard.id
                     return boe_action
 
         return super(ReportExportWizard, self).export_report()
