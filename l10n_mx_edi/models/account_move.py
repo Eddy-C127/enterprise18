@@ -162,6 +162,7 @@ class AccountMove(models.Model):
         compute='_compute_l10n_mx_edi_cfdi_uuid',
         copy=False,
         store=True,
+        tracking=True,
         index='btree_not_null',
         help="Folio in electronic invoice, is returned by SAT when send to stamp.",
     )
@@ -2534,8 +2535,10 @@ class AccountMove(models.Model):
         return True
 
     def _l10n_mx_edi_import_cfdi_invoice(self, invoice, file_data, new=False):
-        # decode the move_type
         invoice.ensure_one()
+        if invoice.l10n_mx_edi_cfdi_attachment_id:
+            # invoice is already associated with a CFDI document, do nothing
+            return False
         tree = file_data['xml_tree']
         # handle payments
         if tree.findall('.//{*}Pagos'):
@@ -2549,8 +2552,9 @@ class AccountMove(models.Model):
         else:
             return
         invoice.move_type = move_type
-        # fill the invoice
-        invoice._l10n_mx_edi_import_cfdi_fill_invoice(tree)
+        if not invoice.invoice_line_ids:
+            # don't fill the invoice if it already has lines, simply give it the cfdi info
+            invoice._l10n_mx_edi_import_cfdi_fill_invoice(tree)
         # create the document
         self.env['l10n_mx_edi.document'].create({
             'move_id': invoice.id,
@@ -2564,6 +2568,6 @@ class AccountMove(models.Model):
 
     def _get_edi_decoder(self, file_data, new=False):
         # EXTENDS 'account'
-        if file_data['type'] == 'xml' and file_data['xml_tree'].prefix == 'cfdi':
+        if file_data.get('is_cfdi', False):
             return self._l10n_mx_edi_import_cfdi_invoice
         return super()._get_edi_decoder(file_data, new=new)
