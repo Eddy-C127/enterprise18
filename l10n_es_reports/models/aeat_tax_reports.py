@@ -874,26 +874,26 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
         ct_query = report._get_query_currency_table(options)
         table_references, search_condition = report._get_sql_table_expression(fy_options, date_scope, domain=domain + options.get('forced_domain', []))
         threshold_value = self._convert_threshold_to_company_currency(3005.06, options)
-        partners_to_exclude_query = SQL(
-            """
+        partners_to_exclude_query = """
             SELECT account_move_line.partner_id
             FROM %(table_references)s
             JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
             WHERE %(search_condition)s
             GROUP BY account_move_line.partner_id
             HAVING SUM(currency_table.rate * account_move_line.balance * (CASE WHEN account_move_line__move_id.move_type IN ('in_invoice', 'in_refund', 'in_receipt') THEN -1 ELSE 1 END)) <= %(threshold_value)s
-            """,
-            table_references=table_references,
-            ct_query=ct_query,
-            search_condition=search_condition,
-            threshold_value=threshold_value,
-        )
-
-        self._cr.execute(partners_to_exclude_query)
-        partner_ids_to_exclude = [partner_id for (partner_id,) in self._cr.fetchall()]
+        """
 
         # Then, add a forced domain because it could be too long later when ast.literal_eval will be applied on it
-        forced_domain = [*options.get('forced_domain', []), ('partner_id', 'not in', partner_ids_to_exclude)]
+        forced_domain = [
+            *options.get('forced_domain', []),
+            ('partner_id', 'not in', SQL(
+                f"({partners_to_exclude_query})",
+                table_references=table_references,
+                ct_query=ct_query,
+                search_condition=search_condition,
+                threshold_value=threshold_value,
+            ))
+        ]
         domain_options = {**options, 'forced_domain': forced_domain}
         domain_formulas_dict = {str(domain): expressions}
         domain_result = report._compute_formula_batch_with_engine_domain(domain_options, date_scope, domain_formulas_dict, current_groupby, next_groupby,
