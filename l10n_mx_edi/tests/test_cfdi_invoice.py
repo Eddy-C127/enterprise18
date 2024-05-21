@@ -768,6 +768,72 @@ class TestCFDIInvoice(TestMxEdiCommon):
         new_bill_same_folio.action_post()
         self.assertRecordValues(new_bill_same_folio, [{'duplicated_ref_ids': new_bill.ids}])
 
+    def test_add_cfdi_on_existing_bill_without_cfdi(self):
+        file_name = 'test_add_cfdi_on_existing_bill'
+        file_path = f'{self.test_module}/tests/test_files/{file_name}.xml'
+        with file_open(file_path, 'rb') as file:
+            cfdi_invoice = file.read()
+        attachment = self.env['ir.attachment'].create({
+            'mimetype': 'application/xml',
+            'name': f'{file_name}.xml',
+            'raw': cfdi_invoice,
+        })
+        bill = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_mx.id,
+            'date': self.frozen_today.date(),
+            'invoice_date': self.frozen_today.date(),
+            'invoice_line_ids': [Command.create({'product_id': self.product.id})],
+        })
+        prev_invoice_line_ids = bill.invoice_line_ids
+        # Bill was created without a cfdi invoice
+        self.assertRecordValues(bill, [{
+            'l10n_mx_edi_cfdi_attachment_id': None,
+            'l10n_mx_edi_cfdi_uuid': None,
+        }])
+        # post message with the cfdi invoice attached
+        bill.message_post(attachment_ids=attachment.ids)
+        # check that the uuid is now set and the cfdi attachment is linked but the invoice lines did not change
+        self.assertRecordValues(bill, [{
+            'l10n_mx_edi_cfdi_attachment_id': attachment.id,
+            'l10n_mx_edi_cfdi_uuid': '42000000-0000-0000-0000-000000000001',
+            'invoice_line_ids': prev_invoice_line_ids.ids,
+        }])
+
+    def test_add_cfdi_on_existing_bill_with_cfdi(self):
+        # Check that uploading a CFDI on a bill with an existing CFDI doesn't change the fiscal
+        # folio or CFDI document
+        file_name = "test_import_bill"
+        full_file_path = misc.file_path(f'{self.test_module}/tests/test_files/{file_name}.xml')
+        self.env.company.partner_id.company_id = self.env.company
+        with file_open(full_file_path, "rb") as file:
+            file_content = file.read()
+        bill = self._upload_document_on_journal(
+            journal=self.company_data['default_journal_purchase'],
+            content=file_content,
+            filename=file_name,
+        )
+
+        file_name = 'test_add_cfdi_on_existing_bill'
+        file_path = f'{self.test_module}/tests/test_files/{file_name}.xml'
+        with file_open(file_path, 'rb') as file:
+            cfdi_invoice = file.read()
+        attachment = self.env['ir.attachment'].create({
+            'mimetype': 'application/xml',
+            'name': f'{file_name}.xml',
+            'raw': cfdi_invoice,
+        })
+
+        initial_uuid = bill.l10n_mx_edi_cfdi_uuid
+        initial_attachment_id = bill.l10n_mx_edi_document_ids.attachment_id.id
+        # post message with a different cfdi invoice attached
+        bill.message_post(attachment_ids=attachment.ids)
+        # check that the uuid and attachment have not changed to those of the attachment
+        self.assertRecordValues(bill, [{
+            'l10n_mx_edi_cfdi_uuid': initial_uuid,
+            'l10n_mx_edi_cfdi_attachment_id': initial_attachment_id,
+        }])
+
     def test_import_bill_with_extento(self):
         file_name = "test_import_bill_with_extento"
         full_file_path = misc.file_path(f'{self.test_module}/tests/test_files/{file_name}.xml')

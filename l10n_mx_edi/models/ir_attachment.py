@@ -74,6 +74,14 @@ class IrAttachment(models.Model):
          'http://www.sat.gob.mx/sitio_internet/cfd/TimbreFiscalDigital/TimbreFiscalDigitalv11.xsd'],
     ]
 
+    def _unwrap_edi_attachments(self, *args, **kwargs):
+        file_data_list = super()._unwrap_edi_attachments(*args, **kwargs)
+        for file_data in file_data_list:
+            if file_data['type'] == 'xml' and file_data['xml_tree'].prefix == 'cfdi':
+                file_data['is_cfdi'] = True
+                file_data['process_if_existing_lines'] = True
+        return file_data_list
+
     @api.model
     def _l10n_mx_edi_load_xsd_files_recursion(self, url, force_reload=False):  # force_reload will be removed in master
         xsd_name = url.split('/')[-1]
