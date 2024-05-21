@@ -15,7 +15,7 @@ from collections import OrderedDict
 class MrpProductionSchedule(models.Model):
     _name = 'mrp.production.schedule'
     _inherit = 'stock.replenish.mixin'
-    _order = 'warehouse_id, product_id'
+    _order = 'warehouse_id, mps_sequence, product_id'
     _description = 'Schedule the production of Product in a warehouse'
 
     @api.model
@@ -61,6 +61,8 @@ class MrpProductionSchedule(models.Model):
         ('under_replenishment', 'Under Replenishment'),
         ('excessive_replenishment', 'Excessive Replenishment')], store=False, search='_search_replenish_state',
         help="Technical field to support filtering by replenish state")
+    mps_sequence = fields.Integer('Sequence', default=10)
+    is_indirect = fields.Boolean('Indirect demand product', default=False)
 
     _sql_constraints = [
         ('warehouse_product_ref_uniq', 'unique (warehouse_id, product_id)', 'The combination of warehouse and product must be unique!'),
@@ -70,7 +72,7 @@ class MrpProductionSchedule(models.Model):
     @api.depends('product_id')
     def _compute_bom(self):
         for mps in self:
-            if not mps.product_id:
+            if not mps.product_id or mps._origin:
                 continue
             mps.bom_id = mps.product_id.bom_ids[:1]
 
@@ -352,7 +354,10 @@ class MrpProductionSchedule(models.Model):
             components_vals.append({
                 'product_id': component[0],
                 'warehouse_id': component[1],
-                'company_id': component[2]
+                'company_id': component[2],
+                'is_indirect': True,
+                'replenish_trigger': 'never',
+                'mps_sequence': mps.mps_sequence + 1
             })
         if components_vals:
             self.env['mrp.production.schedule'].create(components_vals)
