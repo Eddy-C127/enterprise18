@@ -98,12 +98,6 @@ class HelpdeskTicket(models.Model):
         for ticket in self:
             ticket.analytic_account_id = ticket.project_id.analytic_account_id
 
-    @api.model
-    def _get_view(self, view_id=None, view_type='form', **options):
-        arch, view = super()._get_view(view_id, view_type, **options)
-        arch = self.env['account.analytic.line']._apply_timesheet_label(arch)
-        return arch, view
-
     @api.depends('use_helpdesk_timesheet')
     def _compute_display_extra_info(self):
         if self.env.user.has_group('analytic.group_analytic_accounting'):

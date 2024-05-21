@@ -114,7 +114,7 @@
                 </xpath>
                 <xpath expr="//div[hasclass('o_kanban_record_headings')]" position="after">
                     <div invisible="readonly_timesheet or display_timer">
-                        <field name="unit_amount" widget="timesheet_uom" options="{'force_button': true}"/>
+                        <field name="unit_amount" string="Time Spent" widget="timesheet_uom" options="{'force_button': true}"/>
                     </div>
                     <div class="ms-1">
                         <div invisible="readonly_timesheet or not display_timer">
@@ -207,7 +207,7 @@
                         <range name="week" string="Week" span="week" step="day" hotkey="w" default="1"/>
                         <range name="month" string="Month" span="month" step="day" hotkey="m"/>
                     </field>
-                    <field name="unit_amount" type="measure" widget="timesheet_uom"/>
+                    <field name="unit_amount" string="Time Spent" type="measure" widget="timesheet_uom"/>
                 </grid>
             </field>
         </record>
@@ -231,7 +231,7 @@
                         <range name="week" string="Week" span="week" step="day"/>
                         <range name="month" string="Month" span="month" step="day"/>
                     </field>
-                    <field name="unit_amount" type="measure" widget="timesheet_uom"/>
+                    <field name="unit_amount" string="Time Spent" type="measure" widget="timesheet_uom"/>
                 </grid>
             </field>
         </record>
@@ -257,7 +257,7 @@
                         <range name="week" string="Week" span="week" step="day" hotkey="w" default="1"/>
                         <range name="month" string="Month" span="month" step="day" hotkey="m"/>
                     </field>
-                    <field name="unit_amount" type="measure" widget="timesheet_uom"/>
+                    <field name="unit_amount" string="Time Spent" type="measure" widget="timesheet_uom"/>
                 </grid>
             </field>
         </record>
