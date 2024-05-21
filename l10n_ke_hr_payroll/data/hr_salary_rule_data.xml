@@ -361,6 +361,41 @@ result = - 0.15 * contract.l10n_ke_education
         <field name="appears_on_payroll_report" eval="True"/>
     </record>
 
+    <record id="l10n_ke_employees_salary_ahl_amount" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_ke_hr_payroll.STATUTORY_DED"/>
+        <field name="name">AHL Amount</field>
+        <field name="code">AHL_AMOUNT</field>
+        <field name="sequence">46</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+basic = categories['BASIC'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
+result = payslip._rule_parameter('l10n_ke_ahl_employee') * basic
+        </field>
+        <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
+        <field name="appears_on_payroll_report" eval="True"/>
+    </record>
+
+    <record id="l10n_ke_employees_ahl_relief" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_ke_hr_payroll.RELIEF"/>
+        <field name="name">AHL Relief</field>
+        <field name="code">AHL_RELIEF</field>
+        <field name="sequence">47</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">
+result = payslip.date_from &gt;= datetime(2024, 3, 19).date()
+        </field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = - min(
+    payslip._rule_parameter('l10n_ke_ahl_relief_cap'),
+    result_rules['AHL_AMOUNT']['total'] * payslip._rule_parameter('l10n_ke_ahl_relief_rate')
+)
+        </field>
+        <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
+        <field name="appears_on_payroll_report" eval="True"/>
+    </record>
+
     <record id="l10n_ke_employees_insurance_relief" model="hr.salary.rule">
         <field name="category_id" ref="l10n_ke_hr_payroll.RELIEF"/>
         <field name="name">Insurance Relief</field>
@@ -389,21 +424,6 @@ result = - min(
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = - payslip._rule_parameter('l10n_ke_personal_relief')
-        </field>
-        <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
-        <field name="appears_on_payroll_report" eval="True"/>
-    </record>
-
-    <record id="l10n_ke_employees_salary_ahl_amount" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_ke_hr_payroll.RELIEF"/>
-        <field name="name">AHL Amount</field>
-        <field name="code">AHL_AMOUNT</field>
-        <field name="sequence">50</field>
-        <field name="condition_select">none</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-basic = categories['BASIC'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
-result = payslip._rule_parameter('l10n_ke_ahl_employee') * basic
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
