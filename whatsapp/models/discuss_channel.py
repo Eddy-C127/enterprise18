@@ -85,10 +85,6 @@ class DiscussChannel(models.Model):
 
     # INHERITED COMPUTES
 
-    def _compute_is_chat(self):
-        super()._compute_is_chat()
-        self.filtered(lambda channel: channel.channel_type == 'whatsapp').is_chat = True
-
     def _compute_group_public_id(self):
         wa_channels = self.filtered(lambda channel: channel.channel_type == "whatsapp")
         wa_channels.filtered(lambda channel: not channel.group_public_id).group_public_id = self.env.ref('base.group_user')
