@@ -41,14 +41,14 @@ QUnit.module("timesheet_grid", (hooks) => {
                     return Promise.resolve({
                         params: {
                             type: "danger",
-                            title: "dummy title",
+                            message: "dummy message",
                         },
                     });
                 }
             },
         });
         await click(".o_control_panel_collapsed_create button", { text: "Validate" });
-        await contains(".o_notification.border-danger", { text: "dummy title" });
+        await contains(".o_notification.border-danger", { text: "dummy message" });
         assert.verifySteps(["action_validate_timesheet"]);
     });
 });

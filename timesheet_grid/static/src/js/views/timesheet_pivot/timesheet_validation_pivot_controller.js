@@ -38,7 +38,7 @@ export class TimesheetValidationPivotRenderer extends PivotRenderer {
         const timesheetIDs = await this.model.orm.search(this.model.metaData.resModel, this.model.searchParams.domain);
         const result = await this.model.orm.call(this.model.metaData.resModel, 'action_validate_timesheet', [timesheetIDs]);
         this.displayValidateButtonPrimary = false;
-        await this.notificationService.add(result.params.title, { type: result.params.type });
+        await this.notificationService.add(result.params.message, { type: result.params.type });
         //reload the table content
         await this.model.load(this.model.searchParams);
         this.model.notify();
