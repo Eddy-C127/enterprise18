@@ -234,6 +234,17 @@ class TestDeliveryBpost(TransactionCase):
                     'location_id': self.stock_location.id,
                     'location_dest_id': self.customer_location.id}
 
+        state = self.env['res.country.state'].create({
+            'name': "Brabant Wallon",
+            'code': "BW",
+            'country_id': self.env.ref('base.fr').id,
+        })
+
+        self.think_big_system.write({
+            'city': "Marche-lez-Ecaussinnes",
+            'state_id': state.id,
+        })
+
         do_vals = { 'partner_id': self.think_big_system.id,
                     'carrier_id': self.env.ref('delivery_bpost.delivery_carrier_bpost_inter').id,
                     'location_id': self.stock_location.id,
