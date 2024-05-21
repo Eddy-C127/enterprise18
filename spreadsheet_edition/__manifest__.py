@@ -36,8 +36,8 @@
             'spreadsheet_edition/static/tests/**/*',
         ],
         'web.qunit_mobile_suite_tests': [
-            'spreadsheet_edition/static/tests/disable_patch.js',
-            'spreadsheet_edition/static/tests/utils/mock_server.js',
+            'spreadsheet_edition/static/tests/legacy/disable_patch.js',
+            'spreadsheet_edition/static/tests/legacy/utils/mock_server.js',
         ],
     }
 }

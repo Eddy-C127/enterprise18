@@ -30,7 +30,7 @@
             'spreadsheet_dashboard_edition/static/tests/**/*',
         ],
         'web.qunit_mobile_suite_tests': [
-            'spreadsheet_dashboard_edition/static/tests/mock_server.js',
+            'spreadsheet_dashboard_edition/static/tests/legacy/mock_server.js',
         ],
     }
 }
