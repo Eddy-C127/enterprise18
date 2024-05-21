@@ -633,3 +633,77 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.assertIn(['18,14', 's', 'EUR', '21300000', debit_account_code, self.tax_19.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
         self.assertIn(['2,13', 's', 'EUR', '21300000', debit_account_code, self.tax_7.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
+
+    def test_datev_out_bank_payment_epd_rounding(self):
+        report = self.env.ref('account_reports.general_ledger_report')
+        self.company_data['default_account_tax_purchase'].reconcile = True
+        options = report.get_options()
+        options['date'].update({
+            'date_from': '2020-01-01',
+            'date_to': '2020-12-31',
+        })
+
+        self.early_pay_2_percents_10_days = self.env['account.payment.term'].create({
+            'name': '2% discount if paid within 10 days',
+            'company_id': self.company_data['company'].id,
+            'early_discount': True,
+            'discount_percentage': 2,
+            'discount_days': 10,
+            'line_ids': [Command.create({
+                'value': 'percent',
+                'value_amount': 100,
+                'nb_days': 30,
+            })]
+        })
+
+        move_1 = self.env['account.move'].create([{
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': fields.Date.to_date('2020-12-01'),
+            'invoice_payment_term_id': self.early_pay_2_percents_10_days.id,
+            'invoice_line_ids': [
+                Command.create({
+                    'quantity': 1.0,
+                    'price_unit': 161.10,
+                    'tax_ids': [Command.set(self.tax_19.ids)],
+                }),
+        ]}])
+        move_2 = self.env['account.move'].create([{
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': fields.Date.to_date('2020-12-01'),
+            'invoice_payment_term_id': self.early_pay_2_percents_10_days.id,
+            'invoice_line_ids': [
+                Command.create({
+                    'quantity': 1.0,
+                    'price_unit': 77.50,
+                    'tax_ids': [Command.set(self.tax_19.ids)],
+                }),
+            ]}])
+
+        moves = (move_1 | move_2)
+        moves.action_post()
+
+        # Create the payment statement
+        statement = self.env['account.bank.statement'].create({
+            'name': 'test_statement',
+            'line_ids': [
+                (0, 0, {
+                    'journal_id': self.company_data['default_journal_bank'].id,
+                    'date': '2020-12-02',
+                    'payment_ref': 'test',
+                    'amount': -278.27,
+                    'partner_id': self.partner_a.id,
+            })]
+        })
+
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=statement.line_ids.id).new({})
+        wizard._action_add_new_amls(move_1.line_ids.filtered(lambda x: x.account_id.account_type == 'liability_payable'))
+        wizard._action_add_new_amls(move_2.line_ids.filtered(lambda x: x.account_id.account_type == 'liability_payable'))
+        wizard._action_validate()
+
+        payment_move = statement.line_ids.move_id
+        csv = self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, payment_move)
+        reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
+        data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
+        self.assertIn(['5,67', 'h', 'EUR', '26700000', '12010000', self.tax_19.l10n_de_datev_code, '212', payment_move.name, "Early Payment Discount"], data)

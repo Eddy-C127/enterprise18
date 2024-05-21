@@ -265,13 +265,15 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 if aml.payment_id:
                     if payment_account == 0:
                         payment_account = account_code
-                        counterpart_amount = aml.balance
+                        counterpart_amount += aml.balance
                         continue
                     else:
                         to_account_code = payment_account
 
                 # If both account and counteraccount are the same, ignore the line
                 if aml.account_id == aml.move_id.l10n_de_datev_main_account_id:
+                    if aml.statement_line_id and not aml.payment_id:
+                        counterpart_amount += aml.balance
                     continue
                 # If line is a tax ignore it as datev requires single line with gross amount and deduct tax itself based
                 # on account or on the control key code
@@ -331,10 +333,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             # Since here we have to recompute the tax values for each line with tax, we need
             # to replicate the rounding fix logic adding the difference on the last tax line
             # to avoid creating a difference with the source payment move
-            if m.payment_id and move_balance and counterpart_amount and last_tax_line_index:
+            if (m.payment_id or m.statement_line_id) and move_balance and counterpart_amount and last_tax_line_index:
                 delta_balance = move_balance + counterpart_amount
                 if delta_balance:
-                    lines[last_tax_line_index][0] = float_repr(last_tax_line_amount - delta_balance, aml.company_id.currency_id.decimal_places).replace('.', ',')
+                    lines[last_tax_line_index][0] = float_repr(abs(last_tax_line_amount - delta_balance), m.company_id.currency_id.decimal_places).replace('.', ',')
 
         writer.writerows(lines)
         return output.getvalue()
