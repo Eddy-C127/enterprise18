@@ -388,16 +388,11 @@ class AccountMove(models.Model):
 
         node = cfdi_infos['cfdi_node'].xpath("//*[local-name()='Pago']")[0]
         payment_info = cfdi_infos['payment_info'] = {}
-        if node.attrib.get('RfcEmisorCtaOrd'):
-            payment_info['from_account_vat'] = node.attrib['RfcEmisorCtaOrd']
-        if node.attrib.get('NomBancoOrdExt'):
-            payment_info['from_account_name'] = node.attrib['NomBancoOrdExt']
-        if node.attrib.get('CtaOrdenante'):
-            payment_info['from_account_number'] = node.attrib['CtaOrdenante']
-        if node.attrib.get('RfcEmisorCtaBen'):
-            payment_info['to_account_vat'] = node.attrib['RfcEmisorCtaBen']
-        if node.attrib.get('CtaBeneficiario'):
-            payment_info['to_account_number'] = node.attrib['CtaBeneficiario']
+        payment_info['from_account_vat'] = node.get('RfcEmisorCtaOrd')
+        payment_info['from_account_name'] = node.get('NomBancoOrdExt')
+        payment_info['from_account_number'] = node.get('CtaOrdenante')
+        payment_info['to_account_vat'] = node.get('RfcEmisorCtaBen')
+        payment_info['to_account_number'] = node.get('CtaBeneficiario')
 
         related_invoices = cfdi_infos['invoices'] = []
         uuids = []
