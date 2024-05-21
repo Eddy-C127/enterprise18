@@ -2,7 +2,6 @@
 
 import { useService } from "@web/core/utils/hooks";
 import { Component, useState, onWillStart} from "@odoo/owl";
-import { rpc } from "@web/core/network/rpc";
 
 
 export class PayrollDashboardActionBox extends Component {
@@ -11,12 +10,13 @@ export class PayrollDashboardActionBox extends Component {
 
     setup() {
         this.actionService = useService("action");
+        this.orm = useService('orm');
         this.state = useState({
             loading: true,
             warnings: {},
         })
         onWillStart(() => {
-          rpc('/get_payroll_warnings').then(data => {
+          this.orm.call('hr.payslip', 'get_dashboard_warnings').then(data => {
               this.state.warnings = data;
               this.state.loading = false;
             }

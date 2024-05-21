@@ -1379,7 +1379,7 @@ class HrPayslip(models.Model):
         }
 
     @api.model
-    def _get_dashboard_warnings(self):
+    def get_dashboard_warnings(self):
         # Retrieve the different warnings to display on the actions section (box on the left)
         result = []
 

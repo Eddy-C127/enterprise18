@@ -229,4 +229,4 @@ class TestDashboard(TransactionCase):
         # We only test that we won't receive a traceback when we don't have access to the english language
         # The normal flow of the functions are tested above
         Payslip.get_payroll_dashboard_data()
-        Payslip._get_dashboard_warnings()
+        Payslip.get_dashboard_warnings()
