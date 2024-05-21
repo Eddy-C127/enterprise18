@@ -184,7 +184,7 @@
                                     </h6>
                                     <t t-call="portal.portal_my_contact">
                                         <t t-set="_contactAvatar" t-value="image_data_uri(ticket.partner_id.avatar_128)"/>
-                                        <t t-set="_contactName" t-value="ticket.partner_id.name"/>
+                                        <t t-set="_contactName" t-value="ticket.partner_id.display_name"/>
                                         <a t-attf-href="mailto:{{ticket.partner_id.email}}" t-if="ticket.partner_id.email"><div t-field="ticket.partner_id" t-options='{"widget": "contact", "fields": ["email"]}'/></a>
                                         <a t-attf-href="tel:{{ticket.partner_id.phone}}" t-if="ticket.partner_id.phone"><div t-field="ticket.partner_id" t-options='{"widget": "contact", "fields": ["phone"]}'/></a>
                                     </t>

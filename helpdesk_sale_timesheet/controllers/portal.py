@@ -16,7 +16,7 @@ class CustomerPortal(portal.CustomerPortal):
                 self._document_check_access('sale.order', ticket.sale_order_id.id)
                 values['ticket_link_section'].append({
                     'access_url': ticket.sale_order_id.get_portal_url(),
-                    'title': _('Sales Order'),
+                    'title': f"{_('Sales Order')} - {ticket.sale_order_id.name}",
                     'sequence': 1,
                 })
             except (AccessError, MissingError):
@@ -46,7 +46,7 @@ class CustomerPortal(portal.CustomerPortal):
 
     def _ticket_get_searchbar_groupby(self):
         return super()._ticket_get_searchbar_groupby() | {
-            'sale_line_id': {'label': _('Sales Order Item'), 'sequence': 70},
+            'sale_order_id': {'label': _('Sales Order'), 'sequence': 70},
         }
 
     def _ticket_get_search_domain(self, search_in, search):
