@@ -260,7 +260,8 @@ class Planning(models.Model):
             ._get_valid_work_intervals(start_utc, end_utc, calendars=slots.company_id.resource_calendar_id)
         for slot in slots:
             if not slot.resource_id and slot.allocation_type == 'planning' or not slot.resource_id.calendar_id:
-                slot.allocated_percentage = 100 * slot.allocated_hours / slot._calculate_slot_duration()
+                duration = slot._calculate_slot_duration()
+                slot.allocated_percentage = 100 * slot.allocated_hours / duration if duration else 100
             else:
                 work_hours = slot._get_working_hours_over_period(start_utc, end_utc, resource_work_intervals, calendar_work_intervals)
                 slot.allocated_percentage = 100 * slot.allocated_hours / work_hours if work_hours else 100
@@ -419,6 +420,9 @@ class Planning(models.Model):
         self.ensure_one()
         if not self.start_datetime or not self.end_datetime:
             return False
+
+        if self.template_id:
+            return self.template_id.duration
         return (self.end_datetime - self.start_datetime).total_seconds() / 3600.0
 
     def _get_domain_template_slots(self):
@@ -642,11 +646,26 @@ class Planning(models.Model):
             start = pytz.utc.localize(start_datetime).astimezone(pytz.timezone(resource.tz) if
                                                                  resource else user_tz)
             start = start.replace(hour=int(h), minute=int(m))
-            start = start.astimezone(pytz.utc).replace(tzinfo=None)
+            end = pytz.utc.localize(end_datetime).astimezone(pytz.timezone(resource.tz) if resource else user_tz)
+            end = end.replace(hour=int(template_id.end_time), minute=int(round(modf(template_id.end_time)[0] * 60.0)))
 
             h, m = divmod(template_id.duration, 1)
             delta = timedelta(hours=int(h), minutes=int(round(m * 60)))
-            end = start + delta
+
+            if resource and resource.calendar_id:
+                work_interval, _dummy = resource._get_valid_work_intervals(
+                    start,
+                    end
+                )
+                start = start.astimezone(pytz.utc).replace(tzinfo=None)
+                end = work_interval[resource.id]._items[-1][1].astimezone(pytz.utc).replace(tzinfo=None) \
+                    if work_interval[resource.id]._items \
+                    else start + delta
+            else:
+                h, m = divmod(template_id.duration, 1)
+                start = start.astimezone(pytz.utc).replace(tzinfo=None)
+                delta = timedelta(hours=int(h), minutes=int(round(m * 60)))
+                end = start + delta
 
         # Need to remove the tzinfo in start and end as without these it leads to a traceback
         # when the start time is empty
@@ -1500,7 +1519,18 @@ class Planning(models.Model):
         if not self.start_datetime or not self.end_datetime:
             return 0.0
         period = self.end_datetime - self.start_datetime
-        slot_duration = period.total_seconds() / 3600
+        resource = self.resource_id or self.env.user.employee_id.resource_id
+        if resource and resource.calendar_id:
+            work_intervals, calendar_intervals = resource._get_valid_work_intervals(
+                pytz.utc.localize(self.start_datetime).astimezone(pytz.timezone(resource.tz)),
+                pytz.utc.localize(self.end_datetime).astimezone(pytz.timezone(resource.tz))
+            )
+            working_intervals = work_intervals[resource.id] \
+                if resource \
+                else calendar_intervals.get(self.company_id.resource_calendar_id.id, calendar_intervals[self.company_id.id])
+            slot_duration = sum_intervals(working_intervals)
+        else:
+            slot_duration = period.total_seconds() / 3600
         max_duration = (period.days + (1 if period.seconds else 0)) * self.company_id.resource_calendar_id.hours_per_day
         if not max_duration or max_duration >= slot_duration:
             return slot_duration

@@ -586,3 +586,24 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         ])
         slots.write({'resource_id': self.resource_bert.id})
         self.assertEqual(slots.resource_id, self.resource_bert)
+
+    def test_allocated_hours_when_template_is_during_a_break(self):
+        self.resource_janice.tz = 'UTC'
+        template_slot = self.env['planning.slot.template'].create({
+            'start_time': 11,
+            'duration': 4,
+        })
+
+        slot = self.env['planning.slot'].create({
+            'start_datetime': datetime(2021, 1, 1, 0, 0),
+            'end_datetime': datetime(2021, 1, 1, 23, 59),
+            'resource_id': self.resource_janice.id,
+        })
+
+        slot.write({
+            'template_id': template_slot.id,
+        })
+
+        self.assertEqual(slot.start_datetime, datetime(2021, 1, 1, 11, 0))
+        self.assertEqual(slot.end_datetime, datetime(2021, 1, 1, 16, 0))
+        self.assertEqual(slot.allocated_hours, 4)
