@@ -312,16 +312,16 @@
         sequence="255"/>
 
     <menuitem
+        id="approvals_category_menu_new"
+        parent="approvals_menu_root"
+        name="Dashboard"
+        action="approval_category_action_new_request"
+        sequence="1"/>
+
+    <menuitem
         id="approvals_approval_menu"
         parent="approvals_menu_root"
         name="My Approvals"
-        sequence="10"/>
-
-    <menuitem
-        id="approvals_category_menu_new"
-        parent="approvals_approval_menu"
-        name="New Request"
-        action="approval_category_action_new_request"
         sequence="10"/>
 
     <menuitem

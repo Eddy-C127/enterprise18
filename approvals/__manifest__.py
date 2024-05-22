@@ -39,7 +39,7 @@ creates next activities for the related approvers.
     'installable': True,
     'assets': {
         'web.assets_backend': [
-            'approvals/static/src/**/*',
+            'approvals/static/src/**',
         ],
         'web.assets_tests': [
             'approvals/static/tests/tours/**/*',

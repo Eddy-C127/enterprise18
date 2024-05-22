@@ -338,6 +338,7 @@ class TestApprovalsPurchase(TestApprovalsCommon):
         user_approver_2 = self.env['res.users'].create({
             'login': 'big_cheese',
             'name': 'Clément Tall',
+            'email': 'clementtall@example.com',
         })
         # Create new purchase approval request and create purchase order.
         request_form = self.create_request_form(

@@ -44,7 +44,8 @@ class ApprovalRequest(models.Model):
         store=True, index=True, tracking=True,
         group_expand=True)
     request_owner_id = fields.Many2one('res.users', string="Request Owner",
-        check_company=True, domain="[('company_ids', 'in', company_id)]")
+        check_company=True, domain="[('company_ids', 'in', company_id)]",
+        default=lambda self: self.env.user)
     user_status = fields.Selection([
         ('new', 'New'),
         ('pending', 'To Approve'),

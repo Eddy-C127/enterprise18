@@ -18,6 +18,7 @@ class TestApprovalsCommon(TransactionCase):
         # Create an user we can use as approver for example.
         cls.user_approver = cls.env['res.users'].create({
             'login': 'yesman',
+            'email': 'yesman@example.com',
             'name': 'Carl Allen',
         })
         cls.payment_terms = cls.env.ref("account.account_payment_term_end_following_month")
