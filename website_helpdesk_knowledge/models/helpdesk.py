@@ -20,7 +20,10 @@ class HelpdeskTeam(models.Model):
 
     def _compute_latest_articles(self):
         latest_articles = self.env['knowledge.article'].search([
-            '|', ('website_published', '=', True), ('user_has_access', '=', True)
+            '|',
+                ('website_published', '=', True),
+                ('user_has_access', '=', True),
+            ('name', '!=', False)
         ], limit=5, order='favorite_count desc, write_date desc')
         for team in self:
             team.website_latest_articles = latest_articles
