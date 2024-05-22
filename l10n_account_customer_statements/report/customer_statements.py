@@ -15,5 +15,5 @@ class CustomerStatementReport(models.AbstractModel):
             'doc_model': 'res.partner',
             'docs': docs,
             'company': self.env.company,
-            **docs._prepare_customer_statement_values(options),
+            **(docs._prepare_customer_statement_values(options) if docs.id else {}),
         }
