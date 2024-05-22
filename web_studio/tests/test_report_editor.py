@@ -22,9 +22,11 @@ def html_to_xml_tree(stringHTML, body=True):
     temp = etree.tostring(temp)
     return etree.fromstring(temp, parser=parserXML)
 
-def _remove_oe_context(tree):
+
+def _clean_for_simple_assert(tree):
     for node in tree.iter(etree.Element):
         node.attrib.pop("oe-context", None)
+        node.attrib.pop("o-diff-key", None)
 
 def get_combined_and_studio_arch(view):
     studio_view = _get_and_write_studio_view(view)
@@ -324,17 +326,12 @@ class TestReportEditorUIUnit(HttpCase):
         """)
         self.assertXMLEqual(studio_arch, """
         <data>
-           <xpath expr="/t[@t-name='web_studio.test_report']" position="replace" mode="inner">
-             <t t-call="web.html_container">
-               <div>
-                 <p>edited with odoo editor</p>
-               </div>
-               <t t-foreach="docs" t-as="doc">
-                 <t t-call="web_studio.test_report_document"/>
-               </t>
-             </t>
-           </xpath>
-         </data>
+           <data>
+             <xpath position="replace" expr="/t[@t-name='web_studio.test_report']//t[@t-call='web.html_container']/div/p">
+                <p>edited with odoo editor</p>
+             </xpath>
+           </data>
+        </data>
         """)
 
         doc_arch, studio_arch = get_combined_and_studio_arch(self.main_view_document)
@@ -350,12 +347,11 @@ class TestReportEditorUIUnit(HttpCase):
         """)
         self.assertXMLEqual(studio_arch, """
         <data>
-          <xpath expr="/t[@t-name='web_studio.test_report_document']" position="replace" mode="inner">
-            <div>
-              <p t-field="doc.name"/>
-            </div>
-            <p>edited with odoo editor 2</p>
-          </xpath>
+           <data>
+             <xpath position="replace" expr="/t[@t-name='web_studio.test_report_document']/p">
+                <p>edited with odoo editor 2</p>
+             </xpath>
+           </data>
         </data>
         """)
 
@@ -541,7 +537,7 @@ class TestReportEditorUIUnit(HttpCase):
             <t t-name="web_studio.test_report_document">
                 <p><br/></p>
                 <table class="valid_table">
-                    <tr><td>I am valid</td></tr>
+                    <tbody><tr><td>I am valid</td></tr></tbody>
                 </table>
 
                 <table class="invalid_table">
@@ -606,7 +602,7 @@ class TestReportEditorUIUnit(HttpCase):
         )
         qweb_html = response.json()["result"]
         tree = html_to_xml_tree(qweb_html)
-        _remove_oe_context(tree)
+        _clean_for_simple_assert(tree)
         div_node = tree.xpath("//t[@t-name='web_studio.test_report_document']")[0][0]
         self.assertXMLEqual(etree.tostring(div_node), """
         <div class="invalid_table" oe-origin-tag="table" oe-origin-style="">
@@ -649,7 +645,8 @@ class TestReportEditorUIUnit(HttpCase):
             <t t-name="web_studio.test_report">
                <t t-call="web.html_container">
                  <div>
-                   <p><br/>edited with odooEditor</p>
+                    <p><br/>
+      edited with odooEditor</p>
                  </div>
                  <t t-foreach="docs" t-as="doc">
                    <t t-call="web_studio.test_report_document"/>
@@ -689,7 +686,8 @@ class TestReportEditorUIUnit(HttpCase):
         self.assertXMLEqual(new_view_arch, """
             <t t-name="studio_report_document">
                 <div class="page">
-                    <div class="oe_structure"><span t-field="doc.function">some default value</span>Custo</div>
+                    <div class="oe_structure"><span t-field="doc.function">some default value</span>
+      Custo</div>
                 </div>
             </t>
         """)
@@ -714,9 +712,13 @@ class TestReportEditorUIUnit(HttpCase):
         _, studio_arch = get_combined_and_studio_arch(self.main_view_document)
 
         self.assertXMLEqual(studio_arch, """
-           <data><xpath expr="/t[@t-name='web_studio.test_report_document']" position="replace" mode="inner">
-              <p>original term edited</p>
-            </xpath></data>
+        <data>
+            <data>
+                 <xpath position="replace" expr="/t[@t-name='web_studio.test_report_document']/p">
+                   <p>original term edited</p>
+                 </xpath>
+            </data>
+        </data>
         """)
 
         new_translations = self.main_view_document.get_field_translations("arch_db")
@@ -935,7 +937,7 @@ class TestReportEditorUIUnit(HttpCase):
 
         qweb_html = response.json()["result"]
         tree = html_to_xml_tree(qweb_html)
-        _remove_oe_context(tree)
+        _clean_for_simple_assert(tree)
         tcall = tree.xpath("//t[@t-call='web_studio.test_report_document']")[0]
         self.assertXMLEqual(etree.tostring(tcall), f"""
            <t t-call="web_studio.test_report_document" ws-call-key="2" ws-view-id="{self.main_view.id}">
@@ -977,7 +979,7 @@ class TestReportEditorUIUnit(HttpCase):
         )
         qweb_html = response.json()["result"]
         tree = html_to_xml_tree(qweb_html)
-        _remove_oe_context(tree)
+        _clean_for_simple_assert(tree)
         tcall = tree.xpath("//t[@t-call='web_studio.test_report_document']")
         self.assertEqual(len(tcall), 2)
 
@@ -1054,7 +1056,7 @@ class TestReportEditorUIUnit(HttpCase):
         )
         qweb_html = response.json()["result"]
         tree = html_to_xml_tree(qweb_html)
-        _remove_oe_context(tree)
+        _clean_for_simple_assert(tree)
 
         verification_tree = etree.fromstring(
         """<div id="wrapwrap" oe-context="{&quot;docs&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: false}, &quot;company&quot;: {&quot;model&quot;: &quot;res.company&quot;, &quot;name&quot;: &quot;Companies&quot;, &quot;in_foreach&quot;: false}}">
@@ -1107,7 +1109,7 @@ class TestReportEditorUIUnit(HttpCase):
              </t>
            </main>
          </div>""")
-        _remove_oe_context(verification_tree)
+        _clean_for_simple_assert(verification_tree)
 
         self.assertXMLEqual(
             etree.tostring(tree),
@@ -1151,14 +1153,11 @@ class TestReportEditorUIUnit(HttpCase):
         """)
         self.assertXMLEqual(studio_arch, """
         <data>
-           <xpath expr="/t[@t-name='web_studio.test_report_document']" position="replace" mode="inner">
-             <div class="added"/>
-             <div class="outside-t-call">outside</div>
-             <t t-call="web_studio.t_call_0">
-               <t t-set="somevar" t-value="'someValue'"/>
-               <div class="in-t-call">inside</div>
-             </t>
-           </xpath>
+            <data>
+                <xpath position="before" expr="/t[@t-name='web_studio.test_report_document']/div" meta-class="outside-t-call">
+                <div class="added"/>
+                </xpath>
+            </data>
          </data>
         """)
 
@@ -1197,15 +1196,12 @@ class TestReportEditorUIUnit(HttpCase):
         """)
         self.assertXMLEqual(studio_arch, """
         <data>
-           <xpath expr="/t[@t-name='web_studio.test_report_document']" position="replace" mode="inner">
-             <div class="outside-t-call">outside</div>
-             <t t-call="web_studio.t_call_0">
-               <t t-set="somevar" t-value="'someValue'"/>
-               <div class="added"/>
-               <div class="in-t-call">inside</div>
-             </t>
-           </xpath>
-         </data>
+            <data>
+                <xpath position="after" expr="/t[@t-name='web_studio.test_report_document']//t[@t-call='web_studio.t_call_0']/t[@t-set='somevar']" meta-t-set="somevar" meta-t-value="'someValue'">
+                <div class="added"/>
+                </xpath>
+            </data>
+        </data>
         """)
 
     def test_edit_main_and_in_t_call(self):
@@ -1243,17 +1239,18 @@ class TestReportEditorUIUnit(HttpCase):
          </t>
         """)
         self.assertXMLEqual(studio_arch, """
-        <data>
-           <xpath expr="/t[@t-name='web_studio.test_report_document']" position="replace" mode="inner">
-             <div class="added0"/>
-             <div class="outside-t-call">outside</div>
-             <t t-call="web_studio.t_call_0">
-               <t t-set="somevar" t-value="'someValue'"/>
-               <div class="added1"/>
-               <div class="in-t-call">inside</div>
-             </t>
-           </xpath>
-         </data>
+            <data>
+                <data>
+                    <xpath position="before" expr="/t[@t-name='web_studio.test_report_document']/div" meta-class="outside-t-call">
+                    <div class="added0"/>
+                    </xpath>
+                </data>
+                <data>
+                    <xpath position="after" expr="/t[@t-name='web_studio.test_report_document']//t[@t-call='web_studio.t_call_0']/t[@t-set='somevar']" meta-t-set="somevar" meta-t-value="'someValue'">
+                    <div class="added1"/>
+                    </xpath>
+                </data>
+            </data>
         """)
 
     def test_image_crop(self):
@@ -1366,7 +1363,7 @@ class TestReportEditorUIUnit(HttpCase):
 
         qweb_html = response.json()["result"]
         tree = html_to_xml_tree(qweb_html)
-        _remove_oe_context(tree)
+        _clean_for_simple_assert(tree)
         div_node = tree.xpath("//t[@t-name='web_studio.test_report_document']")[0][0]
         self.assertXMLEqual(etree.tostring(div_node), """
         <div>

@@ -220,7 +220,13 @@ function computeTableLayout(table) {
     }
 }
 
-const CUSTOM_BRANDING_ATTR = ["ws-view-id", "ws-call-key", "ws-call-group-key", "ws-real-children"];
+const CUSTOM_BRANDING_ATTR = [
+    "ws-view-id",
+    "ws-call-key",
+    "ws-call-group-key",
+    "ws-real-children",
+    "o-diff-key",
+];
 function visitNode(el, callback) {
     const iterators = [[el]];
     while (iterators.length) {
@@ -485,6 +491,9 @@ export class ReportEditorWysiwyg extends Component {
             Array.from(el.querySelectorAll("[oe-origin-t-out]")).forEach((el) => {
                 el.replaceChildren();
             });
+            if (!el.hasAttribute("oe-origin-class") && el.getAttribute("class") === "") {
+                el.removeAttribute("class");
+            }
 
             const callGroupKey = el.getAttribute("ws-call-group-key");
             const type = callGroupKey ? "in_t_call" : "full";

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import json
+from contextlib import contextmanager
+from copy import deepcopy
 from lxml import etree, html
 from lxml.html.clean import Cleaner
 from psycopg2 import OperationalError
@@ -10,6 +12,8 @@ from collections import defaultdict
 from odoo import http, _, Command, models
 from odoo.http import request, serialize_exception
 from odoo.addons.web_studio.controllers import main
+from odoo.addons.web_studio.controllers.keyed_xml_differ import KeyedXmlDiffer, DIFF_ATTRIBUTE
+from odoo.tools.template_inheritance import apply_inheritance_specs
 from odoo.tools.safe_eval import safe_eval
 
 # We are dealing with an HTML document that has QWeb syntax in it (<t />, t-att etc..)
@@ -356,9 +360,12 @@ def _copy_report_view(view):
     return copy
 
 STUDIO_VIEW_KEY_TEMPLATE = "web_studio.report_editor_customization_full.view._{key}"
-def _get_and_write_studio_view(view, values=None, should_create=True):
-    key = STUDIO_VIEW_KEY_TEMPLATE.format(key=view.key)
-    studio_view = view.with_context(active_test=False).search([("inherit_id", "=", view.id), ("key", "=", key)])
+STUDIO_VIEW_DIFF_KEY_TEMPLATE = "web_studio.report_editor_customization_diff.view._{key}"
+
+
+def _get_and_write_studio_view(view, values=None, should_create=True, view_key_template=STUDIO_VIEW_DIFF_KEY_TEMPLATE, active_test=False):
+    key = view_key_template.format(key=view.key)
+    studio_view = view.with_context(active_test=active_test).search([("inherit_id", "=", view.id), ("key", "=", key)], order="priority desc, id desc", limit=1)
 
     if values is None:
         return studio_view
@@ -375,6 +382,16 @@ def _get_and_write_studio_view(view, values=None, should_create=True):
         view._copy_field_terms_translations(all_inheritance, "arch_db", studio_view, "arch_db")
 
     return studio_view
+
+
+@contextmanager
+def deactivate_studio_view(main_view):
+    try:
+        studio_view = _get_and_write_studio_view(main_view, None, should_create=False, active_test=True)
+        studio_view.active = False
+        yield studio_view
+    finally:
+        studio_view.active = True
 
 class WebStudioReportController(main.WebStudioController):
 
@@ -592,7 +609,12 @@ class WebStudioReportController(main.WebStudioController):
                 return load_arch(external_layout, variables, recursive_set)
             else:
                 view = IrView._get(view_name)
-                tree = IrQweb._get_template(view_name)[0]
+                with deactivate_studio_view(view) as studio_view:
+                    tree = view._get_combined_arch()
+                    KeyedXmlDiffer.assign_node_ids_for_diff(tree)
+                    if studio_view.arch:
+                        apply_inheritance_specs(tree, etree.fromstring(studio_view.arch))
+
                 tree.set("ws-view-id", str(view.id))
                 loaded[view_name] = etree.tostring(tree)
             inline_t_call(tree, variables, recursive_set)
@@ -702,7 +724,12 @@ class WebStudioReportController(main.WebStudioController):
                 "html": str,
             }
         """
-        old = etree.fromstring(view.get_combined_arch())
+        with deactivate_studio_view(view) as studio_view:
+            original = view._get_combined_arch()
+            KeyedXmlDiffer.assign_node_ids_for_diff(original)
+            old = deepcopy(original)
+            if studio_view.arch:
+                apply_inheritance_specs(old, etree.fromstring(studio_view.arch))
 
         # Collect t_call and their groups from the original view
         origin_call_groups = _collect_t_call_content(old)
@@ -731,20 +758,20 @@ class WebStudioReportController(main.WebStudioController):
 
         new_arch = new_full if new_full is not None else old
         _recompose_arch_with_t_call_parts(new_arch, origin_call_groups, changed_call_groups)
-        for node in new_arch.iter(etree.Element):
-            for att in ("ws-view-id", "ws-call-key", "ws-call-group-key"):
-                node.attrib.pop(att, None)
 
-        studio_view_arch = etree.Element("data")
-        xpath_node = etree.Element("xpath", {"expr": f"/{old.tag}[@t-name='{old.get('t-name')}']", "position": "replace", "mode": "inner"})
-        for child in new_arch:
-            xpath_node.append(child)
+        def is_subtree(node):
+            attribs = node.attrib
+            return any(att in attribs for att in ("t-set", "t-call", "t-name", "t-field"))
 
-        studio_view_arch.append(xpath_node)
-        etree.indent(studio_view_arch)
-        studio_view_arch = etree.tostring(studio_view_arch)
-
-        _get_and_write_studio_view(view, {"arch": studio_view_arch})
+        differ = KeyedXmlDiffer(
+            ignore_attributes=["ws-view-id", "ws-call-key", "ws-call-group-key"],
+            is_subtree=is_subtree,
+            xpath_with_meta=True)
+        studio_view_arch = differ.diff_xpath(etree.tostring(original), etree.tostring(new_arch))
+        studio_view_arch = etree.fromstring(studio_view_arch)
+        for node in studio_view_arch.iter(etree.Element):
+            node.attrib.pop(DIFF_ATTRIBUTE, None)
+        _get_and_write_studio_view(view, {"arch": etree.tostring(studio_view_arch)})
 
     @http.route("/web_studio/reset_report_archs", type="json", auth="user")
     def reset_report_archs(self, report_id, include_web_layout=True):
@@ -754,11 +781,11 @@ class WebStudioReportController(main.WebStudioController):
             views = views.filtered(lambda v: not v.key.startswith("web.") or "layout" not in v.key)
         views.reset_arch(mode="hard")
 
-        studio_keys = [STUDIO_VIEW_KEY_TEMPLATE.format(key=v.key) for v in views]
+        studio_keys = [STUDIO_VIEW_DIFF_KEY_TEMPLATE.format(key=v.key) for v in views]
         studio_views = request.env["ir.ui.view"].search([("inherit_id", "in", views.ids), ("key", "in", studio_keys)])
         to_deactivate = request.env["ir.ui.view"]
         for studio_view in studio_views:
-            if studio_view.key == STUDIO_VIEW_KEY_TEMPLATE.format(key=studio_view.inherit_id.key):
+            if studio_view.key == STUDIO_VIEW_DIFF_KEY_TEMPLATE.format(key=studio_view.inherit_id.key):
                 to_deactivate |= studio_view
         to_deactivate.write({"active": False})
         return True

@@ -480,10 +480,10 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe .valid_table",
             run() {
                 assertEqual(
-                    this.anchor.outerHTML,
-                    `<table class="valid_table">
-                    <tbody><tr><td>I am valid</td></tr>
-                </tbody></table>`
+                    this.anchor.outerHTML.replace(/\n\s*/g, ""),
+                    `<table class="valid_table" o-diff-key="3">
+                        <tbody o-diff-key="4"><tr o-diff-key="5"><td o-diff-key="6">I am valid</td></tr>
+                    </tbody></table>`.replace(/\n\s*/g, "")
                 );
             },
         },
@@ -491,12 +491,12 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe .invalid_table",
             run() {
                 assertEqual(
-                    this.anchor.outerHTML,
-                    `<div class="invalid_table" oe-origin-tag="table" oe-origin-style="">
-                    <t t-foreach="doc.child_ids" t-as="child" oe-context="{&quot;docs&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: false}, &quot;company&quot;: {&quot;model&quot;: &quot;res.company&quot;, &quot;name&quot;: &quot;Companies&quot;, &quot;in_foreach&quot;: false}, &quot;doc&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: true}, &quot;child&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: true}}">
-                        <div oe-origin-tag="tr" oe-origin-style=""><div oe-origin-tag="td" oe-origin-style="" style="width: calc(100% - 10px);">I am not valid</div></div>
+                    this.anchor.outerHTML.replace(/\n\s*/g, ""),
+                    `<div class="invalid_table" o-diff-key="7" oe-origin-tag="table" oe-origin-style="">
+                    <t t-foreach="doc.child_ids" t-as="child" o-diff-key="8" oe-context="{&quot;docs&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: false}, &quot;company&quot;: {&quot;model&quot;: &quot;res.company&quot;, &quot;name&quot;: &quot;Companies&quot;, &quot;in_foreach&quot;: false}, &quot;doc&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: true}, &quot;child&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: true}}">
+                        <div o-diff-key="9" oe-origin-tag="tr" oe-origin-style=""><div o-diff-key="10" oe-origin-tag="td" oe-origin-style="" style="width: calc(100% - 10px);">I am not valid</div></div>
                     </t>
-                </div>`
+                </div>`.replace(/\n\s*/g, "")
                 );
             },
         },
@@ -756,7 +756,7 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
         },
         {
             trigger:
-                ".o-dropdown--menu .o_select_menu_item_label:contains(report_editor_customization_full)",
+                ".o-dropdown--menu .o_select_menu_item_label:contains(report_editor_customization_diff)",
             run: "click",
         },
         {
@@ -1217,7 +1217,7 @@ registry.category("web_tour.tours").add("web_studio.test_xml_and_form_diff", {
                 const currentViewKey = this.anchor.textContent.split(" (")[0];
                 assertEqual(
                     currentViewKey,
-                    "web_studio.report_editor_customization_full.view._web_studio.test_report_document"
+                    "web_studio.report_editor_customization_diff.view._web_studio.test_report_document"
                 );
             },
         },

@@ -1012,7 +1012,10 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
                 ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable div.page div",
             run() {
                 this.anchor.ownerDocument.getSelection().setPosition(this.anchor);
-                assertEqual(this.anchor.outerHTML, `<div class="oe_structure"></div>`);
+                assertEqual(
+                    this.anchor.outerHTML,
+                    `<div class="oe_structure" o-diff-key="3"></div>`
+                );
             },
         },
         {
