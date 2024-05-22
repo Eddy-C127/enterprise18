@@ -47,6 +47,11 @@ class TestMrpMaintenance(common.TransactionCase):
             'groups_id': [(6, 0, [cls.env.ref('maintenance.group_equipment_manager').id])]
         })
 
+        # Create workcenter
+        cls.workcenter_id = cls.env['mrp.workcenter'].create({
+            'name': 'Workcenter 01',
+        })
+
     # Create method for create a maintenance request
     def _create_request(self, name, request_date, equipment_id, maintenance_type):
         values = {
@@ -291,3 +296,27 @@ class TestMrpMaintenance(common.TransactionCase):
         # Step-1: latest failure date + MTBF
         estimated_next_failure = workcenter.latest_failure_date + timedelta(days=workcenter.mtbf)
         self.assertEqual(estimated_next_failure, datetime(2017, 6, 30).date(), 'Wrong latest_failure_date on maintenance request.')
+
+    def test_workcenter_unavailability(self):
+        # Required for `assign_date` to be visible in the view
+        with self.debug_mode():
+            # Create a new equipment
+            equipment_form = Form(self.equipment)
+            equipment_form.name = 'Screwdriver'
+            equipment_form.maintenance_team_id = self.maintenance_team_id
+            equipment_form.category_id = self.category_id
+            equipment_form.technician_user_id = self.technician_user_id
+            equipment_form.assign_date = time.strftime('%Y-%m-%d')
+            equipment_form.serial_no = 'MT/127/18291015'
+            equipment_form.expected_mtbf = 2
+            equipment_form.effective_date = datetime.now().date() + timedelta(days=5)
+            equipment = equipment_form.save()
+
+        maintenance_request_01 = self._create_request(name='Does not turn', request_date=datetime(2017, 5, 3).date(), equipment_id=equipment, maintenance_type="corrective")
+        maintenance_request_01.write({"schedule_date": datetime(2017, 5, 3, 8, microsecond=500), "duration": 2, "workcenter_id": self.workcenter_id.id})
+
+        start_datetime = datetime(2017, 5, 3, 7)
+        intervals_by_workcenter = self.workcenter_id._get_unavailability_intervals(start_datetime, start_datetime + timedelta(hours=4))
+        intervals = intervals_by_workcenter[self.workcenter_id.id]
+        self.assertEqual(len(intervals_by_workcenter), 1)
+        self.assertEqual(intervals[0], (datetime(2017, 5, 3, 8, microsecond=500), datetime(2017, 5, 3, 11)))

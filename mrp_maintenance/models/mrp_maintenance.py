@@ -40,7 +40,7 @@ class MrpWorkcenter(models.Model):
         if not self:
             return res
         sql = """
-          SELECT workcenter_id, ARRAY_AGG((schedule_date || '|' || schedule_date + INTERVAL '1h' * duration)) as date_intervals
+          SELECT workcenter_id, ARRAY_AGG(ARRAY[schedule_date, schedule_date + INTERVAL '1h' * duration]) as date_intervals
             FROM maintenance_request
            WHERE maintenance_for = 'equipment'
              AND schedule_date IS NOT NULL
@@ -52,10 +52,7 @@ class MrpWorkcenter(models.Model):
         self.env.cr.execute(sql, [tuple(self.ids), fields.Datetime.to_string(start_datetime.astimezone()), fields.Datetime.to_string(end_datetime.astimezone())])
         res_maintenance = defaultdict(list)
         for wc_row in self.env.cr.dictfetchall():
-            res_maintenance[wc_row.get('workcenter_id')] = [
-                [fields.Datetime.to_datetime(i) for i in intervals.split('|')]
-                for intervals in wc_row.get('date_intervals')
-            ]
+            res_maintenance[wc_row.get('workcenter_id')] = wc_row.get('date_intervals')
 
         for wc_id in self.ids:
             intervals_previous_list = [(s.timestamp(), e.timestamp(), self.env['maintenance.request']) for s, e in res[wc_id]]
