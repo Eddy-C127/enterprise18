@@ -9,6 +9,7 @@ import { loadBundle } from "@web/core/assets";
 import { browser } from "@web/core/browser/browser";
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
+import { session } from "@web/session";
 
 /**
  * @typedef Session
@@ -117,6 +118,7 @@ export class UserAgent {
             uri: SIP.UserAgent.makeURI(
                 `sip:${this.voip.store.settings.voip_username}@${this.voip.pbxAddress}`
             ),
+            userAgentString: `Odoo ${session.server_version} SIP.js/${window.SIP.version}`,
         };
     }
 
