@@ -15,7 +15,8 @@ class ProductTemplate(models.Model):
     def _onchange_barcode(self):
         for product in self:
             if self.env.user.has_group('base.group_system') and product.barcode and len(product.barcode) > 7:
-                product._update_product_by_barcodelookup(product, product.barcode)
+                barcode_lookup_data = self.barcode_lookup(product.barcode)
+                product._update_product_by_barcodelookup(product, barcode_lookup_data)
 
     def _to_float(self, value):
         try:
@@ -24,9 +25,8 @@ class ProductTemplate(models.Model):
             return 0
 
     @api.model
-    def _update_product_by_barcodelookup(self, product, barcode):
+    def _update_product_by_barcodelookup(self, product, barcode_lookup_data):
         product.ensure_one()
-        barcode_lookup_data = self.barcode_lookup(barcode)
         if not barcode_lookup_data:
             return
         products = barcode_lookup_data.get('products')
@@ -77,7 +77,7 @@ class ProductTemplate(models.Model):
                     self.currency_id,
                 )
 
-        if product._name == 'product.template' and not product.attribute_line_ids:
+        if product._name == 'product.template' and self.env.user.has_group('product.group_product_variant') and not product.attribute_line_ids:
             attribute_lines = []
             for attr_name in ['color', 'gender', 'material', 'pattern', 'manufacturer', 'brand', 'size']:
                 attr_value = product_data.get(attr_name)
