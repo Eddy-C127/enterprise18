@@ -108,11 +108,10 @@
         </record>
 
         <menuitem id="menu_report_employee_referral_all"
-            name="Reporting"
+            name="Referral Analysis"
             action="employee_referral_report_action"
-            parent="menu_hr_referral_root"
+            parent="menu_hr_referral_reporting"
             groups="hr_recruitment.group_hr_recruitment_manager"
-            sequence="30"/>
-
+            sequence="1"/>
     </data>
 </odoo>

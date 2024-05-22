@@ -94,8 +94,23 @@
         <field name="target">main</field>
     </record>
 
-    <menuitem parent="menu_hr_referral_root" id="menu_hr_applicant_employee_referral_dashboard" action="action_hr_referral_welcome_screen" sequence="1"/>
-    <menuitem parent="menu_hr_referral_root" id="menu_hr_points_referral" action="action_hr_referral_points" sequence="21" groups="base.group_no_one"/>
+    <menuitem
+        parent="menu_hr_referral_root"
+        id="menu_hr_applicant_employee_referral_dashboard"
+        action="action_hr_referral_welcome_screen"
+        sequence="1"/>
 
+    <menuitem
+        parent="menu_hr_referral_root"
+        id="menu_hr_referral_reporting"
+        name="Reporting"
+        sequence="30"/>
+
+    <menuitem 
+        parent="menu_hr_referral_reporting"
+        id="menu_hr_points_referral"
+        action="action_hr_referral_points"
+        sequence="10"
+        groups="group_hr_recruitment_referral_user"/>
     </data>
 </odoo>
