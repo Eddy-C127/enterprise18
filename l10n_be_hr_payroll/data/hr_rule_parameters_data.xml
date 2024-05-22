@@ -683,6 +683,11 @@
             <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_low"/>
             <field name="date_from" eval="datetime(2024, 4, 1).date()"/>
         </record>
+        <record id="rule_parameter_value_work_bonus_reference_wage_low_may_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">2132.59</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_low"/>
+            <field name="date_from" eval="datetime(2024, 5, 1).date()"/>
+        </record>
 
         <record id="rule_parameter_work_bonus_reference_wage_high" model="hr.rule.parameter">
             <field name="name">Work Bonus: High Reference Wage</field>
@@ -739,6 +744,11 @@
             <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_high"/>
             <field name="date_from" eval="datetime(2024, 4, 1).date()"/>
         </record>
+        <record id="rule_parameter_value_work_bonus_reference_wage_high_may_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">3207.40</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_high"/>
+            <field name="date_from" eval="datetime(2024, 5, 1).date()"/>
+        </record>
 
         <record id="rule_parameter_work_bonus_reference_wage_middle" model="hr.rule.parameter">
             <field name="name">BE: Work Bonus: Middle Reference Wage</field>
@@ -754,6 +764,11 @@
             <field name="parameter_value">2669.96</field>
             <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_middle"/>
             <field name="date_from" eval="datetime(2024, 4, 1).date()"/>
+        </record>
+        <record id="rule_parameter_work_bonus_reference_wage_middle_may_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">2723.36</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_middle"/>
+            <field name="date_from" eval="datetime(2024, 5, 1).date()"/>
         </record>
 
         <record id="rule_parameter_work_bonus_basic_amount" model="hr.rule.parameter">
@@ -816,6 +831,11 @@
             <field name="rule_parameter_id" ref="rule_parameter_work_bonus_basic_amount"/>
             <field name="date_from" eval="datetime(2024, 4, 1).date()"/>
         </record>
+        <record id="rule_parameter_value_work_bonus_basic_amount_may_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">159.43</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_basic_amount"/>
+            <field name="date_from" eval="datetime(2024, 5, 1).date()"/>
+        </record>
 
         <record id="rule_parameter_work_bonus_basic_amount_volet_A" model="hr.rule.parameter">
             <field name="name">Work Bonus: Basic Amount (Volet A)</field>
@@ -826,6 +846,11 @@
             <field name="parameter_value">115.91</field>
             <field name="rule_parameter_id" ref="rule_parameter_work_bonus_basic_amount_volet_A"/>
             <field name="date_from" eval="datetime(2024, 4, 1).date()"/>
+        </record>
+        <record id="rule_parameter_work_bonus_basic_amount_volet_A_may_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">118.22</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_basic_amount_volet_A"/>
+            <field name="date_from" eval="datetime(2024, 5, 1).date()"/>
         </record>
 
         <record id="rule_parameter_work_bonus_coeff" model="hr.rule.parameter">
@@ -847,6 +872,11 @@
             <field name="parameter_value">0.2443</field>
             <field name="rule_parameter_id" ref="rule_parameter_work_bonus_coeff"/>
             <field name="date_from" eval="datetime(2024, 4, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_coeff_may_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.2442</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_coeff"/>
+            <field name="date_from" eval="datetime(2024, 5, 1).date()"/>
         </record>
 
         <record id="rule_parameter_work_bonus_coeff_low" model="hr.rule.parameter">
