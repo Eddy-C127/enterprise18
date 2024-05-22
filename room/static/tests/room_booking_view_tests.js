@@ -44,21 +44,21 @@ const assertRoomStatus = (assert, target, remainingTime, nbBookings) => {
             target.querySelector(".o_room_remaining_time").innerText,
             luxon.Duration.fromObject(remainingTime).toFormat("hh:mm:ss"),
         );
-        // Check that the room uses the busy background as there is an ongoing booking
+        // Check that the room uses the busy background color as there is an ongoing booking
         assert.hasAttrValue(
             target.querySelector(".o_room_booking_main > div"),
             "style",
-            "background-image: linear-gradient(#FF0000DD, #FF0000DD), url('/room/room_test/background')",
+            "background-image: linear-gradient(#FF0000DD, #FF0000DD)",
         );
         // Check that the "Booked" icon is shown
         assert.containsOnce(target, "i.fa-calendar-times-o.fa-3x");
     } else {
         assert.containsNone(target, ".o_room_remaining_time");
-        // Check that the room uses the available background as there is no ongoing booking
+        // Check that the room uses the available background color as there is no ongoing booking
         assert.hasAttrValue(
             target.querySelector(".o_room_booking_main > div"),
             "style",
-            "background-image: linear-gradient(#00FF00DD, #00FF00DD), url('/room/room_test/background')",
+            "background-image: linear-gradient(#00FF00DD, #00FF00DD)",
         );
         // Check that the "available" icon is shown
         assert.containsOnce(target, "i.fa-check-circle.fa-3x");
