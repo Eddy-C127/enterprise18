@@ -7,7 +7,7 @@ class PosPreparationDisplayOrder(models.Model):
     _description = "Preparation orders"
 
     displayed = fields.Boolean("Order is displayed", help="Determines whether the order should be displayed on the preparation screen")
-    pos_order_id = fields.Many2one('pos.order', help="ID of the original PoS order")
+    pos_order_id = fields.Many2one('pos.order', index=True, help="ID of the original PoS order")
     pos_config_id = fields.Many2one(related='pos_order_id.config_id')
     order_stage_ids = fields.One2many('pos_preparation_display.order.stage', 'order_id', help="All the stage ids in which the order is placed")
     preparation_display_order_line_ids = fields.One2many(
@@ -103,28 +103,23 @@ class PosPreparationDisplayOrder(models.Model):
 
     def get_preparation_display_order(self, preparation_display_id):
         preparation_display = self.env['pos_preparation_display.display'].browse(preparation_display_id)
-        orders = self.env['pos_preparation_display.order'].search(['|', ('pos_config_id', 'in', preparation_display.get_pos_config_ids().ids), ('pos_order_id', '=', False)])
+        orders = preparation_display._get_open_orders_in_display()
+        new_orders = preparation_display._get_stageless_orders_in_display()
         first_stage = preparation_display.stage_ids[0]
 
         preparation_display_orders = []
+        order_stages = []
+        for order in new_orders:
+            order_stages.append({
+                'preparation_display_id': preparation_display_id,
+                'stage_id': first_stage.id,
+                'order_id': order.id,
+                'done': False
+            })
+            orders += order
+        self.env['pos_preparation_display.order.stage'].create(order_stages)
+
         for order in orders:
-            current_order_stage = None
-
-            if order.order_stage_ids:
-                filtered_stages = order.order_stage_ids.filtered(lambda stage: stage.preparation_display_id.id == preparation_display.id)
-                if filtered_stages:
-                    current_order_stage = filtered_stages[-1]
-
-            if current_order_stage and current_order_stage.done:
-                continue
-            elif not current_order_stage:
-                order.order_stage_ids.create({
-                    'preparation_display_id': preparation_display_id,
-                    'stage_id': first_stage.id,
-                    'order_id': order.id,
-                    'done': False
-                })
-
             order_ui = order._export_for_ui(preparation_display)
             if order_ui:
                 preparation_display_orders.append(order_ui)
@@ -151,10 +146,10 @@ class PosPreparationDisplayOrder(models.Model):
         if preparation_display_orderlines:
             current_order_stage = None
 
-            if self.order_stage_ids:
-                filtered_stages = self.order_stage_ids.filtered(lambda stage: stage.preparation_display_id.id == preparation_display.id)
-                if filtered_stages:
-                    current_order_stage = filtered_stages[-1]
+            for stage in self.order_stage_ids[::-1]:
+                if stage.preparation_display_id.id == preparation_display.id:
+                    current_order_stage = stage
+                    break
 
             return {
                 'id': self.id,

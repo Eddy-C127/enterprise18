@@ -48,6 +48,39 @@ class PosPreparationDisplay(models.Model):
         else:
             return self.pos_config_ids
 
+    def _get_open_orders_in_display(self):
+        self.ensure_one()
+        PosPreparationDisplayOrder = self.env['pos_preparation_display.order']
+        open_orders = self.env['pos_preparation_display.order.stage']._read_group(
+            domain=[('preparation_display_id', '=', self.id)],
+            groupby=['order_id'],
+            having=[('done:bool_or', '=', False)],
+        )
+        orders = PosPreparationDisplayOrder
+        if open_orders:
+            orders = PosPreparationDisplayOrder.union(*(order[0] for order in open_orders))
+
+        return orders
+
+    def _get_stageless_orders_in_display(self):
+        self.ensure_one()
+        stageless_orders_ids = self.env['pos_preparation_display.order']._search([
+            '|', ('pos_order_id', '=', False),
+                 ('pos_config_id', 'in', self.get_pos_config_ids().ids),
+        ])
+        stageless_orders_ids.add_where(
+            """
+            NOT EXISTS
+                (
+                    SELECT 1
+                    FROM pos_preparation_display_order_stage
+                    WHERE order_id = pos_preparation_display_order.id
+                )
+            """
+        )
+
+        return self.env['pos_preparation_display.order'].browse(stageless_orders_ids)
+
     def get_preparation_display_data(self):
         return {
             'categories': self._get_pos_category_ids().read(['id', 'display_name', 'sequence']),
@@ -78,25 +111,29 @@ class PosPreparationDisplay(models.Model):
     def reset(self):
         for preparation_display in self:
             last_stage = preparation_display.stage_ids[-1]
-            orders = self.env['pos_preparation_display.order'].search([('|'), ('pos_order_id', '=', False), ('pos_config_id', 'in', preparation_display.get_pos_config_ids().ids)], limit=1000, order='id desc')
+            orders = preparation_display._get_open_orders_in_display()
+            new_orders = preparation_display._get_stageless_orders_in_display()
 
-            for order in orders:
-                current_order_stage = None
-
-                if order.order_stage_ids:
-                    filtered_stages = order.order_stage_ids.filtered(lambda stage: stage.preparation_display_id.id == preparation_display.id)
-                    if len(filtered_stages) > 0:
-                        current_order_stage = filtered_stages[-1]
-
-                if not current_order_stage:
-                    order.order_stage_ids.create({
+            order_stages = []
+            for order in new_orders:
+                order_stages.append({
                         'preparation_display_id': preparation_display.id,
                         'stage_id': last_stage.id,
                         'order_id': order.id,
                         'done': True
                     })
-                else:
-                    current_order_stage.done = True
+            self.env['pos_preparation_display.order.stage'].create(order_stages)
+
+            for order in orders:
+                current_order_stage = None
+
+                for stage in order.order_stage_ids[::-1]:
+                    if stage.preparation_display_id.id == preparation_display.id:
+                        current_order_stage = stage
+                        break
+
+                current_order_stage.done = True
+
             preparation_display._send_load_orders_message()
 
     def _send_load_orders_message(self, sound=False):
