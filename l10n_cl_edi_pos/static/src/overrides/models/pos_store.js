@@ -37,7 +37,7 @@ patch(PosStore.prototype, {
     },
     getReceiptHeaderData(order) {
         const result = super.getReceiptHeaderData(...arguments);
-        if (!this.isChileanCompany()) {
+        if (!this.isChileanCompany() || !order) {
             return result;
         }
         result.company.cl_vat = this.company.vat;
