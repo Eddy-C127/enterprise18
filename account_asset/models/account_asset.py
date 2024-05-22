@@ -588,6 +588,8 @@ class AccountAsset(models.Model):
 
             amount = _get_max_between_linear_and_degressive(linear_amount)
 
+        amount = max(amount, 0) if self.currency_id.compare_amounts(residual_amount, 0) > 0 else min(amount, 0)
+
         if abs(residual_amount) < abs(amount) or days_until_period_end >= self.asset_lifetime_days:
             # If the residual amount is less than the computed amount, we keep the residual amount
             # If total_days is greater or equals to asset lifetime days, it should mean that
@@ -597,7 +599,7 @@ class AccountAsset(models.Model):
 
     def compute_depreciation_board(self, date=False):
         # Need to unlink draft moves before adding new ones because if we create new moves before, it will cause an error
-        self.depreciation_move_ids.filtered(lambda mv: mv.state == 'draft').unlink()
+        self.depreciation_move_ids.filtered(lambda mv: mv.state == 'draft' and (mv.date >= date if date else True)).unlink()
 
         new_depreciation_moves_data = []
         for asset in self:
@@ -616,7 +618,7 @@ class AccountAsset(models.Model):
         ).sorted(key=lambda mv: (mv.date, mv.id))
 
         imported_amount = self.already_depreciated_amount_import
-        residual_amount = self.value_residual
+        residual_amount = self.value_residual - sum(self.depreciation_move_ids.filtered(lambda mv: mv.state == 'draft').mapped('depreciation_value'))
         if not posted_depreciation_move_ids:
             residual_amount += imported_amount
         residual_declining = residual_at_compute = residual_amount
@@ -1042,7 +1044,7 @@ class AccountAsset(models.Model):
 
         last_day_asset = self._get_last_day_asset()
         lifetime_left = self._get_delta_days(beginning_depreciation_date, last_day_asset)
-        days_depreciated, amount = self._compute_board_amount(value_residual, beginning_depreciation_date, date, False, lifetime_left, residual_declining, beginning_fiscal_year, lifetime_left, value_residual, beginning_depreciation_date)
+        days_depreciated, amount = self._compute_board_amount(self.value_residual, beginning_depreciation_date, date, False, lifetime_left, residual_declining, beginning_fiscal_year, lifetime_left, value_residual, beginning_depreciation_date)
 
         if abs(imported_amount) <= abs(amount):
             amount -= imported_amount

@@ -2731,3 +2731,63 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         self.env['account.move'].browse(disposal_action_view['res_id']).action_post()
         self.assertEqual(self.env['account.move'].browse(disposal_action_view['res_id']).asset_move_type, 'disposal')
+
+    def test_asset_already_depreciated(self):
+        asset = self.env['account.asset'].create({
+            'method_period': '12',
+            'method_number': 5,
+            'name': "Car with purple sticker",
+            'original_value': 10000.0,
+            'acquisition_date': fields.Date.today() - relativedelta(years=1),
+            'account_asset_id': self.company_data['default_account_assets'].id,
+            'account_depreciation_id': self.company_data['default_account_assets'].copy().id,
+            'account_depreciation_expense_id': self.company_data['default_account_expense'].id,
+            'journal_id': self.company_data['default_journal_misc'].id,
+            'prorata_computation_type': 'none',
+            'already_depreciated_amount_import': 3000,
+        })
+        asset.validate()
+
+        self.env['asset.modify'].create({
+            'asset_id': asset.id,
+            'date': fields.Date.today() - relativedelta(days=1),
+            'name': 'Test reason',
+        }).modify()
+
+        self.assertRecordValues(asset.depreciation_move_ids, [{
+            'depreciation_value': 1000,
+            'date': fields.Date.to_date('2021-12-31'),
+        }, {
+            'depreciation_value': 2000,
+            'date': fields.Date.to_date('2022-12-31'),
+        }, {
+            'depreciation_value': 2000,
+            'date': fields.Date.to_date('2023-12-31'),
+        }, {
+            'depreciation_value': 2000,
+            'date': fields.Date.to_date('2024-12-31'),
+        },
+        ])
+
+        fully_depreciated_asset = self.env['account.asset'].create({
+            'method_period': '12',
+            'method_number': 5,
+            'name': "Car with purple sticker",
+            'original_value': 10000.0,
+            'acquisition_date': fields.Date.today() - relativedelta(years=2),
+            'account_asset_id': self.company_data['default_account_assets'].id,
+            'account_depreciation_id': self.company_data['default_account_assets'].copy().id,
+            'account_depreciation_expense_id': self.company_data['default_account_expense'].id,
+            'journal_id': self.company_data['default_journal_misc'].id,
+            'prorata_computation_type': 'none',
+            'salvage_value': 4000,
+            'already_depreciated_amount_import': 6000,
+        })
+        fully_depreciated_asset.validate()
+
+        self.env['asset.modify'].create({
+            'asset_id': fully_depreciated_asset.id,
+            'date': fields.Date.today(),
+            'modify_action': 'dispose',
+        }).sell_dispose()
+        self.assertEqual(len(fully_depreciated_asset.depreciation_move_ids), 1, "Only the disposal should be created")

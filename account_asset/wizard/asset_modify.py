@@ -240,7 +240,6 @@ class AssetModify(models.TransientModel):
         asset_vals = {
             'method_number': self.method_number,
             'method_period': self.method_period,
-            'value_residual': self.value_residual,
             'salvage_value': self.salvage_value,
         }
         if self.env.context.get('resume_after_pause'):
@@ -271,7 +270,6 @@ class AssetModify(models.TransientModel):
             self.asset_id._create_move_before_date(self.date)
 
         asset_vals.update({
-            'value_residual': new_residual,
             'salvage_value': new_salvage,
         })
         computation_children_changed = (
@@ -344,7 +342,11 @@ class AssetModify(models.TransientModel):
             }))._post()
 
         restart_date = self.date if self.env.context.get('resume_after_pause') else self.date + relativedelta(days=1)
-        self.asset_id.compute_depreciation_board(restart_date)
+        if self.asset_id.depreciation_move_ids:
+            self.asset_id.compute_depreciation_board(restart_date)
+        else:
+            # We have no moves, we can compute it as new
+            self.asset_id.compute_depreciation_board()
 
         if computation_children_changed:
             children = self.asset_id.children_ids
@@ -357,9 +359,12 @@ class AssetModify(models.TransientModel):
             for child in children:
                 if not self.env.context.get('resume_after_pause'):
                     child._create_move_before_date(self.date)
-            children.compute_depreciation_board(restart_date)
-            children._check_depreciations()
-            children.depreciation_move_ids.filtered(lambda move: move.state != 'posted')._post()
+                if child.depreciation_move_ids:
+                    child.compute_depreciation_board(restart_date)
+                else:
+                    child.compute_depreciation_board()
+                child._check_depreciations()
+                child.depreciation_move_ids.filtered(lambda move: move.state != 'posted')._post()
         tracked_fields = self.env['account.asset'].fields_get(old_values.keys())
         changes, tracking_value_ids = self.asset_id._mail_track(tracked_fields, old_values)
         if changes:
