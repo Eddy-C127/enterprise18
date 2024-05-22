@@ -67,13 +67,13 @@ class HrPayslip(models.Model):
         ('verify', 'Waiting'),
         ('done', 'Done'),
         ('paid', 'Paid'),
-        ('cancel', 'Rejected')],
+        ('cancel', 'Canceled')],
         string='Status', index=True, readonly=True, copy=False,
         default='draft', tracking=True,
         help="""* When the payslip is created the status is \'Draft\'
                 \n* If the payslip is under verification, the status is \'Waiting\'.
                 \n* If the payslip is confirmed then status is set to \'Done\'.
-                \n* When user cancel payslip the status is \'Rejected\'.""")
+                \n* When the user cancels a payslip, the status is \'Canceled\'.""")
     line_ids = fields.One2many(
         'hr.payslip.line', 'slip_id', string='Payslip Lines',
         compute='_compute_line_ids', store=True, readonly=False, copy=True)
