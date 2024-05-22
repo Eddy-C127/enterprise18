@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from markupsafe import Markup
+
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
@@ -84,3 +86,10 @@ class RoomBooking(models.Model):
         if self.env.context.get("room_booking_gantt_show_all_rooms"):
             return rooms.search([], order=f"office_id, {rooms._order}")
         return rooms
+
+    @api.model
+    def get_empty_list_help(self, help_message):
+        result_help_message = super().get_empty_list_help(help_message)
+        if self.env.user.has_group('room.group_room_manager') and not self.env["room.room"].search_count([]):
+            result_help_message += Markup('<a class="btn btn-outline-primary" href="/odoo/rooms/meeting-rooms/new">%s</a>') % _("Create a Room")
+        return result_help_message

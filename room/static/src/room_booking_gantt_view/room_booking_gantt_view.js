@@ -2,6 +2,14 @@ import { ganttView } from "@web_gantt/gantt_view";
 import { registry } from "@web/core/registry";
 
 class RoomBookingGanttController extends ganttView.Controller {
+     /**
+     * @override
+     * Show content helper if no records have been found/loaded
+     */
+     get showNoContentHelp() {
+        return !this.model.data.count;
+    }
+
     /**
      * @override
      * When creating a new booking using the "new" button, use the current time
