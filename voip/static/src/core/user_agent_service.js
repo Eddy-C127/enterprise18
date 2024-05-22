@@ -340,7 +340,9 @@ export class UserAgent {
         }
         const { peerConnection } = this.session.sipSession.sessionDescriptionHandler;
         for (const { track } of peerConnection.getSenders()) {
-            track.enabled = !this.session.isMute;
+            if (track) {
+                track.enabled = !this.session.isMute;
+            }
         }
     }
 
