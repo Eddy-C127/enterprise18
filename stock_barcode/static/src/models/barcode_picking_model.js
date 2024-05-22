@@ -1289,8 +1289,12 @@ export default class BarcodePickingModel extends BarcodeModel {
                 );
             }
         } else if (configScanDest === "optional" && this.previousScannedLines?.length) {
-            // If config is "After groupd of Products", get all previously scanned lines.
-            lines.push(...this.previousScannedLines);
+            // If config is "After group of Products", get all previously scanned lines.
+            for (const line of this.previousScannedLines) {
+                if (!lines.find(l => l.virtual_id === line.virtual_id)) {
+                    lines.push(line);
+                }
+            }
         }
         if (this.previousScannedLinesByPackage?.length) {
             // In case some lines were added by scanning a package, get those lines.
