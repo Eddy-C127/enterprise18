@@ -529,10 +529,23 @@ for record in records:
         if not self.env.su and not self.env.user.has_group('marketing_automation.group_marketing_automation_user'):
             raise AccessError(_('To use this feature you should be an administrator or belong to the marketing automation group.'))
         campaign_templates_info = self.get_campaign_templates_info()
-        if not campaign_templates_info.get(template_str):
-            return False
+        template = next(
+            (template_value
+            for group in campaign_templates_info.values()
+            for template_key, template_value in group['templates'].items()
+            if template_key == template_str),
+            False)
 
-        load_method = campaign_templates_info[template_str]['function']
+        if not template:
+            return False
+        load_method = template.get('function')
+        if not load_method:
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'marketing.campaign',
+                'views': [[False, 'form']]
+            }
+
         if not load_method.startswith('_get_marketing_template') or not hasattr(self, load_method):
             return
         loaded_method = getattr(self, load_method)
@@ -550,30 +563,45 @@ for record in records:
     @api.model
     def get_campaign_templates_info(self):
         return {
-            'hot_contacts': {
-                'title': _('Tag Hot Contacts'),
-                'description': _('Send a welcome email to contacts and tag them if they click in it.'),
-                'icon': '/marketing_automation/static/img/tag.svg',
-                'function': '_get_marketing_template_hot_contacts_values'
+            'misc': {
+                'label': _("Misc"),
+                'templates': {
+                    'start_from_scratch': {
+                        'title': _('Start from scratch'),
+                        'description': _('Design your own marketing campaign from the ground up.'),
+                        'icon': '/marketing_automation/static/img/paintbrush.svg',
+                    },
+                    'hot_contacts': {
+                        'title': _('Tag Hot Contacts'),
+                        'description': _('Send a welcome email to contacts and tag them if they click in it.'),
+                        'icon': '/marketing_automation/static/img/tag.svg',
+                        'function': '_get_marketing_template_hot_contacts_values',
+                    },
+                    'commercial_prospection': {
+                        'title': _('Commercial prospection'),
+                        'description': _('Send a free catalog and follow-up according to reactions.'),
+                        'icon': '/marketing_automation/static/img/search.svg',
+                        'function': '_get_marketing_template_commercial_prospection_values',
+                    },
+                },
             },
-            'welcome': {
-                'title': _('Welcome Flow'),
-                'description': _('Send a welcome email to new subscribers, remove the address that bounced.'),
-                'icon': '/marketing_automation/static/img/hand_peace.svg',
-                'function': '_get_marketing_template_welcome_values'
-            },
-            'double_opt_in': {
-                'title': _('Double Opt-in'),
-                'description': _('Send an email to new recipients to confirm their consent.'),
-                'icon': '/marketing_automation/static/img/square-check.svg',
-                'function': '_get_marketing_template_double_opt_in_values'
-            },
-            'commercial_prospection': {
-                'title': _('Commercial prospection'),
-                'description': _('Send a free catalog and follow-up according to reactions.'),
-                'icon': '/marketing_automation/static/img/search.svg',
-                'function': '_get_marketing_template_commercial_prospection_values'
-            },
+            'marketing': {
+                'label': _("Marketing"),
+                'templates': {
+                    'welcome': {
+                        'title': _('Welcome Flow'),
+                        'description': _('Send a welcome email to new subscribers, remove the address that bounced.'),
+                        'icon': '/marketing_automation/static/img/hand_peace.svg',
+                        'function': '_get_marketing_template_welcome_values',
+                    },
+                    'double_opt_in': {
+                        'title': _('Double Opt-in'),
+                        'description': _('Send an email to new recipients to confirm their consent.'),
+                        'icon': '/marketing_automation/static/img/square-check.svg',
+                        'function': '_get_marketing_template_double_opt_in_values',
+                    },
+                }
+            }
         }
 
     def _get_marketing_template_hot_contacts_values(self):

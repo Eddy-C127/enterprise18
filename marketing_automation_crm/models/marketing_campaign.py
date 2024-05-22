@@ -69,19 +69,22 @@ class MarketingCampaign(models.Model):
     def get_campaign_templates_info(self):
         campaign_templates_info = super().get_campaign_templates_info()
         campaign_templates_info.update({
-            'scheduled_calls': {
-                'title': _('Schedule Calls'),
-                'description': _('If lead is created for existing contact, schedule a call with their salesperson.'),
-                'icon': '/marketing_automation_crm/static/img/phone.svg',
-                'function': '_get_marketing_template_scheduled_calls_values'
-
-            },
-            'prioritize_hot_leads': {
-                'title': _('Prioritize Hot Leads'),
-                'description': _('Send an email to new leads and assign them a high priority if they open it.'),
-                'icon': '/marketing_automation_crm/static/img/star.svg',
-                'function': '_get_marketing_template_prioritize_hot_leads_values'
-
+             'crm': {
+                'label': _("CRM"),
+                'templates': {
+                    'scheduled_calls': {
+                        'title': _('Schedule Calls'),
+                        'description': _('If lead is created for existing contact, schedule a call with their salesperson.'),
+                        'icon': '/marketing_automation_crm/static/img/phone.svg',
+                        'function': '_get_marketing_template_scheduled_calls_values',
+                    },
+                    'prioritize_hot_leads': {
+                        'title': _('Prioritize Hot Leads'),
+                        'description': _('Send an email to new leads and assign them a high priority if they open it.'),
+                        'icon': '/marketing_automation_crm/static/img/star.svg',
+                        'function': '_get_marketing_template_prioritize_hot_leads_values',
+                    }
+                }
             }
         })
         return campaign_templates_info
