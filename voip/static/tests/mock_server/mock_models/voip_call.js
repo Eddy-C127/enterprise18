@@ -1,6 +1,5 @@
-import { models } from "@web/../tests/web_test_helpers";
+import { getKwArgs, makeKwArgs, models } from "@web/../tests/web_test_helpers";
 import { serializeDate, today } from "@web/core/l10n/dates";
-import { parseModelParams } from "@mail/../tests/mock_server/mail_mock_server";
 
 export class VoipCall extends models.ServerModel {
     _name = "voip.call";
@@ -16,16 +15,16 @@ export class VoipCall extends models.ServerModel {
      * @param {string} res_model
      */
     create_and_format(res_id, res_model, ...kwargs) {
-        kwargs = parseModelParams(arguments, "res_id", "res_model");
+        kwargs = getKwArgs(arguments, "res_id", "res_model");
         const context = kwargs.context;
         delete kwargs.res_id;
         delete kwargs.res_model;
         delete kwargs.context;
-        return this.format_calls(this.create(kwargs, { context }));
+        return this.format_calls(this.create(kwargs, makeKwArgs({ context })));
     }
 
     compute_display_name(calls) {
-        /** @type {import("mock_models").ResPartner} */
+        /** @type {import("./res_partner").ResPartner} */
         const ResPartner = this.env["res.partner"];
         const getName = (call) => {
             if (call.activity_name) {
@@ -57,7 +56,7 @@ export class VoipCall extends models.ServerModel {
      * @param {string} [activity_name]
      */
     end_call(ids, activity_name) {
-        const kwargs = parseModelParams(arguments, "ids", "activity_name");
+        const kwargs = getKwArgs(arguments, "ids", "activity_name");
         ids = kwargs.ids;
         activity_name = kwargs.activity_name;
         this.write(ids, {
@@ -72,7 +71,7 @@ export class VoipCall extends models.ServerModel {
 
     /** @param {number[]} ids */
     format_calls(ids) {
-        /** @type {import("mock_models").ResPartner} */
+        /** @type {import("./res_partner").ResPartner} */
         const ResPartner = this.env["res.partner"];
         if (!Array.isArray(ids)) {
             ids = [ids];
@@ -101,7 +100,7 @@ export class VoipCall extends models.ServerModel {
 
     /** @param {number[]} ids */
     get_contact_info(ids) {
-        /** @type {import("mock_models").ResPartner} */
+        /** @type {import("./res_partner").ResPartner} */
         const ResPartner = this.env["res.partner"];
         if (!Array.isArray(ids)) {
             ids = [ids];
@@ -113,7 +112,7 @@ export class VoipCall extends models.ServerModel {
         const [call] = records;
         const [partnerId] = ResPartner.search(
             ["|", ["phone", "=", call.phone_number], ["mobile", "=", call.phone_number]],
-            { limit: 1 }
+            makeKwArgs({ limit: 1 })
         );
         if (!partnerId) {
             return false;
@@ -139,7 +138,7 @@ export class VoipCall extends models.ServerModel {
      * @param {number} [limit]
      */
     get_recent_phone_calls(search_terms, offset = 0, limit) {
-        const kwargs = parseModelParams(arguments, "search_terms", "offset", "limit");
+        const kwargs = getKwArgs(arguments, "search_terms", "offset", "limit");
         search_terms = kwargs.search_terms;
         offset = kwargs.offset || 0;
         limit = kwargs.limit;

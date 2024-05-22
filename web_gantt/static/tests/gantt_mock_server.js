@@ -1,8 +1,9 @@
+import { makeKwArgs } from "@web/../tests/web_test_helpers";
 import { registry } from "@web/core/registry";
 
 function _mockGetGanttData({ kwargs, model }) {
+    kwargs = makeKwArgs(kwargs);
     const lazy = !kwargs.limit && !kwargs.offset && kwargs.groupby.length === 1;
-
     const { groups, length } = this.env[model].web_read_group({
         ...kwargs,
         lazy,
@@ -14,11 +15,11 @@ function _mockGetGanttData({ kwargs, model }) {
         recordIds.push(...(group.__record_ids || []));
     }
 
-    const { records } = this.env[model].web_search_read(null, null, null, null, null, null, {
-        domain: [["id", "in", recordIds]],
-        context: kwargs.context,
-        specification: kwargs.read_specification,
-    });
+    const { records } = this.env[model].web_search_read(
+        [["id", "in", recordIds]],
+        kwargs.read_specification,
+        makeKwArgs({ context: kwargs.context })
+    );
 
     return { groups, length, records };
 }

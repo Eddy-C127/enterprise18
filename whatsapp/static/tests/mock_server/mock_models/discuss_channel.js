@@ -1,7 +1,6 @@
 import { mailModels } from "@mail/../tests/mail_test_helpers";
+import { fields, makeKwArgs, serverState } from "@web/../tests/web_test_helpers";
 import { serializeDateTime } from "@web/core/l10n/dates";
-import { fields, serverState } from "@web/../tests/web_test_helpers";
-import { Kwargs } from "@web/../tests/_framework/mock_server/mock_server_utils";
 
 const { DateTime } = luxon;
 
@@ -50,7 +49,7 @@ export class DiscussChannel extends mailModels.DiscussChannel {
             });
             this.message_post(
                 channel.id,
-                Kwargs({
+                makeKwArgs({
                     body: "<div class='o_mail_notification'>joined the channel</div>",
                     message_type: "notification",
                     subtype_xmlid: "mail.mt_comment",
