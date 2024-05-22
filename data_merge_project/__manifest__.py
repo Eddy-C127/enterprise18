@@ -7,7 +7,7 @@
     'category': 'Productivity/Data Cleaning',
     'summary': 'Add Merge action in contextual menu of project task and tag models.',
     'description': """Add Merge action in contextual menu of project task and tag models.""",
-    'depends': ['data_merge', 'project'],
+    'depends': ['data_cleaning', 'project'],
     'data': [
         'data/ir_model_data.xml',
     ],

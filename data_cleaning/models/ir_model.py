@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, api, _
+
 
 class IrModel(models.Model):
     _inherit = 'ir.model'
@@ -44,7 +44,7 @@ class IrModel(models.Model):
             'binding_view_types': 'list',
             'state': 'code',
             'code': "action = env['data_merge.record'].action_deduplicates(records)",
-            'groups_id': [(4, self.env.ref('base.group_system').id)] # only the system admins have the rights on data_merge models.
+            'groups_id': [(4, self.env.ref('base.group_system').id)]    # only the system admins have the rights on data_merge models.
         }
 
         for model in self:
@@ -65,7 +65,7 @@ class IrModel(models.Model):
             model.write({'ref_merge_ir_act_server_id': server_action.id})
 
             IrModelData = self.env['ir.model.data']
-            xid = f'merge_action_{model.model.replace(".","_")}'
+            xid = f'merge_action_{model.model.replace(".", "_")}'
             imd = IrModelData.search([('module', '=', 'data_merge'), ('name', '=', xid)])
             if imd:
                 imd.res_id = server_action.id
@@ -73,7 +73,7 @@ class IrModel(models.Model):
                 # Create xml_id for the server action so it doesn't count as customization in cloc
                 IrModelData.create({
                     'name': xid,
-                    'module': 'data_merge',
+                    'module': 'data_cleaning',
                     'res_id': server_action.id,
                     'model': 'ir.actions.server',
                     # noupdate is set to true to avoid to delete record at module update

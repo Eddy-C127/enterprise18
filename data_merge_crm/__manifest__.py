@@ -7,7 +7,7 @@
     'category': 'Productivity/Data Cleaning',
     'summary': 'Find duplicate records and merge them',
     'description': """Find duplicate records and merge them""",
-    'depends': ['data_merge', 'crm'],
+    'depends': ['data_cleaning', 'crm'],
     'data': [
         'data/data_merge_data.xml',
         'data/ir_model_data.xml',
