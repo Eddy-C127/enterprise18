@@ -3,10 +3,13 @@
 
 import re
 from lxml import etree
+from lxml.objectify import fromstring
 from collections import defaultdict
 
 from odoo import models, fields, _
 from odoo.exceptions import UserError, RedirectWarning
+
+CFDIBCE_XSLT_CADENA = 'l10n_mx_reports/data/xslt/1.3/BalanzaComprobacion_1_2.xslt'
 
 
 class TrialBalanceCustomHandler(models.AbstractModel):
@@ -26,13 +29,27 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         sat_values = self._l10n_mx_get_sat_values(options)
         file_name = f"{sat_values['vat']}{sat_values['year']}{sat_values['month']}BN"
-        sat_report = etree.fromstring(self.env['ir.qweb']._render('l10n_mx_reports.cfdibalance', sat_values))
+        cfdi = self.env['ir.qweb']._render('l10n_mx_reports.cfdibalance', sat_values)
+        sat_report = self._l10n_mx_edi_add_digital_stamp(CFDIBCE_XSLT_CADENA, cfdi)
 
         return {
             'file_name': f"{file_name}.xml",
             'file_content': etree.tostring(sat_report, pretty_print=True, xml_declaration=True, encoding='utf-8'),
             'file_type': 'xml',
         }
+
+    def _l10n_mx_edi_add_digital_stamp(self, path_xslt, cfdi):
+        """Add digital stamp certificate attributes in XML report"""
+        tree = fromstring(cfdi)
+        certificate = self.env.company.l10n_mx_edi_certificate_ids.sudo()._get_valid_certificate()
+        if not certificate:
+            return tree
+        cadena = certificate._get_cadena_chain(tree, path_xslt)
+        sello = certificate.sudo()._get_encrypted_cadena(cadena)
+        tree.attrib['Sello'] = sello
+        tree.attrib['noCertificado'] = certificate.serial_number
+        tree.attrib['Certificado'] = certificate.sudo()._get_data()[0]
+        return tree
 
     def _l10n_mx_get_sat_values(self, options):
         report = self.env['account.report'].browse(options['report_id'])
