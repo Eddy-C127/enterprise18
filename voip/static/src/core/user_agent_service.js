@@ -117,6 +117,7 @@ export class UserAgent {
             uri: SIP.UserAgent.makeURI(
                 `sip:${this.voip.settings.voip_username}@${this.voip.pbxAddress}`
             ),
+            userAgentString: `Odoo ${odoo.info.server_version} SIP.js/${window.SIP.version}`,
         };
     }
 
