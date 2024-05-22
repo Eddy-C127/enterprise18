@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=C0326
+from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 from odoo import fields, Command
 from odoo.tests import tagged
 from odoo.exceptions import RedirectWarning
 
+from datetime import datetime
+from freezegun import freeze_time
+from pytz import timezone
+
+
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
+class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
 
     @classmethod
-    def setUpClass(cls, chart_template_ref='mx'):
-        super().setUpClass(chart_template_ref=chart_template_ref)
-
-        cls.company_data['company'].country_id = cls.env.ref('base.mx')
-        cls.company_data['company'].vat = 'EKU9003173C9'
-
+    def setUpClass(cls):
+        super().setUpClass()
         # Entries in 2020 to test initial balance
         cls.move_2020_01 = cls.env['account.move'].create({
             'move_type': 'entry',
@@ -255,7 +257,7 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
         NumCta corresponds to Account Group code
         """
         expected_sat_xml = b"""<?xml version='1.0' encoding='utf-8'?>
-        <BCE:Balanza xmlns:BCE="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion/BalanzaComprobacion_1_3.xsd" Version="1.3" RFC="EKU9003173C9" Mes="01" Anio="2021" TipoEnvio="N">
+        <BCE:Balanza xmlns:BCE="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion/BalanzaComprobacion_1_3.xsd" Version="1.3" RFC="EKU9003173C9" Mes="01" Anio="2021" TipoEnvio="N" Sello="___ignore___" Certificado="___ignore___" noCertificado="___ignore___">
             <BCE:Ctas Debe="75.00" NumCta="201" Haber="0.00" SaldoFin="-1075.00" SaldoIni="-1000.00"/>
             <BCE:Ctas Debe="75.00" NumCta="201.01" Haber="0.00" SaldoFin="-1075.00" SaldoIni="-1000.00"/>
             <BCE:Ctas Debe="450.00" NumCta="205" Haber="450.00" SaldoFin="0.00" SaldoIni="0.00"/>
@@ -267,8 +269,10 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
         </BCE:Balanza>
         """
 
+        frozen_today = datetime(year=2018, month=1, day=1, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
         options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
-        sat_report = self.env[self.report.custom_handler_model_name].with_context(skip_xsd=True).action_l10n_mx_generate_sat_xml(options)['file_content']
+        with freeze_time(frozen_today):
+            sat_report = self.env[self.report.custom_handler_model_name].with_context(skip_xsd=True).action_l10n_mx_generate_sat_xml(options)['file_content']
         self.assertXmlTreeEqual(
             self.get_xml_tree_from_string(sat_report),
             self.get_xml_tree_from_string(expected_sat_xml),
