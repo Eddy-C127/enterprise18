@@ -112,7 +112,7 @@ class MarketingCampaign(models.Model):
 
     def _get_marketing_template_prioritize_hot_leads_values(self):
         convert.convert_file(
-            self.env,
+            self.sudo().env,
             'marketing_automation',
             'data/templates/mail_template_body_welcome_template.xml',
             idref={}, mode='init', kind='data'
