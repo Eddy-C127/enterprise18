@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
@@ -32,11 +31,10 @@ class TestProjectSharing(TestProjectSharingCommon):
         cls.env['project.share.wizard'].create({
             'res_model': 'project.project',
             'res_id': cls.project_portal.id,
-            'access_mode': 'edit',
-            'partner_ids': [
-                Command.link(cls.user_portal.partner_id.id),
+            'collaborator_ids': [
+                Command.create({'partner_id': cls.user_portal.partner_id.id, 'access_mode': 'edit'}),
             ],
-        }).action_send_mail()
+        })
 
     def test_project_sharing_timesheets_visibility(self):
         """ Check if the portal user sees only the validated timesheets when the 'Invoicing Policy' in Timesheets is set to 'approved'

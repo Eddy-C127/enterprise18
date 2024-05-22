@@ -171,13 +171,12 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
         portal_user = mail_new_test_user(self.env, 'Portal user', groups='base.group_portal')
 
         self.env['project.share.wizard'].create({
-            'access_mode': 'edit',
             'res_model': 'project.project',
             'res_id': project_1.id,
-            'partner_ids': [
-                Command.link(portal_user.partner_id.id),
+            'collaborator_ids': [
+                Command.create({'partner_id': portal_user.partner_id.id, 'access_mode': 'edit'}),
             ],
-        }).action_send_mail()
+        })
         ordered_task.message_subscribe(partner_ids=portal_user.partner_id.ids)
         fields_to_fetch = ['portal_remaining_hours', 'portal_effective_hours', 'portal_total_hours_spent', 'portal_subtask_effective_hours', 'portal_progress']
         basic_task_read = ordered_task.read(fields_to_fetch)[0]
