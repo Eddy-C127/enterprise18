@@ -270,6 +270,10 @@ class MrpProductionSchedule(models.Model):
     def action_cron_replenish(self):
         self.search([('replenish_trigger', '=', 'automated')]).action_replenish(based_on_lead_time=True)
 
+    def action_toggle_is_indirect(self):
+        for record in self:
+            record.is_indirect = not record.is_indirect
+
     @api.model
     def get_mps_view_state(self, domain=False, offset=0, limit=False):
         """ Return the global information about MPS and a list of production

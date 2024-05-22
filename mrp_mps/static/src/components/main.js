@@ -135,27 +135,24 @@ export class MainComponent extends Component {
                 {
                     key: "delete",
                     description: _t("Delete"),
-                    callback: () => this.unlinkSelectedRecord(),
+                    callback: () => this.model.unlinkSelectedRecord(),
                 },
                 {
                     key: "replenish",
                     description: _t("Order"),
-                    callback: () => this.replenishSelectedRecords(),
+                    callback: () => this.model.replenishSelectedRecords(),
                 },
+                {
+                    key: "indirect",
+                    description: _t("Toggle Indirect Demand"),
+                    callback: () => this.model.toggleIsIndirect(),
+                }
             ],
         };
     }
 
     get isRecordSelected() {
         return this.model.selectedRecords.size > 0;
-    }
-
-    replenishSelectedRecords() {
-        this.model.replenishSelectedRecords();
-    }
-
-    unlinkSelectedRecord() {
-        this.model.unlinkSelectedRecord();
     }
 
     async getExportedFields(model, import_compat, parentParams) {

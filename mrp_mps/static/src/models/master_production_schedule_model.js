@@ -313,4 +313,24 @@ export class MasterProductionScheduleModel extends EventBus {
         this.trigger('update');
     }
 
+    _toggleIsIndirect(productionScheduleIds) {
+        this.mutex.exec(() => {
+            return this.orm.call(
+                'mrp.production.schedule',
+                'action_toggle_is_indirect',
+                [productionScheduleIds],
+            ).then(() => {
+                if (productionScheduleIds.length === 1) {
+                    this.reload(productionScheduleIds[0]);
+                } else {
+                    this.load();
+                }
+            });
+        });
+    }
+
+    toggleIsIndirect() {
+        return this._toggleIsIndirect(Array.from(this.selectedRecords));
+    }
+
 }
