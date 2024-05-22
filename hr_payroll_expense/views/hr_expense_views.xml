@@ -13,7 +13,7 @@
                     </div>
                 </button>
             </div>
-            <button name="action_sheet_move_create" position="after">
+            <button name="action_sheet_move_post" position="after">
                 <field name="refund_in_payslip" invisible="1"/>
                 <field name="payslip_id" invisible="1"/>
                 <button name="action_report_in_next_payslip" string="Report in Next Payslip" type="object"
@@ -25,7 +25,7 @@
                         invisible="not refund_in_payslip or state == 'done' or payment_mode == 'company_account'"
                         class="oe_highlight" data-hotkey="g"/>
             </button>
-            <button name="action_sheet_move_create" position="attributes">
+            <button name="action_sheet_move_post" position="attributes">
                 <attribute name="invisible">refund_in_payslip or state != 'approve'</attribute>
             </button>
             <button name="action_refuse_expense_sheets" position="attributes">

@@ -191,11 +191,27 @@ class HrExpenseSheet(models.Model):
 
         return super().action_register_payment()
 
-    def action_sheet_move_create(self):
+    def _do_approve(self):
+        # If we're dealing with sample expenses (demo data) then we should NEVER create any account.move
+        if self._is_expense_sample():
+            sheets_to_approve = self.filtered(lambda s: s.state in {'submit', 'draft'})
+            for sheet in sheets_to_approve:
+                sheet.write(
+                    {
+                        'approval_state': 'approve',
+                        'user_id': sheet.user_id.id or self.env.user.id,
+                        'approval_date': fields.Date.context_today(sheet),
+                    }
+                )
+            self.activity_update()
+            return
+        return super()._do_approve()
+
+    def action_sheet_move_post(self):
         if self._is_expense_sample():
             self.set_to_posted()
             if self.payment_mode == 'company_account':
                 self.set_to_paid()
             return
 
-        return super().action_sheet_move_create()
+        return super().action_sheet_move_post()

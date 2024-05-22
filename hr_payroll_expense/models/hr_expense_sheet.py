@@ -26,26 +26,10 @@ class HrExpenseSheet(models.Model):
                 "You cannot remove an expense from a payslip that has already been validated.\n"
                 "Expenses can only be removed from draft or canceled payslips."
             ))
+        self.action_remove_from_payslip()
         res = super().action_reset_expense_sheets()
         self.refund_in_payslip = False
         return res
-
-    def action_reset_approval_expense_sheets(self):
-        # EXTENDS hr_expense
-        self.action_remove_from_payslip()
-        return super().action_reset_approval_expense_sheets()
-
-    def action_sheet_move_create(self):
-        # When the expense report is linked to a payslip, we delay the creation of the expense account.move to the payslip creation
-        # to avoid having to revert/delete/cancel account.move in case the expense report would change
-        # EXTENDS hr_expense
-        regular_sheets = self.filtered(lambda sheet: not sheet.refund_in_payslip)
-        if not regular_sheets:
-            raise UserError(_(
-                "There are no valid expense report selected. You cannot manually create accounting entries "
-                "for expense reports that will be reimbursed with a payslip."
-            ))
-        return super(HrExpenseSheet, regular_sheets).action_sheet_move_create()
 
     def action_report_in_next_payslip(self):
         """ Allow the report to be included in the next employee payslip computation. """
@@ -53,9 +37,16 @@ class HrExpenseSheet(models.Model):
             raise UserError(_("There are no valid expense sheets selected."))
         if self.filtered(lambda sheet: sheet.state != 'approve' or sheet.payment_mode != 'own_account'):
             raise UserError(_("Only approved expense reports that were paid by an employee can be reimbursed in a payslip."))
+        if any(self.account_move_ids.filtered(lambda move: move.state != 'draft')):
+            raise UserError(_(
+                "The state of the accounting entries linked to this expense report do not allow it to be reimbursed through a payslip."
+            ))
 
         # Do not raise if already reported, just ignore it
         to_report = self.filtered(lambda sheet: not sheet.refund_in_payslip)
+        to_report.account_move_ids.unlink()
+        # We don't need a draft move for expenses paid in payslip.
+        # As the move creation will be done when the payslip move is posted.
         to_report.refund_in_payslip = True
         for record in to_report:
             record.message_post(
@@ -69,24 +60,26 @@ class HrExpenseSheet(models.Model):
         """
             Disallow the report to be included to the next employee payslip computation and/or unlink it from its payslip if possible.
         """
-        removable_sheets = self.filtered(
+        valid_sheets = self.filtered(
             lambda sheet: not sheet.payslip_id or (not sheet.payslip_id.move_id and sheet.payslip_id.state in {'draft', 'cancel'})
         )
         # Don't raise in case of batch action for smooth flow
-        if not removable_sheets:
+        if not valid_sheets:
             raise UserError(_(
                 "You cannot remove an expense from a payslip that has already been validated.\n"
                 "Expenses can only be removed from draft or canceled payslips."
             ))
-        previous_payslips = removable_sheets.payslip_id
-        for sheet in removable_sheets:
+        previous_payslips = valid_sheets.payslip_id
+        # Only edit & post message when really needed
+        sheets_to_edit = valid_sheets.filtered(lambda sheet: sheet.payslip_id or sheet.refund_in_payslip)
+        for sheet in sheets_to_edit:
             sheet.message_post(
                 body=_('Expense report ("%(name)s") was removed from the next payslip.', name=sheet.name),
                 partner_ids=sheet.employee_id.user_id.partner_id.ids,
                 email_layout_xmlid='mail.mail_notification_light',
                 subtype_id=sheet.env['ir.model.data']._xmlid_to_res_id('mail.mt_note'),
             )
-            sheet.write({'refund_in_payslip': False, 'payslip_id': False})
+        sheets_to_edit.write({'refund_in_payslip': False, 'payslip_id': False})
         if previous_payslips:
             # Remove the sheets amounts from the payslips
             previous_payslips._update_expense_input_line_ids()

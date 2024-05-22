@@ -162,8 +162,8 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
                 'company_id': self.company_data['company'].id,
             })
             self.assertRecordValues(sheets, [
-                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
-                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
+                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': sheet_1.account_move_ids.ids},
+                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': sheet_2.account_move_ids.ids},
             ])
             self.assertRecordValues(payslip, [
                 {'expense_sheet_ids': sheets.ids, 'state': 'draft', 'employee_id': self.expense_employee.id},
@@ -175,8 +175,8 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
             # Test removing expense from payslip unlinks the two
             sheet_1.action_remove_from_payslip()
             self.assertRecordValues(sheets, [
-                {'name':   'Test Expense Report', 'state': 'approve', 'payslip_id':      False, 'payment_state': 'not_paid', 'account_move_ids': []},
-                {'name': 'Test Expense Report 2', 'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
+                {'name':   'Test Expense Report', 'state': 'approve', 'payslip_id': False,      'payment_state': 'not_paid', 'account_move_ids': sheet_1.account_move_ids.ids},
+                {'name': 'Test Expense Report 2', 'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': sheet_2.account_move_ids.ids},
             ])
             self.assertRecordValues(payslip, [
                 {'expense_sheet_ids': sheet_2.ids, 'state': 'draft', 'employee_id': self.expense_employee.id},
@@ -187,8 +187,8 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
 
             sheet_2.action_remove_from_payslip()
             self.assertRecordValues(sheets, [
-                {'state': 'approve', 'payslip_id': False, 'payment_state': 'not_paid', 'account_move_ids': []},
-                {'state': 'approve', 'payslip_id': False, 'payment_state': 'not_paid', 'account_move_ids': []},
+                {'state': 'approve', 'payslip_id': False, 'payment_state': 'not_paid', 'account_move_ids': sheet_1.account_move_ids.ids},
+                {'state': 'approve', 'payslip_id': False, 'payment_state': 'not_paid', 'account_move_ids': sheet_2.account_move_ids.ids},
             ])
             self.assertRecordValues(payslip, [
                 {'expense_sheet_ids': [], 'state': 'draft', 'employee_id': self.expense_employee.id},
@@ -199,16 +199,16 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
             sheets.action_report_in_next_payslip()
             payslip.action_payslip_draft()
             self.assertRecordValues(sheets, [
-                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
-                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
+                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': sheet_1.account_move_ids.ids},
+                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': sheet_2.account_move_ids.ids},
             ])
 
             # Moving up to setting the payslip as done shouldn't change anything for the expense
             self.payslip_run.slip_ids.compute_sheet()
             self.payslip_run.action_validate()
             self.assertRecordValues(sheets, [
-                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
-                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
+                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': sheet_1.account_move_ids.ids},
+                {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': sheet_2.account_move_ids.ids},
             ])
             # Test trying to remove the expense sheet from the payslip when a payslip has generated a move raises an error
             with self.assertRaises(UserError):

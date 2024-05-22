@@ -101,6 +101,7 @@ class AccountMove(models.Model):
         for payslip_sudo in self.sudo().payslip_ids:
             expense_sheets_sudo = payslip_sudo.expense_sheet_ids.sorted(lambda sheet: sheet.accounting_date or fields.Date.context_today(sheet))
             expense_sheets_sudo._do_create_moves()
+            expense_sheets_sudo.account_move_ids.action_post()
             payable_amls_sudo = expense_sheets_sudo.account_move_ids.line_ids.filtered(
                 lambda line: line.account_id.account_type == 'liability_payable' and line.move_id.state == 'posted'
             )
