@@ -473,3 +473,7 @@
     height: 0;
     left: 0;
 }
+
+.textLayer {
+    z-index: 2 !important; /* allow for text selection after adding canvas_layer_0 */
+}

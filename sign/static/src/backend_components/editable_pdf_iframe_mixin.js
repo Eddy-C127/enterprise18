@@ -29,6 +29,7 @@ export const EditablePDFIframeMixin = (pdfClass) =>
          * @param {Boolean} end boolean indicating if the resize is done or still in progress
          */
         onResizeItem(signItem, change, end = false) {
+            this.setCanvasVisibility("hidden");
             this.helperLines.show(signItem.el);
             /**
              * Apply the changes only if they respect the minimum width/height.
@@ -45,16 +46,42 @@ export const EditablePDFIframeMixin = (pdfClass) =>
                     height: change.height,
                     updated: true,
                 });
+                Object.assign(this.getSignItemById(signItem.data.id).data, {
+                    width: change.width,
+                    height: change.height,
+                    updated: true,
+                });
                 this.updateSignItemFontSize(signItem);
             }
             if (end) {
                 this.helperLines.hide();
+                this.setCanvasVisibility("visible");
                 this.saveChanges();
             }
         }
 
         get allowEdit() {
             return false;
+        }
+
+        getSignItemById(id) {
+            for (const page in this.signItems) {
+                if (this.signItems[page].hasOwnProperty(id)) {
+                    return this.signItems[page][id];
+                }
+            }
+            return undefined;
+        }
+
+        /**
+         * Changes visibility of the canvas_layer_0 that is used for drawing connecting lines between sign items of type radio.
+         * @param {string} visibility
+         */
+        setCanvasVisibility(visibility) {
+            const canvas_layer = this.getPageContainer(1).parentElement.parentElement.querySelector("#canvas_layer_0");
+            if(canvas_layer){
+                canvas_layer.style.visibility = visibility;
+            }
         }
 
         /**
@@ -94,6 +121,7 @@ export const EditablePDFIframeMixin = (pdfClass) =>
         }
 
         onDragStart(e) {
+            this.setCanvasVisibility("hidden");
             const signItem = e.currentTarget.parentElement.parentElement.parentElement;
             const page = signItem.parentElement;
             e.dataTransfer.effectAllowed = "move";
@@ -121,9 +149,11 @@ export const EditablePDFIframeMixin = (pdfClass) =>
             let signItem = e.currentTarget.parentElement.parentElement;
             if (signItem)
                 signItem.style.visibility = "visible";
+            this.setCanvasVisibility("visible");
         }
 
         onSidebarDragStart(e) {
+            this.setCanvasVisibility("hidden");
             const signTypeElement = e.currentTarget;
             const firstPage = this.root.querySelector('.page[data-page-number="1"]');
             firstPage.insertAdjacentHTML(
@@ -155,6 +185,7 @@ export const EditablePDFIframeMixin = (pdfClass) =>
             const firstPage = this.root.querySelector('.page[data-page-number="1"]');
             firstPage.removeChild(this.ghostSignItem);
             this.ghostSignItem = false;
+            this.setCanvasVisibility("visible");
         }
 
         onDragOver(e) {
@@ -188,6 +219,8 @@ export const EditablePDFIframeMixin = (pdfClass) =>
                     if (this.pageCount > 1) {
                         return this.openDialogAfterInitialDrop(data);
                     }
+                } else if (data.type == "radio") {
+                    return this.addRadioSet(data);
                 }
                 this.signItems[targetPage][id] = {
                     data,
@@ -288,6 +321,27 @@ export const EditablePDFIframeMixin = (pdfClass) =>
             this.saveChanges();
         }
 
+        /**
+         * Creates and renders the inital two sign items of the radio set.
+         * @param: {Object} data: the first radio item data
+         */
+        addRadioSet(data) {
+            const id2 = generateRandomId();
+            const signItemData1 = { ...data };
+            const signItemData2 = { ...data };
+            signItemData2['id'] = id2;
+            signItemData2['posY'] += 0.025;
+            this.signItems[data.page][data.id] = {
+                data: signItemData1,
+                el: this.renderSignItem(signItemData1, this.getPageContainer(data.page)),
+            }
+            this.signItems[data.page][id2] = {
+                data: signItemData2,
+                el: this.renderSignItem(signItemData2, this.getPageContainer(data.page)),
+            }
+            this.saveChanges();
+        }
+
         saveChanges() {}
 
         registerDragEventsForSignItem(signItem) {
@@ -306,5 +360,23 @@ export const EditablePDFIframeMixin = (pdfClass) =>
             signItem.el.parentElement.removeChild(signItem.el);
             delete this.signItems[page][id];
             this.saveChanges();
+        }
+
+        /**
+         * Bulk delete of multiple sign items, saves the template only once.
+         * @param {SignItem []} deletedItems 
+         */
+        async deleteSignItems(deletedItems) {
+            deletedItems.forEach((signItem) => {
+                this.deletedSignItemIds.push(signItem.data.id);
+                signItem.el.parentElement.removeChild(signItem.el);
+                delete this.signItems[signItem.data.page][signItem.data.id];
+                if (signItem.data.type == "radio") {
+                    this.radioSets[signItem.data.radio_set_id].num_options--;
+                    this.radioSets[signItem.data.radio_set_id].radio_item_ids = 
+                        this.radioSets[signItem.data.radio_set_id].radio_item_ids.filter((id) => id != signItem.data.id);
+                }
+            })
+            await this.saveChanges();
         }
     };

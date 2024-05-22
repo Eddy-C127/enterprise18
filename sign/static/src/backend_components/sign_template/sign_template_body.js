@@ -17,6 +17,7 @@ export class SignTemplateBody extends Component {
         signItemTypes: { type: Array },
         signItems: { type: Array },
         signRoles: { type: Array },
+        radioSets: { type: Object },
         hasSignRequests: { type: Boolean },
         signItemOptions: { type: Array },
         attachmentLocation: { type: String },
@@ -70,7 +71,9 @@ export class SignTemplateBody extends Component {
                 signRoles: this.props.signRoles,
                 hasSignRequests: this.props.hasSignRequests,
                 signItemOptions: this.props.signItemOptions,
+                radioSets: this.props.radioSets,
                 saveTemplate: () => this.saveTemplate(),
+                getRadioSetInfo: (id) => this.getRadioSetInfo(id),
                 rotatePDF: () => this.rotatePDF(),
             }
         );
@@ -122,6 +125,14 @@ export class SignTemplateBody extends Component {
         return Id2UpdatedItem;
     }
 
+    async getRadioSetInfo(sign_item_ids) {
+        const info = await this.orm.call("sign.template", "get_radio_set_info_by_item_id", [
+            this.props.signTemplate.id,
+            sign_item_ids,
+        ])
+        return info;
+    }
+
     prepareTemplateData() {
         const updatedSignItems = {};
         const Id2UpdatedItem = {};
@@ -144,6 +155,7 @@ export class SignTemplateBody extends Component {
                         posY: signItem.posY,
                         width: signItem.width,
                         height: signItem.height,
+                        radio_set_id: signItem.radio_set_id,
                     };
 
                     if (id < 0) {

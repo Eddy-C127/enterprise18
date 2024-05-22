@@ -712,7 +712,19 @@ class SignRequest(models.Model):
                         can.setFont(font, height*item.height*0.8)
                         value = 'X' if value == 'on' else ''
                         can.drawString(width*item.posX, height*(1-item.posY-item.height*0.9), value)
-
+                    elif item.type_id.item_type == "radio":
+                        x = width * item.posX
+                        y = height * (1 - item.posY)
+                        w = item.width * width
+                        h = item.height * height
+                        # Calculate the center of the sign item rectangle.
+                        c_x = x + w * 0.5
+                        c_y = y - h * 0.5
+                        # Draw the outer empty circle.
+                        can.circle(c_x, c_y, h * 0.5)
+                        if value == "on":
+                            # Draw the inner filled circle.
+                            can.circle(x_cen=c_x, y_cen=c_y, r=h * 0.5 * 0.75, fill=1)
                     elif item.type_id.item_type == "signature" or item.type_id.item_type == "initial":
                         try:
                             image_reader = ImageReader(io.BytesIO(base64.b64decode(value[value.find(',')+1:])))

@@ -202,6 +202,37 @@ class SignTemplate(models.Model):
         except Exception as e:
             raise UserError(_("One uploaded file cannot be read. Is it a valid PDF?"))
 
+    def get_radio_set_info_by_item_id(self, sign_item_ids=None):
+        """
+        :param list of sign item IDs (sign_item_ids)
+        :return: dict radio_set_by_item_dict that maps each sign item ID in sign_item_ids of type "radio"
+        to a dictionary containing num_options and radio_set_id of the radio set it belongs to.
+        """
+        radio_set_by_item_dict = {}
+        if sign_item_ids:
+            radio_items = self.sign_item_ids.filtered(lambda item: item.radio_set_id and item.id in sign_item_ids)
+            radio_set_by_item_dict = {
+                radio_item.id: {
+                    'num_options': radio_item.num_options,
+                    'radio_set_id': radio_item.radio_set_id.id,
+                } for radio_item in radio_items
+            }
+        return radio_set_by_item_dict
+
+    def get_radio_sets_dict(self):
+        """
+        :return: dict radio_sets_dict that maps each radio set that belongs to
+        this template to a dictionary containing num_options and radio_item_ids.
+        """
+        radio_sets = self.sign_item_ids.filtered(lambda item: item.radio_set_id).radio_set_id
+        radio_sets_dict = {
+            radio_set.id: {
+                'num_options': radio_set.num_options,
+                'radio_item_ids': radio_set.radio_items.ids,
+            } for radio_set in radio_sets
+        }
+        return radio_sets_dict
+
     def update_from_pdfviewer(self, sign_items=None, deleted_sign_item_ids=None, name=None):
         """ Update a sign.template from the pdfviewer
         :param dict sign_items: {id (str): values (dict)}
@@ -383,6 +414,19 @@ class SignItemSelectionOption(models.Model):
         return super().name_create(name)
 
 
+class SignItemRadioSet(models.Model):
+    _name = "sign.item.radio.set"
+    _description = "Radio button set for keeping radio button items together"
+
+    radio_items = fields.One2many('sign.item', 'radio_set_id')
+    num_options = fields.Integer(string="Number of Radio Button options", compute="_compute_num_options")
+
+    @api.depends('radio_items')
+    def _compute_num_options(self):
+        for radio_set in self:
+            radio_set.num_options = len(radio_set.radio_items)
+
+
 class SignItem(models.Model):
     _name = "sign.item"
     _description = "Fields to be sign on Document"
@@ -398,6 +442,9 @@ class SignItem(models.Model):
 
     option_ids = fields.Many2many("sign.item.option", string="Selection options")
 
+    radio_set_id = fields.Many2one("sign.item.radio.set", string="Radio button options", ondelete='cascade')
+    num_options = fields.Integer(related="radio_set_id.num_options")
+
     name = fields.Char(string="Field Name", default=lambda self: self.type_id.placeholder)
     page = fields.Integer(string="Document Page", required=True, default=1)
     posX = fields.Float(digits=(4, 3), string="Position X", required=True)
@@ -407,6 +454,28 @@ class SignItem(models.Model):
     alignment = fields.Char(default="center", required=True)
 
     transaction_id = fields.Integer(copy=False)
+
+    def create(self, vals_list):
+        res = super().create(vals_list)
+        # All new sign items of type "radio" that don't have a radio_set_id
+        # are grouped together in on radio set.
+        hanging_radio_items = res.filtered(lambda item: item.type_id.item_type == "radio" and not item.radio_set_id)
+        if hanging_radio_items:
+            self.env['sign.item.radio.set'].create([{
+                'radio_items': hanging_radio_items,
+            }])
+        return res
+
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        # When duplicating sign items of type "radio" create new equivalent radio sets for the new items.
+        radio_set_map = {}
+        for radio_set_id in {item['radio_set_id'] for item in vals_list if item['radio_set_id']}:
+            new_radio_set = self.env['sign.item.radio.set'].create([{}])
+            radio_set_map[radio_set_id] = new_radio_set.id
+        for item in vals_list:
+            item['radio_set_id'] = radio_set_map.get(item['radio_set_id'])
+        return vals_list
 
 
 class SignItemType(models.Model):
@@ -421,6 +490,7 @@ class SignItemType(models.Model):
         ('text', "Text"),
         ('textarea', "Multiline Text"),
         ('checkbox', "Checkbox"),
+        ('radio', "Radio Buttons"),
         ('selection', "Selection"),
     ], required=True, string='Type', default='text')
 

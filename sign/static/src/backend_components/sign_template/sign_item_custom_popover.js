@@ -45,6 +45,7 @@ export class SignItemCustomPopover extends Component {
     static props = {
         id: { type: Number },
         alignment: { type: String },
+        header_title: {type: String },
         placeholder: { type: String },
         required: { type: Boolean },
         option_ids: { type: Array },
@@ -58,6 +59,8 @@ export class SignItemCustomPopover extends Component {
         debug: { type: String },
         roles: { type: Object },
         close: { type: Function },
+        num_options: {type: Number, optional: true},
+        radio_set_id: {type: Number, optional: true},
     };
 
     setup() {
@@ -72,9 +75,18 @@ export class SignItemCustomPopover extends Component {
             required: this.props.required,
             option_ids: this.props.option_ids,
             responsible: this.props.responsible,
+            num_options: this.props.num_options,
+            radio_set_id: this.props.radio_set_id,
         });
         this.signItemFieldsGet = getActionActiveFields();
         this.typesWithAlignment = new Set(["text", "textarea"]);
+    }
+
+    handleNumOptionsChange(value) {
+        if (Number(value) < 2) {
+            return;
+        }
+        this.state['num_options'] = Number(value);
     }
 
     onChange(key, value) {

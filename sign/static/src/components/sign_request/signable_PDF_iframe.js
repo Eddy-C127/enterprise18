@@ -33,6 +33,53 @@ export class SignablePDFIframe extends PDFIframe {
         this.signerName = props.signerName;
         this.frameHash =
             (this.props.frameHash && this.props.frameHash.substring(0, 10) + "...") || "";
+
+        this.radioSets = {};
+        this.props.signItems.forEach((item) => {
+            if(item.radio_set_id) {
+                if (item.radio_set_id in this.radioSets) {
+                    this.radioSets[item.radio_set_id].items.push(item);
+                } else {
+                    this.radioSets[item.radio_set_id] = {
+                        selected: null,
+                        items: [item],
+                    }
+                }
+            }
+        })
+
+        for (const radio_set_id in this.radioSets) {
+            this.radioSets[radio_set_id].items = this.radioSets[radio_set_id].items.sort((a, b) => {
+                return (
+                    100 * (a.page - b.page) +
+                    10 * (a.posY - b.posY) +
+                    (a.posX - b.posX)
+                );
+            });
+        }
+    }
+
+    getSignItemById(id) {
+        for (const page in this.signItems) {
+            if (this.signItems[page].hasOwnProperty(id)) {
+                return this.signItems[page][id];
+            }
+        }
+        return undefined;
+    }
+
+    /**
+     * Modify the selected sign item of the corresponding radio set.
+     * @param {SignItem} signItem 
+     */
+    handleRadioItemSelected(signItem) {
+        const radio_set_id = signItem.data.radio_set_id;
+        if (this.radioSets[radio_set_id].selected !== signItem.data.id) {
+            this.radioSets[signItem.data.radio_set_id].selected = signItem.data.id;
+        }else if (!signItem.data.required) {
+            signItem.el.checked = false;
+            this.radioSets[radio_set_id].selected = undefined;
+        }
     }
 
     enableCustom(signItem) {
@@ -51,6 +98,10 @@ export class SignablePDFIframe extends PDFIframe {
             signItemElement.addEventListener("click", (e) => {
                 this.handleSignatureDialogClick(e.currentTarget, signItemType);
             });
+        } else if (type === "radio") {
+            signItemElement.addEventListener("click", (e) => {
+                this.handleRadioItemSelected(signItem);
+            })
         }
 
         if (autoValue && ["text", "textarea"].includes(type)) {
@@ -358,6 +409,9 @@ export class SignablePDFIframe extends PDFIframe {
                     signItem.data.responsible === this.currentRole &&
                     !signItem.data.value
                 ) {
+                    if(signItem.data.type === "radio" && this.radioSets[signItem.data.radio_set_id].selected){
+                        return;
+                    }
                     const el =
                         signItem.data.isEditMode && signItem.el.type === "text"
                             ? el.querySelector("input")
@@ -699,6 +753,13 @@ export class SignablePDFIframe extends PDFIframe {
                     return item.data.required ? false : "off";
                 }
             },
+            radio: () => {
+                if(item.el.checked) {
+                    return "on";
+                } else {
+                    return "off";
+                }
+            }
         };
         const type = item.data.type;
         return type in types ? types[type]() : types["text"]();

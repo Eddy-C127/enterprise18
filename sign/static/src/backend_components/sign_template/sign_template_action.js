@@ -58,7 +58,17 @@ export class SignTemplate extends Component {
             this.fetchAttachment(),
             this.fetchSignItemTypes(),
             this.fetchSignRoles(),
+            this.fetchRadioSets(),
         ]);
+    }
+
+    async fetchRadioSets() {
+        this.radioSets = await this.orm.call(
+            "sign.template",
+            "get_radio_sets_dict", [
+                this.signTemplate.id
+            ]
+        );
     }
 
     async fetchSignItemTypes() {
@@ -80,6 +90,12 @@ export class SignTemplate extends Component {
             [[["template_id", "=", this.signTemplate.id]]],
             { context: user.context }
         );
+
+        // The ORM would format radio_set_id like: [49, 'sign.item.radio.set,49']
+        // The format isn't important, we care only about the id.
+        this.signItems.forEach((item) => {
+            item.radio_set_id = item?.radio_set_id[0] || undefined;
+        });
 
         this.signItemOptions = await this.orm.call(
             "sign.item.option",

@@ -39,10 +39,10 @@ export function startSignItemNavigator(parent, target, types, env) {
             goToNextSignItem();
             return false;
         }
-        const selectedElement = target.querySelector(".ui-selected");
-        if (selectedElement) {
+        const selectedElements = target.querySelectorAll(".ui-selected");
+        selectedElements.forEach((selectedElement) => {
             selectedElement.classList.remove("ui-selected");
-        }
+        });
         const signItemsToComplete = parent.checkSignItemsCompletion().sort((a, b) => {
             return (
                 100 * (a.data.page - b.data.page) +
@@ -53,6 +53,16 @@ export function startSignItemNavigator(parent, target, types, env) {
         if (signItemsToComplete.length > 0) {
             scrollToSignItem(signItemsToComplete[0]);
         }
+    }
+
+    /**
+     * Sets the entire radio set on focus.
+     * @param {Number} radio_set_id 
+     */
+    function highligtRadioSet(radio_set_id) {
+        parent.checkSignItemsCompletion().filter((item) => item.data.radio_set_id === radio_set_id).forEach(item => {
+            item.el.classList.add("ui-selected");
+        });
     }
 
     function scrollToSignItem({ el: item, data }) {
@@ -66,10 +76,14 @@ export function startSignItemNavigator(parent, target, types, env) {
             if (item.value === "" && !item.dataset.signature) {
                 setTip(type.tip);
             }
-
             parent.refreshSignItems();
-            item.focus();
-            item.classList.add("ui-selected");
+            if (data.type === "radio") {
+                //we need to highligt the entire radio set items
+                highligtRadioSet(data.radio_set_id);                
+            } else {
+                item.focus();
+                item.classList.add("ui-selected");
+            }
             if (["signature", "initial"].includes(type.item_type)) {
                 if (item.dataset.hasFocus) {
                     const clickableElement = data.isSignItemEditable

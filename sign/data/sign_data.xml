@@ -94,6 +94,15 @@
         <field name="icon">fa-check-square-o</field>
     </record>
 
+    <record model="sign.item.type" id="sign_item_type_radio">
+        <field name="name">Radio Buttons</field>
+        <field name="placeholder">&#9673;</field>
+        <field name="item_type">radio</field>
+        <field name="default_width" type="float">0.06</field>
+        <field name="default_height" type="float">0.020</field>
+        <field name="icon">fa-dot-circle-o</field>
+    </record>
+
     <record model="sign.item.type" id="sign_item_type_selection">
         <field name="name">Selection</field>
         <field name="item_type">selection</field>

@@ -6,6 +6,7 @@
             <t t-if="type == 'text'" t-call="sign.textSignItem"/>
             <t t-if="type == 'textarea'" t-call="sign.textareaSignItem"/>
             <t t-if="type == 'checkbox'" t-call="sign.checkboxSignItem"/>
+            <t t-if="type == 'radio'" t-call="sign.radioSignItem"/>
             <t t-if="type == 'selection'" t-call="sign.selectionSignItem"/>
             <t t-if="type == 'signature' || type == 'initial'" t-call="sign.signatureSignItem"/>
         </t>
@@ -24,6 +25,7 @@
             <input t-if="type == 'text'" t-att-title="role" type="text"  t-attf-class="{{classes}} o_sign_sign_item"  t-att-style="style" t-att-placeholder="placeholder" t-att-value="value"/>
             <input t-if="type == 'checkbox' and value == 'on'" t-att-title="role" type="checkbox" t-attf-class="{{classes}} o_sign_sign_item" t-att-style="style" checked="1"/>
             <input t-elif="type == 'checkbox'" t-att-title="role" type="checkbox" t-attf-class="{{classes}} o_sign_sign_item" t-att-style="style"/>
+            <input t-if="type == 'radio'" t-att-title="role" type="radio" t-attf-class="{{classes}} o_sign_sign_item" t-att-style="style" t-att-value="value" t-att-name="radio_set_id"/>
             <textarea t-if="type == 'textarea'" t-att-title="role" t-attf-class="{{classes}} o_sign_sign_item" t-att-style="style" t-att-placeholder="placeholder" t-att-value="value" t-esc="value"/>
             <div t-if="type == 'selection'" t-att-title="role" t-attf-class="{{classes}} o_sign_sign_item" t-att-style="style" t-att-value="value">
                 <div class="o_sign_select_options_display o_sign_select_options_display_edit">
@@ -34,7 +36,6 @@
                         <span t-attf-class="o_sign_item_option {{ value ? (value == option.id ? 'o_sign_selected_option' : 'o_sign_not_selected_option') : ''}}" t-att-data-id="option.id" t-esc="option.value"/>
                     </t>
                 </div>
-                
             </div>
         </t>
     </t>
@@ -46,7 +47,7 @@
         <span t-if="isSignItemEditable" class="fa fa-times" role="img" aria-label="Delete sign item" title="Delete sign"/>
         <div class="o_sign_item_display">
             <!-- Don't display role for checkbox. We don't have place -->
-            <t t-if="type != 'checkbox' || isSignItemEditable">
+            <t t-if="['checkbox','radio'].indexOf(type) == -1 || isSignItemEditable">
                 <span class="o_sign_responsible_display" t-att-title="responsibleName" t-esc="responsibleName"/>
             </t>
         </div>
@@ -108,6 +109,19 @@
                 <span class="o_placeholder ps-0">
                     <t t-if="placeholder == '☑'"><span class="o_custom_checkbox"/></t>
                     <t t-else=""><span class="o_custom_checkbox unchecked"/></t>
+                </span>
+            </t>
+            <t t-if="editMode" t-call="sign.signItemConfiguration"/>
+        </div>
+    </div>
+
+    <div t-name="sign.radioSignItem" t-att-title="role" t-attf-class="{{classes}} o_sign_sign_item" t-att-data-id="id" t-att-style="style">
+        <div class="sign_item_body">
+            <t t-if="value == 'on'">&#9673;</t>
+            <t t-if="value == 'off'">&#9711;</t>
+            <t t-if="!value">
+                <span t-att-style="(editMode ? 'padding-left: 25px;' : '')">
+                    <t t-esc="placeholder"/>
                 </span>
             </t>
             <t t-if="editMode" t-call="sign.signItemConfiguration"/>

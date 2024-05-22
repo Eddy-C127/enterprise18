@@ -3,7 +3,7 @@
     <t t-name="sign.SignItemCustomPopover">
         <div class="d-flex flex-column" style="max-width: 25rem;">
             <div class="d-flex bg-opacity-25 bg-secondary justify-content-between align-items-center">
-                <span class="fs-3 fw-bold ps-2" t-esc="props.placeholder"/>
+                <span class="fs-3 fw-bold ps-2" t-esc="props.header_title"/>
                 <button type="button" title="Close" class="btn btn-default oi oi-close" t-on-click="props.onClose"/>
             </div>
             <div class="d-flex p-2 flex-column">
@@ -20,7 +20,13 @@
                             <Many2ManyTagsField t-props="getOptionsProps(record, 'option_ids')"/>
                         </div>
                     </div>
-
+                    <div t-if="props.type === 'radio'" class="mb-2">
+                        <div class="o_field_widget d-block d-flex" id="o_sign_select_radio_qty_input">
+                            <label for="o_sign_select_radio_qty_input" class="fw-bold">Options</label>
+                            <input type="number" inputmode="numeric" class="px-2 o_input" t-att-value="state.num_options" t-att-min="2"
+                            t-on-change="(e) => this.handleNumOptionsChange(e.target.value)"/>
+                        </div>
+                    </div>
                     <div class="mb-2">
                         <label for="o_sign_responsible_select_input" class="fw-bold">Filled by</label>
                         <div class="o_field_widget d-block" id="o_sign_responsible_select_input">

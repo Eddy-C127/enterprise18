@@ -31,7 +31,7 @@ export class PDFIframe {
             obj[option.id] = option;
             return obj;
         }, {});
-
+        this.radioSets = this.props.radioSets;
         this.waitForPagesToLoad();
     }
 
@@ -58,6 +58,7 @@ export class PDFIframe {
             this.startPinchService();
             this.preRender();
             this.renderSidebar();
+            this.addCanvasLayer();
             this.renderSignItems();
             this.postRender();
         });
@@ -104,6 +105,24 @@ export class PDFIframe {
     }
 
     /**
+     * Adds canvas layer used to draw connecting lines between radio items.
+     */
+    addCanvasLayer() {
+        const viewer = this.root.querySelector("#viewer");
+        const layer = document.createElement("canvas");
+        layer.id = "canvas_layer_0";
+        layer.style.position = 'absolute';
+        layer.style.top = '0';
+        layer.style.left = '0';
+        layer.style.zIndex = 1;
+        layer.style.width = viewer.offsetWidth + "px";
+        layer.style.height = viewer.offsetHeight + "px";
+        layer.width = viewer.offsetWidth;
+        layer.height = viewer.offsetHeight;
+        viewer.appendChild(layer);
+    }
+
+    /**
      * Used when signing a sign request
      */
     renderSidebar() {}
@@ -117,7 +136,14 @@ export class PDFIframe {
             }
         }
         this.updateFontSize();
+        this.renderAllConnectingLines();
     }
+
+    /**
+     * Renders connecting lines between radio items.
+     */
+
+    renderAllConnectingLines(){}
 
     /**
      * register sign item events. in template edition, should be overwritten to add drag/drop events
@@ -205,6 +231,7 @@ export class PDFIframe {
             }
         }
         this.updateFontSize();
+        this.renderAllConnectingLines();
     }
 
     /**
@@ -327,5 +354,12 @@ export class PDFIframe {
      */
     getPageContainer(page) {
         return this.root.querySelector(`.page[data-page-number="${page}"]`);
+    }
+
+    /**
+     * @returns canvas layer used for drawing radio item connecting lines.
+     */
+    getCanvas() {
+        return this.root.querySelector("#canvas_layer_0");
     }
 }
