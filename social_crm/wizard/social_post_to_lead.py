@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
+
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError
 from odoo.tools.misc import format_datetime
@@ -42,6 +44,7 @@ class SocialPostConvert2Lead(models.TransientModel):
     post_content = fields.Html('Post Content')
     post_datetime = fields.Datetime('Post Datetime', compute='_compute_post_data', store=True, readonly=False)
     post_link = fields.Char('Post Link', compute='_compute_post_data', store=True, readonly=False)
+    post_image_urls = fields.Text("Post Images URLs")  # JSON array capturing the URLs of the images
     #UTMs
     utm_source_id = fields.Many2one('utm.source', compute='_compute_utm_data')
     utm_medium_id = fields.Many2one('utm.medium', compute='_compute_utm_data')
@@ -132,6 +135,7 @@ class SocialPostConvert2Lead(models.TransientModel):
             'description': self.env['ir.qweb']._render("social_crm.social_post_to_lead_description", {
                 'object': self,
                 'post_datetime': format_datetime(self.env, self.post_datetime, dt_format='yyyy-MM-dd HH:mm:ss (ZZZZ)'),
+                'post_image_urls': json.loads(self.post_image_urls) if self.post_image_urls else False,
             }),
         }
 

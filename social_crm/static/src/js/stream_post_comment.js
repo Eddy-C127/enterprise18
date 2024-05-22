@@ -33,6 +33,7 @@ patch(StreamPostComment.prototype, {
                 default_social_account_id: this.originalPost.account_id.raw_value,
                 default_author_name: this.comment.from.name,
                 default_post_content: this._formatPost(this.comment.message),
+                default_post_image_urls: (this.comment.attachment?.type === 'photo') ? `["${this.comment.attachment.media.image.src}"]` : false,
                 // expected datetime format by the server
                 // as social comments are not stored as records, we need to do some manual formatting
                 default_post_datetime: serializeDateTime(this.commentCreatedTime),
