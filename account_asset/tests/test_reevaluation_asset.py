@@ -484,6 +484,52 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             self._get_depreciation_move_values(date='2022-12-31', depreciation_value=1000, remaining_value=0, depreciated_value=6000, state='draft'),
         ])
 
+    def test_linear_reevaluation_increase_then_decrease_in_future(self):
+        asset = self.create_asset(value=10000, periodicity="yearly", periods=5, method="linear", acquisition_date="2018-01-01", prorata="constant_periods")
+        asset.validate()
+
+        self.env['asset.modify'].create({
+            'asset_id': asset.id,
+            'name': 'Test reason',
+            'date':  fields.Date.to_date("2022-06-30"),
+            'value_residual': asset.value_residual + 1000,
+            "account_asset_counterpart_id": self.asset_counterpart_account_id.id,
+        }).modify()
+
+        self.env['asset.modify'].create({
+            'asset_id': asset.id,
+            'name': 'Test reason',
+            'date':  fields.Date.to_date("2022-09-30"),  # This is 3 month in the future
+            'value_residual': asset.value_residual - 200,
+            'method_period': '1',  # to reflect the change on the child, we go in monthly
+            'method_number': 60,
+        }).modify()
+
+        self.assertRecordValues(asset.depreciation_move_ids.sorted(lambda mv: (mv.date, mv.id)), [
+            self._get_depreciation_move_values(date='2018-12-31', depreciation_value=2000, remaining_value=8000, depreciated_value=2000, state='posted'),
+            self._get_depreciation_move_values(date='2019-12-31', depreciation_value=2000, remaining_value=6000, depreciated_value=4000, state='posted'),
+            self._get_depreciation_move_values(date='2020-12-31', depreciation_value=2000, remaining_value=4000, depreciated_value=6000, state='posted'),
+            self._get_depreciation_move_values(date='2021-12-31', depreciation_value=2000, remaining_value=2000, depreciated_value=8000, state='posted'),
+            # move before increase
+            self._get_depreciation_move_values(date='2022-06-30', depreciation_value=1000, remaining_value=1000, depreciated_value=9000, state='posted'),
+            # move before decrease
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=500, remaining_value=500, depreciated_value=9500, state='draft'),
+            # decrease move
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=200, remaining_value=300, depreciated_value=9700, state='draft'),
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=100, remaining_value=200, depreciated_value=9800, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=100, remaining_value=100, depreciated_value=9900, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=100, remaining_value=0, depreciated_value=10000, state='draft'),
+        ])
+
+        self.assertRecordValues(asset.children_ids.depreciation_move_ids.sorted(lambda mv: (mv.date, mv.id)), [
+            # move before switch to monthly
+            self._get_depreciation_move_values(date='2022-09-30', depreciation_value=500, remaining_value=500, depreciated_value=500, state='draft'),
+
+            self._get_depreciation_move_values(date='2022-10-31', depreciation_value=166.67, remaining_value=333.33, depreciated_value=666.67, state='draft'),
+            self._get_depreciation_move_values(date='2022-11-30', depreciation_value=166.66, remaining_value=166.67, depreciated_value=833.33, state='draft'),
+            self._get_depreciation_move_values(date='2022-12-31', depreciation_value=166.67, remaining_value=0, depreciated_value=1000, state='draft'),
+        ])
+
     def test_linear_reevaluation_decrease_then_increase_with_lock_date(self):
         self.company_data['company'].fiscalyear_lock_date = fields.Date.to_date('2022-03-01')
         asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")

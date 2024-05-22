@@ -1288,7 +1288,7 @@ class TestAccountAssetNew(AccountTestInvoicingCommon):
 
         self.assertEqual(self.car.state, 'draft')
         self.assertEqual(self.car.book_value, 60000)
-        self.assertRecordValues(self.car.depreciation_move_ids, [
+        self.assertRecordValues(self.car.depreciation_move_ids.sorted(lambda m: (m.date, m.id)), [
             self._get_depreciation_move_values(date='2021-12-31', depreciation_value=12000, remaining_value=48000, depreciated_value=12000, state='draft'),
             self._get_depreciation_move_values(date='2022-12-31', depreciation_value=12000, remaining_value=36000, depreciated_value=24000, state='draft'),
             self._get_depreciation_move_values(date='2023-12-31', depreciation_value=12000, remaining_value=24000, depreciated_value=36000, state='draft'),
