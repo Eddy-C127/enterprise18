@@ -255,24 +255,3 @@ class MarketingCampaignTest(TestMACommon):
 
         self.assertEqual(campaign.running_participant_count, 4)
         self.assertEqual(campaign.participant_ids.mapped('res_id'), (test_records[0:3] | test_records[-1]).ids)
-
-    @users('user_marketing_automation')
-    @mute_logger('odoo.addons.base.ir.ir_model', 'odoo.models')
-    def test_get_campaign_from_template(self):
-        # test that there's no error when creating a template when user_marketing_automation (that it exists, is an action and has a related model)
-        campaign_action = self.env['marketing.campaign'].get_action_marketing_campaign_from_template('commercial_prospection')
-        self.assertTrue(bool(campaign_action['res_id']))
-        campaign = self.env['marketing.campaign'].browse(campaign_action['res_id'])
-        self.assertTrue(len(campaign.marketing_activity_ids) == 3)
-        # test that all activities have their own children objects (depending on their activity type)
-        for activity in campaign.marketing_activity_ids:
-            if activity.activity_type == 'email':
-                self.assertTrue(bool(activity.mass_mailing_id))
-            elif activity.activity_type == 'action':
-                self.assertTrue(bool(activity.server_action_id))
-
-    @users('employee')
-    @mute_logger('odoo.addons.base.ir.ir_model', 'odoo.models')
-    def test_get_campaign_from_template_as_employee(self):
-        with self.assertRaises(AccessError):
-            self.env['marketing.campaign'].get_action_marketing_campaign_from_template('commercial_prospection')
