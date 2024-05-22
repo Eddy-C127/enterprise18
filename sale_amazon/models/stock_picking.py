@@ -230,6 +230,14 @@ class StockPicking(models.Model):
 
                 # Add the shipping location.
                 location_ = account.location_id.warehouse_id.partner_id or self.env.company
+                if not (location_.street and location_.country_id.code):
+                    raise UserError(_(
+                        ("Amazon require certain information for the shipping location. Please make"
+                         " sure the following information are set on '%s' (%s): street, country and"
+                         " country code."),
+                          location_.display_name, location_
+                        )
+                    )
                 ship_from_ = ElementTree.SubElement(order_fulfillment_, 'ShipFromAddress')
                 ElementTree.SubElement(ship_from_, 'Name').text = location_.name[:30]
                 ElementTree.SubElement(ship_from_, 'AddressFieldOne').text = location_.street[:180]
