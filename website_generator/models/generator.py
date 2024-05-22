@@ -252,22 +252,19 @@ class WebsiteGeneratorRequest(models.Model):
             attachments_url_src = self.try_create_image_attachment(img_name, img_url, attachments_url_src, tar)
 
         # Create attachments for all images (cropped)
-        cropped_attachments_url_src = {}
-        # Home page
-        for image in odoo_blocks['homepage'].get('images_to_crop', []):
-            img_name = self._get_cropped_image_name(all_images, image)
-            cropped_attachments_url_src = self.try_create_image_attachment(img_name, image['url'], cropped_attachments_url_src, tar)
-
-        # Other pages
-        for page_dict in odoo_blocks.get('pages', {}).values():
-            for image in page_dict.get('images_to_crop', []):
-                img_name = self._get_cropped_image_name(all_images, image)
-                cropped_attachments_url_src = self.try_create_image_attachment(img_name, image['url'], cropped_attachments_url_src, tar)
+        customized_attachments_url_src = {}
+        for page_dict in [odoo_blocks['homepage']] + list(odoo_blocks.get('pages', {}).values()):
+            for ws_id, image_customizations in page_dict.get('images_to_customize', {}).items():
+                img_name = self._get_custom_image_name(all_images, ws_id, image_customizations)
+                # Note, we give the 'ws_id' as the image_url because we may have multiple images
+                # with the same url but cropped differently (where the image_url is the
+                # downloaded image url from the original website).
+                customized_attachments_url_src = self.try_create_image_attachment(img_name, ws_id, customized_attachments_url_src, tar)
 
         # Update the html urls
         if attachments_url_src:
             # Modifies odoo_blocks in place
-            self._update_html_urls(odoo_blocks, attachments_url_src, cropped_attachments_url_src)
+            self._update_html_urls(odoo_blocks, attachments_url_src, customized_attachments_url_src)
 
     def try_create_image_attachment(self, img_name, img_url, attachments_url_src, tar):
         try:
@@ -285,25 +282,38 @@ class WebsiteGeneratorRequest(models.Model):
             })
             if att and att.image_src:
                 attachments_url_src[img_url] = att
-        except (TypeError, ValueError) as e:
+        except (AttributeError, TypeError, ValueError) as e:
             # Defensive programming: skip the image if it's invalid
             # (image extension not supported, corrupted metadata, etc.)
             logger.warning("Error attaching image %r : %s", img_url, e)
 
         return attachments_url_src
 
-    def _get_cropped_image_name(self, all_images, image):
-        cropped_image_id = image.get('ws_id')
-        uncropped_img_name = all_images.get(image.get('url'), "")
-        if uncropped_img_name:
-            img_name = 'cropped_' + uncropped_img_name.split('.')[0] + '_' + cropped_image_id + '.png'
+    def _get_custom_image_name(self, all_images, ws_id, image_customizations):
+        original_img_url = image_customizations.get('url')
+        original_img_name = all_images.get(original_img_url, '')
+        # We keep the same mimetype as the original image
+        supported_mimetypes = {
+            'png': 'image/png',
+            'jpg': 'image/jpeg',
+            'webp': 'image/webp',
+            'svg': 'image/svg+xml',
+            'gif': 'image/gif',
+        }
+        image_extension = original_img_name.split('.')[-1].lower()
+        if not image_extension or image_extension not in supported_mimetypes:
+            image_extension = 'png'
+        image_customizations['data_mimetype'] = supported_mimetypes[image_extension]
+        if original_img_name:
+            img_name = f'customized_{original_img_name.split(".")[0]}_{ws_id}.{image_extension}'
+            image_customizations['filename'] = img_name
             return img_name
-        return ""
+        return ''
 
-    def _update_html_urls(self, odoo_blocks, attachments_url_src, cropped_attachments_url_src):
+    def _update_html_urls(self, odoo_blocks, attachments_url_src, customized_attachments_url_src):
         def update_page_html(page_dict):
             images_on_page = page_dict.get('images', [])
-            cropped_images = page_dict.get('images_to_crop', [])
+            customized_images = page_dict.get('images_to_customize', [])
             page_attachments_url_src = {html.escape(k): v.image_src for k, v in attachments_url_src.items() if k in images_on_page}
             sorted_list_attachments_url_src = sorted(page_attachments_url_src, key=len, reverse=True)
 
@@ -311,21 +321,49 @@ class WebsiteGeneratorRequest(models.Model):
             for block_html in page_dict.get('body_html', []):
                 page_html = self._replace_in_string(block_html, sorted_list_attachments_url_src, page_attachments_url_src)
                 # Then replace all cropped src with the new cropped image html
-                for img in cropped_images:
-                    if 'cropping_coords' in img and img['url'] in cropped_attachments_url_src:
-                        page_html = apply_image_cropping(page_html, img)
+                for ws_id, customization in customized_images.items():
+                    if ws_id in customized_attachments_url_src:
+                        page_html = apply_image_customizations(page_html, ws_id, customization)
                 new_block_list.append(page_html)
             return new_block_list
 
-        def apply_image_cropping(new_block_html, img):
+        def apply_image_customizations(new_block_html, ws_id, customization):
             # Replace the image with the cropped one
-            url = img.get('url')
-            cropping_dimensions = img.get('cropping_coords')
-            ws_id = img.get('ws_id')
-            if url and cropping_dimensions and ws_id:
+            url = customization.get('url')
+            data_mimetype = customization['data_mimetype']
+            attributes = {
+                'src': customized_attachments_url_src[ws_id].image_src,
+                'class': customization.get('className', ''),
+                'data-original-id': attachments_url_src[url].id,
+                'data-original-src': attachments_url_src[url].image_src,
+                'data-mimetype': data_mimetype,
+                'data-mimetype-before-conversion': data_mimetype,
+            }
+
+            # Apply the cropping attributes
+            cropping_dimensions = customization.get('cropping_coords', {})
+            if cropping_dimensions:
+                attributes.update({
+                    'data-x': cropping_dimensions['x'],
+                    'data-width': cropping_dimensions['width'],
+                    'data-height': cropping_dimensions['height'],
+                    'data-scale-x': 1,
+                    'data-scale-y': 1,
+                    'data-aspect-ratio': '0/0',
+                })
+
+            color_filter = customization.get('filter', {})
+            if color_filter:
+                rgba = f'rgba({int(color_filter["coords"][0] * 255)}, {int(color_filter["coords"][1] * 255)}, {int(color_filter["coords"][2] * 255)}, {color_filter["alpha"]})'
+                attributes.update({
+                    'data-gl-filter': 'custom',
+                    'data-filter-options': f'{{&quot;filterColor&quot;:&quot;{rgba}&quot;}}'
+                })
+
+            if url and (cropping_dimensions or color_filter) and ws_id:
                 pattern = r'<img[^>]*data-ws_id\s*=\s*["\']?{}["\']?[^>]*>'.format(ws_id)
-                cropped_img_string = f"""<img src="{cropped_attachments_url_src[url].image_src}" class="img img-fluid mx-auto o_we_image_cropped" loading="lazy" style="" data-bs-original-title="" title="" data-original-id="{attachments_url_src[url].id}" data-original-src="{attachments_url_src[url].image_src}" data-mimetype="image/jpeg" data-y="{cropping_dimensions['y']}" data-width="{cropping_dimensions['width']}" data-height="{cropping_dimensions['height']}" data-scale-x="1" data-scale-y="1" data-aspect-ratio="0/0">"""
-                return re.sub(pattern=pattern, repl=cropped_img_string, string=new_block_html)
+                customized_img_string = f'<img {" ".join([f"{k}={v!r}" for k, v in attributes.items()])}>'
+                return re.sub(pattern=pattern, repl=customized_img_string, string=new_block_html)
             return new_block_html
 
         homepage = odoo_blocks['homepage']
@@ -333,13 +371,13 @@ class WebsiteGeneratorRequest(models.Model):
 
         footer = homepage.get('footer', [])
         if footer:
-            homepage['footer'] = update_page_html({'body_html': footer, 'images': homepage.get('images', []), 'images_to_crop': homepage.get('images_to_crop', [])})
+            homepage['footer'] = update_page_html({'body_html': footer, 'images': homepage.get('images', []), 'images_to_customize': homepage.get('images_to_customize', [])})
 
         header_buttons = homepage.get('header', {}).get('buttons', [])
         for button in header_buttons:
             menu_content = button.get('menu_content', {})
             if menu_content.get('type', '') == 'mega_menu':
-                menu_content['content'] = update_page_html({'body_html': [menu_content.get('content', '')], 'images': homepage.get('images', []), 'images_to_crop': homepage.get('images_to_crop', [])})[0]
+                menu_content['content'] = update_page_html({'body_html': [menu_content.get('content', '')], 'images': homepage.get('images', []), 'images_to_customize': homepage.get('images_to_customize', [])})[0]
 
         # Update the html urls for all pages
         for page_name, page_dict in odoo_blocks.get('pages', {}).items():

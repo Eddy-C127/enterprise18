@@ -19,13 +19,7 @@ class WebsitePageGenerator(models.Model):
         self._create_footer(homepage_data)
         self._create_header(homepage_data)
         self._apply_website_themes(homepage_data)
-        if homepage_data.get('footer'):
-            self.env['web_editor.assets'].make_scss_customization(
-                '/website/static/src/scss/options/user_values.scss',
-                {
-                    'footer-template': f"'imported-footer-{self.website_id.id}'",
-                },
-            )
+        self._apply_user_values(homepage_data)
 
     def _construct_page(self, page_data):
         html_block_list = page_data.get('body_html')
@@ -151,15 +145,46 @@ class WebsitePageGenerator(models.Model):
                 'footer': footer_color.get('footer', "'NULL'"),
                 'footer-gradient': footer_color.get('footer-gradient', "'NULL'"),
                 'footer-custom': footer_color.get('footer-custom', "'NULL'"),
-                'copyright': footer_color.get('footer', "'NULL'"),
-                'copyright-gradient': footer_color.get('footer-gradient', "'NULL'"),
-                'copyright-custom': footer_color.get('footer-custom', "'NULL'"),
             })
 
         # TODO: Try add this new color palette as an option to the odoo editor list of options.
         self.env['web_editor.assets'].make_scss_customization(
             '/website/static/src/scss/options/colors/user_color_palette.scss',
             values,
+        )
+
+    def _apply_user_values(self, homepage_data):
+        user_values = {
+            'font': 'null'
+        }
+        if homepage_data.get('footer'):
+            user_values.update({'footer-template': f"'imported-footer-{self.website_id.id}'"})
+
+        fonts = homepage_data.get('fonts', {})
+        if fonts:
+            google_fonts = fonts.get('google-fonts', 'null')
+            google_fonts_tuple = 'null'
+            if google_fonts != 'null':
+                google_fonts_tuple = f"""('{"', '".join(google_fonts)}')"""
+            user_values.update({
+                'google-fonts': google_fonts_tuple,
+                'headings-font': fonts.get('h1', 'null'),
+                'h2-font': fonts.get('h2', 'null'),
+                'h3-font': fonts.get('h3', 'null'),
+                'h4-font': fonts.get('h4', 'null'),
+                'h5-font': fonts.get('h5', 'null'),
+                'h6-font': fonts.get('h6', 'null'),
+                'font': fonts.get('p', 'null'),
+                'buttons-font': fonts.get('button', 'null'),
+                'display-1-font': fonts.get('h1-display-1', 'null'),
+                'display-2-font': fonts.get('h1-display-2', 'null'),
+                'display-3-font': fonts.get('h1-display-3', 'null'),
+                'display-4-font': fonts.get('h1-display-4', 'null'),
+            })
+
+        self.env['web_editor.assets'].make_scss_customization(
+            '/website/static/src/scss/options/user_values.scss',
+            user_values,
         )
 
     def _create_footer(self, homepage_data):
