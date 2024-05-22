@@ -591,20 +591,24 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
     def _read_generic_tax_report_amounts_no_tax_details(self, report, options, options_by_column_group):
         # Fetch the group of taxes.
         # If all child taxes have a 'none' type_tax_use, all amounts are aggregated and only the group appears on the report.
+        company_ids = report.get_report_company_ids(options)
+        company_domain = self.env['account.tax']._check_company_domain(company_ids)
+        _, company_where_clause, company_where_params = self.env['account.tax'].with_context(active_test=False)._where_calc(company_domain).get_sql()
         self._cr.execute(
-            '''
+            f'''
                 SELECT
-                    group_tax.id,
-                    group_tax.type_tax_use,
+                    account_tax.id,
+                    account_tax.type_tax_use,
                     ARRAY_AGG(child_tax.id) AS child_tax_ids,
                     ARRAY_AGG(DISTINCT child_tax.type_tax_use) AS child_types
-                FROM account_tax_filiation_rel group_tax_rel
-                JOIN account_tax group_tax ON group_tax.id = group_tax_rel.parent_tax
-                JOIN account_tax child_tax ON child_tax.id = group_tax_rel.child_tax
-                WHERE group_tax.amount_type = 'group' AND group_tax.company_id IN %s
-                GROUP BY group_tax.id
+                FROM account_tax_filiation_rel account_tax_rel
+                JOIN account_tax ON account_tax.id = account_tax_rel.parent_tax
+                JOIN account_tax child_tax ON child_tax.id = account_tax_rel.child_tax
+                WHERE account_tax.amount_type = 'group'
+                AND {company_where_clause}
+                GROUP BY account_tax.id
             ''',
-            [tuple(report.get_report_company_ids(options))],
+            company_where_params,
         )
         group_of_taxes_info = {}
         child_to_group_of_taxes = {}
