@@ -71,6 +71,16 @@ class KnowledgeController(http.Controller):
         ))
 
     def _redirect_to_portal_view(self, article):
+        url = '/knowledge/article'
+        if article.id:
+            url += '#id=%s' % article.id
+        return request.redirect(url)
+
+    @http.route('/knowledge/article', type='http', auth='user')
+    def _access_knowledge_portal_view(self):
+        if request.env.user._is_internal():
+            return request.redirect('/web')
+
         # We build the session information necessary for the web client to load
         session_info = request.env['ir.http'].session_info()
         user_context = dict(request.env.context)
@@ -82,7 +92,6 @@ class KnowledgeController(http.Controller):
 
         session_info.update(
             cache_hashes=cache_hashes,
-            knowledge_article_id=article.id,
             user_companies={
                 'current_company': request.env.company.id,
                 'allowed_companies': {
