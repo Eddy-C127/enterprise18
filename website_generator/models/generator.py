@@ -231,7 +231,7 @@ class WebsiteGeneratorRequest(models.Model):
         homepage_url = odoo_blocks.get('homepage', {}).get('url')
         if not homepage_url:
             raise ValueError("Homepage url not found in the input")
-        website_name = urlparse(homepage_url).netloc.split(".")[-2]
+        website_name = urlparse(homepage_url).netloc.removeprefix('www.')
         website_values = {'name': website_name, **website_info.get('social_media_links', {})}
 
         # Add logo
