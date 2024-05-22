@@ -25,11 +25,11 @@ class AccountMove(models.Model):
         # This would also create an infinite recursion loop between `_unlink_or_reverse` and `button_draft`
         # EXTENDS account
         res = super().button_draft()
-        expense_moves = self.payslip_ids.expense_sheet_ids.account_move_ids
+        expense_move_sudo = self.sudo().payslip_ids.expense_sheet_ids.account_move_ids
         to_reverse = self.env['account.move']
         to_unlink = self.env['account.move']
-        lock_dates_per_company = {company: company._get_user_fiscal_lock_date() for company in expense_moves.company_id}
-        for move in expense_moves:
+        lock_dates_per_company = {company: company._get_user_fiscal_lock_date() for company in expense_move_sudo.company_id}
+        for move in expense_move_sudo:
             if move.inalterable_hash or move.date <= lock_dates_per_company[move.company_id]:
                 to_reverse |= move
             else:
