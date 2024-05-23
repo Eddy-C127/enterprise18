@@ -40,7 +40,7 @@ export class DocumentsActionHelper extends Component {
                 `<p class='o_view_nocontent_smiling_face'>
                     ${escape(
                         this.selectedFolderId === "TRASH"
-                            ? _t("Deleted documents will show up here")
+                            ? _t("Documents moved to trash will show up here")
                             : _t("Select a workspace to upload a document")
                     )}
                 </p>`

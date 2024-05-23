@@ -108,7 +108,6 @@
     <t t-name="documents.DocumentsInspector.infoRow">
         <tr>
             <td class="o_inspector_label align-middle">
-                <i t-if="icon" t-att-class="icon"/>
                 <t t-esc="label"/>
             </td>
             <td class="o_inspector_value w-100">
@@ -183,7 +182,6 @@
         <tr>
             <td class="o_inspector_label align-middle">
                 <span>
-                    <i t-if="icon" t-attf-class="o_documents_model_color pe-1 fa {{icon}}"/>
                     <label t-att-for="fieldName">
                         <t t-esc="field.string"/>
                     </label>
@@ -224,7 +222,6 @@
                         <t t-set="additionalProps" t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false}"/>
                     </t>
                     <t t-call="documents.DocumentsInspector.field">
-                        <t t-set="icon" t-translation="off">fa fa-folder text-primary</t>
                         <t t-set="fieldName" t-translation="off">folder_id</t>
                         <t t-set="additionalProps" t-value="{canOpen: false, canCreate: false, canCreateEdit: false, canQuickCreate: false, domain: [['has_write_access', '=', true]]}"/>
                     </t>
@@ -232,7 +229,7 @@
                     <tr t-if="nbPreviews === 1 &amp;&amp; records[0].data.res_id &amp;&amp; records[0].data.res_model_name &amp;&amp; records[0].data.res_model !== 'documents.document'" class="o_inspector_custom_field o_model_container">
                         <td class="o_inspector_label align-middle">
                             <label t-att-title="records[0].data.res_model_name" class="o_inspector_model_name">
-                                <i class="o_documents_model_color fa fa-file-text"/> <t t-esc="records[0].data.res_model_name"/>
+                                <t t-esc="records[0].data.res_model_name"/>
                             </label>
                         </td>
                         <td class="w-100 o_inspector_trigger_hover_target o_inspector_model_flex">
@@ -252,9 +249,7 @@
                     </tr>
                     <tr class="o_inspector_custom_field">
                         <td class="o_inspector_label align-baseline">
-                            <label>
-                                <i class="o_documents_tag_color fa fa-tag"/> Tags
-                            </label>
+                            <label>Tags</label>
                         </td>
                         <td class="o_inspector_value w-100">
                             <t t-call="documents.DocumentsInspector.tags"/>
@@ -264,22 +259,19 @@
             </table>
         </div>
         <div class="o_inspector_section o_inspector_section_rules mt-3" t-if="records[0].data.active and !isLocked and !isEditDisabled">
-            <label>
-                <i class="o_documents_action_color fa fa-play"/> Actions
-            </label>
+            <label>Actions</label>
             <div class="o_inspector_rules">
                 <t t-foreach="getCommonRules()" t-as="rule" t-key="rule.resId">
                     <div class="o_inspector_rule o_inspector_trigger_hover_target mb-2" t-att-data-id="rule.resId">
-                        <button t-att-tile="rule.data.note || ''" class="btn fa fa-play o_inspector_trigger_rule"
-                            t-on-click.stop.prevent="(ev) => this.triggerRule(rule)"/>
-                        <span class="ms-2" t-att-title="rule.data.note || ''"><t t-esc="rule.data.display_name"/></span>
+                        <button t-att-title="rule.data.note || ''" class="btn o_inspector_trigger_rule"
+                            t-on-click.stop.prevent="(ev) => this.triggerRule(rule)" t-esc="rule.data.display_name"/>
                     </div>
                 </t>
             </div>
         </div>
         <t t-if="nbPreviews === 1 and records[0].data.previous_attachment_ids.count > 0">
             <div class="o_inspector_section o_inspector_section_history mt-3">
-                <label><i class="o_documents_history_color fa fa-history"/> History</label>
+                <label>History</label>
                 <div class="o_inspector_history">
                     <t t-if="state.previousAttachmentData" t-call="documents.DocumentsInspector.attachmentHistory"/>
                 </div>

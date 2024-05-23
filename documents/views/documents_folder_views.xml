@@ -21,11 +21,11 @@
             <tree string="Workspaces" js_class="folder_list">
                 <field name="sequence" widget="handle"/>
                 <field name="display_name" string="Workspace"/>
-                <field name="active" string="Active" invisible="1"/>
-                <field name="facet_ids"  widget="many2many_tags" string="Tag Categories"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="group_ids" widget="many2many_tags"/>
-                <field name="read_group_ids" widget="many2many_tags"/>
+                <field name="active" column_invisible="True"/>
+                <field name="facet_ids"  widget="many2many_tags" string="Tag Categories" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="group_ids" widget="many2many_tags" optional="hide"/>
+                <field name="read_group_ids" widget="many2many_tags" optional="hide"/>
             </tree>
         </field>
     </record>

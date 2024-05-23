@@ -22,8 +22,6 @@ class TestTags(TransactionCase):
         domain = [('folder_id', '=', folder_id)]
         folder_ids = self.env['documents.folder'].search([('parent_folder_id', 'parent_of', folder_id)]).ids
         tags = self.env['documents.tag']._get_tags(domain, folder_ids)
-        processed_tags = self.env['documents.document']._get_processed_tags(domain, folder_ids)
-        self.assertEqual(processed_tags[0]['color_index'], 1, 'first record should have the right color index')
         self.assertEqual(len(tags), 4, 'should return a non-empty list of tags')
 
         first_record = {
@@ -31,6 +29,7 @@ class TestTags(TransactionCase):
             'group_name': facet_assets.name,
             'group_sequence': facet_assets.sequence,
             'group_tooltip': None,
+            'color_index': facet_assets.color,
             'id': tag_assets_ads.id,
             'display_name': tag_assets_ads.name,
             'sequence': tag_assets_ads.sequence,
@@ -47,6 +46,7 @@ class TestTags(TransactionCase):
             'id': tag_assets_videos.id,
             'display_name': tag_assets_videos.name,
             'sequence': tag_assets_videos.sequence,
+            'color_index': facet_assets.color,
             '__count': 0,
         }
         self.assertEqual(tags[-1], last_record, 'last record should match')
@@ -72,6 +72,7 @@ class TestTags(TransactionCase):
             'id': tag_assets_images.id,
             'display_name': tag_assets_images.name,
             'sequence': tag_assets_images.sequence,
+            'color_index': facet_assets.color,
         }
         first_tag = tags[0]
         first_tag.pop('__count')
@@ -85,6 +86,7 @@ class TestTags(TransactionCase):
             'id': tag_assets_videos.id,
             'display_name': tag_assets_videos.name,
             'sequence': tag_assets_videos.sequence,
+            'color_index': facet_assets.color,
         }
         second_tag = tags[-1]
         second_tag.pop('__count')
@@ -113,6 +115,7 @@ class TestTags(TransactionCase):
             'id': tag_assets_ads.id,
             'display_name': tag_assets_ads.name,
             'sequence': tag_assets_ads.sequence,
+            'color_index': facet_assets.color,
             '__count': 0,
         }
         self.assertEqual(tags[0], first_record, 'first record should match')
@@ -125,6 +128,7 @@ class TestTags(TransactionCase):
             'id': tag_assets_videos.id,
             'display_name': tag_assets_videos.name,
             'sequence': tag_assets_videos.sequence,
+            'color_index': facet_assets.color,
             '__count': 0,
         }
         self.assertEqual(tags[-1], last_record, 'last record should match')

@@ -43,7 +43,7 @@
         <field name="inherit_id" ref="documents.document_view_search"/>
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='pdf_doc']" position='after'>
-                <filter string="Spreadsheet" name="spreadsheet" domain="[('handler', '=', 'spreadsheet')]"/>
+                <filter string="Spreadsheets" name="spreadsheet" domain="[('handler', '=', 'spreadsheet')]"/>
             </xpath>
         </field>
     </record>

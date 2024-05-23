@@ -54,7 +54,7 @@ export class DocumentsKanbanCompiler extends KanbanCompiler {
             /*xml*/ `
             <t>
                 <t t-set="fileUpload" t-value="__comp__.getFileUpload()"/>
-                <i t-if="!fileUpload" class="fa fa-circle-thin o_record_selector" title="Select document"/>
+                <i t-if="!fileUpload" class="fa fa-circle o_record_selector text-white" title="Select document"/>
                 <t t-else="">
                     <FileUploadProgressBar fileUpload="fileUpload"/>
                 </t>

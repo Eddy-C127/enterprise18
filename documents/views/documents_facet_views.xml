@@ -25,6 +25,9 @@
                     <div class="oe_title">
                         <label for="name" string="Tag Category"/>
                         <h1><field name="name" placeholder="e.g. Status" options="{'line_breaks': False}" widget="text"/></h1>
+                        <group>
+                            <field name="color" required="True" widget="color_picker"/>
+                        </group>
                     </div>
                     <notebook>
                         <page string="Tags" name="tags">
@@ -68,6 +71,7 @@
                 <field name="folder_id"/>
                 <field name="name" string="Category"/>
                 <field name="tag_ids" string="Tags" widget="many2many_tags"/>
+                <field name="color" required="True" widget="color_picker"/>
             </tree>
         </field>
     </record>
