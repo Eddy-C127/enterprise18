@@ -140,7 +140,7 @@ class ApprovalRequest(models.Model):
         if len(self.approver_ids) < self.approval_minimum:
             raise UserError(_("You have to add at least %s approvers to confirm your request.", self.approval_minimum))
         if self.requirer_document == 'required' and not self.attachment_number:
-            raise UserError(_("You have to attach at lease one document."))
+            raise UserError(_("You have to attach at least one document."))
 
         approvers = self.approver_ids
         if self.approver_sequence:
