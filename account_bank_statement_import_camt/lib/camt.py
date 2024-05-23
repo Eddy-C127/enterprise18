@@ -733,7 +733,7 @@ class CAMT:
             './/ns:RmtInf/ns:Strd/ns:AddtlRmtInf/text()',
             './/ns:RmtInf/ns:Ustrd/text()',
             './/ns:RmtInf/ns:Strd/ns:CdtrRefInf/ns:Ref/text()',
-            'ns:AddtlNtryInf/text()')
+        )
         for xpath in xpaths:
             transaction_name = node.xpath(xpath, namespaces=namespaces)
             if transaction_name:

@@ -109,6 +109,8 @@ class AccountJournal(models.Model):
                     entry_info = CAMT._get_additional_entry_info(entry, namespaces=ns)
                     if entry_info:
                         notes.append(_('Entry Info: %s', entry_info))
+                        if entry_vals['payment_ref'] == '/':
+                            entry_vals['payment_ref'] = entry_info
                     text_info = CAMT._get_additional_text_info(entry_details, namespaces=ns)
                     if text_info:
                         notes.append(_('Additional Info: %s', text_info))
