@@ -3978,6 +3978,33 @@ registry.category("web_tour.tours").add('test_split_line_on_destination_scan', {
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
+registry.category("web_tour.tours").add('test_split_line_on_exit_for_delivery', {test: true, steps: () => [
+    // Opens the delivery and checks its lines.
+    { trigger: ".o_stock_barcode_main_menu", run: "scan delivery_split_line_on_exit" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(3);
+            helper.assertLineProduct(0, "product1");
+            helper.assertLineQty(0, "0 / 4");
+            helper.assertLineProduct(1, "product2");
+            helper.assertLineQty(1, "0 / 4");
+            helper.assertLineProduct(2, "product3");
+            helper.assertLineQty(2, "0 / 2");
+        }
+    },
+    // Scans 4x product1, 2x product2 and leaves the delivery without scanning product3.
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_client_action", run: "scan product1" },
+    { trigger: ".o_barcode_line.o_selected.o_line_completed", run: "scan product2" },
+    { trigger: ".o_barcode_line.o_selected:not(.o_line_completed)", run: "scan product2" },
+    // Leaves the delivery and re-open it directly, then checks not lines were splitted.
+    { trigger: "button.o_exit" },
+    { trigger: ".o_stock_barcode_main_menu", isCheck: true },
+]});
+
 registry.category("web_tour.tours").add('test_split_line_on_exit_for_receipt', {test: true, steps: () => [
     // Opens the receipt and check its lines.
     { trigger: ".o_stock_barcode_main_menu", run: "scan receipt_split_line_on_exit" },

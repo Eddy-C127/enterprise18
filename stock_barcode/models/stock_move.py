@@ -14,6 +14,8 @@ class StockMove(models.Model):
         # Split moves where necessary and move quants
         new_moves_vals = []
         for move in self:
+            if not move.picked:
+                continue
             # To know whether we need to split a move, rounds to the general
             # product's decimal precision and not the product's UOM.
             rounding = self.env['decimal.precision'].precision_get('Product Unit of Measure')
