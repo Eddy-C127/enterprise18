@@ -9,7 +9,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, tools, _
 from odoo.fields import Datetime
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, AccessError
 from odoo.tools import convert
 
 
@@ -512,8 +512,8 @@ for record in records:
             for record in values:
                 module, name = record['xml_id'].split('.')
                 if not self.env.ref(f'{module}.{name}', raise_if_not_found=False):
-                    created_record = self.env[model_name].create(record['values'])
-                    self.env['ir.model.data'].create({
+                    created_record = self.env[model_name].sudo().create(record['values'])
+                    self.env['ir.model.data'].sudo().create({
                         'name': name,
                         'module': module,
                         'model': model_name,
@@ -526,11 +526,26 @@ for record in records:
 
     @api.model
     def get_action_marketing_campaign_from_template(self, template_str):
+        if not self.env.su and not self.env.user.has_group('marketing_automation.group_marketing_automation_user'):
+            raise AccessError(_('To use this feature you should be an administrator or belong to the marketing automation group.'))
         campaign_templates_info = self.get_campaign_templates_info()
-        if not campaign_templates_info.get(template_str):
-            return False
+        template = next(
+            (template_value
+            for group in campaign_templates_info.values()
+            for template_key, template_value in group['templates'].items()
+            if template_key == template_str),
+            False)
 
-        load_method = campaign_templates_info[template_str]['function']
+        if not template:
+            return False
+        load_method = template.get('function')
+        if not load_method:
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'marketing.campaign',
+                'views': [[False, 'form']]
+            }
+
         if not load_method.startswith('_get_marketing_template') or not hasattr(self, load_method):
             return
         loaded_method = getattr(self, load_method)
@@ -548,35 +563,50 @@ for record in records:
     @api.model
     def get_campaign_templates_info(self):
         return {
-            'hot_contacts': {
-                'title': _('Tag Hot Contacts'),
-                'description': _('Send a welcome email to contacts and tag them if they click in it.'),
-                'icon': '/marketing_automation/static/img/tag.svg',
-                'function': '_get_marketing_template_hot_contacts_values'
+            'misc': {
+                'label': _("Misc"),
+                'templates': {
+                    'start_from_scratch': {
+                        'title': _('Start from scratch'),
+                        'description': _('Design your own marketing campaign from the ground up.'),
+                        'icon': '/marketing_automation/static/img/paintbrush.svg',
+                    },
+                    'hot_contacts': {
+                        'title': _('Tag Hot Contacts'),
+                        'description': _('Send a welcome email to contacts and tag them if they click in it.'),
+                        'icon': '/marketing_automation/static/img/tag.svg',
+                        'function': '_get_marketing_template_hot_contacts_values',
+                    },
+                    'commercial_prospection': {
+                        'title': _('Commercial prospection'),
+                        'description': _('Send a free catalog and follow-up according to reactions.'),
+                        'icon': '/marketing_automation/static/img/search.svg',
+                        'function': '_get_marketing_template_commercial_prospection_values',
+                    },
+                },
             },
-            'welcome': {
-                'title': _('Welcome Flow'),
-                'description': _('Send a welcome email to new subscribers, remove the address that bounced.'),
-                'icon': '/marketing_automation/static/img/hand_peace.svg',
-                'function': '_get_marketing_template_welcome_values'
-            },
-            'double_opt_in': {
-                'title': _('Double Opt-in'),
-                'description': _('Send an email to new recipients to confirm their consent.'),
-                'icon': '/marketing_automation/static/img/square-check.svg',
-                'function': '_get_marketing_template_double_opt_in_values'
-            },
-            'commercial_prospection': {
-                'title': _('Commercial prospection'),
-                'description': _('Send a free catalog and follow-up according to reactions.'),
-                'icon': '/marketing_automation/static/img/search.svg',
-                'function': '_get_marketing_template_commercial_prospection_values'
-            },
+            'marketing': {
+                'label': _("Marketing"),
+                'templates': {
+                    'welcome': {
+                        'title': _('Welcome Flow'),
+                        'description': _('Send a welcome email to new subscribers, remove the address that bounced.'),
+                        'icon': '/marketing_automation/static/img/hand_peace.svg',
+                        'function': '_get_marketing_template_welcome_values',
+                    },
+                    'double_opt_in': {
+                        'title': _('Double Opt-in'),
+                        'description': _('Send an email to new recipients to confirm their consent.'),
+                        'icon': '/marketing_automation/static/img/square-check.svg',
+                        'function': '_get_marketing_template_double_opt_in_values',
+                    },
+                }
+            }
         }
 
     def _get_marketing_template_hot_contacts_values(self):
         convert.convert_file(
-            self.env,
+            self.sudo().env,
             'marketing_automation',
             'data/templates/mail_template_body_welcome_template.xml',
             idref={}, mode='init', kind='data'
@@ -647,7 +677,7 @@ for record in records:
 
     def _get_marketing_template_welcome_values(self):
         convert.convert_file(
-            self.env,
+            self.sudo().env,
             'marketing_automation',
             'data/templates/mail_template_body_yellow_discount_template.xml',
             idref={}, mode='init', kind='data'
@@ -708,7 +738,7 @@ for record in records:
 
     def _get_marketing_template_double_opt_in_values(self):
         convert.convert_file(
-            self.env,
+            self.sudo().env,
             'marketing_automation',
             'data/templates/mail_template_body_confirmation_template.xml',
             idref={}, mode='init', kind='data'
@@ -769,13 +799,13 @@ for record in records:
 
     def _get_marketing_template_commercial_prospection_values(self):
         convert.convert_file(
-            self.env,
+            self.sudo().env,
             'marketing_automation',
             'data/templates/mail_template_body_join_partnership_template.xml',
             idref={}, mode='init', kind='data'
         )
         convert.convert_file(
-            self.env,
+            self.sudo().env,
             'marketing_automation',
             'data/templates/mail_template_body_free_trial_template.xml',
             idref={}, mode='init', kind='data'
@@ -809,7 +839,6 @@ for record in records:
             records = self.env[model_name].create(values)
             for idx, record in enumerate(records):
                 prerequisites[model_name][idx] = record
-
         create_xmls = {
             'ir.actions.server': [
                 self._prepare_ir_actions_server_partner_message_data(),

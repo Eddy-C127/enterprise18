@@ -41,7 +41,7 @@
         <field name="name">marketing.campaign.view.form</field>
         <field name="model">marketing.campaign</field>
         <field name="arch" type="xml">
-            <form string="Campaign">
+            <form string="Campaign" js_class="marketing_campaign_form_view">
                 <header invisible="not active">
                     <button name="action_start_campaign" type="object" class="btn-primary" string="Start" invisible="state == 'running' or not active" />
                     <button name="action_stop_campaign" type="object" invisible="state != 'running'" class="btn-primary" string="Stop" />
@@ -358,14 +358,14 @@
         <field name="res_model">marketing.campaign</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="help" type="html">
-            <div class="o_action_helper" style="position: fixed; bottom: 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-                <p style="margin-top: 0; color: #111827; font-weight: bold; font-size: 2vw;">
-                    Create a Campaign
-                </p>
-                <p style="margin-top: 0; font-size: 1vw;">
-                    Create one or load a template prepared by our experts.
-                    Then sit down and let Odoo handle the rest.
-                </p>
+            <div class="o_view_nocontent o_ma_campaign_container">
+                <div class="container">
+                    <div class="o_activity_not_found o_nocontent_help container text-center">
+                        <p class="o_view_nocontent_smiling_face" >Create a Campaign</p>
+                        <p>Create one or load a template prepared by our experts.<br/>
+                            Then sit down and let Odoo handle the rest!</p>
+                    </div>
+                </div>
             </div>
         </field>
     </record>
