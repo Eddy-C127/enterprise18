@@ -24,7 +24,7 @@ class AccountChartTemplate(models.AbstractModel):
         })
         demo_data['account.transfer.model'] = {
             'monthly_model': {
-                'name': _("Monthly IFRS rent expense transfer"),
+                'name': _("IFRS rent expense transfer"),
                 'date_start': time.strftime('%Y-01-01'),
                 'frequency': 'month',
                 'journal_id': 'auto_transfer_journal',

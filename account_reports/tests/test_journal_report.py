@@ -397,8 +397,8 @@ class TestJournalReport(TestAccountReportsCommon):
                         {'name': '2017_1_2',            'debit': '$\xa00.00',     'credit': '$\xa0200.00',  'balance': '$\xa0300.00'},
 
                         # Payment
-                        {'name': 'PBNK1/2017/00000001', 'debit': '$\xa0370.00',   'credit': '$\xa00.00',    'balance': None},
-                        {'name': 'PBNK1/2017/00000001', 'debit': '$\xa00.00',     'credit': '$\xa0370.00',  'balance': None},
+                        {'name': 'Manual Payment',      'debit': '$\xa0370.00',   'credit': '$\xa00.00',    'balance': None},
+                        {'name': 'Manual Payment',      'debit': '$\xa00.00',     'credit': '$\xa0370.00',  'balance': None},
 
                         {},  # Empty line
 
@@ -428,8 +428,8 @@ class TestJournalReport(TestAccountReportsCommon):
                         {'name': '2017_1_2',            'debit': '$\xa00.00',    'credit': '$\xa0200.00',  'balance': '$\xa0300.00'},
 
                         # Payment
-                        {'name': 'PBNK1/2017/00000001', 'debit': '$\xa0370.00',  'credit': '$\xa00.00',    'balance': None},
-                        {'name': 'PBNK1/2017/00000001', 'debit': '$\xa00.00',    'credit': '$\xa0370.00',  'balance': None},
+                        {'name': 'Manual Payment',      'debit': '$\xa0370.00',  'credit': '$\xa00.00',    'balance': None},
+                        {'name': 'Manual Payment',      'debit': '$\xa00.00',    'credit': '$\xa0370.00',  'balance': None},
 
                         {},  # Empty line
 
@@ -480,8 +480,8 @@ class TestJournalReport(TestAccountReportsCommon):
                         {'name': '2017_1_4',            'debit': '$\xa00.00',   'credit': '$\xa0100.00',   'balance': '$\xa0400.00', 'amount_currency': '200.000\xa0€'},
 
                         # Payment --
-                        {'name': 'PBNK1/2017/00000001', 'debit': '$\xa0370.00',  'credit': '$\xa00.00',    'balance': None},
-                        {'name': 'PBNK1/2017/00000001', 'debit': '$\xa00.00',    'credit': '$\xa0370.00',  'balance': None},
+                        {'name': 'Manual Payment',      'debit': '$\xa0370.00',  'credit': '$\xa00.00',    'balance': None},
+                        {'name': 'Manual Payment',      'debit': '$\xa00.00',    'credit': '$\xa0370.00',  'balance': None},
 
                         {},  # Empty line
 

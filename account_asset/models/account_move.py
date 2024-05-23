@@ -271,8 +271,9 @@ class AccountMove(models.Model):
         # Keep the partner on the original invoice if there is only one
         partner = asset.original_move_line_ids.mapped('partner_id')
         partner = partner[:1] if len(partner) <= 1 else self.env['res.partner']
+        name = _("%s: Depreciation", asset.name)
         move_line_1 = {
-            'name': asset.name,
+            'name': name,
             'partner_id': partner.id,
             'account_id': asset.account_depreciation_id.id,
             'debit': 0.0 if float_compare(amount, 0.0, precision_digits=prec) > 0 else -amount,
@@ -282,7 +283,7 @@ class AccountMove(models.Model):
             'amount_currency': -amount_currency,
         }
         move_line_2 = {
-            'name': asset.name,
+            'name': name,
             'partner_id': partner.id,
             'account_id': asset.account_depreciation_expense_id.id,
             'credit': 0.0 if float_compare(amount, 0.0, precision_digits=prec) > 0 else -amount,
@@ -297,7 +298,7 @@ class AccountMove(models.Model):
             'journal_id': asset.journal_id.id,
             'line_ids': [(0, 0, move_line_1), (0, 0, move_line_2)],
             'asset_id': asset.id,
-            'ref': _("%s: Depreciation", asset.name),
+            'ref': name,
             'asset_depreciation_beginning_date': vals['depreciation_beginning_date'],
             'asset_number_days': vals['asset_number_days'],
             'name': '/',

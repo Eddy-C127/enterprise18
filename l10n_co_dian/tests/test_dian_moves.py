@@ -229,7 +229,7 @@ class TestDianMoves(TestCoDianCommon):
         root = etree.fromstring(xml)
         self.assertEqual(len(root.findall('.//{*}PrepaidPayment')), 1)
         self.assertEqual(root.findtext('.//{*}PrepaidPayment/{*}PaidAmount'), "500.00")
-        self.assertEqual(root.findtext('.//{*}PrepaidPayment/{*}ID'), "Customer Payment $ 500.00 - partner_a - 01/30/2024")
+        self.assertEqual(root.findtext('.//{*}PrepaidPayment/{*}ID'), "Manual Payment")
 
         # Bank Statement line
         bank_stmt_line = self.env['account.bank.statement.line'].create({

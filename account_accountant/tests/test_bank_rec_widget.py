@@ -350,9 +350,9 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         wizard._action_add_new_amls(inv_line)
         self.assertRecordValues(wizard.line_ids, [
             # pylint: disable=C0326
-            {'flag': 'liquidity',       'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0},
-            {'flag': 'new_aml',         'amount_currency': -6000.0,     'currency_id': self.other_currency_2.id,            'balance': -1000.0},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,         'currency_id': self.other_currency_2.id,            'balance': -200.0},
+            {'flag': 'liquidity',       'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0,  'name': "turlututu"},
+            {'flag': 'new_aml',         'amount_currency': -6000.0,     'currency_id': self.other_currency_2.id,            'balance': -1000.0, 'name': "INV/2016/00002"},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,         'currency_id': self.other_currency_2.id,            'balance': -200.0,  'name': "Exchange Difference: INV/2016/00002"},
         ])
 
         # Check the message under the 'amount' field.
@@ -371,10 +371,10 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         wizard._js_action_apply_line_suggestion(line.index)
         self.assertRecordValues(wizard.line_ids, [
             # pylint: disable=C0326
-            {'flag': 'liquidity',       'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0},
-            {'flag': 'new_aml',         'amount_currency': -9000.0,     'currency_id': self.other_currency_2.id,            'balance': -1500.0},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,         'currency_id': self.other_currency_2.id,            'balance': -300.0},
-            {'flag': 'auto_balance',    'amount_currency': 3000.0,      'currency_id': self.other_currency_2.id,            'balance': 600.0},
+            {'flag': 'liquidity',       'amount_currency': 1200.0,      'currency_id': self.company_data['currency'].id,    'balance': 1200.0,  'name': "turlututu"},
+            {'flag': 'new_aml',         'amount_currency': -9000.0,     'currency_id': self.other_currency_2.id,            'balance': -1500.0, 'name': "INV/2016/00002"},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,         'currency_id': self.other_currency_2.id,            'balance': -300.0,  'name': "Exchange Difference: INV/2016/00002"},
+            {'flag': 'auto_balance',    'amount_currency': 3000.0,      'currency_id': self.other_currency_2.id,            'balance': 600.0,   'name': "Open balance of 6,000.000 $"},
         ])
 
         # Check the message under the 'amount' field.

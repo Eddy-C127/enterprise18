@@ -1163,18 +1163,22 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         closing_move = self.truck.depreciation_move_ids.filtered(lambda l: l.state == 'draft')
         self.assertRecordValues(closing_move.line_ids, [{
+            'ref': 'truck: Sale',
             'debit': 0,
             'credit': 10000,
             'account_id': self.truck.account_asset_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 4500,
             'credit': 0,
             'account_id': self.truck.account_depreciation_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 5600,
             'credit': 0,
             'account_id': closing_invoice.invoice_line_ids.account_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 0,
             'credit': 100,
             'account_id': self.env.company.gain_account_id.id,
@@ -1195,18 +1199,22 @@ class TestAccountAsset(TestAccountReportsCommon):
         closing_move = self.truck.depreciation_move_ids.filtered(lambda l: l.state == 'draft')
 
         self.assertRecordValues(closing_move.line_ids, [{
+            'ref': 'truck: Sale',
             'debit': 0,
             'credit': 10000,
             'account_id': self.truck.account_asset_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 4500,
             'credit': 0,
             'account_id': self.truck.account_depreciation_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 5400,
             'credit': 0,
             'account_id': closing_invoice.invoice_line_ids.account_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 100,
             'credit': 0,
             'account_id': self.env.company.loss_account_id.id,
@@ -1231,18 +1239,22 @@ class TestAccountAsset(TestAccountReportsCommon):
         }).sell_dispose()
         closing_move = self.truck.depreciation_move_ids.filtered(lambda l: l.state == 'draft')
         self.assertRecordValues(closing_move.line_ids, [{
+            'ref': 'truck: Sale',
             'debit': 0,
             'credit': 10000,
             'account_id': self.truck.account_asset_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 4500,
             'credit': 0,
             'account_id': self.truck.account_depreciation_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 5400,
             'credit': 0,
             'account_id': closing_invoice.invoice_line_ids.account_id.id,
         }, {
+            'ref': 'truck: Sale',
             'debit': 100,
             'credit': 0,
             'account_id': self.env.company.loss_account_id.id,
@@ -1259,14 +1271,17 @@ class TestAccountAsset(TestAccountReportsCommon):
         }).sell_dispose()
         closing_move = self.truck.depreciation_move_ids.filtered(lambda l: l.state == 'draft')
         self.assertRecordValues(closing_move.line_ids, [{
+            'ref': 'truck: Disposal',
             'debit': 0,
             'credit': 10000,
             'account_id': self.truck.account_asset_id.id,
         }, {
+            'ref': 'truck: Disposal',
             'debit': 4500,
             'credit': 0,
             'account_id': self.truck.account_depreciation_id.id,
         }, {
+            'ref': 'truck: Disposal',
             'debit': 5500,
             'credit': 0,
             'account_id': self.env.company.loss_account_id.id,
@@ -1311,6 +1326,12 @@ class TestAccountAsset(TestAccountReportsCommon):
         # With the report on the next entry, we get a normal depreciation amount for the year
         self.assertListEqual([10000.0,     0.0,     0.0, 10000.0,  4500.0,   750.0,     0.0,  5250.0,  4750.0],
                              [x['no_format'] for x in lines[0]['columns'][4:]])
+
+    def test_ref_asset_depreciation(self):
+        """Test that the reference used in depreciation moves is correct"""
+
+        for ref in self.truck.depreciation_move_ids.mapped('ref'):
+            self.assertEqual(ref, 'truck: Depreciation')
 
     def test_credit_note_out_refund(self):
         """

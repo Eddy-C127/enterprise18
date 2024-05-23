@@ -1112,9 +1112,9 @@ class AccountAsset(models.Model):
             These lines are used to generate the disposal move
         :param disposal_date: the date of the disposal
         """
-        def get_line(asset, amount, account):
+        def get_line(name, asset, amount, account):
             return (0, 0, {
-                'name': asset.name,
+                'name': name,
                 'account_id': account.id,
                 'balance': -amount,
                 'analytic_distribution': analytic_distribution,
@@ -1153,15 +1153,16 @@ class AccountAsset(models.Model):
             difference = -initial_amount - depreciated_amount - invoice_amount
             difference_account = asset.company_id.gain_account_id if difference > 0 else asset.company_id.loss_account_id
             line_datas = [(initial_amount, initial_account), (depreciated_amount, depreciation_account)] + list_accounts + [(difference, difference_account)]
+            name = _("%(asset)s: Disposal", asset=asset.name) if not invoice_line_ids else _("%(asset)s: Sale", asset=asset.name)
             vals = {
                 'asset_id': asset.id,
-                'ref': asset.name + ': ' + (_('Disposal') if not invoice_line_ids else _('Sale')),
+                'ref': name,
                 'asset_depreciation_beginning_date': disposal_date,
                 'date': disposal_date,
                 'journal_id': asset.journal_id.id,
                 'move_type': 'entry',
                 'asset_move_type': 'disposal' if not invoice_line_ids else 'sale',
-                'line_ids': [get_line(asset, amount, account) for amount, account in line_datas if account],
+                'line_ids': [get_line(name, asset, amount, account) for amount, account in line_datas if account],
             }
             asset.write({'depreciation_move_ids': [(0, 0, vals)]})
             move_ids += self.env['account.move'].search([('asset_id', '=', asset.id), ('state', '=', 'draft')]).ids

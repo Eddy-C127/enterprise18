@@ -451,7 +451,7 @@ class BankRecWidget(models.Model):
         account = None
         partner = self.partner_id
         if partner:
-            name = _("Open balance: %s", st_line.payment_ref)
+            name = _("Open balance of %(amount)s", amount=formatLang(self.env, transaction_amount, currency_obj=transaction_currency))
             partner_is_customer = partner.customer_rank and not partner.supplier_rank
             partner_is_supplier = partner.supplier_rank and not partner.customer_rank
             if partner_is_customer:
