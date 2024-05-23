@@ -274,7 +274,7 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             'recurring_invoice': True,
             'sale_ok': True,
             'purchase_ok': True,
-            'detailed_type': 'consu',
+            'type': 'consu',
             'list_price': 1.0,
             'invoice_policy': 'order',
             'name': 'Subscription Consumable'

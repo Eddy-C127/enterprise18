@@ -57,7 +57,7 @@ class SaleOrder(models.Model):
     def _cart_find_product_line(self, product_id=None, line_id=None, calendar_booking_id=False, **kwargs):
         """ Avoid returning the lines in case of an appointment if the same product exists in
             the cart, as one could take many different slots from the same appointment, or even from
-            different appointments with the same booking_fees product. One line per booking, with a
+            different appointments with the same booking fees product. One line per booking, with a
             unique description, is meant to be in this case. """
         if calendar_booking_id:
             return self.env['sale.order.line']
@@ -67,8 +67,8 @@ class SaleOrder(models.Model):
         """ Forbid quantity updates on lines with calendar bookings, and total cart quantities
             going over available resources / users. """
         product = self.env['product.product'].browse(product_id)
-        if product.detailed_type == 'booking_fees' and new_qty > 1:
-            return 1, _('You cannot manually change the quantity of a Booking Fees product.')
+        if product.is_booking_fee and new_qty > 1:
+            return 1, _('You cannot manually change the quantity of a Service product with booking fees.')
         return super()._verify_updated_quantity(order_line, product_id, new_qty, **kwargs)
 
     def _prepare_order_line_values(self, product_id, quantity, calendar_booking_id=False, calendar_booking_tz=False, **kwargs):

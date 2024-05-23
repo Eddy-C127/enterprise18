@@ -67,7 +67,7 @@ class TestEcEdiCommon(AccountEdiTestCommon):
         })
         cls.product_withhold = cls.env['product.product'].create({
             'name': 'Test Service Product',
-            'detailed_type': 'service',
+            'type': 'service',
             'lst_price': 100.0,
             'standard_price': 80.0,
             'property_account_income_id': cls.company_data['default_account_revenue'].id,

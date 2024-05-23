@@ -11,7 +11,7 @@ class ProjectProductEmployeeMap(models.Model):
         'product.product', string='Service',
         check_company=True,
         domain="""[
-            ('detailed_type', '=', 'service'),
+            ('type', '=', 'service'),
             ('invoice_policy', '=', 'delivery'),
             ('service_type', '=', 'timesheet'),
         ]""")

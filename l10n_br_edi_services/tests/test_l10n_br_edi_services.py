@@ -13,7 +13,7 @@ class TestL10nBREDIServices(TestL10nBREDICommon):
         rio_city = self.env.ref("l10n_br_avatax_services.city_br_002")
         self.invoice.invoice_line_ids.mapped("product_id").write(
             {
-                "detailed_type": "service",
+                "type": "service",
                 "l10n_br_property_service_code_origin_id": self.env["l10n_br.service.code"].create(
                     {"code": "12345", "city_id": rio_city.id}
                 ),

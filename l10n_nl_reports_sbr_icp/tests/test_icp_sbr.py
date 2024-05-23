@@ -48,7 +48,7 @@ class TestNlICPSBR(AccountSalesReportCommon):
             'name': 'product_service',
             'lst_price': 750.0,
             'taxes_id': [s_tax.id],
-            'detailed_type': 'service',
+            'type': 'service',
         })
         product_triangular = self.env['product.product'].create({
             'name': 'product_triangular',

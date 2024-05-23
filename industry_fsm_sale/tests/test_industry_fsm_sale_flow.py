@@ -12,11 +12,11 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
 
     def test_invoicing_flow(self):
         self.service_product_ordered.write({
-            'detailed_type': 'service',
+            'type': 'service',
             'service_policy': 'ordered_prepaid',
         })
         self.service_product_delivered.write({
-            'detailed_type': 'service',
+            'type': 'service',
             'service_policy': 'delivered_timesheet',
         })
 

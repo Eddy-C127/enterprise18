@@ -11,7 +11,7 @@ class AppointmentType(models.Model):
     product_id = fields.Many2one(
         'product.product', string="Product",
         compute="_compute_product_id",
-        domain=[('detailed_type', '=', 'booking_fees')],
+        domain=[('type', '=', 'service'), ('sale_ok', '=', True)],
         readonly=False, store=True)
 
     _sql_constraints = [
@@ -22,12 +22,13 @@ class AppointmentType(models.Model):
 
     @api.depends('has_payment_step')
     def _compute_product_id(self):
-        """ When checking has_payment_step, if there is only a single 'booking_fees' product,
-            set it as a product on the appointment type. When unchecking it, set False instead."""
-        self.filtered(lambda apt: not apt.has_payment_step).product_id = False
-        todo = self.filtered(lambda apt: apt.has_payment_step and not apt.product_id)
-        product_booking_fees = self.env['product.product'].search(
-            [('detailed_type', '=', 'booking_fees')], limit=2
-        ) if todo else self.env['product.product']
-        if len(product_booking_fees) == 1:
-            todo.product_id = product_booking_fees[0]
+        needs_product = self.filtered('has_payment_step')
+        (self - needs_product).product_id = False
+        if not needs_product:
+            return
+        default_product = self.env.ref(
+            'appointment_account_payment.default_booking_product',
+            raise_if_not_found=False)
+        if not default_product:
+            return
+        needs_product.filtered(lambda app: not app.product_id).product_id = default_product

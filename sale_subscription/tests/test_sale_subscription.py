@@ -856,7 +856,7 @@ class TestSubscription(TestSubscriptionCommon):
         # This test checks that the invoiced qty and to_invoice qty have the right behavior
         # Service product
         self.product.write({
-            'detailed_type': 'service'
+            'type': 'service'
         })
         with freeze_time("2021-01-01"):
             self.subscription.order_line = False
@@ -1706,7 +1706,7 @@ class TestSubscription(TestSubscriptionCommon):
         })
         product = ProductTemplate.create({
             'recurring_invoice': True,
-            'detailed_type': 'service',
+            'type': 'service',
             'name': 'Variant Products',
             'list_price': 5,
         })
@@ -1781,7 +1781,7 @@ class TestSubscription(TestSubscriptionCommon):
         # test constraints
         product2 = ProductTemplate.create({
             'recurring_invoice': True,
-            'detailed_type': 'service',
+            'type': 'service',
             'name': 'Variant Products',
             'list_price': 5,
         })

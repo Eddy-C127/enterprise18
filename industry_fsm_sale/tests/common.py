@@ -76,7 +76,7 @@ class TestFsmFlowCommon(TransactionCase):
 
         cls.service_timesheet = cls.env['product.product'].create({
             'name': 'service timesheet',
-            'detailed_type': 'service',
+            'type': 'service',
             'service_policy': 'delivered_timesheet',
         })
 

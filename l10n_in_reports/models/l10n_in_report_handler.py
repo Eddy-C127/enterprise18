@@ -122,7 +122,7 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
         invalid_uqc_codes = self.env['account.move.line'].search(
             aml_domain +
             [
-                ('product_id.detailed_type', '!=', 'service'),
+                ('product_id.type', '!=', 'service'),
                 ('product_id.uom_id.l10n_in_code', 'not in', uqc_codes),
             ]
         ).product_id.uom_id.ids

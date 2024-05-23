@@ -333,7 +333,7 @@ class Task(models.Model):
             ('sale_ok', '=', True),
             '|', ('type', '=', 'consu'),
                 '&', '&',
-                    ('detailed_type', '=', 'service'),
+                    ('type', '=', 'service'),
                     ('invoice_policy', '=', 'delivery'),
                     ('service_type', '=', 'manual'),
         ]

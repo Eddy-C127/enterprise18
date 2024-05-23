@@ -3,7 +3,7 @@
 
 <template id="website_sale_confirmation_appointment" inherit_id="website_sale.confirmation">
     <xpath expr="//div[@id='oe_structure_website_sale_confirmation_2']" position="after">
-        <t t-if="any(product.detailed_type == 'booking_fees' for product in order.order_line.product_id)">
+        <t t-if="any(order.order_line.product_id.mapped('is_booking_fee'))">
             <t t-set="successful_lines" t-value="order.order_line.filtered(lambda line: line.calendar_event_id or (line.calendar_booking_ids and not line.calendar_booking_ids.not_available))"/>
             <t t-set="failed_lines" t-value="order.order_line.filtered(lambda line: line.calendar_booking_ids.not_available)"/>
             <t t-if="successful_lines">

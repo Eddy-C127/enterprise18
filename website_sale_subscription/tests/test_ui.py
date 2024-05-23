@@ -14,7 +14,7 @@ class TestUi(HttpCase, TestWebsiteSaleSubscriptionCommon):
     def test_website_sale_subscription_product_variants(self):
         reccuring_product = self.env['product.template'].create({
             'recurring_invoice': True,
-            'detailed_type': 'service',
+            'type': 'service',
             'name': 'Reccuring product',
         })
         product_attribute = self.env['product.attribute'].create({'name': 'periods'})

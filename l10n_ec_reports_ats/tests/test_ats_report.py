@@ -93,7 +93,7 @@ class TestAtsReport(TestEcEdiCommon, TestAccountReportsCommon):
         # Products
         cls.product_service = cls.env['product.product'].create({
             'name': 'Servicio de Mantenimiento',
-            'detailed_type': 'service',
+            'type': 'service',
             'list_price': 100.0,
             'default_code': 'SOOO1',
             'barcode': '123456789'

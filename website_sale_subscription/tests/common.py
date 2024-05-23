@@ -96,7 +96,7 @@ class TestWebsiteSaleSubscriptionCommon(TestSubscriptionCommon):
 
         cls.sub_with_variants = ProductTemplate.create({
             'recurring_invoice': True,
-            'detailed_type': 'service',
+            'type': 'service',
             'name': 'Variant Products',
         })
 

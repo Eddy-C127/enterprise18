@@ -34,7 +34,7 @@ class ProductProduct(models.Model):
         """ Create a product and assign it the provided and previously valid xmlid. """
         product = self.env['product.product'].with_context(mail_create_nosubscribe=True).create({
             'name': default_name,
-            'detailed_type': default_type,
+            'type': default_type,
             'list_price': 0.,
             'sale_ok': False,
             'purchase_ok': False,

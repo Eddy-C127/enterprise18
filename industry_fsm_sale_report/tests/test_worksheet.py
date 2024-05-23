@@ -72,14 +72,14 @@ class TestWorksheet(TestFsmFlowSaleCommon):
         """
         with Form(self.env['product.template']) as product_template:
             product_template.name = 'product template'
-            product_template.detailed_type = 'service'
+            product_template.type = 'service'
             product_template.service_tracking = 'task_global_project'
             product_template.project_id = self.fsm_project
             self.assertEqual(product_template.worksheet_template_id, self.fsm_project.worksheet_template_id)
 
         with Form(self.env['product.product']) as product:
             product.name = "product product"
-            product.detailed_type = 'service'
+            product.type = 'service'
             product.service_tracking = 'task_global_project'
             product.project_id = self.fsm_project
             self.assertEqual(product.worksheet_template_id, self.fsm_project.worksheet_template_id)

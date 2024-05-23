@@ -12,7 +12,12 @@
                     <div class="o_row">
                         <field name="has_payment_step"/>
                         <field name="product_id" invisible="not has_payment_step" required="has_payment_step"
-                            context="{'default_detailed_type': 'booking_fees', 'default_purchase_ok': False}" placeholder="Pick a Product" class="oe_inline"/>
+                            context="{
+                                'default_type': 'service',
+                                'default_purchase_ok': False
+                            }"
+                            placeholder="Pick a Product"
+                            class="oe_inline"/>
                     </div>
                     <div invisible="not has_payment_step" groups="base.group_system">
                         <a type="action" name="%(payment.action_payment_provider)d" class="btn btn-link ps-0 pb-2" role="button">
