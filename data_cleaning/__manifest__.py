@@ -19,6 +19,7 @@
         'views/data_merge_rule_views.xml',
         'views/data_merge_model_views.xml',
         'views/data_merge_record_views.xml',
+        'report/data_storage_views.xml',
         'views/menu_views.xml',
         'views/ir_model_views.xml',
         'data/data_cleaning_data.xml',
