@@ -179,17 +179,24 @@ class FleetVehicle(models.Model):
 class FleetVehicleLogContract(models.Model):
     _inherit = 'fleet.vehicle.log.contract'
 
+    cost_generated = fields.Monetary(compute='_compute_cost', store=True, readonly=False)
     recurring_cost_amount_depreciated = fields.Float(
         "Depreciated Cost Amount", tracking=True,
-        compute='_compute_recurring_cost_amount_depreciated', store=True, readonly=False)
+        compute='_compute_cost', store=True, readonly=False)
 
     @api.depends('vehicle_id')
-    def _compute_recurring_cost_amount_depreciated(self):
+    def _compute_cost(self):
         for log_contract in self:
-            default_cost = log_contract.vehicle_id.model_id.default_recurring_cost_amount_depreciated
-            if not default_cost:
-                continue
-            log_contract.recurring_cost_amount_depreciated = default_cost
+            last_contract = log_contract.vehicle_id.log_contracts[:1]
+            if last_contract:
+                log_contract.cost_generated = last_contract.cost_generated
+                log_contract.recurring_cost_amount_depreciated = last_contract.recurring_cost_amount_depreciated
+            else:
+                default_cost = log_contract.vehicle_id.model_id.default_recurring_cost_amount_depreciated
+                if not default_cost:
+                    continue
+                log_contract.cost_generated = default_cost
+                log_contract.recurring_cost_amount_depreciated = default_cost
 
 
 class FleetVehicleModel(models.Model):
