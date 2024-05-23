@@ -578,7 +578,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             })
 
             for line_vals in move_vals['line_vals_list']:
-                if line_vals['account_type'] == 'asset_cash':
+                if line_vals['account_type'] in ('asset_cash', 'liability_credit_card'):
                     move_vals['payment_line_vals_list'].append(line_vals)
                     payment_vals['total_debit'] += line_vals['debit']
                     payment_vals['total_credit'] += line_vals['credit']
