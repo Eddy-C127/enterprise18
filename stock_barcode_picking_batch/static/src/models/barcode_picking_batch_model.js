@@ -182,6 +182,18 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     // Private
     // -------------------------------------------------------------------------
 
+    _getLinesToMove() {
+        const configScanProd = this.config.restrict_scan_product;
+        const configScanDest = this.config.restrict_scan_dest_location;
+        const lines = super._getLinesToMove();
+        // We may have multiple pickings in a batch which move the same product,
+        // then we should just update them all together.
+        if (configScanDest === 'mandatory' && configScanProd) {
+            lines.push(...this.previousScannedLines);
+        }
+        return Array.from(new Set(lines));
+    }
+
     async _assignEmptyPackage(line, resultPackage) {
         await super._assignEmptyPackage(...arguments);
         this._suggestPackages();

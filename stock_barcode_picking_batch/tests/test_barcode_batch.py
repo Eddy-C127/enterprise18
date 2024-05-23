@@ -681,3 +681,46 @@ class TestBarcodeBatchClientAction(TestBarcodeClientAction):
             {'product_id': self.product2.id, 'quantity': 1, 'picked': True},
             {'product_id': self.product2.id, 'quantity': 3, 'picked': False},
         ])
+
+    def test_scan_can_change_destination_location(self):
+        """ When we have multiple pickings in a batch for the same product, we should be able to change
+        the destination location of each of them by scanning only once the destination.
+        """
+        self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, quantity=2)
+        self.picking_type_internal.write({
+            'restrict_scan_source_location': 'mandatory',
+            'restrict_scan_product': True,
+            'restrict_scan_dest_location': 'mandatory',
+        })
+
+        internal_picking_1 = self.env['stock.picking'].create({
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_internal.id,
+        })
+        self.env['stock.move'].create({
+            'location_dest_id': internal_picking_1.location_dest_id.id,
+            'location_id': internal_picking_1.location_id.id,
+            'name': 'product1 x1',
+            'picking_id': internal_picking_1.id,
+            'product_id': self.product1.id,
+            'product_uom_qty': 1,
+        })
+        internal_picking_2 = internal_picking_1.copy()
+
+        internal_picking_1.name = 'test_int_picking_1'
+        internal_picking_2.name = 'test_int_picking_2'
+
+        batch_form = Form(self.env['stock.picking.batch'])
+        batch_form.picking_type_id = self.picking_type_internal
+        batch_form.picking_ids.add(internal_picking_1)
+        batch_form.picking_ids.add(internal_picking_2)
+        batch = batch_form.save()
+        batch.action_confirm()
+
+        url = self._get_batch_client_action_url(batch.id)
+        self.start_tour(url, 'test_scan_can_change_destination_location', login='admin')
+
+        # validate that SML destination locations changed
+        move_lines = internal_picking_1.move_line_ids + internal_picking_2.move_line_ids
+        self.assertEqual(move_lines.mapped('location_dest_id'), self.shelf3)
