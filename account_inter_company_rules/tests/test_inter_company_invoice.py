@@ -209,3 +209,15 @@ class TestInterCompanyInvoice(TestInterCompanyRulesCommon):
             'company_id': branch_2.id,
             'payment_reference': customer_invoice.payment_reference,
         }])
+
+    def test_inter_company_invoice_product_not_accessible(self):
+        """
+        Whenever Company A invoices Company B with a Product A defined only for Company A
+        We don't set Product A (access error) but we define only the invoice line's label
+        with Product A's name
+        """
+        self.product_a.company_id = self.company_a
+        self._create_post_invoice(self.product_a.id)
+        supplier_invoice = self.env['account.move'].with_user(self.res_users_company_b).search([('move_type', '=', 'in_invoice')], limit=1)
+        self.assertFalse(supplier_invoice.invoice_line_ids.product_id, "No product should be set")
+        self.assertEqual(supplier_invoice.invoice_line_ids.name, self.product_a.name)
