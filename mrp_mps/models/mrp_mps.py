@@ -82,7 +82,7 @@ class MrpProductionSchedule(models.Model):
         for mps in self:
             if not mps.product_id:
                 continue
-            mps.route_id = next(r for r in mps.product_id.route_ids if r.id in mps.allowed_route_ids.ids)
+            mps.route_id = next((r for r in mps.product_id.route_ids if r.id in mps.allowed_route_ids.ids), False)
             mps.supplier_id = mps.product_id.seller_ids[:1]
 
     def _search_replenish_state(self, operator, value):

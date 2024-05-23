@@ -825,3 +825,16 @@ class TestMpsMps(common.TransactionCase):
         """ Test that products added automatically are flagged as indirect demand products. """
         mps_components = self.mps_drawer + self.mps_table_leg + self.mps_screw + self.mps_bolt
         self.assertTrue(all(record.is_indirect for record in mps_components))
+
+    def test_no_route_product_in_mps(self):
+        """ Test that adding a product with no route enabled does not trigger an error. """
+        self.mps_table.unlink()
+        self.table.route_ids = [Command.clear()]
+        self.assertEqual(len(self.table.route_ids), 0)
+
+        mps_table_2 = self.env['mrp.production.schedule'].create({
+            'product_id': self.table.id,
+            'warehouse_id': self.warehouse.id,
+            'bom_id': self.bom_table.id,
+        })
+        self.assertFalse(mps_table_2.route_id)
