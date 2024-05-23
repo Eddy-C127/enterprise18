@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import dom from "@web/legacy/js/core/dom";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { findInvalidEmailFromText } from  "./utils.js"
 import { _t } from "@web/core/l10n/translation";
@@ -41,6 +42,7 @@ publicWidget.registry.appointmentForm = publicWidget.Widget.extend({
         }
         if (appointmentForm.reportValidity()) {
             appointmentForm.submit();
+            dom.addButtonLoadingEffect(event.target);
         }
     },
 
