@@ -1317,17 +1317,8 @@ export default class BarcodePickingModel extends BarcodeModel {
         return childLocation.parent_path.includes(parentLocation.parent_path);
     }
 
-    async _processLocationDestination(barcodeData) {
+    _getLinesToMove() {
         const configScanDest = this.config.restrict_scan_dest_location;
-        if (configScanDest == "no") {
-            return;
-        }
-        // For planned transfers, check the scanned location is a part of transfer destination.
-        if (this._useReservation && !this._isSublocation(barcodeData.destLocation, this._defaultDestLocation())) {
-            barcodeData.stopped = true;
-            const message = _t("The scanned location doesn't belong to this operation's destination");
-            return this.notification(message, { type: 'danger' });
-        }
         // Usually, assign the destination to the selected line or to the selected package's lines.
         let lines = this.selectedPackageLine?.lines || this.selectedLine ? [this.selectedLine] : [];
         if (configScanDest === "mandatory" && this.selectedLine?.product_id?.tracking !== "none") {
@@ -1352,7 +1343,23 @@ export default class BarcodePickingModel extends BarcodeModel {
             lines = this.previousScannedLinesByPackage;
         }
 
+        return Array.from(new Set(lines));
+    }
+
+    async _processLocationDestination(barcodeData) {
+        const configScanDest = this.config.restrict_scan_dest_location;
+        if (configScanDest == "no") {
+            return;
+        }
+        // For planned transfers, check the scanned location is a part of transfer destination.
+        if (this._useReservation && !this._isSublocation(barcodeData.destLocation, this._defaultDestLocation())) {
+            barcodeData.stopped = true;
+            const message = _t("The scanned location doesn't belong to this operation's destination");
+            return this.notification(message, { type: 'danger' });
+        }
+
         // Change the destination of all concerned lines.
+        const lines = this._getLinesToMove();
         for (const line of lines) {
             await this.changeDestinationLocation(barcodeData.destLocation.id, line);
         }
@@ -1614,7 +1621,8 @@ export default class BarcodePickingModel extends BarcodeModel {
         } else if (this.record.picking_type_code === 'incoming') {
             result.destLocation = location;
         } else if (this.previousScannedLines.length || this.previousScannedLinesByPackage.length) {
-            if (this.config.restrict_scan_source_location && this.config.restrict_scan_dest_location === 'no') {
+            if (this.config.restrict_scan_source_location && this.config.restrict_scan_dest_location === 'no'
+            && this.barcodeInfo.class != 'scan_dest') {
                 result.location = location;
             } else {
                 result.destLocation = location;

@@ -1148,3 +1148,25 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_batch', {te
         }
     },
 ]});
+
+registry.category("web_tour.tours").add("test_scan_can_change_destination_location", {test: true, steps: () => [
+    {
+        trigger: '.o_barcode_client_action',
+        run: 'scan LOC-01-01-00',
+    },
+    {
+        trigger: '.o_scan_message.o_scan_product',
+        run: 'scan product1',
+    },
+    {
+        trigger: '.o_barcode_line:not(.o_selected) .o_line_buttons .o_add_quantity',
+    },
+    {
+        trigger: '.o_barcode_line.o_selected.o_line_completed',
+        run: 'scan shelf3',
+    },
+    {
+        trigger: '.o_validate_page.btn.btn-success',
+        run: 'click',
+    },
+]});
