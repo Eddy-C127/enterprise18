@@ -242,6 +242,9 @@ export class EmbeddedViewManager extends Component {
         if (action.search_view_id) {
             viewProps.searchViewId = action.search_view_id[0];
         }
+        if (action.help) {
+            viewProps.noContentHelp = action.help;
+        }
         if (context.orderBy) {
             try {
                 viewProps.orderBy = JSON.parse(context.orderBy);
