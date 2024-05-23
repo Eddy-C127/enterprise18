@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.tests.common import TransactionCase
@@ -11,6 +10,10 @@ class TestHelpdeskTimesheetCommon(TestCommonTimesheet):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+
+        group_helpdesk_user = cls.env.ref('helpdesk.group_helpdesk_user')
+        cls.user_manager.groups_id += group_helpdesk_user
+        cls.user_employee.groups_id += group_helpdesk_user
 
         cls.partner = cls.env['res.partner'].create({
             'name': 'Customer Task',
@@ -38,4 +41,10 @@ class TestHelpdeskTimesheetCommon(TestCommonTimesheet):
             'name': 'Test Team',
             'use_helpdesk_timesheet': True,
             'project_id': cls.project.id,
+        })
+
+        cls.helpdesk_ticket = cls.env['helpdesk.ticket'].create({
+            'name': 'Test Ticket',
+            'team_id': cls.helpdesk_team.id,
+            'partner_id': cls.partner.id,
         })
