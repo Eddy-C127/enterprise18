@@ -5981,6 +5981,28 @@ class AccountReportLine(models.Model):
         self.user_groupby = self.groupby
 
 
+class AccountReportExpression(models.Model):
+    _inherit = 'account.report.expression'
+
+    def action_view_carryover_lines(self, options, column_group_key=None):
+        if column_group_key:
+            options = self.report_line_id.report_id._get_column_group_options(options, column_group_key)
+
+        date_from, date_to, _dummy = self.report_line_id.report_id._get_date_bounds_info(options, self.date_scope)
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Carryover lines for: %s', self.report_line_name),
+            'res_model': 'account.report.external.value',
+            'views': [(False, 'list')],
+            'domain': [
+                ('target_report_expression_id', '=', self.id),
+                ('date', '>=', date_from),
+                ('date', '<=', date_to),
+            ],
+        }
+
+
 class AccountReportHorizontalGroup(models.Model):
     _name = "account.report.horizontal.group"
     _description = "Horizontal group for reports"
