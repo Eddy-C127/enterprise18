@@ -28,6 +28,7 @@ This module enables the barcode scanning feature for the warehouse management sy
         'data/demo.xml',
     ],
     'installable': True,
+    'auto_install': True,
     'application': True,
     'license': 'OEEL-1',
     'assets': {
