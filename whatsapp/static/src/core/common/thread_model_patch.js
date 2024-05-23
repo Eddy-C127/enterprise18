@@ -1,8 +1,10 @@
 /* @odoo-module */
 
+import { DEFAULT_AVATAR } from "@mail/core/common/persona_service";
 import { Thread } from "@mail/core/common/thread_model";
 import { assignDefined, assignIn } from "@mail/utils/common/misc";
 import { patch } from "@web/core/utils/patch";
+import { url } from "@web/core/utils/urls";
 import { deserializeDateTime } from "@web/core/l10n/dates";
 
 import { toRaw } from "@odoo/owl";
@@ -32,7 +34,15 @@ patch(Thread.prototype, {
         if (this.type !== "whatsapp") {
             return super.imgUrl;
         }
-        return "/mail/static/src/img/smiley/avatar.jpg";
+
+        if (this.correspondent) {
+            return url(
+                `/web/image/res.partner/${this.correspondent.id}/avatar_128`,
+                assignDefined({}, { unique: this.correspondent.write_date })
+            );
+        }
+        
+        return DEFAULT_AVATAR;
     },
 
     get isChatChannel() {
