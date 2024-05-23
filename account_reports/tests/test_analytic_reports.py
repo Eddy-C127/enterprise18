@@ -510,3 +510,44 @@ class TestAnalyticReport(TestAccountReportsCommon):
             out_invoices.invoice_line_ids,
             "Both amls should be shown",
         )
+
+    def test_general_ledger_analytic_filter(self):
+        analytic_plan = self.env["account.analytic.plan"].create({
+            "name": "Default Plan",
+        })
+        analytic_account = self.env["account.analytic.account"].create({
+            "name": "Test Account",
+            "plan_id": analytic_plan.id,
+        })
+
+        invoice = self.init_invoice(
+            "out_invoice",
+            amounts=[100, 200],
+            invoice_date="2023-01-01",
+        )
+        invoice.action_post()
+        invoice.invoice_line_ids[0].analytic_distribution = {analytic_account.id: 100}
+
+        general_ledger_report = self.env.ref("account_reports.general_ledger_report")
+        options = self._generate_options(
+            general_ledger_report,
+            "2023-01-01",
+            "2023-01-01",
+            default_options={
+                'analytic_accounts': [analytic_account.id],
+                'unfold_all': True,
+            }
+        )
+
+        self.assertLinesValues(
+            general_ledger_report._get_lines(options),
+            #   Name                                    Debit           Credit          Balance
+            [   0,                                      5,              6,              7],
+            [
+                ['400000 Product Sales',                0.00,           100.00,         -100.00],
+                ['INV/2023/00001',                      0.00,           100.00,         -100.00],
+                ['Total 400000 Product Sales',          0.00,           100.00,         -100.00],
+                ['Total',                               0.00,           100.00,         -100.00],
+            ],
+            options,
+        )
