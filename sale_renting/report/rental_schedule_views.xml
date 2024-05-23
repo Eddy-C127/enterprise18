@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <search string="Rental Analysis">
                 <field name="order_date"/>
-                    <filter string="Date" name="year" invisible="1" date="order_date" default_period="this_year"/>
+                    <filter string="Date" name="year" invisible="1" date="order_date" default_period="year"/>
                     <filter string="My Orders" domain="[('user_id','=',uid)]" name="my_sale_orders_filter"/>
                 <separator/>
                     <filter name="Quotations" string="Quotations" domain="[('rental_status','=', 'draft')]"/>

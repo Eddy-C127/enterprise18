@@ -282,7 +282,7 @@
                 <filter string="To Confirm" name="draft" domain="[('state', '=', 'verify')]" help="Slips to Confirm"/>
                 <filter string="Done" name="done" domain="[('state', '=', 'done')]" help="Done Slip"/>
                 <separator/>
-                <filter string="Date" name="date_filter" date="date_to" default_period="last_month"/>
+                <filter string="Date" name="date_filter" date="date_to" default_period="month-1"/>
                 <separator/>
                 <filter string="Credit Notes" name="credit_note" domain="[('credit_note', '=', True)]"/>
                 <separator/>

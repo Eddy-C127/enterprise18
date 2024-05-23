@@ -119,12 +119,9 @@
                 <filter string="Helpdesk Team" name="res_team" context="{'group_by':'parent_res_name'}"/>
                 <filter name="rating_text" position="move"/>
             </filter>
-            <xpath expr="/search" position="inside">
-                <!-- TODO remove me in master -->
-                <filter string="Last 30 Days" name="rating_last_30_days" domain="[
-                    ('create_date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))
-                ]"  invisible="1"/>
-            </xpath>
+            <filter name="create_date_last_7_days" position="before">
+                <filter name="create_date_today" string="Today" domain="[('create_date', '&gt;', datetime.datetime.combine(context_today() - datetime.timedelta(days=1), datetime.time(23, 59, 59)).to_utc())]"/>
+            </filter>
         </field>
     </record>
 

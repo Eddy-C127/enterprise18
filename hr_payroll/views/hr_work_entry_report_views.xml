@@ -12,7 +12,7 @@
                 <field name="state" filter_domain="[('state', 'ilike', self)]" />
                 <field name="date_start" />
                 <separator/>
-                <filter string="Current month" name="filter_date_start" date="date_start" default_period="this_month"/>
+                <filter string="Current month" name="filter_date_start" date="date_start" default_period="month"/>
                 <separator/>
                 <filter string="Validated" name="filter_work_entry_validated" domain="[('state', '=', 'validated')]"/>
                 <group expand="1" string="Group By">
