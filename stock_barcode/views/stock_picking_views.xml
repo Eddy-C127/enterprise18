@@ -170,4 +170,12 @@
             </xpath>
         </field>
     </record>
+
+    <!-- If Barcode is installed, don't show the "Install Barcode" footer -->
+    <template id="barcode_help_message_template" inherit_id="stock.help_message_template">
+        <xpath expr="//p[@name='footer_help_message']" position="replace">
+            <t></t>
+        </xpath>
+    </template>
+
 </data></odoo>
