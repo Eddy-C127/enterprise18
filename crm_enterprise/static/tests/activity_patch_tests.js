@@ -1,7 +1,6 @@
 /* @odoo-module */
 
 import { startServer } from "@bus/../tests/helpers/mock_python_environment";
-import { addModelNamesToFetch } from "@bus/../tests/helpers/model_definitions_helpers";
 import { registry } from "@web/core/registry";
 
 import { start } from "@mail/../tests/helpers/test_utils";
@@ -9,7 +8,6 @@ import { start } from "@mail/../tests/helpers/test_utils";
 import { click } from "@web/../tests/utils";
 
 const serviceRegistry = registry.category("services");
-addModelNamesToFetch(["crm.lead"]);
 
 QUnit.module("activity (patch)");
 
