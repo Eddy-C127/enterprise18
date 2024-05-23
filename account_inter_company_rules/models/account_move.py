@@ -114,12 +114,13 @@ class AccountMoveLine(models.Model):
             'display_type': self.display_type,
             'sequence': self.sequence,
             'name': self.name,
-            'product_id': self.product_id.id,
-            'product_uom_id': self.product_uom_id.id,
             'quantity': self.quantity,
             'discount': self.discount,
             'price_unit': self.price_unit,
         }
+        if not self.product_id.company_id:
+            vals['product_id'] = self.product_id.id
+            vals['product_uom_id'] = self.product_uom_id.id
 
         company_b = self.env['res.company']._find_company_from_partner(self.move_id.partner_id.id)
         company_b_default_distribution = self.env['account.analytic.distribution.model']._get_distribution({
