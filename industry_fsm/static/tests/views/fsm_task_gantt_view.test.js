@@ -23,7 +23,7 @@ class Task extends models.Model {
     }
 }
 
-export class Project extends models.Model {
+class Project extends models.Model {
     name = fields.Char();
 
     _records = [{ id: 1, name: "My Project" }];

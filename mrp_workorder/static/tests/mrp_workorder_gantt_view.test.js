@@ -40,9 +40,9 @@ class Workorder extends models.Model {
     }
 }
 
-export class Workcenter extends models.Model {
+class Workcenter extends models.Model {
     name = fields.Char();
-    
+
     _records = [
         { id: 1, name: "Assembly Line 1" },
         { id: 2, name: "Assembly Line 2" },

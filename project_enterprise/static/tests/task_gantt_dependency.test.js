@@ -99,13 +99,13 @@ class Task extends models.Model {
     ];
 }
 
-export class Project extends models.Model {
+class Project extends models.Model {
     name = fields.Char();
 
     _records = [{ id: 1, name: "Project 1" }];
 }
 
-export class Users extends models.Model {
+class Users extends models.Model {
     _name = "res.users";
     name = fields.Char();
 

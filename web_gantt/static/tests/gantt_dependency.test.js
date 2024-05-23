@@ -16,7 +16,6 @@ import {
     getConnectorMap,
 } from "@web_gantt/../tests/gantt_dependency_helpers";
 import { COLORS } from "@web_gantt/gantt_connector";
-import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import {
     CLASSES,
     SELECTORS,
@@ -24,6 +23,8 @@ import {
     getPillWrapper,
     mountGanttView,
 } from "./web_gantt_test_helpers";
+
+import { GanttRenderer } from "@web_gantt/gantt_renderer";
 
 /** @typedef {import("@web_gantt/gantt_renderer").ConnectorProps} ConnectorProps */
 /** @typedef {import("@web_gantt/gantt_renderer").PillId} PillId */
