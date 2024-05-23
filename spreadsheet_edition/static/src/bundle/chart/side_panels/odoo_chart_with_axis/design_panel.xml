@@ -1,0 +1,45 @@
+<odoo>
+  <t t-name="spreadsheet_edition.OdooChartWithAxisDesignPanel">
+    <GeneralDesignEditor
+      figureId="props.figureId"
+      definition="props.definition"
+      updateChart="props.updateChart">
+      <t t-set-slot="general-extension">
+        <Section class="'pt-0'">
+          <t t-set-slot="title">Vertical axis position</t>
+          <select
+            t-att-value="props.definition.verticalAxisPosition"
+            class="o-input o-chart-vertical-axis-position"
+            t-on-change="this.updateVerticalAxisPosition">
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+          </select>
+        </Section>
+        <Section class="'pt-0'">
+          <t t-set-slot="title">Legend position</t>
+          <select
+            t-att-value="props.definition.legendPosition ?? 'top'"
+            class="o-input"
+            t-on-change="this.updateLegendPosition">
+            <option value="none">None</option>
+            <option value="top">Top</option>
+            <option value="bottom">Bottom</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+          </select>
+        </Section>
+      </t>
+    </GeneralDesignEditor>
+    <SidePanelCollapsible collapsedAtInit="true">
+      <t t-set-slot="title">Axis</t>
+      <t t-set-slot="content">
+        <AxisDesignEditor
+          axesList="axesList"
+          figureId="props.figureId"
+          definition="props.definition"
+          updateChart="props.updateChart"
+        />
+      </t>
+    </SidePanelCollapsible>
+  </t>     
+</odoo>

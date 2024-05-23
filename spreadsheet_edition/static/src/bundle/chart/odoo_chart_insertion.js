@@ -20,7 +20,7 @@ export function insertChart(chartData) {
         },
         stacked: chartData.metaData.stacked,
         cumulative: chartData.metaData.cumulated,
-        title: chartData.name,
+        title: { text: chartData.name },
         background: "#FFFFFF",
         legendPosition: "top",
         verticalAxisPosition: "left",

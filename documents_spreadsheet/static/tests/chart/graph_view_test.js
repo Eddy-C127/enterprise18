@@ -126,7 +126,7 @@ QUnit.module("documents_spreadsheet > graph view", { beforeEach }, () => {
         const model = getSpreadsheetActionModel(spreadsheetAction);
         const sheetId = model.getters.getActiveSheetId();
         const chartId = model.getters.getChartIds(sheetId)[0];
-        assert.equal(model.getters.getChart(chartId).title, "New name");
+        assert.equal(model.getters.getChart(chartId).title.text, "New name");
     });
 
     QUnit.test("graph with a contextual domain", async (assert) => {
