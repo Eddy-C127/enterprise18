@@ -274,7 +274,7 @@ class AssetModify(models.TransientModel):
         if self.currency_id.compare_amounts(residual_increase + salvage_increase, 0) > 0:
             move = self.env['account.move'].create({
                 'journal_id': self.asset_id.journal_id.id,
-                'date': fields.Date.today(),
+                'date': self.date + relativedelta(days=1),
                 'move_type': 'entry',
                 'line_ids': [
                     Command.create({
