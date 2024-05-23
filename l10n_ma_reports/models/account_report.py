@@ -36,7 +36,7 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
         template_vals['vat_id'] = company.vat
 
         #  Check for different errors in the report
-        errored_vendors = bills.partner_id.filtered(lambda p: (not p.vat or not p.l10n_ma_ice) and p.country_code == 'MA')
+        errored_vendors = bills.partner_id.filtered(lambda p: (not p.vat or not p.company_registry) and p.country_code == 'MA')
         self._check_l10n_ma_report_errors(errored_vendors, period_type, template_vals, company)
         return template_vals
 
@@ -83,7 +83,7 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
         for bill in bills:
             # In the case of a foreign partner we will fall back to the default value, if he is from morocco, he needs
             # to have a vat and ice number otherwise the move is ignored
-            if not ((bill.partner_id.vat and bill.partner_id.l10n_ma_ice) or bill.partner_id.country_code != 'MA'):
+            if not ((bill.partner_id.vat and bill.partner_id.company_registry) or bill.partner_id.country_code != 'MA'):
                 continue
 
             tax_aggregates = bill._prepare_invoice_aggregated_taxes(grouping_key_generator=group_taxes_ma)
@@ -104,7 +104,7 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
                     'total_amount': (tax_values['tax_amount'] + tax_values['base_amount']) * sign,
                     'partner_vat': bill.partner_id.vat if bill.partner_id.country_code == 'MA' else bill.partner_id.l10n_ma_customs_vat or L10N_MA_CUSTOMS_VAT_ICE,
                     'partner_name': bill.partner_id.name,
-                    'partner_ice': bill.partner_id.l10n_ma_ice or L10N_MA_CUSTOMS_VAT_ICE,
+                    'partner_ice': bill.partner_id.company_registry or L10N_MA_CUSTOMS_VAT_ICE,
                     'tax_rate': amount_details['amount'] * sign,
                     'payment_method': bill.l10n_ma_reports_payment_method or '7',
                     'payment_date':  payment_date,

@@ -8,8 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='accounting']/group" position="inside">
                     <group string="morocco" name="l10n_ma_group">
-                        <field name="l10n_ma_ice"/>
-                        <field name="l10n_ma_customs_vat" invisible="country_code == 'MA'" groups="base.group_no_one"/>
+                        <field name="l10n_ma_customs_vat" invisible="country_code != 'MA'" groups="base.group_no_one"/>
                     </group>
                 </xpath>
             </field>

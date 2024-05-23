@@ -68,7 +68,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
 
     def test_export_tax_report_with_data(self):
         """ This will test a simple export with moves data. """
-        self.partner_ma.l10n_ma_ice = '20727021'
+        self.partner_ma.company_registry = '20727021'
 
         self.env['account.move'].create({
             'move_type': 'in_invoice',
@@ -123,7 +123,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
             'name': 'Ma customer with ice',
             'vat': '001561191000066',
             'country_id': self.env.ref('base.ma').id,
-            'l10n_ma_ice': '20727021',
+            'company_registry': '20727021',
         })
 
         self.env['account.move'].create([
@@ -201,7 +201,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
             - When the period selected of the report is not monthly or quarterly
         """
         self.env.company.vat = False
-        self.partner_ma.l10n_ma_ice = '20727021'
+        self.partner_ma.company_registry = '20727021'
 
         self.env['account.move'].create({
             'move_type': 'in_invoice',
@@ -225,10 +225,11 @@ class TestAccountMaExport(TestAccountReportsCommon):
         self.assertTrue('period_invalid' in errors)
 
     def test_export_tax_report_foreign_customer(self):
+        # 'vat' value must be random to avoid the partner auto-completion feature that would overwrite the company_registry (ICE)
         foreign_customer = self.env['res.partner'].create({
             'name': 'Foreign customer with no ice',
-            'vat': 'BE0477472701',
-            'country_id': self.env.ref('base.be').id,
+            'vat': 'US12345',
+            'country_id': self.env.ref('base.us').id,
         })
 
         self.env['account.move'].create({
