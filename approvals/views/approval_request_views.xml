@@ -44,6 +44,16 @@
         </field>
     </record>
 
+    <!-- Automation Rules -->
+    <record id="approval_request_automation_rules_action" model="ir.actions.server">
+        <field name="name">Approval Request Automation Rules Server Action</field>
+        <field name="model_id" ref="approvals.model_approval_request"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model._action_open_automation_rules_kanban_view()
+        </field>
+    </record>
+
     <record id="approval_request_view_tree" model="ir.ui.view">
         <field name="name">approval.request.view.tree</field>
         <field name="model">approval.request</field>
@@ -355,6 +365,14 @@
         action="approval_category_action"
         groups="group_approval_manager"
         sequence="10"/>
+
+    <menuitem
+        id="approvals_menu_automated_actions"   
+        parent="approvals_menu_config"
+        name="Automated Actions"
+        action="approval_request_automation_rules_action"
+        groups="group_approval_manager"
+        sequence="11"/>
 
     <menuitem
         id="approvals_menu_product"
