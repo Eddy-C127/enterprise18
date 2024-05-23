@@ -10,6 +10,7 @@ from . import wizard
 
 from odoo.exceptions import UserError
 
+
 def pre_init_knowledge(env):
     """ Some lxml arm64 versions cannot decode icons and cause the installation to crash.
     This will test to decode an emoji before the installation of the app, and show
@@ -21,6 +22,16 @@ def pre_init_knowledge(env):
         raise UserError(
             "The version of the lxml package used is not supported. "
             "Consider reinstalling lxml package using 'pip install --nobinary :all: lxml'")
+
+
+def _uninstall_knowledge(env):
+    env.cr.execute("""
+        DROP TEXT SEARCH CONFIGURATION IF EXISTS knowledge_config CASCADE;
+    """)
+    env.cr.execute("""
+        DROP TEXT SEARCH DICTIONARY IF EXISTS knowledge_dictionary;
+    """)
+
 
 def _init_private_article_per_user(env):
     env['res.users'].search([('partner_share', '=', False)])._generate_tutorial_articles()

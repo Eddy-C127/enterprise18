@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-name="KnowledgeCommandTemplate">
-        <div class="o_command_default d-flex align-items-center px-4 py-2">
-            <span class="pe-2" t-if="props.icon_string" t-out="props.icon_string" />
-            <span class="pe-2 text-ellipsis">
-                <t t-slot="name" />
-            </span>
-            <icon t-if="props.isFavorite" class="fa fa-star o_favorite pe-2 position-static" />
-            <span t-if="props.subjectName" t-out="'— '" class="text-muted small pe-2" />
-            <span t-if="props.subjectName" class="o_command_name text-ellipsis text-muted small">
-                <t t-foreach="props.splitSubjectName" t-as="name" t-key="name_index">
-                    <t t-if="name" t-out="name"/>
-                    <t t-else="">Untitled</t>
-                </t>
-            </span>
-            <span class="ms-auto flex-shrink-0">
-                <t t-slot="focusMessage"/>
-            </span>
+        <div class="o_command_default px-4 py-2">
+            <div class="o_command_palette_box_header d-flex align-items-center">
+                <span class="pe-2" t-if="props.icon_string" t-out="props.icon_string"/>
+                <span class="pe-2 text-ellipsis">
+                    <t t-slot="name"/>
+                </span>
+                <icon t-if="props.isFavorite" class="fa fa-star o_favorite pe-2 position-static"/>
+                <span t-if="props.subjectName" class="text-muted small pe-2">—</span>
+                <span t-if="props.subjectName" class="o_command_name text-ellipsis text-muted small">
+                    <t t-foreach="props.splitSubjectName" t-as="name" t-key="name_index">
+                        <t t-if="name" t-out="name"/>
+                        <t t-else="">Untitled</t>
+                    </t>
+                </span>
+                <span class="ms-auto flex-shrink-0">
+                    <t t-slot="focusMessage"/>
+                </span>
+            </div>
+            <div t-if="props.headline"
+                t-out="props.headline"
+                class="border rounded text-muted my-2 p-2"/>
         </div>
     </t>
 

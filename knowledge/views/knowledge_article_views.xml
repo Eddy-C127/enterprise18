@@ -440,6 +440,10 @@
                     <separator/>
                     <filter name="group_by_article_properties" domain="[]" context="{'group_by': 'article_properties'}"/>
                 </group>
+                <group>
+                    <filter name="filter_search_article_ids" string="Search results"
+                        domain="[('id', 'in', context.get('search_article_ids'))]" invisible="1"/>
+                </group>
             </search>
         </field>
     </record>

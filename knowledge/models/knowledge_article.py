@@ -18,7 +18,7 @@ from odoo.exceptions import AccessError, ValidationError, UserError
 from odoo.osv import expression
 from odoo.tools import get_lang, is_html_empty, OrderedSet
 from odoo.tools.translate import html_translate
-from odoo.tools.sql import SQL
+from odoo.tools.sql import create_index, make_index_name, SQL
 
 ARTICLE_PERMISSION_LEVEL = {'none': 0, 'read': 1, 'write': 2}
 
@@ -37,7 +37,7 @@ class Article(models.Model):
     DEFAULT_ARTICLE_TRASH_LIMIT_DAYS = 30
 
     active = fields.Boolean(default=True)
-    name = fields.Char(string="Title", tracking=20, default_export_compatible=True)
+    name = fields.Char(string="Title", tracking=20, default_export_compatible=True, index="trigram")
     body = fields.Html(string="Body", prefetch=False)
     icon = fields.Char(string='Emoji')
     cover_image_id = fields.Many2one("knowledge.cover", string='Article cover')
@@ -201,6 +201,74 @@ class Article(models.Model):
          'Templates should have a name.'
         ),
     ]
+
+    def init(self):
+        super().init()
+
+        self.env.cr.execute("""
+            SELECT 1 FROM pg_ts_config WHERE cfgname = 'knowledge_config';
+        """)
+
+        if not self.env.cr.rowcount:
+            # 1. Create a custom text configuration:
+            #
+            # In Knowledge, we want to allow people to search within the body of
+            # the articles. To ensure that the search is independent of the user's
+            # language, we will create a custom text configuration that doesn't
+            # discard any word and that doesn't apply any stemming method to the
+            # document. The configuration will use the PostgreSQL's default parser
+            # to tokenise the document and assign a type to each token.
+
+            self.env.cr.execute("""
+                CREATE TEXT SEARCH CONFIGURATION knowledge_config
+                    (PARSER = pg_catalog.default);
+            """)
+
+            # 2. Create a custom dictionary:
+            #
+            # After assigning a token type to each token, PostgreSQL will pass
+            # each token through a dictionary and will discard the token if it
+            # is included in the dictionary assigned to the given token type.
+            # To index all words, we will create an empty dictionary and pass
+            # the tokens we want to preserve to it. As it is empty, the tokens
+            # passing through it will always be preserved.
+
+            self.env.cr.execute("""
+                CREATE TEXT SEARCH DICTIONARY knowledge_dictionary
+                    (TEMPLATE = pg_catalog.simple);
+            """)
+
+            # 3. Map the token type to our custom dictionary:
+            #
+            # In our custom text configuration, we will ignore the XML tags
+            # (`tag` and `entity`) and the blank spaces (`blank`) and map the
+            # other token types to the empty dictionary we created above. This
+            # will ensure that we will index all the actual content of the article.
+            #
+            # Reference: https://www.postgresql.org/docs/current/textsearch-parsers.html
+
+            self.env.cr.execute("""
+                ALTER TEXT SEARCH CONFIGURATION knowledge_config
+                    ALTER MAPPING FOR
+                        asciiword, word, numword, asciihword, hword, numhword,
+                        hword_asciipart, hword_part, hword_numpart, email, protocol,
+                        url, host, url_path, file, sfloat, float, int, uint, version
+                    WITH knowledge_dictionary;
+            """)
+
+            # 4. Add an index to speed up the @@ match operation:
+            #
+            # When searching in a large collection of articles, the search can
+            # quickly become slow as the database has to parse the body of all
+            # articles. To speed up the search, we will use an index to quickly
+            # find potential candidates matching with the given search terms.
+
+            create_index(
+                self.env.cr,
+                make_index_name(self._table, 'body'),
+                self._table,
+                ["to_tsvector('knowledge_config', body)"],
+                method='GIN')
 
     # ------------------------------------------------------------
     # CONSTRAINTS
@@ -1506,93 +1574,160 @@ class Article(models.Model):
         return values
 
     def get_user_sorted_articles(self, search_query, limit=40, hidden_mode=False):
-        """ Called when using the Command palette to search for articles matching the search_query.
-        As the article should be sorted also in function of the current user's favorite sequence, a search_read rpc
-        won't be enough to returns the articles in the correct order.
-        This method returns a list of article proposal matching the search_query sorted by:
-            - name = query & is_user_favorite - by Favorite sequence
-            - name = query & Favorite count
-            - root.name = query & is_user_favorite - by Favorite sequence
-            - root.name = query & Favorite count
-        and returned result mimic a search_read result structure.
+        """ Called when using the Command palette to search for articles matching
+            with the given search terms. If no search terms is provided, the
+            function returns the user's favorite articles.
 
-        The parameter hidden_mode separates the search into 2 modes: visible and hidden.
-        When hidden_mode is True, we search for articles that are hidden, hence that have
-        is_article_visible at False.
-        When hidden_mode is False, we search for articles that are visible, hence that have
-        is_article_visible at True.
+            To reduce the query runtime, the search method limits the number of
+            candidates to consider using the `knowledge.fts_search_cut_off`
+            configuration and pre-selects relevant candidates incrementally
+            using CTE queries.
 
-        This means that we need to add in the search_domain the leaf ('is_article_visible', '!=', hidden_mode)
-        since the value of is_article_visible is the opposite of hidden_mode.
+            The search method pre-selects first articles matching with the title
+            and the body, then articles matching with the title only and, finally,
+            articles matching with the body only. The search method stops adding
+            new candidates when the maximum number of candidates is reached.
+
+            After that, the search method ranks the selected articles using a
+            scoring function and return the most relevant ones. With that approach,
+            the query should return relevant results in reasonable time.
+
+            - If the number of overall matches is lower than the configured cut
+              off, the query returns the top-k matches of the database.
+            - If the number of overall matches is greater than the configured cut
+              off, we consider that the search terms are too broad and we don't
+              consider all potential candidates to reduce the query runtime. As
+              we pre-select relevant matches first, the query should return
+              relevant results but not necessarily the most relevant ones.
+
+        :param str search_query: Search terms of the user
+        :param int limit: Maximal number of records to return
+        :param bool hidden_mode: If True, scope the search to the hidden articles.
+                                 If False, scope the search to the visible articles.
         """
-        search_domain = [
-            ("is_template", "=", False),
-            ("is_article_visible", "!=", hidden_mode),
-            ("user_has_access", "=", True),  # Admins won't see other's private articles.
-        ]
-        if search_query:
-            search_domain = expression.AND([search_domain, [
-                "|",
-                    ("name", "ilike", search_query),
-                    ("root_article_id.name", "ilike", search_query),
-            ]])
+        if not search_query:
+            return self.search([
+                ('is_user_favorite', '=', True)
+            ], limit=limit).read([
+                'id',
+                'icon',
+                'name',
+                'is_user_favorite',
+                'root_article_id'
+            ])
 
-        articles_query = self._search(search_domain)
+        query = self._search([
+            ('is_template', '=', False),
+            ('is_article_visible', '!=', hidden_mode),
+            ('user_has_access', '=', True),  # Admins won't see other's private articles.
+        ])
+
+        # Escape special characters recognized by the 'ILIKE' keyword
+        search_pattern = '%' + re.sub(r'(%|_|\\)', r'\\\1', search_query) + '%'
+        ts_query = SQL("plainto_tsquery('knowledge_config', %(search_query)s)", search_query=search_query)
+        cut_off = max(self.env['ir.config_parameter'].sudo().get_param('knowledge.fts_search_cut_off', 100), limit)
+
         self.env.cr.execute(SQL('''
-       SELECT knowledge_article.id,
-              knowledge_article.name,
-              COALESCE(CAST(fav.id AS BOOLEAN), FALSE) AS is_user_favorite,
-              knowledge_article.favorite_count,
-              knowledge_article.root_article_id,
-              root_article.icon AS root_article_icon,
-              root_article.name AS root_article_name,
-              knowledge_article.icon
-         FROM knowledge_article
-    LEFT JOIN knowledge_article_favorite AS fav
-           ON knowledge_article.id = fav.article_id AND fav.user_id = %s
-    LEFT JOIN knowledge_article AS root_article
-           ON knowledge_article.root_article_id = root_article.id
-        WHERE %s
-     ORDER BY CASE
-                  WHEN knowledge_article.name IS NOT NULL THEN
-                      POSITION(LOWER(%s) IN LOWER(knowledge_article.name)) > 0
-                  ELSE
-                      FALSE
-              END DESC,
-              CASE
-                  WHEN %s THEN
-                      NOT COALESCE(CAST(knowledge_article.parent_id AS BOOLEAN), FALSE)
-                  ELSE
-                      FALSE
-              END DESC,
-              is_user_favorite DESC,
-              COALESCE(fav.sequence, -1),
-              knowledge_article.favorite_count DESC,
-              knowledge_article.write_date DESC,
-              knowledge_article.id DESC
-           %s
+            WITH
+            articles_matching_with_title_and_body AS (
+                SELECT knowledge_article.id AS id,
+                       1 AS order,
+                       ts_rank_cd(to_tsvector('knowledge_config', knowledge_article.name), %(ts_query)s) AS score
+                  FROM knowledge_article
+                 WHERE knowledge_article.name ILIKE %(search_pattern)s
+                   AND to_tsvector('knowledge_config', knowledge_article.body) @@ %(ts_query)s
+                   AND %(sql_where_clause)s
+                 LIMIT %(cut_off)s
+            ),
+            articles_matching_with_title AS (
+                SELECT knowledge_article.id AS id,
+                       2 AS order,
+                       1 AS score
+                  FROM knowledge_article
+                 WHERE knowledge_article.name ILIKE %(search_pattern)s
+                   AND knowledge_article.id NOT IN (
+                       SELECT id FROM articles_matching_with_title_and_body)
+                   AND %(sql_where_clause)s
+                 LIMIT %(cut_off)s
+                    - (SELECT COUNT(*) FROM articles_matching_with_title_and_body)
+            ),
+            articles_matching_with_body AS (
+                SELECT knowledge_article.id AS id,
+                       3 AS order,
+                       ts_rank_cd(to_tsvector('knowledge_config', knowledge_article.body), %(ts_query)s) AS score
+                  FROM knowledge_article
+                 WHERE to_tsvector('knowledge_config', knowledge_article.body) @@ %(ts_query)s
+                   AND knowledge_article.id NOT IN (
+                        SELECT id FROM articles_matching_with_title_and_body
+                        UNION ALL
+                        SELECT id FROM articles_matching_with_title)
+                   AND %(sql_where_clause)s
+                 LIMIT %(cut_off)s
+                    - (SELECT COUNT(*) FROM articles_matching_with_title_and_body)
+                    - (SELECT COUNT(*) FROM articles_matching_with_title)
+            ),
+            all_matching_articles AS (
+                SELECT * FROM articles_matching_with_title_and_body
+                UNION ALL
+                SELECT * FROM articles_matching_with_title
+                UNION ALL
+                SELECT * FROM articles_matching_with_body
+            )
+            SELECT
+                knowledge_article.id,
+                knowledge_article.icon,
+                knowledge_article.name,
+                CASE WHEN to_tsvector('knowledge_config', knowledge_article.body) @@ %(ts_query)s
+                     THEN ts_headline('knowledge_config', knowledge_article.body, %(ts_query)s,
+                            'StartSel=<strong>, StopSel=</strong>, MaxWords=20, MinWords=10, MaxFragments=3')
+                     ELSE NULL END AS "headline",
+                COALESCE(CAST(article_favorite.id AS BOOLEAN), FALSE) AS is_user_favorite,
+                knowledge_article.root_article_id,
+                root_article.id AS root_article_id,
+                root_article.icon AS root_article_icon,
+                root_article.name AS root_article_name
+              FROM all_matching_articles
+         LEFT JOIN knowledge_article
+                ON knowledge_article.id = all_matching_articles.id
+         LEFT JOIN knowledge_article AS root_article
+                ON knowledge_article.root_article_id = root_article.id
+         LEFT JOIN knowledge_article_favorite article_favorite
+                ON knowledge_article.id = article_favorite.article_id
+               AND article_favorite.user_id = %(user_id)s
+          ORDER BY all_matching_articles.order ASC,
+                   all_matching_articles.score DESC,
+                   is_user_favorite DESC,
+                   knowledge_article.id DESC
+             LIMIT %(limit)s
             ''',
-            self.env.user.id,
-            articles_query.where_clause,
-            search_query,
-            hidden_mode,
-            SQL("LIMIT %s", limit) if limit else SQL()
+            sql_where_clause=query.where_clause,
+            search_pattern=search_pattern,
+            ts_query=ts_query,
+            user_id=self.env.user.id,
+            cut_off=cut_off,
+            limit=limit
         ))
+
         sorted_articles = self.env.cr.dictfetchall()
+
         # Create a tuple with the id and name_get for root_article_id to
         # mimic the result of a read.
         for sorted_article in sorted_articles:
+            if sorted_article['icon'] is None:
+                sorted_article['icon'] = False
             # Get the display name of the root article using the same logic as
             # in name_get.
             sorted_article['root_article_id'] = (
                 sorted_article['root_article_id'],
                 "%s %s" % (
                     sorted_article['root_article_icon'] or self._get_no_icon_placeholder(),
-                    sorted_article['root_article_name']
+                    sorted_article['root_article_name'] or _('Untitled')
                 )
             )
             del sorted_article['root_article_icon']
             del sorted_article['root_article_name']
+            if sorted_article['headline'] is None:
+                del sorted_article['headline']
         return sorted_articles
 
     # ------------------------------------------------------------
