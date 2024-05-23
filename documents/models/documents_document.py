@@ -436,12 +436,18 @@ class Document(models.Model):
 
     def create_share(self):
         self.ensure_one()
-        vals = {
-            'type': 'ids',
-            'document_ids': [(6, 0, self.ids)],
-            'folder_id': self.folder_id.id,
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _("Share documents"),
+            'res_model': 'documents.share',
+            'views': [(False, 'form')],
+            'target': 'new',
+            'context': {
+                'default_type': 'ids',
+                'default_folder_id': self.folder_id.id,
+                'default_document_ids': [(6, 0, self.ids)],
+            }
         }
-        return self.env['documents.share'].open_share_popup(vals)
 
     def open_resource(self):
         self.ensure_one()

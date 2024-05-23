@@ -204,6 +204,13 @@ QUnit.module(
                 folder_id: folderId,
                 handler: "spreadsheet",
             });
+
+            patchWithCleanup(navigator.clipboard, {
+                async writeText(text) {
+                    assert.step("copy");
+                },
+            });
+
             const serverData = {
                 views: {
                     "documents.document,false,kanban": `
@@ -220,23 +227,22 @@ QUnit.module(
             };
             const { openView } = await start({
                 mockRPC: async (route, args) => {
-                    if (args.method === "open_share_popup") {
+                    if (args.method === "web_save") {
                         assert.step("spreadsheet_shared");
-                        const [shareVals] = args.args;
+                        const shareVals = args.kwargs.context;
                         assert.strictEqual(args.model, "documents.share");
-                        assert.deepEqual(shareVals.document_ids, [
+                        assert.deepEqual(shareVals.default_document_ids, [
                             x2ManyCommands.set([documentId]),
                         ]);
-                        assert.strictEqual(shareVals.folder_id, folderId);
-                        assert.strictEqual(shareVals.type, "ids");
-                        assert.deepEqual(shareVals.spreadsheet_shares, [
+                        assert.strictEqual(shareVals.default_folder_id, folderId);
+                        assert.strictEqual(shareVals.default_type, "ids");
+                        assert.deepEqual(shareVals.default_spreadsheet_shares, [
                             {
                                 spreadsheet_data: JSON.stringify(model.exportData()),
                                 document_id: documentId,
                                 excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
                             },
                         ]);
-                        return "localhost:8069/share/url/132465";
                     }
                 },
                 serverData,
@@ -246,8 +252,12 @@ QUnit.module(
                 views: [[false, "kanban"]],
             });
             await click(target, ".o_kanban_record:nth-of-type(1) .o_record_selector");
-            await click(target, ".o_control_panel button.o_documents_kanban_share_domain");
-            assert.verifySteps(["spreadsheet_shared"]);
+            const menu = target.querySelector(".o_control_panel .d-inline-flex");
+            await click(menu, ".dropdown-toggle");
+            await click(menu, ".o_documents_kanban_share_domain");
+            assert.verifySteps([]);
+            await click(target, ".o_form_button_save");
+            assert.verifySteps(["spreadsheet_shared", "copy"]);
         });
 
         QUnit.test("share the full workspace from the share button", async function (assert) {
@@ -264,6 +274,13 @@ QUnit.module(
                 folder_id: folderId,
                 handler: "spreadsheet",
             });
+
+            patchWithCleanup(navigator.clipboard, {
+                async writeText(text) {
+                    assert.step("copy");
+                },
+            });
+
             const serverData = {
                 views: {
                     "documents.document,false,kanban": `
@@ -280,21 +297,20 @@ QUnit.module(
             };
             const { openView } = await start({
                 mockRPC: async (route, args) => {
-                    if (args.method === "open_share_popup") {
+                    if (args.method === "web_save") {
                         assert.step("spreadsheet_shared");
-                        const [shareVals] = args.args;
+                        const shareVals = args.kwargs.context;
                         assert.strictEqual(args.model, "documents.share");
-                        assert.strictEqual(shareVals.folder_id, folderId);
-                        assert.strictEqual(shareVals.type, "domain");
-                        assert.deepEqual(shareVals.domain, [["folder_id", "child_of", folderId]]);
-                        assert.deepEqual(shareVals.spreadsheet_shares, [
+                        assert.strictEqual(shareVals.default_folder_id, folderId);
+                        assert.strictEqual(shareVals.default_type, "domain");
+                        assert.deepEqual(shareVals.default_domain, [["folder_id", "child_of", folderId]]);
+                        assert.deepEqual(shareVals.default_spreadsheet_shares, [
                             {
                                 spreadsheet_data: JSON.stringify(model.exportData()),
                                 document_id: documentId,
                                 excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
                             },
                         ]);
-                        return "localhost:8069/share/url/132465";
                     }
                 },
                 serverData,
@@ -303,8 +319,12 @@ QUnit.module(
                 res_model: "documents.document",
                 views: [[false, "kanban"]],
             });
-            await click(target, ".o_control_panel button.o_documents_kanban_share_domain");
-            assert.verifySteps(["spreadsheet_shared"]);
+            const menu = target.querySelector(".o_control_panel .d-inline-flex");
+            await click(menu, ".dropdown-toggle");
+            await click(menu, ".o_documents_kanban_share_domain");
+            assert.verifySteps([]);
+            await click(target, ".o_form_button_save");
+            assert.verifySteps(["spreadsheet_shared", "copy"]);
         });
 
         QUnit.test("thumbnail size in document side panel", async function (assert) {

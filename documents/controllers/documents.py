@@ -455,27 +455,30 @@ class ShareRoute(http.Controller):
     # Frontend portals #############################################################################
 
     # share portals route.
-    @http.route(['/document/share/<int:share_id>/<token>'], type='http', auth='public')
+    @http.route([
+        '/document/share/<int:share_id>/<token>',
+        '/document/share/<token>'], type='http', auth='public')
     def share_portal(self, share_id=None, token=None):
-        """
-        Leads to a public portal displaying downloadable files for anyone with the token.
+        """Leads to a public portal displaying downloadable files for anyone with the token.
 
-        :param share_id: id of the share link
+        :param share_id: id of the share link (deprecated, to support old URLs)
         :param token: share access token
         """
-        try:
-            share = http.request.env['documents.share'].sudo().browse(share_id)
-            available_documents = share._get_documents_and_check_access(token, operation='read')
-            if available_documents is False:
-                if share._check_token(token):
-                    options = {
-                        'expiration_date': share.date_deadline,
-                        'author': share.create_uid.name,
-                    }
-                    return request.render('documents.not_available', options)
-                else:
-                    return request.not_found()
+        share = http.request.env['documents.share'].sudo().search([('access_token', '=', token)])
+        if not share:
+            return request.not_found()
 
+        available_documents = share._get_documents_and_check_access(token, operation='read')
+        if available_documents is False:
+            return request.render('documents.not_available', {
+                'expiration_date': share.date_deadline,
+                'author': share.create_uid.name,
+            })
+
+        return self._share_portal(share, token, available_documents)
+
+    def _share_portal(self, share, token, available_documents):
+        try:
             shareable_documents = available_documents.filtered(lambda r: r.type != 'url')
             options = {
                 'name': share.name,

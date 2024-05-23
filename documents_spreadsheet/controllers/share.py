@@ -7,14 +7,13 @@ from odoo.http import request
 
 
 class SpreadsheetShareRoute(ShareRoute):
-    @http.route()
-    def share_portal(self, share_id=None, token=None):
-        share = request.env["documents.share"].sudo().browse(share_id).exists()
+
+    def _share_portal(self, share, token, available_documents):
         if share and share.type == "ids":
             documents = share._get_documents_and_check_access(token, operation="read")
             if documents and len(documents) == 1 and documents.handler == "spreadsheet":
                 return self.open_spreadsheet(share.freezed_spreadsheet_ids, token)
-        return super().share_portal(share_id, token)
+        return super()._share_portal(share, token, available_documents)
 
     @http.route(
         ["/document/spreadsheet/share/<int:share_id>/<token>/<int:document_id>"],

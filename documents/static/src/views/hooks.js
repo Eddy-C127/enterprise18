@@ -88,33 +88,21 @@ export function useDocumentView(helpers) {
 
     // Opens Share Dialog
     const _openShareDialog = async (vals) => {
-        const act = await orm.call("documents.share", "open_share_popup", [vals]);
-        const shareResId = act.res_id;
-        let saved = false;
-        dialogService.add(
-            FormViewDialog,
-            {
-                title: act.name,
-                resModel: "documents.share",
-                resId: shareResId,
-                onRecordSaved: async (record) => {
-                    saved = true;
-                    // Copy the share link to the clipboard
-                    navigator.clipboard.writeText(record.data.full_url);
-                    // Show a notification to the user about the copy to clipboard
-                    notification.add(_t("The share url has been copied to your clipboard."), {
-                        type: "success",
-                    });
-                },
-            },
-            {
-                onClose: async () => {
-                    if (!saved) {
-                        await orm.unlink("documents.share", [shareResId]);
-                    }
-                },
-            }
+        const context = Object.fromEntries(
+            Object.entries(vals).map(([name, value]) => [`default_${name}`, value])
         );
+        dialogService.add(FormViewDialog, {
+            title: vals.type === "domains" ? _t("Share workspace") : _t("Share documents"),
+            resModel: "documents.share",
+            context,
+            onRecordSaved: async (record) => {
+                // Copy the share link to the clipboard
+                navigator.clipboard.writeText(record.data.full_url);
+                notification.add(_t("The share URL has been copied to your clipboard."), {
+                    type: "success",
+                });
+            },
+        });
     };
 
     // Keep selection between views

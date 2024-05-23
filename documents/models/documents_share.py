@@ -20,7 +20,7 @@ class DocumentShare(models.Model):
     include_sub_folders = fields.Boolean(default=True)
     name = fields.Char(string="Name", compute="_compute_name", store=True, readonly=False)
 
-    access_token = fields.Char(required=True, default=lambda x: str(uuid.uuid4()), groups="documents.group_documents_user")
+    access_token = fields.Char(required=True, default=lambda __: str(uuid.uuid4()), groups="documents.group_documents_user", index=True)
     full_url = fields.Char(string="URL", compute='_compute_full_url')
     links_count = fields.Integer(string="Number of Links", compute='_compute_links_count')
     date_deadline = fields.Date(string="Valid Until")
@@ -155,7 +155,7 @@ class DocumentShare(models.Model):
         else:
             return documents
 
-    @api.depends('type')
+    @api.depends('type', 'folder_id')
     def _compute_name(self):
         for record in self:
             if record.type == 'ids':
@@ -163,6 +163,7 @@ class DocumentShare(models.Model):
             else:
                 record.name = "-".join([record.folder_id.name, *record.tag_ids.mapped('name')])
 
+    @api.depends('folder_id')
     def _compute_can_upload(self):
         for record in self:
             folder = record.folder_id
@@ -170,6 +171,7 @@ class DocumentShare(models.Model):
             in_write_group = set(folder.group_ids.ids) & set(record.create_uid.groups_id.ids)
             record.can_upload = in_write_group or not folder_has_groups
 
+    @api.depends('date_deadline')
     def _compute_state(self):
         """
         changes the state based on the expiration date,
@@ -192,8 +194,7 @@ class DocumentShare(models.Model):
     @api.depends('access_token')
     def _compute_full_url(self):
         for record in self:
-            record.full_url = (f'{record.get_base_url()}/document/share/'
-                               f'{record._origin.id or record.id}/{record.access_token}')
+            record.full_url = f'{record.get_base_url()}/document/share/{record.access_token}'
 
     @api.depends('type', 'document_ids', 'domain', 'tag_ids')
     def _compute_links_count(self):
@@ -225,41 +226,11 @@ class DocumentShare(models.Model):
             })
         return values
 
-    def _get_share_popup(self, context, vals):
-        view_id = self.env.ref('documents.share_view_form_popup').id
-        return {
-            'context': context,
-            'res_model': 'documents.share',
-            'target': 'new',
-            'name': _('Share documents') if vals.get('type') == 'ids' else _('Share workspace'),
-            'res_id': self.id if self else False,
-            'type': 'ir.actions.act_window',
-            'views': [[view_id, 'form']], 
-        }
-
     def send_share_by_mail(self, template_xmlid):
         self.ensure_one()
         request_template = self.env.ref(template_xmlid, raise_if_not_found=False)
         if request_template:
             self.message_mail_with_source(request_template)
-
-    @api.model
-    def open_share_popup(self, vals):
-        """
-        returns a view.
-        :return: a form action that opens the share window to display the settings.
-        """
-        new_context = dict(self.env.context)
-        # TOOD: since the share is created directly do we really need to set the context?
-        new_context.update({
-            'default_owner_id': self.env.user.partner_id.id,
-            'default_folder_id': vals.get('folder_id'),
-            'default_tag_ids': vals.get('tag_ids'),
-            'default_type': vals.get('type', 'domain'),
-            'default_domain': vals.get('domain') if vals.get('type', 'domain') == 'domain' else False,
-            'default_document_ids': vals.get('document_ids', False),
-        })
-        return self.create(vals)._get_share_popup(new_context, vals)
 
     @api.model
     def action_get_share_url(self, vals):

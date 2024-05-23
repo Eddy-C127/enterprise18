@@ -1,5 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import ast
 import base64
 from odoo import api, Command, models, fields
 
@@ -10,6 +11,14 @@ class DocumentShare(models.Model):
         "documents.shared.spreadsheet", "share_id"
     )
 
+    # technical field, used to create freezed_spreadsheet_ids
+    spreadsheet_shares = fields.Char(inverse="_inverse_spreadsheet_shares", store=False)
+
+    def _inverse_spreadsheet_shares(self):
+        for share in self:
+            create_commands = self._create_spreadsheet_share_commands(ast.literal_eval(share.spreadsheet_shares))
+            share.write({"freezed_spreadsheet_ids": create_commands})
+
     def _get_documents_and_check_access(self, access_token, document_ids=None, operation="write"):
         available_documents = super()._get_documents_and_check_access(access_token, document_ids, operation)
         if operation == "write" and available_documents and not self.env.user._is_internal():
@@ -17,21 +26,6 @@ class DocumentShare(models.Model):
         return available_documents
 
     @api.model
-    def action_get_share_url(self, vals):
-        if "spreadsheet_shares" in vals:
-            spreadsheet_shares = vals.pop("spreadsheet_shares")
-            create_commands = self._create_spreadsheet_share_commands(spreadsheet_shares)
-            vals["freezed_spreadsheet_ids"] = create_commands
-        return super().action_get_share_url(vals)
-
-    @api.model
-    def open_share_popup(self, vals):
-        if "spreadsheet_shares" in vals:
-            spreadsheet_shares = vals.pop("spreadsheet_shares")
-            create_commands = self._create_spreadsheet_share_commands(spreadsheet_shares)
-            vals["freezed_spreadsheet_ids"] = create_commands
-        return super().open_share_popup(vals)
-
     def _create_spreadsheet_share_commands(self, spreadsheet_shares):
         create_commands = []
         for share in spreadsheet_shares:

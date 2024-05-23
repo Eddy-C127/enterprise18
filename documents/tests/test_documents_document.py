@@ -348,21 +348,13 @@ class TestCaseDocuments(TransactionCase):
         })
         share_folder.document_ids[0].tag_ids = [Command.set(share_tag.ids)]
         domain = [('folder_id', 'in', share_folder.id)]
-        action = self.env['documents.share'].open_share_popup({
+        share = self.env['documents.share'].create({
             'domain': domain,
             'folder_id': share_folder.id,
             'tag_ids': [[6, 0, [share_tag.id]]],
             'type': 'domain',
         })
-        share = self.env['documents.share'].browse(action['res_id'])
         self.assertEqual(share.links_count, 0, "There should be no links counted in this share")
-        action_context = action['context']
-        self.assertTrue(action_context)
-        self.assertEqual(action_context['default_owner_id'], self.env.user.partner_id.id, "the action should open a view with the current user as default owner")
-        self.assertEqual(action_context['default_folder_id'], share_folder.id, "the action should open a view with the right default folder")
-        self.assertEqual(action_context['default_tag_ids'], [[6, 0, [share_tag.id]]], "the action should open a view with the right default tags")
-        self.assertEqual(action_context['default_type'], 'domain', "the action should open a view with the right default type")
-        self.assertEqual(action_context['default_domain'], domain, "the action should open a view with the right default domain")
 
     def test_default_res_id_model(self):
         """

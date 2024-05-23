@@ -847,11 +847,17 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test("can share current domain", async function (assert) {
-                assert.expect(2);
+                assert.expect(6);
+
+                patchWithCleanup(navigator.clipboard, {
+                    async writeText(text) {
+                        assert.step("copy");
+                    },
+                });
 
                 const [resUsersId1] = pyEnv["res.users"].search([["display_name", "=", "Lukaku"]]);
                 const domain = ["owner_id", "=", resUsersId1];
-                const kanban = await createDocumentsView({
+                await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
@@ -861,36 +867,28 @@ QUnit.module("documents", {}, function () {
                 </t></templates></kanban>`,
                     domain: [domain],
                     mockRPC: async function (route, args) {
-                        if (args.method === "open_share_popup") {
-                            assert.deepEqual(args.args, [
-                                {
-                                    document_ids: false,
-                                    domain: [
-                                        "&",
-                                        domain,
-                                        "&",
-                                        ["folder_id", "child_of", 1],
-                                        ["res_model", "in", ["res.fake"]],
-                                    ],
-                                    folder_id: 1,
-                                    tag_ids: [[6, false, []]],
-                                    type: "domain",
-                                },
-                            ]);
-                            return { ignore: true };
+                        if (args.method === "web_save") {
+                            assert.step("web_save");
+                            assert.deepEqual(args.kwargs.context, {
+                                default_document_ids: false,
+                                default_domain: [
+                                    "&",
+                                    domain,
+                                    "&",
+                                    ["folder_id", "child_of", 1],
+                                    ["res_model", "in", ["res.fake"]],
+                                ],
+                                default_folder_id: 1,
+                                default_tag_ids: [[6, false, []]],
+                                default_type: "domain",
+                                lang: "en",
+                                tz: "taht",
+                                uid: 2,
+                            });
                         }
                     },
                 });
 
-                const oldDoAction = kanban.env.services.action.doAction;
-                patchWithCleanup(kanban.env.services.action, {
-                    doAction(action) {
-                        if (action.ignore) {
-                            return;
-                        }
-                        return oldDoAction.call(this, action);
-                    },
-                });
                 await legacyClick(
                     target.querySelectorAll(".o_search_panel_category_value header")[1]
                 );
@@ -906,6 +904,9 @@ QUnit.module("documents", {}, function () {
 
                 await legacyClick($(".o_cp_buttons .dropdown-toggle:visible").get(0));
                 await legacyClick($(".o_documents_kanban_share_domain:visible").get(0));
+                assert.verifySteps([]);
+                await legacyClick($(".o_form_button_save").get(0));
+                assert.verifySteps(["web_save", "copy"]);
             });
 
             QUnit.test("can upload from URL", async function (assert) {
@@ -5534,7 +5535,13 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test("SearchPanel: can share workspace", async function (assert) {
-                assert.expect(6);
+                assert.expect(8);
+
+                patchWithCleanup(navigator.clipboard, {
+                    async writeText(text) {
+                        assert.step("copy");
+                    },
+                });
 
                 await createDocumentsView({
                     type: "kanban",
@@ -5545,16 +5552,16 @@ QUnit.module("documents", {}, function () {
                                 </div>
                             </t></templates></kanban>`,
                     mockRPC: async function (route, args) {
-                        if (args.method === "open_share_popup") {
-                            assert.deepEqual(args.args, [
-                                {
-                                    domain: [["folder_id", "child_of", 1]],
-                                    folder_id: 1,
-                                    type: "domain",
-                                },
-                            ]);
-                            assert.step("share popup");
-                            return { ignore: true };
+                        if (args.method === "web_save") {
+                            assert.deepEqual(args.kwargs.context, {
+                                default_domain: [["folder_id", "child_of", 1]],
+                                default_folder_id: 1,
+                                default_type: "domain",
+                                lang: "en",
+                                tz: "taht",
+                                uid: 2,
+                            });
+                            assert.step("web_save");
                         }
                     },
                 });
@@ -5568,7 +5575,9 @@ QUnit.module("documents", {}, function () {
                 await nextTick();
                 assert.containsOnce(target, ".o_search_panel_item_settings_popover");
                 await legacyClick(target, ".o_search_panel_value_share");
-                assert.verifySteps(["share popup"]);
+                assert.verifySteps([]);
+                await legacyClick($(".o_form_button_save").get(0));
+                assert.verifySteps(["web_save", "copy"]);
             });
         }
     );

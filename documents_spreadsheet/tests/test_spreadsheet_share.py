@@ -81,13 +81,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
                 }
             ]
         }
-        action = self.env["documents.share"].open_share_popup(share_vals)
-        share = self.env["documents.share"].search(
-            [("document_ids", "in", document.id)]
-        )
-        self.assertEqual(action["type"], "ir.actions.act_window")
-        self.assertEqual(action["res_id"], share.id)
-        self.assertEqual(action["res_model"], "documents.share")
+        share = self.env["documents.share"].create(share_vals)
         spreadsheet_share = share.freezed_spreadsheet_ids
         self.assertEqual(len(spreadsheet_share), 1)
         self.assertEqual(spreadsheet_share.document_id, document)
