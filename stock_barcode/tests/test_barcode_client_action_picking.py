@@ -2662,6 +2662,57 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'qty_done': 2, 'location_dest_id': self.shelf1.id},
         ])
 
+    def test_split_line_on_exit_for_delivery(self):
+        """ Ensures that exit an unfinished operation will split the uncompleted move lines to have
+        one move line with all picked quantity and one move line with the remaining quantity."""
+        self.clean_access_rights()
+        product3 = self.env['product.product'].create({
+            'name': 'product3',
+            'is_storable': True,
+            'categ_id': self.env.ref('product.product_category_all').id,
+            'barcode': 'product3',
+        })
+        # Adds some quantity in stock but not enough to fully complete the delivery.
+        self.env['stock.quant'].with_context(inventory_mode=True).create([{
+            'product_id': product.id,
+            'inventory_quantity': qty,
+            'location_id': self.stock_location.id,
+        } for product, qty in [
+            (self.product1, 4), (self.product2, 4), (product3, 2)]
+        ]).action_apply_inventory()
+
+        # Creates a delivery for 4x product1, 4x product2 and 4x product3.
+        delivery = self.env['stock.picking'].create({
+            'name': "delivery_split_line_on_exit",
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+        })
+        self.env['stock.move'].create([{
+            'location_dest_id': delivery.location_dest_id.id,
+            'location_id': delivery.location_id.id,
+            'name': f"{product.name} x4",
+            'picking_id': delivery.id,
+            'product_id': product.id,
+            'product_uom_qty': 4,
+        } for product in [self.product1, self.product2, product3]])
+        delivery.action_confirm()
+
+        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action.id}"
+        self.start_tour(url, 'test_split_line_on_exit_for_delivery', login='admin')
+        # Checks delivery moves values:
+        # - product1 line should not be split (completed line)
+        # - product2 line should be split in two (2 qty picked, 2 qty left)
+        # - product3 line should not be split (not picked at all)
+        self.assertEqual(len(delivery.move_ids), 4)
+        self.assertRecordValues(delivery.move_ids, [
+            {'product_id': self.product1.id, 'quantity': 4, 'picked': True},
+            {'product_id': self.product2.id, 'quantity': 2, 'picked': True},
+            {'product_id': product3.id, 'quantity': 2, 'picked': False},
+            {'product_id': self.product2.id, 'quantity': 2, 'picked': False},
+        ])
+
     def test_split_line_on_exit_for_receipt(self):
         """ Ensures that exit an unfinished operation will split the uncompleted move lines to have
         one move line with all picked quantity and one move line with the remaining quantity."""
