@@ -1,4 +1,3 @@
-/** @odoo-module */
 /**
  * Add custom steps to take products and sales order into account
  */
@@ -89,6 +88,116 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 content: _t("Wait for the invoice to show up"),
                 trigger: "span:contains('Customer Invoice')",
             }
+        );
+        const fsmTimerStopStepIndex = originalSteps.findIndex(
+            (step) => step.id === "fsm_save_timesheet"
+        );
+        originalSteps.splice(
+            fsmTimerStopStepIndex + 1,
+            0,
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_form_project_tasks",
+                id: 'industry_fsm_sale_sign_send_start',
+            },
+            {
+                trigger: 'button[name="action_preview_worksheet"]',
+                content: markup(_t('<b>Review and sign</b> the <b>task report</b> with your customer.')),
+                position: 'bottom',
+                run: "click",
+            },
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_project_portal_sidebar",
+            },
+            {
+                trigger: 'a[data-bs-target="#modalaccept"]',
+                content: markup(_t('Invite your customer to <b>validate and sign your task report</b>.')),
+                position: 'right',
+                id: 'sign_report',
+                run: "click",
+            },
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_project_portal_sidebar",
+            },
+            {
+                isActive: ["auto"],
+                trigger: 'div[class="container"] h5#time_and_material',
+                content: ('"Time and Material" section is rendered'),
+                run: "click",
+            },
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_project_portal_sidebar",
+            },
+            {
+                isActive: ["auto"],
+                trigger: 'div[class="container"] tbody[class="sale_tbody"]:not(:empty)',
+                content: ('At least a product is rendered'),
+                run: "click",
+            },
+            {
+                trigger: '.o_web_sign_auto_button',
+                content: markup(_t('Save time by automatically generating a <b>signature</b>.')),
+                position: 'right',
+                run: "click",
+            },
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_project_portal_sidebar",
+            },
+            {
+                trigger: '.o_portal_sign_submit:enabled',
+                content: markup(_t('Validate the <b>signature</b>.')),
+                position: 'left',
+                run: "click",
+            },
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_project_portal_sidebar",
+            },
+            {
+                trigger: 'a:contains(Back to edit mode)',
+                content: markup(_t('Go back to your Field Service <b>task</b>.')),
+                position: 'right',
+                run: "click",
+            },
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_form_project_tasks",
+            },
+            {
+                trigger: 'button[name="action_send_report"]',
+                content: markup(_t('<b>Send your task report</b> to your customer.')),
+                position: 'bottom',
+                run: "click",
+            },
+            {
+                trigger: 'button[name="document_layout_save"]',
+                content: markup(_t('Customize your <b>layout</b>.')),
+                position: 'right',
+                run: "click",
+            },
+            {
+                in_modal: false,
+                isActive: ["auto"],
+                trigger: ".o_form_project_tasks",
+            },
+            {
+                trigger: 'button[name="action_send_mail"]',
+                content: markup(_t('<b>Send your task report</b> to your customer.')),
+                position: 'right',
+                run: "click",
+                id: 'industry_fsm_sale_sign_send_end',
+            },
         );
         return originalSteps;
     },

@@ -16,6 +16,7 @@ class TestTimerButtons(TestFsmFlowSaleCommon):
     """ Test visibility of the following buttons:
         - START/STOP/PAUSE/RESUME
         - Send/Sign Report
+        - Customer Preview
     """
 
     @classmethod
@@ -200,15 +201,16 @@ class TestTimerButtons(TestFsmFlowSaleCommon):
         self.assertTrue(self.task.display_sign_report_secondary)
         self.assertFalse(self.task.display_send_report_primary)
         self.assertTrue(self.task.display_send_report_secondary) # Not signed yet
-        timesheet.unlink()
+        timesheet.task_id = False  # Unlink the task from the timesheet
 
         # Secondary if worksheet > 0 only
         self.assertEqual(self.task.display_satisfied_conditions_count, 0)
-        worksheet = self.env[self.task.worksheet_template_id.model_id.model].create({
+        worksheet_vals = {
             'x_name': 'This is a name',
             'x_comments': 'This is a comment',
             'x_project_task_id': self.task.id,
-        })
+        }
+        worksheet = self.env[self.task.worksheet_template_id.model_id.model].create(worksheet_vals)
         # YTI FIXME: The triggers on the compute method are foireux
         self.task._compute_worksheet_count()
         self.assertEqual(self.task.display_satisfied_conditions_count, 1)
@@ -231,20 +233,9 @@ class TestTimerButtons(TestFsmFlowSaleCommon):
         self.assertTrue(self.task.display_send_report_secondary) # Not signed yet
 
         # Primary of all conditions met
-        timesheet = self.env['account.analytic.line'].create({
-            'task_id': self.task.id,
-            'project_id': self.project.id,
-            'date': datetime.now(),
-            'name': 'My Timesheet',
-            'user_id': self.env.uid,
-            'unit_amount': 1,
-        })
+        timesheet.task_id = self.task  # Link the task to the timesheet
         self.assertEqual(self.task.display_satisfied_conditions_count, 2)
-        worksheet = self.env[self.task.worksheet_template_id.model_id.model].create({
-            'x_name': 'This is a name',
-            'x_comments': 'This is a comment',
-            'x_project_task_id': self.task.id,
-        })
+        worksheet = self.env[self.task.worksheet_template_id.model_id.model].create(worksheet_vals)
         # YTI FIXME: The triggers on the compute method are foireux
         self.task._compute_worksheet_count()
         self.assertEqual(self.task.display_satisfied_conditions_count, 3)
@@ -276,8 +267,9 @@ class TestTimerButtons(TestFsmFlowSaleCommon):
         self.assertFalse(self.task.display_sign_report_secondary)
 
     def test_send_sign_report_button_03(self):
-        # Sign/send only visible if 'worksheets' is enabled on the project
+        # Sign/send only visible if 'worksheets' or 'Products on Tasks' are enabled on the project
         self.project.allow_worksheets = False
+        self.project.allow_material = False
         self.assertFalse(self.task.display_sign_report_primary)
         self.assertFalse(self.task.display_sign_report_secondary)
         self.assertFalse(self.task.display_send_report_primary)
@@ -383,3 +375,19 @@ class TestTimerButtons(TestFsmFlowSaleCommon):
         self.assertEqual(self.task.sale_order_id.invoice_status, 'invoiced')
         self.assertFalse(self.task.display_create_invoice_primary)
         self.assertFalse(self.task.display_create_invoice_secondary)
+
+    def test_customer_preview_report_signed(self):
+        self.assertFalse(self.task.show_customer_preview)
+        f = io.BytesIO()
+        Image.new('RGB', (50, 50)).save(f, 'PNG')
+        f.seek(0)
+        image = base64.b64encode(f.read())
+        self.task.worksheet_signature = image
+        self.task._compute_show_customer_preview()
+        self.assertTrue(self.task.show_customer_preview, 'The Customer Preview button should be visible as the report was signed')
+
+    def test_customer_preview_report_sent(self):
+        self.assertFalse(self.task.show_customer_preview)
+        self.task.fsm_is_sent = True
+        self.task._compute_show_customer_preview()
+        self.assertTrue(self.task.show_customer_preview, 'The Customer Preview button should be visible as the report was sent')

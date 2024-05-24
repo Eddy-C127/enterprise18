@@ -15,13 +15,6 @@ class ProjectTask(models.Model):
         group_expand='_group_expand_worksheet_template_id',
         help="Create templates for each type of intervention you have and customize their content with your own custom fields.")
     worksheet_count = fields.Integer(compute='_compute_worksheet_count', compute_sudo=True, export_string_translation=False)
-    display_sign_report_primary = fields.Boolean(compute='_compute_display_sign_report_buttons', export_string_translation=False)
-    display_sign_report_secondary = fields.Boolean(compute='_compute_display_sign_report_buttons', export_string_translation=False)
-    display_send_report_primary = fields.Boolean(compute='_compute_display_send_report_buttons', export_string_translation=False)
-    display_send_report_secondary = fields.Boolean(compute='_compute_display_send_report_buttons', export_string_translation=False)
-    worksheet_signature = fields.Binary('Signature', copy=False, attachment=True)
-    worksheet_signed_by = fields.Char('Signed By', copy=False)
-    fsm_is_sent = fields.Boolean(readonly=True, copy=False, export_string_translation=False)
 
     @property
     def SELF_READABLE_FIELDS(self):
@@ -45,8 +38,9 @@ class ProjectTask(models.Model):
             })
 
     @api.depends(
-        'allow_worksheets', 'worksheet_template_id', 'timer_start', 'worksheet_signature',
-        'display_satisfied_conditions_count', 'display_enabled_conditions_count')
+        'allow_worksheets', 'timer_start', 'worksheet_signature',
+        'display_satisfied_conditions_count', 'display_enabled_conditions_count',
+    )
     def _compute_display_sign_report_buttons(self):
         for task in self:
             sign_p, sign_s = True, True
@@ -68,9 +62,9 @@ class ProjectTask(models.Model):
             })
 
     @api.depends(
-        'allow_worksheets', 'worksheet_template_id', 'timer_start',
-        'display_satisfied_conditions_count', 'display_enabled_conditions_count',
-        'fsm_is_sent')
+        'allow_worksheets', 'timer_start', 'display_satisfied_conditions_count',
+        'display_enabled_conditions_count', 'fsm_is_sent',
+    )
     def _compute_display_send_report_buttons(self):
         for task in self:
             send_p, send_s = True, True
@@ -121,10 +115,6 @@ class ProjectTask(models.Model):
         else:
             return self.search(domain).worksheet_template_id
 
-    def has_to_be_signed(self):
-        self.ensure_one()
-        return self._is_fsm_report_available() and not self.worksheet_signature
-
     def action_fsm_worksheet(self):
         if self.env.user.has_group('industry_fsm.group_fsm_manager'):
             worksheets_count = self.env['worksheet.template'].search_count([('res_model', '=', 'project.task')], limit=2)
@@ -159,15 +149,6 @@ class ProjectTask(models.Model):
         })
         return action
 
-    def action_preview_worksheet(self):
-        self.ensure_one()
-        source = 'fsm' if self._context.get('fsm_mode', False) else 'project'
-        return {
-            'type': 'ir.actions.act_url',
-            'target': 'self',
-            'url': self.get_portal_url(query_string=f'&source={source}')
-        }
-
     def action_fsm_task_mobile_view(self):
         action = super().action_fsm_task_mobile_view()
         action['context']['industry_fsm_has_same_worksheet_template'] = self.worksheet_template_id == self.project_id.sudo().worksheet_template_id
@@ -179,51 +160,4 @@ class ProjectTask(models.Model):
 
     def _is_fsm_report_available(self):
         self.ensure_one()
-        return self.worksheet_count or self.timesheet_ids
-
-    def action_send_report(self):
-        tasks_with_report = self.filtered(
-            lambda task:
-                (task.display_send_report_primary or task.display_send_report_secondary)
-                and task._is_fsm_report_available()
-        )
-        if not tasks_with_report:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'message': _("There are no reports to send."),
-                    'sticky': False,
-                    'type': 'danger',
-                },
-            }
-        action = tasks_with_report._get_send_report_action()
-        if self.env.is_admin() and not self.env.company.external_report_layout_id and not self.env.context.get('discard_logo_check'):
-            layout_action = self.env['ir.actions.report']._action_configure_external_report_layout(action)
-            action.pop('close_on_report_download', None)
-            return layout_action
-        return action
-
-    def _get_send_report_action(self):
-        template_id = self.env.ref('industry_fsm_report.mail_template_data_task_report').id
-        self.message_subscribe(partner_ids=self.partner_id.ids)
-        return {
-            'name': _("Send Field Service Report"),
-            'type': 'ir.actions.act_window',
-            'res_model': 'mail.compose.message',
-            'views': [(False, 'form')],
-            'target': 'new',
-            'context': {
-                'default_composition_mode': 'mass_mail' if len(self.ids) > 1 else 'comment',
-                'default_model': 'project.task',
-                'default_res_ids': self.ids,
-                'default_template_id': template_id,
-                'fsm_mark_as_sent': True,
-                'mailing_document_based': True,
-            },
-        }
-
-    def _message_post_after_hook(self, message, msg_vals):
-        if self.env.context.get('fsm_mark_as_sent') and not self.fsm_is_sent:
-            self.fsm_is_sent = True
-        return super()._message_post_after_hook(message, msg_vals)
+        return super()._is_fsm_report_available() or self.worksheet_count

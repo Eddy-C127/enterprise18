@@ -160,6 +160,12 @@
         </xpath>
     </template>
 
+    <template id="portal_my_task_inherit_industry_fsm" inherit_id="industry_fsm.portal_my_task">
+        <xpath expr="//div[@id='nav-report']" position="attributes">
+            <attribute name="t-if">(allow_timesheets and timesheets) or (task.allow_material and task.material_line_product_count)</attribute>
+        </xpath>
+    </template>
+
     <template id="portal_my_task" inherit_id="hr_timesheet.portal_my_task">
         <xpath expr="//li[@id='nav-header']" position="after">
             <li t-if="task._show_time_and_material()" class="nav-item">

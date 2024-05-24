@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="portal_task_sign_button" name="Sign Button">
-        <a t-if="task.has_to_be_signed()" role="button" class="btn btn-primary align-self-start" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
+        <a t-if="task._has_to_be_signed()" role="button" class="btn btn-primary align-self-start" data-bs-toggle="modal" data-bs-target="#modalaccept" href="#">
             <i class="fa fa-check me-1"/>Sign Report
         </a>
     </template>
@@ -10,7 +10,7 @@
     <template id="portal_task_sign_modal" name="Sign Modal">
         <!-- modal relative to the sign action -->
         <div role="dialog" class="modal fade" id="modalaccept">
-            <div class="modal-dialog" t-if="task.has_to_be_signed()">
+            <div class="modal-dialog" t-if="task._has_to_be_signed()">
                 <form id="accept" method="POST" t-att-data-task-id="task.id" t-att-data-token="task.access_token" class="js_accept_json modal-content js_website_submit_form">
                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                     <header class="modal-header">
@@ -36,13 +36,33 @@
             <t t-set="backend_url" t-value="'/odoo/action-%s/%s' % (source_action_id, task.id)"/>
         </xpath>
         <xpath expr="//div[@id='nav-report']" position="attributes">
-            <attribute name="t-if">not task.is_fsm and timesheets and allow_timesheets</attribute>
+            <attribute name="t-if">timesheets and allow_timesheets</attribute>
         </xpath>
         <xpath expr="//div[@t-field='task.partner_id']" position="attributes">
             <attribute name="t-options">{
                 "widget": "contact",
                 "fields": ["phone", "email"] + (["address"] if task.is_fsm else []),
             }</attribute>
+        </xpath>
+        <xpath expr="//div[@id='card_body']" position="inside">
+            <div
+                name="worksheet_signature"
+                t-if="task.worksheet_signature"
+                t-attf-class="{{ 'col-12 col-lg-3' if report_type != 'html' else 'col-sm-7 col-md-4' }} ms-auto text-end"
+                style="page-break-inside: avoid"
+            >
+                <h5>Signature</h5>
+                <img t-att-src="image_data_uri(task.worksheet_signature)" style="max-height: 6rem; max-width: 100%; color:black;"/><br/>
+                <span t-field="task.worksheet_signed_by"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='nav-report']" position="before">
+            <div t-if="task.display_sign_report_primary or task.display_sign_report_secondary" class="d-grid flex-grow-1 align-items-center mb-2">
+                <t t-call="industry_fsm.portal_task_sign_button"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='task_content']" position="inside">
+            <t t-call="industry_fsm.portal_task_sign_modal"/>
         </xpath>
     </template>
 </odoo>

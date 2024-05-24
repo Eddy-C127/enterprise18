@@ -50,6 +50,16 @@ class Task(models.Model):
     partner_state_id = fields.Many2one('res.country.state', string='Customer State', related='partner_id.state_id')
     is_task_phone_update = fields.Boolean(compute='_compute_is_task_phone_update', export_string_translation=False)
 
+    # FSM Report fields
+    display_sign_report_primary = fields.Boolean(compute='_compute_display_sign_report_buttons', export_string_translation=False)
+    display_sign_report_secondary = fields.Boolean(compute='_compute_display_sign_report_buttons', export_string_translation=False)
+    display_send_report_primary = fields.Boolean(compute='_compute_display_send_report_buttons', export_string_translation=False)
+    display_send_report_secondary = fields.Boolean(compute='_compute_display_send_report_buttons', export_string_translation=False)
+    fsm_is_sent = fields.Boolean(readonly=True, copy=False, export_string_translation=False)
+    show_customer_preview = fields.Boolean(compute='_compute_show_customer_preview', export_string_translation=False)
+    worksheet_signature = fields.Binary('Signature', copy=False, attachment=True)
+    worksheet_signed_by = fields.Char('Signed By', copy=False)
+
     @api.depends('planned_date_begin', 'date_deadline', 'user_ids')
     def _compute_planning_overlap(self):
         """Computes overlap warnings for fsm tasks.
@@ -367,6 +377,86 @@ class Task(models.Model):
                 'default_user_ids': default_user_ids,
             },
         }
+
+    # ---------------------------------------------------------
+    # FSM Report
+    # ---------------------------------------------------------
+
+    def _compute_display_send_report_buttons(self):
+        self.display_send_report_primary = False
+        self.display_send_report_secondary = False
+
+    def _compute_display_sign_report_buttons(self):
+        self.display_sign_report_primary = False
+        self.display_sign_report_secondary = False
+
+    def _compute_show_customer_preview(self):
+        for task in self:
+            task.show_customer_preview = task.fsm_is_sent or task.worksheet_signature
+
+    def _has_to_be_signed(self):
+        self.ensure_one()
+        return self._is_fsm_report_available() and not self.worksheet_signature
+
+    def _is_fsm_report_available(self):
+        self.ensure_one()
+        return self.timesheet_ids
+
+    def _get_send_report_action(self):
+        template_id = self.env.ref('industry_fsm.mail_template_data_task_report').id
+        self.message_subscribe(partner_ids=self.partner_id.ids)
+        return {
+            'name': _("Send Field Service Report"),
+            'type': 'ir.actions.act_window',
+            'res_model': 'mail.compose.message',
+            'views': [(False, 'form')],
+            'target': 'new',
+            'context': {
+                'default_composition_mode': 'mass_mail' if len(self.ids) > 1 else 'comment',
+                'default_model': 'project.task',
+                'default_res_ids': self.ids,
+                'default_template_id': template_id,
+                'fsm_mark_as_sent': True,
+                'mailing_document_based': True,
+            },
+        }
+
+    def action_send_report(self):
+        tasks_with_report = self.filtered(
+            lambda task:
+                (task.display_send_report_primary or task.display_send_report_secondary)
+                and task._is_fsm_report_available()
+        )
+        if not tasks_with_report:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'message': _("There are no reports to send."),
+                    'sticky': False,
+                    'type': 'danger',
+                },
+            }
+        action = tasks_with_report._get_send_report_action()
+        if not self.env.context.get('discard_logo_check') and self.env.is_admin() and not self.env.company.external_report_layout_id:
+            layout_action = self.env['ir.actions.report']._action_configure_external_report_layout(action)
+            action.pop('close_on_report_download', None)
+            return layout_action
+        return action
+
+    def action_preview_worksheet(self):
+        self.ensure_one()
+        source = 'fsm' if self._context.get('fsm_mode', False) else 'project'
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'self',
+            'url': self.get_portal_url(query_string=f'&source={source}')
+        }
+
+    def _message_post_after_hook(self, message, msg_vals):
+        if self.env.context.get('fsm_mark_as_sent') and not self.fsm_is_sent:
+            self.fsm_is_sent = True
+        return super()._message_post_after_hook(message, msg_vals)
 
     # ---------------------------------------------------------
     # Business Methods

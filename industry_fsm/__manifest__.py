@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': "Field Service",
@@ -23,7 +22,6 @@ Adds the following options:
     'depends': ['project_enterprise', 'timesheet_grid', 'base_geolocalize'],
     'data': [
         'data/fsm_data.xml',
-        'data/mail_template_data.xml',
         'security/fsm_security.xml',
         'security/ir.model.access.csv',
         'views/res_config_settings_views.xml',
@@ -31,9 +29,12 @@ Adds the following options:
         'views/fsm_views.xml',
         'views/project_task_views.xml',
         'report/project_report_views.xml',
+        'report/worksheet_custom_report_templates.xml',
+        'report/worksheet_custom_reports.xml',
         'views/res_partner_views.xml',
         'views/project_sharing_views.xml',
         'views/project_portal_templates.xml',
+        'data/mail_template_data.xml',
         'wizard/task_stop_timer_wizard_views.xml'
     ],
     'application': True,

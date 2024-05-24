@@ -49,6 +49,58 @@ class Task(models.Model):
     portal_quotation_count = fields.Integer(compute='_compute_portal_quotation_count')
     portal_invoice_count = fields.Integer('Invoice Count', compute='_compute_portal_invoice_count')
 
+    @api.depends(
+        'allow_material', 'timer_start', 'worksheet_signature',
+        'display_satisfied_conditions_count', 'display_enabled_conditions_count',
+    )
+    def _compute_display_sign_report_buttons(self):
+        for task in self:
+            sign_p, sign_s = True, True
+            if (
+                not task.allow_material
+                or task.timer_start
+                or task.worksheet_signature
+                or not task.display_satisfied_conditions_count
+            ):
+                sign_p, sign_s = False, False
+            else:
+                if task.display_enabled_conditions_count == task.display_satisfied_conditions_count:
+                    sign_s = False
+                else:
+                    sign_p = False
+            task.update({
+                'display_sign_report_primary': sign_p,
+                'display_sign_report_secondary': sign_s,
+            })
+
+    @api.depends(
+        'allow_material', 'timer_start', 'display_satisfied_conditions_count',
+        'display_enabled_conditions_count', 'fsm_is_sent',
+    )
+    def _compute_display_send_report_buttons(self):
+        for task in self:
+            send_p, send_s = True, True
+            if (
+                not task.allow_material
+                or task.timer_start
+                or not task.display_satisfied_conditions_count
+                or task.fsm_is_sent
+            ):
+                send_p, send_s = False, False
+            else:
+                if task.display_enabled_conditions_count == task.display_satisfied_conditions_count:
+                    send_s = False
+                else:
+                    send_p = False
+            task.update({
+                'display_send_report_primary': send_p,
+                'display_send_report_secondary': send_s,
+            })
+
+    def _is_fsm_report_available(self):
+        self.ensure_one()
+        return super()._is_fsm_report_available() or self.material_line_product_count
+
     @property
     def SELF_READABLE_FIELDS(self):
         return super().SELF_READABLE_FIELDS | {'allow_material',
@@ -78,7 +130,7 @@ class Task(models.Model):
         for task in self:
             enabled = task.display_enabled_conditions_count
             satisfied = task.display_satisfied_conditions_count
-            enabled += 1 if task.allow_material else 0
+            enabled += task.allow_material
             satisfied += 1 if task.allow_material and task.material_line_product_count else 0
             task.update({
                 'display_enabled_conditions_count': enabled,

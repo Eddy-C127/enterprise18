@@ -20,8 +20,20 @@
                 <field name="display_satisfied_conditions_count" invisible="1"/>
                 <field name="display_mark_as_done_primary" invisible="1"/>
                 <field name="display_mark_as_done_secondary" invisible="1"/>
+                <field name="display_sign_report_primary" invisible="1"/>
+                <field name="display_sign_report_secondary" invisible="1"/>
+                <field name="display_send_report_primary" invisible="1"/>
+                <field name="display_send_report_secondary" invisible="1"/>
+                <button name="action_preview_worksheet" type="object" string="Sign Report" class="btn-primary"
+                    invisible="not display_sign_report_primary" data-hotkey="y"/>
+                <button name="action_send_report" type="object" string="Send Report" class="btn-primary"
+                    invisible="not display_send_report_primary" data-hotkey="g"/>
                 <button class="btn-primary" name="action_fsm_validate" type="object" string="Mark as done"
                         invisible="not display_mark_as_done_primary" data-hotkey="v"/>
+                <button name="action_preview_worksheet" type="object" string="Sign Report" class="btn-secondary"
+                    invisible="not display_sign_report_secondary" data-hotkey="y"/>
+                <button name="action_send_report" type="object" string="Send Report" class="btn-secondary"
+                    invisible="not display_send_report_secondary" data-hotkey="g"/>
                 <button class="btn-secondary" name="action_fsm_validate" type="object" string="Mark as done"
                         invisible="not display_mark_as_done_secondary" data-hotkey="v"/>
             </xpath>
@@ -42,6 +54,18 @@
             </xpath>
             <xpath expr="//page[@name='extra_info']" position="attributes">
                 <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="show_customer_preview" invisible="1"/>
+                <button
+                    string="Customer Preview"
+                    class="oe_stat_button"
+                    name="action_preview_worksheet"
+                    icon="fa-globe"
+                    type="object"
+                    groups="project.group_project_user"
+                    invisible="not show_customer_preview">
+                </button>
             </xpath>
             <field name="is_fsm" string="is FSM?" invisible="1"/>
             <field name="partner_id" position="attributes">
