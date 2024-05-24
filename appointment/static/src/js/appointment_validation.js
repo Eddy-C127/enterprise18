@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { browser } from "@web/core/browser/browser";
 import { rpc } from "@web/core/network/rpc";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { findInvalidEmailFromText } from  "./utils.js"
@@ -8,9 +9,18 @@ import { _t } from "@web/core/l10n/translation";
 publicWidget.registry.appointmentValidation = publicWidget.Widget.extend({
     selector: '.o_appointment_validation_details',
     events: {
+        'click .o_appointment_copy_link': '_onCopyVideocallLink',
         'click .o_appointment_guest_addition_open': '_onGuestAdditionOpen',
         'click .o_appointment_guest_discard': '_onGuestDiscard',
         'click .o_appointment_guest_add': '_onGuestAdd',
+    },
+
+    _onCopyVideocallLink: async function(ev) {
+        const copyButton = ev.target;
+        $(copyButton).tooltip({title: _t("Link Copied!"), trigger: "manual", placement: "right"});
+        setTimeout(async () => await browser.navigator.clipboard.writeText(copyButton.dataset.value));
+        $(copyButton).tooltip('show');
+        setTimeout(() => $(copyButton).tooltip("hide"), 1200);
     },
 
     /**

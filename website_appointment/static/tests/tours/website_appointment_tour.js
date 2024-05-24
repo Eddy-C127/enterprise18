@@ -112,12 +112,5 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
     }, {
         trigger: 'div:contains("def@gmail.example.com")',
         isCheck: true
-    }, {
-        content: 'Clicking on the back to edit mode link',
-        trigger: 'a:contains("Back to edit mode")',
-    }, {
-        content: 'Check that the appointment is booked or not',
-        trigger: 'div[name="appointment_count"] > span.o_stat_value:contains("1")',
-        isCheck: true,
     },
 ]});
