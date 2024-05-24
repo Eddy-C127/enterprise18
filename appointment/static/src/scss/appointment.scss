@@ -48,22 +48,10 @@
     min-height: 336px;
 }
 
-.o_appointment_validation_bottom_btns {
-    .o_outlook_calendar {
-        background-color: #1976D2;
-        color: white;
-        &:hover {
-            background-color: #144c85;
-        }
-    }
-    .o_google_calendar {
-        background-color: white;
-        font-weight: 500;
-        color: black;
-        border: 1px solid #DEE2E6;
-        &:hover {
-            background-color: $gray-200;
-        }
+.o_appointment_add_to_calendar_btns a {
+    border: 1px solid #DEE2E6;
+    &:hover {
+        background-color: $gray-200;
     }
 }
 

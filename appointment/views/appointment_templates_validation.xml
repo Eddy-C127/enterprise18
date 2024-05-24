@@ -7,37 +7,51 @@
             <t t-set="staff_user" t-value="event.user_id"/>
             <t t-set="resources" t-value="event.appointment_resource_ids"/>
             <t t-set="based_on_users" t-value="appointment_type.schedule_based_on == 'users'"/>
-            <div id="wrap" t-attf-class="o_appointment d-flex bg-o-color-4 p-4 #{'mt-3' if website else ''}">
+            <div id="wrap" class="o_appointment d-flex bg-o-color-4 p-4">
                 <div class="oe_structure"/>
                 <div class="oe_structure container">
-                    <div class="alert alert-success d-flex align-items-center justify-content-between" t-if="state == 'new'" role="status">
-                        <span t-if="attendee_status == 'accepted'">Your appointment has successfully been booked!</span>
-                        <span t-else="">Your appointment has been reserved! We will come back to you to confirm it.</span>
-                        <a class="alert-link"
-                            groups="appointment.group_appointment_manager"
-                            t-attf-href="/web#id=#{event.appointment_type_id.id}&amp;view_type=form&amp;model=appointment.type&amp;action=appointment.appointment_type_action">
-                            Back to edit mode
-                        </a>
+                    <div class="o_appointment_edit_in_backend alert alert-info alert-dismissible fade show d-print-none css_editable_mode_hidden" groups="appointment.group_appointment_manager">
+                        <t t-call="appointment.appointment_edit_in_backend"/>
                     </div>
-                    <div class="alert alert-danger pb16" t-if="state == 'no-cancel'" role="alert">
-                        <p class="mb-0">
-                            <strong>Your appointment is in less than <t t-out="appointment_type.min_cancellation_hours"/> hours from now!</strong>
-                            It's too late to cancel online, please contact the attendees another way if you really can't make it.
-                        </p>
+                    <div t-if="state == 'no-cancel'" role="alert" class="alert alert-danger">
+                        Oops! Your appointment is scheduled in just <t t-out="int(appointment_type.min_cancellation_hours)"/> hour(s) and cannot be cancelled at this time.<br/>
+                        To make any changes, please contact <t t-out="staff_user.name"/> (<t t-out="staff_user.email"/>).
                     </div>
+                    <t t-if="state == 'new'" role="status">
+                        <h2 t-if="attendee_status == 'accepted'">
+                            <i class="fa fa-check-circle text-success me-3"/>Appointment Scheduled!
+                        </h2>
+                        <span t-else="">
+                            <h2><i class="fa fa-thumbs-up me-3 text-info"/>Appointment Reserved!</h2>
+                            <h5>We will come back to you to confirm it.</h5>
+                        </span>
+                    </t>
+                    <h2 t-if="state == 'no-cancel'" role="alert">
+                        <i class="fa fa-check-circle text-success me-3"/>Appointment Scheduled!
+                    </h2>
                     <h4 class="py-3">
-                        <span t-out="event.name"/>
+                        <span class="fw-normal" t-out="event.name"/>
                     </h4>
                     <div class="oe_structure"/>
                     <div class="o_appointment_validation_details o_wappointment_type_options row justify-content-between" t-att-data-appointment-type-id="appointment_type.id">
                         <div t-attf-class="col-12 {{'col-md-8 pe-md-4 pe-lg-5' if (staff_user and based_on_users) or (len(resources) == 1 and appointment_type.assign_method != 'time_auto_assign') else ''}}">
                             <div class="row mb-4">
                                 <div class="col-3">
-                                    <label class="text-muted">Date &amp; time</label>
+                                    <label class="text-muted">When</label>
                                 </div>
-                                <div class="col-9 col-lg-6">
+                                <div class="col-9">
                                     <strong t-out="datetime_start"/>
                                     <span t-if="not appointment_type.hide_timezone" class="text-muted"> (<t t-out="request.session.timezone"/>)</span>
+                                    <div class="o_appointment_add_to_calendar_btns d-flex flex-wrap gap-3 mt-2">
+                                        <a role="button" class="o_outlook_calendar btn btn-block bg-white" t-attf-href="/calendar/ics/#{event.access_token}.ics">
+                                            <img src="/appointment/static/src/img/outlook-calendar.svg" alt="Outlook"/>
+                                            <small>Add to iCal/Outlook</small>
+                                        </a>
+                                        <a role="button" class="o_google_calendar btn btn-block bg-white" t-att-href="google_url">
+                                            <img src="/appointment/static/src/img/google-calendar.svg" alt="Google Agenda"/>
+                                            <small>Add to Google Agenda</small>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                             <div t-if="not appointment_type.hide_duration" class="row mb-4">
@@ -50,7 +64,7 @@
                             </div>
                             <div t-if="based_on_users or appointment_type.location_id or event.location" class="row mb-4">
                                 <div class="col-3">
-                                    <label class="text-muted">Location</label>
+                                    <label class="text-muted">Where</label>
                                 </div>
                                 <div class="col-9 col-lg-6">
                                     <span t-if="appointment_type.location_id">
@@ -68,10 +82,13 @@
                                 </div>
                                 <div class="col-9 text-break">
                                     <label class="text-muted">
-                                        <t t-if="event.get_base_url() in event.videocall_location"> Join with Odoo Discuss</t>
-                                        <t t-else=""> Join at</t>
-                                    </label><br/>
-                                    <a t-att-href="event.videocall_location" target="_blank" t-out="event.videocall_location"/>
+                                        Join using
+                                        <span title="Copy Link" t-att-data-value="event.videocall_location"
+                                            class="o_appointment_copy_link cursor-pointer text-decoration-underline text-primary">
+                                            <t t-if="event.videocall_source == 'discuss'" class="o_appointment_discuss_location">Odoo Discuss</t>
+                                            <t t-else="">this link</t>
+                                        </span>
+                                    </label>
                                 </div>
                             </div>
                             <div t-elif="event.videocall_redirection" class="row mb-4">
@@ -80,10 +97,13 @@
                                 </div>
                                 <div class="col-9 text-break">
                                     <label class="text-muted">
-                                        <t t-if="event.videocall_source == 'discuss'"> Join with Odoo Discuss</t>
-                                        <t t-else=""> Join at</t>
-                                    </label><br/>
-                                    <a t-att-href="event.videocall_redirection" target="_blank" t-out="event.videocall_redirection"/>
+                                        Join using
+                                        <span title="Copy Link" t-att-data-value="event.videocall_redirection"
+                                            class="o_appointment_copy_link cursor-pointer text-decoration-underline text-primary">
+                                            <t t-if="event.videocall_source == 'discuss'" class="o_appointment_discuss_redirection">Odoo Discuss</t>
+                                            <t t-else="">this link</t>
+                                        </span>
+                                    </label>
                                 </div>
                             </div>
                             <div t-if="event.resource_total_capacity_reserved > 1" class="row mb-4">
@@ -143,31 +163,21 @@
                                     <div t-field="event.description"/>
                                 </div>
                             </div>
-                            <div t-if="appointment_type.message_confirmation" class="mt-4">
-                                <h5>Message from the Organizer</h5>
-                                <t t-out="appointment_type.message_confirmation"/>
+                            <div t-if="appointment_type and (event.appointment_booker_id.id == partner_id or not appointment_type.allow_guests)" class="row mb-4 o_appointment_cancel">
+                                <div class="col-12">
+                                    <span>Not available anymore?</span>
+                                    <a class="ms-2 text-decoration-underline"
+                                        t-attf-href="/calendar/#{event.access_token}/cancel?partner_id=#{partner_id}&amp;#{keep_query('*')}">
+                                        Cancel your appointment
+                                    </a>
+                                </div>
+                            </div>
+                            <div t-if="appointment_type.message_confirmation">
+                                <div class="fw-normal" t-out="appointment_type.message_confirmation"/>
                             </div>
                         </div>
                         <div class="col-12 col-md-4">
                             <t t-call="appointment.appointment_validated_card"/>
-                        </div>
-                    </div>
-                    <div class="o_appointment_validation_bottom_btns d-flex flex-column flex-lg-row justify-content-between mt-3 pt-3 pb-5 border-top">
-                        <div class="d-flex flex-column flex-lg-row">
-                            <a role="button" class="o_outlook_calendar btn btn-block w-100 w-lg-auto mb-2 mb-lg-0" t-attf-href="/calendar/ics/#{event.access_token}.ics">
-                                <img src="/appointment/static/src/img/outlook-calendar.svg" alt="Outlook"/>
-                                Add to iCal/Outlook
-                            </a>
-                            <a role="button" class="o_google_calendar btn btn-block w-100 w-lg-auto ms-lg-3" target="_blank" t-att-href="google_url">
-                                <img src="/appointment/static/src/img/google-calendar.svg" alt="Google Agenda"/>
-                                Add to Google Agenda
-                            </a>
-                        </div>
-                        <div class="d-flex flex-column-reverse flex-lg-row mt-2 mt-lg-0 mb-lg-0" t-if="event.appointment_booker_id.id == partner_id or not appointment_type.allow_guests">
-                            <a t-if="appointment_type" role="button" class="o_appointment_validation_cancel_btn btn btn-danger btn-block w-100 w-lg-auto ms-lg-3"
-                                t-attf-href="/calendar/#{event.access_token}/cancel?partner_id=#{partner_id}&amp;#{keep_query('*')}">
-                                Cancel/Reschedule
-                            </a>
                         </div>
                     </div>
                 </div>

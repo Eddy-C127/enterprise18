@@ -114,11 +114,9 @@
                                             Please, select another date.
                                         </p>
                                     </div>
-                                    <div t-if="state == 'cancel'" class="alert alert-danger" role="alert">
-                                        <p class="mb-0">
-                                            <strong>Appointment cancelled!</strong>
-                                            You can schedule another appointment from here.
-                                        </p>
+                                    <div t-if="state == 'cancel'" role="alert" class="pb-4">
+                                        <i class="fa fa-times text-danger me-2"/><strong>Appointment cancelled!</strong>
+                                        You can now choose a different schedule that suits you better.
                                     </div>
                                     <div class="clearfix"/>
                                     <t t-set="based_on_users" t-value="appointment_type.schedule_based_on == 'users'"/>
