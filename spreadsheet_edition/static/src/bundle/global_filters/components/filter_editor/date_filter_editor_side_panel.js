@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @ts-check */
 
 import { _t } from "@web/core/l10n/translation";
 import { FilterFieldOffset } from "../filter_field_offset";
@@ -15,9 +15,9 @@ const RANGE_TYPES = [
 ];
 
 /**
- * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
+ * @typedef {import("@spreadsheet").GlobalFilter} GlobalFilter
  * @typedef {import("@spreadsheet").OdooField} OdooField
- * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").FieldMatching} FieldMatching
+ * @typedef {import("@spreadsheet").FieldMatching} FieldMatching
  *
  * @typedef DateState
  * @property {Object} defaultValue

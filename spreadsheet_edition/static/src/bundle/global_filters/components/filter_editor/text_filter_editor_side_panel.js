@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @ts-check */
 
 import { AbstractFilterEditorSidePanel } from "./filter_editor_side_panel";
 import { FilterEditorFieldMatching } from "./filter_editor_field_matching";
@@ -10,7 +10,7 @@ import { useState } from "@odoo/owl";
 const { SelectionInput } = components;
 
 /**
- * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
+ * @typedef {import("@spreadsheet").GlobalFilter} GlobalFilter
  *
  * @typedef TextState
  * @property {string} defaultValue

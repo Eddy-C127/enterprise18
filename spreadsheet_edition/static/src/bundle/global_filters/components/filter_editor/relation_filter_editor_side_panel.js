@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @ts-check */
 
 import { ModelSelector } from "@web/core/model_selector/model_selector";
 import { AbstractFilterEditorSidePanel } from "./filter_editor_side_panel";
@@ -13,7 +13,7 @@ const { Checkbox } = components;
 
 /**
  * @typedef {import("@spreadsheet").OdooField} OdooField
- * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
+ * @typedef {import("@spreadsheet").GlobalFilter} GlobalFilter
 
  *
  * @typedef RelationState

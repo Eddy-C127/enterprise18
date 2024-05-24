@@ -1,4 +1,4 @@
-/** @odoo-module */
+/** @ts-check */
 
 import { _t } from "@web/core/l10n/translation";
 import * as spreadsheet from "@odoo/o-spreadsheet";
@@ -15,8 +15,8 @@ const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 /**
  * @typedef {import("@spreadsheet").OdooField} OdooField
- * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").FieldMatching} FieldMatching
- * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
+ * @typedef {import("@spreadsheet").FieldMatching} FieldMatching
+ * @typedef {import("@spreadsheet").GlobalFilter} GlobalFilter
  *
  * @typedef State
  * @property {boolean} saved
