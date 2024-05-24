@@ -26,7 +26,9 @@ patch(PosStore.prototype, {
     get preparationDisplayCategoryIds() {
         return new Set(
             this.models["pos_preparation_display.display"].flatMap((preparationDisplay) =>
-                preparationDisplay.category_ids.flatMap((cat) => cat.id)
+                preparationDisplay.category_ids.length > 0
+                    ? preparationDisplay.category_ids.flatMap((cat) => cat.id)
+                    : this.models["pos.category"].flatMap((cat) => cat.id)
             )
         );
     },
