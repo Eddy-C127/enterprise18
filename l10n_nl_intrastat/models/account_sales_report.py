@@ -147,5 +147,5 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
         if vat:
             if vat[:2].lower() == country_code.lower():
                 vat = vat[2:]
-            return ' '.join(vat[i:i+4] for i in range(0, len(vat), 4))
+            return vat
         return None
