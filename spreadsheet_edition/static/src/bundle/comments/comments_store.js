@@ -6,6 +6,7 @@ const { SpreadsheetStore, CellPopoverStore } = stores;
 const ACTIVE_BACKGROUND_COLOR = "#FFD73333";
 
 export class CommentsStore extends SpreadsheetStore {
+    mutators = ["toggleComments", "openCommentThread"];
     selectedThreadId = undefined;
     /** @private */
     areCommentsActive = true;
@@ -66,7 +67,6 @@ export class CommentsStore extends SpreadsheetStore {
             this.cellPopoverStore.close();
             this.selectedThreadId = undefined;
         }
-        this.model.dispatch("RENDER_CANVAS");
     }
 
     openCommentThread(threadId) {

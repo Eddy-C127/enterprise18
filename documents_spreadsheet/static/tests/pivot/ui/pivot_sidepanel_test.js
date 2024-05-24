@@ -485,7 +485,7 @@ QUnit.module(
             assert.deepEqual(definition.rows, [{ name: "bar", order: "asc" }]);
         });
 
-        QUnit.skip("select dimensions with arrow keys", async function (assert) {
+        QUnit.test("select dimensions with arrow keys", async function (assert) {
             const { model, env, pivotId } = await createSpreadsheetFromPivotView({
                 serverData: {
                     models: getBasicData(),
