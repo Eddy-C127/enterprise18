@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <h2 position="before">
+                <h2 t-if="o.fiscal_position_id.l10n_br_is_avatax and o.move_type in ('out_invoice', 'out_refund')" class="text-center" style="color: #ea868f;">
+                    NOT A LEGAL DOCUMENT
+                </h2>
+            </h2>
+        </template>
+    </data>
+</odoo>
