@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+import csv
+import io
+import itertools
+import zipfile
+from io import BytesIO, TextIOWrapper, StringIO
+
+from freezegun import freeze_time
+
 from odoo import Command, fields
 from odoo.tests import tagged
-from odoo.tools import pycompat
-import zipfile
-from freezegun import freeze_time
-from io import BytesIO
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
@@ -77,8 +81,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         move.line_ids.flush_recordset()
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(3, len(data), "csv should have 3 lines")
@@ -113,8 +117,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         move.line_ids.flush_recordset()
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(1, len(data), "csv should have 1 line")
@@ -153,8 +157,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         move.line_ids.flush_recordset()
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(1, len(data), "csv should have 1 lines")
@@ -191,8 +195,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         debit_account_code = str(self.env.company.account_journal_payment_debit_account_id.code).ljust(8, '0')
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
@@ -235,8 +239,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
         self.addCleanup(zf.close)
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.assertEqual(2, len(data), "csv should have 2 lines")
         self.assertIn(['119,00', 'h', 'EUR', '49800000', str(move.partner_id.id + 100000000),
@@ -275,8 +279,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         credit_account_code = str(self.env.company.account_journal_payment_credit_account_id.code).ljust(8, '0')
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
@@ -310,10 +314,10 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         bank_account_code = str(self.env.company.bank_journal_ids.default_account_id.code).ljust(8, '0')
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
-        data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
+        data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.assertIn(['100,00', 'h', 'EUR', suspense_account_code, bank_account_code, '101',
                        statement.line_ids[0].name, statement.line_ids[0].payment_ref], data)
 
@@ -361,8 +365,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         self.env.flush_all()
         file_dict = self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)
         zf = zipfile.ZipFile(BytesIO(file_dict['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
@@ -420,8 +424,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         move.line_ids.flush_recordset()
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(5, len(data), "csv should have 5 line")
@@ -485,8 +489,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         move.action_post()
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
@@ -520,9 +524,9 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         self.env.flush_all()
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
         self.addCleanup(zf.close)
-        csv = zf.open('EXTF_accounting_entries.csv')
-        reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
-        data = [line for line in reader]
+        f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
+        data = list(reader)
         self.assertEqual(7, len(data), "csv should have 5 (+2 header) lines")
 
     def test_datev_vat_export(self):
@@ -558,11 +562,11 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         move.action_post()
 
         with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r') as zf, \
-                zf.open('EXTF_customer_accounts.csv') as csv_file:
-            reader = pycompat.csv_reader(csv_file, delimiter=';', quotechar='"', quoting=2)
+                TextIOWrapper(zf.open('EXTF_customer_accounts.csv'), 'utf-8') as f:
+            reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
             # first 2 rows are just headers and needn't be validated
             # first 2 columns are 'account' and 'name' and they are irrelevant to this test
-            data = [row[2:10] for row in list(reader)[2:]]
+            data = [row[2:10] for row in itertools.islice(reader, 2, None)]
             self.assertEqual(
                 data,
                 [
@@ -629,8 +633,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         debit_account_code = str(self.env.company.account_journal_payment_debit_account_id.code).ljust(8, '0')
 
         moves = move + pay.move_id
-        csv = self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, moves)
-        reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
+        f = StringIO(self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, moves))
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.assertIn(['18,14', 's', 'EUR', '21300000', debit_account_code, self.tax_19.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
         self.assertIn(['2,13', 's', 'EUR', '21300000', debit_account_code, self.tax_7.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
@@ -704,8 +708,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         wizard._action_validate()
 
         payment_move = statement.line_ids.move_id
-        csv = self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, payment_move)
-        reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
+        f = StringIO(self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, payment_move))
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.assertIn(['5,67', 'h', 'EUR', '26700000', '12010000', self.tax_19.l10n_de_datev_code, '212', payment_move.name, "Early Payment Discount"], data)
 
@@ -738,10 +742,10 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         move_guid = move._l10n_de_datev_get_guid()
 
-        with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10_de_datev_export_to_zip_and_attach(options)['file_content']), 'r') as zf:
+        with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10_de_datev_export_to_zip_and_attach(options)['file_content']), 'r') as zf,\
+                io.TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), encoding='utf-8') as f:
             xml = zf.open('document.xml').read()
-            csv = zf.open('EXTF_accounting_entries.csv')
-            reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+            reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
             csv_data = list(reader)[2]
 
         self.assertEqual(f'BEDI"{move_guid}"', csv_data[19])

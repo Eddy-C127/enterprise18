@@ -1,3 +1,4 @@
+import csv
 import io
 
 from freezegun import freeze_time
@@ -5,7 +6,6 @@ from freezegun import freeze_time
 from odoo import Command, fields, tools
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 from odoo.tests import tagged
-from odoo.tools import pycompat
 from odoo.tests.common import test_xsd
 
 
@@ -132,7 +132,7 @@ class TestDKReport(TestDKReportCommon):
         report = self.env.ref('account_reports.general_ledger_report')
         options = report.get_options()
         csv_content = self.env[report.custom_handler_model_name].l10n_dk_export_general_ledger_csv(options)['file_content']
-        reader = pycompat.csv_reader(io.BytesIO(csv_content), delimiter=',')
+        reader = csv.reader(io.StringIO(csv_content.decode()), delimiter=',')
 
         expected_values = (
             # _20230131 is not the export date, but rather the date at which the norm of this csv export was enforced
