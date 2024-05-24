@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { queryAll, queryAllTexts } from "@odoo/hoot-dom";
+import { click, queryAll, queryFirst, queryAllTexts } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import {
     contains,
@@ -14,6 +14,7 @@ import {
     SELECTORS,
     getActiveScale,
     getGridContent,
+    getTexts,
     mountGanttView,
     selectGanttRange,
     setScale,
@@ -1070,4 +1071,116 @@ test("switch startDate and stopDate if not in <= relation", async () => {
     expect(getGridContent().range).toBe("28 February 2019 - 01 March 2019");
     await selectGanttRange({ startDate: "2019-02-28", stopDate: "2006-01-06" });
     expect(getGridContent().range).toBe("06 January 2006 - 05 January 2016"); // + exchange + span 10 years max
+});
+
+test("popover-template with a footer", async () => {
+    expect.assertions(9);
+    onRpc("unlink", ({ model, method, args }) => {
+        expect(model).toBe("tasks");
+        expect(method).toBe("unlink");
+        expect(args).toEqual([[2]]);
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `
+            <gantt date_start="start" date_stop="stop">
+                <templates>
+                    <t t-name="gantt-popover">
+                        Content
+                        <footer>
+                            <button name="unlink" type="object" string="Delete" icon="fa-trash" class="btn btn-sm btn-secondary"/>
+                        </footer>
+                    </t>
+                </templates>
+            </gantt>
+        `,
+        domain: [["id", "=", 2]],
+    });
+    expect(SELECTORS.pill).toHaveCount(1);
+    expect(".o_popover").toHaveCount(0);
+
+    click(queryFirst(SELECTORS.pill));
+    await animationFrame();
+    expect(".o_popover").toHaveCount(1);
+    expect(".o_popover .popover-footer button").toHaveCount(2);
+    expect(getTexts(".o_popover .popover-footer button")).toEqual(["Edit", "Delete"]);
+
+    click(".o_popover .popover-footer button:last-child");
+    await animationFrame();
+    expect(SELECTORS.pill).toHaveCount(0);
+});
+
+test("popover-template with a footer (replace='1')", async () => {
+    expect.assertions(9);
+    onRpc("unlink", ({ model, method, args }) => {
+        expect(model).toBe("tasks");
+        expect(method).toBe("unlink");
+        expect(args).toEqual([[2]]);
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `
+            <gantt date_start="start" date_stop="stop">
+                <templates>
+                    <t t-name="gantt-popover">
+                        Content
+                        <footer replace="1">
+                            <button name="unlink" type="object" string="Delete" icon="fa-trash" class="btn btn-sm btn-secondary"/>
+                        </footer>
+                    </t>
+                </templates>
+            </gantt>
+        `,
+        domain: [["id", "=", 2]],
+    });
+    expect(SELECTORS.pill).toHaveCount(1);
+    expect(".o_popover").toHaveCount(0);
+
+    click(queryFirst(SELECTORS.pill));
+    await animationFrame();
+    expect(".o_popover").toHaveCount(1);
+    expect(".o_popover .popover-footer button").toHaveCount(1);
+    expect(".o_popover .popover-footer button").toHaveText("Delete");
+
+    click(".o_popover .popover-footer button");
+    await animationFrame();
+    expect(SELECTORS.pill).toHaveCount(0);
+});
+
+test("popover-template with a button in the body", async () => {
+    expect.assertions(11);
+    onRpc("unlink", ({ model, method, args }) => {
+        expect(model).toBe("tasks");
+        expect(method).toBe("unlink");
+        expect(args).toEqual([[2]]);
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `
+            <gantt date_start="start" date_stop="stop">
+                <templates>
+                    <t t-name="gantt-popover">
+                            <button name="unlink" type="object" string="Delete" icon="fa-trash" class="btn btn-sm btn-secondary"/>
+                        <footer>
+                        </footer>
+                    </t>
+                </templates>
+            </gantt>
+        `,
+        domain: [["id", "=", 2]],
+    });
+    expect(SELECTORS.pill).toHaveCount(1);
+    expect(".o_popover").toHaveCount(0);
+
+    click(queryFirst(SELECTORS.pill));
+    await animationFrame();
+    expect(".o_popover").toHaveCount(1);
+    expect(".o_popover .popover-body button").toHaveCount(1);
+    expect(".o_popover .popover-footer button").toHaveCount(1);
+    expect(".o_popover .popover-body button").toHaveText("Delete");
+    expect(".o_popover .popover-footer button").toHaveText("Edit");
+
+    click(".o_popover .popover-body button");
+    await animationFrame();
+    expect(SELECTORS.pill).toHaveCount(0);
 });

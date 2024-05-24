@@ -22,9 +22,7 @@ import { debounce, throttleForAnimation } from "@web/core/utils/timing";
 import { url } from "@web/core/utils/urls";
 import { useVirtualGrid } from "@web/core/virtual_grid_hook";
 import { formatFloatTime } from "@web/views/fields/formatters";
-import { useViewCompiler } from "@web/views/view_compiler";
 import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
-import { GanttCompiler } from "./gantt_compiler";
 import { GanttConnector } from "./gantt_connector";
 import {
     dateAddFixedOffset,
@@ -232,13 +230,6 @@ export class GanttRenderer extends Component {
 
         const position = localization.direction === "rtl" ? "bottom" : "right";
         this.popover = usePopover(this.constructor.components.Popover, { position });
-
-        const { popoverTemplate } = this.model.metaData;
-        if (popoverTemplate) {
-            this.popoverTemplate = useViewCompiler(GanttCompiler, {
-                popoverTemplate,
-            }).popoverTemplate;
-        }
 
         this.throttledComputeHoverParams = throttleForAnimation((ev) =>
             this.computeHoverParams(ev)
@@ -1641,9 +1632,10 @@ export class GanttRenderer extends Component {
      */
     getPopoverProps(pill) {
         const { record } = pill;
-        const displayName = record.display_name;
-        const { canEdit, dateStartField, dateStopField } = this.model.metaData;
-        const context = this.popoverTemplate
+        const { id: resId, display_name: displayName } = record;
+        const { canEdit, dateStartField, dateStopField, popoverArchParams, resModel } =
+            this.model.metaData;
+        const context = popoverArchParams.bodyTemplate
             ? { ...record }
             : /* Default context */ {
                   name: displayName,
@@ -1652,17 +1644,23 @@ export class GanttRenderer extends Component {
               };
 
         return {
+            ...popoverArchParams,
             title: displayName,
             context,
-            template: this.popoverTemplate,
-            button: {
-                text: canEdit ? _t("Edit") : _t("View"),
-                // Sync with the mutex to wait for potential changes on the view
-                onClick: () =>
-                    this.model.mutex.exec(
-                        () => this.props.openDialog({ resId: record.id }) // (canEdit is also considered in openDialog)
-                    ),
-            },
+            resId,
+            resModel,
+            reload: () => this.model.fetchData(),
+            buttons: [
+                {
+                    text: canEdit ? _t("Edit") : _t("View"),
+                    class: "btn btn-sm btn-primary",
+                    // Sync with the mutex to wait for potential changes on the view
+                    onClick: () =>
+                        this.model.mutex.exec(
+                            () => this.props.openDialog({ resId }) // (canEdit is also considered in openDialog)
+                        ),
+                },
+            ],
         };
     }
 

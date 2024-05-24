@@ -8,7 +8,6 @@ import { useService } from "@web/core/utils/hooks";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
 import { escape } from "@web/core/utils/strings";
 import { MilestonesPopover } from "./milestones_popover";
-import { TaskGanttPopover } from "./task_gantt_popover";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { formatFloatTime } from "@web/views/fields/formatters";
 
@@ -16,7 +15,6 @@ export class TaskGanttRenderer extends GanttRenderer {
     static components = {
         ...GanttRenderer.components,
         Avatar,
-        Popover: TaskGanttPopover,
     };
     static headerTemplate = "project_enterprise.TaskGanttRenderer.Header";
     static rowHeaderTemplate = "project_enterprise.TaskGanttRenderer.RowHeader";
@@ -169,10 +167,12 @@ export class TaskGanttRenderer extends GanttRenderer {
         if (record.planning_overlap) {
             props.context.planningOverlapHtml = markup(record.planning_overlap);
         }
-        props.unschedule = async () => {
-            await this.model.unscheduleTask(record.id);
-        };
         props.context.allocated_hours = formatFloatTime(props.context.allocated_hours);
+        props.buttons.push({
+            text: _t("Unschedule"),
+            class: "btn btn-sm btn-secondary",
+            onClick: () => this.model.unscheduleTask(record.id),
+        });
         return props;
     }
 

@@ -221,7 +221,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
      */
     getPopoverProps(pill) {
         const popoverProps = super.getPopoverProps(pill);
-        if (this.popoverTemplate) {
+        if (popoverProps.bodyTemplate) {
             const { record } = pill;
             Object.assign(popoverProps.context, {
                 allocatedHoursFormatted:

@@ -112,7 +112,11 @@ export class GanttArchParser {
     parse(arch) {
         let infoFromRootNode;
         const decorationFields = [];
-        let popoverTemplate = null;
+        const popoverArchParams = {
+            displayGenericButtons: true,
+            bodyTemplate: null,
+            footerTemplate: null,
+        };
 
         visitXML(arch, (node) => {
             switch (node.tagName) {
@@ -126,9 +130,20 @@ export class GanttArchParser {
                     break;
                 }
                 case "templates": {
-                    popoverTemplate = node.querySelector("[t-name=gantt-popover]") || null;
-                    if (popoverTemplate) {
-                        popoverTemplate.removeAttribute("t-name");
+                    const body = node.querySelector("[t-name=gantt-popover]") || null;
+                    if (body) {
+                        popoverArchParams.bodyTemplate = body.cloneNode(true);
+                        popoverArchParams.bodyTemplate.removeAttribute("t-name");
+                        const footer = popoverArchParams.bodyTemplate.querySelector("footer");
+                        if (footer) {
+                            footer.remove();
+                            const footerTemplate = new Document().createElement("t");
+                            footerTemplate.append(...footer.children);
+                            popoverArchParams.footerTemplate = footerTemplate;
+                            popoverArchParams.displayGenericButtons = !archParseBoolean(
+                                footer.getAttribute("replace")
+                            );
+                        }
                     }
                 }
             }
@@ -137,7 +152,7 @@ export class GanttArchParser {
         return {
             ...infoFromRootNode,
             decorationFields,
-            popoverTemplate,
+            popoverArchParams,
         };
     }
 }

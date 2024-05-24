@@ -2,7 +2,6 @@ import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 import { user } from "@web/core/user";
 import { GanttRenderer } from "@web_gantt/gantt_renderer";
-import { AppointmentBookingGanttPopover } from "@appointment/views/gantt/gantt_popover";
 import { patch } from "@web/core/utils/patch";
 const { DateTime } = luxon;
 import { onWillStart } from "@odoo/owl";
@@ -12,7 +11,6 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
     static components = {
         ...GanttRenderer.components,
         GanttRendererControls: AppointmentBookingGanttRendererControls,
-        Popover: AppointmentBookingGanttPopover,
     }
 
     /**
@@ -167,7 +165,6 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
     async getPopoverProps(pill) {
         const popoverProps = super.getPopoverProps(pill);
         const { record } = pill;
-        const attendedState = record.appointment_attended;
         const partner_ids = record.partner_ids || [];
         let contact_partner_id = false;
         if (record.partner_ids) {
@@ -187,17 +184,6 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
                 phone: '',
             }];
         Object.assign(popoverProps, {
-            markAsAttendedCallback: () => {
-                this.orm.call(
-                    'calendar.event',
-                    'write',
-                    [record.id, {
-                        appointment_attended: !attendedState,
-                    }],
-                ).then(() => this.model.fetchData());
-            },
-            appointmentTypeId: record.appointment_type_id,
-            attendedState,
             title: popoverValues[0].name || this.getDisplayName(pill),
             context: {
                 ...popoverProps.context,
@@ -206,6 +192,21 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
                 gantt_pill_contact_phone: popoverValues[0].phone,
             }
         });
+        if (record.appointment_type_id) {
+            const attendedState = record.appointment_attended;
+            popoverProps.buttons[0].class = "btn btn-sm btn-secondary";
+            popoverProps.buttons.unshift({
+                text: attendedState ? _t("Unconfirm Check-In") : _t("Confirm Check-In"),
+                class: "btn btn-sm btn-primary",
+                onClick: () => this.orm.call(
+                        "calendar.event",
+                        "write",
+                        [record.id, {
+                            appointment_attended: !attendedState,
+                        }],
+                    ).then(() => this.model.fetchData()),
+            })
+        }
         return popoverProps;
     }
 }

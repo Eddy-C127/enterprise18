@@ -157,9 +157,9 @@ test("Unschedule button is displayed", async () => {
     });
     await mountGanttView(ganttViewParams);
     await contains(".o_gantt_pill").click();
-    expect(".btn.btn-sm.btn-secondary.ms-1").toHaveCount(1);
-    expect(".btn.btn-sm.btn-secondary.ms-1").toHaveText("Unschedule");
-    await contains(".btn.btn-sm.btn-secondary.ms-1").click();
+    expect(".btn.btn-sm.btn-secondary").toHaveCount(1);
+    expect(".btn.btn-sm.btn-secondary").toHaveText("Unschedule");
+    await contains(".btn.btn-sm.btn-secondary").click();
     expect(["unschedule task"]).toVerifySteps();
 });
 
