@@ -24,8 +24,11 @@ Accounting Data for Australian Payroll Rules.
         "views/hr_contract_views.xml",
         "views/hr_payslip_views.xml",
         "views/res_config_settings_views.xml",
+        "views/hr_payslip_run_views.xml",
+        "views/hr_employee_views.xml",
+        "wizard/account_payment_register_views.xml",
+        "wizard/hr_payroll_report_wizard_views.xml",
         "security/ir.model.access.csv",
-        "wizard/hr_payroll_aba_wizard_views.xml",
     ],
     'demo': [
         "data/l10n_au_hr_payroll_account_demo.xml",

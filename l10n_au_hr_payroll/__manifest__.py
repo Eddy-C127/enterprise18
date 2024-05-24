@@ -26,7 +26,6 @@ Australian Payroll Rules.
         "views/hr_structure_type_views.xml",
         "views/hr_payslip_input_type_views.xml",
         "views/hr_leave_type_views.xml",
-        "views/hr_payslip_run_views.xml",
         "views/hr_work_entry_type_views.xml",
         "views/report_payslip_templates.xml",
         "views/l10n_au_payevnt_0004_views.xml",

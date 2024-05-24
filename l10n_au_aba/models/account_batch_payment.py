@@ -31,13 +31,17 @@ class AccountBatchPayment(models.Model):
                     )
         if bank_account.acc_type != 'aba' or not bank_account.aba_bsb:
             raise RedirectWarning(
-                message=_("The account %s, of journal '%s', is not valid for ABA.\nEither its account number is incorrect or it has no BSB set.", bank_account.acc_number, journal.name),
+                message=_("The account %(account_number)s, of journal '%(journal_name)s', is not valid for ABA.\n"
+                "Either its account number is incorrect or it has no BSB set.",
+                account_number=bank_account.acc_number, journal_name=journal.name),
                 action=bank_account._get_records_action(name=_("Configure Account"), target="new"),
                 button_text=_("Configure Account")
             )
         if not journal.aba_fic or not journal.aba_user_spec or not journal.aba_user_number:
             raise RedirectWarning(
-                        message=_("ABA fields for account '%s', of journal '%s', are not set. Please set the fields under ABA section!", bank_account.acc_number, journal.name),
+                        message=_("ABA fields for account '%(account_number)s', of journal '%(journal_name)s',"
+                        "are not set. Please set the fields under ABA section!",
+                        account_number=bank_account.acc_number, journal_name=journal.name),
                         action=journal._get_records_action(name=_("Configure Journal"), target="new"),
                         button_text=_("Configure Journal")
                     )

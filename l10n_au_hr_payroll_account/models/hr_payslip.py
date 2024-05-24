@@ -1,10 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import base64
-from datetime import datetime
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError, RedirectWarning
+from odoo.exceptions import UserError
 
 
 class HrPayslip(models.Model):
@@ -16,68 +14,6 @@ class HrPayslip(models.Model):
     def _compute_has_superstream(self):
         for rec in self:
             rec.has_superstream = bool(rec._get_superstreams())
-
-    def _generate_aba_file(self, journal_id):
-        bank_account = journal_id.bank_account_id
-        if not bank_account:
-            raise RedirectWarning(
-                        message=_("The bank account on journal '%s' is not set. Please create a new account or set an existing one.", journal_id.name),
-                        action=journal_id._get_records_action(name=_("Configure Journal"), target="new"),
-                        button_text=_("Configure Journal Bank Account")
-                    )
-        if bank_account.acc_type != 'aba' or not bank_account.aba_bsb:
-            raise RedirectWarning(
-                message=_("The account %(account)s, of journal '%(journal)s', is not valid for ABA.\nEither its account number is incorrect or it has no BSB set.", account=bank_account.acc_number, journal=journal_id.name),
-                action=bank_account._get_records_action(name=_("Configure Account"), target="new"),
-                button_text=_("Configure Account")
-            )
-        if not journal_id.aba_fic or not journal_id.aba_user_spec or not journal_id.aba_user_number:
-            raise RedirectWarning(
-                        message=_("ABA fields for account '%(account)s', of journal '%(journal)s', are not set. Please set the fields under ABA section!", account=bank_account.acc_number, journal=journal_id.name),
-                        action=journal_id._get_records_action(name=_("Configure Journal"), target="new"),
-                        button_text=_("Configure Journal")
-                    )
-        # Redirect to employee as some accounts may be missing
-        faulty_employee_accounts = self.env['hr.employee']
-        for payslip in self:
-            if payslip.employee_id.bank_account_id.acc_type != 'aba' or not payslip.employee_id.bank_account_id.aba_bsb:
-                faulty_employee_accounts |= payslip.employee_id
-            if not payslip.employee_id.bank_account_id.allow_out_payment:
-                faulty_employee_accounts |= payslip.employee_id
-        if faulty_employee_accounts:
-            raise RedirectWarning(
-                message=_("Bank accounts for the following Employees' maybe invalid or missing. Please ensure each employee has a valid"
-                          "ABA account with a valid BSB or Account number and allow it to send money.\n %s",
-                          "\n".join(faulty_employee_accounts.mapped("display_name"))),
-                action=faulty_employee_accounts._get_records_action(name=_("Configure Employee Accounts")),
-                button_text=_("Configure Employee Accounts")
-            )
-        filename_date = fields.Datetime.context_timestamp(self, datetime.now()).strftime("%Y%m%d%H%M")
-
-        aba_date = fields.Date.context_today(self).strftime('%d%m%y')
-        aba_values = {
-            'aba_date': aba_date,
-            'aba_description': 'PAYROLL',
-            'self_balancing_reference': 'PAYROLL %s' % aba_date,
-            'payments_data': [{
-                'name': payslip.number,
-                'amount': payslip.net_wage,
-                'bank_account': payslip.employee_id.bank_account_id,
-                'account_holder': payslip.employee_id,
-                'transaction_code': 53,  # PAYROLL
-                'reference': payslip.number,
-            } for payslip in self]
-        }
-
-        export_file_data = {
-            'filename': f'ABA-{journal_id.code}-{filename_date}.aba',
-            'file': base64.encodebytes(self.env['account.batch.payment']._create_aba_document(journal_id, aba_values).encode()),
-        }
-
-        self.payslip_run_id.write({
-            'l10n_au_export_aba_file': export_file_data['file'],
-            'l10n_au_export_aba_filename': export_file_data['filename'],
-        })
 
     def action_payslip_done(self):
         """
@@ -152,3 +88,19 @@ class HrPayslip(models.Model):
         lines_to_exclude = self.move_id.line_ids.filtered(lambda l: l.account_id == super_account)
         res['context']['active_ids'] = [l for l in res['context']['active_ids'] if l not in lines_to_exclude.ids]
         return res
+
+    def action_payslip_payment_report(self, export_format='aba'):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'hr.payroll.payment.report.wizard',
+            'view_mode': 'form',
+            'view_id': 'hr_payslip_payment_report_view_form',
+            'views': [(False, 'form')],
+            'target': 'new',
+            'context': {
+                'default_payslip_ids': self.ids,
+                'default_payslip_run_id': self.payslip_run_id.id,
+                'default_export_format': export_format,
+            },
+        }
