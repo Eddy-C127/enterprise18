@@ -442,14 +442,12 @@ const embedKanbanActWindowSteps = [{ // manually insert view from act_window obj
         const restoreSelection = () => {
             return setSelection(this.anchor);
         };
-        wysiwyg._insertEmbeddedView(
-            undefined,
-            articleItemsKanbanAction,
-            "kanban",
-            articleItemsKanbanAction.name,
-            restoreSelection,
+        wysiwyg._insertEmbeddedView({
+            act_window: articleItemsKanbanAction,
+            display_name: articleItemsKanbanAction.name,
+            view_type: "kanban",
             context
-        );
+        }, restoreSelection);
     },
 },
 ...commonKanbanSteps(embedKanbanActWindowName)];

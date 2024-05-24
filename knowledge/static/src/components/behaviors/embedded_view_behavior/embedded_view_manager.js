@@ -111,6 +111,7 @@ export class EmbeddedViewManager extends Component {
             name: this.props.getTitle(),
             saveItemCalendarProps: async (name, itemCalendarProps) => {
                 this.props.setTitle(name);
+                this.env.config.setDisplayName(name);
                 this.state.additionalViewProps.itemCalendarProps = itemCalendarProps;
                 const behaviorProps = decodeDataBehaviorProps(this.props.anchor.dataset.behaviorProps);
                 behaviorProps.additionalViewProps.itemCalendarProps = itemCalendarProps;
@@ -242,6 +243,9 @@ export class EmbeddedViewManager extends Component {
         if (action.search_view_id) {
             viewProps.searchViewId = action.search_view_id[0];
         }
+        if (action.help) {
+            viewProps.noContentHelp = action.help;
+        }
         if (context.orderBy) {
             try {
                 viewProps.orderBy = JSON.parse(context.orderBy);
@@ -287,6 +291,7 @@ export class EmbeddedViewManager extends Component {
             viewType: this.props.viewType,
             save: name => {
                 this.props.setTitle(name);
+                this.env.config.setDisplayName(name);
             },
             close: () => {}
         });

@@ -12,9 +12,6 @@
     background-color: $o-webclient-background-color;
 
     .o_knowledge_embedded_view {
-        .o_content:not(.o_view_sample_data) .o_view_nocontent:not(.o_knowledge_item_calendar_nocontent) {
-            display: none !important;
-        }
         .o_content {
             max-height: 80vh;
         }
@@ -31,9 +28,19 @@
     }
     .o_list_renderer {
         margin-bottom: 0 !important;
+        &:has(.o_view_nocontent) {
+            min-height: 300px;
+        }
     }
     .o_kanban_renderer {
         min-height: 6rem;
+        overflow: hidden;
+        &.o_kanban_grouped {
+            min-height: 250px;
+        }
+        &:has(.o_view_nocontent) {
+            min-height: 350px;
+        }
     }
     .o_kanban_view {
         .o_project_updates_breadcrumb {
@@ -42,11 +49,6 @@
         .o_field_properties {
             padding-left: 0 !important;
             padding-right: 0 !important;
-        }
-        .o_content:has(div.o_kanban_group) .o_kanban_renderer {
-            // force kanban grouped by (stage mainly) to be a bit taller,
-            // to ease reading of stages.
-            min-height: 250px;
         }
     }
     .o_graph_renderer {
