@@ -95,6 +95,7 @@ class ECSalesReportCustomHandler(models.AbstractModel):
                     *self.env['account.tax']._check_company_domain(self.env.company),
                     ('amount', '=', 0.0),
                     ('amount_type', '=', 'percent'),
+                    ('type_tax_use', '=', 'sale'),
                 ]).ids),
                 'services': tuple(),
                 'triangular': tuple(),
