@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import datetime
@@ -18,7 +17,7 @@ class HrLeave(models.Model):
         ('blocked', 'To defer to next payslip')], string='Payslip State',
         copy=False, default='normal', required=True, tracking=True)
 
-    def action_validate(self):
+    def action_validate(self, check_state=True):
         # Get employees payslips
         all_payslips = self.env['hr.payslip'].sudo().search([
             ('employee_id', 'in', self.mapped('employee_id').ids),
@@ -36,7 +35,7 @@ class HrLeave(models.Model):
                 and (payslip.date_from <= leave.date_to.date() \
                 and payslip.date_to >= leave.date_from.date()) for payslip in waiting_payslips):
                 leave.payslip_state = 'blocked'
-        res = super().action_validate()
+        res = super().action_validate(check_state=check_state)
         self.sudo()._recompute_payslips()
         return res
 

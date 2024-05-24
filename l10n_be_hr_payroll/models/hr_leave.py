@@ -5,8 +5,8 @@ class HolidaysRequest(models.Model):
     _name = "hr.leave"
     _inherit = 'hr.leave'
 
-    def action_validate(self):
-        res = super(HolidaysRequest, self).action_validate()
+    def action_validate(self, check_state=True):
+        res = super().action_validate(check_state=check_state)
         activity_type_id = self.env.ref('mail.mail_activity_data_todo').id
         res_model_id = self.env.ref('hr_holidays.model_hr_leave').id
         for leave in self:

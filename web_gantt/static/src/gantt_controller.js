@@ -157,6 +157,7 @@ export class GanttController extends Component {
                 resModel,
                 viewId,
                 resId: props.resId,
+                size: props.size,
                 mode: canEdit ? "edit" : "readonly",
                 context: props.context,
                 removeRecord,

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "Time off Gantt",
     'summary': """Gantt view for Time Off Dashboard""",
@@ -12,5 +11,10 @@
     'data': [
         'views/hr_holidays_gantt_view.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'hr_holidays_gantt/static/src/**/*',
+        ],
+    },
     'license': 'OEEL-1',
 }
