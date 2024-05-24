@@ -522,9 +522,11 @@ class Payslip(models.Model):
             if year == int(self.employee_id.first_contract_year_n1):
                 for line in self.employee_id.double_pay_line_n1_ids:
                     fixed_salary += basic * line.months_count * line.occupation_rate / 100 / 12
+                    n_months += line.months_count
             elif year == int(self.employee_id.first_contract_year_n):
                 for line in self.employee_id.double_pay_line_n_ids:
                     fixed_salary += basic * line.months_count * line.occupation_rate / 100 / 12
+                    n_months += line.months_count
 
         force_avg_variable_revenues = self.input_line_ids.filtered(lambda l: l.code == 'VARIABLE')
         if force_avg_variable_revenues:
