@@ -57,7 +57,7 @@ export class WorkorderFormController extends FormController {
         };
         // after executing button action
         const reload = () => this.workorderBus.trigger("refresh");
-        useViewButtons(this.model, rootRef, { beforeExecuteAction, reload });
+        useViewButtons(rootRef, { beforeExecuteAction, reload });
 
         if (this.props.onRecordChanged) {
             const load = this.model.load.bind(this.model);

@@ -85,7 +85,7 @@ export class GridController extends Component {
                 : true,
         });
         const rootRef = useRef("root");
-        useViewButtons(this.model, rootRef, {
+        useViewButtons(rootRef, {
             beforeExecuteAction: this.beforeExecuteActionButton.bind(this),
             afterExecuteAction: this.afterExecuteActionButton.bind(this),
             reload: this.reload.bind(this),
