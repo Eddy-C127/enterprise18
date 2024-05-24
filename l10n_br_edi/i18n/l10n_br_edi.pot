@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server 17.4alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-05 22:48+0000\n"
-"PO-Revision-Date: 2023-12-05 22:48+0000\n"
+"POT-Creation-Date: 2024-06-07 14:00+0000\n"
+"PO-Revision-Date: 2024-06-07 14:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,7 @@ msgstr ""
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/models/account_move.py:0
-#, python-format
-msgid "%s on partner %s is required for e-invoicing"
+msgid "%(field)s on partner %(partner)s is required for e-invoicing"
 msgstr ""
 
 #. module: l10n_br_edi
@@ -245,14 +244,8 @@ msgid "Brazil: used to determine whether to submit this e-invoice."
 msgstr ""
 
 #. module: l10n_br_edi
-#: model:ir.model.fields,help:l10n_br_edi.field_account_move_send__l10n_br_edi_warning
-msgid "Brazil: used to display warnings in the wizard before sending."
-msgstr ""
-
-#. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/wizard/account_move_send.py:0
-#, python-format
 msgid ""
 "Brazilian e-invoicing was enabled but the following invoices cannot be e-invoiced:\n"
 "%s\n"
@@ -274,13 +267,20 @@ msgstr ""
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/wizard/l10n_br_edi_cancel_range.py:0
-#, python-format
-msgid "Cancelled range %s - %s for document type %s for reason \"%s\"."
+msgid ""
+"Cancelled range %(start_number)s - %(end_number)s for document type "
+"%(document_type)s for reason \"%(reason)s\"."
 msgstr ""
 
 #. module: l10n_br_edi
 #: model:ir.model.fields.selection,name:l10n_br_edi.selection__account_move__l10n_br_edi_payment_method__02
 msgid "Check"
+msgstr ""
+
+#. module: l10n_br_edi
+#. odoo-python
+#: code:addons/l10n_br_edi/wizard/account_move_send.py:0
+msgid "Check Invoice(s)"
 msgstr ""
 
 #. module: l10n_br_edi
@@ -360,21 +360,18 @@ msgstr ""
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/wizard/l10n_br_edi_invoice_update.py:0
-#, python-format
 msgid "E-invoice cancelled successfully."
 msgstr ""
 
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/wizard/l10n_br_edi_invoice_update.py:0
-#, python-format
 msgid "E-invoice corrected successfully for reason \"%s\"."
 msgstr ""
 
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/models/account_move.py:0
-#, python-format
 msgid "E-invoice submitted successfully."
 msgstr ""
 
@@ -396,21 +393,18 @@ msgstr ""
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/wizard/account_move_send.py:0
-#, python-format
 msgid "Errors when submitting the e-invoice:"
 msgstr ""
 
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/models/account_move.py:0
-#, python-format
 msgid "Fiscal Document Cancellation"
 msgstr ""
 
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/models/account_move.py:0
-#, python-format
 msgid "Fiscal Document Correction"
 msgstr ""
 
@@ -556,7 +550,6 @@ msgstr ""
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/models/account_move.py:0
-#, python-format
 msgid "Other"
 msgstr ""
 
@@ -612,7 +605,6 @@ msgstr ""
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/models/account_move.py:0
-#, python-format
 msgid ""
 "Tax has never been calculated on this invoice, please \"Reset to Draft\" and"
 " re-post."
@@ -657,11 +649,10 @@ msgstr ""
 #. module: l10n_br_edi
 #. odoo-python
 #: code:addons/l10n_br_edi/models/account_move.py:0
-#, python-format
 msgid ""
-"The originating invoice (%s) must have an access key before electronically "
-"invoicing %s. The access key can be set manually or by electronically "
-"invoicing %s."
+"The originating invoice (%(origin_invoice)s) must have an access key before "
+"electronically invoicing %(current_invoice)s. The access key can be set "
+"manually or by electronically invoicing %(origin_invoice)s."
 msgstr ""
 
 #. module: l10n_br_edi
@@ -684,8 +675,9 @@ msgid "Transporter Brazil"
 msgstr ""
 
 #. module: l10n_br_edi
-#: model:ir.model.fields,field_description:l10n_br_edi.field_account_move_send__l10n_br_edi_warning
-msgid "Warning"
+#. odoo-python
+#: code:addons/l10n_br_edi/wizard/account_move_send.py:0
+msgid "View Invoice(s)"
 msgstr ""
 
 #. module: l10n_br_edi

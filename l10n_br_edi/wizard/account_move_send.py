@@ -16,12 +16,6 @@ class AccountMoveSend(models.TransientModel):
         readonly=False,
         help="Brazil: used to determine whether to submit this e-invoice.",
     )
-    l10n_br_edi_warning = fields.Text(
-        "Warning",
-        compute="_compute_l10n_br_edi_warning",
-        readonly=True,
-        help="Brazil: used to display warnings in the wizard before sending.",
-    )
 
     @api.depends("move_ids")
     def _compute_l10n_br_edi_is_visible(self):
@@ -34,16 +28,24 @@ class AccountMoveSend(models.TransientModel):
             # Enable e-invoicing by default if possible for this invoice.
             wizard.l10n_br_edi_is_enabled = wizard.l10n_br_edi_is_visible
 
-    @api.depends("l10n_br_edi_is_enabled", "move_ids")
-    def _compute_l10n_br_edi_warning(self):
-        self.l10n_br_edi_warning = False
+    @api.depends("l10n_br_edi_is_enabled")
+    def _compute_warnings(self):
+        # EXTENDS 'account'
+        super()._compute_warnings()
         for wizard in self.filtered("l10n_br_edi_is_enabled"):
             if non_eligible := wizard.move_ids.filtered(lambda move: not move.l10n_br_edi_is_needed):
-                wizard.l10n_br_edi_warning = _(
-                    "Brazilian e-invoicing was enabled but the following invoices cannot be e-invoiced:\n%s\n"
-                    "If this is not intended, please check if an Avatax fiscal position is used on those invoices and if the invoice isn't already e-invoiced.",
-                    "\n".join(f"- {move.display_name}" for move in non_eligible),
-                )
+                wizard.warnings = {
+                    **(wizard.warnings or {}),
+                    'l10n_br_edi_non_eligible_moves': {
+                        'message': _(
+                            "Brazilian e-invoicing was enabled but the following invoices cannot be e-invoiced:\n%s\n"
+                            "If this is not intended, please check if an Avatax fiscal position is used on those invoices and if the invoice isn't already e-invoiced.",
+                            "\n".join(f"- {move.display_name}" for move in non_eligible),
+                        ),
+                        'action_text': _("View Invoice(s)"),
+                        'action': non_eligible._get_records_action(name=_("Check Invoice(s)")),
+                    },
+                }
 
     def _get_invoice_extra_attachments(self, move):
         # EXTENDS 'account'
