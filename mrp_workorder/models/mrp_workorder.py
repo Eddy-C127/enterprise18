@@ -477,8 +477,6 @@ class MrpProductionWorkcenterLine(models.Model):
                     lambda p: index < len(p.workorder_ids) and p.workorder_ids[index].state not in ('cancel', 'done')
                 )[:1]
 
-        self.move_raw_ids.picked = True
-        self.production_id.move_byproduct_ids.filtered(lambda m: m.operation_id == self.operation_id).picked = True
         self.button_finish()
 
         if backorder:

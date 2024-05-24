@@ -275,3 +275,70 @@ registry.category("web_tour.tours").add("test_canceled_wo", {
         },
     ],
 });
+
+registry.category("web_tour.tours").add('test_change_qty_produced', {
+    test: true, steps: () => [
+        {
+            content: 'Make sure workcenter is available',
+            trigger: '.form-check:has(input[name="WorkCenter"])',
+            run: "click",
+        },
+        {
+            content: 'Make sure that Workcenter was checked',
+            trigger: '.form-check:has(input[name="WorkCenter"]:checked)',
+        },
+        {
+            content: 'Confirm workcenter',
+            trigger: 'button:contains("Confirm")',
+            run: "click",
+        },
+        {
+            content: 'Select workcenter',
+            trigger: 'button.btn-light:contains("WorkCenter")',
+            run: "click",
+        },
+        {
+            content: 'Open the wizard',
+            trigger: '.o_mrp_record_line .text-decoration-line-through:contains("Register Production")',
+            run: "click",
+        },
+        {
+            content: 'Edit the quantity producing',
+            trigger: 'input[inputmode="decimal"]',
+            run: "edit 3",
+        },
+        {
+            content: 'Validate',
+            trigger: 'button.btn-primary:contains("Validate")',
+            run: "click",
+        },
+        {
+            content: 'Waiting modal to close',
+            trigger: "body:not(:has(.o_dialog))",
+        },
+        {
+            content: "Mark the WorkOrder as Done",
+            trigger: 'button.btn-primary:contains("Mark as Done")',
+            run: "click",
+        },
+        {
+            content: "Check if the WO was finished",
+            trigger: 'button.btn-primary:contains("Close Production")',
+            run: "click",
+        },
+        {
+            content: "Confirm consumption warning",
+            trigger: 'button.btn-primary:contains("Confirm")',
+            run: "click",
+        },
+        {
+            content: "Dismiss backorder",
+            trigger: 'button.btn-secondary:contains("No Backorder")',
+            run: "click",
+        },
+        {
+            content: "Check that there are no open work orders",
+            trigger: '.o_nocontent_help',
+        },
+    ]
+});

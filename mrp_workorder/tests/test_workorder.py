@@ -230,6 +230,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         wo.finished_lot_id = self.sp1
         self.assertEqual(wo.move_raw_ids.move_line_ids[0].lot_id, self.mc1, 'The suggested lot is wrong')
         wo.move_raw_ids.move_line_ids[0].quantity = 1
+        wo.move_raw_ids.picked = True
         wo.do_finish()
 
         wo = sorted_workorder_ids[1]
@@ -237,6 +238,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         self.assertEqual(wo.finished_lot_id, self.sp1, 'The suggested final product is wrong')
         self.assertEqual(wo.move_raw_ids.move_line_ids[0].lot_id, self.elon1, 'The suggested lot is wrong')
         wo.move_raw_ids.move_line_ids[0].quantity = 1
+        wo.move_raw_ids.picked = True
         wo.move_raw_ids.move_line_ids[0].copy({'lot_id': self.elon2.id, 'quantity': 1})
         wo.do_finish()
 

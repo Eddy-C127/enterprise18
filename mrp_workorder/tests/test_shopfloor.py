@@ -1,4 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from odoo import Command
 from odoo.tests import Form
 from odoo.tests.common import HttpCase, tagged
 
@@ -271,3 +272,75 @@ class TestShopFloor(HttpCase):
         action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
         url = f"/odoo/action-{action['id']}"
         self.start_tour(url, "test_canceled_wo", login='admin')
+
+    def test_change_qty_produced(self):
+        """
+            Check that component quantity matches the quantity produced set in the shop
+            floor register production change to the quantity produced
+            Example:
+                move.uom_unit = 2.
+                bom.final_quantity = 1
+                MO.qty_producing = 5 -> should consume 10 components for move_raw.
+                Confirm MO and update MO.qty_producing = 3
+                Finish the workorder, then it should consume 6 components for move_raw.
+            The above behaviour should be occur on the MO form and shop floor.
+        """
+        demo = self.env['product.product'].create({
+            'name': 'DEMO'
+        })
+        comp1 = self.env['product.product'].create({
+            'name': 'COMP1',
+            'is_storable': True
+        })
+        comp2 = self.env['product.product'].create({
+            'name': 'COMP2',
+            'is_storable': True
+        })
+        work_center = self.env['mrp.workcenter'].create({"name": "WorkCenter", "time_start": 11})
+        uom_unit = self.env.ref('uom.product_uom_unit')
+        bom = self.env['mrp.bom'].create({
+            'product_id': demo.id,
+            'product_tmpl_id': demo.product_tmpl_id.id,
+            'product_uom_id': uom_unit.id,
+            'product_qty': 1.0,
+            'type': 'normal',
+            'operation_ids': [
+                Command.create({'name': 'OP1', 'workcenter_id': work_center.id, 'time_cycle': 12, 'sequence': 1}),
+                Command.create({'name': 'OP2', 'workcenter_id': work_center.id, 'time_cycle': 18, 'sequence': 2})
+            ]
+        })
+        self.env['mrp.bom.line'].create([
+            {
+                'product_id': comp.id,
+                'product_qty': qty,
+                'bom_id': bom.id,
+                'operation_id': operation.id,
+            } for comp, qty, operation in zip([comp1, comp2], [1.0, 2.0], bom.operation_ids)
+        ])
+        self.env['stock.quant'].create([
+            {
+                'location_id': self.env.ref('stock.warehouse0').lot_stock_id.id,
+                'product_id': comp.id,
+                'inventory_quantity': 20,
+            } for comp in [comp1, comp2]
+        ]).action_apply_inventory()
+
+        mo_form = Form(self.env['mrp.production'])
+        mo_form.bom_id = bom
+        mo_form.product_qty = 5
+        mo = mo_form.save()
+        mo.action_confirm()
+
+        wo = mo.workorder_ids.sorted()[0]
+        wo.button_start()
+        wo.button_finish()
+
+        self.start_tour("/odoo/shop-floor", "test_change_qty_produced", login='admin')
+        self.assertEqual(mo.qty_producing, 3)
+        for move in mo.move_raw_ids:
+            if move.product_id.id == comp1.id:
+                self.assertEqual(move.quantity, 5)
+                self.assertTrue(move.picked)
+            if move.product_id.id == comp2.id:
+                self.assertEqual(move.quantity, 6)
+                self.assertTrue(move.picked)
