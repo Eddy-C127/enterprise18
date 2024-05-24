@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import csv
 
-from odoo import api, fields, models, _
-from odoo.tools import pycompat, float_repr
-from odoo.exceptions import UserError
+from odoo import fields, models, _
+from odoo.tools import float_repr
 
 from datetime import datetime
 from collections import namedtuple
@@ -139,8 +139,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         datev_info = self._l10n_de_datev_get_client_number()
         account_length = self._l10n_de_datev_get_account_length()
 
-        output = io.BytesIO()
-        writer = pycompat.csv_writer(output, delimiter=';', quotechar='"', quoting=2)
+        output = io.StringIO()
+        writer = csv.writer(output, delimiter=';', quotechar='"', quoting=2)
         preheader = ['EXTF', 510, 16, 'Debitoren/Kreditoren', 4, None, None, '', '', '', datev_info[0], datev_info[1], fy, account_length,
             '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
         header = ['Konto', 'Name (AdressatentypUnternehmen)', 'Name (Adressatentypnatürl. Person)', '', '', '', 'Adressatentyp', '', '', 'EU-UStId']
@@ -230,8 +230,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         datev_info = self._l10n_de_datev_get_client_number()
         account_length = self._l10n_de_datev_get_account_length()
 
-        output = io.BytesIO()
-        writer = pycompat.csv_writer(output, delimiter=';', quotechar='"', quoting=2)
+        output = io.StringIO()
+        writer = csv.writer(output, delimiter=';', quotechar='"', quoting=2)
         preheader = ['EXTF', 510, 21, 'Buchungsstapel', 7, '', '', '', '', '', datev_info[0], datev_info[1], fy, account_length,
             date_from, date_to, '', '', '', '', 0, 'EUR', '', '', '', '', '', '', '', '', '']
         header = [

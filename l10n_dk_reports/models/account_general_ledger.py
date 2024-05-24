@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-import contextlib
+import csv
 import io
 
 from odoo.exceptions import UserError
-from odoo.tools import pycompat, street_split
+from odoo.tools import street_split
 
 from odoo import api, models, _
 
@@ -113,10 +113,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             account_balance = int(line['columns'][balance_index]['no_format'])  # balance value must be a whole number
             csv_lines.append((account_number, account_name, account_balance))
 
-        with contextlib.closing(io.BytesIO()) as buf:
-            writer = pycompat.csv_writer(buf, delimiter=',')
+        with io.StringIO() as buf:
+            writer = csv.writer(buf, delimiter=',')
             writer.writerows(csv_lines)
-            content = buf.getvalue()
+            content = buf.getvalue().encode()
 
         return {
             'file_name': report.get_default_report_filename(options, 'csv'),

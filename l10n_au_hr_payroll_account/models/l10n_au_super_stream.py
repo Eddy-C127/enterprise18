@@ -1,11 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
+import csv
 import io
 import base64
 from operator import itemgetter
 
 from odoo import api, fields, models, _
-from odoo.tools import format_list, groupby, pycompat
+from odoo.tools import format_list, groupby
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare
 
@@ -155,11 +155,11 @@ class L10auSuperStream(models.Model):
         self.ensure_one()
 
         self.super_stream_file.unlink()
-        with io.BytesIO() as output:
-            writer = pycompat.csv_writer(output, delimiter=';', quotechar='"', quoting=2)
+        with io.StringIO() as output:
+            writer = csv.writer(output, delimiter=';', quotechar='"', quoting=2)
             data = self.prepare_rendering_data()
             writer.writerows(data)
-            base64_result = base64.encodebytes(output.getvalue())
+            base64_result = base64.encodebytes(output.getvalue().encode())
 
         self.super_stream_file = self.env["ir.attachment"].create(
             {

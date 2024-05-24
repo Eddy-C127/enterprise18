@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import contextlib
+import csv
 import io
 import logging
 import re
@@ -175,12 +176,13 @@ class L10nBeHrPayrollWarrantPayslipsController(http.Controller):
     @http.route("/export/warrant_payslips/<int:wizard_id>", type='http', auth='user')
     def export_employee_file(self, wizard_id):
         wizard = request.env['hr.payroll.generate.warrant.payslips'].browse(wizard_id)
-        with contextlib.closing(io.BytesIO()) as buf:
-            writer = pycompat.csv_writer(buf, quoting=1)
-            writer.writerow(("Employee Name", "ID", "Commission on Target"))
-
-            for line in wizard.line_ids:
-                writer.writerow((line.employee_id.name, str(line.employee_id.id), str(line.commission_amount)))
+        with io.StringIO() as buf:
+            writer = csv.writer(buf, quoting=1)
+            writer.writerow(["Employee Name", "ID", "Commission on Target"])
+            writer.writerows(
+                [line.employee_id.name, line.employee_id.id, line.commission_amount]
+                for line in wizard.line_ids
+            )
             content = buf.getvalue()
 
         name = "exported_employees.csv"
@@ -188,7 +190,6 @@ class L10nBeHrPayrollWarrantPayslipsController(http.Controller):
 
         headers = [
             ('Content-Type', 'text/csv'),
-            ('Content-Length', len(content)),
             ('Content-Disposition', content_disposition('exported_employees.csv'))
         ]
         return request.make_response(content, headers=headers)

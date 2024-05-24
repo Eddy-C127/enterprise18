@@ -1,12 +1,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-import contextlib
+import csv
 import io
 from collections import defaultdict
 
 from odoo import _, models
 from odoo.exceptions import RedirectWarning
-from odoo.tools import pycompat
 
 
 class DenmarkECSalesReportCustomHandler(models.AbstractModel):
@@ -166,13 +164,12 @@ class DenmarkECSalesReportCustomHandler(models.AbstractModel):
             ]
         )
 
-        with contextlib.closing(io.BytesIO()) as buf:
-            writer = pycompat.csv_writer(buf, delimiter=',')
-            writer.writerows(csv_lines)
-            content = buf.getvalue()
+        buf = io.StringIO()
+        writer = csv.writer(buf, delimiter=',')
+        writer.writerows(csv_lines)
 
         return {
             'file_name': report.get_default_report_filename(options, 'csv'),
-            'file_content': content,
+            'file_content': buf.getvalue().encode(),
             'file_type': 'csv',
         }

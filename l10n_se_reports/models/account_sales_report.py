@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import contextlib
+import csv
 import io
 from collections import defaultdict
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
-from odoo.tools import pycompat, date_utils
+from odoo.tools import date_utils
 
 
 class SwedishECSalesReportCustomHandler(models.AbstractModel):
@@ -115,10 +114,10 @@ class SwedishECSalesReportCustomHandler(models.AbstractModel):
                 else:
                     columns.append('')
             lines.append(columns)
-        with contextlib.closing(io.BytesIO()) as buf:
-            writer = pycompat.csv_writer(buf, delimiter=';')
+        with io.StringIO() as buf:
+            writer = csv.writer(buf, delimiter=';')
             writer.writerows(lines)
-            content = buf.getvalue()
+            content = buf.getvalue().encode()
         return {
             'file_name': report.get_default_report_filename(options, 'KVR'),
             'file_content': content,
