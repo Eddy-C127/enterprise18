@@ -146,8 +146,8 @@ msgstr ""
 "            </style>\n"
 "            <div>\n"
 "                <p>Hubo algunos errores en la sincronización de las ordenes de envío y no se completó.</p>\n"
-"                <p>Corrija los problemas antes de sincronizar de nuevo las ordenes de envío, pues no se intentará otra sincronización.</p>\n"
-"                <p>Estos son los errores que Amazon detectó: </p>\n"
+"                <p>Corrija los problemas antes de volver a sincronizar las ordenes de envío de forma manual, pues no se intentará otra sincronización.</p>\n"
+"                <p>Estos son algunos errores que envió Amazon: </p>\n"
 "                <table class=\"amz_table\">\n"
 "                    <thead>\n"
 "                        <tr>\n"
@@ -161,8 +161,8 @@ msgstr ""
 "                            <td>\n"
 "                                <t t-if=\"error['message']\" t-out=\"error['message']\"></t>\n"
 "                                <t t-else=\"\">Ocurrió un error desconocido durante la sincronización con Amazon.\n"
-"                                    Desafortunadamente, debe comprobar manualmente si el estado de la orden es correcto o no.\n"
-"                                    Puede encontrar toda la información referente a esto\n"
+"                                    Desafortunadamente, deberá revisar de forma manual si el estado de la orden es correcto o no.\n"
+"                                    Puede encontrar toda la información relacionada con esto\n"
 "                                    <a href=\"https://www.odoo.com/documentation/latest/applications/sales/sales/amazon_connector/manage.html#manage_deliveries_errors\">\n"
 "                                        en la documentación\n"
 "                                    </a>.</t>\n"
@@ -260,7 +260,7 @@ msgstr ""
 "                }\n"
 "            </style>\n"
 "            <div>\n"
-"                <p>La sincronización de la disponibilidad de productos para la cuenta de Amazon\n"
+"                <p>La sincronización de la disponibilidad de los productos de la cuenta de Amazon\n"
 "                    <b><t t-out=\"ctx.get('amazon_account') or ''\">REF</t></b>\n"
 "                    tuvo algunos errores y no se pudo completar.</p>\n"
 "                <p>Estos son algunos errores que envió Amazon: </p>\n"
@@ -268,7 +268,7 @@ msgstr ""
 "                    <thead>\n"
 "                        <tr>\n"
 "                            <th>SKU</th>\n"
-"                            <th>Message</th>\n"
+"                            <th>Mensaje</th>\n"
 "                        </tr>\n"
 "                    </thead>\n"
 "                    <tbody>\n"
@@ -277,7 +277,7 @@ msgstr ""
 "                            <td>\n"
 "                                <t t-if=\"error['message']\" t-out=\"error['message']\"></t>\n"
 "                                <t t-else=\"\">Ocurrió un error desconocido durante la sincronización con Amazon.\n"
-"                                    Desafortunadamente, deberá revisar manualmente si las cantidades disponibles del producto son correctas o no.\n"
+"                                    Desafortunadamente, deberá revisar de forma manual si las cantidades disponibles del producto son correctas o no.\n"
 "                                </t>\n"
 "                            </td>\n"
 "                        </tr>\n"
@@ -448,9 +448,9 @@ msgid ""
 "Since the current carrier doesn't automatically provide a tracking "
 "reference, you need to set one manually."
 msgstr ""
-"Amazon requiere que se proporcione una referencia de seguimiento con cada "
-"entrega. Dado que el transportista actual no proporciona automáticamente una"
-" referencia de seguimiento, es necesario establecer una manualmente."
+"Amazon requiere que proporcione una referencia de seguimiento con cada "
+"entrega. Como el transportista actual no proporciona una referencia en "
+"automático, debe establecer una de forma manual."
 
 #. module: sale_amazon
 #. odoo-python
@@ -460,8 +460,8 @@ msgid ""
 "Amazon requires that a tracking reference is provided with each delivery. "
 "You need to assign a carrier to this delivery."
 msgstr ""
-"Amazon requiere que se proporcione una referencia de seguimiento con cada "
-"entrega. Es necesario asignar un transportista a esta entrega."
+"Amazon requiere que proporcione una referencia de seguimiento con cada "
+"entrega. Asigne un transportista a esta entrega."
 
 #. module: sale_amazon
 #: model:amazon.marketplace,name:sale_amazon.marketplace_AE
@@ -947,7 +947,7 @@ msgstr "Ofertas"
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "Only available marketplaces can be selected"
-msgstr "Solo se pueden seleccionar los marketplaces disponibles"
+msgstr "Solo puede seleccionar los marketplaces disponibles"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__order_count
@@ -1142,7 +1142,7 @@ msgstr "Sincronizar órdenes"
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.inventory_sync_failure
 msgid "Synchronization of Amazon Stock has failed"
-msgstr "Falló la sincronización de las existencias de Amazon "
+msgstr "Ocurrió un error con la sincronización de las existencias de Amazon "
 
 #. module: sale_amazon
 #: model:mail.template,subject:sale_amazon.order_sync_failure
@@ -1193,9 +1193,9 @@ msgid ""
 " (%(status)s) is not eligible for synchronization for its fulfillment "
 "channel (%(channel)s)."
 msgstr ""
-"La orden de Amazon con referencia  %(ref)s no se pudo recuperar porque su "
-"estado  (%(status)s) no es candidato para la sincronización para su canal de"
-" logística (%(channel)s)."
+"No fue posible recuperar la orden de Amazon con referencia %(ref)s. Su "
+"estado (%(status)s) no es apto para la sincronización para su canal de "
+"logística (%(channel)s)."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__region
@@ -1203,23 +1203,23 @@ msgid ""
 "The Amazon region of the marketplace. Please refer to the Selling Partner "
 "API documentation to find the correct region."
 msgstr ""
-"La región del marketplace de Amazon. Consulte la documentación de API de "
-"partner de venta para encontrar la región correcta."
+"La región del marketplace de Amazon. Consulte la documentación de la API del"
+" colaborador comercial para encontrar la región correcta."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_sale_order_line__amazon_item_ref
 msgid "The Amazon-defined item reference."
-msgstr "La referencia del artículo definido por Amazon"
+msgstr "La referencia del artículo definido por Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__api_ref
 msgid "The Amazon-defined marketplace reference."
-msgstr "Referencia de marketplace definida por Amazon"
+msgstr "La referencia de marketplace definida por Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_sale_order__amazon_order_ref
 msgid "The Amazon-defined order reference."
-msgstr "La referencia de la orden definida por Amazon"
+msgstr "La referencia de la orden definida por Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__team_id
@@ -1246,14 +1246,14 @@ msgid ""
 "The communication with the API failed.\n"
 "Error code: %s; description: %s"
 msgstr ""
-"Falló la comunicación con la API.\n"
-"Código de error: %s; descripción: %s"
+"Ocurrió un error de comunicación con la API.\n"
+"Código de error: %s. Descripción: %s"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_res_partner__amazon_email
 #: model:ir.model.fields,help:sale_amazon.field_res_users__amazon_email
 msgid "The encrypted email of the customer. Does not forward mails."
-msgstr "Correo electrónico encriptado del cliente. No reenvía los correos"
+msgstr "El correo electrónico encriptado del cliente. No reenvía los correos."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__base_marketplace_id
@@ -1270,8 +1270,8 @@ msgid ""
 " in Odoo."
 msgstr ""
 "Última fecha de sincronización de los pedidos realizados en esta cuenta. No "
-"se crearán ni actualizarán en Odoo los pedidos cuyo estado no hayan cambiado"
-" desde esa fecha."
+"se crearán ni actualizarán en Odoo los pedidos cuyo estado no haya cambiado "
+"desde esa fecha."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__location_id
@@ -1279,8 +1279,8 @@ msgid ""
 "The location of the stock managed by Amazon under the Amazon Fulfillment "
 "program."
 msgstr ""
-"Ubicación de las existencias administradas por Amazon conforme al programa "
-"Logística de Amazon"
+"Ubicación de las existencias gestionadas por Amazon con el programa "
+"Logística de Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__refresh_token
@@ -1319,7 +1319,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__access_token_expiry
 msgid "The moment at which the token becomes invalid."
-msgstr "El momento en el que el token se vuelve no válido."
+msgstr "El momento en el que el token deja de ser válido."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1345,7 +1345,7 @@ msgstr "No se encontró la orden en esta cuenta de la plataforma de ventas. "
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "The provided reference does not match any Amazon order."
-msgstr "La referencia ingresada no concuerda con ninguna orden de Amazon. "
+msgstr "La referencia ingresada no coincide con ninguna orden de Amazon. "
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_recover_order_wizard__amazon_order_ref
@@ -1463,7 +1463,7 @@ msgstr ""
 msgid ""
 "There can only exist one sale order for a given Amazon Order Reference."
 msgstr ""
-"Solo puede existir una orden de venta para una determinada referencia de la "
+"Solo puede existir una orden de venta para una referencia específica de la "
 "orden de Amazon."
 
 #. module: sale_amazon
@@ -1471,8 +1471,8 @@ msgstr ""
 msgid ""
 "There can only exist one sale order line for a given Amazon Item Reference."
 msgstr ""
-"Solo puede existir una línea de venta para una determinada referencia del "
-"artículo de Amazon."
+"Solo puede existir una línea de orden de venta para una referencia "
+"específica del artículo de Amazon."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form

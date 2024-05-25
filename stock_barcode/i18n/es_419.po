@@ -228,8 +228,8 @@ msgid ""
 "An unexisting package type was scanned. This part of the barcode can't be "
 "processed."
 msgstr ""
-"Se escaneó un tipo de paquete que no existe. No se puede procesar esta parte"
-" del código de barras."
+"Escaneó un tipo de paquete que no existe. No es posible procesar esta parte "
+"del código de barras."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -620,7 +620,7 @@ msgstr ""
 msgid ""
 "If you validate now, the remaining products will be added to a backorder."
 msgstr ""
-"Si confirma ahora, los productos restantes se añadirán a la orden parcial. "
+"Si valida ahora, los productos restantes se agregarán a la orden parcial."
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__image_1920
@@ -644,8 +644,7 @@ msgstr "Traslado incompleto"
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_scrap__product_barcode
 msgid "International Article Number used for product identification."
-msgstr ""
-"Número de artículo internacional usado para la identificación de producto."
+msgstr "Número de artículo internacional usado para identificar el producto."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1188,8 +1187,8 @@ msgstr "Escanee un producto y después la ubicación de destino."
 msgid ""
 "Scan a product, a lot/serial number or a package to filter the transfers."
 msgstr ""
-"Escanee un producto, un lote/número de serie o paquete para filtrar las "
-"transferencias."
+"Escanee un producto, un número de serie, de lote o un paquete para filtrar "
+"los traslados."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1210,7 +1209,7 @@ msgstr "Escanee un producto, un paquete o la ubicación de destino."
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number"
-msgstr "Escanear un número de serie"
+msgstr "Escanee un número de serie"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1289,7 +1288,7 @@ msgstr "Escanee más números de lote o un paquete"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan more products in %s or scan another location"
-msgstr "Escanear más productos en %s o escanear otra ubicación"
+msgstr "Escanee más productos en %s o escanee otra ubicación"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1324,7 +1323,7 @@ msgstr "Escanee la ubicación de destino"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan the package %s"
-msgstr "Escanear el paquete %s"
+msgstr "Escanee el paquete %s"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1348,7 +1347,7 @@ msgid ""
 "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible "
 "with the line's one (%s)."
 msgstr ""
-"La cantidad escaneada utiliza %s como Unidad de Medida, pero esta UdM no es "
+"La cantidad escaneada utiliza %s como unidad de medida, pero esta UdM no es "
 "compatible con la de la línea (%s)."
 
 #. module: stock_barcode
@@ -1387,7 +1386,7 @@ msgstr "Seleccione un producto"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "Serial/Lot Number"
-msgstr "Número de serie/de lote"
+msgstr "Número de serie/lote"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__show_barcode_nomenclature
@@ -1418,7 +1417,7 @@ msgstr "Paquete de origen"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #, python-format
 msgid "Stay on transfer"
-msgstr "Quedarse en la transferencia "
+msgstr "Mantener en el traslado"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_package_type
@@ -1448,7 +1447,7 @@ msgid ""
 "Technical field used to compute whether the \"Final Validation\" group "
 "should be displayed, solving combined groups/invisible complexity."
 msgstr ""
-"Campo técnico que se utiliza para calcular si se debe mostrar el grupo "
+"Campo técnico que se utiliza para calcular si debe aparecer el grupo "
 "\"Validación final\", resolviendo los grupos combinados y la complejidad "
 "invisible."
 
@@ -1459,6 +1458,13 @@ msgstr ""
 #, python-format
 msgid "The inventory adjustment has been validated"
 msgstr "Se validó el ajuste de inventario"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "The scanned location doesn't belong to this operation's destination"
+msgstr "La ubicación escaneada no pertenece al destino de esta operación"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1590,7 +1596,7 @@ msgstr "UdM"
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 #, python-format
 msgid "Use camera to scan"
-msgstr "Usar cámara para escánear "
+msgstr "Use la cámara para escanear"
 
 #. module: stock_barcode
 #. odoo-javascript

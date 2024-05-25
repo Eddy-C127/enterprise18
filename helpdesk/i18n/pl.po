@@ -97,6 +97,9 @@ msgid ""
 "persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or "
 "<b># mentions</b> to contact a group of people."
 msgstr ""
+"<b>Zapisz notatki </b> do komunikacji wewnętrznej (powiadomisz tylko osoby, "
+"które specjalnie oznaczysz). Użyj <b>@ mentions</b> aby wysłać ping do "
+"współpracownika <b># mentions</b> aby skontaktować się z grupą osób."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -124,6 +127,17 @@ msgid ""
 "    </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"        Szanowna(y) <t t-out=\"object.sudo().partner_id.name or 'Madam/Sir'\">Pani/Panie</t>,<br><br>\n"
+"         Chcielibyśmy poinformować, że zamknęliśmy zgłoszenie (numer referencyjny <t t-out=\"object.id or ''\">15</t>). \n"
+"       Ufamy, że świadczone usługi spełniły Twoje oczekiwania i że znalazłeś satysfakcjonujące rozwiązanie swojego.<br><br>\n"
+"        Jeśli jednak masz dalsze pytania lub uwagi, nie wahaj się odpowiedzieć na tę wiadomość e-mail, aby ponownie otworzyć zgłoszenie. \n"
+"Nasz zespół jest zawsze gotowy do pomocy i z przyjemnością odpowie na wszelkie dalsze pytania.<br><br>\n"
+"         Dziękujemy za wybranie naszych usług i za współpracę w trakcie tego procesu. Naprawdę cenimy Twój biznes i doceniamy możliwość służenia Ci pomocą.<br><br>\n"
+"        Z poważaniem,<br><br>\n"
+"        <t t-out=\"object.team_id.name or 'Helpdesk'\">Helpdesk</t> zespół.\n"
+"    </div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.rating_ticket_request_email_template
@@ -289,12 +303,12 @@ msgstr "<small class=\"text-end\">Etap:</small>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<small class=\"text-muted\">Assigned to</small>"
-msgstr ""
+msgstr "<small class=\"text-muted\">Przypisany do</small>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<small class=\"text-muted\">Customer</small>"
-msgstr ""
+msgstr "<small class=\"text-muted\">Klient</small>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
@@ -308,11 +322,14 @@ msgid ""
 "title=\"By saving this change, the customer phone number will also be "
 "updated.\" invisible=\"not is_partner_phone_update\"/>"
 msgstr ""
+"<span class=\"fa fa-exclamation-triangle text-warning oe_edit_only\" "
+"title=\"By saving this change, the customer phone number will also be "
+"updated.\" invisible=\"not is_partner_phone_update\"/>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_activity
 msgid "<span class=\"m-1\"/>#"
-msgstr ""
+msgstr "<span class=\"m-1\"/>#"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -422,7 +439,7 @@ msgstr "<strong class=\"col-lg-2\">Zarządzany przez</strong>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<strong class=\"col-lg-3\">Reported on</strong>"
-msgstr ""
+msgstr "<strong class=\"col-lg-3\">Zgłoszono na</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -733,6 +750,10 @@ msgid ""
 "that is not publicly available, or there is no customer associated with the "
 "ticket."
 msgstr ""
+"W tej chwili nie jest dostępny podgląd klienta. Klient nie może uzyskać "
+"dostępu do bieżącego zgłoszenia, ponieważ należy ono do zespołu pomocy "
+"technicznej, który nie jest publicznie dostępny, lub nie ma klienta "
+"powiązanego ze zgłoszeniem."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_attachment_count
@@ -879,6 +900,9 @@ msgid ""
 "Centralize, manage, share and grow your knowledge library. Allow customers "
 "to search your articles in the help center for answers to their questions."
 msgstr ""
+"Centralizuj, zarządzaj, udostępniaj i rozwijaj swoją bibliotekę wiedzy. "
+"Pozwól klientom przeszukiwać Twoje artykuły w centrum pomocy w poszukiwaniu "
+"odpowiedzi na ich pytania."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1245,7 +1269,7 @@ msgstr "Termin"
 #: code:addons/helpdesk/static/src/views/helpdesk_ticket_pivot/helpdesk_ticket_pivot_model.js:0
 #, python-format
 msgid "Deadline reached"
-msgstr ""
+msgstr "Termin został osiągnięty"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_defaults
@@ -1304,7 +1328,7 @@ msgstr "Odrzuć"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__display_extra_info
 msgid "Display Extra Info"
-msgstr ""
+msgstr "Wyświetlanie dodatkowych informacji"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__display_name
@@ -1483,7 +1507,7 @@ msgstr "Śledź zgłoszenia wszystkich zespołów"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_my_home_helpdesk_ticket
 msgid "Follow all your helpdesk tickets"
-msgstr ""
+msgstr "Śledzenie wszystkich zgłoszeń do działu pomocy technicznej"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -1540,7 +1564,7 @@ msgstr "Zgłoszenia przez formularz online"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Grant discounts, free products or free shipping"
-msgstr ""
+msgstr "Udzielanie rabatów, darmowych produktów lub darmowej wysyłki"
 
 #. module: helpdesk
 #. odoo-python
@@ -1694,7 +1718,7 @@ msgstr "Zespół punktu pomocy"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_search
 msgid "Helpdesk Team Search"
-msgstr ""
+msgstr "Wyszukiwanie zespołu Helpdesk"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_team_action
@@ -1739,7 +1763,7 @@ msgstr "Helpdesk: Prośba o ocenę zgłoszenia"
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.new_ticket_request_email_template
 msgid "Helpdesk: Ticket Received"
-msgstr ""
+msgstr "Helpdesk: Otrzymano zgłoszenie"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2040,6 +2064,9 @@ msgid ""
 " to search your forum posts in the help center for answers to their "
 "questions."
 msgstr ""
+"Pozwól swoim klientom odpowiadać sobie nawzajem na pytania na forum. Pozwól "
+"klientom przeszukiwać posty na forum w centrum pomocy w poszukiwaniu "
+"odpowiedzi na ich pytania."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2804,7 +2831,7 @@ msgstr "Odnośnik"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_refund_status
 msgid "Refund Status"
-msgstr ""
+msgstr "Status zwrotu"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_credit_notes
@@ -3086,6 +3113,11 @@ msgid ""
 "team. Automatically send an email to customers when a ticket reaches a "
 "specific stage in a helpdesk team by setting this template on that stage."
 msgstr ""
+"Wysyłaj klientom wiadomość e-mail z potwierdzeniem, aby powiadomić ich, że "
+"ich zgłoszenie do działu pomocy technicznej zostało odebrane i jest obecnie "
+"sprawdzane przez zespół pomocy technicznej. Automatycznie wysyłaj wiadomości"
+" e-mail do klientów, gdy zgłoszenie osiągnie określony etap w zespole pomocy"
+" technicznej, ustawiając ten szablon na tym etapie."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__sequence
@@ -3135,6 +3167,9 @@ msgid ""
 "customers to search your eLearning courses in the help center for answers to"
 " their questions."
 msgstr ""
+"Udostępniaj prezentacje i filmy oraz organizuj je w kursy. Zezwalaj klientom"
+" na przeszukiwanie kursów e-learningowych w centrum pomocy w celu uzyskania "
+"odpowiedzi na ich pytania."
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_rating
@@ -3465,7 +3500,7 @@ msgstr "Ten krok jest zakończony. Kliknij, aby zablokować lub ustawić w toku.
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 #, python-format
 msgid "This ticket was closed %s hours after its SLA deadline."
-msgstr ""
+msgstr "To zgłoszenie zostało zamknięte%s godzin po terminie SLA."
 
 #. module: helpdesk
 #. odoo-python
@@ -4095,7 +4130,7 @@ msgstr ""
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.new_ticket_request_email_template
 msgid "{{ object.name }}"
-msgstr ""
+msgstr "{{ object.name }}"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_data

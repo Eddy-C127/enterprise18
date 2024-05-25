@@ -655,7 +655,7 @@ msgstr "Ajuste de estoque"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Inventory Adjustments ("
-msgstr "Ajustes de inventário ("
+msgstr "Ajustes de estoque ("
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_location
@@ -1452,6 +1452,13 @@ msgstr ""
 #, python-format
 msgid "The inventory adjustment has been validated"
 msgstr "O ajuste de estoque foi validado"
+
+#. module: stock_barcode
+#. odoo-javascript
+#: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
+#, python-format
+msgid "The scanned location doesn't belong to this operation's destination"
+msgstr "O local digitalizado não pertence ao destino dessa operação"
 
 #. module: stock_barcode
 #. odoo-javascript

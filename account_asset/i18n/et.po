@@ -116,6 +116,8 @@ msgid ""
 "Future entries will be recomputed to depreciate the asset following the "
 "changes."
 msgstr ""
+"Amortisatsiooni kanne postitatakse kuupäeval %s. <br/> %s Tuleviku kanded "
+"arvutatakse ümber, et amortiseerida vara arvestades muudatusi. "
 
 #. module: account_asset
 #. odoo-python
@@ -125,6 +127,8 @@ msgid ""
 "A depreciation entry will be posted on and including the date %s.<br/> A "
 "disposal entry will be posted on the %s account <b>%s</b>."
 msgstr ""
+"Amortisatsiooni kanne postitatakse kuupäeval %s.<br/> Mahakandmise kanne "
+"postitatakse %s kontole <b>%s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -162,7 +166,7 @@ msgstr "Juurdehindlus on loodud: "
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A non deductible tax value of %s was added to %s's initial value of %s"
-msgstr ""
+msgstr "Mitte mahaarvatav maks %slisati %salgväärtusele %s"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_account
@@ -286,7 +290,7 @@ msgstr "Lisa märkus"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "All the lines should be from the same account"
-msgstr ""
+msgstr "Kõik read peavad olema samalt kontolt"
 
 #. module: account_asset
 #. odoo-python
@@ -1267,7 +1271,7 @@ msgstr "Pole Prorata"
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__non_deductible_tax_value
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__non_deductible_tax_value
 msgid "Non Deductible Tax Value"
-msgstr ""
+msgstr "Mitte mahaarvatav maksu väärtus"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__salvage_value
@@ -1447,6 +1451,8 @@ msgid ""
 "Reverse the depreciation entries posted in the future in order to modify the"
 " depreciation"
 msgstr ""
+"Amortisatsiooni muutmiseks tühista postitatud tuleviku "
+"amortisatsioonikanded. "
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
@@ -1568,6 +1574,13 @@ msgid "The amount of time between two depreciations"
 msgstr "Kahe amortisatsiooni vaheline aeg"
 
 #. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__prorata_date
+msgid ""
+"Starting date of the period used in the prorata calculation of the first "
+"depreciation"
+msgstr ""
+
+#. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
@@ -1579,7 +1592,7 @@ msgstr "Sisestatud summa  (%s) ei võrdu seotud ostuarvete väärtusega.  (%s). 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id
 msgid "The asset to be modified by this wizard"
-msgstr ""
+msgstr "Vara, mida muudetakse viisardiga"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__children_ids
@@ -1791,7 +1804,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "You cannot reset to draft an entry related to a posted asset"
-msgstr ""
+msgstr "Postitatud varaga seotud kannet ei saa lähtestada mustandisse"
 
 #. module: account_asset
 #. odoo-python

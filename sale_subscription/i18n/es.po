@@ -8,6 +8,8 @@
 # Martin Trigaux, 2023
 # marcescu, 2023
 # Wil Odoo, 2024
+# Carolina Fernández, 2024
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -134,7 +136,7 @@ msgstr ""
 "                <table style=\"width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;\">\n"
 "                    <tbody>\n"
 "                        <tr><td style=\"padding:15px 20px 10px 20px;\">\n"
-"                            <p>Apreciable <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,</p>\n"
+"                            <p>Estimado/a <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,</p>\n"
 "                            <p>Su suscripción a <strong t-out=\"object.name or ''\">Servicio de limpieza de oficina\"</strong> requiere su atención.</p>\n"
 "                            <p>Haga clic en el siguiente enlace para renovar su suscripción.</p>\n"
 "                            <p>Saludos cordiales.</p>\n"
@@ -577,7 +579,7 @@ msgstr ""
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
-"                    Apreciable <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,<br><br>\n"
+"                    Estimado/a <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t>,<br><br>\n"
 "                    Su suscripción (<t t-out=\"ctx.get('subscription_name') or ''\">CODE</t>\n"
 "                    <t t-if=\"ctx.get('code')\">\n"
 "                    , Referencia: <t t-out=\"ctx.get('code')\"></t>\n"
@@ -2642,8 +2644,8 @@ msgstr "Gestione sus suscripciones"
 msgid ""
 "Managing payment methods requires to be logged in under the customer order."
 msgstr ""
-"La gestión de los métodos de pago requiere iniciar sesión desde la orden del"
-" cliente."
+"La gestión de los métodos de pago requiere iniciar sesión desde el pedido "
+"del cliente."
 
 #. module: sale_subscription
 #. odoo-python
@@ -3596,14 +3598,14 @@ msgstr "Líneas de orden de venta"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_log
 msgid "Sale Order Log"
-msgstr "Registro de las órdenes de venta"
+msgstr "Registro de los pedidos de venta"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_analysis_graph
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_graph
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_pivot
 msgid "Sale Order Log Analysis"
-msgstr "Análisis del registro de las órdenes de venta"
+msgstr "Análisis del registro de los pedidos de venta"
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.ir_cron_sale_subscription_update_kpi_ir_actions_server
@@ -3645,12 +3647,12 @@ msgstr "Informe del análisis de registro de ventas"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__sale
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__sale
 msgid "Sales Order"
-msgstr "Orden de venta"
+msgstr "Pedido de venta"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de orden de venta"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__team_ids
@@ -3948,7 +3950,7 @@ msgid ""
 "                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
 "                                                created subscription and renew %s instead"
 msgstr ""
-"La suscripción %s ha sido cancelada. La orden principal %s ha sido reabierto.\n"
+"La suscripción %s ha sido cancelada. El pedido principal %s ha sido reabierto.\n"
 "                                                Debe cerrar %s si el cliente la canceló o renovarla si el cliente sigue usando el servicio.\n"
 "                                                Nota: si ya ha creado una nueva suscripción en lugar de renovarla, cancele la\n"
 "                                                suscripción recién creada y renueve %s en su lugar."
@@ -4182,7 +4184,7 @@ msgid ""
 "Subscriptions can be automatically generated from sales orders in Sales or eCommerce\n"
 "                apps."
 msgstr ""
-"Se pueden generar suscripciones de forma automática a partir de las órdenes de venta en la aplicación de Ventas o\n"
+"Se pueden generar suscripciones de forma automática a partir de los pedidos de venta en la aplicación de Ventas o\n"
 "                Comercio electrónico."
 
 #. module: sale_subscription
@@ -4750,7 +4752,7 @@ msgid ""
 "                the alerts for the renewal of the subscriptions to the right salesperson."
 msgstr ""
 "Use suscripciones para seguir tareas, incidencias, hojas de asistencia o facturaciones basadas en\n"
-" trabajo realizado, gastos y/o órdenes de venta. Odoo derivará automáticamente\n"
+" trabajo realizado, gastos y/o pedidos de venta. Odoo derivará automáticamente\n"
 " las alertas de renovación de las suscripciones al comercial apropiado."
 
 #. module: sale_subscription
@@ -4897,7 +4899,7 @@ msgstr ""
 msgid ""
 "You can not churn a contract that has not been invoiced. Please cancel the "
 "contract instead."
-msgstr ""
+msgstr "No puede abandonar un contrato que no ha sido facturado, cancélelo."
 
 #. module: sale_subscription
 #. odoo-python

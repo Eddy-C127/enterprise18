@@ -4,6 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Carolina Fernández, 2024
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -28,7 +30,7 @@ msgstr "<span class=\"o_stat_text\">Planificado</span>"
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_form_inherit_sale_planning
 msgid "<span class=\"o_stat_text\">Sales Order</span>"
-msgstr "<span class=\"o_stat_text\">Orden de venta</span>"
+msgstr "<span class=\"o_stat_text\">Pedido de venta</span>"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.view_order_form_inherit_sale_planning
@@ -49,7 +51,7 @@ msgstr ""
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_gantt_inherit_sale_planning
 msgid "<strong>Sales Order Item  — </strong>"
-msgstr "<strong>Artículo de la orden de venta — </strong>"
+msgstr "<strong>Elemento del pedido de venta — </strong>"
 
 #. module: sale_planning
 #. odoo-javascript
@@ -59,7 +61,7 @@ msgid ""
 "All open shifts and sales orders have already been assigned, or there are no"
 " resources available to take them at this time."
 msgstr ""
-"Ya se asignaron todos los turnos abiertos y órdenes de ventas, o no hay "
+"Ya se asignaron todos los turnos abiertos y los pedidos de ventas, o no hay "
 "recursos disponibles para tomarlos en este momento. "
 
 #. module: sale_planning
@@ -70,7 +72,7 @@ msgstr "Tiempo asignado"
 #. module: sale_planning
 #: model:ir.ui.menu,name:sale_planning.sale_planning_menu_schedule_by_sale_order
 msgid "By Sales Order"
-msgstr "Por orden de venta"
+msgstr "Por pedido de venta"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__partner_id
@@ -117,14 +119,14 @@ msgid ""
 "automatically be assigned shifts for Sales Orders containing this service."
 msgstr ""
 "Si se habilita, se generará automáticamente un turno para el rol "
-"seleccionado al confirmar la orden de venta. Sólo a los empleados con este "
-"rol se les asignarán automáticamente turnos para las órdenes de venta que "
+"seleccionado al confirmar el pedido de venta. Sólo a los empleados con este "
+"rol se les asignarán automáticamente turnos para los pedidos de venta que "
 "contengan este servicio."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
 msgid "My Sales Orders"
-msgstr "Mis órdenes de venta"
+msgstr "Mis pedidos de venta"
 
 #. module: sale_planning
 #: model_terms:ir.actions.act_window,help:sale_planning.sale_planning_action_schedule_by_sale_order
@@ -137,7 +139,7 @@ msgid ""
 "Only slots linked to a sale order with a plannable service can be "
 "unscheduled."
 msgstr ""
-"Solo se puede anular la programación de los espacios vinculados a una orden "
+"Solo se puede anular la programación de los espacios vinculados a un pedido "
 "de venta con servicios planificables."
 
 #. module: sale_planning
@@ -239,7 +241,7 @@ msgstr "Producto del rol"
 #: model:ir.model.fields,field_description:sale_planning.field_planning_slot__sale_order_id
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
 msgid "Sales Order"
-msgstr "Orden de venta"
+msgstr "Pedido de venta"
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_analysis_report__sale_line_id
@@ -249,12 +251,12 @@ msgstr "Orden de venta"
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.resource_sale_planning
 msgid "Sales Order Item"
-msgstr "Artículo de la orden de venta"
+msgstr "Elemento del pedido de venta"
 
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de orden de venta"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_planning
 #: model:ir.model.fields,help:sale_planning.field_planning_slot__sale_line_id
@@ -263,15 +265,15 @@ msgid ""
 "are automatically planned, the remaining hours of the sales order item, as "
 "well as the role defined on the service, are taken into account."
 msgstr ""
-"Artículo de orden de venta para el que se realizará este turno. Cuando las "
-"órdenes de venta se planifican automáticamente, se consideran las horas "
-"restantes del artículo de la orden de venta, así como el rol que se define "
-"en el servicio."
+"Elemento de pedido de venta para el que se realizará este turno. Cuando los "
+"pedidos de venta se planifican automáticamente, se consideran las horas "
+"restantes del elemento del pedido de venta, así como el rol que se define en"
+" el servicio."
 
 #. module: sale_planning
 #: model:ir.actions.act_window,name:sale_planning.sale_planning_action_schedule_by_sale_order
 msgid "Schedule by Sales Order"
-msgstr "Programar por orden de venta"
+msgstr "Programar por pedido de venta"
 
 #. module: sale_planning
 #: model_terms:ir.actions.act_window,help:sale_planning.sale_planning_action_schedule_by_sale_order
@@ -279,8 +281,8 @@ msgid ""
 "Schedule your human and material resources across roles, projects and sales "
 "orders."
 msgstr ""
-"Programe sus recursos humanos y materiales entre roles, proyectos y órdenes "
-"de venta."
+"Programe sus recursos humanos y materiales a través de roles, proyectos y "
+"pedidos de venta."
 
 #. module: sale_planning
 #: model:ir.model.fields,field_description:sale_planning.field_planning_role__product_ids
@@ -310,7 +312,7 @@ msgstr "Usted descanse, nosotros nos encargamos."
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 #, python-format
 msgid "The open shifts and sales orders have been successfully assigned."
-msgstr "Los turnos abiertos y las órdenes de ventas se asignaron con éxito. "
+msgstr "Los turnos abiertos y los pedidos de venta se asignaron con éxito. "
 
 #. module: sale_planning
 #. odoo-python
@@ -320,7 +322,7 @@ msgid ""
 "This Sale Order Item doesn't have a target value of planned hours. Planned "
 "hours :"
 msgstr ""
-"Este artículo de orden de venta no tiene un valor objetivo de horas "
+"Este artículo de pedido de venta no tiene un valor objetivo de horas "
 "planificadas. Horas planificadas:"
 
 #. module: sale_planning

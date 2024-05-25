@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -29,8 +30,8 @@ msgid ""
 "automatically be assigned shifts for Sales Orders containing this service."
 msgstr ""
 "Si se habilita, se generará automáticamente un turno para el rol "
-"seleccionado al confirmar la orden de venta. Sólo a los empleados con este "
-"rol se les asignarán automáticamente turnos para las órdenes de venta que "
+"seleccionado al confirmar el pedido de venta. Sólo a los empleados con este "
+"rol se les asignarán automáticamente turnos para los pedidos de venta que "
 "contengan este servicio."
 
 #. module: sale_project_forecast
@@ -52,12 +53,12 @@ msgstr "Producto"
 #. module: sale_project_forecast
 #: model:ir.model.fields,field_description:sale_project_forecast.field_planning_slot__sale_line_id
 msgid "Sales Order Item"
-msgstr "Artículo de la orden de venta"
+msgstr "Elemento del pedido de venta"
 
 #. module: sale_project_forecast
 #: model:ir.model,name:sale_project_forecast.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de orden de venta"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_project_forecast
 #: model:ir.model.fields,help:sale_project_forecast.field_planning_slot__sale_line_id
@@ -66,7 +67,7 @@ msgid ""
 "are automatically planned, the remaining hours of the sales order item, as "
 "well as the role defined on the service, are taken into account."
 msgstr ""
-"Artículo de orden de venta para el que se realizará este turno. Cuando las "
-"órdenes de venta se planifican automáticamente, se consideran las horas "
-"restantes del artículo de la orden de venta, así como la función que se "
-"define en el servicio."
+"Elemento de pedido de venta para el que se realizará este turno. Cuando los "
+"pedidos de venta se planifican automáticamente, se consideran las horas "
+"restantes del elemento del pedido de venta, así como el rol que se define en"
+" el servicio."

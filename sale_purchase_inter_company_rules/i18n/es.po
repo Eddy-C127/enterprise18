@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -23,12 +24,12 @@ msgstr ""
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_purchase_order__auto_generated
 msgid "Auto Generated Purchase Order"
-msgstr "Orden de compra generada automáticamente"
+msgstr "Pedido de compra generado automáticamente"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_sale_order__auto_generated
 msgid "Auto Generated Sales Order"
-msgstr "Orden de venta generada automáticamente"
+msgstr "Pedido de venta generado automáticamente"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_company__auto_validation
@@ -79,8 +80,8 @@ msgid ""
 "Default value to set on Purchase(Sales) Orders that will be created based on"
 " Sale(Purchase) Orders made to this company"
 msgstr ""
-"Valor por defecto establecido en las órdenes de compra (venta) que se "
-"crearán basándose en las órdenes de venta (compra) para esta compañia."
+"Valor por defecto establecido en los pedidos de compra (venta) que se "
+"crearán basándose en los pedidos de venta (compra) para esta compañia."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -143,7 +144,7 @@ msgstr ""
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_purchase_order
 msgid "Purchase Order"
-msgstr "Orden de compra"
+msgstr "Pedido de compra"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_company__rule_type
@@ -153,12 +154,12 @@ msgstr "Regla"
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_sale_order
 msgid "Sales Order"
-msgstr "Orden de venta"
+msgstr "Pedido de venta"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de orden de venta"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,help:sale_purchase_inter_company_rules.field_res_company__rule_type
@@ -170,27 +171,27 @@ msgstr ""
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_sale_order__auto_purchase_order_id
 msgid "Source Purchase Order"
-msgstr "Orden de compra de origen"
+msgstr "Pedido de compra de origen"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_purchase_order__auto_sale_order_id
 msgid "Source Sales Order"
-msgstr "Orden de venta de origen"
+msgstr "Pedido de venta de origen"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields.selection,name:sale_purchase_inter_company_rules.selection__res_company__rule_type__purchase
 msgid "Synchronize Purchase Order"
-msgstr "Sincronizar orden de compra"
+msgstr "Sincronizar pedido de compra"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields.selection,name:sale_purchase_inter_company_rules.selection__res_company__rule_type__sale
 msgid "Synchronize Sales Order"
-msgstr "Sincronizar orden de venta"
+msgstr "Sincronizar el pedido de venta"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields.selection,name:sale_purchase_inter_company_rules.selection__res_company__rule_type__sale_purchase
 msgid "Synchronize Sales and Purchase Order"
-msgstr "Sincronizar órdenes de venta y de compra"
+msgstr "Sincronizar pedidos de venta y de compra"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model,name:sale_purchase_inter_company_rules.model_stock_picking
@@ -210,7 +211,7 @@ msgstr "Almacén"
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_config_settings__warehouse_id
 msgid "Warehouse For Purchase Orders"
-msgstr "Almacén para órdenes de compra"
+msgstr "Almacén para pedidos de compra"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -240,14 +241,14 @@ msgstr "borrador"
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
 msgid "purchase order"
-msgstr "orden de compra"
+msgstr "pedido de compra"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
 msgid "purchase/sales order"
-msgstr "orden de compra/venta"
+msgstr "pedido de compra/venta"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -255,14 +256,14 @@ msgstr "orden de compra/venta"
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
 msgid "sales order"
-msgstr "orden de venta"
+msgstr "pedido de venta"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
 #: code:addons/sale_purchase_inter_company_rules/models/res_company.py:0
 #, python-format
 msgid "sales/purchase order"
-msgstr "orden de venta/compra"
+msgstr "pedido de venta/compra"
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python

@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -56,7 +57,7 @@ msgstr "Archivado"
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Automatic PO frequency"
-msgstr "Frecuencia automática de órdenes de compra"
+msgstr "Frecuencia automática de pedidos de compra"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__is_capped
@@ -172,7 +173,7 @@ msgstr "Plan de congelación"
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Frequency at which purchase orders will be automatically confirmed"
 msgstr ""
-"Frecuencia en la que se confirmarán automáticamente las órdenes de compra"
+"Frecuencia en la que se confirmarán automáticamente los pedidos de compra"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__id
@@ -276,7 +277,7 @@ msgstr "Solamente documentos propios"
 #. module: partner_commission
 #: model:ir.actions.server,name:partner_commission.cron_confirm_purchase_orders_ir_actions_server
 msgid "Partner Commission: confirm purchase orders"
-msgstr "Comisión de contacto: confirmar órdenes de compra"
+msgstr "Comisión de contacto: confirmar pedidos de compra"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_partner_grade
@@ -323,7 +324,7 @@ msgstr "Productos predeterminados de compra"
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_purchase_order
 msgid "Purchase Order"
-msgstr "Orden de compra"
+msgstr "Pedido de compra"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_purchase_order__purchase_type
@@ -370,7 +371,7 @@ msgstr "Comisión de recomendante"
 #: model:ir.model.fields,field_description:partner_commission.field_account_move__commission_po_line_id
 #: model:ir.model.fields,field_description:partner_commission.field_account_payment__commission_po_line_id
 msgid "Referrer Purchase Order line"
-msgstr "Línea de la orden de compra del recomendante"
+msgstr "Línea del pedido de compra del recomendante"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__commission_rule_ids
@@ -391,7 +392,7 @@ msgstr "Informe del análisis de registro de ventas"
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_sale_order
 msgid "Sales Order"
-msgstr "Orden de venta"
+msgstr "Pedido de venta"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__sequence
@@ -441,7 +442,7 @@ msgid ""
 "The required minimum amount total needed to automatically confirm purchase "
 "orders"
 msgstr ""
-"La cantidad mínima requerida para confirmar órdenes de compra "
+"La cantidad mínima requerida para confirmar pedidos de compra "
 "automáticamente"
 
 #. module: partner_commission

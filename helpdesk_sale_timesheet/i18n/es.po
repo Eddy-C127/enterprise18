@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -174,12 +175,12 @@ msgstr ""
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
 msgid "Project's sale order"
-msgstr "Orden de venta del proyecto"
+msgstr "Pedido de venta del proyecto"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_order_id
 msgid "Ref. Sales Order"
-msgstr "Referencia de orden de venta "
+msgstr "Referencia del pedido de venta "
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__use_helpdesk_sale_timesheet
@@ -189,12 +190,12 @@ msgstr "Hoja de asistencia de refacturación activada en equipo"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Remaining Days on SO"
-msgstr "Días restantes en la orden de venta"
+msgstr "Días restantes en el pedido de venta"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Remaining Days on SO:"
-msgstr "Días restantes en la orden de venta:"
+msgstr "Días restantes en el pedido de venta:"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_available
@@ -207,12 +208,12 @@ msgstr "Horas restantes disponibles"
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__remaining_hours_so
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Remaining Hours on SO"
-msgstr "Horas restantes en la orden de venta"
+msgstr "Horas restantes en el pedido de venta"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Remaining Hours on SO:"
-msgstr "Horas restantes en la orden de venta"
+msgstr "Horas restantes en el pedido de venta:"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_product__sla_id
@@ -228,7 +229,7 @@ msgid ""
 "order item containing this service."
 msgstr ""
 "Política SLA que se aplicará automáticamente a los tickets vinculados a un "
-"artículo de una orden de venta que contenga este servicio."
+"elemento de un pedido de venta que contenga este servicio."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla_report_analysis
@@ -243,7 +244,7 @@ msgstr "Análisis del estado de SLA"
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 #, python-format
 msgid "Sales Order"
-msgstr "Orden de venta"
+msgstr "Pedido de venta"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__sale_line_id
@@ -251,7 +252,7 @@ msgstr "Orden de venta"
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__sale_line_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Sales Order Item"
-msgstr "Artículo de la orden de venta"
+msgstr "Elemento del pedido de venta"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_line_id
@@ -261,25 +262,25 @@ msgid ""
 "Remove the sales order item in order to make this ticket non-billable.\n"
 "You can also change or remove the sales order item of each timesheet entry individually."
 msgstr ""
-"El artículo de la orden de venta al que se agregará el tiempo dedicado en este ticket para que se facture a su cliente.\n"
-"Por defecto, se seleccionará el último artículo de orden de venta prepagado que tenga tiempo restante.\n"
-"Elimine el artículo de la orden de venta para hacer este ticket no facturable.\n"
-"También puede cambiar o eliminar individualmente el artículo de la orden de venta de cada entrada de hojas de asistencia."
+"El elemento del pedido de venta al que se agregará el tiempo dedicado en este ticket para que se facture a su cliente.\n"
+"Por defecto, se seleccionará el último elemento del pedido de venta prepagado que tenga tiempo restante.\n"
+"Elimine el elemento del pedido de venta para hacer este ticket no facturable.\n"
+"También puede cambiar o eliminar individualmente el elemento del pedido de venta de cada entrada de hojas de asistencia."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__sale_line_ids
 msgid "Sales Order Items"
-msgstr "Artículos de la orden de venta"
+msgstr "Elementos del pedido de venta"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de orden de venta"
+msgstr "Líneas de pedido de venta"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
 msgid "Sales order to which the project is linked."
-msgstr "Orden de venta a la que está vinculada el proyecto."
+msgstr "Pedido de venta al que está vinculado el proyecto."
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet

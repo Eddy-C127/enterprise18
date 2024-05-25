@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -150,7 +151,7 @@ msgstr ""
 "                <table class=\"amz_table\">\n"
 "                    <thead>\n"
 "                        <tr>\n"
-"                            <th>Referencia de la orden</th>\n"
+"                            <th>Referencia de el pedido</th>\n"
 "                            <th>Mensaje</th>\n"
 "                        </tr>\n"
 "                    </thead>\n"
@@ -160,7 +161,7 @@ msgstr ""
 "                            <td>\n"
 "                                <t t-if=\"error['message']\" t-out=\"error['message']\"></t>\n"
 "                                <t t-else=\"\">Ocurrió un error desconocido durante la sincronización con Amazon.\n"
-"                                    Desafortunadamente, debe comprobar manualmente si el estado de la orden es correcto o no.\n"
+"                                    Desafortunadamente, debe comprobar manualmente si el estado de el pedido es correcto o no.\n"
 "                                    Puede encontrar toda la información referente a esto\n"
 "                                    <a href=\"https://www.odoo.com/documentation/latest/applications/sales/sales/amazon_connector/manage.html#manage_deliveries_errors\">\n"
 "                                        en la documentación\n"
@@ -1058,12 +1059,12 @@ msgstr "EL SKU debe ser único para una cuenta determinada."
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_sale_order
 msgid "Sales Order"
-msgstr "Orden de venta"
+msgstr "Pedido de venta"
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Línea de orden de venta"
+msgstr "Línea de pedido de venta"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__team_id
@@ -1357,8 +1358,8 @@ msgstr "La referencia de la orden a recuperar de Amazon en formato 3-7-7"
 msgid ""
 "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
-"La orden de venta de esta orden de entrega no esta vinculada a una cuenta de"
-" Amazon. "
+"El pedido de venta de esta orden de entrega no esta vinculado a una cuenta "
+"de Amazon. "
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__account_id
