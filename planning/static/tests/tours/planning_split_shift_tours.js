@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
     trigger: ".o_popover .o_datetime_picker",
     content: "Select first day of the current week",
     run: (helpers) => {
-        const firstDayOfCurrentWeek = hoot.queryLast(".o_week_number_cell + .o_date_item_cell:has(~ .o_today)", { root: helpers.anchor });
+        const firstDayOfCurrentWeek = hoot.queryLast(".o_week_number_cell + .o_today, .o_week_number_cell + .o_date_item_cell:has(~ .o_today)", { root: helpers.anchor });
         hoot.click(firstDayOfCurrentWeek);
     },
 }, {
