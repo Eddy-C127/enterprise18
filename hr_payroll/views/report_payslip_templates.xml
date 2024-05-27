@@ -19,9 +19,9 @@
                     <td class="w-25"><strong>Pay Period</strong></td>
                 </tr>
                 <tr id="employee_info_line_2">
-                    <td><span t-field="o.employee_id">John Smith</span></td>
-                    <td><span t-field="o.employee_id.marital">Married</span></td>
-                    <td><span t-field="o.employee_id.job_title">Software Engineer</span></td>
+                    <td><span t-field="o.employee_id"/></td>
+                    <td><span t-field="o.employee_id.marital"/></td>
+                    <td><span t-field="o.employee_id.job_title"/></td>
                     <td>
                         <span t-if="o.date_from &lt; o.contract_id.date_start" t-field="o.contract_id.date_start">Start Date</span>
                         <span t-else="" t-field="o.date_from">From</span>
@@ -30,22 +30,22 @@
                     </td>
                 </tr>
                 <tr id="employee_info_line_3">
-                    <td><span t-field="o.employee_id.private_street">Rue du Paradis</span></td>
+                    <td><span t-field="o.employee_id.private_street"/></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
                 <tr id="employee_info_line_4">
-                    <td><span t-field="o.employee_id.private_city">Eghezee</span> <span t-field="o.employee_id.private_zip">380055</span></td>
+                    <td><span t-field="o.employee_id.private_city"/> <span t-field="o.employee_id.private_zip"/></td>
                     <td><strong>Person in charge</strong></td>
                     <td><strong>Identification</strong></td>
                     <td><strong>Computed on </strong></td>
                 </tr>
                 <tr id="employee_info_line_5">
-                    <td><span t-field="o.employee_id.work_email">demo@email.com</span></td>
-                    <td name="personne-in-charge"><span t-out="o.employee_id.children">2</span></td>
-                    <td name="identification-id"><span t-field="o.employee_id.identification_id">John123</span></td>
-                    <td><span t-field="o.compute_date">2023-08-10</span></td>
+                    <td><span t-field="o.employee_id.work_email"/></td>
+                    <td name="personne-in-charge"><span t-out="o.employee_id.children"/></td>
+                    <td name="identification-id"><span t-field="o.employee_id.identification_id"/></td>
+                    <td><span t-field="o.compute_date"/></td>
                 </tr>
                 <tr id="employee_info_line_6">
                     <td class="w-25"><strong>Contract Start Date</strong></td>
@@ -54,9 +54,9 @@
                     <td class="w-25" name="company-car-title"></td>
                 </tr>
                 <tr id="employee_info_line_7">
-                    <td><span t-field="o.employee_id.first_contract_date">2023-09-10</span></td>
-                    <td><span t-field="o.employee_id.contract_id.contract_type_id">Full Time</span></td>
-                    <td><span t-field="o.employee_id.contract_id.hours_per_week">40</span></td>
+                    <td><span t-field="o.employee_id.first_contract_date"/></td>
+                    <td><span t-field="o.employee_id.contract_id.contract_type_id"/></td>
+                    <td><span t-field="o.employee_id.contract_id.hours_per_week"/></td>
                     <td class="w-25" name="company-car-model"></td>
                 </tr>
             </table>
@@ -65,7 +65,7 @@
                 <tr>
                     <td class="w-25"><strong>Basic Salary (<span class="text-capitalize" t-out="o.contract_id.wage_type"/>)</strong></td>
                     <td style="color:#875A7B" class="w-25">
-                        <span t-out="o.contract_id._get_contract_wage()" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}">$100.0</span>
+                        <span t-out="o.contract_id._get_contract_wage()" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                     </td>
                     <td class="w-25"></td>
                     <td class="w-25"></td>
@@ -86,12 +86,12 @@
                             <span t-foreach="o.worked_days_line_ids.filtered(lambda worked_days: worked_days.code != 'OUT')" t-as="worked_days">
                                 <tr style="color:none">
                                     <td id="worked_days_name">
-                                        <span t-field="worked_days.name">Regular Hours</span>
+                                        <span t-field="worked_days.name"/>
                                     </td>
-                                    <td id="worked_days_hours"><span t-field="worked_days.number_of_hours">8</span></td>
-                                    <td id="worked_days_days"><span t-field="worked_days.number_of_days">5</span></td>
+                                    <td id="worked_days_hours"><span t-field="worked_days.number_of_hours"/></td>
+                                    <td id="worked_days_days"><span t-field="worked_days.number_of_days"/></td>
                                     <td id="worked_days_amount" class="text-end"><span t-out="worked_days.amount" digits="[42, 2]"
-                                            t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'>40</span></td>
+                                            t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
                                 </tr>
                             </span>
                         </t>
@@ -119,7 +119,7 @@
                 <div class="oe_structure"></div>
             </div>
             <div id="to_pay">
-                <p t-if="o.net_wage &gt;= 0">To pay on <b><span t-field="o.employee_id.bank_account_id">39560123456</span></b> of <i><span t-field="o.employee_id">John Smith</span></i>: <span t-field="o.net_wage">$100</span></p>
+                <p t-if="o.net_wage &gt;= 0">To pay on <b><span t-field="o.employee_id.bank_account_id">xxxxxxxxxxxx</span></b> of <i><span t-field="o.employee_id"/></i>: <span t-field="o.net_wage"/></p>
                 <p t-if="o.net_wage &lt; 0">The net amount will be recovered from the first positive remuneration established after this.</p>
             </div>
         </div>
