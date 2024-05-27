@@ -163,7 +163,25 @@ QUnit.test("Re-insert and remove a list concurrently", async (assert) => {
     });
     assert.spreadsheetIsSynchronized(
         [alice, bob, charlie],
-        (user) => user.getters.getPivotIds().length,
+        (user) => user.getters.getListIds().length,
+        0
+    );
+});
+
+QUnit.test("remove and update a domain of a list concurrently", async (assert) => {
+    insertList(alice, "1");
+    await network.concurrent(() => {
+        alice.dispatch("REMOVE_ODOO_LIST", {
+            listId: "1",
+        });
+        bob.dispatch("UPDATE_ODOO_LIST_DOMAIN", {
+            listId: "1",
+            domain: [["foo", "in", [55]]],
+        });
+    });
+    assert.spreadsheetIsSynchronized(
+        [alice, bob, charlie],
+        (user) => user.getters.getListIds().length,
         0
     );
 });
