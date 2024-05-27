@@ -19,12 +19,16 @@ test("WhatsApp Channel notification items should have thread icon", async () => 
 
 test("Notification items should have unread counter for unread messages", async () => {
     const pyEnv = await startServer();
-    pyEnv["discuss.channel"].create({
+    const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
         channel_type: "whatsapp",
-        channel_member_ids: [
-            Command.create({ message_unread_counter: 1, partner_id: serverState.partnerId }),
-        ],
+        channel_member_ids: [Command.create({ partner_id: serverState.partnerId })],
+    });
+    pyEnv["mail.message"].create({
+        body: "WhatsApp Message",
+        model: "discuss.channel",
+        res_id: channelId,
+        message_type: "whatsapp_message",
     });
     await start();
     await click(".o_menu_systray i[aria-label='Messages']");

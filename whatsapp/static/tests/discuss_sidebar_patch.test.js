@@ -71,9 +71,13 @@ test("Message unread counter in whatsapp channels", async () => {
     const channelId = pyEnv["discuss.channel"].create({
         name: "WhatsApp 1",
         channel_type: "whatsapp",
-        channel_member_ids: [
-            Command.create({ message_unread_counter: 1, partner_id: serverState.partnerId }),
-        ],
+        channel_member_ids: [Command.create({ partner_id: serverState.partnerId })],
+    });
+    pyEnv["mail.message"].create({
+        author_id: serverState.partnerId,
+        body: "Hello!",
+        model: "discuss.channel",
+        res_id: channelId,
     });
     await start();
     await openDiscuss(channelId);
