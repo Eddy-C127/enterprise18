@@ -111,7 +111,7 @@ class ShareRoute(http.Controller):
             try:
                 data = base64.encodebytes(ufile.read())
                 mimetype = ufile.content_type
-                document.write({
+                document.with_context(image_no_postprocess=True).write({
                     'name': ufile.filename,
                     'datas': data,
                     'mimetype': mimetype,
@@ -144,7 +144,10 @@ class ShareRoute(http.Controller):
                     result = {'error': str(e)}
             cids = request.httprequest.cookies.get('cids', str(request.env.user.company_id.id))
             allowed_company_ids = [int(cid) for cid in cids.split('-')]
-            documents = request.env['documents.document'].with_context(allowed_company_ids=allowed_company_ids).create(vals_list)
+            documents = request.env['documents.document'].with_context(
+                allowed_company_ids=allowed_company_ids,
+                image_no_postprocess=True,
+            ).create(vals_list)
             result['ids'] = documents.ids
 
         return request.make_json_response(result)
