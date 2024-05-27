@@ -18,7 +18,7 @@ import {
     registerViewEditorDependencies,
     editAnySelect,
     makeArchChanger,
-} from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+} from "@web_studio/../tests/legacy/client_action/view_editors/view_editor_tests_utils";
 import { registry } from "@web/core/registry";
 import { disableHookAnimation, selectorContains } from "./view_editor_tests_utils";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";

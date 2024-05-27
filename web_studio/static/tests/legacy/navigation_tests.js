@@ -24,7 +24,7 @@ import {
     openStudio,
     registerStudioDependencies,
     fillActionFieldsDefaults,
-} from "@web_studio/../tests/helpers";
+} from "@web_studio/../tests/legacy/helpers";
 import { registry } from "@web/core/registry";
 import { patch } from "@web/core/utils/patch";
 import { StudioView } from "@web_studio/client_action/view_editor/studio_view";
@@ -32,7 +32,7 @@ import { ViewEditor } from "@web_studio/client_action/view_editor/view_editor";
 import { StudioClientAction } from "@web_studio/client_action/studio_client_action";
 import { ListEditorRenderer } from "@web_studio/client_action/view_editor/editors/list/list_editor_renderer";
 import { onMounted } from "@odoo/owl";
-import { selectorContains } from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+import { selectorContains } from "@web_studio/../tests/legacy/client_action/view_editors/view_editor_tests_utils";
 
 // -----------------------------------------------------------------------------
 // Tests

@@ -5,7 +5,7 @@ import {
     createViewEditor,
     makeArchChanger,
     registerViewEditorDependencies,
-} from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+} from "@web_studio/../tests/legacy/client_action/view_editors/view_editor_tests_utils";
 import { click, getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { makeFakeHTTPService } from "@web/../tests/helpers/mock_services";
 import { registry } from "@web/core/registry";

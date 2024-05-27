@@ -4,7 +4,7 @@ import { getActionManagerServerData } from "@web/../tests/webclient/helpers";
 import { browser } from "@web/core/browser/browser";
 import { user } from "@web/core/user";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
-import { openStudio, registerStudioDependencies } from "@web_studio/../tests/helpers";
+import { openStudio, registerStudioDependencies } from "@web_studio/../tests/legacy/helpers";
 
 // -----------------------------------------------------------------------------
 // Tests

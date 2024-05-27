@@ -14,7 +14,7 @@ import {
     registerViewEditorDependencies,
     selectorContains,
     makeArchChanger,
-} from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+} from "@web_studio/../tests/legacy/client_action/view_editors/view_editor_tests_utils";
 import { KanbanRecord } from "@web/views/kanban/kanban_record";
 import { registry } from "@web/core/registry";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";

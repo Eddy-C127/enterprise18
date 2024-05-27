@@ -105,11 +105,16 @@ Note: Only the admin user is allowed to make those customizations.
             # And we don't want to push them into any other test suite either
             # as web.tests_assets would
             ('include', 'web_studio.studio_assets'),
-            'web_studio/static/tests/**/*.js',
-            ('remove', 'web_studio/static/tests/tours/**/*'),
+            'web_studio/static/tests/legacy/**/*.js',
         ],
         'web.qunit_mobile_suite_tests': [
-            'web_studio/static/tests/views/disable_patch.js',
+            'web_studio/static/tests/legacy/views/disable_patch.js',
+        ],
+        'web.assets_unit_tests': [
+            ('include', 'web_studio.studio_assets'),
+            'web_studio/static/tests/**/*',
+            ('remove', 'web_studio/static/tests/legacy/**/*'),
+            ('remove', 'web_studio/static/tests/tours/**/*'),
         ],
     }
 }

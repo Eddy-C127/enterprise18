@@ -18,7 +18,7 @@ import {
     registerViewEditorDependencies,
     editAnySelect,
     createMockViewResult,
-} from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+} from "@web_studio/../tests/legacy/client_action/view_editors/view_editor_tests_utils";
 import { CodeEditor } from "@web/core/code_editor/code_editor";
 import { registry } from "@web/core/registry";
 import { PivotEditorSidebar } from "@web_studio/client_action/view_editor/editors/pivot/pivot_editor";

@@ -3,7 +3,7 @@ import {
     openStudio,
     registerStudioDependencies,
     fillActionFieldsDefaults,
-} from "@web_studio/../tests/helpers";
+} from "@web_studio/../tests/legacy/helpers";
 import { doAction as _doAction } from "@web/../tests/webclient/helpers";
 import {
     getFixture,

@@ -11,7 +11,7 @@ import {
     createViewEditor,
     disableHookAnimation,
     registerViewEditorDependencies,
-} from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+} from "@web_studio/../tests/legacy/client_action/view_editors/view_editor_tests_utils";
 import { MockServer } from "@web/../tests/helpers/mock_server";
 import { pick } from "@web/core/utils/objects";
 

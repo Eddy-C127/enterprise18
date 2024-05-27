@@ -5,7 +5,7 @@ import {
     createViewEditor,
     editAnySelect,
     registerViewEditorDependencies,
-} from "@web_studio/../tests/client_action/view_editors/view_editor_tests_utils";
+} from "@web_studio/../tests/legacy/client_action/view_editors/view_editor_tests_utils";
 import { registry } from "@web/core/registry";
 import { datetimePickerService } from "@web/core/datetime/datetimepicker_service";
 

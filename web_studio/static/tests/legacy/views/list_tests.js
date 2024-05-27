@@ -6,7 +6,7 @@ import { doAction, getActionManagerServerData } from "@web/../tests/webclient/he
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
 import { patchListRendererDesktop } from "@web_enterprise/views/list/list_renderer_desktop";
-import { registerStudioDependencies } from "@web_studio/../tests/helpers";
+import { registerStudioDependencies } from "@web_studio/../tests/legacy/helpers";
 import { patchListRendererStudio } from "@web_studio/views/list/list_renderer";
 
 let serverData;
