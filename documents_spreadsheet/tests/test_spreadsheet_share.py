@@ -239,3 +239,25 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
                 document.dispatch_spreadsheet_message(
                     snapshot_revision, share.id, token
                 )
+
+    def test_spreadsheet_with_token_from_workspace_share(self):
+        document_1 = self.create_spreadsheet()
+        self.create_spreadsheet()
+        folder = document_1.folder_id
+        self.assertEqual(len(folder.document_ids), 2, "there are more than one document in the folder")
+        share = self.env["documents.share"].create(
+            {
+                "folder_id": folder.id,
+                "domain": [("folder_id", "child_of", folder.id)],
+                "type": "domain",
+            }
+        )
+        self.env["documents.shared.spreadsheet"].create(
+            {
+                "share_id": share.id,
+                "document_id": document_1.id,
+                "spreadsheet_data": document_1.spreadsheet_data,
+            }
+        )
+        result = document_1.join_spreadsheet_session(share.id, share.access_token)
+        self.assertTrue(result, "it should grant access")
