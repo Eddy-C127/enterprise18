@@ -4,7 +4,7 @@ import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { FormController } from '@web/views/form/form_controller';
 import { KnowledgeSidebar } from '@knowledge/components/sidebar/sidebar';
-import { useService } from "@web/core/utils/hooks";
+import { useBus, useService } from "@web/core/utils/hooks";
 import { Deferred } from "@web/core/utils/concurrency";
 
 import { onMounted, onWillStart, useChildSubEnv, useExternalListener, useRef } from "@odoo/owl";
@@ -46,6 +46,11 @@ export class KnowledgeArticleFormController extends FormController {
             save: this.save.bind(this),
             discard: this.discard.bind(this),
         });
+
+        useBus(this.env.bus, 'KNOWLEDGE:OPEN_ARTICLE', (event) => {
+            this.openArticle(event.detail.id);
+        });
+
         // Unregister the current candidate recordInfo for Knowledge macros in
         // case of breadcrumbs mismatch.
         onWillStart(() => {
