@@ -4,7 +4,6 @@ import logging
 from lxml import html, etree
 
 from odoo import models
-from odoo.tools import pycompat
 from odoo.tools.translate import _
 
 logger = logging.getLogger(__name__)
@@ -49,7 +48,7 @@ class WebsitePageGenerator(models.Model):
                     shape_el = el.xpath("//*[hasclass('o_we_shape')]")
                     if shape_el:
                         shape_el[0].attrib['class'] += ' o_footer_extra_shape_mapping'
-                rendered_snippet = pycompat.to_text(etree.tostring(el))
+                rendered_snippet = etree.tostring(el, encoding='unicode')
                 rendered_snippets.append(rendered_snippet)
             except ValueError as e:
                 logger.warning("Error rendering snippet: %s", e)
@@ -193,7 +192,7 @@ class WebsitePageGenerator(models.Model):
             try:
                 # Process the footer html content (for example, an <img> element becomes <img/>.)
                 el = html.fromstring(snippet)
-                rendered_snippet = pycompat.to_text(etree.tostring(el))
+                rendered_snippet = etree.tostring(el, encoding='unicode')
                 rendered_snippets.append(rendered_snippet)
             except ValueError as e:
                 logger.warning(e)
