@@ -3767,3 +3767,46 @@ class TestSubscription(TestSubscriptionCommon):
             self.env, 'temp_stock_manager', 'stock.group_stock_manager',
         )
         Form(self.env['product.product'].with_user(stock_manager))
+
+    def test_product_subscription_pricing_copy(self):
+        """Check that product variants on product pricings after copying
+        a product template.
+        """
+        product = self.product_tmpl_2
+        product_attribute = self.env['product.attribute'].create({
+            'name': 'Color',
+            'value_ids': [Command.create({'name': name}) for name in ('Blue', 'Red')],
+        })
+        product.attribute_line_ids = 2 * [Command.create({
+            'attribute_id': product_attribute.id,
+            'value_ids': product_attribute.value_ids.ids,
+        })]
+        for i, variant in enumerate(product.product_variant_ids, start=1):
+            self.env['sale.subscription.pricing'].create([{
+                'product_template_id': product.id,
+                'product_variant_ids': [Command.link(variant.id)],
+                'plan_id': self.plan_week.id,
+                'price': 10.0 * i,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+            }, {
+                'product_template_id': product.id,
+                'product_variant_ids': [Command.link(variant.id)],
+                'plan_id': self.plan_month.id,
+                'price': 25.0 * i,
+           }])
+        pricings_1 = product.product_subscription_pricing_ids.sorted()
+        pricings_2 = product.copy().product_subscription_pricing_ids.sorted()
+        self.assertEqual(
+            len(pricings_2),
+            8,  # 2 attributes * 2 values * 2 plans = 8 pricings
+            "copied product should get 8 pricings",
+        )
+        self.assertNotEqual(
+            pricings_2.product_variant_ids,
+            pricings_1.product_variant_ids,
+            "copied pricings shouldn't be linked to the original products",
+        )
+        for pricing_1, pricing_2 in zip(pricings_1, pricings_2):
+            self.assertEqual(pricing_2.price, pricing_1.price)
+            self.assertEqual(pricing_2.plan_id, pricing_1.plan_id)
+            self.assertEqual(pricing_2.pricelist_id, pricing_1.pricelist_id)

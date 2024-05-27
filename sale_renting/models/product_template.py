@@ -16,7 +16,7 @@ class ProductTemplate(models.Model):
         inverse_name='product_template_id',
         string="Custom Pricings",
         auto_join=True,
-        copy=True,
+        copy=False,
     )
     display_price = fields.Char(
         string="Rental price",
@@ -128,3 +128,23 @@ class ProductTemplate(models.Model):
         return pricelist._get_product_price(
             product or self, quantity, uom=uom, date=date, start_date=start_date, end_date=end_date
         )
+
+    def copy(self, default=None):
+        copied_tmpl = super().copy(default)
+        for pricing in self.product_pricing_ids:
+            copied_variant_ids = []
+            for product in pricing.product_variant_ids:
+                pav_ids = product.product_template_variant_value_ids.product_attribute_value_id.ids
+                copied_variant_ids.extend(
+                    copied_tmpl.product_variant_ids.filtered(
+                        lambda p: p
+                            .product_template_variant_value_ids
+                            .product_attribute_value_id
+                            .ids == pav_ids
+                    ).ids
+                )
+            pricing.copy({
+                'product_template_id': copied_tmpl.id,
+                'product_variant_ids': copied_variant_ids,
+            })
+        return copied_tmpl

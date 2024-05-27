@@ -11,7 +11,7 @@ class product_template(models.Model):
 
     product_subscription_pricing_ids = fields.One2many(
         'sale.subscription.pricing', 'product_template_id', string="Custom Subscription Pricings",
-        auto_join=True, copy=True, groups='sales_team.group_sale_salesman'
+        auto_join=True, copy=False, groups='sales_team.group_sale_salesman'
     )
 
     @api.model
@@ -36,3 +36,23 @@ class product_template(models.Model):
                 'message': _(
                     "You can not change the recurring property of this product because it has been sold already.")
             }}
+
+    def copy(self, default=None):
+        copied_tmpl = super().copy(default)
+        for pricing in self.product_subscription_pricing_ids:
+            copied_variant_ids = []
+            for product in pricing.product_variant_ids:
+                pav_ids = product.product_template_variant_value_ids.product_attribute_value_id.ids
+                copied_variant_ids.extend(
+                    copied_tmpl.product_variant_ids.filtered(
+                        lambda p: p
+                            .product_template_variant_value_ids
+                            .product_attribute_value_id
+                            .ids == pav_ids
+                    ).ids
+                )
+            pricing.copy({
+                'product_template_id': copied_tmpl.id,
+                'product_variant_ids': copied_variant_ids,
+            })
+        return copied_tmpl
