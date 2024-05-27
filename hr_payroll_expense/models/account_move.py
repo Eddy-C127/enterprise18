@@ -16,7 +16,9 @@ class AccountMove(models.Model):
 
     def unlink(self):
         # EXTENDS account
-        self.payslip_ids.expense_sheet_ids.account_move_ids._unlink_or_reverse()
+        moves_to_unlink = self.sudo().payslip_ids.expense_sheet_ids.account_move_ids.ids
+        if moves_to_unlink:
+            self.browse(moves_to_unlink)._unlink_or_reverse()
         return super().unlink()
 
     def button_draft(self):
@@ -49,9 +51,9 @@ class AccountMove(models.Model):
         # For this, we need to find the accounts that will be used to record the expense on the employee payslip move.
         # EXTENDS hr_expense
         super()._compute_needed_terms()
-        for move in self.filtered(lambda move: move.expense_sheet_id.payslip_id and move.expense_sheet_id.payment_mode == 'own_account'):
+        for move in self.filtered(lambda move: move.expense_sheet_id.sudo().payslip_id and move.expense_sheet_id.payment_mode == 'own_account'):
             expense_rule = (
-                move.expense_sheet_id.payslip_id.struct_id.rule_ids.with_company(move.company_id)
+                move.expense_sheet_id.sudo().payslip_id.struct_id.rule_ids.with_company(move.company_id)
                 .filtered(lambda rule: rule.code == 'EXPENSES')
             )
             account = expense_rule.account_debit

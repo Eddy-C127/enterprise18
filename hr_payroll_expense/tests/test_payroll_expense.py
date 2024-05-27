@@ -289,3 +289,39 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
             {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
         ])
         self.assertTrue(sheet_original_move.reversal_move_id)
+
+    @freeze_time('2024-01-01')
+    def test_unlink_payslip_moves_user(self):
+        """ Test Account user are able to reset to draft payslip move and unlink them """
+        user = self.env['res.users'].create({
+            'name': 'Account user',
+            'login': 'accountuser',
+            'password': 'accountuser',
+            'groups_id': [
+                Command.link(self.env.ref('account.group_account_user').id),
+            ],
+        })
+
+        sheet = self.create_expense_report({'accounting_date': '2023-07-11'})
+
+        sheet.action_submit_sheet()
+        sheet.action_approve_expense_sheets()
+        sheet.action_report_in_next_payslip()
+
+        payslip = self.env['hr.payslip'].create({
+            'name': 'Payslip',
+            'number': 'PAYSLIPTEST01',
+            'employee_id': self.expense_employee.id,
+            'struct_id': self.expense_hr_structure.id,
+            'contract_id': self.expense_contract.id,
+            'payslip_run_id': self.payslip_run.id,
+            'date_from': '2023-12-01',
+            'date_to': '2023-12-31',
+            'company_id': self.company_data['company'].id,
+        })
+        self.payslip_run.slip_ids.compute_sheet()
+        self.payslip_run.action_validate()
+        payslip.move_id.action_post()
+
+        payslip.move_id.with_user(user).button_draft()
+        payslip.move_id.with_user(user).unlink()
