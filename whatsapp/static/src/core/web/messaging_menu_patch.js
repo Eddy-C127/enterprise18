@@ -10,6 +10,16 @@ patch(MessagingMenu, {
 });
 
 patch(MessagingMenu.prototype, {
+    setup() {
+        super.setup();
+        this.state.addingWhatsappChannel = false;
+    },
+
+    handleExternalClick() {
+        this.state.addingWhatsappChannel = false;
+        super.handleExternalClick();
+    },
+
     get tabs() {
         const items = super.tabs;
         const hasWhatsApp = Object.values(this.store.Thread.records).some(
@@ -23,5 +33,13 @@ patch(MessagingMenu.prototype, {
             });
         }
         return items;
+    },
+
+    get displayChannelSelector() {
+        return super.displayChannelSelector || this.state.addingWhatsappChannel;
+    },
+
+    get displayStartConversation() {
+        return super.displayStartConversation && this.store.discuss.activeTab !== "whatsapp";
     },
 });

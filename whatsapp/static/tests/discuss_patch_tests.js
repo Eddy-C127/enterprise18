@@ -5,7 +5,7 @@ import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 import { start } from "@mail/../tests/helpers/test_utils";
 import { patchUiSize, SIZES } from "@mail/../tests/helpers/patch_ui_size";
 
-import { contains, click } from "@web/../tests/utils";
+import { contains, click, insertText } from "@web/../tests/utils";
 
 QUnit.module("discuss (patch)");
 
@@ -48,4 +48,20 @@ QUnit.test("Mobile has WhatsApp category", async () => {
     await openDiscuss();
     await click(".o-mail-MessagingMenu-navbar button", { text: "WhatsApp" });
     await contains(".o-mail-NotificationItem", { text: "WhatsApp 1" });
+});
+
+QUnit.test('"Search WhatAapp Channel" item selection opens whatsapp channel', async () => {
+    const pyEnv = await startServer();
+    pyEnv["discuss.channel"].create({
+        name: "slytherins",
+        channel_type: "whatsapp",
+    });
+    patchUiSize({ height: 360, width: 640 });
+    const { openDiscuss } = await start();
+    await openDiscuss();
+    await click("button", { text: "WhatsApp" });
+    await click("button", { text: "Search WhatsApp Channel" });
+    await insertText("input[placeholder='Search WhatsApp Channel']", "slytherins");
+    await click(".o-mail-ChannelSelector-suggestion");
+    await contains(".o-mail-ChatWindow-header div[title='slytherins']");
 });
