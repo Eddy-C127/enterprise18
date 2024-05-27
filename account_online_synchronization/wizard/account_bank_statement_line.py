@@ -39,6 +39,7 @@ class AccountBankStatementLineTransient(models.TransientModel):
         related='journal_id.company_id.currency_id',
         readonly=True,
     )
+    company_id = fields.Many2one(comodel_name='res.company')
 
     def action_import_transactions(self):
         # This action could be call on multiple lines.
@@ -58,6 +59,7 @@ class AccountBankStatementLineTransient(models.TransientModel):
             'transaction_details',
             'journal_id',
             'online_account_id',
+            'company_id',
         ]
         transactions_to_import = self.read(fields=fields_to_read, load=None)
         self.env['account.bank.statement.line']._online_sync_bank_statement(transactions_to_import, self.online_account_id)
