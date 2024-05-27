@@ -23,6 +23,7 @@ class TestReleaseToPayInvoice(AccountTestInvoicingCommon):
             'weight': 1.0,
             'purchase_method': 'receive',
         })
+        cls.other_currency = cls.setup_other_currency('HRK', rounding=0.001)
 
     def check_release_to_pay_scenario(self, ordered_qty, scenario, invoicing_policy='receive', order_price=500.0):
         """ Generic test function to check that each use scenario behaves properly.
@@ -87,3 +88,19 @@ class TestReleaseToPayInvoice(AccountTestInvoicingCommon):
         # Special use case : a price change between order and invoice should always put the bill in exception
         self.check_release_to_pay_scenario(10, [('receive',{'qty': 5}), ('invoice', {'qty': 5, 'rslt': 'exception', 'price':42})])
         self.check_release_to_pay_scenario(10, [('receive',{'qty': 5}), ('invoice', {'qty': 5, 'rslt': 'exception', 'price':42})], invoicing_policy='purchase')
+
+    def test_amount_currency_edit(self):
+        """
+        Ensure that editing the `amount_currency` of a journal item on an invoice is possible.
+        """
+        move_form = Form(self.env['account.move'].with_context(default_move_type='out_invoice'))
+        move_form.invoice_date = fields.Date.from_string('2023-01-01')
+        move_form.partner_id = self.partner_a
+        move_form.currency_id = self.other_currency
+        with move_form.invoice_line_ids.new() as line_form:
+            line_form.quantity = 1
+            line_form.price_unit = 10
+        move_form.save()
+        with move_form.line_ids.edit(0) as line_form:
+            line_form.amount_currency = -30
+        move_form.save()
