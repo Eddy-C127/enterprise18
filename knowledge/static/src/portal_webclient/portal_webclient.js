@@ -1,10 +1,10 @@
 /** @odoo-module **/
 
+import { router } from "@web/core/browser/router";
 import { useBus, useService } from '@web/core/utils/hooks';
 import { ActionContainer } from '@web/webclient/actions/action_container';
 import { MainComponentsContainer } from "@web/core/main_components_container";
 import { useOwnDebugContext } from "@web/core/debug/debug_context";
-import { session } from '@web/session';
 import { Component, onMounted, useExternalListener, useState } from "@odoo/owl";
 
 export class KnowledgePortalWebClient extends Component {
@@ -30,11 +30,11 @@ export class KnowledgePortalWebClient extends Component {
     }
 
     async _showView() {
-        const { knowledge_article_id } = session;
-
-        this.actionService.doAction('knowledge.ir_actions_server_knowledge_home_page', {
-            additionalContext: knowledge_article_id ? { res_id: knowledge_article_id } : {},
-            stackPosition: 'replaceCurrentAction',
+        await this.actionService.doAction("knowledge.ir_actions_server_knowledge_home_page", {
+            additionalContext: router.current.resId
+                ? { res_id: router.current.resId }
+                : {},
+            stackPosition: "replaceCurrentAction",
         });
     }
 
