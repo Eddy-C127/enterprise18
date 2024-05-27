@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.tools import format_amount
 
@@ -12,7 +11,7 @@ class product_template(models.Model):
 
     product_subscription_pricing_ids = fields.One2many(
         'sale.subscription.pricing', 'product_template_id', string="Custom Subscription Pricings",
-        auto_join=True, copy=True, groups='sales_team.group_sale_salesman'
+        auto_join=True, copy=False, groups='sales_team.group_sale_salesman'
     )
     display_subscription_pricing = fields.Char('Display Price', compute='_compute_display_subscription_pricing')
 
@@ -52,3 +51,29 @@ class product_template(models.Model):
                 )
             else:
                 record.display_subscription_pricing = None
+
+    def copy(self, default=None):
+        copied_tmpls = self.env['product.template']
+        for record in self:
+            copied_tmpl = super(product_template, record).copy(default)
+            copied_tmpls += copied_tmpl
+            for pricing in record.product_subscription_pricing_ids:
+                copied_variant_ids = []
+                for product in pricing.product_variant_ids:
+                    pav_ids = product\
+                        .product_template_variant_value_ids\
+                        .product_attribute_value_id\
+                        .ids
+                    copied_variant_ids.extend(
+                        copied_tmpl.product_variant_ids.filtered(
+                            lambda p: p
+                                .product_template_variant_value_ids
+                                .product_attribute_value_id
+                                .ids == pav_ids
+                        ).ids
+                    )
+                pricing.copy({
+                    'product_template_id': copied_tmpl.id,
+                    'product_variant_ids': copied_variant_ids,
+                })
+        return copied_tmpls
