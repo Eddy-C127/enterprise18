@@ -1,7 +1,7 @@
 .o_gantt_view {
 	--Gantt__Buttons-height: 45px;
 
-	@media (max-width: 768px) {
+	@media (max-width: 767px) {
 		--Gantt__Buttons-height: 90px;
 	}
 
@@ -20,6 +20,10 @@
 	.o_gantt_renderer_controls {
 		@include o-gantt-zindex(controls);
 		height: var(--Gantt__Buttons-height) !important;
+		input[type="range"] {
+			min-width: 80px;
+			max-width: 220px;
+		}
 	}
 
 }
@@ -663,13 +667,5 @@
 				}
 			}
 		}
-	}
-}
-
-.o_gantt_picker {
-	cursor: pointer;
-
-	&:hover {
-		text-decoration: underline;
 	}
 }

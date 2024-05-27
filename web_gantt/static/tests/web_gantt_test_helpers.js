@@ -336,7 +336,7 @@ function getHeaders(selector) {
 export function getGridContent() {
     const columnHeaders = getHeaders(SELECTORS.columnHeader);
     const groupHeaders = getHeaders(SELECTORS.groupHeader);
-    const range = queryFirst(".o_gantt_renderer_controls > div").textContent;
+    const range = getTexts(".o_gantt_renderer_controls .o_gantt_picker").join(" - ");
     const viewTitle = getText(".o_gantt_title");
     const colsRange = queryFirst(SELECTORS.columnHeader)
         .style.getPropertyValue("grid-column")
