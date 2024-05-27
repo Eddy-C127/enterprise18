@@ -26,6 +26,8 @@ class AccountMove(models.Model):
                 continue
             aml_by_subscription = defaultdict(lambda: self.env['account.move.line'])
             for aml in move.invoice_line_ids:
+                if not aml.subscription_id:
+                    continue
                 aml_by_subscription[aml.subscription_id] |= aml
             for subscription, aml in aml_by_subscription.items():
                 sale_order = aml.sale_line_ids.order_id

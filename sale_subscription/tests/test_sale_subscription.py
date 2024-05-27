@@ -261,6 +261,45 @@ class TestSubscription(TestSubscriptionCommon):
             {'display_type': 'line_note', 'name': '...', 'product_id': False},
         ])
 
+    def test_add_aml_to_invoice(self):
+        """ Test that it is possible to manually add a line with a start and end
+        date to an invoice generated from a subscription sale order.
+        """
+        sub_product1, sub_product2 = self.env['product.product'].create([
+            {
+                'name': 'SubA',
+                'type': 'service',
+                'recurring_invoice': True,
+                'invoice_policy': 'order',
+            },
+            {
+                'name': 'SubB',
+                'type': 'service',
+                'recurring_invoice': True,
+            }
+        ])
+
+        sub = self.env['sale.order'].create({
+            'name': 'TestSubscription',
+            'is_subscription': True,
+            'plan_id': self.plan_month.id,
+            'partner_id': self.user_portal.partner_id.id,
+            'pricelist_id': self.company_data['default_pricelist'].id,
+            'order_line': [(0, 0, {'product_id': sub_product1.id})],
+        })
+
+        sub.action_confirm()
+        invoice = sub._create_invoices()
+        invoice.write({
+            'line_ids': [(0, 0, {
+                'product_id': sub_product2.id,
+                'deferred_start_date': '2015-03-14',
+                'deferred_end_date': '2030-06-28',
+            })],
+        })
+        invoice._post()  # should not throw an error
+        self.assertEqual(invoice.line_ids.product_id, sub_product1 | sub_product2)
+
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.models')
     def test_unlimited_sale_order(self):
         """ Test behaviour of on_change_template """
