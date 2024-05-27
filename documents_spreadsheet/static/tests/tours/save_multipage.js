@@ -10,22 +10,27 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
         {
             trigger: '.o_app[data-menu-xmlid="documents.menu_root"]',
             content: "Open document app",
+            run: "click",
         },
         {
             trigger: ".o_cp_buttons:contains('New') .dropdown-toggle",
             content: "Open dropdown",
+            run: "click",
         },
         {
             trigger: ".o_documents_kanban_spreadsheet",
             content: "Open template dialog",
+            run: "click",
         },
         {
             trigger: ".o-spreadsheet-create",
             content: "Create new spreadsheet",
+            run: "click",
         },
         {
             trigger: ".o-add-sheet",
             content: "Add a sheet",
+            run: "click",
         },
         {
             trigger: ".o-sheet-list .o-ripple-container:nth-child(2)",
@@ -35,6 +40,7 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
             content: "Go back to Document App",
+            run: "click",
         },
         {
             trigger: ".o_kanban_renderer .o_kanban_record:first .o_kanban_stack ",
@@ -44,6 +50,7 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
         {
             trigger: ".o_document_spreadsheet:first",
             content: "Reopen the sheet",
+            run: "click",
         },
         {
             trigger: ".o-sheet .o-sheet-icon",
@@ -55,14 +62,17 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
         {
             trigger: '.o-popover .o-menu-item[title="Delete"]',
             content: "Delete sheet",
+            run: "click",
         },
         {
             trigger: ".modal-dialog footer button.btn-primary",
             content: "Confirm delete sheet",
+            run: "click",
         },
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
             content: "Go back to Document App",
+            run: "click",
         },
         {
             trigger: ".o_kanban_renderer .o_kanban_record:first",

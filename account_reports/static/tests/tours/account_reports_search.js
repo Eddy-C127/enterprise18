@@ -19,6 +19,7 @@ registry.category("web_tour.tours").add('account_reports_search', {
         {
             content: 'test if the product sale line is present',
             trigger: '.line_name:contains("400000 Product Sales")',
+            run: "click",
         },
         {
             content: "click search",
@@ -33,6 +34,7 @@ registry.category("web_tour.tours").add('account_reports_search', {
         {
             content: 'test if the receivable line is present',
             trigger: '.line_name:contains("121000 Account Receivable")',
+            run: 'click',
         },
         {
             content: 'check that the product sale line is not present',

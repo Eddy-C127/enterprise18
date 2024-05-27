@@ -21,9 +21,11 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     steps: () => [stepUtils.showAppsMenuItem(), {
     // open Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+    run: "click",
 }, {
     // click on the main "New" action
     trigger: '.o_knowledge_header .btn:contains("New")',
+    run: "click",
 }, {
     // check that the article is correctly created (private section)
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("Untitled")',
@@ -44,6 +46,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // create an article in the "Workspace" section
     trigger: 'section[data-section="workspace"] .o_section_create',
+    run: "click",
 }, {
     // check that the article is correctly created (workspace section), and that the previous
     // article has been renamed using its title (first h1 in body).
@@ -69,6 +72,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // create child article
     trigger: '.o_article:contains("My Workspace Article") a.o_article_create',
+    run: "click",
 }, {
     // check that the article is correctly created (workspace section)
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Untitled")',
@@ -82,9 +86,11 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: "edit Child Article 1 && click body",  // modify the article name
 }, {
     trigger: '.o_article:contains("My Workspace Article")',
+    run: "click",
 }, {
     // create child article (2)
     trigger: '.o_article:contains("My Workspace Article") a.o_article_create',
+    run: "click",
 }, {
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Untitled")',
     run: () => {},
@@ -111,6 +117,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // go back to main workspace article
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("My Workspace Article")',
+    run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("Content of My Workspace Article")',
     run: () => {},  // wait for article to be correctly loaded
@@ -121,9 +128,11 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // open the share dropdown
     trigger: '.o_knowledge_header .btn:contains("Share")',
+    run: "click",
 }, {
     // click on 'Invite'
     trigger: '.o_knowledge_share_panel .btn:contains("Invite")',
+    run: "click",
 }, {
     // Type the invited person's name
     trigger: '.o_field_many2many_tags_email[name=partner_ids] input',
@@ -139,13 +148,16 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // Save the new partner
     trigger: '.o_form_button_save',
+    run: "click",
 }, {
     // Submit the invite wizard
     trigger: 'button:contains("Invite")',
     extra_trigger: '.o_field_tags span.o_badge_text',
+    run: "click",
 }, {
     // add to favorite
     trigger: '.o_knowledge_toggle_favorite',
+    run: "click",
 }, {
     // check article was correctly added into favorites
     trigger: 'section[data-section="favorites"] .o_article .o_article_name:contains("My Workspace Article")',
@@ -153,6 +165,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // open the share dropdown
     trigger: '.o_knowledge_header .btn:contains("Share")',
+    run: "click",
 }, {
     // open the share dropdown
     trigger: '.o_member_email:contains("micheline@knowledge.com")',
@@ -161,6 +174,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // go back to private article
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("My Private Article")',
+    run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("My Private Article")',
     run: () => {},  // wait for article to be correctly loaded
@@ -171,6 +185,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // add to favorite
     trigger: '.o_knowledge_toggle_favorite',
+    run: "click",
 }, {
     // wait for the article to be registered as favorited
     trigger: '.o_knowledge_toggle_favorite .fa-star',
@@ -191,6 +206,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // go back to main workspace article
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("My Workspace Article")',
+    run: "click",
 }, {
     trigger: ':contains("Content of My Workspace Article")',
     run() {},
@@ -201,6 +217,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // click on the main "New" action
     trigger: '.o_knowledge_header .btn:contains("New")',
+    run: "click",
 }, {
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("Untitled")',
     run: () => {}, // check that the article is correctly created (private section)
@@ -233,6 +250,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // open the trash
     trigger: '.o_knowledge_sidebar_trash div[role="button"]',
+    run: "click",
 }, {
     // verify that the trash list has been opened correctly and that items are correctly ordered
     trigger: '.o_data_row:first .o_data_cell[name="display_name"]:contains("Article 2")',

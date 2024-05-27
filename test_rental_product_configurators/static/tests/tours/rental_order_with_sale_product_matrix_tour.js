@@ -8,44 +8,53 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), {
     trigger: '.o_app[data-menu-xmlid="sale_renting.rental_menu_root"]',
-    edition: 'enterprise'
+    edition: 'enterprise',
+    run: "click",
 }, {
     trigger: '.o-kanban-button-new',
+    run: "click",
 }, {
     trigger: '.o_required_modifier[name=partner_id] input',
     run: "edit Tajine Saucisse",
 }, {
     trigger: '.ui-menu-item > a:contains("Tajine Saucisse")',
     auto: true,
+    run: "click",
 },
 // Adding a sale product without any configurator
 {
-    trigger: 'a:contains("Add a product")'
+    trigger: 'a:contains("Add a product")',
+    run: "click",
 }, {
     trigger: 'div[name="product_template_id"] input',
     run: "edit protection",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Chair floor protection (TEST)")',
+    run: "click",
 },
 // Adding a rental product
 {
     trigger: 'a:contains("Add a product")',
     extra_trigger: 'td[name="product_template_id"][data-tooltip*="floor protection"],td[name="product_id"][data-tooltip*="floor protection"]',
+    run: "click",
 }, {
     trigger: 'div[name="product_template_id"] input',
     run: "edit Projector",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Projector (TEST)")',
+    run: "click",
 },
 // Adding a sale product with a matrix
 {
     trigger: 'a:contains("Add a product")',
     extra_trigger: 'td[name="product_template_id"][data-tooltip*="Projector"],td[name="product_id"][data-tooltip*="Projector"]',
+    run: "click",
 }, {
     trigger: 'div[name="product_template_id"] input',
     run: "edit Matrix",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Matrix")',
+    run: "click",
 }, {
     trigger: '.o_matrix_input_table',
     run: function () {
@@ -53,6 +62,7 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
     } // set the qty to 4 for half of the matrix products.
 }, {
     trigger: 'button:contains("Confirm")',
+    run: "click",
 },
     ...stepUtils.saveForm({ extra_trigger: '.o_field_cell.o_data_cell.o_list_number:contains("26")' }),
 ]});

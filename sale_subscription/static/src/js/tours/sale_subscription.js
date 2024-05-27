@@ -14,22 +14,26 @@ registry.category("web_tour.tours").add('sale_subscription_tour', {
     trigger: '.o_app[data-menu-xmlid="sale_subscription.menu_sale_subscription_root"]',
 	content: _t('Want a recurring billing through subscription management? Get started by clicking here'),
     position: 'bottom',
+    run: "click",
 },
 {
     trigger: '.dropdown-toggle[data-menu-xmlid="sale_subscription.product_menu_catalog"]',
     content: _t('Let\'s go to the catalog to create our first subscription product'),
     position: 'bottom',
+    run: "click",
 },
 {
     trigger: '.dropdown-item[data-menu-xmlid="sale_subscription.menu_sale_subscription_product"]',
     content: _t('Create your first subscription product here'),
     position: 'right',
+    run: "click",
 },
 {
     trigger: '.o-kanban-button-new',
     extra_trigger: '.o_kanban_renderer',
     content: _t('Go ahead and create a new product'),
     position: 'right',
+    run: "click",
 },
 {
     trigger: '#name_0',
@@ -37,12 +41,14 @@ registry.category("web_tour.tours").add('sale_subscription_tour', {
     content: markup(_t('Choose a product name.<br/><i>(e.g. eLearning Access)</i>')),
     position: 'right',
     width: 200,
+    run: "click",
 },
 {
     trigger: 'a.nav-link[name="subscription_pricing"]',
     extra_trigger: '.o_form_editable',
     content: _t("Let's add a pricing with a recurrence"),
     position: 'right',
+    run: "click",
 },
 {
     trigger: ".o_field_x2many_list_row_add > a",
@@ -66,21 +72,25 @@ registry.category("web_tour.tours").add('sale_subscription_tour', {
     trigger: '.dropdown-toggle[data-menu-xmlid="sale_subscription.menu_sale_subscription"]',
     content: _t('Go back to the subscription view'),
     position: 'bottom',
+    run: "click",
 },
 {
     trigger: '.dropdown-item[data-menu-xmlid="sale_subscription.menu_sale_subscription_action"]',
     content: _t('Go back to the subscription view'),
     position: 'right',
+    run: "click",
 },
 {
     trigger: 'button.o_list_button_add',
     content: _t('Go ahead and create a new subscription'),
     position: 'right',
+    run: "click",
 },
 {
     trigger: '.o_field_widget[name="partner_id"]',
     content: _t("Let's choose the customer for your subscription"),
     position: 'right',
+    run: "click",
 },
 {
     trigger: ".o_field_x2many_list_row_add > a",
@@ -93,11 +103,13 @@ registry.category("web_tour.tours").add('sale_subscription_tour', {
     extra_trigger: ".o_sale_order",
     content: _t("Select a recurring product"),
     position: "right",
+    run: "click",
 },
 {
     trigger: 'div.o_row',
     content:  _t("Choose the invoice duration for your subscription"),
     position: "bottom",
+    run: "click",
 },
 
 ]});

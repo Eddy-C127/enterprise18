@@ -33,6 +33,7 @@ registry.category("web_tour.tours").add("sign_widgets_tour", {
         {
             content: "Editor loaded",
             trigger: ".note-editable",
+            run: "click",
         },
         {
             content: "Click on widget sign",
@@ -70,6 +71,7 @@ registry.category("web_tour.tours").add("sign_widgets_tour", {
             content: "Sign",
             trigger: 'button.btn-primary:contains("Adopt & Sign")',
             extra_trigger: "canvas.o_web_sign_signature",
+            run: "click",
         },
         ...stepUtils.saveForm(),
     ],

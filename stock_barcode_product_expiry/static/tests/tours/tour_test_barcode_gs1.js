@@ -45,7 +45,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_expiration_date', {tes
         trigger: '.o_barcode_client_action',
         run: 'scan 010000007654321010b1-b002\x1D300000000415220520',
     },
-    { trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down' },
+    {
+        trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line:contains("b1-b002")',
         run: function () {

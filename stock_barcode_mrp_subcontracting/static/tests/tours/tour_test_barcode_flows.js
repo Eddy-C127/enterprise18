@@ -28,17 +28,26 @@ registry.category("web_tour.tours").add('test_receipt_classic_subcontracted_prod
         run: 'scan LOC-01-01-00',
     },
     // Adds a line with the "Add Product" button, then scans its destination location.
-    { trigger: '.o_add_line' },
+    {
+        trigger: '.o_add_line',
+        run: "click",
+    },
     {
         trigger: '.o_field_widget[name=product_id] input',
         run: "edit Chocolate Eclairs",
     },
-    { trigger: ".ui-menu-item > a:contains('Chocolate Eclairs')" },
+    {
+        trigger: ".ui-menu-item > a:contains('Chocolate Eclairs')",
+        run: "click",
+    },
     {
         trigger: '[name=qty_done] input',
         run: "edit 1",
     },
-    { trigger: '.o_save' },
+    {
+        trigger: '.o_save',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line',
         run: 'scan LOC-01-02-00',
@@ -63,12 +72,14 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
         trigger: ".modal-footer .btn[name=subcontracting_record_component]",
         content: _t('Continue'),
         position: "bottom",
+        run: "click",
     },
     {
         trigger: ".modal-footer .btn-secondary",
         extra_trigger: "button [name=product_qty]:contains(4)",
         content: _t('Discard'),
         position: "bottom",
+        run: "click",
     },
 
     {
@@ -86,6 +97,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
         trigger: ".modal-footer .btn[name=subcontracting_record_component]",
         content: _t('Continue'),
         position: "bottom",
+        run: "click",
     },
 
     {
@@ -93,6 +105,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
         extra_trigger: "button [name=product_qty]:contains(3)",
         content: _t('Record production'),
         position: "bottom",
+        run: "click",
     },
     ...stepUtils.validateBarcodeOperation(),
 ]});
@@ -100,6 +113,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
 registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_product', {test: true, steps: () => [
     {
         trigger: 'button.btn-secondary.o_mrp_subcontracting',
+        run: "click",
     },
 
     {
@@ -109,6 +123,7 @@ registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_pro
     },
     {
         trigger: "div[name=move_line_raw_ids] td[name=quantity]",
+        run: "click",
     },
 
     {
@@ -119,6 +134,7 @@ registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_pro
         trigger: ".modal-footer .btn-primary[name=subcontracting_record_component]",
         content: _t('Record production'),
         position: "bottom",
+        run: "click",
     },
     ...stepUtils.validateBarcodeOperation(),
 ]});

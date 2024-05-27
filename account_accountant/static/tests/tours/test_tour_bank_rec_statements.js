@@ -14,20 +14,24 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             content: "Open the bank reconciliation widget",
             extra_trigger: ".o_breadcrumb",
             trigger: "button.btn-primary[name='action_open_reconcile']",
+            run: "click",
         },
         {
             content: "Statement button",
             trigger: ".o_bank_rec_st_line:eq(2) .oe_kanban_action_a:contains('Statement')",
             allowInvisible: true,
+            run: "click",
         },
         {
             content: "Save the statement with proposed values",
             extra_trigger: ".modal-dialog:contains('Create Statement')",
             trigger: ".o_form_button_save",
+            run: "click",
         },
         {
             content: "Click the Valid Statement with $ 1,000.00 that is visible in Kanban",
             trigger: "span[name='kanban-subline-clickable-amount']:contains('$ 1,000.00')",
+            run: "click",
         },
         {
             content: "Modify the end balance",
@@ -38,20 +42,24 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             content: "Dialog displays warning, save anyway",
             extra_trigger: ".modal-body div.alert-warning:contains('The running balance')",
             trigger: ".modal-dialog .btn-primary[special='save']",
+            run: "click",
         },
         {
             content: "Click the red statement, after checking the balance",
             extra_trigger: ".btn-link:contains('$ 2,100.00')",
             trigger: "span[name='kanban-subline-clickable-amount']:contains('$ 100.00')",
+            run: "click",
         },
         {
             content: "Delete the statement",
             trigger: ".modal-dialog .btn-danger:contains('Delete')",
+            run: "click",
         },
         {
             content: "Confirm Deletion",
             extra_trigger: ".modal-dialog:contains('Confirmation')",
             trigger: ".btn-primary:contains('Ok')",
+            run: "click",
         },
         {
             content: "balance displays $3000.00 and no statement",

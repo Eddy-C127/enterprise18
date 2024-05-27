@@ -3,7 +3,7 @@
 import { Asserts } from "./asserts";
 import { registry } from "@web/core/registry";
 
-registry.category("web_tour.tours").add('account_reports', {
+registry.category("web_tour.tours").add("account_reports", {
     url: "/web?#action=account_reports.action_account_report_bs",
     steps: () => [
         //--------------------------------------------------------------------------------------------------------------
@@ -16,8 +16,11 @@ registry.category("web_tour.tours").add('account_reports', {
                 Asserts.DOMContainsNumber("tbody > tr:not(.d-none):not(.empty)", 28);
 
                 // Since the total line is not displayed (folded), the amount should be on the line
-                Asserts.isEqual(document.querySelector("tr:nth-child(4) td:nth-child(2)").textContent, "75.00");
-            }
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(4) td:nth-child(2)").textContent,
+                    "75.00"
+                );
+            },
         },
         {
             content: "Click to unfold line",
@@ -31,8 +34,11 @@ registry.category("web_tour.tours").add('account_reports', {
                 Asserts.DOMContainsNumber("tbody > tr:not(.d-none):not(.empty)", 30);
 
                 // Since the total line is displayed (unfolded), the amount should not be on the line
-                Asserts.isEqual(document.querySelector("tr:nth-child(4) td:nth-child(2)").textContent, "");
-            }
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(4) td:nth-child(2)").textContent,
+                    ""
+                );
+            },
         },
         {
             content: "Click to fold line",
@@ -44,7 +50,7 @@ registry.category("web_tour.tours").add('account_reports', {
             trigger: ".o_content",
             run: () => {
                 Asserts.DOMContainsNumber("tbody > tr:not(.d-none):not(.empty)", 28);
-            }
+            },
         },
         //--------------------------------------------------------------------------------------------------------------
         // Footnotes
@@ -55,7 +61,7 @@ registry.category("web_tour.tours").add('account_reports', {
             trigger: ".o_content",
             run: () => {
                 Asserts.DOMContainsNone(".footnotes");
-            }
+            },
         },
         {
             content: "Unfold first line",
@@ -82,15 +88,19 @@ registry.category("web_tour.tours").add('account_reports', {
                 Asserts.isEqual(document.querySelector("tr:nth-child(12) sup a").textContent, "2");
 
                 // Check line number href
-                Asserts.isTrue(document.querySelector("tr:nth-child(5) sup a").href.endsWith("#footnote_1"));
-                Asserts.isTrue(document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_2"));
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(5) sup a").href.endsWith("#footnote_1")
+                );
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_2")
+                );
 
                 // Check footnotes
                 const footnotes = document.querySelectorAll(".footnotes li");
 
                 Asserts.isTrue(footnotes[0].textContent.includes("Footnote 101401"));
                 Asserts.isTrue(footnotes[1].textContent.includes("Footnote 101404"));
-            }
+            },
         },
         // Test that we can add a new footnote
         {
@@ -103,12 +113,12 @@ registry.category("web_tour.tours").add('account_reports', {
             trigger: "tr:nth-child(8)",
             run: () => {
                 Asserts.hasClass("tr:nth-child(8) .o-dropdown", "show");
-            }
+            },
         },
         {
             content: "Click on annotate",
             trigger: ".o-dropdown--menu .dropdown-item:last-of-type:contains('Annotate')",
-            run: "click"
+            run: "click",
         },
         {
             content: "Annotate is displayed",
@@ -116,7 +126,7 @@ registry.category("web_tour.tours").add('account_reports', {
             in_modal: false,
             run: () => {
                 Asserts.hasClass(".o_web_client", "modal-open");
-            }
+            },
         },
         {
             content: "Add text to annotate",
@@ -126,7 +136,7 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Submit footnote",
             trigger: ".btn.btn-primary",
-            run: "click"
+            run: "click",
         },
         {
             content: "Check order on lines and footnotes after new footnote added",
@@ -138,9 +148,15 @@ registry.category("web_tour.tours").add('account_reports', {
                 Asserts.isEqual(document.querySelector("tr:nth-child(12) sup a").textContent, "3");
 
                 // Check line number href
-                Asserts.isTrue(document.querySelector("tr:nth-child(5) sup a").href.endsWith("#footnote_1"));
-                Asserts.isTrue(document.querySelector("tr:nth-child(8) sup a").href.endsWith("#footnote_2"));
-                Asserts.isTrue(document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_3"));
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(5) sup a").href.endsWith("#footnote_1")
+                );
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(8) sup a").href.endsWith("#footnote_2")
+                );
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_3")
+                );
 
                 // Check footnotes
                 const footnotes = document.querySelectorAll(".footnotes li");
@@ -148,7 +164,7 @@ registry.category("web_tour.tours").add('account_reports', {
                 Asserts.isTrue(footnotes[0].textContent.includes("Footnote 101401"));
                 Asserts.isTrue(footnotes[1].textContent.includes("Footnote 121000"));
                 Asserts.isTrue(footnotes[2].textContent.includes("Footnote 101404"));
-            }
+            },
         },
         // Test that we can edit a footnote
         {
@@ -159,7 +175,7 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Click on annotate",
             trigger: ".dropdown-menu .dropdown-item:last-of-type:contains('Annotate')",
-            run: "click"
+            run: "click",
         },
         {
             content: "Annotate contains previous text value",
@@ -169,16 +185,17 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Add text to annotate",
             trigger: "textarea",
-            run: "edit Footnote 121000 edited"
+            run: "edit Footnote 121000 edited",
         },
         {
             content: "Submit footnote",
             trigger: ".btn.btn-primary",
-            run: "click"
+            run: "click",
         },
         {
             content: "Footnote is edited",
             trigger: "#footnote_2:contains('Footnote 121000 edited')",
+            run: "click",
         },
         // Test that we can delete a footnote by removing the text when editing
         {
@@ -189,7 +206,7 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Click on annotate",
             trigger: ".dropdown-menu .dropdown-item:last-of-type:contains('Annotate')",
-            run: "click"
+            run: "click",
         },
         {
             content: "Remove text from annotate",
@@ -199,7 +216,7 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Submit footnote",
             trigger: ".btn.btn-primary",
-            run: "click"
+            run: "click",
         },
         {
             content: "Check order on lines and footnotes after footnote is deleted",
@@ -210,21 +227,25 @@ registry.category("web_tour.tours").add('account_reports', {
                 Asserts.isEqual(document.querySelector("tr:nth-child(12) sup a").textContent, "2");
 
                 // Check line number href
-                Asserts.isTrue(document.querySelector("tr:nth-child(5) sup a").href.endsWith("#footnote_1"));
-                Asserts.isTrue(document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_2"));
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(5) sup a").href.endsWith("#footnote_1")
+                );
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_2")
+                );
 
                 // Check footnotes
                 const footnotes = document.querySelectorAll(".footnotes li");
 
                 Asserts.isTrue(footnotes[0].textContent.includes("Footnote 101401"));
                 Asserts.isTrue(footnotes[1].textContent.includes("Footnote 101404"));
-            }
+            },
         },
         // Test that we can delete a footnote by clicking on the trash can next to it
         {
             content: "Click on trash can",
             trigger: "#footnote_1 .fa-trash-o",
-            run: "click"
+            run: "click",
         },
         {
             content: "Check order on lines and footnotes after footnote is deleted",
@@ -234,13 +255,15 @@ registry.category("web_tour.tours").add('account_reports', {
                 Asserts.isEqual(document.querySelector("tr:nth-child(12) sup a").textContent, "1");
 
                 // Check line number href
-                Asserts.isTrue(document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_1"));
+                Asserts.isTrue(
+                    document.querySelector("tr:nth-child(12) sup a").href.endsWith("#footnote_1")
+                );
 
                 // Check footnotes
                 const footnotes = document.querySelectorAll(".footnotes li");
 
                 Asserts.isTrue(footnotes[0].textContent.includes("Footnote 101404"));
-            }
+            },
         },
         //--------------------------------------------------------------------------------------------------------------
         // Sortable
@@ -250,23 +273,44 @@ registry.category("web_tour.tours").add('account_reports', {
             trigger: ".o_content",
             run: () => {
                 // Bank and Cash Accounts
-                Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent,
+                    "75.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent,
+                    "75.00"
+                );
 
                 // Receivables
-                Asserts.isEqual(document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent, "25.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent, "25.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent,
+                    "25.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent,
+                    "25.00"
+                );
 
                 // Current Assets
-                Asserts.isEqual(document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent, "100.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent, "50.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent, "150.00");
-            }
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent,
+                    "100.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent,
+                    "50.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent,
+                    "150.00"
+                );
+            },
         },
         {
             content: "Click sort",
             trigger: "th .btn_sortable",
-            run: "click"
+            run: "click",
         },
         {
             content: "Unfold not previously unfolded line",
@@ -277,70 +321,134 @@ registry.category("web_tour.tours").add('account_reports', {
         {
             content: "Line is unfolded",
             trigger: "tr:nth-child(23) .name:contains('251000')",
+            run: "click",
         },
         {
             content: "Sortable (asc)",
             trigger: "tr:nth-child(11) td:nth-child(2):contains('50.00')",
             run: () => {
                 // Bank and Cash Accounts
-                Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent,
+                    "75.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent,
+                    "75.00"
+                );
 
                 // Receivables
-                Asserts.isEqual(document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent, "25.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent, "25.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent,
+                    "25.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent,
+                    "25.00"
+                );
 
                 // Current Assets
-                Asserts.isEqual(document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent, "50.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent, "100.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent, "150.00");
-            }
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent,
+                    "50.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent,
+                    "100.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent,
+                    "150.00"
+                );
+            },
         },
         {
             content: "Click sort",
             trigger: "th .btn_sortable",
-            run: "click"
+            run: "click",
         },
         {
             content: "Sortable (desc)",
             trigger: "tr:nth-child(11) td:nth-child(2):contains('100.00')",
             run: () => {
                 // Bank and Cash Accounts
-                Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent,
+                    "75.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent,
+                    "75.00"
+                );
 
                 // Receivables
-                Asserts.isEqual(document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent, "25.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent, "25.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent,
+                    "25.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent,
+                    "25.00"
+                );
 
                 // Current Assets
-                Asserts.isEqual(document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent, "100.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent, "50.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent, "150.00");
-            }
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent,
+                    "100.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent,
+                    "50.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent,
+                    "150.00"
+                );
+            },
         },
         {
             content: "Click sort",
             trigger: "th .btn_sortable",
-            run: "click"
+            run: "click",
         },
         {
             content: "Sortable (reset)",
             trigger: "tr:nth-child(5) td:nth-child(2):contains('75.00')",
             run: () => {
                 // Bank and Cash Accounts
-                Asserts.isEqual(document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent, "75.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent, "75.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(5) td:nth-child(2)").textContent,
+                    "75.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(6) td:nth-child(2)").textContent,
+                    "75.00"
+                );
 
                 // Receivables
-                Asserts.isEqual(document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent, "25.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent, "25.00");
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(8) td:nth-child(2)").textContent,
+                    "25.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(9) td:nth-child(2)").textContent,
+                    "25.00"
+                );
 
                 // Current Assets
-                Asserts.isEqual(document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent, "100.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent, "50.00");
-                Asserts.isEqual(document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent, "150.00");
-            }
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(11) td:nth-child(2)").textContent,
+                    "100.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(12) td:nth-child(2)").textContent,
+                    "50.00"
+                );
+                Asserts.isEqual(
+                    document.querySelector("tr:nth-child(13) td:nth-child(2)").textContent,
+                    "150.00"
+                );
+            },
         },
     ],
 });

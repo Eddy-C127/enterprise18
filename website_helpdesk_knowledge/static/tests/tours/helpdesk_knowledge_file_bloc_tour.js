@@ -32,6 +32,7 @@ registry.category("web_tour.tours").add('helpdesk_pick_file_as_attachment_from_k
     run: 'click',
 }, { // wait for Knowledge to open
     trigger: '.o_knowledge_form_view',
+    isCheck: true,
 }, ...createFileBehaviorSteps,
 { // click on the "Use as Attachment" button located in the toolbar of the file block
     trigger: '.o_knowledge_behavior_type_file .o_knowledge_toolbar_button_text:contains("Use as Attachment")',
@@ -55,6 +56,7 @@ registry.category("web_tour.tours").add('helpdesk_pick_file_as_message_attachmen
     run: 'click',
 }, { // wait for Knowledge to open
     trigger: '.o_knowledge_form_view',
+    isCheck: true,
 }, ...createFileBehaviorSteps,
 { // click on the "Use as Attachment" button located in the toolbar of the file block
     trigger: '.o_knowledge_behavior_type_file .o_knowledge_toolbar_button_text:contains("Send as Message")',

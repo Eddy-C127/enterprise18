@@ -28,6 +28,7 @@ patch(registry.category("web_tour.tours").get("payroll_dashboard_ui_tour"), {
         }, {
             content: "Select HR Reponsible (2)",
             trigger: 'div[name=hr_responsible_id] .dropdown-item:contains(Laurie)',
+            run: "click",
         }, {
             content: "Select Signatories Tab",
             trigger: '.o_notebook ul > li > a:contains(Signatories)',
@@ -39,6 +40,7 @@ patch(registry.category("web_tour.tours").get("payroll_dashboard_ui_tour"), {
         }, {
             content: "Select Contract Template",
             trigger: '.ui-menu-item a:contains("Employment")',
+            run: "click",
         });
         return originalSteps;
     }

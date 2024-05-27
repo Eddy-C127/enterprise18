@@ -10,6 +10,7 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
     content: "Let's start managing your employees' schedule!",
     position: 'bottom',
+    run: "click",
 }, {
     trigger: 'input[type="range"]',
     content: "The initial default scale should be week (1)",
@@ -24,9 +25,11 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
 },{
     trigger: ".o_searchview_dropdown_toggler",
     content: "Open Filter",
+    run: "click",
 }, {
     trigger: ".o_add_custom_filter",
     content: "Click on custom filter",
+    run: "click",
 }, {
     trigger: ".o_model_field_selector",
     content: "Write domain excluding open shifts",
@@ -38,6 +41,7 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
 }, {
     trigger: ".modal-footer > .btn-primary",
     content: "Add custom filter",
+    run: "click",
 }, {
     trigger: ".o_searchview_input",
     content: "Search planning shifts assigned to Aramis",

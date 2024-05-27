@@ -21,8 +21,8 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         {
             content: 'Search template "template_1_roles"',
             trigger: ".o_cp_searchview input",
-            run: "edit template_1_role(2)",
             position: "bottom",
+            run: "edit template_1_role(2)",
         },
         {
             content: "Search Document Name",
@@ -49,6 +49,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             content: "Click to start",
             trigger: ':iframe .o_sign_sign_item_navigator:contains("Click to start")',
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ":iframe input.o_sign_sign_item:focus",
@@ -74,6 +75,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             trigger: ":iframe button.o_sign_sign_item:has(img)",
             extra_trigger: ":iframe :not(:has(.o_sign_sign_item_navigator))",
             auto: true,
+            run: "click",
         },
         {
             content: "Click on auto button",
@@ -84,6 +86,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             content: "Sign",
             trigger: 'button.btn-primary:contains("Sign all")',
             extra_trigger: "canvas.o_web_sign_signature",
+            run: "click",
         },
         {
             content: "Validate & Send Completed Document",

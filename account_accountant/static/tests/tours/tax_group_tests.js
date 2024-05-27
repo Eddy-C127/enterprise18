@@ -12,6 +12,7 @@ patch(registry.category("web_tour.tours").get("account_tax_group"), {
             {
                 trigger: '.o_app[data-menu-xmlid="account_accountant.menu_accounting"]',
                 content: "Go to Accounting",
+                run: "click",
             }
         );
         return originalSteps;

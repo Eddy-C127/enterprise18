@@ -20,6 +20,7 @@ registry.category("web_tour.tours").add('website_knowledge_public_search_tour', 
 }, {
     content: "Unfold 'My Article'", // Unfold because 'My Article' wasn't added to the unfolded articles
     trigger: '.o_article_active .o_article_caret',
+    run: "click",
 }, {
     content: "Check that search tree contains 'Child Article'",
     trigger: '.o_article_name:contains("Child Article")',

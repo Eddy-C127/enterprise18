@@ -124,10 +124,12 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "select employee",
             trigger: '.o_popover .o_input_dropdown .dropdown .dropdown-item:contains("Employee")',
+            run: "click",
         },
         {
             content: "Validate changes",
             trigger: ".o_popover .o_sign_validate_field_button",
+            run: "click",
         },
         {
             content: "Drop Selection Sign Item",
@@ -149,18 +151,22 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Create new selection option",
             trigger: '.o_popover .o_input_dropdown .dropdown a:contains("Create")',
+            run: "click",
         },
         {
             content: "Check option is added",
             trigger: '.o_popover #o_sign_select_options_input .o_tag_badge_text:contains("option")',
+            run: "click",
         },
         {
             content: "Validate changes",
             trigger: ".o_popover .o_sign_validate_field_button",
+            run: "click",
         },
         {
             content: "Open popover on text sign item",
             trigger: ":iframe .o_sign_sign_item:contains('Text') .o_sign_item_display",
+            run: "click",
         },
         {
             content: "Change text placeholder",
@@ -170,6 +176,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Validate changes",
             trigger: ".o_popover .o_sign_validate_field_button",
+            run: "click",
         },
         {
             content: "Change template name",
@@ -178,6 +185,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         },
         {
             trigger: ".breadcrumb .o_back_button",
+            run: "click",
         },
     ],
 });

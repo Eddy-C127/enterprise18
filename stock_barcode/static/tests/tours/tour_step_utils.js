@@ -6,6 +6,7 @@ export const stepUtils = {
             trigger: '.btn-primary',
             extra_trigger: '.modal-title:contains("Add extra product?")',
             in_modal: true,
+            run: "click",
         };
     },
     validateBarcodeOperation(trigger = '.o_barcode_client_action') {
@@ -26,6 +27,7 @@ export const stepUtils = {
                 content: 'discard barcode form',
                 trigger: '.o_discard',
                 auto: true,
+                run: "click",
             },
             {
                 content: 'wait to be back on the barcode lines',

@@ -57,12 +57,15 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
     //Check show information.
     {
         trigger: '.o_show_information',
+        run: "click",
     },
     {
         trigger: '.o_form_label:contains("State")',
+        run: "click",
     },
     {
         trigger: '.o_close',
+        run: "click",
     },
 
     // Scan product1 x4
@@ -160,14 +163,18 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
         run: 'scan SN-LHOOQ'
     },
     {
-        trigger: '.o_notification_bar.bg-danger'
+        trigger: '.o_notification_bar.bg-danger',
+        run: "click",
     },
     {
         trigger: '.o_barcode_client_action',
         run: 'scan SN-OQPAPT'
     },
     // Unfolds grouped lines for product tracked by SN.
-    { trigger: '.o_line_button.o_toggle_sublines' },
+    {
+        trigger: '.o_line_button.o_toggle_sublines',
+        run: "click",
+    },
     {
         trigger: '.o_sublines .o_barcode_line',
         run: function() {
@@ -238,9 +245,11 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
     // Open the view to add a line and close it immediately.
     {
         trigger: '.o_add_line',
+        run: "click",
     },
     {
         trigger: '.o_discard',
+        run: "click",
     },
     {
         trigger: '.o_validate_page',
@@ -252,6 +261,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
     // Create a new line for productlot1 with an another lot name...
     {
         trigger: '.o_add_line',
+        run: "click",
     },
     {
         trigger: ".o_field_widget[name=product_id] input",
@@ -259,6 +269,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
     },
     {
         trigger: ".ui-menu-item > a:contains('productlot1')",
+        run: "click",
     },
     {
         trigger: ".o_field_widget[name=qty_done] input",
@@ -270,6 +281,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
     },
     {
         trigger: ".ui-menu-item > a:contains('picking_receipt_2')",
+        run: "click",
     },
     {
         trigger: ".o-autocomplete.dropdown:not(:has(.o-autocomplete--dropdown-menu))",
@@ -277,8 +289,12 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
     },
     {
         trigger: '.o_save',
+        run: "click",
     },
-    { trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down' },
+    {
+        trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down',
+        run: "click",
+    },
     {
         trigger: '.o_sublines .o_barcode_line:nth-child(2).o_selected',
         run: function() {
@@ -333,7 +349,10 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', {test: t
         }
     },
     // Selects the subline with the lot0002 and scans it again, it should increment the selected line.
-    { trigger: '.o_sublines .o_barcode_line:contains("lot0002")' },
+    {
+        trigger: '.o_sublines .o_barcode_line:contains("lot0002")',
+        run: "click",
+    },
     {
         trigger: '.o_sublines .o_selected:contains("lot0002")',
         run: 'scan lot0002'
@@ -524,7 +543,10 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_1', {test: 
             helper.assert(line3.querySelector('[name="package"]>span').innerText, "p5pack02");
         },
     },
-    { trigger: '.o_validate_page' },
+    {
+        trigger: '.o_validate_page',
+        run: "click",
+    },
     // Should display the backorder's dialog, checks its content.
     {
         trigger: '.o_barcode_backorder_dialog',
@@ -537,7 +559,10 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_1', {test: 
             helper.assert(backorderLine.querySelector('[name="reserved-qty"]').innerText, "4");
         }
     },
-    { trigger: '.o_barcode_backorder_dialog .btn.btn-primary' },
+    {
+        trigger: '.o_barcode_backorder_dialog .btn.btn-primary',
+        run: "click",
+    },
     { trigger: '.o_notification_bar.bg-success', isCheck: true },
 ]});
 
@@ -586,14 +611,17 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_2_move_enti
 registry.category("web_tour.tours").add('test_batch_create', {test: true, steps: () => [
     {
         trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")',
+        run: "click",
     },
 
     {
         trigger: '.button_batch_transfer',
+        run: "click",
     },
 
     {
         trigger: '.o-kanban-button-new',
+        run: "click",
     },
 
     {
@@ -605,26 +633,31 @@ registry.category("web_tour.tours").add('test_batch_create', {test: true, steps:
     },
     // select picking type
     {
-        trigger: '.o_barcode_line_title:contains("Delivery Orders")'
+        trigger: '.o_barcode_line_title:contains("Delivery Orders")',
+        run: "click",
     },
 
     {
-        trigger: '.o_confirm:not([disabled])'
+        trigger: '.o_confirm:not([disabled])',
+        run: "click",
     },
 
     // select 2 delivery orders
     {
         trigger: '.o_barcode_line_title:contains("picking_delivery_1")',
+        run: "click",
     },
 
     {
         extra_trigger: '.o_highlight .o_barcode_line_title:contains("picking_delivery_1")',
         trigger: '.o_barcode_line_title:contains("picking_delivery_2")',
+        run: "click",
     },
 
     {
         extra_trigger: '.o_highlight .o_barcode_line_title:contains("picking_delivery_2")',
-        trigger: '.o_confirm'
+        trigger: '.o_confirm',
+        run: "click",
     },
 
     // from here should be the same as test_barcode_batch_delivery_1 => just check that it initially looks the same
@@ -727,7 +760,10 @@ registry.category("web_tour.tours").add('test_put_in_pack_scan_suggested_package
         }
     },
     // Selects product3's line then scans PACK0000001 and product3.
-    { trigger: '.o_barcode_line[data-barcode="product3"]' },
+    {
+        trigger: '.o_barcode_line[data-barcode="product3"]',
+        run: "click",
+    },
     { trigger: '.o_selected[data-barcode="product3"]', run: 'scan PACK0000001' },
     { trigger: '.o_barcode_client_action', run: 'scan product3' },
     {
@@ -878,7 +914,10 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
         }
     },
     // Unfolds the first grouped line.
-    { trigger: ".o_barcode_line:first-child .o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line:first-child .o_toggle_sublines",
+        run: "click",
+    },
     {
         trigger: ".o_barcode_line.o_selected .o_sublines .o_barcode_line",
         run: function() {
@@ -975,12 +1014,18 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
         }
     },
     // Adds through the form view another line for product2 in receipt3.
-    { trigger: ".o_add_line" },
+    {
+        trigger: ".o_add_line",
+        run: "click",
+    },
     {
         trigger: "#picking_id_0",
         run: "edit receipt"
     },
-    { trigger: "a.dropdown-item:contains('receipt3')" },
+    {
+        trigger: "a.dropdown-item:contains('receipt3')",
+        run: "click",
+    },
     { 
         trigger: "#product_id_0",
         run: "edit Test",
@@ -989,13 +1034,19 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
         trigger: "input#product_id_0",
         run: "edit product2",
     },
-    { trigger: "a.dropdown-item:contains('product2')" },
+    {
+        trigger: "a.dropdown-item:contains('product2')",
+        run: "click",
+    },
     {
         extra_trigger: ".o_field_widget[name='product_id'] input:value('product2')",
         trigger: "button.o_save",
     },
     // Checks the added line is grouped with the one from receipt2
-    { trigger: ".o_barcode_line.o_selected .o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line.o_selected .o_toggle_sublines",
+        run: "click",
+    },
     {
         trigger: ".o_barcode_line.o_selected .o_sublines .o_barcode_line",
         run: function() {
@@ -1017,7 +1068,10 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
     { trigger: ".o_barcode_client_action", run: "scan lot2" },
     { trigger: ".o_barcode_client_action", run: "scan lot3" },
     { trigger: ".o_barcode_client_action", run: "scan lot3" },
-    { trigger: ".o_barcode_line.o_selected.o_line_completed .o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line.o_selected.o_line_completed .o_toggle_sublines",
+        run: "click",
+    },
     {
         trigger: ".o_barcode_line.o_selected .o_sublines .o_barcode_line",
         run: function() {
@@ -1068,7 +1122,10 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_batch', {te
         }
     },
     // Goes back to the main menu (that's here the uncompleted lines shoud be split.)
-    { trigger: "button.o_exit" },
+    {
+        trigger: "button.o_exit",
+        run: "click",
+    },
     // Re-opens the batch and checks uncompleted lines were split.
     { trigger: ".o_stock_barcode_main_menu", run: "scan batch_split_line_on_exit" },
     {

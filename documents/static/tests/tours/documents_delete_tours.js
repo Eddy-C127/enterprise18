@@ -33,14 +33,17 @@ function deleteWorspaceSteps() {
         {
             trigger: ".o_search_panel_value_edit_edit",
             content: "Edit workspace",
+            run: "click",
         },
         {
             trigger: ".modal-footer .btn-outline-danger",
             content: "Delete workspace",
+            run: "click",
         },
         {
             trigger: "button:has(span:contains('Move to trash'))",
             content: "Confirm",
+            run: "click",
         },
     ];
 }
@@ -60,10 +63,12 @@ function restoreDocumentSteps() {
         {
             trigger: ".o_record_selector",
             content: "Select document",
+            run: "click",
         },
         {
             trigger: ".o_inspector_button.o_archived",
             content: "Restore the document",
+            run: "click",
         },
     ];
 }
@@ -88,18 +93,22 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             trigger: '.o_search_panel_field header.active:contains("Workspace1")',
             extra_trigger: '.o_inspector_value:contains("1")',
             content: "Make sure we start with one card",
+            run: "click",
         },
         {
             trigger: ".o_record_selector",
             content: "Select document",
+            run: "click",
         },
         {
             trigger: ".o_inspector_button.o_inspector_archive",
             content: "Move document to trash",
+            run: "click",
         },
         {
             trigger: ".modal-footer .btn-primary",
             content: "Confirm deletion",
+            run: "click",
         },
         {
             trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",
@@ -125,14 +134,17 @@ registry.category("web_tour.tours").add("document_delete_tour", {
         {
             trigger: ".o_record_selector",
             content: "Select document",
+            run: "click",
         },
         {
             trigger: ".o_inspector_button.o_inspector_delete",
             content: "Delete permanently the document",
+            run: "click",
         },
         {
             trigger: ".modal-footer .btn-primary",
             content: "Confirm deletion",
+            run: "click",
         },
     ],
 });

@@ -15,11 +15,13 @@ patch(registry.category("web_tour.tours").get("planning_test_tour"), {
             trigger: "ul.ui-autocomplete a:contains(New Project)",
             auto: true,
             in_modal: false,
+            run: "click",
         });
         const projectPlanningEndStepIndex = originalSteps.findIndex((step) => step.id && step.id === 'planning_check_format_step');
         originalSteps.splice(projectPlanningEndStepIndex + 1, 0, {
             trigger: ".o_gantt_button_add",
             content: "Click Add record to verify the naming format of planning template",
+            run: "click",
         },
         {
             trigger: "span.o_selection_badge:contains('[New Project]')",
@@ -31,6 +33,7 @@ patch(registry.category("web_tour.tours").get("planning_test_tour"), {
             trigger: "button[special=cancel]",
             in_modal: true,
             auto: true,
+            run: "click",
         });
 
         return originalSteps; 

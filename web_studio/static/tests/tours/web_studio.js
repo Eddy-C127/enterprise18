@@ -16,16 +16,19 @@ registry.category("web_tour.tours").add("web_studio_home_menu_background_tour", 
             ),
             position: "bottom",
             extra_trigger: ".o_home_menu_background",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_home_studio_menu .dropdown-toggle",
             content: _t("Click here."),
             position: "right",
+            run: "click",
         },
         {
             trigger: ".dropdown-menu .dropdown-item.o_web_studio_change_background",
             content: markup(_t("Change the <b>background</b>, make it yours.")),
             position: "bottom",
+            run: "click",
         },
     ],
 });
@@ -38,6 +41,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger: ".o_web_studio_new_app",
             auto: true,
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_app_creator_next",
@@ -45,6 +49,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 _t("I bet you can <b>build an app</b> in 5 minutes. Ready for the challenge?")
             ),
             position: "top",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_app_creator_name > input",
@@ -56,11 +61,13 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger: ".o_web_studio_selectors .o_web_studio_selector_icon > button",
             content: _t("Now, customize your icon. Make it yours."),
             position: "top",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_app_creator_next.is_ready",
             content: _t("Go on, you are almost done!"),
             position: "top",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_menu_creator > input",
@@ -76,6 +83,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 "Continue to configure some typical behaviors for your new type of object."
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_model_configurator_next",
@@ -83,6 +91,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 _t("All set? You are just one click away from <b>generating your first app</b>.")
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger:
@@ -100,6 +109,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger: ".o_web_studio_form_view_editor .o_wrap_label label",
             content: markup(_t("To <b>customize a field</b>, click on its <i>label</i>.")),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: '.o_web_studio_sidebar input[name="string"]',
@@ -122,6 +132,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             // the rename operation (/web_studio/rename_field + /web_studio/edit_view)
             // takes a while and sometimes reaches the default 10s timeout
             timeout: 20000,
+            run: "click",
         },
         {
             trigger:
@@ -144,10 +155,12 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger:
                 ".o_web_studio_selection_editor .o_web_studio_add_selection .o-web-studio-interactive-list-edit-item",
             auto: true,
+            run: "click",
         },
         {
             trigger: ".modal-footer > button:eq(0)",
             auto: true,
+            run: "click",
         },
         {
             trigger: ".o_web_studio_sidebar [name='string']",
@@ -158,6 +171,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger: ".o_web_studio_form_view_editor .o-mail-Chatter",
             content: _t("Click to edit messaging features on your model."),
             position: "top",
+            run: "click",
             timeout: 15000, // this can take some time on 'slow' builds (coverage, etc.)
         },
         {
@@ -178,6 +192,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 )
             ),
             position: "left",
+            run: "click",
         },
         {
             trigger: ".o_field_char.o_required_modifier > input",
@@ -189,6 +204,7 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             trigger: ".o_control_panel .o_form_button_save",
             content: _t("Save."),
             position: "right",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_navbar_item",
@@ -199,16 +215,19 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
                 )
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_menu .o_menu_sections li:contains(Views)",
             content: markup(_t("Want more fun? Let’s create more <b>views</b>.")),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_view_category .o_web_studio_thumbnail_kanban.disabled",
             content: markup(_t("What about a <b>Kanban view</b>?")),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_new",

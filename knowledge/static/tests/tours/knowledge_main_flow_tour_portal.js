@@ -20,6 +20,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     steps: () => [{
     // click on the main "New" action
     trigger: '.o_knowledge_header .btn:contains("New")',
+    run: "click",
 }, {
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("Untitled")',
     run: () => {},  // check that the article is correctly created (private section)
@@ -40,12 +41,15 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
         }
     }
 }, {
-    trigger: '#knowledge_search_bar' // make sure the search article feature works
+    trigger: '#knowledge_search_bar', // make sure the search article feature works
+    run: "click",
 }, {
     trigger: '.o_select_menu_item:contains("Workspace Article")',
     in_modal: false,
+    run: "click",
 }, {
-    trigger: 'button:contains("Open")'
+    trigger: 'button:contains("Open")',
+    run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("Content of Workspace Article")',
     run: () => {},  // wait for article to be correctly loaded
@@ -61,6 +65,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
 }, {
     // create child article
     trigger: '.o_article:contains("Workspace Article") a.o_article_create',
+    run: "click",
 }, {
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Untitled")',
     run: () => {},  // check that the article is correctly created (workspace section)
@@ -70,6 +75,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
 }, {
     // create child article (2)
     trigger: '.o_article:contains("Workspace Article") a.o_article_create',
+    run: "click",
 }, {
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Untitled")',
     run: () => {},  // check that the article is correctly created (workspace section)
@@ -79,12 +85,14 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
 }, {
     // go back to main workspace article
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Workspace Article")',
+    run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("Edited Content of Workspace Article")',
     run: () => {},  // wait for article to be correctly loaded
 }, {
     // add to favorite
     trigger: '.o_knowledge_toggle_favorite',
+    run: "click",
 }, {
     // check article was correctly added into favorites
     trigger: 'div.o_favorite_container .o_article .o_article_name:contains("Workspace Article")',
@@ -92,12 +100,14 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
 }, {
     // go back to private article
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("My Private Article")',
+    run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("My Private Article")',
     run: () => {},  // wait for article to be correctly loaded
 }, {
     // add to favorite
     trigger: '.o_knowledge_toggle_favorite',
+    run: "click",
 }, {
     // wait for the article to be registered as favorited
     trigger: '.o_knowledge_toggle_favorite .fa-star',

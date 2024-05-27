@@ -8,6 +8,7 @@ registry.category("web_tour.tours").add("required_fields_tour", {
         {
             content: "Click on Check in",
             trigger: ".btn:contains('Check in')",
+            run: "click",
         },
         {
             content: "Filling the details",
@@ -42,6 +43,7 @@ registry.category("web_tour.tours").add("required_fields_tour", {
         {
             content: "Select the host from the dropdown",
             trigger: '.ui-autocomplete.dropdown-menu a:contains("Mitchell Admin")',
+            run: "click",
         },
         {
             content: "Click on the check in button",

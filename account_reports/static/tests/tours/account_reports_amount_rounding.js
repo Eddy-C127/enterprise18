@@ -9,6 +9,7 @@ registry.category("web_tour.tours").add('account_reports_rounding_unit', {
         {
             content: 'Test the value of `Receivables` line in decimals',
             trigger: '.line_name:contains("Receivables") + .line_cell:contains("1,150,000.00")',
+            run: "click",
         },
         // Units
         {
@@ -27,6 +28,7 @@ registry.category("web_tour.tours").add('account_reports_rounding_unit', {
             extra_trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150,000.00"))',
             // We check the new value.
             trigger: '.line_name:contains("Receivables") + .line_cell:contains("1,150,000")',
+            run: "click",
         },
         // Thousands
         {
@@ -45,6 +47,7 @@ registry.category("web_tour.tours").add('account_reports_rounding_unit', {
             extra_trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150,000"))',
             // We check the new value.
             trigger: '.line_name:contains("Receivables") + .line_cell:contains("1,150")',
+            run: "click",
         },
         // Millions
         {
@@ -63,6 +66,7 @@ registry.category("web_tour.tours").add('account_reports_rounding_unit', {
             extra_trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150"))',
             // We check the new value.
             trigger: '.line_name:contains("Receivables") + .line_cell:contains("1")',
+            run: "click",
         },
         // Decimals
         {

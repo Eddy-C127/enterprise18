@@ -16,9 +16,11 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
     steps: () => [stepUtils.showAppsMenuItem(), {
     // Open Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+    run: "click",
 }, {
     // Click on the "Create" action
     trigger: '.o_knowledge_header .btn-create',
+    run: "click",
 }, {
     // Make the add cover button visible (only visible on hover)
     trigger: '.o_article_active:contains("Untitled")',
@@ -26,6 +28,7 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
 }, {
     // Click on add cover button
     trigger: '.o_knowledge_add_cover',
+    run: "click",
 }, {
     // Check that a cover has been added, and make the change cover button visible
     trigger: '.o_knowledge_cover .o_knowledge_cover_image',
@@ -33,11 +36,13 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
 }, {
     // Click on change cover button
     trigger: '.o_knowledge_replace_cover',
+    run: "click",
 }, {
     // Check that the cover selector has been opened, that no unsplash images can be
     // loaded as the article has no name and close the cover selector
     trigger: '.modal-footer .btn-secondary',
     extra_trigger: '.modal-body .o_load_done_msg',
+    run: "click",
 }, {
     // Make the remove cover button visible
     trigger: '.o_knowledge_edit_cover_buttons',
@@ -45,6 +50,7 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
 }, {
     // Remove the cover of the article
     trigger: '.o_knowledge_remove_cover',
+    run: "click",
 }, {
     // Set the name of the article
     trigger: '.o_hierarchy_article_name > input',
@@ -56,6 +62,7 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
 }, {
     // Click on add cover button
     trigger: '.o_knowledge_add_cover',
+    run: "click",
 }, {
     // Check that a cover has been added and make the change cover button visible
     trigger: '.o_knowledge_cover .o_knowledge_cover_image',
@@ -63,10 +70,12 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
 }, {
     // Click on change cover button
     trigger: '.o_knowledge_replace_cover',
+    run: "click",
 }, {
     // Check that the cover selector has been opened, that other unsplash
     // images can be loaded and close the cover selector
     trigger: '.modal-footer .btn-secondary',
     extra_trigger: '.modal-body .o_load_more',
+    run: "click",
 }, ...endKnowledgeTour()
 ]});

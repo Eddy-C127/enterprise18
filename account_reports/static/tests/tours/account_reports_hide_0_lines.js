@@ -9,14 +9,17 @@ registry.category("web_tour.tours").add('account_reports_hide_0_lines', {
         {
             content: 'test if the Bank and Cash line is present (but the value is 0)',
             trigger: '.line_name:contains("Bank and Cash Accounts")',
+            run: "click",
         },
         {
             content: 'test if the Current Year Unallocated Earnings line is present (but the value is 0)',
             trigger: '.line_name:contains("Current Year Unallocated Earnings")',
+            run: "click",
         },
         {
             content: 'test if the Unallocated Earnings line is present (but value is different from 0 and so should be there after the hide_0_lines',
             trigger: '.line_name:contains("Unallocated Earnings")',
+            run: "click",
         },
         {
             content: "Open options selector",
@@ -31,14 +34,17 @@ registry.category("web_tour.tours").add('account_reports_hide_0_lines', {
         {
             content: 'test if the Unallocated Earnings line is still present',
             trigger: '.line_name:contains("Unallocated Earnings")',
+            run: "click",
         },
         {
             content: 'test if the Bank and Cash line is not present',
             trigger: '.line_name:not(:contains("Bank and Cash Accounts"))',
+            run: "click",
         },
         {
             content: 'test if the Current Year Unallocated Earnings line is not present',
             trigger: '.line_name:not(:contains("Current Year Unallocated Earnings"))',
+            run: "click",
         },
         {
             content: "Click again to open the options selector",

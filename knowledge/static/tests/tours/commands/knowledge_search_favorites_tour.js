@@ -24,10 +24,12 @@ const validateFavoriteFilterPersistence = function(kanban, filterName) {
     }, {
         content: 'click on the edit button',
         trigger: '.o_kanban_edit',
+        run: "click",
     }, {
         content: `go to the ${kanban} from the breadcrumb`,
         trigger: '.o_knowledge_header i.oi-chevron-left',
         extra_trigger: '.o_hierarchy_article_name input:value("Item 1")',
+        run: "click",
     }, {
         // Open the favorite of the first kanban and check it's favorite
         trigger: `.o_breadcrumb:contains('${kanban}')`,
@@ -58,15 +60,19 @@ const validateFavoriteFilterPersistence = function(kanban, filterName) {
 const embedKnowledgeKanbanViewSteps = function (article) {
     return [{ // open the Knowledge App
         trigger: ".o_app[data-menu-xmlid='knowledge.knowledge_menu_root']",
+        run: "click",
     }, { // click on the search menu
         trigger: "[role='menuitem']:contains(Search)",
+        run: "click",
     }, { // toggle on the kanban view
         trigger: ".o_switch_view.o_kanban",
+        run: "click",
     }, { // wait for the kanban view
         trigger: ".o_kanban_renderer",
         run: () => {},
     }, { // open action menu dropdown
         trigger: ".o_control_panel .o_cp_action_menus button",
+        run: "click",
     }, { // click on the knowledge menu button
         trigger: ".dropdown-menu .dropdown-toggle:contains(Knowledge)",
         run: function () {
@@ -74,8 +80,10 @@ const embedKnowledgeKanbanViewSteps = function (article) {
         },
     }, { // click on insert view in article
         trigger: ".dropdown-menu .dropdown-item:contains('Insert view in article')",
+        run: "click",
     }, { // embed in article
         trigger: `.modal-dialog td.o_field_cell:contains(${article})`,
+        run: "click",
     }];
 };
 

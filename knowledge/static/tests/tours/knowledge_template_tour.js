@@ -12,14 +12,19 @@ registry.category("web_tour.tours").add("knowledge_load_template", {
         stepUtils.showAppsMenuItem(), {
             // open the Knowledge App
             trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+            run: "click",
         }, { // click on the main "New" action
             trigger: '.o_knowledge_header .btn:contains("New")',
+            run: "click",
         }, { // open the template picker dialog
             trigger: '.o_knowledge_helper .o_knowledge_load_template',
+            run: "click",
         }, { // choose a template
             trigger: '.o_knowledge_template_selector div:contains("My Template")',
+            run: "click",
         }, { // insert the template
-            trigger: 'button:contains("Load Template")'
+            trigger: 'button:contains("Load Template")',
+            run: "click",
         }, { // check that the icon has been changed
             trigger: '.o_knowledge_body .o_article_emoji:contains(📚)',
             run: () => {},

@@ -9,16 +9,20 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
     steps: () => [
         {
             trigger: "a.o_menuitem:contains('StudioApp')",
+            run: "click",
         },
         {
             trigger: ".o_menu_sections a:contains('Website')",
+            run: "click",
         },
         {
             trigger: ".o_website_studio_listing",
+            run: "click",
         },
         {
             content: "Create a listing page",
             trigger: ".o_website_studio_listing .o_web_studio_thumbnail_item",
+            run: "click",
         },
         {
             content: "Set the name of the page",
@@ -37,6 +41,7 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
         },
         {
             trigger: ".o_form_button_save",
+            run: "click",
         },
         {
             trigger: "body",
@@ -60,16 +65,20 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
     steps: () => [
         {
             trigger: "a.o_menuitem:contains('StudioApp')",
+            run: "click",
         },
         {
             trigger: ".o_menu_sections a:contains('Website')",
+            run: "click",
         },
         {
             trigger: ".o_website_studio_listing",
+            run: "click",
         },
         {
             content: "Create a listing page",
             trigger: ".o_website_studio_listing .fa-plus",
+            run: "click",
         },
         {
             content: "Set the name of the page",
@@ -88,10 +97,12 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         },
         {
             content: "Uncheck the toggle and only create the listing",
-            trigger: "div[name='auto_single_page'] input"
+            trigger: "div[name='auto_single_page'] input",
+            run: "click",
         },
         {
             trigger: ".o_form_button_save",
+            run: "click",
         },
         {
             trigger: "body",

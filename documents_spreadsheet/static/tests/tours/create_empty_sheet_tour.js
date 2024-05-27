@@ -15,6 +15,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
         {
             trigger: ".o_cp_buttons:contains('New') .dropdown-toggle",
             content: "Open dropdown",
+            run: "click",
         },
         {
             trigger: ".o_documents_kanban_spreadsheet",
@@ -39,6 +40,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
             content: "Go back to Document App",
+            run: "click",
         },
         {
             trigger: ".o_document_spreadsheet:first",
@@ -48,6 +50,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
             content: "Wait for the spreadsheet to be properly unloaded",
+            run: "click",
         },
     ],
 });
@@ -103,6 +106,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_list_view", {
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
             content: "Wait for the spreadsheet to be properly unloaded",
+            run: "click",
         },
     ],
 });

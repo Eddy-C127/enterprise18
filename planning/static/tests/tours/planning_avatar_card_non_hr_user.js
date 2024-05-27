@@ -9,6 +9,7 @@ registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
     content: "Open the Planning app",
     position: 'bottom',
+    run: "click",
 }, {
     trigger: 'input[type="range"]',
     content: "The initial default scale should be week",
@@ -23,9 +24,11 @@ registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
 },{
     trigger: ".o_searchview_dropdown_toggler",
     content: "Open Filter",
+    run: "click",
 }, {
     trigger: ".o_add_custom_filter",
     content: "Click on custom filter",
+    run: "click",
 }, {
     trigger: ".o_model_field_selector",
     content: "Write domain excluding open shifts",
@@ -37,6 +40,7 @@ registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
 }, {
     trigger: ".modal-footer > .btn-primary",
     content: "Add custom filter",
+    run: "click",
 }, {
     trigger: ".o_searchview_input",
     content: "Search planning shifts assigned to 3D Printer Room",
@@ -48,6 +52,7 @@ registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
 }, {
     trigger: '.o_gantt_row_header .o_avatar.o_field_many2one_avatar > span:contains("3D Printer Room")',
     content: 'Wait for the resource "3D Printer Room" to be displayed',
+    run: "click",
 }, {
     trigger: ".o_gantt_row_header .o_avatar .o_material_resource > i.fa-wrench",
     content: 'Click on the icon of the material resource "3D Printer Room"',

@@ -8,6 +8,7 @@ import { stepUtils } from "./tour_step_utils";
 registry.category("web_tour.tours").add('test_gs1_inventory_gtin_8', {test: true, steps: () => [
     {
         trigger: '.button_inventory',
+        run: "click",
     },
     {
         trigger: '.o_barcode_client_action',
@@ -41,6 +42,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_gtin_8', {test: true
 registry.category("web_tour.tours").add('test_gs1_inventory_product_units', {test: true, steps: () => [
     {
         trigger: '.button_inventory',
+        run: "click",
     },
     // The following scanned barcode should be decomposed like that:
     //      - (01)00000082655853    > product barcode (8265585)
@@ -51,6 +53,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_product_units', {tes
     },
     {
         trigger: '.o_barcode_client_action:contains("PRO_GTIN_8")',
+        run: "click",
     },
     {
         trigger: '.o_barcode_line:contains("102")',
@@ -67,6 +70,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_product_units', {tes
 registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: true, steps: () => [
     {
         trigger: '.button_inventory',
+        run: "click",
     },
     // The following scanned barcode should be decomposed like that:
     //      - (01)00111155555717    > tracked by lot product barcode (111155555717)
@@ -91,7 +95,10 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         trigger: '.o_barcode_client_action',
         run: 'scan 010011115555571710LOT-AAB',
     },
-    { trigger: '.o_sublines .o_barcode_line:contains("AAB")' },
+    {
+        trigger: '.o_sublines .o_barcode_line:contains("AAB")',
+        run: "click",
+    },
     {
         trigger: '.o_sublines .o_barcode_line.o_selected:contains("AAB")',
         run: function () {
@@ -161,13 +168,18 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     },
     // Scans manually (with a custom separator) lot + quantity but with a lot already scanned,
     // so it should increment the quantity on the line with this lot.
-    { trigger: '.o_barcode_client_action .o_stock_mobile_barcode' },
+    {
+        trigger: '.o_barcode_client_action .o_stock_mobile_barcode',
+        run: "click",
+    },
     {
         trigger: '.modal-content .modal-body #manual_barcode',
         run: "edit 305Alt02910LOT-AAA",
     },
-    { trigger: '.modal-content .modal-footer .btn-primary:not(:disabled)' },
-
+    {
+        trigger: '.modal-content .modal-footer .btn-primary:not(:disabled)',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line.o_selected .qty-done:contains("10")',
         run: function () {
@@ -190,7 +202,10 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         run: 'scan 011522222222221921Serial1',
     },
     // Folds the previous line.
-    { trigger: '.o_toggle_sublines .fa-caret-up' },
+    {
+        trigger: '.o_toggle_sublines .fa-caret-up',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line:contains("Serial1")',
         run: function () {
@@ -209,7 +224,10 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         trigger: '.o_barcode_client_action',
         run: 'scan 011522222222221921Serial2',
     },
-    { trigger: '.o_sublines .o_barcode_line:contains("Serial2")' },
+    {
+        trigger: '.o_sublines .o_barcode_line:contains("Serial2")',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line:contains("Serial2")',
         run: function () {
@@ -225,6 +243,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     },
     {
         trigger: '.o_notification_bar.bg-danger',
+        run: "click",
     },
     {
         trigger: '.o_barcode_line:contains("Serial3")',
@@ -281,9 +300,11 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     // Ask for confirmation when validate because of quantities for tracked product without SN.
     {
         trigger: '.modal-content:contains("Tracked Products in Inventory Adjustment")',
+        run: "click",
     },
     {
         trigger: '.modal-content .btn[name=action_confirm]',
+        run: "click",
     },
     {
         trigger: '.o_notification_bar.bg-success',
@@ -299,7 +320,8 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
         run: 'scan 00987654123487568456',
     },
     {
-        trigger: '.o_notification_bar.bg-danger'
+        trigger: '.o_notification_bar.bg-danger',
+        run: "click",
     },
     // Changes location for Section 1 and scans again the package.
     {
@@ -348,7 +370,8 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
         run: 'scan 00487325612456785124',
     },
     {
-        trigger: '.o_notification_bar.bg-danger'
+        trigger: '.o_notification_bar.bg-danger',
+        run: "click",
     },
 
     // Scans additionnal products and put them in a new pack by scanning a non-existing package barcode.
@@ -379,7 +402,8 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
 
     // Validates the inventory.
     {
-        trigger: '.o_apply_page'
+        trigger: '.o_apply_page',
+        run: "click",
     },
     {
         trigger: '.o_notification_bar.bg-success',
@@ -390,7 +414,10 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
 // Picking Tests.
 
 registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true, steps: () => [
-    { trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")' },
+    {
+        trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")',
+        run: "click",
+    },
     { trigger: '.o_stock_barcode_main_menu', run: 'scan WHIN' },
     // Scans PRO_GTIN_8 x4
     { trigger: '.o_barcode_client_action', run: 'scan 0100000082655853300004' },
@@ -453,7 +480,10 @@ registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true,
     },
     // Selects a line and scans a package type, it should be assing the package
     // type to selected line's result package.
-    { trigger: '.o_barcode_line[data-barcode="584687955629"]' },
+    {
+        trigger: '.o_barcode_line[data-barcode="584687955629"]',
+        run: "click",
+    },
     { trigger: '.o_selected[data-barcode="584687955629"]', run: 'scan 91WOODC' },
     {
         trigger: '.o_barcode_line[data-barcode="584687955629"]:contains("(Wooden Chest)")',
@@ -531,7 +561,10 @@ registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true,
 ]});
 
 registry.category("web_tour.tours").add('test_gs1_package_delivery', {test: true, steps: () => [
-    { trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")' },
+    {
+        trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")',
+        run: "click",
+    },
     {
         trigger: '.o_stock_barcode_main_menu',
         run: 'scan WHOUT',
@@ -827,7 +860,10 @@ registry.category("web_tour.tours").add("test_gs1_receipt_conflicting_barcodes_m
         },
     },
     { trigger: ".o_barcode_client_action", run: "scan 21000000000003" },
-    { trigger: ".o_barcode_line.o_selected .o_line_button.o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line.o_selected .o_line_button.o_toggle_sublines",
+        run: "click",
+    },
     {
         trigger: ".o_sublines .o_barcode_line.o_selected",
         run: function() {
@@ -856,6 +892,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
     // Open manual scanner.
     {
         trigger: '.o_barcode_client_action .o_stock_mobile_barcode',
+        run: "click",
     },
     // Manually add '(01)00000076543210(10)b1-b001(30)00000008' barcode for GS1 test.
     {
@@ -865,6 +902,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
     // Apply the manual entry of barcode.
     {
         trigger: '.modal-content .modal-footer .btn-primary:not(:disabled)',
+        run: "click",
     },
 
     {
@@ -898,7 +936,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
         trigger: '.o_barcode_client_action',
         run: 'scan 010000007654321010b1-b002\x1D3000000004',
     },
-    { trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down' },
+    {
+        trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line:contains("b1-b002")',
         run: function () {
@@ -994,17 +1035,26 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
         }
     },
     // Adds a line with the "Add Product" button, then scans the lot/qty.
-    { trigger: '.o_add_line' },
+    {
+        trigger: '.o_add_line',
+        run: "click",
+    },
     {
         trigger: '.o_field_widget[name=product_id] input',
         run: "edit B1",
     },
-    { trigger: ".ui-menu-item > a:contains('Battle Droid')" },
+    {
+        trigger: ".ui-menu-item > a:contains('Battle Droid')",
+        run: "click",
+    },
     {
         trigger: '[name=qty_done] input',
         run: "edit 0",
     },
-    { trigger: '.o_save' },
+    {
+        trigger: '.o_save',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line:nth-child(4)',
         run: function () {
@@ -1141,7 +1191,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
             helper.assert(errorMessageTitle.innerText, 'Wrong Unit of Measure');
         }
     },
-    { trigger: '.o_notification_close' },
+    {
+        trigger: '.o_notification_close',
+        run: "click",
+    },
     // Scans 4 units for the "Product by Units".
     {
         trigger: '.o_barcode_client_action',
@@ -1172,7 +1225,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
             helper.assert(errorMessageTitle.innerText, 'Wrong Unit of Measure');
         }
     },
-    { trigger: '.o_notification_close' },
+    {
+        trigger: '.o_notification_close',
+        run: "click",
+    },
 
     // Scans 5 kg for the "Product by kg".
     {
@@ -1204,7 +1260,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
             helper.assert(errorMessageTitle.innerText, 'Wrong Unit of Measure');
         }
     },
-    { trigger: '.o_notification_close' },
+    {
+        trigger: '.o_notification_close',
+        run: "click",
+    },
 
     // Scans 1.25 kg for the "Product by g" => Compatible UoM but kg need to be converted to g.
     {
@@ -1221,7 +1280,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
         }
     },
     // Clicks on the edit button to trigger a save.
-    { trigger: '.o_barcode_line:nth-child(3) .o_edit' },
+    {
+        trigger: '.o_barcode_line:nth-child(3) .o_edit',
+        run: "click",
+    },
     {
         trigger: '[name=qty_done] input',
         run: function () {
@@ -1266,7 +1328,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_packaging', {test: tru
         }
     },
     // Clicks on the edit button to trigger a save.
-    { trigger: '.o_barcode_line:first-child .o_edit' },
+    {
+        trigger: '.o_barcode_line:first-child .o_edit',
+        run: "click",
+    },
     {
         trigger: '[name="qty_done"] input',
         run: function () {

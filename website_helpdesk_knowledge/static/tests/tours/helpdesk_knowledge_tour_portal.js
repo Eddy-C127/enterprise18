@@ -7,6 +7,7 @@ registry.category("web_tour.tours").add('access_helpdesk_article_portal_tour', {
     steps: () => [{
     content: "clik on 'Help'",
     trigger: 'a[role="menuitem"]:contains("Help")',
+    run: "click",
 }, {
     content: "Write 'Article' in the search bar",
     trigger: 'input[name="search"]',

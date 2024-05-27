@@ -12,18 +12,21 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     trigger: '.o_app[data-menu-xmlid="helpdesk.menu_helpdesk_root"]',
     content: markup(_t('Want to <b>boost your customer satisfaction</b>?<br/><i>Click Helpdesk to start.</i>')),
     position: 'bottom',
+    run: "click",
 }, {
     trigger: '.oe_kanban_action_button',
     extra_trigger: '.o_kanban_primary_left',
     content: markup(_t('Let\'s view your <b>team\'s tickets</b>.')),
     position: 'bottom',
     width: 200,
+    run: "click",
 }, {
     trigger: '.o-kanban-button-new',
     extra_trigger: '.o_helpdesk_ticket_kanban_view',
     content: markup(_t('Let\'s create your first <b>ticket</b>.')),
     position: 'bottom',
     width: 200,
+    run: "click",
 }, {
     trigger: '.field_name textarea',
     extra_trigger: '.o_form_editable',
@@ -35,27 +38,32 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     extra_trigger: '.o_form_editable',
     content: markup(_t('Select the <b>customer</b> of your ticket.')),
     position: 'top',
+    run: "click",
 }, {
     trigger: '.o_field_widget.field_user_id',
     extra_trigger: '.o_form_editable',
     content: markup(_t('Assign the ticket to a <b>member of your team</b>.')),
     position: 'right',
+    run: "click",
 }, {
     trigger: ".o-mail-Chatter-topbar button:contains(Send message)",
     extra_trigger: '.o_form_view',
     content: markup(_t("Use the chatter to <b>send emails</b> and communicate efficiently with your customers. Add new people to the followers' list to make them aware of the progress of this ticket.")),
     width: 350,
     position: "bottom",
+    run: "click",
 }, {
     trigger: "button:contains(Log note)",
     extra_trigger: '.o_form_view',
     content: markup(_t("<b>Log notes</b> for internal communications (you will only notify the persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or <b># mentions</b> to contact a group of people.")),
     width: 350,
-    position: "bottom"
+    position: "bottom",
+    run: "click",
 }, {
     trigger: "button:contains(Activities)",
     extra_trigger: '.o_form_view .o_form_saved',
     content: markup(_t("Use <b>activities</b> to organize your daily work.")),
+    run: "click",
 }, {
     trigger: ".modal-dialog .btn-primary",
     content: markup(_t("Schedule your <b>activity</b>.")),
@@ -66,6 +74,7 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     extra_trigger: '.o_form_view',
     content: markup(_t("Let's go back to the <b>kanban view</b> to get an overview of your next tickets.")),
     position: 'bottom',
+    run: "click",
 }, {
     trigger: 'body:not(:has(div.o_view_sample_data)) .o_helpdesk_ticket_kanban_view .o_kanban_record',
     content: markup(_t('<b>Drag &amp; drop</b> the card to change the stage of your ticket.')),
@@ -79,6 +88,7 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     trigger: ".o_column_quick_create .o_kanban_add",
     content: _t("Add your stage and place it at the right step of your workflow by dragging & dropping it."),
     position: 'right',
+    run: "click",
 }, {
     trigger: ".o_column_quick_create .o_kanban_add",
     content: "Clicking on 'Add' when input name is empty won't do anything, 'Add' will still be displayed",

@@ -10,6 +10,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
         {
             content: "click on add to comparison",
             trigger: '.o_add_compare',
+            run: "click",
         },
         {
             content: "Search Warranty write text",
@@ -19,10 +20,12 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
         {
             content: "Search Warranty click",
             trigger: 'form:has(input[name="search"]) .oe_search_button',
+            run: "click",
         },
         {
             content: "add first product 'Warranty' in a comparison list",
             trigger: '.oe_product_cart:contains("Warranty") .o_add_compare',
+            run: "click",
         },
         {
             content: "check popover is now open and compare button contains two products",
@@ -33,10 +36,12 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
         {
             content: "click on compare button",
             trigger: '.o_comparelist_button a',
+            run: "click",
         },
         {
             content: "click on add to cart",
             trigger: '.product_summary:contains("Computer") .a-submit:contains("Add to Cart")',
+            run: "click",
         },
         tourUtils.goToCart({quantity: 1}),
         {
@@ -53,6 +58,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
             content: "go to checkout",
             extra_trigger: '#cart_products .oe_currency_value:contains(75.00)',
             trigger: 'a[href*="/shop/checkout"]',
+            run: "click",
         },
         tourUtils.confirmOrder(),
         {

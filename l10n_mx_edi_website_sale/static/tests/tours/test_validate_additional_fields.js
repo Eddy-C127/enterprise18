@@ -12,10 +12,12 @@ registry.category("web_tour.tours").add("test_validate_additional_fields", {
         {
             content: "Go to checkout",
             trigger: "a:contains('Checkout')",
+            run: "click",
         },
         {
             content: "Confirm Address",
             trigger: "a:contains('Confirm')",
+            run: "click",
         },
         {
             content: "Check that the additional field page is open",
@@ -25,10 +27,12 @@ registry.category("web_tour.tours").add("test_validate_additional_fields", {
         {
             content: "Check no need invoice",
             trigger: `input[name="need_invoice"][value="0"]`,
+            run: "click",
         },
         {
             content: "Click Next",
             trigger: "a.a-submit:contains('Continue checkout')",
+            run: "click",
         },
         {
             content: "Check we are on confirm order page",

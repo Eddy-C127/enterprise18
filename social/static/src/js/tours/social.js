@@ -17,32 +17,38 @@ registry.category("web_tour.tours").add('social_tour', {
             content: markup(_t("Let's create your own <b>social media</b> dashboard.")),
             position: 'bottom',
             edition: 'enterprise',
+            run: "click",
         }, {
             trigger: 'button.o_stream_post_kanban_new_stream',
             content: markup(_t("Let's <b>connect</b> to Facebook, LinkedIn or X.")),
             position: 'bottom',
             edition: 'enterprise',
+            run: "click",
         }, {
             trigger: '.o_social_media_cards',
             content: markup(_t("Choose which <b>account</b> you would like to link first.")),
             position: 'right',
             edition: 'enterprise',
+            run: "click",
         }, {
             trigger: 'button.o_stream_post_kanban_new_post',
             content: _t("Let's start posting."),
             position: 'bottom',
             edition: 'enterprise',
+            run: "click",
         }, {
             trigger: '.o_social_post_message_wrapper',
             content: _t("Write a message to get a preview of your post."),
             position: 'bottom',
             edition: 'enterprise',
+            run: "click",
         }, {
             trigger: 'button[name="action_post"]',
             extra_trigger: 'textarea[name="message"]:first:value()', // message field not empty
             content: _t("Happy with the result? Let's post it!"),
             position: 'bottom',
             edition: 'enterprise',
+            run: "click",
         },
     ]
 });

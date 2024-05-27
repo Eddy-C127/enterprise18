@@ -16,10 +16,12 @@ registry
             {
                 content: "Search computer click",
                 trigger: 'form:has(input[name="search"]) .oe_search_button',
+                run: "click",
             },
             {
                 content: "Select computer",
                 trigger: '.oe_product_cart:first a:contains("Computer")',
+                run: "click",
             },
             {
                 content: "Check that the duration is correct",

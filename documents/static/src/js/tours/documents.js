@@ -21,18 +21,21 @@ registry.category("web_tour.tours").add("documents_tour", {
                 _t("Want to become a <b>paperless company</b>? Let's discover Odoo Documents.")
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger:
                 'body:not(:has(.o-FileViewer)) img[src="https://img.youtube.com/vi/Ayab6wZ_U1A/0.jpg"]',
             content: markup(_t("Click on a thumbnail to <b>preview the document</b>.")),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: "[title='Close (Esc)']",
             extra_trigger: ".o_documents_kanban",
             content: markup(_t("Click the cross to <b>exit preview</b>.")),
             position: "left",
+            run: "click",
         },
         {
             // equivalent to '.o_search_panel_filter_value:contains('Inbox')' but language agnostic.
@@ -53,6 +56,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             extra_trigger: "body:not(:has(.o-FileViewer)) .o_documents_kanban",
             content: markup(_t("Click on a card to <b>select the document</b>.")),
             position: "bottom",
+            run: "click",
         },
         {
             // equivalent to '.o_inspector_rule:contains('Send to Legal') .o_inspector_trigger_rule' but language agnostic.
@@ -63,6 +67,7 @@ registry.category("web_tour.tours").add("documents_tour", {
                 )
             ),
             position: "bottom",
+            run: "click",
         },
         {
             // the nth(0) ensures that the filter of the preceding step has been applied.
@@ -70,6 +75,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             extra_trigger: ".o_documents_kanban",
             content: _t("Let's process this document, coming from our scanner."),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_inspector_split",
@@ -78,6 +84,7 @@ registry.category("web_tour.tours").add("documents_tour", {
                 "As this PDF contains multiple documents, let's split and process in bulk."
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_page_splitter_wrapper:nth(3)",
@@ -88,12 +95,14 @@ registry.category("web_tour.tours").add("documents_tour", {
                 )
             ),
             position: "right",
+            run: "click",
         },
         {
             trigger: ".o_documents_pdf_page_selector:nth(5)",
             extra_trigger: ".o_documents_pdf_manager",
             content: markup(_t("<b>Deselect this page</b> as we plan to process all bills first.")),
             position: "left",
+            run: "click",
         },
         {
             // equivalent to '.o_pdf_manager_button:contains(Create an Expense)' but language agnostic.
@@ -101,12 +110,14 @@ registry.category("web_tour.tours").add("documents_tour", {
             extra_trigger: ".o_documents_pdf_manager",
             content: _t("Let's process these bills: send to Finance workspace."),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_documents_pdf_page_selector",
             extra_trigger: ".o_documents_pdf_manager",
             content: markup(_t("<b>Select</b> this page to continue.")),
             position: "bottom",
+            run: "click",
         },
         {
             // equivalent to '.o_pdf_manager_button:contains(Send to Legal)' but language agnostic.
@@ -114,6 +125,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             extra_trigger: ".o_pdf_manager_button:not(:disabled)",
             content: _t("Send this letter to the legal department, by assigning the right tags."),
             position: "bottom",
+            run: "click",
         },
     ],
 });

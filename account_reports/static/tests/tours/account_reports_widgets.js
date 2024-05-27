@@ -17,6 +17,7 @@ registry.category("web_tour.tours").add("account_reports_widgets", {
         {
             content: "wait refresh",
             trigger: "#filter_date button:contains('2019')",
+            run: "click",
         },
         {
             content: "change comparison filter",

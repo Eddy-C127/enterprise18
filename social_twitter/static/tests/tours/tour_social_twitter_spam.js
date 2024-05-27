@@ -43,6 +43,7 @@ function createReplies(textareaSelector) {
             {
                 trigger: `.o_social_comment_text[data-original-message*="${message}"]`,
                 content: 'Check if the comment has been posted',
+                run: "click",
             },
         );
     }

@@ -156,6 +156,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_xml_resource_selector .o_web_studio_xml_resource_select_menu",
@@ -179,6 +180,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
         },
         {
             trigger: ".o_web_studio_xml_resource_selector .o_select_menu_toggler",
+            run: "click",
         },
         {
             trigger: ".o-dropdown--menu",
@@ -206,6 +208,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             extra_trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -245,9 +248,11 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_di
         },
         {
             trigger: ".o-web-studio-discard-report.btn-secondary",
+            run: "click",
         },
         {
             trigger: ".modal-dialog .btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
@@ -264,6 +269,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_code_editor.ace_editor",
@@ -275,6 +281,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
         },
         {
             trigger: ".o-web-studio-discard-report.btn-secondary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-report-container :iframe body",
@@ -313,6 +320,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o_notification .o_notification_title",
@@ -336,6 +344,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_code_editor.ace_editor",
@@ -350,6 +359,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o_notification .o_notification_title",
@@ -375,6 +385,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_reset_archs", {
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar button[name='report_reset_archs']",
+            run: "click",
         },
         {
             trigger: ".modal-footer",
@@ -473,6 +484,7 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -496,6 +508,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         {
             trigger:
                 ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            run: "click",
         },
         {
             extra_trigger: ".o-web-studio-field-dynamic-placeholder",
@@ -551,6 +564,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -566,14 +580,17 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             // edit reports
             trigger: ".o_web_studio_menu li a:contains(Reports)",
+            run: "click",
         },
         {
             // create a new report
             trigger: ".o_control_panel .o-kanban-button-new",
+            run: "click",
         },
         {
             // select basic layout
             trigger: '.o_web_studio_report_layout_dialog div[data-layout="web.basic_layout"]',
+            run: "click",
         },
         {
             trigger: ":iframe .page div",
@@ -585,6 +602,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             trigger:
                 ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            run: "click",
         },
         {
             extra_trigger: ".o-web-studio-field-dynamic-placeholder",
@@ -613,6 +631,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_item_name:contains(Job Position)",
+            run: "click",
         },
         {
             trigger:
@@ -626,6 +645,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             // check that field was added successfully
             trigger: ":iframe .page div > span:contains(some default value)",
+            run: "click",
         },
         {
             trigger: ":iframe .page div",
@@ -635,6 +655,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -664,12 +685,15 @@ registry.category("web_tour.tours").add("web_studio.test_toolbar_appearance", {
         },
         {
             trigger: "#bold.btn",
+            run: "click",
         },
         {
             trigger: "#italic.btn",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-discard-report",
+            run: "click",
         },
         {
             trigger: "#toolbar.oe-floating[style*=hidden]",
@@ -697,16 +721,20 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
         },
         {
             trigger: ".o_web_studio_sidebar button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_xml_resource_select_menu button.o_select_menu_toggler",
+            run: "click",
         },
         {
             trigger:
                 ".o-dropdown--menu .o_select_menu_item_label:contains(report_editor_customization_full)",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_code_editor_info .o_field_translate",
+            run: "click",
         },
         {
             trigger: ".o_translation_dialog .row:eq(1)",
@@ -721,6 +749,7 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
         },
         {
             trigger: ".modal-footer button.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_editor",
@@ -735,6 +764,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_xml_other_record
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar button[name='report_edit_sources']",
+            run: "click",
         },
         {
             extra_trigger: ".o_web_studio_xml_editor",
@@ -748,6 +778,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_xml_other_record
         },
         {
             trigger: ".o-web-studio-report-pager .o_pager_next",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-report-container :iframe body p:contains(partner_2)",
@@ -819,6 +850,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
         {
             trigger:
                 ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            run: "click",
         },
         {
             trigger:
@@ -827,6 +859,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
         },
         {
             trigger: "[data-name=avatar_1024] > button.o_model_field_selector_popover_item_name",
+            run: "click",
         },
         {
             trigger:
@@ -839,6 +872,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -861,6 +895,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            run: "click",
         },
         {
             trigger:
@@ -869,6 +904,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         },
         {
             trigger: "[data-name=company_id] > button.o_model_field_selector_popover_item_relation",
+            run: "click",
         },
         {
             trigger:
@@ -878,6 +914,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".o_model_field_selector_popover_item_name:contains(New File):not(:contains(filename))",
+            run: "click",
         },
         {
             trigger:
@@ -898,6 +935,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         {
             trigger:
                 ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            run: "click",
         },
         {
             trigger:
@@ -906,6 +944,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         },
         {
             trigger: "[data-name=company_id] > button.o_model_field_selector_popover_item_relation",
+            run: "click",
         },
         {
             trigger:
@@ -914,6 +953,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         },
         {
             trigger: ".o_model_field_selector_popover_item_name:contains(New Image)",
+            run: "click",
         },
         {
             trigger:
@@ -926,6 +966,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -948,6 +989,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a table based on a relational field)",
+            run: "click",
         },
         {
             trigger:
@@ -956,6 +998,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         },
         {
             trigger: "[data-name=activity_ids] > button.o_model_field_selector_popover_item_name",
+            run: "click",
         },
         {
             trigger:
@@ -990,6 +1033,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            run: "click",
         },
         {
             trigger:
@@ -999,6 +1043,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_item_name:contains(Summary)",
+            run: "click",
         },
         {
             trigger:
@@ -1016,6 +1061,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -1030,6 +1076,7 @@ registry.category("web_tour.tours").add("web_studio.test_saving_xml_editor_reloa
     steps: () => [
         {
             trigger: "button[name='report_edit_sources']",
+            run: "click",
         },
         {
             extra_trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -1045,6 +1092,7 @@ registry.category("web_tour.tours").add("web_studio.test_saving_xml_editor_reloa
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             extra_trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -1072,6 +1120,7 @@ registry.category("web_tour.tours").add("web_studio.test_error_at_loading", {
     steps: () => [
         {
             trigger: "body:not(:has(.o_error_dialog)) .o-web-studio-report-editor",
+            run: "click",
         },
         {
             trigger: ":iframe div",
@@ -1084,6 +1133,7 @@ registry.category("web_tour.tours").add("web_studio.test_error_at_loading", {
         },
         {
             trigger: "button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_xml_editor",
@@ -1098,21 +1148,27 @@ registry.category("web_tour.tours").add("web_studio.test_error_at_loading_debug"
     steps: () => [
         {
             trigger: "body:not(:has(.o_error_dialog)) .o-web-studio-report-editor",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-report-container:not(:has(iframe))",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-report-container strong:contains(builtins.ValueError)",
+            run: "click",
         },
         {
             trigger: "button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_xml_editor",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-report-container:not(:has(iframe))",
+            run: "click",
         },
         {
             trigger:
@@ -1134,6 +1190,7 @@ registry.category("web_tour.tours").add("web_studio.test_xml_and_form_diff", {
         },
         {
             trigger: "button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger:
@@ -1148,13 +1205,16 @@ registry.category("web_tour.tours").add("web_studio.test_xml_and_form_diff", {
         },
         {
             trigger: ".o_web_studio_xml_resource_select_menu button.o_select_menu_toggler",
+            run: "click",
         },
         {
             trigger:
                 ".o-dropdown--menu .o_select_menu_item_label:contains(web_studio.test_report_document)",
+            run: "click",
         },
         {
             trigger: "button[name='view_diff']",
+            run: "click",
         },
         {
             trigger: ".o_form_view table.diff",
@@ -1206,12 +1266,15 @@ registry.category("web_tour.tours").add("web_studio.test_record_model_differs_fr
             {
                 trigger:
                     ".o_studio_report_kanban_view .o_searchview .o_menu_item:contains(Report):contains(dummy test)",
+                run: "click",
             },
             {
                 trigger: ".o_facet_remove",
+                run: "click",
             },
             {
                 trigger: ".o_kanban_record:contains(dummy test)",
+                run: "click",
             },
             {
                 trigger: ".o-web-studio-report-editor-wysiwyg",
@@ -1255,9 +1318,11 @@ registry.category("web_tour.tours").add("web_studio.test_different_view_document
     steps: () => [
         {
             trigger: ".o_web_studio_sidebar button[name='report_edit_sources']",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_xml_resource_selector .o_select_menu_toggler",
+            run: "click",
         },
         {
             trigger: ".o-dropdown--menu",
@@ -1291,6 +1356,7 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_arch", {
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -1314,6 +1380,7 @@ registry.category("web_tour.tours").add("web_studio.test_edit_in_t_call", {
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -1342,6 +1409,7 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_and_in_t_call
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
@@ -1355,9 +1423,11 @@ registry.category("web_tour.tours").add("web_studio.test_image_crop", {
     steps: () => [
         {
             trigger: "body :iframe .myimg",
+            run: "click",
         },
         {
             trigger: "body .oe-toolbar #image-crop",
+            run: "click",
         },
         {
             trigger: "body .o-overlay-container .o_we_crop_widget .cropper-container",
@@ -1380,6 +1450,7 @@ registry.category("web_tour.tours").add("web_studio.test_translations_are_copied
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",

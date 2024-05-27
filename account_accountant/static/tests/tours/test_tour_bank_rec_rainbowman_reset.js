@@ -16,6 +16,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
             content: "Open the bank reconciliation widget",
             extra_trigger: ".o_breadcrumb",
             trigger: "button.btn-primary[name='action_open_reconcile']",
+            run: "click",
         },
         {
             content: "'line1' should be selected and form mounted",
@@ -27,11 +28,13 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
         {
             content: "Mount invoice 2 for line 1",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table td[name='move_id']:contains('INV/2019/00002')",
+            run: "click",
         },
         {
             content: "Validate line1",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00002')",
             trigger: "button:contains('Validate')",
+            run: "click",
         },
         {
             content: "No records brings rainbows",
@@ -42,11 +45,13 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
         {
             content: "Select the Journal Entry search option from the dropdown",
             trigger: ".o_searchview_autocomplete li:contains(Journal Entry)",
+            run: "click",
         },
         {
             content: "Remove the filter while rainbow man is on screen",
             extra_trigger: ".o_reward_rainbow_man:contains('You reconciled 1 transaction in')",
             trigger: ".o_kanban_view .o_searchview_facet:nth-child(3) .o_facet_remove",
+            run: "click",
         },
         {
             content: "Search for no results again",
@@ -57,6 +62,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
         {
             content: "Select the Journal Entry search option from the dropdown",
             trigger: ".o_searchview_autocomplete li:contains(Journal Entry)",
+            run: "click",
         },
         {
             content: "No content helper is displayed instead of rainbowman",

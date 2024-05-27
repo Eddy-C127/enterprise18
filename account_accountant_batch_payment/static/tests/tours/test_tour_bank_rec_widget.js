@@ -17,6 +17,7 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
             content: "Open the bank reconciliation widget",
             extra_trigger: ".o_breadcrumb",
             trigger: "button.btn-primary[name='action_open_reconcile']",
+            run: "click",
         },
         {
             content: "The 'line1' should be selected by default",
@@ -28,15 +29,18 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
         {
             content: "Click on the 'batch_payments_tab'",
             trigger: "a[name='batch_payments_tab']",
+            run: "click",
         },
         {
             content: "Mount BATCH0001",
             trigger: "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table td[name='name']:contains('BATCH0001')",
+            run: "click",
         },
         {
             content: "Remove the payment of 100.0",
             extra_trigger: "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item",
             trigger: "div[name='line_ids'] .fa-trash-o:last",
+            run: "click",
         },
 
         // Check the batch rejection wizard.
@@ -44,21 +48,25 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
             content: "Validate and open the wizard",
             extra_trigger: "button.btn-primary:contains('Validate')",
             trigger: "button:contains('Validate')",
+            run: "click",
         },
         {
             content: "Click on 'Cancel'",
             extra_trigger: "div.modal-content",
             trigger: "div.modal-content button[name='button_cancel']",
+            run: "click",
         },
         {
             content: "Validate and open the wizard",
             extra_trigger: "body:not(.modal-open)",
             trigger: "button:contains('Validate')",
+            run: "click",
         },
         {
             content: "Click on 'Expect Payments Later'",
             extra_trigger: "div.modal-content",
             trigger: "div.modal-content button[name='button_continue']",
+            run: "click",
         },
 
         // Reconcile 'line2' with the remaining payment in batch.
@@ -71,15 +79,18 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
         {
             content: "Click on the 'batch_payments_tab'",
             trigger: "a[name='batch_payments_tab']",
+            run: "click",
         },
         {
             content: "Mount BATCH0001",
             trigger: "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table td[name='name']:contains('BATCH0001')",
+            run: "click",
         },
         {
             content: "Validate. The wizard should be opened.",
             extra_trigger: "button.btn-primary:contains('Validate')",
             trigger: "button:contains('Validate')",
+            run: "click",
         },
         {
             content: "The 'line3' should be selected by default",

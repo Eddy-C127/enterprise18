@@ -14,7 +14,8 @@ const addAnswerComment = (commentText) => [{
     }
 }, {
     // Send comment
-    trigger: '.o-mail-Composer-send:not([disabled=""])'
+    trigger: '.o-mail-Composer-send:not([disabled=""])',
+    run: "click",
 }, {
     trigger: `.o-mail-Thread :contains(${commentText})`,
     run: () => {}
@@ -26,10 +27,13 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
     steps: () => [
         stepUtils.showAppsMenuItem(), { // Open Knowledge App
             trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+            run: "click",
         }, {
-            trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Sepultura")'
+            trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Sepultura")',
+            run: "click",
         }, {
             trigger: '.o_knowledge_comment_box[data-id] .o_knowledge_comment_small_ui img',
+            run: "click",
         }, {
             trigger: '.o-mail-Thread :contains("Marc, can you check this?")',
             run: () => {}
@@ -41,7 +45,8 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
                 makeVisible('.o-mail-Message-actions');
             }
         }, { // Resolve Thread
-            trigger: 'button[name="closeThread"]'
+            trigger: 'button[name="closeThread"]',
+            run: "click",
         }, { // Wait for the composer to be fully closed
             trigger: 'body:not(:has(.o-mail-Thread))',
             run: () => {}
@@ -52,13 +57,15 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
             }
         }, { // Trigger comment creation with the editor toolbar
             trigger: '.oe-toolbar div[id="comment-line"]',
+            run: "click",
         }, {
             trigger: '.o_knowledge_comments_popover .o-mail-Composer-input',
             run: async () => {
                 await insertText('.o-mail-Composer-input', 'My Knowledge Comment');
             }
         }, { // Send comment
-            trigger: '.o_knowledge_comments_popover .o-mail-Composer-send:not([disabled=""])'
+            trigger: '.o_knowledge_comments_popover .o-mail-Composer-send:not([disabled=""])',
+            run: "click",
         }, { // Wait for the composer to be fully closed
             trigger: 'body:not(:has(.o-mail-Thread))',
             run: () => {}
@@ -66,7 +73,8 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
             trigger: '.o_knowledge_comment_box[data-id] .o_knowledge_comment_small_ui img',
             run: () => {}
         }, { // Open the comments panel
-            trigger: '.btn-comments'
+            trigger: '.btn-comments',
+            run: "click",
         }, { // Panel loads un-resolved messages
             trigger: '.o-mail-Thread :contains("My Knowledge Comment")',
             run: () => {}
@@ -77,7 +85,8 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
             trigger: '.o-mail-Thread :contains("Sure thing boss, all done!")',
             run: () => {}
         }, { // Open the comment to enable replies
-            trigger: '.o_knowledge_comment_box'
+            trigger: '.o_knowledge_comment_box',
+            run: "click",
         },
         // Add an extra reply to the resolved comment
         ...addAnswerComment("Oops forgot to mention, will be done in task-112233"),

@@ -11,6 +11,7 @@ registry.category("web_tour.tours").add('sale_planning_test_tour', {
         ...planningTestTour.steps(), {
             trigger: ".o_gantt_cell.o_gantt_hoverable",
             content: "Click on magnify icon to see list of sale order",
+            run: "click",
         }, {
             trigger: "tr.o_data_row td[data-tooltip='Junior Developer']",
             content: "Select the slot and plan orders",

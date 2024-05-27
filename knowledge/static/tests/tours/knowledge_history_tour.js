@@ -22,6 +22,7 @@ function changeArticleContentAndSave(newContent) {
     }, {
         // reload knowledge articles to make sure that the article is saved
         trigger: 'a[data-menu-xmlid="knowledge.knowledge_menu_home"]',
+        run: "click",
     }, {
         // wait for the page to reload and OWL to accept value change
         trigger: '.o_article:contains("' + testArticleName + '"):not(.o_article_active)',
@@ -31,6 +32,7 @@ function changeArticleContentAndSave(newContent) {
     }, {
         // click on the test article
         trigger: '.o_article:contains("' + testArticleName + '") a.o_article_name',
+        run: "click",
     }, {
         // wait for the article to be loaded
         trigger: '.o_article_active:contains("' + testArticleName + '") ',
@@ -45,9 +47,11 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
     steps: () => [stepUtils.showAppsMenuItem(), {
         // open Knowledge App
         trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+        run: "click",
     }, {
         // click on the main "New" action
         trigger: '.o_knowledge_header .btn:contains("New")',
+        run: "click",
     }, {
         // check that the article is correctly created (private section)
         trigger: 'section[data-section="private"] .o_article .o_article_name:contains("Untitled")',
@@ -60,9 +64,11 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
     {
         // Open history dialog
         trigger: '.btn.btn-history',
+        run: "click",
     }, {
         // check the history dialog is opened
         trigger: '.modal-header:contains("History")',
+        run: "click",
     }, {
         // check that we have the correct number of revision (4)
         trigger: ".html-history-dialog .revision-list .btn",
@@ -75,15 +81,19 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
     }, {
         // check the first revision content is correct
         trigger: '.history-container .tab-pane:contains("Modified Title 02")',
+        run: "click",
     }, {
         // click on the 3rd revision
         trigger: '.html-history-dialog .revision-list .btn:nth-child(3)',
+        run: "click",
     }, {
         // check the 3rd revision content is correct
         trigger: '.history-container .tab-pane:contains("' + testArticleName + '")',
+        run: "click",
     }, {
         // click on the comparison tab
         trigger: '.history-container .nav-item:contains(Comparison) a',
+        run: "click",
     }, {
         // check the comparison content is correct
         trigger: '.history-container .tab-pane',
@@ -97,9 +107,11 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
     }, {
         // click on the restore button
         trigger: '.modal-footer .btn-primary:contains("Restore")',
+        run: "click",
     } , {
         // ensure the article content is restored
         trigger: '.note-editable.odoo-editor-editable h1:contains("' + testArticleName + '")',
+        run: "click",
     },
     ...endKnowledgeTour()
 ]});

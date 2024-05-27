@@ -9,22 +9,27 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), {
     trigger: '.o_app[data-menu-xmlid="sale_renting.rental_menu_root"]',
-    edition: 'enterprise'
+    edition: 'enterprise', 
+    run: "click",
 }, {
     trigger: '.o-kanban-button-new',
+    run: "click",
 }, {
     trigger: '.o_required_modifier[name=partner_id] input',
     run: "edit Tajine Saucisse",
 }, {
     trigger: '.ui-menu-item > a:contains("Tajine Saucisse")',
     auto: true,
+    run: "click",
 }, {
-    trigger: 'a:contains("Add a product")'
+    trigger: 'a:contains("Add a product")',
+    run: "click",
 }, {
     trigger: 'div[name="product_template_id"] input',
     run: "edit Custom",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Customizable Desk (TEST)")',
+    run: "click",
 },
 // Product Configurator Wizard
     configuratorTourUtils.selectAttribute("Customizable Desk", "Legs", "Aluminium"),
@@ -45,6 +50,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 {
     trigger: 'button:contains(Confirm)',
     id: 'quotation_product_selected',
+    run: "click",
 }, {
     trigger: 'td.o_data_cell:contains("Customizable Desk (TEST)")',
     run: "click",
@@ -63,11 +69,13 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 // Adding a line with a more expensive custom desk
 {
     trigger: 'a:contains("Add a product")',
+    run: "click",
 }, {
     trigger: 'div[name="product_template_id"] input',
     run: "edit Custom",
 }, {
     trigger: 'ul.ui-autocomplete a:contains("Customizable Desk (TEST)")',
+    run: "click",
 },
 // Product Configurator Wizard
     configuratorTourUtils.selectAttribute("Customizable Desk", "Legs", "Steel"),
@@ -79,6 +87,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 }, {
     trigger: 'button:contains(Confirm)',
     id: 'quotation_product_selected',
+    run: "click",
 }, {
     trigger: ".o_data_row:eq(3) .o_data_cell[name='product_uom_qty']",
     run: "click",
@@ -88,6 +97,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 }, {
     trigger: 'button[name=action_confirm]',
     position: 'bottom',
+    run: "click",
 }, {
     content: "verify that the rental has been confirmed",
     trigger: '.o_statusbar_status button.o_arrow_button_current:contains("Sales Order")',

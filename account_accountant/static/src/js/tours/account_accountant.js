@@ -18,10 +18,12 @@
                     trigger: 'button[data-menu-xmlid="account.menu_finance_receivables"]',
                     content: _t('Go to invoicing'),
                     auto: true,
+                    run: "click",
                 }, {
                     trigger: '.dropdown-item[data-menu-xmlid="account.menu_action_move_out_invoice_type"]',
                     content: _t('Go to invoicing'),
                     auto: true,
+                    run: "click",
                 });
             return originalSteps;
         }
@@ -45,25 +47,30 @@
                 trigger: 'button.btn-primary[name="action_create_vendor_bill"]',
                 content: markup(_t('Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on hand, use our sample bill.</i>')),
                 position: 'bottom',
+                run: "click",
             }, {
                 trigger: 'button[name="apply"]',
                 content: markup(_t('Great! Let’s continue.<br/><br/><i>Tip: If you choose to upload your bill, don’t forget to attach it.</i>')),
                 position: 'top',
+                run: "click",
             }, {
                 trigger: '.o_data_cell',
                 extra_trigger: 'tr:not(.o_sample_data_disabled)>td:has(div[name="state"])',
                 content: _t('Let’s see how a bill looks like in form view.'),
                 position: 'bottom',
                 skip_trigger: 'button.btn-primary[name="action_post"]',
+                run: "click",
             }, {
                 trigger: 'button.btn-primary[name="action_post"]',
                 content: _t('After the data extraction, check and validate the bill. If no vendor has been found, add one before validating.'),
                 position: 'bottom',
+                run: "click",
             }, {
                 trigger: '.dropdown-item[data-menu-xmlid="account.menu_board_journal_1"]',
                 extra_trigger: 'button[data-value="posted"].btn',
                 content: _t('Let’s go back to the dashboard.'),
                 position: 'bottom',
+                run: "click",
             }, {
                 trigger: 'a[data-method="action_open_step_bank_account"].o_onboarding_step_action',
                 content: _t('Connect your bank and get your latest transactions.'),
@@ -76,6 +83,7 @@
             }, {
                 trigger: '.o_bank_rec_st_line:not(.o_bank_rec_selected_st_line)',
                 content: _t('Click on a fetched bank transaction to start the reconciliation process.'),
+                run: "click",
             }
         ]
     });

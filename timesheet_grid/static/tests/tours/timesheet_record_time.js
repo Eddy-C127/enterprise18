@@ -29,6 +29,7 @@ registry.category("web_tour.tours").add('timesheet_record_time', {
     {
         trigger: ".ui-autocomplete > li > a:contains(Test Project)",
         auto: true,
+        run: "click",
     },
     {
         trigger: '.btn_stop_timer',

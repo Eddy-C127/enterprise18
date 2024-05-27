@@ -10,15 +10,18 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_wishlist', {
         {
             content: "click on add to wishlist",
             trigger: '.o_add_wishlist',
+            run: "click",
         },
         {
             content: "go to wishlist",
             extra_trigger: 'a[href="/shop/wishlist"] .badge.text-bg-primary:contains(1)',
             trigger: 'a[href="/shop/wishlist"]',
+            run: "click",
         },
         {
             content: "click on add to cart",
             trigger: '.o_wish_add',
+            run: "click",
         },
         tourUtils.goToCart({quantity: 1}),
         {
@@ -35,6 +38,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_wishlist', {
             content: "go to checkout",
             extra_trigger: '#cart_products .oe_currency_value:contains(75.00)',
             trigger: 'a[href*="/shop/checkout"]',
+            run: "click",
         },
         tourUtils.confirmOrder(),
         {

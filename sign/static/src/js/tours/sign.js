@@ -17,11 +17,13 @@ registry.category("web_tour.tours").add("sign_tour", {
             content: markup(_t("Let's <b>prepare & sign</b> our first document.")),
             position: "bottom",
             edition: "enterprise",
+            run: "click",
         },
         {
             trigger: ".o_nocontent_help .o_sign_sample",
             content: _t("Try out this sample contract."),
             position: "bottom",
+            run: "click",
         },
         {
             trigger:
@@ -48,6 +50,7 @@ registry.category("web_tour.tours").add("sign_tour", {
                 )
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_field_signer_x2many",
@@ -57,11 +60,13 @@ registry.category("web_tour.tours").add("sign_tour", {
                 )
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: 'button[name="send_request"]',
             content: _t("Let's send the request by email."),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ".o_control_panel .o_sign_sign_directly",
@@ -71,11 +76,13 @@ registry.category("web_tour.tours").add("sign_tour", {
                 )
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ":iframe .o_sign_sign_item_navigator",
             content: _t("Follow the guide to sign the document."),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: ":iframe .o_sign_sign_item_navigator",
@@ -86,6 +93,7 @@ registry.category("web_tour.tours").add("sign_tour", {
                 )
             ),
             position: "bottom",
+            run: "click",
         },
         {
             trigger: "footer.modal-footer button.btn-primary:enabled",
@@ -98,6 +106,7 @@ registry.category("web_tour.tours").add("sign_tour", {
             extra_trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
             content: _t("Congrats, your signature is ready to be submitted!"),
             position: "top",
+            run: "click",
         },
         {
             trigger: '.modal-dialog button:contains("' + _t("Close") + '")',
@@ -107,6 +116,7 @@ registry.category("web_tour.tours").add("sign_tour", {
                 )
             ),
             position: "bottom",
+            run: "click",
         },
     ],
 });

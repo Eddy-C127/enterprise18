@@ -10,6 +10,7 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
     steps: () => [stepUtils.showAppsMenuItem(), {
     // open Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+    run: "click",
 }, { // ensure display of ParentArticle child articles
     trigger: '.o_article_handle:contains("ParentArticle") .o_article_caret',
     run: function (actions) {

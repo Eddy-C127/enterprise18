@@ -10,14 +10,17 @@ registry.category("web_tour.tours").add('sale_external_optional_products', {
     {
         content: "open the test SO",
         trigger: 'a:contains("test")',
+        run: "click",
     },
     {
         content: "add the optional product",
         trigger: '.js_add_optional_products',
+        run: "click",
     },
     {
         content: "increase the quantity of the optional product by 1",
         trigger: '.js_update_line_json:eq(1)',
+        run: "click",
     },
     {
         trigger: 'input.js_quantity:value(2.0)',
@@ -26,6 +29,7 @@ registry.category("web_tour.tours").add('sale_external_optional_products', {
     {
         content: "delete the optional line",
         trigger: '.js_update_line_json:eq(2)',
+        run: "click",
     },
     {
         content: "wait for line to be deleted and show up again in optional products",

@@ -75,6 +75,7 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
         {
             trigger: `tr.o_data_row:first-child td[data-tooltip="${TEMPLATE_NAME}"]`,
             content: "Wait search to complete",
+            isCheck: true,
         },
         {
             trigger: "button.o-new-spreadsheet",
@@ -84,6 +85,7 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
         {
             trigger: ".o-spreadsheet",
             content: "Redirected to spreadsheet",
+            run: "click",
         },
     ],
 });

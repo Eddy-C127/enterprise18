@@ -13,6 +13,7 @@ registry.category("web_tour.tours").add(
             {
                 content: "Create a new task",
                 trigger: '.o-kanban-button-new',
+                run: "click",
             }, {
                 content: "Create a new task from form view in fsm",
                 trigger: 'div[name="name"] textarea.o_input',
@@ -36,6 +37,7 @@ registry.category("web_tour.tours").add(
             }, {
                 content: 'Validate Customer',
                 trigger: '.ui-menu-item a:contains("Azure Interior")',
+                run: "click",
             }, {
                 content: 'Open Menu All Tasks',
                 trigger: 'button.dropdown-toggle[data-menu-xmlid="industry_fsm.fsm_menu_all_tasks_root"]',
@@ -51,6 +53,7 @@ registry.category("web_tour.tours").add(
             }, {
                 content: "Check that parent task exists",
                 trigger: '.o_kanban_record_title span:contains("New fsm parent task")',
+                run: "click",
             }
         ]
     }

@@ -50,6 +50,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
     }
 }, {
     trigger: 'ul.o_search_tree .o_article a',
+    run: "click",
 }, {
     // check first article is displayed
     trigger: getNthArticleSelector(1, 0),
@@ -67,6 +68,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the children articles
     trigger: `${getNthArticleSelector(50, 1)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check second article ancestor is displayed (even though outside of 100 first)
     // it should be placed after the 100th child article and after the load more
@@ -75,6 +77,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the children articles
     trigger: `${getNthArticleSelector(100, 1)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check second article ancestor is displayed (even though outside of 100 first)
     // it should be placed after the 150th child article and after the load more
@@ -83,6 +86,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the children articles
     trigger: `${getNthArticleSelector(150, 1)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check second article ancestor is displayed (even though outside of 100 first)
     // it should be placed after the 200th child article and after the load more
@@ -91,6 +95,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the children articles
     trigger: `${getNthArticleSelector(200, 1)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check second article ancestor is displayed (even though outside of 100 first)
     // it should be placed at its correct spot after 203
@@ -99,6 +104,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the grand-children articles
     trigger: `${getNthArticleSelector(50, 2)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check active article is displayed (even though outside of 100 first)
     // it should be placed after the 100th grand-child article and after the load more
@@ -107,6 +113,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the grand-children articles
     trigger: `${getNthArticleSelector(100, 2)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check active article is displayed (even though outside of 100 first)
     // it should be placed after the 150th grand-child article and after the load more
@@ -115,6 +122,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the grand-children articles
     trigger: `${getNthArticleSelector(150, 2)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check active article is displayed (even though outside of 100 first)
     // it should be placed after the 200th grand-child article and after the load more
@@ -123,6 +131,7 @@ const LOAD_MORE_ADVANCED_STEPS = [{
 }, {
     // click on load more for the grand-children articles
     trigger: `${getNthArticleSelector(200, 2)} + .o_knowledge_article_load_more`,
+    run: "click",
 }, {
     // check active article is displayed (even though outside of 100 first)
     // it should be placed at its correct spot after 218

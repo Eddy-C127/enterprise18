@@ -72,6 +72,7 @@ const fileCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // wait for the media dialog to open
     trigger: '.o_select_media_dialog',
+    isCheck: true,
 }, { // click on the first item of the modal
     trigger: '.o_existing_attachment_cell:contains(Onboarding)',
     run: 'click'
@@ -114,6 +115,7 @@ const indexCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_articles_structure',
+    isCheck: true,
 }, { // click on the refresh button
     trigger: '.o_knowledge_behavior_type_articles_structure button[title="Update"]',
     run: 'click',
@@ -134,6 +136,7 @@ const tocCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_toc',
+    isCheck: true,
 }, { // insert a few titles in the editor
     trigger: '.odoo-editor-editable > p',
     run: function () {
@@ -186,6 +189,7 @@ const tocCommandSteps = [{ // open the command bar
 
 const clipboardCommandSteps = [{ // go to the custom article
     trigger: '.o_article .o_article_name:contains("EditorCommandsArticle")',
+    run: "click",
 }, { // wait for article to be correctly loaded
     trigger: '.o_hierarchy_article_name input:value("EditorCommandsArticle")',
     run: () => {},
@@ -205,6 +209,7 @@ const clipboardCommandSteps = [{ // go to the custom article
     run: "editor Hello world",
 }, { // verify that the text was correctly inserted
     trigger: '.o_knowledge_content > p:contains(Hello world)',
+    isCheck: true,
 }];
 
 // COMMAND: /video
@@ -251,9 +256,11 @@ const videoCommandSteps = [{ // patch the components
 }, {
     content: "Confirm selection",
     trigger: '.modal-footer button:contains("Insert Video")',
+    run: "click",
 }, { // wait for the block to appear in the editor
     trigger: ".o_knowledge_behavior_type_video",
-    extra_trigger: `.o_knowledge_behavior_type_video .o_video_iframe_src:contains("https://www.youtube.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`
+    extra_trigger: `.o_knowledge_behavior_type_video .o_video_iframe_src:contains("https://www.youtube.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
+    run: "click",
 }];
 
 const videoUnpatchSteps = [{ // unpatch the components
@@ -304,7 +311,8 @@ const listCommandSteps = [{ // open the command bar
     trigger: '.o_control_panel_breadcrumbs_actions .dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.dropdown-item:contains(Edit)'
+    trigger: '.dropdown-item:contains(Edit)',
+    run: "click",
 }, { // click to validate the modal
     trigger: '.modal-footer button.btn-primary',
     run: 'click'
@@ -326,7 +334,8 @@ const listCommandSteps = [{ // open the command bar
     trigger: '.o_control_panel_breadcrumbs_actions .dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.dropdown-item:contains(Edit)'
+    trigger: '.dropdown-item:contains(Edit)',
+    run: "click",
 }, { // rename the view
     trigger: '.modal-body input',
     run: "edit New Title",
@@ -470,17 +479,20 @@ const embedViewFiltersSteps = [{
     trigger: '.o_searchview_input_container input',
     run: "edit 1",
 }, {
-    trigger: 'li[id="1"]'
+    trigger: 'li[id="1"]',
+    run: "click",
 }, { // Check that the filter is effective
     trigger: 'tbody:not(tr.o_data_row:nth-child(2))',
     run: () => {}
 }, { // Open the filtered article
-    trigger: 'tbody > tr > td[name="display_name"]'
+    trigger: 'tbody > tr > td[name="display_name"]',
+    run: "click",
 }, { // Wait for the article to be open
     trigger: '.o_hierarchy_article_name input:value("Child 1")',
     run: () => {}
 }, { // Go back via the pager
     trigger: '.o_knowledge_header i.oi-chevron-left',
+    run: "click",
 }, { // Check that there is the filter in the searchBar
     trigger: '.o_searchview_input_container',
     run: () => {}
@@ -505,6 +517,7 @@ const embedKanbanEditArticleSteps = [{ // Create a new article using quick creat
     run: () => {},
 }, { // Go back via the pager
     trigger: '.o_knowledge_header i.oi-chevron-left',
+    run: "click",
 }, { // Wait for the article to be properly loaded
     trigger: '.odoo-editor-editable:contains("EditorCommandsArticle Content")',
     run: () => {}
@@ -520,8 +533,10 @@ const embedKanbanEditArticleSteps = [{ // Create a new article using quick creat
 const composeBody = '.modal-dialog:contains(Compose Email) [name="body"]';
 const articleCommandComposerSteps = [{ // open the chatter
     trigger: '.btn-chatter',
+    run: "click",
 }, { // open the message editor
     trigger: '.o-mail-Chatter-sendMessage:not([disabled=""])',
+    run: "click",
 }, { // open the full composer
     trigger: "button[aria-label='Full composer']",
 }, ...appendArticleLink(`${composeBody}`, 'EditorCommandsArticle'), { // wait for the block to appear in the editor
@@ -535,6 +550,7 @@ const articleCommandComposerSteps = [{ // open the chatter
     run: () => {},
 }, { // send the message
     trigger: '.o_mail_send',
+    run: "click",
 }, {
     trigger: '.o_widget_knowledge_chatter_panel .o-mail-Thread .o-mail-Message-body > p > a:nth-child(1).o_knowledge_behavior_type_article:contains("EditorCommandsArticle")',
     run: () => {},
@@ -552,9 +568,11 @@ const articleCommandUsageSteps = [{ // wait for the block to appear in the edito
     trigger: '.o_knowledge_behavior_type_article:contains("LinkedArticle")',
     run: 'click',
 }, { // check that the view switched to the corresponding article
-    trigger: '.o_knowledge_header:has(.o_hierarchy_article_name input:value("LinkedArticle"))'
+    trigger: '.o_knowledge_header:has(.o_hierarchy_article_name input:value("LinkedArticle"))',
+    run: "click",
 }, { // Go back via the pager
     trigger: '.o_knowledge_header i.oi-chevron-left',
+    run: "click",
 }, { // Wait for the article to be properly loaded
     trigger: '.odoo-editor-editable:contains("EditorCommandsArticle Content")',
     run: () => {}

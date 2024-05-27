@@ -13,6 +13,7 @@ registry.category("web_tour.tours").add('knowledge_readonly_item_list_tour', {
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), { // open the Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+    run: "click",
 }, { // scroll to the embedded view to load it
     trigger: '.o_knowledge_behavior_type_embedded_view',
     run: function () {

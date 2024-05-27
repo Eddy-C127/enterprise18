@@ -56,6 +56,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // As the article does not have properties definitions, it should create default ones
     trigger: '.modal-footer .btn-primary',
+    run: "click",
 }, { // Scroll to the embedded view to load it
     trigger: '.o_knowledge_behavior_type_embedded_view',
     run: () => {},
@@ -225,7 +226,8 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_control_panel_breadcrumbs_actions .dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.dropdown-item:contains(Edit)'
+    trigger: '.dropdown-item:contains(Edit)',
+    run: "click",
 }, { // Change the start property
     trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu_toggler',
     run: 'click',
@@ -302,6 +304,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: () => {},
 }, { // Leave the app and come back to make sure that changes have been saved
     trigger: '.o_main_navbar .o_menu_toggle',
+    run: "click",
 }, {
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
     run: 'click',

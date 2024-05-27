@@ -6,22 +6,27 @@ const StepToFSMProductsKanbanWithFavoritesFilterSteps = [
     {
         content: 'Open FSM app.',
         trigger: '.o_app[data-menu-xmlid="industry_fsm.fsm_menu_root"]',
+        run: "click",
     },
     {
         content: 'Open All Tasks.',
         trigger: 'button[data-menu-xmlid="industry_fsm.fsm_menu_all_tasks_root"]',
+        run: "click",
     },
     {
         content: 'Open All Tasks.',
         trigger: 'a[data-menu-xmlid="industry_fsm.fsm_menu_all_tasks_todo"]',
+        run: "click",
     },
     {
         content: 'Open Task Form',
         trigger: ".o_data_row span:contains(Fsm task)",
+        run: "click",
     },
     {
         content: 'Open the Product Kanban View',
         trigger: 'button[name="action_fsm_view_material"]',
+        run: "click",
     }
 ];
 
@@ -30,6 +35,7 @@ const AddTrackingLineAndValidateSteps = [
         content: 'Add a line in the wizard',
         trigger: 'div[name="tracking_line_ids"] a[role="button"]:contains(Add a line)',
         extra_trigger: 'div[role="dialog"]',
+        run: "click",
     },
     {
         content: 'Enter the lot number',
@@ -42,10 +48,12 @@ const AddTrackingLineAndValidateSteps = [
         trigger: ".o-autocomplete--dropdown-menu li:contains(Lot_1)",
         auto: true,
         in_modal: false,
+        run: "click",
     },
     {
         content: 'Validate',
         trigger: 'button[name="generate_lot"]',
+        run: "click",
     },
 ];
 
@@ -72,18 +80,22 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
         content: 'Add quantity to the first product (no lot)',
         trigger: '.o_kanban_record:first-child button:has(i.fa-shopping-cart)',
         extra_trigger: '.o_kanban_record .o_kanban_record_title span:contains(Product A)',
+        run: "click",
     },
     {
         content: 'Add quantity to the first product (no lot)',
         trigger: '.o_kanban_record:first-child button:has(i.fa-plus)',
+        run: "click",
     },
     {
         content: 'Add quantity to the second product (lot)',
         trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-shopping-cart)',
+        run: "click",
     },
     {
         content: 'Check that the warehouse column is not visible (thus that the second one is the Quantity)',
         trigger: 'div[name="tracking_line_ids"] table thead th:nth-of-type(2)[data-name="quantity"]',
+        run: "click",
     },
     ...AddTrackingLineAndValidateSteps,
     {
@@ -93,26 +105,32 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         trigger: 'button[name="action_view_so"]',
         content: 'Go to the sale order',
+        run: "click",
     },
     {
         trigger: 'button[name="action_view_delivery"]',
         content: 'Go to the the delivery',
+        run: "click",
     },
     {
         trigger: 'button[name="button_validate"]',
         content: 'Validate delivery',
+        run: "click",
     },
     {
         trigger: '.o_back_button',
         content: 'Go back to SO',
+        run: "click",
     },
     {
         trigger: 'button[name="action_view_task"]',
         content: 'Go back to fsm task',
+        run: "click",
     },
     {
         trigger: 'button[name="action_fsm_view_material"]',
         content: 'Click on the Products stat button',
+        run: "click",
     },
     {
         content: 'Check that is it not possible to reduce the quantity of the first product (no lot) since it has been delivered',
@@ -127,6 +145,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Add quantity to the first product (no lot)',
         trigger: '.o_kanban_record:first-child button:has(i.fa-plus)',
+        run: "click",
     },
     {
         content: 'Check that is it now possible to reduce the quantity of the first product (no lot) since we added quantities',
@@ -136,36 +155,44 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Open the second product (lot) SN assignation wizard by using the plus button',
         trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-plus)',
+        run: "click",
     },
     {
         content: 'Check that clicking on the plus button opened the Serial number assignation wizard',
         trigger: '.modal-content .modal-header .btn-close',
         extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+        run: "click",
     },
     {
         content: 'Open the second product (lot) SN assignation wizard by using the fa-list button',
         trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-list)',
+        run: "click",
     },
     {
         content: 'Check that clicking on the fa-list button opened the Serial number assignation wizard',
         trigger: '.modal-content .modal-header .btn-close',
         extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+        run: "click",
     },
     {
         content: 'Open the second product (lot) SN assignation wizard by inputing a quantity',
         trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity .text-bg-light',
+        run: "click",
     },
     {
         content: 'Check that inputing a quantity opened the Serial number assignation wizard',
         trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+        run: "click",
     },
     {
         content: 'Check that the Already Delivered list view is displayed',
         trigger: 'div[name="tracking_validated_line_ids"] table',
+        run: "click",
     },
     {
         content: 'Check that the warehouse column is not visible (thus that the second one is the Quantity)',
         trigger: 'div[name="tracking_line_ids"] table thead th:nth-of-type(2)[data-name="quantity"]',
+        run: "click",
     },
     ...AddTrackingLineAndValidateSteps,
     {
@@ -176,19 +203,23 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Open the second product (lot) SN assignation wizard by using the minus button',
         trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-minus)',
+        run: "click",
     },
     {
         content: 'Check that clicking on the minus button opened the Serial number assignation wizard',
         trigger: '.modal-content .modal-header .btn-close',
         extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+        run: "click",
     },
     {
         content: 'Open user menu',
         trigger: 'div.o_user_menu button',
+        run: "click",
     },
     {
         content: 'Open the profile page',
         trigger: '.dropdown-menu .dropdown-item[data-menu="settings"]',
+        run: "click",
     },
     {
         content: 'Change the default warehouse to WH B',
@@ -204,43 +235,53 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Go back to app switcher',
         trigger: 'nav.o_main_navbar a.o_menu_toggle',
+        run: "click",
     },
     ...StepToFSMProductsKanbanWithFavoritesFilterSteps,
     {
         content: 'Check that is it not possible to reduce the quantity of the first product (no lot) because of the warehouse change',
         trigger: '.o_kanban_record:first-child:has(button:has(i.fa-trash)[disabled])',
+        run: "click",
     },
     {
         content: 'Check that is it not possible to reduce the quantity of the first product (lot) because of the warehouse change',
         trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button[disabled]):has(i.fa-minus)',
+        run: "click",
     }, 
     {
         content: 'Add quantity to the first product (lot)',
         trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-plus)',
+        run: "click",
     },
     {
         content: 'Check that the warehouse column is visible',
         trigger: 'div[name="tracking_line_ids"] table thead th:nth-of-type(2)[data-name="warehouse_id"]',
+        run: "click",
     },
     {
         content: "Check that the previous entry which is in a different warehouse than the user's default one is muted and readonly",
         trigger: 'div[name="tracking_line_ids"] table tbody tr:first-child.text-muted td[name="quantity"].o_readonly_modifier',
+        run: "click",
     },
     ...AddTrackingLineAndValidateSteps,
     {
         content: 'Add quantity to the first product (lot)',
         trigger: '.o_kanban_record:nth-of-type(2) button:has(i.fa-plus)',
+        run: "click",
     },
     {
         content: 'Check that the warehouse column is visible',
         trigger: 'div[name="tracking_line_ids"] table thead th:nth-of-type(2)[data-name="warehouse_id"]',
+        run: "click",
     },
     {
         content: "Check that the previous entry which is in a different warehouse than the user's default one is muted and readonly",
         trigger: 'div[name="tracking_line_ids"] table tbody tr:first-child.text-muted td[name="quantity"].o_readonly_modifier',
+        run: "click",
     },
     {
         content: "Check that the previous entry which is in the same warehouse than the user's default one is not muted and editable",
         trigger: 'div[name="tracking_line_ids"] table tbody tr:nth-of-type(2):not(.text-muted) td[name="quantity"]:not(.o_readonly_modifier)',
+        run: "click",
     },
 ]});
