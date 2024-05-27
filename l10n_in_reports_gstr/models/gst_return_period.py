@@ -107,6 +107,10 @@ class L10nInGSTReturnPeriod(models.Model):
         help="Blocks the current operation of the document depending on the error severity:\n"
         "  * Warning: there is an error that doesn't prevent the current Electronic Return filing operation to succeed.\n"
         "  * Error: there is an error that blocks the current Electronic Return filing operation.")
+    gstr1_include_einvoice = fields.Boolean(
+        string="E-Invoice in GSTR-1",
+        help="Enable this option to include invoice with generated E-invoices being pushing to GSTR-1."
+    )
 
     # ===============================
     # GSTR-2B
@@ -576,6 +580,16 @@ class L10nInGSTReturnPeriod(models.Model):
                     values[groupby_key] += grouped_item
             return values
 
+        def is_einvoice_skippable(move_id):
+            # Check if the skip e-invoice condition is met for a given move_id.
+            return (
+                not self.gstr1_include_einvoice and
+                any(
+                    doc.edi_format_id.code == 'in_einvoice_1_03' and doc.state in ['sent', 'cancelled']
+                    for doc in move_id.edi_document_ids
+                )
+            )
+
         def _get_b2b_json(journal_items):
             """
             This method is return b2b json as below
@@ -609,6 +623,8 @@ class L10nInGSTReturnPeriod(models.Model):
             for partner, journal_items in _group_aml('move_id.commercial_partner_id', journal_items).items():
                 inv_json_list = []
                 for move_id in journal_items.mapped('move_id'):
+                    if is_einvoice_skippable(move_id):
+                        continue
                     lines_json = {}
                     is_reverse_charge = False
                     is_igst_amount = False
@@ -798,6 +814,8 @@ class L10nInGSTReturnPeriod(models.Model):
             for partner, journal_items in _group_aml('move_id.commercial_partner_id', journal_items).items():
                 inv_json_list = []
                 for move_id in journal_items.mapped('move_id'):
+                    if is_einvoice_skippable(move_id):
+                        continue
                     lines_json = {}
                     is_igst_amount = False
                     is_reverse_charge = False
@@ -944,6 +962,8 @@ class L10nInGSTReturnPeriod(models.Model):
             """
             export_json = {}
             for move_id in journal_items.mapped('move_id'):
+                if is_einvoice_skippable(move_id):
+                    continue
                 tax_details = tax_details_by_move.get(move_id)
                 lines_json = {}
                 is_igst_amount = False
@@ -997,6 +1017,8 @@ class L10nInGSTReturnPeriod(models.Model):
             nil_json = {}
             tags_id = self._get_l10n_in_taxes_tags_id_by_name()
             for move_id in journal_items.mapped('move_id'):
+                if is_einvoice_skippable(move_id):
+                    continue
                 # We sum value of invoice and credit note
                 # so we need positive value for invoice and nagative for credit note
                 tax_details = tax_details_by_move.get(move_id, {})

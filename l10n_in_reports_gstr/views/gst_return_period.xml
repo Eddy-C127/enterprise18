@@ -59,6 +59,14 @@
                             <field name="display_tax_unit" invisible="1"/>
                             <field name="tax_unit_id" invisible="not display_tax_unit"/>
                             <field name="periodicity"/>
+                            <label for="gstr1_include_einvoice" string="E-Invoice in GSTR-1"/>
+                            <div class="d-flex gap-2">
+                                <field name="gstr1_include_einvoice" widget="boolean_toggle" string="E-Invoice in GSTR-1" class="oe_inline"/>
+                                <span>
+                                    <span invisible="gstr1_include_einvoice" class="text-muted">Exclude</span>
+                                    <span invisible="not gstr1_include_einvoice" class="text-success">Include</span>
+                                </span>
+                            </div>
                         </group>
                     </group>
                     <ol id="gstr-headers">
