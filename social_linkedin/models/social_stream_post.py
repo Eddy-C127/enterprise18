@@ -74,7 +74,7 @@ class SocialStreamPostLinkedIn(models.Model):
             headers={"X-RestLi-Method": "PARTIAL_UPDATE"},
         )
         if not response.ok:
-            raise UserError(_("Couldn't update the post: %r.", response.text))
+            raise UserError(_("Couldn't update the post: “%s”.", response.text))
 
         self.message = new_message
 
@@ -88,7 +88,7 @@ class SocialStreamPostLinkedIn(models.Model):
             f"posts/{quote(self.linkedin_post_urn)}", method="DELETE")
 
         if not response.ok:
-            raise UserError(_("Couldn't delete the post: %r.", response.text))
+            raise UserError(_("Couldn't delete the post: “%s”.", response.text))
 
         self.unlink()
 
@@ -142,7 +142,7 @@ class SocialStreamPostLinkedIn(models.Model):
         if not response.ok or 'created' not in response.json():
             self.sudo().account_id._action_disconnect_accounts(response)
             raise UserError(_(
-                "Failed to post the comment: %(error_description)r",
+                "Failed to post the comment: “%(error_description)s”",
                 error_description=response.text))
 
         result = response.json()

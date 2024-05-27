@@ -21,7 +21,7 @@ class AccountMove(models.Model):
             usable_ddi = pay.get_usable_ddi()
             if not usable_ddi:
                 raise UserError(_(
-                    "Unable to post payment %(payment)r due to no usable DDI being available at date %(date)s for partner %(partner)r. Please create one before encoding a BACS Direct Debit payment.",
+                    "Unable to post payment “%(payment)s” because there are no usable DDI that are available at date %(date)s for partner “%(partner)s”. Please create one before encoding a BACS Direct Debit payment.",
                     payment=pay.name,
                     date=pay.date,
                     partner=pay.partner_id.name,

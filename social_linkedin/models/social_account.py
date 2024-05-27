@@ -147,7 +147,7 @@ class SocialAccountLinkedin(models.Model):
             linkedin_access_token=linkedin_access_token,
         )
         if not response.ok:
-            raise SocialValidationException(_('An error occurred when fetching your pages: %r.', response.text))
+            raise SocialValidationException(_('An error occurred when fetching your pages: “%s”.', response.text))
 
         account_ids = [
             urn_to_id(organization['organization'])
@@ -161,7 +161,7 @@ class SocialAccountLinkedin(models.Model):
             linkedin_access_token=linkedin_access_token,
         )
         if not response.ok:
-            raise SocialValidationException(_('An error occurred when fetching your pages data: %r.', response.text))
+            raise SocialValidationException(_('An error occurred when fetching your pages data: “%s”.', response.text))
 
         organization_results = response.json().get('results', {})
 

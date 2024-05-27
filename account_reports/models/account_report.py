@@ -2088,7 +2088,7 @@ class AccountReport(models.Model):
                 return getattr(handler, function_name)
 
         if not hasattr(self, function_name):
-            raise UserError(_("Invalid method %r", function_name))
+            raise UserError(_("Invalid method “%s”", function_name))
         # Call the check method without the private prefix to check for others security risks.
         return getattr(self, function_name)
 

@@ -23,7 +23,7 @@ class AccountMove(models.Model):
             usable_mandate = pay.get_usable_mandate()
             if not usable_mandate:
                 raise UserError(_(
-                    "Unable to post payment %(payment)r due to no usable mandate being available at date %(date)s for partner %(partner)r. Please create one before encoding a SEPA Direct Debit payment.",
+                    "Unable to post payment “%(payment)s” because there are no usable mandates that are available at date %(date)s for partner “%(partner)s”. Please create one before encoding a SEPA Direct Debit payment.",
                     payment=pay.name,
                     date=pay.date,
                     partner=pay.partner_id.name,
