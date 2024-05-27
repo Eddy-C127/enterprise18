@@ -1,6 +1,8 @@
 /** @odoo-module */
 
+import * as BillScreen from "@pos_restaurant/../tests/tours/helpers/BillScreenTourMethods";
 import * as ErrorPopup from "@point_of_sale/../tests/tours/helpers/ErrorPopupTourMethods";
+import * as FloorScreen from "@pos_restaurant/../tests/tours/helpers/FloorScreenTourMethods";
 import * as ProductScreen from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
@@ -57,5 +59,18 @@ registry.category("web_tour.tours").add("PreparationDisplayPrinterTour", {
             PaymentScreen.clickValidate(),
             //This steps is making sure that we atleast tried to call the printer
             ErrorPopup.clickConfirm(),
+        ].flat(),
+});
+
+registry.category("web_tour.tours").add("MakeBillTour", {
+    test: true,
+    steps: () =>
+        [
+            FloorScreen.clickTable("1"),
+            ProductScreen.clickDisplayedProduct("Letter Tray"),
+            ProductScreen.selectedOrderlineHas("Letter Tray", "1", "5.28"),
+            BillScreen.clickBillButton(),
+            BillScreen.isShown(),
+            BillScreen.clickOk(),
         ].flat(),
 });

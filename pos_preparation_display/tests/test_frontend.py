@@ -66,3 +66,22 @@ class TestUi(TestPointOfSaleHttpCommon):
 
         self.assertEqual(len(preparation_order.preparation_display_order_line_ids), 1, "The order " + str(order.amount_paid) + " has 1 preparation orderline")
         self.assertEqual(preparation_order.preparation_display_order_line_ids.product_id, self.letter_tray, "The preparation orderline has the product " + self.letter_tray.name)
+
+    def test_bill_preparation_display(self):
+        pos_config = self.env['pos.config'].create({
+            'name': 'Restaurant',
+            'module_pos_restaurant': True,
+            'iface_printbill': True,
+        })
+
+        pdis = self.env['pos_preparation_display.display'].create({
+            'name': 'Preparation Display',
+            'pos_config_ids': [Command.link(pos_config.id)],
+        })
+
+        order_count = pdis.order_count
+
+        pos_config.with_user(self.pos_user).open_ui()
+        self.start_tour("/pos/ui?config_id=%d" % pos_config.id, 'MakeBillTour', login="pos_user")
+
+        self.assertEqual(order_count, pdis.order_count)
