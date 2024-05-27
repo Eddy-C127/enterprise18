@@ -746,11 +746,15 @@ QUnit.module(
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
             assert.strictEqual(fixture.querySelector(".pivot-measure select").value, "avg");
-            await editSelect(fixture, ".pivot-measure select", "sum");
+            await editSelect(fixture, ".pivot-measure select", "min");
+            assert.strictEqual(
+                fixture.querySelector(".pivot-measure select option:checked").textContent,
+                "Minimum"
+            );
             await click(fixture, ".pivot-defer-update .btn-link");
-            assert.strictEqual(fixture.querySelector(".pivot-measure select").value, "sum");
+            assert.strictEqual(fixture.querySelector(".pivot-measure select").value, "min");
             const definition = model.getters.getPivotCoreDefinition(pivotId);
-            assert.deepEqual(definition.measures, [{ name: "probability", aggregator: "sum" }]);
+            assert.deepEqual(definition.measures, [{ name: "probability", aggregator: "min" }]);
         });
 
         QUnit.test("pivot with a reference field measure", async function (assert) {
