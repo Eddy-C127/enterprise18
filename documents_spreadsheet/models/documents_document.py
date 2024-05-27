@@ -69,8 +69,8 @@ class Document(models.Model):
 
     def _check_spreadsheet_share(self, operation, share_id, access_token):
         share = self.env['documents.share'].browse(share_id).sudo()
-        available_document = share._get_documents_and_check_access(access_token, operation=operation)
-        if available_document != self:
+        available_documents = share._get_documents_and_check_access(access_token, operation=operation)
+        if not available_documents or self not in available_documents:
             raise AccessError(_("You don't have access to this document"))
 
     def _compute_file_extension(self):
