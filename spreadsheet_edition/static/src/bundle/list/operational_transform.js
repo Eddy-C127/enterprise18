@@ -14,12 +14,16 @@ otRegistry
         ["INSERT_ODOO_LIST", "DUPLICATE_ODOO_LIST"],
         transformNewListCommand
     )
-    .addTransformation("REMOVE_ODOO_LIST", ["RENAME_ODOO_LIST"], (toTransform, executed) => {
-        if (toTransform.listId === executed.listId) {
-            return undefined;
+    .addTransformation(
+        "REMOVE_ODOO_LIST",
+        ["RENAME_ODOO_LIST", "UPDATE_ODOO_LIST_DOMAIN"],
+        (toTransform, executed) => {
+            if (toTransform.listId === executed.listId) {
+                return undefined;
+            }
+            return toTransform;
         }
-        return toTransform;
-    })
+    )
     .addTransformation(
         "REMOVE_ODOO_LIST",
         ["RE_INSERT_ODOO_LIST", "DUPLICATE_ODOO_LIST"],
