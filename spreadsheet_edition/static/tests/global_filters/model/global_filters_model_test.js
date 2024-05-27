@@ -9,6 +9,15 @@ import { waitForDataSourcesLoaded } from "@spreadsheet/../tests/utils/model";
 
 const { cellMenuRegistry } = registries;
 
+const testGlobalFilter = {
+    id: "42",
+    type: "relation",
+    defaultValue: [41],
+};
+const testFieldMatching = {
+    pivot: { 1: { chain: "product_id", type: "many2one" } },
+};
+
 QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
     QUnit.test("Can set a value from a pivot header context menu", async function (assert) {
         const { env, model } = await createSpreadsheetWithPivot({
@@ -77,34 +86,6 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
         ])
     });
 
-    QUnit.test(
-        "Can open context menu with __count and positional argument",
-        async function (assert) {
-            const { env, model } = await createSpreadsheetWithPivot({
-                arch: /*xml*/ `
-                <pivot>
-                    <field name="product_id" type="row"/>
-                    <field name="__count" type="measure"/>
-                </pivot>`,
-            });
-            setCellContent(model, "B3", '=ODOO.PIVOT(1, "__count", "#product_id", 1)');
-            await addGlobalFilter(
-                model,
-                {
-                    id: "42",
-                    type: "relation",
-                    defaultValue: [],
-                },
-                { pivot: { 1: { chain: "product_id", type: "many2one" } } }
-            );
-            selectCell(model, "B3");
-            const root = cellMenuRegistry
-                .getMenuItems()
-                .find((item) => item.id === "use_global_filter");
-            assert.strictEqual(root.isVisible(env), true);
-        }
-    );
-
     QUnit.test("Can open context menu with positional argument", async function (assert) {
         const { env, model } = await createSpreadsheetWithPivot({
             arch: /*xml*/ `
@@ -113,7 +94,7 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
                     <field name="probability" type="measure"/>
                 </pivot>`,
         });
-        setCellContent(model, "B3", '=ODOO.PIVOT(1, "probability", "#product_id", 1)');
+        setCellContent(model, "B3", '=ODOO.PIVOT.HEADER(1, "#product_id", 1)');
         await addGlobalFilter(
             model,
             {
@@ -236,6 +217,58 @@ QUnit.module("spreadsheet_edition > Global filters model", {}, () => {
             const root = cellMenuRegistry
                 .getMenuItems()
                 .find((item) => item.id === "use_global_filter");
+            assert.strictEqual(root.isVisible(env), false);
+        }
+    );
+
+    QUnit.test(
+        "menu to set filter value is only visible on the PIVOT.HEADER formulas",
+        async function (assert) {
+            const { env, model } = await createSpreadsheetWithPivot({
+                arch: /*xml*/ `
+                    <pivot>
+                        <field name="product_id" type="row"/>
+                        <field name="probability" type="measure"/>
+                    </pivot>`,
+            });
+            await addGlobalFilter(model, testGlobalFilter, testFieldMatching);
+            const root = cellMenuRegistry
+                .getMenuItems()
+                .find((item) => item.id === "use_global_filter");
+
+            selectCell(model, "A3");
+            assert.ok(getCell(model, "A3").content.includes("ODOO.PIVOT.HEADER("));
+            assert.strictEqual(root.isVisible(env), true);
+
+            selectCell(model, "B3");
+            assert.ok(getCell(model, "B3").content.includes("ODOO.PIVOT("));
+            assert.strictEqual(root.isVisible(env), false);
+        }
+    );
+
+    QUnit.test(
+        "menu to set filter value is only visible on the the header of a PIVOT.TABLE",
+        async function (assert) {
+            const { env, model } = await createSpreadsheetWithPivot({
+                arch: /*xml*/ `
+                    <pivot>
+                        <field name="product_id" type="row"/>
+                        <field name="probability" type="measure"/>
+                    </pivot>`,
+            });
+            await addGlobalFilter(model, testGlobalFilter, testFieldMatching);
+            const sheetIdFrom = model.getters.getActiveSheetId();
+            model.dispatch("CREATE_SHEET", { sheetId: "42", position: 1 });
+            model.dispatch("ACTIVATE_SHEET", { sheetIdFrom, sheetIdTo: "42" });
+            setCellContent(model, "A1", '=ODOO.PIVOT.TABLE("1")');
+            const root = cellMenuRegistry
+                .getMenuItems()
+                .find((item) => item.id === "use_global_filter");
+
+            selectCell(model, "A3"); // Header cell
+            assert.strictEqual(root.isVisible(env), true);
+
+            selectCell(model, "B3"); // Not a header cell
             assert.strictEqual(root.isVisible(env), false);
         }
     );
