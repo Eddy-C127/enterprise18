@@ -92,6 +92,8 @@ class TestReleaseToPayInvoice(AccountTestInvoicingCommon):
     def test_amount_currency_edit(self):
         """
         Ensure that editing the `amount_currency` of a journal item on an invoice is possible.
+        In 17.0 changes to Binary fields and web_save were made (related to context key 'bin_size').
+        They led to tracebacks in the flow tested here.
         """
         move_form = Form(self.env['account.move'].with_context(default_move_type='out_invoice'))
         move_form.invoice_date = fields.Date.from_string('2023-01-01')
@@ -104,3 +106,4 @@ class TestReleaseToPayInvoice(AccountTestInvoicingCommon):
         with move_form.line_ids.edit(0) as line_form:
             line_form.amount_currency = -30
         move_form.save()
+        self.assertEqual(move_form.line_ids.edit(0).amount_currency, -30)
