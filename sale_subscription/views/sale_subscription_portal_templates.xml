@@ -320,7 +320,7 @@
                             Add Quantity
                         </a>
                         <a role="button" class="mt8 btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#wc-modal-close-init" href="#"
-                           t-if="sale_order.user_closable and sale_order.subscription_state in ['3_progress', '4_paused']">
+                           t-if="display_close">
                             Close Subscription
                         </a>
                     </div>
