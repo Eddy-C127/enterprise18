@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, api
-from odoo.tools.translate import _lt
+from odoo import _, models, api
 
 
 class Users(models.Model):
@@ -29,7 +28,6 @@ class Users(models.Model):
             if not body:
                 break
 
-            welcome = _lt('Welcome %s', user.name)
             articles_to_create.append({
                 'article_member_ids': [(0, 0, {
                     'partner_id': user.partner_id.id,
@@ -43,7 +41,7 @@ class Users(models.Model):
                     'sequence': 0,
                     'user_id': user.id,
                 })],
-                'name': welcome,
+                'name': _('Welcome %s', user.name),
             })
 
         if articles_to_create:
