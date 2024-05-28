@@ -2,12 +2,12 @@
 
 import { Component, useState, xml } from "@odoo/owl";
 import { Domain } from "@web/core/domain";
-import { getFixture, mount, nextTick, patchDate, patchWithCleanup, click } from "@web/../tests/helpers/utils";
+import { click, editInput, getFixture, mount, nextTick, patchDate, patchWithCleanup, selectDropdownItem } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
 import { View } from "@web/views/view";
-import { clickCell, hoverGridCell } from "@web_gantt/../tests/helpers";
+import { clickCell, getCell, getPill, getTexts, hoverGridCell } from "@web_gantt/../tests/helpers";
 
 
 let serverData;
@@ -67,7 +67,10 @@ QUnit.module('SalePlanning > Views > GanttView', {
                         id: { string: 'ID', type: 'integer' },
                         name: { string: 'Name', type: 'char' },
                     },
-                    records: [],
+                    records: [
+                        { 'id': 1, name: 'Chaganlal' },
+                        { 'id': 2, name: 'Jarvo' },
+                    ],
                 },
             },
         };
@@ -193,4 +196,59 @@ QUnit.test("Show shift form dialog only when shifts to plan", async function (as
     await hoverGridCell(1, 4);
     await clickCell(1, 4);
     assert.strictEqual(target.querySelector(".modal-title").textContent, "Add Shift");
+});
+
+QUnit.test("Open a dialog to schedule a plan using Open Shift", async (assert) => {
+    serverData.models['planning.slot'].records = [
+        { id: 2, sale_line_id: 1 },
+    ];
+
+    serverData.views = {
+        "planning.slot,false,list": `
+            <tree>
+                <field name="sale_line_id"/>
+            </tree>`,
+        "planning.slot,false,form": `
+            <form>
+                <field name="resource_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="name"/>
+            </form>`,
+    };
+
+    await makeView({
+        arch: '<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>',
+        resModel: "planning.slot",
+        type: "gantt",
+        serverData,
+        async mockRPC(_, args) {
+            if (args.method === "gantt_resource_work_interval") {
+                return [];
+            }
+        },
+        groupBy: ["resource_id"],
+    });
+
+    await hoverGridCell(1, 1);
+    await clickCell(1, 1);
+    await click(target, ".modal-footer .o_create_button");
+
+    await selectDropdownItem(target, "resource_id", "Jarvo");
+    await editInput(target, ".o_field_widget[name='name'] input", 'Shift');
+    await editInput(target, ".o_field_widget[name='start_datetime'] input", '2021-10-12 09:00:00');
+    await editInput(target, ".o_field_widget[name='end_datetime'] input", '2021-10-12 12:00:00');
+
+    await click(target, ".o_form_button_save");
+
+    const cell = getCell(2, 3);
+    assert.hasAttrValue(cell, "data-row-id", '[{"resource_id":[2,"Jarvo"]}]');
+
+    const shiftPill = getPill("Shift");
+    await click(shiftPill);
+    assert.deepEqual(getTexts(".o_popover .popover-body span"), [
+        "Shift",
+        "10/12/2021, 9:00 AM",
+        "10/12/2021, 12:00 PM",
+    ]);
 });

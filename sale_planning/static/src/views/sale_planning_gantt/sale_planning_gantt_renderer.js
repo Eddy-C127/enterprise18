@@ -2,6 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { Domain } from "@web/core/domain";
+import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { patch } from "@web/core/utils/patch";
 import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
 import { useService } from "@web/core/utils/hooks";
@@ -33,6 +34,16 @@ patch(PlanningGanttRenderer.prototype, {
             search_default_sale_order_id:
             props.context.planning_gantt_active_sale_order_id || null,
         });
+        const onCreateEdit = () => {
+            this.dialogService.add(FormViewDialog, {
+                context: props.context,
+                resModel: props.resModel,
+                onRecordSaved: async (record) => {
+                    await this.model.fetchData();
+                },
+            });
+        };
+        props.onCreateEdit = onCreateEdit;
         return props;
     },
     openPlanDialogCallback(result) {
