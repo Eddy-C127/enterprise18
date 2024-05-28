@@ -3,6 +3,7 @@
 import { registry } from '@web/core/registry';
 import { useService } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
+import { pick } from "@web/core/utils/objects";
 
 class ConsolidationDashboard extends Component {
     setup() {
@@ -16,9 +17,16 @@ class ConsolidationDashboard extends Component {
 
 
     async onUnmappedAccountClick(company_id) {
-        const action = await this.orm.call('consolidation.period', 'action_open_mapping', 
-            [this.props.record.resId], {context: {company_id: company_id}});
-        this.action.doAction(action);
+        await this.env.onClickViewButton({
+            clickParams: {
+                type: "object",
+                name: "action_open_mapping",
+            },
+            getResParams: () => ({
+                ...pick(this.props.record, "context", "evalContext", "resModel", "resId", "resIds"),
+                context: { company_id: company_id },
+            }),
+        });
     }    
 }
 ConsolidationDashboard.template = "account_consolidation.ConsolidatedDashboardTemplate";
