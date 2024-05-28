@@ -261,6 +261,194 @@ gstr1_test_json = {
   }
 }
 
+gstr1_test_2_json = {
+    "gstin": "24AAGCC7144L6ZE",
+    "fp": "052023",
+    "b2b": [
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "inv": [
+                {
+                    "inum": "INV/2023/00003",
+                    "idt": "20-05-2023",
+                    "val": 1180.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "inv": [
+                {
+                    "inum": "INV/2023/00002",
+                    "idt": "20-05-2023",
+                    "val": 1180.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "inv": [
+                {
+                    "inum": "INV/2023/00001",
+                    "idt": "20-05-2023",
+                    "val": 1180.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "DE",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    ],
+    "b2cl": [],
+    "b2cs": [],
+    "cdnr": [
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "nt": [
+                {
+                    "ntty": "C",
+                    "nt_num": "RINV/2023/00003",
+                    "nt_dt": "20-05-2023",
+                    "val": 590.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 90.0,
+                                "samt": 0.0,
+                                "camt": 0.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "nt": [
+                {
+                    "ntty": "C",
+                    "nt_num": "RINV/2023/00002",
+                    "nt_dt": "20-05-2023",
+                    "val": 590.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 90.0,
+                                "samt": 0.0,
+                                "camt": 0.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "nt": [
+                {
+                    "ntty": "C",
+                    "nt_num": "RINV/2023/00001",
+                    "nt_dt": "20-05-2023",
+                    "val": 590.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "DE",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 90.0,
+                                "samt": 0.0,
+                                "camt": 0.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    ],
+    "cdnur": [],
+    "exp": [],
+    "hsn": {
+        "data": [
+            {
+                "hsn_sc": "01111",
+                "uqc": "UNT",
+                "rt": 18,
+                "qty": 3.0,
+                "txval": 1500.0,
+                "iamt": 270.0,
+                "samt": 0.0,
+                "camt": 0.0,
+                "csamt": 0.0,
+                "num": 1,
+            }
+        ]
+    },
+}
+
 gstr2b_test_json = {
   "chksum": "ADFADRGA4GADFADGERER",
   "data": {
