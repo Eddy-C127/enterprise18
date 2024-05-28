@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { queryAll, queryAllTexts, queryFirst, queryOne } from "@odoo/hoot-dom";
+import { queryAll, queryAllTexts, queryFirst } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import { contains, getService, mountWithCleanup, onRpc } from "@web/../tests/web_test_helpers";
 import { Domain } from "@web/core/domain";
@@ -28,7 +28,7 @@ test("empty ungrouped gantt rendering", async () => {
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe(null);
-    expect(range).toBe("01 Dec 2018 - 28 Feb 2019");
+    expect(range).toBe("From: 12/01/2018 to: 02/28/2019");
     expect(columnHeaders).toHaveLength(10);
     expect(columnHeaders.at(0).title).toBe("15");
     expect(columnHeaders.at(-1).title).toBe("24");
@@ -55,11 +55,11 @@ test("ungrouped gantt rendering", async () => {
 
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe(null);
-    expect(range).toBe("01 Dec 2018 - 28 Feb 2019");
+    expect(range).toBe("From: 12/01/2018 to: 02/28/2019");
     expect(columnHeaders).toHaveLength(10);
     expect(columnHeaders.at(0).title).toBe("15");
     expect(columnHeaders.at(-1).title).toBe("24");
-    expect(getActiveScale()).toBe("3");
+    expect(getActiveScale()).toBe(2);
     expect(SELECTORS.expandCollapseButtons).not.toBeVisible();
     expect(rows).toEqual([
         {
@@ -109,7 +109,7 @@ test("ordered gantt view", async () => {
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
-    expect(range).toBe("01 Dec 2018 - 28 Feb 2019");
+    expect(range).toBe("From: 12/01/2018 to: 02/28/2019");
     expect(columnHeaders).toHaveLength(10);
     expect(columnHeaders.at(0).title).toBe("16");
     expect(columnHeaders.at(-1).title).toBe("25");
@@ -161,7 +161,7 @@ test("empty single-level grouped gantt rendering", async () => {
     });
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
     expect(viewTitle).toBe("Gantt View");
-    expect(range).toBe("01 Dec 2018 - 28 Feb 2019");
+    expect(range).toBe("From: 12/01/2018 to: 02/28/2019");
     expect(columnHeaders).toHaveLength(10);
     expect(columnHeaders.at(0).title).toBe("16");
     expect(columnHeaders.at(-1).title).toBe("25");
@@ -175,11 +175,11 @@ test("single-level grouped gantt rendering", async () => {
         arch: `<gantt string="Tasks" date_start="start" date_stop="stop"/>`,
         groupBy: ["project_id"],
     });
-    expect(getActiveScale()).toBe("3");
+    expect(getActiveScale()).toBe(2);
     expect(SELECTORS.expandCollapseButtons).not.toBeVisible();
 
     const { range, viewTitle, columnHeaders, rows } = getGridContent();
-    expect(range).toBe("01 Dec 2018 - 28 Feb 2019");
+    expect(range).toBe("From: 12/01/2018 to: 02/28/2019");
     expect(viewTitle).toBe("Tasks");
     expect(columnHeaders).toHaveLength(10);
     expect(columnHeaders.at(0).title).toBe("16");
@@ -225,25 +225,19 @@ test("Controls: rendering is mobile friendly", async () => {
     });
 
     // check toolbar's dropdown
-    const toolbar = queryOne(SELECTORS.toolbar);
-    await contains("button.dropdown-toggle", { root: toolbar }).click();
-    expect(queryAllTexts`.o-dropdown-item`).toEqual([
-        "Descending",
-        "Ascending",
-        "Activate sparse mode",
-    ]);
+    await contains("button.dropdown-toggle").click();
+    expect(queryAllTexts`.o-dropdown-item`).toEqual(["Activate sparse mode"]);
 
     // check that pickers open in dialog
+    await contains(SELECTORS.rangeMenuToggler).click();
     expect(".modal").toHaveCount(0);
     await contains(SELECTORS.startDatePicker).click();
-    await animationFrame();
     expect(".modal").toHaveCount(1);
     expect(".modal-title").toHaveText("Gantt start date");
     expect(".modal-body .o_datetime_picker").toHaveCount(1);
     await contains(".modal-header .btn").click();
     expect(".modal").toHaveCount(0);
     await contains(SELECTORS.stopDatePicker).click();
-    await animationFrame();
     expect(".modal").toHaveCount(1);
     expect(".modal-title").toHaveText("Gantt stop date");
     expect(".modal-body .o_datetime_picker").toHaveCount(1);

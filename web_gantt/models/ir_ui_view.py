@@ -10,6 +10,7 @@ GANTT_VALID_ATTRIBUTES = set([
     'date_start',
     'date_stop',
     'default_scale',
+    'default_range',
     'class',
     'js_class',
     'form_view_id',
@@ -32,7 +33,6 @@ GANTT_VALID_ATTRIBUTES = set([
     'total_row',
     'collapse_first_level',
     'offset',
-    'order',
     'scales',
     'thumbnails',
     'precision',
@@ -73,14 +73,14 @@ class View(models.Model):
         if default_scale:
             if default_scale not in ('day', 'week', 'week_2', 'month', 'month_3', 'year'):
                 self._raise_view_error(_("Invalid default_scale '%s' in gantt", default_scale), node)
+        default_range = node.get('default_range')
+        if default_range:
+            if default_range not in ('day', 'week', 'month', 'quarter', 'year'):
+                self._raise_view_error(_("Invalid default_range '%s' in gantt", default_range), node)
         display_mode = node.get('display_mode')
         if display_mode:
             if display_mode not in ('dense', 'sparse'):
                 self._raise_view_error(_("Invalid display_mode '%s' in gantt", display_mode), node)
-        order = node.get('order')
-        if order:
-            if order not in ('ASC', 'DESC', 'asc', 'desc'):
-                self._raise_view_error(_("Invalid order '%s' in gantt", order), node)
         attrs = set(node.attrib)
         if 'date_start' not in attrs:
             msg = _("Gantt must have a 'date_start' attribute")

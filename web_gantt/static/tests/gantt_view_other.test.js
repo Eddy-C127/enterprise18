@@ -802,7 +802,7 @@ test("date grid and dst winterToSummer (1 cell part)", async () => {
         "2019-03-31T14:00:00.000+02:00",
     ]);
 
-    await setScale(1);
+    setScale(4);
     await selectGanttRange({ startDate: "2019-03-31", stopDate: "2019-04-07" });
     expect(getGridInfo()).toEqual([
         "2019-03-31T00:00:00.000+01:00",
@@ -815,7 +815,7 @@ test("date grid and dst winterToSummer (1 cell part)", async () => {
         "2019-04-07T00:00:00.000+02:00",
     ]);
 
-    await setScale(3);
+    setScale(2);
     await selectGanttRange({ startDate: "2019-03-01", stopDate: "2019-04-01" });
     expect(getGridInfo()).toEqual([
         "2019-03-02T00:00:00.000+01:00",
@@ -851,7 +851,7 @@ test("date grid and dst winterToSummer (1 cell part)", async () => {
         "2019-04-01T00:00:00.000+02:00",
     ]);
 
-    await setScale(5);
+    setScale(0);
     await selectGanttRange({ startDate: "2019-01-01", stopDate: "2020-01-01" });
     expect(getGridInfo()).toEqual([
         "2019-01-01T00:00:00.000+01:00",
@@ -935,7 +935,7 @@ test("date grid and dst summerToWinter (1 cell part)", async () => {
         "2019-10-27T12:00:00.000+01:00",
     ]);
 
-    await setScale(1);
+    setScale(4);
     await selectGanttRange({ startDate: "2019-10-27", stopDate: "2019-11-03" });
     expect(getGridInfo()).toEqual([
         "2019-10-27T00:00:00.000+02:00",
@@ -948,7 +948,7 @@ test("date grid and dst summerToWinter (1 cell part)", async () => {
         "2019-11-03T00:00:00.000+01:00",
     ]);
 
-    await setScale(3);
+    setScale(2);
     await selectGanttRange({ startDate: "2019-10-01", stopDate: "2019-11-01" });
     expect(getGridInfo()).toEqual([
         "2019-10-02T00:00:00.000+02:00",
@@ -984,7 +984,7 @@ test("date grid and dst summerToWinter (1 cell part)", async () => {
         "2019-11-01T00:00:00.000+01:00",
     ]);
 
-    await setScale(5);
+    setScale(0);
     await selectGanttRange({ startDate: "2019-01-01", stopDate: "2020-01-01" });
     expect(getGridInfo()).toEqual([
         "2019-01-01T00:00:00.000+01:00",
@@ -1106,7 +1106,7 @@ test("date grid and dst winterToSummer (2 cell part)", async () => {
         "2019-03-31T14:30:00.000+02:00",
     ]);
 
-    await setScale(1);
+    setScale(4);
     await selectGanttRange({ startDate: "2019-03-31", stopDate: "2019-04-07" });
     expect(getGridInfo()).toEqual([
         "2019-03-31T00:00:00.000+01:00",
@@ -1127,7 +1127,7 @@ test("date grid and dst winterToSummer (2 cell part)", async () => {
         "2019-04-07T12:00:00.000+02:00",
     ]);
 
-    await setScale(3);
+    setScale(2);
     await selectGanttRange({ startDate: "2019-03-01", stopDate: "2019-04-01" });
     expect(getGridInfo()).toEqual([
         "2019-03-02T00:00:00.000+01:00",
@@ -1297,7 +1297,7 @@ test("date grid and dst summerToWinter (2 cell part)", async () => {
         "2019-10-27T12:30:00.000+01:00",
     ]);
 
-    await setScale(1);
+    setScale(4);
     await selectGanttRange({ startDate: "2019-10-27", stopDate: "2019-11-03" });
     expect(getGridInfo()).toEqual([
         "2019-10-27T00:00:00.000+02:00",
@@ -1318,7 +1318,7 @@ test("date grid and dst summerToWinter (2 cell part)", async () => {
         "2019-11-03T12:00:00.000+01:00",
     ]);
 
-    await setScale(3);
+    setScale(2);
     await selectGanttRange({ startDate: "2019-10-01", stopDate: "2019-11-01" });
     expect(getGridInfo()).toEqual([
         "2019-10-02T00:00:00.000+02:00",

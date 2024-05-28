@@ -52,7 +52,7 @@ class Base(models.AbstractModel):
         return view
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, orderby=None, limit=None, offset=0):
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
         """
         Returns the result of a read_group (and optionally search for and read records inside each
         group), and the total number of groups matching the search domain.
@@ -78,7 +78,7 @@ class Base(models.AbstractModel):
         lazy = not limit and not offset and len(groupby) == 1
         # Because there is no limit by group, we can fetch record_ids as aggregate
         final_result = self.web_read_group(
-            domain, ['__record_ids:array_agg(id)'], groupby, orderby=orderby,
+            domain, ['__record_ids:array_agg(id)'], groupby,
             limit=limit, offset=offset, lazy=lazy,
         )
 

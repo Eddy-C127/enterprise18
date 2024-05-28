@@ -107,10 +107,6 @@ export class GanttEditorSidebar extends Component {
         return this.viewEditorModel.controllerProps.modelParams.metaData;
     }
 
-    get orderValue() {
-        return this.modelParams.order?.toLowerCase();
-    }
-
     get weekAndMonthPrecisionChoices() {
         return [
             { label: _t("Half Day"), value: "day:half" },

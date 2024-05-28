@@ -15,9 +15,9 @@ registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
     content: "The initial default scale should be week",
     run() {
         const subjectValue = document.querySelector('input[type="range"]').value;
-        if (subjectValue !== "1") {
+        if (subjectValue !== "2") {
             console.error(
-                `Default scale should be week (1) (actual: ${subjectValue})`
+                `Default scale should be week (2) (actual: ${subjectValue})`
             );
         }
     },

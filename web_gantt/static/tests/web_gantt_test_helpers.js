@@ -1,4 +1,4 @@
-import { hover, queryAll, queryFirst, setInputRange } from "@odoo/hoot-dom";
+import { click, hover, queryAll, queryFirst, setInputRange } from "@odoo/hoot-dom";
 import { animationFrame, runAllTimers } from "@odoo/hoot-mock";
 import { contains, mountView } from "@web/../tests/web_test_helpers";
 import { getPickerCell, zoomOut } from "@web/../tests/core/datetime/datetime_test_helpers";
@@ -63,8 +63,6 @@ export const SELECTORS = {
     cell: ".o_gantt_cell",
     cellContainer: ".o_gantt_cells",
     collapseButton: ".o_gantt_button_collapse_rows",
-    asc: ".fa-sort-amount-asc",
-    desc: ".fa-sort-amount-desc",
     dense: ".fa-compress",
     sparse: ".fa-expand",
     draggable: makeClassSelector(CLASSES.draggable),
@@ -93,14 +91,20 @@ export const SELECTORS = {
     rowHeader: ".o_gantt_row_header",
     rowTitle: ".o_gantt_row_title",
     rowTotal: ".o_gantt_row_total",
-    startDatePicker: ".o_gantt_picker:first-child",
-    stopDatePicker: ".o_gantt_picker:last-child",
+    startDatePicker: ".o_gantt_picker:nth-child(2)",
+    stopDatePicker: ".o_gantt_picker:nth-child(4)",
     thumbnail: ".o_gantt_row_thumbnail",
+    rangeMenu: ".o_gantt_range_menu",
+    rangeMenuToggler: ".o_gantt_renderer_controls div.dropdown:nth-child(2)",
     todayButton: ".o_gantt_button_today",
     toolbar: ".o_gantt_renderer_controls div[name='ganttToolbar']",
     undraggable: ".o_undraggable",
     view: ".o_gantt_view",
     viewContent: ".o_gantt_view .o_content",
+    previousButton: ".o_gantt_renderer_controls button:has(> .fa-arrow-left)",
+    nextButton: ".o_gantt_renderer_controls button:has(> .fa-arrow-right)",
+    minusButton: ".o_gantt_renderer_controls button:has(> .fa-search-minus)",
+    plusButton: ".o_gantt_renderer_controls button:has(> .fa-search-plus)",
 
     // Connectors
     connector: ".o_gantt_connector",
@@ -120,13 +124,18 @@ export async function mountGanttView(params) {
     return gantt;
 }
 
+export async function ganttControlsChanges() {
+    await runAllTimers();
+    await animationFrame();
+    await animationFrame(); // for potential focusDate
+}
+
 /**
  * @param {string} selector
  * @param {DateTime} datetime
  */
 async function selectDateInDatePicker(selector, datetime) {
     await contains(selector).click();
-    await animationFrame();
     for (let i = 0; i < 3; i++) {
         await zoomOut();
     }
@@ -134,37 +143,36 @@ async function selectDateInDatePicker(selector, datetime) {
     await contains(getPickerCell(datetime.year)).click();
     await contains(getPickerCell(datetime.monthShort)).click();
     await contains(getPickerCell(datetime.day, true)).click();
-    await animationFrame();
 }
 
 /**
  * @param {Object} param0
- * @param {string} param0.startDate
- * @param {string} param0.stopDate
+ * @param {string} [param0.startDate]
+ * @param {string} [param0.stopDate]
  */
 export async function selectGanttRange({ startDate, stopDate }) {
-    const { startDatePicker: START_SELECTOR, stopDatePicker: STOP_SELECTOR } = SELECTORS;
-    let [currentStart, currentStop] = getTexts(".o_gantt_picker").map((d) =>
-        luxon.DateTime.fromFormat(d, "dd MMMM yyyy")
-    );
-    const start = luxon.DateTime.fromISO(startDate);
-    const startOnLeftSide = start <= currentStop;
-    if (
-        (startOnLeftSide && !start.equals(currentStart)) ||
-        (!startOnLeftSide && !start.equals(currentStop))
-    ) {
-        await selectDateInDatePicker(startOnLeftSide ? START_SELECTOR : STOP_SELECTOR, start);
+    const {
+        startDatePicker: START_SELECTOR,
+        stopDatePicker: STOP_SELECTOR,
+        rangeMenuToggler,
+    } = SELECTORS;
+    click(rangeMenuToggler);
+    await animationFrame();
+    if (startDate) {
+        await selectDateInDatePicker(START_SELECTOR, luxon.DateTime.fromISO(startDate));
     }
-    [currentStart, currentStop] = getTexts(".o_gantt_picker").map((d) =>
-        luxon.DateTime.fromFormat(d, "dd MMMM yyyy")
-    );
-    const stop = luxon.DateTime.fromISO(stopDate);
-    if (
-        (startOnLeftSide && !stop.equals(currentStop)) ||
-        (!startOnLeftSide && !stop.equals(currentStart))
-    ) {
-        await selectDateInDatePicker(startOnLeftSide ? STOP_SELECTOR : START_SELECTOR, stop);
+    if (stopDate) {
+        await selectDateInDatePicker(STOP_SELECTOR, luxon.DateTime.fromISO(stopDate));
     }
+    click(".dropdown-item button:contains(Apply)");
+    await ganttControlsChanges();
+}
+
+export async function selectRange(label) {
+    click(SELECTORS.rangeMenuToggler);
+    await animationFrame();
+    click(`${SELECTORS.rangeMenu} .dropdown-item:contains(/^${label}$/)`);
+    await ganttControlsChanges();
 }
 
 /**
@@ -193,16 +201,18 @@ export function getTexts(selector) {
 }
 
 export function getActiveScale() {
-    return queryFirst(".o_gantt_renderer_controls input").value;
+    return Number(queryFirst(".o_gantt_renderer_controls input").value);
 }
 
 /**
  * @param {Number} scale
  */
-export async function setScale(scale) {
+export function setScale(scale) {
     setInputRange(".o_gantt_renderer_controls input", scale);
-    await animationFrame();
-    await animationFrame(); // for potential focusDate
+}
+
+export function focusToday() {
+    click(SELECTORS.todayButton);
 }
 
 /** @type {PillHelper<Promise<DragPillHelpers>>} */
@@ -336,7 +346,7 @@ function getHeaders(selector) {
 export function getGridContent() {
     const columnHeaders = getHeaders(SELECTORS.columnHeader);
     const groupHeaders = getHeaders(SELECTORS.groupHeader);
-    const range = getTexts(".o_gantt_renderer_controls .o_gantt_picker").join(" - ");
+    const range = getText(SELECTORS.rangeMenuToggler);
     const viewTitle = getText(".o_gantt_title");
     const colsRange = queryFirst(SELECTORS.columnHeader)
         .style.getPropertyValue("grid-column")

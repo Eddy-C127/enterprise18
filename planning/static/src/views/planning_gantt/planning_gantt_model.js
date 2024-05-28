@@ -251,7 +251,6 @@ export class PlanningGanttModel extends GanttModel {
      * @override
      */
     _generateRows(metaData, params) {
-        const { order } = metaData;
         const { groupedBy, groups, parentGroup } = params;
         if (!this.hideOpenShift) {
             if (parentGroup.length === 0) {
@@ -283,7 +282,7 @@ export class PlanningGanttModel extends GanttModel {
         }
         const rows = super._generateRows(...arguments);
         // keep empty row to the head and sort the other rows alphabetically
-        if (rows.length > 1 && !order) {
+        if (rows.length > 1) {
             rows.sort((a, b) => {
                 if (a.resId && !b.resId) {
                     return 1;
@@ -312,7 +311,7 @@ export class PlanningGanttModel extends GanttModel {
      * @override
      */
     _getInitialRangeParams() {
-        let { focusDate, scaleId, startDate, stopDate } = super._getInitialRangeParams(...arguments);
+        let { focusDate, scaleId, startDate, stopDate, rangeId } = super._getInitialRangeParams(...arguments);
         // take parameters from url if set https://example.com/web?date_start=2020-11-08
         // this is used by the mail of planning.planning
         const urlState = router.current;
@@ -333,7 +332,7 @@ export class PlanningGanttModel extends GanttModel {
             stopDate = startDate.plus({ [unit]: 1 });
         }
         // TODO: use scale from url like in example (no date_end in example!)?
-        return { focusDate, scaleId, startDate, stopDate };
+        return { focusDate, scaleId, startDate, stopDate, rangeId };
     }
 
     /**

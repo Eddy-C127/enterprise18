@@ -4,7 +4,6 @@
 import { registry } from "@web/core/registry";
 import "@project/../tests/tours/project_tour";
 import { patch } from "@web/core/utils/patch";
-import { click, queryLast } from "@odoo/hoot-dom";
 
 
 patch(registry.category("web_tour.tours").get("project_test_tour"), {
@@ -24,27 +23,14 @@ patch(registry.category("web_tour.tours").get("project_test_tour"), {
         });
 
         originalSteps.splice(originalSteps.length, 0, {
-            trigger: ".o_gantt_picker:last-child",
-            content: "Open right date picker",
+            trigger: ".o_gantt_renderer_controls .dropdown:nth-child(2)",
+            content: "Open range menu",
             run: "click",
         },
         {
-            trigger: '.o_zoom_out[title="Select month"]',
-            content: "Click on selected month",
+            trigger: '.o_gantt_range_menu .dropdown-item:nth-child(3)',
+            content: 'Select "This Month"',
             run: "click",
-        },
-        {
-            extra_trigger: '[title="Select year"]',
-            trigger: ".o_today",
-            content: "Select current month",
-            run: "click",
-        },
-        {
-            trigger: '.o_zoom_out[title="Select month"]',
-            content: "Select last day of current month",
-            run() {
-                click(queryLast(".o_date_item_cell:not(.o_out_of_range)"));
-            },
         },
         {
             trigger: ".o_gantt_progress_bar.o_gantt_group_danger",

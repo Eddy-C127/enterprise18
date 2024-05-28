@@ -140,7 +140,6 @@ export class TaskGanttModel extends GanttModel {
      * @override
      */
     _generateRows(metaData, params) {
-        const { order } = metaData;
         const { groupedBy, groups, parentGroup } = params;
         if (groupedBy.length) {
             const groupedByField = groupedBy[0];
@@ -158,7 +157,7 @@ export class TaskGanttModel extends GanttModel {
 
         // keep empty row to the head and sort the other rows alphabetically
         // except when grouping by stage or personal stage
-        if (!["stage_id", "personal_stage_type_ids"].includes(groupedBy[0]) && !order) {
+        if (!["stage_id", "personal_stage_type_ids"].includes(groupedBy[0])) {
             rows.sort((a, b) => {
                 if (a.resId && !b.resId) {
                     return 1;

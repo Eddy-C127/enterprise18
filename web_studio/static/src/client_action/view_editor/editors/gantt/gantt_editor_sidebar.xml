@@ -124,15 +124,6 @@
                 >
                     Month Precision
                 </Property>
-                <Property
-                    name="'order'"
-                    type="'selection'"
-                    value="orderValue"
-                    childProps="{ choices: defaultOrderChoices }"
-                    onChange.bind="onViewAttributeChanged"
-                >
-                    Order
-                </Property>
 
                 <SidebarViewToolbox onMore="props.openViewInForm"
                     canEditXml="!viewEditorModel.isEditingSubview"

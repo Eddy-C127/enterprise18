@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { leave, queryAll, queryOne, queryFirst } from "@odoo/hoot-dom";
+import { click, leave, queryAll, queryOne, queryFirst } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import { contains, defineParams, onRpc } from "@web/../tests/web_test_helpers";
 import { Tasks, defineGanttModels } from "./gantt_mock_models";
@@ -193,9 +193,9 @@ test("default_scale attribute", async () => {
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" default_scale="day"/>`,
     });
-    expect(getActiveScale()).toBe("0"); // Minimum scale
+    expect(getActiveScale()).toBe(5); // day scale
     const { columnHeaders, range } = getGridContent();
-    expect(range).toBe("20 December 2018 - 22 December 2018");
+    expect(range).toBe("From: 12/20/2018 to: 12/22/2018");
     expect(columnHeaders).toHaveLength(38);
 });
 
@@ -207,7 +207,7 @@ test("scales attribute", async () => {
     expect(queryOne(".o_gantt_renderer_controls input").max).toBe("1", {
         message: "there are only 2 valid scales (starting from 0)",
     });
-    expect(getActiveScale()).toBe("0");
+    expect(getActiveScale()).toBe(1);
 });
 
 test("precision attribute", async () => {
@@ -381,7 +381,7 @@ test("consolidation feature (single level)", async () => {
     });
 
     const { rows, range } = getGridContent();
-    expect(range).toBe("01 December 2018 - 28 February 2019");
+    expect(range).toBe("From: 12/01/2018 to: 02/28/2019");
     expect(".o_gantt_button_expand_rows").toHaveCount(1);
     expect(rows).toEqual([
         {
@@ -721,7 +721,7 @@ test("offset attribute", async () => {
     });
 
     const { range } = getGridContent();
-    expect(range).toBe("16 December 2018 - 18 December 2018", {
+    expect(range).toBe("From: 12/16/2018 to: 12/18/2018", {
         message: "gantt view should be set to 4 days before initial date",
     });
 });
@@ -914,38 +914,18 @@ test("default_group_by attribute with 2 fields", async () => {
     ]);
 });
 
-test("order attribute (default)", async () => {
-    onRpc("get_gantt_data", ({ kwargs }) => {
-        expect(kwargs.orderby).toBe(null);
-    });
+test("default_range attribute", async () => {
     await mountGanttView({
         resModel: "tasks",
-        arch: `<gantt date_start="start" date_stop="stop"/>`,
+        arch: `<gantt date_start="start" date_stop="stop" default_range="day"/>`,
     });
-    expect(SELECTORS.asc).not.toHaveClass("active");
-    expect(SELECTORS.desc).not.toHaveClass("active");
-});
-
-test("order attribute (asc)", async () => {
-    onRpc("get_gantt_data", ({ kwargs }) => {
-        expect(kwargs.orderby).toBe("start:min asc");
-    });
-    await mountGanttView({
-        resModel: "tasks",
-        arch: `<gantt date_start="start" date_stop="stop" order="asc"/>`,
-    });
-    expect(SELECTORS.asc).toHaveClass("active");
-    expect(SELECTORS.desc).not.toHaveClass("active");
-});
-
-test("order attribute (desc)", async () => {
-    onRpc("get_gantt_data", ({ kwargs }) => {
-        expect(kwargs.orderby).toBe("start:min desc");
-    });
-    await mountGanttView({
-        resModel: "tasks",
-        arch: `<gantt date_start="start" date_stop="stop" order="desc"/>`,
-    });
-    expect(SELECTORS.asc).not.toHaveClass("active");
-    expect(SELECTORS.desc).toHaveClass("active");
+    expect(getActiveScale()).toBe(2); // month scale
+    const { columnHeaders, range } = getGridContent();
+    expect(range).toBe("12/20/2018");
+    expect(columnHeaders).toHaveLength(1);
+    click(SELECTORS.rangeMenuToggler);
+    await animationFrame();
+    const firstRangeMenuItem = queryFirst(`${SELECTORS.rangeMenu} .dropdown-item`);
+    expect(firstRangeMenuItem).toHaveClass("selected");
+    expect(firstRangeMenuItem).toHaveText("Today");
 });

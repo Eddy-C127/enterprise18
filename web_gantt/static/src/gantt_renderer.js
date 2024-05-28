@@ -10,7 +10,12 @@ import {
 } from "@odoo/owl";
 import { hasTouch, isMobileOS } from "@web/core/browser/feature_detection";
 import { Domain } from "@web/core/domain";
-import { getStartOfLocalWeek, is24HourFormat, serializeDate, serializeDateTime } from "@web/core/l10n/dates";
+import {
+    getStartOfLocalWeek,
+    is24HourFormat,
+    serializeDate,
+    serializeDateTime,
+} from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
 import { _t } from "@web/core/l10n/translation";
 import { usePopover } from "@web/core/popover/popover_hook";
@@ -26,6 +31,7 @@ import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog
 import { GanttConnector } from "./gantt_connector";
 import {
     dateAddFixedOffset,
+    diffColumn,
     getCellColor,
     getColorIndex,
     localEndOf,
@@ -37,7 +43,6 @@ import {
     useGanttUndraggable,
     useMultiHover,
 } from "./gantt_helpers";
-import { diffColumn } from "./gantt_model";
 import { GanttPopover } from "./gantt_popover";
 import { GanttRendererControls } from "./gantt_renderer_controls";
 import { GanttResizeBadge } from "./gantt_resize_badge";
@@ -469,33 +474,11 @@ export class GanttRenderer extends Component {
     //-------------------------------------------------------------------------
 
     get controlsProps() {
-        const { displayMode } = this.model.displayParams;
-        const { order, scale, scales, startDate, stopDate } = this.model.metaData;
         return {
-            currentDisplayMode: displayMode,
-            currentOrder: order,
-            currentScale: Object.keys(scales).findIndex((scaleId) => scaleId === scale.id),
             displayExpandCollapseButtons: this.rows[0]?.isGroup, // all rows on same level have same type
-            onCollapseClicked: () => this.model.collapseRows(),
-            onExpandClicked: () => this.model.expandRows(),
-            onStartDateChanged: (val) => this.model.setStartDate(val, this.getCurrentFocusDate()),
-            onStopDateChanged: (val) => this.model.setStopDate(val, this.getCurrentFocusDate()),
-            onTodayClicked: () => {
-                const today = DateTime.local().startOf("day");
-                const withinBounds = this.focusDate(today, true);
-                if (!withinBounds) {
-                    this.model.focusToday();
-                }
-            },
-            onToggleDisplayMode: () => this.model.toggleDisplayMode(),
-            onToggleOrder: (o) => this.model.toggleOrder(o),
-            scalesRange: { min: 0, max: Object.keys(scales).length - 1 },
-            setScale: (index) => {
-                const selectedScale = Object.values(scales)[index];
-                this.model.setScale(selectedScale.id, this.getCurrentFocusDate());
-            },
-            startDate: startDate,
-            stopDate: stopDate,
+            model: this.model,
+            focusToday: () => this.focusToday(),
+            getCurrentFocusDate: () => this.getCurrentFocusDate(),
         };
     }
 
@@ -1159,6 +1142,10 @@ export class GanttRenderer extends Component {
             const { start: date } = this.getColumnFromColNumber(col);
             this.focusDate(date);
         }
+    }
+
+    focusToday() {
+        return this.focusDate(DateTime.local().startOf("day"), true);
     }
 
     generateConnectors() {

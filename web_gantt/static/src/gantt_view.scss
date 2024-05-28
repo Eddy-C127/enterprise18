@@ -2,7 +2,7 @@
 	--Gantt__Buttons-height: 45px;
 
 	@media (max-width: 767px) {
-		--Gantt__Buttons-height: 90px;
+		--Gantt__Buttons-height: 91px; // = 2 times the height in normal display + 1px for the <hr> element
 	}
 
 	user-select: none;
@@ -22,10 +22,22 @@
 		height: var(--Gantt__Buttons-height) !important;
 		input[type="range"] {
 			min-width: 80px;
-			max-width: 220px;
+			max-width: 80px;
 		}
 	}
+}
 
+.o_gantt_range_menu {
+	.o_gantt_range_custom_item.dropdown-item:not(.disabled):not(:disabled) {
+		background-color: inherit !important;
+		cursor: default !important;
+		label {
+			cursor: default !important;
+		}
+		&.selected {
+			font-weight: 400;
+		}
+	}
 }
 
 .o_gantt_view .o_gantt_renderer {

@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import * as hoot from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add('planning_split_shift_week', {
@@ -13,12 +12,12 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
     run: "click",
 }, {
     trigger: 'input[type="range"]',
-    content: "The initial default scale should be week (1)",
+    content: "The initial default scale should be week (2)",
     run() {
         const subjectValue = document.querySelector('input[type="range"]').value;
-        if (subjectValue !== "1") {
+        if (subjectValue !== "2") {
             console.error(
-                `Default scale should be week (1) (actual: ${subjectValue})`
+                `Default scale should be week (2) (actual: ${subjectValue})`
             );
         }
     },
@@ -66,42 +65,6 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
     trigger: ".o_menu_item.dropdown-item > a:not(.o_expand)",
     content: "Select filter resource = Porthos",
     run: 'click',
-}, {
-    trigger: ".o_gantt_picker:first",
-    content: "Open start date picker",
-    run: 'click',
-}, {
-    trigger: ".o_popover .o_datetime_picker",
-    content: "Select first day of the current week",
-    run: (helpers) => {
-        const firstDayOfCurrentWeek = hoot.queryLast(".o_week_number_cell + .o_today, .o_week_number_cell + .o_date_item_cell:has(~ .o_today)", { root: helpers.anchor });
-        hoot.click(firstDayOfCurrentWeek);
-    },
-}, {
-    trigger: ".o_gantt_picker:last",
-    content: "Open stop date picker",
-    run: 'click',
-}, {
-    trigger: ".o_popover .o_datetime_picker",
-    content: "Select last day of the current week",
-    run: async (helpers) => {
-        const oToday = hoot.queryFirst(".o_today", { root: helpers.anchor });
-        if (!oToday) {
-            hoot.click(".o_popover .o_previous", { root: helpers.anchor });
-            await hoot.waitFor(".o_today", { root: helpers.anchor });
-        }
-        const nextWeekNumber = hoot.queryFirst(".o_today ~ .o_week_number_cell", { root: helpers.anchor });
-        if (nextWeekNumber) {
-            const lastDayOfCurrentWeek = nextWeekNumber.previousElementSibling;
-            hoot.click(lastDayOfCurrentWeek);
-        } else {
-            const lastDay = hoot.queryLast(".o_date_item_cell", { root: helpers.anchor });
-            hoot.click(lastDay);
-        }
-
-        // Await for the view to only display one week to ensure recurring pills are not rendered
-        await hoot.waitUntil(() => hoot.queryAll(".o_gantt_header_title").length === 1, { timeout: 5000 });
-    },
 }, {
     trigger: ".o_gantt_pill_split_tool[data-split-tool-pill-id='__pill__1_0']",
     content: "Split the slot assigned to Aramis after one day",

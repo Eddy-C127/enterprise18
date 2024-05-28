@@ -14,7 +14,7 @@
                     >
                         Publish
                     </button>
-                    <button t-if="model.metaData.canCreate and model.metaData.scale.id === 'week'"
+                    <button t-if="model.metaData.canCreate and model.metaData.scale.id === 'week' and model.metaData.rangeId === 'week'"
                         class="o_gantt_button_copy_previous_week btn btn-link dropdown-item d-xl-none"
                         title="Copy previous week"
                         data-hotkey="c"
@@ -36,7 +36,7 @@
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <t t-set-slot="content">
-                        <DropdownItem t-if="model.metaData.scale.id === 'week'"
+                        <DropdownItem t-if="model.metaData.scale.id === 'week' and model.metaData.rangeId === 'week'"
                             class="'o_gantt_button_copy_previous_week btn btn-link dropdown-item'"
                             onSelected="() => this.planningControllerActions.copyPrevious()"
                             attrs="{ 'data-hotkey': 'c', 'title': 'Copy previous week' }"

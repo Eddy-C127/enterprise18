@@ -71,7 +71,7 @@ test("Open Ended record today", async () => {
         },
     });
     const { range, rows } = getGridContent();
-    expect(range).toBe("10 December 2018 - 10 December 2018");
+    expect(range).toBe("From: 12/10/2018 to: 12/10/2018");
     expect(rows).toEqual([
         {
             pills: [
@@ -112,7 +112,7 @@ test("Future Open Ended record not displayed", async () => {
         },
     });
     const { range, rows } = getGridContent();
-    expect(range).toBe("10 December 2018 - 10 December 2018");
+    expect(range).toBe("From: 12/10/2018 to: 12/10/2018");
     expect(rows).toEqual([
         {
             pills: [
@@ -148,7 +148,7 @@ test("Open Ended record spanning multiple days", async () => {
         },
     });
     let gridContent = getGridContent();
-    expect(gridContent.range).toBe("12 December 2018 - 12 December 2018");
+    expect(gridContent.range).toBe("From: 12/12/2018 to: 12/12/2018");
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -163,7 +163,7 @@ test("Open Ended record spanning multiple days", async () => {
     ]);
     await selectGanttRange({ startDate: "2018-12-11", stopDate: "2018-12-11" });
     gridContent = getGridContent();
-    expect(gridContent.range).toBe("11 December 2018 - 11 December 2018");
+    expect(gridContent.range).toBe("From: 12/11/2018 to: 12/11/2018");
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -178,7 +178,7 @@ test("Open Ended record spanning multiple days", async () => {
     ]);
     await selectGanttRange({ startDate: "2018-12-10", stopDate: "2018-12-10" });
     gridContent = getGridContent();
-    expect(gridContent.range).toBe("10 December 2018 - 10 December 2018");
+    expect(gridContent.range).toBe("From: 12/10/2018 to: 12/10/2018");
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -236,7 +236,7 @@ test("Concurrent open-ended records", async () => {
         },
     });
     const { range, rows } = getGridContent();
-    expect(range).toBe("20 December 2018 - 20 December 2018");
+    expect(range).toBe("From: 12/20/2018 to: 12/20/2018");
     expect(rows).toEqual([
         {
             pills: [
@@ -277,7 +277,7 @@ test("Open ended record Precision", async () => {
         },
     });
     const { range, rows } = getGridContent();
-    expect(range).toBe("20 December 2018 - 20 December 2018");
+    expect(range).toBe("From: 12/20/2018 to: 12/20/2018");
     expect(rows).toEqual([
         {
             pills: [
@@ -313,7 +313,7 @@ test("Open ended record updated correctly", async () => {
         },
     });
     let gridContent = getGridContent();
-    expect(gridContent.range).toBe("20 December 2018 - 20 December 2018");
+    expect(gridContent.range).toBe("From: 12/20/2018 to: 12/20/2018");
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -330,7 +330,7 @@ test("Open ended record updated correctly", async () => {
     await selectGanttRange({ startDate: "2018-12-19", stopDate: "2018-12-19" });
     await selectGanttRange({ startDate: "2018-12-20", stopDate: "2018-12-20" });
     gridContent = getGridContent();
-    expect(gridContent.range).toBe("20 December 2018 - 20 December 2018");
+    expect(gridContent.range).toBe("From: 12/20/2018 to: 12/20/2018");
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -373,7 +373,7 @@ test("Future Open ended record not shown before it happens and appears after sta
         },
     });
     let gridContent = getGridContent();
-    expect(gridContent.range).toBe("02 November 2018 - 02 November 2018");
+    expect(gridContent.range).toBe("From: 11/02/2018 to: 11/02/2018");
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -390,7 +390,7 @@ test("Future Open ended record not shown before it happens and appears after sta
     await selectGanttRange({ startDate: "2018-11-03", stopDate: "2018-11-03" });
     await selectGanttRange({ startDate: "2018-11-02", stopDate: "2018-11-02" });
     gridContent = getGridContent();
-    expect(gridContent.range).toBe("02 November 2018 - 02 November 2018");
+    expect(gridContent.range).toBe("From: 11/02/2018 to: 11/02/2018");
     expect(gridContent.rows).toEqual([
         {
             pills: [
@@ -446,7 +446,7 @@ test("Domain correctly applied when allow_open_ended=1.", async () => {
         },
     });
     const { rows, range } = getGridContent();
-    expect(range).toBe("02 November 2018 - 02 November 2018");
+    expect(range).toBe("From: 11/02/2018 to: 11/02/2018");
     expect(rows).toEqual([
         {
             pills: [

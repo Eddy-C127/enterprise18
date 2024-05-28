@@ -10,7 +10,7 @@ import { pick } from "@web/core/utils/objects";
 import { sprintf } from "@web/core/utils/strings";
 import { Model } from "@web/model/model";
 import { formatFloatTime } from "@web/views/fields/formatters";
-import { localStartOf } from "./gantt_helpers";
+import { getRangeFromDate, localStartOf } from "./gantt_helpers";
 
 const { DateTime } = luxon;
 
@@ -84,10 +84,6 @@ function firstColumnAfter(date, unit) {
         return date;
     }
     return start.plus({ [unit]: 1 });
-}
-
-export function diffColumn(col1, col2, unit) {
-    return col2.diff(col1, unit).values[`${unit}s`];
 }
 
 /**
@@ -246,17 +242,6 @@ export class GanttModel extends Model {
         await this._fetchData(this._buildMetaData(params));
         this.useSampleModel = false;
         this.notify();
-    }
-
-    async focusToday() {
-        const { startDate: _startDate, stopDate: _stopDate } = this._buildMetaData();
-        const diff = diffColumn(_startDate, _stopDate, "day");
-        const n = Math.floor(diff / 2);
-        const m = diff - n;
-        const focusDate = firstColumnBefore(DateTime.local(), "day");
-        const startDate = focusDate.minus({ day: n });
-        const stopDate = focusDate.plus({ day: m - 1 });
-        await this.fetchData({ focusDate, startDate, stopDate });
     }
 
     /**
@@ -462,30 +447,6 @@ export class GanttModel extends Model {
     }
 
     /**
-     * @param {ScaleId} scaleId
-     */
-    async setScale(scaleId, currentFocusDate) {
-        await this.fetchData({ scaleId, currentFocusDate });
-    }
-
-    async setStartDate(startDate, currentFocusDate) {
-        await this.fetchData({ startDate, currentFocusDate });
-    }
-
-    async setStopDate(stopDate, currentFocusDate) {
-        await this.fetchData({ stopDate, currentFocusDate, fixStopDate: true });
-    }
-
-    /**
-     * @param {"ASC"|"DESC"} order
-     */
-    async toggleOrder(order) {
-        const { order: currentOrder } = this._buildMetaData();
-        const nextOrder = currentOrder === order ? null : order;
-        this.fetchData({ order: nextOrder });
-    }
-
-    /**
      * @param {string} rowId
      */
     toggleRow(rowId) {
@@ -552,7 +513,6 @@ export class GanttModel extends Model {
      * @param {DateTime} [params.stopDate]
      * @param {string[]} [params.groupedBy]
      * @param {ScaleId} [params.scaleId]
-     * @param {boolean} [params.fixStopDate]
      * @returns {MetaData}
      */
     _buildMetaData(params = {}) {
@@ -574,9 +534,8 @@ export class GanttModel extends Model {
         if (params.stopDate) {
             this._nextMetaData.stopDate = params.stopDate;
         }
-
-        if ("order" in params) {
-            this._nextMetaData.order = params.order;
+        if (params.rangeId) {
+            this._nextMetaData.rangeId = params.rangeId;
         }
 
         if ("pagerLimit" in params) {
@@ -600,7 +559,7 @@ export class GanttModel extends Model {
 
             const rightLimit = this._nextMetaData.startDate.plus({ year: 10, day: -1 });
             if (this._nextMetaData.stopDate > rightLimit) {
-                if (exchange ? !params.fixStopDate : params.fixStopDate) {
+                if (exchange) {
                     this._nextMetaData.startDate = this._nextMetaData.stopDate.minus({
                         year: 10,
                         day: -1,
@@ -657,7 +616,7 @@ export class GanttModel extends Model {
      * @param {Object} [additionalContext]
      */
     async _fetchData(metaData, additionalContext) {
-        const { dateStartField, groupedBy, order, pagerLimit, pagerOffset, resModel } = metaData;
+        const { groupedBy, pagerLimit, pagerOffset, resModel } = metaData;
         const context = {
             ...this.searchParams.context,
             group_by: groupedBy,
@@ -673,15 +632,10 @@ export class GanttModel extends Model {
             }
         }
 
-        const orderby = order
-            ? [`${dateStartField}:min ${order.toLowerCase()}`, ...groupedBy].join(",")
-            : null;
-
         const { length, groups, records, error_msg } = await this.keepLast.add(
             this.orm.call(resModel, "get_gantt_data", [], {
                 domain,
                 groupby: groupedBy,
-                orderby,
                 read_specification: specification,
                 context,
                 limit: pagerLimit,
@@ -1011,6 +965,18 @@ export class GanttModel extends Model {
         return groupedBy;
     }
 
+    _getDefaultFocusDate(metaData, searchParams, scaleId) {
+        const { context } = searchParams;
+        let focusDate =
+            "initialDate" in context ? deserializeDateTime(context.initialDate) : DateTime.local();
+        focusDate = focusDate.startOf("day");
+        if (metaData.offset) {
+            const { unit } = metaData.scales[scaleId];
+            focusDate = focusDate.plus({ [unit]: metaData.offset });
+        }
+        return focusDate;
+    }
+
     /**
      * @protected
      * @param {MetaData} metaData
@@ -1022,20 +988,22 @@ export class GanttModel extends Model {
         const localScaleId = this._getScaleIdFromLocalStorage(metaData);
         /** @type {ScaleId} */
         const scaleId = localScaleId || context.default_scale || metaData.defaultScale;
-        const { defaultRange, unit } = metaData.scales[scaleId];
+        const { defaultRange } = metaData.scales[scaleId];
+
+        const rangeId =
+            context.default_range in metaData.ranges
+                ? context.range_type
+                : metaData.defaultRange || "custom";
+        let focusDate;
+        if (rangeId in metaData.ranges) {
+            focusDate = this._getDefaultFocusDate(metaData, searchParams, scaleId);
+            return { scaleId, ...getRangeFromDate(rangeId, focusDate) };
+        }
         let startDate = context.default_start_date && deserializeDate(context.default_start_date);
         let stopDate = context.default_stop_date && deserializeDate(context.default_stop_date);
-        let focusDate;
         if (!startDate && !stopDate) {
             /** @type {DateTime} */
-            focusDate =
-                "initialDate" in context
-                    ? deserializeDateTime(context.initialDate)
-                    : DateTime.local();
-            focusDate = focusDate.startOf("day");
-            if (metaData.offset) {
-                focusDate = focusDate.plus({ [unit]: metaData.offset });
-            }
+            focusDate = this._getDefaultFocusDate(metaData, searchParams, scaleId);
             startDate = firstColumnBefore(focusDate, defaultRange.unit);
             stopDate = startDate
                 .plus({ [defaultRange.unit]: defaultRange.count })
@@ -1057,7 +1025,7 @@ export class GanttModel extends Model {
             }
         }
 
-        return { focusDate, scaleId, startDate, stopDate };
+        return { focusDate, scaleId, startDate, stopDate, rangeId };
     }
 
     _getLocalStorageKey() {

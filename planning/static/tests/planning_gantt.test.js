@@ -771,6 +771,7 @@ test("Test highlight shifts added by executed action", async function () {
                 date_start="start_datetime"
                 date_stop="end_datetime"
                 default_group_by="resource_id"
+                default_range="week"
                 default_scale="week"
                 scales="week,month"
             />

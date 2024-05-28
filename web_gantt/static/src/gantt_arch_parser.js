@@ -11,7 +11,6 @@ const DECORATIONS = [
     "decoration-success",
     "decoration-warning",
 ];
-const ORDERS = ["ASC", "DESC", "asc", "desc", null];
 const PARTS = { full: 1, half: 2, quarter: 4 };
 const SCALES = {
     day: {
@@ -106,6 +105,35 @@ const SCALES = {
 
         defaultRange: { unit: "year", count: 1 },
     },
+};
+
+function getPreferedScaleId(scaleId, scales) {
+    // we assume that scales is not empty
+    if (scaleId in scales) {
+        return scaleId;
+    }
+    const scaleIds = Object.keys(SCALES);
+    const index = scaleIds.findIndex((id) => id === scaleId);
+    for (let j = index - 1; j >= 0; j--) {
+        const id = scaleIds[j];
+        if (id in scales) {
+            return id;
+        }
+    }
+    for (let j = index + 1; j < scaleIds.length; j++) {
+        const id = scaleIds[j];
+        if (id in scales) {
+            return id;
+        }
+    }
+}
+
+const RANGES = {
+    day: { scaleId: "day", description: _t("Today") },
+    week: { scaleId: "week", description: _t("This week") },
+    month: { scaleId: "month", description: _t("This month") },
+    quarter: { scaleId: "month_3", description: _t("This quarter") },
+    year: { scaleId: "year", description: _t("This year") },
 };
 
 export class GanttArchParser {
@@ -233,6 +261,17 @@ function getInfoFromRootNode(rootNode) {
         delete scales[scaleId].cellPrecisions;
     }
 
+    const ranges = {};
+    for (const rangeId in RANGES) {
+        const referenceRange = RANGES[rangeId];
+        ranges[rangeId] = {
+            ...referenceRange,
+            id: rangeId,
+            scaleId: getPreferedScaleId(referenceRange.scaleId, scales),
+            description: referenceRange.description.toString(),
+        };
+    }
+
     let pillDecorations = null;
     for (const decoration of DECORATIONS) {
         if (decoration in attrs) {
@@ -256,6 +295,7 @@ function getInfoFromRootNode(rootNode) {
         dateStartField: attrs.date_start,
         dateStopField: attrs.date_stop,
         defaultGroupBy: attrs.default_group_by ? attrs.default_group_by.split(",") : [],
+        defaultRange: attrs.default_range,
         defaultScale: attrs.default_scale || "month",
         dependencyEnabled,
         dependencyField,
@@ -266,11 +306,11 @@ function getInfoFromRootNode(rootNode) {
         displayUnavailability: archParseBoolean(attrs.display_unavailability),
         formViewId: attrs.form_view_id ? parseInt(attrs.form_view_id, 10) : false,
         offset: attrs.offset,
-        order: attrs.order && ORDERS.includes(attrs.order) ? attrs.order.toUpperCase() : null,
         pagerLimit: attrs.groups_limit ? parseInt(attrs.groups_limit, 10) : null,
         pillDecorations,
         progressBarFields: attrs.progress_bar ? attrs.progress_bar.split(",") : null,
         progressField: attrs.progress || null,
+        ranges,
         scales,
         string: attrs.string || _t("Gantt View").toString(),
         thumbnails: attrs.thumbnails ? evaluateExpr(attrs.thumbnails) : {},
