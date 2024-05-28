@@ -9,9 +9,7 @@
             <attribute name="setSelectedRecord.bind">this.setSelectedRecord</attribute>
         </xpath>
         <xpath expr="//Layout" position="inside">
-            <t t-if="this.attachmentPreviewState.previewEnabled">
-                <t t-call="account_accountant.AttachmentPreview"/>
-            </t>
+            <t t-if="previewEnabled" t-call="account_accountant.AttachmentPreview"/>
         </xpath>
     </t>
 
