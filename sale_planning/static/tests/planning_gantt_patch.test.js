@@ -1,19 +1,24 @@
 import { defineMailModels, click } from "@mail/../tests/mail_test_helpers";
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
+import { queryAll, queryAllTexts } from "@odoo/hoot-dom";
 import {
+    contains,
     defineModels,
     fields,
     models,
     mountWithCleanup,
     onRpc,
     patchWithCleanup,
+    selectFieldDropdownItem,
 } from "@web/../tests/web_test_helpers";
 import {
     clickCell,
+    editPill,
     hoverGridCell,
     getGridContent,
     mountGanttView,
+    SELECTORS,
 } from "@web_gantt/../tests/web_gantt_test_helpers";
 
 import { Component, onWillStart, useState, xml } from "@odoo/owl";
@@ -65,6 +70,11 @@ class Resource extends models.Model {
     _name = "resource.resource";
 
     name = fields.Char({ string: "Name" });
+
+    _records = [
+        { id: 1, name: "Chaganlal" },
+        { id: 2, name: "Jarvo" },
+    ];
 }
 
 class SaleOrderLine extends models.Model {
@@ -251,4 +261,54 @@ test("Show shift form dialog only when shifts to plan", async function () {
     await clickCell("13 W41 2021");
     expect(".o_dialog").toHaveCount(1);
     expect(".modal-title").toHaveText("Add Shift");
+});
+
+test("Open a dialog to schedule a plan using Open Shift", async function () {
+    PlanningSlot._records.push({
+        id: 2,
+        sale_line_id: 1,
+    });
+    PlanningSlot._views = {
+        list: `<tree><field name="sale_line_id"/></tree>`,
+        form: `
+            <form>
+                <field name="resource_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="name"/>
+            </form>
+        `,
+    };
+
+    onRpc("gantt_resource_work_interval", () => [
+        { false: [["2021-10-12 08:00:00", "2022-10-12 12:00:00"]] },
+    ]);
+
+    await mountGanttView({
+        resModel: "planning.slot",
+        arch: '<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>',
+        groupBy: ["resource_id"],
+    });
+    await hoverGridCell("13 W41 2021");
+    await clickCell("13 W41 2021");
+    click(".modal-footer .o_create_button");
+
+    await selectFieldDropdownItem("resource_id", "Jarvo");
+    await contains(`[name='name'] input`).edit("Shift-2");
+    await contains(`[name='start_datetime'] input`).edit('2021-10-12 09:00:00');
+    await contains(`[name='end_datetime'] input`).edit('2021-10-12 12:00:00');
+
+    click(".o_form_button_save");
+    await animationFrame();
+
+    const shift2Pill = queryAll(SELECTORS.pill)[1];
+    await contains(shift2Pill).click();
+    expect(queryAllTexts`.o_popover .popover-body span`).toEqual([
+        "Shift-2",
+        "10/12/2021, 9:00 AM",
+        "10/12/2021, 12:00 PM",
+    ]);
+
+    await editPill("Shift-2");
+    expect(".o_field_widget[name=resource_id] input").toHaveValue("Jarvo");
 });
