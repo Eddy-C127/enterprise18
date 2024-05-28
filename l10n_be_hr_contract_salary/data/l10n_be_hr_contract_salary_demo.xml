@@ -34,7 +34,7 @@
 
     <record id="user_laurie_poiret" model="res.users">
         <field name="partner_id" ref="l10n_be_hr_contract_salary.res_partner_laurie_poiret"/>
-        <field name="login">lauriepoiret</field>
+        <field name="login">lauriepoiret@example.com</field>
         <field name="password">lauriepoiret</field>
         <field name="signature" type="html"><span>--<br/>+L. Poiret</span></field>
         <field name="company_ids" eval="[(4, ref('l10n_be_hr_payroll.res_company_be'))]"/>

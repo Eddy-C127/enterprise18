@@ -53,7 +53,7 @@
 
     <record id="user_frida_poirish" model="res.users">
         <field name="partner_id" ref="l10n_lu_hr_payroll.res_partner_frida_poirish"/>
-        <field name="login">fridapoirish</field>
+        <field name="login">fridapoirish@example.com</field>
         <field name="password">fridapoirish</field>
         <field name="signature" type="html"><span>--<br/>+F. Poirish</span></field>
         <field name="company_ids" eval="[(4, ref('l10n_lu_hr_payroll.res_company_lu'))]"/>

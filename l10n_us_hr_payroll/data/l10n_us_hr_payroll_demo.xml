@@ -57,7 +57,7 @@
 
     <record id="user_maggie" model="res.users">
         <field name="partner_id" ref="l10n_us_hr_payroll.res_partner_maggie"/>
-        <field name="login">davidson</field>
+        <field name="login">davidson@example.com</field>
         <field name="password">davidson</field>
         <field name="signature" type="html"><span>--<br/>+M. Davidson</span></field>
         <field name="company_ids" eval="[(4, ref('l10n_us_hr_payroll.res_company_us'))]"/>
