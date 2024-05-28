@@ -2835,3 +2835,32 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         })
         res = self.env['bank.rec.widget'].with_user(self.user).collect_global_info_data(child_bank_journal.id)
         self.assertTrue(res, "Journal should be accessible")
+
+    def test_collect_global_info_data_other_company_bank_journal_with_user_on_main_company(self):
+        """ The aim of this test is checking that a user who having
+            access to 2 companies will have values even when he's
+            calling collect_global_info_data function if
+            it's current company it's not the one on the journal
+            but is still available.
+            To do that, we add 2 companies to the user, and try to
+            call collect_global_info_data on the journal of the second
+            company, even if the main company it's the first one.
+        """
+        self.user.write({
+            'company_ids': [Command.set((self.company_data['company'] + self.company_data_2['company']).ids)],
+            'company_id': self.company_data['company'].id,
+        })
+
+        result = self.env['bank.rec.widget'].with_user(self.user).collect_global_info_data(self.company_data_2['default_journal_bank'].id)
+        self.assertTrue(result['balance_amount'], "Balance amount shouldn't be False value")
+
+    def test_collect_global_info_data_non_existing_bank_journal(self):
+        """ The aim of this test is checking that we receive an empty
+            string when we call collect_global_info_data function
+            with a non-existing journal. This use case could happen
+            when we try to open the bank rec widget on a journal that
+            is not actually existing. As this function is callable by
+            rpc, this usecase could happen.
+        """
+        result = self.env['bank.rec.widget'].with_user(self.user).collect_global_info_data(99999999)
+        self.assertEqual(result['balance_amount'], "", "If no value, the function should return an empty string")
