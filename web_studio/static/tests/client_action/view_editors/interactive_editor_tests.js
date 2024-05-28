@@ -398,10 +398,11 @@ QUnit.module("View Editors", () => {
 
             await click(target.querySelector(".modal .o_model_field_selector"));
 
-            assert.containsOnce(
+            assert.containsN(
                 target,
                 ".o_model_field_selector_popover li",
-                "there should only be one available field (the many2one)"
+                6,
+                "all fields are available to make a new related out of"
             );
 
             await click(

@@ -156,9 +156,6 @@ export class RelatedChainBuilder extends Component {
     }
 
     filter(fieldDef, path) {
-        if (!path) {
-            return fieldDef.type === "many2one";
-        }
         return fieldDef.type !== "properties";
     }
 

@@ -1757,3 +1757,12 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
               </xpath>
             </data>
         """ % reified_fname)
+
+    def test_add_all_types_fields_related(self):
+        self.create_user_view()
+        self.start_tour("/web?debug=tests", 'web_studio_test_add_all_types_fields_related', login="admin")
+
+        field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('name', 'like', 'x_studio_related')])
+        target_field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('name', '=', 'display_name')])
+        self.assertEqual(len(field), 1)
+        self.assertEqual(field.related_field_id, target_field)

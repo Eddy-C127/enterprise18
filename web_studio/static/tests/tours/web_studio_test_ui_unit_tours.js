@@ -1103,6 +1103,7 @@ registry.category("web_tour.tours").add("web_studio_test_related_file", {
         },
         {
             in_modal: false,
+            extra_trigger: ".o_model_field_selector_popover_title:contains(Related Partner)",
             trigger: ".o_model_field_selector_popover_search input",
             run: "edit New File",
         },
@@ -1428,4 +1429,49 @@ registry.category("web_tour.tours").add("web_studio_test_edit_reified_field", {
             isCheck: true,
         },
     ]
+});
+
+registry.category("web_tour.tours").add("web_studio_test_add_all_types_fields_related", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_user_menu']",
+            run: "click",
+        },
+        {
+            extra_trigger: ".o_form_view",
+            trigger: ".o_web_studio_navbar_item button",
+            run: "click",
+        },
+        {
+            extra_trigger: ".o_web_studio_form_view_editor",
+            trigger: ".o_web_studio_field_related",
+            run: "drag_and_drop(.o_inner_group)",
+        },
+        {
+            extra_trigger: ".modal-dialog",
+            trigger: ".o_model_field_selector_value",
+            run: "click",
+        },
+        {
+            in_modal: false,
+            extra_trigger: ".o_model_field_selector_popover",
+            trigger: ".o_model_field_selector_popover_search input",
+            run: "edit Display Name",
+        },
+        {
+            in_modal: false,
+            trigger:
+                ".o_model_field_selector_popover_item_name:contains(Display Name)",
+            run: "click",
+        },
+        {
+            trigger: ".modal-footer .btn-primary:first",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_leave",
+            run() {},
+        },
+    ],
 });
