@@ -138,9 +138,10 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         purchase_vals = []
         for in_inv in purchase_invoices:
             is_from_ecuador = in_inv.commercial_partner_id.country_id == self.env.ref('base.ec')
-            if is_from_ecuador and any(len(l.tax_ids & ec_vat_taxes) != 1 for l in in_inv.invoice_line_ids):
+            invoice_lines = in_inv.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_section', 'line_note'))
+            if is_from_ecuador and any(len(l.tax_ids & ec_vat_taxes) != 1 for l in invoice_lines):
                 errors.append(f'{in_inv.name} :' + _('Invoice lines should have exactly one VAT tax.'))
-            if not is_from_ecuador and any(len(l.tax_ids & ec_vat_taxes) > 1 for l in in_inv.invoice_line_ids):
+            if not is_from_ecuador and any(len(l.tax_ids & ec_vat_taxes) > 1 for l in invoice_lines):
                 errors.append(f'{in_inv.name} :' + _('Import invoice lines should have at most one VAT tax.'))
 
             # This will create base_amounts and tax_amounts dicts with this structure:
@@ -159,7 +160,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                                 ec_type: sign * sum(base_line.balance for base_line in base_lines_per_ec_type)
                                 for ec_type, base_lines_per_ec_type in groupby(base_lines_per_taxsupport, lambda l: get_ec_type(l.tax_ids))
                             })
-                for taxsupport, base_lines_per_taxsupport in groupby(in_inv.invoice_line_ids, lambda l: get_taxsupport(l.tax_ids))
+                for taxsupport, base_lines_per_taxsupport in groupby(invoice_lines, lambda l: get_taxsupport(l.tax_ids))
             })
 
             tax_lines = in_inv.line_ids.filtered(lambda l: l.tax_line_id & ec_vat_taxes)
@@ -420,7 +421,8 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
 
         invoices_values = []
         for invoice in invoices:
-            if any(len(l.tax_ids & ec_vat_taxes) != 1 for l in invoice.invoice_line_ids):
+            invoice_lines = invoice.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_section', 'line_note'))
+            if any(len(l.tax_ids & ec_vat_taxes) != 1 for l in invoice_lines):
                 errors.append(f'{invoice.name} :' + _('Invoice lines should have exactly one VAT tax.'))
 
             # This will create base_amounts and tax_amounts dicts with this structure:
@@ -433,7 +435,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             sign = -1 if invoice.move_type == 'out_invoice' else 1
             base_amounts = defaultdict(int, {
                 ec_type: sign * sum(base_line.balance for base_line in base_lines)
-                for ec_type, base_lines in groupby(invoice.invoice_line_ids, lambda l: get_ec_type(l.tax_ids))
+                for ec_type, base_lines in groupby(invoice_lines, lambda l: get_ec_type(l.tax_ids))
             })
             tax_lines = invoice.line_ids.filtered(lambda l: l.tax_line_id & ec_vat_taxes)
             tax_amounts = defaultdict(int, {
