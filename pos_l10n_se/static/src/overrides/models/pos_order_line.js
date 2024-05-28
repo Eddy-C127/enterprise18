@@ -10,13 +10,4 @@ patch(PosOrderline.prototype, {
         });
         return to_return;
     },
-    getDisplayData() {
-        if (!this.order_id.useBlackBoxSweden()) {
-            return super.getDisplayData(...arguments);
-        }
-        return {
-            ...super.getDisplayData(...arguments),
-            taxLetter: this.product.taxes_id[0]?.sweden_identification_letter,
-        };
-    },
 });

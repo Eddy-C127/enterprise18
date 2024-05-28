@@ -36,14 +36,6 @@ patch(PosOrder.prototype, {
         result.useBlackboxBe = Boolean(this.useBlackBoxBe());
         if (this.useBlackBoxBe()) {
             const order = this;
-            result.orderlines = result.orderlines.map((l) => ({
-                ...l,
-                price: l.price === "free" ? l.price : l.price + " " + l.taxLetter,
-            }));
-            result.tax_details = result.tax_details.map((t) => ({
-                ...t,
-                tax: { ...t.tax, letter: t.tax.identification_letter },
-            }));
             result.blackboxBeData = {
                 pluHash: order.blackbox_plu_hash,
                 receipt_type: order.receipt_type,

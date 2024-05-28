@@ -69,13 +69,13 @@ patch(PosOrderline.prototype, {
         let amount = this._getAmountForPlu();
         let description = this.get_product().display_name;
         let price_in_eurocent = this.get_display_price() * 100;
-        const vat_letter = this.getLineTaxLetter();
+        const tax_labels = this.getLineTaxLabels();
 
         amount = this._prepareNumberForPlu(amount, 4);
         description = this._prepareDescriptionForPlu(description);
         price_in_eurocent = this._prepareNumberForPlu(price_in_eurocent, 8);
 
-        return amount + description + price_in_eurocent + vat_letter;
+        return amount + description + price_in_eurocent + tax_labels;
     },
     _prepareNumberForPlu(number, field_length) {
         number = Math.abs(number);
@@ -176,16 +176,7 @@ patch(PosOrderline.prototype, {
 
         return filtered_char_array.join("");
     },
-    getDisplayData() {
-        if (!this.order_id.useBlackBoxBe()) {
-            return super.getDisplayData();
-        }
-        return {
-            ...super.getDisplayData(),
-            taxLetter: this.getLineTaxLetter(),
-        };
-    },
-    getLineTaxLetter() {
-        return this.product_id.taxes_id?.identification_letter;
+    getLineTaxLabels() {
+        return this.product_id.taxes_id?.map((tax) => tax._pos_receipt_label).join(" ");
     },
 });

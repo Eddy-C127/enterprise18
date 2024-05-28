@@ -27,14 +27,6 @@ patch(PosOrder.prototype, {
         }
 
         const order = this;
-        result.orderlines = result.orderlines.map((l) => ({
-            ...l,
-            price: l.price === "free" ? l.price : l.price + " " + l.taxLetter,
-        }));
-        result.tax_details = result.tax_details.map((t) => ({
-            ...t,
-            tax: { ...t.tax, letter: t.tax.sweden_identification_letter },
-        }));
         result.useBlackBoxSweden = true;
         result.blackboxSeData = {
             posID: this.config.name,

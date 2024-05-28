@@ -32,7 +32,9 @@ patch(PosStore.prototype, {
             return;
         } else if (
             this.useBlackBoxSweden() &&
-            !this.models["account.tax"].get(product.taxes_id[0]).sweden_identification_letter
+            !this.models["account.tax"]
+                .get(product.taxes_id)
+                ?.every((tax) => tax._pos_receipt_label)
         ) {
             this.dialog.add(AlertDialog, {
                 title: _t("POS error"),
