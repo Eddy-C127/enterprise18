@@ -4,6 +4,84 @@ gstr1_test_json = {
   'gstin': '24AAGCC7144L6ZE',
   'fp': TEST_DATE.strftime("%m%Y"),
   'b2b': [
+      {
+          "ctin": "24ABCPM8965E1ZE",
+          "inv": [
+              {
+                  "inum": "INV/2023/00011",
+                  "idt": TEST_DATE.strftime("%d-%m-%Y"),
+                  "val": 1180.0,
+                  "pos": "24",
+                  "rchrg": "N",
+                  "inv_typ": "R",
+                  "itms": [
+                      {
+                          "num": 1,
+                          "itm_det": {
+                              "txval": 1000.0,
+                              "iamt": 180.0,
+                              "camt": 0.0,
+                              "samt": 0.0,
+                              "csamt": 0.0,
+                              "rt": 18.0,
+                          },
+                      }
+                  ],
+              }
+          ],
+      },
+      {
+          "ctin": "24ABCPM8965E1ZE",
+          "inv": [
+              {
+                  "inum": "INV/2023/00010",
+                  "idt": TEST_DATE.strftime("%d-%m-%Y"),
+                  "val": 1180.0,
+                  "pos": "24",
+                  "rchrg": "N",
+                  "inv_typ": "R",
+                  "itms": [
+                      {
+                          "num": 1,
+                          "itm_det": {
+                              "txval": 1000.0,
+                              "iamt": 180.0,
+                              "camt": 0.0,
+                              "samt": 0.0,
+                              "csamt": 0.0,
+                              "rt": 18.0,
+                          },
+                      }
+                  ],
+              }
+          ],
+      },
+      {
+          "ctin": "24ABCPM8965E1ZE",
+          "inv": [
+              {
+                  "inum": "INV/2023/00009",
+                  "idt": TEST_DATE.strftime("%d-%m-%Y"),
+                  "val": 1180.0,
+                  "pos": "24",
+                  "rchrg": "N",
+                  "inv_typ": "DE",
+                  "itms": [
+                      {
+                          "num": 1,
+                          "itm_det": {
+                              "txval": 1000.0,
+                              "iamt": 180.0,
+                              "camt": 0.0,
+                              "samt": 0.0,
+                              "csamt": 0.0,
+                              "rt": 18.0,
+                          },
+                      }
+                  ],
+              }
+          ],
+      },
     {
       'ctin': '24ABCPM8965E1ZE',
       'inv': [
@@ -105,6 +183,87 @@ gstr1_test_json = {
     }
   ],
   'cdnr': [
+      {
+          "ctin": "24ABCPM8965E1ZE",
+          "nt": [
+              {
+                  "ntty": "C",
+                  "nt_num": "RINV/2023/00011",
+                  "nt_dt": "20-05-2023",
+                  "val": 590.0,
+                  "pos": "24",
+                  "rchrg": "N",
+                  "inv_typ": "R",
+                  "itms": [
+                      {
+                          "num": 1,
+                          "itm_det": {
+                              "rt": 18.0,
+                              "txval": 500.0,
+                              "iamt": 90.0,
+                              "samt": 0.0,
+                              "camt": 0.0,
+                              "csamt": 0.0,
+                          },
+                      }
+                  ],
+              }
+          ],
+      },
+      {
+          "ctin": "24ABCPM8965E1ZE",
+          "nt": [
+              {
+                  "ntty": "C",
+                  "nt_num": "RINV/2023/00010",
+                  "nt_dt": "20-05-2023",
+                  "val": 590.0,
+                  "pos": "24",
+                  "rchrg": "N",
+                  "inv_typ": "R",
+                  "itms": [
+                      {
+                          "num": 1,
+                          "itm_det": {
+                              "rt": 18.0,
+                              "txval": 500.0,
+                              "iamt": 90.0,
+                              "samt": 0.0,
+                              "camt": 0.0,
+                              "csamt": 0.0,
+                          },
+                      }
+                  ],
+              }
+          ],
+      },
+      {
+          "ctin": "24ABCPM8965E1ZE",
+          "nt": [
+              {
+                  "ntty": "C",
+                  "nt_num": "RINV/2023/00009",
+                  "nt_dt": "20-05-2023",
+                  "val": 590.0,
+                  "pos": "24",
+                  "rchrg": "N",
+                  "inv_typ": "DE",
+                  "itms": [
+                      {
+                          "num": 1,
+                          "itm_det": {
+                              "rt": 18.0,
+                              "txval": 500.0,
+                              "iamt": 90.0,
+                              "samt": 0.0,
+                              "camt": 0.0,
+                              "csamt": 0.0,
+                          },
+                      }
+                  ],
+              }
+          ],
+      },
     {
       'ctin': '24ABCPM8965E1ZE',
       'nt': [
@@ -215,24 +374,24 @@ gstr1_test_json = {
       {
         'hsn_sc': '01111',
         'uqc': 'UNT',
-        'rt': 0,
-        'qty': 3.0,
-        'txval': 1500.0,
-        'iamt': 0.0,
-        'samt': 0.0,
-        'camt': 0.0,
+        'rt': 18,
+        'qty': 7.5,
+        'txval': 128500.0,
+        'iamt': 22950.0,
+        'samt': 90.0,
+        'camt': 90.0,
         'csamt': 0.0,
         'num': 1
       },
       {
         'hsn_sc': '01111',
         'uqc': 'UNT',
-        'rt': 18,
-        'qty': 4.5,
-        'txval': 127000.0,
-        'iamt': 22680.0,
-        'samt': 90.0,
-        'camt': 90.0,
+        'rt': 0,
+        'qty': 3.0,
+        'txval': 1500.0,
+        'iamt': 0.0,
+        'samt': 0.0,
+        'camt': 0.0,
         'csamt': 0.0,
         'num': 2
       }
@@ -813,6 +972,84 @@ gstr1_debit_note_test_json = {
             "ctin": "24ABCPM8965E1ZE",
             "inv": [
                 {
+                    "inum": "INV/2023/00021",
+                    "idt": "20-05-2023",
+                    "val": 1180.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "24ABCPM8965E1ZE",
+            "inv": [
+                {
+                    "inum": "INV/2023/00019",
+                    "idt": "20-05-2023",
+                    "val": 1180.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "24ABCPM8965E1ZE",
+            "inv": [
+                {
+                    "inum": "INV/2023/00017",
+                    "idt": "20-05-2023",
+                    "val": 1180.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "DE",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "24ABCPM8965E1ZE",
+            "inv": [
+                {
                     "inum": "INV/2023/00003",
                     "idt":  TEST_DATE.strftime("%d-%m-%Y"),
                     "val": 1180.0,
@@ -910,6 +1147,87 @@ gstr1_debit_note_test_json = {
         },
     ],
     "cdnr": [
+        {
+            "ctin": "24ABCPM8965E1ZE",
+            "nt": [
+                {
+                    "ntty": "D",
+                    "nt_num": "INV/2023/00022",
+                    "nt_dt": "20-05-2023",
+                    "val": 590.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 90.0,
+                                "samt": 0.0,
+                                "camt": 0.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "24ABCPM8965E1ZE",
+            "nt": [
+                {
+                    "ntty": "D",
+                    "nt_num": "INV/2023/00020",
+                    "nt_dt": "20-05-2023",
+                    "val": 590.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 90.0,
+                                "samt": 0.0,
+                                "camt": 0.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "24ABCPM8965E1ZE",
+            "nt": [
+                {
+                    "ntty": "D",
+                    "nt_num": "INV/2023/00018",
+                    "nt_dt": "20-05-2023",
+                    "val": 590.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "DE",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 90.0,
+                                "samt": 0.0,
+                                "camt": 0.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
         {
             "ctin": "24ABCPM8965E1ZE",
             "nt": [
@@ -1020,24 +1338,24 @@ gstr1_debit_note_test_json = {
             {
                 "hsn_sc": "01111",
                 "uqc": "UNT",
-                "rt": 0,
-                "qty": 9.0,
-                "txval": 4500.0,
-                "iamt": 0.0,
-                "samt": 0.0,
-                "camt": 0.0,
+                "rt": 18,
+                "qty": 22.5,
+                "txval": 385500.0,
+                "iamt": 68850.0,
+                "samt": 270.0,
+                "camt": 270.0,
                 "csamt": 0.0,
                 "num": 1,
             },
             {
                 "hsn_sc": "01111",
                 "uqc": "UNT",
-                "rt": 18,
-                "qty": 13.5,
-                "txval": 381000.0,
-                "iamt": 68040.0,
-                "samt": 270.0,
-                "camt": 270.0,
+                "rt": 0,
+                "qty": 9.0,
+                "txval": 4500.0,
+                "iamt": 0.0,
+                "samt": 0.0,
+                "camt": 0.0,
                 "csamt": 0.0,
                 "num": 2,
             },

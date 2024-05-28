@@ -22,6 +22,9 @@ class TestReports(L10nInTestAccountReportsCommon):
             'l10n_in_gst_treatment': "consumer",
         })
 
+        cls.deemed_export_partner = cls.partner_a.copy({"l10n_in_gst_treatment": "deemed_export"})
+        cls.composition_partner = cls.partner_a.copy({"l10n_in_gst_treatment": "composition"})
+        cls.uin_holders_partner = cls.partner_a.copy({"l10n_in_gst_treatment": "uin_holders"})
         cls.large_unregistered_partner = cls.consumer_partner.copy({"state_id": cls.state_in_mh.id, "l10n_in_gst_treatment": "unregistered"})
 
         cls.partner_foreign.l10n_in_gst_treatment = "overseas"
@@ -56,6 +59,15 @@ class TestReports(L10nInTestAccountReportsCommon):
         b2b_invoice_nongsttax = self._init_inv(partner=self.partner_b, taxes=self.non_gst_supplies, line_vals={'price_unit': 500, 'quantity': 2})
         reverse_inv_func(inv=b2b_invoice_nongsttax, line_vals={'quantity': 1})
 
+        b2b_invoice_deemed_export = self._init_inv(partner=self.deemed_export_partner, taxes=self.comp_igst_18, line_vals={'price_unit': 500, 'quantity': 2})
+        reverse_inv_func(inv=b2b_invoice_deemed_export, line_vals={'quantity': 1})  # Creates and posts credit note for the above invoice
+
+        b2b_invoice_composition = self._init_inv(partner=self.composition_partner, taxes=self.comp_igst_18, line_vals={'price_unit': 500, 'quantity': 2})
+        reverse_inv_func(inv=b2b_invoice_composition, line_vals={'quantity': 1})
+
+        b2b_invoice_uin_holders = self._init_inv(partner=self.uin_holders_partner, taxes=self.comp_igst_18, line_vals={'price_unit': 500, 'quantity': 2})
+        reverse_inv_func(inv=b2b_invoice_uin_holders, line_vals={'quantity': 1})
+
         # if no tax is applied then it will be out of scope and not considered in GSTR1
         self._init_inv(partner=self.partner_b, taxes=[], line_vals={'price_unit': 500, 'quantity': 2})
 
@@ -70,11 +82,9 @@ class TestReports(L10nInTestAccountReportsCommon):
     def test_gstr1_json(self):
         self._setup_moves(self._create_credit_note)
         gstr_report = self._create_gstr_report()
-
         self.assertDictEqual(gstr_report._get_gstr1_json(), gstr1_test_json)
 
     def test_gstr1_debit_note_json(self):
         self._setup_moves(self._create_debit_note)
         gstr_report = self._create_gstr_report()
-
         self.assertDictEqual(gstr_report._get_gstr1_json(), gstr1_debit_note_test_json)
