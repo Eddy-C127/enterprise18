@@ -13,17 +13,10 @@
     background-position: center center;
 }
 
-.o_extract_sample_1 {
-    background-image: url('/hr_expense_extract/static/img/sample_1.jpeg' );
-}
-.o_extract_sample_2 {
-    background-image: url('/hr_expense_extract/static/img/sample_2.jpeg' );
-}
-.o_extract_sample_3 {
-    background-image: url('/hr_expense_extract/static/img/sample_3.jpeg' );
-}
-.o_extract_sample_4 {
-    background-image: url('/hr_expense_extract/static/img/sample_4.jpeg' );
+.o_extract_sample_animation_overlay {
+    transition: opacity .5s ease-in-out;
+    opacity: 0;
+    z-index: $zindex-dropdown + 1;
 }
 
 @keyframes ellipsis {

@@ -55,7 +55,7 @@ class ExpenseSampleReceipt(models.Model):
         expense = self.env['hr.expense'].create(expense_line_values)
 
         # 6/ Link the attachment
-        image_path = 'hr_expense_extract/static/img/sample_%s.jpeg' % sample_number
+        image_path = 'hr_expense_extract/static/img/receipt_sample.webp'
         image = base64.b64encode(file_open(image_path, 'rb').read())
         self.env['ir.attachment'].create({
             'name': 'sample_receipt.jpeg',
@@ -70,33 +70,13 @@ class ExpenseSampleReceipt(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'hr.expense',
             'view_mode': 'form',
+            'views': [[False, 'form']],
             'res_id': expense.id,
         }
 
-    def action_choose_sample_1(self):
+    def action_choose_sample(self):
         return self._action_create_expense({
             'name': 'External training',
             'amount': 1995.6,
-            'date': datetime.date(2020, 6, 29)
+            'date': datetime.date(2024, 5, 24)  # Same date used in the receipt animation
         }, 1)
-
-    def action_choose_sample_2(self):
-        return self._action_create_expense({
-            'name': 'Restaurant',
-            'amount': 17.02,
-            'date': datetime.date(2020, 6, 29)
-        }, 2)
-
-    def action_choose_sample_3(self):
-        return self._action_create_expense({
-            'name': 'Office Furniture',
-            'amount': 5040.65,
-            'date': datetime.date(2020, 6, 29)
-        }, 3)
-
-    def action_choose_sample_4(self):
-        return self._action_create_expense({
-            'name': 'Travel',
-            'amount': 700,
-            'date': datetime.date(2020, 6, 29)
-        }, 4)

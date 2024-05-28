@@ -124,7 +124,7 @@ class HrExpense(models.Model):
             if not expenses and extract_txt not in help_message:
                 action_id = self.env.ref('hr_expense_extract.action_expense_sample_receipt').id
                 help_message += Markup(
-                    """<p class="text-muted mt-4">or <a type="action" name="%(action_id)s" class="">%(extract_txt)s</a></p>"""
+                    """<p class="text-muted mt-4">Or <a type="action" name="%(action_id)s" class="o_select_sample">%(extract_txt)s</a></p>"""
                 ) % {
                     'action_id': action_id,
                     'extract_txt': extract_txt,
