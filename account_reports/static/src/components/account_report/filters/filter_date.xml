@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
+    <t t-name="account_reports.AccountReportFilterDateSelection">
+        <t t-foreach="this.dateFilters(controller.options.date.mode)" t-as="dateFilter" t-key="dateFilter_index">
+            <DropdownItem
+                class="{ 'd-flex justify-content-between date_filter': true, 'selected': (controller.options.date.filter.includes(dateFilter.period)) }"
+                onSelected="() => this.selectDateFilter(dateFilter.period)"
+                closingMode="'none'"
+            >
+                <div class="filter_name pe-3">
+                    <t t-out="dateFilter.name"/>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button
+                        class="btn_previous_date fa fa-caret-left"
+                        t-on-click="() => this.selectPreviousPeriod(dateFilter.period)"
+                    />
+                    <time class="d-flex justify-content-center time_text">
+                        <t t-out="this.displayPeriod(dateFilter.period)"/>
+                    </time>
+                    <button
+                        class="btn_next_date fa fa-caret-right"
+                        t-on-click="() => this.selectNextPeriod(dateFilter.period)"
+                        t-att-disabled="this.isNextPeriodDisabled(dateFilter.period)"
+                    />
+                </div>
+            </DropdownItem>
+        </t>
+    </t>
+
     <t t-name="account_reports.AccountReportFilterDate">
         <Dropdown
             menuClass="'account_report_filter date'"
@@ -13,101 +42,30 @@
             <t t-set-slot="content">
                 <t t-if="controller.options.date.mode === 'single'">
                     <DropdownItem
-                        class="{ 'filter_date_single_today_hook': true, 'selected': (controller.options.date.filter === 'today') }"
-                        onSelected="() => this.filterClicked('date.filter', 'today', true)"
+                        class="{ 'selected': controller.options.date.filter === 'today' }"
+                        onSelected="() => this.filterClicked('date.filter', 'today')"
+                        closingMode="'none'"
                     >
                         Today
                     </DropdownItem>
 
-                    <DropdownItem
-                        class="{ 'filter_date_single_last_month_hook': true, 'selected': (controller.options.date.filter === 'last_month') }"
-                        onSelected="() => this.filterClicked('date.filter', 'last_month', true)"
-                    >
-                        End of Last Month
-                    </DropdownItem>
-
-                    <DropdownItem
-                        class="{ 'filter_date_single_last_quarter_hook': true, 'selected': (controller.options.date.filter === 'last_quarter') }"
-                        onSelected="() => this.filterClicked('date.filter', 'last_quarter', true)"
-                    >
-                        End of Last Quarter
-                    </DropdownItem>
-
-                    <DropdownItem
-                        class="{ 'filter_date_single_last_year_hook': true, 'selected': (controller.options.date.filter === 'last_year') }"
-                        onSelected="() => this.filterClicked('date.filter', 'last_year', true)"
-                    >
-                        End of Last Financial Year
-                    </DropdownItem>
-                </t>
-
-                <t t-if="controller.options.date.mode === 'range'">
-                    <DropdownItem
-                        class="{ 'filter_date_this_month_hook': true, 'selected': (controller.options.date.filter === 'this_month') }"
-                        onSelected="() => this.filterClicked('date.filter', 'this_month', true)"
-                    >
-                        This Month
-                    </DropdownItem>
-
-                    <DropdownItem
-                        class="{ 'filter_date_this_quarter_hook': true, 'selected': (controller.options.date.filter === 'this_quarter') }"
-                        onSelected="() => this.filterClicked('date.filter', 'this_quarter', true)"
-                    >
-                        This Quarter
-                    </DropdownItem>
-
-                    <DropdownItem
-                        class="{ 'filter_date_this_year_hook': true, 'selected': (controller.options.date.filter === 'this_year') }"
-                        onSelected="() => this.filterClicked('date.filter', 'this_year', true)"
-                    >
-                        This Financial Year
-                    </DropdownItem>
+                    <t t-call="account_reports.AccountReportFilterDateSelection"/>
 
                     <div class="dropdown-divider"/>
 
-                    <DropdownItem
-                        class="{ 'filter_date_range_last_month_hook': true, 'selected': (controller.options.date.filter === 'last_month') }"
-                        onSelected="() => this.filterClicked('date.filter', 'last_month', true)"
-                    >
-                        Last Month
-                    </DropdownItem>
-
-                    <DropdownItem
-                        class="{ 'filter_date_range_last_quarter_hook': true, 'selected': (controller.options.date.filter === 'last_quarter') }"
-                        onSelected="() => this.filterClicked('date.filter', 'last_quarter', true)"
-                    >
-                        Last Quarter
-                    </DropdownItem>
-
-                    <DropdownItem
-                        class="{ 'filter_date_range_last_year_hook': true, 'selected': (controller.options.date.filter === 'last_year') }"
-                        onSelected="() => this.filterClicked('date.filter', 'last_year', true)"
-                    >
-                        Last Financial Year
-                    </DropdownItem>
-                </t>
-
-                <div class="dropdown-divider"/>
-
-                <t t-if="controller.options.date.mode === 'range'">
                     <div
-                        class="dropdown-item date d-flex flex-row justify-space-between"
-                        t-att-class="(controller.options.date.filter === 'custom') ? 'selected' : ''"
+                        class="dropdown-item date d-flex justify-content-between"
+                        t-att-class="{ 'selected': controller.options.date.filter === 'custom' }"
                         t-on-click="() => this.filterClicked('date.filter', 'custom')"
                     >
-                        <label class="d-flex align-items-center">
-                            Custom Dates
+                        <label class="d-flex align-items-center filter_name">
+                            Specific Date
                         </label>
-                        <div class="d-flex flex-row"
-                             t-att-class="(controller.options.date.filter !== 'custom') ? 'invisible' : ''">
-                            <DateTimeInput
-                                type="'date'"
-                                value="dateFrom('date')"
-                                onChange="(dateFrom) => this.setDateFrom('date', dateFrom)"
-                            />
-                            <label class="d-flex align-items-center">
-                                to
-                            </label>
+
+                        <div
+                            class="d-flex justify-content-center flex-grow-1"
+                            t-att-class="{ 'invisible': controller.options.date.filter !== 'custom' }"
+                        >
                             <DateTimeInput
                                 type="'date'"
                                 value="dateTo('date')"
@@ -117,18 +75,29 @@
                     </div>
                 </t>
 
-                <t t-if="controller.options.date.mode === 'single'">
+                <t t-if="controller.options.date.mode === 'range'">
+                    <t t-call="account_reports.AccountReportFilterDateSelection"/>
+
+                    <div class="dropdown-divider"/>
+
                     <div
                         class="dropdown-item date d-flex flex-row justify-space-between"
-                        t-att-class="(controller.options.date.filter === 'custom') ? 'selected' : ''"
+                        t-att-class="{ 'selected': controller.options.date.filter === 'custom' }"
                         t-on-click="() => this.filterClicked('date.filter', 'custom')"
                     >
                         <label class="d-flex align-items-center">
-                            Specific Date
+                            Custom Dates
                         </label>
-
-                        <!-- This div is needed for the 'justify-content_between' on the parent -->
-                        <div t-att-class="(controller.options.date.filter !== 'custom') ? 'invisible' : ''">
+                        <div class="d-flex flex-row"
+                             t-att-class="{ 'invisible': controller.options.date.filter !== 'custom' }">
+                            <DateTimeInput
+                                type="'date'"
+                                value="dateFrom('date')"
+                                onChange="(dateFrom) => this.setDateFrom('date', dateFrom)"
+                            />
+                            <label class="d-flex align-items-center">
+                                to
+                            </label>
                             <DateTimeInput
                                 type="'date'"
                                 value="dateTo('date')"

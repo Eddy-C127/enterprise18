@@ -119,7 +119,6 @@ class TestReportSections(AccountTestInvoicingHttpCommon):
         self.assertEqual(options['selected_section_id'], self.section_2.id, "Section 2 should be selected.")
         self.assertEqual(options['report_id'], self.section_2.id, "Selecting the second section from the first one should open it.")
 
-    @freeze_time('2023-02-01')
     def test_sections_tour(self):
         def patched_init_options_custom(report, options, previous_options=None):
             # Emulates a custom handler modifying the export buttons

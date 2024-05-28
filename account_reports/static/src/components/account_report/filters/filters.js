@@ -26,6 +26,7 @@ export class AccountReportFilters extends Component {
         this.companyService = useService("company");
         this.controller = useState(this.env.controller);
         this.dirtyFilter = useState({ value: false });
+        this.dateFilter = useState(this.initDateFilters());
     }
 
     focusInnerInput(index, items) {
@@ -243,6 +244,111 @@ export class AccountReportFilters extends Component {
 
     setDateTo(optionKey, dateTo) {
         this.setDate(optionKey, 'to', dateTo);
+    }
+
+    dateFilters(mode) {
+        switch (mode) {
+            case "single":
+                return [
+                    {"name": _t("End of Month"), "period": "month"},
+                    {"name": _t("End of Quarter"), "period": "quarter"},
+                    {"name": _t("End of Year"), "period": "year"},
+                ];
+            case "range":
+                return [
+                    {"name": _t("Month"), "period": "month"},
+                    {"name": _t("Quarter"), "period": "quarter"},
+                    {"name": _t("Year"), "period": "year"},
+                ];
+            default:
+                throw new Error(`Invalid mode in dateFilters(): ${ mode }`);
+        }
+    }
+
+    initDateFilters() {
+        const filters = {
+            "month": 0,
+            "quarter": 0,
+            "year": 0,
+        }
+
+        const [specifier, period] = this.controller.options.date.filter.split("_");
+
+        if (specifier === "last" || specifier === "previous") {
+            filters[period] = (specifier === "previous") ? this.controller.options.date.previous_period : 1;
+        }
+
+        return filters;
+    }
+
+    getDateFilter(periodType) {
+        switch (this.dateFilter[periodType]) {
+            case 0:
+                return `this_${ periodType }`;
+            case 1:
+                return `last_${ periodType }`;
+            default:
+                return `previous_${ periodType }`;
+        }
+    }
+
+    selectDateFilter(periodType) {
+        this.dirtyFilter.value = true;
+
+        this.controller.updateOption("date.filter", this.getDateFilter(periodType));
+        this.controller.updateOption("date.previous_period", this.dateFilter[periodType]);
+    }
+
+    selectPreviousPeriod(periodType) {
+        this._changePeriod(periodType, 1);
+    }
+
+    selectNextPeriod(periodType) {
+        this._changePeriod(periodType, -1);
+    }
+
+    _changePeriod(periodType, increment) {
+        this.dateFilter[periodType] = this.dateFilter[periodType] + increment;
+
+        this.controller.updateOption("date.filter", this.getDateFilter(periodType));
+        this.controller.updateOption("date.previous_period", this.dateFilter[periodType]);
+    }
+
+    isNextPeriodDisabled(periodType) {
+        return this.dateFilter[periodType] === 0;
+    }
+
+    displayPeriod(periodType) {
+        const dateTo = new Date();
+
+        switch (periodType) {
+            case "month":
+                return this._displayMonth(dateTo);
+            case "quarter":
+                return this._displayQuarter(dateTo);
+            case "year":
+                return this._displayYear(dateTo);
+            default:
+                throw new Error(`Invalid period type in displayPeriod(): ${ periodType }`);
+        }
+    }
+
+    _displayMonth(dateTo) {
+        dateTo.setMonth(dateTo.getMonth() - this.dateFilter.month);
+
+        return `${ dateTo.toLocaleString("default", { month: "long" }) } ${ dateTo.getFullYear() }`;
+    }
+
+    _displayQuarter(dateTo) {
+        dateTo.setMonth(dateTo.getMonth() - (this.dateFilter.quarter * 3));
+
+        return `Q${ Math.floor(dateTo.getMonth() / 3) + 1 } ${ dateTo.getFullYear() }`;
+    }
+
+    _displayYear(dateTo) {
+        dateTo.setFullYear(dateTo.getFullYear() - this.dateFilter.year);
+
+        return dateTo.getFullYear().toString();
     }
 
     //------------------------------------------------------------------------------------------------------------------

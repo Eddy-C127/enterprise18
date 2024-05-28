@@ -1,4 +1,25 @@
 .account_report_filter {
+    &.date {
+        .date_filter:hover .btn_previous_date,
+        .date_filter:hover .btn_next_date:not(:disabled) {
+            color: $o-gray-600;
+        }
+        .filter_name { width: 120px }
+        .time_text { width: 120px }
+        .btn_previous_date, .btn_next_date {
+            background: inherit;
+            border: none;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            color: $o-gray-300;
+        }
+        .dropdown-item.focus {
+            background: transparent;
+            &:hover { background: rgba(0, 0, 0, 0.08) }
+        }
+    }
+
     &.date, &.comparison {
         .dropdown-item.date {
             display: flex;

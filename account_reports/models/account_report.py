@@ -592,6 +592,13 @@ class AccountReport(models.Model):
         if 'last' in options_filter:
             options['date'] = self._get_dates_previous_period(options, options['date'], tax_period='tax_period' in options_filter)
 
+        if 'previous' in options_filter:
+            previous_period = previous_date.get('previous_period', 0)
+
+            for x in range(previous_period):
+                options['date'] = self._get_dates_previous_period(options, options['date'], tax_period='tax_period' in options_filter)
+                options['date']['previous_period'] = previous_period
+
         options['date']['filter'] = options_filter
 
     def _init_options_comparison(self, options, previous_options=None):

@@ -10,14 +10,18 @@ registry.category("web_tour.tours").add("account_reports_widgets", {
             run: "click",
         },
         {
-            content: "change date filter",
-            trigger: ".dropdown-menu span:contains('Last Financial Year')",
+            content: "Select another date",
+            trigger: ".dropdown-menu span.dropdown-item:nth-child(3) .btn_previous_date",
+            run: 'click'
+        },
+        {
+            content: "Apply filter by closing the dropdown",
+            trigger: "#filter_date .btn:first()",
             run: "click",
         },
         {
             content: "wait refresh",
-            trigger: "#filter_date button:contains('2019')",
-            run: "click",
+            trigger: `#filter_date button:not(:contains(${ new Date().getFullYear() }))`,
         },
         {
             content: "change comparison filter",
