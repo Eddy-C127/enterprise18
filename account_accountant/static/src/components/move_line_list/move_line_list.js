@@ -1,13 +1,11 @@
-/** @odoo-module **/
-
 import { AttachmentView } from "@mail/core/common/attachment_view";
 
 import { registry } from "@web/core/registry";
-import { useService, useBus } from "@web/core/utils/hooks";
+import { useService } from "@web/core/utils/hooks";
 import { listView } from "@web/views/list/list_view";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { ListController } from "@web/views/list/list_controller";
-import { SIZES } from '@web/core/ui/ui_service';
+import { SIZES } from "@web/core/ui/ui_service";
 import { useState } from "@odoo/owl";
 import { makeActiveField } from "@web/model/relational_model/utils";
 
@@ -24,15 +22,18 @@ export class AccountMoveLineListController extends ListController {
         this.ui = useState(useService("ui"));
         this.mailPopoutService = useState(useService("mail.popout"));
         this.attachmentPreviewState = useState({
-            previewEnabled: !this.env.searchModel.context.disable_preview && (this.ui.size >= SIZES.XXL || this.mailPopoutService.externalWindow),
-            displayAttachment: localStorage.getItem('account.move_line_pdf_previewer_hidden') !== 'false',
+            displayAttachment:
+                localStorage.getItem("account.move_line_pdf_previewer_hidden") !== "false",
             selectedRecord: false,
             thread: null,
         });
     }
 
     get previewEnabled() {
-        return !this.env.searchModel.context.disable_preview && (this.ui.size >= SIZES.XXL || this.mailPopoutService.externalWindow);
+        return (
+            !this.env.searchModel.context.disable_preview &&
+            (this.ui.size >= SIZES.XXL || this.mailPopoutService.externalWindow)
+        );
     }
 
     get modelParams() {
@@ -45,13 +46,17 @@ export class AccountMoveLineListController extends ListController {
             activeFields: {
                 mimetype: makeActiveField(),
             },
-        }
+        };
         return params;
     }
 
     togglePreview() {
-        this.attachmentPreviewState.displayAttachment = !this.attachmentPreviewState.displayAttachment;
-        localStorage.setItem('account.move_line_pdf_previewer_hidden', this.attachmentPreviewState.displayAttachment);
+        this.attachmentPreviewState.displayAttachment =
+            !this.attachmentPreviewState.displayAttachment;
+        localStorage.setItem(
+            "account.move_line_pdf_previewer_hidden",
+            this.attachmentPreviewState.displayAttachment
+        );
     }
 
     setSelectedRecord(accountMoveLineData) {
@@ -89,8 +94,8 @@ export class AccountMoveLineListRenderer extends ListRenderer {
     findFocusFutureCell(cell, cellIsInGroupRow, direction) {
         const futureCell = super.findFocusFutureCell(cell, cellIsInGroupRow, direction);
         if (futureCell) {
-            const dataPointId = futureCell.closest('tr').dataset.id;
-            const record = this.props.list.records.filter(x=>x.id === dataPointId)[0];
+            const dataPointId = futureCell.closest("tr").dataset.id;
+            const record = this.props.list.records.filter((x) => x.id === dataPointId)[0];
             this.props.setSelectedRecord(record);
         }
         return futureCell;
@@ -102,4 +107,4 @@ export const AccountMoveLineListView = {
     Controller: AccountMoveLineListController,
 };
 
-registry.category("views").add('account_move_line_list', AccountMoveLineListView);
+registry.category("views").add("account_move_line_list", AccountMoveLineListView);
