@@ -5,7 +5,7 @@ from odoo.addons.marketing_automation.tests.common import MarketingAutomationCom
 from odoo.tests import tagged, users
 
 
-@tagged('marketing_automation')
+@tagged("marketing_automation", "utm")
 class TestMarketingCampaign(MarketingAutomationCommon):
     @classmethod
     def setUpClass(cls):
@@ -55,6 +55,8 @@ class TestMarketingCampaign(MarketingAutomationCommon):
 
     @users('user_marketing_automation')
     def test_duplicate_campaign(self):
+        """ Test duplicating a campaign: should not duplicate traces
+        and consider mailings as already sent through duplicates """
         original_campaign = self.campaign.with_user(self.env.user)
 
         # Add server activity to campaign
@@ -79,3 +81,39 @@ class TestMarketingCampaign(MarketingAutomationCommon):
                             'records': self.test_contacts,
                             'trace_status': 'sent',
                         }], activity)
+
+    @users('user_marketing_automation')
+    def test_utm_source(self):
+        """ Test source name modification and uniqueness check """
+        # Setup
+        campaign = self.campaign.with_user(self.env.user)
+        utm_source_name = 'utm_source_without_mailing'
+        campaign.marketing_activity_ids.mass_mailing_id.name = utm_source_name
+        self.assertEqual(
+            campaign.marketing_activity_ids.mass_mailing_id.name,
+            utm_source_name,
+        )
+
+        # Remove template from campaign's activity (this leaves utm.source without mailing.mailing)
+        campaign.marketing_activity_ids.mass_mailing_id.unlink()
+        self.assertTrue(
+            self.env['utm.source'].search([('name', '=', utm_source_name)]),
+            "Test prerequisite: UTM source should still exists, even though it's not related to any campaigns"
+        )
+
+        # Create new campaign with an activity
+        new_campaign = self.env['marketing.campaign'].create({
+            'domain': [('name', 'like', 'MATest')],
+            'model_id': self.env['ir.model']._get_id('mailing.contact'),
+            'name': 'New Test Campaign',
+        })
+        self._create_activity_mail(
+            new_campaign,
+            user=self.user_marketing_automation,
+            act_values={
+                'trigger_type': 'begin',
+                'interval_number': 0, 'interval_type': 'hours',
+            },
+        )
+        # Reassign the original UTM source name to the new campaign (attempting to trigger unique name constraint)
+        new_campaign.marketing_activity_ids.mass_mailing_id.name = utm_source_name
