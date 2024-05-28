@@ -5,7 +5,7 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project_enterprise.project_task_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@role='alert']" position="after">
+            <xpath expr="//t[@name='warning_section']" position="inside">
                 <div role="alert"
                      class="alert alert-warning d-flex align-items-center"
                      invisible="not leave_warning or not user_ids">

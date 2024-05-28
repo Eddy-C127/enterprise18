@@ -46,7 +46,7 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet" position="before">
+            <xpath expr="//t[@name='warning_section']" position="inside">
                 <div role="alert" class="alert alert-warning d-flex flex-wrap gap-3"
                     invisible="not planning_overlap">
                     <div class="d-flex align-items-center">
