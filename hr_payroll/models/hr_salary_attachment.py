@@ -136,11 +136,11 @@ class HrSalaryAttachment(models.Model):
             else:
                 record.remaining_amount = record.monthly_amount
 
-    @api.depends('state', 'total_amount', 'monthly_amount')
+    @api.depends('state', 'total_amount', 'monthly_amount', 'date_start')
     def _compute_estimated_end(self):
         for record in self:
             if record.state not in ['close', 'cancel'] and record.has_total_amount and record.monthly_amount:
-                record.date_estimated_end = start_of(fields.Date.today() + relativedelta(months=ceil(record.remaining_amount / record.monthly_amount)), 'month')
+                record.date_estimated_end = start_of(record.date_start + relativedelta(months=ceil(record.remaining_amount / record.monthly_amount)), 'month')
             else:
                 record.date_estimated_end = False
 
