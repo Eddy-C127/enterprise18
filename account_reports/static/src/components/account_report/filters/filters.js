@@ -431,10 +431,10 @@ export class AccountReportFilters extends Component {
     }
 
     async filterTaxUnit(taxUnit) {
-        await this.filterClicked("tax_unit", taxUnit.id, true);
+        await this.filterClicked("tax_unit", taxUnit.id, false);
         this.controller.saveSessionOptions(this.controller.options);
 
-        // force the company to those impacted by the tax units
+        // force the company to those impacted by the tax units, the reload will be force by this function
         this.companyService.setCompanies(taxUnit.company_ids);
     }
 
