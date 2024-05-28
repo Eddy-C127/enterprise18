@@ -25,10 +25,6 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         }
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        if options['export_mode'] == 'print' and options.get('filter_search_bar'):
-            # Handled here instead of in custom options initializer as init_options functions aren't re-called when printing the report.
-            options.setdefault('forced_domain', []).append(('partner_id.name', 'ilike', options['filter_search_bar']))
-
         partner_lines, totals_by_column_group = self._build_partner_lines(report, options)
         lines = report._regroup_lines_by_name_prefix(options, partner_lines, '_report_expand_unfoldable_line_partner_ledger_prefix_group', 0)
 
@@ -53,7 +49,14 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
 
         partners_results = self._query_partners(options)
 
+        search_filter = options.get('filter_search_bar', '')
+        accept_unknown_in_filter = search_filter.lower() in self._get_no_partner_line_label().lower()
         for partner, results in partners_results:
+            if options['export_mode'] == 'print' and search_filter and not partner and not accept_unknown_in_filter:
+                # When printing and searching for a specific partner, make it so we only show its lines, not the 'Unknown Partner' one, that would be
+                # shown in case a misc entry with no partner was reconciled with one of the target partner's entries.
+                continue
+
             partner_values = defaultdict(dict)
             for column_group_key in options['column_groups']:
                 partner_sum = results.get(column_group_key, {})
@@ -112,6 +115,13 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         exch_code = self.env['res.company'].browse(company_ids).mapped('currency_exchange_journal_id')
         if exch_code:
             domain += ['!', '&', '&', '&', ('credit', '=', 0.0), ('debit', '=', 0.0), ('amount_currency', '!=', 0.0), ('journal_id', 'in', exch_code.ids)]
+
+        if options['export_mode'] == 'print' and options.get('filter_search_bar'):
+            domain += [
+                '|', ('matched_debit_ids.debit_move_id.partner_id.name', 'ilike', options['filter_search_bar']),
+                '|', ('matched_credit_ids.credit_move_id.partner_id.name', 'ilike', options['filter_search_bar']),
+                ('partner_id.name', 'ilike', options['filter_search_bar']),
+            ]
 
         options['forced_domain'] = options.get('forced_domain', []) + domain
 
