@@ -807,22 +807,24 @@ class L10nInGSTReturnPeriod(models.Model):
                             invoice_type = 'SEWP'
                         elif move_id.l10n_in_gst_treatment == "special_economic_zone":
                             invoice_type = 'SEWOP'
+                        is_out_refund = move_id.move_type == "out_refund"
+                        sign = is_out_refund and 1 or -1
                         inv_json = {
-                            "ntty": move_id.move_type == "out_refund" and "C" or "D",
+                            "ntty": is_out_refund and "C" or "D",
                             "nt_num": move_id.name,
                             "nt_dt": move_id.invoice_date.strftime("%d-%m-%Y"),
-                            "val": AccountEdiFormat._l10n_in_round_value(move_id.amount_total_in_currency_signed * -1),
+                            "val": AccountEdiFormat._l10n_in_round_value(move_id.amount_total_in_currency_signed * -sign),
                             "pos": move_id.l10n_in_state_id.l10n_in_tin,
                             "rchrg": is_reverse_charge and "Y" or "N",
                             "inv_typ": invoice_type,
                             "itms": [
                                 {"num": index, "itm_det": {
                                     **line_json,
-                                    "txval": AccountEdiFormat._l10n_in_round_value(line_json['txval']),
-                                    "iamt": AccountEdiFormat._l10n_in_round_value(line_json['iamt']),
-                                    "samt": AccountEdiFormat._l10n_in_round_value(line_json['samt']),
-                                    "camt": AccountEdiFormat._l10n_in_round_value(line_json['camt']),
-                                    "csamt": AccountEdiFormat._l10n_in_round_value(line_json['csamt']),
+                                    "txval": AccountEdiFormat._l10n_in_round_value(line_json['txval'] * sign),
+                                    "iamt": AccountEdiFormat._l10n_in_round_value(line_json['iamt'] * sign),
+                                    "samt": AccountEdiFormat._l10n_in_round_value(line_json['samt'] * sign),
+                                    "camt": AccountEdiFormat._l10n_in_round_value(line_json['camt'] * sign),
+                                    "csamt": AccountEdiFormat._l10n_in_round_value(line_json['csamt'] * sign),
                                 }} for index, line_json in enumerate(lines_json.values(), start=1)
                             ],
                         }
@@ -873,18 +875,20 @@ class L10nInGSTReturnPeriod(models.Model):
                         invoice_type = 'EXPWP'
                     elif move_id.l10n_in_gst_treatment == "overseas":
                         invoice_type = 'EXPWOP'
+                    is_out_refund = move_id.move_type == "out_refund"
+                    sign = is_out_refund and 1 or -1
                     inv_json = {
-                        "ntty": move_id.move_type == "out_refund" and "C" or "D",
+                        "ntty": is_out_refund and "C" or "D",
                         "nt_num": move_id.name,
                         "nt_dt": move_id.invoice_date.strftime("%d-%m-%Y"),
-                        "val": AccountEdiFormat._l10n_in_round_value(move_id.amount_total_signed * -1),
+                        "val": AccountEdiFormat._l10n_in_round_value(move_id.amount_total_signed * -sign),
                         "typ": invoice_type,
                         "itms": [
                             {"num": index, "itm_det": {
                                 **line_json,
-                                "txval": AccountEdiFormat._l10n_in_round_value(line_json['txval']),
-                                "iamt": AccountEdiFormat._l10n_in_round_value(line_json['iamt']),
-                                "csamt": AccountEdiFormat._l10n_in_round_value(line_json['csamt']),
+                                "txval": AccountEdiFormat._l10n_in_round_value(line_json['txval'] * sign),
+                                "iamt": AccountEdiFormat._l10n_in_round_value(line_json['iamt'] * sign),
+                                "csamt": AccountEdiFormat._l10n_in_round_value(line_json['csamt'] * sign),
                             }} for index, line_json in enumerate(lines_json.values(), start=1)
                         ],
                     }

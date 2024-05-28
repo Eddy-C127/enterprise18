@@ -804,3 +804,243 @@ gstr2b_test_json = {
     }
   }
 }
+
+gstr1_debit_note_test_json = {
+    "gstin": "24AAGCC7144L6ZE",
+    "fp":  TEST_DATE.strftime("%m%Y"),
+    "b2b": [
+        {
+            "ctin": "24BBBFF5679L8ZR",
+            "inv": [
+                {
+                    "inum": "INV/2023/00003",
+                    "idt":  TEST_DATE.strftime("%d-%m-%Y"),
+                    "val": 1180.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 0.0,
+                                "camt": 90.0,
+                                "samt": 90.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "inv": [
+                {
+                    "inum": "INV/2023/00001",
+                    "idt":  TEST_DATE.strftime("%d-%m-%Y"),
+                    "val": 1180.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 1000.0,
+                                "iamt": 180.0,
+                                "camt": 0.0,
+                                "samt": 0.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    ],
+    "b2cl": [
+        {
+            "pos": "27",
+            "inv": [
+                {
+                    "inum": "INV/2023/00007",
+                    "idt":  TEST_DATE.strftime("%d-%m-%Y"),
+                    "val": 295000.0,
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "txval": 250000.0,
+                                "iamt": 45000.0,
+                                "csamt": 0.0,
+                                "rt": 18.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        }
+    ],
+    "b2cs": [
+        {
+            "sply_ty": "INTER",
+            "pos": "27",
+            "typ": "OE",
+            "rt": 18.0,
+            "txval": 125000.0,
+            "iamt": 22500.0,
+            "samt": 0.0,
+            "camt": 0.0,
+            "csamt": 0.0,
+        },
+        {
+            "sply_ty": "INTRA",
+            "pos": "24",
+            "typ": "OE",
+            "rt": 18.0,
+            "txval": 1500.0,
+            "iamt": 0.0,
+            "samt": 135.0,
+            "camt": 135.0,
+            "csamt": 0.0,
+        },
+    ],
+    "cdnr": [
+        {
+            "ctin": "24BBBFF5679L8ZR",
+            "nt": [
+                {
+                    "ntty": "D",
+                    "nt_num": "INV/2023/00004",
+                    "nt_dt":  TEST_DATE.strftime("%d-%m-%Y"),
+                    "val": 590.0,
+                    "pos": "24",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 0.0,
+                                "samt": 45.0,
+                                "camt": 45.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            "ctin": "27BBBFF5679L8ZR",
+            "nt": [
+                {
+                    "ntty": "D",
+                    "nt_num": "INV/2023/00002",
+                    "nt_dt":  TEST_DATE.strftime("%d-%m-%Y"),
+                    "val": 590.0,
+                    "pos": "27",
+                    "rchrg": "N",
+                    "inv_typ": "R",
+                    "itms": [
+                        {
+                            "num": 1,
+                            "itm_det": {
+                                "rt": 18.0,
+                                "txval": 500.0,
+                                "iamt": 90.0,
+                                "samt": 0.0,
+                                "camt": 0.0,
+                                "csamt": 0.0,
+                            },
+                        }
+                    ],
+                }
+            ],
+        },
+    ],
+    "cdnur": [
+        {
+            "ntty": "D",
+            "nt_num": "INV/2023/00010",
+            "nt_dt":  TEST_DATE.strftime("%d-%m-%Y"),
+            "val": 590.0,
+            "typ": "EXPWP",
+            "itms": [
+                {
+                    "num": 1,
+                    "itm_det": {
+                        "rt": 18.0,
+                        "txval": 500.0,
+                        "iamt": 90.0,
+                        "csamt": 0.0,
+                    },
+                }
+            ],
+        }
+    ],
+    "exp": [
+        {
+            "exp_typ": "WPAY",
+            "inv": [
+                {
+                    "inum": "INV/2023/00009",
+                    "idt":  TEST_DATE.strftime("%d-%m-%Y"),
+                    "val": 1180.0,
+                    "itms": [
+                        {
+                          "rt": 18.0,
+                          "txval": 1000.0,
+                          "iamt": 180.0,
+                          "csamt": 0.0
+                        }
+                    ],
+                }
+            ],
+        }
+    ],
+    "nil": {
+        "inv": [
+            {
+                "sply_ty": "INTRB2B",
+                "nil_amt": 1500.0,
+                "expt_amt": 1500.0,
+                "ngsup_amt": 1500.0,
+            }
+        ]
+    },
+    "hsn": {
+        "data": [
+            {
+                "hsn_sc": "01111",
+                "uqc": "UNT",
+                "rt": 0,
+                "qty": 9.0,
+                "txval": 4500.0,
+                "iamt": 0.0,
+                "samt": 0.0,
+                "camt": 0.0,
+                "csamt": 0.0,
+                "num": 1,
+            },
+            {
+                "hsn_sc": "01111",
+                "uqc": "UNT",
+                "rt": 18,
+                "qty": 13.5,
+                "txval": 381000.0,
+                "iamt": 68040.0,
+                "samt": 270.0,
+                "camt": 270.0,
+                "csamt": 0.0,
+                "num": 2,
+            },
+        ]
+    },
+}
