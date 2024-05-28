@@ -920,7 +920,7 @@ class AppointmentType(models.Model):
                 continue
             if resources and any(resource not in slot.get("available_resource_ids", []) for resource in resources):
                 continue
-            if slot['slot'].slot_type == 'recurring' and self_sudo.appointment_duration != duration:
+            if slot['slot'].slot_type == 'recurring' and float_compare(self_sudo.appointment_duration, duration, 2) != 0:
                 continue
             if slot['slot'].slot_type == 'unique' and slot['slot'].duration != round(duration, 2):
                 continue

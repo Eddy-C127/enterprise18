@@ -2,7 +2,7 @@
 
 import pytz
 
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from freezegun import freeze_time
 from werkzeug.urls import url_encode, url_join
 
@@ -145,6 +145,9 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
             'end_datetime': datetime(2023, 6, 5, 13, 0),
         }]
 
+        hour_fifty_float_repr_A = 1.8333333333333335
+        hour_fifty_float_repr_B = 1.8333333333333333
+
         apt_types = self.env['appointment.type'].create([
             {
                 'category': 'custom',
@@ -168,8 +171,34 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
                     'start_datetime': unique_slots[1]['start_datetime'],
                     })
                 ],
+            }, {
+                'category': 'recurring',
+                'name': 'Recurring Meeting 3',
+                'staff_user_ids': [(4, employee.id)],
+                'appointment_duration': hour_fifty_float_repr_A,  # float presenting 1h 50min
+                'appointment_tz': 'UTC',
+                'slot_ids': [
+                    (0, False, {
+                        'weekday': '1',  # Monday
+                        'start_hour': 8,
+                        'end_hour': 17,
+                        }
+                    )
+                ]
             },
         ])
+
+        self.assertTrue(
+            apt_types[-1]._check_appointment_is_valid_slot(
+                employee,
+                0,
+                0,
+                'UTC',
+                datetime(2023, 1, 9, 8, 0, tzinfo=timezone.utc),  # First monday in the future
+                duration=hour_fifty_float_repr_B
+            ),
+            "Small imprecision on float value for duration should not impact slot validity"
+        )
 
         slots = apt_types[0]._get_appointment_slots('UTC')
         available_unique_slots = self._filter_appointment_slots(
