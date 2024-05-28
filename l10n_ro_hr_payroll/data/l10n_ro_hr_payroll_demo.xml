@@ -51,7 +51,7 @@
 
     <record id="user_demetra_voinea" model="res.users">
         <field name="partner_id" ref="l10n_ro_hr_payroll.res_partner_demetra_voinea"/>
-        <field name="login">demetravoinea</field>
+        <field name="login">demetravoinea@example.com</field>
         <field name="password">demetravoinea</field>
         <field name="signature" type="html"><span>--<br/>+D. Voinea</span></field>
         <field name="company_ids" eval="[(4, ref('base.demo_company_ro'))]"/>
