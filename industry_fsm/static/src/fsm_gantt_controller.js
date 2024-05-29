@@ -14,7 +14,7 @@ patch(TaskGanttController.prototype, {
         // similar to what is found in planning_gantt_controller.js but different
         // --> unify?
         if (context.fsm_mode && startDate <= today.endOf("day") && today <= stopDate) {
-            const stop = today.endOf("day");
+            const stop = today.endOf("day").plus({ millisecond: 1 });
             const context = this.model.getDialogContext({ start: today, stop, withDefault: true });
             this.create(context);
             return;

@@ -197,16 +197,16 @@ export class PlanningGanttRenderer extends GanttRenderer {
     /**
      * @override
      */
-    getColumnStartStop() {
+    getColumnStartStop(startCol, stopCol) {
         const { scale } = this.model.metaData;
-        const { start, stop } = super.getColumnStartStop(...arguments);
         if (["week", "month"].includes(scale.unit)) {
+            const { start, stop } = super.getColumnStartStop(startCol, stopCol, false);
             return {
-                start: start.set({ hours: 8, minutes: 0, seconds: 0 }),
-                stop: stop.set({ hours: 17, minutes: 0, seconds: 0 }),
+                start: start.set({ hours: 8, minutes: 0, seconds: 0, milliseconds: 0 }),
+                stop: stop.set({ hours: 17, minutes: 0, seconds: 0, milliseconds: 0 }),
             };
         }
-        return { start, stop };
+        return super.getColumnStartStop(...arguments);
     }
 
     /**
@@ -482,7 +482,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
      * @returns {{ Datetime, Datetime }} { start, stop }
      */
     getColumnAvailabilitiesLimit(pill, column, { fixed_start, fixed_stop } = {}) {
-        const defaultColumnTiming = super.getColumnStartStop(column);
+        const defaultColumnTiming = super.getColumnStartStop(column, column, false);
         let start = fixed_start || defaultColumnTiming.start;
         let stop = fixed_stop || defaultColumnTiming.stop;
         const currentRow = this.getRowFromPill(pill);

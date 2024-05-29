@@ -1206,12 +1206,16 @@ export class GanttRenderer extends Component {
     }
 
     /**
-     * @param {number} columnStart
-     * @param {number} columnStop
+     * @param {number} startCol
+     * @param {number} stopCol
+     * @param {boolean} [roundUpStop=true]
      */
-    getColumnStartStop(startCol, stopCol = startCol) {
+    getColumnStartStop(startCol, stopCol, roundUpStop = true) {
         const { start } = this.getColumnFromColNumber(startCol);
-        const { stop } = this.getColumnFromColNumber(stopCol);
+        let { stop } = this.getColumnFromColNumber(stopCol);
+        if (roundUpStop) {
+            stop = stop.plus({ millisecond: 1 });
+        }
         return { start, stop };
     }
 

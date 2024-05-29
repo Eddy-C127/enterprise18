@@ -110,11 +110,11 @@ test("if a on_create is specified, execute the action rather than opening a dial
             expect.step(`[action] ${action}`);
             expect(options.additionalContext).toEqual({
                 default_start: "2018-11-30 23:00:00",
-                default_stop: "2018-12-31 22:59:59",
+                default_stop: "2018-12-31 23:00:00",
                 lang: "en",
                 allowed_company_ids: [1],
                 start: "2018-11-30 23:00:00",
-                stop: "2018-12-31 22:59:59",
+                stop: "2018-12-31 23:00:00",
                 tz: "taht",
                 uid: 7,
             });
@@ -143,11 +143,11 @@ test("select cells to plan a task", async () => {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
                 default_start: "2018-12-18 23:00:00",
-                default_stop: "2018-12-21 22:59:59",
+                default_stop: "2018-12-21 23:00:00",
                 lang: "en",
                 allowed_company_ids: [1],
                 start: "2018-12-18 23:00:00",
-                stop: "2018-12-21 22:59:59",
+                stop: "2018-12-21 23:00:00",
                 tz: "taht",
                 uid: 7,
             });
@@ -169,11 +169,11 @@ test("drag and drop on the same cell to plan a task", async () => {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
                 default_start: "2018-12-14 23:00:00",
-                default_stop: "2018-12-15 22:59:59",
+                default_stop: "2018-12-15 23:00:00",
                 lang: "en",
                 allowed_company_ids: [1],
                 start: "2018-12-14 23:00:00",
-                stop: "2018-12-15 22:59:59",
+                stop: "2018-12-15 23:00:00",
                 tz: "taht",
                 uid: 7,
             });
@@ -215,12 +215,12 @@ test("select cells to plan a task: 1-level grouped", async () => {
             expect.step(`[dialog] ${props.title}`);
             expect(props.context).toEqual({
                 default_start: "2018-12-10 23:00:00",
-                default_stop: "2018-12-12 22:59:59",
+                default_stop: "2018-12-12 23:00:00",
                 default_user_id: 1,
                 lang: "en",
                 allowed_company_ids: [1],
                 start: "2018-12-10 23:00:00",
-                stop: "2018-12-12 22:59:59",
+                stop: "2018-12-12 23:00:00",
                 tz: "taht",
                 uid: 7,
                 user_id: 1,
@@ -250,13 +250,13 @@ test("select cells to plan a task: 2-level grouped", async () => {
             expect(props.context).toEqual({
                 default_project_id: 1,
                 default_start: "2018-12-10 23:00:00",
-                default_stop: "2018-12-12 22:59:59",
+                default_stop: "2018-12-12 23:00:00",
                 default_user_id: 1,
                 allowed_company_ids: [1],
                 lang: "en",
                 project_id: 1,
                 start: "2018-12-10 23:00:00",
-                stop: "2018-12-12 22:59:59",
+                stop: "2018-12-12 23:00:00",
                 tz: "taht",
                 uid: 7,
                 user_id: 1,
@@ -335,7 +335,7 @@ test("open a dialog to add a new task", async () => {
     // check that the dialog is opened with prefilled fields
     expect(".modal").toHaveCount(1);
     expect(".o_field_widget[name=start] input").toHaveValue("12/01/2018 00:00:00");
-    expect(".o_field_widget[name=stop] input").toHaveValue("12/31/2018 23:59:59");
+    expect(".o_field_widget[name=stop] input").toHaveValue("01/01/2019 00:00:00");
 });
 
 test("open a dialog to create/edit a task", async () => {
@@ -374,7 +374,7 @@ test("open a dialog to create/edit a task", async () => {
     expect(".modal-title").toHaveText("Create");
     await contains(".o_field_widget[name=name] input").edit("Task 8");
     expect(".o_field_widget[name=start] input").toHaveValue("12/10/2018 00:00:00");
-    expect(".o_field_widget[name=stop] input").toHaveValue("12/10/2018 23:59:59");
+    expect(".o_field_widget[name=stop] input").toHaveValue("12/11/2018 00:00:00");
     expect(".o_field_widget[name=project_id] input").toHaveValue("Project 1");
     expect(".o_field_widget[name=user_id] input").toHaveValue("User 1");
     expect(".o_field_widget[name=stage] select").toHaveValue('"in_progress"');
@@ -389,7 +389,7 @@ test("open a dialog to create/edit a task", async () => {
     expect(".modal-title").toHaveText("Open");
     expect(".o_field_widget[name=name] input").toHaveValue("Task 8");
     expect(".o_field_widget[name=start] input").toHaveValue("12/10/2018 00:00:00");
-    expect(".o_field_widget[name=stop] input").toHaveValue("12/10/2018 23:59:59");
+    expect(".o_field_widget[name=stop] input").toHaveValue("12/11/2018 00:00:00");
     expect(".o_field_widget[name=project_id] input").toHaveValue("Project 1");
     expect(".o_field_widget[name=user_id] input").toHaveValue("User 1");
     expect(".o_field_widget[name=stage] select").toHaveValue('"in_progress"');
@@ -634,7 +634,7 @@ test("create dialog with timezone", async () => {
         if (method === "web_save") {
             expect(args[1]).toEqual({
                 start: "2018-12-09 23:00:00",
-                stop: "2018-12-10 22:59:59",
+                stop: "2018-12-10 23:00:00",
             });
         }
     });
@@ -647,7 +647,7 @@ test("create dialog with timezone", async () => {
     await hoverGridCell("10 December 2018");
     await clickCell("10 December 2018");
     expect(".o_field_widget[name=start] input").toHaveValue("12/10/2018 00:00:00");
-    expect(".o_field_widget[name=stop] input").toHaveValue("12/10/2018 23:59:59");
+    expect(".o_field_widget[name=stop] input").toHaveValue("12/11/2018 00:00:00");
     await contains(".o_form_button_save").click();
 });
 
@@ -667,7 +667,7 @@ test("open a dialog to plan a task", async () => {
             expect(args[0]).toEqual([41, 42], { message: "should write on the selected ids" });
             expect(args[1]).toEqual({
                 start: "2018-12-09 23:00:00",
-                stop: "2018-12-10 22:59:59",
+                stop: "2018-12-10 23:00:00",
             });
         }
     });
@@ -710,7 +710,7 @@ test("open a dialog to plan a task (multi-level)", async () => {
                     project_id: 1,
                     stage: "todo",
                     start: "2018-12-09 23:00:00",
-                    stop: "2018-12-10 22:59:59",
+                    stop: "2018-12-10 23:00:00",
                     user_id: 1,
                 },
                 { message: "should write on all the correct fields" }

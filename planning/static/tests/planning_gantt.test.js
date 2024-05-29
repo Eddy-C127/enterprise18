@@ -212,7 +212,7 @@ test("open a dialog to add a new shift", async function () {
     const now = luxon.DateTime.now();
     onRpc("onchange", ({ kwargs }) => {
         expect(kwargs.context.default_end_datetime).toBe(
-            now.startOf("day").toFormat("yyyy-MM-dd 23:59:59")
+            now.plus({ day: 1 }).startOf("day").toFormat("yyyy-MM-dd 00:00:00")
         );
     });
 
@@ -230,7 +230,7 @@ test("open a dialog to add a new shift", async function () {
         now.toFormat("MM/dd/yyyy 00:00:00")
     );
     expect(".o_field_widget[name=end_datetime] .o_input").toHaveValue(
-        now.toFormat("MM/dd/yyyy 23:59:59")
+        now.plus({ day: 1 }).toFormat("MM/dd/yyyy 00:00:00")
     );
 });
 

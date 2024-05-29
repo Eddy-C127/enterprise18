@@ -180,7 +180,7 @@ export class GanttController extends Component {
         const { scale } = this.model.metaData;
         const focusDate = this.getCurrentFocusDate();
         const start = focusDate.startOf(scale.unit);
-        const stop = focusDate.endOf(scale.unit);
+        const stop = focusDate.endOf(scale.unit).plus({ millisecond: 1 });
         const context = this.model.getDialogContext({ start, stop, withDefault: true });
         this.create(context);
     }
