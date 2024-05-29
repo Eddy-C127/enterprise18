@@ -189,6 +189,7 @@ class TestRoSaftReport(TestSaftReport):
         })
 
     def test_saft_report_errors_02(self):
+        intrastat_installed = 'intrastat_code_id' in self.product_b
         self.partner_a.write({
             'city': False,
             'country_id': False,
@@ -196,17 +197,20 @@ class TestRoSaftReport(TestSaftReport):
         })
         self.product_b.write({
             'default_code': False,
-            'intrastat_code_id': False,
             'type': 'consu',
         })
+        if intrastat_installed:
+            self.product_b.intrastat_code_id = False
         with self.assertRaises(self.ReportException) as cm:
             self.report_handler.l10n_ro_export_saft_to_xml(self._generate_options())
-        self.assertEqual(set(cm.exception.errors), {
+        expected = {
             'partner_city_missing',
             'partner_country_missing',
             'product_internal_reference_missing',
-            'product_intrastat_code_missing',
-        })
+        }
+        if intrastat_installed:
+            expected.add('product_intrastat_code_missing')
+        self.assertEqual(set(cm.exception.errors), expected)
 
     def test_saft_report_errors_03(self):
         self.company_data['default_tax_sale'].l10n_ro_saft_tax_type_id = False
