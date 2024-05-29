@@ -1,13 +1,13 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 from json import dumps
 from pprint import pformat
 
-from odoo import models, fields, _, registry, api, SUPERUSER_ID
+from odoo import models, fields, _
 from odoo.addons.iap.tools.iap_tools import iap_jsonrpc
 from odoo.exceptions import UserError, ValidationError, RedirectWarning
-from odoo.tools import float_round, DEFAULT_SERVER_DATETIME_FORMAT, json_float_round
+from odoo.tools import float_round, json_float_round, partition, format_list
 
 logger = logging.getLogger(__name__)
 
@@ -20,6 +20,16 @@ AVATAX_PRECISION_DIGITS = 2  # defined by API
 
 class AccountExternalTaxMixinL10nBR(models.AbstractModel):
     _inherit = 'account.external.tax.mixin'
+
+    l10n_br_is_service_transaction = fields.Boolean(
+        "Is Service Transaction",
+        compute="_compute_l10n_br_is_service_transaction",
+        help="Technical field used to determine if this transaction should be sent to the service or goods API.",
+    )
+
+    def _compute_l10n_br_is_service_transaction(self):
+        """Should be overridden. Used to determine if we should treat this record as a service (NFS-e) record."""
+        self.l10n_br_is_service_transaction = False
 
     def _l10n_br_is_avatax(self):
         self.ensure_one()
@@ -44,7 +54,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
     def _l10n_br_get_operation_type(self):
         """ Returns the operationType to be used for requests to Avatax. By default, it's "standardSales", but
         can be overriden. """
-        return 'standardSales'
+        return 'Sale' if self.l10n_br_is_service_transaction else 'standardSales'
 
     def _l10n_br_get_invoice_refs(self):
         """ Should return a dict of invoiceRefs, as specified by the Avatax API. These are required for
@@ -79,10 +89,6 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
 
             return '%s\n%s\n%s' % (title, response['error']['message'], '\n'.join(inner_errors))
 
-    def _l10n_br_avatax_allow_services(self):
-        """ Override to allow services. """
-        return False
-
     def _l10n_br_avatax_validate_lines(self, lines):
         """ Avoids doing requests to Avatax that are guaranteed to fail. """
         errors = []
@@ -90,12 +96,51 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             product = line['tempProduct']
             if not product:
                 errors.append(_('- A product is required on each line when using Avatax.'))
-            elif not self._l10n_br_avatax_allow_services() and product.type == 'service':
-                errors.append(_('- Install the "Brazilian Accounting EDI for services" app to electronically invoice services.'))
             elif not product.l10n_br_ncm_code_id:
                 errors.append(_('- Please configure a Mercosul NCM Code on %s.', product.display_name))
             elif line['lineAmount'] < 0:
                 errors.append(_("- Avatax Brazil doesn't support negative lines."))
+
+        service_lines, consumable_lines = partition(
+            lambda line: line["tempProduct"].product_tmpl_id._l10n_br_is_only_allowed_on_service_invoice(), lines
+        )
+
+        if not self.l10n_br_is_service_transaction:
+            if service_lines:
+                # Without l10n_br_edi_sale_services, all sale.order documents will be considered non-service ones because
+                # of the missing _compute_l10n_br_is_service_transaction() override.
+                raise ValidationError(
+                    _(
+                        '%(transaction)s is a goods transaction but has service products:\n%(products)s.',
+                        transaction=self.display_name,
+                        products=format_list(self.env, [line["tempProduct"].display_name for line in service_lines]),
+                    )
+                )
+        else:
+            if consumable_lines:
+                raise ValidationError(
+                    _(
+                        "%(transaction)s is a service transaction but has non-service products:\n%(products)s",
+                        transaction=self.display_name,
+                        products=format_list(self.env, [line["tempProduct"].display_name for line in consumable_lines]),
+                    )
+                )
+
+            errors = []
+
+            partner = self.partner_shipping_id
+            city = partner.city_id
+            if not city or city.country_id.code != "BR":
+                errors.append(
+                    _(
+                        "%s must have a city selected in the list of Brazil's cities.",
+                        partner.display_name,
+                    )
+                )
+
+            for line in lines:
+                if not line["itemDescriptor"]["serviceCodeOrigin"]:
+                    errors.append(_("%s must have a Service Code Origin.", line["tempProduct"].display_name))
 
         if errors:
             raise ValidationError('\n'.join(errors))
@@ -112,7 +157,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         :param int line_id: the database ID of the line record, this is used to uniquely identify it in Avatax
         :return dict: the basis for the 'lines' value in the /calculations API call
         """
-        return {
+        line = {
             'lineCode': line_id,
             'useType': product.l10n_br_use_type,
             'otherCostAmount': 0,
@@ -124,15 +169,31 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             'numberOfItems': qty,
             'itemDescriptor': {
                 'description': product.display_name or '',
-                'cest': product.l10n_br_cest_code or '',
                 # The periods in the code work during tax calculation, but not EDI. Removing them works in both.
                 'hsCode': (product.l10n_br_ncm_code_id.code or '').replace('.', ''),
-                'source': product.l10n_br_source_origin or '',
-                'productType': product.l10n_br_sped_type or '',
             },
             'tempTransportCostType': product.l10n_br_transport_cost_type,
             'tempProduct': product,
         }
+
+        descriptor = line['itemDescriptor']
+        if self.l10n_br_is_service_transaction:
+            line['benefitsAbroad'] = self.partner_shipping_id.country_id.code != 'BR'
+            descriptor['serviceCodeOrigin'] = product.l10n_br_property_service_code_origin_id.code
+            descriptor['withLaborAssignment'] = product.l10n_br_labor
+
+            # Explicitly filter on company, this can be called via controllers which run as superuser and bypass record rules.
+            service_codes = product.product_tmpl_id.l10n_br_service_code_ids.filtered(lambda code: code.company_id == self.env.company)
+            descriptor['serviceCode'] = (
+                service_codes.filtered(lambda code: code.city_id == self.partner_shipping_id.city_id).code
+                or product.l10n_br_property_service_code_origin_id.code
+            )
+        else:
+            descriptor['cest'] = product.l10n_br_cest_code or ''
+            descriptor['source'] = product.l10n_br_source_origin or ''
+            descriptor['productType'] = product.l10n_br_sped_type or ''
+
+        return line
 
     def _l10n_br_distribute_transport_cost_over_lines(self, lines, transport_cost_type):
         """ Avatax requires transport costs to be specified per line. This distributes transport costs (indicated by
@@ -209,6 +270,21 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         else:
             return 'individual'
 
+    def _l10n_br_get_taxes_settings(self, partner):
+        if self.l10n_br_is_service_transaction:
+            settings = {
+                'cofinsSubjectTo': partner.l10n_br_subject_cofins,
+                'pisSubjectTo': partner.l10n_br_subject_pis,
+                'csllSubjectTo': 'T' if partner.l10n_br_is_subject_csll else 'E',
+            }
+            regime = partner.l10n_br_tax_regime
+            if regime and regime.startswith('simplified'):
+                settings['issRfRateForSimplesTaxRegime'] = partner.l10n_br_iss_simples_rate
+
+            return settings
+        else:
+            return {'icmsTaxPayer': partner.l10n_br_taxpayer == 'icms'}
+
     def _l10n_br_get_calculate_payload(self):
         """ Returns the full payload containing one record to be used in a /transactions API call. """
         self.ensure_one()
@@ -236,47 +312,51 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         self._l10n_br_remove_temp_values_lines(lines)
         self._l10n_br_repr_amounts(lines)
 
-        simplifiedTaxesSettings = {}
+        taxes_settings_customer = self._l10n_br_get_taxes_settings(partner)
+        taxes_settings_company = self._l10n_br_get_taxes_settings(company)
         if company.l10n_br_tax_regime == 'simplified':
-            simplifiedTaxesSettings = {'pCredSN': self.company_id.l10n_br_icms_rate}
+            taxes_settings_company['pCredSN'] = self.company_id.l10n_br_icms_rate
 
         return {
             'header': {
                 'transactionDate': (transaction_date or fields.Date.today()).isoformat(),
                 'amountCalcType': 'gross',
                 'documentCode': '%s_%s' % (self._name, self.id),
-                'messageType': 'goods',
+                'messageType': 'services' if self.l10n_br_is_service_transaction else 'goods',
                 'companyLocation': '',
                 'operationType': self._l10n_br_get_operation_type(),
                 **self._l10n_br_get_invoice_refs(),
                 'locations': {
                     'entity': {  # the customer
+                        'name': partner.name,
                         'type': self._l10n_br_get_partner_type(partner),
                         'activitySector': {
                             'code': partner.l10n_br_activity_sector,
                         },
                         'taxesSettings': {
-                            'icmsTaxPayer': partner.l10n_br_taxpayer == "icms",
+                            **taxes_settings_customer,
                         },
                         'taxRegime': partner.l10n_br_tax_regime,
                         'address': {
                             'zipcode': partner.zip,
+                            'cityName': partner.city_id.name,
                         },
                         'federalTaxId': partner.vat,
                         'suframa': partner.l10n_br_isuf_code or '',
                     },
                     'establishment': {  # the seller
+                        'name': company.name,
                         'type': 'business',
                         'activitySector': {
                             'code': company.l10n_br_activity_sector,
                         },
                         'taxesSettings': {
-                            'icmsTaxPayer': company.l10n_br_taxpayer == "icms",
-                            **simplifiedTaxesSettings,
+                            **taxes_settings_company,
                         },
                         'taxRegime': company.l10n_br_tax_regime,
                         'address': {
                             'zipcode': company.zip,
+                            'cityName': company.city_id.name,
                         },
                         'federalTaxId': company.vat,
                         'suframa': company.l10n_br_isuf_code or '',
@@ -287,8 +367,11 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         }
 
     def _l10n_br_get_line_total(self, line_result):
-        """To be overridden for non-goods APIs."""
-        return line_result["lineNetFigure"] - line_result["lineTaxedDiscount"]
+        """The service API already accounts for the discount in the net figure."""
+        if self.l10n_br_is_service_transaction:
+            return line_result["lineNetFigure"]
+        else:
+            return line_result["lineNetFigure"] - line_result["lineTaxedDiscount"]
 
     def _get_external_taxes(self):
         """ Override. """

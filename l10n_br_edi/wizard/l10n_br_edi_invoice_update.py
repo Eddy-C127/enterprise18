@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import models, fields, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class L10nBrEDIInvoiceUpdate(models.TransientModel):
@@ -8,7 +8,7 @@ class L10nBrEDIInvoiceUpdate(models.TransientModel):
     _description = "Implements both correcting and cancelling an invoice."
 
     move_id = fields.Many2one("account.move", string="Move To Cancel", required=True, help="The move to be cancelled.")
-    reason = fields.Char("Reason", required=True, help="The justification for altering this move.")
+    reason = fields.Char("Reason", help="The justification for altering this move.")
     mode = fields.Selection(
         [("cancel", "Cancel"), ("correct", "Correct")],
         string="Mode",
@@ -20,6 +20,11 @@ class L10nBrEDIInvoiceUpdate(models.TransientModel):
         "Email",
         default=True,
         help="When checked an email will be sent informing the customer of the changes and the new EDI documents.",
+    )
+    is_service_invoice = fields.Boolean(
+        "Is Service Invoice",
+        related="move_id.l10n_br_is_service_transaction",
+        help='Technical field used to hide the "reason" field.',
     )
 
     def _create_xml_attachment(self, response):
@@ -51,7 +56,7 @@ class L10nBrEDIInvoiceUpdate(models.TransientModel):
         else:
             move.l10n_br_edi_last_correction_number = iap_args["seq"]
 
-    def action_submit(self):
+    def _submit_goods(self):
         attachments = self.env["ir.attachment"]
         move = self.move_id
         iap_args = {
@@ -79,3 +84,19 @@ class L10nBrEDIInvoiceUpdate(models.TransientModel):
         attachments |= self._create_xml_attachment(response)
         self._log_update(success_message, attachments)
         self._finalize_update(iap_args)
+
+    def _submit_services(self):
+        move = self.move_id
+        if self.mode != "cancel":
+            raise UserError(_("Service invoices can only be cancelled."))
+
+        # Cancel without an API request. Avalara's cancellation API only supports
+        # select cities. Customers will instead cancel through their city's portal.
+        move.with_context(no_new_invoice=True).message_post(
+            body=_("E-invoice cancelled in Odoo, make sure to also cancel it in your city's portal."),
+        )
+        move.l10n_br_last_edi_status = "cancelled"
+        move.button_cancel()
+
+    def action_submit(self):
+        return self._submit_services() if self.is_service_invoice else self._submit_goods()

@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models
+from odoo import models, api
 
 
 class AccountMove(models.Model):
@@ -13,6 +13,14 @@ class AccountMove(models.Model):
             return "salesReturn"
 
         return super()._l10n_br_get_operation_type()
+
+    @api.depends("l10n_latam_document_type_id")
+    def _compute_l10n_br_is_service_transaction(self):
+        """account.external.tax.mixin override."""
+        for move in self:
+            move.l10n_br_is_service_transaction = (
+                move._l10n_br_is_avatax() and move.l10n_latam_document_type_id == self.env.ref("l10n_br.dt_SE")
+            )
 
     def _l10n_br_get_origin_invoice(self):
         return self.debit_origin_id or self.reversed_entry_id

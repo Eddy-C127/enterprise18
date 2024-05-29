@@ -1,6 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import json
 
+from markupsafe import Markup
+
 from odoo import models, fields, api, _
 from odoo.addons.iap import InsufficientCreditError
 from odoo.exceptions import UserError, ValidationError
@@ -73,6 +75,7 @@ class AccountMove(models.Model):
     )
     l10n_br_last_edi_status = fields.Selection(
         [
+            ("pending", "Pending"),
             ("accepted", "Accepted"),
             ("error", "Error"),
             ("cancelled", "Cancelled"),
@@ -104,6 +107,14 @@ class AccountMove(models.Model):
         copy=False,
         help="Brazil: technical field that holds the latest correction that happened to this invoice",
     )
+    l10n_br_nfse_number = fields.Char(
+        "NFS-e Number",
+        help="Brazil: After an NFS-e invoice is issued and confirmed by the municipality, an NFS-e number is provided.",
+    )
+    l10n_br_nfse_verification = fields.Char(
+        "NFS-e Verification Code",
+        help="Brazil: After an NFS-e invoice is issued and confirmed by the municipality, a unique code is provided for online verification of its authenticity.",
+    )
 
     def _l10n_br_call_avatax_taxes(self):
         """Override to store the retrieved Avatax data."""
@@ -119,6 +130,13 @@ class AccountMove(models.Model):
             )
 
         return document_to_response
+
+    @api.depends("l10n_br_last_edi_status")
+    def _compute_show_reset_to_draft_button(self):
+        """Override. Don't show resetting to draft when the invoice is pending. It's already been sent and the user
+        should wait for the final result of that."""
+        super()._compute_show_reset_to_draft_button()
+        self.filtered(lambda move: move.l10n_br_last_edi_status == "pending").show_reset_to_draft_button = False
 
     @api.depends("l10n_br_last_edi_status", "country_code", "company_currency_id", "move_type", "fiscal_position_id")
     def _compute_l10n_br_edi_is_needed(self):
@@ -179,8 +197,59 @@ class AccountMove(models.Model):
             },
         }
 
-    def _l10n_br_iap_submit_invoice_goods(self, transaction):
-        return self._l10n_br_iap_request("submit_invoice_goods", transaction)
+    def button_l10n_br_edi_get_service_invoice(self):
+        """Checks if the invoice received final approval from the government."""
+        if self.l10n_br_last_edi_status != "pending":
+            return
+
+        response = self._l10n_br_iap_request(
+            "get_invoice_services",
+            {
+                "serie": self.journal_id.l10n_br_invoice_serial,
+                "number": self.l10n_latam_document_number,
+            },
+        )
+        if error := self._l10n_br_get_error_from_response(response):
+            self.l10n_br_last_edi_status = "error"
+            self.l10n_br_edi_error = error
+            self.with_context(no_new_invoice=True).message_post(body=_("E-invoice was not accepted:\n%s", error))
+            return
+
+        status = response.get("status", {})
+        response_code = status.get("code")
+        attachments = self.env["ir.attachment"]
+        subtype_xmlid = None
+        if response_code == "105":
+            message = _("E-invoice is pending: %s", status.get("desc"))
+        elif response_code in ("100", "200"):
+            self.l10n_br_last_edi_status = "accepted"
+            self.l10n_br_nfse_number = status.get("nfseNumber")
+            self.l10n_br_nfse_verification = status.get("nfseVerifyCode")
+
+            message = (
+                Markup(
+                    "%s"
+                    "<ul>"
+                    "  <li>%s</li>"
+                    "  <li>%s</li>"
+                    "  <li>%s</li>"
+                    "</ul>"
+                )
+                % (
+                    _("E-invoice accepted:"),
+                    _("Status: %s", status.get("desc")),
+                    _("NFS-e number: %s", self.l10n_br_nfse_number),
+                    _("NFS-e verify code: %s", self.l10n_br_nfse_verification),
+                )
+            )
+            attachments = self._l10n_br_edi_attachments_from_response(response)
+            subtype_xmlid = "mail.mt_comment"  # send to all followers
+        else:
+            message = _("Unknown E-invoice status code %(code)s: %(description)s", code=response_code, description=status.get("desc"))
+
+        self.with_context(no_new_invoice=True).message_post(
+            body=message, attachment_ids=attachments.ids, subtype_xmlid=subtype_xmlid
+        )
 
     def _l10n_br_iap_cancel_invoice_goods(self, transaction):
         return self._l10n_br_iap_request("cancel_invoice_goods", transaction)
@@ -198,10 +267,6 @@ class AccountMove(models.Model):
 
     def _l10n_br_edi_get_xml_attachment_name(self):
         return f"{self.name}_edi.xml"
-
-    def _l10n_br_edi_set_successful_status(self):
-        """Can be overridden for invoices that are processed asynchronously."""
-        self.l10n_br_last_edi_status = "accepted"
 
     def _l10n_br_edi_attachments_from_response(self, response):
         # Unset old ones because otherwise `_compute_linked_attachment_id()` will set the oldest
@@ -254,7 +319,7 @@ class AccountMove(models.Model):
                     invoice.l10n_br_last_edi_status = "error"
                     return [api_error]
                 else:
-                    invoice._l10n_br_edi_set_successful_status()
+                    invoice.l10n_br_last_edi_status = "pending" if invoice.l10n_br_is_service_transaction else "accepted"
                     invoice.l10n_br_access_key = response["key"]
 
                     self.with_context(no_new_invoice=True).message_post(
@@ -350,6 +415,121 @@ class AccountMove(models.Model):
 
         return payment_mode
 
+    def _l10n_br_log_informative_taxes(self, payload):
+        informative_taxes = payload.get("summary", {}).get("taxImpactHighlights", {}).get("informative", [])
+        # Informative taxes look like: [{"taxType": "aproxtribCity", "tax": 7.8, "subtotalTaxable": 200}, ...]
+        # Transform to:
+        # - taxType: aproxtribCity, tax: 7.8, subtotalTaxable: 200
+        # - ...
+        pretty_informative_taxes = Markup()
+        for tax in informative_taxes:
+            line = ", ".join(f"{key}: {value}" for key, value in tax.items())
+            pretty_informative_taxes += Markup("<li>%s</li>") % line
+
+        self.with_context(no_new_invoice=True).message_post(
+            body=Markup("%s<ul>%s</ul>")
+            % (_("Informative taxes:"), pretty_informative_taxes or Markup("<li>%s</li>") % _("N/A"))
+        )
+
+    def _l10n_br_remove_informative_taxes(self, payload):
+        # Remove informative taxes when submitting the invoice. These informative taxes change after invoice posting,
+        # based on when a customer pays. These need to be handled manually in a separate misc journal entry when needed,
+        # and should not be included in the legal XML and PDF.
+        for line in payload.get("lines", []):
+            line["taxDetails"] = [
+                detail for detail in line["taxDetails"] if detail["taxImpact"]["impactOnFinalPrice"] != "Informative"
+            ]
+
+        tax_highlights = payload.get("summary", {}).get("taxImpactHighlights", {})
+        if "informative" in tax_highlights:
+            for informative_tax in tax_highlights.get("informative", []):
+                del payload["summary"]["taxByType"][informative_tax["taxType"]]
+
+            del tax_highlights["informative"]
+
+    def _l10n_br_type_specific_header(self, tax_data_header):
+        """Pieces of the header that change depending on whether the transaction is a service or goods one."""
+        if self.l10n_br_is_service_transaction:
+            return {
+                "rpsNumber": self.l10n_latam_document_number,
+                "rpsSerie": self.journal_id.l10n_br_invoice_serial,
+            }
+        else:
+            goods_nfe, goods_goal = self._l10n_br_edi_get_goods_values()
+            return {
+                "invoiceNumber": self.l10n_latam_document_number,
+                "invoiceSerial": self.journal_id.l10n_br_invoice_serial,
+                "goods": {
+                    "model": self.l10n_latam_document_type_id.code,
+                    "class": tax_data_header.get("goods", {}).get("class"),
+                    "tplmp": "4",  # DANFe NFC-e
+                    "goal": goods_goal,
+                    "finNFe": goods_nfe,
+                    "transport": {
+                        "modFreight": self.l10n_br_edi_freight_model,
+                    },
+                },
+            }
+
+    def _l10n_br_get_locations(self, customer, company_partner, transporter):
+        locations = {
+            "entity": {
+                "name": customer.name,
+                "businessName": customer.name,
+                "federalTaxId": customer.vat,
+                "stateTaxId": customer.l10n_br_ie_code,
+                "address": {
+                    "neighborhood": customer.street2,
+                    "street": customer.street_name,
+                    "zipcode": customer.zip,
+                    "cityName": customer.city,
+                    "state": customer.state_id.name,
+                    "number": customer.street_number,
+                    "complement": customer.street_number2,
+                    "phone": customer.phone,
+                    "email": customer.email,
+                },
+            },
+            "establishment": {
+                "name": company_partner.name,
+                "businessName": company_partner.name,
+                "federalTaxId": company_partner.vat,
+                "cityTaxId": company_partner.l10n_br_im_code,
+                "stateTaxId": company_partner.l10n_br_ie_code,
+                "address": {
+                    "neighborhood": company_partner.street2,
+                    "street": company_partner.street_name,
+                    "cityName": company_partner.city,
+                    "state": company_partner.state_id.name,
+                    "countryCode": company_partner.country_id.l10n_br_edi_code,
+                    "number": company_partner.street_number,
+                    "complement": company_partner.street_number2,
+                },
+            },
+        }
+
+        if not self.l10n_br_is_service_transaction:
+            locations["transporter"] = {
+                "name": transporter.name,
+                "businessName": transporter.name,
+                "type": self._l10n_br_get_partner_type(transporter),
+                "federalTaxId": transporter.vat,
+                "cityTaxId": transporter.l10n_br_im_code,
+                "stateTaxId": transporter.l10n_br_ie_code,
+                "suframa": transporter.l10n_br_isuf_code,
+                "address": {
+                    "neighborhood": transporter.street2,
+                    "street": transporter.street_name,
+                    "zipcode": transporter.zip,
+                    "state": transporter.state_id.name,
+                    "countryCode": transporter.country_id.l10n_br_edi_code,
+                    "number": transporter.street_number,
+                    "complement": transporter.street_number2,
+                },
+            }
+
+        return locations
+
     def _l10n_br_prepare_invoice_payload(self):
         def deep_update(d, u):
             """Like {}.update but handles nested dicts recursively. Based on https://stackoverflow.com/a/3233356."""
@@ -399,83 +579,22 @@ class AccountMove(models.Model):
         if error:
             errors.append(error)
 
-        goods_nfe, goods_goal = self._l10n_br_edi_get_goods_values()
         tax_data_to_include, tax_data_header = self._l10n_br_edi_get_tax_data()
-
         extra_payload = {
             "header": {
                 "companyLocation": self._l10n_br_edi_vat_for_api(company_partner.vat),
                 **invoice_refs,
-                "locations": {
-                    "entity": {
-                        "name": customer.name,
-                        "businessName": customer.name,
-                        "federalTaxId": customer.vat,
-                        "stateTaxId": customer.l10n_br_ie_code,
-                        "address": {
-                            "neighborhood": customer.street2,
-                            "street": customer.street_name,
-                            "zipcode": customer.zip,
-                            "cityName": customer.city,
-                            "state": customer.state_id.name,
-                            "number": customer.street_number,
-                            "complement": customer.street_number2,
-                            "phone": customer.phone,
-                            "email": customer.email,
-                        },
-                    },
-                    "establishment": {
-                        "name": company_partner.name,
-                        "businessName": company_partner.name,
-                        "federalTaxId": company_partner.vat,
-                        "cityTaxId": company_partner.l10n_br_im_code,
-                        "stateTaxId": company_partner.l10n_br_ie_code,
-                        "address": {
-                            "neighborhood": company_partner.street2,
-                            "street": company_partner.street_name,
-                            "cityName": company_partner.city,
-                            "state": company_partner.state_id.name,
-                            "countryCode": company_partner.country_id.l10n_br_edi_code,
-                            "number": company_partner.street_number,
-                            "complement": company_partner.street_number2,
-                        },
-                    },
-                    "transporter": {
-                        "name": transporter.name,
-                        "businessName": transporter.name,
-                        "type": self._l10n_br_get_partner_type(transporter),
-                        "federalTaxId": transporter.vat,
-                        "cityTaxId": transporter.l10n_br_im_code,
-                        "stateTaxId": transporter.l10n_br_ie_code,
-                        "suframa": transporter.l10n_br_isuf_code,
-                        "address": {
-                            "neighborhood": transporter.street2,
-                            "street": transporter.street_name,
-                            "zipcode": transporter.zip,
-                            "state": transporter.state_id.name,
-                            "countryCode": transporter.country_id.l10n_br_edi_code,
-                            "number": transporter.street_number,
-                            "complement": transporter.street_number2,
-                        },
-                    },
-                },
+                **self._l10n_br_type_specific_header(tax_data_header),
+                "locations": self._l10n_br_get_locations(
+                    customer,
+                    company_partner,
+                    transporter,
+                ),
                 "payment": {
                     "paymentInfo": {
                         "paymentMode": [
                             self._l10n_br_prepare_payment_mode(),
                         ],
-                    },
-                },
-                "invoiceNumber": self.l10n_latam_document_number,
-                "invoiceSerial": self.journal_id.l10n_br_invoice_serial,
-                "goods": {
-                    "model": self.l10n_latam_document_type_id.code,
-                    "class": tax_data_header.get("goods", {}).get("class"),
-                    "tplmp": "4",  # DANFe NFC-e
-                    "goal": goods_goal,
-                    "finNFe": goods_nfe,
-                    "transport": {
-                        "modFreight": self.l10n_br_edi_freight_model,
                     },
                 },
             },
@@ -489,6 +608,11 @@ class AccountMove(models.Model):
         # This adds the "lines" and "summary" dicts received during tax calculation.
         payload.update(tax_data_to_include)
 
+        self._l10n_br_log_informative_taxes(payload)
+
+        if self.l10n_br_is_service_transaction:
+            self._l10n_br_remove_informative_taxes(payload)
+
         return payload, errors
 
     def _l10n_br_get_error_from_response(self, response):
@@ -497,8 +621,17 @@ class AccountMove(models.Model):
 
     def _l10n_br_submit_invoice(self, invoice, payload):
         try:
-            response = invoice._l10n_br_iap_submit_invoice_goods(payload)
+            route = "submit_invoice_services" if self.l10n_br_is_service_transaction else "submit_invoice_goods"
+            response = invoice._l10n_br_iap_request(route, payload)
             return response, self._l10n_br_get_error_from_response(response)
         except (UserError, InsufficientCreditError) as e:
             # These exceptions can be thrown by iap_jsonrpc()
             return None, str(e)
+
+    def _cron_l10n_br_get_invoice_statuses(self, batch_size=10):
+        pending_invoices = self.search([("l10n_br_last_edi_status", "=", "pending")], limit=batch_size)
+        for invoice in pending_invoices[:batch_size]:
+            invoice.button_l10n_br_edi_get_service_invoice()
+
+        if len(pending_invoices) > batch_size:
+            self.env.ref("l10n_br_edi.ir_cron_l10n_br_edi_check_status")._trigger()

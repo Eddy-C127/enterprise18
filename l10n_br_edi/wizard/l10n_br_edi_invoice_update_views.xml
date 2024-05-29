@@ -7,10 +7,16 @@
             <form>
                 <group>
                     <group>
-                        <field name="reason"/>
-                        <field name="send_email"/>
+                        <field name="move_id" invisible="1"/>
+                        <field name="is_service_invoice" invisible="1"/>
+                        <field name="reason" invisible="is_service_invoice" required="is_service_invoice"/>
+                        <field name="send_email" invisible="is_service_invoice"/>
                     </group>
                 </group>
+
+                <div class="alert alert-warning" role="alert" name="warning_service_cancellation" invisible="not is_service_invoice">
+                  This invoice will only be cancelled in Odoo. Make sure to cancel it through your city portal as well.
+                </div>
 
                 <footer>
                     <button string="Confirm"

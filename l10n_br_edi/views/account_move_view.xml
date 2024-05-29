@@ -20,10 +20,11 @@
                             name="button_request_correction"
                             type="object"
                             groups="account.group_account_invoice"
-                            invisible="l10n_br_last_edi_status != 'accepted'"/>
+                            invisible="l10n_br_last_edi_status != 'accepted' or l10n_br_is_service_transaction"/>
                 </button>
                 <field name="l10n_latam_document_number" position="after">
                     <field name="l10n_br_last_edi_status" invisible="country_code != 'BR'"/>
+                    <field name="l10n_br_nfse_number" readonly="True" invisible="not l10n_br_is_service_transaction"/>
                     <field name="l10n_br_edi_is_needed" invisible="1"/>
                     <field name="l10n_br_edi_payment_method"
                            options="{'no_create': True, 'no_open': True}"
@@ -32,15 +33,25 @@
                            readonly="state in ['cancel', 'posted']"/>
                 </field>
                 <field name="incoterm_location" position="after">
-                    <field name="l10n_br_edi_freight_model" invisible="country_code != 'BR'"
+                    <field name="l10n_br_is_service_transaction" invisible="1"/>
+                    <field name="l10n_br_edi_freight_model" invisible="country_code != 'BR' or l10n_br_is_service_transaction"
                            readonly="state in ['cancel', 'posted']"/>
-                    <field name="l10n_br_edi_transporter_id" invisible="country_code != 'BR' or l10n_br_edi_freight_model in ('SenderVehicle', 'ReceiverVehicle')"
+                    <field name="l10n_br_edi_transporter_id" invisible="country_code != 'BR' or l10n_br_edi_freight_model in ('SenderVehicle', 'ReceiverVehicle') or l10n_br_is_service_transaction"
                            readonly="state in ['cancel', 'posted']"/>
                 </field>
                 <field name="to_check" position="after">
                     <field name="l10n_br_access_key" invisible="country_code != 'BR' or not l10n_br_access_key"
                            readonly="state in ['cancel', 'posted']"/>
                 </field>
+                <group name="sale_info_group" position="inside">
+                    <field name="l10n_br_nfse_verification" readonly="True" invisible="not l10n_br_is_service_transaction"/>
+                </group>
+                <button name="action_invoice_sent" position="before">
+                    <button name="button_l10n_br_edi_get_service_invoice"
+                            type="object"
+                            string="Check NFS-e Status"
+                            invisible="l10n_br_last_edi_status != 'pending'"/>
+                </button>
             </field>
         </record>
 

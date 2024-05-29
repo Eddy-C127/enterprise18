@@ -13,6 +13,7 @@ Provides electronic invoicing for Brazil through Avatax.
     "data": [
         "data/res.country.csv",
         "data/mail_template_data.xml",
+        "data/ir_cron.xml",
         "security/ir.model.access.csv",
         "views/account_move_view.xml",
         "views/res_country_views.xml",
