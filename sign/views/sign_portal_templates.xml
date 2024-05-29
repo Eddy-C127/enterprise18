@@ -85,11 +85,6 @@
     </template>
     <template id="sign_portal_my_request" name="My Signature">
         <t t-call="portal.portal_layout">
-            <t t-set="o_portal_fullwidth_alert" groups="sign.access_sign_request_item_all">
-                <t t-call="portal.portal_back_in_edit_mode">
-                    <t t-set="backend_url" t-value="'/web#model=sign.request&amp;id=%s&amp;view_type=form' % (sign.request.id)"/>
-                </t>
-            </t>
             <h3 class="mb-3">
                 <span t-field="my_sign_item.reference"/>
                 <span t-field="my_sign_item.sign_request_id.state" class="badge rounded-pill text-bg-info smaller"
