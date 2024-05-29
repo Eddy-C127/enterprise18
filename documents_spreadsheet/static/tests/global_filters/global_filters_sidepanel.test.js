@@ -8,6 +8,7 @@ import { helpers } from "@odoo/o-spreadsheet";
 import { insertChartInSpreadsheet } from "@spreadsheet/../tests/helpers/chart";
 import {
     addGlobalFilter,
+    editGlobalFilter,
     selectCell,
     setCellContent,
 } from "@spreadsheet/../tests/helpers/commands";
@@ -36,11 +37,19 @@ import {
     serverState,
 } from "@web/../tests/web_test_helpers";
 import { user } from "@web/core/user";
+import { monthsOptions } from "@spreadsheet/assets_backend/constants";
+import { QUARTER_OPTIONS } from "@web/search/utils/dates";
 
 defineDocumentSpreadsheetModels();
 describe.current.tags("desktop");
 
 const { toZone } = helpers;
+const monthsOptionsIds = monthsOptions.map((option) => option.id);
+const quarterOptionsIds = Object.values(QUARTER_OPTIONS).map((option) => option.id);
+
+/**
+ * @typedef {import("@spreadsheet").FixedPeriodDateGlobalFilter} FixedPeriodDateGlobalFilter
+ */
 
 let target;
 
@@ -1773,4 +1782,80 @@ test("Can clear a field matching an invalid field", async function () {
     expect(".o_spreadsheet_field_matching .o_model_field_selector").toHaveText("not_a_field");
     await contains(".o_model_field_selector .fa.fa-times").click();
     expect(".o_spreadsheet_field_matching .o_model_field_selector").toHaveText("");
+});
+
+test("Can change fixedPeriod date filter disabledPeriods in the side panel", async function () {
+    const { model } = await createSpreadsheetFromPivotView();
+    const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+        id: "43",
+        type: "date",
+        label: "Date Filter",
+        rangeType: "fixedPeriod",
+    });
+    await addGlobalFilter(model, filter);
+    await openGlobalFilterSidePanel();
+    await contains("i.o_side_panel_filter_icon.fa-cog").click();
+
+    expect(target.querySelector("input[name='month']").checked).toBe(true);
+    await contains('input[name="month"]').click();
+    await saveGlobalFilter();
+
+    expect(model.getters.getGlobalFilter("43").disabledPeriods).toEqual(["month"]);
+
+    await contains("i.o_side_panel_filter_icon.fa-cog").click();
+    expect(target.querySelector("input[name='month']").checked).toBe(false);
+});
+
+test("fixedPeriod date filter possible values change with disabledPeriods ", async function () {
+    const { model } = await createSpreadsheetFromPivotView();
+    const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+        id: "43",
+        type: "date",
+        label: "Date Filter",
+        rangeType: "fixedPeriod",
+    });
+    await addGlobalFilter(model, filter);
+    await openGlobalFilterSidePanel();
+
+    const filterValuesSelect = target.querySelector(".date_filter_values select");
+    let options = [...filterValuesSelect.querySelectorAll("option")].map((option) => option.value);
+
+    expect(options).toEqual(["empty", ...quarterOptionsIds, ...monthsOptionsIds]);
+
+    await editGlobalFilter(model, { ...filter, disabledPeriods: ["month"] });
+    await animationFrame();
+    options = [...filterValuesSelect.querySelectorAll("option")].map((option) => option.value);
+    expect(options).toEqual(["empty", ...quarterOptionsIds]);
+
+    await editGlobalFilter(model, { ...filter, disabledPeriods: ["quarter"] });
+    options = [...filterValuesSelect.querySelectorAll("option")].map((option) => option.value);
+    expect(options).toEqual(["empty", ...monthsOptionsIds]);
+
+    await editGlobalFilter(model, { ...filter, disabledPeriods: ["month", "quarter"] });
+    expect(".date_filter_values select").toHaveCount(0);
+});
+
+test("invalid fixed period automatic value is removed when changing disabledPeriods", async function () {
+    const { model } = await createSpreadsheetFromPivotView();
+    const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+        id: "43",
+        type: "date",
+        label: "Date Filter",
+        rangeType: "fixedPeriod",
+        defaultValue: "this_month",
+    });
+    await addGlobalFilter(model, filter);
+    await openGlobalFilterSidePanel();
+    await contains("i.o_side_panel_filter_icon.fa-cog").click();
+
+    const automaticValueSelect = target.querySelector(".date_filter_automatic_value");
+    expect(automaticValueSelect.value).toBe("this_month");
+
+    // Disable "month" period
+    await contains(".o-sidePanelBody input[name='month']").click();
+    expect(automaticValueSelect.value).toBe("this_year");
+    const options = [...automaticValueSelect.querySelectorAll("option")].map(
+        (option) => option.value,
+    );
+    expect(options).toEqual(["this_year", "this_quarter"]);
 });

@@ -17,10 +17,13 @@ const RANGE_TYPES = [
  * @typedef {import("@spreadsheet").GlobalFilter} GlobalFilter
  * @typedef {import("@spreadsheet").OdooField} OdooField
  * @typedef {import("@spreadsheet").FieldMatching} FieldMatching
+ * @typedef {import("@spreadsheet").FixedPeriods} FixedPeriods
+ *
  *
  * @typedef DateState
  * @property {Object} defaultValue
  * @property {"fixedPeriod" | "relative" | "from_to"} type type of the filter
+ * @property {FixedPeriods[]} disabledPeriods
  */
 
 class DateFilterEditorFieldMatching extends FilterEditorFieldMatching {
@@ -56,6 +59,7 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
         this.dateState = useState({
             defaultValue: undefined,
             type: "fixedPeriod",
+            disabledPeriods: [],
         });
 
         this.relativeDateRangesTypes = RELATIVE_DATE_RANGE_TYPES;
@@ -73,6 +77,7 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
             ...values,
             defaultValue: this.dateState.defaultValue,
             rangeType: this.dateState.type,
+            disabledPeriods: this.dateState.disabledPeriods,
         };
     }
 
@@ -89,13 +94,19 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
      * @param {GlobalFilter} globalFilter
      */
     loadSpecificFilterValues(globalFilter) {
+        if(globalFilter.type !== "date"){
+            return;
+        }
         this.dateState.type = globalFilter.rangeType;
         this.dateState.defaultValue = globalFilter.defaultValue;
+        if (globalFilter.rangeType === "fixedPeriod") {
+            this.dateState.disabledPeriods = globalFilter.disabledPeriods || [];
+        }
     }
 
     /**
      * @override
-     * @param {string} index
+     * @param {number} index
      * @param {string|undefined} chain
      * @param {OdooField|undefined} field
      */
@@ -122,6 +133,41 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
     }
 
     toggleDateDefaultValue(checked) {
-        this.dateState.defaultValue = checked ? "this_month" : undefined;
+        const defaultValue = this.dateState.disabledPeriods.includes("month")
+            ? "this_year"
+            : "this_month";
+        this.dateState.defaultValue = checked ? defaultValue : undefined;
+    }
+
+    toggleAllowedPeriod(period) {
+        const disabledPeriods = this.dateState.disabledPeriods;
+        if (disabledPeriods.includes(period)) {
+            this.dateState.disabledPeriods = disabledPeriods.filter((p) => p !== period);
+        } else {
+            this.dateState.disabledPeriods = [...disabledPeriods, period];
+        }
+
+        if (
+            this.dateState.defaultValue === "this_month" &&
+            this.dateState.disabledPeriods.includes("month")
+        ) {
+            this.dateState.defaultValue = "this_year";
+        } else if (
+            this.dateState.defaultValue === "this_quarter" &&
+            this.dateState.disabledPeriods.includes("quarter")
+        ) {
+            this.dateState.defaultValue = "this_year";
+        }
+    }
+
+    get allowedAutomaticValues() {
+        const values = [{ value: "this_year", label: _t("Year") }];
+        if (!this.dateState.disabledPeriods.includes("month")) {
+            values.push({ value: "this_month", label: _t("Month") });
+        }
+        if (!this.dateState.disabledPeriods.includes("quarter")) {
+            values.push({ value: "this_quarter", label: _t("Quarter") });
+        }
+        return values;
     }
 }
