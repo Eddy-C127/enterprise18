@@ -74,6 +74,15 @@ class AccountMove(models.Model):
 
     # Compute methods
 
+    @api.depends('l10n_ar_afip_result')
+    def _compute_show_reset_to_draft_button(self):
+        """
+            EXTENDS 'account.move'
+            When the AFIP approved the move, don't show the reset to draft button
+        """
+        super()._compute_show_reset_to_draft_button()
+        self.filtered(lambda move: move.l10n_ar_afip_result == "A").show_reset_to_draft_button = False
+
     @api.depends('l10n_latam_document_type_id')
     def _compute_l10n_ar_fce_transmission_type(self):
         """ Automatically set the default value on the l10n_ar_fce_transmission_type field if the invoice is a mipyme
