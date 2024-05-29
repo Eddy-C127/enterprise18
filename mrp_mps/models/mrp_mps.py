@@ -36,7 +36,7 @@ class MrpProductionSchedule(models.Model):
     route_id = fields.Many2one(compute='_compute_route_and_supplier', store=True, readonly=False, help="Route to replenish your product.")
     supplier_id = fields.Many2one(compute='_compute_route_and_supplier', store=True, readonly=False)
     bom_id = fields.Many2one(
-        'mrp.bom', "Bill of Materials", compute='_compute_bom', store=True, readonly=False,
+        'mrp.bom', "Bill of Materials",
         domain="[('product_tmpl_id', '=', product_tmpl_id), '|', ('product_id', '=', product_id), ('product_id', '=', False)]", check_company=True)
 
     forecast_target_qty = fields.Float(
@@ -67,14 +67,6 @@ class MrpProductionSchedule(models.Model):
     _sql_constraints = [
         ('warehouse_product_ref_uniq', 'unique (warehouse_id, product_id)', 'The combination of warehouse and product must be unique!'),
     ]
-
-    # TODO: move logic to stock.replenish.mixin
-    @api.depends('product_id')
-    def _compute_bom(self):
-        for mps in self:
-            if not mps.product_id or mps._origin:
-                continue
-            mps.bom_id = mps.product_id.bom_ids[:1]
 
     # TODO: move logic to stock.replenish.mixin
     @api.depends('product_id', 'product_id.route_ids')
