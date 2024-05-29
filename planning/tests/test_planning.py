@@ -577,3 +577,12 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         self.assertEqual(night_shift.resource_id, night_employee.resource_id, 'The night shift should be assigned to the night employee')
         self.assertEqual(night_shift.allocated_hours, 8, 'The allocated hours should remain the same')
         self.assertEqual(night_shift.allocated_percentage, 100, 'The allocated percentage should be 100% as the resource will work the allocated hours')
+
+    def test_write_multiple_slots(self):
+        """ Test that we can write a resource_id on multiple slots at once. """
+        slots = self.env['planning.slot'].create([
+            {'start_datetime': datetime(2024, 5, 10, 8, 0), 'end_datetime': datetime(2024, 5, 10, 17, 0)},
+            {'start_datetime': datetime(2024, 6, 10, 8, 0), 'end_datetime': datetime(2024, 6, 10, 17, 0)},
+        ])
+        slots.write({'resource_id': self.resource_bert.id})
+        self.assertEqual(slots.resource_id, self.resource_bert)
