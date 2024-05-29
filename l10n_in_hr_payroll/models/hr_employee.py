@@ -1,5 +1,6 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+import re
 
 from odoo import fields, models
 
@@ -18,3 +19,6 @@ class HrEmployee(models.Model):
         ('unique_l10n_in_pan', 'unique (l10n_in_pan)', 'This PAN already exists'),
         ('unique_l10n_in_esic_number', 'unique (l10n_in_esic_number)', 'This ESIC Number already exists'),
     ]
+
+    def _get_employees_with_invalid_ifsc(self):
+        return self.filtered(lambda emp: not bool(re.match("^[A-Z]{4}0[A-Z0-9]{6}$", emp.bank_account_id.bank_bic)))

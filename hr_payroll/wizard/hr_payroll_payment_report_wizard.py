@@ -19,6 +19,7 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
     export_format = fields.Selection([
         ('csv', 'CSV'),
     ], string='Export Format', required=True, default='csv')
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
 
     def _create_csv_binary(self):
         output = StringIO()

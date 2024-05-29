@@ -1,16 +1,13 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import date, datetime, time
-from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models, _
+from datetime import datetime, time
+
+from odoo import api, models, _
 from odoo.tools import format_date, date_utils
 
 
 class HrPayslip(models.Model):
     _inherit = 'hr.payslip'
-
-    advice_id = fields.Many2one('hr.payroll.advice', string='Bank Advice', copy=False)
 
     def _get_l10n_in_company_working_time(self, return_hours=False):
         self.ensure_one()

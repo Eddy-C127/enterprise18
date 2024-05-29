@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import time
@@ -22,33 +21,14 @@ class payroll_advice_report(models.AbstractModel):
             res['to_name'] = to_date.strftime('%d') + '-' + to_date.strftime('%B') + '-' + to_date.strftime('%Y')
         return res
 
-    def get_detail(self, line_ids):
-        total_bysal = 0
-        result_lines = []
-        for l in line_ids:
-            result_lines.append({
-                'name': l.employee_id.name,
-                'acc_no': l.name,
-                'ifsc_code': l.ifsc_code,
-                'bysal': l.bysal,
-                'debit_credit': l.debit_credit,
-            })
-            total_bysal += l.bysal
-
-        return {
-            'lines': result_lines,
-            'total_bysal': total_bysal,
-        }
-
     @api.model
     def _get_report_values(self, docids, data=None):
-        advice = self.env['hr.payroll.advice'].browse(docids)
+        payment_report = self.env['hr.payroll.payment.report.wizard'].browse(docids)
         return {
             'doc_ids': docids,
-            'doc_model': 'hr.payroll.advice',
+            'doc_model': 'hr.payroll.payment.report.wizard',
             'data': data,
-            'docs': advice,
+            'docs': payment_report,
             'time': time,
             'get_month': self.get_month,
-            'get_detail': self.get_detail,
         }

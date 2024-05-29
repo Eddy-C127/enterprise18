@@ -23,7 +23,7 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
         payslips = self.payslip_ids.filtered(lambda p: p.state == "done" and p.net_wage > 0)
         employees = payslips.employee_id
 
-        invalid_iban_employee_ids = employees.filtered(lambda e: not _is_iban_valid(e.bank_account_id.acc_number))
+        invalid_iban_employee_ids = employees.filtered(lambda e: e.bank_account_id.acc_type == 'iban' and not _is_iban_valid(e.bank_account_id.acc_number))
         if invalid_iban_employee_ids:
             raise UserError(_(
                 'Invalid IBAN for the following employees:\n%s',
