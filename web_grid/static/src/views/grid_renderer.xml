@@ -264,6 +264,7 @@
             <div class=""
                  t-att-class="{
                     'bg-view': isEven,
+                    'bg-100': !isEven,
                     'z-index-1 position-md-sticky start-0': !props.model.useSampleModel,
                  }"
                  t-attf-style="grid-row: {{rowPosition}}; grid-column: {{columnsGap}};"/>
