@@ -25,7 +25,8 @@
                                     options="{'no_create': 1, 'no_quick_create': 1}"
                                     widget="many2many_avatar_employee"
                                     placeholder="Add employees..."
-                                    context="{'show_email': True}"/>
+                                    context="{'show_email': True}"
+                                    domain="[('company_id', 'in', allowed_company_ids)]"/>
                             <field name="subject" placeholder="Subject..."/>
                         </group>
                         <div>

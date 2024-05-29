@@ -13,12 +13,19 @@
             <button role="button"
                 class="btn btn-secondary btn-sm ms-3 mt-2"
                 t-on-click="() => props.onAdd({ editable: false})"
-                t-if="isEditable">
+                t-if="isEditable and anySkills">
                 Add new skills
             </button>
         </xpath>
 
         <xpath expr="//div[@name='skills_header']" position="replace"/>
+        <xpath expr="//div[@name='no_skills']/button" position="attributes">
+            <attribute name="t-if">IsHrUser</attribute>
+        </xpath>
+        <xpath expr="//div[@name='no_skills']/p" position="replace">
+            <p>You can add skills from our library to the employee profile.<br/>
+                If skills are missing, they can be created by an HR officer.</p>
+        </xpath>
     </t>
 
     <t t-name="hr_appraisal_skills.AppraisalSkillsListRenderer.Rows" t-inherit-mode="primary" t-inherit="hr_skills.SkillsListRenderer.Rows">

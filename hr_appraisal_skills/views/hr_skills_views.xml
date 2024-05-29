@@ -6,11 +6,8 @@
         <field name="inherit_id" ref="hr_appraisal.view_hr_appraisal_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='appraisal']" position="after">
-                <page string="Skills" name="page_skills">
+                <page string="Skills" name="page_skills" invisible="state == 'new'">
                     <div class="o_hr_skills_group o_group_skills col-lg-12 ps-0 pe-0 position-relative w-100">
-                        <span class="o_appraisal_overlay" invisible="state != 'new'">
-                            Skills tab will be active once the appraisal is confirmed.
-                        </span>
                         <field mode="tree" nolabel="1" name="skill_ids"
                                 widget="appraisal_skills_one2many"
                                 context="{'appraisal_state': state}"
@@ -35,4 +32,20 @@
             </xpath>
         </field>
     </record>
+
+    <record id="hr_skill_type_action_appraisal" model="ir.actions.act_window">
+        <field name="name">Skills Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.skill.type</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <menuitem
+        id="menu_hr_appraisal_surveys"
+        name="Skills Type"
+        action="hr_skill_type_action_appraisal"
+        parent="hr_appraisal.menu_hr_appraisal_configuration"
+        sequence="6"
+        groups="hr_appraisal.group_hr_appraisal_user"/>
+
 </odoo>

@@ -40,8 +40,8 @@
                     </button>
                     <button class="oe_stat_button" name="action_calendar_event" icon="fa-calendar" type="object">
                         <div class="o_field_widget o_stat_info">
-                            <span class="o_stat_value"><field name="meeting_count_display"/></span>
-                            <span class="o_stat_text"><field name="date_final_interview" readonly="1"/></span>
+                            <span class="o_stat_text"><field name="meeting_count_display"/></span>
+                            <span class="o_stat_value" invisible="not date_final_interview"><field name="date_final_interview" readonly="1"/></span>
                         </div>
                     </button>
                 </div>
@@ -61,7 +61,6 @@
                         </h1>
                     </div>
                     <div class="d-flex justify-content-end  mw-25 m-0" invisible="not active">
-                        <small role="img" class="fa fa-circle text-muted" invisible="state != 'new'" aria-label="To Confirm" title="To Confirm"/>
                         <small role="img" class="fa fa-circle text-success" invisible="state != 'pending' or waiting_feedback" aria-label="Ready"
                             title="Ready"/>
                     </div>
@@ -74,8 +73,11 @@
                             required="1"
                             readonly="state == 'done' or (state == 'pending' and 'uid' not in manager_user_ids and not is_manager)"/>
                         <field name="date_close" readonly="state in ['done', 'cancel']"/>
+                        <field name="previous_appraisal_date" invisible="previous_appraisal_date == False"/>
+                        <field name="next_appraisal_date" placeholder="Ongoing"/>
                     </group>
                     <group>
+                        <field name="job_id"/>
                         <field name="department_id"/>
                         <field name="employee_user_id" invisible="1"/>
                         <field name="manager_user_ids" invisible="1"/>
@@ -101,12 +103,12 @@
                                                 invisible="state == 'new' and employee_user_id == uid" class="ms-2 me-0"/>
                                         </div>
                                     </div>
-                                    <div class="col-12 o_appraisal_input position-relative">
+                                    <div class="col-12 o_appraisal_input position-relative o_height">
                                         <span class="o_appraisal_overlay o_highlight" invisible="can_see_employee_publish or employee_feedback_published or not employee_feedback_template">
                                             <div>Self Assessment will show here</div>
                                             <div>once published</div>
                                         </span>
-                                        <field name="accessible_employee_feedback" class="o_appraisal_template" nolabel="1" invisible="not employee_feedback_published and not can_see_employee_publish" readonly="state not in ['new', 'pending'] or not can_see_employee_publish"/>
+                                        <field name="accessible_employee_feedback" class="o_appraisal_template h-100 overflow-auto" nolabel="1" invisible="not employee_feedback_published and not can_see_employee_publish" readonly="state not in ['new', 'pending'] or not can_see_employee_publish"/>
                                         <field name="employee_feedback_template" class="o_appraisal_blur"
                                             invisible="employee_feedback_published or can_see_employee_publish"/>
                                     </div>
@@ -122,12 +124,12 @@
                                             <field name="manager_feedback_published" nolabel="1" widget="boolean_toggle" class="ms-2 me-0" invisible="not can_see_manager_publish"/>
                                         </div>
                                     </div>
-                                    <div class="col-12 o_appraisal_input position-relative">
+                                    <div class="col-12 o_appraisal_input position-relative o_height">
                                         <span class="o_appraisal_overlay" invisible="can_see_manager_publish or manager_feedback_published or not manager_feedback_template">
                                             <div>Manager Assessment will show here</div>
                                             <div>once published</div>
                                         </span>
-                                        <field name="accessible_manager_feedback" class="o_appraisal_template" nolabel="1"
+                                        <field name="accessible_manager_feedback" class="o_appraisal_template h-100 overflow-auto" nolabel="1"
                                             invisible="not manager_feedback_published and not can_see_manager_publish"
                                             readonly="not can_see_manager_publish or state not in ['new', 'pending']"/>
                                         <field name="manager_feedback_template" class="o_appraisal_blur"
@@ -168,6 +170,8 @@
                 <field name="create_date" widget="timeless_date" optional="hide"/>
                 <field name="date_close" widget="appraisal_remaining_days"/>
                 <field name="date_final_interview" widget="appraisal_remaining_days"/>
+                <field name="previous_appraisal_date" optional="hide"/>
+                <field name="next_appraisal_date" optional="hide"/>
                 <field name="assessment_note" optional="hide"/>
                 <field name="state" widget="badge" readonly="1"
                     decoration-warning="state == 'new'" decoration-info="state == 'pending'" decoration-success="state == 'done'"/>
@@ -196,18 +200,20 @@
         <field name="arch" type="xml">
             <search string="Search Appraisal">
                 <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="job_id"/>
                 <filter string="To Do" name="todo_appraisals" domain="['|', ('state', '=', 'new'), ('state', '=', 'pending')]"/>
                 <filter string="Ready" name="filter_ready" domain="[('employee_feedback_published', '=', True), ('manager_feedback_published', '=', True), ('state', '=', 'pending')]"/>
                 <filter string="Done" name="filter_done" domain="[('state', '=', 'done')]"/>
                 <separator/>
                 <filter string="My Appraisals" name="my_appraisals" domain="[('employee_id.user_id', '=', uid)]"/>
                 <filter string="People I Manage" name="people_i_manage" domain="[('employee_id.parent_id.user_id', '=', uid)]" groups="hr_appraisal.group_hr_appraisal_user"/>
-                <separator/>
-                <filter string="Late" name="late_appraisals" domain="[('state', 'not in', ['cancel', 'done']), ('date_close', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
-                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                 <separator />
                 <filter string="Creation Date" name="filter_create_date" date="create_date"/>
                 <filter string="Appraisal Date" name="filter_date_close" date="date_close"/>
+                <separator/>
+                <filter string="Late" name="late_appraisals" domain="[('state', 'not in', ['cancel', 'done']), ('date_close', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
                 <filter invisible="1" string="Late Activities" name="activities_overdue"
                     domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
                     help="Show all records which has next action date is before today"/>
@@ -247,7 +253,7 @@
                 <field name="activity_state" />
                 <field name="manager_ids" />
                 <field name="waiting_feedback"/>
-                <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                <progressbar field="state" colors='{"done": "success","pending": "warning", "new": "secondary", "cancel": "danger"}'/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_card oe_kanban_global_click o_kanban_record_has_image_fill o_kanban_card_appraisal">
@@ -295,8 +301,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <small role="img" class="fa fa-circle text-muted" invisible="state != 'new'"
-                                aria-label="To Confirm" title="To Confirm"/>
                             <small role="img" class="fa fa-circle text-success" invisible="state != 'pending' or waiting_feedback"
                                 aria-label="Ready" title="Ready"/>
                             <div class="clearfix"></div>
@@ -375,7 +379,10 @@
         <field name="path">appraisals</field>
         <field name="res_model">hr.appraisal</field>
         <field name="view_mode">kanban,tree,gantt,calendar,form,activity</field>
-        <field name="context">{}</field>
+        <field name="context">{
+            'search_default_todo_appraisals': 1,
+            'search_default_groupby_date_close': 3,
+        }</field>
     </record>
 
     <menuitem name="Appraisals"

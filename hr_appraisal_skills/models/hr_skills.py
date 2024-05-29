@@ -53,18 +53,21 @@ class HrAppraisal(models.Model):
         return result
 
     def _copy_skills_when_confirmed(self):
+        vals = []
         for appraisal in self:
             employee_skills = appraisal.employee_id.employee_skill_ids
             # in case the employee confirms its appraisal
-            if not appraisal.skill_ids: # check in case we are coming from a previously canceled appraisal and not recreate them
-                self.env['hr.appraisal.skill'].sudo().create([{
-                    'appraisal_id': appraisal.id,
-                    'skill_id': skill.skill_id.id,
-                    'previous_skill_level_id': skill.skill_level_id.id,
-                    'skill_level_id': skill.skill_level_id.id,
-                    'skill_type_id': skill.skill_type_id.id,
-                    'employee_skill_id': skill.id,
-                } for skill in employee_skills])
+            if appraisal.skill_ids:  # check in case we are coming from a previously canceled appraisal and recreate them
+                appraisal.skill_ids.unlink()
+            vals += [{
+                'appraisal_id': appraisal.id,
+                'skill_id': skill.skill_id.id,
+                'previous_skill_level_id': skill.skill_level_id.id,
+                'skill_level_id': skill.skill_level_id.id,
+                'skill_type_id': skill.skill_type_id.id,
+                'employee_skill_id': skill.id,
+            } for skill in employee_skills]
+        self.env['hr.appraisal.skill'].sudo().create(vals)
 
 
 class HrAppraisalSkill(models.Model):

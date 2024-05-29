@@ -11,8 +11,13 @@
         <field name="is_attempts_limited" eval="True"/>
         <field name="users_can_go_back" eval="True" />
         <field name="description" type="html">
-            <p>360 Degree Feedback is a system or process in which managers will ask feedback from the people who work around the employee.
-            This typically includes the employee's manager, peers, and direct reports.</p>
+            <p>Welcome to this survey, <br/><br/>
+                You've been asked to participate to a 360 Feedback. It's a small survey that will allow managers to get more feedback about their employee. 
+                By working with him/her, you're the best to share your thoughts and explain how your collaboration was.<br/><br/>
+                Your answers will be viewed only by the managers. This is not an anonymous survey.</p>
+        </field>
+        <field name="description_done" type="html">
+            <p>Thanks a lot for your time and participation !</p>
         </field>
     </record>
     <record model="survey.question" id="appraisal_360_1">
@@ -33,7 +38,7 @@
     <record model="survey.question" id="appraisal_360_3">
         <field name="survey_id" ref="appraisal_360_feedback_template" />
         <field name="sequence">3</field>
-        <field name="title">What's the relation between us?</field>
+        <field name="title">What's the relation between the employee and you?</field>
         <field name="question_type">simple_choice</field>
         <field name="constr_mandatory" eval="True" />
     </record>
@@ -73,7 +78,7 @@
     <record model="survey.question" id="appraisal_360_5">
         <field name="survey_id" ref="appraisal_360_feedback_template" />
         <field name="sequence">5</field>
-        <field name="title">How do you feel to work with me? Do I ... </field>
+        <field name="title">How does it feel to work with the employee? Is he/she ... </field>
         <field name="question_type">matrix</field>
         <field name="matrix_subtype">simple</field>
     </record>
@@ -105,7 +110,7 @@
         <record model="survey.question.answer" id="y_360_5_1">
             <field name="matrix_question_id" ref="appraisal_360_5"/>
             <field name="sequence">1</field>
-            <field name="value">Listen well to others</field>
+            <field name="value">Listening well to others</field>
         </record>
         <record model="survey.question.answer" id="y_360_5_2">
             <field name="matrix_question_id" ref="appraisal_360_5"/>
@@ -130,7 +135,7 @@
         <record model="survey.question.answer" id="y_360_5_6">
             <field name="matrix_question_id" ref="appraisal_360_5"/>
             <field name="sequence">6</field>
-            <field name="value">Admit my mistakes</field>
+            <field name="value">Admit his/her mistakes</field>
         </record>
         <record model="survey.question.answer" id="y_360_5_7">
             <field name="matrix_question_id" ref="appraisal_360_5"/>
@@ -140,21 +145,21 @@
     <record model="survey.question" id="appraisal_360_6">
         <field name="survey_id" ref="appraisal_360_feedback_template" />
         <field name="sequence">6</field>
-        <field name="title">What should I do in order to improve on my day-to-day job?</field>
+        <field name="title">What should he/she does in order to improve on his/her day-to-day job?</field>
         <field name="question_type">char_box</field>
         <field name="constr_mandatory" eval="True" />
     </record>
     <record model="survey.question" id="appraisal_360_7">
         <field name="survey_id" ref="appraisal_360_feedback_template" />
         <field name="sequence">7</field>
-        <field name="title">What's my greatest strength?</field>
+        <field name="title">What's his/her greatest strength?</field>
         <field name="question_type">text_box</field>
         <field name="constr_mandatory" eval="True" />
     </record>
     <record model="survey.question" id="appraisal_360_8">
         <field name="survey_id" ref="appraisal_360_feedback_template" />
         <field name="sequence">8</field>
-        <field name="title">What's my greatest weakness?</field>
+        <field name="title">What's his/her greatest weakness?</field>
         <field name="question_type">text_box</field>
         <field name="constr_mandatory" eval="True" />
     </record>
@@ -169,7 +174,7 @@
     <record model="survey.question" id="appraisal_360_10">
         <field name="survey_id" ref="appraisal_360_feedback_template" />
         <field name="sequence">10</field>
-        <field name="title">Do you have any comment to tell me and help me improve?</field>
+        <field name="title">Do you have any comment to tell him/her in order to improve?</field>
         <field name="question_type">text_box</field>
     </record>
 

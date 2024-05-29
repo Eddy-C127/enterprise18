@@ -38,6 +38,7 @@ class HrAppraisal(models.Model):
     company_id = fields.Many2one('res.company', related='employee_id.company_id', store=True)
     department_id = fields.Many2one(
         'hr.department', compute='_compute_department_id', string='Department', store=True)
+    job_id = fields.Many2one('hr.job', related="employee_id.job_id")
     image_128 = fields.Image(related='employee_id.image_128')
     image_1920 = fields.Image(related='employee_id.image_1920')
     avatar_128 = fields.Image(related='employee_id.avatar_128')
@@ -50,8 +51,12 @@ class HrAppraisal(models.Model):
     manager_feedback_template = fields.Html(default=lambda self: self.env.company.appraisal_manager_feedback_template, compute='_compute_feedback_templates', translate=True)
 
     date_close = fields.Date(
-        string='Appraisal Date', required=True, index=True,
+        string='Appraisal Date', help='Closing date of the current appraisal', required=True, index=True,
         default=lambda self: datetime.date.today() + relativedelta(months=+1))
+    next_appraisal_date = fields.Date(related="employee_id.next_appraisal_date",
+        help='Date where the new appraisal will be automatically created', readonly=False)
+    previous_appraisal_date = fields.Date(
+        string='Previous Appraisal Date', help='Closing date of the previous appraisal', compute="_compute_previous_appraisal_date", compute_sudo=True)
     state = fields.Selection(
         [('new', 'To Confirm'),
          ('pending', 'Confirmed'),
@@ -118,6 +123,21 @@ class HrAppraisal(models.Model):
                 appraisal.department_id = appraisal.employee_id.department_id
             else:
                 appraisal.department_id = False
+
+    @api.depends('employee_id')
+    def _compute_previous_appraisal_date(self):
+        appraisals = self.env['hr.appraisal'].sudo().search([
+            ('employee_id', 'in', self.employee_id.ids),
+            ('state', '=', 'done'),
+            ], order='date_close desc')
+        for appraisal in self:
+            appraisal.previous_appraisal_date = False
+            previous_appraisals = appraisals.filtered_domain([('employee_id', '=', appraisal.employee_id.id), ('date_close', '<', appraisal.date_close)])
+            if appraisal.id:
+                previous_appraisals = previous_appraisals.filtered_domain([('id', '!=', appraisal.id)])
+            if previous_appraisals:
+                last_appraisal = previous_appraisals[0]
+                appraisal.previous_appraisal_date = last_appraisal.date_close
 
     @api.depends_context('uid')
     @api.depends('employee_id', 'manager_ids')
@@ -375,14 +395,13 @@ class HrAppraisal(models.Model):
         if vals.get('employee_feedback_published'):
             user_employees = self.env.user.employee_ids
             force_published = self.filtered(lambda a: (a.is_manager) and not (a.employee_feedback_published or a.employee_id in user_employees))
-        current_date = datetime.date.today()
         if vals.get('state') in ['pending', 'done']:
             self.activity_ids.action_feedback()
             not_done_appraisal = self.env['hr.appraisal']
             for appraisal in self:
                 appraisal.employee_id.sudo().write({
                     'last_appraisal_id': appraisal.id,
-                    'last_appraisal_date': current_date,
+                    'last_appraisal_date': appraisal.date_close,
                 })
                 if appraisal.state != 'done':
                     not_done_appraisal |= appraisal
