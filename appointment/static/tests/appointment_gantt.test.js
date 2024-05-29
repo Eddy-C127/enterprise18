@@ -1,12 +1,16 @@
 import { describe, expect, test } from "@odoo/hoot";
+import { click } from "@odoo/hoot-dom";
 
-import { mockDate } from "@odoo/hoot-mock";
-import { onRpc } from "@web/../tests/web_test_helpers";
+import { animationFrame, mockDate } from "@odoo/hoot-mock";
+import { onRpc, selectGroup } from "@web/../tests/web_test_helpers";
 
 import {
     dragPill,
     getGridContent,
+    getPill,
     mountGanttView,
+    SELECTORS,
+    selectRange,
 } from "@web_gantt/../tests/web_gantt_test_helpers";
 import { CalendarEvent, defineAppointmentModels } from "./appointment_tests_common";
 
@@ -147,3 +151,56 @@ test("'Add Closing Days' button rendering - 3", async () => {
         message: "the button should not have been rendered: not grouped by 'resource_ids'",
     });
 });
+
+test("group pill colors", async () => {
+    mockDate("2022-01-12 11:00:00", 0);
+    Object.assign(CalendarEvent._records[0], {
+        appointment_type_id: 1,
+        start: "2022-01-12 10:46:00",
+        stop: "2022-01-12 12:00:00",
+    });
+    Object.assign(CalendarEvent._records[1], {
+        appointment_type_id: 1,
+        start: "2022-01-12 10:30:00",
+        stop: "2022-01-12 12:00:00",
+    });
+    Object.assign(CalendarEvent._records[2], {
+        appointment_type_id: 1,
+        start: "2022-01-12 12:00:00",
+        stop: "2022-01-12 13:00:00",
+    });
+    await mountGanttView({ resModel: "calendar.event", arch: ganttViewArch });
+    await selectRange("Today");
+    testGroupPillColorsCheckColors();
+    click(SELECTORS.sparse);
+    await animationFrame();
+    testGroupPillColorsCheckColors();
+    await selectGroup("appointment_type_id");
+    // when not grouping by attendees we show "lateness" every time
+    expect(document.querySelectorAll(".o_appointment_booking_gantt_color_grey")).toBeEmpty();
+    await selectGroup("partner_ids");
+    testGroupPillColorsCheckColors();
+    click(SELECTORS.dense);
+    await animationFrame();
+    testGroupPillColorsCheckColors();
+});
+
+function testGroupPillColorsCheckColors() {
+    const almostPastEventPill = getPill("Event 1", { nth: 1 });
+    const pastEventPill = getPill("Event 2", { nth: 1 });
+    const futureEventPill = getPill("Event 3", { nth: 3 });
+
+    const otherPartnerEventPills = [
+        getPill("Event 1", { nth: 2 }),
+        getPill("Event 2", { nth: 2 }),
+        getPill("Event 3", { nth: 1 }),
+        getPill("Event 3", { nth: 2 }),
+        getPill("Event 3", { nth: 4 }),
+    ];
+    for (const pill of otherPartnerEventPills) {
+        expect(pill).toHaveClass("o_appointment_booking_gantt_color_grey");
+    }
+    expect(almostPastEventPill).toHaveClass("o_gantt_color_8");
+    expect(futureEventPill).toHaveClass("o_gantt_color_8");
+    expect(pastEventPill).toHaveClass("o_gantt_color_1");
+}

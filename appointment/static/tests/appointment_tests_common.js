@@ -10,7 +10,7 @@ export class CalendarEvent extends models.Model {
     partner_id = fields.Many2one({
         string: "Partner",
         relation: "res.partner",
-        related: "user_id.partner_id",
+        related: "user_id.partner_id.id",
     });
     start_date = fields.Date({ string: "Start date" });
     stop_date = fields.Date({ string: "Stop date" });

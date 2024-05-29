@@ -63,26 +63,17 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
         }
         return enrichedPill;
     }
+
     /**
-     * Once the rows are filled in, grey out the pills on rows
-     * where the partner is not the organizer for user appointments
-     *
-     * This needs to be done separately as we cannot identify which row
-     * a pill is associated to until this step.
-     *
      * @override
      */
-    computeDerivedParams() {
-        const result = super.computeDerivedParams();
-        if (
-            !this.model.metaData.groupedBy ||
-            this.model.metaData.groupedBy.at(-1) !== "partner_ids"
-        ) {
-            return result;
-        }
-        for (const row of this.rows) {
-            for (const pill of this.rowPills[row.id]) {
-                if (row.resId !== pill.record.partner_id[0]) {
+    processRow() {
+        const result = super.processRow(...arguments);
+        const { isGroup, id: rowId } = result.rows[0];
+        if (!isGroup && this.model.metaData.groupedBy.includes("partner_ids")) {
+            const { partner_ids } = Object.assign({}, ...JSON.parse(rowId));
+            for (const pill of this.rowPills[rowId]) {
+                if (partner_ids[0] !== pill.record.partner_id[0]) {
                     pill.className += " o_appointment_booking_gantt_color_grey";
                 }
             }
