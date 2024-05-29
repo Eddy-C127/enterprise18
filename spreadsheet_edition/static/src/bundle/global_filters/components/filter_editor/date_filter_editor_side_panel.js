@@ -5,7 +5,6 @@ import { FilterFieldOffset } from "../filter_field_offset";
 import { RELATIVE_DATE_RANGE_TYPES } from "@spreadsheet/helpers/constants";
 import { AbstractFilterEditorSidePanel } from "./filter_editor_side_panel";
 import { FilterEditorFieldMatching } from "./filter_editor_field_matching";
-
 import { useState } from "@odoo/owl";
 
 const RANGE_TYPES = [
@@ -16,11 +15,13 @@ const RANGE_TYPES = [
 
 /**
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").GlobalFilter} GlobalFilter
+ *  @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").FixedPeriods} FixedPeriods
  * @typedef {import("@spreadsheet/data_sources/metadata_repository").Field} Field
  * @typedef {import("@spreadsheet/global_filters/plugins/global_filters_core_plugin").FieldMatching} FieldMatching
  *
  * @typedef DateState
  * @property {Object} defaultValue
+ * @property {FixedPeriods[]} disabledPeriods
  * @property {boolean} automaticDefaultValue
  * @property {"fixedPeriod" | "relative" | "from_to"} type type of the filter
  */
@@ -55,6 +56,7 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
             defaultValue: undefined,
             automaticDefaultValue: false,
             type: "fixedPeriod",
+            disabledPeriods: [],
         });
 
         this.relativeDateRangesTypes = RELATIVE_DATE_RANGE_TYPES;
@@ -72,6 +74,7 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
             ...values,
             defaultValue: this.dateState.defaultValue,
             rangeType: this.dateState.type,
+            disabledPeriods: this.dateState.disabledPeriods,
         };
     }
 
@@ -91,11 +94,14 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
         this.dateState.type = globalFilter.rangeType;
         this.dateState.defaultValue = globalFilter.defaultValue;
         this.dateState.automaticDefaultValue = globalFilter.automaticDefaultValue;
+        if (globalFilter.rangeType === "fixedPeriod") {
+            this.dateState.disabledPeriods = globalFilter.disabledPeriods || [];
+        }
     }
 
     /**
      * @override
-     * @param {string} index
+     * @param {number} index
      * @param {string|undefined} chain
      * @param {Field|undefined} field
      */
@@ -122,10 +128,44 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
     }
 
     toggleDateDefaultValue(ev) {
-        this.dateState.defaultValue = ev.target.checked ? "this_month" : undefined;
+        const defaultValue = this.dateState.disabledPeriods.includes("month")
+            ? "this_year"
+            : "this_month";
+        this.dateState.defaultValue = ev.target.checked ? defaultValue : undefined;
+    }
+
+    toggleAllowedPeriod(period) {
+        const disabledPeriods = this.dateState.disabledPeriods;
+        if (disabledPeriods.includes(period)) {
+            this.dateState.disabledPeriods = disabledPeriods.filter((p) => p !== period);
+        } else {
+            this.dateState.disabledPeriods = [...disabledPeriods, period];
+        }
+
+        if (
+            this.dateState.defaultValue === "this_month" &&
+            this.dateState.disabledPeriods.includes("month")
+        ) {
+            this.dateState.defaultValue = "this_year";
+        } else if (
+            this.dateState.defaultValue === "this_quarter" &&
+            this.dateState.disabledPeriods.includes("quarter")
+        ) {
+            this.dateState.defaultValue = "this_year";
+        }
+    }
+
+    get allowedAutomaticValues() {
+        const values = [{ value: "this_year", label: _t("Year") }];
+        if (!this.dateState.disabledPeriods.includes("month")) {
+            values.push({ value: "this_month", label: _t("Month") });
+        }
+        if (!this.dateState.disabledPeriods.includes("quarter")) {
+            values.push({ value: "this_quarter", label: _t("Quarter") });
+        }
+        return values;
     }
 }
-
 DateFilterEditorSidePanel.template = "spreadsheet_edition.DateFilterEditorSidePanel";
 DateFilterEditorSidePanel.components = {
     ...AbstractFilterEditorSidePanel.components,

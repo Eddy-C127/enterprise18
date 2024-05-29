@@ -60,14 +60,41 @@
                 </t>
             </select>
             <div class="pt-3" t-if="dateState.defaultValue and dateState.type !== 'relative'">
-                <select t-model="dateState.defaultValue" class="o_input">
-                    <option value="this_month">Month</option>
-                    <option value="this_quarter">Quarter</option>
-                    <option value="this_year">Year</option>
+                <select t-model="dateState.defaultValue" class="o_input date_filter_automatic_value">
+                    <option
+                        t-foreach="allowedAutomaticValues"
+                        t-as="val"
+                        t-key="val.value"
+                        t-att-value="val.value"
+                        t-esc="val.label"/>
                 </select>
             </div>
         </div>
-
+        <div class="o_side_panel_section">
+            <div class="o_side_panel_title">Value options</div>
+            <t t-set="monthLabel">Months</t>
+            <div class="d-flex flex-row gap-3">
+                <label class="o-checkbox">
+                    <input
+                      type="checkbox"
+                      name="month"
+                      t-att-checked="!dateState.disabledPeriods.includes('month')"
+                      t-on-change="() => this.toggleAllowedPeriod('month')"
+                    />
+                    Months
+                </label>
+                <t t-set="quarterLabel">Quarters</t>
+                <label class="o-checkbox">
+                    <input
+                      type="checkbox"
+                      name="quarter"
+                      t-att-checked="!dateState.disabledPeriods.includes('quarter')"
+                      t-on-change="() => this.toggleAllowedPeriod('quarter')"
+                    />
+                    Quarters
+                </label>
+            </div>
+        </div>
         <t t-if="shouldDisplayFieldMatching()">
             <div class="o_side_panel_section">
                 <SidePanelCollapsible collapsedAtInit="!isNewFilter">

@@ -17,7 +17,12 @@ import {
 import { createSpreadsheet } from "../spreadsheet_test_utils";
 import { createSpreadsheetFromPivotView } from "../utils/pivot_helpers";
 import { registry } from "@web/core/registry";
-import { addGlobalFilter, selectCell, setCellContent } from "@spreadsheet/../tests/utils/commands";
+import {
+    addGlobalFilter,
+    editGlobalFilter,
+    selectCell,
+    setCellContent,
+} from "@spreadsheet/../tests/utils/commands";
 import { insertPivotInSpreadsheet } from "@spreadsheet/../tests/utils/pivot";
 import { insertListInSpreadsheet } from "@spreadsheet/../tests/utils/list";
 import { insertChartInSpreadsheet } from "@spreadsheet/../tests/utils/chart";
@@ -34,8 +39,17 @@ import {
     LAST_YEAR_GLOBAL_FILTER,
 } from "@spreadsheet/../tests/utils/global_filter";
 import { helpers } from "@odoo/o-spreadsheet";
+import { monthsOptions } from "@spreadsheet/assets_backend/constants";
+import { QUARTER_OPTIONS } from "@web/search/utils/dates";
 
 const { toZone } = helpers;
+
+const monthsOptionsIds = monthsOptions.map((option) => option.id);
+const quarterOptionsIds = Object.values(QUARTER_OPTIONS).map((option) => option.id);
+
+/**
+ * @typedef {import("@spreadsheet").FixedPeriodDateGlobalFilter} FixedPeriodDateGlobalFilter
+ */
 
 let target;
 
@@ -1166,47 +1180,53 @@ QUnit.module(
             assert.strictEqual(globalFilter.defaultValue, undefined);
         });
 
-        QUnit.test("Choose any year in a year picker by clicking the picker", async function (assert) {
-            patchDate(2022, 6, 10, 0, 0, 0);
-            const { model } = await createSpreadsheetFromPivotView();
-            await addGlobalFilter(model, THIS_YEAR_GLOBAL_FILTER);
+        QUnit.test(
+            "Choose any year in a year picker by clicking the picker",
+            async function (assert) {
+                patchDate(2022, 6, 10, 0, 0, 0);
+                const { model } = await createSpreadsheetFromPivotView();
+                await addGlobalFilter(model, THIS_YEAR_GLOBAL_FILTER);
 
-            await openGlobalFilterSidePanel();
+                await openGlobalFilterSidePanel();
 
-            const pivots = target.querySelectorAll(".pivot_filter_section");
-            assert.containsOnce(target, ".pivot_filter_section");
-            assert.containsOnce(target, "i.o_side_panel_filter_icon.fa-cog");
-            assert.containsOnce(target, "i.o_side_panel_filter_icon.fa-times");
-            assert.equal(
-                pivots[0].querySelector(".o_side_panel_filter_label").textContent,
-                THIS_YEAR_GLOBAL_FILTER.label
-            );
+                const pivots = target.querySelectorAll(".pivot_filter_section");
+                assert.containsOnce(target, ".pivot_filter_section");
+                assert.containsOnce(target, "i.o_side_panel_filter_icon.fa-cog");
+                assert.containsOnce(target, "i.o_side_panel_filter_icon.fa-times");
+                assert.equal(
+                    pivots[0].querySelector(".o_side_panel_filter_label").textContent,
+                    THIS_YEAR_GLOBAL_FILTER.label
+                );
 
-            assert.containsOnce(pivots[0], ".pivot_filter_input input.o_datetime_input");
-            const year = pivots[0].querySelector(".pivot_filter_input input.o_datetime_input");
+                assert.containsOnce(pivots[0], ".pivot_filter_input input.o_datetime_input");
+                const year = pivots[0].querySelector(".pivot_filter_input input.o_datetime_input");
 
-            const this_year = luxon.DateTime.utc().year;
-            assert.equal(year.value, String(this_year));
+                const this_year = luxon.DateTime.utc().year;
+                assert.equal(year.value, String(this_year));
 
-            await click(year);
+                await click(year);
 
-            assert.isVisible(target.querySelector('.o_datetime_picker'),
-                "The picker is visible");
-            assert.strictEqual(
-                target.querySelector('button.o_zoom_out.o_datetime_button').title,
-                "Select decade",
-                "The picker should be displaying the years");
+                assert.isVisible(
+                    target.querySelector(".o_datetime_picker"),
+                    "The picker is visible"
+                );
+                assert.strictEqual(
+                    target.querySelector("button.o_zoom_out.o_datetime_button").title,
+                    "Select decade",
+                    "The picker should be displaying the years"
+                );
 
-            const selectYearSpans = target.querySelectorAll("button.o_date_item_cell");
-            const year2024 = [...selectYearSpans].find((el) => el.textContent === "2024");
-            await click(year2024);
+                const selectYearSpans = target.querySelectorAll("button.o_date_item_cell");
+                const year2024 = [...selectYearSpans].find((el) => el.textContent === "2024");
+                await click(year2024);
 
-            assert.equal(year.value, "2024");
-            assert.deepEqual(model.getters.getGlobalFilterValue(THIS_YEAR_GLOBAL_FILTER.id), {
-                period: undefined,
-                yearOffset: 2,
-            });
-        });
+                assert.equal(year.value, "2024");
+                assert.deepEqual(model.getters.getGlobalFilterValue(THIS_YEAR_GLOBAL_FILTER.id), {
+                    period: undefined,
+                    yearOffset: 2,
+                });
+            }
+        );
 
         QUnit.test("Choose any year in a year picker via input", async function (assert) {
             const { model } = await createSpreadsheetFromPivotView();
@@ -1883,5 +1903,96 @@ QUnit.module(
                 ""
             );
         });
+
+        QUnit.test(
+            "Can change fixedPeriod date filter disabledPeriods in the side panel",
+            async function (assert) {
+                const { model } = await createSpreadsheetFromPivotView();
+                const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+                    id: "43",
+                    type: "date",
+                    label: "Date Filter",
+                    rangeType: "fixedPeriod",
+                });
+                await addGlobalFilter(model, filter);
+                await openGlobalFilterSidePanel();
+                await click(target, "i.o_side_panel_filter_icon.fa-cog");
+
+                assert.ok(target.querySelector("input[name='month']").checked);
+                await click(target, 'input[name="month"]');
+                await saveGlobalFilter();
+
+                assert.deepEqual(model.getters.getGlobalFilter("43").disabledPeriods, ["month"]);
+
+                await click(target, "i.o_side_panel_filter_icon.fa-cog");
+                assert.notOk(target.querySelector("input[name='month']").checked);
+            }
+        );
+
+        QUnit.test(
+            "fixedPeriod date filter possible values change with disabledPeriods ",
+            async function (assert) {
+                const { model } = await createSpreadsheetFromPivotView();
+                const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+                    id: "43",
+                    type: "date",
+                    label: "Date Filter",
+                    rangeType: "fixedPeriod",
+                });
+                await addGlobalFilter(model, filter);
+                await openGlobalFilterSidePanel();
+
+                const filterValuesSelect = target.querySelector(".date_filter_values select");
+                let options = [...filterValuesSelect.querySelectorAll("option")].map(
+                    (option) => option.value
+                );
+
+                assert.deepEqual(options, ["empty", ...quarterOptionsIds, ...monthsOptionsIds]);
+
+                await editGlobalFilter(model, { ...filter, disabledPeriods: ["month"] });
+                await nextTick();
+                options = [...filterValuesSelect.querySelectorAll("option")].map(
+                    (option) => option.value
+                );
+                assert.deepEqual(options, ["empty", ...quarterOptionsIds]);
+
+                await editGlobalFilter(model, { ...filter, disabledPeriods: ["quarter"] });
+                options = [...filterValuesSelect.querySelectorAll("option")].map(
+                    (option) => option.value
+                );
+                assert.deepEqual(options, ["empty", ...monthsOptionsIds]);
+
+                await editGlobalFilter(model, { ...filter, disabledPeriods: ["month", "quarter"] });
+                assert.containsNone(target, ".date_filter_values select");
+            }
+        );
+
+        QUnit.test(
+            "invalid fixed period automatic value is removed when changing disabledPeriods",
+            async function (assert) {
+                const { model } = await createSpreadsheetFromPivotView();
+                const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+                    id: "43",
+                    type: "date",
+                    label: "Date Filter",
+                    rangeType: "fixedPeriod",
+                    defaultValue: "this_month",
+                });
+                await addGlobalFilter(model, filter);
+                await openGlobalFilterSidePanel();
+                await click(target, "i.o_side_panel_filter_icon.fa-cog");
+
+                const automaticValueSelect = target.querySelector(".date_filter_automatic_value");
+                assert.equal(automaticValueSelect.value, "this_month");
+
+                // Disable "month" period
+                await click(document, ".o-sidePanelBody input[name='month']");
+                assert.equal(automaticValueSelect.value, "this_year");
+                const options = [...automaticValueSelect.querySelectorAll("option")].map(
+                    (option) => option.value
+                );
+                assert.deepEqual(options, ["this_year", "this_quarter"]);
+            }
+        );
     }
 );
