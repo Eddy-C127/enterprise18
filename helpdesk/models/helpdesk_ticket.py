@@ -771,7 +771,7 @@ class HelpdeskTicket(models.Model):
         thread_context = self.env['mail.thread']
         if ticket.company_id:
             thread_context = thread_context.with_context(default_company_id=ticket.company_id)
-        partner_ids = [x.id for x in thread_context._mail_find_partner_from_emails(self._ticket_email_split(msg), records=ticket, force_create=True) if x]
+        partner_ids = [x.id for x in thread_context._mail_find_partner_from_emails(ticket._ticket_email_split(msg), records=ticket, force_create=True) if x]
         customer_ids = [p.id for p in thread_context._mail_find_partner_from_emails(tools.email_split(values['partner_email']), records=ticket, force_create=True) if p]
         partner_ids += customer_ids
         if customer_ids and not values.get('partner_id'):
