@@ -784,11 +784,8 @@ class Planning(models.Model):
             values['state'] = 'published'
         # if the resource_id is changed while the shift has already been published and the resource is human, that means that the shift has been re-assigned
         # and thus we should send the email about the shift re-assignment
-        if (new_resource and self.state == 'published'
-                and self.resource_type == 'user'
-                and new_resource.resource_type == 'user'):
-            self._send_shift_assigned(self, new_resource)
-        # if the "resource_id" or the "start/end_datetime" fields meaningfully change when there is a request to switch, remove the request to switch
+        for slot in self.filtered(lambda s: new_resource and s.state == 'published' and s.resource_type == 'user' and new_resource.resource_type == 'user'):
+            self._send_shift_assigned(slot, new_resource)
         for slot in self:
             if slot.request_to_switch and (
                 (new_resource and slot.resource_id != new_resource)
