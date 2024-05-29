@@ -14,19 +14,14 @@
                         </div>
                         <h4>There is currently no appointment available</h4>
                     </div>
-                    <div t-else="">
-                        <form class="form o_appointment_appointments_list_form pt-3"
-                            t-attf-action="/appointment/#{appointment_types[0].id}?#{keep_query('*')}"
-                            method="POST">
-                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                            <t t-call="appointment.appointment_type_select"/>
-                            <div t-out="appointment_types[0].message_intro" class="o_appointment_intro my-2"/>
-                            <div class="row">
-                                <div class="mx-auto">
-                                    <button type="submit" class="btn btn-primary mt-3">Continue <span class="oi oi-arrow-right"/></button>
-                                </div>
+                    <div t-else="" class="o_appointment_appointments_list_selection pt-3">
+                        <t t-call="appointment.appointment_type_select"/>
+                        <div t-out="appointment_types[0].message_intro" class="o_appointment_intro my-2"/>
+                        <div class="row">
+                            <div class="mx-auto">
+                                <button class="o_appointment_select_button btn btn-primary mt-3">Continue <span class="oi oi-arrow-right"/></button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="oe_structure"/>
                 </div>
@@ -40,7 +35,9 @@
                 t-attf-class="py-2 px-3 #{'form-control' if len(appointment_types) == 1 else 'form-select'}"
                 t-att-disabled="len(appointment_types) == 1">
                 <t t-foreach="appointment_types" t-as="appointment_type">
-                    <option t-att-value="appointment_type.id" t-att-selected="appointment_type.id == appointment_types[0].id and 'selected'">
+                    <option t-att-value="appointment_type.id"
+                        t-att-selected="appointment_type.id == appointment_types[0].id and 'selected'"
+                        t-attf-data-appointment-url="/appointment/#{appointment_type.id}?#{keep_query('*')}">
                         <t t-out="appointment_type.name"/>
                     </option>
                 </t>

@@ -819,8 +819,13 @@ class AppointmentController(http.Controller):
 
     def _get_default_timezone(self, appointment_type):
         """
-            Find the default timezone from the geoip lib or fallback on the user or the visitor
+            Find the default timezone from the value store in the session. If not value is found,
+            we check if a location is defined on the appointment type and set the timezone based on
+            the value set on the appointment type. Otherwise we also check the cookies or fallback on the
+            timezone of the appointment type.
         """
+        if 'timezone' in request.session:
+            return request.session.timezone
         if appointment_type.location_id:
             return appointment_type.appointment_tz
         cookie = request.httprequest.cookies.get('tz')

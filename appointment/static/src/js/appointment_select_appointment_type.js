@@ -9,6 +9,7 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
     selector: '.o_appointment_choice',
     events: {
         'change select[id="appointment_type_id"]': '_onAppointmentTypeChange',
+        'click .o_appointment_select_button': '_onAppointmentTypeSelected',
     },
 
     /**
@@ -50,7 +51,6 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
         const filterUserIds = this.$("input[name='filter_staff_user_ids']").val();
         const filterResourceIds = this.$("input[name='filter_resource_ids']").val();
         const inviteToken = this.$("input[name='invite_token']").val();
-        self.$(".o_appointment_appointments_list_form").attr('action', `/appointment/${appointmentTypeID}${window.location.search}`);
 
         rpc(`/appointment/${appointmentTypeID}/get_message_intro`, {
             invite_token: inviteToken,
@@ -60,5 +60,12 @@ publicWidget.registry.appointmentTypeSelect = publicWidget.Widget.extend({
         }).then(function (message_intro) {
             self.$('.o_appointment_intro').empty().append(message_intro);
         });
+    },
+
+    _onAppointmentTypeSelected: function (ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const optionSelected = this.el.querySelector('select').selectedOptions[0];
+        window.location = optionSelected.dataset.appointmentUrl;
     },
 });
