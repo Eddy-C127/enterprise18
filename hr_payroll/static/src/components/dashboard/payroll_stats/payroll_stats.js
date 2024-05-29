@@ -2,10 +2,13 @@
 
 import { loadJS } from "@web/core/assets";
 import { useService } from "@web/core/utils/hooks";
-import { getColor } from "@web/core/colors/colors";
+import { getColor, getCustomColor } from "@web/core/colors/colors";
 import { cookie } from "@web/core/browser/cookie";
 import { Component, onWillUnmount, useEffect, useRef, useState, onWillStart } from "@odoo/owl";
 
+const colorScheme = cookie.get("color_scheme")
+const GRAPH_GRID_COLOR = getCustomColor(colorScheme, "#d8dadd", "#3C3E4B");
+const GRAPH_LABEL_COLOR = getCustomColor(colorScheme, "#111827", "#E4E4E4");
 export class PayrollDashboardStats extends Component {
     static template = "hr_payroll.DashboardStats";
     static props = {
@@ -136,7 +139,7 @@ export class PayrollDashboardStats extends Component {
         const data = [];
         const labels = [];
         const backgroundColors = [];
-        const color19 = getColor(19, cookie.get("color_scheme"));
+        const color19 = getColor(1, cookie.get("color_scheme"), "odoo");
         this.graphData.forEach((pt) => {
             data.push(pt.value);
             labels.push(pt.label);
@@ -174,11 +177,22 @@ export class PayrollDashboardStats extends Component {
                     },
                 },
                 scales: {
-                    yAxes:
-                        {
-                            display: false,
-                            beginAtZero: true,
+                    y: {
+                        grid: {
+                            color: GRAPH_GRID_COLOR
+                        },
+                        ticks: {
+                            color: GRAPH_LABEL_COLOR
                         }
+                    },
+                    x: {
+                        grid: {
+                            color: GRAPH_GRID_COLOR
+                        },
+                        ticks: {
+                            color: GRAPH_LABEL_COLOR
+                        }
+                    }
                 },
                 maintainAspectRatio: false,
                 elements: {
@@ -201,7 +215,7 @@ export class PayrollDashboardStats extends Component {
         if (this.props.is_sample) {
             colors = ['#e7e7e7', '#dddddd', '#f0f0f0', '#fafafa'];
         } else {
-            colors = [getColor(13, cookie.get("color_scheme")), '#a5d8d7', '#ebebeb', '#ebebeb'];
+            colors = [getColor(14, cookie.get("color_scheme"), "odoo"), '#a5d8d7', '#ebebeb', '#ebebeb'];
         }
 
 
@@ -250,11 +264,23 @@ export class PayrollDashboardStats extends Component {
                 scales: {
                     x: {
                         stacked: true,
+                        grid: {
+                            color: GRAPH_GRID_COLOR
+                        },
+                        ticks: {
+                            color: GRAPH_LABEL_COLOR
+                        },
+                        border: {
+                            color: GRAPH_GRID_COLOR
+                        },
                     },
                     y: {
                         display: false,
                         stacked: true,
                         beginAtZero: true,
+                        grid: {
+                            color: GRAPH_GRID_COLOR
+                        },
                     }
                 },
                 maintainAspectRatio: false,
