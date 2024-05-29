@@ -151,7 +151,7 @@
                     Your subscription <t t-out="ctx.get('code') or ''">CODE</t> is still valid but will be <strong>suspended</strong>
                     on <t t-out="format_date(ctx.get('date_close')) or ''">05/05/2021</t><br/>
                     <div style="margin: 16px 0px; text-align: center;">
-                        <a t-attf-href="{{ ctx['payment_link'] }}" style="display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;">
+                        <a t-attf-href="{{ ctx.get('payment_link', object.get_portal_url()) }}" style="display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;">
                             Pay Now
                         </a>
                     </div>
