@@ -15,13 +15,6 @@ class AppointmentType(models.Model):
         'website.searchable.mixin',
     ]
 
-    @api.model
-    def default_get(self, default_fields):
-        result = super().default_get(default_fields)
-        if result.get('category') in ['custom', 'anytime']:
-            result['is_published'] = True
-        return result
-
     def _default_cover_properties(self):
         res = super()._default_cover_properties()
         res.update({
@@ -37,14 +30,8 @@ class AppointmentType(models.Model):
 
     @api.depends('category')
     def _compute_is_published(self):
-        if self._context.get('default_is_published'):
-            self.is_published = True
-            return
-        for appointment_type in self:
-            if appointment_type.category in ['custom', 'anytime']:
-                appointment_type.is_published = True
-            else:
-                appointment_type.is_published = False
+        self.is_published = False
+        # TODO: clean me in master as we don't really need a compute anymore as everything can be handle by default values
 
     def _compute_website_url(self):
         super()._compute_website_url()
