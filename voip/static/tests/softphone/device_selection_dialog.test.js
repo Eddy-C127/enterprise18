@@ -1,15 +1,15 @@
-import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
-
+import { describe, test } from "@odoo/hoot";
+import { advanceTime } from "@odoo/hoot-mock";
 import { Store } from "@mail/core/common/store_service";
-import { start } from "@mail/../tests/helpers/test_utils";
-
+import { click, contains, start, startServer } from "@mail/../tests/mail_test_helpers";
+import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
 import { browser } from "@web/core/browser/browser";
-import { patchWithCleanup } from "@web/../tests/helpers/utils";
-import { click, contains } from "@web/../tests/utils";
+import { patchWithCleanup, serverState } from "@web/../tests/web_test_helpers";
 
-QUnit.module("device_selection_dialog_mobile");
+describe.current.tags("mobile");
+defineVoipModels();
 
-QUnit.test("Switch audio input", async () => {
+test("Switch audio input", async () => {
     patchWithCleanup(browser, {
         navigator: {
             ...browser.navigator,
@@ -39,12 +39,12 @@ QUnit.test("Switch audio input", async () => {
         },
     });
     const pyEnv = await startServer();
-    pyEnv["res.partner"].create({ display_name: "Gwonam", phone: "515-555-0170" });
+    pyEnv["res.partner"].create({ name: "Gwonam", phone: "515-555-0170" });
     pyEnv["res.users.settings"].create({
         how_to_call_on_mobile: "voip",
         user_id: serverState.userId,
     });
-    const { advanceTime } = await start({ hasTimeControl: true });
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await advanceTime(Store.FETCH_DATA_DEBOUNCE_DELAY);
     await click(".nav-link", { text: "Contacts" });

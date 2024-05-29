@@ -1,10 +1,10 @@
-import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { describe, expect, test } from "@odoo/hoot";
+import { start, startServer } from "@mail/../tests/mail_test_helpers";
+import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { getService, patchWithCleanup, serverState } from "@web/../tests/web_test_helpers";
 
-import { start } from "@mail/../tests/helpers/test_utils";
-
-import { patchWithCleanup } from "@web/../tests/helpers/utils";
-
-QUnit.module("user_agent_service");
+describe.current.tags("desktop");
+defineVoipModels();
 
 // allow test data to be overridden in other modules
 export const settingsData = {
@@ -15,7 +15,7 @@ export const expectedValues = {
     authorizationUsername: settingsData.voip_username,
 };
 
-QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) => {
+test("SIP.js user agent configuration is set correctly.", async (assert) => {
     patchWithCleanup(window, {
         SIP: {
             UserAgent: {
@@ -37,10 +37,10 @@ QUnit.test("SIP.js user agent configuration is set correctly.", async (assert) =
         ...settingsData,
         user_id: serverState.userId,
     });
-    const { env } = await start();
-    const config = env.services["voip.user_agent"].sipJsUserAgentConfig;
-    assert.equal(config.authorizationPassword, "super secret password");
-    assert.equal(config.authorizationUsername, expectedValues.authorizationUsername);
-    assert.equal(config.uri.raw.user, "1337");
-    assert.equal(config.uri.raw.host, "localhost");
+    await start();
+    const config = (await getService("voip.user_agent")).sipJsUserAgentConfig;
+    expect(config.authorizationPassword).toBe("super secret password");
+    expect(config.authorizationUsername).toBe(expectedValues.authorizationUsername);
+    expect(config.uri.raw.user).toBe("1337");
+    expect(config.uri.raw.host).toBe("localhost");
 });

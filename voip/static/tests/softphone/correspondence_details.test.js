@@ -1,34 +1,34 @@
-import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { describe, test } from "@odoo/hoot";
+import { click, contains, start, startServer } from "@mail/../tests/mail_test_helpers";
+import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { serverState } from "@web/../tests/web_test_helpers";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+describe.current.tags("desktop");
+defineVoipModels();
 
-import { click, contains } from "@web/../tests/utils";
-
-QUnit.module("correspondence_details");
-
-QUnit.test("The partner's phone number is displayed in correspondence details.", async () => {
+test("The partner's phone number is displayed in correspondence details.", async () => {
     const pyEnv = await startServer();
     const phoneNumber = "355 649 6295";
-    pyEnv["res.partner"].create({ display_name: "Maxime Randonnées", phone: phoneNumber });
-    start();
+    pyEnv["res.partner"].create({ name: "Maxime Randonnées", phone: phoneNumber });
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".nav-link", { text: "Contacts" });
     await click(".list-group-item-action", { text: "Maxime Randonnées" });
     await contains(`[href$="${phoneNumber}"] .fa-phone`);
 });
 
-QUnit.test("The partner's mobile number is displayed in correspondence details.", async () => {
+test("The partner's mobile number is displayed in correspondence details.", async () => {
     const pyEnv = await startServer();
     const phoneNumber = "0456 703 6196";
-    pyEnv["res.partner"].create({ display_name: "Maxime Randonnées", mobile: phoneNumber });
-    start();
+    pyEnv["res.partner"].create({ name: "Maxime Randonnées", mobile: phoneNumber });
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".nav-link", { text: "Contacts" });
     await click(".list-group-item-action", { text: "Maxime Randonnées" });
     await contains(`[href$="${phoneNumber}"] .fa-mobile`);
 });
 
-QUnit.test("Calls are properly displayed even if their state is broken.", async () => {
+test("Calls are properly displayed even if their state is broken.", async () => {
     const pyEnv = await startServer();
     // If for some reason (e.g. a power outage in the middle of a call) the call
     // is never properly terminated, it may be stuck in the “calling” or
@@ -43,7 +43,7 @@ QUnit.test("Calls are properly displayed even if their state is broken.", async 
         state: "ongoing",
         user_id: serverState.userId,
     });
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".nav-link", { text: "Recent" });
     await click(".list-group-item-action", { text: "Call to +263-735-552-56" });

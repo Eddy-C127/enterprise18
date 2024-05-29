@@ -1,24 +1,25 @@
-import { serverState, startServer } from "@bus/../tests/helpers/mock_python_environment";
+import { describe, test } from "@odoo/hoot";
+import { mockDate } from "@odoo/hoot-mock";
+import { click, contains, start, startServer } from "@mail/../tests/mail_test_helpers";
+import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { serverState } from "@web/../tests/web_test_helpers";
 
-import { start } from "@mail/../tests/helpers/test_utils";
+describe.current.tags("desktop");
+defineVoipModels();
 
-import { click, contains } from "@web/../tests/utils";
-
-QUnit.module("activity_tab");
-
-QUnit.test("Today call activities are displayed in the “Next Activities” tab.", async () => {
+test("Today call activities are displayed in the “Next Activities” tab.", async () => {
     const pyEnv = await startServer();
     const [activityTypeId] = pyEnv["mail.activity.type"].search([["category", "=", "phonecall"]]);
     const [partnerId1, partnerId2] = pyEnv["res.partner"].create([
         {
             name: "Françoise Délire",
-            display_name: "Boulangerie Vortex, Françoise Délire",
             mobile: "+1 246 203 6982",
+            company_name: "Boulangerie Vortex",
         },
         {
             name: "Naomi Dag",
-            display_name: "Sanit’Hair, Naomi Dag",
             phone: "777 2124",
+            company_name: "Sanit’Hair",
         },
     ]);
     pyEnv["mail.activity"].create([
@@ -48,34 +49,32 @@ QUnit.test("Today call activities are displayed in the “Next Activities” tab
     });
 });
 
-QUnit.test(
-    "The name of the partner linked to an activity is displayed in the activity tab.",
-    async () => {
-        const pyEnv = await startServer();
-        const partnerId = pyEnv["res.partner"].create({
-            name: "Gwendoline Zumba",
-            mobile: "515-555-0104",
-        });
-        pyEnv["mail.activity"].create([
-            {
-                activity_type_id: pyEnv["mail.activity.type"].search([
-                    ["category", "=", "phonecall"],
-                ])[0],
-                date_deadline: "2017-08-13",
-                res_id: partnerId,
-                res_model: "res.partner",
-                user_id: serverState.userId,
-            },
-        ]);
-        start();
-        await click(".o_menu_systray button[title='Open Softphone']");
-        await contains(".o-voip-ActivitiesTab .list-group-item-action .fw-bold", {
-            text: "Gwendoline Zumba",
-        });
-    }
-);
+test("The name of the partner linked to an activity is displayed in the activity tab.", async () => {
+    const pyEnv = await startServer();
+    const partnerId = pyEnv["res.partner"].create({
+        name: "Gwendoline Zumba",
+        mobile: "515-555-0104",
+    });
+    pyEnv["mail.activity"].create([
+        {
+            activity_type_id: pyEnv["mail.activity.type"].search([
+                ["category", "=", "phonecall"],
+            ])[0],
+            date_deadline: "2017-08-13",
+            res_id: partnerId,
+            res_model: "res.partner",
+            user_id: serverState.userId,
+        },
+    ]);
+    await start();
+    await click(".o_menu_systray button[title='Open Softphone']");
+    await contains(".o-voip-ActivitiesTab .list-group-item-action .fw-bold", {
+        text: "Gwendoline Zumba",
+    });
+});
 
-QUnit.test("Clicking on an activity opens the correspondence details", async () => {
+test("Clicking on an activity opens the correspondence details", async () => {
+    mockDate("2024-05-23 12:00:00");
     const pyEnv = await startServer();
     const partnerId = pyEnv["res.partner"].create({
         name: "Yveline Colbert",
@@ -92,7 +91,7 @@ QUnit.test("Clicking on an activity opens the correspondence details", async () 
             user_id: serverState.userId,
         },
     ]);
-    start();
+    await start();
     await click(".o_menu_systray button[title='Open Softphone']");
     await click(".o-voip-ActivitiesTab .list-group-item-action", { text: "Yveline Colbert" });
     await contains(".o-voip-CorrespondenceDetails");

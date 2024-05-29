@@ -31,15 +31,15 @@
             "voip/static/src/**/*.dark.scss",
         ],
         "web.tests_assets": [
-            "voip/static/tests/helpers/**/*.js",
+            "voip/static/tests/legacy/helpers/**/*.js",
         ],
         "web.qunit_suite_tests": [
-            "voip/static/tests/**/*.js",
-            ("remove", "voip/static/tests/helpers/**/*"),
-            ("remove", "voip/static/tests/**/*.mobile.js"),
+            "voip/static/tests/legacy/**/*.js",
+            ("remove", "voip/static/tests/legacy/helpers/**/*.js"),
         ],
-        "web.qunit_mobile_suite_tests": [
-            "voip/static/tests/**/*.mobile.js",
+        "web.assets_unit_tests": [
+            "voip/static/tests/**/*",
+            ("remove", "voip/static/tests/legacy/**/*"),
         ],
     },
 }
