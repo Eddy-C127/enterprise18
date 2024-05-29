@@ -459,7 +459,7 @@ class WebStudioReportController(main.WebStudioController):
 
     @http.route('/web_studio/print_report', type='json', auth='user')
     def print_report(self, report_id, record_id):
-        report = request.env['ir.actions.report'].with_context(report_pdf_no_attachment=True, discard_logo_check=True)._get_report(report_id)
+        report = request.env['ir.actions.report'].with_context(report_pdf_no_attachment=True, discard_logo_check=True, studio=1)._get_report(report_id)
         return report.report_action(record_id)
 
     @http.route('/web_studio/load_report_editor', type='json', auth='user')
