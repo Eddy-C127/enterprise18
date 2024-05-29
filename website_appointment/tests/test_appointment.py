@@ -84,10 +84,10 @@ class WebsiteAppointmentTest(AppointmentCommon, MockVisitor):
     @users('admin')
     def test_apt_type_is_published(self):
         for category, default in [
-                ('custom', True),
+                ('custom', False),
                 ('punctual', False),
                 ('recurring', False),
-                ('anytime', True)
+                ('anytime', False)
             ]:
             appointment_type = self.env['appointment.type'].create({
                 'name': 'Custom Appointment',
@@ -118,20 +118,20 @@ class WebsiteAppointmentTest(AppointmentCommon, MockVisitor):
         self.assertFalse(appointment.is_published, "A recurring appointment type should not be published at creation")
 
         appointment.write({'category': 'custom'})
-        self.assertTrue(appointment.is_published, "Modifying an appointment type category to custom auto-published it")
+        self.assertFalse(appointment.is_published, "Modifying an appointment type category should not modify the publish state")
 
         appointment.write({'category': 'recurring'})
-        self.assertFalse(appointment.is_published, "Modifying an appointment type category to recurring unpublished it")
+        self.assertFalse(appointment.is_published, "Modifying an appointment type category should not modify the publish state")
 
         appointment.write({'category': 'anytime'})
-        self.assertTrue(appointment.is_published, "Modifying an appointment type category to anytime auto-published it")
+        self.assertFalse(appointment.is_published, "Modifying an appointment type category should not modify the publish state")
 
         appointment.write({
             'category': 'punctual',
             'start_datetime': datetime(2022, 2, 14, 8, 0, 0),
             'end_datetime': datetime(2022, 2, 20, 20, 0, 0),
         })
-        self.assertFalse(appointment.is_published, "Modifying an appointment type category to punctual unpublished it")
+        self.assertFalse(appointment.is_published, "Modifying an appointment type category should not modify the publish state")
 
     def test_find_customer_country_from_visitor(self):
         self.env.user.tz = "Europe/Brussels"
