@@ -4,7 +4,6 @@ import os
 
 from lxml import etree
 
-from odoo.loglevels import ustr
 from odoo.tools import misc, view_validation
 
 _logger = logging.getLogger(__name__)
@@ -28,5 +27,5 @@ def schema_cohort(arch, **kwargs):
         return True
 
     for error in _cohort_validator.error_log:
-        _logger.error(ustr(error))
+        _logger.error("%s", error)
     return False

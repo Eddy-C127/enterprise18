@@ -13,7 +13,7 @@ from odoo.http import content_disposition, request
 from odoo.exceptions import UserError, ValidationError
 from odoo.addons.web_studio.controllers import export
 from odoo.osv import expression
-from odoo.tools import ustr, sql, clean_context
+from odoo.tools import sql, clean_context
 from odoo.models import check_method_name
 
 _logger = logging.getLogger(__name__)
@@ -339,15 +339,15 @@ class WebStudioController(http.Controller):
         values['model_id'] = request.env['ir.model']._get_id(model_name)
 
         # Field type is called ttype in the database
-        if values.get('type'):
-            values['ttype'] = values.pop('type')
+        if type_ := values.pop('type', None):
+            values['ttype'] = type_
 
         # For many2one and many2many fields
-        if values.get('relation_id'):
-            values['relation'] = request.env['ir.model'].browse(values.pop('relation_id')).model
+        if rel_id := values.pop('relation_id', None):
+            values['relation'] = request.env['ir.model'].browse(rel_id).model
         # For related one2many fields
-        if values.get('related') and values.get('ttype') == 'one2many':
-            field_name = values.get('related').split('.')[-1]
+        if related := values.get('related') and values.get('ttype') == 'one2many':
+            field_name = related.rsplit('.', 1)[-1]
             field = request.env['ir.model.fields'].search([
                 ('name', '=', field_name),
                 ('model', '=', values.pop('relational_model')),
@@ -358,15 +358,15 @@ class WebStudioController(http.Controller):
                 relation_field=field.relation_field,
             )
         # For one2many fields
-        if values.get('relation_field_id'):
-            field = request.env['ir.model.fields'].browse(values.pop('relation_field_id'))
+        if rel := values.pop('relation_field_id', None):
+            field = request.env['ir.model.fields'].browse(rel)
             values.update(
                 relation=field.model_id.model,
                 relation_field=field.name,
             )
         # For selection fields
-        if values.get('selection'):
-            values['selection'] = ustr(values['selection'])
+        if sel := values.get('selection'):
+            values['selection'] = str(sel)
 
         if values.get('ttype') == 'many2many':
             # check for existing relation to avoid re-use

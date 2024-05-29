@@ -8,7 +8,6 @@ import dateutil.parser
 
 from odoo import fields, models, _
 from odoo.exceptions import UserError
-from odoo.tools import ustr
 
 
 logger = logging.getLogger(__name__)
@@ -83,9 +82,9 @@ class AccountJournal(models.Model):
                     total += amount
                     vals_line['amount'] = amount
                 elif line[:1] == CHECK_NUMBER:
-                    vals_line['ref'] = ustr(data)
+                    vals_line['ref'] = data.decode()
                 elif line[:1] == PAYEE:
-                    name = ustr(data)
+                    name = data.decode()
                     vals_line['payment_ref'].append(name)
                     # Since QIF doesn't provide account numbers, we'll have to find res.partner and res.partner.bank here
                     # (normal behavious is to provide 'account_number', which the generic module uses to find partner/bank)
@@ -94,7 +93,7 @@ class AccountJournal(models.Model):
                         vals_line['partner_bank_id'] = partner_bank.id
                         vals_line['partner_id'] = partner_bank.partner_id.id
                 elif line[:1] == MEMO:
-                    vals_line['payment_ref'].append(ustr(data))
+                    vals_line['payment_ref'].append(data.decode())
                 elif line[:1] == END_OF_ITEM:
                     if vals_line['payment_ref']:
                         vals_line['payment_ref'] = u': '.join(vals_line['payment_ref'])
