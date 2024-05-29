@@ -370,6 +370,9 @@ class HrContractSalary(main.HrContractSalary):
         offer = request.env['hr.contract.salary.offer'].sudo().browse(offer_id).exists()
         if new_contract.time_credit:
             new_contract.date_end = contract.date_end
+        if new_contract.car_id != contract.car_id:
+            # If the chosen car is different from the one in the current contract, add the car model name to the diff
+            contract_diff.append((_('Company Car'), contract.car_id.display_name or '', new_contract.car_id.display_name or ''))
         if kw.get('package_submit', False):
             # If the chosen existing car is already taken by someone else (for example if the
             # window was open for a long time)
