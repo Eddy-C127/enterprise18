@@ -112,7 +112,10 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
 ]});
 
 registry.category("web_tour.tours").add('test_inventory_adjustment_dont_update_location', {test: true, steps: () => [
-    { trigger: '.button_inventory' },
+    {
+        trigger: '.button_inventory',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -484,7 +487,10 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
 ]});
 
 registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_product_multilocation', {test: true, steps: () => [
-    { trigger: '.button_inventory' },
+    {
+        trigger: '.button_inventory',
+        run: "click",
+    },
     {
         trigger: '.o_barcode_line',
         run: function() {

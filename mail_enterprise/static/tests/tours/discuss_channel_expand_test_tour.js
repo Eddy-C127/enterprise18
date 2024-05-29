@@ -16,10 +16,12 @@ registry
                     "Click on 'Open Actions Menu' in the chat window header to show expand button",
                 trigger:
                     '.o-mail-ChatWindow:contains("test-mail-channel-expand-tour") [title="Open Actions Menu"]',
+                run: "click",
             },
             {
                 content: "Click on expand button to open channel in Discuss",
                 trigger: '.o-dropdown-item[title="Open in Discuss"]',
+                run: "click",
             },
             {
                 content:

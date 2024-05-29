@@ -84,6 +84,7 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     trigger: ".o_column_quick_create .o_quick_create_folded",
     content: markup(_t('Adapt your <b>pipeline</b> to your workflow by adding <b>stages</b> <i>(e.g. Awaiting Customer Feedback, etc.).</i>')),
     position: 'right',
+    run: "click",
 }, {
     trigger: ".o_column_quick_create .o_kanban_add",
     content: _t("Add your stage and place it at the right step of your workflow by dragging & dropping it."),

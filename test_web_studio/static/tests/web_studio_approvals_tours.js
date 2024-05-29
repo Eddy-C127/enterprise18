@@ -7,9 +7,11 @@ registry.category("web_tour.tours").add("test_web_studio.test_disable_approvals"
     steps: () => [
         {
             trigger: ".o_web_studio_view_renderer .o_view_controller.o_form_view button.mybutton",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_sidebar input[name='studio_approval']:checked",
+            run: "click",
         },
         {
             trigger: ".o_web_studio_sidebar input[name='studio_approval']:not(:checked)",

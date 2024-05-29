@@ -101,6 +101,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         trigger: '.o_back_button',
         content: 'go back to fsm',
+        run: "click",
     },
     {
         trigger: 'button[name="action_view_so"]',
@@ -231,6 +232,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
         trigger: ".ui-menu-item > a:contains(WH B)",
         auto: true,
         in_modal: false,
+        run: "click",
     },
     {
         content: 'Go back to app switcher',

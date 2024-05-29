@@ -9,53 +9,65 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             {
                 content: "Click the POS icon",
                 trigger: ".o_app[data-menu-xmlid='point_of_sale.menu_point_root']",
+                run: "click",
             },
             {
                 content: "Open POS session from backend",
                 trigger: "button[name='open_ui']",
+                run: "click",
             },
             Dialog.confirm("Open session"),
             {
                 content: "Select a product",
                 trigger: "div.product-content:contains('product_mx')",
+                run: "click",
             },
             {
                 content: "go to Payment",
                 trigger: ".pay-order-button",
+                run: "click",
             },
             {
                 content: "Select payment method",
                 trigger: "div.button.paymentmethod",
+                run: "click",
             },
             {
                 content: "Validate",
                 trigger: "div.button.next.validation",
+                run: "click",
             },
             {
                 content: "click on New Order",
                 trigger: "div button:contains('New Order')",
+                run: "click",
             },
             Chrome.clickMenuOption("Orders"),
             {
                 content: "Select dropdown",
                 trigger: "div.filter",
+                run: "click",
             },
             {
                 content: "Select 'Paid Orders'",
                 trigger: "li:contains('Paid')",
+                run: "click",
             },
             {
                 content: "Pick the first order in the list",
                 trigger: "div.order-row:contains('Paid'):first",
+                run: "click",
             },
             {
                 content: "Ask an invoice for this order",
                 trigger: ".control-buttons button:contains('Invoice')",
+                run: "click",
             },
             Dialog.confirm(),
             {
                 content: "Select the partner 'Arturo Garcia'",
                 trigger: "tr.partner-line:contains('Arturo Garcia')",
+                run: "click",
             },
             {
                 content: "Set Usage: 'General Expenses'",
@@ -85,53 +97,65 @@ registry
                 {
                     content: "Click the POS icon",
                     trigger: ".o_app[data-menu-xmlid='point_of_sale.menu_point_root']",
+                    run: "click",
                 },
                 {
                     content: "Open POS session from backend",
                     trigger: "button[name='open_ui']",
+                    run: "click",
                 },
                 Dialog.confirm("Open session"),
                 {
                     content: "Select a product",
                     trigger: "div.product-content:contains('product_mx')",
+                    run: "click",
                 },
                 {
                     content: "go to Payment",
                     trigger: ".pay-order-button",
+                    run: "click",
                 },
                 {
                     content: "Select payment method",
                     trigger: "div.button.paymentmethod",
+                    run: "click",
                 },
                 {
                     content: "Validate",
                     trigger: "div.button.next.validation",
+                    run: "click",
                 },
                 {
                     content: "click on New Order",
                     trigger: "div button:contains('New Order')",
+                    run: "click",
                 },
                 Chrome.clickMenuOption("Orders"),
                 {
                     content: "Select dropdown",
                     trigger: "div.filter",
+                    run: "click",
                 },
                 {
                     content: "Select 'Paid Orders'",
                     trigger: "li:contains('Paid')",
+                    run: "click",
                 },
                 {
                     content: "Pick the first order in the list",
                     trigger: "div.order-row:contains('Paid'):first",
+                    run: "click",
                 },
                 {
                     content: "Ask an invoice for this order",
                     trigger: "button.control-button:contains('Invoice')",
+                    run: "click",
                 },
                 Dialog.confirm(),
                 {
                     content: "Select the partner 'Arturo Garcia'",
                     trigger: "tr.partner-line:contains('Arturo Garcia')",
+                    run: "click",
                 },
                 {
                     content: "Set Invoice to Public: 'Yes'",

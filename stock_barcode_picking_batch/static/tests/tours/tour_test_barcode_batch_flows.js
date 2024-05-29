@@ -1041,6 +1041,7 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
     {
         extra_trigger: ".o_field_widget[name='product_id'] input:value('product2')",
         trigger: "button.o_save",
+        run: "click",
     },
     // Checks the added line is grouped with the one from receipt2
     {

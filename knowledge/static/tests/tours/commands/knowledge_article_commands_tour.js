@@ -539,6 +539,7 @@ const articleCommandComposerSteps = [{ // open the chatter
     run: "click",
 }, { // open the full composer
     trigger: "button[aria-label='Full composer']",
+    run: "click",
 }, ...appendArticleLink(`${composeBody}`, 'EditorCommandsArticle'), { // wait for the block to appear in the editor
     trigger: `${composeBody} .o_knowledge_behavior_type_article:contains("EditorCommandsArticle")`,
     run: () => {},
@@ -646,6 +647,7 @@ registry.category("web_tour.tours").add('knowledge_article_commands_tour', {
     steps: () => [stepUtils.showAppsMenuItem(), {
     // open the Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+    run: "click",
 },
     // Regular commands
     ...articleCommandSteps,

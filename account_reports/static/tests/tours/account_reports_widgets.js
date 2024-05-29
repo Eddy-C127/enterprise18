@@ -22,6 +22,7 @@ registry.category("web_tour.tours").add("account_reports_widgets", {
         {
             content: "wait refresh",
             trigger: `#filter_date button:not(:contains(${ new Date().getFullYear() }))`,
+            isCheck: true,
         },
         {
             content: "change comparison filter",

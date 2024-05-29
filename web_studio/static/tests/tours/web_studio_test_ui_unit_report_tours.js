@@ -537,6 +537,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         {
             trigger:
                 ".o-web-studio-field-dynamic-placeholder .o_model_field_selector_popover_item_name:contains(Job Position)",
+            run: "click",
         },
         {
             trigger:

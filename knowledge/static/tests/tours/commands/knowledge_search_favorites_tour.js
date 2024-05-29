@@ -99,8 +99,10 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
     return [{
         content: 'Open the search panel menu',
         trigger: `.o_knowledge_embedded_view .o_control_panel:contains(${kanban1}) .o_searchview_dropdown_toggler`,
+        run: "click",
     }, {
         trigger: ".o_favorite_menu .o_add_favorite",
+        run: "click",
     }, {
         trigger: ".o_favorite_menu:contains(Favorites) input[type='text']",
         run: "edit testFilter && click .o_favorite_menu",
@@ -110,11 +112,13 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
         run: "click",
     }, {
         trigger: ".o_favorite_menu .o_save_favorite",
+        run: "click",
     },
     stepUtils.toggleHomeMenu(),
     {
         // open the Knowledge App
         trigger: ".o_app[data-menu-xmlid='knowledge.knowledge_menu_root']",
+        run: "click",
     }, {
         // check that the search item has been added
         trigger: ".o_facet_value",
@@ -160,6 +164,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         {
             // open the Knowledge App
             trigger: ".o_app[data-menu-xmlid='knowledge.knowledge_menu_root']",
+            run: "click",
         },
         {
             trigger: ".o_field_html",
@@ -179,6 +184,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         },
         {
             trigger: ".oe-powerbox-commandName:contains('Item Kanban')",
+            run: "click",
         },
         {
             trigger: ".modal-body input.form-control",
@@ -186,6 +192,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         },
         {
             trigger: "button:contains('Insert')",
+            run: "click",
         },
         // wait for kanban 1 to be inserted
         {
@@ -201,6 +208,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         },
         {
             trigger: ".oe-powerbox-commandName:contains('Item Kanban')",
+            run: "click",
         },
         {
             trigger: ".modal-body input.form-control",
@@ -208,6 +216,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         },
         {
             trigger: "button:contains('Insert')",
+            run: "click",
         },
         // wait for kanban 2 to be inserted
         {
@@ -230,13 +239,16 @@ registry.category("web_tour.tours").add("knowledge_search_favorites_tour", {
         { // wait for embedded view to load and click on rename button
             trigger: '.o_knowledge_behavior_type_embedded_view:has(.o_knowledge_embedded_view .o_control_panel:contains(Articles)) .o_control_panel_breadcrumbs_actions .dropdown-toggle',
             allowInvisible: true,
+            run: "click",
         }, {
-            trigger: '.dropdown-item:contains(Edit)'
+            trigger: '.dropdown-item:contains(Edit)',
+            run: "click",
         }, { // rename the view Kanban 1
             trigger: '.modal-dialog input.form-control',
             run: `edit Kanban 1`,
         }, { // click on rename
             trigger: "button:contains('Rename')",
+            run: "click",
         }, { // check the application of the rename
             trigger: '.o_knowledge_embedded_view .o_control_panel:contains(Kanban 1)',
             run: () => {},

@@ -327,6 +327,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         {
             in_modal: true,
             trigger: "button:contains(Confirm):not(.disabled)",
+            run: "click",
         },
         {
             // select the m2m to set its properties
@@ -966,6 +967,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         },
         {
             trigger: ".o_web_studio_leave > a.btn",
+            run: "click",
         },
         stepNotInStudio(),
     ],
@@ -1532,6 +1534,7 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
 
 const buttonToogleStudio = {
     trigger: `button[title="Toggle Studio"]`,
+    run: "click",
 };
 const addActionButtonModalSteps = (
     ActionLabel = "web_studio_new_button_action_name",

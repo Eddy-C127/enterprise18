@@ -769,6 +769,7 @@ registry.category("web_tour.tours").add("test_delivery_lot_with_multi_companies"
     {
         extra_trigger: ".o_toggle_sublines", // Should have sublines since there is two SN.
         trigger: ".o_validate_page",
+        run: "click",
     },
     { trigger: ".o_notification_bar.bg-success", isCheck: true },
 ]});
@@ -2504,6 +2505,7 @@ registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_
     {
         extra_trigger: ".o_barcode_line.o_selected .qty-done:contains(2)",
         trigger: ".o_barcode_line:not([data-barcode]) .o_line_button.o_add_quantity",
+        run: "click",
     },
     // ... and scans 3 productlot1 from 2 differents lots.
     { trigger: ".o_barcode_line.o_selected.o_line_completed", run: "scan productlot1" },
@@ -3917,7 +3919,10 @@ registry.category("web_tour.tours").add("test_scan_aggregate_barcode", {test: tr
 registry.category("web_tour.tours").add("test_scrap", {test: true, steps: () => [
     // Opens the receipt and checks we can't scrap if not done.
     { trigger: ".o_stock_barcode_main_menu", run: "scan receipt_scrap_test" },
-    { trigger: ".o_barcode_actions" },
+    {
+        trigger: ".o_barcode_actions",
+        run: "click",
+    },
     {
         trigger: ".o_barcode_settings",
         run: function() {
@@ -3929,7 +3934,10 @@ registry.category("web_tour.tours").add("test_scrap", {test: true, steps: () => 
         trigger: "button.o_close",
         run: "click",
     },
-    { trigger: ".o_barcode_lines", run: "scan OBTSCRA" },
+    {
+        trigger: ".o_barcode_lines", 
+        run: "scan OBTSCRA" 
+    },
     {
         trigger: ".o_notification:has(.o_notification_bar.bg-warning):contains('You can\\'t register scrap')",
         run: "click",

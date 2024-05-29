@@ -313,7 +313,10 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
 ]});
 
 registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: true, steps: () => [
-    { trigger: '.button_inventory' },
+    {
+        trigger: '.button_inventory',
+        run: "click",
+    },
     // Scans the package in Section 1 => Should raise a warning.
     {
         trigger: '.o_barcode_client_action',

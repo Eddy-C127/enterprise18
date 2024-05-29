@@ -61,6 +61,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             trigger: ".ui-autocomplete > li > a:contains(New Developer Template Contract)",
             auto: true,
+            run: "click",
         },
         {
             content: "Save Job",
@@ -753,7 +754,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
         },
         {
             content: 'Select Our Job',
-            trigger: 'table.o_list_table tbody td:contains("Experienced Developer")'
+            trigger: 'table.o_list_table tbody td:contains("Experienced Developer")',
+            run: "click",
         },
         {
             content: "Open Application Pipe",
@@ -763,7 +765,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
         },
         {
             content: 'Select Our Applicant',
-            trigger: 'div.o_kanban_view b.o_kanban_record_title:contains("Mitchell Admin 2")'
+            trigger: 'div.o_kanban_view b.o_kanban_record_title:contains("Mitchell Admin 2")',
+            run: "click",
         },
         {
             content: "Open Contracts",
@@ -829,6 +832,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Select Our Job",
             trigger: 'table.o_list_table tbody td:contains("Experienced Developer")',
+            run: "click",
         },
         {
             content: "Open Application Pipe",
@@ -892,6 +896,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             trigger: ".ui-autocomplete > li > a:contains(Mitchell)",
             auto: true,
+            run: "click",
         },
         {
             content: "Add Work Email",
@@ -918,6 +923,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             trigger: ".ui-autocomplete > li > a:contains('CP200: Belgian Employee')",
             auto: true,
+            run: "click",
         },
         {
             content: "Contract Reference",
@@ -938,6 +944,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin')",
             auto: true,
+            run: "click",
         },
         {
             content: "Select Signatories Tab",
@@ -952,6 +959,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             trigger: ".ui-autocomplete > li > a:contains('test_employee_contract')",
             auto: true,
+            run: "click",
         },
         {
             content: "New Contract Document Template",
@@ -986,6 +994,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             trigger: ".ui-autocomplete > li > a:contains('1-JFC-095')",
             auto: true,
+            run: "click",
         },
         {
             content: "Contract Information",
@@ -1036,6 +1045,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin PFI Contract')",
             auto: true,
+            run: "click",
         },
         {
             content: "Enable wishlist",

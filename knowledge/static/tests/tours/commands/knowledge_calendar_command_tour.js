@@ -41,6 +41,7 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), { // open the Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
+    run: "click",
 }, {
     //-----------------------------------------------
     // Insert a new item calendar view in the article
@@ -272,7 +273,8 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_control_panel_breadcrumbs_actions .dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.dropdown-item:contains(Edit)'
+    trigger: '.dropdown-item:contains(Edit)',
+    run: "click",
 }, { // Change the start property
     trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu_toggler',
     run: 'click',
@@ -297,7 +299,8 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     trigger: '.o_control_panel_breadcrumbs_actions .dropdown-toggle',
     run: 'click',
 }, {
-    trigger: '.dropdown-item:contains(Open)'
+    trigger: '.dropdown-item:contains(Open)',
+    run: "click",
 }, { // Check that the item is shown
     trigger: '.fc-view .o_event_title:contains("Item Article")',
     extra_trigger: '.o_knowledge_article_view_calendar_embedded_view.o_action',
