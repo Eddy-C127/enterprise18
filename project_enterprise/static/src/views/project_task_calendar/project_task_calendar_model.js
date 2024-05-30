@@ -22,6 +22,7 @@ export class ProjectEnterpriseTaskCalendarModel extends ProjectTaskCalendarModel
     makeContextDefaults(record) {
         const { default_planned_date_start, ...context } = super.makeContextDefaults(record);
         if (
+            ["day", "week"].includes(this.meta.scale) ||
             !deserializeDate(default_planned_date_start).hasSame(
                 deserializeDate(context["default_date_deadline"]),
                 "day"
@@ -29,6 +30,7 @@ export class ProjectEnterpriseTaskCalendarModel extends ProjectTaskCalendarModel
         ) {
             context.default_planned_date_begin = default_planned_date_start;
         }
-        return context;
+
+        return { ...context, scale: this.meta.scale };
     }
 }

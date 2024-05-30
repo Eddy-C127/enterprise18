@@ -70,18 +70,46 @@ class TestTaskFlow(common.TransactionCase):
             """,
         })
 
-        with Form(self.env["project.task"].with_context({
-            'planned_date_begin': datetime.now(),
-            'date_deadline': datetime.now() + relativedelta(days=7),
-        }), form_view) as task:
-            task.name = "Test"
-            task.user_ids = self.project_user
-            task.project_id = self.project_test
-            self.assertEqual(task.allocated_hours, 40.0, "Allocated hours should be computed according to planned dates")
-            task.date_deadline = datetime.now() + relativedelta(hours=23)
-            self.assertEqual(task.allocated_hours, 8.0, "Allocated hours should be computed when the planned dates are modified")
-            task.planned_date_begin = False
-            self.assertEqual(task.allocated_hours, 0.0, "Allocated hours should be 0 as there is no planned_date_begin")
+        data = [{
+                "scales": ["day", "week"],
+                "dates": (datetime(2023, 1, 2), datetime(2023, 1, 2, 23, 59, 59)),
+                "expected_dates": (datetime(2023, 1, 2), datetime(2023, 1, 2, 23, 59, 59)),
+                "expected_allocated_hours": 8.0,
+                "dates_message": """
+                    For day and week scale, planned_date_begin and date_deadline should be the same as the ones selected by the user,
+                    they should not be modified according to the user calendar.
+                """,
+                "allocated_hours_message": "allocated_hours should not be computed according to the dates selected by the user but to the intersection between dates and user calendar.",
+                "second_date_deadline": datetime(2023, 1, 2, 13, 0, 0),
+                "second_expected_allocated_hours": 5.0,
+            }, {
+                "scales": ["month", "year"],
+                "dates": (datetime(2023, 1, 2), datetime(2023, 1, 6, 23, 59, 59)),
+                "expected_dates": (datetime(2023, 1, 2, 7, 0), datetime(2023, 1, 6, 16, 0, 0)),
+                "expected_allocated_hours": 40.0,
+                "dates_message": "For month and year scale, planned_date_begin and date_deadline should be modified according to the user calendar.",
+                "allocated_hours_message": "allocated_hours should be computed according to the modified dates.",
+                "second_date_deadline": datetime(2023, 1, 5, 22, 0, 0),
+                "second_expected_allocated_hours": 32.0,
+            },
+        ]
+
+        for datum in data:
+            for scale in datum["scales"]:
+                with Form(self.env["project.task"].with_context({
+                    'default_planned_date_begin': datum["dates"][0],
+                    'default_date_deadline': datum["dates"][1],
+                    'scale': scale,
+                }), form_view) as task:
+                    task.name = "Test"
+                    task.user_ids = self.project_user
+                    task.project_id = self.project_test
+                    self.assertEqual(task.allocated_hours, datum["expected_allocated_hours"], datum["allocated_hours_message"])
+                    self.assertEqual((task.planned_date_begin, task.date_deadline), datum["expected_dates"], datum["dates_message"])
+                    task.date_deadline = datum["second_date_deadline"]
+                    self.assertEqual(task.allocated_hours, datum["second_expected_allocated_hours"], "Allocated hours should be computed when the planned dates are modified")
+                    task.planned_date_begin = False
+                    self.assertEqual(task.allocated_hours, 0.0, "Allocated hours should be 0 as there is no planned_date_begin")
 
     def test_planning_overlap(self):
         task_A = self.env['project.task'].create({

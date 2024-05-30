@@ -54,6 +54,9 @@ class Task(models.Model):
 
     def default_get(self, fields_list):
         result = super().default_get(fields_list)
+        if self.env.context.get('scale', False) not in ("month", "year"):
+            return result
+
         planned_date_begin = result.get('planned_date_begin', self.env.context.get('planned_date_begin', False))
         date_deadline = result.get('date_deadline', self.env.context.get('date_deadline', False))
         if planned_date_begin and date_deadline:
@@ -80,7 +83,7 @@ class Task(models.Model):
 
     @api.depends('date_deadline', 'planned_date_begin', 'user_ids')
     def _compute_allocated_hours(self):
-        # Only change values when creating a new record from the gantt view
+        # Only change values when creating a new record
         if self._origin:
             return
         if not self.date_deadline or not self.planned_date_begin:
