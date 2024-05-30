@@ -11,7 +11,11 @@ class AppointmentType(models.Model):
     product_id = fields.Many2one(
         'product.product', string="Product",
         compute="_compute_product_id",
-        domain=[('type', '=', 'service'), ('sale_ok', '=', True)],
+        domain=[
+            ('type', '=', 'service'),
+            ('sale_ok', '=', True),
+            ('service_tracking', '=', 'no'),
+        ],
         readonly=False, store=True)
 
     _sql_constraints = [

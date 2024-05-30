@@ -12,6 +12,7 @@ class ProductProduct(models.Model):
         service_products = self.filtered(lambda pp:
             pp.type == 'service'
             and pp.sale_ok
+            and pp.service_tracking == 'no'
         )
         (self - service_products).is_booking_fee = False
         if not service_products:
