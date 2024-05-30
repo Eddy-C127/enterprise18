@@ -22,7 +22,7 @@ from odoo import models, fields, api, _, osv, _lt
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
 from odoo.tools import  date_utils, get_lang, float_is_zero, float_repr, SQL
 from odoo.tools.float_utils import float_round
-from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path
+from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path, parse_version
 from odoo.tools.safe_eval import expr_eval, safe_eval
 from odoo.models import check_method_name
 from itertools import groupby
@@ -5152,7 +5152,16 @@ class AccountReport(models.Model):
         report_font = fonts[font_type]
 
         # 8.43 is the default width of a column in Excel.
-        col_width = sheet.col_sizes.get(col, [8.43])[0]
+        if parse_version(xlsxwriter.__version__) >= parse_version('3.0.6'):
+            # cols_sizes was removed in 3.0.6 and colinfo was replaced by col_info
+            # see https://github.com/jmcnamara/XlsxWriter/commit/860f4a2404549aca1eccf9bf8361df95dc574f44
+            try:
+                col_width = sheet.col_info[col][0]
+            except KeyError:
+                col_width = 8.43
+        else:
+            col_width = sheet.col_sizes.get(col, [8.43])[0]
+
         row_height = sheet.row_sizes.get(row, [8.43])[0]
 
         try:
