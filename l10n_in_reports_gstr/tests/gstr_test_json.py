@@ -5,7 +5,7 @@ gstr1_test_json = {
   'fp': TEST_DATE.strftime("%m%Y"),
   'b2b': [
     {
-      'ctin': '24BBBFF5679L8ZR',
+      'ctin': '24ABCPM8965E1ZE',
       'inv': [
         {
           'inum': 'INV/2023/00002',
@@ -31,7 +31,7 @@ gstr1_test_json = {
       ]
     },
     {
-      'ctin': '27BBBFF5679L8ZR',
+      'ctin': '27DJMPM8965E1ZE',
       'inv': [
         {
           'inum': 'INV/2023/00001',
@@ -106,7 +106,7 @@ gstr1_test_json = {
   ],
   'cdnr': [
     {
-      'ctin': '24BBBFF5679L8ZR',
+      'ctin': '24ABCPM8965E1ZE',
       'nt': [
         {
           'ntty': 'C',
@@ -133,7 +133,7 @@ gstr1_test_json = {
       ]
     },
     {
-      'ctin': '27BBBFF5679L8ZR',
+      'ctin': '27DJMPM8965E1ZE',
       'nt': [
         {
           'ntty': 'C',
@@ -255,7 +255,7 @@ gstr2b_test_json = {
       "docdata": {
         "b2b": [
           {
-            "ctin": "27BBBFF5679L8ZR",
+            "ctin": "27DJMPM8965E1ZE",
             "trdnm": "Tiny Erp Private Limited",
             "supfildt": TEST_DATE.strftime("%d-%m-%Y"),
             "supprd": TEST_DATE.strftime("%m%Y"),
@@ -621,7 +621,7 @@ gstr2b_test_json = {
             ]
           },
           {
-            "ctin": "27BBBFF5679L8ZR",
+            "ctin": "27DJMPM8965E1ZE",
             "trdnm": "Tiny Erp Private Limited",
             "supfildt": TEST_DATE.strftime("%d-%m-%Y"),
             "supprd": TEST_DATE.strftime("%m%Y"),
@@ -810,7 +810,7 @@ gstr1_debit_note_test_json = {
     "fp":  TEST_DATE.strftime("%m%Y"),
     "b2b": [
         {
-            "ctin": "24BBBFF5679L8ZR",
+            "ctin": "24ABCPM8965E1ZE",
             "inv": [
                 {
                     "inum": "INV/2023/00003",
@@ -836,7 +836,7 @@ gstr1_debit_note_test_json = {
             ],
         },
         {
-            "ctin": "27BBBFF5679L8ZR",
+            "ctin": "27DJMPM8965E1ZE",
             "inv": [
                 {
                     "inum": "INV/2023/00001",
@@ -911,7 +911,7 @@ gstr1_debit_note_test_json = {
     ],
     "cdnr": [
         {
-            "ctin": "24BBBFF5679L8ZR",
+            "ctin": "24ABCPM8965E1ZE",
             "nt": [
                 {
                     "ntty": "D",
@@ -938,7 +938,7 @@ gstr1_debit_note_test_json = {
             ],
         },
         {
-            "ctin": "27BBBFF5679L8ZR",
+            "ctin": "27DJMPM8965E1ZE",
             "nt": [
                 {
                     "ntty": "D",

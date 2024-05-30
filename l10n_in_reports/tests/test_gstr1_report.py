@@ -1,43 +1,24 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import fields
-from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 from odoo.tests import tagged
 import logging
-from odoo.tools.misc import NON_BREAKING_SPACE
+
+from odoo.addons.l10n_in_reports.tests.common import L10nInTestAccountReportsCommon
 
 
 _logger = logging.getLogger(__name__)
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestReports(TestAccountReportsCommon):
-
+class TestReports(L10nInTestAccountReportsCommon):
     @classmethod
-    @TestAccountReportsCommon.setup_country('in')
     def setUpClass(cls):
         super().setUpClass()
-        cls.maxDiff = None
-        cls.company_data["company"].write({
-            "state_id": cls.env.ref("base.state_in_gj").id,
-            "street": "street1",
-            "city": "city1",
-            "zip": "123456",
-            })
-        cls.partner_a.write({
-            "vat": "24BBBFF5679L8ZR",
-            "state_id": cls.env.ref("base.state_in_gj").id,
-            "street": "street2",
-            "city": "city2",
-            "zip": "123456",
-            "country_id": cls.env.ref("base.in").id,
-            "l10n_in_gst_treatment": "regular",
-            })
-        cls.product_a.write({"l10n_in_hsn_code": "01111"})
-        cls.invoice = cls.init_invoice(
-            "out_invoice",
-            post=True,
+
+        cls.init_invoice(
+            move_type='out_invoice',
             products=cls.product_a,
-            taxes=cls.env["account.chart.template"].ref("sgst_sale_5")
+            post=True,
         )
 
     @classmethod
