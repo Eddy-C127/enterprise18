@@ -85,5 +85,8 @@ Features:
         'web.qunit_suite_tests': [
             'helpdesk/static/tests/legacy/**/*',
         ],
+        'web.assets_tests': [
+            'helpdesk/static/tests/tours/**/*',
+        ],
     }
 }

@@ -53,7 +53,7 @@ class CustomerPortal(portal.CustomerPortal):
         if search_in == 'sale_order':
             return ['|', ('sale_order_id.name', 'ilike', search), ('sale_line_id.name', 'ilike', search)]
         else:
-            return super()._ticker_get_search_domain(search_in, search)
+            return super()._ticket_get_search_domain(search_in, search)
 
 
 class HelpdeskSaleTimesheetCustomerPortal(TimesheetCustomerPortal):

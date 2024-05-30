@@ -73,12 +73,12 @@ class CustomerPortal(portal.CustomerPortal):
         elif search_in == 'user_id':
             assignees = request.env['res.users'].sudo()._search([('name', 'ilike', search)])
             return [('user_id', 'in', assignees)]
-        elif search_in in self._ticket_get_searchbar_inputs:
+        elif search_in in self._ticket_get_searchbar_inputs():
             return [(search_in, 'ilike', search)]
         else:
             return FALSE_DOMAIN
 
-    def _prepare_my_tickets_values(self, page=1, date_begin=None, date_end=None, sortby=None, filterby='all', search=None, groupby='none', search_in='content'):
+    def _prepare_my_tickets_values(self, page=1, date_begin=None, date_end=None, sortby=None, filterby='all', search=None, groupby='none', search_in='name'):
         values = self._prepare_portal_layout_values()
         domain = self._prepare_helpdesk_tickets_domain()
 
@@ -153,7 +153,7 @@ class CustomerPortal(portal.CustomerPortal):
         return values
 
     @http.route(['/my/tickets', '/my/tickets/page/<int:page>'], type='http', auth="user", website=True)
-    def my_helpdesk_tickets(self, page=1, date_begin=None, date_end=None, sortby=None, filterby='all', search=None, groupby='none', search_in='content', **kw):
+    def my_helpdesk_tickets(self, page=1, date_begin=None, date_end=None, sortby=None, filterby='all', search=None, groupby='none', search_in='name', **kw):
         values = self._prepare_my_tickets_values(page, date_begin, date_end, sortby, filterby, search, groupby, search_in)
         return request.render("helpdesk.portal_helpdesk_ticket", values)
 
