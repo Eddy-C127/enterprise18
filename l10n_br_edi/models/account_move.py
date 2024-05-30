@@ -4,7 +4,6 @@ import json
 from odoo import models, fields, api, _
 from odoo.addons.iap import InsufficientCreditError
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import street_split
 
 FREIGHT_MODEL_SELECTION = [
     ("CIF", "Freight contracting on behalf of the Sender (CIF)"),
@@ -382,9 +381,7 @@ class AccountMove(models.Model):
             errors.append(str(e).replace("- ", ""))
 
         customer = self.partner_id
-        customer_street_data = street_split(customer.street)
         company_partner = self.company_id.partner_id
-        company_street_data = street_split(company_partner.street)
 
         transporter = self.l10n_br_edi_transporter_id
         is_invoice = self.move_type == "out_invoice"
@@ -392,8 +389,6 @@ class AccountMove(models.Model):
             transporter = self.company_id.partner_id if is_invoice else customer
         elif self.l10n_br_edi_freight_model == "ReceiverVehicle":
             transporter = customer if is_invoice else self.company_id.partner_id
-
-        transporter_street_data = street_split(transporter.street)
 
         errors.extend(self._l10n_br_edi_check_calculated_tax())
         errors.extend(self._l10n_br_edi_validate_partner(customer))
@@ -419,11 +414,12 @@ class AccountMove(models.Model):
                         "stateTaxId": customer.l10n_br_ie_code,
                         "address": {
                             "neighborhood": customer.street2,
-                            "street": customer_street_data["street_name"],
+                            "street": customer.street_name,
                             "zipcode": customer.zip,
                             "cityName": customer.city,
                             "state": customer.state_id.name,
-                            "number": customer_street_data["street_number"],
+                            "number": customer.street_number,
+                            "complement": customer.street_number2,
                             "phone": customer.phone,
                             "email": customer.email,
                         },
@@ -436,10 +432,12 @@ class AccountMove(models.Model):
                         "stateTaxId": company_partner.l10n_br_ie_code,
                         "address": {
                             "neighborhood": company_partner.street2,
+                            "street": company_partner.street_name,
                             "cityName": company_partner.city,
                             "state": company_partner.state_id.name,
                             "countryCode": company_partner.country_id.l10n_br_edi_code,
-                            "number": company_street_data["street_number"],
+                            "number": company_partner.street_number,
+                            "complement": company_partner.street_number2,
                         },
                     },
                     "transporter": {
@@ -451,12 +449,13 @@ class AccountMove(models.Model):
                         "stateTaxId": transporter.l10n_br_ie_code,
                         "suframa": transporter.l10n_br_isuf_code,
                         "address": {
-                            "street": transporter_street_data["street_name"],
                             "neighborhood": transporter.street2,
+                            "street": transporter.street_name,
                             "zipcode": transporter.zip,
                             "state": transporter.state_id.name,
                             "countryCode": transporter.country_id.l10n_br_edi_code,
-                            "number": transporter_street_data["street_number"],
+                            "number": transporter.street_number,
+                            "complement": transporter.street_number2,
                         },
                     },
                 },

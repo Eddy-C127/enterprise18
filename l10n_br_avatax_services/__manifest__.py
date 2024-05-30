@@ -3,7 +3,7 @@
     "name": "Avatax Brazil for Services",
     "version": "1.0",
     "category": "Accounting/Accounting",
-    "depends": ["l10n_br_avatax", "base_address_extended"],
+    "depends": ["l10n_br_avatax"],
     "data": [
         "security/ir_rule.xml",
         "data/ir.model.access.csv",
@@ -20,5 +20,5 @@
         "demo/product_product_demo.xml",
     ],
     "license": "OEEL-1",
-    "auto_install": ["l10n_br_avatax"],
+    "auto_install": True,
 }
