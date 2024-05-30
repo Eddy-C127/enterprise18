@@ -170,10 +170,11 @@ hrContractSalary.include({
         }
     },
 
-    onchangeChildren(event) {
+    onchangeChildren() {
         const disabledChildren = $("input[name='disabled_children_bool']");
         const disabledChildrenNumber = $("input[name='disabled_children_number']");
-        const childCount = parseInt(event && event.currentTarget && event.currentTarget.value);
+        const childrenInput = $("input[name='children']", this.el)
+        const childCount = parseInt(childrenInput.length > 0 && childrenInput.val());
 
         if (isNaN(childCount) || childCount === 0) {
             disabledChildrenNumber.val(0);
