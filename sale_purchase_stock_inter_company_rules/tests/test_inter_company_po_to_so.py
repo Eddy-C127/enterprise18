@@ -338,3 +338,90 @@ class TestInterCompanyPurchaseToSaleWithStock(TestInterCompanyRulesCommonStock):
             original_custom_attribute.custom_product_template_attribute_value_id,
             copied_custom_attribute.custom_product_template_attribute_value_id,
         )
+
+    def test_07_inter_company_serial_across_companies(self):
+        """ Checks that on a inter-company transfer, the right quants are created/updated in the right locations.
+            Follows the trail of a serial-tracked product along the following flow:
+            Vendor -> Company A -> Company B -> Customer
+        """
+        (self.company_a | self.company_b).write({
+            'intercompany_generate_sales_orders': True,
+            'intercompany_generate_purchase_orders': True,
+            'intercompany_sync_delivery_receipt': True,
+            'intercompany_document_state': 'posted',
+        })
+        vendor, customer = self.env['res.partner'].create([{
+            'name': name,
+        } for name in ['Vendor', 'Customer']])
+        # Use MTO route to avoid having to deal with manual replenishments
+        mto_route = self.env.ref('stock.route_warehouse0_mto')
+        mto_route.active = True
+        mto_route.rule_ids.procure_method = 'make_to_order'
+        buy_route = self.env.ref('purchase_stock.route_warehouse0_buy')
+
+        product = self.env['product.product'].create({
+            'is_storable': True,
+            'tracking': 'serial',
+            'name': 'Cross Serial',
+            'company_id': False,
+            'seller_ids': [
+                Command.create({'partner_id': vendor.id, 'company_id': self.company_a.id}),
+                Command.create({'partner_id': self.company_a.partner_id.id, 'company_id': self.company_b.id}),
+            ],
+            'route_ids': [
+                Command.link(mto_route.id),
+                Command.link(buy_route.id),
+            ]
+        })
+
+        # Create a sale order from Company B to the customer
+        with Form(self.env['sale.order'].with_company(self.company_b)) as sale_form:
+            sale_form.partner_id = customer
+            with sale_form.order_line.new() as line:
+                line.product_id = product
+                line.product_uom_qty = 1
+            sale_to_customer = sale_form.save()
+        sale_to_customer.with_company(self.company_b).action_confirm()
+        self.assertEqual(sale_to_customer.purchase_order_count, 1)
+        purchase_from_a = sale_to_customer._get_purchase_orders()
+        self.assertEqual(purchase_from_a.partner_id, self.company_a.partner_id)
+        purchase_from_a.with_company(self.company_b).button_confirm()
+
+        # Company A side.
+        sale_to_b = self.env['sale.order'].with_company(self.company_a).search([('client_order_ref', '=', purchase_from_a.name)], limit=1)
+        self.assertEqual(sale_to_b.state, 'sale')
+        self.assertEqual(sale_to_b.purchase_order_count, 1)
+        purchase_from_vendor = sale_to_b._get_purchase_orders()
+        purchase_from_vendor.button_confirm()
+        receipt_from_vendor = purchase_from_vendor.picking_ids
+
+        # Receive lot from vendor
+        lot = self.env['stock.lot'].create({'name': 'lot', 'product_id': product.id})
+        with Form(receipt_from_vendor) as receipt_form:
+            with receipt_form.move_ids_without_package.edit(0) as move_form:
+                move_form.lot_ids = lot
+                move_form.quantity = 1
+                move_form.picked = True
+            receipt_from_vendor = receipt_form.save()
+        receipt_from_vendor.button_validate()
+
+        # Transfer lot to Company B
+        interco_location = self.env.ref('stock.stock_location_inter_company')
+        self.assertEqual(sale_to_b.picking_ids.state, 'assigned')
+        self.assertEqual(sale_to_b.picking_ids.move_ids.lot_ids, lot)
+        self.assertEqual(sale_to_b.picking_ids.location_dest_id, interco_location)
+        sale_to_b.picking_ids.button_validate()
+
+        # Receive lot from Company A
+        self.assertEqual(purchase_from_a.picking_ids.move_ids.lot_ids, lot)
+        self.assertEqual(purchase_from_a.picking_ids.location_id, interco_location)
+        purchase_from_a.picking_ids.with_company(self.company_b).button_validate()
+
+        # Send lot to Customer
+        self.assertEqual(sale_to_customer.picking_ids.state, 'assigned')
+        self.assertEqual(sale_to_customer.picking_ids.move_ids.lot_ids, lot)
+        sale_to_customer.picking_ids.with_company(self.company_b).button_validate()
+
+        customer_location = self.env.ref('stock.stock_location_customers')
+        self.assertEqual(self.env['stock.quant']._get_available_quantity(product, interco_location, lot), 0)
+        self.assertEqual(self.env['stock.quant']._get_available_quantity(product, customer_location, lot), 1)
