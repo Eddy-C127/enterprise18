@@ -94,6 +94,7 @@
                         <div class="o_row">
                             <field name="date_start" class="oe_inline o_hr_narrow_field" readonly="state != 'draft'"/> - <field name="date_end" class="oe_inline o_hr_narrow_field" readonly="state != 'draft'"/>
                         </div>
+                        <field name="payment_report_filename" invisible="1"/>
                         <field name="payment_report" filename="payment_report_filename" invisible="not payment_report"/>
                     </group>
                     <group>
