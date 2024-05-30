@@ -16,6 +16,7 @@ QUnit.test("deferred updates", async (assert) => {
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    store.deferUpdates(true);
     assert.strictEqual(store.isDirty, false);
     store.update({ columns: [{ name: "bar" }] });
     assert.strictEqual(store.isDirty, true);
@@ -41,6 +42,7 @@ QUnit.test("uncheck the defer updates checkbox applies the update", async (asser
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    store.deferUpdates(true);
     assert.strictEqual(store.isDirty, false);
     store.update({ columns: [{ name: "bar" }] });
     store.deferUpdates(false);
@@ -59,6 +61,7 @@ QUnit.test("remove row then add col", async (assert) => {
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    store.deferUpdates(true);
     store.update({ rows: [] });
     store.update({ columns: [{ name: "bar" }] });
     assert.deepEqual(store.definition.rows, []);
@@ -137,6 +140,7 @@ QUnit.test("fields already used are filtered", async (assert) => {
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    store.deferUpdates(true);
     assert.strictEqual(store.unusedGroupableFields.length, 1);
     assert.strictEqual(store.unusedGroupableFields[0].name, "baz");
     store.update({ columns: [{ name: "bar" }, { name: "baz" }] });
@@ -162,6 +166,7 @@ QUnit.test("can reuse date fields until all granularities are used", async (asse
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    store.deferUpdates(true);
     assert.strictEqual(store.unusedGroupableFields.length, 1);
     assert.deepEqual(
         store.unusedGroupableFields.map((m) => m.name),
@@ -206,6 +211,7 @@ QUnit.test("add default datetime granularity", async (assert) => {
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    store.deferUpdates(true);
 
     store.update({ columns: [{ name: "create_date" }] });
     assert.strictEqual(store.definition.columns[0].granularity, "year");
@@ -331,6 +337,7 @@ QUnit.test("Existing measure and dimensions fields are filtered", async (assert)
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
+    store.deferUpdates(true);
     assert.strictEqual(store.unusedMeasureFields.length, 2);
     const measures = ["foo", "probability"];
     assert.deepEqual(

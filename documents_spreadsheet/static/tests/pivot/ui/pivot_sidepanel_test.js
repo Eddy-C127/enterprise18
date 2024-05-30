@@ -149,6 +149,7 @@ QUnit.module(
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
             const fixture = getFixture();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".o_edit_domain"));
             await dsHelpers.addNewRule(fixture);
             await click(fixture.querySelector(".modal-footer .btn-primary"));
@@ -295,6 +296,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.containsNone(
                 fixture,
                 "pivot-defer-update",
@@ -358,7 +360,6 @@ QUnit.module(
                 const fixture = getFixture();
                 env.openSidePanel("PivotSidePanel", { pivotId });
                 await nextTick();
-                await click(fixture, ".pivot-defer-update input[type='checkbox']");
                 await dragAndDrop(
                     ".pivot-dimensions div:nth-child(2)",
                     ".pivot-dimensions div:nth-child(4)",
@@ -396,6 +397,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".pivot-dimensions .fa-times"));
             await nextTick();
             await click(fixture, ".pivot-defer-update .btn-link");
@@ -424,6 +426,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".pivot-dimensions .fa-times"));
             await nextTick();
             await click(fixture, ".pivot-defer-update .btn-link");
@@ -648,6 +651,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".add-dimension.btn"));
             await editInput(fixture, ".o-popover input", "foo");
             await triggerEvent(fixture, ".o-popover input", "keydown", {
@@ -685,6 +689,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             const allDiv = fixture.querySelectorAll(".pivot-dimensions .fa-times");
             await click(allDiv[allDiv.length - 1]);
             await nextTick();
@@ -745,6 +750,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.strictEqual(fixture.querySelector(".pivot-measure select").value, "avg");
             await editSelect(fixture, ".pivot-measure select", "min");
             assert.strictEqual(
@@ -814,6 +820,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.strictEqual(fixture.querySelector(".pivot-dimensions select").value, "");
             await editSelect(fixture.querySelector(".pivot-dimensions select"), null, "desc");
             assert.strictEqual(fixture.querySelector(".pivot-dimensions select").value, "desc");
@@ -847,6 +854,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.strictEqual(
                 fixture.querySelectorAll(".pivot-dimensions select")[0].value,
                 "day"
