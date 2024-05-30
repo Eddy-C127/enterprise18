@@ -49,6 +49,7 @@ import { user } from "@web/core/user";
 import { Deferred } from "@web/core/utils/concurrency";
 import { session } from "@web/session";
 import { ListRenderer } from "@web/views/list/list_renderer";
+import { mockActionService } from "../helpers/spreadsheet_test_utils";
 
 defineDocumentSpreadsheetModels();
 defineDocumentSpreadsheetTestAction();
@@ -612,6 +613,33 @@ test("'See records' loads a specific action if set in the list definition", asyn
     const root = cellMenuRegistry.getAll().find((item) => item.id === "list_see_record");
     await root.execute(env);
     expect.verifySteps(["partner", "2"]);
+});
+
+test("Context is passed correctly to the action service", async function () {
+    const serverData = getBasicServerData();
+    const actionXmlId = "spreadsheet.partner_action";
+    serverData.views["partner,false,search"] = /* xml */ `
+        <search>
+            <filter string="Filter" name="filter" context="{'search_default_filter': 1}" />
+        </search>
+    `;
+
+    const { model, env } = await createSpreadsheetFromListView({
+        serverData,
+        actionXmlId,
+        additionalContext: { search_default_filter: 1 },
+    });
+
+    mockActionService((action) => {
+        expect.step("loadAction");
+        expect(action.context).toEqual({ search_default_filter: 1 });
+    });
+
+    selectCell(model, "A2");
+    await animationFrame();
+    const root = cellMenuRegistry.getAll().find((item) => item.id === "list_see_record");
+    await root.execute(env);
+    expect.verifySteps(["loadAction"]);
 });
 
 test("Update the list title from the side panel", async function () {

@@ -49,7 +49,9 @@ patch(PivotRenderer.prototype, {
             }
         }
         const { actionId } = this.env.config;
-        const { xml_id } = actionId ? await this.actionService.loadAction(actionId) : {};
+        const { xml_id } = actionId
+            ? await this.actionService.loadAction(actionId, this.env.searchModel.context)
+            : {};
 
         const actionOptions = {
             preProcessingAsyncAction: "insertPivot",

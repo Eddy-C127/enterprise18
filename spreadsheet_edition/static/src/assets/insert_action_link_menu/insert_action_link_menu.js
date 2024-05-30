@@ -26,7 +26,7 @@ export class InsertViewSpreadsheet extends Component {
     //-------------------------------------------------------------------------
 
     async linkInSpreadsheet() {
-        const actionToLink =  await this.getViewDescription();
+        const actionToLink = await this.getViewDescription();
         // do action with action link
         const actionOptions = {
             preProcessingAction: "insertLink",
@@ -43,7 +43,9 @@ export class InsertViewSpreadsheet extends Component {
     async getViewDescription() {
         const { resModel } = this.env.searchModel;
         const { views = [], actionId, viewType } = this.env.config;
-        const { xml_id } = actionId ? await this.actionService.loadAction(actionId) : {};
+        const { xml_id } = actionId
+            ? await this.actionService.loadAction(actionId, this.env.searchModel.context)
+            : {};
         const { context } = this.env.searchModel.getIrFilterValues();
         const action = {
             xmlId: xml_id,

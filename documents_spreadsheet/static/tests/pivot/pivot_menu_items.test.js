@@ -31,6 +31,7 @@ import {
 import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";
 import { contains } from "@web/../tests/web_test_helpers";
 import { user } from "@web/core/user";
+import { mockActionService } from "../helpers/spreadsheet_test_utils";
 const { cellMenuRegistry, topbarMenuRegistry } = registries;
 const { toCartesian, toZone } = helpers;
 
@@ -425,6 +426,33 @@ test("'See records' loads a specific action if set in the pivot definition", asy
     const root = cellMenuRegistry.getAll().find((item) => item.id === "pivot_see_records");
     await root.execute(env);
     expect.verifySteps(["partner", `[["foo","=",2],["bar","=",false]]`]);
+});
+
+test("Context is passed correctly to the action service", async function () {
+    const serverData = getBasicServerData();
+    const actionXmlId = "spreadsheet.partner_action";
+
+    serverData.views["partner,false,search"] = /* xml */ `
+        <search>
+            <filter string="Filter" name="filter" context="{'search_default_filter': 1}" />
+        </search>
+    `;
+    const { env, model } = await createSpreadsheetFromPivotView({
+        serverData,
+        additionalContext: { search_default_filter: 1 },
+        actionXmlId,
+    });
+
+    mockActionService((action) => {
+        expect.step("loadAction");
+        expect(action.context).toEqual({ search_default_filter: 1 });
+    });
+
+    selectCell(model, "C2");
+    await animationFrame();
+    const root = cellMenuRegistry.getAll().find((item) => item.id === "pivot_see_records");
+    await root.execute(env);
+    expect.verifySteps(["loadAction"]);
 });
 
 test("Pivot cells are highlighted when hovering their menu item", async function () {
