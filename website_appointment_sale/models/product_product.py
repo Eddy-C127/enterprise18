@@ -9,7 +9,10 @@ class ProductProduct(models.Model):
     is_booking_fee = fields.Boolean(compute='_compute_is_booking_fee', compute_sudo=True)
 
     def _compute_is_booking_fee(self):
-        service_products = self.filtered(lambda pp: pp.type == 'service')
+        service_products = self.filtered(lambda pp:
+            pp.type == 'service'
+            and pp.sale_ok
+        )
         (self - service_products).is_booking_fee = False
         if not service_products:
             return
