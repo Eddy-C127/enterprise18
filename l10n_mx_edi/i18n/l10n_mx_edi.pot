@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~17.1+e\n"
+"Project-Id-Version: Odoo Server 17.3alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 10:51+0000\n"
-"PO-Revision-Date: 2024-03-01 10:51+0000\n"
+"POT-Creation-Date: 2024-05-29 14:49+0000\n"
+"PO-Revision-Date: 2024-05-29 14:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,11 +42,6 @@ msgid ""
 "This option applies when a transaction was invoiced that does not materialize.\n"
 "04 - Nominative operation related to the global invoice.\n"
 "This option applies when a sale was included in the global invoice of operations with the general public, but should actually be excluded since the partner has requested a CFDI to be issued in their name.\n"
-msgstr ""
-
-#. module: l10n_mx_edi
-#: model_terms:ir.ui.view,arch_db:l10n_mx_edi.report_invoice_document
-msgid "01010101"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -301,7 +296,6 @@ msgid "Arrendamiento"
 msgstr ""
 
 #. module: l10n_mx_edi
-#: model:ir.model,name:l10n_mx_edi.model_ir_attachment
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_l10n_mx_edi_document__attachment_id
 msgid "Attachment"
 msgstr ""
@@ -419,6 +413,17 @@ msgid "Cancel In Error"
 msgstr ""
 
 #. module: l10n_mx_edi
+#: model:ir.model.fields.selection,name:l10n_mx_edi.selection__account_move__l10n_mx_edi_cfdi_state__cancel_requested
+#: model:ir.model.fields.selection,name:l10n_mx_edi.selection__l10n_mx_edi_document__state__invoice_cancel_requested
+msgid "Cancel Requested"
+msgstr ""
+
+#. module: l10n_mx_edi
+#: model:ir.model.fields.selection,name:l10n_mx_edi.selection__l10n_mx_edi_document__state__invoice_cancel_requested_failed
+msgid "Cancel Requested In Error"
+msgstr ""
+
+#. module: l10n_mx_edi
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_bank_statement_line__l10n_mx_edi_invoice_cancellation_reason
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_move__l10n_mx_edi_invoice_cancellation_reason
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_account_payment__l10n_mx_edi_invoice_cancellation_reason
@@ -440,8 +445,6 @@ msgstr ""
 
 #. module: l10n_mx_edi
 #. odoo-python
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 msgid "Cancelling got an error"
 msgstr ""
@@ -496,11 +499,6 @@ msgstr ""
 
 #. module: l10n_mx_edi
 #. odoo-python
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 msgid "Code : %s"
 msgstr ""
@@ -574,13 +572,20 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
-msgid "Could not retrieve the %s tax with rate %s%%."
+msgid "Could not retrieve the %(tax_type)s tax with rate %(rate)s%%."
 msgstr ""
 
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
-msgid "Could not retrieve the %s withholding tax with rate %s%%."
+msgid ""
+"Could not retrieve the %(tax_type)s withholding tax with rate %(rate)s%%."
+msgstr ""
+
+#. module: l10n_mx_edi
+#. odoo-python
+#: code:addons/l10n_mx_edi/models/account_move.py:0
+msgid "Could not retrieve the tax with rate %s%%."
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -719,11 +724,8 @@ msgid "Download"
 msgstr ""
 
 #. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-msgid ""
-"Duplicate fiscal folio detected. You probably encoded the same document "
-"twice."
+#: model:ir.model,name:l10n_mx_edi.model_mail_compose_message
+msgid "Email composition wizard"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -758,6 +760,12 @@ msgstr ""
 #. module: l10n_mx_edi
 #: model:ir.model.fields,field_description:l10n_mx_edi.field_l10n_mx_edi_certificate__date_end
 msgid "Expiration date"
+msgstr ""
+
+#. module: l10n_mx_edi
+#. odoo-python
+#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
+msgid "Extra Info : %s"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1004,6 +1012,11 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: l10n_mx_edi
+#: model:ir.model,name:l10n_mx_edi.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: l10n_mx_edi
 #: model:ir.model.fields,help:l10n_mx_edi.field_account_bank_statement_line__l10n_mx_edi_post_time
 #: model:ir.model.fields,help:l10n_mx_edi.field_account_move__l10n_mx_edi_post_time
 #: model:ir.model.fields,help:l10n_mx_edi.field_account_payment__l10n_mx_edi_post_time
@@ -1116,11 +1129,6 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 msgid "Message : %s"
 msgstr ""
 
@@ -1227,19 +1235,13 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
-msgid "On %s: %s"
+msgid "On %(invoices)s: %(error)s"
 msgstr ""
 
 #. module: l10n_mx_edi
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__res_company__l10n_mx_edi_fiscal_regime__623
 #: model:ir.model.fields.selection,name:l10n_mx_edi.selection__res_partner__l10n_mx_edi_fiscal_regime__623
 msgid "Opcional para Grupos de Sociedades"
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-python
-#: code:addons/l10n_mx_edi/models/account_move.py:0
-msgid "Open list"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1658,7 +1660,6 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/account_move.py:0
-#, python-format
 msgid "Tax ID %s can not be imported"
 msgstr ""
 
@@ -1671,12 +1672,6 @@ msgstr ""
 #. module: l10n_mx_edi
 #: model_terms:ir.ui.view,arch_db:l10n_mx_edi.res_config_settings_view_form
 msgid "Testing"
-msgstr ""
-
-#. module: l10n_mx_edi
-#. odoo-javascript
-#: code:addons/l10n_mx_edi/static/src/components/document_state/document_state_field.js:0
-msgid "Text copied"
 msgstr ""
 
 #. module: l10n_mx_edi
@@ -1735,14 +1730,12 @@ msgstr ""
 #. module: l10n_mx_edi
 #. odoo-python
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 msgid ""
 "The Solucion Factible service failed to cancel with the following error: %s"
 msgstr ""
 
 #. module: l10n_mx_edi
 #. odoo-python
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 msgid ""
 "The Solucion Factible service failed to sign with the following error: %s"
@@ -1853,8 +1846,6 @@ msgstr ""
 
 #. module: l10n_mx_edi
 #. odoo-python
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
-#: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 #: code:addons/l10n_mx_edi/models/l10n_mx_edi_document.py:0
 msgid "The username and/or password are missing."
 msgstr ""
