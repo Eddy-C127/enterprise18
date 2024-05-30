@@ -38,7 +38,7 @@ class SodaImportWizard(models.TransientModel):
             )
             wizard.soda_account_mapping_ids = [Command.set(soda_account_mappings.ids)]
 
-    def _action_save_and_import(self):
+    def _action_save_and_import(self, existing_move=None):
         # We find all mapping lines where there's no account set
         soda_account_mapping = {}
         for mapping in self.soda_account_mapping_ids:
@@ -50,21 +50,15 @@ class SodaImportWizard(models.TransientModel):
         suspense_account = self.journal_id.company_id.account_journal_suspense_account_id
         non_mapped_soda_accounts = set()
         moves = self.env['account.move']
+        line_ids = []
         for ref, soda_file in self.soda_files.items():
-            # We create a move for every SODA file containing the entries according to the mapping
-            move_vals = {
-                'move_type': 'entry',
-                'journal_id': self.journal_id.id,
-                'ref': ref,
-                'line_ids': [],
-                'date': soda_file['date'],
-            }
+            # Every SODA file is linked to a move containing the entries according to the mapping
             for entry in soda_file['entries']:
                 account_id = soda_account_mapping[entry['code']]['account_id']
                 if not account_id:
                     account_id = suspense_account.id
                     non_mapped_soda_accounts.add((entry['code'], entry['name']))
-                move_vals['line_ids'].append(
+                line_ids.append(
                     Command.create({
                         'name': entry['name'] or soda_account_mapping[entry['code']]['name'],
                         'account_id': account_id,
@@ -72,9 +66,26 @@ class SodaImportWizard(models.TransientModel):
                         'credit': entry['credit'],
                     })
                 )
-            move = self.env['account.move'].create(move_vals)
-            attachment = self.env['ir.attachment'].browse(soda_file['attachment_id'])
-            move.message_post(attachment_ids=[attachment.id])
+            if not existing_move:
+                move_vals = {
+                    'move_type': 'entry',
+                    'journal_id': self.journal_id.id,
+                }
+                move = self.env['account.move'].create(move_vals)
+                attachment = self.env['ir.attachment'].browse(soda_file['attachment_id'])
+                move.with_context(no_new_invoice=True).message_post(attachment_ids=[attachment.id])
+                attachment.write({'res_model': 'account.move', 'res_id': move.id})
+            else:
+                move = existing_move
+                # Avoid updating the same move multiple times. Should not happen as existing_move is set when
+                # importing from email alias where _action_save_and_import method is called once per soda file.
+                existing_move = None
+
+            move.with_context(tracking_disable=True).write({
+                'ref': ref,
+                'date': soda_file['date'],
+                'line_ids': line_ids,
+            })
             if non_mapped_soda_accounts:
                 move.message_post(
                     body=Markup("{first}<ul>{accounts}</ul>{second}<br/>{link}").format(
@@ -88,7 +99,6 @@ class SodaImportWizard(models.TransientModel):
                         ),
                     )
                 )
-            attachment.write({'res_model': 'account.move', 'res_id': move.id})
             moves += move
         return moves
 

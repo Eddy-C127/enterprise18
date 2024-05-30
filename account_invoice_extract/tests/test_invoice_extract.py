@@ -684,6 +684,23 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
         self.assertEqual(invoice.extract_state, 'waiting_extraction')
         self.assertEqual(invoice.extract_document_uuid, 'some_token')
 
+    def test_not_automatic_sending_entry_main_attachment(self):
+        # test that an entry is not automatically sent to the OCR server when a main attachment is registered and the option is enabled
+        self.env.company.extract_in_invoice_digitalization_mode = 'auto_send'
+        invoice = self.env['account.move'].create({'move_type': 'entry', 'extract_state': 'no_extract_requested'})
+        test_attachment = self.env['ir.attachment'].create({
+            'name': "an attachment",
+            'datas': base64.b64encode(b'My attachment'),
+            'res_model': 'account.move',
+            'res_id': invoice.id,
+        })
+
+        with self._mock_iap_extract(extract_response=self.parse_success_response()):
+            test_attachment.register_as_main_attachment()
+
+        self.assertEqual(invoice.extract_state, 'no_extract_requested')
+        self.assertFalse(invoice.extract_document_uuid)
+
     def test_automatic_sending_multiple_vendor_bill_message_post(self):
         # test that when multiple pdf attachments are posted and the option is enabled each one is split
         # into a separate move

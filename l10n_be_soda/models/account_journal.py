@@ -34,7 +34,7 @@ class AccountJournal(models.Model):
         except etree.XMLSyntaxError:
             return False
 
-    def _l10n_be_parse_soda_file(self, attachments, skip_wizard=False):
+    def _l10n_be_parse_soda_file(self, attachments, skip_wizard=False, move=None):
         self.ensure_one()
         # We keep a dict mapping the SODA reference to a dict with a list of `entries` and an `attachment_id`
         # {
@@ -102,7 +102,7 @@ class AccountJournal(models.Model):
             'journal_id': self.id,
         })
         if skip_wizard:
-            return wizard._action_save_and_import()
+            return wizard._action_save_and_import(existing_move=move)
         return {
             'name': _('SODA Import'),
             'type': 'ir.actions.act_window',
