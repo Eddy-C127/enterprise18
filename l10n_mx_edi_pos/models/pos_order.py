@@ -3,7 +3,7 @@ from collections import defaultdict
 from dateutil import tz
 
 from odoo import _, api, models, fields, Command
-from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION, USAGE_SELECTION
+from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION, CFDI_DATE_FORMAT, USAGE_SELECTION
 from odoo.exceptions import UserError, ValidationError
 
 
@@ -420,7 +420,7 @@ class PosOrder(models.Model):
         cfdi_values['fecha'] = self.date_order \
             .replace(tzinfo=tz.gettz('UTC')) \
             .astimezone(tz=mx_timezone) \
-            .strftime('%Y-%m-%dT%H:%M:%S')
+            .strftime(CFDI_DATE_FORMAT)
 
         # Currency.
         if self.currency_id.name == 'MXN':

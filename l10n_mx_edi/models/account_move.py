@@ -12,16 +12,17 @@ from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import (
     CANCELLATION_REASON_SELECTION,
     CANCELLATION_REASON_DESCRIPTION,
     CFDI_CODE_TO_TAX_TYPE,
+    CFDI_DATE_FORMAT,
     USAGE_SELECTION,
 )
 from odoo.exceptions import ValidationError, UserError
-from odoo.osv import expression
 from odoo.tools import frozendict
 from odoo.tools.float_utils import float_round
 from odoo.tools.sql import column_exists, create_column
 from odoo.addons.base.models.ir_qweb import keep_query
 
 _logger = logging.getLogger(__name__)
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -1006,7 +1007,7 @@ class AccountMove(models.Model):
 
         # Date.
         if self.invoice_date >= fields.Date.context_today(self) and self.invoice_date == self.l10n_mx_edi_post_time.date():
-            cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime('%Y-%m-%dT%H:%M:%S')
+            cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime(CFDI_DATE_FORMAT)
         else:
             cfdi_time = datetime.strptime('23:59:00', '%H:%M:%S').time()
             cfdi_values['fecha'] = datetime\
@@ -1014,7 +1015,7 @@ class AccountMove(models.Model):
                     fields.Datetime.from_string(self.invoice_date),
                     cfdi_time,
                 )\
-                .strftime('%Y-%m-%dT%H:%M:%S')
+                .strftime(CFDI_DATE_FORMAT)
 
         # Payment terms.
         cfdi_values['metodo_pago'] = self.l10n_mx_edi_payment_policy
@@ -1060,6 +1061,8 @@ class AccountMove(models.Model):
         cfdi_date = datetime.combine(fields.Datetime.from_string(self.date), datetime.strptime('12:00:00', '%H:%M:%S').time())
         cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime('%Y-%m-%dT%H:%M:%S')
         cfdi_values['fecha_pago'] = cfdi_date.strftime('%Y-%m-%dT%H:%M:%S')
+        # cfdi_values['fecha'] = datetime.now(mexico_tz).strftime(CFDI_DATE_FORMAT)
+        # cfdi_values['fecha_pago'] = cfdi_date.strftime(CFDI_DATE_FORMAT)
 
         # Misc.
         cfdi_values['exportacion'] = '01'
