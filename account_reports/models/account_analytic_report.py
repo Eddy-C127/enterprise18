@@ -179,10 +179,6 @@ class AccountReport(models.AbstractModel):
 
         # We add the domain filter for analytic_distribution here, as the search is not available
         table_references, search_condition = super(AccountReport, context_self)._get_sql_table_expression(options, date_scope, domain)
-        if options.get('analytic_accounts') and not any(
-                x in options.get('analytic_accounts_list', []) for x in options['analytic_accounts']):
-            analytic_account_ids = [[str(account_id) for account_id in options['analytic_accounts']]]
-            search_condition = SQL('%s AND "account_move_line".analytic_distribution ?| array[%s]', search_condition, analytic_account_ids)
         if options.get('analytic_accounts'):
             if 'analytic_accounts_list' in options:
                 # the table will be `analytic_temp_account_move_line` and thus analytic_distribution will be a single ID
