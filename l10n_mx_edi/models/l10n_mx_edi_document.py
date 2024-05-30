@@ -976,7 +976,7 @@ class L10nMxEdiDocument(models.Model):
             if is_refund_gi:
                 product_unspsc_code = '84111506'
                 uom_unspsc_code = 'ACT'
-                description = "Devolución de mercancias"
+                description = "Devoluciones, descuentos o bonificaciones"
             else:
                 product_unspsc_code = line.get('product_unspsc_code') or product.unspsc_code_id.code
                 uom_unspsc_code = line.get('uom_unspsc_code') or uom.unspsc_code_id.code
