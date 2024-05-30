@@ -118,6 +118,9 @@ class WebsiteGeneratorRequest(models.Model):
         data = {
             'uuid': self.uuid,
             'dbuuid': ICP.get_param('database.uuid'),
+            # This is called by a CRON, we are not in a website context,
+            # this will always shortcut to ICP, so we can at least have a domain to go back to.
+            'db_url': self.get_base_url(),
         }
         ws_endpoint = ICP.get_param('website_scraper_endpoint', DEFAULT_WSS_ENDPOINT)
         url = urljoin(ws_endpoint, f'/website_scraper/{self.version}/get_result')
