@@ -26,7 +26,9 @@ export class AccountReportFilters extends Component {
         this.companyService = useService("company");
         this.controller = useState(this.env.controller);
         this.dirtyFilter = useState({ value: false });
-        this.dateFilter = useState(this.initDateFilters());
+        if (this.env.controller.options.date) {
+            this.dateFilter = useState(this.initDateFilters());
+        }
     }
 
     focusInnerInput(index, items) {
