@@ -5,9 +5,14 @@
     }
 }
 
+.note-editable.odoo-editor-editable, .o_readonly {
+    & > .o_knowledge_behavior_type_embedded_view {
+        margin-left: calc(-1 * var(--editor-gutter-size));
+        margin-right: calc(-1 * var(--editor-gutter-size) - 2rem);
+    }
+
+}
 .o_knowledge_behavior_type_embedded_view {
-    margin-left: calc(-1 * var(--editor-gutter-size));
-    margin-right: calc(-1 * var(--editor-gutter-size) - 2rem);
     position: relative;
     background-color: $o-webclient-background-color;
 
