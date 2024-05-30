@@ -10,7 +10,7 @@
             </li>
         </xpath>
         <xpath expr="//div[@name='description']" position="after">
-            <section id="details" style="page-break-inside: auto;" class="mt32" t-if="timesheets">
+            <section id="details" style="page-break-inside: auto;" class="mt32" t-if="timesheets and ticket.sale_line_id.product_template_id.service_policy not in ['delivered_milestones', 'delivered_manual']">
                 <h3 id="details">Timesheets</h3>
 
                 <table class="table table-sm table-striped" id="timesheet_table">
@@ -109,6 +109,12 @@
         </xpath>        
     </template>
     <template id="portal_my_timesheets_inherit" inherit_id="sale_timesheet.portal_my_timesheets_inherit">
+        <xpath expr="//th[contains(text(), 'Task')]" position="replace">
+            <th t-if="groupby not in ['task_id', 'helpdesk_ticket_id']">Task/Ticket</th>
+        </xpath>
+        <xpath expr="//span[@t-field='timesheet.task_id']" position="after">
+            <span t-if="timesheet.helpdesk_ticket_id" t-field="timesheet.helpdesk_ticket_id" t-att-title="timesheet.helpdesk_ticket_id.display_name"/>
+        </xpath>
         <xpath expr="//t[@t-foreach='grouped_timesheets']/tbody/tr[hasclass('table-light')]/th[hasclass('text-end')]" position="before">
             <t t-elif="groupby == 'helpdesk_ticket_id'">
                 <th colspan="6">
