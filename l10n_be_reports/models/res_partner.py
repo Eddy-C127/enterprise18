@@ -2,8 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from stdnum.be import vat
 
-from odoo import _, fields, models
-from odoo.exceptions import RedirectWarning
+from odoo import _, Command, fields, models
+from odoo.exceptions import AccessError, RedirectWarning
 
 
 class ResPartner(models.Model):
@@ -21,6 +21,17 @@ class ResPartner(models.Model):
         copy=False,
         help="List of 281.50 forms for this partner"
     )
+
+    def write(self, vals):
+        tag_281_50 = self.env.ref('l10n_be_reports.res_partner_tag_281_50')
+        if (
+            any(cmd[0] == Command.UNLINK and cmd[1] == tag_281_50.id for cmd in vals.get('category_id', []))
+            and tag_281_50 in self.category_id  # only raise when removing the tag, adding is allowed for everyone
+            and not self.user_has_groups('account.group_account_user')
+        ):
+            group_name = self.env.ref('account.group_account_user').name
+            raise AccessError(_("Only users with the access group '%s' can unset the 281.50 category on partners.", group_name))
+        return super().write(vals)
 
     def _formated_address(self):
         self.ensure_one()
