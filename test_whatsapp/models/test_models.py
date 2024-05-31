@@ -20,6 +20,12 @@ class WhatsAppTestBaseModel(models.Model):
     phone = fields.Char('Phone', compute='_compute_phone', readonly=False, store=True)
     user_id = fields.Many2one(comodel_name='res.users', string="Salesperson")
     datetime = fields.Datetime()
+    selection_id = fields.Many2one('whatsapp.test.selection', 'Selection')
+    selection_field = fields.Selection([
+        ('selection_key_1', 'Selection Value 1'),
+        ('selection_key_2', 'Selection Value 2'),
+        ('selection_key_3', 'Selection Value 3'),
+    ], string='Selection Field', default='selection_key_1')
 
     @api.depends('customer_id')
     def _compute_phone(self):
@@ -77,6 +83,19 @@ class WhatsAppTestResponsible(models.Model):
     ]
 
     user_ids = fields.Many2many('res.users', string="Salespersons")
+
+
+class WhatsAppTestSelection(models.Model):
+    """ Selection test model to test Selection fields using chain """
+    _description = 'WhatsApp Selection Test'
+    _name = 'whatsapp.test.selection'
+
+    selection_field = fields.Selection([
+        ('selection_key_4', 'Selection Value 4'),
+        ('selection_key_5', 'Selection Value 5'),
+        ('selection_key_6', 'Selection Value 6'),
+    ], string='Selection Field', default='selection_key_4')
+
 
 class WhatsAppTestTimezone(models.Model):
     """ Same as base test model but with timezone fields """

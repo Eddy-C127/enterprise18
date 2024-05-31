@@ -164,6 +164,54 @@ class WhatsAppComposerRendering(WhatsAppComposerCase, WhatsAppFullCase, CronMixi
                 )
 
     @users('employee')
+    def test_composer_tpl_base_rendering_selection(self):
+        """ Specific case involving selections """
+        # template setup
+        self.template_basic.write({
+            'body': 'Base model is here ({{1}}) and selection through m2o is here ({{2}})',
+            'variable_ids': [
+                (5, 0, 0),
+                (0, 0, {
+                    'name': '{{1}}',
+                    'line_type': 'body',
+                    'field_type': 'field',
+                    'demo_value': 'Selection Demo Value 1',
+                    'field_name': 'selection_field'
+                }),
+                (0, 0, {
+                    'name': '{{2}}',
+                    'line_type': 'body',
+                    'field_type': 'field',
+                    'demo_value': 'Selection Demo Value 4',
+                    'field_name': 'selection_id.selection_field'
+                })
+            ],
+        })
+        test_template = self.template_basic.with_user(self.env.user)
+
+        # record setup with selection field
+        test_selection = self.env['whatsapp.test.selection'].create({
+            'selection_field': 'selection_key_4',
+        })
+        test_base_selection_id = self.env['whatsapp.test.base'].create({
+            "country_id": self.env.ref("base.be").id,
+            "name": "Recipient-IN",
+            "phone": "+91 12345 67891",
+            "selection_id": test_selection.id,
+        })
+
+        # Check whether selection field values are sent and not keys
+        composer = self._instanciate_wa_composer_from_records(test_template, test_base_selection_id)
+        with self.mockWhatsappGateway():
+            composer.action_send_whatsapp_template()
+        self.assertWAMessageFromRecord(
+            test_base_selection_id,
+            fields_values={
+                'body': '<p>Base model is here (Selection Value 1) and selection through m2o is here (Selection Value 4)</p>',
+            },
+        )
+
+    @users('employee')
     def test_composer_tpl_header_attachments(self):
         """ Send a template with a header attachment set through the composer."""
         doc_attach_clone = self.document_attachment.copy({'name': 'pdf_clone.pdf'})

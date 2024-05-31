@@ -37,6 +37,21 @@ class BaseModel(models.AbstractModel):
             tz = self._whatsapp_get_timezone()
             return ' '.join([f"{format_datetime(self.env, value, tz=tz)} {tz}" for value in field_value\
                 if value and isinstance(value, datetime)])
+        # find last field / last model when having chained fields
+        # e.g. 'partner_id.country_id.state' -> ['partner_id.country_id', 'state']
+        field_path_models = field_path.rsplit('.', 1)
+        if len(field_path_models) > 1:
+            last_model_path, last_fname = field_path_models
+            last_model = self.mapped(last_model_path)
+        else:
+            last_model, last_fname = self, field_path
+        last_field = last_model._fields[last_fname]
+        # if selection -> return value, not the key
+        if last_field.type == 'selection':
+            return ' '.join(
+                last_field.convert_to_export(value, last_model)
+                for value in field_value
+            )
         return ' '.join(str(value if value is not False and value is not None else '') for value in field_value)
 
     def _whatsapp_get_portal_url(self):
