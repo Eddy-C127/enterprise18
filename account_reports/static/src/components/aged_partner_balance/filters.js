@@ -15,7 +15,7 @@ export class AgedPartnerBalanceFilters extends AccountReportFilters {
         const agingInterval = ev.target.value;
 
         if (agingInterval >= 1){
-            this.dirtyFilter = true;
+            this.dirtyFilter.value = true;
             this.controller.options.aging_interval = parseInt(agingInterval);
         }
         else
