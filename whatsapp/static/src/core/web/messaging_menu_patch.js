@@ -24,4 +24,8 @@ patch(MessagingMenu.prototype, {
         }
         return items;
     },
+
+    get displayStartConversation() {
+        return super.displayStartConversation && this.store.discuss.activeTab !== "whatsapp";
+    },
 });

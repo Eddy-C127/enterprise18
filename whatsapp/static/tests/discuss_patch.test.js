@@ -2,6 +2,7 @@ import {
     SIZES,
     click,
     contains,
+    insertText,
     openDiscuss,
     patchUiSize,
     start,
@@ -52,4 +53,20 @@ test("Mobile has WhatsApp category", async () => {
     await openDiscuss();
     await click(".o-mail-MessagingMenu-navbar button", { text: "WhatsApp" });
     await contains(".o-mail-NotificationItem", { text: "WhatsApp 1" });
+});
+
+test('"Search WhatsApp Channel" item selection opens WhatsApp channel', async () => {
+    const pyEnv = await startServer();
+    pyEnv["discuss.channel"].create({
+        name: "slytherins",
+        channel_type: "whatsapp",
+    });
+    patchUiSize({ size: SIZES.SM });
+    await start();
+    await openDiscuss();
+    await click("button", { text: "WhatsApp" });
+    await click("button", { text: "Search WhatsApp Channel" });
+    await insertText("input[placeholder='Search WhatsApp Channel']", "slytherins");
+    await click(".o-mail-ChannelSelector-suggestion");
+    await contains(".o-mail-ChatWindow-header div[title='slytherins']");
 });
