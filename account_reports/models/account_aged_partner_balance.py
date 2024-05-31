@@ -47,9 +47,10 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         # Set aging column names
         interval = options['aging_interval']
         for column in options['columns']:
-            for i in range(4):
-                if column['expression_label'] == f'period{i + 1}':
-                    column['name'] = f'{interval * i + 1}-{interval * (i + 1)}'
+            if column['expression_label'].startswith('period'):
+                period_number = int(column['expression_label'].replace('period', '')) - 1
+                if 0 <= period_number < 4:
+                    column['name'] = f'{interval * period_number + 1}-{interval * (period_number + 1)}'
 
     def _custom_line_postprocessor(self, report, options, lines):
         partner_lines_map = {}
@@ -101,9 +102,12 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         date_to = fields.Date.from_string(options['date']['date_to'])
         interval = options['aging_interval']
         periods = [(False, fields.Date.to_string(date_to))]
-        for i in range(5):
+        # Since we added the first period in the list we have to do one less iteration
+        nb_periods = len([column for column in options['columns'] if column['expression_label'].startswith('period')]) - 1
+        for i in range(nb_periods):
             start_date = minus_days(date_to, (interval * i) + 1)
-            end_date = minus_days(date_to, interval * (i + 1)) if i < 4 else False
+            # The last element of the list will have False for the end date
+            end_date = minus_days(date_to, interval * (i + 1)) if i < nb_periods - 1 else False
             periods.append((start_date, end_date))
 
         def build_result_dict(report, query_res_lines):

@@ -11,18 +11,17 @@ export class AgedPartnerBalanceFilters extends AccountReportFilters {
     //------------------------------------------------------------------------------------------------------------------
     // Aging Interval
     //------------------------------------------------------------------------------------------------------------------
-    setAgingInterval(ev) {
-        const agingInterval = ev.target.value;
-
-        if (agingInterval >= 1){
-            this.dirtyFilter.value = true;
-            this.controller.options.aging_interval = parseInt(agingInterval);
-        }
-        else
+    async setAgingInterval(ev) {
+        const agingInterval = parseInt(ev.target.value);
+        if (agingInterval < 1) {
             this.dialog.add(WarningDialog, {
                 title: _t("Odoo Warning"),
                 message: _t("Intervals cannot be smaller than 1"),
             });
+            return;
+        }
+
+        await this.filterClicked("aging_interval", agingInterval, false);
     }
 
 }
