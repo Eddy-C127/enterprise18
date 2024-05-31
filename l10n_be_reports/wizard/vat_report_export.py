@@ -16,11 +16,6 @@ class AccountFinancialReportXMLReportExport(models.TransientModel):
     calling_export_wizard_id = fields.Many2one(string="Calling Export Wizard", comodel_name="account_reports.export.wizard", help="Optional field containing the report export wizard calling this wizard, if there is one.")
     comment = fields.Text()
 
-    control_value = fields.Boolean(compute='_compute_control_value')
-
-    def _compute_control_value(self): # DEPRECATED ; this computed field will be removed in master
-        self.control_value = False
-
     def print_xml(self):
         if self.calling_export_wizard_id and not self.calling_export_wizard_id.l10n_be_reports_periodic_vat_wizard_id:
             self.calling_export_wizard_id.l10n_be_reports_periodic_vat_wizard_id = self
