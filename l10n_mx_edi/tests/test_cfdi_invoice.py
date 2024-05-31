@@ -663,37 +663,6 @@ class TestCFDIInvoice(TestMxEdiCommon):
             invoice.with_context(skip_invoice_sync=True)._generate_pdf_and_send_invoice(template, force_synchronous=True, allow_fallback_pdf=True)
             self.assertFalse(invoice.invoice_pdf_report_id, "invoice_pdf_report_id shouldn't be set with the proforma PDF.")
 
-    def test_invoice_cancel_in_locked_period(self):
-        with self.mx_external_setup(self.frozen_today):
-            invoice = self._create_invoice()
-            with self.with_mocked_pac_sign_success():
-                invoice._l10n_mx_edi_cfdi_invoice_try_send()
-            self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': 'sent'}])
-
-            payment = self.env['account.payment.register']\
-                .with_context(active_model='account.move', active_ids=invoice.ids)\
-                .create({})\
-                ._create_payments()
-            with self.with_mocked_pac_sign_success():
-                payment.l10n_mx_edi_cfdi_payment_force_try_send()
-            self.assertRecordValues(payment, [{'l10n_mx_edi_cfdi_state': 'sent'}])
-
-            # Lock the period.
-            invoice.company_id.fiscalyear_lock_date = self.frozen_today
-
-            # Cancel the invoice.
-            with self.with_mocked_pac_cancel_success():
-                self.env['l10n_mx_edi.invoice.cancel'] \
-                    .with_context(invoice.button_request_cancel()['context']) \
-                    .create({'cancellation_reason': '03'}) \
-                    .action_cancel_invoice()
-            self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': 'cancel'}])
-
-            # Cancel the payment.
-            with self.with_mocked_pac_cancel_success():
-                payment.l10n_mx_edi_payment_document_ids.action_cancel()
-            self.assertRecordValues(payment, [{'l10n_mx_edi_cfdi_state': 'cancel'}])
-
     def test_import_invoice(self):
         file_name = "test_import_bill"
         full_file_path = misc.file_path(f'{self.test_module}/tests/test_files/{file_name}.xml')

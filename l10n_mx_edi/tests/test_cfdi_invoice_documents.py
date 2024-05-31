@@ -939,6 +939,37 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
             'l10n_mx_edi_update_payments_needed': False,
         }])
 
+    @freeze_time('2017-01-01')
+    def test_invoice_cancel_in_locked_period(self):
+        invoice = self._create_invoice(invoice_date_due='2017-02-01')
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+        self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': 'sent'}])
+
+        payment = self.env['account.payment.register'] \
+            .with_context(active_model='account.move', active_ids=invoice.ids) \
+            .create({}) \
+            ._create_payments()
+        with self.with_mocked_pac_sign_success():
+            invoice.l10n_mx_edi_cfdi_invoice_try_update_payments()
+        self.assertRecordValues(payment, [{'l10n_mx_edi_cfdi_state': 'sent'}])
+
+        # Lock the period.
+        invoice.company_id.fiscalyear_lock_date = '2017-01-01'
+
+        # Cancel the invoice.
+        with self.with_mocked_pac_cancel_success():
+            self.env['l10n_mx_edi.invoice.cancel'] \
+                .with_context(invoice.button_request_cancel()['context']) \
+                .create({'cancellation_reason': '03'}) \
+                .action_cancel_invoice()
+        self.assertRecordValues(invoice, [{'l10n_mx_edi_cfdi_state': 'cancel'}])
+
+        # Cancel the payment.
+        with self.with_mocked_pac_cancel_success():
+            payment.l10n_mx_edi_payment_document_ids.action_cancel()
+        self.assertRecordValues(payment, [{'l10n_mx_edi_cfdi_state': 'cancel'}])
+
     def test_invoice_payment_production_sign_flow_cancel_from_the_sat(self):
         """ Test the case the invoice/payment is signed but the user manually cancel the document from the SAT portal (production environment). """
         self.env.company.l10n_mx_edi_pac_test_env = False
