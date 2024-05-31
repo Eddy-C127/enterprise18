@@ -10,6 +10,7 @@ Base module for Malaysian reports
     'depends': [
         'l10n_my',
         'account_followup',
+        'account_reports',
     ],
     'data': [
         "views/account_followup_views.xml",
