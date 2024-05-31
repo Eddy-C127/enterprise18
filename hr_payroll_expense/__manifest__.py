@@ -18,6 +18,7 @@ This application allows you to reimburse expenses in payslips.
         'views/hr_expense_views.xml',
         'views/hr_payslip_views.xml',
         'data/hr_payroll_expense_data.xml',
+        'wizard/account_payment_register_views.xml',
     ],
     'demo': ['data/hr_payroll_expense_demo.xml'],
     'auto_install': True,

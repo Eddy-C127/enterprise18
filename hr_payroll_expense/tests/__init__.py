@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from . import test_payroll_expense
+from . import test_payroll_expense_batched

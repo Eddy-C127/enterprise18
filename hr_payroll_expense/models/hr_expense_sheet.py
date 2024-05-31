@@ -44,9 +44,6 @@ class HrExpenseSheet(models.Model):
 
         # Do not raise if already reported, just ignore it
         to_report = self.filtered(lambda sheet: not sheet.refund_in_payslip)
-        to_report.account_move_ids.unlink()
-        # We don't need a draft move for expenses paid in payslip.
-        # As the move creation will be done when the payslip move is posted.
         to_report.refund_in_payslip = True
         for record in to_report:
             record.message_post(
