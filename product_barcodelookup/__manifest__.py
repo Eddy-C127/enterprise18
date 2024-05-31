@@ -5,6 +5,7 @@
     'version': '1.0',
     'depends': ['product'],
     'data': [
+        'data/product_data.xml',
         'views/product_product_views.xml',
         'views/res_config_settings_views.xml',
     ],
