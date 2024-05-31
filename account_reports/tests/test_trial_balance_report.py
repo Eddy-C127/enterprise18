@@ -224,8 +224,21 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
         )
 
     def test_trial_balance_comparisons(self):
-        options = self._generate_options(self.report, fields.Date.from_string('2017-01-01'), fields.Date.from_string('2017-12-31'))
-        options = self._update_comparison_filter(options, self.report, 'previous_period', 1)
+        options = self._generate_options(self.report, '2017-01-01', '2017-12-31')
+        options = self._update_comparison_filter(options, self.report, 'previous_period', 1, fields.Date.from_string('2017-01-01'), fields.Date.from_string('2017-12-31'))
+        expected_header_values = [
+            {
+                'name': '2016',
+                'forced_options': {'date': {'string': '2016', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2016-01-01', 'date_to': '2016-12-31'}}
+            },
+            {
+                'name': '2017',
+                'forced_options': {'date': {'string': '2017', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2017-01-01', 'date_to': '2017-12-31', 'filter': 'custom'}}
+            },
+        ]
+
+        for i, val in enumerate(expected_header_values, start=1):
+            self.assertDictEqual(options['column_headers'][0][i], val)
 
         self.assertLinesValues(
             self.report._get_lines(options),
@@ -241,6 +254,30 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
                 ('600000 Expenses',                    0.0,            0.0,             200.0,          0.0,            0.0,            21000.0,        0.0,            20800.0),
                 ('600000 Expenses',                    0.0,            0.0,             0.0,            0.0,            200.0,          0.0,            200.0,          0.0),
                 ('Total',                              0.0,            0.0,             350.0,          350.0,          21200.0,        21200.0,        21050.0,        21050.0),
+            ],
+            options,
+        )
+
+        options['comparison']['period_order'] = 'descending'
+        options = self.report.get_options(options)
+
+        for i, val in enumerate(expected_header_values[::-1], start=1):
+            self.assertDictEqual(options['column_headers'][0][i], val)
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #                                           [  Initial Balance   ]          [        2017        ]          [        2016        ]          [       Total        ]
+            #   Name                                    Debit           Credit          Debit           Credit          Debit           Credit          Debit           Credit
+            [   0,                                      1,              2,              3,              4,              5,              6,              7,              8],
+            [
+                ('121000 Account Receivable',          0.0,            0.0,             1000.0,         0.0,            0.0,            0.0,            1000.0,         0.0),
+                ('211000 Account Payable',             0.0,            0.0,             0.0,            0.0,            100.0,          0.0,            100.0,          0.0),
+                ('211000 Account Payable',             0.0,            0.0,             0.0,            0.0,            50.0,           0.0,            50.0,           0.0),
+                ('400000 Product Sales',               0.0,            0.0,             20000.0,        0.0,            0.0,            300.0,          19700.0,        0.0),
+                ('400000 Product Sales',               0.0,            0.0,             0.0,            200.0,          0.0,            50.0,           0.0,            250.0),
+                ('600000 Expenses',                    0.0,            0.0,             0.0,            21000.0,        200.0,          0.0,            0.0,            20800.0),
+                ('600000 Expenses',                    0.0,            0.0,             200.0,          0.0,            0.0,            0.0,            200.0,          0.0),
+                ('Total',                              0.0,            0.0,             21200.0,        21200.0,        350.0,          350.0,          21050.0,        21050.0),
             ],
             options,
         )

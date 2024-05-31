@@ -101,22 +101,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         for column_group in options['column_groups'].values():
             column_group['forced_options']['general_ledger_strict_range'] = True
 
-        if options['comparison']['periods']:
-            # Reverse the order the group of columns with the same column_group_key while keeping the original order inside the group
-            new_columns_order = []
-            current_column = []
-            current_column_group_key = options['columns'][-1]['column_group_key']
-
-            for column in reversed(options['columns']):
-                if current_column_group_key != column['column_group_key']:
-                    current_column_group_key = column['column_group_key']
-                    new_columns_order += current_column
-                    current_column = []
-
-                current_column.insert(0, column)
-            new_columns_order += current_column
-
-            options['columns'] = new_columns_order
+        if not options['comparison'].get('periods'):
             options['comparison']['period_order'] = 'ascending'
 
         # Initial balance

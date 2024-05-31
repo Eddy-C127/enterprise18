@@ -220,11 +220,11 @@ class TestL10nMXTrialBalanceMonth13(TestAccountReportsCommon):
             self.report._get_lines(options),
             [   0,                                                            1,       2,      3,    4,    5,      6,      7,       8],
             [
-                ('105.01.01 Domestic customers',                              1000.0,     0.0, 0.0,  0.0,  300.0,    0.0,  1300.0,   0.0),
-                ('305.01.01 Profit for the year',                                0.0,   800.0, 0.0,  0.0,    0.0,    0.0,     0.0,   800.0),
-                ('401.01.01 Sales and/or services taxed at the general rate',    0.0,     0.0, 0.0,  0.0,    0.0,  300.0,     0.0,   300.0),
-                ('999999 Undistributed Profits/Losses',                          0.0,   200.0, 0.0,  0.0,    0.0,    0.0,     0.0,   200.0),
-                ('Total',                                                     1000.0,  1000.0, 0.0,  0.0,  300.0,  300.0,  1300.0,  1300.0),
+                ('105.01.01 Domestic customers',                              1000.0,     0.0, 300.0,   0.0,    0.0,    0.0,  1300.0,   0.0),
+                ('305.01.01 Profit for the year',                                0.0,   800.0,   0.0,   0.0,    0.0,    0.0,     0.0,   800.0),
+                ('401.01.01 Sales and/or services taxed at the general rate',    0.0,     0.0,   0.0, 300.0,    0.0,    0.0,     0.0,   300.0),
+                ('999999 Undistributed Profits/Losses',                          0.0,   200.0,   0.0,   0.0,    0.0,    0.0,     0.0,   200.0),
+                ('Total',                                                     1000.0,  1000.0, 300.0, 300.0,    0.0,    0.0,  1300.0,  1300.0),
             ],
             options,
         )
@@ -242,11 +242,11 @@ class TestL10nMXTrialBalanceMonth13(TestAccountReportsCommon):
             self.report._get_lines(options),
             [   0,                                                            1,         2,         3,       4,      5,     6,     7,       8],
             [
-                ('105.01.01 Domestic customers',                              1000.0,       0.0,    300.0,     0.0,  20.0,   0.0,  1320.0,     0.0),
-                ('305.01.01 Profit for the year',                                0.0,     800.0,      0.0,   250.0,   0.0,   0.0,     0.0,  1050.0),
-                ('401.01.01 Sales and/or services taxed at the general rate',    0.0,       0.0,    250.0,   300.0,   0.0,  20.0,     0.0,    70.0),
+                ('105.01.01 Domestic customers',                              1000.0,       0.0,     20.0,     0.0, 300.0,   0.0,  1320.0,     0.0),
+                ('305.01.01 Profit for the year',                                0.0,     800.0,      0.0,     0.0,   0.0, 250.0,     0.0,  1050.0),
+                ('401.01.01 Sales and/or services taxed at the general rate',    0.0,       0.0,      0.0,    20.0, 250.0, 300.0,     0.0,    70.0),
                 ('999999 Undistributed Profits/Losses',                          0.0,     200.0,      0.0,     0.0,   0.0,   0.0,     0.0,   200.0),
-                ('Total',                                                     1000.0,    1000.0,    550.0,   550.0,  20.0,  20.0,  1320.0,  1320.0),
+                ('Total',                                                     1000.0,    1000.0,     20.0,    20.0, 550.0, 550.0,  1320.0,  1320.0),
             ],
             options,
         )

@@ -63,6 +63,7 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
         :return:                The newly created options.
         '''
         previous_options = {**options, 'comparison': {
+            **options['comparison'],
             'date_from': date_from and date_from.strftime(DEFAULT_SERVER_DATE_FORMAT),
             'date_to': date_to and date_to.strftime(DEFAULT_SERVER_DATE_FORMAT),
             'filter': comparison_type,
