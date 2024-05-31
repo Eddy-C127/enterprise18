@@ -70,7 +70,7 @@ class DocumentsDocument(models.Model):
         attachment_nodes = chain(attachment_nodes, tree.iterfind('.//{*}Attachment'))
 
         for attachment_node in attachment_nodes:
-            if next(attachment_node.iter(), None):  # the node has children
+            if len(attachment_node):  # the node has children
                 continue
 
             with contextlib.suppress(TypeError, binascii.Error):
