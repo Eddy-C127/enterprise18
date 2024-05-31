@@ -98,6 +98,8 @@ class SodaImportWizard(models.TransientModel):
 
     def action_save_and_import(self):
         moves = self._action_save_and_import()
+        if not moves:       # When modifying (from the Settings) the mapping without importing a file,
+            return False    # we don't want to redirect to the form/list view
         action_vals = {
             'res_model': 'account.move',
             'type': 'ir.actions.act_window',
