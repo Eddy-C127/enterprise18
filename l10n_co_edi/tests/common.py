@@ -292,6 +292,8 @@ class TestCoEdiCommon(AccountEdiTestCommon):
                 'price_unit': 500,
                 'tax_ids': [Command.set([cls.tax_iva_excluido_0.id])],
             }),
+            Command.create({'display_type': 'line_section', 'name': 'Section'}),
+            Command.create({'display_type': 'line_note', 'name': 'Note'}),
         ]
         cls.invoice_tim = cls.env['account.move'].create(invoice_data)
 
