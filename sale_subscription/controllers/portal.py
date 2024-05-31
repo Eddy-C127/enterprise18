@@ -11,6 +11,7 @@ from odoo.exceptions import AccessError, MissingError, UserError
 from odoo.fields import Command
 from odoo.http import request
 from odoo.tools.translate import _
+from odoo.tools.misc import str2bool
 from odoo.addons.sale.controllers import portal as payment_portal
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.portal.controllers.portal import pager as portal_pager
@@ -201,7 +202,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
         }
 
         rendering_context = {
-            **SalePortal._get_payment_values(self, order_sudo, is_subscription=True),
+            **SalePortal._get_payment_values(self, order_sudo, is_subscription=True, subscription_anticipate=True),
             **portal_page_values,
             **payment_form_values,
             **payment_context,
@@ -366,23 +367,27 @@ class PaymentPortal(payment_portal.PaymentPortal):
             return redirection
         logged_in = not request.env.user._is_public()
         partner_sudo = request.env.user.partner_id if logged_in else order_sudo.partner_id
+        # Anticipate the next period by forcing invoice creation
+        subscription_anticipate = str2bool(kwargs.pop('subscription_anticipate', False))
         self._validate_transaction_kwargs(kwargs)
         kwargs.update(partner_id=partner_sudo.id)
         if not is_validation:  # Renewal transaction
             invoice_to_pay = None
-            for invoice in order_sudo.invoice_ids:
-                if (invoice.state == 'posted' and
-                    invoice.move_type == 'out_invoice' and
-                    invoice.payment_state not in ['paid', 'in_payment', 'reversed']):
-                    invoice_to_pay = invoice
-                    break
-                elif not invoice_to_pay and invoice.state == 'draft' and invoice.move_type == 'out_invoice':
-                    invoice_to_pay = invoice
+            amount = kwargs.get('amount', 0)
+            if not subscription_anticipate:
+                for invoice in order_sudo.invoice_ids:
+                    if (invoice.state == 'posted' and
+                        invoice.move_type == 'out_invoice' and
+                        invoice.payment_state not in ['paid', 'in_payment', 'reversed']):
+                        invoice_to_pay = invoice
+                        break
+                    elif not invoice_to_pay and invoice.state == 'draft' and invoice.move_type == 'out_invoice':
+                        invoice_to_pay = invoice
 
-            amount_to_invoice = invoice_to_pay.amount_total if invoice_to_pay else order_sudo.amount_to_invoice
-            amount = kwargs.get('amount', 0) or amount_to_invoice
+                amount_to_invoice = invoice_to_pay.amount_total if invoice_to_pay else order_sudo.amount_to_invoice
+                amount = amount or amount_to_invoice
 
-            if amount >= order_sudo.amount_to_invoice and not invoice_to_pay:
+            if subscription_anticipate or amount >= order_sudo.amount_to_invoice and not invoice_to_pay:
                 invoice_to_pay = order_sudo.with_context(lang=partner_sudo.lang)._create_invoices(final=True)
             recurring_amount = sum(order_sudo.order_line.filtered(lambda l: l.recurring_invoice).mapped('price_total'))
             tokenize = amount >= recurring_amount
@@ -479,7 +484,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
 
 class SalePortal(sale_portal.CustomerPortal):
 
-    def _get_payment_values(self, order_sudo, is_subscription=False, **kwargs):
+    def _get_payment_values(self, order_sudo, is_subscription=False, subscription_anticipate=False, **kwargs):
         """ Override of `sale` to specify whether the sales order is a subscription.
 
         :param sale.order order_sudo: The sales order being paid.
@@ -492,6 +497,8 @@ class SalePortal(sale_portal.CustomerPortal):
                           or order_sudo.is_subscription \
                           or order_sudo.subscription_id.is_subscription
         return {
-            **super()._get_payment_values(order_sudo, is_subscription=is_subscription, **kwargs),
+            **super()._get_payment_values(order_sudo, is_subscription=is_subscription,
+                                          subscription_anticipate=subscription_anticipate,
+                                          **kwargs),
             'is_subscription': is_subscription,
         }

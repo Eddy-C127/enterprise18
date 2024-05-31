@@ -5,6 +5,7 @@
     <template id="payment_form_inherit" inherit_id="payment.form">
         <xpath expr="//form" position="attributes">
             <attribute name="t-att-data-tx-route-subscription">transaction_route_subscription</attribute>
+            <attribute name="t-att-data-subscription-anticipate">subscription_anticipate</attribute>
         </xpath>
         <xpath expr="//form" position="before">
             <h3 t-if="subscription" class="mt-2 mb-0">

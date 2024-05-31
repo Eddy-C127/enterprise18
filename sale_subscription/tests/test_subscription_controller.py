@@ -484,3 +484,44 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
             tx_sudo._set_done()
             # Ensure token was not changed after completing the payment in invoices route.
             self.assertEqual(subscription.payment_token_id.id, test_payment_token.id, "Token must remain unchanged after new payment.")
+
+    def test_anticipate_period(self):
+        """ When the payment is performed on subscription, we always create a new invoice
+        """
+        subscription = self.subscription.create({
+            'partner_id': self.partner.id,
+            'company_id': self.company.id,
+            'payment_token_id': self.payment_token.id,
+            'sale_order_template_id': self.subscription_tmpl.id,
+
+        })
+        subscription._onchange_sale_order_template_id()
+        subscription.order_line.price_unit = 10
+        subscription.action_confirm()
+        inv1 = subscription._create_invoices()
+        inv1._post()  # we won't pay it
+        data = {'access_token': subscription.access_token,
+                'landing_route': subscription.get_portal_url(),
+                'provider_id': self.dummy_provider.id,
+                'payment_method_id': self.payment_method_id,
+                'token_id': False,
+                'amount': subscription.amount_total,
+                'flow': 'direct',
+                'subscription_anticipate': True
+        }
+        url = self._build_url("/my/subscriptions/%s/transaction" % subscription.id)
+        self.make_jsonrpc_request(url, data)
+        self.assertEqual(subscription.invoice_count, 2, "subscription_anticipate should for a new invoice creation")
+        self.assertEqual(inv1.payment_state, 'not_paid', "inv 1 is not paid")
+        inv2 = subscription.invoice_ids - inv1
+        inv2._post()
+        self.env['account.payment.register'] \
+                .with_context(active_model='account.move', active_ids=inv2.ids) \
+                .create({
+                'currency_id': subscription.currency_id.id,
+                'amount': subscription.amount_total,
+        })._create_payments()
+        tx = subscription.transaction_ids.invoice_ids.transaction_ids
+        tx._set_done()
+        tx._post_process()
+        self.assertTrue(inv2.payment_state in ['paid', 'in_payment'], "invoice 2  is paid")

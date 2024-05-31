@@ -86,4 +86,20 @@ paymentForm.include({
         // Dispatch a fake event to update the payment form dependencies.
         savePaymentMethodCheckbox.dispatchEvent(new Event('input'));
     },
+
+    /**
+     * Prepare the params for the RPC to the transaction route.
+     *
+     * @private
+     * @param {number} providerId - The id of the provider handling the transaction.
+     * @returns {object} - The transaction route params.
+     */
+    _prepareTransactionRouteParams(providerId) {
+        const transactionRouteParams = this._super(...arguments);
+        if (this.paymentContext.subscriptionAnticipate) {
+            transactionRouteParams['subscription_anticipate'] = this.paymentContext.subscriptionAnticipate;
+        }
+        return transactionRouteParams;
+    },
+
 });

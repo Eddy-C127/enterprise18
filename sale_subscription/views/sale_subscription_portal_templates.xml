@@ -247,6 +247,7 @@
                         <t t-call="payment.form">
                             <t t-set="amount" t-value="sale_order.amount_to_invoice"/>
                             <t t-set="landing_route" t-value="sale_order.get_portal_url()"/>
+                            <t t-set="subscription_anticipate" t-value="True"/>
                         </t>
                     </div>
                 </div>
