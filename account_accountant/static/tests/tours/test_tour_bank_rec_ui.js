@@ -2,7 +2,21 @@
 
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
+import { patch } from "@web/core/utils/patch";
 import { accountTourSteps } from "@account/js/tours/account";
+
+patch(accountTourSteps, {
+    bankRecUiReportSteps() {
+        return [
+            {
+                content: "balance is 2100",
+                extra_trigger: ".o_bank_rec_selected_st_line:contains('line1')",
+                trigger: ".btn-link:contains('$ 2,100.00')",
+                run: () => {},
+            },
+        ]
+    },
+});
 
 registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
     {
@@ -626,19 +640,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             trigger: ".o_bank_rec_st_line:contains('line1')",
             run: "click",
         },
-        {
-            content: "balance is 2100",
-            extra_trigger: ".o_bank_rec_selected_st_line:contains('line1')",
-            trigger: ".btn-link:contains('$ 2,100.00')",
-            run: "click",
-        },
-        {
-            content: "Breadcrumb back to Bank Reconciliation from the report",
-            extra_trigger: "span:contains('General Ledger')",
-            trigger: ".breadcrumb-item a:contains('Bank Reconciliation')",
-            allowInvisible: true,
-            run: "click",
-        },
+        ...accountTourSteps.bankRecUiReportSteps(),
         {
             content: "select 'line4' from this journal",
             trigger: ".o_bank_rec_st_line:contains('line4')",

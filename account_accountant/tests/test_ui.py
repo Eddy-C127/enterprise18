@@ -4,14 +4,14 @@
 import logging
 
 from odoo import Command
-from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
+from odoo.addons.account.tests.common import AccountTestMockOnlineSyncCommon
 import odoo.tests
 
 _logger = logging.getLogger(__name__)
 
 
 @odoo.tests.tagged('-at_install', 'post_install')
-class TestUi(AccountTestInvoicingHttpCommon):
+class TestUi(AccountTestMockOnlineSyncCommon):
     def test_accountant_tour(self):
         # Reset country and fiscal country, so that fields added by localizations are
         # hidden and non-required, and don't make the tour crash.
