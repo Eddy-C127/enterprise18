@@ -1011,8 +1011,7 @@ class SaleOrder(models.Model):
     def _set_closed_state(self, renew=False):
         for order in self:
             renewal_order = order.subscription_child_ids.filtered(lambda s: s.subscription_state in SUBSCRIPTION_PROGRESS_STATE)
-            progress_renewed = order.subscription_state in SUBSCRIPTION_PROGRESS_STATE
-            if renew and renewal_order and progress_renewed:
+            if renew and renewal_order and order.state == 'sale':
                 order.subscription_state = '5_renewed'
                 order.locked = True
             else:

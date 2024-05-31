@@ -2948,7 +2948,7 @@ class TestSubscription(TestSubscriptionCommon):
                         for log in order_log_ids]
             self.assertEqual(sub_data,
                              [('0_creation', datetime.date(2021, 1, 1), '1_draft', 21.0, 21.0),
-                              ('3_transfer', datetime.date(2021, 1, 1), '6_churn', -21.0, 0.0)])
+                              ('3_transfer', datetime.date(2021, 1, 1), '5_renewed', -21.0, 0.0)])
             order_log_ids = renewal_so.order_log_ids.sorted('id')
             renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log in order_log_ids]
             self.assertEqual(renew_data, [('3_transfer', datetime.date(2021, 1, 1), '2_renewal', 21, 21),
@@ -3053,10 +3053,11 @@ class TestSubscription(TestSubscriptionCommon):
                         order_log_ids]
             self.assertEqual(sub_data, [('0_creation', today, '1_draft', 21, 21),
                                         ('1_expansion', today, '3_progress', 21.0, 42.0),
-                                        ('3_transfer', today, '6_churn', -42, 0)])
+                                        ('3_transfer', today, '5_renewed', -42, 0)])
             renew_logs = renewal_so.order_log_ids.sorted('id')
             renew_data = [(log.event_type, log.event_date, log.subscription_state, log.amount_signed, log.recurring_monthly) for log
                         in renew_logs]
+            self.assertEqual(sub.subscription_state, '5_renewed')
             self.assertEqual(renew_data, [('3_transfer', today, '2_renewal', 42, 42),
                                         ('1_expansion', today, '3_progress', 21.0, 63.0)])
 
