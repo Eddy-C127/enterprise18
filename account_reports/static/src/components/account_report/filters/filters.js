@@ -319,7 +319,7 @@ export class AccountReportFilters extends Component {
     }
 
     displayPeriod(periodType) {
-        const dateTo = new Date();
+        const dateTo = DateTime.now();
 
         switch (periodType) {
             case "month":
@@ -334,21 +334,17 @@ export class AccountReportFilters extends Component {
     }
 
     _displayMonth(dateTo) {
-        dateTo.setMonth(dateTo.getMonth() - this.dateFilter.month);
-
-        return `${ dateTo.toLocaleString("default", { month: "long" }) } ${ dateTo.getFullYear() }`;
+        return dateTo.minus({ months: this.dateFilter.month }).toFormat("MMMM yyyy");
     }
 
     _displayQuarter(dateTo) {
-        dateTo.setMonth(dateTo.getMonth() - (this.dateFilter.quarter * 3));
+        dateTo = dateTo.minus({ months: this.dateFilter.quarter * 3 });
 
-        return `Q${ Math.floor(dateTo.getMonth() / 3) + 1 } ${ dateTo.getFullYear() }`;
+        return `Q${dateTo.quarter} ${dateTo.year}`;
     }
 
     _displayYear(dateTo) {
-        dateTo.setFullYear(dateTo.getFullYear() - this.dateFilter.year);
-
-        return dateTo.getFullYear().toString();
+        return dateTo.minus({ years: this.dateFilter.year }).toFormat("yyyy");
     }
 
     //------------------------------------------------------------------------------------------------------------------
