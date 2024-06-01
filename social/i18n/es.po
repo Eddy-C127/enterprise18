@@ -52,7 +52,7 @@ msgstr "<i class=\"fa fa-globe ms-1\" title=\"See the post\"/>"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
 msgid "<i class=\"oi oi-arrow-left\"/> Go back to Odoo"
-msgstr "<i class=\"oi oi-arrow-left\"/> Volver a Odoo"
+msgstr "<i class=\"oi oi-arrow-left\"/> Regresar a Odoo"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
@@ -578,8 +578,8 @@ msgstr "Formato de fecha de publicación"
 msgid ""
 "General audience of the Social Account (Page Likes, Account Follows, ...)."
 msgstr ""
-"Audiencia general de la cuenta social (me gusta en páginas, cuenta, "
-"seguidores,...)"
+"Audiencia general de la cuenta social (me gusta en páginas, seguidores de la"
+" cuenta...)"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
@@ -604,7 +604,7 @@ msgstr "Manipulador / Nombre corto"
 #: code:addons/social/static/src/js/tours/social.js:0
 #, python-format
 msgid "Happy with the result? Let's post it!"
-msgstr "¿Le gusta el resultado? ¡A publicarlo!"
+msgstr "¿Le gusta el resultado? ¡Publiquémoslo!"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__has_account_stats
@@ -834,7 +834,7 @@ msgstr "Vincular cuenta"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "Link an Account"
-msgstr "Vincule una cuenta"
+msgstr "Vincular una cuenta"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__company_id
@@ -861,7 +861,7 @@ msgstr "Vincular cuentas de redes sociales"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stats_link
 msgid "Link to the external Social Account statistics"
-msgstr "Vincular a las estadísticas externas de red social"
+msgstr "Enlace a las estadísticas externas de red social"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__is_media_disconnected
@@ -1111,8 +1111,7 @@ msgstr ""
 #: model:ir.model.fields,help:social.field_social_account__stories
 msgid "Number of stories created from your posts (Shares, Re-tweets, ...)."
 msgstr ""
-"Número de historias que se crearon de sus publicaciones (compartido, "
-"retuiteos...)"
+"Número de historias creadas de sus publicaciones (compartido, retuiteos...)"
 
 #. module: social
 #. odoo-javascript
@@ -1242,7 +1241,7 @@ msgstr "Publicado"
 #: model:ir.model.fields.selection,name:social.selection__social_live_post__state__posting
 #: model:ir.model.fields.selection,name:social.selection__social_post__state__posting
 msgid "Posting"
-msgstr "Validación"
+msgstr "Publicando"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__stream_post_ids
@@ -1296,7 +1295,7 @@ msgstr "Publicado por"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__published_date
 msgid "Published Date"
-msgstr "Fecha publicada"
+msgstr "Fecha de publicación"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__published_date
@@ -1395,8 +1394,8 @@ msgstr "Secuencia"
 #: model:ir.model.fields,help:social.field_social_stream__sequence
 msgid "Sequence used to order streams (mainly for the 'Feed' kanban view)"
 msgstr ""
-"Secuencia que se usa para ordenar flujos (principalmente para la vista "
-"kanban del feed)"
+"Secuencia utilizada para ordenar flujos (principalmente para la vista kanban"
+" del feed)"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__max_post_length
@@ -1635,7 +1634,7 @@ msgstr "Nombre del tipo de flujo (técnico)"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__has_streams
 msgid "Streams Enabled"
-msgstr "Permitir flujos"
+msgstr "Flujos permitidos"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__live_post_ids

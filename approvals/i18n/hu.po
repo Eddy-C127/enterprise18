@@ -7,18 +7,18 @@
 # Kovács Tibor <kovika@gmail.com>, 2023
 # Ákos Nagy <akos.nagy@oregional.hu>, 2023
 # Tamás Dombos, 2023
-# krnkris, 2023
-# Martin Trigaux, 2023
 # gezza <geza.nagy@oregional.hu>, 2023
+# Martin Trigaux, 2023
 # Tamás Németh <ntomasz81@gmail.com>, 2023
+# krnkris, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tamás Németh <ntomasz81@gmail.com>, 2023\n"
+"Last-Translator: krnkris, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,16 +30,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr ""
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>Ettől: </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>eddig: </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -479,6 +469,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Font awesome ikon pld: fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "Feladó:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "Általános jóváhagyás"
@@ -753,11 +748,6 @@ msgid "New Request"
 msgstr "Új igény"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Következő tevékenység naptár esemény"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Következő tevékenység határideje"
@@ -896,6 +886,7 @@ msgstr "Termékváltozatok"
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__product_id
 #: model:ir.ui.menu,name:approvals.approvals_menu_product
 #: model:ir.ui.menu,name:approvals.approvals_menu_product_template
+#: model_terms:ir.ui.view,arch_db:approvals.approval_product_kanban_mobile_view
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree_independent
@@ -909,11 +900,6 @@ msgstr "Termékek"
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Quantity"
 msgstr "Mennyiség"
-
-#. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "Értékelések"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
@@ -1005,6 +991,13 @@ msgstr "Sorszám"
 msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
 msgstr ""
 
 #. module: approvals
@@ -1119,16 +1112,6 @@ msgid "Waiting"
 msgstr "Várakozó"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "Weboldal üzenetek"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "Weboldal kommunikációs előzmények"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1169,8 +1152,8 @@ msgstr "Legalább %s jóváhagyót meg kell adnia a kérelme jóváhagyásához.
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
-msgstr "Legalább egy dokumentumot csatolnia kell."
+msgid "You have to attach at least one document."
+msgstr ""
 
 #. module: approvals
 #. odoo-python
@@ -1199,4 +1182,9 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
 msgstr ""

@@ -384,12 +384,12 @@ msgstr ""
 "                            <td align=\"center\" style=\"min-width: 590px;\">\n"
 "                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                                    <tr><td valign=\"middle\" align=\"left\">\n"
-"                                        <t t-out=\"object.create_uid.company_id.name or ''\">SuEmpresa</t>\n"
+"                                        <t t-out=\"object.create_uid.company_id.name or ''\">SuCompañía</t>\n"
 "                                    </td></tr>\n"
 "                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
 "                                        <t t-if=\"object.create_uid.company_id.email\">\n"
-"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email\">info@suempresa.com</a>\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email\">info@sucompañía.com</a>\n"
 "                                        </t>\n"
 "                                        <t t-if=\"object.create_uid.company_id.website\">\n"
 "                                            | <a t-att-href=\"object.create_uid.company_id.website\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website\">http://www.ejemplo.com</a>\n"
@@ -589,12 +589,12 @@ msgstr ""
 "                            <td align=\"center\" style=\"min-width: 590px;\">\n"
 "                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                                    <tr><td valign=\"middle\" align=\"left\">\n"
-"                                        <t t-out=\"object.create_uid.company_id.name or ''\">SuEmpresa</t>\n"
+"                                        <t t-out=\"object.create_uid.company_id.name or ''\">SuCompañía</t>\n"
 "                                    </td></tr>\n"
 "                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
 "                                        <t t-if=\"object.create_uid.company_id.email\">\n"
-"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email or ''\">info@suempresa.com</a>\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email or ''\">info@sucompañía.com</a>\n"
 "                                        </t>\n"
 "                                        <t t-if=\"object.create_uid.company_id.website\">\n"
 "                                            | <a t-attf-href=\"'%s' % {{ object.create_uid.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website or ''\">http://www.ejemplo.com</a>\n"
@@ -647,7 +647,7 @@ msgid ""
 "order to avoid a recursion issue."
 msgstr ""
 "Un espacio de trabajo no puede tener uno de sus subespacios definido como el"
-" espacio de trabajo principal. Así evitamos problemas de recursión."
+" espacio de trabajo padre. Así evitamos problemas de recursión."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__parent_folder_id
@@ -1122,7 +1122,7 @@ msgid ""
 "Cannot move folder under the given parent as this would create a recursive "
 "hierarchy"
 msgstr ""
-"No puede mover una carpeta bajo el elemento principal pues esto crearía una "
+"No puede mover una carpeta bajo el elemento padre pues esto crearía una "
 "jerarquía recursiva"
 
 #. module: documents
@@ -2599,12 +2599,12 @@ msgstr "PDF/documento"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_parent_model_id
 msgid "Parent Model"
-msgstr "Modelo principal"
+msgstr "Modelo padre"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__parent_path
 msgid "Parent Path"
-msgstr "Ruta principal"
+msgstr "Ruta padre"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_parent_thread_id
@@ -2615,7 +2615,7 @@ msgstr "ID del hilo del registro padre"
 #: model:ir.model.fields,field_description:documents.field_documents_folder__parent_folder_id
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Parent Workspace"
-msgstr "Espacio de trabajo principal"
+msgstr "Espacio de trabajo padre"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_parent_model_id
@@ -2624,8 +2624,8 @@ msgid ""
 " necessarily the model given by alias_model_id (example: project "
 "(parent_model) and task (model))"
 msgstr ""
-"Modelo principal que contiene el alias. El modelo que contiene la referencia"
-" del alias no es necesariamente el modelo dado por alias_model_id (example: "
+"Modelo padre que contiene el alias. El modelo que contiene la referencia del"
+" alias no es necesariamente el modelo dado por alias_model_id (example: "
 "project (parent_model) and task (model))"
 
 #. module: documents

@@ -22,6 +22,7 @@
 # Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
 # Kim Asplund <kim.asplund@gmail.com>, 2024
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
+# Frank Mikosch, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2024\n"
+"Last-Translator: Frank Mikosch, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -470,6 +471,7 @@ msgstr ""
 msgid ""
 "Click on a fetched bank transaction to start the reconciliation process."
 msgstr ""
+"Klicka på en hämtad banktransaktion för att starta avstämningsprocessen."
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_company
@@ -488,7 +490,7 @@ msgstr "Bolag"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__company_currency_id
 msgid "Company currency"
-msgstr ""
+msgstr "Företagets valuta"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_config_settings
@@ -583,7 +585,7 @@ msgstr "Valuta"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_currency_id
 msgid "Currency to use for reconciliation"
-msgstr ""
+msgstr "Valuta som ska användas för avstämningen"
 
 #. module: account_accountant
 #. odoo-python
@@ -628,7 +630,7 @@ msgstr "Debet"
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "Deferral of %s"
-msgstr ""
+msgstr "Uppskov med %s"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_amount_computation_method
@@ -1360,7 +1362,7 @@ msgstr "Anteckningar"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "Inget att göra här!"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
@@ -1431,7 +1433,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "Original Invoices"
-msgstr ""
+msgstr "Originalfakturor"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1651,12 +1653,12 @@ msgstr "Redovisa kostnaden för sålda varor i dina journalanteckningar"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Purchase(s)"
-msgstr ""
+msgstr "Relaterat inköp"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "Related Sale(s)"
-msgstr ""
+msgstr "Relaterad försäljning"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1726,7 +1728,7 @@ msgstr "Markera som Kontrollerad"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
 msgid "Single Currency Mode"
-msgstr ""
+msgstr "Envalutaläge"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_id

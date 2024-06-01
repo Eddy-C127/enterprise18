@@ -38,7 +38,7 @@ msgstr "<i class=\"fa fa-thumbs-up me-1\" title=\"Likes\"/>"
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_live_post__facebook_post_id
 msgid "Actual Facebook ID of the post"
-msgstr "El ID de la publicación en Facebook"
+msgstr "ID de la publicación en Facebook"
 
 #. module: social_facebook
 #. odoo-python
@@ -88,7 +88,7 @@ msgstr "Ajustes de configuración"
 #: model:ir.model.fields,field_description:social_facebook.field_social_post__display_facebook_preview
 #: model:ir.model.fields,field_description:social_facebook.field_social_post_template__display_facebook_preview
 msgid "Display Facebook Preview"
-msgstr "Mostrar la previsualización de Facebook"
+msgstr "Mostrar la vista previa de Facebook"
 
 #. module: social_facebook
 #: model:ir.model.fields.selection,name:social_facebook.selection__social_media__media_type__facebook
@@ -140,7 +140,7 @@ msgid ""
 "            It's used to authenticate requests when posting to or reading information from this account."
 msgstr ""
 "Token de acceso a la página de Facebook que dio la API de Facebook, esto se debería de configurar manualmente\n"
-"            Se usa para autentificar peticiones cuando se publica o se le información de esta cuenta."
+"            Se usa para autentificar solicitudes cuando se publica o se le información de esta cuenta."
 
 #. module: social_facebook
 #: model:ir.model.fields,help:social_facebook.field_social_account__facebook_account_id
@@ -160,7 +160,7 @@ msgstr "ID de la publicación de Facebook"
 #: model:ir.model.fields,field_description:social_facebook.field_social_post__facebook_preview
 #: model:ir.model.fields,field_description:social_facebook.field_social_post_template__facebook_preview
 msgid "Facebook Preview"
-msgstr "Previsualización de Facebook"
+msgstr "Vista previa de Facebook"
 
 #. module: social_facebook
 #. odoo-python
@@ -187,7 +187,7 @@ msgstr "Es una publicación de evento"
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_likes_count
 #, python-format
 msgid "Likes"
-msgstr "Gustos"
+msgstr "Me gustas"
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_media__media_type
@@ -217,13 +217,13 @@ msgid ""
 "Post not found. It could be because the post has been deleted on the Social "
 "Platform."
 msgstr ""
-"No se encontró la publicación. Puede ser porque se borró la publicación de "
-"la plataforma social."
+"No se encontró la publicación. Puede ser porque se eliminó la publicación de"
+" la plataforma social."
 
 #. module: social_facebook
 #: model_terms:ir.ui.view,arch_db:social_facebook.facebook_preview
 msgid "Published by Facebook Page •"
-msgstr "Se publicó en la página de Facebook •"
+msgstr "Publicado en la página de Facebook •"
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_reach
@@ -307,13 +307,13 @@ msgid ""
 "Used to make comparisons when we need to restrict some features to a "
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
-"Se utiliza para hacer comparaciones cuando necesitamos restringir algunas "
+"Utilizado para hacer comparaciones cuando necesitamos restringir algunas "
 "características para una red social específica ('facebook', 'twitter', ...)."
 
 #. module: social_facebook
 #: model:ir.model.fields,field_description:social_facebook.field_social_stream_post__facebook_user_likes
 msgid "User Likes"
-msgstr "Usar los me gusta"
+msgstr "Me gustas del usuario"
 
 #. module: social_facebook
 #. odoo-javascript
@@ -340,7 +340,7 @@ msgstr ""
 #: code:addons/social_facebook/models/social_media.py:0
 #, python-format
 msgid "You don't have an active subscription. Please buy one here: %s"
-msgstr "No cuentas con una suscripción activa. Compra una aquí: %s"
+msgstr "No tiene una suscripción activa. Compre una aquí: %s"
 
 #. module: social_facebook
 #. odoo-python

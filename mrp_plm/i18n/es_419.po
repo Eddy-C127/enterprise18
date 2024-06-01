@@ -6,6 +6,7 @@
 # Wil Odoo, 2023
 # Iran Villalobos López, 2023
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Martin Trigaux, 2024
 # Fernanda Alvarez, 2024
 # 
 msgid ""
@@ -49,8 +50,8 @@ msgid ""
 "<i class=\"fa fa-envelope-o\" role=\"img\" aria-label=\"Domain alias\" "
 "title=\"Domain alias\"/>&amp;nbsp;"
 msgstr ""
-"<i class=\"fa fa-envelope-o\" role=\"img\" aria-label=\"Nombre del dominio\""
-" title=\"Nombre del dominio\"/> "
+"<i class=\"fa fa-envelope-o\" role=\"img\" aria-label=\"Seudónimo del "
+"dominio\" title=\"Seudónimo del dominio\"/>&amp;nbsp;"
 
 #. module: mrp_plm
 #. odoo-python
@@ -64,9 +65,9 @@ msgid ""
 "                    </p>"
 msgstr ""
 "<p class=\"o_view_nocontent_smiling_face\">\n"
-"                        Suba archivos a su orden de cambio de ingeniería, que se aplicarán al producto más tarde\n"
+"                        Suba archivos a su orden de cambio de ingeniería para aplicarlos al producto después.\n"
 "                    </p><p>\n"
-"                        Utilice esta función para almacenar cualquier archivo, como diagramas o especificaciones.\n"
+"                        Use esta función para almacenar cualquier archivo, como diagramas o especificaciones.\n"
 "                    </p>"
 
 #. module: mrp_plm
@@ -375,8 +376,8 @@ msgid ""
 "              used to make a finished product; through a manufacturing\n"
 "              order or a pack of products."
 msgstr ""
-"Las listas de materiales le permiten definir la lista de los componentes requeridos\n"
-"              que se utilizan para hacer un producto terminado a través de una orden\n"
+"Las listas de materiales le permiten definir la lista de los componentes necesarios\n"
+"              para fabricar un producto terminado mediante una orden\n"
 "              de fabricación o de un paquete de productos."
 
 #. module: mrp_plm
@@ -975,8 +976,7 @@ msgstr ""
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_type__message_has_error
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_type__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
-"Si se encuentra seleccionado, algunos mensajes presentan un error de envío."
+msgstr "Si se encuentra seleccionado, algunos mensajes tienen error de envío."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_type__alias_bounced_content
@@ -984,8 +984,8 @@ msgid ""
 "If set, this content will automatically be sent out to unauthorized users "
 "instead of the default message."
 msgstr ""
-"Si se establece, este contenido se enviará de forma automática a usuarios no"
-" autorizados en lugar del mensaje predeterminado."
+"Si se establece, este contenido se enviará en automático a los usuarios no "
+"autorizados en vez del mensaje predeterminado."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco__active
@@ -1130,8 +1130,8 @@ msgid ""
 "              Gather the related documentation and receive the necessary approvals\n"
 "              before applying your changes."
 msgstr ""
-"Gestione sus cambios en los productos y en listas de materiales con las órdenes de cambio de ingeniería.\n"
-"              Recolecte los documentos relacionados y reciba las aprobaciones necesarias\n"
+"Gestione sus cambios en productos y en listas de materiales con las órdenes de cambio de ingeniería.\n"
+"              Recopile los documentos relacionados y obtenga las aprobaciones necesarias\n"
 "              antes de aplicar sus cambios."
 
 #. module: mrp_plm
@@ -1327,8 +1327,8 @@ msgstr "Antigua duración manual"
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_stage__final_stage
 msgid "Once the changes are applied, the ECOs will be moved to this stage."
 msgstr ""
-"Una vez que se aplican los cambios, las órdenes de cambio de ingeniería se "
-"moverán a esta etapa."
+"Las órdenes de cambio de ingeniería se moverán a esta etapa después de "
+"aplicar los cambios."
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_routing_change__operation_name
@@ -1345,7 +1345,7 @@ msgstr "Cambios de operación"
 #: code:addons/mrp_plm/models/mrp_eco.py:0
 #, python-format
 msgid "Operation not supported"
-msgstr "Operación no compatible"
+msgstr "Operación incompatible"
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_type__alias_force_thread_id
@@ -1940,7 +1940,7 @@ msgid ""
 "You can define here labels that will be displayed for the state instead\n"
 "                            of the default labels."
 msgstr ""
-"Aquí puede definir las etiquetas que se mostrarán para el estado en lugar \n"
+"Aquí puede definir las etiquetas que aparecerán para el estado en lugar\n"
 "                            de las etiquetas predeterminadas."
 
 #. module: mrp_plm
@@ -1948,16 +1948,14 @@ msgstr ""
 #: code:addons/mrp_plm/models/mrp_eco.py:0
 #, python-format
 msgid "You cannot change the stage, as approvals are required in the process."
-msgstr ""
-"No puede cambiar la etapa ya que se requieren aprobaciones en el proceso."
+msgstr "No puede cambiar la etapa, el proceso necesita aprobaciones."
 
 #. module: mrp_plm
 #. odoo-python
 #: code:addons/mrp_plm/models/mrp_eco.py:0
 #, python-format
 msgid "You cannot change the stage, as approvals are still required."
-msgstr ""
-"No puede cambiar la etapa porque las aprobaciones siguen siendo necesarias."
+msgstr "No puede cambiar la etapa, las aprobaciones siguen siendo necesarias."
 
 #. module: mrp_plm
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form

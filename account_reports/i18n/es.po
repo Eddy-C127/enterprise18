@@ -50,7 +50,7 @@ msgstr " no es compatible con el informe de diario"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "\" account balance is affected by"
-msgstr "\" el balance de cuenta está siendo afectado por"
+msgstr "\" el saldo de la cuenta se ve afectado por"
 
 #. module: account_reports
 #. odoo-python
@@ -212,7 +212,7 @@ msgstr "Ya existe un grupo horizontal con el mismo nombre."
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 #, python-format
 msgid "A line with a 'Group By' value cannot have children."
-msgstr "Una línea con un valor \"Agrupar por\" no puede tener líneas secundarias."
+msgstr "Una línea con un valor \"Agrupar por\" no puede tener líneas hijas."
 
 #. module: account_reports
 #. odoo-python
@@ -545,7 +545,7 @@ msgstr "Filtro analítico"
 #: model:ir.model.fields,field_description:account_reports.field_account_report__filter_analytic_groupby
 #, python-format
 msgid "Analytic Group By"
-msgstr "Agrupar de manera analítica por"
+msgstr "Grupo analítico por"
 
 #. module: account_reports
 #. odoo-python
@@ -804,7 +804,7 @@ msgstr "Gestor personalizado de los informes de flujo de caja"
 #: model:ir.actions.client,name:account_reports.action_account_report_cs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_cash_flow
 msgid "Cash Flow Statement"
-msgstr "Estado de flujos de efectivo"
+msgstr "Estado de flujos de caja"
 
 #. module: account_reports
 #. odoo-python
@@ -1158,7 +1158,7 @@ msgstr "Ganancias del año actual"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings0
 msgid "Current Year Unallocated Earnings"
-msgstr "Ganancias no asignadas del año en curso"
+msgstr "Ganancias no asignadas del año actual"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_ca_to_l0
@@ -1723,7 +1723,7 @@ msgid ""
 "From %s\n"
 "to  %s"
 msgstr ""
-"De%s\n"
+"De %s\n"
 "a %s"
 
 #. module: account_reports
@@ -1798,7 +1798,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Global Tax Summary"
-msgstr "Resumen global de impuestos"
+msgstr "Resumen de impuestos globales"
 
 #. module: account_reports
 #. odoo-python
@@ -1835,7 +1835,7 @@ msgstr "Ganancia bruta"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_gpmargin0
 msgid "Gross profit margin (gross profit / operating income)"
-msgstr "Margen beneficiario bruto (ganancia bruta/ingreso operativo)"
+msgstr "Margen de ganancias en bruto (ganancia en bruto/ingreso operativo)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -2035,7 +2035,7 @@ msgstr "Provisión de ingresos para %s"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Inconsistent Statements"
-msgstr "Estados inconsistentes"
+msgstr "Extractos de cuenta inconsistentes"
 
 #. module: account_reports
 #. odoo-python
@@ -2284,13 +2284,14 @@ msgstr "Trimestre anterior"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Last Statement"
-msgstr "Último estado de cuenta"
+msgstr "Último extracto de cuenta"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Last Statement balance + Transactions since statement"
 msgstr ""
-"Saldo del último estado de cuenta + Transacciones desde el estado de cuenta"
+"Saldo del último extracto de cuenta + Transacciones desde el extracto de "
+"cuenta"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__write_uid
@@ -2331,7 +2332,7 @@ msgstr "Más tarde"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Latest Statement"
-msgstr "Estado de cuenta más reciente"
+msgstr "Extracto de cuenta más reciente"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__line_id
@@ -2437,7 +2438,7 @@ msgstr "Modelo"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_report_handler
 msgid "Multicurrency Revaluation Report Custom Handler"
-msgstr "Gestor personalizado de informes de revalorización multidivisa"
+msgstr "Gestor personalizado de informes de revaluación multimoneda"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_wizard
@@ -2507,7 +2508,7 @@ msgstr "Incremento neto en efectivo y equivalentes"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / income)"
-msgstr "Margen de beneficio neto (ganancias netas/ingresos)"
+msgstr "Margen de ganancias en neto (ganancias en neto/ingresos)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2725,12 +2726,12 @@ msgstr "PDF"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__report_id
 msgid "Parent Report Id"
-msgstr "ID del informe principal"
+msgstr "ID del informe padre"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__export_wizard_id
 msgid "Parent Wizard"
-msgstr "Asistente principal"
+msgstr "Asistente padre"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.general_ledger_report_partner_name
@@ -2959,7 +2960,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_pl
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_profit_and_loss
 msgid "Profit and Loss"
-msgstr "Estado de resultados"
+msgstr "Pérdidas y ganancias"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_profitability0
@@ -3593,8 +3594,8 @@ msgid ""
 "This line and all its children will be deleted. Are you sure you want to "
 "proceed?"
 msgstr ""
-"Esta línea y todas sus líneas secundarias se eliminarán. ¿Está seguro de que"
-" desea continuar?"
+"Esta línea y todas sus líneas hijas se eliminarán. ¿Está seguro de que desea"
+" continuar?"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3816,7 +3817,7 @@ msgstr "Alcance de fecha desconocida: %s"
 #: model:ir.actions.client,name:account_reports.action_account_report_multicurrency_revaluation
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_multicurrency_revaluation
 msgid "Unrealized Currency Gains/Losses"
-msgstr "Ganancias/pérdidas de monedas sin realizar "
+msgstr "Ganancias/pérdidas de moneda no realizadas"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_vat

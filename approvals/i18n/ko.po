@@ -3,17 +3,16 @@
 # 	* approvals
 # 
 # Translators:
-# Wil Odoo, 2023
-# Sarah Park, 2023
 # Daye Jeong, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Daye Jeong, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,16 +24,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>시작 : </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>종료 : </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -472,6 +461,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "멋진 아이콘 폰트 예: fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "시작 :"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "일반 결재"
@@ -753,11 +747,6 @@ msgid "New Request"
 msgstr "새 요청"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "다음 활동 캘린더 행사"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "다음 활동 마감일"
@@ -896,6 +885,7 @@ msgstr "품목 세부사항"
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__product_id
 #: model:ir.ui.menu,name:approvals.approvals_menu_product
 #: model:ir.ui.menu,name:approvals.approvals_menu_product_template
+#: model_terms:ir.ui.view,arch_db:approvals.approval_product_kanban_mobile_view
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree_independent
@@ -909,11 +899,6 @@ msgstr "품목"
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Quantity"
 msgstr "수량"
-
-#. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "평가"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
@@ -1006,6 +991,13 @@ msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
 msgstr "기록에 대한 액세스 권한이 실수로 지워지는 것을 방지하기 위해 일반 사용자는 자신을 승인자에서 삭제할 수 없습니다."
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1119,16 +1111,6 @@ msgid "Waiting"
 msgstr "대기 중"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "웹사이트 메시지"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "웹사이트 대화 기록"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1169,8 +1151,8 @@ msgstr "귀하의 요청을 승인하기 위해 최소%s명의 결재권자를 �
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
-msgstr "최소한 하나의 문서를 첨부해야 합니다."
+msgid "You have to attach at least one document."
+msgstr ""
 
 #. module: approvals
 #. odoo-python
@@ -1200,3 +1182,8 @@ msgstr "메뉴"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "새 요청"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "받는 사람 :"

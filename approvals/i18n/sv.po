@@ -3,22 +3,20 @@
 # 	* approvals
 # 
 # Translators:
-# Claes-Johan Dahlin, 2023
 # Kim Asplund <kim.asplund@gmail.com>, 2023
 # Haojun Zou <apollo_zhj@msn.com>, 2023
-# Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2023
 # Björn Hayer, 2023
 # Robin Calvin, 2023
 # Martin Wilderoth <martin.wilderoth@linserv.se>, 2023
 # Lasse L, 2023
-# Daniel Löfgren, 2023
 # Chrille Hedberg <hedberg.chrille@gmail.com>, 2023
 # Kristoffer Grundström <lovaren@gmail.com>, 2023
 # Christelle Wehbe <libanon_cristelle@hotmail.com>, 2023
-# Simon S, 2023
-# Martin Trigaux, 2023
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2023
+# Martin Trigaux, 2023
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
+# Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
+# Simon S, 2024
 # 
 msgid ""
 msgstr ""
@@ -26,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jakob Krabbe <jakob.krabbe@vertel.se>, 2024\n"
+"Last-Translator: Simon S, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,16 +35,6 @@ msgstr ""
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
-msgstr ""
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>Från: </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
 msgstr ""
 
 #. module: approvals
@@ -489,6 +477,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Font Awesome-ikon t.ex. fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "Från:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr ""
@@ -762,11 +755,6 @@ msgid "New Request"
 msgstr "Ny begäran"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Nästa Kalenderhändelse för Aktivitet"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Nästa slutdatum för aktivitet"
@@ -921,11 +909,6 @@ msgid "Quantity"
 msgstr "Antal"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "Betyg"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Reference"
@@ -1015,6 +998,13 @@ msgstr "Sekvens"
 msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
 msgstr ""
 
 #. module: approvals
@@ -1129,16 +1119,6 @@ msgid "Waiting"
 msgstr "Väntar"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "Webbplatsmeddelanden"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "Webbplatsens kommunikationshistorik"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1179,7 +1159,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
+msgid "You have to attach at least one document."
 msgstr ""
 
 #. module: approvals
@@ -1210,3 +1190,8 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "ny begäran"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "till:"

@@ -286,8 +286,8 @@ msgid ""
 "An account group can only have accounts or other groups children but not "
 "both!"
 msgstr ""
-"¡Un grupo de cuentas solo puede tener cuentas u otros grupos secundarios "
-"pero no ambos!"
+"¡Un grupo de cuentas solo puede tener cuentas u otros grupos hijos pero no "
+"ambos!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__period_id
@@ -398,7 +398,7 @@ msgstr "Planes"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_group__child_ids
 msgid "Children"
-msgstr "Subordinados"
+msgstr "Hijos"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
@@ -467,7 +467,7 @@ msgstr "Nombre de la empresa"
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__company_period_id
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_company_period_form
 msgid "Company Period"
-msgstr "Periodo de la empresa"
+msgstr "Periodo de la compañía"
 
 #. module: account_consolidation
 #: model:ir.actions.act_window,name:account_consolidation.consolidation_company_period_action
@@ -476,12 +476,12 @@ msgstr "Periodo de la empresa"
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_company_period_tree
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "Company Periods"
-msgstr "Periodos de la empresa"
+msgstr "Periodos de la compañía"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period__company_unmapped_accounts_counts
 msgid "Company Unmapped Accounts Counts"
-msgstr "Número de cuentas sin mapear de la empresa"
+msgstr "Número de cuentas sin mapear de la compañía"
 
 #. module: account_consolidation
 #. odoo-javascript
@@ -510,7 +510,7 @@ msgstr "Configuración"
 #: code:addons/account_consolidation/static/src/components/consolidation_report/header.xml:0
 #, python-format
 msgid "Conso Rate:"
-msgstr "Tasa conso:"
+msgstr "Tasa de consolidación:"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__account_id
@@ -752,7 +752,7 @@ msgstr "Importe de la moneda"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__currency_mode
 msgid "Currency Conversion Method"
-msgstr "Método de conversión de divisa"
+msgstr "Método de conversión de moneda"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period_composition__currency_rate
@@ -764,7 +764,7 @@ msgstr "Tipo de cambio"
 #: model:ir.model.fields,help:account_consolidation.field_consolidation_period_composition__currency_rate
 msgid "Currency rate from composed chart currency to using chart currency"
 msgstr ""
-"Tasa de cambio de la divisa del gráfico compuesto a la divisa del gráfico "
+"Tipo de cambio de la moneda del gráfico compuesto a la moneda del gráfico "
 "utilizado"
 
 #. module: account_consolidation
@@ -1218,12 +1218,12 @@ msgstr "PDF"
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_group__parent_id
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_search
 msgid "Parent"
-msgstr "Principal"
+msgstr "Padre"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_group__parent_path
 msgid "Parent Path"
-msgstr "Ruta principal"
+msgstr "Ruta padre"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_company_period__period_id
@@ -1310,7 +1310,7 @@ msgstr "Ajustes"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,button_text:account_consolidation.onboarding_onboarding_step_setup_ccoa
 msgid "Setup"
-msgstr "Configurar"
+msgstr "Configuración"
 
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_setup_ccoa
@@ -1318,7 +1318,7 @@ msgid ""
 "Setup your consolidated accounts and their currency conversion method.\n"
 "                Then map them with the companies accounts."
 msgstr ""
-"Configure las cuentas consolidadas y sus métodos de conversión de divisa. \n"
+"Configure las cuentas consolidadas y sus métodos de conversión de moneda. \n"
 "             Luego mapeelas con las cuentas de las empresas."
 
 #. module: account_consolidation
@@ -1443,7 +1443,7 @@ msgstr ""
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_journal_form
 msgid "This journal has been automatically generated on"
-msgstr "Este diario se generó automáticamente en"
+msgstr "Este diario se ha generado automáticamente en"
 
 #. module: account_consolidation
 #. odoo-python
@@ -1506,7 +1506,7 @@ msgstr "Utilizado en la composición"
 #: model:ir.model.fields,help:account_consolidation.field_consolidation_chart__color
 #: model:ir.model.fields,help:account_consolidation.field_consolidation_period__color
 msgid "Used in the kanban view"
-msgstr "Empleado en vista de kanban"
+msgstr "Utilizado en la vista de kanban"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period__using_composition_ids
@@ -1578,12 +1578,12 @@ msgstr "¡No puede agregar diarios a un periodo cerrado!"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_form
 msgid "e.g. Profit and Loss"
-msgstr "por ejemplo, estado de resultados"
+msgstr "p. ej. pérdidas y ganancias"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_form
 msgid "e.g. Revenue"
-msgstr "por ejemplo, ingresos"
+msgstr "p. ej. ingresos"
 
 #. module: account_consolidation
 #. odoo-python
@@ -1597,4 +1597,4 @@ msgstr "n/a"
 #: code:addons/account_consolidation/static/src/components/dashboard_widget/dashboard_widget.xml:0
 #, python-format
 msgid "unmapped accounts"
-msgstr "cuentas sin mappear"
+msgstr "cuentas no mapeadas"

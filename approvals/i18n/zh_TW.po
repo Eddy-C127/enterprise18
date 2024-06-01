@@ -3,16 +3,16 @@
 # 	* approvals
 # 
 # Translators:
-# Wil Odoo, 2023
-# Tony Ng, 2023
+# Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,16 +24,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr "<span class=\"fa fa-warning\" title=\"最低批准數目無效\"/>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>由： </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>至： </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -471,6 +461,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Font awesome 圖示，例如，fa-task"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "從:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "一般審批"
@@ -750,11 +745,6 @@ msgid "New Request"
 msgstr "新增請求"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "下一個活動日曆事件"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "下一活動截止日期"
@@ -893,6 +883,7 @@ msgstr "產品變體"
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__product_id
 #: model:ir.ui.menu,name:approvals.approvals_menu_product
 #: model:ir.ui.menu,name:approvals.approvals_menu_product_template
+#: model_terms:ir.ui.view,arch_db:approvals.approval_product_kanban_mobile_view
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree_independent
@@ -906,11 +897,6 @@ msgstr "產品"
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Quantity"
 msgstr "數量"
-
-#. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "點評"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
@@ -1003,6 +989,13 @@ msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
 msgstr "簡單用戶不應該能夠刪除自己作為審核者的身份，因為如果他們錯誤點擊，他們將失去對記錄的存取權。"
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
+msgstr "開始日期應在結束日期之前。"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1116,16 +1109,6 @@ msgid "Waiting"
 msgstr "正在等待"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "網站資訊"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "網站溝通記錄"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1166,8 +1149,8 @@ msgstr "你必須加入至少 %s 個審批人去確認你的申請。"
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
-msgstr "你最少須夾附一個文件。"
+msgid "You have to attach at least one document."
+msgstr ""
 
 #. module: approvals
 #. odoo-python
@@ -1197,3 +1180,8 @@ msgstr "選單"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "新請求"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "to:"

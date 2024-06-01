@@ -3,8 +3,8 @@
 # 	* approvals
 # 
 # Translators:
-# Wil Odoo, 2023
 # Rasareeyar Lappiam, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,16 +24,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr "<span class=\"fa fa-warning\" title=\"การอนุมัติขั้นต่ำไม่ถูกต้อง\"/>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>จาก: </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>ถึง: </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -475,6 +465,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "ไอคอนแบบฟอนต์ที่ยอดเยี่ยมเช่น fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "จาก:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "การอนุมัติทั่วไป"
@@ -757,11 +752,6 @@ msgid "New Request"
 msgstr "คำร้องขอใหม่"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "ปฏิทินอีเวนต์กิจกรรมถัดไป"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "วันครบกำหนดกิจกรรมถัดไป"
@@ -916,11 +906,6 @@ msgid "Quantity"
 msgstr "ปริมาณ"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "การให้คะแนน"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Reference"
@@ -1013,6 +998,13 @@ msgid ""
 msgstr ""
 "ผู้ใช้ทั่วไปควรที่จะไม่สามารถลบตนเองออกจากการเป็นผู้อนุมัติได้ "
 "เนื่องจากพวกเขาจะสูญเสียการเข้าถึงบันทึกหากคลิกผิด"
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
+msgstr "วันที่เริ่มต้นควรอยู่ก่อนวันที่สิ้นสุด"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1132,16 +1124,6 @@ msgid "Waiting"
 msgstr "รอ"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "ข้อความเว็บไซต์"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "ประวัติการสื่อสารของเว็บไซต์"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1184,8 +1166,8 @@ msgstr "คุณต้องเพิ่มอย่างน้อย %s ผ�
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
-msgstr "คุณต้องแนบเอกสารอย่างน้อยหนึ่งฉบับ"
+msgid "You have to attach at least one document."
+msgstr ""
 
 #. module: approvals
 #. odoo-python
@@ -1215,3 +1197,8 @@ msgstr "เมนู"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "คำร้องขอใหม่"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "ถึง:"

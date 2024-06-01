@@ -117,13 +117,13 @@ msgstr ""
 "                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                                                        <div>\n"
 "                                                            Hola,<br><br>\n"
-"                                                            La conexión entre <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">https://suempresa.odoo.com</a></b> y <t t-out=\"object.account_online_link_id.name or ''\">Belfius</t> <t t-if=\"not object.expiring_synchronization_due_day\">venció.</t><t t-else=\"\">vence en <t t-out=\"object.expiring_synchronization_due_day or ''\">10</t> días.</t><br>\n"
+"                                                            La conexión entre <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">https://sucompañía.odoo.com</a></b> y <t t-out=\"object.account_online_link_id.name or ''\">Belfius</t> <t t-if=\"not object.expiring_synchronization_due_day\">venció.</t><t t-else=\"\">vence en <t t-out=\"object.expiring_synchronization_due_day or ''\">10</t> días.</t><br>\n"
 "                                                            <div style=\"margin: 16px 0px 16px 0px;\">\n"
 "                                                                <a t-attf-href=\"{{ website_url }}/renew_consent/{{ object.id }}?access_token={{object.access_token}}\" style=\"background-color: #4caf50; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
 "                                                                    Renovar el consentimiento\n"
 "                                                                </a>\n"
 "                                                            </div>\n"
-"                                                            Consejo de seguridad: Verifique que el nombre de dominio al que se le redirecciona es: <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">https://suempresa.odoo.com</a></b>\n"
+"                                                            Consejo de seguridad: Verifique que el nombre de dominio al que se le redirecciona es: <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">https://sucompañía.odoo.com</a></b>\n"
 "                                                        </div>\n"
 "                                                    </td>\n"
 "                                                </tr>\n"
@@ -211,7 +211,7 @@ msgstr "Cuenta: en espera de sincronización del diario en línea"
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_cron_ir_actions_server
 msgid "Account: Journal online sync"
-msgstr "Cuenta: sincronizar diario en línea"
+msgstr "Cuenta: sincronización del diario en línea"
 
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_unused_connection_cron_ir_actions_server
@@ -952,7 +952,7 @@ msgstr "Publicado"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.missing_bank_statement_line_search
 msgid "Posted Transactions"
-msgstr "Transacciones registradas"
+msgstr "Transacciones publicadas"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__processing
@@ -1122,7 +1122,7 @@ msgid ""
 "try again later."
 msgstr ""
 "El servicio de sincronización en línea no está disponible por el momento. "
-"Por favor intenta más tarde."
+"Inténtelo más tarde."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__provider_type

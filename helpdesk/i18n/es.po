@@ -4,9 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2023
-# David Pérez, 2024
-# Larissa Manderfeld, 2024
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:09+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -829,7 +828,7 @@ msgstr "Asignado a"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 msgid "Assignee"
-msgstr "Asignado"
+msgstr "Persona asignada"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__assign_method
@@ -928,7 +927,7 @@ msgstr "Calificación promedio: Insatisfecho"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_kanban
 msgid "Average Rating: Okay"
-msgstr "Calificación promedio: Bien"
+msgstr "Calificación media: OK"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -1685,8 +1684,8 @@ msgid ""
 "assigned to."
 msgstr ""
 "Permita que los empleados accedan a su equipo de servicio de asistencia o a "
-"los tickets agregándolos como seguidores, tendrán acceso de forma automática"
-" a los tickets en los que están asignados."
+"los tickets agregándolos como seguidores, tendrán acceso automático a los "
+"tickets a los que están asignados."
 
 #. module: helpdesk
 #. odoo-python
@@ -1699,7 +1698,7 @@ msgid ""
 msgstr ""
 "Permita que a los usuarios del portal accedan a su equipo de servicio de "
 "asistencia o a los tickets agregándolos como seguidores. Los clientes "
-"tendrán acceso de forma automática a sus tickets en el portal."
+"tendrán acceso automático a sus tickets en el portal."
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__kanban_state__done
@@ -1800,7 +1799,7 @@ msgstr "Etapa de servicio de asistencia"
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_stage_delete_wizard
 msgid "Helpdesk Stage Delete Wizard"
-msgstr "Ayudante de eliminación de etapa del servicio de asistencia"
+msgstr "Asistente para eliminar la etapa del servicio de asistencia"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_tag
@@ -1867,7 +1866,7 @@ msgstr "Servicio de asistencia: ticket cerrado"
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.rating_ticket_request_email_template
 msgid "Helpdesk: Ticket Rating Request"
-msgstr "Servicio de asistencia: Solicitud de valoración de ticket"
+msgstr "Servicio de asistencia: solicitud de calificación de ticket"
 
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.new_ticket_request_email_template
@@ -2057,9 +2056,9 @@ msgid ""
 "It is necessary to enable customer ratings in the settings of your helpdesk "
 "team so that they can be displayed on the portal."
 msgstr ""
-"Necesita habilitar las valoraciones de los clientes en los ajustes de su "
-"equipo de servicio de asistencia. Así las valoraciones se podrán mostrar en "
-"el portal."
+"Necesita habilitar las calificaciones de los clientes en los ajustes de su "
+"equipo de servicio de asistencia. Así las calificaciones se podrán mostrar "
+"en el portal."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__duration_tracking
@@ -2074,7 +2073,7 @@ msgstr "Explicación del kanban bloqueado"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__legend_normal
 msgid "Kanban Ongoing Explanation"
-msgstr "Explicación del kanban en proceso"
+msgstr "Explicación del kanban en curso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__kanban_state
@@ -2533,7 +2532,7 @@ msgstr "Número de mensajes con error de envío"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "Number of open tickets with at least one SLA failed."
-msgstr "Número de tickets abiertos con al menos una SLA fallada"
+msgstr "Número de tickets abiertos con al menos una SLA fallida"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_open_ticket_count
@@ -2569,7 +2568,7 @@ msgstr "En espera"
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_status__status__ongoing
 msgid "Ongoing"
-msgstr "En proceso"
+msgstr "En curso"
 
 #. module: helpdesk
 #. odoo-python
@@ -2611,7 +2610,7 @@ msgstr "Satisfacción de nuestros clientes"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_my_home_menu_helpdesk
 msgid "Our Ratings"
-msgstr "Nuestras valoraciones "
+msgstr "Nuestras calificaciones"
 
 #. module: helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_menu_team_dashboard
@@ -2621,7 +2620,7 @@ msgstr "Vista general"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_parent_model_id
 msgid "Parent Model"
-msgstr "Modelo principal"
+msgstr "Modelo padre"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_parent_thread_id
@@ -2635,8 +2634,8 @@ msgid ""
 " necessarily the model given by alias_model_id (example: project "
 "(parent_model) and task (model))"
 msgstr ""
-"Modelo principal que contiene el alias. El modelo que contiene la referencia"
-" del alias no es necesariamente el modelo dado por alias_model_id (example: "
+"Modelo padre que contiene el alias. El modelo que contiene la referencia del"
+" alias no es necesariamente el modelo dado por alias_model_id (example: "
 "project (parent_model) and task (model))"
 
 #. module: helpdesk
@@ -2668,15 +2667,15 @@ msgid ""
 "- Invited portal users and all internal users: all internal users can access the team and all of its tickets without distinction.\n"
 "Portal users can only access the tickets they are following. This access can be modified on each ticket individually by adding or removing the portal user as follower."
 msgstr ""
-"Personas que podrán ver este equipo de asistencia y sus tickets.\n"
+"Las personas que podrán ver este equipo de asistencia y sus tickets.\n"
 "\n"
-"- Usuarios internos invitados: los usuarios internos pueden acceder al equipo y a los tickets que están siguiendo. Este acceso se puede modificar en cada ticket individualmente agregando o quitando el usuario de los seguidores.\n"
-"Un usuario con el derecho de acceso de administrador del servicio de asistencia puede acceder a este equipo y sus tickets, incluso si no son parte de los seguidores.\n"
+"- Usuarios internos invitados: los usuarios internos pueden acceder al equipo y a los tickets que están siguiendo. Este acceso se puede modificar en cada ticket si agrega o quita el usuario de los seguidores.\n"
+"Un usuario con el permiso de acceso de administrador del servicio de asistencia puede acceder a este equipo y sus tickets, incluso si no forma parte de los seguidores.\n"
 "\n"
 "- Todos los usuarios internos: todos los usuarios internos pueden acceder al equipo y a todos los tickets sin distinción.\n"
 "\n"
-"- Usuarios del portal invitados y todos los usuarios internos: todos los usuarios internos pueden acceder al equipo y todos sus tickets sin distinción.\n"
-"Los usuarios del portal solo pueden acceder a los tickets que están siguiendo. Este acceso se puede modificar en cada ticket individualmente al agregar o quitar el usuario del portal como seguidor."
+"- Usuarios del portal invitados y todos los usuarios internos: todos los usuarios internos pueden acceder al equipo y a todos sus tickets.\n"
+"Los usuarios del portal solo pueden acceder a los tickets que están siguiendo. Este acceso se puede modificar en cada ticket al agregar o quitar al usuario del portal como seguidor."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2686,7 +2685,7 @@ msgstr "Gente que podrá ver este equipo y sus tickets"
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__rating_percentage_satisfaction
 msgid "Percentage of happy ratings"
-msgstr "Porcentaje de valoraciones positivas"
+msgstr "Porcentaje de calificaciones positivas"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2745,7 +2744,7 @@ msgstr "Introduzca un número."
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 #, python-format
 msgid "Please enter a percentage below 100."
-msgstr "Introduzca un porcentaje menor a 100."
+msgstr "Introduzca un porcentaje inferior a 100."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2803,7 +2802,7 @@ msgstr "Propiedades"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Publish this team's ratings on your website"
-msgstr "Publica la calificación de este equipo en tu sitio web"
+msgstr "Publique la calificación de este equipo en su sitio web"
 
 #. module: helpdesk
 #: model:helpdesk.ticket.type,name:helpdesk.type_question
@@ -3458,7 +3457,7 @@ msgstr "Calificación de cliente potencial"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__stage_id
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__sla_stage_id
 msgid "Target Stage"
-msgstr "Estado potencial"
+msgstr "Etapa de objetivo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_res_users__helpdesk_target_success
@@ -3887,13 +3886,12 @@ msgid ""
 "how quickly you reach your service level agreements (SLAs)."
 msgstr ""
 "Rastree el rendimiento de sus equipos, la tasa de éxito de sus tickets y qué"
-" tan rápido puede cumplir con el acuerdo de nivel de servicio (SLA, por sus "
-"siglas en inglés)."
+" tan rápido puede cumplir con el acuerdo de nivel de servicio (SLA)."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Track the time spent on tickets"
-msgstr "Rastree el tiempo ocupado en tickets"
+msgstr "Rastree el tiempo dedicado a tickets"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_twitter
@@ -3954,7 +3952,7 @@ msgstr "No asignado"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 msgid "Unassigned Tickets"
-msgstr "Tiquets sin asignar"
+msgstr "Tickets no asignados"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
@@ -3998,7 +3996,7 @@ msgstr "Utilizar facturas rectificativas"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__use_rating
 msgid "Use Customer Ratings"
-msgstr "Utilizar valoración de clientes"
+msgstr "Utilizar calificaciones de clientes"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__use_product_repairs
@@ -4219,7 +4217,7 @@ msgstr "se creó a partir del ticket:"
 #. module: helpdesk
 #: model:ir.actions.server,name:helpdesk.helpdesk_ratings_server_action
 msgid "helpdesk view rating"
-msgstr "valoración de la vista del servicio de asistencia"
+msgstr "calificación de la vista del servicio de asistencia"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form

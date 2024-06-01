@@ -332,7 +332,7 @@ msgid ""
 msgstr ""
 "Tras la validación de las credenciales, los mercados\n"
 "                                                a los que esta cuenta tiene acceso se\n"
-"                                                sincronizarán y estarán disponibles de manera automática."
+"                                                sincronizarán y estarán disponibles automáticamente."
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_amazon_account
@@ -391,12 +391,12 @@ msgstr "Ofertas de Amazon"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_recover_order_wizard__amazon_order_ref
 msgid "Amazon Order Reference"
-msgstr "Referencia de la orden de Amazon "
+msgstr "Referencia del pedido de Amazon "
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_amazon_recover_order_wizard
 msgid "Amazon Recover Order Wizard"
-msgstr "Asistente de recuperación de la orden de Amazon "
+msgstr "Asistente de recuperación del pedido de Amazon "
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_sale_order__amazon_order_ref
@@ -572,17 +572,17 @@ msgstr "Amazon.sg"
 #: model:mail.template,name:sale_amazon.inventory_sync_failure
 msgid "Amazon: Available Inventory for Offers Synchronization Failure"
 msgstr ""
-"Amazon: Fallo en la sincronización del inventario disponible para ofertas"
+"Amazon: error en la sincronización del inventario disponible para ofertas "
 
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.picking_sync_failure
 msgid "Amazon: Delivery Order Synchronization Failure"
-msgstr "Amazon: Fallo en la sincronización de la orden de envío "
+msgstr "Amazon: error en la sincronización de la orden de entrega"
 
 #. module: sale_amazon
 #: model:mail.template,name:sale_amazon.order_sync_failure
 msgid "Amazon: Order Synchronization Failure"
-msgstr "Amazon: Error en la sincronización de órdenes."
+msgstr "Amazon: error en la sincronización de pedidos"
 
 #. module: sale_amazon
 #: model:ir.actions.server,name:sale_amazon.ir_cron_sync_amazon_inventory_ir_actions_server
@@ -785,7 +785,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "Home Marketplace"
-msgstr "Marketplace principal"
+msgstr "Mercado principal"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__id
@@ -889,7 +889,7 @@ msgid ""
 "                                Amazon orders."
 msgstr ""
 "Vincule su cuenta de Amazon con Odoo para empezar a sincronizar sus\n"
-"                                órdenes de Amazon."
+"                                pedidos de Amazon."
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1019,7 +1019,7 @@ msgstr "Recuperar"
 #: model_terms:ir.ui.view,arch_db:sale_amazon.recover_order_wizard_form
 #, python-format
 msgid "Recover Order"
-msgstr "Recuperar orden"
+msgstr "Recuperar pedido"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__region
@@ -1087,7 +1087,7 @@ msgid ""
 "Select the marketplace on which your seller account\n"
 "                                                was initially created."
 msgstr ""
-"Seleccione el marketplace en el que creó inicialmente\n"
+"Seleccione el mercado en el que creó inicialmente\n"
 "                                                su cuenta de comerciante."
 
 #. module: sale_amazon
@@ -1192,9 +1192,9 @@ msgid ""
 " (%(status)s) is not eligible for synchronization for its fulfillment "
 "channel (%(channel)s)."
 msgstr ""
-"La orden de Amazon con referencia  %(ref)s no se pudo recuperar porque su "
-"estado  (%(status)s) no es candidato para la sincronización para su canal de"
-" logística (%(channel)s)."
+"No fue posible recuperar el pedido de Amazon con referencia %(ref)s. Su "
+"estado (%(status)s) no es apto para la sincronización para su canal de "
+"logística (%(channel)s)."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__region
@@ -1202,8 +1202,8 @@ msgid ""
 "The Amazon region of the marketplace. Please refer to the Selling Partner "
 "API documentation to find the correct region."
 msgstr ""
-"La región del mercado de Amazon. Consulte la documentación de API de partner"
-" de venta para encontrar la región correcta."
+"La región del mercado de Amazon. Consulte la documentación de la API del "
+"colaborador comercial para encontrar la región correcta."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_sale_order_line__amazon_item_ref
@@ -1213,12 +1213,12 @@ msgstr "La referencia del artículo definido por Amazon"
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__api_ref
 msgid "The Amazon-defined marketplace reference."
-msgstr "Referencia de marketplace definida por Amazon"
+msgstr "Referencia del mercado definida por Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_sale_order__amazon_order_ref
 msgid "The Amazon-defined order reference."
-msgstr "La referencia de la orden definida por Amazon"
+msgstr "La referencia del pedido definido por Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__team_id
@@ -1258,7 +1258,7 @@ msgstr "Correo electrónico encriptado del cliente. No reenvía los correos"
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "The home marketplace of this account; used for authentication only."
 msgstr ""
-"El marketplace principal de esta cuenta; solo se usa para fines de "
+"El mercado principal de esta cuenta; solo se usa para fines de "
 "autenticación. "
 
 #. module: sale_amazon
@@ -1268,9 +1268,9 @@ msgid ""
 "whose status has not changed since this date will not be created nor updated"
 " in Odoo."
 msgstr ""
-"Última fecha de sincronización de los pedidos realizados en esta cuenta. Los"
-" pedidos cuyo estado no han cambiado desde esta fecha no se crearán ni "
-"actualizarán en Odoo."
+"Última fecha de sincronización de los pedidos realizados en esta cuenta. No "
+"se crearán ni actualizarán en Odoo los pedidos cuyo estado no haya cambiado "
+"desde esa fecha."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__location_id
@@ -1291,34 +1291,34 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__marketplace_id
 msgid "The marketplace of this offer."
-msgstr "El marketplace de esta oferta."
+msgstr "El mercado de esta oferta."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__available_marketplace_ids
 msgid "The marketplaces this account has access to."
-msgstr "Los marketplaces a los que esta cuenta tiene acceso"
+msgstr "Los mercados a los que esta cuenta tiene acceso"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__active_marketplace_ids
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__active_marketplace_ids
 msgid "The marketplaces this account sells on."
-msgstr "Los marketplaces en los que vende esta cuenta."
+msgstr "Los mercados en los que vende esta cuenta"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_credentials_expiry
 msgid "The moment at which the AWS credentials become invalid."
-msgstr "El momento en el que las credenciales AWS se vuelven inválidas."
+msgstr "El momento en el que las credenciales AWS dejan de ser válidas."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__restricted_data_token_expiry
 msgid "The moment at which the Restricted Data Token becomes invalid."
 msgstr ""
-"El momento en el que el token de datos restringidos se vuelve inválido."
+"El momento en el que el token de datos restringidos deja de ser válido."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__access_token_expiry
 msgid "The moment at which the token becomes invalid."
-msgstr "El momento en el que el token se vuelve no válido."
+msgstr "El momento en el que el token deja de ser válido."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1329,22 +1329,22 @@ msgid ""
 "already been delivered. Please create a return for this order to adjust the "
 "stock."
 msgstr ""
-"El cliente de Amazon canceló el pedido cuando ya se habían entregado algunos"
-" productos. Realice una devolución para ajustar las existencias."
+"El cliente de Amazon ha cancelado el pedido cuando ya se habían entregado "
+"algunos productos. Realice una devolución para ajustar el stock."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "The order was not found on this account's marketplaces."
-msgstr "No se encontró la orden en los marketplaces de esta cuenta."
+msgstr "No se encontró el pedido en los mercados de esta cuenta."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "The provided reference does not match any Amazon order."
-msgstr "La referencia ingresada no concuerda con ninguna orden de Amazon. "
+msgstr "La referencia ingresada no coincide con ningún pedido de Amazon. "
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_recover_order_wizard__amazon_order_ref
@@ -1443,8 +1443,8 @@ msgid ""
 "The synchronization with Amazon failed. Amazon gave us this information "
 "about the problem:"
 msgstr ""
-"Falló la sincronización con Amazon. Amazon nos proporcionó información sobre"
-" este problema: "
+"Ha fallado la sincronización con Amazon. Amazon nos proporcionó información "
+"sobre este problema: "
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__name
@@ -1461,15 +1461,15 @@ msgstr "Solo puede existir un mercado para un identificador API."
 msgid ""
 "There can only exist one sale order for a given Amazon Order Reference."
 msgstr ""
-"Solo puede existir una orden de venta para una determinada referencia de la "
-"orden de Amazon."
+"Solo puede existir un pedido de venta para una referencia específica del "
+"pedido de Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.constraint,message:sale_amazon.constraint_sale_order_line_unique_amazon_item_ref
 msgid ""
 "There can only exist one sale order line for a given Amazon Item Reference."
 msgstr ""
-"Solo puede existir una línea de orden de venta para una determinada "
+"Solo puede existir una línea de pedido de venta para una determinada "
 "referencia del artículo de Amazon."
 
 #. module: sale_amazon
@@ -1485,7 +1485,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_stock_picking
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1543,8 +1543,8 @@ msgid ""
 "You first need to set the marketplaces to synchronize for the Amazon account"
 " %s."
 msgstr ""
-"Primero debe establecer los marketplaces para sincronizar su cuenta de "
-"Amazon %s."
+"Primero debe establecer los mercados para sincronizar su cuenta de Amazon "
+"%s."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1590,4 +1590,4 @@ msgstr "[%s] Cargos por envoltura de regalos para %s"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "e.g. American Market"
-msgstr "p.ej. Mercado americano"
+msgstr "p. ej. Mercado americano"

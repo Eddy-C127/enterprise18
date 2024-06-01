@@ -244,12 +244,12 @@ msgstr "¿Está seguro de que desea cancelar esta operación?"
 #: code:addons/stock_barcode/static/src/components/backorder_dialog.xml:0
 #, python-format
 msgid "Backorder"
-msgstr "Pedido pendiente"
+msgstr "Entrega parcial"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_backorder_confirmation
 msgid "Backorder Confirmation"
-msgstr "Confirmación de pedido pendiente"
+msgstr "Confirmación de entrega parcial"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -521,7 +521,7 @@ msgstr "Descargar"
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__dummy_id
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_quant__dummy_id
 msgid "Dummy"
-msgstr "Ficticio"
+msgstr "Prueba"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_backorder_confirmation__empty_move_count
@@ -538,14 +538,14 @@ msgstr "Validación final"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorder was created:"
-msgstr "Se creó el siguiente pedido pendiente:"
+msgstr "Se creó la siguiente entrega parcial:"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Following backorders were created:"
-msgstr "Se crearon los siguientes pedidos pendientes:"
+msgstr "Se crearon las siguientes entregas parciales:"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
@@ -615,7 +615,7 @@ msgstr ""
 msgid ""
 "If you validate now, the remaining products will be added to a backorder."
 msgstr ""
-"Si valide ahora, los productos restantes se añadirán al pedido pendiente"
+"Si valide ahora, los productos restantes se añadirán a la entrega parcial"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__image_1920
@@ -738,7 +738,7 @@ msgstr "No"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No %(picking_type)s ready for this %(barcode_type)s"
-msgstr "No hay %(picking_type)s preparado para este %(barcode_type)s"
+msgstr "No hay %(picking_type)s listo este %(barcode_type)s"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__no
@@ -778,7 +778,7 @@ msgstr ""
 #, python-format
 msgid "No product, lot or package found for barcode %s"
 msgstr ""
-"No se encontró un producto, lote o paquete para el código de barras %s"
+"No se encontró ningún producto, lote o paquete para el código de barras %s"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
@@ -856,12 +856,12 @@ msgstr "Cantidad de empaquetado"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_id
 msgid "Parent Location"
-msgstr "Ubicación principal"
+msgstr "Ubicación padre"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__parent_location_dest_id
 msgid "Parent Location Dest"
-msgstr "Destino principal de la ubicación "
+msgstr "Destino padre de la ubicación "
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_backorder_confirmation__partial_move_count
@@ -978,7 +978,7 @@ msgstr "Código de referencia de producto"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__product_stock_quant_ids
 msgid "Product Stock Quant"
-msgstr "Cantidad de existencias de producto"
+msgstr "Cuanto de stock del producto"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_uom_uom
@@ -1026,7 +1026,7 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_quant
 msgid "Quants"
-msgstr "Quants"
+msgstr "Cuantos"
 
 #. module: stock_barcode
 #. odoo-javascript

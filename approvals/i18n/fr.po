@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Jolien De Paepe, 2023
-# Wil Odoo, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,16 +24,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr "<span class=\"fa fa-warning\" title=\"Validations minimales invalides\"/>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>De : </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>à : </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -480,6 +470,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Icône Font Awesome par ex. fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "De :"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "Validation générale"
@@ -765,11 +760,6 @@ msgid "New Request"
 msgstr "Nouvelle demande"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Activité suivante de l'événement du calendrier"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Date limite de l'activité à venir"
@@ -908,6 +898,7 @@ msgstr "Variantes de produit"
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__product_id
 #: model:ir.ui.menu,name:approvals.approvals_menu_product
 #: model:ir.ui.menu,name:approvals.approvals_menu_product_template
+#: model_terms:ir.ui.view,arch_db:approvals.approval_product_kanban_mobile_view
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree_independent
@@ -921,11 +912,6 @@ msgstr "Produits"
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Quantity"
 msgstr "Quantité"
-
-#. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "Évaluations"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
@@ -1021,6 +1007,13 @@ msgstr ""
 "Les utilisateurs simples ne devraient pas pouvoir se retirer eux-mêmes de la"
 " liste des approbateurs, car ils perdraient l'accès à l'enregistrement en "
 "cas de clic erroné."
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1141,16 +1134,6 @@ msgid "Waiting"
 msgstr "En attente"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "Messages du site web"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "Historique de communication du site web"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1196,8 +1179,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
-msgstr "Vous devez joindre au moins un document."
+msgid "You have to attach at least one document."
+msgstr ""
 
 #. module: approvals
 #. odoo-python
@@ -1228,3 +1211,8 @@ msgstr "menu"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "nouvelle demande"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "à :"

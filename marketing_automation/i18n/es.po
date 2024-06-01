@@ -119,7 +119,7 @@ msgstr "<i class=\"fa fa-pie-chart\"/> Detalles"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<i class=\"fa fa-plus-circle\"/> Add child activity"
-msgstr "<i class=\"fa fa-plus-circle\"/> Agregar actividad subordinada"
+msgstr "<i class=\"fa fa-plus-circle\"/> Agregar actividad hija"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -199,7 +199,7 @@ msgstr "Correo ganador de la campaña A/B"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_mailings_count
 msgid "A/B Test Mailings #"
-msgstr "Test de pruebas A/B #"
+msgstr "# correos de prueba A/B"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_completed
@@ -303,7 +303,7 @@ msgstr "Después de 7 días"
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__allowed_parent_ids
 msgid "All activities which can be the parent of this one"
-msgstr "Todas las actividades que pueden ser el pariente de esta"
+msgstr "Todas las actividades que pueden ser el padre de esta"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_post_ids
@@ -357,7 +357,7 @@ msgid ""
 " into the campaign and new traces could be created for them."
 msgstr ""
 "Tenga en cuenta que los participantes que ya no tenían actividades podían "
-"volver a introducirse en la campaña y crear nuevos links de seguimiento."
+"volver a introducirse en la campaña y crear nuevos rastros."
 
 #. module: marketing_automation
 #. odoo-python
@@ -381,7 +381,7 @@ msgstr "Devuelto"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__bounced_ratio
 msgid "Bounced Ratio"
-msgstr "Ratio Rebotado"
+msgstr "Proporción de correos devueltos"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__campaign_id
@@ -454,7 +454,7 @@ msgstr ""
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__child_ids
 msgid "Child Activities"
-msgstr "Actividades subordinadas"
+msgstr "Actividades hijas"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -483,7 +483,7 @@ msgid ""
 "Come back later once your campaigns are running to overview your "
 "participants."
 msgstr ""
-"Regrese después ya que sus campañas estén funcionando y supervise los "
+"Regrese cuando sus campañas ya hayan iniciado para supervisar a los "
 "participantes."
 
 #. module: marketing_automation
@@ -598,13 +598,12 @@ msgid ""
 "Deleting this activity will delete ALL its children activities. Are you "
 "sure?"
 msgstr ""
-"Eliminar esta actividad eliminará TODAS sus actividades secundarias. ¿Está "
-"seguro?"
+"Eliminar esta actividad eliminará TODAS sus actividades hijas. ¿Está seguro?"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__child_ids
 msgid "Direct child traces"
-msgstr "Seguimientos directos subordinados"
+msgstr "Rastros directos hijos"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__display_name
@@ -1196,35 +1195,35 @@ msgstr "Otra actividad"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__parent_id
 msgid "Parent"
-msgstr "Principal"
+msgstr "Padre"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_trace.py:0
 #, python-format
 msgid "Parent activity mail bounced"
-msgstr "Correo de actividad principal devuelto"
+msgstr "Correo de actividad padre devuelto"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_trace.py:0
 #, python-format
 msgid "Parent activity mail clicked"
-msgstr "Correo de actividad principal seleccionado"
+msgstr "Correo de actividad padre seleccionado"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_trace.py:0
 #, python-format
 msgid "Parent activity mail opened"
-msgstr "Correo de actividad principal abierto"
+msgstr "Correo de actividad padre abierto"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_trace.py:0
 #, python-format
 msgid "Parent activity mail replied"
-msgstr "Correo de actividad principal respondido"
+msgstr "Correo de actividad padre respondido"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__participant_id
@@ -1299,7 +1298,7 @@ msgstr "RECHAZADAS"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__received_ratio
 msgid "Received Ratio"
-msgstr "Proporción recibida"
+msgstr "Proporción de correos recibidos"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign_test__resource_ref
@@ -1318,7 +1317,7 @@ msgstr "ID de registro"
 #: code:addons/marketing_automation/models/marketing_participant.py:0
 #, python-format
 msgid "Record deleted"
-msgstr "Registro borrado"
+msgstr "Registro eliminado"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign_test__model_name
@@ -1351,7 +1350,7 @@ msgstr "Volver a cargar un filtro favorito"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
 msgid "Remove from Templates"
-msgstr "Quitar de plantillas"
+msgstr "Eliminar de plantillas"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_participant__state__unlinked
@@ -1371,7 +1370,7 @@ msgstr "Respondido"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__replied_ratio
 msgid "Replied Ratio"
-msgstr "Proporción de respondidos"
+msgstr "Proporción de correos respondidos"
 
 #. module: marketing_automation
 #: model:ir.ui.menu,name:marketing_automation.marketing_automation_reporting_menu
@@ -1381,7 +1380,7 @@ msgstr "Informes"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__require_sync
 msgid "Require trace sync"
-msgstr "Solicitar sincronización de seguimiento"
+msgstr "Solicitar sincronización de rastros"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1448,7 +1447,7 @@ msgstr "Buscar participante "
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_search
 msgid "Search Traces"
-msgstr "Buscar rastros "
+msgstr "Buscar rastros"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_campaign__ab_testing_winner_selection
@@ -1465,7 +1464,7 @@ msgstr "Envíe un 10 % de descuento como bienvenida"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_schedule_datetime
 msgid "Send Final On"
-msgstr "Enviar final en"
+msgstr "Enviar final el"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1480,7 +1479,8 @@ msgstr "Enviar un correo de bienvenida"
 #, python-format
 msgid "Send a free catalog and follow-up according to reactions."
 msgstr ""
-"Envíe un catálogo gratuito y dele seguimiento de acuerdo a la reacción"
+"Envíe un catálogo gratuito y proporcione seguimiento según la reacción "
+"obtenida."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1627,13 +1627,13 @@ msgid ""
 "your activity actions to match the new Target Model or delete them."
 msgstr ""
 "Cambiar el modelo objetivo invalida las actividades existentes. Deberá "
-"actualizar las acciones de la actividad para que sean las mismas que el "
-"mismo modelo, o borrar las acciones."
+"actualizar las acciones de la actividad para que coincidan con el modelo "
+"objetivo o eliminarlas."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__require_sync
 msgid "Sync of participants is required"
-msgstr "Sincronización de participantes obligatoria"
+msgstr "Es necesario sincronizar a los participantes"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1658,7 +1658,7 @@ msgstr "Objetivo"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_tree
 msgid "Target Model"
-msgstr "Modelo destino"
+msgstr "Modelo de objetivo"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1678,7 +1678,7 @@ msgstr "Registro de la prueba"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__is_test
 msgid "Test Trace"
-msgstr "Trazo de prueba"
+msgstr "Rastro de prueba"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1712,7 +1712,7 @@ msgid ""
 "marketing automation group."
 msgstr ""
 "Para usar esta función, debe ser administrador o pertenecer al grupo de "
-"automatización de mercadeo."
+"automatización de marketing."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__total_bounce
@@ -1745,7 +1745,7 @@ msgstr "Total de correos enviados"
 #: model:ir.ui.menu,name:marketing_automation.marketing_trace_menu
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_tree
 msgid "Traces"
-msgstr "Seguimientos"
+msgstr "Rastros"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form

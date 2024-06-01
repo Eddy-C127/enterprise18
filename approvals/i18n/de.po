@@ -3,8 +3,8 @@
 # 	* approvals
 # 
 # Translators:
-# Wil Odoo, 2023
 # Larissa Manderfeld, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,16 +24,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>Von: </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>bis: </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -477,6 +467,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "FontAwesome-Icon, z. B. fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "Von:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "Allgemeine Genehmigung"
@@ -763,11 +758,6 @@ msgid "New Request"
 msgstr "Neue Anträge"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Nächstes Aktivitätskalenderereignis"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Nächste Aktivitätsfrist"
@@ -922,11 +912,6 @@ msgid "Quantity"
 msgstr "Menge"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "Bewertungen"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Reference"
@@ -1020,6 +1005,13 @@ msgstr ""
 "Einfache Benutzer sollten nicht in der Lage sein, sich selbst als "
 "Genehmigende zu entfernen, da sie sonst den Zugriff auf den Datensatz "
 "verlieren, wenn sie falsch klicken."
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
+msgstr "Das Startdatum sollte vor dem Enddatum liegen."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1141,16 +1133,6 @@ msgid "Waiting"
 msgstr "Wartend"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "Website-Nachrichten"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "Website-Kommunikationsverlauf"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1198,7 +1180,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
+msgid "You have to attach at least one document."
 msgstr "Sie müssen mindestens ein Dokument anhängen."
 
 #. module: approvals
@@ -1230,3 +1212,8 @@ msgstr "Menü"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "neuen Antrag"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "an:"

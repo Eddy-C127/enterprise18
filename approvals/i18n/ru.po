@@ -6,11 +6,11 @@
 # Диляра Дельтаева <dilya.kz93@gmail.com>, 2023
 # Андрей Гусев <gaussgss@gmail.com>, 2023
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2023
 # ILMIR <karamov@it-projects.info>, 2023
 # Alena Vlasova, 2023
 # Martin Trigaux, 2023
 # alenafairy, 2023
+# Сергей Шебанин <sergey@shebanin.ru>, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
@@ -31,16 +31,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span>От: </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>к: </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -485,6 +475,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Шрифт, отличный значок, например. к.-а.-задачи"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "От:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "Общее одобрение"
@@ -772,11 +767,6 @@ msgid "New Request"
 msgstr "Новый запрос"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Следующее событие календаря активности"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Следующий срок мероприятия"
@@ -931,11 +921,6 @@ msgid "Quantity"
 msgstr "Количество"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "Рейтинги"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Reference"
@@ -1028,6 +1013,13 @@ msgid ""
 msgstr ""
 "Простые пользователи не должны иметь возможности удалять себя как "
 "утверждающих, поскольку в случае ошибки они потеряют доступ к записи."
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -1149,16 +1141,6 @@ msgid "Waiting"
 msgstr "Ожидание"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "Веб-сайт сообщения"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "История общений с сайта"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1204,8 +1186,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
-msgstr "Вы должны приложить как минимум один документ."
+msgid "You have to attach at least one document."
+msgstr ""
 
 #. module: approvals
 #. odoo-python
@@ -1237,3 +1219,8 @@ msgstr "меню"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "новый запрос"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "до:"

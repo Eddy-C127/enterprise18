@@ -49,7 +49,6 @@ msgstr "%(template_name)s [%(account_name)s]"
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/models.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
 msgstr "لا يبدو أن '%(field)s' مسار حقل صالح "
@@ -138,6 +137,7 @@ msgstr "رمز الوصول "
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__wa_account_id
+#: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "Account"
 msgstr "الحساب "
 
@@ -626,7 +626,7 @@ msgstr "ديناميكي "
 msgid ""
 "Dynamic button variable name must be the same as its respective button's "
 "name"
-msgstr ""
+msgstr "يجب أن يكون اسم متغير الزر الديناميكي هو نفس اسم الزر الخاص به "
 
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
@@ -704,16 +704,9 @@ msgstr "حقل نموذج "
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "Field template variables must be associated with a field."
-msgstr "يجب أن تكون متغيرات قالب الحقل مرتبطة بحقل. "
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
 msgid ""
 "Field template variables %(var_names)s must be associated with a field."
-msgstr ""
+msgstr "يجب أن تكون متغيرات قالب الحقل %(var_names)s مرتبطة بحقل. "
 
 #. module: whatsapp
 #. odoo-python
@@ -1668,6 +1661,7 @@ msgstr "عينة القيمة "
 #. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#: code:addons/whatsapp/static/src/core/web/messaging_menu_patch.xml:0
 #, python-format
 msgid "Search WhatsApp Channel"
 msgstr "البحث في قناة WhatsApp "
@@ -1933,7 +1927,7 @@ msgstr "متن القالب "
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
 msgid "Template quality rating too low"
-msgstr ""
+msgstr "تقييم جودة القالب منخفض جداً "
 
 #. module: whatsapp
 #. odoo-python
@@ -1958,6 +1952,8 @@ msgid ""
 "Template variable should be in format {{number}}. Cannot parse "
 "\"%(placeholder)s\""
 msgstr ""
+"يجب أن يكون متغير القالب بتنسيق {{number}}. لا يمكن تحليل "
+"\"%(placeholder)s\" "
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_preview__wa_template_id
@@ -2003,6 +1999,8 @@ msgstr "Thai"
 msgid ""
 "The Header Text must either contain no variable or the first one {{1}}."
 msgstr ""
+"يجب أن يحتوي نص الترويسة إما على المتغير الأول {{1}} أو ألا يحتوي على متغير."
+" "
 
 #. module: whatsapp
 #. odoo-python
@@ -2239,6 +2237,8 @@ msgid ""
 "Variables %(field_names)s do not seem to be valid field path for model "
 "%(model_name)s."
 msgstr ""
+"يبدو أن المتغيرات %(field_names)s ليست مساراً صالحاً للنموذج %(model_name)s."
+" "
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__header_type__video

@@ -504,7 +504,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_rep
 msgid "Direct debit repeating collection in a series"
 msgstr ""
-"Cobranza de una sola domiciliación bancaria que se repite de una serie"
+"Cobranza de una sola domiciliación bancaria que se repite en una serie"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_regular
@@ -648,8 +648,8 @@ msgstr "Apunte contable"
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_journal_id
 msgid "Journal to use to receive BACS Direct Debit payments from this DDI."
 msgstr ""
-"Diario que se utiliza para recibir pagos de domiciliación bancaria BACS de "
-"esta instrucción de domiciliación bancaria."
+"Diario a utilizar para recibir pagos de domiciliación bancaria BACS de esta "
+"instrucción de domiciliación bancaria."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__write_uid
@@ -757,8 +757,9 @@ msgid ""
 "Once this invoice has been paid with BACS Direct Debit, contains the DDI "
 "that allowed the payment."
 msgstr ""
-"Una vez que se pagó esta factura a través de domiciliación bancaria BACS, "
-"incluirá la instrucción de domiciliación bancaria que permitió el pago."
+"Una vez que se ha pagado esta factura a través de domiciliación bancaria "
+"BACS, incluirá la instrucción de domiciliación bancaria que permitió el "
+"pago."
 
 #. module: account_bacs
 #. odoo-python
@@ -785,8 +786,8 @@ msgstr "Solo los mandatos en estado de borrador se pueden cancelar."
 msgid ""
 "Only mandates in draft state can be deleted from database when cancelled."
 msgstr ""
-"Solo pueden eliminarse de la base de datos las órdenes en estado de borrador"
-" que se cancelan."
+"Solo pueden eliminarse de la base de datos los mandatos en estado de "
+"borrador que se cancelan."
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
@@ -838,7 +839,7 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_ids
 msgid "Payments generated thanks to this mandate."
-msgstr "Pagos generados gracias a esta orden."
+msgstr "Pagos generados gracias a este mandato."
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_multi_mode
@@ -870,7 +871,7 @@ msgstr "Imprimir"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -911,7 +912,7 @@ msgstr "Service user number"
 #. module: account_bacs
 msgid "Service user number of your company within BACS"
 msgstr ""
-"Service User Number (número de usuario del servicio) de su empresa en BACS"
+"Service User Number (número de usuario del servicio) de su compañía en BACS"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
@@ -919,14 +920,14 @@ msgid ""
 "Service user number of your company within BACS. Write 'HSBC' here if you "
 "bank does not provide one."
 msgstr ""
-"Service User Number (Número de usuario del servicio) de su empresa en BACS. "
-"Escriba aquí \"HSBC\" si su banco no lo proporciona."
+"Service User Number (Número de usuario del servicio) de su compañía en BACS."
+" Escriba aquí \"HSBC\" si su banco no lo proporciona."
 
 #. module: account_bacs
 msgid "Service user number of your company within BACS, given by the bank."
 msgstr ""
-"Service User Number (número de usuario del servicio) de su empresa en BACS, "
-"proporcionado por el banco"
+"Service User Number (número de usuario del servicio) de su compañía en BACS,"
+" proporcionado por el banco"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
@@ -934,8 +935,8 @@ msgid ""
 "Service user number of your company within BACS, given by the bank. Write "
 "'HSBC' here if your bank does not provide one."
 msgstr ""
-"Service User Number (Número de usuario del servicio) de su empresa en BACS, "
-"proporcionado por el banco. Escriba aquí \"HSBC\" si su banco no lo "
+"Service User Number (Número de usuario del servicio) de su compañía en BACS,"
+" proporcionado por el banco. Escriba aquí \"HSBC\" si su banco no lo "
 "proporciona."
 
 #. module: account_bacs
@@ -943,7 +944,7 @@ msgstr ""
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are above the maximum amount allowed."
-msgstr "Algunos pagos rebasan el monto máximo permitido."
+msgstr "Algunos pagos rebasan el importe máximo permitido."
 
 #. module: account_bacs
 #. odoo-python
@@ -957,7 +958,7 @@ msgstr "Algunos pagos no se encuentran en GBP."
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments have no recipient bank account set."
-msgstr "Algunos pagos no tienen una cuenta bancaria acreedora registrada."
+msgstr "Algunos pagos no tienen una cuenta bancaria receptora establecida."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__state

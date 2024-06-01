@@ -873,13 +873,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries Method"
-msgstr ""
+msgstr "Loo viitkulu kannete meetod"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries Method"
-msgstr ""
+msgstr "Loo viittulu kannete meetod"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1880,7 +1880,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_move_ids
 msgid "The deferred entries created by this invoice"
-msgstr ""
+msgstr "Viitkanded loodud selle arve poolt"
 
 #. module: account_accountant
 #. odoo-python
@@ -1922,7 +1922,7 @@ msgstr "Arveid kuni selle kuupäevani ei võeta arvesse raamatupidamiskannetena"
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr ""
+msgstr "Arved, mis tekitasid viitkanded"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -2132,7 +2132,7 @@ msgstr "Mahakandmise kanne"
 msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
-msgstr ""
+msgstr "Palun parandage majandusaasta algus- ja lõppkuupäev. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2155,7 +2155,7 @@ msgstr ""
 #: code:addons/account_accountant/models/account_move.py:0
 #, python-format
 msgid "You cannot create a deferred entry with a start date but no end date."
-msgstr ""
+msgstr "Ei saa luua viitkannet ilma lõpp-kuupäevata. "
 
 #. module: account_accountant
 #. odoo-python

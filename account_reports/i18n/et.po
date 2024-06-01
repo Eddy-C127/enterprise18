@@ -2382,7 +2382,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "Mitmesugused tegevused"
 
 #. module: account_reports
 #. odoo-python
@@ -2516,7 +2516,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "No entry to generate."
-msgstr ""
+msgstr "Kanne mida luua puudub."
 
 #. module: account_reports
 #. odoo-python
@@ -2575,7 +2575,7 @@ msgstr "Pole alustatud"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "Number of periods cannot be smaller than 1"
-msgstr ""
+msgstr "Perioodide arv ei saa olla väiksem kui 1"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_off_sheet
@@ -2721,7 +2721,7 @@ msgstr "Partnerite aruanded"
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 #, python-format
 msgid "Partner is bad"
-msgstr ""
+msgstr "Partner on halb"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2729,7 +2729,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 #, python-format
 msgid "Partner is good"
-msgstr ""
+msgstr "Partner on hea"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3377,7 +3377,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "The currency rate cannot be equal to zero"
-msgstr ""
+msgstr "Valuutakurss ei saa olla võrdne nulliga"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3391,7 +3391,7 @@ msgstr "Jooksev saldo"
 #: code:addons/account_reports/static/src/components/deferred_reports/warnings.xml:0
 #, python-format
 msgid "The entry that will be generated will take them into account."
-msgstr ""
+msgstr "Kanne mis luuakse võtab need arvesse. "
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__vat
@@ -3437,7 +3437,7 @@ msgstr "Seal on"
 #: code:addons/account_reports/static/src/components/account_report/account_report.xml:0
 #, python-format
 msgid "There is no data to display for the given filters."
-msgstr ""
+msgstr "Andmed, mida valitud filtritega kuvada puuduvad. "
 
 #. module: account_reports
 #. odoo-javascript
@@ -3468,6 +3468,8 @@ msgid ""
 "This account exists in the Chart of Accounts but is not mentioned in any "
 "line of the report"
 msgstr ""
+"Valitud konto on kontoplaanis olemas, kuid ei ole määratud ühelegi aruande "
+"reale. "
 
 #. module: account_reports
 #. odoo-python
@@ -3608,7 +3610,7 @@ msgstr "Kaubanduspartnerid"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "Tehingud ilma väljavõtteta"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3899,6 +3901,8 @@ msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
 msgstr ""
+"Sulgemise kannet ei saa mustandisse lähtestada, kuna järgmine sulgemise "
+"kanne on postitatud hilisema kuupäevaga. "
 
 #. module: account_reports
 #. odoo-python
@@ -3915,7 +3919,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "You need to activate more than one currency to access this report."
-msgstr ""
+msgstr "Selle aruande vaatamiseks tuleb aktiveerida rohkem kui üks valuuta. "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_main
@@ -3955,7 +3959,7 @@ msgstr "päeva pärast perioodi"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "ei sobitu saldoga"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -3972,7 +3976,7 @@ msgstr "iga 4 kuu tagant"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "on algsaldo erinev eelmise lõppsaldost. "
 
 #. module: account_reports
 #. odoo-javascript
@@ -4059,7 +4063,7 @@ msgstr "sünkroniseeri finantspositsioonid"
 #: code:addons/account_reports/models/account_tax.py:0
 #, python-format
 msgid "tax unit [%s]"
-msgstr ""
+msgstr "maksu ühik [%s]"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4088,7 +4092,7 @@ msgstr "postitamata andmike kanded"
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "were carried over to this line from previous period."
-msgstr ""
+msgstr "toodi üle sellele reale eelmisest perioodist. "
 
 #. module: account_reports
 #. odoo-javascript

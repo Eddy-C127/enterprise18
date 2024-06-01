@@ -277,7 +277,7 @@ msgstr ""
 "                <table style=\"width:600px;margin:auto;text-align:center;font-size:12px;\">\n"
 "                    <tbody>\n"
 "                        <tr><td style=\"padding-top:10px;color:#afafaf;\">\n"
-"                            <p>Correo electrónico enviado automáticamente por la aplicación <a target=\"_blank\" href=\"https://www.odoo.com/app/subscriptions\" style=\"color:#875A7B;text-decoration:none;\">Suscripción de Odoo</a> para <a t-att-href=\"object.company_id.website\" style=\"color:#875A7B;text-decoration:none;\" t-out=\"object.company_id.name or ''\">SuEmpresa</a></p>\n"
+"                            <p>Correo electrónico enviado automáticamente por la aplicación <a target=\"_blank\" href=\"https://www.odoo.com/app/subscriptions\" style=\"color:#875A7B;text-decoration:none;\">Suscripción de Odoo</a> para <a t-att-href=\"object.company_id.website\" style=\"color:#875A7B;text-decoration:none;\" t-out=\"object.company_id.name or ''\">SuCompañía</a></p>\n"
 "                        </td></tr>\n"
 "                    </tbody>\n"
 "                </table>\n"
@@ -595,7 +595,7 @@ msgstr ""
 "                    <br><br>\n"
 "                    Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros.\n"
 "                    <br><br>\n"
-"                    ¡Gracias por elegir <t t-out=\"company.name or ''\">SuEmpresa</t>!\n"
+"                    ¡Gracias por elegir <t t-out=\"company.name or ''\">SuCompañía</t>!\n"
 "                    <div t-if=\"user.signature\">\n"
 "                        <br><br>\n"
 "                        <t t-out=\"user.signature or ''\">--<br>Mitchell Admin</t>\n"
@@ -612,14 +612,14 @@ msgstr ""
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
-"                    <t t-out=\"company.name or ''\">SuEmpresa</t>\n"
+"                    <t t-out=\"company.name or ''\">SuCompañía</t>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                    <t t-if=\"company.phone\">\n"
 "                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.email\">\n"
-"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@suempresa.com</a> |\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@sucompañía.com</a> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.website\">\n"
 "                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.ejemplo.com</a>\n"
@@ -775,7 +775,7 @@ msgstr ""
 "                    Como su pago debió haberse realizado hace <strong><t t-out=\"ctx.get('auto_close_limit') or ''\">5</t> días</strong>, su suscripción ha sido terminada.\n"
 "                    Si desea resolver este problema, no dude en contactarnos.\n"
 ".<br><br>\n"
-"                    Gracias por elegir <t t-out=\"company.name or ''\">SuEmpresa</t>!\n"
+"                    Gracias por elegir <t t-out=\"company.name or ''\">SuCompañía</t>!\n"
 "                    <div t-if=\"user.signature\">\n"
 "                        <br><br>\n"
 "                        <t t-out=\"user.signature or ''\">--<br>Mitchell Admin</t>\n"
@@ -792,14 +792,14 @@ msgstr ""
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
-"                    <t t-out=\"company.name or ''\">SuEmpresa</t>\n"
+"                    <t t-out=\"company.name or ''\">SuCompañía</t>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                    <t t-if=\"company.phone\">\n"
 "                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.email\">\n"
-"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@suempresa.com</a> |\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@sucompañía.com</a> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.website\">\n"
 "                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.ejemplo.com</a>\n"
@@ -959,7 +959,7 @@ msgstr ""
 "                    el <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t> a menos que se realice el pago con éxito (lo volveremos a intentar una vez cada día).\n"
 "                    Verifique que dispone de fondos suficientes.<br><br>\n"
 "                    Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros.<br><br>\n"
-"                    Gracias por elegir <t t-out=\"company.name or ''\">SuEmpresa</t>!\n"
+"                    Gracias por elegir <t t-out=\"company.name or ''\">SuCompañía</t>!\n"
 "                    <div>\n"
 "                    <t t-if=\"user.signature\">\n"
 "                        <br><br>\n"
@@ -978,14 +978,14 @@ msgstr ""
 "        <td align=\"center\" style=\"min-width: 590px;\">\n"
 "            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
 "                <tr><td valign=\"middle\" align=\"left\">\n"
-"                    <t t-out=\"company.name or ''\">SuEmpresa</t>\n"
+"                    <t t-out=\"company.name or ''\">SuCompañía</t>\n"
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                    <t t-if=\"company.phone\">\n"
 "                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.email\">\n"
-"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@suempresa.com</a> |\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@sucompañía.com</a> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.website\">\n"
 "                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.ejemplo.com</a>\n"
@@ -3004,17 +3004,17 @@ msgstr "Periodo"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__subscription_id
 msgid "Parent Contract"
-msgstr "Contrato principal"
+msgstr "Contrato padre"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_line__parent_line_id
 msgid "Parent Line"
-msgstr "Línea principal"
+msgstr "Línea padre"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_tree
 msgid "Parent Subscription"
-msgstr "Suscripción principal"
+msgstr "Suscripción padre"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3209,27 +3209,27 @@ msgstr "Productos"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
 msgid "Qty Delivered"
-msgstr "Cant. entregada"
+msgstr "Ctd. entregada"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_invoiced
 msgid "Qty Invoiced"
-msgstr "Cant. facturada"
+msgstr "Ctd. facturada"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_uom_qty
 msgid "Qty Ordered"
-msgstr "Cant. Ordenada"
+msgstr "Ctd. pedida"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_to_deliver
 msgid "Qty To Deliver"
-msgstr "Cant. a entregar"
+msgstr "Ctd. a entregar"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_to_invoice
 msgid "Qty To Invoice"
-msgstr "Cant. a facturar"
+msgstr "Ctd. a facturar"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_analysis_view_graph
@@ -3950,7 +3950,7 @@ msgid ""
 "                                                Note: if you already created a new subscription instead of renewing it, please cancel your newly\n"
 "                                                created subscription and renew %s instead"
 msgstr ""
-"La suscripción %s ha sido cancelada. El pedido principal %s ha sido reabierto.\n"
+"La suscripción %s ha sido cancelada. El pedido padre %s ha sido reabierto.\n"
 "                                                Debe cerrar %s si el cliente la canceló o renovarla si el cliente sigue usando el servicio.\n"
 "                                                Nota: si ya ha creado una nueva suscripción en lugar de renovarla, cancele la\n"
 "                                                suscripción recién creada y renueve %s en su lugar."
@@ -3984,7 +3984,7 @@ msgstr "Asistente para cambio de cliente de suscripción"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__subscription_child_ids
 msgid "Subscription Child"
-msgstr "Suscripción subordinada"
+msgstr "Suscripción hija"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_close_reason
@@ -4836,8 +4836,8 @@ msgid ""
 "When calculating a day-based timed condition, it is possibleto use a "
 "calendar to compute the date based on working days."
 msgstr ""
-"Cuando se calcula una condición de tiempo basada en días, es posible "
-"utilizar un calendario para calcular la fecha según los días laborables."
+"Al calcular una condición basada en días, puede usar un calendario para "
+"calcular los datos basados en los días laborables. "
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_id
@@ -5077,8 +5077,8 @@ msgid ""
 "date of the parent contract. Please update the start date after the %s."
 msgstr ""
 "No se puede validar un presupuesto de renovación que comience antes de la "
-"siguiente fecha de facturación de acuerdo con el contrato principal. "
-"Actualice la fecha de inicio para antes del %s."
+"siguiente fecha de facturación de acuerdo con el contrato padre. Actualice "
+"la fecha de inicio para antes del %s."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions

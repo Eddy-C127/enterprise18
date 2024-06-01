@@ -50,8 +50,8 @@ msgid ""
 "\"%(article_name)s\" is a template and can not be a child of an article "
 "(\"%(parent_article_name)s\")."
 msgstr ""
-"\"%(article_name)s\" es una plantilla y no puede ser elemento secundario de "
-"un artículo (\"%(parent_article_name)s\")."
+"\"%(article_name)s\" es una plantilla y no puede ser elemento hijo de un "
+"artículo (\"%(parent_article_name)s\")."
 
 #. module: knowledge
 #. odoo-python
@@ -61,8 +61,8 @@ msgid ""
 "\"%(article_name)s\" is an article and can not be a child of a template "
 "(\"%(parent_article_name)s\").\""
 msgstr ""
-"\"%(article_name)s\" es un artículo y no puede ser elemento secundario de "
-"una plantilla (\"%(parent_article_name)s\").\""
+"\"%(article_name)s\" es un artículo y no puede ser elemento hijo de una "
+"plantilla (\"%(parent_article_name)s\").\""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -130,7 +130,7 @@ msgstr ""
 "                        <br>\n"
 "                        United States\n"
 "                        <br>\n"
-"                        info@yourcompany.com"
+"                        info@sucompañía.com"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
@@ -2006,7 +2006,7 @@ msgid ""
 "                        <br>\n"
 "                        Our products are designed for small to medium size companies willing to optimize their performance."
 msgstr ""
-"Acerca de SuEmpresa: Somos un equipo de personas apasionadas cuyo objetivo es mejorar la vida de las personas\n"
+"Acerca de SuCompañía: Somos un equipo de personas apasionadas cuyo objetivo es mejorar la vida de las personas\n"
 "                        a través de productos revolucionarios.\n"
 "                        Creamos excelentes productos para resolver sus problemas empresariales.\n"
 "                        <br>\n"
@@ -2322,7 +2322,7 @@ msgid ""
 "Always type <strong>YourCompany</strong> in the same font size and style as "
 "the content of the text"
 msgstr ""
-"Siempre escribir <strong>SuEmpresa</strong> en el mismo tamaño de fuente y "
+"Siempre escribir <strong>SuCompañía</strong> en el mismo tamaño de fuente y "
 "estilo que el contenido del texto."
 
 #. module: knowledge
@@ -2432,7 +2432,7 @@ msgid ""
 msgstr ""
 "¿Está seguro de que desea restaurar el acceso? Esto significa que este "
 "artículo ahora heredará cualquier acceso establecido en sus artículos "
-"principales."
+"padres."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2443,8 +2443,7 @@ msgid ""
 " no longer inherit access rights from its parents."
 msgstr ""
 "¿Está seguro de que desea restringir el acceso a este artículo? Esto "
-"significa que ya no heredará los permisos de acceso de sus artículos "
-"principales."
+"significa que ya no heredará los permisos de acceso de sus artículos padres."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2562,7 +2561,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_article_item_parent
 msgid "Article items must have a parent."
-msgstr "Los elementos del artículo deben tener uno principal."
+msgstr "Los elementos del artículo deben tener uno padre."
 
 #. module: knowledge
 #. odoo-python
@@ -2881,7 +2880,7 @@ msgid ""
 "private parent"
 msgstr ""
 "No se puede crear un artículo bajo el artículo %(parent_name)s, ya que es un"
-" principal no privado"
+" padre no privado"
 
 #. module: knowledge
 #. odoo-python
@@ -2892,7 +2891,7 @@ msgid ""
 "rights can not be inferred without a parent."
 msgstr ""
 "No puede mover %(article_name)s como raíz de la sección \"compartida\" ya "
-"que los permisos de acceso no se pueden inferir sin un principal."
+"que los permisos de acceso no se pueden inferir sin un padre."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -2900,8 +2899,8 @@ msgid ""
 "Capitalize the word <strong>YourCompany</strong>, except if it's part of an "
 "URL e.g. website/company"
 msgstr ""
-"Escribir <strong>SuEmpresa</strong> en mayúsculas excepto si es parte de una"
-" URL (por ejemplo, sitio_web/empresa)."
+"Escribir <strong>SuCompañía</strong> en mayúsculas excepto si es parte de "
+"una URL (por ejemplo, sitio_web/empresa)."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
@@ -2985,7 +2984,7 @@ msgstr "Cambiar portada"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__child_ids
 msgid "Child Articles and Items"
-msgstr "Artículos y elementos secundarios"
+msgstr "Artículos y elementos hijos"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3421,7 +3420,7 @@ msgstr "Los artículos no sincronizados deben tener permiso interno."
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_desynchronized
 msgid "Desyncronized with parents"
-msgstr "No sincronizado con el principal"
+msgstr "No sincronizado con el padre"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3794,8 +3793,8 @@ msgstr "¿Tiene subartículos normales?"
 msgid ""
 "Has the user access to each parent from current article until its root?"
 msgstr ""
-"¿El usuario tiene acceso a cada parte principal desde el artículo actual "
-"hasta su raíz?"
+"¿El usuario tiene acceso a cada parte padre desde el artículo actual hasta "
+"su raíz?"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__have_share_partners
@@ -4029,7 +4028,7 @@ msgid ""
 "If set, this article won't inherit access rules from its parents anymore."
 msgstr ""
 "Si está habilitado, este artículo ya no heredará las reglas de acceso del "
-"principal."
+"padre."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -4109,7 +4108,7 @@ msgstr "Permiso heredado"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission_parent_id
 msgid "Inherited Permission Parent Article"
-msgstr "Permiso heredado del artículo principal"
+msgstr "Permiso heredado del artículo padre"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4303,7 +4302,7 @@ msgstr "Es una plantilla"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_item_parent
 msgid "Is the parent an Item?"
-msgstr "¿Es el principal un elemento?"
+msgstr "¿Es el padre un elemento?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -5276,17 +5275,17 @@ msgstr "Áreas a mejorar (<em>marque las que correspondan</em>)"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_id
 msgid "Parent Article"
-msgstr "Artículo principal"
+msgstr "Artículo padre"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_path
 msgid "Parent Path"
-msgstr "Ruta principal"
+msgstr "Ruta padre"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_form
 msgid "Parent Template"
-msgstr "Plantilla principal"
+msgstr "Plantilla padre"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__partner_id
@@ -5483,7 +5482,7 @@ msgid ""
 "Properties are fields that can only be added on articles that have a parent."
 msgstr ""
 "Las propiedades son campos que solo se pueden agregar a artículos que tienen"
-" uno principal."
+" uno padre."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6109,8 +6108,7 @@ msgstr "Etapas"
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_stage__parent_id
 msgid "Stages are shared among acommon parent and its children articles."
 msgstr ""
-"Las etapas se comparten entre un artículo principal común y sus "
-"subartículos."
+"Las etapas se comparten entre un artículo padre común y sus subartículos."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -6363,7 +6361,7 @@ msgid ""
 "The sequence is computed only among the articles that have the same parent."
 msgstr ""
 "La secuencia se calcula solo entre los artículos que comparten el artículo "
-"principal."
+"padre."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6376,7 +6374,7 @@ msgstr "Se requiere la propiedad de fecha de inicio."
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__root_article_id
 msgid ""
 "The subject is the title of the highest parent in the article hierarchy."
-msgstr "El tema es el título del artículo principal más alto en la jerarquía."
+msgstr "El tema es el título del artículo padre más alto en la jerarquía."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -6454,7 +6452,7 @@ msgid ""
 "Those fields will be available on all articles that share the same parent."
 msgstr ""
 "Esos campos estarán disponibles en todos los artículos que compartan el "
-"mismo artículo principal."
+"mismo artículo padre."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__is_resolved
@@ -6895,8 +6893,8 @@ msgid ""
 "Write it without any article(<em><s>the</s> YourCompany, <s>a</s> "
 "YourCompany, ...</em>)"
 msgstr ""
-"Escribir el nombre sin artículo (<em><s>la</s> SuEmpresa, <s>una</s> "
-"SuEmpresa, ...</em>)"
+"Escribir el nombre sin artículo (<em><s>la</s> SuCompañía, <s>una</s> "
+"SuCompañía, ...</em>)"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_shared_todos_write_the_next_newsletter
@@ -7147,7 +7145,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid "YourCompany is proud to announce that..."
-msgstr "A SuEmpresa le complace anunciar que..."
+msgstr "A SuCompañía le complace anunciar que..."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -7156,14 +7154,14 @@ msgid ""
 "                <br>\n"
 "                When representing the brand, we thus ask you to be very cautious in how you refer to the company."
 msgstr ""
-"SuEmpresa está muy orgullosa de su imagen de marca\n"
+"SuCompañía está muy orgullosa de su imagen de marca\n"
 "                <br>\n"
 "                Le pedimos que sea muy cuidadoso en la forma en que se refiere a la empresa ya que usted representa la marca."
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "and the following child article(s) have"
-msgstr "y los siguientes artículos inferiores se han"
+msgstr "y los siguientes subartículos se han"
 
 #. module: knowledge
 #. odoo-javascript

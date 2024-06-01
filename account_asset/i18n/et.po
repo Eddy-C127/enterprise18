@@ -1057,6 +1057,9 @@ msgid ""
 " to have the right depreciation table report. This is the value that was "
 "already depreciated with entries not computed from this model"
 msgstr ""
+"Teisest programmist andmete importimisel läheb vaja antud välja, et "
+"amortisatsiooniaruanne oleks õige. Siia läheb summa, mis oli teises "
+"programmis juba amortiseeritud. "
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__informational_text
@@ -1797,7 +1800,7 @@ msgstr ""
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "You cannot dispose of an asset before the lock date."
-msgstr ""
+msgstr "Vara ei saa maha kanda sulgemiskuupäevast varem. "
 
 #. module: account_asset
 #. odoo-python

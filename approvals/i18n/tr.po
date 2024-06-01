@@ -9,15 +9,14 @@
 # Buket Şeker <buket_skr@hotmail.com>, 2023
 # Melih Melik Sonmez, 2023
 # abc Def <hdogan1974@gmail.com>, 2023
-# Gökhan Erdoğdu <gokhan.erdogdu@mechsoft.com.tr>, 2023
-# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2023
-# Levent Karakaş <levent@mektup.at>, 2023
-# Ediz Duman <neps1192@gmail.com>, 2023
-# Martin Trigaux, 2023
-# Murat Kaplan <muratk@projetgrup.com>, 2023
 # Ozlem Cikrikci <ozlemc@eskayazilim.com.tr>, 2023
+# Ediz Duman <neps1192@gmail.com>, 2023
+# Murat Kaplan <muratk@projetgrup.com>, 2023
+# Martin Trigaux, 2023
 # Murat Durmuş <muratd@projetgrup.com>, 2023
 # Tugay Hatıl <tugayh@projetgrup.com>, 2023
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
+# Levent Karakaş <levent@mektup.at>, 2024
 # 
 msgid ""
 msgstr ""
@@ -25,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tugay Hatıl <tugayh@projetgrup.com>, 2023\n"
+"Last-Translator: Levent Karakaş <levent@mektup.at>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,16 +36,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr ""
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span> Kimden </span>"
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span> Kime </span>"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
@@ -488,6 +477,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Font awesome ikonları örn. fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "Başlangıç:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "Genel Onay"
@@ -761,11 +755,6 @@ msgid "New Request"
 msgstr "Yeni Talep"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Sonraki Aktivite Takvim Etkinliği"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Sonraki Aktivite Zaman Sınırı"
@@ -920,11 +909,6 @@ msgid "Quantity"
 msgstr "Miktar"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "Değerlendirmeler"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Reference"
@@ -1014,6 +998,13 @@ msgstr "Sıralama"
 msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
 msgstr ""
 
 #. module: approvals
@@ -1128,16 +1119,6 @@ msgid "Waiting"
 msgstr "Bekleyen"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "Websitesi Mesajları"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "Websitesi iletişim geçmişi"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1178,8 +1159,8 @@ msgstr "İsteğinizi göndermek için en az \"%s\" onaylayan eklemeniz gerekiyor
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
-msgstr "En az bir belge eklemeniz gerekir."
+msgid "You have to attach at least one document."
+msgstr ""
 
 #. module: approvals
 #. odoo-python
@@ -1209,3 +1190,8 @@ msgstr "menü"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "kime:"

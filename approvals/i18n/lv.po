@@ -7,11 +7,11 @@
 # Konstantins Zabogonskis <inculin4ik@gmail.com>, 2023
 # JanisJanis <jbojars@gmail.com>, 2023
 # Arnis Putniņš <arnis@allegro.lv>, 2023
-# ievaputnina <ievai.putninai@gmail.com>, 2023
-# Martin Trigaux, 2023
 # Anzelika Adejanova, 2023
+# Martin Trigaux, 2023
 # Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024
 # Will Sensors, 2024
+# ievaputnina <ievai.putninai@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Will Sensors, 2024\n"
+"Last-Translator: ievaputnina <ievai.putninai@gmail.com>, 2024\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,16 +30,6 @@ msgstr ""
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
-msgstr ""
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr ""
-
-#. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
 msgstr ""
 
 #. module: approvals
@@ -481,6 +471,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Fonts awesome ikona, piem. fa-tasks"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "No:"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr ""
@@ -754,11 +749,6 @@ msgid "New Request"
 msgstr "Jauns pieprasījums"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Nākamās darbības kalendāra pasākums"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr "Nākamās darbības beigu termiņš"
@@ -913,11 +903,6 @@ msgid "Quantity"
 msgstr "Daudzums"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
-msgid "Ratings"
-msgstr "Reitingi"
-
-#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Reference"
@@ -1007,6 +992,13 @@ msgstr "Sekvence"
 msgid ""
 "Simple users should not be able to remove themselves as approvers because "
 "they will lose access to the record if they misclick."
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+#, python-format
+msgid "Start date should precede the end date."
 msgstr ""
 
 #. module: approvals
@@ -1121,16 +1113,6 @@ msgid "Waiting"
 msgstr "Gaida"
 
 #. module: approvals
-#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
-msgid "Website Messages"
-msgstr "Tīmekļa vietnes ziņojumi"
-
-#. module: approvals
-#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
-msgid "Website communication history"
-msgstr "Tīmekļa vietnes saziņas vēsture"
-
-#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Withdraw"
@@ -1171,7 +1153,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 #, python-format
-msgid "You have to attach at lease one document."
+msgid "You have to attach at least one document."
 msgstr ""
 
 #. module: approvals
@@ -1201,4 +1183,9 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
 msgstr ""
