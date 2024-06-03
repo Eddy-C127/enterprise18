@@ -95,7 +95,7 @@
   </div>
 </t>
 
-<t t-name="web_studio.ReportEditorWysiwyg.ResetConfirmatiopnPopup" t-inherit="web.ConfirmationDialog" t-inherit-mode="primary">
+<t t-name="web_studio.ReportEditorWysiwyg.ResetConfirmationPopup" t-inherit="web.ConfirmationDialog" t-inherit-mode="primary">
   <xpath expr="//p[@t-out='props.body']" position="replace">
     <p>All changes done to the report's structure will be discarded and the report will be reset to its factory settings.</p>
     <div class="o_setting_box">

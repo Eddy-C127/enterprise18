@@ -186,8 +186,8 @@ class UndoRedo extends Component {
     };
 }
 
-class ResetConfirmatiopnPopup extends ConfirmationDialog {
-    static template = "web_studio.ReportEditorWysiwyg.ResetConfirmatiopnPopup";
+class ResetConfirmationPopup extends ConfirmationDialog {
+    static template = "web_studio.ReportEditorWysiwyg.ResetConfirmationPopup";
     static props = {
         ...omit(ConfirmationDialog.props, "body"),
         state: Object,
@@ -698,7 +698,7 @@ export class ReportEditorWysiwyg extends Component {
             this.wysiwyg.odooEditor.document.getSelection().removeAllRanges();
         }
         const state = reactive({ includeHeaderFooter: true });
-        this.addDialog(ResetConfirmatiopnPopup, {
+        this.addDialog(ResetConfirmationPopup, {
             title: _t("Reset report"),
             confirmLabel: _t("Reset report"),
             confirmClass: "btn-danger",
