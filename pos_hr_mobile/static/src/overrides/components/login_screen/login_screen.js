@@ -13,20 +13,19 @@ patch(LoginScreen.prototype, {
         this.hasMobileScanner = isBarcodeScannerSupported() && this.barcodeReader;
     },
     async open_mobile_scanner() {
+        if (!this.hasMobileScanner) {
+            return;
+        }
         let data;
         try {
             data = await scanBarcode(this.env);
         } catch (error) {
-            if (error.error && error.error.message) {
-                // Here, we know the structure of the error raised by BarcodeScanner.
-                this.dialog.add(AlertDialog, {
-                    title: _t("Unable to scan"),
-                    body: error.error.message,
-                });
-                return;
-            }
-            // Just raise the other errors.
-            throw error;
+            // Here, we know the structure of the error raised by BarcodeScanner.
+            this.dialog.add(AlertDialog, {
+                title: _t("Unable to scan"),
+                body: error?.message || error?.error?.message || "Unable to find barcode scanner.",
+            });
+            return;
         }
         if (data) {
             this.barcodeReader.scan(data);
