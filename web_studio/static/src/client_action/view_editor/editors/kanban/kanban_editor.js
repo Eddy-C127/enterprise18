@@ -13,6 +13,7 @@ class EditorArchParser extends kanbanView.ArchParser {
         const noFetch = getStudioNoFetchFields(parsed.fieldNodes);
         parsed.fieldNodes = omit(parsed.fieldNodes, ...noFetch.fieldNodes);
         parsed.progressAttributes = false;
+        parsed.canOpenRecords = false;
         return parsed;
     }
 }

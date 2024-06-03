@@ -8,9 +8,11 @@ import { DocumentsKanbanModel } from "./documents_kanban_model";
 import { DocumentsKanbanRenderer } from "./documents_kanban_renderer";
 import { DocumentsSearchModel } from "../search/documents_search_model";
 import { DocumentsSearchPanel } from "../search/documents_search_panel";
+import { DocumentsKanbanArchParser } from "./documents_kanban_arch_parser";
 
 
 export const DocumentsKanbanView = Object.assign({}, kanbanView, {
+    ArchParser: DocumentsKanbanArchParser,
     SearchModel: DocumentsSearchModel,
     SearchPanel: DocumentsSearchPanel,
     Controller: DocumentsKanbanController,

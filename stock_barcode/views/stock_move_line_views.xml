@@ -132,7 +132,7 @@
     <field name="model">stock.quant</field>
     <field name="priority">1000</field>
     <field name="arch" type="xml">
-        <kanban draggable="0">
+        <kanban draggable="0" can_open="0">
             <field name="product_id"/>
             <field name="quantity"/>
             <templates>

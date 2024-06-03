@@ -1626,7 +1626,7 @@ QUnit.module("Views", (hooks) => {
                 <templates>
                     <field name="name"/>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
+                        <div>
                             <field name="employee_id"/>
                             <field name="project_id"/>
                             <field name="task_id"/>

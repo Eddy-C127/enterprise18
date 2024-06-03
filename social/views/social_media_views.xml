@@ -15,7 +15,7 @@
         <field name="name">social.media.view.kanban</field>
         <field name="model">social.media</field>
         <field name="arch" type="xml">
-            <kanban create="false">
+            <kanban create="false" can_open="0">
                 <field name="id"/>
                 <field name="name"/>
                 <field name="media_description"/>

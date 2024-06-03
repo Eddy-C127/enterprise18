@@ -103,7 +103,7 @@
         <field name="name">preparation.display.kanban.view</field>
         <field name="model">pos_preparation_display.display</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard o_pos_kanban">
+            <kanban can_open="0" class="o_kanban_dashboard o_pos_kanban">
                 <templates>
                     <t t-name="kanban-menu">
                         <div class="container">

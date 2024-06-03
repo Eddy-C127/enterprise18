@@ -102,16 +102,6 @@ class _KanbanEditorRecord extends KanbanRecord {
         this.dialogService = useService("dialog");
 
         this.safe = useSafeKanban();
-
-        useEffect(
-            (el) => {
-                if (!el) {
-                    return;
-                }
-                el.classList.remove("oe_kanban_global_click", "oe_kanban_global_click_edit");
-            },
-            () => [this.rootRef.el]
-        );
     }
 
     onGlobalClick() {}

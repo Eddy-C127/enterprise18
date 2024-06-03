@@ -77,7 +77,7 @@ export function getReportServerData() {
                 <field name="id"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click" t-att-data-id="record.id.value">
+                        <div t-att-data-id="record.id.value">
                             <div class="oe_kanban_details">
                                 <field name="report_name" groups="base.group_no_one"/>
                             </div>
