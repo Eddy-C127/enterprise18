@@ -31,7 +31,6 @@ class SaleOrder(models.Model):
         compute="_compute_l10n_mx_edi_usage",
         store=True,
         readonly=False,
-        default="G03",
         tracking=True,
         help="The code that corresponds to the use that will be made of the receipt by the recipient.",
     )
@@ -56,7 +55,7 @@ class SaleOrder(models.Model):
                 order.l10n_mx_edi_usage = (
                     order.partner_id.l10n_mx_edi_usage or
                     order.l10n_mx_edi_usage or
-                    'S01'
+                    'G03'
                 )
             else:
                 order.l10n_mx_edi_usage = False
