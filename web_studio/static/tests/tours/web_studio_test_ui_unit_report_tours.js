@@ -5,8 +5,18 @@ import { patch } from "@web/core/utils/patch";
 import { parseXML, serializeXML } from "@web/core/utils/xml";
 import { assertEqual, stepNotInStudio, nextTick } from "@web_studio/../tests/tours/tour_helpers";
 import { cookie } from "@web/core/browser/cookie";
+import { Editor } from "@html_editor/editor";
+import { nodeSize } from "@html_editor/utils/position";
 
 const getBoundingClientRect = Element.prototype.getBoundingClientRect;
+
+const editorsWeakMap = new WeakMap();
+patch(Editor.prototype, {
+    attachTo(editable) {
+        editorsWeakMap.set(editable.ownerDocument, this);
+        return super.attachTo(...arguments);
+    },
+});
 
 function normalizeXML(str) {
     const doc = parseXML(str);
@@ -37,45 +47,65 @@ function normalizeXML(str) {
     return serializeXML(doc);
 }
 
-function insertText(element, text, offset = 0) {
+function insertText(element, text, offsets = null) {
     const doc = element.ownerDocument;
     const sel = doc.getSelection();
-    sel.removeAllRanges();
-    const range = doc.createRange();
-    range.setStart(element, offset);
-    range.setEnd(element, offset);
-    sel.addRange(range);
+    let range;
+    if (sel && sel.rangeCount) {
+        range = sel.getRangeAt(sel.rangeCount - 1);
+    }
+    if (offsets || !range) {
+        const { start, end } = offsets || {};
+        sel.removeAllRanges();
+        range = doc.createRange();
+        range.setStart(element, start || 0);
+        range.setEnd(element, end || start || 0);
+        sel.addRange(range);
+    }
+
+    const evOptions = {
+        view: doc.defaultView,
+        bubbles: true,
+        composed: true,
+        cancelable: true,
+        isTrusted: true,
+    };
+
     for (const char of text) {
         element.dispatchEvent(
             new KeyboardEvent("keydown", {
+                ...evOptions,
                 key: char,
-                bubbles: true,
             })
         );
-        const textNode = doc.createTextNode(char);
-        element.append(textNode);
-        sel.removeAllRanges();
-        range.setStart(textNode, 1);
-        range.setEnd(textNode, 1);
-        sel.addRange(range);
+        element.dispatchEvent(
+            new KeyboardEvent("keypress", {
+                ...evOptions,
+                key: char,
+            })
+        );
         element.dispatchEvent(
             new InputEvent("input", {
+                ...evOptions,
                 inputType: "insertText",
                 data: char,
-                bubbles: true,
             })
         );
+        const newNode = doc.createTextNode(char);
+        element.append(newNode);
+        range.setEndAfter(newNode);
+
         element.dispatchEvent(
             new KeyboardEvent("keyup", {
+                ...evOptions,
                 key: char,
-                bubbles: true,
             })
         );
     }
 }
 
-function openEditorPowerBox(element, offset = 0) {
-    return insertText(element, "/", offset);
+function openEditorPowerBox(element, offsets = null) {
+    return insertText(element, "/", offsets);
 }
 
 /* global ace */
@@ -309,11 +339,10 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
             // Brutally add a t-else: this will crash in python on save
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe body",
             run() {
-                const editable = this.anchor.querySelector(".odoo-editor-editable");
-                const wysiwyg = $(editable).data("wysiwyg");
-                const telse = wysiwyg.odooEditor.document.createElement("t");
+                const editor = editorsWeakMap.get(this.anchor.ownerDocument);
+                const telse = editor.document.createElement("t");
                 telse.setAttribute("t-else", "");
-                wysiwyg.odooEditor.execCommand("insert", telse);
+                editor.shared.domInsert(telse);
             },
         },
         {
@@ -507,8 +536,7 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
             },
         },
         {
-            trigger:
-                ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            trigger: ".o-we-powerbox .o-we-command-description:contains(Insert a field)",
             run: "click",
         },
         {
@@ -601,8 +629,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
             },
         },
         {
-            trigger:
-                ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            trigger: ".o-we-powerbox .o-we-command-description:contains(Insert a field)",
             run: "click",
         },
         {
@@ -648,7 +675,6 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             // check that field was added successfully
             trigger: ":iframe .page div > span:contains(some default value)",
-            run: "click",
         },
         {
             trigger: ":iframe .page div",
@@ -671,25 +697,26 @@ registry.category("web_tour.tours").add("web_studio.test_toolbar_appearance", {
     sequence: 260,
     steps: () => [
         {
-            trigger: ".o-web-studio-report-editor-wysiwyg :iframe p[t-field='doc.name']",
+            trigger: ".o-web-studio-report-editor-wysiwyg :iframe .to_edit",
             run() {
                 const anchor = this.anchor;
-                const selection = anchor.ownerDocument.getSelection();
-                const range = new Range();
-                range.selectNode(anchor);
+                const doc = anchor.ownerDocument;
+                const selection = doc.getSelection();
                 selection.removeAllRanges();
+                const range = doc.createRange();
+                range.selectNode(anchor.firstChild);
                 selection.addRange(range);
             },
         },
         {
-            trigger: "#toolbar.oe-floating[style*=visible]",
+            trigger: ".o-we-toolbar",
         },
         {
-            trigger: "#bold.btn",
+            trigger: ".o-we-toolbar button[name='bold']",
             run: "click",
         },
         {
-            trigger: "#italic.btn",
+            trigger: ".o-we-toolbar button[name='italic']",
             run: "click",
         },
         {
@@ -697,7 +724,7 @@ registry.category("web_tour.tours").add("web_studio.test_toolbar_appearance", {
             run: "click",
         },
         {
-            trigger: "#toolbar.oe-floating[style*=hidden]",
+            trigger: "body:not(:has(.o-we-toolbar))",
             in_modal: false,
         },
     ],
@@ -847,8 +874,7 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
             },
         },
         {
-            trigger:
-                ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            trigger: ".o-we-powerbox .o-we-command-description:contains(Insert a field)",
             run: "click",
         },
         {
@@ -891,8 +917,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
             },
         },
         {
-            trigger:
-                ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            trigger: ".o-we-powerbox .o-we-command-description:contains(Insert a field)",
             run: "click",
         },
         {
@@ -927,12 +952,11 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(2)",
             async run(helpers) {
                 const el = this.anchor;
-                openEditorPowerBox(el);
+                openEditorPowerBox(el, { start: nodeSize(el) }); // after the file field
             },
         },
         {
-            trigger:
-                ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            trigger: ".o-we-powerbox .o-we-command-description:contains(Insert a field)",
             run: "click",
         },
         {
@@ -985,7 +1009,7 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         },
         {
             trigger:
-                ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a table based on a relational field)",
+                ".o-we-powerbox .o-we-command-description:contains(Insert a table based on a relational field)",
             run: "click",
         },
         {
@@ -1022,13 +1046,11 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
             trigger:
                 ".o-web-studio-report-editor-wysiwyg :iframe table tr td:contains(Insert a field...)",
             run() {
-                const el = this.anchor;
-                openEditorPowerBox(el);
+                openEditorPowerBox(this.anchor);
             },
         },
         {
-            trigger:
-                ".oe-powerbox-wrapper .oe-powerbox-commandDescription:contains(Insert a field)",
+            trigger: ".o-we-powerbox .o-we-command-description:contains(Insert a field)",
             run: "click",
         },
         {
@@ -1293,9 +1315,12 @@ registry.category("web_tour.tours").add("web_studio.test_remove_branding_on_copy
         {
             trigger: "body :iframe #wrapwrap",
             async run() {
+                const doc = this.anchor.ownerDocument;
+                const editor = editorsWeakMap.get(doc);
                 const originNode = this.anchor.querySelector(`[ws-view-id]`);
                 const copy = originNode.cloneNode(true);
                 originNode.insertAdjacentElement("afterend", copy);
+                editor.dispatch("ADD_STEP");
                 // Wait for a full macrotask tick and a frame to let the mutation observer
                 // of the ReportEditorWysiwyg to catch up on the change and finish its operations
                 await nextTick();
@@ -1343,10 +1368,12 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_arch", {
         {
             trigger: ":iframe .outside-t-call",
             async run() {
-                const newNode = document.createElement("div");
+                const doc = this.anchor.ownerDocument;
+                const editor = editorsWeakMap.get(doc);
+                const newNode = doc.createElement("div");
                 newNode.classList.add("added");
-                const target = this.anchor;
-                target.insertAdjacentElement("beforebegin", newNode);
+                this.anchor.insertAdjacentElement("beforebegin", newNode);
+                editor.dispatch("ADD_STEP");
                 await nextTick();
             },
         },
@@ -1366,10 +1393,12 @@ registry.category("web_tour.tours").add("web_studio.test_edit_in_t_call", {
         {
             trigger: ":iframe .in-t-call",
             async run() {
-                const newNode = document.createElement("div");
+                const doc = this.anchor.ownerDocument;
+                const editor = editorsWeakMap.get(doc);
+                const newNode = doc.createElement("div");
                 newNode.classList.add("added");
-                const target = this.anchor;
-                target.insertAdjacentElement("beforebegin", newNode);
+                this.anchor.insertAdjacentElement("beforebegin", newNode);
+                editor.dispatch("ADD_STEP");
                 await nextTick();
             },
         },
@@ -1389,15 +1418,19 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_and_in_t_call
         {
             trigger: ":iframe #wrapwrap",
             async run() {
-                const newNode0 = document.createElement("div");
+                const doc = this.anchor.ownerDocument;
+                const editor = editorsWeakMap.get(doc);
+                const newNode0 = doc.createElement("div");
                 newNode0.classList.add("added0");
                 const target0 = this.anchor.querySelector(".outside-t-call");
                 target0.insertAdjacentElement("beforebegin", newNode0);
+                editor.dispatch("ADD_STEP");
                 await nextTick();
-                const newNode1 = document.createElement("div");
+                const newNode1 = doc.createElement("div");
                 newNode1.classList.add("added1");
                 const target1 = this.anchor.querySelector(".in-t-call");
                 target1.insertAdjacentElement("beforebegin", newNode1);
+                editor.dispatch("ADD_STEP");
                 await nextTick();
             },
         },
@@ -1407,6 +1440,7 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_and_in_t_call
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
+            run() {},
         },
     ],
 });
@@ -1419,11 +1453,11 @@ registry.category("web_tour.tours").add("web_studio.test_image_crop", {
             run: "click",
         },
         {
-            trigger: "body .oe-toolbar #image-crop",
+            trigger: ".o-we-toolbar button[name='image_crop']",
             run: "click",
         },
         {
-            trigger: "body .o-overlay-container .o_we_crop_widget .cropper-container",
+            trigger: ".o-main-components-container .o_we_crop_widget .cropper-container",
         },
     ],
 });
@@ -1434,9 +1468,12 @@ registry.category("web_tour.tours").add("web_studio.test_translations_are_copied
         {
             trigger: "body :iframe #wrapwrap div:contains(term2)",
             run() {
-                const newNode = document.createElement("div");
+                const doc = this.anchor.ownerDocument;
+                const editor = editorsWeakMap.get(doc);
+                const newNode = doc.createElement("div");
                 (newNode.textContent = "term3 from edition"),
                     this.anchor.insertAdjacentElement("beforebegin", newNode);
+                editor.dispatch("ADD_STEP");
                 return nextTick();
             },
         },

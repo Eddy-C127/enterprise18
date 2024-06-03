@@ -666,7 +666,6 @@ class TestReportEditorUIUnit(HttpCase):
                </div>
                <p>
                  <span t-field="doc.function">some default value</span>
-                 <br/>
                </p>
              </t>
         """)
@@ -674,7 +673,7 @@ class TestReportEditorUIUnit(HttpCase):
     def test_toolbar_appearance(self):
         self.main_view_document.arch = """
             <t t-name="web_studio.test_report_document">
-                <div><p t-field="doc.name" title="Name"/></div>
+                <div class="to_edit">some text <p t-field="doc.name" title="Name"/></div>
                 <p><br/></p>
             </t>
         """
@@ -844,7 +843,7 @@ class TestReportEditorUIUnit(HttpCase):
         self.assertXMLEqual(arch, """
             <t t-name="web_studio.test_report_document">
                 <div><p t-field="doc.name"/></div>
-                <p><span t-field="doc.company_id.x_new_file">file default value</span><span t-field="doc.company_id.x_new_image" t-options-widget="\'image\'" t-options-qweb_img_raw_data="1">image default value</span><br/></p>
+                <p><span t-field="doc.company_id.x_new_file">file default value</span><span t-field="doc.company_id.x_new_image" t-options-widget="\'image\'" t-options-qweb_img_raw_data="1">image default value</span></p>
             </t>
         """)
 
@@ -865,7 +864,6 @@ class TestReportEditorUIUnit(HttpCase):
                         <tr t-foreach="doc.activity_ids" t-as="x2many_record">
                            <td>
                                <span t-field="x2many_record.summary">Some Summary</span>
-                             <br/>
                            </td>
                         </tr>
                     </tbody>
@@ -1265,10 +1263,14 @@ class TestReportEditorUIUnit(HttpCase):
         })
         self.main_view_document.arch = f"""
             <t t-name="test_main_doc">
+            <div>
                 <img class="myimg"
+                    width="50"
+                    height="50"
                     data-original-id="{attach.id}"
                     data-original-src="/web/image/{attach.id}"
                     src="data:image/png;base64,{attach.datas.decode("utf-8")}"/>
+            </div>
             </t>
         """
 
@@ -1289,7 +1291,6 @@ class TestReportEditorUIUnit(HttpCase):
                         t-options-widget="'image'"
                         t-options-qweb_img_raw_data="1"
                     >file default value</span>
-                    <br/>
                 </p>
             </t>
         """)

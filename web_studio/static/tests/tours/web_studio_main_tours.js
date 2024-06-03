@@ -1019,7 +1019,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable div.page div",
             run() {
-                assertEqual(this.anchor.classList.contains("oe-command-temporary-hint"), true);
+                assertEqual(this.anchor.classList.contains("o-we-hint"), true);
             },
         },
         {

@@ -17,8 +17,6 @@ import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
 import { sortBy } from "@web/core/utils/arrays";
 import { useOwnedDialogs, useService } from "@web/core/utils/hooks";
 import { SelectMenu } from "@web/core/select_menu/select_menu";
-import { QWebPlugin } from "@web_editor/js/backend/QWebPlugin";
-import { setSelection, startPos, endPos } from "@web_editor/js/editor/odoo-editor/src/utils/utils";
 
 import { StudioDynamicPlaceholderPopover } from "./studio_dynamic_placeholder_popover";
 import { Many2ManyTagsField } from "@web/views/fields/many2many_tags/many2many_tags_field";
@@ -32,30 +30,11 @@ import { ReportEditorSnackbar } from "@web_studio/client_action/report_editor/re
 import { useEditorMenuItem } from "@web_studio/client_action/editor/edition_flow";
 import { memoizeOnce } from "@web_studio/client_action/utils";
 import { ReportEditorIframe } from "../report_editor_iframe";
-
-function extendWysiwyg(Wysiwyg) {
-    return class CustomWysiwyg extends Wysiwyg {
-        setup() {
-            super.setup();
-            this.overlay = useService("overlay");
-        }
-        _showImageCrop() {
-            const lastMedia = this.lastMediaClicked;
-            const props = { ...this.imageCropProps };
-            props.media = lastMedia;
-            props.activeOnStart = true;
-            const removeOverlay = this.overlay.add(this.constructor.components.ImageCrop, props);
-            const onDestroyed = async () => {
-                removeOverlay();
-                $(lastMedia).off("image_cropper_destroyed", onDestroyed);
-                await Promise.resolve();
-                this.focus();
-                this.odooEditor.toolbarShow();
-            };
-            $(lastMedia).on("image_cropper_destroyed", onDestroyed);
-        }
-    };
-}
+import { Editor } from "@html_editor/editor";
+import { MAIN_PLUGINS } from "@html_editor/plugin_sets";
+import { QWebPlugin } from "@html_editor/others/qweb_plugin";
+import { nodeSize } from "@html_editor/utils/position";
+import { closestElement } from "@html_editor/utils/dom_traversal";
 
 class __Record extends _Record.components._Record {
     setup() {
@@ -256,6 +235,8 @@ function visitNode(el, callback) {
     }
 }
 
+const REPORT_EDITOR_PLUGINS = [...MAIN_PLUGINS, QWebPlugin];
+
 export class ReportEditorWysiwyg extends Component {
     static components = {
         CharField,
@@ -289,7 +270,6 @@ export class ReportEditorWysiwyg extends Component {
 
         const reportEditorModel = (this.reportEditorModel = useState(this.env.reportEditorModel));
 
-        this.state = useState({ wysiwygKey: 0 });
         this.fieldPopover = usePopover(FieldDynamicPlaceholder);
         useEditorMenuItem({
             component: ReportEditorSnackbar,
@@ -300,128 +280,165 @@ export class ReportEditorWysiwyg extends Component {
             },
         });
 
+        // This little reactive is to be bound to the editor, so we create it here.
+        // This could have been a useState, but the current component doesn't use it.
+        // Instead, it passes it to a child of his,
+        this.undoRedoState = reactive({
+            canUndo: false,
+            canRedo: false,
+            undo: () => this.editor?.dispatch("HISTORY_UNDO"),
+            redo: () => this.editor?.dispatch("HISTORY_REDO"),
+        });
+
         onWillStart(async () => {
             await Promise.all([
                 loadBundle("web_editor.backend_assets_wysiwyg"),
                 this.reportEditorModel.loadReportQweb(),
             ]);
-            const Wysiwyg = (await odoo.loader.modules.get("@web_editor/js/wysiwyg/wysiwyg"))
-                .Wysiwyg;
-            this.Wysiwyg = extendWysiwyg(Wysiwyg);
         });
 
         onWillUnmount(() => {
             this.reportEditorModel.bus.trigger("WILL_SAVE_URGENTLY");
             this.save({ urgent: true });
-        });
-
-        this.setWysiwygInstance = async (wysiwyg) => {
-            await wysiwyg.startEdition();
-            if (this.observer) {
-                this.observer.disconnect();
-                this.observer = null;
+            if (this.editor) {
+                this.editor.destroy(true);
             }
-            this.wysiwyg = wysiwyg;
-            const odooEditor = this.wysiwyg.odooEditor;
-
-            const undoRedoState = this.undoRedoState;
-            undoRedoState.canUndo = false;
-            undoRedoState.canRedo = false;
-
-            odooEditor.addEventListener("historyStep", () => {
-                undoRedoState.canUndo = odooEditor.historyCanUndo();
-                undoRedoState.canRedo = odooEditor.historyCanRedo();
-                this.reportEditorModel.isDirty = this.undoRedoState.canUndo;
-            });
-
-            const observe = () => {
-                this.observer.observe(wysiwyg.$editable[0], {
-                    childList: true,
-                    subtree: true,
-                    attributes: true,
-                    attributeOldValue: true,
-                    characterData: true,
-                });
-            };
-
-            this.observer = new MutationObserver((records) =>
-                this.domChangesDirtyMutations(odooEditor, records)
-            );
-            odooEditor.addEventListener("observerUnactive", () => {
-                if (this.observer) {
-                    this.domChangesDirtyMutations(odooEditor, this.observer.takeRecords());
-                    this.observer.disconnect();
-                }
-            });
-
-            odooEditor.addEventListener("observerActive", observe);
-
-            odooEditor.observerUnactive();
-            if (odoo.debug) {
-                ["t-esc", "t-out", "t-field"].forEach((tAtt) => {
-                    odooEditor.document.querySelectorAll(`*[${tAtt}]`).forEach((e) => {
-                        // Save the previous title to set it back before saving the report
-                        if (e.hasAttribute("title")) {
-                            e.setAttribute("data-oe-title", e.getAttribute("title"));
-                        }
-                        e.setAttribute("title", e.getAttribute(tAtt));
-                    });
-                });
-            }
-            odooEditor.observerActive();
-        };
-
-        this.undoRedoState = reactive({
-            canUndo: false,
-            canRedo: false,
-            undo: () => this.wysiwyg?.odooEditor.historyUndo(),
-            redo: () => this.wysiwyg?.odooEditor.historyRedo(),
         });
     }
 
+    instantiateEditor({ editable } = {}) {
+        this.undoRedoState.canUndo = false;
+        this.undoRedoState.canRedo = false;
+        const onEditorChange = () => {
+            const canUndo = this.editor.shared.canUndo();
+            this.reportEditorModel.isDirty = canUndo;
+            Object.assign(this.undoRedoState, {
+                canUndo: canUndo,
+                canRedo: this.editor.shared.canRedo(),
+            });
+        };
+
+        editable.querySelectorAll("[ws-view-id]").forEach((el) => {
+            el.setAttribute("contenteditable", "true");
+        });
+
+        const editor = new Editor(
+            {
+                Plugins: REPORT_EDITOR_PLUGINS,
+                onChange: onEditorChange,
+                getRecordInfo: () => {
+                    const { anchorNode } = this.editor.shared.getEditableSelection();
+                    if (!anchorNode) {
+                        return {};
+                    }
+                    const lastViewParent = closestElement(anchorNode, "[ws-view-id]");
+                    return {
+                        resModel: "ir.ui.view",
+                        resId: parseInt(lastViewParent.getAttribute("ws-view-id")),
+                        field: "arch",
+                    };
+                },
+                resources: {
+                    handleNewRecords: this.handleMutations.bind(this),
+                    powerboxCategory: {
+                        id: "report_tools",
+                        name: _t("Report Tools"),
+                        sequence: 10,
+                    },
+                    powerboxCommands: this.getPowerboxCommands(),
+                },
+            },
+            this.env.services
+        );
+        editor.attachTo(editable);
+        // disable the qweb's plugin class: its style is too complex and confusing
+        // in the case of reports
+        editable.classList.remove("odoo-editor-qweb");
+        return editor;
+    }
+
     onIframeLoaded({ iframeRef }) {
+        if (this.editor) {
+            this.editor.destroy(true);
+        }
         this.iframeRef = iframeRef;
         const doc = iframeRef.el.contentDocument;
-        const _jquery = window.$;
-        doc.defaultView.$ = (...args) => {
-            if (args.length <= 2 && typeof args[0] === "string") {
-                return _jquery(args[0], args[1] || doc);
-            } else {
-                return _jquery(...args);
-            }
-        };
         doc.body.classList.remove("container");
-        this.state.wysiwygKey++;
+
+        if (odoo.debug) {
+            ["t-esc", "t-out", "t-field"].forEach((tAtt) => {
+                doc.querySelectorAll(`*[${tAtt}]`).forEach((e) => {
+                    // Save the previous title to set it back before saving the report
+                    if (e.hasAttribute("title")) {
+                        e.setAttribute("data-oe-title", e.getAttribute("title"));
+                    }
+                    e.setAttribute("title", e.getAttribute(tAtt));
+                });
+            });
+        }
+        if (!this.reportEditorModel._errorMessage) {
+            this.editor = this.instantiateEditor({ editable: doc.querySelector("#wrapwrap") });
+        }
         this.reportEditorModel.setInEdition(false);
+    }
+
+    handleMutations(records) {
+        for (const record of records) {
+            if (record.type === "attributes") {
+                if (record.attributeName === "contenteditable") {
+                    continue;
+                }
+                if (record.attributeName.startsWith("data-oe-t")) {
+                    continue;
+                }
+            }
+            if (record.type === "childList") {
+                Array.from(record.addedNodes).forEach((el) => {
+                    if (el.nodeType !== 1) {
+                        return;
+                    }
+                    visitNode(el, (node) => {
+                        CUSTOM_BRANDING_ATTR.forEach((attr) => {
+                            node.removeAttribute(attr);
+                            if (node.getAttribute("contenteditable") === "true") {
+                                node.removeAttribute("contenteditable");
+                            }
+                        });
+                        node.classList.remove("o_dirty");
+                    });
+                });
+                const realRemoved = [...record.removedNodes].filter(
+                    (n) => n.nodeType !== Node.COMMENT_NODE
+                );
+                if (!realRemoved.length && !record.addedNodes.length) {
+                    continue;
+                }
+            }
+
+            let target = record.target;
+            if (!target.isConnected) {
+                continue;
+            }
+            if (target.nodeType !== Node.ELEMENT_NODE) {
+                target = target.parentElement;
+            }
+            if (!target) {
+                continue;
+            }
+
+            target = target.closest(`[ws-view-id]`);
+            if (!target) {
+                continue;
+            }
+            if (!target.classList.contains("o_dirty")) {
+                target.classList.add("o_dirty");
+            }
+        }
     }
 
     get reportQweb() {
         const model = this.reportEditorModel;
         return this._getReportQweb(`${model.renderKey}_${model.reportQweb}`).outerHTML;
-    }
-
-    get wysiwygProps() {
-        const iframe = this.iframeRef.el;
-        const options = {
-            get editable() {
-                return $(iframe.contentDocument.querySelector("#wrapwrap"));
-            },
-            get document() {
-                return iframe.contentDocument;
-            },
-            powerboxCategories: [{ name: _t("Report Tools"), priority: 100 }], // on Top
-            powerboxCommands: this.getPowerboxCommands(),
-            allowCommandVideo: false,
-            editorPlugins: [QWebPlugin],
-            savableSelector: "[ws-view-id]",
-            autostart: true,
-            sideAttach: true,
-            getContextFromParentRect: () => {
-                return this.iframeRef.el.getBoundingClientRect();
-            },
-        };
-
-        return { options, startWysiwyg: this.setWysiwygInstance };
     }
 
     get reportRecordProps() {
@@ -434,19 +451,34 @@ export class ReportEditorWysiwyg extends Component {
     }
 
     async save({ urgent = false } = {}) {
-        if (!this.wysiwyg) {
+        if (!this.editor) {
+            await this.reportEditorModel.saveReport({ urgent });
             return;
         }
         const htmlParts = {};
-        const editableClone = this.wysiwyg.$editable.clone()[0];
+        const editable = this.editor.getElContent();
 
-        this.wysiwyg._saveElement = async ($el) => {
-            const el = $el[0].cloneNode(true);
+        // Clean technical title
+        if (odoo.debug) {
+            editable.querySelectorAll("*[t-field],*[t-out],*[t-esc]").forEach((e) => {
+                if (e.hasAttribute("data-oe-title")) {
+                    e.setAttribute("title", e.getAttribute("data-oe-title"));
+                    e.removeAttribute("data-oe-title");
+                } else {
+                    e.removeAttribute("title");
+                }
+            });
+        }
+
+        editable.querySelectorAll("[ws-view-id].o_dirty").forEach((el) => {
+            el.classList.remove("o_dirty");
+            el.removeAttribute("contenteditable");
             const viewId = el.getAttribute("ws-view-id");
             if (!viewId) {
                 return;
             }
             Array.from(el.querySelectorAll("[t-call]")).forEach((el) => {
+                el.removeAttribute("contenteditable");
                 el.replaceChildren();
             });
 
@@ -466,104 +498,53 @@ export class ReportEditorWysiwyg extends Component {
                 type,
                 html: escaped_html,
             });
-        };
-        // Clean technical title
-        if (odoo.debug) {
-            editableClone.querySelectorAll("*[t-field],*[t-out],*[t-esc]").forEach((e) => {
-                if (e.hasAttribute("data-oe-title")) {
-                    e.setAttribute("title", e.getAttribute("data-oe-title"));
-                    e.removeAttribute("data-oe-title");
-                } else {
-                    e.removeAttribute("title");
-                }
-            });
-        }
-
-        await this.wysiwyg.saveContent(false, editableClone);
+        });
         await this.reportEditorModel.saveReport({ htmlParts, urgent });
     }
 
     async discard() {
-        this.wysiwyg.odooEditor.document.getSelection().removeAllRanges();
-        await this.wysiwyg.cancel(false);
-        await this.reportEditorModel.discardReport();
-    }
-
-    domChangesDirtyMutations(odooEditor, records) {
-        if (this.wysiwyg.savingContent) {
-            return;
+        if (this.editor) {
+            const selection = this.editor.document.getSelection();
+            if (selection) {
+                selection.removeAllRanges();
+            }
         }
-        records = odooEditor.filterMutationRecords(records);
-
-        for (const record of records) {
-            if (record.type === "attributes") {
-                if (record.attributeName === "contenteditable") {
-                    continue;
-                }
-                if (record.attributeName.startsWith("data-oe-t")) {
-                    continue;
-                }
-            }
-            if (record.type === "childList") {
-                Array.from(record.addedNodes).forEach((el) => {
-                    if (el.nodeType !== 1) {
-                        return;
-                    }
-                    visitNode(el, (node) => {
-                        CUSTOM_BRANDING_ATTR.forEach((attr) => {
-                            node.removeAttribute(attr);
-                        });
-                        node.classList.remove("o_dirty");
-                    });
-                });
-            }
-
-            let target = record.target;
-            if (!target.isConnected) {
-                continue;
-            }
-            if (target.nodeType !== Node.ELEMENT_NODE) {
-                target = target.parentElement;
-            }
-            if (!target) {
-                continue;
-            }
-
-            target = target.closest(`[ws-view-id]`);
-            if (!target) {
-                continue;
-            }
-            target.classList.add("o_dirty");
-        }
+        this.env.services.dialog.add(ConfirmationDialog, {
+            body: _t(
+                "If you discard the current edits, all unsaved changes will be lost. You can cancel to return to edit mode."
+            ),
+            confirm: () => this.reportEditorModel.discardReport(),
+            cancel: () => {},
+        });
     }
 
     getPowerboxCommands() {
         return [
             {
-                category: _t("Report Tools"),
+                category: "report_tools",
                 name: _t("Field"),
                 priority: 150,
                 description: _t("Insert a field"),
                 fontawesome: "fa-magic",
-                callback: () => this.insertField(),
+                action: () => this.insertField(),
             },
             {
-                category: _t("Report Tools"),
+                category: "report_tools",
                 name: _t("Dynamic Table"),
                 priority: 140,
                 description: _t("Insert a table based on a relational field."),
                 fontawesome: "fa-magic",
-                callback: () => this.insertTableX2Many(),
+                action: () => this.insertTableX2Many(),
             },
         ];
     }
 
     getFieldPopoverParams() {
-        const odooEditor = this.wysiwyg.odooEditor;
+        const odooEditor = this.editor;
         const doc = odooEditor.document;
 
         const resModel = this.reportEditorModel.reportResModel;
-        const docSelection = doc.getSelection();
+        const docSelection = odooEditor.shared.getEditableSelection();
         const { anchorNode } = docSelection;
         const isEditingFooterHeader =
             !!(doc.querySelector(".header") && doc.querySelector(".header").contains(anchorNode)) ||
@@ -599,8 +580,8 @@ export class ReportEditorWysiwyg extends Component {
                 relation,
                 relationName
             ) => {
-                this.wysiwyg.focus();
-                const doc = this.wysiwyg.odooEditor.document;
+                const doc = this.editor.document;
+                this.editor.editable.focus();
 
                 const table = doc.createElement("table");
                 table.classList.add("table", "table-sm");
@@ -641,9 +622,9 @@ export class ReportEditorWysiwyg extends Component {
                 td.textContent = _t("Insert a field...");
                 tr.appendChild(td);
 
-                this.wysiwyg.odooEditor.execCommand("insert", table);
-                this.iframeRef.el.focus();
-                setSelection(...startPos(td), ...endPos(td), true);
+                this.editor.shared.domInsert(table);
+                this.editor.shared.setSelection({ anchorNode: td, focusOffset: nodeSize(td) });
+                this.editor.dispatch("ADD_STEP");
             },
         });
     }
@@ -654,8 +635,8 @@ export class ReportEditorWysiwyg extends Component {
             ...props,
             showOnlyX2ManyFields: false,
             validate: (qwebVar, fieldNameChain, defaultValue = "", is_image) => {
-                this.wysiwyg.focus();
-                const doc = this.wysiwyg.odooEditor.document;
+                const doc = this.editor.document;
+
                 const span = doc.createElement("span");
                 span.textContent = defaultValue;
                 span.setAttribute("t-field", `${qwebVar}.${fieldNameChain}`);
@@ -668,7 +649,9 @@ export class ReportEditorWysiwyg extends Component {
                     span.setAttribute("t-options-widget", "'image'");
                     span.setAttribute("t-options-qweb_img_raw_data", 1);
                 }
-                this.wysiwyg.odooEditor.execCommand("insert", span);
+                this.editor.shared.domInsert(span);
+                this.editor.editable.focus();
+                this.editor.dispatch("ADD_STEP");
             },
         });
     }
@@ -699,9 +682,6 @@ export class ReportEditorWysiwyg extends Component {
     }
 
     async resetReport() {
-        if (this.wysiwyg?.odooEditor) {
-            this.wysiwyg.odooEditor.document.getSelection().removeAllRanges();
-        }
         const state = reactive({ includeHeaderFooter: true });
         this.addDialog(ResetConfirmationPopup, {
             title: _t("Reset report"),
