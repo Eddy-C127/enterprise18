@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, tools
+
 from odoo.addons.sale.models.sale_order import SALE_ORDER_STATE
 from odoo.addons.sale_renting.models.sale_order import RENTAL_STATUS
 
@@ -24,6 +25,23 @@ class RentalSchedule(models.Model):
         if len(all_rental_products) > 80:
             return products
         return all_rental_products
+
+    @api.model
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
+        if (
+            limit
+            and not offset
+            and len(groupby) == 1
+            and not self.env.context.get('restrict_renting_products')
+            and limit >= self.env['product.product'].search_count(
+                [('rent_ok', '=', True)],
+                limit=limit + 1,
+            )
+        ):
+            # If there are less rental products in the database than the given limit, drop the limit
+            # so that the read_group is lazy and the `group_expand` is called
+            limit = None
+        return super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset)
 
     name = fields.Char('Order Reference', readonly=True)
     product_name = fields.Char('Product Reference', readonly=True)
