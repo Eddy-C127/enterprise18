@@ -21,7 +21,6 @@ const RANGE_TYPES = [
  *
  * @typedef DateState
  * @property {Object} defaultValue
- * @property {boolean} automaticDefaultValue
  * @property {"fixedPeriod" | "relative" | "from_to"} type type of the filter
  */
 
@@ -57,7 +56,6 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
         /** @type {DateState} */
         this.dateState = useState({
             defaultValue: undefined,
-            automaticDefaultValue: false,
             type: "fixedPeriod",
         });
 
@@ -94,7 +92,6 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
     loadSpecificFilterValues(globalFilter) {
         this.dateState.type = globalFilter.rangeType;
         this.dateState.defaultValue = globalFilter.defaultValue;
-        this.dateState.automaticDefaultValue = globalFilter.automaticDefaultValue;
     }
 
     /**
