@@ -10,10 +10,13 @@ patch(accountTourSteps, {
                 extra_trigger: ".o_widget_account_onboarding .fa-circle",
                 content: _t("Set Periods"),
                 edition: "enterprise",
-            }, {
+                run: "click",
+            },
+            {
                 trigger: "button[name=action_save_onboarding_fiscal_year]",
                 content: _t("Save Fiscal Year end"),
                 edition: "enterprise",
+                run: "click",
             },
         ];
     },
@@ -23,7 +26,8 @@ patch(accountTourSteps, {
                 trigger: "button[name=action_create_new]",
                 extra_trigger: ".o_widget_account_onboarding .fa-check-circle",
                 content: _t("Now, we'll create your first invoice (accountant)"),
-            }
-        ]
+                run: "click",
+            },
+        ];
     },
 });

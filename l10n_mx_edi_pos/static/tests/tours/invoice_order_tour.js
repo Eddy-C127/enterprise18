@@ -8,23 +8,28 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order", {
         {
             content: "Click the POS icon",
             trigger: ".o_app[data-menu-xmlid='point_of_sale.menu_point_root']",
+            run: "click",
         },
         {
             content: "Open POS session from backend",
             trigger: "button[name='open_ui']",
+            run: "click",
         },
         Dialog.confirm("Open session"),
         {
             content: "Select a product",
             trigger: "div.product-content:contains('product_mx')",
+            run: "click",
         },
         {
             content: "go to Payment",
             trigger: ".pay-order-button",
+            run: "click",
         },
         {
             content: "Customer wants an invoice",
             trigger: ".js_invoice",
+            run: "click",
         },
         {
             content: "Set Usage: 'General Expenses'",
@@ -47,31 +52,38 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_order_defa
         {
             content: "Click the POS icon",
             trigger: ".o_app[data-menu-xmlid='point_of_sale.menu_point_root']",
+            run: "click",
         },
         {
             content: "Open POS session from backend",
             trigger: "button[name='open_ui']",
+            run: "click",
         },
         Dialog.confirm("Open session"),
         {
             content: "Select a product",
             trigger: "div.product-content:contains('product_mx')",
+            run: "click",
         },
         {
             content: "Select a customer",
             trigger: ".set-partner",
+            run: "click",
         },
         {
             content: "Select the partner 'Arturo Garcia'",
             trigger: "tr.partner-line:contains('Arturo Garcia')",
+            run: "click",
         },
         {
             content: "go to Payment",
             trigger: ".pay-order-button",
+            run: "click",
         },
         {
             content: "Customer wants an invoice",
             trigger: ".js_invoice",
+            run: "click",
         },
         Dialog.confirm(),
         {

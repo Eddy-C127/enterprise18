@@ -15,24 +15,29 @@ patch(registry.category("web_tour.tours").get("project_test_tour"), {
         originalSteps.splice(taskCreationStepIndex + 1, 0, {
             trigger: '.o_switch_view.o_gantt',
             content: 'Open Gantt View',
+            run: "click",
         }, {
             id: 'gantt_add_task',
             trigger: '.o_gantt_button_add',
             content: 'Add a task in gantt',
+            run: "click",
         });
 
         originalSteps.splice(originalSteps.length, 0, {
             trigger: ".o_gantt_picker:last-child",
             content: "Open right date picker",
+            run: "click",
         },
         {
             trigger: '.o_zoom_out[title="Select month"]',
             content: "Click on selected month",
+            run: "click",
         },
         {
             extra_trigger: '[title="Select year"]',
             trigger: ".o_today",
             content: "Select current month",
+            run: "click",
         },
         {
             trigger: '.o_zoom_out[title="Select month"]',

@@ -63,10 +63,12 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         {
             content: "Select PoS app",
             trigger: '.o_app[data-menu-xmlid="point_of_sale.menu_point_root"]',
+            run: "click",
         },
         {
             content: "Start session",
             trigger: ".o_pos_kanban button.oe_kanban_action_button",
+            run: "click",
         },
         // PART 1: Pay exactly the price of order. Should automatically go to receipt screen.
         Dialog.confirm("Open session"),
@@ -85,11 +87,13 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         {
             content: "Buy a Test Product",
             trigger: '.product-list .product-name:contains("Test Product")',
+            run: "click",
         },
         ...inLeftSide(Order.hasLine({ productName: "Test Product" })),
         {
             content: "Go to payment screen",
             trigger: ".button.pay-order-button",
+            run: "click",
         },
         {
             content: "There should be no payment line",
@@ -99,10 +103,12 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         {
             content: "Pay with payment terminal",
             trigger: '.paymentmethod:contains("Terminal")',
+            run: "click",
         },
         {
             content: "Cancel payment",
             trigger: ".button.send_payment_cancel",
+            run: "click",
         },
         ...PaymentScreen.clickPaymentlineDelButton("Terminal", "10.00"),
         {
@@ -112,6 +118,7 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         ...PaymentScreen.enterPaymentLineAmount("Terminal", "5", true, { remainingIs: "5.00" }),
         {
             trigger: ".button.send_payment_request.highlight",
+            run: "click",
         },
         {
             trigger: ".electronic_status:contains('Successful')",
@@ -122,6 +129,7 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         {
             content: "Check that the payment is confirmed",
             trigger: ".button.next.highlight",
+            run: "click",
         },
         {
             content: "Immediately at the receipt screen.",

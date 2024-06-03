@@ -1161,6 +1161,7 @@ registry.category("web_tour.tours").add("test_scan_can_change_destination_locati
     },
     {
         trigger: '.o_barcode_line:not(.o_selected) .o_line_buttons .o_add_quantity',
+        run: "click",
     },
     {
         trigger: '.o_barcode_line.o_selected.o_line_completed',

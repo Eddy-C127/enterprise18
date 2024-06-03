@@ -915,14 +915,23 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_production'
 registry.category("web_tour.tours").add("test_barcode_production_component_different_uom", {
     test: true, steps: () => [
         // Creates a new production from the Barcode App.
-        { trigger: ".o_kanban_card_header:contains('Manufacturing')" },
-        { trigger: ".o-kanban-button-new" },
+        {
+            trigger: ".o_kanban_card_header:contains('Manufacturing')",
+            run: "click",
+        },
+        {
+            trigger: ".o-kanban-button-new",
+            run: "click",
+        },
         // Scans a product with BoM, it should add it as the final product and add a line for the component.
         {
             trigger: ".o_barcode_client_action",
             run: "scan final",
         },
-        { trigger: "button[name='produceButton']" },
+        {
+            trigger: "button[name='produceButton']",
+            run: "click",
+        },
         {
             trigger: ".o_header_completed",
             run: () => {

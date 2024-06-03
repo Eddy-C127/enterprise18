@@ -28,9 +28,11 @@ registry.category("web_tour.tours").add("pos_iot_scale_tour", {
         stepUtils.showAppsMenuItem(),
         {
             trigger: '.o_app[data-menu-xmlid="point_of_sale.menu_point_root"]',
+            run: "click",
         },
         {
             trigger: ".o_pos_kanban button.oe_kanban_action_button",
+            run: "click",
         },
         Dialog.confirm("Open session"),
         {
@@ -41,12 +43,15 @@ registry.category("web_tour.tours").add("pos_iot_scale_tour", {
         },
         {
             trigger: '.product:contains("Whiteboard Pen")',
+            run: "click",
         },
         {
             trigger: '.js-weight:contains("2.35")',
+            run: "click",
         },
         {
             trigger: ".buy-product",
+            run: "click",
         },
         ...Order.hasLine({ quantity: "2.35" }),
     ],
