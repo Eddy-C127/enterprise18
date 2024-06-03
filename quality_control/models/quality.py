@@ -367,6 +367,10 @@ class QualityCheck(models.Model):
         })
         return action
 
+    def _can_move_line_to_failure_location(self):
+        self.ensure_one()
+        return self.quality_state == 'fail' and self.point_id.measure_on == 'move_line' and self.move_line_id and self.picking_id
+
     def _move_line_to_failure_location(self, failure_location_id, failed_qty=None):
         """ This function is used to fail move lines and can optionally:
              - split it into failed and passed qties (i.e. 2 move lines w/1 check each)
@@ -375,7 +379,7 @@ class QualityCheck(models.Model):
         :param failed_qty: qty failed on check, defaults to None, if None all quantity of the move is failed
         """
         for check in self:
-            if check.quality_state != 'fail' or check.point_id.measure_on != 'move_line' or not check.move_line_id or not check.picking_id:
+            if not check._can_move_line_to_failure_location():
                 continue
             failed_qty = failed_qty or check.move_line_id.quantity
             old_move_line = check.move_line_id

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo import Command
 from odoo.tests import Form
 
 from .test_common import TestQualityMrpCommon
+
 
 class TestQualityCheck(TestQualityMrpCommon):
 
@@ -295,3 +297,36 @@ class TestQualityCheck(TestQualityMrpCommon):
 
         # Now check that no new quality check are created.
         self.assertEqual(len(self.mrp_production_qc_test1.check_ids), 1)
+
+    def test_failure_location(self):
+        """ Ensure that a failing move line gets sent to its prescribed failure location (and
+        passing line(s) destinations are not affected).
+        """
+        qcp = self.env['quality.point'].create({
+            'product_ids': [Command.link(self.product.id)],
+            'picking_type_ids': [Command.link(self.picking_type_id)],
+            'measure_on': 'move_line',
+            'test_type_id': self.env.ref('quality_control.test_type_passfail').id,
+            'failure_location_ids': [Command.link(self.failure_location.id)],
+            'testing_percentage_within_lot': 100.0,
+        })
+
+        with Form(self.env['mrp.production']) as mo_form:
+            mo_form.product_id = self.product
+            mo_form.product_qty = 2
+            with mo_form.move_raw_ids.new() as move_raw:
+                move_raw.product_id = self.product_2
+                move_raw.product_uom_qty = 2
+            mrp_production = mo_form.save()
+        mrp_production.action_confirm()
+
+        action = mrp_production.check_ids.action_open_quality_check_wizard()
+        wizard = self.env[action['res_model']].with_context(action['context']).create({})
+        wizard.qty_failed = 1
+        wizard.failure_location_id = qcp.failure_location_ids.id
+        wizard.confirm_fail()
+
+        self.assertEqual(
+            set(mrp_production.finished_move_line_ids.location_dest_id.ids),
+            {self.failure_location.id, mrp_production.location_dest_id.id},
+        )

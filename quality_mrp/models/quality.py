@@ -44,6 +44,16 @@ class QualityCheck(models.Model):
         self.ensure_one()
         return super()._update_lot_from_lot_line() and not self.production_id
 
+    def _can_move_line_to_failure_location(self):
+        self.ensure_one()
+        if self.production_id and self.quality_state == 'fail' and self.point_id.measure_on == 'move_line':
+            self.move_line_id = self.production_id.finished_move_line_ids.filtered(
+                lambda ml: ml.product_id == self.product_id
+            )
+            return True
+
+        return super()._can_move_line_to_failure_location()
+
 
 class QualityAlert(models.Model):
     _inherit = "quality.alert"
