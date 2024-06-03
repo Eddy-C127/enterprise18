@@ -179,7 +179,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
             order_sudo, access_token, portal_page_values, 'my_subscriptions_history', False)
 
         payment_form_values = {
-            'default_token_id': order_sudo.payment_token_id,
+            'default_token_id': order_sudo.payment_token_id.id,
             'sale_order_id': order_sudo.id,  # Allow Stripe to check if tokenization is required.
         }
 
