@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import pytz
@@ -501,6 +500,40 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
         })
         response = self.url_open(url)
         self.assertEqual(response.status_code, 200, "Response should be Ok (200)")
+
+    def test_exclude_all_day_events(self):
+        """ Ensure appointment slots don't overlap with "busy" allday events. """
+        staff_user = self.staff_users[0]
+        valentime = datetime(2022, 2, 14, 0, 0)  # 2022-02-14 is a Monday
+
+        slots = self.apt_type_bxls_2days._get_appointment_slots(
+            self.apt_type_bxls_2days.appointment_tz,
+            reference_date=valentime,
+        )
+        slot = slots[0]['weeks'][2][1]
+        self.assertEqual(slot['day'], valentime.date())
+        self.assertTrue(slot['slots'], "Should be available on 2022-02-14")
+
+        self.env['calendar.event'].with_user(staff_user).create({
+            'name': "Valentine's day",
+            'start': valentime,
+            'stop': valentime,
+            'allday': True,
+            'show_as': 'busy',
+            'attendee_ids': [(0, 0, {
+                'state': 'accepted',
+                'availability': 'busy',
+                'partner_id': staff_user.partner_id.id,
+            })],
+        })
+
+        slots = self.apt_type_bxls_2days._get_appointment_slots(
+            self.apt_type_bxls_2days.appointment_tz,
+            reference_date=valentime,
+        )
+        slot = slots[0]['weeks'][2][1]
+        self.assertEqual(slot['day'], valentime.date())
+        self.assertFalse(slot['slots'], "Shouldn't be available on 2022-02-14")
 
     @users('apt_manager')
     def test_customer_event_description(self):
