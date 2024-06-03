@@ -14,7 +14,7 @@ registry.category("web_tour.tours").add('test_immediate_receipt_kit_from_scratch
         run: "click",
     },
     {
-        trigger: '.o_digipad_button.o_increase',
+        trigger: 'button.o_digipad_increment',
         run: "click",
     },
     {
@@ -71,7 +71,7 @@ registry.category("web_tour.tours").add('test_planned_receipt_kit_from_scratch_w
         run: "click",
     },
     {
-        trigger: '.o_digipad_button.o_increase',
+        trigger: 'button.o_digipad_increment',
         run: "click",
     },
     {
@@ -120,15 +120,11 @@ registry.category("web_tour.tours").add('test_planned_receipt_kit_from_scratch_w
 
 registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true, steps: () => [
     {
-        trigger: '.o_kanban_card_header:contains("Manufacturing")',
+        trigger: '.o_kanban_record_title:contains("Manufacturing")',
         run: "click",
     },
     {
         trigger: '.oe_kanban_card:contains("Final Product")',
-        run: "click",
-    },
-    {
-        trigger: '.o_title.navbar-text:contains("WH/MO")',
         run: "click",
     },
     {
@@ -167,7 +163,7 @@ registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true
 
 registry.category("web_tour.tours").add('test_barcode_production_create', {test: true, steps: () => [
     {
-        trigger: ".o_kanban_card_header:contains('Manufacturing')",
+        trigger: ".o_kanban_record_title:contains('Manufacturing')",
         run: "click",
     },
     {
@@ -179,7 +175,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
         trigger: ".o_scan_message.o_scan_product",
     },
     {
-        trigger: '.o_title.navbar-text:contains("New")',
+        trigger: '.o_title:contains("New")',
         run: 'scan final',
     },
     {
@@ -188,7 +184,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
             helper.assert(helper.getLines().length, 1, "The header's line should be the only line");
             const headerLine = helper.getLine();
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "0 / 1");
+            helper.assertLineQty(headerLine, "0/1");
         }
     },
     // Scans components, it should create a line for the component, then increases its quantity.
@@ -199,7 +195,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
             helper.assert(helper.getLines().length, 2);
             const headerLine = helper.getLine({ index: 0 });
             const componentLine = helper.getLine({ barcode: "compo01" });
-            helper.assertLineQty(headerLine, "0 / 1");
+            helper.assertLineQty(headerLine, "0/1");
             helper.assertLineQty(componentLine, "1");
         }
     },
@@ -210,7 +206,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
             helper.assert(helper.getLines().length, 2);
             const headerLine = helper.getLine({ index: 0 });
             const componentLine = helper.getLine({ barcode: "compo01" });
-            helper.assertLineQty(headerLine, "0 / 1");
+            helper.assertLineQty(headerLine, "0/1");
             helper.assertLineQty(componentLine, "2");
         }
     },
@@ -221,7 +217,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
         run: function() {
             helper.assert(helper.getLines().length, 2);
             const headerLine = helper.getLine({ index: 0 });
-            helper.assertLineQty(headerLine, "1 / 1");
+            helper.assertLineQty(headerLine, "1/1");
         }
     },
     { trigger: ".o_barcode_client_action", run: 'scan final' },
@@ -230,7 +226,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
         run: function() {
             helper.assert(helper.getLines().length, 2);
             const headerLine = helper.getLine({ index: 0 });
-            helper.assertLineQty(headerLine, "2 / 1");
+            helper.assertLineQty(headerLine, "2/1");
         }
     },
     ...stepUtils.validateBarcodeOperation(".o_scan_message.o_scan_validate"),
@@ -239,7 +235,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
 registry.category("web_tour.tours").add("test_barcode_production_create_bom", {test: true, steps: () => [
     // Creates a new production from the Barcode App.
     {
-        trigger: ".o_kanban_card_header:contains('Manufacturing')",
+        trigger: ".o_kanban_record_title:contains('Manufacturing')",
         run: "click",
     },
     {
@@ -251,7 +247,7 @@ registry.category("web_tour.tours").add("test_barcode_production_create_bom", {t
         trigger: ".o_scan_message.o_scan_product",
     },
     {
-        trigger: ".o_title.navbar-text:contains('New')",
+        trigger: ".o_title:contains('New')",
         run: "scan final",
     },
     {
@@ -261,11 +257,11 @@ registry.category("web_tour.tours").add("test_barcode_production_create_bom", {t
             helper.assert(lines.length, 3, "The header line + 2 components lines");
             const [headerLine, componentLine1, componentLine2] = lines;
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "0 / 1");
+            helper.assertLineQty(headerLine, "0/1");
             helper.assertLineProduct(componentLine1, "Compo 01");
-            helper.assertLineQty(componentLine1, "0 / 2");
+            helper.assertLineQty(componentLine1, "0/2");
             helper.assertLineProduct(componentLine2, "Compo 02");
-            helper.assertLineQty(componentLine2, "0 / 3");
+            helper.assertLineQty(componentLine2, "0/3");
         }
     },
     // Scans again the finished product, it should increase its quantity and its components' quantity aswell.
@@ -277,11 +273,11 @@ registry.category("web_tour.tours").add("test_barcode_production_create_bom", {t
             helper.assert(lines.length, 3, "The header line + 2 components lines");
             const [headerLine, componentLine1, componentLine2] = lines;
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "1 / 1");
+            helper.assertLineQty(headerLine, "1/1");
             helper.assertLineProduct(componentLine1, "Compo 01");
-            helper.assertLineQty(componentLine1, "2 / 2");
+            helper.assertLineQty(componentLine1, "2/2");
             helper.assertLineProduct(componentLine2, "Compo 02");
-            helper.assertLineQty(componentLine2, "3 / 3");
+            helper.assertLineQty(componentLine2, "3/3");
         }
     },
     // Scans two more times the final product and validate the production.
@@ -294,11 +290,11 @@ registry.category("web_tour.tours").add("test_barcode_production_create_bom", {t
             helper.assert(lines.length, 3, "The header line + 2 components lines");
             const [headerLine, componentLine1, componentLine2] = lines;
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "3 / 1");
+            helper.assertLineQty(headerLine, "3/1");
             helper.assertLineProduct(componentLine1, "Compo 01");
-            helper.assertLineQty(componentLine1, "6 / 2");
+            helper.assertLineQty(componentLine1, "6/2");
             helper.assertLineProduct(componentLine2, "Compo 02");
-            helper.assertLineQty(componentLine2, "9 / 3");
+            helper.assertLineQty(componentLine2, "9/3");
         }
     },
     ...stepUtils.validateBarcodeOperation(".o_scan_message.o_scan_validate"),
@@ -306,7 +302,7 @@ registry.category("web_tour.tours").add("test_barcode_production_create_bom", {t
 
 registry.category("web_tour.tours").add('test_barcode_production_create_tracked_bom', {test: true, steps: () => [
     {
-        trigger: '.o_kanban_card_header:contains("Manufacturing")',
+        trigger: '.o_kanban_record_title:contains("Manufacturing")',
         run: "click",
     },
     {
@@ -317,7 +313,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
         trigger: ".o_scan_message.o_scan_product",
     },
     {
-        trigger: '.o_title.navbar-text:contains("New")',
+        trigger: '.o_title:contains("New")',
         run: 'scan final_lot',
     },
     {
@@ -473,7 +469,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
         trigger: '.o_scan_message.o_scan_validate',
         run: "click",
     },
-    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-success"),
+    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
 registry.category("web_tour.tours").add("test_barcode_production_reserved_from_multiple_locations", {test: true, steps: () => [
@@ -484,19 +480,19 @@ registry.category("web_tour.tours").add("test_barcode_production_reserved_from_m
             helper.assert(lines.length, 5, "The header line + 4 components lines");
             const [headerLine, line1, line2, line3, line4] = lines;
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "0 / 3");
+            helper.assertLineQty(headerLine, "0/3");
             helper.assertLineProduct(line1, "Compo 01");
-            helper.assertLineSourceLocation(line1, ".../Section 1")
-            helper.assertLineQty(line1, "0 / 1");
+            helper.assertLineSourceLocation(line1, "WH/Stock/Section 1")
+            helper.assertLineQty(line1, "0/1");
             helper.assertLineProduct(line2, "Compo 01");
-            helper.assertLineQty(line2, "0 / 2");
-            helper.assertLineSourceLocation(line2, ".../Section 2")
+            helper.assertLineQty(line2, "0/2");
+            helper.assertLineSourceLocation(line2, "WH/Stock/Section 2")
             helper.assertLineProduct(line3, "Compo 01");
-            helper.assertLineQty(line3, "0 / 2");
-            helper.assertLineSourceLocation(line3, ".../Section 3")
+            helper.assertLineQty(line3, "0/2");
+            helper.assertLineSourceLocation(line3, "WH/Stock/Section 3")
             helper.assertLineProduct(line4, "Compo 01");
-            helper.assertLineQty(line4, "0 / 1");
-            helper.assertLineSourceLocation(line4, ".../Section 4")
+            helper.assertLineQty(line4, "0/1");
+            helper.assertLineSourceLocation(line4, "WH/Stock/Section 4")
         }
     },
     // Scans Shelf 1, Comp 01, Shelf 2 and Comp 01 again.
@@ -516,52 +512,52 @@ registry.category("web_tour.tours").add("test_barcode_production_reserved_from_m
         run: "scan LOC-01-02-00",
     },
     {
-        trigger: ".o_barcode_line:nth-child(3) .o_highlight .o_line_source_location",
+        trigger: ".o_barcode_location_line[data-location='WH/Stock/Section 2'].text-bg-800",
         run: "scan compo01",
     },
     // Scans the final product a first time.
     {
-        trigger: ".o_barcode_line:nth-child(3).o_selected",
+        trigger: ".o_barcode_location_line[data-location='WH/Stock/Section 2'] + .o_barcode_line.o_selected",
         run: "scan final",
     },
     {
-        trigger: ".o_barcode_line:nth-child(3):not(.o_selected)",
+        trigger: ".o_barcode_location_line[data-location='WH/Stock/Section 2'] + .o_barcode_line:not(.o_selected)",
         run: function() { // Check all lines are here (header + 4 compos)
             const lines = helper.getLines();
             helper.assert(lines.length, 5, "The header line + 4 components lines");
             const [headerLine, line1, line2, line3, line4] = lines;
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "1 / 3");
+            helper.assertLineQty(headerLine, "1/3");
             helper.assertLineProduct(line1, "Compo 01");
-            helper.assertLineSourceLocation(line1, ".../Section 1")
-            helper.assertLineQty(line1, "1 / 1");
+            helper.assertLineSourceLocation(line1, "WH/Stock/Section 1")
+            helper.assertLineQty(line1, "1/1");
             helper.assertLineProduct(line2, "Compo 01");
-            helper.assertLineQty(line2, "1 / 2");
-            helper.assertLineSourceLocation(line2, ".../Section 2")
+            helper.assertLineQty(line2, "1/2");
+            helper.assertLineSourceLocation(line2, "WH/Stock/Section 2")
             helper.assertLineProduct(line3, "Compo 01");
-            helper.assertLineQty(line3, "0 / 2");
-            helper.assertLineSourceLocation(line3, ".../Section 3")
+            helper.assertLineQty(line3, "0/2");
+            helper.assertLineSourceLocation(line3, "WH/Stock/Section 3")
             helper.assertLineProduct(line4, "Compo 01");
-            helper.assertLineQty(line4, "0 / 1");
-            helper.assertLineSourceLocation(line4, ".../Section 4")
+            helper.assertLineQty(line4, "0/1");
+            helper.assertLineSourceLocation(line4, "WH/Stock/Section 4")
         }
     },
 
     // Scans each locations and their remaining components.
     { trigger: ".o_barcode_client_action", run: "scan LOC-01-02-00" },
     {
-        trigger: ".o_barcode_line:nth-child(3) .o_highlight .o_line_source_location",
+        trigger: ".o_barcode_location_line[data-location='WH/Stock/Section 2'].text-bg-800",
         run: "scan compo01",
     },
     { trigger: ".o_barcode_line.o_selected.o_line_completed", run: "scan shelf3" },
     {
-        trigger: ".o_barcode_line:nth-child(4) .o_highlight .o_line_source_location",
+        trigger: ".o_barcode_location_line[data-location='WH/Stock/Section 3'].text-bg-800",
         run: "scan compo01",
     },
     { trigger: ".o_barcode_line.o_selected:not(.o_line_completed)", run: "scan compo01" },
     { trigger: ".o_barcode_line.o_selected.o_line_completed", run: "scan shelf4" },
     {
-        trigger: ".o_barcode_line:nth-child(5) .o_highlight .o_line_source_location",
+        trigger: ".o_barcode_location_line[data-location='WH/Stock/Section 4'].text-bg-800",
         run: "scan compo01",
     },
 
@@ -575,19 +571,19 @@ registry.category("web_tour.tours").add("test_barcode_production_reserved_from_m
             helper.assert(lines.length, 5, "The header line + 4 components lines");
             const [headerLine, line1, line2, line3, line4] = lines;
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "3 / 3");
+            helper.assertLineQty(headerLine, "3/3");
             helper.assertLineProduct(line1, "Compo 01");
-            helper.assertLineSourceLocation(line1, ".../Section 1")
-            helper.assertLineQty(line1, "1 / 1");
+            helper.assertLineSourceLocation(line1, "WH/Stock/Section 1")
+            helper.assertLineQty(line1, "1/1");
             helper.assertLineProduct(line2, "Compo 01");
-            helper.assertLineQty(line2, "2 / 2");
-            helper.assertLineSourceLocation(line2, ".../Section 2")
+            helper.assertLineQty(line2, "2/2");
+            helper.assertLineSourceLocation(line2, "WH/Stock/Section 2")
             helper.assertLineProduct(line3, "Compo 01");
-            helper.assertLineQty(line3, "2 / 2");
-            helper.assertLineSourceLocation(line3, ".../Section 3")
+            helper.assertLineQty(line3, "2/2");
+            helper.assertLineSourceLocation(line3, "WH/Stock/Section 3")
             helper.assertLineProduct(line4, "Compo 01");
-            helper.assertLineQty(line4, "1 / 1");
-            helper.assertLineSourceLocation(line4, ".../Section 4")
+            helper.assertLineQty(line4, "1/1");
+            helper.assertLineSourceLocation(line4, "WH/Stock/Section 4")
         }
     },
 
@@ -602,12 +598,12 @@ registry.category("web_tour.tours").add('test_barcode_production_scan_other_than
             helper.assert(lines.length, 3, "The final product line + 2 components lines");
             const [headerLine, line1, line2] = lines;
             helper.assertLineProduct(headerLine, "Final Product2");
-            helper.assertLineQty(headerLine, "0 / 2");
+            helper.assertLineQty(headerLine, "0/2");
             helper.assertLineProduct(line1, "Compo 01");
             helper.assertLineSourceLocation(line1, "WH/Stock")
-            helper.assertLineQty(line1, "0 / 2");
+            helper.assertLineQty(line1, "0/2");
             helper.assertLineProduct(line2, "Compo Lot");
-            helper.assertLineQty(line2, "0 / 2");
+            helper.assertLineQty(line2, "0/2");
             helper.assertLineSourceLocation(line2, "WH/Stock")
         }
     },
@@ -678,7 +674,7 @@ registry.category("web_tour.tours").add('test_barcode_production_scan_other_than
 registry.category("web_tour.tours").add("test_barcode_production_component_no_stock", {test: true, steps: () => [
     // Creates a new production from the Barcode App.
     {
-        trigger: ".o_kanban_card_header:contains('Manufacturing')",
+        trigger: ".o_kanban_record_title:contains('Manufacturing')",
         run: "click",
     },
     {
@@ -690,7 +686,7 @@ registry.category("web_tour.tours").add("test_barcode_production_component_no_st
         trigger: ".o_scan_message.o_scan_product",
     },
     {
-        trigger: ".o_title.navbar-text:contains('New')",
+        trigger: ".o_title:contains('New')",
         run: "scan final",
     },
     /**
@@ -778,7 +774,7 @@ registry.category("web_tour.tours").add('test_barcode_production_components_rese
 registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {test: true, steps: () => [
     // Creates a new production from the Barcode App.
     {
-        trigger: ".o_kanban_card_header:contains('Manufacturing')",
+        trigger: ".o_kanban_record_title:contains('Manufacturing')",
         run: "click",
     },
     {
@@ -790,7 +786,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
         trigger: ".o_scan_message.o_scan_product",
     },
     {
-        trigger: ".o_title.navbar-text:contains('New')",
+        trigger: ".o_title:contains('New')",
         run: "scan final",
     },
     {
@@ -800,11 +796,11 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
             helper.assert(lines.length, 3, "The header line + 2 components lines");
             const [headerLine, componentLine1, componentLine2] = lines;
             helper.assertLineProduct(headerLine, "Final Product");
-            helper.assertLineQty(headerLine, "0 / 1");
+            helper.assertLineQty(headerLine, "0/1");
             helper.assertLineProduct(componentLine1, "Compo 01");
-            helper.assertLineQty(componentLine1, "0 / 1");
+            helper.assertLineQty(componentLine1, "0/1");
             helper.assertLineProduct(componentLine2, "Compo 02");
-            helper.assertLineQty(componentLine2, "0 / 1");
+            helper.assertLineQty(componentLine2, "0/1");
         }
     },
     // Add a Scrap product
@@ -834,7 +830,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
             helper.assert(lines.length, 3, "The header line + 2 components lines");
             const componentLine1 = lines[1];
             helper.assertLineProduct(componentLine1, "Compo 01");
-            helper.assertLineQty(componentLine1, "0 / 1");
+            helper.assertLineQty(componentLine1, "0/1");
         }
     },
     // Further assertions are done server-side as scrapped products aren't shown in barcode interface
@@ -843,7 +839,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
 registry.category("web_tour.tours").add("test_barcode_production_add_byproduct", {test: true, steps: () => [
     // Creates a new production from the Barcode App.
     {
-        trigger: ".o_kanban_card_header:contains('Manufacturing')",
+        trigger: ".o_kanban_record_title:contains('Manufacturing')",
         run: "click",
     },
     {
@@ -855,7 +851,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_byproduct",
         trigger: ".o_scan_message.o_scan_product",
     },
     {
-        trigger: ".o_title.navbar-text:contains('New')",
+        trigger: ".o_title:contains('New')",
         run: "scan final",
     },
 
@@ -914,11 +910,11 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_production'
         run: () => {
             helper.assertLinesCount(3);
             helper.assertLineProduct(0, "Final Product");
-            helper.assertLineQty(0, "0 / 2");
+            helper.assertLineQty(0, "0/2");
             helper.assertLineProduct(1, "product1");
-            helper.assertLineQty(1, "0 / 4");
+            helper.assertLineQty(1, "0/4");
             helper.assertLineProduct(2, "product2");
-            helper.assertLineQty(2, "0 / 2");
+            helper.assertLineQty(2, "0/2");
         }
     },
     // Scans 1x product2 then goes back to the main menu.
@@ -937,13 +933,13 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_production'
         run: () => {
             helper.assertLinesCount(4);
             helper.assertLineProduct(0, "Final Product");
-            helper.assertLineQty(0, "0 / 2");
+            helper.assertLineQty(0, "0/2");
             helper.assertLineProduct(1, "product1");
-            helper.assertLineQty(1, "0 / 4");
+            helper.assertLineQty(1, "0/4");
             helper.assertLineProduct(2, "product2");
-            helper.assertLineQty(2, "0 / 1");
+            helper.assertLineQty(2, "0/1");
             helper.assertLineProduct(3, "product2");
-            helper.assertLineQty(3, "1 / 1");
+            helper.assertLineQty(3, "1/1");
         }
     },
     // Scans 3x product1 then goes back again on the main menu.
@@ -964,15 +960,15 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_production'
         run: () => {
             helper.assertLinesCount(5);
             helper.assertLineProduct(0, "Final Product");
-            helper.assertLineQty(0, "0 / 2");
+            helper.assertLineQty(0, "0/2");
             helper.assertLineProduct(1, "product1");
-            helper.assertLineQty(1, "0 / 1");
+            helper.assertLineQty(1, "0/1");
             helper.assertLineProduct(2, "product2");
-            helper.assertLineQty(2, "0 / 1");
+            helper.assertLineQty(2, "0/1");
             helper.assertLineProduct(3, "product1");
-            helper.assertLineQty(3, "3 / 3");
+            helper.assertLineQty(3, "3/3");
             helper.assertLineProduct(4, "product2");
-            helper.assertLineQty(4, "1 / 1");
+            helper.assertLineQty(4, "1/1");
         }
     },
 ]});
@@ -981,7 +977,7 @@ registry.category("web_tour.tours").add("test_barcode_production_component_diffe
     test: true, steps: () => [
         // Creates a new production from the Barcode App.
         {
-            trigger: ".o_kanban_card_header:contains('Manufacturing')",
+            trigger: ".o_kanban_record_title:contains('Manufacturing')",
             run: "click",
         },
         {

@@ -1,6 +1,6 @@
 import { registry } from "@web/core/registry";
 import { CharField, charField } from "@web/views/fields/char/char_field";
-import * as BarcodeScanner from "@web/webclient/barcode/barcode_scanner";
+import { scanBarcode } from "@web/webclient/barcode/barcode_dialog";
 
 export class BarcodeScannerWidget extends CharField {
     static template = "point_of_sale.barcodeformbarcode";
@@ -8,7 +8,7 @@ export class BarcodeScannerWidget extends CharField {
         super.setup();
     }
     async onBarcodeBtnClick() {
-        const barcode = await BarcodeScanner.scanBarcode(this.env);
+        const barcode = await scanBarcode(this.env);
         if (barcode) {
             await this.props.record.update({
                 barcode: barcode,

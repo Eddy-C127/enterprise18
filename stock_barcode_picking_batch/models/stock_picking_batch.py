@@ -108,16 +108,15 @@ class StockPickingBatch(models.Model):
             partners = allowed_picking_ids.partner_id
             picking_data['allowed_pickings'] = allowed_picking_ids.read(['name', 'picking_type_id', 'state', 'user_id', 'batch_id', 'partner_id'], False)
             picking_data['nomenclature_id'] = [self.env.company.nomenclature_id.id]
+            picking_data['source_location_ids'] = []
+            picking_data['destination_locations_ids'] = []
+            picking_types = self.picking_type_id or allowed_picking_ids.picking_type_id
             picking_data['records'] = {
                 'res.partner': partners.read(['name'], False),
                 'res.users': users.read(['name'], False),
                 'stock.picking.batch': batches.read(self._get_fields_stock_barcode(), False),
+                'stock.picking.type': picking_types.read(['name'], False),
             }
-            picking_data['source_location_ids'] = []
-            picking_data['destination_locations_ids'] = []
-            if not self.picking_type_id:
-                picking_types = allowed_picking_ids.picking_type_id
-                picking_data['picking_types'] = picking_types.read(['name'], False)
         else:  # Get data from batch's pickings.
             picking_data = self.picking_ids._get_stock_barcode_data()
             picking_data['records']['stock.picking.batch'] = self.read(self._get_fields_stock_barcode(), load=False)
@@ -141,3 +140,8 @@ class StockPickingBatch(models.Model):
             'state',
             'user_id',
         ]
+
+    @api.model
+    def filter_on_barcode(self, barcode):
+        action = self.env['stock.picking'].filter_on_barcode(barcode)
+        return action

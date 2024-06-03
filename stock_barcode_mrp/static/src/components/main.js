@@ -19,11 +19,8 @@ patch(MainComponent.prototype, {
         return super.displayActionButtons && !this.state.displayByProduct;
     },
 
-    get produceBtnLabel() {
-        if (this.env.model.record.qty_producing < this.env.model.record.product_qty){
-            return _t('Produce');
-        }
-        return _t('Produce All');
+    get displayOperationButtons() {
+        return super.displayOperationButtons || this.env.model.displayRegisterByProduct;
     },
 
     get headerFormViewProps() {

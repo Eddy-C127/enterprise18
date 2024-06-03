@@ -30,11 +30,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         - Add a product with the form view.
         - Validate
         """
-
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_inventory_adjustment', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_adjustment', login='admin', timeout=180)
 
         inventory_moves = self.env['stock.move'].search([('product_id', 'in', [self.product1.id, self.product2.id]),
                                                          ('is_inventory', '=', True)])
@@ -63,9 +59,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         quants.inventory_quantity_set = True
         quants.inventory_date = fields.Date.today()
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-        self.start_tour(url, 'test_inventory_adjustment_dont_update_location', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_adjustment_dont_update_location', login='admin', timeout=180)
         quants = self.env['stock.quant'].search([
             ('product_id', '=', self.product1.id),
             ('location_id.usage', '=', 'internal'),
@@ -122,10 +116,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
         self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_inventory_adjustment_multi_location', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_adjustment_multi_location', login='admin', timeout=180)
 
         inventory_moves = self.env['stock.move'].search([('product_id', 'in', [self.product1.id, self.product2.id]),
                                                          ('is_inventory', '=', True)])
@@ -162,10 +153,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         grp_lot = self.env.ref('stock.group_production_lot')
         self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_inventory_adjustment_tracked_product', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_adjustment_tracked_product', login='admin', timeout=180)
 
         inventory_moves = self.env['stock.move'].search([('product_id', 'in', [self.productlot1.id, self.productserial1.id]),
                                                          ('is_inventory', '=', True)])
@@ -211,9 +199,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
                 serial_number = self.env['stock.lot'].create({'product_id': self.productserial1.id, 'name': f'sn{n}'})
                 self.env['stock.quant']._update_available_quantity(self.productserial1, location, 1, lot_id=serial_number)
         # Opens the inventory adjustement and process it.
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = f"/web#action={action_id.id}"
-        self.start_tour(url, "test_inventory_adjustment_tracked_product_multilocation", login="admin", timeout=180)
+        self.start_tour("/odoo/barcode", "test_inventory_adjustment_tracked_product_multilocation", login="admin", timeout=180)
 
     def test_inventory_adjustment_tracked_product_permissive_quants(self):
         """Make an inventory adjustment for a product tracked by lot having quants without lot.
@@ -230,37 +216,32 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         grp_lot = self.env.ref('stock.group_production_lot')
         self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
 
-        self.env["stock.lot"].create({
+        lot1 = self.env["stock.lot"].create({
             'name': 'lot1',
             'product_id': self.productlot1.id,
         })
         self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 5)
-
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_inventory_adjustment_tracked_product_permissive_quants', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_adjustment_tracked_product_permissive_quants', login='admin', timeout=180)
 
         inventory_moves = self.env['stock.move'].search([('product_id', '=', self.productlot1.id),
                                                          ('is_inventory', '=', True)])
+        inventory_location = self.productlot1.property_stock_inventory
         self.assertEqual(len(inventory_moves), 2)
         self.assertEqual(inventory_moves.mapped('state'), ['done', 'done'])
-        self.assertEqual(inventory_moves.mapped('product_id'), self.productlot1)
+        self.assertEqual(inventory_moves.product_id, self.productlot1)
 
         self.assertEqual(len(inventory_moves.move_line_ids), 2)
-        move_line_1, move_line_2 = inventory_moves.move_line_ids
-        self.assertEqual(move_line_1.qty_done, 0)
-        self.assertEqual(move_line_2.lot_id.name, 'lot1')
-        self.assertEqual(move_line_2.qty_done, 2)
+        self.assertRecordValues(inventory_moves.move_line_ids, [
+            {'quantity': 5, 'location_id': self.stock_location.id, 'location_dest_id': inventory_location.id, 'lot_id': False},
+            {'quantity': 2, 'location_id': inventory_location.id, 'location_dest_id': self.stock_location.id, 'lot_id': lot1.id},
+        ])
 
     def test_inventory_create_quant(self):
         """ Creates a quant and checks it will not be deleted until the inventory was validated.
         """
         self.clean_access_rights()
         Quant = self.env['stock.quant']
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-        self.start_tour(url, 'test_inventory_create_quant', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_create_quant', login='admin', timeout=180)
 
         Quant._unlink_zero_quants()
         product1_quant = Quant.search([('product_id', '=', self.product1.id)])
@@ -277,7 +258,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
     def test_inventory_image_visible_for_quant(self):
         """ Ensure the product's image is visible in the Barcode quant form view."""
         # Load an image and use it for a product.
-        img_url = 'stock_barcode/static/img/barcode_white.png'
+        img_url = 'stock_barcode/static/img/barcode.png'
         img_content = base64.b64encode(file_open(img_url, "rb").read())
         self.product1.image_1920 = img_content
         # Creates two quants to count.
@@ -305,10 +286,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             'barcode': '2145631000000',
         })
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_inventory_nomenclature', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_nomenclature', login='admin', timeout=180)
         quantity = self.env['stock.move.line'].search([
             ('product_id', '=', product_weight.id),
             ('state', '=', 'done'),
@@ -330,10 +308,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 7, package_id=pack)
         self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 3, package_id=pack)
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, "test_inventory_package", login="admin", timeout=180)
+        self.start_tour("/odoo/barcode", "test_inventory_package", login="admin", timeout=180)
 
         # Check the package is updated after adjustment
         self.assertDictEqual(
@@ -355,10 +330,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             'barcode': 'pack007',
             'product_id': self.product1.id
         })
-
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-        self.start_tour(url, 'test_inventory_packaging', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_packaging', login='admin', timeout=180)
 
     def test_inventory_owner_scan_package(self):
         group_owner = self.env.ref('stock.group_tracking_owner')
@@ -367,10 +339,8 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         self.env.user.write({'groups_id': [(4, group_owner.id, 0)]})
 
         self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 7, package_id=self.package, owner_id=self.owner)
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
 
-        self.start_tour(url, 'test_inventory_owner_scan_package', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_owner_scan_package', login='admin', timeout=180)
 
         inventory_moves = self.env['stock.move'].search([('product_id', '=', self.product1.id), ('is_inventory', '=', True)])
         self.assertEqual(len(inventory_moves), 1)
@@ -501,10 +471,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         # Adds some quantities for product2.
         self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 10)
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_inventory_using_buttons', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_inventory_using_buttons', login='admin', timeout=180)
         product1_quant = self.env['stock.quant'].search([
             ('product_id', '=', self.product1.id),
             ('quantity', '>', 0)
@@ -535,10 +502,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             'uom_id': self.env.ref('uom.product_uom_unit').id
         })
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_gs1_inventory_gtin_8', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_gs1_inventory_gtin_8', login='admin', timeout=180)
 
         # Checks the inventory adjustment correclty created a move line.
         move_line = self.env['stock.move.line'].search([
@@ -561,10 +525,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             'uom_id': self.env.ref('uom.product_uom_unit').id
         })
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-
-        self.start_tour(url, 'test_gs1_inventory_product_units', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_gs1_inventory_product_units', login='admin', timeout=180)
 
         quantity = self.env['stock.move.line'].search([
             ('product_id', '=', product.id),
@@ -601,9 +562,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         pack_2 = self.env['stock.quant.package'].create({'name': '487325612456785124'})
         self.env['stock.quant']._update_available_quantity(self.product2, self.shelf2, 6, package_id=pack_2)
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-        self.start_tour(url, 'test_gs1_inventory_package', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_gs1_inventory_package', login='admin', timeout=180)
 
         pack_3 = self.env['stock.quant.package'].search([('name', '=', '122333444455555670')])
         self.assertEqual(pack_3.location_id.id, self.shelf2.id)
@@ -638,9 +597,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             'tracking': 'serial',
         })
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
-        self.start_tour(url, 'test_gs1_inventory_lot_serial', login='admin', timeout=180)
+        self.start_tour("/odoo/barcode", 'test_gs1_inventory_lot_serial', login='admin', timeout=180)
 
         smls_lot = self.env['stock.move.line'].search([
             ('product_id', '=', product_lot.id),

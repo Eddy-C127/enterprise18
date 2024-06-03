@@ -7,12 +7,14 @@
             <field name="count_picking_ready" position="after">
                 <field name="count_mo_confirmed" />
             </field>
-            <span name="get_action_picking_tree_ready_kanban" position="replace">
-                <span class="row text-muted" name="get_action_picking_tree_ready_kanban" type="object">
-                    <t t-if="record.code.raw_value == 'mrp_operation'" t-esc="record.count_mo_confirmed.value"/>
-                    <t t-else="" t-esc="record.count_picking_ready.value"/>
-                    To Process
-                </span>
+            <div name="get_action_picking_tree_ready_kanban" position="attributes">
+                <attribute name="t-attf-class">
+                    {{ record.count_picking_ready.value == 0 and record.count_mo_confirmed.value == 0 ? 'text-muted' : 'fw-bold' }}
+                </attribute>
+            </div>
+            <span name="pickings_count" position="replace">
+                <span t-if="record.code.raw_value == 'mrp_operation'" name="manufacturing_count" t-esc="record.count_mo_confirmed.value"/>
+                <span t-else="" name="pickings_count" t-esc="record.count_picking_ready.value"/>
             </span>
         </field>
     </record>

@@ -1,9 +1,8 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onWillStart } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 export class ChangeProductionQty extends Component {
@@ -12,16 +11,6 @@ export class ChangeProductionQty extends Component {
 
     setup() {
         this.actionService = useService("action");
-
-        onWillStart(async () => {
-            this.displayUOM = await user.hasGroup('uom.group_uom');
-        });
-
-    }
-
-    get uom() {
-        const [id, name] = this.props.record.data.product_uom_id || [];
-        return { id, name };
     }
 
     openChangeQtyWizard() {

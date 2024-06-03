@@ -69,7 +69,7 @@ helper.getLine = (description={}) => {
  * @returns {HTMLElement[]}
  */
 helper.getLines = (description={}) => {
-    const selector = helper._prepareSelector(".o_barcode_lines > .o_barcode_line", description);
+    const selector = helper._prepareSelector(":not(.o_sublines) > .o_barcode_line", description);
     const lines = document.querySelectorAll(selector);
     const { index } = description;
     if (index !== undefined) {
@@ -123,25 +123,12 @@ helper.assert = (current, expected, info) => {
  * @param {string} buttonName could be 'add_quantity', 'remove_unit' or 'set'.
  * @param {boolean} [isVisible=true]
  */
-helper.assertButtonShouldBeVisible = (lineOrIndex, buttonName, shouldBeVisible=true) => {
+helper.assertButtonIsVisible = (lineOrIndex, buttonName, shouldBeVisible=true) => {
     const line = helper._getLineOrFail(lineOrIndex);
     const button = line.querySelector(`.o_line_button.o_${buttonName}`);
+    const label = line.querySelector('.o_product_label,.package')?.innerText;
     helper.assert(Boolean(button), shouldBeVisible,
-        `Line's button "${buttonName}" ${shouldBeVisible ? "should" : "shouldn't"} be visible`);
-};
-
-/**
- * Checks if both "Add unit" and "Add reserved remaining quantity" buttons are
- * displayed or not on the given line.
- *
- * @param {integer} lineIndex
- * @param {boolean} isVisible
- */
-helper.assertLineButtonsAreVisible = (lineOrIndex, isVisible, cssSelector='.o_line_button') => {
-    const line = helper._getLineOrFail(lineOrIndex);
-    const buttonAddQty = line.querySelectorAll(cssSelector);
-    const message = `Buttons must be ${(isVisible ? 'visible' : 'hidden')}`;
-    helper.assert(buttonAddQty.length > 0, isVisible, message);
+        `${label ? label + " line": "Line"}'s button "${buttonName}" ${shouldBeVisible ? "should" : "should not"} be visible`);
 };
 
 helper.assertValidateVisible = (expected) => {
@@ -156,7 +143,7 @@ helper.assertValidateEnabled = (expected) => {
 
 helper.assertValidateIsHighlighted = (expected) => {
     const validateButton = document.querySelector('.o_validate_page,.o_apply_page') || false;
-    const isHighlighted = validateButton && validateButton.classList.contains('btn-success');
+    const isHighlighted = validateButton && validateButton.classList.contains('btn-primary');
     helper.assert(isHighlighted, expected, 'Validate button is highlighted');
 };
 
@@ -180,7 +167,7 @@ helper.assertLineDestinationIsNotVisible = (lineOrIndex) => {
     const line = helper._getLineOrFail(lineOrIndex);
     const destinationElement = line.querySelector('.o_line_destination_location');
     if (destinationElement) {
-        const product = line.querySelector('.product-label').innerText;
+        const product = line.querySelector('.o_product_label').innerText;
         helper.fail(`The destination for line of the product ${product} should not be visible, "${destinationElement.innerText}" instead`);
     }
 };
@@ -193,7 +180,7 @@ helper.assertLineDestinationIsNotVisible = (lineOrIndex) => {
 helper.assertLineDestinationLocation = (lineOrIndex, location) => {
     const line = helper._getLineOrFail(lineOrIndex, "Can't check the line's destination");
     const destinationElement = line.querySelector('.o_line_destination_location');
-    const product = line.querySelector('.product-label').innerText;
+    const product = line.querySelector('.o_product_label').innerText;
     if (!destinationElement) {
         helper.fail(`The destination (${location}) for line of the product ${product} is not visible`);
     }
@@ -224,7 +211,7 @@ helper.assertLineLocations = (lineOrIndex, source=false, destination=false) => {
 
 helper.assertLineProduct = (lineOrIndex, productName) => {
     const line = helper._getLineOrFail(lineOrIndex, "Can't check line's product");
-    const lineProduct = line.querySelector('.product-label').innerText;
+    const lineProduct = line.querySelector('.o_product_label').innerText;
     helper.assert(lineProduct, productName, "Not the expected product");
 };
 
@@ -238,10 +225,9 @@ helper.assertLineProduct = (lineOrIndex, productName) => {
  */
 helper.assertLineQty = (lineOrIndex, expectedQuantityWithUOM) => {
     const line = helper._getLineOrFail(lineOrIndex, "Can't check the line's quantity");
-    const elQty = line.querySelector('.qty-done');
+    const elQty = line.querySelector('.o_barcode_scanner_qty');
     const elUOM = line.querySelector('.o_line_uom');
-    const elReserved = elQty.nextElementSibling;
-    let qtyText = elQty.innerText + (elReserved ? " " + elReserved.innerText : "");
+    let qtyText = elQty.innerText;
     let errorMessage = "Something wrong with the quantities";
     if (elUOM) {
         qtyText += " " + elUOM.innerText;
@@ -252,9 +238,9 @@ helper.assertLineQty = (lineOrIndex, expectedQuantityWithUOM) => {
 
 helper.assertLineSourceIsNotVisible = (lineOrIndex) => {
     const line = helper._getLineOrFail(lineOrIndex);
-    const sourceElement = line.querySelector('.o_line_source_location');
+    const sourceElement = line.parentNode.querySelector('.o_barcode_location_line');
     if (sourceElement) {
-        const product = line.querySelector('.product-label').innerText;
+        const product = line.querySelector('.o_product_label').innerText;
         helper.fail(`The location for line of the product ${product} should not be visible, "${sourceElement.innerText}" instead`);
     }
 };
@@ -306,8 +292,8 @@ helper.assertLinesTrackingNumbers = (lines, trackingNumbers) => {
  */
 helper.assertLineSourceLocation = (lineOrIndex, location) => {
     const line = helper._getLineOrFail(lineOrIndex, "Can't check the line's source");
-    const sourceElement = line.querySelector('.o_line_source_location');
-    const product = line.querySelector('.product-label').innerText;
+    const sourceElement = line.parentNode.querySelector('.o_barcode_location_line');
+    const product = line.querySelector('.o_product_label').innerText;
     if (!sourceElement) {
         helper.fail(`The source (${location}) for line of the product ${product} is not visible`);
     }

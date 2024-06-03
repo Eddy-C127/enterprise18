@@ -19,19 +19,9 @@
     // =====================================
     .o_barcode_header {
         flex: 0 0 46px;
-        color: white;
-        background-color: var(--barcode__header-bg, #{$o-brand-odoo});
 
-        .nav-link {
-            cursor: pointer;
-        }
-         .nav-link, .navbar-text {
-            font-size: 16px;
-            color: #FFFFFF;
-
-            &:hover {
-                color: rgba($color: #FFFFFF, $alpha: 0.75)
-            }
+        .o_barcode_partner {
+            font-size: 0.8em;
         }
     }
 
@@ -56,7 +46,6 @@
     .o_barcode_lines_header {
         font-size: 16px;
         color: white;
-        background-color: var(--barcode__linesHeader-bg, #{$o-gray-800});
 
         @include media-breakpoint-down(md) {
             font-size: 14px;
@@ -72,7 +61,32 @@
     .o_barcode_lines {
         overflow: auto;
         word-break: break-word;
-        color: $gray-800;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .o_barcode_location_group {
+            &:last-child {
+                box-shadow: 0 3px 6px adjust-color($o-shadow-color, $lightness: 50);
+                // margin-bottom needed for enable scrolling for the last element.
+                margin-bottom: 60vh;
+            }
+
+            .o_barcode_location_line {
+                position: sticky;
+                top: 0;
+                z-index: 2;
+
+                .o_location_name {
+                    display: inline-block;
+                    direction: rtl;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-wrap: nowrap;
+                }
+            }
+        }
     }
 
     // Settings menu
@@ -95,31 +109,17 @@
         width: 100%;
         box-shadow: 0 -3px 10px $gray-300;
         > .btn {
-            text-transform: uppercase;
             flex: 1 1 0px;
-            border-width: 1px 0 0 0;
-            border-style: solid;
             @media (min-height: 800px) {
                 height: 60px;
             }
             &.btn-secondary {
                 color: $gray-800;
-                border-color: $gray-400;
-            }
-            &.btn-primary {
-                border-color: $primary;
-            }
-            &.btn-success {
-                border-color: $success;
             }
             &[disabled] {
                 opacity: 1;
                 background-color: $gray-200;
                 color: $btn-link-disabled-color;
-            }
-            + .btn {
-                border-left-width: 1px;
-                border-left-color: $gray-400;
             }
         }
     }
@@ -127,48 +127,31 @@
     // Line form
     // =====================================
     .o_barcode_line_form {
-        margin-left: 24px;
         margin-bottom: 36px;
-        font-size: 1.4em;
+        font-size: 1.2em;
 
         @include media-breakpoint-down(md) {
             margin-left: 0;
         }
 
+        .o_barcode_control {
+            background-color: var(--bg, #{$o-view-background-color});
+        }
+
         .row {
-            width: 700px;
-
-            @include media-breakpoint-down(md) {
-                width: 100vw;
+            .no-radius-left .o_field_widget input {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
             }
-
-            &.row-long {
-                width: 100%;
+            .no-radius-right .o_field_widget input {
+                border-right: 0;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
             }
 
             a.o_field_widget {
                 display: inline-block;
                 padding-top: 8px;
-            }
-
-            // Avoids to make the UoM field as long as the quantity done field.
-            .o_field_widget[name="product_uom_id"] input {
-                @include media-breakpoint-up(sm) {
-                    min-width: 0;
-                }
-            }
-
-            .o_qty_done_field_completed input {
-                background: var(--barcode__input--completed, #f6fdf6);
-            }
-
-            .o_qty_done_field_not_completed {
-                input {
-                    background: var(--barcode__input--notCompleted, #fcf9f2);
-                }
-                &[name="scrap_qty"] {
-                    width: 150px;
-                }
             }
 
             & > div {
@@ -177,22 +160,48 @@
                 }
 
                 .o_input {
-                    padding: 8px;
-                    border: 1px solid $border-color;
+                    min-height: 42px;
+
+                    // Mirror BS default .form-control class
+                    display: block;
+                    width: 100%;
+                    padding: $input-padding-y $input-padding-x;
+                    font-family: $input-font-family;
+                    font-size: $input-font-size;
+                    font-weight: $input-font-weight;
+                    line-height: $input-line-height;
+                    color: $input-color;
+                    background-color: $input-bg;
+                    border: $input-border-width solid $border-color;
+                    border-radius: var(--border-radius);
                 }
 
-                .o_required_modifier .o_input {
-                    border-bottom: 2px solid $border-color
+                [name="qty_done"], [name="inventory_quantity"], [name="product_uom_id"] {
+                    margin-bottom: 0;
+
+                    & .o_input {
+                        font-size: 2rem;
+                    }
+                }
+
+                :not(td)[name="product_uom_id"] {
+                    height: 100%;
+                    margin-bottom: 0;
+                    font-size: 2rem;
+                }
+
+                [name="product_uom_id"] .o-autocomplete, .o_field_many2one_selection, .o_field_many2one_selection input {
+                    height: 100%;
                 }
 
                 .o_dropdown_button {
                     display: none;
                 }
 
-                i {
-                    min-width: 24px;
-                    max-width: 24px;
-                    color: $o-main-color-muted;
+                .o_external_button:before {
+                    --oi-font-size: 1.5em;
+
+                    content: '\e812';
                 }
             }
         }

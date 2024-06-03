@@ -2,6 +2,7 @@
 
 import { BarcodeParser } from "@barcodes/js/barcode_parser";
 import { Mutex } from "@web/core/utils/concurrency";
+import { formatFloat } from "@web/core/utils/numbers";
 import LazyBarcodeCache from '@stock_barcode/lazy_barcode_cache';
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
@@ -74,18 +75,11 @@ export default class BarcodeModel extends EventBus {
     }
 
     getDisplayIncrementBtn(line) {
-        if (line.product_id.tracking === "serial") {
-            return this.getDisplayIncrementBtnForSerial(line);
-        }
         return true;
     }
 
     getDisplayIncrementBtnForSerial(line) {
-        return line.lot_id && this.getQtyDone(line) === 0;
-    }
-
-    getDisplayDecrementBtn(line) {
-        return false;
+        return !(line.lot_id || line.lot_name) || this.getQtyDone(line) === 0;
     }
 
     getDisplayIncrementPackagingBtn(line) {
@@ -100,7 +94,13 @@ export default class BarcodeModel extends EventBus {
     }
 
     getIncrementQuantity(line) {
-        return 1;
+        let remainingQty = this.getLineRemainingQuantity(line);
+        const params = { digits: [false, this.precision], thousandsSep: "", decimalPoint: "." };
+        return parseFloat(formatFloat(remainingQty, params));
+    }
+
+    getLineRemainingQuantity(line) {
+        return this.getQtyDemand(line) ? this.getQtyDemand(line) - this.getQtyDone(line) : 0;
     }
 
     getEditedLineParams(line) {
@@ -237,6 +237,31 @@ export default class BarcodeModel extends EventBus {
         return this._sortLine(lines);
     }
 
+    get groupedLinesByLocation() {
+        const lines = [].concat(this.groupedLines, this.packageLines);
+        const linesByLocations = []
+        const linesByLocation = {};
+        for (const line of lines) {
+            const lineLoc = line.location_id;
+            if (!linesByLocation[lineLoc.id]) {
+                linesByLocation[lineLoc.id] = {
+                    location: lineLoc,
+                    lines: [],
+                };
+            }
+            if (!linesByLocations.includes(linesByLocation[lineLoc.id])) {
+                linesByLocations.push(linesByLocation[lineLoc.id]);
+            }
+            linesByLocation[lineLoc.id].lines.push(line);
+        }
+        // Sorts groups to ensure that locations will always follow the alphabetical order.
+        linesByLocations.sort((lblA, lblB) => {
+            const [locNameA, locNameB] = [lblA.location.display_name, lblB.location.display_name];
+            return locNameA < locNameB ? -1 : locNameA > locNameB ? 1 : 0;
+        });
+        return linesByLocations
+    }
+
     get highlightValidateButton() {
         return false;
     }
@@ -269,6 +294,10 @@ export default class BarcodeModel extends EventBus {
             return this.currentState.lines.find(l => l.virtual_id === virtualId);
         }
         return false;
+    }
+
+    lineCanBeDeleted(line) {
+        return !this.getQtyDemand(line);
     }
 
     lineIsFaulty(line) {
@@ -341,6 +370,10 @@ export default class BarcodeModel extends EventBus {
 
     get useExistingLots() {
         return true;
+    }
+
+    get validateButtonLabel() {
+        return _t("Validate");
     }
 
     // ACTIONS
@@ -625,6 +658,19 @@ export default class BarcodeModel extends EventBus {
         await this.updateLine(newLine, params.fieldsParams);
         this.currentState.lines.push(newLine);
         return newLine;
+    }
+
+    async deleteLine(line) {
+        if (!line.id) {
+            // The line doesn't exist in the DB yet => Delete it only in the frontend.
+            const index = this.currentState.lines.findIndex(l => l.virtual_id === line.virtual_id);
+            this.currentState.lines.splice(index, 1);
+            this.linesToSave = this.linesToSave.filter(vId => vId !== line.virtual_id);
+        } else {
+            await this.save();
+            await this.orm.call(this.lineModel, this.deleteLineMethod, [line.id]);
+            this.trigger('refresh');
+        }
     }
 
     _shouldCreateLineOnExceed(line) {
@@ -1322,7 +1368,6 @@ export default class BarcodeModel extends EventBus {
 
     _selectLine(line) {
         const virtualId = line.virtual_id;
-        this.trigger("playSound", "success");
         if (this.selectedLineVirtualId === virtualId) {
             return; // Don't select the line if it's already selected.
         }
@@ -1514,7 +1559,7 @@ export default class BarcodeModel extends EventBus {
     }
 
     lineIsSelected(line) {
-        return this.selectedLine && this.selectedLine.virtual_id === line.virtual_id;
+        return (line.dummy_id || line.virtual_id) === this.selectedLineVirtualId;
     }
 
     _shouldSearchForAnotherLot(barcodeData, filters) {
@@ -1573,5 +1618,9 @@ export default class BarcodeModel extends EventBus {
 
     _getPrintOptions() {
         return {};
+    }
+
+    zeroQtyClass(_line) {
+        return "text-muted";
     }
 }

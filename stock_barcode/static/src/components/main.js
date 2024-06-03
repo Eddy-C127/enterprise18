@@ -74,7 +74,10 @@ class MainComponent extends Component {
         this.resId = this.props.action.context.active_id || false;
         const model = this._getModel();
         model.newScrapProduct = this.newScrapProduct.bind(this);
-        useSubEnv({model});
+        useSubEnv({
+            model,
+            dialog: this.dialog,
+        });
         this._scrollBehavior = 'smooth';
         this.isMobile = uiUtils.isSmall();
         this.state = useState({
@@ -242,10 +245,12 @@ class MainComponent extends Component {
 
     openManualScanner() {
         this.dialog.add(ManualBarcodeScanner, {
-            onApply: (barcode) => {
+            facingMode: "environment",
+            onResult: (barcode) => {
                 barcode = this.env.model.cleanBarcode(barcode);
                 this.onBarcodeScanned(barcode);
-            }
+            },
+            onError: () => {},
         });
     }
 
@@ -317,8 +322,14 @@ class MainComponent extends Component {
     }
 
     async toggleInformation() {
-        await this.env.model.save();
-        this.state.view = "infoFormView";
+        if (this.env.model.formViewId) {
+            if (this.state.view === "infoFormView") {
+                this.state.view = "barcodeLines";
+            } else {
+                await this.env.model.save();
+                this.state.view = "infoFormView";
+            }
+        }
     }
 
     /**
@@ -356,29 +367,39 @@ class MainComponent extends Component {
             this._scrollBehavior = 'auto';
             return;
         }
+        // Tries to scroll to selected subline.
+        let targetElement = false;
         let selectedLine = document.querySelector('.o_sublines .o_barcode_line.o_highlight');
         const isSubline = Boolean(selectedLine);
+        // If no selected subline, tries to scroll to selected line.
         if (!selectedLine) {
             selectedLine = document.querySelector('.o_barcode_line.o_highlight');
         }
-        if (!selectedLine) {
-            const matchingLine = this.env.model.findLineForCurrentLocation();
-            if (matchingLine) {
-                selectedLine = document.querySelector(`.o_barcode_line[data-virtual-id="${matchingLine.virtual_id}"]`);
-            }
+
+        let locationLine = false;
+        if (this.env.model.lastScanned.sourceLocation) {
+            const locId = this.env.model.lastScanned.sourceLocation.id;
+            locationLine = document.querySelector(`.o_barcode_location_line[data-location-id="${locId}"]`);
+        } else if (selectedLine) {
+            locationLine = selectedLine.closest('.o_barcode_location_group').querySelector(".o_barcode_location_line");
         }
-        if (selectedLine) {
+        // Scrolls either to the selected line, either to the location line.
+        targetElement = selectedLine || (locationLine && locationLine.parentElement);
+
+        if (targetElement) {
             // If a line is selected, checks if this line is on the top of the
             // page, and if it's not, scrolls until the line is on top.
-            const lineRect = selectedLine.getBoundingClientRect();
+            const elRect = targetElement.getBoundingClientRect();
             const page = document.querySelector('.o_barcode_lines');
             const headerHeight = this._getHeaderHeight();
-            if (lineRect.top < headerHeight || lineRect.bottom > (headerHeight + lineRect.height)) {
-                let top = lineRect.top - headerHeight + page.scrollTop;
+            if (elRect.top < headerHeight || elRect.bottom > (headerHeight + elRect.height)) {
+                let top = elRect.top - headerHeight + page.scrollTop;
                 if (isSubline) {
-                    const parentLine = selectedLine.closest('.o_barcode_lines > .o_barcode_line');
+                    const parentLine = targetElement.closest('.o_sublines').closest('.o_barcode_line');
                     const parentSummary = parentLine.querySelector('.o_barcode_line_summary');
                     top -= parentSummary.getBoundingClientRect().height;
+                } else if (selectedLine && locationLine) {
+                    top -= locationLine.getBoundingClientRect().height;
                 }
                 page.scroll({ left: 0, top, behavior: this._scrollBehavior });
                 this._scrollBehavior = 'smooth';
@@ -401,6 +422,11 @@ class MainComponent extends Component {
     async newScrapProduct() {
         await this.env.model.save();
         this.state.view = 'scrapProductPage';
+    }
+
+    get displayOperationButtons() {
+        const { model } = this.env;
+        return model.canScrap || model.displayCancelButton || model.displaySignatureButton;
     }
 
     get scrapViewProps() {

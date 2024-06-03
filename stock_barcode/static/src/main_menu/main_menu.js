@@ -6,7 +6,7 @@ import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_d
 import { registry } from "@web/core/registry";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, useState } from "@odoo/owl";
-import { ManualBarcodeScanner } from "./components/manual_barcode";
+import { ManualBarcodeScanner } from "../components/manual_barcode";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { url } from '@web/core/utils/urls';
 
@@ -48,9 +48,22 @@ export class MainMenu extends Component {
     }
 
     openManualBarcodeDialog() {
-        this.dialogService.add(ManualBarcodeScanner, {
-            onApply: (barcode) => this._onBarcodeScanned(barcode),
+        let res;
+        let rej;
+        const promise = new Promise((resolve, reject) => {
+            res = resolve;
+            rej = reject;
         });
+        this.dialogService.add(ManualBarcodeScanner, {
+            facingMode: "environment",
+            onResult: (barcode) => {
+                this._onBarcodeScanned(barcode);
+                res(barcode);
+            },
+            onError: (error) => rej(error),
+        });
+        promise.catch(error => console.log(error))
+        return promise;
     }
 
     removeDemoMessage() {

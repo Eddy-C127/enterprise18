@@ -12,7 +12,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_expiration_date', {tes
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "76543210" });
             helper.assertLineIsHighlighted(line, false);
-            helper.assertLineQty(line, "0 / 20");
+            helper.assertLineQty(line, "0/20");
         }
     },
     // The following scanned barcode should be decomposed like that:
@@ -33,7 +33,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_expiration_date', {tes
             const date = new Date('2022-05-20').toLocaleDateString();
             helper.assert(lot_with_date, `b1-b001 (${date})`, 'lot line');
             helper.assertLineIsHighlighted(line, true);
-            helper.assertLineQty(line, "8 / 20");
+            helper.assertLineQty(line, "8/20");
         }
     },
     // The following scanned barcode should be decomposed like that:
@@ -46,7 +46,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_expiration_date', {tes
         run: 'scan 010000007654321010b1-b002\x1D300000000415220520',
     },
     {
-        trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down',
+        trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-angle-down',
         run: "click",
     },
     {
@@ -56,8 +56,8 @@ registry.category("web_tour.tours").add('test_gs1_receipt_expiration_date', {tes
             helper.assertSublinesCount(2);
             const parentLine = helper.getLine({ barcode: "76543210" });
             const [line1, line2] = helper.getSublines();
-            helper.assertLineQty(parentLine, "12 / 20");
-            helper.assertLineQty(line1, "8 / 20");
+            helper.assertLineQty(parentLine, "12/20");
+            helper.assertLineQty(line1, "8/20");
             helper.assertLineQty(line2, "4");
             helper.assertLineIsHighlighted(line1, false);
             helper.assertLineIsHighlighted(line2, true);
@@ -86,8 +86,8 @@ registry.category("web_tour.tours").add('test_gs1_receipt_expiration_date', {tes
             helper.assertSublinesCount(3);
             const parentLine = helper.getLine({ barcode: "76543210" });
             const [line1, line2, line3] = helper.getSublines();
-            helper.assertLineQty(parentLine, "20 / 20");
-            helper.assertLineQty(line1, "8 / 20");
+            helper.assertLineQty(parentLine, "20/20");
+            helper.assertLineQty(line1, "8/20");
             helper.assertLineQty(line2, "4");
             helper.assertLineQty(line3, "8");
             helper.assertLineIsHighlighted(line1, false);

@@ -1,30 +1,47 @@
 /** @odoo-module **/
 
 import { Component } from "@odoo/owl";
+import { ProductImageDialog } from '@stock_barcode/components/product_image_dialog';
 
 export default class LineComponent extends Component {
     static props = ["displayUOM", "line", "subline?", "editLine"];
     static template = "stock_barcode.LineComponent";
 
+    setup() {
+        this.imageData = this.props.line.product_id.image_128;
+    }
+
     get destinationLocationPath () {
         return this._getLocationPath(this.env.model._defaultDestLocation(), this.line.location_dest_id);
+    }
+
+    get displayDeleteButton() {
+        return this.env.model.lineCanBeDeleted(this.line);
     }
 
     get displayDestinationLocation() {
         return !this.props.subline && this.env.model.displayDestinationLocation;
     }
 
+    get displayFulfillbutton() {
+        return this.incrementQty && this.env.model.getDisplayIncrementBtn(this.line);
+    }
+
+    get displayIncrementButton() {
+        if (this.isSelected && this.incrementQty !== 1) {
+            return this.isTracked && this.line.product_id.tracking === "serial"
+                ? this.env.model.getDisplayIncrementBtnForSerial(this.line)
+                : this.env.model.getDisplayIncrementBtn(this.line);
+        }
+        return false;
+    }
+
+    get incrementQty() {
+        return this.env.model.getIncrementQuantity(this.line);
+    }
+
     get displayResultPackage() {
         return this.env.model.displayResultPackage;
-    }
-
-    get displaySourceLocation() {
-        return !this.props.subline && this.env.model.displaySourceLocation;
-    }
-
-    get highlightLocation() {
-        return this.env.model.lastScanned.sourceLocation &&
-               this.env.model.lastScanned.sourceLocation.id == this.line.location_id.id;
     }
 
     get isComplete() {
@@ -37,7 +54,7 @@ export default class LineComponent extends Component {
     }
 
     get isSelected() {
-        return this.line.virtual_id === this.env.model.selectedLineVirtualId ||
+        return this.env.model.lineIsSelected(this.line) ||
         (this.line.package_id && this.line.package_id.id === this.env.model.lastScanned.packageId);
     }
 
@@ -71,16 +88,8 @@ export default class LineComponent extends Component {
         return this.line.inventory_quantity_set;
     }
 
-    get incrementQty() {
-        return this.env.model.getIncrementQuantity(this.line);
-    }
-
     get line() {
         return this.props.line;
-    }
-
-    get sourceLocationPath() {
-        return this._getLocationPath(this.env.model._defaultLocation(), this.line.location_id);
     }
 
     get componentClasses() {
@@ -101,7 +110,7 @@ export default class LineComponent extends Component {
         return locationName.replace(new RegExp(currentLocation.name + '$'), '');
     }
 
-    addQuantity(quantity, ev) {
+    addQuantity(quantity) {
         this.env.model.updateLineQty(this.line.virtual_id, quantity);
     }
 
@@ -113,5 +122,9 @@ export default class LineComponent extends Component {
 
     setOnHandQuantity(ev) {
         this.env.model.setOnHandQuantity(this.line);
+    }
+
+    onClickImage() {
+        this.env.dialog.add(ProductImageDialog, { record: this.line.product_id });
     }
 }

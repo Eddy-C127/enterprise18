@@ -8,7 +8,8 @@ export default class BarcodeQuantModel extends BarcodeModel {
         super(...arguments);
         this.lineModel = this.resModel;
         this.validateMessage = _t("The inventory adjustment has been validated");
-        this.validateMethod = 'action_validate';
+        this.validateMethod = "action_validate";
+        this.deleteLineMethod = this.validateMethod;
     }
 
     /**
@@ -130,7 +131,8 @@ export default class BarcodeQuantModel extends BarcodeModel {
     }
 
     displaySetButton(line) {
-        return this.showQuantityCount || line.product_id.tracking === 'serial';
+        const isSelected = this.selectedLineVirtualId === line.virtual_id;
+        return isSelected && (this.showQuantityCount || line.product_id.tracking === 'serial');
     }
 
     setData(data) {
@@ -145,15 +147,6 @@ export default class BarcodeQuantModel extends BarcodeModel {
 
     get displayApplyButton() {
         return true;
-    }
-
-    getDisplayIncrementBtn(line) {
-        return super.getDisplayIncrementBtn(...arguments) && this.selectedLineVirtualId &&
-            line.virtual_id === this.selectedLineVirtualId;
-    }
-
-    getDisplayDecrementBtn(line) {
-        return this.getDisplayIncrementBtn(line);
     }
 
     getQtyDone(line) {
@@ -181,6 +174,10 @@ export default class BarcodeQuantModel extends BarcodeModel {
         return !line.inventory_quantity_set;
     }
 
+    lineCanBeDeleted(line) {
+        return line.inventory_quantity_set && this.getQtyDone(line) === 0;
+    }
+
     lineIsFaulty(line) {
         return line.inventory_quantity_set && line.inventory_quantity !== line.quantity;
     }
@@ -204,27 +201,9 @@ export default class BarcodeQuantModel extends BarcodeModel {
      * @param {Object} line
      */
     setOnHandQuantity(line) {
-        if (line.product_id.tracking === 'serial') { // Special case for product tracked by SN.
-            const quantity = !(line.lot_name || line.lot_id) && line.quantity || 1;
-            if (line.inventory_quantity_set) {
-                line.inventory_quantity = line.inventory_quantity ? 0 : quantity;
-                line.inventory_quantity_set = line.inventory_quantity != quantity;
-            } else {
-                line.inventory_quantity = quantity;
-                line.inventory_quantity_set = true;
-            }
-            this._markLineAsDirty(line);
-        } else {
-            if (line.inventory_quantity_set) {
-                line.inventory_quantity = 0;
-                line.inventory_quantity_set = false;
-                this._markLineAsDirty(line);
-            } else {
-                const inventory_quantity = line.quantity - line.inventory_quantity;
-                this.updateLine(line, { inventory_quantity });
-                line.inventory_quantity_set = true;
-            }
-        }
+        line.inventory_quantity = 0;
+        line.inventory_quantity_set = !line.inventory_quantity_set;
+        this._markLineAsDirty(line);
         this.trigger('update');
     }
 
@@ -254,6 +233,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
             default_user_id: this.userId,
             inventory_mode: true,
             display_default_code: false,
+            hide_qty_to_count: !this.showQuantityCount,
         };
     }
 
@@ -663,6 +643,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
             quant.dummy_id = quant.dummy_id && Number(quant.dummy_id);
             quant.virtual_id = quant.dummy_id || previousVirtualId || this._uniqueVirtualId;
             quant.product_id = this.cache.getRecord('product.product', quant.product_id);
+            quant.product_uom_id = this.cache.getRecord('uom.uom', quant.product_uom_id);
             quant.location_id = this.cache.getRecord('stock.location', quant.location_id);
             quant.lot_id = quant.lot_id && this.cache.getRecord('stock.lot', quant.lot_id);
             quant.package_id = quant.package_id && this.cache.getRecord('stock.quant.package', quant.package_id);
@@ -692,5 +673,9 @@ export default class BarcodeQuantModel extends BarcodeModel {
             this.unfoldLineKey = this.groupKey(line);
         }
         super._selectLine(...arguments);
+    }
+
+    zeroQtyClass(line) {
+        return this.IsNotSet(line) ? super.zeroQtyClass(...arguments) : "text-danger";
     }
 }

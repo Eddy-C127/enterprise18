@@ -8,7 +8,6 @@ import { _t } from "@web/core/l10n/translation";
 import { escape } from '@web/core/utils/strings';
 import { user } from '@web/core/user';
 import { markup } from '@odoo/owl';
-import { formatFloat } from "@web/core/utils/numbers";
 import { SignatureDialog } from '@web/core/signature/signature_dialog';
 import { useService } from "@web/core/utils/hooks";
 
@@ -20,6 +19,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         this.showBackOrderDialog = true;
         this.validateMessage = _t("The transfer has been validated");
         this.validateMethod = 'button_validate';
+        this.deleteLineMethod = "unlink";
         this.validateContext = {
             display_detailed_backorder: true,
             skip_backorder: true,
@@ -101,33 +101,27 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     getDisplayIncrementBtn(line) {
-        if (!super.getDisplayIncrementBtn(...arguments)) {
-            return false;
-        }
-        if (this.config.restrict_scan_product && line.product_id.barcode && !this.getQtyDone(line) && (
-            !this.lastScanned.product || this.lastScanned.product.id != line.product_id.id
-        )) {
-            return false;
-        }
         line = (line.product_id.tracking === "lot" && this._getParentLine(line)) || line;
-        return (!this.getQtyDemand(line) || this.getQtyDemand(line) > this.getQtyDone(line));
+        return !this.getQtyDemand(line) || this.getQtyDone(line) < this.getQtyDemand(line);
     }
 
     getDisplayIncrementBtnForSerial(line) {
+        const lineTrackingNumber = line.lot_id || line.lot_name;
         return !this.useTrackingNumber || (
             !this.config.restrict_scan_tracking_number &&
-            super.getDisplayIncrementBtnForSerial(...arguments));
+            lineTrackingNumber && this.getQtyDone(line) === 0);
     }
 
-    getIncrementQuantity(line) {
-        let remainingQty = this.getQtyDemand(line) - this.getQtyDone(line);
+    getLineRemainingQuantity(line) {
+        const remainingQty = super.getLineRemainingQuantity(...arguments);
         const parentLine = (line.product_id.tracking === "lot" && this._getParentLine(line)) || line;
-        if (parentLine) {
+        if (parentLine && this.getQtyDemand(parentLine)) {
             const parentRemainingQty = this.getQtyDemand(parentLine) - this.getQtyDone(parentLine);
-            remainingQty = Math.min(remainingQty, parentRemainingQty);
+            if (parentRemainingQty) {
+                return Math.min(Math.max(1, remainingQty), parentRemainingQty);
+            }
         }
-        const quantityToFormat = remainingQty <= 0 ? 1 : remainingQty;
-        return parseFloat(formatFloat(quantityToFormat, { digits: [false, this.precision], thousandsSep: "", decimalPoint: "." }));
+        return remainingQty;
     }
 
     getQtyDone(line) {
@@ -186,6 +180,11 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     lineCanBeEdited(line) {
+        if (this.config.restrict_scan_product && line.product_id.barcode && !this.getQtyDone(line) && (
+            !this.lastScanned.product || this.lastScanned.product.id != line.product_id.id
+        )) {
+            return false;
+        }
         if (line.product_id.tracking !== 'none' && this.config.restrict_scan_tracking_number &&
             !((line.lot_id && line.qty_done) || line.lot_name)) {
             return false;
@@ -526,6 +525,7 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     get scrapContext() {
         const context = this._getNewLineDefaultContext();
+        delete context.force_fullfil_quantity;
         const moves = this.record.move_ids.map(id => this.cache.getRecord("stock.move", id))
         context['product_ids'] = moves.map(move => move.product_id);
         return context;
@@ -795,13 +795,6 @@ export default class BarcodePickingModel extends BarcodeModel {
                 method: 'action_print_packges',
             });
         }
-        if (this.canScrap) {
-            buttons.push({
-                name: _t("Scrap"),
-                class: 'o_scrap',
-                onclick: 'newScrapProduct',
-            });
-        }
 
         return buttons;
     }
@@ -957,7 +950,8 @@ export default class BarcodePickingModel extends BarcodeModel {
             default_picking_id: this.resId,
             default_qty_done: 1,
             display_default_code: false,
-            hide_unlink_button: !this.selectedLine || this.selectedLine.reserved_uom_qty,
+            hide_unlink_button: Boolean(!this.selectedLine || this.selectedLine.reserved_uom_qty),
+            force_fullfil_quantity: this.selectedLine && this.selectedLine.reserved_uom_qty,
         };
     }
 
@@ -1133,6 +1127,7 @@ export default class BarcodePickingModel extends BarcodeModel {
 
         if (this.reloadingMoveLines) {
             if (prevLine) {
+                smlData.sortIndex = prevLine.sortIndex;
                 if (smlData.quantity && !smlData.qty_done) {
                     // The reservation likely changed.
                     smlData.reserved_uom_qty = smlData.quantity;
@@ -1205,7 +1200,7 @@ export default class BarcodePickingModel extends BarcodeModel {
         if (record.picking_type_id && record.state !== "cancel") {
             record.picking_type_id = this.cache.getRecord('stock.picking.type', record.picking_type_id);
         }
-        if (record.partner_id) {
+        if (record.partner_id && record.state !== "cancel") {
             record.partner_id = this.cache.getRecord('res.partner', record.partner_id);
         }
         return record;
@@ -1719,9 +1714,6 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     _updateLineQty(line, args) {
-        if (line.product_id.tracking === 'serial' && line.qty_done > 0 && (this.record.use_create_lots || this.record.use_existing_lots)) {
-            return;
-        }
         if (args.qty_done) {
             if (args.uom) {
                 // An UoM was passed alongside the quantity, needs to check it's
@@ -1738,6 +1730,12 @@ export default class BarcodePickingModel extends BarcodeModel {
                     // Compatible but not the same UoM => Need a conversion.
                     args.qty_done = (args.qty_done / args.uom.factor) * lineUOM.factor;
                     args.uom = lineUOM;
+                }
+            }
+            if (line.product_id.tracking === 'serial') {
+                const nextQty = line.qty_done + args.qty_done;
+                if (nextQty > 1 && (this.record.use_create_lots || this.record.use_existing_lots)) {
+                    return; // Can't have more than 1 qty by serial number.
                 }
             }
             line.qty_done += args.qty_done;

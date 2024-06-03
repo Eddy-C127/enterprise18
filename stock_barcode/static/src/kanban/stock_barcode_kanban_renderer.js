@@ -12,17 +12,23 @@ export class StockBarcodeKanbanRenderer extends KanbanRenderer {
         super.setup(...arguments);
         this.barcodeService = useService('barcode');
         this.dialogService = useService("dialog");
-        this.display_protip = this.props.list.resModel === 'stock.picking';
-        onWillStart(async () => {
-            this.packageEnabled = await user.hasGroup('stock.group_tracking_lot');
-        });
+        this.resModel = this.props.list.model.config.resModel;
+        this.displayTransferProtip = this.resModel === 'stock.picking';
+        onWillStart(this.onWillStart);
     }
 
     openManualBarcodeDialog() {
         this.dialogService.add(ManualBarcodeScanner, {
-            onApply: (barcode) => {
+            facingMode: "environment",
+            onResult: (barcode) => {
                 this.barcodeService.bus.trigger("barcode_scanned", { barcode });
-            }
+            },
+            onError: () => {},
         });
+    }
+
+    async onWillStart() {
+        this.packageEnabled = await user.hasGroup('stock.group_tracking_lot');
+        this.trackingEnabled = await user.hasGroup('stock.group_production_lot');
     }
 }

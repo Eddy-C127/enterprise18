@@ -18,7 +18,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
         if (this.record.state === 'draft' && this.record.picking_ids.length === 0) {
             this.selectedPickings = [];
             this._allowedPickings = data.data.allowed_pickings;
-            this.pickingTypes = data.data.picking_types;
+            this.pickingTypes = data.data.records["stock.picking.type"];
             for (const picking of this._allowedPickings) {
                 if (picking.user_id) {
                     picking.user_id = this.cache.getRecord('res.users', picking.user_id);
@@ -41,7 +41,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     //--------------------------------------------------------------------------
 
     get allowedPickings() {
-        const pickingTypeId = this.record.picking_type_id;
+        const pickingTypeId = this.record.picking_type_id.id;
         if (!pickingTypeId || !this._allowedPickings) {
             return [];
         }
@@ -115,7 +115,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     async confirmSelection() {
         if (this.needPickingType && this.selectedPickingTypeId) {
             // Applies the selected picking type to the batch.
-            this.record.picking_type_id = this.selectedPickingTypeId;
+            this.record.picking_type_id = this.cache.getRecord("stock.picking.type", this.selectedPickingTypeId);
             this.trigger('update');
         } else if (this.needPickings && this.selectedPickings.length) {
             // Adds the selected pickings to the batch.
@@ -124,7 +124,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
                 'action_add_pickings_and_confirm',
                 [[this.resId],
                 {
-                    picking_type_id: this.record.picking_type_id,
+                    picking_type_id: this.record.picking_type_id.id,
                     picking_ids: this.selectedPickings,
                     state: 'in_progress',
                 }]
@@ -310,7 +310,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     }
 
     _getNewLineDefaultContext() {
-        const defaultContextValues = super._getNewLineDefaultContext();
+        const defaultContextValues = super._getNewLineDefaultContext(...arguments);
         defaultContextValues.default_batch_id = this.record.id;
         defaultContextValues.default_picking_id = this.record.picking_ids[0];
         return defaultContextValues;

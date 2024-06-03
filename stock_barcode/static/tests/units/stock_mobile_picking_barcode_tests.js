@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import * as BarcodeScanner from "@web/webclient/barcode/barcode_scanner";
+import * as BarcodeScanner from "@web/webclient/barcode/barcode_dialog";
 import { destroy, getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
 
 QUnit.module('stock_mobile_barcode', {}, function () {

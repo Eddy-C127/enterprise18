@@ -13,8 +13,9 @@ class StockMoveLine(models.Model):
     def _compute_hide_lot_name(self):
         super()._compute_hide_lot_name()
         for line in self:
-            if line.picking_code == 'mrp_operation' and not line.pick_type_create_components_lots:
-                line.hide_lot = True
+            if line.picking_code == 'mrp_operation':
+                line.hide_lot = False
+                line.hide_lot_name = True
 
     @api.depends('move_id', 'production_id')
     def _compute_parent_location_id(self):

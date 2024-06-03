@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="picking_view_kanban_inherit_barcode_picking_batch" model="ir.ui.view">
+    <record id="stock_picking_view_kanban" model="ir.ui.view">
         <field name="name">stock.picking.view.kanban.barcode.picking.batch</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock_barcode.picking_view_kanban_inherit_barcode"/>
+        <field name="inherit_id" ref="stock_barcode.stock_picking_view_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_kanban_record_top')]" position="after">
                 <field name="display_batch_button" invisible="1"/>

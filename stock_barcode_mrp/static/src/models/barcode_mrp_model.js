@@ -49,13 +49,6 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
                 action: 'mrp.action_report_finished_product',
             },
         ];
-        if (this.canScrap) {
-            buttons.push({
-                name: _t("Scrap"),
-                class: 'o_scrap',
-                onclick: 'newScrapProduct',
-            });
-        }
         return buttons;
     }
 
@@ -91,6 +84,10 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return barcodeInfo;
     }
 
+    get displayRegisterByProduct() {
+        return this.groups.group_mrp_byproducts && this.record.product_id;
+    }
+
     get displayValidateButton() {
         return true;
     }
@@ -112,6 +109,9 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
     }
 
     get isComplete() {
+        if (this.record.product_id.tracking !== 'none' && !(this.record.lot_producing_id || this.record.lot_name)) {
+            return false;
+        }
         return this.record.qty_producing >= this.record.product_qty;
     }
 
@@ -139,11 +139,16 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
     }
 
     get scrapContext() {
-        const context = this._getNewLineDefaultContext({ scrapProduct: true });
-        if (this.record.state != 'done') {
-            context['product_ids'] = this.pageLines.map(line => line.product_id.id);
+        const context = {
+            ...this._getNewLineDefaultContext(),
+            scrapProduct: true,
+            default_location_dest_id: null,
+         };
+        if (this.record.state !== "done") {
+            context.product_ids = this.pageLines.map(line => line.product_id.id);
         } else {
-            context['product_ids'] = [this.record.product_id.id, ...this.byProductLines.map(line => line.product_id.id)];
+            context.product_ids = this.byProductLines.map(line => line.product_id.id);
+            context.product_ids.push(this.record.product_id.id);
         }
         return context;
     }
@@ -161,6 +166,13 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
             ['procurement_group_id', '=', this.record.procurement_group_id],
             ['state', '=', 'confirmed'],
         ];
+    }
+
+    get validateButtonLabel() {
+        if (this.record.qty_producing < this.record.product_qty){
+            return _t("Produce");
+        }
+        return _t("Produce All");
     }
 
     /** Fetch data and set state */
@@ -376,26 +388,26 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return false;
     }
 
-    _defaultLocation(params = {}) {
-        const locId = params.newByProduct ? this.record.production_location_id : this.record.location_src_id
+    _defaultLocation() {
+        const locId = this.displayByProduct ? this.record.production_location_id : this.record.location_src_id
         return this.cache.getRecord('stock.location', locId);
     }
 
-    _defaultDestLocation(params = {}) {
-        const locId = params.newByProduct ? this.record.location_dest_id : this.record.production_location_id
+    _defaultDestLocation() {
+        const locId = this.displayByProduct ? this.record.location_dest_id : this.record.production_location_id
         return this.cache.getRecord('stock.location', locId);
     }
 
-    _getNewLineDefaultContext(params = {}) {
+    _getNewLineDefaultContext() {
         return {
             default_company_id: this.record.company_id,
-            default_location_id: this._defaultLocation(params).id,
-            default_location_dest_id: params.scrapProduct? null : this._defaultDestLocation(params).id,
+            default_location_id: this._defaultLocation().id,
+            default_location_dest_id: this._defaultDestLocation().id,
             default_product_uom_id: this.record.product_uom_id.id,
             default_production_id: this.resId,
             default_qty_done: 0,
             final_product_id: this.record.product_id.id,
-            newByProduct: params.newByProduct,
+            newByProduct: this.displayByProduct,
         };
     }
 

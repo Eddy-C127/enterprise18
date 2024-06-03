@@ -6,6 +6,10 @@ export default class HeaderComponent extends Component {
     static props = ["displayUOM", "openDetails", "line"];
     static template = "stock_barcode_mrp.HeaderComponent";
 
+    setup() {
+        this.line = this.props.line;
+    }
+
     get order() {
         return this.env.model.record;
     }

@@ -1,24 +1,32 @@
 <templates>
     <t t-name="stock_barcode_mrp.HeaderComponent">
-        <div class="o_barcode_line list-group-item d-flex flex-row flex-nowrap o_header"
+        <div class="o_barcode_line o_header p-2 p-3"
             t-attf-class="{{componentClasses}}">
-            <div class="o_barcode_line_details flex-grow-1 flex-column flex-nowrap">
+            <div class="h6 text-primary">Producing</div>
+            <div class="o_barcode_line_details flex-grow-1 flex-column flex-nowrap p-2">
+                <t t-set="upperButtons" t-value="'stock_barcode_mrp.MOButtons'"/>
                 <t t-call="stock_barcode.LineTitle"/>
                 <t t-call="stock_barcode.LineLot"/>
+                <t t-set="lowerButtons" t-value="false"/>
                 <t t-call="stock_barcode.LineQuantity"/>
             </div>
-            <div class="o_line_buttons py-1 m-auto text-end">
-                <button t-on-click="() => this.env.model.generateSerial()" t-if="isTracked and !lotName" class="o_line_button o_add_lot btn btn-primary ms-2 ms-sm-4">
-                    <i class="fa fa-2x fa-plus-square-o" />
-                </button>
-                <button t-on-click="this.props.openDetails" class="o_line_button o_edit btn btn-secondary ms-2 ms-sm-4">
-                    <i class="fa fa-2x fa-pencil"/>
-                </button>
-                <button t-if="!hideProduceButton" name="produceButton"
-                    t-att-disabled="hideProduceButton"
-                    t-on-click.prevent.stop="() => this.env.model.produceQty(incrementQty)" t-esc="'+' + incrementQty"
-                    class="o_line_button o_add_quantity btn btn-primary ms-2 ms-sm-4"/>
-            </div>
+        </div>
+    </t>
+
+    <t t-name="stock_barcode_mrp.MOButtons">
+        <div>
+            <button t-if="isTracked and !lotName" t-on-click="() => this.env.model.generateSerial()"
+                    class="o_line_button o_add_lot btn btn-primary ms-2">
+                <i class="fa fa-plus" />
+            </button>
+            <button t-on-click="this.props.openDetails"
+                    class="o_line_button o_edit btn btn-secondary ms-2">
+                <i class="fa fa-lg fa-pencil"/>
+            </button>
+            <button t-if="!hideProduceButton" name="produceButton"
+                    t-att-disabled="hideProduceButton" t-esc="'+' + incrementQty"
+                    t-on-click.prevent.stop="() => this.env.model.produceQty(incrementQty)"
+                    class="o_line_button o_add_quantity btn btn-primary ms-2"/>
         </div>
     </t>
 </templates>

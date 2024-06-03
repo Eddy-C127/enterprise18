@@ -10,25 +10,55 @@ export class Digipad extends Component {
     static template = "stock_barcode.DigipadTemplate";
     static props = {
         ...standardWidgetProps,
-        quantityField: { type: String },
+        fieldToEdit: { type: String },
+        fulfilledAt: { type: String, optional: true },
     };
 
     setup() {
         this.orm = useService('orm');
-        this.buttons = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', '0', 'erase'].map((value, index) => {
-            return { index, value };
-        });
-        this.value = String(this.props.record.data[this.props.quantityField]);
+        const { data } = this.props.record;
+        const context = this.props.record.evalContext.context;
+        this.quantity = data[this.props.fieldToEdit];
+        this.value = String(this.quantity);
         this.precision = 2;
+        this.fulfillQuantity = this.props.fulfilledAt && !context.hide_qty_to_count
+            ? data[this.props.fulfilledAt]
+            : 0;
+        if (context.force_fullfil_quantity) {
+            this.fulfillQuantity = context.force_fullfil_quantity;
+        }
+        const field = this.props.record.model.config.fields[this.props.fieldToEdit];
+        this.precision = field.digits[1];
         onWillStart(async () => {
             this.displayUOM = await user.hasGroup('uom.group_uom');
             await this._fetchPackagingButtons();
-            this.precision = this.props.record.model.config.fields[this.props.quantityField].digits[1];
         });
     }
 
     get changes() {
-        return { [this.props.quantityField]: Number(this.value) };
+        return { [this.props.fieldToEdit]: Number(this.value) };
+    }
+
+    get quantityToFulfill() {
+        if (!this.fulfillQuantity) {
+            return 0;
+        }
+        const record = this.props.record.data;
+        const currentQty = record[this.props.fieldToEdit];
+        return this.fulfillQuantity - currentQty;
+    }
+
+    get buttonContainerClass() {
+        return this.fulfillQuantity ? 'col-3' : 'col-4';
+    }
+
+    get buttonFulfillClass() {
+        if (this.quantityToFulfill > 0) {
+            return "btn-success";
+        } else if (this.quantityToFulfill < 0) {
+            return "btn-warning";
+        }
+        return "btn-secondary text-success";
     }
 
     //--------------------------------------------------------------------------
@@ -41,11 +71,11 @@ export class Digipad extends Component {
      * @private
      */
     _checkInputValue() {
-        const input = document.querySelector(`div[name="${this.props.quantityField}"] input`);
+        const input = document.querySelector(`div[name="${this.props.fieldToEdit}"] input`);
         const inputValue = input.value;
         if (Number(this.value) != Number(inputValue)) {
-            console.warn(`-- Change widget value: ${this.value} -> ${inputValue}`);
             this.value = inputValue;
+            this.quantity = Number(this.value || 0);
         }
     }
 
@@ -54,12 +84,16 @@ export class Digipad extends Component {
      * @private
      * @param {integer} [interval=1]
      */
-    async _increment(interval=1) {
-        this._checkInputValue();
-        const numberValue = Number(this.value || 0);
-        this.value = (numberValue + interval).toFixed(this.precision);
-        if (this.value % 1 == 0) {
-            this.value = String(Math.floor(this.value));
+    async _increment(interval=1, enforceQuantity=false) {
+        if (enforceQuantity) {
+            this.quantity = interval;
+        } else {
+            this._checkInputValue();
+            this.quantity = Math.max(this.quantity + interval, 0);
+        }
+        this.value = this.quantity.toFixed(this.precision);
+        if (parseFloat(this.value) % 1 == 0) {
+            this.value = String(Math.floor(parseFloat(this.value)));
         }
         await this.props.record.update(this.changes);
     }
@@ -71,16 +105,15 @@ export class Digipad extends Component {
      */
     async _fetchPackagingButtons() {
         const record = this.props.record.data;
-        const demandQty = record.quantity;
         const domain = [['product_id', '=', record.product_id[0]]];
-        if (demandQty) { // Doesn't fetch packaging with a too high quantity.
-            domain.push(['qty', '<=', demandQty]);
+        if (this.quantityToFulfill) { // Doesn't fetch packaging with a too high quantity.
+            domain.push(['qty', '<=', this.quantityToFulfill]);
         }
-        this.packageButtons = await this.orm.searchRead(
+        this.packagingButtons = await this.orm.searchRead(
             'product.packaging',
             domain,
             ['name', 'product_uom_id', 'qty'],
-            { limit: 3 },
+            { limit: 2 },
         );
     }
 
@@ -93,17 +126,30 @@ export class Digipad extends Component {
      * @private
      * @param {String} button
      */
-    _onCLickButton(button) {
+    erase() {
         this._checkInputValue();
-        if (button === 'erase') {
-            this.value = this.value.substr(0, this.value.length - 1);
-        } else {
-            if (button === '.' && this.value.indexOf('.') != -1) {
-                // Avoids to add a decimal separator multiple time.
-                return;
-            }
-            this.value += button;
-        }
+        this.quantity = 0;
+        this.value = String(this.quantity);
+        this.props.record.update(this.changes);
+    }
+
+    increment() {
+        this._increment();
+    }
+
+    decrement() {
+        this._increment(-1);
+    }
+
+    /**
+     * Handles the click on one of the digipad's button and updates the value..
+     * @private
+     * @param {String} button
+     */
+    fulfill() {
+        this._checkInputValue();
+        this.quantity = this.fulfillQuantity;
+        this.value = String(this.quantity);
         this.props.record.update(this.changes);
     }
 }
@@ -112,7 +158,8 @@ export const digipad = {
     component: Digipad,
     extractProps: ({ attrs }) => {
         return {
-            quantityField: attrs.quantity_field,
+            fieldToEdit: attrs.field_to_edit,
+            fulfilledAt: attrs.fulfilled_at,
         };
     },
 };

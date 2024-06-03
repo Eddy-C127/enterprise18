@@ -10,7 +10,8 @@ import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
-import * as BarcodeScanner from "@web/webclient/barcode/barcode_scanner";
+import { scanBarcode } from "@web/webclient/barcode/barcode_dialog";
+import { isBarcodeScannerSupported } from "@web/webclient/barcode/barcode_video_scanner";
 
 
 export class BillQrScan extends Component {
@@ -26,12 +27,12 @@ export class BillQrScan extends Component {
         this.orm = useService("orm");
         useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this._onBarcodeScanned(ev));
         onWillStart(async () => {
-            this.isMobileScanner = BarcodeScanner.isBarcodeScannerSupported();
+            this.isMobileScanner = isBarcodeScannerSupported();
         });
     }
 
     async openMobileScanner() {
-        const barcode = await BarcodeScanner.scanBarcode(this.env);
+        const barcode = await scanBarcode(this.env);
         if (barcode) {
             this.barcodeService.bus.trigger('barcode_scanned', { barcode });
             if ('vibrate' in window.navigator) {

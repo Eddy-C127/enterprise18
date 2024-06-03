@@ -7,7 +7,7 @@ import { stepUtils } from "./tour_step_utils";
 // Inventory Tests.
 registry.category("web_tour.tours").add('test_gs1_inventory_gtin_8', {test: true, steps: () => [
     {
-        trigger: '.button_inventory',
+        trigger: '.o_button_inventory',
         run: "click",
     },
     {
@@ -41,7 +41,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_gtin_8', {test: true
 
 registry.category("web_tour.tours").add('test_gs1_inventory_product_units', {test: true, steps: () => [
     {
-        trigger: '.button_inventory',
+        trigger: '.o_button_inventory',
         run: "click",
     },
     // The following scanned barcode should be decomposed like that:
@@ -69,7 +69,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_product_units', {tes
 
 registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: true, steps: () => [
     {
-        trigger: '.button_inventory',
+        trigger: '.o_button_inventory',
         run: "click",
     },
     // The following scanned barcode should be decomposed like that:
@@ -173,11 +173,11 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         run: "click",
     },
     {
-        trigger: '.modal-content .modal-body #manual_barcode',
+        trigger: '.modal-content .modal-footer #manual_barcode',
         run: "edit 305Alt02910LOT-AAA",
     },
     {
-        trigger: '.modal-content .modal-footer .btn-primary:not(:disabled)',
+        trigger: '.modal-content .modal-footer input+button',
         run: "click",
     },
     {
@@ -200,11 +200,6 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     {
         trigger: '.o_barcode_client_action',
         run: 'scan 011522222222221921Serial1',
-    },
-    // Folds the previous line.
-    {
-        trigger: '.o_toggle_sublines .fa-caret-up',
-        run: "click",
     },
     {
         trigger: '.o_barcode_line:contains("Serial1")',
@@ -313,7 +308,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
 
 registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: true, steps: () => [
     {
-        trigger: '.button_inventory',
+        trigger: '.o_button_inventory',
         run: "click",
     },
     // Scans the package in Section 1 => Should raise a warning.
@@ -342,7 +337,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
             const product1_package = line.querySelector('div[name="package"]').innerText;
             helper.assert(product1_package, '987654123487568456');
             helper.assertLineIsHighlighted(line, true);
-            helper.assertLineQty(line, "8 / 8");
+            helper.assertLineQty(line, "8/8");
         },
     },
 
@@ -363,7 +358,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
             const product2_package = line.querySelector('div[name="package"]').innerText;
             helper.assert(product2_package, '487325612456785124');
             helper.assertLineIsHighlighted(line, true);
-            helper.assertLineQty(line, "6 / 6");
+            helper.assertLineQty(line, "6/6");
         },
     },
     // Tries to scan the same package => Should raise a warning.
@@ -393,7 +388,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
             const line1_package = line1.querySelector('div[name="package"]').innerText;
             helper.assertLineIsHighlighted(line1, false);
             helper.assert(line1_package, '487325612456785124');
-            helper.assertLineQty(line1, "6 / 6");
+            helper.assertLineQty(line1, "6/6");
             const line2 = helper.getLine({ barcode: "82655853" });
             const line2_package = line2.querySelector('div[name="package"]').innerText;
             helper.assertLineIsHighlighted(line2, true);
@@ -415,10 +410,6 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
 // Picking Tests.
 
 registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true, steps: () => [
-    {
-        trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")',
-        run: "click",
-    },
     { trigger: '.o_stock_barcode_main_menu', run: 'scan WHIN' },
     // Scans PRO_GTIN_8 x4
     { trigger: '.o_barcode_client_action', run: 'scan 0100000082655853300004' },
@@ -563,10 +554,6 @@ registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true,
 
 registry.category("web_tour.tours").add('test_gs1_package_delivery', {test: true, steps: () => [
     {
-        trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")',
-        run: "click",
-    },
-    {
         trigger: '.o_stock_barcode_main_menu',
         run: 'scan WHOUT',
     },
@@ -601,7 +588,7 @@ registry.category("web_tour.tours").add('test_gs1_reserved_delivery', {test:true
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "11011019" });
             helper.assertLineIsHighlighted(line, false);
-            helper.assertLineQty(line, "0 / 10");
+            helper.assertLineQty(line, "0/10");
             helper.assertValidateIsHighlighted(false);
         }
     },
@@ -616,7 +603,7 @@ registry.category("web_tour.tours").add('test_gs1_reserved_delivery', {test:true
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "11011019" });
             helper.assertLineIsHighlighted(line, true);
-            helper.assertLineQty(line, "6 / 10");
+            helper.assertLineQty(line, "6/10");
             helper.assertValidateIsHighlighted(false);
         }
     },
@@ -632,13 +619,13 @@ registry.category("web_tour.tours").add('test_gs1_reserved_delivery', {test:true
             const [line1, line2] = helper.getLines();
             helper.assertLineIsHighlighted(line1, false);
             helper.assertLineIsHighlighted(line2, true);
-            helper.assertLineQty(line1, "10 / 10");
+            helper.assertLineQty(line1, "10/10");
             helper.assertLineQty(line2, "4");
             helper.assertValidateIsHighlighted(true);
         }
     },
     // Validates the transfer.
-    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-success"),
+    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
 registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_1', {test: true, steps: () => [
@@ -648,7 +635,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_1
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "11011019"});
             helper.assertLineIsHighlighted(line, false);
-            helper.assertLineQty(line, "0 / 1");
+            helper.assertLineQty(line, "0/1");
             helper.assertValidateIsHighlighted(false);
         }
     },
@@ -662,11 +649,11 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_1
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "11011019"});
             helper.assertLineIsHighlighted(line, true);
-            helper.assertLineQty(line, "1 / 1");
+            helper.assertLineQty(line, "1/1");
             helper.assertValidateIsHighlighted(true);
         }
     },
-    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-success"),
+    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
 registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_number', {test:true, steps: () => [
@@ -684,11 +671,11 @@ registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_numb
             helper.assertLinesCount(1);
             const $line = helper.getLine({barcode: '05711544001952'});
             helper.assertLineIsHighlighted($line, true);
-            helper.assertLineQty($line, "1 / 1");
+            helper.assertLineQty($line, "1/1");
         }
     },
     // Validates the transfer.
-    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-success"),
+    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_2', {test: true, steps: () => [
     {
@@ -697,7 +684,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_2
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "000011011019" });
             helper.assertLineIsHighlighted(line, false);
-            helper.assertLineQty(line, "0 / 1");
+            helper.assertLineQty(line, "0/1");
             helper.assertValidateIsHighlighted(false);
         }
     },
@@ -711,11 +698,11 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_2
             helper.assertLinesCount(1);
             const line = helper.getLine({ barcode: "000011011019" });
             helper.assertLineIsHighlighted(line, true);
-            helper.assertLineQty(line, "1 / 1");
+            helper.assertLineQty(line, "1/1");
             helper.assertValidateIsHighlighted(true);
         }
     },
-    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-success"),
+    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
 registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3', {test: true, steps: () => [
@@ -725,11 +712,11 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3
             helper.assertLinesCount(2);
             const line1 = helper.getLine({ barcode: "11011019" });
             helper.assertLineIsHighlighted(line1, false);
-            helper.assertLineQty(line1, "0 / 1");
+            helper.assertLineQty(line1, "0/1");
             helper.assertLineProduct(line1, "PRO_GTIN_8");
             const line2 = helper.getLine({ barcode: "000011011019" });
             helper.assertLineIsHighlighted(line2, false);
-            helper.assertLineQty(line2, "0 / 1");
+            helper.assertLineQty(line2, "0/1");
             helper.assertLineProduct(line2, "PRO_GTIN_12");
             helper.assertValidateIsHighlighted(false);
         }
@@ -745,11 +732,11 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3
             helper.assertLinesCount(2);
             const line1 = helper.getLine({ barcode: "11011019" });
             helper.assertLineIsHighlighted(line1, true);
-            helper.assertLineQty(line1, "1 / 1");
+            helper.assertLineQty(line1, "1/1");
             helper.assertLineProduct(line1, "PRO_GTIN_8");
             const line2 = helper.getLine({ barcode: "000011011019" });
             helper.assertLineIsHighlighted(line2, false);
-            helper.assertLineQty(line2, "0 / 1");
+            helper.assertLineQty(line2, "0/1");
             helper.assertLineProduct(line2, "PRO_GTIN_12");
             helper.assertValidateIsHighlighted(false);
         }
@@ -765,10 +752,10 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3
             helper.assertLinesCount(3);
             const [lineGTIN12, lineGTIN8_1, lineGTIN8_2] = helper.getLines();
             helper.assertLineIsHighlighted(lineGTIN12, false);
-            helper.assertLineQty(lineGTIN12, "0 / 1");
+            helper.assertLineQty(lineGTIN12, "0/1");
             helper.assertLineProduct(lineGTIN12, 'PRO_GTIN_12');
             helper.assertLineIsHighlighted(lineGTIN8_1, false);
-            helper.assertLineQty(lineGTIN8_1, "1 / 1");
+            helper.assertLineQty(lineGTIN8_1, "1/1");
             helper.assertLineProduct(lineGTIN8_1, 'PRO_GTIN_8');
             helper.assertLineIsHighlighted(lineGTIN8_2, true);
             helper.assertLineQty(lineGTIN8_2, "1");
@@ -782,24 +769,24 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3
         run: 'scan 000011011019',
     },
     {
-        trigger: '.o_validate_page.btn-success',
+        trigger: '.o_validate_page.btn-primary',
         run: function () {
             helper.assertLinesCount(3);
             const [line1, line2] = helper.getLines({ barcode: "11011019" });
             helper.assertLineIsHighlighted(line1, false);
-            helper.assertLineQty(line1, "1 / 1");
+            helper.assertLineQty(line1, "1/1");
             helper.assertLineProduct(line1, "PRO_GTIN_8");
             helper.assertLineIsHighlighted(line2, false);
             helper.assertLineQty(line2, "1");
             helper.assertLineProduct(line2, "PRO_GTIN_8");
             const line3 = helper.getLine({ barcode: "000011011019" });
             helper.assertLineIsHighlighted(line3, true);
-            helper.assertLineQty(line3, "1 / 1");
+            helper.assertLineQty(line3, "1/1");
             helper.assertLineProduct(line3, "PRO_GTIN_12");
             helper.assertValidateIsHighlighted(true);
         }
     },
-    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-success"),
+    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
 registry.category("web_tour.tours").add("test_gs1_receipt_conflicting_barcodes_mistaken_as_gs1", {test: true, steps: () => [
@@ -883,7 +870,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
         run: function () {
             helper.assertLinesCount(1);
             helper.assertLineIsHighlighted(0, false);
-            helper.assertLineQty(0, "0 / 40");
+            helper.assertLineQty(0, "0/40");
         }
     },
     // The following scanned barcode should be decomposed like that:
@@ -897,21 +884,18 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
     },
     // Manually add '(01)00000076543210(10)b1-b001(30)00000008' barcode for GS1 test.
     {
-        trigger: '.modal-content .modal-body #manual_barcode',
+        trigger: '.modal-content .modal-footer #manual_barcode',
         run: "edit ((01)00000076543210(30)00000008)",
     },
     // Apply the manual entry of barcode.
-    {
-        trigger: '.modal-content .modal-footer .btn-primary:not(:disabled)',
-        run: "click",
-    },
+    { trigger: '.modal-content .modal-footer input+button', run: "click" },
 
     {
         trigger: '.o_barcode_line.o_selected',
         run: function () {
             helper.assertLinesCount(1);
             helper.assertLineIsHighlighted(0, true);
-            helper.assertLineQty(0, "8 / 40");
+            helper.assertLineQty(0, "8/40");
         }
     },
     // Scans the lot: as the line has already done quantity but no lot,
@@ -926,7 +910,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertLinesCount(1);
             const line = helper.getLine({barcode: '76543210'});
             helper.assert(line.querySelector('.o_line_lot_name').innerText, 'b1-b001');
-            helper.assertLineQty(line, '8 / 40');
+            helper.assertLineQty(line, '8/40');
         }
     },
     // Scan the product, lot and quantity all at once:
@@ -938,7 +922,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
         run: 'scan 010000007654321010b1-b002\x1D3000000004',
     },
     {
-        trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-caret-down',
+        trigger: '.o_barcode_line.o_selected .btn.o_toggle_sublines .fa-angle-down',
         run: "click",
     },
     {
@@ -949,8 +933,8 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             const parentLine = helper.getLine({ barcode: '76543210' });
             const [line1, line2] = helper.getSublines();
             helper.assertLinesTrackingNumbers([line1, line2], ["b1-b001", "b1-b002"]);
-            helper.assertLineQty(parentLine, "12 / 40");
-            helper.assertLineQty(line1, "8 / 40");
+            helper.assertLineQty(parentLine, "12/40");
+            helper.assertLineQty(line1, "8/40");
             helper.assertLineQty(line2, "4");
             helper.assertLineIsHighlighted(line1, false);
             helper.assertLineIsHighlighted(line2, true);
@@ -966,7 +950,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(2);
             const [line1, line2] = helper.getSublines();
             helper.assertLinesTrackingNumbers([line1, line2], ["b1-b001", "b1-b002"]);
-            helper.assertLineQty(line1, "8 / 40");
+            helper.assertLineQty(line1, "8/40");
             helper.assertLineQty(line2, "8");
             helper.assertLineIsHighlighted(line1, false);
             helper.assertLineIsHighlighted(line2, true);
@@ -983,7 +967,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(3);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "1");
             helper.assertLineIsHighlighted(sublines[0], false);
@@ -1007,7 +991,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(3);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "3");
             helper.assertLineIsHighlighted(sublines[0], false);
@@ -1027,7 +1011,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(3);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineIsHighlighted(sublines[0], false);
@@ -1064,7 +1048,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             const sublines = helper.getSublines({ selected: false });
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
             const line4 = helper.getSubline({ selected: true });
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(line4, "0");
@@ -1088,7 +1072,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(4);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004"]);
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "4");
@@ -1110,7 +1094,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(5);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004", "b1-b005"]);
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "4");
@@ -1133,7 +1117,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(5);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004", "b1-b005"]);
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "4");
@@ -1157,7 +1141,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
             helper.assertSublinesCount(5);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004", "b1-b005"]);
-            helper.assertLineQty(sublines[0], "8 / 40");
+            helper.assertLineQty(sublines[0], "8/40");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "8");
@@ -1372,9 +1356,9 @@ registry.category("web_tour.tours").add('test_gs1_receipt_packaging_with_uom', {
         trigger: ".o_barcode_client_action",
         run: "scan 01032878900013321092404603\x1D172403043103001500375"
     },
-    { trigger: ".o_toggle_sublines .fa-caret-down", run: "click" },
+    { trigger: ".o_toggle_sublines .fa-angle-down", run: "click" },
     {
-        trigger: ".o_toggle_sublines .fa-caret-up",
+        trigger: ".o_toggle_sublines .fa-angle-up",
         run: function() {
             helper.assertLinesCount(1);
             helper.assertSublinesCount(2);

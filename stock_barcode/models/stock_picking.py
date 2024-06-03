@@ -174,23 +174,23 @@ class StockPicking(models.Model):
         to inject new fields to the client action.
         """
         return [
-            'move_line_ids',
-            'move_ids',
-            'picking_type_id',
-            'location_id',
-            'location_dest_id',
-            'name',
-            'state',
-            'picking_type_code',
             'company_id',
+            'location_dest_id',
+            'location_id',
+            'move_ids',
+            'move_line_ids',
+            'name',
             'note',
+            'partner_id',
+            'picking_type_code',
             'picking_type_entire_packs',
+            'picking_type_id',
+            'return_id',
+            'signature',
+            'state',
             'use_create_lots',
             'use_existing_lots',
             'user_id',
-            'return_id',
-            'signature',
-            'partner_id',
         ]
 
     @api.model

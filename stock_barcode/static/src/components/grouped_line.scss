@@ -1,14 +1,21 @@
 .o_barcode_client_action .o_barcode_lines {
-    & .o_barcode_line.o_faulty .o_barcode_line_summary {
-        background-color: rgba(map-get($theme-colors, 'danger'), 0.25);
-    }
 
-    & .o_barcode_line.o_line_completed .o_barcode_line_summary {
-        background: var(--barcode__line--completed, #befdcc);
-    }
+    & .o_barcode_line {
+        &.o_selected.o_line_not_completed:not(.o_faulty) .o_barcode_line_summary {
+            background: #e6f2f3;
+        }
 
-    & .o_barcode_line.o_line_not_completed .o_barcode_line_summary {
-        background: var(--barcode__line--notCompleted, #fcf9f2);
+        &:not(.o_selected).o_line_not_completed:not(.o_faulty) .o_barcode_line_summary {
+            background: white;
+        }
+
+        &.o_line_completed:not(.o_faulty) .o_barcode_line_summary {
+            background: #{mix($o-view-background-color, $success, 90%)};
+        }
+
+        &.o_faulty .o_barcode_line_summary {
+            background: #{mix($o-view-background-color, $danger, 90%)};
+        }
     }
 
     .o_barcode_line_summary {
@@ -29,12 +36,7 @@
 
         &:last-child {
             margin-bottom: 0;
-            box-shadow: none;
             border-bottom: 0;
-
-            &.o_selected {
-                box-shadow: inset 0px 0px 0px 3px $o-enterprise-action-color;
-            }
         }
     }
 }

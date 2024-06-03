@@ -60,7 +60,7 @@
                 <div class="row justify-content-center justify-content-md-start">
                     <div class="col-12 col-sm-10 col-md-8 my-2 ms-md-5 align-items-baseline"
                         invisible="tracking == 'serial'">
-                        <widget name="digipad" quantity_field="scrap_qty"/>
+                        <widget name="digipad" field_to_edit="scrap_qty"/>
                     </div>
                 </div>
                 <div class="row" groups="stock.group_stock_multi_locations">
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="fixed-bottom">
-                    <div class="o_barcode_control d-flex">
+                    <div class="o_barcode_control d-flex justify-content-between p-2 gap-2">
                         <button string="Discard" class="btn btn-secondary o_discard" special="cancel"/>
                         <button string="Scrap" class="btn btn-primary o_save" name="action_validate" type="object"/>
                     </div>
