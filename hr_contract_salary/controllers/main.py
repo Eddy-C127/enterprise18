@@ -466,6 +466,9 @@ class HrContractSalary(http.Controller):
                 contract_vals[benefit.manual_field or benefit.field] = benefits['%s_%s' % (benefit.field, 'manual' if benefit.display_type == 'manual' else 'text')]
             else:
                 contract_vals[benefit.field] = benefits[benefit.field]
+        for field in offer._fields:
+            if field.startswith('x_') and field not in contract_vals and field in contract:
+                contract_vals[field] = offer[field]
         return contract_vals
 
     def _update_personal_info(self, employee, contract, personal_infos_values, no_name_write=False):

@@ -139,7 +139,8 @@ class GenerateSimulationLink(models.TransientModel):
         validity_end = (fields.Date.context_today(self) + relativedelta(days=self.validity))
         offer_values = self._get_offer_values()
         offer_values['offer_end_date'] = validity_end if (self.applicant_id or self.employee_contract_id) else False
-        offer = self.env['hr.contract.salary.offer'].create(offer_values)
+        offer = self.env['hr.contract.salary.offer'].with_context(
+            default_contract_template_id=self.contract_id.id).create(offer_values)
 
         if self.applicant_id:
             self.applicant_id.message_post(

@@ -11,6 +11,20 @@ class HrContractSalaryOffer(models.Model):
     _description = 'Salary Package Offer'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    @api.model
+    def default_get(self, fields):
+        result = super().default_get(fields)
+        for field in fields:
+            if field.startswith('x_') and 'active_id' in self.env.context:
+                model = self.env.context.get('active_model')
+                if model == "hr.contract" and field in self.env[model]:
+                    contract = self.env[model].browse(self.env.context['active_id'])
+                    result[field] = contract[field]
+                elif model == "hr.applicant" and field in self.env["hr.contract"] and "default_contract_template_id" in self.env.context:
+                    contract = self.env["hr.contract"].browse(self.env.context['default_contract_template_id'])
+                    result[field] = contract[field]
+        return result
+
     display_name = fields.Char(string="Title", compute="_compute_display_name")
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company.id, required=True)
     currency_id = fields.Many2one(related='company_id.currency_id')
