@@ -228,7 +228,7 @@ class SpreadsheetMixin(models.AbstractModel):
         if not self.spreadsheet_revision_ids:
             return False
         last_activity = max(self.spreadsheet_revision_ids.mapped("create_date"))
-        return last_activity < fields.Datetime.now() - timedelta(hours=12)
+        return last_activity < fields.Datetime.now() - timedelta(hours=2)
 
     def _save_concurrent_revision(self, next_revision_id, parent_revision_id, commands):
         """Save the given revision if no concurrency issue is found.
