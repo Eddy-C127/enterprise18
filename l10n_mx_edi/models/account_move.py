@@ -994,7 +994,7 @@ class AccountMove(models.Model):
         if lines_dispatching['orphan_negative_lines']:
             cfdi_values['errors'] = [_("Failed to distribute some negative lines")]
             return
-        cfdi_lines = lines_dispatching['cfdi_lines']
+        cfdi_lines = lines_dispatching['result_lines']
         if not cfdi_lines:
             cfdi_values['errors'] = ['empty_cfdi']
             return
