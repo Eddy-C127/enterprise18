@@ -782,103 +782,43 @@ class L10nMxEdiDocument(models.Model):
                                         after the distribution of the negative lines.
             * orphan_negative_lines:    A list of remaining negative lines that failed to be distributed.
         """
-        results = {
-            'cfdi_lines': [],
-            'orphan_negative_lines': [],
-        }
-        for base_line in base_lines:
-            net_price_subtotal = base_line['gross_price_subtotal'] - base_line['discount']
+        def _dispatch_tax_amounts(**values):
+            def get_tax_key(tax_values):
+                return frozendict({k: v for k, v in tax_values.items() if k not in ('base', 'importe')})
 
-            line_values = {
-                **base_line,
-                'transferred_values_list': [dict(x) for x in base_line['transferred_values_list']],
-                'withholding_values_list': [dict(x) for x in base_line['withholding_values_list']],
-            }
-
-            if net_price_subtotal < 0.0:
-                results['orphan_negative_lines'].append(line_values)
-            else:
-                results['cfdi_lines'].append(line_values)
-
-        if self._is_cfdi_negative_lines_allowed():
-            # Try to distribute orphan_negative_lines.
-            for neg_base_line in list(results['orphan_negative_lines']):
-                currency = neg_base_line['currency']
-                net_price_subtotal = neg_base_line['gross_price_subtotal'] - neg_base_line['discount']
-
-                # Hard constraints: same currency, partner and taxes.
-                candidates = [
-                    candidate
-                    for candidate in results['cfdi_lines']
-                    if (
-                        neg_base_line['currency'] == candidate['currency']
-                        and neg_base_line['partner'] == candidate['partner']
-                        and neg_base_line['taxes'] == candidate['taxes']
-                    )
-                ]
-
-                # Ordering by priority:
-                # - same document
-                # - prior records first
-                # - same product
-                # - same amount
-                # - biggest amount
-                sorted_candidates = sorted(candidates, key=lambda candidate: (
-                    neg_base_line.get('document_id') != candidate.get('document_id'),
-                    candidate.get('record_id') not in neg_base_line.get('prior_record_ids', []),
-                    (
-                        not candidate['product']
-                        or not neg_base_line['product']
-                        or candidate['product'] != neg_base_line['product']
-                    ),
-                    currency.compare_amounts(
-                        candidate['gross_price_subtotal'] - candidate['discount'],
-                        -net_price_subtotal
-                    ) != 0,
-                    -candidate['price_subtotal'],
-                ))
-
-                # Dispatch.
-                for candidate in sorted_candidates:
-                    net_price_subtotal = neg_base_line['gross_price_subtotal'] - neg_base_line['discount']
-                    other_net_price_subtotal = candidate['gross_price_subtotal'] - candidate['discount']
-                    discount_to_distribute = min(other_net_price_subtotal, -net_price_subtotal)
-
-                    candidate['discount'] += discount_to_distribute
-                    neg_base_line['discount'] -= discount_to_distribute
-
-                    remaining_to_distribute = neg_base_line['gross_price_subtotal'] - neg_base_line['discount']
-                    is_zero = currency.is_zero(remaining_to_distribute)
-
-                    def get_tax_key(tax_values):
-                        return frozendict({k: v for k, v in tax_values.items() if k not in ('base', 'importe')})
-
-                    for key in ('transferred_values_list', 'withholding_values_list'):
-                        for tax_values in neg_base_line[key]:
-                            if is_zero:
-                                base = tax_values['base']
-                                tax = tax_values['importe']
-                            else:
-                                distribute_ratio = abs(discount_to_distribute / net_price_subtotal)
-                                base = currency.round(tax_values['base'] * distribute_ratio)
-                                tax = currency.round(tax_values['importe'] * distribute_ratio)
-
-                            tax_key = get_tax_key(tax_values)
-                            other_tax_values = next(x for x in candidate[key] if get_tax_key(x) == tax_key)
-                            other_tax_values['base'] += base
-                            other_tax_values['importe'] += tax
-                            tax_values['base'] -= base
-                            tax_values['importe'] -= tax
-
-                    # Check if there is something left on the other line.
-                    remaining_amount = candidate['discount'] - candidate['gross_price_subtotal']
-                    if candidate['currency'].is_zero(remaining_amount):
-                        results['cfdi_lines'].remove(candidate)
-
+            neg_base_line = values.get('neg_base_line')
+            is_zero = values.get('is_zero')
+            discount_to_distribute = values.get('discount_to_distribute')
+            candidate = values.get('candidate')
+            for key in ('transferred_values_list', 'withholding_values_list'):
+                for tax_values in neg_base_line[key]:
                     if is_zero:
-                        results['orphan_negative_lines'].remove(neg_base_line)
-                        break
+                        base = tax_values['base']
+                        tax = tax_values['importe']
+                    else:
+                        distribute_ratio = abs(discount_to_distribute / neg_base_line['price_subtotal'])
+                        base = neg_base_line['currency'].round(tax_values['base'] * distribute_ratio)
+                        tax = neg_base_line['currency'].round(tax_values['importe'] * distribute_ratio)
 
+                    tax_key = get_tax_key(tax_values)
+                    other_tax_values = next(x for x in candidate[key] if get_tax_key(x) == tax_key)
+                    other_tax_values['base'] += base
+                    other_tax_values['importe'] += tax
+                    tax_values['base'] -= base
+                    tax_values['importe'] -= tax
+
+        def same_document_first(candidate, negative_line):
+            return negative_line.get('document_id') != candidate.get('document_id')
+
+        def prior_records_first(candidate, negative_line):
+            return candidate.get('record_id') not in negative_line.get('prior_record_ids', [])
+
+        sorting_criteria = [same_document_first, prior_records_first] + self.env['account.tax']._get_negative_lines_sorting_candidate_criteria()
+        results = self.env['account.tax']._dispatch_negative_lines(base_lines, sorting_criteria=sorting_criteria, additional_dispatching_method=_dispatch_tax_amounts)
+
+        for line in results.get('result_lines', []):
+            # discount_amount_before_dispatching is not needed as is, but needs to be updated in case of chains of dispatching
+            line['discount'] = line['discount_amount_before_dispatching'] = line['discount_amount']
         return results
 
     @api.model
@@ -912,7 +852,7 @@ class L10nMxEdiDocument(models.Model):
                 gross_price_subtotal_before_discount = currency.round(price_subtotal / (1 - discount / 100.0))
 
             base_line['gross_price_subtotal'] = gross_price_subtotal_before_discount
-            base_line['discount'] = gross_price_subtotal_before_discount - price_subtotal
+            base_line['discount_amount_before_dispatching'] = gross_price_subtotal_before_discount - price_subtotal
 
             # Transferred Taxes.
             base_line['transferred_values_list'] = []
