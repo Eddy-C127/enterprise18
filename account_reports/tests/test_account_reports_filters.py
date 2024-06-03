@@ -69,14 +69,27 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
         self._assert_filter_date(
             self.date_range_report,
-            {'date': {'filter': 'last_month', 'mode': 'range'}},
+            {'date': {'filter': 'previous_month', 'mode': 'range'}},
             {
                 'string': 'Nov 2017',
                 'period_type': 'month',
                 'mode': 'range',
-                'filter': 'last_month',
+                'filter': 'previous_month',
                 'date_from': '2017-11-01',
                 'date_to': '2017-11-30',
+            },
+        )
+
+        self._assert_filter_date(
+            self.date_range_report,
+            {'date': {'filter': 'next_month', 'mode': 'range'}},
+            {
+                'string': 'Jan 2018',
+                'period_type': 'month',
+                'mode': 'range',
+                'filter': 'next_month',
+                'date_from': '2018-01-01',
+                'date_to': '2018-01-31',
             },
         )
 
@@ -154,14 +167,27 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
         self._assert_filter_date(
             self.date_range_report,
-            {'date': {'filter': 'last_quarter', 'mode': 'range'}},
+            {'date': {'filter': 'previous_quarter', 'mode': 'range'}},
             {
                 'string': 'Q3\N{NO-BREAK SPACE}2017',
                 'period_type': 'quarter',
                 'mode': 'range',
-                'filter': 'last_quarter',
+                'filter': 'previous_quarter',
                 'date_from': '2017-07-01',
                 'date_to': '2017-09-30',
+            },
+        )
+
+        self._assert_filter_date(
+            self.date_range_report,
+            {'date': {'filter': 'next_quarter', 'mode': 'range'}},
+            {
+                'string': 'Q1\N{NO-BREAK SPACE}2018',
+                'period_type': 'quarter',
+                'mode': 'range',
+                'filter': 'next_quarter',
+                'date_from': '2018-01-01',
+                'date_to': '2018-03-31',
             },
         )
 
@@ -239,14 +265,27 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
         self._assert_filter_date(
             self.date_range_report,
-            {'date': {'filter': 'last_year', 'mode': 'range'}},
+            {'date': {'filter': 'previous_year', 'mode': 'range'}},
             {
                 'string': '2016',
                 'period_type': 'fiscalyear',
                 'mode': 'range',
-                'filter': 'last_year',
+                'filter': 'previous_year',
                 'date_from': '2016-01-01',
                 'date_to': '2016-12-31',
+            },
+        )
+
+        self._assert_filter_date(
+            self.date_range_report,
+            {'date': {'filter': 'next_year', 'mode': 'range'}},
+            {
+                'string': '2018',
+                'period_type': 'fiscalyear',
+                'mode': 'range',
+                'filter': 'next_year',
+                'date_from': '2018-01-01',
+                'date_to': '2018-12-31',
             },
         )
 
@@ -327,14 +366,27 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
         self._assert_filter_date(
             self.date_range_report,
-            {'date': {'filter': 'last_year', 'mode': 'range'}},
+            {'date': {'filter': 'previous_year', 'mode': 'range'}},
             {
                 'string': '2016 - 2017',
                 'period_type': 'fiscalyear',
                 'mode': 'range',
-                'filter': 'last_year',
+                'filter': 'previous_year',
                 'date_from': '2016-07-01',
                 'date_to': '2017-06-30',
+            },
+        )
+
+        self._assert_filter_date(
+            self.date_range_report,
+            {'date': {'filter': 'next_year', 'mode': 'range'}},
+            {
+                'string': '2018 - 2019',
+                'period_type': 'fiscalyear',
+                'mode': 'range',
+                'filter': 'next_year',
+                'date_from': '2018-07-01',
+                'date_to': '2019-06-30',
             },
         )
 
@@ -407,6 +459,27 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'date_to': fields.Date.to_string(quarter_dt),
                 'company_id': self.env.company.id,
             })
+        quarter_df, quarter_dt = date_utils.get_quarter(today + relativedelta(months=3))
+        # Adding a next quarter
+        self.env['account.fiscal.year'].create({
+            'name': 'custom next quarter',
+            'date_from': fields.Date.to_string(quarter_df),
+            'date_to': fields.Date.to_string(quarter_dt),
+            'company_id': self.env.company.id,
+        })
+
+        self._assert_filter_date(
+            self.date_range_report,
+            {'date': {'filter': 'next_year', 'mode': 'range'}},
+            {
+                'string': 'custom next quarter',
+                'period_type': 'fiscalyear',
+                'mode': 'range',
+                'filter': 'next_year',
+                'date_from': '2018-01-01',
+                'date_to': '2018-03-31',
+            },
+        )
 
         self._assert_filter_date(
             self.date_range_report,
@@ -423,12 +496,12 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
         self._assert_filter_date(
             self.date_range_report,
-            {'date': {'filter': 'last_year', 'mode': 'range'}},
+            {'date': {'filter': 'previous_year', 'mode': 'range'}},
             {
                 'string': 'custom 1',
                 'period_type': 'fiscalyear',
                 'mode': 'range',
-                'filter': 'last_year',
+                'filter': 'previous_year',
                 'date_from': '2017-07-01',
                 'date_to': '2017-09-30',
             },

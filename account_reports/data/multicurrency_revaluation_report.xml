@@ -4,7 +4,7 @@
         <field name="name">Unrealized Currency Gains/Losses</field>
         <field name="filter_date_range" eval="False"/>
         <field name="filter_show_draft" eval="True"/>
-        <field name="default_opening_date_filter">last_month</field>
+        <field name="default_opening_date_filter">previous_month</field>
         <field name="custom_handler_model_id" ref="model_account_multicurrency_revaluation_report_handler"/>
         <field name="column_ids">
             <record id="multicurrency_revaluation_report_balance_currency" model="account.report.column">

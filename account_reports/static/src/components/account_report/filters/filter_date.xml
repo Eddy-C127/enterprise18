@@ -22,7 +22,6 @@
                     <button
                         class="btn_next_date fa fa-caret-right"
                         t-on-click="() => this.selectNextPeriod(dateFilter.period)"
-                        t-att-disabled="this.isNextPeriodDisabled(dateFilter.period)"
                     />
                 </div>
             </DropdownItem>

@@ -274,23 +274,21 @@ export class AccountReportFilters extends Component {
             "year": 0,
         }
 
-        const [specifier, period] = this.controller.options.date.filter.split("_");
-
-        if (specifier === "last" || specifier === "previous") {
-            filters[period] = (specifier === "previous") ? this.controller.options.date.previous_period : 1;
-        }
+        const specifier = this.controller.options.date.filter.split('_')[0];
+        const period = this.controller.options.date.period_type
+        // Set the filter value based on the specifier
+        filters[period] = this.controller.options.date.period || (specifier === 'previous' ? -1 : specifier === 'next' ? 1 : 0);
 
         return filters;
     }
 
     getDateFilter(periodType) {
-        switch (this.dateFilter[periodType]) {
-            case 0:
-                return `this_${ periodType }`;
-            case 1:
-                return `last_${ periodType }`;
-            default:
-                return `previous_${ periodType }`;
+        if (this.dateFilter[periodType] > 0) {
+            return `next_${periodType}`;
+        } else if (this.dateFilter[periodType] === 0) {
+            return `this_${periodType}`;
+        } else {
+            return `previous_${periodType}`;
         }
     }
 
@@ -298,26 +296,22 @@ export class AccountReportFilters extends Component {
         this.dirtyFilter.value = true;
 
         this.controller.updateOption("date.filter", this.getDateFilter(periodType));
-        this.controller.updateOption("date.previous_period", this.dateFilter[periodType]);
+        this.controller.updateOption("date.period", this.dateFilter[periodType]);
     }
 
     selectPreviousPeriod(periodType) {
-        this._changePeriod(periodType, 1);
+        this._changePeriod(periodType, -1);
     }
 
     selectNextPeriod(periodType) {
-        this._changePeriod(periodType, -1);
+        this._changePeriod(periodType, 1);
     }
 
     _changePeriod(periodType, increment) {
         this.dateFilter[periodType] = this.dateFilter[periodType] + increment;
 
         this.controller.updateOption("date.filter", this.getDateFilter(periodType));
-        this.controller.updateOption("date.previous_period", this.dateFilter[periodType]);
-    }
-
-    isNextPeriodDisabled(periodType) {
-        return this.dateFilter[periodType] === 0;
+        this.controller.updateOption("date.period", this.dateFilter[periodType]);
     }
 
     displayPeriod(periodType) {
@@ -336,17 +330,17 @@ export class AccountReportFilters extends Component {
     }
 
     _displayMonth(dateTo) {
-        return dateTo.minus({ months: this.dateFilter.month }).toFormat("MMMM yyyy");
+        return dateTo.plus({ months: this.dateFilter.month }).toFormat("MMMM yyyy");
     }
 
     _displayQuarter(dateTo) {
-        dateTo = dateTo.minus({ months: this.dateFilter.quarter * 3 });
+        dateTo = dateTo.plus({ months: this.dateFilter.quarter * 3 });
 
         return `Q${dateTo.quarter} ${dateTo.year}`;
     }
 
     _displayYear(dateTo) {
-        return dateTo.minus({ years: this.dateFilter.year }).toFormat("yyyy");
+        return dateTo.plus({ years: this.dateFilter.year }).toFormat("yyyy");
     }
 
     //------------------------------------------------------------------------------------------------------------------
