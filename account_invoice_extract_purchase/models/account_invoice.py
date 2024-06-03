@@ -34,7 +34,7 @@ class AccountMove(models.Model):
             user_infos['purchase_order_regex'] = po_regex_prefix + po_regex_sequence + po_regex_suffix
         return user_infos
 
-    def _save_form(self, ocr_results, force_write=False):
+    def _save_form(self, ocr_results):
         if self.move_type == 'in_invoice':
             total_ocr = self._get_ocr_selected_value(ocr_results, 'total', 0.0)
 
@@ -47,4 +47,4 @@ class AccountMove(models.Model):
 
             self._find_and_set_purchase_orders(purchase_orders_found, partner_id, total_ocr, from_ocr=True)
 
-        return super()._save_form(ocr_results, force_write=force_write)
+        return super()._save_form(ocr_results)

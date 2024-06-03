@@ -316,7 +316,7 @@ class ExtractMixin(models.AbstractModel):
             ocr_trigger_datetime = fields.Datetime.now() + relativedelta(minutes=self.env.context.get('ocr_trigger_delta', 0))
             self._get_cron_ocr('validate')._trigger(at=ocr_trigger_datetime)
 
-    def _check_ocr_status(self, force_write=False):
+    def _check_ocr_status(self):
         """ Contact iap to get the actual status of the ocr request. """
         self.ensure_one()
         result = self._contact_iap_extract('get_result', params={'document_token': self.extract_document_uuid})
@@ -326,7 +326,7 @@ class ExtractMixin(models.AbstractModel):
             # Set OdooBot as the author of the tracking message
             self._track_set_author(self.env.ref('base.partner_root'))
             ocr_results = result['results'][0]
-            self._fill_document_with_results(ocr_results, force_write=force_write)
+            self._fill_document_with_results(ocr_results)
             if 'full_text_annotation' in ocr_results:
                 self.message_main_attachment_id.index_content = ocr_results['full_text_annotation']
 
@@ -335,7 +335,7 @@ class ExtractMixin(models.AbstractModel):
         else:
             self.extract_state = 'error_status'
 
-    def _fill_document_with_results(self, ocr_results, force_write=False):
+    def _fill_document_with_results(self, ocr_results):
         """ Fill the document with the results of the OCR. This method is meant to be overridden """
         raise NotImplementedError()
 

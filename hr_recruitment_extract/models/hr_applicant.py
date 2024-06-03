@@ -58,7 +58,7 @@ class HrApplicant(models.Model):
         self._validate_ocr()
         return res
 
-    def _fill_document_with_results(self, ocr_results, force_write=False):
+    def _fill_document_with_results(self, ocr_results):
         if ocr_results is not None:
             name_ocr = self._get_ocr_selected_value(ocr_results, 'name', "")
             email_from_ocr = self._get_ocr_selected_value(ocr_results, 'email', "")

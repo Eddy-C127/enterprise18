@@ -84,7 +84,7 @@ class AccountMove(models.Model):
                 move_form.payment_reference = False
                 move_form.currency_id = move_form.company_currency_id
                 move_form.invoice_line_ids = [Command.clear()]
-            self._check_ocr_status(force_write=True)
+            self._check_ocr_status()
         except Exception as e:
             _logger.warning("Error while reloading AI data on account.move %d: %s", self.id, e)
             raise AccessError(_lt("Couldn't reload AI data."))
@@ -645,7 +645,7 @@ class AccountMove(models.Model):
 
         return invoice_lines_to_create
 
-    def _fill_document_with_results(self, ocr_results, force_write=False):
+    def _fill_document_with_results(self, ocr_results):
         if self.state != 'draft' or ocr_results is None:
             return
 
@@ -657,7 +657,7 @@ class AccountMove(models.Model):
             # We assume that if the user has specifically created a credit note, it is indeed a credit note.
             self.action_switch_move_type()
 
-        self._save_form(ocr_results, force_write=force_write)
+        self._save_form(ocr_results)
 
         if self.extract_word_ids:  # We don't want to recreate the boxes when the user clicks on "Reload AI data"
             return
@@ -689,7 +689,7 @@ class AccountMove(models.Model):
                 }))
             self.write({'extract_word_ids': data})
 
-    def _save_form(self, ocr_results, force_write=False):
+    def _save_form(self, ocr_results):
         date_ocr = self._get_ocr_selected_value(ocr_results, 'date', "")
         due_date_ocr = self._get_ocr_selected_value(ocr_results, 'due_date', "")
         total_ocr = self._get_ocr_selected_value(ocr_results, 'total', 0.0)
