@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import common
+from odoo.addons.quality_control.tests.test_common import TestQualityCommon
 
 
-class TestQualityMrpCommon(common.TransactionCase):
+class TestQualityMrpCommon(TestQualityCommon):
 
     @classmethod
     def setUpClass(cls):
