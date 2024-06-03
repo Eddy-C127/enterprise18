@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:57+0000\n"
-"PO-Revision-Date: 2024-02-12 10:57+0000\n"
+"POT-Creation-Date: 2024-06-03 09:05+0000\n"
+"PO-Revision-Date: 2024-06-03 09:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -130,7 +130,9 @@ msgstr ""
 #. module: sale_stock_renting
 #. odoo-python
 #: code:addons/sale_stock_renting/models/sale_order_line.py:0
-msgid "No valid quant has been found in location %s for serial number %s!"
+msgid ""
+"No valid quant has been found in location %(location)s for serial number "
+"%(serial_number)s!"
 msgstr ""
 
 #. module: sale_stock_renting
@@ -192,6 +194,11 @@ msgid "Product Variant"
 msgstr ""
 
 #. module: sale_stock_renting
+#: model:stock.route,name:sale_stock_renting.route_rental
+msgid "Rental"
+msgstr ""
+
+#. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_sale_rental_report
 msgid "Rental Analysis Report"
 msgstr ""
@@ -208,7 +215,6 @@ msgstr ""
 
 #. module: sale_stock_renting
 #. odoo-python
-#: code:addons/sale_stock_renting/models/sale_order_line.py:0
 #: code:addons/sale_stock_renting/models/sale_order_line.py:0
 msgid "Rental move:"
 msgstr ""
@@ -277,11 +283,6 @@ msgstr ""
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_stock_move
 msgid "Stock Move"
-msgstr ""
-
-#. module: sale_stock_renting
-#: model:ir.model,name:sale_stock_renting.model_stock_rule
-msgid "Stock Rule"
 msgstr ""
 
 #. module: sale_stock_renting

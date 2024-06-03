@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:47+0000\n"
-"PO-Revision-Date: 2024-01-05 13:47+0000\n"
+"POT-Creation-Date: 2024-06-03 09:05+0000\n"
+"PO-Revision-Date: 2024-06-03 09:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: web_cohort
 #. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
-msgid "%s - By %s"
+msgid "%(date_stop)s - By %(interval)s"
 msgstr ""
 
 #. module: web_cohort
@@ -110,19 +110,24 @@ msgstr ""
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
-msgid "The argument %s is not a valid interval. Here are the intervals: %s"
+msgid ""
+"The argument %(interval)s is not a valid interval. Here are the intervals: "
+"%(intervals)s"
 msgstr ""
 
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
-msgid "The argument %s is not a valid mode. Here are the modes: %s"
+msgid ""
+"The argument %(mode)s is not a valid mode. Here are the modes: %(modes)s"
 msgstr ""
 
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
-msgid "The argument %s is not a valid timeline. Here are the timelines: %s"
+msgid ""
+"The argument %(timeline)s is not a valid timeline. Here are the timelines: "
+"%(timelines)s"
 msgstr ""
 
 #. module: web_cohort

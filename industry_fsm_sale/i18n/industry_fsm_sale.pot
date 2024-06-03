@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:56+0000\n"
-"PO-Revision-Date: 2024-02-12 10:56+0000\n"
+"POT-Creation-Date: 2024-06-03 09:04+0000\n"
+"PO-Revision-Date: 2024-06-03 09:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,6 @@ msgstr ""
 
 #. module: industry_fsm_sale
 #. odoo-python
-#: code:addons/industry_fsm_sale/models/project_task.py:0
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 msgid "%(project_name)s - %(task_name)s"
 msgstr ""
@@ -90,8 +89,13 @@ msgstr ""
 #. module: industry_fsm_sale
 #. odoo-python
 #: code:addons/industry_fsm_sale/models/project_task.py:0
-#: code:addons/industry_fsm_sale/models/project_task.py:0
 msgid "A customer should be set on the task to generate a worksheet."
+msgstr ""
+
+#. module: industry_fsm_sale
+#. odoo-python
+#: code:addons/industry_fsm_sale/models/project_task.py:0
+msgid "Add Products"
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -117,7 +121,7 @@ msgstr ""
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_account_analytic_line
-msgid "Analytic Account"
+msgid "Analytic Line"
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -131,12 +135,6 @@ msgstr ""
 msgid ""
 "By saving this change, all timesheet entries will be linked to the selected "
 "Sales Order Item without distinction."
-msgstr ""
-
-#. module: industry_fsm_sale
-#. odoo-python
-#: code:addons/industry_fsm_sale/models/project_task.py:0
-msgid "Choose Products"
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -188,31 +186,6 @@ msgid "Default Service"
 msgstr ""
 
 #. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_sale_order_line__delivered_price_subtotal
-msgid "Delivered Subtotal"
-msgstr ""
-
-#. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_sale_order_line__delivered_price_total
-msgid "Delivered Total"
-msgstr ""
-
-#. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_sale_order_line__delivered_price_tax
-msgid "Delivered Total Tax"
-msgstr ""
-
-#. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__display_create_invoice_primary
-msgid "Display Create Invoice Primary"
-msgstr ""
-
-#. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__display_create_invoice_secondary
-msgid "Display Create Invoice Secondary"
-msgstr ""
-
-#. module: industry_fsm_sale
 #. odoo-python
 #: code:addons/industry_fsm_sale/models/sale_order.py:0
 msgid "Extra Quotation Created: %s"
@@ -220,7 +193,6 @@ msgstr ""
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__allow_quotations
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__allow_quotations
 msgid "Extra Quotations"
 msgstr ""
 
@@ -237,6 +209,14 @@ msgstr ""
 #. module: industry_fsm_sale
 #: model:ir.model.fields.selection,name:industry_fsm_sale.selection__report_project_task_user_fsm__invoice_status__invoiced
 msgid "Fully Invoiced"
+msgstr ""
+
+#. module: industry_fsm_sale
+#: model:ir.model.fields,help:industry_fsm_sale.field_project_task__under_warranty
+msgid ""
+"If ticked, the time and materials used for this task will not be billed to "
+"the customer. However, the inventory of consumed materials will still be "
+"updated."
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -263,7 +243,6 @@ msgid "Invoice Count"
 msgstr ""
 
 #. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__invoice_status
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_report_project_task_user_fsm__invoice_status
 msgid "Invoice Status"
 msgstr ""
@@ -292,11 +271,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/industry_fsm_sale/static/src/js/tours/industry_fsm_sale_tour.js:0
 msgid "Let's create a new <b>product</b>."
-msgstr ""
-
-#. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__material_line_product_count
-msgid "Material Line Product Count"
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -335,13 +309,18 @@ msgid "Number of invoices"
 msgstr ""
 
 #. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__portal_quotation_count
-msgid "Portal Quotation Count"
+#: model:product.template,name:industry_fsm_sale.field_service_product_zero_cost_1_product_template
+msgid "Plumbing Valves"
 msgstr ""
 
 #. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__pricelist_id
-msgid "Pricelist"
+#: model:product.template,name:industry_fsm_sale.field_service_product_zero_cost_4_product_template
+msgid "Plumbing Washers"
+msgstr ""
+
+#. module: industry_fsm_sale
+#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__portal_quotation_count
+msgid "Portal Quotation Count"
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -365,7 +344,6 @@ msgstr ""
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__allow_material
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__allow_material
 msgid "Products on Tasks"
 msgstr ""
 
@@ -408,6 +386,11 @@ msgstr ""
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.view_order_form_inherit_sale_project
 msgid "Related Task"
+msgstr ""
+
+#. module: industry_fsm_sale
+#: model:product.template,name:industry_fsm_sale.field_service_product_zero_cost_2_product_template
+msgid "Safety Gloves"
 msgstr ""
 
 #. module: industry_fsm_sale
@@ -508,6 +491,11 @@ msgid "Track the material used to complete tasks"
 msgstr ""
 
 #. module: industry_fsm_sale
+#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__under_warranty
+msgid "Under Warranty"
+msgstr ""
+
+#. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_sale_line_employee_map__price_unit
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.worksheet_time_and_material
 msgid "Unit Price"
@@ -537,6 +525,6 @@ msgid "Wait for the invoice to show up"
 msgstr ""
 
 #. module: industry_fsm_sale
-#: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__warning_message
-msgid "Warning Message"
+#: model:product.template,name:industry_fsm_sale.field_service_product_zero_cost_3_product_template
+msgid "Water Testing Kits"
 msgstr ""

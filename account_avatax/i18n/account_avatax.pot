@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:55+0000\n"
-"PO-Revision-Date: 2024-02-12 10:55+0000\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2024-06-03 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 #. module: account_avatax
 #. odoo-python
 #: code:addons/account_avatax/models/account_external_tax_mixin.py:0
-msgid "- %s (ID: %s) on %s"
+msgid "- %(partner_name)s (ID: %(partner_id)s) on %(record_list)s"
 msgstr ""
 
 #. module: account_avatax
@@ -694,7 +694,7 @@ msgstr ""
 #. module: account_avatax
 #. odoo-python
 #: code:addons/account_avatax/models/product.py:0
-msgid "[%s] %s"
+msgid "[%(code)s] %(description)s"
 msgstr ""
 
 #. module: account_avatax

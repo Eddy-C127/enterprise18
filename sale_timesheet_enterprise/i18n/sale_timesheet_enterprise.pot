@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:57+0000\n"
-"PO-Revision-Date: 2024-02-12 10:57+0000\n"
+"POT-Creation-Date: 2024-06-03 09:05+0000\n"
+"PO-Revision-Date: 2024-06-03 09:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,13 @@ msgid "(%(percentage)s%)"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.view_employee_form
+msgid ""
+"<span class=\"w-100\" "
+"groups=\"hr_timesheet.group_hr_timesheet_approver\">per month</span>"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.sale_timesheet_enterprise_advance_payment_inv_timesheet_view_form
 msgid ""
 "<span>\n"
@@ -78,13 +85,11 @@ msgstr ""
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_analytic_line
-msgid "Analytic Account"
+msgid "Analytic Line"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
-#: code:addons/sale_timesheet_enterprise/static/src/components/many2one_avatar_rank_field/many2one_avatar_rank_field.xml:0
-#: code:addons/sale_timesheet_enterprise/static/src/components/many2one_avatar_rank_field/many2one_avatar_rank_field.xml:0
 #: code:addons/sale_timesheet_enterprise/static/src/components/many2one_avatar_rank_field/many2one_avatar_rank_field.xml:0
 msgid "Avatar"
 msgstr ""
@@ -92,19 +97,13 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_use_timesheet_leaderboard
+#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_leaderboard
 msgid "Billing Rate Leaderboard"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_company__billing_rate_target
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
+#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_rates
 msgid "Billing Rate Target"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:res.groups,name:sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates
-msgid "Billing Rate/Total Time indicators"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -170,8 +169,9 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_overtime_indication/timesheet_overtime_indication.js:0
 msgid ""
-"Difference between the number of %s ordered on the sales order item and the "
-"number of %s delivered"
+"Difference between the allocated %(uom)s (%(allocated_hours)s) on the sales "
+"order line and the %(uom)s spent (%(worked_hours)s) on all related projects "
+"and tasks"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -185,7 +185,7 @@ msgid "Display progress of current task."
 msgstr ""
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
+#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_rates
 msgid "Display the Billing Rate on My Timesheets view"
 msgstr ""
 
@@ -199,17 +199,6 @@ msgstr ""
 msgid ""
 "Even small tasks like answering an email should be recorded and rounded up "
 "to a quarter of an hour."
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Hours Spent"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Hours Spent on Sub-tasks"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -257,11 +246,6 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
-#: model:res.groups,name:sale_timesheet_enterprise.group_use_timesheet_leaderboard
-msgid "Leaderboard"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
 #. odoo-python
 #: code:addons/sale_timesheet_enterprise/models/res_company.py:0
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_4
@@ -281,31 +265,6 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "No tips found. Let's create one!"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_effective_hours
-msgid "Portal Effective Hours"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_progress
-msgid "Portal Progress"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_remaining_hours
-msgid "Portal Remaining Hours"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_subtask_effective_hours
-msgid "Portal Subtask Effective Hours"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
-#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_total_hours_spent
-msgid "Portal Total Hours Spent"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -332,9 +291,8 @@ msgid "Record timesheets to earn your rank!"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Remaining Hours"
+#: model:ir.model,name:sale_timesheet_enterprise.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -367,7 +325,7 @@ msgid "Show more"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
-#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_use_timesheet_leaderboard
+#: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_leaderboard
 msgid "Show the leaderboard on My Timesheets view"
 msgstr ""
 
@@ -382,17 +340,42 @@ msgid "Task"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
+#: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_hr_employee_check_billable_time_target
+msgid "The billable time target cannot be negative."
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_res_company_check_billing_rate
+msgid "The billing rate target percentage must be between 0 and 100."
+msgstr ""
+
+#. module: sale_timesheet_enterprise
 #. odoo-python
 #: code:addons/sale_timesheet_enterprise/models/project_task.py:0
-msgid ""
-"This Sales Order Item doesn't have a target value of planned hours. Planned "
-"hours:"
+msgid "This Sale Order Item doesn't have a target value of planned hours."
 msgstr ""
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.xml:0
 msgid "This month"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+msgid "Time Remaining"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+msgid "Time Spent"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+msgid "Time Spent on Sub-tasks"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -408,6 +391,11 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_total_hours_spent
 msgid "Time spent on this task, including its sub-tasks."
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_employee__show_billable_time_target
+msgid "Timesheet Show Rates"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
@@ -457,14 +445,14 @@ msgid "Tips"
 msgstr ""
 
 #. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
-msgid "Total Hours"
-msgstr ""
-
-#. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 msgid "Total Time Leaderboard"
+msgstr ""
+
+#. module: sale_timesheet_enterprise
+#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
+msgid "Total Time Spent"
 msgstr ""
 
 #. module: sale_timesheet_enterprise

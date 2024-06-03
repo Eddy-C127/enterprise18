@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
-"PO-Revision-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-06-03 09:05+0000\n"
+"PO-Revision-Date: 2024-06-03 09:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -388,6 +388,12 @@ msgid "Target URL"
 msgstr ""
 
 #. module: social_push_notifications
+#. odoo-python
+#: code:addons/social_push_notifications/models/social_post.py:0
+msgid "The 'message' field is required for post ID %s"
+msgstr ""
+
+#. module: social_push_notifications
 #: model:ir.model.constraint,message:social_push_notifications.constraint_social_account_website_unique
 msgid "There is already a configuration for this website."
 msgstr ""
@@ -430,7 +436,7 @@ msgstr ""
 #: model:ir.model.fields,help:social_push_notifications.field_social_media__media_type
 msgid ""
 "Used to make comparisons when we need to restrict some features to a "
-"specific media ('facebook', 'twitter', ...)."
+"specific media ('facebook', 'x', ...)."
 msgstr ""
 
 #. module: social_push_notifications

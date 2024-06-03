@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:54+0000\n"
-"PO-Revision-Date: 2024-02-12 10:54+0000\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2024-06-03 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -158,26 +158,6 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_marketplace__api_ref
 msgid "API Identifier"
-msgstr ""
-
-#. module: sale_amazon
-#: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_access_key
-msgid "AWS Access Key"
-msgstr ""
-
-#. module: sale_amazon
-#: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_credentials_expiry
-msgid "AWS Credentials Expiry"
-msgstr ""
-
-#. module: sale_amazon
-#: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_secret_key
-msgid "AWS Secret Key"
-msgstr ""
-
-#. module: sale_amazon
-#: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_session_token
-msgid "AWS Session Token"
 msgstr ""
 
 #. module: sale_amazon
@@ -502,7 +482,7 @@ msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
-#: code:addons/sale_amazon/utils.py:0 code:addons/sale_amazon/utils.py:0
+#: code:addons/sale_amazon/utils.py:0
 msgid "Could not establish the connection to the API."
 msgstr ""
 
@@ -586,7 +566,7 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/utils.py:0
-msgid "Error code: %s; description: %s"
+msgid "Error code: %(error_code)s; description: %(error_message)s"
 msgstr ""
 
 #. module: sale_amazon
@@ -1071,7 +1051,7 @@ msgstr ""
 
 #. module: sale_amazon
 #. odoo-python
-#: code:addons/sale_amazon/utils.py:0 code:addons/sale_amazon/utils.py:0
+#: code:addons/sale_amazon/utils.py:0
 msgid "The communication with the API failed."
 msgstr ""
 
@@ -1080,7 +1060,7 @@ msgstr ""
 #: code:addons/sale_amazon/utils.py:0
 msgid ""
 "The communication with the API failed.\n"
-"Error code: %s; description: %s"
+"Error code: %(error_code)s; description: %(error_message)s"
 msgstr ""
 
 #. module: sale_amazon
@@ -1128,11 +1108,6 @@ msgstr ""
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__active_marketplace_ids
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__active_marketplace_ids
 msgid "The marketplaces this account sells on."
-msgstr ""
-
-#. module: sale_amazon
-#: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_credentials_expiry
-msgid "The moment at which the AWS credentials become invalid."
 msgstr ""
 
 #. module: sale_amazon
@@ -1184,18 +1159,6 @@ msgid "The seller account used to manage this product."
 msgstr ""
 
 #. module: sale_amazon
-#: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_access_key
-msgid "The short-lived key used to identify the assumed ARN role on AWS."
-msgstr ""
-
-#. module: sale_amazon
-#: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_secret_key
-msgid ""
-"The short-lived key used to verify the access to the assumed ARN role on "
-"AWS."
-msgstr ""
-
-#. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__restricted_data_token
 msgid ""
 "The short-lived token used instead of the LWA Access Token to access "
@@ -1205,13 +1168,6 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__access_token
 msgid "The short-lived token used to query Amazon API on behalf of a seller."
-msgstr ""
-
-#. module: sale_amazon
-#: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_session_token
-msgid ""
-"The short-lived token used to query the SP-API with the assumed ARN role on "
-"AWS."
 msgstr ""
 
 #. module: sale_amazon
@@ -1344,21 +1300,21 @@ msgstr ""
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
+msgid "[%(gift_wrap_code)s] Gift Wrapping Charges for %(product)s"
+msgstr ""
+
+#. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/amazon_account.py:0
+msgid "[%(shipping_code)s] Delivery Charges for %(product)s"
+msgstr ""
+
+#. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/amazon_account.py:0
 msgid ""
-"[%s] %s\n"
-"Condition: %s - %s"
-msgstr ""
-
-#. module: sale_amazon
-#. odoo-python
-#: code:addons/sale_amazon/models/amazon_account.py:0
-msgid "[%s] Delivery Charges for %s"
-msgstr ""
-
-#. module: sale_amazon
-#. odoo-python
-#: code:addons/sale_amazon/models/amazon_account.py:0
-msgid "[%s] Gift Wrapping Charges for %s"
+"[%(sku)s] %(item_title)s\n"
+"Condition: %(main_condition)s - %(sub_condition)s"
 msgstr ""
 
 #. module: sale_amazon

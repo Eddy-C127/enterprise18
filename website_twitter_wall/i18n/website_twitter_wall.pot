@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:22+0000\n"
-"PO-Revision-Date: 2023-10-26 22:22+0000\n"
+"POT-Creation-Date: 2024-06-03 09:05+0000\n"
+"PO-Revision-Date: 2024-06-03 09:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr ""
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
-msgid "Hey! No tweet found"
+msgid "Hey! No post found"
 msgstr ""
 
 #. module: website_twitter_wall
@@ -169,7 +169,7 @@ msgstr ""
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,help:website_twitter_wall.field_website_twitter_wall__mode
-msgid "Most recent tweets, most popular tweets, or both"
+msgid "Most recent posts, most popular posts, or both"
 msgstr ""
 
 #. module: website_twitter_wall
@@ -180,6 +180,16 @@ msgstr ""
 #. module: website_twitter_wall
 #: model:ir.model.fields.selection,name:website_twitter_wall.selection__website_twitter_wall__mode__popular
 msgid "Popular"
+msgstr ""
+
+#. module: website_twitter_wall
+#: model:ir.actions.act_window,name:website_twitter_wall.website_twitter_tweet_action
+#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__tweet_ids
+#: model:ir.ui.menu,name:website_twitter_wall.website_twitter_tweet_menu
+#: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_tweet_view_form
+#: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_tweet_view_tree
+#: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
+msgid "Posts"
 msgstr ""
 
 #. module: website_twitter_wall
@@ -209,6 +219,11 @@ msgstr ""
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_share
+msgid "Share #{wall.name} on X"
+msgstr ""
+
+#. module: website_twitter_wall
+#: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_share
 msgid "Share #{wall.name} on facebook"
 msgstr ""
 
@@ -220,11 +235,6 @@ msgstr ""
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_share
 msgid "Share #{wall.name} on linkedin"
-msgstr ""
-
-#. module: website_twitter_wall
-#: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_share
-msgid "Share #{wall.name} on twitter"
 msgstr ""
 
 #. module: website_twitter_wall
@@ -245,8 +255,7 @@ msgstr ""
 #. module: website_twitter_wall
 #. odoo-python
 #: code:addons/website_twitter_wall/models/website_twitter_wall.py:0
-msgid ""
-"The Twitter authentication failed. Please check your API key and secret."
+msgid "The X authentication failed. Please check your API key and secret."
 msgstr ""
 
 #. module: website_twitter_wall
@@ -255,16 +264,16 @@ msgid "The full URL to access the document through the website."
 msgstr ""
 
 #. module: website_twitter_wall
-#: model:ir.model.fields,help:website_twitter_wall.field_website_twitter_wall__search_pattern
-msgid ""
-"The search criteria to get the tweets you want. You can use the Twitter query operators.\n"
-"You can also use the special \"favorites:screen_name\" operator to get the favorited tweets of \"screen_name\"."
+#. odoo-python
+#: code:addons/website_twitter_wall/models/website_twitter_wall.py:0
+msgid "The posts search failed. Check your credentials and access token"
 msgstr ""
 
 #. module: website_twitter_wall
-#. odoo-python
-#: code:addons/website_twitter_wall/models/website_twitter_wall.py:0
-msgid "The tweets search failed. Check your credentials and access token"
+#: model:ir.model.fields,help:website_twitter_wall.field_website_twitter_wall__search_pattern
+msgid ""
+"The search criteria to get the posts you want. You can use the X query operators.\n"
+"You can also use the special \"favorites:screen_name\" operator to get the favorited posts of \"screen_name\"."
 msgstr ""
 
 #. module: website_twitter_wall
@@ -273,8 +282,12 @@ msgid "Three columns view"
 msgstr ""
 
 #. module: website_twitter_wall
-#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__total_tweets
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
+msgid "Total Posts"
+msgstr ""
+
+#. module: website_twitter_wall
+#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__total_tweets
 msgid "Total Tweets"
 msgstr ""
 
@@ -286,33 +299,7 @@ msgstr ""
 #. module: website_twitter_wall
 #. odoo-python
 #: code:addons/website_twitter_wall/models/website_twitter_wall.py:0
-#: model:ir.actions.act_window,name:website_twitter_wall.website_twitter_tweet_action
-#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__tweet_ids
-#: model:ir.ui.menu,name:website_twitter_wall.website_twitter_tweet_menu
-#: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_tweet_view_form
-#: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_tweet_view_tree
-#: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
 msgid "Tweets"
-msgstr ""
-
-#. module: website_twitter_wall
-#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__api_key
-msgid "Twitter API Key"
-msgstr ""
-
-#. module: website_twitter_wall
-#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__api_secret
-msgid "Twitter API Secret"
-msgstr ""
-
-#. module: website_twitter_wall
-#: model:ir.ui.menu,name:website_twitter_wall.menu_website_twitter_wall_root
-msgid "Twitter Wall"
-msgstr ""
-
-#. module: website_twitter_wall
-#: model_terms:ir.ui.view,arch_db:website_twitter_wall.snippet_options
-msgid "Twitter Wall Page"
 msgstr ""
 
 #. module: website_twitter_wall
@@ -322,7 +309,7 @@ msgstr ""
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__mode
-msgid "Type of tweets"
+msgid "Type of posts"
 msgstr ""
 
 #. module: website_twitter_wall
@@ -350,17 +337,37 @@ msgid "Walls"
 msgstr ""
 
 #. module: website_twitter_wall
-#: model:ir.model,name:website_twitter_wall.model_website_twitter_tweet
-#: model:ir.model,name:website_twitter_wall.model_website_twitter_wall
-msgid "Website Twitter"
-msgstr ""
-
-#. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__website_url
 msgid "Website URL"
 msgstr ""
 
 #. module: website_twitter_wall
+#: model:ir.model,name:website_twitter_wall.model_website_twitter_tweet
+#: model:ir.model,name:website_twitter_wall.model_website_twitter_wall
+msgid "Website X"
+msgstr ""
+
+#. module: website_twitter_wall
+#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__api_key
+msgid "X API Key"
+msgstr ""
+
+#. module: website_twitter_wall
+#: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__api_secret
+msgid "X API Secret"
+msgstr ""
+
+#. module: website_twitter_wall
+#: model:ir.ui.menu,name:website_twitter_wall.menu_website_twitter_wall_root
+msgid "X Wall"
+msgstr ""
+
+#. module: website_twitter_wall
+#: model_terms:ir.ui.view,arch_db:website_twitter_wall.snippet_options
+msgid "X Wall Page"
+msgstr ""
+
+#. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
-msgid "e.g. My Twitter Wall"
+msgid "e.g. My X Wall"
 msgstr ""

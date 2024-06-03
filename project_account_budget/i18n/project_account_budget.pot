@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:02+0000\n"
-"PO-Revision-Date: 2024-01-08 07:02+0000\n"
+"POT-Creation-Date: 2024-06-03 09:04+0000\n"
+"PO-Revision-Date: 2024-06-03 09:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,11 @@ msgid "<u>Budget</u>"
 msgstr ""
 
 #. module: project_account_budget
+#: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
+msgid "Accounts"
+msgstr ""
+
+#. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 msgid "Add Budget"
@@ -44,12 +49,9 @@ msgid "Allocated"
 msgstr ""
 
 #. module: project_account_budget
-#: model:ir.model.fields,field_description:project_account_budget.field_crossovered_budget_lines__analytic_account_id
-msgid "Analytic Account"
-msgstr ""
-
-#. module: project_account_budget
-#: model:ir.model,name:project_account_budget.model_crossovered_budget
+#. odoo-javascript
+#: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
+#: model:ir.model,name:project_account_budget.model_budget_analytic
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_project_kanban_view_inherited
 msgid "Budget"
 msgstr ""
@@ -61,13 +63,8 @@ msgid "Budget Items"
 msgstr ""
 
 #. module: project_account_budget
-#: model:ir.model,name:project_account_budget.model_crossovered_budget_lines
+#: model:ir.model,name:project_account_budget.model_budget_line
 msgid "Budget Line"
-msgstr ""
-
-#. module: project_account_budget
-#: model:ir.model.fields,field_description:project_account_budget.field_project_project__total_budget_progress
-msgid "Budget Spent"
 msgstr ""
 
 #. module: project_account_budget
@@ -75,13 +72,6 @@ msgstr ""
 msgid ""
 "Budget {{ budget_progress >= 0.25 ? 'on track' : budget_progress >= 0 ? "
 "'soon overspent' : 'overspent' }}"
-msgstr ""
-
-#. module: project_account_budget
-#. odoo-javascript
-#: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
-#: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
-msgid "Budgetary Positions"
 msgstr ""
 
 #. module: project_account_budget
@@ -97,31 +87,20 @@ msgid "Compare expected and actual revenues and costs."
 msgstr ""
 
 #. module: project_account_budget
-#: model_terms:ir.ui.view,arch_db:project_account_budget.crossovered_budget_lines_view_tree_inherit
-msgid "Entries..."
-msgstr ""
-
-#. module: project_account_budget
-#: model:account.account,name:project_account_budget.expense_budget_account
-msgid "Expense Budget"
-msgstr ""
-
-#. module: project_account_budget
-#: model:account.account,name:project_account_budget.income_budget_account
-msgid "Income Budget"
-msgstr ""
-
-#. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.js:0
 msgid "New Budget"
 msgstr ""
 
 #. module: project_account_budget
+#: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
+msgid "No Accounts"
+msgstr ""
+
+#. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
-#: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
-msgid "No Budgetary Position"
+msgid "No Budget"
 msgstr ""
 
 #. module: project_account_budget
@@ -153,21 +132,6 @@ msgstr ""
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "Total"
-msgstr ""
-
-#. module: project_account_budget
-#: model:ir.model.fields,field_description:project_account_budget.field_project_project__total_planned_amount
-msgid "Total Planned Amount"
-msgstr ""
-
-#. module: project_account_budget
-#: model:ir.model.fields,field_description:project_account_budget.field_project_project__total_practical_amount
-msgid "Total Practical Amount"
-msgstr ""
-
-#. module: project_account_budget
-#: model:ir.model.fields,field_description:project_account_budget.field_project_project__budget
-msgid "Total planned amount"
 msgstr ""
 
 #. module: project_account_budget

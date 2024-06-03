@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-27 09:44+0000\n"
-"PO-Revision-Date: 2024-02-27 09:44+0000\n"
+"POT-Creation-Date: 2024-06-03 09:02+0000\n"
+"PO-Revision-Date: 2024-06-03 09:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid " after deleting the order on Starshipit"
 msgstr ""
 
@@ -56,7 +55,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "Choose Starshipit Shipping Service"
 msgstr ""
 
@@ -115,7 +113,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "Error: this delivery method is not available for this order."
 msgstr ""
 
@@ -132,14 +129,12 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
-#, python-format
 msgid "Invalid Starshipit credentials."
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "Labels were generated for the order %s"
 msgstr ""
 
@@ -161,32 +156,28 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid ""
-"Order %s was already sent to the carrier during label creation.\n"
-"Manifest number: %s"
+"Order %(order)s was already sent to the carrier during label creation.\n"
+"Manifest number: %(manifest_number)s"
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
+msgid ""
+"Order %(order)s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
+"Manifest number: %(manifest_number)s"
+msgstr ""
+
+#. module: delivery_starshipit
+#. odoo-python
+#: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 msgid "Order %s was archived."
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
-msgid ""
-"Order %s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
-"Manifest number: %s"
-msgstr ""
-
-#. module: delivery_starshipit
-#. odoo-python
-#: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "Order %s was sent to the carrier."
 msgstr ""
 
@@ -205,15 +196,13 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "Please delete the order on Starshipit then try again."
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
-#, python-format
-msgid "Please fill in the fields %s on the %s partner."
+msgid "Please fill in the field %(field)s on the %(partner)s partner."
 msgstr ""
 
 #. module: delivery_starshipit
@@ -229,39 +218,34 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "Return labels were generated for the order %s"
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid ""
-"Return order %s was already sent to the carrier during label creation.\n"
-"Manifest number: %s"
+"Return order %(order)s was already sent to the carrier during label creation.\n"
+"Manifest number: %(manifest_number)s"
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
+msgid ""
+"Return order %(order)s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
+"Manifest number: %(manifest_number)s"
+msgstr ""
+
+#. module: delivery_starshipit
+#. odoo-python
+#: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 msgid "Return order %s was archived."
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
-msgid ""
-"Return order %s was sent to the carrier during label creation.As you are in a test environment, please make sure to cancel the order with your carrier directly.\n"
-"Manifest number: %s"
-msgstr ""
-
-#. module: delivery_starshipit
-#. odoo-python
-#: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "Return order %s was sent to the carrier."
 msgstr ""
 
@@ -298,7 +282,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
-#, python-format
 msgid "Something went wrong, please try again later: %s"
 msgstr ""
 
@@ -321,7 +304,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
-#, python-format
 msgid "Starshipit API rate exceeded. Please try again later."
 msgstr ""
 
@@ -359,7 +341,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid ""
 "Starshipit cannot generate returns for the carrier %s. Please handle this "
 "return with the carrier directly."
@@ -368,7 +349,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
-#, python-format
 msgid "Starshipit returned an error: %(message)s"
 msgstr ""
 
@@ -387,7 +367,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
-#, python-format
 msgid ""
 "The picking %(picking_name)s sequence is too long for Starshipit. Please "
 "update your pickings sequence in order to use at most 50 characters."
@@ -396,14 +375,12 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "The return label creation failed."
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
-#, python-format
 msgid ""
 "The service code %(service_code)s is too long for Starshipit. Please update "
 "the code inside starshipit to be at most 100 characters, then update your "
@@ -421,7 +398,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid ""
 "The shipping label creation failed with the following error:\n"
 "%(error)s"
@@ -430,7 +406,6 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid ""
 "There are no shipping services available, please verify the shipping address"
 " or activate suitable carriers in your starshipit account."
@@ -439,14 +414,12 @@ msgstr ""
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "There was an issue when creating the order, please try again"
 msgstr ""
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
-#, python-format
 msgid "This action requires a Starshipit carrier."
 msgstr ""
 

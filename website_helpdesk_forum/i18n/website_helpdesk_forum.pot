@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-08 07:01+0000\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2024-06-03 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,11 +50,6 @@ msgstr ""
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.knowledge_base_forum_card
 msgid "Ask the community"
-msgstr ""
-
-#. module: website_helpdesk_forum
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__can_share_forum
-msgid "Can Share Forum"
 msgstr ""
 
 #. module: website_helpdesk_forum
@@ -114,11 +109,6 @@ msgid "Forum Post"
 msgstr ""
 
 #. module: website_helpdesk_forum
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__forum_post_count
-msgid "Forum Post Count"
-msgstr ""
-
-#. module: website_helpdesk_forum
 #. odoo-python
 #: code:addons/website_helpdesk_forum/wizards/helpdesk_ticket_select_forum.py:0
 msgid "Forum Post Created"
@@ -127,7 +117,6 @@ msgstr ""
 #. module: website_helpdesk_forum
 #. odoo-python
 #: code:addons/website_helpdesk_forum/models/helpdesk.py:0
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__forum_post_ids
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.helpdesk_ticket_view_form_inherit_website_helpdesk_forum
 msgid "Forum Posts"
 msgstr ""
@@ -135,11 +124,6 @@ msgstr ""
 #. module: website_helpdesk_forum
 #: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_team__website_forum_ids
 msgid "Forums"
-msgstr ""
-
-#. module: website_helpdesk_forum
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket__use_website_helpdesk_forum
-msgid "Help Center Active"
 msgstr ""
 
 #. module: website_helpdesk_forum
@@ -203,16 +187,6 @@ msgid "Share on Forum"
 msgstr ""
 
 #. module: website_helpdesk_forum
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_team__show_knowledge_base_forum
-msgid "Show Knowledge Base Forum"
-msgstr ""
-
-#. module: website_helpdesk_forum
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_post__show_ticket
-msgid "Show Ticket"
-msgstr ""
-
-#. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
 msgid "Solved"
 msgstr ""
@@ -232,12 +206,6 @@ msgstr ""
 #: model:ir.model.fields,help:website_helpdesk_forum.field_helpdesk_team__top_forum_posts
 msgid ""
 "These are the top posts in the forums associated with this helpdesk team"
-msgstr ""
-
-#. module: website_helpdesk_forum
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_forum_post__ticket_id
-#: model:ir.model.fields,field_description:website_helpdesk_forum.field_helpdesk_ticket_select_forum_wizard__ticket_id
-msgid "Ticket"
 msgstr ""
 
 #. module: website_helpdesk_forum
@@ -263,5 +231,5 @@ msgstr ""
 
 #. module: website_helpdesk_forum
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_forum.search_result
-msgid "| 0 Answer"
+msgid "• 0 Answer"
 msgstr ""

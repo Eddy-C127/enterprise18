@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:02+0000\n"
-"PO-Revision-Date: 2024-01-08 07:02+0000\n"
+"POT-Creation-Date: 2024-06-03 09:04+0000\n"
+"PO-Revision-Date: 2024-06-03 09:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,13 +18,13 @@ msgstr ""
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
-msgid "%(user_name)s requested a new signature on the following documents:"
+msgid "%(employee)s and %(responsible)s are the signatories."
 msgstr ""
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
-msgid "%s and %s are the signatories."
+msgid "%(user_name)s requested a new signature on the following documents:"
 msgstr ""
 
 #. module: hr_contract_sign
@@ -297,7 +297,9 @@ msgstr ""
 
 #. module: hr_contract_sign
 #. odoo-python
+#: code:addons/hr_contract_sign/models/hr_employee.py:0
 #: code:addons/hr_contract_sign/wizard/mail_activity_schedule.py:0
+#: model:ir.actions.server,name:hr_contract_sign.action_signature_request_multi
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_history_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_employee_sign_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign

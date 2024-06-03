@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:54+0000\n"
-"PO-Revision-Date: 2024-02-12 10:54+0000\n"
+"POT-Creation-Date: 2024-06-03 09:02+0000\n"
+"PO-Revision-Date: 2024-06-03 09:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
-msgid "%s (max %s chars)"
+msgid "%(media_name)s (max %(max_chars)s chars)"
 msgstr ""
 
 #. module: social
@@ -194,8 +194,7 @@ msgstr ""
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__author_link
-msgid ""
-"Author link to the external social.media (ex: link to the Twitter Account)."
+msgid "Author link to the external social.media (ex: link to the X Account)."
 msgstr ""
 
 #. module: social
@@ -246,8 +245,6 @@ msgid "Can link accounts?"
 msgstr ""
 
 #. module: social
-#. odoo-javascript
-#: code:addons/social/static/src/xml/social_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Cancel"
 msgstr ""
@@ -307,7 +304,7 @@ msgstr ""
 #: model:ir.model.fields,help:social.field_social_account__social_account_handle
 msgid ""
 "Contains the social media handle of the person that created this account. "
-"E.g: '@odoo.official' for the 'Odoo' Twitter account"
+"E.g: '@odoo.official' for the 'Odoo' X account"
 msgstr ""
 
 #. module: social
@@ -386,8 +383,21 @@ msgstr ""
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comment.js:0
+#: code:addons/social/static/src/js/stream_post_comments.js:0
 #: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Delete"
+msgstr ""
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/js/stream_post_comment.js:0
 msgid "Delete Comment"
+msgstr ""
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/js/stream_post_comments.js:0
+msgid "Delete Post"
 msgstr ""
 
 #. module: social
@@ -406,6 +416,12 @@ msgid "Developer Accounts"
 msgstr ""
 
 #. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Discard"
+msgstr ""
+
+#. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__display_name
 #: model:ir.model.fields,field_description:social.field_social_live_post__display_name
 #: model:ir.model.fields,field_description:social.field_social_media__display_name
@@ -421,7 +437,13 @@ msgstr ""
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comment.js:0
-msgid "Do you really want to delete %s"
+msgid "Do you really want to delete this %s?"
+msgstr ""
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/js/stream_post_comments.js:0
+msgid "Do you really want to delete this Post ?"
 msgstr ""
 
 #. module: social
@@ -440,7 +462,19 @@ msgstr ""
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
-msgid "Edit Comment"
+msgid "Edit"
+msgstr ""
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Edit Your Post"
+msgstr ""
+
+#. module: social
+#. odoo-python
+#: code:addons/social/models/social_post_template.py:0
+msgid "Either 'message' field or 'image_ids' field is required for post ID %s"
 msgstr ""
 
 #. module: social
@@ -705,7 +739,7 @@ msgstr ""
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
-msgid "Let's <b>connect</b> to Facebook, LinkedIn or Twitter."
+msgid "Let's <b>connect</b> to Facebook, LinkedIn or X."
 msgstr ""
 
 #. module: social
@@ -739,7 +773,6 @@ msgstr ""
 
 #. module: social
 #. odoo-javascript
-#: code:addons/social/static/src/xml/social_templates.xml:0
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_kanban
 msgid "Link Image"
@@ -1030,7 +1063,7 @@ msgstr ""
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stories
-msgid "Number of stories created from your posts (Shares, Re-tweets, ...)."
+msgid "Number of stories created from your posts (Shares, Reposts, ...)."
 msgstr ""
 
 #. module: social
@@ -1046,7 +1079,7 @@ msgstr ""
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid ""
 "Number of times people who have engaged with your channel have created "
-"stories on their friends' or followers' feed (Shares, Retweets...)"
+"stories on their friends' or followers' feed (Shares, Reposts...)"
 msgstr ""
 
 #. module: social
@@ -1086,7 +1119,6 @@ msgstr ""
 
 #. module: social
 #. odoo-javascript
-#: code:addons/social/static/src/xml/social_templates.xml:0
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_kanban
@@ -1163,6 +1195,12 @@ msgstr ""
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Press Enter to edit. Press Shift+Enter to insert a Line Break."
+msgstr ""
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Press Enter to post. Press Shift+Enter to insert a Line Break."
 msgstr ""
 
@@ -1215,7 +1253,7 @@ msgstr ""
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_id
-msgid "Related Social Media (Facebook, Twitter, ...)."
+msgid "Related Social Media (Facebook, X, ...)."
 msgstr ""
 
 #. module: social
@@ -1269,7 +1307,9 @@ msgstr ""
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
-msgid "Selected accounts (%s) do not match the selected company (%s)"
+msgid ""
+"Selected accounts (%(account_list)s) do not match the selected company "
+"(%(company)s)"
 msgstr ""
 
 #. module: social
@@ -1368,6 +1408,12 @@ msgstr ""
 #. module: social
 #: model:ir.actions.act_window,name:social.social_post_template_action
 msgid "Social Post Templates"
+msgstr ""
+
+#. module: social
+#. odoo-python
+#: code:addons/social/models/social_post.py:0
+msgid "Social Post created on %(create_date)s"
 msgstr ""
 
 #. module: social
@@ -1520,12 +1566,6 @@ msgid "Sync"
 msgstr ""
 
 #. module: social
-#. odoo-python
-#: code:addons/social/models/social_post_template.py:0
-msgid "The 'message' field is required for post ID %s"
-msgstr ""
-
-#. module: social
 #: model:ir.model.fields,help:social.field_social_post__account_ids
 #: model:ir.model.fields,help:social.field_social_post_template__account_ids
 msgid "The accounts on which this post will be published."
@@ -1640,7 +1680,7 @@ msgstr ""
 #: model:ir.model.fields,help:social.field_social_stream_post__media_type
 msgid ""
 "Used to make comparisons when we need to restrict some features to a "
-"specific media ('facebook', 'twitter', ...)."
+"specific media ('facebook', 'x', ...)."
 msgstr ""
 
 #. module: social
@@ -1683,6 +1723,11 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Write a comment..."
+msgstr ""
+
+#. module: social
+#: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
+msgid "Write a message or upload an image"
 msgstr ""
 
 #. module: social

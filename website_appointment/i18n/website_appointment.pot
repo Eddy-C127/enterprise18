@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:57+0000\n"
-"PO-Revision-Date: 2024-02-12 10:57+0000\n"
+"POT-Creation-Date: 2024-06-03 09:05+0000\n"
+"PO-Revision-Date: 2024-06-03 09:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_form
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_info
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_validated
 msgid "<i class=\"fa fa-long-arrow-left me-2\"/>All Appointments"
 msgstr ""
 
@@ -80,6 +81,11 @@ msgid "All assigned users"
 msgstr ""
 
 #. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Allow Guests"
+msgstr ""
+
+#. module: website_appointment
 #. odoo-python
 #: code:addons/website_appointment/models/website.py:0
 #: model:website.menu,name:website_appointment.menu_appointment
@@ -99,6 +105,7 @@ msgstr ""
 
 #. module: website_appointment
 #: model:ir.model,name:website_appointment.model_appointment_type
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
 msgid "Appointment Type"
 msgstr ""
 
@@ -126,11 +133,6 @@ msgid "Book an Appointment"
 msgstr ""
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
-msgid "Booked"
-msgstr ""
-
-#. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__can_publish
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__can_publish
 msgid "Can Publish"
@@ -155,18 +157,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/website_appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Contact us"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
-msgid "Date &amp; time"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
-msgid ""
-"Details<span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted "
-"fs-5\"/>"
 msgstr ""
 
 #. module: website_appointment
@@ -213,12 +203,6 @@ msgid "Please fill this field"
 msgstr ""
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_form
-msgid "Publish"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_search
 msgid "Published"
 msgstr ""
@@ -226,7 +210,7 @@ msgstr ""
 #. module: website_appointment
 #: model:ir.model.fields,help:website_appointment.field_appointment_invite__website_id
 #: model:ir.model.fields,help:website_appointment.field_appointment_type__website_id
-msgid "Restrict publishing to this website."
+msgid "Restrict to a specific website."
 msgstr ""
 
 #. module: website_appointment
@@ -238,11 +222,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/website_appointment/models/website.py:0
 msgid "Schedule an appointment"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_validated
-msgid "Schedule another appointment"
 msgstr ""
 
 #. module: website_appointment
@@ -258,6 +237,21 @@ msgstr ""
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__seo_name
 msgid "Seo name"
+msgstr ""
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Show Duration"
+msgstr ""
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Show Time Zone"
+msgstr ""
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Show User/Resource Pictures"
 msgstr ""
 
 #. module: website_appointment
@@ -287,11 +281,6 @@ msgstr ""
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
 msgid "There is currently no appointment available"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_form
-msgid "Unpublish"
 msgstr ""
 
 #. module: website_appointment

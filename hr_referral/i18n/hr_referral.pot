@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:54+0000\n"
-"PO-Revision-Date: 2024-02-12 10:54+0000\n"
+"POT-Creation-Date: 2024-06-03 09:02+0000\n"
+"PO-Revision-Date: 2024-06-03 09:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,11 @@ msgstr ""
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_report__referral_hired
 msgid "# Hired by Referral"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
+msgid "/ Job Offers"
 msgstr ""
 
 #. module: hr_referral
@@ -219,6 +224,13 @@ msgid "Body"
 msgstr ""
 
 #. module: hr_referral
+#: model:hr.referral.onboarding,text:hr_referral.welcome2
+msgid ""
+"Browse through open job positions, promote them on social media, or refer "
+"friends."
+msgstr ""
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_job__utm_campaign_id
 msgid "Campaign"
 msgstr ""
@@ -252,6 +264,11 @@ msgid "Close"
 msgstr ""
 
 #. module: hr_referral
+#: model:hr.referral.onboarding,text:hr_referral.welcome3
+msgid "Collect points and exchange them for awesome gifts in the shop."
+msgstr ""
+
+#. module: hr_referral
 #: model:ir.model,name:hr_referral.model_res_company
 msgid "Companies"
 msgstr ""
@@ -264,6 +281,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__company_id
 #: model_terms:ir.ui.view,arch_db:hr_referral.employee_referral_report_view_search
 msgid "Company"
+msgstr ""
+
+#. module: hr_referral
+#: model:hr.referral.onboarding,text:hr_referral.welcome4
+msgid "Compete against your colleagues to build the best justice league!"
 msgstr ""
 
 #. module: hr_referral
@@ -330,8 +352,6 @@ msgstr ""
 
 #. module: hr_referral
 #. odoo-javascript
-#: code:addons/hr_referral/static/src/views/dashboard.js:0
-#: code:addons/hr_referral/static/src/views/dashboard.js:0
 #: code:addons/hr_referral/static/src/views/dashboard.js:0
 #: model:ir.actions.client,name:hr_referral.action_hr_referral_welcome_screen
 #: model:ir.ui.menu,name:hr_referral.menu_hr_applicant_employee_referral_dashboard
@@ -594,19 +614,17 @@ msgid "Has Referrer"
 msgstr ""
 
 #. module: hr_referral
-#. odoo-python
-#: code:addons/hr_referral/wizard/hr_referral_send_mail.py:0
+#: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
 msgid ""
-"Hello,<br><br>There are some amazing job offers in my company! Have a look, "
-"they  can be interesting for you<br><a href=\"%s\">See Job Offers</a>"
+"Hello,<br/><br/>\n"
+"                There are some amazing job offers in my company! Have a look, they can be interesting for you:"
 msgstr ""
 
 #. module: hr_referral
-#. odoo-python
-#: code:addons/hr_referral/wizard/hr_referral_send_mail.py:0
+#: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
 msgid ""
-"Hello,<br><br>There is an amazing job offer for %s in my company! It will be"
-" a fit for you<br><a href=\"%s\">See Job Offer</a>"
+"Hello,<br/><br/>\n"
+"                There is an amazing job offer for a"
 msgstr ""
 
 #. module: hr_referral
@@ -922,6 +940,14 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: hr_referral
+#: model:hr.referral.onboarding,text:hr_referral.welcome1
+msgid ""
+"Oh no!\n"
+"Villains are lurking the city!\n"
+"Help us recruit a team of superheroes to save the day!"
+msgstr ""
+
+#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__onclick
 msgid "On Click"
 msgstr ""
@@ -1021,6 +1047,11 @@ msgid "Product Name"
 msgstr ""
 
 #. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_refused_applicant_employee_referral
 msgid "Ready to receive points?"
@@ -1092,20 +1123,19 @@ msgstr ""
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
-#, python-format
 msgid "Referral: %(job_url)s"
 msgstr ""
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
-msgid "Referral: %s"
+msgid "Referral: %(partner)s (%(applicant)s)"
 msgstr ""
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
-msgid "Referral: %s (%s)"
+msgid "Referral: %s"
 msgstr ""
 
 #. module: hr_referral
@@ -1186,6 +1216,11 @@ msgstr ""
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_filter
 msgid "Search Referral"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
+msgid "See Job Offer"
 msgstr ""
 
 #. module: hr_referral
@@ -1294,8 +1329,6 @@ msgstr ""
 #. module: hr_referral
 #. odoo-javascript
 #: code:addons/hr_referral/static/src/views/dashboard.xml:0
-#: code:addons/hr_referral/static/src/views/dashboard.xml:0
-#: code:addons/hr_referral/static/src/views/dashboard.xml:0
 msgid "Start"
 msgstr ""
 
@@ -1396,16 +1429,6 @@ msgid "Total"
 msgstr ""
 
 #. module: hr_referral
-#: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_link_to_share__channel__twitter
-msgid "Twitter"
-msgstr ""
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_job__twitter_clicks
-msgid "Twitter Clicks"
-msgstr ""
-
-#. module: hr_referral
 #: model:ir.model.fields,help:hr_referral.field_hr_referral_reward__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr ""
@@ -1429,8 +1452,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid ""
-"Unsupported search on field is_accessible_to_current_user: %s operator & %s "
-"value. Only = and != operator and boolean values are supported."
+"Unsupported search on field is_accessible_to_current_user: %(operator)s "
+"operator & %(value)s value. Only = and != operator and boolean values are "
+"supported."
 msgstr ""
 
 #. module: hr_referral
@@ -1482,6 +1506,11 @@ msgstr ""
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_onboarding
 msgid "Welcome Onboarding in Referral App"
+msgstr ""
+
+#. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_job__twitter_clicks
+msgid "X Clicks"
 msgstr ""
 
 #. module: hr_referral
@@ -1559,6 +1588,13 @@ msgstr ""
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_alert_form
 msgid "https://www.google.com"
+msgstr ""
+
+#. module: hr_referral
+#: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
+msgid ""
+"in my company! It will be a fit for you.\n"
+"                <br/>"
 msgstr ""
 
 #. module: hr_referral

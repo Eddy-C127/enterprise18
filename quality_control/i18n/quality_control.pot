@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:54+0000\n"
-"PO-Revision-Date: 2024-02-12 10:54+0000\n"
+"POT-Creation-Date: 2024-06-03 09:02+0000\n"
+"PO-Revision-Date: 2024-06-03 09:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -102,7 +102,9 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
-msgid "<span invisible=\"measure_frequency_type == 'all'\">Every </span>"
+msgid ""
+"<span invisible=\"measure_frequency_type in ('all', 'on_demand')\">Every "
+"</span>"
 msgstr ""
 
 #. module: quality_control
@@ -222,6 +224,16 @@ msgid "All parameters passed."
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__allowed_product_ids
+msgid "Allowed Product"
+msgstr ""
+
+#. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__allowed_quality_point_ids
+msgid "Allowed Quality Point"
+msgstr ""
+
+#. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_search
 msgid "Archived"
 msgstr ""
@@ -275,6 +287,7 @@ msgid "Configuration"
 msgstr ""
 
 #. module: quality_control
+#: model_terms:ir.ui.view,arch_db:quality_control.quality_check_on_demand_view_form
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_wizard_form_failure
 msgid "Confirm"
 msgstr ""
@@ -308,6 +321,7 @@ msgstr ""
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__measure_on
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__measure_on
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__measure_on
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__measure_on
 msgid "Control per"
@@ -339,11 +353,13 @@ msgid "Create a new quality alert stage"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__create_uid
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__create_date
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__create_date
 msgid "Created on"
 msgstr ""
@@ -412,6 +428,7 @@ msgid "Discard"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__display_name
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__display_name
 msgid "Display Name"
 msgstr ""
@@ -480,6 +497,7 @@ msgid "Group By"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__id
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__id
 msgid "ID"
 msgstr ""
@@ -490,6 +508,16 @@ msgstr ""
 msgid ""
 "If a quality check fails, a location is chosen from this list for each "
 "failed quantity."
+msgstr ""
+
+#. module: quality_control
+#: model:ir.model.fields,help:quality_control.field_quality_check_on_demand__lot_id
+msgid ""
+"If you want to specify a lot/serial number before the transfer validation,"
+"                                create a new lot here from this field with "
+"the same exact lot name of the move line you want to add a check for."
+"                                If you want to create a check for all move "
+"lines, leave this field empty."
 msgstr ""
 
 #. module: quality_control
@@ -535,11 +563,13 @@ msgid "Laptop XYZ"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__write_uid
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__write_date
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -565,6 +595,11 @@ msgstr ""
 #. module: quality_control
 #: model:ir.model,name:quality_control.model_stock_lot
 msgid "Lot/Serial"
+msgstr ""
+
+#. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__lot_id
+msgid "Lot/Serial Number"
 msgstr ""
 
 #. module: quality_control
@@ -703,6 +738,18 @@ msgid "OK"
 msgstr ""
 
 #. module: quality_control
+#. odoo-python
+#: code:addons/quality_control/models/stock_picking.py:0
+#: model_terms:ir.ui.view,arch_db:quality_control.quality_check_on_demand_view_form
+msgid "On-Demand Quality Check"
+msgstr ""
+
+#. module: quality_control
+#: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_frequency_type__on_demand
+msgid "On-demand"
+msgstr ""
+
+#. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_check__measure_on__operation
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_on__operation
 msgid "Operation"
@@ -710,6 +757,7 @@ msgstr ""
 
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check__measure_on
+#: model:ir.model.fields,help:quality_control.field_quality_check_on_demand__measure_on
 #: model:ir.model.fields,help:quality_control.field_quality_check_wizard__measure_on
 #: model:ir.model.fields,help:quality_control.field_quality_point__measure_on
 msgid ""
@@ -767,6 +815,11 @@ msgid "Periodically"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__picking_id
+msgid "Picking"
+msgstr ""
+
+#. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__picture
 msgid "Picture"
 msgstr ""
@@ -794,6 +847,7 @@ msgstr ""
 
 #. module: quality_control
 #: model:ir.model,name:quality_control.model_product_template
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__product_id
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__product_id
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_check__measure_on__product
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_on__product
@@ -846,8 +900,7 @@ msgstr ""
 #. module: quality_control
 #. odoo-python
 #: code:addons/quality_control/models/quality.py:0
-#: code:addons/quality_control/models/quality.py:0
-#: model:ir.actions.server,name:quality_control.action_qualtity_alert
+#: model:ir.actions.server,name:quality_control.stock_picking_action_quality_alert
 #: model:ir.model,name:quality_control.model_quality_alert
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_calendar
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_search_inherit_quality_control
@@ -898,6 +951,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/quality_control/models/quality.py:0
 #: model:ir.actions.act_window,name:quality_control.action_quality_check_wizard
+#: model:ir.actions.server,name:quality_control.stock_picking_action_quality_check_on_demand
 #: model:ir.model,name:quality_control.model_quality_check
 #: model_terms:ir.ui.view,arch_db:quality_control.view_stock_move_line_detailed_operation_tree_inherit_quality
 msgid "Quality Check"
@@ -928,6 +982,11 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "Quality Check Picture"
+msgstr ""
+
+#. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__quality_point_id
+msgid "Quality Check Point"
 msgstr ""
 
 #. module: quality_control
@@ -1098,6 +1157,11 @@ msgid "Responsible"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__show_lot_number
+msgid "Show Lot Number"
+msgstr ""
+
+#. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__show_lot_text
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__show_lot_text
 msgid "Show Lot Text"
@@ -1184,6 +1248,12 @@ msgid "Testing Percentage Within Lot"
 msgstr ""
 
 #. module: quality_control
+#. odoo-python
+#: code:addons/quality_control/wizard/on_demand_quality_check_wizard.py:0
+msgid "The selected lot/serial number does not exist in the picking."
+msgstr ""
+
+#. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_alert__title
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__title
 msgid "Title"
@@ -1254,6 +1324,11 @@ msgid "Wizard for Quality Check Pop Up"
 msgstr ""
 
 #. module: quality_control
+#: model:ir.model,name:quality_control.model_quality_check_on_demand
+msgid "Wizard to select on-demand quality check points"
+msgstr ""
+
+#. module: quality_control
 #: model:ir.actions.report,name:quality_control.quality_check_report
 msgid "Worksheet Report - External (PDF)"
 msgstr ""
@@ -1270,8 +1345,18 @@ msgstr ""
 
 #. module: quality_control
 #. odoo-python
+#: code:addons/quality_control/models/stock_picking.py:0
+#: code:addons/quality_control/wizard/on_demand_quality_check_wizard.py:0
+msgid ""
+"You can not create quality check for a draft, done or cancelled transfer."
+msgstr ""
+
+#. module: quality_control
+#. odoo-python
 #: code:addons/quality_control/models/quality.py:0
-msgid "You measured %.2f %s and it should be between %.2f and %.2f %s."
+msgid ""
+"You measured %(measure).2f %(unit)s and it should be between "
+"%(tolerance_min).2f and %(tolerance_max).2f %(unit)s."
 msgstr ""
 
 #. module: quality_control
@@ -1288,10 +1373,15 @@ msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_form
+msgid "alias"
+msgstr ""
+
+#. module: quality_control
+#: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_form
 msgid "e.g. The QA Masters"
 msgstr ""
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_form
-msgid "e.g. domain.com"
+msgid "e.g. mycompany.com"
 msgstr ""

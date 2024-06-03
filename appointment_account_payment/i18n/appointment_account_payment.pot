@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:55+0000\n"
-"PO-Revision-Date: 2024-02-12 10:55+0000\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2024-06-03 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,21 +34,20 @@ msgid ""
 msgstr ""
 
 #. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
-msgid "(timezone:"
-msgstr ""
-
-#. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
-msgid ""
-"<br/><i class=\"fa fa-cog me-1\" role=\"img\" aria-label=\"Edit\" "
-"title=\"Configure Providers in backend\"/><em>Configure Payment "
-"Providers</em>"
-msgstr ""
-
-#. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
 msgid "<i class=\"fa fa-pencil fa-fw me-1\"/>Edit my appointment"
+msgstr ""
+
+#. module: appointment_account_payment
+#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
+msgid ""
+"<i class=\"fa fa-pencil-square-o text-warning me-3\"/>Appointment waiting "
+"for payment"
+msgstr ""
+
+#. module: appointment_account_payment
+#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
+msgid "<i class=\"fa fa-times-circle text-danger me-3\"/>Appointment Unavailable!"
 msgstr ""
 
 #. module: appointment_account_payment
@@ -60,21 +59,14 @@ msgstr ""
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
-msgid ""
-"<span class=\"text-nowrap\"><i class=\"oi oi-arrow-right mx-2\"/>Back to "
-"edit mode</span>"
-msgstr ""
-
-#. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "<span>Online</span>"
 msgstr ""
 
 #. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
+#: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_progress_bar
 msgid ""
-"<strong>No suitable payment option could be found.</strong>\n"
-"                    If you believe that it is an error, please contact the website administrator."
+"<span>Payment</span>\n"
+"            <span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted fs-5\"/>"
 msgstr ""
 
 #. module: appointment_account_payment
@@ -95,15 +87,6 @@ msgid "<strong>Warning</strong> You must be logged in to pay."
 msgstr ""
 
 #. module: appointment_account_payment
-#: model:ir.model.fields,help:appointment_account_payment.field_product_product__detailed_type
-#: model:ir.model.fields,help:appointment_account_payment.field_product_template__detailed_type
-msgid ""
-"A storable product is a product for which you manage stock. The Inventory app has to be installed.\n"
-"A consumable product is a product for which stock is not managed.\n"
-"A service is a non-material product you provide."
-msgstr ""
-
-#. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__booking_token
 msgid "Access Token"
 msgstr ""
@@ -121,11 +104,6 @@ msgstr ""
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view_form
 msgid "Answers"
-msgstr ""
-
-#. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
-msgid "Appointment"
 msgstr ""
 
 #. module: appointment_account_payment
@@ -170,7 +148,6 @@ msgid "Booking"
 msgstr ""
 
 #. module: appointment_account_payment
-#: model:ir.model.fields.selection,name:appointment_account_payment.selection__product_template__detailed_type__booking_fees
 #: model:product.template,name:appointment_account_payment.default_booking_product_product_template
 msgid "Booking Fees"
 msgstr ""
@@ -290,11 +267,6 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
-msgid "Location"
-msgstr ""
-
-#. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__calendar_event_id
 msgid "Meeting"
 msgstr ""
@@ -341,16 +313,9 @@ msgid "Proceed to Payment"
 msgstr ""
 
 #. module: appointment_account_payment
-#: model:ir.model,name:appointment_account_payment.model_product_template
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__product_id
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__product_id
 msgid "Product"
-msgstr ""
-
-#. module: appointment_account_payment
-#: model:ir.model.fields,field_description:appointment_account_payment.field_product_product__detailed_type
-#: model:ir.model.fields,field_description:appointment_account_payment.field_product_template__detailed_type
-msgid "Product Type"
 msgstr ""
 
 #. module: appointment_account_payment
@@ -367,11 +332,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view_form
 msgid "Resources"
-msgstr ""
-
-#. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
-msgid "Schedule another appointment"
 msgstr ""
 
 #. module: appointment_account_payment
@@ -443,17 +403,10 @@ msgstr ""
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
-msgid ""
-"Your appointment has not been booked yet. It will be confirmed upon payment "
-"confirmation."
+msgid "Where"
 msgstr ""
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "people"
-msgstr ""
-
-#. module: appointment_account_payment
-#: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
-msgid "with"
 msgstr ""

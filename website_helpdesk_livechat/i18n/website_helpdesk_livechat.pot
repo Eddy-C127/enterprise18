@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-08 07:01+0000\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2024-06-03 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,11 +41,6 @@ msgid "Anything else to add?"
 msgstr ""
 
 #. module: website_helpdesk_livechat
-#: model:ir.ui.menu,name:website_helpdesk_livechat.helpdesk_team_canned_response_menu
-msgid "Canned Responses"
-msgstr ""
-
-#. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_chatbot_script
 msgid "Chatbot Script"
 msgstr ""
@@ -58,11 +53,6 @@ msgstr ""
 #. module: website_helpdesk_livechat
 #: model:ir.ui.menu,name:website_helpdesk_livechat.chatbot_config
 msgid "Chatbots"
-msgstr ""
-
-#. module: website_helpdesk_livechat
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
-msgid "Configure Canned Responses"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -82,7 +72,7 @@ msgstr ""
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Create a new helpdesk ticket (/ticket ticket title)"
 msgstr ""
 
@@ -100,11 +90,6 @@ msgstr ""
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_dispatch
 msgid "First, what is the nature of your issue?"
-msgstr ""
-
-#. module: website_helpdesk_livechat
-#: model:ir.model.fields,field_description:website_helpdesk_livechat.field_chatbot_script__ticket_count
-msgid "Generated Ticket Count"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -195,7 +180,7 @@ msgstr ""
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Search helpdesk tickets (/search_tickets keyword)"
 msgstr ""
 

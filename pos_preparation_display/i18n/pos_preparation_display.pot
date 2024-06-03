@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.1alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-08 07:01+0000\n"
-"PO-Revision-Date: 2024-01-08 07:01+0000\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2024-06-03 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,6 @@ msgstr ""
 #. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
-#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 msgid "Close"
 msgstr ""
 
@@ -128,21 +127,6 @@ msgid "Created on"
 msgstr ""
 
 #. module: pos_preparation_display
-#. odoo-javascript
-#: code:addons/pos_preparation_display/static/src/app/components/order/order.xml:0
-msgid "Delete"
-msgstr ""
-
-#. module: pos_preparation_display
-#. odoo-javascript
-#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
-#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
-#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
-#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
-msgid "Delete All"
-msgstr ""
-
-#. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__displayed
 msgid ""
 "Determines whether the order should be displayed on the preparation screen"
@@ -167,6 +151,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_reset_wizard__display_name
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: pos_preparation_display
+#. odoo-javascript
+#: code:addons/pos_preparation_display/static/src/app/components/order/order.xml:0
+#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
+msgid "Done"
 msgstr ""
 
 #. module: pos_preparation_display
@@ -252,7 +243,6 @@ msgstr ""
 #. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
-#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 msgid "Loading..."
 msgstr ""
 
@@ -276,11 +266,6 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_form
 msgid "Offer"
-msgstr ""
-
-#. module: pos_preparation_display
-#: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
-msgid "Open Preparation Display"
 msgstr ""
 
 #. module: pos_preparation_display
@@ -361,6 +346,11 @@ msgid "Preparation Display Order"
 msgstr ""
 
 #. module: pos_preparation_display
+#: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
+msgid "Preparation Screen"
+msgstr ""
+
+#. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__preparation_display_id
 msgid "Preparation display"
@@ -398,7 +388,6 @@ msgstr ""
 
 #. module: pos_preparation_display
 #. odoo-javascript
-#: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 msgid "Recall"
 msgstr ""
@@ -471,6 +460,11 @@ msgstr ""
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_stage__alert_timer
 msgid "Timer after which the order will be highlighted"
+msgstr ""
+
+#. module: pos_preparation_display
+#: model:ir.actions.server,name:pos_preparation_display.preparation_display_delete_cron_ir_actions_server
+msgid "delete_preparation_display_order"
 msgstr ""
 
 #. module: pos_preparation_display

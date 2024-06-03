@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:55+0000\n"
-"PO-Revision-Date: 2024-02-12 10:55+0000\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2024-06-03 09:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,18 +23,6 @@ msgstr ""
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Accept payments with an Ingenico payment terminal"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.xml:0
-msgid "Action identifier:"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.xml:0
-msgid "Amount:"
 msgstr ""
 
 #. module: pos_iot
@@ -90,21 +78,10 @@ msgid "Customer Display"
 msgstr ""
 
 #. module: pos_iot
-#: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_customer_facing_display_via_proxy
-msgid "Customer Facing Display"
-msgstr ""
-
-#. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_electronic_scale
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Electronic Scale"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
-msgid "Electronic payment in progress"
 msgstr ""
 
 #. module: pos_iot
@@ -123,14 +100,13 @@ msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
-msgid "Failed to request last transaction status"
+#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.xml:0
+msgid "Get Weight"
 msgstr ""
 
 #. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.xml:0
-msgid "Get Weight"
+#: model:ir.model,name:pos_iot.model_iot_device
+msgid "IOT Device"
 msgstr ""
 
 #. module: pos_iot
@@ -173,6 +149,11 @@ msgid "Ingenico Payment Terminal"
 msgstr ""
 
 #. module: pos_iot
+#: model:ir.model,name:pos_iot.model_iot_box
+msgid "IoT Box"
+msgstr ""
+
+#. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__device_id
 msgid "IoT Device"
 msgstr ""
@@ -186,27 +167,6 @@ msgstr ""
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iot_device_ids
 msgid "Iot Device"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.xml:0
-msgid "Last Transaction Status"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
-msgid "No worldline terminal configured"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
-msgid ""
-"No worldline terminal device configured for any payment methods. Double "
-"check if your configured payment method define the field Payment Terminal "
-"Device"
 msgstr ""
 
 #. module: pos_iot
@@ -300,11 +260,6 @@ msgid "Scan via Proxy"
 msgstr ""
 
 #. module: pos_iot
-#: model:ir.model.fields,help:pos_iot.field_pos_config__iface_customer_facing_display_via_proxy
-msgid "Show checkout to customers with a remotely-connected screen."
-msgstr ""
-
-#. module: pos_iot
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Terminal Disconnected"
@@ -338,12 +293,6 @@ msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.xml:0
-msgid "Time:"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
 #: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Transaction could not be cancelled"
 msgstr ""
@@ -356,20 +305,12 @@ msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
-msgid "Worldline"
+msgid "Worldline (BENELUX)"
 msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__worldline_payment_terminal
 msgid "Worldline Payment Terminal"
-msgstr ""
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
-msgid ""
-"You cannot check the status of the last transaction when a payment in in "
-"progress."
 msgstr ""
 
 #. module: pos_iot

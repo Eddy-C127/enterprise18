@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:57+0000\n"
-"PO-Revision-Date: 2024-02-12 10:57+0000\n"
+"POT-Creation-Date: 2024-06-03 09:05+0000\n"
+"PO-Revision-Date: 2024-06-03 09:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -77,9 +77,33 @@ msgid "Config Settings"
 msgstr ""
 
 #. module: social_linkedin
+#. odoo-python
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+msgid "Could not like / dislike this comment."
+msgstr ""
+
+#. module: social_linkedin
+#. odoo-python
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+msgid "Couldn't delete the post: %r."
+msgstr ""
+
+#. module: social_linkedin
+#. odoo-python
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+msgid "Couldn't update the post: %r."
+msgstr ""
+
+#. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_social_post__display_linkedin_preview
 #: model:ir.model.fields,field_description:social_linkedin.field_social_post_template__display_linkedin_preview
 msgid "Display LinkedIn Preview"
+msgstr ""
+
+#. module: social_linkedin
+#. odoo-python
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+msgid "Failed to post the comment: %(error_description)r"
 msgstr ""
 
 #. module: social_linkedin
@@ -247,6 +271,7 @@ msgstr ""
 
 #. module: social_linkedin
 #. odoo-python
+#: code:addons/social_linkedin/models/social_stream.py:0
 #: code:addons/social_linkedin/models/social_stream_post.py:0
 msgid "Unknown"
 msgstr ""
@@ -260,7 +285,7 @@ msgstr ""
 #: model:ir.model.fields,help:social_linkedin.field_social_media__media_type
 msgid ""
 "Used to make comparisons when we need to restrict some features to a "
-"specific media ('facebook', 'twitter', ...)."
+"specific media ('facebook', 'x', ...)."
 msgstr ""
 
 #. module: social_linkedin
@@ -270,7 +295,7 @@ msgstr ""
 
 #. module: social_linkedin
 #. odoo-python
-#: code:addons/social_linkedin/models/social_live_post.py:0
+#: code:addons/social_linkedin/models/social_account.py:0
 msgid ""
 "We could not upload your image, try reducing its size and posting it again "
 "(error: Failed during upload registering)."
@@ -278,7 +303,7 @@ msgstr ""
 
 #. module: social_linkedin
 #. odoo-python
-#: code:addons/social_linkedin/models/social_live_post.py:0
+#: code:addons/social_linkedin/models/social_account.py:0
 msgid ""
 "We could not upload your image, try reducing its size and posting it again."
 msgstr ""

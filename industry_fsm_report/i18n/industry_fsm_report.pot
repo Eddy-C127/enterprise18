@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:56+0000\n"
-"PO-Revision-Date: 2024-02-12 10:56+0000\n"
+"POT-Creation-Date: 2024-06-03 09:04+0000\n"
+"PO-Revision-Date: 2024-06-03 09:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -49,7 +49,6 @@ msgstr ""
 
 #. module: industry_fsm_report
 #. odoo-javascript
-#: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "<b>Send your task report</b> to your customer."
 msgstr ""
@@ -109,13 +108,13 @@ msgid "<strong>Customer: </strong>"
 msgstr ""
 
 #. module: industry_fsm_report
-#: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_view_gantt_fsm_worksheet
-msgid "<strong>Template — </strong>"
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
+msgid "<strong>Worker: </strong>"
 msgstr ""
 
 #. module: industry_fsm_report
-#: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
-msgid "<strong>Worker: </strong>"
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_view_gantt_fsm_worksheet
+msgid "<strong>Worksheet Template — </strong>"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -142,7 +141,7 @@ msgstr ""
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_project_form_inherit_industry_fsm_report
-msgid "Create reports to be signed off by your customers"
+msgid "Complete task reports for customer sharing and signing"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -170,19 +169,19 @@ msgid "Customer Preview"
 msgstr ""
 
 #. module: industry_fsm_report
+#. odoo-javascript
+#: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
+msgid "Customize your <b>layout</b>."
+msgstr ""
+
+#. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
 msgid "Date"
 msgstr ""
 
 #. module: industry_fsm_report
-#: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
-msgid "Days Spent"
-msgstr ""
-
-#. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.x_project_task_worksheet_template_3_ir_model_1
-#: model:ir.model.fields,field_description:industry_fsm_report.field_project_project__worksheet_template_id
 msgid "Default Worksheet"
 msgstr ""
 
@@ -197,33 +196,23 @@ msgid "Description of the Intervention"
 msgstr ""
 
 #. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.res_config_settings_view_form
+msgid "Design worksheet templates"
+msgstr ""
+
+#. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.x_project_task_worksheet_template_4_ir_model_1
 msgid "Device Installation and Maintenance"
 msgstr ""
 
 #. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_template_view_form_footer_design_button
+msgid "Discard"
+msgstr ""
+
+#. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__display_name
 msgid "Display Name"
-msgstr ""
-
-#. module: industry_fsm_report
-#: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_send_report_primary
-msgid "Display Send Report Primary"
-msgstr ""
-
-#. module: industry_fsm_report
-#: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_send_report_secondary
-msgid "Display Send Report Secondary"
-msgstr ""
-
-#. module: industry_fsm_report
-#: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_sign_report_primary
-msgid "Display Sign Report Primary"
-msgstr ""
-
-#. module: industry_fsm_report
-#: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__display_sign_report_secondary
-msgid "Display Sign Report Secondary"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -272,11 +261,6 @@ msgid "Go back to your Field Service <b>task</b>."
 msgstr ""
 
 #. module: industry_fsm_report
-#: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
-msgid "Hours Spent"
-msgstr ""
-
-#. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid ""
 "I hereby certify that this device meets the requirements of an acceptable "
@@ -309,11 +293,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Invite your customer to <b>validate and sign your task report</b>."
-msgstr ""
-
-#. module: industry_fsm_report
-#: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__fsm_is_sent
-msgid "Is Worksheet sent"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -395,6 +374,16 @@ msgid "Project"
 msgstr ""
 
 #. module: industry_fsm_report
+#: model:ir.model,name:industry_fsm_report.model_ir_actions_report
+msgid "Report Action"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_template_view_form_footer_design_button
+msgid "Save & Close"
+msgstr ""
+
+#. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Save time by automatically generating a <b>signature</b>."
@@ -406,15 +395,15 @@ msgid "Schedule your tasks and assign them to your workers."
 msgstr ""
 
 #. module: industry_fsm_report
-#: model:ir.actions.server,name:industry_fsm_report.action_fsm_task_send_report
-#: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
-msgid "Send Report"
+#. odoo-python
+#: code:addons/industry_fsm_report/models/project_task.py:0
+msgid "Send Field Service Report"
 msgstr ""
 
 #. module: industry_fsm_report
-#. odoo-python
-#: code:addons/industry_fsm_report/models/project_task.py:0
-msgid "Send report"
+#: model:ir.actions.server,name:industry_fsm_report.action_fsm_task_send_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
+msgid "Send Report"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -490,7 +479,15 @@ msgstr ""
 #. module: industry_fsm_report
 #. odoo-python
 #: code:addons/industry_fsm_report/controllers/portal.py:0
-msgid "The worksheet has been signed"
+msgid "The field service report has been signed by the customer."
+msgstr ""
+
+#. module: industry_fsm_report
+#. odoo-python
+#: code:addons/industry_fsm_report/models/ir_actions_report.py:0
+msgid ""
+"The field service report is unavailable for the selected tasks as they do "
+"not contain any timesheets, products, or worksheets."
 msgstr ""
 
 #. module: industry_fsm_report
@@ -503,6 +500,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/industry_fsm_report/models/project_task.py:0
 msgid "There are no reports to send."
+msgstr ""
+
+#. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_custom_page
+msgid "Time Spent"
 msgstr ""
 
 #. module: industry_fsm_report
@@ -545,12 +547,8 @@ msgid "Worksheet"
 msgstr ""
 
 #. module: industry_fsm_report
-#: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__worksheet_count
-msgid "Worksheet Count"
-msgstr ""
-
-#. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_worksheet_template
+#: model:ir.model.fields,field_description:industry_fsm_report.field_project_project__worksheet_template_id
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__worksheet_template_id
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task_burndown_chart_report__worksheet_template_id
 #: model:ir.model.fields,field_description:industry_fsm_report.field_report_project_task_user__worksheet_template_id
@@ -574,4 +572,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_project__allow_worksheets
 #: model:ir.model.fields,field_description:industry_fsm_report.field_project_task__allow_worksheets
 msgid "Worksheets"
+msgstr ""
+
+#. module: industry_fsm_report
+#: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_project_form_inherit_industry_fsm_report
+msgid "e.g. Device Installation"
 msgstr ""

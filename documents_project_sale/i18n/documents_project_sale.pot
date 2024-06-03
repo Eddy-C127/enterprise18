@@ -4,34 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.2alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-12 10:56+0000\n"
-"PO-Revision-Date: 2024-02-12 10:56+0000\n"
+"POT-Creation-Date: 2024-06-03 09:04+0000\n"
+"PO-Revision-Date: 2024-06-03 09:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: documents_project_sale
-#: model_terms:ir.ui.view,arch_db:documents_project_sale.product_template_form_view_inherit_documents_project_sale
-msgid ""
-"<span class=\"fa fa-lg fa-building-o fa-fw\" title=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-
-#. module: documents_project_sale
-#: model:ir.model.fields,field_description:documents_project_sale.field_product_product__documents_allowed_company_id
-#: model:ir.model.fields,field_description:documents_project_sale.field_product_template__documents_allowed_company_id
-msgid "Documents Allowed Company"
-msgstr ""
-
-#. module: documents_project_sale
-#: model:ir.model,name:documents_project_sale.model_documents_folder
-msgid "Documents Workspace"
-msgstr ""
 
 #. module: documents_project_sale
 #: model:documents.tag,name:documents_project_sale.documents_folder_facet_1_tag_3
@@ -54,14 +36,6 @@ msgid "New/Unsorted"
 msgstr ""
 
 #. module: documents_project_sale
-#: model:ir.model.fields,help:documents_project_sale.field_product_product__template_folder_id
-#: model:ir.model.fields,help:documents_project_sale.field_product_template__template_folder_id
-msgid ""
-"On sales order confirmation, a workspace will be automatically generated for"
-" the project based on this template."
-msgstr ""
-
-#. module: documents_project_sale
 #: model:documents.folder,name:documents_project_sale.documents_folder_template_child_2
 msgid "Photos"
 msgstr ""
@@ -72,19 +46,9 @@ msgid "Plans"
 msgstr ""
 
 #. module: documents_project_sale
-#: model:ir.model,name:documents_project_sale.model_product_template
-msgid "Product"
-msgstr ""
-
-#. module: documents_project_sale
-#: model:ir.model.fields,field_description:documents_project_sale.field_documents_folder__product_template_ids
-msgid "Product Template"
-msgstr ""
-
-#. module: documents_project_sale
-#: model:ir.model.fields,field_description:documents_project_sale.field_product_product__project_template_use_documents
-#: model:ir.model.fields,field_description:documents_project_sale.field_product_template__project_template_use_documents
-msgid "Project Template - Documents"
+#: model:account.analytic.account,name:documents_project_sale.analytic_renovation_architect
+#: model:project.project,name:documents_project_sale.project_project_renovation_architect
+msgid "Renovation Architect"
 msgstr ""
 
 #. module: documents_project_sale
@@ -98,49 +62,11 @@ msgid "Renovation Projects"
 msgstr ""
 
 #. module: documents_project_sale
-#: model:ir.model,name:documents_project_sale.model_sale_order
-msgid "Sales Order"
-msgstr ""
-
-#. module: documents_project_sale
 #: model:documents.facet,name:documents_project_sale.documents_folder_facet_1
 msgid "Status"
 msgstr ""
 
 #. module: documents_project_sale
-#: model:documents.folder,name:documents_project_sale.documents_folder_template
-msgid "Template"
-msgstr ""
-
-#. module: documents_project_sale
-#. odoo-python
-#: code:addons/documents_project_sale/models/product_template.py:0
-msgid ""
-"The \"%(workspace_template)s\" workspace template should either be in the "
-"\"%(company)s\" company like this product or be open to all companies."
-msgstr ""
-
-#. module: documents_project_sale
-#. odoo-python
-#: code:addons/documents_project_sale/models/documents_folder.py:0
-msgid ""
-"This workspace should remain in the same company as the \"%s\" product for "
-"which it is a template. Please update the company of the \"%s\" product, or "
-"leave the company of this workspace empty."
-msgstr ""
-
-#. module: documents_project_sale
-#. odoo-python
-#: code:addons/documents_project_sale/models/documents_folder.py:0
-msgid ""
-"This workspace should remain in the same company as the following products for which it is a template:\n"
-"%s\n"
-"\n"
-"Please update the company of those products, or leave the company of this workspace empty."
-msgstr ""
-
-#. module: documents_project_sale
-#: model:ir.model.fields,field_description:documents_project_sale.field_product_product__template_folder_id
-#: model:ir.model.fields,field_description:documents_project_sale.field_product_template__template_folder_id
-msgid "Workspace Template"
+#: model:project.project,label_tasks:documents_project_sale.project_project_renovation_architect
+msgid "Tasks"
 msgstr ""
