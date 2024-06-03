@@ -1128,8 +1128,8 @@ class AppointmentType(models.Model):
                  ('partner_ids', 'in', related_partners.ids),
                  '&', '&',
                  ('show_as', '=', 'busy'),
-                 ('stop', '>', datetime.combine(start_dt, time.min)),
-                 ('start', '<', datetime.combine(end_dt, time.max)),
+                 ('stop', '>=', datetime.combine(start_dt, time.min)),
+                 ('start', '<=', datetime.combine(end_dt, time.max)),
                 ],
                 order='start asc',
             )
