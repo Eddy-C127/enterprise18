@@ -1800,3 +1800,22 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
 
         with self.assertRaises(UserError, msg="You can't unlink an attachment being an EDI document sent to the government."):
             invoice.l10n_mx_edi_invoice_document_ids.attachment_id.unlink()
+
+    @freeze_time('2017-01-01')
+    def test_global_invoice_year_month_format(self):
+        """ Test that 'meses' and 'anno' are correctly set since we ignore them in
+        other tests to allow to dynamically generate documents.
+        """
+        invoice = self._create_invoice(
+            l10n_mx_edi_cfdi_to_public=True,
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product.id,
+                    'price_unit': 1000.0,
+                    'tax_ids': [],
+                }),
+            ],
+        )
+        with self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_global_invoice_try_send()
+        self._assert_global_invoice_cfdi_from_invoices(invoice, 'test_global_invoice_year_month_format')
