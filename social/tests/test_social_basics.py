@@ -11,9 +11,10 @@ from odoo.addons.social.tests import common
 from odoo.addons.social.tests.tools import mock_void_external_calls
 from odoo.addons.base.tests.test_ir_cron import CronMixinCase
 from odoo.sql_db import Cursor
-from odoo.tests.common import users
+from odoo.tests.common import users, tagged
 
 
+@tagged("utm")
 class TestSocialBasics(common.SocialCase, CronMixinCase):
     @mock_void_external_calls()
     def test_cron_triggers(self):
@@ -121,8 +122,8 @@ class TestSocialBasics(common.SocialCase, CronMixinCase):
             msg='Should have added a counter at the end of the name')
         self.assertEqual(post_3.name, 'Source Name Social Post (Social Post created on 2022-01-02)',
             msg='Should not have generated the name from the content')
-        self.assertEqual(post_4.name, 'Message 1 (Social Post created on 2022-01-02) [3]',
-            msg='Should have fixed the counter of the given name')
+        self.assertEqual(post_4.name, 'Message 1 (Social Post created on 2022-01-02) [1337]',
+            msg='Should have kept the counter of the given name when possible to respect user input')
         self.assertEqual(post_5.name, 'Source Name Social Post (Social Post created on 2022-01-02) [2]',
             msg='Name already generated from the content of a different record')
 
