@@ -2,7 +2,6 @@
 
 from markupsafe import Markup
 from odoo import fields, models, Command, _
-from odoo.addons.http_routing.models.ir_http import slug
 
 
 class ForumForum(models.Model):
@@ -48,6 +47,7 @@ class ForumForum(models.Model):
         })
 
         post.ticket_id = ticket
+        slug = self.env['ir.http']._slug
         ticket.message_post(
             body=Markup("%s <a href='/forum/%s/%s' target='_blank'>%s</a>") % (_('Ticket created from forum post'), slug(self), slug(post), post.name),
             message_type='comment',

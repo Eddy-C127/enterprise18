@@ -3,7 +3,6 @@
 
 from odoo.http import route, request
 from odoo.osv import expression
-from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website_forum.controllers.website_forum import WebsiteForum
 
 
@@ -16,7 +15,7 @@ class WebsiteForumHelpdesk(WebsiteForum):
         domain = expression.AND([request.website.website_domain(), [('id', 'in', team.website_forum_ids.ids)]])
         forums = request.env['forum.forum'].search(domain)
         if len(forums) == 1:
-            return request.redirect('/forum/%s' % slug(forums[0]), code=302)
+            return request.redirect('/forum/%s' % request.env['ir.http']._slug(forums[0]), code=302)
         return request.render(self.get_template_xml_id(), {
             'forums': forums
         })

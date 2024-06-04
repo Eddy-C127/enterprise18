@@ -21,7 +21,6 @@ from odoo.tools.mail import is_html_empty
 from odoo.tools.misc import babel_locale_parse, get_lang
 from odoo.addons.base.models.ir_qweb import keep_query
 from odoo.addons.base.models.res_partner import _tz_get
-from odoo.addons.http_routing.models.ir_http import unslug
 
 
 def _formated_weekdays(locale):
@@ -171,7 +170,7 @@ class AppointmentController(http.Controller):
         """ For backward compatibility:
         appointment_type is transformed from a recordset to a string because we removed the rights for public user.
         """
-        return request.redirect('/appointment/%s?%s' % (unslug(appointment_type)[1], keep_query('*')), code=301)
+        return request.redirect('/appointment/%s?%s' % (request.env['ir.http']._unslug(appointment_type)[1], keep_query('*')), code=301)
 
     @route(['/appointment/<int:appointment_type_id>'],
            type='http', auth="public", website=True, sitemap=True)

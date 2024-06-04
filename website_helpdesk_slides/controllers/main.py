@@ -5,8 +5,6 @@ from odoo.addons.website_helpdesk.controllers.main import WebsiteHelpdesk
 from odoo.addons.website_slides.controllers.main import WebsiteSlides
 from odoo.http import route, request
 
-from odoo.addons.http_routing.models.ir_http import slug
-
 
 class WebsiteHelpdeskSlides(WebsiteHelpdesk):
 
@@ -39,7 +37,7 @@ class WebsiteSlidesHelpdesk(WebsiteSlides):
             return request.redirect('/slides')
         channels = team.website_slide_channel_ids
         if len(channels) == 1:
-            return request.redirect('/slides/%s' % slug(channels[0]), code=302)
+            return request.redirect('/slides/%s' % request.env['ir.http']._slug(channels[0]), code=302)
         render_values = super().slides_channel_all_values(self, **post)
         render_values['channels'] = channels
         return request.render('website_helpdesk_slides.helpdesk_courses', render_values)

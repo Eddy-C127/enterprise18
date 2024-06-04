@@ -6,7 +6,6 @@ from lxml import html
 
 from odoo import http
 from odoo.http import request
-from odoo.addons.http_routing.models.ir_http import slugify
 import werkzeug.exceptions
 
 
@@ -28,7 +27,7 @@ class WebsiteStudioController(http.Controller):
         model.write(values)
         template = 'website_studio.default_record_page'
         form_name = model.name
-        page_url = '/' + slugify(form_name, max_length=1024, path=True)
+        page_url = '/' + request.env['ir.http']._slugify(form_name, max_length=1024, path=True)
         try:
             # Pages are served as a fallback when Python routing (@route) doesn't
             # match and there is no attachment matching that url. For simplicity and

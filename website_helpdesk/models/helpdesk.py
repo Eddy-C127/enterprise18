@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.addons.http_routing.models.ir_http import slug
 
 
 class HelpdeskTeam(models.Model):
@@ -40,7 +39,7 @@ class HelpdeskTeam(models.Model):
     def _compute_website_url(self):
         super(HelpdeskTeam, self)._compute_website_url()
         for team in self:
-            team.website_url = "/helpdesk/%s" % slug(team)
+            team.website_url = "/helpdesk/%s" % self.env['ir.http']._slug(team)
 
     @api.onchange('use_website_helpdesk_form', 'use_website_helpdesk_forum', 'use_website_helpdesk_slides', 'use_website_helpdesk_knowledge')
     def _onchange_use_website_helpdesk(self):
@@ -131,7 +130,7 @@ class HelpdeskTeam(models.Model):
     def _compute_form_url(self):
         for team in self:
             base_url = team.get_base_url()
-            team.feature_form_url = (team.use_website_helpdesk_form and team.name and team.id) and (base_url + '/helpdesk/' + slug(team)) or False
+            team.feature_form_url = (team.use_website_helpdesk_form and team.name and team.id) and (base_url + '/helpdesk/' + self.env['ir.http']._slug(team)) or False
 
     def _helpcenter_filter_types(self):
         return {}
@@ -162,7 +161,7 @@ class HelpdeskTeam(models.Model):
             'displayExtraLink': True,
             'displayImage': False,
             'allowFuzzy': True,
-            'helpdesk': slug(self),
+            'helpdesk': self.env['ir.http']._slug(self),
             'max_date': self._helpcenter_date_from_search(searches),
             'tag': searches.get('tag', False),
         }

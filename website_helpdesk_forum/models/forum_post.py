@@ -1,7 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models
 
-from odoo.addons.http_routing.models.ir_http import slug, unslug
 
 class ForumPost(models.Model):
     _inherit = 'forum.post'
@@ -22,7 +21,7 @@ class ForumPost(models.Model):
 
         team = self.env['helpdesk.team']
         if options.get('helpdesk'):
-            team = team.browse(unslug(options['helpdesk'])[1])
+            team = team.browse(self.env['ir.http']._unslug(options['helpdesk'])[1])
 
         if not team:
             return res
@@ -46,6 +45,6 @@ class ForumPost(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_url',
-            'url': '/forum/%s/%s%s/%s' % (slug(self.forum_id), edit and 'post/' or '', slug(self), edit and 'edit' or ''),
+            'url': '/forum/%s/%s%s/%s' % (self.env['ir.http']._slug(self.forum_id), edit and 'post/' or '', self.env['ir.http']._slug(self), edit and 'edit' or ''),
             'target': 'self',
         }

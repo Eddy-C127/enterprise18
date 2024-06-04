@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.http_routing.models.ir_http import slug
+from odoo.http import request
 from odoo.addons.website_helpdesk.controllers.main import WebsiteHelpdesk
 
 
@@ -16,6 +16,6 @@ class WebsiteHelpdeskForum(WebsiteHelpdesk):
             'template': 'website_helpdesk_forum.search_result',
             'record': question,
             'score': question.views + question.vote_count + question.favourite_count,
-            'url': '/forum/%s/%s' % (slug(question.forum_id), slug(question)),
+            'url': '/forum/%s/%s' % (request.env['ir.http']._slug(question.forum_id), request.env['ir.http']._slug(question)),
             'icon': 'fa-comments',
         } for question in questions]

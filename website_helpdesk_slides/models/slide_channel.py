@@ -4,8 +4,6 @@
 from odoo import _, api, fields, models
 from odoo.osv import expression
 
-from odoo.addons.http_routing.models.ir_http import unslug
-
 
 class SlideChannel(models.Model):
     _inherit = 'slide.channel'
@@ -24,7 +22,7 @@ class SlideChannel(models.Model):
 
         team = self.env['helpdesk.team']
         if options.get('helpdesk'):
-            team = team.browse(unslug(options['helpdesk'])[1])
+            team = team.browse(self.env['ir.http']._unslug(options['helpdesk'])[1])
 
         if not team:
             return res

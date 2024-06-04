@@ -7,7 +7,6 @@ import mimetypes
 from markupsafe import Markup
 
 from odoo import api, models, fields, _, Command
-from odoo.addons.http_routing.models.ir_http import slugify
 from odoo.addons.whatsapp.tools.lang_list import Languages
 from odoo.addons.whatsapp.tools.whatsapp_api import WhatsAppApi
 from odoo.addons.whatsapp.tools.whatsapp_exception import WhatsAppError
@@ -262,6 +261,7 @@ class WhatsAppTemplate(models.Model):
     def _compute_template_name(self):
         for template in self:
             if not template.template_name or (template.status == 'draft' and not template.wa_template_uid):
+                slugify = self.env['ir.http']._slugify
                 template.template_name = re.sub(r'\W+', '_', slugify(template.name or ''))
 
     @api.depends('model')

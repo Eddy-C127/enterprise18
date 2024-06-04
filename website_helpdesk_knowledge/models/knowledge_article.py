@@ -5,8 +5,6 @@ from odoo import api, models, _
 from odoo.osv import expression
 from odoo.exceptions import ValidationError
 
-from odoo.addons.http_routing.models.ir_http import unslug
-
 
 class Article(models.Model):
     _inherit = 'knowledge.article'
@@ -16,7 +14,7 @@ class Article(models.Model):
         res = super()._search_get_detail(website, order, options)
         team = self.env['helpdesk.team']
         if options.get('helpdesk'):
-            team = team.browse(unslug(options['helpdesk'])[1])
+            team = team.browse(self.env['ir.http']._unslug(options['helpdesk'])[1])
 
         if not team:
             return res

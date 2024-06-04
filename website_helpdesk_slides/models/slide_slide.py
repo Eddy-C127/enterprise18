@@ -3,8 +3,6 @@
 
 from odoo import api, models
 
-from odoo.addons.http_routing.models.ir_http import unslug
-
 
 class SlideSlide(models.Model):
     _inherit = 'slide.slide'
@@ -15,7 +13,7 @@ class SlideSlide(models.Model):
 
         team = self.env['helpdesk.team']
         if options.get('helpdesk'):
-            team = team.browse(unslug(options['helpdesk'])[1])
+            team = team.browse(self.env['ir.http']._unslug(options['helpdesk'])[1])
 
         if not team:
             return res

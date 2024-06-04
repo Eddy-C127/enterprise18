@@ -10,7 +10,6 @@ from psycopg2 import InternalError, OperationalError
 from werkzeug.urls import url_encode, url_join
 
 from odoo import api, fields, models, _
-from odoo.addons.http_routing.models.ir_http import slug
 from odoo.exceptions import UserError
 
 _logger = getLogger(__name__)
@@ -43,7 +42,7 @@ class WebsiteTwitterWall(models.Model):
         super(WebsiteTwitterWall, self)._compute_website_url()
         for wall in self:
             if wall.id:
-                wall.website_url = "%s/twitter_wall/view/%s" % (wall.get_base_url(), slug(wall))
+                wall.website_url = "%s/twitter_wall/view/%s" % (wall.get_base_url(), self.env['ir.http']._slug(wall))
 
     def toggle_live_mode(self):
         self.env.registry.clear_cache()  # not sure this is really useful
@@ -146,7 +145,7 @@ class WebsiteTwitterWall(models.Model):
     @api.depends('name')
     def _website_url(self, name, arg):
         res = super(WebsiteTwitterWall, self)._website_url(name, arg)
-        res.update({(wall.id, '%s/twitter_wall/view/%s' % (wall.get_base_url(), slug(wall))) for wall in self})
+        res.update({(wall.id, '%s/twitter_wall/view/%s' % (wall.get_base_url(), self.env['ir.http']._slug(wall))) for wall in self})
         return res
 
     def open_tweets(self):
