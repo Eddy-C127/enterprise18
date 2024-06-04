@@ -3,63 +3,61 @@
     <data>
 
         <template id="custom_header">
-            <div class="o_boxed_header">
-                <t t-set="report_number" t-value="int(o.l10n_latam_document_number)"/>
-                <t t-set="report_name" t-value="'GUÍA DE DESPACHO ELECTRÓNICA'"/>
-                <t t-set="header_address" t-value="o.company_id.partner_id"/>
-                <t t-set="custom_footer">
-                    <t t-call="l10n_cl.custom_footer"/>
-                </t>
-                <div>
-                    <div class="row">
-                        <div name="left-upper-side" class="col-8">
-                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 60px;" alt="Logo"/>
+            <t t-set="report_number" t-value="int(o.l10n_latam_document_number)"/>
+            <t t-set="report_name" t-value="'GUÍA DE DESPACHO ELECTRÓNICA'"/>
+            <t t-set="header_address" t-value="o.company_id.partner_id"/>
+            <t t-set="custom_footer">
+                <t t-call="l10n_cl.custom_footer"/>
+            </t>
+            <div>
+                <div class="row">
+                    <div name="left-upper-side" class="col-8">
+                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 60px;" alt="Logo"/>
+                        <br/>
+                        <strong>
+                            <span t-field="o.company_id.partner_id.name"/>
+                        </strong>
+                        <br/>
+                        <span name="company_activity" class="fst-italic"
+                                t-field="o.company_id.l10n_cl_activity_description"/>
+                        <div/>
+                        <t t-out="' - '.join([item for item in [', '.join([item for item in [header_address.street, header_address.street2] if item]), header_address.zip, header_address.country_id and header_address.country_id.name] if item])"/>
+                        <span t-if="header_address.phone">
                             <br/>
-                            <strong>
-                                <span t-field="o.company_id.partner_id.name"/>
-                            </strong>
-                            <br/>
-                            <span name="company_activity" class="fst-italic"
-                                  t-field="o.company_id.l10n_cl_activity_description"/>
-                            <div/>
-                            <t t-out="' - '.join([item for item in [', '.join([item for item in [header_address.street, header_address.street2] if item]), header_address.zip, header_address.country_id and header_address.country_id.name] if item])"/>
-                            <span t-if="header_address.phone">
-                                <br/>
-                            </span>
-                            <span t-if="header_address.phone" style="white-space: nowrap;"
-                                  t-out="'Tel: ' + header_address.phone"/>
-                            <span t-if="header_address.website">
-                                <span t-att-style="'color: %s;' % o.company_id.primary_color"
-                                      t-out="'- Web: %s' %' - '.join([item for item in [header_address.website.replace('https://', '').replace('http://', ''), header_address.email] if item])"/>
-                            </span>
-                        </div>
-                        <div name="right-upper-side" class="col-4">
-                            <div class="row">
-                                <div name="right-upper-side" class="col-12">
-                                    <div class="row border border-dark">
-                                        <div class="col-12 text-center">
-                                            <h6 t-att-style="'color: %s;' % o.company_id.primary_color">
-                                                <strong t-att-style="'color: %s;' % o.company_id.primary_color">
-                                                    <br/>
-                                                    <span style="line-height: 180%;">RUT:</span>
-                                                    <span t-field="o.company_id.partner_id.vat"/>
-                                                    <br/>
-                                                    <span class="text-uppercase" t-out="report_name"/>
-                                                    <br/>
-                                                    <span>Nº:</span>
-                                                    <span style="line-height: 200%;" t-out="report_number"/>
-                                                    <br/>
-                                                    <br/>
-                                                </strong>
-                                            </h6>
-                                        </div>
+                        </span>
+                        <span t-if="header_address.phone" style="white-space: nowrap;"
+                                t-out="'Tel: ' + header_address.phone"/>
+                        <span t-if="header_address.website">
+                            <span t-att-style="'color: %s;' % o.company_id.primary_color"
+                                    t-out="'- Web: %s' %' - '.join([item for item in [header_address.website.replace('https://', '').replace('http://', ''), header_address.email] if item])"/>
+                        </span>
+                    </div>
+                    <div name="right-upper-side" class="col-4">
+                        <div class="row">
+                            <div name="right-upper-side" class="col-12">
+                                <div class="row border border-dark">
+                                    <div class="col-12 text-center">
+                                        <h6 t-att-style="'color: %s;' % o.company_id.primary_color">
+                                            <strong t-att-style="'color: %s;' % o.company_id.primary_color">
+                                                <br/>
+                                                <span style="line-height: 180%;">RUT:</span>
+                                                <span t-field="o.company_id.partner_id.vat"/>
+                                                <br/>
+                                                <span class="text-uppercase" t-out="report_name"/>
+                                                <br/>
+                                                <span>Nº:</span>
+                                                <span style="line-height: 200%;" t-out="report_number"/>
+                                                <br/>
+                                                <br/>
+                                            </strong>
+                                        </h6>
                                     </div>
-                                    <div class="row text-center">
-                                        <div class="col-12 text-center"
-                                             t-att-style="'color: %s;' % o.company_id.primary_color"
-                                             name="regional-office">
-                                            <span t-field="o.company_id.l10n_cl_sii_regional_office"/>
-                                        </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-12 text-center"
+                                            t-att-style="'color: %s;' % o.company_id.primary_color"
+                                            name="regional-office">
+                                        <span t-field="o.company_id.l10n_cl_sii_regional_office"/>
                                     </div>
                                 </div>
                             </div>
