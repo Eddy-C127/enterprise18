@@ -113,6 +113,7 @@
                     </group>
                     <group string="Activity" name="next_activity" autofocus="autofocus" invisible="action != 'next_activity'">
                         <group name="activity_details">
+                            <field name="action" invisible="1"/>
                             <field name="activity_type_id" options="{'no_create': True, 'no_open': True}" required="action == 'next_activity'"/>
                             <field name="activity_summary" placeholder="e.g. Discuss proposal"/>
                             <field name="activity_note" placeholder="Log a note..."/>
@@ -121,7 +122,8 @@
                             <label for="activity_date_deadline_range"/>
                             <div class="o_row">
                                 <field name="activity_date_deadline_range"/>
-                                <field name="activity_date_deadline_range_type"/>
+                                <field name="activity_date_deadline_range_type" 
+                                       required="action == 'next_activity' and activity_date_deadline_range > 0"/>
                             </div>
                             <field name="activity_user"
                                 invisible="action != 'next_activity'"
