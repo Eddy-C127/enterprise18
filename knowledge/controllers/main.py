@@ -82,7 +82,6 @@ class KnowledgeController(http.Controller):
 
         session_info.update(
             cache_hashes=cache_hashes,
-            knowledge_article_id=article.id,
             user_companies={
                 'current_company': request.env.company.id,
                 'allowed_companies': {

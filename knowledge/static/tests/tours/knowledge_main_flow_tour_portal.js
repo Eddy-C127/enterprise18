@@ -11,8 +11,22 @@
  */
 
 import { dragAndDropArticle } from '@knowledge/../tests/tours/knowledge_tour_utils';
+import { browser } from "@web/core/browser/browser";
 import { registry } from "@web/core/registry";
 import { queryOne } from "@odoo/hoot-dom";
+
+let workspaceArticleResId;
+let privateArticleResId;
+
+/**
+ * Extract the resId from a Knowledge portal URL of scheme:
+ * /knowledge/article/{resId}
+ * @param {URL} url
+ * @returns {Number} resId
+ */
+function extractURLResID(url) {
+    return parseInt((url.pathname.match("/knowledge/article/([0-9]+)") || []).at(1));
+}
 
 registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     test: true,
@@ -20,10 +34,23 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     steps: () => [{
     // click on the main "New" action
     trigger: '.o_knowledge_header .btn:contains("New")',
-    run: "click",
+    run: (actionHelper) => {
+        const url = new URL(browser.location);
+        workspaceArticleResId = extractURLResID(url);
+        if (!workspaceArticleResId) {
+            throw new Error(`Expected pathname to be like /knowledge/article/{id}, got ${url.pathname} instead.`);
+        }
+        actionHelper.click();
+    },
 }, {
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("Untitled")',
-    run: () => {},  // check that the article is correctly created (private section)
+    run: () => {
+        const url = new URL(browser.location);
+        const resId = extractURLResID(url);
+        if (resId !== workspaceArticleResId + 1) {
+            throw new Error(`Expected pathname to be like /knowledge/article/${workspaceArticleResId + 1}, got ${url.pathname} instead.`);
+        }
+    },  // check that the article is correctly created (private section)
 }, {
     trigger: '.o_hierarchy_article_name > input',
     run: "edit My Private Article && click body",  // modify the article name
@@ -103,7 +130,30 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("My Private Article")',
-    run: () => {},  // wait for article to be correctly loaded
+    run: () => {
+        privateArticleResId = extractURLResID(new URL(browser.location));
+        if (privateArticleResId === workspaceArticleResId) {
+            throw new Error(`Expected private article resId ${privateArticleResId} to be different from workspace article resId ${workspaceArticleResId}.`);
+        }
+        browser.history.back();
+    },  // wait for article to be correctly loaded and go back in the browser history
+}, {
+    trigger: '.o_knowledge_editor:contains("Edited Content of Workspace Article")',
+    run: () => {
+        const resId = extractURLResID(new URL(browser.location));
+        if (resId !== workspaceArticleResId) {
+            throw new Error(`Expected to be back on the workspace article with resId ${workspaceArticleResId}, got ${resId} instead.`)
+        }
+        browser.history.forward();
+    },  // wait for article to be correctly loaded and go forward in the browser history
+}, {
+    trigger: '.o_knowledge_editor:contains("My Private Article")',
+    run: () => {
+        const resId = extractURLResID(new URL(browser.location));
+        if (resId !== privateArticleResId) {
+            throw new Error(`Expected to be back on the private article with resId ${privateArticleResId}, got ${resId} instead.`)
+        }
+    },  // wait for article to be correctly loaded
 }, {
     // add to favorite
     trigger: '.o_knowledge_toggle_favorite',
