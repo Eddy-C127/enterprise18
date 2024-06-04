@@ -394,18 +394,16 @@ class AssetsReportCustomHandler(models.AbstractModel):
               FROM account_asset AS asset
          LEFT JOIN account_account AS account ON asset.account_asset_id = account.id
          LEFT JOIN account_move move ON move.asset_id = asset.id
-         LEFT JOIN account_move reversal ON reversal.reversed_entry_id = move.id
              WHERE asset.company_id in %(company_ids)s
                AND (asset.acquisition_date <= %(date_to)s OR move.date <= %(date_to)s)
                AND (asset.disposal_date >= %(date_from)s OR asset.disposal_date IS NULL)
                AND (asset.state not in ('model', 'draft', 'cancelled') OR (asset.state = 'draft' AND %(include_draft)s))
                AND asset.active = 't'
-               AND reversal.id IS NULL
                {prefix_query}
                {account_query}
                {analytical_query}
           GROUP BY asset.id, account.id
-          ORDER BY account.code, asset.acquisition_date;
+          ORDER BY account.code, asset.acquisition_date, asset.id;
         """
 
         self._cr.execute(sql, query_params)
