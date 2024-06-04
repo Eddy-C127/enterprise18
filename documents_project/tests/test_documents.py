@@ -4,6 +4,7 @@ import base64
 from datetime import date, timedelta
 
 from odoo import Command
+from odoo.tests.common import users
 
 from odoo.addons.project.tests.test_project_base import TestProjectCommon
 
@@ -38,6 +39,13 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
             'domain_folder_id': self.folder_a.id,
             'name': 'workflow rule create task on f_a',
             'create_model': 'project.task',
+        })
+
+        self.pro_admin = self.env['res.users'].create({
+            'name': 'Project Admin',
+            'login': 'proj_admin',
+            'email': 'proj_admin@example.com',
+            'groups_id': [(4, self.ref('project.group_project_manager'))],
         })
 
     def test_bridge_folder_workflow(self):
@@ -344,3 +352,13 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         self.assertEqual(len(self.env['documents.folder'].search([('id', '>', last_folder_id)])), 1, "There should only be one new folder created.")
         self.project_goats.with_context(no_create_folder=True).copy()
         self.assertEqual(len(self.env['documents.folder'].search([('id', '>', last_folder_id + 1)])), 0, "There should be no new folder created.")
+
+    @users('proj_admin')
+    def test_rename_project(self):
+        """
+        When renaming a project, the corresponding folder should be renamed as well.
+        Even when the user does not have write access on the folder, the project should be able to rename it.
+        """
+        new_name = 'New Name'
+        self.project_pigs.with_user(self.env.user).name = new_name
+        self.assertEqual(self.project_pigs.documents_folder_id.name, new_name, "The folder should have been renamed along with the project.")

@@ -147,7 +147,7 @@ class ProjectProject(models.Model):
                             other_projects.company_id.name, '\n'.join(lines), project.documents_folder_id.name))
 
         if 'name' in vals and len(self.documents_folder_id.project_ids) == 1 and self.name == self.documents_folder_id.name:
-            self.documents_folder_id.name = vals['name']
+            self.documents_folder_id.sudo().name = vals['name']
         res = super().write(vals)
         if 'company_id' in vals:
             for project in self:
