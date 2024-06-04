@@ -76,15 +76,13 @@ class WebsitePageGenerator(models.Model):
                 menu_type = menu_content.get('type')
                 if menu_type == 'simple_menu':
                     # Create the parent menu
-                    self._create_menu(button, top_menu)
-                    # Get the parent menu id from the current website
-                    parent_menu = self.env['website.menu'].search([('name', '=', button['name']), ('website_id', '=', self.website_id.id)])
+                    parent_menu = self._create_menu(button, top_menu)
                     # Create the submenu menu.
                     children_menus = button.get('menu_content', {}).get('content', [])
                     self.env['website.menu'].create([{
                         'name': child_menu['name'],
                         'url': child_menu['href'],
-                        'parent_id': parent_menu.id,
+                        'parent_id': parent_menu and parent_menu.id,
                         'website_id': self.website_id.id} for child_menu in children_menus])
                 elif menu_type == 'mega_menu':
                     # Create mega menu instead
@@ -111,17 +109,18 @@ class WebsitePageGenerator(models.Model):
         elif header_position == 'over-the-content':
             self.header_overlay = True
 
-    def _create_menu(self, menu, top_menu):
-        menu_name = menu.get('name')
-        menu_href = menu.get('href')
+    def _create_menu(self, menu_vals, top_menu):
+        menu_name = menu_vals.get('name')
+        menu_href = menu_vals.get('href')
         if not menu_name or not menu_href:
             return
-        self.env['website.menu'].create({
+        menu = self.env['website.menu'].create({
             'name': menu_name,
             'url': menu_href,
             'parent_id': top_menu.id,
             'website_id': self.website_id.id,
         })
+        return menu
 
     def _apply_website_themes(self, homepage_data):
         values = {}
