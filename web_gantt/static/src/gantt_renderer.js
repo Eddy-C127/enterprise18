@@ -1152,6 +1152,15 @@ export class GanttRenderer extends Component {
         return true;
     }
 
+    focusFirstPill(rowId) {
+        const pill = this.rowPills[rowId][0];
+        if (pill) {
+            const col = this.getFirstGridCol(pill);
+            const { start: date } = this.getColumnFromColNumber(col);
+            this.focusDate(date);
+        }
+    }
+
     generateConnectors() {
         this.nextConnectorId = 1;
         this.setConnector({

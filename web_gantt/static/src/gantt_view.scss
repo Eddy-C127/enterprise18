@@ -67,6 +67,7 @@
 
 	// Row headers
 	.o_gantt_row_header {
+		cursor: pointer;
 		display: grid;
 		grid-column: 1 / -1;
 		grid-row: 3;
@@ -439,7 +440,6 @@
 	// ========================= "Group Header" rows ==========================
 	// ========================================================================
 	.o_gantt_group {
-		cursor: pointer;
 		background: var(--Gantt__Group-background);
 
 		&.o_gantt_today {

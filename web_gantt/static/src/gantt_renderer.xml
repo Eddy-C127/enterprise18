@@ -115,7 +115,7 @@
             }"
             t-att-style="getGridPosition({ row: row.grid.row })"
             t-att-data-row-id="row.id"
-            t-on-click.synthetic="() => row.isGroup and this.model.toggleRow(row.id)"
+            t-on-click.synthetic="() => row.isGroup ? this.model.toggleRow(row.id) : this.focusFirstPill(row.id)"
         >
             <div
                 class="o_gantt_row_title d-flex align-items-center h-100 w-100 pe-1"

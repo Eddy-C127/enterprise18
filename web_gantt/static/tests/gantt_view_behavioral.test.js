@@ -302,7 +302,7 @@ test("open a dialog to add a new task", async () => {
     defineParams({
         lang_parameters: {
             time_format: "%H:%M:%S",
-        }
+        },
     });
 
     Tasks._views = {
@@ -334,7 +334,7 @@ test("open a dialog to create/edit a task", async () => {
     defineParams({
         lang_parameters: {
             time_format: "%H:%M:%S",
-        }
+        },
     });
 
     Tasks._views = {
@@ -613,7 +613,7 @@ test("create dialog with timezone", async () => {
     defineParams({
         lang_parameters: {
             time_format: "%H:%M:%S",
-        }
+        },
     });
 
     expect.assertions(3);
@@ -2017,4 +2017,37 @@ test("set start/stop date: should keep focused date", async () => {
     expect(getCell("23 January 2019")).toBeVisible();
     await selectGanttRange({ startDate: "2018-12-01", stopDate: "2019-01-22" });
     expect(getCell("22 January 2019")).toBeVisible();
+});
+
+test("focus first pill on row header click", async () => {
+    Tasks._records = [
+        {
+            id: 1,
+            name: "Task 1",
+            start: "2018-11-30 23:00:00",
+            stop: "2018-12-01 23:00:00",
+            user_id: 1,
+        },
+        {
+            id: 2,
+            name: "Task 2",
+            start: "2019-02-27 23:00:00",
+            stop: "2019-02-28 23:00:00",
+            user_id: 1,
+        },
+    ];
+
+    await mountGanttView({
+        resModel: "tasks",
+        arch: '<gantt date_start="start" date_stop="stop" default_group_by="user_id"/>',
+    });
+    // set focus around 23 January 2019
+    scroll(".o_content", { left: 2000 });
+    await animationFrame();
+    expect(SELECTORS.pill).toHaveCount(0);
+
+    click(SELECTORS.rowHeader);
+    await animationFrame();
+    expect(SELECTORS.pill).toHaveCount(1);
+    expect(SELECTORS.pill).toHaveText("Task 1");
 });
