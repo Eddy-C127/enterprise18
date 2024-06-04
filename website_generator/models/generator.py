@@ -211,6 +211,7 @@ class WebsiteGeneratorRequest(models.Model):
                 new_page = self.env['website.page'].browse(new_page_info['page_id'])
                 # force url to the one provided, don't use the slugified one
                 new_page.url = page_url
+                new_page.is_published = True
                 # Create page content
                 new_page._construct_page(page_data)
 
