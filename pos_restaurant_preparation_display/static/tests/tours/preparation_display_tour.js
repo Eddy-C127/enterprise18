@@ -66,3 +66,21 @@ registry.category("web_tour.tours").add("PreparationDisplayTourResto", {
             ReceiptScreen.clickNextOrder(),
         ].flat(),
 });
+
+registry.category("web_tour.tours").add("PreparationDisplayTourInternalNotes", {
+    test: true,
+    url: "/pos/ui",
+    steps: () =>
+        [
+            ProductScreen.confirmOpeningPopup(),
+            FloorScreen.clickTable("5"),
+            ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.orderlineIsToOrder("Coca-Cola"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+            ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.addInternalNote("Test Internal Notes"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+        ].flat(),
+});

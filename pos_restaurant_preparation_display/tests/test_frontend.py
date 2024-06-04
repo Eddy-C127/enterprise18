@@ -37,3 +37,20 @@ class TestUi(TestFrontend):
         cancelled_orderline = pdis_order3.preparation_display_order_line_ids.filtered(lambda x: x.product_id.name == 'Minute Maid')
         self.assertEqual(cancelled_orderline.product_cancelled, 1, "Should have 1 cancelled Minute Maid orderline")
         self.assertEqual(cancelled_orderline.product_id.name, 'Minute Maid', "Cancelled orderline should be Minute Maid")
+
+    def test_preparation_display_with_internal_note(self):
+        self.env['pos_preparation_display.display'].create({
+            'name': 'Preparation Display',
+            'pos_config_ids': [(4, self.pos_config.id)],
+        })
+        self.pos_config.printer_ids.unlink()
+        self.pos_config.with_user(self.user_demo).open_ui()
+        self.start_tour("/pos/ui?config_id=%d" % self.pos_config.id, 'PreparationDisplayTourInternalNotes', login="demo")
+        # Order 1 should have 2 preparation orderlines (Coca-Cola and Water)
+        order1 = self.env['pos.order'].search([('pos_reference', 'ilike', '%-0001')], limit=1)
+        pdis_order1 = self.env['pos_preparation_display.order'].search([('pos_order_id', '=', order1.id)])
+        self.assertEqual(len(pdis_order1.preparation_display_order_line_ids), 2, "Should have 2 preparation orderlines")
+        self.assertEqual(pdis_order1.preparation_display_order_line_ids[0].product_quantity, 1)
+        self.assertEqual(pdis_order1.preparation_display_order_line_ids[0].internal_note, "Test Internal Notes")
+        self.assertEqual(pdis_order1.preparation_display_order_line_ids[1].product_quantity, 1)
+        self.assertEqual(pdis_order1.preparation_display_order_line_ids[1].internal_note, "Test Internal Notes")

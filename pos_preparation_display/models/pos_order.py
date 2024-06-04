@@ -90,9 +90,10 @@ class PosOrder(models.Model):
                         flag_change = True
                         category_ids.update(line.product_id.pos_categ_ids.ids)
 
-                        # Delete the data from the dictionary
-                        quantity_data.pop(key, None)
-                        quantity_data.pop(key_new, None)
+                        # Merge the two lines, so that if the quantity was changed it's also applied
+                        old_quantity = quantity_data.pop(key, None)
+                        quantity_data[key_new]["display"] += old_quantity["display"]
+                        quantity_data[key_new]["order"] += old_quantity["order"]
 
         # Check if pos_order have new lines or if some lines have more quantity than before
         if any([quantities['order'] > quantities['display'] for quantities in quantity_data.values()]):
