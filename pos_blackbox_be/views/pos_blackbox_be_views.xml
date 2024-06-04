@@ -67,7 +67,7 @@
         </record>
 
         <template id="include_vat_notice_report_external_header" inherit_id="web.external_layout_standard">
-            <xpath expr="//div[@name='moto']" position="replace">
+            <xpath expr="//div[hasclass('o_company_tagline')]" position="replace">
                 <div class="col-5 text-center" style="margin-top:20px;">
                     <strong>THIS IS NOT A VALID VAT TICKET</strong>
                 </div>
