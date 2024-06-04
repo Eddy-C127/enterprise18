@@ -94,7 +94,7 @@ class MailActivity(models.Model):
             model = self.env[activity.res_model]
             record = model.browse(activity.res_id)
             activity_data = {
-                **activity.read(["id", "res_name", "phone", "mobile", "res_id", "res_model", "state"])[0],
+                **activity.read(["id", "res_name", "phone", "mobile", "res_id", "res_model", "state", "date_deadline", "mail_template_ids"])[0],
                 "activity_category": activity.activity_type_id.category,
                 "modelName": activity.sudo().res_model_id.display_name,
                 "user_id": activity._read_format(["user_id"])[0]["user_id"],
