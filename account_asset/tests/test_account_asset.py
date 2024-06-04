@@ -1229,6 +1229,9 @@ class TestAccountAsset(TestAccountReportsCommon):
         self.assertEqual(sum(self.truck.depreciation_move_ids.filtered(lambda m: m.state == 'draft').mapped('depreciation_value')), 3000)
         self.assertEqual(max(self.truck.depreciation_move_ids.filtered(lambda m: m.state == 'posted'), key=lambda m: m.date).asset_remaining_value, 3000)
 
+        report = self.env.ref('account_asset.assets_report')
+        today = fields.Date.today()
+
         move_to_reverse = self.truck.depreciation_move_ids.filtered(lambda m: m.state == 'posted').sorted(lambda m: m.date)[-1]
         reversed_move = move_to_reverse._reverse_moves()
 
@@ -1244,6 +1247,20 @@ class TestAccountAsset(TestAccountReportsCommon):
         # Check that the table shows fully depreciated at the end
         self.assertEqual(max(self.truck.depreciation_move_ids, key=lambda m: m.date).asset_remaining_value, 0)
         self.assertEqual(max(self.truck.depreciation_move_ids, key=lambda m: m.date).asset_depreciated_value, 7500)
+
+        reversed_move.action_post()
+
+        options = self._generate_options(report, today + relativedelta(years=0, month=7, day=1), today + relativedelta(years=0, month=7, day=31))
+        lines = report._get_lines({**options, 'unfold_all': False, 'all_entries': True})
+        # We take the reversal entry into account
+        self.assertListEqual([10000.0,     0.0,     0.0, 10000.0,  4500.0,   -750.0,     0.0,  3750.0,  6250.0],
+                             [x['no_format'] for x in lines[0]['columns'][4:]])
+
+        options = self._generate_options(report, today + relativedelta(years=0, month=1, day=1), today + relativedelta(years=0, month=12, day=31))
+        lines = report._get_lines({**options, 'unfold_all': False, 'all_entries': True})
+        # With the report on the next entry, we get a normal depreciation amount for the year
+        self.assertListEqual([10000.0,     0.0,     0.0, 10000.0,  4500.0,   750.0,     0.0,  5250.0,  4750.0],
+                             [x['no_format'] for x in lines[0]['columns'][4:]])
 
     def test_credit_note_out_refund(self):
         """
