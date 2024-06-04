@@ -122,6 +122,10 @@ class SurveyUserInput(models.Model):
             }
         }
 
+    def _mark_done(self):
+        self.appraisal_id._notify_answer_360_feedback()
+        return super()._mark_done()
+
 class SurveyQuestionAnswer(models.Model):
     _inherit = 'survey.question.answer'
 
