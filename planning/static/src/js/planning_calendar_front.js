@@ -60,7 +60,8 @@ publicWidget.registry.PlanningView = publicWidget.Widget.extend({
         }
         const titleFormat = { month: "long", year: "numeric" };
         let noEventsContent = _t("You don't have any shifts planned yet.")
-        if (openSlotsIds?.length) {
+        const openSlotsIds = $('.open_slots_ids').attr('value');
+        if (openSlotsIds) {
             noEventsContent = _t("You don't have any shifts planned yet. You can assign yourself some of the available open shifts.")
         }
         this.calendar = new FullCalendar.Calendar(document.querySelector("#calendar_employee .o_calendar_widget"), {
