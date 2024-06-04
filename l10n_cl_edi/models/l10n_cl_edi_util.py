@@ -406,7 +406,12 @@ class L10nClEdiUtilMixin(models.AbstractModel):
             self._report_connection_err(_('Token cannot be generated. Please try again'))
             return False
         settings = Settings(strict=False, extra_http_headers={'Cookie': 'TOKEN=' + token})
-        return self._get_dte_claim_ws(mode, settings, company_vat, document_type_code, document_number)
+        try:
+            response = self._get_dte_claim_ws(mode, settings, company_vat, document_type_code, document_number)
+        except InvalidToken:
+            digital_signature.last_token = False
+            return False
+        return response
 
     @l10n_cl_edi_retry(logger=_logger, custom_msg=_('Document acceptance or claim failed due to:') + '<br/> ')
     def _send_sii_claim_response_ws(self, mode, settings, company_vat, document_type_code, document_number, claim_type):
