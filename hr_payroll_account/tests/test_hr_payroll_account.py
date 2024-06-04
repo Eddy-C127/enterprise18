@@ -517,10 +517,10 @@ class TestHrPayrollAccount(TestHrPayrollAccountCommon):
         line_amount = self.hra_rule.amount_percentage / 100 * self.hr_payslip_john._get_contract_wage()
 
         self.assertEqual(len(invoice_lines), 2, 'There should be 2 invoice lines')
-        self.assertEqual(invoice_lines[1].amount_currency, -line_amount)
-        self.assertEqual(invoice_lines[1].credit, line_amount)
-        self.assertEqual(invoice_lines[1].debit, 0)
+        self.assertEqual(invoice_lines[0].amount_currency, -line_amount)
+        self.assertEqual(invoice_lines[0].credit, line_amount)
+        self.assertEqual(invoice_lines[0].debit, 0)
 
-        self.assertEqual(invoice_lines[0].amount_currency, line_amount)
-        self.assertEqual(invoice_lines[0].credit, 0)
-        self.assertEqual(invoice_lines[0].debit, line_amount)
+        self.assertEqual(invoice_lines[1].amount_currency, line_amount)
+        self.assertEqual(invoice_lines[1].credit, 0)
+        self.assertEqual(invoice_lines[1].debit, line_amount)
