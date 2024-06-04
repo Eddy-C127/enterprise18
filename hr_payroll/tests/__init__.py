@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from . import test_payslip_flow
@@ -15,3 +14,4 @@ from . import test_schedule_relative_payslip
 from . import test_salary_attachment
 from . import test_payroll_dependencies
 from . import test_edit_payslip_lines
+from . import test_headcount
