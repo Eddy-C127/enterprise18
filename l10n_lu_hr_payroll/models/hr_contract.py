@@ -6,7 +6,7 @@ from odoo import api, fields, models
 class HrContract(models.Model):
     _inherit = 'hr.contract'
 
-    l10n_lu_atn_transport = fields.Monetary("BIK Transport", help="The amount includes VAT")
+    l10n_lu_atn_transport = fields.Monetary("Vehicle Package Allowance", help="The amount includes VAT")
     l10n_lu_benefit_in_kind = fields.Monetary("Benefit In Kind (Various)")
 
     l10n_lu_extra_holidays = fields.Integer('Extra Time Off (LU)')
