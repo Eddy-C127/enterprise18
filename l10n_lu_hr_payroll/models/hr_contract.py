@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
@@ -7,7 +6,7 @@ from odoo import api, fields, models
 class HrContract(models.Model):
     _inherit = 'hr.contract'
 
-    l10n_lu_atn_transport = fields.Monetary("BIK Transport", help="The amount includes VAT")
+    l10n_lu_atn_transport = fields.Monetary("Vehicle Package Allowance", help="The amount includes VAT")
 
     l10n_lu_extra_holidays = fields.Integer('Extra Time Off (LU)')
     l10n_lu_meal_voucher_amount = fields.Monetary('Meal Vouchers (LU)')
