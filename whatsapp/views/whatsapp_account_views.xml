@@ -27,7 +27,7 @@
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_title" id='title'>
                         <label for="name" string="Name"/>
-                        <h1 id="name"><field name="name" required="1" placeholder='e.g. "Acme Inc. Buisness Account"'/></h1>
+                        <h1 id="name"><field name="name" required="1" placeholder='e.g. "Acme Inc. Business Account"'/></h1>
                     </div>
                     <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">
                         Sending Messages
@@ -47,7 +47,7 @@
                             <field name="phone_uid" required="1" placeholder="e.g. 123456789012345"/>
                         </setting>
                         <setting>
-                            <field name="account_uid" placeholder="e.g. 123456789012345" string="WhatsApp Busoness Account ID"/>
+                            <field name="account_uid" placeholder="e.g. 123456789012345" string="WhatsApp Business Account ID"/>
                         </setting>
                         <setting documentation="https://developers.facebook.com/docs/whatsapp/business-management-api/get-started#system-user-access-tokens">
                             <field name="token" password="True" placeholder="e.g. EGTRWHRTHETHWRBTEJETHGQEGWRHWR"/>
