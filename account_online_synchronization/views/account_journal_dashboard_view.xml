@@ -15,12 +15,12 @@
                     <field name="online_sync_fetching_status"/>
                 </field>
 
-                <xpath expr="//div[@name='bank_journal_transactions']" position="attributes">
+                <xpath expr="//div[@name='setup_bank_btn']" position="attributes">
                     <attribute name="invisible">account_online_account_id</attribute>
                 </xpath>
 
-                <xpath expr='//div[@name="bank_journal_cta"]' position='inside'>
-                    <t t-if="dashboard.bank_statements_source === 'online_sync'">
+                <xpath expr='//div[@id="dashboard_bank_cash_left"]' position='inside'>
+                    <div t-if="dashboard.bank_statements_source === 'online_sync'">
                         <t t-if="record.account_online_link_state.raw_value === 'connected' and record.account_online_account_id">
                             <widget name="refresh_spin_widget" groups="account.group_account_manager"/>
                             <span invisible="not expiring_synchronization_date" groups="account.group_account_manager">
@@ -33,7 +33,7 @@
                         <t t-elif="record.account_online_link_state.raw_value == 'disconnected'">
                             <button groups="account.group_account_user" type="object" name="action_reconnect_online_account" class="btn btn-danger">Reconnect Bank</button>
                         </t>
-                    </t>
+                    </div>
                 </xpath>
 
                 <xpath expr="//t[@t-name='bank_configuration_placeholder']" position="replace">

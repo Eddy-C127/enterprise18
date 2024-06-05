@@ -66,7 +66,7 @@ class TestAccountReportsTaxReminder(TestAccountReportsCommon):
         self.assertEqual(len(act_id), 1)
 
         self.assertRecordValues(act_id, [{
-            'summary': f'Pay tax for {self.tax_return_move.date.strftime("%B %Y")}',
+            'summary': f'Pay tax: {self.tax_return_move.date.strftime("%B %Y")}',
             'date_deadline': fields.Date.context_today(self.env.user),
             'chaining_type': 'suggest',
         }])

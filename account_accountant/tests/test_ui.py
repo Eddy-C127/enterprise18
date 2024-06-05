@@ -26,6 +26,13 @@ class TestUi(AccountTestMockOnlineSyncCommon):
             'account_purchase_tax_id': None,
         })
 
+        # An unconfigured bank journal is required for the connect bank step
+        self.env['account.journal'].create({
+            'type': 'bank',
+            'name': 'Empty Bank',
+            'code': 'EBJ',
+        })
+
         account_with_taxes = self.env['account.account'].search([('tax_ids', '!=', False), ('company_id', '=', self.env.company.id)])
         account_with_taxes.write({
             'tax_ids': [Command.clear()],

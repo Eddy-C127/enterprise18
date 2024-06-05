@@ -200,7 +200,7 @@ class AccountMove(models.Model):
                 'res_id': move.id,
                 'res_model_id': self.env.ref('account.model_account_move').id,
                 'activity_type_id': activity_type.id,
-                'summary': _("Pay tax %s", period_desc),
+                'summary': _("Pay tax: %s", period_desc),
                 'note': activity_type.default_note,
                 'date_deadline': fields.Date.context_today(move),
                 'automated': True,

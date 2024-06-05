@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view" />
             <field name="arch" type="xml">
                 <xpath expr="//button[@id='new_misc_entry_button']" position="after">
-                    <widget name="account_file_uploader" groups="account.group_account_user"/>
+                    <widget name="account_file_uploader" groups="account.group_account_user" btnClass="btn btn-secondary float-start oe_kanban_action_button"/>
                 </xpath>
             </field>
         </record>

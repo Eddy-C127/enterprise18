@@ -29,7 +29,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Open the bank reconciliation widget",
             extra_trigger: ".o_breadcrumb",
-            trigger: "button.btn-primary[name='action_open_reconcile']",
+            trigger: "button.btn-secondary[name='action_open_reconcile']",
             run: "click",
         },
         {
@@ -596,7 +596,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Open the bank reconciliation widget for Bank2",
             extra_trigger: ".o_breadcrumb",
-            trigger: "button.btn-primary[name='action_open_reconcile']:last()",
+            trigger: "button.btn-secondary[name='action_open_reconcile']:last()",
             run: "click",
         },
         {
