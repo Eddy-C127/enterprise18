@@ -21,7 +21,12 @@ viewRegistry.add("work_entries_gantt", workEntriesGanttView);
 function updateWorkEntriesGanttView(evt) {
     const { operation, key, value } = evt.detail;
     if (key === "hr_gantt" && operation === "add") {
-        Object.assign(workEntriesGanttView, value);
+        Object.assign(workEntriesGanttView, {
+            ...value,
+            Controller: WorkEntriesGanttController,
+            Model: WorkEntriesGanttModel,
+            buttonTemplate: "hr_work_entry_contract_enterprise.WorkEntriesGanttView.Buttons",
+        });
         viewRegistry.removeEventListener("UPDATE", updateWorkEntriesGanttView);
     }
 }
