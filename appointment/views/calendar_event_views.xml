@@ -8,10 +8,15 @@
         <field name="arch" type="xml">
             <field name="categ_ids" position="after">
                 <field name="appointment_type_id" invisible="not appointment_type_id"/>
+                <field name="resource_ids" options="{'no_create': True}"
+                    invisible="not appointment_type_id or appointment_type_schedule_based_on != 'resources'"
+                    domain="[('appointment_type_ids', 'in', appointment_type_id)]" widget="many2many_tags"/>
+                <field name="appointment_type_schedule_based_on" invisible="1"/>
+                <field name="appointment_type_manage_capacity" invisible="1"/>
             </field>
             <xpath expr="//page[@name='page_invitations']" position="before">
                 <page name="page_appointment" string="Appointment Details"
-                    invisible="not appointment_type_id">
+                    invisible="not appointment_type_id or appointment_type_schedule_based_on != 'resources' or not appointment_type_manage_capacity">
                     <field name="booking_line_ids" invisible="not active">
                         <tree editable="bottom">
                             <field name="appointment_type_id" column_invisible="True"/>
