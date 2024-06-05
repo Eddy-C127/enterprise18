@@ -55,6 +55,7 @@ class Project(models.Model):
         panel_data = super().get_panel_data()
         panel_data['analytic_account_id'] = self.analytic_account_id.id
         panel_data['budget_items'] = self._get_budget_items()
+        panel_data['show_budget_items'] = bool(self.analytic_account_id)
         return panel_data
 
     def get_budget_items(self):

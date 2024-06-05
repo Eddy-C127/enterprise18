@@ -32,5 +32,9 @@ patch(ProjectRightSidePanel.prototype, {
             },
             viewId: this.state.data.budget_items.form_view_id,
         });
-    }
+    },
+
+    get panelVisible() {
+        return super.panelVisible || this.state.data.show_budget_items;
+    },
 });
