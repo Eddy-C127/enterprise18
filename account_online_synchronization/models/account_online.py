@@ -314,8 +314,12 @@ class AccountOnlineLink(models.Model):
     state = fields.Selection([('connected', 'Connected'), ('error', 'Error'), ('disconnected', 'Not Connected')],
                              default='disconnected', tracking=True, required=True, readonly=True)
     connection_state_details = fields.Json()
-    auto_sync = fields.Boolean(default=True, string="Automatic synchronization",
-                               help="If possible, we will try to automatically fetch new transactions for this record")
+    auto_sync = fields.Boolean(
+        default=True,
+        string="Automatic synchronization",
+        help="""If possible, we will try to automatically fetch new transactions for this record
+                \nIf the automatic sync is disabled. that will be due to security policy on the bank's end. So, they have to launch the sync manually""",
+    )
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
     has_unlinked_accounts = fields.Boolean(default=True, help="True if that connection still has accounts that are not linked to an Odoo journal")
 
