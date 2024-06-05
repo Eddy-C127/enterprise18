@@ -975,3 +975,46 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             first_slot.recurrency_id.slot_ids[3].resource_id,
             'The recurring shift to be planned on Thursday should be an open shift.'
         )
+
+    def test_number_of_repetitions_with_multiple_slots(self):
+        """
+        Test number of repetations for a planning slots with multi records through cron
+        """
+        with freeze_time('2024-06-16 08:00:00'):
+            self.configure_recurrency_span(1)
+
+            self.env['planning.slot'].create([{
+                'name': 'coucou',
+                'start_datetime': datetime(2024, 6, 16, 8, 0, 0),
+                'end_datetime': datetime(2024, 6, 16, 17, 0, 0),
+                'resource_id': self.resource_joseph.id,
+                'repeat': True,
+                'repeat_type': 'x_times',
+                'repeat_number': 6,
+                'repeat_interval': 1,
+            }, {
+                'name': 'concurrent slot',
+                'start_datetime': datetime(2024, 6, 16, 8, 0, 0),
+                'end_datetime': datetime(2024, 6, 16, 17, 0, 0),
+                'resource_id': self.resource_bert.id,
+                'repeat': True,
+                'repeat_type': 'x_times',
+                'repeat_number': 6,
+                'repeat_interval': 1,
+            }])
+
+        # we should have generated 5 slots for each employee
+        self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 5, 'first run should generated 2 slots')
+        self.assertEqual(len(self.get_by_employee(self.employee_bert)), 5, 'first run should generated 2 slots')
+
+        # one week later, always having the slots generated 1 month in advance means we have generated one more, which makes 6
+        with freeze_time('2024-06-23 08:00:00'):
+            self.env['planning.recurrency']._cron_schedule_next()
+            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 6, 'first cron should generate 6 slots')
+            self.assertEqual(len(self.get_by_employee(self.employee_bert)), 6, 'first cron should generate 6 slots')
+
+        # again one week later, we are now up-to-date so there should still be 6 slots
+        with freeze_time('2024-06-30 08:00:00'):
+            self.env['planning.recurrency']._cron_schedule_next()
+            self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 6, 'second run should not generate any slots')
+            self.assertEqual(len(self.get_by_employee(self.employee_bert)), 6, 'second run should not generate any slots')

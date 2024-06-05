@@ -117,7 +117,7 @@ class PlanningRecurrency(models.Model):
                 def get_all_next_starts():
                     generated_recurrency_slots = -1
                     if recurrency.repeat_type == "x_times":
-                        generated_recurrency_slots = self.env['planning.slot'].search_count([('recurrency_id', '=', self.id)])
+                        generated_recurrency_slots = self.env['planning.slot'].search_count([('recurrency_id', '=', recurrency.id)])
                     for i in range(1, 365 * 5):  # 5 years if every day
                         next_start = PlanningSlot._add_delta_with_dst(
                             slot.start_datetime,
