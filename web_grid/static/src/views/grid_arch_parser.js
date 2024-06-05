@@ -1,8 +1,9 @@
 /** @odoo-module */
 
-import { visitXML } from "@web/core/utils/xml";
-import { archParseBoolean, getActiveActions, processButton } from "@web/views/utils";
 import { _t } from "@web/core/l10n/translation";
+import { exprToBoolean } from "@web/core/utils/strings";
+import { visitXML } from "@web/core/utils/xml";
+import { getActiveActions, processButton } from "@web/views/utils";
 
 export class GridArchParser {
     parse(xmlDoc, models, modelName) {
@@ -35,23 +36,23 @@ export class GridArchParser {
         visitXML(xmlDoc, (node) => {
             if (node.tagName === "grid") {
                 if (node.hasAttribute("hide_line_total")) {
-                    archInfo.hideLineTotal = archParseBoolean(node.getAttribute("hide_line_total"));
+                    archInfo.hideLineTotal = exprToBoolean(node.getAttribute("hide_line_total"));
                 }
                 if (node.hasAttribute("hide_column_total")) {
-                    archInfo.hideColumnTotal = archParseBoolean(
+                    archInfo.hideColumnTotal = exprToBoolean(
                         node.getAttribute("hide_column_total")
                     );
                 }
                 if (node.hasAttribute("barchart_total")) {
-                    archInfo.hasBarChartTotal = archParseBoolean(
+                    archInfo.hasBarChartTotal = exprToBoolean(
                         node.getAttribute("barchart_total")
                     );
                 }
                 if (node.hasAttribute("create_inline")) {
-                    archInfo.createInline = archParseBoolean(node.getAttribute("create_inline"));
+                    archInfo.createInline = exprToBoolean(node.getAttribute("create_inline"));
                 }
                 if (node.hasAttribute("display_empty")) {
-                    archInfo.displayEmpty = archParseBoolean(node.getAttribute("display_empty"));
+                    archInfo.displayEmpty = exprToBoolean(node.getAttribute("display_empty"));
                 }
                 if (node.hasAttribute("action") && node.hasAttribute("type")) {
                     archInfo.openAction = {
@@ -60,7 +61,7 @@ export class GridArchParser {
                     };
                 }
                 if (node.hasAttribute("editable")) {
-                    archInfo.editable = archParseBoolean(node.getAttribute("editable"));
+                    archInfo.editable = exprToBoolean(node.getAttribute("editable"));
                 }
                 if (node.hasAttribute("form_view_id")) {
                     archInfo.formViewId = parseInt(node.getAttribute("form_view_id"), 10);
@@ -78,7 +79,7 @@ export class GridArchParser {
                         }
                         if (
                             node.hasAttribute("section") &&
-                            archParseBoolean(node.getAttribute("section")) &&
+                            exprToBoolean(node.getAttribute("section")) &&
                             !archInfo.sectionField
                         ) {
                             archInfo.sectionField = {
@@ -106,7 +107,7 @@ export class GridArchParser {
                             name: fieldName,
                             aggregator: node.getAttribute("operator") || fieldInfo.aggregator,
                             string,
-                            readonly: archParseBoolean(node.getAttribute("readonly")) || fieldInfo.readonly,
+                            readonly: exprToBoolean(node.getAttribute("readonly")) || fieldInfo.readonly,
                         };
                         break;
                     case "readonly":
@@ -167,7 +168,7 @@ export class GridArchParser {
                 span: rangeNode.getAttribute("span"),
                 step: rangeNode.getAttribute("step"),
                 hotkey: rangeNode.getAttribute("hotkey"),
-                default: archParseBoolean(rangeNode.getAttribute("default")),
+                default: exprToBoolean(rangeNode.getAttribute("default")),
             };
             if (ranges[rangeName].default) {
                 activeRangeName = rangeName;

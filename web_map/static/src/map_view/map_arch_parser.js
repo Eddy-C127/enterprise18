@@ -1,8 +1,8 @@
 /** @odoo-module **/
 
 import { unique } from "@web/core/utils/arrays";
+import { exprToBoolean } from "@web/core/utils/strings";
 import { visitXML } from "@web/core/utils/xml";
-import { archParseBoolean } from "@web/views/utils";
 
 export class MapArchParser {
     parse(arch) {
@@ -39,16 +39,16 @@ export class MapArchParser {
             archInfo.panelTitle = node.getAttribute("panel_title");
         }
         if (node.hasAttribute("routing")) {
-            archInfo.routing = archParseBoolean(node.getAttribute("routing"));
+            archInfo.routing = exprToBoolean(node.getAttribute("routing"));
         }
         if (node.hasAttribute("hide_title")) {
-            archInfo.hideTitle = archParseBoolean(node.getAttribute("hide_title"));
+            archInfo.hideTitle = exprToBoolean(node.getAttribute("hide_title"));
         }
         if (node.hasAttribute("hide_address")) {
-            archInfo.hideAddress = archParseBoolean(node.getAttribute("hide_address"));
+            archInfo.hideAddress = exprToBoolean(node.getAttribute("hide_address"));
         }
         if (node.hasAttribute("hide_name")) {
-            archInfo.hideName = archParseBoolean(node.getAttribute("hide_name"));
+            archInfo.hideName = exprToBoolean(node.getAttribute("hide_name"));
         }
         if (!archInfo.hideName) {
             archInfo.fieldNames.push("display_name");
@@ -60,7 +60,7 @@ export class MapArchParser {
             };
         }
         if (node.hasAttribute("allow_resequence")) {
-            archInfo.allowResequence = archParseBoolean(node.getAttribute("allow_resequence"));
+            archInfo.allowResequence = exprToBoolean(node.getAttribute("allow_resequence"));
         }
     }
     visitField(node, params) {

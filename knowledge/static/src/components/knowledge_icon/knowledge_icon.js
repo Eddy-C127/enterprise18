@@ -1,9 +1,9 @@
 /** @odoo-module */
 
-import { archParseBoolean } from "@web/views/utils";
-import { registry } from "@web/core/registry";
-import { standardFieldProps } from "@web/views/fields/standard_field_props";
 import { useEmojiPicker } from "@web/core/emoji_picker/emoji_picker";
+import { registry } from "@web/core/registry";
+import { exprToBoolean } from "@web/core/utils/strings";
+import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
 import { getRandomIcon } from "@knowledge/js/knowledge_utils";
 
@@ -56,7 +56,7 @@ registry.category("fields").add("knowledge_icon", {
         return {
             autoSave: viewType === "kanban",
             readonly: dynamicInfo.readonly,
-            allowRandomIconSelection: archParseBoolean(attrs.allow_random_icon_selection),
+            allowRandomIconSelection: exprToBoolean(attrs.allow_random_icon_selection),
         };
     },
 });

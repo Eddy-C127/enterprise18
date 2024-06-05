@@ -1,9 +1,9 @@
 /* @odoo-module */
 
-import { visitXML } from "@web/core/utils/xml";
 import { _t } from "@web/core/l10n/translation";
+import { exprToBoolean } from "@web/core/utils/strings";
+import { visitXML } from "@web/core/utils/xml";
 import { INTERVALS, MODES, TIMELINES } from "./cohort_model";
-import { archParseBoolean } from "@web/views/utils";
 
 export class CohortArchParser {
     parse(arch, fields) {
@@ -15,7 +15,7 @@ export class CohortArchParser {
             switch (node.tagName) {
                 case "cohort": {
                     if (node.hasAttribute("disable_linking")) {
-                        archInfo.disableLinking = archParseBoolean(
+                        archInfo.disableLinking = exprToBoolean(
                             node.getAttribute("disable_linking")
                         );
                     }

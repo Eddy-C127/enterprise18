@@ -1,8 +1,9 @@
 import { getLocalWeekNumber } from "@web/core/l10n/dates";
 import { _t } from "@web/core/l10n/translation";
 import { evaluateExpr } from "@web/core/py_js/py";
+import { exprToBoolean } from "@web/core/utils/strings";
 import { visitXML } from "@web/core/utils/xml";
-import { archParseBoolean, getActiveActions } from "@web/views/utils";
+import { getActiveActions } from "@web/views/utils";
 
 const DECORATIONS = [
     "decoration-danger",
@@ -168,7 +169,7 @@ export class GanttArchParser {
                             const footerTemplate = new Document().createElement("t");
                             footerTemplate.append(...footer.children);
                             popoverArchParams.footerTemplate = footerTemplate;
-                            popoverArchParams.displayGenericButtons = !archParseBoolean(
+                            popoverArchParams.displayGenericButtons = !exprToBoolean(
                                 footer.getAttribute("replace")
                             );
                         }
@@ -192,8 +193,8 @@ function getInfoFromRootNode(rootNode) {
     }
 
     const { create: canCreate, delete: canDelete, edit: canEdit } = getActiveActions(rootNode);
-    const canCellCreate = archParseBoolean(attrs.cell_create, true) && canCreate;
-    const canPlan = archParseBoolean(attrs.plan, true) && canEdit;
+    const canCellCreate = exprToBoolean(attrs.cell_create, true) && canCreate;
+    const canPlan = exprToBoolean(attrs.plan, true) && canEdit;
 
     let consolidationMaxField;
     let consolidationMaxValue;
@@ -300,10 +301,10 @@ function getInfoFromRootNode(rootNode) {
         dependencyEnabled,
         dependencyField,
         dependencyInvertedField,
-        disableDrag: archParseBoolean(attrs.disable_drag_drop),
+        disableDrag: exprToBoolean(attrs.disable_drag_drop),
         displayMode: attrs.display_mode || "dense",
-        displayTotalRow: archParseBoolean(attrs.total_row),
-        displayUnavailability: archParseBoolean(attrs.display_unavailability),
+        displayTotalRow: exprToBoolean(attrs.total_row),
+        displayUnavailability: exprToBoolean(attrs.display_unavailability),
         formViewId: attrs.form_view_id ? parseInt(attrs.form_view_id, 10) : false,
         offset: attrs.offset,
         pagerLimit: attrs.groups_limit ? parseInt(attrs.groups_limit, 10) : null,
