@@ -657,7 +657,7 @@ export class BankRecKanbanController extends KanbanController {
 
     isMonetaryZero(amount, currencyId){
         const currencyDigits = getCurrency(currencyId)?.digits;
-        return Number(amount.toFixed(currencyDigits ? currencyDigits[1] : 0)) === 0;
+        return Number(amount.toFixed(currencyDigits ? currencyDigits[1] : 2)) === 0;
     }
 
     formatDateField(date){
