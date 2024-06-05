@@ -1,20 +1,20 @@
-import { beforeEach, test, describe, expect } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { click, edit, queryAll } from "@odoo/hoot-dom";
 
-import { onRpc, removeFacet, webModels } from "@web/../tests/web_test_helpers";
+import { contains, mailModels, triggerHotkey } from "@mail/../tests/mail_test_helpers";
+import { ProjectProject, defineProjectModels } from "@project/../tests/project_models";
+import { onRpc, removeFacet } from "@web/../tests/web_test_helpers";
 import { getGridContent, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
-import { contains, triggerHotkey } from "@mail/../tests/mail_test_helpers";
-import { defineProjectModels, ProjectProject } from "@project/../tests/project_models";
 import { ProjectTask } from "./task_gant_model";
 
 defineProjectModels();
 describe.current.tags("desktop");
 
 beforeEach(() => {
-    webModels.ResUsers._records = [
+    mailModels.ResUsers._records = [
         { id: 1, name: "User1" },
         { id: 2, name: "User2" },
-        ...webModels.ResUsers._records,
+        ...mailModels.ResUsers._records,
     ];
     ProjectProject._records = [
         { id: 1, name: "service" },

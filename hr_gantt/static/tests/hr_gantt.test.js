@@ -1,3 +1,4 @@
+import { defineMailModels } from "@mail/../tests/mail_test_helpers";
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { mockDate } from "@odoo/hoot-mock";
 import { defineModels, fields, models } from "@web/../tests/web_test_helpers";
@@ -12,7 +13,7 @@ class Employee extends models.Model {
         { id: 1, display_name: "Mario" },
         { id: 2, display_name: "Luigi" },
         { id: 3, display_name: "Yoshi" },
-    ]
+    ];
 }
 
 class Task extends models.Model {
@@ -57,13 +58,14 @@ class Task extends models.Model {
     ];
 }
 
+defineMailModels();
 defineModels([Employee, Task]);
 
 const arch = `<gantt js_class="hr_gantt" date_start="start" date_stop="stop" />`;
 
 beforeEach(() => {
     mockDate("2018-12-20 07:00:00", +1);
-})
+});
 
 test("hr gantt view not grouped", async () => {
     await mountGanttView({ resModel: "task", arch });
@@ -82,5 +84,7 @@ test("hr gantt view grouped by employee > foo", async () => {
 
 test("hr gantt view grouped by foo > employee", async () => {
     await mountGanttView({ resModel: "task", arch, groupBy: ["foo", "employee_id"] });
-    expect(".o_gantt_row_header:not(.o_gantt_group) .o_gantt_row_title .o-mail-Avatar").toHaveCount(4);
+    expect(".o_gantt_row_header:not(.o_gantt_group) .o_gantt_row_title .o-mail-Avatar").toHaveCount(
+        4
+    );
 });

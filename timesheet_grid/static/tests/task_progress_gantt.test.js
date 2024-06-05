@@ -1,6 +1,7 @@
+import { defineMailModels } from "@mail/../tests/mail_test_helpers";
+import { expect, test } from "@odoo/hoot";
 import { queryAll } from "@odoo/hoot-dom";
 import { mockDate } from "@odoo/hoot-mock";
-import { expect, test } from "@odoo/hoot";
 import { defineModels, fields, models, onRpc } from "@web/../tests/web_test_helpers";
 import { mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
 
@@ -17,7 +18,7 @@ class Task extends models.Model {
             name: "Blop",
             start: "2020-06-14 08:00:00",
             stop: "2020-06-24 08:00:00",
-            progress: 50.00,
+            progress: 50.0,
             project_id: 1,
         },
         {
@@ -35,6 +36,7 @@ class Project extends models.Model {
     _records = [{ id: 1, name: "My Project" }];
 }
 
+defineMailModels();
 defineModels([Task, Project]);
 
 test("Check progress bar values", async () => {

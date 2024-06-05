@@ -3,26 +3,15 @@ import { queryOne } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 
 import { clickAllDaySlot } from "@web/../tests/views/calendar/calendar_test_helpers";
-import {
-    contains,
-    defineModels,
-    mountView,
-    onRpc,
-    patchWithCleanup,
-} from "@web/../tests/web_test_helpers";
-
+import { contains, mountView, onRpc, patchWithCleanup } from "@web/../tests/web_test_helpers";
 import {
     AppointmentSlot,
     AppointmentType,
-    CalendarEvent,
-    FilterPartner,
-    Partner,
-    Users,
+    defineAppointmentModels,
 } from "./appointment_tests_common";
 
 describe.current.tags("desktop");
-
-defineModels([AppointmentSlot, AppointmentType, CalendarEvent, FilterPartner, Partner, Users]);
+defineAppointmentModels();
 
 beforeEach(function () {
     mockDate("2022-01-05 00:00:00");
@@ -31,7 +20,7 @@ beforeEach(function () {
 
 onRpc("/appointment/appointment_type/get_staff_user_appointment_types", function () {
     const domain = [
-        ["staff_user_ids", "in", [1]],
+        ["staff_user_ids", "in", [100]],
         ["category", "!=", "custom"],
         ["website_published", "=", true],
     ];
@@ -95,7 +84,7 @@ test("create/search anytime appointment type", async () => {
         clipboard: {
             writeText: (value) => {
                 expect(value).toBe(
-                    `http://amazing.odoo.com/appointment/3?filter_staff_user_ids=%5B${1}%5D`
+                    `http://amazing.odoo.com/appointment/3?filter_staff_user_ids=%5B${100}%5D`
                 );
             },
         },
@@ -230,7 +219,7 @@ test("create slots for custom appointment type", async () => {
         clipboard: {
             writeText: (value) => {
                 expect(value).toBe(
-                    `http://amazing.odoo.com/appointment/3?filter_staff_user_ids=%5B${1}%5D`
+                    `http://amazing.odoo.com/appointment/3?filter_staff_user_ids=%5B${100}%5D`
                 );
             },
         },
@@ -336,7 +325,7 @@ test("click & copy appointment type url", async () => {
         clipboard: {
             writeText: (value) => {
                 expect(value).toBe(
-                    `http://amazing.odoo.com/appointment/2?filter_staff_user_ids=%5B${1}%5D`
+                    `http://amazing.odoo.com/appointment/2?filter_staff_user_ids=%5B${100}%5D`
                 );
             },
         },

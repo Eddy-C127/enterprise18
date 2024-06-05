@@ -1,20 +1,18 @@
 import { describe, expect, test } from "@odoo/hoot";
 
 import { mockDate } from "@odoo/hoot-mock";
-import { defineModels, onRpc } from "@web/../tests/web_test_helpers";
+import { onRpc } from "@web/../tests/web_test_helpers";
 
-import { dragPill, getGridContent, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
 import {
-    AppointmentSlot,
-    AppointmentType,
-    CalendarEvent,
-    Partner,
-    Users,
-} from "./appointment_tests_common";
+    dragPill,
+    getGridContent,
+    mountGanttView,
+} from "@web_gantt/../tests/web_gantt_test_helpers";
+import { CalendarEvent, defineAppointmentModels } from "./appointment_tests_common";
 
 describe.current.tags("desktop");
 
-defineModels([AppointmentSlot, AppointmentType, CalendarEvent, Partner, Users]);
+defineAppointmentModels();
 
 // minimalist version of the appointment gantt view
 const ganttViewArch = `
@@ -38,10 +36,6 @@ const ganttViewArch = `
         </templates>
 
     </gantt>`;
-
-onRpc("has_group", () => {
-    return true;
-});
 
 test("empty default group gantt rendering", async () => {
     expect.assertions(18);
@@ -69,7 +63,7 @@ test("empty default group gantt rendering", async () => {
             expect(unlinkCommand[0]).toBe(3);
             expect(unlinkCommand[1]).toBe(214);
             expect(linkCommand[0]).toBe(4);
-            expect(linkCommand[1]).toBe(1);
+            expect(linkCommand[1]).toBe(100);
 
             expect.step("write partners and date");
         } else if (
@@ -78,7 +72,7 @@ test("empty default group gantt rendering", async () => {
             args.args[0][0] === 2 &&
             "user_id" in args.args[1]
         ) {
-            expect(args.args[1].user_id).toBe(1);
+            expect(args.args[1].user_id).toBe(100);
 
             expect.step("write user id");
         } else if (args.model === "calendar.event" && args.method === "get_gantt_data") {

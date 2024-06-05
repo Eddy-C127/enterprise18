@@ -1,68 +1,9 @@
-import { fields, models } from "@web/../tests/web_test_helpers";
-export class Users extends models.Model {
-    _name = "res.users";
-    id = fields.Integer({ string: "ID" });
-    name = fields.Char({ string: "Name" });
-    partner_id = fields.Many2one({ string: "Partner", relation: "res.partner" });
-
-    _records = [
-        { id: 1, name: "User 1", partner_id: 1 },
-        { id: 214, name: "User 214", partner_id: 214 },
-        { id: 216, name: "User 216", partner_id: 216 },
-    ];
-}
-
-export class Partner extends models.Model {
-    _name = "res.partner";
-    id = fields.Integer({ string: "ID" });
-    name = fields.Char({ string: "Name" });
-    email = fields.Char({ string: "email" });
-    phone = fields.Char({ string: "phone" });
-    display_name = fields.Char({ string: "Displayed name" });
-    user_ids = fields.One2many({
-        string: "Users",
-        relation: "res.users",
-        relation_field: "partner_id",
-    });
-
-    _records = [
-        {
-            id: 1,
-            display_name: "Partner 1",
-            name: "Partner 1",
-            email: "partner1@test.lan",
-            phone: "0467121212",
-            user_ids: [1],
-        },
-        {
-            id: 214,
-            display_name: "Partner 214",
-            name: "Partner 214",
-            email: "",
-            phone: "012123123",
-            user_ids: [214],
-        },
-        {
-            id: 216,
-            display_name: "Partner 216",
-            name: "Partner 216",
-            email: "partner216@test.lan",
-            phone: "",
-            user_ids: [216],
-        },
-        {
-            id: 217,
-            display_name: "Contact Partner",
-            name: "Contact Partner",
-            email: "partner@contact.lan",
-            phone: "",
-            user_ids: [],
-        },
-    ];
-}
+import { mailModels } from "@mail/../tests/mail_test_helpers";
+import { defineModels, fields, models } from "@web/../tests/web_test_helpers";
 
 export class CalendarEvent extends models.Model {
     _name = "calendar.event";
+
     id = fields.Integer({ string: "ID" });
     name = fields.Char({ string: "Name" });
     user_id = fields.Many2one({ string: "User", relation: "res.users" });
@@ -86,14 +27,14 @@ export class CalendarEvent extends models.Model {
     _records = [
         {
             id: 1,
-            user_id: 1,
-            partner_id: 1,
+            user_id: 100,
+            partner_id: 100,
             name: "Event 1",
             start: "2022-01-12 10:00:00",
             stop: "2022-01-12 11:00:00",
             allday: false,
             appointment_attended: false,
-            partner_ids: [1, 214],
+            partner_ids: [100, 214],
         },
         {
             id: 2,
@@ -115,7 +56,7 @@ export class CalendarEvent extends models.Model {
             stop: "2022-01-05 11:00:00",
             allday: false,
             appointment_attended: false,
-            partner_ids: [216, 1, 214, 217],
+            partner_ids: [216, 100, 214, 217],
         },
     ];
     check_access_rights = function () {
@@ -125,6 +66,7 @@ export class CalendarEvent extends models.Model {
 
 export class AppointmentType extends models.Model {
     _name = "appointment.type";
+
     name = fields.Char();
     website_url = fields.Char();
     staff_user_ids = fields.Many2many({ relation: "res.users" });
@@ -159,7 +101,7 @@ export class AppointmentType extends models.Model {
             website_url: "/appointment/2",
             website_published: true,
             schedule_based_on: "users",
-            staff_user_ids: [1],
+            staff_user_ids: [100],
             category: "website",
         },
     ];
@@ -195,8 +137,8 @@ export class FilterPartner extends models.Model {
     _records = [
         {
             id: 4,
-            user_id: 1,
-            partner_id: 1,
+            user_id: 100,
+            partner_id: 100,
             partner_checked: true,
         },
         {
@@ -206,4 +148,63 @@ export class FilterPartner extends models.Model {
             partner_checked: true,
         },
     ];
+}
+
+export class ResPartner extends mailModels.ResPartner {
+    _records = [
+        ...mailModels.ResPartner._records,
+        {
+            id: 100,
+            display_name: "Partner 1",
+            name: "Partner 1",
+            email: "partner1@test.lan",
+            phone: "0467121212",
+            user_ids: [100],
+        },
+        {
+            id: 214,
+            display_name: "Partner 214",
+            name: "Partner 214",
+            email: "",
+            phone: "012123123",
+            user_ids: [214],
+        },
+        {
+            id: 216,
+            display_name: "Partner 216",
+            name: "Partner 216",
+            email: "partner216@test.lan",
+            phone: "",
+            user_ids: [216],
+        },
+        {
+            id: 217,
+            display_name: "Contact Partner",
+            name: "Contact Partner",
+            email: "partner@contact.lan",
+            phone: "",
+            user_ids: [],
+        },
+    ];
+}
+
+export class ResUsers extends mailModels.ResUsers {
+    _records = [
+        ...mailModels.ResUsers._records,
+        { id: 100, name: "User 1", partner_id: 100 },
+        { id: 214, name: "User 214", partner_id: 214 },
+        { id: 216, name: "User 216", partner_id: 216 },
+    ];
+}
+
+export function defineAppointmentModels() {
+    return defineModels({
+        ...mailModels,
+        AppointmentSlot,
+        AppointmentType,
+        CalendarEvent,
+        FilterPartner,
+        ResPartner,
+        ResUsers,
+    });
 }

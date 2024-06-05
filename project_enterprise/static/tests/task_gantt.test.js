@@ -1,3 +1,4 @@
+import { defineMailModels, mailModels } from "@mail/../tests/mail_test_helpers";
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { hover, keyDown, queryAll, queryAllTexts, queryOne } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
@@ -82,18 +83,6 @@ class Task extends models.Model {
     };
 }
 
-class Users extends models.Model {
-    _name = "res.users";
-    id = fields.Integer();
-    name = fields.Char();
-
-    _records = [
-        { id: 100, name: "Jane Doe" },
-        { id: 101, name: "John Doe" },
-    ];
-    has_group = () => true;
-}
-
 class Stuff extends models.Model {
     id = fields.Integer();
     name = fields.Char();
@@ -137,7 +126,12 @@ class Milestone extends models.Model {
     ];
 }
 
-defineModels([Task, Users, Stuff, Project, Milestone]);
+defineMailModels();
+defineModels([Task, Stuff, Project, Milestone]);
+
+beforeEach(() => {
+    mailModels.ResUsers._records.push({ id: 100, name: "Jane Doe" }, { id: 101, name: "John Doe" });
+});
 
 test("not user_ids grouped: empty groups are displayed first and user avatar is not displayed", async () => {
     await mountGanttView({ ...ganttViewParams, groupBy: ["stuff_id"] });
@@ -292,7 +286,7 @@ test("Lines are displayed in alphabetic order, except for the first one", async 
         { id: 105, name: "Zeta" },
         { id: 106, name: "Kappa" },
     ]) {
-        Users._records.push(user);
+        mailModels.ResUsers._records.push(user);
         Task._records.push({
             id: user.id,
             name: "Citron en Suédois",

@@ -1,14 +1,22 @@
+import { defineMailModels } from "@mail/../tests/mail_test_helpers";
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
-import { defineModels, fields, models, mountWithCleanup, onRpc, patchWithCleanup } from "@web/../tests/web_test_helpers";
-import { clickCell, mountGanttView} from "@web_gantt/../tests/web_gantt_test_helpers";
+import {
+    defineModels,
+    fields,
+    models,
+    mountWithCleanup,
+    onRpc,
+    patchWithCleanup,
+} from "@web/../tests/web_test_helpers";
+import { clickCell, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
 
-import { Domain } from "@web/core/domain";
-import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
-import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
-import { View } from "@web/views/view";
 import { Component, onWillStart, useState, xml } from "@odoo/owl";
+import { PlanningGanttRenderer } from "@planning/views/planning_gantt/planning_gantt_renderer";
+import { Domain } from "@web/core/domain";
 import { useService } from "@web/core/utils/hooks";
+import { View } from "@web/views/view";
+import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
 
 describe.current.tags("desktop");
 
@@ -19,7 +27,7 @@ class PlanningSlot extends models.Model {
     sale_line_id = fields.Many2one({ string: "Sale Order Item", relation: "sale.order.line" });
     resource_id = fields.Many2one({ string: "Resource", relation: "resource.resource" });
     start_datetime = fields.Datetime({ string: "Start Datetime" });
-    end_datetime = fields.Datetime({ string: "End Datetime"});
+    end_datetime = fields.Datetime({ string: "End Datetime" });
     allocated_percentage = fields.Float({ string: "Allocated percentage" });
 
     _records = [
@@ -41,8 +49,8 @@ class PlanningRole extends models.Model {
     name = fields.Char();
 
     _records = [
-        { "id": 1, name: "Developer" },
-        { "id": 2, name: "Support Tech" },
+        { id: 1, name: "Developer" },
+        { id: 2, name: "Support Tech" },
     ];
 }
 
@@ -52,14 +60,13 @@ class Resource extends models.Model {
 
 class SaleOrderLine extends models.Model {
     _name = "sale.order.line";
-    
+
     name = fields.Char();
 
-    _records = [
-        { id: 1, name: "Computer Configuration" },
-    ]
+    _records = [{ id: 1, name: "Computer Configuration" }];
 }
 
+defineMailModels();
 defineModels([PlanningSlot, PlanningRole, Resource, SaleOrderLine]);
 
 beforeEach(() => {
@@ -73,10 +80,12 @@ test("Process domain for plan dialog", async function () {
         setup() {
             super.setup(...arguments);
             renderer = this;
-        }
+        },
     });
 
-    onRpc("gantt_resource_work_interval", () => [{ false: [["2021-10-12 08:00:00", "2022-10-12 12:00:00"]] }]);
+    onRpc("gantt_resource_work_interval", () => [
+        { false: [["2021-10-12 08:00:00", "2022-10-12 12:00:00"]] },
+    ]);
 
     class Parent extends Component {
         static template = xml`<View t-props="state"/>`;
@@ -87,7 +96,10 @@ test("Process domain for plan dialog", async function () {
                 arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" default_scale="week"/>`,
                 resModel: "planning.slot",
                 type: "gantt",
-                domain: [["start_datetime", "!=", false], ["end_datetime", "!=", false]],
+                domain: [
+                    ["start_datetime", "!=", false],
+                    ["end_datetime", "!=", false],
+                ],
             });
             this.field = useService("field");
             onWillStart(async () => {
@@ -109,14 +121,23 @@ test("Process domain for plan dialog", async function () {
     ]);
     expect(renderer.getPlanDialogDomain()).toEqual(expectedDomain.toList());
 
-    parent.state.domain = ["|", ["role_id", "=", false], "&", ["resource_id", "!=", false], ["start_datetime", "=", false]];
+    parent.state.domain = [
+        "|",
+        ["role_id", "=", false],
+        "&",
+        ["resource_id", "!=", false],
+        ["start_datetime", "=", false],
+    ];
     await animationFrame();
 
     expectedDomain = Domain.and([
         Domain.and([
             new Domain([
-                "|", ["role_id", "=", false],
-                    "&", ["resource_id", "!=", false], ...Domain.TRUE.toList({}),
+                "|",
+                ["role_id", "=", false],
+                "&",
+                ["resource_id", "!=", false],
+                ...Domain.TRUE.toList({}),
             ]),
             ["|", ["start_datetime", "=", false], ["end_datetime", "=", false]],
         ]),

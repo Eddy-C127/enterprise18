@@ -1,8 +1,13 @@
+import { defineMailModels } from "@mail/../tests/mail_test_helpers";
 import { describe, expect, test } from "@odoo/hoot";
 import { queryAll } from "@odoo/hoot-dom";
 import { mockDate } from "@odoo/hoot-mock";
 import { defineModels, fields, models, onRpc } from "@web/../tests/web_test_helpers";
-import { hoverGridCell, SELECTORS, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
+import {
+    SELECTORS,
+    hoverGridCell,
+    mountGanttView,
+} from "@web_gantt/../tests/web_gantt_test_helpers";
 
 describe.current.tags("desktop");
 
@@ -27,17 +32,17 @@ class Workorder extends models.Model {
             planned_stop: "2023-03-27 08:00:00",
             workcenter_id: 2,
         },
-    ]
+    ];
 
     _views = {
-        "form": `
+        form: `
             <form>
                 <field name="name"/>
                 <field name="start_datetime"/>
                 <field name="date_deadline"/>
             </form>
         `,
-    }
+    };
 }
 
 class Workcenter extends models.Model {
@@ -49,6 +54,7 @@ class Workcenter extends models.Model {
     ];
 }
 
+defineMailModels();
 defineModels([Workorder, Workcenter]);
 
 test("progress bar has the correct unit", async () => {
@@ -65,7 +71,7 @@ test("progress bar has the correct unit", async () => {
                 2: { value: 651, max_value: 744 },
             },
         };
-    })
+    });
 
     await mountGanttView({
         arch: `
@@ -80,11 +86,10 @@ test("progress bar has the correct unit", async () => {
     });
     expect(SELECTORS.progressBar).toHaveCount(2);
     expect(SELECTORS.progressBarBackground).toHaveCount(2);
-    expect(
-        [...queryAll(SELECTORS.progressBarBackground)].map((el) => el.style.width)
-    ).toEqual(
-        ["62.5%", "87.5%"]
-    );
+    expect([...queryAll(SELECTORS.progressBarBackground)].map((el) => el.style.width)).toEqual([
+        "62.5%",
+        "87.5%",
+    ]);
 
     expect(SELECTORS.progressBarForeground).toHaveCount(0);
 

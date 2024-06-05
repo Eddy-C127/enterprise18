@@ -1,19 +1,21 @@
 /** @odoo-module **/
 
+import { defineMailModels } from "@mail/../tests/mail_test_helpers";
+import { expect, test } from "@odoo/hoot";
+import { click, queryAll, queryFirst, queryOne } from "@odoo/hoot-dom";
+import { animationFrame } from "@odoo/hoot-mock";
 import {
-    onRpc,
     defineActions,
     defineModels,
-    getService,
     fields,
+    getService,
     models,
-    mountWithCleanup,
     mountView,
+    mountWithCleanup,
+    onRpc,
 } from "@web/../tests/web_test_helpers";
+
 import { WebClient } from "@web/webclient/webclient";
-import { expect, test } from "@odoo/hoot";
-import { queryFirst, queryOne, queryAll, click } from "@odoo/hoot-dom";
-import { animationFrame } from "@odoo/hoot-mock";
 
 const campaignTemplatesGroups = {
     misc: {
@@ -86,6 +88,7 @@ class MarketingCampaign extends models.Model {
 }
 
 defineModels([MarketingCampaign]);
+defineMailModels();
 
 defineActions([
     {
@@ -194,8 +197,12 @@ test("Marketing Campaign Template Picker - Template picker", async function () {
     // modal is open
 
     // check that template cards have content
-    expect(".o_ma_campaign_picker_active h3.card-title:contains('Start from scratch')").toHaveCount(1);
-    expect(".o_ma_campaign_picker_active p.card-text:contains('average person eats 3')").toHaveCount(1);
+    expect(".o_ma_campaign_picker_active h3.card-title:contains('Start from scratch')").toHaveCount(
+        1
+    );
+    expect(
+        ".o_ma_campaign_picker_active p.card-text:contains('average person eats 3')"
+    ).toHaveCount(1);
 
     // check that there can be only one "active card"
     const [card_from_scratch, card_hot_contacts] = queryAll("div.card.o_ma_campaign_picker_card");

@@ -1,6 +1,7 @@
+import { defineMailModels } from "@mail/../tests/mail_test_helpers";
 import { describe, expect, test } from "@odoo/hoot";
-import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import { click } from "@odoo/hoot-dom";
+import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import { defineModels, fields, models, onRpc } from "@web/../tests/web_test_helpers";
 import { mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
 
@@ -13,14 +14,14 @@ class Task extends models.Model {
     project_id = fields.Many2one({ relation: "project" });
 
     _views = {
-        "form": `
+        form: `
             <form>
                 <field name="name"/>
                 <field name="start_datetime"/>
                 <field name="date_deadline"/>
             </form>
         `,
-    }
+    };
 }
 
 class Project extends models.Model {
@@ -30,6 +31,7 @@ class Project extends models.Model {
 }
 
 defineModels([Task, Project]);
+defineMailModels();
 
 test("fsm task gantt view", async () => {
     mockDate("2024-01-03 07:00:00");
@@ -45,9 +47,11 @@ test("fsm task gantt view", async () => {
     click(".o_gantt_button_add.btn-primary");
     await animationFrame();
     expect(".modal").toHaveCount(1);
-    expect(".modal .o_field_widget[name=start_datetime] .o_input").toHaveValue(now.toFormat("MM/dd/yyyy 00:00:00"),
+    expect(".modal .o_field_widget[name=start_datetime] .o_input").toHaveValue(
+        now.toFormat("MM/dd/yyyy 00:00:00"),
         {
-            message: "The fsm_mode present in the view context should set the start_datetime to the current day instead of the first day of the gantt view"
+            message:
+                "The fsm_mode present in the view context should set the start_datetime to the current day instead of the first day of the gantt view",
         }
     );
 });

@@ -3,6 +3,7 @@ import KnowledgeHierarchy from "@knowledge/components/hierarchy/hierarchy";
 import { registry } from "@web/core/registry";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 
+import { defineMailModels } from "@mail/../tests/mail_test_helpers";
 import { after, before, expect, test } from "@odoo/hoot";
 import { click, queryFirst } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
@@ -100,6 +101,7 @@ class Article extends models.Model {
     }
 }
 
+defineMailModels();
 defineModels([Article]);
 
 onRpc("get_sidebar_articles", () => {
@@ -113,7 +115,7 @@ onRpc(
         return Article._records
             .slice(0, Article._records.indexOf(Article.getArticleById(articleId)) - 1)
             .filter((article) => !excludeArticleIds.includes(article.id));
-    },
+    }
 );
 
 let openArticle;
@@ -160,24 +162,24 @@ const assertHierarchyArticles = async (articleIds) => {
         if (idx === articleIds.length - 1) {
             // current article
             expect(`.o_hierarchy_item:last-of-type:contains(${article.icon || "📄"})`).toHaveCount(
-                1,
+                1
             );
             if (article.is_locked || !article.user_can_write) {
                 expect(`.o_hierarchy_item:last-of-type:contains(${article.name})`).toHaveCount(1);
             } else {
                 expect(`.o_hierarchy_item:last-of-type input:value(${article.name})`).toHaveCount(
-                    1,
+                    1
                 );
             }
         } else if (idx < articleIds.length - 2 && idx > 0) {
             // article in dropdown
             expect(
-                `.o-dropdown-item:nth-of-type(${idx}):contains(${article.display_name})`,
+                `.o-dropdown-item:nth-of-type(${idx}):contains(${article.display_name})`
             ).toHaveCount(1);
         } else {
             // root or parent article
             expect(
-                `.o_hierarchy_item:nth-of-type(${idx + 1}) a:contains(${article.display_name})`,
+                `.o_hierarchy_item:nth-of-type(${idx + 1}) a:contains(${article.display_name})`
             ).toHaveCount(1);
         }
     });
@@ -255,9 +257,9 @@ test("Hierarchy - Inaccessible articles", async function (assert) {
     expect(".o_hierarchy_item a.o_article_emoji").toHaveCount(0);
     expect(".o_hierarchy_item input").toHaveCount(0);
     // Check that the link to the article in the dropdown is disabled
-    expect(`.o-dropdown-item.disabled:contains(${Article.getArticleById(2).display_name})`).toHaveCount(
-        1,
-    );
+    expect(
+        `.o-dropdown-item.disabled:contains(${Article.getArticleById(2).display_name})`
+    ).toHaveCount(1);
 });
 
 test("Hierarchy - Use breadcrumbs", async function (assert) {
@@ -268,10 +270,14 @@ test("Hierarchy - Use breadcrumbs", async function (assert) {
      */
     const assertBreadcrumbsButtons = (isPrevEnabled, isNextEnabled) => {
         expect(
-            `.o_widget_knowledge_hierarchy .btn${isPrevEnabled ? ":not(.disabled)" : ".disabled"} .oi-chevron-left`,
+            `.o_widget_knowledge_hierarchy .btn${
+                isPrevEnabled ? ":not(.disabled)" : ".disabled"
+            } .oi-chevron-left`
         ).toHaveCount(1);
         expect(
-            `.o_widget_knowledge_hierarchy .btn${isNextEnabled ? ":not(.disabled)" : ".disabled"} .oi-chevron-right`,
+            `.o_widget_knowledge_hierarchy .btn${
+                isNextEnabled ? ":not(.disabled)" : ".disabled"
+            } .oi-chevron-right`
         ).toHaveCount(1);
     };
     const clickBack = async () => {

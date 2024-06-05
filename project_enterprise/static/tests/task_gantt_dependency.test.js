@@ -1,10 +1,11 @@
-import { describe, expect, test } from "@odoo/hoot";
+import { defineMailModels, mailModels } from "@mail/../tests/mail_test_helpers";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { mockDate } from "@odoo/hoot-mock";
-import { defineModels, fields, models, onRpc, findComponent } from "@web/../tests/web_test_helpers";
-import { SELECTORS, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
 import { TaskGanttRenderer } from "@project_enterprise/task_gantt_renderer";
-import { COLORS } from "@web_gantt/gantt_connector";
+import { defineModels, fields, findComponent, models, onRpc } from "@web/../tests/web_test_helpers";
 import { getConnector, getConnectorMap } from "@web_gantt/../tests/gantt_dependency_helpers";
+import { SELECTORS, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";
+import { COLORS } from "@web_gantt/gantt_connector";
 
 describe.current.tags("desktop");
 
@@ -105,19 +106,18 @@ class Project extends models.Model {
     _records = [{ id: 1, name: "Project 1" }];
 }
 
-class Users extends models.Model {
-    _name = "res.users";
-    name = fields.Char();
+defineMailModels();
+defineModels([Task, Project]);
 
-    _records = [
+beforeEach(() => {
+    mailModels.ResUsers._records = [
         { id: 1, name: "User 1" },
         { id: 2, name: "User 2" },
         { id: 3, name: "User 3" },
         { id: 4, name: "User 4" },
+        ...mailModels.ResUsers._records,
     ];
-}
-
-defineModels([Task, Project, Users]);
+});
 
 test("Connectors are correctly computed and rendered.", async () => {
     expect.assertions(14);
