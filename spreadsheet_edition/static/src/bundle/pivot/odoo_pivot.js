@@ -6,6 +6,10 @@ import { patch } from "@web/core/utils/patch";
 const { helpers } = spreadsheet;
 const { formatValue } = helpers;
 
+/**
+ * @typedef {import("@odoo/o-spreadsheet").PivotDomain} PivotDomain
+ */
+
 patch(OdooPivot.prototype, {
     setup() {
         super.setup();
@@ -40,44 +44,51 @@ patch(OdooPivot.prototype, {
 
     getPivotCellValueAndFormat(measure, domain) {
         if (this._presenceTracking) {
-            this._usedValueDomains.add(measure + "," + domain.join());
+            this._usedValueDomains.add(measure + "," + JSON.stringify(domain));
         }
         return super.getPivotCellValueAndFormat(measure, domain);
     },
 
-    getPivotHeaderValueAndFormat(domainArgs) {
+    getPivotMeasureValue(name, domain) {
         if (this._presenceTracking) {
-            this._usedHeaderDomains.add(domainArgs.join());
+            this._usedHeaderDomains.add(JSON.stringify(domain));
         }
-        return super.getPivotHeaderValueAndFormat(domainArgs);
+        return super.getPivotMeasureValue(name, domain);
+    },
+
+    getPivotHeaderValueAndFormat(domain) {
+        if (this._presenceTracking) {
+            this._usedHeaderDomains.add(JSON.stringify(domain));
+        }
+        return super.getPivotHeaderValueAndFormat(domain);
     },
 
     /**
-     * @param {string[]} domain
      * @param {string} measure Field name of the measures
+     * @param {PivotDomain} domain
      * @returns {boolean}
      */
-    isUsedValue(domain, measure) {
+    isUsedValue(measure, domain) {
         this.assertIsValid();
-        return this._usedValueDomains.has(measure + "," + domain.join());
+        return this._usedValueDomains.has(measure + "," + JSON.stringify(domain));
     },
 
     /**
-     * @param {string[]} domain
+     * @param {PivotDomain} domain
      * @returns {boolean}
      */
     isUsedHeader(domain) {
         this.assertIsValid();
-        return this._usedHeaderDomains.has(domain.join());
+        return this._usedHeaderDomains.has(JSON.stringify(domain));
     },
 
     /**
      * High level method computing the formatted result of PIVOT.HEADER functions.
      *
-     * @param {(string | number)[]} pivotArgs arguments of the function (except the first one which is the pivot id)
+     * @param {PivotDomain} domain
      */
-    getPivotHeaderFormattedValue(pivotArgs) {
-        const { value, format } = this.getPivotHeaderValueAndFormat(pivotArgs);
+    getPivotHeaderFormattedValue(domain) {
+        const { value, format } = this.getPivotHeaderValueAndFormat(domain);
         if (typeof value === "string") {
             return value;
         }

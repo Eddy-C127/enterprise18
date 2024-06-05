@@ -3,7 +3,13 @@
 import { _t } from "@web/core/l10n/translation";
 import { UIPlugin, tokenize, helpers } from "@odoo/o-spreadsheet";
 
-const { makePivotFormula, getNumberOfPivotFunctions, isDateField, pivotTimeAdapter } = helpers;
+const {
+    makePivotFormula,
+    getNumberOfPivotFunctions,
+    isDateField,
+    pivotTimeAdapter,
+    toPivotDomain,
+} = helpers;
 
 /**
  * @typedef {import("@odoo/o-spreadsheet").SpreadsheetPivotTable} SpreadsheetPivotTable
@@ -596,15 +602,15 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _tooltipFormatPivot(pivotId, args, isColumn, dataSource, definition) {
         const tooltips = [];
-        const domain = args.slice(2); // e.g. ["create_date:month", "04/2022", "user_id", 3]
+        const domain = toPivotDomain(args.slice(2));
         const pivot = this.getters.getPivot(pivotId);
-        for (let i = 2; i <= domain.length; i += 2) {
-            const fieldName = domain[i - 2];
+        for (let i = 0; i < domain.length; i++) {
+            const node = domain[i];
             if (
-                (isColumn && this._isColumnGroupBy(dataSource, definition, fieldName)) ||
-                (!isColumn && this._isRowGroupBy(dataSource, definition, fieldName))
+                (isColumn && this._isColumnGroupBy(dataSource, definition, node.field)) ||
+                (!isColumn && this._isRowGroupBy(dataSource, definition, node.field))
             ) {
-                const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i));
+                const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i + 1));
                 tooltips.push({ value: formattedValue });
             }
         }
@@ -634,13 +640,13 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _tooltipFormatPivotHeader(pivotId, args) {
         const tooltips = [];
-        const domain = args.slice(1); // e.g. ["create_date:month", "04/2022", "user_id", 3]
+        const domain = toPivotDomain(args.slice(1));
         if (domain.length === 0) {
             return [{ value: _t("Total") }];
         }
         const pivot = this.getters.getPivot(pivotId);
-        for (let i = 2; i <= domain.length; i += 2) {
-            const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i));
+        for (let i = 0; i < domain.length; i++) {
+            const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i + 1));
             tooltips.push({ value: formattedValue });
         }
         return tooltips;

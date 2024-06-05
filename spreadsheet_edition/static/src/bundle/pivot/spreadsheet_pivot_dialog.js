@@ -6,9 +6,11 @@ import { PivotDialogTable } from "./spreadsheet_pivot_dialog_table";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 
 import { Component, useState } from "@odoo/owl";
-const { makePivotFormula, formatValue } = spreadsheet.helpers;
+const { makePivotFormula, formatValue, flatPivotDomain } = spreadsheet.helpers;
 
 /**
+ * @typedef {import("@odoo/o-spreadsheet").PivotDomain} PivotDomain
+ *
  * @typedef {Object} PivotDialogColumn
  * @property {string} formula Pivot formula
  * @property {string} value Pivot value of the formula
@@ -278,13 +280,16 @@ export class PivotDialog extends Component {
         for (const row of table.columns) {
             const current = [];
             for (const cell of row) {
+                /** @type {PivotDomain} */
                 const domain = [];
                 for (let i = 0; i < cell.fields.length; i++) {
-                    domain.push(cell.fields[i]);
-                    domain.push(cell.values[i]);
+                    domain.push({
+                        field: cell.fields[i],
+                        value: cell.values[i],
+                    });
                 }
                 current.push({
-                    formula: makePivotFormula("PIVOT.HEADER", [id, ...domain]),
+                    formula: makePivotFormula("PIVOT.HEADER", [id, ...flatPivotDomain(domain)]),
                     value: this.dataSource.getPivotHeaderFormattedValue(domain),
                     span: cell.width,
                     isMissing: !this.dataSource.isUsedHeader(domain),
@@ -313,14 +318,17 @@ export class PivotDialog extends Component {
     _buildRowHeaders(id, table) {
         const headers = [];
         for (const row of table.rows) {
+            /** @type {PivotDomain} */
             const domain = [];
             for (let i = 0; i < row.fields.length; i++) {
-                domain.push(row.fields[i]);
-                domain.push(row.values[i]);
+                domain.push({
+                    field: row.fields[i],
+                    value: row.values[i],
+                });
             }
             const cell = {
-                args: domain,
-                formula: makePivotFormula("PIVOT.HEADER", [id, ...domain]),
+                args: flatPivotDomain(domain),
+                formula: makePivotFormula("PIVOT.HEADER", [id, ...flatPivotDomain(domain)]),
                 value: this.dataSource.getPivotHeaderFormattedValue(domain),
                 isMissing: !this.dataSource.isUsedHeader(domain),
             };
@@ -346,23 +354,32 @@ export class PivotDialog extends Component {
             const current = [];
             const measure = col.values[col.values.length - 1];
             for (const row of table.rows) {
+                /** @type {PivotDomain} */
                 const domain = [];
                 for (let i = 0; i < row.fields.length; i++) {
-                    domain.push(row.fields[i]);
-                    domain.push(row.values[i]);
+                    domain.push({
+                        field: row.fields[i],
+                        value: row.values[i],
+                    });
                 }
                 for (let i = 0; i < col.fields.length - 1; i++) {
-                    domain.push(col.fields[i]);
-                    domain.push(col.values[i]);
+                    domain.push({
+                        field: col.fields[i],
+                        value: col.values[i],
+                    });
                 }
                 const value = this.dataSource.getPivotCellValueAndFormat(measure, domain).value;
                 const locale = this.props.getters.getLocale();
                 current.push({
                     args: {
-                        formula: makePivotFormula("PIVOT.VALUE", [id, measure, ...domain]),
+                        formula: makePivotFormula("PIVOT.VALUE", [
+                            id,
+                            measure,
+                            ...flatPivotDomain(domain),
+                        ]),
                         value: !value ? "" : formatValue(value, { locale }),
                     },
-                    isMissing: !this.dataSource.isUsedValue(domain, measure),
+                    isMissing: !this.dataSource.isUsedValue(measure, domain),
                 });
             }
             values.push(current);
