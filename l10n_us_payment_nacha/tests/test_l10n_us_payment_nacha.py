@@ -111,12 +111,14 @@ class TestNacha(AccountTestInvoicingCommon):
         self.assertFile(expected, len(self.batch.payment_ids))
 
     def testGenerateNachaFileBalanced(self):
-        self.company_data["default_journal_bank"].nacha_is_balanced = True
+        journal = self.company_data["default_journal_bank"]
+        journal.nacha_is_balanced = True
+        journal.nacha_discretionary_data = "00000000000123456789"
         expected = [
             # header
             "101 111111118  IMM_ORIG2011301945A094101DESTINATION            company_1_data         {:8d}".format(self.batch.id),
             # batch header for payments today "BATCH 0"
-            "5200company_1_data   BATCH/OUT/2020/0001COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
+            "5200company_1_data  00000000000123456789COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
             # entry detail for payment "partner_a_1"
             "622123456780987654321        0000012345               partner_a               0ORIGINAT0000000",
             # entry detail for payment "partner_b_2"
@@ -126,7 +128,7 @@ class TestNacha(AccountTestInvoicingCommon):
             # batch control record for "BATCH 0"
             "82000000030037037034000000069134000000069134COMPANY_ID                         ORIGINAT0000000",
             # batch header for payments tomorrow "BATCH 1"
-            "5200company_1_data   BATCH/OUT/2020/0001COMPANY_IDCCDBATCH 1   201201201201   1ORIGINAT0000001",
+            "5200company_1_data  00000000000123456789COMPANY_IDCCDBATCH 1   201201201201   1ORIGINAT0000001",
             # entry detail for payment "partner_a_2"
             "622123456780987654321        0000054321               partner_a               0ORIGINAT0000000",
             # entry detail for payment "partner_b_1"
