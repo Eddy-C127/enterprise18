@@ -17,7 +17,7 @@
 
     <!-- Kanban record -->
     <t t-name="account.BankRecKanbanRecord" t-inherit="web.KanbanRecord" t-inherit-mode="primary">
-        <xpath expr="//div[@role='article']" position="attributes">
+        <xpath expr="//article" position="attributes">
             <attribute name="t-att-tabindex"/>
         </xpath>
     </t>
