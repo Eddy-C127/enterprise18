@@ -396,8 +396,11 @@
                     <field name="encode_uom_in_days"/>
                     <field name="allow_timesheets"/>
                 </xpath>
+                <xpath expr="//div[@name='allocated_hours']" position="attributes">
+                    <attribute name="groups">hr_timesheet.group_hr_timesheet_user</attribute>
+                </xpath>
                 <xpath expr="//div[@name='allocated_hours']" position="after">
-                    <div t-if="allow_timesheets">
+                    <div t-if="allow_timesheets" groups="hr_timesheet.group_hr_timesheet_user">
                         <strong>Time Spent — </strong>
                         <t t-esc="total_hours_spent_formatted"/>
                         (<t t-esc="progressFormatted"/>%)
