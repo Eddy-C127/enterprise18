@@ -5,7 +5,7 @@
         <div t-att-name="props.name" t-att-class="props.classNames" t-att-style="props.style">
             <t t-if="!props.canOpen and resId">
                 <span>
-                    <span t-esc="displayName" />
+                    <span t-esc="displayName" t-att-class="{'me-2': props.row.isAdditionalRow}"/>
                     <t t-foreach="extraLines" t-as="extraLine" t-key="extraLine_index">
                         <br />
                         <span t-esc="extraLine" />
@@ -18,7 +18,7 @@
                     t-att-href="`#id=${resId}&amp;model=${relation}`"
                     t-on-click.prevent="onClick"
                 >
-                    <span t-esc="displayName" />
+                    <span t-esc="displayName" t-att-class="{'me-2': props.row.isAdditionalRow}"/>
                     <t t-foreach="extraLines" t-as="extraLine" t-key="extraLine_index">
                         <br />
                         <span t-esc="extraLine" />
