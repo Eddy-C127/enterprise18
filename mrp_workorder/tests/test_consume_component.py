@@ -164,3 +164,39 @@ class TestConsumeTrackedComponent(TestConsumeComponentCommon):
         mo_serial.action_generate_serial()
         for mov in mo_serial.move_raw_ids:
             self.assertEqual(mov.product_qty, mov.quantity, "Done quantity shall be equal to To Consume quantity.")
+
+    def test_update_consumed_component_for_tracked_final_product(self):
+        """
+        Suppose that you create an MO for multiple units of a product tracked by SN.
+        Due to its tracking, the MO will only be able to produce a single unit of the product at a time.
+        This test checks that the consumed quantity of components will be adapted accrodingly.
+        """
+        bom = self.bom_serial
+        bom.product_id = self.produced_serial
+        components = self.bom_serial.bom_line_ids.mapped('product_id')
+        components.tracking = 'none'
+        components[0].type = 'consu'
+        self.env['stock.quant']._update_available_quantity(components[1], self.env.ref('stock.warehouse0').lot_stock_id, 10)
+        mo = self.env['mrp.production'].create({
+            'product_id': bom.product_id.id,
+            'product_qty': 3,
+            'bom_id': bom.id,
+        })
+        mo.action_confirm()
+        self.assertRecordValues(mo, [{'qty_producing': 0.0, 'product_uom_qty': 3.0}])
+        self.assertRecordValues(mo.move_raw_ids, [
+                {'should_consume_qty': 0.0, 'quantity': 9.0, 'picked': False},
+                {'should_consume_qty': 0.0, 'quantity': 6.0, 'picked': False},
+                {'should_consume_qty': 0.0, 'quantity': 0.0, 'picked': False},
+            ]
+        )
+        mo.action_generate_serial()
+        self.assertTrue(mo.lot_producing_id)
+        self.assertRecordValues(mo, [{'qty_producing': 1.0, 'product_uom_qty': 3.0}])
+        self.assertRecordValues(mo.move_raw_ids, [
+                {'should_consume_qty': 3.0, 'quantity': 3.0, 'picked': True},
+                {'should_consume_qty': 2.0, 'quantity': 2.0, 'picked': True},
+                {'should_consume_qty': 1.0, 'quantity': 1.0, 'picked': False},
+            ]
+        )
+        self.assertRecordValues(components[2].stock_quant_ids, [{'quantity': 0.0, 'reserved_quantity': 1.0}])
