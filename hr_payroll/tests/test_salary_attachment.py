@@ -62,7 +62,7 @@ class TestSalaryAttachment(TestPayslipBase):
         self.assertEqual(attachment.remaining_amount, 0)
         self.assertEqual(attachment.state, 'close')
 
-    def test_attachment_monthly_amount(self):
+    def test_attachment_payslip_amount(self):
         attachment = self.env['hr.salary.attachment'].create({
             'employee_ids': [self.toto.id],
             'description': 'Monthly amount',
@@ -109,7 +109,7 @@ class TestSalaryAttachment(TestPayslipBase):
         self.assertEqual(attachment_A.paid_amount, 500) # Don't exceed total_amount
         self.assertEqual(attachment_B.paid_amount, 300)
 
-    def test_distribution_attachment_monthly_amount(self):
+    def test_distribution_attachment_payslip_amount(self):
         attachment_A, attachment_B = self.env['hr.salary.attachment'].create([
             {
                 'employee_ids': [self.toto.id],
@@ -130,7 +130,7 @@ class TestSalaryAttachment(TestPayslipBase):
         self.assertEqual(attachment_A.paid_amount, 200)
         self.assertEqual(attachment_B.paid_amount, 500)
 
-    def test_attachments_fixed_and_monthly_amount(self):
+    def test_attachments_fixed_and_payslip_amount(self):
         attachment_fixed, attachment_monthly = self.env['hr.salary.attachment'].create([
             {
                 'employee_ids': [self.toto.id],
@@ -152,7 +152,7 @@ class TestSalaryAttachment(TestPayslipBase):
         self.assertEqual(attachment_fixed.paid_amount, 200)
         self.assertEqual(attachment_monthly.paid_amount, 500)
 
-    def test_attachments_fixed_and_monthly_amount_manual_change(self):
+    def test_attachments_fixed_and_payslip_amount_manual_change(self):
         fixed_A, fixed_B, monthly_A, monthly_B = self.env['hr.salary.attachment'].create([
             {
                 'employee_ids': [self.toto.id],

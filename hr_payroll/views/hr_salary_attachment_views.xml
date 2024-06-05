@@ -12,6 +12,7 @@
                 <field name="monthly_amount" sum="Monthly Amount" widget="monetary"/>
                 <field name="total_amount" optional="hide" widget="monetary"/>
                 <field name="paid_amount" optional="hide" widget="monetary" readonly="has_done_payslip"/>
+                <field name="occurrences" optional="hide"/>
                 <field name="date_start" readonly="has_done_payslip"/>
                 <field name="employee_count" column_invisible="True"/>
                 <field name="state" widget="badge" decoration-success="state == 'open'" decoration-info="state == 'close'" decoration-danger="state == 'cancel'" invisible="state == 'open' and employee_count &gt; 1"/>
@@ -68,6 +69,11 @@
                             <field name="monthly_amount"/>
                             <field name="total_amount" invisible="not has_total_amount" required="has_total_amount"/>
                             <field name="paid_amount" invisible="paid_amount == 0" readonly="has_done_payslip"/>
+                            <label for="occurrences" invisible="not occurrences"/>
+                            <div class="o_row" invisible="not occurrences">
+                                <field name="occurrences"/>
+                                <span>Payslips</span>
+                            </div>
                         </group>
                     </group>
                 </sheet>

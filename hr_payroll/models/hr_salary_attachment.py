@@ -19,12 +19,12 @@ class HrSalaryAttachment(models.Model):
     _sql_constraints = [
         (
             'check_monthly_amount', 'CHECK (monthly_amount > 0)',
-            'Monthly amount must be strictly positive.'
+            'Payslip amount must be strictly positive.'
         ),
         (
             'check_total_amount',
             'CHECK ((total_amount > 0 AND total_amount >= monthly_amount) OR no_end_date = True)',
-            'Total amount must be strictly positive and greater than or equal to the monthly amount.'
+            'Total amount must be strictly positive and greater than or equal to the payslip amount.'
         ),
         ('check_remaining_amount', 'CHECK (remaining_amount >= 0)', 'Remaining amount must be positive.'),
         ('check_dates', 'CHECK (date_start <= date_end)', 'End date may not be before the starting date.'),
@@ -45,10 +45,14 @@ class HrSalaryAttachment(models.Model):
         tracking=True,
     )
     no_end_date = fields.Boolean(related='deduction_type_id.no_end_date', store=True)
-    monthly_amount = fields.Monetary('Monthly Amount', required=True, tracking=True, help='Amount to pay each month.')
+    monthly_amount = fields.Monetary('Payslip Amount', required=True, tracking=True, help='Amount to pay each payslip.')
+    occurrences = fields.Integer(
+        compute='_compute_occurrences',
+        help='Number of times the salary attachment will appear on the payslip.',
+    )
     active_amount = fields.Monetary(
         'Active Amount', compute='_compute_active_amount',
-        help='Amount to pay for this month, Monthly Amount or less depending on the Remaining Amount.',
+        help='Amount to pay for this payslip, Payslip Amount or less depending on the Remaining Amount.',
     )
     total_amount = fields.Monetary(
         'Total Amount',
@@ -107,6 +111,14 @@ class HrSalaryAttachment(models.Model):
                 record.total_amount = max(0, month_difference + 1) * record.monthly_amount
             else:
                 record.total_amount = record.paid_amount
+
+    @api.depends('monthly_amount', 'total_amount')
+    def _compute_occurrences(self):
+        self.occurrences = 0
+        for attachment in self:
+            if not attachment.total_amount or not attachment.monthly_amount:
+                continue
+            attachment.occurrences = ceil(attachment.total_amount / attachment.monthly_amount)
 
     @api.depends('deduction_type_id', 'date_end')
     def _compute_has_total_amount(self):
@@ -235,7 +247,7 @@ class HrSalaryAttachment(models.Model):
         ''' Record a new payment for this attachment, if the total has been reached the attachment will be closed.
 
         :param amount: amount to register for this payment
-            computed using the monthly_amount and the total if not given
+            computed using the payslip_amount and the total if not given
 
         Note that paid_amount can never be higher than total_amount
         '''
@@ -253,7 +265,7 @@ class HrSalaryAttachment(models.Model):
         remaining = total_amount
         # It is necessary to sort attachments to pay monthly payments (child_support) first
         attachments_sorted = self.sorted(key=lambda a: a.has_total_amount)
-        # For all types of attachments, we must pay the monthly_amount without exceeding the total amount
+        # For all types of attachments, we must pay the payslip_amount without exceeding the total amount
         for attachment in attachments_sorted:
             amount = min(attachment.monthly_amount, attachment.remaining_amount, remaining)
             if not amount:
