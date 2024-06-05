@@ -16,7 +16,8 @@ class TestSubscriptionPerformance(TestSubscriptionCommon):
         ORDER_COUNT = 100
         partners = self.env['res.partner'].create([{
             'name': 'Jean-Luc %s' % (idx),
-            'email': 'jean-luc-%s@opoo.com' % (idx)
+            'email': 'jean-luc-%s@opoo.com' % (idx),
+            'user_id': self.env.user.id,
         } for idx in range(ORDER_COUNT)])
         with self.assertQueryCount(__system__=2309):
             sale_orders = self.env['sale.order'].create([{

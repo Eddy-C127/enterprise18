@@ -588,6 +588,23 @@ class SaleOrder(models.Model):
                 order.subscription_state = vals.get('subscription_state', '1_draft')
         return orders
 
+    def write(self, vals):
+        new_user_id = vals.get('user_id')
+        valid_state_update = vals.get('subscription_state') in SUBSCRIPTION_PROGRESS_STATE
+        res = super().write(vals)
+        if new_user_id or valid_state_update:
+            for order in self:
+                if not order.is_subscription or order.subscription_state not in SUBSCRIPTION_PROGRESS_STATE:
+                    continue
+                # Update the user responsible of the contact to align the values
+                current_partner_user = order.partner_id.user_id
+                subscription_user = order.user_id
+                if subscription_user != current_partner_user:
+                    partner_to_remove = current_partner_user.partner_id - order.partner_id
+                    order.message_unsubscribe(partner_ids=partner_to_remove.ids)
+                    order.partner_id.user_id = subscription_user
+        return res
+
     @api.ondelete(at_uninstall=False)
     def _unlink_except_draft_or_cancel(self):
         for order in self:

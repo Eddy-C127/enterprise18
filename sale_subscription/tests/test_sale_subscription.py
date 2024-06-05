@@ -3718,6 +3718,35 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(result['groups'][1]['subscription_state_count'], 0)
         self.assertEqual(result['groups'][1]['subscription_state'], '4_paused')
 
+    def test_subscription_confirm_update_salesperson_on_partner(self):
+        """ confirming sale order should update the salesperson on related partner. """
+        self.assertFalse(self.subscription.partner_id.user_id)
+        self.subscription.action_confirm()
+        self.assertEqual(self.subscription.user_id, self.subscription.partner_id.user_id, "Salesperson on subscription and partner should be same")
+
+    def test_subscription_salesperson_changes_partner_saleperson(self):
+        """ changing salesperson on confirmed subscription should change salesperson on related partner. """
+        self.subscription.action_confirm()
+        self.assertEqual(self.subscription.user_id, self.subscription.partner_id.user_id, "Salesperson on subscription and partner should be same")
+
+        new_user = self.env['res.users'].create({
+            'name': 'new user',
+            'login': 'new',
+            'email': 'new@test.com',
+        })
+        self.subscription.write({'user_id': new_user.id})
+        self.assertEqual(new_user, self.subscription.partner_id.user_id, "Subscription's salesperson should be updated on partner's salesperson")
+        self.assertIn(new_user.partner_id.id, self.subscription.message_follower_ids.partner_id.ids)
+
+        new_user_2 = self.env['res.users'].create({
+            'name': 'new user 2',
+            'login': 'new2',
+            'email': 'new2@test.com',
+        })
+        self.subscription.write({'user_id': new_user_2.id})
+        self.assertEqual(new_user_2, self.subscription.partner_id.user_id, "Subscription's salesperson should be updated on partner's salesperson")
+        self.assertNotIn(new_user.partner_id.id, self.subscription.message_follower_ids.partner_id.ids, "Old salesperson should removed from message followers")
+
     def test_recurring_invoice_count(self):
         sub = self.env['sale.order'].create({
             'name': 'TestSubscription',
