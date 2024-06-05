@@ -1091,7 +1091,7 @@ class SaleOrder(models.Model):
                               ' - Has no invoiced period in the future.'))
         lang_code = self.partner_id.lang
         subscription = self.with_company(self.company_id)
-        order_lines = self.with_context(lang=lang_code).order_line._get_renew_upsell_values(subscription_state, period_end=self.next_invoice_date)
+        order_lines = self.with_context(lang=lang_code).order_line._get_renew_upsell_values(subscription_state)
         is_subscription = subscription_state == '2_renewal'
         option_lines_data = [Command.link(option.copy().id) for option in subscription.with_context(lang=lang_code).sale_order_option_ids]
         if subscription_state == '7_upsell':

@@ -511,7 +511,7 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(upsell_so.partner_shipping_id, self.partner_a_shipping)
             self.assertEqual(upsell_so.order_line.mapped('product_uom_qty'), [0, 0, 0], 'The upsell order has 0 quantity')
             note = upsell_so.order_line.filtered('display_type')
-            self.assertEqual(note.name, 'Recurring products are discounted according to the prorated period from 01/15/2021 to 01/31/2021')
+            self.assertEqual(note.name, '(*) These recurring products are discounted according to the prorated period from 01/15/2021 to 01/31/2021')
             self.assertEqual(upsell_so.order_line.product_id, self.subscription.order_line.product_id)
             upsell_so.order_line.filtered(lambda l: not l.display_type).product_uom_qty = 1
             # When the upsell order is created, all quantities are equal to 0
@@ -573,6 +573,19 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(second_period, "08/01/2021 to 08/31/2021")
 
         self.assertEqual(len(self.subscription.order_line), 4)
+
+    def test_subscription_order_line_description(self):
+        with freeze_time("2024-04-01"):
+            self.subscription.action_confirm()
+            self.env['sale.order']._cron_recurring_create_invoice()
+
+        with freeze_time("2024-04-15"):
+            action = self.subscription.prepare_upsell_order()
+            upsell_so = self.env['sale.order'].browse(action['res_id'])
+            self.assertEqual(upsell_so.order_line.mapped('discount'), [46.67, 46.67, 0])
+            self.assertEqual(upsell_so.order_line[0].name, "Product 1(*)", "(*) should be added in discounted product's description")
+            self.assertEqual(upsell_so.order_line[1].name, "Product 2(*)", "(*) should be added in discounted product's description")
+            self.assertEqual(upsell_so.order_line[2].name, "(*) These recurring products are discounted according to the prorated period from 04/15/2024 to 04/30/2024")
 
     def test_upsell_prorata(self):
         """ Test the prorated values obtained when creating an upsell. complementary to the previous one where new
@@ -2107,7 +2120,7 @@ class TestSubscription(TestSubscriptionCommon):
             # price_unit must be multiplied by (1-0.831) * 0,9
             # 100 * [1 - ((1 - 0.831) * 0.9)] = ~84%
             discount = [round(v, 2) for v in upsell_so.order_line.mapped('discount')]
-            self.assertAlmostEqual(discount, [84.71, 84.71, 0])
+            self.assertEqual(discount, [84.71, 84.71, 0])
 
     def test_upsell_renewal(self):
         """ Upselling a invoiced renewed order before it started should create a negative discount to invoice the previous
@@ -3657,7 +3670,7 @@ class TestSubscription(TestSubscriptionCommon):
                 name = line.name
                 sol_name = line.sale_line_ids.name
                 if line.sale_line_ids.recurring_invoice:
-                    self.assertRegex(name, r"^1 Month", "Sub lines require duration")
+                    self.assertIn("1 Month", name, "Sub lines require duration")
                 else:
                     self.assertEqual(name, sol_name, "Non-sub lines shouldn't add duration")
 

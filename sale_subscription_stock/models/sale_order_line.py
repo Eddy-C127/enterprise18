@@ -122,14 +122,3 @@ class SaleOrderLine(models.Model):
             'product_description_variants': f'{values.get("product_description_variants", "")}\n{format_start} to {format_end}',
         })
         return values
-
-    # =============================
-    #          Upselling
-    # =============================
-
-    def _need_renew_discount_domain(self):
-        return super()._need_renew_discount_domain() + ['!', '&', ('recurring_invoice', '=', True), ('product_id.type', '=', 'consu')]
-
-    def _compute_discount(self):
-        # We don't create prorated discount for stock subscription lines
-        return super(SaleOrderLine, self - self._get_stock_subscription_lines())._compute_discount()

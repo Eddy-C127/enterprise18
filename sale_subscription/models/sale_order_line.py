@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
+from collections import defaultdict
 
 from odoo import fields, models, api, _, Command
 from odoo.tools.date_utils import get_timedelta
@@ -71,16 +72,20 @@ class SaleOrderLine(models.Model):
         """
         today = fields.Date.today()
         other_lines = self.env['sale.order.line']
-
+        line_per_so = defaultdict(lambda: self.env['sale.order.line'])
         for line in self:
-            parent_id = line.order_id.subscription_id
             if not line.recurring_invoice:
                 other_lines += line  # normal sale line are handled by super
-                continue
-            elif not parent_id.next_invoice_date or line.order_id.subscription_state != '7_upsell' or not line.product_id.recurring_invoice:
+            else:
+                line_per_so[line.order_id._origin.id] += line
+
+        for so_id, lines in line_per_so.items():
+            order_id = self.env['sale.order'].browse(so_id)
+            parent_id = order_id.subscription_id
+            if not parent_id.next_invoice_date or order_id.subscription_state != '7_upsell':
                 # We don't apply discount
                 continue
-            start_date = max(line.order_id.start_date or today, line.order_id.first_contract_date or today)
+            start_date = max(order_id.start_date or today, order_id.first_contract_date or today)
             end_date = parent_id.next_invoice_date
             if start_date >= end_date:
                 ratio = 0
@@ -95,10 +100,24 @@ class SaleOrderLine(models.Model):
             # E.G. base price is 200€, parent line has a 10% discount and upsell has a 25% discount.
             # We want to apply a final price equal to 200 * 0.75 (prorata) * 0.9 (discount) = 135 or 200*0,675
             # We need 32.5 in the discount
-            if line.parent_line_id and line.parent_line_id.discount:
-                line.discount = (1 - ratio * (1 - line.parent_line_id.discount / 100)) * 100
-            else:
-                line.discount = (1 - ratio) * 100
+            add_comment = False
+            line_to_discount, discount_comment = lines._get_renew_discount_info()
+            for line in line_to_discount:
+                if line.parent_line_id and line.parent_line_id.discount:
+                    line.discount = (1 - ratio * (1 - line.parent_line_id.discount / 100)) * 100
+                else:
+                    line.discount = (1 - ratio) * 100
+                # Add prorata reason for discount if necessary
+                if ratio != 1 and "(*)" not in line.name:
+                    line.name += "(*)"
+                    add_comment = True
+            if add_comment and not any((l.display_type == 'line_note' and '(*)' in l.name) for l in order_id.order_line):
+                order_id.order_line = [Command.create({
+                    'display_type': 'line_note',
+                    'sequence': 999,
+                    'name': discount_comment,
+                    'product_uom_qty': 0,
+                })]
 
         return super(SaleOrderLine, other_lines)._compute_discount()
 
@@ -299,16 +318,31 @@ class SaleOrderLine(models.Model):
     # Business Methods #
     ####################
 
-    def _need_renew_discount_info(self):
-        return bool(self.filtered_domain(self._need_renew_discount_domain()))
+    def _get_renew_discount_info(self):
+        order = self.order_id
+        if len(order) != 1:
+            return [], ""
+        today = fields.Date.today()
+        start_date = max(today, order.first_contract_date or today)
+        end_date = order.next_invoice_date - relativedelta(days=1)
+        if start_date >= end_date:
+            line_name = _('(*) These recurring products are entirely discounted as the next period has not been invoiced yet.')
+        else:
+            format_start = format_date(self.env, start_date)
+            format_end = format_date(self.env, end_date)
+            line_name = _('(*) These recurring products are discounted according to the prorated period from %(start)s to %(end)s',
+                start=format_start, end=format_end)
+        return self.filtered_domain(self._need_renew_discount_domain()), line_name
 
     def _need_renew_discount_domain(self):
-        return [('recurring_invoice', '=', True)]
+        return [('recurring_invoice', '=', True), ('product_id.type', '=', 'service')]
 
     def _get_renew_upsell_values(self, subscription_state, period_end=None):
+        # TODO master: remove period_end from signature
         order_lines = []
-        description_needed = self._need_renew_discount_info()
-        today = fields.Date.today()
+        description_needed, description_name = [], ""
+        if subscription_state == '7_upsell':
+            description_needed, description_name = self._get_renew_discount_info()
         for line in self:
             if not line.recurring_invoice:
                 continue
@@ -317,29 +351,19 @@ class SaleOrderLine(models.Model):
             product = line.product_id
             order_lines.append((0, 0, {
                 'parent_line_id': line.id,
-                'name': line.name,
+                'name': line.name + "(*)" if line in description_needed else line.name,
                 'product_id': product.id,
                 'product_uom': line.product_uom.id,
                 'product_uom_qty': 0 if subscription_state == '7_upsell' else line.product_uom_qty,
                 'price_unit': line.price_unit,
             }))
-            description_needed = True
 
-        if subscription_state == '7_upsell' and description_needed and period_end:
-            start_date = max(today, line.order_id.first_contract_date or today)
-            end_date = period_end - relativedelta(days=1)  # the period ends the day before the next invoice
-            if start_date >= end_date:
-                line_name = _('Recurring products are entirely discounted as the next period has not been invoiced yet.')
-            else:
-                format_start = format_date(self.env, start_date)
-                format_end = format_date(self.env, end_date)
-                line_name = _('Recurring products are discounted according to the prorated period from %(start)s to %(end)s', start=format_start, end=format_end)
-
+        if description_needed and description_name:
             order_lines.append((0, 0,
                 {
                     'display_type': 'line_note',
                     'sequence': 999,
-                    'name': line_name,
+                    'name': description_name,
                     'product_uom_qty': 0
                 }
             ))
