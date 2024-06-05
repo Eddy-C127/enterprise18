@@ -196,6 +196,19 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         expected_values = [{'name': 'PARTNER 01'}]
         self.assertRecordValues(partners, expected_values)
 
+    def test_import_fec_partners_no_duplicate(self):
+        """ Test that the partners are not imported from the FEC file if already existing"""
+
+        partner = self.env['res.partner'].create({
+            'name': 'PARTNER 01',
+            'ref': 'PARTNER01'
+        })
+
+        self.wizard._import_files(['account.account', 'account.journal', 'res.partner'])
+
+        partners = self.env['res.partner'].search_count([('ref', '=', partner.ref)])
+        self.assertEqual(partners, 1)
+
     def test_import_fec_moves(self):
         """ Test that the moves are correctly imported from the FEC file """
 

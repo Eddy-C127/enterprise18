@@ -226,15 +226,29 @@ class FecImportWizard(models.TransientModel):
     def _generator_fec_res_partner(self, rows, cache):
         """ Import the partners from FEC data files """
         template_data = self.env['account.chart.template']._get_chart_template_data('fr').get('template_data')
+        partners_set = set()
         for record in rows:
             partner_ref = record.get("CompAuxNum", "")
-            partner_name = record.get("CompAuxLib") or partner_ref
+            partner_name = record.get("CompAuxLib", "")
             account_code = record.get("CompteNum", "")
             if partner_ref:
                 partner_ref = partner_ref.replace(' ', '_')
+                # Check for an existing partner with the same name or ref
+                partner_key = partner_name or partner_ref
+                if not partner_key or partner_key in partners_set:
+                    continue
+                partners_set.add(partner_key)
+
+                # Check if the partner is already existing
+                existing_partner = cache["res.partner"].get(partner_key, None)
+                if existing_partner:
+                    partner_xml_id = self._make_xml_id('partner', partner_ref)
+                    self.env['ir.model.data']._update_xmlids([{'xml_id': partner_xml_id, 'record': existing_partner}])
+                    continue
+
                 data = {
                     "company_id": self.company_id.id,
-                    "name": partner_name,
+                    "name": partner_name or partner_ref,
                     "ref": partner_ref,
                 }
 
