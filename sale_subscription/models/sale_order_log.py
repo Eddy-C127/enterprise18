@@ -3,7 +3,7 @@
 
 from datetime import timedelta
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_STATES, SUBSCRIPTION_PROGRESS_STATE, SUBSCRIPTION_CLOSED_STATE
 
 
@@ -41,12 +41,17 @@ class SaleOrderLog(models.Model):
                                         help="MRR, after applying the changes of that particular event", readonly=True)
     amount_signed = fields.Monetary(string='MRR change', required=True, readonly=True)
     subscription_state = fields.Selection(selection=SUBSCRIPTION_STATES, help="Subscription stage when the change occurred")
+    display_name = fields.Char(compute="_compute_display_name")
 
 
     @api.depends('order_id')
     def _compute_origin_order_id(self):
         for log in self:
             log.origin_order_id = log.order_id.origin_order_id or log.order_id
+
+    def _compute_display_name(self):
+        for log in self:
+            log.display_name = _("Sale order log: %s", log.id)
 
     #######################
     #       LOG GEN       #
