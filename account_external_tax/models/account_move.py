@@ -35,6 +35,7 @@ class AccountMove(models.Model):
                 for group in groups:
                     group['tax_group_base_amount'] = move.tax_totals['amount_untaxed']
                     group['formatted_tax_group_base_amount'] = move.tax_totals['formatted_amount_untaxed']
+                    group['display_formatted_tax_group_base_amount'] = True
 
         return res
 
