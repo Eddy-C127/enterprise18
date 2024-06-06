@@ -96,6 +96,32 @@
                         <SelectMenu onSelect.bind="selectScale" choices="scalesChoices" value="state.scale" required="true" searchable="false"/>
                     </div>
                 </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label">
+                        Hours Display
+                    </label>
+                    <div class="col-sm-8 d-flex justify-content-center my-auto">
+                        <div class="o_knowledge_item_calendar_dialog_slot_min_time w-100">
+                            <input type="time" t-model.lazy="state.slotMinTime"/>
+                        </div>
+                        <div class="mx-2 my-auto">
+                            <i class="fa fa-lg fa-fw fa-arrow-right"/>
+                        </div>
+                        <div class="o_knowledge_item_calendar_dialog_slot_max_time w-100">
+                            <input type="time" t-model.lazy="state.slotMaxTime"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-sm-4 col-form-label">
+                        Show Weekends?
+                    </label>
+                    <div class="col-sm-8 d-flex justify-content-center my-auto">
+                        <div class="w-100">
+                           <input type="checkbox" t-model="state.showWeekEnds"/>
+                        </div>
+                    </div>
+                </div>
             </t>
             <t t-set-slot="footer">
                 <button t-if="this.props.isNew" class="btn btn-primary" t-on-click="save" data-hotkey="I">Insert</button>
