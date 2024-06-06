@@ -64,6 +64,5 @@ registry.category("web_tour.tours").add('industry_fsm_tour', {
     // check the task is marked as done
     trigger: "div[name='state'] .btn-outline-success",
     auto: true,
-    isCheck: true,
     id: 'fsm_invoice_create',
 }]});

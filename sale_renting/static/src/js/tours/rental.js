@@ -89,7 +89,6 @@ registry.category("web_tour.tours").add('rental_tour', {
     run: "edit Test",
 }, {
     trigger: 'td.o_data_cell:contains("Test (Rental)")',
-    isCheck: true,
     run: "click",
 }, {
     trigger: 'button[name=action_confirm]',
@@ -121,5 +120,4 @@ registry.category("web_tour.tours").add('rental_tour', {
 }, {
     trigger: '.text-bg-default:contains("Returned")',
     content: _t("You're done with your fist rental. Congratulations!"),
-    run() {},
 }]});

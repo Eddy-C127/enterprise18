@@ -90,12 +90,10 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Wait for iframe to load PDF",
             trigger: ":iframe #viewerContainer",
-            run: () => {},
         },
         {
             content: "Wait for page to be loaded",
             trigger: ":iframe .page",
-            run: () => {},
         },
         {
             content: "Drop Signature Item",

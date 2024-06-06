@@ -24,7 +24,6 @@ registry.category("web_tour.tours").add("account_reports_analytic_filters", {
         {
             content: "Check the label of the badge",
             trigger: '.dropdown-menu .o_tag_badge_text:contains("Time Off")',
-            isCheck: true,
         },
     ],
 });

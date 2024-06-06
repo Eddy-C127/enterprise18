@@ -69,7 +69,6 @@ const embedKnowledgeKanbanViewSteps = function (article) {
         run: "click",
     }, { // wait for the kanban view
         trigger: ".o_kanban_renderer",
-        run: () => {},
     }, { // open action menu dropdown
         trigger: ".o_control_panel .o_cp_action_menus button",
         run: "click",
@@ -197,7 +196,6 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         // wait for kanban 1 to be inserted
         {
             trigger: ".o_knowledge_embedded_view .o_control_panel:contains(Items 1)",
-            run: () => {},
         },
         // Create the second Kanban
         {
@@ -221,7 +219,6 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
         // wait for kanban 2 to be inserted
         {
             trigger: ".o_knowledge_embedded_view .o_control_panel:contains(Items 2)",
-            run: () => {},
         },
         ...validateFavoriteFiltersSteps("Items 1", "Items 2"),
         // testFilter was added as a favorite during validateFavoriteFiltersSteps to Items 1
@@ -251,14 +248,12 @@ registry.category("web_tour.tours").add("knowledge_search_favorites_tour", {
             run: "click",
         }, { // check the application of the rename
             trigger: '.o_knowledge_embedded_view .o_control_panel:contains(Kanban 1)',
-            run: () => {},
         },
         stepUtils.toggleHomeMenu(),
         // insert a second kanban view
         ...embedKnowledgeKanbanViewSteps("Article 1"),
         { // wait for embedded view to load
             trigger: '.o_knowledge_embedded_view .o_control_panel:contains(Articles)',
-            run: () => {},
         },
         ...validateFavoriteFiltersSteps("Kanban 1", "Articles"),
         ...endKnowledgeTour(),

@@ -26,7 +26,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_sale_products_tour")
         }, {
             trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Service"))) .o_kanban_record:has(span:contains("Acoustic Bloc Screens")) .o_product_catalog_buttons .fa-shopping-cart',
             content: 'Check that the quantity of the Service product were correctly removed',
-            isCheck: true,
         });
         return originalSteps;
     }

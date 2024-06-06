@@ -79,7 +79,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("Content of Workspace Article")',
-    run: () => {},  // wait for article to be correctly loaded
+  // wait for article to be correctly loaded
 }, {
     trigger: '.note-editable.odoo-editor-editable',
     run: "editor Edited Content of Workspace Article",  // modify the article content
@@ -95,7 +95,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: "click",
 }, {
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Untitled")',
-    run: () => {},  // check that the article is correctly created (workspace section)
+  // check that the article is correctly created (workspace section)
 }, {
     trigger: '.o_hierarchy_article_name > input',
     run: "edit Child Article 1 && click body",  // modify the article name
@@ -105,7 +105,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: "click",
 }, {
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Untitled")',
-    run: () => {},  // check that the article is correctly created (workspace section)
+  // check that the article is correctly created (workspace section)
 }, {
     trigger: '.o_hierarchy_article_name > input',
     run: "edit Child Article 2 && click body",  // modify the article name
@@ -115,7 +115,7 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: "click",
 }, {
     trigger: '.o_knowledge_editor:contains("Edited Content of Workspace Article")',
-    run: () => {},  // wait for article to be correctly loaded
+  // wait for article to be correctly loaded
 }, {
     // add to favorite
     trigger: '.o_knowledge_toggle_favorite',
@@ -123,7 +123,6 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
 }, {
     // check article was correctly added into favorites
     trigger: 'div.o_favorite_container .o_article .o_article_name:contains("Workspace Article")',
-    run: () => {},
 }, {
     // go back to private article
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("My Private Article")',
@@ -161,7 +160,6 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
 }, {
     // wait for the article to be registered as favorited
     trigger: '.o_knowledge_toggle_favorite .fa-star',
-    run: () => {},
 }, {
     // move private article above workspace article in the favorite section
     trigger: 'div.o_favorite_container .o_article_handle:contains("My Private Article")',
@@ -174,5 +172,4 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
 }, {
     // verify that the move was done
     trigger: 'div.o_favorite_container ul li:first:contains("My Private Article")',
-    isCheck: true,
 }]});

@@ -48,5 +48,4 @@ registry.category("web_tour.tours").add('knowledge_sidebar_readonly_tour', {
 }, {
     // Check that emoji picker did not show up
     trigger: 'body:not(:has(.o-EmojiPicker))',
-    run: () => {},
 }]});

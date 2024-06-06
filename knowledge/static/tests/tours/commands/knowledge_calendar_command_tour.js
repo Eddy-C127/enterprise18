@@ -60,7 +60,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: "click",
 }, { // Scroll to the embedded view to load it
     trigger: '.o_knowledge_behavior_type_embedded_view',
-    run: () => {},
 }, {
     //---------------------------------------------------
     // Create an article item by clicking in the calendar
@@ -90,7 +89,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Check that the item is shown in the calendar
     trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
-    run: () => {},
 }, {
     //--------------------------------------------------------------
     // Insert another item calendar view (to test advanced settings)
@@ -215,7 +213,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Check that the item is shown in the calendar
     trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',
-    run: () => {},
 }, {
     //-------------------------------------------------------------------------
     // Test the props editor dialog by changing the values, check that the view
@@ -238,13 +235,11 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Check that stop date has been removed as the start type changed,
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler_slot span.text-muted',
-    run: () => {},
 }, { // Open the stop property dropdown
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler',
     run: 'click',
 }, { // Check that one cannot use the selected start date
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu:not(:contains("Date Property"))',
-    run: () => {},
 }, { // Don't select a stop property
     trigger: '.o_knowledge_item_calendar_props_dialog',
     run: 'click',
@@ -268,7 +263,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Check calendar has been updated (new scale and no item shown)
     trigger: '.o_knowledge_article_view_calendar_embedded_view .o_calendar_header .o_view_scale_selector:contains("Month")',
     extra_trigger: '.fc-view:not(:has(.fc-event-container))',
-    run: () => {},
 }, { // Change start and stop dates again
     trigger: '.o_control_panel_breadcrumbs_actions .dropdown-toggle',
     run: 'click',
@@ -284,7 +278,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Check that stop date has been removed as the start type changed,
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler_slot span.text-muted',
-    run: () => {},
 }, { // Open the stop property dropdown
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler',
     run: 'click',
@@ -304,7 +297,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Check that the item is shown
     trigger: '.fc-view .o_event_title:contains("Item Article")',
     extra_trigger: '.o_knowledge_article_view_calendar_embedded_view.o_action',
-    run: () => {},
 }, { // Leave the app and come back to make sure that changes have been saved
     trigger: '.o_main_navbar .o_menu_toggle',
     run: "click",
@@ -401,6 +393,5 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Make sure view is not crashed and shows nocontent helper
     trigger: '.o_knowledge_article_view_calendar_embedded_view .o_knowledge_item_calendar_nocontent',
-    run: () => {},
 }, ...endKnowledgeTour()
 ]});

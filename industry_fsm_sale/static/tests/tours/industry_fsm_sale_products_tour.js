@@ -45,6 +45,5 @@ registry.category("web_tour.tours").add('industry_fsm_sale_products_tour', {
 }, {
     trigger: '.o_fsm_product_kanban_view .o_kanban_group:has(.o_kanban_header:has(span:contains("Goods"))) .o_kanban_record:contains("500.00")',
     content: 'Price is 500',
-    isCheck: true,
     id: 'fsm_stock_start'
 }]});

@@ -12,7 +12,6 @@ patch(accountTourSteps, {
                 content: "balance is 2100",
                 extra_trigger: ".o_bank_rec_selected_st_line:contains('line1')",
                 trigger: ".btn-link:contains('$ 2,100.00')",
-                run: () => {},
             },
         ]
     },
@@ -37,7 +36,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "'line1' should be selected and form mounted",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line1')",
             trigger: ".o_bank_rec_selected_st_line:contains('line1')",
-            run: () => {},
         },
         // Select line2. It should remain selected when returning using the breadcrumbs.
         {
@@ -49,7 +47,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "'line2' should be selected",
             trigger: ".o_bank_rec_selected_st_line:contains('line2')",
-            run: () => {},
         },
         {
             content: "View an invoice",
@@ -79,7 +76,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "AMLs list has both invoices",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr:nth-child(2) td[name='move_id']:contains('INV/2019/00001')",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr:nth-child(1) td[name='move_id']:contains('INV/2019/00002')",
-            run: () => {},
         },
         {
             content: "Search for INV/2019/00001",
@@ -95,12 +91,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "AMLs list only displays one invoice",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr:nth-child(1) td[name='move_id']:contains('INV/2019/00001')",
-            run: () => {},
         },
         {
             content: "Liquidity line displays debit '$ 1,000.00'",
             trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 1,000.00')",
-            run: () => {},
         },
         {
             content: "Select the liquidity line",
@@ -115,7 +109,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Liquidity line displays debit '$ 100.00'",
             trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 100.00')",
-            run: () => {},
         },
         {
             content: "Select 'amls_tab'",
@@ -133,7 +126,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Check INV/2019/00001 is well marked as selected",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00001')",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00001')",
-            run: function() {},
         },
         {
             content: "View an invoice",
@@ -150,7 +142,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Check INV/2019/00001 is selected and still contains the search facet",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor .o_searchview_facet:nth-child(1) .o_facet_value:contains('INV/2019/00001')",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00001')",
-            run: () => {},
         },
         // Search should remove some lines, select the first unmatched record, and persist when returning with breadcrumbs
         {
@@ -168,13 +159,11 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "'line2' should be selected",
             trigger: ".o_bank_rec_st_line:last():contains('line2')",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
-            run: () => {}
         },
         {
             content: "Nothing has changed: INV/2019/00001 is selected and still contains the search facet",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor .o_searchview_facet:nth-child(1) .o_facet_value:contains('INV/2019/00001')",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00001')",
-            run: () => {},
         },
         {
             content: "Switch to list view",
@@ -197,7 +186,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Nothing has changed: INV/2019/00001 is still selected and contains the search facet",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor .o_searchview_facet:nth-child(1) .o_facet_value:contains('INV/2019/00001')",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00001')",
-            run: () => {},
         },
         // AML Search Facet is removed, and line_ids reset when changing line
         {
@@ -216,12 +204,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Bank Suspense Account is back",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
             trigger: "div[name='line_ids'] .o_bank_rec_auto_balance_line",
-            run: () => {},
         },
         {
             content: "AML Search Filter has been reset",
             trigger: ".o_list_view .o_searchview_input_container:not(:has(.o_searchview_facet))",
-            run: () => {},
         },
         // Test statement line selection when using the pager
         {
@@ -238,7 +224,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Last St Line is line2",
             extra_trigger: ".o_pager_value:contains('1-2')",
             trigger: ".o_bank_rec_st_line:last():contains('line2')",
-            run: () => {},
         },
         {
             content: "Page Next",
@@ -249,7 +234,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Statement line3 is selected",
             extra_trigger: ".o_pager_value:contains('3-3')",
             trigger: ".o_bank_rec_selected_st_line:contains('line3')",
-            run: () => {},
         },
         {
             content: "Page to beginning",
@@ -260,7 +244,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Statement line1 is selected",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line1')",
             trigger: ".o_bank_rec_selected_st_line:contains('line1')",
-            run: () => {},
         },
         // HTML buttons
         {
@@ -283,7 +266,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "Check the remainder",
             trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='debit']:contains('$ 1,000.00')",
-            run: () => {},
         },
         {
             content: "Partial Payment",
@@ -317,7 +299,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "amls_tab is activated",
             trigger: "a.active[name='amls_tab']",
-            run: () => {},
         },
         {
             content: "Activate Manual Operations to add manual entries",
@@ -344,7 +325,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "amls_tab is activated and auto balancing line is 1000",
             extra_trigger: "div[name='line_ids'] tr.o_data_row:contains('Suspense') td[field='credit']:contains('$ 1,000.00')",
             trigger: "a.active[name='amls_tab']",
-            run: () => {},
         },
         {
             content: "Mount another invoice",
@@ -362,7 +342,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "The 'line2' is the first kanban record and is selected",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
             trigger: ".o_bank_rec_st_line:first():contains('line2')",
-            run: () => {},
         },
         // Test Reset, "Matched" badge and double-click
         {
@@ -374,7 +353,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "The 'line1' is the first kanban record with line2 selected",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
             trigger: ".o_bank_rec_st_line:first():contains('line1')",
-            run: () => {},
         },
         {
             content: "Mount invoice 2 for line 2",
@@ -414,7 +392,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "amls_tab is activated while still on line2 which doesn't contain a badge",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line2'):not(:has(div.badge))",
             trigger: "div[name='line_ids']:has(.fa-trash-o)+.o_notebook a.active[name='amls_tab']",
-            run: () => {},
         },
         // Test view_switcher
         {
@@ -444,7 +421,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "both badges are visible, trash icon is not, discuss tab is active",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line2'):has(div.badge[title='Matched'] i):has(span.badge:contains('To check'))",
             trigger: "div[name='line_ids']:not(:has(.fa-trash-o))+.o_notebook a.active[name='discuss_tab']",
-            run: () => {},
         },
         {
             content: "Switch to list view",
@@ -542,7 +518,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Wait for search model change and line3 to appear",
             extra_trigger: ".o_kanban_view .o_searchview:first() .o_searchview_facet:last():contains('Bank')",
             trigger: ".o_bank_rec_st_line:last():contains('line3')",
-            run: () => {},
         },
         {
             content: "'line2' should be selected, reset it",
@@ -614,7 +589,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "'line3' should be selected now",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line3')",
             trigger: ".o_bank_rec_selected_st_line:contains('line3')",
-            run: () => {},
         },
         // Test the Balance when changing journal and liquidity line
         stepUtils.toggleHomeMenu(),
@@ -650,7 +624,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "balance is $222.22",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line4')",
             trigger: ".btn-link:contains('$ 222.22')",
-            run: () => {},
         },
         {
             content: "Select the liquidity line",
@@ -667,7 +640,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "balance displays $-333.33",
             extra_trigger: ".btn-link:contains('$ -333.33')",
             trigger: ".btn-link:contains('$ -333.33')",
-            run: () => {},
         },
         {
             content: "Modify the label",
@@ -677,7 +649,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "statement line displays combustion and $-333.33",
             trigger: ".o_bank_rec_selected_st_line:contains('Combustion'):contains('$ -333.33')",
-            run: () => {},
         },
         // Test that changing the balance in the list view updates the right side of the kanban view
         // (including reapplying matching rules)
@@ -696,7 +667,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             content: "Liquidity line displays debit '$ 100.00'",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line2'):not(:has(div.badge))",
             trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 100.00')",
-            run: () => {},
         },
         {
             content: "Switch to list view",
@@ -723,17 +693,14 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "'line2' is still selected",
             trigger: ".o_bank_rec_st_line:contains('line2')",
-            run: () => {},
         },
         {
             content: "Liquidity line displays debit '$ 500.00'",
             trigger: "div[name='line_ids'] table.o_list_table tr.o_bank_rec_liquidity_line td[field='debit']:contains('$ 500.00')",
-            run: () => {},
         },
         {
             content: "'INV/2019/00001' has been selected as matching existing entry by matching rules",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='name']:contains('INV/2019/00001')",
-            run: () => {},
         },
         // End
         stepUtils.toggleHomeMenu(),
@@ -741,7 +708,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "check that we're back on the dashboard",
             trigger: 'a:contains("Customer Invoices")',
-            run() {},
         }
     ]
 });

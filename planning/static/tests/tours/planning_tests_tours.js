@@ -119,7 +119,6 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     trigger: ".o_gantt_pill span:contains(Developer)",
     content: "Check naming format of resource and role when grouped",
     auto: true,
-    run: function () {}
 }, {
     trigger: ".o_control_panel .dropdown-toggle",
     content: "Automatically match open shifts and sales orders to the right people, taking into account their working hours, roles, availability, and time off. Open the menu to access this option.",
@@ -135,7 +134,6 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     trigger: ".o_gantt_pill.opacity-25",
     content: "Check that the filter is applied",
     auto: true,
-    run: function () {},
 }]});
 
 registry.category("web_tour.tours").add('planning_test_tour_no_email', {
@@ -156,7 +154,6 @@ registry.category("web_tour.tours").add('planning_test_tour_no_email', {
     run: "click",
 }, {
     trigger: "td[data-tooltip='Aaron']",
-    isCheck: true,
 }, {
     trigger: "button[special='cancel']",
     run: "click",
@@ -175,7 +172,6 @@ registry.category("web_tour.tours").add('planning_test_tour_no_email', {
 }, {
     trigger: ".o_field_widget.o_field_image.oe_avatar",
     content: "The 'No Email Address for the Employee' wizard should be raised",
-    isCheck: true,
 },]});
 
 registry.category("web_tour.tours").add('planning_shift_switching_backend', {
@@ -219,7 +215,6 @@ registry.category("web_tour.tours").add('planning_shift_switching_backend', {
     run: "click",
 }, {
     trigger: '.o_planning_gantt',
-    isCheck: true,
 }]});
 
 registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backend', {
@@ -259,5 +254,4 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
 }, {
     trigger: '.o_popover',
     content: "Check the popover opened",
-    isCheck: true,
 }]});

@@ -41,7 +41,6 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
         {
             trigger: ".o-spreadsheet-topbar",
             content: "Check that we are now in Spreadsheet",
-            isCheck: true,
         },
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
@@ -51,7 +50,6 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
         {
             trigger: ".o_kanban_renderer .o_kanban_record:first:has('.o_document_spreadsheet')",
             content: "Check a spreadsheet document was created",
-            isCheck: true,
         },
         {
             trigger: ".o_document_xlsx",
@@ -66,7 +64,6 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
         {
             trigger: ".o-spreadsheet-topbar",
             content: "Check that we are now in Spreadsheet",
-            isCheck: true,
         },
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
@@ -76,7 +73,6 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
         {
             trigger: ".o_kanban_renderer:not(:has(.o_kanban_record .o_document_xlsx))",
             content: "Check that XLSX is no longer visible",
-            isCheck: true,
         },
         {
             trigger: '.o_search_panel_label_title:contains("Trash")',

@@ -54,7 +54,6 @@ export function registerTemplateTour(tourName, templateName) {
             {
                 trigger: ".o-spreadsheet",
                 content: "Redirected to spreadsheet",
-                isCheck: true,
             },
         ],
     });

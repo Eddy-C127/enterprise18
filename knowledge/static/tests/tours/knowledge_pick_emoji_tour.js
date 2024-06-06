@@ -17,7 +17,7 @@ registry.category("web_tour.tours").add('knowledge_pick_emoji_tour', {
     run: "click",
 }, {
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("Untitled")',
-    run: () => {}, // check that the article is correctly created (private section)
+ // check that the article is correctly created (private section)
 }, {
     trigger: '#dropdown_tools_panel',
     run: "click",
@@ -34,14 +34,11 @@ registry.category("web_tour.tours").add('knowledge_pick_emoji_tour', {
 }, {
     // check that the emoji has been properly changed in the article body
     trigger: '.o_knowledge_body .o_article_emoji:contains(😃)',
-    run: () => {},
 }, {
     // check that the emoji has been properly changed in the header
     trigger: '.o_knowledge_header .o_article_emoji:contains(😃)',
-    run: () => {},
 }, {
     // check that the emoji has been properly changed in the aside block
     trigger: '.o_knowledge_sidebar .o_article_emoji:contains(😃)',
-    run: () => {}
 }, ...endKnowledgeTour()
 ]});

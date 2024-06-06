@@ -488,7 +488,6 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            run() {},
         },
     ],
 });
@@ -551,11 +550,9 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg :iframe span[t-field='doc.function'][title='doc.function']",
-            isCheck: true,
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
-            isCheck: true,
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe p:eq(0)",
@@ -569,7 +566,6 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -660,7 +656,6 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -682,7 +677,6 @@ registry.category("web_tour.tours").add("web_studio.test_toolbar_appearance", {
         },
         {
             trigger: "#toolbar.oe-floating[style*=visible]",
-            isCheck: true,
         },
         {
             trigger: "#bold.btn",
@@ -699,7 +693,6 @@ registry.category("web_tour.tours").add("web_studio.test_toolbar_appearance", {
         {
             trigger: "#toolbar.oe-floating[style*=hidden]",
             in_modal: false,
-            isCheck: true,
         },
     ],
 });
@@ -754,7 +747,6 @@ registry.category("web_tour.tours").add("web_studio.test_edition_without_lang", 
         },
         {
             trigger: ".o_web_studio_editor",
-            isCheck: true,
         },
     ],
 });
@@ -814,7 +806,6 @@ registry.category("web_tour.tours").add("web_studio.test_partial_eval", {
         },
         {
             trigger: ".o-web-studio-report-container :iframe .couic",
-            isCheck: true,
         },
     ],
 });
@@ -825,7 +816,6 @@ registry.category("web_tour.tours").add("web_studio.test_render_multicompany", {
     steps: () => [
         {
             trigger: ".o-web-studio-report-container :iframe .test_layout",
-            run() {},
         },
         {
             trigger: ".o-web-studio-report-container :iframe img",
@@ -877,7 +867,6 @@ registry.category("web_tour.tours").add("web_studio.test_add_non_searchable_fiel
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -971,7 +960,6 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_binary_f
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -1013,7 +1001,6 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg :iframe table tr td:contains(First Column)",
-            isCheck: true,
         },
         {
             trigger: ".o-web-studio-report-editor-wysiwyg :iframe table tr[t-foreach]",
@@ -1058,7 +1045,6 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg :iframe table td span[t-field='x2many_record.summary']",
-            isCheck: true,
         },
         {
             trigger: ".o-web-studio-save-report.btn-primary",
@@ -1066,7 +1052,6 @@ registry.category("web_tour.tours").add("web_studio.test_report_edition_dynamic_
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -1138,7 +1123,6 @@ registry.category("web_tour.tours").add("web_studio.test_error_at_loading", {
         },
         {
             trigger: ".o_web_studio_xml_editor",
-            isCheck: true,
         },
     ],
 });
@@ -1174,7 +1158,6 @@ registry.category("web_tour.tours").add("web_studio.test_error_at_loading_debug"
         {
             trigger:
                 ".o-web-studio-report-container strong:contains(odoo.addons.base.models.ir_qweb.QWebException)",
-            isCheck: true,
         },
     ],
 });
@@ -1361,7 +1344,6 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_arch", {
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -1385,7 +1367,6 @@ registry.category("web_tour.tours").add("web_studio.test_edit_in_t_call", {
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -1414,7 +1395,6 @@ registry.category("web_tour.tours").add("web_studio.test_edit_main_and_in_t_call
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });
@@ -1432,7 +1412,6 @@ registry.category("web_tour.tours").add("web_studio.test_image_crop", {
         },
         {
             trigger: "body .o-overlay-container .o_we_crop_widget .cropper-container",
-            isCheck: true,
         },
     ],
 });
@@ -1455,7 +1434,6 @@ registry.category("web_tour.tours").add("web_studio.test_translations_are_copied
         },
         {
             trigger: ".o-web-studio-save-report:not(.btn-primary)",
-            isCheck: true,
         },
     ],
 });

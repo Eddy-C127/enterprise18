@@ -17,7 +17,6 @@ registry.category("web_tour.tours").add('knowledge_readonly_favorite_tour', {
     // Check that the article has been added to the favorites
     trigger: 'section[data-section="favorites"]:contains("Readonly Article 1")',
     extra_trigger: 'a.o_knowledge_toggle_favorite:has(.fa-star)',
-    run: () => {},
 }, {
     // Open the other readonly article
     trigger: '.o_knowledge_sidebar .o_article_name:contains("Readonly Article 2")',
@@ -40,6 +39,5 @@ registry.category("web_tour.tours").add('knowledge_readonly_favorite_tour', {
     // Check that articles have been reordered correctly
     trigger: 'section[data-section="favorites"] li:last:contains("Readonly Article 1")',
     extra_trigger: 'section[data-section="favorites"] li:first:contains("Readonly Article 2")',
-    run: () => {},
 }, ...endKnowledgeTour()
 ]});

@@ -27,7 +27,6 @@ registry.category("web_tour.tours").add('sale_external_optional_products', {
         content: "wait for the quantity to be updated",
         trigger: 'input.js_quantity:value(2.0)',
         extra_trigger: 'li a:contains("Communication history")',
-        run() {},
     },
     {
         content: "delete the optional line",
@@ -37,6 +36,5 @@ registry.category("web_tour.tours").add('sale_external_optional_products', {
     {
         content: "wait for line to be deleted and show up again in optional products",
         trigger: '.js_add_optional_products',
-        run() {}, // it should not click
     },
 ]});

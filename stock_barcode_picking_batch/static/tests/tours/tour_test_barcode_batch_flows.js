@@ -563,7 +563,7 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_1', {test: 
         trigger: '.o_barcode_backorder_dialog .btn.btn-primary',
         run: "click",
     },
-    { trigger: '.o_notification_bar.bg-success', isCheck: true },
+    { trigger: '.o_notification_bar.bg-success'},
 ]});
 
 registry.category("web_tour.tours").add('test_barcode_batch_delivery_2_move_entire_package', {test: true, steps: () => [

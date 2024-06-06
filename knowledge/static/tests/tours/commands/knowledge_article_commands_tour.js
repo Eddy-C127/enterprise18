@@ -45,7 +45,6 @@ const commonKanbanSteps = (embedViewName) => {
             },
         }, { // wait for the kanban view to be mounted
             trigger: `${embedViewSelector(embedViewName)} .o_kanban_renderer`,
-            run: () => {},
         },
     ];
 };
@@ -72,7 +71,6 @@ const fileCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // wait for the media dialog to open
     trigger: '.o_select_media_dialog',
-    isCheck: true,
 }, { // click on the first item of the modal
     trigger: '.o_existing_attachment_cell:contains(Onboarding)',
     run: 'click'
@@ -115,7 +113,6 @@ const indexCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_articles_structure',
-    isCheck: true,
 }, { // click on the refresh button
     trigger: '.o_knowledge_behavior_type_articles_structure button[title="Update"]',
     run: 'click',
@@ -136,7 +133,6 @@ const tocCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_toc',
-    isCheck: true,
 }, { // insert a few titles in the editor
     trigger: '.odoo-editor-editable > p',
     run: function () {
@@ -163,7 +159,6 @@ const tocCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // check that we are in readonly mode
     trigger: '.o_field_html .o_readonly',
-    run: () => {},
 }, { // check that the content of the toc is not duplicated
     trigger: '.o_knowledge_behavior_type_toc',
     run: function () {
@@ -182,7 +177,6 @@ const tocCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // check that we are in edit mode
     trigger: '.o_field_html .odoo-editor-editable',
-    run: () => {},
 }];
 
 // COMMAND: /clipboard
@@ -192,7 +186,6 @@ const clipboardCommandSteps = [{ // go to the custom article
     run: "click",
 }, { // wait for article to be correctly loaded
     trigger: '.o_hierarchy_article_name input:value("EditorCommandsArticle")',
-    run: () => {},
 }, { // open the command bar
     trigger: '.odoo-editor-editable > p',
     run: function () {
@@ -203,13 +196,11 @@ const clipboardCommandSteps = [{ // go to the custom article
     run: 'click',
 }, { // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_template',
-    run: () => {},
 }, { // enter text into the clipboard template
     trigger: '.o_knowledge_content > p',
     run: "editor Hello world",
 }, { // verify that the text was correctly inserted
     trigger: '.o_knowledge_content > p:contains(Hello world)',
-    isCheck: true,
 }];
 
 // COMMAND: /video
@@ -252,7 +243,6 @@ const videoCommandSteps = [{ // patch the components
 }, {
     content: "Wait for preview to appear",
     trigger: `.o_video_iframe_src:contains("//www.youtube-nocookie.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
-    run: () => {},
 }, {
     content: "Confirm selection",
     trigger: '.modal-footer button:contains("Insert Video")',
@@ -300,7 +290,6 @@ const listCommandSteps = [{ // open the command bar
     },
 }, { // wait for the list view to be mounted
     trigger: `${embedViewSelector(embedListName)} .o_list_renderer`,
-    run: () => {},
 }, { // verify that the view has the correct name and store data-behavior-props
     trigger: `${embedViewSelector(embedListName)} .o_control_panel .o_breadcrumb .active:contains("*()!'<>~")`,
     run: () => {
@@ -344,7 +333,6 @@ const listCommandSteps = [{ // open the command bar
     run: 'click',
 }, { // check that name has been updated
     trigger: '.o_knowledge_embedded_view .o_control_panel .o_breadcrumb .active:contains("New Title")',
-    run: () => {},
 }];
 
 // EMBED VIEW: /kanban
@@ -368,7 +356,6 @@ const embedKanbanSteps = [{ // open the command bar
 ...commonKanbanSteps(embedKanbanName),
 { // Check that the stages are well created
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_group .o_kanban_header_title:contains("Ongoing")`,
-    run: () => {},
 }, { // create an article item from Main New button
     trigger: `${embedViewSelector(embedKanbanName)} .o-kanban-button-new`,
     run: 'click',
@@ -390,7 +377,6 @@ const embedKanbanSteps = [{ // open the command bar
 }, { // Verify that the article has been properly created
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title span:contains("New Quick Create Item")`,
     extra_trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title .o_article_emoji:contains("🙃")`,
-    run: () => {},
 }, { // Click on the icon of the created article to open the emoji picker
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title .o_article_emoji`,
     run: 'click',
@@ -474,7 +460,6 @@ const embedKanbanActWindowSteps = [{ // manually insert view from act_window obj
 const embedViewFiltersSteps = [{
     // Check that we have 2 elements in the embedded view
     trigger: 'tbody tr.o_data_row:nth-child(2)',
-    run: () => {}
 }, { // add a simple filter
     trigger: '.o_searchview_input_container input',
     run: "edit 1",
@@ -483,22 +468,18 @@ const embedViewFiltersSteps = [{
     run: "click",
 }, { // Check that the filter is effective
     trigger: 'tbody:not(tr.o_data_row:nth-child(2))',
-    run: () => {}
 }, { // Open the filtered article
     trigger: 'tbody > tr > td[name="display_name"]',
     run: "click",
 }, { // Wait for the article to be open
     trigger: '.o_hierarchy_article_name input:value("Child 1")',
-    run: () => {}
 }, { // Go back via the pager
     trigger: '.o_knowledge_header i.oi-chevron-left',
     run: "click",
 }, { // Check that there is the filter in the searchBar
     trigger: '.o_searchview_input_container',
-    run: () => {}
 }, { // Check that the filter is effective
     trigger: 'tbody:not(tr.o_data_row:nth-child(2))',
-    run: () => {}
 }];
 
 // MISC: Test opening an article item through the kanban view
@@ -514,13 +495,11 @@ const embedKanbanEditArticleSteps = [{ // Create a new article using quick creat
     run: 'click'
 }, { // verify that the view switched to the article item
     trigger: '.o_knowledge_header .o_hierarchy_article_name input:value("Quick Create Ongoing Item")',
-    run: () => {},
 }, { // Go back via the pager
     trigger: '.o_knowledge_header i.oi-chevron-left',
     run: "click",
 }, { // Wait for the article to be properly loaded
     trigger: '.odoo-editor-editable:contains("EditorCommandsArticle Content")',
-    run: () => {}
 }];
 
 /*
@@ -542,22 +521,17 @@ const articleCommandComposerSteps = [{ // open the chatter
     run: "click",
 }, ...appendArticleLink(`${composeBody}`, 'EditorCommandsArticle'), { // wait for the block to appear in the editor
     trigger: `${composeBody} .o_knowledge_behavior_type_article:contains("EditorCommandsArticle")`,
-    run: () => {},
 }, ...appendArticleLink(`${composeBody}`, 'LinkedArticle', 1), { // wait for the block to appear in the editor, after the previous one
     trigger: `${composeBody} .odoo-editor-editable > p > a:nth-child(2).o_knowledge_behavior_type_article:contains("LinkedArticle")[contenteditable="false"]`,
-    run: () => {},
 }, { // verify that the first block is still there and contenteditable=false
     trigger: `${composeBody} .odoo-editor-editable > p > a:nth-child(1).o_knowledge_behavior_type_article:contains("EditorCommandsArticle")[contenteditable="false"]`,
-    run: () => {},
 }, { // send the message
     trigger: '.o_mail_send',
     run: "click",
 }, {
     trigger: '.o_widget_knowledge_chatter_panel .o-mail-Thread .o-mail-Message-body > p > a:nth-child(1).o_knowledge_behavior_type_article:contains("EditorCommandsArticle")',
-    run: () => {},
 }, {
     trigger: '.o_widget_knowledge_chatter_panel .o-mail-Thread .o-mail-Message-body > p > a:nth-child(2).o_knowledge_behavior_type_article:contains("LinkedArticle")',
-    run: () => {},
 }, { // close the chatter
     trigger: '.btn-chatter',
     run: 'click',
@@ -576,7 +550,6 @@ const articleCommandUsageSteps = [{ // wait for the block to appear in the edito
     run: "click",
 }, { // Wait for the article to be properly loaded
     trigger: '.odoo-editor-editable:contains("EditorCommandsArticle Content")',
-    run: () => {}
 }];
 
 /** MISC: Clipboard usage on a contact
@@ -593,7 +566,6 @@ const clipboardUsageSteps = [{ // open the chatter
     run: 'click',
 }, {
     trigger: '.o-mail-Thread',
-    run: () => {},
 }, { // open the follower list of the article
     trigger: '.o-mail-Followers-button',
     run: 'click',
@@ -602,19 +574,16 @@ const clipboardUsageSteps = [{ // open the chatter
     run: 'click',
 }, { // verify that the partner form view is fully loaded
     trigger: '.o_breadcrumb .o_last_breadcrumb_item.active:contains(HelloWorldPartner)',
-    run: () => {},
 }, { // return to the knowledge article by going back from the breadcrumbs
     trigger: '.o_breadcrumb a:contains(EditorCommandsArticle)',
     run: 'click',
 }, {
     trigger: '.o_knowledge_behavior_type_template button:first:contains(Copy)',
-    run: () => {},
 }, { // open the chatter again
     trigger: '.btn-chatter',
     run: 'click',
 }, {
     trigger: '.o-mail-Thread',
-    run: () => {},
 }, { // open the follower list of the article
     trigger: '.o-mail-Followers-button',
     run: 'click',
@@ -623,7 +592,6 @@ const clipboardUsageSteps = [{ // open the chatter
     run: 'click',
 }, { // verify that the partner form view is fully loaded
     trigger: '.o_breadcrumb .o_last_breadcrumb_item.active:contains(HelloWorldPartner)',
-    run: () => {},
 }, { // search an article to open it from the contact record
     trigger: 'button[title="Search Knowledge Articles"]',
     run: 'click',
@@ -632,13 +600,11 @@ const clipboardUsageSteps = [{ // open the chatter
     run: 'click',
 }, { // wait for article to be correctly loaded
     trigger: '.o_hierarchy_article_name input:value("EditorCommandsArticle")',
-    run: () => {},
 }, { // use the template as description for the contact record
     trigger: '.o_knowledge_behavior_type_template button:contains(Use as)',
     run: 'click',
 }, { // check that the content of the template was inserted as description
     trigger: '.o_form_sheet .o_field_html .odoo-editor-editable p:contains("Hello world")',
-    run: () => {},
 }];
 
 registry.category("web_tour.tours").add('knowledge_article_commands_tour', {

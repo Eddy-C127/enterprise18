@@ -19,7 +19,6 @@ registry.category("web_tour.tours").add('sale_planning_test_tour', {
         }, {
             trigger: ".o_gantt_pill span:contains(Junior Developer)",
             content: "Check the naming format when SO is selected from magnify icon",
-            run: function () {},
         },
     ],
 });

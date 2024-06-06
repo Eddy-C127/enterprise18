@@ -15,7 +15,6 @@ registry.category("web_tour.tours").add("test_web_studio.test_disable_approvals"
         },
         {
             trigger: ".o_web_studio_sidebar input[name='studio_approval']:not(:checked)",
-            isCheck: true,
         },
     ],
 });

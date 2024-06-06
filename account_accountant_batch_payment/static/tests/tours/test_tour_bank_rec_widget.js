@@ -22,7 +22,6 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
         {
             content: "The 'line1' should be selected by default",
             trigger: "div[name='line_ids'] td[field='name']:contains('line1')",
-            run: function() {},
         },
 
         // Mount the batch payment and remove one payment.
@@ -74,7 +73,6 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
             content: "The 'line2' should be selected by default",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
             trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
-            run: function() {},
         },
         {
             content: "Click on the 'batch_payments_tab'",
@@ -96,14 +94,12 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
             content: "The 'line3' should be selected by default",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
             trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
-            run: function() {},
         },
         stepUtils.toggleHomeMenu(),
         ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "check that we're back on the dashboard",
             trigger: 'a:contains("Customer Invoices")',
-            run() {}
         }
     ]
 });

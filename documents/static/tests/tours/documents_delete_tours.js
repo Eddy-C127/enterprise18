@@ -58,7 +58,6 @@ function restoreDocumentSteps() {
         {
             trigger: '.o_search_panel_field header.active:contains("Trash")',
             content: "Check that we are in the trash",
-            isCheck: true,
         },
         {
             trigger: ".o_record_selector",
@@ -113,7 +112,6 @@ registry.category("web_tour.tours").add("document_delete_tour", {
         {
             trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",
             content: "Check that the document is no longer visible",
-            isCheck: true,
         },
         ...restoreDocumentSteps(),
         // 2) Archive a folder (and this its documents) and restore the archived document
@@ -129,7 +127,6 @@ registry.category("web_tour.tours").add("document_delete_tour", {
         {
             trigger: '.o_search_panel_field header.active:contains("Trash")',
             content: "Check that we are in the trash",
-            isCheck: true,
         },
         {
             trigger: ".o_record_selector",

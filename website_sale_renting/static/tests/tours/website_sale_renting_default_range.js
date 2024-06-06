@@ -26,12 +26,10 @@ registry
             {
                 content: "Check that the duration is correct",
                 trigger: '.o_renting_duration:contains("120")',
-                isCheck: true,
             },
             {
                 content: "Check that the unit is correct",
                 trigger: '.o_renting_unit:contains("Hours")',
-                run: () => {},
             },
         ],
     });

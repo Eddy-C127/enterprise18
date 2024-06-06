@@ -3,7 +3,6 @@ export function containsProduct(productName) {
         {
             content: "product screen is shown",
             trigger: `.o_pdis_product-name:contains("${productName}")`,
-            run: () => {},
         },
     ];
 }

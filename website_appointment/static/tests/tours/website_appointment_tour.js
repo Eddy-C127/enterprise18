@@ -65,7 +65,6 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
     }, {
         content: 'Check the error msg',
         trigger: '.o_appointment_error_text:contains("Invalid Email")',
-        isCheck: true,
     }, {
         content: 'Removing the Invalid Email from the text area',
         trigger: '#o_appointment_input_guest_emails',
@@ -78,16 +77,12 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         run: "click",
     }, {
         trigger: 'div:contains("test1@gmail.com")',
-        isCheck: true
     }, {
         trigger: 'div:contains("Portal User")',
-        isCheck: true
     }, {
         trigger: 'div:contains("new_zeadland2@test.example.com")',
-        isCheck: true
     }, {
         trigger: 'div:contains("Raoul")',
-        isCheck: true
     }, {
         trigger: '.o_appointment_guest_addition_open',
         content: 'Adding the guest at the validation page',
@@ -105,7 +100,6 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
     }, {
         content: 'Checking the error msg on the validation page',
         trigger: '.o_appointment_error_text:contains("Invalid Email")',
-        isCheck: true,
     }, {
         content: 'Remove the invalid email from the input',
         trigger: '#o_appointment_input_guest_emails',
@@ -118,12 +112,9 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         run: "click",
     }, {
         trigger: 'div:contains("test2@gmail.com")',
-        isCheck: true
     }, {
         trigger: 'div:contains("abc@gmail.com")',
-        isCheck: true
     }, {
         trigger: 'div:contains("def@gmail.example.com")',
-        isCheck: true
     },
 ]});

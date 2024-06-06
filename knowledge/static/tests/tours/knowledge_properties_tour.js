@@ -23,7 +23,6 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
     run: 'click',
 }, { // wait ChildArticle loading
     trigger: '.o_hierarchy_article_name input:value("ChildArticle")',
-    run: () => {},
 }, { // click on add properties button in dropdown
     trigger: '#dropdown_tools_panel',
     run: 'click',
@@ -53,6 +52,5 @@ registry.category("web_tour.tours").add('knowledge_properties_tour', {
     },
 }, { // verify property
     trigger: '.o_knowledge_properties .o_field_property_label:contains("myproperty")',
-    run: () => {},
 }, ...endKnowledgeTour()
 ]});

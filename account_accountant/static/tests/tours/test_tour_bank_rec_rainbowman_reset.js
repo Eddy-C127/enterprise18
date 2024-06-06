@@ -23,7 +23,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
             content: "'line1' should be selected and form mounted",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line1')",
             trigger: ".o_bank_rec_selected_st_line:contains('line1')",
-            run: () => {},
         },
         // Rainbowman gets reset
         {
@@ -68,7 +67,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
         {
             content: "No content helper is displayed instead of rainbowman",
             trigger: ".o_view_nocontent_smiling_face",
-            run: () => {},
         },
         // End
         stepUtils.toggleHomeMenu(),
@@ -76,7 +74,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_rain
         {
             content: "check that we're back on the dashboard",
             trigger: 'a:contains("Customer Invoices")',
-            run() {},
         }
     ]
 });

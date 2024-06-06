@@ -30,6 +30,5 @@ registry.category("web_tour.tours").add('knowledge_resequence_children_of_readon
     },
 }, { // check that the 1st child move was effective
     trigger: '.o_section:contains(Workspace):has(li:nth-child(1):contains(Child 1)):has(li:nth-child(2):contains(Readonly Parent))',
-    run: () => {},
 }, ...endKnowledgeTour()
 ]});

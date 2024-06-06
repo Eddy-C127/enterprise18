@@ -20,9 +20,7 @@ registry.category("web_tour.tours").add('knowledge_readonly_item_kanban_tour', {
     },
 }, { // wait for the kanban view to be mounted
     trigger: '.o_knowledge_behavior_type_embedded_view .o_kanban_renderer',
-    run: () => {},
 }, { // check that the "new" button is not shown
     trigger: '.o_control_panel_main:not(:has(.o-kanban-button-new))',
-    run: () => {},
 }, ...endKnowledgeTour()
 ]});

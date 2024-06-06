@@ -113,7 +113,6 @@ export function appendArticleLink(htmlFieldContainerSelector, articleName, offse
         in_modal: false,
     }, { // wait for the choice to be registered
         trigger: `.o_select_menu_toggler_slot:contains(${articleName})`,
-        run: () => {},
     }, { // click on the "Insert Link" button
         trigger: '.modal-dialog:contains(Link an Article) .modal-footer button.btn-primary',
         run: 'click'
@@ -128,7 +127,6 @@ export function endKnowledgeTour() {
     return [
         stepUtils.toggleHomeMenu(), {
             trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
-            run: () => {},
         }
     ];
 }

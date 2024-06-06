@@ -136,12 +136,10 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Check that is it not possible to reduce the quantity of the first product (no lot) since it has been delivered',
         trigger: '.o_kanban_record:first-child:has(button:has(i.fa-trash)[disabled])',
-        run: () => {},
     },
     {
         content: 'Check that is it not possible to reduce the quantity of the first product (lot) since it has been delivered',
         trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:has(button[disabled]):has(i.fa-minus)',
-        run: () => {},
     }, 
     {
         content: 'Add quantity to the first product (no lot)',
@@ -151,7 +149,6 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Check that is it now possible to reduce the quantity of the first product (no lot) since we added quantities',
         trigger: '.o_kanban_record:first-child:not(button:has(i.fa-trash)[disabled])',
-        run: () => {},
     },
     {
         content: 'Open the second product (lot) SN assignation wizard by using the plus button',
@@ -199,7 +196,6 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Check that its now possible to reduce the quantity of the first product (lot) since we added new quantities to it',
         trigger: '.o_kanban_record:nth-of-type(2) .o_product_catalog_quantity:not(button:has(i.fa-minus)[disabled])',
-        run: () => {},
     },
     {
         content: 'Open the second product (lot) SN assignation wizard by using the minus button',

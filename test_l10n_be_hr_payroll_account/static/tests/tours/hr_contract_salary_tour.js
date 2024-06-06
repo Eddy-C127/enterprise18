@@ -706,7 +706,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         {
             content: "Wait modal closed",
             trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
-            run: function () {},
         },
         // fill date
         {
@@ -1325,7 +1324,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Wait modal closed",
             trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
-            run: function () {},
         },
         // fill date
         {
@@ -1353,7 +1351,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         {
             content: "Check home page is loaded",
             trigger: "a.o_app.o_menuitem",
-            run: function () {},
         },
     ],
 });

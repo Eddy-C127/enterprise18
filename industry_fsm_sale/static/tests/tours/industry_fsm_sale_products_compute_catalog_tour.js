@@ -87,7 +87,6 @@ registry.category("web_tour.tours").add(
         {
             trigger: '.breadcrumb-item :contains("Quotations")',
             content: 'Go back to the quotations',
-            isCheck: true,
         },
     ]
 });

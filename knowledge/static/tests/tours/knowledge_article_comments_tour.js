@@ -18,7 +18,6 @@ const addAnswerComment = (commentText) => [{
     run: "click",
 }, {
     trigger: `.o-mail-Thread :contains(${commentText})`,
-    run: () => {}
 }];
 
 registry.category('web_tour.tours').add('knowledge_article_comments', {
@@ -36,7 +35,6 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
             run: "click",
         }, {
             trigger: '.o-mail-Thread :contains("Marc, can you check this?")',
-            run: () => {}
         },
         ...addAnswerComment("Sure thing boss, all done!"),
         {
@@ -49,7 +47,6 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
             run: "click",
         }, { // Wait for the composer to be fully closed
             trigger: 'body:not(:has(.o-mail-Thread))',
-            run: () => {}
         }, { // Select some text in the first paragraph
             trigger: '.note-editable p.o_knowledge_tour_first_paragraph',
             run: function () {
@@ -68,22 +65,18 @@ registry.category('web_tour.tours').add('knowledge_article_comments', {
             run: "click",
         }, { // Wait for the composer to be fully closed
             trigger: 'body:not(:has(.o-mail-Thread))',
-            run: () => {}
         }, {
             trigger: '.o_knowledge_comment_box[data-id] .o_knowledge_comment_small_ui img',
-            run: () => {}
         }, { // Open the comments panel
             trigger: '.btn-comments',
             run: "click",
         }, { // Panel loads un-resolved messages
             trigger: '.o-mail-Thread :contains("My Knowledge Comment")',
-            run: () => {}
         }, { // Switch to "resolved" mode
             trigger: '.o_knowledge_comments_panel select',
             run: "select resolved",
         }, { // Panel loads resolved messages
             trigger: '.o-mail-Thread :contains("Sure thing boss, all done!")',
-            run: () => {}
         }, { // Open the comment to enable replies
             trigger: '.o_knowledge_comment_box',
             run: "click",

@@ -21,9 +21,7 @@ registry.category("web_tour.tours").add('knowledge_readonly_item_list_tour', {
     },
 }, { // wait for the list view to be mounted
     trigger: '.o_knowledge_behavior_type_embedded_view .o_list_renderer',
-    run: () => {},
 }, { // check that the "new" button is not shown
     trigger: '.o_control_panel_main:not(:has(.o_list_button_add))',
-    run: () => {},
 }, ...endKnowledgeTour()
 ]});

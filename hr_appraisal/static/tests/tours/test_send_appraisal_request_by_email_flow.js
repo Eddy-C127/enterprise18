@@ -24,7 +24,6 @@ registry.category("web_tour.tours").add("test_send_appraisal_request_by_email_fl
         {
             trigger: ".modal-dialog .o_form_view",
             content: "Check that the Appraisal request form modal is open",
-            run: () => {},
         },
     ],
 });

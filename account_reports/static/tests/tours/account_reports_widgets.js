@@ -22,7 +22,6 @@ registry.category("web_tour.tours").add("account_reports_widgets", {
         {
             content: "wait refresh",
             trigger: `#filter_date button:not(:contains(${ new Date().getFullYear() }))`,
-            isCheck: true,
         },
         {
             content: "change comparison filter",
@@ -42,7 +41,6 @@ registry.category("web_tour.tours").add("account_reports_widgets", {
         {
             content: "wait refresh, report should have 4 columns",
             trigger: "th + th + th + th",
-            run: () => {},
         },
         {
             title: "open dropdown",

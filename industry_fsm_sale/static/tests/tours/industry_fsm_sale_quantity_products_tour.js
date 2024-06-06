@@ -32,5 +32,4 @@ registry.category("web_tour.tours").add('industry_fsm_sale_quantity_products_tou
 }, {
     trigger: '.o_kanban_record:nth-child(2) .o_product_catalog_buttons .btn-secondary:contains("Add")',
     content: 'Assert that the Add button does not convert to Remove',
-    isCheck: true,
 }]});

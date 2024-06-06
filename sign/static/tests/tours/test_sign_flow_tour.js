@@ -61,7 +61,6 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         {
             trigger: ":iframe input.o_sign_sign_item:focus",
             auto: true,
-            run() {},
         },
         {
             content: "Fill the sign item",

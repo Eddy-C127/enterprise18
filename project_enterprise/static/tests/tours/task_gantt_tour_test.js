@@ -49,7 +49,6 @@ patch(registry.category("web_tour.tours").get("project_test_tour"), {
         {
             trigger: ".o_gantt_progress_bar.o_gantt_group_danger",
             content: "See user progress bar",
-            run() {},
         })
         return originalSteps;
     }

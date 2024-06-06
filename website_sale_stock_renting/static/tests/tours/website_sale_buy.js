@@ -25,7 +25,6 @@ registry.category("web_tour.tours").add('shop_buy_rental_stock_product', {
         {
             content: "Check if the default data is in the date picker input",
             trigger: '.o_daterange_picker[data-has-default-dates=true]',
-            run: function () {}, // it's a check
         },
         {
             content: "Open daterangepicker",
@@ -66,12 +65,10 @@ registry.category("web_tour.tours").add('shop_buy_rental_stock_product', {
         {
             content: "Verify there is a Computer",
             trigger: '#cart_products div a h6:contains("Computer")',
-            isCheck: true,
         },
         {
             content: "Verify there are 2 quantity of Computers",
             trigger: '#cart_products div div.css_quantity input[value="2"]',
-            isCheck: true,
         },
         {
             content: "Go back on the Computer",
@@ -81,18 +78,15 @@ registry.category("web_tour.tours").add('shop_buy_rental_stock_product', {
         {
             content: "Verify there is a warning message",
             trigger: 'div#threshold_message_renting:contains("Only 3 Units still available during the selected period.")',
-            run: function () {}, // it's a check
         },
         tourUtils.goToCart({quantity: 2}),
         {
             content: "Check quantity",
             trigger: '#cart_products input.js_quantity:value(2)',
-            run: function () {}, // it's a check,
         },
         {
             content: "Check amount",
             trigger: '#cart_products .oe_currency_value:contains(28.00)',
-            run: function () {}, // it's a check,
         },
         tourUtils.goToCheckout(),
         tourUtils.confirmOrder(),

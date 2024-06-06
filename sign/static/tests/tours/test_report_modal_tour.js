@@ -31,7 +31,6 @@ registry.category("web_tour.tours").add("sign_report_modal_tour", {
         },
         {
             trigger: ":iframe .modal_green_savings.show",
-            run: () => {},
         },
     ],
 });

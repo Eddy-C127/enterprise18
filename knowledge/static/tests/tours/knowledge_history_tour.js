@@ -36,7 +36,6 @@ function changeArticleContentAndSave(newContent) {
     }, {
         // wait for the article to be loaded
         trigger: '.o_article_active:contains("' + testArticleName + '") ',
-        run: () => {},
     }];
 }
 
@@ -55,7 +54,6 @@ registry.category("web_tour.tours").add('knowledge_history_tour', {
     }, {
         // check that the article is correctly created (private section)
         trigger: 'section[data-section="private"] .o_article .o_article_name:contains("Untitled")',
-        run: () => {},
     },
         ...changeArticleContentAndSave(testArticleName),
         ...changeArticleContentAndSave('Modified Title 01'),

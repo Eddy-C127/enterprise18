@@ -22,7 +22,6 @@ registry.category("web_tour.tours").add("test_validate_additional_fields", {
         {
             content: "Check that the additional field page is open",
             trigger: "h3:contains('Required additional fields')",
-            isCheck: true,
         },
         {
             content: "Check no need invoice",
@@ -37,7 +36,6 @@ registry.category("web_tour.tours").add("test_validate_additional_fields", {
         {
             content: "Check we are on confirm order page",
             trigger: "#address_on_payment",
-            isCheck: true,
         },
     ],
 });

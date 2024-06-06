@@ -37,13 +37,12 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     configuratorTourUtils.selectAttribute("Customizable Desk", "Color", "Black", "color"),
 {
     trigger: '.btn-primary:disabled:contains("Confirm")',
-    isCheck: true, // check confirm button is disabled
+    allowDisabled: true, // check confirm button is disabled
 },
     // Check on the style to ensure that the color is the one set in backend.
     configuratorTourUtils.selectAttribute("Customizable Desk", "Color", "White", "color"),
 {
     trigger: '.btn-primary:not(:disabled):contains("Confirm")',
-    isCheck: true, // check confirm is available
 },
     configuratorTourUtils.addOptionalProduct("Conference Chair"),
     configuratorTourUtils.addOptionalProduct("Chair floor protection"),
@@ -63,7 +62,6 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 }, {
     content: 'Wait for the unit price to be rerendered.',
     trigger: '.o_selected_row [name=price_unit] input:value(42.00)',
-    run() {},
 },
 
 // Adding a line with a more expensive custom desk
@@ -83,7 +81,6 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     configuratorTourUtils.selectAttribute("Customizable Desk", "Color", "Black", "color"),
 {
     trigger: '.btn-primary:not(:disabled):contains("Confirm")',
-    isCheck: true, // check confirm is available
 }, {
     trigger: 'button:contains(Confirm)',
     id: 'quotation_product_selected',
@@ -101,6 +98,6 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 }, {
     content: "verify that the rental has been confirmed",
     trigger: '.o_statusbar_status button.o_arrow_button_current:contains("Sales Order")',
-    isCheck: true,
+    allowDisabled: true,
 }, ...stepUtils.discardForm(),
 ]});

@@ -772,7 +772,6 @@ registry.category("web_tour.tours").add('test_inventory_package', {test: true, s
 
     {
         trigger: '.o_stock_barcode_main_menu',
-        isCheck: true,
     },
 ]});
 
@@ -818,7 +817,6 @@ registry.category("web_tour.tours").add('test_inventory_packaging', {test: true,
     },
     {
         trigger: '.o_notification_bar.bg-success',
-        isCheck: true,
     },
 ]});
 
@@ -1155,7 +1153,6 @@ registry.category("web_tour.tours").add('test_inventory_using_buttons', {test: t
     },
     {
         trigger: '.o_notification_bar.bg-success',
-        isCheck: true,
     }
 ]});
 

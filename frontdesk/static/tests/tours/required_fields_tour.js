@@ -53,7 +53,6 @@ registry.category("web_tour.tours").add("required_fields_tour", {
         {
             content: "Check that we reached on the last page",
             trigger: "h1:contains('You have been registered!')",
-            isCheck: true,
         },
     ],
 });

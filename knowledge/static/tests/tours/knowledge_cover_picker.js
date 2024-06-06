@@ -34,7 +34,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
 }, {
     // Make the add cover button visible (only visible on hover)
     trigger: '.o_article_active:contains("Birds")',
-    run() {},
 }, {
     // Click on add cover button
     trigger: '.o_knowledge_add_cover',
@@ -46,7 +45,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // add url button
     trigger: '.o_upload_media_url_button',
     extra_trigger: '.modal-body .unsplash_error',
-    run: () => {},
 }, {
     // Change the search query to find odoo_logo file
     trigger: '.modal-body input.o_we_search',
@@ -60,7 +58,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Check cover has been added to the article and is initially centered and
     // make the reposition cover button visible
     trigger: '.o_knowledge_cover img[style="object-position: 50% 50%;"]',
-    run() {},
 }, {
     // Click on the reposition cover button
     trigger: '.o_knowledge_reposition_cover',
@@ -79,7 +76,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Check that the undo button works as expected (cover should be centered)
     trigger: '.o_knowledge_cover img[style="object-position: 50% 50%;"]',
     extra_trigger: '.o_knowledge_cover:not(:has(.o_reposition_hint))',
-    run() {},
 }, {
     // Move cover again but use the "save" button this time
     trigger: '.o_knowledge_reposition_cover',
@@ -117,7 +113,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // cover visible
     trigger: '.o_knowledge_cover img[style="object-position: 50% 0.01%;"]',
     extra_trigger: '.o_article_active:contains("Birds")',
-    run() {},
 }, {
     // Click on replace cover button
     trigger: '.o_knowledge_replace_cover',
@@ -133,7 +128,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
 }, {
     // Make the remove cover button visible
     trigger: '.o_knowledge_edit_cover_buttons',
-    run() {},
 }, {
     // Click on remove cover button
     trigger: '.o_knowledge_remove_cover',
@@ -147,7 +141,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
 }, {
     // Make the add cover button visible
     trigger: '.o_article_active:contains("odoo")',
-    run() {},
 }, {
     // Click on add cover button
     trigger: '.o_knowledge_add_cover',
@@ -168,7 +161,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
 }, {
     // Make the add cover button visible
     trigger: '.o_knowledge_edit_cover_buttons',
-    run() {},
 }, {
     // Click on add cover button
     trigger: '.o_knowledge_add_cover',
@@ -184,7 +176,6 @@ registry.category("web_tour.tours").add('knowledge_cover_selector_tour', {
     // Check that odoo logo is now shown in the cover selector, and make the trash
     // button visible
     trigger: '.modal-body .o_existing_attachment_cell img[title="odoo_logo.png"]',
-    run() {},
 }, {
     // Click on delete cover button
     trigger: '.modal-body .o_existing_attachment_cell:has(img[title="odoo_logo.png"]) .o_existing_attachment_remove',

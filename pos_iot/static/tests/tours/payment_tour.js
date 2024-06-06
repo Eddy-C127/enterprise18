@@ -98,7 +98,6 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         {
             content: "There should be no payment line",
             trigger: ".paymentlines-empty",
-            run: () => {},
         },
         {
             content: "Pay with payment terminal",
@@ -113,7 +112,6 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         ...PaymentScreen.clickPaymentlineDelButton("Terminal", "10.00"),
         {
             trigger: ".paymentlines-empty",
-            isCheck: true,
         },
         ...PaymentScreen.enterPaymentLineAmount("Terminal", "5", true, { remainingIs: "5.00" }),
         {
@@ -122,7 +120,6 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         },
         {
             trigger: ".electronic_status:contains('Successful')",
-            isCheck: true,
         },
         ...PaymentScreen.clickPaymentMethod("Cash"),
         ...PaymentScreen.clickNumpad("5"),
@@ -134,7 +131,6 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
         {
             content: "Immediately at the receipt screen.",
             trigger: '.receipt-screen .button.next.highlight:contains("New Order")',
-            run: function () {},
         },
     ],
 });

@@ -51,6 +51,5 @@ registry.category("web_tour.tours").add('industry_fsm_report_worksheet_test_tour
         content: 'Check view',
         trigger: 'span:contains("A very original worksheet")',
         extra_trigger: 'button:contains("Design Template")',
-        run: function() {}, // check the view loaded is the worksheet form of the worksheet created
     },
 ]});

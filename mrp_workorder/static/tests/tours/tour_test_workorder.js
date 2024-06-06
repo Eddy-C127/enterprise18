@@ -130,7 +130,6 @@ registry.category("web_tour.tours").add('test_access_shop_floor_with_multicomany
     },{
         context: 'Check that we switched companies',
         trigger: '.o_switch_company_menu button span:contains("Test Company")',
-        isCheck: true,
     },{
         content: 'Select Shop Floor app',
         trigger: 'a.o_app:contains("Shop Floor")',
@@ -146,6 +145,5 @@ registry.category("web_tour.tours").add('test_access_shop_floor_with_multicomany
     },{
         content: 'Check that the WO is not clickable',
         trigger: 'div.o_mrp_display_record.o_disabled',
-        isCheck: true,
     }]
 })

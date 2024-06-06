@@ -39,7 +39,6 @@ registry.category("web_tour.tours").add('account_reports_search', {
         {
             content: 'check that the product sale line is not present',
             trigger: '.line_name:not(:contains("400000 Product Sales"))',
-            isCheck: true,
         },
     ]
 });

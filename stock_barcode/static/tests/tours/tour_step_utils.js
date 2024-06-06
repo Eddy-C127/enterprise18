@@ -17,7 +17,6 @@ export const stepUtils = {
             },
             {
                 trigger: '.o_notification_bar.bg-success',
-                isCheck: true,
             },
         ];
     },
@@ -33,7 +32,6 @@ export const stepUtils = {
                 content: 'wait to be back on the barcode lines',
                 trigger: '.o_add_line',
                 auto: true,
-                run() {},
             },
         ];
     },

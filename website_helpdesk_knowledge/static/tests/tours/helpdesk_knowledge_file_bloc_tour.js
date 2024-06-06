@@ -32,14 +32,12 @@ registry.category("web_tour.tours").add('helpdesk_pick_file_as_attachment_from_k
     run: 'click',
 }, { // wait for Knowledge to open
     trigger: '.o_knowledge_form_view',
-    isCheck: true,
 }, ...createFileBehaviorSteps,
 { // click on the "Use as Attachment" button located in the toolbar of the file block
     trigger: '.o_knowledge_behavior_type_file .o_knowledge_toolbar_button_text:contains("Use as Attachment")',
     run: 'click',
 }, { // check that the file is added to the attachments
     trigger: '.o-mail-Chatter .o-mail-AttachmentCard:contains("Onboarding")',
-    run: () => {},
 }]});
 
 registry.category("web_tour.tours").add('helpdesk_pick_file_as_message_attachment_from_knowledge', {
@@ -56,15 +54,12 @@ registry.category("web_tour.tours").add('helpdesk_pick_file_as_message_attachmen
     run: 'click',
 }, { // wait for Knowledge to open
     trigger: '.o_knowledge_form_view',
-    isCheck: true,
 }, ...createFileBehaviorSteps,
 { // click on the "Use as Attachment" button located in the toolbar of the file block
     trigger: '.o_knowledge_behavior_type_file .o_knowledge_toolbar_button_text:contains("Send as Message")',
     run: 'click',
 }, { // wait for the file to be uploaded
     trigger: '.o-mail-Composer .o-mail-AttachmentCard i.fa-check',
-    run: () => {},
 }, { // check that the file is added to the attachment of the message, and that the file finished being uploaded
     trigger: '.o-mail-Chatter .o-mail-Composer .o-mail-AttachmentCard:contains("Onboarding"):not(.o-isUploading)',
-    run: () => {},
 }]});

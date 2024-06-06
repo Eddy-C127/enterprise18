@@ -46,7 +46,6 @@ registry.category("web_tour.tours").add('test_multiple_worksheet_checks', {
         {
             content: 'Quality checks color is danger since one failed',
             trigger: 'button[name="action_open_quality_check_picking"] .text-danger',
-            run: () => {},
         }
     ]
 });

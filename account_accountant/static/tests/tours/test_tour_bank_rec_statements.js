@@ -66,7 +66,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             content: "balance displays $3000.00 and no statement",
             extra_trigger: ".o_kanban_renderer:not(:has(.kanban-statement))",
             trigger: ".btn-link:contains('$ 3,000')",
-            isCheck: true,
         },
         // End
         stepUtils.toggleHomeMenu(),
@@ -74,7 +73,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
         {
             content: "check that we're back on the dashboard",
             trigger: 'a:contains("Customer Invoices")',
-            run() {},
         }
     ]
 });

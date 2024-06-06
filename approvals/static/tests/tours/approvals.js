@@ -89,7 +89,7 @@ registry.category("web_tour.tours").add("approvals_tour", {
         {
             trigger: 'button[aria-label="Current state"][data-value="refused"]',
             content: "wait the request status compute",
-            isCheck: true,
+            allowDisabled: true,
         },
         {
             trigger: 'button[name="action_cancel"]',
@@ -114,7 +114,6 @@ registry.category("web_tour.tours").add("approvals_tour", {
         {
             trigger: 'button[name="action_withdraw"]',
             content: "wait the the request to be approved",
-            isCheck: true,
         },
     ],
 });

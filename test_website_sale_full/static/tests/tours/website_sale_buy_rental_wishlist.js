@@ -27,12 +27,10 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_wishlist', {
         {
             content: "Verify there is a Computer",
             trigger: '#cart_products div a h6:contains("Computer")',
-            isCheck: true,
         },
         {
             content: "Verify there are 1 quantity of Computers",
             trigger: '#cart_products div div.css_quantity input[value="1"]',
-            isCheck: true,
         },
         {
             content: "go to checkout",
@@ -44,7 +42,6 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_wishlist', {
         {
             content: "verify checkout page",
             trigger: 'span div.o_wizard_step_active:contains("Payment")',
-            isCheck: true,
         },
     ]
 });

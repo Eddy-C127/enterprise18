@@ -83,7 +83,6 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             {
                 content: "The 'Invoice' button should have now turned to 'Reprint Invoice'",
                 trigger: "span:contains('Reprint Invoice')",
-                isCheck: true,
             },
         ].flat(),
 });
@@ -166,7 +165,6 @@ registry
                 {
                     content: "The 'Invoice' button should have now turned to 'Reprint Invoice'",
                     trigger: "span:contains('Reprint Invoice')",
-                    isCheck: true,
                 },
             ].flat(),
     });

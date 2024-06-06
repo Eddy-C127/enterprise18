@@ -35,7 +35,6 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
         {
             trigger: ".o-sheet-list .o-ripple-container:nth-child(2)",
             content: "Check that there are now two sheets",
-            isCheck: true,
         },
         {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
@@ -45,7 +44,6 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
         {
             trigger: ".o_kanban_renderer .o_kanban_record:first .o_kanban_stack ",
             content: "Check is rendered as multipage",
-            isCheck: true,
         },
         {
             trigger: ".o_document_spreadsheet:first",

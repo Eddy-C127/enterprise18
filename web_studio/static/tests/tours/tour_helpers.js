@@ -28,6 +28,5 @@ export function stepNotInStudio(trigger) {
     return {
         extra_trigger: "body:not(:has(.o_studio))",
         trigger: trigger || "body",
-        isCheck: true,
     };
 }

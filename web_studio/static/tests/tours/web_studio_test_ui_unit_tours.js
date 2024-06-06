@@ -304,7 +304,6 @@ registry.category("web_tour.tours").add("web_studio_boolean_field_drag_and_drop"
         },
         {
             trigger: ".o_wrap_label:eq(1):contains('New CheckBox')",
-            run() {},
         },
     ],
 });
@@ -327,7 +326,6 @@ registry.category("web_tour.tours").add("web_studio_field_with_group", {
         },
         {
             trigger: ".o_web_studio_list_view_editor th[data-name='function']",
-            run() {},
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_existing_fields_header",
@@ -404,7 +402,6 @@ registry.category("web_tour.tours").add("web_studio_set_tree_node_conditional_in
         },
         {
             trigger: ".o_web_studio_list_view_editor th[data-name='title']",
-            isCheck: true,
         },
     ],
 });
@@ -427,7 +424,6 @@ registry.category("web_tour.tours").add("web_studio_elements_with_groups_form", 
         },
         {
             trigger: ".o_web_studio_form_view_editor",
-            run() {},
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_existing_fields_header",
@@ -707,7 +703,6 @@ registry.category("web_tour.tours").add("web_studio_test_create_new_model_from_e
         },
         {
             trigger: ".o_form_view",
-            isCheck: true,
         },
     ],
 });
@@ -772,7 +767,6 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
         {
             trigger:
                 ".o_kanban_group:contains(In Progress) .o_kanban_record_details:contains(new record)",
-            isCheck: true,
         },
     ],
 });
@@ -805,7 +799,6 @@ registry
             },
             {
                 trigger: ".o_content > .o_list_renderer span:contains('Address Type')",
-                isCheck: true,
             },
         ],
     });
@@ -850,7 +843,6 @@ registry
             {
                 content: "Check that the active field has been added",
                 trigger: ".o_web_studio_view_renderer .o_list_view thead th[data-name='active']",
-                isCheck: true,
             },
         ],
     });
@@ -889,7 +881,6 @@ registry.category("web_tour.tours").add("web_studio_test_studio_view_is_last", {
         {
             trigger: ".o_web_studio_form_view_editor .o_field_widget[name='website']",
             allowInvisible: true,
-            run() {},
         },
     ],
 });
@@ -927,7 +918,6 @@ registry.category("web_tour.tours").add("web_studio_test_edit_form_subview_attri
         },
         {
             trigger: ".o_web_studio_sidebar input[name='create']:not(:checked)",
-            run() {},
         },
     ],
 });
@@ -967,7 +957,6 @@ registry.category("web_tour.tours").add("web_studio_x2many_two_levels_edition", 
         },
         {
             trigger: ".o_view_controller.o_form_view.test-subview-form-2",
-            run() {},
         },
         {
             trigger: ".o_web_studio_sidebar .o_web_studio_existing_fields_header",
@@ -981,7 +970,6 @@ registry.category("web_tour.tours").add("web_studio_x2many_two_levels_edition", 
         },
         {
             trigger: ".o_web_studio_form_view_editor [data-field-name='create_date']",
-            run() {},
         },
     ],
 });
@@ -1075,7 +1063,6 @@ registry.category("web_tour.tours").add("web_studio_test_move_similar_field", {
         },
         {
             trigger: ".o_web_studio_leave",
-            run() {},
         },
     ],
 });
@@ -1131,7 +1118,6 @@ registry.category("web_tour.tours").add("web_studio_test_related_file", {
         },
         {
             trigger: ".o_web_studio_leave",
-            run() {},
         },
     ],
 });
@@ -1161,7 +1147,6 @@ registry.category("web_tour.tours").add("web_studio_test_undo_new_field", {
         },
         {
             trigger: ".o_web_studio_leave",
-            isCheck: true,
         },
     ],
 });
@@ -1230,7 +1215,6 @@ registry.category("web_tour.tours").add("web_studio_test_new_field_rename_descri
         {
             trigger:
                 ".o_web_studio_form_view_editor label[for='x_studio_my_new_field_0']:contains(my new field)",
-            isCheck: true,
         },
     ],
 });
@@ -1264,7 +1248,6 @@ registry.category("web_tour.tours").add("web_studio_test_edit_digits_option", {
         },
         {
             trigger: ".o_web_studio_leave",
-            isCheck: true,
         },
     ],
 });
@@ -1307,7 +1290,6 @@ registry.category("web_tour.tours").add("web_studio_no_fetch_subview", {
         },
         {
             trigger: ".o_wrap_field label:contains('New Many2Many')",
-            isCheck: true,
         },
     ],
 });
@@ -1358,7 +1340,6 @@ registry.category("web_tour.tours").add("web_studio.test_button_rainbow_effect",
         },
         {
             trigger: ".o_web_studio_sidebar img[src^='/web/content']",
-            isCheck: true,
         },
     ],
 });
@@ -1418,7 +1399,6 @@ registry.category("web_tour.tours").add("web_studio_test_reload_after_restoring_
             extra_trigger: ".o_web_studio_undo:not(.o_web_studio_active)",
             trigger:
                 ".o_web_studio_form_view_editor .o_field_widget[name='name'] span:contains('Name')",
-            isCheck: true,
         },
     ],
 });

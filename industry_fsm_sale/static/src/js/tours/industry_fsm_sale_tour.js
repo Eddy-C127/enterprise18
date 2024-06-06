@@ -63,7 +63,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
         }, {
             content: _t("Wait for the invoice to show up"),
             trigger: "span:contains('Customer Invoice')",
-            run() {},
             auto: true,
         });
         return originalSteps;

@@ -36,7 +36,6 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
     {
         content: "Wait for the page to be loaded",
         trigger: ".o_form_view_container .o_control_panel .o_cp_action_menus .dropdown-toggle",
-        isCheck: true,
     },
     {
         content: "Click on action",
@@ -67,7 +66,6 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
     {
         content: "Check that the line is indeed modified",
         trigger: '.o_field_widget[name=line_ids] td.o_data_cell:contains("4,321.00")',
-        isCheck: true,
     },
     {
         content: "Validate changes",
@@ -83,6 +81,5 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
     {
         content: "Check that payslip line is indeed modofied",
         trigger: '.o_field_widget[name=line_ids] td.o_data_cell:contains("4,321.00")',
-        isCheck: true,
     },
 ]});

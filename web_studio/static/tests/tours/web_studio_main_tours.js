@@ -366,7 +366,6 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // verify that a default value has been set for the statusbar
             trigger:
                 '.o_web_studio_sidebar [name="default_value"] .o_select_menu_toggler_slot:contains(First Status)',
-            run() {},
         },
         {
             trigger: ".o_web_studio_views_icons a[aria-label=Form]",
@@ -833,7 +832,6 @@ registry.category("web_tour.tours").add("web_studio_new_submenu_tour", {
         {
             // check we are back in studio
             trigger: ".o_in_studio",
-            run: () => {},
         },
     ],
 });
@@ -887,7 +885,6 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
             // wait for the group to appear
             trigger:
                 '.o_web_studio_sidebar .o_field_many2many_tags[name="groups_id"] .o_tag_badge_text:contains(Access Rights)',
-            run() {},
         },
         {
             trigger:
@@ -916,7 +913,6 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             // The report has been saved
             trigger: ".o_web_studio_menu .o-web-studio-save-report:not(.btn-primary)",
-            run() {},
         },
         {
             trigger: ".o_web_studio_breadcrumb .o_back_button:contains(Reports)",
@@ -963,7 +959,6 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
         {
             trigger:
                 '.o_web_studio_sidebar .o_field_many2many_tags[name="groups_id"] .o_tag_badge_text:contains(Access Rights)',
-            run() {},
         },
         {
             trigger: ".o_web_studio_leave > a.btn",
@@ -1022,7 +1017,6 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
             // wait for the group to appear
             trigger:
                 '.o_web_studio_sidebar .o_field_many2many_tags[name="groups_id"] .o_tag_badge_text:contains(Access Rights)',
-            run() {},
         },
         {
             trigger: ".o_web_studio_menu .o-web-studio-save-report.btn-primary",
@@ -1031,7 +1025,6 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
         {
             // The report has been saved
             trigger: ".o_web_studio_menu .o-web-studio-save-report:not(.btn-primary)",
-            run() {},
         },
         {
             // leave the report
@@ -1193,7 +1186,6 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
         },
         {
             trigger: "body .o_modules_kanban",
-            isCheck: true,
         },
     ],
 });
@@ -1527,7 +1519,6 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
             extra_trigger: ".o_web_studio_snackbar .fa.fa-check",
             // check if the invisible option is checked
             trigger: "#invisible:checked",
-            run() {},
         },
     ],
 });
@@ -1769,7 +1760,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_create", {
         },
         {
             trigger: ".o_web_studio_new_app",
-            run: () => {},
         },
         {
             trigger: ".o_app[data-menu-xmlid='web_studio.studio_app_menu']",
@@ -1795,7 +1785,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_create", {
         },
         {
             trigger: ".o_web_studio_properties.active",
-            isCheck: true,
         },
     ],
 });
@@ -1813,7 +1802,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_nam
         },
         {
             trigger: ".o_web_studio_new_app",
-            run: () => {},
         },
         {
             trigger: ".o_app[data-menu-xmlid='web_studio.studio_app_menu']",
@@ -1856,7 +1844,6 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
         },
         {
             trigger: ".o_web_studio_new_app",
-            run: () => {},
         },
         {
             trigger: ".o_app[data-menu-xmlid='web_studio.studio_app_menu']",
@@ -1905,7 +1892,6 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
         {
             // The currency is created
             trigger: ".o_web_studio_view_renderer [data-field-name='x_studio_currency_id']",
-            isCheck: true,
         },
     ],
 });
@@ -1972,7 +1958,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_fie
             //wait until the currency has been set (also test the reactivity)
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_property_currency_field span.text-start:contains('X Studio Currency Test2')",
-            run() {},
         },
         {
             // by changing the currency, we should have a $ symbol in the renderer
@@ -1997,7 +1982,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_not
         },
         {
             trigger: ".o_web_studio_new_app",
-            run: () => {},
         },
         {
             trigger: ".o_app[data-menu-xmlid='web_studio.studio_app_menu']",
@@ -2022,7 +2006,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_not
             // wait until the currency has been set
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_property_currency_field span.text-start:contains('X Studio Currency Test2')",
-            run() {},
         },
         {
             // go to view tab
@@ -2036,7 +2019,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_not
         },
         {
             trigger: ".o_web_studio_properties.active",
-            isCheck: true,
         },
     ],
 });
@@ -2055,7 +2037,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_add_existing_moneta
         },
         {
             trigger: ".o_web_studio_new_app",
-            run: () => {},
         },
         {
             trigger: ".o_app[data-menu-xmlid='web_studio.studio_app_menu']",
@@ -2089,7 +2070,6 @@ registry.category("web_tour.tours").add("web_studio_monetary_add_existing_moneta
         {
             // currency field is in the view
             trigger: "div[data-field-name='x_studio_currency_test']",
-            run() {},
         },
     ],
 });
@@ -2110,7 +2090,6 @@ registry
             },
             {
                 trigger: ".o_web_studio_new_app",
-                run: () => {},
             },
             {
                 trigger: ".o_app[data-menu-xmlid='web_studio.studio_app_menu']",

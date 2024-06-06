@@ -23,7 +23,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
             content: "The 'line1' should be selected by default",
             extra_trigger: "div[name='line_ids']",
             trigger: "div[name='line_ids'] td[field='name']:contains('line1')",
-            run: function() {},
         },
 
         // Test 1: Check the loading of lazy notebook tabs.
@@ -32,7 +31,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
             content: "The 'amls_tab' should be active and the inner list view loaded",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table",
             trigger: "a.active[name='amls_tab']",
-            run: function() {},
         },
         // Check 'discuss_tab'.
         {
@@ -45,7 +43,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
             content: "The 'discuss_tab' should be active and the chatter loaded",
             extra_trigger: "a.active[name='discuss_tab']",
             trigger: "div.bank_rec_widget_form_discuss_anchor div.o-mail-Chatter",
-            run: function() {},
         },
         // Check 'manual_operations_tab'.
         {
@@ -57,12 +54,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
         {
             content: "The 'manual_operations_tab' should be active",
             trigger: "a.active[name='manual_operations_tab']",
-            run: function() {},
         },
         {
             content: "The 'name' field should be focus automatically",
             trigger: "div.o_notebook div[name='name'] input:focus",
-            run: function() {},
         },
         {
             content: "Click on the 'credit' field to change the focus from 'name' to 'balance'",
@@ -73,12 +68,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
         {
             content: "Wait to avoid non-deterministic errors on the next step",
             trigger: "tr.o_bank_rec_auto_balance_line td[field='credit']",
-            run: function() {},
         },
         {
             content: "The 'balance' field should be focus now",
             trigger: "div.o_notebook div[name='balance'] input:focus",
-            run: function() {},
         },
 
         // Test 2: Test validation + auto select the next line.
@@ -98,7 +91,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
             content: "Check INV/2019/00002 is well marked as selected",
             extra_trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00002')",
             trigger: "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='move_id']:contains('INV/2019/00002')",
-            run: function() {},
         },
         {
             content: "Remove INV/2019/00002",
@@ -122,7 +114,6 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
             content: "The 'line2' is the next not already reconciled line",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
             trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
-            run: function() {},
         },
 
         // Test 3: Test manual operations tab.
@@ -134,12 +125,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
         {
             content: "The 'manual_operations_tab' should be active now and the auto_balance line mounted in edit",
             trigger: "a.active[name='manual_operations_tab']",
-            run: function() {},
         },
         {
             content: "The last line should be selected",
             trigger: "div[name='line_ids'] tr.o_bank_rec_selected_line",
-            run: function() {},
         },
         {
             content: "Search for 'partner_a'",
@@ -173,12 +162,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
         {
             content: "Tax column appears in list of lines",
             trigger: "div[name='line_ids'] td[field='tax_ids']",
-            run: () => {},
         },
         {
             content: "Wait to avoid non-deterministic errors on the next step",
             trigger: "div[name='line_ids'] td:contains('Tax Received')",
-            run: () => {},
         },
         {
             content: "Validate",
@@ -190,14 +177,12 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget',
             content: "The 'line3' is the next not already reconciled line",
             extra_trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
             trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
-            run: function() {},
         },
         stepUtils.toggleHomeMenu(),
         ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "check that we're back on the dashboard",
             trigger: 'a:contains("Customer Invoices")',
-            run() {}
         }
     ]
 });

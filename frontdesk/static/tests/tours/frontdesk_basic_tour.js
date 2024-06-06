@@ -8,7 +8,6 @@ registry.category("web_tour.tours").add("frontdesk_basic_tour", {
         {
             content: "Check that the QR is there",
             trigger: "img",
-            isCheck: true,
         },
         {
             content: "Click on Check in",
@@ -48,7 +47,6 @@ registry.category("web_tour.tours").add("frontdesk_basic_tour", {
         {
             content: "Check that we reached on the last page",
             trigger: "h1:contains('You have been registered!')",
-            isCheck: true,
         },
     ],
 });
