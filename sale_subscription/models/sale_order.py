@@ -1586,10 +1586,12 @@ class SaleOrder(models.Model):
                     continue
                 self._subscription_commit_cursor(auto_commit)
                 # Handle automatic payment or invoice posting
-
                 existing_invoices = subscription.with_context(recurring_automatic=True)._handle_automatic_invoices(invoice, auto_commit) or self.env['account.move']
                 account_moves |= existing_invoices
-                subscription.with_context(mail_notrack=True).payment_exception = False
+                if all(inv.state != 'draft' for inv in existing_invoices):
+                    # when the invoice is not confirmed, we keep it and keep the payment_exception flag
+                    # Failed payment that delete the invoice will also be handled here and the flag will be removed
+                    subscription.with_context(mail_notrack=True).payment_exception = False
                 if not subscription.mapped('payment_token_id'): # _get_auto_invoice_grouping_keys groups by token too
                     move_to_send_ids += existing_invoices.ids
             except Exception:
@@ -1660,6 +1662,17 @@ class SaleOrder(models.Model):
         try:
             # execute payment
             self.pending_transaction = True
+            if invoice.currency_id.compare_amounts(invoice.amount_total_signed, 0) < 0:
+                # Something is wrong, we are trying to create a negative transaction. probably because a manual change in the order
+                # payment_exception is still true. We keep the draft invoice to allow salesmen understand what is going on.
+                self.pending_transaction = False
+                msg_body = _("Automatic payment failed. Check the corresponding invoice %s. We can't automatically process negative payment",
+                             invoice._get_html_link())
+                for order in self:
+                    order.message_post(body=msg_body)
+                self._subscription_commit_cursor(auto_commit)
+                # We return the draft invoice because it should be analyzed by the accounting to understand the issue
+                return invoice
             transaction = self._do_payment(payment_token, invoice, auto_commit=auto_commit)
             # commit change as soon as we try the payment, so we have a trace in the payment_transaction table
 

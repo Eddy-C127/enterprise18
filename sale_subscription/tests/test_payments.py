@@ -585,3 +585,58 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.assertFalse(subscription.pending_transaction, "Subscription doesn't have pending transaction after unsuccessful payment.")
             self.assertFalse(subscription.payment_token_id, "The payment token should not be saved after the unsuccessful payment.")
             self.assertEqual(draft_invoice.state, "cancel", "Draft invoice must be canceled after unsuccessful payment.")
+
+    def test_negative_payment_handling(self):
+        """ When the amount_total_signed is negative, the invoice is a refund. We should not do a request in that case
+        SO should be in exception and handled manually
+        """
+        with freeze_time("2024-01-23"):
+            test_payment_token = self.env['payment.token'].create({
+                'payment_details': 'Test',
+                'partner_id': self.user_portal.partner_id.id,
+                'provider_id': self.dummy_provider.id,
+                'payment_method_id': self.payment_method_id,
+                'provider_ref': 'test'
+            })
+            self.subscription.write({
+                'start_date': False,
+                'next_invoice_date': False,
+                'payment_token_id': test_payment_token.id,
+                'client_order_ref': 'Customer REF XXXXXXX',
+            })
+            # add expensive non recurring product
+            self.product5.product_tmpl_id.recurring_invoice = False
+            non_recurring = self.env['sale.order.line'].create({
+                'order_id': self.subscription.id,
+                'product_id': self.product5.id,
+                'price_unit': 1000,
+            })
+            self.subscription.action_confirm()
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                invoice = self.env['sale.order']._create_recurring_invoice()
+                txs_to_post_process = self.env['payment.transaction'].search([
+                ('state', '=', 'done'),
+                ('is_post_processed', '=', False),
+                ('last_state_change', '>=', datetime.datetime.now() - relativedelta(days=4)),
+                ])
+                txs_to_post_process._finalize_post_processing()
+            self.assertAlmostEqual(invoice.amount_total, 1123.1)
+            self.assertAlmostEqual(invoice.amount_total_signed, 1123.1)
+            self.assertEqual(invoice.move_type, "out_invoice", "This is an invoice")
+            self.assertEqual(self.subscription.next_invoice_date, datetime.date(2024, 2, 23))
+        with freeze_time("2024-02-23"):
+            # reset the quantity to 0
+            non_recurring.product_uom_qty = 0
+            with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
+                invoice2 = self.env['sale.order']._create_recurring_invoice()
+                txs_to_post_process = self.env['payment.transaction'].search([
+                    ('state', '=', 'done'),
+                    ('is_post_processed', '=', False),
+                    ('last_state_change', '>=', datetime.datetime.now() - relativedelta(days=4)),
+                ])
+                txs_to_post_process._finalize_post_processing()
+            self.assertEqual(invoice2.move_type, "out_refund", "This is a refund")
+            self.assertEqual(invoice2.state, "draft", "The invoice should not be posted")
+            self.assertAlmostEqual(invoice2.amount_total_signed, -1076.9)
+            self.assertTrue(self.subscription.payment_exception)
+            self.assertEqual(self.subscription.next_invoice_date, datetime.date(2024, 2, 23), "The next invoice date should not be updated")
