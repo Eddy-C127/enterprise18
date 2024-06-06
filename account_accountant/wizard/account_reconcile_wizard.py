@@ -164,7 +164,7 @@ class AccountReconcileWizard(models.TransientModel):
         """ We need a write-off if the balance is not 0 and if we don't allow partial reconciliation."""
         for wizard in self:
             wizard.is_write_off_required = not wizard.company_currency_id.is_zero(wizard.amount) \
-                or not wizard.reco_currency_id.is_zero(wizard.amount_currency)
+                or (wizard.reco_currency_id and not wizard.reco_currency_id.is_zero(wizard.amount_currency))
 
     @api.depends('move_line_ids')
     def _compute_reco_wizard_data(self):
@@ -289,7 +289,7 @@ class AccountReconcileWizard(models.TransientModel):
 
             if all(reco_currency in residual_values for residual_values in residual_amounts.values() if residual_values):
                 wizard.reco_currency_id = reco_currency
-            elif all(reco_currency not in residual_values for residual_values in residual_amounts.values() if residual_values):
+            elif all(amls.company_currency_id in residual_values for residual_values in residual_amounts.values() if residual_values):
                 wizard.reco_currency_id = amls.company_currency_id
                 reco_currency = wizard.reco_currency_id
             else:

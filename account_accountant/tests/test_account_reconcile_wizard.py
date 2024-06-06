@@ -543,3 +543,96 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
             active_ids=(debit_1 + debit_2 + credit_1).ids,
         ).new()
         self.assertRecordValues(wizard, [{'force_partials': True, 'allow_partials': True}])
+
+    def test_reconcile_same_currency_same_side_not_recpay(self):
+        """
+        Test the reconciliation with two lines on the same side (debit/credit), same currency and not on a receivable/payable account
+        """
+        current_assets_account = self.company_data['default_account_assets'].copy({'name': 'Current Assets', 'account_type': 'asset_current', 'reconcile': True})
+        line_1 = self.create_line_for_reconciliation(200, 200, self.company_currency, '2016-01-01', current_assets_account)
+        line_2 = self.create_line_for_reconciliation(200, 200, self.company_currency, '2016-01-01', current_assets_account)
+
+        # Test the opening of the wizard without input values
+        wizard = self.env['account.reconcile.wizard'].with_context(
+            active_model='account.move.line',
+            active_ids=(line_1 + line_2).ids,
+        ).new()
+
+        self.assertRecordValues(wizard, [{'is_write_off_required': True, 'amount': 400, 'amount_currency': 400}])
+
+        wizard_input_values = {
+            'journal_id': self.misc_journal.id,
+            'account_id': self.write_off_account.id,
+            'label': 'Write-Off Test Label',
+            'allow_partials': False,
+            'date': self.test_date,
+        }
+        expected_values = [
+            {'account_id': current_assets_account.id, 'name': 'Write-Off Test Label',
+             'balance': -400.0, 'amount_currency': -400.0, 'currency_id': self.company_currency.id},
+            {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
+             'balance': 400.0, 'amount_currency': 400.0, 'currency_id': self.company_currency.id},
+        ]
+        self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, expected_values)
+
+    def test_reconcile_foreign_currency_same_side_not_recpay(self):
+        """
+        Test the reconciliation with two lines on the same side (debit/credit), one foreign currency and not on a receivable/payable account
+        """
+        current_assets_account = self.company_data['default_account_assets'].copy({'name': 'Current Assets', 'account_type': 'asset_current', 'reconcile': True})
+        line_1 = self.create_line_for_reconciliation(200, 300, self.foreign_currency, '2016-01-01', current_assets_account)
+        line_2 = self.create_line_for_reconciliation(200, 200, self.company_currency, '2016-01-01', current_assets_account)
+
+        # Test the opening of the wizard without input values
+        wizard = self.env['account.reconcile.wizard'].with_context(
+            active_model='account.move.line',
+            active_ids=(line_1 + line_2).ids,
+        ).new()
+
+        self.assertRecordValues(wizard, [{'is_write_off_required': True, 'amount': 400, 'amount_currency': 400}])
+
+        wizard_input_values = {
+            'journal_id': self.misc_journal.id,
+            'account_id': self.write_off_account.id,
+            'label': 'Write-Off Test Label',
+            'allow_partials': False,
+            'date': self.test_date,
+        }
+        expected_values = [
+            {'account_id': current_assets_account.id, 'name': 'Write-Off Test Label',
+             'balance': -400.0, 'amount_currency': -400.0, 'currency_id': self.company_currency.id},
+            {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
+             'balance': 400.0, 'amount_currency': 400.0, 'currency_id': self.company_currency.id},
+        ]
+        self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, expected_values)
+
+    def test_reconcile_same_side_exch_diff(self):
+        """
+        Test the reconciliation with two lines on the same side (debit/credit), one exchange diff in foreign currency,
+        one regular aml in company currency
+        """
+        exchange_gain_account = self.company_data['company'].income_currency_exchange_account_id
+        exchange_gain_account.reconcile = True
+        line_1 = self.create_line_for_reconciliation(150.0, 150.0, self.company_currency, '2016-01-01')
+        line_2 = self.create_line_for_reconciliation(100.0, 0.0, self.foreign_currency, '2016-01-01', account_1=exchange_gain_account)
+        wizard_input_values = {
+            'journal_id': self.misc_journal.id,
+            'account_id': self.write_off_account.id,
+            'label': 'Write-Off Test Label',
+            'allow_partials': False,
+            'date': self.test_date,
+        }
+        # Note the transfer will always be in the currency of the line transferred
+        expected_transfer_values = [
+            {'account_id': exchange_gain_account.id, 'name': f'Transfer to {self.receivable_account.display_name}',
+             'balance': -100.0, 'amount_currency': 0.0, 'currency_id': self.foreign_currency.id},
+            {'account_id': self.receivable_account.id, 'name': f'Transfer from {exchange_gain_account.display_name}',
+             'balance': 100.0, 'amount_currency': 0.0, 'currency_id': self.foreign_currency.id},
+        ]
+        expected_values = [
+            {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label',
+             'balance': -250.0, 'amount_currency': -250.0, 'currency_id': self.company_currency.id},
+            {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label',
+             'balance': 250.0, 'amount_currency': 250.0, 'currency_id': self.company_currency.id},
+        ]
+        self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, expected_values, expected_transfer_values=expected_transfer_values)
