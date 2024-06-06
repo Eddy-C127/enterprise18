@@ -59,7 +59,7 @@ class AppointmentCalendarController(CalendarController):
             - no-cancel: Info message displayed when an appointment can no longer be canceled
         """
         partner_id = int(partner_id)
-        event = request.env['calendar.event'].sudo().search([('access_token', '=', access_token)], limit=1)
+        event = request.env['calendar.event'].with_context(active_test=False).sudo().search([('access_token', '=', access_token)], limit=1)
         if not event:
             return request.not_found()
         timezone = request.session.get('timezone')
@@ -102,6 +102,7 @@ class AppointmentCalendarController(CalendarController):
             'partner_id': partner_id,
             'attendee_status': event.attendee_ids.filtered(lambda a: a.partner_id.id == partner_id).state,
             'is_html_empty': is_html_empty,
+            'is_cancelled': not event.active,
         })
 
     @route(['/calendar/<string:access_token>/add_attendees_from_emails'], type="json", auth="public", website=True)
