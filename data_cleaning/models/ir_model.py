@@ -38,7 +38,7 @@ class IrModel(models.Model):
     # Actions
     # ---------------
 
-    def action_merge_contextual_enable(self):
+    def action_merge_contextual_enable(self, module='data_cleaning'):
         server_action_values = {
             'name': _('Merge'),
             'binding_view_types': 'list',
@@ -66,14 +66,14 @@ class IrModel(models.Model):
 
             IrModelData = self.env['ir.model.data']
             xid = f'merge_action_{model.model.replace(".", "_")}'
-            imd = IrModelData.search([('module', '=', 'data_cleaning'), ('name', '=', xid)])
+            imd = IrModelData.search([('module', '=', module), ('name', '=', xid)])
             if imd:
                 imd.res_id = server_action.id
             else:
                 # Create xml_id for the server action so it doesn't count as customization in cloc
                 IrModelData.create({
                     'name': xid,
-                    'module': 'data_cleaning',
+                    'module': module,
                     'res_id': server_action.id,
                     'model': 'ir.actions.server',
                     # noupdate is set to true to avoid to delete record at module update
