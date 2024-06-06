@@ -124,6 +124,7 @@ patch(AttendeeCalendarCommonRenderer.prototype, {
      * @override
      */
     async onSelect(info) {
+        info.jsEvent.preventDefault();
         if (!this.isSlotCreationMode()) {
             return super.onSelect(...arguments);
         }
@@ -135,6 +136,9 @@ patch(AttendeeCalendarCommonRenderer.prototype, {
      * @override
      */
     onDateClick(info) {
+        if (info.jsEvent.defaultPrevented) {
+            return;
+        }
         if (!this.isSlotCreationMode()) {
             return super.onDateClick(...arguments);
         }
