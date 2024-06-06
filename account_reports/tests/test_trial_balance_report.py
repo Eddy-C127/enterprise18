@@ -305,3 +305,43 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
             ],
             options,
         )
+
+    def test_action_general_ledger(self):
+        """
+            This test will check that the action caret_option_open_general_ledger works as expected which means that
+            a default_filter_accounts is set and that in case of hierarchy, the group is unfolded
+        """
+        self.env['account.group'].create([
+            {'name': 'Group_6', 'code_prefix_start': '6', 'code_prefix_end': '6'},
+        ])
+        options = self._generate_options(self.report, '2017-06-01', '2017-06-01', default_options={'hierarchy': True, 'unfold_all': True})
+        lines = self.report._get_lines(options)
+        self.assertLinesValues(
+            lines,
+            #                                               [  Initial Balance   ]          [       Balance      ]          [       Total        ]
+            #   Name                                        Debit           Credit          Debit           Credit          Debit           Credit
+            [0,                                                1,               2,             3,               4,             5,               6],
+            [
+                ('6 Group_6',                                0.0,         21000.0,           0.0,             0.0,           0.0,         21000.0),
+                ('600000 Expenses',                          0.0,         21000.0,           0.0,             0.0,           0.0,         21000.0),
+                ('(No Group)',                           21150.0,           150.0,         200.0,           200.0,       21350.0,           350.0),
+                ('121000 Account Receivable',             1000.0,             0.0,           0.0,             0.0,        1000.0,             0.0),
+                ('211000 Account Payable',                 100.0,             0.0,           0.0,             0.0,         100.0,             0.0),
+                ('211000 Account Payable',                  50.0,             0.0,           0.0,             0.0,          50.0,             0.0),
+                ('400000 Product Sales',                 20000.0,             0.0,           0.0,             0.0,       20000.0,             0.0),
+                ('400000 Product Sales',                     0.0,             0.0,           0.0,           200.0,           0.0,           200.0),
+                ('600000 Expenses',                          0.0,             0.0,         200.0,             0.0,         200.0,             0.0),
+                ('999999 Undistributed Profits/Losses',      0.0,           100.0,           0.0,             0.0,           0.0,           100.0),
+                ('999999 Undistributed Profits/Losses',      0.0,            50.0,           0.0,             0.0,           0.0,            50.0),
+                ('Total',                                21150.0,         21150.0,         200.0,           200.0,       21350.0,         21350.0),
+            ],
+            options,
+        )
+        general_ledger = self.env.ref('account_reports.general_ledger_report')
+        params = {'line_id': lines[1]['id']}
+        res = self.report.caret_option_open_general_ledger(options, params)
+        self.assertEqual(res['context']['default_filter_accounts'], '600000')
+        general_ledger_lines = general_ledger._get_lines(res['params']['options'])
+        unfolded_lines = [line for line in general_ledger_lines if line.get("unfolded")]
+        # Since the line 600000 Expenses has no child, unfolded is set to False. That's why we have only one element in the list
+        self.assertEqual(len(unfolded_lines), 1)
