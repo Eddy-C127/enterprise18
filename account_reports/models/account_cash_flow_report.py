@@ -173,7 +173,7 @@ class CashFlowReportCustomHandler(models.AbstractModel):
 
         self._cr.execute(f'''
             SELECT
-                array_remove(ARRAY_AGG(DISTINCT default_account_id), NULL),
+                array_remove(ARRAY_AGG(DISTINCT account_account.id), NULL),
                 array_remove(ARRAY_AGG(DISTINCT account_payment_method_line.payment_account_id), NULL),
                 array_remove(ARRAY_AGG(DISTINCT res_company.account_journal_payment_debit_account_id), NULL),
                 array_remove(ARRAY_AGG(DISTINCT res_company.account_journal_payment_credit_account_id), NUll)
@@ -182,6 +182,9 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 ON account_journal.company_id = res_company.id
             LEFT JOIN account_payment_method_line
                 ON account_journal.id = account_payment_method_line.journal_id
+            LEFT JOIN account_account
+                ON account_journal.default_account_id = account_account.id
+                   AND account_account.account_type IN ('asset_cash', 'liability_credit_card')
             WHERE {where_clause}
         ''', where_params)
 
