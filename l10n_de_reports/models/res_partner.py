@@ -11,6 +11,7 @@ class ResPartner(models.Model):
         copy=False,
         tracking=True,
         company_dependent=True,
+        index='btree_not_null',
         help="In the DateV export of the General Ledger, each vendor will be identified by this identifier. "
         "If this identifier is not set, the database id of the partner will be added to a multiple of ten starting by the number 7."
         "The account code's length can be specified in the company settings."
@@ -20,6 +21,7 @@ class ResPartner(models.Model):
         copy=False,
         tracking=True,
         company_dependent=True,
+        index='btree_not_null',
         help="In the DateV export of the General Ledger, each customer will be identified by this identifier. "
         "If this identifier is not set, the database id of the partner will be added to a multiple of ten starting by the number 1."
         "The account code's length can be specified in the company settings."
@@ -29,10 +31,10 @@ class ResPartner(models.Model):
     def _check_datev_identifier(self):
         self.flush_model(['l10n_de_datev_identifier'])
         self.env.cr.execute("""
-            SELECT COUNT(id), l10n_de_datev_identifier FROM res_partner
+            SELECT 1 FROM res_partner
             WHERE l10n_de_datev_identifier != 0
             GROUP BY l10n_de_datev_identifier
-            HAVING COUNT(id) > 1
+            HAVING COUNT(*) > 1
         """)
 
         if self.env.cr.dictfetchone():
@@ -42,10 +44,10 @@ class ResPartner(models.Model):
     def _check_datev_identifier_customer(self):
         self.flush_model(['l10n_de_datev_identifier_customer'])
         self.env.cr.execute("""
-            SELECT COUNT(id), l10n_de_datev_identifier_customer FROM res_partner
+            SELECT 1 FROM res_partner
             WHERE l10n_de_datev_identifier_customer != 0
             GROUP BY l10n_de_datev_identifier_customer
-            HAVING COUNT(id) > 1
+            HAVING COUNT(*) > 1
         """)
 
         if self.env.cr.dictfetchone():
