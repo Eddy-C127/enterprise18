@@ -7,6 +7,7 @@ from freezegun import freeze_time
 
 from odoo.addons.project.tests.test_project_base import TestProjectCommon
 from odoo.fields import Command
+from odoo.tests import Form
 
 # Time is freezed on a monday
 @freeze_time('2100-01-04')
@@ -130,3 +131,20 @@ class TestPlanningOverlap(TestProjectCommon):
         search_result = self.env['project.task'].search([('planning_overlap', '=', False)])
         self.assertIn(self.task_1, search_result)
         self.assertIn(self.task_2, search_result)
+
+    def test_overlap_for_same_user(self):
+        self.task_2.write({
+            'planned_date_begin': self.today + relativedelta(hour=9),
+            'date_deadline': self.today + relativedelta(hour=11),
+            'allocated_hours': 2,
+        })
+        (self.task_1 + self.task_2).write({
+            'user_ids': self.user_projectuser,
+        })
+
+        with Form(self.task_2) as task_form:
+            task_form.planned_date_begin = False
+            task_form.date_deadline = False
+
+        search_result = self.env['project.task'].search([('planning_overlap', '=', True)])
+        self.assertFalse(search_result)

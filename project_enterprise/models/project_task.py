@@ -224,8 +224,8 @@ class Task(models.Model):
             self.planning_overlap = False
             return overlap_mapping
         user_ids = set()
-        absolute_min_start = utc.localize(self[0].planned_date_begin)
-        absolute_max_end = utc.localize(self[0].date_deadline)
+        absolute_min_start = utc.localize(self[0].planned_date_begin or datetime.utcnow())
+        absolute_max_end = utc.localize(self[0].date_deadline or datetime.utcnow())
         for task in self:
             for user_id, task_mapping in overlap_mapping.get(task.id, {}).items():
                 absolute_min_start = min(absolute_min_start, utc.localize(task_mapping["min_planned_date_begin"]))
