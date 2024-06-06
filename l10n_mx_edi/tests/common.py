@@ -214,7 +214,7 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
     @classmethod
     def setup_rates(cls, currency, *rates):
         currency.sudo().rate_ids.unlink()
-        cls.env['res.currency.rate'].create([
+        return cls.env['res.currency.rate'].create([
             {
                 'name': rate_date,
                 'rate': rate,

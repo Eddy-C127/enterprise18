@@ -1231,7 +1231,7 @@ class AccountMove(models.Model):
             to_mxn_rate = pay_rate / inv_rate
             for tax_values in cfdi_inv_values['retenciones_list']:
                 key = frozendict({'impuesto': tax_values['impuesto']})
-                withholding_values_map[key]['importe'] += self.currency_id.round(tax_values['importe'] / inv_rate)
+                withholding_values_map[key]['importe'] += tax_values['importe'] / inv_rate
 
                 tax_amount_mxn = tax_values['importe'] * to_mxn_rate
                 if tax_values['impuesto'] == '001':
@@ -1248,8 +1248,8 @@ class AccountMove(models.Model):
                     'tasa_o_cuota': tax_values['tasa_o_cuota']
                 })
                 tax_amount = tax_values['importe'] or 0.0
-                transferred_values_map[key]['base'] += self.currency_id.round(tax_values['base'] / inv_rate)
-                transferred_values_map[key]['importe'] += self.currency_id.round(tax_amount / inv_rate)
+                transferred_values_map[key]['base'] += tax_values['base'] / inv_rate
+                transferred_values_map[key]['importe'] += tax_amount / inv_rate
 
                 base_amount_mxn = tax_values['base'] * to_mxn_rate
                 tax_amount_mxn = tax_amount * to_mxn_rate
@@ -1265,7 +1265,13 @@ class AccountMove(models.Model):
                     update_tax_amount('total_traslados_base_iva16', base_amount_mxn)
                     update_tax_amount('total_traslados_impuesto_iva16', tax_amount_mxn)
 
-        # Round.
+        # Rounding global tax amounts.
+        for dictionary in (withholding_values_map, transferred_values_map):
+            for values in dictionary.values():
+                if 'base' in values:
+                    values['base'] = self.currency_id.round(values['base'])
+                values['importe'] = self.currency_id.round(values['importe'])
+
         for key in (
             'total_traslados_base_iva0',
             'total_traslados_impuesto_iva0',

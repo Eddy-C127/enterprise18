@@ -1216,6 +1216,75 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
         self._test_cfdi_rounding(run)
 
+    def test_cfdi_rounding_9(self):
+        usd_exchange_rates = (
+            1 / 17.1325,
+            1 / 17.1932,
+            1 / 17.0398,
+            1 / 17.1023,
+            1 / 17.1105,
+            1 / 16.7457,
+        )
+
+        def quick_create_invoice(rate, quantity_and_price_unit):
+            # Only one rate is allowed per day and to make the test working in external_mode, we need to create 6 rates in less than
+            # 3 days. So let's create/unlink the rate.
+            rate = self.setup_rates(self.usd, (self.frozen_today, rate))
+            invoice = self._create_invoice(
+                currency_id=self.usd.id,
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                        'price_unit': price_unit,
+                        'quantity': quantity,
+                        'tax_ids': [Command.set(self.tax_16.ids)],
+                    })
+                    for quantity, price_unit in quantity_and_price_unit
+                ],
+            )
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+            rate.unlink()
+            return invoice
+
+        def run(rounding_method):
+            with self.mx_external_setup(self.frozen_today):
+                invoice1 = quick_create_invoice(
+                    usd_exchange_rates[0],
+                    [(80.0, 21.9)],
+                )
+                invoice2 = quick_create_invoice(
+                    usd_exchange_rates[1],
+                    [(200.0, 13.36)],
+                )
+                invoice3 = quick_create_invoice(
+                    usd_exchange_rates[1],
+                    [(1200.0, 0.36), (1000.0, 0.44), (800.0, 0.44), (800.0, 0.23)],
+                )
+                invoice4 = quick_create_invoice(
+                    usd_exchange_rates[2],
+                    [(200.0, 21.9)],
+                )
+                invoice5 = quick_create_invoice(
+                    usd_exchange_rates[3],
+                    [(1000.0, 0.36), (500.0, 0.44), (500.0, 0.23), (400.0, 0.87), (200.0, 0.44)],
+                )
+                invoice6 = quick_create_invoice(
+                    usd_exchange_rates[4],
+                    [(200.0, 14.4)],
+                )
+
+                self.setup_rates(self.usd, (self.frozen_today, usd_exchange_rates[5]))
+                payment = self._create_payment(
+                    invoice1 + invoice2 + invoice3 + invoice4 + invoice5 + invoice6,
+                    currency_id=self.env.company.currency_id.id,
+                )
+                with self.with_mocked_pac_sign_success():
+                    payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
+                self._assert_invoice_payment_cfdi(payment.move_id, f'test_cfdi_rounding_9_{rounding_method}_pay')
+
+        self._test_cfdi_rounding(run)
+
     def test_partial_payment_1(self):
         date1 = self.frozen_today - relativedelta(days=2)
         date2 = self.frozen_today - relativedelta(days=1)
