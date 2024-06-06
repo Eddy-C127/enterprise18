@@ -187,6 +187,8 @@ class TestCashFlowReport(TestAccountReportsCommon):
                 (0, 0, {'debit':   0.0,     'credit': 200.0,   'account_id': self.account_no_tag.id}),
             ],
         })
+        # Default journal account that hasn't "Bank and Cash" or "Credit Card" type should not appear
+        self.misc_journal.default_account_id = self.account_no_tag
         receivable_move.action_post()
 
         self.assertLinesValues(self.report._get_lines(options), [0, 1], [
