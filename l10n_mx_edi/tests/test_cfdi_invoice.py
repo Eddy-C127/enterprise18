@@ -1465,22 +1465,36 @@ class TestCFDIInvoice(TestMxEdiCommon):
             },
         ]
 
-        with self.mx_external_setup(self.frozen_today):
-            for address in addresses:
-                tz = address.pop('timezone')
-                with self.subTest(zip=address['zip']):
-                    self.env.company.partner_id.write(address)
+        for address in addresses:
+            tz = address.pop('timezone')
+            with self.subTest(zip=address['zip']):
+                self.env.company.partner_id.write(address)
 
+                with self.mx_external_setup(self.frozen_today):
                     invoice = self._create_invoice(invoice_line_ids=[Command.create({'product_id': self.product.id})])
                     with self.with_mocked_pac_sign_success():
                         invoice._l10n_mx_edi_cfdi_invoice_try_send()
                     document = invoice.l10n_mx_edi_invoice_document_ids.filtered(lambda x: x.state == 'invoice_sent')[:1]
                     assert_cfdi_date(document, tz)
 
+                    # Test an immediate payment.
                     payment = self.env['account.payment.register'] \
                         .with_context(active_model='account.move', active_ids=invoice.ids) \
-                        .create({}) \
+                        .create({'amount': 100.0}) \
                         ._create_payments()
                     with self.with_mocked_pac_sign_success():
                         payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
                     document = payment.l10n_mx_edi_payment_document_ids.filtered(lambda x: x.state == 'payment_sent')[:1]
+                    assert_cfdi_date(document, tz)
+
+                # Test a payment made 10 days ago but send today.
+                with self.mx_external_setup(self.frozen_today - relativedelta(days=10)):
+                    payment = self.env['account.payment.register'] \
+                        .with_context(active_model='account.move', active_ids=invoice.ids) \
+                        .create({'amount': 100.0}) \
+                        ._create_payments()
+                with self.mx_external_setup(self.frozen_today):
+                    with self.with_mocked_pac_sign_success():
+                        payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
+                    document = payment.l10n_mx_edi_payment_document_ids.filtered(lambda x: x.state == 'payment_sent')[:1]
+                    assert_cfdi_date(document, tz)
