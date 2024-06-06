@@ -84,7 +84,11 @@ export class MrpWorkcenterDialog extends ConfirmationDialog {
                     { type: "warning" }
                 );
             }
-            this.props.close();
         }
+        this.workcenters = [
+            { id: 0, display_name: _t("All MO") },
+            { id: -1, display_name: _t("My WO") },
+            ...this.workcenters,
+        ];
     }
 }

@@ -5,4 +5,8 @@ import { patch } from "@web/core/utils/patch";
 
 patch(BarcodePickingBatchModel.prototype, {
     openQualityChecksMethod: 'action_open_quality_check_wizard',
+
+    get displayOnDemandQualityCheckButton() {
+        return false;
+    }
 });

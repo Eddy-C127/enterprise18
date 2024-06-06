@@ -8,5 +8,10 @@ patch(BarcodePickingModel.prototype, {
 
     get displayValidateButton() {
         return !(this.record && this.record.quality_check_todo) && super.displayValidateButton;
+    },
+
+    get displayOnDemandQualityCheckButton() {
+        const { record } = this;
+        return record && record.id && !["draft", "done", "cancel"].includes(record.state);
     }
 });

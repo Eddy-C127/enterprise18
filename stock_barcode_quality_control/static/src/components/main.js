@@ -25,4 +25,16 @@ patch(MainComponent.prototype, {
             this.notification.add(_t("All the quality checks have been done"));
         }
     },
+
+    async onDemandQualityCheck() {
+        await this.env.model.save();
+        const res = await this.orm.call(this.resModel, "action_open_on_demand_quality_check",
+            [[this.resId]]
+        );
+        if (typeof res === 'object' && res !== null) {
+            return this.action.doAction(res, {
+                onClose: this._onRefreshState.bind(this, { recordId: this.resId }),
+            });
+        }
+    }
 });

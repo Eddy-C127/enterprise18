@@ -114,7 +114,7 @@ class StockPicking(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('On-Demand Quality Check'),
             'res_model': 'quality.check.on.demand',
-            'view_mode': 'form',
+            'views': [(self.env.ref('quality_control.quality_check_on_demand_view_form').id, 'form')],
             'target': 'new',
             'context': {
                 'default_picking_id': self.id,

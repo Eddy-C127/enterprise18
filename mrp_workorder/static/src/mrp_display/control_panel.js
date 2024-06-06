@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { Component } from "@odoo/owl";
 
 export class ControlPanelButtons extends Component {
@@ -41,10 +40,12 @@ export class ControlPanelButtons extends Component {
         } else if (this.props.activeWorkcenter === -1) {
             adminCount = this.props.relevantCount;
         }
-        return [
-            ["0", { count: productionCount, name: _t("All MO") }],
-            ["-1", { count: adminCount, name: _t("My WO") }],
-            ...this.props.workcenters.map((wc) => [String(wc.id), workcenterButtons[wc.id]]),
-        ];
+        if (workcenterButtons[0]) {
+            workcenterButtons[0].count = productionCount;
+        }
+        if (workcenterButtons[-1]) {
+            workcenterButtons[-1].count = adminCount;
+        }
+        return this.props.workcenters.map((wc) => [String(wc.id), workcenterButtons[wc.id]]);
     }
 }
