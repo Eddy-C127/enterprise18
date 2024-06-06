@@ -32,14 +32,14 @@ class AppointmentPortal(portal.CustomerPortal):
         ]
 
     def _get_appointment_search_domain(self, search_in, search):
-        search_domain = []
+        search_domains = []
         if search_in in ('all', 'name'):
-            search_domain = OR([search_domain, [('name', 'ilike', search)]])
+            search_domains.append([('name', 'ilike', search)])
         if search_in in ('all', 'responsible'):
-            search_domain = OR([search_domain, [('user_id', 'ilike', search)]])
+            search_domains.append([('user_id', 'ilike', search)])
         if search_in in ('all', 'description'):
-            search_domain = OR([search_domain, [('description', 'ilike', search)]])
-        return search_domain
+            search_domains.append([('description', 'ilike', search)])
+        return OR(search_domains) if search_domains else []
 
     def _appointment_get_groupby_mapping(self):
         return {
@@ -92,8 +92,8 @@ class AppointmentPortal(portal.CustomerPortal):
             filterby = 'all'
         domain = AND([domain, searchbar_filters[filterby]['domain']])
 
-        if search and search_in:
-            domain = AND([domain, self._get_appointment_search_domain(search_in, search)])
+        if search and search_in and (search_domain := self._get_appointment_search_domain(search_in, search)):
+            domain = AND([domain, search_domain])
 
         appointment_count = Event.search_count(domain)
         pager = portal_pager(
