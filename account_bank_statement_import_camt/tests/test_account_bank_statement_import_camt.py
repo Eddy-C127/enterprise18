@@ -405,7 +405,7 @@ class TestAccountBankStatementImportCamt(AccountTestInvoicingCommon):
         imported_statement = self.env['account.bank.statement'].search([('company_id', '=', self.env.company.id)], order='id desc', limit=1)
         self.assertEqual(len(imported_statement.line_ids), 3)
         third_line = imported_statement.line_ids[2]
-        self.assertEqual(third_line.payment_ref, 'Transaction 03 name')  # and not label03: AddtlRmtInf should take precedence on Ustrd
+        self.assertEqual(third_line.payment_ref, 'Transaction 03 name')
         self.assertEqual(third_line.partner_name, 'Ultimate Debtor Name')
 
     def test_import_camt_additional_entry_info(self):

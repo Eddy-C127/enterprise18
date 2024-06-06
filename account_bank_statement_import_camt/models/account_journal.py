@@ -80,7 +80,7 @@ class AccountJournal(models.Model):
                         'sequence': sequence,
                         'date': date,
                         'amount': CAMT._get_signed_amount(entry_details, entry, namespaces=ns, journal_currency=journal_currency),
-                        'payment_ref': CAMT._get_transaction_name(entry_details, namespaces=ns),
+                        'payment_ref': CAMT._get_transaction_name(entry_details, namespaces=ns, entry=entry),
                         'partner_name': partner_name,
                         'account_number': CAMT._get_account_number(entry_details, placeholder=counter_party, namespaces=ns),
                         'ref': CAMT._get_ref(entry_details, counter_party=counter_party, prefix='', namespaces=ns),
@@ -109,8 +109,6 @@ class AccountJournal(models.Model):
                     entry_info = CAMT._get_additional_entry_info(entry, namespaces=ns)
                     if entry_info:
                         notes.append(_('Entry Info: %s', entry_info))
-                        if entry_vals['payment_ref'] == '/':
-                            entry_vals['payment_ref'] = entry_info
                     text_info = CAMT._get_additional_text_info(entry_details, namespaces=ns)
                     if text_info:
                         notes.append(_('Additional Info: %s', text_info))
