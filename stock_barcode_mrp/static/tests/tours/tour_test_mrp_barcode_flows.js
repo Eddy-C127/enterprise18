@@ -987,3 +987,9 @@ registry.category("web_tour.tours").add("test_barcode_production_component_diffe
         }
     ]
 });
+
+registry.category("web_tour.tours").add('test_picking_product_with_kit_and_packaging', {
+    test: true, steps: () => [
+        { trigger: '.btn.o_validate_page', run: 'click' }
+    ]
+});
