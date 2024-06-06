@@ -728,14 +728,18 @@ class CAMT:
                 break
 
     @staticmethod
-    def _get_transaction_name(node, namespaces):
+    def _get_transaction_name(node, namespaces, entry=None):
         xpaths = (
-            './/ns:RmtInf/ns:Strd/ns:AddtlRmtInf/text()',
             './/ns:RmtInf/ns:Ustrd/text()',
             './/ns:RmtInf/ns:Strd/ns:CdtrRefInf/ns:Ref/text()',
+            './/ns:AddtlNtryInf/text()',
+            './/ns:RmtInf/ns:Strd/ns:AddtlRmtInf/text()',
         )
         for xpath in xpaths:
-            transaction_name = node.xpath(xpath, namespaces=namespaces)
+            if entry is not None and 'AddtlNtryInf' in xpath:
+                transaction_name = entry.xpath(xpath, namespaces=namespaces)
+            else:
+                transaction_name = node.xpath(xpath, namespaces=namespaces)
             if transaction_name:
                 return ' '.join(transaction_name)
         return '/'
