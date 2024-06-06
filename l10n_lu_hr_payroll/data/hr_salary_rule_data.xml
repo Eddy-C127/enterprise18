@@ -205,6 +205,30 @@ result = payslip._get_lux_tax(localdict)
         <field name="struct_id" ref="l10n_lu_hr_payroll.hr_payroll_structure_lux_employee_salary"/>
     </record>
 
+    <record id="l10n_lu_employees_cissm" model="hr.salary.rule">
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="name">CISSM</field>
+        <field name="code">CISSM</field>
+        <field name="sequence">143</field>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+fte_monthly_wage = result_rules['GROSS']['total'] / contract.work_time_rate if contract.work_time_rate else 0
+max_amount = payslip._rule_parameter('l10n_lu_cissm_max_amount')
+lower_bound = payslip._rule_parameter('l10n_lu_cissm_lower_bound')
+middle_bound = payslip._rule_parameter('l10n_lu_cissm_middle_bound')
+upper_bound = payslip._rule_parameter('l10n_lu_cissm_upper_bound')
+if lower_bound &lt;= fte_monthly_wage &lt; middle_bound:
+    cissm = max_amount
+elif middle_bound &lt;= fte_monthly_wage &lt; upper_bound:
+    cissm = (max_amount / (upper_bound - middle_bound)) * (upper_bound - fte_monthly_wage)
+else:
+    cissm = 0
+result = cissm * contract.work_time_rate
+</field>
+        <field name="struct_id" ref="l10n_lu_hr_payroll.hr_payroll_structure_lux_employee_salary"/>
+    </record>
+
     <record id="l10n_lu_employees_employee_tax_credit" model="hr.salary.rule">
         <field name="category_id" ref="hr_payroll.ALW"/>
         <field name="name">Employee Tax Credit</field>

@@ -53,6 +53,10 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             ]],
         }])
 
+        cls.lu_company.write({
+            'resource_calendar_id': cls.resource_calendar.id,
+        })
+
         cls.employee = cls.env['hr.employee'].create({
             'name': 'LU Employee',
             'address_id': cls.work_contact.id,
@@ -62,7 +66,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         })
 
         cls.contract = cls.env['hr.contract'].create({
-            'name': "PK Employee's contract",
+            'name': "LU Employee's contract",
             'employee_id': cls.employee.id,
             'resource_calendar_id': cls.resource_calendar.id,
             'company_id': cls.env.company.id,
@@ -71,6 +75,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'wage': 4000,
             'state': "open",
             'l10n_lu_meal_voucher_amount': 50.4,
+            'work_time_rate': 1.0,
         })
 
     @classmethod
@@ -109,12 +114,133 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             error.append("        }")
         self.assertEqual(len(error), 0, '\n' + '\n'.join(error))
 
-    def test_basic_payslip(self):
+    def test_basic_payslip_1(self):
+        self.contract.wage = 1000.0
+        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
+        payslip_results = {
+            'BASIC': 1000.0,
+            'BIK_TRANSPORT_NO_VAT': 0.0,
+            'BIK_TRANSPORT_VAT': 0.0,
+            'T_GROSS': 1000.0,
+            'MEAL_VOUCHERS': 50.4,
+            'GROSS': 1050.4,
+            'HEALTH_FUND': -28.0,
+            'SICK_FUND': -2.5,
+            'RETIREMENT_FUND': -80.0,
+            'DEP_INS': -5.0,
+            'TAXES_TOTAL': 110.5,
+            'TRANS_FEES': 0.0,
+            'ALW_TOTAL': 0.0,
+            'TAXABLE': 934.9,
+            'TAXES': 0.0,
+            'CISSM': 0.0,
+            'TAX_CREDIT': 50.0,
+            'NET': 984.9,
+            'MEAL_VOUCHERS.2': -50.4,
+            'BIK_TRANSPORT_NO_VAT.2': 0.0,
+            'BIK_TRANSPORT_VAT.2': 0.0,
+            'BIK_VARIOUS.2': 0.0,
+            'NET_TO_PAY': 934.5,
+        }
+        self._validate_payslip(payslip, payslip_results)
+
+    def test_basic_payslip_2(self):
+        self.contract.wage = 2000.0
+        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
+        payslip_results = {
+            'BASIC': 2000.0,
+            'BIK_TRANSPORT_NO_VAT': 0.0,
+            'BIK_TRANSPORT_VAT': 0.0,
+            'T_GROSS': 2000.0,
+            'MEAL_VOUCHERS': 50.4,
+            'GROSS': 2050.4,
+            'HEALTH_FUND': -56.0,
+            'SICK_FUND': -5.0,
+            'RETIREMENT_FUND': -160.0,
+            'DEP_INS': -19.0,
+            'TAXES_TOTAL': 221.0,
+            'TRANS_FEES': 0.0,
+            'ALW_TOTAL': 0.0,
+            'TAXABLE': 1810.4,
+            'TAXES': -69.8,
+            'CISSM': 70.0,
+            'TAX_CREDIT': 50.0,
+            'NET': 1860.6,
+            'MEAL_VOUCHERS.2': -50.4,
+            'BIK_TRANSPORT_NO_VAT.2': 0.0,
+            'BIK_TRANSPORT_VAT.2': 0.0,
+            'BIK_VARIOUS.2': 0.0,
+            'NET_TO_PAY': 1810.2,
+        }
+        self._validate_payslip(payslip, payslip_results)
+
+    def test_basic_payslip_3(self):
+        self.contract.wage = 3000.0
+        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
+        payslip_results = {
+            'BASIC': 3000.0,
+            'BIK_TRANSPORT_NO_VAT': 0.0,
+            'BIK_TRANSPORT_VAT': 0.0,
+            'T_GROSS': 3000.0,
+            'MEAL_VOUCHERS': 50.4,
+            'GROSS': 3050.4,
+            'HEALTH_FUND': -84.0,
+            'SICK_FUND': -7.5,
+            'RETIREMENT_FUND': -240.0,
+            'DEP_INS': -33.0,
+            'TAXES_TOTAL': 331.5,
+            'TRANS_FEES': 0.0,
+            'ALW_TOTAL': 0.0,
+            'TAXABLE': 2685.9,
+            'TAXES': -219.2,
+            'CISSM': 64.12,
+            'TAX_CREDIT': 50.0,
+            'NET': 2580.82,
+            'MEAL_VOUCHERS.2': -50.4,
+            'BIK_TRANSPORT_NO_VAT.2': 0.0,
+            'BIK_TRANSPORT_VAT.2': 0.0,
+            'BIK_VARIOUS.2': 0.0,
+            'NET_TO_PAY': 2530.42,
+        }
+        self._validate_payslip(payslip, payslip_results)
+
+    def test_basic_payslip_4(self):
+        self.contract.wage = 3500.0
+        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
+        payslip_results = {
+            'BASIC': 3500.0,
+            'BIK_TRANSPORT_NO_VAT': 0.0,
+            'BIK_TRANSPORT_VAT': 0.0,
+            'T_GROSS': 3500.0,
+            'MEAL_VOUCHERS': 50.4,
+            'GROSS': 3550.4,
+            'HEALTH_FUND': -98.0,
+            'SICK_FUND': -8.75,
+            'RETIREMENT_FUND': -280.0,
+            'DEP_INS': -40.0,
+            'TAXES_TOTAL': 386.75,
+            'TRANS_FEES': 0.0,
+            'ALW_TOTAL': 0.0,
+            'TAXABLE': 3123.65,
+            'TAXES': -327.7,
+            'CISSM': 5.79,
+            'TAX_CREDIT': 53.26,
+            'NET': 2854.99,
+            'MEAL_VOUCHERS.2': -50.4,
+            'BIK_TRANSPORT_NO_VAT.2': 0.0,
+            'BIK_TRANSPORT_VAT.2': 0.0,
+            'BIK_VARIOUS.2': 0.0,
+            'NET_TO_PAY': 2804.59,
+        }
+        self._validate_payslip(payslip, payslip_results)
+
+    def test_basic_payslip_5(self):
+        self.contract.wage = 4000.0
         payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
         payslip_results = {
             'BASIC': 4000.0,
-            'BIK_TRANSPORT_NO_VAT': 0,
-            'BIK_TRANSPORT_VAT': 0,
+            'BIK_TRANSPORT_NO_VAT': 0.0,
+            'BIK_TRANSPORT_VAT': 0.0,
             'T_GROSS': 4000.0,
             'MEAL_VOUCHERS': 50.4,
             'GROSS': 4050.4,
@@ -123,16 +249,17 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'RETIREMENT_FUND': -320.0,
             'DEP_INS': -47.0,
             'TAXES_TOTAL': 442.0,
-            'TRANS_FEES': 0,
-            'ALW_TOTAL': 0,
+            'TRANS_FEES': 0.0,
+            'ALW_TOTAL': 0.0,
             'TAXABLE': 3561.4,
             'TAXES': -459.9,
+            'CISSM': 0.0,
             'TAX_CREDIT': 60.76,
             'NET': 3162.25,
             'MEAL_VOUCHERS.2': -50.4,
-            'BIK_TRANSPORT_NO_VAT.2': 0,
-            'BIK_TRANSPORT_VAT.2': 0,
-            'BIK_VARIOUS.2': 0,
+            'BIK_TRANSPORT_NO_VAT.2': 0.0,
+            'BIK_TRANSPORT_VAT.2': 0.0,
+            'BIK_VARIOUS.2': 0.0,
             'NET_TO_PAY': 3111.85,
         }
         self._validate_payslip(payslip, payslip_results)
@@ -148,8 +275,8 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         payslip.compute_sheet()
         payslip_results = {
             'BASIC': 4000.0,
-            'BIK_TRANSPORT_NO_VAT': 0,
-            'BIK_TRANSPORT_VAT': 0,
+            'BIK_TRANSPORT_NO_VAT': 0.0,
+            'BIK_TRANSPORT_VAT': 0.0,
             'T_GROSS': 4000.0,
             'MEAL_VOUCHERS': 50.4,
             'GROSS': 4050.4,
@@ -158,10 +285,11 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'RETIREMENT_FUND': -320.0,
             'DEP_INS': -47.0,
             'TAXES_TOTAL': 442.0,
-            'TRANS_FEES': 0,
-            'ALW_TOTAL': 0,
+            'TRANS_FEES': 0.0,
+            'ALW_TOTAL': 0.0,
             'TAXABLE': 3561.4,
             'TAXES': -459.9,
+            'CISSM': 0.0,
             'TAX_CREDIT': 60.76,
             'BASIC_GRATIFICATION': 2000.0,
             'GRAT_HEALTH_FUND': -56.0,
@@ -171,9 +299,9 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'NET_GRATIFICATION': 1094.7,
             'NET': 4256.95,
             'MEAL_VOUCHERS.2': -50.4,
-            'BIK_TRANSPORT_NO_VAT.2': 0,
-            'BIK_TRANSPORT_VAT.2': 0,
-            'BIK_VARIOUS.2': 0,
+            'BIK_TRANSPORT_NO_VAT.2': 0.0,
+            'BIK_TRANSPORT_VAT.2': 0.0,
+            'BIK_VARIOUS.2': 0.0,
             'NET_TO_PAY': 4206.55,
         }
         self._validate_payslip(payslip, payslip_results)
