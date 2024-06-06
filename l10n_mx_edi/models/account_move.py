@@ -703,7 +703,7 @@ class AccountMove(models.Model):
         for move in self:
             if (
                 move.show_reset_to_draft_button
-                and move.l10n_mx_edi_cfdi_state not in ('cancel', False)
+                and move.l10n_mx_edi_cfdi_state not in ('cancel', 'received', False)
                 and move.state == 'posted'
             ):
                 move.show_reset_to_draft_button = False
