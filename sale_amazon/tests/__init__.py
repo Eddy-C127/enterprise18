@@ -2,4 +2,5 @@
 
 from . import common
 from . import test_amazon
+from . import test_multicompany
 from . import test_stock

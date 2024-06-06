@@ -4,12 +4,14 @@ from datetime import datetime
 from unittest.mock import Mock, patch
 
 from odoo.exceptions import UserError
+from odoo.tests.common import tagged
 from odoo.tools import mute_logger
 
 from odoo.addons.sale_amazon import utils as amazon_utils
 from odoo.addons.sale_amazon.tests import common
 
 
+@tagged('post_install', '-at_install')
 class TestAmazon(common.TestAmazonCommon):
 
     @mute_logger('odoo.addons.sale_amazon.models.amazon_account')

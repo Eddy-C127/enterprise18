@@ -4,12 +4,14 @@ from unittest.mock import patch, Mock
 
 from odoo import Command, fields
 from odoo.exceptions import UserError
+from odoo.tests.common import tagged
 from odoo.tools import mute_logger
 
 from odoo.addons.sale_amazon.tests import common
 from odoo.addons.stock.tests.common import TestStockCommon
 
 
+@tagged('post_install', '-at_install')
 class TestStock(common.TestAmazonCommon, TestStockCommon):
 
     # As this test class is exclusively intended to test Amazon-related check on pickings, the

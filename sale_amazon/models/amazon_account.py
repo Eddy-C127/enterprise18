@@ -125,7 +125,7 @@ class AmazonAccount(models.Model):
         string="Stock Location",
         help="The location of the stock managed by Amazon under the Amazon Fulfillment program.",
         comodel_name='stock.location',
-        domain="[('usage', '=', 'internal'), ('company_id', '=', company_id)]",
+        domain="[('usage', '=', 'internal')]",
         check_company=True,
     )
     active = fields.Boolean(
@@ -212,12 +212,12 @@ class AmazonAccount(models.Model):
         for vals in vals_list:
             # Find or create the location of the Amazon warehouse to be associated with this account
             location = self.env['stock.location'].search([
+                *self.env['stock.location']._check_company_domain(vals.get('company_id')),
                 ('id', 'in', amazon_locations_ids),
-                '|', ('company_id', '=', False), ('company_id', '=', vals.get('company_id')),
             ], limit=1)
             if not location:
                 parent_location_data = self.env['stock.warehouse'].search_read(
-                    ['|', ('company_id', '=', False), ('company_id', '=', vals.get('company_id'))],
+                    [*self.env['stock.warehouse']._check_company_domain(vals.get('company_id'))],
                     ['view_location_id'],
                     limit=1,
                 )
@@ -231,8 +231,8 @@ class AmazonAccount(models.Model):
 
             # Find or create the sales team to be associated with this account
             team = self.env['crm.team'].search([
+                *self.env['crm.team']._check_company_domain(vals.get('company_id')),
                 ('id', 'in', amazon_teams_ids),
-                '|', ('company_id', '=', False), ('company_id', '=', vals.get('company_id')),
             ], limit=1)
             if not team:
                 team = self.env['crm.team'].create({
@@ -432,7 +432,10 @@ class AmazonAccount(models.Model):
                     # Process the batch one order data at a time.
                     for order_data in orders_data:
                         try:
-                            with self.env.cr.savepoint():
+                            if auto_commit:
+                                with self.env.cr.savepoint():
+                                    account._process_order_data(order_data)
+                            else:  # Avoid the savepoint in testing
                                 account._process_order_data(order_data)
                         except amazon_utils.AmazonRateLimitError:
                             raise  # Don't treat a rate limit error as a business error.
@@ -713,10 +716,10 @@ class AmazonAccount(models.Model):
         # the correct contact details when invoicing the customer for an earlier order, should there
         # be a change in the personal information.
         contact = self.env['res.partner'].search([
+            *self.env['res.partner']._check_company_domain(self.company_id),
             ('type', '=', 'contact'),
             ('name', '=', buyer_name),
             ('amazon_email', '=', anonymized_email),
-            '|', ('company_id', '=', False), ('company_id', '=', self.company_id.id),
         ], limit=1) if anonymized_email else None  # Don't match random partners.
         if not contact:
             contact_name = buyer_name or f"Amazon Customer # {amazon_order_ref}"
@@ -739,6 +742,7 @@ class AmazonAccount(models.Model):
         ) else None
         if not delivery:
             delivery = self.env['res.partner'].search([
+                *self.env['res.partner']._check_company_domain(self.company_id),
                 ('parent_id', '=', contact.id),
                 ('type', '=', 'delivery'),
                 ('name', '=', shipping_address_name),
@@ -748,7 +752,6 @@ class AmazonAccount(models.Model):
                 ('city', '=', city),
                 ('country_id', '=', country.id),
                 ('state_id', '=', state.id),
-                '|', ('company_id', '=', False), ('company_id', '=', self.company_id.id),
             ], limit=1)
         if not delivery:
             delivery = self.env['res.partner'].with_context(tracking_disable=True).create({
@@ -829,8 +832,8 @@ class AmazonAccount(models.Model):
                 lambda m: m.api_ref == marketplace_api_ref
             )
             offer = self._find_or_create_offer(sku, marketplace)
-            product_taxes = offer.product_id.taxes_id.filtered(
-                lambda t: t.company_id.id == self.company_id.id
+            product_taxes = offer.product_id.taxes_id.filtered_domain(
+                [*self.env['account.tax']._check_company_domain(self.company_id)]
             )
             main_condition = item_data.get('ConditionId')
             sub_condition = item_data.get('ConditionSubtypeId')
@@ -877,8 +880,8 @@ class AmazonAccount(models.Model):
                     gift_wrap_product = self._find_matching_product(
                         gift_wrap_code, 'default_product', 'Amazon Sales', 'consu'
                     )
-                    gift_wrap_product_taxes = gift_wrap_product.taxes_id.filtered(
-                        lambda t: t.company_id.id == self.company_id.id
+                    gift_wrap_product_taxes = gift_wrap_product.taxes_id.filtered_domain(
+                        [*self.env['account.tax']._check_company_domain(self.company_id)]
                     )
                     gift_wrap_taxes = fiscal_pos.map_tax(gift_wrap_product_taxes) \
                         if fiscal_pos else gift_wrap_product_taxes
@@ -914,8 +917,8 @@ class AmazonAccount(models.Model):
             shipping_code = order_data.get('ShipServiceLevel')
             if shipping_code:
                 shipping_price = float(item_data.get('ShippingPrice', {}).get('Amount', '0'))
-                shipping_product_taxes = shipping_product.taxes_id.filtered(
-                    lambda t: t.company_id.id == self.company_id.id
+                shipping_product_taxes = shipping_product.taxes_id.filtered_domain(
+                    [*self.env['account.tax']._check_company_domain(self.company_id)]
                 )
                 shipping_taxes = fiscal_pos.map_tax(shipping_product_taxes) if fiscal_pos \
                     else shipping_product_taxes
@@ -990,16 +993,15 @@ class AmazonAccount(models.Model):
         """
         self.ensure_one()
         pricelist = self.env['product.pricelist'].with_context(active_test=False).search([
+            *self.env['product.pricelist']._check_company_domain(self.company_id),
             ('currency_id', '=', currency.id),
-            '|',
-            ('company_id', '=', False),
-            ('company_id', '=', self.company_id.id),
         ], limit=1)
         if not pricelist:
             pricelist = self.env['product.pricelist'].with_context(tracking_disable=True).create({
                 'name': 'Amazon Pricelist %s' % currency.name,
                 'active': False,
                 'currency_id': currency.id,
+                'company_id': self.company_id.id,
             })
         return pricelist
 
