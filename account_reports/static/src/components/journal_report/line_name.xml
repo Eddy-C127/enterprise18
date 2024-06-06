@@ -20,6 +20,15 @@
             </t>
             <t t-else="">
                 <t t-out="props.line.name"/>
+
+                <t t-if="'journal_id' in props.line">
+                    <button
+                        class="btn btn_action"
+                        t-on-click="(ev) => controller.reportAction(ev, 'journal_report_open_aml_by_move', { journal_id: props.line.journal_id })"
+                    >
+                        Audit
+                    </button>
+                </t>
             </t>
         </xpath>
     </t>

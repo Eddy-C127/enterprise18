@@ -127,8 +127,10 @@ class JournalReportCustomHandler(models.AbstractModel):
             new_lines.append(line)
             line_id = line['id']
 
-            # If this line is an account move line
-            if report._get_model_info_from_id(line_id)[0] == 'account.account':
+            line_model, res_id = report._get_model_info_from_id(line_id)
+            if line_model == 'account.journal':
+                line['journal_id'] = res_id
+            elif line_model == 'account.account':
                 res_ids_map = report._get_res_ids_from_line_id(line_id, ['account.journal', 'account.account'])
                 line['journal_id'] = res_ids_map['account.journal']
                 line['account_id'] = res_ids_map['account.account']
@@ -1287,4 +1289,20 @@ class JournalReportCustomHandler(models.AbstractModel):
             'res_model': 'account.move.line',
             'views': [[False, 'tree']],
             'domain': domain
+        }
+
+    def journal_report_open_aml_by_move(self, options, params):
+        report = self.env['account.report'].browse(options['report_id'])
+        journal = self.env['account.journal'].browse(params['journal_id'])
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': journal.name,
+            'res_model': 'account.move.line',
+            'views': [[False, 'tree']],
+            'domain': [
+                ('journal_id.id', '=', journal.id),
+                *report._get_options_domain(options, 'strict_range'),
+            ],
+            'context': {'search_default_group_by_move': 1},
         }
