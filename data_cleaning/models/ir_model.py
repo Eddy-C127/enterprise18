@@ -66,7 +66,7 @@ class IrModel(models.Model):
 
             IrModelData = self.env['ir.model.data']
             xid = f'merge_action_{model.model.replace(".", "_")}'
-            imd = IrModelData.search([('module', '=', 'data_merge'), ('name', '=', xid)])
+            imd = IrModelData.search([('module', '=', 'data_cleaning'), ('name', '=', xid)])
             if imd:
                 imd.res_id = server_action.id
             else:
