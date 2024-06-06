@@ -1278,14 +1278,18 @@ class JournalReportCustomHandler(models.AbstractModel):
         :return: act_window on journal items filtered on the current journal and the current account within a date.
         """
         report = self.env['account.report'].browse(options['report_id'])
+        journal = self.env['account.journal'].browse(params['journal_id'])
+        account = self.env['account.account'].browse(params['account_id'])
+
         domain = [
-            ('journal_id.id', '=', params['journal_id']),
-            ('account_id.id', '=', params['account_id']),
+            ('journal_id.id', '=', journal.id),
+            ('account_id.id', '=', account.id),
         ]
         domain += report._get_options_domain(options, 'strict_range')
 
         return {
             'type': 'ir.actions.act_window',
+            'name': _("%(journal)s - %(account)s", journal=journal.name, account=account.name),
             'res_model': 'account.move.line',
             'views': [[False, 'tree']],
             'domain': domain
