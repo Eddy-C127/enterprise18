@@ -149,7 +149,7 @@ test("Side panel content", async function () {
         },
     });
     const revisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
-    expect(revisions.length).toBe(3, { message: "3 revisions provided" });
+    expect(revisions.length).toBe(4, { message: "3 revisions provided + initial state" });
 
     // Revision info
     expect(revisions[0].querySelector(".o-version-history-info").textContent).toBe(
@@ -192,6 +192,28 @@ test("Side panel content", async function () {
     );
 });
 
+test("Clicking on initial state resets the data without any revisions", async function () {
+    const { model } = await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                const revisions = [];
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                return {
+                    data: {},
+                    name: "test",
+                    revisions,
+                };
+            }
+        },
+    });
+    expect(model.getters.getSheetIds().length).toBe(3);
+    const revisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
+    // rollback to before the first revision. i.e. undo all changes
+    await contains([...revisions].at(-1)).click();
+    expect(model.getters.getSheetIds().length).toBe(1);
+});
+
 test("Side panel click loads the old version", async function () {
     const { model } = await createSpreadsheetTestAction("action_open_spreadsheet_history", {
         mockRPC: async function (route, args) {
@@ -210,7 +232,7 @@ test("Side panel click loads the old version", async function () {
     expect(model.getters.getSheetIds().length).toBe(3);
     const revisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
     // rollback to the before last revision. i.e. undo a CREATE_SHEET
-    await contains([...revisions].at(-1)).click();
+    await contains([...revisions].at(-2)).click();
     expect(model.getters.getSheetIds().length).toBe(2);
 });
 
@@ -264,7 +286,9 @@ test("Load more revisions", async function () {
     expect(loadMore !== null).toBe(true, { message: "Load more button is visible" });
     await contains(loadMore).click();
     const newRevisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
-    expect(newRevisions.length).toBe(75, { message: "the first 50 revisions are loaded" });
+    expect(newRevisions.length).toBe(76, {
+        message: "the first 50 revisions are loaded + the initial state",
+    });
 });
 
 test("Side panel > make copy", async function () {

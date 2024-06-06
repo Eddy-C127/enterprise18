@@ -15,6 +15,7 @@ export class VersionHistoryItem extends Component {
         revision: Object,
         onActivation: { optional: true, type: Function },
         onBlur: { optional: true, type: Function },
+        editable: { optional: true, type: Boolean },
     };
     setup() {
         this.menuState = useState({
@@ -83,14 +84,7 @@ export class VersionHistoryItem extends Component {
     }
 
     get menuItems() {
-        return createActions([
-            {
-                name: this.revision.name ? _t("Rename") : _t("Name this version"),
-                execute: () => {
-                    this.inputRef.el.focus();
-                },
-                isReadonlyAllowed: true,
-            },
+        const actions = [
             {
                 name: _t("Make a copy"),
                 execute: (env) => {
@@ -105,7 +99,18 @@ export class VersionHistoryItem extends Component {
                 },
                 isReadonlyAllowed: true,
             },
-        ]);
+        ];
+        if (this.props.editable) {
+            actions.unshift({
+                name: this.revision.name ? _t("Rename") : _t("Name this version"),
+                execute: () => {
+                    this.inputRef.el.focus();
+                },
+                isReadonlyAllowed: true,
+            });
+        }
+
+        return createActions(actions);
     }
 
     openMenu() {

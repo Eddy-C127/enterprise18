@@ -5,6 +5,7 @@
         class="o-version-history-item"
         t-att-class="{'active': this.props.active}"
         t-ref="item"
+        t-on-contextmenu.prevent.stop="this.openMenu"
         t-on-click="() => props.onActivation(this.revision.nextRevisionId)">
 
         <div class="d-flex o-version-history-item-text">

@@ -378,10 +378,17 @@ class SpreadsheetMixin(models.AbstractModel):
         self.ensure_one()
         self._check_collaborative_spreadsheet_access("read")
         spreadsheet_sudo = self.sudo()
+        initial_date = spreadsheet_sudo.create_date
 
         if from_snapshot:
             data = spreadsheet_sudo._get_spreadsheet_snapshot()
             revisions = spreadsheet_sudo.spreadsheet_revision_ids
+            snapshot = spreadsheet_sudo.env["ir.attachment"].search([
+                ("res_model", "=", self._name),
+                ("res_id", "=", self.id),
+                ("res_field", "=", "spreadsheet_snapshot")
+            ], order="write_date DESC", limit=1)
+            initial_date = snapshot.write_date
         else:
             data = json.loads(self.spreadsheet_data)
             revisions = spreadsheet_sudo.with_context(active_test=False).spreadsheet_revision_ids
@@ -401,6 +408,7 @@ class SpreadsheetMixin(models.AbstractModel):
                 )
                 for rev in revisions
             ],
+            "initial_date": initial_date,
         }
 
     def rename_revision(self, revision_id, name):

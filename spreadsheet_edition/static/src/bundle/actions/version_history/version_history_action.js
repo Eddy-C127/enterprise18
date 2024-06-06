@@ -108,7 +108,7 @@ export class VersionHistoryAction extends Component {
 
     async forkHistory(revisionId) {
         const data = this.model.exportData();
-        const revision = this.state.revisions.find((rev) => rev.id === revisionId);
+        const revision = this.state.restorableRevisions.find((rev) => rev.id === revisionId);
         data.revisionId = revision.nextRevisionId;
         const code = this.model.getters.getLocale().code.replace("_", "-");
         const timestamp = formatToLocaleString(revision.timestamp, code);
@@ -130,7 +130,7 @@ export class VersionHistoryAction extends Component {
     }
 
     async restoreRevision(revisionId) {
-        const revision = this.state.revisions.find((rev) => rev.id === revisionId);
+        const revision = this.state.restorableRevisions.find((rev) => rev.id === revisionId);
         const code = this.model.getters.getLocale().code.replace("_", "-");
         const timestamp = formatToLocaleString(revision.timestamp, code);
         this.dialog.add(RestoreVersionConfirmationDialog, {
@@ -163,6 +163,7 @@ export class VersionHistoryAction extends Component {
             loadSpreadsheetDependencies(),
         ]);
         this.spreadsheetData = spreadsheetHistoryData.data;
+        this.spreadsheetDataLastDate = spreadsheetHistoryData.initial_date;
         this.state.revisions = spreadsheetHistoryData.revisions;
         this.generateRestorableRevisions();
         this.state.spreadsheetName = spreadsheetHistoryData.name;
@@ -174,10 +175,20 @@ export class VersionHistoryAction extends Component {
     }
 
     generateRestorableRevisions() {
-        this.state.restorableRevisions = this.state.revisions
+        const revs = this.state.revisions
             .slice()
             .filter((el) => el.type !== "SNAPSHOT_CREATED")
             .reverse();
+        const firstRevision = revs.at(-1);
+        if (firstRevision) {
+            revs.push({
+                id: 0,
+                nextRevisionId: firstRevision.serverRevisionId,
+                name: _t("Original data"),
+                timestamp: this.spreadsheetDataLastDate,
+            });
+        }
+        this.state.restorableRevisions = revs;
     }
 
     /**

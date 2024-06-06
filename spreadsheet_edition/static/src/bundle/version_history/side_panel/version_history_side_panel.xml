@@ -15,8 +15,8 @@
         onActivation.bind="onRevisionClick"
         revision="revision"
         onBlur.bind="focus"
+        editable="revision !== revisions.at(-1)"
       />
-
       <div t-if="state.loaded &lt; revisions.length"
         class="d-flex justify-content-center o-version-history-load-more-container">
         <div class="o-sidePanelButtons">
@@ -26,6 +26,7 @@
         </div>
       </div>
 
+      <!-- state loaded and we loaded every revision possible -->
       <t t-if="!revisions.length">
         <Section>
           There are no prior revisions for this spreadsheet.

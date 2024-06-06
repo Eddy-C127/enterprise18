@@ -1,8 +1,8 @@
 /** @odoo-module */
 
 import { Component, onMounted, useRef, useState } from "@odoo/owl";
-import { VersionHistoryItem } from "./version_history_item";
 import { components } from "@odoo/o-spreadsheet";
+import { VersionHistoryItem } from "./version_history_item";
 
 const { Section } = components;
 
@@ -18,6 +18,7 @@ export class VersionHistorySidePanel extends Component {
 
     setup() {
         this.containerRef = useRef("container");
+
         this.state = useState({
             currentRevisionId: this.revisions[0]?.nextRevisionId,
             isEditingName: false,
@@ -68,10 +69,12 @@ export class VersionHistorySidePanel extends Component {
                 (r) => r.nextRevisionId === this.state.currentRevisionId
             );
             const nextIndex = Math.max(0, Math.min(revisions.length - 1, currentIndex + increment));
-            this.state.currentRevisionId = revisions[nextIndex].nextRevisionId;
-            this.env.model.dispatch("GO_TO_REVISION", {
-                revisionId: this.state.currentRevisionId,
-            });
+            if (nextIndex !== currentIndex) {
+                this.state.currentRevisionId = revisions[nextIndex].nextRevisionId;
+                this.env.model.dispatch("GO_TO_REVISION", {
+                    revisionId: this.state.currentRevisionId,
+                });
+            }
         }
     }
 }
