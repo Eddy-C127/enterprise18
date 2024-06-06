@@ -2153,25 +2153,31 @@ class AccountReport(models.Model):
         return self.env['ir.model.data']._xmlid_lookup(view_xmlid)[1]
 
     def caret_option_open_general_ledger(self, options, params):
-        record_id = None
         # When coming from a specific account, the unfold must only be retained
         # on the specified account. Better performance and more ergonomic
         # as it opens what client asked. And "Unfold All" is 1 clic away.
         options["unfold_all"] = False
-        for dummy, model, model_id in reversed(self._parse_line_id(params['line_id'])):
-            if model == 'account.account':
-                record_id = model_id
-                break
 
-        if record_id is None:
+        records_to_unfold = []
+        for _dummy, model, record_id in self._parse_line_id(params['line_id']):
+            if model in ('account.group', 'account.account'):
+                records_to_unfold.append((model, record_id))
+
+        if not records_to_unfold or records_to_unfold[-1][0] != 'account.account':
             raise UserError(_("'Open General Ledger' caret option is only available form report lines targetting accounts."))
 
         general_ledger = self.env.ref('account_reports.general_ledger_report')
-        account_line_id = general_ledger._get_generic_line_id('account.account', record_id)
-        account_id = self.env['account.account'].browse(record_id)
-        gl_options = general_ledger.get_options(options)
-        gl_options['unfolded_lines'] = [account_line_id]
+        lines_to_unfold = []
+        for model, record_id in records_to_unfold:
+            parent_line_id = lines_to_unfold[-1] if lines_to_unfold else None
+            # Re-create the hierarchy of account groups that should be unfolded in GL
+            generic_line_id = general_ledger._get_generic_line_id(model, record_id, parent_line_id=parent_line_id)
+            lines_to_unfold.append(generic_line_id)
 
+        gl_options = general_ledger.get_options(options)
+        gl_options['unfolded_lines'] = lines_to_unfold
+
+        account_id = self.env['account.account'].browse(records_to_unfold[-1][1])
         action_vals = self.env['ir.actions.actions']._for_xml_id('account_reports.action_account_report_general_ledger')
         action_vals['params'] = {
             'options': gl_options,
