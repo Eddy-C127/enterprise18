@@ -9,7 +9,8 @@
                 <span>Nº: <t t-out="props.data.l10n_latam_document_number"/>
                 </span>
             </div>
-            <div t-if="props.data.company.cl_vat" class="chili-regional-office text-center fw-bolder pb-2" t-out="props.data.l10n_cl_sii_regional_office"/>
+            <div t-if="props.data.company.cl_vat" class="chili-regional-office text-center fw-bolder" t-out="props.data.l10n_cl_sii_regional_office"/>
+            <div t-if="props.data.company.cl_vat" class="text-center fw-bolder pb-2" t-esc="props.data.date" />
             <br/>
         </xpath>
     </t>

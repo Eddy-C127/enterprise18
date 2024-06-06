@@ -44,6 +44,7 @@ patch(PosStore.prototype, {
         result.l10n_cl_sii_regional_office = order.l10n_cl_sii_regional_office;
         result.l10n_latam_document_type = order.l10n_latam_document_type;
         result.l10n_latam_document_number = order.l10n_latam_document_number;
+        result.date = order.receiptDate;
 
         return result;
     },
