@@ -11,16 +11,17 @@ from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import (
     CANCELLATION_REASON_SELECTION,
     CANCELLATION_REASON_DESCRIPTION,
     CFDI_CODE_TO_TAX_TYPE,
+    CFDI_DATE_FORMAT,
     USAGE_SELECTION,
 )
-from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.osv import expression
+from odoo.exceptions import ValidationError, UserError
 from odoo.tools import format_list, frozendict
 from odoo.tools.float_utils import float_round
 from odoo.tools.sql import column_exists, create_column
 from odoo.addons.base.models.ir_qweb import keep_query
 
 _logger = logging.getLogger(__name__)
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -765,13 +766,7 @@ class AccountMove(models.Model):
                 cfdi_values,
                 customer=move.partner_id,
             )
-            issued_address = cfdi_values['receptor']['issued_address']
-            tz = issued_address._l10n_mx_edi_get_cfdi_timezone()
-            tz_force = self.env['ir.config_parameter'].sudo().get_param('l10n_mx_edi_tz_%s' % move.journal_id.id, default=None)
-            if tz_force:
-                tz = timezone(tz_force)
-
-            move.l10n_mx_edi_post_time = fields.Datetime.to_string(datetime.now(tz)) # TODO: issue on demo data
+            move.l10n_mx_edi_post_time = fields.Datetime.to_string(move._l10n_mx_edi_get_datetime_now_with_mx_timezone(cfdi_values))
 
             # Assign time and date coming from a certificate.
             if move.is_invoice() and move.l10n_mx_edi_is_cfdi_needed and not move.invoice_date:
@@ -893,6 +888,21 @@ class AccountMove(models.Model):
     # CFDI Generation: Generic
     # -------------------------------------------------------------------------
 
+    def _l10n_mx_edi_get_datetime_now_with_mx_timezone(self, cfdi_values):
+        """ Get datetime.now() but with the mexican timezone depending the CFDI issued address.
+
+        :param cfdi_values: The values to create the CFDI collected so far.
+        :return: A datetime object.
+        """
+        self.ensure_one()
+        issued_address = cfdi_values['receptor']['issued_address']
+        tz = issued_address._l10n_mx_edi_get_cfdi_timezone()
+        tz_force = self.env['ir.config_parameter'].sudo().get_param(f'l10n_mx_edi_tz_{self.journal_id.id}', default=None)
+        if tz_force:
+            tz = timezone(tz_force)
+
+        return datetime.now(tz)
+
     def _l10n_mx_edi_add_common_cfdi_values(self, cfdi_values):
         ''' Populate cfdi values to generate a cfdi for a journal entry. '''
         self.ensure_one()
@@ -1005,7 +1015,7 @@ class AccountMove(models.Model):
 
         # Date.
         if self.invoice_date >= fields.Date.context_today(self) and self.invoice_date == self.l10n_mx_edi_post_time.date():
-            cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime('%Y-%m-%dT%H:%M:%S')
+            cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime(CFDI_DATE_FORMAT)
         else:
             cfdi_time = datetime.strptime('23:59:00', '%H:%M:%S').time()
             cfdi_values['fecha'] = datetime\
@@ -1013,7 +1023,7 @@ class AccountMove(models.Model):
                     fields.Datetime.from_string(self.invoice_date),
                     cfdi_time,
                 )\
-                .strftime('%Y-%m-%dT%H:%M:%S')
+                .strftime(CFDI_DATE_FORMAT)
 
         # Payment terms.
         cfdi_values['metodo_pago'] = self.l10n_mx_edi_payment_policy
@@ -1054,11 +1064,6 @@ class AccountMove(models.Model):
         self._l10n_mx_edi_add_common_cfdi_values(cfdi_values)
         company = cfdi_values['company']
         company_curr = company.currency_id
-
-        # Date.
-        cfdi_date = datetime.combine(fields.Datetime.from_string(self.date), datetime.strptime('12:00:00', '%H:%M:%S').time())
-        cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime('%Y-%m-%dT%H:%M:%S')
-        cfdi_values['fecha_pago'] = cfdi_date.strftime('%Y-%m-%dT%H:%M:%S')
 
         # Misc.
         cfdi_values['exportacion'] = '01'
@@ -1168,6 +1173,11 @@ class AccountMove(models.Model):
         customer = customer_values['customer']
         cfdi_values['receptor'] = customer_values
         cfdi_values['lugar_expedicion'] = cfdi_values['issued_address'].zip
+
+        # Date.
+        cfdi_date = datetime.combine(fields.Datetime.from_string(self.date), datetime.strptime('12:00:00', '%H:%M:%S').time())
+        cfdi_values['fecha'] = self._l10n_mx_edi_get_datetime_now_with_mx_timezone(cfdi_values).strftime(CFDI_DATE_FORMAT)
+        cfdi_values['fecha_pago'] = cfdi_date.strftime(CFDI_DATE_FORMAT)
 
         # Bank information.
         payment_method_code = self.l10n_mx_edi_payment_method_id.code

@@ -6,7 +6,12 @@ from odoo.tests import tagged
 from odoo.tools import misc
 from odoo.tools.misc import file_open
 
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from lxml import etree
+from pytz import timezone
+
+from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CFDI_DATE_FORMAT
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install', *(['-standard', 'external'] if EXTERNAL_MODE else []))
@@ -1565,3 +1570,92 @@ class TestCFDIInvoice(TestMxEdiCommon):
                 payment.move_id,
                 'test_comp_curr_payment_foreign_curr_invoice_forced_balance',
             )
+
+    def test_cfdi_date_with_timezone(self):
+
+        def assert_cfdi_date(document, tz):
+            self.assertTrue(document)
+            cfdi_node = etree.fromstring(document.attachment_id.raw)
+            cfdi_date_str = cfdi_node.get('Fecha')
+            expected_date = self.frozen_today.replace(microsecond=0).astimezone(tz).replace(tzinfo=None)
+            current_date = datetime.strptime(cfdi_date_str, CFDI_DATE_FORMAT).replace(microsecond=0)
+            self.assertEqual(current_date, expected_date)
+
+        addresses = [
+            # America/Tijuana UTC-8 (-7 DST)
+            {
+                'state_id': self.env.ref('base.state_mx_bc').id,
+                'zip': '22750',
+                'timezone': timezone('America/Tijuana'),
+            },
+            # America/Bogota UTC-5
+            {
+                'state_id': self.env.ref('base.state_mx_q_roo').id,
+                'zip': '77890',
+                'timezone': timezone('America/Bogota'),
+            },
+            # America/Boise UTC-7 (-6 DST)
+            {
+                'state_id': self.env.ref('base.state_mx_chih').id,
+                'zip': '31820',
+                'timezone': timezone('America/Boise'),
+            },
+            # America/Guatemala (Tiempo del centro areas)
+            {
+                'state_id': self.env.ref('base.state_mx_nay').id,
+                'zip': '63726',
+                'timezone': timezone('America/Guatemala'),
+            },
+            # America/Matamoros UTC-6 (-5 DST)
+            {
+                'state_id': self.env.ref('base.state_mx_tamps').id,
+                'zip': '87300',
+                'timezone': timezone('America/Matamoros'),
+            },
+            # Pacific area
+            {
+                'state_id': self.env.ref('base.state_mx_son').id,
+                'zip': '83530',
+                'timezone': timezone('America/Hermosillo'),
+            },
+            # America/Guatemala UTC-6
+            {
+                'state_id': self.env.ref('base.state_mx_ags').id,
+                'zip': '20914',
+                'timezone': timezone('America/Guatemala'),
+            },
+        ]
+
+        for address in addresses:
+            tz = address.pop('timezone')
+            with self.subTest(zip=address['zip']):
+                self.env.company.partner_id.write(address)
+
+                with self.mx_external_setup(self.frozen_today):
+                    invoice = self._create_invoice(invoice_line_ids=[Command.create({'product_id': self.product.id})])
+                    with self.with_mocked_pac_sign_success():
+                        invoice._l10n_mx_edi_cfdi_invoice_try_send()
+                    document = invoice.l10n_mx_edi_invoice_document_ids.filtered(lambda x: x.state == 'invoice_sent')[:1]
+                    assert_cfdi_date(document, tz)
+
+                    # Test an immediate payment.
+                    payment = self.env['account.payment.register'] \
+                        .with_context(active_model='account.move', active_ids=invoice.ids) \
+                        .create({'amount': 100.0}) \
+                        ._create_payments()
+                    with self.with_mocked_pac_sign_success():
+                        payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
+                    document = payment.l10n_mx_edi_payment_document_ids.filtered(lambda x: x.state == 'payment_sent')[:1]
+                    assert_cfdi_date(document, tz)
+
+                # Test a payment made 10 days ago but send today.
+                with self.mx_external_setup(self.frozen_today - relativedelta(days=10)):
+                    payment = self.env['account.payment.register'] \
+                        .with_context(active_model='account.move', active_ids=invoice.ids) \
+                        .create({'amount': 100.0}) \
+                        ._create_payments()
+                with self.mx_external_setup(self.frozen_today):
+                    with self.with_mocked_pac_sign_success():
+                        payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
+                    document = payment.l10n_mx_edi_payment_document_ids.filtered(lambda x: x.state == 'payment_sent')[:1]
+                    assert_cfdi_date(document, tz)

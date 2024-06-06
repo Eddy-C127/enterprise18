@@ -19,6 +19,7 @@ from odoo.osv import expression
 from odoo.tools import frozendict
 from odoo.tools.float_utils import float_is_zero
 
+CFDI_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'
 CANCELLATION_REASON_SELECTION = [
     ('01', "01 - Invoice issued with errors (with related document)"),
     ('02', "02 - Invoice issued with errors (no replacement)"),
@@ -1199,7 +1200,7 @@ class L10nMxEdiDocument(models.Model):
         serie, _interpolated_suffix = sequence._get_prefix_suffix(date=str_date, date_range=str_date)
 
         # Periodicity.
-        document_date = max(datetime.strptime(x['fecha'], '%Y-%m-%dT%H:%M:%S').date() for x in cfdi_values_list)
+        document_date = max(datetime.strptime(x['fecha'], CFDI_DATE_FORMAT).date() for x in cfdi_values_list)
         month = document_date.month
         if periodicity == '05':
             periodicity_month = int(12 + ((month + (month % 2)) / 2))
@@ -1229,7 +1230,7 @@ class L10nMxEdiDocument(models.Model):
             },
             'emisor': cfdi_values_list[0]['emisor'],
             'issued_address': cfdi_values_list[0]['issued_address'],
-            'fecha': date.strftime('%Y-%m-%dT%H:%M:%S'),
+            'fecha': date.strftime(CFDI_DATE_FORMAT),
             'metodo_pago': 'PUE',
             'forma_pago': max(
                 [(x['total'], x['forma_pago']) for x in cfdi_values_list],

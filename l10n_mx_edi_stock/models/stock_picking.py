@@ -8,12 +8,13 @@ from werkzeug.urls import url_quote, url_quote_plus
 
 from odoo import api, models, fields, _
 from odoo.addons.base.models.ir_qweb import keep_query
-from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION
+from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION, CFDI_DATE_FORMAT
 from odoo.exceptions import UserError
 from odoo.osv import expression
 
 MAPBOX_GEOCODE_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 MAPBOX_MATRIX_URL = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/'
+
 
 class Picking(models.Model):
     _inherit = 'stock.picking'
@@ -321,12 +322,11 @@ class Picking(models.Model):
 
         warehouse_partner = self.picking_type_id.warehouse_id.partner_id
         mx_tz = warehouse_partner._l10n_mx_edi_get_cfdi_timezone()
-        date_fmt = '%Y-%m-%dT%H:%M:%S'
 
         cfdi_values.update({
             'record': self,
-            'cfdi_date': self.date_done.astimezone(mx_tz).strftime(date_fmt),
-            'scheduled_date': self.scheduled_date.astimezone(mx_tz).strftime(date_fmt),
+            'cfdi_date': self.date_done.astimezone(mx_tz).strftime(CFDI_DATE_FORMAT),
+            'scheduled_date': self.scheduled_date.astimezone(mx_tz).strftime(CFDI_DATE_FORMAT),
             'lugar_expedicion': warehouse_partner.zip,
             'moves': self.move_ids.filtered(lambda ml: ml.quantity > 0),
             'weight_uom': self.env['product.template']._get_weight_uom_id_from_ir_config_parameter(),

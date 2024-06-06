@@ -3,7 +3,7 @@ from collections import defaultdict
 from datetime import datetime
 
 from odoo import _, api, models, fields, Command
-from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION, USAGE_SELECTION
+from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION, CFDI_DATE_FORMAT, USAGE_SELECTION
 from odoo.exceptions import UserError, ValidationError
 
 
@@ -408,7 +408,7 @@ class PosOrder(models.Model):
         issued_address = cfdi_values['issued_address']
         mx_timezone = issued_address._l10n_mx_edi_get_cfdi_timezone()
         timezoned_now = datetime.now(mx_timezone)
-        cfdi_values['fecha'] = timezoned_now.strftime('%Y-%m-%dT%H:%M:%S')
+        cfdi_values['fecha'] = timezoned_now.strftime(CFDI_DATE_FORMAT)
 
         # Currency.
         if self.currency_id.name == 'MXN':
