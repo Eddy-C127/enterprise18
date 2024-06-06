@@ -767,6 +767,9 @@ class StudioApprovalRequest(models.Model):
         """Post a request for approval note on the record."""
         if record.message_post_with_source:
             user = self.env.user
+            context = {}
+            if partner_ids:
+                context = {'lang': partner_ids[0].lang}
             record.message_post_with_source(
                 'web_studio.request_approval',
                 author_id=user.partner_id.id,
@@ -777,3 +780,4 @@ class StudioApprovalRequest(models.Model):
                     },
                 subtype_xmlid='mail.mt_note',
             )
+            del context
