@@ -356,3 +356,27 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
             'manual_followup': True,
             'snailmail': False,
         })
+
+    def test_manual_reminder_get_template_mail_addresses(self):
+        mail_partner = self.env['res.partner'].create({
+            'name': 'Mai Lang',
+            'email': 'mail.ang@test.com',
+        })
+        mail_cc = self.env['res.partner'].create({
+            'name': 'John Carmac',
+            'email': 'john.carmac@example.me',
+        })
+
+        mail_template = self.env['mail.template'].create({
+            'name': 'reminder',
+            'model_id': self.env['ir.model']._get_id('res.partner'),
+            'partner_to': '{{ object.id }}',
+            'email_cc': mail_cc.email,
+        })
+
+        reminder = self.env['account_followup.manual_reminder'].with_context(
+            active_model='res.partner',
+            active_ids=mail_partner.id,
+        ).create({'template_id': mail_template.id})
+
+        self.assertTrue(mail_cc in reminder.email_recipient_ids, "John Carmac should be in the Email Recipients list.")
