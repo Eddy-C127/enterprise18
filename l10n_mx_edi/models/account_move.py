@@ -1094,6 +1094,7 @@ class AccountMove(models.Model):
             invoice = invoice_values['invoice']
 
             inv_cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(invoice.company_id)
+            self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(inv_cfdi_values)
             invoice._l10n_mx_edi_add_invoice_cfdi_values(inv_cfdi_values)
 
             # Apply the percentage paid to the tax amounts.
