@@ -86,16 +86,16 @@ class TestAmazonCommon(TransactionCase):
 
     def setUp(self):
         super().setUp()
-        marketplace = self.env['amazon.marketplace'].search(
+        self.marketplace = self.env['amazon.marketplace'].search(
             [('api_ref', '=', ORDER_MOCK['MarketplaceId'])]
         )
         self.account = self.env['amazon.account'].create({
             'name': 'TestAccountName',
             'seller_key': 'Random Seller Key',
             'refresh_token': 'A refresh token',
-            'base_marketplace_id': marketplace.id,
-            'available_marketplace_ids': [marketplace.id],
-            'active_marketplace_ids': [marketplace.id],
+            'base_marketplace_id': self.marketplace.id,
+            'available_marketplace_ids': [self.marketplace.id],
+            'active_marketplace_ids': [self.marketplace.id],
             'company_id': self.env.company.id,
         })
 
@@ -105,7 +105,7 @@ class TestAmazonCommon(TransactionCase):
         )
         self.offer = self.env['amazon.offer'].create({
             'account_id': self.account.id,
-            'marketplace_id': marketplace.id,
+            'marketplace_id': self.marketplace.id,
             'product_id': self.product.id,
             'sku': 'TESTING_SKU',
         })
