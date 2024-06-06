@@ -18,7 +18,7 @@ class SaleOrder(models.Model):
 
         def get_default_plan_id(p):
             if plan_id:= kwargs.get('plan_id'):
-                return self.env['sale.subscription.plan'].browse(plan_id)
+                return self.env['sale.subscription.plan'].browse(int(plan_id))
             pricing = self.env['sale.subscription.pricing'].sudo()._get_first_suitable_recurring_pricing(p, pricelist=self.pricelist_id)
             return pricing.plan_id
 
