@@ -32,6 +32,14 @@ class HrContractSalary(main.HrContractSalary):
         return payslip._get_line_values(codes)
 
     def _get_compute_results(self, new_contract):
+        schedule_pay_label = dict(request.env['hr.contract']._fields['schedule_pay']._description_selection(request.env))
+
+        def _get_period_name(category_id, contract):
+            if category_id == request.env.ref("hr_contract_salary.hr_contract_salary_resume_category_monthly_salary"):
+                period_name = schedule_pay_label.get(contract.schedule_pay, "Monthly")
+                return f"{period_name} Salary"
+            return category_id.name
+
         result = super()._get_compute_results(new_contract)
 
         # generate a payslip corresponding to only this contract
@@ -131,7 +139,7 @@ class HrContractSalary(main.HrContractSalary):
                     ('structure_type_id', '=', new_contract.structure_type_id.id),
                 ('value_type', 'in', ['fixed', 'contract', 'monthly_total', 'sum']),
             ('id', 'in', resume_lines.ids)]).category_id
-        result['resume_categories'] = [c.name for c in sorted(resume_categories, key=lambda x: x.sequence)]
+        result['resume_categories'] = [_get_period_name(c, new_contract) for c in sorted(resume_categories, key=lambda x: x.sequence)]
 
         all_codes = (resume_lines - monthly_total_lines).mapped('code')
         line_values = self._get_payslip_line_values(payslip, all_codes) if all_codes else False
@@ -141,14 +149,18 @@ class HrContractSalary(main.HrContractSalary):
             resume_explanation = False
             if resume_line.code == 'GROSS' and new_contract.wage_type == 'hourly':
                 resume_explanation = _('This is the gross calculated for the current month with a total of %s hours.', work_days_data.get('hours', 0))
-            result['resume_lines_mapped'][resume_line.category_id.name][resume_line.code] = (resume_line.name, value, new_contract.company_id.currency_id.symbol, resume_explanation, new_contract.company_id.currency_id.position, resume_line.uom)
+            result['resume_lines_mapped'][_get_period_name(resume_line.category_id, new_contract)][resume_line.code] = (resume_line.name, value, new_contract.company_id.currency_id.symbol, resume_explanation, new_contract.company_id.currency_id.position, resume_line.uom)
             if resume_line.impacts_monthly_total:
                 monthly_total += value / 12.0 if resume_line.category_id.periodicity == 'yearly' else value
 
         for resume_line in monthly_total_lines:
-            super_line = result['resume_lines_mapped'][resume_line.category_id.name][resume_line.code]
-            new_value = (super_line[0], round(super_line[1] + float(monthly_total), 2), super_line[2], False, new_contract.company_id.currency_id.position, resume_line.uom)
-            result['resume_lines_mapped'][resume_line.category_id.name][resume_line.code] = new_value
+            super_line = result['resume_lines_mapped'][_get_period_name(resume_line.category_id, new_contract)][resume_line.code]
+            line_name = super_line[0]
+            if resume_line.category_id == request.env.ref("hr_contract_salary.hr_contract_salary_resume_category_total"):
+                period_name = schedule_pay_label.get(new_contract.schedule_pay, "Monthly")
+                line_name = f"{period_name} Equivalent"
+            new_value = (line_name, round(super_line[1] + float(monthly_total), 2), super_line[2], False, new_contract.company_id.currency_id.position, resume_line.uom)
+            result['resume_lines_mapped'][_get_period_name(resume_line.category_id, new_contract)][resume_line.code] = new_value
 
         if working_schedule != '100':
             payslip.contract_id.write({
