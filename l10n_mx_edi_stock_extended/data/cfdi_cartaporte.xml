@@ -19,17 +19,41 @@
 
         <xpath expr="//*[name()='cartaporte30:Mercancia']" position="attributes">
             <attribute name="t-att-FraccionArancelaria">move.product_id.l10n_mx_edi_tariff_fraction_id.code if record.l10n_mx_edi_external_trade else None</attribute>
-            <attribute name="t-att-MaterialPeligroso">'Sí' if move.product_id.l10n_mx_edi_hazardous_material_code else None</attribute>
-            <attribute name="t-att-CveMaterialPeligroso">move.product_id.l10n_mx_edi_hazardous_material_code</attribute>
-            <attribute name="t-att-Embalaje">move.product_id.l10n_mx_edi_hazard_package_type if move.product_id.l10n_mx_edi_hazardous_material_code else None</attribute>
-            <attribute name="t-att-DescripEmbalaje">move.picking_id._l10n_mx_edi_get_packaging_desc(move.product_id.l10n_mx_edi_hazard_package_type) if move.product_id.l10n_mx_edi_hazardous_material_code else None</attribute>
+            <attribute name="t-att-MaterialPeligroso">
+                move.product_id.l10n_mx_edi_hazardous_material_code == '0' and 'No' or
+                move.product_id.l10n_mx_edi_hazardous_material_code and 'Sí' or
+                None
+            </attribute>
+            <attribute name="t-att-CveMaterialPeligroso">
+                move.product_id.l10n_mx_edi_hazardous_material_code
+                if move.product_id.l10n_mx_edi_hazardous_material_code and move.product_id.l10n_mx_edi_hazardous_material_code != '0'
+                else None
+            </attribute>
+            <attribute name="t-att-Embalaje">
+                move.product_id.l10n_mx_edi_hazard_package_type
+                if move.product_id.l10n_mx_edi_hazardous_material_code and move.product_id.l10n_mx_edi_hazardous_material_code != '0'
+                else None
+            </attribute>
+            <attribute name="t-att-DescripEmbalaje">
+                move.picking_id._l10n_mx_edi_get_packaging_desc(move.product_id.l10n_mx_edi_hazard_package_type)
+                if move.product_id.l10n_mx_edi_hazardous_material_code and move.product_id.l10n_mx_edi_hazardous_material_code != '0'
+                else None
+            </attribute>
             <attribute name="t-att-TipoMateria">move.product_id.l10n_mx_edi_material_type if record.l10n_mx_edi_external_trade else None</attribute>
             <attribute name="t-att-DescripcionMateria">move.product_id.l10n_mx_edi_material_description if (record.l10n_mx_edi_external_trade and move.product_id.l10n_mx_edi_material_type == '05') else None</attribute>
         </xpath>
 
         <xpath expr="//*[name()='cartaporte30:Seguros']" position="attributes">
-            <attribute name="t-att-AseguraMedAmbiente">record.l10n_mx_edi_vehicle_id.environment_insurer if any(moves.product_id.mapped('l10n_mx_edi_hazardous_material_code')) else None</attribute>
-            <attribute name="t-att-PolizaMedAmbiente">record.l10n_mx_edi_vehicle_id.environment_insurance_policy if any(moves.product_id.mapped('l10n_mx_edi_hazardous_material_code')) else None</attribute>
+            <attribute name="t-att-AseguraMedAmbiente">
+                record.l10n_mx_edi_vehicle_id.environment_insurer
+                if any(moves.product_id.filtered(lambda c: c.l10n_mx_edi_hazardous_material_code and c.l10n_mx_edi_hazardous_material_code != '0'))
+                else None
+            </attribute>
+            <attribute name="t-att-PolizaMedAmbiente">
+                record.l10n_mx_edi_vehicle_id.environment_insurance_policy
+                if any(moves.product_id.filtered(lambda c: c.l10n_mx_edi_hazardous_material_code and c.l10n_mx_edi_hazardous_material_code != '0'))
+                else None
+            </attribute>
         </xpath>
 
         <xpath expr="//*[name()='cartaporte30:CantidadTransporta']" position="before">
