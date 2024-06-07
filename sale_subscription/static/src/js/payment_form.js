@@ -75,5 +75,7 @@ paymentForm.include({
     _onChangeAutomatePaymentsCheckbox: function (ev) {
         savePaymentMethodCheckbox.checked = ev.currentTarget.checked;
         savePaymentMethodCheckbox.disabled = ev.currentTarget.checked;
+        // Dispatch a fake event to update the payment form dependencies.
+        savePaymentMethodCheckbox.dispatchEvent(new Event('input'))
     },
 });
