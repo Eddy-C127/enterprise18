@@ -19,17 +19,6 @@
                     </t>
                 </div>
             </t>
-            <t t-set-slot="layout-actions" >
-                    <t t-if="showDuplicateButton">
-                        <div class="o_duplicate">
-                            <span class="fa fa-exclamation-triangle"/>
-                                <button type="button" class="o_sign_template_duplicate btn btn-link mb-1 p-0" t-on-click="duplicateTemplate">
-                                    Duplicate
-                                </button>
-                                this template to modify it.
-                        </div>
-                    </t>
-            </t>
         </ControlPanel>
     </t>
 </templates>

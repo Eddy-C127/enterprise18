@@ -46,6 +46,7 @@ export class SignTemplateTopBar extends Component {
         onTemplateNameChange: { type: Function },
         manageTemplateAccess: { type: Boolean },
         resModel: { type: String },
+        isPDF: { type: Boolean },
     };
 
     setup() {
@@ -132,4 +133,24 @@ export class SignTemplateTopBar extends Component {
             this.notification.add(_t("Saved"), { type: "success" });
         }
     }
+
+    get showEditButton() {
+        return this.props.hasSignRequests && this.props.isPDF;
+    }
+
+    async editTemplate() {
+        const duplicatedTemplateIds = await this.orm.call("sign.template", "copy", [
+            [this.props.signTemplate.id],
+        ]);
+
+        this.action.doAction({
+            type: "ir.actions.client",
+            tag: "sign.Template",
+            name: _t("Edit Template"),
+            params: {
+                id: duplicatedTemplateIds[0],
+            },
+        });
+    }
+
 }

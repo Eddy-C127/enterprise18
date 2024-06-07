@@ -7,6 +7,7 @@
             signTemplate="props.signTemplate"
             resModel="props.resModel"
             onTemplateNameChange="(e) => this.onTemplateNameChange(e)"
+            isPDF="props.isPDF"
         />
         <iframe class="o_iframe o_sign_pdf_iframe" t-ref="PDFIframe" t-att-src="PDFViewerURL" t-att-disabled="props.hasSignRequests"/>
     </t>

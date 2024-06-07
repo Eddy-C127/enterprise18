@@ -38,12 +38,21 @@
                 </div>
             </Record>
 
-            <button class="btn btn-secondary float-end o_sign_template_edit_form"
-                t-on-click="!props.signTemplate.active &amp;&amp; !state.properties ? onTemplateSaveClick : onTemplatePropertiesClick">
-                <t t-if="!props.signTemplate.active &amp;&amp; !state.properties">Save as Template</t>
-                <t t-else="">Template Properties</t>
-            </button>
+            <div class="float-end">
+                <t t-if="showEditButton">
+                    <t class="o_duplicate">
+                        <button type="button" class="o_sign_template_duplicate btn btn btn-secondary me-1" t-on-click="editTemplate">
+                            Edit
+                        </button>
+                    </t>
+                </t>
 
+                <button class="btn btn-secondary o_sign_template_edit_form"
+                    t-on-click="!props.signTemplate.active &amp;&amp; !state.properties ? onTemplateSaveClick : onTemplatePropertiesClick">
+                    <t t-if="!props.signTemplate.active &amp;&amp; !state.properties">Save as Template</t>
+                    <t t-else="">Template Properties</t>
+                </button>
+            </div>
         </div>
     </t>
 </templates>

@@ -27,10 +27,6 @@ export class SignTemplateControlPanel extends Component {
         this.orm = useService("orm");
     }
 
-    get showDuplicateButton() {
-        return this.props.hasSignRequests && this.props.isPDF;
-    }
-
     get showShareButton() {
         return this.props.actionType !== "sign_send_request" && this.props.responsibleCount <= 1;
     }
@@ -59,21 +55,6 @@ export class SignTemplateControlPanel extends Component {
             this.props.signTemplate.id,
         ]);
         this.action.doAction(action);
-    }
-
-    async duplicateTemplate() {
-        const duplicatedTemplateIds = await this.orm.call("sign.template", "copy", [
-            [this.props.signTemplate.id],
-        ]);
-
-        this.action.doAction({
-            type: "ir.actions.client",
-            tag: "sign.Template",
-            name: _t("Duplicated Template"),
-            params: {
-                id: duplicatedTemplateIds[0],
-            },
-        });
     }
 
     onNextDocumentClick() {
