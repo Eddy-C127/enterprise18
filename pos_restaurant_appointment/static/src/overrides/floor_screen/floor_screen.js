@@ -1,6 +1,9 @@
 import { patch } from "@web/core/utils/patch";
 import { FloorScreen } from "@pos_restaurant/app/floor_screen/floor_screen";
 import { useSubEnv } from "@odoo/owl";
+import { getMin } from "@point_of_sale/utils";
+import { deserializeDateTime, serializeDateTime } from "@web/core/l10n/dates";
+const { DateTime } = luxon;
 
 patch(FloorScreen.prototype, {
     setup() {
@@ -51,5 +54,50 @@ patch(FloorScreen.prototype, {
     async createTableFromRaw(table) {
         delete table.appointment_resource_id;
         return super.createTableFromRaw(table);
+    },
+
+    getFirstAppointment(table) {
+        if (!table.appointment_resource_id) {
+            return false;
+        }
+        const appointments = this.pos.models["calendar.event"].getAllBy("appointment_resource_ids")[
+            table.appointment_resource_id.id
+        ];
+        if (!appointments) {
+            return false;
+        }
+        const startOfToday = DateTime.now().set({ hours: 0, minutes: 0, seconds: 0 });
+        appointments.map((appointment) => {
+            if (
+                deserializeDateTime(appointment.start).toFormat("yyyy-MM-dd") <
+                DateTime.now().toFormat("yyyy-MM-dd")
+            ) {
+                appointment.start = serializeDateTime(startOfToday);
+            }
+        });
+        const possible_appointments = appointments.filter(
+            (a) => deserializeDateTime(a.start).ts > DateTime.now() - (a.duration / 2) * 3600000
+        );
+        if (possible_appointments.length === 0) {
+            return false;
+        }
+        return getMin(possible_appointments, {
+            criterion: (a) => deserializeDateTime(a.start).ts,
+        });
+    },
+    getFormatedDate(date) {
+        return deserializeDateTime(date).toFormat("HH:mm");
+    },
+    isCustomerLate(table) {
+        const dateNow = DateTime.now();
+        const dateStart = deserializeDateTime(this.getFirstAppointment(table)?.start).ts;
+        const order = this.pos.models["pos.order"].find((o) => o.table_id.id === table.id);
+        return !order && dateNow > dateStart;
+    },
+    appointmentStarted(table) {
+        return (
+            this.getFirstAppointment(table) &&
+            deserializeDateTime(this.getFirstAppointment(table).start).ts < DateTime.now().ts
+        );
     },
 });

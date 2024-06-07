@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_restaurant_appointment.FloorScreen" t-inherit="pos_restaurant.FloorScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('table')]/div[hasclass('info')]" position="inside">
+            <t t-set="firstAppointment" t-value="this.getFirstAppointment(table)"/>
+            <div
+                t-if="firstAppointment"
+                t-on-click.stop="() => this.pos.manageBookings()"
+                class="appointment-label pt-1 d-flex flex-column align-items-center position-absolute w-100 start-50 translate-middle-x top-100"
+                t-attf-class="{{ this.isCustomerLate(table) ? 'text-danger' : 'text-dark' }}"
+                t-attf-style="opacity: {{ this.appointmentStarted(table) ? 1 : 0.7 }};"
+                >
+                <div class="w-100 p-0 d-flex justify-content-between">
+                    <div class="text-nowrap px-1">
+                        <i class="fa fa-clock-o"/> <t t-esc="getFormatedDate(firstAppointment.start)" />
+                    </div>
+                    <div class="text-nowrap px-1">
+                        <i class="fa fa-user-o"/> <t t-esc="firstAppointment.resource_total_capacity_reserved" />
+                    </div>
+                </div>
+                <div class="p-0 mw-100 text-truncate" t-esc="firstAppointment.name" />
+            </div>
+        </xpath>
+    </t>
+</templates>
