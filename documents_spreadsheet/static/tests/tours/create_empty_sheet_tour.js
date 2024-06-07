@@ -99,11 +99,6 @@ registry.category("web_tour.tours").add("spreadsheet_create_list_view", {
             run: "click",
         },
         {
-            trigger: ".o_pivot_cancel",
-            content: "Go back to the list of lists",
-            run: "click",
-        },
-        {
             trigger: '[data-menu-xmlid="documents.dashboard"]',
             content: "Wait for the spreadsheet to be properly unloaded",
             run: "click",
