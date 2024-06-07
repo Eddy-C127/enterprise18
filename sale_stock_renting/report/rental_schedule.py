@@ -117,21 +117,23 @@ class RentalSchedule(models.Model):
                         ON res.stock_lot_id=lot.id
                         OR pickedup.stock_lot_id=lot.id
                 UNION ALL
-                SELECT DISTINCT ON (lot_id)
-                lot_id,
-                stock_lot.name,
-                sol.id sol_id,
-                CASE
-                    WHEN so.rental_status='returned' THEN 'returned'
-                    WHEN so.rental_status='return' THEN 'pickedup'
-                    WHEN so.rental_status='pickup' THEN 'reserved'
-                END AS report_line_status
-                FROM sale_order so, sale_order_line sol, stock_move_line sml, stock_picking sp,stock_lot
-                WHERE so.id=sol.order_id and sol.order_id=sp.sale_id and sml.lot_id=stock_lot.id and sol.product_id=stock_lot.product_id and sol.product_id in (
-                    SELECT product_id
-                        FROM sale_order_line,sale_order
-                        WHERE sale_order_line.order_id=sale_order.id and sale_order.is_rental_order=true
-                    )
+                SELECT DISTINCT ON (sml.lot_id)
+                    sml.lot_id,
+                    sl.name,
+                    sol.id AS sol_id,
+                    CASE
+                        WHEN so.rental_status='returned' THEN 'returned'
+                        WHEN so.rental_status='return' THEN 'pickedup'
+                        WHEN so.rental_status='pickup' THEN 'reserved'
+                    END AS report_line_status
+                FROM sale_order so
+                    INNER JOIN sale_order_line sol ON so.id=sol.order_id
+                    INNER JOIN stock_lot sl ON sol.product_id=sl.product_id
+                    INNER JOIN stock_move_line sml ON sl.id=sml.lot_id
+                    INNER JOIN stock_picking sp ON sol.order_id=sp.sale_id
+                    INNER JOIN stock_move sm ON sml.move_id=sm.id
+                WHERE sm.sale_line_id=sol.id
+                    AND so.is_rental_order=true
                 )
         """
 
