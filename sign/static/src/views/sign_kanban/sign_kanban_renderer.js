@@ -1,7 +1,6 @@
 /** @odoo-module **/
 
 import { KanbanRenderer } from "@web/views/kanban/kanban_renderer";
-import { SignKanbanRecord } from "@sign/views/sign_kanban/sign_kanban_record";
 import { SignDocumentDropZone } from '../../mixin/document_upload';
 import { SignActionHelper } from '@sign/views/helper/sign_action_helper';
 
@@ -9,7 +8,6 @@ export class SignKanbanRenderer extends SignDocumentDropZone(KanbanRenderer) {
     static template = "sign.KanbanRenderer";
     static components = { 
         ...KanbanRenderer.components,
-        KanbanRecord: SignKanbanRecord,
         SignActionHelper,
     };
 
