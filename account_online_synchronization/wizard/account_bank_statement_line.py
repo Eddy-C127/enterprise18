@@ -42,6 +42,16 @@ class AccountBankStatementLineTransient(models.TransientModel):
     )
     company_id = fields.Many2one(comodel_name='res.company')
 
+    foreign_currency_id = fields.Many2one(
+        comodel_name='res.currency',
+        string="Foreign Currency",
+    )
+
+    amount_currency = fields.Monetary(
+        string="Amount in Currency",
+        currency_field='foreign_currency_id',
+    )
+
     def action_import_transactions(self):
         # This action could be call on multiple lines.
         if not self:
@@ -61,6 +71,8 @@ class AccountBankStatementLineTransient(models.TransientModel):
             'journal_id',
             'online_account_id',
             'company_id',
+            'foreign_currency_id',
+            'amount_currency',
         ]
         transactions_to_import = self.read(fields=fields_to_read, load=None)
         self.env['account.bank.statement.line']._online_sync_bank_statement(transactions_to_import, self.online_account_id)

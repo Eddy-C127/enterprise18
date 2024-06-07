@@ -27,13 +27,19 @@ class TestAccountMissingTransactionsWizard(AccountOnlineSynchronizationCommon):
 
         action = wizard.action_fetch_missing_transaction()
         transient_transactions = self.env['account.bank.statement.line.transient'].search(domain=action['domain'])
+        egp_currency = self.env['res.currency'].search([('name', '=', 'EGP')])
+        gbp_currency = self.env['res.currency'].search([('name', '=', 'GBP')])
 
         self.assertEqual(2, len(transient_transactions))
         # Posted Transaction
         self.assertEqual(transient_transactions[0]['online_transaction_identifier'], 'ABCD01')
         self.assertEqual(transient_transactions[0]['date'], fields.Date.from_string('2023-07-06'))
         self.assertEqual(transient_transactions[0]['state'], 'posted')
+        self.assertEqual(transient_transactions[0]['foreign_currency_id'], egp_currency)
+        self.assertEqual(transient_transactions[0]['amount_currency'], 8.0)
         # Pending Transaction
         self.assertEqual(transient_transactions[1]['online_transaction_identifier'], 'ABCD02_pending')
         self.assertEqual(transient_transactions[1]['date'], fields.Date.from_string('2023-07-25'))
         self.assertEqual(transient_transactions[1]['state'], 'pending')
+        self.assertEqual(transient_transactions[1]['foreign_currency_id'], gbp_currency)
+        self.assertEqual(transient_transactions[1]['amount_currency'], 8.0)
