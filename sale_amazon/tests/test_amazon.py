@@ -91,6 +91,23 @@ class TestAmazon(common.TestAmazonCommon):
             product_.product_tmpl_id.taxes_id = False
             return product_
 
+        # Create a warehouse that is prioritized when creating a normal order
+        view_location = self.env['stock.location'].create({
+            'name': "some location", 'usage': 'view', 'company_id': self.env.company.id
+        })
+        stock_location = self.env['stock.location'].create({
+            'name': "some location", 'usage': 'internal', 'company_id': self.env.company.id
+        })
+        other_warehouse = self.env['stock.warehouse'].create({
+            'name': "Other warehouse",
+            'code': "OW",
+            'view_location_id': view_location.id,
+            'lot_stock_id': stock_location.id,
+            'sequence': 1,
+        })
+
+        self.assertNotEqual(self.account.location_id.warehouse_id, other_warehouse)
+
         with patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request',
             new=lambda _account, operation, **kwargs: common.OPERATIONS_RESPONSES_MAP[operation],
@@ -115,7 +132,7 @@ class TestAmazon(common.TestAmazonCommon):
             self.assertEqual(order.company_id.id, self.account.company_id.id)
             self.assertEqual(order.user_id.id, self.account.user_id.id)
             self.assertEqual(order.team_id.id, self.account.team_id.id)
-            self.assertEqual(order.warehouse_id.id, self.account.location_id.warehouse_id.id)
+            self.assertNotEqual(order.warehouse_id.id, self.account.location_id.warehouse_id.id)
             self.assertEqual(order.amazon_channel, 'fbm')
             self.assertEqual(order.currency_id.name, 'USD')
 
@@ -263,6 +280,23 @@ class TestAmazon(common.TestAmazonCommon):
             product_.product_tmpl_id.taxes_id = False
             return product_
 
+        # Create a warehouse that is prioritized when creating a normal order
+        view_location = self.env['stock.location'].create({
+            'name': "some location", 'usage': 'view', 'company_id': self.env.company.id
+        })
+        stock_location = self.env['stock.location'].create({
+            'name': "some location", 'usage': 'internal', 'company_id': self.env.company.id
+        })
+        other_warehouse = self.env['stock.warehouse'].create({
+            'name': "Other warehouse",
+            'code': "OW",
+            'view_location_id': view_location.id,
+            'lot_stock_id': stock_location.id,
+            'sequence': 1,
+        })
+
+        self.assertNotEqual(self.account.location_id.warehouse_id, other_warehouse)
+
         with patch(
             'odoo.addons.sale_amazon.utils.make_sp_api_request', new=get_sp_api_response_mock
         ), patch(
@@ -272,6 +306,7 @@ class TestAmazon(common.TestAmazonCommon):
             self.account._sync_orders(auto_commit=False)
             order = self.env['sale.order'].search([('amazon_order_ref', '=', '123456789')])
             self.assertEqual(order.amazon_channel, 'fba')
+            self.assertEqual(order.warehouse_id.id, self.account.location_id.warehouse_id.id)
             picking = self.env['stock.picking'].search([('sale_id', '=', order.id)])
             self.assertEqual(len(picking), 0, msg="FBA orders should generate no picking.")
             products = order.order_line.mapped('product_id').filtered(lambda p: p.type != 'service')

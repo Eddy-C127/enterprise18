@@ -650,7 +650,7 @@ class AmazonAccount(models.Model):
             'amazon_order_ref': amazon_order_ref,
             'amazon_channel': 'fba' if fulfillment_channel == 'AFN' else 'fbm',
         }
-        if self.location_id.warehouse_id:
+        if fulfillment_channel == 'AFN' and self.location_id.warehouse_id:
             order_vals['warehouse_id'] = self.location_id.warehouse_id.id
         return self.env['sale.order'].with_context(
             mail_create_nosubscribe=True
