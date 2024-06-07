@@ -2,31 +2,30 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import ast
+import base64
 import datetime
 import io
 import json
 import logging
 import re
-import base64
 from ast import literal_eval
 from collections import defaultdict
 from functools import cmp_to_key
-from PIL import ImageFont
+from itertools import groupby
 
 import markupsafe
 from babel.dates import get_quarter_names
 from dateutil.relativedelta import relativedelta
+from PIL import ImageFont
 
+from odoo import models, fields, api, _, osv
 from odoo.addons.web.controllers.utils import clean_action
-from odoo import models, fields, api, _, osv, _lt
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.tools import date_utils, get_lang, float_is_zero, float_repr, float_compare, SQL
-from odoo.tools.float_utils import float_round
-from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path
-from odoo.tools.parse_version import parse_version
-from odoo.tools.safe_eval import expr_eval, safe_eval
 from odoo.models import check_method_name
-from itertools import groupby
+from odoo.tools import date_utils, get_lang, float_is_zero, float_repr, SQL, parse_version
+from odoo.tools.float_utils import float_round, float_compare
+from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path
+from odoo.tools.safe_eval import expr_eval, safe_eval
 
 _logger = logging.getLogger(__name__)
 
