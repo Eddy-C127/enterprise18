@@ -6,10 +6,6 @@ import { renderToMarkup } from '@web/core/utils/render';
 
 import paymentForm from '@payment/js/payment_form';
 
-const savePaymentMethodCheckbox = document.querySelector(
-    'input[name="o_payment_tokenize_checkbox"]'
-);
-
 paymentForm.include({
     events: Object.assign({}, paymentForm.prototype.events || {}, {
         'change input[name="o_payment_automate_payments_new_token"]':
@@ -54,13 +50,20 @@ paymentForm.include({
      * @return {void}
      */
     async _initiatePaymentFlow(providerCode, paymentOptionId, paymentMethodCode, flow) {
-        const autoPaymentCheckboxNewToken = document.querySelector(
+        const checkedRadio = this.el.querySelector('input[name="o_payment_radio"]:checked');
+        const inlineForm = this._getInlineForm(checkedRadio);
+
+        // Fetch the `autoPaymentCheckboxNewToken` of the current payment method.
+        const autoPaymentCheckboxNewToken = inlineForm?.querySelector(
             'input[name="o_payment_automate_payments_new_token"]'
         );
-        const autoPaymentCheckboxSavedToken = document.querySelector(
-            `input[name="o_payment_automate_payments_saved_token"][payment-option-id="${paymentOptionId}"]`
+        // Fetch the `autoPaymentCheckboxSavedToken` of the current token.
+        const autoPaymentCheckboxSavedToken = inlineForm?.querySelector(
+            `input[name="o_payment_automate_payments_saved_token"]`
         );
+
         if (autoPaymentCheckboxNewToken?.checked || autoPaymentCheckboxSavedToken?.checked) {
+            // TODO Should be replaced with an override the transaction route.
             this.paymentContext.transactionRoute = this.paymentContext.txRouteSubscription;
         }
         return this._super(...arguments);
@@ -73,6 +76,13 @@ paymentForm.include({
      * @return {void}
      */
     _onChangeAutomatePaymentsCheckbox: function (ev) {
+        // Fetch the `savePaymentMethodCheckbox` of the current payment method.
+        const tokenizeContainer = ev.currentTarget.closest(
+            'div[name="o_payment_tokenize_container"]'
+        );
+        const savePaymentMethodCheckbox = tokenizeContainer.querySelector(
+            'input[name="o_payment_tokenize_checkbox"]'
+        );
         savePaymentMethodCheckbox.checked = ev.currentTarget.checked;
         savePaymentMethodCheckbox.disabled = ev.currentTarget.checked;
         // Dispatch a fake event to update the payment form dependencies.
