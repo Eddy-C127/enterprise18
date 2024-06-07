@@ -156,6 +156,13 @@ class WebsiteAppointment(AppointmentController):
             'search_count': appointment_count,
         }
 
+    def _get_allowed_companies(self, organizer):
+        """ Check if the current website can be used to determine the company
+        and fallback on the companies of the organizer if not """
+        companies = super()._get_allowed_companies(organizer)
+        website_company = request.website.company_id if request.website else request.env['res.company']
+        return website_company if website_company in companies else companies
+
     def _get_customer_partner(self):
         partner = super()._get_customer_partner()
         if not partner:

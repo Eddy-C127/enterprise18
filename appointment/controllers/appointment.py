@@ -785,7 +785,7 @@ class AppointmentController(http.Controller):
             mail_notify_author=True,
             mail_create_nolog=True,
             mail_create_nosubscribe=True,
-            allowed_company_ids=staff_user.company_ids.ids,
+            allowed_company_ids=self._get_allowed_companies(staff_user or appointment_type.create_uid).ids,
         ).sudo().create({
             'appointment_answer_input_ids': [Command.create(vals) for vals in answer_input_values],
             **appointment_type._prepare_calendar_event_values(
@@ -797,6 +797,13 @@ class AppointmentController(http.Controller):
 
     # Tools / Data preparation
     # ------------------------------------------------------------
+
+    def _get_allowed_companies(self, organizer):
+        """ Get the allowed companies of the organizer of the event
+        :param: <res.users> organizer: the organizer of the event
+        :return: recordset of res.company
+        """
+        return organizer.company_ids
 
     def _get_customer_partner(self):
         partner = request.env['res.partner']
