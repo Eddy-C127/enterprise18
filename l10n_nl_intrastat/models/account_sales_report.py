@@ -30,6 +30,11 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
         results = self._cr.dictfetchall()
 
         for result in results:
+            # For Greece, the ISO 3166 code (GR) and European Union code (EL) is not the same.
+            # Since this is a european report, we need the European Union code.
+            if result['country_code'] == 'GR':
+                result['country_code'] = 'EL'
+
             result['amount_product'] += result['amount_triangular']
             column_group_key = result['column_group_key']
             partner_id = result['partner_id']
