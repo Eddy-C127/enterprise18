@@ -928,3 +928,50 @@ class TestFinancialReport(TestAccountReportsCommon):
                 {'level': 7, 'name': '400000 Product Sales'},
             ]
         )
+
+    def test_option_hierarchy_with_no_group_lines(self):
+        """ Check that the report lines of 'No Group' have correct ids with the option 'Hierarchy and subtotals' """
+        self.env['account.group'].create({
+            'name': 'Sales',
+            'code_prefix_start': '45',
+            'code_prefix_end': '49',
+        })
+
+        move = self.env['account.move'].create({
+            'date': '2020-02-02',
+            'line_ids': [
+                Command.create({
+                    'account_id': self.company_data['default_account_revenue'].id,
+                    'name': 'name',
+                })
+            ],
+        })
+        move.action_post()
+        move.line_ids.flush_recordset()
+        profit_and_loss_report = self.env.ref('account_reports.profit_and_loss')
+        line_id = self._get_basic_line_dict_id_from_report_line_ref('account_reports.account_financial_report_income0')
+        options = self._generate_options(profit_and_loss_report, '2020-02-01', '2020-02-28')
+        options['unfolded_lines'] = [line_id]
+        options['hierarchy'] = True
+        self.env.company.totals_below_sections = False
+        lines = profit_and_loss_report._get_lines(options)
+        lines_array = [{'name': line['name'], 'level': line['level']} for line in lines]
+
+        self.assertEqual(
+            lines_array,
+            [
+                {'name': 'Net Profit', 'level': 0},
+                {'name': 'Income', 'level': 0},
+                {'name': 'Gross Profit', 'level': 3},
+                {'name': 'Operating Income', 'level': 5},
+                {'name': '(No Group)', 'level': 6},
+                {'name': '400000 Product Sales', 'level': 7},
+                {'name': 'Cost of Revenue', 'level': 5},
+                {'name': 'Other Income', 'level': 3},
+                {'name': 'Expenses', 'level': 0},
+                {'name': 'Expenses', 'level': 3},
+                {'name': 'Depreciation', 'level': 3}
+            ]
+        )
+
+        self.assertEqual(lines[4]['id'], lines[3]['id'] + '|' + '~account.group~')
