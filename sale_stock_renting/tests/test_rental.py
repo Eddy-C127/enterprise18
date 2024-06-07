@@ -360,6 +360,31 @@ class TestRentalWizard(TestRentalCommon):
             ["pickedup", "returned"],
         )
 
+    def test_lot_accuracy_in_schedule(self):
+        """ Schedule should only display lots that are associated with
+        rental order lines
+        """
+        if self.env['ir.module.module'].search([('name', '=', 'purchase_stock')], limit=1):
+            self.env.user._get_default_warehouse_id().buy_to_resupply = False
+
+        rental_schedule = self.env['sale.rental.schedule']
+        rental_transfers_group = self.env.ref('sale_stock_renting.group_rental_stock_picking')
+        self.env.user.groups_id = [(4, rental_transfers_group.id)]
+        so = self.lots_rental_order
+        self.order_line_id2.product_uom_qty = 1.0
+        so.order_line = [(6, 0, self.order_line_id2.id)]
+        so.action_confirm()
+
+        # Rental schedule should have 1 out of the 3 total lots for `self.tracked_product_id`
+        self.assertEqual(
+            rental_schedule.search_count([('product_id', '=', self.tracked_product_id.id)]),
+            1
+        )
+
+    ###############################
+    #       PRIVATE METHODS       #
+    ###############################
+
     def _set_product_quantity(self, quantity):
         quant = self.env['stock.quant'].create({
             'product_id': self.product_id.id,
@@ -390,6 +415,7 @@ class TestRentalWizard(TestRentalCommon):
     def _return_so(self, so):
         return_action = so.action_open_return()
         Form(self.env['rental.order.wizard'].with_context(return_action['context'])).save().apply()
+
 
 class TestRentalPicking(TestRentalCommon):
 
