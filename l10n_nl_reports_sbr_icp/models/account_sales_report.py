@@ -61,21 +61,26 @@ class DutchECSalesReportCustomHandler(models.AbstractModel):
 
         for line in lines:
             vat = line['vat'][2:] if line['vat'].startswith(line['country_code']) else line['vat']
+
+            # For Greece, the ISO 3166 code (GR) and European Union code (EL) is not the same.
+            # Since this is a european report, we need the European Union code.
+            country_code = 'EL' if line['country_code'] == 'GR' else line['country_code']
+
             if line['amount_product'] > 0:
                 codes_values['IntraCommunitySupplies'].append({
-                    'CountryCodeISO': line['country_code'],
+                    'CountryCodeISO': country_code,
                     'SuppliesAmount': str(int(line['amount_product'])),
                     'VATIdentificationNumberNational': vat,
                 })
             if line['amount_service'] > 0:
                 codes_values['IntraCommunityServices'].append({
-                    'CountryCodeISO': line['country_code'],
+                    'CountryCodeISO': country_code,
                     'ServicesAmount': str(int(line['amount_service'])),
                     'VATIdentificationNumberNational': vat,
                 })
             if line['amount_triangular'] > 0:
                 codes_values['IntraCommunityABCSupplies'].append({
-                    'CountryCodeISO': line['country_code'],
+                    'CountryCodeISO': country_code,
                     'SuppliesAmount': str(int(line['amount_triangular'])),
                     'VATIdentificationNumberNational': vat,
                 })
