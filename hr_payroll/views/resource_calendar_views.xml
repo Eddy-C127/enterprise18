@@ -42,6 +42,9 @@
             <field name="name" position="after">
                 <field name="work_time_rate"/>
             </field>
+            <field name="contracts_count" position="after">
+                <field name="full_time_required_hours" widget="float_time" optional="hide"/>
+            </field>
         </field>
     </record>
 
