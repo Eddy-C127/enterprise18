@@ -43,13 +43,10 @@ paymentForm.include({
      * we update the transaction route on the fly.
      *
      * @private
-     * @param {string} providerCode - The code of the selected payment option's provider.
-     * @param {number} paymentOptionId - The id of the selected payment option.
-     * @param {string} paymentMethodCode - The code of the selected payment method, if any.
-     * @param {string} flow - The payment flow of the selected payment option.
+     * @param {Event} ev
      * @return {void}
      */
-    async _initiatePaymentFlow(providerCode, paymentOptionId, paymentMethodCode, flow) {
+    async _submitForm(ev) {
         const checkedRadio = this.el.querySelector('input[name="o_payment_radio"]:checked');
         const inlineForm = this._getInlineForm(checkedRadio);
 
