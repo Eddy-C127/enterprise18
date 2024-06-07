@@ -60,7 +60,8 @@ paymentForm.include({
         );
 
         if (autoPaymentCheckboxNewToken?.checked || autoPaymentCheckboxSavedToken?.checked) {
-            // TODO Should be replaced with an override the transaction route.
+            // TODO Should be replaced with an override of the account_payment controller to extend
+            // it with subscription logic.
             this.paymentContext.transactionRoute = this.paymentContext.txRouteSubscription;
         }
         return this._super(...arguments);
@@ -83,6 +84,6 @@ paymentForm.include({
         savePaymentMethodCheckbox.checked = ev.currentTarget.checked;
         savePaymentMethodCheckbox.disabled = ev.currentTarget.checked;
         // Dispatch a fake event to update the payment form dependencies.
-        savePaymentMethodCheckbox.dispatchEvent(new Event('input'))
+        savePaymentMethodCheckbox.dispatchEvent(new Event('input'));
     },
 });

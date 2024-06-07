@@ -37,8 +37,14 @@
 
     <!-- Invite customers for automating payments with saved token. -->
     <template id="payment_token_form" inherit_id="payment.token_form">
+        <xpath expr="//div[@name='o_payment_inline_form']" position="attributes">
+            <attribute name="t-if" add="(is_subscription and not sale_order and mode == 'payment' and not reference_prefix)" separator=" or "/>
+        </xpath>
+        <xpath expr="//div[@name='o_payment_inline_form']/t[@t-call='{{inline_form_xml_id}}']" position="attributes">
+            <attribute name="t-if">inline_form_xml_id</attribute>
+        </xpath>
         <xpath expr="//div[@name='o_payment_inline_form']" position="inside">
-            <label t-if="is_subscription and not sale_order and mode == 'payment'and not reference_prefix" class="mt-2">
+            <label t-if="is_subscription and not sale_order and mode == 'payment' and not reference_prefix" class="mt-2">
                 <input name="o_payment_automate_payments_saved_token" t-att-payment-option-id="token_sudo.id" type="checkbox" class="form-check-input"/>
                 <small class="text-600">Automate payments for this subscription</small>
             </label>
