@@ -1308,7 +1308,7 @@ msgstr "Hàng ngày"
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_dashboard_root
 msgid "Dashboard"
-msgstr "Bảng thông tin"
+msgstr "Trang chủ"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
@@ -1547,12 +1547,12 @@ msgstr "Nháp"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
 msgid "Draft Payslip Batches"
-msgstr "Bảng lương dự thảo"
+msgstr "Đợt phiếu lương nháp"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 msgid "Draft Slip"
-msgstr "Phiếu lương dự thảo"
+msgstr "Phiếu lương nháp"
 
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.ir_actions_server_duplicate_structure
@@ -2321,8 +2321,8 @@ msgid ""
 "Linking a salary category to its parent is used only for the reporting "
 "purpose."
 msgstr ""
-"Liên kết một nhóm lương đến cấp cha của nó chỉ được sử dụng cho mục đích báo"
-" cáo."
+"Liên kết một danh mục lương đến danh mục chính chỉ được sử dụng cho mục đích"
+" báo cáo."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -2820,7 +2820,7 @@ msgstr "Giá trị tham số"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule_category__parent_id
 msgid "Parent"
-msgstr "Cha"
+msgstr "Chính"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__time_credit
@@ -2903,7 +2903,7 @@ msgstr "Mã lương"
 #. module: hr_payroll
 #: model:ir.actions.client,name:hr_payroll.hr_payroll_dashboard_open
 msgid "Payroll Dashboard"
-msgstr "Bảng thông tin lương"
+msgstr "Trang chủ lương"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_declaration_mixin
@@ -3728,7 +3728,7 @@ msgid ""
 "department (and subdepartments) at once."
 msgstr ""
 "Chọn một phòng ban cụ thể nếu bạn muốn chọn tất cả nhân viên từ phòng ban "
-"này (và các phòng ban con) cùng một lúc."
+"này (và các phòng ban phụ) cùng một lúc."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
@@ -4744,7 +4744,7 @@ msgstr "Bạn không thể xóa đợt phiếu lương không ở trạng thái 
 #, python-format
 msgid "You cannot delete a payslip which is not draft or cancelled!"
 msgstr ""
-"Bạn không thể xoá một phiếu lương mà không ở trạng thái dự thảo hoặc huỷ!"
+"Bạn không thể xóa một phiếu lương không ở trạng thái nháp hoặc đã hủy!"
 
 #. module: hr_payroll
 #. odoo-python

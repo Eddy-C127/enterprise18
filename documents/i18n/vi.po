@@ -642,8 +642,8 @@ msgid ""
 "A workspace cannot have one of his child defined as Parent Workspace in "
 "order to avoid a recursion issue."
 msgstr ""
-"Một không gian làm việc không thể có một trong các phần con của nó được xác "
-"định là Không gian làm việc cha để tránh sự cố đệ quy."
+"Một không gian làm việc không thể có một trong các không gian làm việc phụ "
+"của nó được xác định là Không gian làm việc chính để tránh sự cố đệ quy."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__parent_folder_id
@@ -1113,8 +1113,8 @@ msgid ""
 "Cannot move folder under the given parent as this would create a recursive "
 "hierarchy"
 msgstr ""
-"Không thể di chuyển thư mục vào trong thư mục cha đã cho vì điều này sẽ tạo "
-"ra hệ thống phân cấp đệ quy"
+"Không thể di chuyển thư mục vào trong thư mục chính đã cho vì điều này sẽ "
+"tạo ra hệ thống phân cấp đệ quy"
 
 #. module: documents
 #: model_terms:documents.folder,description:documents.documents_internal_folder
@@ -1924,7 +1924,8 @@ msgid ""
 "ID of the parent record holding the alias (example: project holding the task"
 " creation alias)"
 msgstr ""
-"ID của tập dữ liệu cha chứa bí danh (ví dụ: dự án chứa bí danh tạo nhiệm vụ)"
+"ID của tập dữ liệu chính chứa bí danh (ví dụ: dự án chứa bí danh tạo nhiệm "
+"vụ)"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_exception_icon
@@ -1979,7 +1980,7 @@ msgstr "Hộp thư đến"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__include_sub_folders
 msgid "Include Sub Folders"
-msgstr "Bao gồm các thư mục con"
+msgstr "Bao gồm các thư mục phụ"
 
 #. module: documents
 #: model_terms:documents.folder,description:documents.documents_internal_folder
@@ -2503,7 +2504,7 @@ msgstr "One record limit"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #, python-format
 msgid "Open chatter"
-msgstr "Open chatter"
+msgstr "Mở cửa sổ trò chuyện"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_force_thread_id
@@ -2569,17 +2570,17 @@ msgstr "PDF/Document"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_parent_model_id
 msgid "Parent Model"
-msgstr "Mô hình cha"
+msgstr "Mô hình chính"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__parent_path
 msgid "Parent Path"
-msgstr "Tuyến cha"
+msgstr "Tuyến chính"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_parent_thread_id
 msgid "Parent Record Thread ID"
-msgstr "ID luồng tập dữ liệu cha"
+msgstr "ID luồng tập dữ liệu chính"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__parent_folder_id
@@ -2594,7 +2595,7 @@ msgid ""
 " necessarily the model given by alias_model_id (example: project "
 "(parent_model) and task (model))"
 msgstr ""
-"Mô hình cha chứa bí danh này. Mô hình chứa tham chiếu bí danh không nhất "
+"Mô hình chính chứa bí danh này. Mô hình chứa tham chiếu bí danh không nhất "
 "thiết phải là mô hình được đưa ra bởi alias_model_id (Ví dụ: dự án "
 "(parent_model) và nhiệm vụ (model))"
 

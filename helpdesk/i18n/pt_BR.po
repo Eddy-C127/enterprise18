@@ -1904,7 +1904,7 @@ msgstr "Horas em aberto"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_main
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_pivot_main
 msgid "Hours to Assign"
-msgstr "Horas para atribuir"
+msgstr "Horas até atribuir"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__ticket_close_hours
@@ -1912,7 +1912,7 @@ msgstr "Horas para atribuir"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_main
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_pivot_main
 msgid "Hours to Close"
-msgstr "Horas para fechar"
+msgstr "Horas até fechar"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__first_response_hours
@@ -3242,7 +3242,7 @@ msgstr "Definir um domínio de alias"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Set an Email Template on Stages"
-msgstr "Defina um modelo de e-mail em estágios"
+msgstr "Definir um modelo de e-mail em estágios"
 
 #. module: helpdesk
 #: model:mail.template,description:helpdesk.solved_ticket_request_email_template
@@ -3867,7 +3867,7 @@ msgstr "Tempo total de troca em horas"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Track &amp; Bill Time"
-msgstr "Rastrear e faturar horas"
+msgstr "Monitorar e faturar horas"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -4098,22 +4098,22 @@ msgstr "Dentro de"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__resource_calendar_id
 msgid "Working Hours"
-msgstr "Horário de trabalho"
+msgstr "Horas úteis"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_assignation_hours
 msgid "Working Hours to Assign"
-msgstr "Horas de trabalho para atribuição"
+msgstr "Horas úteis até atribuir"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_close_hours
 msgid "Working Hours to Close"
-msgstr "Horas de trabalho para concluir"
+msgstr "Horas úteis até concluir"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
 msgid "Working Hours to Reach SLA"
-msgstr "Horas de trabalho para atingir o SLA"
+msgstr "Horas úteis até cumprir o SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__exceeded_hours
@@ -4121,14 +4121,13 @@ msgid ""
 "Working hours exceeded for reached SLAs compared with deadline. Positive "
 "number means the SLA was reached after the deadline."
 msgstr ""
-"Horas de trabalho excedidas para SLAs atingidos em comparação com o prazo. "
-"Um número positivo significa que o SLA foi alcançado após o prazo."
+"Horas úteis excedidas para SLAs cumpridos em comparação com o prazo. Um "
+"número positivo significa que o SLA foi alcançado após o prazo."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__resource_calendar_id
 msgid "Working hours used to determine the deadline of SLA Policies."
-msgstr ""
-"Horas de trabalho usadas para determinar o prazo das políticas de SLA."
+msgstr "Horas úteis usadas para determinar o prazo das políticas de SLA."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_unarchive_wizard

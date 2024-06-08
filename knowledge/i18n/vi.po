@@ -49,7 +49,7 @@ msgid ""
 "\"%(article_name)s\" is a template and can not be a child of an article "
 "(\"%(parent_article_name)s\")."
 msgstr ""
-"\"%(article_name)s\" là mẫu và không thể là con của một bài viết "
+"\"%(article_name)s\" là mẫu và không thể là phần phụ của một bài viết "
 "(\"%(parent_article_name)s\")."
 
 #. module: knowledge
@@ -60,7 +60,7 @@ msgid ""
 "\"%(article_name)s\" is an article and can not be a child of a template "
 "(\"%(parent_article_name)s\").\""
 msgstr ""
-"\"%(article_name)s\" là bài viết và không thể là con của một mẫu "
+"\"%(article_name)s\" là bài viết và không thể là phần phụ của một mẫu "
 "(\"%(parent_article_name)s\").\""
 
 #. module: knowledge
@@ -2424,7 +2424,7 @@ msgid ""
 msgstr ""
 "Bạn có chắc chắn muốn khôi phục quyền truy cập không? Điều này đồng nghĩa "
 "với việc bài viết này giờ đây sẽ kế thừa mọi quyền truy cập được thiết lập "
-"trên các bài viết cha của nó."
+"trên các bài viết chính của nó."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2436,7 +2436,7 @@ msgid ""
 msgstr ""
 "Bạn có chắc chắn muốn hạn chế quyền truy cập vào bài viết này không? Điều "
 "này đồng nghĩa với việc bài viết sẽ không còn kế thừa quyền truy cập từ các "
-"bài viết cha của nó nữa."
+"bài viết chính của nó nữa."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2554,7 +2554,7 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.constraint,message:knowledge.constraint_knowledge_article_check_article_item_parent
 msgid "Article items must have a parent."
-msgstr "Các hạng mục bài viết phải có cha."
+msgstr "Các hạng mục bài viết phải có hạng mục chính."
 
 #. module: knowledge
 #. odoo-python
@@ -2887,7 +2887,7 @@ msgid ""
 "rights can not be inferred without a parent."
 msgstr ""
 "Không thể di chuyển %(article_name)s làm bài viết gốc của phần 'được chia "
-"sẻ' vì không thể suy ra quyền truy cập nếu không có cha."
+"sẻ' vì không thể suy ra quyền truy cập nếu không có phần chính."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -2980,7 +2980,7 @@ msgstr "Thay đổi ảnh bìa"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__child_ids
 msgid "Child Articles and Items"
-msgstr "Hạng mục và bài viết con"
+msgstr "Hạng mục và bài viết phụ"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3417,7 +3417,7 @@ msgstr "Các bài viết huỷ đồng bộ phải có quyền nội bộ."
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__is_desynchronized
 msgid "Desyncronized with parents"
-msgstr "Huỷ đồng bộ hóa với cha"
+msgstr "Huỷ đồng bộ hóa với phần chính"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3780,20 +3780,20 @@ msgstr "Có quyền viết"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_item_children
 msgid "Has article item children?"
-msgstr "Có con của hạng mục bài viết?"
+msgstr "Có phần phụ của hạng mục bài viết?"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_article_children
 msgid "Has normal article children?"
-msgstr "Có bài viết con bình thường?"
+msgstr "Có phần phụ của bài viết bình thường?"
 
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__user_has_access_parent_path
 msgid ""
 "Has the user access to each parent from current article until its root?"
 msgstr ""
-"Người dùng có quyền truy cập vào từng bài viết cha tính từ bài viết hiện tại"
-" cho đến bài viết gốc của nó?"
+"Người dùng có quyền truy cập vào từng bài viết chính tính từ bài viết hiện "
+"tại cho đến bài viết gốc của nó?"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__have_share_partners
@@ -4024,7 +4024,7 @@ msgid ""
 "If set, this article won't inherit access rules from its parents anymore."
 msgstr ""
 "Nếu cài đặt, bài viết này sẽ không kế thừa các quy tắc truy cập từ bài viết "
-"cha của nó."
+"chính của nó."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -4104,7 +4104,7 @@ msgstr "Quyền được kế thừa"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__inherited_permission_parent_id
 msgid "Inherited Permission Parent Article"
-msgstr "Bài viết cha có quyền được kế thừa"
+msgstr "Bài viết chính có quyền được kế thừa"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4298,7 +4298,7 @@ msgstr "Là mẫu"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__has_item_parent
 msgid "Is the parent an Item?"
-msgstr "Cha có phải là một hạng mục không?"
+msgstr "Phần chính có phải là một hạng mục không?"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -5269,17 +5269,17 @@ msgstr "Điểm yếu (<em>đánh dấu vào mục liên quan</em>)"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_id
 msgid "Parent Article"
-msgstr "Bài viết cha"
+msgstr "Bài viết chính"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_path
 msgid "Parent Path"
-msgstr "Tuyến cha"
+msgstr "Tuyến chính"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_form
 msgid "Parent Template"
-msgstr "Mẫu cha"
+msgstr "Mẫu chính"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__partner_id
@@ -5476,7 +5476,7 @@ msgid ""
 "Properties are fields that can only be added on articles that have a parent."
 msgstr ""
 "Thuộc tính là những trường chỉ có thể được thêm vào các bài viết có bài viết"
-" cha."
+" chính."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6099,7 +6099,8 @@ msgstr "Giai đoạn"
 #. module: knowledge
 #: model:ir.model.fields,help:knowledge.field_knowledge_article_stage__parent_id
 msgid "Stages are shared among acommon parent and its children articles."
-msgstr "Giai đoạn được chia sẻ giữa bài viết cha và các bài viết con của nó."
+msgstr ""
+"Giai đoạn được chia sẻ giữa bài viết chính và các bài viết phụ của nó."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -6349,7 +6350,7 @@ msgstr "Thành viên được chọn không tồn tại hoặc đã bị xóa."
 #: model:ir.model.fields,help:knowledge.field_knowledge_article__sequence
 msgid ""
 "The sequence is computed only among the articles that have the same parent."
-msgstr "Trình tự chỉ được tính trong số các bài viết có cùng cha."
+msgstr "Trình tự chỉ được tính trong số các bài viết có cùng bài viết chính."
 
 #. module: knowledge
 #. odoo-javascript
@@ -6363,8 +6364,8 @@ msgstr "Thuộc tính ngày bắt đầu là bắt buộc."
 msgid ""
 "The subject is the title of the highest parent in the article hierarchy."
 msgstr ""
-"Chủ đề là tiêu đề của bài viết cha cao nhất trong hệ thống phân cấp bài "
-"viết."
+"Chủ đề là tiêu đề của bài viết chính có thứ tự cao nhất trong hệ thống phân "
+"cấp bài viết."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
@@ -6440,7 +6441,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Those fields will be available on all articles that share the same parent."
-msgstr "Những trường đó sẽ có sẵn trên tất cả bài viết có cùng cha."
+msgstr ""
+"Những trường đó sẽ có sẵn trên tất cả bài viết có cùng bài viết chính."
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__is_resolved
@@ -7157,7 +7159,7 @@ msgstr ""
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "and the following child article(s) have"
-msgstr "và (các) bài viết con sau đây có"
+msgstr "và (các) bài viết phụ sau đây có"
 
 #. module: knowledge
 #. odoo-javascript

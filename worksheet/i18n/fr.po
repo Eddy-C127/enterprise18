@@ -5,6 +5,7 @@
 # Translators:
 # Jolien De Paepe, 2023
 # Wil Odoo, 2023
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -180,6 +181,22 @@ msgstr "Recherche modèle de feuille de travail"
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_list
 msgid "Worksheets"
 msgstr "Feuilles de travail"
+
+#. module: worksheet
+#. odoo-python
+#: code:addons/worksheet/models/worksheet_template.py:0
+#, python-format
+msgid ""
+"You can't restrict this worksheet template to '%s' because it's still "
+"connected to tasks in '%s' (and potentially other companies). Please either "
+"unlink those tasks from this worksheet template, move them to a project for "
+"the right company, or keep this worksheet template open to all companies."
+msgstr ""
+"Vous ne pouvez pas limiter ce modèle de feuille de travail à '%s' car il est"
+" toujours lié à des tâches dans '%s' (et potentiellement d'autres "
+"entreprises). Veuillez soit dissocier les tâches de ce modèle de feuille de "
+"travail, soit les intégrer dans un projet de la bonne entreprise, ou encore "
+"laisser ce modèle de feuille de travail ouvert pour toutes les entreprises."
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form

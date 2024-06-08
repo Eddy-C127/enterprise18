@@ -5,6 +5,7 @@
 # Translators:
 # Jolien De Paepe, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-22 15:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1117,7 +1118,7 @@ msgstr "Ajouter un nouveau plan"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Add a new rule"
-msgstr ""
+msgstr "Ajouter une nouvelle règle"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.product_pricelist_view
@@ -1134,6 +1135,8 @@ msgid ""
 "Add a recurring plan for this product, or create a new one with the desired "
 "recurrence (e.g., Monthly)"
 msgstr ""
+"Ajoutez un plan récurrent pour ce produit ou créez-en un nouveau avec la "
+"récurrence souhaitée (par ex. mensuel)."
 
 #. module: sale_subscription
 #. odoo-python
@@ -1484,7 +1487,7 @@ msgstr "Choisissez un nom de produit. <br/><i>(par ex. Accès à eLearning)</i>"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Choose the invoice duration for your subscription"
-msgstr ""
+msgstr "Choisissez la durée de facturation pour votre abonnement"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log__event_type__2_churn
@@ -1510,7 +1513,7 @@ msgstr "Perte"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Click here to add some products or services"
-msgstr ""
+msgstr "Cliquez ici pour ajouter des produits ou services"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
@@ -2491,14 +2494,14 @@ msgstr "Ajoutons un prix récurrent"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Let's add price for selected recurrence"
-msgstr ""
+msgstr "Ajoutons un prix pour la récurrence sélectionnée"
 
 #. module: sale_subscription
 #. odoo-javascript
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Let's choose the customer for your subscription"
-msgstr ""
+msgstr "Choisissons un client pour votre abonnement"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4406,6 +4409,17 @@ msgstr "La vente incitative %s a été annulée."
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
+msgid ""
+"The upsell %s has been canceled. Please recheck the quantities as they may "
+"have been affected by this cancellation."
+msgstr ""
+"La vente incitative %s a été annulée. Veuillez revérifier les quantités afin"
+" d'éviter qu'elles ne soient affectées par cette annulation."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
 msgid "The upsell %s has been confirmed."
 msgstr "La vente incitative %s a été confirmée."
 
@@ -4765,6 +4779,8 @@ msgid ""
 "Want a recurring billing through subscription management? Get started by "
 "clicking here"
 msgstr ""
+"Vous souhaitez profiter d'une facturation récurrente via la gestion des "
+"abonnements ? Commencez par cliquer ici"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4877,6 +4893,17 @@ msgid ""
 msgstr ""
 "Vous ne pouvez pas modifier la propriété récurrente de ce produit, parce "
 "qu'il a déjà été vendu."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/wizard/sale_subscription_close_reason_wizard.py:0
+#, python-format
+msgid ""
+"You can not churn a contract that has not been invoiced. Please cancel the "
+"contract instead."
+msgstr ""
+"Vous ne pouvez pas résilier un contrat qui n'a pas été facturé. Veuillez "
+"annuler le contrat dans ce cas."
 
 #. module: sale_subscription
 #. odoo-python

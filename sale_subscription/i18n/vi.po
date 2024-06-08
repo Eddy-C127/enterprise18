@@ -3806,7 +3806,7 @@ msgstr "Cài đặt"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__starred
 msgid "Show Subscription on dashboard"
-msgstr "Hiển thị Đăng ký trên trang tổng quan"
+msgstr "Hiển thị Đăng ký trên trang chủ"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -4392,6 +4392,15 @@ msgstr "Đơn bán thêm %s đã bị hủy."
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
+msgid ""
+"The upsell %s has been canceled. Please recheck the quantities as they may "
+"have been affected by this cancellation."
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
 msgid "The upsell %s has been confirmed."
 msgstr "Đơn bán thêm %s đã được xác nhận."
 
@@ -4824,7 +4833,7 @@ msgstr "Khi không được chọn, quy tắc sẽ bị ẩn và sẽ không đ�
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__starred
 msgid "Whether this subscription should be displayed on the dashboard or not"
-msgstr "Liệu đăng ký này có được hiển thị trên trang tổng quan hay không"
+msgstr "Liệu đăng ký này có được hiển thị trên trang chủ hay không"
 
 #. module: sale_subscription
 #: model:sale.subscription.plan,name:sale_subscription.subscription_plan_year

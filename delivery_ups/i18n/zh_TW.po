@@ -45,21 +45,21 @@ msgstr "存取許可證號碼無效。請提供有效的號碼（長度應為零
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Access License number is invalid for this delivery provider."
-msgstr "Access License number is invalid for this delivery provider."
+msgstr "此送貨服務商的存取許可證號碼無效。"
 
 #. module: delivery_ups
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Access License number is invalid for this provider.Please re-license."
-msgstr "Access License number is invalid for this provider.Please re-license."
+msgstr "此服務商的存取許可證號碼無效。請重新領取許可。"
 
 #. module: delivery_ups
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Access License number is revoked contact UPS to get access."
-msgstr "Access License number is revoked contact UPS to get access."
+msgstr "存取許可證號碼已被撤銷，請聯絡 UPS 以取得存取權限。"
 
 #. module: delivery_ups
 #. odoo-python
@@ -86,7 +86,7 @@ msgstr "貨到付款資金選項"
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Cancel shipment not available at this time , Please try again Later."
-msgstr "Cancel shipment not available at this time , Please try again Later."
+msgstr "目前不可取消送貨，請稍後再試。"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_stock_package_type__package_carrier_type
@@ -416,7 +416,7 @@ msgstr "英鎊"
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Provided Access License Number not found in the UPS database"
-msgstr "Provided Access License Number not found in the UPS database"
+msgstr "所提供的存取許可證號碼，在 UPS 資料庫中找不到"
 
 #. module: delivery_ups
 #. odoo-python
@@ -668,9 +668,7 @@ msgstr "The selected service is not valid with the selected packaging."
 msgid ""
 "This measurement system is not valid for the selected country. Please switch"
 " from LBS/IN to KGS/CM (or vice versa). Configure it from delivery method"
-msgstr ""
-"This measurement system is not valid for the selected country. Please switch"
-" from LBS/IN to KGS/CM (or vice versa). Configure it from delivery method"
+msgstr "此量度系統在所選國家/地區無效。請由「磅/英寸」（lbs/in）切換至「公斤/厘米」（kgs/cm），或反向切換。你可在交付方式進行配置"
 
 #. module: delivery_ups
 #. odoo-python
@@ -680,10 +678,7 @@ msgid ""
 "This measurement system is not valid for the selected country. Please switch"
 " from LBS/IN to KGS/CM (or vice versa). Configure it from the delivery "
 "method."
-msgstr ""
-"This measurement system is not valid for the selected country. Please switch"
-" from LBS/IN to KGS/CM (or vice versa). Configure it from the delivery "
-"method."
+msgstr "此量度系統在所選國家/地區無效。請由「磅/英寸」（lbs/in）切換至「公斤/厘米」（kgs/cm），或反向切換。你可在交付方式進行配置。"
 
 #. module: delivery_ups
 #: model:ir.model.fields,help:delivery_ups.field_delivery_carrier__ups_cod
@@ -819,7 +814,7 @@ msgstr "Ups包裝重量單位"
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Username/Password is invalid for this delivery provider."
-msgstr "Username/Password is invalid for this delivery provider."
+msgstr "使用者名稱/密碼對此送貨服務商無效。"
 
 #. module: delivery_ups
 #. odoo-python

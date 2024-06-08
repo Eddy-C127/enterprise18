@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -169,7 +170,7 @@ msgstr "Tài khoản tổng hợp có tiền tệ khác nhau"
 #. module: account_consolidation
 #: model:onboarding.onboarding,name:account_consolidation.onboarding_onboarding_account_consolidation_dashboard
 msgid "Account Consolidation Dashboard Onboarding"
-msgstr "Hướng dẫn Trang tổng quan hợp nhất kế toán"
+msgstr "Hướng dẫn Trang chủ hợp nhất kế toán"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_tree
@@ -196,7 +197,7 @@ msgstr "Tài khoản tương ứng"
 #: code:addons/account_consolidation/models/consolidation_coa.py:0
 #, python-format
 msgid "Account Mapping: %(chart)s"
-msgstr "Account Mapping: %(chart)s"
+msgstr "Thay thế tài khoản: %(chart)s"
 
 #. module: account_consolidation
 #. odoo-python
@@ -283,7 +284,7 @@ msgid ""
 "An account group can only have accounts or other groups children but not "
 "both!"
 msgstr ""
-"Một nhóm tài khoản chỉ có thể có tài khoản hoặc các nhóm con khác mà không "
+"Một nhóm tài khoản chỉ có thể có tài khoản hoặc các nhóm phụ khác mà không "
 "được có cả hai!"
 
 #. module: account_consolidation
@@ -760,18 +761,20 @@ msgstr "Tỷ giá"
 #. module: account_consolidation
 #: model:ir.model.fields,help:account_consolidation.field_consolidation_period_composition__currency_rate
 msgid "Currency rate from composed chart currency to using chart currency"
-msgstr "Currency rate from composed chart currency to using chart currency"
+msgstr ""
+"Tỷ giá tiền tệ từ đơn vị tiền tệ của hệ thống tổng hợp sang đơn vị tiền tệ "
+"của hệ thống"
 
 #. module: account_consolidation
 #: model:ir.actions.act_window,name:account_consolidation.consolidation_period_action
 #: model:ir.ui.menu,name:account_consolidation.menu_consolidation_home
 msgid "Dashboard"
-msgstr "Bảng thông tin"
+msgstr "Trang chủ"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period__dashboard_sections
 msgid "Dashboard Sections"
-msgstr "Mục Dashboard"
+msgstr "Mục Trang chủ"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_journal_line_tree
@@ -941,7 +944,8 @@ msgstr "Historical Rates: %(company)s"
 msgid ""
 "How many units of company currency is needed to get 1 unit of chart currency"
 msgstr ""
-"How many units of company currency is needed to get 1 unit of chart currency"
+"Cần bao nhiêu đơn vị tiền tệ của công ty để có được 1 đơn vị tiền tệ của hệ "
+"thống"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__id
@@ -1105,9 +1109,8 @@ msgid ""
 " for this company or that you have access right to see the accounts of this "
 "company."
 msgstr ""
-"No accounts have been found. Make sure you have installed a chart of account"
-" for this company or that you have access right to see the accounts of this "
-"company."
+"Không tìm thấy tài khoản nào. Đảm bảo bạn đã cài đặt hệ thống tài khoản cho "
+"công ty này hoặc bạn có quyền truy cập để xem tài khoản của công ty này."
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.account_mapping_search
@@ -1211,12 +1214,12 @@ msgstr "PDF"
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_group__parent_id
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_search
 msgid "Parent"
-msgstr "Cha"
+msgstr "Chính"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_group__parent_path
 msgid "Parent Path"
-msgstr "Tuyến cha"
+msgstr "Tuyến chính"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_company_period__period_id
@@ -1272,7 +1275,7 @@ msgstr "Mở lại chu kỳ"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "Reset To Draft"
-msgstr "Đặt lại dự thảo"
+msgstr "Đặt lại thành nháp"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form
@@ -1325,7 +1328,7 @@ msgstr "Nên ở giữa 0 và 100%"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_group__show_on_dashboard
 msgid "Show On Dashboard"
-msgstr "Hiển trị trên Trang tổng quan"
+msgstr "Hiển trị trên Trang chủ"
 
 #. module: account_consolidation
 #. odoo-javascript
@@ -1361,28 +1364,28 @@ msgstr "Trạng thái"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form
 msgid "Sub-consolidated Chart"
-msgstr "Sub-consolidated Chart"
+msgstr "Hệ thống tổng hợp phụ"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__linked_chart_ids
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_chart__children_ids
 msgid "Sub-consolidations"
-msgstr "Sub-consolidations"
+msgstr "Hợp nhất phụ"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "Sub-consolidations Periods"
-msgstr "Sub-consolidations Periods"
+msgstr "Kỳ hợp nhất phụ"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "Sub-consolidations periods"
-msgstr "Sub-consolidations periods"
+msgstr "Kỳ hợp nhất phụ"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_form
 msgid "Subgroups"
-msgstr "Nhóm con"
+msgstr "Nhóm phụ"
 
 #. module: account_consolidation
 #. odoo-javascript
@@ -1524,9 +1527,8 @@ msgid ""
 " chart for the journal cannot be different from the one of the chosen "
 "period."
 msgstr ""
-"When setting a period on a consolidation journal, the selected consolidation"
-" chart for the journal cannot be different from the one of the chosen "
-"period."
+"Khi thiết lập kỳ trên một sổ nhật ký hợp nhất, thì hệ thống hợp nhất đã chọn"
+" cho sổ nhật ký không được khác với hệ thống của kỳ đã chọn."
 
 #. module: account_consolidation
 #. odoo-python

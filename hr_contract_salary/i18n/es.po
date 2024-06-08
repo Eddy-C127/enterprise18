@@ -693,7 +693,7 @@ msgstr "Días"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_res_config_settings__access_token_validity
 msgid "Default Access Token Validity Duration"
-msgstr "Duración predeterminada de validez de tokens de acceso"
+msgstr "Duración por defecto de la validez de tokens de acceso"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_res_config_settings__employee_salary_simulator_link_validity
@@ -1162,7 +1162,7 @@ msgstr "Total de impactos mensual"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__impacts_net_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_personal_info__impacts_net_salary
 msgid "Impacts Net Salary"
-msgstr "Impactos en el salario neto"
+msgstr "Influye en el salario neto"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_offer__state__open
@@ -1325,7 +1325,7 @@ msgstr "Campo res manual"
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:hr_contract_salary.hr_contract_salary_personal_info_certificate_master
 msgid "Master"
-msgstr "Maestro"
+msgstr "Máster"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__message_has_error
@@ -1719,7 +1719,7 @@ msgstr "Botones de radio"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: hr_contract_salary
 #. odoo-javascript
@@ -1822,12 +1822,12 @@ msgstr "Beneficios salariales"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form_hr
 msgid "Salary Configurator"
-msgstr "Configurador de sueldo"
+msgstr "Configurador de salario"
 
 #. module: hr_contract_salary
 #: model:ir.actions.server,name:hr_contract_salary.ir_cron_update_offer_state_ir_actions_server
 msgid "Salary Configurator: Update Offer State"
-msgstr "Configurador de sueldo: actualizar el estado de la oferta"
+msgstr "Configurador de salario: actualizar el estado de la oferta"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__salary_offer_ids
@@ -1908,7 +1908,7 @@ msgstr "Resumen del paquete salarial"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_personal_info__structure_type_id
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__structure_type_id
 msgid "Salary Structure Type"
-msgstr "Tipo de Estructura Salarial"
+msgstr "Tipo de estructura salarial"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
@@ -1972,16 +1972,15 @@ msgstr "Ofertas enviadas"
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer_applicant
 msgid "Sent automatically when you generate an offer for an application"
-msgstr ""
-"Se envía de forma automática cuando genera una oferta para una postulación"
+msgstr "Enviado automáticamente cuando genera una oferta para una solicitud"
 
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer
 msgid ""
 "Sent manually when you generate a simulation link on the employee contract"
 msgstr ""
-"Se envía de forma automática cuando genera un enlace de simulación en el "
-"contrato del empleado"
+"Enviado manualmente cuando genera un enlace de simulación en el contrato del"
+" empleado"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sequence
@@ -2186,7 +2185,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_benefits
 msgid "There is no available option to customize your salary"
-msgstr "No hay opciones disponibles para personalizar su sueldo"
+msgstr "No hay opciones disponibles para personalizar su salario"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_diff_email_template
@@ -2199,7 +2198,7 @@ msgid ""
 "They will review your contract.<br/> Feel free to contact them if you have "
 "any questions."
 msgstr ""
-"La persona revisará el contrato.<br/> Es libre de contactarle si tiene "
+"La persona revisará el contrato.<br/> Póngase en contacto con ella si tiene "
 "alguna pregunta."
 
 #. module: hr_contract_salary
@@ -2211,7 +2210,7 @@ msgstr ""
 msgid ""
 "This link is invalid. Please contact the HR Responsible to get a new one..."
 msgstr ""
-"El enlace es inválido. Contacte al responsable de RR. HH. para recibir uno "
+"El enlace no es válido, contacte al responsable de RR. HH. para recibir uno "
 "nuevo..."
 
 #. module: hr_contract_salary
@@ -2219,7 +2218,7 @@ msgstr ""
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "This offer has been updated, please request an updated link.."
-msgstr "La oferta se ha actualizada, solicite un enlace actualizado."
+msgstr "Se ha actualizado esta oferta, solicite un enlace actualizado..."
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2237,7 +2236,7 @@ msgstr "Título"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "To"
-msgstr "Hasta"
+msgstr "A"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
@@ -2318,7 +2317,7 @@ msgstr "Salario en la firma del contrato"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_history__reference_monthly_wage
 msgid "Wage update with holidays retenues"
-msgstr "Actualización salarial cdel salario con retenciones por vacaciones"
+msgstr "Actualización del salario con retenciones por vacaciones"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__wage_with_holidays
@@ -2350,7 +2349,7 @@ msgstr "Cuando se establece el beneficio"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__show_name
 msgid "Whether the name should be displayed in the Salary Configurator"
-msgstr "Si el nombre se debe mostrar en el configurador de sueldo"
+msgstr "Si el nombre se debe mostrar en el configurador de salario"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_type__periodicity__yearly
@@ -2406,7 +2405,7 @@ msgstr "p. ej. fecha de nacimiento"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "e.g. Meal Vouchers"
-msgstr "ej. vales de despensa"
+msgstr "p. ej. cheque gourmet"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form

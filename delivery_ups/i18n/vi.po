@@ -39,8 +39,8 @@ msgid ""
 "Access License number is Invalid. Provide a valid number (Length should be "
 "0-35 alphanumeric characters)"
 msgstr ""
-"Access License number is Invalid. Provide a valid number (Length should be "
-"0-35 alphanumeric characters)"
+"Số giấy phép truy cập không hợp lệ. Cung cấp số hợp lệ (Độ dài phải từ 0-35 "
+"ký tự chứa chữ và số)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -159,8 +159,8 @@ msgid ""
 "If checked, ecommerce users will be prompted their UPS account number\n"
 "and delivery fees will be charged on it."
 msgstr ""
-"If checked, ecommerce users will be prompted their UPS account number\n"
-"and delivery fees will be charged on it."
+"Nếu được chọn, người dùng Thương mại điện tử sẽ được hỏi về số tài khoản UPS của họ\n"
+"và phí vận chuyển sẽ được tính vào đó."
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_dimension_unit__in
@@ -445,7 +445,7 @@ msgstr "Người nhận"
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Recipient Phone must be at least 10 alphanumeric characters."
-msgstr "Recipient Phone must be at least 10 alphanumeric characters."
+msgstr "Số điện thoại người nhận phải chứa ít nhất 10 ký tự số."
 
 #. module: delivery_ups
 #. odoo-python
@@ -507,14 +507,14 @@ msgstr "Lô hàng được tạo trong UPS"
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Shipper Phone must be at least 10 alphanumeric characters."
-msgstr "Shipper Phone must be at least 10 alphanumeric characters."
+msgstr "Số điện thoại người giao hàng phải chứa ít nhất 10 ký tự số."
 
 #. module: delivery_ups
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Shipper number must contain alphanumeric characters only."
-msgstr "Shipper number must contain alphanumeric characters only."
+msgstr "Số điện thoại người giao hàng chỉ được chứa ký tự số."
 
 #. module: delivery_ups
 #. odoo-python
@@ -811,8 +811,8 @@ msgid ""
 "UPS address lines can only contain a maximum of 35 characters. You can split"
 " the contacts addresses on multiple lines to try to avoid this limitation."
 msgstr ""
-"UPS address lines can only contain a maximum of 35 characters. You can split"
-" the contacts addresses on multiple lines to try to avoid this limitation."
+"Dòng địa chỉ UPS chỉ có thể chứa tối đa 35 ký tự. Bạn có thể tách địa chỉ "
+"thành nhiều dòng để không vượt quá giới hạn này."
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_duty_payment
@@ -837,7 +837,7 @@ msgstr "Username/Password is invalid for this delivery provider."
 #: code:addons/delivery_ups/models/ups_request.py:0
 #, python-format
 msgid "Warehouse Phone must be at least 10 alphanumeric characters."
-msgstr "Warehouse Phone must be at least 10 alphanumeric characters."
+msgstr "Số điện thoại kho hàng phải chứa ít nhất 10 ký tự số."
 
 #. module: delivery_ups
 #. odoo-python

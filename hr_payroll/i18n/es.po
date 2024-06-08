@@ -66,7 +66,7 @@ msgstr ""
 "- Empleado: %s\n"
 "- Contrato: %s\n"
 "- Recibo de nómina: %s\n"
-"- Regla de salario: %s (%s)\n"
+"- Regla salarial: %s (%s)\n"
 "- Error: %s"
 
 #. module: hr_payroll
@@ -115,9 +115,9 @@ msgid ""
 msgstr ""
 "* Cuando el recibo de nómina es creado el estado es 'Borrador'\n"
 "                \n"
-"* Si el recibo de nómina está bajo verificación el estado es 'En Espera'.\n"
+"* Si el recibo de nómina está bajo verificación el estado es 'En espera'.\n"
 "                \n"
-"* Si el recibo de nómina está confirmada entonces el estado se cambia a 'Finalizado'.\n"
+"* Si el recibo de nómina está confirmada, entonces el estado se cambia a 'Hecho'.\n"
 "                \n"
 "* Cuando el usuario cancela el recibo de nómina el estado es 'Rechazado'."
 
@@ -286,7 +286,7 @@ msgid ""
 "Payslips Run.</span>"
 msgstr ""
 "<span nolabel=\"1\" colspan=\"2\">Este asistente generará recibos de nómina "
-"para todos los empleados seleccionados, según las fechas y notas de crédito "
+"para todos los empleados seleccionados, según las fechas y notas de abono "
 "que se especificaron en la ejecución de los recibos.</span>"
 
 #. module: hr_payroll
@@ -647,7 +647,7 @@ msgstr "Número de archivos adjuntos"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__attachment_name
 msgid "Attachment Name"
-msgstr "Nombre del embargo de sueldo"
+msgstr "Nombre del embargo de salario"
 
 #. module: hr_payroll
 #: model:hr.salary.attachment.type,name:hr_payroll.hr_salary_attachment_type_attachment
@@ -685,12 +685,12 @@ msgstr "Avatar 128"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_report_view_tree
 msgid "Average of Basic Wage"
-msgstr "Salario básico promedio"
+msgstr "Promedio del salario básico"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_report_view_tree
 msgid "Average of Net Wage"
-msgstr "Salario neto promedio"
+msgstr "Promedio del salario neto"
 
 #. module: hr_payroll
 #: model:hr.salary.rule.category,name:hr_payroll.BASIC
@@ -703,12 +703,12 @@ msgstr "Básico"
 #: model:hr.salary.rule,name:hr_payroll.default_basic_salary_rule
 #, python-format
 msgid "Basic Salary"
-msgstr "Sueldo básico total"
+msgstr "Salario básico total"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Basic Salary ("
-msgstr "Sueldo básico ("
+msgstr "Salario básico ("
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__basic_wage
@@ -851,7 +851,7 @@ msgstr "Revise el <strong>horario de trabajo</strong>."
 #: model:hr.salary.rule,name:hr_payroll.default_child_support
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__child_support_amount
 msgid "Child Support"
-msgstr "Pensión alimenticia"
+msgstr "Subsidio familiar por hijos"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule_category__children_ids
@@ -1004,18 +1004,18 @@ msgstr "Compañía"
 #: model:hr.salary.rule.category,name:hr_payroll.COMP
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
 msgid "Company Contribution"
-msgstr "Contribución de la empresa"
+msgstr "Contribución de la compañía"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__full_time_required_hours
 #: model:ir.model.fields,field_description:hr_payroll.field_resource_calendar__full_time_required_hours
 msgid "Company Full Time"
-msgstr "Tiempo completo de la empresa"
+msgstr "Tiempo completo de la compañía"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__state__close
 msgid "Completed"
-msgstr "Completada"
+msgstr "Completado"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -1031,7 +1031,7 @@ msgstr "Calcular hoja"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__compute_date
 msgid "Computed On"
-msgstr "Cálculo activado"
+msgstr "Calculado el"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__condition_select
@@ -1150,7 +1150,7 @@ msgstr "Subsidio de movilidad"
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_ca_gravie
 msgid "Conveyance Allowance For Gravie"
-msgstr "Subsidio de movilidad"
+msgstr "Subsidio de movilidad para Gravie"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input__amount
@@ -1880,7 +1880,7 @@ msgstr "Nómina de Francia"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter_value__date_from
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "From"
-msgstr "Desde"
+msgstr "De"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2047,7 +2047,7 @@ msgstr "Horas por semana"
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_houserentallowance1
 msgid "House Rent Allowance"
-msgstr "Subsidio de alquiler de la casa"
+msgstr "Subsidio de alquiler de casa"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__id
@@ -2133,18 +2133,18 @@ msgstr "Imagen 128"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_view_tree
 msgid "Index Contracts"
-msgstr "Índice de contratos"
+msgstr "Indexar contratos"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_payroll_index
 #: model:ir.actions.server,name:hr_payroll.action_index_contracts
 msgid "Index contract(s)"
-msgstr "Índice de contrato(s)"
+msgstr "Indexar contrato(s)"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_index
 msgid "Index contracts"
-msgstr "Índice de contratos"
+msgstr "Indexar contratos"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__module_l10n_in_hr_payroll
@@ -2229,7 +2229,7 @@ msgid ""
 "inputs['SALEURO'].amount * contract.wage * 0.01."
 msgstr ""
 "Se utiliza en el cálculo. Por ejemplo, una regla para que un comercial tenga"
-" 1 % de comisión de sueldo básico por producto se puede definir en una "
+" 1 % de comisión de salario básico por producto se puede definir en una "
 "expresión como: result = inputs['SALEURO'].amount * contract.wage * 0.01."
 
 #. module: hr_payroll
@@ -2388,7 +2388,7 @@ msgstr "Intervalo máximo"
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_meal_voucher
 msgid "Meal Voucher"
-msgstr "Bono de comida"
+msgstr "Cheque gourmet"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_has_error
@@ -2633,8 +2633,8 @@ msgid ""
 "Note: There are previous payslips with a negative amount for a total of %s "
 "to report."
 msgstr ""
-"Nota: Hay recibos de nómina anteriores con un importe negativo para un total"
-" de %s para reportar."
+"Nota: hay recibos de nómina anteriores con un importe negativo para un total"
+" de %s para comunicar."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_form
@@ -3302,7 +3302,7 @@ msgstr "En cola para el PDF"
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_to_generate
 msgid "Queued PDF generation"
-msgstr "Creación de PDF en espera"
+msgstr "Creación de PDF en cola"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__condition_select__range
@@ -3638,7 +3638,7 @@ msgstr "Reglas salariales"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #, python-format
 msgid "Salary Slip"
-msgstr "Recibo de Salario"
+msgstr "Recibo de salario"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure
@@ -3656,7 +3656,7 @@ msgstr "Estructura salarial"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure_type
 msgid "Salary Structure Type"
-msgstr "Tipo de Estructura Salarial"
+msgstr "Tipo de estructura salarial"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -3728,7 +3728,7 @@ msgstr "Quincenal"
 #. module: hr_payroll
 #: model:mail.template,description:hr_payroll.mail_template_new_payslip
 msgid "Sent to employee to notify them about their new payslip"
-msgstr "Enviar a un empleado para notificarlos sobre una nueva nómina"
+msgstr "Enviado al empleado para notificarle sobre su nuevo recibo de nómina"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__sequence
@@ -3759,8 +3759,8 @@ msgid ""
 "configuration."
 msgstr ""
 "Establece una estructura específica si desea generar una nómina adicional "
-"(por ejemplo, prima de fin de año). Si deja este campo vacío, se generará "
-"una nómina regular para todos los empleados seleccionados, según la "
+"(por ejemplo, bono de fin de año). Si deje este campo vacío, se generará una"
+" nómina regular para todos los empleados seleccionados, según la "
 "configuración de sus contratos."
 
 #. module: hr_payroll
@@ -4167,7 +4167,7 @@ msgstr "Intervalos de tiempo que buscar:%s"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__date_to
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "To"
-msgstr "Hasta"
+msgstr "A"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
@@ -4321,12 +4321,13 @@ msgstr "Se utiliza para organizar la secuencia de cálculo"
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line__appears_on_payslip
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__appears_on_payslip
 msgid "Used to display the salary rule on payslip."
-msgstr "Se usa para mostrar la regla de salario en el recibo de nómina."
+msgstr "Usado para mostrar la regla salarial en el recibo de nómina."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__appears_on_employee_cost_dashboard
 msgid "Used to display the value in the employer cost dashboard."
-msgstr "usado para mostrar los valores en el coste del empleado "
+msgstr ""
+"Utilizado para mostrar el valor en el tablero de costes del empleador."
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_res_users
@@ -4337,8 +4338,8 @@ msgstr "Usuario"
 #: model:res.groups,comment:hr_payroll.group_hr_payroll_user
 msgid "User can manage all contracts, work entries and create payslips."
 msgstr ""
-"Los usuarios pueden administrar todos los contratos entradas de trabajo y "
-"crear nóminas"
+"El usuario puede gestionar todos los contratos y entradas de trabajo y crear"
+" recibos de nómina."
 
 #. module: hr_payroll
 #: model:res.groups,comment:hr_payroll.group_hr_payroll_employee_manager
@@ -4346,8 +4347,8 @@ msgid ""
 "User can see his own contracts and the contracts of the people he's manager "
 "of."
 msgstr ""
-"los usuarios pueden ver su propio contrato y los contratos de las personas "
-"que pueden ser administradas."
+"El usuario puede ver sus propios contratos y los contratos de las personas "
+"de las que es gerente."
 
 #. module: hr_payroll
 #: model:res.groups,comment:hr_payroll.group_hr_payroll_manager
@@ -4444,7 +4445,7 @@ msgstr ""
 "\n"
 "Complete las entradas de trabajo restantes de %(employee_name)s: %(time_intervals_str)s \n"
 "\n"
-"No se podrá realizar el pago si no hay entradas de trabajo registradas."
+"Las entradas de trabajo perdidas son como el Triángulo de las Bermudas para las nóminas. ¡Evitemos que los ingresos de sus colegas se desvanezcan en el aire!"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__round_days_type
@@ -4787,7 +4788,7 @@ msgstr "¡No puede eliminar un embargo de salario en ejecución!"
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 #, python-format
 msgid "You cannot record a payment on multi employees attachments."
-msgstr "No puede registrar un pago en ajustes salarial de varios empleados."
+msgstr "No puede registrar un pago en archivos adjuntos de varios empleados."
 
 #. module: hr_payroll
 #. odoo-python

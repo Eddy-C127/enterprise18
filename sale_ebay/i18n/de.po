@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Martin Trigaux, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -1029,3 +1030,18 @@ msgstr "ebay-Währung"
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_sales_team
 msgid "ebay Sales Team"
 msgstr "ebay-Verkaufsteam"
+
+#. module: sale_ebay
+#: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
+msgid "to setup this mechanism."
+msgstr "um diesen Mechanismus einzurichten."
+
+#. module: sale_ebay
+#: code:addons/sale_ebay/tools/ebaysdk.py:0
+#, python-format
+msgid ""
+"An unexpected error occured from eBay.\n"
+"Please check your credentials and try again later."
+msgstr ""
+"Bei eBay ist ein unerwarteter Fehler aufgetreten.\n"
+"Bitte überprüfen Sie Ihre Anmeldedaten und versuchen Sie es später noch einmal."
