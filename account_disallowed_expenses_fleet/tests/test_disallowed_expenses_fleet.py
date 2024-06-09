@@ -300,3 +300,207 @@ class TestAccountDisallowedExpensesFleetReport(TestAccountReportsCommon):
             ],
             options,
         )
+
+    def test_disallowed_expenses_account_id_and_vehicle_id_confusion_regression_test(self):
+        """
+        This test aims to reproduce an issue where two invoice lines were aggregated under the same
+        hierarchy when they should have been segregated.
+        To reproduce:
+            - Create one vehicle and one account sharing the same ID.
+            - Create two account move lines: both with the account set on it, but only one of them with the vehicle.
+            - Create a DNA category with a rate and set it on the aforementioned account.
+            - Set a rate on the vehicle.
+        The problem to reproduce:
+            - The line with the vehicle should appear in the dedicated vehicle section and should not be included
+            in the section related to the account without the vehicle.
+        """
+        # This test is done in 3 phases:
+        #   1) Test technical preparation
+        #   2) Test business preparation
+        #   3) The reporting test
+
+        # 1) Test technical preparation
+        # Prepare the sequence to ensure account.id == vehicle.id later on.
+
+        # Check sequence number and advance the smallest one.
+        self.env.cr.execute("SELECT currval('fleet_vehicle_id_seq'), currval('account_account_id_seq')")
+        fleet_vehicle_max_id, account_account_max_id = self.env.cr.fetchone()
+        # In theory, account sequence will always be bigger but the test should be able to run on a db that already
+        # lived and that might have much more vehicles than accounts which means the test should be able to set any
+        # of those 2 sequences accordingly
+        if fleet_vehicle_max_id < account_account_max_id:
+            self.env.cr.execute("SELECT setval('fleet_vehicle_id_seq', %s)", [account_account_max_id])
+        elif fleet_vehicle_max_id > account_account_max_id:
+            self.env.cr.execute("SELECT setval('account_account_id_seq', %s)", [fleet_vehicle_max_id])
+
+        self.env.cr.execute("SELECT currval('fleet_vehicle_id_seq'), currval('account_account_id_seq')")
+        fleet_vehicle_max_id, account_account_max_id = self.env.cr.fetchone()
+        assert fleet_vehicle_max_id == account_account_max_id, "At this point the current id should be the same"
+
+        # 2) Test business preparation
+        expense_account = self.company_data['default_account_expense'].copy({
+            'name': 'Super expense',
+            'code': '605555',
+        })
+        dna_category = self.env['account.disallowed.expenses.category'].create({
+            'code': 'bob',
+            'name': 'DNA category',
+            'rate_ids': [
+                Command.create({
+                    'date_from': fields.Date.from_string('2022-01-01'),
+                    'rate': 40.0,
+                }),
+            ],
+        })
+        expense_account.disallowed_expenses_category_id = dna_category.id
+        vehicle = self.batmobile.copy()
+        assert expense_account.id == vehicle.id, "Those new records need to share the same id to reproduce the issue"
+
+        self.env['fleet.disallowed.expenses.rate'].create({
+            'rate': 25.0,
+            'date_from': '2022-01-01',
+            'vehicle_id': vehicle.id,
+        })
+
+        # Remove any noise from the report
+        self.env['account.move'].search([('state', '=', 'posted')]).button_draft()
+
+        # Fill some data for the report
+        bill = self.env['account.move'].create({
+            'partner_id': self.partner_a.id,
+            'move_type': 'in_invoice',
+            'date': fields.Date.from_string('2022-01-15'),
+            'invoice_date': fields.Date.from_string('2022-01-15'),
+            'invoice_line_ids': [
+                Command.create({
+                    'name': 'Test',
+                    'quantity': 1,
+                    'price_unit': 1000,
+                    'account_id': expense_account.id,
+                }),
+                Command.create({
+                    'vehicle_id': vehicle.id,
+                    'quantity': 1,
+                    'price_unit': 100.0,
+                    'account_id': expense_account.id,
+                }),
+            ],
+        })
+        bill.action_post()
+
+        # 3) The reporting test
+        report, options = self._setup_base_report(unfold=True, split=True)
+        lines = report._get_lines(options)
+        self._prepare_column_values(lines)
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            lines,
+            #   Name                                         Total Amount     Rate            Disallowed Amount     Level
+            [   0,                                           1,                2,             3,                    4],
+            [
+                ('bob DNA category',                         1_100.0,          '',            425.0,                1),
+
+                  ('Wayne Enterprises/Batmobile/No Plate',     100.0,          '25.00%',       25.0,                2),
+                    ('605555 Super expense',                   100.0,          '25.00%',       25.0,                3),
+                      ('605555 Super expense',                 100.0,          '25.00%',       25.0,                4),
+
+                  ('605555 Super expense',                   1_000.0,          '40.00%',      400.0,                2),
+                    ('605555 Super expense',                 1_000.0,          '40.00%',      400.0,                3),
+
+                ('Total',                                    1_100.0,          '',            425.0,                1),
+            ],
+            options,
+        )
+
+    def test_lines_without_vehicle_should_be_regrouped_by_account(self):
+        super_expense_account = self.company_data['default_account_expense'].copy({
+            'name': 'Super expense',
+            'code': '605555',
+        })
+        bob_expense_account = self.company_data['default_account_expense'].copy({
+            'name': 'bob expense',
+            'code': '605556',
+        })
+        dna_category = self.env['account.disallowed.expenses.category'].create({
+            'code': 'bob',
+            'name': 'DNA category',
+            'rate_ids': [
+                Command.create({
+                    'date_from': fields.Date.from_string('2022-01-01'),
+                    'rate': 40.0,
+                }),
+            ],
+        })
+        super_expense_account.disallowed_expenses_category_id = dna_category.id
+        bob_expense_account.disallowed_expenses_category_id = dna_category.id
+        vehicle = self.batmobile.copy()
+
+        self.env['fleet.disallowed.expenses.rate'].create({
+            'rate': 25.0,
+            'date_from': '2022-01-01',
+            'vehicle_id': vehicle.id,
+        })
+
+        # Remove any noise from the report
+        self.env['account.move'].search([('state', '=', 'posted')]).button_draft()
+
+        bill = self.env['account.move'].create({
+            'partner_id': self.partner_a.id,
+            'move_type': 'in_invoice',
+            'date': fields.Date.from_string('2022-01-15'),
+            'invoice_date': fields.Date.from_string('2022-01-15'),
+            'invoice_line_ids': [
+                Command.create({
+                    'name': 'Test',
+                    'quantity': 1,
+                    'price_unit': 1_000,
+                    'account_id': super_expense_account.id,
+                }),
+                Command.create({
+                    'vehicle_id': vehicle.id,
+                    'quantity': 1,
+                    'price_unit': 100.0,
+                    'account_id': super_expense_account.id,
+                }),
+                Command.create({
+                    'name': 'Test',
+                    'quantity': 1,
+                    'price_unit': 10_000,
+                    'account_id': bob_expense_account.id,
+                }),
+                Command.create({
+                    'vehicle_id': vehicle.id,
+                    'quantity': 1,
+                    'price_unit': 100_000.0,
+                    'account_id': bob_expense_account.id,
+                }),
+            ],
+        })
+        bill.action_post()
+
+        report, options = self._setup_base_report(unfold=True, split=True)
+        lines = report._get_lines(options)
+        self._prepare_column_values(lines)
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            lines,
+            #   Name                                          Total Amount        Rate         Disallowed Amount   Level
+            [   0,                                            1,                  2,           3,                  4],
+            [
+                ('bob DNA category',                          111_100.0,          '',          29_425.0,           1),
+
+                  ('Wayne Enterprises/Batmobile/No Plate',    100_100.0,          '25.00%',    25_025.0,           2),
+                    ('605555 Super expense',                      100.0,          '25.00%',        25.0,           3),
+                      ('605555 Super expense',                    100.0,          '25.00%',        25.0,           4),
+                    ('605556 bob expense',                    100_000.0,          '25.00%',    25_000.0,           3),
+                      ('605556 bob expense',                  100_000.0,          '25.00%',    25_000.0,           4),
+
+                  ('605555 Super expense',                      1_000.0,          '40.00%',       400.0,           2),
+                    ('605555 Super expense',                    1_000.0,          '40.00%',       400.0,           3),
+                  ('605556 bob expense',                       10_000.0,          '40.00%',     4_000.0,           2),
+                    ('605556 bob expense',                     10_000.0,          '40.00%',     4_000.0,           3),
+
+                ('Total',                                     111_100.0,          '',          29_425.0,           1),
+            ],
+            options,
+        )
