@@ -26,7 +26,9 @@ QUnit.module(
 
                 const root = topbarMenuRegistry.getMenuItems().find((item) => item.id === "data");
                 const children = root.children(env);
-                assert.ok(children.find((c) => c.id === `item_chart_${chartId}`));
+                const chartItem = children.find((c) => c.id === `item_chart_${chartId}`);
+                assert.ok(chartItem);
+                assert.equal(chartItem.name(env), "(#1) PartnerGraph");
             }
         );
 

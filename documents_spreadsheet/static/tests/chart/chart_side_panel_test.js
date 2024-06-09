@@ -127,7 +127,7 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
         await click(target, ".o-panel-design");
         /** @type {HTMLInputElement} */
         const input = target.querySelector(".o-chart-title input");
-        assert.strictEqual(model.getters.getChart(chartId).title.text, "Untitled");
+        assert.strictEqual(model.getters.getChart(chartId).title.text, "PartnerGraph");
         await editInput(input, null, "bla");
         assert.strictEqual(model.getters.getChart(chartId).title.text, "bla");
     });
