@@ -111,8 +111,15 @@ class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
         if len(current) == 1 and current.get('category_id'):
             # Expanding a category
             if options.get('vehicle_split'):
-                group_by = SQL("%s, (CASE WHEN aml.vehicle_id IS NOT NULL THEN aml.vehicle_id ELSE aml.account_id END)", group_by)
-                order_by = SQL(" ORDER BY (CASE WHEN aml.vehicle_id IS NOT NULL THEN aml.vehicle_id ELSE aml.account_id END)")
+                # In the case of a split by `vehicle_id`, we want one report line per `vehicle_id`.
+                # For those without a `vehicle_id`, we want one report line per `account_id`.
+                # Thus, we first group based on the `vehicle_id` and then group by `account_id`
+                # for those without a vehicle (which means grouping again by `vehicle_id` for those having one).
+                # NOTE: We can't directly `GROUP BY COALESCE(aml.vehicle_id, aml.account_id)` because it could
+                # group rows having a `vehicle_id` with lines having an `account_id` if they share the same number as id.
+                # See `test_disallowed_expenses_account_id_and_vehicle_id_confusion_regression_test`.
+                group_by = SQL("%s, aml.vehicle_id, COALESCE(aml.vehicle_id, aml.account_id)", group_by)
+                order_by = SQL(" ORDER BY aml.vehicle_id, COALESCE(aml.vehicle_id, aml.account_id)")
             else:
                 group_by = SQL("%s, account.id", group_by)
                 order_by = SQL("ORDER BY account.id")
