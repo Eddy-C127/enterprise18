@@ -1,15 +1,15 @@
 # coding: utf-8
 from dateutil.relativedelta import relativedelta
 
+from odoo import fields
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged
 
-import datetime
 from freezegun import freeze_time
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-@freeze_time("2020-11-30 19:45:00")
+@freeze_time("2020-12-01 03:45:00")
 class TestNacha(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
@@ -41,13 +41,17 @@ class TestNacha(AccountTestInvoicingCommon):
             "aba_routing": "123456780",
         })
 
+        # Test that we always put times/dates as seen in the user's timezone.
+        # 2020-12-01 03:45:00 UTC is 2020-11-31 19:45:00 US/Pacific
+        cls.env.user.tz = "US/Pacific"
+
         def create_payment(partner, amount, ref, days_from_now):
             payment = cls.env['account.payment'].create({
                 "partner_id": partner.id,
                 "ref": ref,
                 "amount": amount,
                 "payment_type": "outbound",
-                "date": datetime.datetime.today() + relativedelta(days=days_from_now),
+                "date": fields.Date.context_today(cls.env.user) + relativedelta(days=days_from_now),
             })
             payment.action_post()
             return payment
