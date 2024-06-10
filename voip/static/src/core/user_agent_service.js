@@ -22,6 +22,7 @@ import { session } from "@web/session";
  */
 
 export class UserAgent {
+    attemptingToReconnect = false;
     /**
      * The id of the setTimeout used in demo mode to simulate the waiting time
      * before the call is picked up.
@@ -130,6 +131,31 @@ export class UserAgent {
             },
         });
         this.voip.triggerError(_t("Please accept the use of the microphone."));
+    }
+
+    async attemptReconnection(attemptCount = 0) {
+        if (attemptCount > 5) {
+            this.voip.triggerError(
+                _t("The WebSocket connection was lost and couldn't be reestablished.")
+            );
+            return;
+        }
+        if (this.attemptingToReconnect) {
+            return;
+        }
+        this.attemptingToReconnect = true;
+        try {
+            await this.__sipJsUserAgent.reconnect();
+            this.registerer.register();
+            this.voip.resolveError();
+        } catch {
+            setTimeout(
+                () => this.attemptReconnection(attemptCount + 1),
+                2 ** attemptCount * 1000 + Math.random() * 500
+            );
+        } finally {
+            this.attemptingToReconnect = false;
+        }
     }
 
     async hangup({ activityDone = true } = {}) {
@@ -603,12 +629,16 @@ export class UserAgent {
      * @param {Error} error
      */
     _onTransportDisconnected(error) {
+        if (!error) {
+            return;
+        }
         console.error(error);
         this.voip.triggerError(
             _t(
-                "The websocket connection with the server has been lost. Please try to refresh the page."
+                "The websocket connection to the server has been lost. Attempting to reestablish the connection…"
             )
         );
+        this.attemptReconnection();
     }
 
     _setUpRemoteAudio() {
