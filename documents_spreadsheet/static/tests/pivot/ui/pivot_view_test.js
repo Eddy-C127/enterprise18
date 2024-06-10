@@ -674,7 +674,47 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.equal(activeSheet, sheets[2]);
         assert.equal(sheets[0].innerText, "Sheet1");
         assert.equal(sheets[1].innerText, "My Sheet");
-        assert.equal(sheets[2].innerText, "Sheet2");
+        assert.equal(sheets[2].innerText, "Partners by Foo (Pivot #1)");
+    });
+
+    QUnit.test("Add pivot in spreadsheet with already the same sheet name", async (assert) => {
+        const model = new Model();
+        model.dispatch("RENAME_SHEET", {
+            sheetId: model.getters.getActiveSheetId(),
+            name: "Partners by Foo (Pivot #1)",
+        });
+        const models = getBasicData();
+        models["documents.document"].records = [
+            {
+                spreadsheet_data: JSON.stringify(model.exportData()),
+                name: "a spreadsheet",
+                folder_id: 1,
+                handler: "spreadsheet",
+                id: 456,
+                is_favorited: false,
+            },
+        ];
+        const serverData = {
+            models: models,
+            views: getBasicServerData().views,
+        };
+        await prepareWebClientForSpreadsheet();
+        const webClient = await createWebClient({ serverData });
+        await doAction(webClient, {
+            res_model: "partner",
+            type: "ir.actions.act_window",
+            views: [[false, "pivot"]],
+        });
+        const fixture = getFixture();
+        await click(fixture.querySelector(".o_pivot_add_spreadsheet"));
+        await triggerEvent(fixture, ".o-spreadsheet-grid div[data-id='456']", "focus");
+        await nextTick();
+        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+        await nextTick();
+        assert.containsN(fixture, ".o-sheet", 2, "it should have a second sheet");
+        const sheets = fixture.querySelectorAll(".o-sheet");
+        assert.equal(sheets[0].innerText, "Partners by Foo (Pivot #1)");
+        assert.equal(sheets[1].innerText, "Sheet1");
     });
 
     QUnit.test("pivot with a domain", async (assert) => {

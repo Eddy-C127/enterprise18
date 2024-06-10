@@ -35,19 +35,29 @@ export function insertList({ list, threshold, fields, name }) {
         actionXmlId: list.actionXmlId,
     };
     return async (model) => {
+        const listId = model.getters.getNextListId();
+        let sheetName = `${name} (List #${listId})`;
         if (!this.isEmptySpreadsheet) {
             const sheetId = uuidGenerator.uuidv4();
             const sheetIdFrom = model.getters.getActiveSheetId();
+            if (model.getters.getSheetIdByName(sheetName)) {
+                sheetName = undefined;
+            }
             model.dispatch("CREATE_SHEET", {
                 sheetId,
                 position: model.getters.getSheetIds().length,
+                name: sheetName,
             });
             model.dispatch("ACTIVATE_SHEET", { sheetIdFrom, sheetIdTo: sheetId });
+        } else {
+            model.dispatch("RENAME_SHEET", {
+                sheetId: model.getters.getActiveSheetId(),
+                name: sheetName,
+            });
         }
         const defWithoutFields = JSON.parse(JSON.stringify(definition));
         defWithoutFields.metaData.fields = undefined;
         const sheetId = model.getters.getActiveSheetId();
-        const listId = model.getters.getNextListId();
         const result = model.dispatch("INSERT_ODOO_LIST", {
             sheetId,
             col: 0,

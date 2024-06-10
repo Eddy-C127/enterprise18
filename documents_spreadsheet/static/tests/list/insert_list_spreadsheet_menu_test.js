@@ -50,8 +50,6 @@ QUnit.module(
         });
 
         QUnit.test("Can save a list in existing spreadsheet", async (assert) => {
-            assert.expect(5);
-
             await spawnListViewForSpreadsheet({
                 mockRPC: async function (route, args) {
                     if (args.model === "documents.document") {
@@ -67,6 +65,14 @@ QUnit.module(
                 },
             });
 
+            let spreadsheetAction;
+            patchWithCleanup(SpreadsheetAction.prototype, {
+                setup() {
+                    super.setup();
+                    spreadsheetAction = this;
+                },
+            });
+
             await toggleActionMenu(target);
             await toggleCogMenuSpreadsheet(target);
             await click(target.querySelector(".o_insert_list_spreadsheet_menu"));
@@ -78,6 +84,26 @@ QUnit.module(
                 ["get_spreadsheets_to_display", "join_spreadsheet_session"],
                 "get spreadsheet, then join"
             );
+            const model = getSpreadsheetActionModel(spreadsheetAction);
+            const sheetId = model.getters.getActiveSheetId();
+            assert.strictEqual(model.getters.getSheetName(sheetId), "Partners (List #1)");
+        });
+
+        QUnit.test("Sheet name is the list name when the list is inserted", async (assert) => {
+            const { env } = await spawnListViewForSpreadsheet();
+
+            let spreadsheetAction;
+            patchWithCleanup(SpreadsheetAction.prototype, {
+                setup() {
+                    super.setup();
+                    spreadsheetAction = this;
+                },
+            });
+            await invokeInsertListInSpreadsheetDialog(env);
+            await click(target, ".modal button.btn-primary");
+            const model = getSpreadsheetActionModel(spreadsheetAction);
+            const sheetId = model.getters.getActiveSheetId();
+            assert.strictEqual(model.getters.getSheetName(sheetId), "Partners (List #1)");
         });
 
         QUnit.test("List name can be changed from the dialog", async (assert) => {

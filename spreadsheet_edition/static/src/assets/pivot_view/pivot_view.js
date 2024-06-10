@@ -36,15 +36,15 @@ patch(PivotRenderer.prototype, {
             let [field, period] = groupBy.split(":");
             period = PERIODS[period];
             if (period) {
-                name = _t("%(name)s by %(field)s (%(period)s)", {
-                    name,
-                    field: this.model.metaData.fields[field].string,
-                    period,
+                name = _t("%(pivot_title)s by %(group_by)s (%(granularity)s)", {
+                    pivot_title: name,
+                    group_by: this.model.metaData.fields[field].string,
+                    granularity: period,
                 });
             } else {
-                name = _t("%(name)s by %(field)s", {
-                    name,
-                    field: this.model.metaData.fields[field].string,
+                name = _t("%(pivot_title)s by %(group_by)s", {
+                    pivot_title: name,
+                    group_by: this.model.metaData.fields[field].string,
                 });
             }
         }

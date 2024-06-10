@@ -43,17 +43,6 @@ export function insertPivot(pivotData) {
      * @param {import("@spreadsheet").OdooSpreadsheetModel} model
      */
     return async (model) => {
-        // Add an empty sheet in the case of an existing spreadsheet.
-        if (!this.isEmptySpreadsheet) {
-            const sheetId = uuidGenerator.uuidv4();
-            const sheetIdFrom = model.getters.getActiveSheetId();
-            model.dispatch("CREATE_SHEET", {
-                sheetId,
-                position: model.getters.getSheetIds().length,
-            });
-            model.dispatch("ACTIVATE_SHEET", { sheetIdFrom, sheetIdTo: sheetId });
-        }
-
         const pivotId = uuidGenerator.uuidv4();
         ensureSuccess(
             model.dispatch("ADD_PIVOT", {
@@ -67,6 +56,27 @@ export function insertPivot(pivotData) {
         }
         await ds.load();
         const table = ds.getTableStructure().export();
+
+        let sheetName = `${pivot.name} (Pivot #${model.getters.getPivotFormulaId(pivotId)})`;
+        // Add an empty sheet in the case of an existing spreadsheet.
+        if (!this.isEmptySpreadsheet) {
+            const sheetId = uuidGenerator.uuidv4();
+            const sheetIdFrom = model.getters.getActiveSheetId();
+            if (model.getters.getSheetIdByName(sheetName)) {
+                sheetName = undefined;
+            }
+            model.dispatch("CREATE_SHEET", {
+                sheetId,
+                position: model.getters.getSheetIds().length,
+                name: sheetName,
+            });
+            model.dispatch("ACTIVATE_SHEET", { sheetIdFrom, sheetIdTo: sheetId });
+        } else {
+            model.dispatch("RENAME_SHEET", {
+                sheetId: model.getters.getActiveSheetId(),
+                name: sheetName,
+            });
+        }
         const sheetId = model.getters.getActiveSheetId();
 
         ensureSuccess(
