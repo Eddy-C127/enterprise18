@@ -8,7 +8,7 @@
                 <t t-if="o.partner_id.l10n_latam_identification_type_id" t-out="o.partner_id.l10n_latam_identification_type_id.name" id="inv_tax_id_label"/>
             </xpath>
 
-            <xpath expr="//h2[1]" position="before">
+            <xpath expr="//t[@t-set='layout_document_title']" position="before">
                 <t t-set="extra_edi_vals" t-value="o._l10n_pe_edi_get_extra_report_values()"/>
                 <t t-set="spot" t-value="o._l10n_pe_edi_get_spot()"/>
             </xpath>
@@ -19,15 +19,15 @@
                 </p>
             </xpath>
 
-            <xpath expr="//h2/span[contains(@t-if, 'out_invoice') and contains(@t-if, 'posted')]" position="attributes">
+            <xpath expr="//t[@t-set='layout_document_title']/span[contains(@t-if, 'out_invoice') and contains(@t-if, 'posted')]" position="attributes">
                 <attribute name="t-out">o.l10n_latam_document_type_id.report_name</attribute>
             </xpath>
 
-            <xpath expr="//h2/span[contains(@t-elif, 'out_refund') and contains(@t-elif, 'posted')]" position="attributes">
+            <xpath expr="//t[@t-set='layout_document_title']/span[contains(@t-elif, 'out_refund') and contains(@t-elif, 'posted')]" position="attributes">
                 <attribute name="t-out">o.l10n_latam_document_type_id.report_name</attribute>
             </xpath>
 
-            <xpath expr="//h2/span[@t-field='o.name']" position="replace">
+            <xpath expr="//t[@t-set='layout_document_title']/span[@t-field='o.name']" position="replace">
                 <span t-if="o.name != '/'" t-out="o.name.replace(' ', '')"/>
             </xpath>
             <!-- QR-code -->

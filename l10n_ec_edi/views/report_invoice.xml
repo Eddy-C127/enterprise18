@@ -3,7 +3,7 @@
     <!-- Main template for invoice reports -->
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" primary="True">
         <!-- Replace the h2 header to include legally required data & barcode-->
-        <xpath expr="//h2" position="replace">
+        <xpath expr="//t[@t-set='layout_document_title']" position="replace">
             <t t-call="l10n_ec_edi.report_invoice_header"/>
         </xpath>
 
