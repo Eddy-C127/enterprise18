@@ -2152,7 +2152,7 @@ QUnit.module("View Editors", (hooks) => {
         await click(target.querySelector(".o_web_studio_sidebar .o_web_studio_remove"));
         assert.strictEqual(
             target.querySelector(".modal-body").textContent,
-            "Are you sure you want to remove this group from the view?",
+            "Are you sure you want to remove this column from the view?",
             "should display the correct message"
         );
         await click(target.querySelector(".modal .btn-primary"));

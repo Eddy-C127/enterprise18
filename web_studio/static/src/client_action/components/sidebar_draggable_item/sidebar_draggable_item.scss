@@ -1,39 +1,13 @@
-.o_web_studio_component {
-    width: 49%;
-    font: 11px/2.4 $font-family-base;
-    &:hover {
-        background-color: $white;
-        &:before {
-            background: $o-web-studio-bg-light;
-        }
-    }
-    &.o_web_studio_debug:not(.ui-draggable-helper) {
-        height: 40px;
-        line-height: 1.9;
-    }
-    &:before {
-        width: 33px;
-        height: 150%;
-        display: block;
-        float: left;
-        margin: -4px 5px 0 0;
-        background-color: $o-web-studio-bg-light;
-        content: "";
-    }
+.o_web_studio_icon_container {
     &:after {
         @include o-position-absolute(6px, auto, auto , 7px);
         background-image: url('/web_studio/static/src/img/ui/studio_icons.png');
+        background-size: 20px auto;
         background-repeat: no-repeat;
         content: "";
         width: 20px;
         height: 20px;
         filter: invert($o-web-studio-icon-invert);
-
-        // Optimized version to avoid blurred icons on HiDPI screens
-        @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 196dpi) {
-            background-image: url('/web_studio/static/src/img/ui/studio_icons@2x.png');
-            background-size: 20px auto;
-        }
     }
     &.o_web_studio_field_binary:after {
         background-position: 0 0;
@@ -106,5 +80,22 @@
     }
     &.o_web_studio_field_lines:after {
         background-position: 0 -460px;
+    }
+}
+
+.o_web_studio_component {
+    padding-left: 40px;
+    width: 49%;
+    font: 11px/2.4 $font-family-base;
+    background: linear-gradient(90deg, $o-web-studio-bg-light 33px, transparent 33px);
+    &:hover {
+        background-color: $white;
+        &:before {
+            background: $o-web-studio-bg-light;
+        }
+    }
+    &.o_web_studio_debug:not(.ui-draggable-helper) {
+        height: 40px;
+        line-height: 1.9;
     }
 }

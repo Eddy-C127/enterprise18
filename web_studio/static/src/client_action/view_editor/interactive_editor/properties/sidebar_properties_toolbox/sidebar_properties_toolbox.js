@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { Component } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -24,13 +22,11 @@ export class SidebarPropertiesToolbox extends Component {
     }
 
     onRemoveFromView() {
-        let nodeHumanName = this.nodeType;
-        if (this.nodeType === "t" && this.node.attrs["t-name"] === "kanban-menu") {
-            nodeHumanName = _t("dropdown");
-        }
-
         this.dialog.add(ConfirmationDialog, {
-            body: _t("Are you sure you want to remove this %s from the view?", nodeHumanName),
+            body: _t(
+                "Are you sure you want to remove this %s from the view?",
+                this.node.humanName.toLowerCase()
+            ),
             confirm: () => {
                 return this.removeNodeFromArch();
             },

@@ -551,7 +551,7 @@ test("options with computed display to have a dynamic sidebar list of options", 
     expect(".o_web_studio_property input[id='suboption_d']").not.toBeEnabled();
     expect(".o_web_studio_property input[id='suboption_d']").toBeChecked();
     const computedOptions = queryAll(
-        ".o_web_studio_property:nth-child(n+9):nth-last-child(n+5) label"
+        ".o_web_studio_property:nth-child(n+10):nth-last-child(n+5) label"
     );
     expect([...computedOptions].map((label) => label.textContent).join(", ")).toBe(
         "Suboption A, Suboption B, Suboption D, Suboption C",
@@ -645,4 +645,39 @@ test("'class' attribute is editable in the sidebar with a tooltip", async () => 
         "data-tooltip",
         tooltip
     );
+});
+
+test("the name of the selected element is displayed in the sidebar", async () => {
+    await mountViewEditor({
+        type: "form",
+        resModel: "coucou",
+        arch: `<form>
+        <header>
+            <button string="Test" type="object" class="oe_highlight"/>
+        </header>
+        <sheet>
+            <group>
+                <field name="display_name" class="studio"/>
+                <field name="m2o"/>
+            </group>
+            <notebook>
+                <page string="Notes"/>
+            </notebook>
+        </sheet>
+    </form>
+    `,
+    });
+    await contains(".o_inner_group").click();
+    expect(".o_web_studio_sidebar h3").toHaveText("Column");
+    await contains(".o_cell[data-field-name=display_name]").click();
+    expect(".o_web_studio_sidebar h3").toHaveText("Field");
+    expect(".o_web_studio_sidebar h3").toHaveClass("o_web_studio_field_char", {
+        message: "type of the field is displayed with an icon",
+    });
+    await contains(".o_cell[data-field-name=m2o]").click();
+    expect(".o_web_studio_sidebar h3").toHaveClass("o_web_studio_field_many2one");
+    await contains(".o_statusbar_buttons button").click();
+    expect(".o_web_studio_sidebar h3.o_web_studio_icon_container").toHaveText("Button");
+    await contains(".nav-link:contains(Notes)").click();
+    expect(".o_web_studio_sidebar h3.o_web_studio_icon_container").toHaveText("Page");
 });

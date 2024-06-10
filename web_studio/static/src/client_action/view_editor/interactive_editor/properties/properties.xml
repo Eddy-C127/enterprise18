@@ -1,8 +1,9 @@
 <templates>
     <t t-name="web_studio.ViewEditor.InteractiveEditorProperties">
-        <t t-set="componentProps" t-value="propertiesComponent.props" />
-
-        <t t-if="propertiesComponent.component" t-component="propertiesComponent.component" t-props="componentProps" node="node"/>
-        <DefaultProperties t-elif="node" node="node"/>
+        <t t-if="node">
+            <h3 t-attf-class="text-capitalize o_web_studio_icon_container position-relative {{ nodeType === 'field' ?  'o_web_studio_field_' + node.field.type : 'o_web_studio_field_' + nodeType }}" t-out="node.humanName" />
+            <t t-if="propertiesComponent.component" t-component="propertiesComponent.component" t-props="propertiesComponent.props" node="node"/>
+            <DefaultProperties t-else="" node="node"/>
+        </t>
     </t>
 </templates>

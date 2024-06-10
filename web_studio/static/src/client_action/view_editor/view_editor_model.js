@@ -235,6 +235,8 @@ export class ViewEditorModel extends Reactive {
             }
             const isField = node.tagName === "field";
             const attrs = getNodeAttributes(node);
+            const humanName =
+                this.editorInfo.editor.Sidebar.viewStructures?.[node.tagName]?.name || node.tagName;
 
             let field;
             if (isField) {
@@ -249,6 +251,7 @@ export class ViewEditorModel extends Reactive {
             return reactive({
                 arch: node,
                 attrs,
+                humanName,
                 xpath: this.activeNodeXpath,
                 field,
             });

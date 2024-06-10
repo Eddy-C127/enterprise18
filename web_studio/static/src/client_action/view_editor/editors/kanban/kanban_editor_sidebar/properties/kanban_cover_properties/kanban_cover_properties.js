@@ -1,5 +1,4 @@
-/** @odoo-module */
-
+import { _t } from "@web/core/l10n/translation";
 import { Component } from "@odoo/owl";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { useService } from "@web/core/utils/hooks";
@@ -15,6 +14,8 @@ export class KanbanCoverProperties extends Component {
 
     setup() {
         this.dialog = useService("dialog");
+        // We don't want to display t in the sidebar.
+        this.env.viewEditorModel.activeNode.humanName = _t("Dropdown");
     }
 
     get coverNode() {
