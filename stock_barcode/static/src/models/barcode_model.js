@@ -707,9 +707,14 @@ export default class BarcodeModel extends EventBus {
         throw new Error('Not Implemented');
     }
 
-    _groupSublines(sublines, ids, virtual_ids, qtyDemand, qtyDone) {
+    _groupSublines(sublines, ids, virtual_ids, _qtyDemand, _qtyDone) {
         const sortedSublines = this._sortLine(sublines);
-        return Object.assign({}, sortedSublines[0], {
+        // Use the line with lowest ID as the reference (info shown on summary
+        // line and also the move line opened for the form view.)
+        const referenceLine = sortedSublines.reduce((result, line) => {
+            return (!result.id || result.id > line.id) ? line : result;
+        })
+        return Object.assign({}, referenceLine, {
             ids,
             lines: sortedSublines,
             opened: false,

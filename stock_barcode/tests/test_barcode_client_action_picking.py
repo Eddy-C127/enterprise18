@@ -953,6 +953,48 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_delivery_reserved_5_dont_show_reserved_sn', login='admin', timeout=180)
         self.assertEqual(delivery_picking.move_line_ids.lot_id.mapped('name'), ['sn1', 'sn2', 'sn3', 'sn5'])
 
+    def test_delivery_reserved_6_dont_show_reserved_lots(self):
+        """ Uncheck setting to display reserved lots and check they are not show
+        in the Barcode app until they are scanned."""
+        self.clean_access_rights()
+        self.env.user.write({'groups_id': [(4, self.env.ref('stock.group_production_lot').id, 0)]})
+        self.picking_type_out.show_reserved_sns = False
+
+        # Creates some lots and adds more than enough quantity on hand for the delivery.
+        lots = self.env['stock.lot'].create([{
+            'name': f'lot-00{n}',
+            'product_id': self.productlot1.id,
+            'company_id': self.env.company.id,
+        } for n in range(1, 6)])
+        for lot in lots:
+            self.env['stock.quant']._update_available_quantity(
+                self.productlot1, self.stock_location, 4, lot_id=lot)
+
+        # Creates and confirms a delivery.
+        delivery_picking = self.env['stock.picking'].create({
+            'name': 'test_delivery_reserved_6',
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+        })
+        self.env['stock.move'].create({
+            'name': 'move_test_delivery_reserved_6',
+            'location_id': delivery_picking.location_id.id,
+            'location_dest_id': delivery_picking.location_dest_id.id,
+            'picking_id': delivery_picking.id,
+            'product_id': self.productlot1.id,
+            'product_uom': self.uom_unit.id,
+            'product_uom_qty': 12,
+        })
+        delivery_picking.action_confirm()
+        reserved_move_lines = delivery_picking.move_line_ids
+        self.assertEqual(len(delivery_picking.move_line_ids), 3)
+        self.assertEqual(reserved_move_lines.mapped('quantity'), [4, 4, 4])
+        self.assertEqual(reserved_move_lines.lot_id.mapped('name'), ['lot-001', 'lot-002', 'lot-003'])
+
+        url = self._get_client_action_url(delivery_picking.id)
+        self.start_tour(url, 'test_delivery_reserved_6_dont_show_reserved_lots', login='admin', timeout=180)
+
     def test_delivery_from_scratch_1(self):
         """ Scan unreserved lots on a delivery order.
         """

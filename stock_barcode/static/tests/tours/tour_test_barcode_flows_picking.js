@@ -1165,38 +1165,48 @@ registry.category("web_tour.tours").add("test_delivery_reserved_5_dont_show_rese
             helper.assertLinesCount(1);
             helper.assertLineQty(0, "0 / 4");
             helper.assertLineProduct(0, "productserial1");
-            helper.assert(
-                Boolean(document.querySelector('.o_toggle_sublines')), false,
-                "No sublines should be displayed yet, so the button shouldn't neither"
-            );
-            helper.assert(
-                Boolean(document.querySelector('.btn.o_edit')), true,
-                "Edit button should be visible"
-            );
+            helper.assertLineTrackingNumber(0, "");
+            helper.assertButtonShouldBeVisible(0, "toggle_sublines", false);
+            helper.assertButtonShouldBeVisible(0, "edit");
         }
     },
     { trigger: '.o_barcode_client_action', run: 'scan productserial1' },
+    // Increases qty via the form view. Since it's a move line form view, a SN is already set.
+    { trigger: '.o_barcode_line.o_selected .btn.o_edit', run: "click" },
     {
-        trigger: '.o_barcode_line.o_selected .btn.o_edit',
-        run: "click",
-    },
-    {
-        trigger: '.o_discard',
-        run: "click",
-    },
-
-    // Scans sn1 (reserved) and sn5 (not reserved). As soon there is at least
-    // two scanned SN, the button to display sublines should be visible.
-    { trigger: '.o_barcode_line', run: 'scan sn1' },
-    {
-        trigger: '.qty-done:contains("1")',
+        trigger: ".o_form_view_container",
         run: () => {
-            helper.assert(
-                Boolean(document.querySelector('.o_toggle_sublines')), false,
-                "Toggle button should still not be present in view"
-            );
+            const lotField = document.querySelector('.o_field_widget[name="lot_id"] input');
+            helper.assert(lotField.value, "sn1", "Should display move line for sn1");
         }
     },
+    { trigger: '.o_field_widget[name=qty_done] input', run: "clear" },
+    { trigger: '.o_field_widget[name=qty_done] input', run: "edit 1" },
+    { trigger: '.o_save', run: "click" },
+    // Now there is at least 1 qty for a specific SN, this SN should be visible.
+    {
+        trigger: '.o_barcode_line',
+        run: () => {
+            helper.assertScanMessage('scan_serial');
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "1 / 4");
+            helper.assertLineTrackingNumber(0, "sn1");
+            helper.assertButtonShouldBeVisible(0, "toggle_sublines", false);
+        }
+    },
+    // Opens it again to checks it still the same move line who is displayed.
+    { trigger: '.o_barcode_line.o_selected .btn.o_edit', run: "click" },
+    {
+        trigger: ".o_form_view_container",
+        run: () => {
+            const lotField = document.querySelector('.o_field_widget[name="lot_id"] input');
+            helper.assert(lotField.value, "sn1", "Should still display move line for sn1");
+        }
+    },
+    { trigger: '.o_discard', run: "click" },
+
+    // Scans sn5 (not reserved). As soon there is at least two scanned SN,
+    // the button to display sublines should be visible.
     { trigger: '.o_barcode_client_action', run: 'scan sn5' },
     {
         trigger: '.o_line_button.o_toggle_sublines',
@@ -1208,6 +1218,88 @@ registry.category("web_tour.tours").add("test_delivery_reserved_5_dont_show_rese
     { trigger: '.o_barcode_client_action', run: 'scan sn2' },
     { trigger: '.o_barcode_client_action', run: 'scan sn3' },
     ...stepUtils.validateBarcodeOperation(".o_barcode_line.o_selected.o_line_completed"),
+]});
+
+registry.category("web_tour.tours").add("test_delivery_reserved_6_dont_show_reserved_lots", { test: true, steps: () => [
+    {
+        trigger: '.o_barcode_client_action',
+        run: function() {
+            helper.assertScanMessage('scan_product');
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "0 / 12");
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertButtonShouldBeVisible(0, "toggle_sublines", false);
+            helper.assertButtonShouldBeVisible(0, "edit");
+            helper.assertLineTrackingNumber(0, "");
+        }
+    },
+    { trigger: '.o_barcode_client_action', run: 'scan productlot1' },
+    {
+        trigger: '.o_barcode_line.o_selected',
+        run: function() {
+            helper.assertScanMessage('scan_lot');
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "0 / 12");
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertButtonShouldBeVisible(0, "toggle_sublines", false);
+            helper.assertButtonShouldBeVisible(0, "edit");
+            helper.assertLineTrackingNumber(0, "");
+        }
+    },
+    { trigger: '.o_barcode_client_action', run: 'scan lot-001' },
+    {
+        trigger: '.o_line_lot_name',
+        run: function() {
+            helper.assertScanMessage('scan_lot');
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "1 / 12");
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertButtonShouldBeVisible(0, "toggle_sublines", false);
+            helper.assertButtonShouldBeVisible(0, "edit");
+            helper.assertLineTrackingNumber(0, "lot-001");
+        }
+    },
+    // Scan a second lot, the scanned lots should be visible in sublines.
+    { trigger: '.o_barcode_client_action', run: 'scan lot-002' },
+    {
+        trigger: '.o_line_button.o_toggle_sublines',
+        run: function() {
+            helper.assertScanMessage('scan_lot');
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "2 / 12");
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertButtonShouldBeVisible(0, "toggle_sublines");
+            helper.assertButtonShouldBeVisible(0, "edit", false);
+            helper.assertLineTrackingNumber(0, false);
+        }
+    },
+    // Display sublines.
+    { trigger: '.o_line_button.o_toggle_sublines', run: "click" },
+    {
+        trigger: '.o_sublines .o_barcode_line',
+        run: function() {
+            const sublines = helper.getSublines();
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(2);
+            helper.assertLineQty(sublines[0], "1 / 4");
+            helper.assertLineQty(sublines[1], "1 / 4");
+            helper.assertLinesTrackingNumbers(sublines, ["lot-001", "lot-002"]);
+        }
+    },
+    // Scan unreserved lot (lot-005).
+    { trigger: '.o_barcode_client_action', run: 'scan lot-005' },
+    {
+        trigger: '.o_sublines .o_barcode_line:nth-child(3)',
+        run: function() {
+            const sublines = helper.getSublines();
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(3);
+            helper.assertLineQty(sublines[0], "1 / 4");
+            helper.assertLineQty(sublines[1], "1 / 4");
+            helper.assertLineQty(sublines[2], "1");
+            helper.assertLinesTrackingNumbers(sublines, ["lot-001", "lot-002", "lot-005"]);
+        }
+    },
 ]});
 
 registry.category("web_tour.tours").add('test_delivery_using_buttons', {test: true, steps: () => [
@@ -2570,12 +2662,12 @@ registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_
             helper.assertLineDestinationLocation(2, "WH/Stock");
 
             helper.assertLineProduct(3, "productlot1");
-            helper.assertLineQty(3, "3 / 3");
-            helper.assertLineDestinationLocation(3, ".../Section 1");
+            helper.assertLineQty(3, "0 / 3");
+            helper.assertLineDestinationLocation(3, "WH/Stock");
 
             helper.assertLineProduct(4, "productlot1");
-            helper.assertLineQty(4, "0 / 3");
-            helper.assertLineDestinationLocation(4, "WH/Stock");
+            helper.assertLineQty(4, "3 / 3");
+            helper.assertLineDestinationLocation(4, ".../Section 1");
         }
     },
 
@@ -2647,16 +2739,19 @@ registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_
             helper.assert(line.querySelector('[name="package"]').innerText, "pack-128");
 
             helper.assertLineProduct(3, "productlot1");
-            helper.assertLineQty(3, "3 / 3");
-            helper.assertLineDestinationLocation(3, ".../Section 1");
+            helper.assertLineQty(3, "1 / 1");
+            helper.assertLineTrackingNumber(3, "lot-02");
+            helper.assertLineDestinationLocation(3, ".../Section 2");
 
             helper.assertLineProduct(4, "productlot1");
-            helper.assertLineQty(4, "1 / 1");
-            helper.assertLineDestinationLocation(4, ".../Section 2");
+            helper.assertLineQty(4, "3 / 3");
+            helper.assertLineTrackingNumber(4, false);
+            helper.assertLineDestinationLocation(4, ".../Section 1");
 
             line = helper.getLine({ index: 5 });
             helper.assertLineProduct(5, "productlot1");
             helper.assertLineQty(5, "2 / 2");
+            helper.assertLineTrackingNumber(5, "lot-03");
             helper.assertLineDestinationLocation(5, ".../Section 3");
             helper.assert(line.querySelector('[name="package"]').innerText, "pack-128");
         }

@@ -260,6 +260,33 @@ helper.assertLineSourceIsNotVisible = (lineOrIndex) => {
 };
 
 /**
+ * Checks the given lot or serial number is written on the given line.
+ * Can also check none is written too.
+ *
+ * @param {(HTMLElement|integer)} lineOrIndex @see _getLineOrFail
+ * @param {string|Boolean} expectedTrackingNumber either the expected lot/serial
+ * number (or an empty string if the lot is displayed but empty), either false
+ * if the element shouldn't be visible at all.
+ */
+helper.assertLineTrackingNumber = (lineOrIndex, expectedTrackingNumber) => {
+    const line = helper._getLineOrFail(lineOrIndex);
+    const elTrackingNumber = line.querySelector(".o_line_lot_name");
+    const product = line.querySelector('.product-label')?.innerText || "";
+    if (expectedTrackingNumber === false) {
+        helper.assert(
+            Boolean(elTrackingNumber), false,
+            `No tracking number should be visible on the ${product} line`);
+    } else {
+        helper.assert(
+            Boolean(elTrackingNumber), true,
+            `${expectedTrackingNumber} should be visible but there is no tracking number on the ${product} line`);
+        helper.assert(
+            elTrackingNumber.innerText, expectedTrackingNumber,
+            `Not the expected tracking number for the ${product} line`);
+    }
+};
+
+/**
  * Checks each given lines match the corresponding tracking numbers.
  * The number of lines and tracking numbers has to be equals.
  * @param {HTMLElement[]} lines
@@ -268,9 +295,7 @@ helper.assertLineSourceIsNotVisible = (lineOrIndex) => {
 helper.assertLinesTrackingNumbers = (lines, trackingNumbers) => {
     helper.assert(lines.length, trackingNumbers.length, "Not the same amount of lines and tracking numbers");
     for (const [index, line] of lines.entries()) {
-        const lineTrackingNumber = line.querySelector(".o_line_lot_name").innerText;
-        const expectedTrackingNumber = trackingNumbers[index];
-        helper.assert(lineTrackingNumber, expectedTrackingNumber, "Not the expected tracking number");
+        helper.assertLineTrackingNumber(line, trackingNumbers[index]);
     }
 };
 

@@ -14,7 +14,7 @@
                     <t t-call="stock_barcode.LineQuantity"/>
                     <t t-call="stock_barcode.LineDestinationLocation"/>
                 </div>
-                <div class="o_line_buttons">
+                <div class="o_line_buttons py-1 m-auto text-end">
                     <button t-on-click="toggleSublines" t-if="displayToggleBtn"
                         class="o_line_button o_toggle_sublines btn btn-primary ms-2 ms-sm-4">
                         <i t-att-class="'fa fa-2x fa-caret-' + (opened ? 'up' : 'down')"/>
