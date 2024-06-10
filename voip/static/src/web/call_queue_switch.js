@@ -56,6 +56,8 @@ export class CallQueueSwitch extends Component {
             ])
         );
         this.state.isRecordInCallQueue = true;
+        await this.props.record.load();
+        this.props.record.model.notify();
     }
 
     /** @param {MouseEvent} ev */
@@ -71,12 +73,14 @@ export class CallQueueSwitch extends Component {
         if (this._hasPendingRequest) {
             return;
         }
-        await this._makeRequest(async () => {
+        await this._makeRequest(async () => 
             this.orm.call(this.props.record.resModel, "delete_call_activity", [
                 [this.props.record.resId],
-            ]);
-        });
+            ])
+        );
         this.state.isRecordInCallQueue = false;
+        await this.props.record.load();
+        this.props.record.model.notify();
     }
 
     /** @param {function} callback */
