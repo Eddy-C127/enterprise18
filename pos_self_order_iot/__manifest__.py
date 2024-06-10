@@ -7,6 +7,11 @@
     'summary': 'IoT in PoS Kiosk',
     'depends': ['pos_iot', 'pos_self_order'],
     'auto_install': True,
+    "data": [
+        "views/iot_views.xml",
+        "data/iot_demo.xml",
+        "data/demo_data.xml",
+    ],
     'assets': {
         'pos_self_order.assets': [
             'web/static/lib/jquery/jquery.js',
@@ -14,7 +19,10 @@
             'iot/static/src/iot_connection_error_dialog.js',
             'iot/static/src/device_controller.js',
             'pos_iot/static/src/app/iot_printer.js',
-            'pos_self_order_iot/static/src/**/*',
+            'pos_self_order_iot/static/src/overrides/models/*',
+        ],
+        'web.assets_backend': [
+            'pos_self_order_iot/static/src/webclient/actions/*',
         ],
     },
     'license': 'OEEL-1',

@@ -62,7 +62,7 @@ class IotDevice(models.Model):
         ('direct', 'USB'),
         ('bluetooth', 'Bluetooth'),
         ('serial', 'Serial'),
-        ('hdmi', 'Hdmi'),
+        ('hdmi', 'HDMI'),
         ], readonly=True, string="Connection",
         help="Type of connection.")
     report_ids = fields.Many2many('ir.actions.report', string='Reports')
