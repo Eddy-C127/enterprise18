@@ -1,8 +1,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import timedelta
+from datetime import datetime, timedelta
+import pytz
 
 from odoo.addons.mail.tests.common import mail_new_test_user
+from odoo.addons.resource.models.utils import Intervals
 from odoo.tests import users
 from .common import AppointmentCommon
 
@@ -36,6 +38,36 @@ class AppointmentGanttTestCommon(AppointmentCommon):
         )]
         cls.apt_users = cls.user_bob + cls.user_john
 
+        cls.apt_resource_calendar = cls.env['resource.calendar'].create([{
+            'name': 'Gantt Test Apt Resource Calendar',
+            'company_id': False,
+            'hours_per_day': 24,
+            'attendance_ids': [
+                (0, 0, {
+                    'name': f'{nday} Morning',
+                    'dayofweek': str(nday),
+                    'hour_from': 0,
+                    'hour_to': 12,
+                    'day_period': 'morning',
+                }) for nday in range(6)] + [
+                (0, 0, {
+                    'name': f'{nday} Afternoon',
+                    'dayofweek': str(nday),
+                    'hour_from': 12,
+                    'hour_to': 24,
+                    'day_period': 'afternoon',
+                }) for nday in range(6)]
+        }])
+        cls.apt_resource_1, cls.apt_resource_2 = cls.env['appointment.resource'].create([{
+            'capacity': 1,
+            'name': 'Resource 1',
+            'resource_calendar_id': cls.apt_resource_calendar.id,
+        }, {
+            'capacity': 2,
+            'name': 'Resource 2',
+            'resource_calendar_id': cls.apt_resource_calendar.id,
+        }])
+
         cls.apt_types = cls.env['appointment.type'].create([{
             'appointment_tz': 'UTC',
             'name': 'bob apt type',
@@ -44,7 +76,14 @@ class AppointmentGanttTestCommon(AppointmentCommon):
             'appointment_tz': 'UTC',
             'name': 'nouser apt type',
             'staff_user_ids': [],
+        }, {
+            'appointment_tz': 'UTC',
+            'name': 'resource apt type',
+            'resource_ids': [(4, cls.apt_resource_1.id), (4, cls.apt_resource_2.id)],
+            'schedule_based_on': 'resources',
+            'resource_manage_capacity': True,
         }])
+        cls.resource_apt_types = cls.apt_types[2]
 
         cls.gantt_context = {'appointment_booking_gantt_show_all_resources': True}
         cls.gantt_domain = [('appointment_type_id', 'in', cls.apt_types.ids)]
@@ -177,6 +216,56 @@ class AppointmentGanttTest(AppointmentGanttTestCommon):
         self.assertIn(self.user_bob.partner_id.id, group_partner_ids)
         self.assertNotIn(self.user_john.partner_id.id, group_partner_ids)
         self.assertEqual(gantt_data['records'], [{'id': meeting.id}])
+
+    @users('staff_user_bxls')
+    def test_gantt_resource_unavailabilities_multi_company(self):
+        """Check that resources outside of allowed companies don't get calendar unavailabilities."""
+        company_a = self.env.company
+        company_b = self.env['res.company'].sudo().create({
+            'name': 'Gantt Test Company B',
+        })
+        self.env.user.sudo().company_ids += company_a + company_b
+
+        resource_calendar_unavailabilities = Intervals([
+            (datetime(2022, 2, 14, 11, 00, tzinfo=pytz.UTC), datetime(2022, 2, 14, 11, 0, tzinfo=pytz.UTC), set()),
+            (datetime(2022, 2, 14, 22, 59, 59, 999999, tzinfo=pytz.UTC), datetime(2022, 2, 14, 23, 0, tzinfo=pytz.UTC), set()),
+        ])
+
+        for allowed_company_ids, res_1_company, res_2_company, res_1_unavailabilities, res_2_unavailabilities in [
+            ([], False, False, resource_calendar_unavailabilities, resource_calendar_unavailabilities),
+            ([], False, company_a, resource_calendar_unavailabilities, resource_calendar_unavailabilities),
+            (company_a.ids, False, company_a, resource_calendar_unavailabilities, resource_calendar_unavailabilities),
+            (company_b.ids, company_a, company_a, [], []),
+            (company_b.ids, company_a, company_b, [], resource_calendar_unavailabilities),
+            ([company_a.id, company_b.id], company_a, company_b, resource_calendar_unavailabilities, resource_calendar_unavailabilities),
+        ]:
+            with self.subTest(
+                allowed_company_ids=allowed_company_ids,
+                resource_1_company=res_1_company,
+                resource_2_company=res_2_company,
+            ):
+                self.apt_resource_1.sudo().company_id = res_1_company
+                self.apt_resource_2.sudo().company_id = res_2_company
+                unavailabilities = self.env['calendar.event'].with_context(self.gantt_context | {
+                    'allowed_company_ids': allowed_company_ids
+                })._gantt_unavailability(
+                    'resource_ids',
+                    [self.apt_resource_1.id, self.apt_resource_2.id],
+                    self.reference_monday.replace(hour=0),
+                    self.reference_monday.replace(hour=23),
+                    'day',
+                )
+
+                self.assertListEqual(
+                    list(Intervals([(unavailability['start'], unavailability['stop'], set())
+                                   for unavailability in unavailabilities.get(self.apt_resource_1.id, [])])),
+                    list(res_1_unavailabilities)
+                )
+                self.assertListEqual(
+                    list(Intervals([(unavailability['start'], unavailability['stop'], set())
+                                   for unavailability in unavailabilities.get(self.apt_resource_2.id, [])])),
+                    list(res_2_unavailabilities)
+                )
 
     def test_gantt_without_attendees(self):
         meeting = self._create_meetings(

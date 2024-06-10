@@ -439,7 +439,9 @@ class CalendarEvent(models.Model):
         appointment_resource_ids = self.env['appointment.resource'].browse(res_ids)
         # in multi-company, if people can't access some of the resources we don't really care
         if self.env.context.get('allowed_company_ids'):
-            appointment_resource_ids = appointment_resource_ids.filtered_domain([('company_id', 'in', self.env.context['allowed_company_ids'])])
+            appointment_resource_ids = appointment_resource_ids.filtered_domain([
+                '|', ('company_id', '=', False), ('company_id', 'in', self.env.context['allowed_company_ids'])]
+            )
 
         resource_unavailabilities = appointment_resource_ids.resource_id._get_unavailable_intervals(start, stop)
 
