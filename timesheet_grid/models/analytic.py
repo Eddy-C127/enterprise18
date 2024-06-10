@@ -429,6 +429,14 @@ class AnalyticLine(models.Model):
             return timesheet._get_timesheet_timer_data()
         return result
 
+    def _get_new_timesheet_timer_vals(self):
+        return {
+            'name': self.name,
+            'date': fields.Date.today(),
+            'project_id': self.project_id.id,
+            'task_id': self.task_id.id,
+        }
+
     def action_timer_start(self):
         """ Action start the timer of current timesheet
 
@@ -437,15 +445,12 @@ class AnalyticLine(models.Model):
         if self.validated:
             raise UserError(_('You cannot use the timer on validated timesheets.'))
         if self.employee_id.sudo().last_validated_timesheet_date and self.date < self.employee_id.sudo().last_validated_timesheet_date:
-            timesheet = self.create([{'project_id': self.project_id.id, 'task_id': self.task_id.id, 'date': datetime.today().date()}])
+            timesheet = self.create(self._get_new_timesheet_timer_vals())
             timesheet.action_timer_start()
         elif not self.user_timer_id.timer_start and self.display_timer:
             if self.date != fields.Date.context_today(self):
-                self.action_start_new_timesheet_timer({
-                    'name': self.name,
-                    'project_id': self.project_id.id,
-                    'task_id': self.task_id.id,
-                })
+                timesheet = self.create(self._get_new_timesheet_timer_vals())
+                timesheet.action_timer_start()
             else:
                 super(AnalyticLine, self).action_timer_start()
 
