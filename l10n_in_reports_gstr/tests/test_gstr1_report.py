@@ -15,19 +15,19 @@ TEST_DATE = date(2023, 5, 20)
 class TestReports(TestAccountReportsCommon):
 
     @classmethod
-    def l10n_in_reports_gstr1_inv_init(cls, partner=None, tax=None, invoice_line_vals=None, inv=None, post=True):
+    def l10n_in_reports_gstr1_inv_init(cls, partner=None, tax=None, invoice_line_vals=None, inv=None, post=True, invoice_date=TEST_DATE):
         if not inv:
             inv = cls.init_invoice(
                 "out_invoice",
                 products=cls.product_a,
-                invoice_date=TEST_DATE,
+                invoice_date=invoice_date,
                 taxes=tax,
                 company=cls.company_data['company'],
                 partner=partner,
             )
         else:
             inv = inv._reverse_moves()
-            inv.write({'invoice_date': TEST_DATE})
+            inv.write({'invoice_date': invoice_date})
         if invoice_line_vals:
             inv.write({'invoice_line_ids': [Command.update(l.id, invoice_line_vals) for l in inv.line_ids]})
         if post:
@@ -158,3 +158,16 @@ class TestReports(TestAccountReportsCommon):
         })
         gstr1_json = gstr1_report._get_gstr1_json()
         self.assertDictEqual(gstr1_json, gstr1_test_2_json)
+
+    def test_gstr1_credit_note_warning_pre_and_post_november(self):
+        invoice_1 = self.l10n_in_reports_gstr1_inv_init(self.registered_partner_1, self.igst_18, invoice_line_vals={'price_unit': 500, 'quantity': 2}, invoice_date=date(2022, 8, 1))
+
+        # Case 1: Credit note created after 30th November (December 20, 2023)
+        # Expected: The warning should be displayed since the credit note is created after the November 30th of invoice financial year.
+        reversed_move_1 = self.l10n_in_reports_gstr1_inv_init(inv=invoice_1, invoice_line_vals={'quantity': 1}, post=False, invoice_date=date(2023, 12, 20))
+        self.assertTrue(reversed_move_1.l10n_in_reversed_entry_warning)
+
+        # Case 2: Credit note created before 30th November (August 1, 2023)
+        # Expected: The warning should not be displayed since the credit note is created before the November 30th of invoice financial year.
+        reversed_move_2 = self.l10n_in_reports_gstr1_inv_init(inv=invoice_1, invoice_line_vals={'quantity': 1}, post=False, invoice_date=date(2023, 8, 1))
+        self.assertFalse(reversed_move_2.l10n_in_reversed_entry_warning)
