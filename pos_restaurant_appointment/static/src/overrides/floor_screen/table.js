@@ -42,7 +42,7 @@ patch(Table.prototype, {
         let style = "";
         const table = this.props.table;
         const dateNow = DateTime.now();
-        const dateStart = this.firstAppointment?.start_ts;
+        const dateStart = deserializeDateTime(this.firstAppointment.start).ts;
         const rgb = table.floor_id.background_color
             .substring(4, table.floor_id.background_color.length - 1)
             .replace(/ /g, "")
