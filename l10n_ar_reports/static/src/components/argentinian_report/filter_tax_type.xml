@@ -9,11 +9,11 @@
             <t t-set-slot="content">
                 <t t-foreach="Object.entries(controller.options.ar_vat_book_tax_types_available)" t-as="taxType" t-key="taxType[0]">
                     <DropdownItem
-                        class="{ 'selected': (controller.options.ar_vat_book_tax_type_selected == taxType[0]) }"
-                        onSelected="() => this.filterClicked('ar_vat_book_tax_type_selected', taxType[0], true)"
+                        class="{ 'selected': taxType[1]['selected'] }"
+                        onSelected="() => this.selectArVatBookTaxType(taxType[0])"
                         closingMode="'none'"
                     >
-                        <t t-esc="taxType[1]"/>
+                        <t t-esc="taxType[1]['name']"/>
                     </DropdownItem>
                 </t>
             </t>
