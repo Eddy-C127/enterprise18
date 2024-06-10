@@ -380,7 +380,7 @@ registry.category("web_tour.tours").add("web_studio_set_tree_node_conditional_in
             run: "click",
         },
         {
-            trigger: ".o_web_studio_sidebar_checkbox:nth-child(1) .o_web_studio_attrs",
+            trigger: ".o_web_studio_attrs[data-type=invisible]",
             run: "click",
         },
         {

@@ -1359,10 +1359,10 @@ QUnit.module("View Editors", (hooks) => {
             "the sidebar should now display the label properties"
         );
 
-        const sidebarlabel = document.querySelector(".o_web_studio_sidebar_text input");
+        const sidebarlabel = document.querySelector(".o_web_studio_sidebar_text input[id=string]");
         assert.strictEqual(sidebarlabel.value, "Kikou", "the label name in sidebar should be set");
 
-        editInput(document, ".o_web_studio_sidebar_text input", "Yeah");
+        editInput(document, ".o_web_studio_sidebar_text input[id=string]", "Yeah");
 
         const charFieldLabel = document.querySelectorAll("label.o_form_label")[1];
         assert.strictEqual(
@@ -1382,11 +1382,11 @@ QUnit.module("View Editors", (hooks) => {
         assert.containsN(
             target,
             ".o_web_studio_property",
-            9,
+            10,
             "the sidebar should now display the field properties"
         );
 
-        const charFieldSidebarLabel = document.querySelector(".o_web_studio_sidebar_text input");
+        const charFieldSidebarLabel = document.querySelector(".o_web_studio_sidebar_text input[id=string]");
         assert.strictEqual(
             charFieldSidebarLabel.value,
             "A char",

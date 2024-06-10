@@ -36,15 +36,10 @@
     >
         Label
     </Property>
-    <Property
-        name="'class'"
-        type="'string'"
+    <ClassAttribute
         value="this.props.node.attrs.class"
-        tooltip="classTooltip"
         onChange.bind="onChangeAttribute"
-    >
-        Class
-    </Property>
+    />
     <LimitGroupVisibility node="props.node" />
     <SidebarPropertiesToolbox />
 </t>

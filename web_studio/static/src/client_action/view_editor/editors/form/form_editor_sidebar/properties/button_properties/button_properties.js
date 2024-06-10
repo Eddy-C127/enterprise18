@@ -1,7 +1,4 @@
-/** @odoo-module */
-
 import { Component, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
-import { _t } from "@web/core/l10n/translation";
 import { CheckBox } from "@web/core/checkbox/checkbox";
 import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
 import { rpc } from "@web/core/network/rpc";
@@ -11,6 +8,7 @@ import { useService } from "@web/core/utils/hooks";
 import { Record } from "@web/model/record";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { Many2ManyTagsField } from "@web/views/fields/many2many_tags/many2many_tags_field";
+import { ClassAttribute } from "@web_studio/client_action/view_editor/interactive_editor/properties/class_attribute/class_attribute";
 import { LimitGroupVisibility } from "@web_studio/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility";
 import { RainbowEffect } from "./rainbow_effect";
 import { SidebarPropertiesToolbox } from "@web_studio/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox";
@@ -27,6 +25,7 @@ export class ButtonProperties extends Component {
     };
     static components = {
         CheckBox,
+        ClassAttribute,
         LimitGroupVisibility,
         Many2OneField,
         Many2ManyTagsField,
@@ -85,12 +84,6 @@ export class ButtonProperties extends Component {
                 delete this.state.approvalSpec;
             }
         });
-    }
-
-    get classTooltip() {
-        return _t(
-            "Use Bootstrap classes to customize the style of the button. E.g.: 'btn-primary' or 'btn-secondary'"
-        );
     }
 
     onChangeAttribute(value, name) {

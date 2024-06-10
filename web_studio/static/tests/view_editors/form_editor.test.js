@@ -11,6 +11,8 @@ import {
     patchWithCleanup,
 } from "@web/../tests/web_test_helpers";
 import { ImageField } from "@web/views/fields/image/image_field";
+import { charField } from "@web/views/fields/char/char_field";
+import { COMPUTED_DISPLAY_OPTIONS } from "@web_studio/client_action/view_editor/interactive_editor/properties/field_properties/field_type_properties";
 
 import {
     mountViewEditor,
@@ -423,6 +425,7 @@ test("integer field should come with 0 as default value", async () => {
     );
     expect(["edit_view"]).toVerifySteps();
 });
+
 test("supports multiple occurences of field", async () => {
     await mountViewEditor({
         type: "form",
@@ -449,4 +452,197 @@ test("supports multiple occurences of field", async () => {
         ".o_web_studio_form_view_editor .o_wrap_field:nth-child(3) .o-web-studio-editor--element-clickable"
     ).click();
     expect(".o_web_studio_sidebar input[name='invisible']").toBeChecked();
+});
+
+test("options with computed display to have a dynamic sidebar list of options", async () => {
+    let editCount = 0;
+    // For this test, create fake options and make them tied to each other,
+    // so the display and visibility is adapted in the editor sidebar
+    patchWithCleanup(charField, {
+        supportedOptions: [
+            {
+                label: "Fake super option",
+                name: "fake_super_option",
+                type: "boolean",
+            },
+            {
+                label: "Suboption A",
+                name: "suboption_a",
+                type: "string",
+            },
+            {
+                label: "Suboption B",
+                name: "suboption_b",
+                type: "boolean",
+            },
+            {
+                label: "Suboption C",
+                name: "suboption_c",
+                type: "selection",
+                choices: [
+                    { label: "September 13", value: "sep_13" },
+                    { label: "September 23", value: "sep_23" },
+                ],
+                default: "sep_23",
+            },
+            {
+                label: "Suboption D",
+                name: "suboption_d",
+                type: "boolean",
+            },
+        ],
+    });
+    patchWithCleanup(COMPUTED_DISPLAY_OPTIONS, {
+        suboption_a: {
+            superOption: "fake_super_option",
+            getInvisible: (value) => !value,
+        },
+        suboption_b: {
+            superOption: "suboption_a",
+            getReadonly: (value) => !value,
+        },
+        suboption_c: {
+            superOption: "suboption_a",
+            getInvisible: (value) => !value,
+        },
+        suboption_d: {
+            superOption: "suboption_b",
+            getValue: (value) => value,
+            getReadonly: (value) => value,
+        },
+    });
+
+    const arch = `<form><group>
+        <field name="display_name"/>
+    </group></form>`;
+    onRpc("/web_studio/edit_view", async () => {
+        editCount++;
+        if (editCount === 1) {
+            const newArch =
+                "<form><group><field name='display_name' options='{\"fake_super_option\":True}'/></group></form>";
+            return createMockViewResult("form", newArch, Coucou);
+        }
+        if (editCount === 2) {
+            const newArch = `<form><group><field name='display_name' options="{'fake_super_option':True,'suboption_a':'Nice'}"/></group></form>`;
+            return createMockViewResult("form", newArch, Coucou);
+        }
+        if (editCount === 3) {
+            const newArch = `<form><group><field name='display_name' options="{'fake_super_option':True,'suboption_a':'Nice','suboption_b':True}"/></group></form>`;
+            return createMockViewResult("form", newArch, Coucou);
+        }
+    });
+    await mountViewEditor({
+        type: "form",
+        resModel: "coucou",
+        arch,
+    });
+
+    await contains(".o_cell[data-field-name=display_name]").click();
+    expect(".o_web_studio_property").toHaveCount(10);
+    await contains("input[id=fake_super_option]").check();
+    expect(".o_web_studio_property").toHaveCount(13);
+    expect(".o_web_studio_property input[id='suboption_b']").not.toBeEnabled();
+    expect(".o_web_studio_property input[id='suboption_d']").toBeEnabled();
+    expect(".o_web_studio_property input[id='suboption_d']").not.toBeChecked();
+    await contains("input[id=suboption_a]").edit("Nice");
+    expect(".o_web_studio_property").toHaveCount(14);
+    await contains("input[id=suboption_b]").check();
+    expect(".o_web_studio_property").toHaveCount(14);
+    expect(".o_web_studio_property input[id='suboption_d']").not.toBeEnabled();
+    expect(".o_web_studio_property input[id='suboption_d']").toBeChecked();
+    const computedOptions = queryAll(
+        ".o_web_studio_property:nth-child(n+9):nth-last-child(n+5) label"
+    );
+    expect([...computedOptions].map((label) => label.textContent).join(", ")).toBe(
+        "Suboption A, Suboption B, Suboption D, Suboption C",
+        {
+            message: "options are ordered and grouped with the corresponding super option",
+        }
+    );
+});
+
+test("field selection when editing a suboption", async () => {
+    let editCount = 0;
+    patchWithCleanup(charField, {
+        supportedOptions: [
+            {
+                label: "Fake super option",
+                name: "fake_super_option",
+                type: "boolean",
+            },
+            {
+                label: "Suboption",
+                name: "suboption",
+                type: "field",
+            },
+        ],
+    });
+    patchWithCleanup(COMPUTED_DISPLAY_OPTIONS, {
+        suboption: {
+            superOption: "fake_super_option",
+            getInvisible: (value) => !value,
+        },
+    });
+
+    const arch = `<form><group>
+        <field name="display_name"/>
+    </group></form>`;
+    onRpc("/web_studio/edit_view", async () => {
+        editCount++;
+        if (editCount === 1) {
+            const newArch =
+                "<form><group><field name='display_name' options='{\"fake_super_option\":True}'/></group></form>";
+            return createMockViewResult("form", newArch, Coucou);
+        }
+    });
+    await mountViewEditor({
+        type: "form",
+        resModel: "coucou",
+        arch,
+    });
+
+    await contains(".o_cell[data-field-name=display_name]").click();
+    expect(".o_web_studio_property").toHaveCount(10);
+    await contains("input[id=fake_super_option]").check();
+    expect(".o_web_studio_property").toHaveCount(11);
+    expect(".o_web_studio_property_suboption .o_select_menu").toHaveCount(1);
+});
+
+test("'class' attribute is editable in the sidebar with a tooltip", async () => {
+    const arch = `<form>
+        <header>
+            <button string="Test" type="object" class="oe_highlight"/>
+        </header>
+        <sheet>
+            <field name="display_name" class="studio"/>
+        </sheet>
+    </form>
+    `;
+    onRpc("/web_studio/edit_view", async (request) => {
+        const { params } = await request.json();
+        expect(params.operations[0].new_attrs).toEqual({ class: "new_class" });
+        return createMockViewResult("form", arch, Coucou);
+    });
+    await mountViewEditor({
+        type: "form",
+        resModel: "coucou",
+        arch,
+    });
+    await contains(".o_field_char").click();
+    expect(".o_web_studio_property input[id=class]").toHaveCount(1);
+    expect(".o_web_studio_property input[id=class]").toHaveValue("studio");
+    const tooltip =
+        "Use Bootstrap or any other custom classes to customize the style and the display of the element.";
+    expect(".o_web_studio_property label:contains(Class) sup").toHaveAttribute(
+        "data-tooltip",
+        tooltip
+    );
+    await contains(".o_web_studio_property input[id=class]").edit("new_class");
+    await contains(".o_statusbar_buttons button").click();
+    expect(".o_web_studio_property input[id=class]").toHaveCount(1);
+    expect(".o_web_studio_property input[id=class]").toHaveValue("oe_highlight");
+    expect(".o_web_studio_property label:contains(Class) sup").toHaveAttribute(
+        "data-tooltip",
+        tooltip
+    );
 });

@@ -223,7 +223,7 @@ QUnit.module(
             );
 
             assert.strictEqual(
-                target.querySelector(".o_web_studio_property.o_web_studio_sidebar_text input")
+                target.querySelector(".o_web_studio_property.o_web_studio_sidebar_text input[id=string]")
                     .value,
                 "Name",
                 "the field should have the label Display Name in the sidebar"

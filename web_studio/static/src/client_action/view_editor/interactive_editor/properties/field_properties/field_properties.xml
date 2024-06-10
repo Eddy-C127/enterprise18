@@ -1,7 +1,10 @@
 <templates>
 
 <t t-name="web_studio.ViewEditor.InteractiveEditorProperties.Field">
-
+    <ClassAttribute
+        value="props.node.attrs.class"
+        onChange.bind="onChangeAttribute"
+    />
     <ModifiersProperties node="props.node" availableOptions="props.availableOptions"/>
 
     <!-- Attribute depending on views -->

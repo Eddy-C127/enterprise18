@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { Component, onWillStart, onWillUpdateProps, useState, toRaw } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
@@ -7,6 +5,7 @@ import { rpc } from "@web/core/network/rpc";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { SelectionContentDialog } from "@web_studio/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog";
 import { useService } from "@web/core/utils/hooks";
+import { ClassAttribute } from "../class_attribute/class_attribute";
 import { LimitGroupVisibility } from "../limit_group_visibility/limit_group_visibility";
 import { TypeWidgetProperties } from "./type_widget_properties";
 import { SidebarPropertiesToolbox } from "../sidebar_properties_toolbox/sidebar_properties_toolbox";
@@ -52,6 +51,7 @@ export class FieldProperties extends Component {
         availableOptions: { type: Array, optional: true },
     };
     static components = {
+        ClassAttribute,
         LimitGroupVisibility,
         Property,
         TechnicalName,
