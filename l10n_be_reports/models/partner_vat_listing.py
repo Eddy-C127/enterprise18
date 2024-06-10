@@ -285,45 +285,55 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         """
         query_fun_params = self._get_query_fun_params(report, options, remove_forced_domain=True)
 
-        turnover_from, turnover_where, turnover_where_params = self._get_turnover_query(**query_fun_params)
-        refund_base_from, refund_base_where, refund_base_where_params = self._get_refund_base_query(**query_fun_params)
-        vat_amounts_from, vat_amounts_where, vat_amounts_where_params = self._get_vat_amounts_query(**query_fun_params)
+        turnover_from, turnover_where = self._get_turnover_query(**query_fun_params)
+        refund_base_from, refund_base_where = self._get_refund_base_query(**query_fun_params)
+        vat_amounts_from, vat_amounts_where = self._get_vat_amounts_query(**query_fun_params)
 
-        query = f"""
+        be_format = r'BE%'
+        be_country_id = self.env.ref('base.be').id
+
+        query = SQL(
+            """
             SELECT id
             FROM (
                 SELECT res_partner.id as id, res_partner.country_id as country_id, res_partner.vat as vat
-                FROM {turnover_from}
-                WHERE {turnover_where}
+                FROM %(turnover_from)s
+                WHERE %(turnover_where)s
                 GROUP BY res_partner.id
                 HAVING SUM(account_move_line.credit - account_move_line.debit) > 250
 
                 UNION
 
                 SELECT res_partner.id as id, res_partner.country_id as country_id, res_partner.vat as vat
-                FROM {refund_base_from}
-                WHERE {refund_base_where}
+                FROM %(refund_base_from)s
+                WHERE %(refund_base_where)s
                 GROUP BY res_partner.id
                 HAVING SUM(account_move_line.balance) > 0
 
                 UNION
 
                 SELECT res_partner.id as id, res_partner.country_id as country_id, res_partner.vat as vat
-                FROM {vat_amounts_from}
-                WHERE {vat_amounts_where}
+                FROM %(vat_amounts_from)s
+                WHERE %(vat_amounts_where)s
                 GROUP BY res_partner.id
                 HAVING SUM(account_move_line.debit) > 0
             ) as partner_ids
             WHERE
                 (country_id IS NULL AND vat IS NULL)
-                OR (country_id IS NULL AND vat NOT ILIKE %s)
-                OR (country_id = %s AND vat IS NULL)
-                OR (country_id = %s AND vat NOT ILIKE %s)
-        """
-
-        be_format = r'BE%'
-        be_country_id = self.env.ref('base.be').id
-        self._cr.execute(SQL(query, *turnover_where_params, *refund_base_where_params, *vat_amounts_where_params, be_format, be_country_id, be_country_id, be_format))
+                OR (country_id IS NULL AND vat NOT ILIKE %(be_format)s)
+                OR (country_id = %(be_country_id)s AND vat IS NULL)
+                OR (country_id = %(be_country_id)s AND vat NOT ILIKE %(be_format)s)
+            """,
+            turnover_from=turnover_from,
+            turnover_where=turnover_where,
+            refund_base_from=refund_base_from,
+            refund_base_where=refund_base_where,
+            vat_amounts_from=vat_amounts_from,
+            vat_amounts_where=vat_amounts_where,
+            be_format=be_format,
+            be_country_id=be_country_id,
+        )
+        self._cr.execute(query)
         return [r[0] for r in self._cr.fetchall()]
 
     def _get_turnover_query(self, options, excluded_tax_ids, table_references, search_condition, partner_ids=None) -> tuple[SQL, SQL]:
