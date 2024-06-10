@@ -5,6 +5,7 @@
         <field name="code">IDLEAVE100</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.id"/>
     </record>
 
     <record id="work_entry_type_marriage_leave" model="hr.work.entry.type">
@@ -12,6 +13,7 @@
         <field name="code">IDLEAVE110</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.id"/>
     </record>
 
     <record id="work_entry_type_maternity_leave" model="hr.work.entry.type">
@@ -19,6 +21,7 @@
         <field name="code">IDLEAVE120</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.id"/>
     </record>
 
     <record id="work_entry_type_paternity_leave" model="hr.work.entry.type">
@@ -26,6 +29,7 @@
         <field name="code">IDLEAVE130</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.id"/>
     </record>
 
     <record id="work_entry_type_public_holiday" model="hr.work.entry.type">
@@ -33,5 +37,6 @@
         <field name="code">IDLEAVE140</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.id"/>
     </record>
 </odoo>

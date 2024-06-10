@@ -5,6 +5,7 @@
         <field name="code">SICK25</field>
         <field name="is_leave">True</field>
         <field name="color">5</field>
+        <field name="country_id" ref="base.sk"/>
     </record>
 
     <record id="work_entry_type_sick_55" model="hr.work.entry.type">
@@ -12,6 +13,7 @@
         <field name="code">SICK55</field>
         <field name="is_leave">True</field>
         <field name="color">5</field>
+        <field name="country_id" ref="base.sk"/>
     </record>
 
     <record id="work_entry_type_sick_0" model="hr.work.entry.type">
@@ -19,6 +21,7 @@
         <field name="code">SICK0</field>
         <field name="is_leave">True</field>
         <field name="color">5</field>
+        <field name="country_id" ref="base.sk"/>
     </record>
 
     <record id="work_entry_type_maternity" model="hr.work.entry.type">
@@ -26,6 +29,7 @@
         <field name="code">MATERNITY</field>
         <field name="is_leave">True</field>
         <field name="color">5</field>
+        <field name="country_id" ref="base.sk"/>
     </record>
 
     <record id="work_entry_type_parental_time_off" model="hr.work.entry.type">
@@ -33,5 +37,6 @@
         <field name="code">PARENTAL</field>
         <field name="is_leave">True</field>
         <field name="color">8</field>
+        <field name="country_id" ref="base.sk"/>
     </record>
 </odoo>

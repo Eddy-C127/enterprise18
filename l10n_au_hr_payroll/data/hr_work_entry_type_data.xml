@@ -15,6 +15,7 @@
         <field name="is_leave" eval="True"/>
         <field name="l10n_au_is_ote" eval="True"/>
         <field name="l10n_au_work_stp_code">O</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_long_service_leave" model="hr.work.entry.type">
@@ -24,6 +25,7 @@
         <field name="is_leave" eval="True"/>
         <field name="l10n_au_is_ote" eval="True"/>
         <field name="l10n_au_work_stp_code">O</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_personal_leave" model="hr.work.entry.type">
@@ -33,6 +35,7 @@
         <field name="is_leave" eval="True"/>
         <field name="l10n_au_is_ote" eval="True"/>
         <field name="l10n_au_work_stp_code">O</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_other" model="hr.work.entry.type">
@@ -40,6 +43,7 @@
         <field name="color">5</field>
         <field name="code">AU.O</field>
         <field name="l10n_au_is_ote" eval="True"/>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_parental" model="hr.work.entry.type">
@@ -48,6 +52,7 @@
         <field name="code">AU.P</field>
         <field name="l10n_au_is_ote" eval="True"/>
         <field name="l10n_au_work_stp_code">P</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_compensation" model="hr.work.entry.type">
@@ -56,6 +61,7 @@
         <field name="code">AU.W</field>
         <field name="l10n_au_is_ote" eval="True"/>
         <field name="l10n_au_work_stp_code">W</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_defence" model="hr.work.entry.type">
@@ -64,6 +70,7 @@
         <field name="code">AU.A</field>
         <field name="l10n_au_is_ote" eval="True"/>
         <field name="l10n_au_work_stp_code">A</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_cash_out" model="hr.work.entry.type">
@@ -71,6 +78,7 @@
         <field name="color">5</field>
         <field name="code">AU.C</field>
         <field name="l10n_au_is_ote" eval="True"/>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_termination" model="hr.work.entry.type">
@@ -78,6 +86,7 @@
         <field name="color">5</field>
         <field name="code">AU.U</field>
         <field name="l10n_au_is_ote" eval="True"/>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <!-- Overtime Entries -->
@@ -86,6 +95,7 @@
         <field name="color">4</field>
         <field name="code">l10n_au_overtime_regular</field>
         <field name="l10n_au_work_stp_code">T</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_overtime_saturday" model="hr.work.entry.type">
@@ -93,6 +103,7 @@
         <field name="color">4</field>
         <field name="code">l10n_au_overtime_saturday</field>
         <field name="l10n_au_work_stp_code">T</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_overtime_sunday" model="hr.work.entry.type">
@@ -100,6 +111,7 @@
         <field name="color">4</field>
         <field name="code">l10n_au_overtime_sunday</field>
         <field name="l10n_au_work_stp_code">T</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_overtime_pto" model="hr.work.entry.type">
@@ -107,6 +119,7 @@
         <field name="color">4</field>
         <field name="code">l10n_au_overtime_pto</field>
         <field name="l10n_au_work_stp_code">T</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_overtime_saturday_pto" model="hr.work.entry.type">
@@ -114,6 +127,7 @@
         <field name="color">4</field>
         <field name="code">l10n_au_overtime_saturday_pto</field>
         <field name="l10n_au_work_stp_code">T</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
     <record id="l10n_au_work_entry_type_overtime_sunday_pto" model="hr.work.entry.type">
@@ -121,6 +135,7 @@
         <field name="color">4</field>
         <field name="code">l10n_au_overtime_sunday_pto</field>
         <field name="l10n_au_work_stp_code">T</field>
+        <field name="country_id" ref="base.au"/>
     </record>
 
 </odoo>

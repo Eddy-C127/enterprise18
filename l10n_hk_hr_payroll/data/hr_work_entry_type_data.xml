@@ -7,6 +7,7 @@
         <field name="l10n_hk_non_full_pay" eval="True" />
         <field name="is_leave" eval="True" />
         <field name="color">6</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_compassionate_leave" model="hr.work.entry.type">
@@ -14,6 +15,7 @@
         <field name="code">HKLEAVE130</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_marriage_leave" model="hr.work.entry.type">
@@ -21,6 +23,7 @@
         <field name="code">HKLEAVE140</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_examination_leave" model="hr.work.entry.type">
@@ -28,6 +31,7 @@
         <field name="code">HKLEAVE150</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_maternity_leave" model="hr.work.entry.type">
@@ -36,6 +40,7 @@
         <field name="l10n_hk_use_713" eval="True" />
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_maternity_leave_80" model="hr.work.entry.type">
@@ -45,6 +50,7 @@
         <field name="l10n_hk_non_full_pay" eval="True" />
         <field name="is_leave" eval="True" />
         <field name="color">6</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_paternity_leave" model="hr.work.entry.type">
@@ -53,6 +59,7 @@
         <field name="l10n_hk_use_713" eval="True" />
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_statutory_holiday" model="hr.work.entry.type">
@@ -61,6 +68,7 @@
         <field name="is_leave" eval="True" />
         <field name="l10n_hk_use_713" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="work_entry_type_public_holiday" model="hr.work.entry.type">
@@ -68,6 +76,7 @@
         <field name="code">HKLEAVE510</field>
         <field name="is_leave" eval="True" />
         <field name="color">5</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 
     <record id="hr_work_entry_contract.work_entry_type_legal_leave" model="hr.work.entry.type">
@@ -79,5 +88,6 @@
         <field name="code">HKLEAVE600</field>
         <field name="is_leave" eval="True" />
         <field name="color">10</field>
+        <field name="country_id" ref="base.hk"/>
     </record>
 </odoo>
