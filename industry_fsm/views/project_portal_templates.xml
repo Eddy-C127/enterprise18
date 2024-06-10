@@ -44,13 +44,5 @@
                 "fields": ["phone", "email"] + (["address"] if task.is_fsm else []),
             }</attribute>
         </xpath>
-        <xpath expr="//a[@t-field='task.project_id']" position="after">
-            <div t-if="task.planned_date_begin">
-                <strong>Planned Date:</strong>
-                <span t-field="task.planned_date_begin" t-options='{"widget": "datetime"}'/>
-                <i class="fa fa-long-arrow-right"/>
-                <span t-field="task.date_deadline" t-options='{"widget": "datetime"}'/>
-            </div>
-        </xpath>
     </template>
 </odoo>
