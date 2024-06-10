@@ -196,7 +196,7 @@
                                 </div>
                                 <div class="oe_structure oe_empty" data-editor-message="DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL APPOINTMENTS"/>
                             </div>
-                            <div t-attf-class="o_appointment_intro border-top #{'d-none' if not appointment_type.active else ''} #{'pt-4 mt-4' if not is_html_empty(appointment_type.message_intro) else 'd-none'}">
+                            <div t-attf-class="o_appointment_intro border-top pt-4 mt-4 #{'d-none' if not appointment_type.active or is_html_empty(appointment_type.message_intro) else ''}">
                                 <h5 class="mb-3">Description</h5>
                                 <div t-field="appointment_type.message_intro" placeholder="Add an intro message here..."/>
                             </div>
