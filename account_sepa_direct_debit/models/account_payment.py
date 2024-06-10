@@ -200,7 +200,7 @@ class AccountPayment(models.Model):
         """
         #The two following conditions should never execute.
         #They are here to be sure future modifications won't ever break everything.
-        if self.company_id != company_id:
+        if company_id not in self.company_id.parent_ids:
             raise UserError(_("Trying to generate a Direct Debit XML file containing payments from another company than that file's creditor."))
 
         if self.payment_method_line_id.code not in self.payment_method_id._get_sdd_payment_method_code():
