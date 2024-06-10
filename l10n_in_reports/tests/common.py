@@ -54,7 +54,7 @@ class L10nInTestAccountReportsCommon(TestAccountReportsCommon, L10nInTestInvoici
         )
 
     @classmethod
-    def _create_credit_note(cls, inv, ref=None, credit_note_date=None, line_vals=None):
+    def _create_credit_note(cls, inv, ref=None, credit_note_date=None, line_vals=None, post=True):
         move = inv._reverse_moves()
         move.invoice_date = credit_note_date or cls.test_date
 
@@ -62,6 +62,7 @@ class L10nInTestAccountReportsCommon(TestAccountReportsCommon, L10nInTestInvoici
             move=move,
             ref=ref,
             line_vals=line_vals,
+            post=post
         )
 
     @classmethod

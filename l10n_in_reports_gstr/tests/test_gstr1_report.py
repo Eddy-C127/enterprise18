@@ -4,6 +4,7 @@ from odoo.tests import tagged
 from odoo import Command
 from .gstr_test_json import gstr1_test_json, gstr1_debit_note_test_json
 import logging
+from datetime import date
 
 from odoo.addons.l10n_in_reports.tests.common import L10nInTestAccountReportsCommon
 
@@ -109,3 +110,16 @@ class TestReports(L10nInTestAccountReportsCommon):
         self._setup_moves(self._create_debit_note)
         gstr_report = self._create_gstr_report()
         self.assertDictEqual(gstr_report._get_gstr1_json(), gstr1_debit_note_test_json)
+
+    def test_gstr1_credit_note_warning_pre_and_post_november(self):
+        invoice_1 = self._init_inv(partner=self.partner_a, taxes=self.comp_igst_18, line_vals={'price_unit': 500, 'quantity': 2}, invoice_date=date(2022, 8, 1))
+
+        # Case 1: Credit note created after 30th November (December 20, 2023)
+        # Expected: The warning should be displayed since the credit note is created after the November 30th of invoice financial year.
+        reversed_move_1 = self._create_credit_note(inv=invoice_1, line_vals={'quantity': 1}, credit_note_date=date(2023, 12, 20), post=False)
+        self.assertTrue(reversed_move_1.l10n_in_reversed_entry_warning)
+
+        # Case 2: Credit note created before 30th November (August 1, 2023)
+        # Expected: The warning should not be displayed since the credit note is created before the November 30th of invoice financial year.
+        reversed_move_2 = self._create_credit_note(inv=invoice_1, line_vals={'quantity': 1}, credit_note_date=date(2023, 8, 1), post=False)
+        self.assertFalse(reversed_move_2.l10n_in_reversed_entry_warning)
