@@ -460,26 +460,13 @@ class CalendarTest(AppointmentUICommon):
         self.assertEqual(event.attendee_ids[0].state, "accepted", "Attendee should have accepted")
 
     @freeze_time('2023, 11, 22')
-    def test_meeting_cancel_authenticated(self):
-        """ Test multiple cancellation scenarios with various cases
-        Case 1: Do not archive the meeting if any other attendee cancel the meeting
-        Case 2: Archive the meeting if the appointment booker cancels the meeting
+    def test_meeting_booker_cancel(self):
+        """ Test that when appointment Booker cancels the meeting then the event should
+        be archived.
         """
         self.authenticate(self.portal_user.login, self.portal_user.login)
         self.apt_type_bxls_2days.write({'is_published': 'True'})
-        event_1, event_2 = self.env['calendar.event'].create([{
-            'name': 'Test-Meeting 1',
-            'user_id': self.staff_user_aust.id,
-            'appointment_booker_id': self.staff_user_nz.partner_id.id,
-            'start': datetime(2023, 11, 23, 8, 0),
-            'stop':  datetime(2023, 11, 23, 9, 0),
-            'partner_ids':  [
-                (4, self.staff_user_nz.partner_id.id),
-                (4, self.portal_user.partner_id.id),
-                (4, self.staff_user_aust.partner_id.id),
-            ],
-            'appointment_type_id': self.apt_type_bxls_2days.id,
-        }, {
+        event = self.env['calendar.event'].create({
             'name': 'Test-Meeting 2',
             'user_id': self.portal_user.id,
             'appointment_booker_id': self.portal_user.partner_id.id,
@@ -492,26 +479,56 @@ class CalendarTest(AppointmentUICommon):
                 (4, self.portal_user.partner_id.id),
             ],
             'appointment_type_id': self.apt_type_bxls_2days.id,
-        }])
-        #Case 1 :
+        })
         cancel_meeting_data = {
-            'access_token': event_1.access_token,
+            'access_token': event.access_token,
             'partner_id': self.portal_user.partner_id.id,
             'csrf_token': http.Request.csrf_token(self),
         }
-        cancel_meeting_url = f"/calendar/{event_1.access_token}/cancel"
+        cancel_meeting_url = f"/calendar/{event.access_token}/cancel"
         res = self.url_open(cancel_meeting_url, data=cancel_meeting_data)
         self.assertEqual(res.status_code, 200)
-        self.assertTrue(event_1.active)
+        self.assertFalse(event.active)
+
+    @freeze_time('2023, 11, 22')
+    def test_meeting_cancel_authenticated(self):
+        """ Test multiple cancellation scenarios with various cases
+        Case 1: Do not archive the meeting if any other attendee cancel the meeting
+        Case 2: Archive the meeting if there is only one participant left
+        """
+        self.authenticate(self.portal_user.login, self.portal_user.login)
+        self.apt_type_bxls_2days.write({'is_published': 'True'})
+        event = self.env['calendar.event'].create({
+            'name': 'Test-Meeting 1',
+            'user_id': self.staff_user_aust.id,
+            'appointment_booker_id': self.staff_user_nz.partner_id.id,
+            'start': datetime(2023, 11, 23, 8, 0),
+            'stop':  datetime(2023, 11, 23, 9, 0),
+            'partner_ids':  [
+                (4, self.staff_user_nz.partner_id.id),
+                (4, self.portal_user.partner_id.id),
+                (4, self.staff_user_aust.partner_id.id),
+            ],
+            'appointment_type_id': self.apt_type_bxls_2days.id,
+        })
+        # Case 1:
+        cancel_meeting_data = {
+            'access_token': event.access_token,
+            'partner_id': self.portal_user.partner_id.id,
+            'csrf_token': http.Request.csrf_token(self),
+        }
+        cancel_meeting_url = f"/calendar/{event.access_token}/cancel"
+        res = self.url_open(cancel_meeting_url, data=cancel_meeting_data)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(event.active)
         expected_attendee = self.staff_user_aust.partner_id + self.staff_user_nz.partner_id
-        self.assertEqual(event_1.attendee_ids.partner_id, expected_attendee)
-        #Case 2 :
+        self.assertEqual(event.attendee_ids.partner_id, expected_attendee)
+        # Case 2:
         cancel_meeting_data = {
-            'access_token': event_2.access_token,
-            'partner_id': self.portal_user.partner_id.id,
+            'access_token': event.access_token,
+            'partner_id': self.staff_user_aust.partner_id.id,
             'csrf_token': http.Request.csrf_token(self),
         }
-        cancel_meeting_url = f"/calendar/{event_2.access_token}/cancel"
         res = self.url_open(cancel_meeting_url, data=cancel_meeting_data)
         self.assertEqual(res.status_code, 200)
-        self.assertFalse(event_2.active)
+        self.assertFalse(event.active)

@@ -297,7 +297,7 @@ class CalendarEvent(models.Model):
         if attendees:
             cancelling_attendees = ", ".join([attendee.display_name for attendee in attendees])
             message_body = _("Appointment cancelled by: %(partners)s", partners=cancelling_attendees)
-            if self.appointment_booker_id.id == partner_ids[0]:
+            if self.appointment_booker_id.id == partner_ids[0] or len(self.attendee_ids - attendees) < 2:
                 self._track_set_log_message(message_body)
                 # Use the organizer if set or fallback on SUPERUSER to notify attendees that the event is archived
                 self.with_user(self.user_id or SUPERUSER_ID).sudo().action_archive()

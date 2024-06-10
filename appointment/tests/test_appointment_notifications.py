@@ -97,13 +97,10 @@ class AppointmentTestTracking(AppointmentCommon, MailCase):
             meeting.with_user(self.apt_manager).action_cancel_meeting(self.appointment_attendee_ids[1].ids)
             self.flush_tracking()
 
-        self.assertEqual(meeting.partner_ids, self.apt_manager.partner_id, 'Only the manager should remain')
-        self.assertEqual(meeting.message_partner_ids, permanent_followers,
-                         'None of the attendees should be following anymore')
-
-        self.assertEqual(len(self._new_msgs), 1, 'Should be a message saying who cancelled')
+        self.assertFalse(meeting.active, 'Meeting should be archived')
         self.assertMessageFields(self._new_msgs[0], {
             'body': f'<p>Appointment cancelled by: {self.appointment_attendee_ids[1].display_name}</p>',
             'notification_ids': self.env['mail.notification'],
             'subtype_id': self.env.ref('mail.mt_note'),
         })
+        self.assertMailMail(self.appointment_attendee_ids[1], "sent", author=self.apt_manager.partner_id)
