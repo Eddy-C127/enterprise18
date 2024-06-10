@@ -920,6 +920,11 @@ registry.category("web_tour.tours").add('test_delivery_reserved_2', {test: true,
             helper.assertValidateVisible(true);
             helper.assertValidateIsHighlighted(false);
             helper.assertValidateEnabled(true);
+            const p1_lines = helper.getLines({ barcode: 'product1' });
+            helper.assertLineIsFaulty(p1_lines[0], false);
+            helper.assertLineIsFaulty(p1_lines[1], false);
+            const p2_line = helper.getLine({ barcode: 'product2' });
+            helper.assertLineIsFaulty(p2_line, true);
         }
     },
 
@@ -959,6 +964,12 @@ registry.category("web_tour.tours").add('test_delivery_reserved_2', {test: true,
             helper.assertValidateVisible(true);
             helper.assertValidateIsHighlighted(true);
             helper.assertValidateEnabled(true);
+            const p1_lines = helper.getLines({ barcode: 'product1' });
+            helper.assertLineIsFaulty(p1_lines[0], false);
+            helper.assertLineIsFaulty(p1_lines[1], false);
+            helper.assertLineIsFaulty(p1_lines[2], true);
+            const p2_line = helper.getLine({ barcode: 'product2' });
+            helper.assertLineIsFaulty(p2_line, true);
         }
     },
 ]});

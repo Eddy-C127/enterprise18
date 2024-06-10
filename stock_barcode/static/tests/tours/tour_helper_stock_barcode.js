@@ -319,3 +319,9 @@ helper.assertKanbanRecordsCount = (expected) => {
         '.o_kanban_view .o_kanban_record:not(.o_kanban_ghost)');
     helper.assert(kanbanRecords.length, expected, 'Wrong number of cards');
 };
+
+helper.assertLineIsFaulty =  (lineOrIndex, expected=true) => {
+    const line = helper._getLineOrFail(lineOrIndex, "Can't check if the line is faulty");
+    const errorMessage = `line ${expected ? "should" : "shouldn't"} be faulty`;
+    helper.assert(line.classList.contains('o_faulty'), expected, errorMessage);
+};
