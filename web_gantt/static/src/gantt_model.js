@@ -403,15 +403,19 @@ export class GanttModel extends Model {
         const context = this._getRescheduleContext();
         return this.mutex.exec(async () => {
             try {
-                const result = await this.orm.write(this.metaData.resModel, ids, data, {
-                    context,
-                });
+                const result = await this._reschedule(ids, data, context);
                 if (callback) {
                     await callback(result);
                 }
             } finally {
                 this.fetchData();
             }
+        });
+    }
+
+    async _reschedule(ids, data, context) {
+        return this.orm.write(this.metaData.resModel, ids, data, {
+            context,
         });
     }
 

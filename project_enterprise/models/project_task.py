@@ -1360,6 +1360,46 @@ class Task(models.Model):
 
         return result
 
+    def web_gantt_write(self, data):
+        res = True
+
+        if any(
+            f_name in self._fields and self._fields[f_name].type == 'many2many' and value and len(value) == 1
+            for f_name, value in data.items()
+        ):
+            record_ids_per_m2m_field_names = defaultdict(list)
+            full_write_record_ids = []
+            for record in self:
+                fields_to_remove = []
+                for f_name, value in data.items():
+                    if (
+                        value
+                        and f_name in record._fields
+                        and record._fields[f_name].type == 'many2many'
+                        and len(value) == 1
+                        and value[0] in record[f_name].ids
+                    ):
+                        fields_to_remove.append(f_name)
+                if fields_to_remove:
+                    record_ids_per_m2m_field_names[tuple(fields_to_remove)].append(record.id)
+                else:
+                    full_write_record_ids.append(record.id)
+            if record_ids_per_m2m_field_names:
+                if full_write_record_ids:
+                    res &= self.browse(full_write_record_ids).write(data)
+                for fields_to_remove_from_data, record_ids in record_ids_per_m2m_field_names.items():
+                    res &= self.browse(record_ids).write({
+                        f_name: value
+                        for f_name, value in data.items()
+                        if f_name not in fields_to_remove_from_data
+                    })
+            else:
+                res &= self.write(data)
+        else:
+            res &= self.write(data)
+
+        return res
+
     def action_dependent_tasks(self):
         action = super().action_dependent_tasks()
         action['view_mode'] = 'tree,form,kanban,calendar,pivot,graph,gantt,activity,map'

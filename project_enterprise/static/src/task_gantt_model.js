@@ -75,6 +75,12 @@ export class TaskGanttModel extends GanttModel {
         });
     }
 
+    _reschedule(ids, data, context) {
+        return this.orm.call(this.metaData.resModel, "web_gantt_write", ids, data, {
+            context,
+        });
+    }
+
     async unscheduleTask(id) {
         await this.orm.call("project.task", "action_unschedule_task", [id]);
         this.fetchData();

@@ -1318,3 +1318,23 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             datetime(year=2024, month=2, day=27, hour=9),
             datetime(year=2024, month=2, day=29, hour=9),
         )
+
+    def test_web_gantt_write(self):
+        users = self.user_projectuser + self.user_projectmanager
+        self.task_1.write({'user_ids': users.ids})
+        self.task_2.write({'user_ids': self.user_projectuser.ids})
+        tasks = self.task_1 + self.task_2
+        tasks.web_gantt_write({'user_ids': self.user_projectmanager.ids})
+        self.assertEqual(self.task_1.user_ids, users, "The assignees set on Task 1 should remain the same if the new assigne was in fact already in the assigness of the task.")
+        self.assertEqual(self.task_2.user_ids, self.user_projectmanager, "The assignees set on Task 2 should be the new one and the user initially assinged should be unassigned.")
+
+        tasks.web_gantt_write({'user_ids': False})
+        self.assertFalse(tasks.user_ids, "No assignees should be set on the both tasks")
+
+        tasks.web_gantt_write({'user_ids': self.user_portal.ids})
+        self.assertEqual(self.task_1.user_ids, self.user_portal, "User portal should be assigned to Task 1.")
+        self.assertEqual(self.task_2.user_ids, self.user_portal, "User portal should be assigned to Task 2.")
+
+        tasks.web_gantt_write({'user_ids': users.ids})
+        self.assertEqual(self.task_1.user_ids, users, "Project user and Prohect manager should be assigned to the task 1 and portal user should be assigned.")
+        self.assertEqual(self.task_2.user_ids, users, "Project user and Prohect maanger should be assigned to the task 2 and portal user should be assigned.")
