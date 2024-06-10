@@ -390,7 +390,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 ('account_id.reconcile', '=', True),
                 ('journal_id.type', '!=', journal_type_to_exclude.get(journal_type)),
                 *self._build_domain_from_period(options, params['expression_label']),
-                *report._get_options_domain(options, 'normal'),
+                *report._get_options_domain(options, 'from_beginning'),
                 *report._get_audit_line_groupby_domain(params['calling_line_dict_id']),
             ]
             action['domain'] = domain
