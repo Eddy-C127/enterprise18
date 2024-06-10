@@ -47,7 +47,7 @@ class AccountBatchPayment(models.Model):
     def validate_batch(self):
         self.ensure_one()
         if self.payment_method_code in self.payment_method_id._get_sdd_payment_method_code():
-            company = self.env.company
+            company = self.journal_id.company_id
 
             if not company.sdd_creditor_identifier:
                 raise UserError(_("Your company must have a creditor identifier in order to issue SEPA Direct Debit payments requests. It can be defined in accounting module's settings."))
