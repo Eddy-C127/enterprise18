@@ -3,7 +3,6 @@
 import {
     click,
     getFixture,
-    triggerEvent,
     patchWithCleanup,
     nextTick,
     editInput,
@@ -16,7 +15,12 @@ import { patchGraphSpreadsheet } from "@spreadsheet_edition/assets/graph_view/gr
 import { registries } from "@odoo/o-spreadsheet";
 import * as dsHelpers from "@web/../tests/core/domain_selector_tests";
 
-const { chartRegistry } = registries;
+const { chartSubtypeRegistry } = registries;
+
+async function changeChartType(fixture, type) {
+    await click(fixture, ".o-type-selector");
+    await click(fixture, `.o-chart-type-item[data-id="${type}"]`);
+}
 
 function beforeEach() {
     patchWithCleanup(GraphRenderer.prototype, patchGraphSpreadsheet());
@@ -34,12 +38,17 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
         const { model, env } = await createSpreadsheetFromGraphView();
         await openChartSidePanel(model, env);
         const target = getFixture();
-        /** @type {NodeListOf<HTMLOptionElement>} */
-        const options = target.querySelectorAll(".o-type-selector option");
-        assert.strictEqual(options.length, 3);
-        assert.strictEqual(options[0].value, "odoo_bar");
-        assert.strictEqual(options[1].value, "odoo_line");
-        assert.strictEqual(options[2].value, "odoo_pie");
+        await click(target, ".o-type-selector");
+        const odooChartTypes = chartSubtypeRegistry
+            .getKeys()
+            .filter((key) => key.startsWith("odoo_"))
+            .sort();
+        /** @type {NodeListOf<HTMLDivElement>} */
+        const options = target.querySelectorAll(".o-chart-type-item");
+        const optionValues = Array.from(options)
+            .map((option) => option.dataset.id)
+            .sort();
+        assert.deepEqual(optionValues, odooChartTypes);
     });
 
     QUnit.test(
@@ -49,18 +58,42 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
             createBasicChart(model, "1");
             await openChartSidePanel(model, env);
             const target = getFixture();
-            /** @type {NodeListOf<HTMLOptionElement>} */
-            const options = target.querySelectorAll(".o-type-selector option");
-            const nonOdooCharts = [];
-            for (const key of chartRegistry.getKeys()) {
-                if (!key.startsWith("odoo_")) {
-                    nonOdooCharts.push(key);
-                }
-            }
-            assert.strictEqual(options.length, nonOdooCharts.length);
-            for (let i = 0; i < nonOdooCharts.length; i++) {
-                assert.strictEqual(options[i].value, nonOdooCharts[i]);
-            }
+            await click(target, ".o-type-selector");
+            /** @type {NodeListOf<HTMLDivElement>} */
+            const options = target.querySelectorAll(".o-chart-type-item");
+            const optionValues = Array.from(options)
+                .map((option) => option.dataset.id)
+                .sort();
+            const nonOdooChartTypes = chartSubtypeRegistry
+                .getKeys()
+                .filter((key) => !key.startsWith("odoo_"))
+                .sort();
+
+            assert.deepEqual(optionValues, nonOdooChartTypes);
+        }
+    );
+
+    QUnit.test(
+        "Possible chart types are correct when switching from a spreadsheet to an odoo chart",
+        async (assert) => {
+            const { model, env } = await createSpreadsheetFromGraphView();
+            createBasicChart(model, "nonOdooChartId");
+            await openChartSidePanel(model, env);
+            const target = getFixture();
+            await click(target, ".o-type-selector");
+
+            /** @type {NodeListOf<HTMLDivElement>} */
+            let options = target.querySelectorAll(".o-chart-type-item");
+            let optionValues = Array.from(options).map((option) => option.dataset.id);
+            assert.ok(optionValues.every((value) => value.startsWith("odoo_")));
+
+            model.dispatch("SELECT_FIGURE", { id: "nonOdooChartId" });
+            await nextTick();
+
+            await click(target, ".o-type-selector");
+            options = target.querySelectorAll(".o-chart-type-item");
+            optionValues = Array.from(options).map((option) => option.dataset.id);
+            assert.ok(optionValues.every((value) => !value.startsWith("odoo_")));
         }
     );
 
@@ -72,19 +105,24 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
         await openChartSidePanel(model, env);
         const target = getFixture();
         /** @type {HTMLSelectElement} */
-        const select = target.querySelector(".o-type-selector");
-        select.value = "odoo_pie";
-        await triggerEvent(select, null, "change");
+        await changeChartType(target, "odoo_pie");
         assert.strictEqual(model.getters.getChart(chartId).type, "odoo_pie");
-        select.value = "odoo_line";
-        await triggerEvent(select, null, "change");
-        assert.strictEqual(model.getters.getChart(chartId).type, "odoo_line");
+
+        await changeChartType(target, "odoo_line");
         assert.strictEqual(model.getters.getChart(chartId).verticalAxisPosition, "left");
         assert.strictEqual(model.getters.getChart(chartId).stacked, false);
-        select.value = "odoo_bar";
-        await triggerEvent(select, null, "change");
+
+        await changeChartType(target, "odoo_bar");
         assert.strictEqual(model.getters.getChart(chartId).type, "odoo_bar");
         assert.strictEqual(model.getters.getChart(chartId).stacked, false);
+
+        await changeChartType(target, "odoo_stacked_bar");
+        assert.strictEqual(model.getters.getChart(chartId).type, "odoo_bar");
+        assert.strictEqual(model.getters.getChart(chartId).stacked, true);
+
+        await changeChartType(target, "odoo_stacked_line");
+        assert.strictEqual(model.getters.getChart(chartId).type, "odoo_line");
+        assert.strictEqual(model.getters.getChart(chartId).stacked, true);
     });
 
     QUnit.test("stacked line chart", async (assert) => {
@@ -93,21 +131,22 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
         const chartId = model.getters.getChartIds(sheetId)[0];
         await openChartSidePanel(model, env);
         const target = getFixture();
-        /** @type {HTMLSelectElement} */
-        const select = target.querySelector(".o-type-selector");
-        select.value = "odoo_line";
-        await triggerEvent(select, null, "change");
+        await changeChartType(target, "odoo_stacked_line");
 
         // checked by default
         assert.strictEqual(model.getters.getChart(chartId).stacked, true);
-        assert.containsOnce(target, ".o-checkbox input:checked", "checkbox should be checked");
+        assert.containsOnce(
+            target,
+            ".o-checkbox input[name='stackedBar']:checked",
+            "checkbox should be checked"
+        );
 
         // uncheck
         await click(target, ".o-checkbox input:checked");
         assert.strictEqual(model.getters.getChart(chartId).stacked, false);
         assert.containsNone(
             target,
-            ".o-checkbox input:checked",
+            ".o-checkbox input[name='stackedBar']:checked",
             "checkbox should no longer be checked"
         );
 
@@ -185,22 +224,23 @@ QUnit.module("documents_spreadsheet > chart side panel", { beforeEach }, () => {
         const chartId = model.getters.getChartIds(sheetId)[0];
         await openChartSidePanel(model, env);
         const target = getFixture();
-        /** @type {HTMLSelectElement} */
-        const select = target.querySelector(".o-type-selector");
-        select.value = "odoo_line";
-        await triggerEvent(select, null, "change");
-        await click(target, ".o-checkbox input[name='stackedBar']");
+        await changeChartType(target, "odoo_line");
+        console.log(model.getters.getChart(chartId).getDefinition());
         await click(target, ".o-checkbox input[name='cumulative']");
         // check
         assert.strictEqual(model.getters.getChart(chartId).cumulative, true);
-        assert.containsOnce(target, ".o-checkbox input:checked", "checkbox should be checked");
+        assert.containsOnce(
+            target,
+            ".o-checkbox input[name='cumulative']:checked",
+            "checkbox should be checked"
+        );
 
         // uncheck
         await click(target, ".o-checkbox input[name='cumulative']");
         assert.strictEqual(model.getters.getChart(chartId).cumulative, false);
         assert.containsNone(
             target,
-            ".o-checkbox input:checked",
+            ".o-checkbox input[name='cumulative']:checked",
             "checkbox should no longer be checked"
         );
     });
