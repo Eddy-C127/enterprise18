@@ -89,6 +89,7 @@ class ProviderFedex(models.Model):
                                            ('FEDEX_PRIORITY_EXPRESS_FREIGHT', 'FEDEX_PRIORITY_EXPRESS_FREIGHT'),
                                            ('FEDEX_PRIORITY_FREIGHT', 'FEDEX_PRIORITY_FREIGHT'),
                                            ('FEDEX_ECONOMY_SELECT', 'FEDEX_ECONOMY_SELECT'),
+                                           ('FEDEX_INTERNATIONAL_CONNECT_PLUS', 'FEDEX_INTERNATIONAL_CONNECT_PLUS'),
                                            ],
                                           default='FEDEX_INTERNATIONAL_PRIORITY')
     fedex_duty_payment = fields.Selection([('SENDER', 'Sender'), ('RECIPIENT', 'Recipient')], required=True, default="SENDER")
