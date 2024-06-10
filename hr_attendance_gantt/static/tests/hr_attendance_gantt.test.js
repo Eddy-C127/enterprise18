@@ -102,7 +102,7 @@ test("Open Ended record today", async () => {
 });
 
 test("Future Open Ended record not displayed", async () => {
-    mockDate("2018-12-10 13:00:00");
+    mockDate("2018-12-10 12:00:00");
     await mountGanttView({
         resModel: "attendances",
         arch: `<gantt js_class="attendance_gantt" date_start="check_in" default_group_by='user_id' default_scale="day" date_stop="check_out"/>`,
