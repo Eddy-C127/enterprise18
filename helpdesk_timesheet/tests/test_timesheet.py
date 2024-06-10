@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from datetime import date
+from datetime import date, timedelta
 from freezegun import freeze_time
 
 from odoo.tests import Form, tagged
@@ -209,3 +209,26 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
                 'unit_amount': 0, 'project_id': self.project.id, 'task_id': False, 'helpdesk_ticket_id': helpdesk_ticket.id}
         timesheet = self.env['account.analytic.line'].create([vals])
         self.assertEqual(timesheet.company_id, new_company, 'The expected company of the timesheet is the company from the project of its ticket')
+
+    def test_launch_the_timer_for_a_ticket(self):
+        """ Test if starting and stopping the timer on a timesheet entry linked to a helpdesk ticket creates a new entry
+            with the ticket_id set
+        """
+        yesterday = date.today() - timedelta(days=1)
+
+        timesheet = self.env['account.analytic.line'].with_user(self.user_employee).create({
+            'name': 'Yesterday Timesheet',
+            'project_id': self.project.id,
+            'date': yesterday,
+            'employee_id': self.empl_employee.id,
+            'helpdesk_ticket_id': self.helpdesk_ticket.id,
+        })
+
+        timesheet.with_user(self.user_employee).action_timer_start()
+        timesheet.with_user(self.user_employee).action_timer_stop()
+
+        timesheet_count = self.env['account.analytic.line'].search_count([
+            ('date', '=', date.today()),
+            ('helpdesk_ticket_id', '=', self.helpdesk_ticket.id)
+        ], limit=1)
+        self.assertEqual(timesheet_count, 1, "The new timesheet entry's ticket_id should be set correctly.")
