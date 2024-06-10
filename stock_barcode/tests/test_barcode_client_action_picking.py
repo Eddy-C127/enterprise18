@@ -783,6 +783,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
     def test_delivery_reserved_2(self):
         self.clean_access_rights()
+        self.picking_type_out.restrict_scan_source_location = 'no'
         delivery_picking = self.env['stock.picking'].create({
             'location_id': self.stock_location.id,
             'location_dest_id': self.customer_location.id,

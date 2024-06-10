@@ -86,7 +86,7 @@ export default class LineComponent extends Component {
     get componentClasses() {
         return [
             this.isComplete ? 'o_line_completed' : 'o_line_not_completed',
-            this.env.model.lineIsFaulty(this) ? 'o_faulty' : '',
+            this.env.model.lineIsFaulty(this.line) ? 'o_faulty' : '',
             this.isSelected ? 'o_selected o_highlight' : ''
         ].join(' ');
     }

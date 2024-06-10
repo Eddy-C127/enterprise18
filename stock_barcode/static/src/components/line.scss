@@ -49,7 +49,7 @@ $o-barcode-completed-color: #befdcc;
         background: var(--barcode__line--completed, #befdcc);
     }
 
-    &.o_line_not_completed {
+    &.o_line_not_completed:not(.o_faulty) {
         background: var(--barcode__line--notCompleted, #fcf9f2);
     }
 
