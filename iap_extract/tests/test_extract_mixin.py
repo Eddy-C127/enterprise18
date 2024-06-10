@@ -2,6 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from contextlib import contextmanager
+from datetime import datetime
+from freezegun import freeze_time
 from unittest.mock import patch
 
 from odoo.addons.base.models.ir_cron import ir_cron
@@ -29,6 +31,14 @@ class TestExtractMixin(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestExtractMixin, cls).setUpClass()
+
+        # Freeze time to avoid nondeterminism in the tests.
+        # The value of the date and the creation date are checked to know whether we should fill date fields or not.
+        # When tests run at around midnight, it can happen that the creation date and the default date don't
+        # match, e.g. when one is set at 23:59:59 and the other one at 00:00:00.
+        # This issue can of course also occur under normal utilization, but it should be very rare and with negligible consequences.
+        cls.startClassPatcher(freeze_time('2019-04-15'))
+        cls.env.cr._now = datetime.now()
 
         # Avoid passing on the iap.account's `get` method to avoid the cr.commit breaking the test transaction.
         cls.env['iap.account'].create([
