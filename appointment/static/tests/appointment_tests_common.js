@@ -18,6 +18,7 @@ export class CalendarEvent extends models.Model {
     stop = fields.Datetime({ string: "Stop datetime" });
     allday = fields.Boolean({ string: "Allday" });
     partner_ids = fields.Many2many({ string: "Attendees", relation: "res.partner" });
+    resource_ids = fields.Many2many({ string: "Resources", relation: "appointment.resource" });
     appointment_attended = fields.Boolean({ string: "Attended" });
     appointment_type_id = fields.Many2one({
         string: "Appointment Type",
@@ -105,6 +106,10 @@ export class AppointmentType extends models.Model {
             category: "website",
         },
     ];
+}
+
+class AppointmentResource extends models.Model {
+    _name = "appointment.resource";
 }
 
 export class AppointmentSlot extends models.Model {
@@ -200,6 +205,7 @@ export class ResUsers extends mailModels.ResUsers {
 export function defineAppointmentModels() {
     return defineModels({
         ...mailModels,
+        AppointmentResource,
         AppointmentSlot,
         AppointmentType,
         CalendarEvent,

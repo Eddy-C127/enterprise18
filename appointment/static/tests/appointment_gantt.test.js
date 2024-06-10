@@ -23,6 +23,7 @@ const ganttViewArch = `
         <field name="appointment_type_id"/>
         <field name="partner_id"/>
         <field name="partner_ids"/>
+        <field name="resource_ids"/>
         <field name="user_id"/>
 
         <templates>
@@ -95,4 +96,54 @@ test("empty default group gantt rendering", async () => {
         "write user id",
         "get_gantt_data",
     ]).toVerifySteps();
+});
+
+test("'Add Closing Days' button rendering - 1", async () => {
+    onRpc("has_group", ({ args }) => {
+        if (args[1] === "appointment.group_appointment_manager") {
+            return true;
+        }
+    });
+    await mountGanttView({
+        resModel: "calendar.event",
+        arch: ganttViewArch,
+        groupBy: ["resource_ids"],
+    });
+    expect(".o_appointment_booking_gantt_button_add_leaves").toHaveCount(1, {
+        message: "the button should have been rendered",
+    });
+});
+
+
+test("'Add Closing Days' button rendering - 2", async () => {
+    onRpc("has_group", ({ args }) => {
+        if (args[1] === "appointment.group_appointment_manager") {
+            return false;
+        }
+    });
+    await mountGanttView({
+        resModel: "calendar.event",
+        arch: ganttViewArch,
+        groupBy: ["resource_ids"],
+    });
+    expect(".o_appointment_booking_gantt_button_add_leaves").toHaveCount(0, {
+        message: "the button should not have been rendered: the user is not an appointment manager",
+    });
+});
+
+
+test("'Add Closing Days' button rendering - 3", async () => {
+    onRpc("has_group", ({ args }) => {
+        if (args[1] === "appointment.group_appointment_manager") {
+            return true;
+        }
+    });
+    await mountGanttView({
+        resModel: "calendar.event",
+        arch: ganttViewArch,
+        groupBy: ["partner_ids"],
+    });
+    expect(".o_appointment_booking_gantt_button_add_leaves").toHaveCount(0, {
+        message: "the button should not have been rendered: not grouped by 'resource_ids'",
+    });
 });

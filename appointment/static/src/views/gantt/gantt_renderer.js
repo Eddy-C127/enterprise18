@@ -120,6 +120,8 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
     }
 
     get controlsProps() {
+        const showAddLeaveButton = () =>
+            this.isAppointmentManager && this.model.metaData.groupedBy[0] === "resource_ids";
         return Object.assign(super.controlsProps, {
             onClickAddLeave: async () => {
                 this.env.services.action.doAction(
@@ -139,11 +141,7 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
              * Display 'Add Leaves' action button if grouping by appointment resources.
              */
             get showAddLeaveButton() {
-                return !!(
-                    this.isAppointmentManager &&
-                    this.model.metaData.groupedBy &&
-                    this.model.metaData.groupedBy[0] === "resource_ids"
-                );
+                return showAddLeaveButton();
             },
         });
     }
