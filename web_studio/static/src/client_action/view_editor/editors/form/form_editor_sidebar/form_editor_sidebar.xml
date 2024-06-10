@@ -3,7 +3,7 @@
     <t t-name="web_studio.ViewEditor.FormEditorSidebar">
         <InteractiveEditorSidebar>
             <t t-set-slot="new" isDefault="true">
-                <FormComponents />
+                <ViewStructures structures="constructor.viewStructures" />
                 <NewFields />
                 <ExistingFields resModel="env.viewEditorModel.resModel" fields="env.viewEditorModel.fields" fieldsInArch="env.viewEditorModel.fieldsInArch"/>
             </t>
@@ -41,15 +41,5 @@
             </t>
         </InteractiveEditorSidebar>
     </t>
-
-    <t t-name="web_studio.FormEditor.Sidebar.Components">
-        <div class="o_web_studio_field_type_container o_web_studio_new_components d-flex flex-row">
-            <h3 class="w-100">Components</h3>
-            <t t-foreach="structures" t-as="struct" t-key="struct_index">
-                <SidebarDraggableItem string="struct_value.name" className="struct_value.class" structure="struct" />
-            </t>
-        </div>
-    </t>
-
 
 </templates>

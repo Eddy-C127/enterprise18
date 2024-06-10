@@ -1,8 +1,5 @@
-/** @odoo-module */
 import { Component, useState } from "@odoo/owl";
-
 import { _t } from "@web/core/l10n/translation";
-
 import { SidebarDraggableItem } from "@web_studio/client_action/components/sidebar_draggable_item/sidebar_draggable_item";
 
 export class ExistingFields extends Component {
@@ -19,7 +16,7 @@ export class ExistingFields extends Component {
         filterFields: true,
         resModel: "",
     };
-    static template = "web_studio.ViewStructures.ExistingFields";
+    static template = "web_studio.ViewFields.ExistingFields";
 
     setup() {
         this.state = useState({
@@ -44,13 +41,19 @@ export class ExistingFields extends Component {
         const fieldsInArch = this.props.fieldsInArch;
         const resModel = this.props.resModel;
         const filtered = Object.entries(this.props.fields).filter(([fName, field]) => {
-            if (resModel === "res.users" && (fName.startsWith("in_group_") || fName.startsWith("sel_groups_"))) {
+            if (
+                resModel === "res.users" &&
+                (fName.startsWith("in_group_") || fName.startsWith("sel_groups_"))
+            ) {
                 // These fields are virtual and represent res.groups hierarchy.
                 // If the hierarchy changes, the field is replaced by another one and the view will be
                 // broken, so, here we prevent adding them.
                 return false;
             }
-            if (!this.isMatchingSearch(field) || this.props.filterFields && fieldsInArch.includes(fName)) {
+            if (
+                !this.isMatchingSearch(field) ||
+                (this.props.filterFields && fieldsInArch.includes(fName))
+            ) {
                 return false;
             }
             return true;
@@ -101,7 +104,7 @@ const newFields = [
 export class NewFields extends Component {
     static components = { SidebarDraggableItem };
     static props = {};
-    static template = "web_studio.ViewStructures.NewFields";
+    static template = "web_studio.ViewFields.NewFields";
 
     get newFieldsComponents() {
         return newFields.map((f) => {

@@ -4,7 +4,7 @@ import { InteractiveEditorSidebar } from "@web_studio/client_action/view_editor/
 import {
     ExistingFields,
     NewFields,
-} from "@web_studio/client_action/view_editor/view_structures/view_structures";
+} from "@web_studio/client_action/view_editor/editors/components/view_fields";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { SidebarViewToolbox } from "@web_studio/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox";
 import { Properties } from "@web_studio/client_action/view_editor/interactive_editor/properties/properties";
