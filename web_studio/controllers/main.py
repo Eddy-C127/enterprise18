@@ -27,10 +27,13 @@ OPERATIONS_WHITELIST = [
     'buttonbox',
     'chatter',
     'enable_approval',
-    'kanban_dropdown',
-    'kanban_image',
-    'kanban_priority',
-    'kanban_set_cover',
+    'kanban_colorpicker',
+    'kanban_menu',
+    'kanban_wrap_main',
+    'kanban_dropdown',  # deprecated
+    'kanban_image',  # deprecated
+    'kanban_priority',  # deprecated
+    'kanban_set_cover',  # deprecated
     'map_popup_fields',
     'pivot_measures_fields',
     'graph_pivot_groupbys_fields',
@@ -1204,6 +1207,85 @@ Are you sure you want to remove the selection values of those records?""", len(r
         chatter_node = etree.Element('chatter')
         xpath_node.append(chatter_node)
 
+    def _operation_kanban_wrap_main(self, arch, operation, model):
+        wrap_type = operation.get('wrap_type')
+        # we must copy the content of the kanban-card under the <main> node
+        main_node = etree.fromstring("<t t-name='kanban-card'><main>$0</main></t>")
+        etree.SubElement(arch, 'xpath', {
+            'expr': '//t[@t-name="kanban-card"]',
+            'position': 'replace',
+            'mode': 'outer'
+        }).append(main_node)
+        if wrap_type == "aside":
+            xpath_node = etree.SubElement(arch, 'xpath', {
+                'expr': '//t[@t-name="kanban-card"]',
+                'position': 'attributes'
+                })
+            attribute_node = etree.Element('attribute', name='class')
+            attribute_node.text = "row g-0"
+            xpath_node.append(attribute_node)
+            xpath_node_main = etree.SubElement(arch, 'xpath', {
+                'expr': '//main',
+                'position': 'attributes'
+                })
+            attribute_node_main = etree.Element('attribute', name='class')
+            attribute_node_main.text = "col-10"
+            xpath_node_main.append(attribute_node_main)
+        # results in a t[@t-name="kanban-card"]/main/t[@t-name="kanban-card"] template
+        # we must remove the latest t-name value
+        xpath_node = etree.SubElement(arch, 'xpath', {
+            'expr': '//main/t[@t-name="kanban-card"]',
+            'position': 'attributes'
+            })
+        xpath_node.append(etree.Element('attribute', name='t-name'))
+
+    def _operation_kanban_colorpicker(self, arch, operation, model):
+        """ Insert a colorpicker under a kanban menu.
+        """
+        view_id = operation.get('view_id')
+        view = request.env['ir.ui.view'].browse(view_id)
+        base_view = etree.fromstring(view.get_combined_arch())
+
+        color_field = base_view.get("highlight_color")
+        if color_field is None:
+            # create a field if no one is set as color attribute
+            model_id = request.env['ir.model']._get_id(model)
+            if not model_id:
+                return
+
+            color_field = 'x_color'
+            if not request.env['ir.model.fields'].search_count([('model_id', '=', model_id), ('name', '=', color_field), ('ttype', '=', 'integer')], limit=1):
+                request.env['ir.model.fields'].create({
+                    'model': model,
+                    'model_id': model_id,
+                    'name': color_field,
+                    'field_description': 'Card color',
+                    'ttype': 'integer',
+                })
+            etree.SubElement(arch, 'xpath', {
+                'expr': '//kanban',
+                'position': 'attributes',
+            }).append(etree.fromstring(f"<attribute name='highlight_color'>{color_field}</attribute>"))
+
+        etree.SubElement(arch, 'xpath', {
+            'expr': './/t[@t-name="kanban-menu"]',
+            'position': 'inside',
+        }).append(etree.fromstring(f"<field name='{color_field}' widget='kanban_color_picker'></field>"))
+
+    def _operation_kanban_menu(self, arch, operation, model):
+        """ Insert a menu in a kanban view arch."""
+        menu_node = etree.fromstring("""
+            <t t-name="kanban-menu">
+                <t t-if="widget.editable"><a type="edit" class="dropdown-item">Edit</a></t>
+                <t t-if="widget.deletable"><a type="delete" class="dropdown-item">Delete</a></t>
+            </t>
+        """)
+        etree.SubElement(arch, 'xpath', {
+            'expr': '//t[@t-name="kanban-card"]',
+            'position': 'before',
+        }).append(menu_node)
+
+    # deprecated kanban legacy code, will be deleted > 18.0
     def _operation_kanban_dropdown(self, arch, operation, model):
         """ Insert a dropdown and its corresponding needs in an kanban view arch.
             Implied modifications:
@@ -1259,6 +1341,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
         else:
             xml_node.text = color_field_name
 
+    # deprecated kanban legacy code, will be deleted > 18.0
     def _operation_kanban_image(self, arch, operation, model):
         """ Insert a image and its corresponding needs in an kanban view arch
             Implied modifications (if not already done):
@@ -1318,6 +1401,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
                 """ % img_elem)
             )
 
+    # deprecated kanban legacy code, will be deleted > 18.0
     def _operation_kanban_set_cover(self, arch, operation, model):
         """ Insert a menu in dropdown to set cover image in a kanban view.
             Implied modifications:
@@ -1386,6 +1470,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
                 <field t-if="record.%s.value" name="%s" widget="attachment_image"/>
             """ % (field_id.name, field_id.name)))
 
+    # deprecated kanban legacy code, will be deleted > 18.0
     def _operation_kanban_priority(self, arch, operation, model):
         """ Insert a priority and its corresponding needs in an kanban view arch
             Implied modifications:

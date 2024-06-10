@@ -1,10 +1,9 @@
 <templates>
 
-    <t t-name="web_studio.ViewEditor.KanbanEditorSidebar">
+    <t t-name="web_studio.ViewEditor.KanbanEditorSidebarLegacy">
         <InteractiveEditorSidebar>
             <t t-set-slot="new">
-                <ViewStructures structures="constructor.viewStructures" />
-                <ExistingFields resModel="env.viewEditorModel.resModel" fields="env.viewEditorModel.fields" fieldsInArch="viewEditorModel.fieldsInArch" folded="false"/>
+                <ExistingFields fields="env.viewEditorModel.fields" fieldsInArch="kanbanFieldsInArch" folded="false"/>
             </t>
             <t t-set-slot="view" isDefault="true">
                 <Property
@@ -25,23 +24,6 @@
                 </Property>
                 <t t-call="web_studio.ViewEditor.ShowInvisibleToggler" />
                 <Property
-                    name="'can_open'"
-                    type="'boolean'"
-                    value="archInfo.canOpenRecords !== false"
-                    onChange.bind="editAttribute"
-                >
-                    Open Record On Click
-                </Property>
-                <Property
-                    name="'highlight_color'"
-                    type="'selection'"
-                    value="archInfo.cardColorField or null"
-                    childProps="colorField"
-                    onChange.bind="editColor"
-                >
-                    Highlight Color Field
-                </Property>
-                <Property
                     name="'default_group_by'"
                     type="'selection'"
                     value="archInfo.defaultGroupBy or null"
@@ -52,6 +34,7 @@
                 </Property>
                 <SidebarViewToolbox onMore="props.openViewInForm" canEditXml="!env.viewEditorModel.isEditingSubview" openDefaultValues="props.openDefaultValues" />
             </t>
+
             <t t-set-slot="properties">
                 <Properties propertiesComponents="propertiesComponents"/>
             </t>

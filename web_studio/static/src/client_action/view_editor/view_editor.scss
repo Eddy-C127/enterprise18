@@ -1,7 +1,4 @@
 .o_web_studio_editor {
-    &.o_legacy_view_sample_data .form-check {
-        pointer-events: unset !important;
-    }
     .o_web_studio_editor_manager {
         .o-draggable {
             &, * {
@@ -44,6 +41,18 @@
             }
             .o_list_view > .o_content {
                 padding: 0 12px;
+            }
+            .o-web-studio-editor--element-clickable {
+                &:hover {
+                    cursor: pointer;
+                    outline: 1px dashed $o-brand-primary;
+                }
+            }
+            .o-web-studio-editor--element-clicked:not(.o_dragged) {
+                outline: 2px solid $o-brand-primary !important;
+            }
+            .o_web_studio_hook {
+                padding: .5px;
             }
         }
     }

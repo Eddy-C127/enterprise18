@@ -1,256 +1,222 @@
-/** @odoo-module */
 import { KanbanCompiler } from "@web/views/kanban/kanban_compiler";
 import { computeXpath, applyInvisible } from "../xml_utils";
+import { createElement, getTag } from "@web/core/utils/xml";
 import { isComponentNode } from "@web/views/view_compiler";
-import { createElement } from "@web/core/utils/xml";
-import { _t } from "@web/core/l10n/translation";
 
 const interestingSelector = [
+    "div",
+    "aside",
+    "footer",
     "field",
+    "main",
+    "kanban",
     "widget",
-    ".dropdown",
-    "img.oe_kanban_avatar",
-    ".o_kanban_record_body",
-    ".o_kanban_record_bottom",
+    "a",
+    "button",
 ].join(", ");
 
-const hookBaseClass = "o_web_studio_kanban_hook cursor-pointer text-primary fw-bolder ";
+/**
+ * @param {Element} el
+ * @returns {string}
+ */
+function getElementXpath(el) {
+    const xpath = el.getAttribute("studioXpath");
+    if (isComponentNode(el)) {
+        return xpath;
+    }
+    return `"${xpath}"`;
+}
+
+/**
+ * @param {Element} el
+ * @param {string} xpath
+ */
+function setElementXpath(el, xpath) {
+    if (isComponentNode(el)) {
+        el.setAttribute("studioXpath", `'${xpath}'`);
+    } else {
+        el.setAttribute("studioXpath", xpath);
+    }
+}
 
 export class KanbanEditorCompiler extends KanbanCompiler {
-    constructor() {
-        super(...arguments);
-        const kanbanBox = this.templates["kanban-box"] || this.templates["kanban-card"];
-        this.isDashboard = kanbanBox.closest("kanban").classList.contains("o_kanban_dashboard");
-    }
-
     applyInvisible(invisible, compiled, params) {
         return applyInvisible(invisible, compiled, params);
     }
 
+    /**
+     * Wrap the given node with a <t> element containing hooks before and after it.
+     * @param {Element} node - The node to wrap with hooks
+     * @param {string} type - The type of the hook
+     * @param {string} template - The template to use for the hook
+     * @param {boolean} insertBefore - Whether to insert the before hook
+     * @returns {Element} The wrapped node
+     */
+    addStudioHook(node, type, template, { structures, wrap = false } = {}) {
+        const xpath = getElementXpath(node);
+        if (wrap) {
+            const studioHookBefore = createElement("StudioHook", {
+                xpath,
+                position: "'before'",
+                type: `'${type}'`,
+                subTemplate: `'${template}'`,
+                structures,
+            });
+            node.insertAdjacentElement("beforebegin", studioHookBefore);
+        }
+        const studioHookAfter = createElement("StudioHook", {
+            xpath,
+            position: "'after'",
+            type: `'${type}'`,
+            subTemplate: `'${template}'`,
+            structures,
+        });
+        node.insertAdjacentElement("afterend", studioHookAfter);
+    }
+
+    wrapNodesInMain(node) {
+        const elementsToWrap = Array.from(node.children).filter((e) => {
+            if (e.tagName === "widget") {
+                return e.getAttribute("name") !== "web_ribbon";
+            }
+            if (e.tagName === "t" && e.getAttribute("t-name") === "kanban-menu") {
+                return false;
+            }
+            return !["aside"].includes(e.tagName);
+        });
+        return createElement("main", elementsToWrap);
+    }
+
     compile(key, params = {}) {
         const xml = this.templates[key];
-
-        // One pass to compute and add the xpath for the arch's node location
-        // onto that node.
-        const mainDiv = xml.querySelector("div");
         const interestingArchNodes = [...xml.querySelectorAll(interestingSelector)];
-        if (mainDiv) {
-            interestingArchNodes.push(mainDiv);
-        }
         for (const el of interestingArchNodes) {
             const xpath = computeXpath(el, "kanban");
-            el.setAttribute("studioXpath", xpath);
+            setElementXpath(el, xpath);
         }
-
         const compiled = super.compile(key, params);
-
-        const isKanbanBox = key === "kanban-box";
-
-        if (isKanbanBox && !this.isDashboard && mainDiv) {
-            const tagsWidget = xml.querySelector("field[widget='many2many_tags']");
-            if (!tagsWidget) {
-                this.addTagsWidgetHook(compiled);
-            }
-
-            const priorityWidget = xml.querySelector("field[widget='priority']");
-            const favoriteWidget = xml.querySelector("field[widget='boolean_favorite']");
-            if (!priorityWidget && !favoriteWidget) {
-                this.addPriorityHook(compiled);
-            }
-
-            const dropdown = this.templates["kanban-menu"];
-            if (!dropdown) {
-                this.addDropdownHook(compiled);
-            }
-
-            const avatarImg = xml.querySelector("img.oe_kanban_avatar");
-            if (!avatarImg) {
-                this.addAvatarHook(compiled);
-            }
-        }
-
-        compiled.querySelectorAll(".oe_kanban_avatar").forEach((el) => {
-            const tIf = el.closest("[t-if]");
-            if (tIf) {
-                const tElse = createElement("t", {
-                    "t-else": "",
-                    "t-call": "web_studio.KanbanEditorRecord.AvatarPlaceholder",
-                });
-                tIf.insertAdjacentElement("afterend", tElse);
-            }
-        });
-
         return compiled;
     }
 
-    compileField(node) {
+    compileButton(el, params) {
+        const compiled = super.compileButton(...arguments);
+        setElementXpath(compiled, el.getAttribute("studioXpath"));
+        return compiled;
+    }
+
+    compileCard(node, params) {
+        const mainNode = node.querySelector("main");
+        if (!mainNode) {
+            // to ease the addition of studio hooks in the UI, we make sure the kanban card contains a <main> node,
+            // which wraps the content of the card, even if the original template didn't compile this node
+            const mainEl = this.wrapNodesInMain(node);
+            setElementXpath(mainEl, "kanban");
+            node.append(mainEl);
+        }
+        const asideNode = node.querySelector("aside");
+        const ribbonNode = node.querySelector("widget[name='web_ribbon']");
+        const compiledCard = super.compileNode(node, params);
+        const compiledMain = compiledCard.querySelector("main");
+        if (!ribbonNode) {
+            this.addStudioHook(compiledMain, "ribbon", "kanbanRibbon");
+        }
+        if (!asideNode) {
+            this.addStudioHook(compiledMain, "kanbanAsideHook", "kanbanAsideHook", { wrap: true });
+        }
+        return compiledCard;
+    }
+
+    compileField(el, params) {
         const compiled = super.compileField(...arguments);
-        if (compiled.tagName === "span") {
-            const fieldName = node.getAttribute("name");
-            compiled.setAttribute("data-field-name", fieldName);
-        } else {
-            compiled.setAttribute("hasEmptyPlaceholder", true);
-        }
+        if (!el.hasAttribute("widget")) {
+            compiled.classList.add("o-web-studio-editor--element-clickable");
 
+            // Set empty class
+            const fieldName = el.getAttribute("name");
+            const recordValueExpr = `__comp__.props.record.data["${fieldName}"]`;
+            const isEmptyExpr = `__comp__.isFieldValueEmpty(${recordValueExpr})`;
+            compiled.setAttribute(
+                "t-attf-class",
+                `{{ ${isEmptyExpr} ? "o_web_studio_widget_empty" : "" }}`
+            );
+            const fieldNameExpr = `__comp__.props.record.fields["${fieldName}"].string`;
+            const originalTOut = compiled.getAttribute("t-out");
+            compiled.setAttribute("t-out", `${isEmptyExpr} ? ${fieldNameExpr} : ${originalTOut}`);
+        }
         return compiled;
     }
 
-    addStudioHook(node, compiled) {
-        const tNode = createElement("t");
-        if (compiled.hasAttribute("t-if")) {
-            // t-if from the invisible modifier
-            tNode.setAttribute("t-if", compiled.getAttribute("t-if"));
-            compiled.removeAttribute("t-if");
+    compileInnerSection(compiled) {
+        const interestingNodes = [...compiled.querySelectorAll("[studioXpath]")].filter(
+            (e) => e.getAttribute("studioXpath") !== "null" && !e.closest("ViewButton")
+        );
+        const otherNodes = [...compiled.querySelectorAll("div[studioXpath]")].filter(
+            (e) => !e.getAttribute("t-out")
+        );
+        for (const child of otherNodes) {
+            // add a visual indication around structuring elements of the main element
+            child.classList.add("o_inner_section");
+            child.classList.add("o-web-studio-editor--element-clickable");
         }
-        tNode.appendChild(compiled);
-        const xpath = node.getAttribute("studioXpath");
-        const studioHook = createElement("StudioHook", {
-            xpath: `"${xpath}"`,
-            position: "'after'",
-        });
-        tNode.appendChild(studioHook);
-        return tNode;
+        for (const child of interestingNodes) {
+            if (
+                [...child.getAttributeNames()].filter((e) =>
+                    ["t-if", "t-elif", "t-else"].includes(e)
+                ).length
+            ) {
+                // Don't append a studio hook if a condition is on the tag itself
+                // otherwise it may cause inconsistencies in the arch itself
+                // ie `<field t-elif="someConditon" /><field name="newField" /><t t-else=""/>` would be invalid
+                continue;
+            }
+            this.addStudioHook(
+                child,
+                "field",
+                // for inline display, the studio hook must be a span to keep the current look
+                child.tagName === "span" ? "kanbanInline" : "defaultTemplate",
+                { structures: `'field'`, wrap: true }
+            );
+        }
+        if (!interestingNodes.length) {
+            const hook = createElement("StudioHook", {
+                xpath: `"${compiled.getAttribute("studioXpath")}"`,
+                position: "'inside'",
+                type: "'field'",
+                subTemplate: "defaultTemplate",
+                structures: `'field'`,
+            });
+            compiled.appendChild(hook);
+        }
     }
 
     compileNode(node, params) {
-        const nodeType = node.nodeType;
-        if (nodeType === 1 && (isComponentNode(node) || node.getAttribute("studio_no_fetch"))) {
-            return;
+        let compiled;
+        if (node.getAttribute?.("t-name") === "kanban-card") {
+            compiled = this.compileCard(node);
+        } else {
+            compiled = super.compileNode(node, { ...params, compileInvisibleNodes: true });
         }
-
-        let compiled = super.compileNode(node, { ...params, compileInvisibleNodes: true });
-
-        if (nodeType === 1 && compiled) {
-            // Put a xpath on anything of interest.
-            if (node.hasAttribute("studioXpath")) {
-                const xpath = node.getAttribute("studioXpath");
-                if (isComponentNode(compiled)) {
-                    compiled.setAttribute("studioXpath", `"${xpath}"`);
-                } else if (!compiled.hasAttribute("studioXpath")) {
-                    compiled.setAttribute("studioXpath", xpath);
-                }
-
-                if (node.classList.contains("oe_kanban_avatar")) {
-                    compiled.setAttribute(
-                        "t-on-click",
-                        `(ev) => __comp__.env.config.onNodeClicked("${xpath}")`
-                    );
-                    compiled.classList.add("o-web-studio-editor--element-clickable");
-                }
-                if (node.tagName === "field" && !isComponentNode(compiled)) {
-                    compiled.setAttribute(
-                        "t-on-click",
-                        `(ev) => __comp__.env.config.onNodeClicked("${xpath}")`
-                    );
-                    compiled.classList.add("o-web-studio-editor--element-clickable");
-
-                    const fieldName = node.getAttribute("name");
-                    const isEmptyExpr = `__comp__.isFieldValueEmpty(record["${fieldName}"].value)`;
-
-                    // Set empty class
-                    const tattfClassEmpty = `{{ ${isEmptyExpr} ? "o_web_studio_widget_empty" : "" }}`;
-
-                    const tattfClass = compiled.getAttribute("t-attf-class");
-
-                    const nextAttfClass = tattfClass
-                        ? `${tattfClass} ${tattfClassEmpty}`
-                        : tattfClassEmpty;
-                    compiled.setAttribute("t-attf-class", nextAttfClass);
-
-                    // Set field name on empty
-                    const fieldId = node.getAttribute("field_id");
-                    const tOut = compiled.getAttribute("t-out");
-                    compiled.setAttribute(
-                        "t-out",
-                        `${isEmptyExpr} ? __comp__.props.archInfo.fieldNodes['${fieldId}'].string : ${tOut}`
-                    );
-                }
-                if (node.tagName === "field" || node.tagName === "widget") {
-                    // Don't append a studio hook if a condition is on the tag itself
-                    // otherwise it may cause inconsistencies in the arch itself
-                    // ie `<field t-elif="someCondifiton" /><field name="newField" /><t t-else=""/>` would be invalid
-                    if (
-                        !Array.from(node.getAttributeNames()).filter((att) =>
-                            ["t-if", "t-elif", "t-else"].includes(att)
-                        )[0]
-                    ) {
-                        compiled = this.addStudioHook(node, compiled);
-                    }
-                }
+        if (["aside", "footer"].includes(getTag(node))) {
+            compiled.classList.add("o_inner_section");
+            compiled.classList.add("o-web-studio-editor--element-clickable");
+            this.compileInnerSection(compiled);
+        } else if (getTag(node) === "main") {
+            this.compileInnerSection(compiled);
+            if (!compiled.querySelector("footer")) {
+                const footerHook = createElement("StudioHook", {
+                    xpath: `"${compiled.getAttribute("studioXpath")}"`,
+                    position: "'after'",
+                    type: `'footer'`,
+                    subTemplate: `'defaultTemplate'`,
+                    structures: `'footer'`,
+                });
+                compiled.appendChild(footerHook);
             }
+        }
+        // Propagate the xpath to the compiled template for most nodes.
+        if (node.nodeType === 1 && compiled && !compiled.attributes.studioXpath) {
+            setElementXpath(compiled, node.getAttribute("studioXpath"));
         }
         return compiled;
     }
-
-    addTagsWidgetHook(compiled) {
-        const parentElement =
-            compiled.querySelector(".o_kanban_record_body") || compiled.querySelector("div");
-        const tagsHook = createElement("span", {
-            class: hookBaseClass + "o_web_studio_add_kanban_tags",
-            "t-on-click": `() => __comp__.onAddTagsWidget({
-                xpath: "${parentElement.getAttribute("studioXpath")}"
-            })`,
-        });
-        tagsHook.textContent = _t("Add tags");
-
-        if (parentElement.firstChild) {
-            parentElement.insertBefore(tagsHook, parentElement.firstChild);
-        } else {
-            parentElement.appendChild(tagsHook);
-        }
-    }
-
-    addDropdownHook(compiled) {
-        const rootSibling = compiled.querySelector("div");
-        const dropdownHook = createElement(
-            "div",
-            [
-                createElement("a", {
-                    class: "btn text-primary fa fa-ellipsis-v",
-                }),
-            ],
-            {
-                class:
-                    hookBaseClass +
-                    "o_web_studio_add_dropdown o_dropdown_kanban dropdown position-absolute end-0",
-                style: "z-index: 1;",
-                "t-on-click": "() => __comp__.onAddDropdown()",
-            }
-        );
-        rootSibling.insertAdjacentElement("afterend", dropdownHook);
-    }
-
-    addPriorityHook(compiled) {
-        const parentElement = compiled.querySelector("div");
-        const priorityHook = createElement("div", {
-            class:
-                hookBaseClass +
-                "o_web_studio_add_priority oe_kanban_bottom_left align-self-start flex-grow-0",
-            style: "z-index: 1;",
-            "t-on-click": "() => __comp__.onAddPriority()",
-        });
-        priorityHook.textContent = _t("Add a priority");
-        parentElement.appendChild(priorityHook);
-    }
-
-    addAvatarHook(compiled) {
-        const parentElement =
-            compiled.querySelector(".o_kanban_record_bottom") || compiled.querySelector("div");
-        const avatarHook = createElement("div", {
-            class: hookBaseClass + "o_web_studio_add_kanban_image oe_kanban_bottom_right pe-auto",
-            style: "z-index: 1;",
-            "t-on-click": "() => __comp__.onAddAvatar()",
-        });
-        avatarHook.textContent = _t("Add an avatar");
-        parentElement.appendChild(avatarHook);
-    }
-
-    /**
-     * In v16, some views use forbidden owl directives (t-on) directly
-     * in the arch. In master, they will be removed. The validation is deactivated
-     * in the js_class used to render those archs, but as in studio we do not use
-     * the js_class, we have to disable the validation in the editor.
-     * @override
-     */
-    validateNode() {}
 }

@@ -22,6 +22,17 @@ export class Properties extends Component {
         this.viewEditorModel = useState(this.env.viewEditorModel);
     }
 
+    get iconClass() {
+        // first check if the structure has a dedicated icon
+        let icon =
+            this.env.viewEditorModel.editorInfo.editor.Sidebar.viewStructures?.[this.nodeType]
+                ?.class;
+        if (!icon && this.nodeType === "field") {
+            icon = `o_web_studio_field_${this.node.field.type}`;
+        }
+        return icon || `o_web_studio_field_${this.nodeType}`;
+    }
+
     get node() {
         return this.viewEditorModel.activeNode;
     }

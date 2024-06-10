@@ -528,27 +528,64 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "click",
         },
         {
-            // add a dropdown
-            trigger: ".o_dropdown_kanban.o_web_studio_add_dropdown",
+            trigger: ".o_notebook .o_web_studio_new",
             run: "click",
         },
         {
-            trigger: ".modal-footer .btn.btn-primary",
+            // add a kanban-menu
+            trigger: ".o_web_studio_component.o_web_studio_field_menu",
+            async run(helpers) {
+                const hook = ".o_web_studio_hook[data-structures='t,kanban_colorpicker']";
+                document.querySelector(hook).style.setProperty("transition", "none", "important");
+                await helpers.drag_and_drop(hook);
+            },
+        },
+        {
+            // add an aside
+            trigger: ".o_web_studio_component.o_web_studio_field_aside",
+            async run(helpers) {
+                const hook = ".o_web_studio_hook[data-structures='aside']";
+                document.querySelector(hook).style.setProperty("transition", "none", "important");
+                await helpers.drag_and_drop(hook);
+            },
+        },
+        {
+            trigger: ".o_kanban_record main",
+            content: "card content has been wrapped in a <main> element",
+        },
+        {
+            trigger: ".o_kanban_record aside",
+        },
+        {
+            // add a colorpicker
+            trigger: ".o_web_studio_component.o_web_studio_field_color_picker",
+            async run(helpers) {
+                const hook = ".o_web_studio_hook[data-structures='t,kanban_colorpicker']";
+                document.querySelector(hook).style.setProperty("transition", "none", "important");
+                await helpers.drag_and_drop(hook);
+            },
+        },
+        {
+            // select the menu for edition
+            trigger: ".o_dropdown_kanban",
             run: "click",
         },
         {
-            // select the dropdown for edition
-            trigger: ".o_dropdown_kanban:not(.o_web_studio_add_dropdown) .dropdown-toggle",
+            // select the colorpicker for edition
+            trigger: "button.o_web_studio_field_color_picker:contains(Edit Color Picker)",
             run: "click",
         },
         {
-            // enable "Set Cover" feature
-            trigger: ".o_web_studio_sidebar input[name=cover_value]",
+            trigger: ".o_notebook_content h3:contains(Field)",
+            content: "sidebar is editing the color field",
+        },
+        {
+            trigger: ".o_notebook .o_web_studio_view",
             run: "click",
         },
         {
-            trigger: ".modal-footer .btn.btn-primary",
-            run: "click",
+            trigger:
+                ".o_web_studio_property_highlight_color .o_select_menu_toggler:contains(Card color)",
         },
         {
             // edit action

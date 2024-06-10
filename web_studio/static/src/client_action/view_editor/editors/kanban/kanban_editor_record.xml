@@ -1,34 +1,22 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<templates xml:space="preserve">
+<templates>
 
 <t t-name="web_studio.SafeKanbanRecord" t-inherit="web.KanbanRecord">
-  <xpath expr="//t[@t-call]" position="attributes">
+  <xpath expr="//article" position="attributes">
     <attribute name="t-if">!safe.hasError</attribute>
   </xpath>
-  <xpath expr="//t[@t-call]" position="after">
+  <xpath expr="//article" position="after">
     <div t-else="">Preview is not available</div>
   </xpath>
 </t>
 
 <t t-name="web_studio.SafeKanbanRecordMenu" t-inherit="web.KanbanRecordMenu">
-  <xpath expr="//Dropdown" position="attributes">
-    <attribute name="studioXpath">dropdownXpath</attribute>
-    <attribute name="hasCoverSetter">dropdownHasCoverSetter</attribute>
+
+ <xpath expr="//div" position="replace">
+    <div t-if="showMenu" class="o_dropdown_kanban bg-transparent position-absolute end-0 top-0 w-auto o-web-studio-editor--element-clickable" t-att-studioxpath="dropdownXpath">
+      <span class="fa fa-ellipsis-v p-2" />
+    </div>
+    <div class="o_web_studio_hook m-1 position-absolute top-0 end-0 pe-none w-0" style="height: 40px;" data-type="t" data-position="after" data-structures="t,kanban_colorpicker" />
   </xpath>
-</t>
-
-<t t-name="web_studio.KanbanEditorRecord.Dropdown">
-  <div t-ref="root" t-on-click="() => this.handleClick()">
-    <t t-slot="default"/>
-  </div>
-</t>
-
-<t t-name="web_studio.KanbanEditorRecord.AvatarPlaceholder">
-  <div class="oe_kanban_bottom_right" >
-    <span class="oe_kanban_avatar">
-        <i class="fa fa-user"/>
-    </span>
-  </div>
 </t>
 
 </templates>

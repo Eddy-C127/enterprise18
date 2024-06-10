@@ -134,9 +134,12 @@ export class ViewEditorModel extends Reactive {
         this.lastActiveNodeXpath = undefined;
 
         this._getEditor = memoizeOnce(() => {
-            const viewType = this.viewType;
+            let viewType = this.viewType;
             const view = viewRegistry.contains(viewType) ? viewRegistry.get(viewType) : null;
-
+            //FIXME remove as soon as the legacy api is removed (post v18)
+            if (viewType === "kanban" && !this.mainArch.includes('t-name="kanban-card"')) {
+                viewType = "kanban_legacy";
+            }
             const editor = editorsRegistry.contains(viewType)
                 ? editorsRegistry.get(viewType)
                 : null;

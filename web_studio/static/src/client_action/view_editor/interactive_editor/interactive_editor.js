@@ -278,10 +278,16 @@ export class InteractiveEditor extends Component {
             };
             return;
         }
-        let nameAttr = nodeDescr.attrs.name;
+        let nameAttr = nodeDescr.attrs?.name;
         if (nodeDescr.tag === "field" && !nameAttr) {
             nameAttr = nodeDescr.field_description.name;
+        } else if (!nameAttr) {
+            this.autoClick = {
+                targetInfo,
+            };
+            return;
         }
+
         this.autoClick = {
             targetInfo,
             tag: nodeDescr.tag,
@@ -340,7 +346,11 @@ export class InteractiveEditor extends Component {
             _operation = await this.addField(droppedData);
         }
         const operation = {
-            target: this.viewEditorModel.getFullTarget(targetInfo.xpath),
+            target:
+                _operation?.target ||
+                (targetInfo.xpath
+                    ? this.viewEditorModel.getFullTarget(targetInfo.xpath)
+                    : undefined),
             position: targetInfo.position,
             type: "add",
             ..._operation,

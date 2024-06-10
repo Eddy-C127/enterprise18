@@ -1,6 +1,8 @@
 import { registry } from "@web/core/registry";
 import { omit } from "@web/core/utils/objects";
 import { kanbanView } from "@web/views/kanban/kanban_view";
+import { KanbanEditorCompiler } from "./kanban_editor_compiler";
+import { KanbanEditorRecord } from "@web_studio/client_action/view_editor/editors/kanban/kanban_editor_record";
 import { KanbanEditorRenderer } from "@web_studio/client_action/view_editor/editors/kanban/kanban_editor_renderer";
 import { makeModelErrorResilient } from "@web_studio/client_action/view_editor/editors/utils";
 import { KanbanEditorSidebar } from "./kanban_editor_sidebar/kanban_editor_sidebar";
@@ -12,7 +14,6 @@ class EditorArchParser extends kanbanView.ArchParser {
         const noFetch = getStudioNoFetchFields(parsed.fieldNodes);
         parsed.fieldNodes = omit(parsed.fieldNodes, ...noFetch.fieldNodes);
         parsed.progressAttributes = false;
-        parsed.canOpenRecords = false;
         return parsed;
     }
 }
@@ -84,13 +85,106 @@ class KanbanEditorController extends kanbanView.Controller {
     }
 }
 
+function isValidKanbanHook({ hook, element }) {
+    const draggingStructure = element.dataset.structure;
+    return hook.dataset.structures.split(",").includes(draggingStructure);
+}
+
+async function addKanbanViewStructure(structure) {
+    switch (structure) {
+        case "aside": {
+            if (!this.viewEditorModel.xmlDoc.querySelector("main")) {
+                this.env.viewEditorModel.pushOperation({
+                    type: "kanban_wrap_main",
+                    wrap_type: "aside",
+                });
+            }
+            return {
+                node: {
+                    tag: "aside",
+                    attrs: {
+                        class: "col-2",
+                    },
+                },
+                target: {
+                    tag: "main",
+                },
+            };
+        }
+        case "footer": {
+            if (!this.viewEditorModel.xmlDoc.querySelector("main")) {
+                this.env.viewEditorModel.pushOperation({
+                    type: "kanban_wrap_main",
+                    wrap_type: "footer",
+                });
+            }
+            return {
+                node: {
+                    tag: "footer",
+                },
+                target: {
+                    tag: "main",
+                },
+                position: "inside",
+            };
+        }
+        case "t": {
+            return { type: "kanban_menu" };
+        }
+        case "ribbon": {
+            return {
+                node: {
+                    tag: "widget",
+                    attrs: {
+                        name: "web_ribbon",
+                        title: "Demo",
+                    },
+                },
+                target: this.env.viewEditorModel.getFullTarget(
+                    "//kanban/templates/t[@t-name='kanban-card']",
+                    { isXpathFullAbsolute: false }
+                ),
+                position: "inside",
+            };
+        }
+        case "kanban_colorpicker": {
+            if (!this.viewEditorModel.xmlDoc.querySelector("t[t-name=kanban-menu]")) {
+                this.env.viewEditorModel.pushOperation({
+                    type: "kanban_menu",
+                });
+            }
+            return {
+                type: "kanban_colorpicker",
+                view_id: this.env.viewEditorModel.mainView.id,
+            };
+        }
+    }
+}
+
+function prepareForKanbanDrag({ element, ref }) {
+    const hooksToStylize = [...ref.el.querySelectorAll(".o_web_studio_hook")].filter((e) =>
+        e.dataset.structures?.split(",").includes(element.dataset.structure)
+    );
+    hooksToStylize.forEach((e) => e.classList.add("o_web_studio_hook_visible"));
+    return () => {
+        ref.el
+            .querySelectorAll(".o_web_studio_hook_visible")
+            .forEach((el) => el.classList.remove("o_web_studio_hook_visible"));
+    };
+}
+
 const kanbanEditor = {
     ...kanbanView,
+    Compiler: KanbanEditorCompiler,
     Controller: KanbanEditorController,
     ArchParser: EditorArchParser,
     Renderer: KanbanEditorRenderer,
+    Record: KanbanEditorRecord,
     Model: OneRecordModel,
     Sidebar: KanbanEditorSidebar,
+    isValidHook: isValidKanbanHook,
+    addViewStructure: addKanbanViewStructure,
+    prepareForDrag: prepareForKanbanDrag,
     props(genericProps, editor, config) {
         const props = kanbanView.props(genericProps, editor, config);
         props.defaultGroupBy = props.archInfo.defaultGroupBy;

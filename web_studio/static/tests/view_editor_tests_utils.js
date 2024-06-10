@@ -75,7 +75,7 @@ export async function createMockViewResult(type, arch, model, reloadModelClass =
 
 export function disableHookAnimation() {
     const fixture = getFixture();
-    fixture.querySelectorAll(".o_web_studio_hook_separator").forEach((sep) => {
+    fixture.querySelectorAll(".o_web_studio_hook, .o_web_studio_hook_separator").forEach((sep) => {
         sep.style.setProperty("transition", "none", "important");
         sep.style.setProperty("min-height", "20px");
     });

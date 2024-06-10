@@ -13,7 +13,7 @@
         .o-web-studio-editor--element-clickable {
             // HOVER HANDLING
             // native selector: the main sibling is hovered
-            &:hover, &:hover + .o-web-studio-element-ghost,
+            &:hover + .o-web-studio-element-ghost,
             // manual selector:the second sibling is hovered; programmatically add a class
             &.o-web-studio-ghost-hovered, &.o-web-studio-ghost-hovered + .o-web-studio-element-ghost {
                 cursor: pointer;
@@ -21,8 +21,6 @@
             }
 
             // CLICK HANDLING
-            // On the main sibling
-            &.o-web-studio-editor--element-clicked:not(.o_dragged),
             // On the slave sibling
             &.o-web-studio-editor--element-clicked:not(.o_dragged) + .o-web-studio-element-ghost {
                 outline: 2px solid $o-brand-primary;
