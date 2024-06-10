@@ -20,14 +20,6 @@ class TestExpenseExtractProcess(TestExpenseCommon, TestExtractMixin):
             'product_id': cls.product_c.id,
         })
 
-        # This is necessary to avoid nondeterminism in these tests.
-        # The values of the date and the creation date are checked to know whether we should fill the date or not.
-        # When the test runs at around midnight, it can happen that the creation date and the default date don't
-        # match, e.g. when one is set at 23:59:59 and the other one at 00:00:00.
-        # This issue can of course also occur under normal utilization, but it should be very rare and with a very
-        # low impact.
-        cls.expense.date = cls.expense.create_date.date()
-
         cls.attachment = cls.env['ir.attachment'].create({
             'name': "product_c.jpg",
             'raw': b'My expense',
