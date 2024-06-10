@@ -38,32 +38,23 @@ export class CalendarEditorSidebar extends Component {
     }
 
     get quickCreateFields() {
-        return fieldsToChoices(
-            this.viewEditorModel.fields,
-            (field) => field.type === "char" && field.store
-        );
+        return fieldsToChoices(this.viewEditorModel.fields, ["char"], (field) => field.store);
     }
 
     get startDateFields() {
-        return fieldsToChoices(this.viewEditorModel.fields, (field) =>
-            ["date", "datetime"].includes(field.type)
-        );
+        return fieldsToChoices(this.viewEditorModel.fields, ["date", "datetime"]);
     }
 
     get delayFields() {
-        return fieldsToChoices(this.viewEditorModel.fields, (field) =>
-            ["float", "integer"].includes(field.type)
-        );
+        return fieldsToChoices(this.viewEditorModel.fields, ["float", "integer"]);
     }
 
     get colorFields() {
-        return fieldsToChoices(this.viewEditorModel.fields, (field) =>
-            ["many2one", "selection"].includes(field.type)
-        );
+        return fieldsToChoices(this.viewEditorModel.fields, ["many2one", "selection"]);
     }
 
     get allDayFields() {
-        return fieldsToChoices(this.viewEditorModel.fields, (field) => field.type === "boolean");
+        return fieldsToChoices(this.viewEditorModel.fields, ["boolean"]);
     }
 
     get modeChoices() {

@@ -89,7 +89,11 @@ export class ListEditorSidebar extends Component {
     }
 
     get sortChoices() {
-        return fieldsToChoices(this.archInfo.fieldNodes, (field) => !["one2many", "many2many", "binary"].includes(field.type));
+        return fieldsToChoices(
+            this.archInfo.fieldNodes,
+            null,
+            (field) => !["one2many", "many2many", "binary"].includes(field.type)
+        );
     }
 
     get orderChoices() {
@@ -102,7 +106,8 @@ export class ListEditorSidebar extends Component {
     get defaultGroupbyChoices() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
-            (field) => field.store && this.viewEditorModel.GROUPABLE_TYPES.includes(field.type)
+            this.viewEditorModel.GROUPABLE_TYPES,
+            (field) => field.store
         );
     }
 

@@ -116,9 +116,9 @@ export class PivotEditorSidebar extends Component {
     get columnGroupbyChoices() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
+            this.viewEditorModel.GROUPABLE_TYPES,
             (field) =>
                 field.store &&
-                this.viewEditorModel.GROUPABLE_TYPES.includes(field.type) &&
                 ![this.archInfo.rowGroupBys[0], this.archInfo.rowGroupBys[1]].includes(field.name)
         );
     }
@@ -126,9 +126,9 @@ export class PivotEditorSidebar extends Component {
     get rowGroupbyChoices_first() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
+            this.viewEditorModel.GROUPABLE_TYPES,
             (field) =>
                 field.store &&
-                this.viewEditorModel.GROUPABLE_TYPES.includes(field.type) &&
                 ![this.archInfo.colGroupBys[0], this.archInfo.rowGroupBys[1]].includes(field.name)
         );
     }
@@ -136,9 +136,9 @@ export class PivotEditorSidebar extends Component {
     get rowGroupbyChoices_second() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
+            this.viewEditorModel.GROUPABLE_TYPES,
             (field) =>
                 field.store &&
-                this.viewEditorModel.GROUPABLE_TYPES.includes(field.type) &&
                 ![this.archInfo.colGroupBys[0], this.archInfo.rowGroupBys[0]].includes(field.name)
         );
     }

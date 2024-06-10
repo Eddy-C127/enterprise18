@@ -56,9 +56,11 @@ export class KanbanEditorSidebar extends Component {
 
     get defaultGroupBy() {
         return {
-            choices: fieldsToChoices(this.viewEditorModel.fields, (field) => {
-                return field.store && this.viewEditorModel.GROUPABLE_TYPES.includes(field.type);
-            }),
+            choices: fieldsToChoices(
+                this.viewEditorModel.fields,
+                this.viewEditorModel.GROUPABLE_TYPES,
+                (field) => field.store
+            ),
             required: false,
         };
     }
@@ -66,7 +68,7 @@ export class KanbanEditorSidebar extends Component {
     get kanbanFieldsInArch() {
         // fields can be present in the xmlDoc to be preloaded, but not in
         // the actual template. Those must be present in the sidebar
-        const kanbanXmlDoc = this.viewEditorModel.xmlDoc.querySelector("[t-name=kanban-box]")
+        const kanbanXmlDoc = this.viewEditorModel.xmlDoc.querySelector("[t-name=kanban-box]");
         return getFieldsInArch(kanbanXmlDoc);
     }
 

@@ -173,12 +173,14 @@ export function xpathToLegacyXpathInfo(xpath) {
     return xpathInfo;
 }
 
-export function fieldsToChoices(fields, filterCallback = undefined) {
+export function fieldsToChoices(fields, availableTypes, filterCallback) {
     let values = Object.values(fields);
     if (filterCallback) {
         values = values.filter(filterCallback);
     }
-
+    if (availableTypes) {
+        values = values.filter((f) => availableTypes.includes(f.type));
+    }
     return values.map((field) => ({
         label: odoo.debug ? `${field.string} (${field.name})` : field.string || field.name,
         value: field.name,

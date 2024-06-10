@@ -5,7 +5,10 @@ import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
-import { getWowlFieldWidgets } from "@web_studio/client_action/view_editor/editors/utils";
+import {
+    fieldsToChoices,
+    getWowlFieldWidgets,
+} from "@web_studio/client_action/view_editor/editors/utils";
 import {
     EDITABLE_ATTRIBUTES,
     FIELD_TYPE_ATTRIBUTES,
@@ -189,19 +192,11 @@ export class TypeWidgetProperties extends Component {
         } else if (attribute.name === "currency_field") {
             availableFields = availableFields.filter((f) => f.relation === "res.currency");
         }
-        if (attribute.availableTypes) {
-            availableFields = availableFields.filter(
-                (f) =>
-                    attribute.availableTypes.includes(f.type) &&
-                    f.name !== this.env.viewEditorModel.activeNode.attrs.name
-            );
-        }
-        return availableFields.map((f) => {
-            return {
-                label: this.env.debug ? `${f.string} (${f.name})` : f.string,
-                value: f.name,
-            };
-        });
+        return fieldsToChoices(
+            availableFields,
+            attribute.availableTypes,
+            (f) => f.name !== this.env.viewEditorModel.activeNode.attrs.name
+        );
     }
 
     /**

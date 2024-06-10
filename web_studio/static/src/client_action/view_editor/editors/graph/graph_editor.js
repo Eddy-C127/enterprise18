@@ -70,30 +70,24 @@ export class GraphEditorSidebar extends Component {
     get firstGroupbyChoices() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
-            (field) =>
-                field.store &&
-                this.viewEditorModel.GROUPABLE_TYPES.includes(field.type) &&
-                field.name !== this.modelParams.groupBy[1]
+            this.viewEditorModel.GROUPABLE_TYPES,
+            (field) => field.store && field.name !== this.modelParams.groupBy[1]
         );
     }
 
     get secondGroupbyChoices() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
-            (field) =>
-                field.store &&
-                this.viewEditorModel.GROUPABLE_TYPES.includes(field.type) &&
-                field.name !== this.modelParams.groupBy[0]
+            this.viewEditorModel.GROUPABLE_TYPES,
+            (field) => field.store && field.name !== this.modelParams.groupBy[0]
         );
     }
 
     get mesureChoices() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
-            (field) =>
-                field.name !== "id" &&
-                field.store &&
-                ["integer", "float", "monetary"].includes(field.type)
+            ["integer", "float", "monetary"],
+            (field) => field.store && field.name !== "id"
         );
     }
 }

@@ -40,17 +40,16 @@ export class CohortEditorSidebar extends Component {
     get dateFields() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
-            (field) => field.store && ["date", "datetime"].includes(field.type)
+            ["date", "datetime"],
+            (field) => field.store
         );
     }
 
     get measureFields() {
         return fieldsToChoices(
             this.viewEditorModel.fields,
-            (field) =>
-                field.name !== "id" &&
-                field.store &&
-                ["integer", "float", "monetary"].includes(field.type)
+            ["integer", "float", "monetary"],
+            (field) => field.name !== "id" && field.store
         );
     }
 
