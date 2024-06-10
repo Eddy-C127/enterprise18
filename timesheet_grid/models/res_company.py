@@ -112,7 +112,7 @@ class Company(models.Model):
             date_stop = fields.Date.to_string(date_stop)
 
             # get the related employees timesheet status for the cron period
-            employees = self.env['hr.employee'].search([('user_id', 'in', users.ids)])
+            employees = self.env['hr.employee'].search([('company_id', '=', company.id), ('user_id', 'in', users.ids)])
             work_hours_struct = employees.get_timesheet_and_working_hours(date_start, date_stop)
 
             for employee in employees:
