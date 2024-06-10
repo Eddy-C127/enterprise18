@@ -129,7 +129,7 @@ class DemoSocialStreamPost(models.Model):
     def _get_new_comment_demo(self, message):
         return {
             'id': 5,
-            'created_time': '2019-02-10 11:11:11',
+            'created_time': '2019-02-10T11:11:11+0000',
             'formatted_created_time': '10/02/2019',
             'likes': {'summary': {'total_count': 0}},
             'from': {
@@ -157,7 +157,7 @@ class DemoSocialStreamPost(models.Model):
         is_facebook = self.account_id.media_type == "facebook"
         return [{
             'id': 1,
-            'created_time': datetime.now().strftime("%Y-%m-%d 13:12:30"),
+            'created_time': datetime.now().isoformat(),
             'formatted_created_time': datetime.now().strftime("%d/%m/%Y"),
             'likes': None if is_facebook else {'summary': {'total_count': 53}},
             'from': {
@@ -171,7 +171,7 @@ class DemoSocialStreamPost(models.Model):
             'comments': {'data': self._get_demo_sub_comments()},
         }, {
             'id': 2,
-            'created_time': datetime.now().strftime("%Y-%m-%d 12:12:30"),
+            'created_time': datetime.now().isoformat(),
             'formatted_created_time': datetime.now().strftime("%d/%m/%Y"),
             'likes': None if is_facebook else {'summary': {'total_count': 4}},
             'reactions': {"LIKE": 3, "CARE": 1} if is_facebook else None,
