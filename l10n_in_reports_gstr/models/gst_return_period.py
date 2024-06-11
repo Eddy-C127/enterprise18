@@ -82,9 +82,9 @@ class L10nInGSTReturnPeriod(models.Model):
         ("10", "October"),
         ], default=_default_quarterly)
     year = fields.Char(default=_default_year)
-    invoice_amount = fields.Float(string='Customer Invoices', compute="_compute_invoice_total_amount")
-    bill_amount = fields.Float(string='Vendor Bills', compute="_compute_bill_total_amount")
-    expected_amount = fields.Float(string='Expected Amount', compute="_compute_expected_amount")
+    invoice_amount = fields.Float(string='Customer Invoices', compute="_compute_invoice_total_amount")  # Deprecated, removed in master.
+    bill_amount = fields.Float(string='Vendor Bills', compute="_compute_bill_total_amount")  # Deprecated, removed in master.
+    expected_amount = fields.Float(string='Expected Amount', compute="_compute_expected_amount")  # Deprecated, removed in master.
 
     # ===============================
     # GSTR-1
@@ -189,6 +189,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 raise UserError(("To Create Return Period Periodicity should be Monthly or Quarterly"))
             record.periodicity = periodicity
 
+    # Deprecated, removed in master.
     @api.depends("company_ids", "company_id")
     def _compute_invoice_total_amount(self):
         AccountMove = self.env['account.move']
@@ -203,6 +204,7 @@ class L10nInGSTReturnPeriod(models.Model):
             total_by_companies = AccountMove._read_group(domain, [], ['amount_total_signed:sum'])
             record.invoice_amount = total_by_companies[0][0]
 
+    # Deprecated, removed in master.
     @api.depends("company_ids", "company_id")
     def _compute_expected_amount(self):
         all_gst_tag = (
@@ -227,6 +229,7 @@ class L10nInGSTReturnPeriod(models.Model):
                     total += total_by_company[1] * -1
             record.expected_amount = total
 
+    # Deprecated, removed in master.
     @api.depends("company_ids", "company_id")
     def _compute_bill_total_amount(self):
         AccountMove = self.env['account.move']
@@ -310,6 +313,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
                     raise UserError("You cannot delete GST Return Period after sending/receiving GSTR data")
 
+    # Deprecated, removed in master.
     def open_invoice_action(self):
         domain = [
             ('company_id', 'in', (self.company_ids + self.company_id).ids),
@@ -322,6 +326,7 @@ class L10nInGSTReturnPeriod(models.Model):
         action['domain'] = domain
         return action
 
+    # Deprecated, removed in master.
     def open_vendor_bill_action(self):
         domain = [
             ('company_id', 'in', (self.company_ids + self.company_id).ids),
@@ -334,6 +339,7 @@ class L10nInGSTReturnPeriod(models.Model):
         action['domain'] = domain
         return action
 
+    # Deprecated, removed in master.
     def open_expected_action(self):
         all_gst_tag = (
             self.env.ref("l10n_in.tax_tag_igst") +

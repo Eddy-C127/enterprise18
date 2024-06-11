@@ -62,33 +62,26 @@
                             <field name="gstr1_status" class="badge bg-success" invisible="gstr1_status not in ['sending', 'sent', 'filed'] or gstr1_blocking_level in ['error', 'warning']" nolabel="1"/>
                         </div>
                     </h2>                   
-                    <div class="d-flex bd-highlight">
-                        <div class="p-2 flex-grow-1 bd-highlight">
-                            <ol>
-                                <li>Verify the <button name="action_view_gstr1_return_period" type="object" class="btn btn-link p-0" string="GSTR-1 Report"/>
-                                </li>
+                    <div class="d-flex bd-highlight p-2">
+                        <ol>
+                            <li>Verify the <button name="action_view_gstr1_return_period" type="object" class="btn btn-link p-0" string="GSTR-1 Report"/>
+                            </li>
 
-                                <li invisible="gstr1_blocking_level not in ['error', 'warning']">Error, <button name="button_send_gstr1" type="object" class="btn btn-link p-0" string="Re-Push to GSTN"/> or <button name="button_check_gstr1_status" type="object" class="btn btn-link p-0" string="Check Status"/>
-                                </li>
+                            <li invisible="gstr1_blocking_level not in ['error', 'warning']">Error, <button name="button_send_gstr1" type="object" class="btn btn-link p-0" string="Re-Push to GSTN"/> or <button name="button_check_gstr1_status" type="object" class="btn btn-link p-0" string="Check Status"/>
+                            </li>
 
-                                <li invisible="gstr1_status not in ['to_send', 'error_in_invoice']">Then, <button name="button_send_gstr1" type="object" class="btn btn-link p-0" string="Push to GSTN"/> and Check Status
-                                </li>
+                            <li invisible="gstr1_status not in ['to_send', 'error_in_invoice']">Then, <button name="button_send_gstr1" type="object" class="btn btn-link p-0" string="Push to GSTN"/> and Check Status
+                            </li>
 
-                                <li invisible="gstr1_status != 'waiting_for_status'">Then, Push to GSTN and <button name="button_check_gstr1_status" type="object" class="btn btn-link p-0" string="Check Status"/>
-                                </li>
+                            <li invisible="gstr1_status != 'waiting_for_status'">Then, Push to GSTN and <button name="button_check_gstr1_status" type="object" class="btn btn-link p-0" string="Check Status"/>
+                            </li>
 
-                                <li invisible="gstr1_status != 'sent'">Then, <button name="button_send_gstr1" type="object" class="btn btn-link p-0" string="Re-Push to GSTN"/> and Check Status
-                                </li>
+                            <li invisible="gstr1_status != 'sent'">Then, <button name="button_send_gstr1" type="object" class="btn btn-link p-0" string="Re-Push to GSTN"/> and Check Status
+                            </li>
 
-                                <li invisible="gstr1_status != 'sent'"><button name="button_gstr1_filed" type="object" class="btn btn-link p-0" string="Mark as Filed"/>
-                                </li>
-                            </ol>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            Customer Invoices
-                            <br />
-                            <a type="object" name="open_invoice_action"><field name="invoice_amount"/> INR</a>
-                        </div>
+                            <li invisible="gstr1_status != 'sent'"><button name="button_gstr1_filed" type="object" class="btn btn-link p-0" string="Mark as Filed"/>
+                            </li>
+                        </ol>
                     </div>
 
                     <h2 class="border-bottom border-dark mt16">
@@ -104,38 +97,31 @@
                             <field name="gstr2b_status" class="badge bg-success" invisible="gstr2b_status != 'fully_matched' or gstr2b_blocking_level in ['error', 'warning']" nolabel="1"/>
                         </div>
                     </h2>
-                    <div class="d-flex bd-highlight">
-                        <div class="p-2 flex-grow-1 bd-highlight">
-                            <ol>
-                                <li invisible="gstr2b_status != 'not_recived'">
-                                    <button name="action_get_gstr2b_data" type="object" class="btn btn-link p-0" string="Fetch GSTR-2B Summary"/>
-                                </li>
-                                <li invisible="gstr2b_status == 'not_recived'">
-                                    Fetch GSTR-2B Summary
-                                </li>
-                                <li>
-                                    Match Vendor Bills
-                                </li>
-                                <li invisible="gstr2b_status == 'not_recived'">
-                                    In case of issues <button name="action_get_gstr2b_data" type="object" class="btn btn-link p-0" string="re-fetch"/> or <button name="gstr2b_match_data" type="object" class="btn btn-link p-0" string="re-match"/>
-                                </li>
-                                <li invisible="gstr2b_status != 'not_recived'">
-                                    In case of issues re-fetch or re-match
-                                </li>
+                    <div class="d-flex bd-highlight p-2">
+                    <ol>
+                        <li invisible="gstr2b_status != 'not_recived'">
+                            <button name="action_get_gstr2b_data" type="object" class="btn btn-link p-0" string="Fetch GSTR-2B Summary"/>
+                        </li>
+                        <li invisible="gstr2b_status == 'not_recived'">
+                            Fetch GSTR-2B Summary
+                        </li>
+                        <li>
+                            Match Vendor Bills
+                        </li>
+                        <li invisible="gstr2b_status == 'not_recived'">
+                            In case of issues <button name="action_get_gstr2b_data" type="object" class="btn btn-link p-0" string="re-fetch"/> or <button name="gstr2b_match_data" type="object" class="btn btn-link p-0" string="re-match"/>
+                        </li>
+                        <li invisible="gstr2b_status != 'not_recived'">
+                            In case of issues re-fetch or re-match
+                        </li>
 
-                                <li invisible="gstr2b_status == 'not_recived'">
-                                    <button name="action_get_gstr2b_view_reconciled_invoice" type="object" class="btn btn-link p-0" string="View Reconciled Bills"/>
-                                </li>
-                                <li invisible="gstr2b_status != 'not_recived'">
-                                    View Reconciled Bills
-                                </li>
-                            </ol>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            Vendor Bills
-                            <br />
-                            <a type="object" name="open_vendor_bill_action"><field name="bill_amount"/> INR</a>
-                        </div>
+                        <li invisible="gstr2b_status == 'not_recived'">
+                            <button name="action_get_gstr2b_view_reconciled_invoice" type="object" class="btn btn-link p-0" string="View Reconciled Bills"/>
+                        </li>
+                        <li invisible="gstr2b_status != 'not_recived'">
+                            View Reconciled Bills
+                        </li>
+                    </ol>
                     </div>
                         
                     <h2 class="border-bottom border-dark mt16">3. GSTR-3
@@ -144,19 +130,12 @@
                             <field name="gstr3b_status" class="badge bg-success" invisible="gstr3b_status != 'filed'" nolabel="1"/>
                         </div>
                     </h2>
-                    <div class="d-flex bd-highlight">
-                        <div class="p-2 flex-grow-1 bd-highlight">
-                            <ol>
-                                <li> Verify the <button name="action_view_gstr3b_return_period" type="object" class="btn btn-link p-0" string="GSTR-3 Report"/></li>
-                                <li>Validate GSTR-3 in GST Portal</li>
-                                <li invisible="not gstr3b_closing_entry">Update &amp; Post Closing Entry: <field name="gstr3b_closing_entry"/></li>
-                            </ol>
-                        </div>
-                        <div class="p-2 bd-highlight">
-                            Expected To Pay
-                            <br />
-                            <a type="object" name="open_expected_action"><field name="expected_amount"/> INR</a>
-                        </div>
+                    <div class="d-flex bd-highlight p-2">
+                        <ol>
+                            <li> Verify the <button name="action_view_gstr3b_return_period" type="object" class="btn btn-link p-0" string="GSTR-3 Report"/></li>
+                            <li>Validate GSTR-3 in GST Portal</li>
+                            <li invisible="not gstr3b_closing_entry">Update &amp; Post Closing Entry: <field name="gstr3b_closing_entry"/></li>
+                        </ol>
                     </div>
 
                     <p class="text-end">
