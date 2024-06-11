@@ -71,7 +71,7 @@ patch(HardwareProxy.prototype, {
                 ["id", "in", device_ids],
                 ["connected", "=", true],
             ],
-            ["type"]
+            this.pos.data.fields["iot.device"]
         );
         const drivers = Object.fromEntries(
             devices.map((device) => [device.type, { status: "connected" }])

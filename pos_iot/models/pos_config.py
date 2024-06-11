@@ -46,3 +46,9 @@ class PosConfig(models.Model):
     def _compute_payment_terminal_device_ids(self):
         for config in self:
             config.payment_terminal_device_ids = config.payment_method_ids.mapped('iot_device_id')
+
+    def _get_display_device_ip(self):
+        if self.iface_display_id:
+            return self.iface_display_id.iot_ip
+        else:
+            return super()._get_display_device_ip()
