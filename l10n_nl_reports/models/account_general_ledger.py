@@ -73,7 +73,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                       partner.customer_rank AS partner_customer_rank,
                       partner.supplier_rank AS partner_supplier_rank,
                       partner.write_uid AS partner_write_uid,
-                      TO_CHAR(partner.write_date, 'YYYY-MM-DD HH24:MI:SS') AS partner_write_date,
+                      TO_CHAR(partner.write_date, 'YYYY-MM-DD"T"HH24:MI:SS') AS partner_write_date,
                       country.code AS partner_country_code,
                       state.name AS partner_state_name,
                       res_partner_bank.id AS partner_bank_id,
