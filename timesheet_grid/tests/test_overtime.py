@@ -41,16 +41,7 @@ class TestOvertime(HttpCase):
         employee = self.env['hr.employee'].create({
             'name': 'Test Employee',
             'resource_calendar_id': calendar.id,
-        })
-
-        self.env['hr.contract'].create({
-            'name': 'Test Contract',
-            'resource_calendar_id': calendar.id,
-            'employee_id': employee.id,
-            'wage': 3500,
-            'work_entry_source': 'calendar',
-            'date_start': '2024-01-01',
-            'state': 'open',
+            'employee_type': 'freelance',
         })
 
         project = self.env['project.project'].create({
