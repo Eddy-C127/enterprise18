@@ -112,3 +112,48 @@ class TestPayslipFlow(TestPayslipBase):
         payslip_employee.with_context(active_id=payslip_run.id).compute_sheet()
 
         self.assertEqual(len(payslip_run.slip_ids), 1)
+
+    def test_03_payslip_batch_with_payment_process(self):
+        '''
+            Test to check if some payslips in the batch are already paid,
+            the batch status can be updated to 'paid' without affecting
+            those already paid payslips.
+        '''
+
+        self.richard_emp.contract_ids[0].state = 'open'
+        self.contract_jules = self.env['hr.contract'].create({
+            'date_start': datetime.date.today() + relativedelta(years=-1, month=8, day=1),
+            'name': 'Contract for Jules',
+            'wage': 5000.33,
+            'employee_id': self.jules_emp.id,
+            'state': 'open',
+        })
+
+        payslip_run = self.env['hr.payslip.run'].create({
+            'date_start': datetime.date.today() + relativedelta(years=-1, month=8, day=1),
+            'date_end': datetime.date.today() + relativedelta(years=-1, month=8, day=31),
+            'name': 'Payment Test'
+        })
+
+        payslip_employee = self.env['hr.payslip.employees'].create({
+            'employee_ids': [(4, self.richard_emp.id), (4, self.jules_emp.id)],
+        })
+
+        payslip_employee.with_context(active_id=payslip_run.id).compute_sheet()
+        payslip_run.action_validate()
+
+        self.assertEqual(len(payslip_run.slip_ids), 2)
+        self.assertTrue(all(payslip.state == 'done' for payslip in payslip_run.slip_ids), 'State not changed!')
+
+        # Mark the first payslip as paid and store the paid date
+        payslip_run.slip_ids[0].action_payslip_paid()
+        paid_date = payslip_run.slip_ids[0].paid_date
+
+        self.assertEqual(payslip_run.slip_ids[0].state, 'paid', 'State not changed!')
+        self.assertEqual(payslip_run.slip_ids[1].state, 'done', 'State not changed!')
+
+        payslip_run.action_paid()
+
+        self.assertEqual(payslip_run.state, 'paid', 'State not changed!')
+        self.assertTrue(all(payslip.state == 'paid' for payslip in payslip_run.slip_ids), 'State not changed!')
+        self.assertEqual(payslip_run.slip_ids[0].paid_date, paid_date, 'payslip paid date should not be changed')

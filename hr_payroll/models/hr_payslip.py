@@ -507,9 +507,9 @@ class HrPayslip(models.Model):
         self.mapped('payslip_run_id').action_close()
 
     def action_payslip_paid(self):
-        if any(slip.state != 'done' for slip in self):
+        if any(slip.state not in ['done', 'paid'] for slip in self):
             raise UserError(_('Cannot mark payslip as paid if not confirmed.'))
-        self.write({
+        self.filtered(lambda p: p.state != 'paid').write({
             'state': 'paid',
             'paid_date': fields.Date.today(),
         })
