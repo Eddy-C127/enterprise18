@@ -304,12 +304,14 @@ class WebsiteGeneratorRequest(models.Model):
             'svg': 'image/svg+xml',
             'gif': 'image/gif',
         }
-        image_extension = original_img_name.split('.')[-1].lower()
+        # Split the image name and the image extension based on the last dot
+        original_img_name_base, separator, original_img_name_extension = original_img_name.rpartition('.')
+        image_extension = original_img_name_extension.lower() if separator else ''
         if not image_extension or image_extension not in supported_mimetypes:
             image_extension = 'png'
         image_customizations['data_mimetype'] = supported_mimetypes[image_extension]
         if original_img_name:
-            img_name = f'customized_{original_img_name.split(".")[0]}_{ws_id}.{image_extension}'
+            img_name = f'customized_{original_img_name_base}_{ws_id}.{image_extension}'
             image_customizations['filename'] = img_name
             return img_name
         return ''
