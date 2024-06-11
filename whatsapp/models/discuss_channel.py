@@ -6,6 +6,7 @@ from datetime import timedelta
 from markupsafe import Markup
 
 from odoo import api, Command, fields, models, tools, _
+from odoo.addons.mail.tools.discuss import StoreData
 from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 from odoo.exceptions import ValidationError
 
@@ -238,6 +239,7 @@ class DiscussChannel(models.Model):
     def whatsapp_channel_join_and_pin(self):
         """ Adds the current partner as a member of self channel and pins them if not already pinned. """
         self.ensure_one()
+        store = StoreData()
         if self.channel_type != 'whatsapp':
             raise ValidationError(_('This join method is not possible for regular channels.'))
 
@@ -263,7 +265,8 @@ class DiscussChannel(models.Model):
                     'model': "discuss.channel",
                 }
             })
-        return self._channel_info()[0]
+        store.add({"Thread": self._channel_info()})
+        return store.get_result()
 
     # ------------------------------------------------------------
     # OVERRIDE

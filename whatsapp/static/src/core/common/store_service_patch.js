@@ -27,7 +27,7 @@ patch(Store.prototype, {
                 "whatsapp_channel_join_and_pin",
                 [[id]]
             );
-            thread.update(data);
+            this.insert(data);
         } else if (!thread.is_pinned) {
             thread.pin();
         }

@@ -68,7 +68,7 @@ export class DiscussChannel extends mailModels.DiscussChannel {
                 },
             });
         }
-        return this._channel_info([channel.id])[0];
+        return { Thread: this._channel_info([channel.id]) };
     }
     /**
      * @override
