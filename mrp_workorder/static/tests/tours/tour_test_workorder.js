@@ -128,7 +128,7 @@ registry.category("web_tour.tours").add('test_access_shop_floor_with_multicomany
         trigger: 'div[role="button"]:contains("Test Company")',
         run: "click",
     },{
-        context: 'Check that we switched companies',
+        content: 'Check that we switched companies',
         trigger: '.o_switch_company_menu button span:contains("Test Company")',
     },{
         content: 'Select Shop Floor app',

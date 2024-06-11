@@ -1417,7 +1417,8 @@ registry.category("web_tour.tours").add("web_studio_test_edit_reified_field", {
             run: "click",
         },
         {
-            trigger: ".o_web_studio_form_view_editor .o_field_widget[name^='sel_groups_'],.o_web_studio_form_view_editor .o_field_widget[name^='in_groups_']",
+            trigger:
+                ".o_web_studio_form_view_editor .o_field_widget[name^='sel_groups_'],.o_web_studio_form_view_editor .o_field_widget[name^='in_groups_']",
             run: "click",
         },
         {
@@ -1426,9 +1427,8 @@ registry.category("web_tour.tours").add("web_studio_test_edit_reified_field", {
         },
         {
             trigger: ".o_web_studio_leave",
-            isCheck: true,
         },
-    ]
+    ],
 });
 
 registry.category("web_tour.tours").add("web_studio_test_add_all_types_fields_related", {
@@ -1461,8 +1461,7 @@ registry.category("web_tour.tours").add("web_studio_test_add_all_types_fields_re
         },
         {
             in_modal: false,
-            trigger:
-                ".o_model_field_selector_popover_item_name:contains(Display Name)",
+            trigger: ".o_model_field_selector_popover_item_name:contains(Display Name)",
             run: "click",
         },
         {
