@@ -60,17 +60,14 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
 
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 
-    def _custom_line_postprocessor(self, report, options, lines, warnings=None):
-        if warnings is not None:
-            warning_partners = self._get_warning_partners(report, options)
-            if warning_partners:
-                warnings['l10n_be_reports.partner_vat_listing_missing_partners_warning'] = {
-                    'alert_type': 'warning',
-                    'count': len(warning_partners),
-                    'ids': warning_partners,
-                }
-
-        return lines
+    def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
+        warning_partners = self._get_warning_partners(report, options)
+        if warning_partners:
+            warnings['l10n_be_reports.partner_vat_listing_missing_partners_warning'] = {
+                'alert_type': 'warning',
+                'count': len(warning_partners),
+                'ids': warning_partners,
+            }
 
     def action_warning_partners(self, options, params):
         view_id = (
