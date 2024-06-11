@@ -83,9 +83,6 @@ class L10nInGSTReturnPeriod(models.Model):
         ("10", "October"),
         ], default=_default_quarterly)
     year = fields.Char(default=_default_year)
-    invoice_amount = fields.Float(string='Customer Invoices', compute="_compute_invoice_total_amount")
-    bill_amount = fields.Float(string='Vendor Bills', compute="_compute_bill_total_amount")
-    expected_amount = fields.Float(string='Expected Amount', compute="_compute_expected_amount")
 
     # ===============================
     # GSTR-1
@@ -216,35 +213,6 @@ class L10nInGSTReturnPeriod(models.Model):
                 raise UserError(("To Create Return Period Periodicity should be Monthly or Quarterly"))
             record.periodicity = periodicity
 
-    @api.depends("company_ids", "company_id")
-    def _compute_invoice_total_amount(self):
-        AccountMove = self.env['account.move']
-        for record in self:
-            total_by_companies = AccountMove._read_group(record._get_default_account_move_domain(), [], ['amount_total_signed:sum'])
-            record.invoice_amount = total_by_companies[0][0]
-
-    @api.depends("company_ids", "company_id")
-    def _compute_expected_amount(self):
-        gst_tags = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True).values()
-        for record in self:
-            total_by_companies = self.env['account.move.line']._read_group(self._get_default_aml_domain(gst_tags), ['company_id'], ['balance:sum'])
-            total = 0.00
-            for total_by_company in total_by_companies:
-                if total_by_company[0].id in (record.company_ids or record.company_id).ids:
-                    total += total_by_company[1] * -1
-            record.expected_amount = total
-
-    @api.depends("company_ids", "company_id")
-    def _compute_bill_total_amount(self):
-        AccountMove = self.env['account.move']
-        for record in self:
-            total_by_companies = AccountMove._read_group(record._get_default_account_move_domain(is_purchase=True), ['company_id'], ['amount_total_signed:sum'])
-            total = 0.00
-            for total_by_company in total_by_companies:
-                if total_by_company[0].id in (record.company_ids or record.company_id).ids:
-                    total += total_by_company[1] * -1
-            record.bill_amount = total
-
     @api.depends('month', 'quarter', 'year')
     def _compute_period_dates(self):
         for record in self:
@@ -329,24 +297,6 @@ class L10nInGSTReturnPeriod(models.Model):
             for record in self:
                 if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
                     raise UserError("You cannot delete GST Return Period after sending/receiving GSTR data")
-
-    def _get_action_open_move_journal_line(self, is_purchase=False):
-        action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_journal_line')
-        action['domain'] = self._get_default_account_move_domain(is_purchase=is_purchase)
-        return action
-
-    def open_invoice_action(self):
-        return self._get_action_open_move_journal_line()
-
-    def open_vendor_bill_action(self):
-        return self._get_action_open_move_journal_line(is_purchase=True)
-
-    def open_expected_action(self):
-        gst_tags = self._get_l10n_in_taxes_tags_id_by_name(only_gst_tags=True).values()
-        domain = self._get_default_aml_domain(gst_tags)
-        action = self.env['ir.actions.act_window']._for_xml_id('account.action_account_moves_all')
-        action['domain'] = domain
-        return action
 
     def _cron_refresh_gst_token(self):
         # If Token is already expired than we can't refresh it.
