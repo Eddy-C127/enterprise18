@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.pos_restaurant.tests.test_frontend import TestFrontend
-
+from odoo import Command
 import odoo.tests
 
 
@@ -54,3 +54,22 @@ class TestUi(TestFrontend):
         self.assertEqual(pdis_order1.preparation_display_order_line_ids[0].internal_note, "Test Internal Notes")
         self.assertEqual(pdis_order1.preparation_display_order_line_ids[1].product_quantity, 1)
         self.assertEqual(pdis_order1.preparation_display_order_line_ids[1].internal_note, "Test Internal Notes")
+
+    def test_bill_preparation_display(self):
+        pos_config = self.env['pos.config'].create({
+            'name': 'Restaurant',
+            'module_pos_restaurant': True,
+            'iface_printbill': True,
+        })
+
+        pdis = self.env['pos_preparation_display.display'].create({
+            'name': 'Preparation Display',
+            'pos_config_ids': [Command.link(pos_config.id)],
+        })
+
+        order_count = pdis.order_count
+
+        pos_config.with_user(self.user_demo).open_ui()
+        self.start_tour("/pos/ui?config_id=%d" % pos_config.id, 'MakeBillTour', login="demo")
+
+        self.assertEqual(order_count, pdis.order_count)

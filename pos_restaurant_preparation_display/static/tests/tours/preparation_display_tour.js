@@ -2,6 +2,7 @@
 
 import * as PaymentScreen from "@point_of_sale/../tests/tours/helpers/PaymentScreenTourMethods";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/helpers/ReceiptScreenTourMethods";
+import * as BillScreen from "@pos_restaurant/../tests/tours/helpers/BillScreenTourMethods";
 import * as FloorScreen from "@pos_restaurant/../tests/tours/helpers/FloorScreenTourMethods";
 import * as ProductScreenPos from "@point_of_sale/../tests/tours/helpers/ProductScreenTourMethods";
 import * as ProductScreenResto from "@pos_restaurant/../tests/tours/helpers/ProductScreenTourMethods";
@@ -82,5 +83,18 @@ registry.category("web_tour.tours").add("PreparationDisplayTourInternalNotes", {
             ProductScreen.addInternalNote("Test Internal Notes"),
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
+        ].flat(),
+});
+
+registry.category("web_tour.tours").add("MakeBillTour", {
+    test: true,
+    steps: () =>
+        [
+            FloorScreen.clickTable("1"),
+            ProductScreen.clickDisplayedProduct("Minute Maid"),
+            ProductScreen.selectedOrderlineHas("Minute Maid", "1", "2.20"),
+            BillScreen.clickBillButton(),
+            BillScreen.isShown(),
+            BillScreen.clickOk(),
         ].flat(),
 });
