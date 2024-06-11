@@ -236,6 +236,8 @@ class QualityCheck(models.Model):
     lot_name = fields.Char('Lot/Serial Number Name', related='move_line_id.lot_name', store=True)
     lot_line_id = fields.Many2one('stock.lot', store=True, compute='_compute_lot_line_id')
     qty_line = fields.Float(compute='_compute_qty_line', string="Quantity")
+    qty_passed = fields.Float('Quantity Passed', help="Quantity of product that passed the quality check", compute='_compute_qty_passed', store=True)
+    qty_failed = fields.Float('Quantity Failed', help="Quantity of product that failed the quality check", compute='_compute_qty_failed', store=True)
     uom_id = fields.Many2one(related='product_id.uom_id', string="Product Unit of Measure")
     show_lot_text = fields.Boolean(compute='_compute_show_lot_text')
     is_lot_tested_fractionally = fields.Boolean(related='point_id.is_lot_tested_fractionally')
@@ -265,6 +267,22 @@ class QualityCheck(models.Model):
     def _compute_qty_line(self):
         for qc in self:
             qc.qty_line = qc.move_line_id.quantity
+
+    @api.depends('qty_line', 'quality_state')
+    def _compute_qty_passed(self):
+        for qc in self:
+            if qc.quality_state == 'pass':
+                qc.qty_passed = qc.qty_line
+            else:
+                qc.qty_passed = 0
+
+    @api.depends('qty_line', 'quality_state')
+    def _compute_qty_failed(self):
+        for qc in self:
+            if qc.quality_state == 'fail':
+                qc.qty_failed = qc.qty_line
+            else:
+                qc.qty_failed = 0
 
     @api.depends('move_line_id.lot_id')
     def _compute_lot_line_id(self):
