@@ -1778,7 +1778,7 @@ class L10nInGSTReturnPeriod(models.Model):
             })
 
         json_payload_list = []
-        for json_file in self.gstr2b_json_from_portal_ids:
+        for json_file in self.sudo().gstr2b_json_from_portal_ids:
             if json_file.mimetype == 'application/json':
                 json_payload_list.append(json_file.raw)
         if json_payload_list:
