@@ -381,15 +381,14 @@ class SendCloud:
             overweight_products = picking.move_ids.filtered(lambda m: float_compare(m.product_id.weight, user_uom_max_weight, precision_rounding=m.product_uom.rounding) > 0)
             not_packed = bool(not picking.package_ids and picking.weight_bulk)
             if not_packed:
-                message = (_('The total weight of'))
+                message = _('The total weight of your transfer is too heavy for the heaviest available shipping method.')
             else:
-                message = (_('Some packages in'))
-            message = (_("""%s your picking overweight the heaviest available shipping method.
-                         \nTry to distributes your products in packages weighting less than %s %s or choose another carrier.""", (message, user_uom_max_weight, user_weight_uom.name)))
+                message = _('Some packages in your transfer are too heavy for the heaviest available shipping method.')
+            message += _("\nTry to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier.", max_weight=user_uom_max_weight, unit=user_weight_uom.name)
             if overweight_products:
-                details = ", ".join(overweight_products.mapped('name'))
-                message = (_("""%s\nMoreover, some individual product(s) overweight the heaviest available shipping method.
-                             \nDivide the quantity of the following product(s) among packages if possible or choose another carrier:\n\t%s""", (message, details)))
+                product_moves = ", ".join(overweight_products.mapped('name'))
+                message += _("""\nAdditionally, some individual product(s) are too heavy for the heaviest available shipping method.
+                             \nDivide the quantity of the following product(s) across your packages if possible or choose another carrier:\n\t%s""", product_moves)
             raise UserError(message)
 
         shipping_prices = self._get_shipping_prices(shipping_methods, to_country, from_country)
