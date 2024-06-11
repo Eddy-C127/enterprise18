@@ -628,8 +628,9 @@ registry.category("web_tour.tours").add('test_receipt_reserved_2_partial_put_in_
             helper.assert(lines[3].querySelector('.result-package').innerText, "PACK0001001");
         },
     },
-    // Close the receipt.
+    // Confirm the backorder, then close the receipt.
     { trigger: '.btn.o_validate_page' },
+    { trigger: '.modal-dialog button.btn-primary' },
     { trigger: '.o_notification.border-success', isCheck: true },
 ]});
 
@@ -4267,3 +4268,13 @@ registry.category("web_tour.tours").add("test_sml_sort_order_by_product_category
         }
     },
 ]});
+
+registry.category("web_tour.tours").add('test_create_backorder_after_qty_modified', {
+    test: true, steps: () => [
+        { trigger: '.o_edit'},
+        { trigger: '.o_increase'},
+        { trigger: '.o_save'},
+        { trigger: '.o_validate_page'},
+        { trigger: '.modal-dialog button.btn-primary', run: 'click' },
+    ]
+});

@@ -2648,6 +2648,38 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             url, "test_sml_sort_order_by_product_category", login="admin", timeout=180
         )
 
+    def test_create_backorder_after_qty_modified(self):
+        """ Adding qty to an SML via the edit buttons updates the barcode cache;
+        we should still be shown the confirmation dialog when validating a partially
+        complete order, informing the user that a backorder will be created.
+        """
+        self.clean_access_rights()
+
+        receipt = self.env['stock.picking'].create({
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_in.id,
+        })
+        self.env['stock.move'].create({
+            'name': 'test_create_backorder_after_qty_modified move',
+            'picking_id': receipt.id,
+            'product_id': self.product1.id,
+            'product_uom_qty': 2.0,
+            'product_uom': self.product1.uom_id.id,
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+        })
+        receipt.action_confirm()
+
+        url = self._get_client_action_url(receipt.id)
+        self.start_tour(url, 'test_create_backorder_after_qty_modified', login='admin', timeout=180)
+
+        # Original receipt move demand should be modified and the resulting
+        # backorder move demand should be for the rest of the original demand.
+        backorder = self.env['stock.picking'].search([('backorder_id', '=', receipt.id)])
+        self.assertEqual(backorder.move_ids[0].product_uom_qty, 1.0)
+        self.assertEqual(receipt.move_ids[0].product_uom_qty, 1.0)
+
     # === GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_serial_number(self):
         """
