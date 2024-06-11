@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="account_reports.AccountReportList">
-        <div class="account_report_lines_list_x2many">
+        <div class="account_report_lines_list_x2many" t-att-class="uniqueRendererClass">
             <ul class="p-0" t-ref="root">
                 <!-- Header -->
                 <li class="d-flex justify-content-between">
