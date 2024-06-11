@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import datetime
 import logging
@@ -88,7 +88,7 @@ MAP_CURRENCIES = {
     'Russia Rouble': 'RUB',
     'Saudi Riyal': 'SAR',
     'Singapore Dollar': 'SGD',
-    'Swedish Krona': 'SWK',
+    'Swedish Krona': 'SEK',
     'Syrian pound': 'SYP',
     'Thai Baht': 'THB',
     'Turkmen manat': 'TMT',
@@ -151,6 +151,7 @@ CURRENCY_PROVIDER_SELECTION = [
     (['PE'], 'bcrp', '[PE] SUNAT (replaces Bank of Peru)'),
     (['PL'], 'nbp', '[PL] National Bank of Poland'),
     (['RO'], 'bnr', '[RO] National Bank of Romania'),
+    (['SE'], 'srb', '[SE] Sveriges Riksbank'),
     (['TR'], 'tcmb', '[TR] Central Bank of the Republic of Turkey'),
     (['UK'], 'hmrc', '[UK] HM Revenue & Customs'),
     (['MY'], 'bnm', '[MY] Bank Negara Malaysia'),
@@ -680,6 +681,40 @@ class ResCompany(models.Model):
                     )
         if rslt and 'RON' in available_currency_names:
             rslt['RON'] = (1.0, rate_date)
+        return rslt
+
+    def _parse_srb_data(self, available_currencies):
+        """ This method is used to update the currencies by using
+        Svenska Riksbanken (SRB) service provider. Rates are given
+        against SEK.
+        """
+        response = requests.get("https://api.riksbank.se/swea/v1/Observations/Latest/ByGroup/130", timeout=30)
+        response.raise_for_status()
+
+        # Verify that the response is in JSON format.
+        if 'application/json' not in response.headers.get('Content-Type', ''):
+            raise ValueError('Response should be in JSON format')
+
+        data_json = response.json()
+        available_currency_names = set(available_currencies.mapped('name'))
+        rslt = {}
+
+        # Create a lookup dictionary for series data
+        series_data = {item['seriesId']: item for item in data_json}
+
+        for currency in available_currency_names:
+            if currency == 'SEK':
+                rslt[currency] = (1.0, datetime.datetime.now(timezone('Europe/Stockholm')).strftime(DEFAULT_SERVER_DATE_FORMAT))
+                continue
+
+            line_json = series_data.get(f'SEK{currency}PMI')
+
+            # Ensure that the data exists and is valid
+            if not line_json or not isinstance(line_json['value'], (int, float)) or line_json['value'] == 0:
+                continue
+            date = datetime.datetime.strptime(line_json['date'], '%Y-%m-%d').strftime(DEFAULT_SERVER_DATE_FORMAT)
+            rslt[currency] = (1.0 / line_json['value'], date)
+
         return rslt
 
     def _parse_bcrp_data(self, available_currencies):
