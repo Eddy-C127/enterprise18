@@ -158,6 +158,7 @@ class DocumentShare(models.Model):
         else:
             return documents
 
+    @api.depends('folder_id')
     def _compute_can_upload(self):
         for record in self:
             folder = record.folder_id
@@ -165,6 +166,7 @@ class DocumentShare(models.Model):
             in_write_group = set(folder.group_ids.ids) & set(record.create_uid.groups_id.ids)
             record.can_upload = in_write_group or not folder_has_groups
 
+    @api.depends('date_deadline')
     def _compute_state(self):
         """
         changes the state based on the expiration date,
