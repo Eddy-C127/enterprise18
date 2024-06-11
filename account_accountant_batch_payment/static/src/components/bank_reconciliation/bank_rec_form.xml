@@ -25,4 +25,20 @@
         </xpath>
     </t>
 
+    <t t-name="account_accountant_batch_payment.BankRecRecordFormLineIds"
+       t-inherit="account_accountant.BankRecRecordFormLineIds"
+       t-inherit-mode="extension"
+      >
+        <xpath expr="//td[@field='account_id']" position="replace">
+            <t t-if="line.data.flag === 'new_batch'">
+                <td field="source_batch_payment_name">
+                    <t t-if="line.data.flag === 'new_batch'">
+                        <button class="btn btn-sm fa fa-caret-right ps-0" t-on-click="() => this.actionExpandBatchPayment(line)"/>
+                        <span t-on-click="() => this.actionExpandBatchPayment(line)" t-out="line.data.source_batch_payment_name" class="btn fw-normal p-0"/>
+                    </t>
+                </td>
+            </t>
+            <t t-else="">$0</t>
+        </xpath>
+    </t>
 </templates>

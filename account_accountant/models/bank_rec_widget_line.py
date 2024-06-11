@@ -216,7 +216,8 @@ class BankRecWidgetLine(models.Model):
     def _compute_name(self):
         for line in self:
             if line.flag in ('aml', 'new_aml', 'liquidity'):
-                line.name = line.source_aml_id.name
+                # In the case the source_aml_id is from a credit note, the aml might not have a name set
+                line.name = line.source_aml_id.name or line.source_aml_move_name
             else:
                 line.name = line.name
 

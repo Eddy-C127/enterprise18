@@ -33,7 +33,7 @@ patch(BankRecKanbanController.prototype, {
             allowSelectors: false,
             searchViewId: false, // little hack: force to load the search view info
             globalState: initParams.exportState,
-        }
+        };
     },
 
     // -----------------------------------------------------------------------------
@@ -87,6 +87,24 @@ patch(BankRecKanbanController.prototype, {
                     },
                 }
             );
+        }
+    },
+
+    async _actionExpandBatchPayment(newState, line){
+        await this.onchange(newState, "expand_batch_payment", [line.data.source_batch_payment_id[0]]);
+    },
+
+    async actionExpandBatchPayment(line){
+        await this.execProtectedBankRecAction(async () => {
+            await this.withNewState(async (newState) => {
+                await this._actionExpandBatchPayment(newState, line);
+            });
+        });
+    },
+
+    async handleLineClicked(ev, line){
+        if (line.data.flag != 'new_batch') {
+            super.handleLineClicked(ev, line);
         }
     },
 

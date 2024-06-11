@@ -8,3 +8,6 @@ class BankRecWidgetLine(models.Model):
     _inherit = 'bank.rec.widget.line'
 
     source_batch_payment_id = fields.Many2one(comodel_name='account.batch.payment')
+    flag = fields.Selection(selection_add=[('new_batch', 'new_batch')])
+    batch_pay_content = fields.Json()
+    source_batch_payment_name = fields.Char()

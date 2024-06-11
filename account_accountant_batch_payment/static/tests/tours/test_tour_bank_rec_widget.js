@@ -38,8 +38,22 @@ registry.category("web_tour.tours").add("account_accountant_batch_payment_bank_r
             run: "click",
         },
         {
+            content: "The batch should be selected",
             trigger:
                 "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item",
+        },
+        {
+            content: "Expand the added batch line",
+            trigger: "div[name='line_ids'] .fa-caret-right",
+            run: "click",
+        },
+        {
+            content: "The batch should still be selected",
+            trigger:
+                "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item",
+        },
+        {
+            trigger: "td[field='account_id']:contains('Outstanding Receipts')",
         },
         {
             content: "Remove the payment of 100.0",
@@ -99,6 +113,15 @@ registry.category("web_tour.tours").add("account_accountant_batch_payment_bank_r
             trigger:
                 "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table td[name='name']:contains('BATCH0001')",
             run: "click",
+        },
+        {
+            content: "Expand the added batch line",
+            trigger: "div[name='line_ids'] .fa-caret-right",
+            run: "click",
+        },
+        {
+            content: "One payment should be displayed",
+            trigger: "td[field='account_id']:contains('Outstanding Receipts')",
         },
         {
             trigger: "button.btn-primary:contains('Validate')",
