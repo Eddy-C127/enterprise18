@@ -672,12 +672,10 @@ registry.category("web_tour.tours").add('test_receipt_reserved_2_partial_put_in_
             helper.assert(lines[3].querySelector('.result-package').innerText, "PACK0001001");
         },
     },
-    // Close the receipt.
-    {
-        trigger: '.btn.o_validate_page',
-        run: "click",
-    },
-    { trigger: '.o_notification_bar.bg-success'},
+    // Confirm the backorder, then close the receipt.
+    { trigger: '.btn.o_validate_page', run: 'click' },
+    { trigger: '.modal-dialog button.btn-primary', run: 'click' },
+    { trigger: '.o_stock_barcode_main_menu' },
 ]});
 
 registry.category("web_tour.tours").add('test_receipt_product_not_consecutively', {test: true, steps: () => [
@@ -5050,3 +5048,13 @@ registry.category("web_tour.tours").add('test_barcode_signature_flow', {test: tr
         trigger: "span:contains(Scan a transfer or a product to filter your records)",
     },
 ]});
+
+registry.category("web_tour.tours").add('test_create_backorder_after_qty_modified', {
+    test: true, steps: () => [
+        { trigger: '.o_edit', run: 'click' },
+        { trigger: '.o_increase', run: 'click' },
+        { trigger: '.o_save', run: 'click' },
+        { trigger: '.o_validate_page', run: 'click' },
+        { trigger: '.modal-dialog button.btn-primary', run: 'click' },
+    ]
+});

@@ -872,7 +872,7 @@ export default class BarcodePickingModel extends BarcodeModel {
             let atLeastOneLinePartiallyProcessed = false;
             for (let line of this.currentState.lines) {
                 line = this._getParentLine(line) || line;
-                if (alreadyChecked.includes(line.virtual_id) || !this.lineIsReserved(line)) {
+                if (alreadyChecked.includes(line.virtual_id)) {
                     continue;
                 }
                 // Keeps track of already checked lines to avoid to check multiple times grouped lines.
