@@ -157,8 +157,8 @@ class TestNoSaftReport(TestAccountReportsCommon):
                             </Account>
                             <Account>
                                 <AccountID>___ignore___</AccountID>
-                                <AccountDescription>Input VAT - import of goods, high rate</AccountDescription>
-                                <StandardAccountID>2715</StandardAccountID>
+                                <AccountDescription>Input VAT, high rate</AccountDescription>
+                                <StandardAccountID>2710</StandardAccountID>
                                 <AccountType>GL</AccountType>
                                 <OpeningDebitBalance>2000.00</OpeningDebitBalance>
                                 <ClosingDebitBalance>2000.00</ClosingDebitBalance>
