@@ -22,6 +22,10 @@ class TestNlXafExport(TestAccountReportsCommon):
 
         products = [cls.product_a, cls.product_b]
 
+        # Verify if the country code validation when generating a XAF report at the very least allows
+        # the Netherlands itself on a partner when no XSD is downloaded
+        cls.partner_a.write({'country_id': cls.env.ref('base.nl').id})
+
         # Create three invoices, one refund and one bill in 2019
         partner_a_invoice1 = cls.init_invoice('out_invoice', products=products)
         partner_a_invoice2 = cls.init_invoice('out_invoice', products=products)

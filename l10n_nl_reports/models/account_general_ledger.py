@@ -283,7 +283,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         self.env.cr.execute(partner_query, partner_params)
         partner_values = self.env.cr.dictfetchall()
         iso_country_codes = self.env['ir.attachment'].l10n_nl_reports_load_iso_country_codes()
-        check_forbidden_countries(report, partner_values, iso_country_codes)
+        if iso_country_codes:
+            check_forbidden_countries(report, partner_values, iso_country_codes)
         for row in partner_values:
             street_detail = street_split(row['partner_street'])
             header_values['partner_data'].append({
