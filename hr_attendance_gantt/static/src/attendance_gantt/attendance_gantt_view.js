@@ -4,8 +4,14 @@ import { registry } from "@web/core/registry";
 import { AttendanceGanttModel } from "./attendance_gantt_model";
 import { AttendanceGanttRenderer } from "./attendance_gantt_renderer";
 import { GanttController } from "@web_gantt/gantt_controller";
+import { AttendanceActionHelper } from "@hr_attendance/views/attendance_helper_view";
 
 export class HrAttendanceGanttController extends GanttController {
+    static template = "hr_attendance.AttendanceGanttController";
+    static components = {
+        ...GanttController.components,
+        AttendanceActionHelper,
+    }
     /**
      * @override
     */
@@ -20,7 +26,7 @@ export class HrAttendanceGanttController extends GanttController {
 
     get showNoContentHelp() {
         // Rows's length need to be lower than 4 to avoid nocontent overlapping
-        return this.loadHelper && !this.model.hasData() && this.model.data.rows.length < 4;
+        return !this.model.hasData() && this.model.data.rows.length < 4;
     }
 }
 const viewRegistry = registry.category("views");
