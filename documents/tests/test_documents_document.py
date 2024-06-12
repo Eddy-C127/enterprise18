@@ -381,15 +381,16 @@ class TestCaseDocuments(TransactionCase):
         self.assertEqual(len(document.previous_attachment_ids.ids), 0, "The history should be empty")
         original_attachment = document.attachment_id
         document.write({'datas': TEXT})
-        new_attachment = document.attachment_id
-        self.assertNotEqual(new_attachment, original_attachment)
-        self.assertEqual(document.previous_attachment_ids, original_attachment)
+        new_attachment = document.previous_attachment_ids
+        self.assertEqual(len(document.previous_attachment_ids), 1)
+        self.assertNotEqual(document.previous_attachment_ids, original_attachment)
         self.assertEqual(document.previous_attachment_ids[0].datas, GIF, "The history should have the right content")
-        document.write({'attachment_id': original_attachment.id})
-        self.assertEqual(document.attachment_id.id, original_attachment.id, "the document should contain the new attachment")
-        self.assertEqual(document.previous_attachment_ids, new_attachment, "the history should contain the previous attachment")
+        self.assertEqual(document.attachment_id.datas, TEXT, "The document should have the right content")
+        document.write({'attachment_id': new_attachment.id})
+        self.assertEqual(document.attachment_id.id, new_attachment.id, "the document should contain the new attachment")
+        self.assertEqual(document.previous_attachment_ids, original_attachment, "the history should contain the original attachment")
         document.write({'datas': DATA})
-        self.assertEqual(document.previous_attachment_ids, original_attachment + new_attachment)
+        self.assertEqual(document.attachment_id, new_attachment)
 
     def test_write_mimetype(self):
         """
