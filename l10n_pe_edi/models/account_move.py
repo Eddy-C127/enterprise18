@@ -26,6 +26,21 @@ CATALOG52 = [
     ("2011", "EXPORTACION DE SERVICIOS - DECRETO LEGISLATIVO Nº 919"),
 ]
 
+REFUND_REASON = [
+    ('01', 'Cancellation of the operation'),
+    ('02', 'Cancellation by error in the RUC'),
+    ('03', 'Correction by error in the description'),
+    ('04', 'Global discount'),
+    ('05', 'Discount per item'),
+    ('06', 'Total refund'),
+    ('07', 'Refund per item'),
+    ('08', 'Bonus'),
+    ('09', 'Decrease in value'),
+    ('10', 'Other concepts'),
+    ('11', 'Adjust in the exportation operation'),
+    ('12', 'Adjust of IVAP'),
+]
+
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -37,20 +52,7 @@ class AccountMove(models.Model):
         copy=False,
         help="Reference from webservice to consult afterwards.")
     l10n_pe_edi_refund_reason = fields.Selection(
-        selection=[
-            ('01', 'Cancellation of the operation'),
-            ('02', 'Cancellation by error in the RUC'),
-            ('03', 'Correction by error in the description'),
-            ('04', 'Global discount'),
-            ('05', 'Discount per item'),
-            ('06', 'Total refund'),
-            ('07', 'Refund per item'),
-            ('08', 'Bonus'),
-            ('09', 'Decrease in value'),
-            ('10', 'Other concepts'),
-            ('11', 'Adjust in the exportation operation'),
-            ('12', 'Adjust of IVAP'),
-        ],
+        selection=REFUND_REASON,
         string="Credit Reason",
         help='It contains all possible values for the refund reason according to Catalog No. 09')
     l10n_pe_edi_charge_reason = fields.Selection(
