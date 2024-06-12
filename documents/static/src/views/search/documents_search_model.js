@@ -6,6 +6,8 @@ import { browser } from "@web/core/browser/browser";
 import { parseHash } from "@web/core/browser/router_service";
 import { useSetupAction } from "@web/webclient/actions/action_hook";
 
+import { onWillStart } from "@odoo/owl";
+
 // Helpers
 const isFolderCategory = (s) => s.type === "category" && s.fieldName === "folder_id";
 const isTagFilter = (s) => s.type === "filter" && s.fieldName === "tag_ids";
@@ -14,6 +16,9 @@ export class DocumentsSearchModel extends SearchModel {
 
     setup(services) {
         super.setup(services);
+        onWillStart(async () => {
+            this.deletionDelay = await this.orm.call("documents.document", "get_deletion_delay", [[]]);
+        });
         useSetupAction({
             beforeLeave: () => {
                 this._updateRouteState({ folder_id: undefined, tag_ids: undefined }, false);
@@ -23,7 +28,6 @@ export class DocumentsSearchModel extends SearchModel {
 
     async load(config) {
         await super.load(...arguments);
-        this.deletionDelay = await this.orm.call("documents.document", "get_deletion_delay", [[]]);
 
         const urlHash = parseHash(browser.location.hash);
         const folderId = urlHash.folder_id || this.getSelectedFolderId();
@@ -180,8 +184,7 @@ export class DocumentsSearchModel extends SearchModel {
                 parentId: false,
                 has_write_access: true,
                 description: _t(
-                    "Items in trash will be deleted forever after %s days.",
-                    this.deletion_delay
+                    "Items in trash will be deleted forever after %s days.", this.deletionDelay
                 ),
             });
         }
