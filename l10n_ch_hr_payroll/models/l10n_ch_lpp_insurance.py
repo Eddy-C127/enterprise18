@@ -12,4 +12,4 @@ class l10nChLppInsurance(models.Model):
     customer_number = fields.Char(required=True)
     contract_number = fields.Char(required=True)
     insurance_company_address_id = fields.Many2one('res.partner')
-    fund_number = fields.Char()
+    fund_number = fields.Char(help="""Payroll units allow companies and pension institutions to create "packages" that are transmitted independently of one another using the ELM standard.""")

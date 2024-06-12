@@ -12,7 +12,7 @@ class HrPayslip(models.Model):
 
     l10n_ch_after_departure_payment = fields.Selection([
         ('N', 'After Departure Payment'),
-        ('NK', 'After Departure Payment with correction')],
+        ('NK', 'After Departure Payment with ST correction')],
         string="Code change, correction-payment after departure",
         help="Additional payment after leaving in the current year with maximum salary and third-party benefits")
     l10n_ch_lpp_not_insured = fields.Boolean(
@@ -48,6 +48,8 @@ class HrPayslip(models.Model):
     @api.depends('contract_id.l10n_ch_avs_status')
     def _compute_l10n_ch_avs_status(self):
         for payslip in self:
+            if payslip.struct_id.country_id.code != "CH":
+                continue
             contract = payslip.contract_id
             if payslip.state not in ['draft', 'verify'] or self.env.context.get('ch_skip_payslip_update'):
                 continue
@@ -56,6 +58,8 @@ class HrPayslip(models.Model):
     @api.depends('contract_id.l10n_ch_is_model')
     def _compute_l10n_ch_is_model(self):
         for payslip in self:
+            if payslip.struct_id.country_id.code != "CH":
+                continue
             contract = payslip.contract_id
             if payslip.state not in ['draft', 'verify']:
                 continue
@@ -64,6 +68,8 @@ class HrPayslip(models.Model):
     @api.depends('contract_id.employee_id', 'contract_id.l10n_ch_has_withholding_tax')
     def _compute_l10n_ch_is_code(self):
         for payslip in self:
+            if payslip.struct_id.country_id.code != "CH":
+                continue
             contract = payslip.contract_id
             if payslip.state not in ['draft', 'verify']:
                 continue
@@ -143,41 +149,43 @@ class HrPayslip(models.Model):
         attachments.record_payment(sign * abs(amount))
 
     def compute_sheet(self):
-        swiss_payslips = self.filtered(lambda p: p.struct_id.country_id.code == "CH")
+        swiss_payslips = self.filtered(lambda p: p.struct_id.code == "CHMONTHLY")
+        if not swiss_payslips:
+            return super().compute_sheet()
         swiss_payslips.l10n_ch_is_log_line_ids.unlink()
         result = super().compute_sheet()
-        self.env['hr.payslip.is.log.line'].create(swiss_payslips._get_is_log_lines())
+        log_lines = swiss_payslips._get_is_log_lines()
+        if log_lines:
+            self.env['hr.payslip.is.log.line'].create(log_lines)
         return result
 
-    def action_refresh_from_work_entries(self):
-        if any(p.state not in ['draft', 'verify'] for p in self):
-            super().action_refresh_from_work_entries()
-        else:
-            payslips = self.filtered(lambda p: p.struct_id.country_id.code == "CH")
-            payslips._compute_l10n_ch_pay_13th_month()
-            payslips._compute_l10n_ch_avs_status()
-            payslips._compute_l10n_ch_is_model()
-            payslips._compute_l10n_ch_is_code()
-            payslips._compute_l10n_ch_lpp_not_insured()
-            super().action_refresh_from_work_entries()
-
-    def _l10n_ch_get_as_days_count(self):
+    def _l10n_ch_get_as_days_count(self, date_from=None, date_to=None):
         self.ensure_one()
         payslip = self
         contract = self.contract_id
+        start = contract.date_start
+        finish = contract.date_end
+
+        if date_from is not None:
+            start = date_from
+        if date_to is not None:
+            finish = date_to
+
         if 'FORCEASDAYS' in payslip.input_line_ids.mapped('code'):
             return payslip._get_input_line_amount('FORCEASDAYS')
-        if contract.date_start == self.date_to:
+        if start == finish:
             return 1
-        if contract.date_end and contract.date_end == self.date_from:
+        if start == self.date_to:
             return 1
-        if contract.date_start > payslip.date_from and contract.date_end and contract.date_end < payslip.date_to:
-            return 30 - ((contract.date_start - payslip.date_from).days + 1) - (payslip.date_to - contract.date_end).days
-        if contract.date_start > payslip.date_from:
-            return 31 - contract.date_start.day
-        if contract.date_end and contract.date_end < payslip.date_to and not contract.date_end < payslip.date_from:
-            return contract.date_end.day
-        if contract.date_end and contract.date_end < payslip.date_from:
+        if finish and finish == self.date_from:
+            return 1
+        if start > payslip.date_from and finish and finish < payslip.date_to:
+            return 30 - ((start - payslip.date_from).days + 1) - (payslip.date_to - finish).days
+        if start > payslip.date_from:
+            return 31 - start.day
+        if finish and finish < payslip.date_to and not finish < payslip.date_from:
+            return finish.day
+        if finish and finish < payslip.date_from:
             return 0
         return 30
 
@@ -239,9 +247,8 @@ class HrPayslip(models.Model):
 
     def _find_rate(self, is_code, x):
         self.ensure_one()
-        if not self.contract_id.l10n_ch_has_withholding_tax:
-            return 0, 0
-        if self.contract_id.l10n_ch_is_predefined_category:
+
+        if is_code[3:5] in ['HE', 'ME', 'NO', 'SF']:
             canton, tax_code = is_code.split("-")
             category_code = tax_code[0:2]
             church_tax = tax_code[2]
@@ -259,10 +266,4 @@ class HrPayslip(models.Model):
 
     def _get_data_files_to_update(self):
         # Note: file order should be maintained
-        return super()._get_data_files_to_update() + [(
-            'l10n_ch_hr_payroll_elm', [
-                'data/hr_payslip_input_type_data.xml',
-                'data/hr_salary_attachment_type_data.xml',
-                'data/hr_salary_rule_category_data.xml',
-                'data/hr_salary_rule_data.xml',
-            ])]
+        return super()._get_data_files_to_update()

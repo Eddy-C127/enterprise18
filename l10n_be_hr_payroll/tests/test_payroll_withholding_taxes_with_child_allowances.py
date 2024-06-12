@@ -44,6 +44,7 @@ class TestPayrollWithholdingTaxesWithChildAllowances(TestPayrollCommon):
         )
         date_from = date(2024, 12, 1)
         date_to = date_from + relativedelta(months=+1, day=1, days=-1)
+        self.employee_withholding_taxes_contracts.generate_work_entries(date_from, date_to)
         self.employee_withholding_taxes_payslip['date_from'] = date_from
         self.employee_withholding_taxes_payslip['date_to'] = date_to
         self.employee_withholding_taxes_payslip.compute_sheet()
@@ -83,6 +84,7 @@ class TestPayrollWithholdingTaxesWithChildAllowances(TestPayrollCommon):
         )
         date_from = date(2024, 12, 1)
         date_to = date_from + relativedelta(months=+1, day=1, days=-1)
+        self.employee_withholding_taxes_contracts.generate_work_entries(date_from, date_to)
         self.employee_withholding_taxes_payslip['date_from'] = date_from
         self.employee_withholding_taxes_payslip['date_to'] = date_to
 

@@ -10,7 +10,7 @@ class L10nChWorkLocation(models.Model):
     _rec_name = 'partner_id'
 
     company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
-    partner_id = fields.Many2one('res.partner', string="Working Address", required=True)
+    partner_id = fields.Many2one('res.partner', string="Address", required=True)
     bur_ree_number = fields.Char(
         string="BUR-REE-Number",
         required=True,

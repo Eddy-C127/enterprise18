@@ -9,7 +9,7 @@ from odoo.exceptions import ValidationError
 class L10nChLocationUnit(models.Model):
     _inherit = "l10n.ch.location.unit"
 
-    weekly_hours = fields.Float(string="Weekly Hours")
+    weekly_hours = fields.Float(string="Weekly Hours", default=40)
     weekly_lessons = fields.Float(string="Weekly Lessons")
 
     @api.constrains('bur_ree_number')

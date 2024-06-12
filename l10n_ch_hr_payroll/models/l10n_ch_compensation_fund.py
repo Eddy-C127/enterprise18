@@ -118,7 +118,7 @@ class l10nChCompensationFundLine(models.Model):
     _name = 'l10n.ch.compensation.fund.line'
     _description = 'Swiss: Family Allowance Rate (CAF)'
 
-    date_from = fields.Date(string="From", required=True)
+    date_from = fields.Date(string="From", required=True, default=lambda self: fields.Date.context_today(self).replace(month=1, day=1))
     date_to = fields.Date(string="To")
     insurance_id = fields.Many2one('l10n.ch.compensation.fund')
     employee_rate = fields.Float(string="Employee Rate (%)", digits='Payroll Rate', default=0.421)

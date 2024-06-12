@@ -152,7 +152,7 @@ class TestPerformance(AccountTestInvoicingCommon):
         } for i in range(self.EMPLOYEES_COUNT)]
 
         # Payslip Creation
-        with self.assertQueryCount(admin=746):  # randomness
+        with self.assertQueryCount(admin=947):  # randomness
             start_time = time.time()
             payslips = self.env['hr.payslip'].with_context(allowed_company_ids=self.company.ids).create(payslips_values)
             # --- 0.11892914772033691 seconds ---

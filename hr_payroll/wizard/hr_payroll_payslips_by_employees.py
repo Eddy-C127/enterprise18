@@ -144,7 +144,8 @@ class HrPayslipEmployees(models.TransientModel):
             payslips_vals.append(values)
         payslips = Payslip.with_context(tracking_disable=True).create(payslips_vals)
         payslips._compute_name()
-        payslips.compute_sheet()
+        compute_result = payslips.compute_sheet()
+        if isinstance(compute_result, dict):
+            return compute_result
         payslip_run.state = 'verify'
-
         return success_result

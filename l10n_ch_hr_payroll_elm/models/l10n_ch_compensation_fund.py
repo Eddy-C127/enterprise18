@@ -12,7 +12,7 @@ class l10nChAccidentInsurance(models.Model):
 
     def _get_caf_rates(self, target, rate_type):
         if not self:
-            return 0, 0
+            return 0
         for line in self.caf_line_ids:
             if line.date_from <= target and (not line.date_to or target <= line.date_to):
                 return line[rate_type]

@@ -27,10 +27,10 @@ class HrContract(models.Model):
     l10n_ch_lpp_insurance_id = fields.Many2one(
         'l10n.ch.lpp.insurance', string="LPP Insurance")
     l10n_ch_accident_insurance_line_id = fields.Many2one(
-        'l10n.ch.accident.insurance.line', string="AAP/AANP Insurance")
+        'l10n.ch.accident.insurance.line', string="LAA Insurance")
     l10n_ch_additional_accident_insurance_line_ids = fields.Many2many(
         'l10n.ch.additional.accident.insurance.line', string="LAAC Insurances")
     l10n_ch_sickness_insurance_line_ids = fields.Many2many(
         'l10n.ch.sickness.insurance.line', string="IJM Insurances")
     l10n_ch_compensation_fund_id = fields.Many2one(
-        'l10n.ch.compensation.fund', string="Family Allowance (CAF)")
+        'l10n.ch.compensation.fund', string="Family Compensation Fund")

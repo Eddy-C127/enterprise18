@@ -104,14 +104,7 @@ class HrPayslip(models.Model):
 
     def _get_data_files_to_update(self):
         # Note: file order should be maintained
-        return super()._get_data_files_to_update() + [(
-            'l10n_ch_hr_payroll', [
-                'data/hr_salary_rule_category_data.xml',
-                'data/hr_payroll_structure_type_data.xml',
-                'data/hr_payroll_structure_data.xml',
-                'data/hr_rule_parameters_data.xml',
-                'data/hr_salary_rule_data.xml',
-            ])]
+        return super()._get_data_files_to_update()
 
     def _is_invalid(self):
         invalid = super()._is_invalid()
@@ -125,35 +118,6 @@ class HrPayslip(models.Model):
     def _is_active_swiss_languages(self):
         active_langs = self.env['res.lang'].with_context(active_test=True).search([]).mapped('code')
         return any(l in active_langs for l in SWISS_LANGUAGES)
-
-    def action_payslip_done(self):
-        if self._is_active_swiss_languages():
-            bad_language_slips = self.filtered(
-                lambda p: p.struct_id.country_id.code == "CH" and p.employee_id.lang not in SWISS_LANGUAGES)
-            if bad_language_slips:
-                action = self.env['ir.actions.act_window'].\
-                    _for_xml_id('l10n_ch_hr_payroll.l10n_ch_hr_payroll_employee_lang_wizard_action')
-                ctx = dict(self.env.context)
-                ctx.update({
-                    'employee_ids': bad_language_slips.employee_id.ids,
-                    'default_slip_ids': self.ids,
-                })
-                action['context'] = ctx
-                return action
-        return super().action_payslip_done()
-
-    def compute_sheet(self):
-        swiss_payslips = self.filtered(lambda p: p.struct_id.country_id.code == "CH")
-        swiss_employees = swiss_payslips.employee_id
-        invalid_employees = swiss_employees.filtered(lambda e: not e.l10n_ch_canton)
-        if invalid_employees:
-            raise UserError(_('No specified canton for employees:\n%s', '\n'.join(invalid_employees.mapped('name'))))
-
-        invalid_employees = swiss_employees.filtered(lambda e: e.l10n_ch_has_withholding_tax and not e.l10n_ch_tax_scale)
-        if invalid_employees:
-            raise UserError(_('No specified tax scale for foreign employees:\n%s', '\n'.join(invalid_employees.mapped('name'))))
-
-        return super().compute_sheet()
 
     def _get_paid_amount(self):
         self.ensure_one()

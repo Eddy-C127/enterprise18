@@ -141,7 +141,6 @@ class l10nChSocialInsuranceAVSLine(models.Model):
     employee_rate = fields.Float(string="Employee Rate (%)", default=5.3)
     employer_rate = fields.Float(string="Company Rate (%)", default=5.3)
 
-
 class l10nChSocialInsuranceACLine(models.Model):
     _name = 'l10n.ch.social.insurance.ac.line'
     _description = 'Swiss: Social Insurances - AC Line'
@@ -151,5 +150,5 @@ class l10nChSocialInsuranceACLine(models.Model):
     insurance_id = fields.Many2one('l10n.ch.social.insurance')
     employee_rate = fields.Float(string="Employee Rate (%)", digits='Payroll Rate', default=1.1)
     employer_rate = fields.Float(string="Company Rate (%)", digits='Payroll Rate', default=1.1)
-    employee_additional_rate = fields.Float(string="Employee Additional Rate (%)", digits='Payroll Rate', default=0.5)
+    employee_additional_rate = fields.Float(string="Employee Additional Rate (%)", digits='Payroll Rate', default=0)
     employer_additional_rate = fields.Float(string="Company Additional Rate (%)", digits='Payroll Rate', default=0)

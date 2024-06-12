@@ -110,7 +110,7 @@
                         <field name="image_1920" widget='image' class="oe_avatar m-0" options='{"zoom": true, "preview_image":"avatar_128"}'/>
                     </div>
                 </div>
-                <div class="alert alert-warning" role="alert" invisible="not warning_message">
+                <div class="alert alert-warning" name="payslip_alert" role="alert" invisible="not warning_message">
                     <field name="warning_message" style="white-space: pre-wrap;"/>
                 </div>
                 <group col="4">
@@ -176,7 +176,7 @@
                                 <field name="_allowed_input_type_ids" column_invisible="True"/>
                                 <field name="input_type_id"/>
                                 <field name="name"/>
-                                <field name="amount"/>
+                                <field name="amount" widget="float_without_trailing_zeros"/>
                                 <field name="contract_id" column_invisible="True"/>
                                 <field name="sequence" column_invisible="True"/>
                             </tree>
@@ -332,7 +332,9 @@
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">
-            records.compute_sheet()
+result = records.compute_sheet()
+if isinstance(result, dict):
+    action = result
         </field>
     </record>
 
