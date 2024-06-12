@@ -138,7 +138,7 @@ registry.category("web_tour.tours").add("account_accountant_batch_payment_bank_r
             content: "The 'line3' should be selected by default",
             trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
         },
-        stepUtils.toggleHomeMenu(),
+        ...stepUtils.toggleHomeMenu(),
         ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "check that we're back on the dashboard",

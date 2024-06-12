@@ -12,13 +12,16 @@ import {
 } from "@web/webclient/actions/action_service";
 import { HomeMenu } from "./home_menu";
 
-import { Component, onMounted, onWillUnmount, xml } from "@odoo/owl";
+import { Component, onMounted, onWillUnmount, reactive, xml } from "@odoo/owl";
 
 export const homeMenuService = {
     dependencies: ["action"],
     start(env) {
-        let hasHomeMenu = false; // true iff the HomeMenu is currently displayed
-        let hasBackgroundAction = false; // true iff there is an action behind the HomeMenu
+        const state = reactive({
+            hasHomeMenu: false, // true iff the HomeMenu is currently displayed
+            hasBackgroundAction: false, // true iff there is an action behind the HomeMenu
+            toggle,
+        });
         const mutex = new Mutex(); // used to protect against concurrent toggling requests
         class HomeMenuAction extends Component {
             static components = { HomeMenu };
@@ -42,13 +45,13 @@ export const homeMenuService = {
             }
             async onMounted() {
                 const { breadcrumbs } = this.env.config;
-                hasHomeMenu = true;
-                hasBackgroundAction = breadcrumbs.length > 0;
+                state.hasHomeMenu = true;
+                state.hasBackgroundAction = breadcrumbs.length > 0;
                 this.env.bus.trigger("HOME-MENU:TOGGLED");
             }
             onWillUnmount() {
-                hasHomeMenu = false;
-                hasBackgroundAction = false;
+                state.hasHomeMenu = false;
+                state.hasBackgroundAction = false;
                 this.env.bus.trigger("HOME-MENU:TOGGLED");
             }
         }
@@ -56,38 +59,32 @@ export const homeMenuService = {
         registry.category("actions").add("menu", HomeMenuAction);
 
         env.bus.addEventListener("HOME-MENU:TOGGLED", () => {
-            document.body.classList.toggle("o_home_menu_background", hasHomeMenu);
+            document.body.classList.toggle("o_home_menu_background", state.hasHomeMenu);
         });
 
-        return {
-            get hasHomeMenu() {
-                return hasHomeMenu;
-            },
-            get hasBackgroundAction() {
-                return hasBackgroundAction;
-            },
-            async toggle(show) {
-                return mutex.exec(async () => {
-                    show = show === undefined ? !hasHomeMenu : Boolean(show);
-                    if (show !== hasHomeMenu) {
-                        if (show) {
-                            await env.services.action.doAction("menu");
-                        } else {
-                            try {
-                                await env.services.action.restore();
-                            } catch (err) {
-                                if (!(err instanceof ControllerNotFoundError)) {
-                                    throw err;
-                                }
+        async function toggle(show) {
+            return mutex.exec(async () => {
+                show = show === undefined ? !state.hasHomeMenu : Boolean(show);
+                if (show !== state.hasHomeMenu) {
+                    if (show) {
+                        await env.services.action.doAction("menu");
+                    } else {
+                        try {
+                            await env.services.action.restore();
+                        } catch (err) {
+                            if (!(err instanceof ControllerNotFoundError)) {
+                                throw err;
                             }
                         }
                     }
-                    // hack: wait for a tick to ensure that the url has been updated before
-                    // switching again
-                    return new Promise((r) => setTimeout(r));
-                });
-            },
-        };
+                }
+                // hack: wait for a tick to ensure that the url has been updated before
+                // switching again
+                return new Promise((r) => setTimeout(r));
+            });
+        }
+
+        return state;
     },
 };
 

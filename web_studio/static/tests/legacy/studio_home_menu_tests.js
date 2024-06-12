@@ -29,7 +29,7 @@ const genericHomeMenuProps = {
             label: "Discuss",
             parents: "",
             webIcon: "mail,static/description/icon.png",
-            webIconData: "/web_enterprise/static/img/default_icon_app.png",
+            webIconData: "/web/static/img/default_icon_app.png",
             xmlid: "app.1",
         },
         {
@@ -54,7 +54,7 @@ const genericHomeMenuProps = {
             label: "Contacts",
             parents: "",
             webIcon: false,
-            webIconData: "/web_enterprise/static/img/default_icon_app.png",
+            webIconData: "/web/static/img/default_icon_app.png",
             xmlid: "app.3",
         },
     ],
@@ -179,7 +179,7 @@ QUnit.module("Studio", (hooks) => {
         assert.containsOnce(firstApp, "img.o_app_icon");
         assert.strictEqual(
             firstApp.querySelector("img.o_app_icon").dataset.src,
-            "/web_enterprise/static/img/default_icon_app.png"
+            "/web/static/img/default_icon_app.png"
         );
         assert.containsOnce(firstApp, "div.o_caption");
         assert.strictEqual(firstApp.querySelector("div.o_caption").innerText, "Discuss");

@@ -761,7 +761,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
             trigger: ".o_bank_rec_selected_st_line:contains('line3')",
         },
         // Test the Balance when changing journal and liquidity line
-        stepUtils.toggleHomeMenu(),
+        ...stepUtils.toggleHomeMenu(),
         ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             trigger: ".o_breadcrumb",
@@ -893,7 +893,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
                 "div.bank_rec_widget_form_amls_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item td[name='name']:contains('INV/2019/00001')",
         },
         // End
-        stepUtils.toggleHomeMenu(),
+        ...stepUtils.toggleHomeMenu(),
         ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "check that we're back on the dashboard",
@@ -952,7 +952,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_reco
             run: "click",
         },
         // End
-        stepUtils.toggleHomeMenu(),
+        ...stepUtils.toggleHomeMenu(),
         ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "check that we're back on the dashboard",

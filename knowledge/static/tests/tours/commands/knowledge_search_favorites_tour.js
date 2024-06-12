@@ -116,7 +116,7 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
         trigger: ".o_favorite_menu .o_save_favorite",
         run: "click",
     },
-    stepUtils.toggleHomeMenu(),
+    ...stepUtils.toggleHomeMenu(),
     {
         // open the Knowledge App
         trigger: ".o_app[data-menu-xmlid='knowledge.knowledge_menu_root']",
@@ -252,7 +252,7 @@ registry.category("web_tour.tours").add("knowledge_search_favorites_tour", {
         }, { // check the application of the rename
             trigger: '.o_knowledge_embedded_view .o_control_panel:contains(Kanban 1)',
         },
-        stepUtils.toggleHomeMenu(),
+        ...stepUtils.toggleHomeMenu(),
         // insert a second kanban view
         ...embedKnowledgeKanbanViewSteps("Article 1"),
         { // wait for embedded view to load

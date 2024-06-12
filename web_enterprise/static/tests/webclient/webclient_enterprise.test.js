@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
-import { click, queryAll } from "@odoo/hoot-dom";
+import { click, queryAll, queryFirst } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 import { Component, onMounted, xml } from "@odoo/owl";
 import {
@@ -8,6 +8,7 @@ import {
     defineMenus,
     defineModels,
     fields,
+    getMockEnv,
     getService,
     models,
     mountWithCleanup,
@@ -19,6 +20,7 @@ import {
 import { browser } from "@web/core/browser/browser";
 import { router } from "@web/core/browser/router";
 import { registry } from "@web/core/registry";
+import { config as transitionConfig } from "@web/core/transition";
 import { user } from "@web/core/user";
 import { redirect } from "@web/core/utils/urls";
 import { UserMenu } from "@web/webclient/user_menu/user_menu";
@@ -38,6 +40,16 @@ async function mountWebClientEnterprise(options) {
     await animationFrame();
     // wait for the regular rendering
     await animationFrame();
+}
+
+async function goToHomeMenu() {
+    click(".o_menu_toggle");
+    await animationFrame();
+
+    if (getMockEnv().isSmall) {
+        click(queryFirst(".o_sidebar_topbar a.btn-primary", { root: document.body }));
+        await animationFrame();
+    }
 }
 
 defineActions([
@@ -186,6 +198,7 @@ onRpc("has_group", () => true);
 
 beforeEach(() => {
     actionRegistry.add("__test__client__action__", TestClientAction);
+    patchWithCleanup(transitionConfig, { disabled: true });
 });
 // Should test ONLY the webClient and features present in Enterprise
 // Those tests rely on hidden view to be in CSS: display: none
@@ -293,7 +306,7 @@ describe("basic flow with home menu", () => {
             visible: false,
         }).click();
         expect.verifySteps(["get_views", "web_read"]);
-        await contains(".o_menu_toggle").click();
+        await goToHomeMenu();
         expect.verifySteps([]);
         expect(".o_menu_toggle").toHaveClass("o_menu_toggle_back");
         expect(".o_home_menu").toHaveCount(1);
@@ -357,7 +370,7 @@ test("restore the newly created record in form view", async () => {
     await contains(".o_field_widget[name=name] input").edit("red right hand");
     await contains(".o_form_button_save").click();
     expect(".o_breadcrumb .active").toHaveText("red right hand");
-    await contains(".o_menu_toggle").click();
+    await goToHomeMenu();
     expect(".o_form_view").not.toBeVisible();
 
     // can't click again too soon because of the mutex in home_menu
@@ -370,8 +383,8 @@ test("restore the newly created record in form view", async () => {
     expect(".o_breadcrumb .active").toHaveText("red right hand");
 });
 
-test("fast clicking on restore (implementation detail)", async () => {
-    expect.assertions(6);
+test.tags("desktop")("fast clicking on restore (implementation detail)", async () => {
+    expect.assertions(8);
 
     let doVeryFastClick = false;
 
@@ -384,7 +397,7 @@ test("fast clicking on restore (implementation detail)", async () => {
             onMounted(() => {
                 if (doVeryFastClick) {
                     doVeryFastClick = false;
-                    click(".o_menu_toggle");
+                    click(".o_menu_toggle"); //  go to home menu
                 }
             });
         }
@@ -394,18 +407,19 @@ test("fast clicking on restore (implementation detail)", async () => {
     await mountWebClientEnterprise();
     await getService("action").doAction("DelayedClientAction");
     await animationFrame();
-    await contains(".o_menu_toggle").click();
+    await contains(".o_menu_toggle").click(); // go to home menu
     expect(".o_home_menu").toBeVisible();
     expect(".delayed_client_action").not.toBeVisible();
 
     doVeryFastClick = true;
-    await contains(".o_menu_toggle").click();
-    await animationFrame();
-    // off homemenu
+    await contains(".o_menu_toggle").click(); // back
+    expect(".o_home_menu").toHaveCount(0);
+    expect(".delayed_client_action").toHaveCount(1);
+    await animationFrame(); // waiting for DelayedClientAction
     expect(".o_home_menu").toBeVisible();
     expect(".delayed_client_action").not.toBeVisible();
 
-    await contains(".o_menu_toggle").click();
+    await contains(".o_menu_toggle").click(); // back
     await animationFrame();
     expect(".o_home_menu").toHaveCount(0);
     expect(".delayed_client_action").toHaveCount(1);
@@ -430,7 +444,7 @@ test("clear unCommittedChanges when toggling home menu", async () => {
     expect(".o_form_view .o_form_editable").toHaveCount(1);
     await contains(".o_field_widget[name=name] input").edit("red right hand");
 
-    await contains(".o_menu_toggle").click();
+    await goToHomeMenu();
     expect(".o_form_view").toHaveCount(0);
     expect(".modal").toHaveCount(0);
     expect(".o_home_menu").toHaveCount(1);
@@ -545,7 +559,7 @@ test("url state is well handled when going in and out of the HomeMenu", async ()
     expect(browser.history.length).toBe(2);
     expect(browser.location.href).toBe("http://example.com/odoo/action-1002");
 
-    await contains(".o_menu_toggle").click();
+    await goToHomeMenu();
     await animationFrame();
     expect(router.current).toEqual(
         {
@@ -809,7 +823,7 @@ test("Navigate to an application from the HomeMenu should generate only one push
     expect(".test_client_action").toHaveCount(1);
     expect(".test_client_action").toHaveText("ClientAction_Id 2");
 
-    await contains(".o_menu_toggle").click();
+    await goToHomeMenu();
     expect(".o_home_menu").toHaveCount(1);
 
     await contains(".o_apps > .o_draggable:nth-child(1) > .o_app").click();
@@ -817,7 +831,7 @@ test("Navigate to an application from the HomeMenu should generate only one push
     expect(".test_client_action").toHaveCount(1);
     expect(".test_client_action").toHaveText("ClientAction_Id 1");
 
-    await contains(".o_menu_toggle").click();
+    await goToHomeMenu();
     await animationFrame();
     expect(".o_home_menu").toHaveCount(1);
     expect.verifySteps(["/odoo", "/odoo/action-1002", "/odoo", "/odoo/action-1001", "/odoo"]);

@@ -82,7 +82,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_rain
             trigger: ".o_view_nocontent_smiling_face",
         },
         // End
-        stepUtils.toggleHomeMenu(),
+        ...stepUtils.toggleHomeMenu(),
         ...accountTourSteps.goToAccountMenu("Reset back to accounting module"),
         {
             content: "check that we're back on the dashboard",

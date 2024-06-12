@@ -6,7 +6,7 @@ import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { click, getFixture, mount } from "@web/../tests/helpers/utils";
 import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator";
 
-const sampleIconUrl = "/web_enterprise/Parent.src/img/default_icon_app.png";
+const sampleIconUrl = "/web/Parent.src/img/default_icon_app.png";
 
 QUnit.module("Studio", (hooks) => {
     hooks.beforeEach(() => {

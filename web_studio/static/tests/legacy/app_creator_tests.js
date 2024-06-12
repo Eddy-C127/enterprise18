@@ -18,7 +18,7 @@ import { AutoComplete } from "@web/core/autocomplete/autocomplete";
 import { mountInFixture } from "@web/../tests/helpers/mount_in_fixture";
 
 const serviceRegistry = registry.category("services");
-const sampleIconUrl = "/web_enterprise/Parent.src/img/default_icon_app.png";
+const sampleIconUrl = "/web/Parent.src/img/default_icon_app.png";
 
 function makeFakeUIService({ block = () => {}, unblock = () => {} } = {}) {
     return {

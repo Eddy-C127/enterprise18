@@ -130,7 +130,8 @@ export function appendArticleLink(htmlFieldContainerSelector, articleName, previ
  */
 export function endKnowledgeTour() {
     return [
-        stepUtils.toggleHomeMenu(), {
+        ...stepUtils.toggleHomeMenu(),
+        {
             trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
         }
     ];
