@@ -110,6 +110,7 @@ class WhatsAppMessage(WhatsAppFullCase, MockIncomingWhatsApp):
         """ Check values produced when sending a message using composer """
         test_records = self.test_base_records.with_env(self.env)
         template = self.test_template.with_env(self.env)
+        partner_ids = self.env['whatsapp.account'].search([], limit=1).notify_user_ids.partner_id
 
         composer = self._instanciate_wa_composer_from_records(template, test_records)
         with self.mockWhatsappGateway():
@@ -130,7 +131,7 @@ class WhatsAppMessage(WhatsAppFullCase, MockIncomingWhatsApp):
                     },
                     mail_message_values={
                         'message_type': 'whatsapp_message',
-                        'partner_ids': self.user_wa_admin.partner_id,  # wa account responsible
+                        'partner_ids': partner_ids,
                         'record_name': False,
                         'subtype_id': self.env.ref('mail.mt_note'),
                     },

@@ -27,6 +27,9 @@
         'views/res_config_settings_views.xml',
         'views/whatsapp_menus.xml',
     ],
+    'demo': [
+        'data/whatsapp_demo.xml',
+    ],
     'external_dependencies': {
         'python': ['phonenumbers'],
     },
