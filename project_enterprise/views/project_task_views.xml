@@ -155,6 +155,9 @@
                         <div class="text-danger mt-2" t-if="planning_overlap">
                             <t t-out="planningOverlapHtml"/>
                         </div>
+                        <footer replace="0">
+                           <button name="action_unschedule_task" type="object" string="Unschedule" class="btn btn-sm btn-secondary"/>
+                        </footer>
                     </div>
                 </templates>
                 <field name="project_id"/>

@@ -143,13 +143,27 @@ test("not user_ids grouped: empty groups are displayed first and user avatar is 
 });
 
 test("Unschedule button is displayed", async () => {
-    onRpc("action_unschedule_task", (args) => {
-        if (args.model === "project.task") {
+    onRpc(({ method, model }) => {
+        if (model === "task" && method == 'action_unschedule_task') {
             expect.step("unschedule task");
-            return {};
+            return false;
         }
     });
-    await mountGanttView(ganttViewParams);
+    await mountGanttView({
+        arch: `
+            <gantt date_start="start" date_stop="stop">
+                <templates>
+                    <t t-name="gantt-popover">
+                        <footer>
+                            <button name="action_unschedule_task" type="object" string="Unschedule"
+                                class="btn btn-sm btn-secondary"/>
+                        </footer>
+                    </t>
+                </templates>
+            </gantt>
+        `,
+        resModel: "task",
+    });
     await contains(".o_gantt_pill").click();
     expect(".btn.btn-sm.btn-secondary").toHaveCount(1);
     expect(".btn.btn-sm.btn-secondary").toHaveText("Unschedule");

@@ -172,11 +172,6 @@ export class TaskGanttRenderer extends GanttRenderer {
             props.context.planningOverlapHtml = markup(record.planning_overlap);
         }
         props.context.allocated_hours = formatFloatTime(props.context.allocated_hours);
-        props.buttons.push({
-            text: _t("Unschedule"),
-            class: "btn btn-sm btn-secondary",
-            onClick: () => this.model.unscheduleTask(record.id),
-        });
         return props;
     }
 
