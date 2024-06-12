@@ -33,6 +33,13 @@ export class PlanningCalendarCommonPopover extends CalendarCommonPopover {
         return this.data.allocated_percentage && formatFloat(this.data.allocated_percentage);
     }
 
+    /**
+     * @override
+     */
+    get hasFooter() {
+        return this.isManager && super.hasFooter;
+    }
+
     isSet(fieldName) {
         return this.data[fieldName];
     }
