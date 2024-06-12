@@ -4,7 +4,7 @@ from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 from lxml.builder import E
 
-from odoo import _, _lt, api, models
+from odoo import _, _lt, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.misc import OrderedSet, unique
 
@@ -52,7 +52,7 @@ class Base(models.AbstractModel):
         return view
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=None, start_date=None, stop_date=None, scale=None):
         """
         Returns the result of a read_group (and optionally search for and read records inside each
         group), and the total number of groups matching the search domain.
@@ -62,6 +62,10 @@ class Base(models.AbstractModel):
         :param read_specification: web_read specification to read records within the groups
         :param limit: see ``limit`` param of ``read_group``
         :param offset: see ``offset`` param of ``read_group``
+        :param boolean unavailability_fields
+        :param string start_date: start datetime in utc, e.g. "2024-06-22 23:00:00"
+        :param string stop_date: stop datetime in utc
+        :param string scale: among "day", "week", "month" and "year"
         :return: {
             'groups': [
                 {
@@ -72,6 +76,10 @@ class Base(models.AbstractModel):
             ],
             'records': [<record data>]
             'length': total number of groups
+            'unavailabilities': {
+                '<unavailability_fields_1>': <value_unavailability_fields_1>,
+                ...
+            }
         }
         """
         # TODO: group_expand doesn't currently respect the limit/offset
@@ -97,14 +105,30 @@ class Base(models.AbstractModel):
         all_records = self.search_fetch([('id', 'in', all_record_ids)], read_specification.keys())
         final_result['records'] = all_records.web_read(read_specification)
 
+        if unavailability_fields is None:
+            unavailability_fields = []
+
         ordered_set_ids = OrderedSet(all_records._ids)
+        res_ids = defaultdict(set)
         for group in final_result['groups']:
+            for field in unavailability_fields:
+                res_id = group[field][0] if group[field] else False
+                if res_id:
+                    res_ids[field].add(res_id)
             # Reorder __record_ids
             group['__record_ids'] = list(ordered_set_ids & OrderedSet(group['__record_ids']))
             # We don't need these in the gantt view
             del group['__domain']
             del group[f'{groupby[0]}_count' if lazy else '__count']
             group.pop('__fold', None)
+
+        if unavailability_fields:
+            start, stop = fields.Datetime.from_string(start_date), fields.Datetime.from_string(stop_date)
+
+        unavailabilities = {}
+        for field in unavailability_fields:
+            unavailabilities[field] = self._gantt_unavailability(field, list(res_ids[field]), start, stop, scale)
+        final_result['unavailabilities'] = unavailabilities
 
         return final_result
 
@@ -231,78 +255,33 @@ class Base(models.AbstractModel):
         return {}
 
     @api.model
-    def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
-        """ Get unavailabilities data to display in the Gantt view.
+    def _gantt_unavailability(self, field, res_ids, start, stop, scale):
+        """ Get unavailabilities data for a given set of resources.
 
         This method is meant to be overriden by each model that want to
         implement this feature on a Gantt view. A subslot is considered
         unavailable (and greyed) when totally covered by an unavailability.
 
         Example:
-            * start_date = 01/01/2000, end_date = 01/07/2000, scale = 'week',
-              rows = [{
-                groupedBy: ["project_id", "user_id", "stage_id"],
-                resId: 8,
-                rows: [{
-                    groupedBy: ["user_id", "stage_id"],
-                    resId: 18,
-                    rows: [{
-                        groupedBy: ["stage_id"],
-                        resId: 3,
-                        rows: []
-                    }, {
-                        groupedBy: ["stage_id"],
-                        resId: 9,
-                        rows: []
-                    }]
-                }, {
-                    groupedBy: ["user_id", "stage_id"],
-                    resId: 22,
-                    rows: [{
-                        groupedBy: ["stage_id"],
-                        resId: 9,
-                        rows: []
-                    }]
-                }]
-            }, {
-                groupedBy: ["project_id", "user_id", "stage_id"],
-                resId: 9,
-                rows: [{
-                    groupedBy: ["user_id", "stage_id"],
-                    resId: None,
-                    rows: [{
-                        groupedBy: ["stage_id"],
-                        resId: 3,
-                        rows: []
-                    }]
-            }, {
-                groupedBy: ["project_id", "user_id", "stage_id"],
-                resId: 27,
-                rows: []
-            }]
+            * start = 01/01/2000 in datetime utc, stop = 01/07/2000 in datetime utc, scale = 'week',
+              field = "empployee_id", res_ids = [3, 9]
 
-            * The expected return value of this function is the rows dict with
-              a new 'unavailabilities' key in each row for which you want to
-              display unavailabilities. Unavailablitities is a list
-              (naturally ordered and pairwise disjoint) in the form:
-              [{
-                  start: <start date of first unavailabity in UTC format>,
-                  stop: <stop date of first unavailabity in UTC format>
-              }, {
-                  start: <start date of second unavailabity in UTC format>,
-                  stop: <stop date of second unavailabity in UTC format>
-              }, ...]
-
-              To display that Marcel is unavailable January 2 afternoon and
-              January 4 the whole day in his To Do row, this particular row in
-              the rows dict should look like this when returning the dict at the
-              end of this function :
-              { ...
+            * The expected return value of this function is a dict of the form
                 {
-                    groupedBy: ["stage_id"],
-                    resId: 3,
-                    rows: []
-                    unavailabilities: [{
+                    value: [{
+                        start: <start date of first unavailabity in UTC format>,
+                        stop: <stop date of first unavailabity in UTC format>
+                    }, {
+                        start: <start date of second unavailabity in UTC format>,
+                        stop: <stop date of second unavailabity in UTC format>
+                    }, ...]
+                    ...
+                }
+
+              For example Marcel (3) is unavailable January 2 afternoon and
+              January 4 the whole day, the dict should look like this
+                {
+                    3: [{
                         'start': '2018-01-02 14:00:00',
                         'stop': '2018-01-02 18:00:00'
                     }, {
@@ -310,19 +289,17 @@ class Base(models.AbstractModel):
                         'stop': '2018-01-04 18:00:00'
                     }]
                 }
-                ...
-              }
+                Note that John (9) has no unavailabilies and thus 9 is not in
+                returned dict
 
-
-
-        :param datetime start_date: start date
-        :param datetime stop_date: stop date
+        :param string field: name of a many2X field
+        :param list res_ids: list of values for field for which we want unavailabilities (a value is either False or an id)
+        :param datetime start: start datetime
+        :param datetime stop: stop datetime
         :param string scale: among "day", "week", "month" and "year"
-        :param None | list[str] group_bys: group_by fields
-        :param dict rows: dict describing the current rows of the gantt view
-        :returns: dict of unavailability
+        :returns: dict of unavailabilities
         """
-        return rows
+        return {}
 
     def _web_gantt_get_candidates(self,
         dependency_field_name, dependency_inverted_field_name,

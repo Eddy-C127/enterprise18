@@ -21,7 +21,12 @@ function _mockGetGanttData({ kwargs, model }) {
         makeKwArgs({ context: kwargs.context })
     );
 
-    return { groups, length, records };
+    const unavailabilities = {};
+    for (const fieldName of kwargs.unavailability_fields || []) {
+        unavailabilities[fieldName] = {};
+    }
+
+    return { groups, length, records, unavailabilities };
 }
 
 registry.category("mock_rpc").add("get_gantt_data", _mockGetGanttData);

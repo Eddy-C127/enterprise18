@@ -11,12 +11,8 @@ export class MRPWorkorderGanttRenderer extends GanttRenderer {
         GanttRowProgressBar: MRPWorkorderGanttRowProgressBar,
     };
 
-    computeDerivedParams() {
-        this.unavailabilities = this.model.workcentersUnavailabilities || {};
-        super.computeDerivedParams();
-    }
-
     addTo(pill, group) {
+        const { unavailabilities } = this.model.data;
         const { start, stop } = this.getSubColumnFromColNumber(group.col);
         const { date_start: otherStart, date_finished: otherStop } = pill.record;
         const interval = getIntersection(
@@ -25,8 +21,8 @@ export class MRPWorkorderGanttRenderer extends GanttRenderer {
         );
         let pillDuration = interval[1].diff(interval[0]);
         const workcenterId = pill.record.workcenter_id && pill.record.workcenter_id[0];
-        const unavailabilities = this.unavailabilities[workcenterId] || [];
-        const union = getUnionOfIntersections(interval, unavailabilities);
+        const workCenterUnavailabilities = (unavailabilities.workcenter_id?.[workcenterId] || []).map(({ start, stop }) => [start, stop]);
+        const union = getUnionOfIntersections(interval, workCenterUnavailabilities);
         for (const [otherStart, otherEnd] of union) {
             pillDuration -= otherEnd.diff(otherStart);
         }
@@ -41,14 +37,6 @@ export class MRPWorkorderGanttRenderer extends GanttRenderer {
     getGroupPillDisplayName(pill) {
         const hours = Duration.fromMillis(pill.aggregateValue).as("hour");
         return formatFloatTime(hours);
-    }
-
-    processRow(row) {
-        const { groupedByField, resId, unavailabilities } = row;
-        if (groupedByField === "workcenter_id" && Boolean(unavailabilities)) {
-            this.unavailabilities[resId] = unavailabilities.map((u) => [u.start, u.stop]);
-        }
-        return super.processRow(...arguments);
     }
 
     shouldComputeAggregateValues(row) {

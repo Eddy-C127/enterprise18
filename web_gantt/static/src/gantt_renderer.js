@@ -800,7 +800,7 @@ export class GanttRenderer extends Component {
             for (const rowPill of getRowPills(row)) {
                 this.addToPillsToRender(rowPill);
             }
-            if (!row.isGroup && row.unavailabilities) {
+            if (!row.isGroup && row.unavailabilities?.length) {
                 row.cellColors = this.getRowCellColors(row);
             }
         }
@@ -1895,7 +1895,8 @@ export class GanttRenderer extends Component {
                     groupLevel: row.groupLevel + 1,
                     recordIds: [resId],
                     fromServer: row.fromServer,
-                    unavailabilities: row.unavailabilities,
+                    parentResId: row.resId ?? row.parentResId,
+                    parentGroupedField: row.groupedByField || row.parentGroupedField,
                 };
                 const res = this.processRow(subRow, [pill], false);
                 rows.push(...res.rows);
@@ -1908,7 +1909,8 @@ export class GanttRenderer extends Component {
                 groupLevel: row.groupLevel + 1,
                 recordIds: [],
                 fromServer: row.fromServer,
-                unavailabilities: row.unavailabilities,
+                parentResId: row.resId ?? row.parentResId,
+                parentGroupedField: row.groupedByField || row.parentGroupedField,
             };
             const res = this.processRow(subRow, [], false);
             rows.push(...res.rows);
@@ -1923,7 +1925,7 @@ export class GanttRenderer extends Component {
      * @param {boolean} [processAsGroup=false]
      */
     processRow(row, pills, processAsGroup = true) {
-        const { dependencyField, fields } = this.model.metaData;
+        const { dependencyField, displayUnavailability, fields } = this.model.metaData;
         const { displayMode } = this.model.displayParams;
         const {
             consolidate,
@@ -1932,10 +1934,11 @@ export class GanttRenderer extends Component {
             groupLevel,
             id,
             name,
+            parentResId,
+            parentGroupedField,
             progressBar,
             resId,
             rows,
-            unavailabilities,
             recordIds,
             __extra__,
         } = row;
@@ -2035,7 +2038,6 @@ export class GanttRenderer extends Component {
         const subRowsCount = Object.values(gridRowTypes).reduce((acc, val) => acc + val, 0);
         /** @type {Row} */
         const processedRow = {
-            unavailabilities,
             cellColors: {},
             fromServer,
             groupedByField,
@@ -2049,6 +2051,13 @@ export class GanttRenderer extends Component {
                 row: [this.currentGridRow, this.currentGridRow + subRowsCount],
             },
         };
+        if (displayUnavailability && !isGroup) {
+            processedRow.unavailabilities = this._getRowUnavailabilities(
+                parentGroupedField || groupedByField,
+                parentResId ?? resId
+            );
+        }
+
         this.rowByIds[id] = processedRow;
 
         this.currentGridRow += subRowsCount;
@@ -2080,6 +2089,19 @@ export class GanttRenderer extends Component {
         }
 
         return result;
+    }
+
+    /**
+     * @param {string} [groupedByField]
+     * @param {false|number} [resId]
+     * @returns {{ start: DateTime, stop: DateTime }[]}
+     */
+    _getRowUnavailabilities(groupedByField, resId) {
+        const { unavailabilities } = this.model.data;
+        if (groupedByField) {
+            return unavailabilities[groupedByField]?.[resId ?? false] || [];
+        }
+        return unavailabilities.__default?.false || [];
     }
 
     /**

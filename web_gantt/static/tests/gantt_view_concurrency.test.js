@@ -91,7 +91,7 @@ test("concurrent scale switches return in inverse order", async () => {
     expect(["patched"]).toVerifySteps();
 });
 
-test("concurrent scale switches return with gantt_unavailability", async () => {
+test("concurrent scale switches return with gantt unavailabilities", async () => {
     const unavailabilities = [
         [{ start: "2018-12-10 23:00:00", stop: "2018-12-11 23:00:00" }],
         [{ start: "2018-12-10 23:00:00", stop: "2018-12-11 23:00:00" }],
@@ -115,14 +115,11 @@ test("concurrent scale switches return with gantt_unavailability", async () => {
 
     let firstReloadProm = null;
     let reloadProm = null;
-    onRpc("gantt_unavailability", async ({ args }) => {
+    onRpc("get_gantt_data", async ({ parent }) => {
+        const result = await parent();
+        result.unavailabilities.__default = { false: unavailabilities.shift() };
         await reloadProm;
-        const rows = args[4];
-        return rows.map((row) =>
-            Object.assign(row, {
-                unavailabilities: unavailabilities.shift(),
-            })
-        );
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",

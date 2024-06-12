@@ -43,6 +43,7 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                     {'id': self.pills[5].id, 'display_name': 'six'},
                 ],
                 'length': 1,
+                'unavailabilities': {},
             })
 
         self.env.invalidate_all()
@@ -93,6 +94,7 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                     {'id': self.pills[5].id, 'display_name': 'six'},
                 ],
                 'length': 4,
+                'unavailabilities': {},
             })
 
     def test_get_gantt_data_with_limit(self):
@@ -121,6 +123,7 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                     {'id': self.pills[5].id, 'display_name': 'six'},
                 ],
                 'length': 5,
+                'unavailabilities': {},
             })
 
         self.env.invalidate_all()
@@ -149,4 +152,5 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                     {'id': self.pills[5].id, 'display_name': 'six'},
                 ],
                 'length': 5,
+                'unavailabilities': {},
             })

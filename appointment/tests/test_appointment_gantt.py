@@ -115,17 +115,17 @@ class AppointmentGanttTest(AppointmentGanttTestCommon):
             show_as='free'  # Event with 'free' status
         )
 
-        # Call the gantt_unavailability function
-        john_data, bob_data = self.env['calendar.event'].gantt_unavailability(
+        # Call the _gantt_unavailability function
+        unavailabilities = self.env['calendar.event']._gantt_unavailability(
+            'partner_ids',
+            [self.user_john.partner_id.id, self.user_bob.partner_id.id],
             self.reference_monday.replace(hour=0),
             self.reference_monday.replace(hour=23),
             'day',
-            group_bys=['partner_ids'],
-            rows=[{'resId': self.user_john.partner_id.id}, {'resId': self.user_bob.partner_id.id}],
         )
 
-        self.assertEqual(len(john_data.get('unavailabilities', [])), 1, "Busy events should be counted as unavailability.")
-        self.assertEqual(len(bob_data.get('unavailabilities', [])), 0, "Free events should not be counted as unavailability.")
+        self.assertEqual(len(unavailabilities.get(self.user_john.partner_id.id, [])), 1, "Busy events should be counted as unavailability.")
+        self.assertEqual(len(unavailabilities.get(self.user_bob.partner_id.id, [])), 0, "Free events should not be counted as unavailability.")
 
     def test_gantt_empty_groups(self):
         """Check that the data sent to gantt includes the right groups in the context of appointments."""

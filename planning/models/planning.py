@@ -1320,63 +1320,26 @@ class Planning(models.Model):
         return [work_interval_per_resource, flexible_per_resource, avg_hours_per_resource]
 
     @api.model
-    def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
-        start_datetime = fields.Datetime.from_string(start_date)
-        end_datetime = fields.Datetime.from_string(end_date)
-        resource_ids = set()
+    def _gantt_unavailability(self, field, res_ids, start, stop, scale):
+        if field != "resource_id":
+            return super()._gantt_unavailability(field, res_ids, start, stop, scale)
 
-        # function to "mark" top level rows concerning resources
-        # the propagation of that item to subrows is taken care of in the traverse function below
-        def tag_resource_rows(rows):
-            for row in rows:
-                group_bys = row.get('groupedBy')
-                res_id = row.get('resId')
-                if group_bys:
-                    # if resource_id is the first grouping attribute, we mark the row
-                    if group_bys[0] == 'resource_id' and res_id:
-                        resource_id = res_id
-                        resource_ids.add(resource_id)
-                        row['resource_id'] = resource_id
-                    # else we recursively traverse the rows where resource_id appears in the group_by
-                    elif 'resource_id' in group_bys:
-                        tag_resource_rows(row.get('rows'))
-
-        tag_resource_rows(rows)
-        resources = self.env['resource.resource'].browse(resource_ids).filtered('calendar_id')
-        leaves_mapping = resources._get_unavailable_intervals(start_datetime, end_datetime)
-        company_leaves = self.env.company.resource_calendar_id._unavailable_intervals(start_datetime.replace(tzinfo=pytz.utc), end_datetime.replace(tzinfo=pytz.utc))
-
-        # function to recursively replace subrows with the ones returned by func
-        def traverse(func, row):
-            new_row = dict(row)
-            if new_row.get('resource_id'):
-                for sub_row in new_row.get('rows'):
-                    sub_row['resource_id'] = new_row['resource_id']
-            new_row['rows'] = [traverse(func, row) for row in new_row.get('rows')]
-            return func(new_row)
+        resources = self.env['resource.resource'].browse(res_ids).filtered('calendar_id')
+        leaves_mapping = resources._get_unavailable_intervals(start, stop)
+        company_leaves = self.env.company.resource_calendar_id._unavailable_intervals(start.replace(tzinfo=pytz.utc), stop.replace(tzinfo=pytz.utc))
 
         cell_dt = timedelta(hours=1) if scale in ['day', 'week'] else timedelta(hours=12)
 
-        # for a single row, inject unavailability data
-        def inject_unavailability(row):
-            new_row = dict(row)
-
-            calendar = company_leaves
-            if row.get('resource_id'):
-                resource_id = self.env['resource.resource'].browse(row.get('resource_id'))
-                if resource_id:
-                    if not resource_id.calendar_id:
-                        return new_row
-                    calendar = leaves_mapping[resource_id.id]
-
+        result = {}
+        for resource_id in res_ids + [False]:
+            calendar = leaves_mapping.get(resource_id, company_leaves)
             # remove intervals smaller than a cell, as they will cause half a cell to turn grey
             # ie: when looking at a week, a employee start everyday at 8, so there is a unavailability
             # like: 2019-05-22 20:00 -> 2019-05-23 08:00 which will make the first half of the 23's cell grey
             notable_intervals = filter(lambda interval: interval[1] - interval[0] >= cell_dt, calendar)
-            new_row['unavailabilities'] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
-            return new_row
+            result[resource_id] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
 
-        return [traverse(inject_unavailability, row) for row in rows]
+        return result
 
     @api.model
     def get_unusual_days(self, date_from, date_to=None):

@@ -406,16 +406,10 @@ class CalendarEvent(models.Model):
         return super()._get_customer_summary()
 
     @api.model
-    def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
+    def _gantt_unavailability(self, field, res_ids, start, stop, scale):
         # skip if not dealing with appointments
-        resource_ids = [row['resId'] for row in rows if row.get('resId')]  # remove empty rows
-        if not group_bys or group_bys[0] not in ('resource_ids', 'partner_ids') or not resource_ids:
-            return super().gantt_unavailability(start_date, end_date, scale, group_bys=group_bys, rows=rows)
-
-        start_datetime = fields.Datetime.from_string(start_date)
-        end_datetime = fields.Datetime.from_string(end_date)
-        start_datetime_utc = timezone_datetime(start_datetime)
-        end_datetime_utc = timezone_datetime(end_datetime)
+        if field not in ('resource_ids', 'partner_ids'):
+            return super()._gantt_unavailability(field, res_ids, start, stop, scale)
 
         # if viewing a specific appointment type generate unavailable intervals outside of the defined slots
         slots_unavailable_intervals = []
@@ -424,38 +418,41 @@ class CalendarEvent(models.Model):
             appointment_type = appointment_type.browse(appointment_type_id)
 
         if appointment_type:
+            start_utc = timezone_datetime(start)
+            stop_utc = timezone_datetime(stop)
             slot_available_intervals = [
                 (slot['utc'][0], slot['utc'][1])
-                for slot in appointment_type._slots_generate(start_datetime_utc, end_datetime_utc, 'utc', reference_date=start_datetime_utc)
+                for slot in appointment_type._slots_generate(start_utc, stop_utc, 'utc', reference_date=start_utc)
             ]
-            slots_unavailable_intervals = invert_intervals(slot_available_intervals, start_datetime_utc, end_datetime_utc)
+            slots_unavailable_intervals = invert_intervals(slot_available_intervals, start_utc, stop_utc)
 
         # in staff view, add conflicting events to unavailabilities and return
-        if group_bys[0] == 'partner_ids':
-            unavailabilities = self._gantt_unavailabilities_events(start_datetime, end_datetime, self.env['res.partner'].browse(resource_ids))
-            for row in rows:
-                row_unavailabilities = unavailabilities.get(row['resId'], Intervals([]))
-                row_unavailabilities |= Intervals([(start, stop, self.env['res.partner']) for start, stop in slots_unavailable_intervals])
-                row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in row_unavailabilities]
-            return rows
+        if field == 'partner_ids':
+            result = {}
+            partner_unavailabilities = self._gantt_unavailabilities_events(start, stop, self.env['res.partner'].browse(res_ids))
+            for res_id in res_ids:
+                unavailabilities = partner_unavailabilities.get(res_id, Intervals([]))
+                unavailabilities |= Intervals([(start, stop, self.env['res.partner']) for start, stop in slots_unavailable_intervals])
+                result[res_id] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities]
+            return result
 
-        appointment_resource_ids = self.env['appointment.resource'].browse(resource_ids)
-
+        appointment_resource_ids = self.env['appointment.resource'].browse(res_ids)
         # in multi-company, if people can't access some of the resources we don't really care
         if self.env.context.get('allowed_company_ids'):
             appointment_resource_ids = appointment_resource_ids.filtered_domain([('company_id', 'in', self.env.context['allowed_company_ids'])])
 
-        resource_unavailabilities = appointment_resource_ids.resource_id._get_unavailable_intervals(start_datetime, end_datetime)
-        for row in rows:
-            appointment_resource_id = appointment_resource_ids.browse(row.get('resId'))
+        resource_unavailabilities = appointment_resource_ids.resource_id._get_unavailable_intervals(start, stop)
+
+        result = {}
+        for appointment_resource_id in appointment_resource_ids:
             unavailabilities = Intervals([
                 (start, stop, set())
                 for start, stop in resource_unavailabilities.get(appointment_resource_id.resource_id.id, [])])
             unavailabilities |= Intervals([(start, stop, set()) for start, stop in slots_unavailable_intervals])
-            row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities]
-        return rows
+            result[appointment_resource_id.id] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities]
+        return result
 
-    def _gantt_unavailabilities_events(self, start_datetime, end_datetime, partners):
+    def _gantt_unavailabilities_events(self, start, stop, partners):
         """Get a mapping from partner id to unavailabilities based on existing events.
 
         :return dict[int, Intervals[<res.partner>]]: {5: Intervals([(monday_morning, monday_noon, <res.partner>(5))])}
@@ -463,14 +460,14 @@ class CalendarEvent(models.Model):
         return {
             attendee.id: Intervals([
                 (timezone_datetime(event.start), timezone_datetime(event.stop), attendee)
-                for event in partners._get_busy_calendar_events(start_datetime, end_datetime).get(attendee.id, [])
+                for event in partners._get_busy_calendar_events(start, stop).get(attendee.id, [])
             ]) for attendee in partners
         }
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=[], start_date=None, stop_date=None, scale=None):
         """Filter out rows where the partner isn't linked to an staff user."""
-        gantt_data = super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset)
+        gantt_data = super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset, unavailability_fields=unavailability_fields, start_date=start_date, stop_date=stop_date, scale=scale)
         if self.env.context.get('appointment_booking_gantt_show_all_resources') and groupby and groupby[0] == 'partner_ids':
             staff_partner_ids = self.env['appointment.type'].search([('schedule_based_on', '=', 'users')]).staff_user_ids.partner_id.ids
             gantt_data['groups'] = [group for group in gantt_data['groups'] if group.get('partner_ids') and group['partner_ids'][0] in staff_partner_ids]

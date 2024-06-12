@@ -42,7 +42,7 @@ import {
     setScale,
 } from "./web_gantt_test_helpers";
 
-import { omit } from "@web/core/utils/objects";
+import { omit, pick } from "@web/core/utils/objects";
 
 // Hard-coded daylight saving dates from 2019
 const DST_DATES = {
@@ -1462,17 +1462,10 @@ test("should not be draggable when disable_drag_drop is set", async () => {
     expect(SELECTORS.draggable).toHaveCount(0);
 });
 
-test("gantt_unavailability reloads when the view's scale changes", async () => {
-    let unavailabilityCallCount = 0;
-    let unavailabilityScaleArg = "none";
+test("view reload when scale changes", async () => {
     let reloadCount = 0;
     onRpc("get_gantt_data", () => {
         reloadCount++;
-    });
-    onRpc("gantt_unavailability", ({ args }) => {
-        unavailabilityCallCount++;
-        unavailabilityScaleArg = args[2];
-        return args[4];
     });
 
     await mountGanttView({
@@ -1480,20 +1473,12 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
 
         arch: '<gantt date_start="start" date_stop="stop" display_unavailability="1" />',
     });
-
     expect(reloadCount).toBe(1, { message: "view should have loaded" });
-    expect(unavailabilityCallCount).toBe(1, { message: "view should have loaded unavailability" });
 
     setScale(4);
     await ganttControlsChanges();
     expect(reloadCount).toBe(2, {
         message: "view should have reloaded when switching scale to week",
-    });
-    expect(unavailabilityCallCount).toBe(2, {
-        message: "view should have reloaded when switching scale to week",
-    });
-    expect(unavailabilityScaleArg).toBe("week", {
-        message: "unavailability should have been called with the week scale",
     });
 
     setScale(2);
@@ -1501,35 +1486,18 @@ test("gantt_unavailability reloads when the view's scale changes", async () => {
     expect(reloadCount).toBe(3, {
         message: "view should have reloaded when switching scale to month",
     });
-    expect(unavailabilityCallCount).toBe(3, {
-        message: "view should have reloaded when switching scale to month",
-    });
-    expect(unavailabilityScaleArg).toBe("month", {
-        message: "unavailability should have been called with the month scale",
-    });
 
     setScale(0);
     await ganttControlsChanges();
     expect(reloadCount).toBe(4, {
         message: "view should have reloaded when switching scale to year",
     });
-    expect(unavailabilityCallCount).toBe(4, {
-        message: "view should have reloaded when switching scale to year",
-    });
-    expect(unavailabilityScaleArg).toBe("year", {
-        message: "unavailability should have been called with the year scale",
-    });
 });
 
-test("gantt_unavailability reload when period changes", async () => {
-    let unavailabilityCallCount = 0;
+test("view reload when period changes", async () => {
     let reloadCount = 0;
     onRpc("get_gantt_data", () => {
         reloadCount++;
-    });
-    onRpc("gantt_unavailability", ({ args }) => {
-        unavailabilityCallCount++;
-        return args[4];
     });
     await mountGanttView({
         resModel: "tasks",
@@ -1537,45 +1505,31 @@ test("gantt_unavailability reload when period changes", async () => {
     });
 
     expect(reloadCount).toBe(1, { message: "view should have loaded" });
-    expect(unavailabilityCallCount).toBe(1, { message: "view should have loaded unavailability" });
 
     await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-02-28" });
     expect(reloadCount).toBe(2);
-    expect(unavailabilityCallCount).toBe(2);
 
     await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-01-31" });
     expect(reloadCount).toBe(3);
-    expect(unavailabilityCallCount).toBe(3);
 });
 
-test("gantt_unavailability should not reload when period changes if display_unavailability is not set", async () => {
-    let unavailabilityCallCount = 0;
-    let reloadCount = 0;
-    onRpc("get_gantt_data", () => {
-        reloadCount++;
-    });
-    onRpc("gantt_unavailability", ({ args }) => {
-        unavailabilityCallCount++;
-        return {};
+test("unavailabilities should not be reloaded when period changes if display_unavailability is not set", async () => {
+    onRpc("get_gantt_data", ({ kwargs }) => {
+        expect.step("get_gantt_data");
+        expect(kwargs.unavailability_fields).toEqual([]);
     });
     await mountGanttView({
         resModel: "tasks",
-
         arch: '<gantt date_start="start" date_stop="stop" />',
     });
 
-    expect(reloadCount).toBe(1, { message: "view should have loaded" });
-    expect(unavailabilityCallCount).toBe(0, {
-        message: "view should not have loaded unavailability",
-    });
+    expect(["get_gantt_data"]).toVerifySteps();
 
     await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-02-28" });
-    expect(reloadCount).toBe(2);
-    expect(unavailabilityCallCount).toBe(0);
+    expect(["get_gantt_data"]).toVerifySteps();
 
     await selectGanttRange({ startDate: "2019-01-01", stopDate: "2019-01-31" });
-    expect(reloadCount).toBe(3);
-    expect(unavailabilityCallCount).toBe(0);
+    expect(["get_gantt_data"]).toVerifySteps();
 });
 
 test("close tooltip when drag pill", async () => {
@@ -1817,17 +1771,11 @@ test("limit reached", async () => {
     });
 });
 
-test("unavailabilities fetched with right domain", async () => {
-    const unavailabilities = [
-        {
-            start: "2018-12-18 10:00:00",
-            stop: "2018-12-20 14:00:00",
-        },
-    ];
-    onRpc("gantt_unavailability", ({ args }) => {
-        expect.step(JSON.stringify(args.slice(0, 3)));
-        const rows = args[4];
-        return rows.map((row) => Object.assign(row, { unavailabilities }));
+test("unavailabilities fetched with right parameters", async () => {
+    onRpc("get_gantt_data", ({ kwargs }) => {
+        expect.step(
+            JSON.stringify(Object.values(pick(kwargs, "start_date", "stop_date", "scale")))
+        );
     });
     await mountGanttView({
         resModel: "tasks",

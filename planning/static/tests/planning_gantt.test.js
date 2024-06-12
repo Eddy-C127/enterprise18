@@ -35,47 +35,7 @@ describe.current.tags("desktop");
 
 definePlanningModels();
 
-function enrichRowsUnavailabilites(rows, parent_unavailabilities = false) {
-    const enrichedRows = [];
-    const row_unavailabilities = {
-        1: [
-            {
-                start: "2022-10-08 23:00:00",
-                stop: "2022-10-09 22:59:59",
-            },
-            {
-                start: "2022-10-10 10:00:00",
-                stop: "2022-10-11 06:00:00",
-            },
-        ],
-        false: [
-            {
-                start: "2022-10-08 23:00:00",
-                stop: "2022-10-09 22:59:59",
-            },
-            {
-                start: "2022-10-10 10:00:00",
-                stop: "2022-10-11 06:00:00",
-            },
-        ],
-    };
-
-    for (const row of rows) {
-        const unavailabilities = parent_unavailabilities || row_unavailabilities[row.resId];
-        const row_values = {
-            ...row,
-            unavailabilities,
-        };
-        if (row.rows) {
-            row_values.rows = enrichRowsUnavailabilites(row.rows, unavailabilities);
-        }
-        enrichedRows.push(row_values);
-    }
-
-    return enrichedRows;
-}
-
-async function ganttResourceWorkIntervalRPC({ args, method }) {
+async function ganttResourceWorkIntervalRPC({ kwargs, method, parent }) {
     if (method === "gantt_resource_work_interval") {
         return [
             {
@@ -105,9 +65,6 @@ async function ganttResourceWorkIntervalRPC({ args, method }) {
             },
             { false: true },
         ];
-    } else if (method === "gantt_unavailability") {
-        const rows = args[4];
-        return enrichRowsUnavailabilites(rows);
     } else if (method === "gantt_progress_bar") {
         return {
             resource_id: {

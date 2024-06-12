@@ -594,21 +594,6 @@ export class GanttModel extends Model {
     }
 
     /**
-     * Compute rows for unavailability rpc call.
-     *
-     * @protected
-     * @param {Row[]} [rows = []] in the format of ganttData.rows
-     * @returns {Pick<Row, "groupedBy" | "resId" | "rows">[]} simplified rows only containing useful attributes
-     */
-    _computeUnavailabilityRows(rows = []) {
-        return rows.map((row) => ({
-            groupedBy: row.groupedBy,
-            resId: row.resId,
-            rows: this._computeUnavailabilityRows(row.rows),
-        }));
-    }
-
-    /**
      * Fetches records to display (and groups if necessary).
      *
      * @protected
@@ -616,7 +601,8 @@ export class GanttModel extends Model {
      * @param {Object} [additionalContext]
      */
     async _fetchData(metaData, additionalContext) {
-        const { groupedBy, pagerLimit, pagerOffset, resModel } = metaData;
+        const { globalStart, globalStop, groupedBy, pagerLimit, pagerOffset, resModel, scale } =
+            metaData;
         const context = {
             ...this.searchParams.context,
             group_by: groupedBy,
@@ -632,11 +618,15 @@ export class GanttModel extends Model {
             }
         }
 
-        const { length, groups, records, error_msg } = await this.keepLast.add(
+        const { length, groups, records, error_msg, unavailabilities } = await this.keepLast.add(
             this.orm.call(resModel, "get_gantt_data", [], {
                 domain,
                 groupby: groupedBy,
                 read_specification: specification,
+                scale: scale.unit,
+                start_date: serializeDateTime(globalStart),
+                stop_date: serializeDateTime(globalStop),
+                unavailability_fields: this._getUnavailabilityFields(metaData),
                 context,
                 limit: pagerLimit,
                 offset: pagerOffset,
@@ -653,6 +643,7 @@ export class GanttModel extends Model {
             groups,
             parentGroup: [],
         });
+        data.unavailabilities = this._processUnavailabilities(unavailabilities);
 
         await this.keepLast.add(this._fetchDataPostProcess(metaData, data));
 
@@ -672,10 +663,6 @@ export class GanttModel extends Model {
      */
     async _fetchDataPostProcess(metaData, data) {
         const proms = [];
-        if (metaData.displayUnavailability && !this.orm.isSample) {
-            proms.push(this._fetchUnavailability(metaData, data));
-        }
-
         if (metaData.progressBarFields && !this.orm.isSample) {
             const progressBarFields = metaData.progressBarFields.filter((f) =>
                 metaData.groupedBy.includes(f)
@@ -717,33 +704,6 @@ export class GanttModel extends Model {
         for (const fieldName in progressBarInfo) {
             this._addProgressBarInfo(fieldName, data.rows, progressBarInfo[fieldName]);
         }
-    }
-
-    /**
-     * Fetches gantt unavailability.
-     *
-     * @protected
-     * @param {MetaData} metaData
-     * @param {Data} data
-     */
-    async _fetchUnavailability(metaData, data) {
-        const { globalStart, globalStop } = metaData;
-        const enrichedRows = await this.orm.call(
-            metaData.resModel,
-            "gantt_unavailability",
-            [
-                serializeDateTime(globalStart),
-                serializeDateTime(globalStop),
-                metaData.scale.unit,
-                metaData.groupedBy,
-                this._computeUnavailabilityRows(data.rows),
-            ],
-            {
-                context: this.searchParams.context,
-            }
-        );
-        // Update ganttData.rows with the new unavailabilities data
-        this._updateUnavailabilityRows(data.rows, enrichedRows);
     }
 
     /**
@@ -799,12 +759,16 @@ export class GanttModel extends Model {
             for (const g of groups) {
                 recordIds.push(...(g.__record_ids || []));
             }
+            const part = parentGroup.at(-1);
+            const [[parentGroupedField, value]] = part ? Object.entries(part) : [[]];
             return [
                 {
                     groupLevel,
                     id: JSON.stringify([...parentGroup, {}]),
                     name: "",
                     recordIds: unique(recordIds),
+                    parentGroupedField,
+                    parentResId: Array.isArray(value) ? value[0] : value,
                     __extra__: true,
                 },
             ];
@@ -1079,6 +1043,22 @@ export class GanttModel extends Model {
     /**
      * @protected
      * @param {MetaData} metaData
+     * @returns {string[]}
+     */
+    _getUnavailabilityFields(metaData) {
+        if (metaData.displayUnavailability && !this.orm.isSample && metaData.groupedBy.length) {
+            const lastGroupBy = metaData.groupedBy.at(-1);
+            const { type } = metaData.fields[lastGroupBy] || {};
+            if (["many2many", "many2one"].includes(type)) {
+                return [lastGroupBy];
+            }
+        }
+        return [];
+    }
+
+    /**
+     * @protected
+     * @param {MetaData} metaData
      * @param {Record<string, any>[]} records the server records to parse
      * @returns {Record<string, any>[]}
      */
@@ -1113,6 +1093,22 @@ export class GanttModel extends Model {
         return parsedRecords;
     }
 
+    _processUnavailabilities(unavailabilities) {
+        const processedUnavailabilities = {};
+        for (const fieldName in unavailabilities) {
+            processedUnavailabilities[fieldName] = {};
+            for (const [resId, resUnavailabilities] of Object.entries(
+                unavailabilities[fieldName]
+            )) {
+                processedUnavailabilities[fieldName][resId] = resUnavailabilities.map((u) => ({
+                    start: deserializeDateTime(u.start),
+                    stop: deserializeDateTime(u.stop),
+                }));
+            }
+        }
+        return processedUnavailabilities;
+    }
+
     /**
      * @template {Record<string, any>} T
      * @param {T} schedule
@@ -1125,30 +1121,5 @@ export class GanttModel extends Model {
             ...this.metaData.groupedBy,
         ];
         return pick(schedule, ...allowedFields);
-    }
-
-    /**
-     * Update rows with unavailabilities from enriched rows.
-     *
-     * @protected
-     * @param {Row[]} original rows in the format of ganttData.rows
-     * @param {Row[]} enriched rows as returned by the gantt_unavailability rpc call
-     */
-    _updateUnavailabilityRows(original, enriched) {
-        for (let i = 0; i < original.length; i++) {
-            const o = original[i];
-            const e = enriched[i];
-            if (e.unavailabilities) {
-                o.unavailabilities = e.unavailabilities.map((u) => {
-                    // These are new data from the server, they haven't been parsed yet
-                    u.start = deserializeDateTime(u.start);
-                    u.stop = deserializeDateTime(u.stop);
-                    return u;
-                });
-            }
-            if (o.rows && e.rows) {
-                this._updateUnavailabilityRows(o.rows, e.rows);
-            }
-        }
     }
 }

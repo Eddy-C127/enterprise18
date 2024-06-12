@@ -93,23 +93,14 @@ class AppointmentHRGanttTest(AppointmentGanttTestCommon):
                 ctx = dict(self.gantt_context)
                 if specific_apt_type:
                     ctx.update({'default_appointment_type_id': self.apt_types[0].id})
-                gantt_data = self.env['calendar.event'].with_context(ctx).gantt_unavailability(
+                unavailabilities = self.env['calendar.event'].with_context(ctx)._gantt_unavailability(
+                    'partner_ids',
+                    [self.user_bob.partner_id.id, self.user_john.partner_id.id],
                     self.reference_monday.replace(hour=0),
                     self.reference_monday.replace(hour=23),
                     'day',
-                    group_bys=['partner_ids', 'user_id'],
-                    rows=[{
-                        'groupedBy': ['partner_ids', 'user_id'],
-                        'resId': self.user_bob.partner_id.id,
-                        'rows': [{'groupedBy': ['user_id'], 'resId': self.user_bob.id, 'rows': []}] if with_meeting else []
-                    }, {
-                        'groupedBy': ['partner_ids', 'user_id'],
-                        'resId': self.user_john.partner_id.id,
-                        'rows': [{'groupedBy': ['user_id'], 'resId': self.user_john.id, 'rows': []}] if with_meeting else []
-                    }]
                 )
 
-                bob_data, john_data = gantt_data
                 bob_unavailabilities = list(base_bob_unavailabilities)
                 john_unavailabilities = []
                 if with_meeting:
@@ -132,10 +123,10 @@ class AppointmentHRGanttTest(AppointmentGanttTestCommon):
                         (unavailability['start'], unavailability['stop'], set()) for unavailability in john_unavailabilities
                     ]) | appointment_slot_unavailabilities]
                 self.assertEqual(
-                    bob_data['unavailabilities'], sorted(bob_unavailabilities, key=lambda start_stop: start_stop['start']),
+                    unavailabilities[self.user_bob.partner_id.id], sorted(bob_unavailabilities, key=lambda start_stop: start_stop['start']),
                     'Bob should not be available when attending another meeting or outside of his HR schedule.'
                 )
                 self.assertEqual(
-                    john_data['unavailabilities'], sorted(john_unavailabilities, key=lambda start_stop: start_stop['start']),
+                    unavailabilities[self.user_john.partner_id.id], sorted(john_unavailabilities, key=lambda start_stop: start_stop['start']),
                     'John should not be available when attending another meeting.'
                 )

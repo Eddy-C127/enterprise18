@@ -26,7 +26,13 @@ function _mockGetGanttData(params) {
         context: params.context,
         specification: params.read_specification,
     });
-    return { groups, length, records };
+
+    const unavailabilities = {};
+    for (const fieldName of params.unavailability_fields || []) {
+        unavailabilities[fieldName] = {};
+    }
+
+    return { groups, length, records, unavailabilities };
 }
 
 registry.category("sample_server").add("get_gantt_data", _mockGetGanttData);

@@ -5,6 +5,8 @@ import { mockDate } from "@odoo/hoot-mock";
 import { defineModels, fields, models, onRpc } from "@web/../tests/web_test_helpers";
 import {
     SELECTORS,
+    getCell,
+    getCellColorProperties,
     hoverGridCell,
     mountGanttView,
 } from "@web_gantt/../tests/web_gantt_test_helpers";
@@ -102,4 +104,57 @@ test("progress bar has the correct unit", async () => {
     expect(SELECTORS.progressBarForeground).toHaveCount(1);
     expect(SELECTORS.progressBarForeground).toHaveText("651h / 744h");
     expect(`${SELECTORS.progressBar} > span > .o_gantt_group_hours_ratio`).toHaveText("(87.5%)");
+});
+
+test("unavailabilities fetched for workcenter_id (in groupBy)", async () => {
+    mockDate("2023-03-05 07:00:00");
+    onRpc("get_gantt_data", async ({ parent, kwargs }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.unavailability_fields).toEqual(['workcenter_id']);
+        result.unavailabilities.workcenter_id = { 1: [{ start: "2023-03-05 07:00:00", stop: "2023-03-06 07:00:00" }] };
+        return result;
+    });
+    await mountGanttView({
+        resModel: "workorder",
+        arch: `
+            <gantt js_class="mrp_workorder_gantt" date_start="planned_start" date_stop="planned_stop" display_unavailability="1">
+                <field name="workcenter_id" />
+            </gantt>
+        `,
+        groupBy: ["workcenter_id"],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(getCell("05 March 2023")).toHaveClass("o_gantt_today");
+    expect(getCellColorProperties("05 March 2023")).toEqual([
+        "--Gantt__DayOffToday-background-color",
+        "--Gantt__DayOff-background-color",
+    ]);
+    expect(getCell("05 March 2023", "Assembly line 2")).toHaveClass("o_gantt_today");
+    expect(getCellColorProperties("05 March 2023", "Assembly line 2")).toEqual([]);
+});
+
+test("unavailabilities fetched for workcenter_id  (not in groupBy)", async () => {
+    mockDate("2023-03-05 07:00:00");
+    Workorder._fields.other_workcenter_id = fields.Many2one({ string: "Other Work Center", relation: "workcenter" });
+    Workorder._records[0].other_workcenter_id = 1;
+    onRpc("get_gantt_data", async ({ parent, kwargs }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.unavailability_fields).toEqual([]);
+        result.unavailabilities.workcenter_id = { 1: [{ start: "2023-03-05 07:00:00", stop: "2023-03-06 07:00:00" }] };
+        return result;
+    });
+    await mountGanttView({
+        resModel: "workorder",
+        arch: `
+            <gantt js_class="mrp_workorder_gantt" date_start="planned_start" date_stop="planned_stop">
+                <field name="workcenter_id" />
+            </gantt>
+        `,
+        groupBy: ["other_workcenter_id"],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(getCell("05 March 2023")).toHaveClass("o_gantt_today");
+    expect(getCellColorProperties("05 March 2023")).toEqual([]);
 });

@@ -1330,64 +1330,30 @@ class Task(models.Model):
     # ----------------------------------------------------
 
     @api.model
-    def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
-        start_datetime = fields.Datetime.from_string(start_date)
-        end_datetime = fields.Datetime.from_string(end_date)
-        user_ids = set()
+    def _gantt_unavailability(self, field, res_ids, start, stop, scale):
+        if field not in ['user_ids', 'user_id']:
+            return super()._gantt_unavailability(field, res_ids, start, stop, scale)
 
-        # function to "mark" top level rows concerning users
-        # the propagation of that user_id to subrows is taken care of in the traverse function below
-        def tag_user_rows(rows):
-            for row in rows:
-                group_bys = row.get('groupedBy')
-                res_id = row.get('resId')
-                if group_bys:
-                    # if user_ids is the first grouping attribute
-                    if group_bys[0] == 'user_ids' and res_id:
-                        user_id = res_id
-                        user_ids.add(user_id)
-                        row['user_id'] = user_id
-                    # else we recursively traverse the rows
-                    elif 'user_ids' in group_bys:
-                        tag_user_rows(row.get('rows'))
-
-        tag_user_rows(rows)
-        resources = self.env['resource.resource'].search([('user_id', 'in', list(user_ids)), ('company_id', '=', self.env.company.id)], order='create_date')
+        resources = self.env['resource.resource'].search([('user_id', 'in', res_ids), ('company_id', '=', self.env.company.id)], order='create_date')
         # we reverse sort the resources by date to keep the first one created in the dictionary
         # to anticipate the case of a resource added later for the same employee and company
         user_resource_mapping = {resource.user_id.id: resource.id for resource in resources}
-        leaves_mapping = resources._get_unavailable_intervals(start_datetime, end_datetime)
-        company_leaves = self.env.company.resource_calendar_id._unavailable_intervals(start_datetime.replace(tzinfo=utc), end_datetime.replace(tzinfo=utc))
-
-        # function to recursively replace subrows with the ones returned by func
-        def traverse(func, row):
-            new_row = dict(row)
-            if new_row.get('user_id'):
-                for sub_row in new_row.get('rows'):
-                    sub_row['user_id'] = new_row['user_id']
-            new_row['rows'] = [traverse(func, row) for row in new_row.get('rows')]
-            return func(new_row)
+        leaves_mapping = resources._get_unavailable_intervals(start, stop)
+        company_leaves = self.env.company.resource_calendar_id._unavailable_intervals(start.replace(tzinfo=utc), stop.replace(tzinfo=utc))
 
         cell_dt = timedelta(hours=1) if scale in ['day', 'week'] else timedelta(hours=12)
 
-        # for a single row, inject unavailability data
-        def inject_unavailability(row):
-            new_row = dict(row)
-            user_id = row.get('user_id')
-            calendar = company_leaves
-            if user_id:
-                resource_id = user_resource_mapping.get(user_id)
-                if resource_id:
-                    calendar = leaves_mapping[resource_id]
-
+        result = {}
+        for user_id in res_ids:
+            resource_id = user_resource_mapping.get(user_id)
+            calendar = leaves_mapping.get(resource_id, company_leaves)
             # remove intervals smaller than a cell, as they will cause half a cell to turn grey
             # ie: when looking at a week, a employee start everyday at 8, so there is a unavailability
             # like: 2019-05-22 20:00 -> 2019-05-23 08:00 which will make the first half of the 23's cell grey
             notable_intervals = filter(lambda interval: interval[1] - interval[0] >= cell_dt, calendar)
-            new_row['unavailabilities'] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
-            return new_row
+            result['unavailabilities'] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
 
-        return [traverse(inject_unavailability, row) for row in rows]
+        return result
 
     def action_dependent_tasks(self):
         action = super().action_dependent_tasks()

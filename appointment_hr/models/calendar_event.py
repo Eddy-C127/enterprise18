@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, fields, models
+from odoo import api, models
 from odoo.addons.appointment.utils import interval_from_events, intervals_overlap
 from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 
@@ -41,17 +41,17 @@ class CalendarEvent(models.Model):
                         event.on_leave_partner_ids += employee.user_partner_id
 
     @api.model
-    def gantt_unavailability(self, start_date, end_date, scale, group_bys=None, rows=None):
+    def _gantt_unavailability(self, field, res_ids, start, stop, scale):
+        result = super()._gantt_unavailability(field, res_ids, start, stop, scale)
+
         # skip if not dealing with appointments
-        rows = super().gantt_unavailability(start_date, end_date, scale, group_bys=group_bys, rows=rows)
-        partner_ids = [row['resId'] for row in rows if row.get('resId')]  # remove empty rows
-        if not group_bys or group_bys[0] != 'partner_ids' or not partner_ids:
-            return rows
+        if field != 'partner_ids':
+            return result
 
-        start_datetime = timezone_datetime(fields.Datetime.from_string(start_date))
-        end_datetime = timezone_datetime(fields.Datetime.from_string(end_date))
+        start = timezone_datetime(start)
+        stop = timezone_datetime(stop)
 
-        partners = self.env['res.partner'].browse(partner_ids)
+        partners = self.env['res.partner'].browse(res_ids)
         users = partners.user_ids
         users_from_partner_id = users.grouped(lambda user: user.partner_id.id)
 
@@ -59,20 +59,21 @@ class CalendarEvent(models.Model):
         employee_by_calendar = users.employee_id.grouped('resource_calendar_id')
         unavailabilities_by_calendar = {
             calendar: calendar._unavailable_intervals_batch(
-                start_datetime, end_datetime,
+                start, stop,
                 resources=employee_by_calendar[calendar].resource_id
             ) for calendar in calendars
         }
 
-        event_unavailabilities = self._gantt_unavailabilities_events(start_datetime, end_datetime, partners)
-        for row in rows:
-            attendee_users = users_from_partner_id.get(row['resId'], self.env['res.users'])
-            attendee = partners.filtered(lambda partner: partner.id == row['resId'])
+        event_unavailabilities = self._gantt_unavailabilities_events(start, stop, partners)
+
+        for partner_id in res_ids:
+            attendee_users = users_from_partner_id.get(partner_id, self.env['res.users'])
+            attendee = partners.filtered(lambda partner: partner.id == partner_id)
 
             # calendar leaves
             unavailabilities = Intervals([
                 (unavailability['start'], unavailability['stop'], self.env['res.partner'])
-                for unavailability in row.get('unavailabilities', [])
+                for unavailability in result.get(partner_id, [])
             ])
             unavailabilities |= event_unavailabilities.get(attendee.id, Intervals([]))
             for user in attendee_users.filtered('employee_resource_calendar_id'):
@@ -80,5 +81,5 @@ class CalendarEvent(models.Model):
                 unavailabilities |= Intervals([
                     (start, end, attendee)
                     for start, end in calendar_leaves.get(user.employee_id.resource_id.id, [])])
-            row['unavailabilities'] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities]
-        return rows
+            result[partner_id] = [{'start': start, 'stop': stop} for start, stop, _ in unavailabilities]
+        return result

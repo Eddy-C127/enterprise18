@@ -500,9 +500,10 @@ test(`Today style with unavailabilities ("week": "day:half")`, async () => {
         },
     ];
 
-    onRpc("gantt_unavailability", ({ args }) => {
-        const rows = args[4];
-        return rows.map((row) => Object.assign(row, { unavailabilities }));
+    onRpc("get_gantt_data", async ({ parent }) => {
+        const result = await parent();
+        result.unavailabilities.__default = { false: unavailabilities };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -535,18 +536,18 @@ test("Today style of group rows", async () => {
     ];
     Tasks._records = [Tasks._records[3]]; // id: 4
 
-    onRpc("gantt_unavailability", ({ args }) => {
-        const rows = args[4];
-        for (const r of rows) {
-            r.unavailabilities = unavailabilities;
-        }
-        return rows;
+    onRpc("get_gantt_data", async ({ parent }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        result.unavailabilities.project_id = { 1: unavailabilities };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" display_unavailability="1" default_scale="week" scales="week" precision="{'week': 'day:half'}"/>`,
         groupBy: ["user_id", "project_id"],
     });
+    expect(["get_gantt_data"]).toVerifySteps();
 
     // Normal group cell: open
     let cell4 = getCell("19 W51 2018");
@@ -584,13 +585,15 @@ test("Today style of group rows", async () => {
 test("style without unavailabilities", async () => {
     mockDate("2018-12-05T02:00:00");
 
-    onRpc("gantt_unavailability", ({ args }) => {
-        return args[4];
+    onRpc("get_gantt_data", ({ kwargs }) => {
+        expect.step("get_gantt_data");
+        expect(kwargs.unavailability_fields).toEqual([]);
     });
     await mountGanttView({
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" display_unavailability="1"/>`,
     });
+    expect(["get_gantt_data"]).toVerifySteps();
     const cell5 = getCell("05 December 2018");
     expect(cell5).toHaveClass("o_gantt_today");
     expect(cell5).toHaveAttribute("style", "grid-column:c9/c11;grid-row:r1/r5;");
@@ -611,22 +614,21 @@ test(`Unavailabilities ("month": "day:half")`, async () => {
             stop: "2018-12-18 13:00:00",
         },
     ];
-    onRpc("gantt_unavailability", ({ args, model }) => {
-        expect.step("gantt_unavailability");
+    onRpc("get_gantt_data", ({ model, kwargs, parent }) => {
+        expect.step("get_gantt_data");
         expect(model).toBe("tasks");
-        expect(args[0]).toBe("2018-11-30 23:00:00");
-        expect(args[1]).toBe("2019-02-28 23:00:00");
-        const rows = args[4];
-        for (const r of rows) {
-            r.unavailabilities = unavailabilities;
-        }
-        return rows;
+        expect(kwargs.unavailability_fields).toEqual([]);
+        expect(kwargs.start_date).toBe("2018-11-30 23:00:00");
+        expect(kwargs.stop_date).toBe("2019-02-28 23:00:00");
+        const result = parent();
+        result.unavailabilities = { __default: { false: unavailabilities } };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" display_unavailability="1"/>`,
     });
-    expect(["gantt_unavailability"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
     expect(getCell("05 December 2018")).toHaveClass("o_gantt_today");
     expect(getCellColorProperties("05 December 2018")).toEqual([
         "--Gantt__DayOffToday-background-color",
@@ -666,12 +668,11 @@ test(`Unavailabilities ("day": "hours:quarter")`, async () => {
             stop: "2018-12-20 20:50:00",
         },
     ];
-    onRpc("gantt_unavailability", ({ args }) => {
-        const rows = args[4];
-        for (const r of rows) {
-            r.unavailabilities = unavailabilities;
-        }
-        return rows;
+    onRpc("get_gantt_data", ({ kwargs, parent }) => {
+        expect(kwargs.unavailability_fields).toEqual([]);
+        const result = parent();
+        result.unavailabilities = { __default: { false: unavailabilities } };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -928,4 +929,52 @@ test("default_range attribute", async () => {
     const firstRangeMenuItem = queryFirst(`${SELECTORS.rangeMenu} .dropdown-item`);
     expect(firstRangeMenuItem).toHaveClass("selected");
     expect(firstRangeMenuItem).toHaveText("Today");
+});
+
+test("consolidation and unavailabilities", async () => {
+    const unavailabilities = [
+        {
+            start: "2018-12-18 10:00:00",
+            stop: "2018-12-20 14:00:00",
+        },
+    ];
+    onRpc("get_gantt_data", async ({ parent, kwargs }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        expect(kwargs.unavailability_fields).toEqual(["user_id"]);
+        result.unavailabilities.user_id = { 1: unavailabilities };
+        return result;
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `
+            <gantt
+                date_start="start"
+                date_stop="stop"
+                consolidation="progress"
+                consolidation_max="{'user_id': 100}"
+                consolidation_exclude="exclude"
+                display_unavailability="1"
+            />
+        `,
+        groupBy: ["user_id"],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    // Normal day / unavailability
+    expect(getCellColorProperties("18 December 2018", "", { num: 2 })).toEqual([
+        "--Gantt__Day-background-color",
+        "--Gantt__DayOff-background-color",
+    ]);
+
+    // Full unavailability
+    expect(getCellColorProperties("19 December 2018", "", { num: 2 })).toEqual([
+        "--Gantt__DayOff-background-color",
+    ]);
+
+    // Unavailability / today
+    expect(getCell("20 December 2018")).toHaveClass("o_gantt_today");
+    expect(getCellColorProperties("20 December 2018", "", { num: 2 })).toEqual([
+        "--Gantt__DayOff-background-color",
+        "--Gantt__DayOffToday-background-color",
+    ]);
 });

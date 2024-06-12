@@ -2,7 +2,12 @@ import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { mockDate } from "@odoo/hoot-mock";
 import { onRpc } from "@web/../tests/web_test_helpers";
 import { defineGanttModels } from "./gantt_mock_models";
-import { SELECTORS, getGridContent, mountGanttView } from "./web_gantt_test_helpers";
+import {
+    SELECTORS,
+    getCellColorProperties,
+    getGridContent,
+    mountGanttView,
+} from "./web_gantt_test_helpers";
 
 describe.current.tags("desktop");
 
@@ -351,4 +356,172 @@ test("sparse gantt with a group expand", async () => {
         },
     ]);
     expect(SELECTORS.noContentHelper).toHaveCount(0);
+});
+
+test("empty sparse gantt with unavailabilities", async () => {
+    const unavailabilities = [
+        {
+            start: "2018-12-18 23:00:00",
+            stop: "2018-12-19 23:00:00",
+        },
+    ];
+    onRpc("get_gantt_data", async ({ parent, kwargs }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        expect(kwargs.unavailability_fields).toEqual([]);
+        result.unavailabilities.__default = { false: unavailabilities };
+        return result;
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" display_unavailability="1" />`,
+        domain: [["id", "=", 0]],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    // Full unavailability
+    expect(getCellColorProperties("19 December 2018")).toEqual([
+        "--Gantt__DayOff-background-color",
+    ]);
+});
+
+test("sparse gantt with unavailabilities", async () => {
+    const unavailabilities = [
+        {
+            start: "2018-12-18 23:00:00",
+            stop: "2018-12-19 23:00:00",
+        },
+    ];
+    onRpc("get_gantt_data", async ({ parent, kwargs }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        expect(kwargs.unavailability_fields).toEqual([]);
+        result.unavailabilities.__default = { false: unavailabilities };
+        return result;
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" display_unavailability="1" />`,
+        domain: [["id", "=", 1]],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    // Full unavailability
+    expect(getCellColorProperties("19 December 2018")).toEqual([
+        "--Gantt__DayOff-background-color",
+    ]);
+});
+
+test("sparse grouped gantt with unavailabilities", async () => {
+    const unavailabilities = [
+        {
+            start: "2018-12-18 23:00:00",
+            stop: "2018-12-19 23:00:00",
+        },
+    ];
+    onRpc("get_gantt_data", async ({ parent, kwargs }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        expect(kwargs.unavailability_fields).toEqual(["user_id"]);
+        result.unavailabilities.user_id = { 1: unavailabilities };
+        return result;
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" display_unavailability="1" />`,
+        groupBy: ["user_id"],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    // Full unavailability
+    expect(getCellColorProperties("19 December 2018", "Task 5")).toEqual([
+        "--Gantt__DayOff-background-color",
+    ]);
+});
+
+test("sparse gantt with consolidation with unavailabilities", async () => {
+    const unavailabilities = [
+        {
+            start: "2018-12-18 23:00:00",
+            stop: "2018-12-19 23:00:00",
+        },
+    ];
+    onRpc("get_gantt_data", async ({ parent, kwargs }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        expect(kwargs.unavailability_fields).toEqual(["user_id"]);
+        result.unavailabilities.user_id = { 1: unavailabilities };
+        return result;
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `
+            <gantt
+                date_start="start"
+                date_stop="stop"
+                consolidation="progress"
+                consolidation_max="{'user_id': 100}"
+                display_mode="sparse"
+                display_unavailability="1"
+            />
+        `,
+        groupBy: ["user_id"],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    // Full unavailability
+    expect(getCellColorProperties("19 December 2018", "", { num: 2 })).toEqual([
+        "--Gantt__DayOff-background-color",
+    ]);
+});
+
+test("sparse gantt with a group expand and unavailabilities", async () => {
+    const unavailabilities = [
+        {
+            start: "2018-12-18 23:00:00",
+            stop: "2018-12-19 23:00:00",
+        },
+    ];
+    onRpc("get_gantt_data", ({ kwargs }) => {
+        expect.step("get_gantt_data");
+        expect(kwargs.unavailability_fields).toEqual(["user_id"]);
+        return {
+            groups: [
+                {
+                    user_id: [1, "Charles"],
+                    __record_ids: [],
+                },
+                {
+                    user_id: [2, "Louis"],
+                    __record_ids: [4],
+                },
+            ],
+            length: 2,
+            records: [
+                {
+                    display_name: "Task 4",
+                    id: 4,
+                    progress: 0,
+                    user_id: 1,
+                    start: "2018-12-20 02:30:00",
+                    stop: "2018-12-20 06:29:59",
+                },
+            ],
+            unavailabilities: {
+                user_id: { 1: unavailabilities, 2: [] },
+            },
+        };
+    });
+    await mountGanttView({
+        resModel: "tasks",
+        arch: `
+            <gantt
+                date_start="start"
+                date_stop="stop"
+                display_mode="sparse"
+                display_unavailability="1"
+            />
+        `,
+        groupBy: ["user_id"],
+    });
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(getCellColorProperties("19 December 2018", "", { num: 2 })).toEqual([
+        "--Gantt__DayOff-background-color",
+    ]);
 });

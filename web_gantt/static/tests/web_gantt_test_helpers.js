@@ -276,7 +276,7 @@ export function getCell(columnHeader, rowHeader = null, options) {
     if (!cells.length) {
         throw new Error(`Could not find cell at column ${columnHeader}`);
     }
-    if (!rowHeader) {
+    if (rowHeader === null) {
         return cells[0];
     }
     const row = queryAll(`.o_gantt_row_header:contains(${rowHeader})`)?.[(options?.num || 1) - 1];
