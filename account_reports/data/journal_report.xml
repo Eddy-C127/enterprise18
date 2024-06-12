@@ -73,7 +73,7 @@
         <xpath expr="//tr[@name='pdf_export_main_table_body_lines_tr']" position="after">
             <tr t-else="" t-att-class="'o_subtable ' + o_line_level + (' o_bold' if line.get('unfolded') else '')">
                 <!-- Taxes applied -->
-                <td colspan="2" t-att-class="o_journal_report_td">
+                <td colspan="3" t-att-class="o_journal_report_td">
                     <t t-set="taxes" t-value="line.get('tax_report_lines')"/>
                     <t t-set="extra_columns" t-value="line.get('extra_columns')"/>
                     <table t-if="taxes" class="table">
