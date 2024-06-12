@@ -8,6 +8,7 @@
             <field name="invoice_payment_term_id" ref="account.account_payment_term_end_following_month"/>
             <field name="move_type">out_invoice</field>
             <field name="invoice_date" eval="time.strftime('%Y-%m')+'-01'"/>
+            <field name="company_id" ref="base.demo_company_be"/>
             <field name="journal_id" model="account.journal"
                    search="[('type', '=', 'sale'), ('company_id', '=', ref('base.demo_company_be'))]"/>
             <field name="invoice_line_ids" eval="[
