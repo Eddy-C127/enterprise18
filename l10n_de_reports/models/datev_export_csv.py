@@ -110,7 +110,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                             'l10n_de_reports.datev_export_metadata',
                             values={
                                 'documents': documents,
-                                'date': fields.Date.today(),
+                                'date': fields.Datetime.now().strftime('%Y-%m-%dT%H:%M:%S'),
                             },
                         )
                         zf.writestr('document.xml', "<?xml version='1.0' encoding='UTF-8'?>" + str(metadata_document))
