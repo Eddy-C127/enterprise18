@@ -4,7 +4,7 @@
     'version': '0.1',
     'category': 'Accounting/Localizations/EDI',
     'summary': 'Colombian Localization for EDI documents',
-    'depends': ['l10n_co_edi'],
+    'depends': ['account_edi_ubl_cii', 'l10n_co_edi'],
     'data': [
         'security/ir.model.access.csv',
         'views/account_journal_views.xml',
