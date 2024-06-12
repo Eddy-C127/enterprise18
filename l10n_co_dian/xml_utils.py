@@ -121,11 +121,6 @@ def _fill_signature(node, private_key):
     node.find("ds:SignatureValue", namespaces=NS_MAP).text = encodebytes(signature).decode()
 
 
-def _int_to_bytes(number):
-    """ Converts an integer to a byte string (in smallest big-endian form). """
-    return number.to_bytes((number.bit_length() + 7) // 8, byteorder='big')
-
-
 def _remove_tail_and_text_in_hierarchy(node):
     """ Recursively remove the tail of all nodes in hierarchy and remove the text of all non-leaf nodes. """
     node.tail = None

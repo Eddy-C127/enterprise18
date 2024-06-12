@@ -10,9 +10,6 @@ from odoo.tools import html_escape
 from odoo.addons.l10n_co_dian import xml_utils
 from odoo.exceptions import UserError
 
-TEST_ENDPOINT = "https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc?wsdl"
-ENDPOINT = "https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl"
-
 
 class L10nCoDianDocument(models.Model):
     _name = 'l10n_co_dian.document'
