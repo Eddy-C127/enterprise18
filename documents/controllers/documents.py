@@ -108,40 +108,32 @@ class ShareRoute(http.Controller):
         if document_id:
             document = request.env['documents.document'].browse(int(document_id))
             ufile = files[0]
-            try:
-                data = base64.encodebytes(ufile.read())
-                mimetype = ufile.content_type
-                document.with_context(image_no_postprocess=True).write({
-                    'name': ufile.filename,
-                    'datas': data,
-                    'mimetype': mimetype,
-                })
-            except Exception as e:
-                logger.exception("Fail to upload document %s" % ufile.filename)
-                result = {'error': str(e)}
+            data = base64.encodebytes(ufile.read())
+            mimetype = ufile.content_type
+            document.with_context(image_no_postprocess=True).write({
+                'name': ufile.filename,
+                'datas': data,
+                'mimetype': mimetype,
+            })
         else:
             vals_list = []
             for ufile in files:
-                try:
-                    mimetype = ufile.content_type
-                    datas = base64.encodebytes(ufile.read())
-                    vals = {
-                        'name': ufile.filename,
-                        'mimetype': mimetype,
-                        'datas': datas,
-                        'folder_id': int(folder_id),
-                        'tag_ids': tag_ids,
-                        'partner_id': int(partner_id)
-                    }
-                    if owner_id:
-                        vals['owner_id'] = int(owner_id)
-                    if res_id and res_model:
-                        vals['res_id'] = res_id
-                        vals['res_model'] = res_model
-                    vals_list.append(vals)
-                except Exception as e:
-                    logger.exception("Fail to upload document %s" % ufile.filename)
-                    result = {'error': str(e)}
+                mimetype = ufile.content_type
+                datas = base64.encodebytes(ufile.read())
+                vals = {
+                    'name': ufile.filename,
+                    'mimetype': mimetype,
+                    'datas': datas,
+                    'folder_id': int(folder_id),
+                    'tag_ids': tag_ids,
+                    'partner_id': int(partner_id)
+                }
+                if owner_id:
+                    vals['owner_id'] = int(owner_id)
+                if res_id and res_model:
+                    vals['res_id'] = res_id
+                    vals['res_model'] = res_model
+                vals_list.append(vals)
             cids = request.httprequest.cookies.get('cids', str(request.env.user.company_id.id))
             allowed_company_ids = [int(cid) for cid in cids.split('-')]
             documents = request.env['documents.document'].with_context(
