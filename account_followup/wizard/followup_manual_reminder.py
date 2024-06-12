@@ -25,7 +25,6 @@ class FollowupManualReminder(models.TransientModel):
             )
         defaults.update(
             partner_id=partner.id,
-            email_recipient_ids=[Command.set((partner._get_all_followup_contacts() or partner).ids)],
             attachment_ids=[Command.set(partner._get_included_unreconciled_aml_ids().move_id.message_main_attachment_id.ids)],
             render_model='res.partner'
         )
@@ -36,6 +35,7 @@ class FollowupManualReminder(models.TransientModel):
     # email fields
     email = fields.Boolean()
     email_recipient_ids = fields.Many2many(string="Extra Recipients", comodel_name='res.partner',
+                                           compute='_compute_email_recipient_ids', store=True, readonly=False,
                                            relation='rel_followup_manual_reminder_res_partner')  # override
 
     # sms fields
@@ -72,6 +72,20 @@ class FollowupManualReminder(models.TransientModel):
                 'mail_template': wizard.template_id,
             }
             wizard.body = self.env['account.followup.report']._get_main_body(options)
+
+    @api.depends('template_id')
+    def _compute_email_recipient_ids(self):
+        for wizard in self:
+            template = wizard.template_id
+            if template:
+                partner_id = wizard.partner_id.id
+                rendered_values = template._generate_template_recipients(
+                    [partner_id],
+                    {'partner_to', 'email_cc', 'email_to'},
+                    True
+                )[partner_id]
+                if rendered_values.get('partner_ids'):
+                    wizard.email_recipient_ids = rendered_values['partner_ids']
 
     @api.depends('sms_template_id')
     def _compute_sms_body(self):
