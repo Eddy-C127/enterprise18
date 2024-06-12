@@ -470,6 +470,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 AND company_country.id != country.id
                 AND country.intrastat = TRUE AND (country.code != 'GB' OR account_move.date < '2021-01-01')
                 AND prodt.type != 'service'
+                AND ref_weight_uom.active
         """).format(where_clause=where_clause)
 
         if expanded_line_options:
