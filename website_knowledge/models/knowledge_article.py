@@ -51,7 +51,7 @@ class Article(models.Model):
 
     @api.model
     def _search_get_detail(self, website, order, options):
-        domain = ['|', ('user_has_access', '=', True), ('is_published', '=', True)]
+        domain = [('is_published', '=', True), ('is_template', '=', False)]
         if options.get('max_date'):
             domain = expression.AND([[('create_date', '>=', options['max_date'])], domain])
         mapping = {

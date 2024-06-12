@@ -14,16 +14,19 @@ class HelpdeskTeam(models.Model):
     @api.depends('website_article_id')
     def _compute_show_knowledge_base_article(self):
         # 'show_knowledge_base_article' determines whether the help page of the website displays a link to articles.
-        accessible_articles = self.env['knowledge.article'].search_count([], limit=1) > 0
+        accessible_articles = self.env['knowledge.article'].search_count([
+            ('website_published', '=', True),
+            ('name', '!=', False),
+            ('is_template', '=', False),
+        ], limit=1) > 0
         for team_sudo in self.sudo():
             team_sudo.show_knowledge_base_article = team_sudo.use_website_helpdesk_knowledge and accessible_articles
 
     def _compute_latest_articles(self):
         latest_articles = self.env['knowledge.article'].search([
-            '|',
-                ('website_published', '=', True),
-                ('user_has_access', '=', True),
-            ('name', '!=', False)
+            ('website_published', '=', True),
+            ('name', '!=', False),
+            ('is_template', '=', False)
         ], limit=5, order='favorite_count desc, write_date desc')
         for team in self:
             team.website_latest_articles = latest_articles
