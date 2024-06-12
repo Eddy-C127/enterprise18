@@ -38,7 +38,9 @@ import { selectCell, setCellContent } from "@spreadsheet/../tests/utils/commands
 import { user } from "@web/core/user";
 import { session } from "@web/session";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import { Model } from "@odoo/o-spreadsheet";
+import { Model, constants } from "@odoo/o-spreadsheet";
+import { getZoneOfInsertedDataSource } from "@spreadsheet/../tests/utils/pivot";
+const { PIVOT_TABLE_CONFIG } = constants;
 
 QUnit.module("spreadsheet pivot view", {}, () => {
     QUnit.test("simple pivot export", async (assert) => {
@@ -1255,4 +1257,45 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             `=PIVOT.HEADER(1,"foo",1,"measure","probability")`
         );
     });
+
+    QUnit.test("Inserted pivot is inserted with a table", async function (assert) {
+        const { model } = await createSpreadsheetFromPivotView();
+        const [pivotId] = model.getters.getPivotIds();
+        const sheetId = model.getters.getActiveSheetId();
+        const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+        const tables = model.getters.getTables(sheetId);
+
+        assert.equal(tables.length, 1);
+        assert.deepEqual(tables[0].range.zone, pivotZone);
+        assert.deepEqual(tables[0].config, { ...PIVOT_TABLE_CONFIG, numberOfHeaders: 1 });
+    });
+
+    QUnit.test(
+        "The table has the correct number of headers when inserting a pivot",
+        async function (assert) {
+            const { model } = await createSpreadsheetFromPivotView({
+                serverData: {
+                    models: getBasicData(),
+                    views: {
+                        "partner,false,pivot": /* xml */ `
+                            <pivot>
+                                <field name="date" interval="year" type="col"/>
+                                <field name="date" interval="month" type="col"/>
+                                <field name="date" interval="day" type="col"/>
+                                <field name="probability" type="row"/>
+                                <field name="foo" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": /* xml */ `<search/>`,
+                    },
+                },
+            });
+            const [pivotId] = model.getters.getPivotIds();
+            const sheetId = model.getters.getActiveSheetId();
+            const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+            const tables = model.getters.getTables(sheetId);
+
+            assert.deepEqual(tables[0].range.zone, pivotZone);
+            assert.equal(tables[0].config.numberOfHeaders, 3);
+        }
+    );
 });

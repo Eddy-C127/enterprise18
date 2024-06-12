@@ -55,7 +55,6 @@ export function insertPivot(pivotData) {
             throw new Error("The pivot data source is not an OdooPivot");
         }
         await ds.load();
-        const table = ds.getTableStructure().export();
 
         let sheetName = `${pivot.name} (Pivot #${model.getters.getPivotFormulaId(pivotId)})`;
         // Add an empty sheet in the case of an existing spreadsheet.
@@ -79,18 +78,17 @@ export function insertPivot(pivotData) {
         }
         const sheetId = model.getters.getActiveSheetId();
 
+        const table = ds.getTableStructure();
         ensureSuccess(
-            model.dispatch("INSERT_PIVOT", {
-                sheetId,
-                col: 0,
-                row: 0,
+            model.dispatch("INSERT_ODOO_FIX_PIVOT", {
+                position: { sheetId, col: 0, row: 0 },
                 pivotId,
-                table,
+                table: table.export(),
             })
         );
 
         const columns = [];
-        for (let col = 0; col <= table.cols[table.cols.length - 1].length; col++) {
+        for (let col = 0; col <= table.columns[table.columns.length - 1].length; col++) {
             columns.push(col);
         }
         model.dispatch("AUTORESIZE_COLUMNS", { sheetId, cols: columns });

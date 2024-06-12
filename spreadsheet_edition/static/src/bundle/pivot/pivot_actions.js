@@ -12,12 +12,10 @@ export const REINSERT_PIVOT_CHILDREN = (env) =>
             const dataSource = env.model.getters.getPivot(pivotId);
             const model = await dataSource.copyModelWithOriginalDomain();
             const table = model.getTableStructure().export();
-            const zone = env.model.getters.getSelectedZone();
-            env.model.dispatch("INSERT_PIVOT", {
+            const position = env.model.getters.getActivePosition();
+            env.model.dispatch("INSERT_ODOO_FIX_PIVOT", {
+                position,
                 pivotId,
-                col: zone.left,
-                row: zone.top,
-                sheetId: env.model.getters.getActiveSheetId(),
                 table,
             });
             env.model.dispatch("REFRESH_PIVOT", { id: pivotId });
