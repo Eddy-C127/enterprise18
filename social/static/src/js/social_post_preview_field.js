@@ -18,7 +18,7 @@ export class FieldPostPreview extends SocialPostFormatterMixin(HtmlField) {
             $(previewMessage).html(this._formatPost($(previewMessage).text().trim()));
         });
 
-        return markup($html[0].outerHTML);
+        return markup($html[0]?.outerHTML || "");
     }
 }
 

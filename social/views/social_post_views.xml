@@ -26,7 +26,7 @@
         <field name="model">social.post</field>
         <field name="arch" type="xml">
             <kanban js_class="social_post_kanban_view" sample="1">
-                <field name="message"/>
+                <field name="display_message"/>
                 <field name="create_uid"/>
                 <field name="image_ids" widget="many2many_binary"/>
                 <field name="image_urls"/>
@@ -57,20 +57,19 @@
                                 </div>
                             </div>
 
-                            <t t-set="has_attachments" t-value="record.image_ids.raw_value.length !== 0"/>
+                            <t t-set="has_attachments" t-value="(record.image_urls.raw_value || '[]') !== '[]'"/>
                             <div t-attf-class="o_social_stream_post_message_body flex-grow-1 py-2 px-3 border-bottom #{has_attachments ? 'o_social_stream_post_with_attachments' : ''}">
                                 <div name="o_social_stream_post_message_text"
                                      t-attf-class="o_social_stream_post_message_text overflow-hidden #{has_attachments ? 'mb-2' : ''}">
-                                    <field name="message" widget="social_post_formatter"/>
+                                    <field name="display_message" widget="social_post_formatter"/>
                                 </div>
 
                                 <div t-if="has_attachments"
                                     class="o_social_stream_post_image d-flex mx-n3 overflow-hidden"
                                     t-att-data-images="record.image_urls.raw_value">
                                     <t t-set="image_urls_json" t-value="JSON.parse(record.image_urls.raw_value || '[]')"/>  <!-- fallback on '[]' necessary as unset in sample mode -->
-
                                     <t t-foreach="image_urls_json.length > 2 ? image_urls_json.slice(0, 2) : image_urls_json" t-as="image_url" t-key="image_url_index">
-                                        <t t-if="image_url_index == 1 &amp; record.image_ids.raw_value.length > 2">
+                                        <t t-if="image_url_index == 1 and image_urls_json.length > 2">
                                             <a class="o_social_stream_post_image_more position-relative d-flex ms-1"
                                                t-att-data-index="image_url_index" t-att-data-image-urls="image_urls_json">
                                                 <img t-att-src="image_urls_json[1]" alt="Post Image" />
@@ -219,13 +218,21 @@
             <xpath expr="//field[@name='message']" position="attributes">
                 <attribute name="readonly">not has_active_accounts or state in ['posting', 'posted']</attribute>
                 <attribute name="required">not image_ids</attribute>
-                <attribute name="invisible">not message and state in ['posting', 'posted']</attribute>
+                <attribute name="invisible" add="state in ['posting', 'posted']" separator="or"/>
+            </xpath>
+
+            <xpath expr="//notebook[@name='media_customization']" position="attributes">
+                <attribute name="invisible" add="state in ['posting', 'posted']" separator="or"/>
+            </xpath>
+
+            <xpath expr="//group[@name='previews_placeholder']" position="attributes">
+                <attribute name="invisible" add="state in ['posting', 'posted']" separator="or"/>
             </xpath>
 
             <xpath expr="//field[@name='image_ids']" position="attributes">
                 <attribute name="readonly">state in ['posting', 'posted']</attribute>
-                <attribute name="required">not message</attribute>
-                <attribute name="invisible">not image_ids and state in ['posting', 'posted']</attribute>
+                <attribute name="required">not message and not is_split_per_media</attribute>
+                <attribute name="invisible" add="state in ['posting', 'posted']" separator="or"/>
             </xpath>
 
             <xpath expr="//field[@name='account_ids']" position="before">
@@ -238,14 +245,13 @@
             <xpath expr="//field[@name='image_ids']" position="after">
                 <field string="Campaign" name="utm_campaign_id"
                     readonly="state in ['posting', 'posted']"
-                    context="{'form_view_ref': 'social.utm_campaign_view_form_quick_create_social'}"
-                    invisible="not utm_campaign_id and state in ['posting', 'posted']"/>
+                    context="{'form_view_ref': 'social.utm_campaign_view_form_quick_create_social'}"/>
                 <field name="post_method" widget="radio" invisible="state != 'draft'"/>
                 <field name="scheduled_date" invisible="post_method == 'now' or state in ['posting', 'posted']" required="post_method != 'now'" />
             </xpath>
 
             <xpath expr="//group[@name='previews_placeholder']" position="after">
-                <group name="live_posts" colspan="2" string="Posts By Accounts"
+                <group name="live_posts" colspan="2" string="Posts"
                     invisible="state not in ['posting', 'posted']">
                     <field name="live_post_ids" colspan="2" nolabel="1">
                         <kanban>
@@ -261,14 +267,24 @@
                                                 <field name="account_id" />
                                                 <t t-if="record.live_post_link.raw_value"><a t-att-href="record.live_post_link.raw_value" target="blank"><i class="fa fa-globe ms-1" title="See the post"/></a></t>
                                             </div>
-                                            <div class="col-md-4 text-end">
+                                            <div class="col-md-4 text-end mb-2">
                                                 <field name="state" widget="label_selection" options="{'classes': {'ready': 'info', 'posting': 'warning', 'posted': 'success', 'failed': 'danger'}}"/>
                                             </div>
                                         </div>
-                                        <div class="o_social_live_post_kanban_failure_reason mt-2" t-att-title="record.failure_reason.raw_value">
-                                            <field name="failure_reason" />
+                                        <div class="d-flex flex-row justify-content-between w-100">
+                                            <field name="media_type" invisible="1"/>
+                                            <div class="o_live_post_content d-flex flex-column overflow-hidden pe-2">
+                                                <field name="message"
+                                                    widget="social_post_formatter"/>
+                                            </div>
+                                            <field name="image_ids"
+                                                class="w-auto"
+                                                widget="social_many2many_images"/>
                                         </div>
-                                        <div class="text-end mt-4">
+                                        <div class="text-end mt-4 d-flex flex-row w-100 justify-content-between">
+                                            <div class="o_social_live_post_kanban_failure_reason mt-2" t-att-title="record.failure_reason.raw_value">
+                                                <field name="failure_reason" />
+                                            </div>
                                             <button name="action_retry_post" string="Retry" type="object" class="btn btn-primary"
                                                 invisible="state != 'failed'">
                                                 Retry

@@ -78,12 +78,12 @@ class SocialLivePostLinkedin(models.Model):
                 "visibility": "PUBLIC",
             }
 
-            if live_post.post_id.image_ids:
+            if live_post.image_ids:
                 try:
                     images_urn = [
                         live_post.account_id._linkedin_upload_image(
                             image_id.with_context(bin_size=False).raw)
-                        for image_id in live_post.post_id.image_ids
+                        for image_id in live_post.image_ids
                     ]
                 except UserError as e:
                     live_post.write({

@@ -34,20 +34,35 @@
                             </div>
                             <field name="message" widget="text_emojis" class="o_social_post_message_wrapper"
                                 onchange_on_keydown="True" force_save="1" default_focus="1"
-                                   readonly="not has_active_accounts" placeholder="Write a message or upload an image">
-                            </field>
-                            <field name="image_ids" widget="many2many_binary" class="o_social_post_form_attachments"/>
+                                readonly="not has_active_accounts"
+                                placeholder="Write a message or upload an image"
+                                invisible="is_split_per_media"/>
+                            <field name="image_ids" widget="many2many_binary"
+                                class="o_social_post_form_attachments"
+                                invisible="is_split_per_media"/>
                         </group>
-                        <group name="previews_placeholder" class="o_social_post_preview_group m-0">
-                            <div class="o_social_post_empty_preview overflow-hidden o_view_nocontent bg-100 rounded-end"
-                                invisible="account_ids and (message or image_ids)">
-                                <div class="o_nocontent_help">
-                                    <p class="o_view_nocontent_smiling_face">
-                                        Preview your post
-                                    </p>
-                                    <p>
-                                        Before posting, links will be converted to be trackable.
-                                    </p>
+                        <notebook name="media_customization" invisible="not is_split_per_media"/>
+                        <group name="previews_placeholder" class="o_social_post_preview_group m-0"
+                            invisible="is_split_per_media">
+                            <div colspan="2">
+                                <div class="o_social_post_preview_container bg-200 pt-3"
+                                    invisible="not account_ids or (not message and not image_ids)">
+                                    <h2 class="w-100 text-center mb-2">Posts Preview</h2>
+                                    <div class="d-block mx-auto text-center"
+                                        invisible="media_count == 1">
+                                        <field name="is_split_per_media" widget="social_post_split_per_media"/>
+                                    </div>
+                                </div>
+                                <div class="o_social_post_empty_preview overflow-hidden o_view_nocontent bg-100 rounded-end d-flex flex-column"
+                                    invisible="account_ids and (message or image_ids)">
+                                    <div class="o_nocontent_help">
+                                        <p class="o_view_nocontent_smiling_face mt-3">
+                                            Preview your post
+                                        </p>
+                                        <p>
+                                            Before posting, links will be converted to be trackable.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </group>

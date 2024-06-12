@@ -11,20 +11,14 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
         position: relative;
 
         .o_social_post_empty_preview {
+            pointer-events: auto;
+            left: 50%;
             @include media-breakpoint-down(lg) {
-                display: none;
+                display: none !important;
             }
 
             &.o_view_nocontent {
-                @include o-position-absolute(0, 0, 0, 55%);
                 padding-top: 5%;
-            }
-        }
-
-        .o_group.o_inner_group.o_social_post_preview_group {
-            > tbody > tr > td {
-                width: 100%;
-                padding-right: 0;
             }
         }
 
@@ -263,13 +257,14 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
         }
     }
 
-    .o_social_stream_post_image_more_overlay {
-        cursor: pointer;
-        background-color: rgba(black, .2);
+}
 
-        &:hover {
-            background-color: rgba(black, .35);
-        }
+.o_social_stream_post_image_more_overlay {
+    cursor: pointer;
+    background-color: rgba(black, .2);
+
+    &:hover {
+        background-color: rgba(black, .35);
     }
 }
 
@@ -318,6 +313,9 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
 
 
 .o_social_live_post_kanban {
+    // avoid blank space when the cards have different height
+    height: fit-content !important;
+
     .o_field_widget.badge {
         display: inline-block;
         width: auto;
@@ -332,6 +330,10 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+    }
+
+    img {
+        max-height: 60px;
     }
 }
 

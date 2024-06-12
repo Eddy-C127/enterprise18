@@ -13,6 +13,11 @@ class SocialLivePostPushNotifications(models.Model):
 
     reached_visitor_ids = fields.Many2many('website.visitor', string="Reached Visitors")
 
+    # UI fields
+    push_notification_title = fields.Char(related='post_id.push_notification_title')
+    push_notification_target_url = fields.Char(related='post_id.push_notification_target_url')
+    push_notification_image = fields.Binary(related='post_id.push_notification_image')
+
     def _post(self):
         """ The _post method of push notifications, unlike other social.media, doesn't post messages directly
         Instead, we keep them 'ready' and they are gathered by a cron job (see 'social.post#_cron_publish_scheduled'). """

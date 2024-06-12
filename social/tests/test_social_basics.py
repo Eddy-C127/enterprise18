@@ -147,7 +147,7 @@ class TestSocialBasics(common.SocialCase, CronMixinCase):
         image_post = self.env['social.post'].create({
             'account_ids': [(4, self.social_account.id)],
             'image_ids': [(4, aid) for aid in attachments]})
-        self.assertEqual(image_post.name, 'Social Post created on 2022-01-02',
+        self.assertEqual(image_post.name, 'Post (Social Post created on 2022-01-02)',
             msg='Should have generated custom message for image post')
         image_post.message = 'Message image'
         self.assertEqual(image_post.name, 'Message image (Social Post created on 2022-01-02)',

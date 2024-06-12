@@ -78,9 +78,9 @@ class SocialLivePostFacebook(models.Model):
             'access_token': account.facebook_access_token
         }
 
-        if post.image_ids and len(post.image_ids) == 1:
+        if self.image_ids and len(self.image_ids) == 1:
             # if you have only 1 image, you have to use another endpoint with different parameters...
-            image = post.image_ids[0]
+            image = self.image_ids[0]
             if image.mimetype == 'image/gif':
                 # gifs are posted on the '/videos' endpoint, with a different base url
                 endpoint_url = url_join(
@@ -106,7 +106,7 @@ class SocialLivePostFacebook(models.Model):
                 })
                 return
         else:
-            if post.image_ids:
+            if self.image_ids:
                 try:
                     images_attachments = post._format_images_facebook(account.facebook_account_id, account.facebook_access_token)
                 except UserError as e:
@@ -124,7 +124,7 @@ class SocialLivePostFacebook(models.Model):
 
             link_url = self.env['social.post']._extract_url_from_message(self.message)
             # can't combine with images
-            if link_url and not post.image_ids:
+            if link_url and not self.image_ids:
                 params.update({'link': link_url})
 
             result = requests.post(post_endpoint_url, data=params, timeout=15)

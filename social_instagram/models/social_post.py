@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, models, api
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
 
 
 class SocialPostInstagram(models.Model):
     _inherit = 'social.post'
+
+    instagram_image_ids = fields.Many2many(relation='instagram_image_ids_rel')
 
     @api.depends('live_post_ids.instagram_post_id')
     def _compute_stream_posts_count(self):

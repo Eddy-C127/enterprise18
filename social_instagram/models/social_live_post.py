@@ -95,7 +95,7 @@ class SocialLivePostInstagram(models.Model):
         media_container_ids = []
         session = requests.Session()
         # Step 1: Create Media Container(s)
-        for image in post.image_ids:
+        for image in self.image_ids:
             data = {
                 'access_token': account.instagram_access_token,
                 'image_url': url_join(
@@ -104,7 +104,7 @@ class SocialLivePostInstagram(models.Model):
                 )
             }
 
-            if len(post.image_ids) == 1:
+            if len(self.image_ids) == 1:
                 data['caption'] = self.message
             else:
                 data['is_carousel_item'] = True

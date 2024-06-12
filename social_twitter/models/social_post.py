@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, api
+from odoo import api, fields, models
 from odoo.osv import expression
 
 
 class SocialPostTwitter(models.Model):
     _inherit = 'social.post'
+
+    twitter_image_ids = fields.Many2many(relation="twitter_image_ids_rel")
 
     @api.depends('live_post_ids.twitter_tweet_id')
     def _compute_stream_posts_count(self):

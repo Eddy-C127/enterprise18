@@ -87,14 +87,13 @@ class SocialLivePostTwitter(models.Model):
 
         for live_post in self:
             account = live_post.account_id
-            post = live_post.post_id
 
             params = {
                 'text': live_post.message,
             }
 
             try:
-                images_attachments_ids = account._format_attachments_to_images_twitter(post.image_ids)
+                images_attachments_ids = account._format_attachments_to_images_twitter(live_post.image_ids)
             except UserError as e:
                 live_post.write({
                     'state': 'failed',

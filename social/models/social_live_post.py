@@ -23,6 +23,7 @@ class SocialLivePost(models.Model):
     account_id = fields.Many2one('social.account', string="Social Account", required=True, readonly=True, ondelete="cascade")
     message = fields.Char('Message', compute='_compute_message',
         help="Content of the social post message that is post-processed (links are shortened, UTMs, ...)")
+    image_ids = fields.Many2many('ir.attachment', string='Attached Images', compute='_compute_image_ids')
     live_post_link = fields.Char('Post Link', compute='_compute_live_post_link',
         help="Link of the live post on the target media.")
     failure_reason = fields.Text('Failure Reason', readonly=True,
@@ -37,21 +38,37 @@ class SocialLivePost(models.Model):
         A 'Posting' state is also available for those that are sent through batching (like push notifications).""")
     engagement = fields.Integer("Engagement", help="Number of people engagements with the post (Likes, comments...)")
     company_id = fields.Many2one('res.company', 'Company', related='account_id.company_id')
+    media_type = fields.Selection(string='Media', related='account_id.media_type')
 
     @api.depends(lambda self:
-        ['post_id.message', 'post_id.utm_campaign_id', 'account_id.media_type', 'account_id.utm_medium_id', 'post_id.source_id'] +
-        ['post_id.%s' % field for field in self.env['social.post']._get_post_message_modifying_fields()])
+        ['post_id.utm_campaign_id', 'account_id.media_type', 'account_id.utm_medium_id', 'post_id.source_id']
+        + [f'post_id.{field}' for field in self.env['social.post']._get_post_message_modifying_fields()]
+        + [f'post_id.{field}' for field in self.env['social.post']._message_fields().values()])
     def _compute_message(self):
         """ Prepares the message of the parent post, and shortens links to contain UTM data. """
+        message_field_per_media = self.env['social.post']._message_fields()
         for live_post in self:
-            message = self.env['mail.render.mixin'].sudo()._shorten_links_text(
-                live_post.post_id.message,
-                live_post._get_utm_values())
+            message_field = message_field_per_media.get(live_post.account_id.media_type)
+            if message_field:
+                message = self.env['mail.render.mixin'].sudo()._shorten_links_text(
+                    live_post.post_id[message_field],
+                    live_post._get_utm_values()
+                )
 
-            live_post.message = self.env['social.post']._prepare_post_content(
-                message,
-                live_post.account_id.media_type,
-                **{field: live_post.post_id[field] for field in self.env['social.post']._get_post_message_modifying_fields()})
+                live_post.message = self.env['social.post']._prepare_post_content(
+                    message,
+                    live_post.account_id.media_type,
+                    **{field: live_post.post_id[field] for field in self.env['social.post']._get_post_message_modifying_fields()}
+                )
+            else:
+                live_post.message = False
+
+    @api.depends(lambda self: [f'post_id.{field}' for field in self.env['social.post']._images_fields().values()])
+    def _compute_image_ids(self):
+        images_field_per_media = self.env['social.post']._images_fields()
+        for live_post in self:
+            image_field = images_field_per_media.get(live_post.media_type)
+            live_post.image_ids = live_post.post_id[image_field] if image_field else False
 
     @api.depends('account_id.media_id')
     def _compute_live_post_link(self):

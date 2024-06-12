@@ -12,6 +12,10 @@ class SocialLivePostYoutube(models.Model):
 
     youtube_video_id = fields.Char(related='post_id.youtube_video_id')
 
+    youtube_title = fields.Char(related='post_id.youtube_title')
+    youtube_description = fields.Text(related='post_id.youtube_description')
+    youtube_video_privacy = fields.Selection(related='post_id.youtube_video_privacy')
+
     def _compute_live_post_link(self):
         youtube_live_posts = self._filter_by_media_types(["youtube"]).filtered(lambda post: post.state == 'posted')
         super(SocialLivePostYoutube, self - youtube_live_posts)._compute_live_post_link()
@@ -118,7 +122,7 @@ class SocialLivePostYoutube(models.Model):
             timeout=5
         )
 
-        if (result.ok):
+        if result.ok:
             values = {
                 'state': 'posted',
                 'failure_reason': False

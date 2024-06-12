@@ -5,6 +5,7 @@ import json
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from odoo.osv import expression
 from odoo.tools import format_datetime
 
 
@@ -23,7 +24,7 @@ class SocialPostTemplate(models.Model):
     """
     _name = 'social.post.template'
     _description = 'Social Post Template'
-    _rec_name = 'message'
+    _rec_names_search = ['display_message']
 
     @api.model
     def default_get(self, fields):
@@ -42,39 +43,82 @@ class SocialPostTemplate(models.Model):
     image_ids = fields.Many2many(
         'ir.attachment', string='Attach Images',
         help="Will attach images to your posts (if the social media supports it).")
+    display_message = fields.Char(string='Display Message', compute='_compute_display_message', search='_search_display_message')
     # JSON array capturing the URLs of the images to make it easy to display them in the kanban view
     image_urls = fields.Text(
         'Images URLs', compute='_compute_image_urls')
+    is_split_per_media = fields.Boolean('Split Per Network')
+    media_count = fields.Integer('Media Count', compute='_compute_media_count')
     # Account management
     account_ids = fields.Many2many('social.account', string='Social Accounts',
                                    help="The accounts on which this post will be published.",
                                    compute='_compute_account_ids', store=True, readonly=False)
     has_active_accounts = fields.Boolean('Are Accounts Available?', compute='_compute_has_active_accounts')
-    message_length = fields.Integer(compute='_compute_message_length')
 
     @api.constrains('message', 'image_ids')
     def _check_has_message_or_image(self):
         for post in self:
-            if not post.message and not post.image_ids:
-                raise UserError(_("Either 'message' field or 'image_ids' field is required for post ID %s", post.id))
+            if not post.message and not post.image_ids and not post.is_split_per_media:
+                raise UserError(_("Please specify either a message or upload some images."))
 
-    @api.constrains('image_ids')
+    @api.constrains(lambda self: ['image_ids'] + list(self._images_fields().values()))
     def _check_image_ids_mimetype(self):
+        image_fields = ['image_ids'] + list(self._images_fields().values())
         for post in self:
-            if any(not image.mimetype.startswith('image') for image in post.image_ids):
+            if any(not image.mimetype.startswith('image') for field in image_fields for image in post[field]):
                 raise UserError(_('Uploaded file does not seem to be a valid image.'))
 
-    @api.depends('image_ids')
+    @api.depends('message', 'is_split_per_media')
+    def _compute_message_by_media(self):
+        """To be used in sub-modules to compute the media-specific message."""
+        message_fields = self._message_fields()
+        for post in self:
+            for field in message_fields.values():
+                if not post[field] or not post.is_split_per_media:
+                    post[field] = post.message
+
+    @api.depends('image_ids', 'is_split_per_media')
+    def _compute_images_by_media(self):
+        """To be used in sub-modules to compute the media-specific images."""
+        images_fields = self._images_fields()
+        for post in self:
+            for field in images_fields.values():
+                if not post[field] or not post.is_split_per_media:
+                    post[field] = post.image_ids
+
+    @api.depends(lambda self: ['message', 'is_split_per_media'] + list(self._message_fields().values()))
+    def _compute_display_message(self):
+        message_fields = self._message_fields()
+        for post in self:
+            if not post.is_split_per_media:
+                post.display_message = post.message
+            else:
+                media_types = post.account_ids.mapped('media_type')
+                post.display_message = next((
+                    post[message_fields[media_type]]
+                    for media_type in media_types
+                    if media_type in message_fields
+                    and post[message_fields[media_type]]
+                ), False)
+
+    def _search_display_message(self, operator, operand):
+        return expression.OR([[
+            (field, operator, operand)]
+            for field in ('message', *self._message_fields().values())
+        ])
+
+    @api.depends(lambda self: ['image_ids'] + list(self._images_fields().values()))
     def _compute_image_urls(self):
         """See field 'help' for more information."""
+        image_fields = ['image_ids'] + list(self._images_fields().values())
         for post in self:
-            post.image_urls = json.dumps(['/web/image/%s' % image_id.id for image_id in post.image_ids if image_id.id])
+            all_image_ids = {image_id for field in image_fields for image_id in post[field].ids}
+            post.image_urls = json.dumps([f'/web/image/{image_id}' for image_id in all_image_ids if image_id])
 
-    @api.depends('message')
-    def _compute_message_length(self):
+    @api.depends('account_ids')
+    def _compute_media_count(self):
         for post in self:
-            # compute length of message to check it while posting the message
-            post.message_length = len(post.message or "")
+            post.media_count = len(set(post.account_ids.mapped('media_type')))
 
     def _compute_account_ids(self):
         """If there are less than 3 social accounts available, select them all by default."""
@@ -110,16 +154,21 @@ class SocialPostTemplate(models.Model):
                 if attachments:
                     attachments.write({'res_id': post.id})
 
+    @api.model
+    def name_create(self, name):
+        record = self.create({'message': name})
+        return record.id, record.display_name
+
     @api.model_create_multi
     def create(self, vals_list):
         res = super(SocialPostTemplate, self).create(vals_list)
         res._set_attachemnt_res_id()
         return res
 
-    @api.depends('message')
+    @api.depends('display_message')
     def _compute_display_name(self):
         for record in self:
-            name = record.message or ""
+            name = record.display_message or ""
             record.display_name = name if len(name) <= 50 else f"{name[:47]}..."
 
     def action_generate_post(self):
@@ -142,6 +191,8 @@ class SocialPostTemplate(models.Model):
             'image_ids': self.image_ids.ids,
             'account_ids': self.account_ids.ids,
             'company_id': False,
+            **{field: self[field] for field in self._message_fields().values()},
+            **{field: self[field].ids for field in self._images_fields().values()},
         }
 
     @api.model
@@ -155,6 +206,16 @@ class SocialPostTemplate(models.Model):
             raise ValueError("Unknown media_type %s" % media_type)
 
         return message or ''
+
+    @api.model
+    def _message_fields(self):
+        """Return the message field per media."""
+        return {}
+
+    @api.model
+    def _images_fields(self):
+        """Return the images field per media."""
+        return {}
 
     @api.model
     def _get_post_message_modifying_fields(self):

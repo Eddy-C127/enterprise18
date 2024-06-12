@@ -101,14 +101,14 @@
                         <t t-set="images" t-value="JSON.parse(originalPost.stream_post_image_urls.raw_value)"/>
                         <t t-foreach="images.length > 2 ? images.slice(0, 2) : images" t-as="image_url" t-key="image_url_index">
                             <t t-if="image_url_index == 1 &amp;&amp; images.length > 2">
-                                <a class="o_social_original_post_image_more position-relative d-flex ms-1" t-on-click.stop="() => this._onClickMoreImages(image_url_index, images)">
+                                <a class="o_social_original_post_image_more position-relative d-flex ms-1" t-on-click.stop="() => this.onClickMoreImages(image_url_index, images)">
                                     <img t-att-src="images[1]" alt="Post Image" />
                                     <div class="o_social_stream_post_image_more_overlay d-flex align-items-center h-100 w-100 text-white justify-content-center position-absolute h1 m-0" style="user-select: none;">
                                         +<t t-esc="images.length - 2"/>
                                     </div>
                                 </a>
                             </t>
-                            <img t-else="" class="o_social_original_post_single" t-att-src="image_url" alt="Post Image" t-on-click.stop="() => this._onClickMoreImages(image_url_index, images)"/>
+                            <img t-else="" class="o_social_original_post_single" t-att-src="image_url" alt="Post Image" t-on-click.stop="() => this.onClickMoreImages(image_url_index, images)"/>
                         </t>
                     </div>
                     <a t-if="originalPost.link_url.value"

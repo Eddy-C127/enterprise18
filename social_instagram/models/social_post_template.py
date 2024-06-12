@@ -3,7 +3,7 @@
 
 import uuid
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.image import base64_to_image
 
@@ -14,17 +14,39 @@ class SocialPostTemplate(models.Model):
     def _get_default_access_token(self):
         return str(uuid.uuid4())
 
+    instagram_message = fields.Text(
+        'Instagram Message', compute='_compute_message_by_media',
+        store=True, readonly=False)
+    instagram_image_ids = fields.Many2many(
+        'ir.attachment', 'template_instagram_image_ids_rel', string='Instagram Images',
+        help='Will attach images to your posts.',
+        compute='_compute_images_by_media', store=True, readonly=False)
+
     instagram_access_token = fields.Char('Access Token', default=lambda self: self._get_default_access_token(), copy=False,
         help="Used to allow access to Instagram to retrieve the post image")
+    has_instagram_account = fields.Boolean('Has Instagram Account', compute='_compute_has_instagram_account')
     display_instagram_preview = fields.Boolean('Display Instagram Preview', compute='_compute_display_instagram_preview')
     instagram_preview = fields.Html('Instagram Preview', compute='_compute_instagram_preview')
 
-    @api.depends('message', 'account_ids.media_id.media_type', 'image_ids')
+    @api.constrains('instagram_message', 'instagram_image_ids')
+    def _check_has_instagram_message_or_image(self):
+        for post in self:
+            if (post.has_instagram_account
+                and not post.instagram_message
+                and not post.instagram_image_ids):
+                raise UserError(_("Please specify either a Instagram Message or upload some Instagram Images."))
+
+    @api.depends('account_ids.media_id.media_type')
+    def _compute_has_instagram_account(self):
+        for post in self:
+            post.has_instagram_account = 'instagram' in post.account_ids.media_id.mapped('media_type')
+
+    @api.depends('instagram_message', 'has_instagram_account', 'instagram_image_ids')
     def _compute_display_instagram_preview(self):
         for post in self:
-            post.display_instagram_preview = (post.message or post.image_ids) and ('instagram' in post.account_ids.media_id.mapped('media_type'))
+            post.display_instagram_preview = (post.instagram_message or post.instagram_image_ids) and post.has_instagram_account
 
-    @api.depends(lambda self: ['message', 'image_ids', 'display_instagram_preview'] + self._get_post_message_modifying_fields())
+    @api.depends(lambda self: ['instagram_message', 'instagram_image_ids', 'display_instagram_preview'] + self._get_post_message_modifying_fields())
     def _compute_instagram_preview(self):
         """ We want to display various error messages if the image is not appropriate.
         See #_get_instagram_image_error() for more information. """
@@ -40,10 +62,10 @@ class SocialPostTemplate(models.Model):
                 'error_code': error_code,
                 'image_urls': [
                     f'/web/image/{image._origin.id or image.id}'
-                    for image in post.image_ids.sorted(lambda image: image._origin.id or image.id, reverse=True)
+                    for image in post.instagram_image_ids.sorted(lambda image: image._origin.id or image.id, reverse=True)
                 ],
                 'message': post._prepare_post_content(
-                    post.message,
+                    post.instagram_message,
                     'instagram',
                     **{field: post[field] for field in post._get_post_message_modifying_fields()}),
             })
@@ -70,10 +92,10 @@ class SocialPostTemplate(models.Model):
         self.ensure_one()
         error_code = False
         faulty_images = self.env['ir.attachment']
-        jpeg_images = self.image_ids.filtered(lambda image: image.mimetype == 'image/jpeg')
-        non_jpeg_images = self.image_ids.filtered(lambda image: image.mimetype != 'image/jpeg')
+        jpeg_images = self.instagram_image_ids.filtered(lambda image: image.mimetype == 'image/jpeg')
+        non_jpeg_images = self.instagram_image_ids - jpeg_images
 
-        if not self.image_ids:
+        if not self.instagram_image_ids:
             error_code = 'missing'
         else:
             if len(jpeg_images) > 10:
@@ -96,3 +118,13 @@ class SocialPostTemplate(models.Model):
                         faulty_images += jpeg_image
 
         return faulty_images.mapped('name'), error_code
+
+    @api.model
+    def _message_fields(self):
+        """Return the message field per media."""
+        return {**super()._message_fields(), 'instagram': 'instagram_message'}
+
+    @api.model
+    def _images_fields(self):
+        """Return the images field per media."""
+        return {**super()._images_fields(), 'instagram': 'instagram_image_ids'}

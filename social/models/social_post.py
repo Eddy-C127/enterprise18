@@ -70,7 +70,6 @@ class SocialPost(models.Model):
         help="Number of people engagements with the post (Likes, comments...)")
     click_count = fields.Integer('Number of clicks', compute="_compute_click_count")
 
-
     @api.constrains('account_ids')
     def _check_account_ids(self):
         """All social accounts must be in the same company."""
@@ -200,13 +199,13 @@ class SocialPost(models.Model):
             values['live_post_link'] = live_posts[0].live_post_link if len(live_posts) >= 1 else False
         return values
 
-    @api.depends('message', 'state')
+    @api.depends('display_message', 'state')
     def _compute_display_name(self):
         """ We use the first 20 chars of the message (or "Post" if no message yet).
         We also add "(Draft)" at the end if the post is still in draft state. """
         for post in self:
             post.display_name = self._prepare_post_name(
-                post.message,
+                post.display_message,
                 state=post.state if post.state == 'draft' else False,
             )
 
@@ -228,6 +227,13 @@ class SocialPost(models.Model):
         """Every post will have a unique corresponding utm.source for statistics computation purposes.
         This way, it will be possible to see every leads/quotations generated through a particular post."""
 
+        # generate the UTM names from `message` (without having it in `_rec_name`)
+        message_fields = ["message"] + list(self._message_fields().values())
+        for vals in vals_list:
+            if not vals.get('name'):
+                new_name = next((vals.get(field) for field in message_fields if vals.get(field)), _("Post"))
+                vals['name'] = self.env['utm.source']._generate_name(self, new_name)
+
         # if a scheduled_date / published_date is specified, it should be the one used as the calendar date
         # this is normally handled by the `_compute_calendar_date` but in create mode,
         # it is not called when a default value for the calendar_date field is passed
@@ -239,10 +245,6 @@ class SocialPost(models.Model):
                 vals['calendar_date'] = False
             elif 'scheduled_date' in vals:
                 vals['calendar_date'] = vals['scheduled_date']
-            # The name of UTM sources can be generated from images if the message is not given
-            if vals.get('image_ids') and not vals.get('message') and not vals.get('name'):
-                create_date = fields.Date.to_string(fields.Date.context_today(self))
-                vals['name'] = _('Social Post created on %(create_date)s', create_date=create_date)
 
         res = super(SocialPost, self).create(vals_list)
 
@@ -268,11 +270,13 @@ class SocialPost(models.Model):
             cron = self.env.ref('social.ir_cron_post_scheduled')
             cron._trigger(at=fields.Datetime.from_string(vals.get('scheduled_date')))
 
-        # Updating UTM source if 'message' field is empty
-        if 'message' in vals and not vals.get('message') and not vals.get('name'):
-            create_date = fields.Date.to_string(self.create_date)
-            vals['name'] = _('Social Post created on %(create_date)s', create_date=create_date)
-        return super(SocialPost, self).write(vals)
+        # Updating UTM source
+        message_fields = ["message"] + list(self._message_fields().values())
+        if set(vals) & set(message_fields):
+            new_name = next((vals.get(field) for field in message_fields if vals.get(field)), _("Post"))
+            vals['name'] = self.env['utm.source']._generate_name(self.env['social.post'], new_name)
+
+        return super().write(vals)
 
     def social_stream_post_action_my(self):
         action = self.env["ir.actions.actions"]._for_xml_id("social.action_social_stream_post")
@@ -294,9 +298,12 @@ class SocialPost(models.Model):
                 ', '.join([str(post.id) for post in self if not post.account_ids])
             ))
         errors = defaultdict(list)
+        message_field_per_media = self._message_fields()
         for post in self:
-            for media in post.media_ids.filtered(lambda media: media.max_post_length and post.message_length > media.max_post_length):
-                errors[post].append(_("%(media_name)s (max %(max_chars)s chars)", media_name=media.name, max_chars=media.max_post_length))
+            for media in post.media_ids.filtered(lambda media: media.max_post_length):
+                message_field = message_field_per_media.get(media.media_type)
+                if message_field and len(post[message_field] or '') > media.max_post_length:
+                    errors[post].append(_("%(media_name)s (max %(max_chars)s chars)", media_name=media.name, max_chars=media.max_post_length))
         if bool(errors):
             raise ValidationError(_(
                 "Due to length restrictions, the following posts cannot be posted:\n %s",

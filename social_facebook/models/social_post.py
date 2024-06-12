@@ -4,7 +4,7 @@
 import json
 import requests
 
-from odoo import _, api, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.osv import expression
 from werkzeug.urls import url_join
@@ -12,6 +12,8 @@ from werkzeug.urls import url_join
 
 class SocialPostFacebook(models.Model):
     _inherit = 'social.post'
+
+    facebook_image_ids = fields.Many2many(relation='facebook_image_ids_rel')
 
     @api.depends('live_post_ids.facebook_post_id')
     def _compute_stream_posts_count(self):
@@ -29,7 +31,7 @@ class SocialPostFacebook(models.Model):
         self.ensure_one()
 
         formatted_images = []
-        for image in self.image_ids:
+        for image in self.facebook_image_ids:
             facebook_photo_endpoint_url = url_join(self.env['social.media']._FACEBOOK_ENDPOINT_VERSIONED, '%s/photos' % facebook_account_id)
 
             post_result = requests.request('POST', facebook_photo_endpoint_url,

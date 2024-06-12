@@ -44,7 +44,7 @@ export class StreamPostComments extends SocialPostFormatterMixin(Component) {
     // Handlers
     //----------
 
-    _onClickMoreImages(index, images) {
+    onClickMoreImages(index, images) {
         this.dialog.add(ImagesCarouselDialog, {
             title: _t("Post Images"),
             activeIndex: index,

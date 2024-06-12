@@ -77,14 +77,14 @@ class SocialInstagramController(SocialController):
         social_post = request.env['social.post'].sudo().search(
             [('instagram_access_token', '=', instagram_access_token)])
 
-        if not social_post or not image_id in social_post.image_ids.ids:
+        if not social_post or not image_id in social_post.instagram_image_ids.ids:
             raise Forbidden()
 
         # called manually to throw a ValidationError if not valid instagram image
         social_post._check_post_access()
 
         return request.env['ir.binary']._get_image_stream_from(
-            social_post.image_ids.filtered(lambda image: image.id == image_id),
+            social_post.instagram_image_ids.filtered(lambda image: image.id == image_id),
             default_mimetype='image/jpeg',
         ).get_response()
 
