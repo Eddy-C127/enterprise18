@@ -1,19 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.addons.base_iban.models.res_partner_bank import validate_iban
-
-
-def _is_iban_valid(iban):
-    if iban is None:
-        return False
-    try:
-        validate_iban(iban)
-        return True
-    except ValidationError:
-        pass
-    return False
 
 
 class HrEmployee(models.Model):

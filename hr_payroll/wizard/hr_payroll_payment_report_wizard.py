@@ -7,7 +7,6 @@ from odoo import fields, models, _
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import format_list
 from odoo.tools.misc import format_date
-from odoo.addons.hr_payroll.models.hr_employee import _is_iban_valid
 
 
 class HrPayrollPaymentReportWizard(models.TransientModel):
@@ -84,12 +83,6 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
             raise UserError(_(
                 "Untrusted bank account for the following employees:\n%s",
                 format_list(self.env, untrusted_banks_employee_ids.mapped('name'))))
-
-        invalid_iban_employee_ids = employees.filtered(lambda e: not _is_iban_valid(e.bank_account_id.acc_number))
-        if invalid_iban_employee_ids:
-            raise UserError(_(
-                'Invalid IBAN for the following employees:\n%s',
-                '\n'.join(self.env['hr.employee'].browse(invalid_iban_employee_ids).mapped('name'))))
 
     def generate_payment_report(self):
         """

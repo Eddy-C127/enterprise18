@@ -2,7 +2,7 @@
 
 from odoo import models, _
 from odoo.exceptions import ValidationError
-from odoo.addons.hr_payroll.models.hr_employee import _is_iban_valid
+from odoo.addons.hr_payroll_account.wizard.hr_payroll_payment_report_wizard import _is_iban_valid
 
 
 class HrEmployee(models.Model):
