@@ -48,8 +48,9 @@ class ResCompany(models.Model):
     deferred_amount_computation_method = fields.Selection(
         string="Deferred Amount Computation Method",
         selection=[
-            ('day', 'Based on days'),
-            ('month', 'Equal per month'),
+            ('day', 'Days'),
+            ('month', 'Months'),
+            ('full_months', 'Full Months'),
         ],
         default='month',
         required=True,

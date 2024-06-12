@@ -4,6 +4,7 @@ import calendar
 from contextlib import contextmanager
 from dateutil.relativedelta import relativedelta
 import logging
+import math
 import re
 
 from odoo import fields, models, api, _, Command
@@ -126,15 +127,32 @@ class AccountMove(models.Model):
     @api.model
     def _get_deferred_period_amount(self, method, period_start, period_end, line_start, line_end, balance):
         """
-        Returns the amount to defer for the given period taking into account the deferred method (day/month).
+        Returns the amount to defer for the given period taking into account the deferred method (day/month/full_months).
         """
         if method == 'day':
             amount_per_day = balance / (line_end - line_start).days
             return (period_end - period_start).days * amount_per_day if period_end > line_start else 0
-        else:
+        elif method == "month":
             amount_per_month = balance / self._get_deferred_diff_dates(line_end, line_start)
             nb_months_period = self._get_deferred_diff_dates(period_end, period_start)
             return nb_months_period * amount_per_month if period_end > line_start and period_end > period_start else 0
+        elif method == "full_months":
+            line_diff = self._get_deferred_diff_dates(line_end, line_start)
+            period_diff = self._get_deferred_diff_dates(period_end, period_start)
+            if line_diff < 1:
+                amount = balance
+            else:
+                if line_end.day == calendar.monthrange(line_end.year, line_end.month)[1]:
+                    line_diff = math.ceil(line_diff)
+                else:
+                    line_diff = math.floor(line_diff)
+                if period_end.day == calendar.monthrange(period_end.year, period_end.month)[1] or line_end != period_end:
+                    period_diff = math.ceil(period_diff)
+                else:
+                    period_diff = math.floor(period_diff)
+                amount_per_month = balance / line_diff
+                amount = period_diff * amount_per_month
+            return amount if period_end > line_start and period_end > period_start else 0
 
     @api.model
     def _get_deferred_amounts_by_line(self, lines, periods):
@@ -267,8 +285,17 @@ class AccountMove(models.Model):
                     'line_ids': self._get_deferred_lines(line, deferred_account, period, ref, force_balance=force_balance),
                 })
                 remaining_balance -= deferral_move.line_ids[0].balance
+                # Avoid having deferral moves with a total amount of 0
+                if deferral_move.currency_id.is_zero(deferral_move.amount_total):
+                    deferral_moves -= deferral_move
+                    deferral_move.unlink()
 
             deferred_moves = move_fully_deferred + deferral_moves
+            if len(deferral_moves) == 1 and move_fully_deferred.date.month == deferral_moves.date.month:
+                # If, after calculation, we have 2 deferral entries in the same month, it means that
+                # they simply cancel out each other, so there is no point in creating them.
+                deferred_moves.unlink()
+                continue
             line.move_id.deferred_move_ids |= deferred_moves
             deferred_moves._post(soft=True)
 
