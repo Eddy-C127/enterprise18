@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { Component, markup, onWillUnmount } from "@odoo/owl";
+import { Component, markup, onWillStart, onWillUnmount } from "@odoo/owl";
 import { useInactivity } from "../use_inactivity";
 
 export class RegisterPage extends Component {
@@ -21,18 +21,20 @@ export class RegisterPage extends Component {
         if (!this.props.isMobile) {
             useInactivity(() => this.props.onClose(), 15000);
         }
-        // Do not create visitor when a user came from quickCheckIn component.
-        if (!this.props.plannedVisitorData) {
-            // Check if a visitor has already been created
-            const visitorCreated = sessionStorage.getItem("visitorCreated");
-            if (!visitorCreated) {
-                this.props.createVisitor();
-                if (this.props.isMobile) {
-                    // Set the flag in sessionStorage
-                    sessionStorage.setItem("visitorCreated", "true");
+
+        onWillStart(async () => {
+            if (!this.props.plannedVisitorData) {
+                // Check if a visitor has already been created
+                const visitorCreated = sessionStorage.getItem("visitorCreated");
+                if (!visitorCreated) {
+                    await this.props.createVisitor();
+                    if (this.props.isMobile) {
+                        // Set the flag in sessionStorage
+                        sessionStorage.setItem("visitorCreated", "true");
+                    }
                 }
             }
-        }
+        });
 
         onWillUnmount(() => {
             if (this.props.isMobile) {
