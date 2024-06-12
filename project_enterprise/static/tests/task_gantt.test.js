@@ -219,19 +219,16 @@ test('Empty groupby "Assigned To" and "Project" can be rendered', async function
 });
 
 test("progress bar has the correct unit", async () => {
-    expect.assertions(9);
     onRpc("get_all_deadlines", () => {
         return { milestone_id: [], project_id: [] };
     });
-    onRpc("gantt_progress_bar", ({ args, model }) => {
-        expect(model).toBe("task");
-        expect(args[0]).toEqual(["user_ids"]);
-        expect(args[1]).toEqual({ user_ids: [100, 101] });
-        return {
-            user_ids: {
-                100: { value: 100, max_value: 100 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect(kwargs.progress_bar_fields).toEqual(["user_ids"]);
+        result.progress_bars.user_ids = {
+            100: { value: 100, max_value: 100 },
         };
+        return result;
     });
     await mountGanttView({
         arch: '<gantt js_class="task_gantt" date_start="start" date_stop="stop" progress_bar="user_ids"/>',

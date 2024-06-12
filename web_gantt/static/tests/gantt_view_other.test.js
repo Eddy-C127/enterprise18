@@ -298,16 +298,15 @@ test("No progress bar when no option set.", async () => {
 });
 
 test("Progress bar rpc is triggered when option set.", async () => {
-    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
-        expect.step("gantt_progress_bar");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [1, 2] });
-        return {
-            user_id: {
-                1: { value: 50, max_value: 100 },
-                2: { value: 25, max_value: 200 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            1: { value: 50, max_value: 100 },
+            2: { value: 25, max_value: 200 },
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -317,7 +316,7 @@ test("Progress bar rpc is triggered when option set.", async () => {
             </gantt>
         `,
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
     expect(SELECTORS.progressBar).toHaveCount(2);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);
     expect(progressBar1).toHaveClass("o_gantt_group_success");
@@ -343,12 +342,14 @@ test("Progress bar component will not render when hovering cells of the same row
             onRendered(() => expect.step("rendering progress bar"));
         },
     });
-    onRpc("gantt_progress_bar", () => ({
-        user_id: {
+    onRpc("get_gantt_data", async ({ parent }) => {
+        const result = await parent();
+        result.progress_bars.user_id = {
             1: { value: 50, max_value: 100 },
             2: { value: 25, max_value: 200 },
-        },
-    }));
+        };
+        return result;
+    });
     await mountGanttView({
         resModel: "tasks",
         arch: `
@@ -366,22 +367,15 @@ test("Progress bar component will not render when hovering cells of the same row
 });
 
 test("Progress bar when multilevel grouped.", async () => {
-    // Here the view is grouped twice on the same field.
-    // This is not a common use case, but it is possible to achieve it
-    // bu saving a default favorite with a groupby then apply it twice
-    // on the same field through the groupby menu.
-    // In this case, the progress bar should be displayed only once,
-    // on the first level of grouping.
-    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
-        expect.step("gantt_progress_bar");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [1, 2] });
-        return {
-            user_id: {
-                1: { value: 50, max_value: 100 },
-                2: { value: 25, max_value: 200 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            1: { value: 50, max_value: 100 },
+            2: { value: 25, max_value: 200 },
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -391,8 +385,8 @@ test("Progress bar when multilevel grouped.", async () => {
             </gantt>
         `,
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
-    expect(SELECTORS.progressBar).toHaveCount(2);
+    expect(["get_gantt_data"]).toVerifySteps();
+    expect(SELECTORS.progressBar).toHaveCount(4);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);
     expect(progressBar1).toHaveClass("o_gantt_group_success");
     expect(progressBar2).toHaveClass("o_gantt_group_success");
@@ -400,9 +394,11 @@ test("Progress bar when multilevel grouped.", async () => {
     expect(rowHeader1.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader2.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader1).toHaveClass(CLASSES.group);
-    expect(rowHeader2).toHaveClass(CLASSES.group);
+    expect(rowHeader2).not.toHaveClass(CLASSES.group);
     expect(queryAll(SELECTORS.progressBarBackground).map((el) => el.style.width)).toEqual([
         "50%",
+        "50%",
+        "12.5%",
         "12.5%",
     ]);
     await hoverGridCell("16 W51 2018");
@@ -412,16 +408,15 @@ test("Progress bar when multilevel grouped.", async () => {
 });
 
 test("Progress bar warning when max_value is zero", async () => {
-    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
-        expect.step("gantt_progress_bar");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [1, 2] });
-        return {
-            user_id: {
-                1: { value: 50, max_value: 0 },
-                warning: "plop",
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            1: { value: 50, max_value: 0 },
+            warning: "plop",
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -431,7 +426,7 @@ test("Progress bar warning when max_value is zero", async () => {
             </gantt>
         `,
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
     expect(SELECTORS.progressBarWarning).toHaveCount(0);
     await hoverGridCell("16 W51 2018");
     expect(SELECTORS.progressBarWarning).toHaveCount(1);
@@ -440,15 +435,14 @@ test("Progress bar warning when max_value is zero", async () => {
 });
 
 test("Progress bar when value less than hour", async () => {
-    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
-        expect.step("gantt_progress_bar");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [1, 2] });
-        return {
-            user_id: {
-                1: { value: 0.5, max_value: 100 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            1: { value: 0.5, max_value: 100 },
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -458,22 +452,21 @@ test("Progress bar when value less than hour", async () => {
             </gantt>
         `,
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
     expect(SELECTORS.progressBar).toHaveCount(1);
     await hoverGridCell("16 W51 2018");
     expect(SELECTORS.progressBarForeground).toHaveText("0h30 / 100h");
 });
 
 test("Progress bar danger when ratio > 100", async () => {
-    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
-        expect.step("gantt_progress_bar");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [1, 2] });
-        return {
-            user_id: {
-                1: { value: 150, max_value: 100 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            1: { value: 150, max_value: 100 },
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -483,7 +476,7 @@ test("Progress bar danger when ratio > 100", async () => {
             </gantt>
         `,
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
     expect(SELECTORS.progressBar).toHaveCount(1);
     expect(SELECTORS.progressBarBackground).toHaveStyle("100%");
     expect(SELECTORS.progressBar).toHaveClass("o_gantt_group_danger");
@@ -508,15 +501,14 @@ test("Falsy search field will return an empty rows", async () => {
 });
 
 test("Search field return rows with progressbar", async () => {
-    onRpc("tasks", "gantt_progress_bar", ({ args }) => {
-        expect.step("gantt_progress_bar");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [2] });
-        return {
-            user_id: {
-                2: { value: 25, max_value: 200 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect.step("get_gantt_data");
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            2: { value: 25, max_value: 200 },
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -528,7 +520,7 @@ test("Search field return rows with progressbar", async () => {
         groupBy: ["project_id", "user_id"],
         domain: [["id", "=", 2]],
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
     const { rows } = getGridContent();
     expect(rows.map((r) => r.title)).toEqual(["Project 1", "User 2"]);
     expect(SELECTORS.progressBar).toHaveCount(1);

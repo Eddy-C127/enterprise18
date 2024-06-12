@@ -52,7 +52,7 @@ class Base(models.AbstractModel):
         return view
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=None, start_date=None, stop_date=None, scale=None):
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=None, progress_bar_fields=None, start_date=None, stop_date=None, scale=None):
         """
         Returns the result of a read_group (and optionally search for and read records inside each
         group), and the total number of groups matching the search domain.
@@ -78,6 +78,10 @@ class Base(models.AbstractModel):
             'length': total number of groups
             'unavailabilities': {
                 '<unavailability_fields_1>': <value_unavailability_fields_1>,
+                ...
+            }
+            'progress_bars': {
+                '<progress_bar_fields_1>': <value_progress_bar_fields_1>,
                 ...
             }
         }
@@ -107,14 +111,21 @@ class Base(models.AbstractModel):
 
         if unavailability_fields is None:
             unavailability_fields = []
+        if progress_bar_fields is None:
+            progress_bar_fields = []
 
         ordered_set_ids = OrderedSet(all_records._ids)
-        res_ids = defaultdict(set)
+        res_ids_for_unavailabilities = defaultdict(set)
+        res_ids_for_progress_bars = defaultdict(set)
         for group in final_result['groups']:
             for field in unavailability_fields:
                 res_id = group[field][0] if group[field] else False
                 if res_id:
-                    res_ids[field].add(res_id)
+                    res_ids_for_unavailabilities[field].add(res_id)
+            for field in progress_bar_fields:
+                res_id = group[field][0] if group[field] else False
+                if res_id:
+                    res_ids_for_progress_bars[field].add(res_id)
             # Reorder __record_ids
             group['__record_ids'] = list(ordered_set_ids & OrderedSet(group['__record_ids']))
             # We don't need these in the gantt view
@@ -122,13 +133,18 @@ class Base(models.AbstractModel):
             del group[f'{groupby[0]}_count' if lazy else '__count']
             group.pop('__fold', None)
 
-        if unavailability_fields:
+        if unavailability_fields or progress_bar_fields:
             start, stop = fields.Datetime.from_string(start_date), fields.Datetime.from_string(stop_date)
 
         unavailabilities = {}
         for field in unavailability_fields:
-            unavailabilities[field] = self._gantt_unavailability(field, list(res_ids[field]), start, stop, scale)
+            unavailabilities[field] = self._gantt_unavailability(field, list(res_ids_for_unavailabilities[field]), start, stop, scale)
         final_result['unavailabilities'] = unavailabilities
+
+        progress_bars = {}
+        for field in progress_bar_fields:
+            progress_bars[field] = self._gantt_progress_bar(field, list(res_ids_for_progress_bars[field]), start, stop)
+        final_result['progress_bars'] = progress_bars
 
         return final_result
 
@@ -221,7 +237,7 @@ class Base(models.AbstractModel):
         return True
 
     @api.model
-    def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
+    def _gantt_progress_bar(self, field, res_ids, start, stop):
         """ Get progress bar value per record.
 
             This method is meant to be overriden by each related model that want to
@@ -229,27 +245,21 @@ class Base(models.AbstractModel):
             of a value and a max_value given for each groupedby field.
 
             Example:
-                fields = ['foo', 'bar'],
-                res_ids = {'foo': [1, 2], 'bar':[2, 3]}
+                field = 'foo',
+                res_ids = [1, 2]
                 start_date = 01/01/2000, end_date = 01/07/2000,
                 self = base()
 
             Result:
                 {
-                    'foo': {
-                        1: {'value': 50, 'max_value': 100},
-                        2: {'value': 25, 'max_value': 200},
-                    },
-                    'bar': {
-                        2: {'value': 65, 'max_value': 85},
-                        3: {'value': 30, 'max_value': 95},
-                    }
+                    1: {'value': 50, 'max_value': 100},
+                    2: {'value': 25, 'max_value': 200},
                 }
 
-            :param list fields: fields on which there are progressbars
-            :param dict res_ids: res_ids of related records for which we need to compute progress bar
-            :param string date_start_str: start date
-            :param string date_stop_str: stop date
+            :param string field: field on which there are progressbars
+            :param list res_ids: res_ids of related records for which we need to compute progress bar
+            :param string start_datetime: start date in utc
+            :param string end_datetime: end date in utc
             :returns: dict of value and max_value per record
         """
         return {}

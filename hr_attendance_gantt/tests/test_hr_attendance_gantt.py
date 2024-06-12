@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import date
+from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 from odoo.tests.common import tagged, TransactionCase
 
@@ -75,31 +75,31 @@ class TestHrAttendanceGantt(TransactionCase):
         # Contract should have 10 hours if contracts is not installed
         # Contract should have 8 hours if contracts is installed
 
-        interval_1 = self.env['hr.attendance'].gantt_progress_bar(['employee_id'],
-                                                                  {'employee_id': [no_contract_emp.id, contract_emp.id]},
-                                                                  date(2024, 1, 8),
-                                                                  date(2024, 1, 14))
+        interval_1 = self.env['hr.attendance']._gantt_progress_bar('employee_id',
+                                                                  [no_contract_emp.id, contract_emp.id],
+                                                                  datetime(2024, 1, 8),
+                                                                  datetime(2024, 1, 14))
 
-        self.assertEqual(interval_1["employee_id"][no_contract_emp.id]['max_value'], 8)
+        self.assertEqual(interval_1[no_contract_emp.id]['max_value'], 8)
 
         if contracts_installed:
-            self.assertEqual(interval_1["employee_id"][contract_emp.id]['max_value'], 8)
+            self.assertEqual(interval_1[contract_emp.id]['max_value'], 8)
         else:
-            self.assertEqual(interval_1["employee_id"][contract_emp.id]['max_value'], 10)
+            self.assertEqual(interval_1[contract_emp.id]['max_value'], 10)
 
         # Second Interval in March
         # No contract should have 8 hours
         # Contract employee should have 10 hours if contracts is not installed
         # Contract employee should have 12 hours if contracts is installed
 
-        interval_2 = self.env['hr.attendance'].gantt_progress_bar(['employee_id'],
-                                                                  {'employee_id': [no_contract_emp.id, contract_emp.id]},
-                                                                  date(2024, 3, 4),
-                                                                  date(2024, 3, 10))
+        interval_2 = self.env['hr.attendance']._gantt_progress_bar('employee_id',
+                                                                  [no_contract_emp.id, contract_emp.id],
+                                                                  datetime(2024, 3, 4),
+                                                                  datetime(2024, 3, 10))
 
-        self.assertEqual(interval_2["employee_id"][no_contract_emp.id]['max_value'], 8)
+        self.assertEqual(interval_2[no_contract_emp.id]['max_value'], 8)
 
         if contracts_installed:
-            self.assertEqual(interval_2["employee_id"][contract_emp.id]['max_value'], 12)
+            self.assertEqual(interval_2[contract_emp.id]['max_value'], 12)
         else:
-            self.assertEqual(interval_2["employee_id"][contract_emp.id]['max_value'], 10)
+            self.assertEqual(interval_2[contract_emp.id]['max_value'], 10)

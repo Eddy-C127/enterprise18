@@ -44,6 +44,7 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                 ],
                 'length': 1,
                 'unavailabilities': {},
+                'progress_bars': {},
             })
 
         self.env.invalidate_all()
@@ -95,6 +96,7 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                 ],
                 'length': 4,
                 'unavailabilities': {},
+                'progress_bars': {},
             })
 
     def test_get_gantt_data_with_limit(self):
@@ -124,6 +126,7 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                 ],
                 'length': 5,
                 'unavailabilities': {},
+                'progress_bars': {},
             })
 
         self.env.invalidate_all()
@@ -153,4 +156,5 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                 ],
                 'length': 5,
                 'unavailabilities': {},
+                'progress_bars': {},
             })

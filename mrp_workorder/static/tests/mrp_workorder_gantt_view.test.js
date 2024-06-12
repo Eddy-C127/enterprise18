@@ -60,19 +60,17 @@ defineMailModels();
 defineModels([Workorder, Workcenter]);
 
 test("progress bar has the correct unit", async () => {
-    expect.assertions(13);
+    expect.assertions(11);
 
     mockDate("2023-03-05 07:00:00");
-    onRpc("gantt_progress_bar", ({ args, model }) => {
-        expect(model).toBe("workorder");
-        expect(args[0]).toEqual(["workcenter_id"]);
-        expect(args[1]).toEqual({ workcenter_id: [1, 2] });
-        return {
-            workcenter_id: {
-                1: { value: 465, max_value: 744 },
-                2: { value: 651, max_value: 744 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect(kwargs.progress_bar_fields).toEqual(["workcenter_id"]);
+        result.progress_bars.workcenter_id = {
+            1: { value: 465, max_value: 744 },
+            2: { value: 651, max_value: 744 },
         };
+        return result;
     });
 
     await mountGanttView({

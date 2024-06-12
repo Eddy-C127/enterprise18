@@ -24,7 +24,7 @@ class RentalSchedule(models.Model):
         return all_rental_products
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0):
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=None, progress_bar_fields=None, start_date=None, stop_date=None, scale=None):
         if (
             limit
             and not offset
@@ -38,7 +38,7 @@ class RentalSchedule(models.Model):
             # If there are less rental products in the database than the given limit, drop the limit
             # so that the read_group is lazy and the `group_expand` is called
             limit = None
-        return super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset)
+        return super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset, unavailability_fields=unavailability_fields, progress_bar_fields=progress_bar_fields, start_date=start_date, stop_date=stop_date, scale=scale)
 
     name = fields.Char('Order Reference', readonly=True)
     product_name = fields.Char('Product Reference', readonly=True)

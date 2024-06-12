@@ -1,6 +1,5 @@
 import { _t } from "@web/core/l10n/translation";
 import { deserializeDateTime, getStartOfLocalWeek, serializeDateTime } from "@web/core/l10n/dates";
-import { formatPercentage } from "@web/views/fields/formatters";
 import { GanttModel } from "@web_gantt/gantt_model";
 import { usePlanningModelActions } from "../planning_hooks";
 import { Domain } from "@web/core/domain";
@@ -148,22 +147,6 @@ export class PlanningGanttModel extends GanttModel {
     //--------------------------------------------------------------------------
     // Protected
     //--------------------------------------------------------------------------
-
-    /**
-     * Recursive function to add progressBar info to rows grouped by the field.
-     *
-     * @override
-     */
-    _addProgressBarInfo(_, rows) {
-        super._addProgressBarInfo(...arguments);
-        rows.forEach(row => {
-            if (row.progressBar?.max_value_formatted) {
-                row.progressBar.percentage = formatPercentage(
-                    Math.round(row.progressBar.ratio) / 100
-                );
-            }
-        });
-    }
 
     /**
      * Check if the given groupedBy includes fields for which an empty fake group will be created

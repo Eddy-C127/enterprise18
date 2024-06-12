@@ -8,7 +8,6 @@ from odoo.tests import Form
 from freezegun import freeze_time
 
 from odoo.tests import common
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from odoo.addons.mail.tests.common import mail_new_test_user
 
 class TestTaskFlow(common.TransactionCase):
@@ -152,9 +151,10 @@ class TestTaskFlow(common.TransactionCase):
             'allocated_hours': 3,
         }])
 
-        progress_bar = self.env['project.task'].gantt_progress_bar(
-            ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
-        )['user_ids']
+        start, stop = datetime(2021, 9, 26), datetime(2021, 10, 2, 23, 59, 59)
+        progress_bar = self.env['project.task']._gantt_progress_bar(
+            'user_ids', self.project_user.ids, start, stop
+        )
         self.assertEqual(22, progress_bar[self.project_user.id]['value'], "User should have 22 hours planned on this period")
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
@@ -167,9 +167,9 @@ class TestTaskFlow(common.TransactionCase):
             'allocated_hours': 8,
         }])
 
-        progress_bar = self.env['project.task'].gantt_progress_bar(
-            ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
-        )['user_ids']
+        progress_bar = self.env['project.task']._gantt_progress_bar(
+            'user_ids', self.project_user.ids, start, stop
+        )
         self.assertEqual(30, progress_bar[self.project_user.id]['value'], "User should have 30 hours planned on this period")
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
@@ -182,9 +182,9 @@ class TestTaskFlow(common.TransactionCase):
             'allocated_hours': 16,
         }])
 
-        progress_bar = self.env['project.task'].gantt_progress_bar(
-            ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
-        )['user_ids']
+        progress_bar = self.env['project.task']._gantt_progress_bar(
+            'user_ids', self.project_user.ids, start, stop
+        )
         self.assertEqual(38, progress_bar[self.project_user.id]['value'], "User should have 38 hours planned on this period")
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
@@ -198,9 +198,9 @@ class TestTaskFlow(common.TransactionCase):
             'allocated_hours': 16,
         }])
 
-        progress_bar = self.env['project.task'].with_user(self.project_test_user).gantt_progress_bar(
-            ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
-        )['user_ids']
+        progress_bar = self.env['project.task'].with_user(self.project_test_user)._gantt_progress_bar(
+            'user_ids', self.project_user.ids, datetime(2021, 9, 26), datetime(2021, 10, 2, 23, 59, 59)
+        )
         self.assertEqual(16, progress_bar[self.project_user.id]['value'], "User should have 16 hours planned on this period")
         self.assertEqual(40, progress_bar[self.project_user.id]['max_value'], "User is expected to work 40 hours on this period")
 
@@ -214,9 +214,9 @@ class TestTaskFlow(common.TransactionCase):
             'allocated_hours': 16,
         }])
 
-        progress_bar = self.env['project.task'].with_user(self.portal_user).gantt_progress_bar(
-            ['user_ids'], {'user_ids': self.project_user.ids}, '2021-09-26 00:00:00', '2021-10-02 23:59:59'
-        )['user_ids']
+        progress_bar = self.env['project.task'].with_user(self.portal_user)._gantt_progress_bar(
+            'user_ids', self.project_user.ids, datetime(2021, 9, 26), datetime(2021, 10, 2, 23, 59, 59)
+        )
         self.assertFalse(progress_bar, "Progress bar should be empty for non-project users")
 
     def test_planned_date_consistency_for_tasks(self):
@@ -254,9 +254,9 @@ class TestTaskFlow(common.TransactionCase):
 
         with self.assertQueryCount(__system__=9):
             # Query count should be stable even if the number of tasks or users increase (progress bar query count is O(1))
-            progress_bar = self.env['project.task'].gantt_progress_bar(
-                ['user_ids'], {'user_ids': users.ids}, start.strftime(DEFAULT_SERVER_DATETIME_FORMAT), end.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
-            )['user_ids']
+            progress_bar = self.env['project.task']._gantt_progress_bar(
+                'user_ids', users.ids, start, end
+            )
 
         self.assertEqual(len(progress_bar), 3)  # 2 users + 1 warning
 

@@ -170,25 +170,25 @@ class TestUserAccess(HttpCase):
         """
         An internal user shall be able to see its own progress bar.
         """
-        self.env['planning.slot'].with_user(self.internal_user).gantt_progress_bar(
-            ['resource_id'], {'resource_id': self.res_internal_user.ids}, '2015-11-08 00:00:00', '2015-11-28 23:59:59'
-        )['resource_id']
+        self.env['planning.slot'].with_user(self.internal_user)._gantt_progress_bar(
+            'resource_id', self.res_internal_user.ids, datetime(2015, 11, 8), datetime(2015, 11, 28, 23, 59, 59)
+        )
 
     def test_internal_user_can_see_others_progress_bar(self):
         """
         An internal user shall be able to see others progress bar.
         """
-        self.env['planning.slot'].with_user(self.internal_user).gantt_progress_bar(
-            ['resource_id'], {'resource_id': self.res_internal_user.ids}, '2015-11-08 00:00:00', '2015-11-28 23:59:59'
-        )['resource_id']
+        self.env['planning.slot'].with_user(self.internal_user)._gantt_progress_bar(
+            'resource_id', self.res_internal_user.ids, datetime(2015, 11, 8), datetime(2015, 11, 28, 23, 59, 59)
+        )
 
     def test_portal_user_cannot_access_progress_bar(self):
         """
         A portal user shall not be able to see any progress bar.
         """
-        progress_bar = self.env['planning.slot'].with_user(self.portal_user).gantt_progress_bar(
-            ['resource_id'], {'resource_id': []}, '2015-11-08 00:00:00', '2015-11-28 23:59:59'
-        )['resource_id']
+        progress_bar = self.env['planning.slot'].with_user(self.portal_user)._gantt_progress_bar(
+            'resource_id', [], datetime(2015, 11, 8), datetime(2015, 11, 28, 23, 59, 59)
+        )
         self.assertFalse(progress_bar, "Progress bar should be empty for non-planning users")
 
     def test_internal_user_cannot_copy_previous(self):

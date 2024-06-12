@@ -35,54 +35,52 @@ describe.current.tags("desktop");
 
 definePlanningModels();
 
-async function ganttResourceWorkIntervalRPC({ kwargs, method, parent }) {
-    if (method === "gantt_resource_work_interval") {
-        return [
-            {
-                1: [
-                    ["2022-10-10 06:00:00", "2022-10-10 10:00:00"], //Monday    4h
-                    ["2022-10-11 06:00:00", "2022-10-11 10:00:00"], //Tuesday   5h
-                    ["2022-10-11 11:00:00", "2022-10-11 12:00:00"],
-                    ["2022-10-12 06:00:00", "2022-10-12 10:00:00"], //Wednesday 6h
-                    ["2022-10-12 11:00:00", "2022-10-12 13:00:00"],
-                    ["2022-10-13 06:00:00", "2022-10-13 10:00:00"], //Thursday  7h
-                    ["2022-10-13 11:00:00", "2022-10-13 14:00:00"],
-                    ["2022-10-14 06:00:00", "2022-10-14 10:00:00"], //Friday    8h
-                    ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
-                ],
-                false: [
-                    ["2022-10-10 06:00:00", "2022-10-10 10:00:00"],
-                    ["2022-10-10 11:00:00", "2022-10-10 15:00:00"],
-                    ["2022-10-11 06:00:00", "2022-10-11 10:00:00"],
-                    ["2022-10-11 11:00:00", "2022-10-11 15:00:00"],
-                    ["2022-10-12 06:00:00", "2022-10-12 10:00:00"],
-                    ["2022-10-12 11:00:00", "2022-10-12 15:00:00"],
-                    ["2022-10-13 06:00:00", "2022-10-13 10:00:00"],
-                    ["2022-10-13 11:00:00", "2022-10-13 15:00:00"],
-                    ["2022-10-14 06:00:00", "2022-10-14 10:00:00"],
-                    ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
-                ],
-            },
-            { false: true },
-        ];
-    } else if (method === "gantt_progress_bar") {
-        return {
-            resource_id: {
-                1: {
-                    value: 16.4,
-                    max_value: 40,
-                    employee_id: 1,
-                    is_material_resource: true,
-                    display_popover_material_resource: false,
-                },
-            },
-        };
-    }
+const getProgressBars = () => ({
+    resource_id: {
+        1: {
+            value: 16.4,
+            max_value: 40,
+            employee_id: 1,
+            is_material_resource: true,
+            display_popover_material_resource: false,
+        },
+    },
+});
+
+async function ganttResourceWorkIntervalRPC() {
+    return [
+        {
+            1: [
+                ["2022-10-10 06:00:00", "2022-10-10 10:00:00"], //Monday    4h
+                ["2022-10-11 06:00:00", "2022-10-11 10:00:00"], //Tuesday   5h
+                ["2022-10-11 11:00:00", "2022-10-11 12:00:00"],
+                ["2022-10-12 06:00:00", "2022-10-12 10:00:00"], //Wednesday 6h
+                ["2022-10-12 11:00:00", "2022-10-12 13:00:00"],
+                ["2022-10-13 06:00:00", "2022-10-13 10:00:00"], //Thursday  7h
+                ["2022-10-13 11:00:00", "2022-10-13 14:00:00"],
+                ["2022-10-14 06:00:00", "2022-10-14 10:00:00"], //Friday    8h
+                ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
+            ],
+            false: [
+                ["2022-10-10 06:00:00", "2022-10-10 10:00:00"],
+                ["2022-10-10 11:00:00", "2022-10-10 15:00:00"],
+                ["2022-10-11 06:00:00", "2022-10-11 10:00:00"],
+                ["2022-10-11 11:00:00", "2022-10-11 15:00:00"],
+                ["2022-10-12 06:00:00", "2022-10-12 10:00:00"],
+                ["2022-10-12 11:00:00", "2022-10-12 15:00:00"],
+                ["2022-10-13 06:00:00", "2022-10-13 10:00:00"],
+                ["2022-10-13 11:00:00", "2022-10-13 15:00:00"],
+                ["2022-10-14 06:00:00", "2022-10-14 10:00:00"],
+                ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
+            ],
+        },
+        { false: true },
+    ];
 }
 
 function _getCreateViewArgsForGanttViewTotalsTests() {
     mockDate("2022-10-13 00:00:00", +1);
-    onRpc("*", ganttResourceWorkIntervalRPC);
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
     ResourceResource._records = [{ id: 1, name: "Resource 1" }];
     PlanningSlot._records.push({
         id: 1,
@@ -175,7 +173,7 @@ test('add record in empty gantt with sample="1"', async function () {
     };
 
     mockDate("2018-12-10 07:00:00");
-    onRpc("*", ganttResourceWorkIntervalRPC);
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
         resModel: "planning.slot",
@@ -347,18 +345,13 @@ test("reload data after having unlink a record in planning_form", async function
 });
 
 test("progress bar has the correct unit", async () => {
-    expect.assertions(9);
     const makeViewArgs = _getCreateViewArgsForGanttViewTotalsTests();
-    onRpc("gantt_progress_bar", ({ args, model }) => {
-        expect(model).toBe("planning.slot");
-        expect(args[0]).toEqual(["resource_id"]);
-        expect(args[1]).toEqual({ resource_id: [1] });
-        return {
-            resource_id: {
-                1: { value: 100, max_value: 100 },
-            },
-        };
-    });
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect(kwargs.progress_bar_fields).toEqual(["resource_id"]);
+        result.progress_bars = getProgressBars();
+        return result;
+    })
 
     await mountGanttView({
         ...makeViewArgs,
@@ -367,12 +360,12 @@ test("progress bar has the correct unit", async () => {
     });
     expect(SELECTORS.progressBar).toHaveCount(1);
     expect(SELECTORS.progressBarBackground).toHaveCount(1);
-    expect(queryFirst(SELECTORS.progressBarBackground).style.width).toBe("100%");
+    expect(queryFirst(SELECTORS.progressBarBackground).style.width).toBe("41%");
     expect(SELECTORS.progressBarForeground).toHaveCount(0);
 
     await hoverGridCell("02 October 2022", "Resource 1");
     expect(SELECTORS.progressBarForeground).toHaveCount(1);
-    expect(SELECTORS.progressBarForeground).toHaveText("100h / 100h");
+    expect(SELECTORS.progressBarForeground).toHaveText("16h24 / 40h");
 });
 
 test("total computes correctly for open shifts", async () => {
@@ -432,7 +425,12 @@ test("the grouped gantt view is coloured correctly and the occupancy percentage 
         },
     ];
 
-    onRpc("", ganttResourceWorkIntervalRPC);
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
+    onRpc("get_gantt_data", async ({ parent }) => {
+        const result = await parent();
+        result.progress_bars = getProgressBars();
+        return result
+    })
 
     await mountGanttView({
         resModel: "planning.slot",
@@ -498,7 +496,7 @@ test("Gantt Planning : pill name should not display allocated hours if allocated
         },
     ];
 
-    onRpc("*", ganttResourceWorkIntervalRPC);
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
         resModel: "planning.slot",
@@ -531,7 +529,7 @@ test("Resize or Drag-Drop should open recurrence update wizard", async () => {
         repeat: true,
     });
 
-    onRpc("*", ganttResourceWorkIntervalRPC);
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
         resModel: "planning.slot",
@@ -617,7 +615,7 @@ test("Test split tool in gantt view", async function () {
         },
     ];
 
-    onRpc("*", ganttResourceWorkIntervalRPC);
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
         resModel: "planning.slot",
@@ -657,24 +655,23 @@ test("Test highlight shifts added by executed action", async function () {
         },
     ];
 
-    onRpc("*", async function (args) {
-        if (args.method === "action_copy_previous_week") {
-            if (PlanningSlot._records.length === 2) {
-                const newSlotId = await this.env["planning.slot"].create({
-                    name: "shift 3",
-                    start_datetime: "2022-10-07 16:00:00",
-                    end_datetime: "2022-10-07 18:00:00",
-                    resource_id: 1,
-                });
-                return [[newSlotId], [1]];
-            }
-            return false;
-        } else if (args.method === "auto_plan_ids") {
-            await this.env["planning.slot"].write([2], { resource_id: 1 });
-            return { open_shift_assigned: [2] };
+    onRpc("action_copy_previous_week", async function () {
+        if (PlanningSlot._records.length === 2) {
+            const newSlotId = await this.env["planning.slot"].create({
+                name: "shift 3",
+                start_datetime: "2022-10-07 16:00:00",
+                end_datetime: "2022-10-07 18:00:00",
+                resource_id: 1,
+            });
+            return [[newSlotId], [1]];
         }
-        return ganttResourceWorkIntervalRPC(args);
-    });
+        return false;
+    })
+    onRpc("auto_plan_ids", async function() {
+        await this.env["planning.slot"].write([2], { resource_id: 1 });
+        return { open_shift_assigned: [2] };
+    })
+    onRpc("gantt_resource_work_interval", ganttResourceWorkIntervalRPC);
 
     await mountGanttView({
         resModel: "planning.slot",

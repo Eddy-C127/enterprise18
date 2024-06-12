@@ -415,22 +415,23 @@ export class PlanningGanttRenderer extends GanttRenderer {
         return super.isHoverable(...arguments);
     }
 
-    processRow(row) {
-        const { fromServer, groupedByField, name, progressBar } = row;
+    processRow() {
+        const result = super.processRow(...arguments);
+        const { fromServer, groupedByField, id, name, progressBar, resId } = result.rows[0];
         const isGroupedByResource = groupedByField === "resource_id";
         const employeeId = progressBar && progressBar.employee_id;
         const isResourceMaterial = progressBar && progressBar.is_material_resource;
         const resourceColor = progressBar && progressBar.resource_color || 0;
         const showPopover = !isResourceMaterial || progressBar.display_popover_material_resource;
-        const showEmployeeAvatar = isGroupedByResource && fromServer && Boolean(employeeId) || Boolean(row.resId && isResourceMaterial);
+        const showEmployeeAvatar = isGroupedByResource && fromServer && Boolean(employeeId) || Boolean(resId && isResourceMaterial);
         if (showEmployeeAvatar) {
             const { fields } = this.model.metaData;
             const resModel = fields.resource_id.relation;
-            this.rowsWithAvatar[row.id] = { resModel, resId: row.resId, displayName: name, isResourceMaterial, showPopover, resourceColor };
+            this.rowsWithAvatar[id] = { resModel, resId: resId, displayName: name, isResourceMaterial, showPopover, resourceColor };
         } else if (isResourceMaterial) {
-            this.rowsWithMaterial[row.id] = { displayName: name };
+            this.rowsWithMaterial[id] = { displayName: name };
         }
-        return super.processRow(...arguments);
+        return result;
     }
 
     /**

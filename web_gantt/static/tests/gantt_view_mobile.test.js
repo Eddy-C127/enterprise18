@@ -246,17 +246,15 @@ test("Controls: rendering is mobile friendly", async () => {
 });
 
 test("Progressbar: check the progressbar percentage visibility.", async () => {
-    onRpc("gantt_progress_bar", ({ args, model }) => {
-        expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [1, 2] });
-        return {
-            user_id: {
-                1: { value: 50, max_value: 100 },
-                2: { value: 25, max_value: 200 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            1: { value: 50, max_value: 100 },
+            2: { value: 25, max_value: 200 },
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -266,7 +264,7 @@ test("Progressbar: check the progressbar percentage visibility.", async () => {
             </gantt>
         `,
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
 
     expect(SELECTORS.progressBar).toHaveCount(2);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);
@@ -296,23 +294,15 @@ test("Progressbar: check the progressbar percentage visibility.", async () => {
 });
 
 test("Progressbar: grouped row", async () => {
-    // Here the view is grouped twice on the same field.
-    // This is not a common use case, but it is possible to achieve it
-    // bu saving a default favorite with a groupby then apply it twice
-    // on the same field through the groupby menu.
-    // In this case, the progress bar should be displayed only once,
-    // on the first level of grouping.
-    onRpc("gantt_progress_bar", ({ args, model }) => {
-        expect.step("gantt_progress_bar");
-        expect(model).toBe("tasks");
-        expect(args[0]).toEqual(["user_id"]);
-        expect(args[1]).toEqual({ user_id: [1, 2] });
-        return {
-            user_id: {
-                1: { value: 50, max_value: 100 },
-                2: { value: 25, max_value: 200 },
-            },
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        expect.step("get_gantt_data");
+        const result = await parent();
+        expect(kwargs.progress_bar_fields).toEqual(["user_id"]);
+        result.progress_bars.user_id = {
+            1: { value: 50, max_value: 100 },
+            2: { value: 25, max_value: 200 },
         };
+        return result;
     });
     await mountGanttView({
         resModel: "tasks",
@@ -322,9 +312,9 @@ test("Progressbar: grouped row", async () => {
             </gantt>
         `,
     });
-    expect(["gantt_progress_bar"]).toVerifySteps();
+    expect(["get_gantt_data"]).toVerifySteps();
 
-    expect(SELECTORS.progressBar).toHaveCount(2);
+    expect(SELECTORS.progressBar).toHaveCount(4);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);
     expect(progressBar1).toHaveClass("o_gantt_group_success");
     expect(progressBar2).toHaveClass("o_gantt_group_success");
@@ -332,13 +322,20 @@ test("Progressbar: grouped row", async () => {
     expect(rowHeader1.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader2.matches(SELECTORS.rowHeader)).toBe(true);
     expect(rowHeader1).toHaveClass(CLASSES.group);
-    expect(rowHeader2).toHaveClass(CLASSES.group);
+    expect(rowHeader2).not.toHaveClass(CLASSES.group);
     expect(queryAll(SELECTORS.progressBarBackground).map((el) => el.style.width)).toEqual([
         "50%",
+        "50%",
+        "12.5%",
         "12.5%",
     ]);
-    expect(SELECTORS.progressBarForeground).toHaveCount(2);
-    expect(queryAllTexts(SELECTORS.progressBarForeground)).toEqual(["50h / 100h", "25h / 200h"]);
+    expect(SELECTORS.progressBarForeground).toHaveCount(4);
+    expect(queryAllTexts(SELECTORS.progressBarForeground)).toEqual([
+        "50h / 100h",
+        "50h / 100h",
+        "25h / 200h",
+        "25h / 200h",
+    ]);
 
     // Check the style of one of the progress bars
     expect(rowHeader1.children).toHaveLength(2);

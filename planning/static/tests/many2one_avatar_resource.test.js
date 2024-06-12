@@ -166,68 +166,6 @@ beforeEach(() => {
     });
 });
 
-async function ganttResourceWorkIntervalRPC({ args, model, method }) {
-    if (method === "gantt_resource_work_interval") {
-        return [
-            {
-                1: [
-                    ["2022-10-10 06:00:00", "2022-10-10 10:00:00"], //Monday    4h
-                    ["2022-10-11 06:00:00", "2022-10-11 10:00:00"], //Tuesday   5h
-                    ["2022-10-11 11:00:00", "2022-10-11 12:00:00"],
-                    ["2022-10-12 06:00:00", "2022-10-12 10:00:00"], //Wednesday 6h
-                    ["2022-10-12 11:00:00", "2022-10-12 13:00:00"],
-                    ["2022-10-13 06:00:00", "2022-10-13 10:00:00"], //Thursday  7h
-                    ["2022-10-13 11:00:00", "2022-10-13 14:00:00"],
-                    ["2022-10-14 06:00:00", "2022-10-14 10:00:00"], //Friday    8h
-                    ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
-                ],
-            },
-        ];
-    }
-    if (
-        method === "gantt_progress_bar" &&
-        model === "planning.slot" &&
-        args[0][0] === "resource_id"
-    ) {
-        return {
-            resource_id: {
-                1: {
-                    value: 100,
-                    max_value: 100,
-                    is_material_resource: true,
-                    resource_color: 1,
-                    display_popover_material_resource: false,
-                    employee_id: false,
-                },
-                2: {
-                    value: 100,
-                    max_value: 100,
-                    is_material_resource: true,
-                    resource_color: 1,
-                    display_popover_material_resource: true, // Testing this full behavior would require a tour
-                    employee_id: false,
-                },
-                3: {
-                    value: 100,
-                    max_value: 100,
-                    is_material_resource: false,
-                    resource_color: false,
-                    display_popover_material_resource: false,
-                    employee_id: 1,
-                },
-                4: {
-                    value: 100,
-                    max_value: 100,
-                    is_material_resource: false,
-                    resource_color: false,
-                    display_popover_material_resource: false,
-                    employee_id: 2,
-                },
-            },
-        };
-    }
-}
-
 test("many2one_avatar_resource widget in kanban view", async () => {
     await mountView({
         resModel: "planning.slot",
@@ -300,14 +238,68 @@ test("many2one_avatar_resource widget in kanban view", async () => {
 
 test("Employee avatar in Gantt view", async () => {
     mockDate("2023-11-08 8:00:00", 0);
-    onRpc(ganttResourceWorkIntervalRPC);
+    onRpc("gantt_resource_work_interval", () => {
+        return [
+            {
+                1: [
+                    ["2022-10-10 06:00:00", "2022-10-10 10:00:00"], //Monday    4h
+                    ["2022-10-11 06:00:00", "2022-10-11 10:00:00"], //Tuesday   5h
+                    ["2022-10-11 11:00:00", "2022-10-11 12:00:00"],
+                    ["2022-10-12 06:00:00", "2022-10-12 10:00:00"], //Wednesday 6h
+                    ["2022-10-12 11:00:00", "2022-10-12 13:00:00"],
+                    ["2022-10-13 06:00:00", "2022-10-13 10:00:00"], //Thursday  7h
+                    ["2022-10-13 11:00:00", "2022-10-13 14:00:00"],
+                    ["2022-10-14 06:00:00", "2022-10-14 10:00:00"], //Friday    8h
+                    ["2022-10-14 11:00:00", "2022-10-14 15:00:00"],
+                ],
+            },
+        ];
+    });
+    onRpc("get_gantt_data", async ({ kwargs, parent }) => {
+        const result = await parent();
+        expect(kwargs.progress_bar_fields).toEqual(["resource_id"]);
+        result.progress_bars.resource_id = {
+            1: {
+                value: 100,
+                max_value: 100,
+                is_material_resource: true,
+                resource_color: 1,
+                display_popover_material_resource: false,
+                employee_id: false,
+            },
+            2: {
+                value: 100,
+                max_value: 100,
+                is_material_resource: true,
+                resource_color: 1,
+                display_popover_material_resource: true, // Testing this full behavior would require a tour
+                employee_id: false,
+            },
+            3: {
+                value: 100,
+                max_value: 100,
+                is_material_resource: false,
+                resource_color: false,
+                display_popover_material_resource: false,
+                employee_id: 1,
+            },
+            4: {
+                value: 100,
+                max_value: 100,
+                is_material_resource: false,
+                resource_color: false,
+                display_popover_material_resource: false,
+                employee_id: 2,
+            },
+        };
+        return result;
+    });
     await mountView({
         resModel: "planning.slot",
         type: "gantt",
         arch: `<gantt js_class="planning_gantt" date_start="start_datetime" date_stop="end_datetime" progress_bar="resource_id"/>`,
         groupBy: ["resource_id"],
     });
-
     expect(".o_gantt_row_title .o_avatar").toHaveCount(4);
     expect(".o_avatar .o_material_resource .fa-wrench").toHaveCount(2, {
         message:

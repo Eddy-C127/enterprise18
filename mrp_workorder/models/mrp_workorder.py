@@ -11,7 +11,7 @@ from odoo import Command, api, fields, models, _
 from odoo.addons.web.controllers.utils import clean_action
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare, float_is_zero, relativedelta
-from odoo.addons.resource.models.utils import Intervals, sum_intervals, string_to_datetime
+from odoo.addons.resource.models.utils import Intervals, sum_intervals
 from odoo.http import request
 
 
@@ -679,23 +679,17 @@ class MrpProductionWorkcenterLine(models.Model):
             for workcenter in workcenters
         }
 
-    def _web_gantt_progress_bar(self, field, res_ids, start, stop):
+    @api.model
+    def _gantt_progress_bar(self, field, res_ids, start, stop):
+        start, stop = utc.localize(start), utc.localize(stop)
+        today = datetime.now(utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        start = max(start, today)
         if field == 'workcenter_id':
             return dict(
                 self._web_gantt_progress_bar_workcenter_id(res_ids, start, stop),
                 warning=_("This workcenter isn't expected to have open workorders during this period. Work hours :"),
             )
         raise NotImplementedError("This Progress Bar is not implemented.")
-
-    @api.model
-    def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
-        start_utc, stop_utc = string_to_datetime(date_start_str), string_to_datetime(date_stop_str)
-        today = datetime.now(utc).replace(hour=0, minute=0, second=0, microsecond=0)
-        start_utc = max(start_utc, today)
-        progress_bars = {}
-        for field in fields:
-            progress_bars[field] = self._web_gantt_progress_bar(field, res_ids[field], start_utc, stop_utc)
-        return progress_bars
 
     def _get_fields_for_tablet(self):
         """ List of fields on the workorder object that are needed by the tablet

@@ -145,7 +145,8 @@ QUnit.module("M2OAvatarResourceWidgetTestsPlanning", {
         }]);
 
         // Mock RPC
-        this.mockRPC = async (_, { args, method, model }) => {
+        this.mockRPC = async function(route, args, performRPC) {
+            const { kwargs, method, model } = args;
             if (method === "gantt_resource_work_interval") {
                 return [
                     {
@@ -163,44 +164,43 @@ QUnit.module("M2OAvatarResourceWidgetTestsPlanning", {
                     },
                 ];
             }
-            if (method === "gantt_progress_bar" && model === "planning.slot" && args[0][0] === "resource_id") {
-                return {
-                    resource_id: {
-                        1: {
-                            value: 100,
-                            max_value: 100,
-                            is_material_resource: true,
-                            resource_color: 1,
-                            display_popover_material_resource: false,
-                            employee_id: false,
-                        },
-                        2: {
-                            value: 100,
-                            max_value: 100,
-                            is_material_resource: true,
-                            resource_color: 1,
-                            display_popover_material_resource: true,// Testing this full behavior would require a tour
-                            employee_id: false,
-                        },
-                        3: {
-                            value: 100,
-                            max_value: 100,
-                            is_material_resource: false,
-                            resource_color: false,
-                            display_popover_material_resource: false,
-                            employee_id: 1,
-                        },
-                        4: {
-                            value: 100,
-                            max_value: 100,
-                            is_material_resource: false,
-                            resource_color: false,
-                            display_popover_material_resource: false,
-                            employee_id: 2,
-                        },
+            if (method === "get_gantt_data" && model === "planning.slot" && kwargs.progress_bar_fields.length === 1 && kwargs.progress_bar_fields[0] === "resource_id") {
+                const result = await performRPC(route, args);
+                result.progress_bars.resource_id = {
+                    1: {
+                        value: 100,
+                        max_value: 100,
+                        is_material_resource: true,
+                        resource_color: 1,
+                        display_popover_material_resource: false,
+                        employee_id: false,
+                    },
+                    2: {
+                        value: 100,
+                        max_value: 100,
+                        is_material_resource: true,
+                        resource_color: 1,
+                        display_popover_material_resource: true,// Testing this full behavior would require a tour
+                        employee_id: false,
+                    },
+                    3: {
+                        value: 100,
+                        max_value: 100,
+                        is_material_resource: false,
+                        resource_color: false,
+                        display_popover_material_resource: false,
+                        employee_id: 1,
+                    },
+                    4: {
+                        value: 100,
+                        max_value: 100,
+                        is_material_resource: false,
+                        resource_color: false,
+                        display_popover_material_resource: false,
+                        employee_id: 2,
                     },
                 };
-
+                return result;
             }
         }
     },

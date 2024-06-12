@@ -32,7 +32,12 @@ function _mockGetGanttData(params) {
         unavailabilities[fieldName] = {};
     }
 
-    return { groups, length, records, unavailabilities };
+    const progress_bars = {};
+    for (const fieldName of params.progress_bar_fields || []) {
+        progress_bars[fieldName] = {};
+    }
+
+    return { groups, length, records, unavailabilities, progress_bars };
 }
 
 registry.category("sample_server").add("get_gantt_data", _mockGetGanttData);

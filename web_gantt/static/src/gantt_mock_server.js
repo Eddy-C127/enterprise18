@@ -24,7 +24,12 @@ function _mockGetGanttData(_, { model, kwargs }) {
         unavailabilities[fieldName] = {};
     }
 
-    return { groups, length, records, unavailabilities };
+    const progress_bars = {};
+    for (const fieldName of kwargs.progress_bar_fields || []) {
+        progress_bars[fieldName] = {};
+    }
+
+    return { groups, length, records, unavailabilities, progress_bars };
 }
 
 registry.category("mock_server").add("get_gantt_data", _mockGetGanttData);

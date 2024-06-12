@@ -1715,6 +1715,32 @@ export class GanttRenderer extends Component {
         return cellColors;
     }
 
+    getFromData(groupedByField, resId, key, defaultVal) {
+        const values = this.model.data[key];
+        if (groupedByField) {
+            return values[groupedByField]?.[resId ?? false] || defaultVal;
+        }
+        return values.__default?.false || defaultVal;
+    }
+
+    /**
+     * @param {string} [groupedByField]
+     * @param {false|number} [resId]
+     * @returns {Object}
+     */
+    getRowProgressBar(groupedByField, resId) {
+        return this.getFromData(groupedByField, resId, "progressBars", null);
+    }
+
+    /**
+     * @param {string} [groupedByField]
+     * @param {false|number} [resId]
+     * @returns {{ start: DateTime, stop: DateTime }[]}
+     */
+    getRowUnavailabilities(groupedByField, resId) {
+        return this.getFromData(groupedByField, resId, "unavailabilities", []);
+    }
+
     /**
      * @param {"t0" | "t1" | "t2"} type
      * @returns {number}
@@ -1936,7 +1962,6 @@ export class GanttRenderer extends Component {
             name,
             parentResId,
             parentGroupedField,
-            progressBar,
             resId,
             rows,
             recordIds,
@@ -1998,6 +2023,7 @@ export class GanttRenderer extends Component {
             }
         }
 
+        const progressBar = this.getRowProgressBar(groupedByField, resId);
         if (progressBar && this.isTouchDevice && (!gridRowTypes.t1 || gridRowTypes.t1 === 1)) {
             // In mobile: rows span over 2 rows to alllow progressbars to properly display
             gridRowTypes.t1 = (gridRowTypes.t1 || 0) + 1;
@@ -2052,7 +2078,7 @@ export class GanttRenderer extends Component {
             },
         };
         if (displayUnavailability && !isGroup) {
-            processedRow.unavailabilities = this._getRowUnavailabilities(
+            processedRow.unavailabilities = this.getRowUnavailabilities(
                 parentGroupedField || groupedByField,
                 parentResId ?? resId
             );

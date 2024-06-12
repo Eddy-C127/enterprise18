@@ -10,7 +10,7 @@ from random import randint, shuffle
 from werkzeug.urls import url_encode
 
 from odoo import api, fields, models, _
-from odoo.addons.resource.models.utils import Intervals, sum_intervals, string_to_datetime
+from odoo.addons.resource.models.utils import Intervals, sum_intervals
 from odoo.exceptions import UserError, AccessError
 from odoo.osv import expression
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_utils, format_datetime
@@ -2169,25 +2169,15 @@ class Planning(models.Model):
         }
 
     def _gantt_progress_bar(self, field, res_ids, start, stop):
+        if not self.env.user._is_internal():
+            return {}
         if field == 'resource_id':
+            start, stop = pytz.utc.localize(start), pytz.utc.localize(stop)
             return dict(
                 self._gantt_progress_bar_resource_id(res_ids, start, stop),
                 warning=_("As there is no running contract during this period, this resource is not expected to work a shift.")
             )
         raise NotImplementedError(_("This Progress Bar is not implemented."))
-
-    @api.model
-    def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
-        if not self.env.user._is_internal():
-            return {field: {} for field in fields}
-
-        start_utc, stop_utc = string_to_datetime(date_start_str), string_to_datetime(date_stop_str)
-
-        progress_bars = {}
-        for field in fields:
-            progress_bars[field] = self._gantt_progress_bar(field, res_ids[field], start_utc, stop_utc)
-
-        return progress_bars
 
     def _prepare_shift_vals(self):
         """ Generate shift vals"""

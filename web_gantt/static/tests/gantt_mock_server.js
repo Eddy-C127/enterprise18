@@ -26,7 +26,12 @@ function _mockGetGanttData({ kwargs, model }) {
         unavailabilities[fieldName] = {};
     }
 
-    return { groups, length, records, unavailabilities };
+    const progress_bars = {};
+    for (const fieldName of kwargs.progress_bar_fields || []) {
+        progress_bars[fieldName] = {};
+    }
+
+    return { groups, length, records, unavailabilities, progress_bars };
 }
 
 registry.category("mock_rpc").add("get_gantt_data", _mockGetGanttData);

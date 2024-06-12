@@ -15,7 +15,7 @@ from odoo.tools.sql import SQL
 from odoo.addons.resource.models.utils import filter_domain_leaf
 from odoo.osv.expression import is_leaf
 
-from odoo.addons.resource.models.utils import Intervals, sum_intervals, string_to_datetime
+from odoo.addons.resource.models.utils import Intervals, sum_intervals
 
 PROJECT_TASK_WRITABLE_FIELDS = {
     'planned_date_begin',
@@ -1420,24 +1420,15 @@ class Task(models.Model):
         return allocated_hours_mapped
 
     def _gantt_progress_bar(self, field, res_ids, start, stop):
+        if not self.env.user.has_group("project.group_project_user"):
+            return {}
         if field == 'user_ids':
+            start, stop = utc.localize(start), utc.localize(stop)
             return dict(
                 self._gantt_progress_bar_user_ids(res_ids, start, stop),
                 warning=_("This user isn't expected to have any tasks assigned during this period because they don't have any running contract."),
             )
         raise NotImplementedError(_("This Progress Bar is not implemented."))
-
-    @api.model
-    def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
-        if not self.env.user.has_group("project.group_project_user"):
-            return {field: {} for field in fields}
-        start_utc, stop_utc = string_to_datetime(date_start_str), string_to_datetime(date_stop_str)
-
-        progress_bars = {}
-        for field in fields:
-            progress_bars[field] = self._gantt_progress_bar(field, res_ids[field], start_utc, stop_utc)
-
-        return progress_bars
 
     @api.model
     @api.readonly

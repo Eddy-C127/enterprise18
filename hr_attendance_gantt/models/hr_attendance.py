@@ -2,13 +2,13 @@
 
 from collections import defaultdict
 from dateutil.relativedelta import relativedelta
-from pytz import timezone, UTC
+from pytz import timezone, UTC, utc
 
 from odoo import api, fields, models
 from odoo.osv import expression
 from odoo.tools import float_is_zero
 
-from odoo.addons.resource.models.utils import Intervals, string_to_datetime, timezone_datetime
+from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 
 
 class HrAttendance(models.Model):
@@ -24,18 +24,11 @@ class HrAttendance(models.Model):
             else:
                 attendance.overtime_progress = 100
 
-    @api.model
-    def gantt_progress_bar(self, fields, res_ids, date_start_str, date_stop_str):
-        if not self.env.user._is_internal():
-            return {field: {} for field in fields}
-
-        start_utc, stop_utc = string_to_datetime(date_start_str), string_to_datetime(date_stop_str)
-
-        progress_bars = {field: self._gantt_progress_bar(field, res_ids[field], start_utc, stop_utc) for field in fields}
-        return progress_bars
-
     def _gantt_progress_bar(self, field, res_ids, start, stop):
+        if not self.env.user._is_internal():
+            return {}
         if field == 'employee_id':
+            start, stop = utc.localize(start), utc.localize(stop)
             return self._gantt_progress_bar_employee_ids(res_ids, start, stop)
         raise NotImplementedError
 
@@ -61,13 +54,13 @@ class HrAttendance(models.Model):
         return values
 
     @api.model
-    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=[], start_date=None, stop_date=None, scale=None):
+    def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=[], progress_bar_fields=None, start_date=None, stop_date=None, scale=None):
         """
         We override get_gantt_data to allow the display of open-ended records,
         We also want to add in the gantt rows, the active emloyees that have a check in in the previous 60 days
         """
 
-        open_ended_gantt_data = super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset, unavailability_fields=unavailability_fields, start_date=start_date, stop_date=stop_date, scale=scale)
+        open_ended_gantt_data = super().get_gantt_data(domain, groupby, read_specification, limit=limit, offset=offset, unavailability_fields=unavailability_fields, progress_bar_fields=progress_bar_fields, start_date=start_date, stop_date=stop_date, scale=scale)
 
         if self.env.context.get('gantt_start_date') and groupby and groupby[0] == 'employee_id':
             user_domain = self.env.context.get('user_domain')
@@ -79,7 +72,7 @@ class HrAttendance(models.Model):
                     ('check_in', '>', fields.Datetime.from_string(start_date) - relativedelta(days=60)),
                     ('employee_id', 'not in', [group['employee_id'][0] for group in open_ended_gantt_data['groups']])
                 ]])
-            previously_active_employees = super().get_gantt_data(active_employees_domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=unavailability_fields, start_date=start_date, stop_date=stop_date, scale=scale)
+            previously_active_employees = super().get_gantt_data(active_employees_domain, groupby, read_specification, limit=None, offset=0, unavailability_fields=unavailability_fields, progress_bar_fields=progress_bar_fields, start_date=start_date, stop_date=stop_date, scale=scale)
             for group in previously_active_employees['groups']:
                 del group['__record_ids']  # Records are not needed here
                 open_ended_gantt_data['groups'].append(group)

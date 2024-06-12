@@ -191,23 +191,23 @@ class TestPlanningHr(TestCommonPlanning):
             # allocated_hours will be : 4h (see calendar)
         }])
 
-        planning_hours_info = self.env['planning.slot'].gantt_progress_bar(
-            ['resource_id'], {'resource_id': joseph_resource_id.ids}, '2015-11-08 00:00:00', '2015-11-28 23:59:59'
-        )['resource_id']
+        planning_hours_info = self.env['planning.slot']._gantt_progress_bar(
+            'resource_id', joseph_resource_id.ids, datetime(2015, 11, 8), datetime(2015, 11, 28, 23, 59, 59)
+        )
         self.assertEqual(24, planning_hours_info[joseph_resource_id.id]['max_value'], "Work hours for the employee Jules should be 8h+8h+8h = 24h")
         self.assertEqual(12, planning_hours_info[joseph_resource_id.id]['value'], "Planned hours for the employee Jules should be 8h+4h = 12h")
 
-        planning_hours_info = self.env['planning.slot'].gantt_progress_bar(
-            ['resource_id'], {'resource_id': joseph_resource_id.ids}, '2015-11-12 00:00:00', '2015-11-12 23:59:59'
-        )['resource_id']
+        planning_hours_info = self.env['planning.slot']._gantt_progress_bar(
+            'resource_id', joseph_resource_id.ids, datetime(2015, 11, 12), datetime(2015, 11, 12, 23, 59, 59)
+        )
         self.assertEqual(8, planning_hours_info[joseph_resource_id.id]['max_value'],
                          "Work hours for the employee Jules should be 8h as its a Thursday.")
         self.assertEqual(8, planning_hours_info[joseph_resource_id.id]['value'],
                          "Planned hours for the employee Jules should be 8h as its a Thursday and hours are computed on a forecast slot.")
 
-        planning_hours_info = self.env['planning.slot'].gantt_progress_bar(
-            ['resource_id'], {'resource_id': joseph_resource_id.ids}, '2015-11-26 00:00:00', '2015-11-26 23:59:59'
-        )['resource_id']
+        planning_hours_info = self.env['planning.slot']._gantt_progress_bar(
+            'resource_id', joseph_resource_id.ids, datetime(2015, 11, 26), datetime(2015, 11, 26, 23, 59, 59)
+        )
         self.assertEqual(8, planning_hours_info[joseph_resource_id.id]['max_value'],
                          "Work hours for the employee Jules should be 8h as its a Thursday.")
         self.assertEqual(4, planning_hours_info[joseph_resource_id.id]['value'],

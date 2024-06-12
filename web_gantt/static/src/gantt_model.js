@@ -9,7 +9,7 @@ import { KeepLast, Mutex } from "@web/core/utils/concurrency";
 import { pick } from "@web/core/utils/objects";
 import { sprintf } from "@web/core/utils/strings";
 import { Model } from "@web/model/model";
-import { formatFloatTime } from "@web/views/fields/formatters";
+import { formatFloatTime, formatPercentage } from "@web/views/fields/formatters";
 import { getRangeFromDate, localStartOf } from "./gantt_helpers";
 
 const { DateTime } = luxon;
@@ -473,34 +473,6 @@ export class GanttModel extends Model {
     //-------------------------------------------------------------------------
 
     /**
-     * Recursive function to add progressBar info to rows grouped by the field.
-     *
-     * @protected
-     * @param {string} fieldName
-     * @param {Row[]} rows
-     * @param {Record<number, ProgressBar>} progressBarInfo
-     */
-    _addProgressBarInfo(fieldName, rows, progressBarInfo) {
-        for (const row of rows) {
-            if (row.groupedByField === fieldName) {
-                row.progressBar = progressBarInfo[row.resId];
-                if (row.progressBar) {
-                    row.progressBar.value_formatted = this._formatTime(row.progressBar.value);
-                    row.progressBar.max_value_formatted = this._formatTime(
-                        row.progressBar.max_value
-                    );
-                    row.progressBar.ratio = row.progressBar.max_value
-                        ? (row.progressBar.value / row.progressBar.max_value) * 100
-                        : 0;
-                    row.progressBar.warning = progressBarInfo.warning;
-                }
-            } else {
-                this._addProgressBarInfo(fieldName, row.rows, progressBarInfo);
-            }
-        }
-    }
-
-    /**
      * Return a copy of this.metaData or of the last copy, extended with optional
      * params. This is useful for async methods that need to modify this.metaData,
      * but it can't be done in place directly for the model to be concurrency
@@ -618,20 +590,22 @@ export class GanttModel extends Model {
             }
         }
 
-        const { length, groups, records, error_msg, unavailabilities } = await this.keepLast.add(
-            this.orm.call(resModel, "get_gantt_data", [], {
-                domain,
-                groupby: groupedBy,
-                read_specification: specification,
-                scale: scale.unit,
-                start_date: serializeDateTime(globalStart),
-                stop_date: serializeDateTime(globalStop),
-                unavailability_fields: this._getUnavailabilityFields(metaData),
-                context,
-                limit: pagerLimit,
-                offset: pagerOffset,
-            })
-        );
+        const { length, groups, records, error_msg, progress_bars, unavailabilities } =
+            await this.keepLast.add(
+                this.orm.call(resModel, "get_gantt_data", [], {
+                    domain,
+                    groupby: groupedBy,
+                    read_specification: specification,
+                    scale: scale.unit,
+                    start_date: serializeDateTime(globalStart),
+                    stop_date: serializeDateTime(globalStop),
+                    unavailability_fields: this._getUnavailabilityFields(metaData),
+                    progress_bar_fields: this._getProgressBarFields(metaData),
+                    context,
+                    limit: pagerLimit,
+                    offset: pagerOffset,
+                })
+            );
 
         groups.forEach((g) => (g.fromServer = true));
 
@@ -644,6 +618,7 @@ export class GanttModel extends Model {
             parentGroup: [],
         });
         data.unavailabilities = this._processUnavailabilities(unavailabilities);
+        data.progressBars = this._processProgressBars(progress_bars);
 
         await this.keepLast.add(this._fetchDataPostProcess(metaData, data));
 
@@ -661,50 +636,7 @@ export class GanttModel extends Model {
      * @param {MetaData} metaData
      * @param {Data} data
      */
-    async _fetchDataPostProcess(metaData, data) {
-        const proms = [];
-        if (metaData.progressBarFields && !this.orm.isSample) {
-            const progressBarFields = metaData.progressBarFields.filter((f) =>
-                metaData.groupedBy.includes(f)
-            );
-            if (progressBarFields.length) {
-                proms.push(this._fetchProgressBarData(metaData, data, progressBarFields));
-            }
-        }
-        await Promise.all(proms);
-    }
-
-    /**
-     * Get progress bars info in order to display progress bar in gantt title column
-     *
-     * @protected
-     * @param {MetaData} metaData
-     * @param {Data} data
-     * @param {string[]} progressBarFields
-     */
-    async _fetchProgressBarData(metaData, data, progressBarFields) {
-        const resIds = {};
-        let hasResIds = false;
-        for (const fieldName of progressBarFields) {
-            resIds[fieldName] = this._getProgressBarResIds(fieldName, data.rows);
-            hasResIds = hasResIds || resIds[fieldName].length;
-        }
-        if (!hasResIds) {
-            return;
-        }
-
-        const { globalStart, globalStop, resModel } = metaData;
-        const progressBarInfo = await this.orm.call(resModel, "gantt_progress_bar", [
-            progressBarFields,
-            resIds,
-            serializeDateTime(globalStart),
-            serializeDateTime(globalStop),
-        ]);
-
-        for (const fieldName in progressBarInfo) {
-            this._addProgressBarInfo(fieldName, data.rows, progressBarInfo[fieldName]);
-        }
-    }
+    async _fetchDataPostProcess(metaData, data) {}
 
     /**
      * Remove date in groupedBy field
@@ -996,26 +928,15 @@ export class GanttModel extends Model {
         return `scaleOf-viewId-${this.env.config.viewId}`;
     }
 
-    /**
-     * Recursive function to get resIds of groups where the progress bar will be added.
-     *
-     * @protected
-     * @param {string} fieldName
-     * @param {Row[]} rows
-     * @returns {number[]}
-     */
-    _getProgressBarResIds(fieldName, rows) {
-        const resIds = [];
-        for (const row of rows) {
-            if (row.groupedByField === fieldName) {
-                if (row.resId !== false) {
-                    resIds.push(row.resId);
-                }
-            } else {
-                resIds.push(...this._getProgressBarResIds(fieldName, row.rows || []));
-            }
+    _getProgressBarFields(metaData) {
+        if (metaData.progressBarFields && !this.orm.isSample) {
+            return metaData.progressBarFields.filter(
+                (fieldName) =>
+                    metaData.groupedBy.includes(fieldName) &&
+                    ["many2many", "many2one"].includes(metaData.fields[fieldName]?.type)
+            );
         }
-        return [...new Set(resIds)];
+        return [];
     }
 
     _getRescheduleContext() {
@@ -1091,6 +1012,37 @@ export class GanttModel extends Model {
             }
         }
         return parsedRecords;
+    }
+
+    _processProgressBar(progressBar, warning) {
+        const processedProgressBar = {
+            ...progressBar,
+            value_formatted: this._formatTime(progressBar.value),
+            max_value_formatted: this._formatTime(progressBar.max_value),
+            ratio: progressBar.max_value ? (progressBar.value / progressBar.max_value) * 100 : 0,
+            warning,
+        };
+        if (processedProgressBar?.max_value) {
+            processedProgressBar.ratio_formatted = formatPercentage(
+                processedProgressBar.ratio / 100
+            );
+        }
+        return processedProgressBar;
+    }
+
+    _processProgressBars(progressBars) {
+        const processedProgressBars = {};
+        for (const fieldName in progressBars) {
+            processedProgressBars[fieldName] = {};
+            const progressBarInfo = progressBars[fieldName];
+            for (const [resId, progressBar] of Object.entries(progressBarInfo)) {
+                processedProgressBars[fieldName][resId] = this._processProgressBar(
+                    progressBar,
+                    progressBarInfo.warning
+                );
+            }
+        }
+        return processedProgressBars;
     }
 
     _processUnavailabilities(unavailabilities) {
