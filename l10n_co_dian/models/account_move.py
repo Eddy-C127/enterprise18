@@ -147,6 +147,14 @@ class AccountMove(models.Model):
             return 'l10n_co_dian.report_invoice_document'
         return super()._get_name_invoice_report()
 
+    @api.model
+    def _get_ubl_cii_builder_from_xml_tree(self, tree):
+        # EXTENDS account_edi_ubl_cii
+        ubl_profile = tree.findtext('{*}ProfileID')
+        if ubl_profile and ubl_profile.startswith('DIAN 2.1:'):
+            return self.env['account.edi.xml.ubl_21']
+        return super()._get_ubl_cii_builder_from_xml_tree(tree)
+
     # -------------------------------------------------------------------------
     # Helpers
     # -------------------------------------------------------------------------
