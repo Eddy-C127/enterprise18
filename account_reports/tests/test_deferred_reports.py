@@ -19,7 +19,7 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
             'name': f'Expense {i}',
             'code': f'EXP{i}',
             'account_type': 'expense',
-        }) for i in range(3)]
+        }) for i in range(10)]
         cls.revenue_accounts = [cls.env['account.account'].create({
             'name': f'Revenue {i}',
             'code': f'REV{i}',
@@ -575,6 +575,42 @@ class TestDeferredReports(TestAccountReportsCommon, HttpCase):
                 ('EXP1 Expense 1',   -1225,          0,            -361.67,   -326.67,   -536.67    ),
                 ('EXP2 Expense 2',   -1680 - 225,    -225,         -220,      -560,      -900 - 225 ),
                 ('Total',            -5180,          -225,         -1000,     -1400,     -2780      ),
+            ],
+            options,
+        )
+
+    def test_deferred_expense_report_compute_method_full_months(self):
+        """
+        Test the full_months method on the deferred expense report.
+        """
+        self.company.deferred_expense_amount_computation_method = 'full_months'
+        self.create_invoice([[self.expense_accounts[0], 1200, '2023-02-01', '2023-03-31']])
+        self.create_invoice([[self.expense_accounts[1], 1200, '2023-02-01', '2023-03-16']])
+        self.create_invoice([[self.expense_accounts[2], 1200, '2023-02-05', '2023-03-16']])
+        self.create_invoice([[self.expense_accounts[3], 1200, '2023-02-05', '2023-03-31']])
+        self.create_invoice([[self.expense_accounts[4], 1200, '2023-02-13', '2023-04-30']])
+        self.create_invoice([[self.expense_accounts[5], 1200, '2023-03-01', '2023-06-18']])
+        self.create_invoice([[self.expense_accounts[6], 1200, '2023-03-05', '2023-06-30']])
+        self.create_invoice([[self.expense_accounts[7], 1200, '2023-03-13', '2024-03-12']])
+        self.create_invoice([[self.expense_accounts[8], 1200, '2023-03-14', '2023-03-18']])
+
+        options = self.get_options('2023-03-01', '2023-03-31')
+        lines = self.deferred_expense_report._get_lines(options)
+        self.assertLinesValues(
+            lines,
+            #         Name          Total   Not Started   Before     Current   Later
+            [0,                         1,            2,       3,         4,      5],
+            [
+                ('EXP0 Expense 0',   1200,            0,     600,       600,      0),
+                ('EXP1 Expense 1',   1200,            0,    1200,         0,      0),
+                ('EXP2 Expense 2',   1200,            0,    1200,         0,      0),
+                ('EXP3 Expense 3',   1200,            0,     600,       600,      0),
+                ('EXP4 Expense 4',   1200,            0,     400,       400,    400),
+                ('EXP5 Expense 5',   1200,            0,       0,       400,    800),
+                ('EXP6 Expense 6',   1200,            0,       0,       300,    900),
+                ('EXP7 Expense 7',   1200,            0,       0,       100,   1100),
+                ('EXP8 Expense 8',   1200,            0,       0,      1200,      0),
+                ('Total',           10800,            0,    4000,      3600,   3200),
             ],
             options,
         )

@@ -35,8 +35,9 @@ class ResCompany(models.Model):
     deferred_expense_amount_computation_method = fields.Selection(
         string="Deferred Expense Based on",
         selection=[
-            ('day', 'Based on days'),
-            ('month', 'Equal per month'),
+            ('day', 'Days'),
+            ('month', 'Months'),
+            ('full_months', 'Full Months'),
         ],
         default='month',
         required=True,
@@ -63,8 +64,9 @@ class ResCompany(models.Model):
     deferred_revenue_amount_computation_method = fields.Selection(
         string="Deferred Revenue Based on",
         selection=[
-            ('day', 'Based on days'),
-            ('month', 'Equal per month'),
+            ('day', 'Days'),
+            ('month', 'Months'),
+            ('full_months', 'Full Months'),
         ],
         default='month',
         required=True,
