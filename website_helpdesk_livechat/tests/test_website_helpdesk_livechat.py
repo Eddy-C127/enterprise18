@@ -29,11 +29,11 @@ class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
         self.test_team.use_website_helpdesk_livechat = True
 
     def test_helpdesk_commands(self):
-        channel_info = self.make_jsonrpc_request("/im_livechat/get_session", {
+        data = self.make_jsonrpc_request("/im_livechat/get_session", {
             'anonymous_name': 'Visitor',
             'channel_id': self.livechat_channel.id,
-        })["Thread"]
-        discuss_channel = self.env['discuss.channel'].browse(channel_info['id']).with_user(self.helpdesk_manager)
+        })
+        discuss_channel = self.env['discuss.channel'].browse(data["Thread"][0]['id']).with_user(self.helpdesk_manager)
 
         self.assertFalse(self.env['helpdesk.ticket'].search([('team_id', '=', self.test_team.id)]), 'The team should start with no tickets')
 

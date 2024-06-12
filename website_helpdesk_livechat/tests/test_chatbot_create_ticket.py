@@ -2,9 +2,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.website_helpdesk_livechat.tests.helpdesk_livechat_chatbot_common import HelpdeskChatbotCase
-from odoo.tests.common import users
+from odoo.tests import tagged, users
 
 
+@tagged("post_install", "-at_install")
 class TestChatbotCreateTicket(HelpdeskChatbotCase):
 
     @users('user_public')
@@ -41,13 +42,13 @@ class TestChatbotCreateTicket(HelpdeskChatbotCase):
         self.assertEqual(created_ticket.team_id, self.helpdesk_team)
 
     def _chatbot_create_helpdesk_ticket(self, user):
-        channel_info = self.make_jsonrpc_request("/im_livechat/get_session", {
+        data = self.make_jsonrpc_request("/im_livechat/get_session", {
             'anonymous_name': 'Test Visitor',
             'channel_id': self.livechat_channel.id,
             'chatbot_script_id': self.chatbot_script.id,
             'user_id': user.id,
-        })["Thread"]
-        discuss_channel = self.env['discuss.channel'].sudo().browse(channel_info['id'])
+        })
+        discuss_channel = self.env['discuss.channel'].sudo().browse(data["Thread"][0]['id'])
 
         self._post_answer_and_trigger_next_step(
             discuss_channel,
