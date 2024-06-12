@@ -62,7 +62,7 @@
                     setSessionOwner.bind="changeAdmin"
                     popupAddEmployee.bind="login"
                     logout.bind="logout"/>
-                <div class="o_mrp_display_records flex-grow-1 m-2">
+                <div class="o_mrp_display_records flex-grow-1 m-2 position-relative">
                     <t t-foreach="relevantRecords" t-as="record" t-key="record.id">
                         <MrpDisplayRecord
                             addToValidationStack.bind="addToValidationStack"
@@ -92,17 +92,17 @@
                             demoRecord="true"
                             />
                         </t>
-                        <div class="o_view_nocontent">
-                        <div class="o_nocontent_help">
-                            <p>
-                                Shop Floor Control Panel
-                            </p><p>
-                                Track work orders, show instructions and record manufacturing operations from here:
-                                quality control, consumed quantities, lot/serial numbers, etc.
-                            </p>
-                            <button role="button" class="btn btn-lg btn-primary" t-on-click="loadSamples" t-if="state.canLoadSamples" t-att-disabled="state.canLoadSamples === 'disabled'">Load Samples</button>
+                        <div class="o_view_nocontent z-index-0">
+                            <div class="o_nocontent_help">
+                                <p>
+                                    Shop Floor Control Panel
+                                </p><p>
+                                    Track work orders, show instructions and record manufacturing operations from here:
+                                    quality control, consumed quantities, lot/serial numbers, etc.
+                                </p>
+                                <button role="button" class="btn btn-lg btn-primary" t-on-click="loadSamples" t-if="state.canLoadSamples" t-att-disabled="state.canLoadSamples === 'disabled'">Load Samples</button>
+                            </div>
                         </div>
-                    </div>
                     </t>
                 </div>
             </Layout>
