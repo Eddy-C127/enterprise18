@@ -490,12 +490,17 @@ class TestRentalPicking(TestRentalCommon):
         self.assertEqual(pick_picking.location_dest_id, self.warehouse_id.wh_pack_stock_loc_id)
         pick_picking.button_validate()
         rental_order_1.order_line.write({'product_uom_qty': 1})
-        self.assertEqual(len(rental_order_1.picking_ids), 3)
+        self.assertEqual(len(rental_order_1.picking_ids), 4)
 
         return_pick_picking = rental_order_1.picking_ids.filtered(lambda p: p.location_id == self.warehouse_id.wh_pack_stock_loc_id and p.location_dest_id == self.warehouse_id.lot_stock_id)
         all_other_pickings = rental_order_1.picking_ids.filtered(lambda p: p.state != 'done' and p.id != return_pick_picking.id)
-        self.assertFalse(return_pick_picking)
-        self.assertEqual(all_other_pickings.move_ids.mapped('product_uom_qty'), [4.0, 1.0])
+        self.assertEqual(return_pick_picking.move_ids.product_uom_qty, 3.0)
+        self.assertEqual(return_pick_picking.state, 'assigned')
+        self.assertEqual(all_other_pickings.move_ids.mapped('product_uom_qty'), [1.0, 1.0])
+
+        return_pick_picking.move_ids.picked = True
+        return_pick_picking.button_validate()
+        self.assertEqual(return_pick_picking.state, 'done')
 
         pack_picking = rental_order_1.picking_ids.filtered(lambda p: p.state == 'assigned')
         pack_picking.move_ids.quantity = 1
