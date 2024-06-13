@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, api
+from odoo import models, api, fields
 
 
 class AccountMove(models.Model):
@@ -41,3 +41,30 @@ class AccountMove(models.Model):
             return self._l10n_br_invoice_refs_for_code("documentCode", f"account.move_{origin.id}")
 
         return {}
+
+    def _l10n_br_get_installments(self):
+        """account.external.tax.mixin override."""
+        payments = self.line_ids.filtered(lambda line: line.display_type == "payment_term" and line.date_maturity)
+        future_payments = payments.filtered(
+            lambda line: line.date_maturity > (self.invoice_date or fields.Date.context_today(self))
+        )
+        if not future_payments:
+            return None
+
+        return {
+            "installmentTerms": "1" if len(payments) == 1 else "5",
+            "bill": {
+                "nFat": self.name,
+                "vNet": self.amount_total,
+                "vOrig": self.amount_total,
+            },
+            "installment": [
+                {
+                    "documentNumber": f"{index + 1:03}",
+                    "date": payment.date_maturity.isoformat(),
+                    "grossValue": payment.balance,
+                    "netValue": payment.balance,
+                }
+                for index, payment in enumerate(payments.sorted("date_maturity"))
+            ],
+        }

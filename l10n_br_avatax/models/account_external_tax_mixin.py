@@ -62,6 +62,10 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         credit and debit notes. """
         return {}
 
+    def _l10n_br_get_installments(self):
+        """ Should return a dict of installments, as specified by the Avatax API. """
+        return None
+
     def _l10n_br_line_model_name(self):
         return self._name + '.line'
 
@@ -318,6 +322,10 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         if company.l10n_br_tax_regime == 'simplified':
             taxes_settings_company['pCredSN'] = self.company_id.l10n_br_icms_rate
 
+        payments = {}
+        if installments := self._l10n_br_get_installments():
+            payments = {'payment': installments}
+
         return {
             'header': {
                 'transactionDate': (transaction_date or fields.Date.today()).isoformat(),
@@ -363,6 +371,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                         'suframa': company.l10n_br_isuf_code or '',
                     },
                 },
+                **payments,
             },
             'lines': lines,
         }
