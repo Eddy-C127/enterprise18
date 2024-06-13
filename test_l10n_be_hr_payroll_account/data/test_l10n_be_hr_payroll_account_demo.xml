@@ -2029,11 +2029,6 @@
         <field name="employee_id" ref="employee_jve"/>
     </record>
 
-    <!-- approve the leave request -->
-    <function model="hr.leave" name="action_confirm">
-        <value model="hr.leave" eval="obj().search([('state', '=', 'draft'),('holiday_status_id.company_id', '=', obj().env.ref('base.demo_company_be').id)]).ids"/>
-    </function>
-
     <function model="hr.leave" name="action_approve">
         <value model="hr.leave" eval="obj().search([('state', '=', 'confirm'),('holiday_status_id.company_id', '=', obj().env.ref('base.demo_company_be').id)]).ids"/>
     </function>
@@ -2223,12 +2218,6 @@
         <field name="employee_id" ref="hr_employee_joseph_noluck"/>
     </record>
 
-    <function model="hr.leave" name="action_confirm">
-        <value model="hr.leave" eval="obj().search([
-            ('state', '=', 'draft'),
-            ('employee_id', '=', obj().env.ref('test_l10n_be_hr_payroll_account.hr_employee_joseph_noluck').id)
-        ]).ids"/>
-    </function>
     <function model="hr.leave" name="action_approve">
         <value model="hr.leave" eval="obj().search([
             ('state', '=', 'confirm'),
