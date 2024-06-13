@@ -12,7 +12,7 @@ class BulgarianTaxReportCustomHandler(models.AbstractModel):
         # Overridden to prevent having unnecessary lines from the generic tax report.
         return []
 
-    def _generate_tax_closing_entries(self, report, options, closing_moves=None, companies=None):
+    def _generate_tax_closing_entries(self, report, options, closing_moves=None, companies=None, from_post=False):
         def _get_external_value(xml_id):
             return self.env['account.report.external.value'].search([
                 ('target_report_expression_id', '=', self.env.ref(xml_id).id),

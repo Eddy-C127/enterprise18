@@ -194,7 +194,10 @@ class TestTaxReportCarryover(TestAccountReportsCommon):
             # Closes both companies
             options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
             vat_closing_moves = self.env['account.generic.tax.report.handler']._generate_tax_closing_entries(self.report, options)
-            vat_closing_moves.filtered(lambda x: x.company_id == self.company_1).action_post()
+            main_closing_move = vat_closing_moves.filtered(lambda x: x.company_id == self.company_1)
+            (vat_closing_moves - main_closing_move).action_post()
+            main_closing_move.action_post()
+            self.assertTrue(all(move.state == 'posted' for move in vat_closing_moves))
 
         self.assertEqual(len(vat_closing_moves), 2, "There should be one closing per company in the tax unit")
         self.assertTrue(all(closing.state == 'posted' for closing in vat_closing_moves), "Posting the main company's closing should post every other closing of this unit")

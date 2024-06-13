@@ -2803,8 +2803,15 @@ class TestTaxReport(TestAccountReportsCommon):
                 self.assertTrue(main_closing_move.tax_closing_show_multi_closing_warning)
                 self.assertFalse(any(closing.tax_closing_show_multi_closing_warning for closing in (closing_moves - main_closing_move)))
 
+                action = main_closing_move.action_post()
+                self.assertTrue(action['params']['depending_action'])
+                # When posting the main closing move a component will open to propose you to post the depending moves.
+                # So while the depending moves are not posted the main closing will not be posted.
+                self.assertTrue(main_closing_move.state == 'draft')
+                (closing_moves - main_closing_move).action_post()
+                self.assertTrue(all(move.state == 'posted' for move in (closing_moves - main_closing_move)))
                 main_closing_move.action_post()
-                self.assertTrue(all(move.state == 'posted' for move in closing_moves), "Posting the main closing should have posted all the depending closings")
+                self.assertTrue(main_closing_move.state == 'posted')
                 self.assertFalse(main_closing_move.tax_closing_show_multi_closing_warning)
 
     def test_tax_report_prevent_draft_if_subsequent_posted(self):

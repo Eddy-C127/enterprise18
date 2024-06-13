@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
+import ast
 
+from odoo.addons.account_reports.models.exceptions import TaxClosingNonPostedDependingMovesError
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 from odoo.tools.misc import format_date
 from odoo.tools import date_utils
+from odoo.addons.web.controllers.utils import clean_action
 
 from dateutil.relativedelta import relativedelta
 from markupsafe import Markup
@@ -46,6 +49,29 @@ class AccountMove(models.Model):
             move._close_tax_period(report, options)
 
         return super()._post(soft)
+
+    def action_post(self):
+        # In the case of a TaxClosingNonPostedDependingMovesError, which can occur when dealing with branches or tax
+        # units during the closing process, the parent company may have non-posted closing entries from other companies.
+        # If this exception occurs, we will return an action client that will display a component indicating that there
+        # are non-posted dependent moves, along with a link to those moves.
+        # Also, we are not using a RedirectWarning because it will force a rollback on the closing move created for
+        # depending companies.
+        try:
+            super().action_post()
+        except TaxClosingNonPostedDependingMovesError as exception:
+            return {
+                "type": "ir.actions.client",
+                "tag": "account_reports.redirect_action",
+                "target": "new",
+                "name": "Depending Action",
+                "params": {
+                    "depending_action": exception.args[0],
+                },
+                'context': {
+                    'dialog_size': 'medium',
+                }
+            }
 
     def button_draft(self):
         # Overridden in order to delete the carryover values when resetting the tax closing to draft
@@ -124,14 +150,29 @@ class AccountMove(models.Model):
             company_ids = report.get_report_company_ids(options)
             if sender_company == move.company_id:
                 # In branch/tax unit setups, first post all the unposted moves of the other companies when posting the main company.
-                tax_closing_action = report.dispatch_report_action(options, 'action_periodic_vat_entries', on_sections_source=report.use_sections)
+                # The action param will be the value of the from_post argument
+                tax_closing_action = report.dispatch_report_action(options, 'action_periodic_vat_entries', action_param=True, on_sections_source=report.use_sections)
                 depending_closings = self.env['account.move'].with_context(allowed_company_ids=company_ids).search([
                     *(tax_closing_action.get('domain') or [('id', '=', tax_closing_action['res_id'])]),
                     ('id', '!=', move.id),
                 ])
                 depending_closings_to_post = depending_closings.filtered(lambda x: x.state == 'draft')
                 if depending_closings_to_post:
-                    depending_closings_to_post.action_post()
+                    depending_action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
+                    depending_action = clean_action(depending_action, env=self.env)
+
+                    if len(depending_closings_to_post) == 1:
+                        depending_action['views'] = [(self.env.ref('account.view_move_form').id, 'form')]
+                        depending_action['res_id'] = depending_closings_to_post.id
+                    else:
+                        depending_action['domain'] = [('id', 'in', depending_closings_to_post.ids)]
+                        depending_action['context'] = dict(ast.literal_eval(depending_action['context']))
+                        depending_action['context'].pop('search_default_posted', None)
+
+                    # In case of dependent moves, we will raise an error that will be caught in the action_post method.
+                    # When the exception is caught, a component will inform the user that there are some dependent moves
+                    # to be posted and provide a link to these moves.
+                    raise TaxClosingNonPostedDependingMovesError(depending_action)
 
                 # Generate the carryover values.
                 report.with_context(allowed_company_ids=company_ids)._generate_carryover_external_values(options)
