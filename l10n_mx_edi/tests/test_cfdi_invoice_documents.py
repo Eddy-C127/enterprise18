@@ -1801,7 +1801,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
         with self.assertRaises(UserError, msg="You can't unlink an attachment being an EDI document sent to the government."):
             invoice.l10n_mx_edi_invoice_document_ids.attachment_id.unlink()
 
-    @freeze_time('2017-01-01')
+    @freeze_time('2017-01-01 10:00:00')
     def test_global_invoice_year_month_format(self):
         """ Test that 'meses' and 'anno' are correctly set since we ignore them in
         other tests to allow to dynamically generate documents.

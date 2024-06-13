@@ -1015,15 +1015,14 @@ class AccountMove(models.Model):
         )
 
         # Date.
-        if self.invoice_date >= fields.Date.context_today(self) and self.invoice_date == self.l10n_mx_edi_post_time.date():
-            cfdi_values['fecha'] = self.l10n_mx_edi_post_time.strftime(CFDI_DATE_FORMAT)
+        timezoned_now = self._l10n_mx_edi_get_datetime_now_with_mx_timezone(cfdi_values)
+        timezoned_today = timezoned_now.date()
+        if self.invoice_date >= timezoned_today:
+            cfdi_values['fecha'] = timezoned_now.strftime(CFDI_DATE_FORMAT)
         else:
             cfdi_time = datetime.strptime('23:59:00', '%H:%M:%S').time()
             cfdi_values['fecha'] = datetime\
-                .combine(
-                    fields.Datetime.from_string(self.invoice_date),
-                    cfdi_time,
-                )\
+                .combine(fields.Datetime.from_string(self.invoice_date), cfdi_time)\
                 .strftime(CFDI_DATE_FORMAT)
 
         # Payment terms.
