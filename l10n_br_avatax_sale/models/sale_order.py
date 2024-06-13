@@ -8,4 +8,5 @@ class SaleOrder(models.Model):
     def _prepare_invoice(self):
         res = super()._prepare_invoice()
         res["l10n_br_cnae_code_id"] = self.l10n_br_cnae_code_id.id
+        res["l10n_br_goods_operation_type_id"] = self.l10n_br_goods_operation_type_id.id
         return res

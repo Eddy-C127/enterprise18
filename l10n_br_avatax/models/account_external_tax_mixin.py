@@ -35,6 +35,15 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         readonly=False,
         help="Brazil: the company's CNAE code for tax calculation and EDI."
     )
+    l10n_br_goods_operation_type_id = fields.Many2one(
+        "l10n_br.operation.type",
+        compute="_compute_l10n_br_goods_operation_type_id",
+        store=True,
+        readonly=False,
+        copy=False,
+        string="Operation Type",
+        help="Brazil: this is the operation type related to the goods transaction. This will define the CFOP used on the NF-e."
+    )
     l10n_br_is_avatax = fields.Boolean(
         compute="_compute_l10n_br_is_avatax",
         string="Is Brazilian Avatax",
@@ -49,6 +58,13 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
     def _compute_l10n_br_cnae_code_id(self):
         for record in self:
             record.l10n_br_cnae_code_id = self.company_id.l10n_br_cnae_code_id
+
+    @api.depends('l10n_br_is_avatax')
+    def _compute_l10n_br_goods_operation_type_id(self):
+        """Set the default operation type which is standardSales. Should be overridden to determine
+        the document type for the model."""
+        for record in self:
+            record.l10n_br_goods_operation_type_id = self.env.ref("l10n_br_avatax.operation_type_1") if record.l10n_br_is_avatax else False
 
     @api.depends('country_code', 'fiscal_position_id')
     def _compute_l10n_br_is_avatax(self):
@@ -72,9 +88,8 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         raise NotImplementedError()
 
     def _l10n_br_get_operation_type(self):
-        """ Returns the operationType to be used for requests to Avatax. By default, it's "standardSales", but
-        can be overriden. """
-        return 'Sale' if self.l10n_br_is_service_transaction else 'standardSales'
+        """ Returns the operationType used for requests to Avatax. """
+        return self.l10n_br_goods_operation_type_id.technical_name
 
     def _l10n_br_get_invoice_refs(self):
         """ Should return a dict of invoiceRefs, as specified by the Avatax API. These are required for

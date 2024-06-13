@@ -12,6 +12,7 @@
         'views/res_partner_views.xml',
         'views/account_move_views.xml',
         'views/product_template_views.xml',
+        'views/l10n_br_operation_type_views.xml',
         'views/l10n_br_service_code_views.xml',
         'views/ir_logging_views.xml',
         'views/res_config_settings_views.xml',
@@ -20,6 +21,7 @@
         'data/product_product.xml',
         'data/res.city.csv',
         'data/res_country_data.xml',
+        'data/l10n_br_operation_type_data.xml',
     ],
     'demo': [
         'data/l10n_br_service_code_demo.xml',

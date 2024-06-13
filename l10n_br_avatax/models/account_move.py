@@ -5,14 +5,18 @@ from odoo import models, api, fields
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def _l10n_br_get_operation_type(self):
-        """account.external.tax.mixin override."""
-        if self.debit_origin_id:
-            return "amountComplementary"
-        elif self.move_type == "out_refund":
-            return "salesReturn"
-
-        return super()._l10n_br_get_operation_type()
+    @api.depends("l10n_br_is_avatax", "move_type", "debit_origin_id")
+    def _compute_l10n_br_goods_operation_type_id(self):
+        """Override."""
+        super()._compute_l10n_br_goods_operation_type_id()
+        self.l10n_br_goods_operation_type_id = False
+        for move in self.filtered("l10n_br_is_avatax"):
+            if move.debit_origin_id:
+                move.l10n_br_goods_operation_type_id = self.env.ref("l10n_br_avatax.operation_type_3")  # amountComplementary
+            elif move.move_type == "out_refund":
+                move.l10n_br_goods_operation_type_id = self.env.ref("l10n_br_avatax.operation_type_60")  # salesReturn
+            else:
+                move.l10n_br_goods_operation_type_id = self.env.ref("l10n_br_avatax.operation_type_1")  # standardSales
 
     @api.depends("l10n_latam_document_type_id")
     def _compute_l10n_br_is_service_transaction(self):
