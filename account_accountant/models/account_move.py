@@ -81,7 +81,11 @@ class AccountMove(models.Model):
     def button_draft(self):
         if any(len(deferral_move.deferred_original_move_ids) > 1 for deferral_move in self.deferred_move_ids):
             raise UserError(_("You cannot reset to draft an invoice that is grouped in deferral entry. You can create a credit note instead."))
-        self.deferred_move_ids._unlink_or_reverse()
+        reversed_moves = self.deferred_move_ids._unlink_or_reverse()
+        if reversed_moves:
+            for move in reversed_moves:
+                move.date = move._get_accounting_date(move.date, move._affect_tax_report())
+            self.deferred_move_ids |= reversed_moves
         return super().button_draft()
 
     # ============================= START - Deferred Management ====================================
@@ -209,7 +213,6 @@ class AccountMove(models.Model):
         self.ensure_one()
         if self.is_entry():
             raise UserError(_("You cannot generate deferred entries for a miscellaneous journal entry."))
-        assert not self.deferred_move_ids, "The deferred entries have already been generated for this document."
         is_deferred_expense = self.is_purchase_document()
         deferred_account = self.company_id.deferred_expense_account_id if is_deferred_expense else self.company_id.deferred_revenue_account_id
         deferred_journal = self.company_id.deferred_journal_id
