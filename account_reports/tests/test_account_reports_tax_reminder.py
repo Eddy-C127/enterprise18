@@ -86,6 +86,7 @@ class TestAccountReportsTaxReminder(TestAccountReportsCommon):
             ('state', '=', 'draft'),
             ('company_id', '=', self.company_data['company'].id),
         ])
+        next_tax_return_move.refresh_tax_entry()
         with patch.object(self.env.registry[report._name], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: {'file_name': 'dummy', 'file_content': b'', 'file_type': 'pdf'}):
             next_tax_return_move.action_post()
         self.assertEqual(next_tax_return_move._get_tax_to_pay_on_closing(), 0.0)

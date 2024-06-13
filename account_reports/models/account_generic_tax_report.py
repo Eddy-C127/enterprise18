@@ -54,7 +54,7 @@ class AccountTaxReportHandler(models.AbstractModel):
     # TAX CLOSING
     # -------------------------------------------------------------------------
 
-    def action_periodic_vat_entries(self, options):
+    def action_periodic_vat_entries(self, options, from_post=False):
         # When integer_rounding is available, we always want it for tax closing (as it means it's a legal requirement)
         if options.get('integer_rounding'):
             options['integer_rounding_enabled'] = True
@@ -78,7 +78,7 @@ class AccountTaxReportHandler(models.AbstractModel):
         draft_closing_moves = self._get_tax_closing_entries_for_closed_period(report, options, non_tax_locked_companies, posted_only=False) \
                               + draft_locked_moves
         companies_to_regenerate = non_tax_locked_companies + draft_locked_moves.company_id
-        moves += self._generate_tax_closing_entries(report, options, companies=companies_to_regenerate, closing_moves=draft_closing_moves)
+        moves += self._generate_tax_closing_entries(report, options, companies=companies_to_regenerate, closing_moves=draft_closing_moves, from_post=from_post)
 
         # Make the action for the retrieved move and return it.
         action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
@@ -94,7 +94,7 @@ class AccountTaxReportHandler(models.AbstractModel):
             action['context'].pop('search_default_posted', None)
         return action
 
-    def _generate_tax_closing_entries(self, report, options, closing_moves=None, companies=None):
+    def _generate_tax_closing_entries(self, report, options, closing_moves=None, companies=None, from_post=False):
         """Generates and/or updates VAT closing entries.
 
         This method computes the content of the tax closing in the following way:
@@ -117,19 +117,24 @@ class AccountTaxReportHandler(models.AbstractModel):
         """
         if companies is None:
             companies = self.env['res.company'].browse(report.get_report_company_ids(options))
+
+        if closing_moves is None:
+            closing_moves = self.env['account.move']
+
         end_date = fields.Date.from_string(options['date']['date_to'])
 
         closing_moves_by_company = defaultdict(lambda: self.env['account.move'])
+
+        companies_without_closing = companies.filtered(lambda company: company not in closing_moves.company_id)
         if closing_moves:
             for move in closing_moves.filtered(lambda x: x.state == 'draft'):
                 closing_moves_by_company[move.company_id] |= move
-        else:
-            closing_moves = self.env['account.move']
-            for company in companies:
-                include_domestic, fiscal_positions = self._get_fpos_info_for_tax_closing(company, report, options)
-                company_closing_moves = company._get_and_update_tax_closing_moves(end_date, fiscal_positions=fiscal_positions, include_domestic=include_domestic)
-                closing_moves_by_company[company] = company_closing_moves
-                closing_moves += company_closing_moves
+
+        for company in companies_without_closing:
+            include_domestic, fiscal_positions = self._get_fpos_info_for_tax_closing(company, report, options)
+            company_closing_moves = company._get_and_update_tax_closing_moves(end_date, fiscal_positions=fiscal_positions, include_domestic=include_domestic)
+            closing_moves_by_company[company] = company_closing_moves
+            closing_moves += company_closing_moves
 
         for company, company_closing_moves in closing_moves_by_company.items():
 
@@ -146,6 +151,11 @@ class AccountTaxReportHandler(models.AbstractModel):
                 self._redirect_to_misconfigured_tax_groups(company, countries)
 
             for move in company_closing_moves:
+                # When coming from post and that the current move is the closing of the current company we don't want to
+                # write on it again
+                if from_post and move == closing_moves_by_company[self.env.company]:
+                    continue
+
                 # get tax entries by tax_group for the period defined in options
                 move_options = {**options, 'fiscal_position': move.fiscal_position_id.id if move.fiscal_position_id else 'domestic'}
                 line_ids_vals, tax_group_subtotal = self._compute_vat_closing_entry(company, move_options)
@@ -158,7 +168,6 @@ class AccountTaxReportHandler(models.AbstractModel):
                 move_vals = {}
                 if line_ids_vals:
                     move_vals['line_ids'] = line_ids_vals
-
                 move.write(move_vals)
 
         return closing_moves

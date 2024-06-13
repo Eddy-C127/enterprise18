@@ -80,7 +80,9 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
         }
 
         with patch.object(type(report), 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: mock_pdf):
-            self.tax_return_move.with_context({'l10n_be_reports_generation_options': options}).action_post()
+            action = self.tax_return_move.action_post()
+            export_wizard = self.env[action['res_model']].with_context(action['context']).create({})
+            export_wizard.action_resume_post()
 
         self.assertRecordValues(self.tax_return_move, [{'state': 'posted'}])
         attachment_ids = self.env['ir.attachment'].search([
