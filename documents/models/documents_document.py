@@ -546,6 +546,19 @@ class Document(models.Model):
             if record.attachment_id:
                 # versioning
                 if attachment_id:
+                    # Link the new attachment to the related record and link the previous one
+                    # to the document.
+                    self.env["ir.attachment"].browse(attachment_id).with_context(
+                        no_document=True
+                    ).write(
+                        {
+                            "res_model": record.res_model or "documents.document",
+                            "res_id": record.res_id if record.res_model else record.id,
+                        }
+                    )
+                    record.attachment_id.with_context(no_document=True).write(
+                        {"res_model": "documents.document", "res_id": record.id}
+                    )
                     if attachment_id in record.previous_attachment_ids.ids:
                         record.previous_attachment_ids = [(3, attachment_id, False)]
                     record.previous_attachment_ids = [(4, record.attachment_id.id, False)]
