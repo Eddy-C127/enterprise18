@@ -39,6 +39,7 @@ export class Document extends Component {
                     signRequestToken: this.requestToken,
                     signRequestState: this.requestState,
                     signRequestItemToken: this.accessToken,
+                    todayFormattedDate: this.todayFormattedDate,
                 });
             },
             () => []
@@ -66,6 +67,7 @@ export class Document extends Component {
             "#o_sign_input_sign_request_state"
         )?.value;
         this.accessToken = this.props.parent.querySelector("#o_sign_input_access_token")?.value;
+        this.todayFormattedDate = this.props.parent.querySelector("#o_sign_input_today_formatted_date")?.value;
         this.templateEditable = Boolean(
             this.props.parent.querySelector("#o_sign_input_template_editable")
         );
