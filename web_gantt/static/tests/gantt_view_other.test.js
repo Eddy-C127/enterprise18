@@ -21,6 +21,7 @@ import {
     clickCell,
     dragPill,
     editPill,
+    ganttControlsChanges,
     getGridContent,
     hoverGridCell,
     mountGanttView,
@@ -936,6 +937,7 @@ test("date grid and dst summerToWinter (1 cell part)", async () => {
     ]);
 
     setScale(4);
+    await ganttControlsChanges();
     await selectGanttRange({ startDate: "2019-10-27", stopDate: "2019-11-03" });
     expect(getGridInfo()).toEqual([
         "2019-10-27T00:00:00.000+02:00",
@@ -949,6 +951,7 @@ test("date grid and dst summerToWinter (1 cell part)", async () => {
     ]);
 
     setScale(2);
+    await ganttControlsChanges();
     await selectGanttRange({ startDate: "2019-10-01", stopDate: "2019-11-01" });
     expect(getGridInfo()).toEqual([
         "2019-10-02T00:00:00.000+02:00",
@@ -985,6 +988,7 @@ test("date grid and dst summerToWinter (1 cell part)", async () => {
     ]);
 
     setScale(0);
+    await ganttControlsChanges();
     await selectGanttRange({ startDate: "2019-01-01", stopDate: "2020-01-01" });
     expect(getGridInfo()).toEqual([
         "2019-01-01T00:00:00.000+01:00",
@@ -1107,6 +1111,7 @@ test("date grid and dst winterToSummer (2 cell part)", async () => {
     ]);
 
     setScale(4);
+    await ganttControlsChanges();
     await selectGanttRange({ startDate: "2019-03-31", stopDate: "2019-04-07" });
     expect(getGridInfo()).toEqual([
         "2019-03-31T00:00:00.000+01:00",
@@ -1128,6 +1133,7 @@ test("date grid and dst winterToSummer (2 cell part)", async () => {
     ]);
 
     setScale(2);
+    await ganttControlsChanges();
     await selectGanttRange({ startDate: "2019-03-01", stopDate: "2019-04-01" });
     expect(getGridInfo()).toEqual([
         "2019-03-02T00:00:00.000+01:00",
@@ -1298,6 +1304,7 @@ test("date grid and dst summerToWinter (2 cell part)", async () => {
     ]);
 
     setScale(4);
+    await ganttControlsChanges();
     await selectGanttRange({ startDate: "2019-10-27", stopDate: "2019-11-03" });
     expect(getGridInfo()).toEqual([
         "2019-10-27T00:00:00.000+02:00",
@@ -1319,6 +1326,7 @@ test("date grid and dst summerToWinter (2 cell part)", async () => {
     ]);
 
     setScale(2);
+    await ganttControlsChanges();
     await selectGanttRange({ startDate: "2019-10-01", stopDate: "2019-11-01" });
     expect(getGridInfo()).toEqual([
         "2019-10-02T00:00:00.000+02:00",
