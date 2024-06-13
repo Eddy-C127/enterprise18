@@ -81,10 +81,6 @@ export class SignItemCustomPopover extends Component {
         this.state[key] = value;
     }
 
-    parseInteger(value) {
-        return parseInt(value);
-    }
-
     onValidate() {
         this.props.onValidate(this.state);
     }
