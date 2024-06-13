@@ -20,8 +20,8 @@ class SignContract(Sign):
                 contract.car_id.future_driver_id = contract.employee_id.work_contact_id
         # Both applicant/employee and HR responsible have signed
         if request_item.sign_request_id.nb_closed == 2:
+            state_new_request = request.env.ref('fleet.fleet_vehicle_state_new_request', raise_if_not_found=False)
             if contract.new_car and not contract.ordered_car_id:
-                state_new_request = request.env.ref('fleet.fleet_vehicle_state_new_request', raise_if_not_found=False)
                 contract.ordered_car_id = request.env['fleet.vehicle'].sudo().create({
                     'model_id': contract.new_car_model_id.id,
                     'state_id': state_new_request and state_new_request.id,
