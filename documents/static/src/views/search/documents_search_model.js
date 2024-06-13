@@ -30,15 +30,19 @@ export class DocumentsSearchModel extends SearchModel {
         await super.load(...arguments);
 
         const urlHash = parseHash(browser.location.hash);
-        const folderId = urlHash.folder_id || this.getSelectedFolderId();
+        let folderId = urlHash.folder_id || this.getSelectedFolderId();
         const tagIds = urlHash.tag_ids;
 
         if (folderId) {
             const folderSection = this.getSections(isFolderCategory)[0];
             if (folderSection) {
+                if (!folderSection.values.has(folderId)) {
+                    folderId = false;
+                }
                 this.toggleCategoryValue(folderSection.id, folderId);
             }
         }
+
         if (tagIds) {
             const tagSection = this.getSections(isTagFilter)[0];
             if (tagSection) {
@@ -281,5 +285,4 @@ export class DocumentsSearchModel extends SearchModel {
     _updateRouteState(state, lock) {
         this.env.services.router.pushState(state, { lock: lock });
     }
-
 }
