@@ -11,11 +11,11 @@ import { getListHighlights } from "../list_highlight_helpers";
 import { hooks, components } from "@odoo/o-spreadsheet";
 
 const { useHighlights } = hooks;
-const { ValidationMessages, EditableName } = components;
+const { ValidationMessages, EditableName, CogWheelMenu, Section } = components;
 
 export class ListDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.ListDetailsSidePanel";
-    static components = { DomainSelector, EditableName, ValidationMessages };
+    static components = { DomainSelector, EditableName, ValidationMessages, CogWheelMenu, Section };
     static props = {
         onCloseSidePanel: Function,
         listId: String,
@@ -32,6 +32,21 @@ export class ListDetailsSidePanel extends Component {
         onWillStart(() => loadData(this.props.listId));
         onWillUpdateProps(async (nextProps) => loadData(nextProps.listId));
         useHighlights(this);
+    }
+
+    get cogWheelMenuItems() {
+        return [
+            {
+                name: "Duplicate",
+                icon: "fa-copy",
+                onClick: () => this.duplicateList(),
+            },
+            {
+                name: "Delete",
+                icon: "fa-trash",
+                onClick: () => this.deleteList(),
+            },
+        ];
     }
 
     get listDefinition() {
@@ -95,10 +110,6 @@ export class ListDetailsSidePanel extends Component {
         if (result.isSuccessful) {
             this.env.openSidePanel("LIST_PROPERTIES_PANEL", { listId: newListId });
         }
-    }
-
-    goBackToListOfLists() {
-        this.env.openSidePanel("ALL_LISTS_PANEL");
     }
 
     deleteList() {

@@ -49,11 +49,6 @@ QUnit.module(
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
             assert.containsOnce(target, ".o-sidePanel");
-
-            env.openSidePanel("PivotSidePanel", {});
-            await nextTick();
-
-            assert.containsOnce(target, ".o_pivot_list_item");
         });
 
         QUnit.test("Pivot properties panel shows ascending sorting", async function (assert) {
@@ -66,8 +61,8 @@ QUnit.module(
             await nextTick();
 
             const sections = target.querySelectorAll(".o_side_panel_section");
-            assert.strictEqual(sections.length, 6, "it should have 6 sections");
-            const pivotSorting = sections[4];
+            assert.strictEqual(sections.length, 5, "it should have 5 sections");
+            const pivotSorting = sections[3];
 
             assert.equal(pivotSorting.children[0].innerText, "Sorting");
             assert.equal(pivotSorting.children[1].innerText, "Probability (ascending)");
@@ -84,29 +79,11 @@ QUnit.module(
             await nextTick();
 
             const sections = target.querySelectorAll(".o_side_panel_section");
-            assert.strictEqual(sections.length, 6, "it should have 6 sections");
-            const pivotSorting = sections[4];
+            assert.strictEqual(sections.length, 5, "it should have 5 sections");
+            const pivotSorting = sections[3];
 
             assert.equal(pivotSorting.children[0].innerText, "Sorting");
             assert.equal(pivotSorting.children[1].innerText, "Probability (descending)");
-        });
-
-        QUnit.test("Can select a pivot from the pivot list side panel", async function (assert) {
-            const { model, env } = await createSpreadsheetFromPivotView();
-            await insertPivotInSpreadsheet(model, "PIVOT#2", { arch: getBasicPivotArch() });
-
-            env.openSidePanel("PivotSidePanel", {});
-            await nextTick();
-            assert.containsN(target, ".o_pivot_list_item", 2);
-
-            await click(target.querySelectorAll(".o_pivot_list_item")[0]);
-            let pivotName = target.querySelector(".o_sp_en_display_name").textContent;
-            assert.equal(pivotName, "(#1) Partners by Foo");
-
-            await click(target, ".o_pivot_cancel");
-            await click(target.querySelectorAll(".o_pivot_list_item")[1]);
-            pivotName = target.querySelector(".o_sp_en_display_name").textContent;
-            assert.equal(pivotName, "(#2) Partner Pivot");
         });
 
         QUnit.test(
@@ -149,6 +126,7 @@ QUnit.module(
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
             const fixture = getFixture();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".o_edit_domain"));
             await dsHelpers.addNewRule(fixture);
             await click(fixture.querySelector(".modal-footer .btn-primary"));
@@ -203,7 +181,8 @@ QUnit.module(
                 "(#1) Partners by Foo"
             );
 
-            await click(target, ".o_duplicate_pivot");
+            await click(target, ".os-cog-wheel-menu-icon");
+            await click(target, ".os-cog-wheel-menu .fa-copy");
             assert.equal(model.getters.getPivotIds().length, 2);
             assert.equal(
                 target.querySelector(".o_sp_en_display_name").innerText,
@@ -248,7 +227,7 @@ QUnit.module(
 
                 model.dispatch("REMOVE_PIVOT", { pivotId });
                 await nextTick();
-                assert.equal(fixture.querySelector(titleSelector).innerText, "List of Pivots");
+                assert.containsNone(fixture, ".o-sidePanel");
             }
         );
 
@@ -273,7 +252,7 @@ QUnit.module(
                 model.dispatch("REQUEST_UNDO");
                 model.dispatch("REQUEST_UNDO");
                 await nextTick();
-                assert.equal(fixture.querySelector(titleSelector).innerText, "List of Pivots");
+                assert.containsNone(fixture, ".o-sidePanel");
             }
         );
 
@@ -295,6 +274,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.containsNone(
                 fixture,
                 "pivot-defer-update",
@@ -358,7 +338,6 @@ QUnit.module(
                 const fixture = getFixture();
                 env.openSidePanel("PivotSidePanel", { pivotId });
                 await nextTick();
-                await click(fixture, ".pivot-defer-update input[type='checkbox']");
                 await dragAndDrop(
                     ".pivot-dimensions div:nth-child(2)",
                     ".pivot-dimensions div:nth-child(4)",
@@ -396,6 +375,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".pivot-dimensions .fa-times"));
             await nextTick();
             await click(fixture, ".pivot-defer-update .btn-link");
@@ -424,6 +404,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".pivot-dimensions .fa-times"));
             await nextTick();
             await click(fixture, ".pivot-defer-update .btn-link");
@@ -648,6 +629,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             await click(fixture.querySelector(".add-dimension.btn"));
             await editInput(fixture, ".o-popover input", "foo");
             await triggerEvent(fixture, ".o-popover input", "keydown", {
@@ -685,6 +667,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             const allDiv = fixture.querySelectorAll(".pivot-dimensions .fa-times");
             await click(allDiv[allDiv.length - 1]);
             await nextTick();
@@ -745,6 +728,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.strictEqual(fixture.querySelector(".pivot-measure select").value, "avg");
             await editSelect(fixture, ".pivot-measure select", "min");
             assert.strictEqual(
@@ -814,6 +798,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.strictEqual(fixture.querySelector(".pivot-dimensions select").value, "");
             await editSelect(fixture.querySelector(".pivot-dimensions select"), null, "desc");
             assert.strictEqual(fixture.querySelector(".pivot-dimensions select").value, "desc");
@@ -847,6 +832,7 @@ QUnit.module(
             const fixture = getFixture();
             env.openSidePanel("PivotSidePanel", { pivotId });
             await nextTick();
+            await click(fixture.querySelector(".pivot-defer-update input"));
             assert.strictEqual(
                 fixture.querySelectorAll(".pivot-dimensions select")[0].value,
                 "day"
@@ -906,28 +892,6 @@ QUnit.module(
                     { color: "#37A850", sheetId, zone, noFill: true },
                 ]);
                 await click(target, ".o-sidePanelClose");
-                assert.deepEqual(getHighlightsFromStore(env), []);
-            }
-        );
-
-        QUnit.test(
-            "Pivot cells are highlighted when hovering the pivot in the list of pivots side panel",
-            async function (assert) {
-                const { model, env } = await createSpreadsheetFromPivotView();
-                const sheetId = model.getters.getActiveSheetId();
-                const pivotId = model.getters.getPivotIds()[0];
-                env.openSidePanel("PivotSidePanel", {});
-                await nextTick();
-
-                assert.deepEqual(getHighlightsFromStore(env), []);
-
-                triggerEvent(target, ".o_pivot_list_item", "mouseenter");
-                const zone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
-                assert.deepEqual(getHighlightsFromStore(env), [
-                    { color: "#37A850", sheetId, zone, noFill: true },
-                ]);
-
-                triggerEvent(target, ".o_pivot_list_item", "mouseleave");
                 assert.deepEqual(getHighlightsFromStore(env), []);
             }
         );

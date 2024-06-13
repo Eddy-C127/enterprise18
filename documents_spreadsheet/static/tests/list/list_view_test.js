@@ -162,7 +162,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, ["data", "item_list_1"], env);
             await nextTick();
             const target = getFixture();
-            let title = target.querySelector(".o-sidePanelTitle").innerText;
+            const title = target.querySelector(".o-sidePanelTitle").innerText;
             assert.equal(title, "List properties");
 
             const sections = target.querySelectorAll(".o_side_panel_section");
@@ -177,13 +177,6 @@ QUnit.module(
 
             assert.equal(domain.children[0].innerText, "Domain");
             assert.equal(domain.children[1].innerText, "Match all records\nInclude archived");
-
-            env.openSidePanel("ALL_LISTS_PANEL");
-            await nextTick();
-            title = target.querySelector(".o-sidePanelTitle").innerText;
-            assert.equal(title, "List properties");
-
-            assert.containsOnce(target, ".o_pivot_preview");
         });
 
         QUnit.test(
@@ -885,8 +878,8 @@ QUnit.module(
                 fixture.querySelector(".o_sp_en_display_name").innerText,
                 "(#1) Partners by Foo"
             );
-
-            await click(fixture, ".o_duplicate_list");
+            await click(fixture, ".os-cog-wheel-menu-icon");
+            await click(fixture, ".os-cog-wheel-menu .fa-copy");
             assert.equal(model.getters.getListIds().length, 2);
             assert.equal(
                 fixture.querySelector(".o_sp_en_display_name").innerText,
@@ -933,26 +926,6 @@ QUnit.module(
                 assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
 
                 triggerEvent(fixture, "div[data-name='item_list_1']", "mouseleave");
-                assert.deepEqual(getHighlightsFromStore(env), []);
-            }
-        );
-
-        QUnit.test(
-            "List cells are highlighted when hovering the list in the list of lists side panel",
-            async function (assert) {
-                const { model, env } = await createSpreadsheetFromListView();
-                const fixture = getFixture();
-                const sheetId = model.getters.getActiveSheetId();
-                env.openSidePanel("ALL_LISTS_PANEL");
-                await nextTick();
-
-                assert.deepEqual(getHighlightsFromStore(env), []);
-
-                triggerEvent(fixture, ".o_pivot_preview", "mouseenter");
-                const zone = getZoneOfInsertedDataSource(model, "list", "1");
-                assert.deepEqual(getHighlightsFromStore(env), [{ sheetId, zone, noFill: true }]);
-
-                triggerEvent(fixture, ".o_pivot_preview", "mouseleave");
                 assert.deepEqual(getHighlightsFromStore(env), []);
             }
         );

@@ -7,7 +7,6 @@ import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks"
 import "./autofill";
 import "./operational_transform";
 
-import { AllListsSidePanel } from "./side_panels/all_lists_side_panel";
 import { ListDetailsSidePanel } from "./side_panels/list_details_side_panel";
 import { ListAutofillPlugin } from "./plugins/list_autofill_plugin";
 
@@ -17,15 +16,6 @@ const { featurePluginRegistry, sidePanelRegistry, cellMenuRegistry } = spreadshe
 
 featurePluginRegistry.add("odooListAutofillPlugin", ListAutofillPlugin);
 
-sidePanelRegistry.add("ALL_LISTS_PANEL", {
-    title: () => _t("List properties"),
-    Body: AllListsSidePanel,
-    computeState(getters) {
-        return {
-            isOpen: getters.getListIds().length > 0,
-        };
-    },
-});
 sidePanelRegistry.add("LIST_PROPERTIES_PANEL", {
     title: () => _t("List properties"),
     Body: ListDetailsSidePanel,

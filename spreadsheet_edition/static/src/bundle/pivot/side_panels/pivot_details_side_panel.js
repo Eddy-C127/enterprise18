@@ -9,8 +9,7 @@ import { components, helpers, stores, hooks } from "@odoo/o-spreadsheet";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 import { OdooPivotLayoutConfigurator } from "./odoo_pivot_layout_configurator/odoo_pivot_layout_configurator";
 
-const uuidGenerator = new helpers.UuidGenerator();
-const { Checkbox, Section, ValidationMessages, EditableName, PivotDeferUpdate } = components;
+const { Checkbox, Section, ValidationMessages, PivotTitleSection, PivotDeferUpdate } = components;
 const { useHighlights } = hooks;
 const { useLocalStore, PivotSidePanelStore } = stores;
 const { getPivotHighlights } = helpers;
@@ -19,12 +18,12 @@ export class PivotDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.PivotDetailsSidePanel";
     static components = {
         DomainSelector,
-        EditableName,
         ValidationMessages,
         Checkbox,
         Section,
         OdooPivotLayoutConfigurator,
         PivotDeferUpdate,
+        PivotTitleSection,
     };
     static props = {
         onCloseSidePanel: Function,
@@ -49,13 +48,6 @@ export class PivotDetailsSidePanel extends Component {
     /** @returns {import("@spreadsheet/pivot/odoo_pivot").default} */
     get pivot() {
         return this.store.pivot;
-    }
-
-    onNameChanged(name) {
-        this.env.model.dispatch("RENAME_PIVOT", {
-            pivotId: this.props.pivotId,
-            name,
-        });
     }
 
     formatSort() {
@@ -87,32 +79,6 @@ export class PivotDetailsSidePanel extends Component {
             onConfirm: (domain) => {
                 this.store.update({ domain: new Domain(domain).toJson() });
             },
-        });
-    }
-
-    duplicatePivot() {
-        const newPivotId = uuidGenerator.uuidv4();
-        const result = this.env.model.dispatch("DUPLICATE_PIVOT", {
-            pivotId: this.props.pivotId,
-            newPivotId,
-        });
-        const msg = result.isSuccessful
-            ? _t('Pivot duplicated. Use the "Re-insert pivot" menu item to insert it in a sheet.')
-            : _t("Pivot duplication failed");
-        const type = result.isSuccessful ? "success" : "danger";
-        this.notification.add(msg, { sticky: false, type });
-        if (result.isSuccessful) {
-            this.env.openSidePanel("PivotSidePanel", { pivotId: newPivotId });
-        }
-    }
-
-    goToPivotList() {
-        this.env.openSidePanel("PivotSidePanel", {});
-    }
-
-    deletePivot() {
-        this.env.askConfirmation(_t("Are you sure you want to delete this pivot?"), () => {
-            this.env.model.dispatch("REMOVE_PIVOT", { pivotId: this.props.pivotId });
         });
     }
 
