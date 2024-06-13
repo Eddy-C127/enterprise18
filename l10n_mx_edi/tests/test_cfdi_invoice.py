@@ -1573,13 +1573,13 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
     def test_cfdi_date_with_timezone(self):
 
-        def assert_cfdi_date(document, tz):
+        def assert_cfdi_date(document, tz, expected_datetime=None):
             self.assertTrue(document)
             cfdi_node = etree.fromstring(document.attachment_id.raw)
             cfdi_date_str = cfdi_node.get('Fecha')
-            expected_date = self.frozen_today.replace(microsecond=0).astimezone(tz).replace(tzinfo=None)
+            expected_datetime = (expected_datetime or self.frozen_today.astimezone(tz).replace(tzinfo=None)).replace(microsecond=0)
             current_date = datetime.strptime(cfdi_date_str, CFDI_DATE_FORMAT).replace(microsecond=0)
-            self.assertEqual(current_date, expected_date)
+            self.assertEqual(current_date, expected_datetime)
 
         addresses = [
             # America/Tijuana UTC-8 (-7 DST)
@@ -1630,6 +1630,29 @@ class TestCFDIInvoice(TestMxEdiCommon):
             tz = address.pop('timezone')
             with self.subTest(zip=address['zip']):
                 self.env.company.partner_id.write(address)
+
+                # Invoice on the future.
+                with self.mx_external_setup(self.frozen_today):
+                    invoice = self._create_invoice(
+                        invoice_date=self.frozen_today + relativedelta(days=2),
+                        invoice_line_ids=[Command.create({'product_id': self.product.id})],
+                    )
+                    with self.with_mocked_pac_sign_success():
+                        invoice._l10n_mx_edi_cfdi_invoice_try_send()
+                    document = invoice.l10n_mx_edi_invoice_document_ids.filtered(lambda x: x.state == 'invoice_sent')[:1]
+                    assert_cfdi_date(document, tz)
+
+                # Invoice on the past.
+                date_in_the_past = self.frozen_today - relativedelta(days=2)
+                with self.mx_external_setup(self.frozen_today):
+                    invoice = self._create_invoice(
+                        invoice_date=date_in_the_past,
+                        invoice_line_ids=[Command.create({'product_id': self.product.id})],
+                    )
+                    with self.with_mocked_pac_sign_success():
+                        invoice._l10n_mx_edi_cfdi_invoice_try_send()
+                    document = invoice.l10n_mx_edi_invoice_document_ids.filtered(lambda x: x.state == 'invoice_sent')[:1]
+                    assert_cfdi_date(document, tz, expected_datetime=date_in_the_past.replace(hour=23, minute=59, second=0))
 
                 with self.mx_external_setup(self.frozen_today):
                     invoice = self._create_invoice(invoice_line_ids=[Command.create({'product_id': self.product.id})])
