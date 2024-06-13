@@ -26,6 +26,7 @@
                    decoration-secondary="state == 'validated'"
                    decoration-warning="state == 'conflict'"
                    scales="day,week,month"
+                   default_range="month"
                    precision="{'day': 'hour:quarter', 'week': 'day:half', 'month': 'day:half'}"
                    plan="0"
                    sample="1">
