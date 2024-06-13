@@ -4,6 +4,7 @@ import xlsxwriter
 from odoo import models, _
 from odoo.exceptions import UserError
 from odoo.tools import get_quarter_number, format_date
+from collections import defaultdict
 
 INCOME_FIELDS = (
     'year', 'period', 'activity_code', 'activity_type', 'activity_group', 'invoice_type', 'income_concept',
@@ -28,7 +29,7 @@ EXPENSE_FIELDS = (
 
 FORMAT_NEEDED_FIELDS = (
     'total_amount', 'base_amount', 'tax_rate', 'taxed_amount', 'surcharge_type', 'surcharge_fee',
-    'income_computable', 'expense_deductible', 'tax_deductible'
+    'income_computable', 'expense_deductible', 'tax_deductible', 'withholding_type', 'withholding_amount'
 )
 
 SURCHARGE_TAX_EQUIVALENT = {
@@ -126,6 +127,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         iae_group = self.env.company.l10n_es_reports_iae_group
         partner = line.partner_id
         exempt_reason = line.move_id.invoice_line_ids.tax_ids.filtered(lambda t: t.l10n_es_exempt_reason == 'E2')
+        sign = -1 if line.move_id.is_sale_document(include_receipts=True) else 1
 
         common_line_vals = {
             'year': line.date.year,
@@ -144,12 +146,14 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                                             date_format='MM/dd/yyyy') if line.date != line.invoice_date else '',
             'partner_name': partner.name,
             'operation_code': '02' if exempt_reason else '01',
-            'total_amount': abs(line.balance),
-            'base_amount': abs(line.balance),
-            'tax_rate': tax.amount,
+            'total_amount': line.balance * sign,
+            'base_amount': line.balance * sign,
+            'tax_rate': 0,
             'taxed_amount': 0,
             'surcharge_type': 0,
             'surcharge_fee': 0,
+            'withholding_type': 0,
+            'withholding_amount': 0,
         }
         if (not partner.country_id or partner.country_id.code == 'ES') and partner.vat:
             common_line_vals['partner_nif_id'] = partner.vat[2:] if partner.vat.startswith('ES') else partner.vat
@@ -161,7 +165,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         line_vals.update(self._get_common_line_vals(line, tax))
         line_vals.update({
             'income_concept': 'I01',
-            'income_computable': abs(line.balance),
+            'income_computable': -line.balance,
             'invoice_number': line.move_id.name,
             'operation_qualification': {
                 'sujeto': 'S1',
@@ -182,7 +186,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         line_vals.update(self._get_common_line_vals(line, tax))
         line_vals.update({
             'expense_concept': expense_concept,
-            'expense_deductible': abs(line.balance),
+            'expense_deductible': line.balance,
             'expense_series_number': line.move_id.name,
             'date_reception': format_date(self.env, line.date.isoformat(), date_format='MM/dd/yyyy'),
             'investment_good': 'S' if (tax.l10n_es_bien_inversion and
@@ -193,34 +197,51 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         return line_vals
 
     def _merge_base_line(self, line_vals, base_line):
-        new_balance = line_vals['base_amount'] + abs(base_line.balance)
+        is_income = base_line.move_id.is_sale_document(include_receipts=True)
+        sign = -1 if is_income else 1
+        new_balance = line_vals['base_amount'] + base_line.balance * sign
         line_vals.update({
             'total_amount': new_balance,
             'base_amount': new_balance,
         })
-        if base_line.move_type in ('out_invoice', 'out_refund'):
+        if is_income:
             line_vals['income_computable'] = new_balance
         else:
             line_vals['expense_deductible'] = new_balance
 
+    # TODO: remove this method in master
     def _merge_tax_line(self, line_vals, tax_line):
-        if line_vals.get('operation_qualification') == 'S2':
-            return
-        taxed_amount = abs(tax_line.balance)
-        line_vals.update({
-            'total_amount': line_vals['total_amount'] + taxed_amount,
-            'taxed_amount': taxed_amount,
-        })
-        if tax_line.move_type not in ('out_invoice', 'out_refund'):
-            line_vals['tax_deductible'] = taxed_amount
+        return
 
+    # TODO: remove this method in master
     def _merge_surcharge_line(self, line_vals, surcharge_line):
-        surcharge_amount = abs(surcharge_line.balance)
-        line_vals.update({
-            'total_amount': line_vals['total_amount'] + surcharge_amount,
-            'surcharge_type': surcharge_line.tax_line_id.amount,
-            'surcharge_fee': surcharge_amount,
-        })
+        return
+
+    def _merge_tax(self, line_vals, move, tax, tax_amount):
+        if tax.l10n_es_type == 'recargo':
+            line_vals.update({
+                'total_amount': line_vals['total_amount'] + tax_amount,
+                'surcharge_type': abs(tax.amount),
+                'surcharge_fee': tax_amount,
+            })
+        elif tax.l10n_es_type == 'retencion':
+            line_vals.update({
+                'total_amount': line_vals['total_amount'] + tax_amount,
+                'withholding_type': abs(tax.amount),
+                'withholding_amount': -tax_amount,
+            })
+        elif tax.l10n_es_type == 'ignore':
+            return
+        else:
+            if line_vals.get('operation_qualification') == 'S2':
+                return
+            line_vals.update({
+                'total_amount': line_vals['total_amount'] + tax_amount,
+                'tax_rate': tax.amount,
+                'taxed_amount': line_vals['taxed_amount'] + tax_amount,
+            })
+            if not move.is_sale_document(include_receipts=True):
+                line_vals['tax_deductible'] += tax_amount
 
     def _format_sheet_line_vals(self, sheet_line_vals):
         for move_idx in sheet_line_vals:
@@ -230,46 +251,77 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                         line_vals[field] = "{:.2f}".format(value)
 
     def _get_sheet_line_vals(self, lines):
-        inc_line_vals, exp_line_vals, surcharge_line_vals = {}, {}, {}
-
-        # initialize [inc/exp]_line_vals with move:tax ids and base balances
-        for line in lines:
-            is_income = line.move_type in ('out_invoice', 'out_refund')
+        """ Parse the invoice lines to generate each report lines based on the combination
+        of taxes used on each line.
+        Then parse the tax lines to populate the fields related to tax amounts of the report lines.
+        """
+        inc_line_vals, exp_line_vals = {}, {}
+        # The keys of the first dict are account moves (account.move record).
+        # The keys of the second dict are a tuple of the taxes used on each invoice line: (tax_a, tax_b).
+        # The keys of the third dict are taxes (account.tax record).
+        # One entry of the third dict is an accumulated amount of base amounts for a tax, which is used
+        # to compute the ratio with the base amount of a tax line.
+        base_amount_by_tax = defaultdict(lambda: defaultdict(lambda: defaultdict(float)))
+        # generate the report lines from the invoice lines
+        for line in lines.filtered(lambda l: l.tax_ids):
+            is_income = line.move_id.is_sale_document(include_receipts=True)
             sheet_line_vals = inc_line_vals if is_income else exp_line_vals
             create_line_vals = self._create_income_line_vals if is_income else self._create_expense_line_vals
             move = line.move_id
             sheet_line_vals.setdefault(move.id, {})
-
-            for tax in line.tax_ids.flatten_taxes_hierarchy():
+            taxes = line.tax_ids.flatten_taxes_hierarchy()
+            tax_key = tuple(taxes)
+            ignore_line = True
+            regular_tax = False
+            for tax in taxes:
+                # a tax of type "recargo" should be associated to a tax having a specific amount
                 if tax.l10n_es_type == 'recargo':
-                    for other_tax in line.tax_ids:
-                        if other_tax.amount in SURCHARGE_TAX_EQUIVALENT[tax.amount]:
-                            surcharge_line_vals[move.id] = {}
-                            surcharge_line_vals[move.id][tax.id] = other_tax.id
-                            break
-                    else:
+                    linked_tax = taxes.filtered(
+                        lambda t: t.l10n_es_type not in ('recargo', 'retencion', 'ignore')
+                            and t.amount in SURCHARGE_TAX_EQUIVALENT[tax.amount]
+                    )
+                    if not linked_tax:
                         raise UserError(_('Unable to find matching surcharge tax in %s', move.name))
-                elif tax.l10n_es_type in {'ignore', 'retencion'}:
-                    continue
-                elif tax.id in sheet_line_vals[move.id]:
-                    self._merge_base_line(sheet_line_vals[move.id][tax.id], line)
-                else:
-                    sheet_line_vals[move.id][tax.id] = create_line_vals(line, tax)
+                # invoice lines with only taxes of type "ignore" and/or "retencion" should be ignored
+                elif tax.l10n_es_type not in ('ignore', 'retencion'):
+                    ignore_line = False
+                    if not regular_tax:
+                        regular_tax = tax
+                # compute the new accumulated base amount for this tax
+                base_amount_by_tax[move][tax_key][tax] += abs(line.balance)
+            # if ignore_line is True, then all the taxes are "ignore" and/or "retencion" ones
+            if ignore_line:
+                del base_amount_by_tax[move][tax_key]
+                continue    # no report line should be created for such line
+            # initialize [inc/exp]_line_vals with base balance and first regular tax of invoice lines
+            if tax_key in sheet_line_vals[move.id]:
+                self._merge_base_line(sheet_line_vals[move.id][tax_key], line)
+            else:
+                sheet_line_vals[move.id][tax_key] = create_line_vals(line, regular_tax)
 
-        # merge tax and surcharge lines to [inc/exp]_line_vals
+        # loop on each tax line and compute the tax amount for each line based on the ratio
+        # of the base amount
         tax_lines = (line for line in lines if line.tax_line_id)
         for line in tax_lines:
-            sheet_line_vals = inc_line_vals if line.move_type in ('out_invoice', 'out_refund') else exp_line_vals
+            is_income = line.move_id.is_sale_document(include_receipts=True)
+            sheet_line_vals = inc_line_vals if is_income else exp_line_vals
             move, tax = line.move_id, line.tax_line_id
-            if tax.l10n_es_type == 'recargo':
-                other_tax_id = surcharge_line_vals[move.id][tax.id]
-                line_vals = sheet_line_vals[move.id][other_tax_id]
-                self._merge_surcharge_line(line_vals, line)
-            elif tax.l10n_es_type in {'ignore', 'retencion'}:
-                continue
-            else:
-                line_vals = sheet_line_vals[move.id][tax.id]
-                self._merge_tax_line(line_vals, line)
+            sign = -1 if is_income else 1
+            remaining_tax_base_amount = line.tax_base_amount
+            remaining_tax_balance = line.balance
+            for tax_key, data in base_amount_by_tax[move].items():
+                if tax not in tax_key:
+                    continue
+                remaining_tax_base_amount -= data[tax]
+                if remaining_tax_base_amount <= 0:
+                    tax_amount = remaining_tax_balance
+                    remaining_tax_balance = 0
+                else:
+                    ratio = data[tax] / line.tax_base_amount if line.tax_base_amount else 0
+                    tax_amount = move.company_id.currency_id.round(line.balance * ratio)
+                    remaining_tax_balance -= tax_amount
+                # update the report line with the tax amount
+                self._merge_tax(sheet_line_vals[move.id][tax_key], move, tax, tax_amount * sign)
 
         self._format_sheet_line_vals(inc_line_vals)
         self._format_sheet_line_vals(exp_line_vals)
