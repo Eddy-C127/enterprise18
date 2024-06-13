@@ -495,36 +495,17 @@ result_name = inputs['EXPENSES'].name
 
     <record id="l10n_in_hr_salary_rule_pf" model="hr.salary.rule">
         <field name="code">PF</field>
-        <field name="name">Provident fund - Employee</field>
+        <field name="name">Provident fund</field>
         <field name="category_id" ref="hr_payroll.DED"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = bool(contract.l10n_in_provident_fund)</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+PF = payslip._rule_parameter('l10n_in_pf_percent')
+result = -contract.wage * PF
+        </field>
         <field name="sequence" eval="107"/>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-treshhold, coef = payslip._rule_parameter('l10n_in_pf_amount')[0]
-result = 0
-if categories['BASIC'] &lt; treshhold:
-    result = - categories['BASIC'] * coef[1]
-else:
-    work_rate = 1
-    if payslip.worked_days_line_ids:
-        total_days = sum(payslip.worked_days_line_ids.mapped('number_of_days'))
-        total_unpaid_days = worked_days['LEAVE90'].number_of_days if 'LEAVE90' in worked_days else 0
-        work_rate = (total_days - total_unpaid_days) / total_days
-    result = coef[0] * work_rate
-        </field>
-        <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_salary_structure_ind_emp"/>
-    </record>
-
-    <record id="l10n_in_hr_salary_rule_pfe" model="hr.salary.rule">
-        <field name="code">PFE</field>
-        <field name="name">Provident fund - Employer</field>
-        <field name="category_id" ref="hr_payroll.DED"/>
-        <field name="sequence" eval="110"/>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = result_rules['PF']['total']
-        </field>
-        <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_salary_structure_ind_emp"/>
+        <field name="struct_id" ref="hr_payroll_salary_structure_ind_emp"/>
     </record>
 
 </odoo>

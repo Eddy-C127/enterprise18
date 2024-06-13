@@ -168,11 +168,13 @@ else:
         <field name="name">Provident fund - Employee</field>
         <field name="category_id" ref="hr_payroll.DED"/>
         <field name="sequence" eval="107"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = bool(contract.l10n_in_provident_fund)</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 total_days = sum(payslip.worked_days_line_ids.mapped('number_of_days'))
 total_worked_days = total_days - ('LEAVE90' in worked_days and worked_days['LEAVE90'].number_of_days)
-result = - categories['BASIC'] * 0.12 if  ((categories['BASIC']) &lt; 15000) else -(1800/total_days) * total_worked_days
+result = - categories['BASIC'] * payslip._rule_parameter('l10n_in_pf_percent') if  ((categories['BASIC']) &lt; 15000) else -(1800/total_days) * total_worked_days
         </field>
         <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary"/>
     </record>
@@ -182,11 +184,13 @@ result = - categories['BASIC'] * 0.12 if  ((categories['BASIC']) &lt; 15000) els
         <field name="name">Provident fund - Employer</field>
         <field name="category_id" ref="hr_payroll.DED"/>
         <field name="sequence" eval="110"/>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = bool(contract.l10n_in_provident_fund)</field>
         <field name="amount_select">code</field>
          <field name="amount_python_compute">
 total_days = sum(payslip.worked_days_line_ids.mapped('number_of_days'))
 total_worked_days = total_days - ('LEAVE90' in worked_days and worked_days['LEAVE90'].number_of_days)
-result = - categories['BASIC'] * 0.12 if  ((categories['BASIC']) &lt; 15000) else -(1800/total_days) * total_worked_days
+result = - categories['BASIC'] * payslip._rule_parameter('l10n_in_pf_percent') if  ((categories['BASIC']) &lt; 15000) else -(1800/total_days) * total_worked_days
         </field>
         <field name="struct_id" ref="l10n_in_hr_payroll.hr_payroll_structure_in_employee_salary"/>
     </record>

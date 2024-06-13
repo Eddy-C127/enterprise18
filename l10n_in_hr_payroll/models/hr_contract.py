@@ -17,6 +17,8 @@ class HrContract(models.Model):
     l10n_in_driver_salay = fields.Boolean(string='Driver Salary', help='Check this box if you provide allowance for driver')
     l10n_in_medical_insurance = fields.Float(string='Medical Insurance', digits='Payroll',
         help='Deduction towards company provided medical insurance')
+    l10n_in_provident_fund = fields.Boolean(string='Provident Fund', default=False,
+        help='Check this box if you contribute for PF')
     l10n_in_voluntary_provident_fund = fields.Float(string='Voluntary Provident Fund (%)', digits='Payroll',
         help='VPF is a safe option wherein you can contribute more than the PF ceiling of 12% that has been mandated by the government and VPF computed as percentage(%)')
     l10n_in_house_rent_allowance_metro_nonmetro = fields.Float(string='House Rent Allowance (%)', digits='Payroll',
