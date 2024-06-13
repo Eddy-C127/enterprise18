@@ -28,15 +28,19 @@ export class DocumentsSearchModel extends SearchModel {
     async load(config) {
         await super.load(...arguments);
 
-        const folderId = router.current.folder_id || this.getSelectedFolderId();
+        let folderId = router.current.folder_id || this.getSelectedFolderId();
         const tagIds = router.current.tag_ids;
 
         if (folderId) {
             const folderSection = this.getSections(isFolderCategory)[0];
             if (folderSection) {
+                if (!folderSection.values.has(folderId)) {
+                    folderId = false;
+                }
                 this.toggleCategoryValue(folderSection.id, folderId);
             }
         }
+
         if (tagIds) {
             const tagSection = this.getSections(isTagFilter)[0];
             if (tagSection) {
