@@ -6,7 +6,7 @@
     'category': 'Productivity/Documents',
     'summary': 'Spreadsheet CRM templates',
     'description': 'Spreadsheet CRM templates',
-    'depends': ['documents_spreadsheet', 'crm'],
+    'depends': ['documents_spreadsheet', 'crm_enterprise'],
     'data': [
         'data/spreadsheet_template_data.xml',
     ],
