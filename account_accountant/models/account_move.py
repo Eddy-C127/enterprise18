@@ -130,7 +130,13 @@ class AccountMove(models.Model):
     def button_draft(self):
         if any(len(deferral_move.deferred_original_move_ids) > 1 for deferral_move in self.deferred_move_ids):
             raise UserError(_("You cannot reset to draft an invoice that is grouped in deferral entry. You can create a credit note instead."))
-        self.deferred_move_ids._unlink_or_reverse()
+        reversed_moves = self.deferred_move_ids._unlink_or_reverse()
+        if reversed_moves:
+            for move in reversed_moves:
+                move.with_context(skip_readonly_check=True).write({
+                    'date':  move._get_accounting_date(move.date, move._affect_tax_report()),
+                })
+            self.deferred_move_ids |= reversed_moves
         return super().button_draft()
 
     def unlink(self):
@@ -265,7 +271,6 @@ class AccountMove(models.Model):
         self.ensure_one()
         if self.is_entry():
             raise UserError(_("You cannot generate deferred entries for a miscellaneous journal entry."))
-        assert not self.deferred_move_ids, "The deferred entries have already been generated for this document."
         deferred_type = "expense" if self.is_purchase_document() else "revenue"
         deferred_account = self.company_id.deferred_expense_account_id if deferred_type == "expense" else self.company_id.deferred_revenue_account_id
         deferred_journal = self.company_id.deferred_expense_journal_id if deferred_type == "expense" else self.company_id.deferred_revenue_journal_id
