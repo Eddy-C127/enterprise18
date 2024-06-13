@@ -520,6 +520,10 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     shouldSplitLine(line) {
+        if (!line.reserved_uom_qty || line.qty_done >= line.reserved_uom_qty) {
+            return false; // No need to split a completed line or a line with no reservation.
+        }
+        line = this._getParentLine(line) || line;
         return line.qty_done && line.reserved_uom_qty && line.qty_done < line.reserved_uom_qty;
     }
 

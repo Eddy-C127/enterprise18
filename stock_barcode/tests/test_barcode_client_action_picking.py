@@ -2073,6 +2073,39 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'product_id': product_without_barcode.id, 'location_dest_id': self.shelf1.id, 'qty_done': 4, 'lot_id': False, 'result_package_id': False},
         ])
 
+    def test_receipt_assign_sibling_reservation_no_empty_line(self):
+        """ This check ensure that changing the dest location does not create an empty line.
+        """
+        # Enables multi-locations and lots.
+        self.clean_access_rights()
+        grp_multi_loc = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.write({'groups_id': [(4, grp_multi_loc.id, 0)]})
+        grp_lot = self.env.ref('stock.group_production_lot')
+        self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
+
+        picking_form = Form(self.env['stock.picking'])
+        picking_form.picking_type_id = self.picking_type_in
+        with picking_form.move_ids_without_package.new() as move:
+            move.product_id = self.productlot1
+            move.product_uom_qty = 2
+
+        picking_receipt = picking_form.save()
+        picking_receipt.action_confirm()
+        picking_receipt.action_assign()
+
+        url = self._get_client_action_url(picking_receipt.id)
+        self.start_tour(url, 'test_receipt_assign_sibling_reservation_no_empty_line', login='admin', timeout=180)
+
+        self.assertEqual(picking_receipt.state, 'done')
+        (lot1, lot2) = self.env['stock.lot'].search([
+            ('product_id', '=', self.productlot1.id), ('name', 'in', ['lot-01', 'lot-02'])
+        ])
+        move_lines = picking_receipt.move_line_ids.sorted(lambda ml: (ml.product_id.id, ml.lot_id.id))
+        self.assertRecordValues(move_lines, [
+            {'product_id': self.productlot1.id, 'location_dest_id': self.shelf1.id, 'qty_done': 1, 'lot_id': lot1.id},
+            {'product_id': self.productlot1.id, 'location_dest_id': self.shelf1.id, 'qty_done': 1, 'lot_id': lot2.id},
+        ])
+
     def test_picking_type_mandatory_scan_complete_flux(self):
         """ From the receipt to the delivery, make a complete flux with each
         picking types having their own barcode's settings:

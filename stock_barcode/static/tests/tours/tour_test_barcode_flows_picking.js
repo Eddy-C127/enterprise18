@@ -2626,6 +2626,37 @@ registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
+registry.category("web_tour.tours").add('test_receipt_assign_sibling_reservation_no_empty_line', {test: true, steps: () => [
+    {
+        trigger: ".o_barcode_client_action",
+        run: function () {
+            helper.assertLinesCount(1);
+            helper.assertLineProduct(0, "productlot1");
+        }
+    },
+    { trigger: ".o_barcode_line", run: "scan productlot1" },
+    { trigger: ".o_barcode_line[data-barcode='productlot1']", run: "scan lot-01" },
+    { trigger: ".o_barcode_line[data-barcode='productlot1']", run: "scan lot-02" },
+
+    // Select first line to ensure that the dest location change is done on the line with reserved quantity
+    { trigger: "button.o_line_button.o_toggle_sublines", run: "click" },
+    { trigger: ".o_sublines > .o_barcode_line[data-barcode='productlot1']:first-child", run: "click" },
+
+    // Change dest location, this should re-assign the reserved quantity
+    { trigger: ".o_barcode_line.o_selected", run: "scan LOC-01-01-00" },
+    {
+        trigger: ".o_barcode_line:nth-child(1)",
+        run: function () {
+            helper.assertLinesCount(1);
+
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertLineQty(0, "2 / 2");
+            helper.assertLineDestinationLocation(0, ".../Section 1");
+        }
+    },
+    ...stepUtils.validateBarcodeOperation(),
+]});
+
 registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_complete_flux_receipt', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
