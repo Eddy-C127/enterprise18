@@ -385,16 +385,44 @@ class TestCaseDocuments(TransactionCase):
         """
         Tests the versioning/history of documents
         """
-        document = self.env['documents.document'].create({'datas': GIF, 'folder_id': self.folder_b.id})
+        document = self.env["documents.document"].create(
+            {
+                "datas": GIF,
+                "folder_id": self.folder_b.id,
+                "res_model": "res.users",
+                "res_id": self.doc_user.id,
+            }
+        )
+
+        def check_attachment_res_fields(
+            attachment, expected_res_model, expected_res_id
+        ):
+            self.assertEqual(
+                attachment.res_model,
+                expected_res_model,
+                "The attachment should be linked to the right model",
+            )
+            self.assertEqual(
+                attachment.res_id,
+                expected_res_id,
+                "The attachment should be linked to the right record",
+            )
+
         self.assertEqual(len(document.previous_attachment_ids.ids), 0, "The history should be empty")
         original_attachment = document.attachment_id
+        check_attachment_res_fields(original_attachment, "res.users", self.doc_user.id)
         document.write({'datas': TEXT})
         new_attachment = document.previous_attachment_ids
+        check_attachment_res_fields(original_attachment, "res.users", self.doc_user.id)
+        check_attachment_res_fields(new_attachment, "documents.document", document.id)
         self.assertEqual(len(document.previous_attachment_ids), 1)
         self.assertNotEqual(document.previous_attachment_ids, original_attachment)
         self.assertEqual(document.previous_attachment_ids[0].datas, GIF, "The history should have the right content")
         self.assertEqual(document.attachment_id.datas, TEXT, "The document should have the right content")
+        old_attachment = document.attachment_id
         document.write({'attachment_id': new_attachment.id})
+        check_attachment_res_fields(new_attachment, "res.users", self.doc_user.id)
+        check_attachment_res_fields(old_attachment, "documents.document", document.id)
         self.assertEqual(document.attachment_id.id, new_attachment.id, "the document should contain the new attachment")
         self.assertEqual(document.previous_attachment_ids, original_attachment, "the history should contain the original attachment")
         document.write({'datas': DATA})
