@@ -84,6 +84,7 @@ class AccountTaxReportHandler(models.AbstractModel):
         # Make the action for the retrieved move and return it.
         action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
         action = clean_action(action, env=self.env)
+        action.pop('domain', None)
 
         if len(moves) == 1:
             action['views'] = [(self.env.ref('account.view_move_form').id, 'form')]
