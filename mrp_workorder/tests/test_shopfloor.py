@@ -146,9 +146,9 @@ class TestShopFloor(HttpCase):
 
         self.assertEqual(mo.move_finished_ids.quantity, 2)
         self.assertRecordValues(mo.move_raw_ids, [
-            {'product_id': leg.id, 'quantity': 10, 'state': 'done'},
-            {'product_id': neck.id, 'quantity': 2, 'state': 'done'},
-            {'product_id': color.id, 'quantity': 1, 'state': 'done'},
+            {'product_id': leg.id, 'quantity': 10.0, 'state': 'done'},
+            {'product_id': neck.id, 'quantity': 2.0, 'state': 'done'},
+            {'product_id': color.id, 'quantity': 1.0, 'state': 'done'},
         ])
         self.assertRecordValues(mo.workorder_ids, [
             {'state': 'done', 'workcenter_id': savannah.id},

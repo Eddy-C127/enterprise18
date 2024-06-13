@@ -30,9 +30,14 @@ export class MrpMenuDialog extends Component {
     }
 
     async callAction(method) {
-        const action = await this.orm.call(this.props.record.resModel, method, [
-            [this.props.record.resId],
-        ]);
+        const action = await this.orm.call(this.props.record.resModel, method,
+            [
+                [this.props.record.resId],
+            ],
+            {
+                context: {from_shop_floor: true}
+            }
+        );
         this.action.doAction(action, {
             onClose: async () => {
                 await this.props.reload(this.props.record);

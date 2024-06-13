@@ -256,14 +256,12 @@ class MrpProductionWorkcenterLine(models.Model):
         }
 
     def action_add_component(self):
-        action = self.production_id.action_add_component()
-        action['context']['default_workorder_id'] = self.id
-        return action
+        self.ensure_one()
+        return self.production_id.action_add_component()
 
     def action_add_byproduct(self):
-        action = self.production_id.action_add_byproduct()
-        action['context']['default_workorder_id'] = self.id
-        return action
+        self.ensure_one()
+        return self.production_id.action_add_byproduct()
 
     def button_start(self, raise_on_invalid_state=False, bypass=False):
         skip_employee_check = bypass or (not request and not self.env.user.employee_id)

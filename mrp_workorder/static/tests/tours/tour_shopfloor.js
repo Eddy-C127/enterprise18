@@ -144,6 +144,10 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         run: "click",
     },
     {
+        trigger: 'div.o_mrp_display_record .card-header .fa-play',
+        run: "click",
+    },
+    {
         content: "Open the WO setting menu again",
         trigger: '.o_mrp_display_record:contains("Release") .card-footer button.fa-gear',
         run: "click",
@@ -154,27 +158,54 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         run: "click",
     },
     {
-        content: "Add Color",
-        trigger: ".modal:not(.o_inactive_modal) .o_field_widget[name=product_id] input",
-        run: "edit color",
+        content: 'Ensure the catalog is opened',
+        trigger: '.modal:not(.o_inactive_modal) .o_product_kanban_catalog_view',
     },
     {
-        trigger: '.ui-menu-item > a:contains("Color")',
+        content: 'Add Color',
+        trigger: '.modal-body .o_searchview_input',
+        run: "edit color && press Enter",
+    },
+    {
+        content: 'Ensure the search is done',
+        trigger: '.modal-body div.o_searchview_facet:contains("color")'
+    },
+    {
+        trigger: '.modal-body:not(:has(article.o_kanban_record:not(:contains("Color"))))',
+    },
+    {
+        content: 'Add Color',
+        trigger: '.modal article.o_kanban_record:contains("Color") button .fa-shopping-cart',
         run: "click",
     },
     {
-        trigger: ".modal:not(.o_inactive_modal) button[name=add_product]",
+        content: 'Ensure the Color product is added',
+        trigger: '.modal button .fa-trash',
+    },
+    {
+        content: "Close the catalog",
+        trigger: '.modal-header .btn-close',
         run: "click",
     },
     {
         trigger: "body:not(:has(.modal))",
     },
     {
-        trigger: "button[barcode_trigger=CLWO]:contains(Mark as Done)",
+        trigger: 'div.o_mrp_display_record .card-header .fa-pause',
         run: "click",
     },
     {
-        trigger: "button[barcode_trigger=CLMO]",
+        trigger: 'div.o_mrp_display_record .card-header .fa-play',
+    },
+    {
+        trigger: ".card-footer button[barcode_trigger=CLWO]:contains(Mark as Done):enabled",
+        run: "click",
+    },
+    {
+        trigger: ".card-footer button[barcode_trigger=CLWO]:contains(Undo)",
+    },
+    {
+        trigger: ".card-footer button[barcode_trigger=CLMO]",
         run: "click",
     },
     {

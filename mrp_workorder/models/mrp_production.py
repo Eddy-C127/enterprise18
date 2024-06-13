@@ -28,32 +28,17 @@ class MrpProduction(models.Model):
 
     def action_add_byproduct(self):
         self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'mrp_workorder.additional.product',
-            'views': [[self.env.ref('mrp_workorder.view_mrp_workorder_additional_product_wizard').id, 'form']],
-            'name': _('Add By-Product'),
-            'target': 'new',
-            'context': {
-                'production_id': self.id,
-                'default_type': 'byproduct',
-            }
-        }
+        action = self.env['stock.move'].with_context(order_id=self.id).action_add_from_catalog_byproduct()
+        action['target'] = 'new'
+        action['context']['dialog_size'] = 'extra-large'
+        return action
 
     def action_add_component(self):
         self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'mrp_workorder.additional.product',
-            'views': [[self.env.ref('mrp_workorder.view_mrp_workorder_additional_product_wizard').id, 'form']],
-            'name': _('Add Component'),
-            'target': 'new',
-            'context': {
-                'production_id': self.id,
-                'default_type': 'component',
-                'dialog_size': 'medium',
-            }
-        }
+        action = self.env['stock.move'].with_context(order_id=self.id).action_add_from_catalog_raw()
+        action['target'] = 'new'
+        action['context']['dialog_size'] = 'extra-large'
+        return action
 
     def action_add_workorder(self):
         default_blocking_wo_id = self.workorder_ids[-1].id if self.workorder_ids else False
@@ -112,6 +97,21 @@ class MrpProduction(models.Model):
         res = super().pre_button_mark_done()
         self.workorder_ids.verify_quality_checks()
         return res
+
+    def _update_catalog_line_quantity(self, line, quantity, **kwargs):
+        super()._update_catalog_line_quantity(line, quantity)
+        if kwargs.get('from_shop_floor'):
+            line.quantity = quantity
+            line.manual_consumption = True
+
+    def _get_new_catalog_line_values(self, product_id, quantity, **kwargs):
+        values = super()._get_new_catalog_line_values(product_id, quantity)
+        if kwargs.get('from_shop_floor'):
+            values.update({
+                'quantity': quantity,
+                'manual_consumption': True,
+            })
+        return values
 
     def can_load_samples(self):
         return self.sudo().env['mrp.production'].search_count([]) == 0

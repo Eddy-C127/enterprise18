@@ -39,3 +39,7 @@ class StockMove(models.Model):
         # Mark a move as manual if linked to a quality check.
         is_linked_to_quality_check = any(qc.test_type == 'register_consumed_materials' for qc in self.move_line_ids.quality_check_ids)
         return super()._is_manual_consumption() or is_linked_to_quality_check
+
+    def action_add_from_catalog_raw(self):
+        mo = self.env['mrp.production'].browse(self.env.context.get('order_id'))
+        return mo.with_context(child_field='move_raw_ids', from_shop_floor=self.env.context.get('from_shop_floor')).action_add_from_catalog()
