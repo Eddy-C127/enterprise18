@@ -6,6 +6,7 @@ from dateutil.relativedelta import relativedelta
 from math import log10
 
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 from odoo.tools.date_utils import add, subtract
 from odoo.tools.float_utils import float_round
 from odoo.osv.expression import OR, AND, FALSE_DOMAIN
@@ -37,6 +38,9 @@ class MrpProductionSchedule(models.Model):
     warehouse_id = fields.Many2one('stock.warehouse', 'Production Warehouse',
         required=True, default=lambda self: self._default_warehouse_id())
     route_id = fields.Many2one(compute='_compute_route_and_supplier', store=True, readonly=False, help="Route to replenish your product.")
+    is_manufacture_route = fields.Boolean(compute='_compute_is_manufacture_route')
+    batch_size = fields.Float('Batch Size', help="If set, the generated manufacturing orders will be split in quantities of this value at maximum.")
+    enable_batch_size = fields.Boolean(default=False)
     supplier_id = fields.Many2one(compute='_compute_route_and_supplier', store=True, readonly=False)
     bom_id = fields.Many2one(
         'mrp.bom', "Bill of Materials",
@@ -80,6 +84,11 @@ class MrpProductionSchedule(models.Model):
             mps.route_id = next((r for r in mps.product_id.route_ids if r.id in mps.allowed_route_ids.ids), False)
             mps.supplier_id = mps.product_id.seller_ids[:1]
 
+    @api.depends('route_id', 'route_id.rule_ids')
+    def _compute_is_manufacture_route(self):
+        for mps in self:
+            mps.is_manufacture_route = mps.route_id and mps.route_id.rule_ids and 'manufacture' in mps.route_id.rule_ids.mapped('action')
+
     def _search_replenish_state(self, operator, value):
         productions_schedules = self.search([])
         productions_schedules_states = productions_schedules.get_production_schedule_view_state()
@@ -107,6 +116,12 @@ class MrpProductionSchedule(models.Model):
             operator = 'not in'
 
         return [('id', operator, ids)]
+
+    @api.constrains('batch_size')
+    def _ensure_batch_size_is_positive(self):
+        for record in self:
+            if record.batch_size <= 0:
+                raise ValidationError(_('Batch size must be positive.'))
 
     def action_open_actual_demand_details(self, date_str, date_start_str, date_stop_str):
         """ Open the picking list view for the actual demand for the current
@@ -710,6 +725,8 @@ class MrpProductionSchedule(models.Model):
             values['route_ids'] = self.route_id
         if self.supplier_id and self.show_vendor:
             values['supplierinfo_id'] = self.supplier_id
+        if self.enable_batch_size:
+            values['batch_size'] = self.batch_size
         return values
 
     def _get_forecasts_state(self, production_schedule_states, date_range, procurement_date):
