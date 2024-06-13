@@ -61,7 +61,7 @@ QUnit.module("documents_spreadsheet > Locale Control Panel", {}, function () {
     });
 
     QUnit.test(
-        "Different locales between user and spreadsheet: display icon as danger",
+        "Different locales between user and spreadsheet: display icon as info",
         async function (assert) {
             await createSpreadsheet({
                 mockRPC: async function (route, args) {
@@ -78,7 +78,7 @@ QUnit.module("documents_spreadsheet > Locale Control Panel", {}, function () {
             });
             const icon = document.querySelector(".o_spreadsheet_status .fa-globe");
             assert.ok(icon);
-            assert.ok(icon.classList.contains("text-danger"));
+            assert.ok(icon.classList.contains("text-info"));
             assert.equal(
                 icon.title,
                 "Difference between user locale (fr_FR) and spreadsheet locale (en_US). This spreadsheet is using the formats below:\n" +
