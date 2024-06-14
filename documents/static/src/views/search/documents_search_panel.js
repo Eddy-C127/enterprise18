@@ -381,7 +381,7 @@ export class DocumentsSearchPanel extends SearchPanel {
             }
         }
         if (data.lockedCount) {
-            return this.notification.add(
+            this.notification.add(
                 _t(
                     "%s file(s) not moved because they are locked by another user",
                     data.lockedCount
