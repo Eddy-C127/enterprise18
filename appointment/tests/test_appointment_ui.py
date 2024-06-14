@@ -166,10 +166,6 @@ class AppointmentUITest(AppointmentUICommon):
         """
         now = datetime.now()
         appointment_types = self.env['appointment.type'].create([{
-            'name': 'Type Test Actions User',
-            'schedule_based_on': 'users',
-            'staff_user_ids': self.apt_manager.ids,
-        }, {
             'name': 'Type Test Actions Users',
             'schedule_based_on': 'users',
             'staff_user_ids': (self.apt_manager | self.std_user).ids,
@@ -181,16 +177,16 @@ class AppointmentUITest(AppointmentUICommon):
         # create an event to test smart scale
         self.env['calendar.event'].create({
             'name': 'Next Month Appointment',
-            'appointment_type_id': appointment_types[2].id,
+            'appointment_type_id': appointment_types[1].id,
             'start': datetime(2022, 3, 1),
             'stop': datetime(2022, 3, 1, 1),
         })
         self.maxDiff = None
-        expected_xml_ids = ['calendar.action_calendar_event',
-                            'appointment.calendar_event_action_view_bookings_users',
+        expected_xml_ids = ['appointment.calendar_event_action_view_bookings_users',
                             'appointment.calendar_event_action_view_bookings_resources']
-        expected_views_orders = [['calendar'], ['gantt', 'calendar'], ['gantt', 'calendar']]
+        expected_views_orders = [['gantt', 'calendar'], ['gantt', 'calendar']]
         expected_contexts = [{
+            'appointment_default_assign_user_attendees': True,
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[0].id,
             'default_duration': appointment_types[0].appointment_duration,
@@ -199,21 +195,12 @@ class AppointmentUITest(AppointmentUICommon):
             'default_partner_ids': [],
             'initial_date': now,
         }, {
-            'appointment_default_assign_user_attendees': True,
+            'appointment_booking_gantt_domain': [('appointment_resource_ids', '!=', False)],
+            'appointment_default_assign_user_attendees': False,
             'default_scale': 'day',
             'default_appointment_type_id': appointment_types[1].id,
             'default_duration': appointment_types[1].appointment_duration,
             'search_default_appointment_type_id': appointment_types[1].id,
-            'default_mode': 'week',
-            'default_partner_ids': [],
-            'initial_date': now,
-        }, {
-            'appointment_booking_gantt_domain': [('appointment_resource_ids', '!=', False)],
-            'appointment_default_assign_user_attendees': False,
-            'default_scale': 'day',
-            'default_appointment_type_id': appointment_types[2].id,
-            'default_duration': appointment_types[2].appointment_duration,
-            'search_default_appointment_type_id': appointment_types[2].id,
             'default_mode': 'month',
             'default_partner_ids': [],
             'default_resource_total_capacity_reserved': 1,

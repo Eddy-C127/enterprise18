@@ -377,16 +377,10 @@ class AppointmentType(models.Model):
 
     def action_calendar_meetings(self):
         self.ensure_one()
-        management_views = []
         if self.schedule_based_on == 'users':
-            if len(self.staff_user_ids) <= 1:
-                action = self.env["ir.actions.actions"]._for_xml_id("calendar.action_calendar_event")
-            else:
-                action = self.env["ir.actions.actions"]._for_xml_id("appointment.calendar_event_action_view_bookings_users")
-                management_views = ['gantt']
+            action = self.env["ir.actions.actions"]._for_xml_id("appointment.calendar_event_action_view_bookings_users")
         else:
             action = self.env["ir.actions.actions"]._for_xml_id("appointment.calendar_event_action_view_bookings_resources")
-            management_views = ['gantt']
         appointments = self.meeting_ids.filtered_domain([
             ('start', '>=', datetime.today())
         ])
@@ -395,7 +389,7 @@ class AppointmentType(models.Model):
         ])
 
         # Add and reorder views
-        action = AppointmentType.insert_reorder_action_views(action, management_views + ['calendar'])
+        action = AppointmentType.insert_reorder_action_views(action, ['gantt', 'calendar'])
 
         action['context'] = ast.literal_eval(action['context'])
         action['context'].update({

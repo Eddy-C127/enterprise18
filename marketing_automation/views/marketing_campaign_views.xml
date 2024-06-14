@@ -16,16 +16,16 @@
                                     <t t-esc="record.name.raw_value"/>
                                 </span>
                             </div>
-                            <div class="row text-uppercase text-center mt8">
-                                <div class="col-4 text-muted o_ma_campaign_item">
+                            <div class="d-flex text-uppercase text-center mt8">
+                                <div class="flex-grow-1 text-muted o_ma_campaign_item">
                                     <span>Total</span>
                                     <h2 class="mt4"><strong><field name="total_participant_count"/></strong></h2>
                                 </div>
-                                <div class="col-4 text-primary o_ma_campaign_item">
+                                <div class="flex-grow-1 text-primary o_ma_campaign_item">
                                     <span>Running</span>
                                     <h2 class="mt4"><strong><field name="running_participant_count"/></strong></h2>
                                 </div>
-                                <div class="col-4 text-primary o_ma_campaign_item o_text_brand">
+                                <div class="flex-grow-1 text-primary o_ma_campaign_item o_text_brand">
                                     <span>Completed</span>
                                     <h2 class="mt4"><strong><field name="completed_participant_count"/></strong></h2>
                                 </div>
