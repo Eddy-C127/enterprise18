@@ -789,17 +789,25 @@ test("Smart scheduling: display warnings", async () => {
 
     onRpc("schedule_tasks", () => {
         expect.step("schedule_tasks");
-        return {
-            test: "test notification",
-        };
+        return [
+            {},
+            {
+                3: {
+                    planned_date_begin: false,
+                    date_deadline: false,
+                },
+            },
+        ];
     });
 
     let notifications = [];
     mockService("notification", {
         add: (message, options) => {
             expect.step("notification added");
-            expect(message).toBe("test notification");
-            expect(options).toEqual({ title: "Warning", type: "warning", sticky: true });
+            expect(options["type"]).toBe("success");
+            expect(options["buttons"].length).toBe(1);
+            expect(options["buttons"][0].icon).toBe("fa-undo");
+            expect(options["buttons"][0].name).toBe("Undo");
             notifications.push({ message, options });
             return () => {
                 notifications = notifications.filter(n => n.message !== message || n.options !== options);

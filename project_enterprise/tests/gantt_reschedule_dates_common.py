@@ -205,12 +205,6 @@ class ProjectEnterpriseGanttRescheduleCommon(TestProjectCommon):
         cls.user1 = new_test_user(cls.env, login='raouf2')
         cls.user2 = new_test_user(cls.env, login='raouf3')
 
-        users = cls.user_projectuser | cls.user_projectmanager | cls.user1 | cls.user2
-
-        users.write({
-            'resource_calendar_id': cls.calendar_40h.id,
-        })
-
         """
             Second project structure (with more nodes and use cases)
 
@@ -343,3 +337,15 @@ class ProjectEnterpriseGanttRescheduleCommon(TestProjectCommon):
     def assert_new_dates(cls, task, planned_date_begin, date_deadline, message=None):
         cls.assertEqual(task.planned_date_begin, planned_date_begin, message)
         cls.assertEqual(task.date_deadline, date_deadline, message)
+
+    def assert_old_tasks_vals(cls, res, _type, message, moved_tasks, initial_dates):
+        cls.assertDictEqual(res, {
+            'type': _type,
+            'message': message,
+            'old_vals_per_pill_id': {
+                task.id: {
+                    'planned_date_begin': initial_dates[task.name][0],
+                    'date_deadline': initial_dates[task.name][1],
+                } for task in moved_tasks
+            },
+        })

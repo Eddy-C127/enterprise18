@@ -158,7 +158,16 @@ class Base(models.AbstractModel):
                    records.
             :param start_date_field_name: The start date field used in the gantt view.
             :param stop_date_field_name: The stop date field used in the gantt view.
-            :return: True if Successful, a client action of notification type if not.
+            :return: dict = {
+                type: notification type,
+                message: notification message,
+                old_vals_per_pill_id: dict = {
+                    pill_id: {
+                        start_date_field_name: planned_date_begin before rescheduling
+                        stop_date_field_name: date_deadline before rescheduling
+                    }
+                }
+            }
         """
 
         if direction not in (self._WEB_GANTT_RESCHEDULE_FORWARD, self._WEB_GANTT_RESCHEDULE_BACKWARD):
@@ -173,13 +182,9 @@ class Base(models.AbstractModel):
         if not self._web_gantt_reschedule_is_relation_candidate(
                 master_record, slave_record, start_date_field_name, stop_date_field_name):
             return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'type': 'warning',
-                    'message': _('You cannot reschedule %(main_record)s towards %(other_record)s.',
-                                 main_record=master_record.name, other_record=slave_record.name),
-                }
+                'type': 'warning',
+                'message': _('You cannot reschedule %(main_record)s towards %(other_record)s.',
+                             main_record=master_record.name, other_record=slave_record.name),
             }
 
         is_master_prior_to_slave = master_record[stop_date_field_name] <= slave_record[start_date_field_name]
@@ -210,23 +215,25 @@ class Base(models.AbstractModel):
             }
 
         sp = self.env.cr.savepoint()
-        log_messages = trigger_record._web_gantt_action_reschedule_candidates(dependency_field_name, dependency_inverted_field_name, start_date_field_name, stop_date_field_name, direction, related_record)
+        log_messages, old_vals_per_pill_id = trigger_record._web_gantt_action_reschedule_candidates(dependency_field_name, dependency_inverted_field_name, start_date_field_name, stop_date_field_name, direction, related_record)
         has_errors = bool(log_messages.get("errors"))
         sp.close(rollback=has_errors)
+        notification_type = "success"
+        message = _("Reschedule done successfully.")
         if has_errors or log_messages.get("warnings"):
-            notification_type = 'info'
-            if has_errors:
-                notification_type = 'warning'
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'type': notification_type,
-                    'message': self._web_gantt_get_reschedule_message(log_messages),
-                }
-            }
+            message = self._web_gantt_get_reschedule_message(log_messages)
+            notification_type = "warning" if has_errors else "info"
+        return {
+            "type": notification_type,
+            "message": message,
+            "old_vals_per_pill_id": old_vals_per_pill_id,
+        }
 
-        return True
+    def action_rollback_scheduling(self, old_vals_per_pill_id):
+        for record in self:
+            vals = old_vals_per_pill_id.get(str(record.id), old_vals_per_pill_id.get(record.id))
+            if vals:
+                record.write(vals)
 
     @api.model
     def _gantt_progress_bar(self, field, res_ids, start, stop):
@@ -419,11 +426,11 @@ class Base(models.AbstractModel):
             )
 
             if log_messages.get("errors") or not pills_to_plan_before_related_record:
-                return log_messages
+                return log_messages, {}
 
             # plan self_children backward from related_record
             pills_to_plan_before_related_record.reverse()
-            log_messages = self._web_gantt_move_candidates(
+            log_messages, old_vals_per_pill_id = self._web_gantt_move_candidates(
                 start_date_field_name, stop_date_field_name,
                 dependency_field_name, dependency_inverted_field_name,
                 False, pills_to_plan_before_related_record,
@@ -432,10 +439,10 @@ class Base(models.AbstractModel):
             )
 
             if log_messages.get("errors") or not pills_to_plan_after_related_record:
-                return log_messages
+                return log_messages, {} if log_messages.get("errors") else old_vals_per_pill_id
 
             # plan related_record_ancestors forward from related_record
-            new_log_messages = self._web_gantt_move_candidates(
+            new_log_messages, second_old_vals_per_pill_id = self._web_gantt_move_candidates(
                 start_date_field_name, stop_date_field_name,
                 dependency_field_name, dependency_inverted_field_name,
                 True, pills_to_plan_after_related_record,
@@ -445,7 +452,7 @@ class Base(models.AbstractModel):
             log_messages.setdefault("errors", []).extend(new_log_messages.get("errors", []))
             log_messages.setdefault("warnings", []).extend(new_log_messages.get("warnings", []))
 
-            return log_messages
+            return log_messages, old_vals_per_pill_id | second_old_vals_per_pill_id
         # moving backward without conflicts
         elif related_record[stop_date_field_name] <= self[start_date_field_name] and related_record in self[dependency_field_name]:
             log_messages, pills_to_plan_before_related_record, pills_to_plan_after_related_record, all_candidates_ids = related_record._web_gantt_get_candidates(
@@ -455,10 +462,10 @@ class Base(models.AbstractModel):
             )
 
             if log_messages.get("errors") or not pills_to_plan_after_related_record:
-                return log_messages
+                return log_messages, {}
 
             # plan related_record_children_ids forward from related_record
-            log_messages = self._web_gantt_move_candidates(
+            log_messages, old_vals_per_pill_id = self._web_gantt_move_candidates(
                 start_date_field_name, stop_date_field_name,
                 dependency_field_name, dependency_inverted_field_name,
                 True, pills_to_plan_after_related_record,
@@ -467,11 +474,11 @@ class Base(models.AbstractModel):
             )
 
             if log_messages.get("errors") or not pills_to_plan_before_related_record:
-                return log_messages
+                return log_messages, {} if log_messages.get("errors") else old_vals_per_pill_id
 
             # plan self_ancestors_ids backward from related_record
             pills_to_plan_before_related_record.reverse()
-            new_log_messages = self._web_gantt_move_candidates(
+            new_log_messages, second_old_vals_per_pill_id = self._web_gantt_move_candidates(
                 start_date_field_name, stop_date_field_name,
                 dependency_field_name, dependency_inverted_field_name,
                 False, pills_to_plan_before_related_record,
@@ -481,7 +488,7 @@ class Base(models.AbstractModel):
             log_messages.setdefault("errors", []).extend(new_log_messages.get("errors", []))
             log_messages.setdefault("warnings", []).extend(new_log_messages.get("warnings", []))
 
-            return log_messages
+            return log_messages, old_vals_per_pill_id | second_old_vals_per_pill_id
         # moving forward or backward with conflicts
         else:
             candidates_ids = []
@@ -493,21 +500,19 @@ class Base(models.AbstractModel):
                 log_messages['errors'].append(self._WEB_GANTT_LOOP_ERROR)
                 return {
                     "errors": [self._WEB_GANTT_LOOP_ERROR],
-                }
+                }, {}
 
             if not candidates_ids:
                 return {
                     "errors": [self._WEB_GANTT_NO_POSSIBLE_ACTION_ERROR],
-                }
+                }, {}
 
-            log_messages = self._web_gantt_move_candidates(
+            return self._web_gantt_move_candidates(
                 start_date_field_name, stop_date_field_name,
                 dependency_field_name, dependency_inverted_field_name,
                 search_forward, candidates_ids,
                 related_record[stop_date_field_name if search_forward else start_date_field_name]
             )
-
-            return log_messages
 
     def _web_gantt_is_candidate_in_conflict(self, start_date_field_name, stop_date_field_name, dependency_field_name, dependency_inverted_field_name):
         return (
@@ -535,6 +540,7 @@ class Base(models.AbstractModel):
             "errors": [],
             "warnings": [],
         }
+        old_vals_per_pill_id = {}
         candidates = self.browse(candidates_ids)
 
         for i, candidate in enumerate(candidates):
@@ -547,13 +553,19 @@ class Base(models.AbstractModel):
                 start_date_field_name, stop_date_field_name
             )
             start_date, end_date = start_date.astimezone(timezone.utc), end_date.astimezone(timezone.utc)
+            old_start_date, old_end_date = candidate[start_date_field_name], candidate[stop_date_field_name]
             if not candidate._web_gantt_reschedule_write_new_dates(
                 start_date, end_date,
                 start_date_field_name, stop_date_field_name
             ):
                 result["errors"].append("past_error")
                 result["past_error"] = candidate
-                return result
+                return result, {}
+            else:
+                old_vals_per_pill_id[candidate.id] = {
+                    start_date_field_name: old_start_date,
+                    stop_date_field_name: old_end_date,
+                }
 
             if i + 1 < len(candidates):
                 next_candidate = candidates[i + 1]
@@ -570,7 +582,7 @@ class Base(models.AbstractModel):
                     else:
                         date_candidate = start_date
 
-        return result
+        return result, old_vals_per_pill_id
 
     def _web_gantt_check_cycle_existance_and_get_rescheduling_candidates(self,
         candidates_ids, dependency_field_name,

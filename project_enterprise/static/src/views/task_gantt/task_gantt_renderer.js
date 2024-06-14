@@ -24,6 +24,7 @@ export class TaskGanttRenderer extends GanttRenderer {
     setup() {
         super.setup(...arguments);
         this.notificationService = useService("notification");
+        this.orm = useService("orm");
         useEffect(
             (el) => el.classList.add("o_project_gantt"),
             () => [this.gridRef.el]
@@ -215,28 +216,53 @@ export class TaskGanttRenderer extends GanttRenderer {
         return row.id in this.rowsWithAvatar;
     }
 
-    openPlanDialogCallback(res) {
-        if (!res || Array.isArray(res)) {
-            return;
-        }
-        for (const [warningType, warningString] of Object.entries(res)) {
-            if (warningType === "out_of_scale_notification") {
-                this.notificationService.add(
-                    markup(
-                        `<i class="fa btn-link fa-check"></i><span class="ms-1">${escape(
-                            warningString
-                        )}</span>`
-                    ),
+    getNotificationOnSmartSchedule(warningString, old_vals_per_task_id) {
+        this.notificationFn?.();
+        this.notificationFn = this.notificationService.add(
+            markup(
+                `<i class="fa btn-link fa-check"></i><span class="ms-1">${escape(
+                    warningString
+                )}</span>`
+            ),
+            {
+                type: "success",
+                sticky: true,
+                buttons: [
                     {
-                        type: "success",
-                    }
-                );
-            } else {
-                this.notificationFn = this.notificationService.add(warningString, {
+                        name: "Undo",
+                        icon: "fa-undo",
+                        onClick: async () => {
+                            const ids = Object.keys(old_vals_per_task_id).map(Number);
+                            await this.orm.call("project.task", "action_rollback_auto_scheduling", [
+                                ids,
+                                old_vals_per_task_id,
+                            ]);
+                            this.model.toggleHighlightPlannedFilter(false);
+                            this.notificationFn();
+                            await this.model.fetchData();
+                        },
+                    },
+                ],
+            }
+        );
+    }
+
+    openPlanDialogCallback(res) {
+        if (res && Array.isArray(res)) {
+            const warnings = Object.entries(res[0]);
+            const old_vals_per_task_id = res[1];
+            for (const warning of warnings) {
+                this.notificationService.add(warning[1], {
                     title: _t("Warning"),
                     type: "warning",
                     sticky: true,
                 });
+            }
+            if (warnings.length === 0) {
+                this.getNotificationOnSmartSchedule(
+                    _t("Tasks have been successfully scheduled for the upcoming periods."),
+                    old_vals_per_task_id
+                );
             }
         }
     }

@@ -24,11 +24,14 @@ Bridge module for project and enterprise
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
-            'project_enterprise/static/src/views/project_conflicted_tasks.js',
+            'project_enterprise/static/src/views/project_highlight_tasks.js',
+            'project_enterprise/static/src/views/project_task_search_model.js',
+            'project_enterprise/static/src/views/highlight_project_task_search_model.js',
             'project_enterprise/static/src/scss/**/*',
             'project_enterprise/static/src/components/**/*',
             'project_enterprise/static/src/views/project_task_calendar/**',
             'project_enterprise/static/src/views/project_task_tree/**',
+            'project_enterprise/static/src/views/project_task_kanban/**',
             'project_enterprise/static/src/views/view_dialogs/**',
             'project_enterprise/static/src/xml/**',
 
@@ -39,6 +42,7 @@ Bridge module for project and enterprise
             'project_enterprise/static/src/views/project_task_map/**',
             'project_enterprise/static/src/views/project_task_graph/**',
             'project_enterprise/static/src/views/project_task_pivot/**',
+            'project_enterprise/static/src/views/project_task_activity/**',
             'project_enterprise/static/src/views/task_gantt/**',
             'project_enterprise/static/src/views/project_gantt/**',
         ],

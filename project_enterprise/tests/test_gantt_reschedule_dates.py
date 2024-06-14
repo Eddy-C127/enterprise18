@@ -81,12 +81,21 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
                                       └─────────┘
         """
 
+        task_3_old_planned_date_begin, task_3_old_date_deadline = self.task_3.planned_date_begin, self.task_3.date_deadline
         self.task_1.write(self.task_1_date_gantt_reschedule_trigger)
-        self.gantt_reschedule_forward(self.task_1, self.task_3)
+        res = self.gantt_reschedule_forward(self.task_1, self.task_3)
+        self.assert_old_tasks_vals(res, 'success', 'Reschedule done successfully.', self.task_3, {
+            self.task_3.name: (task_3_old_planned_date_begin, task_3_old_date_deadline)
+        })
+
         failed_message = "The auto shift date feature should move forward a dependent tasks."
         self.assertEqual(self.task_3.planned_date_begin, datetime(2021, 6, 24, 14), failed_message)
         self.assertEqual(self.task_3.date_deadline, datetime(2021, 6, 24, 16), failed_message)
         self.assertTrue(self.task_1.date_deadline <= self.task_3.planned_date_begin, failed_message)
+
+        self.task_3.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assertEqual(self.task_3.planned_date_begin, task_3_old_planned_date_begin)
+        self.assertEqual(self.task_3.date_deadline, task_3_old_date_deadline)
 
     def test_gantt_reschedule_depend_on_task(self):
         """ This test purpose is to ensure that a task A that depends on a task B is shifted backward, up to before
@@ -107,11 +116,19 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
                                       └─────────┘
         """
         self.task_3.write(self.task_3_date_gantt_reschedule_trigger)
-        self.gantt_reschedule_backward(self.task_1, self.task_3)
+        task_1_old_planned_date_begin, task_1_old_date_deadline = self.task_1.planned_date_begin, self.task_1.date_deadline
+        res = self.gantt_reschedule_backward(self.task_1, self.task_3)
+        self.assert_old_tasks_vals(res, 'success', 'Reschedule done successfully.', self.task_1, {
+            self.task_1.name: (task_1_old_planned_date_begin, task_1_old_date_deadline)
+        })
         failed_message = "The auto shift date feature should move backward a task the moved task depends on."
         self.assertEqual(self.task_1.planned_date_begin, datetime(2021, 6, 24, 8), failed_message)
         self.assertEqual(self.task_1.date_deadline, datetime(2021, 6, 24, 11), failed_message)
         self.assertTrue(self.task_3.planned_date_begin >= self.task_1.date_deadline, failed_message)
+
+        self.task_1.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assertEqual(self.task_1.planned_date_begin, task_1_old_planned_date_begin)
+        self.assertEqual(self.task_1.date_deadline, task_1_old_date_deadline)
 
     @users('admin')
     # @warmup
@@ -441,7 +458,7 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
                 but it will be usually the first option as task 3 is the first in the dependent_ids of task 1
             All the other tasks should not move.
         """
-        self.project2_task_1.dependent_ids = self.project2_task_1.dependent_ids.sorted(key=lambda t: t.name)
+        self.project2_task_1.dependent_ids = self.project2_task_1.dependent_ids.sorted(key=lambda t: t.name, reverse=True)
         self.gantt_reschedule_forward(self.project2_task_8, self.project2_task_0)
         self.assert_task_not_replanned(
             self.project2_task_4 | self.project2_task_5 | self.project2_task_6 | self.project2_task_7 | self.project2_task_8 | self.project2_task_9 |
@@ -490,7 +507,7 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             We shouldn't have conflicts with 11, 12, 13 and 14 that are already planned in the past
             All the other tasks should not move.
         """
-        self.project2_task_7.depend_on_ids = self.project2_task_7.depend_on_ids.sorted(key=lambda t: t.name, reverse=True)
+        self.project2_task_7.depend_on_ids = self.project2_task_7.depend_on_ids.sorted(key=lambda t: t.name)
         self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_0)
         self.assert_task_not_replanned(
             self.project2_task_0 | self.project2_task_1 | self.project2_task_2 | self.project2_task_3 | self.project2_task_9 |
@@ -575,7 +592,12 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
                 [ 5 ]
         """
         self.project2_task_0.planned_date_begin = datetime(year=2021, month=4, day=7, hour=8)
-        self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_0)
+        res = self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_0)
+        moved_tasks = self.project2_task_8 + self.project2_task_7 + self.project2_task_6 + self.project2_task_5 + self.project2_task_4
+        self.assert_old_tasks_vals(res, 'info',
+            'Some tasks were scheduled concurrently, resulting in a conflict due to the limited availability of the assignees. The planned dates for these tasks may not align with their allocated hours.',
+            moved_tasks, self.initial_dates
+        )
 
         self.assert_new_dates(
             self.project2_task_8,
@@ -629,6 +651,9 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             """
         )
 
+        moved_tasks.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_task_not_replanned(moved_tasks, self.initial_dates)
+
     @users('admin')
     def test_compute_task_duration(self):
         """
@@ -649,6 +674,11 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             When the move back/for{ward} concerns 2 tasks from 2 different projects, it's done
             exactly like the previous cases (tasks belonging to same project). There is nothing
             special for this case.
+
+            Test dependencies Project     [5]---       ---->[6]---      -->[8]
+                                               |       |         |      |
+            project_pigs                       |    [4]-         --->[7]-
+                                               |_________________|
         """
         self.project2_task_7.dependent_ids = self.project2_task_7.dependent_ids.sorted(key=lambda t: t.name)
         (self.project2_task_0 + self.project2_task_4 + self.project2_task_7).project_id = self.project_pigs.id
@@ -682,34 +712,37 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
         )
 
         self.assert_new_dates(
-            self.project2_task_5, datetime(year=2024, month=2, day=22, hour=8),
-            datetime(year=2024, month=2, day=23, hour=17),
+            self.project2_task_5,
+            datetime(year=2024, month=2, day=15, hour=13),
+            datetime(year=2024, month=2, day=19, hour=12),
             """
                 task 5 duration = 16 Hours.
-                no hours available in 26/02/2024 as task 7 was planned from 15H to 17H
-                and task 14 planned from 8H to 15H
+                day 17/02 and 18/02 are weekend
+                4 hours planned on day 15/02
+                8 hours planned on day 16/02
+                4 hours planned on day 19/02
             """
         )
 
         self.assert_new_dates(
             self.project2_task_6,
-            datetime(year=2024, month=2, day=19, hour=13),
-            datetime(year=2024, month=2, day=21, hour=17),
+            datetime(year=2024, month=2, day=21, hour=13),
+            datetime(year=2024, month=2, day=23, hour=17),
             """
                 task 6 duration = 20 Hours.
-                4 Hours on 19/02, 16 Hours on 20/02 and 21/02
+                4 Hours on 21/02, 16 Hours on 22/02 and 23/02
             """
         )
 
         self.assert_new_dates(
             self.project2_task_4,
-            datetime(year=2024, month=2, day=15, hour=13),
-            datetime(year=2024, month=2, day=19, hour=12),
+            datetime(year=2024, month=2, day=19, hour=13),
+            datetime(year=2024, month=2, day=21, hour=12),
             """
                 task 4 duration = 16 Hours
-                4 Hours on 15/02
-                8 hours on 16/02
-                4 hours on 19/02 from 8H to 12H
+                4 Hours on 19/02
+                8 hours on 20/02
+                4 hours on 21/02 from 8H to 12H
             """
         )
 
@@ -729,16 +762,18 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
                            v                                                |
                           [11]->[12]-----------------------------------------
 
-            if we move forward task 0 to task 7, we need to move all the children of 0 stopping at 7
-            (1, 3, 2, 5, 11, 12, 9, 10, 14)
-            the children of 1 that are at the same time ancestors of 8 should be planned before 8
-            with respecting the topological sort for sure (0, 1, 2, 5, 7)
-            3, 11, 12, 9, 10, 14 should also be moved forward after 7.
-            9, 10, 14, 3, 11, 12 is also a valid order but in this test it will be second order as 2 will be visited
+            if we move forward task 0 to task 7,
+            first, we need to advance the children of 0 that are at the same time ancestors of 7 (excluded)
+            with respecting the topological sort for sure (0, 1, 2, 5)
+            second, after advancing 0, 1, 2, 5, their children 3, 11, 12 (children of 1), 9, 10 (children of 5) will become in conflict
+            (planned before their parent) so they need to be moved,
+            14 and 16 are also children but there are still in a valid position so they don't need to move.
+
+            3, 11, 12, 9, 10 should also be moved forward after 7.
+            9, 10, 3, 11, 12 is also a valid order but in this test it will be second order as 2 will be visited
             before 3 from 1
             4, 6, 7, 15, 8, 13 should not be moved
-            14 should still after 13
-            16 should not move as it's not impacted by any conflict created by any moved task
+            14 and 16 should not move as they're not impacted by any conflict created by any moved task
         """
         initial_dates_deep_copy = dict(self.initial_dates)
         initial_dates_deep_copy['8'] = (datetime(2024, 3, 22, 13, 0), datetime(2024, 3, 22, 17, 0))
@@ -760,14 +795,23 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             'depend_on_ids': [Command.link(self.project2_task_2.id)]
         })
         initial_dates_deep_copy['15'] = (datetime(2024, 3, 22, 8, 0), datetime(2024, 3, 22, 12, 0))
-        task_15 = self.ProjectTask.create({
+        initial_dates_deep_copy['16'] = (datetime(2024, 6, 3, 13, 0), datetime(2024, 6, 5, 17, 0))
+        task_15, task_16 = self.ProjectTask.create([{
             'name': '15',
-            "user_ids": self.user_projectuser,
-            "project_id": self.project2.id,
+            'user_ids': self.user_projectuser,
+            'project_id': self.project2.id,
             'dependent_ids': [Command.link(self.project2_task_8.id)],
             'planned_date_begin': initial_dates_deep_copy['15'][0],
             'date_deadline': initial_dates_deep_copy['15'][1],
-        })
+        }, {
+            'name': '16',
+            'user_ids': self.user_projectuser,
+            'project_id': self.project2.id,
+            'planned_date_begin': initial_dates_deep_copy['16'][0],
+            'date_deadline': initial_dates_deep_copy['16'][1],
+            'depend_on_ids': [Command.link(self.project2_task_14.id)],
+        }])
+
         initial_dates_deep_copy['13'] = (datetime(2024, 4, 3, 8, 0), datetime(2024, 4, 3, 12, 0))
         self.project2_task_13.write({
             'planned_date_begin': initial_dates_deep_copy['13'][0],
@@ -778,15 +822,6 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             'planned_date_begin': initial_dates_deep_copy['14'][0],
             'date_deadline': initial_dates_deep_copy['14'][1],
             'depend_on_ids': [Command.link(self.project2_task_13.id), Command.link(self.project2_task_10.id), Command.link(self.project2_task_12.id)],
-        })
-        initial_dates_deep_copy['16'] = (datetime(2024, 6, 3, 13, 0), datetime(2024, 6, 5, 17, 0))
-        task_16 = self.ProjectTask.create({
-            'name': '16',
-            "user_ids": self.user_projectuser,
-            "project_id": self.project2.id,
-            'planned_date_begin': initial_dates_deep_copy['16'][0],
-            'date_deadline': initial_dates_deep_copy['16'][1],
-            'depend_on_ids': [Command.link(self.project2_task_14.id)],
         })
         initial_dates_deep_copy['11'] = (datetime(2024, 3, 15, 13, 0), datetime(2024, 3, 18, 17, 0))
         self.project2_task_11.write({
@@ -802,11 +837,13 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
         })
         self.project2_task_3.allocated_hours = 4
         self.project2_task_1.dependent_ids = self.project2_task_1.dependent_ids.sorted(key=lambda t: t.name)
-
-        self.gantt_reschedule_forward(self.project2_task_0, self.project2_task_7)
+        not_moved_tasks = self.project2_task_4 | self.project2_task_6 | self.project2_task_7 | self.project2_task_8 | task_15 | self.project2_task_13 | task_16 | self.project2_task_14
+        moved_tasks = self.project2.task_ids - not_moved_tasks
+        res = self.gantt_reschedule_forward(self.project2_task_0, self.project2_task_7)
+        self.assert_old_tasks_vals(res, 'success', 'Reschedule done successfully.', moved_tasks, initial_dates_deep_copy)
 
         self.assert_task_not_replanned(
-            self.project2_task_4 | self.project2_task_6 | self.project2_task_7 | self.project2_task_8 | task_15 | self.project2_task_13 | task_16,
+            not_moved_tasks,
             initial_dates_deep_copy,
         )
 
@@ -852,7 +889,7 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             """
         )
 
-        # assert 3, 11, 12, 9, 10, 14 planned after 7
+        # assert 3, 11, 12, 9, 10 planned after 7
         self.assert_new_dates(
             self.project2_task_3,
             datetime(year=2024, month=3, day=25, hour=8),
@@ -863,57 +900,46 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             """
         )
         self.assert_new_dates(
-            self.project2_task_9,
-            datetime(year=2024, month=3, day=25, hour=13),
-            datetime(year=2024, month=3, day=25, hour=17),
-            """
-                task 9 duration = 4 Hours
-                4 Hours on 25/03
-            """
-        )
-        self.assert_new_dates(
             self.project2_task_11,
-            datetime(year=2024, month=3, day=26, hour=8),
-            datetime(year=2024, month=3, day=27, hour=12),
+            datetime(year=2024, month=3, day=25, hour=13),
+            datetime(year=2024, month=3, day=26, hour=17),
             """
                 task 11 duration = 12 Hours
+                4 Hours on 25/03
                 8 Hours on 26/03
-                4 Hours on 27/03
-            """
-        )
-        self.assert_new_dates(
-            self.project2_task_10,
-            datetime(year=2024, month=3, day=27, hour=13),
-            datetime(year=2024, month=3, day=27, hour=17),
-            """
-                task 10 duration = 4 Hours
-                4 Hours on 27/03
             """
         )
         self.assert_new_dates(
             self.project2_task_12,
-            datetime(year=2024, month=3, day=28, hour=8),
-            datetime(year=2024, month=3, day=29, hour=12),
+            datetime(year=2024, month=3, day=27, hour=8),
+            datetime(year=2024, month=3, day=28, hour=12),
             """
                 task 12 duration = 12 Hours
+                8 Hours on 27/03
                 4 Hours on 28/03
-                8 Hours on 29/03
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_9,
+            datetime(year=2024, month=3, day=28, hour=13),
+            datetime(year=2024, month=3, day=28, hour=17),
+            """
+                task 9 duration = 4 Hours
+                4 Hours on 28/03
+            """
+        )
+        self.assert_new_dates(
+            self.project2_task_10,
+            datetime(year=2024, month=3, day=29, hour=8),
+            datetime(year=2024, month=3, day=29, hour=12),
+            """
+                task 10 duration = 4 Hours
+                4 Hours on 29/03
             """
         )
 
-        self.assert_new_dates(
-            self.project2_task_14,
-            datetime(year=2024, month=4, day=3, hour=13),
-            datetime(year=2024, month=4, day=5, hour=17),
-            """
-                task 14 duration = 20 Hours
-                even that, slots are available from 29/03 to 03/04
-                it should be planned after task 13 (date_deadline = 03/04 12H)
-                4 Hours on 03/04
-                8 Hours on 04/04
-                8 Hours on 05/05
-            """
-        )
+        moved_tasks.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_task_not_replanned(moved_tasks, initial_dates_deep_copy)
 
     def test_move_backward_without_conflicts(self):
         """
@@ -966,7 +992,7 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
         initial_dates_deep_copy['17'] = (datetime(2024, 2, 1, 8, 0), datetime(2024, 2, 1, 12, 0))
         initial_dates_deep_copy['18'] = (datetime(2024, 2, 1, 8, 0), datetime(2024, 2, 1, 12, 0))
 
-        task_15, task_16, task_17, task_18 = self.ProjectTask.create([{
+        self.ProjectTask.create([{
                 'name': '15',
                 "user_ids": self.user_projectuser,
                 "project_id": self.project2.id,
@@ -1026,20 +1052,24 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
         self.project2_task_3.allocated_hours = 4
         self.project2_task_1.dependent_ids = self.project2_task_1.dependent_ids.sorted(key=lambda t: t.name)
 
+        initial_dates_deep_copy['6'] = (datetime(2024, 3, 5, 13, 0), datetime(2024, 3, 5, 17, 0))
         self.project2_task_6.write({
-            'planned_date_begin': datetime(2024, 3, 5, 13, 0),
-            'date_deadline': datetime(2024, 3, 5, 17, 0),
+            'planned_date_begin': initial_dates_deep_copy['6'][0],
+            'date_deadline': initial_dates_deep_copy['6'][1],
         })
 
+        initial_dates_deep_copy['4'] = (datetime(2024, 3, 4, 8, 0), datetime(2024, 3, 4, 12, 0))
         self.project2_task_4.write({
-            'planned_date_begin': datetime(2024, 3, 4, 8, 0),
-            'date_deadline': datetime(2024, 3, 4, 12, 0),
+            'planned_date_begin': initial_dates_deep_copy['4'][0],
+            'date_deadline': initial_dates_deep_copy['4'][1],
         })
 
-        self.gantt_reschedule_backward(self.project2_task_0, self.project2_task_7)
+        moved_tasks = self.project2_task_1 | self.project2_task_2 | self.project2_task_5 | self.project2_task_7 | self.project2_task_6 | self.project2_task_4
+        not_moved_tasks = self.project2.task_ids - moved_tasks
+        res = self.gantt_reschedule_backward(self.project2_task_0, self.project2_task_7)
+        self.assert_old_tasks_vals(res, 'success', 'Reschedule done successfully.', moved_tasks, initial_dates_deep_copy)
         self.assert_task_not_replanned(
-            self.project2_task_3 | self.project2_task_11 | self.project2_task_12 | self.project2_task_9 | task_15 | task_16 | task_17 |
-            self.project2_task_13 | self.project2_task_14 | task_18,
+            not_moved_tasks,
             initial_dates_deep_copy,
         )
 
@@ -1107,6 +1137,9 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             """
         )
 
+        moved_tasks.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_task_not_replanned(moved_tasks, initial_dates_deep_copy)
+
     def test_move_forward_with_multi_users(self):
         """
                         -------------------------------------------------
@@ -1118,7 +1151,7 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             Raouf 2          |  -->[3]   |      |       ----->[9]----->[10]
                              |           |      |
                              |           |      |
-            Raouf 3          ---------->[4]---->[6]
+            Raouf 3 and 2    ---------->[4]---->[6]
 
             When we move 0 in front of 8:
             - 3, 4 can be planned in // just after the end of 1
@@ -1151,8 +1184,9 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             'dependent_ids': [Command.link(self.project2_task_4.id)]
         })
 
-        self.gantt_reschedule_forward(self.project2_task_8, self.project2_task_0)
-
+        res = self.gantt_reschedule_forward(self.project2_task_8, self.project2_task_0)
+        moved_tasks = self.project2.task_ids - self.project2_task_8 - self.project2_task_12 - self.project2_task_13 - self.project2_task_14 - self.project2_task_11
+        self.assert_old_tasks_vals(res, 'success', 'Reschedule done successfully.', moved_tasks, self.initial_dates)
         self.assert_new_dates(
             self.project2_task_0,
             datetime(year=2024, month=3, day=18, hour=8),
@@ -1186,13 +1220,14 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
         self.assert_new_dates(
             self.project2_task_6,
             datetime(year=2024, month=3, day=21, hour=8),
-            datetime(year=2024, month=3, day=25, hour=10),
+            datetime(year=2024, month=3, day=25, hour=12),
+            "allocated_hours = 20"
         )
 
         self.assert_new_dates(
             self.project2_task_7,
-            datetime(year=2024, month=3, day=25, hour=10),
-            datetime(year=2024, month=3, day=25, hour=15),
+            datetime(year=2024, month=3, day=25, hour=13),
+            datetime(year=2024, month=3, day=25, hour=17),
         )
 
         self.assert_new_dates(
@@ -1203,30 +1238,37 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
 
         self.assert_new_dates(
             self.project2_task_9,
-            datetime(year=2024, month=3, day=25, hour=10),
-            datetime(year=2024, month=3, day=25, hour=15),
+            datetime(year=2024, month=3, day=25, hour=13),
+            datetime(year=2024, month=3, day=25, hour=17),
+            """
+                task 9 should start after task 5 which is its blocking task and after task 6
+                as user Raouf 2 was busy doing it.
+            """
         )
 
         self.assert_new_dates(
             self.project2_task_10,
-            datetime(year=2024, month=3, day=25, hour=15),
-            datetime(year=2024, month=3, day=26, hour=10),
+            datetime(year=2024, month=3, day=26, hour=8),
+            datetime(year=2024, month=3, day=26, hour=12),
         )
+
+        moved_tasks.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_task_not_replanned(moved_tasks, self.initial_dates)
 
     def test_move_backward_with_multi_users(self):
         """
                          ----------------------------------------------------------------
                          |                                                              |
                          v                                                              |
-            Raouf 1     [11]    [0]->[ 1 ]------>[2]----------->[5]   |->[7]---------->[8]
+            Raouf 1     [13]    [0]->[ 1 ]------>[2]----------->[5]   |->[7]---------->[8]
                                       |  |        ^      --------|-----                 ^
                                       |  |        |      |       |                      |
             Raouf 2                   |  -->[3]   |      |       ----->[9]------------>[10]
                                       |           |      |
                                       |           |      |
-            Raouf 3                   ---------->[4]---->[6]
+            Raouf 3 & Raouf 2         ---------->[4]---->[6]
 
-            When we move 8 before 11:
+            When we move 8 before 13:
             - all the ancestors of 8 should move before 8 (0, 1, 4, 2, 6, 7, 5, 9, 10, 8)
         """
         self.project2_task_7.dependent_ids = self.project2_task_7.dependent_ids.sorted(key=lambda t: t.name)
@@ -1256,48 +1298,50 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             'dependent_ids': [Command.link(self.project2_task_4.id)]
         })
 
-        self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_13)
+        res = self.gantt_reschedule_backward(self.project2_task_8, self.project2_task_13)
+        moved_tasks = self.project2.task_ids - self.project2_task_13 - self.project2_task_3 - self.project2_task_11 - self.project2_task_14 - self.project2_task_12
+        self.assert_old_tasks_vals(res, 'success', 'Reschedule done successfully.', moved_tasks, self.initial_dates)
 
         self.assert_new_dates(
             self.project2_task_0,
-            datetime(year=2024, month=2, day=16, hour=11),
-            datetime(year=2024, month=2, day=16, hour=16),
+            datetime(year=2024, month=2, day=14, hour=9),
+            datetime(year=2024, month=2, day=14, hour=14),
         )
 
         self.assert_new_dates(
             self.project2_task_1,
-            datetime(year=2024, month=2, day=16, hour=16),
-            datetime(year=2024, month=2, day=19, hour=11),
+            datetime(year=2024, month=2, day=14, hour=14),
+            datetime(year=2024, month=2, day=15, hour=9),
         )
 
         self.assert_new_dates(
             self.project2_task_4,
-            datetime(year=2024, month=2, day=19, hour=11),
-            datetime(year=2024, month=2, day=21, hour=11),
+            datetime(year=2024, month=2, day=15, hour=9),
+            datetime(year=2024, month=2, day=19, hour=9),
         )
 
         self.assert_new_dates(
             self.project2_task_2,
-            datetime(year=2024, month=2, day=21, hour=11),
-            datetime(year=2024, month=2, day=21, hour=14),
+            datetime(year=2024, month=2, day=21, hour=15),
+            datetime(year=2024, month=2, day=21, hour=17),
         )
 
         self.assert_new_dates(
             self.project2_task_6,
-            datetime(year=2024, month=2, day=21, hour=11),
-            datetime(year=2024, month=2, day=23, hour=16),
+            datetime(year=2024, month=2, day=19, hour=9),
+            datetime(year=2024, month=2, day=21, hour=14),
         )
 
         self.assert_new_dates(
             self.project2_task_7,
-            datetime(year=2024, month=2, day=23, hour=16),
+            datetime(year=2024, month=2, day=21, hour=14),
             datetime(year=2024, month=2, day=27, hour=9),
         )
 
         self.assert_new_dates(
             self.project2_task_5,
-            datetime(year=2024, month=2, day=21, hour=14),
-            datetime(year=2024, month=2, day=23, hour=16),
+            datetime(year=2024, month=2, day=22, hour=8),
+            datetime(year=2024, month=2, day=23, hour=17),
         )
 
         self.assert_new_dates(
@@ -1317,6 +1361,8 @@ class TestGanttRescheduleOnTasks(ProjectEnterpriseGanttRescheduleCommon):
             datetime(year=2024, month=2, day=27, hour=9),
             datetime(year=2024, month=2, day=29, hour=9),
         )
+        moved_tasks.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_task_not_replanned(moved_tasks, self.initial_dates)
 
     def test_web_gantt_write(self):
         users = self.user_projectuser + self.user_projectmanager

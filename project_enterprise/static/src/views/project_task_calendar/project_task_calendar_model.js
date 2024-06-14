@@ -1,13 +1,12 @@
 import { deserializeDate } from "@web/core/l10n/dates";
 import { ProjectTaskCalendarModel } from "@project/views/project_task_calendar/project_task_calendar_model";
-import { useProjectModelActions } from "../project_conflicted_tasks";
-
+import { useProjectModelActions } from "../project_highlight_tasks";
 export class ProjectEnterpriseTaskCalendarModel extends ProjectTaskCalendarModel {
     setup() {
         super.setup(...arguments);
         this.getHighlightIds = useProjectModelActions({
             getContext: () => this.env.searchModel._context,
-            resModel: this.resModel,
+            getHighlightPlannedIds: () => this.env.searchModel.highlightPlannedIds,
         }).getHighlightIds;
     }
 

@@ -1,7 +1,5 @@
 import { _t } from "@web/core/l10n/translation";
-import { patch } from "@web/core/utils/patch";
 import { MapModel } from "@web_map/map_view/map_model";
-import { projectConflictTasksModel } from "../project_conflicted_tasks";
 
 export class ProjectTaskMapModel extends MapModel {
     /**
@@ -17,8 +15,3 @@ export class ProjectTaskMapModel extends MapModel {
         }
     }
 }
-
-patch(
-    ProjectTaskMapModel.prototype,
-    projectConflictTasksModel((model) => model.metaData.resModel)
-);

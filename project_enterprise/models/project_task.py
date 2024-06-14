@@ -655,33 +655,26 @@ class Task(models.Model):
             self.write(vals)
             return {}
 
-        def sort_tasks(tasks):
-            return tasks.sorted(
-                lambda t: (not t.date_deadline, t.date_deadline, t._get_hours_to_plan() <= 0, -int(t.priority))
-            )
-
-        if ('user_ids' in vals):
-            return sort_tasks(self)._scheduling(vals)
-
-        """ If the smart scheduling is triggered from the unassigned row, we group the tasks according to their
-            already set assignee.
-            The smart scheduling will then compute the planned dates according to the correct calendars.
-        """
-        warnings = {}
-        for tasks in self.grouped('user_ids').values():
-            warnings.update(sort_tasks(tasks)._scheduling(vals))
-        return warnings
+        return self.sorted(
+            lambda t: (not t.date_deadline, t.date_deadline, t._get_hours_to_plan() <= 0, -int(t.priority))
+        )._scheduling(vals)
 
     def _scheduling(self, vals):
         tasks_to_write = {}
         warnings = {}
+        old_vals_per_task_id = {}
 
         company = self.company_id if len(self.company_id) == 1 else self.env.company
         tz_info = self._context.get('tz') or 'UTC'
-        if (vals.get('user_ids') and len(vals['user_ids']) == 1) or ('user_ids' not in vals and len(self.user_ids) == 1):
-            user = self.env['res.users'].browse(vals.get('user_ids', self.user_ids.ids))
-            tz_info = user.tz if user.tz else tz_info
-            calendar = user.resource_calendar_id
+
+        user_to_assign = self.env['res.users']
+
+        users = self.user_ids
+        if vals.get('user_ids') and len(vals['user_ids']) == 1:
+            user_to_assign = self.env['res.users'].browse(vals['user_ids'])
+            if user_to_assign not in users:
+                users |= user_to_assign
+            tz_info = user_to_assign.tz or tz_info
         else:
             if (self.env.context.get("default_project_id")):
                 project = self.env['project.project'].browse(self.env.context["default_project_id"])
@@ -689,26 +682,22 @@ class Task(models.Model):
                 calendar = project.resource_calendar_id
             else:
                 calendar = company.resource_calendar_id
-            user = self.env['res.users']
-            tz_info = calendar.tz if calendar.tz else tz_info
+            tz_info = calendar.tz or tz_info
 
         max_date_start = datetime.strptime(self.env.context.get('last_date_view'), '%Y-%m-%d %H:%M:%S').astimezone(timezone(tz_info))
-        init_date_start = datetime.strptime(vals["planned_date_begin"], '%Y-%m-%d %H:%M:%S').astimezone(timezone(tz_info))
-        fetch_date_start = init_date_start
+        date_start = datetime.strptime(vals["planned_date_begin"], '%Y-%m-%d %H:%M:%S').astimezone(timezone(tz_info))
         fetch_date_end = max_date_start
-        current_date_start = init_date_start
-        end_loop = init_date_start + relativedelta(day=31, month=12, years=1)  # end_loop will be the end of the next year.
+        end_loop = date_start + relativedelta(day=31, month=12, years=1)  # end_loop will be the end of the next year.
 
-        invalid_intervals, schedule = self._compute_schedule(user, calendar, fetch_date_start, fetch_date_end, company)
-        concurrent_tasks_intervals = self._fetch_concurrent_tasks_intervals_for_employee(fetch_date_start, fetch_date_end, user, tz_info)
+        valid_intervals_per_user = self._web_gantt_get_valid_intervals(date_start, fetch_date_end, users, [], True)
         dependent_tasks_end_dates = self._fetch_last_date_end_from_dependent_task_for_all_tasks(tz_info)
 
         scale = self._context.get("gantt_scale", "week")
         # In week and month scale, the precision set is used. In day scale we force the half day precison.
         cell_part_from_context = self._context.get("cell_part")
         cell_part = cell_part_from_context if scale in ["week", "month"] and cell_part_from_context in [1, 2, 4] else 2
-        delta = relativedelta(months=1) if scale == "year" else relativedelta(hours=24 / cell_part)
-        delta_scale = relativedelta(**{f"{scale}s": 1})
+        # In year scale, cells represent a month, a typical full-time work schedule involves around 160 to 176 hours per month
+        delta_hours = 160 if scale == "year" else 24 / cell_part
 
         dependencies_dict = {  # contains a task as key and the list of tasks before this one as values
             task:
@@ -720,112 +709,100 @@ class Task(models.Model):
         sorted_tasks = topological_sort(dependencies_dict)
         for task in sorted_tasks:
             hours_to_plan = task._get_hours_to_plan()
-            compute_date_start = compute_date_end = False
-            last_date_end = dependent_tasks_end_dates.get(task.id)
-            # The 'user' condition is added to avoid changing the starting date based on the tasks dependencies of
-            # the tasks to plan when the working schedule of company is used to schedule the tasks.
-            if last_date_end and user:
-                current_date_start = last_date_end
-            # In case working intervals were added to the schedule in the previous iteration, set the curr_schedule to schedule
-            curr_schedule = schedule
             if hours_to_plan <= 0:
-                current_date_start = current_date_start.replace(hour=0, minute=0, second=0,
-                                                                day=(1 if scale == "year" else current_date_start.day))
-            while (not compute_date_start or not compute_date_end) and (current_date_start < end_loop):
-                # Scheduling of tasks without allocated hours
-                if hours_to_plan <= 0:
-                    dummy, work_intervals = task._compute_schedule(
-                        user, calendar, current_date_start, current_date_start + delta, company
-                    )
-                    current_date_start += delta
-                    if not work_intervals._items:
+                hours_to_plan = delta_hours
+
+            compute_date_start = compute_date_end = False
+            first_possible_start_date = dependent_tasks_end_dates.get(task.id)
+
+            user_ids = False
+            if user_to_assign and user_to_assign not in task.user_ids:
+                user_ids = tuple(user_to_assign.ids)
+            elif task.user_ids:
+                user_ids = tuple(task.user_ids.ids)
+
+            if user_ids not in valid_intervals_per_user:
+                if 'no_intervals' not in warnings:
+                    warnings['no_intervals'] = _("Some tasks weren't planned because the closest available starting date was too far ahead in the future")
+                continue
+
+            while not compute_date_end or hours_to_plan > 0:
+                used_intervals = []
+                for start_date, end_date, dummy in valid_intervals_per_user[user_ids]:
+                    if first_possible_start_date and end_date <= first_possible_start_date:
                         continue
-                    compute_date_start, compute_date_end = work_intervals._items[0][0], work_intervals._items[-1][1]
-                    if compute_date_end > fetch_date_end:
-                        fetch_date_start = fetch_date_end
-                        fetch_date_end = fetch_date_end + delta_scale
-                        concurrent_tasks_intervals |= self._fetch_concurrent_tasks_intervals_for_employee(fetch_date_start, fetch_date_end, user, tz_info)
-                    if self._check_concurrent_tasks(compute_date_start, compute_date_end, concurrent_tasks_intervals):
-                        compute_date_start = compute_date_end = False
-                    elif user:
-                        concurrent_tasks_intervals |= Intervals([(compute_date_start, compute_date_end, task)])
+
+                    hours_to_plan -= (end_date - start_date).total_seconds() / 3600
+                    if not compute_date_start:
+                        compute_date_start = start_date
+
+                    if hours_to_plan <= 0:
+                        compute_date_end = end_date + relativedelta(seconds=hours_to_plan * 3600)
+                        used_intervals.append((start_date, compute_date_end, task))
+                        break
+
+                    used_intervals.append((start_date, end_date, task))
+
+                # Get more intervals if the fetched ones are not enough for scheduling
+                if compute_date_end and hours_to_plan <= 0:
+                    break
+
+                if fetch_date_end < end_loop:
+                    new_fetch_date_end = min(fetch_date_end + relativedelta(months=1), end_loop)
+                    valid_intervals_per_user = self._web_gantt_get_valid_intervals(fetch_date_end, new_fetch_date_end, users, [], True, valid_intervals_per_user)
+                    fetch_date_end = new_fetch_date_end
                 else:
-                    for start_date, end_date, dummy in curr_schedule:
-                        if end_date <= current_date_start:
-                            continue
-                        hours_to_plan -= (end_date - start_date).total_seconds() / 3600
-                        if not compute_date_start:
-                            compute_date_start = start_date
-
-                        if hours_to_plan <= 0:
-                            compute_date_end = end_date + relativedelta(seconds=hours_to_plan * 3600)
-                            break
-                    if hours_to_plan <= 0:  # the compute_date_end was found, we check if the candidates start and end date are valid
-                        current_date_start = self._check_concurrent_tasks(compute_date_start, compute_date_end, concurrent_tasks_intervals)
-                        # an already planned task is concurrent with the candidate dates. reset the values and keep searching for new candidate dates
-                        if current_date_start:
-                            compute_date_start = False
-                            compute_date_end = False
-                            hours_to_plan = task._get_hours_to_plan()
-                            end_interval = self._get_end_interval(current_date_start, curr_schedule)
-                            # removed the part already checked in the working schedule
-                            curr_schedule = schedule - Intervals([(init_date_start, end_interval, task)])
-                        # no concurrent tasks were found, we reset the current date start
-                        else:
-                            current_date_start = schedule._items[0][0]
-                            # if the task is assigned to a user, add the working interval of the task to the concurrent tasks
-                            if user:
-                                concurrent_tasks_intervals |= Intervals([(compute_date_start, compute_date_end, task)])
-
-                    else:  # no date end candidate was found, update the schedule and keep searching
-                        fetch_date_start = fetch_date_end
-                        fetch_date_end = (fetch_date_end + relativedelta(days=1)) + relativedelta(months=1, day=1)
-                        new_invalid_intervals, curr_schedule = task._compute_schedule(user, calendar, fetch_date_start, fetch_date_end, task.company_id or company)
-                        # schedule is not used in this iteration but we are using this variable to keep the fetched intervals to avoid refetching it later
-                        schedule |= curr_schedule
-                        invalid_intervals |= new_invalid_intervals
-                        concurrent_tasks_intervals |= self._fetch_concurrent_tasks_intervals_for_employee(fetch_date_start, fetch_date_end, user, tz_info)
+                    if 'no_intervals' not in warnings:
+                        warnings['no_intervals'] = _("Some tasks weren't planned because the closest available starting date was too far ahead in the future")
+                    break
 
             # remove the task from the record to avoid unnecessary write
             self -= task
-            # this is a security break to avoid infinite loop. It is very unlikely to be of used in a real use case.
-            if current_date_start > end_loop:
-                if 'loop_break' not in warnings:
-                    warnings['loop_break'] = _lt("Some tasks weren't planned because the closest available starting date was too far ahead in the future")
-                current_date_start = schedule._items[0][0]
+            if not compute_date_end or hours_to_plan > 0:
                 continue
 
             start_no_utc = compute_date_start.astimezone(utc).replace(tzinfo=None)
             end_no_utc = compute_date_end.astimezone(utc).replace(tzinfo=None)
-            company_schedule = False
             # if the working interval for the task has overlap with 'invalid_intervals', we set the warning message accordingly
-            if start_no_utc > datetime.now() and len(Intervals([(compute_date_start, compute_date_end, task)]) & invalid_intervals) > 0:
-                company_schedule = True
-            if company_schedule and 'company_schedule' not in warnings:
-                warnings['company_schedule'] = _('This employee does not have a running contract during the selected period.\nThe working hours of the company were used as a reference instead.')
-            if compute_date_start >= max_date_start:
-                warnings['out_of_scale_notification'] = _('Tasks have been successfully scheduled for the upcoming periods.')
             tasks_to_write[task] = {'start': start_no_utc, 'end': end_no_utc}
 
-        task_ids_per_user_id = defaultdict(list)
-        if vals.get('user_ids'):
-            for task in self:
-                old_user_ids = task.user_ids.ids
-                new_user_id = vals.get('user_ids')[0]
-                if new_user_id not in old_user_ids:
-                    task_ids_per_user_id[new_user_id].append(task.id)
-            for user_id, task_ids in task_ids_per_user_id.items():
-                self.env['project.task'].sudo().browse(task_ids).write({'user_ids': [user_id]})
+            for next_task in task.dependent_ids:
+                dependent_tasks_end_dates[next_task.id] = max(dependent_tasks_end_dates.get(next_task.id, compute_date_end), compute_date_end)
+
+            used_intervals = Intervals(used_intervals)
+            if not user_ids:
+                valid_intervals_per_user[False] -= used_intervals
+            else:
+                for user_id in valid_intervals_per_user:
+                    if not user_id:
+                        continue
+
+                    if set(user_id) & set(user_ids):
+                        valid_intervals_per_user[user_id] -= used_intervals
+
         for task in tasks_to_write:
+            old_vals_per_task_id[task.id] = {
+                'planned_date_begin': task.planned_date_begin,
+                'date_deadline': task.date_deadline,
+            }
             task_vals = {
                 'planned_date_begin': tasks_to_write[task]['start'],
                 'date_deadline': tasks_to_write[task]['end'],
-                'user_ids': user.ids,
             }
-            if user:
-                task_vals['user_ids'] = user.ids
+            if user_to_assign:
+                old_user_ids = task.user_ids.ids
+                if user_to_assign.id not in old_user_ids:
+                    task_vals['user_ids'] = user_to_assign.ids
+                    old_vals_per_task_id[task.id]['user_ids'] = old_user_ids or False
+
             task.write(task_vals)
-        return warnings
+
+        return [warnings, old_vals_per_task_id]
+
+    def action_rollback_auto_scheduling(self, old_vals_per_task_id):
+        for task in self:
+            if str(task.id) in old_vals_per_task_id:
+                task.write(old_vals_per_task_id[str(task.id)])
 
     def _get_hours_to_plan(self):
         return self.allocated_hours
@@ -863,25 +840,22 @@ class Task(models.Model):
                       JOIN task_dependencies_rel rel
                         ON rel.task_id = task.id
                       JOIN project_task depends_on
-                        ON depends_on.id != task.id
+                        ON depends_on.id not in %s
                        AND depends_on.id = rel.depends_on_id
                        AND depends_on.date_deadline is not null
                      WHERE task.id = any(%s)
                   GROUP BY task.id
                 """
-        self.env.cr.execute(query, [self.ids])
+        self.env.cr.execute(query, [tuple(self.ids), self.ids])
         return {res['id']: res['date'].astimezone(timezone(tz_info)) for res in self.env.cr.dictfetchall()}
 
     @api.model
-    def _fetch_concurrent_tasks_intervals_for_employee(self, date_begin, date_end, user, tz_info, tasks_to_exclude_ids=None):
+    def _fetch_concurrent_tasks_intervals_for_employee(self, date_begin, date_end, user, tz_info):
         concurrent_tasks = self.env['project.task']
         domain = [('user_ids', '=', user.id),
             ('date_deadline', '>=', date_begin),
             ('planned_date_begin', '<=', date_end),
         ]
-
-        if tasks_to_exclude_ids:
-            domain.append(('id', 'not in', tasks_to_exclude_ids))
 
         if user:
             concurrent_tasks = self.env['project.task'].search(
@@ -929,8 +903,8 @@ class Task(models.Model):
                 continue
 
             task_start, task_end = task[start_date_field_name].astimezone(utc), task[stop_date_field_name].astimezone(utc)
-            user_id = task.user_ids.id if len(task.user_ids) == 1 else False
-            work_intervals = valid_intervals_per_user.get(user_id, [])
+            user_id = (task.user_ids.id, ) if len(task.user_ids) == 1 else False
+            work_intervals = valid_intervals_per_user.get(user_id, Intervals())
             for start, end, dummy in work_intervals:
                 start, end = start.astimezone(utc), end.astimezone(utc)
                 if task_start < end and task_end > start:
@@ -1018,30 +992,58 @@ class Task(models.Model):
 
         return {user_id: Intervals(vals) for user_id, vals in unavailable_intervals_per_user_id.items()}
 
-    def _web_gantt_get_valid_intervals(self, start_date, end_date, users, candidates_ids=[], remove_intervals_with_planned_tasks=True):
-        """ Get the valid intervals per user, intervals available for planning
+    def _web_gantt_get_valid_intervals(self, start_date, end_date, users, candidates_ids=[], remove_intervals_with_planned_tasks=True, valid_intervals_per_user=None):
+        """ Get the valid (intervals available for planning)
 
             :param start_date: start date
             :param end_date: end date end
             :param users: users
             :param candidates_ids: candidates to plan ids
             :param remove_intervals_with_planned_tasks: True to remove the intervals with already planned tasks
-            :return dict = {user_id: List[Interval]}
+            :return (valid intervals dict = {user_id: List[Interval]}, invalid intervals dict = {user_id: List[Interval]})
         """
         start_date, end_date = start_date.astimezone(utc), end_date.astimezone(utc)
         users_work_intervals, calendar_work_intervals = users._get_valid_work_intervals(start_date, end_date)
         unavailable_intervals = self._web_gantt_get_users_unavailable_intervals(users.ids, start_date, end_date, candidates_ids) if remove_intervals_with_planned_tasks else {}
-        valid_intervals_per_user = {
-            user_id: (work_intervals - unavailable_intervals.get(user_id, Intervals()))._items
-            for user_id, work_intervals in users_work_intervals.items()
-        }
+        baseInterval = Intervals([(start_date, end_date, self.env['resource.calendar.attendance'])])
+        new_valid_intervals_per_user = {}
+        invalid_intervals_per_user = {}
+        for user_id, work_intervals in users_work_intervals.items():
+            _id = (user_id,)
+            new_valid_intervals_per_user[_id] = work_intervals - unavailable_intervals.get(user_id, Intervals())
+            invalid_intervals_per_user[_id] = baseInterval - new_valid_intervals_per_user[_id]
+
         company_id = users.company_id if len(users.company_id) == 1 else self.env.company
         company_calendar_id = company_id.resource_calendar_id
         company_work_intervals = calendar_work_intervals.get(company_calendar_id.id)
         if not company_work_intervals:
-            valid_intervals_per_user[False] = company_calendar_id._work_intervals_batch(start_date, end_date)[False]._items
+            new_valid_intervals_per_user[False] = company_calendar_id._work_intervals_batch(start_date, end_date)[False]
         else:
-            valid_intervals_per_user[False] = company_work_intervals._items
+            new_valid_intervals_per_user[False] = company_work_intervals
+
+        for task in self:
+            user_ids = tuple(task.user_ids.ids)
+            if len(user_ids) < 2 or user_ids in new_valid_intervals_per_user:
+                continue
+
+            new_valid_intervals_per_user[user_ids] = new_valid_intervals_per_user[False]
+            for user_id in user_ids:
+                # if user is not present in invalid_intervals => he's not present in users_work_intervals
+                # => he's not available at all and the users together don't have any valid interval in commun
+                if (user_id, ) not in invalid_intervals_per_user:
+                    new_valid_intervals_per_user[user_ids] = Intervals()
+                    break
+
+                new_valid_intervals_per_user[user_ids] -= invalid_intervals_per_user.get((user_id, ))
+
+        if not valid_intervals_per_user:
+            valid_intervals_per_user = new_valid_intervals_per_user
+        else:
+            for user_ids in new_valid_intervals_per_user:
+                if user_ids in valid_intervals_per_user:
+                    valid_intervals_per_user[user_ids] |= new_valid_intervals_per_user[user_ids]
+                else:
+                    valid_intervals_per_user[user_ids] = new_valid_intervals_per_user[user_ids]
 
         return valid_intervals_per_user
 
@@ -1050,6 +1052,7 @@ class Task(models.Model):
             "errors": [],
             "warnings": [],
         }
+        old_vals_per_pill_id = {}
         candidates = self.browse(candidates_ids)
         all_candidates = self.browse(all_candidates_ids or candidates_ids)
         users = candidates.user_ids.sudo()
@@ -1060,18 +1063,17 @@ class Task(models.Model):
             # 53 weeks = 1 year is estimated enough to plan a project (no valid proof)
             end_date = start_date + timedelta(weeks=53)
         else:
-            start_date = datetime.now()
             end_date = date_candidate or min((self_dependency_field_name.filtered(stop_date_field_name and start_date_field_name) - candidates).mapped(start_date_field_name))
+            start_date = max(datetime.now(), end_date - timedelta(weeks=53))
             if end_date <= start_date:
                 result["errors"].append("past_error")
-                return result
+                return result, {}
 
-        valid_intervals_per_user = self._web_gantt_get_valid_intervals(start_date, end_date, users, all_candidates_ids or candidates_ids)
+        valid_intervals_per_user = candidates._web_gantt_get_valid_intervals(start_date, end_date, users, all_candidates.ids or candidates.ids)
+        initial_valid_intervals_per_user = dict(valid_intervals_per_user.items())
         move_in_conflicts_users = set()
         first_possible_start_date_per_candidate = {}
         last_possible_end_date_per_candidate = {}
-        candidates_to_plan_before_each_candidate = {}
-        priority_queue = []
 
         for candidate in candidates:
             related_candidates = candidate[dependency_field_name] if search_forward else candidate[dependency_inverted_field_name]
@@ -1079,11 +1081,6 @@ class Task(models.Model):
 
             # this line is used when planning without conflicts we do it in 2 steps, so all_candidates contains all the tasks to replan and candidates contains the task to replan in the current step
             all_replanned_candidates = related_candidates.filtered(lambda x: x in all_candidates)
-            candidates_to_plan_before_each_candidate[candidate.id] = len(replanned_candidates)
-
-            if candidates_to_plan_before_each_candidate[candidate.id] == 0:
-                heapq.heappush(priority_queue, (utc.localize(datetime.min) if search_forward else utc.localize(datetime.max), candidate))
-
             not_replanned_candidates = related_candidates - all_replanned_candidates
 
             if not not_replanned_candidates:
@@ -1100,145 +1097,107 @@ class Task(models.Model):
             else:
                 last_possible_end_date_per_candidate[candidate.id] = min(boundary_dates).astimezone(utc)
 
-        intervals_start_per_user, intervals_end_per_user, interval_index_per_user = {}, {}, {}
-        for user_id, vals in valid_intervals_per_user.items():
-            intervals_start_per_user[user_id] = None
-            intervals_end_per_user[user_id] = None
-            interval_index_per_user[user_id] = -1 if search_forward else len(vals)
-
-        # False key is fake referring to the company
-        intervals_start_per_user[False] = intervals_end_per_user[False] = None
         step = 1 if search_forward else -1
-        intervals_durations = 0
         candidates_moved_with_conflicts = False
         candidates_passed_initial_deadline = False
-
         candidates_durations = candidates._get_tasks_durations(users, start_date_field_name, stop_date_field_name)
 
-        """ [ABGH] This is a combination of Kahn's algorithm and Dijkstra's Shortest Path Algorithm implemented with priority_queue (pq) to get a topological order
-            we can't use the classic topological sort to avoid blocking tasks after other tasks.
-
-            Example:
-
-            employee1  [0]->[1]->[2]         [7]
-                             |                ^
-                             |                |
-            employee2        --->[4]-->[6]-----
-
-            0, 1, 4, 6, 7, 2 and 0, 1, 2, 4, 6, 7 are both valid topological orders, if we follow the first order, 2 should be
-            planned after 7 (so after 4 and 6). but there is an optimal way and we can plan 2 in // with 4
-
-            That's why, dijkistra is more smart for this case.
-            each candidate can be added to the pq only when all its parents are planned (indegree = 0)
-            if we have many tasks with indegree = 0,
-            the candidate with the earliest first_possible_start_date_per_candidate is planned before the other candidates
-            k pointers move on all the k employees valid work intervals, each pointer advance until the first_possible_start_date_per_candidate,
-            plan the candidate and stops waiting for the next candidate for the same employee.
-            more details about the algorithms:
-            - https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-using-priority_queue-stl/
-            - https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
-
-            Using k pointers method, we iterate over tasks one by one via the heap,
-            a pointer will iterate over each user intervals and increment each time the task
-            duration is still < to the intervals duration.
-            Time complexity is O(m+n) where m is the length of tasks to plan and n is the length of valid intervals.
-        """
-
-        while priority_queue:
-            _dummy, candidate = heapq.heappop(priority_queue) if search_forward else heapq._heappop_max(priority_queue)
-
+        for candidate in candidates:
             if not move_not_in_conflicts_candidates and not candidate._web_gantt_is_candidate_in_conflict(start_date_field_name, stop_date_field_name, dependency_field_name, dependency_inverted_field_name):
                 continue
 
             candidate_duration = candidates_durations[candidate.id]
             users = candidate.user_ids
-            user_id = users.id if len(users) == 1 else False
-            intervals = valid_intervals_per_user.get(user_id)
+            users_ids = tuple(users.ids) if users else False
 
-            if not intervals:
+            if users_ids not in valid_intervals_per_user:
                 result["errors"].append("no_intervals_error")
-                return result
+                return result, {}
 
-            while user_id not in move_in_conflicts_users and ((search_forward and interval_index_per_user[user_id] + step < len(intervals)) or (not search_forward and interval_index_per_user[user_id] + step >= 0)) and candidate_duration > intervals_durations:
-                interval_index_per_user[user_id] += step
-                start, end, _dummy = intervals[interval_index_per_user[user_id]]
+            intervals = valid_intervals_per_user[users_ids]._items
+            intervals_durations = 0
+            index = 0 if search_forward else len(intervals) - 1
+            used_intervals = []
+            compute_start_date, compute_end_date = False, False
+            while users_ids not in move_in_conflicts_users and ((search_forward and index < len(intervals)) or (not search_forward and index >= 0)) and candidate_duration > intervals_durations:
+                start, end, _dummy = intervals[index]
+                index += step
                 start, end = start.astimezone(utc), end.astimezone(utc)
-
-                if not intervals_start_per_user[user_id] and not intervals_end_per_user[user_id]:
-                    intervals_start_per_user[user_id], intervals_end_per_user[user_id] = start, end
 
                 if search_forward:
                     first_date = first_possible_start_date_per_candidate.get(candidate.id)
-                    if first_date:
-                        if end <= first_date:
-                            intervals_durations = 0
-                            continue
+                    if first_date and end <= first_date:
+                        continue
 
-                        if intervals_durations == 0:
+                    if not compute_start_date:
+                        if first_date:
                             start = max(start, first_date)
-                            intervals_start_per_user[user_id] = start
+                        compute_start_date = start
 
-                    intervals_end_per_user[user_id] = end
+                    compute_end_date = end
                 else:
                     last_date = last_possible_end_date_per_candidate.get(candidate.id)
-                    if last_date:
-                        if start >= last_date:
-                            intervals_durations = 0
-                            continue
+                    if last_date and start >= last_date:
+                        continue
 
-                        if intervals_durations == 0:
+                    if not compute_end_date:
+                        if last_date:
                             end = min(end, last_date)
-                            intervals_end_per_user[user_id] = end
+                        compute_end_date = end
 
-                    intervals_start_per_user[user_id] = start
+                    compute_start_date = start
 
-                intervals_durations += (end - start).total_seconds()
-
-            if user_id not in move_in_conflicts_users and candidate_duration <= intervals_durations and intervals_start_per_user.get(user_id) and intervals_end_per_user.get(user_id):
-                remaining = intervals_durations - candidate_duration
-                if search_forward:
-                    planned_date_begin = intervals_start_per_user[user_id]
-                    date_deadline = intervals_end_per_user[user_id] + timedelta(seconds=-remaining)
-                else:
-                    planned_date_begin = intervals_start_per_user[user_id] + timedelta(seconds=remaining)
-                    date_deadline = intervals_end_per_user[user_id]
-
-                candidates_passed_initial_deadline = candidates_passed_initial_deadline or (not candidate[start_date_field_name] and date_deadline > candidate[stop_date_field_name].astimezone(utc))
-
-                candidate._web_gantt_reschedule_write_new_dates(planned_date_begin, date_deadline, start_date_field_name, stop_date_field_name)
-
-                if remaining > 0:
+                duration = (end - start).total_seconds()
+                if intervals_durations + duration > candidate_duration:
+                    remaining = intervals_durations + duration - candidate_duration
+                    duration -= remaining
                     if search_forward:
-                        intervals_start_per_user[user_id] = date_deadline
+                        end += timedelta(seconds=-remaining)
+                        compute_end_date = end
                     else:
-                        intervals_end_per_user[user_id] = planned_date_begin
+                        start += timedelta(seconds=remaining)
+                        compute_start_date = start
 
-                    intervals_durations = remaining
+                intervals_durations += duration
+                used_intervals.append((start, end, candidate))
+
+            if users_ids not in move_in_conflicts_users and candidate_duration == intervals_durations and compute_start_date and compute_end_date:
+                candidates_passed_initial_deadline = candidates_passed_initial_deadline or (not candidate[start_date_field_name] and compute_end_date > candidate[stop_date_field_name].astimezone(utc))
+                old_planned_date_begin, old_date_deadline = candidate[start_date_field_name], candidate[stop_date_field_name]
+                if candidate._web_gantt_reschedule_write_new_dates(compute_start_date, compute_end_date, start_date_field_name, stop_date_field_name):
+                    old_vals_per_pill_id[candidate.id] = {
+                        "planned_date_begin": old_planned_date_begin,
+                        "date_deadline": old_date_deadline,
+                    }
                 else:
-                    intervals_start_per_user[user_id], intervals_end_per_user[user_id] = None, None
-                    intervals_durations = 0
+                    result["errors"].append("past_error")
+                    return result, {}
             else:
                 """ no more intervals and we haven't reached the duration to plan the candidate (pill)
                     plan in the first interval, this will lead to creating conflicts, so a notif is added
                     to notify the user
                 """
-                candidates_moved_with_conflicts = True
-                move_in_conflicts_users.add(user_id)
-                final_interval_index = -1 if search_forward else 0
+                if users_ids not in initial_valid_intervals_per_user or len(initial_valid_intervals_per_user[users_ids]._items) == 0:
+                    result["errors"].append("no_intervals_error")
+                    return result, {}
 
-                interval_start = intervals[final_interval_index][0]
-                interval_end = intervals[final_interval_index][1]
+                candidates_moved_with_conflicts = True
+                move_in_conflicts_users.add(users_ids)
+                final_interval_index = -1 if search_forward else 0
+                ranges = initial_valid_intervals_per_user[users_ids]._items
+                compute_start_date = ranges[final_interval_index][0]
+                compute_end_date = ranges[final_interval_index][1]
                 needed_intervals_duration = 0
                 searching_step = -1 if search_forward else 1
-                searching_index = len(intervals) if search_forward else -1
-                while ((search_forward and searching_index - 1 > 0) or (not search_forward and searching_index + 1 < len(intervals))) and candidate_duration > needed_intervals_duration:
+                searching_index = len(ranges) if search_forward else -1
+                while ((search_forward and searching_index - 1 > 0) or (not search_forward and searching_index + 1 < len(ranges))) and candidate_duration > needed_intervals_duration:
                     searching_index += searching_step
-                    start, end, _dummy = intervals[searching_index]
+                    start, end, _dummy = ranges[searching_index]
                     start, end = start.astimezone(utc), end.astimezone(utc)
                     if search_forward:
-                        interval_start = start
+                        compute_start_date = start
                     else:
-                        interval_end = end
+                        compute_end_date = end
 
                     needed_intervals_duration += (end - start).total_seconds()
 
@@ -1246,34 +1205,47 @@ class Task(models.Model):
                     remaining = needed_intervals_duration - candidate_duration
 
                     if search_forward:
-                        interval_start += timedelta(seconds=remaining)
+                        compute_start_date += timedelta(seconds=remaining)
                     else:
-                        interval_end += timedelta(seconds=-remaining)
-
-                candidate._web_gantt_reschedule_write_new_dates(interval_start, interval_end, start_date_field_name, stop_date_field_name)
+                        compute_end_date += timedelta(seconds=-remaining)
+                old_planned_date_begin, old_date_deadline = candidate[start_date_field_name], candidate[stop_date_field_name]
+                if candidate._web_gantt_reschedule_write_new_dates(compute_start_date, compute_end_date, start_date_field_name, stop_date_field_name):
+                    old_vals_per_pill_id[candidate.id] = {
+                        "planned_date_begin": old_planned_date_begin,
+                        "date_deadline": old_date_deadline,
+                    }
+                else:
+                    result["errors"].append("past_error")
+                    return result, {}
 
             next_candidates = candidate[dependency_inverted_field_name if search_forward else dependency_field_name]
             for task in next_candidates:
-                if not task._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name) or task.id not in candidates_ids:
+                if not task._web_gantt_reschedule_is_record_candidate(start_date_field_name, stop_date_field_name):
                     continue
 
-                candidates_to_plan_before_each_candidate[task.id] -= 1
-
                 if search_forward:
-                    candidate_date = max(first_possible_start_date_per_candidate[task.id], date_deadline) if first_possible_start_date_per_candidate.get(task.id) else date_deadline
+                    candidate_date = max(first_possible_start_date_per_candidate[task.id], compute_end_date) if first_possible_start_date_per_candidate.get(task.id) else compute_end_date
                     first_possible_start_date_per_candidate[task.id] = candidate_date
                 else:
-                    candidate_date = min(last_possible_end_date_per_candidate[task.id], planned_date_begin) if last_possible_end_date_per_candidate.get(task.id) else planned_date_begin
+                    candidate_date = min(last_possible_end_date_per_candidate[task.id], compute_start_date) if last_possible_end_date_per_candidate.get(task.id) else compute_start_date
                     last_possible_end_date_per_candidate[task.id] = candidate_date
 
-                if candidates_to_plan_before_each_candidate[task.id] == 0:
-                    heapq.heappush(priority_queue, (candidate_date, task))
+            used_intervals = Intervals(used_intervals)
+            if not users_ids:
+                valid_intervals_per_user[False] -= used_intervals
+            else:
+                for user in valid_intervals_per_user:
+                    if not user:
+                        continue
+
+                    if set(user) & set(users_ids):
+                        valid_intervals_per_user[user] -= used_intervals
 
         if candidates_passed_initial_deadline:
             result["warnings"].append("initial_deadline")
         if candidates_moved_with_conflicts:
             result["warnings"].append("conflict")
-        return result
+        return result, old_vals_per_pill_id
 
     def _web_gantt_reschedule_is_record_candidate(self, start_date_field_name, stop_date_field_name):
         """ Get whether the record is a candidate for the rescheduling. This method is meant to be overridden when

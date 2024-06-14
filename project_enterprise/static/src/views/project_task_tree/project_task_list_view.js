@@ -1,9 +1,9 @@
 import { projectTaskListView } from "@project/views/project_task_list/project_task_list_view";
-import { ProjectEnterpriseTaskListModel } from "./project_task_list_model";
 import { registry } from "@web/core/registry";
+import { HighlightProjectTaskSearchModel } from "../highlight_project_task_search_model";
 
 export const projectEnterpriseTaskListView = {
     ...projectTaskListView,
-    Model: ProjectEnterpriseTaskListModel,
+    SearchModel: HighlightProjectTaskSearchModel,
 };
 registry.category("views").add("project_enterprise_task_list", projectEnterpriseTaskListView);

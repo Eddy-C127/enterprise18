@@ -419,6 +419,8 @@ export class GanttModel extends Model {
         });
     }
 
+    toggleHighlightPlannedFilter(ids) {}
+
     /**
      * Reschedule masterId or slaveId according to the direction
      *
@@ -427,7 +429,12 @@ export class GanttModel extends Model {
      * @param {number} slaveId
      * @returns {Promise<any>}
      */
-    async rescheduleAccordingToDependency(direction, masterId, slaveId) {
+    async rescheduleAccordingToDependency(
+        direction,
+        masterId,
+        slaveId,
+        rescheduleAccordingToDependencyCallback
+    ) {
         const {
             dateStartField,
             dateStopField,
@@ -435,19 +442,25 @@ export class GanttModel extends Model {
             dependencyInvertedField,
             resModel,
         } = this.metaData;
-        const result = await this.mutex.exec(() =>
-            this.orm.call(resModel, "web_gantt_reschedule", [
-                direction,
-                masterId,
-                slaveId,
-                dependencyField,
-                dependencyInvertedField,
-                dateStartField,
-                dateStopField,
-            ])
-        );
-        await this.fetchData();
-        return result;
+
+        return await this.mutex.exec(async () => {
+            try {
+                const result = await this.orm.call(resModel, "web_gantt_reschedule", [
+                    direction,
+                    masterId,
+                    slaveId,
+                    dependencyField,
+                    dependencyInvertedField,
+                    dateStartField,
+                    dateStopField,
+                ]);
+                if (rescheduleAccordingToDependencyCallback) {
+                    await rescheduleAccordingToDependencyCallback(result);
+                }
+            } finally {
+                this.fetchData();
+            }
+        });
     }
 
     /**

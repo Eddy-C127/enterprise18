@@ -13,19 +13,25 @@ class TestWebGanttReschedule(TestWebGantt):
 
     def test_reschedule_forward(self):
         """ This test purpose is to ensure that the forward rescheduling is properly working. """
-        self.gantt_reschedule_forward(self.pill_1, self.pill_2)
+        res = self.gantt_reschedule_forward(self.pill_1, self.pill_2)
+        self.assert_old_pills_vals(res, 'success', 'Reschedule done successfully.', self.pill_1, self.initial_dates)
         self.assertEqual(
             self.pill_1[self.date_stop_field_name], self.pill_2[self.date_start_field_name],
             'Pill 1 should move forward up to start of Pill 2.'
         )
+        self.pill_1.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_not_replanned(self.pill_1, self.initial_dates)
 
     def test_reschedule_backward(self):
         """ This test purpose is to ensure that the backward rescheduling is properly working. """
-        self.gantt_reschedule_backward(self.pill_1, self.pill_2)
+        res = self.gantt_reschedule_backward(self.pill_1, self.pill_2)
+        self.assert_old_pills_vals(res, 'success', 'Reschedule done successfully.', self.pill_2, self.initial_dates)
         self.assertEqual(
             self.pill_2[self.date_start_field_name], self.pill_1[self.date_stop_field_name],
             'Pill 2 should move backward up to end of Pill 1.'
         )
+        self.pill_2.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_not_replanned(self.pill_2, self.initial_dates)
 
     def test_prevent_action_on_non_dependent_records(self):
         """ This test purpose is to ensure that non-dependent records are not rescheduled. """
@@ -61,12 +67,7 @@ class TestWebGanttReschedule(TestWebGantt):
             self.pill_2[self.date_start_field_name], self.pill_2_start_date,
             'Records should not be rescheduled in the past.'
         )
-        is_ir_actions_client_type = result and result['type'] and result['type'] == 'ir.actions.client'
-        is_notification_tag = result and result['tag'] and result['tag'] == 'display_notification'
-        self.assertTrue(
-            is_ir_actions_client_type and is_notification_tag,
-            'A notification should be returned when trying to reschedule a record in the past.'
-        )
+        self.assert_old_pills_vals(result, "warning", "Pill 2 cannot be scheduled in the past", self.env['test.web.gantt.pill'], {})
 
     def test_cascade_forward(self):
         """
@@ -135,7 +136,8 @@ class TestWebGanttReschedule(TestWebGantt):
             └────────────────────────┘                                       └──────────────────────────────────┘
 
             When moving forward without conflicts, we reduce the distance between trigger_record and related_record and we move
-            the children of trigger_record after related_record. ancestors should not be impacted
+            the children of trigger_record after related_record (only records in conflict, │pill_3_slave_not_in_conflict should not move).
+            ancestors should not be impacted
         """
         self.pill_2_slave_in_conflict = self.create_pill(
             'Pill in conflict with Pill 2', self.pill_1_start_date, self.pill_1_stop_date, [self.pill_2.id]
@@ -149,7 +151,12 @@ class TestWebGanttReschedule(TestWebGantt):
         self.pill_3_slave_not_in_conflict = self.create_pill(
             'Pill not in conflict with Pill 3', self.pill_4_start_date, self.pill_4_stop_date, [self.pill_3.id]
         )
-        self.gantt_reschedule_forward(self.pill_3, self.pill_4)
+        moved_pills = self.pill_3 | self.pill_3_slave_in_conflict
+        initial_dates_deep_copy = dict(self.initial_dates)
+        initial_dates_deep_copy[self.pill_3_slave_in_conflict.name] = (self.pill_3_slave_in_conflict.date_start, self.pill_3_slave_in_conflict.date_stop)
+
+        res = self.gantt_reschedule_forward(self.pill_3, self.pill_4)
+        self.assert_old_pills_vals(res, 'success', 'Reschedule done successfully.', moved_pills, initial_dates_deep_copy)
         self.assertEqual(
             self.pill_3[self.date_stop_field_name],
             self.pill_4[self.date_start_field_name],
@@ -163,13 +170,15 @@ class TestWebGanttReschedule(TestWebGantt):
         self.assertEqual(
             self.pill_3_slave_not_in_conflict[self.date_start_field_name],
             self.pill_3[self.date_stop_field_name],
-            'pill_3_slave_not_in_conflict should have been reschedule once pill_3 had been rescheduled.'
+            'pill_3_slave_not_in_conflict should not be rescheduled once as it is not in conflict with pill_3.'
         )
         self.assertEqual(
             (self.pill_2[self.date_start_field_name], self.pill_2[self.date_stop_field_name]),
             (self.pill_2_start_date, self.pill_2_stop_date),
             'pill_2 should not be rescheduled.'
         )
+        moved_pills.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_not_replanned(moved_pills, initial_dates_deep_copy)
 
     def test_conflicting_cascade_backward(self):
         """
@@ -186,7 +195,7 @@ class TestWebGanttReschedule(TestWebGantt):
         └──────────────────────────────┘                                       └──────────────────────────────────┘
 
             When moving backward without conflicts, we reduce the distance between trigger_record and related_record and we move
-            the ancestor of trigger_record before related_record. children should not be impacted
+            the ancestor of trigger_record that are in conflicts before related_record. children should not be impacted
         """
         self.pill_3_master_in_conflict = self.create_pill(
             'Pill in conflict with Pill 3', self.pill_4_start_date, self.pill_4_stop_date
@@ -208,22 +217,19 @@ class TestWebGanttReschedule(TestWebGantt):
             Command.link(self.pill_2_master_in_conflict.id),
             Command.link(self.pill_2_master_not_in_conflict.id),
         ]
-        self.gantt_reschedule_backward(self.pill_1, self.pill_2)
+        moved_pills = self.pill_2 | self.pill_2_master_in_conflict
+        initial_dates_deep_copy = dict(self.initial_dates)
+        initial_dates_deep_copy[self.pill_2_master_in_conflict.name] = (self.pill_2_master_in_conflict.date_start, self.pill_2_master_in_conflict.date_stop)
+        res = self.gantt_reschedule_backward(self.pill_1, self.pill_2)
+        self.assert_old_pills_vals(res, 'success', 'Reschedule done successfully.', moved_pills, initial_dates_deep_copy)
+        self.assertEqual(self.pill_1[self.date_stop_field_name], self.pill_2[self.date_start_field_name])
         self.assertEqual(
             self.pill_2_master_in_conflict[self.date_stop_field_name],
             self.pill_2[self.date_start_field_name],
             'pill_2_master_in_conflict should have been rescheduled once pill_2 had been rescheduled.'
         )
-        self.assertEqual(
-            self.pill_2_master_not_in_conflict[self.date_stop_field_name],
-            self.pill_1_stop_date,
-            'pill_2_master_not_in_conflict should have been reschedule once pill_2 had been rescheduled.'
-        )
-        self.assertEqual(
-            (self.pill_3[self.date_start_field_name], self.pill_3[self.date_stop_field_name]),
-            (self.pill_3_start_date, self.pill_3_stop_date),
-            'pill_3_master_in_conflict should have been rescheduled once pill_3 had been rescheduled.'
-        )
+        moved_pills.action_rollback_scheduling(res['old_vals_per_pill_id'])
+        self.assert_not_replanned(moved_pills, initial_dates_deep_copy)
 
     def test_pills2_reschedule_cascading_forward(self):
         """
@@ -235,7 +241,8 @@ class TestWebGanttReschedule(TestWebGantt):
         self.gantt_reschedule_forward(self.pills2_8, self.pills2_0)
         self.assert_not_replanned(
             self.pills2_4 | self.pills2_5 | self.pills2_6 | self.pills2_7 | self.pills2_8 | self.pills2_9 |
-            self.pills2_10 | self.pills2_11 | self.pills2_12 | self.pills2_13 | self.pills2_14
+            self.pills2_10 | self.pills2_11 | self.pills2_12 | self.pills2_13 | self.pills2_14,
+            self.initial_dates,
         )
 
         self.assertEqual(
@@ -265,7 +272,8 @@ class TestWebGanttReschedule(TestWebGantt):
         self.gantt_reschedule_backward(self.pills2_8, self.pills2_0)
         self.assert_not_replanned(
             self.pills2_0 | self.pills2_1 | self.pills2_2 | self.pills2_3 | self.pills2_9 |
-            self.pills2_10 | self.pills2_11 | self.pills2_12 | self.pills2_13 | self.pills2_14
+            self.pills2_10 | self.pills2_11 | self.pills2_12 | self.pills2_13 | self.pills2_14,
+            self.initial_dates,
         )
 
         self.assertEqual(
@@ -323,4 +331,4 @@ class TestWebGanttReschedule(TestWebGantt):
             self.pill_3[self.date_start_field_name],
             '2 moved before 3',
         )
-        self.assert_not_replanned(self.pills2_1 | self.pills2_4)
+        self.assert_not_replanned(self.pills2_1 | self.pills2_4, self.initial_dates)

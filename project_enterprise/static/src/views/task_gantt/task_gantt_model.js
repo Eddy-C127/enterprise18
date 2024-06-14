@@ -3,7 +3,7 @@ import { deserializeDate, deserializeDateTime, serializeDateTime } from "@web/co
 import { GanttModel } from "@web_gantt/gantt_model";
 import { sortBy } from "@web/core/utils/arrays";
 import { Domain } from "@web/core/domain";
-import { useProjectModelActions } from "../project_conflicted_tasks";
+import { useProjectModelActions } from "../project_highlight_tasks";
 
 const MAP_MANY_2_MANY_FIELDS = [
     {
@@ -13,17 +13,17 @@ const MAP_MANY_2_MANY_FIELDS = [
 ];
 
 export class TaskGanttModel extends GanttModel {
+    //-------------------------------------------------------------------------
+    // Public
+    //-------------------------------------------------------------------------
+
     setup() {
         super.setup(...arguments);
         this.getHighlightIds = useProjectModelActions({
             getContext: () => this.env.searchModel._context,
-            resModel: this.metaData.resModel,
+            getHighlightPlannedIds: () => this.env.searchModel.highlightPlannedIds,
         }).getHighlightIds;
     }
-
-    //-------------------------------------------------------------------------
-    // Public
-    //-------------------------------------------------------------------------
 
     getDialogContext() {
         const context = super.getDialogContext(...arguments);
@@ -32,6 +32,11 @@ export class TaskGanttModel extends GanttModel {
             delete context.user_ids;
         }
         return context;
+    }
+
+    toggleHighlightPlannedFilter(ids) {
+        super.toggleHighlightPlannedFilter(...arguments);
+        this.env.searchModel.toggleHighlightPlannedFilter(ids);
     }
 
     /**
@@ -66,6 +71,9 @@ export class TaskGanttModel extends GanttModel {
                         },
                     }
                 );
+                if (result && Array.isArray(result) && result.length > 1) {
+                    this.toggleHighlightPlannedFilter(Object.keys(result[1]).map(Number));
+                }
                 if (callback) {
                     callback(result);
                 }

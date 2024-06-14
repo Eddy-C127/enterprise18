@@ -480,7 +480,7 @@ test("Connector buttons: reschedule task backward date.", async () => {
     onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step([method, args]);
-            return true;
+            return {};
         }
     });
     await mountGanttView(ganttViewParams);
@@ -498,7 +498,7 @@ test("Connector buttons: reschedule task forward date.", async () => {
     onRpc(({ args, method, model }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step([method, args]);
-            return true;
+            return {};
         }
     });
     await mountGanttView(ganttViewParams);
@@ -516,7 +516,7 @@ test("Connector buttons: reschedule task start backward, different data.", async
     onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step([method, args]);
-            return true;
+            return {};
         }
     });
     await mountGanttView(ganttViewParams);
@@ -534,7 +534,7 @@ test("Connector buttons: reschedule task forward, different data.", async () => 
     onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
             expect.step([method, args]);
-            return true;
+            return {};
         }
     });
     await mountGanttView(ganttViewParams);

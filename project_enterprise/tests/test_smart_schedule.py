@@ -102,7 +102,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': self.user_projectmanager.ids,
         })
         # Test no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -120,6 +120,82 @@ class TestSmartSchedule(TestProjectCommon):
         self.assertEqual(self.task_project_pigs_with_allocated_hours_user.user_ids, self.user_projectmanager, "Wrong user id")
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.user_ids, self.user_projectmanager, "Wrong user id")
 
+    def test_multi_users_tasks(self):
+        """
+            user_projectuser     [task_project_pigs_with_allocated_hours_user] [task_project_goats_with_allocated_hours_user]                                               [task_project_pigs_no_allocated_hours_user]
+                                                                            |                                                                                                ^
+                                                                            |                                                                                                |
+                                                                            |                                                                                                |
+            user_projectmanager                                             ------------------------------------------------>[task_project_pigs_with_allocated_hours_manager]-
+            and user_projectuser
+        """
+        self.task_project_pigs_with_allocated_hours_manager.write({
+            "user_ids": [self.user_projectmanager.id, self.user_projectuser.id],
+            "depend_on_ids": [self.task_project_pigs_with_allocated_hours_user.id],
+            "dependent_ids": [self.task_project_pigs_no_allocated_hours_user.id],
+            "date_deadline": datetime(2023, 2, 2),
+        })
+
+        self.task_project_pigs_no_allocated_hours_user.write({
+            "user_ids": [self.user_projectuser.id],
+        })
+
+        self.env["hr.employee"].create([{
+            "name": self.user_projectuser.name,
+            "user_id": self.user_projectuser.id
+        }, {
+            "name": self.user_projectmanager.name,
+            "user_id": self.user_projectmanager.id
+        }])
+
+        self.env['resource.calendar.leaves'].create([{
+            'name': 'scheduled leave',
+            'date_from': datetime(2023, 1, 3, 0),
+            'date_to': datetime(2023, 1, 6, 23),
+            'resource_id': self.user_projectuser.employee_id.resource_id.id,
+            'time_type': 'leave',
+        }, {
+            'name': 'scheduled leave',
+            'date_from': datetime(2023, 1, 5, 0),
+            'date_to': datetime(2023, 1, 10, 23),
+            'resource_id': self.user_projectmanager.employee_id.resource_id.id,
+            'time_type': 'leave',
+        }])
+
+        result = (
+            self.task_project_pigs_with_allocated_hours_user + self.task_project_pigs_with_allocated_hours_manager + self.task_project_pigs_no_allocated_hours_user + self.task_project_goats_with_allocated_hours_user
+        ).with_context({
+            'last_date_view': self.end_date_view_str,
+            'gantt_scale': "week",
+            'cell_part': 2.0,
+        }).schedule_tasks({
+            'planned_date_begin': self.start_date_view_str,
+            'date_deadline': (self.start_date_view + relativedelta(day=1)).strftime('%Y-%m-%d %H:%M:%S'),
+            'user_ids': self.user_projectuser.ids,
+        })
+        # Test no warning is displayed
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
+
+        self.assertEqual(self.task_project_pigs_with_allocated_hours_user.planned_date_begin, datetime(2023, 1, 2, 7))
+        self.assertEqual(self.task_project_pigs_with_allocated_hours_user.date_deadline, datetime(2023, 1, 2, 16))
+
+        # user_projectuser is off till 6
+        # user_projectmanager is off till 10
+        # the first possible time for both of them is starting from 11
+        self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.planned_date_begin, datetime(2023, 1, 11, 7))
+        self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.date_deadline, datetime(2023, 1, 12, 9))
+
+        # even that task_project_pigs_with_allocated_hours_manager was planned first as it has a deadline
+        # smart scheduling is optimizing resources so
+        # the gap in days 09 and 10 was filled to plan task_project_goats_with_allocated_hours_user
+        self.assertEqual(self.task_project_goats_with_allocated_hours_user.planned_date_begin, datetime(2023, 1, 9, 7))
+        self.assertEqual(self.task_project_goats_with_allocated_hours_user.date_deadline, datetime(2023, 1, 10, 9))
+
+        # should not be planned after the old deadline of its parent, as its parent will be planned again
+        # if the new deadline is before the old one, no need to block the task and plan it ASAP
+        self.assertEqual(self.task_project_pigs_no_allocated_hours_user.planned_date_begin, datetime(2023, 1, 12, 9))
+        self.assertEqual(self.task_project_pigs_no_allocated_hours_user.date_deadline, datetime(2023, 1, 13, 14))
+
     def test_tasks_allocated_hours_no_user(self):
         result = (
             self.task_project_pigs_with_allocated_hours_user + self.task_project_pigs_with_allocated_hours_no_user
@@ -133,7 +209,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': None,
         })
         # That no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -164,7 +240,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': self.user_projectmanager.ids,
         })
         # Test no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -173,10 +249,10 @@ class TestSmartSchedule(TestProjectCommon):
                          '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_with_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-03 12:00:00',
+                         '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_with_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 14:00:00',
+                         '2023-01-04 11:00:00',
                          )
         # Check if the user is the target one
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.user_ids, self.user_projectmanager, "Wrong user id")
@@ -208,7 +284,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': self.user_projectuser.ids,
         })
         # Test no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -250,7 +326,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': self.user_projectuser.ids,
         })
         # Test no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-05 07:00:00',
@@ -274,7 +350,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': self.user_projectuser.ids,
         })
         # Test no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -283,22 +359,22 @@ class TestSmartSchedule(TestProjectCommon):
                          '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-03 12:00:00',
+                         '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-03 16:00:00',
+                         '2023-01-04 14:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 07:00:00',
+                         '2023-01-04 14:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 11:00:00',
+                         '2023-01-06 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_no_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 12:00:00',
+                         '2023-01-06 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_no_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 16:00:00',
+                         '2023-01-09 14:00:00',
                          )
         # Check if the user is the target one
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.user_ids, self.user_projectuser, "Wrong user id")
@@ -319,7 +395,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': self.user_projectuser.ids,
         })
         # Test no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -328,22 +404,22 @@ class TestSmartSchedule(TestProjectCommon):
                          '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-03 12:00:00',
+                         '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-03 16:00:00',
+                         '2023-01-04 14:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 07:00:00',
+                         '2023-01-04 14:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 11:00:00',
+                         '2023-01-06 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_no_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 12:00:00',
+                         '2023-01-06 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_no_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 16:00:00',
+                         '2023-01-09 14:00:00',
                          )
         # Check if the user is the target one
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.user_ids, self.user_projectuser, "Wrong user id")
@@ -364,7 +440,7 @@ class TestSmartSchedule(TestProjectCommon):
             'user_ids': self.user_projectuser.ids,
         })
         # Test no warning is displayed
-        self.assertDictEqual(result, {}, 'No warnings should be displayed')
+        self.assertDictEqual(result[0], {}, 'No warnings should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -373,22 +449,22 @@ class TestSmartSchedule(TestProjectCommon):
                          '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 07:00:00',
+                         '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-04 16:00:00',
+                         '2023-01-06 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-05 07:00:00',
+                         '2023-01-06 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-05 16:00:00',
+                         '2023-01-11 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_no_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-06 07:00:00',
+                         '2023-01-11 09:00:00',
                          )
         self.assertEqual(self.task_project_goats_no_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-01-06 16:00:00',
+                         '2023-01-16 09:00:00',
                          )
         # Check if the user is the target one
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.user_ids, self.user_projectuser, "Wrong user id")
@@ -396,9 +472,9 @@ class TestSmartSchedule(TestProjectCommon):
         self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.user_ids, self.user_projectuser, "Wrong user id")
         self.assertEqual(self.task_project_goats_no_allocated_hours_user.user_ids, self.user_projectuser, "Wrong user id")
 
-    def test_tasks_no_allocated_hours_for_year_scale_with_out_of_scale_notification(self):
-        result = (
-            self.task_project_pigs_with_allocated_hours_manager + self.task_project_pigs_no_allocated_hours_user
+    def test_tasks_no_allocated_hours_for_year_scale(self):
+        (
+            self.task_project_pigs_with_allocated_hours_manager + self.task_project_pigs_no_allocated_hours_user + self.task_project_pigs_no_allocated_hours_manager + self.task_project_pigs_no_allocated_hours_no_user
         ).with_context({
             'last_date_view': self.end_date_view_str,
             'gantt_scale': "year",
@@ -408,9 +484,6 @@ class TestSmartSchedule(TestProjectCommon):
             'date_deadline': (self.start_date_view + relativedelta(day=1)).strftime('%Y-%m-%d %H:%M:%S'),
             'user_ids': self.user_projectmanager.ids,
         })
-        # Test no warning is displayed
-        self.assertDictEqual(result, {'out_of_scale_notification': 'Tasks have been successfully scheduled for the upcoming periods.'},
-                             'The out of scale warning should be displayed')
         # Checking of the planned dates
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
                          '2023-01-02 07:00:00',
@@ -419,10 +492,22 @@ class TestSmartSchedule(TestProjectCommon):
                          '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-02-01 07:00:00',
+                         '2023-01-03 09:00:00',
                          )
         self.assertEqual(self.task_project_pigs_no_allocated_hours_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
-                         '2023-02-28 16:00:00',
+                         '2023-01-31 09:00:00',
+                         )
+        self.assertEqual(self.task_project_pigs_no_allocated_hours_manager.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
+                         '2023-01-31 09:00:00',
+                         )
+        self.assertEqual(self.task_project_pigs_no_allocated_hours_manager.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
+                         '2023-02-27 11:00:00',
+                         )
+        self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.planned_date_start.strftime('%Y-%m-%d %H:%M:%S'),
+                         '2023-02-27 12:00:00',
+                         )
+        self.assertEqual(self.task_project_pigs_no_allocated_hours_no_user.date_deadline.strftime('%Y-%m-%d %H:%M:%S'),
+                         '2023-03-23 16:00:00',
                          )
         # Check if the user is the target one
         self.assertEqual(self.task_project_pigs_with_allocated_hours_manager.user_ids, self.user_projectmanager, "Wrong user id")
@@ -465,16 +550,16 @@ class TestSmartSchedule(TestProjectCommon):
             [
                 ('Task (deadline: Tuesday, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 16, 6, 0), datetime(2023, 10, 16, 15, 0)),
                 ('Task (deadline: Tuesday, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 17, 6, 0), datetime(2023, 10, 17, 15, 0)),
-                ('Task (deadline: Tuesday, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 18, 6, 0), datetime(2023, 10, 18, 10, 0)),
-                ('Task (deadline: Tuesday, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 18, 11, 0), datetime(2023, 10, 18, 15, 0)),
-                ('Task (deadline: Wednesday, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 19, 6, 0), datetime(2023, 10, 19, 15, 0)),
-                ('Task (deadline: Wednesday, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 20, 6, 0), datetime(2023, 10, 20, 15, 0)),
-                ('Task (deadline: Wednesday, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 23, 6, 0), datetime(2023, 10, 23, 10, 0)),
-                ('Task (deadline: Wednesday, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 23, 11, 0), datetime(2023, 10, 23, 15, 0)),
-                ('Task (deadline: None, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 24, 6, 0), datetime(2023, 10, 24, 15, 0)),
-                ('Task (deadline: None, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 25, 6, 0), datetime(2023, 10, 25, 15, 0)),
-                ('Task (deadline: None, allocated: 0h, priority: 1)', 4.0, datetime(2023, 10, 26, 6, 0), datetime(2023, 10, 26, 10, 0)),
-                ('Task (deadline: None, allocated: 0h, priority: 0)', 4.0, datetime(2023, 10, 26, 11, 0), datetime(2023, 10, 26, 15, 0)),
+                ('Task (deadline: Tuesday, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 18, 6, 0), datetime(2023, 10, 19, 10, 0)),
+                ('Task (deadline: Tuesday, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 19, 11, 0), datetime(2023, 10, 20, 15, 0)),
+                ('Task (deadline: Wednesday, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 23, 6, 0), datetime(2023, 10, 23, 15, 0)),
+                ('Task (deadline: Wednesday, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 24, 6, 0), datetime(2023, 10, 24, 15, 0)),
+                ('Task (deadline: Wednesday, allocated: 0h, priority: 1)', 0.0, datetime(2023, 10, 25, 6, 0), datetime(2023, 10, 26, 10, 0)),
+                ('Task (deadline: Wednesday, allocated: 0h, priority: 0)', 0.0, datetime(2023, 10, 26, 11, 0), datetime(2023, 10, 27, 15, 0)),
+                ('Task (deadline: None, allocated: 8h, priority: 1)', 8.0, datetime(2023, 10, 30, 7, 0), datetime(2023, 10, 30, 16, 0)),
+                ('Task (deadline: None, allocated: 8h, priority: 0)', 8.0, datetime(2023, 10, 31, 7, 0), datetime(2023, 10, 31, 16, 0)),
+                ('Task (deadline: None, allocated: 0h, priority: 1)', 12.0, datetime(2023, 11, 1, 7, 0), datetime(2023, 11, 2, 11, 0)),
+                ('Task (deadline: None, allocated: 0h, priority: 0)', 12.0, datetime(2023, 11, 2, 12, 0), datetime(2023, 11, 3, 16, 0)),
             ],
             """
             We expect the tasks to be sorted as follows:
@@ -498,14 +583,11 @@ class TestSmartSchedule(TestProjectCommon):
             'planned_date_begin': datetime(2023, 10, 17, 6, 0),
             'date_deadline': datetime(2023, 10, 17, 15, 0),
         }, {
-            # This task has the closest deadline, but can't be done in 1 day (`allocated_hours` > 8h),
-            # so it'll be scheduled later.
+            # This task has the closest deadline => planned first
             'name': "Task (allocated: 1, deadline: Tuesday)",
             'date_deadline': datetime(2023, 10, 17, 10, 0),
             'allocated_hours': 16,
         }, {
-            # This one, though having the farthest deadline, can be done in 1 day (8h),
-            # so it'll be scheduled first.
             'name': "Task (allocated: 1 days, deadline: Friday)",
             'date_deadline': datetime(2023, 10, 20, 10, 0),
             'allocated_hours': 8,
@@ -524,7 +606,60 @@ class TestSmartSchedule(TestProjectCommon):
         self.assertEqual(
             tasks.sorted('planned_date_begin').mapped(lambda t: (t.allocated_hours, t.planned_date_begin, t.date_deadline)),
             [
-                (8.0, datetime(2023, 10, 16, 6, 0), datetime(2023, 10, 16, 15, 0)),
-                (16.0, datetime(2023, 10, 18, 6, 0), datetime(2023, 10, 19, 15, 0)),
+                (16.0, datetime(2023, 10, 16, 6, 0), datetime(2023, 10, 18, 15, 0)),
+                (8.0, datetime(2023, 10, 19, 6, 0), datetime(2023, 10, 19, 15, 0)),
             ],
         )
+
+    def test_undo_scheduling(self):
+        old_vals = {
+            self.task_project_pigs_with_allocated_hours_user.id: {
+                "planned_date_begin": False,
+                "date_deadline": datetime(2023, 10, 19, 15, 0),
+                # user_id will not be changed as it's already assigned to user_projectuser in the first iteration
+            },
+            self.task_project_pigs_with_allocated_hours_manager.id: {
+                "planned_date_begin": False,
+                "date_deadline": datetime(2024, 9, 18, 15, 0),
+                "user_ids": [self.user_projectmanager.id],
+            },
+            self.task_project_pigs_with_allocated_hours_no_user.id: {
+                "planned_date_begin": False,
+                "date_deadline": False,
+                "user_ids": False,
+            },
+            self.task_project_pigs_no_allocated_hours_user.id: {
+                "planned_date_begin": False,
+                "date_deadline": False,
+                # user_id will not be changed as user_projectuser is part of the assignees in the first iteration
+            },
+        }
+
+        self.task_project_pigs_with_allocated_hours_user.write({"date_deadline": datetime(2023, 10, 19, 15, 0)})
+        self.task_project_pigs_with_allocated_hours_manager.write({"date_deadline": datetime(2024, 9, 18, 15, 0)})
+        self.task_project_pigs_no_allocated_hours_user.write({"user_ids": [self.user_projectuser.id, self.user_projectmanager.id]})
+
+        tasks_to_schedule = self.task_project_pigs_with_allocated_hours_user + self.task_project_pigs_with_allocated_hours_manager + self.task_project_pigs_with_allocated_hours_no_user + self.task_project_pigs_no_allocated_hours_user
+
+        for new_user in [self.user_projectuser.ids, False]:
+            if not new_user:
+                # when planning from not assigned line, user_ids will not change
+                del old_vals[self.task_project_pigs_with_allocated_hours_no_user.id]["user_ids"]
+                del old_vals[self.task_project_pigs_with_allocated_hours_manager.id]["user_ids"]
+
+            result = tasks_to_schedule.with_context({
+                'last_date_view': '2023-10-31 22:00:00',
+                'cell_part': 2.0,
+            }).schedule_tasks({
+                'planned_date_begin': '2023-10-15 22:00:00',
+                'date_deadline': '2023-10-16 21:59:59',
+                'user_ids': new_user,
+            })
+
+            self.assertDictEqual(result[1], old_vals)
+            tasks_to_schedule.action_rollback_auto_scheduling({str(task_id): vals for task_id, vals in result[1].items()})
+
+            for task in tasks_to_schedule:
+                for field in ["planned_date_begin", "date_deadline", "user_ids"]:
+                    if field in old_vals[task.id]:
+                        self.assertEqual(task[field].ids or False if field == "user_ids" else task[field], old_vals[task.id][field])

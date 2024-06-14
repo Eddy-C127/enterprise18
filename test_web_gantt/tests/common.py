@@ -100,6 +100,13 @@ class TestWebGantt(TransactionCase):
         cls.pills2_13, \
         cls.pills2_14 = cls.TestWebGanttPill.create(vals)
 
+        cls.initial_dates.update({
+            cls.pill_1.name: (cls.pill_1.date_start, cls.pill_1.date_stop),
+            cls.pill_2.name: (cls.pill_2.date_start, cls.pill_2.date_stop),
+            cls.pill_3.name: (cls.pill_3.date_start, cls.pill_3.date_stop),
+            cls.pill_4.name: (cls.pill_4.date_start, cls.pill_4.date_stop),
+        })
+
         cls.pills2_0.write({
             cls.dependency_field_name: [Command.link(cls.pills2_8.id)],
             cls.dependency_inverted_field_name: [Command.link(cls.pills2_1.id)],
@@ -152,7 +159,19 @@ class TestWebGantt(TransactionCase):
             cls.date_start_field_name, cls.date_stop_field_name
         )
 
-    def assert_not_replanned(cls, pills):
+    def assert_not_replanned(cls, pills, initial_dates):
         for pill in pills:
-            cls.assertEqual(pill[cls.date_start_field_name], cls.initial_dates[pill.name][0], f"pill {pill.name} should not be replanned")
-            cls.assertEqual(pill[cls.date_stop_field_name], cls.initial_dates[pill.name][1], f"pill {pill.name} should not be replanned")
+            cls.assertEqual(pill[cls.date_start_field_name], initial_dates[pill.name][0], f"pill {pill.name} should not be replanned")
+            cls.assertEqual(pill[cls.date_stop_field_name], initial_dates[pill.name][1], f"pill {pill.name} should not be replanned")
+
+    def assert_old_pills_vals(cls, res, _type, message, moved_pills, initial_dates):
+        cls.assertDictEqual(res, {
+            'type': _type,
+            'message': message,
+            'old_vals_per_pill_id': {
+                pill.id: {
+                    'date_start': initial_dates[pill.name][0],
+                    'date_stop': initial_dates[pill.name][1],
+                } for pill in moved_pills
+            },
+        })

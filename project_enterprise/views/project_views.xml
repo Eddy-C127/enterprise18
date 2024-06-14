@@ -46,6 +46,9 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_kanban"/>
         <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="js_class">project_enterprise_task_kanban</attribute>
+            </xpath>
             <div name="date_deadline" position="attributes">
                 <attribute name="invisible">planned_date_begin or not date_deadline or state in ['1_done', '1_canceled']</attribute>
             </div>

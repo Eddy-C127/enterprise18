@@ -7,10 +7,10 @@ export class ProjectTaskCalendarCommonRenderer extends CalendarCommonRenderer {
     eventClassNames(info) {
         const classesToAdd = super.eventClassNames(info);
         const { event } = info;
-        const model = this.props.model;
-        const record = model.records[event.id];
+        const highlightIds = this.env.searchModel.highlightPlannedIds;
+        const record = this.props.model.records[event.id];
 
-        if (record && model.highlightIds && !model.highlightIds.includes(record.id)) {
+        if (record && highlightIds?.length && !highlightIds.includes(record.id)) {
             classesToAdd.push("opacity-25");
         }
         return classesToAdd;

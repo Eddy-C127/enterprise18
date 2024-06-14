@@ -7,6 +7,7 @@ import {
     useEffect,
     useExternalListener,
     useRef,
+    markup,
 } from "@odoo/owl";
 import { hasTouch, isMobileOS } from "@web/core/browser/feature_detection";
 import { Domain } from "@web/core/domain";
@@ -25,6 +26,7 @@ import { useService } from "@web/core/utils/hooks";
 import { omit, pick } from "@web/core/utils/objects";
 import { debounce, throttleForAnimation } from "@web/core/utils/timing";
 import { url } from "@web/core/utils/urls";
+import { escape } from "@web/core/utils/strings";
 import { useVirtualGrid } from "@web/core/virtual_grid_hook";
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
@@ -188,6 +190,7 @@ export class GanttRenderer extends Component {
 
         this.actionService = useService("action");
         this.dialogService = useService("dialog");
+        this.notificationService = useService("notification");
 
         this.is24HourFormat = is24HourFormat();
 
@@ -2427,6 +2430,46 @@ export class GanttRenderer extends Component {
         const { masterId, slaveId } = this.getRecordIds(connectorId);
         this.model.removeDependency(masterId, slaveId);
     }
+    rescheduleAccordingToDependencyCallback(result) {
+        if (result["type"] !== "warning" && "old_vals_per_pill_id" in result) {
+            this.model.toggleHighlightPlannedFilter(
+                Object.keys(result["old_vals_per_pill_id"]).map(Number)
+            );
+        }
+        this.notificationFn?.();
+        this.notificationFn = this.notificationService.add(
+            markup(
+                `<i class="fa btn-link fa-check"></i><span class="ms-1">${escape(
+                    result["message"]
+                )}</span>`
+            ),
+            {
+                type: result["type"],
+                sticky: true,
+                buttons:
+                    result["type"] === "warning"
+                        ? []
+                        : [
+                              {
+                                  name: "Undo",
+                                  icon: "fa-undo",
+                                  onClick: async () => {
+                                      const ids = Object.keys(result["old_vals_per_pill_id"]).map(
+                                          Number
+                                      );
+                                      await this.orm.call(
+                                          this.model.metaData.resModel,
+                                          "action_rollback_scheduling",
+                                          [ids, result["old_vals_per_pill_id"]]
+                                      );
+                                      this.notificationFn();
+                                      await this.model.fetchData();
+                                  },
+                              },
+                          ],
+            }
+        );
+    }
 
     /**
      *
@@ -2435,14 +2478,12 @@ export class GanttRenderer extends Component {
      */
     async onRescheduleButtonClick(direction, connectorId) {
         const { masterId, slaveId } = this.getRecordIds(connectorId);
-        const result = await this.model.rescheduleAccordingToDependency(
+        await this.model.rescheduleAccordingToDependency(
             direction,
             masterId,
-            slaveId
+            slaveId,
+            this.rescheduleAccordingToDependencyCallback.bind(this)
         );
-        if (result && typeof result === "object") {
-            this.actionService.doAction(result);
-        }
     }
 
     /**
