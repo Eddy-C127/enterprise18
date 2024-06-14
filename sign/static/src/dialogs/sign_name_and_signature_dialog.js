@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { rpc } from "@web/core/network/rpc";
 import { _t } from "@web/core/l10n/translation";
 /* global html2canvas */
 
@@ -80,9 +81,12 @@ export class SignNameAndSignature extends NameAndSignature {
         this.props.signature.signatureChanged = true;
     }
 
-    onClickSignAuto() {
+    async onClickSignAuto() {
         super.onClickSignAuto();
         this.props.signature.signatureChanged = true;
+        if (this.fonts.length <= 1) {
+            this.fonts = await rpc(`/web/sign/get_fonts/`);
+        }
     }
 
     onClickSignDrawClear() {
@@ -142,6 +146,7 @@ export class SignNameAndSignatureDialog extends Component {
             frame: this.props.frame || false,
             hash: this.props.hash,
             onNameChange: this.onNameChange.bind(this),
+            defaultFont: "LaBelleAurore-Regular.ttf",
         };
     }
 

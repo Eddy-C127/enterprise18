@@ -23,7 +23,7 @@ const hash = "abcdef...";
 QUnit.module("Sign Name and Signature Dialog", function (hooks) {
     const mountSignNameAndSignatureDialog = async () => {
         const mockRPC = async (route) => {
-            if (route === "/web/sign/get_fonts/") {
+            if (route.includes("/web/sign/get_fonts/")) {
                 return {};
             }
         };
@@ -122,6 +122,52 @@ QUnit.module("Sign Name and Signature Dialog", function (hooks) {
             );
             await click(target, ".form-check-input");
             assert.ok(target.querySelector(".o_sign_frame").classList.contains("active"));
+        }
+    );
+
+    QUnit.test(
+        "sign name and signature dialog default font",
+
+        async function (assert) {
+            const mountSignNameAndSignatureDialogSaved = async () => {
+                const mockRPC = async (route) => {
+                    if (route.includes("/web/sign/get_fonts/")) {
+                        assert.step(route);
+                        return [];
+                    }
+                };
+                const env = await makeTestEnv({ mockRPC });
+                env.dialogData = {
+                    isActive: true,
+                    close: () => {},
+                };
+                await mountInFixture(SignNameAndSignatureDialog, target, {
+                    props: {
+                        signature: {
+                            name
+                        },
+                        frame: {},
+                        signatureType: "signature",
+                        signatureImage: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+BCQAHBQICJmhD1AAAAABJRU5ErkJggg==",
+                        displaySignatureRatio: 1,
+                        activeFrame: true,
+                        defaultFrame: "",
+                        mode: "draw",
+                        hash,
+                        onConfirm: () => {},
+                        onConfirmAll: () => {},
+                        onCancel: () => {},
+                        close: () => {},
+                    },
+                    env,
+                });
+            };
+
+            const hasGroup = async () => true;
+            patchUserWithCleanup({ hasGroup });
+            await mountSignNameAndSignatureDialogSaved();
+            await click(target, ".o_web_sign_auto_button");
+            assert.verifySteps(["/web/sign/get_fonts/LaBelleAurore-Regular.ttf", "/web/sign/get_fonts/"]);
         }
     );
 });
