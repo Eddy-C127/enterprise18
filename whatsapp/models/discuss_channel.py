@@ -265,7 +265,7 @@ class DiscussChannel(models.Model):
                     'model': "discuss.channel",
                 }
             })
-        store.add({"Thread": self._channel_info()})
+        self._channel_info(store)
         return store.get_result()
 
     # ------------------------------------------------------------
@@ -282,16 +282,17 @@ class DiscussChannel(models.Model):
             return
         super()._action_unfollow(partner)
 
-    def _channel_info(self):
-        channel_infos = super()._channel_info()
-        channel_infos_dict = {c['id']: c for c in channel_infos}
-
-        for channel in self:
-            if channel.channel_type == 'whatsapp':
-                channel_infos_dict[channel.id]['whatsapp_channel_valid_until'] = \
-                    fields.Datetime.to_string(channel.whatsapp_channel_valid_until)
-
-        return list(channel_infos_dict.values())
+    def _to_store(self, store):
+        super()._to_store(store)
+        for channel in self.filtered(lambda channel: channel.channel_type == "whatsapp"):
+            data = {
+                "id": channel.id,
+                "model": "discuss.channel",
+                "whatsapp_channel_valid_until": fields.Datetime.to_string(
+                    channel.whatsapp_channel_valid_until
+                ),
+            }
+            store.add({"Thread": data})
 
     def _types_allowing_seen_infos(self):
         return super()._types_allowing_seen_infos() + ["whatsapp"]
