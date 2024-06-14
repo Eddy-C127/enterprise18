@@ -6,7 +6,7 @@
                 <div class="d-flex gap-1">
                     <t t-if="props.actionType === '' || props.actionType === 'sign_send_request'">
                         <button type="button" class="btn btn-primary o_sign_template_send" t-on-click="onSendClick">Send</button>
-                        <button type="button" class="btn btn-primary o_sign_template_sign_now" t-on-click="onSignNowClick">Sign Now</button>
+                        <button type="button" class="btn btn-primary o_sign_template_sign_now text-nowrap" t-on-click="onSignNowClick">Sign Now</button>
                         <t t-if="showShareButton">
                             <button type="button" class="btn btn-secondary o_sign_template_share" t-on-click="onShareClick">Share</button>
                         </t>
