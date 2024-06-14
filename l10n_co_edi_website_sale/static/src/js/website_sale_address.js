@@ -1,6 +1,34 @@
 /** @odoo-module **/
 import websiteSaleAddress from "@website_sale/js/address";
 import { rpc } from "@web/core/network/rpc";
+import { Component, useState } from "@odoo/owl";
+import { SelectMenu } from "@web/core/select_menu/select_menu";
+import { attachComponent } from "@web_editor/js/core/owl_utils";
+
+class SelectMenuWrapper extends Component {
+    static template = "l10n_co_edi_website_sale.SelectMenuWrapper";
+    static components = { SelectMenu };
+    static props = {
+        el: { optional: true, type: Object },
+    };
+
+    setup() {
+        this.state = useState({
+            choices: [],
+            value: this.props.el.value,
+        });
+        this.state.choices = [...this.props.el.querySelectorAll("option")].filter((x) => x.value);
+        this.props.el.classList.add("d-none");
+    }
+
+    onSelect(value) {
+        this.state.value = value;
+        this.props.el.value = value;
+        // Manually trigger the change event
+        const event = new Event("change", { bubbles: true });
+        this.props.el.dispatchEvent(event);
+    }
+}
 
 websiteSaleAddress.include({
     events: Object.assign({}, websiteSaleAddress.prototype.events, {
@@ -14,7 +42,10 @@ websiteSaleAddress.include({
         if (this.isColombianCompany) {
             this.elementCities = this.addressForm.city_id;
             this.elementState = this.addressForm.state_id;
-            $("select[name='l10n_co_edi_obligation_type_ids']").select2();
+            const selectEl = this.el.querySelector("select[name='l10n_co_edi_obligation_type_ids']");
+            attachComponent(this, selectEl.parentElement, SelectMenuWrapper, {
+                el: selectEl,
+            });
             $("select[name='l10n_latam_identification_type_id']").change();
         }
     },

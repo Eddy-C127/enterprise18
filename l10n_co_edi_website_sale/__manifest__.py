@@ -18,6 +18,7 @@
     'assets': {
         'web.assets_frontend': [
             'l10n_co_edi_website_sale/static/src/js/website_sale_address.js',
+            'l10n_co_edi_website_sale/static/src/xml/select_menu_wrapper_template.xml',
         ],
         'web.assets_tests': [
             'l10n_co_edi_website_sale/static/tests/**/*',

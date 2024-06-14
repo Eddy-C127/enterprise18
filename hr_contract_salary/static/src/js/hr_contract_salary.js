@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { Component, useState } from "@odoo/owl";
 import { KeepLast } from "@web/core/utils/concurrency";
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { debounce } from "@web/core/utils/timing";
@@ -7,6 +8,35 @@ import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
 import { renderToElement } from "@web/core/utils/render";
 import { getDataURLFromFile } from "@web/core/utils/urls";
+import { attachComponent } from "@web_editor/js/core/owl_utils";
+import { SelectMenu } from "@web/core/select_menu/select_menu";
+
+class SelectMenuWrapper extends Component {
+    static template = "hr_contract_salary.SelectMenuWrapper";
+    static components = { SelectMenu };
+    static props = {
+        el: { optional: true, type: Object },
+    };
+
+    setup() {
+        this.state = useState({
+            choices: [],
+            value: this.props.el.value,
+            disabled: false,
+            required: this.props.el.required,
+        });
+        this.state.choices = [...this.props.el.querySelectorAll("option")].filter((x) => x.value);
+        this.props.el.classList.add("d-none");
+    }
+
+    onSelect(value) {
+        this.state.value = value;
+        this.props.el.value = value;
+        // Manually trigger the change event
+        const event = new Event("change", { bubbles: true });
+        this.props.el.dispatchEvent(event);
+    }
+}
 
 publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
     selector: '#hr_cs_form',
@@ -29,30 +59,41 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
     init(parent, options) {
         this._super(parent);
         this.keepLast = new KeepLast();
+        this.selectMenus = {};
         $('body').attr('id', 'hr_contract_salary');
-        $("#hr_contract_salary select:not(.refuse-reason-select)").select2();
+        const selectWrapperEls = document.querySelectorAll(
+            "#hr_contract_salary select:not(.refuse-reason-select)"
+        );
 
-        $('b[role="presentation"]').hide();
-        $('.select2-arrow').append('<i class="oi oi-chevron-down"></i>');
+        const promises = [];
+        selectWrapperEls.forEach((el) => {
+            const prom = attachComponent(parent, el.parentNode, SelectMenuWrapper, {
+                el: el,
+            }).then((result) => {
+                this.selectMenus[el.name] = result;
+            });
+            promises.push(prom);
+        });
+
         this.updateGross = debounce(this.updateGross, 1000);
         this.initializeUnsetSliders();
         var whitelist = $("input[name='whitelist']").val();
         if (whitelist) {
             var whitelisted_fields = whitelist.split(',');
-            $('input')
-                .toArray()
-                .forEach(input => {
-                    if (!whitelisted_fields.includes(input.name)) {
-                        $(input).attr("disabled", true);
+            document.querySelectorAll("input").forEach((input) => {
+                if (!whitelisted_fields.includes(input.name)) {
+                    input.setAttribute("disabled", true);
+                }
+            });
+            Promise.all(promises).then(() => {
+                for (const [, selectMenuInst] of Object.entries(this.selectMenus)) {
+                    if (!whitelisted_fields.includes(selectMenuInst.component.props.el.name)) {
+                        selectMenuInst?.update({
+                            disabled: true,
+                        });
                     }
-                });
-            $('select')
-                .toArray()
-                .forEach(select => {
-                    if (!whitelisted_fields.includes(select.name)) {
-                        $(select).attr("disabled", true);
-                    }
-                });
+                }
+            });
         }
         this.stateElements = $("select[name='state_id']").find('option');
         this.onchangeCountry();
@@ -82,8 +123,10 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
                 if (dependentBenefits || requested_documents) {
                     let newValue = $(input).data('value');
                     if (input.type === 'radio') {
-                        const target = $("input[name='" + input.name + "']").toArray().find(elem => elem.checked);
-                        newValue = $(target).data('value');
+                        const target = [
+                            ...document.querySelectorAll("input[name='" + input.name + "']"),
+                        ].find((elem) => elem.checked);
+                        newValue = target.getAttribute("data-value");
                         if (newValue === 'No') {
                             newValue = 0;
                         }
@@ -228,23 +271,32 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         $("input[name='" + benefitField + "']").val(event.target.value);
     },
 
-    onchangeCountry(event) {
-        const stateElement = $("select[name='state_id']");
-        let countryID = parseInt($("select[name='country_id'][applies-on='address']").val());
+    async onchangeCountry(event) {
+        const stateElement = document.querySelector("select[name='state_id']");
+        if (!stateElement) {
+            return;
+        }
+        const countryID = parseInt(
+            document.querySelector("select[name='country_id'][applies-on='address']")?.value
+        );
         let enableState = true;
-        stateElement.select2('val', '');
-        stateElement.find('option').remove();
-        stateElement.append(this.stateElements);
-        stateElement.find('option').toArray().forEach(option => {
-            let $option = $(option);
-            let stateCountryID = $option.data('additional-info');
+        const stateSelectMenu = this.selectMenus["state_id"];
+        stateElement.querySelectorAll("option").forEach((option) => option.remove());
+        this.stateElements.forEach((option) => stateElement.appendChild(option));
+        stateElement.querySelectorAll("option").forEach((option) => {
+            const stateCountryID = option.getAttribute("data-additional-info");
             if (countryID === stateCountryID) {
                 enableState = false;
             } else {
-                $option.remove();
+                option.remove();
             }
         });
-        stateElement.attr('disabled', enableState);
+        const choicesEls = [...stateElement.querySelectorAll("option")];
+        stateSelectMenu?.update({
+            value: "",
+            choices: choicesEls,
+            disabled: enableState,
+        });
     },
 
     onkeydownInput(event) {
@@ -571,7 +623,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
                 }
             });
             $("select:required").toArray().forEach(select =>  {
-                const selectParent = $(select).parent().find('.select2-choice');
+                const selectParent = $(select).parent().find('.o_select_menu');
                 selectParent.toggleClass('border-danger', $(select).val() === '');
                 let selectPosition = selectParent.offset().top;
                 if ((!elementToScroll || selectPosition <= elementToScrollPosition) && $(select).val() === '') {
@@ -588,7 +640,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
                 $(textarea).removeClass('border-danger');
             });
             $("select:required").toArray().forEach(select => {
-                const selectParent = $(select).parent().find('.select2-choice');
+                const selectParent = $(select).parent().find('.o_select_menu');
                 if ($(select).val() !== '') {
                     selectParent.removeClass('border-danger');
                 }

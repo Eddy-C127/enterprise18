@@ -117,7 +117,7 @@
                 border-color: red !important;
                 color: #495057 !important;
             }
-            a.select2-choice.bg-danger {
+            a.o_select_menu.bg-danger {
                 background-color: white !important;
                 border-color: red !important;
                 color: #495057 !important;
@@ -288,74 +288,6 @@
             &::-moz-range-progress { @include progress; }
             &::-ms-fill-lower { @include progress; }
         }
-
-
-    /*
-       Selects
-       ========================================================================== */
-
-        .select2-container {
-            border: 0;
-            box-shadow: none;
-            .select2-choice {
-                background-color: #fff;
-                color: $body-color;
-                background-image: none;
-                height: 34px;
-                line-height: 34px;
-                border: $input-border-width solid $input-border-color;
-                border-radius: 4px;
-                .select2-arrow {
-                    width: auto;
-                    padding: 0 8px 0 10px;
-                    border-left: 0;
-                    background-color: #fff;
-                    background-image: none;
-                    font-size: .9em;
-                    border-radius: 0;
-                    b {
-                        margin: 4px 10px;
-                    }
-                }
-            }
-            &.select2-container-active {
-                .select2-choice {
-                    @include border-bottom-radius(0);
-                    border-color: $o-brand-primary;
-                    box-shadow: none;
-                }
-            }
-            &:hover,
-            &:focus {
-                box-shadow: none;
-                .select2-choice {
-                    border-color: $o-brand-primary;
-                }
-            }
-            &.form-control-primary {
-                .select2-choice {
-                    border-color: $o-brand-primary;
-                    .select2-arrow {
-                        background-color: $o-brand-primary;
-                        color: #fff;
-                    }
-                }
-            }
-        }
-    }
-
-    .select2-drop {
-        margin-top: 0;
-        box-shadow: none;
-    }
-
-    .select2-drop-active {
-        border-color: $o-brand-primary;
-    }
-
-    .select2-results .select2-highlighted {
-        background-color: map-get($grays, '200');
-        color: $body-color;
     }
 }
 

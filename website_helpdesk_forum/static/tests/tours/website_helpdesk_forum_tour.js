@@ -29,16 +29,18 @@ registry.category("web_tour.tours").add("website_helpdesk_forum_tour", {
             trigger: `.note-editable p:not(:contains(/^<br>$/))`,
         },
         {
-            trigger: ".select2-choices",
+            trigger: ".o_select_menu_toggler",
             content: _t("Insert tags related to your question."),
+            run: "click",
         },
         {
-            trigger: "input#s2id_autogen2",
+            trigger: ".o_select_menu_sticky",
             run: "edit Test",
         },
         {
-            isActive: ["auto"],
-            trigger: `input#s2id_autogen2:not(:contains(Tags))`,
+            content: "Select found select menu item",
+            trigger: ".o_popover.o_select_menu_menu",
+            run: 'click',
         },
         {
             trigger: "button:contains(/^Post/)",
