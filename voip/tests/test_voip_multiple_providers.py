@@ -1,4 +1,4 @@
-from odoo.addons.mail.tools.discuss import StoreData
+from odoo.addons.mail.tools.discuss import Store
 from odoo.tests import common, tagged
 
 
@@ -21,7 +21,7 @@ class TestVoipMultipleProviders(common.TransactionCase):
     def test_voip_init_messaging(self):
         user = self.env.user
         user.voip_provider_id = self.provider_1
-        store = StoreData()
+        store = Store()
         user._init_store_data(store)
         data = store.get_result()
         self.assertEqual(data["Store"]["voipConfig"]["mode"], self.provider_1.mode)
@@ -29,7 +29,7 @@ class TestVoipMultipleProviders(common.TransactionCase):
         self.assertEqual(data["Store"]["voipConfig"]["webSocketUrl"], self.provider_1.ws_server)
 
         user.voip_provider_id = self.provider_2
-        store = StoreData()
+        store = Store()
         user._init_store_data(store)
         data = store.get_result()
         self.assertEqual(data["Store"]["voipConfig"]["mode"], self.provider_2.mode)

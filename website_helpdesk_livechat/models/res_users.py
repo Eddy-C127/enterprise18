@@ -10,4 +10,4 @@ class Users(models.Model):
         super()._init_store_data(store)
         domain = [("use_website_helpdesk_livechat", "=", True)]
         helpdesk_livechat_active = self.env["helpdesk.team"].sudo().search_count(domain, limit=1)
-        store.add({"Store": {"helpdesk_livechat_active": bool(helpdesk_livechat_active)}})
+        store.add({"helpdesk_livechat_active": bool(helpdesk_livechat_active)})

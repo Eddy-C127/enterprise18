@@ -6,7 +6,7 @@ from datetime import timedelta
 from markupsafe import Markup
 
 from odoo import api, Command, fields, models, tools, _
-from odoo.addons.mail.tools.discuss import StoreData
+from odoo.addons.mail.tools.discuss import Store
 from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 from odoo.exceptions import ValidationError
 
@@ -239,7 +239,6 @@ class DiscussChannel(models.Model):
     def whatsapp_channel_join_and_pin(self):
         """ Adds the current partner as a member of self channel and pins them if not already pinned. """
         self.ensure_one()
-        store = StoreData()
         if self.channel_type != 'whatsapp':
             raise ValidationError(_('This join method is not possible for regular channels.'))
 
@@ -257,17 +256,15 @@ class DiscussChannel(models.Model):
             }])
             message_body = Markup(f'<div class="o_mail_notification">{_("joined the channel")}</div>')
             new_member.channel_id.message_post(body=message_body, message_type="notification", subtype_xmlid="mail.mt_comment")
-            broadcast_store = StoreData()
             channel_info = {
                 "channelMembers": [("ADD", list(new_member._discuss_channel_member_format().values()))],
                 "id": self.id,
                 "memberCount": self.member_count,
                 "model": "discuss.channel",
             }
-            broadcast_store.add({"Thread": channel_info})
+            broadcast_store = Store("Thread", channel_info)
             self.env['bus.bus']._sendone(self, 'mail.record/insert', broadcast_store.get_result())
-        self._channel_info(store)
-        return store.get_result()
+        return Store(self).get_result()
 
     # ------------------------------------------------------------
     # OVERRIDE
@@ -283,7 +280,7 @@ class DiscussChannel(models.Model):
             return
         super()._action_unfollow(partner)
 
-    def _to_store(self, store):
+    def _to_store(self, store: Store):
         super()._to_store(store)
         for channel in self.filtered(lambda channel: channel.channel_type == "whatsapp"):
             data = {
@@ -293,7 +290,7 @@ class DiscussChannel(models.Model):
                     channel.whatsapp_channel_valid_until
                 ),
             }
-            store.add({"Thread": data})
+            store.add("Thread", data)
 
     def _types_allowing_seen_infos(self):
         return super()._types_allowing_seen_infos() + ["whatsapp"]

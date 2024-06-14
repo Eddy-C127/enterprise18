@@ -127,7 +127,7 @@ class ResUsers(models.Model):
             "pbxAddress": provider.pbx_ip or "localhost",
             "webSocketUrl": provider.ws_server or "ws://localhost",
         }
-        store.add({"Store": {"voipConfig": voip_config}})
+        store.add({"voipConfig": voip_config})
 
     def _reflect_change_in_res_users_settings(self):
         """
