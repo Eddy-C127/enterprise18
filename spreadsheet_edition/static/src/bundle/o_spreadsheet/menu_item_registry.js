@@ -119,7 +119,7 @@ const insertPivotMenu = {
     name: _t("Insert pivot"),
     sequence: 1020,
     icon: "o-spreadsheet-Icon.INSERT_PIVOT",
-    isVisible: (env) => env.model.getters.getPivotIds().length,
+    isVisible: (env) => env.model.getters.getOdooPivotIds().length,
 };
 
 const reInsertPivotMenu = {
@@ -127,7 +127,7 @@ const reInsertPivotMenu = {
     name: _t("Re-insert pivot"),
     sequence: 1,
     children: [REINSERT_PIVOT_CHILDREN],
-    isVisible: (env) => env.model.getters.getPivotIds().length,
+    isVisible: (env) => env.model.getters.getOdooPivotIds().length,
 };
 
 const insertPivotCellMenu = {
@@ -135,7 +135,7 @@ const insertPivotCellMenu = {
     name: _t("Insert pivot cell"),
     sequence: 2,
     children: [INSERT_PIVOT_CELL_CHILDREN],
-    isVisible: (env) => env.model.getters.getPivotIds().length,
+    isVisible: (env) => env.model.getters.getOdooPivotIds().length,
 };
 
 const reInsertListMenu = {

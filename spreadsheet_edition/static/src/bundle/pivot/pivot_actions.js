@@ -4,7 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { PivotDialog } from "./spreadsheet_pivot_dialog";
 
 export const REINSERT_PIVOT_CHILDREN = (env) =>
-    env.model.getters.getPivotIds().map((pivotId, index) => ({
+    env.model.getters.getOdooPivotIds().map((pivotId, index) => ({
         id: `reinsert_pivot_${env.model.getters.getPivotFormulaId(pivotId)}`,
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: index,
@@ -23,7 +23,7 @@ export const REINSERT_PIVOT_CHILDREN = (env) =>
     }));
 
 export const INSERT_PIVOT_CELL_CHILDREN = (env) =>
-    env.model.getters.getPivotIds().map((pivotId, index) => ({
+    env.model.getters.getOdooPivotIds().map((pivotId, index) => ({
         id: `insert_pivot_cell_${env.model.getters.getPivotFormulaId(pivotId)}`,
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: index,

@@ -30,7 +30,7 @@ import { user } from "@web/core/user";
 
 const { toCartesian, toZone } = helpers;
 const { cellMenuRegistry, topbarMenuRegistry } = registries;
-import { doMenuAction } from "@spreadsheet/../tests/utils/ui";
+import { doMenuAction, getActionMenu } from "@spreadsheet/../tests/utils/ui";
 import { getHighlightsFromStore } from "../utils/store_helpers";
 
 let target;
@@ -55,6 +55,50 @@ QUnit.module(
                 "It should contain a pivot formula"
             );
         });
+        QUnit.test(
+            "Insert pivot menu is not visible if there is no odoo pivot",
+            async function (assert) {
+                const { model, env } = await createSpreadsheet();
+                model.dispatch("ADD_PIVOT", {
+                    pivotId: "1",
+                    pivot: {
+                        type: "SPREADSHEET",
+                        columns: [],
+                        rows: [],
+                        measures: [],
+                        name: "Spreadsheet Pivot",
+                        dataSet: {
+                            zone: toZone("A1:D5"),
+                            sheetId: model.getters.getActiveSheetId(),
+                        },
+                    },
+                });
+                setCellContent(model, "E1", "=PIVOT(1)");
+                selectCell(model, "E1");
+                assert.strictEqual(model.getters.getPivotIds().length, 1);
+                assert.strictEqual(model.getters.getOdooPivotIds().length, 0);
+                assert.strictEqual(
+                    !!getActionMenu(topbarMenuRegistry, ["data", "insert_pivot_odoo"], env).isVisible(env),
+                    false
+                );
+                assert.strictEqual(
+                    !!getActionMenu(
+                        topbarMenuRegistry,
+                        ["data", "insert_pivot_odoo", "reinsert_pivot"],
+                        env
+                    ).isVisible(env),
+                    false
+                );
+                assert.strictEqual(
+                    !!getActionMenu(
+                        topbarMenuRegistry,
+                        ["data", "insert_pivot_odoo", "insert_pivot_cell"],
+                        env
+                    ).isVisible(env),
+                    false
+                );
+            }
+        );
 
         QUnit.test("Reinsert a pivot with a contextual search domain", async function (assert) {
             const serverData = getBasicServerData();
