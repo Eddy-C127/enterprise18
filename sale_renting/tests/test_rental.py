@@ -4,6 +4,7 @@ from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
+from odoo.fields import Command
 from odoo.tools import float_compare
 from odoo.tests import HttpCase, tagged, TransactionCase
 
@@ -509,6 +510,40 @@ class TestRentalCommon(TransactionCase):
             float_compare(sol.price_unit, 60, precision_rounding=2),
             "Included tax related to another company should not apply"
         )
+
+    def test_non_rental_line_does_not_change_description(self):
+        water_bottle = self.env["product.product"].create({
+            "name": "Water Bottle",
+        })
+        will_smith = self.env["res.partner"].create({
+            "name": "Will Smith",
+        })
+
+        now = fields.Datetime.now()
+        order = self.env["sale.order"].create({
+            "partner_id": will_smith.id,
+            "rental_start_date": now,
+            "rental_return_date": now + timedelta(days=2),
+            "order_line": [
+                Command.create({
+                    "product_id": self.product_id.id,
+                }),
+                Command.create({
+                    "product_id": water_bottle.id
+                })
+            ]
+        })
+        rental_order_line, non_rental_order_line = order.order_line
+        rental_order_line.is_rental = True
+        self.assertTrue(order.is_rental_order)
+
+        non_rental_order_line.name = "My Water Bottle"
+
+        # Trigger order line name recompute by changing rental field.
+        order.rental_start_date = now + timedelta(days=1)
+
+        # Non-rental order line names aren't recomputed.
+        self.assertEqual(non_rental_order_line.name, "My Water Bottle")
 
 
 @tagged('post_install', '-at_install')
