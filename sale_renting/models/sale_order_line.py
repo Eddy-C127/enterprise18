@@ -42,7 +42,7 @@ class SaleOrderLine(models.Model):
         super(SaleOrderLine, self - rental_lines)._compute_qty_delivered_method()
         rental_lines.qty_delivered_method = 'manual'
 
-    @api.depends('order_id.rental_start_date', 'order_id.rental_return_date', 'is_rental')
+    @api.depends('is_rental')
     def _compute_name(self):
         """Override to add the compute dependency.
 

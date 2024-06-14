@@ -161,6 +161,14 @@ class SaleOrder(models.Model):
         if self.is_rental_order:
             self._rental_set_dates()
 
+    @api.onchange('rental_start_date')
+    def _onchange_rental_start_date(self):
+        self.order_line.filtered('is_rental')._compute_name()
+
+    @api.onchange('rental_return_date')
+    def _onchange_rental_return_date(self):
+        self.order_line.filtered('is_rental')._compute_name()
+
     #=== ACTION METHODS ===#
 
     def action_update_rental_prices(self):
