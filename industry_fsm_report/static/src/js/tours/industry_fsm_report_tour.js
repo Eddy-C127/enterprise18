@@ -45,18 +45,9 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger: '.o_control_panel:not(:has(button[name="action_fsm_worksheet"]))',
             },
             {
-            trigger: '.o_form_sheet div[name]',
+            trigger: '.o_form_sheet div[name] input',
             content: markup(_t('Fill in your <b>worksheet</b> with the details of your intervention.')),
-            run: function (actions) {
-                //Manage the text on both htmlElement and others fields as this step is dependent on
-                // the worksheet template that is set.
-                const htmlFieldSelector = '.note-editable.odoo-editor-editable p';
-                const inputFieldSelector = 'input';
-                const textTriggerElement = this.anchor.querySelector(htmlFieldSelector)
-                    || this.anchor.querySelector(inputFieldSelector)
-                    || this.anchor;
-                actions.edit('My intervention details', textTriggerElement);
-            },
+            run: "edit My intervention details",
             position: 'bottom',
             },
             {
