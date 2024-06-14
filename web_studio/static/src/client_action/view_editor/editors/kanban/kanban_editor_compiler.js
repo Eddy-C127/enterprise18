@@ -19,7 +19,7 @@ const hookBaseClass = "o_web_studio_kanban_hook cursor-pointer text-primary fw-b
 export class KanbanEditorCompiler extends KanbanCompiler {
     constructor() {
         super(...arguments);
-        const kanbanBox = this.templates["kanban-box"];
+        const kanbanBox = this.templates["kanban-box"] || this.templates["kanban-card"];
         this.isDashboard = kanbanBox.closest("kanban").classList.contains("o_kanban_dashboard");
     }
 
