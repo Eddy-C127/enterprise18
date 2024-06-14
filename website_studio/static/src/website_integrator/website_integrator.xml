@@ -13,7 +13,7 @@
             <ThumbnailItem onClick="page.page_type === 'listing' ? this.openPageUrl.bind(this, page) : this.onConfigurePage.bind(this, page)" icon="item.icon">
                 <t t-esc="item.name" />
                 <t t-set-slot="dropdown">
-                    <DropdownItem t-if="openPageUrl" onSelected="openPageUrl" attrs="{ href: '#' }">View in website</DropdownItem>
+                    <DropdownItem t-if="page.page_type === 'listing'" onSelected="() => this.openPageUrl(page)" attrs="{ href: '#' }">View in website</DropdownItem>
                     <DropdownItem onSelected="() => this.onConfigurePage(page)" attrs="{ href: '#' }">Configure</DropdownItem>
                     <DropdownItem onSelected="() => this.deletePage(page)" attrs="{ href: '#' }">Delete</DropdownItem>
                 </t>

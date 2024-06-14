@@ -5,6 +5,7 @@ import { browser } from "@web/core/browser/browser";
 import { user } from "@web/core/user";
 import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
 import { openStudio, registerStudioDependencies } from "@web_studio/../tests/legacy/helpers";
+import { Editor } from "@web_studio/client_action/editor/editor";
 
 // -----------------------------------------------------------------------------
 // Tests
@@ -128,5 +129,72 @@ QUnit.module("Website Integrator", (hooks) => {
         await click(websiteItem);
         await click(target, ".o_website_studio_form .o_website_studio_new_card");
         assert.verifySteps(["create_form", "open /some/url?enable_editor=1 _blank"]);
+    });
+
+    QUnit.test("open page url", async (assert) => {
+        patchWithCleanup(Editor.prototype, {
+            setup() {
+                super.setup();
+
+                patchWithCleanup(this.env.services.action, {
+                    doAction(action, options) {
+                        if (action.type === "ir.actions.act_url") {
+                            assert.step("openPageUrl");
+                            assert.strictEqual(action.url, "/model/test?enable_editor=1");
+                            return true;
+                        }
+                        return super.doAction(...arguments);
+                    }
+                });
+            }
+        })
+
+        await createEnterpriseWebClient({
+            serverData,
+            mockRPC: (route) => {
+                if (route === "/website_studio/get_forms") {
+                    return Promise.resolve([]);
+                }
+                if (route === "/website_studio/get_website_pages") {
+                    return {
+                        websites: [],
+                        pages: [
+                            {
+                                id: 1,
+                                website_id: false,
+                                page_name: "test",
+                                page_type: "listing",
+                                name_slugified: "test",
+                            }
+                        ]
+                    };
+                }
+            },
+        });
+
+        await nextTick();
+        // open app Ponies (act window action)
+        await click(target, ".o_app[data-menu-xmlid=app_1]");
+        await nextTick();
+        await openStudio(target);
+        const websiteItem = [...target.querySelectorAll(".o_menu_sections a")].find(
+            (el) => el.textContent === "Website"
+        );
+        await click(websiteItem);
+
+        await click(
+            target.querySelector(
+                ".o_website_studio_listing .o_web_studio_thumbnail_item:last-of-type"
+            ),
+            ".o_web_studio_more"
+        );
+        const dropdownItems = Object.fromEntries(
+            Array.from(target.querySelectorAll(".dropdown-item")).map((e) => [e.textContent, e])
+        );
+
+        assert.deepEqual(Object.keys(dropdownItems), ["View in website", "Configure", "Delete"]);
+
+        await click(dropdownItems["View in website"]);
+        assert.verifySteps(["openPageUrl"]);
     });
 });
