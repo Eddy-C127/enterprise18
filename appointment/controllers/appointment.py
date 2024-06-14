@@ -209,6 +209,58 @@ class AppointmentController(http.Controller):
         page_values = self._prepare_appointment_type_page_values(appointment_type, staff_user_id, resource_selected_id, **kwargs)
         return self._get_appointment_type_page_view(appointment_type, page_values, state, **kwargs)
 
+    def _get_slots_from_filter(self, appointment_type, filter_records, asked_capacity=1):
+        """
+        Compute the slots and the first month that has available slots from the given filter.
+
+        :param appointment_type: the appointment type that we want to access.
+        :param filter_records: users/resources that are used to compute the slots
+        :param asked_capacity: the capacity asked by the user
+        :return: a dict containing:
+            - slots: the available slots
+            - month_first_available: the first month that has available slots or False if there is none
+        """
+        slots = appointment_type._get_appointment_slots(
+            request.session['timezone'],
+            filter_users=filter_records if appointment_type.schedule_based_on == "users" else None,
+            filter_resources=filter_records if appointment_type.schedule_based_on == "resources" else None,
+            asked_capacity=asked_capacity,
+        )
+        return {
+            'slots': slots,
+            'month_first_available': next((month['id'] for month in slots if month['has_availabilities']), False),
+        }
+
+    def _get_slots_values(self, appointment_type, selected_filter_record, default_filter_record, possible_filter_records, asked_capacity=1):
+        """
+        Compute the slots and the first month that has available slots from the given filters.
+
+        :param appointment_type: the appointment type that we want to access.
+        :param selected_filter_record: the selected users/resources
+        :param default_filter_record: the default users/resources
+        :param possible_filter_records: the possible users/resources
+        :param asked_capacity: the capacity asked by the user
+        :return: a dict containing:
+            - slots: the available slots
+            - month_first_available: the first month that has available slots or False if there is none
+        """
+        if selected_filter_record:
+            return self._get_slots_from_filter(appointment_type, selected_filter_record, asked_capacity)
+
+        if not default_filter_record:
+            return self._get_slots_from_filter(appointment_type, possible_filter_records, asked_capacity)
+
+        ordered_filters = default_filter_record | possible_filter_records
+        for current_filter in ordered_filters:
+            values = self._get_slots_from_filter(appointment_type, current_filter, asked_capacity)
+            if values['month_first_available'] is not False:
+                if appointment_type.schedule_based_on == "users":
+                    values['user_selected'] = current_filter
+                else:
+                    values['resource_selected'] = current_filter
+                return values
+        return values
+
     def _get_appointment_type_page_view(self, appointment_type, page_values, state=False, **kwargs):
         """
         Renders the appointment information alongside the calendar for the slot selection, after computation of
@@ -220,32 +272,26 @@ class AppointmentController(http.Controller):
         :param state: the type of message that will be displayed in case of an error/info. See appointment_type_page.
         """
         request.session.timezone = self._get_default_timezone(appointment_type)
-        filter_users = page_values['user_selected'] or page_values['user_default'] or page_values['users_possible'] \
-            if appointment_type.schedule_based_on == "users" else None
-        filter_resources = page_values['resource_selected'] or page_values['resource_default'] or page_values['resources_possible'] \
-            if appointment_type.schedule_based_on == "resources" else None
         asked_capacity = int(kwargs.get('asked_capacity', 1))
-        slots = appointment_type._get_appointment_slots(
-            request.session['timezone'],
-            filter_users=filter_users,
-            filter_resources=filter_resources,
-            asked_capacity=asked_capacity,
-        )
+        filter_prefix = 'user' if appointment_type.schedule_based_on == "users" else 'resource'
+        slots_values = self._get_slots_values(appointment_type,
+            selected_filter_record=page_values[f'{filter_prefix}_selected'],
+            default_filter_record=page_values[f'{filter_prefix}_default'],
+            possible_filter_records=page_values[f'{filter_prefix}s_possible'],
+            asked_capacity=asked_capacity)
         formated_days = _formated_weekdays(get_lang(request.env).code)
-        month_first_available = next((month['id'] for month in slots if month['has_availabilities']), False)
 
-        render_params = dict({
+        render_params = {
             'appointment_type': appointment_type,
             'is_html_empty': is_html_empty,
             'formated_days': formated_days,
             'main_object': appointment_type,
-            'month_first_available': month_first_available,
             'month_kept_from_update': False,
-            'slots': slots,
             'state': state,
             'timezone': request.session['timezone'],  # bw compatibility
-        }, **page_values
-        )
+            **page_values,
+            **slots_values,
+        }
         # Do not let the browser store the page, this ensures correct timezone and params management in case
         # the user goes back and forth to this endpoint using browser controls (or mouse back button)
         # this is especially necessary as we alter the request.session parameters.

@@ -6,6 +6,7 @@ import pytz
 
 from datetime import datetime, timedelta
 from freezegun import freeze_time
+from lxml import html
 
 from odoo import Command, http
 from odoo.addons.appointment.tests.common import AppointmentCommon
@@ -293,6 +294,78 @@ class AppointmentUITest(AppointmentUICommon):
                 else:
                     self.assertFalse(event.videocall_location,
                         "Should not have a videocall_location as the appointment type doesn't have any videocall source")
+
+    @freeze_time('2022-02-14T7:00:00')
+    def test_get_appointment_type_page_view(self):
+        """ Test if the appointment_type_page always shows available slots if there are some. """
+        now = self.reference_monday
+        slot_time = now.replace(hour=9, minute=0, second=0, microsecond=0) + timedelta(days=1)
+
+        appointment_type = self.env['appointment.type'].create([{
+            'name': 'Type Test Appointment View',
+            'schedule_based_on': 'users',
+            'staff_user_ids': (self.user_employee | self.user_admin).ids,
+            'min_schedule_hours': 1.0,
+            'max_schedule_days': 5,
+            'slot_ids': [(0, 0, {
+                'weekday': str(slot_time.isoweekday()),
+                'start_hour': slot_time.hour,
+                'end_hour': slot_time.hour + 1,
+            })],
+            'avatars_display': 'hide',
+            'assign_method': 'resource_time',
+        }])
+
+        invite = self.env['appointment.invite'].create({
+            'appointment_type_ids': appointment_type.ids,
+        })
+
+        def render_appointment_page():
+            page = self.url_open(invite.book_url)
+            arch = html.fromstring(page.text)
+
+            [slots_form] = arch.xpath("//form[@id='slots_form']")
+            [selected_user_option] = slots_form.xpath("//*[@id='selectStaffUser']/*[@selected]")
+            [slots_calendar] = arch.xpath("//*[@id='calendar']")
+
+            return slots_form, selected_user_option, slots_calendar
+
+        slots_form, selected_user_option, slots_calendar = render_appointment_page()
+        self.assertEqual(
+            int(selected_user_option.attrib['value']),
+            self.user_employee.id,
+            "Selected user should be user_employee")
+        self.assertFalse(
+            'd-none' in slots_form.getparent().attrib['class'],
+            "Staff user selector should be visible")
+        self.assertTrue(
+            slots_calendar.getchildren(),
+            "Slots calendar should be visible")
+
+        # create an event to make the first staff user busy and remove its available slots
+        self._create_meetings(self.user_employee, [(slot_time, slot_time + timedelta(hours=1), True)])
+
+        slots_form, selected_user_option, slots_calendar = render_appointment_page()
+        self.assertEqual(
+            int(selected_user_option.attrib['value']),
+            self.user_admin.id,
+            "Selected user should be user_admin")
+        self.assertFalse(
+            'd-none' in slots_form.getparent().attrib['class'],
+            "Staff user selector should be visible")
+        self.assertTrue(
+            slots_calendar.getchildren(),
+            "Slots calendar should be visible")
+
+        # create another event to make both staff user busy and remove all slots
+        self._create_meetings(self.user_admin, [(slot_time, slot_time + timedelta(hours=1), True)])
+        slots_form, _, slots_calendar = render_appointment_page()
+        self.assertTrue(
+            'd-none' in slots_form.getparent().attrib['class'],
+            "Staff user selector should not be visible")
+        self.assertFalse(
+            slots_calendar.getchildren(),
+            "Slots calendar should not be visible")
 
 @tagged('appointment_ui', '-at_install', 'post_install')
 class CalendarTest(AppointmentUICommon):
