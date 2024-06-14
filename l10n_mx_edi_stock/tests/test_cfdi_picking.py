@@ -120,7 +120,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
         '''Test the delivery guide of an (1) hazardous product'''
         self.product.write({
             'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_12352120').id,
-            'l10n_mx_edi_hazardous_material_code': '1052',
+            'l10n_mx_edi_hazardous_material_code_id': self.env.ref('l10n_mx_edi_stock.hazardous_material_413'),
             'l10n_mx_edi_hazard_package_type': '1H1',
         })
         with self.mx_external_setup(self.frozen_today):
@@ -138,7 +138,6 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
         '''
         self.product.write({
             'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_12352106').id,
-            'l10n_mx_edi_hazardous_material_code': '0',
         })
         with self.mx_external_setup(self.frozen_today):
             warehouse = self._create_warehouse()
@@ -155,7 +154,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
         '''
         self.product.write({
             'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_12352106').id,
-            'l10n_mx_edi_hazardous_material_code': '1052',
+            'l10n_mx_edi_hazardous_material_code_id': self.env.ref('l10n_mx_edi_stock.hazardous_material_413'),
             'l10n_mx_edi_hazard_package_type': '1H1',
         })
         with self.mx_external_setup(self.frozen_today):

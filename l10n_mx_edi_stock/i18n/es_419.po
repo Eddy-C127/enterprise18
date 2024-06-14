@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.5alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-24 16:08+0000\n"
-"PO-Revision-Date: 2024-07-24 16:08+0000\n"
+"POT-Creation-Date: 2024-09-19 11:20+0000\n"
+"PO-Revision-Date: 2024-09-19 11:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -586,6 +586,7 @@ msgstr "Chasis portacontenedor"
 #. module: l10n_mx_edi_stock
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__code
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__code
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__code
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__code
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_stock_picking__l10n_mx_edi_customs_document_type_code
 msgid "Code"
@@ -637,6 +638,7 @@ msgstr "Crear el primer vehículo"
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__create_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__create_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_figure__create_uid
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__create_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__create_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_trailer__create_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__create_uid
@@ -647,6 +649,7 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__create_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__create_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_figure__create_date
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__create_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__create_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_trailer__create_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__create_date
@@ -711,6 +714,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_figure__display_name
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_trailer__display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__display_name
@@ -1082,21 +1086,34 @@ msgid "Góndola Madrina"
 msgstr "Góndola madrina"
 
 #. module: l10n_mx_edi_stock
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__product_unspsc_code__l10n_mx_edi_hazardous_material__1
+msgid "Hazardous"
+msgstr "Peligroso"
+
+#. module: l10n_mx_edi_stock
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_product_product__l10n_mx_edi_hazardous_material
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_product_template__l10n_mx_edi_hazardous_material
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_product_unspsc_code__l10n_mx_edi_hazardous_material
+msgid "Hazardous Material"
+msgstr "Material Peligroso"
+
+#. module: l10n_mx_edi_stock
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_product_product__l10n_mx_edi_hazardous_material_code
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_product_template__l10n_mx_edi_hazardous_material_code
 msgid "Hazardous Material Designation Code"
-msgstr ""
+msgstr "Clave material peligroso"
 
 #. module: l10n_mx_edi_stock
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_product_product__l10n_mx_edi_hazard_package_type
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_product_template__l10n_mx_edi_hazard_package_type
-msgid "Hazardous Packaging"
-msgstr ""
+msgid "Packaging type for hazardous material"
+msgstr "Tipo Embalaje para material peligroso"
 
 #. module: l10n_mx_edi_stock
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__id
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__id
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_figure__id
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__id
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__id
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_trailer__id
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__id
@@ -1164,6 +1181,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__figure_ids
 msgid "Intermediaries"
 msgstr "Intermediarios"
+
+#. module: l10n_mx_edi_stock
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_stock_move__l10n_mx_edi_is_hazardous_material
+msgid "Is Hazardous Material"
+msgstr "Es material peligroso"
 
 #. module: l10n_mx_edi_stock
 #: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__l10n_mx_edi_trailer__sub_type__ctr018
@@ -1239,6 +1261,7 @@ msgstr "L10N Mx Edi Peso"
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__write_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__write_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_figure__write_uid
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__write_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__write_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_trailer__write_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__write_uid
@@ -1249,6 +1272,7 @@ msgstr "Última actualización por"
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__write_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__write_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_figure__write_date
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__write_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__write_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_trailer__write_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_vehicle__write_date
@@ -1337,6 +1361,11 @@ msgid "Material Type"
 msgstr ""
 
 #. module: l10n_mx_edi_stock
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__product_unspsc_code__l10n_mx_edi_hazardous_material__0,1
+msgid "Maybe Hazardous"
+msgstr "Potencialmente peligroso"
+
+#. module: l10n_mx_edi_stock
 #: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__l10n_mx_edi_trailer__sub_type__ctr019
 msgid "Media Redila"
 msgstr "Media redila"
@@ -1352,6 +1381,11 @@ msgid "Mexican Customs Regime"
 msgstr ""
 
 #. module: l10n_mx_edi_stock
+#: model:ir.model,name:l10n_mx_edi_stock.model_l10n_mx_edi_hazardous_material
+msgid "Mexican Hazardous Material"
+msgstr ""
+
+#. module: l10n_mx_edi_stock
 #: model:ir.model,name:l10n_mx_edi_stock.model_l10n_mx_edi_document
 msgid "Mexican documents that needs to transit outside of Odoo"
 msgstr "Documentos mexicanos que se deben procesar fuera de Odoo"
@@ -1362,6 +1396,12 @@ msgid "Mexico"
 msgstr "México"
 
 #. module: l10n_mx_edi_stock
+#: model_terms:ir.ui.view,arch_db:l10n_mx_edi_stock.view_l10n_mx_edi_hazardous_material_form
+#: model_terms:ir.ui.view,arch_db:l10n_mx_edi_stock.view_l10n_mx_edi_hazardous_material_list
+msgid "Mexico Hazardous Material Catalog"
+msgstr ""
+
+#. module: l10n_mx_edi_stock
 #: model_terms:ir.ui.view,arch_db:l10n_mx_edi_stock.l10n_mx_edi_stock_report_cartaporte
 msgid "Municipio:"
 msgstr ""
@@ -1369,6 +1409,7 @@ msgstr ""
 #. module: l10n_mx_edi_stock
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_document_type__name
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_customs_regime__name
+#: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_hazardous_material__name
 #: model:ir.model.fields,field_description:l10n_mx_edi_stock.field_l10n_mx_edi_part__name
 msgid "Name"
 msgstr "Nombre"
@@ -1397,6 +1438,11 @@ msgstr "Sin definir"
 #: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__stock_picking__l10n_mx_edi_cfdi_sat_state__not_found
 msgid "Not Found"
 msgstr "No se encontro"
+
+#. module: l10n_mx_edi_stock
+#: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__product_unspsc_code__l10n_mx_edi_hazardous_material__0
+msgid "Not Hazardous"
+msgstr "No Peligroso"
 
 #. module: l10n_mx_edi_stock
 #: model:ir.model.fields.selection,name:l10n_mx_edi_stock.selection__l10n_mx_edi_figure__type__04

@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 MX_PACKAGING_CATALOG = [
@@ -67,10 +67,21 @@ MX_PACKAGING_CATALOG = [
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    l10n_mx_edi_hazardous_material_code = fields.Char(string="Hazardous Material Designation Code")
+    l10n_mx_edi_hazardous_material = fields.Selection(related='unspsc_code_id.l10n_mx_edi_hazardous_material')
+    l10n_mx_edi_hazardous_material_code_id = fields.Many2one(
+        comodel_name='l10n_mx_edi.hazardous.material',
+        string="Hazardous Material Designation Code",
+        compute='_compute_hazardous_material_fields',
+        store=True,
+        readonly=False,
+    )
     l10n_mx_edi_hazard_package_type = fields.Selection(
         selection=MX_PACKAGING_CATALOG,
-        string="Hazardous Packaging")
+        string="Packaging type for hazardous material",
+        compute='_compute_hazardous_material_fields',
+        store=True,
+        readonly=False,
+    )
     l10n_mx_edi_material_type = fields.Selection(
         selection=[
             ('01', 'Materia prima'),
@@ -86,3 +97,10 @@ class ProductTemplate(models.Model):
         string="Material Description",
         help="Description of the state of the material or product when performing a foreign trade operation.",
     )
+
+    @api.depends('unspsc_code_id')
+    def _compute_hazardous_material_fields(self):
+        for product in self:
+            if not product.unspsc_code_id.l10n_mx_edi_hazardous_material:
+                product.l10n_mx_edi_hazardous_material_code_id = False
+                product.l10n_mx_edi_hazard_package_type = False

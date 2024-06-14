@@ -26,9 +26,12 @@ guide.
         'data/l10n_mx_edi_customs_document_type.xml',
         'data/l10n_mx_edi_customs_regime.xml',
         'data/l10n_mx_edi_part.xml',
+        'data/l10n_mx_edi.hazardous.material.csv',
+        'data/product.unspsc.code.csv',
         'views/l10n_mx_edi_vehicle_views.xml',  # parents l10n_mx_edi_customs_*.xml
         'views/l10n_mx_edi_customs_document_type_views.xml',
         'views/l10n_mx_edi_customs_regime_views.xml',
+        'views/l10n_mx_edi_hazardous_material_view.xml',
         'views/product_views.xml',
         'views/report_deliveryslip.xml',  # parents report_cartaporte.xml
         'views/report_cartaporte.xml',

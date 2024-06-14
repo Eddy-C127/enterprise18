@@ -199,7 +199,7 @@ class Picking(models.Model):
         if destino_domicilio['pais'] != destination_partner.country_id.name:
             destino_domicilio['pais'] += f" - {destination_partner.country_id.name}"
 
-        contains_hazardous_materials = any(self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code'))
+        contains_hazardous_materials = any(self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code_id'))
 
         if self.l10n_mx_edi_external_trade:
             external_trade_vals = {
