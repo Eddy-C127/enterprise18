@@ -18,3 +18,8 @@ class ResCompany(models.Model):
         default='sandbox',
     )
     l10n_br_icms_rate = fields.Float(string='Simplified Regime ICMS Rate')
+    l10n_br_cnae_code_id = fields.Many2one(
+        "l10n_br.cnae.code",
+        string="CNAE Code",
+        help="Brazil: Main CNAE code registered with the government.",
+    )

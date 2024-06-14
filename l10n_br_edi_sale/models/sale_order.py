@@ -29,7 +29,7 @@ class SaleOrder(models.Model):
         we default to a goods transaction and raise a ValidationError in _l10n_br_avatax_validate_lines()."""
         for order in self:
             order.l10n_br_is_service_transaction = (
-                order._l10n_br_is_avatax()
+                order.l10n_br_is_avatax
                 and order.order_line
                 and all(
                     order.order_line.product_id.mapped(

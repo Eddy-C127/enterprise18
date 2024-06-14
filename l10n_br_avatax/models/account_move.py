@@ -19,7 +19,7 @@ class AccountMove(models.Model):
         """account.external.tax.mixin override."""
         for move in self:
             move.l10n_br_is_service_transaction = (
-                move._l10n_br_is_avatax() and move.l10n_latam_document_type_id == self.env.ref("l10n_br.dt_SE")
+                move.l10n_br_is_avatax and move.l10n_latam_document_type_id == self.env.ref("l10n_br.dt_SE")
             )
 
     def _l10n_br_get_origin_invoice(self):

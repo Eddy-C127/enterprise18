@@ -4,7 +4,7 @@ from datetime import datetime
 from json import dumps
 from pprint import pformat
 
-from odoo import models, fields, _
+from odoo import models, fields, _, api
 from odoo.addons.iap.tools.iap_tools import iap_jsonrpc
 from odoo.exceptions import UserError, ValidationError, RedirectWarning
 from odoo.tools import format_list, partition
@@ -27,18 +27,37 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         compute="_compute_l10n_br_is_service_transaction",
         help="Technical field used to determine if this transaction should be sent to the service or goods API.",
     )
+    l10n_br_cnae_code_id = fields.Many2one(
+        "l10n_br.cnae.code",
+        string="CNAE Code",
+        compute="_compute_l10n_br_cnae_code_id",
+        store=True,
+        readonly=False,
+        help="Brazil: the company's CNAE code for tax calculation and EDI."
+    )
+    l10n_br_is_avatax = fields.Boolean(
+        compute="_compute_l10n_br_is_avatax",
+        string="Is Brazilian Avatax",
+        help="Technical field used to check if this record requires tax calculation or EDI via Avatax."
+    )
 
     def _compute_l10n_br_is_service_transaction(self):
         """Should be overridden. Used to determine if we should treat this record as a service (NFS-e) record."""
         self.l10n_br_is_service_transaction = False
 
-    def _l10n_br_is_avatax(self):
-        self.ensure_one()
-        return self.country_code == 'BR' and self.fiscal_position_id.l10n_br_is_avatax
+    @api.depends('company_id')
+    def _compute_l10n_br_cnae_code_id(self):
+        for record in self:
+            record.l10n_br_cnae_code_id = self.company_id.l10n_br_cnae_code_id
+
+    @api.depends('country_code', 'fiscal_position_id')
+    def _compute_l10n_br_is_avatax(self):
+        for record in self:
+            record.l10n_br_is_avatax = record.country_code == 'BR' and record.fiscal_position_id.l10n_br_is_avatax
 
     def _compute_is_tax_computed_externally(self):
         super()._compute_is_tax_computed_externally()
-        self.filtered(lambda record: record._l10n_br_is_avatax()).is_tax_computed_externally = True
+        self.filtered(lambda record: record.l10n_br_is_avatax).is_tax_computed_externally = True
 
     def _l10n_br_avatax_log(self):
         self.env['account.external.tax.mixin']._enable_external_tax_logging(ICP_LOG_NAME)
@@ -182,6 +201,11 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         }
 
         descriptor = line['itemDescriptor']
+
+        # Sending false or empty string returns errors
+        if self.l10n_br_cnae_code_id:
+            descriptor['cnae'] = self.l10n_br_cnae_code_id.sanitized_code
+
         if self.l10n_br_is_service_transaction:
             line['benefitsAbroad'] = self.partner_shipping_id.country_id.code != 'BR'
             descriptor['serviceCodeOrigin'] = product.l10n_br_property_service_code_origin_id.code
@@ -326,6 +350,10 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         if installments := self._l10n_br_get_installments():
             payments = {'payment': installments}
 
+        activity_sector = {}
+        if self.l10n_br_cnae_code_id:
+            activity_sector = {'ActivitySector_CNAE': {'code': self.l10n_br_cnae_code_id.sanitized_code}}
+
         return {
             'header': {
                 'transactionDate': (transaction_date or fields.Date.today()).isoformat(),
@@ -358,6 +386,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                         'type': 'business',
                         'activitySector': {
                             'code': company.l10n_br_activity_sector,
+                            **activity_sector,
                         },
                         'taxesSettings': {
                             **taxes_settings_company,
@@ -431,7 +460,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             return tax_cache[key]
         tax_cache = {}
 
-        br_records = self.filtered(lambda record: record._l10n_br_is_avatax())
+        br_records = self.filtered(lambda record: record.l10n_br_is_avatax)
         for record in br_records:
             if record.currency_id.name != 'BRL':
                 raise UserError(_('%s has to use Brazilian Real to calculate taxes with Avatax.', record.display_name))

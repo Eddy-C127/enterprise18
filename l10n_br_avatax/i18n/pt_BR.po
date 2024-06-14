@@ -41,57 +41,47 @@ msgstr "- Configure um Código NCM do Mercosul em %s."
 #. module: l10n_br_avatax
 #: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
 msgid ""
-"<i title=\"Create a new account\" role=\"img\" aria-label=\"Create a new "
-"account\" class=\"fa fa-plug fa-fw\"/>\n"
-"                                Create a new account"
+"<i title=\"Create a new account\" role=\"img\" aria-label=\"Create a new account\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                    Create a new account"
 msgstr ""
-"<i title=\"Create a new account\" role=\"img\" aria-label=\"Create a new "
-"account\" class=\"fa fa-plug fa-fw\"/>\n"
-"                                Criar nova conta"
+"<i title=\"Create a new account\" role=\"img\" aria-label=\"Create a new account\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                    Criar nova conta"
 
 #. module: l10n_br_avatax
 #: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
 msgid ""
-"<i title=\"Create account\" role=\"img\" aria-label=\"Create account\" "
-"class=\"fa fa-plug fa-fw\"/>\n"
-"                                Create account"
+"<i title=\"Create account\" role=\"img\" aria-label=\"Create account\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                    Create account"
 msgstr ""
-"<i title=\"Create account\" role=\"img\" aria-label=\"Create account\" "
-"class=\"fa fa-plug fa-fw\"/>\n"
-"                                Criar conta"
+"<i title=\"Create account\" role=\"img\" aria-label=\"Create account\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                    Criar conta"
 
 #. module: l10n_br_avatax
 #: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
 msgid ""
-"<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-"
-"file-text-o\"/>\n"
-"                            Show logs"
+"<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
+"                                Show logs"
 msgstr ""
-"<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-"
-"file-text-o\"/>\n"
-"                            Exibir registros"
+"<i title=\"Show logs\" role=\"img\" aria-label=\"Show logs\" class=\"fa fa-file-text-o\"/>\n"
+"                                Exibir registros"
 
 #. module: l10n_br_avatax
 #: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
 msgid ""
-"<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start "
-"logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
-"                            Start logging for 30 minutes"
+"<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
+"                                Start logging for 30 minutes"
 msgstr ""
-"<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start "
-"logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
-"                            Iniciar criação de registros por 30 minutos"
+"<i title=\"Start logging for 30 minutes\" role=\"img\" aria-label=\"Start logging for 30 minutes\" class=\"fa fa-file-text-o\"/>\n"
+"                                Iniciar criação de registros por 30 minutos"
 
 #. module: l10n_br_avatax
 #: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
 msgid ""
-"<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" "
-"class=\"fa fa-plug fa-fw\"/>\n"
-"                            Test connection"
+"<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                Test connection"
 msgstr ""
-"<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" "
-"class=\"fa fa-plug fa-fw\"/>\n"
-"                            Testar conexão"
+"<i title=\"Test connection\" role=\"img\" aria-label=\"Test connection\" class=\"fa fa-plug fa-fw\"/>\n"
+"                                Testar conexão"
 
 #. module: l10n_br_avatax
 #: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
@@ -208,6 +198,11 @@ msgid "Brazil: List of main Activity Sectors of the contact"
 msgstr "Brasil: Lista dos principais setores de atividade do contato"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_res_company__l10n_br_cnae_code_id
+msgid "Brazil: Main CNAE code registered with the government."
+msgstr "Brasil: Principal código CNAE registrado no governo."
+
+#. module: l10n_br_avatax
 #: model:ir.model.fields,help:l10n_br_avatax.field_product_product__l10n_br_ncm_code_id
 #: model:ir.model.fields,help:l10n_br_avatax.field_product_template__l10n_br_ncm_code_id
 msgid ""
@@ -254,12 +249,35 @@ msgstr ""
 "frete, seguro ou outros custos relacionados à transação."
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_bank_statement_line__l10n_br_cnae_code_id
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_external_tax_mixin__l10n_br_cnae_code_id
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_move__l10n_br_cnae_code_id
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_payment__l10n_br_cnae_code_id
+#: model:ir.model.fields,help:l10n_br_avatax.field_sale_order__l10n_br_cnae_code_id
+msgid "Brazil: the company's CNAE code for tax calculation and EDI."
+msgstr "Brasil: código CNAE da empresa para cálculo de impostos e NFe/NFSe."
+
+#. module: l10n_br_avatax
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_product_product__l10n_br_cest_code
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_product_template__l10n_br_cest_code
 msgid "CEST Code"
 msgstr "Código CEST"
 
 #. module: l10n_br_avatax
+#: model:ir.model,name:l10n_br_avatax.model_l10n_br_cnae_code
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_bank_statement_line__l10n_br_cnae_code_id
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_external_tax_mixin__l10n_br_cnae_code_id
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_move__l10n_br_cnae_code_id
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_payment__l10n_br_cnae_code_id
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_res_company__l10n_br_cnae_code_id
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_res_config_settings__l10n_br_cnae_code_id
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_sale_order__l10n_br_cnae_code_id
+#: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
+msgid "CNAE Code"
+msgstr "Código CNAE"
+
+#. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__code
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__code
 msgid "Code"
 msgstr "Código"
@@ -280,11 +298,13 @@ msgid "Contact"
 msgstr "Contato"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__create_uid
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__create_uid
 msgid "Created by"
 msgstr "Criado por"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__create_date
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__create_date
 msgid "Created on"
 msgstr "Criado em"
@@ -301,6 +321,7 @@ msgstr ""
 "continuar?"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__display_name
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__display_name
 msgid "Display Name"
 msgstr "Nome exibido"
@@ -394,6 +415,7 @@ msgid "ICMS Taxpayer Type"
 msgstr "Tipo de contribuinte do ICMS"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__id
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__id
 msgid "ID"
 msgstr "ID"
@@ -410,6 +432,15 @@ msgid "Intermediate product"
 msgstr "Produto intermediário"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_bank_statement_line__l10n_br_is_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_external_tax_mixin__l10n_br_is_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_move__l10n_br_is_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_account_payment__l10n_br_is_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_sale_order__l10n_br_is_avatax
+msgid "Is Brazilian Avatax"
+msgstr "É avatax brasileiro"
+
+#. module: l10n_br_avatax
 #: model:ir.model,name:l10n_br_avatax.model_account_move
 msgid "Journal Entry"
 msgstr "Lançamento de diário"
@@ -420,11 +451,13 @@ msgid "L10N Br Avatax Show Overwrite Warning"
 msgstr "L10N Br Avatax - Mostrar aviso de substituição"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__write_uid
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__write_uid
 msgid "Last Updated by"
 msgstr "Última atualização por"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__write_uid
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__write_date
 msgid "Last Updated on"
 msgstr "Última atualização em"
@@ -434,6 +467,12 @@ msgstr "Última atualização em"
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_res_users__l10n_br_activity_sector
 msgid "Main Activity Sector"
 msgstr "Setor da atividade principal"
+
+#. module: l10n_br_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_res_config_settings__l10n_br_cnae_code_id
+#: model_terms:ir.ui.view,arch_db:l10n_br_avatax.res_config_settings_view_form
+msgid "Main CNAE code registered with the government."
+msgstr "Principal código CNAE registrado no governo."
 
 #. module: l10n_br_avatax
 #: model:ir.model.fields.selection,name:l10n_br_avatax.selection__product_template__l10n_br_sped_type__material_for_usage_and_consumption
@@ -452,6 +491,7 @@ msgid "NCM Code"
 msgstr "Código NCM"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__name
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_ncm_code__name
 msgid "Name"
 msgstr "Nome"
@@ -589,6 +629,11 @@ msgid "Sandbox"
 msgstr "Sandbox"
 
 #. module: l10n_br_avatax
+#: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_cnae_code__sanitized_code
+msgid "Sanitized Code"
+msgstr "Código Sanitizado"
+
+#. module: l10n_br_avatax
 #. odoo-python
 #: code:addons/l10n_br_avatax/models/res_config_settings.py:0
 msgid ""
@@ -641,6 +686,28 @@ msgstr "Contribuinte isento"
 #: model:ir.model.fields,help:l10n_br_avatax.field_account_tax__l10n_br_avatax_code
 msgid "Technical field containing the Avatax identifier for this tax."
 msgstr "Campo técnico contendo o identificador Avatax para este imposto."
+
+#. module: l10n_br_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_l10n_br_cnae_code__sanitized_code
+msgid ""
+"Technical field that contains the code without special characters, as "
+"expected by the Avalara API."
+msgstr ""
+"Campo técnico que contém o código sem caracteres especiais, conforme "
+"esperado pela API Avalara."
+
+#. module: l10n_br_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_bank_statement_line__l10n_br_is_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_external_tax_mixin__l10n_br_is_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_move__l10n_br_is_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_account_payment__l10n_br_is_avatax
+#: model:ir.model.fields,help:l10n_br_avatax.field_sale_order__l10n_br_is_avatax
+msgid ""
+"Technical field used to check if this record requires tax calculation or EDI"
+" via Avatax."
+msgstr ""
+"Campo técnico utilizado para verificar se este registro necessita de cálculo de imposto ou EDI"
+" via Avatax."
 
 #. module: l10n_br_avatax
 #: model:ir.model.fields,help:l10n_br_avatax.field_res_config_settings__l10n_br_avatax_show_overwrite_warning

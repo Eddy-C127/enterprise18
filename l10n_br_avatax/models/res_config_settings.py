@@ -44,6 +44,11 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
     )
     l10n_br_tax_regime = fields.Selection(related='company_id.partner_id.l10n_br_tax_regime')
+    l10n_br_cnae_code_id = fields.Many2one(
+        related='company_id.l10n_br_cnae_code_id',
+        help="Main CNAE code registered with the government.",
+        readonly=False,
+    )
 
     @api.depends('l10n_br_avalara_environment', 'l10n_br_avatax_api_identifier', 'l10n_br_avatax_api_key')
     def _compute_show_overwrite_warning(self):
