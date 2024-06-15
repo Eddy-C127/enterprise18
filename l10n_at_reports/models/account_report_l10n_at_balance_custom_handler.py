@@ -21,4 +21,7 @@ class AccountReportCustomHandler(models.AbstractModel):
                     if column['expression_label'] == 'balance':
                         if float_compare(column['no_format'], 0, 2) < 0:
                             line['name'] = _("A. Negative equity capital")
+                    # We do only consider the first result, otherwise a positive equity capital this year will
+                    # be overridden by a negative equity capital in the previous comparison years
+                    break
         return lines
