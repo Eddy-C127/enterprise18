@@ -238,7 +238,7 @@
                                                         <field name="label">balance</field>
                                                         <!-- sum_if_pos_groupby -->
                                                         <field name="engine">account_codes</field>
-                                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_ABII4)D + tag(l10n_at.account_tag_l10n_at_PCVII)D + tag(l10n_at.account_tag_l10n_at_PCVIII1)D + tag(l10n_at.account_tag_l10n_at_PCVIII2)D + tag(l10n_at.account_tag_l10n_at_PCVIII3)D + tag(l10n_at.account_tag_l10n_at_PCVIII4)D</field>
+                                                        <field name="formula">tag(l10n_at.account_tag_l10n_at_ABII4)D + tag(l10n_at.account_tag_l10n_at_PCVII)D + tag(l10n_at.account_tag_l10n_at_PCVIII3)D + tag(l10n_at.account_tag_l10n_at_PCVIII4)D</field>
                                                     </record>
                                                 </field>
                                             </record>
@@ -629,14 +629,7 @@
                                             <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_38_balance" model="account.report.expression">
                                                 <field name="label">balance</field>
                                                 <field name="engine">aggregation</field>
-                                                <field name="formula">PCVIII1.balance + PCVIII2.balance + PCVIII.domain</field>
-                                                <field name="green_on_positive" eval="False"/>
-                                            </record>
-                                            <record id="account_financial_report_l10n_at_paragraph_224_ugb_line_passiva_38_domain" model="account.report.expression">
-                                                <field name="label">domain</field>
-                                                <field name="engine">domain</field>
-                                                <field name="formula" eval="[('account_id.tag_ids', 'in', [ref('l10n_at.account_tag_l10n_at_PCVIII')])]"/>
-                                                <field name="subformula">-sum</field>
+                                                <field name="formula">PCVIII3.balance + PCVIII4.balance</field>
                                                 <field name="green_on_positive" eval="False"/>
                                             </record>
                                         </field>
