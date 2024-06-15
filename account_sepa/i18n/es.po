@@ -80,7 +80,7 @@ msgstr "Contacto"
 msgid ""
 "Entity that assigns the identification (eg. KBE-BCO or Finanzamt Muenchen "
 "IV)."
-msgstr "Entidad que asigna la identificación (por ejemplo, BBVA o CaixaBank)."
+msgstr "Entidad que asigna la identificación (p. ej. BBVA o CaixaBank)."
 
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_03
@@ -153,8 +153,8 @@ msgid ""
 "Name of the Creditor Reference Party. Usage Rule: Limited to 70 characters "
 "in length."
 msgstr ""
-"Nombre de la referencia de la parte del acreedor. Regla de uso: limitado a "
-"70 caracteres de longitud."
+"Nombre de la parte acreedora de referencia. Regla de uso: extensión limitada"
+" a 70 caracteres."
 
 #. module: account_sepa
 #: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__pain_001_001_09
@@ -214,13 +214,13 @@ msgstr "Registrar pago"
 #: model:ir.model.fields,help:account_sepa.field_account_batch_payment__sct_batch_booking
 msgid "Request batch booking from the bank for the related bank statements."
 msgstr ""
-"Solicite la contabilización por lotes a su banco para los estados bancarios "
-"relacionados."
+"Solicite la contabilización por lotes a su banco para los extractos "
+"bancarios relacionados."
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_batch_payment__sct_batch_booking
 msgid "SCT Batch Booking"
-msgstr "Reserva en lote SCT"
+msgstr "Reservas por lote SCT"
 
 #. module: account_sepa
 #: model:account.payment.method,name:account_sepa.account_payment_method_sepa_ct
@@ -250,20 +250,20 @@ msgid ""
 "created need some tweaking."
 msgstr ""
 "Aunque la SEPA sea un formato genérico, algunos países difieren con las "
-"recomendaciones de la SEPA hechas por el EPC (Consejo Europeo de Pagos, por "
-"sus siglas en inglés) y, por lo tanto, es necesario modificar el XML creado."
+"recomendaciones de la SEPA hechas por el EPC (Consejo Europeo de Pagos) y, "
+"por lo tanto, es necesario modificar el XML creado."
 
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_batch_payment__sct_generic
 msgid "Sct Generic"
-msgstr "Pagos por transferencia de crédito SEPA genérico"
+msgstr "Sct genérico"
 
 #. module: account_sepa
 #. odoo-python
 #: code:addons/account_sepa/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are above the maximum amount allowed."
-msgstr "Algunos pagos rebasan el monto máximo permitido."
+msgstr "Algunos pagos superan el importe máximo permitido."
 
 #. module: account_sepa
 #. odoo-python
@@ -281,7 +281,8 @@ msgstr ""
 #: code:addons/account_sepa/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments have no recipient bank account set."
-msgstr "Algunos pagos no tienen una cuenta bancaria acreedora registrada."
+msgstr ""
+"Algunos pagos no tienen una cuenta bancaria de destinatario establecida."
 
 #. module: account_sepa
 #. odoo-python
@@ -291,7 +292,7 @@ msgid ""
 "Some payments were instructed in another currency than Euro. This batch "
 "might not be accepted by certain banks because of that."
 msgstr ""
-"Algunos pagos se hicieron en una divisa diferente al euro. Por ello, puede "
+"Algunos pagos se hicieron en una moneda diferente al euro. Por ello, puede "
 "que este lote no se acepte en algunos bancos."
 
 #. module: account_sepa
@@ -330,8 +331,8 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
-"El código BIC '%s' vinculado al banco '%s' de la cuenta bancaria '%s' del socio '%s' no cumple con los requisitos.\n"
-"Debe contener 8 u 11 caracteres y seguir la siguiente estructura:\n"
+"El código BIC '%s' vinculado al banco '%s' de la cuenta bancaria '%s' del contacto '%s' no cumple con los requisitos.\n"
+"Debe tener 8 u 11 caracteres y seguir la siguiente estructura:\n"
 "- 4 letras: código de la institución o del banco\n"
 "- 2 letras: código del país\n"
 "- 2 letras o dígitos: código de ubicación\n"
@@ -346,7 +347,7 @@ msgid ""
 "- 18 alphanumeric characters with capital letters\n"
 "- 2 digits in the end\n"
 msgstr ""
-"El número del LEI debe contener 20 caracteres y coincidir con la siguiente estructura:\n"
+"El número del identificador de entidad jurídica debe contener 20 caracteres y coincidir con la siguiente estructura:\n"
 "- 18 caracteres alfanuméricos con mayúsculas\n"
 "- 2 dígitos al final\n"
 
@@ -358,8 +359,8 @@ msgid ""
 "The account %s, linked to partner '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
-"La cuenta bancaria %s, vinculada a la empresa '%s', no es de tipo IBAN.\n"
-"Se requiere una cuenta bancaria IBAN para usar las características SEPA."
+"La cuenta bancaria %s vinculada al contacto '%s' no es de tipo IBAN.\n"
+"Se requiere una cuenta bancaria IBAN para usar las funciones SEPA."
 
 #. module: account_sepa
 #. odoo-python
@@ -391,7 +392,7 @@ msgid ""
 "The bank defined on account %s (from partner %s) has no BIC. Please first "
 "set one."
 msgstr ""
-"El banco establecido en la cuenta %s (del partner %s) no cuenta con BIC. "
+"El banco establecido en la cuenta %s (del contacto %s) no cuenta con BIC. "
 "Primero establezca uno."
 
 #. module: account_sepa
@@ -420,7 +421,7 @@ msgstr "UETR"
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_account_payment__sepa_uetr
 msgid "Unique end-to-end transaction reference"
-msgstr "Referencia de seguimiento de extremo a extremo"
+msgstr "Referencia única de transacción de extremo a extremo"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__sepa_initiating_party_name

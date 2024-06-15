@@ -48,7 +48,7 @@ msgstr "# Aumentos brutos"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__depreciation_entries_count
 msgid "# Posted Depreciation Entries"
-msgstr "# Entradas de Depreciación Contabilizadas"
+msgstr "# Asientos de depreciación publicados"
 
 #. module: account_asset
 #. odoo-python
@@ -136,21 +136,21 @@ msgstr ""
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A document linked to %s has been deleted: %s"
-msgstr "Se eliminó un documento vinculado a %s: %s"
+msgstr "Se ha eliminado un documento vinculado a %s: %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "A document linked to this move has been deleted: %s"
-msgstr "Se eliminó un documento vinculado a este movimiento: %s"
+msgstr "Se ha eliminado un documento vinculado a este movimiento: %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A gross increase has been created: "
-msgstr "Se creó un incremento bruto: "
+msgstr "Se ha creado un incremento bruto: "
 
 #. module: account_asset
 #. odoo-python
@@ -555,7 +555,7 @@ msgstr "Automatización"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__daily_computation
 msgid "Based on days per period"
-msgstr "Con base en días por periodo"
+msgstr "Según los días por periodo"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -600,7 +600,7 @@ msgstr "Características"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__children_ids
 msgid "Children"
-msgstr "Subordinados"
+msgstr "Hijos"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method
@@ -612,8 +612,8 @@ msgid ""
 msgstr ""
 "Elija el método que se utilizará para calcular el importe de las líneas de depreciación.\n"
 "  * Línea recta: se calcula según: valor bruto / duración\n"
-"  * En declive: se calcula según: valor residual * factor de disminución\n"
-"  * En declive y luego en línea recta: en declive pero con un valor mínimo de depreciación igual al valor en línea recta."
+"  * Decreciente: se calcula según: valor remanente * factor de disminución\n"
+"  * Decreciente y luego en línea recta: decreciente pero con un valor mínimo de depreciación igual al valor en línea recta."
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__close
@@ -746,7 +746,7 @@ msgstr "Fecha del inicio de la depreciación"
 #: code:addons/account_asset/models/account_assets_report.py:0
 #, python-format
 msgid "Dec. then Straight"
-msgstr "En declive, luego en línea recta "
+msgstr "Decreciente y luego en línea recta"
 
 #. module: account_asset
 #. odoo-python
@@ -754,7 +754,7 @@ msgstr "En declive, luego en línea recta "
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method__degressive
 #, python-format
 msgid "Declining"
-msgstr "En declive"
+msgstr "Decreciente"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__method_progress_factor
@@ -764,7 +764,7 @@ msgstr "Factor de disminución"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method__degressive_then_linear
 msgid "Declining then Straight Line"
-msgstr "En declive y luego en línea recta"
+msgstr "Decreciente y luego en línea recta"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__value_residual
@@ -1054,8 +1054,8 @@ msgid ""
 "If this is selected, an expense/revenue will be created automatically when "
 "Journal Items on this account are posted."
 msgstr ""
-"Si se selecciona esta opción, se creará un gasto/ingreso de forma automática"
-" cuando se publiquen los apuntes contables en esta cuenta."
+"Si se selecciona esta opción, se creará automáticamente un gasto/ingreso "
+"cuando se publiquen los apuntes contables en esta cuenta."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__already_depreciated_amount_import
@@ -1087,7 +1087,7 @@ msgstr "Es un seguidor"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__salvage_value
 msgid "It is the amount you plan to have that you cannot depreciate."
-msgstr "Es la cantidad que usted  estima que no se puede depreciar."
+msgstr "Es el importe que usted estima que no puede depreciar."
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__journal_id
@@ -1242,12 +1242,12 @@ msgstr "Fecha límite de mi actividad"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__value_residual
 msgid "New residual amount for the asset"
-msgstr "Nueva cantidad residual del activo"
+msgstr "Nuevo importe remanente para el activo"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__salvage_value
 msgid "New salvage amount for the asset"
-msgstr "Nuevo monto recuperable del activo"
+msgstr "Nuevo importe recuperable para el activo"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_calendar_event_id
@@ -1464,8 +1464,8 @@ msgid ""
 "Reverse the depreciation entries posted in the future in order to modify the"
 " depreciation"
 msgstr ""
-"Invierta las entradas de depreciación registradas en el futuro para "
-"modificar la depreciación"
+"Revierta los asientos de depreciación publicados en el futuro para modificar"
+" la depreciación"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
@@ -1581,9 +1581,9 @@ msgid ""
 "account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
 "%(move_count)s cancelled %(word)s:"
 msgstr ""
-"Se abonó %(exp_delta)s a la cuenta %(exp_acc)s, mientras que se cobraron "
-"%(dep_delta)s a la cuenta %(dep_acc)s. Esto corresponde a %(move_count)s "
-"%(word)s cancelados:"
+"La cuenta %(exp_acc)s fue abonada por %(exp_delta)s, mientras que la cuenta "
+"%(dep_acc)s ha sido cobrada por %(dep_delta)s. Esto corresponde a "
+"%(move_count)s cancelados %(word)s:"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_period
@@ -1633,8 +1633,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_number
 msgid "The number of depreciations needed to depreciate your asset"
-msgstr ""
-"El número de depreciaciones necesarias para que el activo se deprecie. "
+msgstr "El número de depreciaciones necesarias para que el activo se deprecie"
 
 #. module: account_asset
 #. odoo-python
@@ -1656,7 +1655,7 @@ msgid ""
 "There are unposted depreciations prior to the selected operation date, "
 "please deal with them first."
 msgstr ""
-"Hay depreciaciones sin publicar anteriores a la fecha de operación "
+"Hay depreciaciones no publicadas anteriores a la fecha de operación "
 "seleccionada, resuélvalo primero."
 
 #. module: account_asset
@@ -1664,7 +1663,7 @@ msgstr ""
 #: code:addons/account_asset/static/src/components/move_reversed/move_reversed.xml:0
 #, python-format
 msgid "This move has been reversed"
-msgstr "Este movimiento se revirtió"
+msgstr "Este movimiento ha sido revertido"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
@@ -1710,7 +1709,7 @@ msgstr "Valor en la importación"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Value decrease for: %(asset)s"
-msgstr "Valor disminuido en: %(asset)s"
+msgstr "Disminución en el valor para: %(asset)s"
 
 #. module: account_asset
 #. odoo-python
@@ -1718,7 +1717,7 @@ msgstr "Valor disminuido en: %(asset)s"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "Value increase for: %(asset)s"
-msgstr "Aumento en el valor de: %(asset)s"
+msgstr "Aumento en el valor para: %(asset)s"
 
 #. module: account_asset
 #. odoo-python

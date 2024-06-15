@@ -23,7 +23,7 @@ msgstr ""
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "<span> to </span>"
-msgstr "<span> para </span>"
+msgstr "<span> a </span>"
 
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_chart_template
@@ -101,7 +101,7 @@ msgid ""
 "Automatic Transfer (entries with analytic account(s): %s and partner(s): %s)"
 msgstr ""
 "Transferencia automática (asientos con cuenta(s) analítica(s): %s y "
-"partners: %s)"
+"contacto(s): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -115,7 +115,7 @@ msgstr "Transferencia automática (asientos con cuenta(s) analítica(s): %s)"
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (entries with partner(s): %s)"
-msgstr "Transferencia automática (asientos con partner(s): %s)"
+msgstr "Transferencia automática (asientos con contacto(s): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -125,8 +125,8 @@ msgid ""
 "Automatic Transfer (from account %s with analytic account(s): %s and "
 "partner(s): %s)"
 msgstr ""
-"Transferencia automática (desde cuenta %s con cuenta(s) analítica(s): %s y "
-"partners: %s)"
+"Transferencia automática (desde la cuenta %s con cuenta(s) analítica(s): %s "
+"y contacto(s): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -134,15 +134,14 @@ msgstr ""
 #, python-format
 msgid "Automatic Transfer (from account %s with analytic account(s): %s)"
 msgstr ""
-"Transferencia automática (desde una cuenta %s con cuenta(s) analítica(s): "
-"%s)"
+"Transferencia automática (desde la cuenta %s con cuenta(s) analítica(s): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "Automatic Transfer (from account %s with partner(s): %s)"
-msgstr "Transferencia automática (desde cuenta %s con partner(s): %s)"
+msgstr "Transferencia automática (desde la cuenta %s con contacto(s): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -278,19 +277,19 @@ msgstr "Última actualización el"
 #. module: account_auto_transfer
 #: model:ir.model.fields.selection,name:account_auto_transfer.selection__account_transfer_model__frequency__month
 msgid "Monthly"
-msgstr "Mensual"
+msgstr "Mensualmente"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 #, python-format
 msgid "Monthly IFRS rent expense transfer"
-msgstr "Transferencia mensual NIIF de gastos de renta "
+msgstr "Transferencia mensual de gastos de alquiler NIIF"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__move_ids_count
 msgid "Move Ids Count"
-msgstr "Mover Recuento de ID"
+msgstr "Número de ID de movimiento"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -328,7 +327,7 @@ msgstr "Modelo de origen"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__partner_ids
 msgid "Partner Filter"
-msgstr "Filtro de Partner"
+msgstr "Filtro de contacto"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__percent
@@ -412,7 +411,7 @@ msgstr ""
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 #, python-format
 msgid "The partner filter %s is duplicated"
-msgstr "Se duplicó %s el filtro de partner"
+msgstr "El filtro de contacto %s está duplicado"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -468,8 +467,8 @@ msgid ""
 "You cannot delete an automatic transfer that has posted moves attached "
 "('%s')."
 msgstr ""
-"No puede eliminar una transferencia automática que tenga movimientos "
-"contabilizados adjuntos ('%s')."
+"No puede eliminar una transferencia automática que tiene asientos "
+"registrados adjuntos ('%s')."
 
 #. module: account_auto_transfer
 #. odoo-python

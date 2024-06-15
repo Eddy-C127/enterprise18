@@ -28,8 +28,8 @@ msgid ""
 "\"End Date\" of the budget line should be included in the Period of the "
 "budget"
 msgstr ""
-"La \"fecha límite\" de la línea presupuestaria debe incluirse en el periodo "
-"del presupuesto"
+"Se debe incluir la \"fecha de finalización\" de la línea de presupuesto en "
+"el periodo del presupuesto"
 
 #. module: account_budget
 #. odoo-python
@@ -39,7 +39,7 @@ msgid ""
 "\"Start Date\" of the budget line should be included in the Period of the "
 "budget"
 msgstr ""
-"La \"fecha de inicio\" de la línea presupuestaria debe incluirse en el "
+"Se debe incluir la \"fecha de inicio\" de la línea de presupuesto en el "
 "periodo del presupuesto"
 
 #. module: account_budget
@@ -105,7 +105,7 @@ msgstr "Cantidad real ganada/gastada."
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget_lines__theoritical_amount
 msgid "Amount you are supposed to have earned/spent at this date."
-msgstr "Cantidad presunta ganada/gastada en esta fecha."
+msgstr "Importe ganado/gastado previsto para esta fecha."
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget_lines__planned_amount
@@ -113,8 +113,8 @@ msgid ""
 "Amount you plan to earn/spend. Record a positive amount if it is a revenue "
 "and a negative amount if it is a cost."
 msgstr ""
-"Cantidad que planeas ganar/gastar. Registra una cantidad positiva si es un "
-"ingreso y una cantidad negativa si es un coste."
+"Importe que prevé ganar/gastar. Registre un importe positivo si se trata de "
+"un ingreso y un importe negativo si se trata de un gasto."
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_account_analytic_account
@@ -220,7 +220,7 @@ msgstr "Cancelado"
 #. module: account_budget
 #: model_terms:ir.actions.act_window,help:account_budget.act_crossovered_budget_view
 msgid "Click to create a new budget."
-msgstr "Pulsa para crear un nuevo presupuesto."
+msgstr "Haga clic aquí para crear un nuevo presupuesto."
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_account_budget_post__company_id
@@ -235,8 +235,8 @@ msgid ""
 "Comparison between practical and theoretical amount. This measure tells you "
 "if you are below or over budget."
 msgstr ""
-"Comparación entre la cantidad práctica y la teórica. Esta medida te indica "
-"si estás por debajo o por encima del presupuesto."
+"Diferencia entre el importe práctico y el teórico. Esta medida le indica si "
+"está por debajo o por encima del presupuesto."
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form
@@ -294,7 +294,7 @@ msgstr "Borrador"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_crossovered_budget_search
 msgid "Draft Budgets"
-msgstr "Presupuesto preliminar"
+msgstr "Borradores de presupuesto"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__date_to
@@ -485,7 +485,7 @@ msgstr "Importe previsto"
 #: model_terms:ir.ui.view,arch_db:account_budget.view_crossovered_budget_line_graph
 #: model_terms:ir.ui.view,arch_db:account_budget.view_crossovered_budget_line_pivot
 msgid "Planned amount"
-msgstr "Cantidad prevista"
+msgstr "Importe previsto"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget_lines__practical_amount
@@ -579,7 +579,7 @@ msgstr "Importe teórico"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form
 msgid "To"
-msgstr "Hasta"
+msgstr "A"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_crossovered_budget_search
@@ -599,7 +599,7 @@ msgstr "Actividades de hoy"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_account_analytic_account__total_planned_amount
 msgid "Total Planned Amount"
-msgstr "Cantidad total prevista"
+msgstr "Importe total previsto"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_account_analytic_account__total_practical_amount
@@ -615,8 +615,8 @@ msgstr "Tipo de actividad de excepción en el registro."
 #: model_terms:ir.actions.act_window,help:account_budget.act_crossovered_budget_view
 msgid "Use budgets to compare actual with expected revenues and costs"
 msgstr ""
-"Utiliza los presupuestos para comparar los ingresos y costes reales con los "
-"esperados."
+"Utilice los presupuestos para comparar los ingresos y costes reales con los "
+"esperados"
 
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__crossovered_budget__state__validate

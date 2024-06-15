@@ -50,8 +50,8 @@ msgid ""
 "icon near Shiprocket Channel to sync newly created channels.</b>"
 msgstr ""
 "<b>En la configuración de Odoo haga clic en el icono <i class=\"fa fa-"
-"refresh oe_inline\"/> cerca del canal de Shiprocket para sincronizar los "
-"nuevos canales.</b>"
+"refresh oe_inline\"/> cerca del canal Shiprocket para sincronizar los nuevos"
+" canales.</b>"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
@@ -83,9 +83,9 @@ msgid ""
 "days."
 msgstr ""
 "<i class=\"fa fa-exclamation-triangle\"/> Para evitar cargos en los entornos"
-" de prueba, los envíos se <b>cancelan</b> de automáticamente después de "
-"crear la etiqueta. Se hará la devolución del importe por el envío cancelado "
-"en los próximos 3 o 4 días."
+" de prueba, los envíos se <b>cancelan</b> automáticamente después de crear "
+"la etiqueta. Se hará la devolución del importe por el envío cancelado en los"
+" próximos 3 o 4 días."
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,help:delivery_shiprocket.field_delivery_carrier__shiprocket_manifests_generate
@@ -95,8 +95,8 @@ msgid ""
 "orders."
 msgstr ""
 "El manifiesto es un documento que exigen algunos transportistas para "
-"agilizar el proceso de recolección, en especial cuando se envía un gran "
-"volumen de órdenes de comercio electrónico."
+"agilizar el proceso de recogida, en especial cuando se envía un gran volumen"
+" de pedidos de comercio electrónico."
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
@@ -109,7 +109,7 @@ msgstr "Usuario API"
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "AWB assignment was unsuccessful: %s"
-msgstr "Ocurrió un error con la asignación de la AWB: %s"
+msgstr "Ocurrió un error con la asignación de AWB: %s"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -145,7 +145,7 @@ msgstr "La autenticación falló. Revise sus credenciales."
 #. module: delivery_shiprocket
 #: model:ir.model.fields.selection,name:delivery_shiprocket.selection__delivery_carrier__shiprocket_payment_method__cod
 msgid "COD"
-msgstr "COD"
+msgstr "Contra reembolso"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_stock_package_type__package_carrier_type
@@ -155,7 +155,7 @@ msgstr "Transportista"
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_channel__channel_code
 msgid "Channel Code"
-msgstr "Código de canal"
+msgstr "Código del canal"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_channel__name
@@ -172,7 +172,7 @@ msgstr "Ajustes de configuración"
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "Configure Shiprocket channel in shipping method"
-msgstr "Configurar el canal de Shiprocket en el método de envío"
+msgstr "Configurar el canal de Shiprocket en el método de entrega"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -199,7 +199,7 @@ msgstr "Código de transportista"
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "Courier is not available for delivery!"
-msgstr "El transportista no está disponible para el envío"
+msgstr "El transportista no está disponible para la entrega"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -271,7 +271,7 @@ msgid ""
 "Eway Bill number is required to ship an order if order amount is more than "
 "50,000 INR."
 msgstr ""
-"Es necesario poner el número de EWB para enviar una orden si el importe del "
+"Es necesario poner el número de EWB para enviar un pedido si el importe del "
 "mismo es superior a 50.000 INR."
 
 #. module: delivery_shiprocket
@@ -667,7 +667,7 @@ msgstr "Vencimiento del token"
 #. module: delivery_shiprocket
 #: model:ir.model,name:delivery_shiprocket.model_stock_picking
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: delivery_shiprocket
 #. odoo-python

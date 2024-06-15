@@ -39,32 +39,48 @@ msgstr "Se requiere el teléfono de %(partner_name)s"
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
 msgid ""
-"%s\n"
-"Moreover, some individual product(s) overweight the heaviest available shipping method.\n"
+"\n"
+"Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
 "                             \n"
-"Divide the quantity of the following product(s) among packages if possible or choose another carrier:\n"
+"Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
 "\t%s"
 msgstr ""
-"%s\n"
-"Además, algunos productos individuales se pasan del peso más alto permitido en el método de entrega.\n"
+"\n"
+"Además, algunos productos son demasiado pesados para el método de envío disponible.\n"
 "                             \n"
-"Divida la cantidad de los siguientes productos entre los paquetes si es posible o elija otro transportista:\n"
+"Divida la cantidad de los siguientes productos en varios paquetes si es posible o elija otro transportista:\n"
 "\t%s"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
 msgid ""
-"%s your picking overweight the heaviest available shipping method.\n"
-"                         \n"
-"Try to distributes your products in packages weighting less than %s %s or choose another carrier."
+"Some packages in your transfer are too heavy for the heaviest available "
+"shipping method."
 msgstr ""
-"%s su recolección pasa del peso más alto permitido en el método de envío.\n"
-"                         \n"
-"Intente distribuir sus productos en paquetes que pesen menos de %s %s o elija otro transportista.  "
+"Algunos paquetes en su traslado son demasiado pesados incluso para el método"
+" de envío más pesado disponible."
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+msgid ""
+"\n"
+"Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
+msgstr ""
+"\n"
+"Trate de distribuir sus productos en varios paquetes para que pesen menos de  %(max_weight)s %(unit)s o elija otro transportista."
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+msgid ""
+"The total weight of your transfer is too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"El peso total de su traslado es demasiado pesado incluso para el método de "
+"envío más pesado disponible."
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -589,13 +605,6 @@ msgstr ""
 msgid "The shipping product actually configured can't handle this delivery"
 msgstr ""
 "El envío del producto actualmente configurado no puede manejar este envío"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
-msgid "The total weight of"
-msgstr "El peso total de "
 
 #. module: delivery_sendcloud
 #. odoo-python

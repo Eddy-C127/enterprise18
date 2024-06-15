@@ -37,7 +37,7 @@ msgstr "'Planificación'"
 #: code:addons/planning/models/planning_template.py:0
 #, python-format
 msgid "(%s days span)"
-msgstr "(lapso de %s días)"
+msgstr "(periodo de %s días)"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
@@ -1073,7 +1073,7 @@ msgstr "Días"
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Days before shift for unassignment"
-msgstr "Días antes para desasignar el turno"
+msgstr "Días antes el turno para eliminar la asignación"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1083,7 +1083,7 @@ msgstr "Fecha límite"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__unassign_deadline
 msgid "Deadline for unassignment"
-msgstr "Fecha límite para desasignar"
+msgstr "Fecha límite para eliminar la asignación"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_planning__self_unassign_days_before
@@ -1091,7 +1091,7 @@ msgstr "Fecha límite para desasignar"
 #: model:ir.model.fields,help:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,help:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Deadline in days for shift unassignment"
-msgstr "Fecha límite en días para desasignar el turno"
+msgstr "Fecha límite en días para eliminar la asignación del turno"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
@@ -1501,7 +1501,7 @@ msgstr "Es el rol de los turnos uno de los roles actuales del usuario"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_unassign_deadline_passed
 msgid "Is unassignement deadline not past"
-msgstr "La fecha límite para designar no está en el pasado"
+msgstr "La fecha límite para eliminar la asignación no está en el pasado"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -2385,7 +2385,7 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The company does not allow you to self unassign."
-msgstr "La compañía no le permite autoasignarse."
+msgstr "La compañía no permite que usted elimine su asignación del turno."
 
 #. module: planning
 #. odoo-python
@@ -2610,7 +2610,7 @@ msgstr ""
 " solo se crean turnos para los próximos 6 meses. Luego se crean de forma "
 "gradual a medida que pasa el tiempo con el fin de obtener los turnos de los "
 "siguientes 6 meses. Puede modificar este valor desde los ajustes de "
-"Planificación, en modo de debug."
+"Planificación, en modo de depuración."
 
 #. module: planning
 #. odoo-javascript

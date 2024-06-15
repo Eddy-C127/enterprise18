@@ -29,6 +29,8 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\" "
 "invisible=\"product_tracking not in ['serial', 'lot']\"/>"
 msgstr ""
+"<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Număr serial / Lot\" "
+"invisible=\"tracking not in ['serial', 'lot']\"/>"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.scrap_product_selector
@@ -36,6 +38,8 @@ msgid ""
 "<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Serial/Lot Number\" "
 "invisible=\"tracking not in ['serial', 'lot']\"/>"
 msgstr ""
+"<i class=\"fa fa-fw fa-lg fa-barcode me-3\" title=\"Număr serial / Lot\" "
+"invisible=\"tracking not in ['serial', 'lot']\"/>"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -72,6 +76,8 @@ msgstr "<i class=\"fa fa-fw fa-lg fa-tags me-3\" title=\"Produs\"/>"
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode commands and operation types"
 msgstr ""
+"<i class=\"fa fa-print\"/> Imprimați comenzile de coduri de bare și tipurile"
+" de operațiuni"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -88,7 +94,7 @@ msgstr "Adăugare Integrant"
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow full order validation"
-msgstr ""
+msgstr "Permiteți validarea completă a comenzii"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,help:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -99,18 +105,20 @@ msgstr "Permiteți crearea de noi numere de lot / serie pentru componente"
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow user to produce all even if no components were scanned"
 msgstr ""
+"Permiteți utilizatorului să producă tot, chiar dacă nu au fost scanate "
+"componente"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Are you sure you want to cancel this manufacturing order?"
-msgstr ""
+msgstr "Ești sigur că vrei să anulezi această comandă de producție?"
 
 #. module: stock_barcode_mrp
 #: model:ir.actions.client,name:stock_barcode_mrp.stock_barcode_mo_client_action
 msgid "Barcode MO Client Action"
-msgstr ""
+msgstr "Acțiune client cod de bare MO"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -122,14 +130,14 @@ msgstr "Nomenclator cod de bare"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Cancel Manufacturing Order"
-msgstr ""
+msgstr "Anulează comanda de producție"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Cancel manufacturing order?"
-msgstr ""
+msgstr "Anulați comanda de producție?"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -146,7 +154,7 @@ msgstr "Confirmă"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_picking_type__count_mo_confirmed
 msgid "Count Mo Confirmed"
-msgstr ""
+msgstr "Număr MO confirmate"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -156,7 +164,7 @@ msgstr "Creați loturi/numere de serie noi pentru componente"
 #. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Create a new Manufacturing Order"
-msgstr ""
+msgstr "Creați o nouă comandă de producție"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -184,12 +192,12 @@ msgstr "Consum manual"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_byproduct_line_ids
 msgid "Move Byproduct Line"
-msgstr ""
+msgstr "Linie de mișcare a produsului secundar"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_raw_line_ids
 msgid "Move Raw Line"
-msgstr ""
+msgstr "Linie de mișcare a materialelor prime"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__backorder_ids
@@ -208,14 +216,14 @@ msgstr "Nou(ă)"
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "No Manufacturing Order ready for this %(barcode_type)s"
-msgstr ""
+msgstr "Nicio comandă de producție pregătită pentru acest %(barcode_type)s"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "No product or order found for barcode %s"
-msgstr ""
+msgstr "Niciun produs sau comandă găsită pentru codul de bare %s"
 
 #. module: stock_barcode_mrp
 #: model:ir.actions.act_window,name:stock_barcode_mrp.mrp_action_kanban
@@ -232,21 +240,21 @@ msgstr "Tip ridicare"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Finished Product Label (PDF)"
-msgstr ""
+msgstr "Tipăriți eticheta produsului finit (PDF)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Finished Product Label (ZPL)"
-msgstr ""
+msgstr "Tipăriți eticheta produsului finit (ZPL)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Production Order"
-msgstr ""
+msgstr "Tipăriți comanda de producție"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -284,7 +292,7 @@ msgstr "Variantă produs"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Product not Allowed"
-msgstr ""
+msgstr "Produsul nu este permis"
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production
@@ -302,14 +310,14 @@ msgstr "Cantitate"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Scan a component"
-msgstr ""
+msgstr "Scanați o componentă"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "Scan a product to filter the orders."
-msgstr ""
+msgstr "Scanați un produs pentru a filtra comenzile."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -324,14 +332,14 @@ msgstr ""
 #: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban.xml:0
 #, python-format
 msgid "Scan an order or a product to filter your records"
-msgstr ""
+msgstr "Scanați o comandă sau un produs pentru a filtra înregistrările"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Scan your final product or more components"
-msgstr ""
+msgstr "Scanați produsul final sau mai multe componente"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -355,7 +363,7 @@ msgstr "Mișcare stoc"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "The Manufacturing Order has been cancelled"
-msgstr ""
+msgstr "Comanda de producție a fost anulată"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -365,27 +373,29 @@ msgid ""
 "The lines with a kit have been replaced with their components. Please check "
 "the picking before the final validation."
 msgstr ""
+"Liniile cu un kit au fost înlocuite cu componentele lor. Vă rugăm să "
+"verificați ridicarea înainte de validarea finală."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "The manufacturing order has been validated"
-msgstr ""
+msgstr "Comanda de producție a fost validată"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "This order is already done"
-msgstr ""
+msgstr "Această comandă este deja finalizată"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "This order is cancelled"
-msgstr ""
+msgstr "Această comandă este anulată"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.stock_mrp_picking_type_kanban
@@ -397,7 +407,7 @@ msgstr "Procesare"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "To produce more products create a new MO."
-msgstr ""
+msgstr "Pentru a produce mai multe produse, creați o nouă MO."
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
@@ -425,4 +435,4 @@ msgstr ""
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "You can't add the final product of a MO as a byproduct."
-msgstr ""
+msgstr "Nu puteți adăuga produsul final al unei MO ca produs secundar."

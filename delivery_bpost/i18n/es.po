@@ -80,7 +80,7 @@ msgstr "Formato de etiqueta Bpost"
 #. module: delivery_bpost
 #: model:ir.model.fields,field_description:delivery_bpost.field_delivery_carrier__bpost_label_stock_type
 msgid "Bpost Label Stock Type"
-msgstr "Tipo de etiqueta de existencias Bpost"
+msgstr "Tipo de etiqueta de Bpost"
 
 #. module: delivery_bpost
 #: model_terms:ir.ui.view,arch_db:delivery_bpost.view_delivery_carrier_form_with_provider_bpost
@@ -190,7 +190,7 @@ msgstr "Frase de contraseña"
 #: code:addons/delivery_bpost/models/bpost_request.py:0
 #, python-format
 msgid "Please provide at least one item to ship."
-msgstr "Por favor, proporciona al menos un dato para embarcar."
+msgstr "Proporcione al menos un artículo para enviar."
 
 #. module: delivery_bpost
 #: model:ir.model.fields,field_description:delivery_bpost.field_delivery_carrier__delivery_type
@@ -265,7 +265,7 @@ msgid ""
 "The address of your company/warehouse is incomplete or wrong (Missing field(s):  \n"
 " %s)"
 msgstr ""
-"La dirección de tu bodega/empresa no esta completa o es errónea (Campos faltante(s):\n"
+"La dirección de su empresa o almacén no está completa o es errónea (Campos faltantes:\n"
 "%s)"
 
 #. module: delivery_bpost
@@ -298,7 +298,7 @@ msgid ""
 "The recipient address is incomplete or wrong (Missing field(s):  \n"
 " %s)"
 msgstr ""
-"La dirección de recepción está incompleta o es incorrecta (Compos faltante(s):  \n"
+"La dirección del destinatorio está incompleta o es incorrecta (Compos faltante(s):  \n"
 " %s)"
 
 #. module: delivery_bpost
@@ -337,8 +337,8 @@ msgstr ""
 #, python-format
 msgid "Your company/warehouse address must be in Belgium to ship with bpost"
 msgstr ""
-"La dirección de su empresa/almacén debe estar en Bélgica para enviar con "
-"bpost"
+"La dirección de su empresa o almacén debe estar en Bélgica para hacer un "
+"envío con bpost."
 
 #. module: delivery_bpost
 #: model:ir.model.fields.selection,name:delivery_bpost.selection__delivery_carrier__bpost_domestic_deliver_type__bpack_24h_pro
@@ -384,7 +384,7 @@ msgstr "Configuración de bpost"
 #. module: delivery_bpost
 #: model:ir.model.fields,field_description:delivery_bpost.field_delivery_carrier__bpost_default_package_type_id
 msgid "bpost Default Package Type"
-msgstr "Tipo de paquete predeterminado de Bpost"
+msgstr "Tipo de paquete por defecto de Bpost"
 
 #. module: delivery_bpost
 #. odoo-python
@@ -395,7 +395,7 @@ msgid ""
 "delivery method into bpost International."
 msgstr ""
 "bpost Domestic se utiliza únicamente dentro de Bélgica. Por favor cambia el "
-"método de envío a bpost International."
+"método de entrega a bpost International."
 
 #. module: delivery_bpost
 #. odoo-python
@@ -406,7 +406,7 @@ msgid ""
 "delivery method into bpost Domestic."
 msgstr ""
 "bpost International se utiliza únicamente fuera de Bélgica. Por favor cambia"
-" el método de envío a bpost  Domestic."
+" el método de entrega a bpost  Domestic."
 
 #. module: delivery_bpost
 #: model_terms:ir.ui.view,arch_db:delivery_bpost.res_config_settings_view_form_sale

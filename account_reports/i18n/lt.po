@@ -22,10 +22,10 @@
 # Eimantas <eimantas@focusate.eu>, 2023
 # Audrius Palenskis <audrius.palenskis@gmail.com>, 2023
 # Martin Trigaux, 2024
-# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # Arunas V. <arunas@devoro.com>, 2024
 # Linas Versada <linaskrisiukenas@gmail.com>, 2024
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2024
+# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -33,7 +33,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: digitouch UAB <digitouchagencyeur@gmail.com>, 2024\n"
+"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -316,12 +316,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report
 msgid "Accounting Report"
-msgstr ""
+msgstr "Apskaitos ataskaita"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
-msgstr ""
+msgstr "Apskaitos ataskaitos eilutė"
 
 #. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_account_report_tree
@@ -477,14 +477,14 @@ msgstr "Visi"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Journals"
-msgstr ""
+msgstr "Visi žurnalai"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "All Payable"
-msgstr ""
+msgstr "Visos mokėtinos"
 
 #. module: account_reports
 #. odoo-javascript
@@ -519,7 +519,7 @@ msgstr "Kiekio valiuta"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Amount In Currency"
-msgstr ""
+msgstr "Suma valiuta"
 
 #. module: account_reports
 #. odoo-python
@@ -655,17 +655,17 @@ msgstr "Balansas"
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
 msgid "Balance at Current Rate"
-msgstr ""
+msgstr "Likutis pagal esamą kursą"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_operation
 msgid "Balance at Operation Rate"
-msgstr ""
+msgstr "Likutis pagal operacijos kursą"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_currency
 msgid "Balance in Foreign Currency"
-msgstr ""
+msgstr "Likutis užsienio valiuta"
 
 #. module: account_reports
 #. odoo-python
@@ -832,14 +832,14 @@ msgstr "Pinigų srautai iš finansinės veiklos"
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Cash flows from investing & extraordinary activities"
-msgstr ""
+msgstr "Pinigų srautai iš inventavimo ir kitos veiklos"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Cash flows from operating activities"
-msgstr ""
+msgstr "Pinigų srautai iš pagrindinės veiklos"
 
 #. module: account_reports
 #. odoo-python
@@ -855,7 +855,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Cash in"
-msgstr ""
+msgstr "Grynųjų įnešimas"
 
 #. module: account_reports
 #. odoo-python
@@ -864,7 +864,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 #, python-format
 msgid "Cash out"
-msgstr ""
+msgstr "Grynųjų išėmimas"
 
 #. module: account_reports
 #. odoo-python
@@ -1353,7 +1353,7 @@ msgstr "Mokėjimo terminas"
 #: model:ir.actions.client,name:account_reports.action_account_report_sales
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_sales
 msgid "EC Sales List"
-msgstr ""
+msgstr "Pardavimų į EB registras"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_ec_sales_report_handler
@@ -1377,7 +1377,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_equity0
 msgid "EQUITY"
-msgstr ""
+msgstr "NUOSAVYBĖ"
 
 #. module: account_reports
 #. odoo-python
@@ -1416,7 +1416,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_trial_balance_report.py:0
 #, python-format
 msgid "End Balance"
-msgstr ""
+msgstr "Pabaigos balansas"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1482,7 +1482,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_excluded
 msgid "Excluded Accounts"
-msgstr ""
+msgstr "Neįtrauktos sąskaitos"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.executive_summary
@@ -3366,6 +3366,13 @@ msgstr ""
 msgid ""
 "The country in which this tax unit is used to group your companies' tax "
 "reports declaration."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
+#, python-format
+msgid "The currency rate cannot be equal to zero"
 msgstr ""
 
 #. module: account_reports

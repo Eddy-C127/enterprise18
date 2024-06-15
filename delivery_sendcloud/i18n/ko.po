@@ -38,32 +38,37 @@ msgstr "%(partner_name)s 전화번호 필요"
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
 msgid ""
-"%s\n"
-"Moreover, some individual product(s) overweight the heaviest available shipping method.\n"
+"\n"
+"Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
 "                             \n"
-"Divide the quantity of the following product(s) among packages if possible or choose another carrier:\n"
+"Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
 "\t%s"
 msgstr ""
-"%s\n"
-"일부 제품은 배송에서 허용되는 무게의 중량 제한을 초과합니다.\n"
-"                             \n"
-"가능하면 다음 제품의 수량을 여러 패키지로 나누거나 중량 요건을 충족하는 다른 배송업체를 선택하세요:\n"
-"\t%s"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
 msgid ""
-"%s your picking overweight the heaviest available shipping method.\n"
-"                         \n"
-"Try to distributes your products in packages weighting less than %s %s or choose another carrier."
+"Some packages in your transfer are too heavy for the heaviest available "
+"shipping method."
 msgstr ""
-"%s 피킹이 배송에서 허용되는 무게의 중량 제한을 초과했습니다.\n"
-"                         \n"
-"무게가 %s %s 미만인 패키지로 제품을 나누거나 중량 요건을 충족하는 다른 배송업체를 선택하세요."
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+msgid ""
+"\n"
+"Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
+msgstr ""
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+msgid ""
+"The total weight of your transfer is too heavy for the heaviest available "
+"shipping method."
+msgstr ""
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -571,13 +576,6 @@ msgstr ""
 #, python-format
 msgid "The shipping product actually configured can't handle this delivery"
 msgstr "배송 품목의 설정 사항은 이 배송을 처리할 수 없습니다."
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
-msgid "The total weight of"
-msgstr "총 무게"
 
 #. module: delivery_sendcloud
 #. odoo-python

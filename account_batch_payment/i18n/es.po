@@ -68,7 +68,7 @@ msgstr "<strong>Primero considere estas advertencias</strong>"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "<strong>The following errors occurred</strong>"
-msgstr "<strong>Ocurrieron estos errores</strong>"
+msgstr "<strong>Se generaron los siguientes errores</strong>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -220,7 +220,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_account_batch_error_wizard
 msgid "Batch payments error reporting wizard"
-msgstr "Asistente de notificación de errores en los pagos por lote"
+msgstr "Asistente del informe de errores durante el pago por lotes"
 
 #. module: account_batch_payment
 #: model:ir.model,name:account_batch_payment.model_account_batch_error_wizard_line
@@ -232,9 +232,7 @@ msgstr "Línea del asistente de errores en los pagos por lotes"
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
-msgstr ""
-"No se puede validar un pago por lotes vacío. Por favor, agrega algunos pagos"
-" primero."
+msgstr "No se puede validar un lote vacío. Primero agregue unos pagos."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -249,29 +247,29 @@ msgstr "Código"
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__company_currency_id
 msgid "Company Currency"
-msgstr "Moneda de la Compañía"
+msgstr "Moneda de la compañía"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_tree_inherit_account_batch_payment
 msgid "Create Batch"
-msgstr "Creación por lote"
+msgstr "Crear pago por lote"
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_journal.py:0
 #, python-format
 msgid "Create Batch Payment"
-msgstr "Crea un pago por lotes"
+msgstr "Crear pago por lotes"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_in
 msgid "Create a new customer batch payment"
-msgstr "Crea un nuevo pago por lotes para un cliente"
+msgstr "Crear un nuevo pago por lotes para un cliente"
 
 #. module: account_batch_payment
 #: model_terms:ir.actions.act_window,help:account_batch_payment.action_batch_payment_out
 msgid "Create a new vendor batch payment"
-msgstr "Crea un nuevo pago por lotes de proveedor"
+msgstr "Crear un nuevo pago por lotes de proveedor"
 
 #. module: account_batch_payment
 #: model:ir.actions.server,name:account_batch_payment.action_account_create_batch_payment
@@ -363,7 +361,7 @@ msgstr "Archivo"
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__file_generation_enabled
 msgid "File Generation Enabled"
-msgstr "Se habilitó la generación de archivos"
+msgstr "La generación de archivos está activada"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__export_filename
@@ -443,7 +441,7 @@ msgstr "Entrante"
 #: code:addons/account_batch_payment/models/account_journal.py:0
 #, python-format
 msgid "Inbound Batch Payments Sequence"
-msgstr "Secuencias de pago por lotes entrantes"
+msgstr "Secuencia de pagos por lotes entrantes"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_is_follower
@@ -482,7 +480,7 @@ msgstr "Dejar vacío para generar automáticamente..."
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Memo"
-msgstr "Memo"
+msgstr "Nota"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_has_error
@@ -512,12 +510,12 @@ msgstr "Nombre"
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__export_filename
 msgid "Name of the export file generated for this batch"
-msgstr "Nombre del archivo exportado que se generó para este pago por lotes."
+msgstr "Nombre del archivo de exportación generado para este lote"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_payment__amount_signed
 msgid "Negative value of amount field if payment_type is outbound"
-msgstr "Valor negativo del campo de cantidad si el payment_type es de salida."
+msgstr "Valor negativo del campo de importe si el payment_type es de salida."
 
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__state__draft
@@ -589,7 +587,7 @@ msgstr "Saliente"
 #: code:addons/account_batch_payment/models/account_journal.py:0
 #, python-format
 msgid "Outbound Batch Payments Sequence"
-msgstr "Secuencias de pago por lotes salientes."
+msgstr "Secuencia de pagos por lotes salientes"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_tree_inherit_account_batch_payment
@@ -651,7 +649,7 @@ msgstr "Proceder a la validación"
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -703,7 +701,7 @@ msgstr "Mostrar"
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard_line__show_remove_button
 msgid "Show Remove Button"
-msgstr "Mostrar el botón de cancelación"
+msgstr "Mostrar el botón de eliminar "
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__show_remove_options
@@ -722,16 +720,14 @@ msgstr "Algunos pagos ya se han asociado con un extracto bancario."
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments have already been sent."
-msgstr ""
-" \n"
-"Ya se han enviado algunos pagos."
+msgstr "Ya se han enviado algunos pagos."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Some recipient accounts do not allow out payments."
-msgstr "Algunas cuentas receptoras no permiten pagos salientes."
+msgstr "Algunas cuentas de destinatarios no permiten pagos salientes."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__state
@@ -764,7 +760,8 @@ msgstr "TOTAL"
 msgid ""
 "Target another recipient account or allow sending money to the current one."
 msgstr ""
-"Use una cuenta receptora diferente o permita enviar dinero a la actual."
+"Use una cuenta de destinatario diferente o permita enviar dinero a la "
+"actual."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -774,7 +771,7 @@ msgstr "No se puede validar el lote."
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "The batch could not be validated"
-msgstr "No se pudo validar el pago por lotes"
+msgstr "No se pudo validar el lote"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -783,16 +780,14 @@ msgstr "No se pudo validar el pago por lotes"
 msgid ""
 "The batch must have the same payment method as the payments it contains."
 msgstr ""
-"El pago por lotes tiene que tener el mismo método de pago que los otros "
-"pagos que contiene."
+"El lote debe tener el mismo método de pago que los pagos que contiene."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "The batch must have the same type as the payments it contains."
-msgstr ""
-"El pago por lotes debe de ser del mismo tipo que los pagos que contiene."
+msgstr "El lote debe tener el mismo tipo que los pagos que contiene."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_error_wizard__batch_payment_id
@@ -811,13 +806,12 @@ msgid ""
 "The journal of the batch payment and of the payments it contains must be the"
 " same."
 msgstr ""
-"El pago por lotes y los pagos que se incluyen en éste deben pertenecer al "
-"mismo libro diario."
+"El diario del pago por lote debe ser el mismo que los pagos que contiene."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,help:account_batch_payment.field_account_batch_payment__payment_method_id
 msgid "The payment method used by the payments in this batch."
-msgstr "El método de pagos que se usa en los pagos de este lote."
+msgstr "El método de pago usado en los pagos de este lote."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -894,4 +888,4 @@ msgstr "No puede agregar pagos que no están contabilizados."
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
-msgstr "No puede agregar pagos con monto cero en un pago por lotes."
+msgstr "No puede agregar pagos sin un importe a un pago por lotes."

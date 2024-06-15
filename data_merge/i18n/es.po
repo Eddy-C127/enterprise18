@@ -187,7 +187,7 @@ msgstr "Método de fusión personalizado"
 #. module: data_merge
 #: model:ir.actions.server,name:data_merge.ir_cron_cleanup_ir_actions_server
 msgid "Data Merge: Cleanup Records"
-msgstr "Fusión de datos: registros limpios"
+msgstr "Fusión de datos: limpiar registros"
 
 #. module: data_merge
 #: model:ir.actions.server,name:data_merge.ir_cron_find_duplicates_ir_actions_server
@@ -391,7 +391,7 @@ msgstr ""
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_record__is_deleted
 msgid "Is Deleted"
-msgstr "Está borrado"
+msgstr "Está eliminado"
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_record__is_discarded
@@ -401,7 +401,7 @@ msgstr "Está descartado"
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_record__is_master
 msgid "Is Master"
-msgstr "es maestro"
+msgstr "Es maestro"
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_model__last_notification
@@ -432,8 +432,7 @@ msgstr "Lista de otros modelos con referencia a este registro"
 #. module: data_merge
 #: model:ir.model.fields,help:data_merge.field_data_merge_model__notify_user_ids
 msgid "List of users to notify when there are new records to merge"
-msgstr ""
-"Lista de usuarios a notificar cuando hay nuevos registros por fusionar"
+msgstr "Lista de usuarios a notificar cuando hay nuevos registros a fusionar"
 
 #. module: data_merge
 #: model:ir.model.fields.selection,name:data_merge.selection__data_merge_model__merge_mode__manual
@@ -571,7 +570,7 @@ msgstr "Notificar usuarios"
 #: code:addons/data_merge/models/data_merge_record.py:0
 #, python-format
 msgid "Query Failed."
-msgstr "Consulta fallida."
+msgstr "Error en la consulta."
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_group__record_ids
@@ -628,7 +627,7 @@ msgstr "Regla"
 #. module: data_merge
 #: model_terms:ir.ui.view,arch_db:data_merge.view_data_merge_model_form
 msgid "Select a model to configure deduplication rules"
-msgstr "Selecciona un modelo para configurar reglas de deduplicación"
+msgstr "Seleccione un modelo para configurar reglas de deduplicación"
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_rule__sequence
@@ -657,7 +656,7 @@ msgstr ""
 #: model:ir.model.fields,help:data_merge.field_data_merge_model__rule_ids
 msgid "Suggest to merge records matching at least one of these rules"
 msgstr ""
-"Sugiere fusionar registros que coincidan con al menos una de estas reglas"
+"Sugiera fusionar registros que coincidan con al menos una de estas reglas"
 
 #. module: data_merge
 #: model:ir.model.fields,field_description:data_merge.field_data_merge_model__create_threshold

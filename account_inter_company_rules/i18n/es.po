@@ -44,7 +44,7 @@ msgstr "Documento generado automáticamente"
 #: code:addons/account_inter_company_rules/models/account_move.py:0
 #, python-format
 msgid "Automatically generated from %(origin)s of company %(company)s."
-msgstr "Generado automáticamente desde %(origin)s de la empresa %(company)s."
+msgstr "Generado automáticamente desde %(origin)s de la compañía %(company)s."
 
 #. module: account_inter_company_rules
 #: model:ir.model,name:account_inter_company_rules.model_res_company
@@ -77,20 +77,20 @@ msgid ""
 "new bill/invoice will be created in the first Purchase/Sales Journal of the "
 "Journals list view."
 msgstr ""
-"Generar una factura cuando una empresa confirma una factura para %s. La "
+"Genere una factura cuando una compañía confirma una factura para %s. La "
 "nueva factura se creará en el primer diario de compras o ventas de la vista "
 "de lista de los diarios."
 
 #. module: account_inter_company_rules
 #: model_terms:ir.ui.view,arch_db:account_inter_company_rules.view_company_inter_change_inherit_form
 msgid "Inter-Company Transactions"
-msgstr "Transacciones dentro de la empresa"
+msgstr "Transacciones dentro de la compañía"
 
 #. module: account_inter_company_rules
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_company__intercompany_transaction_message
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_config_settings__intercompany_transaction_message
 msgid "Intercompany Transaction Message"
-msgstr "Mensaje de transacción entre empresas"
+msgstr "Mensaje de transacción dentro de la compañía"
 
 #. module: account_inter_company_rules
 #: model:ir.model,name:account_inter_company_rules.model_account_move
@@ -108,8 +108,8 @@ msgstr "Apunte contable"
 msgid ""
 "Responsible user for creation of documents triggered by intercompany rules."
 msgstr ""
-"El usuario responsable por crear documentos originados por normas "
-"interempresariales."
+"El usuario responsable por crear documentos originados por normas dentro de "
+"la compañía."
 
 #. module: account_inter_company_rules
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_company__rule_type
@@ -120,14 +120,14 @@ msgstr "Regla"
 #. module: account_inter_company_rules
 #: model:ir.model.fields,field_description:account_inter_company_rules.field_res_config_settings__rules_company_id
 msgid "Select Company"
-msgstr "Seleccione una empresa"
+msgstr "Seleccionar compañía"
 
 #. module: account_inter_company_rules
 #: model:ir.model.fields,help:account_inter_company_rules.field_res_company__rule_type
 #: model:ir.model.fields,help:account_inter_company_rules.field_res_config_settings__rule_type
 msgid "Select the type to setup inter company rules in selected company."
 msgstr ""
-"Selecciona el tipo para establecer reglas interempresariales en la empresa "
+"Seleccione el tipo para establecer normas intercompañías en la compañía "
 "seleccionada."
 
 #. module: account_inter_company_rules

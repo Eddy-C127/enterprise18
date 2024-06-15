@@ -342,20 +342,20 @@ msgstr "Generado automáticamente"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_company_period__currency_rate_avg
 msgid "Average Currency Rate"
-msgstr "Tasa de cambio promedio"
+msgstr "Tipo de cambio medio"
 
 #. module: account_consolidation
 #: model:ir.model.fields.selection,name:account_consolidation.selection__consolidation_account__currency_mode__avg
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_company_period_form
 msgid "Average Rate"
-msgstr "Tasa promedio"
+msgstr "Tasa media"
 
 #. module: account_consolidation
 #. odoo-javascript
 #: code:addons/account_consolidation/static/src/components/consolidation_report/header.xml:0
 #, python-format
 msgid "Avg Rate: 1"
-msgstr "Tasa promedio: 1"
+msgstr "Tasa media: 1"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__balance
@@ -419,7 +419,7 @@ msgstr "Cerrado"
 #. module: account_consolidation
 #: model:ir.model.fields.selection,name:account_consolidation.selection__consolidation_account__currency_mode__end
 msgid "Closing Rate"
-msgstr "Tasa de cierre"
+msgstr "Tipo de cambio al cierre"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__code
@@ -498,7 +498,7 @@ msgstr "Periodo de análisis compuesto"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period_composition__composed_chart_currency_id
 msgid "Composed Consolidation Currency"
-msgstr "Divisa de la consolidación compuesta"
+msgstr "Moneda de la consolidación compuesta"
 
 #. module: account_consolidation
 #: model:ir.ui.menu,name:account_consolidation.menu_consolidation_configuration
@@ -533,7 +533,7 @@ msgstr "Saldo consolidado"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form
 msgid "Consolidated Companies"
-msgstr "Empresas consolidadas"
+msgstr "Compañías consolidadas"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_chart__parents_ids
@@ -593,7 +593,7 @@ msgstr "Gráfico de consolidación"
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_consolidation_company_period
 msgid "Consolidation Company Period"
-msgstr "Periodo de consolidación de la empresa"
+msgstr "Periodo de consolidación de la compañía"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_company_period__currency_chart_id
@@ -850,7 +850,7 @@ msgstr "Tipo de cambio final "
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_company_period_search
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_search
 msgid "End Date"
-msgstr "Fecha final"
+msgstr "Fecha de finalización"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_company_period_form
@@ -926,19 +926,19 @@ msgstr "Jerarquía y subtotales"
 #. module: account_consolidation
 #: model:ir.model.fields.selection,name:account_consolidation.selection__consolidation_account__currency_mode__hist
 msgid "Historical Rate"
-msgstr "Historial de tasa"
+msgstr "Historial del tipo de cambio"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form
 msgid "Historical Rates"
-msgstr "Historial de tasas"
+msgstr "Historial de los tipos de cambio"
 
 #. module: account_consolidation
 #. odoo-python
 #: code:addons/account_consolidation/models/res_company.py:0
 #, python-format
 msgid "Historical Rates: %(company)s"
-msgstr "Historial de tasas: %(company)s"
+msgstr "Historial de los tipos de cambio: %(company)s"
 
 #. module: account_consolidation
 #: model:ir.model.fields,help:account_consolidation.field_consolidation_company_period__currency_rate_avg
@@ -946,7 +946,7 @@ msgstr "Historial de tasas: %(company)s"
 msgid ""
 "How many units of company currency is needed to get 1 unit of chart currency"
 msgstr ""
-"¿Cuántas unidades de la moneda de la empresa se necesitan para obtener 1 "
+"¿Cuántas unidades de la moneda de la compañía se necesitan para obtener 1 "
 "unidad de moneda en el plan?"
 
 #. module: account_consolidation
@@ -1111,9 +1111,8 @@ msgid ""
 " for this company or that you have access right to see the accounts of this "
 "company."
 msgstr ""
-"No se encontraron cuentas. Asegurate de instalar un plan contable para esta "
-"empresa, o de que tienes derecho de acceso para ver las cuentas de esta "
-"empresa."
+"No se encontraron cuentas. Asegúrese de haber instalado un plan contable o "
+"de contar con el acceso necesario para ver las cuentas de esta compañía."
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.account_mapping_search
@@ -1178,7 +1177,7 @@ msgstr "Incorporación al alcance de la consolidación "
 msgid ""
 "Only one entry by account should be created for a generated journal entry!"
 msgstr ""
-"¡Solo debe crearse un asiento por cuenta para un asiento de diario generado!"
+"¡Solo se debe crear un asiento por cuenta para un asiento contable generado!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_search
@@ -1204,7 +1203,7 @@ msgstr "Operaciones"
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__originating_currency_id
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__journal_originating_currency_id
 msgid "Originating Currency"
-msgstr "Divisa original"
+msgstr "Moneda original"
 
 #. module: account_consolidation
 #. odoo-python
@@ -1269,7 +1268,7 @@ msgstr "Rangos de tasa"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_kanban

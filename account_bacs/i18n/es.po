@@ -106,7 +106,7 @@ msgstr ""
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "<span>asks you to</span>"
-msgstr "<span>le pide</span>"
+msgstr "<span>le solicita</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -124,8 +124,8 @@ msgid ""
 "<span>to collect a payment, confirmation of the amount and date will be "
 "given to you at the time of the request</span>"
 msgstr ""
-"<span>para cobrar un pago, se le proporcionará la confirmación del importe y"
-" la fecha al momento de la solicitud</span>"
+"<span>cobrar un pago, se le proporcionará la confirmación del importe y la "
+"fecha al momento de la solicitud</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -145,7 +145,7 @@ msgid ""
 msgstr ""
 "Una instrucción de domiciliación bancaria representa\n"
 "                    la autorización que recibe de un cliente\n"
-"                    para cobrar dinero de forma automática en su cuenta."
+"                    para cobrar dinero automáticamente en su cuenta."
 
 #. module: account_bacs
 #. odoo-python
@@ -237,7 +237,7 @@ msgid ""
 " IBAN-compliant debtor account for this BACS Direct Debit Instruction."
 msgstr ""
 "El esquema de domiciliación bancaria BACS solo acepta números de cuenta "
-"IBAN. Seleccione una cuenta de deudor compatible con IBAN para esta "
+"IBAN. Seleccione una cuenta deudora compatible con IBAN para esta "
 "instrucción de domiciliación bancaria BACS."
 
 #. module: account_bacs
@@ -333,9 +333,8 @@ msgid ""
 "Banks and Building Societies may not accept Direct Debit Instructions for "
 "some types of account"
 msgstr ""
-"Existe la posibilidad de que los bancos y las cooperativas de crédito no "
-"acepten las instrucciones de domiciliación bancaria en algunos tipos de "
-"cuenta"
+"Es posible que los bancos y las cooperativas de crédito no acepten las "
+"instrucciones de domiciliación bancaria en algunos tipos de cuenta"
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_account_batch_payment
@@ -366,7 +365,7 @@ msgstr "Cerrado"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.res_config_settings_view_form
 msgid "Collect and send payments using UK BACS Service"
-msgstr "Recibir y enviar pagos mediante el servicio BACS del Reino Unido"
+msgstr "Reciba y envíe pagos mediante el servicio BACS del Reino Unido"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -401,7 +400,7 @@ msgstr "Ajustes de configuración"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Contra total for batch is greater than 999,999,999.99."
-msgstr "El total de la contracuenta para el lote es mayor que 999,999,999.99."
+msgstr "El total de la contracuenta para el lote es mayor que 999.999.999,99."
 
 #. module: account_bacs
 #. odoo-python
@@ -410,7 +409,7 @@ msgstr "El total de la contracuenta para el lote es mayor que 999,999,999.99."
 #, python-format
 msgid "Contra total for date %s is greater than 999,999,999.99."
 msgstr ""
-"El total de la contracuenta para la fecha %s es mayor que 999,999,999.99."
+"El total de la contracuenta para la fecha %s es mayor que 999.999.999,99."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_ddi_usable
@@ -891,7 +890,7 @@ msgstr "Revocar"
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__bacs_ddi__state__revoked
 msgid "Revoked"
-msgstr "Rechazado"
+msgstr "Revocado"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_sms_error
@@ -958,7 +957,8 @@ msgstr "Algunos pagos no se encuentran en GBP."
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments have no recipient bank account set."
-msgstr "Algunos pagos no tienen una cuenta bancaria receptora establecida."
+msgstr ""
+"Algunos pagos no tienen una cuenta bancaria de destinatario establecida."
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__state

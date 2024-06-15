@@ -172,7 +172,7 @@ msgstr "Código Avalara"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__avalara_partner_code
 msgid "Avalara Company Code"
-msgstr "Código Avalara de la empresa"
+msgstr "Código de la compañía Avalara"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__avalara_environment
@@ -189,7 +189,7 @@ msgstr "Excepción Avalara"
 #. module: account_avatax
 #: model:ir.actions.act_window,name:account_avatax.ir_logging_avalara_action
 msgid "Avalara Logging"
-msgstr "Inicio de sesión Avalara"
+msgstr "Registro Avalara"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_partner__avalara_partner_code
@@ -278,13 +278,13 @@ msgstr "Código"
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
 msgid "Commit Transactions"
-msgstr "Comprometer transacciones"
+msgstr "Transferir transacciones"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__avalara_commit
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__avalara_commit
 msgid "Commit in Avatax"
-msgstr "Comprometerse en Avatax"
+msgstr "Transferir a Avatax"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_res_company
@@ -299,7 +299,7 @@ msgstr "Compañía"
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
 msgid "Company Code"
-msgstr "Código de empresa"
+msgstr "Código de la compañía"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_res_config_settings
@@ -337,7 +337,7 @@ msgstr "Creado el"
 #: model:ir.model.fields,help:account_avatax.field_res_partner__avalara_partner_code
 #: model:ir.model.fields,help:account_avatax.field_res_users__avalara_partner_code
 msgid "Customer Code set in Avalara for this partner."
-msgstr "El código de cliente establecido en Avalara para este socio."
+msgstr "El código de cliente establecido en Avalara para este contacto."
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_exemption__description
@@ -534,7 +534,7 @@ msgstr "Producción"
 #. module: account_avatax
 #: model:ir.model.fields.selection,name:account_avatax.selection__res_company__avalara_environment__sandbox
 msgid "Sandbox"
-msgstr "Modo aislado (sandbox)"
+msgstr "Entorno de pruebas"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.avatax_validate_address_view_form
@@ -546,7 +546,7 @@ msgstr "Guardar validado"
 #: code:addons/account_avatax/models/account_avatax_unique_code.py:0
 #, python-format
 msgid "Search operation not supported"
-msgstr "No se admite la operación de búsqueda"
+msgstr "La operación de búsqueda no es compatible"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_connection_test_result__server_response
@@ -598,8 +598,8 @@ msgid ""
 "The Avalara Company Code for this company. Avalara will interpret as DEFAULT"
 " if it is not set."
 msgstr ""
-"La sociedad de Avalara para esta empresa. Avalara lo interpretará como "
-"DEFAULT si no está configurado."
+"La sociedad de Avalara para esta compañía. Avalara lo interpretará como "
+"DEFAULT si no está configurada."
 
 #. module: account_avatax
 #. odoo-python
@@ -626,7 +626,7 @@ msgstr ""
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_config_settings__avalara_commit
 msgid "The transactions will be committed for reporting in Avatax."
-msgstr "Las transacciones se reportarán en Avatax."
+msgstr "Las transacciones se transfieren a Avatax para crear informes."
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.avatax_validate_address_view_form
@@ -642,21 +642,21 @@ msgstr "Usar AvaTax"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_account_fiscal_position__is_avatax
 msgid "Use AvaTax API"
-msgstr "Use la API de AvaTax"
+msgstr "Usar la API de AvaTax"
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_res_company__avalara_use_upc
 #: model:ir.model.fields,field_description:account_avatax.field_res_config_settings__avalara_use_upc
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
 msgid "Use UPC"
-msgstr "Use UPC"
+msgstr "Usar UPC"
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_res_config_settings__avalara_use_upc
 msgid "Use Universal Product Code instead of custom defined codes in Avalara."
 msgstr ""
-"Use el código universal de producto en lugar de los códigos definidos en "
-"Avalara."
+"Use el código universal de producto (UPS) en lugar de los códigos definidos "
+"en Avalara."
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_account_avatax_unique_code__avatax_unique_code

@@ -5,6 +5,7 @@
 # Translators:
 # Martin Trigaux, 2024
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
+# Dorin Hongu <dhongu@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Foldi Robert <foldirobert@nexterp.ro>, 2024\n"
+"Last-Translator: Dorin Hongu <dhongu@gmail.com>, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,11 +27,13 @@ msgid ""
 "'Maintenance Request Worksheet - %s - %s' % (object.name, "
 "object.user_id.name)"
 msgstr ""
+"'Foaie de lucru pentru cererea de întreținere - %s - %s' % (object.name, "
+"object.user_id.name)"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.maintenance_request_view_form_inherit_worksheet
 msgid "<span class=\"o_stat_text\">Worksheet</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Foaie de lucru</span>"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.maintenance_request_view_form_inherit_worksheet
@@ -38,6 +41,8 @@ msgid ""
 "<span class=\"o_stat_text\">Worksheet</span>\n"
 "                            <span class=\"o_stat_text\">Complete</span>"
 msgstr ""
+"<span class=\"o_stat_text\">Foaie de lucru</span>\n"
+"                            <span class=\"o_stat_text\">Complet</span>"
 
 #. module: maintenance_worksheet
 #: model:ir.model.fields,help:maintenance_worksheet.field_maintenance_request__worksheet_template_id
@@ -45,11 +50,14 @@ msgid ""
 "Create templates for each type of request you have and customize their "
 "content with your own custom fields."
 msgstr ""
+"Creați șabloane pentru fiecare tip de cerere pe care o aveți și "
+"personalizați conținutul lor cu propriile câmpuri personalizate."
 
 #. module: maintenance_worksheet
 #: model_terms:ir.actions.act_window,help:maintenance_worksheet.maintenance_worksheet_action_settings
 msgid "Customize worksheet templates for each type of request.<br>"
 msgstr ""
+"Personalizați șabloanele de foaie de lucru pentru fiecare tip de cerere.<br>"
 
 #. module: maintenance_worksheet
 #: model:ir.model,name:maintenance_worksheet.model_maintenance_request
@@ -59,24 +67,24 @@ msgstr "Cerere întreținere"
 #. module: maintenance_worksheet
 #: model:ir.model,name:maintenance_worksheet.model_report_maintenance_worksheet_maintenance_worksheet
 msgid "Maintenance Request Worksheet Custom Report"
-msgstr ""
+msgstr "Raport personalizat pentru foaia de lucru a cererii de întreținere"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.worksheet_page
 msgid "Maintenance Request:"
-msgstr ""
+msgstr "Cerere de întreținere:"
 
 #. module: maintenance_worksheet
 #: model_terms:ir.actions.act_window,help:maintenance_worksheet.maintenance_worksheet_action_settings
 msgid "No worksheet templates found. Let's create one!"
-msgstr ""
+msgstr "Nu s-au găsit șabloane de foaie de lucru. Să creăm unul!"
 
 #. module: maintenance_worksheet
 #. odoo-python
 #: code:addons/maintenance_worksheet/models/maintenance_request.py:0
 #, python-format
 msgid "Please select a Worksheet Template."
-msgstr ""
+msgstr "Vă rugăm să selectați un șablon de foaie de lucru."
 
 #. module: maintenance_worksheet
 #: model_terms:ir.ui.view,arch_db:maintenance_worksheet.worksheet_page
@@ -91,7 +99,7 @@ msgstr "Nr. Foi de lucru "
 #. module: maintenance_worksheet
 #: model:ir.actions.report,name:maintenance_worksheet.maintenance_request_report
 msgid "Worksheet Report"
-msgstr ""
+msgstr "Raport Foaie de lucru"
 
 #. module: maintenance_worksheet
 #: model:ir.model,name:maintenance_worksheet.model_worksheet_template

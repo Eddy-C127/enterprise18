@@ -9,6 +9,7 @@
 # Wil Odoo, 2024
 # Ricardo Martins <ricardo.nbs.martins@gmail.com>, 2024
 # Luiz Fernando <lfpsgs@outlook.com>, 2024
+# Maitê Dietze, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Luiz Fernando <lfpsgs@outlook.com>, 2024\n"
+"Last-Translator: Maitê Dietze, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1328,7 +1329,7 @@ msgstr "Transferir Relatório de Verificação de Inalterabilidade de Dados"
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main_table_body
 #, python-format
 msgid "Due"
-msgstr "Vencido"
+msgstr "Vencimento"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_date_maturity
@@ -1824,7 +1825,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Hide lines at 0"
-msgstr ""
+msgstr "Ocultar linhas em 0"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2237,7 +2238,7 @@ msgstr "Último Trimestre"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Last Statement"
-msgstr ""
+msgstr "Último demonstrativo"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2523,14 +2524,14 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Non Trade Payable"
-msgstr ""
+msgstr "Contas a pagar não comerciais"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Non Trade Receivable"
-msgstr ""
+msgstr "Contas a receber não comerciais"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2866,7 +2867,7 @@ msgstr "Adiantamentos"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__preview_data
 msgid "Preview Data"
-msgstr ""
+msgstr "Pré-visualizar dados"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3028,7 +3029,7 @@ msgstr "Reversão de: %s"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Root Report"
-msgstr ""
+msgstr "Relatório raiz"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group__rule_ids
@@ -3064,7 +3065,7 @@ msgstr "Procurar..."
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Sections"
-msgstr ""
+msgstr "Seções"
 
 #. module: account_reports
 #. odoo-python
@@ -3128,7 +3129,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 #, python-format
 msgid "Subformula"
-msgstr ""
+msgstr "Subfórmula"
 
 #. module: account_reports
 #. odoo-python
@@ -3187,7 +3188,7 @@ msgstr "Declaração de Impostos"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Tax Grids"
-msgstr ""
+msgstr "Grades de impostos"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__vat
@@ -3312,7 +3313,7 @@ msgstr "Texto"
 #: code:addons/account_reports/static/src/components/account_report/ellipsis/ellipsis.js:0
 #, python-format
 msgid "Text copied"
-msgstr ""
+msgstr "Texto copiado"
 
 #. module: account_reports
 #. odoo-python
@@ -3354,6 +3355,13 @@ msgstr ""
 msgid ""
 "The country in which this tax unit is used to group your companies' tax "
 "reports declaration."
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
+#, python-format
+msgid "The currency rate cannot be equal to zero"
 msgstr ""
 
 #. module: account_reports

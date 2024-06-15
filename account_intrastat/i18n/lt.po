@@ -5,18 +5,18 @@
 # Translators:
 # Mantas, 2023
 # Antanas Muliuolis <an.muliuolis@gmail.com>, 2023
-# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2023
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Linas Versada <linaskrisiukenas@gmail.com>, 2023
+# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Linas Versada <linaskrisiukenas@gmail.com>, 2023\n"
+"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,14 +81,14 @@ msgstr "Pagal tipą"
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Check the expired"
-msgstr ""
+msgstr "Patikrinkite galiojimo laiką"
 
 #. module: account_intrastat
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Check the premature"
-msgstr ""
+msgstr "Patikrinkite įsigaliojimo laiką"
 
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__account_intrastat_code__type__commodity
@@ -107,7 +107,7 @@ msgstr "KN kodas"
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_product_product__intrastat_code_id
 msgid "Commodity code"
-msgstr ""
+msgstr "KN kodas"
 
 #. module: account_intrastat
 #: model:ir.model,name:account_intrastat.model_res_company
@@ -140,18 +140,18 @@ msgstr "Kilmės šalis"
 #: model:ir.model.fields,field_description:account_intrastat.field_res_company__intrastat_default_invoice_transaction_code_id
 #: model:ir.model.fields,field_description:account_intrastat.field_res_config_settings__intrastat_default_invoice_transaction_code_id
 msgid "Default invoice transaction code"
-msgstr ""
+msgstr "Faktūros sandorio pobūdžio kodas "
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_res_company__intrastat_default_refund_transaction_code_id
 #: model:ir.model.fields,field_description:account_intrastat.field_res_config_settings__intrastat_default_refund_transaction_code_id
 msgid "Default refund transaction code"
-msgstr ""
+msgstr "Kredit.faktūros sandorio pobūdžio kodas pagal nutylėjimą"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_res_company__intrastat_transport_mode_id
 msgid "Default transport mode"
-msgstr ""
+msgstr "Transporto rūšies kodas pagal nutylėjimą"
 
 #. module: account_intrastat
 #. odoo-python
@@ -165,7 +165,7 @@ msgstr "Išvežimas"
 #: code:addons/account_intrastat/static/src/components/intrastat_report/filters/filter_intrastat_options.xml:0
 #, python-format
 msgid "Extended Mode"
-msgstr ""
+msgstr "Išplėstinis vaizdas"
 
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_incoterm_code
@@ -224,7 +224,7 @@ msgstr "Intrastato kodas"
 #: model:ir.model.fields,help:account_intrastat.field_account_move__intrastat_country_id
 #: model:ir.model.fields,help:account_intrastat.field_account_payment__intrastat_country_id
 msgid "Intrastat country, arrival for sales, dispatch for purchases"
-msgstr ""
+msgstr "Intrastat šalis, įvežimas pardavimams, išvežimas pirkimams"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_res_country__intrastat
@@ -239,21 +239,21 @@ msgstr "Intrastato apskritis"
 #. module: account_intrastat
 #: model_terms:ir.ui.view,arch_db:account_intrastat.account_move_line_tree_view_account_intrastat_transaction_codes
 msgid "Intrastat transaction code"
-msgstr ""
+msgstr "Sandorio pobūdžio kodas"
 
 #. module: account_intrastat
 #. odoo-python
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 #, python-format
 msgid "Invalid commodity intrastat code products."
-msgstr ""
+msgstr "Netinkami produktų KN kodai"
 
 #. module: account_intrastat
 #. odoo-python
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 #, python-format
 msgid "Invalid transaction intrastat code entries."
-msgstr ""
+msgstr "Netinkami sandorio pobūdžio kodai"
 
 #. module: account_intrastat
 #: model:ir.model,name:account_intrastat.model_account_move
@@ -264,6 +264,11 @@ msgstr "Žurnalo įrašas"
 #: model:ir.model,name:account_intrastat.model_account_move_line
 msgid "Journal Item"
 msgstr "Žurnalo įrašas"
+
+#. module: account_intrastat
+#: model:res.country,name:account_intrastat.xi
+msgid "Northern Ireland"
+msgstr "Šiaurės Airija"
 
 #. module: account_intrastat
 #. odoo-javascript
@@ -330,21 +335,21 @@ msgstr "Apskrities kodas"
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Some lines have expired intrastat"
-msgstr ""
+msgstr "Kai kuriose eilutėse naudojamas nebegaliojantis Intrastat kodas"
 
 #. module: account_intrastat
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Some lines have premature intrastat"
-msgstr ""
+msgstr "Kai kuriose eilutėse naudojamas  dar negaliojantis Intrastat kodas"
 
 #. module: account_intrastat
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Some lines have undefined"
-msgstr ""
+msgstr "Kai kuriose eilutėse nenurodyta"
 
 #. module: account_intrastat
 #. odoo-javascript
@@ -353,26 +358,26 @@ msgstr ""
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "Some products have undefined"
-msgstr ""
+msgstr "Kai kuriems produktams nenurodyti"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_product_product__intrastat_supplementary_unit
 #: model:ir.model.fields,field_description:account_intrastat.field_product_template__intrastat_supplementary_unit
 #: model_terms:ir.ui.view,arch_db:account_intrastat.view_intrastat_code_search
 msgid "Supplementary Unit"
-msgstr ""
+msgstr "Deklaracijai naudojamas mata.vienetas"
 
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_supplementary_units
 #: model:ir.model.fields,field_description:account_intrastat.field_product_product__intrastat_supplementary_unit_amount
 #: model:ir.model.fields,field_description:account_intrastat.field_product_template__intrastat_supplementary_unit_amount
 msgid "Supplementary Units"
-msgstr ""
+msgstr "Deklaracijai naudojami mata.vienetai"
 
 #. module: account_intrastat
 #: model_terms:ir.ui.view,arch_db:account_intrastat.product_product_tree_view_account_intrastat_supplementary_unit
 msgid "Supplementary Units per Product"
-msgstr ""
+msgstr "Deklaracijai naudojamas mata.vienetas produktui"
 
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_system
@@ -389,6 +394,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_intrastat.field_product_template__intrastat_supplementary_unit_amount
 msgid "The number of supplementary units per product quantity."
 msgstr ""
+"Deklaracijai naudojamas mata.vienetų skaičius atitinkantis produkto vienetą"
 
 #. module: account_intrastat
 #. odoo-python
@@ -428,21 +434,21 @@ msgstr "Kombinacija kodas/tipas/šalis privalo būti unikali."
 #: code:addons/account_intrastat/static/src/components/intrastat_report/filters/filter_intrastat_type.xml:0
 #, python-format
 msgid "Types:"
-msgstr ""
+msgstr "Tipai:"
 
 #. module: account_intrastat
 #. odoo-python
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 #, python-format
 msgid "Undefined supplementary unit products."
-msgstr ""
+msgstr "Nenustatytas deklaracijai naudojamas matav.vienetas produktams"
 
 #. module: account_intrastat
 #. odoo-python
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 #, python-format
 msgid "Undefined weight products."
-msgstr ""
+msgstr "Nenustatyti produktų svoriai"
 
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_value
@@ -476,7 +482,7 @@ msgstr ""
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "commodity codes"
-msgstr ""
+msgstr "KN kodai"
 
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__account_intrastat_code__supplementary_unit__ct/l
@@ -573,21 +579,21 @@ msgstr "produktas"
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "product commodity codes"
-msgstr ""
+msgstr "produkto KN kodai"
 
 #. module: account_intrastat
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "product's commodity codes"
-msgstr ""
+msgstr "produkto KN kodai"
 
 #. module: account_intrastat
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "supplementary units"
-msgstr ""
+msgstr "deklaracijai naudojami matav.vienetai"
 
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__account_intrastat_code__supplementary_unit__t__co2
@@ -601,14 +607,14 @@ msgstr ""
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "transaction codes"
-msgstr ""
+msgstr "sandorio pobūdžio kodai"
 
 #. module: account_intrastat
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "weights"
-msgstr ""
+msgstr "svoriai"
 
 #. module: account_intrastat
 #. odoo-javascript
@@ -616,4 +622,4 @@ msgstr ""
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 #, python-format
 msgid "when they are required."
-msgstr ""
+msgstr "kai jie reikalingi"
