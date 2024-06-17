@@ -386,7 +386,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
 
         prefix_groups_count = 0
         for markup, dummy1, dummy2 in report._parse_line_id(line_dict_id):
-            if markup.startswith('groupby_prefix_group:'):
+            if isinstance(markup, dict) and 'groupby_prefix_group' in markup:
                 prefix_groups_count += 1
         level_shift = prefix_groups_count * 2
 

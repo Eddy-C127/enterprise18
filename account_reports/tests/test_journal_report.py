@@ -166,7 +166,11 @@ class TestJournalReport(TestAccountReportsCommon):
         cls.move_payment_0.action_post()
 
     def _filter_tax_section_lines(self, lines, exclude):
-        return list(filter(lambda line: exclude ^ self.report._get_markup(line['id']).startswith('tax_report_section'), lines))
+        def filter_condition(line):
+            markup = self.report._get_markup(line['id'])
+            return exclude ^ (isinstance(markup, str) and markup.startswith('tax_report_section'))
+
+        return list(filter(filter_condition, lines))
 
     def assert_journal_vals_for_export(self, report, options, actual_journal_vals, expected_journals_data):
         self.assertEqual(len(actual_journal_vals), len(expected_journals_data))

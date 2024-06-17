@@ -61,9 +61,9 @@ class TestAccountReportsTours(AccountTestInvoicingHttpCommon):
         line_id_ta = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_total_assets0').id)
         line_id_ca = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_current_assets_view0').id, parent_line_id=line_id_ta)
         line_id_ba = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_bank_view0').id, parent_line_id=line_id_ca)
-        line_id_101401 = cls.report._get_generic_line_id('account.account', cls.account_101401.id, markup='groupby:account_id', parent_line_id=line_id_ba)
+        line_id_101401 = cls.report._get_generic_line_id('account.account', cls.account_101401.id, markup={'groupby': 'account_id'}, parent_line_id=line_id_ba)
         line_id_cas = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_current_assets0').id, parent_line_id=line_id_ca)
-        line_id_101404 = cls.report._get_generic_line_id('account.account', cls.account_101404.id, markup='groupby:account_id', parent_line_id=line_id_cas)
+        line_id_101404 = cls.report._get_generic_line_id('account.account', cls.account_101404.id, markup={'groupby': 'account_id'}, parent_line_id=line_id_cas)
 
         # Create footnotes
         cls.report.write({

@@ -316,8 +316,8 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
         )
 
         oldest_line_id = self.report._get_generic_line_id('account.report.line', self.env.ref('account_reports.multicurrency_revaluation_to_adjust').id)
-        old_line_id = self.report._get_generic_line_id('res.currency', self.other_currency.id, markup='groupby:currency_id', parent_line_id=oldest_line_id)
-        line_id = self.report._get_generic_line_id('account.account', first_bill.line_ids.account_id.filtered(lambda account: account.account_type == 'liability_payable').id, markup='groupby:account_id', parent_line_id=old_line_id)
+        old_line_id = self.report._get_generic_line_id('res.currency', self.other_currency.id, markup={'groupby': 'currency_id'}, parent_line_id=oldest_line_id)
+        line_id = self.report._get_generic_line_id('account.account', first_bill.line_ids.account_id.filtered(lambda account: account.account_type == 'liability_payable').id, markup={'groupby': 'account_id'}, parent_line_id=old_line_id)
 
         self.env['account.multicurrency.revaluation.report.handler'].action_multi_currency_revaluation_toggle_provision(options, {'line_id': line_id})
         options['unfold_all'] = True
