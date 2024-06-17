@@ -180,7 +180,7 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             'client_nihil': options.get('client_nihil', False) and 'YES' or 'NO',
             'ask_restitution': options.get('ask_restitution', False) and 'YES' or 'NO',
             'ask_payment': options.get('ask_payment', False) and 'YES' or 'NO',
-            'comment': options.get('comment', ''),
+            'comment': options.get('comment') or '/',
             'representative_node': _get_xml_export_representative_node(report),
         }
 

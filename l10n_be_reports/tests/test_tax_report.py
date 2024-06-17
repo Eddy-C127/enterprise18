@@ -60,13 +60,57 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
                 </ns2:Data>
                 <ns2:ClientListingNihil>NO</ns2:ClientListingNihil>
                 <ns2:Ask Restitution="NO" Payment="NO"/>
-                <ns2:Comment></ns2:Comment>
+                <ns2:Comment>/</ns2:Comment>
             </ns2:VATDeclaration>
         </ns2:VATConsignment>
         """ % ref
 
         self.assertXmlTreeEqual(
             self.get_xml_tree_from_string(self.env[report.custom_handler_model_name].export_tax_report_to_xml(options)['file_content']),
+            self.get_xml_tree_from_string(expected_xml)
+        )
+
+    @freeze_time('2019-12-31')
+    def test_generate_xml_minimal_with_comment(self):
+        company = self.env.company
+        report = self.env.ref('l10n_be.tax_report_vat')
+        options = report.get_options()
+        options['comment'] = "foo"
+
+        ref = str(company.partner_id.id) + '112019'
+
+        # This is the minimum expected from the belgian tax report xml.
+        # As no values are in the report, we only find the grid 71 which is always expected to be present.
+        expected_xml = """
+               <ns2:VATConsignment xmlns="http://www.minfin.fgov.be/InputCommon" xmlns:ns2="http://www.minfin.fgov.be/VATConsignment" VATDeclarationsNbr="1">
+                   <ns2:VATDeclaration SequenceNumber="1" DeclarantReference="%s">
+                       <ns2:Declarant>
+                           <VATNumber xmlns="http://www.minfin.fgov.be/InputCommon">0477472701</VATNumber>
+                           <Name>company_1_data</Name>
+                           <Street></Street>
+                           <PostCode></PostCode>
+                           <City></City>
+                           <CountryCode>BE</CountryCode>
+                           <EmailAddress>jsmith@mail.com</EmailAddress>
+                           <Phone>+32475123456</Phone>
+                       </ns2:Declarant>
+                       <ns2:Period>
+                           <ns2:Month>11</ns2:Month>
+                           <ns2:Year>2019</ns2:Year>
+                       </ns2:Period>
+                       <ns2:Data>
+                           <ns2:Amount GridNumber="71">0.00</ns2:Amount>
+                       </ns2:Data>
+                       <ns2:ClientListingNihil>NO</ns2:ClientListingNihil>
+                       <ns2:Ask Restitution="NO" Payment="NO"/>
+                       <ns2:Comment>foo</ns2:Comment>
+                   </ns2:VATDeclaration>
+               </ns2:VATConsignment>
+               """ % ref
+
+        self.assertXmlTreeEqual(
+            self.get_xml_tree_from_string(
+                self.env[report.custom_handler_model_name].export_tax_report_to_xml(options)['file_content']),
             self.get_xml_tree_from_string(expected_xml)
         )
 
@@ -127,7 +171,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
                     </ns2:Data>
                     <ns2:ClientListingNihil>NO</ns2:ClientListingNihil>
                     <ns2:Ask Restitution="NO" Payment="NO"/>
-                    <ns2:Comment></ns2:Comment>
+                    <ns2:Comment>/</ns2:Comment>
                 </ns2:VATDeclaration>
             </ns2:VATConsignment>
             """ % ref
@@ -199,7 +243,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
                 </ns2:Data>
                 <ns2:ClientListingNihil>NO</ns2:ClientListingNihil>
                 <ns2:Ask Restitution="NO" Payment="NO"/>
-                <ns2:Comment></ns2:Comment>
+                <ns2:Comment>/</ns2:Comment>
             </ns2:VATDeclaration>
         </ns2:VATConsignment>
         """ % ref
@@ -286,7 +330,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
                 </ns2:Data>
                 <ns2:ClientListingNihil>NO</ns2:ClientListingNihil>
                 <ns2:Ask Restitution="NO" Payment="NO"/>
-                <ns2:Comment></ns2:Comment>
+                <ns2:Comment>/</ns2:Comment>
             </ns2:VATDeclaration>
         </ns2:VATConsignment>
         """ % ref
