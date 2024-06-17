@@ -1840,7 +1840,8 @@ class SaleOrder(models.Model):
             self.env.cr.commit()
         if self.plan_id.invoice_mail_template_id:
             _logger.debug("Sending Invoice Mail to %s for subscription %s", self.partner_id.mapped('email'), self.ids)
-            invoice.with_context(email_context)._generate_pdf_and_send_invoice(self.plan_id.invoice_mail_template_id)
+            send_options = self.env['account.move.send']._get_wizard_vals_restrict_to({'checkbox_send_mail': True})
+            invoice.with_context(email_context)._generate_pdf_and_send_invoice(self.plan_id.invoice_mail_template_id, **send_options)
 
     def _assign_token(self, tx):
         """ Callback method to assign a token after the validation of a transaction.
