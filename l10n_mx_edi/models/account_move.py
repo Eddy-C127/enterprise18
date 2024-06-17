@@ -1027,7 +1027,7 @@ class AccountMove(models.Model):
         if self.currency_id.name == 'MXN':
             cfdi_values['tipo_cambio'] = None
         else:
-            cfdi_values['tipo_cambio'] = abs(self.amount_total_signed / self.amount_total) if self.amount_total else 1.0
+            cfdi_values["tipo_cambio"] = 1.0 / self.invoice_currency_rate
 
     def _l10n_mx_edi_get_invoice_cfdi_filename(self):
         """ Get the filename of the CFDI.
