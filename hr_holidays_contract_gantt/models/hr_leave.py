@@ -20,7 +20,7 @@ class HrLeave(models.Model):
         start_date = fields.Datetime.to_string(start)
         stop_date = fields.Datetime.to_string(stop)
         employees = self.env['hr.employee'].browse(res_ids)
-
+        leaves_mapping = defaultdict(list)
         employee_contracts = self.env['hr.contract'].sudo().search([
             ('state', '!=', 'cancel'),
             ('employee_id', 'in', employees.ids),
@@ -29,26 +29,29 @@ class HrLeave(models.Model):
             ('date_end', '=', False),
             ('date_end', '>=', start_date),
         ])
-        if not employee_contracts:
-            leaves_mapping = employees.mapped('resource_id')._get_unavailable_intervals(start, stop)
-        else:
-            leaves_mapping = defaultdict(lambda: [])
-            start = datetime.strptime(start_date, '%Y-%m-%d %H:%M:%S')
-            stop = datetime.strptime(stop_date, '%Y-%m-%d %H:%M:%S')
-            for contract in employee_contracts:
-                tmp_date_from = max(
-                    start,
-                    datetime.combine(contract.date_start, time.min))
-                tmp_date_to = min(
-                    stop,
-                    datetime.combine(contract.date_end, time.max)) if contract.date_end else stop
-                resources_unavailable_intervals = contract.resource_calendar_id._unavailable_intervals_batch(
-                    timezone_datetime(tmp_date_from),
-                    timezone_datetime(tmp_date_to),
-                    contract.employee_id.resource_id,
-                    tz=timezone(contract.resource_calendar_id.tz))
-                for key, value in resources_unavailable_intervals.items():
-                    leaves_mapping[key] += value
+
+        employee_with_contracts = employee_contracts.employee_id
+        employees_without_contracts = employees - employee_with_contracts
+
+        # For employees without contracts
+        leaves_mapping.update(
+            employees_without_contracts.resource_id._get_unavailable_intervals(start, stop))
+
+        # For employees with contracts
+        for contract in employee_contracts:
+            tmp_date_from = max(
+                start,
+                datetime.combine(contract.date_start, time.min))
+            tmp_date_to = min(
+                stop,
+                datetime.combine(contract.date_end, time.max)) if contract.date_end else stop
+            resources_unavailable_intervals = contract.resource_calendar_id._unavailable_intervals_batch(
+                timezone_datetime(tmp_date_from),
+                timezone_datetime(tmp_date_to),
+                contract.employee_id.resource_id,
+                tz=timezone(contract.resource_calendar_id.tz))
+            for key, value in resources_unavailable_intervals.items():
+                leaves_mapping[key] += value
 
         cell_dt = timedelta(hours=1) if scale in ['day', 'week'] else timedelta(hours=12)
 
