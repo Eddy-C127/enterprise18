@@ -9,13 +9,13 @@ class PosConfig(models.Model):
     _inherit = 'pos.config'
 
     iface_print_via_proxy = fields.Boolean(compute="_compute_print_via_proxy")
-    iface_printer_id = fields.Many2one('iot.device', domain="['&', ('type', '=', 'printer'), ('subtype', '=', 'receipt_printer'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
-    iface_display_id = fields.Many2one('iot.device', domain="[('type', '=', 'display'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
+    iface_printer_id = fields.Many2one('iot.device', domain=lambda self: ['&', ('type', '=', 'printer'), ('subtype', '=', 'receipt_printer'), '|', ('company_id', '=', False), ('company_id', '=', self.env.company.id)])
+    iface_display_id = fields.Many2one('iot.device', domain=lambda self: [('type', '=', 'display'), '|', ('company_id', '=', False), ('company_id', '=', self.env.company.id)])
     iface_scan_via_proxy = fields.Boolean(compute="_compute_scan_via_proxy")
-    iface_scanner_ids = fields.Many2many('iot.device', domain="[('type', '=', 'scanner'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+    iface_scanner_ids = fields.Many2many('iot.device', domain=lambda self: [('type', '=', 'scanner'), '|', ('company_id', '=', False), ('company_id', '=', self.env.company.id)],
                                          help="Enable barcode scanning with a remotely connected barcode scanner and card swiping with a Vantiv card reader.")
     iface_electronic_scale = fields.Boolean(compute="_compute_electronic_scale")
-    iface_scale_id = fields.Many2one('iot.device', domain="[('type', '=', 'scale'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]")
+    iface_scale_id = fields.Many2one('iot.device', domain=lambda self: [('type', '=', 'scale'), '|', ('company_id', '=', False), ('company_id', '=', self.env.company.id)])
     iot_device_ids = fields.Many2many('iot.device', compute="_compute_iot_device_ids")
     # TODO: Remove this field, it's not being used.
     payment_terminal_device_ids = fields.Many2many('iot.device', compute="_compute_payment_terminal_device_ids")
