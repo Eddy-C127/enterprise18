@@ -50,7 +50,7 @@
 
                     <t t-call="account_reports.AccountReportFilterDateSelection"/>
 
-                    <div class="dropdown-divider"/>
+                    <div id="filter_date_divider_single" class="dropdown-divider"/>
 
                     <div
                         class="dropdown-item date d-flex justify-content-between"
@@ -77,7 +77,7 @@
                 <t t-if="controller.options.date.mode === 'range'">
                     <t t-call="account_reports.AccountReportFilterDateSelection"/>
 
-                    <div class="dropdown-divider"/>
+                    <div id="filter_date_divider_range" class="dropdown-divider"/>
 
                     <div
                         class="dropdown-item date d-flex flex-row justify-space-between"
