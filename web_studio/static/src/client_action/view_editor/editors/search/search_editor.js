@@ -1,10 +1,7 @@
 /** @odoo-module */
 import { Component, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
-import {
-    computeXpath,
-    getNodesFromXpath,
-} from "@web_studio/client_action/view_editor/editors/xml_utils";
+import { computeXpath } from "@web_studio/client_action/view_editor/editors/xml_utils";
 import { visitXML } from "@web/core/utils/xml";
 import { SidebarDraggableItem } from "@web_studio/client_action/components/sidebar_draggable_item/sidebar_draggable_item";
 import { StudioHook } from "@web_studio/client_action/view_editor/editors/components/studio_hook_component";
@@ -327,14 +324,9 @@ class SearchEditorSidebar extends Component {
     setup() {
         this.viewEditorModel = useState(this.env.viewEditorModel);
         const searchArchParser = new SearchEditorArchParser();
-        this._getCurrentNode = memoize(() => {
-            const { activeNodeXpath, xmlDoc } = this.viewEditorModel;
-            if (!activeNodeXpath) {
-                return null;
-            }
-            const node = getNodesFromXpath(activeNodeXpath, xmlDoc);
-            return searchArchParser.parseNode(node[0]);
-        });
+        this._getCurrentNode = memoize(() =>
+            searchArchParser.parseNode(this.viewEditorModel.activeNode.arch)
+        );
     }
 
     get currentNode() {
