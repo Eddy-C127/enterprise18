@@ -107,6 +107,7 @@ class AccountMove(models.Model):
                 and move.l10n_co_dian_state != 'invoice_accepted'
                 and move.move_type in ('in_refund', 'in_invoice')
                 and move.state == 'posted'
+                and move.journal_id.l10n_co_edi_is_support_document
             )
 
     @api.depends('country_code', 'company_currency_id', 'move_type', 'company_id.l10n_co_dian_provider')
