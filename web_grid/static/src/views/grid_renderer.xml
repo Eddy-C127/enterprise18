@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <templates>
     <t t-name="web_grid.Renderer">
-        <div class="o_grid_renderer position-relative z-index-0" t-ref="renderer">
+        <div class="o_grid_renderer position-relative z-0" t-ref="renderer">
             <div class="o_grid_grid d-grid gap-0 border-bottom bg-100"
                  t-attf-style="grid-template-rows: {{ gridTemplateRows }} ; grid-template-columns: {{ gridTemplateColumns }}"
                  t-on-mouseover.stop="onMouseOver"
@@ -55,13 +55,13 @@
                     'o_grid_cell_overlay bg-700' : !column.isToday,
                  }"
                  t-attf-class="{{getUnavailableClass(column)}}"/>
-            <span class="z-index-1 text-center" t-out="column.title"/>
+            <span class="z-1 text-center" t-out="column.title"/>
         </div>
         <div t-if="!props.options.hideLineTotal"
              class="o_grid_column_title o_grid_row_total position-md-sticky top-0 end-0 d-flex align-items-center justify-content-center text-bg-200 px-3 py-2 border-bottom fw-bold text-center"
              t-attf-style="grid-row: {{rowsGap}}; grid-column: {{props.columns.length + 1 + columnsGap}};"
         >
-            <span class="z-index-1" t-out="measureLabel"/>
+            <span class="z-1" t-out="measureLabel"/>
         </div>
     </t>
     <t t-name="web_grid.Section">
@@ -78,7 +78,7 @@
             >
             <div class="o_grid_cell_overlay position-absolute top-0 start-0 w-100 h-100 bg-700"/>
                 <GridComponent
-                    classNames="'z-index-1 text-truncate'"
+                    classNames="'z-1 text-truncate'"
                     name="props.sectionField.name"
                     model="props.model"
                     row="section"
@@ -104,14 +104,14 @@
                     t-attf-class="{{getUnavailableClass(column)}}"
                 />
                 <div class="o_grid_cell_readonly position-relative d-flex justify-content-center align-items-center w-100 h-100">
-                    <span class="z-index-1" t-att-class="getSectionCellsClasses(column, section)"
+                    <span class="z-1" t-att-class="getSectionCellsClasses(column, section)"
                           t-out="formatValue(section.cells[column.id].value)"
                     />
                 </div>
             </div>
             <t t-set="grandTotal" t-value="section.getGrandTotal(props.state.isWeekendVisible)" />
             <div t-if="!props.options.hideLineTotal"
-                 class="o_grid_section o_grid_row_total o_grid_highlightable position-relative position-md-sticky end-0 z-index-1 d-flex align-items-center justify-content-center px-3 py-1 border-top fw-bold"
+                 class="o_grid_section o_grid_row_total o_grid_highlightable position-relative position-md-sticky end-0 z-1 d-flex align-items-center justify-content-center px-3 py-1 border-top fw-bold"
                  t-att-class="getSectionTotalRowClass(section, grandTotal)"
                  t-att-data-grid-row="rowPosition"
                  t-att-data-grid-column="props.columns.length + 1 + columnsGap"
@@ -146,7 +146,7 @@
                 <t t-set="fieldName" t-value="rowField.name"/>
                 <GridComponent
                     t-if="row.initialRecordValues[fieldName] or rowField_index === 0"
-                    classNames="`z-index-1 text-truncate o_grid_field_${fieldName.replace('_id','')}${isMobile ? '' : ' text-nowrap'}${row.isAdditionalRow ? ' pe-1' : 'd-flex'}`"
+                    classNames="`z-1 text-truncate o_grid_field_${fieldName.replace('_id','')}${isMobile ? '' : ' text-nowrap'}${row.isAdditionalRow ? ' pe-1' : 'd-flex'}`"
                     name="fieldName"
                     value="row.initialRecordValues[fieldName]"
                     model="props.model"
@@ -201,7 +201,7 @@
              t-attf-style="grid-row: {{rowPosition}}; grid-column: {{props.columns.length + 1 + columnsGap}};"
         >
             <div class="o_grid_cell_overlay_total position-absolute top-0 start-0 w-100 h-100 bg-900"/>
-            <span class="z-index-1" t-out="formatValue(grandTotal)"/>
+            <span class="z-1" t-out="formatValue(grandTotal)"/>
 
         </div>
     </t>
@@ -209,7 +209,7 @@
         <t t-set="rowPosition" t-value="getRowPosition(row or undefined, true)"/>
         <t t-set="isEven" t-value="rowPosition % 2 !== 0"/>
         <div t-if="props.createInline"
-             class="o_grid_row o_grid_add_line o_grid_add_line_first_cell position-md-sticky start-0 d-flex align-items-center z-index-1 ps-3"
+             class="o_grid_row o_grid_add_line o_grid_add_line_first_cell position-md-sticky start-0 d-flex align-items-center z-1 ps-3"
              t-att-class="{
                 'bg-view': isEven,
                 'bg-100': !isEven,
@@ -254,7 +254,7 @@
                  t-att-class="{
                     'bg-view': isEven,
                     'bg-100': !isEven,
-                    'z-index-1 position-md-sticky start-0': !props.model.useSampleModel,
+                    'z-1 position-md-sticky start-0': !props.model.useSampleModel,
                  }"
                  t-attf-style="grid-row: {{rowPosition}}; grid-column: {{columnsGap}};"/>
             <t t-set="grandTotal"
@@ -313,7 +313,7 @@
                  t-att-class="{
                     'bg-view': isEven,
                     'bg-100': !isEven,
-                    'z-index-1 position-md-sticky start-0': !props.model.useSampleModel,
+                    'z-1 position-md-sticky start-0': !props.model.useSampleModel,
                  }"
                  t-attf-style="grid-row: {{rowPosition + 1}}; grid-column: {{columnsGap}};"/>
             <t t-set="grandTotal" t-value="0"/>

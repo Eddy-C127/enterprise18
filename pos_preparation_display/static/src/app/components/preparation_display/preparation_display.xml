@@ -36,7 +36,7 @@
                         <div class="position-relative px-1">
                             <i class="d-block fa fa-bars" aria-hidden="true"></i>
                         </div>
-                        <ul class="dropdown-menu sub-menu position-absolute d-flex flex-column align-items-stretch w-100 bg-white shadow-lg z-index-1">
+                        <ul class="dropdown-menu sub-menu position-absolute d-flex flex-column align-items-stretch w-100 bg-white shadow-lg z-1">
                             <li t-if="!isLastStage and !isAllStage" class="menu-item navbar-button recall-button" t-on-click="() => this.recallLastChange()">
                                 <a class="dropdown-item py-2"
                                     t-att-class="{'disabled': isHistoryEmpty()}">

@@ -29,7 +29,7 @@
                         <i class="fa fa-exclamation-triangle oi-large" aria-hidden="true"></i>
                         <span class="d-none d-lg-inline-block px-2">Alert</span>
                     </div>
-                    <ul class="dropdown-menu sub-menu position-absolute d-flex flex-column align-items-stretch w-100 bg-white shadow-lg z-index-1">
+                    <ul class="dropdown-menu sub-menu position-absolute d-flex flex-column align-items-stretch w-100 bg-white shadow-lg z-1">
                         <t t-foreach="outOfPaperListFiltered" t-as="configPaperStatus" t-key="configPaperStatus">
                             <li class="menu-item navbar-button" t-on-click="() => this.paperNotificationClick(configPaperStatus)">
                                 <a class="dropdown-item py-2 text-wrap text-danger">
