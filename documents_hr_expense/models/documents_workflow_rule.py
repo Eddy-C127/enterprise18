@@ -21,17 +21,17 @@ class WorkflowActionRuleExpense(models.Model):
                 if (document.res_model or document.res_id) and document.res_model != 'documents.document':
                     # Create new attachment
                     attachment = document.attachment_id.with_context(no_document=True).copy({
-                        "res_model": self.create_model,
+                        "res_model": expense._name,
                         "res_id": expense.id,
                     })
-                    attachment.register_as_main_attachment()
+                    expense._message_set_main_attachment_id(attachment, force=True)
                     document = document.copy({"attachment_id": attachment.id})
                 else:
                     document.attachment_id.with_context(no_document=True).write({
-                        'res_model': self.create_model,
+                        'res_model': expense._name,
                         'res_id': expense.id
                     })
-                    document.attachment_id.register_as_main_attachment()
+                    expense._message_set_main_attachment_id(document.attachment_id, force=True)
                 document.message_post(body=_('Expense %s created from document', expense._get_html_link()))
 
             action = self.env["ir.actions.actions"]._for_xml_id("hr_expense.hr_expense_actions_my_all")

@@ -874,7 +874,7 @@ class AccountMove(models.Model):
 
     @api.model
     def _import_invoice_ocr(self, invoice, file_data, new=False):
-        invoice.message_main_attachment_id = file_data['attachment']
+        invoice._message_set_main_attachment_id(file_data['attachment'], force=True, filter_xml=False)
         invoice._send_batch_for_digitization()
         return True
 

@@ -220,7 +220,7 @@ class AccountMove(models.Model):
             }
         )
         # make sure latest PDF shows to the right of the chatter
-        invoice_pdf.register_as_main_attachment(force=True)
+        self._message_set_main_attachment_id(invoice_pdf, force=True, filter_xml=False)
 
         invoice_xml = self.env["ir.attachment"].create(
             {
