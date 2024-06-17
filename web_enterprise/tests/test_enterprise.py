@@ -1,6 +1,6 @@
 import base64
 
-from odoo.tests.common import HttpCase
+from odoo.tests.common import HttpCase, tagged
 
 
 class LoadMenusTests(HttpCase):
@@ -55,3 +55,12 @@ class LoadMenusTests(HttpCase):
         }
 
         self.assertDictEqual(menu_loaded.json(), expected)
+
+
+@tagged("-at_install", "post_install")
+class TestWebEnterprise(HttpCase):
+    def test_studio_list_upsell(self):
+        invoice_action = self.env.ref("account.action_move_out_invoice_type", raise_if_not_found=False)
+        if not invoice_action:
+            return
+        self.start_tour("/web#action=account.action_move_out_invoice_type", "web_enterprise.test_studio_list_upsell", login="admin")
