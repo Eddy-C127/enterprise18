@@ -37,6 +37,7 @@ This module modifies the web addon to provide Enterprise design and responsivene
 
             'web_enterprise/static/src/core/**/*',
             'web_enterprise/static/src/webclient/**/*.js',
+            ('after', 'web/static/src/views/list/list_renderer.xml', 'web_enterprise/static/src/views/list/list_renderer_desktop.xml'),
             'web_enterprise/static/src/webclient/**/*.xml',
             'web_enterprise/static/src/views/**/*.js',
             'web_enterprise/static/src/views/**/*.xml',
@@ -65,6 +66,9 @@ This module modifies the web addon to provide Enterprise design and responsivene
         ],
         'web.tests_assets': [
             'web_enterprise/static/tests/*.js',
+        ],
+        "web.assets_tests": [
+            "web_enterprise/static/tests/tours/**/*.js",
         ],
         'web.qunit_suite_tests': [
             'web_enterprise/static/tests/views/**/*.js',
