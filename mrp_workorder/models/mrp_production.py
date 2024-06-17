@@ -56,6 +56,7 @@ class MrpProduction(models.Model):
         }
 
     def action_add_workorder(self):
+        default_blocking_wo_id = self.workorder_ids[-1].id if self.workorder_ids else False
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'mrp_production.additional.workorder',
@@ -64,6 +65,7 @@ class MrpProduction(models.Model):
             'target': 'new',
             'context': {
                 'default_production_id': self.id,
+                'default_blocked_by_workorder_id': default_blocking_wo_id,
             }
         }
 

@@ -792,7 +792,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         for workorder in workorders:
             self.assertEqual(workorder.workcenter_id, self.workcenter_1, "Workcenter does not match.")
         self.assertEqual(kit_wo.state, 'ready', "Workorder should be in ready state.")
-        self.assertEqual(door_wo_1.state, 'ready', "Workorder should be in ready state.")
+        self.assertEqual(door_wo_1.state, 'pending', "Workorder should be in pending state.")
         self.assertEqual(door_wo_2.state, 'pending', "Workorder should be in pending state.")
         self.assertEqual(kit_wo.duration_expected, 960, "Workorder duration should be 960 instead of %s." % str(kit_wo.duration_expected))
         self.assertEqual(door_wo_1.duration_expected, 480, "Workorder duration should be 480 instead of %s." % str(door_wo_1.duration_expected))
@@ -1961,6 +1961,53 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         self.assertNotEqual(wo2.date_start, wo2_date_start, "Date of Workorder 2 should be updated")
         self.assertNotEqual(wo3.date_start, wo3_date_start, "Date of Workorder 3 should be updated")
         self.assertTrue(wo3.date_start > wo2.date_start, "Workorder 2 should be before the 3")
+
+    def test_additional_workorder_sequence(self):
+        """ Test that workorders added in shopfloor are created with the correct sequence.
+        Create two MO, one with existing operations and one without:
+        """
+        mo1_form = Form(self.env['mrp.production'])
+        mo1_form.bom_id = self.bom_2
+        mo1 = mo1_form.save()
+        self.assertEqual(len(mo1.workorder_ids), 1)
+
+        # Add a first workorder to mo1
+        action = mo1.action_add_workorder()
+        wizard = Form(self.env[action['res_model']].with_context(action['context']))
+        self.assertEqual(wizard.blocked_by_workorder_id, mo1.workorder_ids[0])
+        wizard.name = 'Send gift-wrapped machine to the Moon'
+        wizard.workcenter_id = self.workcenter_1
+        wizard.save().add_workorder()
+        self.assertEqual(len(mo1.workorder_ids), 2)
+        self.assertListEqual(mo1.workorder_ids.mapped('sequence'), [1, 2])
+        self.assertEqual(mo1.workorder_ids[-1].name, 'Send gift-wrapped machine to the Moon')
+
+        action = mo1.action_add_workorder()
+        wizard = Form(self.env[action['res_model']].with_context(action['context']))
+        self.assertEqual(wizard.blocked_by_workorder_id, mo1.workorder_ids[-1])
+        wizard.blocked_by_workorder_id = mo1.workorder_ids[0]
+        wizard.name = 'Strap machine to rocket'
+        wizard.workcenter_id = self.workcenter_2
+        wizard.save().add_workorder()
+        self.assertEqual(len(mo1.workorder_ids), 3)
+        self.assertListEqual(mo1.workorder_ids.mapped('sequence'), [1, 2, 3])
+        self.assertEqual(mo1.workorder_ids[-1].blocked_by_workorder_ids, mo1.workorder_ids[:2], 'The last WO should be blocked by the first 2 WO')
+
+        # Create the second MO
+        mo2_form = Form(self.env['mrp.production'])
+        mo2_form.bom_id = self.bom_1
+        mo2 = mo2_form.save()
+        self.assertEqual(len(mo2.workorder_ids), 0)
+
+        # Add a workorder to mo2
+        action = mo2.action_add_workorder()
+        wizard = Form(self.env[action['res_model']].with_context(action['context']))
+        self.assertEqual(wizard.blocked_by_workorder_id.id, False)
+        wizard.name = 'Lone workorder'
+        wizard.workcenter_id = self.workcenter_3
+        wizard.save().add_workorder()
+        self.assertEqual(len(mo2.workorder_ids), 1, 'There should only be 1 WO')
+        self.assertEqual(mo2.workorder_ids.sequence, 100)
 
 
 class TestRoutingAndKits(TransactionCase):

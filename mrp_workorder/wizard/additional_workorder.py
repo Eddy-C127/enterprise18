@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
+from odoo import models, fields, Command
 
 
 class MrpWorkorderAdditionalWorkorder(models.TransientModel):
@@ -13,6 +12,10 @@ class MrpWorkorderAdditionalWorkorder(models.TransientModel):
         default=lambda self: self.env.context.get('active_id', None),
     )
     name = fields.Char('Operation name', required=True)
+    blocked_by_workorder_id = fields.Many2one('mrp.workorder',
+                                     string="Blocked By",
+                                     domain="[('production_id', '=', production_id)]",
+                                     copy=False)
     workcenter_id = fields.Many2one('mrp.workcenter', required=True)
     duration_expected = fields.Float('Expected Duration')
     date_start = fields.Datetime('Start')
@@ -24,15 +27,34 @@ class MrpWorkorderAdditionalWorkorder(models.TransientModel):
 
     def add_workorder(self):
         """Create production workorder for the additional workorder."""
+        if self.blocked_by_workorder_id:
+            new_wo_sequence = self.blocked_by_workorder_id.sequence
+        elif self.production_id.workorder_ids:
+            new_wo_sequence = self.production_id.workorder_ids[0].sequence - 1
+        else:
+            new_wo_sequence = 100
         wo = self.env['mrp.workorder'].create({
             'production_id': self.production_id.id,
             'name': self.name,
+            'sequence': new_wo_sequence,
             'workcenter_id': self.workcenter_id.id,
             'duration_expected': self.duration_expected,
-            'date_start': self.date_start,
+            'date_start': self.date_start or self.blocked_by_workorder_id.date_finished,
             'employee_assigned_ids': self.employee_assigned_ids.ids,
             'product_uom_id': self.production_id.product_uom_id.id,
-            'blocked_by_workorder_ids': self.production_id.workorder_ids.ids,
+            'blocked_by_workorder_ids': [self.blocked_by_workorder_id.id] if self.blocked_by_workorder_id else False,
         })
         if wo.date_start:
             wo.date_finished = wo._calculate_date_finished()
+        if self.blocked_by_workorder_id:
+            # Make sure the new workorder will block the same workorders as the workorder it is blocked by.
+            for next_wo in self.blocked_by_workorder_id.needed_by_workorder_ids:
+                if next_wo.id != wo.id:
+                    next_wo.blocked_by_workorder_ids = [Command.link(wo.id)]
+            # Rewrite the sequences for consistency
+            starting_index = self.production_id.workorder_ids.ids.index(wo.id)
+            for workorder in self.production_id.workorder_ids[starting_index:]:
+                workorder.sequence += 1
+        elif self.production_id.workorder_ids - wo:
+            # If new WO is placed at the beginning, make sure it blocks the now second workorder
+            self.production_id.workorder_ids.sorted()[1].blocked_by_workorder_ids = [Command.link(wo.id)]
