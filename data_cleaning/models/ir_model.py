@@ -38,6 +38,11 @@ class IrModel(models.Model):
     # Actions
     # ---------------
 
+    def action_merge(self):
+        if self.is_merge_enabled:
+            return self.action_merge_contextual_disable()
+        return self.action_merge_contextual_enable()
+
     def action_merge_contextual_enable(self, module='data_cleaning'):
         server_action_values = {
             'name': _('Merge'),
