@@ -364,7 +364,8 @@ class ShareRoute(http.Controller):
             'folder_id': folder.id,
             **(documents_values or {}),
         }
-        documents = request.env['documents.document'].with_user(share.create_uid)
+        documents = request.env['documents.document']
+        documents.with_user(share.create_uid).check_access_rights('create')
         max_upload_size = documents.get_document_max_upload_limit()
         for file in files:
             data = file.read()
@@ -378,7 +379,8 @@ class ShareRoute(http.Controller):
                 'datas': base64.b64encode(data),
                 **documents_values,
             }
-            documents |= documents.create(document_dict)
+            documents |= documents.sudo().create(document_dict).sudo(False)
+        documents.with_user(share.create_uid).check_access_rule('create')
         return documents
 
     # Upload file(s) route.
@@ -446,9 +448,9 @@ class ShareRoute(http.Controller):
                 logger.exception("Failed to upload document")
             else:
                 for document in documents:
-                    document.message_post(body=chatter_message)
+                    document.sudo().message_post(body=chatter_message)
                 if share.activity_option:
-                    documents.documents_set_activity(settings_record=share)
+                    documents.sudo().documents_set_activity(settings_record=share)
         else:
             return http.request.not_found()
         return Markup("""<script type='text/javascript'>
