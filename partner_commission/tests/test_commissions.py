@@ -184,3 +184,47 @@ class TestCommissions(TestCommissionsSetup):
         # (silver_plan_rate * crm_price) = 15% * 20 = 3
         self.assertEqual(inv.commission_po_line_id.price_subtotal, 3, 'Commission is wrong')
         self.assertEqual(len(po.order_line), 1, 'Expected 1 purchase order line')
+
+    def test_commission_plan_rules_with_template(self):
+        category = self.env['product.category'].create({
+            'name': 'Test Category',
+        })
+        product = self.env['product.product'].create({
+            'name': 'Test product',
+            'categ_id': category.id,
+            'list_price': 100.0,
+        })
+
+        # Create a sale order template with the product by default
+        so_template = self.env['sale.order.template'].create({
+            'name': 'Test template',
+        })
+        self.env['sale.order.template.line'].create({
+            'sale_order_template_id': so_template.id,
+            'product_id': product.id,
+            'product_uom_qty': 1,
+        })
+
+        # Create a commission plan with a rule containing the sale order template
+        plan = self.env['commission.plan'].create({
+            'name': 'Test Plan',
+            'product_id': self.env.ref('partner_commission.product_commission').id,
+            'commission_rule_ids': [
+                (0, 0, self._make_rule(category, 20, product=product, template=so_template, is_capped=True, max_comm=1000)),
+            ]
+        })
+        self.referrer.commission_plan_id = plan
+
+        form = Form(self.env['sale.order'].with_user(self.salesman).with_context(tracking_disable=True))
+        form.partner_id = self.customer
+        form.referrer_id = self.referrer
+        form.sale_order_template_id = so_template
+
+        so = form.save()
+        so.action_confirm()
+        inv = so._create_invoices()
+        inv.action_post()
+        self._pay_invoice(inv)
+
+        po = inv.commission_po_line_id.order_id
+        self.assertEqual(len(po), 1, 'A commission must be created')
