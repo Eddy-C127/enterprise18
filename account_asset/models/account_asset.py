@@ -131,6 +131,9 @@ class AccountAsset(models.Model):
     depreciation_move_ids = fields.One2many('account.move', 'asset_id', string='Depreciation Lines')
     original_move_line_ids = fields.Many2many('account.move.line', 'asset_move_line_rel', 'asset_id', 'line_id', string='Journal Items', copy=False)
 
+    asset_properties_definition = fields.PropertiesDefinition('Model Properties')
+    asset_properties = fields.Properties('Properties', definition='model_id.asset_properties_definition', copy=True)
+
     # Dates
     acquisition_date = fields.Date(
         compute='_compute_acquisition_date', store=True, precompute=True,

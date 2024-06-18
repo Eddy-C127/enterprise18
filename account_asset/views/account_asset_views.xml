@@ -111,6 +111,7 @@
                         <page string="Asset" name="main_page">
                             <group>
                                 <field name="active" invisible="1"/>
+                                <field name="asset_properties" columns="2"/>
                                 <group string="Asset Values" invisible="state == 'model'" name="asset_values">
                                     <field name="original_value" widget="monetary" options="{'currency_field': 'currency_id'}" invisible="state == 'model'" readonly="state != 'draft'"/>
                                     <field name="gross_increase_value" widget="monetary" invisible="state == 'model' or gross_increase_value == 0" options="{'currency_field': 'currency_id'}"/>
@@ -325,6 +326,7 @@
                 <field name="currency_id" groups="base.group_multi_currency" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide" readonly="state != 'draft'"/>
                 <field name="company_id" groups="!base.group_multi_company" column_invisible="True" readonly="state != 'draft'"/>
+                <field name="asset_properties"/>
                 <field name="state"/>
                 <field name="activity_exception_decoration" widget="activity_exception"/>
                 <field name="activity_ids" widget="list_activity" optional="hide"/>
@@ -360,6 +362,7 @@
                 <filter string="Closed" name="closed" domain="[('state','=', 'close')]" help="Assets in closed state"/>
                 <field name="model_id" string="Asset Model"/>
                 <separator/>
+                <field name="asset_properties"/>
                 <filter invisible="1" string="Late Activities" name="activities_overdue"
                     domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
                     help="Show all records which has next action date is before today"/>
@@ -372,6 +375,7 @@
                 <group expand="0" string="Group By...">
                         <filter string="Date" name="month" domain="[]" context="{'group_by':'acquisition_date'}"/>
                         <filter string="Asset Model" name="model" domain="[]" context="{'group_by':'model_id'}"/>
+                        <filter string="Properties" name="group_by_properties" context="{'group_by': 'asset_properties'}"/>
                 </group>
             </search>
         </field>
