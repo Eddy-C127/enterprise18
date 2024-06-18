@@ -754,3 +754,32 @@ should be in the ticket's description
             ('res_id', '=', ticket.id),
         ], limit=1)
         self.assertTrue(follow)
+
+    def test_create_from_internal_for_internal(self):
+        """
+        Test that we can create a ticket from an internal user for an internal user, without raising any access error.
+        Also test that empty phone number doesn't overwrite the partner's phone number.
+        """
+        user = self.env['res.users'].create({
+            'name': 'User',
+            'login': 'user',
+            'email': 'user@user.com',
+            'groups_id': [(6, 0, [self.env.ref('helpdesk.group_helpdesk_manager').id,
+                        self.env.ref('base.group_partner_manager').id])],
+        })
+
+        self.assertFalse(self.helpdesk_user.partner_id.phone)
+        ticket = self.env['helpdesk.ticket'].with_user(user).create({
+            'name': 'test ticket 1',
+            'team_id': self.test_team.id,
+            'partner_id': self.helpdesk_user.partner_id.id,
+            'partner_phone': '123'
+        })
+        self.assertEqual(self.helpdesk_user.partner_id.phone, ticket.partner_phone)
+        ticket = self.env['helpdesk.ticket'].with_user(self.helpdesk_user).create({
+            'name': 'test ticket 2',
+            'team_id': self.test_team.id,
+            'partner_id': self.helpdesk_user.partner_id.id,
+            'partner_phone': ''
+        })
+        self.assertEqual(self.helpdesk_user.partner_id.phone, '123')

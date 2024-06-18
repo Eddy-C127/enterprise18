@@ -284,7 +284,8 @@ class HelpdeskTicket(models.Model):
 
     def _inverse_partner_phone(self):
         for ticket in self:
-            if ticket._get_partner_phone_update() or not ticket.partner_id.phone:
+            if (ticket._get_partner_phone_update() or not ticket.partner_id.phone) and ticket.partner_phone:
+                ticket = ticket.sudo()
                 ticket.partner_id.phone = ticket.partner_phone
 
     @api.depends('partner_id', 'partner_email', 'partner_phone')
