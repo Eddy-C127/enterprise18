@@ -2,7 +2,7 @@
 
 <templates xml:space="preserve">
     <t t-name="stock_barcode.ImagePreviewField" t-inherit="web.ImageField" t-inherit-mode="primary">
-        <xpath expr="//img[hasclass('img-fluid')]" position="attributes">
+        <xpath expr="//img" position="attributes">
             <attribute name="t-on-click">openImageFullScreen</attribute>
         </xpath>
     </t>

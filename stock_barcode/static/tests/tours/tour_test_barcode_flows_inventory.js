@@ -709,6 +709,27 @@ registry.category("web_tour.tours").add('test_inventory_create_quant', {test: tr
     },
 ]});
 
+registry.category("web_tour.tours").add("test_inventory_image_visible_for_quant", {test: true, steps: () => [
+    { trigger: "button.button_inventory", run: "click" },
+    { trigger: ".o_barcode_line:first-child button.o_edit", run: "click" },
+    {
+        trigger: ".o_form_view",
+        run: function() {
+            const imgEl = document.querySelector("div[name=image_1920] img");
+            helper.assert(Boolean(imgEl), true, "Product image should be visible");
+        }
+    },
+    { trigger: "button.o_discard", run: "click" },
+    { trigger: ".o_barcode_line:nth-child(2) button.o_edit", run: "click" },
+    {
+        trigger: ".o_form_view",
+        run: function() {
+            const imgEl = document.querySelector("div[name=image_1920] img");
+            helper.assert(Boolean(imgEl), false, "Product has no image set");
+        }
+    },
+]});
+
 registry.category("web_tour.tours").add('test_inventory_nomenclature', {test: true, steps: () => [
     {
         trigger: '.button_inventory',

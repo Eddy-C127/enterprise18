@@ -1,9 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import base64
 import logging
 
 from odoo import fields
 from odoo.tests import tagged, loaded_demo_data
+from odoo.tools.misc import file_open
 from odoo.addons.stock_barcode.tests.test_barcode_client_action import TestBarcodeClientAction
 
 _logger = logging.getLogger(__name__)
@@ -271,6 +273,24 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         Quant._unlink_zero_quants()
         product1_quant = Quant.search([('product_id', '=', self.product1.id)])
         self.assertEqual(len(product1_quant), 0)
+
+    def test_inventory_image_visible_for_quant(self):
+        """ Ensure the product's image is visible in the Barcode quant form view."""
+        # Load an image and use it for a product.
+        img_url = 'stock_barcode/static/img/barcode_white.png'
+        img_content = base64.b64encode(file_open(img_url, "rb").read())
+        self.product1.image_1920 = img_content
+        # Creates two quants to count.
+        self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 4)
+        self.env['stock.quant']._update_available_quantity(self.product2, self.stock_location, 4)
+        quants = self.env['stock.quant'].search([('product_id', 'in', [self.product1.id, self.product2.id])])
+        wizard_request_count = self.env['stock.request.count'].create({
+            'user_id': self.env.user.id,
+            'quant_ids': quants.ids,
+            'set_count': 'empty',
+        })
+        wizard_request_count.action_request_count()
+        self.start_tour("/odoo/barcode/", 'test_inventory_image_visible_for_quant', login='admin', timeout=180)
 
     def test_inventory_nomenclature(self):
         """ Simulate scanning a product and its weight
