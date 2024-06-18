@@ -1488,3 +1488,25 @@ registry.category("web_tour.tours").add("web_studio.test_translations_are_copied
         },
     ],
 });
+
+registry.category("web_tour.tours").add("web_studio.test_reports_view_concurrence", {
+    test: true,
+    sequence: 260,
+    steps: () => [
+        {
+            trigger: ".o_menu_sections li:contains('Reports')",
+            run: "click",
+        },
+        {
+            trigger: ".o_kanban_record[data-id] ",
+            run: "click",
+        },
+        {
+            trigger: ".o_kanban_record[data-id] ",
+            run: "click",
+        },
+        {
+            trigger: ".o-web-studio-report-editor",
+        },
+    ],
+});

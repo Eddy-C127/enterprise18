@@ -532,6 +532,9 @@ class TestReportEditorUIUnit(HttpCase):
     def test_print_preview(self):
         self.start_tour(self.tour_url, "web_studio.test_print_preview", login="admin")
 
+    def test_reports_view(self):
+        self.start_tour(self.tour_url, "web_studio.test_reports_view_concurrence", login="admin")
+
     def test_table_rendering(self):
         self.main_view_document.arch = """
             <t t-name="web_studio.test_report_document">

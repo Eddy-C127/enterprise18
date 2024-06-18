@@ -9,6 +9,7 @@ import {
     useEnv,
     useState,
     useSubEnv,
+    onWillDestroy,
 } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
@@ -168,8 +169,13 @@ export class ReportEditorModel extends Reactive {
     }
 
     async loadReportEditor() {
-        await this.loadReportData();
-        return this.loadModelEnv();
+        const loaders = [this.loadReportData.bind(this), this.loadModelEnv.bind(this)];
+        for (const loader of loaders) {
+            if (this.isDestroyed) {
+                break;
+            }
+            await loader();
+        }
     }
 
     async loadReportData() {
@@ -393,6 +399,7 @@ export function useReportEditorModel() {
     useEditorBreadcrumbs(crumb);
 
     onWillStart(() => reportEditorModel.loadReportEditor());
+    onWillDestroy(() => reportEditorModel.isDestroyed = true);
 
     return useState(reportEditorModel);
 }
