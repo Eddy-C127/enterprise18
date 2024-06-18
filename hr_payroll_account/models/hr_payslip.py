@@ -104,6 +104,8 @@ class HrPayslip(models.Model):
                     move = slip._create_account_move(move_dict)
                     for slip in slip_mapped_data[journal_id][slip_date]:
                         slip.write({'move_id': move.id, 'date': date})
+                    if self.company_id.batch_payroll_move_lines:
+                        slip.payslip_run_id.write({'move_id': move.id})
         return True
 
     def _prepare_line_values(self, line, account_id, date, debit, credit):

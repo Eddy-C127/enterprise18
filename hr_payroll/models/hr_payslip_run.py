@@ -80,6 +80,10 @@ class HrPayslipRun(models.Model):
         self.action_close()
         return payslip_done_result
 
+    def action_confirm(self):
+        self.slip_ids.write({'state': 'verify'})
+        self.write({'state': 'verify'})
+
     def action_open_payslips(self):
         self.ensure_one()
         return {

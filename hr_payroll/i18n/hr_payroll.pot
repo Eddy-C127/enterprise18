@@ -764,6 +764,13 @@ msgid "Category"
 msgstr ""
 
 #. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__is_refund
+msgid ""
+"Check if the value of the salary attachment must be taken into account as "
+"negative (-X)"
+msgstr ""
+
+#. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Check the <strong>Salary Structure Type</strong>."
@@ -2162,11 +2169,6 @@ msgid "Is Paid"
 msgstr ""
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__is_refund
-msgid "Is Refund"
-msgstr ""
-
-#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
 msgid "Is Register"
 msgstr ""
@@ -2461,6 +2463,11 @@ msgstr ""
 #. module: hr_payroll
 #: model:mail.activity.type,name:hr_payroll.mail_activity_data_hr_payslip_negative_net
 msgid "Negative Net to Report"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__is_refund
+msgid "Negative Value"
 msgstr ""
 
 #. module: hr_payroll

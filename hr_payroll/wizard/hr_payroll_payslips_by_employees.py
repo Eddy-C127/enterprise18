@@ -84,6 +84,8 @@ class HrPayslipEmployees(models.TransientModel):
             'res_id': payslip_run.id,
         }
         if not employees:
+            payslip_run.slip_ids.write({'state': 'verify'})
+            payslip_run.state = 'verify'
             return success_result
 
         payslips = self.env['hr.payslip']
@@ -149,6 +151,7 @@ class HrPayslipEmployees(models.TransientModel):
         payslips = Payslip.with_context(tracking_disable=True).create(payslips_vals)
         payslips._compute_name()
         payslips.compute_sheet()
+        payslip_run.slip_ids.write({'state': 'verify'})
         payslip_run.state = 'verify'
 
         return success_result

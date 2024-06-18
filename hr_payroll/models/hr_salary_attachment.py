@@ -67,7 +67,9 @@ class HrSalaryAttachment(models.Model):
         help='Remaining amount to be paid.',
     )
     is_quantity = fields.Boolean(related='other_input_type_id.is_quantity')
-    is_refund = fields.Boolean()
+    is_refund = fields.Boolean(
+        string='Negative Value',
+        help='Check if the value of the salary attachment must be taken into account as negative (-X)')
     date_start = fields.Date('Start Date', required=True, default=lambda r: start_of(fields.Date.today(), 'month'), tracking=True)
     date_estimated_end = fields.Date(
         'Estimated End Date', compute='_compute_estimated_end',
