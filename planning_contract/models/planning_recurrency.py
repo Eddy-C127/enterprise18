@@ -11,8 +11,12 @@ class PlanningRecurrency(models.Model):
     def _get_misc_recurrence_stop(self):
         res = super()._get_misc_recurrence_stop()
         initial_slot = self.slot_ids.sorted('end_datetime')[0]
-        contract = self.slot_ids.resource_id.employee_id.contract_ids.filtered(lambda c: c.state == 'open' and c.date_end)
-        end_contract = datetime.combine(contract.date_end, time.max) if contract and contract.date_end else res
+        end_contract = self.env['hr.contract'].sudo().search_fetch([
+            ('employee_id', '=', self.slot_ids.resource_id.employee_id.id),
+            ('state', '=', 'open'),
+            ('date_end', '!=', False)
+        ], field_names=['date_end'], limit=1).date_end
+        end_contract = datetime.combine(end_contract, time.max) if end_contract else res
         # If the initial slot that we are repeating is planned after the end of the resource contract, we generate the slots
         # on out-of-contract dates normally.
         if initial_slot.start_datetime > end_contract:

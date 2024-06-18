@@ -5,6 +5,7 @@ from pytz import UTC, timezone
 
 from .common import TestPlanningContractCommon
 from odoo.addons.resource.models.utils import Intervals
+from odoo.tests import new_test_user
 
 class TestPlanningContract(TestPlanningContractCommon):
     @classmethod
@@ -72,3 +73,38 @@ class TestPlanningContract(TestPlanningContractCommon):
             'resource_id', self.resource_bert.ids, datetime(2015, 11, 8), datetime(2015, 11, 21, 23, 59, 59)
         )
         self.assertEqual(75, planning_hours_info[self.resource_bert.id]['max_value'], "Work hours for the employee Jules should be 40h+35h = 75h")
+
+    def test_creation_recurrencing_planning_without_employee_contract_access(self):
+        """
+            The creation of recurring schedules requires information on contracts.
+            The goal is to test whether a user who is "Administrator" for Planning
+            but has no Employee and Contract rights can use this flow.
+        """
+        planning_value = {
+            'name': 'Test planning',
+            'start_datetime': datetime(2015, 11, 8, 00, 00, 00),
+            'end_datetime': datetime(2015, 11, 21, 23, 59, 59),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 2,
+            'repeat_interval': 1,
+            'repeat_unit': 'month',
+        }
+        user_admin = new_test_user(
+            self.env, "User Admin",
+            groups='planning.group_planning_manager,hr.group_hr_manager,hr_contract.group_hr_contract_manager'
+        )
+        user_without_contract = new_test_user(
+            self.env, "User Without Contract",
+            groups='planning.group_planning_manager,hr.group_hr_manager'
+        )
+        user_without_employee = new_test_user(
+            self.env, "User Without Employee",
+            groups='planning.group_planning_manager'
+        )
+        self.env['planning.slot'].with_user(user_admin).create(planning_value)
+        self.env.invalidate_all()
+        self.env['planning.slot'].with_user(user_without_contract).create(planning_value)
+        self.env.invalidate_all()
+        self.env['planning.slot'].with_user(user_without_employee).create(planning_value)
