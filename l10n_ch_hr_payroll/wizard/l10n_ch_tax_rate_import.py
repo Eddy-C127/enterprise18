@@ -113,7 +113,9 @@ class L10nChTaxRateImportWizard(models.TransientModel):
 
             for (canton, date_from, church_tax, tax_scale, child_count), parameter_values in mapped_rates.items():
                 parameter_xmlid = f"rule_parameter_withholding_tax_{canton}_{church_tax}_{tax_scale}_{child_count}"
-                parameter = self.env.ref("l10n_ch_hr_payroll." + parameter_xmlid, raise_if_not_found=False)
+                parameter = self.env['hr.rule.parameter'].search([
+                    ('code', '=', f'l10n_ch_withholding_tax_rates_{canton}_{church_tax}_{tax_scale}_{child_count}')
+                ], limit=1)
                 if not parameter:
                     parameter = self.env['hr.rule.parameter'].create({
                         'name': f"CH Withholding Tax: Canton ({canton}) - Church _tax ({church_tax}) - Tax Scale ({tax_scale}) - Children ({child_count})",
@@ -130,7 +132,7 @@ class L10nChTaxRateImportWizard(models.TransientModel):
                     })
                 parameter_value_data = (canton, date_from.year, date_from.month, date_from.day, church_tax, tax_scale, child_count)
                 parameter_value_xmlid = "rule_parameter_value_withholding_tax_%s_%s_%s_%s_%s_%s_%s" % parameter_value_data
-                parameter_value = self.env.ref("l10n_ch_hr_payroll." + parameter_value_xmlid, raise_if_not_found=False)
+                parameter_value = parameter.parameter_version_ids.filtered(lambda p: p.date_from == date_from)
 
                 if not parameter_value:
                     parameter_value = self.env['hr.rule.parameter.value'].create({
@@ -152,7 +154,9 @@ class L10nChTaxRateImportWizard(models.TransientModel):
             for (canton, date_from, tax_code, church_tax), parameter_values in mapped_predefined_categories_rates.items():
                 # Predefined categories
                 parameter_xmlid = f"rule_parameter_withholding_tax_{canton}_{tax_code}_{church_tax}"
-                parameter = self.env.ref("l10n_ch_hr_payroll." + parameter_xmlid, raise_if_not_found=False)
+                parameter = self.env['hr.rule.parameter'].search([
+                    ('code', '=', f'l10n_ch_withholding_tax_rates_{canton}_{tax_code}_{church_tax}')
+                ], limit=1)
                 if not parameter:
                     parameter = self.env['hr.rule.parameter'].create({
                         'name': f"CH Withholding Tax: Canton ({canton}) - Predefined Category ({tax_code}) - Church Tax ({church_tax})",
@@ -169,7 +173,7 @@ class L10nChTaxRateImportWizard(models.TransientModel):
                     })
                 parameter_value_data = (canton, date_from.year, date_from.month, date_from.day, tax_code, church_tax)
                 parameter_value_xmlid = "rule_parameter_value_withholding_tax_%s_%s_%s_%s_%s_%s" % parameter_value_data
-                parameter_value = self.env.ref("l10n_ch_hr_payroll." + parameter_value_xmlid, raise_if_not_found=False)
+                parameter_value = parameter.parameter_version_ids.filtered(lambda p: p.date_from == date_from)
 
                 if not parameter_value:
                     parameter_value = self.env['hr.rule.parameter.value'].create({
@@ -191,7 +195,9 @@ class L10nChTaxRateImportWizard(models.TransientModel):
             for (canton, date_from, tax_code), parameter_values in mapped_specific_codes.items():
                 # Predefined categories
                 parameter_xmlid = f"rule_parameter_withholding_tax_{canton}_{tax_code}"
-                parameter = self.env.ref("l10n_ch_hr_payroll." + parameter_xmlid, raise_if_not_found=False)
+                parameter = self.env['hr.rule.parameter'].search([
+                    ('code', '=', f'l10n_ch_withholding_tax_rates_{canton}_{tax_code}')
+                ], limit=1)
                 if not parameter:
                     parameter = self.env['hr.rule.parameter'].create({
                         'name': f"CH Withholding Tax: Canton ({canton}) - Predefined Category ({tax_code})",
@@ -208,7 +214,7 @@ class L10nChTaxRateImportWizard(models.TransientModel):
                     })
                 parameter_value_data = (canton, date_from.year, date_from.month, date_from.day, tax_code)
                 parameter_value_xmlid = "rule_parameter_value_withholding_tax_%s_%s_%s_%s_%s" % parameter_value_data
-                parameter_value = self.env.ref("l10n_ch_hr_payroll." + parameter_value_xmlid, raise_if_not_found=False)
+                parameter_value = parameter.parameter_version_ids.filtered(lambda p: p.date_from == date_from)
 
                 if not parameter_value:
                     parameter_value = self.env['hr.rule.parameter.value'].create({
