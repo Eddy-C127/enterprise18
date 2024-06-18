@@ -1,4 +1,4 @@
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests.common import tagged
 from odoo.tools.misc import formatLang
 from odoo.addons.account_avatax.tests.common import TestAccountAvataxCommon
@@ -26,6 +26,7 @@ class TestSaleAvalara(TestAccountAvataxCommon):
         cls.sales_user = cls.env['res.users'].create({
             'name': 'Sales user',
             'login': 'sales',
+            'email': 'sale_user@test.com',
             'groups_id': [(6, 0, [cls.env.ref('base.group_user').id, cls.env.ref('sales_team.group_sale_salesman').id])],
         })
         cls.env = cls.env(user=cls.sales_user)
@@ -141,6 +142,126 @@ class TestSaleAvalara(TestAccountAvataxCommon):
             ],
         })
         self.assertEqual(order.amount_total, 2.98)
+
+    def test_sale_order_downpayment(self):
+        """Ensure that the taxes on the down payment are the same as the ones
+        on the SO.
+        """
+        lines = [{
+            'costInsuranceFreight': 0.0,
+            'customerUsageType': '',
+            'description': 'Odoo User',
+            'details': [{
+                'country': 'US',
+                'exemptAmount': 0.0,
+                'id': 0,
+                'isFee': False,
+                'isNonPassThru': False,
+                'jurisCode': '06',
+                'jurisName': 'CALIFORNIA',
+                'jurisType': 'STA',
+                'jurisdictionType': 'State',
+                'liabilityType': 'Seller',
+                'nonTaxableAmount': 0.0,
+                'rate': 0.08,
+                'rateType': 'General',
+                'rateTypeCode': 'G',
+                'region': 'CA',
+                'reportingExemptUnits': 0.0,
+                'reportingNonTaxableUnits': 0.0,
+                'reportingTax': 2.8,
+                'reportingTaxCalculated': 2.8,
+                'reportingTaxableUnits': 35.0,
+                'stateAssignedNo': '',
+                'tax': 2.8,
+                'taxAuthorityTypeId': 45,
+                'taxCalculated': 2.8,
+                'taxName': 'CA STATE TAX',
+                'taxSubTypeId': 'S',
+                'taxType': 'Sales',
+                'taxableAmount': 35.0,
+                'transactionId': 0,
+                'transactionLineId': 0,
+                'unitOfBasis': 'PerCurrencyUnit',
+            }],
+            'discountAmount': 0.0,
+            'entityUseCode': '',
+            'exemptAmount': 0.0,
+            'exemptCertId': 0,
+            'exemptNo': '',
+            'hsCode': '',
+            'id': 0,
+            'isItemTaxable': True,
+            'itemCode': '',
+            'lineAmount': 35.0,
+            'nonPassthroughDetails': [],
+            'quantity': 1.0,
+            'ref1': '',
+            'ref2': '',
+            'reportingDate': '2021-01-01',
+            'tax': 2.8,
+            'taxCalculated': 2.8,
+            'taxCode': 'DC010000',
+            'taxCodeId': 8575,
+            'taxDate': '2021-01-01',
+            'taxIncluded': False,
+            'taxableAmount': 35.0,
+            'transactionId': 0,
+            'vatCode': '',
+            'vatNumberTypeId': 0,
+        }]
+        summary = [{
+            'country': 'US',
+            'exemption': 0.0,
+            'jurisCode': '06',
+            'jurisName': 'CALIFORNIA',
+            'jurisType': 'State',
+            'nonTaxable': 0.0,
+            'rate': 0.08,
+            'rateType': 'General',
+            'region': 'CA',
+            'stateAssignedNo': '',
+            'tax': 2.8,
+            'taxAuthorityType': 45,
+            'taxCalculated': 2.8,
+            'taxName': 'CA STATE TAX',
+            'taxSubType': 'S',
+            'taxType': 'Sales',
+            'taxable': 35.0,
+        }]
+        order = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'fiscal_position_id': self.fp_avatax.id,
+            'date_order': '2021-01-01',
+            'order_line': [
+                Command.create({
+                    'product_id': self.product_user.id,
+                    'price_unit': self.product_user.list_price,
+                }),
+            ],
+        })
+        lines[0]['lineNumber'] = 'sale.order.line,%s' % order.order_line[0].id
+        with self._capture_request(return_value={'lines': lines, 'summary': summary}):
+            order.action_confirm()
+            # create a 50% downpayment
+            payment_ctx = {
+                "active_model": "sale.order",
+                "active_ids": [order.id],
+                "active_id": order.id,
+            }
+            payment = (
+                self.env["sale.advance.payment.inv"]
+                    .with_context(**payment_ctx)
+                    .create({
+                        'advance_payment_method': 'percentage',
+                        'amount': 50,
+                    })
+            )
+            payment.sudo().create_invoices()
+            downpayment_invoice = order.invoice_ids
+            downpayment_invoice.sudo().action_post()
+        self.assertEqual(downpayment_invoice.invoice_line_ids.tax_ids, order.order_line.tax_id)
+        self.assertAlmostEqual(downpayment_invoice.amount_total, 18.9)
 
 
 @tagged("-at_install", "post_install")
