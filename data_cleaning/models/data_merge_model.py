@@ -152,7 +152,7 @@ class DataMergeModel(models.Model):
             menu_id = self.env.ref('data_recycle.menu_data_cleaning_root').id
             self.env['mail.thread'].sudo().message_notify(
                 body=self.env['ir.qweb']._render(
-                    'data_merge.data_merge_duplicate',
+                    'data_cleaning.data_merge_duplicate',
                     dict(
                         num_records=num_records,
                         res_model_label=self.res_model_id.name,
@@ -316,13 +316,20 @@ class DataMergeModel(models.Model):
 
         return super(DataMergeModel, self).write(vals)
 
+    def unlink(self):
+        if self.ids:
+            self.env["mail.message"].search(
+                [("model", "=", "data_merge.model"), ("res_id", "in", self.ids)]
+            ).sudo().unlink()
+        return super().unlink()
+
     #############
     ### Actions
     #############
     def open_records(self):
         self.ensure_one()
 
-        action = self.env["ir.actions.actions"]._for_xml_id("data_merge.action_data_merge_record")
+        action = self.env["ir.actions.actions"]._for_xml_id("data_cleaning.action_data_merge_record")
         action['context'] = dict(ast.literal_eval(action.get('context')), searchpanel_default_model_id=self.id)
         return action
 

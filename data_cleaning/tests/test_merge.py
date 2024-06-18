@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from odoo import Command
+from odoo.tests.common import new_test_user
+
 from unittest.mock import patch
 
 from . import test_common
@@ -75,6 +78,36 @@ class TestMerge(test_common.TestCommon):
         rec3.unlink()
         group._cleanup()
         self.assertFalse(group.record_ids, 'The group should not contains any records')
+
+    def test_delete_merge_model(self):
+        self._create_rule("x_name", "exact")
+
+        self._create_record("x_dm_test_model", x_name="toto")
+        self._create_record("x_dm_test_model", x_name="toto")
+
+        # Update the model to notify a user
+        user = new_test_user(self.env, login="merge_user", groups="base.group_system")
+        self.MyModel.write({
+            "merge_mode": "manual",
+            "notify_user_ids": [Command.link(user.id)],
+        })
+
+        self.MyModel.find_duplicates()
+        self.MyModel._notify_new_duplicates()
+
+        group = self.env["data_merge.group"].search(
+            [("model_id", "=", self.MyModel.id)]
+        )
+        messages = self.env["mail.message"].search(
+            [("model", "=", "data_merge.model"), ("res_id", "=", self.MyModel.id)]
+        )
+        self.assertEqual(len(group.record_ids), 2, "The group must contains 2 records")
+        self.assertTrue(messages, "Notification messages should have been created")
+
+        self.MyModel.unlink()
+
+        self.assertFalse(group.record_ids, "The group should not contains any records")
+        self.assertFalse(messages.exists(), "The messages should have been deleted")
 
     def test_merge_company_dependent(self):
         company1 = self.env['res.company'].create({'name': "CompanyA"})
