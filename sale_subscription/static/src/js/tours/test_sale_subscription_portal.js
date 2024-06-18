@@ -12,3 +12,14 @@ registry.category("web_tour.tours").add("test_sale_subscription_portal", {
         },
     ],
 });
+
+registry.category("web_tour.tours").add("test_optional_products_portal", {
+    test: true,
+    steps: () => [
+        {
+            content: "Check optional product are shown",
+            trigger: 'div[id="content"] h3[id="quote_3"]',
+            run: () => {},
+        },
+    ],
+});
