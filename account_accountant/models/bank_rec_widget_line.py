@@ -33,16 +33,21 @@ class BankRecWidgetLine(models.Model):
         ],
     )
 
+    journal_default_account_id = fields.Many2one(
+        related='wizard_id.st_line_id.journal_id.default_account_id',
+        depends=['wizard_id'],
+    )
     account_id = fields.Many2one(
         comodel_name='account.account',
         compute='_compute_account_id',
         store=True,
         readonly=False,
         check_company=True,
-        domain=[
+        domain="""[
             ('deprecated', '=', False),
-            ('account_type', 'not in', ('asset_cash', 'liability_credit_card', 'off_balance')),
-        ],
+            ('id', '!=', journal_default_account_id),
+            ('account_type', 'not in', ('asset_cash', 'off_balance')),
+        ]""",
     )
     date = fields.Date(
         compute='_compute_date',
