@@ -50,7 +50,8 @@ test("Switch audio input", async () => {
     await click(".nav-link", { text: "Contacts" });
     await contains(".o-voip-ContactsTab b", { text: "Gwonam" });
     await click("button[title='Call']");
-    await advanceTime(5000);
+    await contains(".o-voip-CorrespondenceDetails");
+    await advanceTime(3000);
     await click("button[title='Change input device']:enabled");
     await contains("select[id='device-select']");
     await contains("option", { count: 2 });
