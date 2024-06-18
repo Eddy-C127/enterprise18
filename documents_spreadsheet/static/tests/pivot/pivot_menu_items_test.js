@@ -528,6 +528,7 @@ QUnit.module(
             async function (assert) {
                 const { model, env } = await createSpreadsheetFromPivotView();
                 const sheetId = model.getters.getActiveSheetId();
+                await click(target, ".o-sidePanelClose");
                 await click(target, ".o-topbar-top div[data-id='data']");
 
                 triggerEvent(target, "div[data-name='item_pivot_1']", "mouseenter");

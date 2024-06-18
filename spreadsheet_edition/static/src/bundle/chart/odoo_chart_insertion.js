@@ -1,10 +1,12 @@
 /** @odoo-module **/
 
-import * as spreadsheet from "@odoo/o-spreadsheet";
+import { helpers, stores } from "@odoo/o-spreadsheet";
 import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks";
 import { Domain } from "@web/core/domain";
 
-const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
+const uuidGenerator = new helpers.UuidGenerator();
+
+const { SidePanelStore } = stores;
 
 export function insertChart(chartData) {
     const definition = {
@@ -28,7 +30,7 @@ export function insertChart(chartData) {
         dataSourceId: uuidGenerator.uuidv4(),
         id: uuidGenerator.uuidv4(),
     };
-    return (model) => {
+    return (model, stores) => {
         model.dispatch("CREATE_CHART", {
             sheetId: model.getters.getActiveSheetId(),
             id: definition.id,
@@ -44,6 +46,8 @@ export function insertChart(chartData) {
                 odooMenuId: chartData.menuXMLId,
             });
         }
+        const sidePanel = stores.get(SidePanelStore);
+        sidePanel.open("ChartPanel", { figureId: definition.id });
     };
 }
 

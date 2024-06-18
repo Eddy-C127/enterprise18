@@ -2,7 +2,7 @@
 
 import { patchGraphSpreadsheet } from "@spreadsheet_edition/assets/graph_view/graph_view";
 import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
-import { click, patchWithCleanup, triggerEvent } from "@web/../tests/helpers/utils";
+import { click, getFixture, patchWithCleanup, triggerEvent } from "@web/../tests/helpers/utils";
 import { GraphRenderer } from "@web/views/graph/graph_renderer";
 import {
     createSpreadsheetFromGraphView,
@@ -21,6 +21,7 @@ QUnit.module("documents_spreadsheet > graph view", { beforeEach }, () => {
     QUnit.test("simple chart insertion", async (assert) => {
         const { model } = await createSpreadsheetFromGraphView();
         const sheetId = model.getters.getActiveSheetId();
+        assert.containsOnce(getFixture(), ".o-sidePanelBody .o-chart");
         assert.strictEqual(model.getters.getChartIds(sheetId).length, 1);
     });
 

@@ -73,7 +73,7 @@ export class AbstractSpreadsheetAction extends Component {
             this.shareId,
             this.accessToken
         );
-        const stores = useStoreProvider();
+        this.stores = useStoreProvider();
         this.threadId = this.params?.thread_id;
         useSetupAction({
             beforeLeave: this._leaveSpreadsheet.bind(this),
@@ -103,11 +103,11 @@ export class AbstractSpreadsheetAction extends Component {
         onWillStart(async () => {
             await this.fetchData();
             this.createModel();
-            stores.inject(ModelStore, this.model);
+            this.stores.inject(ModelStore, this.model);
             await this.execInitCallbacks();
         });
         onMounted(() => {
-            const commentsStore = stores.get(CommentsStore);
+            const commentsStore = this.stores.get(CommentsStore);
             this.props.updateResId(this.resId);
             router.pushState({
                 access_token: this.accessToken,
@@ -118,7 +118,7 @@ export class AbstractSpreadsheetAction extends Component {
             if (this.threadId) {
                 // necessary atm - we need at least one frame to have the right viewport height/width
                 setTimeout(() => commentsStore.openCommentThread(this.threadId), 0);
-                const sidePanel = stores.get(SidePanelStore);
+                const sidePanel = this.stores.get(SidePanelStore);
                 sidePanel.open("Comments");
             }
         });
@@ -187,10 +187,10 @@ export class AbstractSpreadsheetAction extends Component {
 
     async execInitCallbacks() {
         if (this.asyncInitCallback) {
-            await this.asyncInitCallback(this.model);
+            await this.asyncInitCallback(this.model, this.stores);
         }
         if (this.initCallback) {
-            this.initCallback(this.model);
+            this.initCallback(this.model, this.stores);
         }
     }
 

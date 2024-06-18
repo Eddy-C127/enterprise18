@@ -1,19 +1,21 @@
 /** @odoo-module **/
 //@ts-check
 
-import * as spreadsheet from "@odoo/o-spreadsheet";
+import { helpers, stores } from "@odoo/o-spreadsheet";
 import { OdooPivot } from "@spreadsheet/pivot/odoo_pivot";
 import { Domain } from "@web/core/domain";
 import { deepCopy } from "@web/core/utils/objects";
 import { _t } from "@web/core/l10n/translation";
 
-const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
-const { parseDimension } = spreadsheet.helpers;
+const uuidGenerator = new helpers.UuidGenerator();
+const { parseDimension } = helpers;
+
+const { SidePanelStore } = stores;
 
 /**
  * Asserts that the given result is successful, otherwise throws an error.
  *
- * @param {spreadsheet.DispatchResult} result
+ * @param {import("@odoo/o-spreadsheet").DispatchResult} result
  */
 function ensureSuccess(result) {
     if (!result.isSuccessful) {
@@ -43,7 +45,7 @@ export function insertPivot(pivotData) {
     /**
      * @param {import("@spreadsheet").OdooSpreadsheetModel} model
      */
-    return async (model) => {
+    return async (model, stores) => {
         const pivotId = uuidGenerator.uuidv4();
         ensureSuccess(
             model.dispatch("ADD_PIVOT", {
@@ -96,5 +98,7 @@ export function insertPivot(pivotData) {
             columns.push(col);
         }
         model.dispatch("AUTORESIZE_COLUMNS", { sheetId, cols: columns });
+        const sidePanel = stores.get(SidePanelStore);
+        sidePanel.open("PivotSidePanel", { pivotId });
     };
 }

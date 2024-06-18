@@ -156,6 +156,12 @@ QUnit.module(
             assert.deepEqual(model.getters.getListDefinition("1").columns, ["bar"]);
         });
 
+        QUnit.test("list side panel is open at insertion", async function (assert) {
+            await createSpreadsheetFromListView();
+            const fixture = getFixture();
+            assert.containsOnce(fixture, ".o-listing-details-side-panel");
+        });
+
         QUnit.test("Open list properties", async function (assert) {
             const { env } = await createSpreadsheetFromListView();
 
@@ -262,21 +268,24 @@ QUnit.module(
         });
 
         QUnit.test("Add list in an existing spreadsheet", async (assert) => {
-            const { model } = await createSpreadsheetFromListView();
+            const { model, env } = await createSpreadsheetFromListView();
             const list = model.getters.getListDefinition("1");
             const fields = model.getters.getListDataSource("1").getFields();
             const callback = insertList.bind({ isEmptySpreadsheet: false })({
                 list: list,
                 threshold: 10,
                 fields: fields,
+                name: "my list",
             });
             model.dispatch("CREATE_SHEET", { sheetId: "42", position: 1 });
             const activeSheetId = model.getters.getActiveSheetId();
             assert.deepEqual(model.getters.getSheetIds(), [activeSheetId, "42"]);
-            await callback(model);
+            await callback(model, env.__spreadsheet_stores__);
             assert.strictEqual(model.getters.getSheetIds().length, 3);
             assert.deepEqual(model.getters.getSheetIds()[0], activeSheetId);
             assert.deepEqual(model.getters.getSheetIds()[1], "42");
+            const fixture = getFixture();
+            assert.containsOnce(fixture, ".o-listing-details-side-panel");
         });
 
         QUnit.test("Verify absence of list properties on non-list cell", async function (assert) {
@@ -918,6 +927,7 @@ QUnit.module(
             async function (assert) {
                 const { model, env } = await createSpreadsheetFromListView();
                 const fixture = getFixture();
+                await click(fixture, ".o-sidePanelClose");
                 const sheetId = model.getters.getActiveSheetId();
                 await click(fixture, ".o-topbar-top div[data-id='data']");
 

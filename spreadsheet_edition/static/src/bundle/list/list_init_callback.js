@@ -1,9 +1,11 @@
 /** @odoo-module **/
-import * as spreadsheet from "@odoo/o-spreadsheet";
+import { helpers, stores } from "@odoo/o-spreadsheet";
 import { Domain } from "@web/core/domain";
 import { _t } from "@web/core/l10n/translation";
 
-const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
+const { SidePanelStore } = stores;
+
+const uuidGenerator = new helpers.UuidGenerator();
 
 /**
  * Get the function that have to be executed to insert the given list in the
@@ -35,7 +37,7 @@ export function insertList({ list, threshold, fields, name }) {
         name,
         actionXmlId: list.actionXmlId,
     };
-    return async (model) => {
+    return async (model, stores) => {
         const listId = model.getters.getNextListId();
         let sheetName = _t("%(list_name)s (List #%(list_id)s)", {
             list_name: name,
@@ -81,5 +83,7 @@ export function insertList({ list, threshold, fields, name }) {
             columns.push(col);
         }
         model.dispatch("AUTORESIZE_COLUMNS", { sheetId, cols: columns });
+        const sidePanel = stores.get(SidePanelStore);
+        sidePanel.open("LIST_PROPERTIES_PANEL", { listId });
     };
 }

@@ -56,6 +56,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
+        assert.containsOnce(getFixture(), ".o_spreadsheet_pivot_side_panel");
         assert.strictEqual(getCellContent(model, "A1"), "");
         assert.strictEqual(getCellContent(model, "A2"), "");
         assert.strictEqual(getCellContent(model, "A3"), "=PIVOT.HEADER(1)");
@@ -593,8 +594,6 @@ QUnit.module("spreadsheet pivot view", {}, () => {
     });
 
     QUnit.test("Can save a pivot in existing spreadsheet", async (assert) => {
-        assert.expect(3);
-
         const serverData = {
             models: getBasicData(),
             views: {
@@ -635,6 +634,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         await triggerEvent(target, ".o-spreadsheet-grid div[data-id='1']", "focus");
         await nextTick();
         await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+        assert.containsOnce(target, ".o_spreadsheet_pivot_side_panel");
         await doAction(webClient, 1); // leave the spreadsheet action
         assert.verifySteps(["join_spreadsheet_session", "write"]);
     });
