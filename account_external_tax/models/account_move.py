@@ -58,7 +58,9 @@ class AccountMove(models.Model):
 
     def _get_and_set_external_taxes_on_eligible_records(self):
         """ account.external.tax.mixin override. """
-        eligible_moves = self._filtered_external_tax_moves().filtered(lambda move: move.state != 'posted')
+        eligible_moves = self._filtered_external_tax_moves().filtered(
+            lambda move: move.state != 'posted' and not move._is_downpayment()
+        )
         eligible_moves._set_external_taxes(*eligible_moves._get_external_taxes())
         return super()._get_and_set_external_taxes_on_eligible_records()
 

@@ -132,7 +132,11 @@ class SaleOrderLine(models.Model):
         """
         res = super()._prepare_invoice_line(**optional_values)
 
-        if self.order_id.is_tax_computed_externally:
+        if self._without_invoice_line_taxes():
             res['tax_ids'] = False
 
         return res
+
+    def _without_invoice_line_taxes(self):
+        """ Can be overridden by any external tax computation service. """
+        return self.order_id.is_tax_computed_externally
