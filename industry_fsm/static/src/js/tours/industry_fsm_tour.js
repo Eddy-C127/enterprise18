@@ -33,8 +33,8 @@ registry.category("web_tour.tours").add('industry_fsm_tour', {
         document.querySelector('.o_field_widget[name="partner_id"] input').click();
     }
 }, {
+    isActive: ["auto"],
     trigger: ".ui-autocomplete > li > a:not(:has(i.fa))",
-    auto: true,
     run: "click",
 }, {
     trigger: 'button[name="action_timer_start"]',
@@ -61,8 +61,8 @@ registry.category("web_tour.tours").add('industry_fsm_tour', {
     position: 'bottom',
     run: "click",
 }, {
+    isActive: ["auto"],
     // check the task is marked as done
     trigger: "div[name='state'] .btn-outline-success",
-    auto: true,
     id: 'fsm_invoice_create',
 }]});

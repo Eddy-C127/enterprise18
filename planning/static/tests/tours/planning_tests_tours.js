@@ -21,8 +21,8 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     content: markup("Assign this shift to your <b>resource</b>, or leave it open for the moment."),
     run: "edit Aaron",
 }, {
+    isActive: ["auto"],
     trigger: ".o-autocomplete--dropdown-item > a:contains('Aaron')",
-    auto: true,
     in_modal: false,
     run: "click",
 }, {
@@ -30,8 +30,8 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     content: markup("Select the <b>role</b> your employee will have (<i>e.g. Chef, Bartender, Waiter, etc.</i>)."),
     run: "edit Developer",
 }, {
+    isActive: ["auto"],
     trigger: ".o-autocomplete--dropdown-item > a:contains('Developer')",
-    auto: true,
     in_modal: false,
     run: "click",
 }, {
@@ -65,9 +65,9 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     content: "Save this shift once it is ready.",
     run: "click",
 }, {
+    isActive: ["auto"],
     trigger: ".o_gantt_pill :contains('11:59')",
     content: markup("<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its period."),
-    auto: true,
     run: function () {
         const expected = "8:00 AM - 11:59 AM";
         // Without the replace below, this step could break since luxon
@@ -79,10 +79,10 @@ registry.category("web_tour.tours").add('planning_test_tour', {
         }
     }
 }, {
+    isActive: ["mobile"],
     trigger: ".o_control_panel .dropdown-toggle",
     content: "Share the schedule with your team by publishing and sending it. Open the menu to access this option.",
     position: "top",
-    mobile: true,
     run: "click",
 }, {
     trigger: ".o_gantt_button_send_all",
@@ -93,9 +93,9 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     content: markup("<b>Publish & send</b> your planning to make it available to your employees."),
     run: "click",
 }, {
+    isActive: ["auto"],
     trigger: ".o_gantt_row_header:contains('Aaron') .o_gantt_progress_bar",
     content: "See employee progress bar",
-    auto: true,
     run: function () {
         if (this.anchor.querySelector("span").style.width === '') {
             console.error("Progress bar should be displayed");
@@ -115,10 +115,10 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     position: "right",
     run: 'click',
 }, {
+    isActive: ["auto"],
     id: "planning_check_format_step",
     trigger: ".o_gantt_pill span:contains(Developer)",
     content: "Check naming format of resource and role when grouped",
-    auto: true,
 }, {
     trigger: ".o_control_panel .dropdown-toggle",
     content: "Automatically match open shifts and sales orders to the right people, taking into account their working hours, roles, availability, and time off. Open the menu to access this option.",
@@ -130,10 +130,10 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     position: "right",
     run: 'click',
 }, {
+    isActive: ["auto"],
     id: "planning_check_format_step",
     trigger: ".o_gantt_pill.opacity-25",
     content: "Check that the filter is applied",
-    auto: true,
 }]});
 
 registry.category("web_tour.tours").add('planning_test_tour_no_email', {
@@ -239,8 +239,8 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
     content: "Assign this shift to another employee.",
     run: "edit bety",
 }, {
+    isActive: ["auto"],
     trigger: ".o-autocomplete--dropdown-item > a:contains('bety')",
-    auto: true,
     in_modal: false,
     run: "click",
 }, {

@@ -113,8 +113,8 @@ registry.category("web_tour.tours").add('payroll_tours', {
         run: "click",
     },
     {
+        isActive: ["auto"],
         trigger: '.modal-footer button.btn-primary',
-        auto: true,
         run: "click",
     },
     {

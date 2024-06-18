@@ -91,8 +91,8 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     position: 'right',
     run: "click",
 }, {
+    isActive: ["auto"],
     trigger: ".o_column_quick_create .o_kanban_add",
     content: "Clicking on 'Add' when input name is empty won't do anything, 'Add' will still be displayed",
-    auto: true,
 }
 ]});

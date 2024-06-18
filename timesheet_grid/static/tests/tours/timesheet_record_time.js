@@ -27,8 +27,8 @@ registry.category("web_tour.tours").add('timesheet_record_time', {
         run: "edit Test Project",
     },
     {
+        isActive: ["auto"],
         trigger: ".ui-autocomplete > li > a:contains(Test Project)",
-        auto: true,
         run: "click",
     },
     {

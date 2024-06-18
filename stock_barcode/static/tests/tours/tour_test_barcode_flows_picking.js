@@ -3656,8 +3656,8 @@ registry.category("web_tour.tours").add('test_put_in_pack_before_dest', {test: t
         run: 'click',
     },
     {
+        isActive: ["auto"],
         trigger: '.ui-menu-item > a:contains("Section 2")',
-        auto: true,
         in_modal: false,
         run: "click",
     },

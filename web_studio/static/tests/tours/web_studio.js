@@ -38,8 +38,8 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
     sequence: 1270,
     steps: () => [
         {
+            isActive: ["auto"],
             trigger: ".o_web_studio_new_app",
-            auto: true,
             position: "bottom",
             run: "click",
         },
@@ -152,20 +152,20 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             run: "edit " + utils.randomString(6),
         },
         {
+            isActive: ["auto"],
             trigger:
                 ".o_web_studio_selection_editor .o_web_studio_add_selection .o-web-studio-interactive-list-edit-item",
-            auto: true,
             run: "click",
         },
         {
+            isActive: ["auto"],
             trigger: ".modal-footer > button:eq(0)",
-            auto: true,
             run: "click",
         },
         {
+            isActive: ["auto"],
             trigger: ".o_web_studio_sidebar [name='string']",
             run: "edit Test",
-            auto: true,
         },
         {
             trigger: ".o_web_studio_form_view_editor .o-mail-Chatter",
@@ -195,8 +195,8 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             run: "click",
         },
         {
+            isActive: ["auto"],
             trigger: ".o_field_char.o_required_modifier > input",
-            auto: true,
             position: "bottom",
             run: "edit Test",
         },

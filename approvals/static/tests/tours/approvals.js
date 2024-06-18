@@ -57,8 +57,8 @@ registry.category("web_tour.tours").add("approvals_tour", {
             run: "edit Marc",
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains(Marc)",
-            auto: true,
             run: "click",
         },
         {

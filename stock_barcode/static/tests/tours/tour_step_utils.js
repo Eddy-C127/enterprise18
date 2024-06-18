@@ -23,15 +23,15 @@ export const stepUtils = {
     discardBarcodeForm() {
         return [
             {
+                isActive: ["auto"],
                 content: 'discard barcode form',
                 trigger: '.o_discard',
-                auto: true,
                 run: "click",
             },
             {
+                isActive: ["auto"],
                 content: 'wait to be back on the barcode lines',
                 trigger: '.o_add_line',
-                auto: true,
             },
         ];
     },

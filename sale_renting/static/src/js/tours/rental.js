@@ -13,7 +13,6 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: '.o_app[data-menu-xmlid="sale_renting.rental_menu_root"]',
     content: markup(_t("Want to <b>rent products</b>? \n Let's discover Odoo Rental App.")),
     position: 'bottom',
-    edition: 'enterprise',
     run: "click",
 }, {
     trigger: '.dropdown-item[data-menu-xmlid="sale_renting.menu_rental_products"]',
@@ -63,8 +62,8 @@ registry.category("web_tour.tours").add('rental_tour', {
     position: 'bottom',
     run: "edit Agrolait",
 }, {
+    isActive: ["auto"],
     trigger: '.o_field_widget[name=partner_id] .ui-menu-item > a:contains(Agrolait)',
-    auto: true,
     in_modal: false,
     run: "click",
 }, {
@@ -79,8 +78,8 @@ registry.category("web_tour.tours").add('rental_tour', {
     position: 'bottom',
     run: "edit Test",
 }, {
+    isActive: ["auto"],
     trigger: ".ui-menu-item a:contains('Test')",
-    auto: true,
     run: "click",
 }, {
     trigger: ".o_field_widget[name=product_id] input, .o_field_widget[name=product_template_id] input",

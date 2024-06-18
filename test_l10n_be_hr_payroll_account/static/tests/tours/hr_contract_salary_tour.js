@@ -59,8 +59,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: `edit New Developer Template Contract`,
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains(New Developer Template Contract)",
-            auto: true,
             run: "click",
         },
         {
@@ -893,8 +893,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit Mitchell`,
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains(Mitchell)",
-            auto: true,
             run: "click",
         },
         {
@@ -920,8 +920,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit CP200: Belgian Employee`,
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains('CP200: Belgian Employee')",
-            auto: true,
             run: "click",
         },
         {
@@ -941,8 +941,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit Mitchell`,
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin')",
-            auto: true,
             run: "click",
         },
         {
@@ -956,8 +956,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit test_employee_contract`,
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains('test_employee_contract')",
-            auto: true,
             run: "click",
         },
         {
@@ -991,8 +991,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit JFC`,
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains('1-JFC-095')",
-            auto: true,
             run: "click",
         },
         {
@@ -1042,8 +1042,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: `edit Mitchell Admin PFI`,
         },
         {
+            isActive: ["auto"],
             trigger: ".ui-autocomplete > li > a:contains('Mitchell Admin PFI Contract')",
-            auto: true,
             run: "click",
         },
         {

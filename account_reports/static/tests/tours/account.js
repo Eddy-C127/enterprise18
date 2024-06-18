@@ -9,13 +9,11 @@ patch(accountTourSteps, {
                 trigger: "a[data-method=action_open_step_fiscal_year]",
                 extra_trigger: ".o_widget_account_onboarding .fa-circle",
                 content: _t("Set Periods"),
-                edition: "enterprise",
                 run: "click",
             },
             {
                 trigger: "button[name=action_save_onboarding_fiscal_year]",
                 content: _t("Save Fiscal Year end"),
-                edition: "enterprise",
                 run: "click",
             },
         ];

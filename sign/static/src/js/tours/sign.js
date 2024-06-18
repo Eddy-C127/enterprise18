@@ -16,7 +16,6 @@ registry.category("web_tour.tours").add("sign_tour", {
             trigger: '.o_app[data-menu-xmlid="sign.menu_document"]',
             content: markup(_t("Let's <b>prepare & sign</b> our first document.")),
             position: "bottom",
-            edition: "enterprise",
             run: "click",
         },
         {

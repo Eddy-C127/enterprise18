@@ -12,8 +12,8 @@ patch(registry.category("web_tour.tours").get("planning_test_tour"), {
             content: "Create project named-'New Project' for this shift",
             run: "edit New Project",
         }, {
+            isActive: ["auto"],
             trigger: "ul.ui-autocomplete a:contains(New Project)",
-            auto: true,
             in_modal: false,
             run: "click",
         });
@@ -29,10 +29,10 @@ patch(registry.category("web_tour.tours").get("planning_test_tour"), {
             run() {}
         },
         {
+            isActive: ["auto"],
             content: "exit the shift modal",
             trigger: "button[special=cancel]",
             in_modal: true,
-            auto: true,
             run: "click",
         });
 

@@ -59,8 +59,8 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
+            isActive: ["auto"],
             trigger: ":iframe input.o_sign_sign_item:focus",
-            auto: true,
         },
         {
             content: "Fill the sign item",
@@ -78,9 +78,9 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
+            isActive: ["auto"],
             trigger: ":iframe button.o_sign_sign_item:has(img)",
             extra_trigger: ":iframe :not(:has(.o_sign_sign_item_navigator))",
-            auto: true,
             run: "click",
         },
         {

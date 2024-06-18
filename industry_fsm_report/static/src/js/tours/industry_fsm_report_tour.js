@@ -23,6 +23,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             position: 'bottom',
             run: "click",
         }, {
+            isActive: ["auto"],
             trigger: 'nav.o_main_navbar, button[name="action_generate_new_template"]',
             run: async function () {
                 await new Promise((r) => setTimeout(r, 300));
@@ -31,7 +32,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                     createTemplateBtn.click();
                 }
             },
-            auto: true,
         }, {
             trigger: '.o_form_sheet div[name]',
             extra_trigger: '.o_control_panel:not(:has(button[name="action_fsm_worksheet"]))',
@@ -48,8 +48,8 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             },
             position: 'bottom',
         }, {
+            isActive: ["auto"],
             trigger: ".o_form_button_save",
-            auto: true,
             run: "click",
         }, {
             trigger: ".breadcrumb-item.o_back_button:nth-of-type(2)",
@@ -73,16 +73,16 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             id: 'sign_report',
             run: "click",
         }, {
+            isActive: ["auto"],
             trigger: 'div[name="worksheet_map"] h5#task_worksheet',
             extra_trigger: '.o_project_portal_sidebar',
             content: ('"Worksheet" section is rendered'),
-            auto: true,
             run: "click",
         }, {
+            isActive: ["auto"],
             trigger: 'div[name="worksheet_map"] div[class*="row"] div:not(:empty)',
             extra_trigger: '.o_project_portal_sidebar',
             content: ('At least a field is rendered'),
-            auto: true,
             run: "click",
         }, {
             trigger: '.o_web_sign_auto_button',

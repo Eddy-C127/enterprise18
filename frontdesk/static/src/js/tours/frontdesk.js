@@ -16,7 +16,6 @@ registry.category("web_tour.tours").add("frontdesk_tour", {
                 "Looking for a better way to manage your visitors? \n It begins right here."
             ),
             position: "bottom",
-            edition: "enterprise",
             run: "click",
         },
         {

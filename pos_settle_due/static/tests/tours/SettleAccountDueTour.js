@@ -14,9 +14,9 @@ registry.category("web_tour.tours").add("pos_settle_account_due", {
             ProductScreen.clickPartnerButton(),
             PartnerList.clickPartnerOptions("Partner Test 1"),
             {
+                isActive: ["auto"],
                 trigger: "div.o_popover :contains('Settle Due Accounts')",
                 content: "Check the popover opened",
-                auto: true,
                 in_modal: false,
                 run: "click",
             },

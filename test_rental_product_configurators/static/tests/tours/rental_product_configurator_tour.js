@@ -9,7 +9,6 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), {
     trigger: '.o_app[data-menu-xmlid="sale_renting.rental_menu_root"]',
-    edition: 'enterprise', 
     run: "click",
 }, {
     trigger: '.o-kanban-button-new',
@@ -18,8 +17,8 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     trigger: '.o_required_modifier[name=partner_id] input',
     run: "edit Tajine Saucisse",
 }, {
+    isActive: ["auto"],
     trigger: '.ui-menu-item > a:contains("Tajine Saucisse")',
-    auto: true,
     run: "click",
 }, {
     trigger: 'a:contains("Add a product")',

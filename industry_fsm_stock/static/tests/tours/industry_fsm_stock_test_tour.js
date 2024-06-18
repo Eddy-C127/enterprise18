@@ -44,9 +44,9 @@ const AddTrackingLineAndValidateSteps = [
         run: 'edit Lot_1',
     },
     {
+        isActive: ["auto"],
         content: 'Select Lot_1',
         trigger: ".o-autocomplete--dropdown-menu li:contains(Lot_1)",
-        auto: true,
         in_modal: false,
         run: "click",
     },
@@ -224,9 +224,9 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
         run: 'edit WH B',
     },
     {
+        isActive: ["auto"],
         content: 'Select WH B',
         trigger: ".ui-menu-item > a:contains(WH B)",
-        auto: true,
         in_modal: false,
         run: "click",
     },
