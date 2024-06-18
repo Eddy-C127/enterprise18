@@ -68,6 +68,15 @@ QUnit.module("thank you dialog", (hooks) => {
                 return "draft";
             } else if (route === "/sign/sign_request_items") {
                 return [];
+            } else if (route === "/web/dataset/call_kw/sign.request/get_close_values") {
+                return {
+                    label: "Close",
+                    action: {
+                        type: "ir.actions.act_window",
+                        res_model: "sign_request",
+                        views: [[false, "kanban"]],
+                    },
+                };
             }
         };
 
@@ -102,6 +111,15 @@ QUnit.module("thank you dialog", (hooks) => {
                 return "draft";
             } else if (route === "/sign/sign_request_items") {
                 return [];
+            } else if (route === "/web/dataset/call_kw/sign.request/get_close_values") {
+                return {
+                    label: "Close",
+                    action: {
+                        type: "ir.actions.act_window",
+                        res_model: "sign_request",
+                        views: [[false, "kanban"]],
+                    },
+                };
             }
         };
 
@@ -131,6 +149,15 @@ QUnit.module("thank you dialog", (hooks) => {
                 return "signed";
             } else if (route === "/sign/sign_request_items") {
                 return [];
+            } else if (route === "/web/dataset/call_kw/sign.request/get_close_values") {
+                return {
+                    label: "Close",
+                    action: {
+                        type: "ir.actions.act_window",
+                        res_model: "sign_request",
+                        views: [[false, "kanban"]],
+                    },
+                };
             }
         };
 
@@ -151,6 +178,15 @@ QUnit.module("thank you dialog", (hooks) => {
                 return "signed";
             } else if (route === "/sign/sign_request_items") {
                 return [];
+            } else if (route === "/web/dataset/call_kw/sign.request/get_close_values") {
+                return {
+                    label: "Close",
+                    action: {
+                        type: "ir.actions.act_window",
+                        res_model: "sign_request",
+                        views: [[false, "kanban"]],
+                    },
+                };
             }
         };
 

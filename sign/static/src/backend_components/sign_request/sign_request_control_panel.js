@@ -95,7 +95,13 @@ export class SignRequestControlPanel extends Component {
 
     async cancelDocument() {
         await this.orm.call("sign.request", "cancel", [this.signInfo.get("documentId")]);
-        this.props.goBackToKanban();
+        const result = await this.orm.call(
+            "sign.request",
+            "get_close_values",
+            [[this.signInfo.get("documentId")]],
+        );
+        const context = result.custom_action ? {} : {clearBreadcrumbs: true};
+        this.env.services.action.doAction(result.action, context);
     }
 
     async goToNextDocument() {

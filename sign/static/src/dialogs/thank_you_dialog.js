@@ -72,6 +72,18 @@ export class ThankYouDialog extends Component {
                 "signRequestToken"
             )}`
         );
+        this.closeLabel = _t("Close");
+        if (!session.is_frontend) {
+            const result = await this.orm.call(
+                "sign.request",
+                "get_close_values",
+                [[this.signInfo.get("documentId")]],
+            );
+            this.closeAction = result.action;
+            this.closeLabel = result.label
+            const closeContext = result.custom_action ? {} : {clearBreadcrumbs: true};
+            this.closeContext = closeContext;
+        }
         if (!this.suggestSignUp && !session.is_website_user) {
             const result = await rpc("/sign/sign_request_items", {
                 request_id: this.signInfo.get("documentId"),
@@ -127,15 +139,14 @@ export class ThankYouDialog extends Component {
             });
         } else {
             this.state.buttons.push({
-                name: _t("Close"),
+                name: this.closeLabel,
                 click: () => {
                     if (session.is_frontend) {
-                        window.location.assign("/");
+                        const signatureRequestId = this.signInfo.get("documentId");
+                        window.location.assign(`/my/signature/${signatureRequestId}`);
                     } else {
                         this.props.close();
-                        this.env.services.action.doAction("sign.sign_request_action", {
-                            clearBreadcrumbs: true,
-                        });
+                        this.env.services.action.doAction(this.closeAction, this.closeContext);
                     }
                 },
             });

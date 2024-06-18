@@ -74,7 +74,7 @@ class SignRequest(models.Model):
     template_id = fields.Many2one('sign.template', string="Template", required=True)
     subject = fields.Char(string="Email Subject")
     reference = fields.Char(required=True, string="Document Name", help="This is how the document will be named in the mail")
-    reference_doc = fields.Reference(string="Linked To", selection='_selection_target_model')
+    reference_doc = fields.Reference(string="Linked To", selection='_selection_target_model', index='btree_not_null')
 
     access_token = fields.Char('Security Token', required=True, default=_default_access_token, readonly=True, copy=False)
     share_link = fields.Char(string="Share Link", compute='_compute_share_link')
@@ -321,6 +321,36 @@ class SignRequest(models.Model):
             'domain': [('sign_request_id', '=', self.id)],
         }
 
+    def _get_linked_record_action(self, default_action=None):
+        """" Return the default action for any kind of record. This method can be override for specific kind or rec
+        """
+        self.ensure_one()
+        if not default_action:
+            default_action = {}
+        action_rec = self.env['ir.actions.act_window'].search([
+            ('res_model', '=', self.reference_doc._name),
+            ('context', 'not ilike', 'active_id')], limit=1)
+        if action_rec:
+            action = action_rec._get_action_dict()
+            action.update({
+                "views": [(False, "form")],
+                "view_mode":  'form',
+                "res_id": self.reference_doc.id,
+            })
+        else:
+            action = default_action
+        return action
+
+    def get_close_values(self):
+        self.ensure_one()
+        # check if frontend user or backend
+        action = self.env["ir.actions.actions"]._for_xml_id("sign.sign_request_action")
+        result = {"action": action, "label": _("Close"), "custom_action": False}
+        if self.reference_doc and self.reference_doc.exists():
+            action = self._get_linked_record_action(action)
+            result = {"action": action, "label": _("Back to %s", self.reference_doc._description), "custom_action": True}
+        return result
+
     @api.onchange("progress", "start_sign")
     def _compute_hashes(self):
         for document in self:
@@ -398,12 +428,12 @@ class SignRequest(models.Model):
         # in one query, the code will handle them differently
         # note: archived requests are not fetched.
         self.env.cr.execute(f'''
-        SELECT id 
+        SELECT id
         FROM sign_request sr
         WHERE sr.state = 'sent'
         AND active = TRUE
         AND (
-            sr.validity < '{today}' 
+            sr.validity < '{today}'
             OR (sr.reminder_enabled AND sr.last_reminder + sr.reminder * ('1 day'::interval) <= '{today}')
         )
         ''')
@@ -427,6 +457,27 @@ class SignRequest(models.Model):
         if not self._check_is_encrypted():
             # if the file is encrypted, we must wait that the document is decrypted
             self._send_completed_document()
+
+            if self.reference_doc:
+                model = self.env['ir.model']._get(self.reference_doc._name)
+                if model.is_mail_thread:
+                    self.reference_doc.message_post_with_source(
+                        "sign.message_signature_link",
+                        render_values={"request": self, "salesman": self.env.user.partner_id},
+                        subtype_xmlid='mail.mt_note',
+                    )
+                    # attach a copy of the signed document to the record for easy retrieval
+                    attachment_values = []
+                    for att in self.completed_document_attachment_ids:
+                        attachment_values.append({
+                            "name": att['name'],
+                            "datas": att['datas'],
+                            "type": "binary",
+                            "res_model": self.reference_doc._name,
+                            "res_id": self.reference_doc.id
+
+                        })
+                    self.env["ir.attachment"].create(attachment_values)
 
     def _check_is_encrypted(self):
         self.ensure_one()

@@ -201,8 +201,12 @@ class SignSendRequest(models.TransientModel):
 
     def _create_request_log_note(self, request):
         if request.reference_doc:
-            body = _("A signature request has been linked to this document: %s", request._get_html_link())
-            request.reference_doc.message_post(body=body)
+            model = request.reference_doc and self.env['ir.model']._get(request.reference_doc._name)
+            if model.is_mail_thread:
+                body = _("A signature request has been linked to this document: %s", request._get_html_link())
+                request.reference_doc.message_post(body=body)
+                body = _("%s has been linked to this sign request.", request.reference_doc._get_html_link())
+                request.message_post(body=body)
 
     def sign_directly(self):
         request = self.create_request()
