@@ -11,7 +11,6 @@
         "security/ir.model.access.csv",
         "security/rental_sign_security.xml",
         "wizard/rental_sign_views.xml",
-        "data/mail_templates.xml",
         "views/res_config_settings_views.xml",
         "views/sale_rental_views.xml",
     ],

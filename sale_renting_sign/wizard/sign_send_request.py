@@ -11,5 +11,5 @@ class SignSendRequest(models.TransientModel):
     def create_request(self):
         sign_request = super(SignSendRequest, self).create_request()
         if self.sale_order_id:
-            sign_request.sale_order_id = self.sale_order_id
+            sign_request.reference_doc = f"sale.order,{self.sale_order_id.id}"
         return sign_request
