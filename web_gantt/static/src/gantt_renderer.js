@@ -924,6 +924,19 @@ export class GanttRenderer extends Component {
 
         const { globalStart, globalStop, scale, startDate, stopDate } = this.model.metaData;
         this.columnCount = diffColumn(globalStart, globalStop, scale.interval);
+        if (
+            !this.currentStartDate ||
+            diffColumn(this.currentStartDate, startDate, "day") ||
+            diffColumn(this.currentStopDate, stopDate, "day") ||
+            this.currentScaleId !== scale.id
+        ) {
+            this.useFocusDate = true;
+            this.mappingColToColumn = new Map();
+            this.mappingColToSubColumn = new Map();
+        }
+        this.currentStartDate = startDate;
+        this.currentStopDate = stopDate;
+        this.currentScaleId = scale.id;
 
         this.currentGridRow = 1;
         this.gridRows = [];
@@ -956,20 +969,6 @@ export class GanttRenderer extends Component {
         this.shouldComputeSomeWidths = true;
         this.shouldComputeGridColumns = true;
         this.shouldComputeGridRows = true;
-
-        if (
-            !this.currentStartDate ||
-            diffColumn(this.currentStartDate, startDate, "day") ||
-            diffColumn(this.currentStopDate, stopDate, "day") ||
-            this.currentScaleId !== scale.id
-        ) {
-            this.useFocusDate = true;
-            this.mappingColToColumn = new Map();
-            this.mappingColToSubColumn = new Map();
-        }
-        this.currentStartDate = startDate;
-        this.currentStopDate = stopDate;
-        this.currentScaleId = scale.id;
     }
 
     computeDerivedParamsFromHover() {
