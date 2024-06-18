@@ -772,9 +772,9 @@ class CAMT:
         subfamily = node.xpath('ns:Domn/ns:Fmly/ns:SubFmlyCd/text()', namespaces=namespaces)
         if code:
             return {'transaction_type': "{code}: {family} ({subfamily})".format(
-                code=codes[code[0]],
-                family=family and codes[family[0]] or '',
-                subfamily=subfamily and codes[subfamily[0]] or '',
+                code=codes[code[0].upper()],
+                family=family and codes[family[0].upper()] or '',
+                subfamily=subfamily and codes[subfamily[0].upper()] or '',
             )}
         return {}
 
