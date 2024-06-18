@@ -8,7 +8,7 @@ import { deepCopy } from "@web/core/utils/objects";
 import { _t } from "@web/core/l10n/translation";
 
 const uuidGenerator = new helpers.UuidGenerator();
-const { parseDimension } = helpers;
+const { parseDimension, isDateField } = helpers;
 
 const { SidePanelStore } = stores;
 
@@ -21,6 +21,18 @@ function ensureSuccess(result) {
     if (!result.isSuccessful) {
         throw new Error(`Couldn't insert pivot in spreadsheet. Reasons : ${result.reasons}`);
     }
+}
+
+function addEmptyGranularity(dimensions, fields) {
+    return dimensions.map((dimension) => {
+        if (isDateField(fields[dimension.name])) {
+            return {
+                granularity: "month",
+                ...dimension,
+            };
+        }
+        return dimension;
+    });
 }
 
 export function insertPivot(pivotData) {
@@ -37,8 +49,11 @@ export function insertPivot(pivotData) {
         sortedColumn: pivotData.metaData.sortedColumn,
         measures,
         model: pivotData.metaData.resModel,
-        columns: pivotData.metaData.fullColGroupBys.map(parseDimension),
-        rows: pivotData.metaData.fullRowGroupBys.map(parseDimension),
+        columns: addEmptyGranularity(
+            pivotData.metaData.fullColGroupBys.map(parseDimension),
+            fields
+        ),
+        rows: addEmptyGranularity(pivotData.metaData.fullRowGroupBys.map(parseDimension), fields),
         name: pivotData.name,
         actionXmlId: pivotData.actionXmlId,
     });

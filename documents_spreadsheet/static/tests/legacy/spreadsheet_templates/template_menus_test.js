@@ -131,7 +131,7 @@ QUnit.module("documents_spreadsheet > template menu", {}, () => {
                             assert.equal(cells.A3.content, `=PIVOT.HEADER(1,"product_id",37)`);
                             assert.equal(
                                 cells.B3.content,
-                                `=PIVOT.VALUE(1,"probability","product_id",37,"bar","false")`
+                                `=PIVOT.VALUE(1,"probability","product_id",37,"bar",FALSE)`
                             );
                             assert.equal(cells.A11.content, "😃");
                             return Promise.resolve(true);
