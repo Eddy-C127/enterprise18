@@ -117,6 +117,7 @@ export class SignNameAndSignatureDialog extends Component {
         activeFrame: Boolean,
         defaultFrame: { type: String, optional: true },
         mode: { type: String, optional: true },
+        signatureImage: { type: String, optional: true },
         hash: String,
         onConfirm: Function,
         onConfirmAll: Function,

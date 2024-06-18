@@ -247,6 +247,12 @@ export class SignablePDFIframe extends PDFIframe {
         const { height, width } = signatureItem.getBoundingClientRect();
         const signFrame = signatureItem.querySelector(".o_sign_frame");
         this.dialogOpen = true;
+        // If we already have an image, we propagate it to populate the "draw" tab
+        const signatureImage = signatureItem?.dataset?.signature;
+        const signMode = type.auto_value ? "draw" : "auto"
+        if (signMode == "draw" && signatureImage) {
+            signature.signatureImage = signatureImage;
+        }
         this.closeFn = this.dialog.add(
             SignNameAndSignatureDialog,
             {
@@ -255,9 +261,10 @@ export class SignablePDFIframe extends PDFIframe {
                 signatureType: type.item_type,
                 displaySignatureRatio: width / height,
                 activeFrame: Boolean(signFrame) || !type.auto_value,
-                mode: type.auto_value ? "draw" : "auto",
+                mode: signMode,
                 defaultFrame: type.frame_value || "",
                 hash: this.frameHash,
+                signatureImage,
                 onConfirm: async () => {
                     if (!signature.isSignatureEmpty && signature.signatureChanged) {
                         const signatureName = signature.name;
