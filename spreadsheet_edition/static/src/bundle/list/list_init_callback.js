@@ -1,6 +1,7 @@
 /** @odoo-module **/
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { Domain } from "@web/core/domain";
+import { _t } from "@web/core/l10n/translation";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
@@ -36,7 +37,10 @@ export function insertList({ list, threshold, fields, name }) {
     };
     return async (model) => {
         const listId = model.getters.getNextListId();
-        let sheetName = `${name} (List #${listId})`;
+        let sheetName = _t("%(list_name)s (List #%(list_id)s)", {
+            list_name: name,
+            list_id: listId,
+        });
         if (!this.isEmptySpreadsheet) {
             const sheetId = uuidGenerator.uuidv4();
             const sheetIdFrom = model.getters.getActiveSheetId();

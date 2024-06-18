@@ -5,6 +5,7 @@ import * as spreadsheet from "@odoo/o-spreadsheet";
 import { OdooPivot } from "@spreadsheet/pivot/odoo_pivot";
 import { Domain } from "@web/core/domain";
 import { deepCopy } from "@web/core/utils/objects";
+import { _t } from "@web/core/l10n/translation";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 const { parseDimension } = spreadsheet.helpers;
@@ -56,7 +57,10 @@ export function insertPivot(pivotData) {
         }
         await ds.load();
 
-        let sheetName = `${pivot.name} (Pivot #${model.getters.getPivotFormulaId(pivotId)})`;
+        let sheetName = _t("%(pivot_name)s (Pivot #%(pivot_id)s)", {
+            pivot_name: pivot.name,
+            pivot_id: model.getters.getPivotFormulaId(pivotId),
+        });
         // Add an empty sheet in the case of an existing spreadsheet.
         if (!this.isEmptySpreadsheet) {
             const sheetId = uuidGenerator.uuidv4();
