@@ -49,7 +49,7 @@ test("Clicking on cross icon in whatsapp sidebar category item unpins the channe
     });
     await start();
     await openDiscuss();
-    await click("div[title='Unpin Conversation']", {
+    await click("[title='Unpin Conversation']", {
         parent: [
             ".o-mail-DiscussSidebarChannel",
             {
