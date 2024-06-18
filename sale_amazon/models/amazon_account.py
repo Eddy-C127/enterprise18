@@ -673,6 +673,7 @@ class AmazonAccount(models.Model):
         amazon_order_ref = order_data['AmazonOrderId']
         anonymized_email = order_data['BuyerInfo'].get('BuyerEmail', '')
         buyer_name = order_data['BuyerInfo'].get('BuyerName', '')
+        fulfillment_channel = order_data['FulfillmentChannel']
         shipping_address_info = order_data.get('ShippingAddress', {})
         shipping_address_name = shipping_address_info.get('Name', '')
         street = shipping_address_info.get('AddressLine1', '')
@@ -691,10 +692,6 @@ class AmazonAccount(models.Model):
             ('country_id', '=', country.id),
             '|', ('code', '=ilike', state_code), ('name', '=ilike', state_code),
         ], limit=1)
-        if country and not state:  # avoid trying to create a state with a nonexistent country
-            state = self.env['res.country.state'].with_context(tracking_disable=True).create({
-                'country_id': country.id, 'name': state_code, 'code': state_code
-            })
         partner_vals = {
             'street': street,
             'street2': street2,
@@ -728,6 +725,8 @@ class AmazonAccount(models.Model):
                 'is_company': is_company,
                 **partner_vals,
             })
+            if not contact.state_id and state_code and fulfillment_channel == 'MFN':
+                contact._amazon_create_activity_set_state(self.user_id.id, state_code)
 
         # The contact partner acts as delivery partner if the address is strictly equal to that of
         # the contact partner. If not, a delivery partner is created.
@@ -760,6 +759,8 @@ class AmazonAccount(models.Model):
                 'parent_id': contact.id,
                 **partner_vals,
             })
+            if not delivery.state_id and state_code and fulfillment_channel == 'MFN':
+                delivery._amazon_create_activity_set_state(self.user_id.id, state_code)
 
         return contact, delivery
 

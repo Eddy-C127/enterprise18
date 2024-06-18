@@ -830,6 +830,37 @@ class TestAmazon(common.TestAmazonCommon):
         self.assertTrue(contact.customer_rank)
         self.assertTrue(contact.amazon_email)
 
+    def _get_activity_count(self, contact):
+        """" Return activity count of given the contact. """
+        activity_id = self.env.ref('mail.mail_activity_data_todo').id
+        return self.env['mail.activity'].search_count([
+            ('activity_type_id', '=', activity_id),
+            ('res_model_id', '=', 'res.partner'),
+            ('res_id', '=', contact.id),
+        ])
+
+    def test_activity_on_partners_for_no_matching_state(self):
+        """ Test activity created for the salesman if the state received in the Amazon data
+        didn't match any existing state when creating a partner.
+        """
+        order_data = dict(common.ORDER_MOCK, ShippingAddress=dict(
+            common.ORDER_ADDRESS_MOCK, StateOrRegion="dummy_state"
+        ))
+        contact, delivery = self.account._find_or_create_partners_from_data(order_data)
+        self.assertEqual(self._get_activity_count(contact), 1)
+        self.assertEqual(self._get_activity_count(delivery), 1)
+
+    def test_no_activity_on_partners_for_no_state_in_amazon_data(self):
+        """ Test no activity created for the salesman if there is no state received in the Amazon
+        data.
+        """
+        order_data = dict(common.ORDER_MOCK, ShippingAddress=dict(
+            common.ORDER_ADDRESS_MOCK, StateOrRegion=None,
+        ))
+        contact, delivery = self.account._find_or_create_partners_from_data(order_data)
+        self.assertFalse(self._get_activity_count(contact))
+        self.assertFalse(self._get_activity_count(delivery))
+
     def test_get_amazon_offer_search(self):
         """ Test the offer search. """
         marketplace = self.env['amazon.marketplace'].search([('api_ref', '=', 'ATVPDKIKX0DER')])
