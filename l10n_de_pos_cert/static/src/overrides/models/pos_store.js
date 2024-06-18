@@ -22,6 +22,28 @@ patch(PosStore.prototype, {
         this.vatRateMapping = {};
         await super.setup(...arguments);
     },
+    // @Override
+    async _onBeforeDeleteOrder(order) {
+        try {
+            if (this.isCountryGermanyAndFiskaly() && order.isTransactionStarted()) {
+                await this.cancelTransaction(order);
+            }
+            return super._onBeforeDeleteOrder(...arguments);
+        } catch (error) {
+            const message = {
+                noInternet: _t(
+                    "Check the internet connection then try to validate or cancel the order. " +
+                        "Do not delete your browsing, cookies and cache data in the meantime!"
+                ),
+                unknown: _t(
+                    "An unknown error has occurred! Try to validate this order or cancel it again. " +
+                        "Please contact Odoo for more information."
+                ),
+            };
+            this.fiskalyError(error, message);
+            return false;
+        }
+    },
     //@Override
     async afterProcessServerData() {
         if (this.isCountryGermanyAndFiskaly()) {
