@@ -14,6 +14,7 @@ import {
     selectCell,
     setCellContent,
     setGlobalFilterValue,
+    getCorrespondingCellFormula,
 } from "@spreadsheet/../tests/helpers/commands";
 import { Partner, getBasicPivotArch, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
 import {
@@ -39,7 +40,7 @@ describe.current.tags("desktop");
 
 let target;
 
-const reinsertPivotPath = ["data", "insert_pivot_odoo", "reinsert_pivot", "reinsert_pivot_1"];
+const reinsertPivotPath = ["data", "reinsert_pivot", "reinsert_pivot_1"];
 
 beforeEach(() => {
     target = getFixture();
@@ -49,40 +50,9 @@ test("Reinsert a pivot", async function () {
     const { model, env } = await createSpreadsheetWithPivot();
     selectCell(model, "D8");
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    expect(getCellFormula(model, "E10")).toBe(`=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",1)`, {
-        message: "It should contain a pivot formula",
+    expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT(1)`, {
+        message: "It should be part of a pivot formula",
     });
-});
-test("Insert pivot menu is not visible if there is no odoo pivot", async function () {
-    const { model, env } = await createSpreadsheet();
-    model.dispatch("ADD_PIVOT", {
-        pivotId: "1",
-        pivot: {
-            type: "SPREADSHEET",
-            columns: [],
-            rows: [],
-            measures: [],
-            name: "Spreadsheet Pivot",
-            dataSet: {
-                zone: toZone("A1:D5"),
-                sheetId: model.getters.getActiveSheetId(),
-            },
-        },
-    });
-    setCellContent(model, "E1", "=PIVOT(1)");
-    selectCell(model, "E1");
-    expect(model.getters.getPivotIds().length).toBe(1);
-    expect(model.getters.getOdooPivotIds().length).toBe(0);
-    expect(
-        !!getActionMenu(topbarMenuRegistry, ["data", "insert_pivot_odoo"], env).isVisible(env)
-    ).toBe(false);
-    expect(
-        !!getActionMenu(
-            topbarMenuRegistry,
-            ["data", "insert_pivot_odoo", "reinsert_pivot"],
-            env
-        ).isVisible(env)
-    ).toBe(false);
 });
 
 test("Reinsert a pivot with a contextual search domain", async function () {
@@ -101,6 +71,8 @@ test("Reinsert a pivot with a contextual search domain", async function () {
 
     selectCell(model, "D8");
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await animationFrame(); // wait for data to be loaded
+    await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
     expect(getCellFormula(model, "E10")).toBe(
         `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",${uid})`,
         { message: "It should contain a pivot formula" }
@@ -119,8 +91,8 @@ test("Reinsert a pivot in a too small sheet", async function () {
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
     expect(model.getters.getNumberCols("111")).toBe(6);
     expect(model.getters.getNumberRows("111")).toBe(5);
-    expect(getCellFormula(model, "B3")).toBe(`=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",1)`, {
-        message: "It should contain a pivot formula",
+    expect(getCorrespondingCellFormula(model, "B3")).toBe(`=PIVOT(1)`, {
+        message: "It should be part of a pivot formula",
     });
 });
 
@@ -140,6 +112,8 @@ test("Reinsert a pivot with new data", async function () {
     });
     selectCell(model, "D8");
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await animationFrame(); // wait for data to be loaded
+    await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
     expect(getCellFormula(model, "I8")).toBe(`=PIVOT.HEADER(1,"foo",25)`);
     expect(getCellFormula(model, "I10")).toBe(`=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",25)`);
 });
@@ -154,17 +128,18 @@ test("Reinsert a pivot with an updated record", async function () {
     // updated measures
     Partner._records[0].probability = 88;
     Partner._records[1].probability = 77;
+    selectCell(model, "A10");
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
     await animationFrame();
-    expect(getCellValue(model, "D1")).toBe(99, {
+    expect(getCellValue(model, "D10")).toBe(99, {
         message: "The header should have been updated",
     });
-    expect(getCellValue(model, "D4")).toBe(77 + 88, {
+    expect(getCellValue(model, "D14")).toBe(77 + 88, {
         message: "The value should have been updated",
     });
 });
 
-test("Reinsert a pivot which has no formula on the sheet (meaning the data is not loaded)", async function () {
+test("Reinsert an Odoo pivot which has no formula on the sheet (meaning the data is not loaded)", async function () {
     const spreadsheetData = {
         sheets: [
             {
@@ -197,6 +172,8 @@ test("Reinsert a pivot which has no formula on the sheet (meaning the data is no
         spreadsheetId: 45,
     });
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await animationFrame(); // wait for data to be loaded
+    await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
     expect(getCellFormula(model, "C1")).toBe(`=PIVOT.HEADER(1,"foo",2)`);
     expect(getCellFormula(model, "C2")).toBe(`=PIVOT.HEADER(1,"foo",2,"measure","probability")`);
     expect(getCellFormula(model, "C3")).toBe(`=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",2)`);
@@ -257,7 +234,7 @@ test("undo pivot reinsert", async function () {
     const { model, env } = await createSpreadsheetWithPivot();
     selectCell(model, "D8");
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    expect(getCellFormula(model, "E10")).toBe(`=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",1)`, {
+    expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT(1)`, {
         message: "It should contain a pivot formula",
     });
     model.dispatch("REQUEST_UNDO");
@@ -330,7 +307,7 @@ test("Verify presence of pivots in top menu bar in a spreadsheet with a pivot", 
     expect(childrenNames.find((name) => name === "(#2) Partner Pivot")).not.toBe(undefined);
     // bottom children
     expect(childrenNames.find((name) => name === "Refresh all data")).not.toBe(undefined);
-    expect(childrenNames.find((name) => name === "Insert pivot")).not.toBe(undefined);
+    expect(childrenNames.find((name) => name === "Re-insert pivot")).not.toBe(undefined);
     expect(childrenNames.find((name) => name === "Re-insert list")).not.toBe(undefined);
 });
 
