@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="frontdesk_visitor_print_badge" model="ir.actions.report">
+        <field name="name">Print Visitor Badge</field>
+        <field name="model">frontdesk.visitor</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">frontdesk.print_visitor_badge</field>
+        <field name="report_file">frontdesk.print_visitor_badge</field>
+        <field name="paperformat_id" ref="hr.paperformat_hr_employee_badge"/>
+        <field name="print_report_name">'Badge - %s' % (object.name).replace('/', '')</field>
+        <field name="binding_model_id" ref="model_frontdesk_visitor"/>
+        <field name="binding_type">report</field>
+    </record>
+
     <record id="frontdesk_visitor_view_tree" model="ir.ui.view">
         <field name="name">frontdesk.visitor.view.tree</field>
         <field name="model">frontdesk.visitor</field>
@@ -30,6 +42,8 @@
                     invisible="state not in ('checked_in')"/>
                 <button name="action_served" type="object" string="Drink Served" class="btn-muted"
                     invisible="served or not drink_ids"/>
+                <button name="%(frontdesk_visitor_print_badge)d" string="Print Badge" class="btn btn-link" type="action"
+                    invisible="state != 'planned'"/>
             </tree>
         </field>
     </record>

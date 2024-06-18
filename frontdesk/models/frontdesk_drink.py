@@ -12,3 +12,4 @@ class FrontdeskDrink(models.Model):
     drink_image = fields.Image()
     sequence = fields.Integer(default=1)
     notify_user_ids = fields.Many2many('res.users', string='People to Notify', required=True)
+    active = fields.Boolean(default=True)

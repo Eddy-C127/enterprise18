@@ -140,3 +140,6 @@ class FrontdeskVisitor(models.Model):
                     body=body,
                     partner_ids=host.user_partner_id.ids,
                 )
+
+    def _get_host_name(self):
+        return ", ".join(self.host_ids.mapped('name'))
