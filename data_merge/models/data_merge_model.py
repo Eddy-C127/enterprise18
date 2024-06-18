@@ -321,6 +321,13 @@ class DataMergeModel(models.Model):
 
         return super(DataMergeModel, self).write(vals)
 
+    def unlink(self):
+        if self.ids:
+            self.env["mail.message"].search(
+                [("model", "=", "data_merge.model"), ("res_id", "in", self.ids)]
+            ).sudo().unlink()
+        return super().unlink()
+
     #############
     ### Actions
     #############
