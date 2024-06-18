@@ -44,9 +44,10 @@ class HrContract(models.Model):
             tz = timezone(emp_cal.tz)
             check_in_tz = attendance.check_in.astimezone(tz)
             check_out_tz = attendance.check_out.astimezone(tz)
-            lunch_intervals = emp_cal._attendance_intervals_batch(
-                check_in_tz, check_out_tz, resource, lunch=True)
-            attendance_intervals = Intervals([(check_in_tz, check_out_tz, attendance)]) - lunch_intervals[resource.id]
+            lunch_intervals = attendance.employee_id._employee_attendance_intervals(check_in_tz, check_out_tz, lunch=True)
+            leaves = emp_cal._leave_intervals_batch(check_in_tz, check_out_tz, None)[False]
+            real_lunch_intervals = lunch_intervals - leaves
+            attendance_intervals = Intervals([(check_in_tz, check_out_tz, attendance)]) - real_lunch_intervals
             for interval in attendance_intervals:
                 intervals[attendance.employee_id.resource_id.id].append((
                     max(start_dt, interval[0]),
