@@ -501,6 +501,7 @@ export default class BarcodeModel extends EventBus {
     async validate() {
         await this.save();
         const context = this.validateContext;
+        context['barcode_trigger'] = true;
         const action = await this.orm.call(
             this.resModel,
             this.validateMethod,
