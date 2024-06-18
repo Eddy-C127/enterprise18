@@ -1882,7 +1882,7 @@ class SaleOrder(models.Model):
     def _can_be_edited_on_portal(self):
         self.ensure_one()
         if self.is_subscription:
-            return self.next_invoice_date == self.start_date and \
+            return (not self.next_invoice_date or self.next_invoice_date == self.start_date) and \
                 self.subscription_state in SUBSCRIPTION_DRAFT_STATE + SUBSCRIPTION_PROGRESS_STATE
         else:
             return super()._can_be_edited_on_portal()
