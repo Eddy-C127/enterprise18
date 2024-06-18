@@ -13,15 +13,15 @@ class DeferredReportCustomHandler(models.AbstractModel):
         return super()._get_select() + [SQL("account_move_line.vehicle_id AS vehicle_id")]
 
     @api.model
-    def _get_grouping_keys_deferred_lines(self, filter_already_generated=False):
-        res = super()._get_grouping_keys_deferred_lines()
+    def _get_grouping_fields_deferred_lines(self, filter_already_generated=False, grouping_field='account_id'):
+        res = super()._get_grouping_fields_deferred_lines(filter_already_generated, grouping_field)
         if filter_already_generated:
             res += ('vehicle_id',)
         return res
 
     @api.model
-    def _get_grouping_keys_deferral_lines(self):
-        res = super()._get_grouping_keys_deferral_lines()
+    def _get_grouping_fields_deferral_lines(self):
+        res = super()._get_grouping_fields_deferral_lines()
         res += ('vehicle_id',)
         return res
 

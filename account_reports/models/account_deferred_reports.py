@@ -59,6 +59,8 @@ class DeferredReportCustomHandler(models.AbstractModel):
             SQL("account_move_line.id AS line_id"),
             SQL("account_move_line.account_id AS account_id"),
             SQL("account_move_line.partner_id AS partner_id"),
+            SQL("account_move_line.product_id AS product_id"),
+            SQL("account_move_line__product_template_id.categ_id AS product_category_id"),
             SQL("account_move_line.name AS line_name"),
             SQL("account_move_line.deferred_start_date AS deferred_start_date"),
             SQL("account_move_line.deferred_end_date AS deferred_end_date"),
@@ -79,8 +81,10 @@ class DeferredReportCustomHandler(models.AbstractModel):
             """
             SELECT %(select_clause)s
             FROM %(table_references)s
-            WHERE %(search_condition)s
-            ORDER BY "account_move_line"."deferred_start_date", "account_move_line"."id"
+            LEFT JOIN product_product AS account_move_line__product_id ON account_move_line.product_id = account_move_line__product_id.id
+        LEFT JOIN product_template AS account_move_line__product_template_id ON account_move_line__product_id.product_tmpl_id = account_move_line__product_template_id.id
+        WHERE %(search_condition)s
+            ORDER BY account_move_line.deferred_start_date, account_move_line.id
             """,
             select_clause=select_clause,
             table_references=table_references,
@@ -92,23 +96,23 @@ class DeferredReportCustomHandler(models.AbstractModel):
         return res
 
     @api.model
-    def _get_grouping_keys_deferred_lines(self, filter_already_generated=False):
-        return ('account_id',)
+    def _get_grouping_fields_deferred_lines(self, filter_already_generated=False, grouping_field='account_id'):
+        return (grouping_field,)
 
     @api.model
-    def _group_by_deferred_keys(self, line, filter_already_generated=False):
-        return tuple(line[k] for k in self._get_grouping_keys_deferred_lines(filter_already_generated))
+    def _group_by_deferred_fields(self, line, filter_already_generated=False, grouping_field='account_id'):
+        return tuple(line[k] for k in self._get_grouping_fields_deferred_lines(filter_already_generated, grouping_field))
 
     @api.model
-    def _get_grouping_keys_deferral_lines(self):
+    def _get_grouping_fields_deferral_lines(self):
         return ()
 
     @api.model
-    def _group_by_deferral_keys(self, line):
-        return tuple(line[k] for k in self._get_grouping_keys_deferral_lines())
+    def _group_by_deferral_fields(self, line):
+        return tuple(line[k] for k in self._get_grouping_fields_deferral_lines())
 
     @api.model
-    def _group_deferred_amounts_by_account(self, deferred_amounts_by_line, periods, is_reverse, filter_already_generated=False):
+    def _group_deferred_amounts_by_grouping_field(self, deferred_amounts_by_line, periods, is_reverse, filter_already_generated=False, grouping_field='account_id'):
         """
         Groups the deferred amounts by account and computes the totals for each account for each period.
         And the total for all accounts for each period.
@@ -122,8 +126,8 @@ class DeferredReportCustomHandler(models.AbstractModel):
             },
         }, {'totals_aggregated': 1300, period_1: 500, period_2: 800}
         """
-        deferred_amounts_by_line = groupby(deferred_amounts_by_line, key=lambda x: self._group_by_deferred_keys(x, filter_already_generated))
-        totals_per_key = {}  # {key: {**self._get_grouping_keys_deferral_lines(), total, before, current, later}}
+        deferred_amounts_by_line = groupby(deferred_amounts_by_line, key=lambda x: self._group_by_deferred_fields(x, filter_already_generated, grouping_field))
+        totals_per_key = {}  # {key: {**self._get_grouping_fields_deferral_lines(), total, before, current, later}}
         totals_aggregated_by_period = {period: 0 for period in periods + ['totals_aggregated']}
         sign = 1 if is_reverse else -1
         for key, lines_per_key in deferred_amounts_by_line:
@@ -189,6 +193,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         options['columns'] = total_column + not_started_column + before_column + options['columns'] + later_column
         options['column_headers'] = []
         options['deferred_report_type'] = self._get_deferred_report_type()
+        options['deferred_grouping_field'] = (previous_options or {}).get('deferred_grouping_field') or 'account_id'
         if (
             self._get_deferred_report_type() == 'expense' and self.env.company.generate_deferred_expense_entries_method == 'manual'
             or self._get_deferred_report_type() == 'revenue' and self.env.company.generate_deferred_revenue_entries_method == 'manual'
@@ -241,17 +246,15 @@ class DeferredReportCustomHandler(models.AbstractModel):
             column_date_to = report_date_from - relativedelta(days=1)
 
         # calling_line_dict_id is of the format `~account.report~15|~account.account~25`
-        model, account_id = report._get_model_info_from_id(params.get('calling_line_dict_id'))
-        if model != 'account.account':
-            account_id = None
+        _grouping_model, grouping_record_id = report._get_model_info_from_id(params.get('calling_line_dict_id'))
 
         # Find the original lines to be deferred in the report period
         original_move_lines_domain = self._get_domain(
             report, options, filter_not_started=column_values['expression_label'] == 'not_started'
         )
-        if account_id:
+        if grouping_record_id:
             # We're auditing a specific account, so we only want moves containing this account
-            original_move_lines_domain.append(('account_id', '=', account_id))
+            original_move_lines_domain.append((options['deferred_grouping_field'], '=', grouping_record_id))
         # We're getting all lines from the concerned moves. They are filtered later for flexibility.
         original_move = self.env['account.move.line'].search(original_move_lines_domain).move_id
 
@@ -271,7 +274,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             # Most filters are set here to allow auditing flexibility to the user
             'context': {
                 'search_default_pl_accounts': True,
-                'search_default_account_id': account_id,
+                f'search_default_{options["deferred_grouping_field"]}': grouping_record_id,
                 'date_from': column_date_from,
                 'date_to': column_date_to,
                 'search_default_date_between': True,
@@ -305,6 +308,10 @@ class DeferredReportCustomHandler(models.AbstractModel):
         domain = self._get_domain(report, options)
         if record_model == 'account.account' and record_id:
             domain += [('account_id', '=', record_id)]
+        elif record_model == 'product.product' and record_id:
+            domain += [('product_id', '=', record_id)]
+        elif record_model == 'product.category' and record_id:
+            domain += [('product_category_id', '=', record_id)]
         return {
             'type': 'ir.actions.act_window',
             'name': _("Deferred Entries"),
@@ -346,25 +353,35 @@ class DeferredReportCustomHandler(models.AbstractModel):
             for column in options['columns']
         ]
         deferred_amounts_by_line = self.env['account.move']._get_deferred_amounts_by_line(lines, periods, self._get_deferred_report_type())
-        totals_per_account, totals_all_accounts = self._group_deferred_amounts_by_account(deferred_amounts_by_line, periods, self._get_deferred_report_type() == 'expense')
+        totals_per_grouping_field, totals_all_grouping_field = self._group_deferred_amounts_by_grouping_field(
+            deferred_amounts_by_line=deferred_amounts_by_line,
+            periods=periods,
+            is_reverse=self._get_deferred_report_type() == 'expense',
+            filter_already_generated=False,
+            grouping_field=options['deferred_grouping_field'],
+        )
 
         report_lines = []
-
-        for totals_account in totals_per_account.values():
-            account = self.env['account.account'].browse(totals_account['account_id'])
+        grouping_model = self.env['account.move.line'][options['deferred_grouping_field']]._name
+        for totals_grouping_field in totals_per_grouping_field.values():
+            grouping_record = self.env[grouping_model].browse(totals_grouping_field[options['deferred_grouping_field']])
+            grouping_field_description = self.env['account.move.line'][options['deferred_grouping_field']]._description
+            if options['deferred_grouping_field'] == 'product_id':
+                grouping_field_description = _("Product")
+            grouping_name = grouping_record.display_name or _("(No %s)", grouping_field_description)
             report_lines.append((0, {
-                'id': report._get_generic_line_id('account.account', account.id),
-                'name': f"{account.code} {account.name}",
+                'id': report._get_generic_line_id(grouping_model, grouping_record.id),
+                'name': grouping_name,
                 'caret_options': 'deferred_caret',
                 'level': 1,
-                'columns': get_columns(totals_account),
+                'columns': get_columns(totals_grouping_field),
             }))
-        if totals_per_account:
+        if totals_per_grouping_field:
             report_lines.append((0, {
                 'id': report._get_generic_line_id(None, None, markup='total'),
                 'name': 'Total',
                 'level': 1,
-                'columns': get_columns(totals_all_accounts),
+                'columns': get_columns(totals_all_grouping_field),
             }))
 
         return report_lines
@@ -447,6 +464,8 @@ class DeferredReportCustomHandler(models.AbstractModel):
     def _get_current_key_totals_dict(self, lines_per_key, sign):
         return {
             'account_id': lines_per_key[0]['account_id'],
+            'product_id': lines_per_key[0]['product_id'],
+            'product_category_id': lines_per_key[0]['product_category_id'],
             'amount_total': sign * sum(line['balance'] for line in lines_per_key),
             'move_ids': {line['move_id'] for line in lines_per_key},
         }
@@ -461,7 +480,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         if not deferred_account:
             raise UserError(_("Please set the deferred accounts in the accounting settings."))
         deferred_amounts_by_line = self.env['account.move']._get_deferred_amounts_by_line(lines, [period], is_reverse)
-        deferred_amounts_by_key, deferred_amounts_totals = self._group_deferred_amounts_by_account(deferred_amounts_by_line, [period], is_reverse, filter_already_generated=True)
+        deferred_amounts_by_key, deferred_amounts_totals = self._group_deferred_amounts_by_grouping_field(deferred_amounts_by_line, [period], is_reverse, filter_already_generated=True)
         if deferred_amounts_totals['totals_aggregated'] == deferred_amounts_totals[period]:
             return [], set()
 
@@ -477,14 +496,14 @@ class DeferredReportCustomHandler(models.AbstractModel):
             if not line['analytic_distribution']:
                 continue
             # Analytic distribution should be computed from the lines with the same _get_grouping_keys_deferred_lines(), except for
-            # the deferred line with the deferral account which will use _get_grouping_keys_deferral_lines()
+            # the deferred line with the deferral account which will use _get_grouping_fields_deferral_lines()
             full_ratio = (line['balance'] / deferred_amounts_totals['totals_aggregated']) if deferred_amounts_totals['totals_aggregated'] else 0
-            key_amount = deferred_amounts_by_key.get(self._group_by_deferred_keys(line, True))
+            key_amount = deferred_amounts_by_key.get(self._group_by_deferred_fields(line, True))
             key_ratio = (line['balance'] / key_amount['amount_total']) if key_amount and key_amount['amount_total'] else 0
 
             for account_id, distribution in line['analytic_distribution'].items():
-                anal_dist_by_key[self._group_by_deferred_keys(line, True)][account_id] += distribution * key_ratio
-                deferred_anal_dist[self._group_by_deferral_keys(line)][account_id] += distribution * full_ratio
+                anal_dist_by_key[self._group_by_deferred_fields(line, True)][account_id] += distribution * key_ratio
+                deferred_anal_dist[self._group_by_deferral_fields(line)][account_id] += distribution * full_ratio
 
         remaining_balance = 0
         deferred_lines = []
@@ -511,7 +530,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             key: list(value)
             for key, value in groupby(
                 deferred_amounts_by_key.values(),
-                key=self._group_by_deferral_keys,
+                key=self._group_by_deferral_fields,
             )
         }
         deferral_lines = []

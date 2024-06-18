@@ -236,7 +236,7 @@ class AccountMove(models.Model):
         return values
 
     @api.model
-    def _get_deferred_lines(self, line, deferred_account, deferred_type, period, ref, force_balance=None):
+    def _get_deferred_lines(self, line, deferred_account, deferred_type, period, ref, force_balance=None, grouping_field='account_id'):
         """
         :return: a list of Command objects to create the deferred lines of a single given period
         """
@@ -248,7 +248,7 @@ class AccountMove(models.Model):
                 'partner_id': line.partner_id.id,
                 'product_id': line.product_id.id,
             })
-            for (account, coeff) in [(deferred_amounts['account_id'], 1), (deferred_account, -1)]
+            for (account, coeff) in [(deferred_amounts[grouping_field], 1), (deferred_account, -1)]
         ]
 
     def _generate_deferred_entries(self):
@@ -576,6 +576,9 @@ class AccountMoveLine(models.Model):
     def _get_deferred_amounts_by_line_values(self, line):
         return {
             'account_id': line['account_id'],
+            # line either be a dict with ids (coming from SQL query), or a real account.move.line object
+            'product_id': line['product_id'] if isinstance(line, dict) else line['product_id'].id,
+            'product_category_id': line['product_category_id'] if isinstance(line, dict) else line['product_category_id'].id,
             'balance': line['balance'],
             'move_id': line['move_id'],
         }
@@ -584,6 +587,9 @@ class AccountMoveLine(models.Model):
     def _get_deferred_lines_values(self, account_id, balance, ref, analytic_distribution, line=None):
         return {
             'account_id': account_id,
+            # line either be a dict with ids (coming from SQL query), or a real account.move.line object
+            'product_id': line['product_id'] if isinstance(line, dict) else line['product_id'].id,
+            'product_category_id': line['product_category_id'] if isinstance(line, dict) else line['product_category_id'].id,
             'balance': balance,
             'name': ref,
             'analytic_distribution': analytic_distribution,

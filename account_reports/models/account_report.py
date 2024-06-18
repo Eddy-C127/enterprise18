@@ -4110,6 +4110,8 @@ class AccountReport(models.Model):
                 'account.account': 'search_default_account_id',
                 'res.partner': 'search_default_partner_id',
                 'account.journal': 'search_default_journal_id',
+                'product.product': 'search_default_product_id',
+                'product.category': 'search_default_product_category_id',
             }
             model_filter = model_default_filters.get(record_model)
             if model_filter:

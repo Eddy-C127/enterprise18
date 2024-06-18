@@ -31,7 +31,7 @@ class AccountMoveLine(models.Model):
 
     @api.model
     def _get_deferred_lines_values(self, account_id, balance, ref, analytic_distribution, line):
-        deferred_lines_values = super()._get_deferred_lines_values(account_id, balance, ref, analytic_distribution)
+        deferred_lines_values = super()._get_deferred_lines_values(account_id, balance, ref, analytic_distribution, line)
         return {
             **deferred_lines_values,
             'vehicle_id': int(line['vehicle_id'] or 0) or None,
