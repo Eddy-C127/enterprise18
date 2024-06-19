@@ -3,7 +3,7 @@
 
     <t t-name="web_gantt.GanttRendererControls">
         <div
-            class="o_gantt_renderer_controls d-inline-flex flex-wrap column-gap-2 align-items-center w-100 bg-view border-bottom sticky-top start-0"
+            class="o_gantt_renderer_controls d-inline-flex d-print-none flex-wrap column-gap-2 align-items-center w-100 bg-view border-bottom sticky-top start-0"
             t-att-class="{ 'p-1': !env.isSmall, 'gap-1 py-1': env.isSmall }"
         >
             <t t-call="{{ constructor.rangeMenuTemplate }}" />

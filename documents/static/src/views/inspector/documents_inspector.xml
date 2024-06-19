@@ -4,7 +4,7 @@
         <t t-set="records" t-value="props.documents"/>
         <t t-set="currentFolder" t-value="getCurrentFolder()"/>
         <div class="o_documents_inspector h-100 overflow-x-hidden"
-            t-attf-class="{{ state.isFolded ? 'd-flex o_documents_inspector_sidebar' : 'o_documents_inspector_panel' }}">
+            t-attf-class="{{ state.isFolded ? 'd-flex d-print-none o_documents_inspector_sidebar' : 'o_documents_inspector_panel' }}">
             <t t-set="nbPreviews" t-value="props.documents.length"/>
             <t t-call="documents.DocumentsInspector.buttons"/>
             <div  t-if="!state.isFolded" class="o_documents_inspector_preview d-flex flex-row flex-wrap align-items-center justify-content-center position-relative">
