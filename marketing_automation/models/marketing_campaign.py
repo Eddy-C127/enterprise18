@@ -780,7 +780,7 @@ for record in records:
             'activity_type': 'email',
             'interval_type': 'hours',
             'mass_mailing_id': prerequisites['mailing.mailing'][0].id,
-            'interval_number': 1,
+            'interval_number': 0,
             'name': _('Confirmation'),
             'campaign_id': campaign.id,
             'child_ids': [(0, 0, {
