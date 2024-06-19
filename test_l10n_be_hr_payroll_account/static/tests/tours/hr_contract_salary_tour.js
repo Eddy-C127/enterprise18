@@ -122,7 +122,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Send Offer",
-            trigger: "button[name='action_send_mail']",
+            trigger: "button.o_mail_send",
             run: "click",
         },
         {
@@ -1170,7 +1170,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Send Offer",
-            trigger: "button[name='action_send_mail']",
+            trigger: "button.o_mail_send",
             run: "click",
         },
         {

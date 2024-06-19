@@ -143,7 +143,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger: ".o_form_project_tasks",
             },
             {
-                trigger: 'button[name="action_send_mail"]:enabled',
+                trigger: 'button.o_mail_send:enabled',
             content: markup(_t('<b>Send your task report</b> to your customer.')),
             tooltipPosition: 'right',
                 run: "click",
