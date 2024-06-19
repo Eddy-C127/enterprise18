@@ -10,7 +10,10 @@ class TestPeSales(TestAccountReportsCommon):
     def setUpClass(cls, chart_template_ref="pe"):
         super().setUpClass(chart_template_ref=chart_template_ref)
 
-        cls.company_data["company"].country_id = cls.env.ref("base.pe")
+        # To avoid breaking the constraint _check_l10n_latam_documents because we don't have document number on the moves
+        # we set the field l10n_latam_use_document to false
+        journals_to_update = cls.env['account.journal'].search([('l10n_latam_use_documents', '=', True)])
+        journals_to_update.write({'l10n_latam_use_documents': False})
 
         move_types = ["out_invoice", "out_refund", "in_invoice", "in_refund"]
         date_invoice = "2022-07-01"
