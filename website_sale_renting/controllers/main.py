@@ -75,3 +75,11 @@ class WebsiteSaleRenting(WebsiteSale):
             end_date=fields.Datetime.to_datetime(end_date),
         )
         return result
+
+    def _get_additional_extra_shop_values(self, values, **post):
+        vals = super()._get_additional_extra_shop_values(values, **post)
+        vals.update({
+            'start_date': post.get('start_date'),
+            'end_date': post.get('end_date'),
+        })
+        return vals
