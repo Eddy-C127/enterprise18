@@ -107,7 +107,7 @@ class AccountGenericTaxReport(models.AbstractModel):
         # per standard tax and two results per deductible taxes.
         lang = self.env.user.lang or get_lang(self.env).code
         self_lang = self.with_context(lang=lang)
-        acc_tag_name = self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
+        acc_tag_name = self_lang.env['account.account.tag'].with_context(lang='en_US')._field_to_sql('tag', 'name')
         tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
 
         self._cr.execute(SQL(

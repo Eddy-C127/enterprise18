@@ -3320,7 +3320,7 @@ class AccountReport(models.Model):
         table_references, search_condition = self._get_sql_table_expression(options, date_scope)
         tail_query = self._get_engine_query_tail(offset, limit)
         lang = get_lang(self.env, self.env.user.lang).code
-        acc_tag_name = self.with_context(lang=lang).env['account.account.tag']._field_to_sql('acc_tag', 'name')
+        acc_tag_name = self.with_context(lang='en_US').env['account.account.tag']._field_to_sql('acc_tag', 'name')
         sql = SQL(
             """
             SELECT
