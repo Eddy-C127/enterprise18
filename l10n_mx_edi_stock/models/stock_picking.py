@@ -160,63 +160,100 @@ class Picking(models.Model):
         self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
         self._l10n_mx_edi_add_picking_cfdi_values(cfdi_values)
 
-        origen_domicilio = {field: cfdi_values['origen']['domicilio'][field] or '-' for field in cfdi_values['origen']['domicilio']}
-        destino_domicilio = {field: cfdi_values['destino']['domicilio'][field] or '-' for field in cfdi_values['destino']['domicilio']}
-        origen_domicilio['municipio'] = self.company_id.city or '-'
-        destino_domicilio['municipio'] = self.partner_id.city or '-'
-        have_hazardous_material = any(self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code'))
+        warehouse_partner = self.picking_type_id.warehouse_id.partner_id
+
+        figure_types_dict = dict(self.env['l10n_mx_edi.figure']._fields['type'].selection)
+        vehicle_configs_dict = dict(self.env['l10n_mx_edi.vehicle']._fields['vehicle_config'].selection)
+        transport_types_dict = dict(self.env['stock.picking']._fields['l10n_mx_edi_transport_type'].selection)
 
         ubicacion_fields = (
             'id_ubicacion',
             'rfc_remitente_destinatario',
             'num_reg_id_trib',
             'residencia_fiscal',
-            'fecha_hora_salida_llegada',
+            'fecha_hora_salida_llegada'
         )
-        external_trade_vals = {
-            'external_trade': True,
-            'transp_internac': 'Sí',
-            'entrada_salida_merc': cfdi_values.get('entrada_salida_merc') or '-',
-            'regimenes_aduanero': ', '.join(cfdi_values.get('regimenes_aduanero') or "") or '-',
-            'pais_origen_destino': self.partner_id.country_id.l10n_mx_edi_code or '-',
-            'via_entrada_salida': self.l10n_mx_edi_transport_type or '-',
-        } if self.l10n_mx_edi_external_trade else {
-            'external_trade': False,
-            'transp_internac': 'No',
+
+        origin_partner = self.partner_id if self.picking_type_code == 'incoming' else warehouse_partner
+        destination_partner = self.partner_id if self.picking_type_code == 'outgoing' else warehouse_partner
+
+        origen_domicilio = {
+            field: value or "-" for field, value in cfdi_values['origen']['domicilio'].items()
         }
-        figures = [
-            {
-                'tipo_figura': figure.type or '-',
-                'rfc_figura': figure.operator_id.vat or '-',
-                'num_licencia': figure.type == '01' and figure.operator_id.l10n_mx_edi_operator_licence or '-',
-                'nombre_figura': figure.operator_id.name or '-',
+        destino_domicilio = {
+            field: value or "-" for field, value in cfdi_values['destino']['domicilio'].items()
+        }
+
+        # Add legible data to the origin and destination addresses
+        if origen_domicilio['municipio'] != origin_partner.city:
+            origen_domicilio['municipio'] += f" - {origin_partner.city}"
+        if origen_domicilio['estado'] != origin_partner.state_id.name:
+            origen_domicilio['estado'] += f" - {origin_partner.state_id.name}"
+        if origen_domicilio['pais'] != origin_partner.country_id.name:
+            origen_domicilio['pais'] += f" - {origin_partner.country_id.name}"
+
+        if destino_domicilio['municipio'] != destination_partner.city:
+            destino_domicilio['municipio'] += f" - {destination_partner.city}"
+        if destino_domicilio['estado'] != destination_partner.state_id.name:
+            destino_domicilio['estado'] += f" - {destination_partner.state_id.name}"
+        if destino_domicilio['pais'] != destination_partner.country_id.name:
+            destino_domicilio['pais'] += f" - {destination_partner.country_id.name}"
+
+        contains_hazardous_materials = any(self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code'))
+
+        if self.l10n_mx_edi_external_trade:
+            external_trade_vals = {
+                'external_trade': True,
+                'transp_internac': "Sí",
+                'entrada_salida_merc': cfdi_values.get('entrada_salida_merc', "-"),
+                'regimenes_aduanero': ", ".join(cfdi_values.get('regimenes_aduanero', ["-"])),
+                'pais_origen_destino': f"{self.partner_id.country_id.l10n_mx_edi_code} - {self.partner_id.country_id.name}",
+                'via_entrada_salida': f"{self.l10n_mx_edi_transport_type} - {transport_types_dict.get(self.l10n_mx_edi_transport_type, '')}",
             }
-            for figure in self.l10n_mx_edi_vehicle_id.figure_ids.sorted('type')
-        ]
+        else:
+            external_trade_vals = {
+                'external_trade': False,
+                'transp_internac': "No",
+            }
 
         return {
-            **self._l10n_mx_edi_get_extra_picking_report_values(),
             **external_trade_vals,
-            'idccp': cfdi_values['idccp'] or '-',
+            'idccp': cfdi_values['idccp'] or "-",
+            'total_dist_recorrida': self.l10n_mx_edi_distance or "-",
+            'peso_bruto_total': cfdi_values['format_float'](sum(self.move_ids.mapped('weight')), 3),
+            'unidad_peso': cfdi_values['weight_uom'].unspsc_code_id.code or "-",
+            'num_total_mercancias': len(self.move_ids),
             'origen_domicilio': origen_domicilio,
             'destino_domicilio': destino_domicilio,
-            'origen_ubicacion': {field: cfdi_values['origen'][field] or '-' for field in ubicacion_fields},
-            'destino_ubicacion': {field: cfdi_values['destino'][field] or '-' for field in (*ubicacion_fields, 'distancia_recorrida')},
-            'total_dist_recorrida': self.l10n_mx_edi_distance or '-',
-            'peso_bruto_total': cfdi_values['format_float'](sum(self.move_ids.mapped('weight')), 3),
-            'unidad_peso': cfdi_values['weight_uom'].unspsc_code_id.code or '-',
-            'num_total_mercancias': len(self.move_ids),
-            'transport_perm_sct': self.l10n_mx_edi_vehicle_id.transport_perm_sct or '-',
-            'num_permiso_sct': self.l10n_mx_edi_vehicle_id.name or '-',
-            'anio_modelo_vm': self.l10n_mx_edi_vehicle_id.vehicle_model or '-',
-            'config_vehicular': self.l10n_mx_edi_vehicle_id.vehicle_config or '-',
-            'peso_bruto_vehicular': cfdi_values['peso_bruto_vehicular'] or '-',
-            'placa_vm': self.l10n_mx_edi_vehicle_id.vehicle_licence or '-',
-            'asegura_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurer or '-',
-            'poliza_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurance_policy or '-',
-            'asegura_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurer if have_hazardous_material else '-',
-            'poliza_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurance_policy if have_hazardous_material else '-',
-            'figures': figures,
+            'origen_ubicacion': {
+                field: cfdi_values['origen'][field] or "-" for field in ubicacion_fields
+            },
+            'destino_ubicacion': {
+                field: cfdi_values['destino'][field] or "-" for field in (*ubicacion_fields, 'distancia_recorrida')
+            },
+            'transport_perm_sct': self.l10n_mx_edi_vehicle_id.transport_perm_sct or "-",
+            'num_permiso_sct': self.l10n_mx_edi_vehicle_id.name or "-",
+            'config_vehicular': f"{self.l10n_mx_edi_vehicle_id.vehicle_config} - {vehicle_configs_dict.get(self.l10n_mx_edi_vehicle_id.vehicle_config, '')}",
+            'peso_bruto_vehicular': cfdi_values['peso_bruto_vehicular'] or "-",
+            'placa_vm': self.l10n_mx_edi_vehicle_id.vehicle_licence or "-",
+            'anio_modelo_vm': self.l10n_mx_edi_vehicle_id.vehicle_model or "-",
+            'asegura_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurer or "-",
+            'poliza_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurance_policy or "-",
+            'asegura_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurer if contains_hazardous_materials else "-",
+            'poliza_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurance_policy if contains_hazardous_materials else "-",
+            'figures': [
+                {
+                    'tipo_figura': f"{figure.type} - {figure_types_dict.get(figure.type, '')}",
+                    'num_licencia': (figure.type == '01' and figure.operator_id.l10n_mx_edi_operator_licence) or "-",
+                    'num_reg_id_trib_figura': figure.operator_id.vat or "-"
+                        if figure.operator_id.country_id.l10n_mx_edi_code != 'MEX'
+                        else "-",
+                    'residencia_fiscal_figura': f"{figure.operator_id.country_id.l10n_mx_edi_code} - {figure.operator_id.country_id.name}" or "-"
+                        if figure.operator_id.country_id.l10n_mx_edi_code != 'MEX'
+                        else "-",
+                }
+                for figure in self.l10n_mx_edi_vehicle_id.figure_ids.sorted('type')
+            ],
         }
 
     def _l10n_mx_edi_get_extra_picking_report_values(self):
