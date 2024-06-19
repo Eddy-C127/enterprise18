@@ -17,7 +17,7 @@ export class BillQrScan extends Component {
 
     static template = "l10n_in_qr_code_bill_scan.billScanInput";
     static components = { Dialog };
-    static props = { ...Dialog.props  };
+    static props = { close: Function };
 
     setup() {
         this.actionService = useService('action');
