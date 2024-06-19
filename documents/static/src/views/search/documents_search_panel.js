@@ -361,7 +361,7 @@ export class DocumentsSearchPanel extends SearchPanel {
      */
     async onDropDocuments(section, value, { currentTarget, dataTransfer }) {
         if (
-            currentTarget.querySelector(".active") || // prevents dropping in the current folder
+            currentTarget.querySelector(":scope > .active") || // prevents dropping in the current folder
             !this.isValidDragTransfer(section, value, currentTarget, dataTransfer)
         ) {
             return;
