@@ -82,7 +82,10 @@ class HrApplicant(models.Model):
         return action
 
     def archive_applicant(self):
-        self.salary_offer_ids.filtered(lambda o: o.state != 'refused').action_refuse_offer(_("The offer has been marked as refused when the linked applicant was declined."))
+        message = _("The offer has been marked as refused when the linked applicant was declined.")
+        refuse_reason = self.env.ref("hr_contract_salary.refusal_reason_others", raise_if_not_found=False)
+
+        self.salary_offer_ids.filtered(lambda o: o.state != "refused").action_refuse_offer(message=message, refusal_reason=refuse_reason)
         return super().archive_applicant()
 
     def action_generate_offer(self):

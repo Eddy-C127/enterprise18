@@ -21,7 +21,7 @@ class Applicant(models.Model):
                 'name': self.partner_name,
                 'email': self.email_from,
                 'phone': self.partner_phone,
-                'mobile': self.partner_mobile
+                'mobile': self.partner_phone,
             })
 
         action = self.env['ir.actions.actions']\

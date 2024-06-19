@@ -23,8 +23,6 @@ class HrCandidate(models.Model):
             text_to_send["content"] = self.email_from
         elif field == "phone":
             text_to_send["content"] = self.partner_phone
-        elif field == "mobile":
-            text_to_send["content"] = self.partner_mobile
         elif field == "name":
             text_to_send["content"] = self.partner_name
         return text_to_send
@@ -34,12 +32,10 @@ class HrCandidate(models.Model):
             name_ocr = self._get_ocr_selected_value(ocr_results, 'name', "")
             email_from_ocr = self._get_ocr_selected_value(ocr_results, 'email', "")
             phone_ocr = self._get_ocr_selected_value(ocr_results, 'phone', "")
-            mobile_ocr = self._get_ocr_selected_value(ocr_results, 'mobile', "")
 
             self.partner_name = name_ocr or self.partner_name
             self.email_from = self.email_from or email_from_ocr
             self.partner_phone = self.partner_phone or phone_ocr
-            self.partner_mobile = self.partner_mobile or mobile_ocr
 
             # If the 'hr_recruitment_skills' module is installed, extract skills from OCR results
             if self.env['ir.module.module']._get('hr_recruitment_skills').state == 'installed':
@@ -87,7 +83,7 @@ class HrCandidate(models.Model):
         return ocr_option and ocr_option != 'no_send'
 
     def _get_validation_fields(self):
-        return ['email', 'mobile', 'name', 'phone']
+        return ['email', 'name', 'phone']
 
     def _get_user_error_invalid_state_message(self):
         return _("You cannot send a CV for this candidate!")

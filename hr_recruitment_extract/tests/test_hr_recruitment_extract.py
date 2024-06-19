@@ -26,7 +26,6 @@ class TestRecruitmentExtractProcess(TestHrCommon, TestExtractMixin):
                 'name': {'selected_value': {'content': 'Johnny Doe'}, 'candidates': []},
                 'email': {'selected_value': {'content': 'john@doe.com'}, 'candidates': []},
                 'phone': {'selected_value': {'content': '+32488888888'}, 'candidates': []},
-                'mobile': {'selected_value': {'content': '+32499999999'}, 'candidates': []},
                 'full_text_annotation': '',
             }],
         }
@@ -58,7 +57,6 @@ class TestRecruitmentExtractProcess(TestHrCommon, TestExtractMixin):
         self.assertTrue(self.candidate.partner_name)
         self.assertFalse(self.candidate.email_from)
         self.assertFalse(self.candidate.partner_phone)
-        self.assertFalse(self.candidate.partner_mobile)
 
         extract_response = self.get_result_success_response()
         expected_get_results_params = {
@@ -75,7 +73,6 @@ class TestRecruitmentExtractProcess(TestHrCommon, TestExtractMixin):
         self.assertEqual(self.candidate.partner_name, extract_response['results'][0]['name']['selected_value']['content'])
         self.assertEqual(self.candidate.email_from, extract_response['results'][0]['email']['selected_value']['content'])
         self.assertEqual(self.candidate.partner_phone, extract_response['results'][0]['phone']['selected_value']['content'])
-        self.assertEqual(self.candidate.partner_mobile, extract_response['results'][0]['mobile']['selected_value']['content'])
 
     def test_manual_send_for_digitization(self):
         # test the `manual_send` mode for digitization
@@ -103,7 +100,6 @@ class TestRecruitmentExtractProcess(TestHrCommon, TestExtractMixin):
         self.assertEqual(self.candidate.partner_name, extract_response['results'][0]['name']['selected_value']['content'])
         self.assertEqual(self.candidate.email_from, extract_response['results'][0]['email']['selected_value']['content'])
         self.assertEqual(self.candidate.partner_phone, extract_response['results'][0]['phone']['selected_value']['content'])
-        self.assertEqual(self.candidate.partner_mobile, extract_response['results'][0]['mobile']['selected_value']['content'])
 
     def test_no_send_for_digitization(self):
         # test that the `no_send` mode for digitization prevents the users from sending
@@ -151,7 +147,6 @@ class TestRecruitmentExtractProcess(TestHrCommon, TestExtractMixin):
             'values': {
                 'email': {'content': self.candidate.email_from},
                 'phone': {'content': self.candidate.partner_phone},
-                'mobile': {'content': self.candidate.partner_mobile},
                 'name': {'content': self.candidate.partner_name},
             },
             'document_token': 'some_token',

@@ -15,11 +15,12 @@ class HrRecruitmentReport(models.Model):
     _rec_name = 'create_date'
     _order = 'create_date desc'
 
-    count = fields.Integer('# Applicant', aggregator="sum", readonly=True)
-    refused = fields.Integer('# Refused', aggregator="sum", readonly=True)
-    hired = fields.Integer('# Hired', aggregator="sum", readonly=True)
-    hiring_ratio = fields.Integer('# Hired Ratio', aggregator="avg", readonly=True)
-    meetings_amount = fields.Integer('# Meetings', aggregator="sum", readonly=True)
+    count = fields.Integer('Applicant', aggregator="sum", readonly=True)
+    refused = fields.Integer('Refused', aggregator="sum", readonly=True)
+    hired = fields.Integer('Hired', aggregator="sum", readonly=True)
+    hiring_ratio = fields.Integer('Hired Ratio', aggregator="avg", readonly=True)
+    meetings_amount = fields.Integer('Meetings', aggregator="sum", readonly=True)
+    in_progress = fields.Integer('In Progress', aggregator="sum", readonly=True)
 
     state = fields.Selection([
         ('in_progress', 'In Progress'),
@@ -29,7 +30,7 @@ class HrRecruitmentReport(models.Model):
 
     user_id = fields.Many2one('res.users', 'Recruiter', readonly=True)
 
-    create_date = fields.Date('Start Date', readonly=True)
+    create_date = fields.Date('Application Date', readonly=True)
     create_uid = fields.Many2one('res.users', 'Creator', readonly=True)
     date_closed = fields.Date('End Date', readonly=True)
     stage_id = fields.Many2one('hr.recruitment.stage', 'Stage', readonly=True)
@@ -77,6 +78,7 @@ class HrRecruitmentReport(models.Model):
                 CASE WHEN a.active IS FALSE THEN 1 ELSE 0 END as refused,
                 CASE WHEN a.date_closed IS NOT NULL THEN 1 ELSE 0 END as hired,
                 CASE WHEN a.date_closed IS NOT NULL THEN 100 ELSE 0 END as hiring_ratio,
+                CASE WHEN a.active IS NOT FALSE AND a.date_closed IS NULL THEN 1 ELSE 0 END as in_progress,
                 CASE WHEN a.date_closed IS NOT NULL THEN date_part('day', a.date_closed - a.create_date) ELSE NULL END as process_duration
                 %s
         """ % fields
