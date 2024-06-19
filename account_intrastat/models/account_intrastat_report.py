@@ -130,10 +130,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         options['commodity_flow'] = previous_options.get('commodity_flow')
 
         # Filter the domain based on the types of invoice selected
-        include_arrivals = options['intrastat_type'][0]['selected']
-        include_dispatches = options['intrastat_type'][1]['selected']
-        if not include_arrivals and not include_dispatches:
-            include_arrivals = include_dispatches = True
+        include_arrivals, include_dispatches = self._determine_inclusion(options)
 
         invoice_types = []
         if include_arrivals:
@@ -176,6 +173,14 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         xlsx_button_option = next(button_opt for button_opt in options['buttons'] if button_opt.get('action_param') == 'export_to_xlsx')
         xlsx_button_option['action_param'] = 'export_to_xlsx'
         options['ignore_totals_below_sections'] = True
+
+    @api.model
+    def _determine_inclusion(self, options):
+        include_arrivals = options['intrastat_type'][0]['selected']
+        include_dispatches = options['intrastat_type'][1]['selected']
+        if not include_arrivals and not include_dispatches:
+            include_arrivals = include_dispatches = True
+        return include_arrivals, include_dispatches
 
 
     ####################################################
