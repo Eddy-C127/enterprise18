@@ -3088,8 +3088,7 @@ class AccountReport(models.Model):
         tables, where_clause, where_params = self._query_get(options, date_scope)
         tail_query, tail_params = self._get_engine_query_tail(offset, limit)
         if self.pool['account.account.tag'].name.translate:
-            lang = self.env.user.lang or get_lang(self.env).code
-            acc_tag_name = f"COALESCE(acc_tag.name->>'{lang}', acc_tag.name->>'en_US')"
+            acc_tag_name = "acc_tag.name->>'en_US'"
         else:
             acc_tag_name = 'acc_tag.name'
         sql = f"""

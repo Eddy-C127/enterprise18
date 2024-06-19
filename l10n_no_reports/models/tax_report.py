@@ -107,7 +107,7 @@ class AccountGenericTaxReport(models.AbstractModel):
         # per standard tax and two results per deductible taxes.
         if self.pool['account.tax'].name.translate: # Will be true if l10n_multilang is installed
             lang = self.env.user.lang or get_lang(self.env).code
-            acc_tag_name = f"COALESCE(tag.name->>'{lang}', tag.name->>'en_US')"
+            acc_tag_name = "tag.name->>'en_US'"
             tax_name = f"COALESCE(tax.name->>'{lang}', tax.name->>'en_US')"
         else:
             acc_tag_name = 'tag.name'
