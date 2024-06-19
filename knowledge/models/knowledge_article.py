@@ -714,6 +714,8 @@ class Article(models.Model):
     def _search_is_article_visible(self, operator, value):
         if operator not in ('=', '!='):
             raise NotImplementedError(_("Unsupported search operation"))
+        if self.env.user._is_public():
+            return []
         members_from_partner = self.env['knowledge.article.member']._search(
             [('partner_id', '=', self.env.user.partner_id.id)]
         )
