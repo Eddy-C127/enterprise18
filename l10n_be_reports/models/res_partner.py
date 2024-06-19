@@ -27,7 +27,7 @@ class ResPartner(models.Model):
         if (
             any(cmd[0] == Command.UNLINK and cmd[1] == tag_281_50.id for cmd in vals.get('category_id', []))
             and tag_281_50 in self.category_id  # only raise when removing the tag, adding is allowed for everyone
-            and not self.user_has_groups('account.group_account_user')
+            and not self.env.user.has_group('account.group_account_user')
         ):
             group_name = self.env.ref('account.group_account_user').name
             raise AccessError(_("Only users with the access group '%s' can unset the 281.50 category on partners.", group_name))
