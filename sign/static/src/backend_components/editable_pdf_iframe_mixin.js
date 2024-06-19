@@ -158,19 +158,18 @@ export const EditablePDFIframeMixin = (pdfClass) =>
 
             const { top, left } = offset(textLayer);
             const typeId = e.dataTransfer.getData("typeId");
+            const box = textLayer.getBoundingClientRect();
+            const height = box.bottom - box.top;
+            const width = box.right - box.left;
             if (typeId) {
                 const id = generateRandomId();
                 const data = this.createSignItemDataFromType(typeId);
                 const posX =
-                    Math.round(
-                        normalizePosition((e.pageX - left) / textLayer.clientWidth, data.width) *
-                            1000
-                    ) / 1000;
+                    Math.round(normalizePosition((e.pageX - left) / width, data.width) * 1000) /
+                    1000;
                 const posY =
-                    Math.round(
-                        normalizePosition((e.pageY - top) / textLayer.clientHeight, data.height) *
-                            1000
-                    ) / 1000;
+                    Math.round(normalizePosition((e.pageY - top) / height, data.height) * 1000) /
+                    1000;
                 Object.assign(data, { id, posX, posY, page: targetPage });
                 if (data.type === "initial") {
                     this.helperLines.hide();
@@ -188,17 +187,11 @@ export const EditablePDFIframeMixin = (pdfClass) =>
                 const signItemEl = signItem.el;
                 const posX =
                     Math.round(
-                        normalizePosition(
-                            (e.pageX - left) / textLayer.clientWidth,
-                            signItem.data.width
-                        ) * 1000
+                        normalizePosition((e.pageX - left) / width, signItem.data.width) * 1000
                     ) / 1000;
                 const posY =
                     Math.round(
-                        normalizePosition(
-                            (e.pageY - top) / textLayer.clientHeight,
-                            signItem.data.height
-                        ) * 1000
+                        normalizePosition((e.pageY - top) / height, signItem.data.height) * 1000
                     ) / 1000;
 
                 if (initialPage !== targetPage) {
