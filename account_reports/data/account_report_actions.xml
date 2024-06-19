@@ -148,5 +148,12 @@ if records:
             <field name="context" eval="{'report_id': ref('account_reports.bank_reconciliation_report')}"/>
         </record>
 
+        <record id="action_account_report_budget_tree" model="ir.actions.act_window">
+            <field name="name">Financial Budgets</field>
+            <field name="res_model">account.report.budget</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="account_report_budget_tree"/>
+        </record>
+
     </data>
 </odoo>

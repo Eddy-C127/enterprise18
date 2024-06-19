@@ -115,6 +115,7 @@ export class AccountReportLineCell extends Component {
             ev.currentTarget,
             AccountReportEditPopover,
             {
+                line_id: this.props.line.id,
                 cell: this.props.cell,
                 controller: this.controller,
                 onClose: close,

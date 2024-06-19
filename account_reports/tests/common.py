@@ -83,7 +83,7 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
             c['selected'] = c['id'] in selected_ids
         return new_options
 
-    def assertGrowthComparisonValues(self, lines, expected_values):
+    def assertColumnPercentComparisonValues(self, lines, expected_values):
         filtered_lines = self._filter_folded_lines(lines)
 
         # Check number of lines.
@@ -91,10 +91,10 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
 
         for value, expected_value in zip(filtered_lines, expected_values):
             # Check number of columns.
-            key = 'growth_comparison_data'
+            key = 'column_percent_comparison_data'
             self.assertEqual(len(value[key]) + 1, len(expected_value))
             # Check name, value and class.
-            self.assertEqual(tuple([value['name'], value[key]['name'], value[key]['growth']]), expected_value)
+            self.assertEqual((value['name'], value[key]['name'], value[key]['mode']), expected_value)
 
     def assertHorizontalGroupTotal(self, lines, expected_values):
         filtered_lines = self._filter_folded_lines(lines)

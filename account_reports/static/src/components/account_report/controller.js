@@ -1,7 +1,9 @@
 /* global owl:readonly */
 
+import { _t } from "@web/core/l10n/translation";
 import { browser } from "@web/core/browser/browser";
 import { session } from "@web/session";
+import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
 import { useService } from "@web/core/utils/hooks";
 
 export class AccountReportController {
@@ -248,8 +250,8 @@ export class AccountReportController {
     //------------------------------------------------------------------------------------------------------------------
     // Helpers
     //------------------------------------------------------------------------------------------------------------------
-    get hasGrowthComparisonColumn() {
-        return Boolean(this.options.show_growth_comparison);
+    get needsColumnPercentComparison() {
+        return Boolean(this.options.column_percent_comparison);
     }
 
     get hasCustomSubheaders() {
@@ -266,6 +268,14 @@ export class AccountReportController {
 
     get hasVisibleAnnotations() {
         return Boolean(this.visibleAnnotations.length);
+    }
+
+    get selectedBudgets() {
+        if (!this.options.budgets)
+            return []
+
+        return this.options.budgets
+               .filter((x) => x.dirtySelected === undefined ? x.selected : x.dirtySelected);
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -351,7 +361,7 @@ export class AccountReportController {
     }
 
     lineHasGrowthComparisonData(lineIndex) {
-        return Boolean(this.lines[lineIndex].growth_comparison_data);
+        return Boolean(this.lines[lineIndex].column_percent_comparison_data);
     }
 
     isLineAncestorOf(ancestorLineId, lineId) {
@@ -729,5 +739,51 @@ export class AccountReportController {
         }
 
         return dispatchReportAction ? this.actionService.doAction(dispatchReportAction) : null;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Budget
+    // -----------------------------------------------------------------------------------------------------------------
+
+    async addAccountsToBudget(budget) {
+        this.dialog.add(SelectCreateDialog, {
+            title: _t("Add Accounts"),
+            noCreate: true,
+            multiSelect:true,
+            resModel: 'account.account',
+            domain: [
+                ['company_id', 'parent_of', budget.company_id],
+                '|', ['budget_item_ids', '=', false], '!', ['budget_item_ids', 'any', [['budget_id', '=', budget.id]]]
+            ],
+            onSelected: (selection) => this.onAccountsSelectedForBudget(budget, selection),
+        });
+    }
+
+    async onAccountsSelectedForBudget(budget, selection) {
+        const accountIds = Array.isArray(selection) ? selection : [selection];
+
+        const res = await this.orm.call(
+            "account.report",
+            "action_add_accounts_to_budget",
+            [
+                this.options.report_id,
+                this.options,
+                budget.id,
+                accountIds,
+                this.columnGroupsTotals,
+            ],
+        );
+
+        this.lines = res.lines;
+        this.columnGroupsTotals = res.column_groups_totals;
+    }
+
+    async openBudget(budget) {
+        this.actionService.doAction({
+            type: "ir.actions.act_window",
+            res_model: "account.report.budget",
+            res_id: budget.id,
+            views: [[false, "form"]],
+        });
     }
 }

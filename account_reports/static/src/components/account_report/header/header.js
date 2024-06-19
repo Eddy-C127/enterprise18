@@ -1,5 +1,7 @@
 /** @odoo-module */
 
+import { Dropdown } from "@web/core/dropdown/dropdown";
+import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { useService } from "@web/core/utils/hooks"
 
 import { Component, useState } from "@odoo/owl";
@@ -7,6 +9,10 @@ import { Component, useState } from "@odoo/owl";
 export class AccountReportHeader extends Component {
     static template = "account_reports.AccountReportHeader";
     static props = {};
+    static components = {
+        Dropdown,
+        DropdownItem,
+    }
 
     setup() {
         this.orm = useService("orm");
@@ -38,6 +44,10 @@ export class AccountReportHeader extends Component {
            colspan += 1;
         }
         return colspan;
+    }
+
+    get budgetColumnHeaderColspan() {
+        return this.controller.options.columns.filter((x) => x.column_group_key == this.controller.options.columns[0].column_group_key).length;
     }
 
     //------------------------------------------------------------------------------------------------------------------

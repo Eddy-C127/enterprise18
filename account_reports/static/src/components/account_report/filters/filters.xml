@@ -89,6 +89,13 @@
             </div>
         </t>
 
+        <!-- Budget filter -->
+        <t t-if="'budgets' in controller.options">
+            <div id="filter_budget">
+                <t t-call="account_reports.AccountReportFilterBudget"/>
+            </div>
+        </t>
+
         <!-- User defined filter on journal items -->
         <t t-if="'aml_ir_filters' in controller.options and controller.options.aml_ir_filters.length > 0">
             <div id="filter_aml_ir_filters">

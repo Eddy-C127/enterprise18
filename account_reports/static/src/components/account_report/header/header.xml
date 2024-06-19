@@ -26,11 +26,45 @@
                         </th>
                     </t>
 
+                    <t t-if="controller.options.show_horizontal_group_total">
+                        <t t-if="!columnHeader_first">
+                            <th class="column_header">
+                                <t t-out="controller.options.available_horizontal_groups.find(group => group.id === controller.options.selected_horizontal_group_id)?.name"/>
+                            </th>
+                        </t>
+                    </t>
+
+                    <!-- Budget -->
+                    <t t-foreach="controller.selectedBudgets" t-as="budget" t-key="budget_index">
+                        <th
+                            class="column_header"
+                            t-att-colspan="budgetColumnHeaderColspan"
+                        >
+                            <t t-out="budget.name"/>
+
+                            <Dropdown position="'right-start'">
+                                <button class="btn btn_dropdown">
+                                    <i class="fa fa-bars"/>
+                                </button>
+                                <t t-set-slot="content">
+                                    <div>
+                                        <DropdownItem onSelected="() => controller.openBudget(budget)">
+                                            Open Budget
+                                        </DropdownItem>
+                                        <DropdownItem onSelected="() => controller.addAccountsToBudget(budget)">
+                                            Add Accounts
+                                        </DropdownItem>
+                                    </div>
+                                </t>
+                            </Dropdown>
+                        </th>
+                    </t>
+
                     <!-- Growth comparison column -->
-                    <t t-if="controller.hasGrowthComparisonColumn">
+                    <t t-if="controller.needsColumnPercentComparison">
                         <!-- We only want to display it once on the first row -->
                         <t t-if="columnHeader_first">
-                            <th class="growth_comparison_header">
+                            <th class="column_percent_comparison_header">
                                 <i class="fa fa-percent"/>
                             </th>
                         </t>
@@ -42,14 +76,6 @@
                         <t t-if="columnHeader_first">
                             <th class="debug_header">
                                 <i class="fa fa-bug"/>
-                            </th>
-                        </t>
-                    </t>
-
-                    <t t-if="controller.options.show_horizontal_group_total">
-                        <t t-if="!columnHeader_first">
-                            <th class="column_header">
-                                <t t-out="controller.options.available_horizontal_groups.find(group => group.id === controller.options.selected_horizontal_group_id)?.name"/>
                             </th>
                         </t>
                     </t>

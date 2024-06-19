@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="account_reports.AccountReportFilterBudget">
+        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen, 'budgets')">
+            <button class="btn btn-secondary">
+                <i class="fa fa-percent me-1"/>Budget
+            </button>
+
+            <t t-set-slot="content">
+                <t t-foreach="controller.options.budgets" t-as="budget" t-key="budget_index">
+                    <DropdownItem
+                        class="{ 'selected': budget.selected, 'ps-4': true }"
+                        onSelected="() => this.selectBudget(budget)"
+                        closingMode="'none'"
+                        t-out="budget.name"
+                    />
+                </t>
+
+                <div class="dropdown-divider"/>
+
+                <div class="input-group">
+                    <input
+                        class="form-control"
+                        type="text"
+                        t-ref="budget_create_input"
+                        placeholder="New Budget"
+                    />
+                    <button class="btn btn-primary" t-on-click="createBudget">
+                        Create
+                    </button>
+                </div>
+            </t>
+        </Dropdown>
+    </t>
+</templates>

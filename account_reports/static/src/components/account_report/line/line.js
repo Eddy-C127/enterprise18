@@ -58,14 +58,14 @@ export class AccountReportLine extends Component {
     get growthComparisonClasses() {
         let classes = "text-end";
 
-        switch(this.props.line.growth_comparison_data.growth) {
-            case 1:
+        switch(this.props.line.column_percent_comparison_data.mode) {
+            case "green":
                 classes += " text-success";
                 break;
-            case 0:
+            case "muted":
                 classes += " muted";
                 break;
-            case -1:
+            case "red":
                 classes += " text-danger";
                 break;
         }

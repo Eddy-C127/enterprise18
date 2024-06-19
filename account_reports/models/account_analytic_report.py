@@ -1,5 +1,4 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from psycopg2 import sql
 
 from odoo import models, fields, api, osv
 from odoo.addons.web.controllers.utils import clean_action
@@ -101,75 +100,45 @@ class AccountReport(models.AbstractModel):
         who don't exist in account_analytic_line.
         We also drop the NOT NULL constraints for fields who are not required in account_analytic_line.
         """
-        self.env.cr.execute(
-            "SELECT 1 FROM information_schema.tables WHERE table_name='analytic_temp_account_move_line'")
+        self.env.cr.execute("SELECT 1 FROM information_schema.tables WHERE table_name='analytic_temp_account_move_line'")
         if self.env.cr.fetchone():
             return
 
-        line_fields = self.env['account.move.line'].fields_get()
-        self.env.cr.execute("SELECT column_name FROM information_schema.columns WHERE table_name='account_move_line'")
-        stored_fields = set(f[0] for f in self.env.cr.fetchall() if f[0] in line_fields)
-        changed_equivalence_dict = {
-            "id": sql.Identifier("id"),
-            "balance": sql.SQL("-amount"),
-            "company_id": sql.Identifier("company_id"),
-            "journal_id": sql.Identifier("journal_id"),
-            "display_type": sql.Literal("product"),
-            "parent_state": sql.Literal("posted"),
-            "date": sql.Identifier("date"),
-            "account_id": sql.Identifier("general_account_id"),
-            "partner_id": sql.Identifier("partner_id"),
-            "debit": sql.SQL("CASE WHEN (amount < 0) THEN amount else 0 END"),
-            "credit": sql.SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
-        }
-        selected_fields = []
-        for fname in stored_fields:
-            if fname in changed_equivalence_dict:
-                selected_fields.append(sql.SQL('{original} AS "account_move_line.{asname}"').format(
-                    original=changed_equivalence_dict[fname],
-                    asname=sql.SQL(fname),
-                ))
-            elif fname == 'analytic_distribution':
-                project_plan, other_plans = self.env['account.analytic.plan']._get_all_plans()
-                analytic_cols = ", ".join(n._column_name() for n in (project_plan+other_plans))
-                selected_fields.append(sql.SQL(f'to_jsonb(UNNEST(ARRAY[{analytic_cols}])) AS "account_move_line.analytic_distribution"'))
-            else:
-                if line_fields[fname].get("translate"):
-                    typecast = sql.SQL('jsonb')
-                elif line_fields[fname].get("type") == "monetary":
-                    typecast = sql.SQL('numeric')
-                elif line_fields[fname].get("type") == "many2one":
-                    typecast = sql.SQL('integer')
-                elif line_fields[fname].get("type") == "datetime":
-                    typecast = sql.SQL('date')
-                elif line_fields[fname].get("type") in ["selection", "reference"]:
-                    typecast = sql.SQL('text')
-                else:
-                    typecast = sql.SQL(self.env['account.move.line']._fields[fname].column_type[0])
-                selected_fields.append(sql.SQL('cast(NULL AS {typecast}) AS "account_move_line.{fname}"').format(
-                    typecast=typecast,
-                    fname=sql.SQL(fname),
-                ))
+        project_plan, other_plans = self.env['account.analytic.plan']._get_all_plans()
+        analytic_cols = ", ".join(n._column_name() for n in (project_plan + other_plans))
+        analytic_distribution_equivalent = SQL(f'to_jsonb(UNNEST(ARRAY[{analytic_cols}]))')
 
-        query = sql.SQL("""
+        stored_aml_fields, fields_to_insert = self.env['account.move.line']._prepare_aml_shadowing_for_report({
+            'id': SQL.identifier("id"),
+            'balance': SQL("-amount"),
+            'company_id': SQL.identifier("company_id"),
+            'journal_id': SQL.identifier("journal_id"),
+            'display_type': 'product',
+            'parent_state': 'posted',
+            'date': SQL.identifier("date"),
+            'account_id': SQL.identifier("general_account_id"),
+            'partner_id': SQL.identifier("partner_id"),
+            'debit': SQL("CASE WHEN (amount < 0) THEN amount else 0 END"),
+            'credit': SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
+            'analytic_distribution': analytic_distribution_equivalent,
+        })
+
+        query = SQL("""
             -- Create a temporary table, dropping not null constraints because we're not filling those columns
             CREATE TEMPORARY TABLE IF NOT EXISTS analytic_temp_account_move_line () inherits (account_move_line) ON COMMIT DROP;
             ALTER TABLE analytic_temp_account_move_line NO INHERIT account_move_line;
             ALTER TABLE analytic_temp_account_move_line ALTER COLUMN move_id DROP NOT NULL;
             ALTER TABLE analytic_temp_account_move_line ALTER COLUMN currency_id DROP NOT NULL;
 
-            INSERT INTO analytic_temp_account_move_line ({all_fields})
-            SELECT {table}
+            INSERT INTO analytic_temp_account_move_line (%(stored_aml_fields)s)
+            SELECT %(fields_to_insert)s
             FROM (SELECT * FROM account_analytic_line WHERE general_account_id IS NOT NULL) AS account_analytic_line;
 
             -- Create a supporting index to avoid seq.scans
             CREATE INDEX IF NOT EXISTS analytic_temp_account_move_line__composite_idx ON analytic_temp_account_move_line (analytic_distribution, journal_id, date, company_id);
             -- Update statistics for correct planning
             ANALYZE analytic_temp_account_move_line
-        """).format(
-            all_fields=sql.SQL(', ').join(sql.Identifier(fname) for fname in stored_fields),
-            table=sql.SQL(', ').join(selected_fields),
-        )
+        """, stored_aml_fields=stored_aml_fields, fields_to_insert=fields_to_insert)
 
         self.env.cr.execute(query)
 

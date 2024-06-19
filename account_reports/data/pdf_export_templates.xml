@@ -195,11 +195,15 @@
                         </th>
                     </t>
 
-                    <th t-if="options.get('show_growth_comparison')">%</th>
-
                     <th t-if="options.get('show_horizontal_group_total') and not column_header_first">
                         <t t-out="[group['name'] for group in options['available_horizontal_groups'] if group['id'] == options['selected_horizontal_group_id']][0]"/>
                     </th>
+
+                    <t t-foreach="options.get('budgets', [])" t-as="budget_opt">
+                        <th t-out="budget_opt['name']" t-if="budget_opt['selected']"/>
+                    </t>
+
+                    <th t-if="options.get('column_percent_comparison')">%</th>
                 </tr>
             </t>
             <!-- Custom subheaders -->
@@ -256,7 +260,7 @@
                         <td/>
                     </t>
 
-                    <t t-if="options.get('show_growth_comparison')">
+                    <t t-if="options.get('column_percent_comparison')">
                         <td/>
                     </t>
 
@@ -289,10 +293,10 @@
                     </td>
                 </t>
 
-                <t t-if="options.get('show_growth_comparison')">
-                    <td class="o_growth_comparison">
-                        <t t-if="line.get('growth_comparison_data')">
-                            <t t-out="line['growth_comparison_data'].get('name')"/>
+                <t t-if="options.get('column_percent_comparison')">
+                    <td class="o_column_percent_comparison">
+                        <t t-if="line.get('column_percent_comparison_data')">
+                            <t t-out="line['column_percent_comparison_data'].get('name')"/>
                         </t>
                     </td>
                 </t>

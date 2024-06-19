@@ -12,7 +12,7 @@
                 <t t-foreach="props.line.columns" t-as="cell" t-key="cell_index">
                     <td/>
                 </t>
-                <t t-if="controller.hasGrowthComparisonColumn">
+                <t t-if="controller.needsColumnPercentComparison">
                     <td/>
                 </t>
                 <t t-if="controller.hasDebugColumn">
@@ -34,10 +34,10 @@
             </t>
 
             <!-- Growth comparison column -->
-            <t t-if="controller.hasGrowthComparisonColumn">
+            <t t-if="controller.needsColumnPercentComparison">
                 <t t-if="controller.lineHasGrowthComparisonData(props.lineIndex)">
                     <td t-att-class="growthComparisonClasses">
-                        <t t-out="props.line.growth_comparison_data.name"/>
+                        <t t-out="props.line.column_percent_comparison_data.name"/>
                     </td>
                 </t>
                 <t t-else="">

@@ -7,6 +7,7 @@ import { Component, useRef } from "@odoo/owl";
 export class AccountReportEditPopover extends Component {
     static template = "account_reports.AccountReportEditPopover";
     static props = {
+        line_id: String,
         cell: Object,
         controller: Object,
         onClose: Function,
@@ -42,6 +43,7 @@ export class AccountReportEditPopover extends Component {
             "action_modify_manual_value",
             [
                 this.props.controller.options.report_id,
+                this.props.line_id,
                 this.props.controller.options,
                 editPopupData.column_group_key,
                 editValue,

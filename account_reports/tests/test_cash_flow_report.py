@@ -97,26 +97,26 @@ class TestCashFlowReport(TestAccountReportsCommon):
         })
         move_2.action_post()
 
-        self.assertGrowthComparisonValues(
+        self.assertColumnPercentComparisonValues(
             self.report._get_lines(options),
             [
-                ('Cash and cash equivalents, beginning of period',         'n/a',    0),
-                ('Net increase in cash and cash equivalents',              '900.0%', 1),
-                ('Cash flows from operating activities',                   '0.0%',   0),
-                ('Advance Payments received from customers',               '0.0%',   0),
-                ('Cash received from operating activities',                '0.0%',   0),
-                ('Advance payments made to suppliers',                     '0.0%',   0),
-                ('Cash paid for operating activities',                     '0.0%',   0),
-                ('Cash flows from investing & extraordinary activities',   '0.0%',   0),
-                ('Cash in',                                                '0.0%',   0),
-                ('Cash out',                                               '0.0%',   0),
-                ('Cash flows from financing activities',                   '0.0%',   0),
-                ('Cash in',                                                '0.0%',   0),
-                ('Cash out',                                               '0.0%',   0),
-                ('Cash flows from unclassified activities',                '900.0%', 1),
-                ('Cash in',                                                '900.0%', 1),
-                ('Cash out',                                               '0.0%',   0),
-                ('Cash and cash equivalents, closing balance',             '1000.0%', 1),
+                ('Cash and cash equivalents, beginning of period',         'n/a',      'muted'),
+                ('Net increase in cash and cash equivalents',              '900.0%',   'green'),
+                ('Cash flows from operating activities',                   'n/a',      'muted'),
+                ('Advance Payments received from customers',               'n/a',      'muted'),
+                ('Cash received from operating activities',                'n/a',      'muted'),
+                ('Advance payments made to suppliers',                     'n/a',      'muted'),
+                ('Cash paid for operating activities',                     'n/a',      'muted'),
+                ('Cash flows from investing & extraordinary activities',   'n/a',      'muted'),
+                ('Cash in',                                                'n/a',      'muted'),
+                ('Cash out',                                               'n/a',      'muted'),
+                ('Cash flows from financing activities',                   'n/a',      'muted'),
+                ('Cash in',                                                'n/a',      'muted'),
+                ('Cash out',                                               'n/a',      'muted'),
+                ('Cash flows from unclassified activities',                '900.0%',   'green'),
+                ('Cash in',                                                '900.0%',   'green'),
+                ('Cash out',                                               'n/a',      'muted'),
+                ('Cash and cash equivalents, closing balance',             '1000.0%',  'green'),
             ]
         )
 

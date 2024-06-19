@@ -20,7 +20,7 @@ from dateutil.relativedelta import relativedelta
 from odoo.addons.web.controllers.utils import clean_action
 from odoo import models, fields, api, _, osv, _lt
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.tools import date_utils, get_lang, float_is_zero, float_repr, SQL
+from odoo.tools import date_utils, get_lang, float_is_zero, float_repr, float_compare, SQL
 from odoo.tools.float_utils import float_round
 from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path
 from odoo.tools.parse_version import parse_version
@@ -704,8 +704,13 @@ class AccountReport(models.Model):
         if len(options['comparison']['periods']) > 0:
             options['comparison'].update(options['comparison']['periods'][0])
 
-    def _init_options_growth_comparison(self, options, previous_options=None):
-        options['show_growth_comparison'] = self._display_growth_comparison(options)
+    def _init_options_column_percent_comparison(self, options, previous_options=None):
+        if options['selected_horizontal_group_id'] is None and len(options['columns']) == 2:
+            if self.filter_growth_comparison and len(options.get('comparison', {}).get('periods', [])) == 1:
+                options['column_percent_comparison'] = 'growth'
+
+            elif any(budget_opt['selected'] for budget_opt in options.get('budgets', [])):
+                options['column_percent_comparison'] = 'budget'
 
     def _get_options_date_domain(self, options, date_scope):
         date_from, date_to = self._get_date_bounds_info(options, date_scope)
@@ -1401,6 +1406,20 @@ class AccountReport(models.Model):
 
         options['columns'] = columns
         options['column_groups'] = column_groups
+
+        # Append budget column groups and columns if needed
+        budget_column_group_vals = []
+        for budget_option in options.get('budgets', []):
+            if budget_option['selected']:
+                budget_column_group_vals += self._generate_columns_group_vals_recursively(
+                    [[{'name': budget_option['name'], 'forced_options': {'compute_budget': budget_option['id']}}]],
+                    default_group_vals,
+                )
+
+        budget_columns, budget_column_groups = self._build_columns_from_column_group_vals(options, budget_column_group_vals)
+        options['columns'] += budget_columns
+        options['column_groups'].update(budget_column_groups)
+
         # Debug column is only shown when there is a single column group, so that we can display all the subtotals of the line in a clear way
         options['show_debug_column'] = options['export_mode'] != 'print' \
                                        and self.env.user.has_group('base.group_no_one') \
@@ -1650,7 +1669,6 @@ class AccountReport(models.Model):
         else:
             options['report_id'] = options.get('selected_section_id') or options.get('selected_variant_id') or self.id
 
-
     ####################################################
     # OPTIONS: EXPORT MODE
     ####################################################
@@ -1683,6 +1701,23 @@ class AccountReport(models.Model):
             else:
                 options['integer_rounding_enabled'] = (previous_options or {}).get('integer_rounding_enabled', True)
             return options
+
+    ####################################################
+    # OPTIONS: BUDGETS
+    ####################################################
+    def _init_options_budgets(self, options, previous_options=None):
+        if self.filter_budgets:
+            previous_selection = {budget_option['id'] for budget_option in (previous_options or {}).get('budgets', []) if budget_option.get('selected')}
+
+            options['budgets'] = [
+                {
+                    'id': budget.id,
+                    'name': budget.name,
+                    'selected': budget.id in previous_selection,
+                    'company_id': budget.company_id.id,
+                }
+                for budget in self.env['account.report.budget'].search([('company_id', '=', self.env.company.id)])
+            ]
 
     ####################################################
     # OPTIONS: CORE
@@ -1778,7 +1813,7 @@ class AccountReport(models.Model):
 
             self._init_options_column_headers: 990,
             self._init_options_columns: 1000,
-            self._init_options_growth_comparison: 1010,
+            self._init_options_column_percent_comparison: 1010,
             self._init_options_order_column: 1020,
             self._init_options_hierarchy: 1030,
             self._init_options_prefix_groups_threshold: 1040,
@@ -1797,7 +1832,8 @@ class AccountReport(models.Model):
             ('display_type', 'not in', ('line_section', 'line_note')),
             ('company_id', 'in', self.get_report_company_ids(options)),
         ]
-        domain += self._get_options_journals_domain(options)
+        if not options.get('compute_budget'):
+            domain += self._get_options_journals_domain(options)
         if date_scope:
             domain += self._get_options_date_domain(options, date_scope)
         domain += self._get_options_partner_domain(options)
@@ -1828,10 +1864,62 @@ class AccountReport(models.Model):
 
         query = self.env['account.move.line']._where_calc(domain)
 
+        if options.get('compute_budget'):
+            self._create_report_budget_temp_table(options)
+            query._tables['account_move_line'] = SQL.identifier('account_report_budget_temp_aml')
+            query.add_where(SQL(
+                "%s AND budget_id = %s",
+                query.where_clause,
+                options['compute_budget'],
+            ))
+
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.
         self.env['account.move.line']._apply_ir_rules(query)
 
         return query.from_clause, query.where_clause
+
+    def _create_report_budget_temp_table(self, options):
+        self._cr.execute("SELECT 1 FROM information_schema.tables WHERE table_name='account_report_budget_temp_aml'")
+        if self._cr.fetchone():
+            return
+
+        stored_aml_fields, fields_to_insert = self.env['account.move.line']._prepare_aml_shadowing_for_report({
+            'id': SQL.identifier("id"),
+            'balance': SQL.identifier('amount'),
+            'company_id': self.env.company.id,
+            'parent_state': 'posted',
+            'date': SQL("%s", options['date']['date_to']),
+            'account_id': SQL.identifier("account_id"),
+            'debit': SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
+            'credit': SQL("CASE WHEN (amount < 0) THEN -amount else 0 END"),
+        })
+
+        self._cr.execute(SQL(
+            """
+                -- Create a temporary table, dropping not null constraints because we're not filling those columns
+                CREATE TEMPORARY TABLE IF NOT EXISTS account_report_budget_temp_aml () inherits (account_move_line) ON COMMIT DROP;
+                ALTER TABLE account_report_budget_temp_aml NO INHERIT account_move_line;
+                ALTER TABLE account_report_budget_temp_aml ALTER COLUMN move_id DROP NOT NULL;
+                ALTER TABLE account_report_budget_temp_aml ALTER COLUMN currency_id DROP NOT NULL;
+                ALTER TABLE account_report_budget_temp_aml ALTER COLUMN journal_id DROP NOT NULL;
+                ALTER TABLE account_report_budget_temp_aml ALTER COLUMN display_type DROP NOT NULL;
+                ALTER TABLE account_report_budget_temp_aml ADD budget_id INTEGER NOT NULL;
+
+                INSERT INTO account_report_budget_temp_aml (%(stored_aml_fields)s, budget_id)
+                SELECT %(fields_to_insert)s, budget_id
+                FROM account_report_budget_item
+                WHERE
+                    budget_id IN %(available_budget_ids)s;
+
+                -- Create a supporting index to avoid seq.scans
+                CREATE INDEX IF NOT EXISTS account_report_budget_temp_aml__composite_idx ON account_report_budget_temp_aml (account_id, journal_id, date, company_id);
+                -- Update statistics for correct planning
+                ANALYZE account_report_budget_temp_aml
+            """,
+            stored_aml_fields=stored_aml_fields,
+            fields_to_insert=fields_to_insert,
+            available_budget_ids=tuple(budget_option['id'] for budget_option in options['budgets']),
+        ))
 
     ####################################################
     # LINE IDS MANAGEMENT HELPERS
@@ -2202,26 +2290,23 @@ class AccountReport(models.Model):
             lines.append(left_dynamic_line)
 
         # Manage growth comparison
-        if self._display_growth_comparison(options):
+        if options.get('column_percent_comparison'):
             for line in lines:
                 first_value, second_value = line['columns'][0]['no_format'], line['columns'][1]['no_format']
 
-                if not first_value and not second_value:  # For layout lines and such, with no values
-                    line['growth_comparison_data'] = {'name': '0.0%', 'growth': 0}
-                else:
-                    green_on_positive = True
-                    model, line_id = self._get_model_info_from_id(line['id'])
+                green_on_positive = True
+                model, line_id = self._get_model_info_from_id(line['id'])
 
-                    if model == 'account.report.line' and line_id:
-                        report_line = self.env['account.report.line'].browse(line_id)
-                        compared_expression = report_line.expression_ids.filtered(
-                            lambda expr: expr.label == line['columns'][0]['expression_label']
-                        )
-                        green_on_positive = compared_expression.green_on_positive
-
-                    line['growth_comparison_data'] = self._compute_growth_comparison_column(
-                        options, first_value, second_value, green_on_positive=green_on_positive
+                if model == 'account.report.line' and line_id:
+                    report_line = self.env['account.report.line'].browse(line_id)
+                    compared_expression = report_line.expression_ids.filtered(
+                        lambda expr: expr.label == line['columns'][0]['expression_label']
                     )
+                    green_on_positive = compared_expression.green_on_positive
+
+                line['column_percent_comparison_data'] = self._compute_column_percent_comparison_data(
+                    options, first_value, second_value, green_on_positive=green_on_positive
+                )
 
         # Manage hide_if_zero lines:
         # - If they have column values: hide them if all those values are 0 (or empty)
@@ -2447,11 +2532,12 @@ class AccountReport(models.Model):
         return rslt
 
     @api.model
-    def _build_static_line_columns(self, line, options, all_column_groups_expression_totals):
+    def _build_static_line_columns(self, line, options, all_column_groups_expression_totals, groupby_model=None):
         line_expressions_map = {expr.label: expr for expr in line.expression_ids}
         columns = []
         for column_data in options['columns']:
-            current_group_expression_totals = all_column_groups_expression_totals[column_data['column_group_key']]
+            col_group_key = column_data['column_group_key']
+            current_group_expression_totals = all_column_groups_expression_totals[col_group_key]
             target_line_res_dict = {expr.label: current_group_expression_totals[expr] for expr in line.expression_ids if not expr.label.startswith('_default')}
 
             column_expr_label = column_data['expression_label']
@@ -2480,7 +2566,7 @@ class AccountReport(models.Model):
                 info_popup_data['applied_carryover'] = self._format_value(options, applied_carryover_value, 'monetary')
                 info_popup_data['allow_carryover_audit'] = self.env.user.has_group('base.group_no_one')
                 info_popup_data['expression_id'] = line_expressions_map['_applied_carryover_%s' % column_expr_label]['id']
-                info_popup_data['column_group_key'] = column_data['column_group_key']
+                info_popup_data['column_group_key'] = col_group_key
 
             # Handle manual edition popup
             edit_popup_data = {}
@@ -2502,7 +2588,7 @@ class AccountReport(models.Model):
 
                 if 'editable' in column_expression.subformula:
                     edit_popup_data = {
-                        'column_group_key': column_data['column_group_key'],
+                        'column_group_key': col_group_key,
                         'target_expression_id': column_expression.id,
                         'rounding': rounding,
                         'figure_type': figure_type,
@@ -2510,6 +2596,17 @@ class AccountReport(models.Model):
                     }
 
                 formatter_params['digits'] = rounding
+
+            # Handle editable financial budgets
+            editable_budget = groupby_model == 'account.account' and options['column_groups'][col_group_key]['forced_options'].get('compute_budget')
+            if editable_budget and self.env.user.has_group('account.group_account_manager'):
+                edit_popup_data = {
+                    'column_group_key': col_group_key,
+                    'target_expression_id': column_expression.id,
+                    'rounding': self.env.company.currency_id.decimal_places,
+                    'figure_type': 'monetary',
+                    'column_value': column_value,
+                }
 
             # Build result
             if column_value is not None: #In case column value is zero, we still want to go through the condition
@@ -2560,10 +2657,14 @@ class AccountReport(models.Model):
         elif figure_type in ('float', 'percentage'):
             format_params['digits'] = digits
 
+        col_group_key = col_data.get('column_group_key')
+
         return {
-            'auditable': col_value is not None and column_expression.auditable,
+            'auditable': col_value is not None
+                         and column_expression.auditable
+                         and not options['column_groups'][col_group_key]['forced_options'].get('compute_budget'),
             'blank_if_zero': blank_if_zero,
-            'column_group_key': col_data.get('column_group_key'),
+            'column_group_key': col_group_key,
             'currency': currency,
             'currency_symbol': self.env.company.currency_id.symbol if options.get('multi_currency') else None,
             'digits': digits,
@@ -2601,8 +2702,8 @@ class AccountReport(models.Model):
                             rounding_method=options['integer_rounding'],
                         )
 
-
-    def _compute_expression_totals_for_each_column_group(self, expressions, options, groupby_to_expand=None, forced_all_column_groups_expression_totals=None, offset=0, limit=None, include_default_vals=False, warnings=None):
+    def _compute_expression_totals_for_each_column_group(self, expressions, options,
+        groupby_to_expand=None, forced_all_column_groups_expression_totals=None, col_groups_restrict=None, offset=0, limit=None, include_default_vals=False, warnings=None):
         """
             Main computation function for static lines.
 
@@ -2621,6 +2722,10 @@ class AccountReport(models.Model):
                                                                This parameter is for example used when adding manual values, where only
                                                                the expressions possibly depending on the new manual value
                                                                need to be updated, while we want to keep all the other values as-is.
+
+            :param col_groups_restrict: List of column group keys of the groups to compute. Other column groups will be ignored, and will
+                                        not be added to the result of this function (they can still be provided beforehand through
+                                        forced_all_column_groups_expression_totals). If not provided, all colum groups will be computed.
 
             :param offset: The SQL offset to use when computing the result of these expressions. Used if self.load_more_limit is set, to handle
                            the load more feature.
@@ -2689,14 +2794,18 @@ class AccountReport(models.Model):
             else:
                 forced_column_group_totals = None
 
-            current_group_expression_totals = self._compute_expression_totals_for_single_column_group(
-                group_options,
-                grouped_formulas,
-                forced_column_group_expression_totals=forced_column_group_totals,
-                offset=offset,
-                limit=limit,
-                warnings=warnings,
-            )
+            if not col_groups_restrict or group_key in col_groups_restrict:
+                current_group_expression_totals = self._compute_expression_totals_for_single_column_group(
+                    group_options,
+                    grouped_formulas,
+                    forced_column_group_expression_totals=forced_column_group_totals,
+                    offset=offset,
+                    limit=limit,
+                    warnings=warnings,
+                )
+            else:
+                current_group_expression_totals = forced_column_group_totals
+
             all_column_groups_expression_totals[group_key] = current_group_expression_totals
 
         return all_column_groups_expression_totals
@@ -4238,7 +4347,7 @@ class AccountReport(models.Model):
             }
         }
 
-    def action_modify_manual_value(self, options, column_group_key, new_value_str, target_expression_id, rounding, json_friendly_column_group_totals):
+    def action_modify_manual_value(self, line_id, options, column_group_key, new_value_str, target_expression_id, rounding, json_friendly_column_group_totals):
         """ Edit a manual value from the report, updating or creating the corresponding account.report.external.value object.
 
         :param options: The option dict the report is evaluated with.
@@ -4256,14 +4365,66 @@ class AccountReport(models.Model):
         """
         self.ensure_one()
 
-        if len(options['companies']) > 1:
+        target_column_group_options = self._get_column_group_options(options, column_group_key)
+
+        if target_column_group_options.get('compute_budget'):
+            expressions_to_recompute = self.env['account.report.expression'].browse(target_expression_id) \
+                                       + self.line_ids.expression_ids.filtered(lambda x: x.engine in ('aggregation'))
+            self._action_modify_manual_budget_value(line_id, target_column_group_options, new_value_str, target_expression_id, rounding)
+        else:
+            expressions_to_recompute = self.line_ids.expression_ids.filtered(lambda x: x.engine in ('external', 'aggregation'))
+            self._action_modify_manual_external_value(target_column_group_options, new_value_str, target_expression_id, rounding)
+
+        # We recompute values for each column group, not only the one we modified a value in; this is important in case some date_scope is used to
+        # retrieve the manual value from a previous period.
+
+        all_column_groups_expression_totals = self._convert_json_friendly_column_group_totals(
+            json_friendly_column_group_totals,
+            expressions_to_exclude=expressions_to_recompute,
+        )
+
+        recomputed_expression_totals = self._compute_expression_totals_for_each_column_group(
+            expressions_to_recompute, options, forced_all_column_groups_expression_totals=all_column_groups_expression_totals)
+
+        return {
+            'lines': self._get_lines(options, all_column_groups_expression_totals=recomputed_expression_totals),
+            'column_groups_totals': self._get_json_friendly_column_group_totals(recomputed_expression_totals),
+        }
+
+    def _convert_json_friendly_column_group_totals(self, json_friendly_column_group_totals, expressions_to_exclude=None, col_groups_to_exclude=None):
+        """ json_friendly_column_group_totals contains ids instead of expressions (because it comes from js) ; this function is used
+        to convert them back to records.
+        """
+        all_column_groups_expression_totals = {}
+        for column_group_key, expression_totals in json_friendly_column_group_totals.items():
+            if col_groups_to_exclude and column_group_key in col_groups_to_exclude:
+                continue
+
+            all_column_groups_expression_totals[column_group_key] = {}
+            for expr_id, expr_totals in expression_totals.items():
+                expression = self.env['account.report.expression'].browse(int(expr_id))  # Should already be in cache, so acceptable
+                if not expressions_to_exclude or expression not in expressions_to_exclude:
+                    all_column_groups_expression_totals[column_group_key][expression] = expr_totals
+
+        return all_column_groups_expression_totals
+
+    def _action_modify_manual_external_value(self, target_column_group_options, new_value_str, target_expression_id, rounding):
+        """ Edit a manual value from the report, updating or creating the corresponding account.report.external.value object.
+
+        :param target_column_group_options: The options dict of the column group where the modification happened.
+
+        :param column_group_key: The string identifying the column group into which the change as manual value needs to be done.
+
+        :param new_value_str: The new value to be set, as a string.
+
+        :param rounding: The number of decimal digits to round with.
+
+        """
+        if len(target_column_group_options['companies']) > 1:
             raise UserError(_("Editing a manual report line is not allowed when multiple companies are selected."))
 
-        if options['fiscal_position'] == 'all' and options['available_vat_fiscal_positions']:
+        if target_column_group_options['fiscal_position'] == 'all' and target_column_group_options['available_vat_fiscal_positions']:
             raise UserError(_("Editing a manual report line is not allowed in multivat setup when displaying data from all fiscal positions."))
-
-        target_column_group_options = self._get_column_group_options(options, column_group_key)
-        expressions_to_recompute = self.line_ids.expression_ids.filtered(lambda x: x.engine in ('external', 'aggregation')) # Only those lines' values can be impacted
 
         # Create the manual value
         target_expression = self.env['account.report.expression'].browse(target_expression_id)
@@ -4328,21 +4489,93 @@ class AccountReport(models.Model):
                 'foreign_vat_fiscal_position_id': fiscal_position_id,
             })
 
-        # We recompute values for each column group, not only the one we modified a value in; this is important in case some date_scope is used to
-        # retrieve the manual value from a previous period.
+    def _action_modify_manual_budget_value(self, line_id, target_column_group_options, new_value_str, target_expression_id, rounding):
+        target_expression = self.env['account.report.expression'].browse(target_expression_id)
 
-        # json_friendly_column_group_totals contains ids instead of expressions (because it comes from js) ; we need to convert them back to records
-        all_column_groups_expression_totals = {}
+        if not new_value_str and target_expression.figure_type != 'string':
+            new_value_str = '0'
 
-        for column_group_key, expression_totals in json_friendly_column_group_totals.items():
-            all_column_groups_expression_totals[column_group_key] = {}
-            for expr_id, expr_totals in expression_totals.items():
-                expression = self.env['account.report.expression'].browse(int(expr_id))  # Should already be in cache, so acceptable
-                if expression not in expressions_to_recompute:
-                    all_column_groups_expression_totals[column_group_key][expression] = expr_totals
+        try:
+            value_to_set = float_round(float(new_value_str), precision_digits=rounding)
+        except ValueError:
+            raise UserError(_("%s is not a numeric value", new_value_str))
+
+        model, account_id = self._get_model_info_from_id(line_id)
+        if model != 'account.account':
+            raise UserError(_("Budget items can only be edited from account lines."))
+
+        # Depending on the expression's formula, the balance of the account could be multiplied by -1
+        # within the report. We need to apply the same multiplier on the budget item we create.
+        if target_expression.engine == 'domain' and target_expression.subformula.startswith('-'):
+            value_to_set *= -1
+        elif target_expression.engine == 'account_codes':
+            account = self.env['account.account'].browse(account_id)
+
+            # Search for the sign to apply to this account
+            for token in ACCOUNT_CODES_ENGINE_SPLIT_REGEX.split(target_expression.formula.replace(' ', '')):
+                if not token:
+                    continue
+
+                token_match = ACCOUNT_CODES_ENGINE_TERM_REGEX.match(token)
+                multiplicator = -1 if token_match['sign'] == '-' else 1
+                prefix = token_match['prefix']
+
+                tag_match = ACCOUNT_CODES_ENGINE_TAG_ID_PREFIX_REGEX.match(prefix)
+                if tag_match:
+                    if tag_match['ref']:
+                        tag = self.env.ref(tag_match['ref'])
+                    else:
+                        tag = self.env['account.account.tag'].browse(tag_match['id'])
+
+                    account_matches = tag in account.tag_ids
+                else:
+                    account_matches = account.code.startswith(prefix)
+
+                if account_matches:
+                    value_to_set *= multiplicator
+                    break
+
+        budget_id = target_column_group_options['compute_budget']
+        existing_budget_item = self.env['account.report.budget.item'].search([
+            ('budget_id', '=', budget_id),
+            ('account_id', '=', account_id),
+        ])
+
+        if existing_budget_item:
+            existing_budget_item.amount = value_to_set
+            existing_budget_item.flush_recordset()
+        else:
+            self.env['account.report.budget.item'].create({
+                'budget_id': budget_id,
+                'account_id': account_id,
+                'amount': value_to_set,
+            })
+
+    def action_add_accounts_to_budget(self, options, budget_id, account_ids, json_friendly_column_group_totals):
+        self.env['account.report.budget.item'].create([
+            {
+                'account_id': account_id,
+                'budget_id': budget_id,
+            }
+            for account_id in account_ids
+        ])
+
+        budget_col_group_key = next(
+            key for key, col_group in options['column_groups'].items()
+            if budget_id == col_group['forced_options'].get('compute_budget')
+        )
+
+        all_column_groups_expression_totals = self._convert_json_friendly_column_group_totals(
+            json_friendly_column_group_totals,
+            col_groups_to_exclude=budget_col_group_key,
+        )
 
         recomputed_expression_totals = self._compute_expression_totals_for_each_column_group(
-            expressions_to_recompute, options, forced_all_column_groups_expression_totals=all_column_groups_expression_totals)
+            self.line_ids.expression_ids,
+            options,
+            col_groups_restrict=[budget_col_group_key],
+            forced_all_column_groups_expression_totals=all_column_groups_expression_totals
+        )
 
         return {
             'lines': self._get_lines(options, all_column_groups_expression_totals=recomputed_expression_totals),
@@ -5378,7 +5611,7 @@ class AccountReport(models.Model):
                 colspan = header_to_render.get('colspan', column_headers_render_data['level_colspan'][header_level_index])
                 write_cell(sheet, x_offset, y_offset, header_to_render.get('name', ''), title_style, colspan + (1 if options['show_horizontal_group_total'] and header_level_index == 0 else 0))
                 x_offset += colspan
-            if options['show_growth_comparison']:
+            if options.get('column_percent_comparison'):
                 write_cell(sheet, x_offset, y_offset, '%', title_style)
 
             if options['show_horizontal_group_total'] and header_level_index != 0:
@@ -5452,8 +5685,8 @@ class AccountReport(models.Model):
 
             #write all the remaining cells
             columns = lines[y]['columns']
-            if options['show_growth_comparison'] and 'growth_comparison_data' in lines[y]:
-                columns += [lines[y].get('growth_comparison_data')]
+            if options.get('column_percent_comparison') and 'column_percent_comparison_data' in lines[y]:
+                columns += [lines[y].get('column_percent_comparison_data')]
 
             if options['show_horizontal_group_total']:
                 columns += [lines[y].get('horizontal_group_total_data', {'name': 0})]
@@ -5672,7 +5905,7 @@ class AccountReport(models.Model):
             'columns': line_columns,
         }
 
-    def _compute_growth_comparison_column(self, options, value1, value2, green_on_positive=True):
+    def _compute_column_percent_comparison_data(self, options, value1, value2, green_on_positive=True):
         ''' Helper to get the additional columns due to the growth comparison feature. When only one comparison is
         requested, an additional column is there to show the percentage of growth based on the compared period.
         :param options:             The report options.
@@ -5681,9 +5914,12 @@ class AccountReport(models.Model):
         :param green_on_positive:   A flag customizing the value with a green color depending if the growth is positive.
         :return:                    The new columns to add to line['columns'].
         '''
-        if float_is_zero(value2, precision_rounding=0.1):
-            return {'name': _('n/a'), 'growth': 0}
-        else:
+        if value1 is None or value2 is None or float_is_zero(value2, precision_rounding=0.1):
+            return {'name': _('n/a'), 'mode': 'muted'}
+
+        comparison_type = options['column_percent_comparison']
+        if comparison_type == 'growth':
+
             values_diff = value1 - value2
             growth = round(values_diff / value2 * 100, 1)
 
@@ -5694,24 +5930,21 @@ class AccountReport(models.Model):
             #
             # The percentage is negative, which is mathematically correct, but my sales increased
             # => it should be green, not red!
-            if float_is_zero(growth, precision_rounding=0.1):
-                return {'name': '0.0%', 'growth': 0}
+            if float_is_zero(growth, 1):
+                return {'name': '0.0%', 'mode': 'muted'}
             else:
                 return {
-                    'name': str(growth) + '%',
-                    'growth': -1 if ((values_diff > 0) ^ green_on_positive) else 1,
+                    'name': f"{float_repr(growth, 1)}%",
+                    'mode': 'red' if ((values_diff > 0) ^ green_on_positive) else 'green',
                 }
 
-    def _display_growth_comparison(self, options):
-        ''' Helper determining if the growth comparison feature should be displayed or not.
-        :param options: The report options.
-        :return:        A boolean.
-        '''
-        return self.filter_growth_comparison \
-               and options.get('comparison') \
-               and len(options['comparison'].get('periods', [])) == 1 \
-               and options['selected_horizontal_group_id'] is None \
-               and len(options['columns']) == 2
+        elif comparison_type == 'budget':
+            percentage_value = value1 / value2 * 100
+            if float_is_zero(percentage_value, 1):
+                # To avoid negative 0
+                return {'name': '0.0%', 'mode': 'green'}
+
+            return {'name': f"{float_repr(percentage_value, 1)}%", 'mode': 'green' if float_compare(value1, value2, 1) == -1 else 'red'}
 
     def _check_groupby_fields(self, groupby_fields_name: list[str] | str):
         """ Checks that each string in the groupby_fields_name list is a valid groupby value for an accounting report (so: it must be a field from
@@ -6259,7 +6492,7 @@ class AccountReportLine(models.Model):
                 'unfoldable': bool(next_groupby),
                 'unfolded': (next_groupby and options['unfold_all']) or line_id in options['unfolded_lines'],
                 'groupby': next_groupby,
-                'columns': self.report_id._build_static_line_columns(self, options, group_totals),
+                'columns': self.report_id._build_static_line_columns(self, options, group_totals, groupby_model=groupby_model),
                 'level': self.hierarchy_level + 2 * (prefix_groups_count + len(sub_groupby_domain) + 1) + (group_indent - 1),
                 'parent_id': line_dict_id,
                 'expand_function': '_report_expand_unfoldable_line_with_groupby' if next_groupby else None,
@@ -6270,9 +6503,9 @@ class AccountReportLine(models.Model):
                 self.env[self.report_id.custom_handler_model_name]._custom_groupby_line_completer(self.report_id, options, group_line_dict)
 
             # Growth comparison column.
-            if self.report_id._display_growth_comparison(options):
+            if options.get('column_percent_comparison'):
                 compared_expression = self.expression_ids.filtered(lambda expr: expr.label == group_line_dict['columns'][0]['expression_label'])
-                group_line_dict['growth_comparison_data'] = self.report_id._compute_growth_comparison_column(
+                group_line_dict['column_percent_comparison_data'] = self.report_id._compute_column_percent_comparison_data(
                     options, group_line_dict['columns'][0]['no_format'], group_line_dict['columns'][1]['no_format'], green_on_positive=compared_expression.green_on_positive)
 
             group_lines_by_keys[grouping_key] = group_line_dict

@@ -1,5 +1,5 @@
 import { _t } from "@web/core/l10n/translation";
-import { Component, useState } from "@odoo/owl";
+import { Component, useRef, useState } from "@odoo/owl";
 
 import { useService } from "@web/core/utils/hooks";
 import { WarningDialog } from "@web/core/errors/error_dialogs";
@@ -29,6 +29,7 @@ export class AccountReportFilters extends Component {
         if (this.env.controller.options.date) {
             this.dateFilter = useState(this.initDateFilters());
         }
+        this.budgetCreateInput = useRef("budget_create_input");
     }
 
     focusInnerInput(index, items) {
@@ -456,5 +457,32 @@ export class AccountReportFilters extends Component {
                 this.controller.lines,
             ],
         );
+    }
+
+    selectBudget(budget) {
+        this.dirtyFilter.value = true;
+
+        /* The dirtySelected key is needed so that the owl template of the header is not immediately
+        re-rendered when cliking on the budget dropdown item. It keeps the former value of the field, so
+        that we can display it as before until the server gets called. When the get_options() server call is
+        executed, it disregards this key, so an undefined value for it means budget.selected is the
+        status returned by the server directly.
+        */
+        if (budget.dirtySelected === undefined)
+            budget.dirtySelected = budget.selected;
+        else
+            budget.dirtySelected = undefined;
+        budget.selected = !budget.selected;
+    }
+
+    async createBudget() {
+        const createdId = await this.controller.orm.call(
+            "account.report.budget",
+            "create",
+            [{name:this.budgetCreateInput.el.value}],
+        );
+        this.budgetCreateInput.el.value = null;
+        const options = this.controller.options;
+        this.controller.reload('budgets', {...options, budgets: [...options.budgets, {id: createdId, selected: true}]});
     }
 }
