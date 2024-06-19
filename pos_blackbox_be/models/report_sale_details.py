@@ -28,6 +28,10 @@ class ReportSaleDetails(models.AbstractModel):
             for session in sessions:
                 configs.append(session.config_id)
 
+        totalPaymentsAmount = 0
+        for session in sessions:
+            totalPaymentsAmount += session.total_payments_amount
+
         if len(sessions) == 1:
             session = sessions[0]
             if session.config_id.iface_fiscal_data_module:
@@ -92,7 +96,22 @@ class ReportSaleDetails(models.AbstractModel):
                     "CashBoxOpening": session.cash_box_opening_number,
                 }
                 data.update(report_update)
+        data["total_paid"] = totalPaymentsAmount
         return data
+
+    def _get_product_total_amount(self, line):
+        return line.price_subtotal_incl
+
+    def _get_total_and_qty_per_category(self, categories):
+        res_cat, res_total = super()._get_total_and_qty_per_category(categories)
+        for cat in res_cat:
+            total_cat = 0
+            for product in cat['products']:
+                total_cat += product['total_paid']
+            cat['total'] = total_cat
+        unique_products = list({tuple(sorted(product.items())): product for category in categories for product in category['products']}.values())
+        res_total['total'] = sum(product['total_paid'] for product in unique_products)
+        return res_cat, res_total
 
     def _set_default_belgian_taxes_if_empty(self, data, taxes_name):
         for tax in data[taxes_name]:
