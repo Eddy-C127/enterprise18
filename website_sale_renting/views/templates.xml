@@ -359,4 +359,11 @@
             <attribute name="t-if" add="is_view_active('website_sale_renting.shop_rental_datepicker_opt')" separator=" or "/>
         </xpath>
     </template>
+
+    <template id="website_sale_renting_period" inherit_id="website_sale.products_attributes">
+        <xpath expr="//form[hasclass('js_attributes')]" position="inside">
+            <input type="hidden" id="start_date" name="start_date" t-att-value="start_date"/>
+            <input type="hidden" id="end_date" name="end_date" t-att-value="end_date"/>
+        </xpath>
+    </template>
 </odoo>
