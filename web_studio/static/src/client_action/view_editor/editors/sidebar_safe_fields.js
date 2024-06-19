@@ -44,7 +44,6 @@ export const SIDEBAR_SAFE_FIELDS = [
     "html",
     "text_emojis",
     "CopyClipboardChar",
-    "CopyClipboardText",
     "CopyClipboardURL",
     "char_emojis",
     "many2many_tags",
