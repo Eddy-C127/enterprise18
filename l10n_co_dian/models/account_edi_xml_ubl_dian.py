@@ -564,7 +564,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'profile_id': invoice._l10n_co_edi_get_electronic_invoice_type_info(),
             'id': invoice.name,
             'uuid_attrs': {
-                'schemeID': "2",
+                'schemeID': '2' if invoice.company_id.l10n_co_dian_test_environment else '1',
                 'schemeName': algorithm,
             },
             'issue_date': invoice.l10n_co_dian_post_time.date().isoformat(),
@@ -655,7 +655,10 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         if not (oldest_date <= fields.Datetime.to_datetime(move.invoice_date) <= newest_date):
             constraints['dian_date'] = _("The issue date can not be older than 5 days or more than 5 days in the future.")
         # required fields on company
-        for field in ('l10n_co_dian_software_id', 'l10n_co_dian_software_security_code', 'l10n_co_dian_testing_id'):
+        mandatory_fields = ['l10n_co_dian_software_id', 'l10n_co_dian_software_security_code']
+        if move.company_id.l10n_co_dian_test_environment:
+            mandatory_fields.append('l10n_co_dian_testing_id')
+        for field in mandatory_fields:
             constraints[f"dian_{field}"] = self._check_required_fields(move.company_id, field)
         constraints["dian_certificates"] = self.sudo()._check_required_fields(move.company_id, field)
         # required fields on journal
