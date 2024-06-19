@@ -29,8 +29,8 @@
         <field name="inherit_id" ref="hr.view_employee_filter"/>
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='inactive']" position="before">
-                <filter name="fixed_hours" string="Fixed Hours" domain="[('resource_calendar_id', '!=', False)]" />
-                <filter name="flexible_hours" string="Flexible Hours" domain="[('resource_calendar_id', '=', False)]" />
+                <filter name="fixed_hours" string="Fixed Hours" domain="[('is_flexible', '=', False)]" />
+                <filter name="flexible_hours" string="Flexible Hours" domain="[('is_flexible', '!=', False)]" />
                 <separator/>
             </xpath>
             <xpath expr="//field[@name='name']" position="after">

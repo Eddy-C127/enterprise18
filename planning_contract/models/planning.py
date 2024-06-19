@@ -6,6 +6,8 @@ import json
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
+from datetime import datetime
+import pytz
 
 class Planning(models.Model):
     _inherit = 'planning.slot'
@@ -64,3 +66,24 @@ class Planning(models.Model):
                     "end": self.env.context.get("default_end_datetime"),
                 })
         return rows
+
+    def _get_working_hours_over_period(self, start_utc, end_utc, work_intervals, calendar_intervals):
+        """
+        Override to take into account the ongoing contract for flexible employees.
+        If the employee has an ongoing contract, we verify that the planned slot is within the contract period.
+        If not, we return 0 hours.
+        """
+        working_hours = super()._get_working_hours_over_period(start_utc, end_utc, work_intervals, calendar_intervals)
+        if self.resource_id._is_flexible():
+            # Convert datetime to date for comparison
+            start_utc_date = start_utc.date()
+            end_utc_date = end_utc.date()
+            contract = self.resource_id.employee_id.contract_id
+            if contract and contract.state == 'open':
+                start_contract_utc = pytz.utc.localize(datetime.combine(fields.Datetime.to_datetime(contract.date_start), datetime.min.time()))
+                if contract.date_end:
+                    end_contract_utc = pytz.utc.localize(datetime.combine(fields.Datetime.to_datetime(contract.date_end), datetime.max.time()))
+                # if the interval of planned slot is outside the contract period, set 0 hours
+                if (contract.date_end and start_utc > end_contract_utc) or (start_contract_utc > end_utc):
+                    return 0
+        return working_hours

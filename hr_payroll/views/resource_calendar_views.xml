@@ -7,20 +7,20 @@
         <field name="model">resource.calendar</field>
         <field name="inherit_id" ref="resource.resource_calendar_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='resource_details']" position="inside">
-                <group>
-                    <label for="full_time_required_hours"/>
-                    <div>
-                        <field name="full_time_required_hours" nolabel="1" style="width: 10%" widget="float_time"/>
-                        <span> hours/week</span>
-                    </div>
-                    <label for="work_time_rate" string="Work Time Rate"/>
-                    <div>
-                        <field name="work_time_rate" nolabel="1"  style="width: 10%"/>
-                        <span> %</span>
-                    </div>
-                    <field name="is_fulltime" invisible="1"/>
-                </group>
+            <xpath expr="//field[@name='flexible_hours']" position="after">
+                <label for="full_time_required_hours"/>
+                <div>
+                    <field name="full_time_required_hours" nolabel="1" style="width: 10%" widget="float_time"/>
+                    <span> hours/week</span>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='resource_working_hours']" position="inside">
+                <label for="work_time_rate" string="Work Time Rate" invisible="flexible_hours"/>
+                <div invisible="flexible_hours">
+                    <field name="work_time_rate" nolabel="1"  style="width: 10%"/>
+                    <span> %</span>
+                </div>
+                <field name="is_fulltime" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='attendance_ids']" position="after">
                 <group class="oe_subtotal_footer">
@@ -40,7 +40,8 @@
         <field name="inherit_id" ref="hr_contract.resource_calendar_view_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="work_time_rate"/>
+                <field name="work_time_rate" invisible="flexible_hours"/>
+                <field name="flexible_hours"/>
             </field>
             <field name="contracts_count" position="after">
                 <field name="full_time_required_hours" widget="float_time" optional="hide"/>

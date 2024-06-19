@@ -32,6 +32,27 @@ class HrAttendance(models.Model):
             return self._gantt_progress_bar_employee_ids(res_ids, start, stop)
         raise NotImplementedError
 
+    def _gantt_compute_max_work_hours_within_interval(self, employee, start, stop):
+        """
+        Compute the total work hours of the employee based on the intervals selected on the Gantt view.
+        The calculation takes into account the working calendar (flexible or not).
+
+        1) if fully flexible (no limit per day), we return the difference in the time interval.
+        2) if flexible: `hours_per_day` or `full_time_required_hours` will be used.
+           To approximate the work hours in the interval, we multiply the `full_time_required_hours` by the number of weeks.
+           date() method is explicitely used to avoid having issue with daylight saving time (DST) when computing the number of days.
+        3) if fixed working hours, we compute the work hours based on their expected attendances.
+        """
+        num_days = (stop.date() - start.date()).days
+        if employee.is_fully_flexible:
+            return num_days * 24
+        if not employee.is_flexible:
+            return self.env['resource.calendar']._get_attendance_intervals_days_data(employee._get_expected_attendances(start, stop))['hours']
+        if num_days == 1:
+            return employee.resource_id.calendar_id.hours_per_day
+        # final result is rounded to the hour (e.g. 177.5 hours -> 178 hours)
+        return round(employee.resource_id.calendar_id.full_time_required_hours * (num_days / 7))
+
     def _gantt_progress_bar_employee_ids(self, res_ids, start, stop):
         """
         Resulting display is worked hours / expected worked hours
@@ -48,7 +69,8 @@ class HrAttendance(models.Model):
             # Retrieve expected attendance for that employee
             values[employee.id] = {
                 'value': employee_data.get(employee.id, 0),
-                'max_value': self.env['resource.calendar']._get_attendance_intervals_days_data(employee._get_expected_attendances(start, stop))['hours'],
+                'max_value': self._gantt_compute_max_work_hours_within_interval(employee, start, stop),
+                'is_fully_flexible_hours': employee.resource_id._is_fully_flexible(),
             }
 
         return values
@@ -124,6 +146,14 @@ class HrAttendance(models.Model):
         # retrieve, for each calendar, unavailability periods for employees linked to this calendar
         unavailable_intervals_by_calendar = {}
         for calendar, employees in employees_by_calendar.items():
+            # In case the calendar is not set (fully flexible calendar), we consider the employee as always available
+            if not calendar:
+                unavailable_intervals_by_calendar[calendar] = {
+                    employee.id: Intervals([])
+                    for employee in employees
+                }
+                continue
+
             calendar_work_intervals = calendar._work_intervals_batch(
                 timezone_datetime(start),
                 timezone_datetime(stop),

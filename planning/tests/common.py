@@ -41,3 +41,19 @@ class TestCommonPlanning(TransactionCase):
         cls.random_date = datetime(2020, 11, 27)  # it doesn't really matter but it lands on a Friday
         cls.random_sunday_date = datetime(2024, 3, 10)  # this should be a Sunday and thus a closing day
         cls.random_monday_date = datetime(2024, 3, 11)  # this should be a Monday
+
+    @classmethod
+    def setUpCalendars(cls):
+        cls.flex_40h_calendar, cls.flex_50h_calendar = cls.env['resource.calendar'].create([
+            {
+                'name': 'Flexible 40h/week',
+                'tz': 'UTC',
+                'hours_per_day': 8.0,
+                'flexible_hours': True,
+            }, {
+                'name': 'Flexible 50h/week',
+                'tz': 'UTC',
+                'hours_per_day': 10.0,
+                'flexible_hours': True,
+            },
+        ])

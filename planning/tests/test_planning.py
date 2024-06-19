@@ -18,6 +18,7 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         super().setUpClass()
         cls.classPatch(cls.env.cr, 'now', fields.datetime.now)
         with freeze_time('2019-5-1'):
+            cls.setUpCalendars()
             cls.setUpEmployees()
         calendar_joseph = cls.env['resource.calendar'].create({
             'name': 'Calendar 1',
@@ -504,7 +505,7 @@ class TestPlanning(TestCommonPlanning, MockEmail):
             'name': 'Test Employee',
             'tz': 'UTC',
         })
-        employee.resource_id.calendar_id = False
+        employee.resource_id.calendar_id = self.flex_40h_calendar
 
         # the diff between start and end is exactly 6 days
         planning_slot_1 = self.env['planning.slot'].create({
@@ -602,3 +603,138 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         self.resource_bert.company_id = company.id
         self.slot.resource_id = self.resource_bert.id
         self.assertEqual(self.slot.company_id, company, "The slot's company should be the resource's one.")
+
+    def test_flexible_contract_slot(self):
+        """
+            A flexible contract should have no constraints on the slots in terms of start/end time,
+            but the duration cannot exceed the hours_per_day defined in the contract.
+        """
+        # Create a shift longer than the calendar's hours_per_day
+        self.employee_bert.resource_calendar_id = self.flex_50h_calendar
+        slot = self.env['planning.slot'].create({
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime(2022, 1, 11, 3, 0),
+            'end_datetime': datetime(2022, 1, 11, 23, 0),
+            'state': 'published',
+        })
+        self.assertEqual(slot.allocated_hours, 10.0, 'The allocated hours should be 10.0')
+        self.assertEqual(slot.allocated_percentage, 100, 'The allocated percentage should be 100%%')
+
+        # Create a night shift that spans over two days, but shorter than the calendar's hours_per_day
+        slot = self.env['planning.slot'].create({
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime(2022, 1, 12, 22, 0),
+            'end_datetime': datetime(2022, 1, 13, 4, 0),
+            'state': 'published',
+        })
+        self.assertEqual(slot.allocated_hours, 6.0, 'The allocated hours should be 6.0')
+        self.assertEqual(slot.allocated_percentage, 100, 'The allocated percentage should be 100%%')
+
+        # Create a night shift that spans over two days and is longer than the calendar's hours_per_day
+        slot = self.env['planning.slot'].create({
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime(2022, 1, 13, 20, 0),
+            'end_datetime': datetime(2022, 1, 14, 10, 0),
+            'state': 'published',
+        })
+        self.assertEqual(slot.allocated_hours, 10.0, 'The allocated hours should be limited to 10.0')
+        self.assertEqual(slot.allocated_percentage, 100, 'The allocated percentage should be 100%%')
+
+        # Changing the allocated time percentage should be reflected in the allocated hours
+        slot.allocated_percentage = 50
+        self.assertEqual(slot.allocated_hours, 5.0, 'The allocated hours should be 5.0 after changing the allocated percentage to 50%%')
+
+    def test_fully_flexible_contract_slot(self):
+        """
+            A fully flexible contract should not have any constraints on the slots in terms of duration and start time.
+        """
+        self.employee_bert.resource_calendar_id = False
+        slot = self.env['planning.slot'].create({
+            'resource_id': self.resource_bert.id,
+            'start_datetime': datetime(2022, 1, 11, 4, 0),
+            'end_datetime': datetime(2022, 1, 12, 22, 0),
+            'state': 'published',
+        })
+        self.assertEqual(slot.allocated_hours, 42.0, 'The allocated hours should be 42.0')
+        self.assertEqual(slot.allocated_percentage, 100, 'The allocated percentage should be 100%%')
+
+        # Changing the allocated time percentage should be reflected in the allocated hours
+        slot.allocated_percentage = 50
+        self.assertEqual(slot.allocated_hours, 21.0, 'The allocated hours should be 21.0 after changing the allocated percentage to 50%%')
+
+    def test_open_shift_planning_slot_including_weekend(self):
+        """
+            When an open shift is scheduled spanning between weekday and weekends (e.g. Sunday 8 AM to Monday 5 PM),
+            allocated time should be equal to 16h instead of 8h (same behavior as for employees working flexible hours):
+        """
+        slot = self.env['planning.slot'].create({
+            'resource_id': False,
+            'start_datetime': datetime(2022, 1, 16, 8, 0),  # Sunday 8AM
+            'end_datetime': datetime(2022, 1, 17, 17, 0),   # Monday 5PM
+            'state': 'published',
+        })
+        self.assertEqual(slot.allocated_hours, 16.0, 'The allocated hours should be 16.0 for the open shift')
+        self.assertEqual(slot.allocated_percentage, 100, 'The allocated percentage should be 100%%')
+
+    def test_auto_plan_should_ignore_resource_with_flexible_hours(self):
+        """
+            When auto-planning a shift, the system should ignore resources with flexible hours.
+
+            Test Case:
+            =========
+            1) Create a role `night_shift_role` to exclude all other resources.
+            2) Create two employees with flexible calendars, and planning role set to `night_shift_role`.
+            3) Create a night shift from 21:30 to 6:00 with 8 allocated hours, and auto-plan the shift.
+            4) Check the shift is not assigned to these employees with flexible hours.
+            5) Create a employee with night shifts calendar, and planning role set to `night_shift_role`.
+            6) The new employee should be assigned to the shift when we re-run the auto-plan.
+        """
+        # create role
+        night_shift_role = self.env['planning.role'].create({'name': 'flex_shift'})
+
+        # set the calendar for the employee as flexible, and set the role
+        self.employee_bert.resource_calendar_id = False
+        self.employee_joseph.resource_calendar_id = self.flex_40h_calendar
+
+        self.employee_bert.planning_role_ids = night_shift_role
+        self.employee_joseph.planning_role_ids = night_shift_role
+
+        # Create a shift from 21:30 to 6:00 with an allocated 8 hours
+        night_shift = self.env['planning.slot'].create({
+            'name': 'Night Shift',
+            'start_datetime': datetime(2024, 5, 10, 21, 30),
+            'end_datetime': datetime(2024, 5, 11, 6, 0),
+            'role_id': night_shift_role.id,
+        })
+        night_shift.allocated_hours = 8
+
+        # Execute auto-plan to assign the employee
+        night_shift.auto_plan_id()
+        self.assertFalse(night_shift.resource_id, 'The auto plan should not assign employees with flexible hours')
+
+        # Create a night shifts calendar with 8 hours per day
+        night_shifts_calendar = self.env['resource.calendar'].create({
+            'name': 'Night Shifts Calendar',
+            'tz': 'UTC',
+            'hours_per_day': 8.0,
+            'attendance_ids': [
+                (0, 0, {'name': 'Afternoon ' + str(day), 'dayofweek': str(day), 'hour_from': 21.5, 'hour_to': 24, 'day_period': 'afternoon'})
+                for day in range(7)
+            ] + [
+                (0, 0, {'name': 'Break ' + str(day), 'dayofweek': str(day), 'hour_from': 0, 'hour_to': 0.5, 'day_period': 'lunch'})
+                for day in range(7)
+            ] + [
+                (0, 0, {'name': 'morning ' + str(day), 'dayofweek': str(day), 'hour_from': 0.5, 'hour_to': 6, 'day_period': 'morning'})
+                for day in range(7)
+            ],
+        })
+        # Create an employee linked to this calendar
+        night_employee = self.env['hr.employee'].create({
+            'name': 'Night employee',
+            'resource_calendar_id': night_shifts_calendar.id,
+            'planning_role_ids': night_shift_role,
+        })
+
+        # this time it should select the night_employee who's calendar is not flexible
+        night_shift.auto_plan_id()
+        self.assertEqual(night_shift.resource_id, night_employee.resource_id, 'The auto plan should assign the shift to the night employee')

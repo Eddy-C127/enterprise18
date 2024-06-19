@@ -59,7 +59,7 @@ class ShiftController(http.Controller):
         datetime_start = pytz.utc.localize(slot.start_datetime)
         datetime_end = pytz.utc.localize(slot.end_datetime)
 
-        if not employee_sudo.resource_calendar_id:
+        if employee_sudo.is_flexible:
             vals = self._get_slot_vals(slot)
             vals['start'] = str(datetime_start.astimezone(employee_tz).replace(tzinfo=None))
             vals['end'] = str(datetime_end.astimezone(employee_tz).replace(tzinfo=None))
@@ -163,7 +163,7 @@ class ShiftController(http.Controller):
                 or not slot.role_id
                 or slot.role_id in employee_sudo.planning_role_ids) and (
             # This slot is for employee working flexible hours or the slot is during at least a valid working interval
-                not employee_sudo.resource_calendar_id or
+                employee_sudo.is_flexible or
                 any(pytz.utc.localize(slot.start_datetime) < end and pytz.utc.localize(slot.end_datetime) > start for start, end, dummy in attendance_intervals._items)
             ):
                 open_slots.append(slot)

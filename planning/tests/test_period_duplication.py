@@ -11,6 +11,7 @@ class TestPeriodDuplication(TestCommonPlanning):
     def setUpClass(cls):
         super(TestPeriodDuplication, cls).setUpClass()
         cls.setUpEmployees()
+        cls.setUpCalendars()
         cls.env['planning.slot'].create({
             'resource_id': cls.resource_bert.id,
             'start_datetime': datetime(2019, 6, 3, 8, 0),  # it was a slot on Sunday...
@@ -84,3 +85,112 @@ class TestPeriodDuplication(TestCommonPlanning):
         self.assertEqual(1, len(duplicated_slots), 'one slot duplicated')
         self.assertEqual('2020-10-26 07:00:00', str(duplicated_slots[0].start_datetime),
                          'adjust GMT timestamp to account for DST shift')
+
+    def test_duplication_on_non_working_days_for_flexible_hours(self):
+        """ When applying copy_previous week, it should copy the shifts of flexible resources when they fall on a non-working day.
+            (E.g. a shift on a Sunday for a flexible employee should be copied to the next Sunday with same allocated hours)
+
+            Test Case:
+            =========
+            1) set an employee with a flexible calendar.
+            2) create a shift on a Sunday
+            3) apply copy_previous_week and verify that the shift is copied to the next Sunday with the same allocated hours
+        """
+        # set a employee with a flexible calendar
+        employee = self.resource_bert
+        employee.calendar_id = self.flex_50h_calendar
+
+        # set a shift on Sunday for 7 hours
+        self.env['planning.slot'].create({
+            'resource_id': employee.id,
+            'start_datetime': datetime(2020, 10, 18, 11, 0),
+            'end_datetime': datetime(2020, 10, 18, 18, 0),
+        })
+
+        # copy the slot to the next Sunday
+        self.env['planning.slot'].action_copy_previous_week('2020-10-19 00:00:00', [['start_datetime', '<=', '2020-10-18 23:59:59'], ['end_datetime', '>=', '2020-10-12 00:00:00']])
+        duplicated_slots = self.env['planning.slot'].search([
+            ('resource_id', '=', employee.id),
+            ('start_datetime', '>', datetime(2020, 10, 19, 0, 0)),
+            ('end_datetime', '<', datetime(2022, 10, 25, 23, 59)),
+        ])
+        self.assertEqual(1, len(duplicated_slots), 'one slot duplicated')
+        self.assertEqual(7, duplicated_slots.allocated_hours, 'allocated hours should be the same as the original slot')
+
+    def test_duplication_for_fully_flexible_hours(self):
+        """ Test copy_previous_week for fully flexible resources.
+            Test Case:
+            =========
+            1) set an employee with a fully flexible calendar.
+            2) create 3 slots on 3 different days with each different allocated hours (Monday 5h, Tuesday 6h, Friday 11h)
+            3) apply copy_previous_week and verify that the shift is copied to the next week with the same allocated hours
+        """
+        # set an employee as a fully flexible resource
+        employee = self.resource_bert
+        employee.calendar_id = False
+
+        # set 3 slots on 3 different days with different allocated hours
+        self.env['planning.slot'].create([
+            {
+                'resource_id': employee.id,
+                'start_datetime': datetime(2020, 10, 12, 8, 0),
+                'end_datetime': datetime(2020, 10, 12, 13, 0),
+                'state': 'published',
+            }, {
+                'resource_id': employee.id,
+                'start_datetime': datetime(2020, 10, 13, 8, 0),
+                'end_datetime': datetime(2020, 10, 13, 14, 0),
+                'state': 'published',
+            }, {
+                'resource_id': employee.id,
+                'start_datetime': datetime(2020, 10, 16, 8, 0),
+                'end_datetime': datetime(2020, 10, 16, 19, 0),
+                'state': 'published',
+            }
+        ])
+
+        # copy the slot to the next week
+        self.env['planning.slot'].action_copy_previous_week('2020-10-19 00:00:00', [['start_datetime', '<=', '2020-10-18 23:59:59'], ['end_datetime', '>=', '2020-10-12 00:00:00']])
+        duplicated_slots = self.env['planning.slot'].search([
+            ('resource_id', '=', employee.id),
+            ('start_datetime', '>', datetime(2020, 10, 19, 0, 0)),
+            ('end_datetime', '<', datetime(2022, 10, 25, 23, 59)),
+        ])
+
+        # check number of slots and their allocated hours
+        self.assertEqual(3, len(duplicated_slots), '3 slots duplicated')
+        self.assertEqual(5, duplicated_slots.filtered(lambda slot: slot.start_datetime.weekday() == 0).allocated_hours, 'Monday slot should have 5 allocated hours')
+        self.assertEqual(6, duplicated_slots.filtered(lambda slot: slot.start_datetime.weekday() == 1).allocated_hours, 'Tuesday slot should have 6 allocated hours')
+        self.assertEqual(11, duplicated_slots.filtered(lambda slot: slot.start_datetime.weekday() == 4).allocated_hours, 'Friday slot should have 11 allocated hours')
+
+    def test_duplication_on_non_working_days_for_fully_flexible_hours(self):
+        """ When applying copy_previous week, it should copy the shifts of flexible resources when they fall on a non-working day.
+            (E.g. a shift from Saturday toSunday for a fully flexible employee should be copied to the next week with same allocated hours)
+
+            Test Case:
+            =========
+            1) set an employee with a fully flexible calendar.
+            2) create a shift from Saturday to Sunday
+            3) apply copy_previous_week and verify that the shift is copied to the next week with the same allocated hours
+        """
+        # set an employee as a fully flexible resource
+        employee = self.resource_bert
+        employee.calendar_id = False
+
+        # set a shift on Saturday Evening 9PM to Sunday morning 8AM (11 hours)
+        self.env['planning.slot'].create({
+            'resource_id': employee.id,
+            'start_datetime': datetime(2020, 10, 17, 21, 0),
+            'end_datetime': datetime(2020, 10, 18, 8, 0),
+            'state': 'published',
+        })
+
+        # copy the slot to the next week
+        self.env['planning.slot'].action_copy_previous_week('2020-10-19 00:00:00', [['start_datetime', '<=', '2020-10-18 23:59:59'], ['end_datetime', '>=', '2020-10-12 00:00:00']])
+        duplicated_slots = self.env['planning.slot'].search([
+            ('resource_id', '=', employee.id),
+            ('start_datetime', '>', datetime(2020, 10, 19, 0, 0)),
+            ('end_datetime', '<', datetime(2022, 10, 25, 23, 59)),
+        ])
+        self.assertEqual(1, len(duplicated_slots), 'one slot duplicated')
+        self.assertEqual(11, duplicated_slots.allocated_hours, 'allocated hours should be the same as the original slot')

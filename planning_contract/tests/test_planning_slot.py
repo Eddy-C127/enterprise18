@@ -108,3 +108,133 @@ class TestPlanningContract(TestPlanningContractCommon):
         self.env['planning.slot'].with_user(user_without_contract).create(planning_value)
         self.env.invalidate_all()
         self.env['planning.slot'].with_user(user_without_employee).create(planning_value)
+
+    def test_allocated_hours_of_slot_outside_contract_period(self):
+        """
+            When a flexible or fully flexible employee plan a slot outside the period of
+            the contract, the pre-computed allocated hours should be 0 hours.
+        """
+
+        # 1) Set a fully flexible contract for an employee
+        contract_fully_flex = self.env['hr.contract'].create({
+            'date_start': datetime.strptime('2015-11-16', '%Y-%m-%d'),
+            'date_end': datetime.strptime('2015-12-16', '%Y-%m-%d'),
+            'name': 'Fully flex contract for Joseph',
+            'resource_calendar_id': False,
+            'wage': 5000.0,
+            'employee_id': self.employee_joseph.id,
+            'state': 'open',
+            'kanban_state': 'normal',
+        })
+        self.assertEqual(self.employee_joseph.contract_id, contract_fully_flex)
+
+        # Create a slot outside the contract period
+        slot_outside = self.env['planning.slot'].create({
+            'start_datetime': datetime(2015, 12, 17, 8, 0, 0),
+            'end_datetime': datetime(2015, 12, 17, 12, 0, 0),
+            'resource_id': self.resource_joseph.id,
+        })
+        self.assertEqual(slot_outside.allocated_hours, 0, "The allocated hours should be 0 for a slot outside the contract period of a fully flexible employee")
+
+        # Create a slot inside the contract period
+        slot_inside = self.env['planning.slot'].create({
+            'start_datetime': datetime(2015, 12, 16, 1, 0, 0),
+            'end_datetime': datetime(2015, 12, 16, 12, 0, 0),
+            'resource_id': self.resource_joseph.id,
+        })
+        self.assertEqual(slot_inside.allocated_hours, 11)
+
+        # 2) Set a flexible contract for another employee
+        contract_flex = self.env['hr.contract'].create({
+            'date_start': datetime.strptime('2015-11-16', '%Y-%m-%d'),
+            'date_end': datetime.strptime('2015-12-16', '%Y-%m-%d'),
+            'name': 'Flex contract for Janice',
+            'resource_calendar_id': self.calendar_30h_flex.id,
+            'wage': 5000.0,
+            'employee_id': self.employee_janice.id,
+            'state': 'open',
+            'kanban_state': 'normal',
+        })
+        self.assertEqual(self.employee_janice.contract_id, contract_flex)
+
+        # Create a slot outside the contract period
+        slot_outside = self.env['planning.slot'].create({
+            'start_datetime': datetime(2015, 12, 17, 8, 0, 0),
+            'end_datetime': datetime(2015, 12, 17, 12, 0, 0),
+            'resource_id': self.resource_janice.id,
+        })
+        self.assertEqual(slot_outside.allocated_hours, 0, "The allocated hours should be 0 for a slot outside the contract period of a flexible employee")
+
+        # Create a slot inside the contract period
+        slot_inside = self.env['planning.slot'].create({
+            'start_datetime': datetime(2015, 12, 16, 8, 0, 0),
+            'end_datetime': datetime(2015, 12, 16, 14, 0, 0),
+            'resource_id': self.resource_janice.id,
+        })
+        self.assertEqual(slot_inside.allocated_hours, 6, "The allocated hours should be 6 for a slot inside the contract period of a flexible employee")
+
+        # 3) Set a flexible contract with no end date for another employee
+        self.employee_janice.contract_id.state = 'close'    # Close the previous contract
+        self.env['hr.contract'].create({
+            'date_start': datetime.strptime('2016-01-16', '%Y-%m-%d'),
+            'date_end': False,
+            'name': 'Flex contract for Janice with no end date',
+            'resource_calendar_id': self.calendar_30h_flex.id,
+            'wage': 5000.0,
+            'employee_id': self.employee_janice.id,
+            'state': 'open',
+            'kanban_state': 'normal',
+        })
+
+        slot_inside = self.env['planning.slot'].create({
+            'start_datetime': datetime(2016, 1, 16, 8, 0, 0),
+            'end_datetime': datetime(2016, 1, 16, 14, 0, 0),
+            'resource_id': self.resource_janice.id,
+        })
+        self.assertEqual(slot_inside.allocated_hours, 6, "The allocated hours should be 6 for a slot inside the contract period of a flexible employee with no end date")
+
+    def test_allocated_hours_of_slot_overlapping_with_contract_period(self):
+        """
+            When a flexible or fully flexible employee plan a slot partially outside the period of
+            the contract, the pre-computed allocated hours should be the hours within the contract period.
+        """
+
+        # 1) Set a fully flexible contract for an employee
+        self.env['hr.contract'].create({
+            'date_start': datetime.strptime('2015-11-16', '%Y-%m-%d'),
+            'date_end': datetime.strptime('2015-12-16', '%Y-%m-%d'),    # contract will end at 2015-12-16 23:59:59
+            'name': 'Fully flex contract for Joseph',
+            'resource_calendar_id': False,
+            'wage': 5000.0,
+            'employee_id': self.employee_joseph.id,
+            'state': 'open',
+            'kanban_state': 'normal',
+        })
+
+        # Create a slot partially outside the contract period
+        slot_outside = self.env['planning.slot'].create({
+            'start_datetime': datetime(2015, 12, 16, 8, 0, 0),
+            'end_datetime': datetime(2015, 12, 17, 12, 0, 0),
+            'resource_id': self.resource_joseph.id,
+        })
+        self.assertEqual(slot_outside.allocated_hours, 16, "The allocated hours should be 16h (8AM to 12PM) of the 16th of December for the fully flexible employee")
+
+        # 2) Set a flexible contract for another employee
+        self.env['hr.contract'].create({
+            'date_start': datetime.strptime('2015-11-16', '%Y-%m-%d'),
+            'date_end': datetime.strptime('2015-12-16', '%Y-%m-%d'),
+            'name': 'Flex contract for Janice',
+            'resource_calendar_id': self.calendar_30h_flex.id,
+            'wage': 5000.0,
+            'employee_id': self.employee_janice.id,
+            'state': 'open',
+            'kanban_state': 'normal',
+        })
+
+        # Create a slot partially outside the contract period
+        slot_outside = self.env['planning.slot'].create({
+            'start_datetime': datetime(2015, 12, 16, 8, 0, 0),
+            'end_datetime': datetime(2015, 12, 17, 8, 0, 0),
+            'resource_id': self.resource_janice.id,
+        })
+        self.assertEqual(slot_outside.allocated_hours, 6, "The allocated hours should be 6h (the max per day) for the flexible employee")

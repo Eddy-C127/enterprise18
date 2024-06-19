@@ -12,12 +12,18 @@ class TestUiCommon(HttpCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.flex_40h_calendar = cls.env['resource.calendar'].create({
+            'name': 'Flexible 40h/week',
+            'tz': 'UTC',
+            'hours_per_day': 8.0,
+            'flexible_hours': True,
+        })
         cls.employee_thibault = cls.env['hr.employee'].create({
             'name': 'Aaron',
             'work_email': 'aaron@a.be',
             'tz': 'Europe/Brussels',
             'employee_type': 'freelance',
-            'resource_calendar_id': False,
+            'resource_calendar_id': cls.flex_40h_calendar.id,
         })
         start = datetime.now() + relativedelta(weekday=MO(-1), hour=10, minute=0, second=0, microsecond=0)
         cls.env['planning.slot'].create({

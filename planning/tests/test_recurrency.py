@@ -18,6 +18,7 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
         super(TestRecurrencySlotGeneration, cls).setUpClass()
         cls.setUpEmployees()
         cls.setUpDates()
+        cls.setUpCalendars()
 
     def configure_recurrency_span(self, span_qty):
         self.env.company.write({
@@ -1049,3 +1050,38 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
              (datetime(2020, 3, 1, 8, 0), datetime(2020, 3, 31, 15, 0)),
              (datetime(2020, 4, 1, 8, 0), datetime(2020, 4, 30, 15, 0))],
         )
+
+    @freeze_time('2022-01-10 10:00:00')
+    def test_recurring_shift_on_non_working_days_for_flexible_hours(self):
+        """
+        Recurring shift should be generated on non-working days for flexible resources
+        (E.g. a recurring shift for everyday for a flexible employee should be generated on Saturday, Sunday as well)
+
+        Test Case
+        ==========
+        1) set an employee with a flexible calendar.
+        2) create a recurring shift for everyday for a week for the flexible employee
+        3) verify that the recurring shift is generated on Saturday, Sunday and
+           the allocated hours should be equal to the original shift.
+        """
+        # set the calendar for the employee as flexible
+        self.employee_bert.resource_calendar_id = self.flex_50h_calendar
+
+        # create the recutting shift
+        self.env['planning.slot'].create({
+            'resource_id': self.employee_bert.resource_id.id,
+            'start_datetime': datetime(2022, 1, 10, 10, 0),     # Monday
+            'end_datetime': datetime(2022, 1, 10, 17, 0),       # shift of 7 hours
+            'repeat': True,
+            'repeat_interval': 1,
+            'repeat_unit': 'day',
+            'repeat_type': 'until',
+            'repeat_until': datetime(2022, 1, 16, 23, 59, 59),  # Sunday
+        })
+        generated_slots = self.get_by_employee(self.employee_bert)
+
+        # check the number of generated recurring shifts
+        self.assertEqual(len(generated_slots), 7, 'The recurring shift should be generated for 7 days of the week')
+        # slots in the weekend should have the same allocated hours of the recurring shift
+        self.assertEqual(all(slot.allocated_hours == 7 for slot in generated_slots), True,
+                         'All the generated slots should have the same allocated hours')

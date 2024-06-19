@@ -280,7 +280,7 @@
             <field name="work_contact_id" ref="planning.res_partner_aka"/>
             <field name="image_1920" type="base64" file="planning/static/img/akaforest.jpg"/>
             <field name="create_date">2023-01-01 00:00:00</field>
-            <field name="resource_calendar_id" eval="False"/>
+            <field name="resource_calendar_id" ref="resource.resource_calendar_flex_40h"/>
             <field name="default_planning_role_id" ref="planning.planning_quality_control"/>
             <field name="planning_role_ids" eval="[Command.set([ref('planning.planning_quality_control'), ref('planning.planning_shipping_associate')])]"/>
         </record>
@@ -302,7 +302,7 @@
             <field name="work_contact_id" ref="planning.res_partner_cry"/>
             <field name="image_1920" type="base64" file="planning/static/img/cherrynilson.jpg"/>
             <field name="create_date">2023-01-01 00:00:00</field>
-            <field name="resource_calendar_id" eval="False"/>
+            <field name="resource_calendar_id" ref="resource.resource_calendar_flex_40h"/>
             <field name="default_planning_role_id" ref="planning.planning_maintenance_technician"></field>
             <field name="planning_role_ids" eval="[Command.set([ref('planning.planning_maintenance_technician'), ref('planning.planning_furniture_assembler')])]"/>
         </record>

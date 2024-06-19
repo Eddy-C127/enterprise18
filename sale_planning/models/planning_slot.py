@@ -567,6 +567,10 @@ class PlanningSlot(models.Model):
         PlanningShift = self.env['planning.slot']
         slots_assigned = PlanningShift
         employee_ids_to_exclude = []
+
+        # Exclude employee_ids with flexible working hours from the auto planning
+        employee_ids_to_exclude += self.env['hr.employee'].search([[('is_flexible', '=', True)]]).ids
+
         for slot in slots_to_assign:
             slot_assigned = PlanningShift
             previous_priority = None

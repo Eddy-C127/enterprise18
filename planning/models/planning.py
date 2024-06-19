@@ -256,50 +256,46 @@ class Planning(models.Model):
             .filtered('calendar_id') \
             ._get_valid_work_intervals(start_utc, end_utc, calendars=slots.company_id.resource_calendar_id)
         for slot in slots:
-            if not slot.resource_id and slot.allocation_type == 'planning' or not slot.resource_id.calendar_id:
+            if (not slot.resource_id and slot.allocation_type == 'planning') or slot.resource_id._is_flexible():
                 slot.allocated_percentage = 100 * slot.allocated_hours / slot._calculate_slot_duration()
             else:
                 work_hours = slot._get_working_hours_over_period(start_utc, end_utc, resource_work_intervals, calendar_work_intervals)
                 slot.allocated_percentage = 100 * slot.allocated_hours / work_hours if work_hours else 100
 
     @api.depends(
-        'start_datetime', 'end_datetime',
-        'employee_id.resource_calendar_id', 'resource_id.calendar_id',
+        'start_datetime', 'end_datetime', 'resource_id.calendar_id.flexible_hours',
         'company_id.resource_calendar_id', 'allocated_percentage')
     def _compute_allocated_hours(self):
         percentage_field = self._fields['allocated_percentage']
         self.env.remove_to_compute(percentage_field, self)
-        planning_slots = self.filtered(
-            lambda s:
-                (s.allocation_type == 'planning' or not s.company_id)
-                and not s.resource_id
-                or not s.resource_id.calendar_id
+        open_slots = self.filtered(
+            lambda s: (s.allocation_type == 'planning' or not s.company_id) and not s.resource_id
         )
-        slots_with_calendar = self - planning_slots
-        for slot in planning_slots:
+        assigned_slots = self - open_slots
+        for slot in open_slots:
             # for each planning slot, compute the duration
             ratio = slot.allocated_percentage / 100.0
             slot.allocated_hours = slot._calculate_slot_duration() * ratio
-        if slots_with_calendar:
+        if assigned_slots:
             # for forecasted slots, compute the conjunction of the slot resource's work intervals and the slot.
-            unplanned_slots_with_calendar = slots_with_calendar.filtered_domain([
+            unplanned_assigned_slots = assigned_slots.filtered_domain([
                 '|', ('start_datetime', "=", False), ('end_datetime', "=", False),
             ])
             # Unplanned slots will have allocated hours set to 0.0 as there are no enough information
             # to compute the allocated hours (start or end datetime are mandatory for this computation)
-            for slot in unplanned_slots_with_calendar:
+            for slot in unplanned_assigned_slots:
                 slot.allocated_hours = 0.0
-            planned_slots_with_calendar = slots_with_calendar - unplanned_slots_with_calendar
-            if not planned_slots_with_calendar:
+            planned_assigned_slots = assigned_slots - unplanned_assigned_slots
+            if not planned_assigned_slots:
                 return
             # if there are at least one slot having start or end date, call the _get_valid_work_intervals
-            start_utc = pytz.utc.localize(min(planned_slots_with_calendar.mapped('start_datetime')))
-            end_utc = pytz.utc.localize(max(planned_slots_with_calendar.mapped('end_datetime')))
+            start_utc = pytz.utc.localize(min(planned_assigned_slots.mapped('start_datetime')))
+            end_utc = pytz.utc.localize(max(planned_assigned_slots.mapped('end_datetime')))
             # work intervals per resource are retrieved with a batch
-            resource_work_intervals, calendar_work_intervals = slots_with_calendar.resource_id._get_valid_work_intervals(
-                start_utc, end_utc, calendars=slots_with_calendar.company_id.resource_calendar_id
+            resource_work_intervals, calendar_work_intervals = assigned_slots.resource_id._get_valid_work_intervals(
+                start_utc, end_utc, calendars=assigned_slots.company_id.resource_calendar_id
             )
-            for slot in planned_slots_with_calendar:
+            for slot in planned_assigned_slots:
                 slot.allocated_hours = slot._get_duration_over_period(
                     pytz.utc.localize(slot.start_datetime), pytz.utc.localize(slot.end_datetime),
                     resource_work_intervals, calendar_work_intervals, has_allocated_hours=False
@@ -1041,6 +1037,7 @@ class Planning(models.Model):
         open_shift_role_ids = [shift.role_id.id for shift in open_shifts]
         resources = Resource.search([
             ('calendar_id', '!=', False),
+            ('calendar_id.flexible_hours', '=', False),
             '|',
                 ('default_role_id', 'in', open_shift_role_ids),
                 ('role_ids', 'in', open_shift_role_ids),
@@ -1325,8 +1322,11 @@ class Planning(models.Model):
         flexible_per_resource = {False: False}
         avg_hours_per_resource = {False: 0}
         for resource in set(resources):
-            flexible_per_resource[resource.id] = not resource.calendar_id
-            avg_hours_per_resource[resource.id] = (resource.calendar_id or company_calendar).hours_per_day
+            flexible_per_resource[resource.id] = resource._is_flexible()
+            if resource._is_fully_flexible():
+                avg_hours_per_resource[resource.id] = 24    # set to 24 hours if the resource is fully flexible
+            else:
+                avg_hours_per_resource[resource.id] = (resource.calendar_id or company_calendar).hours_per_day
 
         return [work_interval_per_resource, flexible_per_resource, avg_hours_per_resource]
 
@@ -1338,17 +1338,23 @@ class Planning(models.Model):
         resources = self.env['resource.resource'].browse(res_ids).filtered('calendar_id')
         leaves_mapping = resources._get_unavailable_intervals(start, stop)
         company_leaves = self.env.company.resource_calendar_id._unavailable_intervals(start.replace(tzinfo=pytz.utc), stop.replace(tzinfo=pytz.utc))
-
         cell_dt = timedelta(hours=1) if scale in ['day', 'week'] else timedelta(hours=12)
 
         result = {}
-        for resource_id in res_ids + [False]:
-            calendar = leaves_mapping.get(resource_id, company_leaves)
+        for resource in resources:
+            # return no unavailability if the resource has flexible hours or no calendar for material.
+            if (resource.id not in res_ids) or (resource and (not resource.calendar_id or resource._is_flexible())):
+                continue
+            calendar = leaves_mapping.get(resource.id, company_leaves)
             # remove intervals smaller than a cell, as they will cause half a cell to turn grey
             # ie: when looking at a week, a employee start everyday at 8, so there is a unavailability
             # like: 2019-05-22 20:00 -> 2019-05-23 08:00 which will make the first half of the 23's cell grey
             notable_intervals = filter(lambda interval: interval[1] - interval[0] >= cell_dt, calendar)
-            result[resource_id] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
+            result[resource.id] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
+        # Handle open slots
+        calendar = leaves_mapping.get(False, company_leaves)
+        notable_intervals = filter(lambda interval: interval[1] - interval[0] >= cell_dt, calendar)
+        result[False] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
 
         return result
 
@@ -1493,7 +1499,16 @@ class Planning(models.Model):
             return 0.0
         period = self.end_datetime - self.start_datetime
         slot_duration = period.total_seconds() / 3600
-        max_duration = (period.days + (1 if period.seconds else 0)) * self.company_id.resource_calendar_id.hours_per_day
+        # If resource is fully flexible, return the length of the slot.
+        if (self.resource_id and self.resource_id._is_fully_flexible()):
+            return slot_duration
+        # if the resource is an employee, the hours_per_day of its calendar is used as max_hours_per_day.
+        if self.employee_id:
+            max_hours_per_day = self.employee_id.resource_calendar_id.hours_per_day
+        # For other resource and open shifts, we refer to the max of the company's default contract
+        else:
+            max_hours_per_day = self.company_id.resource_calendar_id.hours_per_day
+        max_duration = (period.days + (1 if period.seconds else 0)) * max_hours_per_day
         if not max_duration or max_duration >= slot_duration:
             return slot_duration
         return max_duration
@@ -1596,8 +1611,21 @@ class Planning(models.Model):
                 'end_datetime': end_inter.astimezone(pytz.utc).replace(tzinfo=None),
             }
             was_updated = self._update_remaining_hours_to_plan_and_values(remaining_hours_to_plan, new_slot_vals)
+            period = end_inter - start_inter
+            slot_duration = period.total_seconds() / 3600
+            # If the slot is assigned to a flexible resource, the allocated hours are computed based on the hours_per_day of the resource calendar
+            # However if it's a fully flexible resource, the allocated hours are the same as the slot duration.
+            if (
+                not unassign
+                and self.resource_id._is_flexible() and
+                not self.resource_id._is_fully_flexible()
+            ):
+                # refer to the hours_per_day if the slot duration exceeds it.
+                max_hours_per_day = self.employee_id.resource_calendar_id.hours_per_day
+                max_duration = (period.days + (1 if period.seconds else 0)) * max_hours_per_day
+                slot_duration = min(slot_duration, max_duration)
             new_slot_vals['allocated_hours'] = float_utils.float_round(
-                ((end_inter - start_inter).total_seconds() / 3600.0) * (self.allocated_percentage / 100.0),
+                slot_duration * (self.allocated_percentage / 100.0),
                 precision_digits=2
             )
             if not was_updated:
@@ -1664,6 +1692,9 @@ class Planning(models.Model):
             resource_per_calendar[company_calendar_id] |= self.env['resource.resource']  # ensures the company_calendar will be in resource_per_calendar keys.
         # 3)
         for calendar, resources in resource_per_calendar.items():
+            # For empty calendar (fully flexible resource), we do not need to retrieve the attendances nor the leaves.
+            if not calendar:
+                continue
             # For each calendar, retrieves the work intervals of every resource
             attendances = calendar._attendance_intervals_batch(
                 start_dt_delta_utc,
@@ -1704,11 +1735,16 @@ class Planning(models.Model):
                 self.env['resource.calendar.attendance']
             )])
             company_calendar = slot.company_id.resource_calendar_id
-            # Check if interval is contained in the resource work interval
-            attendance_resource = attendance_intervals_per_resource[slot.resource_id] if slot.resource_id else attendance_intervals_per_calendar[company_calendar]
-            attendance_interval_resource = interval & attendance_resource
-            # Check if interval is contained in the company attendances interval
-            attendance_interval_company = interval & attendance_intervals_per_calendar[company_calendar]
+            # Check if interval is contained in the resource work interval.
+            # For flexible hours, ignore the resource work interval and return the whole interval of slot as valid.
+            if slot.resource_id and slot.resource_id._is_flexible():
+                attendance_interval_resource = interval
+                attendance_interval_company = interval
+            else:
+                attendance_resource = attendance_intervals_per_resource[slot.resource_id] if slot.resource_id else attendance_intervals_per_calendar[company_calendar]
+                attendance_interval_resource = interval & attendance_resource
+                # Check if interval is contained in the company attendances interval
+                attendance_interval_company = interval & attendance_intervals_per_calendar[company_calendar]
             # Check if interval is contained in the company leaves interval
             unavailable_interval_company = interval & leave_intervals_per_calendar[company_calendar]
             if slot.allocation_type == 'planning' and not unavailable_interval_company and not attendance_interval_resource:
@@ -2116,11 +2152,41 @@ class Planning(models.Model):
         return new_slots_vals_list
 
     def _get_working_hours_over_period(self, start_utc, end_utc, work_intervals, calendar_intervals):
+        """
+        Compute the total work hours of the slot based on its work intervals or its working calendar.
+        The following are the different cases:
+        1) If the assigned resource has a fully flexible contract, we return the difference in the time interval.
+        2) If the assigned resource has a flexible hour contract, we ignore the work intervals and the `hours_per_day`
+           will be used to calculate the per day maximum hours.
+        3) If the slot is an open shift, take the `hours_per_day` of the company's calendar to calculate the working hours.
+           this allows the creation of open slots outside the company's calendar attendance (such as weekends).
+        4) If the resource is assigned and has fixed working hours, compute the work hours based on its work intervals.
+        """
+
         start = max(start_utc, pytz.utc.localize(self.start_datetime))
         end = min(end_utc, pytz.utc.localize(self.end_datetime))
         slot_interval = Intervals([(
             start, end, self.env['resource.calendar.attendance']
         )])
+        period = self.end_datetime - self.start_datetime
+        slot_duration = period.total_seconds() / 3600
+        # For flexible hours, if the resource's calendar is in calendar_intervals, use it to calculate the working hours
+        if self.resource_id._is_flexible() and self.resource_id.calendar_id.id in calendar_intervals or self.resource_id._is_fully_flexible():
+            # If the resource is fully flexible hours, we return the whole slot interval
+            if self.resource_id._is_fully_flexible():
+                return round(sum_intervals(slot_interval), 2)
+            # Otherwise we take into account the `hours_per_day` of the flexible calendar
+            max_hours_per_day = self.resource_id.calendar_id.hours_per_day
+            max_duration = (period.days + (1 if period.seconds else 0)) * max_hours_per_day
+            return round(min(slot_duration, max_duration), 2)
+
+        # For open shift, take the `hours_per_day` of the company's default calendar
+        if not self.resource_id and self.allocation_type == 'forecast':
+            max_hours_per_day = self.company_id.resource_calendar_id.hours_per_day
+            max_duration = (period.days + (1 if period.seconds else 0)) * max_hours_per_day
+            return round(min(slot_duration, max_duration), 2)
+
+        # Resource with fixed working hours, else we refer to the company's calendar
         working_intervals = work_intervals[self.resource_id.id] \
             if self.resource_id \
             else calendar_intervals[self.company_id.resource_calendar_id.id]
@@ -2150,11 +2216,35 @@ class Planning(models.Model):
         start, stop = start_utc.replace(tzinfo=None), stop_utc.replace(tzinfo=None)
         if has_allocated_hours and self.start_datetime >= start and self.end_datetime <= stop:
             return self.allocated_hours
-        # if the slot goes over the gantt period, compute the duration only within
-        # the gantt period
+        # if the slot goes over the gantt period, compute the duration only within the gantt period
         ratio = self.allocated_percentage / 100.0
         working_hours = self._get_working_hours_over_period(start_utc, stop_utc, work_intervals, calendar_intervals)
         return working_hours * ratio
+
+    def _get_employee_work_hours_within_interval(self, resource, work_intervals, start, stop):
+        """
+        Compute the total work hours of the employee based on its work intervals or its calendar flexible hours.
+        :param work_intervals: a dictionary {work_entry_id: hours_1, work_entry_2: hours_2}
+        :param start: The start date of the interval selected on the planning screen
+        :param stop: The end date of the interval selected on the planning screen
+        :return: the number of work hours
+
+        This covers 3 user cases:
+        1) if the employee is fully flexible, we return the difference in the time interval.
+        2) if the employee has flexible hour contract: we ignore the work intervals and the `hours_per_day` or `full_time_required_hours` will be used.
+           however, if the interval on planning screen is on Month or Year, we multiply the `full_time_required_hours` by the number of weeks.
+           date() method is explicitely used to avoid having issue with daylight saving time (DST) when computing the number of days.
+        3) if the employee has a fixed working hours, we compute the work hours based on its work intervals.
+        """
+        num_days = (stop.date() - start.date()).days
+        if resource._is_fully_flexible():
+            return num_days * 24
+        if not resource._is_flexible():
+            return sum_intervals(work_intervals)
+        if num_days == 1:
+            return resource.calendar_id.hours_per_day
+        # final result is rounded to the hour (e.g. 177.5 hours -> 178 hours)
+        return round(resource.calendar_id.full_time_required_hours * (num_days / 7))
 
     def _gantt_progress_bar_resource_id(self, res_ids, start, stop):
         start_naive, stop_naive = start.replace(tzinfo=None), stop.replace(tzinfo=None)
@@ -2171,11 +2261,11 @@ class Planning(models.Model):
             planned_hours_mapped[slot.resource_id.id] += slot._get_duration_over_period(
                 start, stop, resource_work_intervals, calendar_work_intervals
             )
-        # Compute employee work hours based on its work intervals.
-        work_hours = {
-            resource_id: sum_intervals(work_intervals)
-            for resource_id, work_intervals in resource_work_intervals.items()
-        }
+        # Compute employee work hours based on its work intervals or flexible hours.
+        work_hours = {}
+        for resource_id, work_intervals in resource_work_intervals.items():
+            resource = resources.browse(resource_id)
+            work_hours[resource_id] = self._get_employee_work_hours_within_interval(resource, work_intervals, start_naive, stop_naive)
         return {
             resource.id: {
                 'is_material_resource': resource.resource_type == 'material',
@@ -2184,6 +2274,8 @@ class Planning(models.Model):
                 'value': planned_hours_mapped[resource.id],
                 'max_value': work_hours.get(resource.id, 0.0),
                 'employee_id': resource.employee_id.id,
+                'is_flexible_hours': resource._is_flexible(),
+                'is_fully_flexible_hours': resource._is_fully_flexible(),
             }
             for resource in resources
         }

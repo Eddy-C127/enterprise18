@@ -30,3 +30,9 @@ class TestPlanningContractCommon(TestCommonPlanning):
             ]
         })
         cls.calendar_40h = cls.env['resource.calendar'].create({'name': 'Default calendar'})
+        cls.calendar_30h_flex = cls.env['resource.calendar'].create({
+            'name': '30h flex calendar',
+            'flexible_hours': True,
+            'attendance_ids': [],
+            'hours_per_day': 6,
+        })
