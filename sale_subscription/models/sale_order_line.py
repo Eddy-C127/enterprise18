@@ -183,8 +183,7 @@ class SaleOrderLine(models.Model):
             result[line.id] = qty_invoiced
         return result
 
-    @api.depends('recurring_invoice', 'invoice_lines', 'invoice_lines.deferred_start_date',
-                 'invoice_lines.deferred_end_date', 'order_id.next_invoice_date', 'order_id.last_invoice_date')
+    @api.depends('recurring_invoice', 'invoice_lines', 'invoice_lines.deferred_start_date', 'invoice_lines.deferred_end_date')
     def _compute_qty_invoiced(self):
         other_lines = self.env['sale.order.line']
         subscription_qty_invoiced = self._get_subscription_qty_invoiced()

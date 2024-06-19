@@ -776,6 +776,8 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(self.subscription.next_invoice_date, datetime.date(2022, 2, 1))
             # We decide to invoice the monthly subscription on the 5 of february
             self.subscription.next_invoice_date = fields.Date.from_string('2022-02-05')
+            # check the invoice state
+            self.assertEqual(self.subscription.invoice_status, 'invoiced')
 
         with freeze_time("2022-02-01"):
             # Nothing should be invoiced
@@ -790,6 +792,7 @@ class TestSubscription(TestSubscriptionCommon):
             self.subscription._cron_recurring_create_invoice()
             inv = self.subscription.invoice_ids.sorted('date')
             self.assertEqual(inv[-1].date, datetime.date(2022, 2, 5))
+            self.assertEqual(self.subscription.invoice_status, 'invoiced')
 
     def test_product_change(self):
         """Check behaviour of the product onchange (taxes mostly)."""
