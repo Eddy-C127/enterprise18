@@ -72,7 +72,7 @@
                                         <a  role="button"
                                             t-attf-href="#{record.website_url.raw_value}"
                                             target="_blank"
-                                            class="btn btn-secondary w-25 flex-shrink-1">
+                                            class="btn btn-secondary w-25 flex-shrink-1 o_hr_referral_job_url">
                                             <span>
                                                 <i  class="fa fa-2x fa-globe"
                                                     role="img"
@@ -81,7 +81,8 @@
                                             <br/>
                                             <span title='More info'>Job Page</span>
                                         </a>
-                                        <div class="w-25 flex-shrink-1"><!--placeholder for whatsapp--></div>
+                                        <!-- Empty div to ensure the shrinking without the presence of a 4th button -->
+                                        <div class="w-25 flex-shrink-1"/>
                                     </div>
                                     <div class="o_to_share d-flex gap-1">
                                         <field  name="id"
