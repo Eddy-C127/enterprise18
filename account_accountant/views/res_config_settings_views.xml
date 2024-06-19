@@ -37,7 +37,7 @@
                     <field name="use_anglo_saxon"/>
                 </setting>
             </block>
-            <block title="Customer Invoices" id="invoicing_settings">
+            <block id="invoicing_settings" position="inside">
                 <setting company_dependent="1" help="To enhance authenticity, add a signature to your invoices">
                     <field name="sign_invoice"/>
                     <label for="signing_user" string="Legal signatory" class="col-lg-5 o_light_label" invisible="not sign_invoice"/>
