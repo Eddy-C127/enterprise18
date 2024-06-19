@@ -10,6 +10,7 @@
     'data': [
         'data/cfdi_cartaporte.xml',
         'views/l10n_mx_edi_vehicle_views.xml',
+        'views/report_cartaporte.xml',
         'views/stock_picking_views.xml',
     ],
     'installable': True,

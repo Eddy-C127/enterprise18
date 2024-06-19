@@ -78,3 +78,21 @@ class Picking(models.Model):
             if self.picking_type_code in ('outgoing', 'incoming'):
                 cfdi_values['entrada_salida_merc'] = 'Salida' if self.picking_type_code == 'outgoing' else 'Entrada'
                 cfdi_values['regimen_aduanero'] = self.l10n_mx_edi_customs_regime_id.code
+
+    def _l10n_mx_edi_get_cartaporte_pdf_values(self):
+        # EXTENDS 'l10n_mx_edi_stock_30'
+        cartaporte_values = super()._l10n_mx_edi_get_cartaporte_pdf_values()
+
+        if self.picking_type_code in ('outgoing', 'incoming'):
+            cartaporte_values['entrada_salida_merc'] = "Salida" if self.picking_type_code == 'outgoing' else "Entrada"
+
+        contains_hazardous_materials = any(self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code'))
+        return {
+            **cartaporte_values,
+            'asegura_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurer
+                if contains_hazardous_materials
+                else "-",
+            'poliza_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurance_policy
+                if contains_hazardous_materials
+                else "-",
+        }

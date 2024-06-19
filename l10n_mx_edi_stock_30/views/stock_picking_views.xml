@@ -13,6 +13,14 @@
                 <field name="l10n_mx_edi_gross_vehicle_weight"
                        invisible="not l10n_mx_edi_is_delivery_guide_needed or l10n_mx_edi_transport_type != '01'"/>
             </field>
+            <button name="l10n_mx_edi_cfdi_try_sat" position="after">
+                <button
+                    name="l10n_mx_edi_action_print_cartaporte"
+                    type="object"
+                    string="Print Carta Porte"
+                    invisible="l10n_mx_edi_cfdi_state != 'sent'"
+                />
+            </button>
         </field>
     </record>
 

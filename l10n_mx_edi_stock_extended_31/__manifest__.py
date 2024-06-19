@@ -13,6 +13,7 @@
     ],
     'data': [
         'data/cfdi_cartaporte.xml',
+        'views/report_cartaporte.xml',
         'views/stock_picking_views.xml',
     ],
     'installable': True,
