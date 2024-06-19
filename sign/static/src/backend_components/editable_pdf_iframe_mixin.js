@@ -87,7 +87,7 @@ export const EditablePDFIframeMixin = (pdfClass) =>
         }
 
         onDragStart(e) {
-            const signItem = e.currentTarget.parentElement.parentElement;
+            const signItem = e.currentTarget.parentElement.parentElement.parentElement;
             const page = signItem.parentElement;
             e.dataTransfer.effectAllowed = "move";
             e.dataTransfer.setData("page", page.dataset.pageNumber);

@@ -82,8 +82,21 @@
     font-family: Helvetica;
     line-height: 1.25;
     z-index: 100;
-    overflow: hidden;
     cursor: pointer;
+}
+
+.o_sign_responsible_display {
+    font-size: 13px !important;
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-weight: bold;
+}
+
+.o_sign_sign_item .sign_item_body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .o_sign_sign_item.o_readonly_mode {
@@ -93,6 +106,7 @@
 .o_sign_sign_item .o_placeholder {
     vertical-align: middle;
     padding-left: 30px;
+    overflow: hidden;
 }
 
 .o_sign_sign_item_required {
@@ -137,7 +151,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    overflow: hidden;
     white-space: nowrap;
     font-size: 0.5em;
     text-align: right;
@@ -166,6 +179,7 @@
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    font-size: 15px !important;
 }
 
 .o_sign_sign_item .o_sign_config_area .o_sign_item_display {
