@@ -21,7 +21,7 @@
             <field name="privacy_visibility">portal</field>
             <field name="allow_billable">True</field>
             <field name="stage_id" ref="project.project_project_stage_1"/>
-            <field name="analytic_account_id" ref="analytic_renovation_architect"/>
+            <field name="account_id" ref="analytic_renovation_architect"/>
             <field name="documents_folder_id" ref="documents_folder"/>
             <field name="documents_tag_ids" eval="[Command.link(ref('documents_folder_facet_1_tag_1'))]"/>
         </record>

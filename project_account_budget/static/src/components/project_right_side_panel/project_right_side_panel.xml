@@ -2,7 +2,7 @@
 <templates id="template" xml:space="preserve">
 
     <t t-name="project_account_budget.ProjectRightSidePanel" t-inherit="project.ProjectRightSidePanel" t-inherit-mode="extension">
-        <xpath expr="//ProjectRightSidePanelSection[@name=&quot;'milestones'&quot;]" position="before">
+        <xpath expr="//ProjectRightSidePanelSection[@name=&quot;'profitability'&quot;]" position="after">
             <t t-set="showBudget" t-value="!!state.data.budget_items and !!state.data.budget_items.data"/>
             <ProjectRightSidePanelSection
                 name="'budgets'"

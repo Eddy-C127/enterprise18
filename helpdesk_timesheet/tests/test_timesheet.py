@@ -101,7 +101,7 @@ class TestTimesheet(TestHelpdeskTimesheetCommon):
 
         helpdesk_ticket = self.helpdesk_ticket
 
-        self.assertEqual(helpdesk_ticket.analytic_account_id, self.project.analytic_account_id)
+        self.assertEqual(helpdesk_ticket.analytic_account_id, self.project.account_id)
 
     def test_compute_project_id(self):
         """ Test compute project_id works as expected when helpdesk_ticket_id changes on a timesheet """

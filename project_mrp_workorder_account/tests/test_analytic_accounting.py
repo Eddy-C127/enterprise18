@@ -1,10 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 from datetime import datetime, timedelta
 from freezegun import freeze_time
 
 from odoo import Command
 from odoo.tests import Form
-from odoo.addons.mrp_account.tests.test_analytic_account import TestMrpAnalyticAccount
+from odoo.addons.project_mrp_account.tests.test_analytic_account import TestMrpAnalyticAccount
 
 
 class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
@@ -44,7 +45,7 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
         mo_form.product_id = self.product
         mo_form.bom_id = self.bom
         mo_form.product_qty = 1.0
-        mo_form.analytic_distribution = {str(self.analytic_account.id): 100.0}
+        mo_form.project_id = self.project
         mo = mo_form.save()
         mo.action_confirm()
         with freeze_time('2027-10-01 10:00:00'):
@@ -65,7 +66,13 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
             'name': 'test_analytic_account_change',
             'plan_id': self.analytic_plan.id,
         })
-        mo.analytic_distribution = {str(new_account.id): 100.0}
+        new_project = self.env['project.project'].create({
+            'name': 'New Project',
+            f'{self.analytic_plan._column_name()}': new_account.id,
+        })
+        # Remove the analytic account auto-generated when creating a timesheetable project if it exists
+        new_project.account_id = False
+        mo.project_id = new_project
         employee1_aa_line = mo.workorder_ids.employee_analytic_account_line_ids.filtered(lambda l: l.employee_id == self.employee1)
         employee2_aa_line = mo.workorder_ids.employee_analytic_account_line_ids.filtered(lambda l: l.employee_id == self.employee2)
         self.assertEqual(employee2_aa_line[self.analytic_plan._column_name()], new_account)
@@ -73,7 +80,7 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
 
     def test_mrp_analytic_account_without_workorder(self):
         """
-        Test adding an analytic account to a confirmed manufacturing order without a work order.
+        Test adding a project with an analytic account to a confirmed manufacturing order without a work order.
         """
         product = self.env['product.product'].create({
             'name': 'Test Product',
@@ -93,8 +100,8 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
         mo.action_confirm()
         self.assertEqual(mo.state, 'confirmed')
 
-        mo.analytic_distribution = {str(self.analytic_account.id): 100.0}
-        self.assertEqual(mo.analytic_account_ids, self.analytic_account)
+        mo.project_id = self.project
+        self.assertEqual(mo.project_id._get_analytic_accounts(), self.analytic_account)
 
         mo_form = Form(mo)
         mo_form.qty_producing = 1.0
@@ -104,7 +111,7 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
 
     def test_mrp_analytic_account_with_workorder(self):
         """
-        Test adding an analytic account to a confirmed manufacturing order with work orders.
+        Test adding a project with an analytic account to a confirmed manufacturing order with work orders.
         """
         # add a workorder to the BoM
         with self.with_user(self.env.ref('base.user_admin').login):
@@ -133,8 +140,8 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
             self.assertEqual(mo.workorder_ids[1].state, 'progress')
             self.assertTrue(mo.workorder_ids[1].time_ids)
 
-            mo.analytic_distribution = {str(self.analytic_account.id): 100.0}
-            self.assertEqual(mo.analytic_account_ids, self.analytic_account)
+            mo.project_id = self.project
+            self.assertEqual(mo.project_id._get_analytic_accounts(), self.analytic_account)
 
             mo_form = Form(mo)
             mo_form.qty_producing = 1.0
@@ -178,10 +185,8 @@ class TestMrpAnalyticAccountHr(TestMrpAnalyticAccount):
         mo_form.product_id = self.product
         mo_form.bom_id = self.bom
         mo_form.product_qty = 1.0
-        mo_form.analytic_distribution = {str(self.analytic_account.id): 100.0}
+        mo_form.project_id = self.project
         mo = mo_form.save()
-        # mo.analytic_distribution = {str(self.analytic_account.id): 100.0},
-        # mo.analytic_account_id = self.analytic_account
         mo.action_confirm()
         time = self.env['mrp.workcenter.productivity'].create({
             'workcenter_id': workcenter.id,

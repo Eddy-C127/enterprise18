@@ -96,7 +96,7 @@ class HelpdeskTicket(models.Model):
     @api.depends('project_id')
     def _compute_analytic_account_id(self):
         for ticket in self:
-            ticket.analytic_account_id = ticket.project_id.analytic_account_id
+            ticket.analytic_account_id = ticket.project_id.account_id
 
     @api.depends('use_helpdesk_timesheet')
     def _compute_display_extra_info(self):

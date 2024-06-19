@@ -90,7 +90,7 @@ class TestFsmFlowSaleCommon(TestFsmFlowCommon, TestCommonSaleTimesheet):
             'partner_id': cls.partner_1.id,
             'tasks': False,
             'timesheet_product_id': cls.product_order_timesheet2.id,
-            'analytic_account_id': cls.analytic_account_sale.id,
+            'account_id': cls.analytic_account_sale.id,
             'sale_line_employee_ids': [
                 Command.create({
                     'employee_id': cls.employee_user.id,

@@ -21,7 +21,6 @@
                 <field name="team_id"/>
                 <field name="order_line" string="Product" filter_domain="[('order_line.product_id', 'ilike', self)]"/>
                 <field name="sale_order_template_id" groups="sales_team.group_sale_manager"/>
-                <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
                 <filter name="my_subscriptions" string="My Subscriptions" domain="[('user_id','=',uid), ('subscription_state', '!=', False)]"/>
                 <filter string="Unassigned" name="contracts_not_assigned" help="Subscriptions that are not assigned to an account manager." domain="[('user_id', '=', False)]"/>
                 <separator/>

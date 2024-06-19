@@ -1,18 +1,17 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class AccountAnalyticAccount(models.Model):
     _inherit = 'account.analytic.account'
 
-    subscription_ids = fields.One2many('sale.order', 'analytic_account_id', string='Subscriptions')
+    subscription_ids = fields.One2many('sale.order', 'project_account_id', string='Subscriptions')
     subscription_count = fields.Integer(compute='_compute_subscription_count', string='Subscription Count')
 
     def _compute_subscription_count(self):
-        subscription_data = self.env['sale.order']._read_group(domain=[('analytic_account_id', 'in', self.ids)],
-                                                                     groupby=['analytic_account_id'],
+        subscription_data = self.env['sale.order']._read_group(domain=[('project_account_id', 'in', self.ids)],
+                                                                     groupby=['project_account_id'],
                                                                      aggregates=['__count'])
         mapped_data = {analytic_account.id: count for analytic_account, count in subscription_data}
         for account in self:

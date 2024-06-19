@@ -8,26 +8,26 @@ class Project(models.Model):
 
     contracts_count = fields.Integer('# Contracts', compute='_compute_contracts_count', groups='hr_payroll.group_hr_payroll_user', export_string_translation=False)
 
-    @api.depends('analytic_account_id')
+    @api.depends('account_id')
     def _compute_contracts_count(self):
         contracts_data = self.env['hr.contract']._read_group([
             ('analytic_account_id', '!=', False),
-            ('analytic_account_id', 'in', self.analytic_account_id.ids)
+            ('analytic_account_id', 'in', self.account_id.ids)
         ], ['analytic_account_id'], ['__count'])
         mapped_data = {analytic_account.id: count for analytic_account, count in contracts_data}
         for project in self:
-            project.contracts_count = mapped_data.get(project.analytic_account_id.id, 0)
+            project.contracts_count = mapped_data.get(project.account_id.id, 0)
 
     # -------------------------------------------
     # Actions
     # -------------------------------------------
 
     def action_open_project_contracts(self):
-        contracts = self.env['hr.contract'].search([('analytic_account_id', '!=', False), ('analytic_account_id', 'in', self.analytic_account_id.ids)])
+        contracts = self.env['hr.contract'].search([('analytic_account_id', '!=', False), ('analytic_account_id', 'in', self.account_id.ids)])
         action = self.env["ir.actions.actions"]._for_xml_id("hr_payroll.action_hr_contract_repository")
         action.update({
             'views': [[False, 'tree'], [False, 'form'], [False, 'kanban']],
-            'context': {'default_analytic_account_id': self.analytic_account_id.id},
+            'context': {'default_analytic_account_id': self.account_id.id},
             'domain': [('id', 'in', contracts.ids)]
         })
         if(len(contracts) == 1):

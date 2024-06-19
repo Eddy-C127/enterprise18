@@ -24,10 +24,12 @@ class TestProject(TestProjectCommon):
             'code': 'AA-1234',
             'plan_id': cls.analytic_plan.id,
         })
-        cls.project_goats.write({'analytic_account_id': cls.analytic_account.id})
+        cls.project_goats.write({
+            'account_id': cls.analytic_account.id,
+        })
 
     def test_get_budget_items(self):
-        if not self.project_pigs.analytic_account_id:
+        if not self.project_pigs.account_id:
             self.assertEqual(self.project_pigs._get_budget_items(False), None, 'No budget should be return since no AA is set into the project.')
         self.assertTrue(self.env.user.has_group('analytic.group_analytic_accounting'))
         self.assertDictEqual(

@@ -400,6 +400,8 @@ class Task(models.Model):
         self.ensure_one()
         if not self.sale_order_id:
             self._fsm_create_sale_order()
+        if not self.sale_order_id.project_id:
+            self.sale_order_id.project_id = self.project_id
         return self.sale_order_id
 
     def _fsm_create_sale_order(self):
@@ -417,7 +419,7 @@ class Task(models.Model):
         sale_order = SaleOrder.create({
             'partner_id': self.partner_id.id,
             'company_id': self.company_id.id,
-            'analytic_account_id': self._get_task_analytic_account_id().id,
+            'project_id': self.project_id.id,
             'team_id': team.id if team else False,
             'origin': _("%(project_name)s - %(task_name)s", project_name=self.project_id.name, task_name=self.name),
         })

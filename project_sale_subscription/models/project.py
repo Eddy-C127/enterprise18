@@ -19,7 +19,7 @@ class Project(models.Model):
         if not domain and not subscription_ids:
             return {}
         action = self.env["ir.actions.actions"]._for_xml_id("sale_subscription.sale_subscription_action")
-        action_context = {'default_analytic_account_id': self.analytic_account_id.id}
+        action_context = {'default_project_id': self.id}
         if self.partner_id.commercial_partner_id:
             action_context['default_partner_id'] = self.partner_id.commercial_partner_id.id
         action.update({
@@ -34,9 +34,7 @@ class Project(models.Model):
 
     def action_open_project_subscriptions(self):
         self.ensure_one()
-        if not self.analytic_account_id:
-            return {}
-        subscription_ids = self.env['sale.order']._search([('is_subscription', '=', True), ('analytic_account_id', 'in', self.analytic_account_id.ids)])
+        subscription_ids = self.env['sale.order']._search([('is_subscription', '=', True), ('project_id', '=', self.id)])
         return self._get_subscription_action(subscription_ids=list(subscription_ids))
 
     def action_profitability_items(self, section_name, domain=None, res_id=False):
@@ -66,10 +64,8 @@ class Project(models.Model):
 
     def _get_profitability_items(self, with_action=True):
         profitability_items = super()._get_profitability_items(with_action)
-        if not self.analytic_account_id:
-            return profitability_items
         subscription_read_group = self.env['sale.order'].sudo()._read_group(
-            [('analytic_account_id', 'in', self.analytic_account_id.ids),
+            [('project_id.account_id', 'in', self.account_id.ids),
              ('subscription_state', 'not in', ['1_draft', '5_renewed']),
              ('is_subscription', '=', True),
             ],
@@ -95,7 +91,7 @@ class Project(models.Model):
         # fetch the data needed for the 'invoiced' section before handling the 'to invoice' one, in order to have all the currencies available and make only one fetch on the rates
         aal_read_group = self.env['account.analytic.line'].sudo()._read_group(
             [('move_line_id.subscription_id', 'in', all_subscription_ids),
-             ('account_id', 'in', self.analytic_account_id.ids)],
+             ('account_id', 'in', self.account_id.ids)],
             ['currency_id'],
             ['amount:sum'],
         )

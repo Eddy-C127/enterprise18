@@ -61,6 +61,9 @@
                     Define the service and the rate at which an employee's time is billed based on their expertise, skills or experience.
                 </span>
             </xpath>
+            <xpath expr="//field[@name='reinvoiced_sale_order_id']" position="attributes">
+                <attribute name="invisible" add="is_fsm" separator=" or "/>
+            </xpath>
         </field>
     </record>
 

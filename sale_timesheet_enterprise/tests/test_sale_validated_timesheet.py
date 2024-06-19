@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -55,7 +54,7 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
         # check project, task and analytic account
         self.assertEqual(self.sale_order.tasks_count, 2, "Two task should have been created on SO confirmation")
         self.assertEqual(len(self.sale_order.project_ids), 1, "One project should have been created on SO confirmation")
-        self.assertEqual(self.sale_order.analytic_account_id, project_1.analytic_account_id, "The created project should be linked to the analytic account of the SO")
+        self.assertEqual(self.sale_order.project_id, project_1, "The created project should be linked to the project of the SO")
 
         yesterday = date.today() - relativedelta(days=1)
         week_before = date.today() + relativedelta(weeks=-1)

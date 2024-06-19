@@ -1109,7 +1109,6 @@ class SaleOrder(models.Model):
             'partner_invoice_id': subscription.partner_invoice_id.id,
             'partner_shipping_id': subscription.partner_shipping_id.id,
             'order_line': order_lines,
-            'analytic_account_id': subscription.analytic_account_id.id,
             'subscription_state': subscription_state,
             'origin': subscription.client_order_ref,
             'client_order_ref': subscription.client_order_ref,

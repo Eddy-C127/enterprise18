@@ -22,7 +22,9 @@ class TestProjectSharing(TestProjectSharingCommon):
             'plan_id': cls.analytic_plan.id,
             'code': 'TEST'
         })
-        cls.project_portal.write({'analytic_account_id': cls.analytic_account.id})
+        cls.project_portal.write({
+            'account_id': cls.analytic_account.id,
+        })
 
         cls.empl_project_user = cls.env['hr.employee'].create({
             'name': 'User Empl Employee',

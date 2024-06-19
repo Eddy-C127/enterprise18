@@ -69,7 +69,18 @@ class AccountAnalyticLine(models.Model):
             if line.helpdesk_ticket_id:
                 line.partner_id = line.helpdesk_ticket_id.partner_id or line.partner_id
 
-    def _timesheet_preprocess(self, vals_list):
+    def write(self, values):
+        if values.get("helpdesk_ticket_id"):
+            ticket = self.env['helpdesk.ticket'].sudo().browse(values["helpdesk_ticket_id"])
+            values['account_id'] = ticket.analytic_account_id.id
+            if ticket.project_id:
+                values['project_id'] = ticket.project_id.id
+            if 'company_id' not in values:
+                values['company_id'] = ticket.project_id.company_id.id
+        return super().write(values)
+
+    @api.model_create_multi
+    def create(self, vals_list):
         vals_list_per_ticket_id = defaultdict(list)
         for vals in vals_list:
             if vals.get('helpdesk_ticket_id'):
@@ -88,7 +99,7 @@ class AccountAnalyticLine(models.Model):
                     vals_update['company_id'] = ticket.project_id.company_id.id
                 for vals in ticket_vals_list:
                     vals.update(vals_update)
-        return super(AccountAnalyticLine, self)._timesheet_preprocess(vals_list)
+        return super().create(vals_list)
 
     def _get_timesheet_field_and_model_name(self):
         if self._context.get('default_helpdesk_ticket_id', False):

@@ -57,7 +57,6 @@ class RentalSchedule(models.Model):
     user_id = fields.Many2one('res.users', 'Salesperson', readonly=True)
     product_tmpl_id = fields.Many2one('product.template', 'Product Template', readonly=True)
     categ_id = fields.Many2one('product.category', 'Product Category', readonly=True)
-    analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account', readonly=True)
     team_id = fields.Many2one('crm.team', 'Sales Team', readonly=True)
     country_id = fields.Many2one('res.country', 'Customer Country', readonly=True)
     commercial_partner_id = fields.Many2one('res.partner', 'Customer Entity', readonly=True)
@@ -139,7 +138,6 @@ class RentalSchedule(models.Model):
             extract(epoch from avg(date_trunc('day',s.rental_return_date)-date_trunc('day',s.rental_start_date)))/(24*60*60)::decimal(16,2) as delay,
             t.categ_id as categ_id,
             s.pricelist_id as pricelist_id,
-            s.analytic_account_id as analytic_account_id,
             s.team_id as team_id,
             p.product_tmpl_id,
             partner.country_id as country_id,
@@ -179,7 +177,6 @@ class RentalSchedule(models.Model):
             s.rental_status,
             s.company_id,
             s.pricelist_id,
-            s.analytic_account_id,
             s.team_id,
             p.product_tmpl_id,
             partner.country_id,

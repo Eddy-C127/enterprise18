@@ -150,9 +150,30 @@ class RentalSchedule(models.Model):
         """, super(RentalSchedule, self)._from())
 
     def _groupby(self) -> SQL:
-        # Add ORDER BY to ensure that `ROW_NUMBER() OVER () AS id` targets the same row each time
         return SQL("""%s,
             lot_info.lot_id,
             lot_info.name,
             lot_info.report_line_status
-        ORDER BY sol.id, lot_info.lot_id""", super(RentalSchedule, self)._groupby())
+        """, super()._groupby())
+
+    def _orderby(self) -> SQL:
+        # Add ORDER BY to ensure that `ROW_NUMBER() OVER () AS id` targets the same row each time
+        return SQL("""
+            sol.id, lot_info.lot_id
+        """)
+
+    def _query(self) -> SQL:
+        return SQL("""
+            %s (SELECT %s
+                FROM %s
+                WHERE sol.product_id IS NOT NULL
+                    AND sol.is_rental
+                GROUP BY %s
+                ORDER BY %s)
+            """,
+            self._with(),
+            self._select(),
+            self._from(),
+            self._groupby(),
+            self._orderby()
+        )

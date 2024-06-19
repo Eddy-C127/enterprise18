@@ -9,6 +9,10 @@
     'summary': 'Project sales subscriptions',
     'description': 'Bridge created to add the number of subscriptions linked to an AA to a project form',
     'depends': ['sale_project', 'sale_subscription'],
+    'data': [
+        'views/account_analytic_account_views.xml',
+        'views/sale_subscription_views.xml',
+    ],
     'demo': [
         'demo/subscription_demo.xml',
     ],

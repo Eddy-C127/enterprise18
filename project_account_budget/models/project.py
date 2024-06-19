@@ -16,7 +16,7 @@ class Project(models.Model):
     def _compute_budget(self):
         budget_items = self.env['budget.line'].sudo()._read_group(
             [
-                ('account_id', 'in', self.analytic_account_id.ids),
+                ('account_id', 'in', self.account_id.ids),
             ],
             groupby=['account_id'],
             aggregates=['budget_amount:sum', 'achieved_amount:sum'],
@@ -28,8 +28,8 @@ class Project(models.Model):
                 'achieved_amount': achieved_amount_sum,
             }
         for project in self:
-            total_budget_amount = budget_items_by_account_analytic.get(project.analytic_account_id.id, {}).get('budget_amount', 0.0)
-            total_achieved_amount = budget_items_by_account_analytic.get(project.analytic_account_id.id, {}).get('achieved_amount', 0.0)
+            total_budget_amount = budget_items_by_account_analytic.get(project.account_id.id, {}).get('budget_amount', 0.0)
+            total_achieved_amount = budget_items_by_account_analytic.get(project.account_id.id, {}).get('achieved_amount', 0.0)
             project.total_budget_progress = total_budget_amount and (total_achieved_amount - total_budget_amount) / total_budget_amount
             project.total_budget_amount = total_budget_amount
 
@@ -39,7 +39,7 @@ class Project(models.Model):
             "type": "ir.actions.act_window",
             "res_model": "budget.line",
             "domain": expression.AND([
-                [('account_id', '=', self.analytic_account_id.id), ('budget_analytic_id.state', 'not in', ['draft', 'cancel'])],
+                [('account_id', '=', self.account_id.id), ('budget_analytic_id.state', 'not in', ['draft', 'cancel'])],
                 domain or [],
             ]),
             'context': {'create': False, 'edit': False},
@@ -53,24 +53,24 @@ class Project(models.Model):
 
     def get_panel_data(self):
         panel_data = super().get_panel_data()
-        panel_data['analytic_account_id'] = self.analytic_account_id.id
+        panel_data['account_id'] = self.account_id.id
         panel_data['budget_items'] = self._get_budget_items()
-        panel_data['show_budget_items'] = bool(self.analytic_account_id)
+        panel_data['show_budget_items'] = bool(self.account_id)
         return panel_data
 
     def get_budget_items(self):
         self.ensure_one()
-        if self.analytic_account_id and self.env.user.has_group('project.group_project_user'):
+        if self.account_id and self.env.user.has_group('project.group_project_user'):
             return self._get_budget_items(True)
         return {}
 
     def _get_budget_items(self, with_action=True):
         self.ensure_one()
-        if not self.analytic_account_id:
+        if not self.account_id:
             return
         budget_lines = self.env['budget.line'].sudo()._read_group(
             [
-                ('account_id', '=', self.analytic_account_id.id),
+                ('account_id', '=', self.account_id.id),
                 ('budget_analytic_id', '!=', False),
                 ('budget_analytic_id.state', 'not in', ['draft', 'cancel']),
             ],

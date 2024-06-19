@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from dateutil.relativedelta import relativedelta
@@ -20,7 +19,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         cls.project.write({
             'partner_id': cls.user_portal.partner_id.id,
             'company_id': False,
-            'analytic_account_id': cls.account_1.id,
+            'account_id': cls.account_1.id,
         })
 
         cls.product_no_tax = cls.sub_product_tmpl.product_variant_id
@@ -65,14 +64,14 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         cls.subscription_main_with_foreign_template._onchange_sale_order_template_id()
 
     def test_project_profitability(self):
-        self.account_1.company_id = False
         self.project.company_id = False
+        project_vals = {'project_id': self.project.id}
 
         foreign_company = self.company_data_2['company']
         foreign_company.currency_id = self.foreign_currency
 
         # Create and confirm a subscription with the foreign company
-        subscription_foreign = self.subscription_foreign.copy({'analytic_account_id': self.account_1.id})  # we work on a copy to test the whole flow
+        subscription_foreign = self.subscription_foreign.copy(project_vals)
         self.assertDictEqual(
             self.project._get_profitability_items(False),
             self.project_profitability_items_empty,
@@ -104,7 +103,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
 
         # Create and confirm a subscription with the main company and the same template as the foreign subscription
         # This ensures that even if subscriptions share a template, the currency is correctly computed
-        subscription_main_with_foreign_template = self.subscription_main_with_foreign_template.copy({'analytic_account_id': self.account_1.id})
+        subscription_main_with_foreign_template = self.subscription_main_with_foreign_template.copy(project_vals)
         subscription_main_with_foreign_template.order_line.price_unit = 100
         subscription_main_with_foreign_template.action_confirm()
         new_amount_expected += subscription_main_with_foreign_template.recurring_monthly * subscription_main_with_foreign_template.sale_order_template_id.duration_value
@@ -123,7 +122,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         )
         # Confirm the main company subscription
         # This ensures that subscriptions with different template are correctly computed
-        subscription = self.subscription.copy({'analytic_account_id': self.account_1.id})  # we work on a copy to test the whole flow
+        subscription = self.subscription.copy(project_vals)
         subscription.action_confirm()
         new_amount_expected += subscription.recurring_monthly * subscription.sale_order_template_id.duration_value
         self.assertDictEqual(
@@ -141,14 +140,15 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         )
 
     def test_project_profitability_with_subscription_without_template(self):
-        self.account_1.company_id = False
+        project_vals = {'sale_order_template_id': False, 'project_id': self.project.id}
         self.project.company_id = False
 
         foreign_company = self.company_data_2['company']
         foreign_company.currency_id = self.foreign_currency
 
         # Create and confirm a subscription with the foreign company
-        subscription_foreign = self.subscription_foreign.copy({'sale_order_template_id': False, 'analytic_account_id': self.account_1.id})
+        subscription_foreign = self.subscription_foreign.copy(project_vals)
+        subscription_foreign.project_id = self.project
         self.assertDictEqual(
             self.project._get_profitability_items(False),
             self.project_profitability_items_empty,
@@ -181,7 +181,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
 
         # Confirm the main company subscription
         # This ensures that subscriptions with different template are correctly computed
-        subscription = self.subscription.copy({'sale_order_template_id': False, 'analytic_account_id': self.account_1.id})
+        subscription = self.subscription.copy(project_vals)
         subscription.action_confirm()
         self.assertEqual(subscription.subscription_state, '3_progress')
         self.assertEqual(len(subscription.order_line), 2)
@@ -229,7 +229,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
             'partner_shipping_id': self.partner_a.id,
             'is_subscription': True,
             'plan_id': self.plan_month.id,
-            'analytic_account_id': self.project.analytic_account_id.id,
+            'project_id': self.project.id,
             'company_id': foreign_company.id,
         })
         self.env['sale.order.line'].with_context(tracking_disable=True).create({
@@ -259,7 +259,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
             'partner_shipping_id': self.partner.id,
             'is_subscription': True,
             'plan_id': self.plan_month.id,
-            'analytic_account_id': self.project.analytic_account_id.id,
+            'project_id': self.project.id,
         })
         self.env['sale.order.line'].with_context(tracking_disable=True).create({
             'product_id': product_service_fixed_recurrent.id,
@@ -290,7 +290,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
             'is_subscription': True,
             'note': "original subscription description",
             'partner_id': self.partner.id,
-            'analytic_account_id': self.project.analytic_account_id.id,
+            'project_id': self.project.id,
             'plan_id': self.plan_month.id,
             'end_date': fields.Date.today() + relativedelta(months=1),
         })
@@ -311,7 +311,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         self.env['account.analytic.line'].create([{
             'name': 'Sale',
             'move_line_id': invoice.line_ids[0].id,
-            'account_id': self.project.analytic_account_id.id,
+            'account_id': self.project.account_id.id,
             'currency_id': self.company_data['currency'].id,
             'amount': 1,
         }])

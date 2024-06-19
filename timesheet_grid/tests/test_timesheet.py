@@ -558,7 +558,7 @@ class TestTimesheetValidation(TestCommonTimesheet, MockEmail):
             'name': 'Project Y',
             'allow_timesheets': True,
             'partner_id': self.partner.id,
-            'analytic_account_id': self.analytic_account.id,
+            'account_id': self.analytic_account.id,
         })
 
         # Create two timesheet entries for the same employee, one for each project, with different unit amounts
