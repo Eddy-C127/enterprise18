@@ -612,7 +612,7 @@ export class UserAgent {
         console.error(error);
         this.voip.triggerError(
             _t(
-                "The websocket connection with the server has been lost. Please try to refresh the page."
+                "The websocket connection to the server has been lost. Attempting to reestablish the connection…"
             )
         );
         this.attemptReconnection();
