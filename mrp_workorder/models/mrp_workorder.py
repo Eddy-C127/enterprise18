@@ -430,8 +430,6 @@ class MrpProductionWorkcenterLine(models.Model):
             raise UserError(_('You still need to do the quality checks!'))
         if float_compare(self.qty_producing, 0, precision_rounding=self.product_uom_id.rounding) <= 0:
             raise UserError(_('Please set the quantity you are currently producing. It should be different from zero.'))
-        if self.production_id.product_id.tracking != 'none' and not self.finished_lot_id and self.move_raw_ids:
-            raise UserError(_('You should provide a lot/serial number for the final product'))
 
     def record_production(self):
         if not self:
