@@ -89,6 +89,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
         uom_name = self.env['uom.uom']._field_to_sql('uom', 'name')
         product_name = self.env['product.template']._field_to_sql('product_template', 'name')
+        account_code = self.env['account.account']._field_to_sql('account', 'code')
         query = SQL(
             '''
             SELECT
@@ -124,6 +125,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 %(journal_name)s                            AS journal_name,
                 journal.type                                AS journal_type,
                 account.account_type                        AS account_type,
+                %(account_code)s                            AS account_code,
                 currency.name                               AS currency_code,
                 %(product_name)s                            AS product_name,
                 product.default_code                        AS product_default_code,
@@ -142,6 +144,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             ''',
             tax_name=tax_name,
             journal_name=journal_name,
+            account_code=account_code,
             product_name=product_name,
             uom_name=uom_name,
             table_references=query.from_clause,
@@ -212,6 +215,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         query = report._get_report_query(options, 'strict_range')
         tax_details_query = self.env['account.move.line']._get_query_tax_details(query.from_clause, query.where_clause)
         tax_name = self.env['account.tax']._field_to_sql('tax', 'name')
+        tax_description = self.env['account.tax']._field_to_sql('tax', 'description')
         self._cr.execute(SQL('''
             SELECT
                 tax_detail.base_line_id,
@@ -220,6 +224,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 tax.type_tax_use AS tax_type,
                 tax.amount_type AS tax_amount_type,
                 %(tax_name)s AS tax_name,
+                %(tax_description)s AS tax_description,
                 tax.amount AS tax_amount,
                 tax.create_date AS tax_create_date,
                 SUM(tax_detail.tax_amount) AS amount,
@@ -228,7 +233,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             JOIN account_move_line tax_line ON tax_line.id = tax_detail.tax_line_id
             JOIN account_tax tax ON tax.id = tax_detail.tax_id
             GROUP BY tax_detail.base_line_id, tax_line.currency_id, tax.id
-        ''', tax_name=tax_name, tax_details_query=tax_details_query))
+        ''', tax_name=tax_name, tax_description=tax_description, tax_details_query=tax_details_query))
         for tax_vals in self._cr.dictfetchall():
             line_vals = values['tax_detail_per_line_map'][tax_vals['base_line_id']]
             line_vals['tax_detail_vals_list'].append({
@@ -239,6 +244,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             tax_vals_map.setdefault(tax_vals['tax_id'], {
                 'id': tax_vals['tax_id'],
                 'name': tax_vals['tax_name'],
+                'description': tax_vals['tax_description'],
                 'amount': tax_vals['tax_amount'],
                 'amount_type': tax_vals['tax_amount_type'],
                 'type': tax_vals['tax_type'],
@@ -332,7 +338,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         partner_contacts_map = defaultdict(lambda: self.env['res.partner'])
 
         def _track_address(current_partner, partner):
-            if partner.zip and partner.city:
+            if partner.zip and partner.city or (options.get('saft_allow_empty_address') and partner != values['company'].partner_id):
                 address_key = (partner.zip, partner.city)
                 partner_addresses_map[current_partner][address_key] = partner
 
