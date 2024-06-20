@@ -78,13 +78,9 @@ QUnit.module(
                 assert.strictEqual(model.getters.getPivotIds().length, 1);
                 assert.strictEqual(model.getters.getOdooPivotIds().length, 0);
                 assert.strictEqual(
-                    !!getActionMenu(topbarMenuRegistry, ["data", "insert_pivot_odoo"], env).isVisible(env),
-                    false
-                );
-                assert.strictEqual(
                     !!getActionMenu(
                         topbarMenuRegistry,
-                        ["data", "insert_pivot_odoo", "reinsert_pivot"],
+                        ["data", "insert_pivot_odoo"],
                         env
                     ).isVisible(env),
                     false
@@ -92,7 +88,7 @@ QUnit.module(
                 assert.strictEqual(
                     !!getActionMenu(
                         topbarMenuRegistry,
-                        ["data", "insert_pivot_odoo", "insert_pivot_cell"],
+                        ["data", "insert_pivot_odoo", "reinsert_pivot"],
                         env
                     ).isVisible(env),
                     false
@@ -377,12 +373,6 @@ QUnit.module(
                 assert.ok(children.find((c) => c.name(env) === "Refresh all data"));
                 assert.ok(children.find((c) => c.name(env) === "Insert pivot"));
                 assert.ok(children.find((c) => c.name(env) === "Re-insert list"));
-
-                const insertPivotChildren = children
-                    .find((c) => c.name(env) === "Insert pivot")
-                    .children(env);
-                assert.ok(insertPivotChildren.find((c) => c.name(env) === "Re-insert pivot"));
-                assert.ok(insertPivotChildren.find((c) => c.name(env) === "Insert pivot cell"));
             }
         );
 

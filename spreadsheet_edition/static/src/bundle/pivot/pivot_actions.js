@@ -1,8 +1,5 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
-import { PivotDialog } from "./spreadsheet_pivot_dialog";
-
 export const REINSERT_PIVOT_CHILDREN = (env) =>
     env.model.getters.getOdooPivotIds().map((pivotId, index) => ({
         id: `reinsert_pivot_${env.model.getters.getPivotFormulaId(pivotId)}`,
@@ -19,55 +16,5 @@ export const REINSERT_PIVOT_CHILDREN = (env) =>
                 table,
             });
             env.model.dispatch("REFRESH_PIVOT", { id: pivotId });
-        },
-    }));
-
-export const INSERT_PIVOT_CELL_CHILDREN = (env) =>
-    env.model.getters.getOdooPivotIds().map((pivotId, index) => ({
-        id: `insert_pivot_cell_${env.model.getters.getPivotFormulaId(pivotId)}`,
-        name: env.model.getters.getPivotDisplayName(pivotId),
-        sequence: index,
-        execute: async (env) => {
-            const pivot = env.model.getters.getPivot(pivotId);
-            pivot.startPresenceTracking();
-            env.model.dispatch("REFRESH_PIVOT", { id: pivotId });
-            const { sheetId, col, row } = env.model.getters.getActivePosition();
-            await pivot.load();
-            // make sure all cells are evaluated
-            for (const sheetId of env.model.getters.getSheetIds()) {
-                env.model.getters.getEvaluatedCells(sheetId);
-            }
-            pivot.stopPresenceTracking();
-            const insertPivotValueCallback = (formula) => {
-                env.model.dispatch("UPDATE_CELL", {
-                    sheetId,
-                    col,
-                    row,
-                    content: formula,
-                });
-            };
-
-            const getMissingValueDialogTitle = () => {
-                const title = _t("Insert pivot cell");
-                const pivotTitle = getPivotTitle();
-                if (pivotTitle) {
-                    return `${title} - ${pivotTitle}`;
-                }
-                return title;
-            };
-
-            const getPivotTitle = () => {
-                if (pivotId) {
-                    return env.model.getters.getPivotDisplayName(pivotId);
-                }
-                return "";
-            };
-
-            env.services.dialog.add(PivotDialog, {
-                title: getMissingValueDialogTitle(),
-                pivotId,
-                insertPivotValueCallback,
-                getters: env.model.getters,
-            });
         },
     }));

@@ -3,7 +3,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { registries, stores } from "@odoo/o-spreadsheet";
 import { REINSERT_LIST_CHILDREN } from "../list/list_actions";
-import { INSERT_PIVOT_CELL_CHILDREN, REINSERT_PIVOT_CHILDREN } from "../pivot/pivot_actions";
+import { REINSERT_PIVOT_CHILDREN } from "../pivot/pivot_actions";
 import { getListHighlights } from "../list/list_highlight_helpers";
 const { topbarMenuRegistry } = registries;
 const { HighlightStore } = stores;
@@ -130,14 +130,6 @@ const reInsertPivotMenu = {
     isVisible: (env) => env.model.getters.getOdooPivotIds().length,
 };
 
-const insertPivotCellMenu = {
-    id: "insert_pivot_cell",
-    name: _t("Insert pivot cell"),
-    sequence: 2,
-    children: [INSERT_PIVOT_CELL_CHILDREN],
-    isVisible: (env) => env.model.getters.getOdooPivotIds().length,
-};
-
 const reInsertListMenu = {
     id: "reinsert_list",
     name: _t("Re-insert list"),
@@ -159,11 +151,7 @@ topbarMenuRegistry.addChild("print", ["file"], printMenu);
 
 topbarMenuRegistry.addChild("insert_pivot_odoo", ["insert"], insertPivotMenu);
 topbarMenuRegistry.addChild("reinsert_pivot", ["insert", "insert_pivot_odoo"], reInsertPivotMenu);
-topbarMenuRegistry.addChild(
-    "insert_pivot_cell",
-    ["insert", "insert_pivot_odoo"],
-    insertPivotCellMenu
-);
+
 topbarMenuRegistry.addChild("reinsert_list", ["insert"], reInsertListMenu);
 
 topbarMenuRegistry.addChild("insert_pivot_odoo", ["data"], insertPivotMenu);
