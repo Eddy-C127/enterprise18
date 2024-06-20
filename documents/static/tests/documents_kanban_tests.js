@@ -171,6 +171,7 @@ QUnit.module("documents", {}, function () {
                     {
                         attachment_id: pyEnv["ir.attachment"].create({}),
                         available_rule_ids: [1],
+                        checksum: "CHECKSUM-1",
                         file_size: 20000,
                         folder_id: documentsFolderIds[0],
                         mimetype: "application/pdf",
@@ -199,6 +200,8 @@ QUnit.module("documents", {}, function () {
                         tag_ids: [documentsTagIds[0], documentsTagIds[1], documentsTagIds[2]],
                     },
                     {
+                        attachment_id: pyEnv["ir.attachment"].create({}),
+                        checksum: "CHECKSUM-2",
                         file_size: 10000,
                         folder_id: documentsFolderIds[0],
                         mimetype: "image/png",
@@ -1273,6 +1276,11 @@ QUnit.module("documents", {}, function () {
 
                 await legacyClick(target, ".o_document_preview img");
 
+                assert.containsOnce(
+                    target,
+                    `img[data-src="${getOrigin()}/web/image/4?unique=CHECKSUM-2&model=documents.document"]`,
+                    "should have an image with the correct imageviewer src"
+                );
                 assert.containsOnce(target, ".o-FileViewer");
                 assert.containsOnce(target, ".o-FileViewer div[aria-label='Close']");
 
@@ -1285,9 +1293,7 @@ QUnit.module("documents", {}, function () {
                 assert.containsOnce(target, ".o-FileViewer div[title='Split PDF']");
                 assert.containsOnce(
                     target,
-                    `iframe[data-src="/web/static/lib/pdfjs/web/viewer.html?file=${encodeURIComponent(
-                        getOrigin() + "/web/content/2?model=documents.document"
-                    )}#pagemode=none"]`,
+                    `iframe[data-src="/web/static/lib/pdfjs/web/viewer.html?file=${encodeURIComponent(getOrigin()+'/web/content/2?unique=CHECKSUM-1&model=documents.document')}#pagemode=none"]`,
                     "should have an iframe with the correct pdfviewer src"
                 );
 
