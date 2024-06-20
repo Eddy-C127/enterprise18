@@ -98,6 +98,10 @@ class SignTemplate(models.Model):
             return '<p class="o_view_nocontent_smiling_face">%s</p>' % _('Upload a PDF')
         return super().get_empty_list_help(help_message)
 
+    def _can_take_ownership_of_attachment(self, attachment):
+        """ Returns whether the ownership of the attachment can be transferred to a new sign template. """
+        return not attachment.res_model and not attachment.res_id
+
     @api.model_create_multi
     def create(self, vals_list):
         # Sometimes the attachment is not already created in database when the sign template create method is called
@@ -112,12 +116,11 @@ class SignTemplate(models.Model):
         attachments = self.env['ir.attachment'].browse([vals.get('attachment_id') for vals in vals_list if vals.get('attachment_id')])
         for attachment in attachments:
             self._check_pdf_data_validity(attachment.datas)
-        # copy the attachment if it has been attached to a record
         for vals, attachment in zip(vals_list, attachments):
-            if attachment.res_model or attachment.res_id:
-                vals['attachment_id'] = attachment.copy().id
-            else:
+            if self._can_take_ownership_of_attachment(attachment):
                 attachment.res_model = self._name
+            else:
+                vals['attachment_id'] = attachment.copy().id
         templates = super().create(vals_list)
         for template, attachment in zip(templates, templates.attachment_id):
             attachment.write({

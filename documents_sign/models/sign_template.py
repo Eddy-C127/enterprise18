@@ -9,14 +9,14 @@ class SignTemplate(models.Model):
     folder_id = fields.Many2one('documents.folder', 'Signed Document Workspace')
     documents_tag_ids = fields.Many2many('documents.tag', string="Signed Document Tags")
 
+    def _can_take_ownership_of_attachment(self, attachment):
+        """ If the attachment is owned by a document, the ownership can be transferred to the sign template. """
+        if attachment.res_model == 'documents.document':
+            return True
+        return super()._can_take_ownership_of_attachment(attachment)
+
     @api.model_create_multi
     def create(self, vals_list):
-        # In the super(), if an attachment is already attached to a record, a copy of the original attachment will be
-        # created and used for the template. Here if the attachment is only used for Document, we directly reuse it for
-        # the template by unlinking the relationships and call super() with_context no_document.
-        self.env['ir.attachment'].browse([vals.get('attachment_id') for vals in vals_list])\
-            .filtered(lambda att: att.res_model == 'documents.document')\
-            .write({'res_model': False, 'res_id': 0})
         return super(SignTemplate, self.with_context(no_document=True))\
             .create(vals_list)\
             .with_context(no_document=bool(self._context.get('no_document')))
