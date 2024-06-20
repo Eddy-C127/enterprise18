@@ -139,7 +139,9 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
         def build_result_dict(query_res_lines):
             if current_groupby == 'id':
                 res = query_res_lines[0]
-                reconcile_rate = abs(res['suspense_balance']) / (abs(res['suspense_balance']) + abs(res['other_balance']))
+                reconcile_rate = 0
+                if not journal_currency.is_zero(res['suspense_balance']):
+                    reconcile_rate = abs(res['suspense_balance']) / (abs(res['suspense_balance']) + abs(res['other_balance']))
                 foreign_currency = self.env['res.currency'].browse(res['foreign_currency_id'])
 
                 return self._build_custom_engine_result(
