@@ -11,20 +11,24 @@ export class AppointmentTypeSyncDuration extends Many2OneField {
         this.isDefaultDuration = false;
 
         onWillStart(async () => {
-            const appointmentDuration = await this.orm.read(
-                "appointment.type", [this.appointmentTypeId], ['appointment_duration']
-            );
-            this.isDefaultDuration = this.props.record.data.duration === appointmentDuration?.[0].appointment_duration;
+            if (this.appointmentTypeId) {
+                const appointmentDuration = await this.orm.read(
+                    "appointment.type", [this.appointmentTypeId], ['appointment_duration']
+                );
+                this.isDefaultDuration = this.props.record.data.duration === appointmentDuration?.[0].appointment_duration;
+            }
         });
 
         useRecordObserver(async (record) => {
             if (record.data.appointment_type_id[0] !== this.appointmentTypeId && this.isDefaultDuration) {
                 this.appointmentTypeId = record.data.appointment_type_id[0];
-                const appointmentDuration = await this.orm.read(
-                    "appointment.type", [this.appointmentTypeId], ['appointment_duration']
-                );
-                if (appointmentDuration.length !== 0) {
-                    record.update({'duration': appointmentDuration[0].appointment_duration});
+                if (this.appointmentTypeId) {
+                    const appointmentDuration = await this.orm.read(
+                        "appointment.type", [this.appointmentTypeId], ['appointment_duration']
+                    );
+                    if (appointmentDuration.length !== 0) {
+                        record.update({'duration': appointmentDuration[0].appointment_duration});
+                    }
                 }
             }
         });

@@ -237,7 +237,7 @@ class CalendarEvent(models.Model):
         if not self.env.context.get('appointment_booking_gantt_show_all_resources'):
             return resources
         resources_domain = [
-            '|', ('company_id', '=', False), ('company_id', 'in', self.env.context.get('allowed_company_ids', [])),
+            ('appointment_type_ids', '!=', False), '|', ('company_id', '=', False), ('company_id', 'in', self.env.context.get('allowed_company_ids', [])),
         ]
         # If we have a default appointment type, we only want to show those resources
         default_appointment_type = self.env.context.get('default_appointment_type_id')
