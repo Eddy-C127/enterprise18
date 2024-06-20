@@ -61,22 +61,22 @@ class L10nChTaxRateImportWizard(models.TransientModel):
                     pass
                 elif transaction_type == '02':
                     # modification
-                    raise UserError(_('Unmanaged transaction type 02: %s', line))
+                    raise UserError(_('Unmanaged transaction type 02: %(line)', line=line))
                 elif transaction_type == '03':
                     # Removal
-                    raise UserError(_('Unmanaged transaction type 03: %s', line))
+                    raise UserError(_('Unmanaged transaction type 03: %(line)', line=line))
                 else:
-                    raise UserError(_('Unrecognized transaction type %s: %s', transaction_type, line))
+                    raise UserError(_('Unrecognized transaction type %(t_type): %(line)', t_type=transaction_type, line=line))
 
                 canton = line[4:6]
                 if canton not in CANTON_CODES:
-                    raise UserError(_('Unrecognized canton code %s: %s', canton, line))
+                    raise UserError(_('Unrecognized canton code %(canton): %(line)', canton=canton, line=line))
 
                 tax_code = line[6:16].strip()
                 if line_type == "06":
                     tax_scale = tax_code[0]
                     if tax_scale not in TAX_SCALES:
-                        raise UserError(_('Unrecognized tax scale %s: %s', tax_scale, line))
+                        raise UserError(_('Unrecognized tax scale %(tax_scale): %(line)', tax_scale=tax_scale, line=line))
                     child_count = int(tax_code[1])
                 church_tax = tax_code[2]  # 'Y' or 'N'
 

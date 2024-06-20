@@ -27,8 +27,8 @@
                 <field name="l10n_ch_location_unit_id"/>
                 <field name="l10n_ch_avs_status"/>
             </field>
-            <group name="ch_salary_insurances" position="after">
-                <group name="is_additional_info" string="IS Additional Info" invisible="country_code != 'CH' or not l10n_ch_has_withholding_tax">
+            <group name="ch_salary_insurances" position="after" >
+                <group name="is_additional_info" string="IS Additional Info" groups="hr_payroll.group_hr_payroll_user" invisible="country_code != 'CH' or not l10n_ch_has_withholding_tax">
                     <field name="l10n_ch_monthly_effective_days"/>
                     <field name="l10n_ch_is_model"/>
                     <field name="l10n_ch_other_employers"/>
