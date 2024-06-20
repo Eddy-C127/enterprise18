@@ -11,7 +11,7 @@
             <div t-else="">
                 <div class="oe_structure"></div>
             </div>
-            <table name="employee-infos" id="employee_info_table_1" class="table table-sm table-bordered">
+            <table name="employee-infos" id="employee_info_table_1" class="o_ignore_layout_styling table table-sm table-bordered">
                 <tr id="employee_info_line_1">
                     <td class="w-25"><strong>Employee</strong></td>
                     <td class="w-25"><strong>Marital Status</strong></td>
@@ -61,7 +61,7 @@
                 </tr>
             </table>
 
-            <table class="table table-sm" t-if="not o.struct_id.hide_basic_on_pdf">
+            <table class="o_ignore_layout_styling table table-sm" t-if="not o.struct_id.hide_basic_on_pdf">
                 <tr>
                     <td class="w-25"><strong>Basic Salary (<span class="text-capitalize" t-out="o.contract_id.wage_type"/>)</strong></td>
                     <td style="color:#875A7B" class="w-25">
@@ -72,7 +72,7 @@
                 </tr>
             </table>
             <div id="total">
-                <table class="table table-sm">
+                <table class="o_ignore_layout_styling table table-sm">
                     <thead class="o_black_border">
                         <tr>
                             <th id="line_header_name">Name</th>

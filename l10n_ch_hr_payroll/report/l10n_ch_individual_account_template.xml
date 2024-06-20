@@ -11,7 +11,7 @@
                         </h2>
                         <br/>
                         <tbody>
-                            <table class="table table-sm table-bordered">
+                            <table class="o_ignore_layout_styling table table-sm table-bordered">
                                 <tr>
                                     <td><strong>Company Information</strong></td>
                                     <td>
@@ -27,7 +27,7 @@
                                     </td>
                                 </tr>
                             </table>
-                            <table t-if="employee" class="table table-sm table-bordered">
+                            <table t-if="employee" class="o_ignore_layout_styling table table-sm table-bordered">
                                 <tr>
                                     <td><strong>Name</strong></td>
                                     <td><span t-field="employee.name"/></td>
@@ -62,7 +62,7 @@
                                     <td><span t-field="employee.registration_number"/></td>
                                 </tr>
                             </table>
-                            <table class="table table-bordered table-sm">
+                            <table class="o_ignore_layout_styling table table-bordered table-sm">
                                 <thead><tr>
                                     <th class="text-center">Code</th>
                                     <th class="text-center">Name</th>

@@ -5,7 +5,7 @@
         <t t-call="web.external_layout">
             <t t-foreach="docs" t-as="o">
                 <div class="page">
-                    <table>
+                    <table class="o_ignore_layout_styling">
                         <tr>
                             <td><p><span t-esc="time.strftime('%m-%d-%Y')"/></p></td>
                         </tr>
@@ -33,7 +33,7 @@
                         </tr>
                     </table>
 
-                    <table class="table table-sm">
+                    <table class="o_ignore_layout_styling table table-sm">
                         <thead>
                             <tr style="border-top: 1px solid black">
                                 <th>SI No.</th>
