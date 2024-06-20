@@ -53,7 +53,7 @@ patch(PosStore.prototype, {
             date: new DateTime(order.date_order).toFormat("yyyyMMddHHmm"),
             receipt_id: order.sequence_number.toString(),
             pos_id: order.pos.config.id.toString(),
-            organisation_number: this.company.company_registry,
+            organisation_number: this.company.company_registry.replace(/\D/g,''),
             receipt_total: order.get_total_with_tax().toFixed(2).toString().replace(".", ","),
             negative_total:
                 order.get_total_with_tax() < 0
