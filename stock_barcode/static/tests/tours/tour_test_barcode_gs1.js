@@ -1279,3 +1279,66 @@ registry.category("web_tour.tours").add('test_gs1_receipt_packaging', {test: tru
     },
     ...stepUtils.discardBarcodeForm(),
 ]});
+
+registry.category("web_tour.tours").add('test_gs1_receipt_packaging_with_uom', {test: true, steps: () => [
+    { trigger: ".o_stock_barcode_main_menu", run: "scan WH-RECEIPTS"},
+    /* Scan (01)10347543011337(3103)000900(17)240701(10)100005
+        - (01) 10347543011337: packaging barcode (6 units);
+        - (3103) 000900: 0.9 kg -> Should be ignored;
+        - (17) 240701: expiration date (1st July 2024);
+        - (10) 100005: tracking number.
+    */
+    {
+        trigger: ".o_barcode_client_action",
+        run: "scan 011034754301133731030009001724070110100005"
+    },
+    {
+        trigger: ".o_barcode_line",
+        run: function() {
+            helper.assertLineQty(0, "6 Units");
+        }
+    },
+    /* Scan another lots with both quantity and weight.
+        (01)03287890001332(10)92404603(17)240304(3103)001500(37)5
+        - (01) 03287890001332: product barcode;
+        - (10) 92404603: tracking number;
+        - (17) 240304: expiration date (4th March 2024);
+        - (3103) 001500: 1.5 kg -> Should be ignored;
+        - (37) 5: 5 units -> Should be used as the line quantity.
+        */
+    {
+        trigger: ".o_barcode_client_action",
+        run: "scan 01032878900013321092404603\x1D172403043103001500375"
+    },
+    { trigger: ".o_toggle_sublines .fa-caret-down" },
+    {
+        trigger: ".o_toggle_sublines .fa-caret-up",
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(2);
+            const sublines = helper.getSublines();
+            helper.assertLinesTrackingNumbers(sublines, ["100005", "92404603"]);
+            helper.assertLineQty(sublines[0], "6 Units");
+            helper.assertLineQty(sublines[1], "5 Units");
+        }
+    },
+    // Same scenario but with scanning the packaging instead of the product, the weight should
+    // still be ignored but the scanned quantity should multiply the packaging quantity.
+    {
+        trigger: ".o_barcode_client_action",
+        run: "scan 011034754301133710123456\x1D172403043103001500375"
+    },
+    {
+        trigger: ".o_barcode_line:nth-child(3)",
+        run: function() {
+            helper.assertLinesCount(1);
+            helper.assertSublinesCount(3);
+            const sublines = helper.getSublines();
+            helper.assertLinesTrackingNumbers(sublines, ["100005", "92404603", "123456"]);
+            helper.assertLineQty(sublines[0], "6 Units");
+            helper.assertLineQty(sublines[1], "5 Units");
+            // Package qty: 6; scanned qty: 5 -> Line qty = 6 x 5 = 30.
+            helper.assertLineQty(sublines[2], "30 Units");
+        }
+    },
+]});

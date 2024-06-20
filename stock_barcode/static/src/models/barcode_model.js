@@ -1226,8 +1226,16 @@ export default class BarcodeModel extends EventBus {
 
     _retrievePackagingData(barcodeData) {
         const product = this.cache.getRecord('product.product', barcodeData.packaging.product_id);
-        const quantity = ("quantity" in barcodeData ? barcodeData.quantity : 1) * barcodeData.packaging.qty;;
         const uom = this.cache.getRecord('uom.uom', product.uom_id);
+        let quantity = "quantity" in barcodeData ? barcodeData.quantity : 1;
+        if (barcodeData.uom && barcodeData.uom.category_id !== uom.category_id) {
+            // In case the scanned quantity uses an UoM not compatible with the
+            // product UoM, we drop it and uses the packaging quantity instead.
+            quantity = barcodeData.packaging.qty
+        } else {
+            // Otherwise, multiply the scanned quantity (or 1 by default) by the package quantity.
+            quantity *= barcodeData.packaging.qty;
+        }
         return { product, quantity, uom };
     }
 
