@@ -112,7 +112,8 @@
             <field name="model">account.bank.statement.line</field>
             <field name="arch" type="xml">
                 <kanban js_class="bank_rec_widget_kanban"
-                        on_create="account_accountant.action_bank_statement_line_form_bank_rec_widget">
+                        on_create="quick_create"
+                        quick_create_view="account_accountant.view_bank_statement_line_quick_create_form_bank_rec_widget">
                     <field name="id"/>
                     <field name="state"/>
                     <field name="statement_complete"/>
@@ -306,6 +307,31 @@
                         <button string="Cancel" class="btn-secondary"
                                 special="cancel" data-hotkey="x"/>
                     </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Form view for quick creating statement lines -->
+        <record id="view_bank_statement_line_quick_create_form_bank_rec_widget" model="ir.ui.view">
+            <field name="name">account.bank.statement.line.form.bank_rec_widget</field>
+            <field name="model">account.bank.statement.line</field>
+            <field name="arch" type="xml">
+                <form string="New Transaction">
+                    <field name="journal_id" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <group>
+                        <field name="date" readonly="is_reconciled and amount != 0" nolabel="1"/>
+                        <field name="partner_id"
+                            readonly="is_reconciled and amount != 0"
+                            nolabel="1"
+                            placeholder="Partner"/>
+                        <field name="amount" readonly="is_reconciled and amount != 0" nolabel="1"/>
+                    </group>
+                    <field name="payment_ref"
+                        required="1"
+                        readonly="is_reconciled and amount != 0"
+                        nolabel="1"
+                        placeholder="Memo"/>
                 </form>
             </field>
         </record>

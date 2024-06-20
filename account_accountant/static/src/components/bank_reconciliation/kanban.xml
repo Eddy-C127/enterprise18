@@ -32,6 +32,12 @@
             <BankRecGlobalInfo t-if="globalState.bankRecStLineId and globalState.journalId"
                                 journalId="globalState.journalId"
                                 journalBalanceAmount="globalState.journalBalanceAmount"/>
+            <t t-if="globalState.quickCreateState.isVisible">
+                <BankRecQuickCreate globalState="globalState"
+                    onValidate="(record, mode) => this.validateQuickCreate(record, mode)"
+                    onCancel="() => this.cancelQuickCreate()"
+                    quickCreateView="props.quickCreateState.view"/>
+            </t>
         </xpath>
         <xpath expr="//t[@t-else='']/KanbanRecord" position="before">
             <t t-set="recData" t-value="groupOrRecord.record.data"/>

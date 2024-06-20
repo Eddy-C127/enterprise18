@@ -38,6 +38,7 @@ import { BankRecViewEmbedder } from "./view_embedder";
 import { BankRecRainbowContent } from "./rainbowman_content";
 import { BankRecFinishButtons } from "./finish_buttons";
 import { BankRecGlobalInfo } from "./global_info";
+import { BankRecQuickCreate } from "./bank_rec_quick_create";
 
 import { onPatched, useState, useEffect, useRef, useChildSubEnv, markRaw } from "@odoo/owl";
 
@@ -134,6 +135,12 @@ export class BankRecKanbanController extends KanbanController {
             // Asynchronous validation stuff.
             lockedStLineIds: new Set(),
             lockedAmlIds: new Set(),
+
+            quickCreateState : {
+                isVisible: false,
+                view: this.props.archInfo.quickCreateView,
+                context: this.props.context,
+            },
         });
 
         this.counter = {
@@ -391,6 +398,39 @@ export class BankRecKanbanController extends KanbanController {
     onPageUpdate(page) {
         if (this.state.bankRecNotebookPage !== page) {
             this.state.bankRecNotebookPage = page;
+        }
+    }
+
+    /**
+    Overriden.
+    **/
+    get canQuickCreate() {
+        return true;
+    }
+
+    /**
+    Overriden.
+    **/
+    createRecord() {
+        const { onCreate } = this.props.archInfo;
+        const searchModel = this.env.searchModel;
+        const journalFilter = Object.values(searchModel.searchItems).filter(i => i.type == "field" && i.fieldName == "journal_id")[0];
+
+        // If there are no records, deactivate all filters except the journal one.
+        if (!this.model.root.records.length) {
+            searchModel.facets.forEach(facet => {
+                if(facet.groupId !== journalFilter.groupId)
+                    searchModel.deactivateGroup(facet.groupId)
+            });
+        }
+
+        if (onCreate === "quick_create" && this.canQuickCreate) {
+            this.state.quickCreateState = {
+                ...this.state.quickCreateState,
+                isVisible: true,
+                resModel: this.props.resModel,
+                model: this.model,
+            };
         }
     }
 
@@ -1131,6 +1171,7 @@ export class BankRecKanbanRenderer extends KanbanRenderer {
         RainbowMan,
         BankRecFinishButtons,
         BankRecGlobalInfo,
+        BankRecQuickCreate,
     };
     setup() {
         super.setup();
@@ -1182,6 +1223,28 @@ export class BankRecKanbanRenderer extends KanbanRenderer {
             }
         }
         this.action.doAction(action, options);
+    }
+
+
+    // -----------------------------------------------------------------------------
+    // QUICK CREATE CALLBACKS
+    // -----------------------------------------------------------------------------
+
+    /**
+    Overriden.
+    **/
+    cancelQuickCreate() {
+        this.globalState.quickCreateState.isVisible = false;
+    }
+
+    /**
+    Overriden.
+    **/
+    validateQuickCreate(_recordId, mode) {
+        this.globalState.quickCreateState.model.load()
+        if (mode === "add_close") {
+            this.globalState.quickCreateState.isVisible = false;
+        }
     }
 }
 
