@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo import Command
 from odoo.addons.mrp_workorder.tests.common import TestMrpWorkorderCommon
 from odoo.addons.base.tests.common import HttpCase
 from odoo.tests import Form, tagged
@@ -514,6 +515,68 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         self.assertEqual(wo2_1.state, 'progress')
         self.assertEqual(wo2_2.state, 'pending', "Completion of first MO's WOs should not affect backordered pending WO")
         self.assertEqual(mo.state, 'to_close')
+
+    def test_workorder_tracked_final_product(self):
+        """
+        Suppose that you have an MO for a prodcut tracked by SN with two operations.
+        Check that you can mark the operations as done without registering an SN.
+        """
+        tracked_product = self.env['product.product'].create({
+            'name': 'Final product',
+            'is_storable': True,
+            'tracking': 'serial',
+        })
+        comp_1, comp_2 = self.product_1, self.product_2
+        (comp_1 | comp_2).is_storable = True
+        self.env['stock.quant']._update_available_quantity(comp_1, self.env.ref("stock.warehouse0").lot_stock_id, 5)
+        self.env['stock.quant']._update_available_quantity(comp_2, self.env.ref("stock.warehouse0").lot_stock_id, 5)
+        bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': tracked_product.product_tmpl_id.id,
+            'product_qty': 1.0,
+            'operation_ids': [
+                Command.create({'name': 'OP1', 'workcenter_id': self.workcenter_1.id, 'time_cycle': 12, 'sequence': 1}),
+                Command.create({'name': 'OP2', 'workcenter_id': self.workcenter_2.id, 'time_cycle': 12, 'sequence': 1}),
+            ],
+            'bom_line_ids': [
+                Command.create({'product_id': comp_1.id, 'product_qty': 1}),
+                Command.create({'product_id': comp_2.id, 'product_qty': 1}),
+            ],
+        })
+        bom.bom_line_ids[0].operation_id = bom.operation_ids[0]
+        bom.bom_line_ids[1].operation_id = bom.operation_ids[1]
+
+        mo_form = Form(self.env['mrp.production'])
+        mo_form.product_id = self.product_1
+        mo_form.bom_id = bom
+        mo_form.product_qty = 1
+        mo = mo_form.save()
+        mo.action_confirm()
+
+        # Operation 1 & 2: consume components and mark as done
+        raw_move_1, raw_move_2 = mo.move_raw_ids
+        operation_1, operation_2 = mo.workorder_ids
+        operation_1.button_start()
+        operation_1.qty_producing = 1.0
+        raw_move_1.move_line_ids[0].quantity = 1.0
+        operation_1.do_finish()
+        self.assertRecordValues(operation_1, [{'qty_produced': 1.0, 'finished_lot_id': False, 'state': 'done'}])
+        operation_2.button_start()
+        operation_2.qty_producing = 1.0
+        raw_move_2.move_line_ids[0].quantity = 1.0
+        operation_2.do_finish()
+        self.assertRecordValues(operation_2, [{'qty_produced': 1.0, 'finished_lot_id': False, 'state': 'done'}])
+        self.assertEqual(mo.state, 'to_close')
+        # Try to finish the production without assigning an SN
+        mo.move_raw_ids.filtered(lambda m: not m.operation_id).picked = True
+        with self.assertRaises(UserError):
+            mo.button_mark_done()
+        # Assign an SN and mark the production as done
+        mo.action_generate_serial()
+        self.assertEqual(operation_1.finished_lot_id, mo.lot_producing_id)
+        self.assertEqual(operation_2.finished_lot_id, mo.lot_producing_id)
+        mo.button_mark_done()
+        self.assertEqual(mo.state, 'done')
+
 
 @tagged("post_install", "-at_install")
 class TestShopFloor(HttpCase, TestMrpWorkorderCommon):
