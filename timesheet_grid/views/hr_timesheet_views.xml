@@ -66,10 +66,6 @@
                 <xpath expr="/kanban" position="inside">
                     <field name="validated" invisible="1" force_save="0"/>
                 </xpath>
-                <xpath expr="//div/div" position="after">
-                    <span t-att-class="'o_status_bubble mx-0 float-end mt-1 o_color_bubble_' + (record.validated.raw_value ? 10 : 0)"
-                        class="o_timesheet_status_bubble ms-auto" t-att-title="record.validated.raw_value ? 'Validated': 'Draft'"/>
-                </xpath>
             </field>
         </record>
 
@@ -126,9 +122,6 @@
                  </xpath>
                  <xpath expr="//div/div" position="attributes">
                     <attribute name="class" remove="ps-2" separator=" "/>
-                 </xpath>
-                 <xpath expr="//footer" position="inside">
-                    <xpath expr="//span[hasclass('o_timesheet_status_bubble')]" position="move"/>
                  </xpath>
             </field>
         </record>
@@ -436,6 +429,7 @@
                 'grid_anchor': (datetime.date.today()).strftime('%Y-%m-%d'),
                 'group_expand': True,
                 "is_timesheet": 1,
+                "is_my_timesheets": 1,
             }</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
