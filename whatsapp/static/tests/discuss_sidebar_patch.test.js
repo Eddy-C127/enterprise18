@@ -130,3 +130,20 @@ test("whatsapp are sorted by last activity time in the sidebar: most recent at t
     await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 1" });
     await contains(":nth-child(2 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });
 });
+
+test("Whatsapp - Sidebar channel icons should have the partner's avatar", async () => {
+    const pyEnv = await startServer();
+    const partnerId = pyEnv["res.partner"].create({
+        name: "Demo",
+    });
+    pyEnv["discuss.channel"].create({
+        channel_member_ids: [
+            Command.create({ partner_id: serverState.partnerId }),
+            Command.create({ partner_id: partnerId }),
+        ],
+        channel_type: "whatsapp",
+    });
+    await start();
+    await openDiscuss();    
+    await contains(`.o-mail-DiscussSidebar-item img[data-src*='/web/image/res.partner/${partnerId}/avatar_128']`);
+});

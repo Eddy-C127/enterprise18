@@ -29,10 +29,10 @@ patch(Thread.prototype, {
     },
 
     get avatarUrl() {
-        if (this.channel_type !== "whatsapp") {
-            return super.avatarUrl;
+        if (this.channel_type === "whatsapp" && this.correspondent) {
+            return this.correspondent.persona.avatarUrl;
         }
-        return this.store.DEFAULT_AVATAR;
+        return super.avatarUrl;
     },
 
     get isChatChannel() {
