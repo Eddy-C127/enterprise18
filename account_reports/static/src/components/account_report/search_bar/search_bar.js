@@ -27,17 +27,23 @@ export class AccountReportSearchBar extends Component {
         const query = this.searchText.el.value.trim().toLowerCase();
         const linesIDsMatched = [];
 
-        for (const line of this.controller.lines){
-            if (line.visible) {
-                let lineName = line.name.trim().toLowerCase();
-                let match = (lineName.indexOf(query) !== -1);
+        if (query.length) {
+            for (const line of this.controller.lines) {
+                const lineIds = line.id.split('|')
+                const lineType = lineIds[lineIds.length - 1];
 
-                if (match)
-                    linesIDsMatched.push(line.id);
+                if (lineType.includes('account.account')) {
+                    const lineName = line.name.trim().toLowerCase();
+                    const match = (lineName.indexOf(query) !== -1);
+
+                    if (match) {
+                        linesIDsMatched.push(line.id);
+                    }
+                }
             }
         }
 
-        if (query.length && linesIDsMatched.length) {
+        if (linesIDsMatched.length) {
             this.controller.lines_searched = linesIDsMatched;
             this.controller.updateOption("filter_search_bar", query);
         } else {
