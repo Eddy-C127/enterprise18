@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-inherit="mail.Activity" t-inherit-mode="extension">
-        <xpath expr="//span[hasclass('o-mail-Activity-markDone')]" position="attributes">
+        <xpath expr="//button[hasclass('o-mail-Activity-markDone')]" position="attributes">
             <attribute name="t-if">props.activity.activity_category != "sign_request"</attribute>
         </xpath>
-        <xpath expr="//span[hasclass('o-mail-Activity-markDone')]" position="after">
-            <span
+        <xpath expr="//button[hasclass('o-mail-Activity-markDone')]" position="after">
+            <button
                 t-if="props.activity.activity_category == 'sign_request'"
                 class="btn btn-link p-0 me-3"
                 t-att-data-chaining-type-activity="props.activity.chaining_type"
@@ -14,7 +14,7 @@
                 t-on-click="onClickRequestSign"
             >
                 <i class="fa fa-pencil-square-o"/> Request Signature
-            </span>
+            </button>
         </xpath>
     </t>
 
