@@ -1,7 +1,6 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { TourError } from "@web_tour/tour_service/tour_utils";
 
 registry.category("web_tour.tours").add('test_carrier_type_selection_field', {test: true, steps: () => [
     {
@@ -29,14 +28,14 @@ registry.category("web_tour.tours").add('test_carrier_type_selection_field', {te
                 console.info(`Checking carrier type ${carrierType} ...`);
                 carrierTypeSelect.value = carrierType;
                 if (carrierTypeSelect.value != carrierType) {
-                    throw new TourError(`${carrierType} value not found in available carrier types.`);
+                    console.error(`${carrierType} value not found in available carrier types.`);
                 }
             })
             // Check an incorrect value and confirm that it was not selected
             var carrierType = 'CompletelyFakeCarrierType';
             carrierTypeSelect.value = carrierType;
             if (carrierTypeSelect.value == carrierType) {
-                throw new TourError(`${carrierType} value should not be allowed.`);
+                console.error(`${carrierType} value should not be allowed.`);
             }
         }
     },

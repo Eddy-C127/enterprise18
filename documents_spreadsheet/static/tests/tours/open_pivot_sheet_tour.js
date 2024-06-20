@@ -1,7 +1,6 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { TourError } from "@web_tour/tour_service/tour_utils";
 
 function assert(current, expected, info) {
     if (current !== expected) {
@@ -10,7 +9,7 @@ function assert(current, expected, info) {
 }
 
 function fail(errorMessage) {
-    throw new TourError(errorMessage);
+    console.error(errorMessage);
 }
 
 const SHEETNAME = "Res Partner Test Spreadsheet";

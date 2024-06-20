@@ -1,9 +1,7 @@
 /** @odoo-module **/
 
-import { TourError } from "@web_tour/tour_service/tour_utils";
-
 function fail(errorMessage) {
-    throw new TourError(errorMessage);
+    console.error(errorMessage);
 }
 
 function assertIn(item, itemList, info) {

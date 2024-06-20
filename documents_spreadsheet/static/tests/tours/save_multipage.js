@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { stepUtils, TourError } from "@web_tour/tour_service/tour_utils";
+import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
 registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
     test: true,
@@ -80,7 +80,7 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
                     ".o_kanban_renderer .o_kanban_record:first-child > div.o_kanban_stack"
                 );
                 if (card.length > 1) {
-                    throw new TourError("The card should not be rendered as multipage.");
+                    console.error("The card should not be rendered as multipage.");
                 }
             },
         },

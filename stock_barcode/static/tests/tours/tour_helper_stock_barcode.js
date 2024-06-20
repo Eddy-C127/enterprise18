@@ -1,7 +1,5 @@
 /** @odoo-module **/
 
-import { TourError } from "@web_tour/tour_service/tour_utils";
-
 
 const helper = {};
 export default helper;
@@ -46,7 +44,7 @@ helper._prepareSelector = (selector, description) => {
 };
 
 helper.fail = (errorMessage) => {
-    throw new TourError(errorMessage);
+    console.error(errorMessage);
 };
 
 /**
