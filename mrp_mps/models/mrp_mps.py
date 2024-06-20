@@ -345,7 +345,7 @@ class MrpProductionSchedule(models.Model):
             dummy, components = bom.explode(record.product_id, 1)
             for component in components:
                 if component[0].product_id.is_storable:
-                    components_list.add((component[0].product_id.id, record.warehouse_id.id, record.company_id.id))
+                    components_list.add((component[0].product_id.id, record.warehouse_id.id, record.company_id.id, record.mps_sequence))
         for component in components_list:
             if self.env['mrp.production.schedule'].search_count([
                 ('product_id', '=', component[0]),
@@ -359,7 +359,7 @@ class MrpProductionSchedule(models.Model):
                 'company_id': component[2],
                 'is_indirect': True,
                 'replenish_trigger': 'never',
-                'mps_sequence': mps.mps_sequence + 1
+                'mps_sequence': component[3] + 1
             })
         if components_vals:
             self.env['mrp.production.schedule'].create(components_vals)
