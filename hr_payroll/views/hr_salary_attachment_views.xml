@@ -11,14 +11,31 @@
                 <field name="deduction_type_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True}" readonly="has_done_payslip"/>
                 <field name="monthly_amount" sum="Monthly Amount" widget="monetary"/>
                 <field name="total_amount" optional="hide" widget="monetary"/>
+                <field name="remaining_amount" optional="hide" widget="monetary"/>
                 <field name="paid_amount" optional="hide" widget="monetary" readonly="has_done_payslip"/>
                 <field name="is_refund" optional="hide"/>
                 <field name="occurrences" optional="hide"/>
                 <field name="date_start" readonly="has_done_payslip"/>
                 <field name="employee_count" column_invisible="True"/>
                 <field name="state" widget="badge" decoration-success="state == 'open'" decoration-info="state == 'close'" decoration-danger="state == 'cancel'" invisible="state == 'open' and employee_count &gt; 1"/>
-                <field name="has_done_payslip" invisible="1"/>
+                <field name="has_done_payslip" column_invisible="1"/>
+                <button string="Related Payslips" type="object" name="action_open_payslips" invisible="payslip_count == 0"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="hr_salary_attachment_view_pivot" model="ir.ui.view">
+        <field name="name">hr.salary.attachment.pivot</field>
+        <field name="model">hr.salary.attachment</field>
+        <field name="arch" type="xml">
+            <pivot string="Salary Attachments">
+                <field name="employee_ids" type="row"/>
+                <field name="deduction_type_id" type="col"/>
+                <field name="paid_amount"/>
+                <field name="remaining_amount"/>
+                <field name="monthly_amount" type="measure"/>
+                <field name="total_amount" type="measure"/>
+            </pivot>
         </field>
     </record>
 
@@ -113,13 +130,13 @@
     <record id="hr_salary_attachment_action" model="ir.actions.act_window">
         <field name="name">Salary Attachment</field>
         <field name="res_model">hr.salary.attachment</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,pivot</field>
     </record>
 
     <record id="hr_salary_attachment_action_view_employee" model="ir.actions.act_window">
         <field name="name">Salary Attachment</field>
         <field name="res_model">hr.salary.attachment</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,pivot</field>
         <field name="context">{"search_default_employee_ids": [active_id]}</field>
     </record>
 </odoo>

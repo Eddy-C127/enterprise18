@@ -50,7 +50,6 @@
         'views/hr_rule_parameter_views.xml',
         'views/hr_payroll_report_views.xml',
         'views/hr_work_entry_report_views.xml',
-        'report/hr_salary_attachment_report_views.xml',
         'views/hr_payroll_dashboard_views.xml',
         'views/hr_payroll_dashboard_warning_views.xml',
         'views/hr_payroll_headcount_views.xml',
