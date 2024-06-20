@@ -137,7 +137,7 @@ class PaymentTransaction(models.Model):
         for tx in self:
             if tx.state == 'done' and tx.sale_order_ids.is_subscription:
                 if tx.operation != 'validation':
-                    tx._create_or_link_to_invoice()
+                    tx.with_context(forced_invoice=True)._create_or_link_to_invoice()
                 self._post_subscription_action()
             elif tx.state in ('error', 'cancel'):
                 tx._handle_unsuccessful_transaction()
