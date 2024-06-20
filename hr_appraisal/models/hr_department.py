@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import ast
+
 from odoo import api, fields, models, _
 
 
@@ -27,3 +29,11 @@ class hr_department(models.Model):
         for department in self:
             department.employee_feedback_template = department.company_id.appraisal_employee_feedback_template or self.env.company.appraisal_employee_feedback_template
             department.manager_feedback_template = department.company_id.appraisal_manager_feedback_template or self.env.company.appraisal_manager_feedback_template
+
+    def action_open_appraisals(self):
+        action = self.env["ir.actions.actions"]._for_xml_id("hr_appraisal.action_appraisal_report_all")
+        action['context'] = {
+            **ast.literal_eval(action['context']),
+            'search_default_department_id': self.id,
+        }
+        return action

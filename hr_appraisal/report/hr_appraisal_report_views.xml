@@ -96,6 +96,7 @@
         <field name="model">hr.appraisal.report</field>
         <field name="arch" type="xml">
             <search string="Appraisal Analysis">
+                <field name="department_id"/>
                 <filter string="To Start" name="to_start" icon="fa-check" domain="[('state', '=' ,'new')]" help = "In progress Evaluations"/>
                 <filter string="Appraisal Sent" name="appraisal_sent" icon="fa-check" domain="[('state','=','pending')]" help = "Final Interview Date"/>
                 <filter string="Done" name="done" domain="[('state','=','done')]"/>
