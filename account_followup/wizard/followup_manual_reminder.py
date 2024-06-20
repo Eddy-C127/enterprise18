@@ -76,16 +76,17 @@ class FollowupManualReminder(models.TransientModel):
     @api.depends('template_id')
     def _compute_email_recipient_ids(self):
         for wizard in self:
+            partner = wizard.partner_id
             template = wizard.template_id
+            wizard.email_recipient_ids = partner._get_all_followup_contacts() or partner
             if template:
-                partner_id = wizard.partner_id.id
                 rendered_values = template._generate_template_recipients(
-                    [partner_id],
+                    [partner.id],
                     {'partner_to', 'email_cc', 'email_to'},
                     True
-                )[partner_id]
+                )[partner.id]
                 if rendered_values.get('partner_ids'):
-                    wizard.email_recipient_ids = rendered_values['partner_ids']
+                    wizard.email_recipient_ids = [Command.link(partner_id) for partner_id in rendered_values['partner_ids']]
 
     @api.depends('sms_template_id')
     def _compute_sms_body(self):
