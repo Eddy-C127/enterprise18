@@ -92,7 +92,7 @@ class TestNoSaftReport(TestAccountReportsCommon):
             self.get_xml_tree_from_string(f'''
                 <AuditFile xmlns="urn:StandardAuditFile-Taxation-Financial:NO">
                     <Header>
-                        <AuditFileVersion>1.10</AuditFileVersion>
+                        <AuditFileVersion>1.30</AuditFileVersion>
                         <AuditFileCountry>NO</AuditFileCountry>
                         <AuditFileDateCreated>2019-12-31</AuditFileDateCreated>
                         <SoftwareCompanyName>Odoo SA</SoftwareCompanyName>
@@ -188,8 +188,11 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                     <Telephone>+352 24 11 11 11</Telephone>
                                 </Contact>
                                 <CustomerID>___ignore___</CustomerID>
-                                <OpeningDebitBalance>0.00</OpeningDebitBalance>
-                                <ClosingDebitBalance>2500.00</ClosingDebitBalance>
+                                <BalanceAccount>
+                                    <AccountID>___ignore___</AccountID>
+                                    <OpeningDebitBalance>0.00</OpeningDebitBalance>
+                                    <ClosingDebitBalance>2500.00</ClosingDebitBalance>
+                                </BalanceAccount>
                             </Customer>
                         </Customers>
                         <TaxTable>
@@ -201,7 +204,7 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                     <Description>25%</Description>
                                     <TaxPercentage>25.0</TaxPercentage>
                                     <Country>NO</Country>
-                                    <StandardTaxCode>02</StandardTaxCode>
+                                    <StandardTaxCode>3</StandardTaxCode>
                                     <BaseRate>100</BaseRate>
                                 </TaxCodeDetails>
                             </TaxTableEntry>
@@ -259,9 +262,9 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                         <TaxCode>___ignore___</TaxCode>
                                         <TaxPercentage>25.0</TaxPercentage>
                                         <TaxBaseDescription>25%</TaxBaseDescription>
-                                        <TaxAmount>
+                                        <CreditTaxAmount>
                                             <Amount>1250.00</Amount>
-                                        </TaxAmount>
+                                        </CreditTaxAmount>
                                     </TaxInformation>
                                 </Line>
                                 <Line>
@@ -312,9 +315,9 @@ class TestNoSaftReport(TestAccountReportsCommon):
                                         <TaxCode>___ignore___</TaxCode>
                                         <TaxPercentage>25.0</TaxPercentage>
                                         <TaxBaseDescription>25%</TaxBaseDescription>
-                                        <TaxAmount>
+                                        <DebitTaxAmount>
                                             <Amount>750.00</Amount>
-                                        </TaxAmount>
+                                        </DebitTaxAmount>
                                     </TaxInformation>
                                 </Line>
                                 <Line>

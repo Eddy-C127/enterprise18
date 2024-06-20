@@ -6,7 +6,7 @@ from odoo import api, models, tools
 
 XSD_INFO = {
     'name': 'xsd_no_saft.xsd',
-    'url': 'https://raw.githubusercontent.com/Skatteetaten/saf-t/master/Norwegian_SAF-T_Financial_Schema_v_1.10.xsd',
+    'url': 'https://raw.githubusercontent.com/Skatteetaten/saf-t/master/SAF-T_Financial_1.3/Norwegian_SAF-T_Financial_Schema_v_1.30.xsd',
     'prefix': 'l10n_no_saft',
 }
 

@@ -4,7 +4,7 @@
 {
     'name': 'Norwegian Standard Audit File for Tax',
     'countries': ['no'],
-    'version': '1.0',
+    'version': '1.2',
     'category': 'Accounting/Localizations/Reporting',
     'description': """
 Norwegian SAF-T is standard file format for exporting various types of accounting transactional data using the XML format.
