@@ -35,7 +35,7 @@ class GermanySalesReportTest(AccountSalesReportCommon):
             ('company_id', '=', self.company_data['company'].id)
         ])[0]
         s_tax = self.env['account.tax'].search([
-            ('name', '=', '0% MOB'),
+            ('name', '=', '0% EU'),
             ('company_id', '=', self.company_data['company'].id)
         ])[0]
         self._create_invoices([
