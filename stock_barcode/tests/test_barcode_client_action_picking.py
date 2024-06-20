@@ -3140,7 +3140,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         # Checks the package is in the customer's location.
         self.assertEqual(package.location_id.id, self.customer_location.id)
 
-    def test_gs1_and_packaging(self):
+    def test_gs1_receipt_packaging(self):
         """
         This test ensures that a user can scan a packaging when processing a receipt
         """
@@ -3172,6 +3172,32 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(move.product_id, product)
         self.assertEqual(move.quantity, 30)
         self.assertEqual(move.picked, True)
+
+    def test_gs1_receipt_packaging_with_uom(self):
+        """ This test ensures that packaging quantity is used when a weight is
+        scanned but the product uses Units as UoM.
+        """
+        self.clean_access_rights()
+        group_lot = self.env.ref('stock.group_production_lot')
+        group_packaging = self.env.ref('product.group_stock_packaging')
+        group_uom = self.env.ref('uom.group_uom')
+        self.env.user.write({'groups_id': [(4, group_lot.id), (4, group_packaging.id), (4, group_uom.id)]})
+        self.env.company.nomenclature_id = self.env.ref('barcodes_gs1_nomenclature.default_gs1_nomenclature')
+        # Create a product and its packaging.
+        self.env['product.product'].create({
+            'name': 'Product by Units',
+            'is_storable': True,
+            'tracking': 'lot',
+            'uom_id': self.uom_unit.id,
+            'uom_po_id': self.uom_unit.id,
+            'barcode': '03287890001332',
+            'packaging_ids': [(0, 0, {
+                'name': 'PBUx6',
+                'qty': 6,
+                'barcode': '10347543011337',
+            })],
+        })
+        self.start_tour('/odoo/barcode', 'test_gs1_receipt_packaging_with_uom', login='admin', timeout=180)
 
     def test_split_line_on_scan(self):
         """
