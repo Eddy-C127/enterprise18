@@ -358,6 +358,10 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
         })
 
     def test_manual_reminder_get_template_mail_addresses(self):
+        """
+        When opening account_followup.manual_reminder, the partner should always be in `email_recipients_ids`
+        When adding a template, the template's partner_to, email_cc and email_to should be added to `email_recipient_ids` as well
+        """
         mail_partner = self.env['res.partner'].create({
             'name': 'Mai Lang',
             'email': 'mail.ang@test.com',
@@ -370,7 +374,6 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
         mail_template = self.env['mail.template'].create({
             'name': 'reminder',
             'model_id': self.env['ir.model']._get_id('res.partner'),
-            'partner_to': '{{ object.id }}',
             'email_cc': mail_cc.email,
         })
 
@@ -379,4 +382,9 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
             active_ids=mail_partner.id,
         ).create({'template_id': mail_template.id})
 
+        self.assertTrue(mail_partner in reminder.email_recipient_ids, "Mai Lang should be in the Email Recipients List")
+
+        reminder.template_id = mail_template
+
         self.assertTrue(mail_cc in reminder.email_recipient_ids, "John Carmac should be in the Email Recipients list.")
+        self.assertTrue(mail_partner in reminder.email_recipient_ids, "Mai Lang should still be in the Email Recipients List")
