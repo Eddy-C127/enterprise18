@@ -83,7 +83,7 @@ class PaymentTransaction(models.Model):
         # override to force invoice creation if the transaction is done for a subscription
         # We don't take care of the sale.automatic_invoice parameter in that case.
         res = super()._reconcile_after_done()
-        self.filtered(lambda tx: tx.operation != 'validation')._create_or_link_to_invoice()
+        self.filtered(lambda tx: tx.operation != 'validation').with_context(forced_invoice=True)._create_or_link_to_invoice()
         self._post_subscription_action()
         return res
 
