@@ -1,13 +1,64 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models
+import re
+
+from lxml import html
+from werkzeug.urls import url_join
+
+from odoo import _, api, fields, models
 from odoo.osv import expression
+from odoo.tools import is_html_empty
 
 
 class Article(models.Model):
     _name = 'knowledge.article'
     _inherit = ['knowledge.article', 'website.published.mixin', 'website.searchable.mixin']
+
+    summary = fields.Text('Summary', compute='_compute_summary')
+
+    def get_website_meta(self):
+        opengraph_meta = {
+            'og:type': 'article',
+            'og:title': self.display_name,
+            'og:description': self.summary,
+        }
+        twitter_meta = {
+            'twitter:title': self.display_name,
+            'twitter:description': self.summary,
+        }
+        if self.cover_image_url:
+            url = url_join(self.get_base_url(), self.cover_image_url)
+            opengraph_meta['og:image'] = url
+            twitter_meta['twitter:card'] = 'summary_large_image'
+            twitter_meta['twitter:image'] = url
+        else:
+            twitter_meta['twitter:card'] = 'summary'
+        return {
+            'opengraph_meta': opengraph_meta,
+            'twitter_meta': twitter_meta,
+            'meta_description': self.summary
+        }
+
+    @api.depends('body')
+    def _compute_summary(self):
+        for article in self:
+            if is_html_empty(article.body):
+                article.summary = False
+                continue
+            root = html.fragment_fromstring(article.body, create_parent=True)
+            selector = """//*[
+                contains(@class, 'o_knowledge_behavior_type_articles_structure') or
+                contains(@class, 'o_knowledge_behavior_type_draw') or
+                contains(@class, 'o_knowledge_behavior_type_embedded_view') or
+                contains(@class, 'o_knowledge_behavior_type_file') or
+                contains(@class, 'o_knowledge_behavior_type_toc') or
+                contains(@class, 'o_knowledge_behavior_type_video')
+            ]"""
+            for element in root.xpath(selector):
+                element.getparent().remove(element)
+            text = re.sub(r'\s+', ' ', root.text_content()).strip()
+            article.summary = text[:100] + (_('...') if len(text) > 100 else '')
 
     @api.depends('article_url')
     def _compute_website_url(self):

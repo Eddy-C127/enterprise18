@@ -46,6 +46,7 @@ class KnowledgeWebsiteController(KnowledgeController):
         show_sidebar = False if no_sidebar else article.parent_id.website_published or article.child_ids.filtered('website_published')
         return request.render('website_knowledge.article_view_public', {
             'article': article,
+            'main_object': article,
             'show_sidebar': show_sidebar
         })
 
