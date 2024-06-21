@@ -96,10 +96,12 @@ export function useDocumentView(helpers) {
             resModel: "documents.share",
             context,
             onRecordSaved: async (record) => {
-                // Copy the share link to the clipboard
-                navigator.clipboard.writeText(record.data.full_url);
-                notification.add(_t("The share URL has been copied to your clipboard."), {
-                    type: "success",
+                setTimeout(async () => {
+                    // Copy the share link to the clipboard
+                    await navigator.clipboard.writeText(record.data.full_url);
+                    notification.add(_t("The share URL has been copied to your clipboard."), {
+                        type: "success",
+                    });
                 });
             },
         });
