@@ -260,7 +260,6 @@ class DiscussChannel(models.Model):
             broadcast_store.add(
                 "Thread",
                 {
-                    "channelMembers": [("ADD", [{"id": new_member.id}])],
                     "id": self.id,
                     "memberCount": self.member_count,
                     "model": "discuss.channel",

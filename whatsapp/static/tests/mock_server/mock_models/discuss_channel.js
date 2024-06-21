@@ -60,7 +60,6 @@ export class DiscussChannel extends mailModels.DiscussChannel {
                 Thread: [
                     {
                         id: channel.id,
-                        channelMembers: [["ADD", [{ id: selfMember.id }]]],
                         memberCount: DiscussChannelMember.search_count([
                             ["channel_id", "=", channel.id],
                         ]),
