@@ -256,14 +256,19 @@ class DiscussChannel(models.Model):
             }])
             message_body = Markup(f'<div class="o_mail_notification">{_("joined the channel")}</div>')
             new_member.channel_id.message_post(body=message_body, message_type="notification", subtype_xmlid="mail.mt_comment")
-            channel_info = {
-                "channelMembers": [("ADD", list(new_member._discuss_channel_member_format().values()))],
-                "id": self.id,
-                "memberCount": self.member_count,
-                "model": "discuss.channel",
-            }
-            broadcast_store = Store("Thread", channel_info)
-            self.env['bus.bus']._sendone(self, 'mail.record/insert', broadcast_store.get_result())
+            broadcast_store = Store(
+                "ChannelMember", list(new_member._discuss_channel_member_format().values())
+            )
+            broadcast_store.add(
+                "Thread",
+                {
+                    "channelMembers": [("ADD", [{"id": new_member.id}])],
+                    "id": self.id,
+                    "memberCount": self.member_count,
+                    "model": "discuss.channel",
+                },
+            )
+            self.env["bus.bus"]._sendone(self, "mail.record/insert", broadcast_store.get_result())
         return Store(self).get_result()
 
     # ------------------------------------------------------------

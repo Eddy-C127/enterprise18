@@ -1,8 +1,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from freezegun import freeze_time
 from itertools import product
 
-from odoo import exceptions
+from odoo import Command, exceptions, fields
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.addons.whatsapp.tests.common import WhatsAppCommon, MockIncomingWhatsApp
 from odoo.tests import tagged, users
@@ -140,9 +141,156 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
             'name': 'employee channel',
             'whatsapp_number': '+32456001122',
         })
-        employee_channel.with_user(self.user_admin).with_context(
-            default_rtc_session_ids=[(0, 0, {'is_screen_sharing_on': True})]
-        ).whatsapp_channel_join_and_pin()
+
+        def get_join_bus():
+            # sudo: bus.bus: reading non-sensitive last id
+            bus_last_id = self.env["bus.bus"].sudo()._bus_last_id()
+            message = self.env["mail.message"].search([], order="id desc", limit=1)
+            member = self.env["discuss.channel.member"].search([], order="id desc", limit=1)
+            admin_write_date = fields.Datetime.to_string(self.user_admin.partner_id.write_date)
+            member_create_date = fields.Datetime.to_string(member.create_date)
+            return (
+                [
+                    (self.env.cr.dbname, "discuss.channel", employee_channel.id),
+                    (self.env.cr.dbname, "res.partner", self.user_admin.partner_id.id),
+                    (self.env.cr.dbname, "discuss.channel", employee_channel.id, "members"),
+                    (self.env.cr.dbname, "discuss.channel", employee_channel.id),
+                    (self.env.cr.dbname, "discuss.channel", employee_channel.id),
+                ],
+                [
+                    {
+                        "type": "mail.record/insert",
+                        "payload": {
+                            "Thread": {
+                                "id": employee_channel.id,
+                                "model": "discuss.channel",
+                                "last_interest_dt": "2020-03-22 10:31:06",
+                            }
+                        },
+                    },
+                    {
+                        "type": "mail.record/insert",
+                        "payload": {
+                            "ChannelMember": [
+                                {
+                                    "id": member.id,
+                                    "thread": {
+                                        "id": employee_channel.id,
+                                        "model": "discuss.channel",
+                                        "message_unread_counter": 0,
+                                        "message_unread_counter_bus_id": bus_last_id - 4,
+                                    },
+                                    "persona": {
+                                        "id": self.user_admin.partner_id.id,
+                                        "name": "Mitchell Admin",
+                                        "type": "partner",
+                                    },
+                                    "new_message_separator": message.id + 1,
+                                    "syncUnread": False,
+                                },
+                            ],
+                        },
+                    },
+                    {
+                        "type": "mail.record/insert",
+                        "payload": {
+                            "Thread": {
+                                "id": employee_channel.id,
+                                "is_pinned": True,
+                                "model": "discuss.channel",
+                            }
+                        },
+                    },
+                    {
+                        "type": "discuss.channel/new_message",
+                        "payload": {
+                            "id": employee_channel.id,
+                            "message": {
+                                "id": message.id,
+                                "body": '<div class="o_mail_notification">joined the channel</div>',
+                                "date": "2020-03-22 10:31:06",
+                                "email_from": '"Mitchell Admin" <test.admin@test.example.com>',
+                                "message_type": "notification",
+                                "subject": False,
+                                "model": "discuss.channel",
+                                "res_id": employee_channel.id,
+                                "record_name": "employee channel",
+                                "author": {
+                                    "id": self.user_admin.partner_id.id,
+                                    "name": "Mitchell Admin",
+                                    "is_company": False,
+                                    "write_date": admin_write_date,
+                                    "userId": self.user_admin.id,
+                                    "isInternalUser": True,
+                                    "type": "partner",
+                                },
+                                "default_subject": "employee channel",
+                                "notifications": [],
+                                "attachments": [],
+                                "linkPreviews": [],
+                                "reactions": [],
+                                "pinned_at": False,
+                                "create_date": fields.Datetime.to_string(message.create_date),
+                                "write_date": fields.Datetime.to_string(message.write_date),
+                                "is_note": False,
+                                "is_discussion": True,
+                                "subtype_description": False,
+                                "recipients": [],
+                                "scheduledDatetime": False,
+                                "thread": {
+                                    "model": "discuss.channel",
+                                    "id": employee_channel.id,
+                                    "module_icon": "/mail/static/description/icon.png",
+                                },
+                                "sms_ids": [],
+                            },
+                        },
+                    },
+                    {
+                        "type": "mail.record/insert",
+                        "payload": {
+                            "ChannelMember": [
+                                {
+                                    "id": member.id,
+                                    "thread": {
+                                        "id": employee_channel.id,
+                                        "model": "discuss.channel",
+                                    },
+                                    "create_date": member_create_date,
+                                    "persona": {
+                                        "id": self.user_admin.partner_id.id,
+                                        "name": "Mitchell Admin",
+                                        "email": "test.admin@test.example.com",
+                                        "active": True,
+                                        "im_status": "offline",
+                                        "is_company": False,
+                                        "write_date": admin_write_date,
+                                        "userId": self.user_admin.id,
+                                        "isInternalUser": True,
+                                        "type": "partner",
+                                    },
+                                    "fetched_message_id": {"id": message.id},
+                                    "seen_message_id": {"id": message.id},
+                                },
+                            ],
+                            "Thread": [
+                                {
+                                    "channelMembers": [["ADD", [{"id": member.id}]]],
+                                    "id": employee_channel.id,
+                                    "memberCount": 2,
+                                    "model": "discuss.channel",
+                                },
+                            ],
+                        },
+                    },
+                ],
+            )
+
+        self._reset_bus()
+        with freeze_time("2020-03-22 10:31:06"), self.assertBus(get_params=get_join_bus):
+            employee_channel.with_user(self.user_admin).with_context(
+                default_rtc_session_ids=[Command.create({"is_screen_sharing_on": True})]
+            ).whatsapp_channel_join_and_pin()
 
 
 @tagged('wa_message', 'security')

@@ -56,16 +56,17 @@ export class DiscussChannel extends mailModels.DiscussChannel {
                 })
             );
             BusBus._sendone(channel, "mail.record/insert", {
-                Thread: {
-                    id: channel.id,
-                    channelMembers: [
-                        ["ADD", [DiscussChannelMember._discuss_channel_member_format(selfMember)]],
-                    ],
-                    memberCount: DiscussChannelMember.search_count([
-                        ["channel_id", "=", channel.id],
-                    ]),
-                    model: "discuss.channel",
-                },
+                ChannelMember: [DiscussChannelMember._discuss_channel_member_format(selfMember)],
+                Thread: [
+                    {
+                        id: channel.id,
+                        channelMembers: [["ADD", [{ id: selfMember.id }]]],
+                        memberCount: DiscussChannelMember.search_count([
+                            ["channel_id", "=", channel.id],
+                        ]),
+                        model: "discuss.channel",
+                    },
+                ],
             });
         }
         return { Thread: this._channel_info([channel.id]) };
