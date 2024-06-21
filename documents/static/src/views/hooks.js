@@ -213,11 +213,13 @@ export function useDocumentView(helpers) {
                     resId: shareResId,
                     onRecordSaved: async (record) => {
                         saved = true;
-                        // Copy the share link to the clipboard
-                        navigator.clipboard.writeText(record.data.full_url);
-                        // Show a notification to the user about the copy to clipboard
-                        notification.add(_t("The share url has been copied to your clipboard."), {
-                            type: "success",
+                        setTimeout(async () => {
+                            // Copy the share link to the clipboard
+                            await navigator.clipboard.writeText(record.data.full_url);
+                            // Show a notification to the user about the copy to clipboard
+                            notification.add(_t("The share url has been copied to your clipboard."), {
+                                type: "success",
+                            });
                         });
                     },
                 },
