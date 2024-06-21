@@ -13,6 +13,8 @@ from pytz import timezone
 
 from odoo import api, fields, models
 from odoo.addons.account.tools import LegacyHTTPAdapter
+from odoo.tools.zeep import Client
+from odoo.tools.zeep.helpers import serialize_object
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 from odoo.tools.translate import _
@@ -98,6 +100,7 @@ MAP_CURRENCIES = {
     'Taiwan Dollar': 'TWD',
     'Tanzania Shilling': 'TZS',
     'Uganda Shilling': 'UGX',
+    'Uruguayan Peso': 'UYU',
     'Uzbekistani som': 'UZS',
     'Vietnam Dong': 'VND',
     'Yemen Rial': 'YER',
@@ -156,6 +159,7 @@ CURRENCY_PROVIDER_SELECTION = [
     (['UK'], 'hmrc', '[UK] HM Revenue & Customs'),
     (['MY'], 'bnm', '[MY] Bank Negara Malaysia'),
     (['ID'], 'bi', '[ID] Bank Indonesia'),
+    (['UY'], 'bcu', '[UY] Uruguayan Central Bank'),
 ]
 
 
@@ -894,6 +898,81 @@ class ResCompany(models.Model):
         if rslt and 'CZK' in available_currency_names:
             rslt['CZK'] = (1.0, last_update)
         return rslt
+
+    def _get_bcu_currencies_mapping(self):
+        """ Return info about the currencies and corresponding BCU identifications needed for synchronization """
+        return {
+            'ARS': 501,
+            'AUD': 105,
+            'BRL': 1001,
+            'CAD': 2309,
+            'CHF': 5900,
+            'CLP': 1300,
+            'CNY': 4150,
+            'COP': 5500,
+            'DKK': 1800,
+            'EUR': 1111,
+            'GBP': 2700,
+            'HKD': 5100,
+            'HUF': 4300,
+            'INR': 5700,
+            'ISK': 4900,
+            'JPY': 3600,
+            'KRW': 5300,
+            'MXN': 4200,
+            'MYR': 5600,
+            'NOK': 4600,
+            'NZD': 1490,
+            'PEN': 4000,
+            'PYG': 4800,
+            'RUB': 5400,
+            'SEK': 5800,
+            'TRY': 4400,
+            'USD': 2225,
+            'UYI': 9800,
+            'VEF': 6200,
+            'ZAR': 1620,
+        }
+
+    def _parse_bcu_data(self, available_currencies):
+        """ This method is used to update the currencies by using BCU service provider.
+        They can be manually verified at:
+            https://www.bcu.gub.uy/Estadisticas-e-Indicadores/Paginas/Cotizaciones.aspx
+        """
+        # Only sync currencies that have BCU code, UYU is not included
+        iso_to_moneda_map = self._get_bcu_currencies_mapping()
+        if not (to_sync_currencies := available_currencies.filtered(lambda c: c.name in iso_to_moneda_map)):
+            raise UserError(_("No available currency rate could be updated from the BCU."))
+        moneda_to_iso_map = {v: k for k, v in iso_to_moneda_map.items()}
+
+        wsdl = "https://cotizaciones.bcu.gub.uy/wscotizaciones/servlet/%s/service.asmx?WSDL"
+        date_api_client = Client(wsdl % 'awsultimocierre')
+        rate_api_client = Client(wsdl % 'awsbcucotizaciones')
+
+        _logger.info("Getting the date of the last currency rate update from the BCU.")
+        last_date = date_api_client.service.Execute()
+
+        to_sync_codes = sorted(to_sync_currencies.mapped("name"))
+        _logger.info("Getting the currency rates for (%s) from the BCU.", ", ".join(to_sync_codes))
+        Entrada = rate_api_client.type_factory('ns0').wsbcucotizacionesin(
+            Moneda={'item': to_sync_currencies.mapped(lambda x: iso_to_moneda_map[x.name])},
+            FechaDesde=last_date,
+            FechaHasta=last_date,
+            Grupo=0,
+        )
+        response = rate_api_client.service.Execute(Entrada)
+        if response.respuestastatus.codigoerror:
+            error_message = response.respuestastatus.mensaje
+            raise UserError(_('Error updating the currency rates from the BCU: %s.', error_message))
+
+        res = {'UYU': (1.0, last_date)}
+        for rate_values in response.datoscotizaciones['datoscotizaciones.dato']:
+            iso_code = moneda_to_iso_map[rate_values.Moneda]
+            rate = 1.0 / serialize_object(rate_values.TCV)
+            res[iso_code] = (rate, last_date)
+
+        _logger.info("Currency rates have been downloaded from the BCU.")
+        return res
 
     def _parse_bnb_data(self, available_currencies):
         """ This method is used to update the currencies by using BNB (Bulgaria National Bank) service API.
