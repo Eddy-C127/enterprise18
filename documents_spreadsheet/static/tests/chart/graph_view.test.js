@@ -43,6 +43,19 @@ test("The chart mode is the selected one", async () => {
     expect(model.getters.getChart(chartId).type).toBe("odoo_pie");
 });
 
+test("Line charts are inserted as stacked area charts", async (assert) => {
+    const { model } = await createSpreadsheetFromGraphView({
+        actions: async (target) => {
+            await contains(".fa-line-chart").click();
+        },
+    });
+    const sheetId = model.getters.getActiveSheetId();
+    const chartId = model.getters.getChartIds(sheetId);
+    const definition = model.getters.getChartDefinition(chartId);
+    expect(definition.fillArea).toBe(true);
+    expect(definition.stacked).toBe(true);
+});
+
 test("The chart order is the selected one when selecting desc", async () => {
     const { model } = await createSpreadsheetFromGraphView({
         actions: async (target) => {

@@ -25,8 +25,9 @@ chartSidePanelComponentRegistry
     });
 
 chartSubtypeRegistry.add("odoo_line", {
-    matcher: (definition) => definition.type === "odoo_line" && !definition.stacked,
-    subtypeDefinition: { stacked: false },
+    matcher: (definition) =>
+        definition.type === "odoo_line" && !definition.stacked && !definition.fillArea,
+    subtypeDefinition: { stacked: false, fillArea: false },
     displayName: _t("Line"),
     chartSubtype: "odoo_line",
     chartType: "odoo_line",
@@ -34,12 +35,33 @@ chartSubtypeRegistry.add("odoo_line", {
     preview: "o-spreadsheet-ChartPreview.LINE_CHART",
 });
 chartSubtypeRegistry.add("odoo_stacked_line", {
-    matcher: (definition) => definition.type === "odoo_line" && definition.stacked,
-    subtypeDefinition: { stacked: true },
+    matcher: (definition) =>
+        definition.type === "odoo_line" && definition.stacked && !definition.fillArea,
+    subtypeDefinition: { stacked: true, fillArea: false },
     displayName: _t("Stacked Line"),
     chartSubtype: "odoo_stacked_line",
     chartType: "odoo_line",
     category: "line",
+    preview: "o-spreadsheet-ChartPreview.STACKED_LINE_CHART",
+});
+chartSubtypeRegistry.add("odoo_area", {
+    matcher: (definition) =>
+        definition.type === "odoo_line" && !definition.stacked && definition.fillArea,
+    subtypeDefinition: { stacked: false, fillArea: true },
+    displayName: _t("Area"),
+    chartSubtype: "odoo_area",
+    chartType: "odoo_line",
+    category: "area",
+    preview: "o-spreadsheet-ChartPreview.AREA_CHART",
+});
+chartSubtypeRegistry.add("odoo_stacked_area", {
+    matcher: (definition) =>
+        definition.type === "odoo_line" && definition.stacked && definition.fillArea,
+    subtypeDefinition: { stacked: true, fillArea: true },
+    displayName: _t("Stacked Area"),
+    chartSubtype: "odoo_stacked_area",
+    chartType: "odoo_line",
+    category: "area",
     preview: "o-spreadsheet-ChartPreview.STACKED_AREA_CHART",
 });
 chartSubtypeRegistry.add("odoo_bar", {
