@@ -4,7 +4,7 @@ import { startServer } from "@bus/../tests/helpers/mock_python_environment";
 
 import { start } from "@mail/../tests/helpers/test_utils";
 
-import { click, contains, insertText } from "@web/../tests/utils";
+import { click, contains, insertText, scroll } from "@web/../tests/utils";
 
 QUnit.module("contacts_tab");
 
@@ -36,4 +36,29 @@ QUnit.test("Typing in the search bar fetches and displays the matching contacts"
     await insertText("input[placeholder=Search]", "Morshu");
     await contains(".o-voip-ContactsTab b", { text: "Morshu RTX" });
     await contains(".o-voip-ContactsTab b", { text: "Gargamel", count: 0 });
+});
+
+QUnit.test("Scrolling to bottom loads more contacts", async (assert) => {
+    const pyEnv = await startServer();
+    await start({
+        async mockRPC(route, args, originalRPC) {
+            if (args.method === "get_contacts") {
+                assert.step("get_contacts");
+            }
+            return originalRPC(route, args);
+        },
+    });
+    for (let i = 0; i < 10; ++i) {
+        pyEnv["res.partner"].create({ name: `Contact ${i}`, phone: `09225 982 ext. ${i}` });
+    }
+    await click(".o_menu_systray button[title='Open Softphone']");
+    await click(".nav-link", { text: "Contacts" });
+    await contains(".o-voip-ContactsTab b", { count: 10 });
+    for (let i = 0; i < 10; ++i) {
+        pyEnv["res.partner"].create({ name: `Contact ${i + 10}`, phone: `040 2805 ext. ${i}` });
+    }
+    await contains(".o-voip-ContactsTab b", { count: 10 });
+    await scroll(".o-voip-ContactsTab", "bottom");
+    await contains(".o-voip-ContactsTab b", { count: 20 });
+    assert.verifySteps(["get_contacts", "get_contacts"]);
 });
