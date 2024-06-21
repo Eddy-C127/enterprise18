@@ -171,25 +171,25 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                     {
                         "type": "mail.record/insert",
                         "payload": {
-                            "Persona": [
-                                {
-                                    "id": self.user_admin.partner_id.id,
-                                    "name": "Mitchell Admin",
-                                    "type": "partner",
-                                },
-                            ],
                             "ChannelMember": [
                                 {
                                     "id": member.id,
+                                    "new_message_separator": message.id + 1,
+                                    "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
+                                    "syncUnread": False,
                                     "thread": {
                                         "id": employee_channel.id,
                                         "model": "discuss.channel",
                                         "message_unread_counter": 0,
                                         "message_unread_counter_bus_id": bus_last_id - 4,
                                     },
-                                    "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
-                                    "new_message_separator": message.id + 1,
-                                    "syncUnread": False,
+                                },
+                            ],
+                            "Persona": [
+                                {
+                                    "id": self.user_admin.partner_id.id,
+                                    "name": "Mitchell Admin",
+                                    "type": "partner",
                                 },
                             ],
                         },
@@ -252,31 +252,31 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                     {
                         "type": "mail.record/insert",
                         "payload": {
-                            "Persona": [
-                                {
-                                    "id": self.user_admin.partner_id.id,
-                                    "name": "Mitchell Admin",
-                                    "email": "test.admin@test.example.com",
-                                    "active": True,
-                                    "im_status": "offline",
-                                    "is_company": False,
-                                    "write_date": admin_write_date,
-                                    "userId": self.user_admin.id,
-                                    "isInternalUser": True,
-                                    "type": "partner",
-                                },
-                            ],
                             "ChannelMember": [
                                 {
+                                    "create_date": member_create_date,
+                                    "fetched_message_id": {"id": message.id},
                                     "id": member.id,
+                                    "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
+                                    "seen_message_id": {"id": message.id},
                                     "thread": {
                                         "id": employee_channel.id,
                                         "model": "discuss.channel",
                                     },
-                                    "create_date": member_create_date,
-                                    "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
-                                    "fetched_message_id": {"id": message.id},
-                                    "seen_message_id": {"id": message.id},
+                                },
+                            ],
+                            "Persona": [
+                                {
+                                    "active": True,
+                                    "email": "test.admin@test.example.com",
+                                    "id": self.user_admin.partner_id.id,
+                                    "im_status": "offline",
+                                    "isInternalUser": True,
+                                    "is_company": False,
+                                    "name": "Mitchell Admin",
+                                    "type": "partner",
+                                    "userId": self.user_admin.id,
+                                    "write_date": admin_write_date,
                                 },
                             ],
                             "Thread": [
