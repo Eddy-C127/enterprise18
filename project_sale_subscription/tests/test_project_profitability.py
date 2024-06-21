@@ -224,9 +224,9 @@ class TestSaleSubscriptionProjectProfitability(TestSubscriptionCommon, TestProje
             'project_id': self.project.id,
         })
         sale_order_foreign = self.env['sale.order'].with_context(tracking_disable=True).create({
-            'partner_id': self.partner.id,
-            'partner_invoice_id': self.partner.id,
-            'partner_shipping_id': self.partner.id,
+            'partner_id': self.partner_a.id,
+            'partner_invoice_id': self.partner_a.id,
+            'partner_shipping_id': self.partner_a.id,
             'is_subscription': True,
             'plan_id': self.plan_month.id,
             'analytic_account_id': self.project.analytic_account_id.id,

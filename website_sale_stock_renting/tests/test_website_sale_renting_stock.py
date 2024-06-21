@@ -17,6 +17,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
         super().setUpClass()
         cls.computer.type = 'product'
         cls.computer.allow_out_of_stock_order = False
+        cls.computer.website_published = True
 
         cls.company.update({
             'renting_forbidden_sat': False,
@@ -54,6 +55,12 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
             'sequence': 4,
             'currency_id': cls.current_website.currency_id.id,
             'website_id': cls.current_website.id,
+            'company_id': cls.company.id,
+        })
+
+        cls.user = cls.env['res.users'].with_company(cls.company.id).create({
+            'name': 'Test User',
+            'login': 'test_user',
             'company_id': cls.company.id,
         })
 
@@ -260,7 +267,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
 
     def test_cart_update_max_quantity(self):
         with MockRequest(self.env, website=self.current_website, sale_order_id=self.so.id):
-            website_so = self.current_website.sale_get_order()
+            website_so = self.current_website.with_user(self.user).sale_get_order()
             values = website_so._cart_update(
                 product_id=self.computer.id, line_id=self.sol.id, add_qty=3
             )
@@ -285,7 +292,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
         ]
 
         with MockRequest(self.env, website=self.current_website, sale_order_id=so.id):
-            website_so = self.current_website.sale_get_order()
+            website_so = self.current_website.with_user(self.user).sale_get_order()
             for val in vals:
                 from_date = self.sol.return_date + relativedelta(days=val['days'])
                 to_date = self.sol.return_date + relativedelta(days=2)
