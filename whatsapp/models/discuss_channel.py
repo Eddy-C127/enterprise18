@@ -256,9 +256,7 @@ class DiscussChannel(models.Model):
             }])
             message_body = Markup(f'<div class="o_mail_notification">{_("joined the channel")}</div>')
             new_member.channel_id.message_post(body=message_body, message_type="notification", subtype_xmlid="mail.mt_comment")
-            broadcast_store = Store(
-                "ChannelMember", list(new_member._discuss_channel_member_format().values())
-            )
+            broadcast_store = Store(new_member)
             broadcast_store.add(
                 "Thread",
                 {
