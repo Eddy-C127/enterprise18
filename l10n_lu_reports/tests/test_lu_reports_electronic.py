@@ -4,6 +4,7 @@
 from base64 import b64decode
 from datetime import datetime
 from freezegun import freeze_time
+from unittest.mock import patch
 
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 from odoo.tests import tagged
@@ -489,9 +490,25 @@ class LuxembourgElectronicReportTest(TestAccountReportsCommon):
         self.assertTrue(report_lines[2]['columns'][0]['is_zero'])
         self.assertEqual(report_lines[3]['columns'][0]['no_format'], 7150)
 
-        # Create another move with a date before the lock date
+        # Remove the tax lock date
+        def _autorise_lock_date_changes(*args, **kwargs):
+            pass
+
+        with patch('odoo.addons.account_lock.models.res_company.ResCompany._autorise_lock_date_changes', new=_autorise_lock_date_changes):
+            lock_date_wizard = self.env['account.change.lock.date'].create({
+                'tax_lock_date': False,
+            })
+            lock_date_wizard.change_lock_date()
+
+        # Create another move with a date before the now removed tax lock date
         move = self.env['account.move'].create(move_vals)
         move.action_post()
+
+        # Set the lock again
+        lock_date_wizard = self.env['account.change.lock.date'].create({
+            'tax_lock_date': fields.Date.from_string('2022-12-31'),
+        })
+        lock_date_wizard.change_lock_date()
 
         # The lines values should not change
         report_lines = report._get_lines(options)
