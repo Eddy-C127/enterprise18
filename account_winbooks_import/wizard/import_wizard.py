@@ -402,7 +402,7 @@ class WinbooksImportWizard(models.TransientModel):
             tmp_val = []
             for rec in val:
                 tmp_val += [rec]
-                if rec['AMOUNTEUR'] * (rec['CURRAMOUNT'] or 0) < 0:
+                if (rec['AMOUNTEUR'] or 0) * (rec['CURRAMOUNT'] or 0) < 0:
                     tmp_val[-1]['CURRAMOUNT'] = 0
                     tmp_val += [rec.copy()]
                     tmp_val[-1]['AMOUNTEUR'] = 0
@@ -519,7 +519,7 @@ class WinbooksImportWizard(models.TransientModel):
             if (
                 move_data_dict['move_type'] != 'entry'
                 and len(move_line_data_list) == 1
-                and move_line_data_list[0][2]['display_type'] == 'payment_term'
+                and move_line_data_list[0][2].get('display_type') == 'payment_term'
                 and move_line_data_list[0][2]['balance'] == 0
             ):
                 # add a line so that the payment terms are not deleted during sync
