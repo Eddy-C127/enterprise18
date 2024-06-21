@@ -30,12 +30,16 @@ registry.category("web_tour.tours").add('test_immediate_receipt_kit_from_scratch
         run: 'scan simple_kit',
     },
     {
-        extra_trigger: '.o_barcode_line:contains("Simple Kit")',
+        trigger: '.o_barcode_line:contains("Simple Kit")',
+    },
+    {
         trigger: '.btn.o_validate_page',
         run: "click",
     },
     {
-        extra_trigger: '.o_notification_bar.bg-danger',
+        trigger: '.o_notification_bar.bg-danger',
+    },
+    {
         trigger: '.o_barcode_line:contains("Compo Lot")',
         run: function() {
             helper.assertLinesCount(4);
@@ -83,12 +87,16 @@ registry.category("web_tour.tours").add('test_planned_receipt_kit_from_scratch_w
         run: 'scan simple_kit',
     },
     {
-        extra_trigger: '.o_barcode_line:contains("Simple Kit")',
+        trigger: '.o_barcode_line:contains("Simple Kit")',
+    },
+    {
         trigger: '.btn.o_validate_page',
         run: "click",
     },
     {
-        extra_trigger: '.o_notification_bar.bg-danger',
+        trigger: ".o_notification_bar.bg-danger",
+    },
+    {
         trigger: '.o_barcode_line:contains("Compo Lot")',
         run: function() {
             helper.assertLinesCount(4);
@@ -124,8 +132,10 @@ registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true
         run: "click",
     },
     {
+        trigger: '.o_barcode_line_title:contains("Compo 01")',
+    },
+    {
         trigger: '.o_header .o_barcode_line_title:contains("Final Product")',
-        extra_trigger: '.o_barcode_line_title:contains("Compo 01")',
         run: "click",
     },
     {
@@ -133,8 +143,10 @@ registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true
         run: "click",
     },
     {
+        trigger: '.o_line_completed',
+    },
+    {
         trigger: '.o_header_completed .qty-done:contains("1")',
-        extra_trigger: '.o_line_completed',
         run: "click",
     },
     {
@@ -142,7 +154,9 @@ registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true
         run: "click",
     },
     {
-        extra_trigger: '.o_scan_message.o_scan_validate',
+        trigger: '.o_scan_message.o_scan_validate',
+    },
+    {
         trigger: '.o_validate_page',
         run: "click",
     },
@@ -162,8 +176,10 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
     },
     // Scans final product, it should create the header line for this product.
     {
+        trigger: ".o_scan_message.o_scan_product",
+    },
+    {
         trigger: '.o_title.navbar-text:contains("New")',
-        extra_trigger: '.o_scan_message.o_scan_product',
         run: 'scan final',
     },
     {
@@ -232,8 +248,10 @@ registry.category("web_tour.tours").add("test_barcode_production_create_bom", {t
     },
     // Scans a product with BoM, it should add it as the final product and add a line for each components.
     {
+        trigger: ".o_scan_message.o_scan_product",
+    },
+    {
         trigger: ".o_title.navbar-text:contains('New')",
-        extra_trigger: ".o_scan_message.o_scan_product",
         run: "scan final",
     },
     {
@@ -296,18 +314,24 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
         run: "click",
     },
     {
+        trigger: ".o_scan_message.o_scan_product",
+    },
+    {
         trigger: '.o_title.navbar-text:contains("New")',
-        extra_trigger: '.o_scan_message.o_scan_product',
         run: 'scan final_lot',
     },
     {
+        trigger: ".o_scan_message.o_scan_component",
+    },
+    {
         trigger: '.o_header .o_barcode_line_title:contains("Final Product2")',
-        extra_trigger: '.o_scan_message.o_scan_component',
         run: "click",
     },
     {
+        trigger: 'div[data-barcode="compo_lot"] .o_barcode_scanner_qty:contains("2")',
+    },
+    {
         trigger: 'div[data-barcode="compo01"] .o_barcode_scanner_qty:contains("2")',
-        extra_trigger: 'div[data-barcode="compo_lot"] .o_barcode_scanner_qty:contains("2")',
         run: "click",
     },
     {
@@ -327,18 +351,24 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
         run: "click",
     },
     {
-        extra_trigger: 'span[name="product_uom_qty"]:contains("3")',
+        trigger: 'span[name="product_uom_qty"]:contains("3")',
+    },
+    {
         trigger: '.o_save',
         run: "click",
     },
     {
+        trigger: '.o_header .o_barcode_scanner_qty:contains("3")',
+    },
+    {
         trigger: 'div[data-barcode="compo01"] .o_barcode_scanner_qty:contains("3")',
-        extra_trigger: '.o_header .o_barcode_scanner_qty:contains("3")',
         run: "click",
     },
     {
+        trigger: ".o_scan_message.o_scan_component",
+    },
+    {
         trigger: 'div[data-barcode="compo_lot"] .o_barcode_scanner_qty:contains("3")',
-        extra_trigger: '.o_scan_message.o_scan_component',
         run: 'scan compo01',
     },
     {
@@ -366,8 +396,11 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
         run: 'scan lot01',
     },
     {
+        trigger:
+            'div[data-barcode="compo_lot"].o_selected.o_line_completed .qty-done:contains("3")',
+    },
+    {
         trigger: '.o_by_products',
-        extra_trigger: 'div[data-barcode="compo_lot"].o_selected.o_line_completed .qty-done:contains("3")',
         run: "click",
     },
     {
@@ -407,8 +440,10 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
         run: "click",
     },
     {
+        trigger: '.qty-done:contains("2")',
+    },
+    {
         trigger: '.o_barcode_line_title:contains("By Product")',
-        extra_trigger: '.qty-done:contains("2")',
         run: "click",
     },
     {
@@ -432,7 +467,9 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
         run: 'scan lot02',
     },
     {
-        extra_trigger: '.o_header_completed',
+        trigger: ".o_header_completed",
+    },
+    {
         trigger: '.o_scan_message.o_scan_validate',
         run: "click",
     },
@@ -472,8 +509,10 @@ registry.category("web_tour.tours").add("test_barcode_production_reserved_from_m
         run: "scan compo01",
     },
     {
+        trigger: ".o_scan_message.o_scan_component",
+    },
+    {
         trigger: ".o_barcode_line.o_selected.o_line_completed",
-        extra_trigger: ".o_scan_message.o_scan_component",
         run: "scan LOC-01-02-00",
     },
     {
@@ -648,8 +687,10 @@ registry.category("web_tour.tours").add("test_barcode_production_component_no_st
     },
     // Scans a product with BoM, it should add it as the final product and add a line for the component.
     {
+        trigger: ".o_scan_message.o_scan_product",
+    },
+    {
         trigger: ".o_title.navbar-text:contains('New')",
-        extra_trigger: ".o_scan_message.o_scan_product",
         run: "scan final",
     },
     /**
@@ -728,8 +769,10 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
     },
     // Scans a product with BoM, it should add it as the final product and add a line for each components.
     {
+        trigger: ".o_scan_message.o_scan_product",
+    },
+    {
         trigger: ".o_title.navbar-text:contains('New')",
-        extra_trigger: ".o_scan_message.o_scan_product",
         run: "scan final",
     },
     {
@@ -791,8 +834,10 @@ registry.category("web_tour.tours").add("test_barcode_production_add_byproduct",
     },
     //Add Bom Product
     {
+        trigger: ".o_scan_message.o_scan_product",
+    },
+    {
         trigger: ".o_title.navbar-text:contains('New')",
-        extra_trigger: ".o_scan_message.o_scan_product",
         run: "scan final",
     },
 
@@ -861,7 +906,9 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_production'
     // Scans 1x product2 then goes back to the main menu.
     { trigger: ".o_barcode_client_action", run: "scan product2" },
     {
-        extra_trigger: ".o_barcode_line.o_selected",
+        trigger: ".o_barcode_line.o_selected",
+    },
+    {
         trigger: "button.o_exit",
         run: "click",
     },
@@ -886,7 +933,9 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_production'
     { trigger: ".o_barcode_client_action", run: "scan product1" },
     { trigger: ".o_barcode_client_action", run: "scan product1" },
     {
-        extra_trigger: ".o_barcode_line.o_selected .qty-done:contains('3')",
+        trigger: ".o_barcode_line.o_selected .qty-done:contains('3')",
+    },
+    {
         trigger: "button.o_exit",
         run: "click",
     },

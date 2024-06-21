@@ -32,15 +32,16 @@ const StepToFSMProductsKanbanWithFavoritesFilterSteps = [
 
 const AddTrackingLineAndValidateSteps = [
     {
+        in_modal: true,
         content: 'Add a line in the wizard',
         trigger: 'div[name="tracking_line_ids"] a[role="button"]:contains(Add a line)',
-        extra_trigger: 'div[role="dialog"]',
         run: "click",
     },
     {
+        in_modal: true,
         content: 'Enter the lot number',
-        trigger: 'div[name="tracking_line_ids"] tr.o_data_row.o_selected_row div[name="lot_id"] input[type="text"]',
-        extra_trigger: 'div[role="dialog"]',
+        trigger:
+            'div[name="tracking_line_ids"] tr.o_data_row.o_selected_row div[name="lot_id"] input[type="text"]',
         run: 'edit Lot_1',
     },
     {
@@ -95,7 +96,6 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Check that the warehouse column is not visible (thus that the second one is the Quantity)',
         trigger: 'div[name="tracking_line_ids"] table thead th:nth-of-type(2)[data-name="quantity"]',
-        run: "click",
     },
     ...AddTrackingLineAndValidateSteps,
     {
@@ -190,7 +190,6 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     {
         content: 'Check that the warehouse column is not visible (thus that the second one is the Quantity)',
         trigger: 'div[name="tracking_line_ids"] table thead th:nth-of-type(2)[data-name="quantity"]',
-        run: "click",
     },
     ...AddTrackingLineAndValidateSteps,
     {

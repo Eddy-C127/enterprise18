@@ -33,8 +33,10 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
 },
 // Adding a rental product
 {
+    trigger: 'td[name="product_template_id"][data-tooltip*="floor protection"],td[name="product_id"][data-tooltip*="floor protection"]',
+},
+{
     trigger: 'a:contains("Add a product")',
-    extra_trigger: 'td[name="product_template_id"][data-tooltip*="floor protection"],td[name="product_id"][data-tooltip*="floor protection"]',
     run: "click",
 }, {
     trigger: 'div[name="product_template_id"] input',
@@ -45,8 +47,10 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
 },
 // Adding a sale product with a matrix
 {
+    trigger: 'td[name="product_template_id"][data-tooltip*="Projector"],td[name="product_id"][data-tooltip*="Projector"]',
+},
+{
     trigger: 'a:contains("Add a product")',
-    extra_trigger: 'td[name="product_template_id"][data-tooltip*="Projector"],td[name="product_id"][data-tooltip*="Projector"]',
     run: "click",
 }, {
     trigger: 'div[name="product_template_id"] input',

@@ -23,9 +23,12 @@ registry.category("web_tour.tours").add('account_reports_rounding_unit', {
             run: 'click',
         },
         {
+            trigger:
+                '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150,000.00"))',
+        },
+        {
             content: 'test the value of `Receivables` line in units',
             // We wait for the value to change.
-            extra_trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150,000.00"))',
             // We check the new value.
             trigger: '.line_name:contains("Receivables") + .line_cell:contains("1,150,000")',
             run: "click",
@@ -42,9 +45,11 @@ registry.category("web_tour.tours").add('account_reports_rounding_unit', {
             run: 'click',
         },
         {
+            trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150,000"))',
+        },
+        {
             content: 'test the value of `Receivables` line in thousands',
             // We wait for the value to change.
-            extra_trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150,000"))',
             // We check the new value.
             trigger: '.line_name:contains("Receivables") + .line_cell:contains("1,150")',
             run: "click",
@@ -61,9 +66,11 @@ registry.category("web_tour.tours").add('account_reports_rounding_unit', {
             run: 'click',
         },
         {
+            trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150"))',
+        },
+        {
             content: 'test the value of `Receivables` line in millions',
             // We wait for the value to change.
-            extra_trigger: '.line_name:contains("Receivables") + .line_cell:not(:contains("1,150"))',
             // We check the new value.
             trigger: '.line_name:contains("Receivables") + .line_cell:contains("1")',
             run: "click",

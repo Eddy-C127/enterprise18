@@ -18,9 +18,11 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
             run: "click",
         },
         {
+            trigger: ".o_last_breadcrumb_item > span:contains('Templates')",
+        },
+        {
             content: "Remove My Favorites filter",
             trigger: ".o_cp_searchview .o_facet_remove",
-            extra_trigger: ".o_last_breadcrumb_item > span:contains('Templates')",
             run: "click",
         },
         {
@@ -34,9 +36,11 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
             run: "click",
         },
         {
+            trigger: '.oe_kanban_main:first span:contains("template_1_role")',
+        },
+        {
             content: "Share the template",
             trigger: '.o_kanban_record_bottom:first button:contains("Share"):first',
-            extra_trigger: '.oe_kanban_main:first span:contains("template_1_role")',
             run: "click",
         },
         {
@@ -63,9 +67,11 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
             run: "click",
         },
         {
+            trigger: '.modal-title:contains("Final Validation")',
+        },
+        {
             content: "Fill name",
             trigger: "#o_sign_public_signer_name_input",
-            extra_trigger: '.modal-title:contains("Final Validation")',
             run: "edit Mitchell Admin",
         },
         {
@@ -79,9 +85,11 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
             run: "click",
         },
         {
+            trigger: '.modal-title:contains("All done!")',
+        },
+        {
             content: "Download Document",
             trigger: "button.btn.btn-primary",
-            extra_trigger: '.modal-title:contains("All done!")',
         },
     ],
 });

@@ -10,12 +10,14 @@ registry.category("web_tour.tours").add("web_studio_home_menu_background_tour", 
     sequence: 1260,
     steps: () => [
         {
+            trigger: ".o_home_menu_background",
+        },
+        {
             trigger: ".o_web_studio_navbar_item",
             content: markup(
                 _t("Want to customize the background? Let’s activate <b>Odoo Studio</b>.")
             ),
             position: "bottom",
-            extra_trigger: ".o_home_menu_background",
             run: "click",
         },
         {
@@ -122,8 +124,10 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             run: "edit My Field && click body",
         },
         {
+            trigger: ".o_web_studio_form_view_editor .o_wrap_label label:contains(My Field)",
+        },
+        {
             // wait for the field to be renamed
-            extra_trigger: ".o_web_studio_form_view_editor .o_wrap_label label:contains(My Field)",
             trigger: ".o_web_studio_sidebar .o_web_studio_new",
             content: markup(
                 _t("Good job! To add more <b>fields</b>, come back to the <i>Add tab</i>.")
@@ -207,8 +211,10 @@ registry.category("web_tour.tours").add("web_studio_new_app_tour", {
             run: "click",
         },
         {
+            trigger: ".o_form_view .o_form_saved",
+        },
+        {
             trigger: ".o_web_studio_navbar_item",
-            extra_trigger: ".o_form_view .o_form_saved",
             content: markup(
                 _t(
                     "Wow, nice! And I’m sure you can make it even better! Use this icon to open <b>Odoo Studio</b> and customize any screen."

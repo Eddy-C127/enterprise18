@@ -53,17 +53,19 @@ registry.category("web_tour.tours").add('planning_tour', {
         content: markup(_t("Let's check out the Gantt view for cool features. Get ready to <b>share your schedule</b> and easily plan your shifts with just one click by <em>copying the previous week's schedule</em>.")),
         position: 'bottom',
         run: "click",
-    }, {
+    }, 
+    {
+        isActive: ["desktop"],
+        trigger: ".o_action:not(.o_view_sample_data)",
+    },
+    {
         isActive: ["desktop"],
         trigger: ".o_gantt_pill:not(.o_gantt_consolidated_pill)",
-        extra_trigger: '.o_action:not(.o_view_sample_data)',
         content: markup(_t("<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its period.")),
         position: "bottom",
         run: "drag_and_drop .o_gantt_cell:nth-child(6)",
     }, {
-        isActive: ["mobile"],
         trigger: ".o_control_panel .dropdown-toggle",
-        extra_trigger: '.o_gantt_view',
         content: _t("Share the schedule with your team by publishing and sending it. Open the menu to access this option."),
         position: "bottom",
         run: "click",

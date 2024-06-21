@@ -93,8 +93,10 @@ registry.category("web_tour.tours").add("sign_tour", {
             run: "click",
         },
         {
+            trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
+        },
+        {
             trigger: ".o_sign_validate_banner button.o_validate_button",
-            extra_trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
             content: _t("Congrats, your signature is ready to be submitted!"),
             position: "top",
             run: "click",

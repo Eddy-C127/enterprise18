@@ -48,8 +48,10 @@ registry.category("web_tour.tours").add('industry_fsm_report_worksheet_test_tour
         run: "click",
     },
     {
+        trigger: 'button:contains("Design Template")',
+    },
+    {
         content: 'Check view',
         trigger: 'span:contains("A very original worksheet")',
-        extra_trigger: 'button:contains("Design Template")',
     },
 ]});

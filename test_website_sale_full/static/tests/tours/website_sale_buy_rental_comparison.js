@@ -28,8 +28,10 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
             run: "click",
         },
         {
+            trigger: ".comparator-popover",
+        },
+        {
             content: "check popover is now open and compare button contains two products",
-            extra_trigger: '.comparator-popover',
             trigger: '.o_product_circle:contains(2)',
         },
         {
@@ -52,8 +54,10 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
             trigger: '#cart_products div div.css_quantity input[value="1"]',
         },
         {
+            trigger: "#cart_products .oe_currency_value:contains(75.00)",
+        },
+        {
             content: "go to checkout",
-            extra_trigger: '#cart_products .oe_currency_value:contains(75.00)',
             trigger: 'a[href*="/shop/checkout"]',
             run: "click",
         },

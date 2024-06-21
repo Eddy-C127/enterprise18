@@ -31,7 +31,9 @@ registry
                 run: "click",
             },
             {
-                extra_trigger: ".o_web_studio_code_editor_info",
+                trigger: ".o_web_studio_code_editor_info",
+            },
+            {
                 trigger: ".o_web_studio_leave",
                 run: "click",
             },
@@ -50,7 +52,10 @@ registry.category("web_tour.tours").add("web_studio_test_edit_with_xml_editor", 
             run: "click",
         },
         {
-            extra_trigger: ".someDiv",
+            trigger: ".someDiv",
+            allowInvisible: true,
+        },
+        {
             trigger: ".o_web_studio_navbar_item button",
             run: "click",
         },
@@ -63,7 +68,9 @@ registry.category("web_tour.tours").add("web_studio_test_edit_with_xml_editor", 
             run: "click",
         },
         {
-            extra_trigger: ".o_web_studio_xml_editor",
+            trigger: ".o_web_studio_xml_editor",
+        },
+        {
             trigger: ".o_web_studio_xml_resource_selector .o_select_menu_toggler",
             run: "click",
         },
@@ -117,17 +124,23 @@ registry.category("web_tour.tours").add("web_studio_enter_x2many_edition_and_add
             run: "click",
         },
         {
-            extra_trigger: ".o-web-studio-edit-x2manys-buttons",
+            trigger: ".o-web-studio-edit-x2manys-buttons",
+        },
+        {
             trigger: ".o_web_studio_editX2Many[data-type='form']",
             run: "click",
         },
         {
-            extra_trigger: ".o_view_controller.o_form_view.test-user-form",
+            trigger: ".o_view_controller.o_form_view.test-user-form",
+        },
+        {
             trigger: ".o_web_studio_sidebar .o_web_studio_existing_fields_header",
             run: "click",
         },
         {
-            extra_trigger: ".o_web_studio_existing_fields_section:not(.d-none)",
+            trigger: ".o_web_studio_existing_fields_section:not(.d-none)",
+        },
+        {
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_existing_fields_section .o_web_studio_component:contains(User log entries)",
             run() {

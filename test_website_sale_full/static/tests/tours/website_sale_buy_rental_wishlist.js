@@ -13,8 +13,10 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_wishlist', {
             run: "click",
         },
         {
+            trigger: 'a[href="/shop/wishlist"] .badge.text-bg-primary:contains(1)',
+        },
+        {
             content: "go to wishlist",
-            extra_trigger: 'a[href="/shop/wishlist"] .badge.text-bg-primary:contains(1)',
             trigger: 'a[href="/shop/wishlist"]',
             run: "click",
         },
@@ -33,8 +35,10 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_wishlist', {
             trigger: '#cart_products div div.css_quantity input[value="1"]',
         },
         {
+            trigger: "#cart_products .oe_currency_value:contains(75.00)",
+        },
+        {
             content: "go to checkout",
-            extra_trigger: '#cart_products .oe_currency_value:contains(75.00)',
             trigger: 'a[href*="/shop/checkout"]',
             run: "click",
         },

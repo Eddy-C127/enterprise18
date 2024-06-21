@@ -79,9 +79,11 @@ registry.category("web_tour.tours").add("account_reports", {
             run: "click",
         },
         {
+            trigger: "tr:nth-child(12):not(.d-none) .name:contains('101404')",
+        },
+        {
             content: "Check order on lines and footnotes",
             trigger: ".o_content",
-            extra_trigger: "tr:nth-child(12):not(.d-none) .name:contains('101404')",
             run: () => {
                 // Check line number
                 Asserts.isEqual(document.querySelector("tr:nth-child(5) sup a").textContent, "1");
@@ -313,9 +315,11 @@ registry.category("web_tour.tours").add("account_reports", {
             run: "click",
         },
         {
+            trigger: "tr:nth-child(11) td:nth-child(2):contains('50.00')",
+        },
+        {
             content: "Unfold not previously unfolded line",
             trigger: "tr:nth-child(22):contains('Current Liabilities') td:first()",
-            extra_trigger: "tr:nth-child(11) td:nth-child(2):contains('50.00')",
             run: "click",
         },
         {

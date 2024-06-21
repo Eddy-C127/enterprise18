@@ -7,9 +7,11 @@ registry.category("web_tour.tours").add("website_studio_new_form_page_collision_
         test: true,
         steps: () => [
         {
+            trigger: ".o_home_menu_background",
+        },
+        {
             // open studio
             trigger: '.o_main_navbar .o_web_studio_navbar_item',
-            extra_trigger: '.o_home_menu_background',
             run: "click",
         }, {
             trigger: '.o_web_studio_new_app',
@@ -35,10 +37,13 @@ registry.category("web_tour.tours").add("website_studio_new_form_page_collision_
         }, {
             trigger: '.o_web_studio_model_configurator_next',
             run: "click",
-        }, {
+        },
+        {
+            trigger: ".o_web_studio_leave" /* wait to be inside studio */,
+        },
+        {
             // switch to Website tab
             trigger: '.o_web_studio_menu .o_menu_sections li:contains(Website)',
-            extra_trigger: '.o_web_studio_leave', /* wait to be inside studio */
             timeout: 60000, /* previous step reloads registry, etc. - could take a long time */
             run: "click",
         }, {

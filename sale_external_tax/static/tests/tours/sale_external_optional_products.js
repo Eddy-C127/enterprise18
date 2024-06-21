@@ -18,15 +18,19 @@ registry.category("web_tour.tours").add('sale_external_optional_products', {
         run: "click",
     },
     {
+        trigger: 'li a:contains("Communication history")', // Element on the left
+    },
+    {
         content: "increase the quantity of the optional product by 1",
-        extra_trigger: 'li a:contains("Communication history")', // Element on the left
         trigger: '.js_update_line_json:eq(1)',
         run: "click",
     },
     {
+        trigger: 'li a:contains("Communication history")',
+    },
+    {
         content: "wait for the quantity to be updated",
         trigger: 'input.js_quantity:value(2.0)',
-        extra_trigger: 'li a:contains("Communication history")',
     },
     {
         content: "delete the optional line",

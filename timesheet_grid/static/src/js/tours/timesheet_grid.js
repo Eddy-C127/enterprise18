@@ -46,9 +46,12 @@ registry.category("web_tour.tours").add('timesheet_tour', {
     position: 'bottom',
     consumeEvent: 'mouseover',
     run: "click",
-}, {
+}, 
+{
+    trigger: ".o_grid_view .o_grid_row:not(.o_grid_section).o_grid_cell_today",
+},
+{
     trigger: '.o_grid_view .o_grid_cell',
-    extra_trigger: '.o_grid_view .o_grid_row:not(.o_grid_section).o_grid_cell_today',
     content: _t("Click on the cell to set the number of hours you spent on this project."),
     position: 'bottom',
     run: "click",

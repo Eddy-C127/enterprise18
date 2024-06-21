@@ -20,13 +20,15 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Log into Belgian Company",
             trigger: ".dropdown-menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: 'click',
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
         },
         {
             content: "Employees",
             trigger: '.o_app[data-menu-xmlid="hr.menu_hr_root"]',
-            extra_trigger:
-                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
             run: "click",
         },
         {
@@ -50,8 +52,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
             run: "edit Senior Developer BE",
         },
         {
+            trigger: "ul.o-autocomplete--dropdown-menu",
+        },
+        {
             trigger: "a.dropdown-item:contains('Senior Developer BE')",
-            extra_trigger: "ul.o-autocomplete--dropdown-menu",
             run: "click",
         },
         {

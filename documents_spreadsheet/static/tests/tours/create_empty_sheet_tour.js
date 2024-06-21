@@ -69,8 +69,10 @@ registry.category("web_tour.tours").add("spreadsheet_create_list_view", {
             run: "click",
         },
         {
+            trigger: ".o_list_view",
+        },
+        {
             trigger: ".o_control_panel .o_cp_action_menus .dropdown-toggle",
-            extra_trigger: ".o_list_view",
             content: "Open the cog menu",
             run: "click",
         },

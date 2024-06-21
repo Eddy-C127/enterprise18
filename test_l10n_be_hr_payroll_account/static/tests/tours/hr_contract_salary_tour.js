@@ -1372,9 +1372,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_counter_sign", 
             run: "click",
         },
         {
+            trigger: `.oe_topbar_name:contains(My Belgian Company - TEST)`,
+        },
+        {
             content: 'Open Activity Systray',
             trigger: '.o-mail-ActivityMenu-counter',
-            extra_trigger: `.oe_topbar_name:contains(My Belgian Company - TEST)`,
             run: "click"
         }, {
             content: 'Open Sign Requests',
@@ -1412,9 +1414,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_counter_sign", 
             run: "click",
         },
         {
+            trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
+        },
+        {
             content: "Validate and Sign",
             trigger: ".o_sign_validate_banner button",
-            extra_trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
             run: "click",
         }
     ]

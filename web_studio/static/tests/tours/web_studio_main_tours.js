@@ -19,9 +19,11 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
     test: true,
     steps: () => [
         {
+            trigger: ".o_home_menu_background",
+        },
+        {
             // open studio
             trigger: ".o_main_navbar .o_web_studio_navbar_item",
-            extra_trigger: ".o_home_menu_background",
             run: "click",
         },
         {
@@ -59,21 +61,27 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "click",
         },
         {
+            trigger: ".o_menu_toggle:not(.o_menu_toggle_back)",
+        },
+        {
             // toggle the home menu outside of studio and come back in studio
-            extra_trigger: ".o_menu_toggle:not(.o_menu_toggle_back)",
             trigger: ".o_web_studio_leave > a.btn",
             timeout: 60000 /* previous step reloads registry, etc. - could take a long time */,
             run: "click",
         },
         {
-            extra_trigger: `.o_web_client:not(.o_in_studio)` /* wait to be out of studio */,
+            trigger: `.o_web_client:not(.o_in_studio)` /* wait to be out of studio */,
+        },
+        {
             trigger: ".o_menu_toggle:not(.o_menu_toggle_back)",
             timeout: 60000 /* previous step reloads registry, etc. - could take a long time */,
             run: "click",
         },
         {
+            trigger: ".o_home_menu_background",
+        },
+        {
             trigger: ".o_main_navbar .o_web_studio_navbar_item",
-            extra_trigger: ".o_home_menu_background",
             run: "click",
         },
         {
@@ -82,7 +90,9 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "click",
         },
         {
-            extra_trigger: ".o_web_studio_app_creator",
+            trigger: ".o_web_studio_app_creator",
+        },
+        {
             trigger: ".o_web_studio_leave > a.btn",
             run: "click",
         },
@@ -92,8 +102,10 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "press Escape",
         },
         {
+            trigger: `.o_web_client:not(.o_in_studio) .o_menu_brand:contains(${createdAppString})`,
+        },
+        {
             // this should open the previous app outside of studio
-            extra_trigger: `.o_web_client:not(.o_in_studio) .o_menu_brand:contains(${createdAppString})`,
             // go back to the home menu
             trigger: ".o_menu_toggle:not(.o_menu_toggle_back)",
             run: "click",
@@ -108,8 +120,10 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: `edit /${createdMenuString}`,
         },
         {
+            trigger: `.o_command.focused:contains(${createdAppString} / ${createdMenuString})`,
+        },
+        {
             // search results should have been updated
-            extra_trigger: `.o_command.focused:contains(${createdAppString} / ${createdMenuString})`,
             trigger: ".o_command_palette",
             // Close the Command Palette
             run: "press Escape",
@@ -120,8 +134,10 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "click",
         },
         {
+            trigger: ".o_studio_home_menu",
+        },
+        {
             // edit an app
-            extra_trigger: ".o_studio_home_menu",
             trigger: `.o_app[data-menu-xmlid*="studio"]:contains(${createdAppString})`,
             run: function () {
                 // We can't emulate a hover to display the edit icon
@@ -181,25 +197,33 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "click",
         },
         {
-            extra_trigger: ".o_record_selector :not(.o-autocomplete dropdown-menu)",
+            trigger: ".o_record_selector :not(.o-autocomplete dropdown-menu)",
+        },
+        {
             trigger: ".o_web_studio_add_menu_modal button:contains(Confirm):not(.disabled)",
             run: "click",
         },
         {
-            extra_trigger: ":not(.o_inactive_modal) .o-web-studio-appmenu-editor",
+            trigger: ":not(.o_inactive_modal) .o-web-studio-appmenu-editor",
+        },
+        {
             trigger: ".o-web-studio-appmenu-editor button:contains(Confirm):not(.disabled)",
             run: "click",
         },
         {
+            trigger: ".o_web_studio_menu",
+        },
+        {
             // check that the Studio menu is still there
-            extra_trigger: ".o_web_studio_menu",
             // switch to form view
             trigger: '.o_web_studio_views_icons > a[title="Form"]',
             run: "click",
         },
         {
+            trigger: ".o_web_studio_form_view_editor",
+        },
+        {
             // wait for the form editor to be rendered because the sidebar is the same
-            extra_trigger: ".o_web_studio_form_view_editor",
             // unfold 'Existing Fieldqs' section
             trigger: ".o_web_studio_existing_fields_header",
             run: "click",
@@ -211,10 +235,12 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
         },
         {
+            trigger: '.o_web_studio_sidebar input[name="technical_name"]',
+        },
+        {
             // click on the field
             trigger: ".o_web_studio_form_view_editor .o_wrap_label:first label",
             // when it's there
-            extra_trigger: '.o_web_studio_sidebar input[name="technical_name"]',
             run: "click",
         },
         {
@@ -287,23 +313,29 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // verify that the monetary field is in the view
-            extra_trigger:
+            trigger:
                 '.o_web_studio_form_view_editor .o_wrap_label:eq(1) label:contains("New Monetary")',
+        },
+        {
             // switch the two first fields
             trigger: ".o_web_studio_form_view_editor .o_inner_group:first .o-draggable:eq(1)",
             run: "drag_and_drop .o_inner_group:first .o_web_studio_hook:first",
         },
         {
             // click on "Add" tab
-            extra_trigger:
+            trigger:
                 '.o_web_studio_form_view_editor .o_wrap_label:eq(0) label:contains("New Monetary")',
+        },
+        {
             trigger: ".o_web_studio_sidebar .o_web_studio_new",
             run: "click",
         },
         {
             // verify that the fields have been switched
-            extra_trigger:
+            trigger:
                 '.o_web_studio_form_view_editor .o_wrap_label:eq(0) label:contains("New Monetary")',
+        },
+        {
             // add a m2m field
             trigger:
                 ".o_web_studio_sidebar .o_web_studio_field_type_container:eq(1) .o_web_studio_field_many2many",
@@ -373,7 +405,9 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // verify Chatter can be added after changing view to form
-            extra_trigger: ".o_web_studio_add_chatter",
+            trigger: ".o_web_studio_add_chatter",
+        },
+        {
             // edit action
             trigger: ".o_web_studio_menu .o_menu_sections li a:contains(Views)",
             run: "click",
@@ -386,14 +420,18 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // verify Chatter can be added after changing view to form
-            extra_trigger: ".o_web_studio_add_chatter",
+            trigger: ".o_web_studio_add_chatter",
+        },
+        {
             // switch in list view
             trigger: '.o_web_studio_menu .o_web_studio_views_icons a[title="List"]',
             run: "click",
         },
         {
             // wait for the list editor to be rendered because the sidebar is the same
-            extra_trigger: ".o_web_studio_list_view_editor",
+            trigger: ".o_web_studio_list_view_editor",
+        },
+        {
             // unfold 'Existing Fieldqs' section
             trigger: ".o_web_studio_existing_fields_header",
             run: "click",
@@ -406,14 +444,18 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // verify that the field is correctly named
-            extra_trigger: '.o_web_studio_list_view_editor th:contains("COUCOU")',
+            trigger: '.o_web_studio_list_view_editor th:contains("COUCOU")',
+        },
+        {
             // leave Studio
             trigger: ".o_web_studio_leave > a.btn",
             run: "click",
         },
         {
             // come back to the home menu to check if the menu data have changed
-            extra_trigger: ".o_web_client:not(.o_in_studio)",
+            trigger: ".o_web_client:not(.o_in_studio)",
+        },
+        {
             trigger: ".o_menu_toggle:not(.o_menu_toggle_back)",
             run: "click",
         },
@@ -428,7 +470,9 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // search results should have been updated
-            extra_trigger: `.o_command.focused:contains(${createdAppString} / ${createdMenuString})`,
+            trigger: `.o_command.focused:contains(${createdAppString} / ${createdMenuString})`,
+        },
+        {
             trigger: ".o_command_palette",
             // Close the Command Palette
             run: `press Escape`,
@@ -440,7 +484,9 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // wait to be back in the list view
-            extra_trigger: ".o_list_view",
+            trigger: ".o_list_view",
+        },
+        {
             // re-open studio
             trigger: ".o_web_studio_navbar_item",
             run: "click",

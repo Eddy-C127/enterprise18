@@ -211,7 +211,9 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xm
             run: "click",
         },
         {
-            extra_trigger: ".o-web-studio-save-report:not(.btn-primary)",
+            trigger: ".o-web-studio-save-report:not(.btn-primary)",
+        },
+        {
             trigger: ".o-web-studio-report-container :iframe body",
             run() {
                 assertEqual(
@@ -510,7 +512,9 @@ registry.category("web_tour.tours").add("web_studio.test_field_placeholder", {
             run: "click",
         },
         {
-            extra_trigger: ".o-web-studio-field-dynamic-placeholder",
+            trigger: ".o-web-studio-field-dynamic-placeholder",
+        },
+        {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg div:has(> .o-web-studio-report-container)",
             async run() {
@@ -602,7 +606,9 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
             run: "click",
         },
         {
-            extra_trigger: ".o-web-studio-field-dynamic-placeholder",
+            trigger: ".o-web-studio-field-dynamic-placeholder",
+        },
+        {
             trigger:
                 ".o-web-studio-report-editor-wysiwyg div:has(> .o-web-studio-report-container)",
             async run() {
@@ -760,7 +766,9 @@ registry.category("web_tour.tours").add("web_studio.test_report_xml_other_record
             run: "click",
         },
         {
-            extra_trigger: ".o_web_studio_xml_editor",
+            trigger: ".o_web_studio_xml_editor",
+        },
+        {
             trigger: ".o-web-studio-report-container :iframe body p:contains(partner_1)",
             run() {
                 assertEqual(
@@ -1065,7 +1073,9 @@ registry.category("web_tour.tours").add("web_studio.test_saving_xml_editor_reloa
             run: "click",
         },
         {
-            extra_trigger: ".o-web-studio-save-report:not(.btn-primary)",
+            trigger: ".o-web-studio-save-report:not(.btn-primary)",
+        },
+        {
             trigger: ".o_web_studio_xml_editor .ace_editor",
             run() {
                 ace.edit(this.anchor)
@@ -1081,7 +1091,9 @@ registry.category("web_tour.tours").add("web_studio.test_saving_xml_editor_reloa
             run: "click",
         },
         {
-            extra_trigger: ".o-web-studio-save-report:not(.btn-primary)",
+            trigger: ".o-web-studio-save-report:not(.btn-primary)",
+        },
+        {
             trigger: ".o_web_studio_xml_editor .ace_editor",
             run() {
                 const aceValue = ace.edit(this.anchor).getSession().getValue();

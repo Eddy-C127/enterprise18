@@ -61,8 +61,10 @@ function createReplies(textareaSelector) {
             },
         },
         {
+            trigger: ".o_social_textarea_message.text-danger",
+        },
+        {
             trigger: '.o_social_comments_modal',
-            extra_trigger: '.o_social_textarea_message.text-danger',
             content: 'Should not be able to spam',
             run: () => {
                 const fourthComment = document.querySelectorAll(`.o_social_comment_text[data-original-message*="${message}"]`);

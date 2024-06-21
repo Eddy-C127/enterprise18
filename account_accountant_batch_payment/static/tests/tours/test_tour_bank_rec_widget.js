@@ -4,18 +4,19 @@ import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { accountTourSteps } from "@account/js/tours/account";
 
-registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_rec_widget',
-    {
-        test: true,
-        url: '/web',
-        steps: () => [
+registry.category("web_tour.tours").add("account_accountant_batch_payment_bank_rec_widget", {
+    test: true,
+    url: "/web",
+    steps: () => [
         stepUtils.showAppsMenuItem(),
         ...accountTourSteps.goToAccountMenu("Open the accounting module"),
 
         // Open the widget. The first line should be selected by default.
         {
+            trigger: ".o_breadcrumb",
+        },
+        {
             content: "Open the bank reconciliation widget",
-            extra_trigger: ".o_breadcrumb",
             trigger: "button.btn-secondary[name='action_open_reconcile']",
             run: "click",
         },
@@ -32,46 +33,60 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
         },
         {
             content: "Mount BATCH0001",
-            trigger: "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table td[name='name']:contains('BATCH0001')",
+            trigger:
+                "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table td[name='name']:contains('BATCH0001')",
             run: "click",
         },
         {
+            trigger:
+                "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item",
+        },
+        {
             content: "Remove the payment of 100.0",
-            extra_trigger: "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table tr.o_rec_widget_list_selected_item",
             trigger: "div[name='line_ids'] .fa-trash-o:last",
             run: "click",
         },
 
         // Check the batch rejection wizard.
         {
+            trigger: "button.btn-primary:contains('Validate')",
+        },
+        {
             content: "Validate and open the wizard",
-            extra_trigger: "button.btn-primary:contains('Validate')",
             trigger: "button:contains('Validate')",
             run: "click",
         },
         {
+            trigger: "div.modal-content",
+        },
+        {
             content: "Click on 'Cancel'",
-            extra_trigger: "div.modal-content",
             trigger: "div.modal-content button[name='button_cancel']",
             run: "click",
         },
         {
+            trigger: "body:not(.modal-open)",
+        },
+        {
             content: "Validate and open the wizard",
-            extra_trigger: "body:not(.modal-open)",
             trigger: "button:contains('Validate')",
             run: "click",
         },
         {
+            trigger: "div.modal-content",
+        },
+        {
             content: "Click on 'Expect Payments Later'",
-            extra_trigger: "div.modal-content",
             trigger: "div.modal-content button[name='button_continue']",
             run: "click",
         },
 
         // Reconcile 'line2' with the remaining payment in batch.
         {
+            trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
+        },
+        {
             content: "The 'line2' should be selected by default",
-            extra_trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
             trigger: "div[name='line_ids'] td[field='name']:contains('line2')",
         },
         {
@@ -81,18 +96,23 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
         },
         {
             content: "Mount BATCH0001",
-            trigger: "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table td[name='name']:contains('BATCH0001')",
+            trigger:
+                "div.bank_rec_widget_form_batch_payments_list_anchor table.o_list_table td[name='name']:contains('BATCH0001')",
             run: "click",
         },
         {
+            trigger: "button.btn-primary:contains('Validate')",
+        },
+        {
             content: "Validate. The wizard should be opened.",
-            extra_trigger: "button.btn-primary:contains('Validate')",
             trigger: "button:contains('Validate')",
             run: "click",
         },
         {
+            trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
+        },
+        {
             content: "The 'line3' should be selected by default",
-            extra_trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
             trigger: "div[name='line_ids'] td[field='name']:contains('line3')",
         },
         stepUtils.toggleHomeMenu(),
@@ -100,6 +120,6 @@ registry.category("web_tour.tours").add('account_accountant_batch_payment_bank_r
         {
             content: "check that we're back on the dashboard",
             trigger: 'a:contains("Customer Invoices")',
-        }
-    ]
+        },
+    ],
 });

@@ -41,10 +41,12 @@ registry.category("web_tour.tours").add('social_tour', {
             content: _t("Write a message to get a preview of your post."),
             position: 'bottom',
             run: "click",
+        }, 
+        {
+            trigger: 'textarea[name="message"]:first:value()', // message field not empty
         },
         {
             trigger: 'button[name="action_post"]',
-            extra_trigger: 'textarea[name="message"]:first:value()', // message field not empty
             content: _t("Happy with the result? Let's post it!"),
             position: 'bottom',
             run: "click",

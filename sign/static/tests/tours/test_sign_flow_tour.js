@@ -20,9 +20,11 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
+            trigger: ".o_last_breadcrumb_item > span:contains('Templates')",
+        },
+        {
             content: "Remove My Favorites filter",
             trigger: ".o_cp_searchview .o_facet_remove",
-            extra_trigger: ".o_last_breadcrumb_item > span:contains('Templates')",
             run: "click",
         },
         {
@@ -42,8 +44,10 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
+            trigger: '.o_list_button button:contains("Sign Now")',
+        },
+        {
             content: "Click Sign Now",
-            extra_trigger: '.o_list_button button:contains("Sign Now")',
             trigger: "button:contains('Sign Now')",
             run: "click",
         },
@@ -79,8 +83,11 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         },
         {
             isActive: ["auto"],
+            trigger: ":iframe :not(:has(.o_sign_sign_item_navigator))",
+        },
+        {
+            isActive: ["auto"],
             trigger: ":iframe button.o_sign_sign_item:has(img)",
-            extra_trigger: ":iframe :not(:has(.o_sign_sign_item_navigator))",
             run: "click",
         },
         {
@@ -89,20 +96,26 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
+            trigger: "canvas.o_web_sign_signature",
+        },
+        {
             content: "Sign",
             trigger: 'button.btn-primary:contains("Sign all")',
-            extra_trigger: "canvas.o_web_sign_signature",
             run: "click",
         },
         {
+            trigger: ".o_sign_validate_banner",
+        },
+        {
             content: "Validate & Send Completed Document",
-            extra_trigger: ".o_sign_validate_banner",
             trigger: "button:contains('Validate & Send Completed Document')",
             run: "click",
         },
         {
+            trigger: ".modal-dialog",
+        },
+        {
             content: "view",
-            extra_trigger: ".modal-dialog",
             trigger: ".modal-footer button.btn-primary",
             alt_trigger: ".modal-footer button.btn-secondary",
             run: "click",

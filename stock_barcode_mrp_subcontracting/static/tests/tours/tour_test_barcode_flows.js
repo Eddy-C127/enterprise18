@@ -75,8 +75,10 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
         run: "click",
     },
     {
+        trigger: "button [name=product_qty]:contains(4)",
+    },
+    {
         trigger: ".modal-footer .btn-secondary",
-        extra_trigger: "button [name=product_qty]:contains(4)",
         content: _t('Discard'),
         position: "bottom",
         run: "click",
@@ -99,10 +101,11 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
         position: "bottom",
         run: "click",
     },
-
+    {
+        trigger: "button [name=product_qty]:contains(3)",
+    },
     {
         trigger: ".modal-footer .btn-primary[name=subcontracting_record_component]",
-        extra_trigger: "button [name=product_qty]:contains(3)",
         content: _t('Record production'),
         position: "bottom",
         run: "click",

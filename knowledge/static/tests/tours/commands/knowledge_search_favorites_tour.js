@@ -25,10 +25,13 @@ const validateFavoriteFilterPersistence = function(kanban, filterName) {
         content: 'click on the edit button',
         trigger: '.o_kanban_edit',
         run: "click",
-    }, {
+    }, 
+    {
+        trigger: '.o_hierarchy_article_name input:value("Item 1")',
+    },
+    {
         content: `go to the ${kanban} from the breadcrumb`,
         trigger: '.o_knowledge_header i.oi-chevron-left',
-        extra_trigger: '.o_hierarchy_article_name input:value("Item 1")',
         run: "click",
     }, {
         // Open the favorite of the first kanban and check it's favorite

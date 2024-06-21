@@ -38,8 +38,10 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
         trigger: ".o_form_view_container .o_control_panel .o_cp_action_menus .dropdown-toggle",
     },
     {
+        trigger: ".o_form_sheet",
+    },
+    {
         content: "Click on action",
-        extra_trigger: ".o_form_sheet",
         trigger: ".o_control_panel .o_cp_action_menus .dropdown-toggle",
         run: "click",
     },
@@ -68,8 +70,10 @@ registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
         trigger: '.o_field_widget[name=line_ids] td.o_data_cell:contains("4,321.00")',
     },
     {
+        trigger: ".modal-header:contains(Odoo)",
+    },
+    {
         content: "Validate changes",
-        extra_trigger: ".modal-header:contains(Odoo)",
         trigger: ".modal-footer .btn-primary:contains('Validate Edition')",
         run: "click",
     },

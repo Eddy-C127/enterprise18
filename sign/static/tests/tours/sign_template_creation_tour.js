@@ -67,9 +67,11 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
             run: "click",
         },
         {
+            trigger: ".o_last_breadcrumb_item > span:contains('Templates')",
+        },
+        {
             content: "Remove My Favorites filter",
             trigger: ".o_cp_searchview .o_facet_remove",
-            extra_trigger: ".o_last_breadcrumb_item > span:contains('Templates')",
             run: "click",
         },
         {

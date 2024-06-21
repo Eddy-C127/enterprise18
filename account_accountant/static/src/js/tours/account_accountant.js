@@ -43,9 +43,13 @@
                 content: _t('After the data extraction, check and validate the bill. If no vendor has been found, add one before validating.'),
                 position: 'bottom',
                 run: "click",
-            }, {
+            }, 
+            {
+                trigger: 'button[data-value="posted"].btn',
+                allowDisabled: true,
+            },
+            {
                 trigger: '.dropdown-item[data-menu-xmlid="account.menu_board_journal_1"]',
-                extra_trigger: 'button[data-value="posted"].btn',
                 content: _t('Let’s go back to the dashboard.'),
                 position: 'bottom',
                 run: "click",

@@ -18,8 +18,10 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
             run: "click",
         },
         {
+            trigger: '.o_inspector_value:contains("1")',
+        },
+        {
             trigger: '.o_search_panel_field header.active:contains("Test folder")',
-            extra_trigger: '.o_inspector_value:contains("1")',
             content: "Make sure we start with one card",
             run: "click",
         },
@@ -90,8 +92,10 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
             run: "click",
         },
         {
+            trigger: '.o_inspector_value:contains("3")',
+        },
+        {
             trigger: ".o_kanban_renderer",
-            extra_trigger: '.o_inspector_value:contains("3")',
             run: "click",
         },
     ],

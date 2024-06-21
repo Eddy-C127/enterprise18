@@ -22,9 +22,12 @@ registry.category("web_tour.tours").add('documents_account_tour', {
     extra_trigger: '.o_documents_kanban',
     content: markup(_t("Click the cross to <b>exit preview</b>.")),
     position: 'left',
-}, { // equivalent to '.o_search_panel_filter_value:contains('Inbox')' but language agnostic.
+}, 
+{
+    trigger: '.o_search_panel_label',
+},
+{ // equivalent to '.o_search_panel_filter_value:contains('Inbox')' but language agnostic.
     trigger: '.o_search_panel_filter_value:eq(0)',
-    extra_trigger: '.o_search_panel_label',
     content: markup(_t("Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter documents and structure your process.</i>")),
     position: 'bottom',
     run: function (actions) {

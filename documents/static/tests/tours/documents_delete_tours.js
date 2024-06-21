@@ -89,8 +89,10 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             run: "click",
         },
         {
+            trigger: '.o_inspector_value:contains("1")',
+        },
+        {
             trigger: '.o_search_panel_field header.active:contains("Workspace1")',
-            extra_trigger: '.o_inspector_value:contains("1")',
             content: "Make sure we start with one card",
             run: "click",
         },

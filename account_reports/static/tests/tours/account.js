@@ -6,8 +6,10 @@ patch(accountTourSteps, {
     onboarding() {
         return [
             {
+                trigger: ".o_widget_account_onboarding .fa-circle",
+            },
+            {
                 trigger: "a[data-method=action_open_step_fiscal_year]",
-                extra_trigger: ".o_widget_account_onboarding .fa-circle",
                 content: _t("Set Periods"),
                 run: "click",
             },
@@ -21,8 +23,10 @@ patch(accountTourSteps, {
     newInvoice() {
         return [
             {
+                trigger: ".o_widget_account_onboarding .fa-check-circle",
+            },
+            {
                 trigger: "button[name=action_create_new]",
-                extra_trigger: ".o_widget_account_onboarding .fa-check-circle",
                 content: _t("Now, we'll create your first invoice (accountant)"),
                 run: "click",
             },

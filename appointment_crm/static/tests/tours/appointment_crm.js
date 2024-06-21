@@ -11,9 +11,12 @@ registry.category("web_tour.tours").add('appointment_crm_meeting_tour', {
     steps: () => [stepUtils.showAppsMenuItem(), {
         trigger: '.o_app[data-menu-xmlid="crm.crm_menu_root"]',
         run: 'click',
-    }, {
+    }, 
+    {
+        trigger: ".o_opportunity_kanban",
+    },
+    {
         trigger: '.o_kanban_record:contains("Test Opportunity")',
-        extra_trigger: '.o_opportunity_kanban',
         run: 'click',
     }, {
         trigger: 'button[name="action_schedule_meeting"]',

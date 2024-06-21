@@ -427,8 +427,10 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_1', {test: 
     // Scans the source (Section 1) then scans product1 x2, product4 x1
     { trigger: '.o_barcode_client_action', run: 'scan LOC-01-01-00' },
     {
+        trigger: '.o_barcode_line .o_line_source_location:contains(".../Section 1") .fw-bold',
+    },
+    {
         trigger: '.o_scan_message.o_scan_product',
-        extra_trigger: '.o_barcode_line .o_line_source_location:contains(".../Section 1") .fw-bold',
         run: 'scan product1'
     },
     {
@@ -448,8 +450,10 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_1', {test: 
 
     // Scans the next source (Section 2)
     {
+        trigger: ".o_barcode_line:nth-child(4).o_line_completed ",
+    },
+    {
         trigger: '.o_scan_message.o_scan_product_or_src',
-        extra_trigger: '.o_barcode_line:nth-child(4).o_line_completed ',
         run: 'scan LOC-01-02-00'
     },
     // Scan product2 x2
@@ -599,8 +603,10 @@ registry.category("web_tour.tours").add('test_barcode_batch_delivery_2_move_enti
     // Scans pack2 => Completes the two lines waiting for it.
     { trigger: '.o_barcode_client_action', run: 'scan pack2' },
     {
+        trigger: '.o_barcode_line.o_selected:nth-child(2)',
+    },
+    {
         trigger: '.o_barcode_line.o_selected:nth-child(1)',
-        extra_trigger: '.o_barcode_line.o_selected:nth-child(2)',
         run: function() {
             helper.assertLineQty(0, '5 / 5');
             helper.assertLineQty(1, '5 / 5');
@@ -647,15 +653,17 @@ registry.category("web_tour.tours").add('test_batch_create', {test: true, steps:
         trigger: '.o_barcode_line_title:contains("picking_delivery_1")',
         run: "click",
     },
-
     {
-        extra_trigger: '.o_highlight .o_barcode_line_title:contains("picking_delivery_1")',
+        trigger: '.o_highlight .o_barcode_line_title:contains("picking_delivery_1")',
+    },
+    {
         trigger: '.o_barcode_line_title:contains("picking_delivery_2")',
         run: "click",
     },
-
     {
-        extra_trigger: '.o_highlight .o_barcode_line_title:contains("picking_delivery_2")',
+        trigger: '.o_highlight .o_barcode_line_title:contains("picking_delivery_2")',
+    },
+    {
         trigger: '.o_confirm',
         run: "click",
     },
@@ -938,7 +946,9 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
     { trigger: ".o_barcode_client_action", run: "scan product1" },
     { trigger: ".o_barcode_client_action", run: "scan product1" },
     {
-        extra_trigger: ".o_sublines .o_barcode_line.o_line_completed",
+        trigger: ".o_sublines .o_barcode_line.o_line_completed",
+    },
+    {
         trigger: ".o_sublines .o_barcode_line.o_selected.o_line_not_completed",
         run: function() {
             helper.assertSublinesCount(3);
@@ -1039,7 +1049,9 @@ registry.category("web_tour.tours").add('test_setting_group_lines_by_product', {
         run: "click",
     },
     {
-        extra_trigger: ".o_field_widget[name='product_id'] input:value('product2')",
+        trigger: ".o_field_widget[name='product_id'] input:value('product2')",
+    },
+    {
         trigger: "button.o_save",
         run: "click",
     },

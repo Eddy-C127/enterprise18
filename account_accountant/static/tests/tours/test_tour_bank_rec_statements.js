@@ -12,8 +12,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
         stepUtils.showAppsMenuItem(),
         ...accountTourSteps.goToAccountMenu("Open the accounting module"),
         {
+            trigger: ".o_breadcrumb",
+        },
+        {
             content: "Open the bank reconciliation widget",
-            extra_trigger: ".o_breadcrumb",
             trigger: "button.btn-secondary[name='action_open_reconcile']",
             run: "click",
         },
@@ -24,8 +26,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             run: "click",
         },
         {
+            trigger: ".modal-dialog:contains('Create Statement')",
+        },
+        {
             content: "Save the statement with proposed values",
-            extra_trigger: ".modal-dialog:contains('Create Statement')",
             trigger: ".o_form_button_save",
             run: "click",
         },
@@ -40,14 +44,18 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             run: "edit 100 && click body",
         },
         {
+            trigger: ".modal-body div.alert-warning:contains('The running balance')",
+        },
+        {
             content: "Dialog displays warning, save anyway",
-            extra_trigger: ".modal-body div.alert-warning:contains('The running balance')",
             trigger: ".modal-dialog .btn-primary[special='save']",
             run: "click",
         },
         {
+            trigger: ".btn-link:contains('$ 2,100.00')",
+        },
+        {
             content: "Click the red statement, after checking the balance",
-            extra_trigger: ".btn-link:contains('$ 2,100.00')",
             trigger: "span[name='kanban-subline-clickable-amount']:contains('$ 100.00')",
             run: "click",
         },
@@ -57,14 +65,18 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             run: "click",
         },
         {
+            trigger: ".modal-dialog:contains('Confirmation')",
+        },
+        {
             content: "Confirm Deletion",
-            extra_trigger: ".modal-dialog:contains('Confirmation')",
             trigger: ".btn-primary:contains('Ok')",
             run: "click",
         },
         {
+            trigger: ".o_kanban_renderer:not(:has(.kanban-statement))",
+        },
+        {
             content: "balance displays $3000.00 and no statement",
-            extra_trigger: ".o_kanban_renderer:not(:has(.kanban-statement))",
             trigger: ".btn-link:contains('$ 3,000')",
         },
         // End
