@@ -1,5 +1,6 @@
 import { Component, onMounted, useState } from "@odoo/owl";
 
+import { useVisible } from "@mail/utils/common/hooks";
 import { url } from "@web/core/utils/urls";
 import { useService } from "@web/core/utils/hooks";
 
@@ -13,6 +14,14 @@ export class ContactsTab extends Component {
         this.voip = useState(useService("voip"));
         this.orm = useService("orm");
         onMounted(() => this.voip.fetchContacts());
+        const lastShownContactState = useVisible("last-shown-contact", (isVisible) => {
+            if (lastShownContactState.isVisible) {
+                this.voip.fetchContacts(
+                    this.voip.softphone.searchBarInputValue.trim(),
+                    this.voip.softphone.contacts.length
+                );
+            }
+        });
     }
 
     /** @returns {string} */

@@ -1,4 +1,5 @@
 import { Component, onMounted, useState } from "@odoo/owl";
+import { useVisible } from "@mail/utils/common/hooks";
 import { useService } from "@web/core/utils/hooks";
 
 export class RecentTab extends Component {
@@ -11,6 +12,11 @@ export class RecentTab extends Component {
         this.orm = useService("orm");
         this.callService = useService("voip.call");
         onMounted(() => this.voip.fetchRecentCalls());
+        const lastShownCallState = useVisible("last-shown-call", (isVisible) => {
+            if (lastShownCallState.isVisible) {
+                this.voip.fetchRecentCalls(this.props.recentCalls.length);
+            }
+        });
     }
 
     /**
