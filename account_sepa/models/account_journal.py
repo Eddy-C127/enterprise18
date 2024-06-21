@@ -238,9 +238,7 @@ class AccountJournal(models.Model):
             if PstlAdr is not None:
                 ret.append(PstlAdr)
 
-        if org_id:
-            if not company.sepa_orgid_id:
-                raise UserError(_("Please first set a SEPA identification number in the accounting settings."))
+        if org_id and company.sepa_orgid_id:
             Id = etree.Element("Id")
             OrgId = etree.SubElement(Id, "OrgId")
             if self.sepa_pain_version == "pain.001.001.09" and self.company_id.account_sepa_lei:
