@@ -57,10 +57,19 @@ class BudgetLine(models.Model):
         def get_line_query(line):
             account_ids = {fname: line[fname].id for fname in account_fname if line[fname]}
             fnames = list(account_ids.keys())
-            query = SQL(
-                """(
-                    WITH purchase_order_data AS (
-                        SELECT (pol.product_qty - pol.qty_invoiced) / po.currency_rate * pol.price_unit::FLOAT * (a.rate)::FLOAT AS committed,
+            budget_type = line.budget_analytic_id.budget_type
+            company_id = line.budget_analytic_id.company_id.id
+            date_from = line.date_from
+            date_to = line.date_to
+            if budget_type == 'expense':
+                aal_types = ('vendor_bill',)
+            elif budget_type == 'revenue':
+                aal_types = ('invoice',)
+            else:
+                aal_types = ('invoice', 'vendor_bill')
+            if budget_type == 'expense':
+                purchase_order_query = SQL(
+                    """SELECT (pol.product_qty - pol.qty_invoiced) / po.currency_rate * pol.price_unit::FLOAT * (a.rate)::FLOAT AS committed,
                                0 AS achieved,
                                %(pod_fields)s
                           FROM purchase_order_line pol
@@ -72,7 +81,24 @@ class BudgetLine(models.Model):
                            AND po.company_id = %(company_id)s
                            AND po.state in ('purchase', 'done')
                            AND %(pod_condition)s
-                    ),
+                    """,
+                    date_from=date_from,
+                    date_to=date_to,
+                    company_id=company_id,
+                    json_table=SQL(', ').join(SQL("%s INT", SQL.identifier(fname)) for fname in account_fname),
+                    pod_fields=SQL(', ').join(self._field_to_sql('a', fname) for fname in account_fname),
+                    pod_condition=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('a', fname), account_ids[fname]) for fname in fnames),
+                )
+            else:
+                purchase_order_query = SQL(
+                    """SELECT 0 AS committed,
+                               0 AS achieved
+                    """
+                )
+
+            query = SQL(
+                """(
+                    WITH purchase_order_data AS (%(purchase_order_query)s),
                     account_analytic_line_data AS (
                         SELECT 0 AS committed,
                                aal.amount AS achieved,
@@ -82,6 +108,7 @@ class BudgetLine(models.Model):
                            AND aal.date <= %(date_to)s
                            AND aal.company_id = %(company_id)s
                            AND %(all_conditions)s
+                           AND aal.category in %(aal_types)s
                     )
                     SELECT %(line_id)s as id,
                            COALESCE(SUM(pod.committed), 0) + COALESCE(SUM(aal.committed), 0) AS committed,
@@ -90,15 +117,14 @@ class BudgetLine(models.Model):
                  FULL JOIN account_analytic_line_data aal ON %(join_condition)s
                 )""",
                 line_id=line.id,
-                date_from=line.date_from,
-                date_to=line.date_to,
-                company_id=line.budget_analytic_id.company_id.id,
-                pod_fields=SQL(', ').join(self._field_to_sql('a', fname) for fname in account_fname),
-                pod_condition=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('a', fname), account_ids[fname]) for fname in fnames),
-                json_table=SQL(', ').join(SQL("%s INT", SQL.identifier(fname)) for fname in account_fname),
+                date_from=date_from,
+                date_to=date_to,
+                company_id=company_id,
                 aal_fields=SQL(', ').join(self._field_to_sql('aal', fname) for fname in account_fname),
                 all_conditions=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('aal', fname), account_ids[fname]) for fname in fnames),
-                join_condition=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('pod', fname), self._field_to_sql('aal', fname)) for fname in account_fname),
+                join_condition=budget_type == 'expense' and SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('pod', fname), self._field_to_sql('aal', fname)) for fname in account_fname) or SQL('FALSE'),
+                aal_types=aal_types,
+                purchase_order_query=purchase_order_query
             )
             return query
 

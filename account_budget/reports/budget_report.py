@@ -101,8 +101,9 @@ class BudgetReport(models.Model):
               JOIN purchase_order po ON pol.order_id = po.id AND po.state in ('purchase', 'done')
         CROSS JOIN JSONB_TO_RECORDSET(pol.analytic_json) AS a(rate FLOAT, %(field_cast)s)
  LEFT JOIN LATERAL (
-                       SELECT DISTINCT bl.budget_analytic_id AS id
+                       SELECT DISTINCT ba.id
                          FROM budget_line bl
+                         JOIN budget_analytic ba ON ba.id = bl.budget_analytic_id AND ba.budget_type = 'expense'
                         WHERE po.date_order >= bl.date_from
                           AND po.date_order <= bl.date_to
                           AND po.company_id = bl.company_id
