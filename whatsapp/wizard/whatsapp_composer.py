@@ -199,8 +199,7 @@ class WhatsAppComposer(models.TransientModel):
             if rec.wa_template_id.variable_ids:
                 free_text_count = 1
                 for param in rec.wa_template_id.variable_ids.filtered(lambda line: line.line_type == 'body' and line.field_type == 'free_text'):
-                    if not rec[f"free_text_{free_text_count}"]:
-                        rec[f"free_text_{free_text_count}"] = param.demo_value
+                    rec[f"free_text_{free_text_count}"] = param.demo_value
                     free_text_count += 1
 
     def _extract_digits(self, string):
