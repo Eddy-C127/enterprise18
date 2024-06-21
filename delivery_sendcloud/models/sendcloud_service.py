@@ -140,7 +140,7 @@ class SendCloud:
             res = self.session.request(method='get', url=url, timeout=60)
         except Exception as err:
             self.logger(str(err), f'sendcloud response {url}')
-            raise UserError(_('Something went wrong, please try again later!!'))
+            raise UserError(_('Sendcloud is not responding. Check your credentials and/or retry later.'))
 
         self.logger(f'{res.content}', 'sendcloud get document response')
         if res.status_code != 200:
@@ -273,7 +273,7 @@ class SendCloud:
             res = res.json()
         except Exception as err:
             self.logger(str(err), f'sendcloud response {endpoint}')
-            raise UserError(_('Something went wrong, please try again later!!'))
+            raise UserError(_('Sendcloud is not responding. Check your credentials and/or retry later.'))
 
         if 'error' in res:
             raise UserError(res['error']['message'])
