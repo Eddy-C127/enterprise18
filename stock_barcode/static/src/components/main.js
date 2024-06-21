@@ -101,7 +101,7 @@ class MainComponent extends Component {
             if (this.config.play_sound) {
                 const fileExtension = new Audio().canPlayType("audio/ogg") ? "ogg" : "mp3";
                 this.sounds = {
-                    error: new Audio(url(`/stock_barcode/static/src/audio/error.${fileExtension}`)),
+                    error: new Audio(url(`/barcodes/static/src/audio/error.${fileExtension}`)),
                     notify: new Audio(url(`/mail/static/src/audio/ting.${fileExtension}`)),
                     success: new Audio(url(`/stock_barcode/static/src/audio/success.${fileExtension}`)),
                 };
