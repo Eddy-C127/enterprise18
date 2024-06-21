@@ -1788,7 +1788,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="employee_admin"/>
-        <field name="employee_ids" eval="[(4, ref('employee_admin'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1798,7 +1797,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_comp"/>
         <field name="number_of_days">7</field>
         <field name="employee_id" ref="employee_admin"/>
-        <field name="employee_ids" eval="[(4, ref('employee_admin'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1808,7 +1806,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_unpaid"/>
         <field name="number_of_days">7</field>
         <field name="employee_id" ref="employee_admin"/>
-        <field name="employee_ids" eval="[(4, ref('employee_admin'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1818,7 +1815,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_comp"/>
         <field name="number_of_days">12</field>
         <field name="employee_id" ref="employee_admin"/>
-        <field name="employee_ids" eval="[(4, ref('employee_admin'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1828,7 +1824,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="employee_al"/>
-        <field name="employee_ids" eval="[(4, ref('employee_al'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1838,7 +1833,6 @@
         <field name="holiday_status_id" ref="hr_holidays.hr_holiday_status_dv"/>
         <field name="number_of_days">10</field>
         <field name="employee_id" ref="employee_al"/>
-        <field name="employee_ids" eval="[(4, ref('employee_al'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1848,7 +1842,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_unpaid"/>
         <field name="number_of_days">12</field>
         <field name="employee_id" ref="employee_al"/>
-        <field name="employee_ids" eval="[(4, ref('employee_al'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1858,7 +1851,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="employee_mit"/>
-        <field name="employee_ids" eval="[(4, ref('employee_mit'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1868,7 +1860,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_unpaid"/>
         <field name="number_of_days">7</field>
         <field name="employee_id" ref="employee_mit"/>
-        <field name="employee_ids" eval="[(4, ref('employee_mit'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1878,7 +1869,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="employee_qdp"/>
-        <field name="employee_ids" eval="[(4, ref('employee_qdp'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1888,7 +1878,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_unpaid"/>
         <field name="number_of_days">7</field>
         <field name="employee_id" ref="employee_qdp"/>
-        <field name="employee_ids" eval="[(4, ref('employee_qdp'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1898,7 +1887,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="employee_fpi"/>
-        <field name="employee_ids" eval="[(4, ref('employee_fpi'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1908,7 +1896,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_unpaid"/>
         <field name="number_of_days">7</field>
         <field name="employee_id" ref="employee_fpi"/>
-        <field name="employee_ids" eval="[(4, ref('employee_fpi'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1918,7 +1905,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="employee_niv"/>
-        <field name="employee_ids" eval="[(4, ref('employee_niv'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1928,7 +1914,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_unpaid"/>
         <field name="number_of_days">5</field>
         <field name="employee_id" ref="employee_niv"/>
-        <field name="employee_ids" eval="[(4, ref('employee_niv'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1938,7 +1923,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="employee_jve"/>
-        <field name="employee_ids" eval="[(4, ref('employee_jve'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1948,7 +1932,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_unpaid"/>
         <field name="number_of_days">5</field>
         <field name="employee_id" ref="employee_jve"/>
-        <field name="employee_ids" eval="[(4, ref('employee_jve'))]"/>
         <field name="date_from" eval="time.strftime('%Y-1-1')"/>
         <field name="date_to" eval="time.strftime('%Y-12-31')"/>
     </record>
@@ -1964,7 +1947,6 @@
         <field name="request_date_from" eval="time.strftime('%Y-%m-01')"/>
         <field name="request_date_to" eval="time.strftime('%Y-%m-03')"/>
         <field name="employee_id" ref="employee_admin"/>
-        <field name="employee_ids" eval="[(4, ref('employee_admin'))]"/>
     </record>
 
     <record id="hr_holidays_sl" model="hr.leave">
@@ -1973,7 +1955,6 @@
         <field name="request_date_from" eval="time.strftime('%Y-%m-20')"/>
         <field name="request_date_to" eval="time.strftime('%Y-%m-22')"/>
         <field name="employee_id" ref="employee_admin"/>
-        <field name="employee_ids" eval="[(4, ref('employee_admin'))]"/>
     </record>
 
     <record id="hr_holidays_cl_al" model="hr.leave">
@@ -1982,7 +1963,6 @@
         <field name="request_date_from" eval="time.strftime('%Y-%m-04')"/>
         <field name="request_date_to" eval="time.strftime('%Y-%m-10')"/>
         <field name="employee_id" ref="employee_al"/>
-        <field name="employee_ids" eval="[(4, ref('employee_al'))]"/>
     </record>
 
     <record id="hr_holidays_sl_al" model="hr.leave">
@@ -1991,7 +1971,6 @@
         <field name="request_date_from" eval="(datetime.now()+relativedelta(months=1)).strftime('%Y-%m-17')"/>
         <field name="request_date_to" eval="(datetime.now()+relativedelta(months=1)).strftime('%Y-%m-19')"/>
         <field name="employee_id" ref="employee_al"/>
-        <field name="employee_ids" eval="[(4, ref('employee_al'))]"/>
     </record>
 
     <record id="hr_holidays_cl_mit" model="hr.leave">
@@ -2000,7 +1979,6 @@
         <field name="request_date_from" eval="time.strftime('%Y-%m-18')"/>
         <field name="request_date_to" eval="time.strftime('%Y-%m-24')"/>
         <field name="employee_id" ref="employee_mit"/>
-        <field name="employee_ids" eval="[(4, ref('employee_mit'))]"/>
     </record>
 
     <record id="hr_holidays_cl_mit_2" model="hr.leave">
@@ -2009,7 +1987,6 @@
         <field name="request_date_from" eval="time.strftime('%Y-%m-05')"/>
         <field name="request_date_to" eval="time.strftime('%Y-%m-07')"/>
         <field name="employee_id" ref="employee_mit"/>
-        <field name="employee_ids" eval="[(4, ref('employee_mit'))]"/>
     </record>
 
     <record id="hr_holidays_cl_qdp" model="hr.leave">
@@ -2018,7 +1995,6 @@
         <field name="request_date_from" eval="(datetime.now()+relativedelta(months=1)).strftime('%Y-%m-03 01:00:00')"/>
         <field name="request_date_to" eval="(datetime.now()+relativedelta(months=1)).strftime('%Y-%m-05 23:00:00')"/>
         <field name="employee_id" ref="employee_qdp"/>
-        <field name="employee_ids" eval="[(4, ref('employee_qdp'))]"/>
     </record>
 
     <record id="hr_holidays_sl_qdp" model="hr.leave">
@@ -2027,7 +2003,6 @@
         <field name="request_date_from" eval="time.strftime('%Y-%m-01 01:00:00')"/>
         <field name="request_date_to" eval="time.strftime('%Y-%m-03 23:00:00')"/>
         <field name="employee_id" ref="employee_qdp"/>
-        <field name="employee_ids" eval="[(4, ref('employee_qdp'))]"/>
     </record>
 
     <record id="hr_holidays_sl_vad" model="hr.leave">
@@ -2036,7 +2011,6 @@
         <field name="request_date_from" eval="time.strftime('%Y-%m-25')"/>
         <field name="request_date_to" eval="time.strftime('%Y-%m-26')"/>
         <field name="employee_id" ref="employee_niv"/>
-        <field name="employee_ids" eval="[(4, ref('employee_niv'))]"/>
     </record>
 
     <record id="hr_holidays_sl_kim" model="hr.leave">
@@ -2045,7 +2019,6 @@
         <field name="request_date_from" eval="(datetime.now()+relativedelta(months=1)).strftime('%Y-%m-01')"/>
         <field name="request_date_to" eval="(datetime.now()+relativedelta(months=1)).strftime('%Y-%m-01')"/>
         <field name="employee_id" ref="employee_jve"/>
-        <field name="employee_ids" eval="[(4, ref('employee_jve'))]"/>
     </record>
 
     <record id="hr_holidays_sl_kim_2" model="hr.leave">
@@ -2054,7 +2027,6 @@
         <field name="request_date_from" eval="(datetime.now()+relativedelta(months=4)).strftime('%Y-%m-03')"/>
         <field name="request_date_to" eval="(datetime.now()+relativedelta(months=4)).strftime('%Y-%m-03')"/>
         <field name="employee_id" ref="employee_jve"/>
-        <field name="employee_ids" eval="[(4, ref('employee_jve'))]"/>
     </record>
 
     <!-- approve the leave request -->
@@ -2194,7 +2166,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="hr_employee_joseph_noluck"/>
-        <field name="employee_ids" eval="[(4, ref('hr_employee_joseph_noluck'))]"/>
         <field name="create_date" eval="time.strftime('2019-01-01')"/>
         <field name="date_from" eval="time.strftime('2019-1-1')"/>
         <field name="date_to" eval="time.strftime('2019-12-31')"/>
@@ -2205,7 +2176,6 @@
         <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="hr_employee_joseph_noluck"/>
-        <field name="employee_ids" eval="[(4, ref('hr_employee_joseph_noluck'))]"/>
         <field name="create_date" eval="time.strftime('2020-01-01')"/>
         <field name="date_from" eval="time.strftime('2020-1-1')"/>
         <field name="date_to" eval="time.strftime('2020-12-31')"/>
@@ -2229,7 +2199,6 @@
         <field name="request_date_to" eval="time.strftime('2019-03-15 23:00:00')"/>
         <field name="number_of_days">10</field>
         <field name="employee_id" ref="hr_employee_joseph_noluck"/>
-        <field name="employee_ids" eval="[(4, ref('hr_employee_joseph_noluck'))]"/>
     </record>
 
     <record id="hr_holidays_joseph_noluck_legal_2019" model="hr.leave">
@@ -2241,7 +2210,6 @@
         <field name="request_date_to" eval="time.strftime('2019-05-31 23:00:00')"/>
         <field name="number_of_days">20</field>
         <field name="employee_id" ref="hr_employee_joseph_noluck"/>
-        <field name="employee_ids" eval="[(4, ref('hr_employee_joseph_noluck'))]"/>
     </record>
 
     <record id="hr_holidays_joseph_noluck_legal_2020" model="hr.leave">
@@ -2253,7 +2221,6 @@
         <field name="request_date_to" eval="time.strftime('2020-01-17 23:00:00')"/>
         <field name="number_of_days">5</field>
         <field name="employee_id" ref="hr_employee_joseph_noluck"/>
-        <field name="employee_ids" eval="[(4, ref('hr_employee_joseph_noluck'))]"/>
     </record>
 
     <function model="hr.leave" name="action_confirm">

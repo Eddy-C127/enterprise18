@@ -70,7 +70,6 @@ class TestL10NHkHrPayrollAccountCommon(AccountTestInvoicingCommon):
     @classmethod
     def _generate_leave(cls, date_from, date_to, holiday_status_id):
         return cls.env['hr.leave'].create({
-            'holiday_type': 'employee',
             'employee_id': cls.employee.id,
             'request_date_from': date_from,
             'request_date_to': date_to,

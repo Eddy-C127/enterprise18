@@ -42,7 +42,6 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
         # Use two day leaves in the payslip period leaving two unused day leave.
         leave = self.env['hr.leave'].create({
             'name': 'Holiday Request',
-            'holiday_type': 'employee',
             'employee_id': employee.id,
             'holiday_status_id': self.annual_leave_type.id,
             'request_date_from': date(2023, 7, 6),

@@ -267,19 +267,34 @@
         </record>
 
         <!-- allocation -->
-        <record id="l10n_in_cl_allocation" model="hr.leave.allocation">
-            <field name="name">Paid Time Off for Indian Employee</field>
+        <record id="l10n_in_cl_allocation_1" model="hr.leave.allocation">
+            <field name="name">Paid Time Off for Indian Employee 1</field>
             <field name="date_from" eval="time.strftime('%Y-1-1')"/>
             <field name="date_to" eval="time.strftime('%Y-12-31')"/>
             <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
             <field name="number_of_days">24</field>
             <field name="state">confirm</field>
-            <field name="employee_id" ref="hr.employee_admin"/>
-            <field name="employee_ids" eval="
-                [(4, ref('l10n_in_hr_payroll.l10n_in_hr_employee_vihaan')),
-                (4, ref('l10n_in_hr_payroll.l10n_in_hr_employee_alisha_sharma')),
-                (4, ref('l10n_in_hr_payroll.l10n_in_hr_employee_shaurya'))]"
-            />
+            <field name="employee_id" ref="l10n_in_hr_payroll.l10n_in_hr_employee_vihaan"/>
+        </record>
+
+        <record id="l10n_in_cl_allocation_2" model="hr.leave.allocation">
+            <field name="name">Paid Time Off for Indian Employee 2</field>
+            <field name="date_from" eval="time.strftime('%Y-1-1')"/>
+            <field name="date_to" eval="time.strftime('%Y-12-31')"/>
+            <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
+            <field name="number_of_days">24</field>
+            <field name="state">confirm</field>
+            <field name="employee_id" ref="l10n_in_hr_payroll.l10n_in_hr_employee_alisha_sharma"/>
+        </record>
+
+        <record id="l10n_in_cl_allocation_3" model="hr.leave.allocation">
+            <field name="name">Paid Time Off for Indian Employee 3</field>
+            <field name="date_from" eval="time.strftime('%Y-1-1')"/>
+            <field name="date_to" eval="time.strftime('%Y-12-31')"/>
+            <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
+            <field name="number_of_days">24</field>
+            <field name="state">confirm</field>
+            <field name="employee_id" ref="l10n_in_hr_payroll.l10n_in_hr_employee_shaurya"/>
         </record>
 
         <!-- time-off -->

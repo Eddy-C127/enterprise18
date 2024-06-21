@@ -41,16 +41,6 @@ class TestPayrollCommon(TransactionCase):
             'request_unit': 'day'
         }])
 
-        cls.holiday_allocations = cls.env['hr.leave.allocation'].create([{
-            'name': 'Paid Time Off %s' % year,
-            'holiday_status_id': cls.holiday_leave_types.id,
-            'number_of_days': 20,
-            'holiday_type': 'company',
-            'mode_company_id': cls.belgian_company.id,
-            'date_from': date(year, 1, 1),
-            'date_to': date(year, 12, 31),
-        } for year in range(today.year - 2, today.year + 1)])
-
         cls.resource_calendar = cls.env['resource.calendar'].create({
             'name': 'Test Calendar',
             'company_id': cls.belgian_company.id,

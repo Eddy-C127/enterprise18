@@ -20,16 +20,6 @@
         <field name="company_ids" eval="[(4, ref('base.demo_company_be'))]"/>
     </record>
 
-    <record id="hr_holidays_allocation_" model="hr.leave.allocation">
-        <field name="name">Paid Time Off allocation</field>
-        <field name="holiday_status_id" ref="hr_holidays.holiday_status_cl"/>
-        <field name="number_of_days">20</field>
-        <field name="holiday_type">company</field>
-        <field name="mode_company_id" ref="base.demo_company_be"/>
-        <field name="date_from" eval="time.strftime('%Y-01-01')"/>
-        <field name="date_to" eval="time.strftime('%Y-12-31')"/>
-    </record>
-
     <record id="holiday_type_european" model="hr.leave.type">
         <field name="company_id" ref="base.demo_company_be"/>
     </record>

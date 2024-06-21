@@ -85,7 +85,6 @@
                 <group class="o_label_nowrap" string="Time Off">
                     <field name="time_off_n_ids" nolabel="1" colspan="2">
                         <tree>
-                            <field name="holiday_type" readonly="state not in ['confirm', 'draft']"/>
                             <field name="name"/>
                             <field name="date_from" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
                             <field name="date_to" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
