@@ -74,7 +74,7 @@ msgstr "Comisión"
 #: model:ir.model.fields,field_description:partner_commission.field_res_company__commission_automatic_po_frequency
 #: model:ir.model.fields,field_description:partner_commission.field_res_config_settings__commission_automatic_po_frequency
 msgid "Commission Automatic Po Frequency"
-msgstr "Frecuencia automática de la comisión de la orden de compra"
+msgstr "Frecuencia automática de la comisión del pedido de compra"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__plan_id
@@ -167,7 +167,7 @@ msgstr "Nombre mostrado"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_sale_order__commission_plan_frozen
 msgid "Freeze Plan"
-msgstr "Plan de congelación"
+msgstr "Congelar plan"
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -244,18 +244,18 @@ msgstr ""
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
 msgid "Minimum PO amount total"
-msgstr "Importe total mínimo de la orden de compra"
+msgstr "Importe total mínimo del pedido de compra"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_res_company__commission_po_minimum
 #: model:ir.model.fields,field_description:partner_commission.field_res_config_settings__commission_po_minimum
 msgid "Minimum Total Amount for PO commission"
-msgstr "Total de la cantidad mínima de PO por comisión"
+msgstr "Importe total mínimo para la comisión de pedido"
 
 #. module: partner_commission
 #: model:ir.model.fields.selection,name:partner_commission.selection__res_company__commission_automatic_po_frequency__monthly
 msgid "Monthly"
-msgstr "Mensual"
+msgstr "Mensualmente"
 
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__name
@@ -282,7 +282,7 @@ msgstr "Comisión de contacto: confirmar pedidos de compra"
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_partner_grade
 msgid "Partner Grade"
-msgstr "Grado de socio"
+msgstr "Nivel del partner"
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -382,7 +382,7 @@ msgstr "Reglas"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_rule__template_id
 msgid "Sale Order Template"
-msgstr "Plantilla de orden de venta"
+msgstr "Plantilla de pedido de venta"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_sale_order_log_report
@@ -433,7 +433,7 @@ msgid ""
 "The default commission plan used for this grade. Can be overwritten on the "
 "partner form."
 msgstr ""
-"El plan de comisión predeterminado utilizado para este grado. Se puede "
+"El plan de comisión por defecto utilizado para este grado. Se puede "
 "sobrescribir en el formulario de contacto."
 
 #. module: partner_commission
@@ -453,7 +453,7 @@ msgstr "Semanalmente"
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_commission_rule__is_capped
 msgid "Whether the commission is capped."
-msgstr "Si la comisión está al límite"
+msgstr "Si la comisión tiene un límite."
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_sale_order__commission_plan_frozen

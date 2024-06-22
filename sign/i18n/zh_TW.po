@@ -110,7 +110,7 @@ msgstr "******1234"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "- <em>Canceled</em>"
-msgstr ""
+msgstr "- 已取消<em></em>"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
@@ -145,17 +145,17 @@ msgstr "2023-08-18 - 12:30:45"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Created by:</b>"
-msgstr "<b>Created by:</b>"
+msgstr "<b>建立者：</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Created on:</b>"
-msgstr "<b>Created on:</b>"
+msgstr "<b>建立於：</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Creation IP Address:</b>"
-msgstr "<b>Creation IP Address:</b>"
+msgstr "<b>建立操作的 IP 位址：</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -217,21 +217,19 @@ msgstr "<i class=\"fa fa-check\"/> 一條新連結剛剛發送至你的收件箱
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<i class=\"fa fa-check\"/> The document's integrity is valid."
-msgstr "<i class=\"fa fa-check\"/> The document's integrity is valid."
+msgstr "<i class=\"fa fa-check\"/> 文件的完整性有效。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid ""
 "<i class=\"fa fa-exclamation-circle\"/> The document's integrity could not "
 "be verified."
-msgstr ""
-"<i class=\"fa fa-exclamation-circle\"/> The document's integrity could not "
-"be verified."
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 未能驗證文件的完整性。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<i class=\"fa fa-globe\"/> View"
-msgstr "<i class=\"fa fa-globe\"/> View"
+msgstr "<i class=\"fa fa-globe\"/> 檢視"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -262,7 +260,7 @@ msgstr "<i class=\"oi oi-arrow-right\"/> 購買點數"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "<small><i> Canceled </i></small>"
-msgstr ""
+msgstr "<small> 已取消 <i></i></small>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -308,7 +306,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<span class=\"text-muted\">Not available</span>"
-msgstr "<span class=\"text-muted\">Not available</span>"
+msgstr "<span class=\"text-muted\">不可用</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -318,7 +316,7 @@ msgstr "<span> 天</span>。"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_type_view_form
 msgid "<span>(1.0 = full page size)</span>"
-msgstr "<span>(1.0 = full page size)</span>"
+msgstr "<span>（1.0 = 整頁尺寸）</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -333,7 +331,7 @@ msgstr "<span>這是您的條款和條件的預覽。</span>"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
-msgstr "<strong>Creation Date:</strong>"
+msgstr "<strong>建立日期：</strong>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_refused
@@ -359,9 +357,7 @@ msgstr ""
 msgid ""
 "A SMS will be sent to the following phone number. Please update it if it's "
 "not relevant."
-msgstr ""
-"A SMS will be sent to the following phone number. Please update it if it's "
-"not relevant."
+msgstr "將發送簡訊至以下電話號碼。如果不正確，請更新。"
 
 #. module: sign
 #. odoo-python
@@ -394,12 +390,12 @@ msgstr "有效的簽名請求需要至少一項簽名請求項目"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "ABCD1234"
-msgstr "ABCD1234"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Access Logs"
-msgstr "Access Logs"
+msgstr "存取日誌"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_warning
@@ -414,7 +410,7 @@ msgstr "存取你的已簽名文件"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_via_link
 msgid "Accessed Through Token"
-msgstr "Accessed Through Token"
+msgstr "透過權杖存取"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_mail_activity_type__category
@@ -431,7 +427,7 @@ msgstr "需要採取行動"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__action
 msgid "Action Performed"
-msgstr "Action Performed"
+msgstr "已執行的動作"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_mail_activity_type__category
@@ -463,7 +459,7 @@ msgstr "活動異常圖示"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #, python-format
 msgid "Activity Logs"
-msgstr "Activity Logs"
+msgstr "活動日誌"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__activity_state
@@ -509,7 +505,7 @@ msgstr "在此處新增文件標籤"
 #: code:addons/sign/static/src/dialogs/initial_all_pages_dialog.xml:0
 #, python-format
 msgid "Add to all pages"
-msgstr "Add to all pages"
+msgstr "加入至所有頁面"
 
 #. module: sign
 #: model:res.groups,name:sign.group_sign_manager
@@ -649,7 +645,7 @@ msgstr "已獲授權使用者："
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__auto_field
 msgid "Auto-fill Partner Field"
-msgstr "Auto-fill Partner Field"
+msgstr "自動填寫合作夥伴欄位"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__available
@@ -690,7 +686,7 @@ msgstr "按下「採納並簽署」表示我同意所選的簽名/簡簽將是�
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__message_cc
 msgid "CC Message"
-msgstr "CC Message"
+msgstr "副本抄送訊息"
 
 #. module: sign
 #. odoo-javascript
@@ -735,7 +731,7 @@ msgstr "認證 <i class=\"fa fa-download\"/>"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Certificate of Completion<br/>"
-msgstr "Certificate of Completion<br/>"
+msgstr "完成認證<br/>"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__change_authorized
@@ -768,7 +764,7 @@ msgstr "按一下該欄位，以指定應由誰填寫，以及欄位是否設為
 #: code:addons/sign/static/src/components/sign_request/sign_item_navigator.js:0
 #, python-format
 msgid "Click to start"
-msgstr "Click to start"
+msgstr "按一下以開始"
 
 #. module: sign
 #. odoo-javascript
@@ -996,7 +992,7 @@ msgstr "日期"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Date (UTC)"
-msgstr "Date (UTC)"
+msgstr "日期（UTC）"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__default
@@ -1006,12 +1002,12 @@ msgstr "預設"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__default_height
 msgid "Default Height"
-msgstr "Default Height"
+msgstr "預設高度"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__default_width
 msgid "Default Width"
-msgstr "Default Width"
+msgstr "預設寬度"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__sequence
@@ -1141,7 +1137,7 @@ msgstr "文件 <i class=\"fa fa-download\"/>"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Document Details"
-msgstr "Document Details"
+msgstr "文件詳情"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__reference
@@ -1197,14 +1193,14 @@ msgstr "下載認證"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #, python-format
 msgid "Download Document"
-msgstr "Download Document"
+msgstr "下載文件"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 #, python-format
 msgid "Drag & Drop a field in the PDF"
-msgstr "Drag & Drop a field in the PDF"
+msgstr "拖放一個欄位至 PDF"
 
 #. module: sign
 #. odoo-javascript
@@ -1232,7 +1228,7 @@ msgstr "複製"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_control_panel.js:0
 #, python-format
 msgid "Duplicated Template"
-msgstr "Duplicated Template"
+msgstr "重複範本"
 
 #. module: sign
 #. odoo-python
@@ -1269,7 +1265,7 @@ msgstr "編輯選取項目值"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 #, python-format
 msgid "Edit template name"
-msgstr "Edit template name"
+msgstr "編輯範本名稱"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__signer_email
@@ -1494,7 +1490,7 @@ msgstr "未來活動"
 #: code:addons/sign/static/src/dialogs/encrypted_dialog.xml:0
 #, python-format
 msgid "Generate PDF"
-msgstr "Generate PDF"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1539,7 +1535,7 @@ msgstr "HTTP 路由"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__has_default_template
 msgid "Has Default Template"
-msgstr "Has Default Template"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__has_message
@@ -1619,7 +1615,7 @@ msgstr "IP 位址"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__ip
 msgid "IP address of the visitor"
-msgstr "IP address of the visitor"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__activity_exception_icon
@@ -1704,7 +1700,7 @@ msgstr "In Progress Count"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "In favorites, remove it"
-msgstr "In favorites, remove it"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__log_hash
@@ -1745,7 +1741,7 @@ msgstr "是關注人"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__is_mail_sent
 msgid "Is Mail Sent"
-msgstr "Is Mail Sent"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__is_sharing
@@ -1781,7 +1777,7 @@ msgstr "節省用水公升"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__last_action_date
 msgid "Last Action Date"
-msgstr "Last Action Date"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__write_uid
@@ -1831,7 +1827,7 @@ msgstr "逾期活動"
 #: model:ir.model.fields,field_description:sign.field_sign_log__latitude
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__latitude
 msgid "Latitude"
-msgstr "Latitude"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -1862,12 +1858,12 @@ msgstr "連接標籤"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__activity_id
 msgid "Linked Activity"
-msgstr "Linked Activity"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__log_date
 msgid "Log Date"
-msgstr "Log Date"
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -1908,7 +1904,7 @@ msgstr "郵件傳送順序"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__update_mail
 msgid "Mail Update"
-msgstr "Mail Update"
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -1928,12 +1924,12 @@ msgstr "管理範本存取"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #, python-format
 msgid "Mandatory field"
-msgstr "Mandatory field"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Marc Demo"
-msgstr "Marc Demo"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__message
@@ -1963,7 +1959,7 @@ msgstr "訊息"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
 msgid "Missing Password"
-msgstr "Missing Password"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sms_number
@@ -1973,7 +1969,7 @@ msgstr "行動電話"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Modify Template"
-msgstr "Modify Template"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__textarea
@@ -2022,7 +2018,7 @@ msgstr "我的請求"
 #. module: sign
 #: model:sign.template.tag,name:sign.sign_template_tag_2
 msgid "NDA"
-msgstr "NDA"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__name
@@ -2040,12 +2036,12 @@ msgstr "名稱已存在"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Name for the file"
-msgstr "Name for the file"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Name of the file"
-msgstr "Name of the file"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -2074,7 +2070,7 @@ msgstr "新簽名請求"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__new_template
 msgid "New Template Name"
-msgstr "New Template Name"
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -2140,7 +2136,7 @@ msgstr "沒有特定原因"
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_action
 msgid "No template yet"
-msgstr "No template yet"
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -2153,12 +2149,12 @@ msgstr "無"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Not in favorites, add it"
-msgstr "Not in favorites, add it"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Not in favorites, set it"
-msgstr "Not in favorites, set it"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_request_waiting_for_me_action
@@ -2225,7 +2221,7 @@ msgstr "一公升氣體燃料將產生 8.9 公斤二氧化碳"
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "One or more selection items have no associated options"
-msgstr "One or more selection items have no associated options"
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -2265,12 +2261,12 @@ msgstr "選項"
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_option
 msgid "Option of a selection Field"
-msgstr "Option of a selection Field"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Optional Message..."
-msgstr "Optional Message..."
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_template__redirect_url
@@ -2280,7 +2276,7 @@ msgstr "簽名後重新導向連結（可選用）"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_template__redirect_url_text
 msgid "Optional text to display on the button link"
-msgstr "Optional text to display on the button link"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -2293,7 +2289,7 @@ msgstr "選項"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__original_template_id
 msgid "Original File"
-msgstr "Original File"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -2324,7 +2320,7 @@ msgstr "業務夥伴"
 #: code:addons/sign/static/src/dialogs/encrypted_dialog.js:0
 #, python-format
 msgid "Password is incorrect."
-msgstr "Password is incorrect."
+msgstr ""
 
 #. module: sign
 #: model:sign.item.type,name:sign.sign_item_type_phone
@@ -2576,7 +2572,7 @@ msgstr "Roles"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_iframe.js:0
 #, python-format
 msgid "Rotate Clockwise"
-msgstr "Rotate Clockwise"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_has_sms_error
@@ -2621,7 +2617,7 @@ msgstr "已儲存"
 #: code:addons/sign/controllers/portal.py:0
 #, python-format
 msgid "Search <span class=\"nolabel\"> (in Document)</span>"
-msgstr "Search <span class=\"nolabel\"> (in Document)</span>"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__access_token
@@ -2632,7 +2628,7 @@ msgstr "安全金鑰"
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_selection
 msgid "Select an option"
-msgstr "Select an option"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -2739,7 +2735,7 @@ msgstr "分享及關閉"
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "Share Document by Link"
-msgstr "Share Document by Link"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__share_link
@@ -3206,7 +3202,7 @@ msgstr "有人已在填寫使用此範本的文件"
 #: code:addons/sign/static/src/components/sign_request/signable_PDF_iframe.js:0
 #, python-format
 msgid "Sorry, an error occurred, please try to fill the document again."
-msgstr "Sorry, an error occurred, please try to fill the document again."
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -3245,7 +3241,7 @@ msgstr "狀態"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__request_state
 msgid "State of the request on action log"
-msgstr "State of the request on action log"
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -3312,7 +3308,7 @@ msgstr "標籤"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 #, python-format
 msgid "Tags:"
-msgstr "Tags:"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_item_type__auto_field
@@ -3353,7 +3349,7 @@ msgstr "範本範例合約 PDF 觸發器"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Template or Tag"
-msgstr "Template or Tag"
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -3371,7 +3367,7 @@ msgstr "條款和條件"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__res_company__sign_terms_type__html
 msgid "Terms as Web Page"
-msgstr "Terms as Web Page"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__res_company__sign_terms_type__plain
@@ -3432,7 +3428,7 @@ msgstr "你嘗試讀取的 Odoo 電子簽名文件不存在。簽名請求可能
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.encrypted_ask_password
 msgid "The PDF's password is required to generate the final document."
-msgstr "The PDF's password is required to generate the final document."
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -3572,7 +3568,7 @@ msgstr "簽署請求已被忽略"
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_action.js:0
 #, python-format
 msgid "The template doesn't exist anymore."
-msgstr "The template doesn't exist anymore."
+msgstr ""
 
 #. module: sign
 #. odoo-python
@@ -3827,7 +3823,7 @@ msgstr "更新"
 #: code:addons/sign/models/sign_template.py:0
 #, python-format
 msgid "Upload a PDF"
-msgstr "Upload a PDF"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -3872,7 +3868,7 @@ msgstr "上載要直接簽名的 PDF"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Use Layout"
-msgstr "Use Layout"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
@@ -3882,7 +3878,7 @@ msgstr "使用標籤去管理簽名範本及簽名請求"
 #. module: sign
 #: model:ir.actions.act_window,name:sign.action_sign_duplicate_template_with_pdf
 msgid "Use the layout of fields on a new PDF"
-msgstr "Use the layout of fields on a new PDF"
+msgstr ""
 
 #. module: sign
 #: model:ir.model,name:sign.model_res_users
@@ -3937,7 +3933,7 @@ msgstr "驗證並傳送已完成的文件"
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 #, python-format
 msgid "Validation Code"
-msgstr "Validation Code"
+msgstr ""
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sign_item_value_ids
@@ -3970,12 +3966,12 @@ msgstr "檢視文件"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__open
 msgid "View/Download"
-msgstr "View/Download"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Viewed/downloaded by"
-msgstr "Viewed/downloaded by"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
@@ -4099,7 +4095,7 @@ msgstr "輸入電郵地址或搜尋聯絡人⋯"
 #: code:addons/sign/controllers/main.py:0
 #, python-format
 msgid "Wrong password"
-msgstr "Wrong password"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -4246,7 +4242,7 @@ msgstr "你的資料"
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "Your confirmation code is %s"
-msgstr "Your confirmation code is %s"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -4264,8 +4260,6 @@ msgid ""
 "Your file is encrypted, PDF's password is required to generate final "
 "document. The final document will be encrypted with the same password."
 msgstr ""
-"Your file is encrypted, PDF's password is required to generate final "
-"document. The final document will be encrypted with the same password."
 
 #. module: sign
 #. odoo-javascript
@@ -4375,7 +4369,7 @@ msgstr "e.g. Employee"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "e.g. Non-disclosure agreement"
-msgstr "e.g. Non-disclosure agreement"
+msgstr ""
 
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_checkbox
@@ -4470,7 +4464,7 @@ msgstr "公升汽車燃油"
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_initial
 msgid "mark it"
-msgstr "mark it"
+msgstr ""
 
 #. module: sign
 #. odoo-javascript
@@ -4529,7 +4523,7 @@ msgstr "sign.message_cc"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "tags"
-msgstr "tags"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_el

@@ -244,7 +244,7 @@ msgid ""
 "delay to increase security."
 msgstr ""
 "<i class=\"fa fa-info-circle\"/> Los enlaces enviados por correo electrónico"
-" caducan después de un tiempo determinado para aumentar la seguridad."
+" expiran después de un tiempo determinado para aumentar la seguridad."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -859,7 +859,7 @@ msgstr "Compañía utilizada para la comunicación"
 #: model:ir.model.fields.selection,name:sign.selection__sign_request_item__state__completed
 #, python-format
 msgid "Completed"
-msgstr "Completada"
+msgstr "Completado"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completed_document
@@ -879,7 +879,7 @@ msgstr "Firmas completadas"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completion_date
 msgid "Completion Date"
-msgstr "Fecha de Finalización"
+msgstr "Fecha de finalización"
 
 #. module: sign
 #: model:ir.model,name:sign.model_res_config_settings
@@ -1496,8 +1496,7 @@ msgstr ""
 #: model:ir.model.fields,help:sign.field_sign_item_role__auth_method
 msgid "Force the signatory to identify using a second authentication method"
 msgstr ""
-"Hacer que el signatario se identifique con un segundo método de "
-"autenticación."
+"Hacer que el firmante se identifique con un segundo método de autenticación."
 
 #. module: sign
 #. odoo-javascript
@@ -1752,7 +1751,7 @@ msgstr "Ignorado"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__in_progress_count
 msgid "In Progress Count"
-msgstr "Recuento en curso"
+msgstr "Número de firmas pendientes"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -2007,7 +2006,7 @@ msgstr "Mensaje a enviar a los contactos en copia del documento firmado"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_send_request__message
 msgid "Message to be sent to signers of the specified document"
-msgstr "Mensaje a enviar a los signatarios del documento específico"
+msgstr "Mensaje a enviar a los firmantes del documento específico"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_ids
@@ -2543,7 +2542,7 @@ msgstr "Solicitar firma"
 #, python-format
 msgid "Request expiration date must be set in the future."
 msgstr ""
-"La fecha de vencimiento de la solicitud debe establecerse en el futuro."
+"La fecha de expiración de la solicitud debe establecerse en el futuro."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_total
@@ -4383,8 +4382,9 @@ msgid ""
 "Your file is encrypted, PDF's password is required to generate final "
 "document. The final document will be encrypted with the same password."
 msgstr ""
-"Su archivo está encriptado, se requiere la contraseña de PDF para generar el"
-" documento final. El documento final se cifrará con la misma contraseña."
+"Su archivo está protegido, es necesario contar con la contraseña del PDF "
+"para generar el documento final. Se encriptará el documento final con la "
+"misma contraseña."
 
 #. module: sign
 #. odoo-javascript
@@ -4600,14 +4600,14 @@ msgstr "marcar"
 #: code:addons/sign/static/src/components/sign_request/signable_PDF_iframe.js:0
 #, python-format
 msgid "next"
-msgstr "próximo"
+msgstr "siguiente"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 #, python-format
 msgid "on"
-msgstr "de"
+msgstr "el"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
@@ -4673,7 +4673,7 @@ msgstr "para firmar el documento."
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "to:"
-msgstr "hasta:"
+msgstr "a:"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container

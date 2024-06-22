@@ -25,14 +25,14 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid " after deleting the order on Starshipit"
-msgstr ""
+msgstr "Starshipit에서 주문을 삭제한 후"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
 msgid ""
 "<i class=\"fa fa-exclamation-triangle\"/> Do not forget to select a service "
 "for a valid configuration."
-msgstr ""
+msgstr "올바른 구성을 위해 서비스를 선택하는 것을 잊지 마세요."
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
@@ -40,6 +40,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-triangle\"/> In <b>Test Environment</b>, your shippings are automatically <b>archived</b> after the label creation. <br/>\n"
 "                        Please note that charges can still occur for label creations and some shipping carriers may automatically validate the shipment when printing labels."
 msgstr ""
+"<i class=\"fa fa-exclamation-triangle\"/><b>테스트 환경</b>에서는 라벨 생성 후 배송이 자동으로 <b>보관</b>됩니다.<br/>\n"
+"                        라벨 생성에 대해서는 여전히 요금이 부과될 수 있으며 일부 배송업체는 라벨을 인쇄할 때 자동으로 배송을 확인할 수 있습니다."
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_shipping_method_starshipit
@@ -47,6 +49,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Available shipping services depend on "
 "enabled carriers in your Starshipit account."
 msgstr ""
+"<i class=\"fa fa-info-circle\"/>  사용할 수 있는 배송 상품은 Starshipit 계정에 활성화되어 있는 "
+"운송업체에 따라 다릅니다."
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_shipping_method_starshipit
@@ -63,12 +67,12 @@ msgstr "운송업체"
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Choose Starshipit Shipping Service"
-msgstr ""
+msgstr "Starshipit 배송 서비스 선택"
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_starshipit_shipping_wizard
 msgid "Choose from the available starshipit shipping methods"
-msgstr ""
+msgstr "사용할 수 있는 starshipit 배송 방법 중에서 선택하세요"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_shipping_method_starshipit
@@ -80,7 +84,7 @@ msgstr "승인"
 msgid ""
 "Contains the list of available services for the starshipit account to select"
 " from."
-msgstr ""
+msgstr "Starshipit 계정에서 선택할 수 있는 서비스 목록이 포함되어 있습니다."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__create_uid
@@ -100,7 +104,7 @@ msgstr "기본 패키지 유형"
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_default_package_type_id
 msgid "Default Package Type for Starshipit"
-msgstr ""
+msgstr "Starshipit에 대한 기본 패키지 유형"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__carrier_id
@@ -110,7 +114,7 @@ msgstr "배송"
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_shipping_method_starshipit
 msgid "Delivery Service"
-msgstr ""
+msgstr "배송 서비스"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__display_name
@@ -122,7 +126,7 @@ msgstr "표시명"
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Error: this delivery method is not available for this order."
-msgstr ""
+msgstr "오류: 이 주문에는 해당 배송 방법을 사용할 수 없습니다."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__id
@@ -139,14 +143,14 @@ msgstr "연동"
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Invalid Starshipit credentials."
-msgstr ""
+msgstr "Starshipit 자격 증명이 유효하지 않습니다."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Labels were generated for the order %s"
-msgstr ""
+msgstr "주문에 대한 라벨이 생성되었습니다. %s"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__write_uid
@@ -177,7 +181,7 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Order %s was archived."
-msgstr ""
+msgstr "주문 %s이(가) 보관되었습니다."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -193,26 +197,26 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Order %s was sent to the carrier."
-msgstr ""
+msgstr "주문 %s를 배송업체로 보냈습니다."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_origin_address
 msgid "Origin Address"
-msgstr ""
+msgstr "발신지 주소"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_default_package_type_id
 msgid ""
 "Package dimensions are required to get more accurate rates. You can define "
 "these in a package type that you set as default"
-msgstr ""
+msgstr "보다 정확한 요금을 확인하려면 패키지 사이즈가 필요합니다. 기본 패키지 유형에서 이러한 치수를 정의할 수 있습니다."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Please delete the order on Starshipit then try again."
-msgstr ""
+msgstr "Starshipit에서 주문을 삭제한 후 다시 시도해 주세요."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -236,7 +240,7 @@ msgstr "반품 선별"
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return labels were generated for the order %s"
-msgstr ""
+msgstr "주문 %s에 대한 반품 라벨이 생성되었습니다."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -252,7 +256,7 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return order %s was archived."
-msgstr ""
+msgstr "반품 %s이(가) 보관되었습니다."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -268,22 +272,22 @@ msgstr ""
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Return order %s was sent to the carrier."
-msgstr ""
+msgstr "반품 %s을 배송업체로 보냈습니다."
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
 msgid "Select a service linked to your starshipit account"
-msgstr ""
+msgstr "Starshipit 계정에 연결된 서비스를 선택하세요."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_starshipit_shipping_wizard__selected_service_code
 msgid "Selected Service"
-msgstr ""
+msgstr "선택한 서비스"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_service_code
 msgid "Service Code"
-msgstr ""
+msgstr "서비스 코드"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_service_name
@@ -305,7 +309,7 @@ msgstr "배송 품목"
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Something went wrong, please try again later: %s"
-msgstr ""
+msgstr " 문제가 발생했습니다. 나중에 다시 시도해 주세요: %s"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields.selection,name:delivery_starshipit.selection__delivery_carrier__delivery_type__starshipit
@@ -316,50 +320,50 @@ msgstr "Starshipit"
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_api_key
 msgid "Starshipit API Integration key"
-msgstr ""
+msgstr "Starshipit API 통합 키"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_subscription_key
 msgid "Starshipit API Subscription key"
-msgstr ""
+msgstr "Starshipit API 구독 키"
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Starshipit API rate exceeded. Please try again later."
-msgstr ""
+msgstr "Starshipit API Rate이 초과되었습니다. 나중에 다시 시도해 주세요."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_api_key
 msgid "Starshipit Api Key"
-msgstr ""
+msgstr "Starshipit API 키"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.view_delivery_carrier_form
 msgid "Starshipit Configuration"
-msgstr ""
+msgstr "Starshipit 설정"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_stock_picking__starshipit_parcel_reference
 msgid "Starshipit Parcel Reference"
-msgstr ""
+msgstr "Starshipit 택배 번호"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_stock_picking__starshipit_return_parcel_reference
 msgid "Starshipit Return Parcel Reference"
-msgstr ""
+msgstr "Starshipit 반품 택배 번호"
 
 #. module: delivery_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.res_config_settings_view_form_sale_starshipit
 #: model_terms:ir.ui.view,arch_db:delivery_starshipit.res_config_settings_view_form_stock_starshipit
 msgid "Starshipit Shipping Methods"
-msgstr ""
+msgstr "Starshipit 배송 방법"
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,field_description:delivery_starshipit.field_delivery_carrier__starshipit_subscription_key
 msgid "Starshipit Subscription Key"
-msgstr ""
+msgstr "Starshipit 구독 키"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -368,14 +372,14 @@ msgstr ""
 msgid ""
 "Starshipit cannot generate returns for the carrier %s. Please handle this "
 "return with the carrier directly."
-msgstr ""
+msgstr "Starshipit은 배송업체 %s에 대한 반품을 생성할 수 없습니다. 해당 배송업체에 직접 반품 처리하시기 바랍니다."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/starshipit_service.py:0
 #, python-format
 msgid "Starshipit returned an error: %(message)s"
-msgstr ""
+msgstr "Starshipit에서 반품 오류가 발생했습니다: %(message)s"
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_stock_package_type
@@ -387,7 +391,7 @@ msgstr "재고 포장 유형"
 msgid ""
 "The carrier on starshipit used by this carrier. The service code belongs to "
 "it."
-msgstr ""
+msgstr "Starshipit에서 사용하는 배송 업체가 서비스 코드에 해당합니다."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -397,13 +401,15 @@ msgid ""
 "The picking %(picking_name)s sequence is too long for Starshipit. Please "
 "update your pickings sequence in order to use at most 50 characters."
 msgstr ""
+"피킹 시퀀스 %(picking_name)s 길이가 너무 길어 Starshipit에 사용할 수 없습니다. 피킹 시퀀스를 최대 50자 이내로"
+" 줄여주세요."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "The return label creation failed."
-msgstr ""
+msgstr "반품 라벨을 생성하지 못했습니다."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -414,6 +420,8 @@ msgid ""
 "the code inside starshipit to be at most 100 characters, then update your "
 "shipping carrier %(shipping_carrier)s to the new code."
 msgstr ""
+"서비스 코드 %(service_code)s가 Starshipit의 글자 수 제한을 초과합니다. Starshipit의 코드를 100자 "
+"이내로 업데이트한 다음 배송업체%(shipping_carrier)s를 새 코드로 업데이트하세요."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_service_code
@@ -421,7 +429,7 @@ msgstr ""
 msgid ""
 "The service that will be used for this carrier. This is set when you select "
 "a carrier from the wizard."
-msgstr ""
+msgstr "이 배송업체를 통해 사용할 서비스입니다. 마법사에서 배송업체를 선택할 때 설정됩니다."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -431,6 +439,8 @@ msgid ""
 "The shipping label creation failed with the following error:\n"
 "%(error)s"
 msgstr ""
+"다음 오류로 인해 배송 라벨을 생성하지 못했습니다:\n"
+"%(error)s"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -439,28 +449,28 @@ msgstr ""
 msgid ""
 "There are no shipping services available, please verify the shipping address"
 " or activate suitable carriers in your starshipit account."
-msgstr ""
+msgstr "사용 가능한 배송 서비스가 없습니다. Starshipit 계정에서 배송지 주소를 확인하거나 적절한 배송업체를 활성화하세요."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "There was an issue when creating the order, please try again"
-msgstr ""
+msgstr "주문을 생성하는 동안 문제가 발생했습니다. 다시 시도해 주세요."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "This action requires a Starshipit carrier."
-msgstr ""
+msgstr "이 작업을 수행하려면 Starshipit가 필요합니다."
 
 #. module: delivery_starshipit
 #: model:ir.model.fields,help:delivery_starshipit.field_delivery_carrier__starshipit_origin_address
 msgid ""
 "This address will be used when fetching the available services from "
 "starshipit."
-msgstr ""
+msgstr "Starshipit에서 사용 가능한 서비스를 검색할 때 이 주소가 사용됩니다."
 
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_stock_picking

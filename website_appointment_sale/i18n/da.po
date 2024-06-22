@@ -30,12 +30,12 @@ msgstr "(tidszone:"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "<i class=\"fa fa-check me-2\"/>Booked"
-msgstr ""
+msgstr "<i class=\"fa fa-check me-2\"/>Booket"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "Awaiting Payment"
-msgstr ""
+msgstr "Afventer betaling"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_sale_order_line__calendar_booking_ids
@@ -50,7 +50,7 @@ msgstr "Møde"
 #. module: website_appointment_sale
 #: model:ir.model,name:website_appointment_sale.model_calendar_booking
 msgid "Meeting Booking"
-msgstr ""
+msgstr "Mødebooking"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_sale_order__calendar_event_count
@@ -61,11 +61,12 @@ msgstr "Møder"
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "Oops, it looks like the following Meeting(s) were not booked smoothly:"
 msgstr ""
+"Ups, det ser ud til, at følgende møde(r) ikke blev booket problemfrit:"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "Please Contact Us"
-msgstr ""
+msgstr "Venligst kontakt os"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_calendar_booking__order_line_id
@@ -90,6 +91,8 @@ msgid ""
 "The following bookings are not available anymore during the selected period "
 "and your cart must be updated. We are sorry for the inconvenience."
 msgstr ""
+"Følgende reservationer er ikke længere tilgængelige i den valgte periode, og"
+" din indkøbskurv skal opdateres. Vi beklager ulejligheden."
 
 #. module: website_appointment_sale
 #. odoo-python
@@ -99,6 +102,8 @@ msgid ""
 "The following bookings were not confirmed due to insufficient availability "
 "or configuration changes: %s"
 msgstr ""
+"Følgende reservationer blev ikke bekræftet på grund af utilstrækkelig "
+"tilgængelighed eller konfigurationsændringer: %s"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
@@ -108,7 +113,7 @@ msgstr "Vis detaljer"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "We are looking forward to seeing you at the following Meeting(s):"
-msgstr ""
+msgstr "Vi glæder os til at se dig til følgende møde(r):"
 
 #. module: website_appointment_sale
 #: model:ir.model,name:website_appointment_sale.model_website
@@ -120,4 +125,4 @@ msgstr "Hjemmeside"
 #: code:addons/website_appointment_sale/models/sale_order.py:0
 #, python-format
 msgid "You cannot manually change the quantity of a Booking Fees product."
-msgstr ""
+msgstr "Du kan ikke manuelt ændre mængden af et bookinggebyr-produkt."

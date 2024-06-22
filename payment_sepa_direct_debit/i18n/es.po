@@ -147,7 +147,7 @@ msgstr ""
 "                    Se realizará el cargo a su cuenta con terminación <t t-out=\"ctx.get('iban_last_4') or ''\">1234</t> en un plazo máximo de dos días naturales o poco después, asegúrese de disponer de los fondos solicitados.<br><br>\n"
 "\n"
 "                    <t t-if=\"ctx.get('creditor_identifier') or ctx.get('mandate_ref')\">\n"
-"                        Datos del vendedor:<br>\n"
+"                        Datos del comerciante:<br>\n"
 "                        <ul>\n"
 "                            <t t-if=\"ctx.get('creditor_identifier')\">\n"
 "                                <li>IBAN: <t t-out=\"ctx['creditor_identifier'] or ''\">NO 93 8601 1117947</t></li>\n"
@@ -429,7 +429,7 @@ msgstr "Restringido para países en la zona SEPA. Países prohibidos: %s"
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_sdd_mandate
 msgid "SDD Mandate"
-msgstr "Orden SDD"
+msgstr "Mandato SDD"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model.fields.selection,name:payment_sepa_direct_debit.selection__payment_provider__custom_mode__sepa_direct_debit
@@ -450,7 +450,7 @@ msgstr "Mandato de domiciliación bancaria SEPA"
 #: model:mail.template,name:payment_sepa_direct_debit.mail_template_sepa_notify_debit
 #: model:mail.template,subject:payment_sepa_direct_debit.mail_template_sepa_notify_debit
 msgid "SEPA Direct Debit: Charge Notification"
-msgstr "Débito directo SEPA: cargar notificación"
+msgstr "Domiciliación bancaria SEPA: notificación de cobro"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.actions.server,name:payment_sepa_direct_debit.cron_auto_confirm_paid_sepa_txs_ir_actions_server
@@ -460,20 +460,20 @@ msgstr "Domiciliación bancaria SEPA: confirmar transacciones pagadas"
 #. module: payment_sepa_direct_debit
 #: model:mail.template,name:payment_sepa_direct_debit.mail_template_sepa_notify_validation
 msgid "SEPA Direct Debit: Validation Notification"
-msgstr "Domiciliación bancaria SEPA: Notificación de validación"
+msgstr "Domiciliación bancaria SEPA: notificación de validación"
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,description:payment_sepa_direct_debit.mail_template_sepa_notify_validation
 msgid ""
 "Send the SEPA mandate in attachement, to partners who signed a new mandate"
 msgstr ""
-"Enviar el mandato de la SEPA como archivo adjunto a los partners que "
-"firmaron un nuevo mandato"
+"Enviar el mandato SEPA como archivo adjunto a los contactos que firmaron un "
+"nuevo mandato"
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,description:payment_sepa_direct_debit.mail_template_sepa_notify_debit
 msgid "Sent to the customer to indicate their account will be charged"
-msgstr "Se envió al cliente para indicarle que se cobrará en su cuenta"
+msgstr "Enviado al cliente para indicarle que se cobrará en su cuenta"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
@@ -527,6 +527,6 @@ msgid ""
 "Your company must have a creditor identifier in order to issue a SEPA Direct"
 " Debit payment request. It can be set in Accounting settings."
 msgstr ""
-"Su empresa debe contar con un identificador de acreedor para emitir una "
+"Su compañía debe contar con un identificador de acreedor para emitir una "
 "solicitud de domiciliación bancaria SEPA. Puede configurarlo en los ajustes "
 "de Contabilidad."

@@ -6,8 +6,8 @@
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
-# Chloe Wang, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,6 +47,11 @@ msgid ""
 "Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
 "\t%s"
 msgstr ""
+"\n"
+"此外，部份个别产品对于可承运最重货物的可用运输方式而言，仍是超重。\n"
+"                             \n"
+"如果可能的话，请将以下产品的数量分装在多个包裹中，或选择其他物流服务商：\n"
+"\t%s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -54,7 +59,7 @@ msgstr ""
 msgid ""
 "Some packages in your transfer are too heavy for the heaviest available "
 "shipping method."
-msgstr ""
+msgstr "您转运的一些包裹太重，不适合使用最重的运输方式。"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -63,6 +68,8 @@ msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
 msgstr ""
+"\n"
+"尽量将您的产品分散到各个包裹中，使其重量小于%(max_weight)s%(unit)s，或者选择其他承运商。"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -70,7 +77,7 @@ msgstr ""
 msgid ""
 "The total weight of your transfer is too heavy for the heaviest available "
 "shipping method."
-msgstr ""
+msgstr "您的转运总重量过大，不适合使用最重的运输方式。"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form

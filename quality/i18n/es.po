@@ -29,7 +29,7 @@ msgstr "# Alertas de calidad"
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__check_count
 msgid "# Quality Checks"
-msgstr "Nº de controles de calidad"
+msgstr "# de controles de calidad"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_defaults
@@ -51,7 +51,7 @@ msgstr "Acción requerida"
 #. module: quality
 #: model:quality.alert.stage,name:quality.quality_alert_stage_2
 msgid "Action Proposed"
-msgstr "Acción Propuesta"
+msgstr "Acción propuesta"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_point__active
@@ -95,7 +95,7 @@ msgstr "Nota adicional"
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_check__additional_note
 msgid "Additional remarks concerning this check."
-msgstr "Notas adicionales sobre esta revisión."
+msgstr "Notas adicionales sobre este control de calidad."
 
 #. module: quality
 #: model:res.groups,name:quality.group_quality_manager
@@ -179,12 +179,12 @@ msgstr "Causa"
 #: model:ir.model.fields,field_description:quality.field_quality_alert__check_id
 #: model:ir.model.fields,field_description:quality.field_quality_point__check_ids
 msgid "Check"
-msgstr "Revisión"
+msgstr "Control"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_point__check_count
 msgid "Check Count"
-msgstr "Comprobar recuento"
+msgstr "Número de controles de calidad"
 
 #. module: quality
 #. odoo-javascript
@@ -594,7 +594,7 @@ msgid ""
 "No quality team found for this company.\n"
 "Please go to configuration and create one first."
 msgstr ""
-"No se ha encontrado un equipo de calidad para esta empresa.\n"
+"No se ha encontrado un equipo de calidad para esta compañía.\n"
 "Por favor, vaya a configuración y cree uno primero."
 
 #. module: quality
@@ -826,7 +826,7 @@ msgstr "Equipo de Calidad"
 #: model:ir.model.fields,field_description:quality.field_quality_check__rating_ids
 #: model:ir.model.fields,field_description:quality.field_quality_point__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_force_thread_id
@@ -862,7 +862,7 @@ msgstr "Causa principal"
 #. module: quality
 #: model:ir.model,name:quality.model_quality_reason
 msgid "Root Cause for Quality Failure"
-msgstr "Causa raíz del fracaso de calidad"
+msgstr "Causa principal por la que no pasó el control de calidad"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__message_has_sms_error
@@ -982,7 +982,7 @@ msgstr ""
 #. module: quality
 #: model:res.groups,comment:quality.group_quality_manager
 msgid "The quality manager manages the quality process"
-msgstr "El jefe de calidad gestiona el proceso de calidad"
+msgstr "El gerente de calidad gestiona el proceso de calidad"
 
 #. module: quality
 #: model:res.groups,comment:quality.group_quality_user
@@ -998,7 +998,7 @@ msgstr "Título"
 #. module: quality
 #: model:ir.model.fields.selection,name:quality.selection__quality_check__quality_state__none
 msgid "To do"
-msgstr "Por realizar"
+msgstr "Pendiente"
 
 #. module: quality
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
@@ -1020,7 +1020,7 @@ msgstr "Tipo de actividad de excepción en el registro."
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_tag__color
 msgid "Used in the kanban view"
-msgstr "Empleado en vista de kanban"
+msgstr "Utilizado en la vista de kanban"
 
 #. module: quality
 #: model:res.groups,name:quality.group_quality_user
@@ -1068,9 +1068,9 @@ msgstr "Operación de trabajo"
 #. module: quality
 #: model:quality.reason,name:quality.reason_workcenter
 msgid "Workcenter Failure"
-msgstr "Falla en el centro de trabajo"
+msgstr "Error en el centro de trabajo"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_point_test_type__active
 msgid "active"
-msgstr "activa"
+msgstr "activo"

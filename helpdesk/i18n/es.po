@@ -1509,7 +1509,7 @@ msgid ""
 msgstr ""
 "Cuando el ticket llega a esta etapa se envía un correo electrónico automático al cliente.\n"
 "Por defecto, el correo electrónico se enviará desde la dirección de correo electrónico con el alias del equipo de asistencia.\n"
-"De lo contrario, se enviará desde el alias de correo de la empresa, o desde el catchall (como se defina en los parámetros del sistema)."
+"De lo contrario, se enviará desde el alias de correo de la compañía o desde el catchall (como se defina en los parámetros del sistema)."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__email_cc
@@ -1533,8 +1533,8 @@ msgstr ""
 #: model:mail.template,description:helpdesk.rating_ticket_request_email_template
 msgid "Enable \"customer ratings\" feature on the helpdesk team"
 msgstr ""
-"Activar la función de \"valoración de clientes\" en el equipo de servicio de"
-" asistencia"
+"Activar la función de \"calificaciones de clientes\" en el equipo de "
+"servicio de asistencia"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -1544,8 +1544,8 @@ msgid ""
 "Enter the <b>subject</b> of your ticket <br/><i>(e.g. Problem with my "
 "installation, Wrong order, etc.).</i>"
 msgstr ""
-"Ingrese el <b>asunto</b> de su ticket <br/><i>(p. ej. Problema con la "
-"instalación, Pedido incorrecto, etc.).</i>"
+"Ingrese el <b>asunto</b> de su ticket <br/><i>(p. ej. problema con la "
+"instalación, pedido incorrecto, etc.).</i>"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__exceeded_hours
@@ -1583,7 +1583,7 @@ msgstr "Ticket de SLA fallado"
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Failed Tickets"
-msgstr "Tickets fallados"
+msgstr "Tickets fallidos"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_fsm
@@ -2396,7 +2396,7 @@ msgid ""
 "available, according to their working hours and their time off."
 msgstr ""
 "Los nuevos tickets se asignarán automáticamente a los miembros del equipo "
-"que estén disponibles, según sus horas laborales y sus ausencias."
+"que estén disponibles, según sus horas laborables y sus ausencias."
 
 #. module: helpdesk
 #. odoo-python
@@ -3454,7 +3454,7 @@ msgstr "Objetivo"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_res_users__helpdesk_target_rating
 msgid "Target Customer Rating"
-msgstr "Calificación de cliente potencial"
+msgstr "Calificación del cliente objetivo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__stage_id
@@ -3465,7 +3465,7 @@ msgstr "Etapa de objetivo"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_res_users__helpdesk_target_success
 msgid "Target Success Rate"
-msgstr "Tasa de éxito potencial"
+msgstr "Tasa de éxito objetiva"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_res_users__helpdesk_target_closed
@@ -4106,7 +4106,7 @@ msgstr "Dentro de"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__resource_calendar_id
 msgid "Working Hours"
-msgstr "Horas laborales"
+msgstr "Horas laborables"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_assignation_hours
@@ -4121,7 +4121,7 @@ msgstr "Horas laborables para cerrar"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
 msgid "Working Hours to Reach SLA"
-msgstr "Horas laborales para llegar a SLA"
+msgstr "Horas laborables para llegar a SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__exceeded_hours
@@ -4129,7 +4129,7 @@ msgid ""
 "Working hours exceeded for reached SLAs compared with deadline. Positive "
 "number means the SLA was reached after the deadline."
 msgstr ""
-"Se excedieron las horas laborales para las SLA logradas comparadas con la "
+"Se excedieron las horas laborables para las SLA logradas comparadas con la "
 "fecha límite. Los números positivos significan que se llegó a SLA después de"
 " la fecha límite."
 

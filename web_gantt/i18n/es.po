@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +25,7 @@ msgstr ""
 #: code:addons/web_gantt/static/src/gantt_controller.js:0
 #, python-format
 msgid "Are you sure to delete this record?"
-msgstr "¿Está seguro que quiere eliminar este registro?"
+msgstr "¿Está seguro de que desea eliminar este registro?"
 
 #. module: web_gantt
 #: model:ir.model,name:web_gantt.model_base
@@ -36,7 +37,7 @@ msgstr "Base"
 #: code:addons/web_gantt/static/src/gantt_renderer.xml:0
 #, python-format
 msgid "Collapse rows"
-msgstr "Colapsar filas"
+msgstr "Ocultar filas"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -99,7 +100,7 @@ msgstr "Gantt debe tener un atributo \"date_start\""
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Gantt must have a 'date_stop' attribute"
-msgstr "Gantt debe tener un atributo \"date_stopt\""
+msgstr "Gantt debe tener un atributo \"date_stop\""
 
 #. module: web_gantt
 #. odoo-python
@@ -132,15 +133,15 @@ msgstr "¡Campos insuficientes para la vista de Gantt!"
 #, python-format
 msgid "Invalid attributes (%s) in gantt view. Attributes must be in (%s)"
 msgstr ""
-"Atributos no válidos (%s) en la vista gantt. Los atributos deben estar en "
-"(%s)"
+"Atributos no válidos (%s) en la vista de Gantt. Los atributos deben estar en"
+" (%s)"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
 #, python-format
 msgid "Invalid default_scale '%s' in gantt"
-msgstr "Default_scale '%s' no válida en vista gantt"
+msgstr "Default_scale '%s' no válida en vista de Gantt"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -175,14 +176,14 @@ msgstr "Siguiente"
 #: code:addons/web_gantt/static/src/gantt_controller.js:0
 #, python-format
 msgid "Open"
-msgstr "Abierto"
+msgstr "Abrir"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 #, python-format
 msgid "Plan"
-msgstr "Plan"
+msgstr "Planificar"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -214,7 +215,7 @@ msgstr "Iniciar"
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 #, python-format
 msgid "Stop"
-msgstr "Parar"
+msgstr "Detener"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -238,7 +239,7 @@ msgstr "Total"
 #: code:addons/web_gantt/static/src/gantt_model.js:0
 #, python-format
 msgid "Undefined %s"
-msgstr "Indefinida %s"
+msgstr "%s sin definir"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -246,7 +247,7 @@ msgstr "Indefinida %s"
 #: model:ir.model,name:web_gantt.model_ir_ui_view
 #, python-format
 msgid "View"
-msgstr "Ver"
+msgstr "Vista"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -278,7 +279,7 @@ msgid ""
 "Only the first task has been automatically rescheduled."
 msgstr ""
 "No se pueden reprogramar tareas que no sigan una ruta de dependencia "
-"directa. Solo se ha reprogramado de forma automática la primera tarea."
+"directa. Solo se ha reprogramado la primera tarea automáticamente."
 
 #. module: web_gantt
 #. odoo-javascript

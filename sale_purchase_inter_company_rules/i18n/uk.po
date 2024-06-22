@@ -3,8 +3,8 @@
 # 	* sale_purchase_inter_company_rules
 # 
 # Translators:
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
 # Wil Odoo, 2023
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_company__copy_lots_delivery
 #: model:ir.model.fields,field_description:sale_purchase_inter_company_rules.field_res_config_settings__copy_lots_delivery
 msgid "Copy Lots on Delivery Validation"
-msgstr ""
+msgstr "Скопіювати партії на підтвердження доставки"
 
 #. module: sale_purchase_inter_company_rules
 #: model:ir.model.fields,help:sale_purchase_inter_company_rules.field_res_company__warehouse_id
@@ -91,6 +91,8 @@ msgid ""
 "Generate a %(validation)s %(generated_object)s using warehouse %(warehouse)s"
 " when a company confirms a %(event_type)s for %(company)s."
 msgstr ""
+"Створюйте %(validation)s %(generated_object)s використовуючи склад "
+"%(warehouse)s коли компанія підтверджує %(event_type)s для %(company)s."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python
@@ -100,6 +102,8 @@ msgid ""
 "Generate a %(validation)s %(generated_object)s when a company confirms a "
 "%(event_type)s for %(company)s."
 msgstr ""
+"Створюйте %(validation)s %(generated_object)s коли компанія підтверджує "
+"%(event_type)s для %(company)s."
 
 #. module: sale_purchase_inter_company_rules
 #. odoo-python

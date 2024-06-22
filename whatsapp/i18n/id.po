@@ -49,7 +49,6 @@ msgstr "%(template_name)s [%(account_name)s]"
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/models.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
 msgstr "'%(field)s' sepertinya tidak memiliki field path yang valid"
@@ -139,6 +138,7 @@ msgstr "Token Akses"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__wa_account_id
+#: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "Account"
 msgstr "Akun"
 
@@ -710,13 +710,6 @@ msgstr "Field dari Model"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "Field template variables must be associated with a field."
-msgstr "Variabel templat field harus terkait dengan field."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
 msgid ""
 "Field template variables %(var_names)s must be associated with a field."
 msgstr "Variabel templat field %(var_names)s harus terkait dengan field."
@@ -1137,7 +1130,7 @@ msgstr "Latvian"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__status__limit_exceeded
 msgid "Limit Exceeded"
-msgstr "Melampaui Bata"
+msgstr "Melampaui Batas"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__lt
@@ -1676,6 +1669,7 @@ msgstr "Sampel Value"
 #. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#: code:addons/whatsapp/static/src/core/web/messaging_menu_patch.xml:0
 #, python-format
 msgid "Search WhatsApp Channel"
 msgstr "Cari Channel WhatsApp"

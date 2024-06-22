@@ -366,7 +366,7 @@ msgstr ""
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "A timer is running in another company."
-msgstr "Un temporizador está corriendo en otra empresa. "
+msgstr "Un temporizador está en marcha en otra compañía."
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_all_timesheets
@@ -467,8 +467,8 @@ msgid ""
 "Congratulations, you are up to date. <br>\n"
 "                    Let's wait for your employees to start new activities."
 msgstr ""
-"Felicidades, ya se puso al día. <br>\n"
-"Esperemos a que sus empleados inicien nuevas actividades."
+"Ya está al día. <br>\n"
+"Ahora debe esperar a que sus empleados inicien nuevas actividades."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_project_task_create_timesheet
@@ -623,41 +623,41 @@ msgstr "Nombre mostrado"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer
 msgid "Display Timer"
-msgstr "Botón de temporizador"
+msgstr "Mostrar temporizador"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_pause
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_pause
 msgid "Display Timer Pause"
-msgstr "Botón para pausar temporizador"
+msgstr "Mostrar botón para pausar temporizador"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_resume
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_resume
 msgid "Display Timer Resume"
-msgstr "Botón para resumir temporizador"
+msgstr "Mostrar botón para reanudar temporizador"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_start_primary
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_start_primary
 msgid "Display Timer Start Primary"
-msgstr "Botón de inicio del temporizador "
+msgstr "Mostrar botón primario de inicio del temporizador"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_start_secondary
 msgid "Display Timer Start Secondary"
-msgstr "Botón secundario de inicio para temporizador"
+msgstr "Mostrar botón secundario de inicio del temporizador"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_stop
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_stop
 msgid "Display Timer Stop"
-msgstr "Botón para detener temporizador "
+msgstr "Mostrar botón para detener temporizador "
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timesheet_timer
 msgid "Display Timesheet Time"
-msgstr "Botón de tiempo en hojas de tiempo"
+msgstr "Mostrar botón de tiempo en hojas de asistencia"
 
 #. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__account_analytic_line__validated_status__draft
@@ -734,7 +734,7 @@ msgstr "ID"
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__is_timer_running
 #: model:ir.model.fields,field_description:timesheet_grid.field_timesheets_analysis_report__is_timer_running
 msgid "Is Timer Running"
-msgstr "El temporizador está activo"
+msgstr "El temporizador está en marcha"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_month
@@ -756,7 +756,7 @@ msgstr "Última actualización el"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee__last_validated_timesheet_date
 msgid "Last Validated Timesheet Date"
-msgstr "Última validación Hoja de asistencia fecha"
+msgstr "Fecha de la última validación de hoja de asistencia"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
@@ -871,7 +871,7 @@ msgid ""
 msgstr ""
 "Número de días después del final de la semana/del mes después de los que se "
 "enviará un recordatorio por correo electrónico a los gerentes de las hojas "
-"de asistencia que todavía tienen hojas de asistencia para validar."
+"de asistencia que todavía tienen hojas de asistencia a validar."
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_res_config_settings__reminder_user_delay
@@ -882,7 +882,7 @@ msgid ""
 msgstr ""
 "Número de días después del final de la semana/del mes después de los que se "
 "enviará un recordatorio por correo electrónico a los usuarios que todavía "
-"tienen hojas de asistencia para registrar (según sus horas de trabajo)."
+"tienen hojas de asistencia a registrar (según sus horas de trabajo)."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -892,13 +892,13 @@ msgid ""
 "Only a Timesheets Approver or Manager is allowed to modify a validated "
 "entry."
 msgstr ""
-"Solo una persona que pueda aprobar las hojas de asistencia o un responsable "
-"puede modificar una entrada que ya esté validada."
+"Sólo un aprobador o gerente de hojas de asistencia puede modificar una "
+"entrada validada."
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_form
 msgid "Pause"
-msgstr "Detener"
+msgstr "Pausar"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -957,7 +957,7 @@ msgstr "Continuar"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__timesheet_rounding
 msgid "Round up"
-msgstr "Redondeo"
+msgstr "Redondear"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
@@ -1052,7 +1052,7 @@ msgstr "Iniciar"
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_form
 #, python-format
 msgid "Stop"
-msgstr "Parar"
+msgstr "Detener"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1095,12 +1095,12 @@ msgid ""
 "00:30 (assuming you have a round up of 15 min). We recommend having the same"
 " value for the minimal duration and for the round up."
 msgstr ""
-"La duración de las hojas de horas que se hayan registrado mediante el "
-"temporizador se redondearán automáticamente a este número. Por ejemplo, si "
-"detiene el temporizador cuando el tiempo sea 00:16:56 la duración en la hoja"
-" de horas se redondeará a 00:30 (suponiendo que eligió redondear por 15 "
-"minutos). Le recomendamos que la cantidad que tenga en la duración mínima y "
-"en el redondeo sea la misma."
+"La duración de las hojas de asistencia registradas a través del temporizador"
+" se redondeará a este número. Por ejemplo, si para su temporizador en "
+"00:16:56, la duración del registro de la hoja de asistencia automáticamente "
+"se redondeará a 00:30 (asumiendo que su redondeo es de 15 minutos). Le "
+"recomendamos tener el mismo valor para la duración mínima y para el "
+"redondeo."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1194,7 +1194,7 @@ msgstr "Última pausa del temporizador"
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__timer_start
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__timer_start
 msgid "Timer Start"
-msgstr "Iniciar temporizador"
+msgstr "Inicio de temporizador"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee__timesheet_manager_id
@@ -1206,7 +1206,7 @@ msgstr "Hoja de asistencia"
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.view_employee_tree_inherit_timesheet
 msgid "Timesheet Approver"
-msgstr "Persona que aprueba las hojas de asistencia"
+msgstr "Aprobadir de hojas de asistencia"
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_timesheet_grid_mixin
@@ -1216,7 +1216,7 @@ msgstr "Mixin de tabla de hojas de asistencia"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__duration_unit_amount
 msgid "Timesheet Init Amount"
-msgstr "Cantidad Init de hojas de hora"
+msgstr "Tiempo inicial de la hoja de asistencia"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__is_timesheet
@@ -1439,14 +1439,14 @@ msgid ""
 "manager or the timesheet approver."
 msgstr ""
 "Solo puede validar las hojas de asistencia de los empleados de los que es el"
-" manager."
+" gerenete o el aprobador de hojas de asistencia."
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "You cannot access timesheets that are not yours."
-msgstr "No se puede acceder a hojas de asistencia que no son propios"
+msgstr "No se puede acceder a hojas de asistencia que no son propias"
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1458,7 +1458,7 @@ msgid ""
 "disabled."
 msgstr ""
 "No puede ajustar el tiempo de una hoja de asistencia para un proyecto con "
-"las hojas de asistencia desactivadas. "
+"las hojas de asistencia desactivadas."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1468,8 +1468,8 @@ msgid ""
 "You cannot delete a validated entry. Please, contact your manager or your "
 "timesheet approver."
 msgstr ""
-"No puede borrar una entrada validada. Contacte a su responsable o a quien "
-"aprueba sus hojas de asistencia."
+"No puede borrar una entrada validada. Contacte a su gerente o al aprobador "
+"de sus hojas de asistencia."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1479,7 +1479,7 @@ msgid ""
 "You cannot start the timer for a project in a company encoding its "
 "timesheets in days."
 msgstr ""
-"No puede empezar el temporizador para un proyecto en una empresa que "
+"No puede iniciar el temporizador para un proyecto en una empresa que "
 "codifica las hojas de asistencia en días."
 
 #. module: timesheet_grid
@@ -1534,7 +1534,7 @@ msgstr "después del fin de la semana"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "and click on"
-msgstr "y hacer clic en"
+msgstr "y haga clic en"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
@@ -1553,7 +1553,7 @@ msgstr "eliminado"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "min"
-msgstr "mín"
+msgstr "minutos"
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1574,7 +1574,7 @@ msgstr "o [a] para iniciar el temporizador "
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "or click on"
-msgstr "o hacer clic en"
+msgstr "o haga clic en"
 
 #. module: timesheet_grid
 #. odoo-javascript

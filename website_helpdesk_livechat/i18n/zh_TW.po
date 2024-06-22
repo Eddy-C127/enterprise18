@@ -46,6 +46,15 @@ msgid "Alright, we should have everything we need"
 msgstr "好的，我們應該已有需要的一切."
 
 #. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/chatbot_script.py:0
+#, python-format
+msgid ""
+"An \"Email\" step type must exist before the \"Create Ticket\" step for a "
+"ticket to be created."
+msgstr "在「建立支援請求」步驟之前，必須有「電子郵件」步驟類型，才可建立支援請求。"
+
+#. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial_misc
 msgid "Anything else to add?"
 msgstr "有沒有其他資料要補充？"

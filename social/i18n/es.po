@@ -625,7 +625,7 @@ msgstr "¿Tiene tendencias?"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__is_hatched
 msgid "Hatched"
-msgstr "Creado"
+msgstr "Rayado"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__id
@@ -894,7 +894,7 @@ msgstr "Longitud máxima de la publicación"
 #: model:ir.model.fields,field_description:social.field_social_post__media_ids
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "Media"
-msgstr "Media"
+msgstr "Medios"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__media_type
@@ -1161,7 +1161,7 @@ msgstr ""
 #: model:ir.model.fields,help:social.field_social_account__stories_trend
 msgid "Percentage of increase/decrease of the stories over a defined period."
 msgstr ""
-"Porcentaje de historias que aumentó disminuyó a lo largo de un periodo de "
+"Porcentaje de historias que aumentó o disminuyó a lo largo de un periodo de "
 "tiempo definido. "
 
 #. module: social
@@ -1170,7 +1170,7 @@ msgstr ""
 #, python-format
 msgid "Please specify at least one account to post into (for post ID(s) %s)."
 msgstr ""
-"Especifique almenos una cuenta en la que publicar (para las ID de las "
+"Especifique al menos una cuenta en la que publicar (para los ID de las "
 "publicaciones %s)."
 
 #. module: social
@@ -1365,7 +1365,7 @@ msgstr "Programar después"
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_post__state__scheduled
 msgid "Scheduled"
-msgstr "Planificado"
+msgstr "Programado"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__scheduled_date
@@ -1522,7 +1522,7 @@ msgstr "Usuario social"
 #. module: social
 #: model:ir.actions.server,name:social.ir_cron_post_scheduled_ir_actions_server
 msgid "Social: Publish Scheduled Posts"
-msgstr "Social: hacer las publicaciones programadas"
+msgstr "Social: publicar las publicaciones programadas"
 
 #. module: social
 #. odoo-javascript
@@ -1603,7 +1603,7 @@ msgstr "Tendencias de historias"
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
 #, python-format
 msgid "Stream Added (%s)"
-msgstr "Se agregó la stream (%s)"
+msgstr "Flujo agregado (%s)"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post_image__stream_post_id
@@ -1768,7 +1768,7 @@ msgstr "Error desconocido"
 #: code:addons/social/models/social_post_template.py:0
 #, python-format
 msgid "Uploaded file does not seem to be a valid image."
-msgstr "El archivo que subió no es una imagen válida"
+msgstr "El archivo que subió no es una imagen válida."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
@@ -1788,7 +1788,7 @@ msgid ""
 "Used to make comparisons when we need to restrict some features to a "
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
-"Se utiliza para hacer comparaciones cuando necesitamos restringir algunas "
+"Utilizado para hacer comparaciones cuando necesitamos restringir algunas "
 "características para una red social específica ('facebook', 'twitter', ...)."
 
 #. module: social

@@ -92,28 +92,28 @@ msgstr "(Re)compute"
 #: code:addons/account_consolidation/static/src/components/move_line_list/move_line_list.xml:0
 #, python-format
 msgid ") and the consolidated company ("
-msgstr ""
+msgstr ") și societatea consolidată ("
 
 #. module: account_consolidation
 #. odoo-javascript
 #: code:addons/account_consolidation/static/src/components/move_line_list/move_line_list.xml:0
 #, python-format
 msgid ") have different currencies and the company is consolidated at"
-msgstr ""
+msgstr ") au valute diferite și societatea este consolidată la"
 
 #. module: account_consolidation
 #. odoo-javascript
 #: code:addons/account_consolidation/static/src/components/move_line_list/move_line_list.xml:0
 #, python-format
 msgid ") have different currencies."
-msgstr ""
+msgstr ") au monede diferite."
 
 #. module: account_consolidation
 #. odoo-javascript
 #: code:addons/account_consolidation/static/src/components/consolidation_report/header.xml:0
 #, python-format
 msgid "/ End Rate: 1"
-msgstr ""
+msgstr "/ Rata finală: 1"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_company_period_form
@@ -125,12 +125,12 @@ msgstr ""
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Consolidated Balance</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Sold consolidat</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Edit</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Editați</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_kanban
@@ -158,6 +158,8 @@ msgid ""
 "A journal entry should only be linked to a company period OR to a analysis "
 "period of another consolidation!"
 msgstr ""
+"O intrare de jurnal ar trebui să fie legată doar de o perioadă a companiei "
+"SAU de o perioadă de analiză a unei alte consolidări!"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_account_account
@@ -174,7 +176,7 @@ msgstr "Moneda De Consolidare a Contului Este Diferită"
 #. module: account_consolidation
 #: model:onboarding.onboarding,name:account_consolidation.onboarding_onboarding_account_consolidation_dashboard
 msgid "Account Consolidation Dashboard Onboarding"
-msgstr ""
+msgstr "Incorporarea tabloului de bord pentru consolidarea contului"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_tree
@@ -288,6 +290,8 @@ msgid ""
 "An account group can only have accounts or other groups children but not "
 "both!"
 msgstr ""
+"Un grup de conturi poate avea numai conturi sau alte grupuri copii, dar nu "
+"ambele!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__period_id
@@ -315,7 +319,7 @@ msgstr "Perioada de analiză"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Analysis period created!"
-msgstr ""
+msgstr "Perioada de analiză creată!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form_onboarding
@@ -355,7 +359,7 @@ msgstr "Rată Medie"
 #: code:addons/account_consolidation/static/src/components/consolidation_report/header.xml:0
 #, python-format
 msgid "Avg Rate: 1"
-msgstr ""
+msgstr "Rata medie: 1"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__balance
@@ -488,7 +492,7 @@ msgstr "Conturi de conturi nemapate ale companiei"
 #: code:addons/account_consolidation/static/src/components/consolidation_report/filters/filters.xml:0
 #, python-format
 msgid "Comparison:"
-msgstr ""
+msgstr "Comparaţie:"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period_composition__composed_period_id
@@ -510,7 +514,7 @@ msgstr "Configurare"
 #: code:addons/account_consolidation/static/src/components/consolidation_report/header.xml:0
 #, python-format
 msgid "Conso Rate:"
-msgstr ""
+msgstr "Rata Conso:"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__account_id
@@ -703,7 +707,7 @@ msgstr "Creați Prima Perioadă"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Create your first analysis period & set the currency rates."
-msgstr ""
+msgstr "Creați prima perioadă de analiză și setați cursurile valutare."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__create_uid
@@ -790,7 +794,7 @@ msgstr "Definire"
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid ""
 "Define the companies that should be consolidated & the target currency."
-msgstr ""
+msgstr "Definiți companiile care ar trebui consolidate și moneda țintă."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__note
@@ -936,7 +940,7 @@ msgstr "Rate Istorice"
 #: code:addons/account_consolidation/models/res_company.py:0
 #, python-format
 msgid "Historical Rates: %(company)s"
-msgstr ""
+msgstr "Rate istorice: %(company)s"
 
 #. module: account_consolidation
 #: model:ir.model.fields,help:account_consolidation.field_consolidation_company_period__currency_rate_avg
@@ -986,7 +990,7 @@ msgstr "În Trecut"
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_chart__invert_sign
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_group__invert_sign
 msgid "Invert Balance Sign"
-msgstr ""
+msgstr "Semn inversare sold"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period__message_is_follower
@@ -1152,12 +1156,12 @@ msgstr "Onboarding"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Onboarding Analysis period"
-msgstr ""
+msgstr "Perioada de analiză de integrare"
 
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_ccoa
 msgid "Onboarding Chart of Accounts"
-msgstr ""
+msgstr "Planul de conturi de la bord"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_onboarding_onboarding_step
@@ -1167,7 +1171,7 @@ msgstr "Pas de onboarding"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,step_image_alt:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Onboarding The Scope of Consolidation"
-msgstr ""
+msgstr "Integrarea Domeniul de aplicare a consolidării"
 
 #. module: account_consolidation
 #. odoo-python
@@ -1176,6 +1180,8 @@ msgstr ""
 msgid ""
 "Only one entry by account should be created for a generated journal entry!"
 msgstr ""
+"Trebuie creată o singură înregistrare după cont pentru o înregistrare de "
+"jurnal generată!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_search
@@ -1291,7 +1297,7 @@ msgstr "Eroare livrare SMS"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Scope of Consolidation defined!"
-msgstr ""
+msgstr "Sfera de consolidare definită!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__sequence
@@ -1394,14 +1400,14 @@ msgstr "Subgrupuri"
 #: code:addons/account_consolidation/static/src/components/move_line_list/move_line_list.xml:0
 #, python-format
 msgid "Take into account that the consolidation ("
-msgstr ""
+msgstr "Luați în considerare faptul că consolidarea"
 
 #. module: account_consolidation
 #. odoo-javascript
 #: code:addons/account_consolidation/static/src/components/move_line_list/move_line_list.xml:0
 #, python-format
 msgid "Take into account that this company is consolidated at"
-msgstr ""
+msgstr "Luați în considerare faptul că această companie este consolidată la"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_chart__currency_id
@@ -1465,7 +1471,7 @@ msgstr "Balanța de verificare"
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_consolidation_trial_balance_report_handler
 msgid "Trial Balance Custom Handler"
-msgstr ""
+msgstr "Handler personalizat pentru balanța de verificare"
 
 #. module: account_consolidation
 #. odoo-python
@@ -1569,24 +1575,24 @@ msgstr "Nu puteți edita o notă contabilă generată automat."
 #: code:addons/account_consolidation/models/consolidation_journal.py:0
 #, python-format
 msgid "You cannot add journals to a closed period!"
-msgstr ""
+msgstr "Nu puteți adăuga jurnale într-o perioadă închisă!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_form
 msgid "e.g. Profit and Loss"
-msgstr ""
+msgstr "de exemplu. Profit și pierdere"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_form
 msgid "e.g. Revenue"
-msgstr ""
+msgstr "de exemplu. Venituri"
 
 #. module: account_consolidation
 #. odoo-python
 #: code:addons/account_consolidation/report/builder/comparison.py:0
 #, python-format
 msgid "n/a"
-msgstr "indisp."
+msgstr "indisp"
 
 #. module: account_consolidation
 #. odoo-javascript

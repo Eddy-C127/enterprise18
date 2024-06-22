@@ -91,7 +91,7 @@ msgid ""
 "d-flex align-items-center justify-content-center\">Schedule</b>"
 msgstr ""
 "<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view "
-"d-flex align-items-center justify-content-center\">Programar</b>"
+"d-flex align-items-center justify-content-center\">Planificar</b>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -198,7 +198,7 @@ msgstr ""
 "                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Reunión</td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Artículo de la orden de venta</th>\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Artículo del pedido de venta</th>\n"
 "                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\"></td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
@@ -376,7 +376,7 @@ msgstr ""
 "                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Reunión</td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Artículo de la orden de venta</th>\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Artículo del pedido de venta</th>\n"
 "                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\"></td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
@@ -1054,7 +1054,7 @@ msgstr "Fecha"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__date_end
 msgid "Date End"
-msgstr "Fecha límite"
+msgstr "Fecha de finalización"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__date_start
@@ -1261,7 +1261,7 @@ msgid ""
 "Email sent automatically when publishing the schedule of your employees"
 msgstr ""
 "Correo electrónico enviado automáticamente cuando se publique el horario de "
-"uno de sus empleados"
+"sus empleados"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee
@@ -1481,7 +1481,7 @@ msgstr "Incluye turnos abiertos"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_hatched
 msgid "Is Hatched"
-msgstr "Creado"
+msgstr "Está rayado"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__is_assigned_to_me
@@ -1518,7 +1518,7 @@ msgstr "Título del trabajo"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__last_generated_end_datetime
 msgid "Last Generated End Date"
-msgstr "Fecha de finalización generada por última vez"
+msgstr "Última fecha de finalización generada"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__write_uid
@@ -1810,7 +1810,7 @@ msgid ""
 "Plan all of your shifts in one click by <b>copying the previous week's "
 "schedule</b>."
 msgstr ""
-"Planee todos sus turnos con solo un clic al <b>copiar el horario de la "
+"Planifique todos sus turnos con solo un clic al <b>copiar el horario de la "
 "semana anterior</b>."
 
 #. module: planning
@@ -2194,17 +2194,17 @@ msgstr "Escáner"
 #: model:ir.ui.menu,name:planning.planning_menu_schedule
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "Schedule"
-msgstr "Planificación"
+msgstr "Horario"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_schedule_by_resource
 msgid "Schedule by Resource"
-msgstr "Programar por recurso"
+msgstr "Planificar por recurso"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_schedule_by_role
 msgid "Schedule by Role"
-msgstr "Programar por rol"
+msgstr "Planificar por rol"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
@@ -2213,7 +2213,7 @@ msgid ""
 "Schedule your human and material resources across roles, projects and sales "
 "orders."
 msgstr ""
-"Programe sus recursos humanos y materiales entre funciones, proyectos y "
+"Planifique sus recursos humanos y materiales entre funciones, proyectos y "
 "pedidos de venta."
 
 #. module: planning
@@ -2425,7 +2425,7 @@ msgstr "El número de repeticiones no puede ser negativo."
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #, python-format
 msgid "The open shifts have been successfully assigned."
-msgstr "Los turnos abiertos se asignaron con éxito."
+msgstr "Los turnos abiertos han sido asignados con éxito."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_repeat_interval_positive
@@ -2446,14 +2446,14 @@ msgstr ""
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #, python-format
 msgid "The recurring shifts have successfully been created."
-msgstr "Los turnos recurrentes se crearon con éxito."
+msgstr "Los turnos recurrentes han sido creados con éxito."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 #, python-format
 msgid "The schedule was successfully sent to your employees."
-msgstr "El programa se envió con éxito a sus empleados."
+msgstr "El horario se envió con éxito a sus empleados."
 
 #. module: planning
 #. odoo-python
@@ -2468,7 +2468,7 @@ msgstr ""
 #: code:addons/planning/models/planning.py:0
 #, python-format
 msgid "The shift has successfully been sent."
-msgstr "El turno se envió con éxito."
+msgstr "El turno ha sido enviado con éxito."
 
 #. module: planning
 #. odoo-javascript
@@ -2478,7 +2478,7 @@ msgstr "El turno se envió con éxito."
 #, python-format
 msgid ""
 "The shifts have already been published, or there are no shifts to publish."
-msgstr "Ya se publicaron los turnos o no hay turnos por publicar."
+msgstr "Los turnos ya se han publicado o no hay turnos que publicar."
 
 #. module: planning
 #. odoo-python

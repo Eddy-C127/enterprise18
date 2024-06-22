@@ -749,12 +749,12 @@ msgstr "Extremo oriente"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_order_view_form
 msgid "Fulfilled by Amazon"
-msgstr "Cumplido por Amazon"
+msgstr "Logística hecha por Amazon"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_order_view_form
 msgid "Fulfilled by Merchant"
-msgstr "Cumplido por el comerciante"
+msgstr "Logística hecha por el comerciante"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_sale_order__amazon_channel
@@ -764,12 +764,12 @@ msgstr "Canal de logística"
 #. module: sale_amazon
 #: model:ir.model.fields.selection,name:sale_amazon.selection__sale_order__amazon_channel__fba
 msgid "Fulfillment by Amazon"
-msgstr "Logística hecha por Amazon"
+msgstr "Logística hecha por Amazon (FBA)"
 
 #. module: sale_amazon
 #: model:ir.model.fields.selection,name:sale_amazon.selection__sale_order__amazon_channel__fbm
 msgid "Fulfillment by Merchant"
-msgstr "Logística hecha por el vendedor"
+msgstr "Logística hecha por el comerciante (FBM)"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1278,8 +1278,8 @@ msgid ""
 "The location of the stock managed by Amazon under the Amazon Fulfillment "
 "program."
 msgstr ""
-"Ubicación de stock administrada por Amazon conforme al programa Logística de"
-" Amazon"
+"Ubicación del stock gestionado por Amazon con el programa Logística por "
+"Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__refresh_token
@@ -1585,7 +1585,7 @@ msgstr "[%s] Gastos de envío para %s"
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "[%s] Gift Wrapping Charges for %s"
-msgstr "[%s] Cargos por envoltura de regalos para %s"
+msgstr "[%s] Cargos por envoltorio de regalos para %s"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form

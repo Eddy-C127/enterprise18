@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Jolien De Paepe, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jolien De Paepe, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +45,11 @@ msgid ""
 "Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
 "\t%s"
 msgstr ""
+"\n"
+"De plus, certains produits sont trop lourds pour être expédiés par le mode d'expédition le plus lourd.\n"
+"                             \n"
+"Répartissez la quantité du (des) produit(s) suivant(s) dans plusieurs colis si possible, ou choisissez un autre transporteur :\n"
+"\t%s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -52,6 +58,8 @@ msgid ""
 "Some packages in your transfer are too heavy for the heaviest available "
 "shipping method."
 msgstr ""
+"Certains colis de votre transfert sont trop lourds pour le mode d'expédition"
+" le plus lourd."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -60,6 +68,8 @@ msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
 msgstr ""
+"\n"
+"Tâchez de répartir vos produits dans vos colis de manière à ce qu'ils pèsent moins de %(max_weight)s %(unit)s ou choisissez un autre transporteur."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -68,6 +78,8 @@ msgid ""
 "The total weight of your transfer is too heavy for the heaviest available "
 "shipping method."
 msgstr ""
+"Le poids total de votre transfert est trop élevé pour le mode d'expédition "
+"le plus lourd."
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form

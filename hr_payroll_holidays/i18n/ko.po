@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -194,6 +195,13 @@ msgstr "휴가"
 #. odoo-python
 #: code:addons/hr_payroll_holidays/models/hr_payslip.py:0
 #, python-format
+msgid "Time Off Not Related To An Allocation"
+msgstr "휴가와 관련 없는 결근"
+
+#. module: hr_payroll_holidays
+#. odoo-python
+#: code:addons/hr_payroll_holidays/models/hr_payslip.py:0
+#, python-format
 msgid "Time Off To Defer"
 msgstr "이월할 휴가"
 
@@ -242,6 +250,13 @@ msgstr "결재된 휴가 이월"
 #, python-format
 msgid "You have some"
 msgstr "몇 가지가"
+
+#. module: hr_payroll_holidays
+#. odoo-javascript
+#: code:addons/hr_payroll_holidays/static/src/views/hooks.js:0
+#, python-format
+msgid "You have some <button>time off</button> to defer to the next month."
+msgstr "다음달로 이월할 수 있는 <button>휴가</button>가 있습니다."
 
 #. module: hr_payroll_holidays
 #. odoo-javascript

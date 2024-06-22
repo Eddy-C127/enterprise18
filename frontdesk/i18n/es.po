@@ -3,7 +3,6 @@
 # 	* frontdesk
 # 
 # Translators:
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2023
 # Lucia Pacheco, 2023
 # Martin Trigaux, 2023
 # Wil Odoo, 2023
@@ -61,7 +60,7 @@ msgid ""
 "            "
 msgstr ""
 "<div>\n"
-"                    <p>Hola <t t-if=\"ctx.get('host_name')\"><t t-out=\"ctx.get('host_name')\"></t>, </t><b><t t-out=\"object.name\"></t></b> <t t-if=\"object.phone\">(<t t-out=\"object.phone\"></t>)</t><t t-if=\"object.company\">, que viene de<t t-out=\"object.company\"></t></t>, solicitó reunirse con usted en <t t-out=\"object.station_id.name\"></t>. Hágale saber que estará ahí en un momento.\n"
+"                    <p>Hola <t t-if=\"ctx.get('host_name')\"><t t-out=\"ctx.get('host_name')\"></t>, </t><b><t t-out=\"object.name\"></t></b> <t t-if=\"object.phone\">(<t t-out=\"object.phone\"></t>)</t><t t-if=\"object.company\">, que viene de <t t-out=\"object.company\"></t></t>, solicitó reunirse con usted en <t t-out=\"object.station_id.name\"></t>. Hágale saber que estará ahí en un momento.\n"
 "                    </p>\n"
 "                </div>\n"
 "            "
@@ -85,7 +84,8 @@ msgstr "Administrador"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
 msgid "Allow visitor to select a drink during registration"
-msgstr "Permite al visitante seleccionar una bebida durante el registro"
+msgstr ""
+"Permita que los visitantes elijan una bebida al momento de registrarse"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
@@ -165,7 +165,7 @@ msgstr "Registrar salida"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_tree
 msgid "CheckIn"
-msgstr "Registrar entrada"
+msgstr "Entrada"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_search
@@ -191,7 +191,7 @@ msgstr "Salida registrada"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_tree
 msgid "Checkout"
-msgstr "Proceso de pago"
+msgstr "Salida"
 
 #. module: frontdesk
 #. odoo-javascript
@@ -395,12 +395,12 @@ msgstr "Agrupar por"
 #. module: frontdesk
 #: model:ir.actions.act_window,name:frontdesk.action_open_guest_on_site_visitor
 msgid "Guest On Site"
-msgstr "Invitado en el lugar"
+msgstr "Invitado en el sitio"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__guest_on_site
 msgid "Guests On Site"
-msgstr "Invitados en el lugar"
+msgstr "Invitado en el sitio"
 
 #. module: frontdesk
 #: model:sms.template,body:frontdesk.frontdesk_sms_template
@@ -502,7 +502,7 @@ msgstr "Registro de entrada más reciente"
 #. module: frontdesk
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_frontdesk__theme__light
 msgid "Light"
-msgstr "Light"
+msgstr "Claro"
 
 #. module: frontdesk
 #. odoo-javascript
@@ -619,7 +619,7 @@ msgstr "Pendiente"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_drink__notify_user_ids
 msgid "People to Notify"
-msgstr "Personas para notificar"
+msgstr "Personas a notificar"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__ask_phone
@@ -641,7 +641,7 @@ msgstr "Planificado"
 #: code:addons/frontdesk/static/src/register_page/register_page.xml:0
 #, python-format
 msgid "Please have a seat."
-msgstr "Tome asiento."
+msgstr "Por favor, tome asiento."
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_qr_expired
@@ -750,7 +750,7 @@ msgid ""
 "phone."
 msgstr ""
 "Muestra un código QR en la interfaz para que los invitados registren su "
-"entrada desde sus teléfonos móviles."
+"entrada desde sus móviles."
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
@@ -852,7 +852,7 @@ msgstr "Visitantes"
 #: code:addons/frontdesk/static/src/welcome_page/welcome_page.xml:0
 #, python-format
 msgid "Welcome"
-msgstr "Bienvenido"
+msgstr "Bienvenido/a"
 
 #. module: frontdesk
 #. odoo-javascript

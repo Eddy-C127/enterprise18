@@ -29,22 +29,22 @@ msgstr "해당 바코드 ID가 있는 가격 태그가 이미 존재합니다."
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__pricer_store_id
 msgid "Associated Pricer Store"
-msgstr ""
+msgstr "제휴 가격 스토어"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__product_id
 msgid "Associated Product"
-msgstr ""
+msgstr "관련 제품"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__auth_url
 msgid "Auth Url"
-msgstr ""
+msgstr "인증 URL"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__create_or_update_products_url
 msgid "Create Or Update Products Url"
-msgstr ""
+msgstr "제품 URL 생성 또는 업데이트"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__create_uid
@@ -61,7 +61,7 @@ msgstr "작성일자"
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__last_update_datetime
 msgid "Date and time of the last synchronization with Pricer"
-msgstr ""
+msgstr "Pricer와 최근 동기화 날짜 및 시간"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__display_name
@@ -81,7 +81,7 @@ msgstr ""
 #: code:addons/pos_pricer/models/pricer_store.py:0
 #, python-format
 msgid "Error: check Pricer credentials"
-msgstr ""
+msgstr "오류: Pricer 인증을 확인하세요"
 
 #. module: pos_pricer
 #. odoo-python
@@ -99,12 +99,12 @@ msgstr "ID"
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_store_identifier
 msgid "Identifier of the store in the Pricer system"
-msgstr ""
+msgstr "Pricer 시스템 내 매장 인증"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_tag__name
 msgid "It is recommended to use a barcode scanner for input"
-msgstr ""
+msgstr "바코드 스캐너를 사용하여 입력하는 것을 권장합니다."
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__last_update_datetime
@@ -131,22 +131,22 @@ msgstr "최근 갱신 일자"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__link_tags_url
 msgid "Link Tags Url"
-msgstr ""
+msgstr "링크 태그 URL"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_login
 msgid "Login of your Pricer account"
-msgstr ""
+msgstr "Pricer 계정 로그인"
 
 #. module: pos_pricer
 #: model:ir.actions.server,name:pos_pricer.pricer_sync_cron_ir_actions_server
 msgid "POS Pricer: tags update synchronization "
-msgstr ""
+msgstr "POS Pricer: 태그 업데이트 동기화"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_password
 msgid "Password of your Pricer account"
-msgstr ""
+msgstr "Pricer 계정 비밀번호"
 
 #. module: pos_pricer
 #: model:ir.ui.menu,name:pos_pricer.pos_menu_pricer_configuration
@@ -158,28 +158,28 @@ msgstr "Pricer"
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_display_price
 #: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_display_price
 msgid "Pricer Display Price"
-msgstr ""
+msgstr "Pricer 표시 가격"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_login
 msgid "Pricer Login"
-msgstr ""
+msgstr "Pricer 로그인"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_password
 msgid "Pricer Password"
-msgstr ""
+msgstr "Pricer 비밀번호"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_product_to_create_or_update
 #: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_product_to_create_or_update
 msgid "Pricer Product To Create Or Update"
-msgstr ""
+msgstr "Pricer 제품 생성 또는 업데이트하기"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__pricer_product_to_link
 msgid "Pricer Product To Link"
-msgstr ""
+msgstr "링크되지 않은 Pricer 제품"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_store_id
@@ -187,12 +187,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_form_view
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_view_list
 msgid "Pricer Store"
-msgstr ""
+msgstr "Pricer 스토어"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_store_identifier
 msgid "Pricer Store ID"
-msgstr ""
+msgstr "Pricer 스토어 ID"
 
 #. module: pos_pricer
 #. odoo-python
@@ -206,51 +206,51 @@ msgstr "가격 책정자 스토어 ID는 소문자 a-z, 숫자 0-9 또는 '-'로
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__name
 msgid "Pricer Store name in Odoo database"
-msgstr ""
+msgstr "Odoo 데이터베이스 내의 Pricer 매장명"
 
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_pricer_store
 msgid "Pricer Store regrouping pricer tags"
-msgstr ""
+msgstr "Pricer 스토어 재그룹화 Pricer 태그"
 
 #. module: pos_pricer
 #: model:ir.actions.act_window,name:pos_pricer.action_open_pricer_stores
 #: model:ir.ui.menu,name:pos_pricer.menu_pos_pricer_stores
 msgid "Pricer Stores"
-msgstr ""
+msgstr "Pricer 매장"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_tag__name
 msgid "Pricer Tag Barcode ID"
-msgstr ""
+msgstr "Pricer 태그 바코드 ID"
 
 #. module: pos_pricer
 #: model:ir.actions.act_window,name:pos_pricer.action_open_pricer_tags
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_tag_ids
 #: model:ir.ui.menu,name:pos_pricer.menu_pos_pricer_tags
 msgid "Pricer Tags"
-msgstr ""
+msgstr "Pricer 태그"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__pricer_tenant_name
 msgid "Pricer Tenant Name"
-msgstr ""
+msgstr "Pricer 테넌트명"
 
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_pricer_tag
 msgid "Pricer electronic tag"
-msgstr ""
+msgstr "Pricer 전자 태그"
 
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_tag_view_list
 msgid "Pricer tag"
-msgstr ""
+msgstr "Pricer 태그"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_tag_ids
 #: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_tag_ids
 msgid "Pricer tags ids"
-msgstr ""
+msgstr "Pricer 태그 ID"
 
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_product_template
@@ -265,12 +265,12 @@ msgstr "품목"
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__last_update_status_message
 msgid "Status message of the last synchronization with Pricer"
-msgstr ""
+msgstr "Pricer와 마지막 동기화 상태 메시지"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__name
 msgid "Store Name"
-msgstr ""
+msgstr "매장명"
 
 #. module: pos_pricer
 #. odoo-python
@@ -301,21 +301,21 @@ msgstr "이 제품은 나열된 ID로 가격표 태그에 연결되고 표시됩
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_view_list
 msgid "Update all tags"
-msgstr ""
+msgstr "모든 태그 업데이트"
 
 #. module: pos_pricer
 #. odoo-python
 #: code:addons/pos_pricer/models/pricer_store.py:0
 #, python-format
 msgid "Update successfully sent to Pricer"
-msgstr ""
+msgstr "업데이트가 Pricer에 성공적으로 전송되었습니다."
 
 #. module: pos_pricer
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_view_list
 msgid "Update tags"
-msgstr ""
+msgstr "태그 업데이트"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_store__pricer_tenant_name
 msgid "Your company identifier at Pricer"
-msgstr ""
+msgstr "Pricer 내 회사 ID"

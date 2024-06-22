@@ -217,8 +217,8 @@ msgstr "Cuenta: sincronización del diario en línea"
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_unused_connection_cron_ir_actions_server
 msgid "Account: Journal online sync cleanup unused connections"
 msgstr ""
-"Cuenta: la sincronización en línea del diario limpia las conexiones no "
-"utilizadas"
+"Cuenta: la limpieza de sincronización de conexiones no utilizadas del diario"
+" en línea"
 
 #. module: account_online_synchronization
 #: model:ir.actions.server,name:account_online_synchronization.online_sync_mail_cron_ir_actions_server
@@ -643,8 +643,8 @@ msgid ""
 "If possible, we will try to automatically fetch new transactions for this "
 "record"
 msgstr ""
-"Si es posible, intentaremos obtener de forma automática nuevas transacciones"
-" para este registro"
+"Si es posible, intentaremos obtener automáticamente nuevas transacciones "
+"para este registro"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -947,12 +947,12 @@ msgstr "Seleccione las primeras transacciones que desea importar"
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_bank_statement_line_transient__state__posted
 msgid "Posted"
-msgstr "Publicado"
+msgstr "Registrado"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.missing_bank_statement_line_search
 msgid "Posted Transactions"
-msgstr "Transacciones publicadas"
+msgstr "Transacciones registradas"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__processing
@@ -999,7 +999,7 @@ msgstr "Actualizar"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__refresh_token
 msgid "Refresh Token"
-msgstr "Token de actualización"
+msgstr "Actualizar token"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1019,7 +1019,7 @@ msgstr "Notificar problema"
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__client_id
 msgid "Represent a link for a given user towards a banking institution"
 msgstr ""
-"Representa un vínculo de un usuario específico en una institución bancaria."
+"Represente un enlace de un usuario específico en una institución bancaria."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__activity_user_id
@@ -1177,8 +1177,8 @@ msgid ""
 "True if that connection still has accounts that are not linked to an Odoo "
 "journal"
 msgstr ""
-"Verdadero si la conexión aún tiene cuentas que no están vinculadas a un "
-"diario de Odoo"
+"True si la conexión aún tiene cuentas que no están vinculadas a un diario de"
+" Odoo"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__activity_exception_decoration

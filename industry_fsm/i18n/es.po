@@ -247,7 +247,7 @@ msgstr "Crear plantillas de hojas de trabajo personalizadas"
 #. module: industry_fsm
 #: model:res.groups,name:industry_fsm.group_fsm_quotation_from_task
 msgid "Create new quotations directly from the tasks"
-msgstr "Crea nuevos presupuestos directamente desde las tareas"
+msgstr "Crear nuevos presupuestos directamente desde las tareas"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.res_config_settings_view_form
@@ -291,7 +291,7 @@ msgstr "Calificación de clientes"
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__delay_endings_days
 msgid "Days to Deadline"
-msgstr "Días para la fecha límite"
+msgstr "Días hasta la fecha límite"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__date_deadline
@@ -313,7 +313,7 @@ msgstr "Descartar"
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__display_enabled_conditions_count
 msgid "Display Enabled Conditions Count"
-msgstr "Mostrar conteo de condiciones habilitadas"
+msgstr "Mostrar número de condiciones habilitadas"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__display_mark_as_done_primary
@@ -344,20 +344,20 @@ msgid ""
 "Display tasks in the Field Service module and allow planning with start/end "
 "dates."
 msgstr ""
-"Visualiza tareas en el módulo Servicio externo y permite la planificación "
-"con fechas de inicio / finalización."
+"Muestre tareas en el módulo de Servicio externo y permita la planificación "
+"con fechas de inicio y finalización."
 
 #. module: industry_fsm
 #. odoo-python
 #: code:addons/industry_fsm/models/project_task.py:0
 #, python-format
 msgid "Do you want to stop the running timers?"
-msgstr "¿Desea detener los temporizadores en ejecución?"
+msgstr "¿Desea detener los temporizadores activos?"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__date_end
 msgid "Ending Date"
-msgstr "Fecha de fin"
+msgstr "Fecha de finalización"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_res_config_settings__group_industry_fsm_quotations
@@ -391,7 +391,7 @@ msgstr "Servicio externo: intervención planificada"
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_map
 msgid "Find here your itinerary for today's tasks."
-msgstr "Encuentra aquí el itinerario de tus tareas de hoy."
+msgstr "Encuentre aquí el itinerario de sus tareas de hoy."
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm
@@ -648,7 +648,7 @@ msgstr "Propiedades"
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__rating_last_value
 msgid "Rating (/5)"
-msgstr "Valoración (/5)"
+msgstr "Calificación (/5)"
 
 #. module: industry_fsm
 #. odoo-javascript
@@ -806,15 +806,15 @@ msgstr "Etapa de la tarea"
 #: model:ir.model,name:industry_fsm.model_project_task_stop_timers_wizard
 msgid "Task stop running timers confirmation wizard"
 msgstr ""
-"Asistente de confirmación para detener la ejecución de temporizadores en las"
-" tareas"
+"Asistente de confirmación para detener los temporizadores activos en las "
+"tareas"
 
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_project_task_stop_timers_wizard_line
 msgid "Task stop running timers confirmation wizard line"
 msgstr ""
-"Línea de asistente de confirmación para detener la ejecución de "
-"temporizadores en las tareas"
+"Línea de asistente de confirmación para detener los temporizadores activos "
+"en las tareas"
 
 #. module: industry_fsm
 #: model:ir.actions.act_window,name:industry_fsm.project_tasks_action_fsm
@@ -860,7 +860,7 @@ msgstr "Tiempo registrado en esta tarea"
 #. module: industry_fsm
 #: model:ir.model.fields,help:industry_fsm.field_report_project_task_user_fsm__total_hours_spent
 msgid "Time spent on this task, including its sub-tasks."
-msgstr "Tiempo dedicado en esta tarea, incluyendo las sub-tareas."
+msgstr "Tiempo dedicado en esta tarea, incluyendo las subtareas."
 
 #. module: industry_fsm
 #. odoo-python
@@ -874,7 +874,7 @@ msgstr "Temporizador iniciado: %(date)s %(time)s"
 #: code:addons/industry_fsm/wizard/project_task_create_timesheet.py:0
 #, python-format
 msgid "Timer stopped at: %(date)s %(time)s"
-msgstr "Temporizador detenido en: %(date)s %(time)s"
+msgstr "Temporizador detenido el: %(date)s %(time)s"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.timesheet_view_form
@@ -885,7 +885,7 @@ msgstr "Hoja de asistencia"
 #: model:ir.actions.act_window,name:industry_fsm.project_task_action_to_schedule_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_all_tasks_schedule
 msgid "To Schedule"
-msgstr "Por programar"
+msgstr "A planificar"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm
@@ -899,7 +899,7 @@ msgid ""
 "                Collaborate efficiently by chatting in real-time or via email."
 msgstr ""
 "Para completar sus tareas, planifica actividades y utilice el estado de la tarea.<br>\n"
-"                Colabore de forma eficiente al chatear en tiempo real o a través de correo electrónico."
+"                Colabore eficazmente chateando en tiempo real o por correo electrónico."
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_tasks_action_fsm
@@ -999,7 +999,7 @@ msgstr ""
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.quick_create_task_form_fsm_inherited
 msgid "e.g. Boiler replacement"
-msgstr "ej. Reemplazo "
+msgstr "p. ej. Reemplazo de calentador"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit

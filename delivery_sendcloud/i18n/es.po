@@ -44,6 +44,11 @@ msgid ""
 "Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
 "\t%s"
 msgstr ""
+"\n"
+"Además, algunos productos son demasiado pesados para el método de envío disponible.\n"
+"                             \n"
+"Divida la cantidad de los siguientes productos en varios paquetes si es posible o elija otro transportista:\n"
+"\t%s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -52,6 +57,8 @@ msgid ""
 "Some packages in your transfer are too heavy for the heaviest available "
 "shipping method."
 msgstr ""
+"Algunos paquetes en su traslado son demasiado pesados incluso para el método"
+" de envío más pesado disponible."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -60,6 +67,8 @@ msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
 msgstr ""
+"\n"
+"Trate de distribuir sus productos en varios paquetes para que pesen menos de %(max_weight)s %(unit)s o elija otro transportista."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -68,6 +77,8 @@ msgid ""
 "The total weight of your transfer is too heavy for the heaviest available "
 "shipping method."
 msgstr ""
+"El peso total de su traslado es demasiado pesado incluso para el método de "
+"envío más pesado disponible."
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -669,7 +680,7 @@ msgstr "No existe una unidad de medida llamada \"%s\"."
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_stock_picking
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping

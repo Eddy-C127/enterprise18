@@ -30,9 +30,8 @@ msgid ""
 " If you want to set quantity to 0, the Out Of Stock option should be enabled"
 " and the listing duration should set to Good 'Til Canceled"
 msgstr ""
-"Si quiere establecer la cantidad a 0, la opción \"Sin stock\" debe estar "
-"marcada y la validez del listado debe estar fijada a \"Válido hasta "
-"cancelación\"."
+"Si desea establecer la cantidad a 0, debe activar la opción \"Sin stock\" y "
+"definir la duración de la lista a \"Válido hasta cancelación\". "
 
 #. module: sale_ebay
 #. odoo-python
@@ -373,7 +372,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_item_condition_id
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_item_condition_id
 msgid "Item Condition"
-msgstr "Condición del elemento"
+msgstr "Estado del artículo"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__write_uid
@@ -620,22 +619,22 @@ msgstr "Equipo de ventas que administra las ventas de eBay"
 #. module: sale_ebay
 #: model:ir.model.fields.selection,name:sale_ebay.selection__res_config_settings__ebay_domain__sand
 msgid "Sandbox"
-msgstr "Modo aislado (sandbox)"
+msgstr "Entorno de pruebas"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_sandbox_app_id
 msgid "Sandbox App Key"
-msgstr "Sandbox App Key"
+msgstr "Clave de aplicación del entorno de prueba"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_sandbox_cert_id
 msgid "Sandbox Cert Key"
-msgstr "Sandbox Cert Key"
+msgstr "Clave de certificado del entorno de prueba "
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_sandbox_token
 msgid "Sandbox Token"
-msgstr "Sandbox Token"
+msgstr "Token del entorno de prueba"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
@@ -779,7 +778,7 @@ msgid ""
 "split in as many calls as needed."
 msgstr ""
 "Esta función no debe ser ejecutada con un intervalo de más de 30 días, ya "
-"que eBay no maneja intervalos de tiempo más largos. En su lugar, utilice "
+"que eBay no gestiona intervalos de tiempo más largos. En su lugar, utilice "
 "synchronize_orders, que se divide en tantas llamadas como sea necesario."
 
 #. module: sale_ebay
@@ -815,7 +814,7 @@ msgstr "Tipo"
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_sync_stock
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_sync_stock
 msgid "Use Stock Quantity"
-msgstr "Utilice \"cantidad en stock\""
+msgstr "Utilizar la cantidad de stock"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_use
@@ -1041,4 +1040,4 @@ msgid ""
 "Please check your credentials and try again later."
 msgstr ""
 "Ocurrió un error inesperado de eBay.\n"
-"Por favor, compruebe sus credenciales y vuelva a intentarlo más tarde."
+"Verifique sus credenciales y vuelva a intentarlo más tarde."

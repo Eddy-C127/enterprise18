@@ -6,6 +6,7 @@
 # Lucia Pacheco, 2023
 # Fernanda Alvarez, 2024
 # Martin Trigaux, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1101,9 +1102,9 @@ msgid ""
 "- 'closed' designates a DDI that has been marked as not to use anymore without invalidating the previous transactions done with it.- 'revoked' means the DDI has been signaled as fraudulent by the customer. It cannot be used anymore, and should not ever have been. You will probably need to refund the related invoices, if any.\n"
 msgstr ""
 "El estado en el que se encuentra esta instrucción de domiciliación bancaria. \n"
-"- \"borrador\" significa que esta instrucción de domiciliación bancaria aún debe confirmarse antes de poder utilizarla. \n"
-"- \"activo\" significa que esta instrucción de domiciliación bancaria puede utilizarse para pagar facturas. \n"
-"- \"cerrado\" designa una instrucción de domiciliación bancaria que ha sido marcada para que ya no se use sin invalidar las transacciones previas hechas. - \"revocado\" significa que el cliente indicó que la instrucción de domiciliación bancaria como fraudulenta. Ya no puede utilizarse y no debe usarse nunca. Es probable que deba reembolsar las facturas relacionadas, si las hay.\n"
+"- \"borrador\" esta instrucción de domiciliación bancaria debe confirmarse antes de poder utilizarla. \n"
+"- \"activo\" esta instrucción de domiciliación bancaria puede utilizarse para pagar facturas. \n"
+"- \"cerrado\" designa una instrucción de domiciliación bancaria que se marcó para que ya no se use sin invalidar las transacciones hechas antes. - \"revocado\" significa que el cliente señaló la instrucción de domiciliación bancaria como fraudulenta. Ya no puede utilizarse, nunca debió utilizarse. Es probable que deba reembolsar las facturas relacionadas, si es que las hay.\n"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__name

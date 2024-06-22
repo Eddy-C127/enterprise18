@@ -117,8 +117,8 @@ msgstr ""
 #, python-format
 msgid "<b>Deselect this page</b> as we plan to process all bills first."
 msgstr ""
-"<b>Deselecciona esta página</b> ya que planeamos procesar todas las facturas"
-" primero."
+"<b>Deselecciona esta página</b> ya que queremos procesar todas las facturas "
+"primero."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
@@ -1270,7 +1270,7 @@ msgstr "Crear"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_share_id
 msgid "Create Share"
-msgstr "Compartir"
+msgstr "Crear ID de compartir"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
@@ -1511,7 +1511,7 @@ msgstr "Solicitud de documento: recordatorio"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__has_write_access
 msgid "Document User Upload Rights"
-msgstr "Derechos de subida del usuario de documentos"
+msgstr "Permisos de subida del usuario de documentos"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_workflow_action
@@ -1558,7 +1558,7 @@ msgstr "Documentos"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_link_to_record_wizard
 msgid "Documents Link to Record"
-msgstr "Documentos vinculados para registrar"
+msgstr "Enlace del documento al registro"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_share
@@ -1717,7 +1717,7 @@ msgstr "Gasto"
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_share__state__expired
 msgid "Expired"
-msgstr "Expirado"
+msgstr "Vencido"
 
 #. module: documents
 #. odoo-javascript
@@ -1898,7 +1898,7 @@ msgid ""
 "rights."
 msgstr ""
 "Grupos capaces de ver el espacio de trabajo y leer sus documentos sin "
-"derechos de crear / editar."
+"permisos de crear / editar."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__group_ids
@@ -2177,7 +2177,7 @@ msgstr "Enlace creado por:"
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_rule__create_model__link_to_record
 msgid "Link to record"
-msgstr "Vincular a registro"
+msgstr "Enlace al registro"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -2575,8 +2575,8 @@ msgid ""
 "Own Documents Only may not be enabled for write groups if it is not enabled "
 "for read groups."
 msgstr ""
-"Tal vez Documentos propios solamente no esté habilitado para grupos de "
-"escritura si no está habilitado para grupos de lectura."
+"Quizás Solo documentos propios no esté habilitado para grupos de edición si "
+"no está habilitado para grupos de lectura."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__owner_id
@@ -2674,7 +2674,7 @@ msgstr "Proyecto"
 #: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
 #: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
 msgid "Ratings"
-msgstr "Valoraciones"
+msgstr "Calificaciones"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2799,7 +2799,7 @@ msgstr "Etiquetas requeridas"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_model_name
 msgid "Res Model Name"
-msgstr "Nombre del Modelo"
+msgstr "Nombre del modelo del recurso"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_id
@@ -2873,7 +2873,7 @@ msgstr "Programar actividad"
 #: code:addons/documents/static/src/views/list/documents_list_renderer.js:0
 #, python-format
 msgid "Select all"
-msgstr "Seleccionar todo"
+msgstr "Seleccionar todos"
 
 #. module: documents
 #. odoo-javascript
@@ -2933,7 +2933,7 @@ msgstr "Enviar a Legal"
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request
 msgid "Sent to partner when requesting a document from them"
-msgstr "Se envía al socio cuando se le solicita un documento"
+msgstr "Enviado al contacto cuando se le solicita un documento"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_facet__sequence
@@ -3001,7 +3001,7 @@ msgstr "Compartir"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__share_link_ids
 msgid "Share Links"
-msgstr "Compartir vínculos"
+msgstr "Compartir enlaces"
 
 #. module: documents
 #. odoo-python
@@ -3013,7 +3013,7 @@ msgstr "Compartir enlace"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.share_action
 msgid "Share links"
-msgstr "Compartir vínculos"
+msgstr "Compartir enlaces"
 
 #. module: documents
 #. odoo-python
@@ -3046,12 +3046,12 @@ msgstr "Compartir esta selección"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__type
 msgid "Share type"
-msgstr "Tipo de compartición"
+msgstr "Tipo de compartir"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__create_share_id
 msgid "Share used to create this document"
-msgstr "Compartición utilizado para crear este documento"
+msgstr "Espacio compartido que se utiliza para crear este documento"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
@@ -3370,7 +3370,7 @@ msgstr ""
 #. module: documents
 #: model:digest.tip,name:documents.digest_tip_documents_0
 msgid "Tip: Become a paperless company"
-msgstr "Consejo: Conviértete en una empresa libre de papel"
+msgstr "Consejo: Conviértase en una empresa libre de papel"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_status_tc
@@ -3419,7 +3419,7 @@ msgstr "Papelera"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__is_editable_attachment
 msgid "True if we can edit the link attachment."
-msgstr "Es verdadero si podemos editar el archivo adjunto del enlace."
+msgstr "Es True si podemos editar el archivo adjunto del enlace."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__type
@@ -3619,8 +3619,9 @@ msgid ""
 "Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is "
 "complete. Try uploading your own documents now."
 msgstr ""
-"Guau... 6 documentos procesados en pocos segundos. Eres bueno.<br/>El tour "
-"está completo. Intenta subir tus propios documentos ahora."
+"Guau... 6 documentos procesados en pocos segundos, es muy "
+"bueno.<br/>Terminamos el recorrido. Ahora, intente subir sus propios "
+"documentos."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form

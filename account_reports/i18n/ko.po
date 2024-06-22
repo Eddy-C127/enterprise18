@@ -139,7 +139,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid ", leading to an unexplained difference of"
-msgstr ""
+msgstr ", 설명할 수 없는 차액으로"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -655,12 +655,12 @@ msgstr "외화잔액"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr "'%s'의 잔액"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "은행 잔고"
 
 #. module: account_reports
 #. odoo-python
@@ -1164,6 +1164,8 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"사용자 지정 engine _report_custom_engine_last_statement_balance_amount 은 그룹별 지원이 "
+"되지 않습니다."
 
 #. module: account_reports
 #. odoo-javascript
@@ -1273,7 +1275,7 @@ msgstr "감가상각"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "반올림한 세금과의 차액"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
@@ -1755,7 +1757,7 @@ msgstr "일반 세금 보고서 커스텀 핸들러 (세금 -> 계정)"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Global Tax Summary"
-msgstr ""
+msgstr "글로벌 세무 요약"
 
 #. module: account_reports
 #. odoo-python
@@ -1915,7 +1917,7 @@ msgstr "영향을 받는 세금 구조"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "In %s"
-msgstr ""
+msgstr "%s에서"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
@@ -1956,13 +1958,13 @@ msgstr "분석 시뮬레이션 포함"
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "미조정 결제 포함"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "미조정 영수증 포함"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2271,7 +2273,7 @@ msgstr "최근 갱신 일자"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "최근 명세서 잔액"
 
 #. module: account_reports
 #. odoo-python
@@ -2368,7 +2370,7 @@ msgstr "'%s' 방법의 경우에는 '%s' 접두사로 시작해야 합니다."
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "기타 운영비"
 
 #. module: account_reports
 #. odoo-python
@@ -2654,7 +2656,7 @@ msgstr "기타 소득"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr ""
+msgstr "미결제 영수증/결제"
 
 #. module: account_reports
 #. odoo-python
@@ -2860,7 +2862,7 @@ msgstr "발행된 항목만"
 msgid ""
 "Posting this entry will also update and post the unposted closings of the "
 "depending companies."
-msgstr ""
+msgstr "이 항목을 게시하면 해당 회사의 게시되지 않은 마감일도 업데이트되어 게시됩니다."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3177,7 +3179,7 @@ msgstr "세금 마감일"
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_show_multi_closing_warning
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_closing_show_multi_closing_warning
 msgid "Tax Closing Show Multi Closing Warning"
-msgstr ""
+msgstr "세금 결산 표시 다중 결산 경고"
 
 #. module: account_reports
 #. odoo-python
@@ -3367,14 +3369,14 @@ msgstr "이 세금 단위가 회사의 세무 신고 그룹에 사용되는 국�
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "The currency rate cannot be equal to zero"
-msgstr ""
+msgstr "환율은 0이 될 수 없습니다."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "현재 잔액은"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3544,7 +3546,7 @@ msgstr "이 보고서에서는 활성화된 회사의 정보만 표시됩니다.
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This subformula references an unknown expression: %s"
-msgstr ""
+msgstr "이 하위 수식은 알 수 없는 수식을 참조합니다: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3602,7 +3604,7 @@ msgstr "거래 협력사"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "명세서가 없는 거래"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3888,7 +3890,7 @@ msgstr "잠겨진 기간에 대해서는 항목을 생성할 수 없습니다."
 msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
-msgstr ""
+msgstr "나중에 다른 마감 항목이 게시되었으므로 이 마감 항목을 초안으로 재설정할 수 없습니다."
 
 #. module: account_reports
 #. odoo-python
@@ -3947,7 +3949,7 @@ msgstr "일 이후 "
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "다음 잔액과 일치하지 않는 경우"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -3964,7 +3966,7 @@ msgstr "4개월마다"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "기초 잔액이 전기의 기말 잔액과 차이가 있음"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3994,7 +3996,7 @@ msgstr "전표 항목"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "최근 은행 명세서"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
@@ -4087,7 +4089,7 @@ msgstr "이 항목으로 이전 기간에서 이월되었습니다."
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "은행 명세서나 결제에서 발생한 것이 아닙니다."
 
 #. module: account_reports
 #. odoo-javascript
