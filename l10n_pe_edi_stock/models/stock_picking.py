@@ -356,8 +356,9 @@ class Picking(models.Model):
         # Step 2: retrieve the CDR using the ticket number.
         res_get_cdr = self._l10n_pe_edi_get_cdr(self.l10n_pe_edi_ticket_number, token)
         if "error" in res_get_cdr:
-            # If the error is that the CDR is still being processed, keep the ticket number. Otherwise, we set it to False.
-            if res_get_cdr.get("error_reason") not in ("processing", "unauthorized"):
+            # If the delivery guide was rejected by SUNAT, set the ticket number to False. In all other
+            # error cases (e.g. connection errors), keep the ticket number as we may still retrieve the CDR.
+            if res_get_cdr.get("error_reason") in ("rejected", "duplicate"):
                 self.l10n_pe_edi_ticket_number = False
             if res_get_cdr.get("error_reason") == "duplicate":
                 self.l10n_latam_document_number = False
@@ -517,10 +518,10 @@ class Picking(models.Model):
                 error_msg = ERROR_MESSAGES["duplicate"]
                 return {"error": error_msg, "error_reason": "duplicate"}
             else:
-                return {"error": str(Markup("%s %s: %s") % (ERROR_MESSAGES["response_code"], code, msg))}
+                return {"error": str(Markup("%s %s: %s") % (ERROR_MESSAGES["response_code"], code, msg)), "error_reason": "rejected"}
         if not response_json.get("arcCdr") or response_json.get("codRespuesta") != "0":
             if "codRespuesta" in response_json:
-                return {"error": str(Markup("%s %s") % (ERROR_MESSAGES["request"], response_json["codRespuesta"]))}
+                return {"error": str(Markup("%s %s") % (ERROR_MESSAGES["request"], response_json["codRespuesta"])), "error_reason": "rejected"}
             else:
                 return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["response_unknown"], response_json))}
 
