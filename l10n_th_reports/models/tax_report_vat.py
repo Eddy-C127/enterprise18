@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import io
+from math import copysign
 from odoo import _, models
 from odoo.tools.misc import xlsxwriter
 from odoo import fields
@@ -123,14 +124,15 @@ class AccountGenericTaxReport(models.AbstractModel):
         tax_group_vat_7 = self.env.ref(f'account.{self.env.company.id}_tax_group_vat_7')
         for index, move in enumerate(moves):
             sign = move.reversed_entry_id.payment_state == 'partial' and -1 or 1
-            amount_total = sign * move.amount_total
+            amount_total = sign * copysign(move.amount_total_signed, move.amount_total)
             amount_untaxed_signed = sign * abs(move.amount_untaxed_signed)
             # Only include tax amount from VAT 7% tax group
             amount_tax = 0.0
             for taxes in move.tax_totals['groups_by_subtotal'].values():
                 for tax in taxes:
                     if tax['tax_group_id'] == tax_group_vat_7.id:
-                        amount_tax += sign * tax['tax_group_amount']
+                        is_company_currency = move.currency_id == company.currency_id
+                        amount_tax += sign * (tax['tax_group_amount'] if is_company_currency else tax['tax_group_amount_company_currency'])
             sheet.write(y_offset, 0, index + 1, default_style)
             sheet.write(y_offset, 1, move.name, default_style)
             sheet.write(y_offset, 2, move.ref or '', default_style)
