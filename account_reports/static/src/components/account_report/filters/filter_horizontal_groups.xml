@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.AccountReportFilterHorizontalGroups">
-        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen, 'selected_horizontal_group_id')">
+        <Dropdown>
             <button class="btn btn-secondary">
                 <i class="fa fa-filter me-1"/>Horizontal Group: <t t-out="selectedHorizontalGroupName"/>
             </button>

@@ -3,7 +3,6 @@
     <t t-name="account_reports.AccountReportFilterAnalytic">
         <Dropdown
             menuClass="'account_report_filter analytic'"
-            onStateChanged="(isOpen) => this.applyFilters(isOpen, 'analytic_accounts')"
         >
             <button class="btn btn-secondary">
                 <i class="fa fa-filter me-1"/>Analytic

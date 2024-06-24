@@ -3,7 +3,7 @@
     <t t-name="account_reports.MulticurrencyRevaluationReportFilterExchangeRate">
         <Dropdown
             menuClass="'account_report_filter exchange_rate'"
-            onStateChanged="(isOpen) => this.applyFilters(isOpen, 'currency_rates')"
+            onStateChanged="(isOpen) => !isOpen ? this.applyFilters('currency_rates') : null"
         >
             <button class="btn btn-secondary">
                 <i class="fa fa-line-chart"/> Exchange Rates

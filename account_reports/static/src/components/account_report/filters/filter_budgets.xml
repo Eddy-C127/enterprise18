@@ -2,7 +2,6 @@
 <templates>
     <t t-name="account_reports.AccountReportFilterBudget">
         <Dropdown
-            onStateChanged="(isOpen) => this.applyFilters(isOpen, 'budgets')"
             navigationOptions="dropdownProps"
         >
             <button class="btn btn-secondary">

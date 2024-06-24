@@ -1703,6 +1703,15 @@ class AccountReport(models.Model):
             ]
             options['show_all_accounts'] = (previous_options or {}).get('show_all_accounts') or False
 
+    # OPTIONS: LOADING CALL
+
+    ####################################################
+
+    def _init_options_loading_call(self, options, previous_options=None):
+        """ Used by the js to know if it needs to reload the options (to not overwrite new options from the js) """
+        options['loading_call_number'] = (previous_options or {}).get('loading_call_number') or 0
+        return options
+
     ####################################################
     # OPTIONS: CORE
     ####################################################
@@ -1711,6 +1720,7 @@ class AccountReport(models.Model):
         self.ensure_one()
 
         initializers_in_sequence = self._get_options_initializers_in_sequence()
+
         options = {}
 
         if (previous_options or {}).get('_running_export_test'):

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.SalesReportFilterCode">
-        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen, 'ec_tax_filter_selection')">
+        <Dropdown>
             <button class="btn btn-secondary">
                 <i class="fa fa-filter me-1"/> Codes: <t t-esc="selectedEcTaxName"/>
             </button>
@@ -10,7 +10,7 @@
                 <t t-foreach="controller.options.ec_tax_filter_selection" t-as="ecTax" t-key="ecTax_index">
                     <DropdownItem
                         class="{ 'selected':  ecTax.selected }"
-                        onSelected="() => this.filterClicked('ec_tax_filter_selection.'+ ecTax_index + '.selected')"
+                        onSelected="() => this.filterClicked({ optionKey: 'ec_tax_filter_selection.'+ ecTax_index + '.selected', reload: true})"
                         closingMode="'none'"
                         t-out="ecTax.name"
                     />

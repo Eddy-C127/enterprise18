@@ -20,6 +20,18 @@ export class AccountReportController {
         this.reportOptionsMap = {};
         this.reportInformationMap = {};
         this.lastOpenedSectionByReport = {};
+        this.loadingCallNumberByCacheKey = new Proxy(
+            {},
+            {
+                get(target, name) {
+                    return name in target ? target[name] : 0;
+                },
+                set(target, name, newValue) {
+                    target[name] = newValue;
+                    return true;
+                },
+            }
+        );
         this.actionReportId = this.action.context.report_id;
 
         const mainReportOptions = await this.loadReportOptions(this.actionReportId, false, this.action.params?.ignore_session);
@@ -28,6 +40,8 @@ export class AccountReportController {
         // We need the options to be set and saved in order for the loading to work properly
         this.options = mainReportOptions;
         this.reportOptionsMap[cacheKey] = mainReportOptions;
+        this.incrementCallNumber(cacheKey);
+        this.options["loading_call_number"] = this.loadingCallNumberByCacheKey[cacheKey];
         this.saveSessionOptions(mainReportOptions);
 
         const activeSectionPromise = this.displayReport(mainReportOptions['report_id']);
@@ -39,18 +53,39 @@ export class AccountReportController {
         return `${sectionsSourceId}_${reportId}`
     }
 
+    incrementCallNumber(cacheKey = null) {
+        if (!cacheKey) {
+            cacheKey = this.getCacheKey(this.options['sections_source_id'], this.options['report_id']);
+        }
+        this.loadingCallNumberByCacheKey[cacheKey] += 1;
+    }
+
     async displayReport(reportId) {
         const cacheKey = await this.loadReport(reportId);
-        this.options = await this.reportOptionsMap[cacheKey];
-        this.data = await this.reportInformationMap[cacheKey];
+        const options = await this.reportOptionsMap[cacheKey];
+        const informationMap = await this.reportInformationMap[cacheKey];
+        if (
+            options !== undefined
+            && this.loadingCallNumberByCacheKey[cacheKey] === options["loading_call_number"]
+            && (this.lastOpenedSectionByReport === {} || this.lastOpenedSectionByReport[options['selected_variant_id']] === options['selected_section_id'])
+        ) {
+            // the options gotten from the python correspond to the ones that called this displayReport
+            this.options = options;
 
-        // If there is a specific order for lines in the options, we want to use it by default
-        if (this.areLinesOrdered())
-            await this.sortLines();
+            // informationMap might be undefined if the promise has been deleted by another call.
+            // Don't need to set data, the call that deleted it is coming to re-put data
+            if (informationMap !== undefined) {
+                this.data = informationMap;
+                // If there is a specific order for lines in the options, we want to use it by default
+                if (this.areLinesOrdered()) {
+                    await this.sortLines();
+                }
+                this.setLineVisibility(this.lines);
+                this.refreshVisibleAnnotations();
+                this.saveSessionOptions(this.options);
+            }
 
-        this.setLineVisibility(this.lines);
-        this.refreshVisibleAnnotations();
-        this.saveSessionOptions(this.options);
+        }
     }
 
     async reload(optionPath, newOptions) {
@@ -80,6 +115,7 @@ export class AccountReportController {
             // Preload the first non-loaded section we find amongst this report's sections.
             const cacheKey = this.getCacheKey(this.options['sections_source_id'], section.id);
             if (section.id != this.options['report_id'] && !this.reportInformationMap[cacheKey]) {
+                this.incrementCallNumber(cacheKey);
                 await this.loadReport(section.id, true);
 
                 sectionLoaded = true;
@@ -127,6 +163,10 @@ export class AccountReportController {
         const loadOptions = (ignore_session || !this.hasSessionOptions()) ? (this.action.params?.options || {}) : this.sessionOptions();
         const cacheKey = this.getCacheKey(loadOptions['sections_source_id'] || reportId, reportId);
 
+        if (cacheKey in this.loadingCallNumberByCacheKey) {
+            loadOptions["loading_call_number"] = this.loadingCallNumberByCacheKey[cacheKey];
+        }
+
         if (!this.reportOptionsMap[cacheKey]) {
             // The options for this section are not loaded nor loading. Let's load them !
 
@@ -161,6 +201,9 @@ export class AccountReportController {
                 route reports can never be opened directly if they open some variant by default.*/
                 delete this.reportOptionsMap[cacheKey];
                 this.reportOptionsMap[loadedOptionsCacheKey] = reportOptions;
+
+                this.loadingCallNumberByCacheKey[loadedOptionsCacheKey] = 1;
+                delete this.loadingCallNumberByCacheKey[cacheKey];
                 return reportOptions;
             }
         }
@@ -309,8 +352,10 @@ export class AccountReportController {
                 throw new Error(`Invalid operation type in _updateOption(): ${ operationType }`);
         }
 
-        if (reloadUI)
+        if (reloadUI) {
+            this.incrementCallNumber();
             await this.reload(optionPath, this.options);
+        }
     }
 
     async updateOption(optionPath, optionValue, reloadUI=false) {

@@ -10,7 +10,7 @@
                 <t t-if="controller.groups.account_readonly">
                     <DropdownItem
                         class="{ 'selected': controller.options.tax_unit === 'company_only' }"
-                        onSelected="() => this.filterClicked('tax_unit', 'company_only', true)"
+                        onSelected="() => this.filterClicked({ optionKey: 'tax_unit', optionValue: 'company_only', reload: true})"
                     >
                         Company Only
                     </DropdownItem>

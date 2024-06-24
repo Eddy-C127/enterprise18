@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.AccountReportFilterExtraOptions">
-        <Dropdown onStateChanged="(isOpen) => this.applyFilters(isOpen)">
+        <Dropdown>
             <button class="btn btn-secondary">
                 <i class="fa fa-sliders me-1"/>
                 <t t-if="selectedExtraOptions">
@@ -16,7 +16,7 @@
                 <t t-if="controller.groups.account_readonly and controller.filters.show_draft">
                     <DropdownItem
                         class="{ 'filter_show_draft_hook': true, 'selected': controller.options.all_entries }"
-                        onSelected="() => this.filterClicked('all_entries')"
+                        onSelected="() => this.filterClicked({ optionKey: 'all_entries', reload: true})"
                         closingMode="'none'"
                     >
                         Draft Entries
@@ -26,7 +26,7 @@
                 <t t-if="controller.groups.account_readonly and controller.filters.show_analytic_groupby">
                     <DropdownItem
                         class="{ 'selected': controller.options.include_analytic_without_aml }"
-                        onSelected="() => this.filterClicked('include_analytic_without_aml')"
+                        onSelected="() => this.filterClicked({ optionKey: 'include_analytic_without_aml', reload: true})"
                         closingMode="'none'"
                     >
                         Analytic Simulations
@@ -36,7 +36,7 @@
                 <t t-if="controller.filters.show_hierarchy">
                     <DropdownItem
                         class="{ 'selected': controller.options.hierarchy }"
-                        onSelected="() => this.filterClicked('hierarchy')"
+                        onSelected="() => this.filterClicked({ optionKey: 'hierarchy', reload: true})"
                         closingMode="'none'"
                     >
                         Hierarchy and Subtotals
@@ -46,7 +46,7 @@
                 <t t-if="controller.filters.show_unreconciled">
                     <DropdownItem
                         class="{ 'selected': controller.options.unreconciled }"
-                        onSelected="() => this.filterClicked('unreconciled')"
+                        onSelected="() => this.filterClicked({ optionKey: 'unreconciled', reload: true})"
                         closingMode="'none'"
                     >
                         Only Show Unreconciled Entries
@@ -56,7 +56,7 @@
                 <t t-if="controller.filters.show_all">
                     <DropdownItem
                         class="{ 'filter_show_all_hook': true, 'selected': controller.options.unfold_all }"
-                        onSelected="() => this.filterClicked('unfold_all')"
+                        onSelected="() => this.filterClicked({ optionKey: 'unfold_all', reload: true})"
                         closingMode="'none'"
                     >
                         Unfold All
@@ -66,7 +66,7 @@
                 <t t-if="'show_all_accounts' in controller.options">
                     <DropdownItem
                         class="{ 'filter_show_all_accounts_hook': true, 'selected': controller.options.show_all_accounts }"
-                        onSelected="() => this.filterClicked('show_all_accounts')"
+                        onSelected="() => this.filterClicked({ optionKey: 'show_all_accounts', reload: true})"
                         closingMode="'none'"
                     >
                         Show All Accounts
@@ -76,7 +76,7 @@
                 <t t-if="controller.options.integer_rounding">
                     <DropdownItem
                         class="{ 'selected': controller.options.integer_rounding_enabled }"
-                        onSelected="() => this.filterClicked('integer_rounding_enabled')"
+                        onSelected="() => this.filterClicked({ optionKey: 'integer_rounding_enabled'})"
                         closingMode="'none'"
                     >
                         Integer Rounding

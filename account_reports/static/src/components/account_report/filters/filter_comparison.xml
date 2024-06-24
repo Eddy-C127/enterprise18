@@ -18,7 +18,6 @@
         <Dropdown
             menuClass="'account_report_filter comparison'"
             navigationOptions="dropdownProps"
-            onStateChanged="(isOpen) => this.applyFilters(isOpen, 'comparison')"
         >
             <button class="btn btn-secondary">
                 <i class="fa fa-percent me-1"/>Comparison
@@ -30,7 +29,7 @@
             <t t-set-slot="content">
                 <DropdownItem
                     class="{ 'selected': (controller.options.comparison.filter === 'no_comparison') }"
-                    onSelected="() => this.filterClicked('comparison.filter', 'no_comparison')"
+                    onSelected="() => this.filterClicked({ optionKey: 'comparison.filter', optionValue: 'no_comparison', reload: true})"
                     closingMode="'none'"
                 >
                     No Comparison
@@ -38,7 +37,7 @@
 
                 <DropdownItem
                     class="{ 'selected': controller.options.comparison.filter === 'previous_period', 'dropdown-item': true, 'period': true }"
-                    onSelected="() => this.filterClicked('comparison.filter', 'previous_period')"
+                    onSelected="() => this.filterClicked({ optionKey: 'comparison.filter', optionValue: 'previous_period', reload: true})"
                     closingMode="'none'"
                 >
                     <label class="d-flex align-items-center">
@@ -53,7 +52,7 @@
                 <DropdownItem
                     class="{ 'selected': controller.options.comparison.filter === 'same_last_year', 'dropdown-item': true, 'period': true }"
                     attrs="{ 'name': 'filter_comparison_same_period_last_year' }"
-                    onSelected="() => this.filterClicked('comparison.filter', 'same_last_year')"
+                    onSelected="() => this.filterClicked({ optionKey: 'comparison.filter', optionValue: 'same_last_year', reload: true})"
                     closingMode="'none'"
                 >
                     <label class="d-flex align-items-center">
@@ -69,7 +68,7 @@
                     <DropdownItem
                         class="{ 'selected': controller.options.comparison.filter === 'custom', 'dropdown-item': true, 'date': true }"
                         attrs="{ 'name': 'filter_comparison_custom' }"
-                        onSelected="() => this.filterClicked('comparison.filter', 'custom')"
+                        onSelected="() => this.filterClicked({ optionKey: 'comparison.filter', optionValue: 'custom'})"
                         closingMode="'none'"
                     >
                         <label class="d-flex align-items-center">
@@ -98,7 +97,7 @@
                 <t t-if="controller.options.date.mode === 'single'">
                     <DropdownItem
                         class="{ 'selected': controller.options.comparison.filter === 'custom', 'dropdown-item': true, 'date': true }"
-                        onSelected="() => this.filterClicked('comparison.filter', 'custom')"
+                        onSelected="() => this.filterClicked({ optionKey: 'comparison.filter', optionValue: 'custom'})"
                         closingMode="'none'"
                     >
                         <label class="d-flex align-items-center">
@@ -125,7 +124,7 @@
                     <div>
                         <select name="select_order"
                                 class="o_input pe-3"
-                                t-on-change="(ev) => this.filterClicked('comparison.period_order', ev.target.value)">
+                                t-on-change="(ev) => this.filterClicked({ optionKey: 'comparison.period_order', optionValue: ev.target.value, reload: true})">
                             <option t-foreach="availablePeriodOrder"
                                     t-as="order"
                                     t-key="order_index"

@@ -4,7 +4,7 @@
         <t t-foreach="this.dateFilters(controller.options.date.mode)" t-as="dateFilter" t-key="dateFilter_index">
             <DropdownItem
                 class="{ 'd-flex justify-content-between date_filter': true, 'selected': (controller.options.date.filter.includes(dateFilter.period)) }"
-                onSelected="() => this.selectDateFilter(dateFilter.period)"
+                onSelected="() => this.selectDateFilter(dateFilter.period, dateFilter.period != controller.options.date.period_type)"
                 closingMode="'none'"
             >
                 <div class="filter_name pe-3">
@@ -31,7 +31,6 @@
     <t t-name="account_reports.AccountReportFilterDate">
         <Dropdown
             menuClass="'account_report_filter date'"
-            onStateChanged="(isOpen) => this.applyFilters(isOpen, 'date')"
         >
             <button class="btn btn-secondary">
                 <i class="fa fa-calendar me-1"/>
@@ -42,7 +41,7 @@
                 <t t-if="controller.options.date.mode === 'single'">
                     <DropdownItem
                         class="{ 'selected': controller.options.date.filter === 'today' }"
-                        onSelected="() => this.filterClicked('date.filter', 'today')"
+                        onSelected="() => this.filterClicked({ optionKey: 'date.filter', optionValue: 'today', reload: true})"
                         closingMode="'none'"
                     >
                         Today
@@ -55,7 +54,7 @@
                     <div
                         class="dropdown-item date d-flex justify-content-between"
                         t-att-class="{ 'selected': controller.options.date.filter === 'custom' }"
-                        t-on-click="() => this.filterClicked('date.filter', 'custom')"
+                        t-on-click="() => this.filterClicked({ optionKey: 'date.filter', optionValue: 'custom'})"
                     >
                         <label class="d-flex align-items-center filter_name">
                             Specific Date
@@ -82,7 +81,7 @@
                     <div
                         class="dropdown-item date d-flex flex-row justify-space-between"
                         t-att-class="{ 'selected': controller.options.date.filter === 'custom' }"
-                        t-on-click="() => this.filterClicked('date.filter', 'custom')"
+                        t-on-click="() => this.filterClicked({ optionKey: 'date.filter', optionValue: 'custom'})"
                     >
                         <label class="d-flex align-items-center">
                             Custom Dates

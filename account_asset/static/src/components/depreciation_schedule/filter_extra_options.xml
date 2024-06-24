@@ -4,7 +4,7 @@
         <xpath expr="//DropdownItem[contains(@class, 'filter_show_all_hook')]" position="after">
             <DropdownItem
                 class="{ 'selected': controller.options.assets_groupby_account }"
-                onSelected="() => this.filterClicked('assets_groupby_account')"
+                onSelected="() => this.filterClicked({ optionKey: 'assets_groupby_account', reload: true})"
                 closingMode="'none'"
             >
                 Group By Account

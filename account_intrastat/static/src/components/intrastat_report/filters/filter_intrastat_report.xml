@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_intrastat.IntrastatReportFilterOptions">
-        <Dropdown menuClass="'account_report'"
-                  onStateChanged="(isOpen) => this.applyFilters(isOpen)">
+        <Dropdown menuClass="'account_report'">
             <button class="btn btn-secondary">
                 <i class="fa fa-sliders me-1"/><t t-out="selectedIntrastatOptions"/>
             </button>
@@ -11,7 +10,7 @@
                 <t t-foreach="controller.options.intrastat_type" t-as="intrastatType" t-key="intrastatType_index">
                     <DropdownItem
                         class="{ 'selected': intrastatType.selected }"
-                        onSelected="() => this.filterClicked('intrastat_type.' + intrastatType_index + '.selected')"
+                        onSelected="() => this.filterClicked({ optionKey: 'intrastat_type.' + intrastatType_index + '.selected', reload: true})"
                         closingMode="'none'"
                         t-out="intrastatType.name"
                     />
@@ -21,7 +20,7 @@
 
                 <DropdownItem
                     class="{ 'selected': controller.options.intrastat_with_vat }"
-                    onSelected="() => this.filterClicked('intrastat_with_vat')"
+                    onSelected="() => this.filterClicked({ optionKey: 'intrastat_with_vat', reload: true})"
                     closingMode="'none'"
                 >
                     Only with VAT numbers
@@ -29,7 +28,7 @@
 
                 <DropdownItem
                     class="{ 'selected': controller.options.intrastat_extended }"
-                    onSelected="() => this.filterClicked('intrastat_extended')"
+                    onSelected="() => this.filterClicked({ optionKey: 'intrastat_extended', reload: true})"
                     closingMode="'none'"
                 >
                     Extended Mode
@@ -37,7 +36,7 @@
 
                 <DropdownItem
                     class="{ 'selected': controller.options.intrastat_grouped }"
-                    onSelected="() => this.filterClicked('intrastat_grouped')"
+                    onSelected="() => this.filterClicked({ optionKey: 'intrastat_grouped', reload: true})"
                     closingMode="'none'"
                 >
                     Grouped

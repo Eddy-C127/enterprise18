@@ -5,7 +5,7 @@
             <t t-if="controller.groups.account_user and controller.filters.show_cash_basis">
                 <DropdownItem
                     class="{ 'selected': controller.options.report_cash_basis }"
-                    onSelected="() => this.filterClicked('report_cash_basis')"
+                    onSelected="() => this.filterClicked({ optionKey: 'report_cash_basis', reload: true})"
                     closingMode="'none'"
                 >
                     Cash Basis Method

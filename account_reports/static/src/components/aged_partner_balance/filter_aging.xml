@@ -14,14 +14,14 @@
             <t t-set-slot="content">
                 <DropdownItem
                     class="{ 'selected': controller.options.aging_based_on === 'base_on_maturity_date' }"
-                    onSelected="() => this.filterClicked('aging_based_on', 'base_on_maturity_date', true)"
+                    onSelected="() => this.filterClicked({ optionKey: 'aging_based_on', optionValue: 'base_on_maturity_date', reload: true})"
                 >
                     Due Date
                 </DropdownItem>
 
                 <DropdownItem
                     class="{ 'selected': controller.options.aging_based_on === 'base_on_invoice_date' }"
-                    onSelected="() => this.filterClicked('aging_based_on', 'base_on_invoice_date', true)"
+                    onSelected="() => this.filterClicked({ optionKey: 'aging_based_on', optionValue: 'base_on_invoice_date', reload: true})"
                 >
                     Invoice Date
                 </DropdownItem>

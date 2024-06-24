@@ -10,7 +10,7 @@
                 <t t-if="controller.groups.account_readonly and controller.options.allow_domestic">
                     <DropdownItem
                         class="{ 'selected': controller.options.fiscal_position === 'domestic' }"
-                        onSelected="() => this.filterClicked('fiscal_position', 'domestic', true)"
+                        onSelected="() => this.filterClicked({ optionKey: 'fiscal_position', optionValue: 'domestic', reload: true})"
                     >
                         Domestic
                     </DropdownItem>
@@ -19,7 +19,7 @@
                 <t t-if="controller.groups.account_readonly">
                     <DropdownItem
                         class="{ 'selected': controller.options.fiscal_position === 'all' }"
-                        onSelected="() => this.filterClicked('fiscal_position', 'all', true)"
+                        onSelected="() => this.filterClicked({ optionKey: 'fiscal_position', optionValue: 'all', reload: true})"
                     >
                         All
                     </DropdownItem>
@@ -32,7 +32,7 @@
 
                     <DropdownItem
                         class="{ 'selected': controller.options.fiscal_position === fiscalPosition.id }"
-                        onSelected="() => this.filterClicked('fiscal_position', fiscalPosition.id, true)"
+                        onSelected="() => this.filterClicked({ optionKey: 'fiscal_position', optionValue: fiscalPosition.id, reload: true})"
                     >
                         <t t-esc="fiscalPosition.name"/>
                     </DropdownItem>

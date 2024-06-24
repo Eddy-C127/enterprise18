@@ -27,7 +27,6 @@ export class AccountReportFilters extends Component {
         this.notification = useService("notification");
         this.companyService = useService("company");
         this.controller = useState(this.env.controller);
-        this.dirtyFilter = useState({ value: false });
         if (this.env.controller.options.date) {
             this.dateFilter = useState(this.initDateFilters());
         }
@@ -35,6 +34,7 @@ export class AccountReportFilters extends Component {
             value: "",
             invalid: false,
         });
+        this.timeout = null;
     }
 
     focusInnerInput(index, items) {
@@ -249,13 +249,16 @@ export class AccountReportFilters extends Component {
 
     // Setters
     setDate(optionKey, type, date) {
-        if (date)
+        if (date) {
             this.controller.options[optionKey][`date_${type}`] = date;
-        else
+            this.applyFilters(optionKey);
+        }
+        else {
             this.dialog.add(WarningDialog, {
                 title: _t("Odoo Warning"),
                 message: _t("Date cannot be empty"),
             });
+        }
     }
 
     setDateFrom(optionKey, dateFrom) {
@@ -310,11 +313,9 @@ export class AccountReportFilters extends Component {
         }
     }
 
-    selectDateFilter(periodType) {
-        this.dirtyFilter.value = true;
-
-        this.controller.updateOption("date.filter", this.getDateFilter(periodType));
-        this.controller.updateOption("date.period", this.dateFilter[periodType]);
+    selectDateFilter(periodType, reload = false) {
+        this.filterClicked({ optionKey: "date.filter", optionValue: this.getDateFilter(periodType)});
+        this.filterClicked({ optionKey: "date.period", optionValue: this.dateFilter[periodType], reload: reload});
     }
 
     selectPreviousPeriod(periodType) {
@@ -330,6 +331,8 @@ export class AccountReportFilters extends Component {
 
         this.controller.updateOption("date.filter", this.getDateFilter(periodType));
         this.controller.updateOption("date.period", this.dateFilter[periodType]);
+
+        this.applyFilters("date.period");
     }
 
     displayPeriod(periodType) {
@@ -384,7 +387,7 @@ export class AccountReportFilters extends Component {
             resModel,
             resIds: this.controller.options[optionKey],
             update: (resIds) => {
-                this.filterClicked(optionKey, resIds);
+                this.filterClicked({ optionKey: optionKey, optionValue: resIds, reload: true});
             },
         };
     }
@@ -399,29 +402,35 @@ export class AccountReportFilters extends Component {
     //------------------------------------------------------------------------------------------------------------------
     // Generic filters
     //------------------------------------------------------------------------------------------------------------------
-    async filterClicked(optionKey, optionValue = undefined, reload = false) {
-        this.dirtyFilter.value = !reload;
-
+    async filterClicked({ optionKey, optionValue = undefined, reload = false}) {
         if (optionValue !== undefined) {
-            await this.controller.updateOption(optionKey, optionValue, reload);
+            await this.controller.updateOption(optionKey, optionValue);
         } else {
-            await this.controller.toggleOption(optionKey, reload);
+            await this.controller.toggleOption(optionKey);
+        }
+
+        if (reload) {
+            await this.applyFilters(optionKey);
         }
     }
 
-    async applyFilters(isDropDownOpen, optionKey = null) {
-        if (!isDropDownOpen && this.dirtyFilter.value) {
-            // We only reload the view if the dropdown state changed to close state
-            await this.controller.reload(optionKey, this.controller.options);
-            this.dirtyFilter.value = false;
+    async applyFilters(optionKey = null, delay = 500) {
+        // We only call the reload after the delay is finished, to avoid doing 5 calls if you want to click on 5 journals
+        if (this.timeout) {
+            clearTimeout(this.timeout);
         }
+
+        this.controller.incrementCallNumber();
+
+        this.timeout = setTimeout(async () => {
+            await this.controller.reload(optionKey, this.controller.options);
+        }, delay);
     }
 
     //------------------------------------------------------------------------------------------------------------------
     // Custom filters
     //------------------------------------------------------------------------------------------------------------------
     selectJournal(journal) {
-        this.dirtyFilter.value = true;
         if (journal.model === "account.journal.group") {
             this.controller.options.__journal_group_action = {
                 action: journal.selected ? "remove" : "add",
@@ -429,6 +438,7 @@ export class AccountReportFilters extends Component {
             };
         }
         journal.selected = !journal.selected;
+        this.applyFilters("journals");
     }
 
     async filterVariant(reportId) {
@@ -437,11 +447,16 @@ export class AccountReportFilters extends Component {
             selected_variant_id: reportId,
             sections_source_id: reportId,
         });
+        const cacheKey = this.controller.getCacheKey(reportId, reportId);
+        // if the variant hasn't been loaded yet, set up the call number
+        if (!(cacheKey in this.controller.loadingCallNumberByCacheKey)) {
+            this.controller.incrementCallNumber(cacheKey);
+        }
         await this.controller.displayReport(reportId);
     }
 
     async filterTaxUnit(taxUnit) {
-        await this.filterClicked("tax_unit", taxUnit.id, false);
+        await this.filterClicked({ optionKey: "tax_unit", optionValue: taxUnit.id});
         this.controller.saveSessionOptions(this.controller.options);
 
         // force the company to those impacted by the tax units, the reload will be force by this function
@@ -490,7 +505,7 @@ export class AccountReportFilters extends Component {
             );
             return;
         }
-        await this.filterClicked("selected_horizontal_group_id", horizontalGroupId, true);
+        await this.filterClicked({ optionKey: "selected_horizontal_group_id", optionValue: horizontalGroupId, reload: true});
     }
 
     selectBudget(budget) {
@@ -503,8 +518,8 @@ export class AccountReportFilters extends Component {
             );
             return;
         }
-        this.dirtyFilter.value = true;
         budget.selected = !budget.selected;
+        this.applyFilters( 'budgets')
     }
 
     async createBudget() {

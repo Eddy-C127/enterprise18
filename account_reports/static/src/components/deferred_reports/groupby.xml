@@ -18,21 +18,21 @@
             <t t-set-slot="content">
                 <DropdownItem
                     class="{ 'selected': controller.options.deferred_grouping_field === 'account_id' }"
-                    onSelected="() => this.filterClicked('deferred_grouping_field', 'account_id', true)"
+                    onSelected="() => this.filterClicked({ optionKey: 'deferred_grouping_field', optionValue: 'account_id', reload: true})"
                 >
                     Account
                 </DropdownItem>
 
                 <DropdownItem
                     class="{ 'selected': controller.options.deferred_grouping_field === 'product_category_id' }"
-                    onSelected="() => this.filterClicked('deferred_grouping_field', 'product_category_id', true)"
+                    onSelected="() => this.filterClicked({ optionKey: 'deferred_grouping_field', optionValue: 'product_category_id', reload: true})"
                 >
                     Product Category
                 </DropdownItem>
 
                 <DropdownItem
                     class="{ 'selected': controller.options.deferred_grouping_field === 'product_id' }"
-                    onSelected="() => this.filterClicked('deferred_grouping_field', 'product_id', true)"
+                    onSelected="() => this.filterClicked({ optionKey: 'deferred_grouping_field', optionValue: 'product_id', reload: true})"
                 >
                     Product
                 </DropdownItem>

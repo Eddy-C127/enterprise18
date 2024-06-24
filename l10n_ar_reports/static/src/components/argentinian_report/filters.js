@@ -22,6 +22,6 @@ patch(AccountReportFilters.prototype, {
             this.controller.options.ar_vat_book_tax_types_available,
         );
         newArVatBookTaxTypes[taxType]["selected"] = !newArVatBookTaxTypes[taxType]["selected"];
-        this.filterClicked("ar_vat_book_tax_types_available", newArVatBookTaxTypes);
+        this.filterClicked({ optionKey: "ar_vat_book_tax_types_available", optionValue: newArVatBookTaxTypes, reload: true});
     },
 });

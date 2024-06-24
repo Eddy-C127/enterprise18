@@ -7,7 +7,7 @@
                 <DropdownItem
                     class="{ 'selected': controller.options.l10n_mx_month_13 }"
                     onSelected="() => {
-                        this.filterClicked('l10n_mx_month_13', undefined, true);
+                        this.filterClicked({ optionKey: 'l10n_mx_month_13', reload: true});
                         this.selectDateFilter('year');
                     }"
                 >

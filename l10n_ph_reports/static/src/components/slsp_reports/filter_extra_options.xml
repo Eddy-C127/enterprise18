@@ -4,7 +4,7 @@
         <xpath expr="//div[contains(@class, 'dropdown-divider')]" position="before">
             <DropdownItem
                 class="{ 'selected': controller.options.include_no_tin }"
-                onSelected="() => this.filterClicked('include_no_tin')"
+                onSelected="() => this.filterClicked({ optionKey: 'include_no_tin'})"
                 closingMode="'none'"
             >
                 Including Partners Without TIN
@@ -12,7 +12,7 @@
 
             <DropdownItem
                 class="{ 'selected': controller.options.include_imports }"
-                onSelected="() => this.filterClicked('include_imports')"
+                onSelected="() => this.filterClicked({ optionKey: 'include_imports'})"
                 closingMode="'none'"
             >
                 Including Importations
