@@ -557,7 +557,10 @@ class SendCloud:
         return sorted_methods
 
     def _prepare_parcel_common_data(self, picking, is_return, sender_id=False):
-        to_partner_id = picking.partner_id
+        if 'access_point_address' in picking.sale_id and picking.sale_id.access_point_address:
+            to_partner_id = picking.partner_id.parent_id
+        else:
+            to_partner_id = picking.partner_id
         from_partner_id = picking.picking_type_id.warehouse_id.partner_id
         if is_return:
             to_partner_id, from_partner_id = from_partner_id, to_partner_id
