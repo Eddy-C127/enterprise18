@@ -106,7 +106,8 @@ class MailActivity(models.Model):
                 self.env["res.partner"],
             )
             if partner:
-                activity_data["partner"] = partner.mail_partner_format()[partner]
+                store.add("Persona", partner.mail_partner_format()[partner])
+                activity_data["partner"] = {"id": partner.id, "type": "partner"}
             store.add("Activity", activity_data)
 
     def _get_phone_numbers_by_activity(self):
