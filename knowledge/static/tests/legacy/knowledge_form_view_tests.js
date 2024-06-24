@@ -103,7 +103,7 @@ QUnit.module("Knowledge - Articles Structure Command", (hooks) => {
         arch = '<form js_class="knowledge_article_view_form">' +
             '<sheet>' +
                 '<div class="o_knowledge_editor">' +
-                    '<field name="body" widget="html"/>' +
+                    '<field name="body" widget="html_legacy"/>' +
                 '</div>' +
             '</sheet>' +
         '</form>';
@@ -234,7 +234,7 @@ QUnit.module("Knowledge - External View Insertion", (hooks) => {
         arch = '<form js_class="knowledge_article_view_form">' +
             '<sheet>' +
                 '<div class="o_knowledge_editor">' +
-                    '<field name="body" widget="html"/>' +
+                    '<field name="body" widget="html_legacy"/>' +
                 '</div>' +
             '</sheet>' +
         '</form>';
@@ -473,7 +473,7 @@ QUnit.module("Knowledge - Ensure body save scenarios", (hooks) => {
             <form js_class="knowledge_article_view_form">
                 <sheet>
                     <div class="o_knowledge_editor">
-                        <field name="body" widget="html"/>
+                        <field name="body" widget="html_legacy"/>
                     </div>
                 </sheet>
             </form>
@@ -795,7 +795,7 @@ QUnit.module("Knowledge Table of Content", (hooks) => {
         arch = '<form js_class="knowledge_article_view_form">' +
             '<sheet>' +
                 '<div class="o_knowledge_editor d-flex flex-grow-1">' +
-                    '<field name="body" widget="html"/>' +
+                    '<field name="body" widget="html_legacy"/>' +
                 '</div>' +
             '</sheet>' +
         '</form>';
@@ -927,7 +927,7 @@ QUnit.module("Knowledge - Silenced Failure Cases (Recoverable)", (hooks) => {
             <form js_class="knowledge_article_view_form">
                 <sheet>
                     <div class="o_knowledge_editor">
-                        <field name="body" widget="html"/>
+                        <field name="body" widget="html_legacy"/>
                     </div>
                 </sheet>
             </form>

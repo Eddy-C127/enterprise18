@@ -10,6 +10,7 @@
     'depends': [
         'web',
         'web_editor',
+        'html_editor',
         'mail',
         'portal',
         'web_unsplash',
@@ -53,6 +54,7 @@
             'knowledge/static/src/xml/**/*',
             ('remove', 'knowledge/static/src/xml/knowledge_wysiwyg.xml'),
             'knowledge/static/src/components/**/*',
+            'knowledge/static/src/editor/**/*',
             'knowledge/static/src/discuss/**/*',
             'knowledge/static/src/emoji_picker/**/*',
             'knowledge/static/src/search_model/**/*',

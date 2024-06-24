@@ -3,6 +3,7 @@
 import { SORTABLE_TOLERANCE } from "@knowledge/components/sidebar/sidebar";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { queryOne, queryFirst } from "@odoo/hoot-dom";
+import { childNodeIndex } from "@html_editor/utils/position";
 
 export const changeInternalPermission = (permission) => {
     const target = document.querySelector('.o_permission[aria-label="Internal Permission"]');
@@ -85,6 +86,8 @@ export const dragAndDropArticle = (from, to) => {
 };
 
 /**
+ * WARNING: This method uses the new editor powerBox.
+ *
  * Steps to insert an articleLink for the given article, in the first editable
  * html_field found in the given container selector (should have a paragraph
  * as its last element, and the link will be inserted at the position at index
@@ -92,17 +95,21 @@ export const dragAndDropArticle = (from, to) => {
  *
  * @param {string} htmlFieldContainerSelector jquery selector for the container
  * @param {string} articleName name of the article to insert a link for
- * @param {integer} offset position of the command call in the paragraph
+ * @param {integer} previousSiblingSelector jquery selector for the previous sibling of the article link
  * @returns {Array} tour steps
  */
-export function appendArticleLink(htmlFieldContainerSelector, articleName, offset=0) {
+export function appendArticleLink(htmlFieldContainerSelector, articleName, previousSiblingSelector = "") {
     return [{ // open the command bar
-        trigger: `${htmlFieldContainerSelector} .odoo-editor-editable > p:last-child`,
+        trigger: `${htmlFieldContainerSelector} .odoo-editor-editable > p:last-child ${previousSiblingSelector}`,
         run: function () {
-            openCommandBar(this.anchor, offset);
+            if (previousSiblingSelector) {
+                openPowerbox(this.anchor.parentElement, this.anchor);
+            } else {
+                openPowerbox(this.anchor);
+            }
         },
     }, { // click on the /article command
-        trigger: '.oe-powerbox-commandName:contains(Article)',
+        trigger: '.o-we-powerbox .o-we-command-name:contains(Article)',
         run: 'click',
         in_modal: false,
     }, {
@@ -141,6 +148,8 @@ export function makeVisible(selector) {
 }
 
 /**
+ * WARNING: uses the legacy editor powerbox.
+ *
  * Opens the power box of the editor
  * @param {HTMLElement} paragraph
  * @param {integer} offset position of the command call in the paragraph
@@ -173,6 +182,33 @@ export function openCommandBar(paragraph, offset=0) {
     paragraph.dispatchEvent(
         new KeyboardEvent("keyup", {
             key: "/",
+        })
+    );
+}
+
+/**
+ * WARNING: uses the new editor powerbox.
+ *
+ * Opens the power box of the editor
+ * @param {HTMLElement} paragraph
+ * @param {Node} previousSibling previous sibling of the inserted element
+ */
+export function openPowerbox(paragraph, previousSibling) {
+    let offset = 0;
+    if (previousSibling) {
+        offset = childNodeIndex(previousSibling) + 1;
+    }
+    const sel = document.getSelection();
+    sel.removeAllRanges();
+    const range = document.createRange();
+    range.setStart(paragraph, offset);
+    range.setEnd(paragraph, offset);
+    sel.addRange(range);
+    paragraph.dispatchEvent(
+        new InputEvent("input", {
+            inputType: "insertText",
+            data: "/",
+            bubbles: true,
         })
     );
 }

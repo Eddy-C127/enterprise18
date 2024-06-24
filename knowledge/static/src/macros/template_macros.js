@@ -102,10 +102,19 @@ export class UseAsDescriptionMacro extends AbstractMacro {
             }.bind(this),
             action: function (el) {
                 const wysiwyg = $(el).data('wysiwyg');
-                wysiwyg._onHistoryResetFromSteps = () => {
-                    pasteElements(this.data.dataTransfer, el);
-                    wysiwyg._onHistoryResetFromSteps = undefined;
-                };
+                if (wysiwyg) {
+                    // Legacy editor
+                    wysiwyg._onHistoryResetFromSteps = () => {
+                        pasteElements(this.data.dataTransfer, el);
+                        wysiwyg._onHistoryResetFromSteps = undefined;
+                    };
+                } else {
+                    el.addEventListener(
+                        "onHistoryResetFromPeer",
+                        (ev) => pasteElements(this.data.dataTransfer, el),
+                        { once: true }
+                    );
+                }
                 pasteElements(this.data.dataTransfer, el);
             }.bind(this),
         }, this.unblockUI);

@@ -55,8 +55,29 @@ const commonKanbanSteps = (embedViewName) => {
 
 // COMMAND: /article
 
+// WARNING: uses the legacy editor powerbox.
 const articleCommandSteps = [
-    ...appendArticleLink('[name="body"]', "LinkedArticle"),
+    { // open the command bar
+        trigger: `[name="body"] .odoo-editor-editable > p:last-child`,
+        run: function () {
+            openCommandBar(this.anchor, 0);
+        },
+    }, { // click on the /article command
+        trigger: '.oe-powerbox-wrapper .oe-powerbox-commandName:contains(Article)',
+        run: 'click',
+        in_modal: false,
+    }, {
+        // select an article in the list
+        // 'not has span' is used to remove children articles as they also contain the article name
+        trigger: `.o_select_menu_item > span:not(:has(span)):contains(LinkedArticle)`,
+        run: 'click',
+        in_modal: false,
+    }, { // wait for the choice to be registered
+        trigger: `.o_select_menu_toggler_slot:contains(LinkedArticle)`,
+    }, { // click on the "Insert Link" button
+        trigger: '.modal-dialog:contains(Link an Article) .modal-footer button.btn-primary',
+        run: 'click'
+    }
 ];
 
 // COMMAND: /file
@@ -245,7 +266,7 @@ const videoCommandSteps = [{ // patch the components
     run: `edit https://www.youtube.com/watch?v=${YoutubeVideoId}`,
 }, {
     content: "Wait for preview to appear",
-    trigger: `.o_video_iframe_src:contains("//www.youtube-nocookie.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
+    trigger: `.o_video_iframe_src:contains("//www.youtube.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
 }, {
     content: "Confirm selection",
     trigger: '.modal-footer button:contains("Insert Video")',
@@ -530,7 +551,7 @@ const articleCommandComposerSteps = [{ // open the chatter
     run: "click",
 }, ...appendArticleLink(`${composeBody}`, 'EditorCommandsArticle'), { // wait for the block to appear in the editor
     trigger: `${composeBody} .o_knowledge_behavior_type_article:contains("EditorCommandsArticle")`,
-}, ...appendArticleLink(`${composeBody}`, 'LinkedArticle', 1), { // wait for the block to appear in the editor, after the previous one
+}, ...appendArticleLink(`${composeBody}`, 'LinkedArticle', `.o_knowledge_behavior_type_article:contains("EditorCommandsArticle")`), { // wait for the block to appear in the editor, after the previous one
     trigger: `${composeBody} .odoo-editor-editable > p > a:nth-child(2).o_knowledge_behavior_type_article:contains("LinkedArticle")[contenteditable="false"]`,
 }, { // verify that the first block is still there and contenteditable=false
     trigger: `${composeBody} .odoo-editor-editable > p > a:nth-child(1).o_knowledge_behavior_type_article:contains("EditorCommandsArticle")[contenteditable="false"]`,

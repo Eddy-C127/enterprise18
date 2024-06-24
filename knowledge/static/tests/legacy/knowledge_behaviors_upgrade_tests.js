@@ -103,7 +103,7 @@ function beforeEach() {
         <form js_class="knowledge_article_view_form">
             <sheet>
                 <div class="o_knowledge_editor">
-                    <field name="body" widget="html"/>
+                    <field name="body" widget="html_legacy"/>
                 </div>
             </sheet>
         </form>
