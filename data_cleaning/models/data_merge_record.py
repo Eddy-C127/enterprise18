@@ -609,7 +609,7 @@ AND NOT EXISTS (
             raise ValidationError(_('The target model does not exists.'))
 
         # prepare action to return
-        view = self.env.ref('data_merge.data_merge_record_view_search_merge_action')
+        view = self.env.ref('data_cleaning.data_merge_record_view_search_merge_action')
         action = {
             'name': _('Deduplicate'),
             'view_mode': 'tree',
