@@ -39,7 +39,7 @@ class SpreadsheetCellThread(models.Model):
     def get_spreadsheet_access_action(self):
         related_record = self._get_spreadsheet_record()
         if related_record and related_record.check_access_rights("read", raise_exception=False):
-            action = related_record.action_edit()
+            action = related_record.action_open_spreadsheet()
             action["params"] = action.get("params", {})
             action["params"]["thread_id"] = self.id
             return action
@@ -56,7 +56,7 @@ class SpreadsheetCellThread(models.Model):
         if related_record:
             # client actions are not supported atm, so we rely on act_url
             url = "/web/?action=%s&spreadsheet_id=%s&thread_id=%s" % (
-                related_record.action_edit().get("tag"),
+                related_record.action_open_spreadsheet().get("tag"),
                 related_record.id,
                 self.id,
             )

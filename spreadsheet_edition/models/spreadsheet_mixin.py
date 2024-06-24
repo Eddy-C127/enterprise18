@@ -336,12 +336,12 @@ class SpreadsheetMixin(models.AbstractModel):
         self.sudo().with_context(active_test=False).spreadsheet_revision_ids.unlink()
         return super().unlink()
 
-    def action_edit(self):
-        raise NotImplementedError("This method is not implemented in class %s." % self._name)
+    def action_open_spreadsheet(self):
+        raise NotImplementedError("This method is not implemented for model %s." % self._name)
 
     @api.model
     def _creation_msg(self):
-        raise NotImplementedError("This method is not implemented in class %s." % self._name)
+        raise NotImplementedError("This method is not implemented for model %s." % self._name)
 
     def get_spreadsheet_history(self, from_snapshot=False):
         """Fetch the spreadsheet history.
@@ -397,7 +397,7 @@ class SpreadsheetMixin(models.AbstractModel):
             'params': {
                 'type': 'info',
                 'message': self._creation_msg(),
-                'next': new_spreadsheet.action_edit(),
+                'next': new_spreadsheet.action_open_spreadsheet(),
             }
         }
 
@@ -426,7 +426,7 @@ class SpreadsheetMixin(models.AbstractModel):
             'params': {
                 'type': 'info',
                 'message': _("Version restored"),
-                'next': self.action_edit(),
+                'next': self.action_open_spreadsheet(),
             }
         }
 

@@ -44,7 +44,7 @@ class SpreadsheetDashboard(models.Model):
         for dashboard in self:
             dashboard.file_name = f"{dashboard.name}.osheet.json"
 
-    def action_edit(self):
+    def action_open_spreadsheet(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.client',

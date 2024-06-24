@@ -318,7 +318,7 @@ class Document(models.Model):
         ]
         self.search(domain).action_archive()
 
-    def action_edit(self):
+    def action_open_spreadsheet(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.client',

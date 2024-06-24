@@ -112,7 +112,7 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
                                 ],
                             };
                         }
-                        if (args.method === "action_edit") {
+                        if (args.method === "action_open_spreadsheet") {
                             assert.step(`editAction-${args.model}`);
                             return {
                                 type: "ir.actions.client",
@@ -561,7 +561,7 @@ QUnit.module("Spreadsheet Test History Action", {}, function () {
                                 ],
                             };
                         }
-                        if (args.method === "action_edit") {
+                        if (args.method === "action_open_spreadsheet") {
                             assert.step(`editAction-${args.model}`);
                             return {
                                 type: "ir.actions.client",

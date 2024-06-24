@@ -83,9 +83,11 @@ export class VersionHistoryAction extends Component {
             const sidePanel = stores.get(SidePanelStore);
             sidePanel.open("VersionHistory", {
                 onCloseSidePanel: async () => {
-                    const action = await this.env.services.orm.call(this.resModel, "action_edit", [
-                        this.resId,
-                    ]);
+                    const action = await this.env.services.orm.call(
+                        this.resModel,
+                        "action_open_spreadsheet",
+                        [this.resId]
+                    );
                     this.env.services.action.doAction(action, {
                         clearBreadcrumbs: true,
                     });
@@ -213,7 +215,9 @@ export class VersionHistoryAction extends Component {
     }
 
     async loadEditAction() {
-        const action = await this.env.services.orm.call(this.resModel, "action_edit", [this.resId]);
+        const action = await this.env.services.orm.call(this.resModel, "action_open_spreadsheet", [
+            this.resId,
+        ]);
         this.actionService.doAction(action, {
             clearBreadcrumbs: true,
         });
