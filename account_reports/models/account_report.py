@@ -4841,6 +4841,7 @@ class AccountReport(models.Model):
                 'level': parent_level + 1,
                 'parent_id': parent_line_dict_id,
                 'expand_function': expand_function_name,
+                'hide_line_buttons': True,
             }
             rslt.append(prefix_group_line)
 

@@ -80,6 +80,8 @@
                                 </t>
                             </Dropdown>
                         </t>
+
+                        <t data-id="line_buttons" t-if="!props.line['hide_line_buttons']"/>
                     </div>
                 </t>
             </div>
