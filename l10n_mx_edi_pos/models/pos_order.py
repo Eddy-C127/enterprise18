@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from collections import defaultdict
-from dateutil import tz
+from datetime import datetime
 
 from odoo import _, api, models, fields, Command
 from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REASON_SELECTION, CFDI_DATE_FORMAT, USAGE_SELECTION
@@ -417,10 +417,8 @@ class PosOrder(models.Model):
         # Dates.
         issued_address = cfdi_values['issued_address']
         mx_timezone = issued_address._l10n_mx_edi_get_cfdi_timezone()
-        cfdi_values['fecha'] = self.date_order \
-            .replace(tzinfo=tz.gettz('UTC')) \
-            .astimezone(tz=mx_timezone) \
-            .strftime(CFDI_DATE_FORMAT)
+        timezoned_now = datetime.now(mx_timezone)
+        cfdi_values['fecha'] = timezoned_now.strftime(CFDI_DATE_FORMAT)
 
         # Currency.
         if self.currency_id.name == 'MXN':
