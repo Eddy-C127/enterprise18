@@ -44,8 +44,8 @@
                         <label for="body" colspan="2"/>
                         <field name="body" string="Letter/Email Content" class="oe-bordered-editor"
                                placeholder="Write your message here..." force_save="1" nolabel="1"
-                               widget="html_legacy"
-                               options="{'style-inline': true}" readonly="not can_edit_body" colspan="2"/>
+                               widget="html_mail"
+                            readonly="not can_edit_body" colspan="2"/>
                     </group>
                 </group>
 

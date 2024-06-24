@@ -23,7 +23,7 @@
                             </group>
                         </group>
                         <field name="body" invisible="1"/>
-                        <field name="user_body" class="oe-bordered-editor" widget="html_legacy" options="{'style-inline': true}" nolabel="1"/>
+                        <field name="user_body" class="oe-bordered-editor" widget="html_mail" nolabel="1"/>
                     </sheet>
                     <footer>
                         <button string="Send" name="action_invite" type="object" class="btn-primary" data-hotkey="q"/>
