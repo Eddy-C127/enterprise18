@@ -87,7 +87,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Modify the liquidity line amount",
-            trigger: "div[name='balance'] input",
+            trigger: "div[name='amount_currency'] input",
             run: "text 100.00",
         },
         {
@@ -283,7 +283,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "add manual entry 1",
-            trigger: "div[name='balance'] input",
+            trigger: "div[name='amount_currency'] input",
             run: "text -600.0"
         },
         {
@@ -292,7 +292,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Remove the manual entry",
-            extra_trigger: "div[name='balance'] input:text('-400.00'):focus",
+            extra_trigger: "div[name='amount_currency'] input:text('-400.00'):focus",
             trigger: ".o_list_record_remove .fa-trash-o",
         },
         {
@@ -385,9 +385,9 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
             trigger: ".btn-secondary:contains('To Check')",
         },
         {
-            content: "both badges are visible, trash icon is not, discuss tab is active",
+            content: "both badges are visible, trash icon is not, manual operations tab is active",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line2'):has(div.badge[title='Matched'] i):has(span.badge:contains('To check'))",
-            trigger: "div[name='line_ids']:not(:has(.fa-trash-o))+.o_notebook a.active[name='discuss_tab']",
+            trigger: "div[name='line_ids']:not(:has(.fa-trash-o))+.o_notebook a.active[name='manual_operations_tab']",
             run: () => {},
         },
         {
@@ -586,8 +586,8 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         },
         {
             content: "Modify the liquidity line amount",
-            extra_trigger: "div[name='balance'] input:focus",
-            trigger: "div[name='balance'] input",
+            extra_trigger: "div[name='amount_currency'] input:focus",
+            trigger: "div[name='amount_currency'] input",
             run: "text -333.33",
         },
         {
