@@ -62,6 +62,7 @@ Note: Only the admin user is allowed to make those customizations.
             ('remove', 'web_studio/static/src/views/kanban_report/**/*'),
             'web_studio/static/src/approval/**/*',
             'web_studio/static/src/**/*.xml',
+            'web_studio/static/src/client_action/report_editor/qweb_table_plugin.scss',
         ],
         # This bundle is lazy loaded: it is loaded when studio is opened for the first time
         'web_studio.studio_assets': [
@@ -102,6 +103,7 @@ Note: Only the admin user is allowed to make those customizations.
             'web/static/lib/bootstrap/scss/_maps.scss',
             "web/static/src/webclient/actions/reports/report.scss",
             'web_studio/static/src/client_action/report_editor/report_iframe.scss',
+            'web_studio/static/src/client_action/report_editor/qweb_table_plugin.scss',
         ],
         'web.qunit_suite_tests': [
             # In tests we don't want to lazy load this

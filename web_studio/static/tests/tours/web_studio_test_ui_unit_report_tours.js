@@ -494,17 +494,17 @@ registry.category("web_tour.tours").add("web_studio.test_table_rendering", {
             run() {
                 assertEqual(
                     this.anchor.outerHTML.replace(/\n\s*/g, ""),
-                    `<div class="invalid_table" o-diff-key="7" oe-origin-tag="table" oe-origin-style="">
+                    `<q-table class="invalid_table oe_unbreakable" o-diff-key="7" style="--q-table-col-count: 1;">
                     <t t-foreach="doc.child_ids" t-as="child" o-diff-key="8" oe-context="{&quot;docs&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: false}, &quot;company&quot;: {&quot;model&quot;: &quot;res.company&quot;, &quot;name&quot;: &quot;Companies&quot;, &quot;in_foreach&quot;: false}, &quot;doc&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: true}, &quot;child&quot;: {&quot;model&quot;: &quot;res.partner&quot;, &quot;name&quot;: &quot;Contact&quot;, &quot;in_foreach&quot;: true}}">
-                        <div o-diff-key="9" oe-origin-tag="tr" oe-origin-style=""><div o-diff-key="10" oe-origin-tag="td" oe-origin-style="" style="width: calc(100% - 10px);">I am not valid</div></div>
+                        <q-tr o-diff-key="9" class="oe_unbreakable"><q-td o-diff-key="10" class="oe_unbreakable">I am not valid</q-td></q-tr>
                     </t>
-                </div>`.replace(/\n\s*/g, "")
+                </q-table>`.replace(/\n\s*/g, "")
                 );
             },
         },
         {
             trigger:
-                ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable .invalid_table [oe-origin-tag='td']",
+                ".o-web-studio-report-editor-wysiwyg :iframe .odoo-editor-editable .invalid_table q-td",
             run: "editor edited with odooEditor",
         },
         {

@@ -605,29 +605,29 @@ class TestReportEditorUIUnit(HttpCase):
         _clean_for_simple_assert(tree)
         div_node = tree.xpath("//t[@t-name='web_studio.test_report_document']")[0][0]
         self.assertXMLEqual(etree.tostring(div_node), """
-        <div class="invalid_table" oe-origin-tag="table" oe-origin-style="">
+        <q-table class="invalid_table">
           <t t-foreach="doc.child_ids" t-as="child">
-            <div oe-origin-tag="tr" oe-origin-style="">
-              <div oe-origin-tag="td" oe-origin-style="">
+            <q-tr>
+              <q-td>
                 <t t-set="var" t-value="doc"/>
                 <table>
                   <tr>
                     <td>valid</td>
                   </tr>
                 </table>
-                <div oe-origin-tag="table" oe-origin-style="">
+                <q-table>
                   <t t-foreach="doc.child_ids" t-as="subchild">
-                    <div oe-origin-tag="tr" oe-origin-style="">
-                      <div oe-origin-tag="td" oe-origin-style="">
+                    <q-tr>
+                      <q-td>
                         <table><tr><td>I am valid</td></tr></table>
-                      </div>
-                    </div>
+                      </q-td>
+                    </q-tr>
                   </t>
-                </div>
-              </div>
-            </div>
+                </q-table>
+              </q-td>
+            </q-tr>
           </t>
-        </div>
+        </q-table>
         """)
 
     def test_field_placeholder(self):

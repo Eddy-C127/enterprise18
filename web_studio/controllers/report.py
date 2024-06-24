@@ -113,9 +113,7 @@ def api_tree_or_string(func):
 def _transform_tables(tree):
     def _transform_node(node):
         tag = node.tag
-        node.set("oe-origin-tag", tag)
-        node.tag = "div"
-        node.set("oe-origin-style", node.attrib.pop("style", ""))
+        node.tag = f"q-{tag}"
 
     for table in tree.iter("table"):
         should_transform = False
@@ -124,7 +122,7 @@ def _transform_tables(tree):
         while index < len(table_nodes):
             node = table_nodes[index]
             index += 1
-            if node.tag == "td":
+            if node.tag in ("td", "th"):
                 continue
             for child in node.iterchildren(etree.Element):
                 if child.tag == "t":
@@ -152,7 +150,9 @@ def _cleanup_from_client(tree):
 
 @api_tree_or_string
 def _to_qweb(tree):
-    for el in tree.xpath("//*[@*[starts-with(name(), 'oe-origin-')]]"):
+    for el in tree.iter(etree.Element):
+        if el.tag.startswith("q-"):
+            el.tag = el.tag[2:]
         for att in el.attrib:
             if not att.startswith("oe-origin-"):
                 continue
@@ -165,7 +165,6 @@ def _to_qweb(tree):
                     el.set(origin_name, att_value)
                 elif origin_name in el.attrib:
                     el.attrib.pop(origin_name)
-
     return tree
 
 def human_readable_dotted_expr(env, model, chain):

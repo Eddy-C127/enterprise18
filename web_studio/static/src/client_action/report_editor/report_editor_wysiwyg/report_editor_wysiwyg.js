@@ -35,6 +35,8 @@ import { MAIN_PLUGINS } from "@html_editor/plugin_sets";
 import { QWebPlugin } from "@html_editor/others/qweb_plugin";
 import { nodeSize } from "@html_editor/utils/position";
 import { closestElement } from "@html_editor/utils/dom_traversal";
+import { QWebTablePlugin } from "./qweb_table_plugin";
+import { visitNode } from "../utils";
 
 class __Record extends _Record.components._Record {
     setup() {
@@ -173,52 +175,6 @@ class ResetConfirmationPopup extends ConfirmationDialog {
     };
 }
 
-function getMaxColumns(row) {
-    let cols = [];
-    const children = Array.from(row.children);
-
-    if (children.every((el) => el.tagName === "T")) {
-        for (const child of children) {
-            const subCols = getMaxColumns(child);
-            if (subCols.length > cols.length) {
-                cols = subCols;
-            }
-        }
-    } else {
-        cols = children.filter((el) => el.tagName !== "T");
-    }
-
-    return cols;
-}
-
-function computeTableLayout(table) {
-    const allRows = table.querySelectorAll("[oe-origin-tag='tr']");
-    let refCols = [];
-    for (const row of allRows) {
-        const cols = getMaxColumns(row);
-        if (cols.length > refCols.length) {
-            refCols = cols;
-        }
-    }
-
-    let numCols = 0;
-    for (const col of refCols) {
-        const colSpan = parseInt(col.getAttribute("colspan") || "1");
-        numCols += colSpan;
-    }
-    const baseColSize = Math.floor(100 / numCols);
-    const gap = 10;
-    for (const row of allRows) {
-        const cols = row.querySelectorAll("[oe-origin-tag='td'],[oe-origin-tag='th']");
-        for (const col of cols) {
-            let colSpan = parseInt(col.getAttribute("colspan") || "1");
-            if (colSpan > numCols) {
-                colSpan = numCols;
-            }
-            col.setAttribute("style", `width: calc(${baseColSize * colSpan}% - ${gap}px);`);
-        }
-    }
-}
 
 const CUSTOM_BRANDING_ATTR = [
     "ws-view-id",
@@ -227,21 +183,8 @@ const CUSTOM_BRANDING_ATTR = [
     "ws-real-children",
     "o-diff-key",
 ];
-function visitNode(el, callback) {
-    const iterators = [[el]];
-    while (iterators.length) {
-        const it = iterators.pop();
-        for (const _el of it) {
-            const doChildren = callback(_el);
-            if (doChildren === false) {
-                continue;
-            }
-            iterators.push(_el.children);
-        }
-    }
-}
 
-const REPORT_EDITOR_PLUGINS = [...MAIN_PLUGINS, QWebPlugin];
+const REPORT_EDITOR_PLUGINS = [...MAIN_PLUGINS, QWebPlugin, QWebTablePlugin];
 
 export class ReportEditorWysiwyg extends Component {
     static components = {
@@ -268,9 +211,6 @@ export class ReportEditorWysiwyg extends Component {
                 this.reportEditorModel.reportQweb,
                 "text/html"
             );
-            for (const table of tree.querySelectorAll("[oe-origin-tag='table']")) {
-                computeTableLayout(table);
-            }
             return tree.firstElementChild;
         });
 
