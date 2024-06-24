@@ -153,7 +153,7 @@ export class DocumentsSearchModel extends SearchModel {
             tag_ids: [[x2mCommand, valueId]],
         });
         this.trigger("update");
-        await this.reload();  // update the tag count
+        await this._reloadSections();  // update the tag count
     }
 
     //---------------------------------------------------------------------

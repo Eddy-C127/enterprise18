@@ -1060,6 +1060,35 @@ QUnit.module("documents", {}, function () {
                 );
             });
 
+            QUnit.test("Preserve search domain when removing tags", async (assert) => {
+                assert.expect(5);
+                await createDocumentsView({
+                    type: "kanban",
+                    resModel: "documents.document",
+                    domain: [["user_id", "!=", 299792458]],  // Add some filter to the domain
+                    arch: `<kanban js_class="documents_kanban"><templates>
+                        <t t-name="kanban-box">
+                            <div>
+                                <field name="name"/>
+                            </div>
+                        </t></templates></kanban>`,
+                    mockRPC: function (route, args) {
+                        if (route === "/web/dataset/call_kw/documents.document/web_search_read" && args.model === "documents.document"
+                        ) {
+                            assert.step(JSON.stringify(args.kwargs.domain || []));
+                        }
+                    },
+                });
+                await legacyClick($(target).find(".o_kanban_record:nth-child(1)")[0]);
+                assert.containsN(target, ".o_inspector_tag", 2, "should display two tags");
+                await legacyClick(target.querySelector(".o_inspector_tag:nth-of-type(2) .o_inspector_tag_remove"));
+                assert.containsN(target, ".o_inspector_tag", 1, "One tag got should get removed");
+                assert.verifySteps([
+                    '["&",["user_id","!=",299792458],["folder_id","child_of",1]]',
+                    '["&",["user_id","!=",299792458],["folder_id","child_of",1]]'
+                ], "Search domain should be preserved when removing tags");
+            });
+
             QUnit.module("DocumentsInspector");
 
             QUnit.test("document inspector with no document selected", async function (assert) {
