@@ -30,6 +30,12 @@ class PosPreparationDisplay(models.Model):
     def _get_access_token():
         return secrets.token_hex(16)
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        displays = super().create(vals_list)
+        displays.reset()
+        return displays
+
     # getter for pos_category_ids and pos_config_ids, in case of no one selected, return all of each.
     def _get_pos_category_ids(self):
         self.ensure_one()
