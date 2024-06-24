@@ -76,7 +76,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
             invoice_date='2019-01-01',
             invoice_line_ids=[{'price_unit': 2000.0}],
         )
-        self.start_tour('/web?debug=assets', 'account_accountant_bank_rec_widget_ui', timeout=100, login=self.env.user.login)
+        self.start_tour('/web?debug=assets', 'account_accountant_bank_rec_widget_ui', timeout=120, login=self.env.user.login)
 
     def test_tour_bank_rec_widget_rainbowman_reset(self):
         self.start_tour('/web?debug=assets', 'account_accountant_bank_rec_widget_rainbowman_reset', login=self.env.user.login)

@@ -124,7 +124,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
         },
         {
             content: "Modify the liquidity line amount",
-            trigger: "div[name='balance'] input",
+            trigger: "div[name='amount_currency'] input",
             run: "edit 100.00 && click body",
         },
         {
@@ -390,7 +390,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
         },
         {
             content: "add manual entry 1",
-            trigger: "div[name='balance'] input",
+            trigger: "div[name='amount_currency'] input",
             run: "edit -600.0 && click body",
         },
         {
@@ -400,7 +400,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
             run: "click",
         },
         {
-            trigger: "div[name='balance'] input:value('-400.00'):focus-within",
+            trigger: "div[name='amount_currency'] input:value('-400.00'):focus-within",
         },
         {
             content: "Remove the manual entry",
@@ -538,9 +538,9 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
                 ".o_bank_rec_selected_st_line:contains('line2'):has(div.badge[title='Matched'] i):has(span.badge:contains('To check'))",
         },
         {
-            content: "both badges are visible, trash icon is not, discuss tab is active",
+            content: "both badges are visible, trash icon is not, manual operation tab is active",
             trigger:
-                "div[name='line_ids']:not(:has(.fa-trash-o))+.o_notebook a.active[name='discuss_tab']",
+                "div[name='line_ids']:not(:has(.fa-trash-o))+.o_notebook a.active[name='manual_operations_tab']",
         },
         {
             trigger: ".o_switch_view.o_kanban.active",
@@ -805,11 +805,11 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
             run: "click",
         },
         {
-            trigger: "div[name='balance'] input:focus-within",
+            trigger: "div[name='amount_currency'] input:focus-within",
         },
         {
             content: "Modify the liquidity line amount",
-            trigger: "div[name='balance'] input",
+            trigger: "div[name='amount_currency'] input",
             run: "edit -333.33 && click body",
         },
         {

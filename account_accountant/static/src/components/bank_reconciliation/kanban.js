@@ -888,7 +888,7 @@ export class BankRecKanbanController extends KanbanController {
             if(!this.isMonetaryZero(balance, this.state.bankRecRecordData.company_currency_id[0])){
                 for (const line of lines) {
                     const data = line.data;
-                    if (data.flag !== 'manual'){
+                    if (!["manual", "aml"].includes(data.flag)){
                         continue;
                     }
 
@@ -1019,11 +1019,6 @@ export class BankRecKanbanController extends KanbanController {
 
     async _actionMountLineInEdit(newState, line){
         const data = newState.bankRecRecordData;
-        if(data.state === "reconciled"){
-            // No edition allowed when the statement line is already reconciled.
-            return;
-        }
-
         const currentLineIndex = data.form_index;
         if(line.data.index != currentLineIndex){
             // Mount the line in edition on the form.

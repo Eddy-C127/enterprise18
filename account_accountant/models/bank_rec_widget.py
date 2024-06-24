@@ -105,6 +105,9 @@ class BankRecWidget(models.Model):
              "Valid: The bank transaction can be validated.\n"
              "Reconciled: The bank transaction has already been processed. Nothing left to do."
     )
+    is_multi_currency = fields.Boolean(
+        compute='_compute_is_multi_currency',
+    )
 
     # ==== JS fields ====
     selected_aml_ids = fields.Many2many(
@@ -291,6 +294,10 @@ class BankRecWidget(models.Model):
                 wizard.partner_id = wizard.st_line_id._retrieve_partner()
             else:
                 wizard.partner_id = None
+
+    @api.depends('company_id')
+    def _compute_is_multi_currency(self):
+        self.is_multi_currency = self.env.user.has_groups('base.group_multi_currency')
 
     @api.depends('company_id', 'line_ids.source_aml_id')
     def _compute_selected_aml_ids(self):
@@ -992,6 +999,13 @@ class BankRecWidget(models.Model):
             self._action_reload_liquidity_line()
             self.return_todo_command = {'reset_global_info': True, 'reset_record': True}
 
+    def _line_value_changed_ref(self, line):
+        self.ensure_one()
+        if line.flag == 'liquidity':
+            self.st_line_id.move_id.ref = line.ref
+            self._action_reload_liquidity_line()
+            self.return_todo_command = {'reset_record': True}
+
     def _line_value_changed_narration(self, line):
         self.ensure_one()
         if line.flag == 'liquidity':
@@ -1009,11 +1023,27 @@ class BankRecWidget(models.Model):
 
         self._lines_turn_auto_balance_into_manual_line(line)
 
+    def _line_value_changed_amount_transaction_currency(self, line):
+        self.ensure_one()
+        if line.flag == 'liquidity':
+            if line.transaction_currency_id != self.journal_currency_id:
+                self.st_line_id.amount_currency = line.amount_transaction_currency
+                self.st_line_id.foreign_currency_id = line.transaction_currency_id
+            else:
+                self.st_line_id.amount_currency = 0.0
+                self.st_line_id.foreign_currency_id = None
+            self._action_reload_liquidity_line()
+            self.return_todo_command = {'reset_global_info': True, 'reset_record': True}
+
+    def _line_value_changed_transaction_currency_id(self, line):
+        self._line_value_changed_amount_transaction_currency(line)
+
     def _line_value_changed_amount_currency(self, line):
         self.ensure_one()
         if line.flag == 'liquidity':
             self.st_line_id.amount = line.amount_currency
-            self.return_todo_command = {'reset_global_info': True}
+            self._action_reload_liquidity_line()
+            self.return_todo_command = {'reset_global_info': True, 'reset_record': True}
             return
 
         self._lines_turn_auto_balance_into_manual_line(line)
@@ -1264,7 +1294,7 @@ class BankRecWidget(models.Model):
     def _action_mount_st_line(self, st_line):
         self.ensure_one()
         self.st_line_id = st_line
-        self.form_index = None
+        self.form_index = self.line_ids[0].index if self.state == 'reconciled' else None
         self._action_trigger_matching_rules()
 
     def _js_action_mount_st_line(self, st_line_id):

@@ -86,6 +86,15 @@ class BankRecWidgetLine(models.Model):
         store=True,
         readonly=False,
     )
+    transaction_currency_id = fields.Many2one(
+        related='wizard_id.st_line_id.foreign_currency_id',
+        depends=['wizard_id'],
+    )
+    amount_transaction_currency = fields.Monetary(
+        currency_field='transaction_currency_id',
+        related='wizard_id.st_line_id.amount_currency',
+        depends=['wizard_id'],
+    )
     debit = fields.Monetary(
         currency_field='company_currency_id',
         compute='_compute_from_balance',
@@ -186,6 +195,16 @@ class BankRecWidgetLine(models.Model):
     suggestion_balance = fields.Monetary(
         currency_field='company_currency_id',
         compute='_compute_suggestion',
+    )
+    ref = fields.Char(
+        compute='_compute_ref_narration',
+        store=True,
+        readonly=False,
+    )
+    narration = fields.Html(
+        compute='_compute_ref_narration',
+        store=True,
+        readonly=False,
     )
 
     manually_modified = fields.Boolean()
@@ -380,7 +399,7 @@ class BankRecWidgetLine(models.Model):
                 )
                 line.partner_payable_amount = results[0][0]
 
-    @api.depends('flag', 'wizard_id.st_line_id')
+    @api.depends('flag')
     def _compute_bank_account(self):
         for line in self:
             bank_account = line.wizard_id.st_line_id.partner_bank_id.display_name or line.wizard_id.st_line_id.account_number
@@ -452,6 +471,15 @@ class BankRecWidgetLine(models.Model):
                 'btn_end': markupsafe.Markup('</button>'),
             }
             line.suggestion_html = markupsafe.Markup("""<div class="text-muted">%s</div>""") % extra_text
+
+    @api.depends('flag')
+    def _compute_ref_narration(self):
+        for line in self:
+            if line.flag == 'liquidity':
+                line.ref = line.wizard_id.st_line_id.ref
+                line.narration = line.wizard_id.st_line_id.narration
+            else:
+                line.ref = line.narration = None
 
     def _get_aml_values(self, **kwargs):
         self.ensure_one()

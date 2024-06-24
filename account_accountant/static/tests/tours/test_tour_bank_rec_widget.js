@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget", {
             trigger: "tr.o_bank_rec_auto_balance_line",
         },
         {
-            content: "Click on the 'credit' field to change the focus from 'name' to 'balance'",
+            content: "Click on the 'credit' field to change the focus from 'name' to 'amount_currency'",
             trigger: "tr.o_bank_rec_auto_balance_line td[field='credit']",
             run: "click",
         },
@@ -84,7 +84,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget", {
         },
         {
             content: "The 'balance' field should be focus now",
-            trigger: "div.o_notebook div[name='balance'] input:focus",
+            trigger: "div.o_notebook div[name='amount_currency'] input:focus",
         },
 
         // Test 2: Test validation + auto select the next line.

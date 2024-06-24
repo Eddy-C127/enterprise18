@@ -216,6 +216,7 @@
                     <field name="move_id" optional="hidden" required="0"/>
                     <field name="payment_ref" required="1" readonly="is_reconciled and amount != 0"/>
                     <field name="partner_id" readonly="is_reconciled and amount != 0"/>
+                    <field name="account_number" optional="hidden"/>
                     <field name="narration"
                            string="Notes"
                            readonly="is_reconciled and amount != 0"
@@ -239,7 +240,6 @@
                            column_invisible="bool(context.get('default_journal_id'))"
                            readonly="(statement_id or is_reconciled) and amount != 0"/>
                     <field name="running_balance" class="oe_read_only"/>
-                    <field name="account_number" optional="hidden"/>
                     <field name="statement_id"
                            optional="show"
                            options="{'no_quick_create': True}"
