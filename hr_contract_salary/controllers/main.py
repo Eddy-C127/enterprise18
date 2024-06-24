@@ -236,6 +236,9 @@ class HrContractSalary(http.Controller):
                 values['whitelist'] = value
             if field_name == 'part':
                 values['part_time'] = True
+            # Allow simulation on url's in public offers
+            if field_name == 'final_yearly_costs' and not (offer.applicant_id or offer.employee_id):
+                values['final_yearly_costs'] = float(value)
         new_gross = contract.sudo()._get_gross_from_employer_costs(values['final_yearly_costs'])
         contract.write({
             'wage': new_gross,
