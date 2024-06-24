@@ -74,9 +74,10 @@ class PosPreparationDisplay(models.Model):
                 (
                     SELECT 1
                     FROM pos_preparation_display_order_stage
-                    WHERE order_id = pos_preparation_display_order.id
+                    WHERE order_id = pos_preparation_display_order.id AND preparation_display_id = %s
                 )
-            """
+            """,
+            (self.id,)
         )
 
         return self.env['pos_preparation_display.order'].browse(stageless_orders_ids)
