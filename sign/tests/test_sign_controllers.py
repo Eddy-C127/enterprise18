@@ -10,6 +10,7 @@ from odoo.addons.sign.controllers.main import Sign
 from odoo.exceptions import AccessError, ValidationError
 from odoo.addons.website.tools import MockRequest
 from odoo.tests import tagged
+from odoo.tools import formataddr
 
 class TestSignControllerCommon(SignRequestCommon, HttpCaseWithUserDemo):
     def setUp(self):
@@ -158,3 +159,30 @@ class TestSignController(TestSignControllerCommon):
         response = self.url_open(url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue('/sign/document/%s/%s' % (sign_request.id, sign_request_item_id.access_token) in response.url)
+
+    def test_sign_from_resend_expired_link(self):
+        with freeze_time('2020-01-01'):
+            sign_request = self.create_sign_request_1_role(self.partner_1, self.env['res.partner'])
+            sign_request_item_id = sign_request.request_item_ids[0]
+            timestamp = sign_request_item_id._generate_expiry_link_timestamp()
+            expiry_hash = sign_request_item_id._generate_expiry_signature(sign_request_item_id.id, timestamp)
+
+            url = '/sign/document/mail/%(sign_request_id)s/%(access_token)s?timestamp=%(timestamp)s&exp=%(exp)s' % {
+                'sign_request_id': sign_request.id,
+                'access_token': sign_request.request_item_ids[0].access_token,
+                'timestamp': timestamp,
+                'exp': expiry_hash
+            }
+            response = self.url_open(url)
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue('/sign/document/%s/%s' % (sign_request.id, sign_request_item_id.access_token) in response.url)
+
+            sign_request_item = {sign_request_item.role_id: sign_request_item for sign_request_item in sign_request.request_item_ids}
+            sign_request_item_customer = sign_request_item[self.role_customer]
+
+            sign_request_item_customer.sudo()._edit_and_sign(self.single_role_customer_sign_values)
+            mail = self.env['mail.mail'].search([('email_to', '=', formataddr((self.partner_1.name, self.partner_1.email)))])
+            self.assertEqual(len(mail.ids), 2)
+
+        with freeze_time('2020-01-04'):
+            self.start_tour(url, 'sign_resend_expired_link_tour', login='demo')
