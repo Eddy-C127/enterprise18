@@ -3710,6 +3710,9 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(result['groups'][1]['subscription_state'], '4_paused')
 
     def test_stock_user_without_sale_permission_can_access_product_form(self):
+        stock = self.env['ir.module.module']._get('stock')
+        if stock.state != 'installed':
+            self.skipTest("stock module is not installed")
         stock_manager = new_test_user(
             self.env, 'temp_stock_manager', 'stock.group_stock_manager',
         )
