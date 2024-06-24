@@ -170,3 +170,12 @@ class HrAttendance(models.Model):
             } for interval in unavailable_intervals_by_employees[employee_id]]
 
         return result
+
+    def action_open_details(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "hr.attendance",
+            "views": [[self.env.ref('hr_attendance.hr_attendance_view_form').id, "form"]],
+            "res_id": self.id
+        }

@@ -25,10 +25,6 @@ class HrWorkEntryContractTest(HttpCase, TransactionCase):
             'date_start': date(2024, 1, 1),
             'state': 'open',
         })
-        cls.contract.company_id.write({
-            'hr_attendance_overtime': True,
-            'overtime_start_date': date(2024, 1, 1),
-        })
         cls.slots = cls.env['planning.slot'].create({
             'resource_id': cls.contract.employee_id.resource_id.id,
             'start_datetime': datetime(2024, 7, 16, 8, 0, 0),

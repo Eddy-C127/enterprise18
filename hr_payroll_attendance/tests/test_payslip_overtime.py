@@ -31,8 +31,6 @@ class TestPayslipOvertime(HrWorkEntryAttendanceCommon):
         cls.contract.structure_type_id = cls.struct_type
         cls.contract.hourly_wage = 100
         cls.company = cls.payslip.company_id
-        cls.company.hr_attendance_overtime = True
-        cls.company.overtime_start_date = date(2022, 1, 1)
 
     def test_with_overtime(self):
         self.env['hr.attendance'].create({

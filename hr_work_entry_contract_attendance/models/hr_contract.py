@@ -60,7 +60,7 @@ class HrContract(models.Model):
         ##################################
         #   CALENDAR BASED CONTRACTS     #
         ##################################
-        calendar_based_contracts = self.filtered(lambda c: c.work_entry_source == 'calendar' and c.company_id.hr_attendance_overtime)
+        calendar_based_contracts = self.filtered(lambda c: c.work_entry_source == 'calendar')
         if not calendar_based_contracts:
             return mapped_intervals
 
