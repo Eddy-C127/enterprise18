@@ -37,7 +37,7 @@ registry.category("web_tour.tours").add("approvals_tour", {
             run: "edit Berlin, Schulz Hotel",
         },
         {
-            trigger: 'div[name="reason"]',
+            trigger: 'div[name="reason"] .odoo-editor-editable',
             content: "give description",
             run: "editor (We need to go, because reason (and also for beer)))",
         },

@@ -84,7 +84,7 @@ QUnit.module('appointment.wysiwyg', {
             serverData,
             resModel: 'note',
             arch: '<form>' +
-                '<field name="body" widget="html" style="height: 100px"/>' +
+                '<field name="body" widget="html_legacy" style="height: 100px"/>' +
                 '</form>',
             resId: 1,
         });
@@ -110,7 +110,7 @@ QUnit.module('appointment.wysiwyg', {
             serverData,
             resModel: 'note',
             arch: '<form>' +
-                '<field name="body" widget="html"/>' +
+                '<field name="body" widget="html_legacy"/>' +
                 '</form>',
             resId: 2,
         });

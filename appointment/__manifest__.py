@@ -63,6 +63,7 @@ Allow clients to Schedule Appointments through the Portal
             'appointment/static/src/views/**/*',
             'appointment/static/src/components/**/*',
             'appointment/static/src/js/appointment_insert_link_form_controller.js',
+            'appointment/static/src/appointment_plugin.js',
         ],
         'web_editor.backend_assets_wysiwyg': [
             'appointment/static/src/js/wysiwyg.js',
