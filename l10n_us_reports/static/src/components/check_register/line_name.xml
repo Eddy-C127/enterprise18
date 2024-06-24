@@ -7,7 +7,7 @@
             </t>
         </xpath>
 
-        <xpath expr="//td[@data-id='line_name']//div[hasclass('wrapper')]//div[hasclass('content')]" position="inside">
+        <xpath expr="//t[@data-id='line_buttons']" position="inside">
             <t t-if="props.line.unfoldable">
                 <Dropdown togglerClass="'btn btn_more'" position="'right-start'">
                     <t t-set-slot="toggler">

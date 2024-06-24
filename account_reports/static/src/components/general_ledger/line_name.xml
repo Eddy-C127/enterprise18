@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates>
     <t t-name="account_reports.GeneralLedgerLineName" t-inherit="account_reports.AccountReportLineNameCustomizable">
-        <xpath expr="//td[@data-id='line_name']//div[hasclass('wrapper')]//div[hasclass('content')]" position="inside">
+        <xpath expr="//t[@data-id='line_buttons']" position="inside">
             <t t-if="props.line.unfoldable">
                 <button
                     class="btn btn_action"

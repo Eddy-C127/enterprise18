@@ -7,8 +7,8 @@
             </t>
         </xpath>
 
-        <xpath expr="//td[@data-id='line_name']//div[hasclass('wrapper')]//div[hasclass('content')]" position="inside">
-            <t t-if="props.line.unfoldable and props.line.id.includes('res.partner')">
+        <xpath expr="//t[@data-id='line_buttons']" position="inside">
+            <t t-if="props.line.unfoldable">
                 <button
                     class="btn btn_action"
                     t-on-click="(ev) => controller.reportAction(ev, 'action_open_partner', { id: props.line.id })"
@@ -19,9 +19,9 @@
                 <button
                     class="btn btn_action"
                     t-on-click="(ev) => controller.reportAction(ev, 'open_journal_items', {
-                        line_id: props.line.id,
-                        view_ref: 'account.view_move_line_tree_grouped_partner',
-                    })"
+                    line_id: props.line.id,
+                    view_ref: 'account.view_move_line_tree_grouped_partner',
+                })"
                 >
                     Journal Items
                 </button>
