@@ -22,6 +22,16 @@ class TestLibrosExport(TestAccountReportsCommon):
             'name': 'Esperado Espagnole',
             'vat': 'ES59962470K',
         })
+        cls.partner_us = cls.env['res.partner'].create({
+            'country_id': cls.env.ref('base.us').id,
+            'name': 'US Company',
+            'vat': 'US66655598K',
+        })
+        cls.partner_fr = cls.env['res.partner'].create({
+            'country_id': cls.env.ref('base.fr').id,
+            'name': 'French Company',
+            'vat': 'FR23334175221',
+        })
         company_id = cls.company_data['company'].id
         cls.tax_21 = cls.env.ref(f'account.{company_id}_account_tax_template_s_iva21b')
         cls.tax_10 = cls.env.ref(f'account.{company_id}_account_tax_template_p_iva10_ic_bc')
@@ -313,3 +323,26 @@ class TestLibrosExport(TestAccountReportsCommon):
             'taxed_amount': '46.66', 'surcharge_type': '0.00', 'surcharge_fee': '0.00', 'withholding_type': '9.00',
             'withholding_amount': '20.00',
         })
+
+    def test_libros_export_nif(self):
+        self.init_invoice('out_invoice', partner=self.partner_a, amounts=[1000], post=True, taxes=self.tax_21)
+        self.init_invoice('out_invoice', partner=self.partner_fr, amounts=[1000], post=True, taxes=self.tax_21)
+        self.init_invoice('out_invoice', partner=self.partner_us, amounts=[1000], post=True, taxes=self.tax_21)
+        inc_line_vals = self.get_libros_sheet_line_vals()[0]
+        line_vals_list = [inc_line_vals[m][t] for m in inc_line_vals for t in inc_line_vals[m]]
+        self.assertEqual(len(line_vals_list), 3)
+
+        line_vals = line_vals_list[2]
+        self.assertEqual(line_vals['partner_nif_code'], '')
+        self.assertEqual(line_vals['partner_nif_id'], '59962470K')
+        self.assertEqual(line_vals['partner_nif_type'], '')
+
+        line_vals = line_vals_list[1]
+        self.assertEqual(line_vals['partner_nif_code'], '')
+        self.assertEqual(line_vals['partner_nif_id'], 'FR23334175221')
+        self.assertEqual(line_vals['partner_nif_type'], '02')
+
+        line_vals = line_vals_list[0]
+        self.assertEqual(line_vals['partner_nif_code'], 'US')
+        self.assertEqual(line_vals['partner_nif_id'], 'US66655598K')
+        self.assertEqual(line_vals['partner_nif_type'], '06')
