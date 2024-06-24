@@ -2,7 +2,6 @@
 from ast import literal_eval
 
 from odoo import api, fields, models, _
-from odoo.exceptions import UserError
 
 
 class ProjectTask(models.Model):
@@ -81,7 +80,6 @@ class ProjectTask(models.Model):
                 or task.timer_start
                 or not task.display_satisfied_conditions_count
                 or task.fsm_is_sent
-                or not task.worksheet_template_id
             ):
                 send_p, send_s = False, False
             else:
@@ -145,8 +143,6 @@ class ProjectTask(models.Model):
 
     def action_preview_worksheet(self):
         self.ensure_one()
-        if not self.worksheet_template_id:
-            raise UserError(_("To send the report, you need to select a worksheet template"))
         source = 'fsm' if self._context.get('fsm_mode', False) else 'project'
         return {
             'type': 'ir.actions.act_url',
