@@ -161,6 +161,10 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
             name: _t("Print Batch Transfer"),
             class: 'o_print_picking_batch',
             method: 'action_print',
+        }, {
+            name: _t("Print Product Labels"),
+            class: 'o_print_picking_batch_labels',
+            method: 'action_open_label_layout',
         }];
     }
 
