@@ -302,6 +302,133 @@ class TestEcEdiXmls(TestEcEdiCommon):
             </xpath>
         """)
 
+    def test_xml_tree_negative_lines(self):
+        product = self.product_a
+        tax_15 = self._get_tax_by_xml_id('tax_vat_15_411_services')
+        tax_0 = self._get_tax_by_xml_id('tax_vat_415_goods')
+
+        invoice_line_args = [
+            Command.create({
+                'product_id': product.id,
+                'price_unit': 500.0,
+                'tax_ids': tax_15.ids,
+            }),
+            Command.create({
+                'product_id': product.id,
+                'price_unit': 200.0,
+                'tax_ids': (tax_15 + tax_0).ids,
+            }),
+            Command.create({
+                'product_id': product.id,
+                'price_unit': 300.0,
+                'tax_ids': (tax_15 + tax_0).ids,
+            }),
+            Command.create({
+                'product_id': product.id,
+                'price_unit': -400.0,
+                'tax_ids': (tax_0 + tax_15).ids,
+            }),
+        ]
+
+        self.test_xml_tree_out_invoice_basic(invoice_line_args=invoice_line_args, xpath="""
+            <xpath expr="//totalSinImpuestos" position="replace">
+                <totalSinImpuestos>600.000000</totalSinImpuestos>
+            </xpath>
+            <xpath expr="//totalDescuento" position="replace">
+                <totalDescuento>400.00</totalDescuento>
+            </xpath>
+            <xpath expr="//totalConImpuestos" position="replace">
+                <totalConImpuestos>
+                    <totalImpuesto>
+                        <codigo>2</codigo>
+                        <codigoPorcentaje>4</codigoPorcentaje>
+                        <baseImponible>600.000000</baseImponible>
+                        <tarifa>15.000000</tarifa>
+                        <valor>90.00</valor>
+                    </totalImpuesto>
+                    <totalImpuesto>
+                        <codigo>2</codigo>
+                        <codigoPorcentaje>0</codigoPorcentaje>
+                        <baseImponible>100.000000</baseImponible>
+                        <tarifa>0.000000</tarifa>
+                        <valor>0.00</valor>
+                    </totalImpuesto>
+                </totalConImpuestos>
+            </xpath>
+            <xpath expr="//importeTotal" position="replace">
+                <importeTotal>690.00</importeTotal>
+            </xpath>
+            <xpath expr="//pago/total" position="replace">
+                <total>690.00</total>
+            </xpath>
+            <xpath expr="//detalles/detalle" position="replace">
+                <detalle>
+                    <codigoPrincipal>N/A</codigoPrincipal>
+                    <descripcion>product_a</descripcion>
+                    <cantidad>1.000000</cantidad>
+                    <precioUnitario>500.000000</precioUnitario>
+                    <descuento>0.00</descuento>
+                    <precioTotalSinImpuesto>500.00</precioTotalSinImpuesto>
+                    <impuestos>
+                        <impuesto>
+                            <codigo>2</codigo>
+                            <codigoPorcentaje>4</codigoPorcentaje>
+                            <tarifa>15.000000</tarifa>
+                            <baseImponible>500.000000</baseImponible>
+                            <valor>75.00</valor>
+                        </impuesto>
+                    </impuestos>
+                </detalle>
+                <detalle>
+                    <codigoPrincipal>N/A</codigoPrincipal>
+                    <descripcion>product_a</descripcion>
+                    <cantidad>1.000000</cantidad>
+                    <precioUnitario>200.000000</precioUnitario>
+                    <descuento>100.00</descuento>
+                    <precioTotalSinImpuesto>100.00</precioTotalSinImpuesto>
+                    <impuestos>
+                        <impuesto>
+                            <codigo>2</codigo>
+                            <codigoPorcentaje>4</codigoPorcentaje>
+                            <tarifa>15.000000</tarifa>
+                            <baseImponible>100.000000</baseImponible>
+                            <valor>15.00</valor>
+                        </impuesto>
+                        <impuesto>
+                            <codigo>2</codigo>
+                            <codigoPorcentaje>0</codigoPorcentaje>
+                            <tarifa>0.000000</tarifa>
+                            <baseImponible>100.000000</baseImponible>
+                            <valor>0.00</valor>
+                        </impuesto>
+                    </impuestos>
+                </detalle>
+                <detalle>
+                    <codigoPrincipal>N/A</codigoPrincipal>
+                    <descripcion>product_a</descripcion>
+                    <cantidad>1.000000</cantidad>
+                    <precioUnitario>300.000000</precioUnitario>
+                    <descuento>300.00</descuento>
+                    <precioTotalSinImpuesto>0.00</precioTotalSinImpuesto>
+                    <impuestos>
+                        <impuesto>
+                            <codigo>2</codigo>
+                            <codigoPorcentaje>4</codigoPorcentaje>
+                            <tarifa>15.000000</tarifa>
+                            <baseImponible>0.000000</baseImponible>
+                            <valor>0.00</valor>
+                        </impuesto>
+                        <impuesto>
+                            <codigo>2</codigo>
+                            <codigoPorcentaje>0</codigoPorcentaje>
+                            <tarifa>0.000000</tarifa>
+                            <baseImponible>0.000000</baseImponible>
+                            <valor>0.00</valor>
+                        </impuesto>
+                    </impuestos>
+                </detalle>
+            </xpath>
+        """)
     # ===== DEBIT & CREDIT NOTES, LIQUIDATIONS =====
 
     def test_xml_tree_debit_note(self):
