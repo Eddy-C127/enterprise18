@@ -623,6 +623,7 @@ class SaleOrder(models.Model):
         return res
 
     def _action_cancel(self):
+        to_open_ids = []
         for order in self:
             if order.subscription_state == '7_upsell':
                 if order.state in ['sale', 'done']:
@@ -647,7 +648,7 @@ class SaleOrder(models.Model):
                     parent_last_log.event_type == '3_transfer' and
                     parent_last_log.amount_signed <= 0):
                     # Reopen the parent order
-                    order.subscription_id.set_open()
+                    to_open_ids.append(order.subscription_id.id)
                     parent_link = order.subscription_id._get_html_link()
                     cancel_activity_body = _("""Subscription %(link)s has been cancelled. The parent order %(parent_link)s has been reopened.
                                                 You should close %(parent_link)s if the customer churned, or renew it if the customer continue the service.
@@ -665,7 +666,10 @@ class SaleOrder(models.Model):
                 raise ValidationError(_('You cannot cancel a subscription that has been invoiced.'))
             if order.is_subscription:
                 order.subscription_state = False
-        return super()._action_cancel()
+        res = super()._action_cancel()
+        self.browse(to_open_ids).set_open()
+        return res
+
 
 
     def _prepare_confirmation_values(self):
@@ -1047,6 +1051,12 @@ class SaleOrder(models.Model):
         return True
 
     def set_open(self):
+        all_origin_order_ids = self.origin_order_id.ids + self.ids
+        incompatible_origin = self.env['sale.order'].search([
+            ('origin_order_id', 'in', all_origin_order_ids),
+            ('subscription_state', 'in', SUBSCRIPTION_PROGRESS_STATE)
+        ]).origin_order_id
+        to_open_ids = []
         for order in self:
             if order.subscription_state == '6_churn' and order.end_date:
                 order.end_date = False
@@ -1057,7 +1067,9 @@ class SaleOrder(models.Model):
                     note=reopen_activity_body,
                     user_id=order.user_id.id
                 )
-        self.filtered('is_subscription').update({'subscription_state': '3_progress', 'state': 'sale', 'close_reason_id': False, 'locked': False})
+            if order.is_subscription and not (order in incompatible_origin or order.origin_order_id in incompatible_origin):
+                to_open_ids.append(order.id)
+        self.browse(to_open_ids).update({'subscription_state': '3_progress', 'state': 'sale', 'close_reason_id': False, 'locked': False})
 
     @api.model
     def _cron_update_kpi(self):

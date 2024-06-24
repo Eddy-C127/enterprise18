@@ -604,3 +604,53 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.assertFalse(subscription.pending_transaction, "Subscription doesn't have pending transaction after unsuccessful payment.")
             self.assertFalse(subscription.payment_token_id, "The payment token should not be saved after the unsuccessful payment.")
             self.assertEqual(draft_invoice.state, "cancel", "Draft invoice must be canceled after unsuccessful payment.")
+
+    def test_prevent_multiple_in_progress(self):
+        """ make sure that when a payment link of a renewed order, it does not lead to
+        two in progress orders
+        """
+        with freeze_time('2024-01-01'):
+            subscription = self.env['sale.order'].create({
+                    'partner_id': self.user_portal.partner_id.id,
+                    'sale_order_template_id': self.subscription_tmpl.id,
+                    'start_date': datetime.date(2024, 1, 15)
+            })
+            subscription._onchange_sale_order_template_id()
+            test_payment_token = self.env['payment.token'].create({
+                    'payment_details': 'Test',
+                    'partner_id': self.user_portal.partner_id.id,
+                    'provider_id': self.dummy_provider.id,
+                    'payment_method_id': self.payment_method_id,
+                    'provider_ref': 'test'
+            })
+            subscription.action_confirm()
+            inv = subscription._create_invoices(final=True)
+            inv._post()
+            # Renew, everything is smooth
+            action = subscription.prepare_renewal_order()
+            renewal_so = self.env['sale.order'].browse(action['res_id'])
+            renewal_so.action_confirm()
+            payment_with_token = self.env['account.payment'].create({
+                    'payment_type': 'inbound',
+                    'partner_type': 'customer',
+                    'amount': subscription.amount_total,
+                    'date': subscription.date_order,
+                    'currency_id': subscription.currency_id.id,
+                    'partner_id': subscription.partner_id.id,
+                    'payment_token_id': test_payment_token.id
+            })
+            transaction_ids = payment_with_token._create_payment_transaction()
+            transaction_ids.sale_order_ids = [Command.set(renewal_so.ids)]
+            transaction_ids.subscription_action = 'automatic_send_mail'
+            inv = renewal_so._create_invoices(final=True)
+            inv._post()
+            action = renewal_so.prepare_renewal_order()
+            renewal_so2 = self.env['sale.order'].browse(action['res_id'])
+            renewal_so2.action_confirm()
+            # We confirm the payment of renewal_so AFTER renewal_so2 is confirmed. It must not reopen renewal_so
+            # It should stays 5_renewed
+            transaction_ids._set_done()
+            transaction_ids._post_process()
+            self.assertEqual(subscription.subscription_state, '5_renewed')
+            self.assertEqual(renewal_so.subscription_state, '5_renewed')
+            self.assertEqual(renewal_so2.subscription_state, '3_progress')
