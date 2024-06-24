@@ -26,6 +26,12 @@ class PosPreparationDisplay(models.Model):
     def _load_pos_data_domain(self, data):
         return ['|', ('pos_config_ids', '=', data['pos.config']['data'][0]['id']), ('pos_config_ids', '=', False)]
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        displays = super().create(vals_list)
+        displays.reset()
+        return displays
+
     # getter for pos_category_ids and pos_config_ids, in case of no one selected, return all of each.
     def _get_pos_category_ids(self):
         self.ensure_one()
