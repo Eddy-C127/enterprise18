@@ -45,11 +45,15 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     // create an article in the "Workspace" section
     trigger: 'section[data-section="workspace"] .o_section_create',
     run: "click",
-}, {
+},
+{
+    trigger:
+        'section[data-section="private"] .o_article .o_article_name:contains("My Private Article")',
+},
+{
     // check that the article is correctly created (workspace section), and that the previous
     // article has been renamed using its title (first h1 in body).
     trigger: 'section[data-section="workspace"] .o_article .o_article_name:contains("Untitled")',
-    extra_trigger: 'section[data-section="private"] .o_article .o_article_name:contains("My Private Article")',
 }, {
     // check the autofocus
     trigger: '.note-editable.odoo-editor-editable:focus',
@@ -139,10 +143,13 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     // Save the new partner
     trigger: '.o_form_button_save',
     run: "click",
-}, {
+},
+{
+    trigger: ".o_field_tags span.o_badge_text",
+},
+{
     // Submit the invite wizard
     trigger: 'button:contains("Invite")',
-    extra_trigger: '.o_field_tags span.o_badge_text',
     run: "click",
 }, {
     // add to favorite
@@ -232,9 +239,12 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     // open the trash
     trigger: '.o_knowledge_sidebar_trash div[role="button"]',
     run: "click",
-}, {
+},
+{
+    trigger: '.o_breadcrumb .active:contains("Trash")',
+},
+{
     // verify that the trash list has been opened correctly and that items are correctly ordered
     trigger: '.o_data_row:first .o_data_cell[name="display_name"]:contains("Article 2")',
-    extra_trigger: '.o_breadcrumb .active:contains("Trash")',
 }, ...endKnowledgeTour()
 ]});

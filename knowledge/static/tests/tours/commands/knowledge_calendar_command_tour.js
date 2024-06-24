@@ -60,21 +60,28 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: "click",
 }, { // Scroll to the embedded view to load it
     trigger: '.o_knowledge_behavior_type_embedded_view',
-}, {
+}, 
+{
+    trigger:
+        ".o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view",
+},
+{
     //---------------------------------------------------
     // Create an article item by clicking in the calendar
     //---------------------------------------------------
 
     // Click on a date
     trigger: '.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="08:00:00"]',
-    extra_trigger: '.o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view',
     run: function () {
         clickDate(this.anchor);
     },
-}, {
+},
+{
+    trigger: ".o_hierarchy_article_name input:empty",
+},
+{
     // Check we created an item with the right datetime used as property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Date")',
-    extra_trigger: '.o_hierarchy_article_name input:empty',
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("08:00:00")) {
@@ -100,10 +107,13 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: function () {
         $(this.anchor).data('wysiwyg').odooEditor.resetContent();
     },
-}, {
+},
+{
+    trigger: ".odoo-editor-editable:not(:has(.o_knowledge_behavior_type_embedded_view))",
+},
+{
     // Click on the "Create Item Calednar" helper
     trigger: '.o_knowledge_helper .o_knowledge_add_item_calendar',
-    extra_trigger: '.odoo-editor-editable:not(:has(.o_knowledge_behavior_type_embedded_view))',
     run: 'click',
 }, { // Open the start date dropdown
     trigger: '.o_knowledge_item_calendar_dialog_date_start .o_select_menu_toggler',
@@ -130,21 +140,28 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Insert the calendar
     trigger: '.modal-footer .btn-primary',
     run: 'click',
-}, {
+},
+{
+    trigger:
+        ".o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view",
+},
+{
     //---------------------------------------------------
     // Create an article item by clicking in the calendar
     //---------------------------------------------------
 
     // Click on a date
     trigger: '.fc-timegrid-slot.fc-timegrid-slot-lane[data-time="08:00:00"]',
-    extra_trigger: '.o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view',
     run: function () {
         clickDate(this.anchor);
     },
-}, {
+},
+{
+    trigger: ".o_hierarchy_article_name input:empty",
+},
+{
     // Check we created an item with the right datetime used as property
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Property")',
-    extra_trigger: '.o_hierarchy_article_name input:empty',
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("08:00:00")) {
@@ -260,9 +277,13 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, { // Save changes
     trigger: '.modal-footer .btn-primary',
     run: 'click',
-}, { // Check calendar has been updated (new scale and no item shown)
+},
+{
+    trigger: ".fc-view:not(:has(.fc-event-container))",
+},
+{
+    // Check calendar has been updated (new scale and no item shown)
     trigger: '.o_knowledge_article_view_calendar_embedded_view .o_calendar_header .o_view_scale_selector:contains("Month")',
-    extra_trigger: '.fc-view:not(:has(.fc-event-container))',
 }, { // Change start and stop dates again
     trigger: '.o_control_panel_breadcrumbs_actions .dropdown-toggle',
     run: 'click',
@@ -294,23 +315,30 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, {
     trigger: '.dropdown-item:contains(Open)',
     run: "click",
-}, { // Check that the item is shown
+},
+{
+    trigger: ".o_knowledge_article_view_calendar_embedded_view.o_action",
+},
+{
+    // Check that the item is shown
     trigger: '.fc-view .o_event_title:contains("Item Article")',
-    extra_trigger: '.o_knowledge_article_view_calendar_embedded_view.o_action',
 }, { // Leave the app and come back to make sure that changes have been saved
     trigger: '.o_main_navbar .o_menu_toggle',
     run: "click",
 }, {
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
     run: 'click',
-}, {
+},
+{
+    trigger: ".o_knowledge_behavior_type_embedded_view",
+},
+{
     //----------------------------
     // Move the item and resize it
     //----------------------------
 
     // Change the scale from the calendar view
     trigger: '.o_knowledge_article_view_calendar_embedded_view .o_calendar_header .o_view_scale_selector button:contains("Month")',
-    extra_trigger: '.o_knowledge_behavior_type_embedded_view',
     run: 'click',
 }, {
     trigger: '.o-dropdown--menu .o_scale_button_week',
@@ -347,9 +375,13 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     // Open the item
     trigger: '.fc-timegrid-event',
     run: 'dblclick',
-}, { // Check that the properties have been updated
+},
+{
+    trigger: '.o_hierarchy_article_name input:value("Item Article")',
+},
+{
+    // Check that the properties have been updated
     trigger: '.o_knowledge_properties_field .o_property_field:contains("Start Property")',
-    extra_trigger: '.o_hierarchy_article_name input:value("Item Article")',
     run: function () {
         const input = this.anchor.querySelector("input");
         if (!input.value.includes("09:00:00")) {

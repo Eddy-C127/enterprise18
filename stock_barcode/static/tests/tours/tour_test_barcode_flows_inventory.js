@@ -4,7 +4,9 @@ import helper from '@stock_barcode/../tests/tours/tour_helper_stock_barcode';
 import { registry } from "@web/core/registry";
 import { stepUtils } from "./tour_step_utils";
 
-registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_inventory_adjustment", {
+    test: true,
+    steps: () => [
 
     {
         trigger: '.button_inventory',
@@ -91,9 +93,10 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
         trigger: '.o_save',
         run: "click",
     },
-
     {
-        extra_trigger: '.o_scan_message.o_scan_product',
+        trigger: ".o_scan_message.o_scan_product",
+    },
+    {
         trigger: '.o_barcode_line',
         run: 'scan OBTVALI',
     },
@@ -111,7 +114,9 @@ registry.category("web_tour.tours").add('test_inventory_adjustment', {test: true
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_adjustment_dont_update_location', {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_inventory_adjustment_dont_update_location", {
+    test: true,
+    steps: () => [
     {
         trigger: '.button_inventory',
         run: "click",
@@ -166,7 +171,9 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_dont_update_l
     ...stepUtils.validateBarcodeOperation('.o_apply_page.btn-success'),
 ]});
 
-registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company", {
+    test: true,
+    steps: () => [
     // Open the company switcher.
     {
         trigger: ".o_switch_company_menu > button",
@@ -174,7 +181,9 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
     },
     // Ensure the first company is selected and open the Barcode App, then the Inventory Adjustment.
     {
-        extra_trigger: ".o_switch_company_menu .oe_topbar_name:contains('Comp A')",
+        trigger: ".o_switch_company_menu .oe_topbar_name:contains('Comp A')",
+    },
+    {
         trigger: "[data-menu-xmlid='stock_barcode.stock_barcode_menu'] > .o_app_icon",
         run: "click",
     },
@@ -197,7 +206,9 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
         run: "scan product2",
     },
     {
-        extra_trigger: ".o_notification_bar.bg-danger",
+        trigger: ".o_notification_bar.bg-danger",
+    },
+    {
         trigger: ".o_notification button.o_notification_close",
         run: "click",
     },
@@ -228,7 +239,9 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
     },
     // Open again the Barcode App then the Inventory Adjustment.
     {
-        extra_trigger: ".o_switch_company_menu .oe_topbar_name:contains('Comp B')",
+        trigger: ".o_switch_company_menu .oe_topbar_name:contains('Comp B')",
+    },
+    {
         trigger: "[data-menu-xmlid='stock_barcode.stock_barcode_menu'] > .o_app_icon",
         run: "click",
      },
@@ -249,9 +262,11 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
     {
         trigger: ".o_barcode_line[data-barcode='product_no_company']",
         run: "scan product1",
-    },
-    {
-        extra_trigger: ".o_notification_bar.bg-danger",
+        },
+        {
+            trigger: ".o_notification_bar.bg-danger",
+        },
+        {
         trigger: ".o_notification button.o_notification_close",
         run: "click",
     },
@@ -265,10 +280,12 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
     {
         trigger: ".o_barcode_line",
         run: "scan OBTVALI",
-    },
-    {
+        },
+        {
+            trigger: ".o_notification_bar.bg-success",
+        },
+        {
         trigger: ".o_stock_barcode_main_menu",
-        extra_trigger: ".o_notification_bar.bg-success",
         run: function () {
             helper.assertErrorMessage("The inventory adjustment has been validated");
         },
@@ -832,7 +849,9 @@ registry.category("web_tour.tours").add('test_inventory_packaging', {test: true,
     },
     // Verifies it takes the packaging's quantity.
     {
-        extra_trigger: '.o_barcode_line .qty-done:contains(15)',
+        trigger: '.o_barcode_line .qty-done:contains(15)',
+    },
+    {
         trigger: '.o_apply_page',
         run: "click",
     },
@@ -1224,8 +1243,10 @@ registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to
         run: "click",
     },
     {
+        trigger: '.o_button_qty_done:contains("5")',
+    },
+    {
         content: "Check button to add expected quantity is visible",
-        extra_trigger: '.o_button_qty_done:contains("5")',
         trigger: '.o_barcode_control .o_discard',
         run: "click",
     },

@@ -23,14 +23,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Log into Belgian Company",
-            trigger: ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: 'click',
+            trigger:
+                ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
         },
         {
             content: "Recruitment",
             trigger: '.o_app[data-menu-xmlid="hr_recruitment.menu_hr_recruitment_root"]',
-            extra_trigger:
-                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
             run: "click",
         },
         {
@@ -69,15 +72,19 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
+            trigger: ".o_form_saved",
+        },
+        {
             content: "Open Application Pipe",
             trigger: "button.oe_stat_button:contains(Applications)",
-            extra_trigger: ".o_form_saved",
             run: "click",
+        },
+        {
+            trigger: '.o_breadcrumb .active:contains("Applications")',
         },
         {
             content: "Create Applicant",
             trigger: ".o-kanban-button-new",
-            extra_trigger: '.o_breadcrumb .active:contains("Applications")',
             run: "click",
         },
         // Test Applicant
@@ -97,27 +104,36 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit mitchell2.stephen@example.com",
         },
         {
+            trigger: ".o_statusbar_buttons",
+        },
+        {
             content: "Generate Offer",
             trigger: ".o_statusbar_buttons > button:contains('Generate Offer')",
-            extra_trigger: ".o_statusbar_buttons",
             run: "click",
+        },
+        {
+            trigger: ".modal-dialog .btn-primary:contains('Save')",
         },
         {
             content: "Send Offer",
             trigger: "button[name='action_send_offer']",
-            extra_trigger: ".modal-dialog .btn-primary:contains('Save')",
             run: "click",
+        },
+        {
+            trigger: ".modal-dialog .btn-primary:contains('Send')",
         },
         {
             content: "Send Offer",
             trigger: "button[name='action_send_mail']",
-            extra_trigger: ".modal-dialog .btn-primary:contains('Send')",
             run: "click",
         },
         {
             content: "Click on Offers Stat Button",
             trigger: "button[name='action_show_offers']",
             run: "click",
+        },
+        {
+            trigger: "button[name='action_jump_to_offer']",
         },
         {
             content: "Unlog + Go on Configurator",
@@ -132,24 +148,32 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
                 await fetch("/web/session/logout", { method: "GET" });
                     window.location.href = window.location.origin + url;
             },
-            extra_trigger: "button[name='action_jump_to_offer']",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Choose a car",
             trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2671.14"]',
         },
         {
             content: "Unchoose a car",
             trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
-            extra_trigger: 'input[name="Gross"][value="2671.14"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Choose Public Transportation",
             trigger: 'input[name="fold_public_transport_reimbursed_amount"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
         },
         {
@@ -158,15 +182,21 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 100 && click label:contains(Transportation)",
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2976.62"]',
+        },
+        {
             content: "Unchoose Public Transportation",
             trigger: 'input[name="fold_public_transport_reimbursed_amount"]',
-            extra_trigger: 'input[name="Gross"][value="2976.62"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Choose Train Transportation",
             trigger: 'input[name="fold_train_transport_reimbursed_amount"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
         },
         {
@@ -175,15 +205,21 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 150 && click label:contains(Transportation)",
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2917.47"]',
+        },
+        {
             content: "Unchoose Public Transportation",
             trigger: 'input[name="fold_train_transport_reimbursed_amount"]',
-            extra_trigger: 'input[name="Gross"][value="2917.47"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Choose Private Car Transportation",
             trigger: 'input[name="fold_private_car_reimbursed_amount"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
         },
         {
@@ -192,132 +228,195 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 150 && click label:contains(Transportation)",
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2886.87"]',
+        },
+        {
             content: "Change km_home_work on personal info",
             trigger: 'input[name="km_home_work"]',
-            extra_trigger: 'input[name="Gross"][value="2886.87"]',
             run: "edit 75 && click label:contains(Transportation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2930.88"]',
         },
         {
             content: "Reset 150 km",
             trigger: 'input[name="km_home_work"]',
-            extra_trigger: 'input[name="Gross"][value="2930.88"]',
             run: "edit 150 && click label:contains(Transportation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2886.87"]',
         },
         {
             content: "Unchoose Private Car Transportation",
             trigger: 'input[name="fold_private_car_reimbursed_amount"]',
-            extra_trigger: 'input[name="Gross"][value="2886.87"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Choose a Bike",
             trigger: 'input[name="fold_company_bike_depreciated_cost"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2982.81"]',
         },
         {
             content: "Choose Bike 2",
             trigger: "select[name=select_company_bike_depreciated_cost]",
             allowInvisible: true,
-            extra_trigger: 'input[name="Gross"][value="2982.81"]',
             run: "selectByLabel Bike 2",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2965.61"]',
         },
         {
             content: "Choose Bike 1",
             trigger: "select[name=select_company_bike_depreciated_cost]",
             allowInvisible: true,
-            extra_trigger: 'input[name="Gross"][value="2965.61"]',
             run: "selectByLabel Bike 1",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2982.81"]',
         },
         {
             content: "Unchoose Bike",
             trigger: 'input[name="fold_company_bike_depreciated_cost"]',
-            extra_trigger: 'input[name="Gross"][value="2982.81"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Unset Internet",
             trigger: 'input[name="internet_manual"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "edit 0 && click label:contains(Internet)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3026.13"]',
         },
         {
             content: "Reset Internet",
             trigger: 'input[name="internet_manual"]',
-            extra_trigger: 'input[name="Gross"][value="3026.13"]',
             run: "edit 38 && click label:contains(Internet)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Unset Mobile",
             trigger: 'input[name="mobile_radio"]:eq(0)',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3020.63"]',
         },
         {
             content: "Reset Mobile",
             trigger: 'input[name="mobile_radio"]:eq(1)',
-            extra_trigger: 'input[name="Gross"][value="3020.63"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Take Extra-Legal Leaves",
             trigger: 'input[list="holidays_range"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "range 10",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2860.17"]',
         },
         {
             content: "Untake Extra-Legal Leaves",
             trigger: 'input[list="holidays_range"]',
-            extra_trigger: 'input[name="Gross"][value="2860.17"]',
             run: "range 0",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
             content: "Take IP",
             trigger: 'input[name="ip_value_radio"]:eq(1)',
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2405.12"]',
         },
         {
             content: "Untake IP",
             trigger: 'input[name="ip_value_radio"]:eq(0)',
-            extra_trigger: 'input[name="Net"][value="2405.12"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
             content: "Untake Rep Fees",
             trigger: 'input[name="representation_fees_radio"]:eq(0)',
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3103.16"]',
         },
         {
             content: "Retake Rep Fees",
             trigger: 'input[name="representation_fees_radio"]:eq(1)',
-            extra_trigger: 'input[name="Gross"][value="3103.16"]',
             run: "click",
         },
         // In order to choose Fuel card, the mandatory advantage, company car, should be selected first
         {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
+        },
+        {
             content: "Choose a car",
             trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2671.14"]',
         },
         {
             content: "Take Fuel Card",
             trigger: 'input[list="fuel_card_range"]',
-            extra_trigger: 'input[name="Gross"][value="2671.14"]',
             run: "range 250",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2499.2"]',
         },
         {
             content: "Untake Fuel Card",
             trigger: 'input[list="fuel_card_range"]',
-            extra_trigger: 'input[name="Gross"][value="2499.2"]',
             run: "range 0",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2671.14"]',
         },
         {
             content: "Unchoose a car",
             trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
-            extra_trigger: 'input[name="Gross"][value="2671.14"]',
             run: "click",
         },
         {
@@ -444,144 +543,213 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
+        },
+        {
             content: "Uncheck Disabled",
             trigger: "input[name='disabled']",
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
             content: "Set Married",
             trigger: "select[name=marital]",
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             allowInvisible: true,
             run: "selectByLabel Married",
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2431.1"]',
+        },
+        {
             content: "Check Disabled Spouse Bool",
             trigger: "input[name=disabled_spouse_bool]",
-            extra_trigger: 'input[name="Net"][value="2431.1"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2431.1"]',
         },
         {
             content: "Uncheck Disabled Spouse Bool",
             trigger: "input[name=disabled_spouse_bool]",
-            extra_trigger: 'input[name="Net"][value="2431.1"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2431.1"]',
         },
         {
             content: "Set High Spouse Income",
             trigger: "select[name=spouse_fiscal_status]",
-            extra_trigger: 'input[name="Net"][value="2431.1"]',
             allowInvisible: true,
             run: "selectByLabel With High Income",
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
+        },
+        {
             content: "Unset Married",
             trigger: "select[name=marital]",
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             allowInvisible: true,
             run: "selectByLabel Single",
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
+        },
+        {
             content: "Set Children",
             trigger: "input[name=children]",
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: "edit 3 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
             content: "Check Disabled Children",
             trigger: "input[name=disabled_children_bool]",
-            extra_trigger: 'input[name="Net"][value="2444.69"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
             content: "Set 1 Disabled Children",
             trigger: "input[name=disabled_children_number]",
-            extra_trigger: 'input[name="Net"][value="2444.69"]',
             run: "edit 1 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2663.69"]',
         },
         {
             content: "Set 0 Disabled Children",
             trigger: "input[name=disabled_children_number]",
-            extra_trigger: 'input[name="Net"][value="2663.69"]',
             run: "edit 0 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
             content: "Uncheck Disabled Children",
             trigger: "input[name=disabled_children_bool]",
-            extra_trigger: 'input[name="Net"][value="2444.69"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
             content: "Unset Children",
             trigger: "input[name=children]",
-            extra_trigger: 'input[name="Net"][value="2444.69"]',
             run: "edit 0 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
             content: "Check Other Dependent People",
             trigger: "input[name=other_dependent_people]",
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
             content: "Set 2 Senior",
             trigger: "input[name=other_senior_dependent]",
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: "edit 2 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2282.69"]',
         },
         {
             content: "Set 1 disabled Senior",
             trigger: "input[name=other_disabled_senior_dependent]",
-            extra_trigger: 'input[name="Net"][value="2282.69"]',
             run: "edit 1 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2366.69"]',
         },
         {
             content: "Set 2 Juniors",
             trigger: "input[name=other_juniors_dependent]",
-            extra_trigger: 'input[name="Net"][value="2366.69"]',
             run: "edit 2 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
             content: "Set 1 disabled Junior",
             trigger: "input[name=other_disabled_juniors_dependent]",
-            extra_trigger: 'input[name="Net"][value="2444.69"]',
             run: "edit 1 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2483.69"]',
         },
         {
             content: "Unset 1 disabled Senior over 2",
             trigger: "input[name=other_disabled_juniors_dependent]",
-            extra_trigger: 'input[name="Net"][value="2483.69"]',
             run: "edit 0 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
             content: "Unset 2 Juniors",
             trigger: "input[name=other_juniors_dependent]",
-            extra_trigger: 'input[name="Net"][value="2444.69"]',
             run: "edit 0 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2366.69"]',
         },
         {
             content: "Unset 1 disabled Senior",
             trigger: "input[name=other_disabled_senior_dependent]",
-            extra_trigger: 'input[name="Net"][value="2366.69"]',
             run: "edit 0 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2282.69"]',
         },
         {
             content: "Unset 2 Seniors",
             trigger: "input[name=other_senior_dependent]",
-            extra_trigger: 'input[name="Net"][value="2282.69"]',
             run: "edit 0 && click h2:contains(Situation)",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
             content: "Uncheck Other Dependent People",
             trigger: "input[name=other_dependent_people]",
-            extra_trigger: 'input[name="Net"][value="2114.69"]',
             run: "click",
+        },
+        {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="3000"]',
         },
         {
             content: "Choose a car",
             trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
-            extra_trigger: 'input[name="Gross"][value="3000"]',
             run: "click",
         },
         {
@@ -657,9 +825,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             },
         },
         {
+            allowDisabled: true,
+            trigger: 'input[name="Gross"][value="2671.14"]',
+        },
+        {
             content: "submit",
             trigger: "button#hr_cs_submit",
-            extra_trigger: 'input[name="Gross"][value="2671.14"]',
             run: "click",
         },
         {
@@ -732,95 +903,22 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
     steps: () => [
         {
             content: "Log into Belgian Company",
-            trigger: '.o_menu_systray .o_switch_company_menu button.dropdown-toggle',
-            run: 'click',
-        },
-        {
-            content: "Log into Belgian Company",
-            trigger: ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: 'click',
-        },
-        {
-            content: "Recruitment",
-            trigger: '.o_app[data-menu-xmlid="hr_recruitment.menu_hr_recruitment_root"]',
-            extra_trigger: ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
-            run: 'click',
-        },
-        {
-            content: "Jobs list view",
-            trigger: '.o_switch_view.o_list',
-            run: 'click',
-        },
-        {
-            content: 'Select Our Job',
-            trigger: 'table.o_list_table tbody td:contains("Experienced Developer")',
-            run: "click",
-        },
-        {
-            content: "Open Application Pipe",
-            trigger: "button.oe_stat_button:contains(Applications)",
-            extra_trigger: '.o_form_saved',
-            run: 'click',
-        },
-        {
-            content: 'Select Our Applicant',
-            trigger: 'div.o_kanban_view b.o_kanban_record_title:contains("Mitchell Admin 2")',
-            run: "click",
-        },
-        {
-            content: "Open Contracts",
-            trigger: "button.oe_stat_button:contains(Contracts)",
-            extra_trigger: '.o_form_saved',
-            run: 'click',
-        },
-        {
-            content: "Open Signature Request",
-            trigger: "button.oe_stat_button:contains(Sign)",
-            extra_trigger: '.o_form_saved',
-            run: 'click',
-        },
-        {
-            content: "Sign",
-            trigger: "button:contains(Sign Now)",
-            run: 'click',
-        },
-        {
-            content: "Next 5",
-            trigger: ':iframe .o_sign_sign_item_navigator',
-            run: 'click',
-        },
-        {
-            content: "Click Signature",
-            trigger: ':iframe button.o_sign_sign_item',
-            run: 'click',
-        },
-        {
-            content: "Validate and Sign",
-            trigger: ".o_sign_validate_banner button",
-            run: 'click',
-        },
-    ]
-});
-registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
-    test: true,
-    url: "/web",
-    wait_for: Promise.resolve(odoo.__TipTemplateDef),
-    steps: () => [
-        {
-            content: "Log into Belgian Company",
             trigger: ".o_menu_systray .o_switch_company_menu button.dropdown-toggle",
             run: "click",
         },
         {
             content: "Log into Belgian Company",
-            trigger: ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
-            run: 'click',
+            trigger:
+                ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
         },
         {
             content: "Recruitment",
             trigger: '.o_app[data-menu-xmlid="hr_recruitment.menu_hr_recruitment_root"]',
-            extra_trigger:
-                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
             run: "click",
         },
         {
@@ -834,15 +932,105 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "click",
         },
         {
+            trigger: ".o_form_saved",
+        },
+        {
             content: "Open Application Pipe",
             trigger: "button.oe_stat_button:contains(Applications)",
-            extra_trigger: ".o_form_saved",
             run: "click",
+        },
+        {
+            content: "Select Our Applicant",
+            trigger: 'div.o_kanban_view b.o_kanban_record_title:contains("Mitchell Admin 2")',
+            run: "click",
+        },
+        {
+            trigger: ".o_form_saved",
+        },
+        {
+            content: "Open Contracts",
+            trigger: "button.oe_stat_button:contains(Contracts)",
+            run: "click",
+        },
+        {
+            trigger: ".o_form_saved",
+        },
+        {
+            content: "Open Signature Request",
+            trigger: "button.oe_stat_button:contains(Sign)",
+            run: "click",
+        },
+        {
+            content: "Sign",
+            trigger: "button:contains(Sign Now)",
+            run: "click",
+        },
+        {
+            content: "Next 5",
+            trigger: ":iframe .o_sign_sign_item_navigator",
+            run: "click",
+        },
+        {
+            content: "Click Signature",
+            trigger: ":iframe button.o_sign_sign_item",
+            run: "click",
+        },
+        {
+            content: "Validate and Sign",
+            trigger: ".o_sign_validate_banner button",
+            run: "click",
+        },
+    ],
+});
+registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
+    test: true,
+    url: "/web",
+    wait_for: Promise.resolve(odoo.__TipTemplateDef),
+    steps: () => [
+        {
+            content: "Log into Belgian Company",
+            trigger: ".o_menu_systray .o_switch_company_menu button.dropdown-toggle",
+            run: "click",
+        },
+        {
+            content: "Log into Belgian Company",
+            trigger:
+                ".o-dropdown--menu .dropdown-item div span:contains('My Belgian Company - TEST')",
+            run: "click",
+        },
+        {
+            trigger:
+                ".o_menu_systray .o_switch_company_menu button.dropdown-toggle span:contains('My Belgian Company - TEST')",
+        },
+        {
+            content: "Recruitment",
+            trigger: '.o_app[data-menu-xmlid="hr_recruitment.menu_hr_recruitment_root"]',
+            run: "click",
+        },
+        {
+            content: "Jobs list view",
+            trigger: ".o_switch_view.o_list",
+            run: "click",
+        },
+        {
+            content: "Select Our Job",
+            trigger: 'table.o_list_table tbody td:contains("Experienced Developer")',
+            run: "click",
+        },
+        {
+            trigger: ".o_form_saved",
+        },
+        {
+            content: "Open Application Pipe",
+            trigger: "button.oe_stat_button:contains(Applications)",
+            run: "click",
+        },
+        {
+            trigger: '.o_breadcrumb .active:contains("Applications")',
         },
         {
             content: "Create Applicant",
             trigger: ".o-kanban-button-new",
-            extra_trigger: '.o_breadcrumb .active:contains("Applications")',
             run: "click",
         },
         {
@@ -876,9 +1064,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "click",
         },
         {
+            trigger: ".o_statusbar_buttons",
+        },
+        {
             content: "Create Employee",
             trigger: ".o_statusbar_buttons > button[name='create_employee_from_applicant']",
-            extra_trigger: ".o_statusbar_buttons",
             run: "click",
         },
         {
@@ -903,15 +1093,19 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "edit mitchel3_work@example.com",
         },
         {
+            trigger: '.o-mail-Message-body a[href*="/web#action=hr.plan_wizard_action"]',
+        },
+        {
             content: "Save Employee",
             trigger: ".o_form_button_save",
-            extra_trigger: '.o-mail-Message-body a[href*="/web#action=hr.plan_wizard_action"]',
             run: "click",
+        },
+        {
+            trigger: ".o_form_saved",
         },
         {
             content: "Create Contract",
             trigger: '.o-form-buttonbox .oe_stat_button:contains("Contracts")',
-            extra_trigger: ".o_form_saved",
             run: "click",
         },
         {
@@ -1031,9 +1225,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "click",
         },
         {
+            trigger: ".o_statusbar_buttons",
+        },
+        {
             content: "Generate Simulation Link",
             trigger: ".o_statusbar_buttons > button:contains('Generate Offer')",
-            extra_trigger: ".o_statusbar_buttons",
             run: "click",
         },
         {
@@ -1052,21 +1248,28 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "click",
         },
         {
+            trigger: "div.modal-content",
+        },
+        {
             content: "Send Offer",
             trigger: "button[name='action_send_offer']",
-            extra_trigger: "div.modal-content",
             run: "click",
+        },
+        {
+            trigger: ".modal-dialog .btn-primary:contains('Send')",
         },
         {
             content: "Send Offer",
             trigger: "button[name='action_send_mail']",
-            extra_trigger: ".modal-dialog .btn-primary:contains('Send')",
             run: "click",
         },
         {
             content: "Click on Offers Stat Button",
             trigger: "button[name='action_show_offers']",
             run: "click",
+        },
+        {
+            trigger: "button[name='action_jump_to_offer']",
         },
         {
             content: "Go on configurator",
@@ -1080,7 +1283,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
                 var url = simulation_link.match(regex)[0];
                 window.location.href = window.location.origin + url;
             },
-            extra_trigger: "button[name='action_jump_to_offer']",
         },
         {
             content: "Unchoose default car",
@@ -1093,8 +1295,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "click",
         },
         {
+            trigger: "label[for=wishlist_car_total_depreciated_cost]",
+        },
+        {
             content: "Choose a new car in waiting list",
-            extra_trigger: "label[for=wishlist_car_total_depreciated_cost]",
             trigger: `select[name="select_wishlist_car_total_depreciated_cost"]`,
             allowInvisible: true,
             run: "selectByLabel Corsa",
@@ -1154,9 +1358,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "edit 75",
         },
         {
+            trigger: "label[for=certificate]",
+        },
+        {
             content: "Certificate",
             trigger: "select[name=certificate]",
-            extra_trigger: "label[for=certificate]",
             allowInvisible: true,
             run: "selectByLabel Master",
         },
@@ -1176,8 +1382,10 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "edit 1 && click body",
         },
         {
+            trigger: "label[for=lang]:eq(0)",
+        },
+        {
             content: "Lang",
-            extra_trigger: "label[for=lang]:eq(0)",
             trigger: "select[name=lang]",
             allowInvisible: true,
             run: "selectByLabel English",
@@ -1198,9 +1406,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "edit +32 2 290 34 90",
         },
         {
+            trigger: "label[for=country_id]:eq(0)",
+        },
+        {
             content: "Nationality",
             trigger: "select[name=country_id]",
-            extra_trigger: "label[for=country_id]:eq(0)",
             allowInvisible: true,
             run: "selectByLabel Belgium",
         },
@@ -1211,9 +1421,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "selectByLabel Belgium",
         },
         {
+            trigger: "label[for=private_country_id]:eq(0)",
+        },
+        {
             content: "Country",
             trigger: "select[name=private_country_id]",
-            extra_trigger: "label[for=private_country_id]:eq(0)",
             allowInvisible: true,
             run: "selectByLabel Belgium",
         },
@@ -1375,16 +1587,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_counter_sign", 
             trigger: `.oe_topbar_name:contains(My Belgian Company - TEST)`,
         },
         {
-            content: 'Open Activity Systray',
-            trigger: '.o-mail-ActivityMenu-counter',
-            run: "click"
-        }, {
-            content: 'Open Sign Requests',
-            trigger: '.o-dropdown--menu .list-group-item:contains("Signature")',
-            run: "click"
+            content: "Open Activity Systray",
+            trigger: ".o-mail-ActivityMenu-counter",
+            run: "click",
         },
         {
-            content: 'Go to Signable Document',
+            content: "Open Sign Requests",
+            trigger: '.o-dropdown--menu .list-group-item:contains("Signature")',
+            run: "click",
+        },
+        {
+            content: "Go to Signable Document",
             trigger: "button[name='go_to_signable_document']",
             run: "click",
         },
@@ -1420,6 +1633,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_counter_sign", 
             content: "Validate and Sign",
             trigger: ".o_sign_validate_banner button",
             run: "click",
-        }
-    ]
+        },
+    ],
 });

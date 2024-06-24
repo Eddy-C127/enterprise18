@@ -48,6 +48,7 @@ registry.category("web_tour.tours").add('timesheet_tour', {
     run: "click",
 }, 
 {
+    isActive: ["auto"],
     trigger: ".o_grid_view .o_grid_row:not(.o_grid_section).o_grid_cell_today",
 },
 {

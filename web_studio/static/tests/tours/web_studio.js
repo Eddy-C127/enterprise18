@@ -10,6 +10,7 @@ registry.category("web_tour.tours").add("web_studio_home_menu_background_tour", 
     sequence: 1260,
     steps: () => [
         {
+            isActive: ["auto"],
             trigger: ".o_home_menu_background",
         },
         {

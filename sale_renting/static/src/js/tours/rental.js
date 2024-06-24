@@ -19,9 +19,13 @@ registry.category("web_tour.tours").add('rental_tour', {
     content: _t("At first, let's create some products to rent."),
     position: 'bottom',
     run: "click",
-}, {
+},
+{
+    isActive: ["auto"],
+    trigger: ".o_breadcrumb .active:contains(Products)",
+},
+{
     trigger: '.o-kanban-button-new',
-    extra_trigger: '.o_breadcrumb .active:contains(Products)',
     content: _t("Click here to set up your first rental product."),
     position: 'bottom',
     run: "click",
@@ -40,9 +44,12 @@ registry.category("web_tour.tours").add('rental_tour', {
     content: _t("The rental configuration is available here."),
     position: 'top',
     run: "click",
-}, {
+},
+{
+    trigger: ".o_form_button_create", // wait for the new product to be saved
+},
+{
     trigger: 'button[data-menu-xmlid="sale_renting.rental_order_menu"]',
-    extra_trigger: '.o_form_button_create', // wait for the new product to be saved
     content: _t("Let's now create an order."),
     position: 'bottom',
     run: "click",
@@ -66,9 +73,12 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: '.o_field_widget[name=partner_id] .ui-menu-item > a:contains(Agrolait)',
     in_modal: false,
     run: "click",
-}, {
+},
+{
+    trigger: ".o_field_widget[name='partner_id'] .o_external_button",
+},
+{
     trigger: "a:contains('Add a product')",
-    extra_trigger: ".o_field_widget[name='partner_id'] .o_external_button",
     content: _t("Click here to start filling the quotation."),
     position: 'bottom',
     run: "click",
@@ -94,9 +104,13 @@ registry.category("web_tour.tours").add('rental_tour', {
     content: _t("Confirm the order when the customer agrees with the terms."),
     position: 'bottom',
     run: "click",
-}, {
+},
+{
+    isActive: ["auto"],
+    trigger: ".o_sale_order",
+},
+{
     trigger: 'button[name=action_open_pickup]',
-    extra_trigger: '.o_sale_order',
     content: _t("Click here to register the pickup."),
     position: 'bottom',
     run: "click",
@@ -105,9 +119,13 @@ registry.category("web_tour.tours").add('rental_tour', {
     content: _t("Validate the operation after checking the picked-up quantities."),
     position: 'bottom',
     run: "click",
-}, {
+},
+{
+    isActive: ["auto"],
+    trigger: ".o_sale_order",
+},
+{
     trigger: "button[name='action_open_return']",
-    extra_trigger: '.o_sale_order',
     content: _t("Once the rental is done, you can register the return."),
     position: 'bottom',
     run: "click",

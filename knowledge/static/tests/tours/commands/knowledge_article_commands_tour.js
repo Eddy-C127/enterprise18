@@ -77,9 +77,12 @@ const fileCommandSteps = [{ // open the command bar
 }, { // wait for the block to appear in the editor
     trigger: '.o_knowledge_behavior_type_file a.o_image',
     run: 'click',
-}, {
+}, 
+{
+    trigger: '.o-FileViewer-view:iframe body:contains(Content)',
+},
+{
     trigger: '.o-FileViewer-headerButton[aria-label="Close"]',
-    extra_trigger: '.o-FileViewer-view:iframe body:contains(Content)',
     run: 'click',
 }, {
     trigger: '.o_knowledge_file_name_container:contains(Onboarding)',
@@ -247,9 +250,12 @@ const videoCommandSteps = [{ // patch the components
     content: "Confirm selection",
     trigger: '.modal-footer button:contains("Insert Video")',
     run: "click",
-}, { // wait for the block to appear in the editor
+},
+{
+    trigger: `.o_knowledge_behavior_type_video .o_video_iframe_src:contains("https://www.youtube.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
+},
+{ // wait for the block to appear in the editor
     trigger: ".o_knowledge_behavior_type_video",
-    extra_trigger: `.o_knowledge_behavior_type_video .o_video_iframe_src:contains("https://www.youtube.com/embed/${YoutubeVideoId}?rel=0&autoplay=0")`,
     run: "click",
 }];
 
@@ -374,9 +380,12 @@ const embedKanbanSteps = [{ // open the command bar
 }, { // Click on Add to create the article
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_quick_create .o_kanban_add`,
     run: 'click'
-}, { // Verify that the article has been properly created
+},
+{
+    trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title .o_article_emoji:contains("🙃")`,
+},
+{ // Verify that the article has been properly created
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title span:contains("New Quick Create Item")`,
-    extra_trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title .o_article_emoji:contains("🙃")`,
 }, { // Click on the icon of the created article to open the emoji picker
     trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title .o_article_emoji`,
     run: 'click',

@@ -93,6 +93,7 @@ registry.category("web_tour.tours").add("sign_tour", {
             run: "click",
         },
         {
+            isActive: ["auto"],
             trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
         },
         {

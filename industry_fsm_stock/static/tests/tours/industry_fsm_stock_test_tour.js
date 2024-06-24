@@ -78,9 +78,11 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     stepUtils.showAppsMenuItem(),
     ...StepToFSMProductsKanbanWithFavoritesFilterSteps,
     {
+        trigger: ".o_kanban_record .o_kanban_record_title span:contains(Product A)",
+    },
+    {
         content: 'Add quantity to the first product (no lot)',
         trigger: '.o_kanban_record:first-child button:has(i.fa-shopping-cart)',
-        extra_trigger: '.o_kanban_record .o_kanban_record_title span:contains(Product A)',
         run: "click",
     },
     {
@@ -156,9 +158,12 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
         run: "click",
     },
     {
+        trigger:
+            '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+    },
+    {
         content: 'Check that clicking on the plus button opened the Serial number assignation wizard',
         trigger: '.modal-content .modal-header .btn-close',
-        extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
         run: "click",
     },
     {
@@ -167,9 +172,12 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
         run: "click",
     },
     {
+        trigger:
+            '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+    },
+    {
         content: 'Check that clicking on the fa-list button opened the Serial number assignation wizard',
         trigger: '.modal-content .modal-header .btn-close',
-        extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
         run: "click",
     },
     {
@@ -202,9 +210,12 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
         run: "click",
     },
     {
+        trigger:
+            '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
+    },
+    {
         content: 'Check that clicking on the minus button opened the Serial number assignation wizard',
         trigger: '.modal-content .modal-header .btn-close',
-        extra_trigger: '.modal-content .modal-body .o_form_view_container div[name="tracking_line_ids"]',
         run: "click",
     },
     {

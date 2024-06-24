@@ -37,11 +37,15 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
     // Click on change cover button
     trigger: '.o_knowledge_replace_cover',
     run: "click",
-}, {
+},
+{
+    isActive: ["auto"],
+    trigger: ".modal-body .o_load_done_msg",
+},
+{
     // Check that the cover selector has been opened, that no unsplash images can be
     // loaded as the article has no name and close the cover selector
     trigger: '.modal-footer .btn-secondary',
-    extra_trigger: '.modal-body .o_load_done_msg',
     run: "click",
 }, {
     // Make the remove cover button visible
@@ -71,11 +75,15 @@ registry.category("web_tour.tours").add('knowledge_random_cover_tour', {
     // Click on change cover button
     trigger: '.o_knowledge_replace_cover',
     run: "click",
-}, {
+},
+{
+    isActive: ["auto"],
+    trigger: ".modal-body .o_load_more",
+},
+{
     // Check that the cover selector has been opened, that other unsplash
     // images can be loaded and close the cover selector
     trigger: '.modal-footer .btn-secondary',
-    extra_trigger: '.modal-body .o_load_more',
     run: "click",
 }, ...endKnowledgeTour()
 ]});

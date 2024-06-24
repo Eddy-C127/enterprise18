@@ -19,7 +19,7 @@ registry.category("web_tour.tours").add('planning_tour', {
         trigger: "tr td[data-time='08:00:00'].fc-timegrid-slot-lane",
         content: markup(_t("Let's schedule a <b>shift</b> for this time range.")),
         position: 'bottom',
-        run: "click tr td[data-time='08:00:00'].fc-timegrid-slot-lane",
+        run: "click",
     }, {
         isActive: ["desktop"],
         trigger: ".o_gantt_button_add",
@@ -55,7 +55,7 @@ registry.category("web_tour.tours").add('planning_tour', {
         run: "click",
     }, 
     {
-        isActive: ["desktop"],
+        isActive: ["auto", "desktop"],
         trigger: ".o_action:not(.o_view_sample_data)",
     },
     {

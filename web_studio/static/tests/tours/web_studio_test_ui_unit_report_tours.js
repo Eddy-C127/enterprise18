@@ -140,7 +140,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition", 
                 helpers.click();
             },
         },
-        stepNotInStudio(),
+        ...stepNotInStudio(),
         {
             trigger: "body",
             run() {

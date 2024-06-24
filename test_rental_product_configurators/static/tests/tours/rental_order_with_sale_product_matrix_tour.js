@@ -3,7 +3,7 @@
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
-registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_tour', {
+registry.category("web_tour.tours").add("rental_order_with_sale_product_matrix_tour", {
     url: '/web',
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), {
@@ -67,5 +67,9 @@ registry.category("web_tour.tours").add('rental_order_with_sale_product_matrix_t
     trigger: 'button:contains("Confirm")',
     run: "click",
 },
-    ...stepUtils.saveForm({ extra_trigger: '.o_field_cell.o_data_cell.o_list_number:contains("26")' }),
-]});
+        {
+            trigger: '.o_field_cell.o_data_cell.o_list_number:contains("26")',
+        },
+        ...stepUtils.saveForm(),
+    ],
+});

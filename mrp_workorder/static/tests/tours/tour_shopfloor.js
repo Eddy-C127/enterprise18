@@ -2,20 +2,26 @@
 
 import { registry } from "@web/core/registry";
 
-registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_shop_floor", {
+    test: true,
+    steps: () => [
     {
         content: 'Select the workcenter the first time we enter in shopfloor',
         trigger: '.form-check:has(input[name="Jungle"])', 
         run: "click",
     },
     {
-        extra_trigger: '.form-check:has(input[name="Jungle"]:checked)',
+        trigger: '.form-check:has(input[name="Jungle"]:checked)',
+    },
+    {
         trigger: 'footer.modal-footer button.btn-primary', 
         run: "click",
     },
     {
+        trigger: '.o_control_panel_actions button:contains("Jungle")',
+    },
+    {
         content: 'Open the employee panel',
-        extra_trigger: '.o_control_panel_actions button:contains("Jungle")',
         trigger: 'button[name="employeePanelButton"]', 
         run: "click",
     },
@@ -30,14 +36,18 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         run: "click",
     },
     {
+        trigger: '.o_mrp_employees_panel li.o_admin_user:contains(Billy Demo)',
+    },
+    {
         content: 'Go to workcenter Savannah from MO card',
-        extra_trigger: '.o_mrp_employees_panel li.o_admin_user:contains(Billy Demo)',
         trigger: '.o_mrp_record_line button span:contains("Savannah")',
         run: "click",
     },
     {
+        trigger: '.o_control_panel_actions button.active:contains("Savannah")',
+    },
+    {
         content: 'Start the workorder on header click',
-        extra_trigger: '.o_control_panel_actions button.active:contains("Savannah")',
         trigger: '.o_finished_product span:contains("Giraffe")',
         run: "click",
     },
@@ -67,30 +77,40 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         run: "click",
     },
     {
-        extra_trigger: '.modal-title:contains("Instructions")',
+        trigger: '.modal-title:contains("Instructions")',
+    },
+    {
         trigger: 'button[barcode_trigger="NEXT"]', 
         run: "click",
     },
     {
+        trigger: '.modal-title:contains("Register legs")',
+    },
+    {
         content: 'Component not tracked registration and continue production',
-        extra_trigger: '.modal-title:contains("Register legs")',
         trigger: 'button[barcode_trigger="CONT"]', 
         run: "click",
     },
     {
+        trigger: '.o_field_widget[name="qty_done"] input:value("0.00")',
+    },
+    {
         content: 'Add 2 units',
-        extra_trigger: '.o_field_widget[name="qty_done"] input:value("0.00")',
         trigger: '.o_field_widget[name="qty_done"] input',
         run: "edit 2 && click .modal-body"
     },
     {
+        trigger: '.o_field_widget[name="qty_done"] input:value("2.00")',
+    },
+    {
         content: 'Click on "Validate"',
-        extra_trigger: '.o_field_widget[name="qty_done"] input:value("2.00")',
         trigger: 'button[barcode_trigger="NEXT"]',
         run: "click",
     },
     {
-        extra_trigger: '.modal-title:contains("Release")',
+        trigger: '.modal-title:contains("Release")',
+    },
+    {
         trigger: '.modal-header .btn-close',
         run: "click",
     },
@@ -100,7 +120,9 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         run: "click",
     },
     {
-        extra_trigger: '.modal-title:contains("Release")',
+        trigger: '.modal-title:contains("Release")',
+    },
+    {
         trigger: 'button[barcode_trigger="NEXT"]',
         run: "click",
     },
@@ -134,7 +156,6 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         run: "click",
     },
     {
-        extra_trigger: 'div.o_dialog input#product_id_0:value("Color")',
         trigger: 'button[name=add_product]',
         run: "click",
     },
@@ -147,25 +168,32 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
         run: "click",
     },
     {
+        trigger: ".o_nocontent_help",
+    },
+    {
         content: 'Leave shopfloor',
-        extra_trigger: '.o_nocontent_help',
         trigger: '.o_home_menu .fa-sign-out',
         run: "click",
     },
     { 
         trigger: '.o_apps', 
     }
-]})
+    ],
+});
 
-registry.category("web_tour.tours").add('test_generate_serials_in_shopfloor', {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_generate_serials_in_shopfloor", {
+    test: true,
+    steps: () => [
     {
         content: 'Make sure workcenter is available',
         trigger: '.form-check:has(input[name="Assembly Line"])',
         run: "click",
     },
     {
+        trigger: '.form-check:has(input[name="Assembly Line"]:checked)',
+    },
+    {
         content: 'Confirm workcenter',
-        extra_trigger: '.form-check:has(input[name="Assembly Line"]:checked)',
         trigger: 'button:contains("Confirm")',
         run: "click",
     },
@@ -208,18 +236,22 @@ registry.category("web_tour.tours").add('test_generate_serials_in_shopfloor', {t
         content: 'Close production',
         trigger: 'button.btn-primary:contains("Close Production")',
     },
-]})
+    ],
+});
 
-registry.category("web_tour.tours").add('test_canceled_wo', {
-    test: true, steps: () => [
+registry.category("web_tour.tours").add("test_canceled_wo", {
+    test: true,
+    steps: () => [
         {
             content: 'Make sure workcenter is available',
             trigger: '.form-check:has(input[name="Assembly Line"])',
             run: "click",
         },
         {
+            trigger: '.form-check:has(input[name="Assembly Line"]:checked)',
+        },
+        {
             content: 'Confirm workcenter',
-            extra_trigger: '.form-check:has(input[name="Assembly Line"]:checked)',
             trigger: 'button:contains("Confirm")',
             run: "click",
         },
@@ -229,7 +261,7 @@ registry.category("web_tour.tours").add('test_canceled_wo', {
             run: () => {
                 if (document.querySelectorAll("ul button:not(.btn-secondary)").length > 1)
                     console.error("Multiple Workorders");
-            }
+            },
         },
-    ]
-})
+    ],
+});

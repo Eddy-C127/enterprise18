@@ -2,12 +2,16 @@
 
 export const stepUtils = {
     confirmAddingUnreservedProduct() {
-        return {
-            trigger: '.btn-primary',
-            extra_trigger: '.modal-title:contains("Add extra product?")',
-            in_modal: true,
-            run: "click",
-        };
+        return [
+            {
+                trigger: '.modal-title:contains("Add extra product?")',
+            },
+            {
+                trigger: ".btn-primary",
+                in_modal: true,
+                run: "click",
+            },
+        ];
     },
     validateBarcodeOperation(trigger = '.o_barcode_client_action') {
         return [

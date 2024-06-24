@@ -990,7 +990,7 @@ registry.category("web_tour.tours").add('test_delivery_reserved_2', {test: true,
         trigger: '.o_barcode_line.o_selected.o_line_completed',
         run: 'scan product2'
     },
-    stepUtils.confirmAddingUnreservedProduct(),
+    ...stepUtils.confirmAddingUnreservedProduct(),
 
     {
         trigger: '.o_barcode_line.o_selected:contains("product2")',
@@ -3896,7 +3896,7 @@ registry.category("web_tour.tours").add('test_receipt_delete_button', {test: tru
         trigger: '.o_barcode_client_action',
         run: 'scan product2',
     },
-    stepUtils.confirmAddingUnreservedProduct(),
+    ...stepUtils.confirmAddingUnreservedProduct(),
     // ensure receipt's extra product CAN be deleted
     {
         trigger: '.o_barcode_line[data-barcode="product2"] .o_edit',
@@ -3932,7 +3932,7 @@ registry.category("web_tour.tours").add('test_receipt_delete_button', {test: tru
         trigger: '.o_barcode_client_action',
         run: 'scan product3',
     },
-    stepUtils.confirmAddingUnreservedProduct(),
+    ...stepUtils.confirmAddingUnreservedProduct(),
     {
         trigger: '.o_barcode_line[data-barcode="product3"] .o_edit',
         run: "click",
