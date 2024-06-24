@@ -1,5 +1,7 @@
 from collections import defaultdict
+
 from odoo import api, fields, models
+from odoo.addons.mail.tools.discuss import Store
 
 
 class MailActivity(models.Model):
@@ -70,9 +72,11 @@ class MailActivity(models.Model):
         for model_name, ids in record_ids_by_model_name.items():
             # calling search will filter out records that are irrelevant to the current company
             allowed_record_ids_by_model_name[model_name] = self.env[model_name].search([("id", "in", list(ids))]).ids
-        return overdue_call_activities_of_current_user.filtered(
+        store = Store()
+        overdue_call_activities_of_current_user.filtered(
             lambda activity: activity.res_id in allowed_record_ids_by_model_name[activity.res_model]
-        )._format_call_activities()
+        )._format_call_activities(store)
+        return store.get_result()
 
     def _action_done(self, feedback=False, attachment_ids=None):
         """Extends _action_done to notify the user assigned to a phonecall
@@ -85,9 +89,8 @@ class MailActivity(models.Model):
         self.env["bus.bus"]._sendmany([[partner, "refresh_call_activities", {}] for partner in to_notify])
         return super()._action_done(feedback=feedback, attachment_ids=attachment_ids)
 
-    def _format_call_activities(self):
+    def _format_call_activities(self, store: Store):
         """Serializes call activities for transmission to/use by the client side."""
-        formatted_activities = []
         call_activities = self.filtered(lambda activity: activity.activity_type_id.category == "phonecall")
         for activity in call_activities:
             model = self.env[activity.res_model]
@@ -104,8 +107,7 @@ class MailActivity(models.Model):
             )
             if partner:
                 activity_data["partner"] = partner.mail_partner_format()[partner]
-            formatted_activities.append(activity_data)
-        return formatted_activities
+            store.add("Activity", activity_data)
 
     def _get_phone_numbers_by_activity(self):
         """Batch compute the phone numbers associated with the activities.

@@ -195,8 +195,8 @@ export class Voip {
         }
         this._activityRpc = this.orm.call("mail.activity", "get_today_call_activities");
         try {
-            const activitiesData = await this._activityRpc;
-            activitiesData.forEach((data) => this.store.Activity.insert(data));
+            const data = await this._activityRpc;
+            this.store.insert(data);
         } finally {
             this._activityRpc = null;
         }

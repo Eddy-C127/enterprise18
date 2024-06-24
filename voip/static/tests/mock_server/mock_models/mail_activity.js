@@ -24,7 +24,7 @@ export class MailActivity extends mailModels.MailActivity {
         const ResPartner = this.env["res.partner"];
 
         const activities = this._filter([["id", "in", ids]]);
-        const formattedActivities = [];
+        const store = { Activity: [] };
         const now = serializeDate(today());
         for (const activity of activities) {
             const [user] = ResUsers.search_read([["id", "=", activity.user_id]]);
@@ -61,8 +61,8 @@ export class MailActivity extends mailModels.MailActivity {
             }
             activityData.mobile = record.mobile || relatedPartner?.mobile;
             activityData.phone = record.phone || relatedPartner?.phone;
-            formattedActivities.push(activityData);
+            store.Activity.push(activityData);
         }
-        return formattedActivities;
+        return store;
     }
 }
