@@ -32,8 +32,8 @@
             </xpath>
             <!-- QR-code -->
             <xpath expr="//div[@id='qrcode']" position="after">
-                <div t-if="spot" id="l10n_pe_spot" t-attf-class="#{'col-6' if report_type != 'html' else 'col-12 col-md-6'} mb-3">
-                    <table class="table table-sm avoid-page-break-inside">
+                <div t-if="spot or extra_edi_vals" id="l10n_pe_spot" t-attf-class="#{'col-6' if report_type != 'html' else 'col-12 col-md-6'} mb-3">
+                    <table t-if="spot" class="table table-sm avoid-page-break-inside">
                         <thead>
                             <tr>
                                 <th colspan="2" class="text-start">
@@ -68,7 +68,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p t-if="spot['has_installments']">The withholding has to be paid in the first installment.</p>
+                    <p t-if="spot.get('has_installments')">The withholding has to be paid in the first installment.</p>
                     <p>
                         <img t-if="extra_edi_vals" class="border border-dark rounded" t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('QR', extra_edi_vals['qr_str'], 100, 100)"/>
                     </p>
