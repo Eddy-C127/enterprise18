@@ -14,16 +14,16 @@
                     >
                         Publish
                     </button>
-                    <button t-if="model.metaData.canCreate and model.metaData.scale.id === 'week' and model.metaData.rangeId === 'week'"
-                        class="o_gantt_button_copy_previous_week btn btn-link dropdown-item d-xl-none"
+                    <button t-if="env.isSmall and model.metaData.canCreate and model.metaData.scale.id === 'week' and model.metaData.rangeId === 'week'"
+                        class="o_gantt_button_copy_previous_week btn btn-link dropdown-item"
                         title="Copy previous week"
                         data-hotkey="c"
                         t-on-click="() => this.planningControllerActions.copyPrevious()"
                     >
                         Copy previous week
                     </button>
-                    <button t-if="model.metaData.canCreate"
-                        class="o_gantt_button_auto_plan btn btn-link dropdown-item d-xl-none"
+                    <button t-if="env.isSmall and model.metaData.canCreate"
+                        class="o_gantt_button_auto_plan btn btn-link dropdown-item"
                         title="Automatically plan open shifts and sales orders"
                         data-hotkey="k"
                         t-on-click="() => this.planningControllerActions.autoPlan()"
@@ -31,8 +31,8 @@
                         Auto Plan
                     </button>
                 </div>
-                <Dropdown t-if="model.metaData.canCreate">
-                    <button class="btn btn-primary d-none d-xl-block" data-hotkey="o">
+                <Dropdown t-if="!env.isSmall and model.metaData.canCreate">
+                    <button class="btn btn-primary" data-hotkey="o">
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <t t-set-slot="content">

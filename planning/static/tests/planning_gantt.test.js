@@ -691,6 +691,9 @@ test("Test highlight shifts added by executed action", async function () {
             </search>`,
     });
 
+    click(".o_control_panel_main_buttons .o_gantt_buttons_container button > i.fa-caret-down");
+    await animationFrame();
+
     expect(".o_gantt_button_copy_previous_week").toHaveCount(1, {
         message: "1 copy button should be in the gantt view.",
     });
@@ -700,9 +703,6 @@ test("Test highlight shifts added by executed action", async function () {
     expect(".o_gantt_pill").toHaveCount(1, { message: "1 pill should be in the gantt view." });
     let { rows } = getGridContent();
     expect(rows.map((r) => r.title)).toEqual(["Open Shifts"]);
-
-    click(".o_control_panel_main_buttons .o_gantt_buttons_container button > i.fa-caret-down");
-    await animationFrame();
 
     click(".o_popover.dropdown-menu .o_gantt_button_copy_previous_week");
     await animationFrame();
