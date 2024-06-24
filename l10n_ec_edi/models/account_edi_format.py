@@ -9,7 +9,7 @@ from markupsafe import Markup, escape
 from odoo import _, models
 from odoo.addons.l10n_ec_edi.models.account_move import L10N_EC_VAT_SUBTAXES
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
-from odoo.tools import float_repr, float_round, html_escape
+from odoo.tools import float_compare, float_is_zero, float_repr, float_round, html_escape
 from odoo.tools.xml_utils import cleanup_xml_node
 from pytz import timezone
 from requests.exceptions import ConnectionError as RConnectionError
@@ -150,10 +150,14 @@ class AccountEdiFormat(models.Model):
     def _l10n_ec_post_move_edi(self, moves):
         res = {}
         for move in moves:
-            xml_string = self._l10n_ec_generate_xml(move)
+            xml_string, errors = self._l10n_ec_generate_xml(move)
 
             # Error management
-            errors, blocking_level, attachment = self._l10n_ec_send_xml_to_authorize(move, xml_string)
+            if errors:
+                blocking_level = 'error'
+                attachment = None
+            else:
+                errors, blocking_level, attachment = self._l10n_ec_send_xml_to_authorize(move, xml_string)
 
             res.update({
                 move: {
@@ -251,6 +255,64 @@ class AccountEdiFormat(models.Model):
             'strftime': partial(datetime.strftime, format='%d/%m/%Y'),
         }
 
+    def l10n_ec_merge_negative_and_positive_line(self, negative_line_tax_data, tax_data, precision_digits):
+        def merge_tax_datas(tax_data_to_add, tax_data_to_nullify):
+            keys_to_merge = ['base_amount_currency', 'base_amount', 'tax_amount_currency', 'tax_amount']
+            for key in keys_to_merge:
+                tax_data_to_add[key] += tax_data_to_nullify[key]
+                tax_data_to_nullify[key] = 0.0
+
+        if tax_data['base_amount'] > abs(negative_line_tax_data['base_amount']):
+            merge_tax_datas(tax_data, negative_line_tax_data)
+            for tax in tax_data['tax_details']:
+                merge_tax_datas(tax_data['tax_details'][tax], negative_line_tax_data['tax_details'][tax])
+        else:
+            merge_tax_datas(negative_line_tax_data, tax_data)
+            for tax in tax_data['tax_details']:
+                merge_tax_datas(negative_line_tax_data['tax_details'][tax], tax_data['tax_details'][tax])
+
+    def _l10n_ec_dispatch_negative_line_into_discounts(self, negative_line_tax_data, positive_tax_details_sorted, precision_digits):
+        def is_same_taxes(taxes_1, taxes_2):
+            def tax_dict_to_tuple(tax_dict):
+                return (tax_dict['code'], tax_dict['code_percentage'], tax_dict['rate'], tax_dict['tax_group_id'])
+            return sorted(taxes_1, key=tax_dict_to_tuple) == sorted(taxes_2, key=tax_dict_to_tuple)
+
+        for tax_data in positive_tax_details_sorted:
+            if (
+                not float_is_zero(tax_data['base_amount'], precision_digits=precision_digits)
+                and is_same_taxes(negative_line_tax_data['tax_details'].keys(), tax_data['tax_details'].keys())
+            ):
+                self.l10n_ec_merge_negative_and_positive_line(negative_line_tax_data, tax_data, precision_digits)
+                if float_is_zero(negative_line_tax_data['base_amount'], precision_digits=precision_digits):
+                    continue
+        if not float_is_zero(negative_line_tax_data['base_amount'], precision_digits=precision_digits):
+            return [_("Failed to dispatch negative lines into discounts.")]
+
+    def _l10n_ec_remove_negative_lines_from_move_info(self, move_info):
+        precision_digits = move_info['move'].company_id.currency_id.decimal_places
+
+        tax_details_per_line = move_info['taxes_data']['tax_details_per_record']
+        negative_lines = [line for line, tax_data in tax_details_per_line.items() if float_compare(tax_data['base_amount'], 0.0, precision_digits=precision_digits) == -1]
+
+        if not negative_lines:
+            return []
+
+        negative_amount_total = sum(tax_details_per_line[line]['base_amount'] for line in negative_lines)
+        move_info['discount_total'] += abs(negative_amount_total)
+
+        positive_tax_details_sorted = sorted(
+            [value for key, value in tax_details_per_line.items() if key not in negative_lines],
+            key=lambda tax_data: tax_data['base_amount'],
+            reverse=True
+        )
+        for negative_line in negative_lines:
+            error = self._l10n_ec_dispatch_negative_line_into_discounts(tax_details_per_line[negative_line], positive_tax_details_sorted, precision_digits)
+            if error:
+                return error
+            tax_details_per_line.pop(negative_line)
+
+        return []
+
     def _l10n_ec_generate_xml(self, move):
         # Gather XML values
         move_info = self._l10n_ec_get_xml_common_values(move)
@@ -269,6 +331,9 @@ class AccountEdiFormat(models.Model):
             move_info.update(move._l10n_ec_get_invoice_edi_data())
 
         # Generate XML document
+        errors = []
+        if move_info.get('taxes_data'):
+            errors += self._l10n_ec_remove_negative_lines_from_move_info(move_info)
         xml_content = self.env['ir.qweb']._render(template, move_info)
         xml_content = cleanup_xml_node(xml_content)
 
@@ -279,7 +344,7 @@ class AccountEdiFormat(models.Model):
             xml_signed = move.company_id.sudo().l10n_ec_edi_certificate_id._action_sign(xml_content)
 
         xml_signed = '<?xml version="1.0" encoding="utf-8" standalone="no"?>' + xml_signed
-        return xml_signed
+        return xml_signed, errors
 
     def _l10n_ec_generate_demo_xml_attachment(self, move, xml_string):
         """

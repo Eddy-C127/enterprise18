@@ -23,7 +23,8 @@ class TestEcPos(TestEcEdiPosCommon):
             self.assertEqual(multi_payments_order.account_move.l10n_ec_sri_payment_id.code, "mpm", "PoS orders with multiple payments should have Multiple Payment Methods (PoS) as their SRI payment method.")
 
             invoice = multi_payments_order.account_move
-            generated_file = self.env['account.edi.format']._l10n_ec_generate_xml(invoice)
+            generated_file, errors = self.env['account.edi.format']._l10n_ec_generate_xml(invoice)
+            self.assertFalse(errors)
             self.assertTrue(generated_file)
             with file_open('l10n_ec_edi_pos/tests/data/expected_document.xml', 'rt') as f:
                 expected_xml = lxml.etree.fromstring(f.read().encode())
