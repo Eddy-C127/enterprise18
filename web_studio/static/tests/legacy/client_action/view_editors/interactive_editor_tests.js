@@ -20,7 +20,7 @@ import {
 import { browser } from "@web/core/browser/browser";
 import { CodeEditor } from "@web/core/code_editor/code_editor";
 import { registry } from "@web/core/registry";
-import { onMounted } from "@odoo/owl";
+import { EventBus, onMounted } from "@odoo/owl";
 
 /* global ace */
 
@@ -993,6 +993,7 @@ QUnit.module("View Editors", () => {
                         },
                     });
                     return {
+                        bus: new EventBus(),
                         block: () => assert.step("block"),
                         unblock: () => assert.step("unblock"),
                     };
@@ -1074,6 +1075,7 @@ QUnit.module("View Editors", () => {
                         },
                     });
                     return {
+                        bus: new EventBus(),
                         block: () => assert.step("block"),
                         unblock: () => assert.step("unblock"),
                     };

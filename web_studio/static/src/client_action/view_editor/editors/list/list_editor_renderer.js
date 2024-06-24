@@ -95,7 +95,7 @@ export class ListEditorRenderer extends listView.Renderer {
     }
 
     addColsHooks(_cols) {
-        const attrs = { width: "1px" };
+        const attrs = { width: "4px" };
         const options = {};
         const cols = [];
         let hookId = 0;

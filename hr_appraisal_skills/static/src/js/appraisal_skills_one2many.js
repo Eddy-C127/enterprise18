@@ -13,21 +13,6 @@ export class AppraisalSkillsListRenderer extends SkillsListRenderer {
     static rowsTemplate = "hr_appraisal_skills.AppraisalSkillsListRenderer.Rows";
     static props = [...AppraisalSkillsListRenderer.props, "showSampleData"];
 
-    calculateColumnWidth(column) {
-        const columnSizes = {
-            justification: '600px',
-            level_progress: '150px',
-            skill_level_id: '130px',
-            skill_id: '150px',
-        };
-
-        if (column.name in columnSizes) {
-            return { type: "absolute", value: columnSizes[column.name] };
-        }
-
-        return super.calculateColumnWidth(column);
-    }
-
     get showTable() {
         return this.props.showSampleData || super.showTable;
     }
