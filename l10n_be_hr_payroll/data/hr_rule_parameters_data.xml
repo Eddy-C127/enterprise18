@@ -1722,5 +1722,35 @@ covered for the company (teleworking costs, mobile phone, internet, etc., namely
             <field name="rule_parameter_id" ref="rule_parameter_cp200_minimum_gross_wage"/>
             <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
         </record>
+
+        <record id="rule_parameter_duration_notice_resigned" model="hr.rule.parameter">
+            <field name="name">Duration Notice: Resigned</field>
+            <field name="code">l10n_be_duration_notice_resigned</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_duration_notice_resigned_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">[
+                (3, 1), (6, 2), (12, 3), (18, 4), (24, 5), (48, 6), (60, 7), (72, 9),
+                (84, 10), (96, 12), (99999999, 13)
+            ]</field>
+            <field name="rule_parameter_id" ref="rule_parameter_duration_notice_resigned"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_duration_notice_fired" model="hr.rule.parameter">
+            <field name="name">Duration Notice: Fired</field>
+            <field name="code">l10n_be_duration_notice_fired</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_duration_notice_fired_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">[
+                (3, 1), (4, 3), (5, 4), (6, 5), (9, 6), (12, 7), (15, 8), (18, 9),
+                (21, 10), (24, 11), (36, 12), (48, 13), (60, 15), (72, 18), (84, 21), (96, 24),
+                (108, 27), (120, 30), (132, 33), (144, 36), (156, 39), (168, 42), (180, 45), (192, 48),
+                (204, 51), (216, 54), (228, 57), (240, 60), (252, 62), (264, 63), (276, 64), (288, 65)
+            ]</field>
+            <field name="rule_parameter_id" ref="rule_parameter_duration_notice_fired"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
     </data>
 </odoo>

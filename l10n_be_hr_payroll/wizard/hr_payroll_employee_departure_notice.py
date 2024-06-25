@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import math
 
 from datetime import datetime, timedelta
+
+from dateutil import rrule
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
@@ -21,14 +22,22 @@ class HrPayslipEmployeeDepartureNotice(models.TransientModel):
         return super().default_get(field_list)
 
     employee_id = fields.Many2one('hr.employee', string='Employee', default=lambda self: self.env.context.get('active_id'))
+    departure_date = fields.Date(string='Departure Date', default=fields.Date.context_today, required=True)
     leaving_type_id = fields.Many2one('hr.departure.reason', string='Departure Reason', required=True)
     departure_reason_code = fields.Integer(related='leaving_type_id.reason_code')
 
-    start_notice_period = fields.Date('Start notice period', required=True, default=fields.Date.context_today)
-    end_notice_period = fields.Date('End notice period', required=True)
+    start_notice_period = fields.Date(
+        string='Start Notice Period',
+        help='First monday from the departure date (or the following open day if it is a public holiday).',
+        compute='_compute_start_notice_period')
+    end_notice_period = fields.Date('End Notice Period', compute='_compute_end_notice_period', store=True, readonly=False)
     departure_description = fields.Char('Departure Description', required=True)
     oldest_contract_id = fields.Many2one('hr.contract', string='Oldest Contract', compute='_compute_oldest_contract_id')
-    first_contract = fields.Date('First contract in company', required=True)
+    first_contract = fields.Date(
+        string='In the Company Since',
+        help='First contract start date.',
+        compute='_compute_oldest_contract_id')
+    seniority_description = fields.Char(string='Seniority', compute='_compute_seniority_description')
 
     salary_december_2013 = fields.Selection([
         ('inferior', 'Gross annual salary < 32.254 €'),
@@ -37,12 +46,18 @@ class HrPayslipEmployeeDepartureNotice(models.TransientModel):
     salary_visibility = fields.Boolean('Salary as of December 2013')
     notice_duration_month_before_2014 = fields.Integer('Notice Duration in month', compute='_notice_duration')
     notice_duration_week_after_2014 = fields.Integer('Notice Duration in weeks', compute='_notice_duration')
+    actual_notice_duration = fields.Integer('Actual Notice Duration', compute='_compute_actual_notice_duration')
 
     notice_respect = fields.Selection([
         ('with', 'Employee works during his notice period'),
-        ('without', "Employee doesn't work during his notice period")
+        ('partial', 'Employee works partially during his notice period'),
+        ('without', "Employee doesn't work during his notice period"),
         ], string='Respect of the notice period', required=True, default='with',
         help='Decides whether the employee will still work during his notice period or not.')
+
+    @api.onchange('leaving_type_id')
+    def _onchange_leaving_type_id(self):
+        self.notice_respect = 'with'
 
     @api.depends('employee_id')
     def _compute_oldest_contract_id(self):
@@ -54,13 +69,54 @@ class HrPayslipEmployeeDepartureNotice(models.TransientModel):
             ], order='date_start asc', limit=1)
             notice.first_contract = notice.oldest_contract_id.date_start
 
-    @api.onchange('notice_duration_month_before_2014', 'notice_duration_week_after_2014', 'start_notice_period', 'notice_respect')
-    def _onchange_notice_duration(self):
-        if self.notice_respect == 'without':
-            self.end_notice_period = self.start_notice_period
-        elif self.start_notice_period:
-            months_to_weeks = self.notice_duration_month_before_2014 / 3.0 * 13
-            self.end_notice_period = self.start_notice_period + timedelta(weeks=months_to_weeks+self.notice_duration_week_after_2014)
+    @api.depends('start_notice_period', 'end_notice_period')
+    def _compute_actual_notice_duration(self):
+        for notice in self:
+            weeks = rrule.rrule(rrule.WEEKLY, dtstart=notice.start_notice_period, until=notice.end_notice_period)
+            notice.actual_notice_duration = weeks.count()
+
+    @api.depends('first_contract', 'departure_date')
+    def _compute_seniority_description(self):
+        for notice in self:
+            difference = relativedelta(notice.departure_date, notice.first_contract)
+            if difference.years == 0:
+                notice.seniority_description = _('%(months)s months', months=difference.months)
+            else:
+                notice.seniority_description = _('%(years)s years and %(months)s months', months=difference.months, years=difference.years)
+
+    @api.depends('departure_date', 'notice_respect', 'departure_reason_code')
+    def _compute_start_notice_period(self):
+        public_holiday_type = self.env.ref('l10n_be_hr_payroll.work_entry_type_bank_holiday')
+        for notice in self:
+            if notice.notice_respect == 'without':
+                notice.start_notice_period = notice.departure_date
+            elif notice.departure_reason_code == 342:
+                # We can only take the next monday that has at least 3 calendar days (Monday to Saturday except public
+                # holidays) between the departure date and the start of the notice period
+                public_leaves = self.employee_id.contract_id.resource_calendar_id.global_leave_ids.filtered(
+                    lambda l: l.work_entry_type_id == public_holiday_type)
+                public_holidays_dates = (d.date() for d in public_leaves.mapped('date_from'))
+                calendar_days = 0
+                current_date = notice.departure_date + relativedelta(days=1)
+                while calendar_days < 3:
+                    if current_date not in public_holidays_dates and current_date.weekday() != 6:
+                        calendar_days += 1
+                    current_date = current_date + relativedelta(days=1)
+                notice.start_notice_period = current_date + relativedelta(days=7 - current_date.weekday())
+            else:
+                notice.start_notice_period = notice.departure_date + relativedelta(days=7 - notice.departure_date.weekday())
+
+    @api.depends('notice_duration_month_before_2014', 'notice_duration_week_after_2014', 'start_notice_period', 'notice_respect', 'departure_date', 'departure_reason_code')
+    def _compute_end_notice_period(self):
+        for notice in self:
+            if notice.notice_respect == 'without':
+                notice.end_notice_period = notice.departure_date
+            elif notice.start_notice_period:
+                if notice.departure_reason_code in [350, 351]:
+                    notice.end_notice_period = notice.start_notice_period
+                else:
+                    months_to_weeks = notice.notice_duration_month_before_2014 / 3.0 * 13
+                    notice.end_notice_period = notice.start_notice_period + timedelta(weeks=months_to_weeks + notice.notice_duration_week_after_2014, days=-1)
 
     @api.depends('first_contract', 'leaving_type_id', 'salary_december_2013', 'start_notice_period')
     def _notice_duration(self):
@@ -79,7 +135,7 @@ class HrPayslipEmployeeDepartureNotice(models.TransientModel):
                 if difference_in_years > 0:
                     notice.salary_visibility = True
                     if notice.salary_december_2013 == 'inferior':
-                        notice.notice_duration_month_before_2014 = int(math.ceil(difference_in_years/5.0)*3.0)
+                        notice.notice_duration_month_before_2014 = int(math.ceil(difference_in_years / 5.0) * 3.0)
                     else:
                         notice.notice_duration_month_before_2014 = max(int(math.ceil(difference_in_years)), 3)
                 else:
@@ -87,40 +143,40 @@ class HrPayslipEmployeeDepartureNotice(models.TransientModel):
                     notice.notice_duration_month_before_2014 = 0
                 # Part II
                 notice.notice_duration_week_after_2014 = notice._find_week(
-                    period_since_2014.months + period_since_2014.years*12, 'fired')
+                    period_since_2014.months + period_since_2014.years * 12, 'fired')
             elif notice.leaving_type_id.reason_code == departure_reasons['resigned']:
                 notice.salary_visibility = False
                 notice.notice_duration_month_before_2014 = 0
                 notice.notice_duration_week_after_2014 = notice._find_week(
-                    period_since_2014.months + period_since_2014.years*12, 'resigned')
+                    period_since_2014.months + period_since_2014.years * 12, 'resigned')
             elif notice.leaving_type_id.reason_code == departure_reasons['retired']:
                 notice.salary_visibility = False
                 notice.notice_duration_month_before_2014 = 0
-                notice.notice_duration_week_after_2014 = 0
+                notice.notice_duration_week_after_2014 = notice._find_week(
+                    period_since_2014.months + period_since_2014.years * 12, 'resigned')
             else:
                 notice.salary_visibility = False
                 notice.notice_duration_month_before_2014 = 0
                 notice.notice_duration_week_after_2014 = 0
 
     def _get_years(self, date):
-        return date.years + date.months/12 + date.days/365
+        return date.years + date.months / 12 + date.days / 365
 
     def _find_week(self, duration_worked_month, leaving_type_id):
         if leaving_type_id == 'resigned':
-            duration_notice = [
-                (3, 1), (6, 2), (12, 3), (18, 4), (24, 5), (48, 6), (60, 7), (72, 9),
-                (84, 10), (96, 12), (1000, 13)]
+            duration_notice = self.env['hr.rule.parameter']._get_parameter_from_code('l10n_be_duration_notice_resigned', self.departure_date)
         else:
-            duration_notice = [
-                (3, 1), (4, 3), (5, 4), (6, 5), (9, 6), (12, 7), (15, 8), (18, 9),
-                (21, 10), (24, 11), (36, 12), (48, 13), (60, 15), (72, 18), (84, 21), (96, 24),
-                (108, 27), (120, 30), (132, 33), (144, 36), (156, 39), (168, 42), (180, 45), (192, 48),
-                (204, 51), (216, 54), (228, 57), (240, 60), (252, 62), (264, 63), (276, 64), (288, 65)]
-        for duration in duration_notice:
-            last_valid = duration[1]
-            if duration[0] > duration_worked_month:
-                return last_valid
-        return last_valid
+            duration_notice = self.env['hr.rule.parameter']._get_parameter_from_code('l10n_be_duration_notice_fired', self.departure_date)
+            # Once you reach 24 years (288 months) of seniority,
+            # you have one more week in the notice period per year
+            # starting at 66 weeks for the 24th year.
+            threshold, duration = duration_notice[-1]
+            if duration_worked_month >= threshold:
+                return duration + 1 + duration_worked_month // 12 - threshold / 12
+        for seniority_upper_bound, duration in duration_notice:
+            if duration_worked_month < seniority_upper_bound:
+                return duration
+        return 0  # Should not happen but makes python happy
 
     def validate_termination(self):
         self.employee_id.write({
@@ -174,8 +230,12 @@ class HrPayslipEmployeeDepartureNotice(models.TransientModel):
         contract = termination_payslip.contract_id
         payslip_id = termination_payslip.id
 
+        weeks = self.notice_duration_week_after_2014
+        if self.notice_respect == 'partial':
+            weeks -= self.actual_notice_duration
+
         self._create_input(payslip_id, 1, 'months', self.notice_duration_month_before_2014, contract.id)
-        self._create_input(payslip_id, 2, 'weeks', self.notice_duration_week_after_2014, contract.id)
+        self._create_input(payslip_id, 2, 'weeks', weeks, contract.id)
         self._create_input(payslip_id, 3, 'days', 0, contract.id)
         self._create_input(payslip_id, 4, 'unreasonable_dismissal', 0, contract.id)
         self._create_input(payslip_id, 5, 'non_respect_motivation', 0, contract.id)

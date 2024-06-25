@@ -961,9 +961,7 @@ class TestPayslipValidation(TestPayslipValidationCommon):
         cls.departure_notice = cls.env['hr.payslip.employee.depature.notice'].create({
             'employee_id': cls.employee.id,
             'leaving_type_id': cls.env.ref('hr.departure_fired').id,
-            'start_notice_period': datetime.date(2020, 4, 15),
-            'end_notice_period': datetime.date(2020, 4, 15),
-            'first_contract': datetime.date(2019, 1, 1),
+            'departure_date': datetime.date(2020, 4, 15),
             'notice_respect': 'without',
             'departure_description': 'foo',
         })

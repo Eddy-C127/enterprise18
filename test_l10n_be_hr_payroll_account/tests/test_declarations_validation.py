@@ -619,9 +619,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         departure_notice = self.env['hr.payslip.employee.depature.notice'].create({
             'employee_id': self.employees[0].id,
             'leaving_type_id': self.env.ref('hr.departure_fired').id,
-            'start_notice_period': datetime.date(2021, 12, 31),
-            'end_notice_period': datetime.date(2021, 12, 31),
-            'first_contract': datetime.date(2018, 12, 31),
+            'departure_date': datetime.date(2021, 12, 31),
             'notice_respect': 'without',
             'departure_description': 'foo',
         })
@@ -656,3 +654,18 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
                 self.assertEqual(
                     employee_data['f10_2065_opzeggingsreclasseringsverg'],
                     termination_fees._get_line_values(['GROSS'], compute_sum=True)['GROSS']['sum']['total'])
+
+    def test_notice_duration_fired(self):
+        self.contracts[0].date_start = datetime.date(2014, 1, 1)
+        departure_notice = self.env['hr.payslip.employee.depature.notice'].create({
+            'employee_id': self.employees[0].id,
+            'leaving_type_id': self.env.ref('hr.departure_fired').id,
+            'departure_date': datetime.date(2044, 6, 1),
+            'notice_respect': 'with',
+            'departure_description': 'foo',
+        })
+
+        self.assertEqual(departure_notice.start_notice_period, datetime.date(2044, 6, 6))
+        # Seniority is 30 years and 5 months
+        # Duration should be 72 weeks
+        self.assertEqual(departure_notice.end_notice_period, datetime.date(2045, 10, 22))

@@ -13,22 +13,34 @@
                     <group>
                         <field name="leaving_type_id" options="{'no_open': True, 'no_create': True}"/>
                         <field name="departure_description" widget="text"/>
-                        <field name="salary_visibility" invisible="1"/>
+                        <label for="departure_date" string="Retirement Date" invisible="departure_reason_code != 340"/>
+                        <label for="departure_date" string="Dismissal Date" invisible="departure_reason_code != 342"/>
+                        <label for="departure_date" string="Resignation Date" invisible="departure_reason_code != 343"/>
+                        <label for="departure_date" string="Departure Date" invisible="departure_reason_code not in [350, 351]"/>
+                        <div invisible="not leaving_type_id">
+                            <field name="departure_date" nolabel="1" class="oe_inline"/>
+                        </div>
                     </group>
                 </group>
-                <group>
-                    <field name="departure_reason_code" invisible="1"/>
+                <group string="Notice Period" invisible="not leaving_type_id or departure_reason_code in [350, 351]">
                     <group class="o_label_nowrap">
-                        <field name="first_contract" invisible="departure_reason_code == 340"/>
-                        <field name="start_notice_period"/>
-                        <label for="notice_duration_month_before_2014" string="Notice duration computed" help="Computed value base on leaving type, arrival of the employee in the company, ..."/>
+                        <field name="first_contract"/>
+                        <field name="seniority_description"/>
+                        <field name="start_notice_period" invisible="notice_respect == 'without'"/>
+                        <label for="notice_duration_month_before_2014" string="Notice Duration" invisible="notice_respect != 'with'"/>
+                        <label for="notice_duration_month_before_2014" string="Theoretical Notice Duration" invisible="notice_respect == 'with'"/>
                         <div>
                             <field name="notice_duration_month_before_2014" nolabel="1" class="oe_inline" invisible="notice_duration_month_before_2014 == 0"/>
                             <span invisible="notice_duration_month_before_2014 == 0"> months and </span>
                             <field name="notice_duration_week_after_2014" nolabel="1" class="oe_inline"/>
                             <span> weeks</span>
                         </div>
-                        <field name="end_notice_period"/>
+                        <label for="actual_notice_duration" invisible="notice_respect != 'partial'"/>
+                        <div invisible="notice_respect != 'partial'">
+                            <field name="actual_notice_duration" nolabel="1" class="oe_inline"/>
+                            <span> weeks</span>
+                        </div>
+                        <field name="end_notice_period" invisible="notice_respect == 'without'" readonly="notice_respect != 'partial'"/>
                     </group>
                     <group>
                         <field name="salary_december_2013" invisible="not salary_visibility"/>
@@ -38,7 +50,7 @@
                     <field name="notice_respect" invisible="notice_duration_month_before_2014 == 0 and notice_duration_week_after_2014 == 0"/>
                 </group>
                 <footer>
-                    <button name="validate_termination" string="Validate" type="object" class="oe_highlight" invisible="notice_respect == 'without'" data-hotkey="q"/>
+                    <button name="validate_termination" string="Validate" type="object" class="oe_highlight" invisible="notice_respect != 'with'" data-hotkey="q"/>
                     <button name="compute_termination_fee" string="Validate &amp; Compute termination fees" type="object" class="oe_highlight" invisible="notice_respect == 'with'" data-hotkey="q"/>
                     <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
                 </footer>
