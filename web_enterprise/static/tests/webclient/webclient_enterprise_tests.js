@@ -491,6 +491,7 @@ QUnit.module("WebClient Enterprise", (hooks) => {
                             displayName: "Home",
                         },
                     ],
+                    globalState: {},
                 },
                 "actionStack was restored"
             );
