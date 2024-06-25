@@ -1,4 +1,6 @@
 import { mailModels } from "@mail/../tests/mail_test_helpers";
+import { mailDataHelpers } from "@mail/../tests/mock_server/mail_mock_server";
+
 import { fields, makeKwArgs, serverState } from "@web/../tests/web_test_helpers";
 import { serializeDateTime } from "@web/core/l10n/dates";
 
@@ -11,38 +13,40 @@ export class DiscussChannel extends mailModels.DiscussChannel {
 
     /**
      * @override
-     * @type {typeof mailModels.DiscussChannel["prototype"]["_channel_info"]}
+     * @type {typeof mailModels.DiscussChannel["prototype"]["_to_store"]}
      */
-    _channel_info(ids) {
-        const channelInfos = super._channel_info(...arguments);
-        for (const channelInfo of channelInfos) {
-            const [channel] = this._filter([["id", "=", channelInfo.id]]);
-            channelInfo.anonymous_name = channel.anonymous_name;
-            if (
-                channel.channel_type === "whatsapp" &&
-                Boolean(channel.whatsapp_channel_valid_until)
-            ) {
-                channelInfo.whatsapp_channel_valid_until = channel.whatsapp_channel_valid_until;
-            }
+    _to_store(ids, store) {
+        super._to_store(...arguments);
+        const channels = this._filter([
+            ["id", "in", ids],
+            ["channel_type", "=", "whatsapp"],
+        ]);
+        for (const channel of channels) {
+            store.add("Thread", {
+                id: channel.id,
+                model: "discuss.channel",
+                whatsapp_channel_valid_until: channel.whatsapp_channel_valid_until || false,
+            });
         }
-        return channelInfos;
     }
 
     /** @param {number[]} ids */
     whatsapp_channel_join_and_pin(ids) {
+        /** @type {import("mock_models").DiscussChannel} */
+        const DiscussChannel = this.env["discuss.channel"];
         /** @type {import("mock_models").DiscussChannelMember} */
         const DiscussChannelMember = this.env["discuss.channel.member"];
         /** @type {import("mock_models").BusBus} */
         const BusBus = this.env["bus.bus"];
         const [channel] = this._filter([["id", "in", ids]]);
 
-        let selfMember = this._find_or_create_member_for_self(channel.id);
+        const selfMember = this._find_or_create_member_for_self(channel.id);
         if (selfMember) {
             DiscussChannelMember.write([selfMember.id], {
                 unpin_dt: false,
             });
         } else {
-            selfMember = DiscussChannelMember.create({
+            const selfMemberId = DiscussChannelMember.create({
                 channel_id: channel.id,
                 partner_id: serverState.partnerId,
                 create_uid: this.env.uid,
@@ -55,20 +59,15 @@ export class DiscussChannel extends mailModels.DiscussChannel {
                     subtype_xmlid: "mail.mt_comment",
                 })
             );
-            BusBus._sendone(channel, "mail.record/insert", {
-                ChannelMember: [DiscussChannelMember._discuss_channel_member_format(selfMember)],
-                Thread: [
-                    {
-                        id: channel.id,
-                        memberCount: DiscussChannelMember.search_count([
-                            ["channel_id", "=", channel.id],
-                        ]),
-                        model: "discuss.channel",
-                    },
-                ],
+            const broadcast_store = new mailDataHelpers.Store("Thread", {
+                id: channel.id,
+                memberCount: DiscussChannelMember.search_count([["channel_id", "=", channel.id]]),
+                model: "discuss.channel",
             });
+            broadcast_store.add(DiscussChannelMember.browse(selfMemberId));
+            BusBus._sendone(channel, "mail.record/insert", broadcast_store.get_result());
         }
-        return { Thread: this._channel_info([channel.id]) };
+        return new mailDataHelpers.Store(DiscussChannel.browse(channel.id)).get_result();
     }
     /**
      * @override

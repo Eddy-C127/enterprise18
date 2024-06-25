@@ -1,4 +1,5 @@
 import { mailModels } from "@mail/../tests/mail_test_helpers";
+import { mailDataHelpers } from "@mail/../tests/mock_server/mail_mock_server";
 
 import { serializeDate, today } from "@web/core/l10n/dates";
 
@@ -7,24 +8,26 @@ export class MailActivity extends mailModels.MailActivity {
         /** @type {import("mock_models").MailActivityType} */
         const MailActivityType = this.env["mail.activity.type"];
         const activityTypeIds = MailActivityType.search([["category", "=", "phonecall"]])[0];
-        return this._format_call_activities(
+        const store = new mailDataHelpers.Store();
+        this._format_call_activities(
             this.search([
                 ["activity_type_id", "in", activityTypeIds],
                 ["user_id", "=", this.env.uid],
                 ["date_deadline", "<=", serializeDate(today())],
-            ])
+            ]),
+            store
         );
+        return store.get_result();
     }
 
     /** @param {number[]} ids */
-    _format_call_activities(ids) {
+    _format_call_activities(ids, store) {
         /** @type {import("mock_models").ResUsers} */
         const ResUsers = this.env["res.users"];
         /** @type {import("mock_models").ResPartner} */
         const ResPartner = this.env["res.partner"];
 
         const activities = this._filter([["id", "in", ids]]);
-        const store = { Activity: [] };
         const now = serializeDate(today());
         for (const activity of activities) {
             const [user] = ResUsers.search_read([["id", "=", activity.user_id]]);
@@ -61,8 +64,7 @@ export class MailActivity extends mailModels.MailActivity {
             }
             activityData.mobile = record.mobile || relatedPartner?.mobile;
             activityData.phone = record.phone || relatedPartner?.phone;
-            store.Activity.push(activityData);
+            store.add("Activity", activityData);
         }
-        return store;
     }
 }

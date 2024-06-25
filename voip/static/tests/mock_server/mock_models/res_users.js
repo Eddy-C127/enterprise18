@@ -8,23 +8,24 @@ export class ResUsers extends mailModels.ResUsers {
     });
 
     /** @override */
-    _init_store_data() {
+    _init_store_data(store) {
         const VoipCall = this.env["voip.call"];
         const VoipProvider = this.env["voip.provider"];
         /** @type {import("mock_models").ResUsers} */
         const ResUsers = this.env["res.users"];
 
-        const res = super._init_store_data();
+        super._init_store_data(...arguments);
         const [user] = ResUsers.search_read([["id", "=", this.env.uid]]);
         if (user) {
             const [provider] = VoipProvider.search_read([["id", "=", user.voip_provider_id[0]]]);
-            res.Store.voipConfig = {
-                missedCalls: VoipCall._get_number_of_missed_calls(),
-                mode: provider.mode,
-                pbxAddress: provider.pbx_ip || "localhost",
-                webSocketUrl: provider.ws_server || "ws://localhost",
-            };
+            store.add({
+                voipConfig: {
+                    missedCalls: VoipCall._get_number_of_missed_calls(),
+                    mode: provider.mode,
+                    pbxAddress: provider.pbx_ip || "localhost",
+                    webSocketUrl: provider.ws_server || "ws://localhost",
+                },
+            });
         }
-        return res;
     }
 }

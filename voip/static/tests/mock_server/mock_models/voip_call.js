@@ -7,7 +7,7 @@ export class VoipCall extends models.ServerModel {
     /** @param {number[]} ids */
     abort_call(ids) {
         this.write(ids, { state: "aborted" });
-        return this.format_calls(ids);
+        return this._format_calls(ids);
     }
 
     /**
@@ -20,7 +20,7 @@ export class VoipCall extends models.ServerModel {
         delete kwargs.res_id;
         delete kwargs.res_model;
         delete kwargs.context;
-        return this.format_calls(this.create(kwargs, makeKwArgs({ context })));
+        return this._format_calls(this.create(kwargs, makeKwArgs({ context })));
     }
 
     compute_display_name(calls) {
@@ -66,11 +66,11 @@ export class VoipCall extends models.ServerModel {
         if (activity_name) {
             this.write(ids, { activity_name });
         }
-        return this.format_calls(ids);
+        return this._format_calls(ids);
     }
 
     /** @param {number[]} ids */
-    format_calls(ids) {
+    _format_calls(ids) {
         /** @type {import("./res_partner").ResPartner} */
         const ResPartner = this.env["res.partner"];
         if (!Array.isArray(ids)) {
@@ -91,7 +91,7 @@ export class VoipCall extends models.ServerModel {
                 state: call.state,
             };
             if (Number.isInteger(call.partner_id)) {
-                data.partner = ResPartner.mail_partner_format([call.partner_id])[call.partner_id];
+                data.partner = ResPartner._format_contacts([call.partner_id])[0];
             }
             formattedCalls.push(data);
         }
@@ -118,7 +118,7 @@ export class VoipCall extends models.ServerModel {
             return false;
         }
         this.write(ids, { partner_id: partnerId });
-        return ResPartner.mail_partner_format([partnerId])[partnerId];
+        return ResPartner._format_contacts([partnerId])[0];
     }
 
     _get_number_of_missed_calls() {
@@ -153,7 +153,7 @@ export class VoipCall extends models.ServerModel {
             limit,
             order: "create_date DESC",
         });
-        return this.format_calls(recordIds);
+        return this._format_calls(recordIds);
     }
 
     /** @param {number[]} ids */
@@ -162,6 +162,6 @@ export class VoipCall extends models.ServerModel {
             start_date: serializeDate(today()),
             state: "ongoing",
         });
-        return this.format_calls(ids);
+        return this._format_calls(ids);
     }
 }
