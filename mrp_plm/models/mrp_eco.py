@@ -6,7 +6,7 @@ from random import randint
 
 import ast
 
-from odoo import api, fields, models, tools, Command, SUPERUSER_ID, _
+from odoo import api, fields, models, tools, Command, _
 from odoo.osv import expression
 from odoo.exceptions import UserError
 
@@ -629,7 +629,7 @@ class MrpEco(models.Model):
         if self._context.get('default_type_ids'):
             search_domain = [('type_ids', 'in', self._context['default_type_ids'])]
 
-        stage_ids = stages._search(search_domain, order=stages._order, access_rights_uid=SUPERUSER_ID)
+        stage_ids = stages.sudo()._search(search_domain, order=stages._order)
         return stages.browse(stage_ids)
 
     @api.returns('mail.message', lambda value: value.id)

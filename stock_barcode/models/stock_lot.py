@@ -9,10 +9,10 @@ class StockLot(models.Model):
     _barcode_field = 'name'
 
     @api.model
-    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
+    def _search(self, domain, offset=0, limit=None, order=None):
         # sudo is added for external users to get the lots
         domain = self.env.company.sudo().nomenclature_id._preprocess_gs1_search_args(domain, ['lot'], field='name')
-        return super()._search(domain, offset=offset, limit=limit, order=order, access_rights_uid=access_rights_uid)
+        return super()._search(domain, offset=offset, limit=limit, order=order)
 
     def _get_stock_barcode_specific_data(self):
         products = self.product_id

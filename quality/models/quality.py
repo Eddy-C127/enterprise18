@@ -5,7 +5,7 @@ import ast
 
 from datetime import datetime
 
-from odoo import api, fields, models, _, SUPERUSER_ID
+from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.osv.expression import OR
 
@@ -358,5 +358,5 @@ class QualityAlert(models.Model):
             # if enter here, means we won't get any team_id and stage_id to search
             # so search stage without team_ids instead
             domain = [('team_ids', '=', False)]
-        stage_ids = stages._search(domain, order=stages._order, access_rights_uid=SUPERUSER_ID)
+        stage_ids = stages.sudo()._search(domain, order=stages._order)
         return stages.browse(stage_ids)

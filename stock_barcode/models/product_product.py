@@ -10,10 +10,10 @@ class Product(models.Model):
     _barcode_field = 'barcode'
 
     @api.model
-    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
+    def _search(self, domain, offset=0, limit=None, order=None):
         # sudo is added for external users to get the products
         domain = self.env.company.sudo().nomenclature_id._preprocess_gs1_search_args(domain, ['product'])
-        return super()._search(domain, offset=offset, limit=limit, order=order, access_rights_uid=access_rights_uid)
+        return super()._search(domain, offset=offset, limit=limit, order=order)
 
     @api.model
     def _get_fields_stock_barcode(self):
