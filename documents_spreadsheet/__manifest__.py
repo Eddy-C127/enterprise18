@@ -44,7 +44,6 @@
             'documents_spreadsheet/static/src/bundle/components/control_panel/spreadsheet_breadcrumbs.xml',
         ],
         'web.assets_tests': [
-            'documents_spreadsheet/static/tests/utils/tour.js',
             'documents_spreadsheet/static/tests/tours/*',
         ],
         'web.qunit_suite_tests': [
