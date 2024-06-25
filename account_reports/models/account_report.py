@@ -2710,10 +2710,11 @@ class AccountReport(models.Model):
             'figure_type': figure_type,
             'green_on_positive': column_expression.green_on_positive,
             'has_sublines': has_sublines,
-            'is_zero': col_value is None or (
-                isinstance(col_value, (int, float))
-                and figure_type in ('float', 'integer', 'monetary')
-                and self._is_value_zero(col_value, figure_type, format_params)
+            'is_zero': (
+                col_value is None
+                or not isinstance(col_value, (int, float))
+                or not figure_type in ('float', 'integer', 'monetary')
+                or self._is_value_zero(col_value, figure_type, format_params)
             ),
             'no_format': col_value,
             'format_params': format_params,

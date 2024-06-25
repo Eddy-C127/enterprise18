@@ -1280,6 +1280,25 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
         self.start_tour("/odoo", 'account_reports_hide_0_lines', login=self.env.user.login)
 
+    @freeze_time('2020-01-16')
+    def test_hide_line_at_0_tour_with_string_columns(self):
+        report = self.env.ref('account_reports.general_ledger_report')
+        report.filter_hide_0_lines = 'optional'
+        self.env['account.move'].create({
+            'move_type': 'entry',
+            'date': '2020-01-15',
+            'line_ids': [Command.create({
+                'partner_id': self.partner_a.id,
+                'debit': 0.0,
+                'credit': 0.0,
+                'name': "Coucou les biloutes",
+                'account_id': self.company_data['default_account_payable'].id,
+                'journal_id': self.company_data['default_journal_misc'].id,
+            })],
+        }).action_post()
+
+        self.start_tour("/web", 'account_reports_hide_0_lines_with_string_columns', login=self.env.user.login)
+
     def test_rounding_unit_tour(self):
         self.env['account.move'].create({
             'move_type': 'out_invoice',
