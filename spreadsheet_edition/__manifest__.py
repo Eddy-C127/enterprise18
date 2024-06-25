@@ -33,11 +33,16 @@
             'spreadsheet_edition/static/src/assets/**/*',
         ],
         'web.qunit_suite_tests': [
-            'spreadsheet_edition/static/tests/**/*',
+            'spreadsheet_edition/static/tests/legacy/**/*',
         ],
         'web.qunit_mobile_suite_tests': [
             'spreadsheet_edition/static/tests/legacy/disable_patch.js',
             'spreadsheet_edition/static/tests/legacy/utils/mock_server.js',
+        ],
+        # Unit test files
+        'web.assets_unit_tests': [
+            'spreadsheet_edition/static/tests/**/*',
+            ('remove', 'spreadsheet_edition/static/tests/legacy/**/*'),  # to remove when all legacy tests are ported
         ],
     }
 }

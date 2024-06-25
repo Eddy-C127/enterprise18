@@ -1,28 +1,27 @@
-/** @odoo-module **/
+import { describe, expect, test } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
 import { stores } from "@odoo/o-spreadsheet";
-import { nextTick } from "@web/../tests/helpers/utils";
+import { Partner, defineSpreadsheetModels } from "@spreadsheet/../tests/helpers/data";
+import { insertListInSpreadsheet } from "@spreadsheet/../tests/helpers/list";
+import { createModelWithDataSource } from "@spreadsheet/../tests/helpers/model";
+import { makeStore, makeStoreWithModel } from "@spreadsheet/../tests/helpers/stores";
 
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
-import { createModelWithDataSource } from "@spreadsheet/../tests/legacy/utils/model";
-import { makeStore, makeStoreWithModel } from "@spreadsheet/../tests/legacy/utils/stores";
-
-import { insertListInSpreadsheet } from "@spreadsheet/../tests/legacy/utils/list";
+describe.current.tags("headless");
+defineSpreadsheetModels();
 
 const { ComposerStore } = stores;
 
-QUnit.module("spreadsheet list auto complete");
-
-QUnit.test("ODOO.LIST id", async function (assert) {
+test("ODOO.LIST id", async function () {
     const { store: composer, model } = await makeStore(ComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["foo", "bar", "date", "product_id"],
     });
-    await nextTick();
+    await animationFrame();
     for (const formula of ["=ODOO.LIST(", "=ODOO.LIST( ", "=ODOO.LIST.HEADER("]) {
         composer.startEdition(formula);
         const autoComplete = composer.autocompleteProvider;
-        assert.deepEqual(autoComplete.proposals, [
+        expect(autoComplete.proposals).toEqual([
             {
                 description: "List",
                 fuzzySearchKey: "1List",
@@ -34,112 +33,73 @@ QUnit.test("ODOO.LIST id", async function (assert) {
     }
 });
 
-QUnit.test("ODOO.LIST id exact match", async function (assert) {
+test("ODOO.LIST id exact match", async function () {
     const { store: composer, model } = await makeStore(ComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["foo", "bar", "date", "product_id"],
     });
-    await nextTick();
+    await animationFrame();
     composer.startEdition("=ODOO.LIST(1");
     const autoComplete = composer.autocompleteProvider;
-    assert.strictEqual(autoComplete, undefined);
+    expect(autoComplete).toBe(undefined);
 });
 
-const PARTNER = {
-    fields: {
-        foo: {
-            string: "Foo",
-            type: "integer",
-            store: true,
-            searchable: true,
-            aggregator: "sum",
-        },
-        bar: {
-            string: "Bar",
-            type: "boolean",
-            store: true,
-            sortable: true,
-            groupable: true,
-            searchable: true,
-        },
-        name: {
-            string: "name",
-            type: "char",
-            store: true,
-            sortable: true,
-            groupable: true,
-            searchable: true,
-        },
-    },
-    records: [],
-};
-
-QUnit.test("ODOO.LIST field name", async function (assert) {
-    const serverData = getBasicServerData();
-    serverData.models.partner = PARTNER;
-    const model = await createModelWithDataSource({
-        serverData,
-    });
+test("ODOO.LIST field name", async function () {
+    const model = await createModelWithDataSource();
     const { store: composer } = await makeStoreWithModel(model, ComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["product_id", "bar"],
     });
-    await nextTick();
+    await animationFrame();
     composer.startEdition("=ODOO.LIST(1,1,");
     const autoComplete = composer.autocompleteProvider;
-    const allFields = ["id", "display_name", "name", "write_date", "foo", "bar"];
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
+    const allFields = Object.keys(Partner._fields);
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(
         allFields.map((field) => `"${field}"`),
-        "all fields are proposed, quoted"
+        { message: "all fields are proposed, quoted" }
     );
     // check completely only the first one
-    assert.deepEqual(autoComplete.proposals[0], {
-        description: "ID",
-        fuzzySearchKey: 'ID"id"',
+    expect(autoComplete.proposals[0]).toEqual({
+        description: "Id",
+        fuzzySearchKey: 'Id"id"',
         htmlContent: [{ color: "#00a82d", value: '"id"' }],
         text: '"id"',
     });
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=ODOO.LIST(1,1,"id"');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=ODOO.LIST(1,1,"id"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("ODOO.LIST.HEADER field name", async function (assert) {
-    const serverData = getBasicServerData();
-    serverData.models.partner = PARTNER;
-    const model = await createModelWithDataSource({
-        serverData,
-    });
+test("ODOO.LIST.HEADER field name", async function () {
+    const model = await createModelWithDataSource();
     const { store: composer } = await makeStoreWithModel(model, ComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["product_id", "bar"],
     });
-    await nextTick();
+    await animationFrame();
     composer.startEdition("=ODOO.LIST.HEADER(1,");
     const autoComplete = composer.autocompleteProvider;
-    const allFields = ["id", "display_name", "name", "write_date", "foo", "bar"];
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
+    const allFields = Object.keys(Partner._fields);
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(
         allFields.map((field) => `"${field}"`),
-        "all fields are proposed, quoted"
+        { message: "all fields are proposed, quoted" }
     );
 });
 
-QUnit.test("ODOO.LIST field name with invalid list id", async function (assert) {
+test("ODOO.LIST field name with invalid list id", async function () {
     const { store: composer, model } = await makeStore(ComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["foo", "bar", "date", "product_id"],
     });
-    await nextTick();
+    await animationFrame();
     for (const listId of ["", "0", "42"]) {
         composer.startEdition(`=ODOO.LIST(${listId},1,`);
         const autoComplete = composer.autocompleteProvider;
-        assert.strictEqual(autoComplete, undefined);
+        expect(autoComplete).toBe(undefined);
         composer.cancelEdition();
     }
 });

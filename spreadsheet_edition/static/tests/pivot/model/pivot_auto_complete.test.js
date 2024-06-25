@@ -1,26 +1,25 @@
-/** @odoo-module **/
+import { describe, expect, test } from "@odoo/hoot";
 import { stores } from "@odoo/o-spreadsheet";
-
 import {
     createSpreadsheetWithPivot,
     insertPivotInSpreadsheet,
-} from "@spreadsheet/../tests/legacy/utils/pivot";
-import { getBasicPivotArch } from "@spreadsheet/../tests/legacy/utils/data";
-import { makeStoreWithModel } from "@spreadsheet/../tests/legacy/utils/stores";
+} from "@spreadsheet/../tests/helpers/pivot";
+import { getBasicPivotArch, defineSpreadsheetModels } from "@spreadsheet/../tests/helpers/data";
+import { makeStoreWithModel } from "@spreadsheet/../tests/helpers/stores";
+
+describe.current.tags("headless");
+defineSpreadsheetModels();
 
 const { ComposerStore } = stores;
 
-QUnit.module("spreadsheet pivot auto complete");
-
-QUnit.test("PIVOT.VALUE.* autocomplete pivot id", async function (assert) {
+test("PIVOT.VALUE.* autocomplete pivot id", async function () {
     const { model } = await createSpreadsheetWithPivot();
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     await insertPivotInSpreadsheet(model, "pivot2", { arch: getBasicPivotArch() });
     for (const func of ["PIVOT", "PIVOT.HEADER", "PIVOT.VALUE"]) {
         composer.startEdition(`=${func}(`);
         const autoComplete = composer.autocompleteProvider;
-        assert.deepEqual(
-            autoComplete.proposals,
+        expect(autoComplete.proposals).toEqual(
             [
                 {
                     description: "Partner Pivot",
@@ -35,33 +34,33 @@ QUnit.test("PIVOT.VALUE.* autocomplete pivot id", async function (assert) {
                     text: "2",
                 },
             ],
-            `autocomplete proposals for ${func}`
+            { message: `autocomplete proposals for ${func}` }
         );
         autoComplete.selectProposal(autoComplete.proposals[0].text);
-        assert.strictEqual(composer.currentContent, `=${func}(1`);
-        assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+        expect(composer.currentContent).toBe(`=${func}(1`);
+        expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
         composer.cancelEdition();
     }
 });
 
-QUnit.test("do not show autocomplete if pivot id already set", async function (assert) {
+test("do not show autocomplete if pivot id already set", async function () {
     const { model } = await createSpreadsheetWithPivot();
     await insertPivotInSpreadsheet(model, "pivot2", { arch: getBasicPivotArch() });
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     for (const func of ["PIVOT", "PIVOT.HEADER", "PIVOT.VALUE"]) {
         // id as a number
         composer.startEdition(`=${func}(1`);
-        assert.strictEqual(composer.autocompleteProvider, undefined);
+        expect(composer.autocompleteProvider).toBe(undefined);
         composer.cancelEdition();
 
         // id as a string
         composer.startEdition(`=${func}("1"`);
-        assert.strictEqual(composer.autocompleteProvider, undefined);
+        expect(composer.autocompleteProvider).toBe(undefined);
         composer.cancelEdition();
     }
 });
 
-QUnit.test("PIVOT.VALUE measure", async function (assert) {
+test("PIVOT.VALUE measure", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -72,7 +71,7 @@ QUnit.test("PIVOT.VALUE measure", async function (assert) {
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition("=PIVOT.VALUE(1,");
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(autoComplete.proposals, [
+    expect(autoComplete.proposals).toEqual([
         {
             description: "Probability",
             fuzzySearchKey: 'Probability"probability"',
@@ -87,11 +86,11 @@ QUnit.test("PIVOT.VALUE measure", async function (assert) {
         },
     ]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.VALUE(1,"probability"');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("PIVOT.VALUE measure with the pivot id as a string", async function (assert) {
+test("PIVOT.VALUE measure with the pivot id as a string", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -101,27 +100,24 @@ QUnit.test("PIVOT.VALUE measure with the pivot id as a string", async function (
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE("1",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"probability"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"probability"']);
 });
 
-QUnit.test("PIVOT.VALUE measure with pivot id that does not exists", async function (assert) {
+test("PIVOT.VALUE measure with pivot id that does not exists", async function () {
     const { model } = await createSpreadsheetWithPivot();
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition(`=PIVOT.VALUE(9999,`);
-    assert.strictEqual(composer.autocompleteProvider, undefined);
+    expect(composer.autocompleteProvider).toBe(undefined);
 });
 
-QUnit.test("PIVOT.VALUE measure without any pivot id", async function (assert) {
+test("PIVOT.VALUE measure without any pivot id", async function () {
     const { model } = await createSpreadsheetWithPivot();
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition(`=PIVOT.VALUE(,`);
-    assert.strictEqual(composer.autocompleteProvider, undefined);
+    expect(composer.autocompleteProvider).toBe(undefined);
 });
 
-QUnit.test("PIVOT.VALUE group with a single col group", async function (assert) {
+test("PIVOT.VALUE group with a single col group", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -132,7 +128,7 @@ QUnit.test("PIVOT.VALUE group with a single col group", async function (assert) 
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(autoComplete.proposals, [
+    expect(autoComplete.proposals).toEqual([
         {
             description: "Product",
             fuzzySearchKey: 'Product"product_id"',
@@ -147,11 +143,11 @@ QUnit.test("PIVOT.VALUE group with a single col group", async function (assert) 
         },
     ]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.VALUE(1,"probability","product_id"');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability","product_id"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("PIVOT.VALUE group with a pivot id as string", async function (assert) {
+test("PIVOT.VALUE group with a pivot id as string", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -162,13 +158,10 @@ QUnit.test("PIVOT.VALUE group with a pivot id as string", async function (assert
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE("1","probability",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"#product_id"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
 });
 
-QUnit.test("PIVOT.VALUE group with a single row group", async function (assert) {
+test("PIVOT.VALUE group with a single row group", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -179,7 +172,7 @@ QUnit.test("PIVOT.VALUE group with a single row group", async function (assert) 
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(autoComplete.proposals, [
+    expect(autoComplete.proposals).toEqual([
         {
             description: "Product",
             fuzzySearchKey: 'Product"product_id"',
@@ -194,11 +187,11 @@ QUnit.test("PIVOT.VALUE group with a single row group", async function (assert) 
         },
     ]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.VALUE(1,"probability","product_id"');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability","product_id"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("ODOO.VALUE group with a single date grouped by day", async function (assert) {
+test("ODOO.VALUE group with a single date grouped by day", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -209,7 +202,7 @@ QUnit.test("ODOO.VALUE group with a single date grouped by day", async function 
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(autoComplete.proposals, [
+    expect(autoComplete.proposals).toEqual([
         {
             description: "Date",
             fuzzySearchKey: 'Date"date:day"',
@@ -224,11 +217,11 @@ QUnit.test("ODOO.VALUE group with a single date grouped by day", async function 
         },
     ]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.VALUE(1,"probability","date:day"');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability","date:day"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("PIVOT.VALUE search field", async function (assert) {
+test("PIVOT.VALUE search field", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -239,13 +232,10 @@ QUnit.test("PIVOT.VALUE search field", async function (assert) {
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","prod');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"#product_id"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
 });
 
-QUnit.test("PIVOT.VALUE search field with both col and row group", async function (assert) {
+test("PIVOT.VALUE search field with both col and row group", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -258,34 +248,35 @@ QUnit.test("PIVOT.VALUE search field with both col and row group", async functio
     // (notice the space after the comma)
     composer.startEdition('=PIVOT.VALUE(1,"probability", ');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"date:month"', '"#product_id"', '"#date:month"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual([
+        '"product_id"',
+        '"date:month"',
+        '"#product_id"',
+        '"#date:month"',
+    ]);
 });
 
-QUnit.test(
-    "PIVOT.VALUE group with row and col groups for the first group",
-    async function (assert) {
-        const { model } = await createSpreadsheetWithPivot({
-            arch: /*xml*/ `
+test("PIVOT.VALUE group with row and col groups for the first group", async function () {
+    const { model } = await createSpreadsheetWithPivot({
+        arch: /*xml*/ `
             <pivot>
                 <field name="product_id" type="row"/>
                 <field name="date" type="col"/>
                 <field name="probability" type="measure"/>
             </pivot>`,
-        });
-        const { store: composer } = makeStoreWithModel(model, ComposerStore);
-        composer.startEdition('=PIVOT.VALUE(1,"probability",');
-        const autoComplete = composer.autocompleteProvider;
-        assert.deepEqual(
-            autoComplete.proposals.map((p) => p.text),
-            ['"date:month"', '"product_id"', '"#date:month"', '"#product_id"']
-        );
-    }
-);
+    });
+    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    composer.startEdition('=PIVOT.VALUE(1,"probability",');
+    const autoComplete = composer.autocompleteProvider;
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual([
+        '"date:month"',
+        '"product_id"',
+        '"#date:month"',
+        '"#product_id"',
+    ]);
+});
 
-QUnit.test("PIVOT.VALUE group with row and col groups for the col group", async function (assert) {
+test("PIVOT.VALUE group with row and col groups for the col group", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -297,13 +288,10 @@ QUnit.test("PIVOT.VALUE group with row and col groups for the col group", async 
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","product_id",1,');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"date:month"', '"#date:month"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"date:month"', '"#date:month"']);
 });
 
-QUnit.test("PIVOT.VALUE group with two rows, on the first group", async function (assert) {
+test("PIVOT.VALUE group with two rows, on the first group", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -317,13 +305,10 @@ QUnit.test("PIVOT.VALUE group with two rows, on the first group", async function
     //..................................................^ the cursor is here
     composer.changeComposerCursorSelection(29, 29);
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"#product_id"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
 });
 
-QUnit.test("PIVOT.VALUE search a positional group", async function (assert) {
+test("PIVOT.VALUE search a positional group", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -334,13 +319,10 @@ QUnit.test("PIVOT.VALUE search a positional group", async function (assert) {
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","#pro');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"#product_id"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"#product_id"']);
 });
 
-QUnit.test("PIVOT.VALUE autocomplete relational field for group value", async function (assert) {
+test("PIVOT.VALUE autocomplete relational field for group value", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -351,7 +333,7 @@ QUnit.test("PIVOT.VALUE autocomplete relational field for group value", async fu
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","product_id",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(autoComplete.proposals, [
+    expect(autoComplete.proposals).toEqual([
         {
             description: "xphone",
             fuzzySearchKey: "37xphone",
@@ -366,11 +348,11 @@ QUnit.test("PIVOT.VALUE autocomplete relational field for group value", async fu
         },
     ]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.VALUE(1,"probability","product_id",37');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability","product_id",37');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("PIVOT.VALUE autocomplete date field for group value", async function (assert) {
+test("PIVOT.VALUE autocomplete date field for group value", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -381,7 +363,7 @@ QUnit.test("PIVOT.VALUE autocomplete date field for group value", async function
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","date:month",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(autoComplete.proposals, [
+    expect(autoComplete.proposals).toEqual([
         {
             description: "April 2016",
             fuzzySearchKey: "04/2016April 2016",
@@ -407,61 +389,52 @@ QUnit.test("PIVOT.VALUE autocomplete date field for group value", async function
         },
     ]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(
-        composer.currentContent,
-        '=PIVOT.VALUE(1,"probability","date:month","04/2016"'
-    );
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability","date:month","04/2016"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test(
-    "PIVOT.VALUE autocomplete date field with no specified granularity for group value",
-    async function (assert) {
-        const { model } = await createSpreadsheetWithPivot({
-            arch: /*xml*/ `
+test("PIVOT.VALUE autocomplete date field with no specified granularity for group value", async function () {
+    const { model } = await createSpreadsheetWithPivot({
+        arch: /*xml*/ `
             <pivot>
                 <field name="date" type="row"/>
                 <field name="probability" type="measure"/>
             </pivot>`,
-        });
-        const { store: composer } = makeStoreWithModel(model, ComposerStore);
-        composer.startEdition('=PIVOT.VALUE(1,"probability","date:month",');
-        const autoComplete = composer.autocompleteProvider;
-        assert.deepEqual(autoComplete.proposals, [
-            {
-                description: "April 2016",
-                fuzzySearchKey: "04/2016April 2016",
-                htmlContent: [{ color: "#00a82d", value: '"04/2016"' }],
-                text: '"04/2016"',
-            },
-            {
-                description: "October 2016",
-                fuzzySearchKey: "10/2016October 2016",
-                htmlContent: [{ color: "#00a82d", value: '"10/2016"' }],
-                text: '"10/2016"',
-            },
-            {
-                description: "December 2016",
-                fuzzySearchKey: "12/2016December 2016",
-                htmlContent: [
-                    {
-                        color: "#00a82d",
-                        value: '"12/2016"',
-                    },
-                ],
-                text: '"12/2016"',
-            },
-        ]);
-        autoComplete.selectProposal(autoComplete.proposals[0].text);
-        assert.strictEqual(
-            composer.currentContent,
-            '=PIVOT.VALUE(1,"probability","date:month","04/2016"'
-        );
-        assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
-    }
-);
+    });
+    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    composer.startEdition('=PIVOT.VALUE(1,"probability","date:month",');
+    const autoComplete = composer.autocompleteProvider;
+    expect(autoComplete.proposals).toEqual([
+        {
+            description: "April 2016",
+            fuzzySearchKey: "04/2016April 2016",
+            htmlContent: [{ color: "#00a82d", value: '"04/2016"' }],
+            text: '"04/2016"',
+        },
+        {
+            description: "October 2016",
+            fuzzySearchKey: "10/2016October 2016",
+            htmlContent: [{ color: "#00a82d", value: '"10/2016"' }],
+            text: '"10/2016"',
+        },
+        {
+            description: "December 2016",
+            fuzzySearchKey: "12/2016December 2016",
+            htmlContent: [
+                {
+                    color: "#00a82d",
+                    value: '"12/2016"',
+                },
+            ],
+            text: '"12/2016"',
+        },
+    ]);
+    autoComplete.selectProposal(autoComplete.proposals[0].text);
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability","date:month","04/2016"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
+});
 
-QUnit.test("PIVOT.VALUE autocomplete field after a date field", async function (assert) {
+test("PIVOT.VALUE autocomplete field after a date field", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -473,48 +446,39 @@ QUnit.test("PIVOT.VALUE autocomplete field after a date field", async function (
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","date:month","11/2020",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"#product_id"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
 });
 
-QUnit.test(
-    "PIVOT.VALUE autocomplete field after a date field with granularity in arch but not in formula",
-    async function (assert) {
-        const { model } = await createSpreadsheetWithPivot({
-            arch: /*xml*/ `
+test("PIVOT.VALUE autocomplete field after a date field with granularity in arch but not in formula", async function () {
+    const { model } = await createSpreadsheetWithPivot({
+        arch: /*xml*/ `
             <pivot>
                 <field name="date" type="row" interval="month"/>
                 <field name="product_id" type="row"/>
                 <field name="probability" type="measure"/>
             </pivot>`,
-        });
-        const { store: composer } = makeStoreWithModel(model, ComposerStore);
-        composer.startEdition('=PIVOT.VALUE(1,"probability","date","11/2020",');
-        assert.strictEqual(composer.autocompleteProvider, undefined);
-    }
-);
+    });
+    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    composer.startEdition('=PIVOT.VALUE(1,"probability","date","11/2020",');
+    expect(composer.autocompleteProvider).toBe(undefined);
+});
 
-QUnit.test(
-    "PIVOT.VALUE autocomplete field after a date field without granularity",
-    async function (assert) {
-        const { model } = await createSpreadsheetWithPivot({
-            arch: /*xml*/ `
+test("PIVOT.VALUE autocomplete field after a date field without granularity", async function () {
+    const { model } = await createSpreadsheetWithPivot({
+        arch: /*xml*/ `
             <pivot>
                 <field name="date" type="row"/>
                 <field name="product_id" type="row"/>
                 <field name="probability" type="measure"/>
             </pivot>`,
-        });
-        const { store: composer } = makeStoreWithModel(model, ComposerStore);
-        composer.startEdition('=PIVOT.VALUE(1,"probability","date","11/2020",');
-        const autoComplete = composer.autocompleteProvider;
-        assert.strictEqual(autoComplete, undefined);
-    }
-);
+    });
+    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    composer.startEdition('=PIVOT.VALUE(1,"probability","date","11/2020",');
+    const autoComplete = composer.autocompleteProvider;
+    expect(autoComplete).toBe(undefined);
+});
 
-QUnit.test("PIVOT.VALUE no autocomplete for positional group field", async function (assert) {
+test("PIVOT.VALUE no autocomplete for positional group field", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -524,10 +488,10 @@ QUnit.test("PIVOT.VALUE no autocomplete for positional group field", async funct
     });
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","#product_id",');
-    assert.strictEqual(composer.autocompleteProvider, undefined);
+    expect(composer.autocompleteProvider).toBe(undefined);
 });
 
-QUnit.test("PIVOT.HEADER first field", async function (assert) {
+test("PIVOT.HEADER first field", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -538,16 +502,13 @@ QUnit.test("PIVOT.HEADER first field", async function (assert) {
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition("=PIVOT.HEADER(1,");
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"#product_id"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.HEADER(1,"product_id"');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.HEADER(1,"product_id"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("PIVOT.HEADER search field", async function (assert) {
+test("PIVOT.HEADER search field", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -558,16 +519,13 @@ QUnit.test("PIVOT.HEADER search field", async function (assert) {
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.HEADER(1,"pro');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"#product_id"']
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.HEADER(1,"product_id"');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.HEADER(1,"product_id"');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
-QUnit.test("PIVOT.HEADER group value", async function (assert) {
+test("PIVOT.HEADER group value", async function () {
     const { model } = await createSpreadsheetWithPivot({
         arch: /*xml*/ `
             <pivot>
@@ -578,11 +536,8 @@ QUnit.test("PIVOT.HEADER group value", async function (assert) {
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.HEADER(1,"product_id",');
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(
-        autoComplete.proposals.map((p) => p.text),
-        ["37", "41"]
-    );
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(["37", "41"]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    assert.strictEqual(composer.currentContent, '=PIVOT.HEADER(1,"product_id",37');
-    assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+    expect(composer.currentContent).toBe('=PIVOT.HEADER(1,"product_id",37');
+    expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });

@@ -1,24 +1,23 @@
-/** @odoo-module */
+import { beforeEach, describe, test } from "@odoo/hoot";
+import { createBasicChart } from "@spreadsheet/../tests/helpers/commands";
+import { defineSpreadsheetModels, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import {
+    setupCollaborativeEnv,
+    spExpect,
+} from "@spreadsheet_edition/../tests/helpers/collaborative_helpers";
 
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
-import { createBasicChart } from "@spreadsheet/../tests/legacy/utils/commands";
-import { setupCollaborativeEnv } from "@spreadsheet_edition/../tests/legacy/utils/collaborative_helpers";
+describe.current.tags("headless");
+defineSpreadsheetModels();
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
 
 let alice, bob, charlie, network;
 
-QUnit.module("spreadsheet_edition > chart collaborative", {
-    async beforeEach() {
-        const env = await setupCollaborativeEnv(getBasicServerData());
-        alice = env.alice;
-        bob = env.bob;
-        charlie = env.charlie;
-        network = env.network;
-    },
+beforeEach(async () => {
+    ({ alice, bob, charlie, network } = await setupCollaborativeEnv(getBasicServerData()));
 });
 
-QUnit.test("Chart link to odoo menu collaborative", async (assert) => {
+test("Chart link to odoo menu collaborative", async () => {
     const chartId = "1";
     const sheetId = alice.getters.getActiveSheetId();
     createBasicChart(alice, chartId);
@@ -29,13 +28,11 @@ QUnit.test("Chart link to odoo menu collaborative", async (assert) => {
             odooMenuId: "odooTestMenu",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getFigures(sheetId),
         []
     );
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getChartOdooMenu(chartId),
         undefined
     );

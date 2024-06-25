@@ -1,84 +1,78 @@
-/** @odoo-module */
-
-import { registry } from "@web/core/registry";
-import { ormService } from "@web/core/orm_service";
-
-import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-
-import { SpreadsheetCollaborativeChannel } from "@spreadsheet_edition/bundle/o_spreadsheet/collaborative/spreadsheet_collaborative_channel";
-
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { EventBus } from "@odoo/owl";
+import { defineSpreadsheetModels } from "@spreadsheet/../tests/helpers/data";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { SpreadsheetCollaborativeChannel } from "@spreadsheet_edition/bundle/o_spreadsheet/collaborative/spreadsheet_collaborative_channel";
+import { mockService } from "@web/../tests/web_test_helpers";
 
-class MockBusService {
-    constructor() {
-        this.channels = [];
-        this._bus = new EventBus();
-    }
+describe.current.tags("headless");
+defineSpreadsheetModels();
 
-    addChannel(name) {
-        this.channels.push(name);
-    }
+let env;
 
-    subscribe(eventName, handler) {
-        this._bus.addEventListener("notif", ({ detail }) => {
-            if (detail.type === eventName) {
-                handler(detail.payload, { id: detail.id });
-            }
-        });
-    }
+beforeEach(async () => {
+    const channels = [];
+    const _bus = new EventBus();
 
-    notify(message) {
-        this._bus.trigger("notif", message);
-    }
-}
-
-QUnit.module("spreadsheet_edition > SpreadsheetCollaborativeChannel", {
-    beforeEach: async function () {
-        const busService = new MockBusService();
-        const rpc = function (route, params) {
-            // Mock the server behavior: new revisions are pushed in the bus
-            if (params.method === "dispatch_spreadsheet_message") {
-                const [documentId, message] = params.args;
-                busService.notify({ type: "spreadsheet", payload: { id: documentId, message } });
-                return true;
-            }
-        };
-        registry.category("services").add("orm", ormService);
-        registry.category("services").add("bus_service", {
-            start: () => busService,
-        });
-        this.env = await makeTestEnv({
-            mockRPC: rpc,
-        });
-    },
-});
-
-QUnit.test("sending a message forward it to the registered listener", function (assert) {
-    assert.expect(3);
-    const channel = new SpreadsheetCollaborativeChannel(this.env, "my.model", 5);
-    channel.onNewMessage("anId", (message) => {
-        assert.step("message");
-        assert.strictEqual(message.message, "hello", "It should have the correct message content");
+    const busService = {
+        addChannel: (name) => {
+            channels.push(name);
+        },
+        subscribe: (eventName, handler) => {
+            _bus.addEventListener("notif", ({ detail }) => {
+                if (detail.type === eventName) {
+                    handler(detail.payload, { id: detail.id });
+                }
+            });
+        },
+        notify: (message) => {
+            _bus.trigger("notif", message);
+        },
+    };
+    const rpc = function (route, params) {
+        // Mock the server behavior: new revisions are pushed in the bus
+        if (params.method === "dispatch_spreadsheet_message") {
+            const [documentId, message] = params.args;
+            busService.notify({ type: "spreadsheet", payload: { id: documentId, message } });
+            return true;
+        }
+    };
+    mockService("bus_service", busService);
+    env = await makeSpreadsheetMockEnv({
+        mockRPC: rpc,
     });
-    channel.sendMessage("hello");
-    assert.verifySteps(["message"], "It should have received the message");
 });
 
-QUnit.test("previous messages are forwarded when registering a listener", function (assert) {
-    assert.expect(3);
-    const channel = new SpreadsheetCollaborativeChannel(this.env, "my.model", 5);
-    channel.sendMessage("hello");
+test("sending a message forward it to the registered listener", async function () {
+    const channel = new SpreadsheetCollaborativeChannel(env, "my.model", 5);
+    let i = 5;
     channel.onNewMessage("anId", (message) => {
-        assert.step("message");
-        assert.strictEqual(message.message, "hello", "It should have the correct message content");
+        expect.step("message");
+        expect(message.message).toBe("hello", {
+            message: "It should have the correct message content",
+        });
+        i = 8;
     });
-    assert.verifySteps(["message"], "It should have received the pending message");
+    await channel.sendMessage("hello");
+    expect(i).toBe(8);
+    expect(["message"]).toVerifySteps({ message: "It should have received the message" });
 });
 
-QUnit.test("the channel does not care about other bus messages", function (assert) {
-    assert.expect(1);
-    const channel = new SpreadsheetCollaborativeChannel(this.env, "my.model", 5);
-    channel.onNewMessage("anId", () => assert.step("message"));
-    this.env.services.bus_service.notify("a-random-channel", "a-random-message");
-    assert.verifySteps([], "The message should not have been received");
+test("previous messages are forwarded when registering a listener", async function () {
+    const channel = new SpreadsheetCollaborativeChannel(env, "my.model", 5);
+    await channel.sendMessage("hello");
+    channel.onNewMessage("anId", (message) => {
+        expect.step("message");
+        expect(message.message).toBe("hello", {
+            message: "It should have the correct message content",
+        });
+    });
+    expect(["message"]).toVerifySteps({ message: "It should have received the pending message" });
+});
+
+test("the channel does not care about other bus messages", function () {
+    const channel = new SpreadsheetCollaborativeChannel(env, "my.model", 5);
+    channel.onNewMessage("anId", () => expect.step("message"));
+    env.services.bus_service.notify("a-random-channel", "a-random-message");
+    expect([]).toVerifySteps({ message: "The message should not have been received" });
 });
