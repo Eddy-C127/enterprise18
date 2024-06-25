@@ -688,4 +688,8 @@ export default class BarcodeQuantModel extends BarcodeModel {
     zeroQtyClass(line) {
         return this.IsNotSet(line) ? super.zeroQtyClass(...arguments) : "text-danger";
     }
+
+    _getCompanyId() {
+        return this.companyIds[0];
+    }
 }

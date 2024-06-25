@@ -2932,6 +2932,39 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_open_picking_dont_override_assigned_user', login='admin', timeout=180)
         self.assertEqual(receipt_picking.user_id.id, bob.id, "Picking responsible should be unchanged after click when previously set")
 
+    def test_multi_company_record_access_in_barcode(self):
+        """ Test that creating a picking operation wholly in the barcode app will not permit a user
+        to find records that don't belong to the operation type's company.
+        """
+        self.clean_access_rights()
+        company2 = self.env['res.company'].create({'name': 'second company'})
+        self.env['stock.picking.type'].search([
+            ('code', '=', 'incoming'),
+            ('company_id', '=', company2.id),
+        ], limit=1).barcode = 'company2_receipt'
+        self.env.user.company_ids = [(4, company2.id)]
+
+        self.product1.write({
+            'company_id': self.env.company.id,
+            'barcode': 'company1_product',
+        })
+        self.product2.write({
+            'company_id': company2.id,
+            'barcode': 'company2_product',
+        })
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        cids = '-'.join(str(cid) for cid in self.env.user.company_ids.ids)
+        url = f'/web#action={action_id.id}&cids={cids}'
+        self.start_tour(url, 'test_multi_company_record_access_in_barcode', login='admin', timeout=180)
+
+        self.assertTrue(
+            self.env['stock.picking'].search([
+                ('company_id', '=', company2.id),
+                ('product_id', 'in', self.product2.ids),
+            ], limit=1)
+        )
+
     # === GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_lot_number(self):
         """

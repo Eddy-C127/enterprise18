@@ -5168,3 +5168,21 @@ registry.category("web_tour.tours").add('test_serial_product_packaging', {test: 
         }
     },
 ]});
+
+registry.category("web_tour.tours").add('test_multi_company_record_access_in_barcode', {
+    test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan company2_receipt' },
+        // Shouldn't have access to company1 prod while in company2 picking type
+        { trigger: '.o_barcode_client_action', run: 'scan company1_product' },
+        {
+            trigger: '.o_notification_bar.bg-danger',
+            run: () => {
+                helper.assertErrorMessage('This product doesn\'t exist.');
+            },
+        },
+        { trigger: '.o_barcode_client_action', run: 'scan company2_product' },
+        { trigger: '.o_barcode_line' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu' },
+    ]
+});

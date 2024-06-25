@@ -489,3 +489,74 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         })
         url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_component_different_uom', login='admin', timeout=180)
+
+    def test_multi_company_manufacture_creation_in_barcode(self):
+        """ Ensure that when a manufacturing operation of an active (checked) company is scanned,
+        then some product is added, its `company_id` matches that of the operation type.
+        """
+        self.clean_access_rights()
+        company2 = self.env['res.company'].create({'name': 'second company'})
+        self.env.user.company_ids = [(4, company2.id)]
+        self.env['stock.picking.type'].search([
+            ('code', '=', 'mrp_operation'),
+            ('company_id', '=', company2.id),
+        ], limit=1).barcode = 'company2_mrp_operation'
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        cids = '-'.join(str(cid) for cid in self.env.user.company_ids.ids)
+        url = f'/web#action={action_id.id}&cids={cids}'
+        self.start_tour(url, 'test_multi_company_manufacture_creation_in_barcode', login='admin', timeout=180)
+
+        self.assertEqual(
+            len(self.env['mrp.production'].search([('company_id', '=', company2.id)])),
+            2
+        )
+
+    def test_multi_company_record_access_in_mrp_barcode(self):
+        """ Ensure that, when in the barcode view for an active company's manufacturing operation,
+        it is not possible to add a product belonging exclusively to an inactive (unchecked)
+        company to the operation and that scanning such a product does not prevent the user from
+        using the back button.
+
+        Then, ensure that we can add a product that belongs to the company who owns the MO picking
+        type.
+        """
+        self.clean_access_rights()
+        company2 = self.env['res.company'].create({'name': 'second company'})
+        company2_product = self.env['product.product'].create({
+            'name': 'second company product',
+            'company_id': company2.id,
+            'barcode': 'second_company_product'
+        })
+
+        self.env['stock.picking.type'].search([
+            ('code', '=', 'mrp_operation'),
+            ('company_id', '=', self.env.company.id),
+        ], limit=1).barcode = 'company_mrp_operation'
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        cids = '-'.join(str(cid) for cid in self.env.user.company_ids.ids)
+        url = f'/web#action={action_id.id}&cids={cids}'
+        self.start_tour(url, 'test_multi_company_record_access_in_mrp_barcode', login='admin', timeout=180)
+
+        self.assertFalse(
+            self.env['mrp.production'].search([
+                ('company_id', '=', self.env.company.id),
+                ('product_id', '=', company2_product.id),
+            ], limit=1)
+        )
+
+        self.env.companies += company2
+        self.env['stock.picking.type'].search([
+            ('code', '=', 'mrp_operation'),
+            ('company_id', '=', company2.id),
+        ], limit=1).barcode = 'company2_mrp_operation'
+        url = url + f'-{company2.id}'
+        self.start_tour(url, 'test_multi_company_record_access_in_mrp_barcode2', login='admin', timeout=180)
+
+        self.assertTrue(
+            self.env['mrp.production'].search([
+                ('company_id', '=', company2.id),
+                ('product_id', '=', company2_product.id),
+            ], limit=1)
+        )

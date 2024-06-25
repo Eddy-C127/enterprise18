@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import BarcodePickingModel from '@stock_barcode/models/barcode_picking_model';
+import { session } from '@web/session';
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
 
@@ -563,6 +564,10 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
                 company_id: this.record.company_id, // only the id is fetched from the backend
             }
         }
+
+        if (!this.record.company_id) {
+            res['company_id'] = this._getCompanyId();
+        }
         return res
     }
 
@@ -581,6 +586,12 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
             'OBTPRMO': this.print.bind(this, 'mrp.action_report_production_order'),
             'OBTPRPL': this.print.bind(this, 'mrp.action_report_finished_product'),
         });
+    }
+
+    _getCompanyId() {
+        const defaultCompanyId = this.action.currentController.action.context['default_company_id'];
+        const userCompanyId = session.user_companies.current_company;
+        return defaultCompanyId || userCompanyId;
     }
 
 }

@@ -1064,6 +1064,10 @@ export default class BarcodeModel extends EventBus {
                 product_id: this.selectedLine.product_id.id,
             };
         }
+        // Constrain DB reads to records which belong to the company defined on the open operation
+        filters['all'] = {
+            company_id: [false].concat(this._getCompanyId() || []),
+        };
         try {
             barcodeData = await this._parseBarcode(barcode, filters);
             if (this._shouldSearchForAnotherLot(barcodeData, filters)) {
@@ -1643,5 +1647,9 @@ export default class BarcodeModel extends EventBus {
 
     zeroQtyClass(_line) {
         return "text-muted";
+    }
+
+    _getCompanyId() {
+        throw new Error('Not Implemented');
     }
 }

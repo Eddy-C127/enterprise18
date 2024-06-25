@@ -182,3 +182,10 @@ class ManufacturingOrder(models.Model):
         action = picking_type._get_action('stock_barcode_mrp.mrp_action_kanban')
         action['context'].update(additional_context)
         return {'action': action}
+
+    @api.model
+    def _get_new_production_client_action(self):
+        action = self.env['ir.actions.actions']._for_xml_id('stock_barcode_mrp.stock_barcode_mo_client_action')
+        action = dict(action, target='fullscreen')
+        action['context'] = self.env.context
+        return {'action': action}

@@ -27,7 +27,7 @@ patch(MainComponent.prototype, {
         return {
             resId: this.resId || this.env.model.record.id,
             resModel: this.resModel,
-            context: { set_qty_producing: true },
+            context: Object.assign({ set_qty_producing: true }, this.props.action.context),
             viewId: this.env.model.headerViewId,
             display: { controlPanel: false },
             type: "form",

@@ -1764,4 +1764,8 @@ export default class BarcodePickingModel extends BarcodeModel {
         }
         return result;
     }
+
+    _getCompanyId() {
+        return this.record.company_id;
+    }
 }

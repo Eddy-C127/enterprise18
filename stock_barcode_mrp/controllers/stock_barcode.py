@@ -57,10 +57,12 @@ class MRPStockBarcode(StockBarcodeController):
         picking_type = request.env['stock.picking.type'].search([
             ('barcode', '=', barcode),
             ('code', '=', 'mrp_operation'),
+            ('company_id', 'in', [False, *self._get_allowed_company_ids()])
         ], limit=1)
         if picking_type:
-            action = request.env["ir.actions.actions"]._for_xml_id("stock_barcode_mrp.stock_barcode_mo_client_action")
-            return {'action': action}
+            return request.env['mrp.production'].with_context({
+                'default_company_id': picking_type.company_id.id
+            })._get_new_production_client_action()
         return False
 
     def _try_open_production(self, barcode):

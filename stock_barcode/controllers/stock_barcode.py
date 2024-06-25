@@ -139,15 +139,16 @@ class StockBarcodeController(http.Controller):
         barcode_field_by_model = self._get_barcode_field_by_model()
         result = defaultdict(list)
         model_names = model_name and [model_name] or list(barcode_field_by_model.keys())
-
+        universal_domain = domains_by_model.get('all')
         for model in model_names:
             domain = [
                 (barcode_field_by_model[model], operator, barcode),
-                ('company_id', 'in', [False, *self._get_allowed_company_ids()])
             ]
             domain_for_this_model = domains_by_model.get(model)
             if domain_for_this_model:
                 domain = expression.AND([domain, domain_for_this_model])
+            if universal_domain:
+                domain = expression.AND([domain, universal_domain])
             record = request.env[model].with_context(display_default_code=False).search(domain, limit=limit)
             if record:
                 result[model] += record.read(request.env[model]._get_fields_stock_barcode(), load=False)
@@ -238,6 +239,7 @@ class StockBarcodeController(http.Controller):
         """
         picking_type = request.env['stock.picking.type'].search([
             ('barcode', '=', barcode),
+            ('company_id', 'in', [False, *self._get_allowed_company_ids()]),
         ], limit=1)
         if picking_type:
             picking = request.env['stock.picking']._create_new_picking(picking_type)

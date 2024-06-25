@@ -179,7 +179,11 @@ export default class LazyBarcodeCache {
             const filtersByField = filter[1];
             domainsByModel[modelName] = [];
             for (const filterByField of Object.entries(filtersByField)) {
-                domainsByModel[modelName].push([filterByField[0], '=', filterByField[1]]);
+                if (filterByField[1] instanceof Array) {
+                    domainsByModel[modelName].push([filterByField[0], 'in', filterByField[1]]);
+                } else {
+                    domainsByModel[modelName].push([filterByField[0], '=', filterByField[1]]);
+                }
             }
         }
         params.domains_by_model = domainsByModel;
