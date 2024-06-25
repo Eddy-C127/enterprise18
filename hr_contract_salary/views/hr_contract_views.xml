@@ -46,7 +46,7 @@
                 </button>
             </div>
             <header position="inside">
-                <button name="%(hr_contract_salary.generate_simulation_link_action)d" type="action" string="Generate Offer" invisible="not employee_id" groups="hr_contract.group_hr_contract_manager" class="btn-secondary"/>
+                <button name="action_generate_offer" type="object" string="Generate Offer" invisible="not employee_id" groups="hr_contract.group_hr_contract_manager" class="btn-secondary"/>
             </header>
             <field name="hr_responsible_id" position="after">
                 <label for="wage_on_signature"/>

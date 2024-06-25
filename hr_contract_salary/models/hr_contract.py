@@ -5,6 +5,7 @@ import logging
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from markupsafe import Markup
 
 from odoo import api, fields, models, _
 from odoo.models import MAGIC_COLUMNS
@@ -323,6 +324,48 @@ class HrContract(models.Model):
         action['views'] = [(self.env.ref('hr_contract.hr_contract_view_form').id, 'form')]
         action['res_id'] = self.origin_contract_id.id
         return action
+
+    def action_generate_offer(self):
+
+        offer_validity_period = int(self.env['ir.config_parameter'].sudo().get_param(
+            'hr_contract_salary.employee_salary_simulator_link_validity', default=30))
+        validity_end = (fields.Date.context_today(self) + relativedelta(days=offer_validity_period))
+        offer_values = self._get_offer_values()
+        offer_values['validity_days_count'] = offer_validity_period
+        offer_values['offer_end_date'] = validity_end
+        offer = self.env['hr.contract.salary.offer'].with_context(
+            default_contract_template_id=self.id).create(offer_values)
+
+        self.message_post(
+            body=_("An %(offer)s has been sent by %(user)s to the employee (mail: %(email)s)",
+                    offer=Markup("<a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='{offer_id}'>Offer</a>")
+                    .format(offer_id=offer.id),
+                    user=self.env.user.name,
+                    email=self.employee_id.work_email
+            )
+        )
+
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'hr.contract.salary.offer',
+            'res_id': offer.id,
+            'views': [(False, 'form')],
+            'context': {'active_model': 'hr.contract', 'default_employee_contract_id': self.id}
+        }
+
+    def _get_offer_values(self):
+        self.ensure_one()
+        return {
+            'company_id': self.company_id.id,
+            'contract_template_id': self.id,
+            'employee_contract_id': self.id,
+            'final_yearly_costs': self.final_yearly_costs,
+            'job_title': self.job_id.name,
+            'employee_job_id':  self.job_id.id,
+            'department_id': self.department_id.id,
+        }
 
     def action_show_offers(self):
         self.ensure_one()

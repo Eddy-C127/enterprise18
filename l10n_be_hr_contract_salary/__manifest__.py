@@ -17,7 +17,6 @@
         'data/hr_payroll_dashboard_warning_data.xml',
 
         'report/hr_contract_history_report_views.xml',
-        'wizard/generate_simulation_link_views.xml',
 
         'views/hr_contract_views.xml',
         'views/hr_job_views.xml',

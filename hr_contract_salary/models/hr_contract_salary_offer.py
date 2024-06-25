@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import api, fields, models, _
-from odoo.tools.misc import format_amount
 from werkzeug.urls import url_encode
 
 
@@ -25,12 +26,12 @@ class HrContractSalaryOffer(models.Model):
                     result[field] = contract[field]
         return result
 
-    display_name = fields.Char(string="Title", compute="_compute_display_name")
+    display_name = fields.Char(string="Title", compute="_compute_display_name", readonly=False)
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company.id, required=True)
     currency_id = fields.Many2one(related='company_id.currency_id')
     contract_template_id = fields.Many2one(
         'hr.contract',
-        domain=[('employee_id', '=', False)], required=True, tracking=True)
+        domain="['|', ('employee_id', '=', False), ('id', '=', employee_contract_id)]", required=True, tracking=True)
     state = fields.Selection([
         ('open', 'In Progress'),
         ('half_signed', 'Partially Signed'),
@@ -50,9 +51,16 @@ class HrContractSalaryOffer(models.Model):
     job_title = fields.Char(tracking=True)
     employee_job_id = fields.Many2one('hr.job', tracking=True)
     department_id = fields.Many2one('hr.department', tracking=True)
-    contract_start_date = fields.Date(tracking=True)
+    contract_start_date = fields.Date(tracking=True,
+                                      default=fields.Date.context_today)
     access_token = fields.Char('Access Token', copy=False, tracking=True)
-    offer_end_date = fields.Date('Offer Validity Date', copy=False, tracking=True)
+    validity_days_count = fields.Integer("Validity Days Count",
+                              compute="_compute_validity_days_count",
+                              store=True, readonly=False)
+    offer_end_date = fields.Date('Offer Validity Date',
+                                 compute="_compute_offer_end_date",
+                                 store=True, readonly=False,
+                                 copy=False, tracking=True)
     url = fields.Char('Link', compute='_compute_url')
 
     @api.depends("access_token", "applicant_id")
@@ -61,19 +69,60 @@ class HrContractSalaryOffer(models.Model):
         for offer in self:
             offer.url = base_url + f"/salary_package/simulation/offer/{offer.id}" + (f"?token={offer.access_token}" if offer.applicant_id else "")
 
-    @api.depends('applicant_id', 'employee_contract_id', 'final_yearly_costs', 'offer_end_date')
+    @api.depends('applicant_id', 'employee_contract_id')
     def _compute_display_name(self):
         for offer in self:
             if offer.applicant_id:
-                name = offer.applicant_id.emp_id.name or offer.applicant_id.partner_id.name or offer.applicant_id.partner_name
+                name = offer.applicant_id.emp_id.name or \
+                    offer.applicant_id.partner_id.name or \
+                    offer.applicant_id.partner_name
             else:
                 name = offer.employee_contract_id.employee_id.name
-            offer.display_name = _("Offer [%(create_date)s] for %(recipient)s / Budget: %(budget)s", create_date=offer.create_date and offer.create_date.date() or 'No create date', recipient=name, budget=format_amount(offer.env, offer.final_yearly_costs, offer.currency_id))
+            offer.display_name = _("Offer for %(recipient)s", recipient=name)
 
     @api.depends('create_date')
     def _compute_offer_create_date(self):
         for offer in self:
             offer.offer_create_date = offer.create_date.date()
+
+    @api.depends('offer_create_date', 'validity_days_count')
+    def _compute_offer_end_date(self):
+        for offer in self:
+            offer.offer_end_date = offer.offer_create_date + relativedelta(days=offer.validity_days_count)
+
+    @api.depends('offer_create_date', 'offer_end_date')
+    def _compute_validity_days_count(self):
+        for offer in self:
+            offer.validity_days_count = (offer.offer_end_date - offer.offer_create_date).days \
+                if offer.offer_end_date else False
+
+
+    @api.onchange('employee_job_id')
+    def _onchange_employee_job_id(self):
+        self.job_title = self.employee_job_id.name
+        if self.employee_job_id.department_id:
+            self.department_id = self.employee_job_id.department_id
+
+        if (
+            self.employee_contract_id and
+            (
+                self.employee_job_id == self.employee_contract_id.job_id or
+                not self.employee_job_id.default_contract_id
+            )
+        ):
+            self.contract_template_id = self.employee_contract_id
+
+        elif self.employee_job_id.default_contract_id:
+            self.contract_template_id = self.employee_job_id.default_contract_id
+
+    @api.onchange('contract_template_id')
+    def _onchange_contract_template_id(self):
+        self.final_yearly_costs = self.contract_template_id.final_yearly_costs
+
+        if self.contract_template_id:
+            self.company_id = self.contract_template_id.company_id
+        else:
+            self.company_id = self.env.company.id
 
     def action_open_refuse_wizard(self):
         action = self.env["ir.actions.actions"]._for_xml_id("hr_contract_salary.open_refuse_wizard")

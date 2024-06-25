@@ -10,7 +10,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
     wait_for: Promise.resolve(odoo.__TipTemplateDef),
     steps: () => [
         /*
-         * Generate the simulation link for the employee
+         * Generate offer for the employee
          */
         {
             content: "Log into Belgian Company",
@@ -42,7 +42,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
             run: "click",
         },
         {
-            content: "Generate simulation link",
+            content: "Generate offer",
             trigger: ".o_statusbar_buttons > button > span:contains(Generate Offer)",
             run: "click",
         },
@@ -60,25 +60,25 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         },
         {
             content: "Save Offer",
-            trigger: ".modal:not(.o_inactive_modal) button[name='action_save']:contains(save)",
+            trigger: ".o_form_button_save",
             run: "click",
         },
         {
-            trigger: "body:not(:has(.modal))",
+            trigger: ".o_form_saved",
         },
         /*
          * Unlog and go to the salary configurator page logged in as the employee
          */
         {
             content: "Unlog",
-            trigger: ".o_field_CopyClipboardURL a.o_field_widget.o_form_uri",
+            trigger: ".o_field_HrContractSalaryCopyClipboardURL a.o_field_widget.o_form_uri",
             run() {
-                const simulation_link = this.anchor.href;
+                const offer_link = this.anchor.href;
                 // Retrieve the link without the origin to avoid
                 // mismatch between localhost:8069 and 127.0.0.1:8069
                 // when running the tour with chrome headless
                 const regex = "/salary_package/simulation/.*";
-                const url = simulation_link.match(regex)[0];
+                const url = offer_link.match(regex)[0];
                 localStorage.setItem("url", url);
                 redirect("/web/session/logout");
             },

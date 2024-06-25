@@ -112,11 +112,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            trigger: ".modal-dialog .btn-primary:contains('Save')",
-        },
-        {
-            content: "Send Offer",
-            trigger: "button[name='action_send_offer']",
+            content: "Open compose email wizard",
+            trigger: "button[name='action_send_by_email']",
             run: "click",
         },
         {
@@ -128,23 +125,18 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            content: "Click on Offers Stat Button",
-            trigger: "button[name='action_show_offers']",
-            run: "click",
-        },
-        {
             trigger: "button[name='action_jump_to_offer']",
         },
         {
             content: "Unlog + Go on Configurator",
             trigger: ".o-mail-Chatter .o-mail-Message:eq(0) a",
             async run() {
-                const simulation_link = queryOne(".o-mail-Chatter .o-mail-Message:eq(0) a").href;
+                const offer_link = queryOne(".o-mail-Chatter .o-mail-Message:eq(0) a").href;
                 // Retrieve the link without the origin to avoid
                 // mismatch between localhost:8069 and 127.0.0.1:8069
                 // when running the tour with chrome headless
                 var regex = "/salary_package/simulation/.*";
-                var url = simulation_link.match(regex)[0];
+                var url = offer_link.match(regex)[0];
                 await fetch("/web/session/logout", { method: "GET" });
                     window.location.href = window.location.origin + url;
             },
@@ -1166,13 +1158,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             trigger: ".o_statusbar_buttons",
         },
         {
-            content: "Generate Simulation Link",
+            content: "Generate Offer",
             trigger: ".o_statusbar_buttons > button:contains('Generate Offer')",
             run: "click",
         },
         {
             content: "Select Contract",
-            trigger: ".o_field_widget.o_field_many2one[name=contract_id] input",
+            trigger: ".o_field_widget.o_field_many2one[name=contract_template_id] input",
             run: `edit Mitchell Admin PFI`,
         },
         {
@@ -1182,28 +1174,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Enable wishlist",
-            trigger: ".modal-body .o_field_widget.o_field_boolean[name='new_car'] input",
+            trigger: ".o_field_widget.o_field_boolean[name='new_car'] input",
             run: "click",
         },
         {
-            trigger: "div.modal-content",
-        },
-        {
-            content: "Send Offer",
-            trigger: "button[name='action_send_offer']",
+            content: "Open compose email wizard",
+            trigger: "button[name='action_send_by_email']",
             run: "click",
-        },
-        {
-            trigger: ".modal-dialog .btn-primary:contains('Send')",
         },
         {
             content: "Send Offer",
             trigger: "button[name='action_send_mail']",
-            run: "click",
-        },
-        {
-            content: "Click on Offers Stat Button",
-            trigger: "button[name='action_show_offers']",
             run: "click",
         },
         {
@@ -1213,12 +1194,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Go on configurator",
             trigger: ".o-mail-Chatter .o-mail-Message:eq(0) a",
             run: function () {
-                const simulation_link = queryOne(".o-mail-Chatter .o-mail-Message:eq(0) a").href;
+                const offer_link = queryOne(".o-mail-Chatter .o-mail-Message:eq(0) a").href;
                 // Retrieve the link without the origin to avoid
                 // mismatch between localhost:8069 and 127.0.0.1:8069
                 // when running the tour with chrome headless
                 var regex = "/salary_package/simulation/.*";
-                var url = simulation_link.match(regex)[0];
+                var url = offer_link.match(regex)[0];
                 window.location.href = window.location.origin + url;
             },
         },

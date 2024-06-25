@@ -1,6 +1,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import uuid
+
+from dateutil.relativedelta import relativedelta
+from markupsafe import Markup
+
 from odoo import fields, models, _
+from odoo.exceptions import UserError
 
 
 class HrApplicant(models.Model):
@@ -78,3 +84,62 @@ class HrApplicant(models.Model):
     def archive_applicant(self):
         self.salary_offer_ids.filtered(lambda o: o.state != 'refused').action_refuse_offer(_("The offer has been marked as refused when the linked applicant was declined."))
         return super().archive_applicant()
+
+    def action_generate_offer(self):
+        if not self.partner_name or not self.email_from:
+            raise UserError(_('Offer link can not be send. The applicant needs to have a name and email.'))
+
+        offer_validity_period = int(self.env['ir.config_parameter'].sudo().get_param(
+            'hr_contract_salary.access_token_validity', default=30))
+        validity_end = (fields.Date.context_today(self) + relativedelta(days=offer_validity_period))
+        offer_values = self._get_offer_values()
+
+        if not offer_values['contract_template_id']:
+            raise UserError(_('You have to define contract templates to be used for offers. Go to Configuration / Contract Templates to define a contract template'))
+
+        offer_values['validity_days_count'] = offer_validity_period
+        offer_values['offer_end_date'] = validity_end
+        offer = self.env['hr.contract.salary.offer'].with_context(
+            default_contract_template_id=self._get_contract_template().id).create(offer_values)
+
+        self.message_post(
+            body=_("An %(offer)s has been sent by %(user)s to the applicant (mail: %(email)s)",
+                    offer=Markup("<a href='#' data-oe-model='hr.contract.salary.offer' data-oe-id='{offer_id}'>Offer</a>")
+                    .format(offer_id=offer.id),
+                    user=self.env.user.name,
+                    email=self.partner_id.email or self.email_from
+            )
+        )
+
+        return {
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'hr.contract.salary.offer',
+            'res_id': offer.id,
+            'views': [(False, 'form')],
+            'context': {'active_model': 'hr.applicant', 'default_applicant_id': self.id}
+        }
+
+    def _get_offer_values(self):
+        self.ensure_one()
+        contract_template = self._get_contract_template()
+        return {
+            'company_id': contract_template.company_id.id,
+            'contract_template_id': contract_template.id,
+            'applicant_id': self.id,
+            'final_yearly_costs': contract_template.final_yearly_costs,
+            'job_title': self.job_id.name,
+            'employee_job_id': self.job_id.id,
+            'department_id': self.department_id.id,
+            'access_token':  uuid.uuid4().hex,
+        }
+
+    def _get_contract_template(self):
+        contract_template = self.job_id.default_contract_id if self.job_id else False
+        if not contract_template:
+            contract_template = self.env['hr.contract'].search(domain=[
+                ('company_id', '=', self.company_id.id), ('employee_id', '=', False)
+            ],
+            limit=1)
+        return contract_template

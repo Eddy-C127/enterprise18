@@ -6,7 +6,6 @@ import ast
 from markupsafe import Markup
 
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
 
 
 class HrContract(models.Model):
