@@ -843,3 +843,46 @@ registry.category("web_tour.tours").add('test_picking_product_with_kit_and_packa
         { trigger: '.btn.o_validate_page', run: 'click' }
     ]
 });
+
+registry.category("web_tour.tours").add('test_multi_company_manufacture_creation_in_barcode', {
+    test: true, steps: () => [
+        // test scan
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan company2_mrp_operation' },
+        { trigger: '.o_barcode_client_action', run: 'scan final' },
+        { trigger: '.o_add_quantity', run: 'click' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        // test form
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan company2_mrp_operation' },
+        { trigger: '.btn.o_add_line', run: 'click' },
+        { trigger: 'div[name="product_id"]', run: 'click' },
+        { trigger: 'div[name="product_id"] .o_input', run: 'text final' },
+        { trigger: '.dropdown-item:contains("final")', run: 'click' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', isCheck: true }
+    ]
+});
+
+registry.category("web_tour.tours").add('test_multi_company_record_access_in_mrp_barcode', {
+   test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan company_mrp_operation' },
+        { trigger: '.o_barcode_client_action', run: 'scan second_company_product' },
+        { trigger: '.btn.o_add_line', run: 'click' },
+        { trigger: 'div[name="product_id"]', run: 'click' },
+        { trigger: 'div[name="product_id"] .o_input', run: 'text second company product' },
+        { trigger: '.o_m2o_dropdown_option_create:first-child', isCheck: true },
+        { trigger: '.btn.o_discard', run: 'click' },
+        { trigger: '.btn.o_exit', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', isCheck: true }
+    ]
+});
+
+registry.category("web_tour.tours").add('test_multi_company_record_access_in_mrp_barcode2', {
+   test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan company2_mrp_operation' },
+        { trigger: '.o_barcode_client_action', run: 'scan second_company_product' },
+        { trigger: '.btn.o_add_quantity', run: 'click' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', isCheck: true },
+    ]
+});

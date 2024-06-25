@@ -643,4 +643,8 @@ export default class BarcodeQuantModel extends BarcodeModel {
         }
         super._selectLine(...arguments);
     }
+
+    _getCompanyId() {
+        return this.companyIds[0];
+    }
 }

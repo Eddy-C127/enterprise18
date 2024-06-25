@@ -45,7 +45,7 @@ class TestStockBarcodeController(HttpCase):
                     'id': 0,
                     'params': {
                         'barcode': barcode,
-                        'domains_by_model': {},
+                        'domains_by_model': {'all': [['company_id', 'in', [False, company.id]]]},
                         'model_name': False,
                     },
                 })

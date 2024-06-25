@@ -4381,3 +4381,20 @@ registry.category("web_tour.tours").add('test_open_picking_dont_override_assigne
         trigger: '.o_breadcrumb > ol > li > a:contains(Operations)',
     },
 ]});
+
+registry.category("web_tour.tours").add('test_multi_company_record_access_in_barcode', {
+    test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan company2_receipt' },
+        // Shouldn't have access to company1 prod while in company2 picking type
+        { trigger: '.o_barcode_client_action', run: 'scan company1_product' },
+        {
+            trigger: '.o_notification.border-danger',
+            run: () => {
+                helper.assertErrorMessage('You are expected to scan one or more products.');
+            },
+        },
+        { trigger: '.o_barcode_client_action', run: 'scan company2_product' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', isCheck: true },
+    ]
+});
