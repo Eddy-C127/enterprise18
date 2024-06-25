@@ -179,7 +179,7 @@ class Document(models.Model):
         return action
 
     @api.model
-    def get_spreadsheets_to_display(self, domain, offset=0, limit=None):
+    def _get_spreadsheets_to_display(self, domain, offset=0, limit=None):
         """
         Get all the spreadsheets, with the spreadsheet that the user has recently
         opened at first.
@@ -336,7 +336,7 @@ class Document(models.Model):
     def get_spreadsheets(self, domain=(), offset=0, limit=None):
         domain = expression.AND([domain, [("handler", "=", "spreadsheet")]])
         return {
-            "records": self.get_spreadsheets_to_display(domain, offset, limit),
+            "records": self._get_spreadsheets_to_display(domain, offset, limit),
             "total": self.search_count(domain),
         }
 
