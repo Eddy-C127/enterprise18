@@ -36,7 +36,7 @@
                         </option>
                     </t>
                 </select>
-                <h5 t-else=""><t t-esc="combination_info['subscription_default_pricing_price']"/></h5>
+                <h5 t-else=""><span class="o_subscription_price" t-esc="combination_info['subscription_default_pricing_price']"/></h5>
             </t>
         </xpath>
     </template>

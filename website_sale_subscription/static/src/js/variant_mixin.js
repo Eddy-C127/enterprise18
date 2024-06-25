@@ -18,10 +18,13 @@ VariantMixin._onChangeCombinationSubscription = function (ev, $parent, combinati
     }
     const parent = $parent.get(0);
     const unit = parent.querySelector(".o_subscription_unit");
-    if (!unit) {
-        return;
+    const price = parent.querySelector(".o_subscription_price");
+    if (unit) {
+        unit.textContent = combination.temporal_unit_display;
     }
-    unit.textContent = combination.temporal_unit_display;
+    if (price) {
+        price.textContent = combination.subscription_default_pricing_price;
+    }
 };
 
 publicWidget.registry.WebsiteSale.include({
