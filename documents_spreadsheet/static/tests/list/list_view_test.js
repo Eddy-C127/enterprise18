@@ -275,6 +275,38 @@ QUnit.module("documents_spreadsheet > list view", {}, () => {
         assert.strictEqual(model.getters.getNumberRows(model.getters.getActiveSheetId()), 2001);
     });
 
+    QUnit.test(
+        "Validates input and shows error message when input is invalid",
+        async function (assert) {
+            const { model, env } = await createSpreadsheetFromListView();
+            selectCell(model, "Z1");
+
+            await doMenuAction(
+                topbarMenuRegistry,
+                ["data", "reinsert_list", "reinsert_list_1"],
+                env
+            );
+            await nextTick();
+
+            /** @type {HTMLInputElement} */
+            const input = document.body.querySelector(".modal-body input");
+            input.value = "";
+            await triggerEvent(input, null, "input");
+
+            await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+            assert.containsOnce(document.body, ".modal-body span.text-danger");
+
+            const errorMessage = document.body.querySelector(
+                ".modal-body span.text-danger"
+            ).textContent;
+            assert.strictEqual(
+                errorMessage,
+                "Please enter a valid number.",
+                "Expected error message"
+            );
+        }
+    );
+
     QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
         setupViewRegistries();
 

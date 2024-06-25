@@ -8,6 +8,7 @@ export class InputDialog extends Component {
     setup() {
         this.state = useState({
             inputValue: this.props.inputValue,
+            error: "",
         });
     }
 
@@ -17,6 +18,12 @@ export class InputDialog extends Component {
 
     confirm() {
         const convertedValue = this.convertInputValue(this.state.inputValue);
+
+        if (this.props.inputType === "number" && isNaN(convertedValue)) {
+            this.state.error = _t("Please enter a valid number.");
+            return;
+        }
+
         this.props.close();
         this.props.confirm?.(convertedValue);
     }
