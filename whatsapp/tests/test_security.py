@@ -174,14 +174,14 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                             "ChannelMember": [
                                 {
                                     "id": member.id,
+                                    "message_unread_counter": 0,
+                                    "message_unread_counter_bus_id": bus_last_id - 4,
                                     "new_message_separator": message.id + 1,
                                     "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
                                     "syncUnread": True,
                                     "thread": {
                                         "id": employee_channel.id,
                                         "model": "discuss.channel",
-                                        "message_unread_counter": 0,
-                                        "message_unread_counter_bus_id": bus_last_id - 4,
                                     },
                                 },
                             ],
