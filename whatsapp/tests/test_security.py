@@ -275,6 +275,7 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                     "create_date": member_create_date,
                                     "fetched_message_id": {"id": message.id},
                                     "id": member.id,
+                                    "last_seen_dt": "2020-03-22 10:31:06",
                                     "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
                                     "seen_message_id": {"id": message.id},
                                     "thread": {
