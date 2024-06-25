@@ -260,7 +260,7 @@ QUnit.test("PIVOT.VALUE search field with both col and row group", async functio
     const autoComplete = composer.autocompleteProvider;
     assert.deepEqual(
         autoComplete.proposals.map((p) => p.text),
-        ['"product_id"', '"date"', '"#product_id"', '"#date"']
+        ['"product_id"', '"date:month"', '"#product_id"', '"#date:month"']
     );
 });
 
@@ -280,7 +280,7 @@ QUnit.test(
         const autoComplete = composer.autocompleteProvider;
         assert.deepEqual(
             autoComplete.proposals.map((p) => p.text),
-            ['"date"', '"product_id"', '"#date"', '"#product_id"']
+            ['"date:month"', '"product_id"', '"#date:month"', '"#product_id"']
         );
     }
 );
@@ -299,7 +299,7 @@ QUnit.test("PIVOT.VALUE group with row and col groups for the col group", async 
     const autoComplete = composer.autocompleteProvider;
     assert.deepEqual(
         autoComplete.proposals.map((p) => p.text),
-        ['"date"', '"#date"']
+        ['"date:month"', '"#date:month"']
     );
 });
 
@@ -425,7 +425,7 @@ QUnit.test(
             </pivot>`,
         });
         const { store: composer } = makeStoreWithModel(model, ComposerStore);
-        composer.startEdition('=PIVOT.VALUE(1,"probability","date",');
+        composer.startEdition('=PIVOT.VALUE(1,"probability","date:month",');
         const autoComplete = composer.autocompleteProvider;
         assert.deepEqual(autoComplete.proposals, [
             {
@@ -455,7 +455,7 @@ QUnit.test(
         autoComplete.selectProposal(autoComplete.proposals[0].text);
         assert.strictEqual(
             composer.currentContent,
-            '=PIVOT.VALUE(1,"probability","date","04/2016"'
+            '=PIVOT.VALUE(1,"probability","date:month","04/2016"'
         );
         assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
     }
@@ -510,20 +510,7 @@ QUnit.test(
         const { store: composer } = makeStoreWithModel(model, ComposerStore);
         composer.startEdition('=PIVOT.VALUE(1,"probability","date","11/2020",');
         const autoComplete = composer.autocompleteProvider;
-        assert.deepEqual(autoComplete.proposals, [
-            {
-                description: "Product",
-                fuzzySearchKey: 'Product"product_id"',
-                htmlContent: [{ color: "#00a82d", value: '"product_id"' }],
-                text: '"product_id"',
-            },
-            {
-                description: "Product (positional)",
-                fuzzySearchKey: 'Product"#product_id"',
-                htmlContent: [{ color: "#00a82d", value: '"#product_id"' }],
-                text: '"#product_id"',
-            },
-        ]);
+        assert.strictEqual(autoComplete, undefined);
     }
 );
 

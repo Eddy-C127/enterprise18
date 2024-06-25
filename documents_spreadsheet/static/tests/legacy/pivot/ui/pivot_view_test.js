@@ -263,25 +263,25 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             domain: [],
             measures: [{ name: "probability", aggregator: "avg" }],
             model: "partner",
-            rows: [{ name: "date" }],
+            rows: [{ name: "date", granularity: "month" }],
             name: "Partners by Foo",
             sortedColumn: null,
             type: "ODOO",
         });
-        assert.equal(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"date","04/2016")');
-        assert.equal(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"date","10/2016")');
-        assert.equal(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"date","12/2016")');
+        assert.equal(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"date:month","04/2016")');
+        assert.equal(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"date:month","10/2016")');
+        assert.equal(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"date:month","12/2016")');
         assert.equal(
             getCellContent(model, "B3"),
-            '=PIVOT.VALUE(1,"probability","date","04/2016","foo",1)'
+            '=PIVOT.VALUE(1,"probability","date:month","04/2016","foo",1)'
         );
         assert.equal(
             getCellContent(model, "B4"),
-            '=PIVOT.VALUE(1,"probability","date","10/2016","foo",1)'
+            '=PIVOT.VALUE(1,"probability","date:month","10/2016","foo",1)'
         );
         assert.equal(
             getCellContent(model, "B5"),
-            '=PIVOT.VALUE(1,"probability","date","12/2016","foo",1)'
+            '=PIVOT.VALUE(1,"probability","date:month","12/2016","foo",1)'
         );
         assert.equal(getEvaluatedCell(model, "A3").formattedValue, "April 2016");
         assert.equal(getEvaluatedCell(model, "A4").formattedValue, "October 2016");
@@ -289,12 +289,15 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.equal(getEvaluatedCell(model, "B3").formattedValue, "");
         assert.equal(getEvaluatedCell(model, "B4").formattedValue, "11.00");
         assert.equal(getEvaluatedCell(model, "B5").formattedValue, "");
+
+        setCellContent(model, "B4", '=PIVOT.VALUE(1,"probability","date","10/2016","foo",1)');
+        assert.equal(getEvaluatedCell(model, "B4").formattedValue, "11.00");
     });
 
     QUnit.test("pivot with one level of group bys", async (assert) => {
         const { model } = await createSpreadsheetFromPivotView();
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar","false")');
-        assert.strictEqual(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"bar","true")');
+        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar",FALSE)');
+        assert.strictEqual(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"bar",TRUE)');
         assert.strictEqual(getCellContent(model, "A5"), "=PIVOT.HEADER(1)");
         assert.strictEqual(
             getCellContent(model, "B2"),
@@ -302,7 +305,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         );
         assert.strictEqual(
             getCellContent(model, "C3"),
-            '=PIVOT.VALUE(1,"probability","bar","false","foo",2)'
+            '=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",2)'
         );
         assert.strictEqual(getCellContent(model, "F5"), '=PIVOT.VALUE(1,"probability")');
     });
@@ -328,7 +331,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             domain: [],
             measures: [{ name: "probability", aggregator: "avg" }],
             model: "partner",
-            rows: [{ name: "date" }],
+            rows: [{ name: "date", granularity: "month" }],
             name: "Partners by Date",
             sortedColumn: null,
             type: "ODOO",
@@ -350,19 +353,19 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar","false")');
+        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar",FALSE)');
         assert.strictEqual(
             getCellContent(model, "A4"),
-            '=PIVOT.HEADER(1,"bar","false","product_id",41)'
+            '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41)'
         );
-        assert.strictEqual(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"bar","true")');
+        assert.strictEqual(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"bar",TRUE)');
         assert.strictEqual(
             getCellContent(model, "A6"),
-            '=PIVOT.HEADER(1,"bar","true","product_id",37)'
+            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37)'
         );
         assert.strictEqual(
             getCellContent(model, "A7"),
-            '=PIVOT.HEADER(1,"bar","true","product_id",41)'
+            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41)'
         );
         assert.strictEqual(getCellContent(model, "A8"), "=PIVOT.HEADER(1)");
     });
@@ -396,7 +399,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"product_id","false")');
+        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"product_id",FALSE)');
     });
 
     QUnit.test("undefined date is inserted in pivot", async (assert) => {
@@ -427,7 +430,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 },
             },
         });
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"date:day","false")');
+        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"date:day",FALSE)');
     });
 
     QUnit.test("pivot with two levels of group bys in cols", async (assert) => {
@@ -446,31 +449,31 @@ QUnit.module("spreadsheet pivot view", {}, () => {
             },
         });
         assert.strictEqual(getCellContent(model, "A1"), "");
-        assert.strictEqual(getCellContent(model, "B1"), '=PIVOT.HEADER(1,"bar","false")');
+        assert.strictEqual(getCellContent(model, "B1"), '=PIVOT.HEADER(1,"bar",FALSE)');
         assert.strictEqual(
             getCellContent(model, "B2"),
-            '=PIVOT.HEADER(1,"bar","false","product_id",41)'
+            '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41)'
         );
         assert.strictEqual(
             getCellContent(model, "B3"),
-            '=PIVOT.HEADER(1,"bar","false","product_id",41,"measure","probability")'
+            '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41,"measure","probability")'
         );
-        assert.strictEqual(getCellContent(model, "C1"), '=PIVOT.HEADER(1,"bar","true")');
+        assert.strictEqual(getCellContent(model, "C1"), '=PIVOT.HEADER(1,"bar",TRUE)');
         assert.strictEqual(
             getCellContent(model, "C2"),
-            '=PIVOT.HEADER(1,"bar","true","product_id",37)'
+            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37)'
         );
         assert.strictEqual(
             getCellContent(model, "C3"),
-            '=PIVOT.HEADER(1,"bar","true","product_id",37,"measure","probability")'
+            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37,"measure","probability")'
         );
         assert.strictEqual(
             getCellContent(model, "D2"),
-            '=PIVOT.HEADER(1,"bar","true","product_id",41)'
+            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41)'
         );
         assert.strictEqual(
             getCellContent(model, "D3"),
-            '=PIVOT.HEADER(1,"bar","true","product_id",41,"measure","probability")'
+            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41,"measure","probability")'
         );
     });
 
@@ -727,7 +730,7 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         });
         const domain = model.getters.getPivotCoreDefinition(pivotId).domain;
         assert.deepEqual(domain, [["bar", "=", true]], "It should have the correct domain");
-        assert.strictEqual(getCellContent(model, "A3"), `=PIVOT.HEADER(1,"bar","true")`);
+        assert.strictEqual(getCellContent(model, "A3"), `=PIVOT.HEADER(1,"bar",TRUE)`);
         assert.strictEqual(getCellContent(model, "A4"), `=PIVOT.HEADER(1)`);
     });
 
@@ -1128,11 +1131,11 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         });
         assert.strictEqual(getCellContent(model, "A1"), "");
         assert.strictEqual(getCellContent(model, "A2"), "");
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"name","false")');
-        assert.strictEqual(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"name","false","foo",1)');
-        assert.strictEqual(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"name","false","foo",2)');
-        assert.strictEqual(getCellContent(model, "A6"), '=PIVOT.HEADER(1,"name","false","foo",12)');
-        assert.strictEqual(getCellContent(model, "A7"), '=PIVOT.HEADER(1,"name","false","foo",17)');
+        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"name",FALSE)');
+        assert.strictEqual(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"name",FALSE,"foo",1)');
+        assert.strictEqual(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"name",FALSE,"foo",2)');
+        assert.strictEqual(getCellContent(model, "A6"), '=PIVOT.HEADER(1,"name",FALSE,"foo",12)');
+        assert.strictEqual(getCellContent(model, "A7"), '=PIVOT.HEADER(1,"name",FALSE,"foo",17)');
         assert.strictEqual(getCellContent(model, "B2"), '=PIVOT.HEADER(1,"measure","__count")');
     });
 

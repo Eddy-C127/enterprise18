@@ -274,6 +274,7 @@ QUnit.module("spreadsheet > pivot_autofill", {}, () => {
                     <field name="probability" type="measure"/>
                 </pivot>`,
         });
+
         setCellContent(
             model,
             "A3",
@@ -428,10 +429,10 @@ QUnit.module("spreadsheet > pivot_autofill", {}, () => {
                         <field name="probability" type="measure"/>
                     </pivot>`,
             });
-            setCellContent(model, "A1", `=PIVOT.HEADER(1,"date:${interval}","false")`);
+            setCellContent(model, "A1", `=PIVOT.HEADER(1,"date:${interval}",FALSE)`);
             assert.strictEqual(
                 getPivotAutofillValue(model, "A1", { direction: "bottom", steps: 1 }),
-                `=PIVOT.HEADER(1,"date:${interval}","false")`
+                `=PIVOT.HEADER(1,"date:${interval}",FALSE)`
             );
             assert.deepEqual(model.getters.getTooltipFormula(getCellFormula(model, "A1")), [
                 { value: "None" },
@@ -504,7 +505,7 @@ QUnit.module("spreadsheet > pivot_autofill", {}, () => {
         });
         assert.strictEqual(
             getPivotAutofillValue(model, "A3", { direction: "bottom", steps: 1 }),
-            `=PIVOT.HEADER(1,"date","05/2016")`
+            `=PIVOT.HEADER(1,"date:month","05/2016")`
         );
     });
 

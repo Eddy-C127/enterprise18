@@ -1,20 +1,14 @@
-/** @odoo-module */
-
 import { _t } from "@web/core/l10n/translation";
 import { UIPlugin, tokenize, helpers } from "@odoo/o-spreadsheet";
+import { domainHasNoRecordAtThisPosition } from "@spreadsheet/pivot/pivot_helpers";
 
-const {
-    makePivotFormula,
-    getNumberOfPivotFunctions,
-    isDateField,
-    pivotTimeAdapter,
-    toPivotDomain,
-} = helpers;
+const { getNumberOfPivotFunctions, isDateField, pivotTimeAdapter, createPivotFormula } = helpers;
 
 /**
  * @typedef {import("@odoo/o-spreadsheet").SpreadsheetPivotTable} SpreadsheetPivotTable
  * @typedef {import("@spreadsheet").OdooPivotDefinition} OdooPivotDefinition
  * @typedef {import("@spreadsheet/pivot/odoo_pivot").OdooPivot} OdooPivot
+ * @typedef {import("@spreadsheet/pivot/odoo_pivot").PivotDomain} PivotDomain
  */
 
 /**
@@ -69,9 +63,20 @@ export class PivotAutofillPlugin extends UIPlugin {
                     return formula;
                 }
                 if (functionName === "PIVOT.VALUE") {
-                    return makePivotFormula("PIVOT.VALUE", evaluatedArgs);
+                    const [formulaId, measure, ...domain] = evaluatedArgs;
+                    const pivotCell = {
+                        type: "VALUE",
+                        measure,
+                        domain: this._toPivotDomainWithPositional(dataSource, domain),
+                    };
+                    return createPivotFormula(formulaId, pivotCell);
                 } else if (functionName === "PIVOT.HEADER") {
-                    return makePivotFormula("PIVOT.HEADER", evaluatedArgs);
+                    const [formulaId, ...domain] = evaluatedArgs;
+                    const pivotCell = {
+                        type: "HEADER",
+                        domain: this._toPivotDomainWithPositional(dataSource, domain),
+                    };
+                    return createPivotFormula(formulaId, pivotCell);
                 }
                 return formula;
             }
@@ -125,9 +130,10 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (functionName === "PIVOT.VALUE") {
             const dataSource = this.getters.getPivot(pivotId);
             const definition = dataSource.definition;
-            return this._tooltipFormatPivot(pivotId, args, isColumn, dataSource, definition);
+            return this._tooltipFormatPivot(args, isColumn, dataSource, definition);
         } else if (functionName === "PIVOT.HEADER") {
-            return this._tooltipFormatPivotHeader(pivotId, args);
+            const dataSource = this.getters.getPivot(pivotId);
+            return this._tooltipFormatPivotHeader(args, dataSource);
         }
         return [];
     }
@@ -244,10 +250,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             }
             measure = cols.pop();
         }
-        return makePivotFormula(
-            "PIVOT.VALUE",
-            this._buildArgs(pivotId, measure, rows, cols, definition)
-        );
+        return this._createPivotFormula(pivotId, rows, cols, definition, measure);
     }
     /**
      * Get the next value to autofill from a pivot header ("=PIVOT.HEADER()")
@@ -315,10 +318,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 // Targeting a col.header
                 groupValues = nextGroup.values;
             }
-            return makePivotFormula(
-                "PIVOT.HEADER",
-                this._buildArgs(pivotId, undefined, [], groupValues, definition)
-            );
+            return this._createPivotFormula(pivotId, [], groupValues, definition);
         } else {
             // UP-DOWN
             const rowIndex =
@@ -338,10 +338,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 const cols = [...measureCell.values];
                 const measure = cols.pop();
                 const rows = [...this._getCellsFromRowAtIndex(table, rowIndex).values];
-                return makePivotFormula(
-                    "PIVOT.VALUE",
-                    this._buildArgs(pivotId, measure, rows, cols, definition)
-                );
+                return this._createPivotFormula(pivotId, rows, cols, definition, measure);
             } else {
                 // Targeting a col.header
                 const groupValues = this._getNextColCell(
@@ -349,10 +346,8 @@ export class PivotAutofillPlugin extends UIPlugin {
                     currentColIndex,
                     nextRowIndex
                 ).values;
-                return makePivotFormula(
-                    "PIVOT.HEADER",
-                    this._buildArgs(pivotId, undefined, [], groupValues, definition)
-                );
+
+                return this._createPivotFormula(pivotId, [], groupValues, definition);
             }
         }
     }
@@ -402,9 +397,12 @@ export class PivotAutofillPlugin extends UIPlugin {
             const measureCell = this._getCellFromMeasureRowAtIndex(table, colIndex);
             const values = [...measureCell.values];
             const measure = values.pop();
-            return makePivotFormula(
-                "PIVOT.VALUE",
-                this._buildArgs(pivotId, measure, currentElement.rows, values, definition)
+            return this._createPivotFormula(
+                pivotId,
+                currentElement.rows,
+                values,
+                definition,
+                measure
             );
         } else {
             // UP-DOWN
@@ -421,10 +419,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 }
                 rows = [...this._getCellsFromRowAtIndex(table, nextIndex).values];
             }
-            return makePivotFormula(
-                "PIVOT.HEADER",
-                this._buildArgs(pivotId, undefined, rows, [], definition)
-            );
+            return this._createPivotFormula(pivotId, rows, [], definition);
         }
     }
     /**
@@ -460,10 +455,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         const cols = isTotalCol
             ? currentElement.cols.slice(0, index)
             : currentElement.cols.slice(0, index + 1);
-        return makePivotFormula(
-            "PIVOT.HEADER",
-            this._buildArgs(pivotId, undefined, [], cols, definition)
-        );
+        return this._createPivotFormula(pivotId, [], cols, definition);
     }
     /**
      * Create a row header from a value
@@ -481,10 +473,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (!rows) {
             return "";
         }
-        return makePivotFormula(
-            "PIVOT.HEADER",
-            this._buildArgs(pivotId, undefined, rows, [], definition)
-        );
+        return this._createPivotFormula(pivotId, rows, [], definition);
     }
     /**
      * Parse the arguments of a pivot function to find the col values and
@@ -600,18 +589,15 @@ export class PivotAutofillPlugin extends UIPlugin {
      *
      * @returns {Array<TooltipFormula>}
      */
-    _tooltipFormatPivot(pivotId, args, isColumn, dataSource, definition) {
+    _tooltipFormatPivot(args, isColumn, dataSource, definition) {
         const tooltips = [];
-        const domain = toPivotDomain(args.slice(2));
-        const pivot = this.getters.getPivot(pivotId);
-        for (let i = 0; i < domain.length; i++) {
-            const node = domain[i];
+        const domain = args.slice(2);
+        for (let i = 0; i < domain.length; i += 2) {
             if (
-                (isColumn && this._isColumnGroupBy(dataSource, definition, node.field)) ||
-                (!isColumn && this._isRowGroupBy(dataSource, definition, node.field))
+                (isColumn && this._isColumnGroupBy(dataSource, definition, domain[i])) ||
+                (!isColumn && this._isRowGroupBy(dataSource, definition, domain[i]))
             ) {
-                const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i + 1));
-                tooltips.push({ value: formattedValue });
+                tooltips.push(this._tooltipHeader(dataSource, domain.slice(0, i + 2)));
             }
         }
         if (definition.measures.length !== 1 && isColumn) {
@@ -638,57 +624,95 @@ export class PivotAutofillPlugin extends UIPlugin {
      *
      * @returns {Array<TooltipFormula>}
      */
-    _tooltipFormatPivotHeader(pivotId, args) {
+    _tooltipFormatPivotHeader(args, dataSource) {
         const tooltips = [];
-        const domain = toPivotDomain(args.slice(1));
+        const domain = args.slice(1).map((value) => ({ value }));
         if (domain.length === 0) {
             return [{ value: _t("Total") }];
         }
-        const pivot = this.getters.getPivot(pivotId);
-        for (let i = 0; i < domain.length; i++) {
-            const formattedValue = pivot.getPivotHeaderFormattedValue(domain.slice(0, i + 1));
-            tooltips.push({ value: formattedValue });
+
+        for (let i = 0; i < domain.length; i += 2) {
+            tooltips.push(this._tooltipHeader(dataSource, domain.slice(0, i + 2)));
         }
         return tooltips;
+    }
+
+    _tooltipHeader(dataSource, domain) {
+        const subDomain = dataSource.parseArgsToPivotDomain(domain);
+        if (!domainHasNoRecordAtThisPosition(subDomain)) {
+            const formattedValue = dataSource.getPivotHeaderFormattedValue(subDomain);
+            return { value: formattedValue };
+        } else {
+            return { value: _t("") };
+        }
     }
 
     // ---------------------------------------------------------------------
     // Helpers
     // ---------------------------------------------------------------------
 
+    _toPivotDomainWithPositional(pivot, args) {
+        const domain = [];
+        for (let i = 0; i < args.length - 1; i += 2) {
+            const fullName = args[i];
+            const { field, isPositional } = pivot.parseGroupField(fullName);
+            domain.push({
+                field: fullName,
+                value: args[i + 1],
+                type: isPositional ? "integer" : field.type,
+            });
+        }
+        return domain;
+    }
+
     /**
-     * Create the args from pivot, measure, rows and cols
-     * if measure is undefined, it's not added
+     * Create a pivot formula
      *
-     * @param {string} pivotId Id of the pivot
-     * @param {string} measure
+     * @param {string} pivotId
      * @param {Object} rows
      * @param {Object} cols
      * @param {OdooPivotDefinition} definition
+     * @param {string} [measure]
      *
-     * @private
-     * @returns {Array<string>}
+     * @returns {string}
      */
-    _buildArgs(pivotId, measure, rows, cols, definition) {
-        const args = [this.getters.getPivotFormulaId(pivotId)];
-        if (measure) {
-            args.push(measure);
-        }
+    _createPivotFormula(pivotId, rows, cols, definition, measure) {
+        /** @type {PivotDomain} */
+        const domain = [];
         for (const index in rows) {
-            args.push(definition.rows[index].nameWithGranularity);
-            args.push(rows[index]);
+            const row = definition.rows[index];
+            domain.push({
+                type: row.type,
+                field: row.nameWithGranularity,
+                value: rows[index],
+            });
         }
         if (cols.length === 1 && definition.measures.map((m) => m.name).includes(cols[0])) {
-            args.push("measure");
-            args.push(cols[0]);
+            domain.push({
+                type: "char",
+                field: "measure",
+                value: cols[0],
+            });
         } else {
             for (const index in cols) {
-                const column = definition.columns[index];
-                args.push(column ? column.nameWithGranularity : "measure");
-                args.push(cols[index]);
+                const column = definition.columns[index] || {
+                    type: "char",
+                    nameWithGranularity: "measure",
+                };
+                domain.push({
+                    type: column.type,
+                    field: column.nameWithGranularity,
+                    value: cols[index],
+                });
             }
         }
-        return args;
+        const pivotCell = {
+            type: measure ? "VALUE" : "HEADER",
+            measure,
+            domain,
+        };
+        const formulaId = this.getters.getPivotFormulaId(pivotId);
+        return createPivotFormula(formulaId, pivotCell);
     }
 
     /**

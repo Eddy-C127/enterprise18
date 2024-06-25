@@ -98,9 +98,9 @@ QUnit.test("Add a pivot", async (assert) => {
     );
     const cellFormulas = {
         B1: `=PIVOT.HEADER(1,"foo",1)`, // header col
-        A3: `=PIVOT.HEADER(1,"bar","false")`, // header row
+        A3: `=PIVOT.HEADER(1,"bar",FALSE)`, // header row
         B2: `=PIVOT.HEADER(1,"foo",1,"measure","probability")`, // measure
-        B3: `=PIVOT.VALUE(1,"probability","bar","false","foo",1)`, // value
+        B3: `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",1)`, // value
         F1: `=PIVOT.HEADER(1)`, // total header rows
         A5: `=PIVOT.HEADER(1)`, // total header cols
     };

@@ -103,4 +103,12 @@ export class PivotDetailsSidePanel extends Component {
     get highlights() {
         return getPivotHighlights(this.env.model.getters, this.props.pivotId);
     }
+
+    flipAxis() {
+        const { rows, columns } = this.store.definition;
+        this.onDimensionsUpdated({
+            rows: columns,
+            columns: rows,
+        });
+    }
 }

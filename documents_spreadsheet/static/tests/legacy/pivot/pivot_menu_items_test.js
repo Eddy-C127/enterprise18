@@ -51,7 +51,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
             assert.equal(
                 getCellFormula(model, "E10"),
-                `=PIVOT.VALUE(1,"probability","bar","false","foo",1)`,
+                `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",1)`,
                 "It should contain a pivot formula"
             );
         });
@@ -114,7 +114,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
             assert.equal(
                 getCellFormula(model, "E10"),
-                `=PIVOT.VALUE(1,"probability","bar","false","foo",${uid})`,
+                `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",${uid})`,
                 "It should contain a pivot formula"
             );
         });
@@ -133,7 +133,7 @@ QUnit.module(
             assert.equal(model.getters.getNumberRows("111"), 5);
             assert.equal(
                 getCellFormula(model, "B3"),
-                `=PIVOT.VALUE(1,"probability","bar","false","foo",1)`,
+                `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",1)`,
                 "It should contain a pivot formula"
             );
         });
@@ -164,7 +164,7 @@ QUnit.module(
             assert.equal(getCellFormula(model, "I8"), `=PIVOT.HEADER(1,"foo",25)`);
             assert.equal(
                 getCellFormula(model, "I10"),
-                `=PIVOT.VALUE(1,"probability","bar","false","foo",25)`
+                `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",25)`
             );
         });
 
@@ -231,7 +231,7 @@ QUnit.module(
                 );
                 assert.equal(
                     getCellFormula(model, "C3"),
-                    `=PIVOT.VALUE(1,"probability","bar","false","foo",2)`
+                    `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",2)`
                 );
                 await nextTick();
                 assert.equal(getCellValue(model, "C1"), 2);
@@ -285,7 +285,7 @@ QUnit.module(
             await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
             assert.equal(
                 getCellFormula(model, "E10"),
-                `=PIVOT.VALUE(1,"probability","bar","false","foo",1)`,
+                `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",1)`,
                 "It should contain a pivot formula"
             );
             model.dispatch("REQUEST_UNDO");
