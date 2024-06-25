@@ -165,16 +165,14 @@
                               #{ 'o_article_has_children' if article.has_article_children else ''}
                               #{ 'o_knowledge_article_force_show_active_article' if is_force_show_active_article else ''}"
                 t-att-data-article-id="article.id">
-                <div t-attf-class="o_article_handle d-flex align-items-center #{ 'o_article_active fw-bold text-900' if is_active else 'text-muted' }">
+                <div t-attf-class="o_article_handle d-flex align-items-center #{ 'o_article_active' if is_active else 'text-muted' }">
                     <button type="button"
-                            class="flex-shrink-1 o_article_caret btn text-muted p-0 border-0">
+                            class="o_article_caret btn btn-link text-muted p-0">
                         <i t-att-class="'align-self-center fa fa-fw fa-caret-' + ('down' if unfold_children else 'right')"/>
                     </button>
-                    <div class="w-100 min-w-0 d-flex">
-                        <div class="o_article_name p-1 flex-grow-1 text-truncate cursor-pointer">
-                            <a t-out="article.display_name" t-attf-href="/knowledge/article/{{article.id}}" class="text-decoration-none"/>
-                        </div>
-                    </div>
+                    <a t-out="article.display_name"
+                       t-attf-href="/knowledge/article/{{article.id}}"
+                       t-attf-class="o_article_name p-1 flex-grow-1 text-truncate text-decoration-none #{ 'fw-bold text-900' if is_active else 'text-muted' }"/>
                 </div>
                 <ul t-if="unfold_children">
                     <t t-call="website_knowledge.articles_template">
