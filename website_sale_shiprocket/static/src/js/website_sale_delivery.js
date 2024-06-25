@@ -7,10 +7,10 @@ import "@website_sale/js/website_sale_delivery";
 
 publicWidget.registry.websiteSaleDelivery.include({
     start: function () {
-        this.codOptions = document.querySelectorAll(
+        this.ShiprocketCodOptions = document.querySelectorAll(
             'input[name="o_payment_radio"][data-payment-method-code="shiprocket_cash_on_delivery"]'
         );
-        if (this.codOptions.length > 0) {
+        if (this.ShiprocketCodOptions.length > 0) {
             this.paymentOptions = document.querySelectorAll('input[name="o_payment_radio"]');
 
             this.alertPayment = renderToElement("website_sale_shiprocket.alert_no_payment", {});
@@ -57,7 +57,7 @@ publicWidget.registry.websiteSaleDelivery.include({
                 submitButton.textContent = _t("Pay Now");
             }
         }
-        if (this.codOptions.length === 0) {
+        if (this.ShiprocketCodOptions.length === 0) {
             return;
         }
         this.alertPayment.classList.add("d-none");
