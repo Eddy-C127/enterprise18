@@ -34,6 +34,7 @@ export class SpreadsheetSelectorPanel extends Component {
     static props = {
         onSpreadsheetSelected: Function,
         onSpreadsheetDblClicked: Function,
+        model: String,
         displayBlank: {
             type: Boolean,
             optional: true,
@@ -58,36 +59,42 @@ export class SpreadsheetSelectorPanel extends Component {
 
         onWillStart(async () => {
             await this._fetchSpreadsheets();
-            this.state.pagerProps.total = await this._fetchPagerTotal();
+            const selectedItem =
+                !this.props.displayBlank && this.state.spreadsheets.length
+                    ? this.state.spreadsheets[0].id
+                    : null;
+            this._selectItem(selectedItem);
         });
 
         onWillUnmount(() => {
             browser.clearTimeout(this.debounce);
         });
-        this._selectItem(null);
 
         useHotkey("Enter", () => {
             this.props.onSpreadsheetDblClicked();
         });
     }
 
-    _fetchSpreadsheets() {
-        throw new Error("Should be implemented by subclass.");
-    }
-
-    /**
-     * @returns {Promise<number>}
-     */
-    async _fetchPagerTotal() {
-        throw new Error("Should be implemented by subclass.");
+    async _fetchSpreadsheets() {
+        const { offset, limit } = this.state.pagerProps;
+        const { records, total } = await this.keepLast.add(
+            this.orm.call(this.props.model, "get_spreadsheets", [this.domain], {
+                offset,
+                limit,
+            })
+        );
+        this.state.spreadsheets = records;
+        this.state.pagerProps.total = total;
     }
 
     async _getOpenSpreadsheetAction() {
-        throw new Error("Should be implemented by subclass.");
+        return this.orm.call(this.props.model, "action_open_spreadsheet", [
+            [this.state.selectedSpreadsheetId],
+        ]);
     }
 
     async _getCreateAndOpenSpreadsheetAction() {
-        throw new Error("Should be implemented by subclass.");
+        return this.orm.call(this.props.model, "action_open_new_spreadsheet");
     }
 
     async onSearchInput(ev) {
@@ -101,13 +108,7 @@ export class SpreadsheetSelectorPanel extends Component {
 
     _debouncedFetchSpreadsheets() {
         browser.clearTimeout(this.debounce);
-        this.debounce = browser.setTimeout(async () => {
-            const [, total] = await Promise.all([
-                this._fetchSpreadsheets(),
-                this._fetchPagerTotal(),
-            ]);
-            this.state.pagerProps.total = total;
-        }, 400);
+        this.debounce = browser.setTimeout(this._fetchSpreadsheets.bind(this), 400);
     }
 
     /**
@@ -130,8 +131,8 @@ export class SpreadsheetSelectorPanel extends Component {
             this.state.selectedSpreadsheetId &&
             this.state.spreadsheets.find((s) => s.id === this.state.selectedSpreadsheetId);
         const notificationMessage = spreadsheet
-            ? _t("New sheet inserted in '%s'", spreadsheet.name)
-            : this.notificationMessage;
+            ? _t("New sheet inserted in '%s'", spreadsheet.display_name)
+            : "";
         this.props.onSpreadsheetSelected({
             spreadsheet,
             notificationMessage,

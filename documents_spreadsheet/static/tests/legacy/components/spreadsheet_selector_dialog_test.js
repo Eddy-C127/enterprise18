@@ -225,10 +225,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
             });
             const { target } = await mountSpreadsheetSelectorDialog({
                 mockRPC: async function (route, args) {
-                    if (
-                        args.method === "get_spreadsheets_to_display" &&
-                        args.model === "documents.document"
-                    ) {
+                    if (args.method === "get_spreadsheets" && args.model === "documents.document") {
                         assert.step(JSON.stringify(args.args[0]));
                     }
                 },
@@ -260,10 +257,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
         const { target } = await mountSpreadsheetSelectorDialog({
             serverData: data,
             mockRPC: async function (route, args) {
-                if (
-                    args.method === "get_spreadsheets_to_display" &&
-                    args.model === "documents.document"
-                ) {
+                if (args.method === "get_spreadsheets" && args.model === "documents.document") {
                     assert.step(
                         JSON.stringify({ offset: args.kwargs.offset, limit: args.kwargs.limit })
                     );
@@ -403,7 +397,7 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
                     callback = later;
                 },
             });
-
+            let searchTerm = "";
             const data = JSON.parse(JSON.stringify(serverData));
             data.models["documents.document"].records = [];
             // Insert 12 elements
@@ -420,13 +414,19 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
             const { target } = await mountSpreadsheetSelectorDialog({
                 serverData: data,
                 mockRPC: async function (route, args) {
-                    if (
-                        args.method === "get_spreadsheets_to_display" &&
-                        args.model === "documents.document"
-                    ) {
+                    if (args.method === "get_spreadsheets" && args.model === "documents.document") {
                         assert.step(
                             JSON.stringify({ offset: args.kwargs.offset, limit: args.kwargs.limit })
                         );
+                        if (searchTerm) {
+                            const records = data.models["documents.document"].records.filter((r) =>
+                                r.name.includes(searchTerm)
+                            );
+                            return {
+                                records,
+                                total: records.length,
+                            };
+                        }
                     }
                 },
             });
@@ -439,7 +439,8 @@ QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach
 
             /** @type {HTMLInputElement} */
             const input = target.querySelector(".o-sp-searchview-input");
-            input.value = "1";
+            searchTerm = "1";
+            input.value = searchTerm;
             await triggerEvent(input, null, "input");
             //@ts-ignore
             callback();

@@ -16,3 +16,12 @@ class SpreadsheetDummy(models.Model):
 
     def _creation_msg(self):
         return "test spreadsheet created"
+
+    def _get_spreadsheet_selector(self):
+        if not self.env.registry.in_test_mode():
+            return None
+        return {
+            "model": self._name,
+            "display_name": "Test spreadsheets",
+            "sequence": 100,
+        }

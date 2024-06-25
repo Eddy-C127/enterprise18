@@ -165,14 +165,18 @@ class Document(models.Model):
             "handler": "spreadsheet",
             **vals,
         })
-        return {
-            "type": "ir.actions.client",
-            "tag": "action_open_spreadsheet",
-            "params": {
-                "spreadsheet_id": spreadsheet.id,
-                "is_new_spreadsheet": True,
-            },
+        action_open = spreadsheet.action_open_spreadsheet()
+        action_open['params']['is_new_spreadsheet'] = True
+        action = {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'info',
+                'message': self._creation_msg(),
+                'next': action_open
+            }
         }
+        return action
 
     @api.model
     def get_spreadsheets_to_display(self, domain, offset=0, limit=None):
@@ -197,7 +201,7 @@ class Document(models.Model):
             docs = docs[offset:offset + limit]
         else:
             docs = docs[offset:]
-        return docs.read(["name", "thumbnail"])
+        return docs.read(["display_name", "thumbnail"])
 
     def clone_xlsx_into_spreadsheet(self, archive_source=False):
         """Clone an XLSX document into a new document with its content unzipped, and return the new document id"""
@@ -328,8 +332,25 @@ class Document(models.Model):
             }
         }
 
+    @api.model
+    def get_spreadsheets(self, domain=(), offset=0, limit=None):
+        domain = expression.AND([domain, [("handler", "=", "spreadsheet")]])
+        return {
+            "records": self.get_spreadsheets_to_display(domain, offset, limit),
+            "total": self.search_count(domain),
+        }
+
     def _creation_msg(self):
         return _("New spreadsheet created in Documents")
+
+    @api.model
+    def _get_spreadsheet_selector(self):
+        return {
+            "model": self._name,
+            "display_name": _("Spreadsheets"),
+            "sequence": 0,
+            "allow_create": True,
+        }
 
 class XSLXReadUserError(UserError):
     pass

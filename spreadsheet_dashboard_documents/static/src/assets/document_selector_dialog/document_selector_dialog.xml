@@ -6,8 +6,11 @@
             <div class="o-spreadsheet-templates-dialog">
                 <div class="o-sp-dialog-spreadsheets">
                     <div class="o-sp-dialog-content">
-                        <DocumentsSelectorPanel onSpreadsheetSelected.bind="onSpreadsheetSelected"
-                            onSpreadsheetDblClicked.bind="_confirm" />
+                        <SpreadsheetSelectorPanel
+                            model="'documents.document'"
+                            onSpreadsheetSelected.bind="onSpreadsheetSelected"
+                            onSpreadsheetDblClicked.bind="_confirm"
+                        />
                     </div>
                 </div>
                 <t t-set-slot="footer">

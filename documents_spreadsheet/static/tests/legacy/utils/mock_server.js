@@ -5,14 +5,29 @@ import { mockJoinSpreadsheetSession } from "@spreadsheet_edition/../tests/legacy
 
 registry
     .category("mock_server")
-    .add("documents.document/get_spreadsheets_to_display", function () {
-        return this.models["documents.document"].records
+    .add("documents.document/get_spreadsheets", function () {
+        const records = this.models["documents.document"].records
             .filter((document) => document.handler === "spreadsheet")
             .map((spreadsheet) => ({
-                name: spreadsheet.name,
+                display_name: spreadsheet.name,
                 id: spreadsheet.id,
             }));
+        return { records, total: records.length };
     })
+    .add("spreadsheet.mixin/get_selector_spreadsheet_models", () => [
+        {
+            model: "documents.document",
+            display_name: "Spreadsheets",
+            allow_create: true,
+        },
+    ])
+    .add("documents.document/action_open_spreadsheet", (route, args) => ({
+        type: "ir.actions.client",
+        tag: "action_open_spreadsheet",
+        params: {
+            spreadsheet_id: args.args[0][0],
+        },
+    }))
     .add("documents.document/join_spreadsheet_session", function (route, args) {
         const result = mockJoinSpreadsheetSession("documents.document").call(this, route, args);
         const [id] = args.args;

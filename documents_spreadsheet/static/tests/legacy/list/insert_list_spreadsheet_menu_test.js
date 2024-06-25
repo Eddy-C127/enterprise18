@@ -57,8 +57,11 @@ QUnit.module(
                         if (args.method !== "search_count" && args.method !== "get_views") {
                             assert.step(args.method);
                             switch (args.method) {
-                                case "get_spreadsheets_to_display":
-                                    return [{ id: 1, name: "My Spreadsheet" }];
+                                case "get_spreadsheets":
+                                    return {
+                                        records: [{ id: 1, name: "My Spreadsheet" }],
+                                        total: 1,
+                                    };
                             }
                         }
                     }
@@ -81,7 +84,7 @@ QUnit.module(
             await nextTick();
 
             assert.verifySteps(
-                ["get_spreadsheets_to_display", "join_spreadsheet_session"],
+                ["get_spreadsheets", "action_open_spreadsheet", "join_spreadsheet_session"],
                 "get spreadsheet, then join"
             );
             const model = getSpreadsheetActionModel(spreadsheetAction);

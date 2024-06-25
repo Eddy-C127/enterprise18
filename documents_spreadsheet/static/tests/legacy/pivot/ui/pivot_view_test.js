@@ -574,8 +574,8 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         const webClient = await createWebClient({
             serverData,
             mockRPC: function (route, args) {
-                if (route.includes("get_spreadsheets_to_display")) {
-                    return [{ id: 1, name: "My Spreadsheet" }];
+                if (route.includes("get_spreadsheets")) {
+                    return { records: [{ id: 1, name: "My Spreadsheet" }], total: 1 };
                 }
                 if (args.method === "action_open_new_spreadsheet") {
                     assert.step("action_open_new_spreadsheet");
@@ -620,8 +620,8 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                 }
                 if (args.model === "documents.document") {
                     switch (args.method) {
-                        case "get_spreadsheets_to_display":
-                            return [{ id: 1, name: "My Spreadsheet" }];
+                        case "get_spreadsheets":
+                            return { records: [{ id: 1, name: "My Spreadsheet" }], total: 1 };
                     }
                 }
             },

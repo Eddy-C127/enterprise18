@@ -20,14 +20,14 @@
                     <img
                         t-if="thumbnail"
                         t-att-src="thumbnail"
-                        t-att-title="spreadsheet.name"
+                        t-att-title="spreadsheet.display_name"
                     />
                     <!-- Display no preview message if no thumbnail is available -->
                     <div t-else="1" class="o-spreadsheet-grid-no-preview d-flex flex-grow-1 align-items-center justify-content-center">
                         <p class="text-truncate text-muted m-1">No preview</p>
                     </div>
                 </div>
-                <div class="o-spreadsheet-grid-item-name" t-esc="spreadsheet.name" />
+                <div class="o-spreadsheet-grid-item-name" t-esc="spreadsheet.display_name" />
             </div>
 
             <!-- Ghost items for proper spacing -->

@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { DocumentsSelectorPanel } from "@documents_spreadsheet/spreadsheet_selector_dialog/document_selector_panel";
+import { SpreadsheetSelectorPanel } from "@spreadsheet_edition/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_panel";
 import { Dialog } from "@web/core/dialog/dialog";
 import { useService } from "@web/core/utils/hooks";
 
@@ -9,7 +9,7 @@ import { Component } from "@odoo/owl";
 
 export class DocumentSelectorDialog extends Component {
     static template = "spreadsheet_dashboard_documents.DocumentSelectorDialog";
-    static components = { Dialog, DocumentsSelectorPanel };
+    static components = { Dialog, SpreadsheetSelectorPanel };
     static props = {
         close: Function,
         dashboardGroupId: Number,

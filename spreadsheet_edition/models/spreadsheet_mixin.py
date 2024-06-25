@@ -340,8 +340,34 @@ class SpreadsheetMixin(models.AbstractModel):
         raise NotImplementedError("This method is not implemented for model %s." % self._name)
 
     @api.model
+    def action_open_new_spreadsheet(self, vals=None):
+        raise NotImplementedError("This method is not implemented for model %s." % self._name)
+
+    @api.model
+    def get_selector_spreadsheet_models(self):
+        selectable_models = []
+        for model in self.env:
+            if issubclass(self.pool[model], self.pool['spreadsheet.mixin']):
+                selector = self.env[model]._get_spreadsheet_selector()
+                if selector:
+                    selectable_models.append(selector)
+        selectable_models.sort(key=lambda m: m["sequence"])
+        return selectable_models
+
+    @api.model
+    def _get_spreadsheet_selector(self):
+        return None
+
+    @api.model
     def _creation_msg(self):
         raise NotImplementedError("This method is not implemented for model %s." % self._name)
+
+    @api.model
+    def get_spreadsheets(self, domain=(), offset=0, limit=None):
+        return {
+            "total": self.search_count(domain),
+            "records": self.search_read(domain, ["display_name", "thumbnail"], offset=offset, limit=limit)
+        }
 
     def get_spreadsheet_history(self, from_snapshot=False):
         """Fetch the spreadsheet history.

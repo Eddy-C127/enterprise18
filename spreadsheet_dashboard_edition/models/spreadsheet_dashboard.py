@@ -56,3 +56,12 @@ class SpreadsheetDashboard(models.Model):
 
     def _creation_msg(self):
         return _("New dashboard created")
+
+    @api.model
+    def _get_spreadsheet_selector(self):
+        return {
+            "model": self._name,
+            "display_name": _("Dashboards"),
+            "sequence": 10,
+            "allow_create": False,
+        }

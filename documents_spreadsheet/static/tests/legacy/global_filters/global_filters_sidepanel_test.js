@@ -710,9 +710,6 @@ QUnit.module(
                 });
                 await openGlobalFilterSidePanel();
                 await clickCreateFilter("text");
-                await contains(".o_notification:has(.o_notification_bar.bg-info)", {
-                    text: "New spreadsheet created in Documents",
-                });
                 await contains(".o-sidePanel");
                 await editGlobalFilterLabel(uniqueFilterName);
                 await editGlobalFilterDefaultValue("Default Value");

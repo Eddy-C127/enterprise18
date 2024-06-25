@@ -5,7 +5,8 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { useService } from "@web/core/utils/hooks";
 import { Notebook } from "@web/core/notebook/notebook";
 
-import { Component, useState } from "@odoo/owl";
+import { Component, onWillStart, useState } from "@odoo/owl";
+import { SpreadsheetSelectorPanel } from "./spreadsheet_selector_panel";
 
 const LABELS = {
     PIVOT: _t("pivot"),
@@ -14,10 +15,6 @@ const LABELS = {
     GRAPH: _t("graph"),
 };
 
-const PAGE_LABELS = {
-    SPREADSHEET: _t("Spreadsheets"),
-    DASHBOARD: _t("Dashboards"),
-};
 /**
  * @typedef State
  * @property {Object} spreadsheets
@@ -56,13 +53,26 @@ export class SpreadsheetSelectorDialog extends Component {
         };
         this.notification = useService("notification");
         this.actionService = useService("action");
-    }
-
-    /**
-     * @param {"SPREADSHEET" | "DASHBOARD"} title
-     */
-    getPageTitle(title) {
-        return PAGE_LABELS[title];
+        const orm = useService("orm");
+        onWillStart(async () => {
+            const spreadsheetModels = await orm.call(
+                "spreadsheet.mixin",
+                "get_selector_spreadsheet_models"
+            );
+            this.noteBookPages = spreadsheetModels.map(({ model, display_name, allow_create }) => {
+                return {
+                    Component: SpreadsheetSelectorPanel,
+                    id: model,
+                    title: display_name,
+                    props: {
+                        model,
+                        displayBlank: allow_create,
+                        onSpreadsheetSelected: this.onSpreadsheetSelected.bind(this),
+                        onSpreadsheetDblClicked: this._confirm.bind(this),
+                    },
+                };
+            });
+        });
     }
 
     get nameLabel() {
@@ -92,11 +102,13 @@ export class SpreadsheetSelectorDialog extends Component {
         const threshold = this.state.threshold ? parseInt(this.state.threshold, 10) : 0;
         const name = this.state.name.toString();
 
-        this.notification.add(this.actionState.notificationMessage, { type: "info" });
-        this.actionService.doAction({
-            ...action,
-            params: this._addToPreprocessingAction(action.params, threshold, name),
-        });
+        if (this.actionState.notificationMessage) {
+            this.notification.add(this.actionState.notificationMessage, { type: "info" });
+        }
+        // the action can be preceded by a notification
+        const actionOpen = action.tag === "display_notification" ? action.params.next : action;
+        actionOpen.params = this._addToPreprocessingAction(actionOpen.params, threshold, name);
+        this.actionService.doAction(action);
         this.props.close();
     }
 

@@ -395,3 +395,37 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         company_B.secondary_color = "#bb1111"
         data = spreadsheet.with_context(allowed_company_ids=companies.ids).join_spreadsheet_session()
         self.assertEqual(data["company_colors"], ["#aa0000", "#aa1111", "#bb0000", "#bb1111"])
+
+    def test_get_spreadsheets(self):
+        spreadsheet = self.env["spreadsheet.test"].create({})
+        self.assertEqual(
+            self.env["spreadsheet.test"].get_spreadsheets(),
+            {
+                "records": [{
+                    "id": spreadsheet.id,
+                    "display_name": spreadsheet.display_name,
+                    "thumbnail": False
+                }],
+                "total": 1,
+            }
+        )
+
+    def test_get_spreadsheets_limit(self):
+        self.env["spreadsheet.test"].create({})
+        self.env["spreadsheet.test"].create({})
+        result = self.env["spreadsheet.test"].get_spreadsheets([], limit=1)
+        self.assertEqual(len(result["records"]), 1)
+        self.assertEqual(result["total"], 2)
+
+    def test_get_spreadsheets_domain(self):
+        first = self.env["spreadsheet.test"].create({})
+        self.env["spreadsheet.test"].create({})
+        result = self.env["spreadsheet.test"].get_spreadsheets([("id", "=", first.id)], limit=1)
+        self.assertEqual(len(result["records"]), 1)
+        self.assertEqual(result["records"][0]["id"], first.id)
+        self.assertEqual(result["total"], 1)
+
+    def get_selector_spreadsheet_models(self):
+        result = self.env["spreadsheet.mixin"].get_selector_spreadsheet_models()
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["model"], "spreadsheet.test")

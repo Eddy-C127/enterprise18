@@ -23,16 +23,19 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_action_open_new_spreadsheet(self):
         action = self.env["documents.document"].action_open_new_spreadsheet()
-        spreadsheet_id = action["params"]["spreadsheet_id"]
+        action_notification = action
+        action_open = action["params"]["next"]
+        spreadsheet_id = action_open["params"]["spreadsheet_id"]
         document = self.env["documents.document"].browse(spreadsheet_id)
         self.assertTrue(document.exists())
         self.assertEqual(document.handler, "spreadsheet")
         self.assertEqual(document.mimetype, "application/o-spreadsheet")
         self.assertEqual(document.name, "Untitled spreadsheet")
         self.assertEqual(document.datas, document._empty_spreadsheet_data_base64())
-        self.assertEqual(action["type"], "ir.actions.client")
-        self.assertEqual(action["tag"], "action_open_spreadsheet")
-        self.assertTrue(action["params"]["is_new_spreadsheet"])
+        self.assertEqual(action_open["type"], "ir.actions.client")
+        self.assertEqual(action_open["tag"], "action_open_spreadsheet")
+        self.assertEqual(action_notification["type"], "ir.actions.client")
+        self.assertEqual(action_notification["tag"], "display_notification")
 
 
     def test_action_open_new_spreadsheet_with_locale(self):
@@ -54,7 +57,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         })
 
         action = self.env["documents.document"].with_user(user).action_open_new_spreadsheet()
-        spreadsheet_id = action["params"]["spreadsheet_id"]
+        spreadsheet_id = action["params"]["next"]["params"]["spreadsheet_id"]
         document = self.env["documents.document"].browse(spreadsheet_id)
         self.assertTrue(document.exists())
 
@@ -74,7 +77,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         action = self.env["documents.document"].action_open_new_spreadsheet({
             "folder_id": self.folder.id
         })
-        spreadsheet_id = action["params"]["spreadsheet_id"]
+        spreadsheet_id = action["params"]["next"]["params"]["spreadsheet_id"]
         document = self.env["documents.document"].browse(spreadsheet_id)
         self.assertEqual(document.folder_id, self.folder)
 
@@ -343,15 +346,15 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             manager_doc.with_user(user).spreadsheet_data = "{}"
 
     def test_spreadsheet_to_display_access_field_groups(self):
-        existing_groups = self.env["documents.document"]._fields["name"].groups
-        self.env["documents.document"]._fields["name"].groups = "base.group_system"
+        existing_groups = self.env["documents.document"]._fields["display_name"].groups
+        self.env["documents.document"]._fields["display_name"].groups = "base.group_system"
         user = new_test_user(
             self.env, "Test user", groups="documents.group_documents_manager"
         )
 
         with self.assertRaises(AccessError, msg="field should be protected"):
             self.env["documents.document"].with_user(user).get_spreadsheets_to_display([])
-        self.env["documents.document"]._fields["name"].groups = existing_groups
+        self.env["documents.document"]._fields["display_name"].groups = existing_groups
 
     def test_save_template(self):
         context = {
