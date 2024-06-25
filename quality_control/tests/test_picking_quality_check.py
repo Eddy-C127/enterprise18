@@ -741,11 +741,15 @@ class TestQualityCheck(TestQualityCommon):
             'groups_id': [(6, 0, [self.env.ref('stock.group_stock_user').id, self.env.ref('quality.group_quality_user').id])]
         })
 
-        self.env['quality.point'].create({
+        self.env['quality.point'].create([{
             'product_ids': [(4, self.product.id)],
             'picking_type_ids': [(4, self.picking_type_id)],
             'measure_on': 'operation',
-        })
+        }, {
+            'picking_type_ids': [(4, self.picking_type_id)],
+            'measure_on': 'move_line',
+        }])
+
         picking = self.env['stock.picking'].create({
             'picking_type_id': self.picking_type_id,
             'location_id': self.location_id,
@@ -762,8 +766,10 @@ class TestQualityCheck(TestQualityCommon):
         })
         picking.action_confirm()
         move.quantity = 1.0
+        self.assertEqual(len(picking.check_ids), 2)
         # 'Pass' Quality Checks of shipment.
-        picking.check_ids.do_pass()
+        for check in picking.check_ids:
+            check.do_pass()
         # Validate the picking and create a backorder
         backorder_wizard_dict = picking.button_validate()
         backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
@@ -773,8 +779,10 @@ class TestQualityCheck(TestQualityCommon):
         self.assertEqual(picking.state, 'done')
         backorder = picking.backorder_ids
         self.assertEqual(backorder.state, 'assigned')
+        self.assertEqual(len(backorder.check_ids), 2)
         # 'Pass' Quality Checks of backorder.
-        backorder.check_ids.do_pass()
+        for check in backorder.check_ids:
+            check.do_pass()
         # Validate the backorder
         backorder.move_ids.quantity = 1.0
         backorder.with_user(user).button_validate()

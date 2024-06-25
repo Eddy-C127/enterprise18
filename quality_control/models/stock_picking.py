@@ -53,6 +53,7 @@ class StockPicking(models.Model):
         if self.env.context.get('skip_check'):
             return res
         for backorder in res:
+            backorder.move_line_ids.check_ids.picking_id = backorder
             backorder.backorder_id.check_ids.filtered(lambda qc: qc.quality_state == 'none').sudo().unlink()
             backorder.move_ids._create_quality_checks()
         return res
