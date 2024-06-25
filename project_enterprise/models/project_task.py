@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from pytz import utc, timezone
@@ -312,35 +311,35 @@ class Task(models.Model):
         ]
 
     def write(self, vals):
-        compute_default_planned_dates = None
-        date_start_update = 'planned_date_begin' in vals and vals['planned_date_begin'] is not False
-        date_end_update = 'date_deadline' in vals and vals['date_deadline'] is not False
-        # if fsm_mode=True then the processing in industry_fsm module is done for these dates.
-        if not self._context.get('fsm_mode', False) \
-           and not self._context.get('smart_task_scheduling', False) \
-           and date_start_update and date_end_update \
-           and not any(task.planned_date_begin or task.date_deadline for task in self):
-            compute_default_planned_dates = self.filtered(lambda task: not task.date_deadline)
-
         # if date_end was set to False, so we set planned_date_begin to False
         if not vals.get('date_deadline', True):
             vals['planned_date_begin'] = False
 
-        res = super().write(vals)
+        if (
+            len(self) <= 1
+            or self._context.get('smart_task_scheduling')  # scheduling is done in JS
+            or self._context.get('fsm_mode')  # scheduling is done in industry_fsm
+            or any(task.planned_date_begin or task.date_deadline for task in self)
+        ):
+            return super().write(vals)
 
-        if compute_default_planned_dates:
+        # When batch processing, try to plan tasks according to assignee/company schedule
+        planned_date_begin = fields.Datetime.to_datetime(vals.get('planned_date_begin'))
+        date_deadline = fields.Datetime.to_datetime(vals.get('date_deadline'))
+        if planned_date_begin and date_deadline:
+            res = True
             # Take the default planned dates
-            planned_date_begin = vals.get('planned_date_begin', False)
-            date_deadline = vals.get('date_deadline', False)
-
             # Then sort the tasks by resource_calendar and finally compute the planned dates
-            tasks_by_resource_calendar_dict = compute_default_planned_dates._get_tasks_by_resource_calendar_dict()
+            tasks_by_resource_calendar_dict = self._get_tasks_by_resource_calendar_dict()
             for (calendar, tasks) in tasks_by_resource_calendar_dict.items():
                 date_start, date_stop = self._calculate_planned_dates(planned_date_begin, date_deadline, calendar=calendar)
-                tasks.write({
+                res = res and super(Task, tasks).write({
+                    **vals,
                     'planned_date_begin': date_start,
                     'date_deadline': date_stop,
                 })
+        else:
+            res = super().write(vals)
 
         return res
 
