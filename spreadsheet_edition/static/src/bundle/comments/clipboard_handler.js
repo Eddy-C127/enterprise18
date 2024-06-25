@@ -13,7 +13,7 @@ export class CellThreadsClipboardHandler extends AbstractCellClipboardHandler {
         const sheetThreads = this.getters.getSpreadsheetThreads([sheetId]);
         // we only support cut which means one 1 zone - no need to fetch the entire planet
         const threads = sheetThreads.filter((thread) => isInside(thread.col, thread.row, zones[0]));
-        return { threads };
+        return { threads, zones };
     }
 
     /**
