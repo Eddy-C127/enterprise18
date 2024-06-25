@@ -11,6 +11,11 @@ from odoo.tools.float_utils import float_compare
 @tagged('-at_install', 'post_install')
 class TestFsmFlowSale(TestFsmFlowSaleCommon):
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.task.partner_id = cls.partner_1
+
     def test_invoicing_flow(self):
         self.service_product_ordered.write({
             'type': 'service',
@@ -23,10 +28,6 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
 
         self.fsm_project.write({
             'timesheet_product_id': self.service_product_delivered.id,
-        })
-
-        self.task.write({
-            'partner_id': self.partner_1,
         })
 
         self.assertFalse(self.task.sale_order_id)
@@ -179,7 +180,6 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         Check that sale order lines coming from an fsm task and for a product with a price of zero
         are not going to be invoiced.
         """
-        self.task.write({'partner_id': self.partner_1.id})
         product = self.product_a.with_context({'fsm_task_id': self.task.id})
         product.set_fsm_quantity(2)
         so = self.task.sale_order_id
@@ -230,3 +230,23 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         sale_order = field_task.sale_order_id
         order_lines = sale_order.order_line
         self.assertEqual(float_compare(order_lines.product_uom_qty, 7.0, precision_digits=2), 0, "The Ordered Quantities should match the Timesheets at the time of creation")
+
+    def test_prevent_empty_sol_for_timesheet(self):
+        """
+        Test that when adding a product to the task and mark as done that task then,
+        it does not create an empty SOL for timesheet if no timesheets are added.
+
+        Test Case:
+        =========
+        1. Create a task and add a product to it
+        2. Validate the task
+        3. Check the sale order line should not be created for timesheet
+        """
+        self.fsm_project.write({
+            'timesheet_product_id': self.service_timesheet.id,
+        })
+        self.service_product_ordered.with_context({'fsm_task_id': self.task.id}).fsm_add_quantity()
+        self.task.action_fsm_validate()
+        sale_order_lines = self.env['sale.order.line'].search([('order_id', '=', self.task.sale_order_id.id)])
+        self.assertEqual(len(sale_order_lines), 1)
+        self.assertEqual(sale_order_lines.product_id, self.service_product_ordered)

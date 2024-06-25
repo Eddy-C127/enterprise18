@@ -475,6 +475,8 @@ class Task(models.Model):
         self.ensure_one()
         # Get all timesheets in the current task (step 1)
         not_billed_timesheets = self.env['account.analytic.line'].sudo().search([('task_id', '=', self.id), ('project_id', '!=', False), ('is_so_line_edited', '=', False)]).filtered(lambda t: t._is_not_billed())
+        if not not_billed_timesheets:  # prevent creating SOL without timesheets
+            return
         if self.pricing_type == 'employee_rate':
             # classify these timesheets by employee (step 2)
             timesheets_by_employee_dict = defaultdict(lambda: self.env['account.analytic.line'])  # key: employee_id, value: timesheets
