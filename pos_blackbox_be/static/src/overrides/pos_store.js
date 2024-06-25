@@ -35,7 +35,7 @@ patch(PosStore.prototype, {
         } else if (
             this.useBlackBoxBe() &&
             this.pos.useBlackBoxBe() &&
-            !product.taxes_id.every((tax) => tax?._pos_receipt_label)
+            !product.taxes_id.every((tax) => tax?.tax_group_id.pos_receipt_label)
         ) {
             this.dialog.add(AlertDialog, {
                 title: _t("POS error"),

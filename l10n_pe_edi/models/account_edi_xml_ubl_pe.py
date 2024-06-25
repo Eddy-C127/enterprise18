@@ -156,7 +156,7 @@ class AccountEdiXmlUBLPE(models.AbstractModel):
             'tax_subtotal_vals': [],
         }
         for tax_detail_vals in taxes_vals['tax_details'].values():
-            tax = self.env['account.tax'].browse(tax_detail_vals['group_tax_details'][0]['id'])
+            tax = tax_detail_vals['group_tax_details'][0]['tax']
             vals['tax_subtotal_vals'].append({
                 'currency': line.currency_id,
                 'currency_dp': line.currency_id.decimal_places,

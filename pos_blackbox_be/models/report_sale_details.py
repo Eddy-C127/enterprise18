@@ -95,7 +95,7 @@ class ReportSaleDetails(models.AbstractModel):
     def _set_default_belgian_taxes_if_empty(self, data, taxes_name):
         for tax in data[taxes_name]:
             tax_used = self.env['account.tax'].search([('name', '=', tax['name'])])
-            tax['identification_letter'] = tax_used.identification_letter
+            tax['identification_letter'] = tax_used.tax_group_id.pos_receipt_label
 
         letter_set = ['A', 'B', 'C', 'D']
         for tax in data[taxes_name]:

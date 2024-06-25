@@ -177,6 +177,6 @@ patch(PosOrderline.prototype, {
         return filtered_char_array.join("");
     },
     getLineTaxLabels() {
-        return this.product_id.taxes_id?.map((tax) => tax._pos_receipt_label).join(" ");
+        return this.product_id.taxes_id?.map((tax) => tax.tax_group_id.pos_receipt_label).join(" ");
     },
 });

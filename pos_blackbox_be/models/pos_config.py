@@ -116,8 +116,8 @@ class PosConfig(models.Model):
             for fp in config.fiscal_position_ids
             for tax_line in fp.tax_ids
             if (
-                    tax_line.tax_src_id.identification_letter
-                    and not tax_line.tax_dest_id.identification_letter
+                    tax_line.tax_src_id.tax_group_id.pos_receipt_label
+                    and not tax_line.tax_dest_id.tax_group_id.pos_receipt_label
             )
         ]
 

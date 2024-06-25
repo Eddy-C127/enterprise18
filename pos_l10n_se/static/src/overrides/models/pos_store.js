@@ -34,7 +34,7 @@ patch(PosStore.prototype, {
             this.useBlackBoxSweden() &&
             !this.models["account.tax"]
                 .get(product.taxes_id)
-                ?.every((tax) => tax._pos_receipt_label)
+                ?.every((tax) => tax.tax_group_id.pos_receipt_label)
         ) {
             this.dialog.add(AlertDialog, {
                 title: _t("POS error"),

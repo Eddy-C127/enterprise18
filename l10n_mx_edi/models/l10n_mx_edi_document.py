@@ -746,11 +746,7 @@ class L10nMxEdiDocument(models.Model):
             if base_line['discount'] == 100.0:
                 continue
 
-            tax_details_results = self.env['account.tax']._prepare_base_line_tax_details(
-                base_line,
-                company,
-                split_repartition_lines=True,
-            )
+            tax_details_results = self.env['account.tax']._prepare_base_line_tax_details(base_line, company)
             to_process.append((base_line, tax_details_results))
 
         return self.env['account.tax']._aggregate_taxes(
