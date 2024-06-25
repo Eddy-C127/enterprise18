@@ -909,6 +909,7 @@ class AccountOnlineLink(models.Model):
             if data.get('provider_data'):
                 self.env.cr.commit()
 
+            self._get_consent_expiring_date()
         # if for some reason we just have to update the record without doing anything else, the mode will be set to 'none'
         if mode == 'none':
             return {'type': 'ir.actions.client', 'tag': 'reload'}
