@@ -2949,7 +2949,7 @@ result_rate = - payslip.l10n_ch_additional_accident_insurance_line_ids[1]._get_r
         <field name="name">LAAC1 (Comp. Part.)</field>
         <field name="code">LAAC1.COMP</field>
         <field name="sequence">124</field>
-        <field name="condition_select">none</field>
+        <field name="condition_select">python</field>
         <field name="condition_python">
 result = payslip.l10n_ch_additional_accident_insurance_line_ids
         </field>
