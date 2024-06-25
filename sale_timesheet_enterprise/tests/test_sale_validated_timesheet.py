@@ -281,3 +281,53 @@ class TestSaleValidatedTimesheet(TestCommonSaleTimesheet):
 
         self.assertEqual(not_validated_timesheet.so_line, other_sale_line)  # sale order line is updated
         self.assertEqual(validated_timesheet.so_line, ordered_task.sale_line_id)  # sale order line is not updated
+
+    def test_create_invoice_for_past_validated_timesheet(self):
+        self.env['ir.config_parameter'].sudo().set_param('sale.invoiced_timesheet', 'approved')
+        self.employee_user.timesheet_manager_id = self.user_manager_company_B
+        sale_order_2 = self.env['sale.order'].with_context(tracking_disable=True).create({
+            'company_id': self.env.company.id,
+            'partner_id': self.partner_a.id,
+            'partner_invoice_id': self.partner_a.id,
+            'partner_shipping_id': self.partner_a.id,
+            'pricelist_id': self.company_data['default_pricelist'].id,
+        })
+
+        delivered_so_line = self.env['sale.order.line'].with_context(tracking_disable=True).create({
+            'product_id': self.product_delivery_timesheet3.id,
+            'product_uom_qty': 10,
+            'order_id': sale_order_2.id,
+        })
+        sale_order_2.action_confirm()
+
+        delivered_task = self.env['project.task'].search([('sale_line_id', '=', delivered_so_line.id)])
+        month_before = date.today() + relativedelta(months=-1)
+        start_of_month_before = month_before.replace(day=1)
+        end_of_month_before = date.today().replace(day=1) - relativedelta(days=1)
+
+        delivered_timesheet1 = self.env['account.analytic.line'].create({
+            'name': 'Timesheet delivered 1',
+            'project_id': delivered_task.project_id.id,
+            'task_id': delivered_task.id,
+            'unit_amount': 6,
+            'employee_id': self.employee_user.id,
+            'date': month_before,
+        })
+        delivered_timesheet1.action_validate_timesheet()
+        self.employee_user.last_validated_timesheet_date = date.today()
+        user = self.env['res.users'].create({
+            'name': 'Basic User',
+            'login': 'basic_user',
+            'password': 'password',
+            'groups_id': [(6, 0, [
+                self.env.ref('project.group_project_user').id,
+                self.env.ref('hr_timesheet.group_hr_timesheet_approver').id,
+                self.env.ref('sales_team.group_sale_manager').id,
+                self.env.ref('account.group_account_user').id,  # Add the accounting accountant group
+            ])],
+        })
+        invoice1 = sale_order_2.with_user(user).with_context(
+            timesheet_start_date=start_of_month_before,
+            timesheet_end_date=end_of_month_before
+        )._create_invoices()
+        self.assertTrue(invoice1, 'Invoice should be created')

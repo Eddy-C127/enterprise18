@@ -253,7 +253,7 @@ class AnalyticLine(models.Model):
         return True
 
     def check_if_allowed(self, vals=None, delete=False,):
-        if not self.user_has_groups('hr_timesheet.group_timesheet_manager'):
+        if not self.user_has_groups('hr_timesheet.group_timesheet_manager') and not self.env.su:
             is_timesheet_approver = self.user_has_groups('hr_timesheet.group_hr_timesheet_approver')
             employees = self.env['hr.employee'].with_context(active_test=False).search([
                 ('id', 'in', self.employee_id.ids),
