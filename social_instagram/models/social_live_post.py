@@ -109,7 +109,7 @@ class SocialLivePostInstagram(models.Model):
             else:
                 data['is_carousel_item'] = True
 
-            media_response = session.post(media_url, data, timeout=5)
+            media_response = session.post(media_url, data, timeout=10)
             if not media_response.ok or not media_response.json().get('id'):
                 self.write({
                     'state': 'failed',
@@ -127,7 +127,7 @@ class SocialLivePostInstagram(models.Model):
                     'access_token': account.instagram_access_token,
                     'creation_id': media_container_ids[0],
                 },
-                timeout=3,
+                timeout=10,
             )
         else:
             # Step 2: Create Carousel Container (if multiple images)
@@ -139,7 +139,7 @@ class SocialLivePostInstagram(models.Model):
                     'media_type': 'CAROUSEL',
                     'children': media_container_ids
                 },
-                timeout=3,
+                timeout=10,
             )
             if not media_response.ok or not media_response.json().get('id'):
                 self.write({
@@ -154,7 +154,7 @@ class SocialLivePostInstagram(models.Model):
                     'access_token': account.instagram_access_token,
                     'creation_id': media_response.json()['id'],
                 },
-                timeout=5,
+                timeout=10,
             )
 
         if publish_response.ok:
