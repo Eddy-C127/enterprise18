@@ -52,7 +52,6 @@ patch(ChartTypePicker.prototype, {
         }
     },
     updateChartTypeByCategories(props) {
-        console.log("get chartTypeByCategories");
         const definition = this.env.model.getters.getChartDefinition(props.figureId);
         const isOdoo = definition.type.startsWith("odoo_");
         const registryItems = chartSubtypeRegistry.getAll().filter((item) => {
