@@ -460,12 +460,12 @@ class Document(models.Model):
         sets a lock user, the lock user is the user who locks a file for themselves, preventing data replacement
         and archive (therefore deletion) for any user but himself.
 
-        Members of the group documents.group_document_manager and the superuser can unlock the file regardless.
+        Members of the group documents.group_documents_manager and the superuser can unlock the file regardless.
         """
         self.ensure_one()
         if self.lock_uid:
             if self.env.user == self.lock_uid or self.env.is_admin() or self.user_has_groups(
-                    'documents.group_document_manager'):
+                    'documents.group_documents_manager'):
                 self.lock_uid = False
         else:
             self.lock_uid = self.env.uid
@@ -475,7 +475,7 @@ class Document(models.Model):
             record.is_locked = record.lock_uid and not (
                     self.env.user == record.lock_uid or
                     self.env.is_admin() or
-                    self.user_has_groups('documents.group_document_manager'))
+                    self.user_has_groups('documents.group_documents_manager'))
 
     def action_archive(self):
         if not self:
