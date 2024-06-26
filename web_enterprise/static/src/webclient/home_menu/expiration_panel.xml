@@ -19,24 +19,16 @@
                         <a class="oe_instance_buy alert-link text-decoration-underline" href="#" t-on-click.prevent="() => subscription.buy()">buy a subscription</a>.
                     </t>
                     <t t-if="subscription.expirationReason === 'renewal'">
-                        <a class="oe_instance_renew" href="#" t-on-click.prevent="() => subscription.renew()">Renew your subscription </a>
-                        <a class="check_enterprise_status alert-link text-decoration-underline" href="#"
-                            title="Refresh subscription status"
-                            aria-label="Refresh subscription status"
-                            t-on-click.prevent="() => subscription.checkStatus()"
-                            >
-                            <i class="fa fa-refresh mx-1"/>
-                        </a>
+                        <div class="d-flex flex-wrap justify-content-center mt-2">
+                            <a class="oe_instance_renew btn btn-link" href="#" t-on-click.prevent="() => subscription.renew()">Renew your subscription </a>
+                            <a class="check_enterprise_status btn btn-link" href="#" t-on-click.prevent="() => subscription.checkStatus()">I paid, please recheck!</a>
+                        </div>
                     </t>
                     <t t-elif="subscription.expirationReason === 'upsell'">You have more users or more apps installed than your subscription allows.<br/>
-                        <a class="oe_instance_upsell alert-link text-decoration-underline" href="#" t-on-click.prevent="() => subscription.upsell()">Upgrade your subscription </a>
-                        <a class="check_enterprise_status alert-link text-decoration-underline" href="#"
-                            title="Refresh subscription status"
-                            aria-label="Refresh subscription status"
-                            t-on-click.prevent="() => subscription.checkStatus()"
-                            >
-                            <i class="fa fa-refresh mx-1"/>
-                        </a>
+                        <div class="d-flex flex-wrap justify-content-center mt-2">
+                            <a class="oe_instance_upsell btn btn-link" href="#" t-on-click.prevent="() => subscription.upsell()">Upgrade your subscription </a>
+                            <a class="check_enterprise_status btn btn-link" href="#" t-on-click.prevent="() => subscription.checkStatus()">I paid, please recheck!</a>
+                        </div>
                     </t>
                 </t>
                 <t t-elif="subscription.warningType === 'user'">Log in as an administrator to correct the issue.</t>

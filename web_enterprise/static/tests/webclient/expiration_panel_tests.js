@@ -526,7 +526,9 @@ Send an email to the subscription owner to confirm the change, enter a new code 
 
         assert.strictEqual(
             target.querySelector(".oe_instance_register").innerText,
-            "This database will expire in 10 days. Renew your subscription "
+            "This database will expire in 10 days.\n" +
+                "Renew your subscription\n" +
+                "I paid, please recheck!"
         );
 
         assert.hasClass(
@@ -577,9 +579,9 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             },
         });
 
-        // click on "Refresh subscription status"
+        // click on "I paid, please recheck!"
         const refreshButton = target.querySelector("a.check_enterprise_status");
-        assert.strictEqual(refreshButton.getAttribute("aria-label"), "Refresh subscription status");
+        assert.strictEqual(refreshButton.innerText, "I paid, please recheck!");
         await click(refreshButton);
 
         assert.strictEqual(
@@ -618,7 +620,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
             },
         });
 
-        // click on "Refresh subscription status"
+        // click on "I paid, please recheck!"
         await click(target.querySelector("a.check_enterprise_status"));
 
         assert.verifySteps(["update_notification", "get_param", "reloadPage"]);
@@ -655,8 +657,9 @@ Send an email to the subscription owner to confirm the change, enter a new code 
 
         assert.strictEqual(
             target.querySelector(".oe_instance_register").innerText,
-            "This database will expire in 10 days. You have more users or more apps installed than your subscription allows.\n" +
-                "Upgrade your subscription "
+            "This database will expire in 10 days. You have more users or more apps installed than your subscription allows.\n\n" +
+                "Upgrade your subscription\n" +
+                "I paid, please recheck!"
         );
 
         // click on "Upgrade your subscription"
@@ -725,7 +728,7 @@ Send an email to the subscription owner to confirm the change, enter a new code 
 
         assert.strictEqual(
             target.querySelector(".oe_instance_register").innerText,
-            "This database has expired. Renew your subscription "
+            "This database has expired.\n" + "Renew your subscription\n" + "I paid, please recheck!"
         );
 
         assert.hasClass(target.querySelector(".database_expiration_panel"), "alert-danger");
