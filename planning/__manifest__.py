@@ -40,6 +40,10 @@ Schedule your teams and employees with shift.
             'planning/static/src/scss/planning_gantt.scss',
             'planning/static/src/scss/planning_list.scss',
             'planning/static/src/js/tours/planning.js',
+            ('remove', 'planning/static/src/views/planning_graph/**'),
+        ],
+        'web.assets_backend_lazy': [
+            'planning/static/src/views/planning_graph/**',
         ],
         'web.assets_frontend': [
             'planning/static/src/scss/planning_calendar_report.scss',

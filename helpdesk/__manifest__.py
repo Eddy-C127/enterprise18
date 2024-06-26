@@ -73,6 +73,10 @@ Features:
             'helpdesk/static/src/components/**/*',
             'helpdesk/static/src/views/**/*',
             'helpdesk/static/src/js/tours/helpdesk.js',
+            ('remove', 'helpdesk/static/src/views/helpdesk_ticket_graph/**'),
+        ],
+        'web.assets_backend_lazy': [
+            'helpdesk/static/src/views/helpdesk_ticket_graph/**',
         ],
         'web.assets_unit_tests': [
             'helpdesk/static/tests/**/*',

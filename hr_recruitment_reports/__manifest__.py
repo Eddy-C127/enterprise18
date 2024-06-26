@@ -19,19 +19,16 @@ Add a dynamic report about recruitment.
     'demo': [
         'data/hr_recruitment_reports_demo.xml',
     ],
-    'assets': {
-        'web.assets_backend': [
-            'hr_recruitment_reports/static/**/*',
-        ],
-    },
     'installable': True,
     'auto_install': True,
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
-            'hr_recruitment_reports/static/src/components/*',
-            'hr_recruitment_reports/static/src/js/*',
-            'hr_recruitment_reports/static/src/components/*',
+            'hr_recruitment_reports/static/src/components/**',
+        ],
+        'web.assets_backend_lazy': [
+            'hr_recruitment_reports/static/src/js/**',
         ],
     },
+
 }

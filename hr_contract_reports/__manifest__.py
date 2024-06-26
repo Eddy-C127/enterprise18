@@ -16,7 +16,7 @@ Add a dynamic report about contracts and employees.
         'report/hr_contract_employee_report_views.xml',
     ],
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'hr_contract_reports/static/src/js/hr_contract_employee_report_views.js',
         ],
         'web.qunit_suite_tests': [

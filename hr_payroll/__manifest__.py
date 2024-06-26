@@ -62,6 +62,10 @@
     'assets': {
         'web.assets_backend': [
             'hr_payroll/static/src/**/*',
+            ('remove', 'hr_payroll/static/src/js/hr_payroll_report_graph_view.js'),
+        ],
+        'web.assets_backend_lazy': [
+            'hr_payroll/static/src/js/hr_payroll_report_graph_view.js',
         ],
         'web.assets_tests': [
             'hr_payroll/static/tests/**/*.js',
