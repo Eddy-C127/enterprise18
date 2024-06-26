@@ -18,8 +18,12 @@ class HelpdeskTeam(models.Model):
         if not helpdesk_timesheet_teams:
             self.total_timesheet_time = 0.0
             return
+        helpdesk_tickets = self.env['helpdesk.ticket'].search([
+            ('team_id', 'in', helpdesk_timesheet_teams.ids),
+            ('fold', '=', False),
+        ])
         timesheets_read_group = self.env['account.analytic.line']._read_group(
-            [('helpdesk_ticket_id', 'in', helpdesk_timesheet_teams.ticket_ids.filtered(lambda x: not x.stage_id.fold).ids)],
+            [('helpdesk_ticket_id', 'in', helpdesk_tickets.ids)],
             ['helpdesk_ticket_id', 'product_uom_id'],
             ['unit_amount:sum'])
 
@@ -87,8 +91,12 @@ class HelpdeskTeam(models.Model):
     def action_view_timesheets(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("helpdesk_timesheet.act_hr_timesheet_line_helpdesk")
+        helpdesk_tickets = self.env['helpdesk.ticket'].search([
+            ('team_id', 'in', self.ids),
+            ('fold', '=', False),
+        ])
         action.update({
-            'domain': [('helpdesk_ticket_id', 'in', self.ticket_ids.filtered(lambda x: not x.stage_id.fold).ids)],
+            'domain': [('helpdesk_ticket_id', 'in', helpdesk_tickets.ids)],
             'context': {
                 'default_project_id': self.project_id.id,
                 'graph_groupbys': ['date:week', 'employee_id'],
