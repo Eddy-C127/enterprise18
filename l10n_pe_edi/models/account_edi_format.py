@@ -510,25 +510,37 @@ class AccountEdiFormat(models.Model):
         res = getattr(self, '_l10n_pe_edi_sign_invoices_%s' % provider)(invoice, edi_filename, edi_str)
 
         # CDR error codes 1033 and 4000 mean that the invoice was already registered with the OSE.
+        # In this case, we want to retrieve the CDR, except if there was already an invoice with the
+        # same edi_filename that was sent. In that case, we want the duplicate error to bubble up, so
+        # the user knows they must resequence.
         if res.get('error') and res.get('code') in ['1033', '4000']:
-            res_retrieve_cdr = self._l10n_pe_edi_retrieve_cdr(
-                provider, invoice.company_id, invoice._l10n_pe_edi_get_serie_folio(), invoice.l10n_latam_document_type_id.code)
-            if res_retrieve_cdr.get('error'):
-                res.update({'error': '%s<br/>%s' % (res['error'], res_retrieve_cdr['error'])})
+            if self.env['account.move'].search_count([
+                ('company_id.vat', '=', invoice.company_id.vat),
+                ('l10n_latam_document_type_id.code', '=', invoice.l10n_latam_document_type_id.code),
+                ('name', '=', invoice.name),
+                ('edi_state', '=', 'sent'),
+                ('id', '!=', invoice.id),
+            ]):
+                res['error'] += '<br/>' + _("Please resequence the invoice to a number not yet sent to SUNAT.")
             else:
-                # Check that the partner and issue date match between the retrieved CDR and the invoice.
-                cdr = res_retrieve_cdr['cdr']
-                cdr_tree = etree.fromstring(cdr)
-                retrieved_cdr_document_id = cdr_tree.find('.//{*}DocumentReference//{*}ID')
-                is_same_document_id = retrieved_cdr_document_id.text == invoice.name.replace(' ', '') if retrieved_cdr_document_id else True
-                retrieved_cdr_ruc = cdr_tree.find('.//{*}RecipientParty//{*}CompanyID')
-                is_same_ruc = retrieved_cdr_ruc.text == invoice.partner_id.vat if retrieved_cdr_ruc else True
-                if is_same_document_id and is_same_ruc:
-                    # If the CDR already exists and is valid on SUNAT's side, then likely the invoice was already sent once, but
-                    # Odoo hit an exception and rolled back the transaction after sending.
-                    # In this case, we want to retrieve the CDR and continue as if sending succeeded.
-                    invoice.message_post(body=_('The invoice already exists on SUNAT. CDR successfully retrieved.'))
-                    res = {'success': True, 'xml_document': res['xml_document'], 'cdr': cdr}
+                res_retrieve_cdr = self._l10n_pe_edi_retrieve_cdr(
+                    provider, invoice.company_id, invoice._l10n_pe_edi_get_serie_folio(), invoice.l10n_latam_document_type_id.code)
+                if res_retrieve_cdr.get('error'):
+                    res['error'] = f"{res['error']}<br/>{res_retrieve_cdr['error']}"
+                else:
+                    # Check that the partner and issue date match between the retrieved CDR and the invoice.
+                    cdr = res_retrieve_cdr['cdr']
+                    cdr_tree = etree.fromstring(cdr)
+                    retrieved_cdr_document_id = cdr_tree.find('.//{*}DocumentReference//{*}ID')
+                    is_same_document_id = retrieved_cdr_document_id.text == invoice.name.replace(' ', '') if retrieved_cdr_document_id else True
+                    retrieved_cdr_ruc = cdr_tree.find('.//{*}RecipientParty//{*}CompanyID')
+                    is_same_ruc = retrieved_cdr_ruc.text == invoice.partner_id.vat if retrieved_cdr_ruc else True
+                    if is_same_document_id and is_same_ruc:
+                        # If the CDR already exists and is valid on SUNAT's side, then likely the invoice was already sent once, but
+                        # Odoo hit an exception and rolled back the transaction after sending.
+                        # In this case, we want to retrieve the CDR and continue as if sending succeeded.
+                        invoice.message_post(body=_('The invoice already exists on SUNAT. CDR successfully retrieved.'))
+                        res = {'success': True, 'xml_document': res['xml_document'], 'cdr': cdr}
 
         if res.get('error'):
             return res
