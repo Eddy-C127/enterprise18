@@ -84,7 +84,7 @@ class TestSubscriptionMultiCompany(TestSubscriptionCommon):
             'order_id': so_company_1_no_pl.id,
         })
         so_company_2_no_pl = self.env['sale.order'].with_company(self.company_2).create({
-            'partner_id': self.partner.id,
+            'partner_id': self.partner_new_currency.id,
         })
         sol_company_2_no_pl = self.env['sale.order.line'].create({
             'product_id': self.product.id,

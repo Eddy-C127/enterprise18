@@ -19,6 +19,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
         super().setUpClass()
         cls.computer.is_storable = True
         cls.computer.allow_out_of_stock_order = False
+        cls.computer.website_published = True
 
         cls.company.update({
             'renting_forbidden_sat': False,
@@ -51,6 +52,11 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
             'product_uom_qty': 3,
         })
         cls.sol.write({'is_rental': True})
+        cls.user = cls.env['res.users'].with_company(cls.company.id).create({
+            'name': 'Test User',
+            'login': 'test_user',
+            'company_id': cls.company.id,
+        })
 
     def test_available_and_rented_quantities_for_draft_so(self):
         from_date = self.now
@@ -246,7 +252,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
 
     def test_add_max_quantity_to_cart(self):
         with MockRequest(self.env, website=self.current_website, sale_order_id=self.so.id):
-            website_so = self.current_website.sale_get_order()
+            website_so = self.current_website.with_user(self.user).sale_get_order()
             values = website_so._cart_update(
                 product_id=self.computer.id, line_id=self.sol.id, add_qty=3,
             )
@@ -263,7 +269,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
         })
 
         with MockRequest(self.env, website=self.current_website, sale_order_id=so2.id):
-            website_so = self.current_website.sale_get_order()
+            website_so = self.current_website.with_user(self.user).sale_get_order()
             from_date = self.sol.return_date + relativedelta(days=-1)
             to_date = self.sol.return_date + relativedelta(days=2)
 
@@ -285,7 +291,7 @@ class TestWebsiteSaleStockRenting(TestWebsiteSaleRentingCommon):
         })
 
         with MockRequest(self.env, website=self.current_website, sale_order_id=so2.id):
-            website_so = self.current_website.sale_get_order()
+            website_so = self.current_website.with_user(self.user).sale_get_order()
             from_date = self.sol.return_date + relativedelta(days=1)
             to_date = self.sol.return_date + relativedelta(days=2)
 

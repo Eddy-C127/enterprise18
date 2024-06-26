@@ -7,6 +7,10 @@ from odoo.addons.l10n_mx_edi.tests.common import TestMxEdiCommon
 @tagged('post_install_l10n', 'post_install', '-at_install')
 class TestFrontendFlow(HttpCase, TestMxEdiCommon):
     def test_validate_required_additional_fields(self):
+        self.env.ref('base.user_admin').write({
+            'company_id': self.env.company.id,
+            'company_ids': [(4, self.env.company.id)],
+        })
         self.env.company = self.company_data['company']
         self.env['product.product'].create({
             'name': 'Test Product',
