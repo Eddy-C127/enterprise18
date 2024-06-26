@@ -1,98 +1,43 @@
-/** @odoo-module */
-
-import { nextTick } from "@web/../tests/helpers/utils";
-
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
+import { beforeEach, describe, test } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
+import { defineSpreadsheetModels, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
 import {
     getCellContent,
     getCellFormula,
     getCellValue,
-} from "@spreadsheet/../tests/legacy/utils/getters";
-import { setupCollaborativeEnv } from "@spreadsheet_edition/../tests/legacy/utils/collaborative_helpers";
-import { OdooPivot } from "@spreadsheet/pivot/odoo_pivot";
-import { waitForDataLoaded } from "@spreadsheet/helpers/model";
+} from "@spreadsheet/../tests/helpers/getters";
+import {
+    insertPivot,
+    setupCollaborativeEnv,
+    spExpect,
+} from "@spreadsheet_edition/../tests/helpers/collaborative_helpers";
+
+describe.current.tags("headless");
+defineSpreadsheetModels();
 
 /**
  * @typedef {import("@spreadsheet").OdooSpreadsheetModel} Model
  * @typedef {import("@spreadsheet").OdooPivotDefinition} OdooPivotDefinition
  */
 
-/**
- * Add a basic pivot in the current spreadsheet of model
- * @param {Model} model
- */
-export async function insertPivot(model, sheetId = model.getters.getActiveSheetId()) {
-    const pivotId = "PIVOT#1";
-    /** @type {OdooPivotDefinition} */
-    const pivot = {
-        columns: [{ name: "foo" }],
-        rows: [{ name: "bar" }],
-        measures: [
-            {
-                name: "probability",
-                aggregator: "sum",
-            },
-        ],
-        model: "partner",
-        domain: [],
-        context: {},
-        name: "Partner",
-        type: "ODOO",
-        sortedColumn: null,
-    };
-    model.dispatch("ADD_PIVOT", {
-        pivotId: pivotId,
-        pivot,
-    });
-    const ds = model.getters.getPivot(pivotId);
-    if (!(ds instanceof OdooPivot)) {
-        throw new Error("The pivot data source is not an OdooPivot");
-    }
-    await ds.load();
-    const table = ds.getTableStructure().export();
-    model.dispatch("INSERT_PIVOT", {
-        sheetId,
-        col: 0,
-        row: 0,
-        pivotId,
-        table,
-    });
-    const columns = [];
-    for (let col = 0; col <= table.cols[table.cols.length - 1].length; col++) {
-        columns.push(col);
-    }
-    model.dispatch("AUTORESIZE_COLUMNS", { sheetId, cols: columns });
-    await waitForDataLoaded(model);
-}
-
 let alice, bob, charlie, network;
 
-QUnit.module("spreadsheet_edition > Pivot collaborative", {
-    async beforeEach() {
-        const env = await setupCollaborativeEnv(getBasicServerData());
-        alice = env.alice;
-        bob = env.bob;
-        charlie = env.charlie;
-        network = env.network;
-    },
+beforeEach(async () => {
+    ({ alice, bob, charlie, network } = await setupCollaborativeEnv(getBasicServerData()));
 });
 
-QUnit.test("Rename a pivot", async (assert) => {
-    assert.expect(1);
+test("Rename a pivot", async () => {
     await insertPivot(alice);
     alice.dispatch("RENAME_PIVOT", { pivotId: "PIVOT#1", name: "Test" });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getPivotName("PIVOT#1"),
         "Test"
     );
 });
 
-QUnit.test("Add a pivot", async (assert) => {
-    assert.expect(7);
+test("Add a pivot", async () => {
     await insertPivot(alice);
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getPivotIds().length,
         1
     );
@@ -105,15 +50,14 @@ QUnit.test("Add a pivot", async (assert) => {
         A5: `=PIVOT.HEADER(1)`, // total header cols
     };
     for (const [cellXc, formula] of Object.entries(cellFormulas)) {
-        assert.spreadsheetIsSynchronized(
-            [alice, bob, charlie],
+        spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
             (user) => getCellContent(user, cellXc),
             formula
         );
     }
 });
 
-QUnit.test("Add a pivot in another sheet", async (assert) => {
+test("Add a pivot in another sheet", async () => {
     alice.dispatch("CREATE_SHEET", {
         sheetId: "sheetId",
         name: "Sheet",
@@ -123,12 +67,13 @@ QUnit.test("Add a pivot in another sheet", async (assert) => {
         sheetIdTo: "sheetId",
     });
     insertPivot(alice, "sheetId");
-    assert.spreadsheetIsSynchronized([alice, bob, charlie], (user) => user.getters.getPivotIds(), [
-        "PIVOT#1",
-    ]);
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
+        (user) => user.getters.getPivotIds(),
+        ["PIVOT#1"]
+    );
     // Let the evaluation and the data sources do what they need to do
     // before Bob and Charlie activate the second sheet to see the new pivot.
-    await nextTick();
+    await animationFrame();
     bob.dispatch("ACTIVATE_SHEET", {
         sheetIdFrom: alice.getters.getActiveSheetId(),
         sheetIdTo: "sheetId",
@@ -137,17 +82,16 @@ QUnit.test("Add a pivot in another sheet", async (assert) => {
         sheetIdFrom: alice.getters.getActiveSheetId(),
         sheetIdTo: "sheetId",
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => getCellFormula(user, "B1"),
         `=PIVOT.HEADER(1,"foo",1)`
     );
 
-    assert.spreadsheetIsSynchronized([alice, bob, charlie], (user) => getCellValue(user, "B4"), 11);
-    assert.spreadsheetIsSynchronized([alice, bob, charlie], (user) => getCellValue(user, "B1"), 1);
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue((user) => getCellValue(user, "B4"), 11);
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue((user) => getCellValue(user, "B1"), 1);
 });
 
-QUnit.test("Rename and remove a pivot concurrently", async (assert) => {
+test("Rename and remove a pivot concurrently", async () => {
     await insertPivot(alice);
     await network.concurrent(() => {
         alice.dispatch("RENAME_PIVOT", {
@@ -158,14 +102,13 @@ QUnit.test("Rename and remove a pivot concurrently", async (assert) => {
             pivotId: "PIVOT#1",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getPivotIds().length,
         0
     );
 });
 
-QUnit.test("Insert and remove a pivot concurrently", async (assert) => {
+test("Insert and remove a pivot concurrently", async () => {
     await insertPivot(alice);
     await network.concurrent(() => {
         const table = alice.getters.getPivot("PIVOT#1").getTableStructure().export();
@@ -180,14 +123,13 @@ QUnit.test("Insert and remove a pivot concurrently", async (assert) => {
             pivotId: "PIVOT#1",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getPivotIds().length,
         0
     );
 });
 
-QUnit.test("update and remove a pivot concurrently", async (assert) => {
+test("update and remove a pivot concurrently", async () => {
     await insertPivot(alice);
     await network.concurrent(() => {
         alice.dispatch("UPDATE_PIVOT", {
@@ -202,14 +144,13 @@ QUnit.test("update and remove a pivot concurrently", async (assert) => {
             pivotId: "PIVOT#1",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getPivotIds().length,
         0
     );
 });
 
-QUnit.test("Duplicate and remove a pivot concurrently", async (assert) => {
+test("Duplicate and remove a pivot concurrently", async () => {
     await insertPivot(alice);
     await network.concurrent(() => {
         bob.dispatch("REMOVE_PIVOT", {
@@ -220,8 +161,7 @@ QUnit.test("Duplicate and remove a pivot concurrently", async (assert) => {
             newPivotId: "2",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getPivotIds().length,
         0
     );

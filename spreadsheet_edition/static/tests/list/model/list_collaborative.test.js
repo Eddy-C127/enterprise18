@@ -1,17 +1,21 @@
-/** @odoo-module */
-
-import { nextTick } from "@web/../tests/helpers/utils";
-
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
+import { beforeEach, describe, test } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
+import { setCellContent } from "@spreadsheet/../tests/helpers/commands";
+import { defineSpreadsheetModels, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
 import {
     getCellContent,
     getCellFormula,
     getCellValue,
-} from "@spreadsheet/../tests/legacy/utils/getters";
-import { setCellContent } from "@spreadsheet/../tests/legacy/utils/commands";
-import { setupCollaborativeEnv } from "@spreadsheet_edition/../tests/legacy/utils/collaborative_helpers";
+} from "@spreadsheet/../tests/helpers/getters";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { ListUIPlugin } from "@spreadsheet/list";
+import {
+    setupCollaborativeEnv,
+    spExpect,
+} from "@spreadsheet_edition/../tests/helpers/collaborative_helpers";
+
+describe.current.tags("headless");
+defineSpreadsheetModels();
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
 
@@ -51,34 +55,25 @@ function getListPayload() {
 
 let alice, bob, charlie, network;
 
-QUnit.module("spreadsheet_edition > List collaborative", {
-    async beforeEach() {
-        const env = await setupCollaborativeEnv(getBasicServerData());
-        alice = env.alice;
-        bob = env.bob;
-        charlie = env.charlie;
-        network = env.network;
-    },
+beforeEach(async () => {
+    ({ alice, bob, charlie, network } = await setupCollaborativeEnv(getBasicServerData()));
 });
 
-QUnit.test("Add a list", async (assert) => {
+test("Add a list", async () => {
     insertList(alice, "1");
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getListIds().length,
         1
     );
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => getCellValue(user, "A4"),
         "Loading..."
     );
-    await nextTick();
-    assert.spreadsheetIsSynchronized([alice, bob, charlie], (user) => getCellValue(user, "A4"), 17);
+    await animationFrame();
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue((user) => getCellValue(user, "A4"), 17);
 });
 
-QUnit.test("Add two lists concurrently", async (assert) => {
-    assert.expect(6);
+test("Add two lists concurrently", async () => {
     await network.concurrent(() => {
         insertList(alice, "1");
         insertList(bob, "1", [0, 25]);
@@ -86,52 +81,46 @@ QUnit.test("Add two lists concurrently", async (assert) => {
     await waitForDataLoaded(alice);
     await waitForDataLoaded(bob);
     await waitForDataLoaded(charlie);
-    assert.spreadsheetIsSynchronized([alice, bob, charlie], (user) => user.getters.getListIds(), [
-        "1",
-        "2",
-    ]);
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
+        (user) => user.getters.getListIds(),
+        ["1", "2"]
+    );
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => getCellFormula(user, "A1"),
         `=ODOO.LIST.HEADER(1,"foo")`
     );
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => getCellFormula(user, "A26"),
         `=ODOO.LIST.HEADER(2,"foo")`
     );
-    await nextTick();
+    await animationFrame();
 
-    assert.spreadsheetIsSynchronized([alice, bob, charlie], (user) => getCellValue(user, "A4"), 17);
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue((user) => getCellValue(user, "A4"), 17);
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => getCellValue(user, "A29"),
         17
     );
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
-        (user) => {
-            const UIPlugin = user["handlers"].find((handler) => handler instanceof ListUIPlugin);
-            return Object.keys(UIPlugin.lists).length;
-        },
-        2
-    );
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue((user) => {
+        const UIPlugin = user["handlers"].find(
+            (handler) => handler instanceof ListUIPlugin,
+            undefined
+        );
+        return Object.keys(UIPlugin.lists).length;
+    }, 2);
 });
 
-QUnit.test("Can undo a command before a INSERT_ODOO_LIST", async (assert) => {
-    assert.expect(1);
+test("Can undo a command before a INSERT_ODOO_LIST", async () => {
     setCellContent(bob, "A10", "Hello Alice");
     insertList(alice, "1");
     setCellContent(charlie, "A11", "Hello all");
     bob.dispatch("REQUEST_UNDO");
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => getCellContent(user, "A10"),
         ""
     );
 });
 
-QUnit.test("Rename and remove a list concurrently", async (assert) => {
+test("Rename and remove a list concurrently", async () => {
     insertList(alice, "1");
     await network.concurrent(() => {
         alice.dispatch("RENAME_ODOO_LIST", {
@@ -142,14 +131,13 @@ QUnit.test("Rename and remove a list concurrently", async (assert) => {
             listId: "1",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getListIds().length,
         0
     );
 });
 
-QUnit.test("Re-insert and remove a list concurrently", async (assert) => {
+test("Re-insert and remove a list concurrently", async () => {
     insertList(alice, "1");
     await network.concurrent(() => {
         const { columns } = getListPayload();
@@ -165,14 +153,13 @@ QUnit.test("Re-insert and remove a list concurrently", async (assert) => {
             listId: "1",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getListIds().length,
         0
     );
 });
 
-QUnit.test("remove and update a domain of a list concurrently", async (assert) => {
+test("remove and update a domain of a list concurrently", async () => {
     insertList(alice, "1");
     await network.concurrent(() => {
         alice.dispatch("REMOVE_ODOO_LIST", {
@@ -183,14 +170,13 @@ QUnit.test("remove and update a domain of a list concurrently", async (assert) =
             domain: [["foo", "in", [55]]],
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getListIds().length,
         0
     );
 });
 
-QUnit.test("Duplicate and remove list at the same time concurrently", async (assert) => {
+test("Duplicate and remove list at the same time concurrently", async () => {
     insertList(alice, "1");
     await network.concurrent(() => {
         bob.dispatch("REMOVE_ODOO_LIST", {
@@ -201,14 +187,13 @@ QUnit.test("Duplicate and remove list at the same time concurrently", async (ass
             newListId: "2",
         });
     });
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getListIds().length,
         0
     );
 });
 
-QUnit.test("Duplicate list concurrently", async (assert) => {
+test("Duplicate list concurrently", async () => {
     insertList(alice, "1");
     await network.concurrent(() => {
         bob.dispatch("DUPLICATE_ODOO_LIST", {
@@ -221,14 +206,13 @@ QUnit.test("Duplicate list concurrently", async (assert) => {
         });
     });
     const expectedListIds = ["1", "2", "3"];
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getListIds(),
         expectedListIds
     );
 });
 
-QUnit.test("Duplicate and insert list concurrently", async (assert) => {
+test("Duplicate and insert list concurrently", async () => {
     insertList(alice, "1");
     await network.concurrent(() => {
         bob.dispatch("DUPLICATE_ODOO_LIST", {
@@ -238,8 +222,7 @@ QUnit.test("Duplicate and insert list concurrently", async (assert) => {
         insertList(alice, "2");
     });
     const expectedListIds = ["1", "2", "3"];
-    assert.spreadsheetIsSynchronized(
-        [alice, bob, charlie],
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
         (user) => user.getters.getListIds(),
         expectedListIds
     );

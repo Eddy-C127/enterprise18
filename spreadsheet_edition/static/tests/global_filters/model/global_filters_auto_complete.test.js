@@ -1,13 +1,16 @@
 /** @odoo-module **/
+import { defineSpreadsheetModels } from "@spreadsheet/../tests/helpers/data";
+import { describe, expect, test } from "@odoo/hoot";
 import { stores } from "@odoo/o-spreadsheet";
-import { addGlobalFilter } from "@spreadsheet/../tests/legacy/utils/commands";
-import { makeStore } from "@spreadsheet/../tests/legacy/utils/stores";
+import { addGlobalFilter } from "@spreadsheet/../tests/helpers/commands";
+import { makeStore } from "@spreadsheet/../tests/helpers/stores";
+
+describe.current.tags("headless");
+defineSpreadsheetModels();
 
 const { ComposerStore } = stores;
 
-QUnit.module("spreadsheet global filter auto complete");
-
-QUnit.test("ODOO.FILTER.VALUE", async function (assert) {
+test("ODOO.FILTER.VALUE", async function () {
     const { store: composer, model } = await makeStore(ComposerStore);
     await addGlobalFilter(model, {
         label: "filter 1",
@@ -29,8 +32,7 @@ QUnit.test("ODOO.FILTER.VALUE", async function (assert) {
     ]) {
         composer.startEdition(formula);
         const autoComplete = composer.autocompleteProvider;
-        assert.deepEqual(
-            autoComplete.proposals,
+        expect(autoComplete.proposals).toEqual(
             [
                 {
                     htmlContent: [{ color: "#00a82d", value: '"filter 1"' }],
@@ -41,16 +43,16 @@ QUnit.test("ODOO.FILTER.VALUE", async function (assert) {
                     text: '"filter 2"',
                 },
             ],
-            `autocomplete proposals for ${formula}`
+            { message: `autocomplete proposals for ${formula}` }
         );
         autoComplete.selectProposal(autoComplete.proposals[0].text);
-        assert.strictEqual(composer.currentContent, '=ODOO.FILTER.VALUE("filter 1"');
-        assert.strictEqual(composer.autocompleteProvider, undefined, "autocomplete closed");
+        expect(composer.currentContent).toBe('=ODOO.FILTER.VALUE("filter 1"');
+        expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
         composer.cancelEdition();
     }
 });
 
-QUnit.test("escape double quotes in filter name", async function (assert) {
+test("escape double quotes in filter name", async function () {
     const { store: composer, model } = await makeStore(ComposerStore);
     await addGlobalFilter(model, {
         label: 'my "special" filter',
@@ -60,7 +62,7 @@ QUnit.test("escape double quotes in filter name", async function (assert) {
     });
     composer.startEdition("=ODOO.FILTER.VALUE(");
     const autoComplete = composer.autocompleteProvider;
-    assert.deepEqual(autoComplete.proposals[0], {
+    expect(autoComplete.proposals[0]).toEqual({
         htmlContent: [{ color: "#00a82d", value: '"my \\"special\\" filter"' }],
         text: '"my \\"special\\" filter"',
     });
