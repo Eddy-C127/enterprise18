@@ -378,7 +378,7 @@ class TestCreditTime(AccountTestInvoicingCommon):
             'REP.FEES': 98.08,
             'IP': 516.92,
             'IP.DED': -38.77,
-            'NET': 1828.72,
+            'NET': 1828.73,
         }
         error = []
         line_values = payslip_new_contract._get_line_values(payslip_results.keys())

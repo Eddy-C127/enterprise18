@@ -1245,7 +1245,7 @@ class Payslip(models.Model):
                 result = contract.representation_fees
             else:
                 result = 0
-        return result
+        return float_round(result, precision_digits=2)
 
     def _get_serious_representation_fees(self, localdict):
         self.ensure_one()
