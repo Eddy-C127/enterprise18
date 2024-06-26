@@ -29,21 +29,48 @@ class HrPayslipEmployees(models.TransientModel):
     employee_ids = fields.Many2many('hr.employee', 'hr_employee_group_rel', 'payslip_id', 'employee_id', 'Employees',
                                     default=lambda self: self._get_employees(), required=True,
                                     compute='_compute_employee_ids', store=True, readonly=False)
-    structure_id = fields.Many2one('hr.payroll.structure', string='Salary Structure')
+    structure_id = fields.Many2one('hr.payroll.structure', string='Salary Structure', compute='_compute_structure_id', readonly=False, store=True)
+    structure_type_id = fields.Many2one('hr.payroll.structure.type', string='Salary Structure Type')
+    job_id = fields.Many2one('hr.job', string='Job Position', compute='_compute_job_id', readonly=False, store=True)
     department_id = fields.Many2one('hr.department')
 
-    @api.depends('structure_id', 'department_id')
+    @api.depends('structure_id', 'department_id', 'structure_type_id', 'job_id')
     def _compute_employee_ids(self):
         for wizard in self:
-            domain = wizard._get_domain()
+            domain = wizard.get_employees_domain()
             wizard.employee_ids = self.env['hr.employee'].search(domain)
 
-    def _get_domain(self):
+    @api.depends('department_id')
+    def _compute_job_id(self):
+        for wizard in self:
+            wizard.job_id = False
+
+    @api.depends('structure_type_id')
+    def _compute_structure_id(self):
+        for wizard in self:
+            wizard.structure_id = wizard.structure_type_id.default_struct_id if wizard.structure_type_id else False
+
+    def get_employees_domain(self):
         domain = self._get_available_contracts_domain()
         if self.department_id:
             domain = expression.AND([
                 domain,
                 [('department_id', 'child_of', self.department_id.id)]
+            ])
+        if self.structure_type_id:
+            domain = expression.AND([
+                domain,
+                [('structure_type_id', '=', self.structure_type_id.id)]
+            ])
+        if self.job_id:
+            domain = expression.AND([
+                domain,
+                [('job_id', '=', self.job_id.id)]
+            ])
+        if self.structure_id:
+            domain = expression.AND([
+                domain,
+                [('structure_type_id', '=', self.structure_id.type_id.id)]
             ])
         return domain
 
