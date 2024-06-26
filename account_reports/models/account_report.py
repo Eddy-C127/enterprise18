@@ -1381,8 +1381,9 @@ class AccountReport(models.Model):
                                        and len(options['column_groups']) == 1 \
                                        and len(self.line_ids) > 0 # No debug column on fully dynamic reports by default (they can customize this)
 
-        # Show an additional column summing all the horizontal groups is there is no comparison and only one level of horizontal group
-        options['show_horizontal_group_total'] = options.get('comparison', {}).get('filter') == 'no_comparison' \
+        # Show an additional column summing all the horizontal groups if there is no comparison and only one level of horizontal group
+        options['show_horizontal_group_total'] = options.get('selected_horizontal_group_id') \
+                                                 and options.get('comparison', {}).get('filter') == 'no_comparison' \
                                                  and len(self.column_ids) == 1 \
                                                  and len(options['column_headers']) == 2
 

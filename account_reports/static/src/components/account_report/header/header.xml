@@ -49,7 +49,7 @@
                     <t t-if="controller.options.show_horizontal_group_total">
                         <t t-if="!columnHeader_first">
                             <th class="column_header">
-                                <t t-out="controller.options.available_horizontal_groups.find(group => group.id === controller.options.selected_horizontal_group_id).name"/>
+                                <t t-out="controller.options.available_horizontal_groups.find(group => group.id === controller.options.selected_horizontal_group_id)?.name"/>
                             </th>
                         </t>
                     </t>

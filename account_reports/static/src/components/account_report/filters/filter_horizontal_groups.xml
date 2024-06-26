@@ -9,7 +9,7 @@
             <t t-set-slot="content">
                 <DropdownItem
                     class="{ 'selected': controller.options.selected_horizontal_group_id === null }"
-                    onSelected="() => this.filterClicked('selected_horizontal_group_id', null)"
+                    onSelected="() => this.filterClicked('selected_horizontal_group_id', null, true)"
                     closingMode="'none'"
                 >
                     None
@@ -18,7 +18,7 @@
                 <t t-foreach="controller.options.available_horizontal_groups" t-as="horizontalGroup" t-key="horizontalGroup_index">
                     <DropdownItem
                         class="{ 'selected': controller.options.selected_horizontal_group_id === horizontalGroup.id }"
-                        onSelected="() => this.filterClicked('selected_horizontal_group_id', horizontalGroup.id)"
+                        onSelected="() => this.filterClicked('selected_horizontal_group_id', horizontalGroup.id, true)"
                         closingMode="'none'"
                     >
                         <t t-out="horizontalGroup.name"/>
