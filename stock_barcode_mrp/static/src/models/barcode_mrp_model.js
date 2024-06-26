@@ -399,10 +399,6 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         };
     }
 
-    autoConsumeLine(line) {
-        return line.reserved_uom_qty && (line.product_id.tracking == 'none' || this.config.use_auto_consume_components_lots);
-    }
-
     isManualConsumptionLine(line) {
         const parentLine = this._getParentLine(line);
         if (!parentLine) {
@@ -436,7 +432,7 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
                     manualMove = true;
                     break;
                 }
-                if (!this.autoConsumeLine(line)) {
+                if (line.reserved_uom_qty <= 0) {
                     continue;
                 }
                 const qtyToAdd = Math.min(qtyRemaining, line.reserved_uom_qty);
