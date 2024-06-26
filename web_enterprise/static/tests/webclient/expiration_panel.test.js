@@ -395,7 +395,9 @@ test("One app installed, renew", async () => {
     await animationFrame();
 
     expect(".oe_instance_register").toHaveText(
-        "This database will expire in 10 days. Renew your subscription"
+        "This database will expire in 10 days.\n" +
+            "Renew your subscription\n" +
+            "I paid, please recheck!"
     );
 
     expect(".database_expiration_panel").toHaveClass("alert-warning", {
@@ -438,11 +440,8 @@ test("One app installed, check status and get success", async () => {
     await mountWithCleanup(WebClientEnterprise);
     await animationFrame();
 
-    // click on "Refresh subscription status"
-    expect("a.check_enterprise_status").toHaveAttribute(
-        "aria-label",
-        "Refresh subscription status"
-    );
+    // click on "I paid, please recheck!"
+    expect("a.check_enterprise_status").toHaveText("I paid, please recheck!");
     click("a.check_enterprise_status");
     await animationFrame();
 
@@ -476,7 +475,7 @@ test.skip("One app installed, check status and get page reload", async () => {
     await mountWithCleanup(WebClientEnterprise);
     await animationFrame();
 
-    // click on "Refresh subscription status"
+    // click on "I paid, please recheck!"
     click("a.check_enterprise_status");
     await animationFrame();
 
@@ -509,7 +508,9 @@ test("One app installed, upgrade database", async () => {
     await runAllTimers();
 
     expect(".oe_instance_register").toHaveText(
-        "This database will expire in 10 days. You have more users or more apps installed than your subscription allows.\nUpgrade your subscription"
+        "This database will expire in 10 days. You have more users or more apps installed than your subscription allows.\n\n" +
+            "Upgrade your subscription\n" +
+            "I paid, please recheck!"
     );
 
     // click on "Upgrade your subscription"
@@ -570,7 +571,7 @@ test("One app installed, navigation to renewal page", async () => {
     await runAllTimers();
 
     expect(".oe_instance_register").toHaveText(
-        "This database has expired. Renew your subscription"
+        "This database has expired.\nRenew your subscription\nI paid, please recheck!"
     );
 
     expect(".database_expiration_panel").toHaveClass("alert-danger");
