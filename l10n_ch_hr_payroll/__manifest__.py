@@ -20,6 +20,7 @@ Switzerland Payroll Rules.
     * Allow to configure Basic/Gross/Net Salary
     * Employee Payslip
     * Integrated with Leaves Management
+    * Compute payslips according to ELM 5 standard
     """,
     'data': [
         'data/hr_salary_rule_category_data.xml',
@@ -49,6 +50,12 @@ Switzerland Payroll Rules.
         'views/l10n_ch_additional_accident_insurance_views.xml',
         'views/l10n_ch_sickness_insurance_views.xml',
         'views/l10n_ch_compensation_fund_views.xml',
+        'views/l10n_ch_employee_is_line.xml',
+        'views/l10n_ch_hr_payroll_insurance_report_pdf.xml',
+        'views/l10n_ch_hr_payroll_salary_certificate.xml',
+        'views/l10n_ch_insurance_report_views.xml',
+        'views/l10n_ch_salary_certificate_report_views.xml',
+        'views/l10n_ch_tax_at_source_report_views.xml',
         'views/hr_payslip_views.xml',
         'views/hr_payslip_run_views.xml',
         'wizard/l10n_ch_tax_rate_import_views.xml',

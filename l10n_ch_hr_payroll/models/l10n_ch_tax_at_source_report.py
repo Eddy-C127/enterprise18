@@ -100,7 +100,7 @@ class L10nCHInsuranceReport(models.Model):
         report_vals = []
         for canton in rendering_data:
             export_insurance_pdf = self.env["ir.actions.report"].sudo()._render_qweb_pdf(
-                self.env.ref('l10n_ch_hr_payroll_elm.action_is_report'),
+                self.env.ref('l10n_ch_hr_payroll.action_is_report'),
                 res_ids=self.ids, data=rendering_data[canton])[0]
             report_vals.append({
                 'canton': canton,

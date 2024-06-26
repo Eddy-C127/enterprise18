@@ -14,38 +14,10 @@ class l10nChAccidentInsurance(models.Model):
     customer_number = fields.Char(required=True)
     contract_number = fields.Char(required=True)
     # https://www.swissdec.ch/fileadmin/user_upload/_Datenempfaenger/Empfaengerliste.pdf
-    insurance_company = fields.Selection([
-        ('S14', 'AXA Versicherungen AG'),
-        ('S22', 'Allianz Suisse'),
-        ('S6', 'Baloise Versicherungen AG'),
-        ('S26', 'Branchen Versicherung Genossenschaft'),
-        ('S10058', 'elipsLife'),
-        ('046.000', 'Gastrosocial'),
-        ('S21', 'GENERALI Versicherungen'),
-        ('S270', 'Groupe Mutuel'),
-        ('S264', 'Helsana Versicherungen AG'),
-        ('S23', 'Helvetia'),
-        ('S329', 'Hotela Assurances SA'),
-        ('K329', 'Hotela Caisse Maladie'),
-        ('S208', 'ÖKK Kranken- und Unfallversicherungen AG (ab Deklarationsjahr 2023)'),
-        ('S1', 'Schweizerische Mobiliar Versicherungsgesellschaft AG'),
-        ('S225', 'Sodalis'),
-        ('S95', 'SOLIDA Versicherungen AG'),
-        ('S999', 'Suva'),
-        ('S122', 'Swica Versicherungen'),
-        ('S205', 'Sympany'),
-        ('S116', 'Vaudoise Assurances / Vaudoise Versicherungen'),
-        ('S94', 'Visana Versicherungen AG'),
-        ('S12', 'Zurich Versicherung')
-    ])
-    insurance_code = fields.Char(compute='_compute_insurance_code')
+    insurance_company = fields.Char(required=True)
+    insurance_code = fields.Char(required=True)
     insurance_company_address_id = fields.Many2one('res.partner')
     line_ids = fields.One2many('l10n.ch.accident.insurance.line', 'insurance_id')
-
-    @api.depends('insurance_company')
-    def _compute_insurance_code(self):
-        for insurance in self:
-            insurance.insurance_code = insurance.insurance_company
 
 
 class l10nChAccidentInsuranceLine(models.Model):
@@ -68,6 +40,12 @@ class l10nChAccidentInsuranceLine(models.Model):
 2: Insured AAP and AANP, without AANP deduction
 3: Only AAP insured, so no AANP deduction (for employees whose weekly work is < 8 h))""")
     rate_ids = fields.One2many('l10n.ch.accident.insurance.line.rate', 'line_id')
+    solution_code = fields.Char(compute='_compute_solution_code', store=True)
+
+    @api.depends('solution_type', 'solution_number')
+    def _compute_solution_code(self):
+        for line in self:
+            line.solution_code = line.solution_type + line.solution_number
 
     def _get_threshold(self, target):
         if not self:

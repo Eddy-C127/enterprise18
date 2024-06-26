@@ -13,3 +13,5 @@ class l10nChLppInsurance(models.Model):
     contract_number = fields.Char(required=True)
     insurance_company_address_id = fields.Many2one('res.partner')
     fund_number = fields.Char()
+    insurance_company = fields.Char(required=True)
+    insurance_code = fields.Char(required=True)

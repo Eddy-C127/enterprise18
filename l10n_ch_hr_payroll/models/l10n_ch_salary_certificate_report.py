@@ -174,7 +174,7 @@ class L10nCHSalaryCertificate(models.Model):
 
     def action_generate_xml(self):
         self.xml_filename = '%s-salary-certificates.xml' % (self.year)
-        report = self.env['ir.qweb']._render('l10n_ch_hr_payroll_elm.l10n_ch_salary_certificate_report_xml', self._get_rendering_data())
+        report = self.env['ir.qweb']._render('l10n_ch_hr_payroll.l10n_ch_salary_certificate_report_xml', self._get_rendering_data())
         root = etree.fromstring(report, parser=etree.XMLParser(remove_blank_text=True, resolve_entities=False))
         xml_str = etree.tostring(root, pretty_print=True, encoding='utf-8', xml_declaration=True)
         self.xml_file = base64.b64encode(xml_str)

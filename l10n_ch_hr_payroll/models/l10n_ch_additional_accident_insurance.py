@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields, _
+from odoo import models, fields, _
 from odoo.exceptions import UserError
 
 
@@ -13,38 +13,10 @@ class l10nChAdditionalAccidentInsurance(models.Model):
     customer_number = fields.Char(required=True)
     contract_number = fields.Char(required=True)
     # https://www.swissdec.ch/fileadmin/user_upload/_Datenempfaenger/Empfaengerliste.pdf
-    insurance_company = fields.Selection([
-        ('S14', 'AXA Versicherungen AG'),
-        ('S22', 'Allianz Suisse'),
-        ('S6', 'Baloise Versicherungen AG'),
-        ('S26', 'Branchen Versicherung Genossenschaft'),
-        ('S10058', 'elipsLife'),
-        ('046.000', 'Gastrosocial'),
-        ('S21', 'GENERALI Versicherungen'),
-        ('S270', 'Groupe Mutuel'),
-        ('S264', 'Helsana Versicherungen AG'),
-        ('S23', 'Helvetia'),
-        ('S329', 'Hotela Assurances SA'),
-        ('K329', 'Hotela Caisse Maladie'),
-        ('S208', 'ÖKK Kranken- und Unfallversicherungen AG (ab Deklarationsjahr 2023)'),
-        ('S1', 'Schweizerische Mobiliar Versicherungsgesellschaft AG'),
-        ('S225', 'Sodalis'),
-        ('S95', 'SOLIDA Versicherungen AG'),
-        ('S999', 'Suva'),
-        ('S122', 'Swica Versicherungen'),
-        ('S205', 'Sympany'),
-        ('S116', 'Vaudoise Assurances / Vaudoise Versicherungen'),
-        ('S94', 'Visana Versicherungen AG'),
-        ('S12', 'Zurich Versicherung')
-    ])
-    insurance_code = fields.Char(compute='_compute_insurance_code')
+    insurance_company = fields.Char(required=True)
+    insurance_code = fields.Char(required=True)
     insurance_company_address_id = fields.Many2one('res.partner')
     line_ids = fields.One2many('l10n.ch.additional.accident.insurance.line', 'insurance_id')
-
-    @api.depends('insurance_company')
-    def _compute_insurance_code(self):
-        for insurance in self:
-            insurance.insurance_code = insurance.insurance_company
 
 
 class l10nChAdditionalAccidentInsuranceLine(models.Model):

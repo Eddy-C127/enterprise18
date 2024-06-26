@@ -7,7 +7,6 @@
     'category': 'Human Resources',
     'summary': 'Test Swiss Payroll',
     'depends': [
-        'l10n_ch_hr_payroll_elm',
         'l10n_ch_hr_payroll_account',
         'documents_l10n_ch_hr_payroll',
     ],

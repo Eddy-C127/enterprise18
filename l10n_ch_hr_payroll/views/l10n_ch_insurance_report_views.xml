@@ -3,7 +3,7 @@
         <field name="name">ch.yearly.report.form</field>
         <field name="model">ch.yearly.report</field>
         <field name="arch" type="xml">
-            <form string="273S Sheet">
+            <form string="Yearly Institution Reports">
                 <header>
                     <button string="Generate Reports" name="action_generate_pdf" type="object" class="btn-primary"/>
                 </header>
@@ -56,11 +56,4 @@
         <field name="target">current</field>
     </record>
 
-    <menuitem
-        id="menu_l10n_ch_insurance_report"
-        name="Yearly Institution Reports"
-        action="l10n_ch_insurance_report_action"
-        parent="l10n_ch_hr_payroll.menu_reporting_l10n_ch"
-        groups="hr_payroll.group_hr_payroll_user"
-    />
 </odoo>

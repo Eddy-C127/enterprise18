@@ -13,93 +13,20 @@ class l10nChSocialInsurance(models.Model):
     member_number = fields.Char()
     member_subnumber = fields.Char()
     # https://www.swissdec.ch/fileadmin/user_upload/_Datenempfaenger/Empfaengerliste.pdf
-    insurance_company = fields.Selection([
-        ('048.000', 'AK Aargauer Arbeitgeber'),
-        ('103.000', 'AK agrapi'),
-        ('074.000', 'AK ALBICOLAC'),
-        ('015.000', 'AK Appenzell A.Rh.'),
-        ('016.000', 'AK Appenzell I.Rh.'),
-        ('040.000', 'AK Arbeitgeber Basel'),
-        ('089.000', 'AK Banken'),
-        ('012.000', 'AK Basel Stadt'),
-        ('066.000', 'AK Baumeister'),
-        ('002.000', 'AK Bern'),
-        ('087.000', 'AK Bündner Gewerbe'),
-        ('106.007', 'AK Caisse de compensation FER VALAIS SION'),
-        ('035.000', 'AK scienceindustries'),
-        ('113.000', 'AK Coiffure und Esthétique'),
-        ('031.000', 'AK Coop'),
-        ('114.000', 'AK der Wirtschaftskammer Baselland'),
-        ('026.001', 'AK Eidg. Ausgleichskasse'),
-        ('037.000', 'AK Elektrizitätswerke'),
-        ('095.000', 'AK EXFOUR'),
-        ('106.005', 'AK FER CIAB'),
-        ('106.001', 'AK FER CIAM'),
-        ('106.004', 'AK FER CIAN'),
-        ('106.002', 'AK FER CIFA'),
-        ('106.003', 'AK FER CIGA'),
-        ('098.000', 'AK Forte'),
-        ('046.000', 'AK GastroSocial'),
-        ('107.000', 'AK Geschäftsinhaber Bern'),
-        ('112.000', 'AK Gewerbe St. Gallen'),
-        ('101.000', 'AK Holz'),
-        ('003.000', 'AK Luzern'),
-        ('028.000', 'AK Medisuisse'),
-        ('034.000', 'AK Metzger'),
-        ('070.000', 'AK Migros'),
-        ('078.000', 'AK Milch'),
-        ('033.000', 'AK MOBIL'),
-        ('007.000', 'AK Nidwalden'),
-        ('006.000', 'AK Obwalden'),
-        ('032.000', 'AK Ostschweizerischer Handel'),
-        ('038.000', 'AK Panvica'),
-        ('115.000', 'AK Privatkliniken'),
-        ('099.000', 'AK PROMEA'),
-        ('105.000', 'AK Schweiz. Gewerbe'),
-        ('005.000', 'AK Schwyz'),
-        ('030.000', 'AK Simulac'),
-        ('011.000', 'AK Solothurn'),
-        ('079.000', 'AK Spida'),
-        ('045.000', 'AK Spirituosen'),
-        ('013.000', 'AK SVA Basel Land'),
-        ('017.000', 'AK SVA St. Gallen'),
-        ('060.000', 'AK Swissmem'),
-        ('117.000', 'AK Swisstempcomp'),
-        ('020.000', 'AK Thurgau'),
-        ('055.000', 'AK Thurgauer Gewerbe'),
-        ('069.000', 'AK Transport'),
-        ('051.000', 'AK Uhrenindustrie CCIH - Zentralverwaltung'),
-        ('051.003', 'AK Uhrenindustrie CCIH - Agence 51.3'),
-        ('051.004', 'AK Uhrenindustrie CCIH - Agentur 51.4'),
-        ('051.005', 'AK Uhrenindustrie CCIH - Agentur 51.5'),
-        ('051.007', 'AK Uhrenindustrie CCIH - Agentur 51.7'),
-        ('051.010', 'AK Uhrenindustrie CCIH - Agentur 10'),
-        ('004.000', 'AK Uri'),
-        ('023.000', 'AK Wallis / CC Valais'),
-        ('022.000', 'AK Vaud'),
-        ('081.000', 'AK Versicherung x x x swissdec@insite.ch'),
-        ('009.000', 'AK Zug'),
-        ('065.000', 'AK Zürcher Arbeitgeber'),
-        ('110.000', 'Caisse AVS de la Fédération patronale vaudoise'),
-        ('010.000', 'Caisse AVS Fribourg'),
-        ('150.000', 'Caisse de compensation du canton du Jura'),
-        ('021.000', 'Cassa cantonale di compensazione AVS'),
-        ('024.000', 'Caisse cantonale neuchâteloise de compensation (CCNC)'),
-        ('109.000', "Chambre vaudoise du commerce et de l'industrie (CVCI)"),
-        ('066.002', 'CCB Genève'),
-        ('059.000', 'CICICAM / CINALFA'),
-        ('071.000', 'Handel Schweiz'),
-        ('044.000', 'Hotela Caisse de Compensation'),
-        ('025.000', 'OCAS Genève, caisse genevoise de compensation (CCGC)'),
-        ('008.000', 'Sozialversicherungen Glarus'),
-        ('019.000', 'SVA Aargau'),
-        ('018.000', 'SVA Graubünden'),
-        ('014.000', 'SVA Schaffhausen'),
-        ('001.000', 'SVA Zürich'),
-    ])
-    insurance_code = fields.Char(compute="_compute_insurance_code")
+    insurance_company = fields.Char(required=True)
+    insurance_code = fields.Char(required=True)
     avs_line_ids = fields.One2many('l10n.ch.social.insurance.avs.line', 'insurance_id')
     ac_line_ids = fields.One2many('l10n.ch.social.insurance.ac.line', 'insurance_id')
+    l10n_ch_avs_rente_ids = fields.One2many('l10n.ch.social.insurance.avs.retirement.rente', 'insurance_id')
+    l10n_ch_avs_ac_threshold_ids = fields.One2many('l10n.ch.social.insurance.avs.ac.threshold', 'insurance_id')
+    l10n_ch_avs_acc_threshold_ids = fields.One2many('l10n.ch.social.insurance.avs.acc.threshold', 'insurance_id')
+    age_start = fields.Integer(string="Start of the obligation to contribute to the AVS", default=18, required=True)
+    age_stop_male = fields.Integer(string="Start of retirement age for men", default=65, required=True)
+    age_stop_female = fields.Integer(string="Start of retirement age for women", default=64, required=True)
+    laa_insurance_id = fields.Many2one("l10n.ch.accident.insurance", string="Company LAA Insurance")
+    laa_insurance_from = fields.Date(string="LAA: Valid as of")
+    lpp_insurance_id = fields.Many2one("l10n.ch.lpp.insurance", string="Company LPP Insurance")
+    lpp_insurance_from = fields.Date(string="LPP: Valid as of")
 
     @api.depends('insurance_company')
     def _compute_insurance_code(self):
@@ -130,6 +57,30 @@ class l10nChSocialInsurance(models.Model):
                 return line.employee_additional_rate, line.employer_additional_rate
         raise UserError(_('No AC rates found for date %s', target))
 
+    def _get_retirement_rente(self, target):
+        if not self:
+            return 0, 0
+        for line in self.l10n_ch_avs_rente_ids:
+            if line.date_from <= target and (not line.date_to or target <= line.date_to):
+                return line.amount
+        raise UserError(_('No retirement exoneration amounts found for date date %s', target))
+
+    def _get_ac_threshold(self, target):
+        if not self:
+            return 0, 0
+        for line in self.l10n_ch_avs_ac_threshold_ids:
+            if line.date_from <= target and (not line.date_to or target <= line.date_to):
+                return line.amount
+        raise UserError(_('No AC threshold rates found for date %s', target))
+
+    def _get_acc_threshold(self, target):
+        if not self:
+            return 0, 0
+        for line in self.l10n_ch_avs_acc_threshold_ids:
+            if line.date_from <= target and (not line.date_to or target <= line.date_to):
+                return line.amount
+        raise UserError(_('No ACC threshold rates found for date %s', target))
+
 
 class l10nChSocialInsuranceAVSLine(models.Model):
     _name = 'l10n.ch.social.insurance.avs.line'
@@ -153,3 +104,33 @@ class l10nChSocialInsuranceACLine(models.Model):
     employer_rate = fields.Float(string="Company Rate (%)", digits='Payroll Rate', default=1.1)
     employee_additional_rate = fields.Float(string="Employee Additional Rate (%)", digits='Payroll Rate', default=0.5)
     employer_additional_rate = fields.Float(string="Company Additional Rate (%)", digits='Payroll Rate', default=0)
+
+
+class l10nChSocialInsuranceRetirementRente(models.Model):
+    _name = 'l10n.ch.social.insurance.avs.retirement.rente'
+    _description = 'Swiss: Retired Employees Exoneration'
+
+    date_from = fields.Date(string="From", required=True)
+    date_to = fields.Date(string="To")
+    insurance_id = fields.Many2one('l10n.ch.social.insurance')
+    amount = fields.Float(string="Amount", default=1400)
+
+
+class l10nChSocialInsuranceACThreshold(models.Model):
+    _name = 'l10n.ch.social.insurance.avs.ac.threshold'
+    _description = 'Swiss: AC: Rate Threshold'
+
+    date_from = fields.Date(string="From", required=True)
+    date_to = fields.Date(string="To")
+    insurance_id = fields.Many2one('l10n.ch.social.insurance')
+    amount = fields.Float(string="Amount", default=148200)
+
+
+class l10nChSocialInsuranceACCThreshold(models.Model):
+    _name = 'l10n.ch.social.insurance.avs.acc.threshold'
+    _description = 'Swiss: ACC: Rate Threshold'
+
+    date_from = fields.Date(string="From", required=True)
+    date_to = fields.Date(string="To")
+    insurance_id = fields.Many2one('l10n.ch.social.insurance')
+    amount = fields.Float(string="Amount", default=370500)

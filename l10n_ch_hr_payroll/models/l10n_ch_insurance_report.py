@@ -409,7 +409,7 @@ class L10nCHInsuranceReport(models.Model):
         for report_type in rendering_data:
             for institution_data in rendering_data[report_type]:
                 export_insurance_pdf = self.env["ir.actions.report"].sudo()._render_qweb_pdf(
-                    self.env.ref('l10n_ch_hr_payroll_elm.action_insurance_yearly_report'),
+                    self.env.ref('l10n_ch_hr_payroll.action_insurance_yearly_report'),
                     res_ids=self.ids, data=institution_data)[0]
 
                 report_vals.append({

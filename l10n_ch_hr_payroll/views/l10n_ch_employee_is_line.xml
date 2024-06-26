@@ -37,13 +37,4 @@
         <field name="res_model">hr.employee.is.line</field>
         <field name="view_mode">tree,form</field>
     </record>
-
-    <menuitem
-        id="menu_l10n_ch_employee_is_line"
-        name="IS Corrections"
-        parent="l10n_ch_hr_payroll.menu_configuration_l10n_ch"
-        action="action_l10n_ch_is_line"
-        sequence="30"
-        groups="hr_payroll.group_hr_payroll_user"
-    />
 </odoo>
