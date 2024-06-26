@@ -71,9 +71,9 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
 
     async continueProduction() {
         await this.props.record.model.orm.write(
-            "mrp.workorder",
-            [this.props.record.data.workorder_id[0]],
-            { current_quality_check_id: this.props.record.resId });
+            "quality.check",
+            [this.props.record.resId],
+            { lot_id: this.props.record.data.lot_id[0], qty_done: this.props.record.data.qty_done });
         this.doActionAndClose("action_continue", false, true);
     }
 

@@ -297,7 +297,7 @@ class QualityCheck(models.Model):
                     if check.move_id.additional:
                         qty = check.workorder_id.qty_remaining
                     else:
-                        qty = check.workorder_id.qty_producing
+                        qty = check.workorder_id.qty_producing or check.workorder_id.qty_remaining
                     check.component_remaining_qty = self._prepare_component_quantity(check.move_id, qty) - sum(completed_lines.mapped('quantity'))
                 check.component_uom_id = check.move_id.product_uom
 

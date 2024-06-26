@@ -42,15 +42,15 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     },
     {
         content: 'Register production check',
-        extra_trigger: '.o_mrp_display_record.o_active',
-        trigger: '.o_mrp_record_line .btn.fa-plus'
+        extra_trigger: '.o_workorder_lot span:contains("lot")',
+        trigger: '.o_workorder_lot .btn.fa-plus'
     },
+    { trigger: 'button[barcode_trigger="next"]' },
     {
         content: 'Instruction check via form',
-        extra_trigger: 'span.o_qc_lot',
-        trigger: '.o_mrp_record_line span:contains("Instructions")'
+        trigger: '.modal-title:contains("Instructions")',
+        run: 'scan O-BTN.next'
     },
-    { trigger: 'button[barcode_trigger="Next"]' },
     {
         content: 'Component not tracked registration and continue production',
         extra_trigger: '.modal-title:contains("Register legs")',
@@ -64,7 +64,20 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     },
     {
         extra_trigger: '.o_field_widget[name="qty_done"] input:propValue("2.00")',
-        trigger: 'button[barcode_trigger="Next"]'
+        trigger: 'button[barcode_trigger="next"]'
+    },
+    {
+        content: 'Set NE2 as 1st serial for tracked component',
+        extra_trigger: '.o_field_widget[name="lot_id"] input:propValue("NE1")',
+        trigger: '.o_field_widget[name="lot_id"] input',
+        run: 'text NE2',
+    },
+    { trigger: '.ui-menu-item > a:contains("NE2")' },
+    { trigger: 'button[barcode_trigger="continue"]' },
+    {
+        content: 'Accept NE1 as 2nd serial',
+        extra_trigger: '.o_field_widget[name="lot_id"] input:propValue("NE1")',
+        trigger: 'button[barcode_trigger="next"]',
     },
     {
         extra_trigger: '.modal-title:contains("Release")',
@@ -105,7 +118,7 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     },
     {
         extra_trigger: 'body:not(.modal-open)',
-        trigger: '.o_mrp_record_line .btn-secondary:contains("2")'
+        trigger: '.o_mrp_record_line .btn-outline-secondary:contains("2")'
     },
     { trigger: 'button[barcode_trigger=cloWO]' },
     { trigger: 'button[barcode_trigger=cloMO]' },

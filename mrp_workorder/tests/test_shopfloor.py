@@ -101,9 +101,16 @@ class TestShopFloor(HttpCase):
             },
             {
                 **steps_common_values,
+                'title': 'Register necks',
+                'component_id': neck.id,
+                'test_type_id': self.env.ref('mrp_workorder.test_type_register_consumed_materials').id,
+                'sequence': 3,
+            },
+            {
+                **steps_common_values,
                 'title': 'Release',
                 'test_type_id': self.env.ref('quality.test_type_instructions').id,
-                'sequence': 3,
+                'sequence': 4,
             },
         ])
         mo = self.env['mrp.production'].create({
@@ -131,11 +138,13 @@ class TestShopFloor(HttpCase):
             {'state': 'done', 'workcenter_id': jungle.id},
         ])
         self.assertRecordValues(mo.workorder_ids[0].check_ids, [
-            {'quality_state': 'pass', 'component_id': False, 'qty_done': 2},
-            {'quality_state': 'pass', 'component_id': False, 'qty_done': 0},
-            {'quality_state': 'pass', 'component_id': leg.id, 'qty_done': 8},
-            {'quality_state': 'pass', 'component_id': False, 'qty_done': 0},
-            {'quality_state': 'pass', 'component_id': leg.id, 'qty_done': 2},
+            {'quality_state': 'pass', 'component_id': False, 'qty_done': 2, 'lot_id': mo.move_finished_ids.move_line_ids.lot_id.id},
+            {'quality_state': 'pass', 'component_id': False, 'qty_done': 0, 'lot_id': mo.move_finished_ids.move_line_ids.lot_id.id},
+            {'quality_state': 'pass', 'component_id': leg.id, 'qty_done': 8, 'lot_id': 0},
+            {'quality_state': 'pass', 'component_id': neck.id, 'qty_done': 1, 'lot_id': neck_sn_2.id},
+            {'quality_state': 'pass', 'component_id': False, 'qty_done': 0, 'lot_id': mo.move_finished_ids.move_line_ids.lot_id.id},
+            {'quality_state': 'pass', 'component_id': leg.id, 'qty_done': 2, 'lot_id': 0},
+            {'quality_state': 'pass', 'component_id': neck.id, 'qty_done': 1, 'lot_id': neck_sn_1.id},
         ])
 
     def test_generate_serials_in_shopfloor(self):
