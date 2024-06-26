@@ -195,6 +195,10 @@ result = contract.wage * 0.10''')
         rules._generate_payroll_report_fields()
         return rules
 
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", rule.name)) for rule, vals in zip(self, vals_list)]
+
     def write(self, vals):
         res = super().write(vals)
         if 'appears_on_payroll_report' in vals:
