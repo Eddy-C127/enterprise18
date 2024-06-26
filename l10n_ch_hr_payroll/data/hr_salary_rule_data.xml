@@ -2907,7 +2907,6 @@ result_rate = - payslip.l10n_ch_additional_accident_insurance_line_ids[1]._get_r
         <field name="struct_id" ref="l10n_ch_hr_payroll.hr_payroll_structure_ch_employee_salary"/>
     </record>
 
-<!-- YTI TODO Make company part rules consistent with employee counterparts -->
     <record id="l10n_ch_employees_laac_comp_1" model="hr.salary.rule">
         <field name="category_id" ref="l10n_ch_hr_payroll.hr_salary_rule_category_comp_part"/>
         <field name="name">LAAC1 (Comp. Part.)</field>
