@@ -65,6 +65,8 @@ class HrSalaryAttachment(models.Model):
         'Remaining Amount', compute='_compute_remaining_amount', store=True,
         help='Remaining amount to be paid.',
     )
+    is_quantity = fields.Boolean(related='deduction_type_id.is_quantity')
+    is_refund = fields.Boolean()
     date_start = fields.Date('Start Date', required=True, default=lambda r: start_of(fields.Date.today(), 'month'), tracking=True)
     date_estimated_end = fields.Date(
         'Estimated End Date', compute='_compute_estimated_end',
@@ -285,4 +287,4 @@ class HrSalaryAttachment(models.Model):
                 _record_payment(attachment, amount)
 
     def _get_active_amount(self):
-        return sum(self.mapped('active_amount'))
+        return sum(a.active_amount * (-1 if a.is_refund else 1) for a in self)

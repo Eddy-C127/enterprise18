@@ -14,6 +14,7 @@ class HrSalaryAttachment(models.Model):
     no_end_date = fields.Boolean()
     country_id = fields.Many2one('res.country')
     active = fields.Boolean('Active', default=True)
+    is_quantity = fields.Boolean(default=False, string="Is quantity ?")
 
     @api.constrains('active')
     def _check_salary_attachment_type_active(self):

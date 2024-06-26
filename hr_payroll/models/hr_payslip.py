@@ -395,10 +395,9 @@ class HrPayslip(models.Model):
 
     def _record_attachment_payment(self, attachments, slip_lines):
         self.ensure_one()
-        if self.credit_note:
-            attachments.record_payment(-abs(slip_lines.total))
-        else:
-            attachments.record_payment(abs(slip_lines.total))
+        sign = -1 if self.credit_note else 1
+        amount = slip_lines.total if not attachments.deduction_type_id.is_quantity else slip_lines.quantity
+        attachments.record_payment(sign * abs(amount))
 
     def write(self, vals):
         res = super().write(vals)
