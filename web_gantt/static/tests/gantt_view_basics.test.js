@@ -68,7 +68,7 @@ test("ungrouped gantt rendering", async () => {
         type: "ir.actions.act_window",
         views: [[false, "gantt"]],
     });
-    expect(["tasks"]).toVerifySteps();
+    expect.verifySteps(["tasks"]);
     await animationFrame();
 
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
@@ -1041,7 +1041,7 @@ test("Scale: scale default is fetched from localStorage", async () => {
     setScale(0);
     await ganttControlsChanges();
     expect(getActiveScale()).toBe(0);
-    expect(["get_scale_week", "set_scale_year"]).toVerifySteps();
+    expect.verifySteps(["get_scale_week", "set_scale_year"]);
 });
 
 test("initialization with default_start_date only", async (assert) => {
@@ -1098,7 +1098,7 @@ test("initialization with default_start_date and default_stop_date", async (asse
 
 test("data fetched with right domain", async () => {
     onRpc("get_gantt_data", ({ kwargs }) => {
-        expect.step(JSON.stringify(kwargs.domain));
+        expect.step(kwargs.domain);
     });
     await mountGanttView({
         resModel: "tasks",
@@ -1106,18 +1106,18 @@ test("data fetched with right domain", async () => {
             <gantt date_start="start" date_stop="stop" default_scale="day"/>
         `,
     });
-    expect([
-        `["&",["start","<","2018-12-22 23:00:00"],["stop",">","2018-12-19 23:00:00"]]`,
-    ]).toVerifySteps();
+    expect.verifySteps([
+        ["&", ["start", "<", "2018-12-22 23:00:00"], ["stop", ">", "2018-12-19 23:00:00"]],
+    ]);
     setScale(0);
     await ganttControlsChanges();
-    expect([
-        `["&",["start","<","2018-12-31 23:00:00"],["stop",">","2018-11-30 23:00:00"]]`,
-    ]).toVerifySteps();
+    expect.verifySteps([
+        ["&", ["start", "<", "2018-12-31 23:00:00"], ["stop", ">", "2018-11-30 23:00:00"]],
+    ]);
     await selectGanttRange({ startDate: "2018-12-31", stopDate: "2019-06-15" });
-    expect([
-        `["&",["start","<","2019-06-30 23:00:00"],["stop",">","2018-11-30 23:00:00"]]`,
-    ]).toVerifySteps();
+    expect.verifySteps([
+        ["&", ["start", "<", "2019-06-30 23:00:00"], ["stop", ">", "2018-11-30 23:00:00"]],
+    ]);
 });
 
 test("switch startDate and stopDate if not in <= relation", async () => {

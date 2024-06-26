@@ -55,7 +55,8 @@ test("sending a message forward it to the registered listener", async function (
     });
     await channel.sendMessage("hello");
     expect(i).toBe(8);
-    expect(["message"]).toVerifySteps({ message: "It should have received the message" });
+    // It should have received the message
+    expect.verifySteps(["message"]);
 });
 
 test("previous messages are forwarded when registering a listener", async function () {
@@ -67,12 +68,14 @@ test("previous messages are forwarded when registering a listener", async functi
             message: "It should have the correct message content",
         });
     });
-    expect(["message"]).toVerifySteps({ message: "It should have received the pending message" });
+    // It should have received the pending message
+    expect.verifySteps(["message"]);
 });
 
 test("the channel does not care about other bus messages", function () {
     const channel = new SpreadsheetCollaborativeChannel(env, "my.model", 5);
     channel.onNewMessage("anId", () => expect.step("message"));
     env.services.bus_service.notify("a-random-channel", "a-random-message");
-    expect([]).toVerifySteps({ message: "The message should not have been received" });
+    // The message should not have been received
+    expect.verifySteps([]);
 });

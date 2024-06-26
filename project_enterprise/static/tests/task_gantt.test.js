@@ -154,7 +154,7 @@ test("Unschedule button is displayed", async () => {
     expect(".btn.btn-sm.btn-secondary").toHaveCount(1);
     expect(".btn.btn-sm.btn-secondary").toHaveText("Unschedule");
     await contains(".btn.btn-sm.btn-secondary").click();
-    expect(["unschedule task"]).toVerifySteps();
+    expect.verifySteps(["unschedule task"]);
 });
 
 test("not user_ids grouped: no empty group if no records", async () => {
@@ -272,7 +272,7 @@ test("open a dialog to schedule task", async () => {
     await animationFrame();
     expect(".modal .o_list_view .o_data_row").toHaveClass("o_data_row_selected");
     await contains(".modal footer .o_auto_plan_button").click();
-    expect(["schedule_tasks"]).toVerifySteps();
+    expect.verifySteps(["schedule_tasks"]);
 });
 
 test("Lines are displayed in alphabetic order, except for the first one", async () => {
@@ -777,7 +777,7 @@ test("Smart scheduling", async () => {
             ],
         },
     ]);
-    expect(["schedule_tasks"]).toVerifySteps();
+    expect.verifySteps(["schedule_tasks"]);
 });
 
 test("Smart scheduling: display warnings", async () => {
@@ -827,5 +827,5 @@ test("Smart scheduling: display warnings", async () => {
     expect(".o_dialog").toHaveCount(1);
     await contains(".o_dialog .o_data_row .o-checkbox").click();
     await contains(".o_dialog .o_auto_plan_button").click();
-    expect(["schedule_tasks", "notification added"]).toVerifySteps();
+    expect.verifySteps(["schedule_tasks", "notification added"]);
 });

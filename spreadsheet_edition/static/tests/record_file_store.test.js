@@ -38,7 +38,7 @@ test("upload image", async () => {
     const fileStore = new RecordFileStore("res.partner", 1, env.services.http, env.services.orm);
     const path = await fileStore.upload(new File(["image"], "image_name.png", { type: "image/*" }));
     expect(path).toBe("/web/image/10?access_token=the-image-access-token");
-    expect(["image uploaded", "access token generated"]).toVerifySteps();
+    expect.verifySteps(["image uploaded", "access token generated"]);
 });
 
 test("delete image", async () => {
@@ -55,7 +55,7 @@ test("delete image", async () => {
     const fileStore = new RecordFileStore("res.partner", 1, env.services.http, env.services.orm);
     await fileStore.delete("/web/image/10");
     await fileStore.delete("/web/image/11?access_token=the-image-access-token");
-    expect(["image 10 deleted", "image 11 deleted"]).toVerifySteps();
+    expect.verifySteps(["image 10 deleted", "image 11 deleted"]);
 });
 
 test("delete file with path without attachment id", async () => {

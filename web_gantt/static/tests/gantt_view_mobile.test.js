@@ -50,7 +50,7 @@ test("ungrouped gantt rendering", async () => {
         type: "ir.actions.act_window",
         views: [[false, "gantt"]],
     });
-    expect(["tasks"]).toVerifySteps();
+    expect.verifySteps(["tasks"]);
     await animationFrame();
 
     const { viewTitle, range, columnHeaders, rows } = getGridContent();
@@ -264,7 +264,7 @@ test("Progressbar: check the progressbar percentage visibility.", async () => {
             </gantt>
         `,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
 
     expect(SELECTORS.progressBar).toHaveCount(2);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);
@@ -312,7 +312,7 @@ test("Progressbar: grouped row", async () => {
             </gantt>
         `,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
 
     expect(SELECTORS.progressBar).toHaveCount(4);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);

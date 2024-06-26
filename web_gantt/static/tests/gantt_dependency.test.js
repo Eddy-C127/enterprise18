@@ -466,74 +466,86 @@ test("Buttons are displayed when hovering a connector after a pill has been hove
 test("Connector buttons: remove a dependency", async () => {
     onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
-            expect.step(JSON.stringify([method, args]));
+            expect.step([method, args]);
             return true;
         }
     });
     await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "remove");
-    expect([`["write",[[2],{"depend_on_ids":[[3,1,false]]}]]`]).toVerifySteps();
+    expect.verifySteps([["write", [[2], { depend_on_ids: [[3, 1, false]] }]]]);
 });
 
 test("Connector buttons: reschedule task backward date.", async () => {
     onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
-            expect.step(JSON.stringify([method, args]));
+            expect.step([method, args]);
             return true;
         }
     });
     await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-backward");
-    expect([
-        `["web_gantt_reschedule",["backward",1,2,"depend_on_ids",null,"planned_date_begin","date_deadline"]]`,
-    ]).toVerifySteps();
+    expect.verifySteps([
+        [
+            "web_gantt_reschedule",
+            ["backward", 1, 2, "depend_on_ids", null, "planned_date_begin", "date_deadline"],
+        ],
+    ]);
 });
 
 test("Connector buttons: reschedule task forward date.", async () => {
     onRpc(({ args, method, model }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
-            expect.step(JSON.stringify([method, args]));
+            expect.step([method, args]);
             return true;
         }
     });
     await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-forward");
-    expect([
-        `["web_gantt_reschedule",["forward",1,2,"depend_on_ids",null,"planned_date_begin","date_deadline"]]`,
-    ]).toVerifySteps();
+    expect.verifySteps([
+        [
+            "web_gantt_reschedule",
+            ["forward", 1, 2, "depend_on_ids", null, "planned_date_begin", "date_deadline"],
+        ],
+    ]);
 });
 
 test("Connector buttons: reschedule task start backward, different data.", async () => {
     onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
-            expect.step(JSON.stringify([method, args]));
+            expect.step([method, args]);
             return true;
         }
     });
     await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-backward");
-    expect([
-        `["web_gantt_reschedule",["backward",1,2,"depend_on_ids",null,"planned_date_begin","date_deadline"]]`,
-    ]).toVerifySteps();
+    expect.verifySteps([
+        [
+            "web_gantt_reschedule",
+            ["backward", 1, 2, "depend_on_ids", null, "planned_date_begin", "date_deadline"],
+        ],
+    ]);
 });
 
 test("Connector buttons: reschedule task forward, different data.", async () => {
     onRpc(({ method, model, args }) => {
         if (model === "project.task" && ["web_gantt_reschedule", "write"].includes(method)) {
-            expect.step(JSON.stringify([method, args]));
+            expect.step([method, args]);
             return true;
         }
     });
     await mountGanttView(ganttViewParams);
 
     await clickConnectorButton(getConnector(1), "reschedule-forward");
-    expect([
-        `["web_gantt_reschedule",["forward",1,2,"depend_on_ids",null,"planned_date_begin","date_deadline"]]`,
-    ]).toVerifySteps();
+    expect.verifySteps([
+        [
+            "web_gantt_reschedule",
+            ["forward", 1, 2, "depend_on_ids", null, "planned_date_begin", "date_deadline"],
+        ],
+    ]);
 });
 
 test("Hovering a task pill should highlight related tasks and dependencies", async () => {
@@ -669,7 +681,7 @@ test("Connectors are displayed behind pills, except on hover.", async () => {
 });
 
 test("Create a connector from the gantt view.", async () => {
-    onRpc("write", ({ args, method }) => expect.step(JSON.stringify([method, args])));
+    onRpc("write", ({ args, method }) => expect.step([method, args]));
     await mountGanttView(ganttViewParams);
 
     // Explicitly shows the connector creator wrapper since its "display: none"
@@ -680,7 +692,7 @@ test("Create a connector from the gantt view.", async () => {
     await contains(
         queryFirst(SELECTORS.connectorCreatorBullet, { root: rightWrapper })
     ).dragAndDrop(getPill("Task 2"));
-    expect([`["write",[[2],{"depend_on_ids":[[4,3,false]]}]]`]).toVerifySteps();
+    expect.verifySteps([["write", [[2], { depend_on_ids: [[4, 3, false]] }]]]);
 });
 
 test("Create a connector from the gantt view: going fast", async () => {
@@ -896,6 +908,6 @@ test("Connect two very distant pills", async () => {
     }
     await moveTo(selector);
     await drop();
-    expect([`[[2],{"depend_on_ids":[[4,1,false]]}]`]).toVerifySteps();
+    expect.verifySteps([`[[2],{"depend_on_ids":[[4,1,false]]}]`]);
     expect(SELECTORS.connector).toHaveCount(1);
 });

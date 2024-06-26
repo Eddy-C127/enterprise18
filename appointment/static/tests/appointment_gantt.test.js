@@ -94,12 +94,12 @@ test("empty default group gantt rendering", async () => {
     }
     const { drop } = await dragPill("Event 2", { nth: 1 });
     await drop({ row: "Partner 1", column: "21 January 2022", part: 2 });
-    expect([
+    expect.verifySteps([
         "get_gantt_data",
         "write partners and date",
         "write user id",
         "get_gantt_data",
-    ]).toVerifySteps();
+    ]);
 });
 
 test("'Add Closing Days' button rendering - 1", async () => {

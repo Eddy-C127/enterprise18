@@ -115,9 +115,8 @@ test("planning calendar view: copy previous week", async () => {
 
     click(".o_control_panel_main_buttons .o_button_copy_previous_week");
     await animationFrame();
-    expect(["copy_previous_week()"]).toVerifySteps({
-        message: "verify action_copy_previous_week() invoked.",
-    });
+    // verify action_copy_previous_week() invoked
+    expect.verifySteps(["copy_previous_week()"])
 
     // deselect "Maganlal" from Assigned to
     click(".o_calendar_filter_item[data-value='2'] > input");

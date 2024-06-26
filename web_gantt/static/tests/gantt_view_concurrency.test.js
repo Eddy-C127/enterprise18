@@ -49,7 +49,7 @@ test("concurrent scale switches return in inverse order", async () => {
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop"/>`,
     });
-    expect(["patched"]).toVerifySteps();
+    expect.verifySteps(["patched"]);
 
     let content = getGridContent();
     expect(getActiveScale()).toBe(2);
@@ -88,7 +88,7 @@ test("concurrent scale switches return in inverse order", async () => {
     expect(content.groupHeaders.map((gh) => gh.title)).toEqual(["2018", "2019"]);
     expect(content.range).toBe("From: 12/01/2018 to: 02/28/2019");
     expect(model.data.records).toHaveLength(6);
-    expect(["patched"]).toVerifySteps();
+    expect.verifySteps(["patched"]);
 });
 
 test("concurrent scale switches return with gantt unavailabilities", async () => {
@@ -125,7 +125,7 @@ test("concurrent scale switches return with gantt unavailabilities", async () =>
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" display_unavailability="true"/>`,
     });
-    expect(["patched"]).toVerifySteps();
+    expect.verifySteps(["patched"]);
 
     let content = getGridContent();
     expect(getActiveScale()).toBe(2);
@@ -157,9 +157,9 @@ test("concurrent scale switches return with gantt unavailabilities", async () =>
     reloadProm = null;
     setScale(0);
     await ganttControlsChanges();
-    expect(["patched"]).toVerifySteps();
+    expect.verifySteps(["patched"]);
     await selectGanttRange({ startDate: "2018-01-01", stopDate: "2018-12-31" });
-    expect(["patched"]).toVerifySteps();
+    expect.verifySteps(["patched"]);
 
     content = getGridContent();
     expect(getActiveScale()).toBe(0);
@@ -179,7 +179,7 @@ test("concurrent scale switches return with gantt unavailabilities", async () =>
     expect(model.data.records).toHaveLength(7);
     expect(getCellColorProperties("August 2018")).toEqual(["--Gantt__DayOff-background-color"]);
     expect(getCellColorProperties("November 2018")).toEqual([]);
-    expect([]).toVerifySteps();
+    expect.verifySteps([]);
 });
 
 test("concurrent range selections", async () => {
@@ -209,7 +209,7 @@ test("concurrent pill resize and groupBy change", async () => {
     let awaitWriteDef = false;
     const writeDef = new Deferred();
     onRpc(({ args, method }) => {
-        expect.step(JSON.stringify([method, args]));
+        expect.step([method, args]);
         if (method === "write" && awaitWriteDef) {
             return writeDef;
         }
@@ -224,10 +224,10 @@ test("concurrent pill resize and groupBy change", async () => {
         `,
         domain: [["id", "in", [2, 5]]],
     });
-    expect([
-        JSON.stringify(["get_views", []]),
-        JSON.stringify(["get_gantt_data", []]),
-    ]).toVerifySteps();
+    expect.verifySteps([
+        ["get_views", [undefined, undefined]],
+        ["get_gantt_data", []],
+    ]);
     expect(getGridContent().rows).toEqual([
         {
             pills: [
@@ -249,11 +249,11 @@ test("concurrent pill resize and groupBy change", async () => {
     awaitWriteDef = true;
     await resizePill(getPillWrapper("Task 2"), "end", -1);
 
-    expect([JSON.stringify(["write", [[2], { stop: "2018-12-21 06:29:59" }]])]).toVerifySteps();
+    expect.verifySteps([["write", [[2], { stop: "2018-12-21 06:29:59" }]]]);
 
     await toggleSearchBarMenu();
     await toggleMenuItem("Project");
-    expect([JSON.stringify(["get_gantt_data", []])]).toVerifySteps();
+    expect.verifySteps([["get_gantt_data", []]]);
     expect(getGridContent().rows).toEqual([
         {
             pills: [
@@ -279,7 +279,7 @@ test("concurrent pill resize and groupBy change", async () => {
 
     writeDef.resolve();
     await animationFrame();
-    expect([JSON.stringify(["get_gantt_data", []])]).toVerifySteps();
+    expect.verifySteps([["get_gantt_data", []]]);
     expect(getGridContent().rows).toEqual([
         {
             pills: [
@@ -308,7 +308,7 @@ test("concurrent pill resizes return in inverse order", async () => {
     let awaitWriteDef = false;
     const writeDef = new Deferred();
     onRpc(({ args, method }) => {
-        expect.step(JSON.stringify([method, args]));
+        expect.step([method, args]);
         if (method === "write" && awaitWriteDef) {
             return writeDef;
         }
@@ -330,14 +330,14 @@ test("concurrent pill resizes return in inverse order", async () => {
     writeDef.resolve();
     await animationFrame();
 
-    expect([
-        JSON.stringify(["get_views", []]),
-        JSON.stringify(["get_gantt_data", []]),
-        JSON.stringify(["write", [[2], { stop: "2018-12-21 06:29:59" }]]),
-        JSON.stringify(["get_gantt_data", []]),
-        JSON.stringify(["write", [[2], { stop: "2018-12-24 06:29:59" }]]),
-        JSON.stringify(["get_gantt_data", []]),
-    ]).toVerifySteps();
+    expect.verifySteps([
+        ["get_views", [undefined, undefined]],
+        ["get_gantt_data", []],
+        ["write", [[2], { stop: "2018-12-21 06:29:59" }]],
+        ["get_gantt_data", []],
+        ["write", [[2], { stop: "2018-12-24 06:29:59" }]],
+        ["get_gantt_data", []],
+    ]);
 });
 
 test("concurrent pill resizes and open, dialog show updated number", async () => {

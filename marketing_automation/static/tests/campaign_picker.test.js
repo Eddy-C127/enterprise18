@@ -227,11 +227,11 @@ test("Marketing Campaign Template Picker - Template picker", async function () {
     }
 
     // load the template
-    expect([]).toVerifySteps();
+    expect.verifySteps([]);
     click(queryOne("button.o_ma_campaign_picker_create"));
     await animationFrame();
     // check that the template is loaded
-    expect(["get_template"]).toVerifySteps();
+    expect.verifySteps(["get_template"]);
 
     // we should now be in a form view
     expect("button.o_form_button_create").not.toHaveCount(0);

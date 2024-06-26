@@ -225,7 +225,7 @@ test("move a pill in multi-level group row after collapse and expand grouped row
     // move a pill (task 7) in the other row and in the day 2
     const { drop } = await dragPill("Task 7");
     await drop({ column: "11 December 2018", part: 2 });
-    expect(["write"]).toVerifySteps();
+    expect.verifySteps(["write"]);
     expect(getGridContent().rows.filter((x) => x.isGroup)).toHaveLength(1);
 });
 
@@ -253,37 +253,37 @@ test("plan dialog initial domain has the action domain as its only base", async 
     await getService("action").doAction(ganttAction);
     await animationFrame();
 
-    expect(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]).toVerifySteps();
+    expect.verifySteps(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]);
     await hoverGridCell("10 December 2018");
     await clickCell("10 December 2018");
-    expect(["|,start,=,false,stop,=,false"]).toVerifySteps();
+    expect.verifySteps(["|,start,=,false,stop,=,false"]);
 
     // Load action WITH domain and open plan dialog
     await getService("action").doAction({
         ...ganttAction,
         domain: [["project_id", "=", 1]],
     });
-    expect([
+    expect.verifySteps([
         "&,project_id,=,1,&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00",
-    ]).toVerifySteps();
+    ]);
 
     await hoverGridCell("10 December 2018");
     await clickCell("10 December 2018");
-    expect(["&,project_id,=,1,|,start,=,false,stop,=,false"]).toVerifySteps();
+    expect.verifySteps(["&,project_id,=,1,|,start,=,false,stop,=,false"]);
 
     // Load action without domain, activate a filter and then open plan dialog
     await getService("action").doAction(ganttAction);
-    expect(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]).toVerifySteps();
+    expect.verifySteps(["&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00"]);
 
     await toggleSearchBarMenu();
     await toggleMenuItem("Project 1");
-    expect([
+    expect.verifySteps([
         "&,project_id,=,1,&,start,<,2019-02-28 23:00:00,stop,>,2018-11-30 23:00:00",
-    ]).toVerifySteps();
+    ]);
 
     await hoverGridCell("10 December 2018");
     await clickCell("10 December 2018");
-    expect(["|,start,=,false,stop,=,false"]).toVerifySteps();
+    expect.verifySteps(["|,start,=,false,stop,=,false"]);
 });
 
 test("No progress bar when no option set.", async () => {
@@ -316,7 +316,7 @@ test("Progress bar rpc is triggered when option set.", async () => {
             </gantt>
         `,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(SELECTORS.progressBar).toHaveCount(2);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);
     expect(progressBar1).toHaveClass("o_gantt_group_success");
@@ -358,12 +358,12 @@ test("Progress bar component will not render when hovering cells of the same row
                 </gantt>
             `,
     });
-    expect(["rendering progress bar", "rendering progress bar"]).toVerifySteps();
+    expect.verifySteps(["rendering progress bar", "rendering progress bar"]);
     await hoverGridCell("19 W51 2018");
-    expect(["rendering progress bar", "rendering progress bar"]).toVerifySteps();
+    expect.verifySteps(["rendering progress bar", "rendering progress bar"]);
     await hoverGridCell("18 W51 2018");
     await hoverGridCell("18 W51 2018", "User 2");
-    expect(["rendering progress bar", "rendering progress bar"]).toVerifySteps();
+    expect.verifySteps(["rendering progress bar", "rendering progress bar"]);
 });
 
 test("Progress bar when multilevel grouped.", async () => {
@@ -385,7 +385,7 @@ test("Progress bar when multilevel grouped.", async () => {
             </gantt>
         `,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(SELECTORS.progressBar).toHaveCount(4);
     const [progressBar1, progressBar2] = queryAll(SELECTORS.progressBar);
     expect(progressBar1).toHaveClass("o_gantt_group_success");
@@ -426,7 +426,7 @@ test("Progress bar warning when max_value is zero", async () => {
             </gantt>
         `,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(SELECTORS.progressBarWarning).toHaveCount(0);
     await hoverGridCell("16 W51 2018");
     expect(SELECTORS.progressBarWarning).toHaveCount(1);
@@ -452,7 +452,7 @@ test("Progress bar when value less than hour", async () => {
             </gantt>
         `,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(SELECTORS.progressBar).toHaveCount(1);
     await hoverGridCell("16 W51 2018");
     expect(SELECTORS.progressBarForeground).toHaveText("0h30 / 100h");
@@ -476,7 +476,7 @@ test("Progress bar danger when ratio > 100", async () => {
             </gantt>
         `,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(SELECTORS.progressBar).toHaveCount(1);
     expect(SELECTORS.progressBarBackground).toHaveStyle("100%");
     expect(SELECTORS.progressBar).toHaveClass("o_gantt_group_danger");
@@ -520,7 +520,7 @@ test("Search field return rows with progressbar", async () => {
         groupBy: ["project_id", "user_id"],
         domain: [["id", "=", 2]],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     const { rows } = getGridContent();
     expect(rows.map((r) => r.title)).toEqual(["Project 1", "User 2"]);
     expect(SELECTORS.progressBar).toHaveCount(1);
@@ -1401,7 +1401,7 @@ test("groups_limit attribute (no groupBy)", async () => {
         arch: `<gantt date_start="start" date_stop="stop" groups_limit="2"/>`,
     });
     expect(".o_gantt_view .o_control_panel .o_pager").toHaveCount(0); // only one group here!
-    expect(["get_views", "get_gantt_data", "with limit 2"]).toVerifySteps();
+    expect.verifySteps(["get_views", "get_gantt_data", "with limit 2"]);
     const { rows } = getGridContent();
     expect(rows).toEqual([
         {
@@ -1478,7 +1478,7 @@ test("groups_limit attribute (one groupBy)", async () => {
             title: "in_progress",
         },
     ]);
-    expect(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]).toVerifySteps();
+    expect.verifySteps(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]);
 
     await pagerNext();
     expect(".o_pager_value").toHaveText("3-4");
@@ -1511,7 +1511,7 @@ test("groups_limit attribute (one groupBy)", async () => {
             title: "cancel",
         },
     ]);
-    expect(["get_gantt_data", "with limit 2", "with offset 2"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data", "with limit 2", "with offset 2"]);
 });
 
 test("groups_limit attribute (two groupBys)", async () => {
@@ -1560,7 +1560,7 @@ test("groups_limit attribute (two groupBys)", async () => {
             title: "Project 1",
         },
     ]);
-    expect(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]).toVerifySteps();
+    expect.verifySteps(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]);
 
     await pagerNext();
     expect(".o_pager_value").toHaveText("3-4");
@@ -1608,7 +1608,7 @@ test("groups_limit attribute (two groupBys)", async () => {
             title: "Project 1",
         },
     ]);
-    expect(["get_gantt_data", "with limit 2", "with offset 2"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data", "with limit 2", "with offset 2"]);
 
     await pagerNext();
     expect(".o_pager_value").toHaveText("5-5");
@@ -1645,7 +1645,7 @@ test("groups_limit attribute (two groupBys)", async () => {
             title: "Project 1",
         },
     ]);
-    expect(["get_gantt_data", "with limit 2", "with offset 4"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data", "with limit 2", "with offset 4"]);
 });
 
 test("groups_limit attribute in sample mode (no groupBy)", async () => {
@@ -1661,7 +1661,7 @@ test("groups_limit attribute in sample mode (no groupBy)", async () => {
         domain: Domain.FALSE.toList(),
     });
     expect(".o_gantt_view .o_control_panel .o_pager").toHaveCount(0); // only one group here!
-    expect(["get_views", "get_gantt_data", "with limit 2"]).toVerifySteps();
+    expect.verifySteps(["get_views", "get_gantt_data", "with limit 2"]);
 });
 
 test("groups_limit attribute in sample mode (one groupBy)", async () => {
@@ -1682,7 +1682,7 @@ test("groups_limit attribute in sample mode (one groupBy)", async () => {
     expect(".o_pager_value").toHaveText("1-2");
     expect(".o_pager_limit").toHaveText("2");
     expect(".o_gantt_row_title").toHaveCount(2);
-    expect(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]).toVerifySteps();
+    expect.verifySteps(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]);
 });
 
 test("groups_limit attribute in sample mode (two groupBys)", async () => {
@@ -1702,7 +1702,7 @@ test("groups_limit attribute in sample mode (two groupBys)", async () => {
     expect(".o_gantt_view .o_control_panel .o_pager").toHaveCount(1);
     expect(".o_pager_value").toHaveText("1-2");
     expect(".o_pager_limit").toHaveText("2");
-    expect(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]).toVerifySteps();
+    expect.verifySteps(["get_views", "get_gantt_data", "with limit 2", "with offset 0"]);
 });
 
 test("context in action should not override context added by the gantt view", async () => {

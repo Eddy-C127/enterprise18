@@ -115,7 +115,7 @@ test("create/search anytime appointment type", async () => {
     await contains(".o_appointment_search_create_anytime_appointment").click();
     await animationFrame();
 
-    expect(["/appointment/appointment_type/search_create_anytime"]).toVerifySteps();
+    expect.verifySteps(["/appointment/appointment_type/search_create_anytime"]);
     expect(AppointmentType._records).toHaveLength(3, { message: "Create a new appointment type" });
 
     await contains(".o_appointment_discard_slots").click();
@@ -124,7 +124,7 @@ test("create/search anytime appointment type", async () => {
     await contains(".o_appointment_search_create_anytime_appointment").click();
     await animationFrame();
 
-    expect(["/appointment/appointment_type/search_create_anytime"]).toVerifySteps();
+    expect.verifySteps(["/appointment/appointment_type/search_create_anytime"]);
     expect(AppointmentType._records).toHaveLength(3, {
         message: "Does not create a new appointment type",
     });
@@ -209,7 +209,7 @@ test("cannot move real event in slots-creation mode", async () => {
     await contains(".fc-event").dragAndDrop(".fc-day");
     await animationFrame();
 
-    expect([]).toVerifySteps();
+    expect.verifySteps([]);
 });
 
 test("create slots for custom appointment type", async () => {
@@ -261,7 +261,7 @@ test("create slots for custom appointment type", async () => {
     expect(".o_calendar_slot").toHaveCount(1);
 
     await contains("button.o_appointment_get_link").click();
-    expect(["/appointment/appointment_type/create_custom"]).toVerifySteps();
+    expect.verifySteps(["/appointment/appointment_type/create_custom"]);
     expect(".fc-event").toHaveCount(1);
     expect(".o_calendar_slot").toHaveCount(0);
     expect(AppointmentSlot._records).toHaveLength(1);
@@ -352,5 +352,5 @@ test("click & copy appointment type url", async () => {
     await contains(".dropdownAppointmentLink").click();
     await contains(".o_appointment_appointment_link_clipboard").click();
 
-    expect(["/appointment/appointment_type/get_book_url"]).toVerifySteps();
+    expect.verifySteps(["/appointment/appointment_type/get_book_url"]);
 });

@@ -377,7 +377,7 @@ test("empty sparse gantt with unavailabilities", async () => {
         arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" display_unavailability="1" />`,
         domain: [["id", "=", 0]],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     // Full unavailability
     expect(getCellColorProperties("19 December 2018")).toEqual([
         "--Gantt__DayOff-background-color",
@@ -403,7 +403,7 @@ test("sparse gantt with unavailabilities", async () => {
         arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" display_unavailability="1" />`,
         domain: [["id", "=", 1]],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     // Full unavailability
     expect(getCellColorProperties("19 December 2018")).toEqual([
         "--Gantt__DayOff-background-color",
@@ -429,7 +429,7 @@ test("sparse grouped gantt with unavailabilities", async () => {
         arch: `<gantt date_start="start" date_stop="stop" display_mode="sparse" display_unavailability="1" />`,
         groupBy: ["user_id"],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     // Full unavailability
     expect(getCellColorProperties("19 December 2018", "Task 5")).toEqual([
         "--Gantt__DayOff-background-color",
@@ -464,7 +464,7 @@ test("sparse gantt with consolidation with unavailabilities", async () => {
         `,
         groupBy: ["user_id"],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     // Full unavailability
     expect(getCellColorProperties("19 December 2018", "", { num: 2 })).toEqual([
         "--Gantt__DayOff-background-color",
@@ -520,7 +520,7 @@ test("sparse gantt with a group expand and unavailabilities", async () => {
         `,
         groupBy: ["user_id"],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(getCellColorProperties("19 December 2018", "", { num: 2 })).toEqual([
         "--Gantt__DayOff-background-color",
     ]);

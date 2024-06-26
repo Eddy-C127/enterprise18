@@ -122,7 +122,7 @@ test("unavailabilities fetched for workcenter_id (in groupBy)", async () => {
         `,
         groupBy: ["workcenter_id"],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(getCell("05 March 2023")).toHaveClass("o_gantt_today");
     expect(getCellColorProperties("05 March 2023")).toEqual([
         "--Gantt__DayOffToday-background-color",
@@ -152,7 +152,7 @@ test("unavailabilities fetched for workcenter_id  (not in groupBy)", async () =>
         `,
         groupBy: ["other_workcenter_id"],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(getCell("05 March 2023")).toHaveClass("o_gantt_today");
     expect(getCellColorProperties("05 March 2023")).toEqual([]);
 });

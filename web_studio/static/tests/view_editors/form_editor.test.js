@@ -112,7 +112,7 @@ test("Form editor view buttons can be set to invisible", async () => {
     expect(".o_web_studio_editor_manager .o_web_studio_sidebar").toHaveCount(1);
     await contains(".o_form_renderer .o_statusbar_buttons > button").click();
     await contains(".o_notebook #invisible").click();
-    expect(["edit_view"]).toVerifySteps();
+    expect.verifySteps(["edit_view"]);
 });
 
 test("Form editor view buttons label and class are editable from the sidebar", async () => {
@@ -160,10 +160,10 @@ test("Form editor view buttons label and class are editable from the sidebar", a
     await contains(".o_form_renderer .o_statusbar_buttons > button").click();
     expect("input[name=string]").toHaveValue("Test");
     await contains("input[name=string]").edit("MyLabel");
-    expect(["edit_view"]).toVerifySteps();
+    expect.verifySteps(["edit_view"]);
     expect("input[name=class]").toHaveValue("oe_highlight");
     await contains("input[name=class]").edit("btn-secondary");
-    expect(["edit_view"]).toVerifySteps();
+    expect.verifySteps(["edit_view"]);
 });
 
 test("optional field not in form editor", async () => {
@@ -263,9 +263,8 @@ test("image field edition (change size)", async () => {
         `,
     });
     expect(".o_web_studio_form_view_editor .o_field_image").toHaveCount(1);
-    expect(["image, width: undefined, height: 90, previewImage: coucou"]).toVerifySteps({
-        message: "the image should have been fetched",
-    });
+    // the image should have been fetched
+    expect.verifySteps(["image, width: undefined, height: 90, previewImage: coucou"]);
     await contains(".o_web_studio_form_view_editor .o_field_image").click();
     expect(".o_web_studio_property_size").toHaveCount(1);
     expect(".o_web_studio_property_size .text-start").toHaveText("Small");
@@ -274,9 +273,8 @@ test("image field edition (change size)", async () => {
     );
     await contains(".o_web_studio_property_size button").click();
     await contains(".o_select_menu_item_label:contains(Large)").click();
-    expect(["image, width: undefined, height: 270, previewImage: coucou"]).toVerifySteps({
-        message: "the image should have been fetched again",
-    });
+    // the image should have been fetched again
+    expect.verifySteps(["image, width: undefined, height: 270, previewImage: coucou"]);
     expect(".o_web_studio_property_size .text-start").toHaveText("Large");
 });
 
@@ -423,7 +421,7 @@ test("integer field should come with 0 as default value", async () => {
     await contains(".o_web_studio_new_fields .o_web_studio_field_integer").dragAndDrop(
         ".o_web_studio_hook[data-position=before]"
     );
-    expect(["edit_view"]).toVerifySteps();
+    expect.verifySteps(["edit_view"]);
 });
 
 test("supports multiple occurences of field", async () => {

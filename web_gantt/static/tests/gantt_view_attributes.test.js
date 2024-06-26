@@ -211,7 +211,7 @@ test("scales attribute", async () => {
 });
 
 test("precision attribute", async () => {
-    onRpc("write", ({ args }) => expect.step(JSON.stringify(args)));
+    onRpc("write", ({ args }) => expect.step(args));
     await mountGanttView({
         resModel: "tasks",
         arch: `
@@ -234,7 +234,7 @@ test("precision attribute", async () => {
     await drop();
     await animationFrame();
     expect(SELECTORS.resizeBadge).toHaveCount(0);
-    expect([JSON.stringify([[7], { stop: "2018-12-20 18:44:59" }])]).toVerifySteps();
+    expect.verifySteps([[[7], { stop: "2018-12-20 18:44:59" }]]);
 });
 
 test("progress attribute", async () => {
@@ -260,7 +260,7 @@ test("progress attribute", async () => {
 
 test("form_view_id attribute", async () => {
     Tasks._views[["form", 42]] = `<form><field name="name"/></form>`;
-    onRpc("get_views", ({ kwargs }) => expect.step(`get_views: ${JSON.stringify(kwargs.views)}`));
+    onRpc("get_views", ({ kwargs }) => expect.step(["get_views", kwargs.views]));
     await mountGanttView({
         resModel: "tasks",
         arch: `<gantt string="Tasks" date_start="start" date_stop="stop" form_view_id="42"/>`,
@@ -268,10 +268,16 @@ test("form_view_id attribute", async () => {
     });
     await contains(queryFirst(SELECTORS.addButton + ":visible")).click();
     expect(".modal .o_form_view").toHaveCount(1);
-    expect([
-        `get_views: [[123456789,"gantt"],[987654321,"search"]]`, // initial get_views
-        `get_views: [[42,"form"]]`, // get_views when form view dialog opens
-    ]).toVerifySteps();
+    expect.verifySteps([
+        [
+            "get_views",
+            [
+                [123456789, "gantt"],
+                [987654321, "search"],
+            ],
+        ], // initial get_views
+        ["get_views", [[42, "form"]]], // get_views when form view dialog opens
+    ]);
 });
 
 test("decoration attribute", async () => {
@@ -547,7 +553,7 @@ test("Today style of group rows", async () => {
         arch: `<gantt date_start="start" date_stop="stop" display_unavailability="1" default_scale="week" scales="week" precision="{'week': 'day:half'}"/>`,
         groupBy: ["user_id", "project_id"],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
 
     // Normal group cell: open
     let cell4 = getCell("19 W51 2018");
@@ -593,7 +599,7 @@ test("style without unavailabilities", async () => {
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" display_unavailability="1"/>`,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     const cell5 = getCell("05 December 2018");
     expect(cell5).toHaveClass("o_gantt_today");
     expect(cell5).toHaveAttribute("style", "grid-column:c9/c11;grid-row:r1/r5;");
@@ -628,7 +634,7 @@ test(`Unavailabilities ("month": "day:half")`, async () => {
         resModel: "tasks",
         arch: `<gantt date_start="start" date_stop="stop" display_unavailability="1"/>`,
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     expect(getCell("05 December 2018")).toHaveClass("o_gantt_today");
     expect(getCellColorProperties("05 December 2018")).toEqual([
         "--Gantt__DayOffToday-background-color",
@@ -959,7 +965,7 @@ test("consolidation and unavailabilities", async () => {
         `,
         groupBy: ["user_id"],
     });
-    expect(["get_gantt_data"]).toVerifySteps();
+    expect.verifySteps(["get_gantt_data"]);
     // Normal day / unavailability
     expect(getCellColorProperties("18 December 2018", "", { num: 2 })).toEqual([
         "--Gantt__Day-background-color",
