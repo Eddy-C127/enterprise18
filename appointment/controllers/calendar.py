@@ -103,7 +103,7 @@ class AppointmentCalendarController(CalendarController):
             'attendee_status': event.attendee_ids.filtered(lambda a: a.partner_id.id == partner_id).state,
             'is_html_empty': is_html_empty,
             'is_cancelled': not event.active,
-        })
+        }, headers={'Cache-Control': 'no-store'})
 
     @route(['/calendar/<string:access_token>/add_attendees_from_emails'], type="json", auth="public", website=True)
     def appointment_add_attendee(self, access_token, emails_str):
