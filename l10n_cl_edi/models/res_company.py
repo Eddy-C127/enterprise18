@@ -161,12 +161,12 @@ class ResCompany(models.Model):
         a natural person) shares it with the rest of the users for that company.
         """
         if user_id is not None:
-            user_certificates = self.sudo().l10n_cl_certificate_ids.filtered(
+            user_certificates = self.l10n_cl_certificate_ids.filtered(
                 lambda x: x._is_valid_certificate() and x.user_id.id == user_id and
                           x.company_id.id == self.id)
             if user_certificates:
                 return user_certificates[0]
-        shared_certificates = self.sudo().l10n_cl_certificate_ids.filtered(
+        shared_certificates = self.l10n_cl_certificate_ids.filtered(
             lambda x: x._is_valid_certificate() and not x.user_id and x.company_id.id == self.id)
         if not shared_certificates:
             raise UserError(_('There is not a valid certificate for the company: %s') % self.name)

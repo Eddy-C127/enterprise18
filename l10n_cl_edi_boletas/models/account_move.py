@@ -42,7 +42,7 @@ class AccountMove(models.Model):
         # To avoid double send on double-click
         if self.l10n_cl_dte_status != "not_sent":
             return None
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         if self.company_id.l10n_cl_dte_service_provider == 'SIIDEMO':
             self.message_post(body=_('This DTE has been generated in DEMO Mode. It is considered as accepted and '
                                      'it won\'t be sent to SII.'))
@@ -53,7 +53,7 @@ class AccountMove(models.Model):
             self.company_id.vat,
             self.l10n_cl_sii_send_file.name,
             base64.b64decode(self.l10n_cl_sii_send_file.datas),
-            digital_signature
+            digital_signature_sudo
         )
         if not response:
             return None
@@ -68,12 +68,12 @@ class AccountMove(models.Model):
         if not self.l10n_latam_document_type_id._is_doc_type_ticket():
             return super().l10n_cl_verify_dte_status(send_dte_to_partner)
 
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         response = self._get_send_status_rest(
             self.company_id.l10n_cl_dte_service_provider,
             self.l10n_cl_sii_send_ident,
             self._l10n_cl_format_vat(self.company_id.vat),
-            digital_signature)
+            digital_signature_sudo)
         if not response:
             self.l10n_cl_dte_status = 'ask_for_status'
             return None

@@ -454,22 +454,22 @@ class Picking(models.Model):
                                                                   int(self.l10n_latam_document_number))
         dte_barcode_xml = self._l10n_cl_get_dte_barcode_xml(caf_file)
         dte = self.env['ir.qweb']._render(self._get_dte_template().id, self._prepare_dte_values())
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         signed_dte = self._sign_full_xml(
-            dte, digital_signature, doc_id_number, 'doc', self.l10n_latam_document_type_id._is_doc_type_voucher())
+            dte, digital_signature_sudo, doc_id_number, 'doc', self.l10n_latam_document_type_id._is_doc_type_voucher())
 
         return dte_barcode_xml['barcode'], signed_dte
 
     def _l10n_cl_get_dte_envelope(self, receiver_rut='60803000-K'):
         file_name = 'F{}T{}.xml'.format(self.l10n_latam_document_number, self.l10n_latam_document_type_id.code)
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         # Guia is always DTE
         dte = self.l10n_cl_dte_file.raw.decode('ISO-8859-1')
         dte = Markup(dte.replace('<?xml version="1.0" encoding="ISO-8859-1" ?>', ''))
         dte_rendered = self.env['ir.qweb']._render('l10n_cl_edi.envio_dte', {
             'move': self, # Only needed for the name of the document type
             'RutEmisor': self._l10n_cl_format_vat(self.company_id.vat),
-            'RutEnvia': digital_signature.subject_serial_number,
+            'RutEnvia': digital_signature_sudo.subject_serial_number,
             'RutReceptor': receiver_rut,
             'FchResol': self.company_id.l10n_cl_dte_resolution_date,
             'NroResol': self.company_id.l10n_cl_dte_resolution_number,
@@ -478,7 +478,7 @@ class Picking(models.Model):
             '__keep_empty_lines': True,
         })
         dte_signed = self._sign_full_xml(
-            dte_rendered, digital_signature, 'SetDoc',
+            dte_rendered, digital_signature_sudo, 'SetDoc',
             self.l10n_latam_document_type_id._is_doc_type_voucher() and 'bol' or 'env',
             self.l10n_latam_document_type_id._is_doc_type_voucher()
         )
@@ -528,7 +528,7 @@ class Picking(models.Model):
         # To avoid double send on double-click
         if self.l10n_cl_dte_status != "not_sent":
             return None
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         if self.company_id.l10n_cl_dte_service_provider == 'SIIDEMO':
             self.message_post(body=_('This DTE has been generated in DEMO Mode. It is considered as accepted and '
                                      'it won\'t be sent to SII.'))
@@ -540,7 +540,7 @@ class Picking(models.Model):
             self.company_id.vat,
             self.l10n_cl_sii_send_file.name,
             base64.b64decode(self.l10n_cl_sii_send_file.datas),
-            digital_signature
+            digital_signature_sudo
         )
         if not response:
             return None
@@ -549,7 +549,7 @@ class Picking(models.Model):
         self.l10n_cl_sii_send_ident = response_parsed.findtext('TRACKID')
         sii_response_status = response_parsed.findtext('STATUS')
         if sii_response_status == '5':
-            digital_signature.last_token = False
+            digital_signature_sudo.last_token = False
             _logger.warning('The response status is %s. Clearing the token.',
                           self._l10n_cl_get_sii_reception_status_message(sii_response_status))
             if retry_send:
@@ -565,21 +565,21 @@ class Picking(models.Model):
                                self._l10n_cl_get_sii_reception_status_message(sii_response_status)))
 
     def _l10n_cl_verify_dte_status(self, send_dte_to_partner=True):
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         response = self._get_send_status(
             self.company_id.l10n_cl_dte_service_provider,
             self.l10n_cl_sii_send_ident,
             self._l10n_cl_format_vat(self.company_id.vat),
-            digital_signature)
+            digital_signature_sudo)
         if not response:
             self.l10n_cl_dte_status = 'ask_for_status'
-            digital_signature.last_token = False
+            digital_signature_sudo.last_token = False
             return None
 
         response_parsed = etree.fromstring(response.encode('utf-8'))
 
         if response_parsed.findtext('{http://www.sii.cl/XMLSchema}RESP_HDR/ESTADO') in ['001', '002', '003']:
-            digital_signature.last_token = False
+            digital_signature_sudo.last_token = False
             _logger.error('Token is invalid.')
             return
 
