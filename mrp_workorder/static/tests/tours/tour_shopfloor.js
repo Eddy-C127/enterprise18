@@ -52,154 +52,158 @@ registry.category("web_tour.tours").add("test_shop_floor", {
         run: "click",
     },
     {
+        content: "Register production check",
+        trigger: ".modal:not(.o_inactive_modal) .btn.fa-plus",
+        in_modal: false,
+        run: "click",
+    },
+    {
+        content: "Validate production check",
+        trigger: '.modal:not(.o_inactive_modal) button:contains("Validate"):enabled',
+        in_modal: false,
+        run: "click",
+    },
+    {
+        trigger:
+            '.modal:not(.o_inactive_modal):contains(Instructions) button[barcode_trigger="NEXT"]',
+        in_modal: false,
+        run: "scan OBTNEXT",
+    },
+    {
+        trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Register legs")',
+        in_modal: false,
+    },
+    {
+        content: "Component not tracked registration and continue production",
+        trigger:
+            '.modal:not(.o_inactive_modal):contains(Register legs) button[barcode_trigger="CONT"]',
+        in_modal: false,
+        run: "click",
+    },
+    {
+        trigger: '.o_field_widget[name="qty_done"] input:value("0.00")',
+    },
+    {
+        content: "Add 2 units",
+        trigger: '.o_field_widget[name="qty_done"] input',
+        run: "edit 2 && click .modal-body",
+    },
+    {
+        trigger: '.o_field_widget[name="qty_done"] input:value("2.00")',
+    },
+    {
+        content: 'Click on "Validate"',
+        trigger: 'button[barcode_trigger="NEXT"]',
+        run: "click",
+    },
+    {
+        trigger: '.o_field_widget[name="lot_id"] input:value("NE1")',
+    },
+    {
+        trigger: 'div.o_field_widget[name="lot_id"] input ',
+        position: 'bottom',
+        run: "edit NE2",
+    },
+    {
+        trigger: `.ui-menu-item > a:contains("NE2")`,
+        run: "click",
+    },
+    {
+        trigger: 'button[barcode_trigger="CONT"]',
+        run: "click",
+    },
+    {
+        trigger: '.o_field_widget[name="lot_id"] input:value("NE1")',
+    },
+    {
+        trigger: 'button[barcode_trigger="NEXT"]',
+        run: "click",
+    },
+    {
+        trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Release")',
+        in_modal: false,
+    },
+    {
+        trigger: ".modal:not(.o_inactive_modal) .modal-header .btn-close",
+        in_modal: false,
+        run: "click",
+    },
+    {
         content: 'Open instruction',
         trigger: 'button:contains("Instructions")',
         run: "click",
-        },
-        {
-            content: "Register production check",
-            trigger: ".modal:not(.o_inactive_modal) .btn.fa-plus",
-            in_modal: false,
-            run: "click",
-        },
-        {
-            content: "Close production check",
-            trigger: ".modal:not(.o_inactive_modal) button.btn-close",
-            in_modal: false,
-            run: "click",
-        },
-        {
-            trigger: "body:not(:has(.modal))",
-        },
-        {
-            content: "Open instruction",
-            trigger: 'button:contains("Instructions")',
-            run: "click",
-        },
-        {
-            content: "Validate production check",
-            trigger: '.modal:not(.o_inactive_modal) button:contains("Validate")',
-            in_modal: false,
-            run: "click",
-        },
-        {
-            trigger:
-                '.modal:not(.o_inactive_modal):contains(Instructions) button[barcode_trigger="NEXT"]',
-            in_modal: false,
-            run: "click",
-        },
-        {
-            trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Register legs")',
-            in_modal: false,
-        },
-        {
-            content: "Component not tracked registration and continue production",
-            trigger:
-                '.modal:not(.o_inactive_modal):contains(Register legs) button[barcode_trigger="CONT"]',
-            in_modal: false,
-            run: "click",
-        },
-        {
-            trigger: '.o_field_widget[name="qty_done"] input:value("0.00")',
-        },
-        {
-            content: "Add 2 units",
-            trigger: '.o_field_widget[name="qty_done"] input',
-            run: "edit 2 && click .modal-body",
-        },
-        {
-            trigger: '.o_field_widget[name="qty_done"] input:value("2.00")',
-        },
-        {
-            content: 'Click on "Validate"',
-            trigger: 'button[barcode_trigger="NEXT"]',
-            run: "click",
-        },
-        {
-            trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Release")',
-            in_modal: false,
-        },
-        {
-            trigger: ".modal:not(.o_inactive_modal) .modal-header .btn-close",
-            in_modal: false,
-            run: "click",
-        },
-        {
-            content: 'Open instruction',
-            trigger: 'button:contains("Instructions")',
-            run: "click",
-        },
-        {
-            trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Release")',
-            in_modal: false,
-        },
-        {
-            trigger: '.modal:not(.o_inactive_modal) button[barcode_trigger="NEXT"]',
-            in_modal: false,
-            run: "click",
-        },
-        {
-            content: "Close first operation",
-            trigger: '.card-footer button[barcode_trigger="CLWO"]:contains(Mark as Done)',
-            in_modal: false,
-            run: "click",
-        },
-        {
-            content: "Navigate to next operation",
-            trigger: "button:contains(Next Operation)",
-            run: "click",
-        },
-        {
-            content: "Open the WO setting menu again",
-            trigger: '.o_mrp_display_record:contains("Release") .card-footer button.fa-gear',
-            run: "click",
-        },
-        {
-            content: "Add an operation button",
-            trigger: '.modal:not(.o_inactive_modal) button[name="addComponent"]',
-            in_modal: false,
-            run: "click",
-        },
-        {
-            content: "Add Color",
-            trigger: ".modal:not(.o_inactive_modal) .o_field_widget[name=product_id] input",
-            in_modal: false,
-            run: "edit color",
-        },
-        {
-            trigger: '.ui-menu-item > a:contains("Color")',
-            run: "click",
-            in_modal: false,
-        },
-        {
-            trigger: ".modal:not(.o_inactive_modal) button[name=add_product]",
-            in_modal: false,
-            run: "click",
-        },
-        {
-            trigger: "body:not(:has(.modal))",
-            in_modal: false,
-        },
-        {
-            trigger: "button[barcode_trigger=CLWO]:contains(Mark as Done)",
-            in_modal: false,
-            run: "click",
-        },
-        {
-            trigger: "button[barcode_trigger=CLMO]",
-            run: "click",
-        },
-        {
-            trigger: ".o_nocontent_help",
-        },
-        {
-            content: "Leave shopfloor",
-            trigger: ".o_home_menu .fa-sign-out",
-            run: "click",
-        },
-        {
-            trigger: ".o_apps",
-        },
+    },
+    {
+        trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Release")',
+        in_modal: false,
+    },
+    {
+        trigger: '.modal:not(.o_inactive_modal) button[barcode_trigger="NEXT"]',
+        in_modal: false,
+        run: "click",
+    },
+    {
+        content: "Close first operation",
+        trigger: '.card-footer button[barcode_trigger="CLWO"]:contains(Mark as Done)',
+        in_modal: false,
+        run: "click",
+    },
+    {
+        content: "Navigate to next operation",
+        trigger: "button:contains(Next Operation)",
+        run: "click",
+    },
+    {
+        content: "Open the WO setting menu again",
+        trigger: '.o_mrp_display_record:contains("Release") .card-footer button.fa-gear',
+        run: "click",
+    },
+    {
+        content: "Add an operation button",
+        trigger: '.modal:not(.o_inactive_modal) button[name="addComponent"]',
+        in_modal: false,
+        run: "click",
+    },
+    {
+        content: "Add Color",
+        trigger: ".modal:not(.o_inactive_modal) .o_field_widget[name=product_id] input",
+        in_modal: false,
+        run: "edit color",
+    },
+    {
+        trigger: '.ui-menu-item > a:contains("Color")',
+        run: "click",
+        in_modal: false,
+    },
+    {
+        trigger: ".modal:not(.o_inactive_modal) button[name=add_product]",
+        in_modal: false,
+        run: "click",
+    },
+    {
+        trigger: "body:not(:has(.modal))",
+        in_modal: false,
+    },
+    {
+        trigger: "button[barcode_trigger=CLWO]:contains(Mark as Done)",
+        in_modal: false,
+        run: "click",
+    },
+    {
+        trigger: "button[barcode_trigger=CLMO]",
+        run: "click",
+    },
+    {
+        trigger: ".o_nocontent_help",
+    },
+    {
+        content: "Leave shopfloor",
+        trigger: ".o_home_menu .fa-sign-out",
+        run: "click",
+    },
+    {
+        trigger: ".o_apps",
+    },
     ],
 });
 

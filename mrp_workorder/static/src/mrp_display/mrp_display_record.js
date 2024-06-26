@@ -603,6 +603,12 @@ export class MrpDisplayRecord extends Component {
             await this.model.orm.call(resModel, "button_start", [resId], {
                 context: { mrp_display: true },
             });
+            const checks = this.props.record.data.check_ids.records;
+            const current_check_id = this.props.record.data.current_quality_check_id[0];
+            if (checks.length && current_check_id) {
+                const check = checks.find((qc) => qc.data.id == current_check_id);
+                this.displayInstruction(check);
+            }
         } else if (shouldStop) {
             await this.model.orm.call(resModel, "stop_employee", [resId, [admin_id]]);
         }

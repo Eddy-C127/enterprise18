@@ -15,7 +15,7 @@
             </div>
             <t t-if="['register_consumed_materials', 'register_byproducts', 'register_production'].includes(recordData.test_type)" name="registerQualityCheck">
                 <div name="component_id" class="o_workorder_bar_content" t-esc="recordData.component_id[1]"/>
-                <div class="o_workorder_bar_content">
+                <div class="o_workorder_bar_content mt-3">
                     <div class="o_quantity row">
                         <span class="col-2">Quantity</span>
                         <span name="qty_done" class="o_field_widget text-end col-2 pe-2">

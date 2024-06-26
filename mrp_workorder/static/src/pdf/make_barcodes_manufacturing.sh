@@ -12,6 +12,7 @@ OBTFAIL
 OBTFINI
 OBTRECO
 OBTCONT
+OBTPRPL
 BARCODES
 
 cat > barcodesHeaders_TMP_FILE.ps << HEADER
@@ -27,6 +28,7 @@ cat > barcodesHeaders_TMP_FILE.ps << HEADER
 (FINISH STEPS) 79 347 showTitle
 (RECORD PRODUCTION) 336 347 showTitle
 (CONTINUE CONSUMPTION) 79 238 showTitle
+(PRINT LABEL) 336 238 showTitle
 HEADER
 
 cat barcodesHeaders_TMP_FILE.ps barcodes_TMP_FILE.ps | ps2pdf - - > barcodes_actions_Manufacturing.pdf
