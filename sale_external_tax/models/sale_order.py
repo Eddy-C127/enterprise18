@@ -31,6 +31,7 @@ class SaleOrder(models.Model):
                     'formatted_tax_group_base_amount': formatLang(self.env, order.amount_untaxed, currency_obj=currency),
                     'tax_group_id': 1,
                     'group_key': 1,
+                    'hide_base_amount': False,
                 }]
             }
             tax_totals['subtotals'] = [{
