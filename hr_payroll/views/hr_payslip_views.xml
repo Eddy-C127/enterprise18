@@ -114,10 +114,6 @@
                     <field name="warning_message" style="white-space: pre-wrap;"/>
                 </div>
                 <group col="4">
-                    <label for="date_from" string="Period"/>
-                    <div>
-                        <field name="date_from" class="oe_inline" readonly="state in ['cancel', 'done', 'paid']"/> - <field name="date_to" class="oe_inline" readonly="state in ['cancel', 'done', 'paid']"/>
-                    </div>
                     <field name="company_id" invisible="1"/>
                     <field name="contract_id" context="{'default_employee_id': employee_id}"
                         required="1" readonly="state in ['cancel', 'done', 'paid']"
@@ -138,6 +134,10 @@
                     <field name="use_worked_day_lines" invisible="1"/>
                     <field name="payment_report_filename" invisible="1"/>
                     <field name="payment_report" filename="payment_report_filename" invisible="not payment_report"/>
+                    <label for="date_from" string="Period"/>
+                    <div>
+                        <field name="date_from" class="oe_inline" readonly="state in ['cancel', 'done', 'paid']"/> - <field name="date_to" class="oe_inline" readonly="state in ['cancel', 'done', 'paid']"/>
+                    </div>
                 </group>
                 <notebook>
                     <page string="Worked Days &amp; Inputs" name="worked_days_input" class="o_hr_payroll_worked_days_input">
