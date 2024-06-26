@@ -209,7 +209,7 @@ services reception has been received as well.
         # To avoid double send on double-click
         if self.l10n_cl_dte_status != "not_sent":
             return None
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         if self.company_id.l10n_cl_dte_service_provider == 'SIIDEMO':
             self.message_post(body=_('This DTE has been generated in DEMO Mode. It is considered as accepted and it won\'t be sent to SII.'))
             self.l10n_cl_dte_status = 'accepted'
@@ -219,7 +219,7 @@ services reception has been received as well.
             self.company_id.vat,
             self.l10n_cl_sii_send_file.name,
             base64.b64decode(self.l10n_cl_sii_send_file.datas),
-            digital_signature,
+            digital_signature_sudo,
         )
         if not response:
             return None
@@ -246,7 +246,7 @@ services reception has been received as well.
         if self.l10n_cl_dte_status != "not_sent":
             return None
         _logger.info('Sending DTE for invoice with ID %s (name: %s)', self.id, self.name)
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         if self.company_id.l10n_cl_dte_service_provider == 'SIIDEMO':
             self.message_post(body=_('This DTE has been generated in DEMO Mode. It is considered as accepted and '
                                      'it won\'t be sent to SII.'))
@@ -258,7 +258,7 @@ services reception has been received as well.
             self.company_id.vat,
             self.l10n_cl_sii_send_file.name,
             base64.b64decode(self.l10n_cl_sii_send_file.datas),
-            digital_signature
+            digital_signature_sudo
         )
         if not response:
             return None
@@ -267,7 +267,7 @@ services reception has been received as well.
         self.l10n_cl_sii_send_ident = response_parsed.findtext('TRACKID')
         sii_response_status = response_parsed.findtext('STATUS')
         if sii_response_status == '5':
-            digital_signature.last_token = False
+            digital_signature_sudo.last_token = False
             _logger.warning('The response status is %s. Clearing the token.',
                           self._l10n_cl_get_sii_reception_status_message(sii_response_status))
             if retry_send:
@@ -289,12 +289,12 @@ services reception has been received as well.
             return self._l10n_cl_verify_dte_status_non_ticket(send_dte_to_partner=send_dte_to_partner)
 
     def _l10n_cl_verify_dte_status_ticket(self, send_dte_to_partner=True):
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         response = self._get_send_status_rest(
             self.company_id.l10n_cl_dte_service_provider,
             self.l10n_cl_sii_send_ident,
             self._l10n_cl_format_vat(self.company_id.vat),
-            digital_signature,
+            digital_signature_sudo,
         )
         if not response:
             self.l10n_cl_dte_status = 'ask_for_status'
@@ -309,21 +309,21 @@ services reception has been received as well.
         self.message_post(body=message_body)
 
     def _l10n_cl_verify_dte_status_non_ticket(self, send_dte_to_partner=True):
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         response = self._get_send_status(
             self.company_id.l10n_cl_dte_service_provider,
             self.l10n_cl_sii_send_ident,
             self._l10n_cl_format_vat(self.company_id.vat),
-            digital_signature)
+            digital_signature_sudo)
         if not response:
             self.l10n_cl_dte_status = 'ask_for_status'
-            digital_signature.last_token = False
+            digital_signature_sudo.last_token = False
             return None
 
         response_parsed = etree.fromstring(response.encode('utf-8'))
 
         if response_parsed.findtext('{http://www.sii.cl/XMLSchema}RESP_HDR/ESTADO') in ['001', '002', '003']:
-            digital_signature.last_token = False
+            digital_signature_sudo.last_token = False
             _logger.error('Token is invalid.')
             return
 
@@ -354,7 +354,7 @@ services reception has been received as well.
         response = self._get_dte_claim(
             self.company_id.l10n_cl_dte_service_provider,
             self.company_id.vat,
-            self.company_id._get_digital_signature(user_id=self.env.user.id),
+            self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id),
             self.l10n_latam_document_type_id.code,
             self.l10n_latam_document_number
         )
@@ -394,7 +394,7 @@ services reception has been received as well.
         }
         if not int(self.l10n_latam_document_number):
             raise UserError(_('Please check the document number'))
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         response = self.env['ir.qweb']._render('l10n_cl_edi.%s' % status_types[status_type].response_type, {
             'move': self,
             'doc_id': f'F{int(self.l10n_latam_document_number)}T{self.l10n_latam_document_type_id.code}',
@@ -404,12 +404,12 @@ services reception has been received as well.
             'dte_status': status_types[status_type].dte_status,
             'dte_glosa_status': status_types[status_type].dte_glosa_status,
             'code_rejected': status_types[status_type].code_rejected,
-            'signer_rut': digital_signature.subject_serial_number,
+            'signer_rut': digital_signature_sudo.subject_serial_number,
             'rec_address': f'{self.company_id.street}, {self.company_id.street2} {self.company_id.city}',
             '__keep_empty_lines': True,
         })
         signed_response = self._sign_full_xml(
-            response, digital_signature, '', status_types[status_type].env_type,
+            response, digital_signature_sudo, '', status_types[status_type].env_type,
             self.l10n_latam_document_type_id._is_doc_type_voucher())
         if status_type == 'goods':
             response = self.env['ir.qweb']._render('l10n_cl_edi.envio_receipt_dte', {
@@ -420,7 +420,7 @@ services reception has been received as well.
                 '__keep_empty_lines': True,
             })
             signed_response = self._sign_full_xml(
-                response, digital_signature, '', 'env_recep',
+                response, digital_signature_sudo, '', 'env_recep',
                 self.l10n_latam_document_type_id._is_doc_type_voucher())
         dte_attachment = self.env['ir.attachment'].create({
             'name': 'DTE_{}_{}.xml'.format(status_type, self.name),
@@ -470,11 +470,11 @@ services reception has been received as well.
             '&lt;', '<').replace('&gt;', '>').replace('&quot;', '"').replace(
             '<?xml version="1.0" encoding="ISO-8859-1" ?>', '')
         try:
-            digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+            digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         except Exception:
             raise Exception(_('There is no signature available to send acknowledge or acceptation of this DTE. '
                               'Please setup your digital signature'))
-        xml_ack = self._sign_full_xml(xml_ack_template, digital_signature, str(response_id),
+        xml_ack = self._sign_full_xml(xml_ack_template, digital_signature_sudo, str(response_id),
                                       'env_resp', self.l10n_latam_document_type_id._is_doc_type_voucher())
         attachment = self.env['ir.attachment'].create({
             'name': 'receipt_acknowledgment_{}.xml'.format(response_id),
@@ -514,11 +514,11 @@ services reception has been received as well.
         try:
             response = self._send_sii_claim_response(
                 self.company_id.l10n_cl_dte_service_provider, self.partner_id.vat,
-                self.company_id._get_digital_signature(user_id=self.env.user.id), self.l10n_latam_document_type_id.code,
+                self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id), self.l10n_latam_document_type_id.code,
                 self.l10n_latam_document_number, action_response[status_type].code)
         except InvalidToken:
-            digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
-            digital_signature.last_token = None
+            digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
+            digital_signature_sudo.last_token = None
             return self.l10n_cl_accept_document()
         if not response:
             return None
@@ -583,9 +583,9 @@ services reception has been received as well.
             'dte': dte_barcode_xml['ted'],
             '__keep_empty_lines': True,
         })
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         signed_dte = self._sign_full_xml(
-            dte, digital_signature, doc_id_number, 'doc', self.l10n_latam_document_type_id._is_doc_type_voucher())
+            dte, digital_signature_sudo, doc_id_number, 'doc', self.l10n_latam_document_type_id._is_doc_type_voucher())
         dte_attachment = self.env['ir.attachment'].create({
             'name': 'DTE_{}.xml'.format(self.name),
             'res_model': self._name,
@@ -612,7 +612,7 @@ services reception has been received as well.
 
     def _l10n_cl_create_dte_envelope(self, receiver_rut='60803000-K'):
         file_name = 'F{}T{}.xml'.format(self.l10n_latam_document_number, self.l10n_latam_document_type_id.code)
-        digital_signature = self.company_id._get_digital_signature(user_id=self.env.user.id)
+        digital_signature_sudo = self.company_id.sudo()._get_digital_signature(user_id=self.env.user.id)
         template = self.l10n_latam_document_type_id._is_doc_type_voucher() and self.env.ref(
             'l10n_cl_edi.envio_boleta') or self.env.ref('l10n_cl_edi.envio_dte')
         dte = self.l10n_cl_dte_file.raw.decode('ISO-8859-1')
@@ -620,7 +620,7 @@ services reception has been received as well.
         dte_rendered = self.env['ir.qweb']._render(template.id, {
             'move': self,
             'RutEmisor': self._l10n_cl_format_vat(self.company_id.vat),
-            'RutEnvia': digital_signature.subject_serial_number,
+            'RutEnvia': digital_signature_sudo.subject_serial_number,
             'RutReceptor': receiver_rut,
             'FchResol': self.company_id.l10n_cl_dte_resolution_date,
             'NroResol': self.company_id.l10n_cl_dte_resolution_number,
@@ -630,7 +630,7 @@ services reception has been received as well.
         })
         dte_rendered = dte_rendered.replace('<?xml version="1.0" encoding="ISO-8859-1" ?>', '')
         dte_signed = self._sign_full_xml(
-            dte_rendered, digital_signature, 'SetDoc',
+            dte_rendered, digital_signature_sudo, 'SetDoc',
             self.l10n_latam_document_type_id._is_doc_type_voucher() and 'bol' or 'env',
             self.l10n_latam_document_type_id._is_doc_type_voucher()
         )
