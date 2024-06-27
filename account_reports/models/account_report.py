@@ -5485,7 +5485,7 @@ class AccountReport(models.Model):
                                 tag_ids = [tag_ids]
 
                             if operand[1] in ('=', 'in'):
-                                tag_ids_to_browse = [tag_id for tag_id in tag_ids if tag_id in tag_ids_linked_to_account]
+                                tag_ids_to_browse = [tag_id for tag_id in tag_ids if tag_id not in tag_ids_linked_to_account]
                                 for tag in self.env['account.account.tag'].browse(tag_ids_to_browse):
                                     lines_per_non_linked_tag[f'{tag.name} ({tag.id})'] |= expr.report_line_id
                             else:
