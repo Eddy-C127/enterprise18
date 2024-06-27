@@ -325,7 +325,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 array[10] = receipt1[-36:]
                 array[11] = receipt2
                 array[13] = aml.name or ref
-                if options.get('add_attachments') and m.attachment_ids:
+                if options.get('add_attachments') and m._get_mail_thread_data_attachments():
                     array[19] = f'BEDI"{m._l10n_de_datev_get_guid()}"'
                 lines.append(array)
             # In case of epd we actively fix rounding issues by checking the base line and tax line

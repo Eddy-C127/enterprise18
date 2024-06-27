@@ -3,6 +3,7 @@ from odoo import Command, fields
 from odoo.tests import tagged
 from odoo.tools import pycompat
 import zipfile
+from freezegun import freeze_time
 from io import BytesIO
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
@@ -707,3 +708,63 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.assertIn(['5,67', 'h', 'EUR', '26700000', '12010000', self.tax_19.l10n_de_datev_code, '212', payment_move.name, "Early Payment Discount"], data)
+
+    @freeze_time('2021-01-02 18:00')
+    def test_datev_out_invoice_with_attch(self):
+        report = self.env.ref('account_reports.general_ledger_report')
+        options = report.get_options()
+        options['date'].update({
+            'date_from': '2020-01-01',
+            'date_to': '2020-12-31',
+        })
+
+        move = self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'partner_id': self.env['res.partner'].create({'name': 'Res Partner 12'}).id,
+            'invoice_date': fields.Date.to_date('2020-12-01'),
+            'invoice_line_ids': [
+                Command.create({
+                    'price_unit': 100,
+                    'account_id': self.account_4980.id,
+                    'tax_ids': [Command.set(self.tax_19.ids)],
+                }),
+            ]
+        }])
+        move.action_post()
+        self.env['account.move.send'] \
+            .with_context(active_model='account.move', active_ids=move.ids) \
+            .create({}).action_send_and_print()
+        move.line_ids.flush_recordset()
+
+        move_guid = move._l10n_de_datev_get_guid()
+
+        with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10_de_datev_export_to_zip_and_attach(options)['file_content']), 'r') as zf:
+            xml = zf.open('document.xml').read()
+            csv = zf.open('EXTF_accounting_entries.csv')
+            reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
+            csv_data = list(reader)[2]
+
+        self.assertEqual(f'BEDI"{move_guid}"', csv_data[19])
+
+        # xml document is generated during tests because of an override in _hook_invoice_document_after_pdf_report_render
+        expected_tree = f"""
+        <archive xmlns="http://xml.datev.de/bedi/tps/document/v06.0"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://xml.datev.de/bedi/tps/document/v06.0 Document_v060.xsd"
+                     version="6.0"
+                     generatingSystem="Odoo">
+            <header>
+                <date>2021-01-02T18:00:00</date>
+            </header>
+            <content>
+                <document guid="{move_guid}" processID="1" type="2">
+                    <extension xsi:type="File" name="INV-2020-00001-1.xml"></extension>
+                </document>
+                <document guid="{move_guid}" processID="1" type="2">
+                    <extension xsi:type="File" name="INV-2020-00001-2.pdf"></extension>
+                </document>
+            </content>
+        </archive>
+        """
+
+        self.assertXmlTreeEqual(self.get_xml_tree_from_string(xml), self.get_xml_tree_from_string(expected_tree))
