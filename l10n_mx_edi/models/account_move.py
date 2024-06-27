@@ -1728,7 +1728,7 @@ class AccountMove(models.Model):
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         # == Send ==
         def on_populate(cfdi_values):
@@ -1782,7 +1782,7 @@ class AccountMove(models.Model):
             return
 
         # == Lock ==
-        document._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
         is_test_env = cfdi_values['root_company'].l10n_mx_edi_pac_test_env
@@ -2009,7 +2009,7 @@ class AccountMove(models.Model):
         qweb_template = self.env['l10n_mx_edi.document']._get_payment_cfdi_template()
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self + invoices)
+        self.env['res.company']._with_locked_records(self + invoices)
 
         # == Send ==
         def on_populate(cfdi_values):
@@ -2051,7 +2051,7 @@ class AccountMove(models.Model):
         cancel_reason = '01' if cancel_uuid else '02'
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self + document.invoice_ids)
+        self.env['res.company']._with_locked_records(self + document.invoice_ids)
 
         # == Cancel ==
         def on_failure(error):
@@ -2205,7 +2205,7 @@ class AccountMove(models.Model):
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(invoices)
+        self.env['res.company']._with_locked_records(invoices)
 
         # == Send ==
         def on_populate(cfdi_values):
@@ -2254,7 +2254,7 @@ class AccountMove(models.Model):
                 )
             )
 
-            self.env['l10n_mx_edi.document']._with_locked_records(cfdi_values['sequence'])
+            self.env['res.company']._with_locked_records(cfdi_values['sequence'])
             return cfdi_values['sequence']
 
         def on_failure(error, cfdi_filename=None, cfdi_str=None):
@@ -2310,7 +2310,7 @@ class AccountMove(models.Model):
         :param cancel_reason:   The reason for the cancellation.
         """
         # == Lock ==
-        document._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         # == Cancel ==
         def on_failure(error):

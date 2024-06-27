@@ -10,7 +10,6 @@ from collections import defaultdict
 from datetime import datetime
 from json.decoder import JSONDecodeError
 from lxml import etree
-from psycopg2 import OperationalError
 from odoo.tools.zeep import Client
 
 from odoo import _, api, models, modules, fields, tools
@@ -1039,21 +1038,6 @@ class L10nMxEdiDocument(models.Model):
                 values.pop(k)
 
         clean_node(cfdi_values)
-
-    def _with_locked_records(self, records):
-        """ To avoid sending multiple times the same CFDI from different transactions,
-        we use this generic method to lock the records passed as parameter.
-
-        :param records: The records to lock.
-        """
-        try:
-            with self.env.cr.savepoint(flush=False):
-                self._cr.execute(f'SELECT * FROM {records._table} WHERE id IN %s FOR UPDATE NOWAIT', [tuple(records.ids)])
-        except OperationalError as e:
-            if e.pgcode == '55P03':
-                raise UserError(_("Some documents are being sent by another process already."))
-            else:
-                raise
 
     # -------------------------------------------------------------------------
     # GLOBAL CFDI
