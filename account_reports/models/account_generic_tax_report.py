@@ -517,8 +517,16 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
     _inherit = 'account.tax.report.handler'
     _description = 'Generic Tax Report Custom Handler'
 
+    def _get_custom_display_config(self):
+        return {
+            'css_custom_class': 'generic_tax_report',
+            'templates': {
+                'AccountReportLineName': 'account_reports.TaxReportLineName',
+            },
+        }
+
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        return self._get_dynamic_lines(report, options, 'default')
+        return self._get_dynamic_lines(report, options, 'default', warnings)
 
     def _caret_options_initializer(self):
         return {
@@ -527,7 +535,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
             ]
         }
 
-    def _get_dynamic_lines(self, report, options, grouping):
+    def _get_dynamic_lines(self, report, options, grouping, warnings=None):
         """ Compute the report lines for the generic tax report.
 
         :param options: The report options.
@@ -587,6 +595,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
             sorting_map_list,
             groupby_fields,
             tax_amount_hierarchy,
+            warnings=warnings,
         )
         return lines
 
@@ -906,7 +915,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
 
         return res
 
-    def _populate_lines_recursively(self, report, options, lines, sorting_map_list, groupby_fields, values_node, index=0, type_tax_use=None, parent_line_id=None):
+    def _populate_lines_recursively(self, report, options, lines, sorting_map_list, groupby_fields, values_node, index=0, type_tax_use=None, parent_line_id=None, warnings=None):
         ''' Populate the list of report lines passed as parameter recursively. At this point, every amounts is already
         fetched for every periods and every groupby.
 
@@ -918,6 +927,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
         :param values_node:         The node containing the amounts and children into the hierarchy.
         :param type_tax_use:        The type_tax_use of the tax.
         :param parent_line_id:      The line id of the parent line (if any)
+        :param warnings             The warnings dictionnary.
         '''
         if index == len(groupby_fields):
             return
@@ -976,7 +986,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                 'level': index if index == 0 else index + 1,
                 'unfoldable': False,
             }
-            report_line = self._build_report_line(report, options, default_vals, groupby_key, sorting_map[key][0], parent_line_id)
+            report_line = self._build_report_line(report, options, default_vals, groupby_key, sorting_map[key][0], parent_line_id, warnings)
 
             if groupby_key == 'src_tax_id':
                 report_line['caret_options'] = 'generic_tax_report'
@@ -994,15 +1004,17 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                 index=index + 1,
                 type_tax_use=type_tax_use,
                 parent_line_id=report_line['id'],
+                warnings=warnings,
             )
 
-    def _build_report_line(self, report, options, default_vals, groupby_key, value, parent_line_id):
+    def _build_report_line(self, report, options, default_vals, groupby_key, value, parent_line_id, warnings=None):
         """ Build the report line accordingly to its type.
         :param options:         The report options.
         :param default_vals:    The pre-computed report line values.
         :param groupby_key:     The grouping_key record.
         :param value:           The value that could be a record.
         :param parent_line_id   The line id of the parent line (if any, can be None otherwise)
+        :param warnings:        The warnings dictionary.
         :return:                A python dictionary.
         """
         report_line = dict(default_vals)
@@ -1020,6 +1032,9 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
 
             if tax.amount_type == 'percent':
                 report_line['name'] = f"{tax.name} ({tax.amount}%)"
+
+                if warnings is not None:
+                    self._check_line_consistency(report, options, report_line, tax, warnings)
             elif tax.amount_type == 'fixed':
                 report_line['name'] = f"{tax.name} ({tax.amount})"
             else:
@@ -1038,6 +1053,24 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                 report_line['name'] = account.display_name
 
         return report_line
+
+    def _check_line_consistency(self, report, options, report_line, tax, warnings=None):
+        tax_details = tax._prepare_dict_for_taxes_computation()
+        tax_applied = tax_details['amount'] * tax_details['_factor'] / 100
+
+        for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
+            net_value = next((col['no_format'] for col in report_line['columns'] if col['column_group_key'] == column_group_key and col['expression_label'] == 'net'), 0)
+            tax_value = next((col['no_format'] for col in report_line['columns'] if col['column_group_key'] == column_group_key and col['expression_label'] == 'tax'), 0)
+
+            currency = self.env.company.currency_id
+            computed_tax_amount = float(net_value or 0) * tax_applied
+            is_inconsistent = currency.compare_amounts(computed_tax_amount, tax_value)
+
+            if is_inconsistent:
+                report_line['alert'] = True
+                warnings['account_reports.tax_report_warning_lines_consistency'] = {'alert_type': 'danger'}
+
+                return
 
      # -------------------------------------------------------------------------
      # BUTTONS & CARET OPTIONS
@@ -1098,7 +1131,7 @@ class GenericTaxReportCustomHandlerAT(models.AbstractModel):
     _description = 'Generic Tax Report Custom Handler (Account -> Tax)'
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        return super()._get_dynamic_lines(report, options, 'account_tax')
+        return super()._get_dynamic_lines(report, options, 'account_tax', warnings)
 
 
 class GenericTaxReportCustomHandlerTA(models.AbstractModel):
@@ -1107,4 +1140,4 @@ class GenericTaxReportCustomHandlerTA(models.AbstractModel):
     _description = 'Generic Tax Report Custom Handler (Tax -> Account)'
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        return super()._get_dynamic_lines(report, options, 'tax_account')
+        return super()._get_dynamic_lines(report, options, 'tax_account', warnings)
