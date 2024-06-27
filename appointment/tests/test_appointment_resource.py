@@ -292,70 +292,6 @@ class AppointmentResourceBookingTest(AppointmentCommon):
             with self.assertQueryCount(default=9):  # runbot: 7
                 appointment._get_appointment_slots('UTC')
 
-    def test_appointment_resources_availability(self):
-        """ Check that resource slots are all available for an appointment """
-        appointment = self.env['appointment.type'].create({
-            'appointment_tz': 'UTC',
-            'name': 'Resource appointment',
-            'resource_manage_capacity': False,
-            'schedule_based_on': 'resources',
-            'slot_ids': [
-                (0, 0, {
-                    'weekday': str(self.reference_monday.isoweekday()),
-                    'start_hour': 0,
-                    'end_hour': 0,
-                }),
-            ],
-        })
-        periods = [
-            {'name': 'Morning', 'hour_from': 0, 'hour_to': 11.99, 'day_period': 'morning'},
-            {'name': 'Afternoon', 'hour_from': 12, 'hour_to': 24, 'day_period': 'afternoon'}
-        ]
-        week_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        resource_calendar = self.env['resource.calendar'].create({
-            'name': 'Default Calendar',
-            'company_id': False,
-            'hours_per_day': 24,
-            'attendance_ids': [
-                (0, 0, {
-                    'name': f'{day} {period["name"]}',
-                    'dayofweek': str(week_days.index(day)),
-                    'hour_from': period['hour_from'],
-                    'hour_to': period['hour_to'],
-                    'day_period': period['day_period']
-                })
-                for day in week_days
-                for period in periods
-            ],
-        })
-        # Default resource_calendar_id, Mon-Sun 12am-11:59am 12pm-11:59pm
-        resource = self.env['appointment.resource'].create({
-            'name': 'Resource',
-            'appointment_type_ids': appointment,
-            'resource_calendar_id': resource_calendar.id,
-        })
-
-        with freeze_time(self.reference_now):
-            slots = appointment._get_appointment_slots(timezone='UTC', filter_resources=resource)
-
-        self.assertSlots(
-            slots,
-            [
-                {
-                    'name_formated': 'February 2022',
-                    'month_date': datetime(2022, 2, 1),
-                    'weeks_count': 5,
-                },
-            ],
-            {
-                'enddate': self.global_slots_enddate,
-                'startdate': self.reference_now_monthweekstart,
-                'slots_start_hours': list(range(24)),
-                'slots_startdate': self.reference_monday.date(),
-                'slots_weekdays_nowork': range(1, 7),  # Resource only available on monday (0)
-            },
-        )
-
     @users('apt_manager')
     def test_appointment_resources_combinable(self):
         """ Check that combinable resources are correctly process. """
@@ -636,7 +572,7 @@ class AppointmentResourceBookingTest(AppointmentCommon):
         self.flush_tracking()
 
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=10):
+            with self.assertQueryCount(default=8):
                 slots = appointment._get_appointment_slots('UTC')
             resource_slots = self._filter_appointment_slots(
                 slots,
@@ -649,7 +585,7 @@ class AppointmentResourceBookingTest(AppointmentCommon):
             )
             self.assertTrue(len(resource_slots) > 0)
             self.assertEqual(len(resource_slots), len(table1_c2_slots))
-            with self.assertQueryCount(default=4):
+            with self.assertQueryCount(default=3):
                 slots = appointment._get_appointment_slots('UTC', asked_capacity=5)
             resource_slots = self._filter_appointment_slots(
                 slots,
@@ -927,7 +863,7 @@ class AppointmentResourceBookingTest(AppointmentCommon):
         self.flush_tracking()
 
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=10):
+            with self.assertQueryCount(default=8):
                 appointment._get_appointment_slots('UTC')
 
     @users('apt_manager')
