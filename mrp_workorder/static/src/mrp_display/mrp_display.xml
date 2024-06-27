@@ -43,10 +43,20 @@
                             </div>
                         </t>
                     </MrpDisplaySearchBar>
-                    <button class="btn btn-light fa fa-refresh" t-on-click="onClickRefresh"/>
-                    <button class="o_home_menu btn btn-light text-nowrap" t-on-click="close">
-                        <i class="fa fa-lg fa-sign-out me-md-1"/><span class="d-none d-md-inline">Close</span>
-                    </button>
+                    <div class="flex flex-column">
+                        <div class="flex mb-1">
+                            <button class="btn btn-light fa fa-refresh" t-on-click="onClickRefresh"/>
+                            <button class="o_home_menu btn btn-light text-nowrap" t-on-click="close">
+                                <i class="fa fa-lg fa-sign-out me-md-1"/><span class="d-none d-md-inline">Close</span>
+                            </button>
+                        </div>
+                        <Pager
+                            t-if="model.root.count > model.root.limit"
+                            total="model.root.count"
+                            offset="model.root.offset"
+                            limit="model.root.limit"
+                            onUpdate.bind="_onPagerChanged"/>
+                    </div>
                 </t>
                 <MrpDisplayEmployeesPanel t-if="this.group_mrp_routings &amp;&amp; state.showEmployeesPanel" employees="useEmployee.employees"
                     setSessionOwner.bind="changeAdmin"
