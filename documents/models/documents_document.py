@@ -703,6 +703,14 @@ class Document(models.Model):
         except Exception:
             return False
 
+    @api.model
+    def get_support_folder_id(self):
+        if self.env.user.has_group('documents.group_documents_manager'):
+            folder = self.env.ref('documents.documents_support_folder', raise_if_not_found=False)
+            if folder.active:
+                return folder.id
+        return None
+
     def unlink(self):
         """Remove its folder when deleting a document to ensure we don't retain unnecessary folders in the database.
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.ErrorDialog" t-inherit-mode="extension">
+        <xpath expr="//t[@t-set-slot='footer']//button" position="after">
+            <button t-if="folderId" class="btn btn-secondary ms-auto ms-md-2" t-on-click="shareTraceback" t-att-disabled="state.shared">Share</button>
+            <div t-if="state.shareUrl" class="o_field_widget o_readonly_modifier o_field_CopyClipboardChar ms-0 ms-md-2 w-md-auto w-100">
+                <div class="d-grid rounded-2 overflow-hidden">
+                    <span t-out="state.shareUrl"/>
+                    <CopyButton className="'o_btn_char_copy btn-sm'" content="state.shareUrl" successText="copiedText" icon="'fa-clone'"/>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

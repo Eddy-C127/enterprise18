@@ -65,6 +65,7 @@ App to upload and manage your documents.
             'documents/static/src/owl/**/*',
             'documents/static/src/views/**/*',
             ('remove', 'documents/static/src/views/activity/**'),
+            ('after', 'web/static/src/core/errors/error_dialogs.xml', 'documents/static/src/web/error_dialog/error_dialog_patch.xml'),
             'documents/static/src/web/**/*',
         ],
         'web.assets_backend_lazy': [
@@ -92,11 +93,15 @@ App to upload and manage your documents.
         'web.assets_tests': [
             'documents/static/tests/tours/*',
         ],
+        'web.assets_unit_tests': [
+            'documents/static/tests/error_dialog_patch.test.js',
+        ],
         'web.qunit_suite_tests': [
             'documents/static/tests/**/*',
             ('remove', 'documents/static/tests/**/*mobile_tests.js'),
             ('remove', 'documents/static/tests/helpers/**/*'),
             ('remove', 'documents/static/tests/tours/*'),
+            ('remove', 'documents/static/tests/error_dialog_patch.test.js'),
         ],
         'web.qunit_mobile_suite_tests': [
             'documents/static/tests/documents_test_utils.js',

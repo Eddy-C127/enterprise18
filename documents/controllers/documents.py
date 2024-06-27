@@ -144,6 +144,16 @@ class ShareRoute(http.Controller):
 
         return request.make_json_response(result)
 
+    @http.route('/documents/upload_traceback', type='http', methods=['POST'], auth="user")
+    def upload_traceback(self, folder_id, ufile):
+        response = self.upload_document(folder_id, ufile, [])
+        result = {
+            'success': _("Traceback file uploaded"),
+            'id': response.json['ids'][0],
+            'folder_id': int(folder_id),
+        }
+        return request.make_json_response(result)
+
     @http.route('/documents/pdf_split', type='http', methods=['POST'], auth="user")
     def pdf_split(self, new_files=None, ufile=None, archive=False, vals=None):
         """Used to split and/or merge pdf documents.

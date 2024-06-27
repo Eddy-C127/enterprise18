@@ -25,4 +25,10 @@
         <field name="name">Marketing</field>
         <field name="sequence">13</field>
     </record>
+
+    <record id="documents_support_folder" model="documents.folder" forcecreate="True">
+        <field name="name">Support</field>
+        <field name="sequence">99</field>
+        <field name="read_group_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
 </data></odoo>
