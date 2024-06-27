@@ -109,7 +109,7 @@ test("List name can be changed from the dialog", async () => {
         },
     });
     await invokeInsertListInSpreadsheetDialog(env);
-    await contains(".o_spreadsheet_name").edit("New name");
+    await contains(".o_sp_name").edit("New name");
     await contains(".modal button.btn-primary").click();
     const model = getSpreadsheetActionModel(spreadsheetAction);
     await waitForDataLoaded(model);
@@ -121,7 +121,7 @@ test("Unsorted List name doesn't contains sorting info", async function () {
     const { env } = await spawnListViewForSpreadsheet();
 
     await invokeInsertListInSpreadsheetDialog(env);
-    expect(".o_spreadsheet_name").toHaveValue("Partners");
+    expect(".o_sp_name").toHaveValue("Partners");
 });
 
 test("Sorted List name contains sorting info", async function () {
@@ -130,7 +130,7 @@ test("Sorted List name contains sorting info", async function () {
     });
 
     await invokeInsertListInSpreadsheetDialog(env);
-    expect(".o_spreadsheet_name").toHaveValue("Partners by Bar");
+    expect(".o_sp_name").toHaveValue("Partners by Bar");
 });
 
 test("List name is not changed if the name is empty", async () => {
@@ -144,7 +144,7 @@ test("List name is not changed if the name is empty", async () => {
         },
     });
     await invokeInsertListInSpreadsheetDialog(env);
-    target.querySelector(".o_spreadsheet_name").value = "";
+    target.querySelector(".o_sp_name").value = "";
     await contains(".modal button.btn-primary").click();
     const model = getSpreadsheetActionModel(spreadsheetAction);
     await waitForDataLoaded(model);

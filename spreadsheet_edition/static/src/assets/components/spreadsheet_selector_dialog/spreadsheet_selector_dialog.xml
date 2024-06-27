@@ -7,7 +7,7 @@
                 <div class="o-sp-dialog-meta-container">
                     <div class="o-sp-dialog-meta-name">
                         <div class="o-sp-dialog-meta-name-label" t-esc="nameLabel"/>
-                        <input type="text" class="o_input o_spreadsheet_name" t-model="state.name"/>
+                        <input type="text" class="o_input o_sp_name" t-model="state.name"/>
                     </div>
                     <div t-if="props.type === 'LIST'" class="o-sp-dialog-meta-threshold">
                         <div class="o-sp-dialog-meta-threshold-text">Insert the first</div>

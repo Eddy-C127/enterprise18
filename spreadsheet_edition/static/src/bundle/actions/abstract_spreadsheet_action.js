@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import { _t } from "@web/core/l10n/translation";
 import { onMounted, onWillStart, useState, Component, useSubEnv, onWillUnmount } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
@@ -38,6 +37,7 @@ const { useStoreProvider, ModelStore, SidePanelStore } = spreadsheet.stores;
 export class AbstractSpreadsheetAction extends Component {
     static template = "";
     static props = { ...standardActionServiceProps };
+    static target = "fullscreen";
 
     setup() {
         if (!this.props.action.params) {
@@ -94,6 +94,7 @@ export class AbstractSpreadsheetAction extends Component {
             insertThreadInSheet: this.insertThreadInSheet.bind(this),
             print,
             getLinesNumber: this._getLinesNumber.bind(this),
+            getUserLocale: () => this.record && this.record.user_locale,
         });
         this.state = useState({
             spreadsheetName: UNTITLED_SPREADSHEET_NAME,
@@ -126,13 +127,11 @@ export class AbstractSpreadsheetAction extends Component {
         });
     }
 
-    get controlPanelProps() {
+    get navbarProps() {
         return {
-            model: this.model,
             isReadonly: this.isReadonly,
             onSpreadsheetNameChanged: this._onSpreadSheetNameChanged.bind(this),
             spreadsheetName: this.state.spreadsheetName,
-            userLocale: this.record.user_locale,
         };
     }
 

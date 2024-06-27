@@ -88,7 +88,7 @@ test("open spreadsheet with deprecated `active_id` params", async function () {
     expect.verifySteps(["spreadsheet-loaded"]);
 });
 
-test("breadcrumb is rendered in control panel", async function () {
+test("breadcrumb is rendered the navbar", async function () {
     const actions = {
         1: {
             id: 1,
@@ -116,13 +116,13 @@ test("breadcrumb is rendered in control panel", async function () {
             spreadsheet_id: 1,
         },
     });
-    expect("ol.breadcrumb").toHaveText("Documents", {
+    expect(".o_navbar .o-sp-breadcrumb").toHaveText("Documents", {
         message: "It should display the breadcrumb",
     });
-    expect(".o_breadcrumb input").toHaveValue("My spreadsheet", {
+    expect(".o_navbar .o_sp_name input").toHaveValue("My spreadsheet", {
         message: "It should display the spreadsheet title",
     });
-    expect(".o_breadcrumb .o_spreadsheet_favorite").toHaveCount(1, {
+    expect(".o_navbar .o-sp-favorite").toHaveCount(1, {
         message: "It should display the favorite toggle button",
     });
 });

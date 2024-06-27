@@ -24,27 +24,27 @@ beforeEach(() => {
 
 test("spreadsheet with generic untitled name is styled", async function () {
     await createSpreadsheet();
-    const input = target.querySelector(".o_spreadsheet_name input");
-    expect(input).toHaveClass("o-spreadsheet-untitled", {
+    const input = target.querySelector(".o_sp_name input");
+    expect(input).toHaveClass("o-sp-untitled", {
         message: "It should be styled as untitled",
     });
     await contains(input).edit("My");
-    expect(input).not.toHaveClass("o-spreadsheet-untitled", {
+    expect(input).not.toHaveClass("o-sp-untitled", {
         message: "It should not be styled as untitled",
     });
     await contains(input).edit("Untitled spreadsheet");
-    expect(input).toHaveClass("o-spreadsheet-untitled", {
+    expect(input).toHaveClass("o-sp-untitled", {
         message: "It should be styled as untitled",
     });
     await contains(input).edit("");
-    expect(input).toHaveClass("o-spreadsheet-untitled", {
+    expect(input).toHaveClass("o-sp-untitled", {
         message: "It should be styled as untitled",
     });
 });
 
 test("spreadsheet name can never be empty (white spaces)", async function () {
     await createSpreadsheet();
-    const input = target.querySelector(".o_spreadsheet_name input");
+    const input = target.querySelector(".o_sp_name input");
     expect(input).toHaveValue("Untitled spreadsheet", {
         message: "The input should have the placeholder value initially",
     });
@@ -67,8 +67,8 @@ test("spreadsheet name can never be empty (white spaces)", async function () {
 
 test("untitled spreadsheet", async function () {
     await createSpreadsheet({ spreadsheetId: 2 });
-    const input = target.querySelector(".o_spreadsheet_name input");
-    expect(input).toHaveClass("o-spreadsheet-untitled", {
+    const input = target.querySelector(".o_sp_name input");
+    expect(input).toHaveClass("o-sp-untitled", {
         message: "It should be styled as untitled",
     });
     expect(input).toHaveValue("", { message: "It should be empty" });
@@ -80,7 +80,7 @@ test("untitled spreadsheet", async function () {
 
 test("input width changes when content changes", async function () {
     await createSpreadsheet();
-    const input = target.querySelector(".o_spreadsheet_name input");
+    const input = target.querySelector(".o_sp_name input");
     const originalWidth = input.offsetWidth;
     await contains(input).edit("My", { confirm: false });
     let width = input.offsetWidth;
@@ -98,7 +98,7 @@ test("input width changes when content changes", async function () {
 test("changing the input saves the name", async function () {
     const serverData = getBasicServerData();
     await createSpreadsheet({ spreadsheetId: 2, serverData });
-    await contains(".o_spreadsheet_name input").edit("My spreadsheet");
+    await contains(".o_sp_name input").edit("My spreadsheet");
     expect(DocumentsDocument._records[1].name).toBe("My spreadsheet", {
         message: "It should have updated the name",
     });
@@ -106,7 +106,7 @@ test("changing the input saves the name", async function () {
 
 test("trailing white spaces are trimmed", async function () {
     await createSpreadsheet();
-    const input = target.querySelector(".o_spreadsheet_name input");
+    const input = target.querySelector(".o_sp_name input");
     const width = input.offsetWidth;
     await contains(input).edit("My spreadsheet  ");
     expect(input).toHaveValue("My spreadsheet", {
@@ -119,7 +119,7 @@ test("trailing white spaces are trimmed", async function () {
 
 test("focus sets the placeholder as value and select it", async function () {
     await createSpreadsheet({ spreadsheetId: 2 });
-    const input = target.querySelector(".o_spreadsheet_name input");
+    const input = target.querySelector(".o_sp_name input");
     expect(input).toHaveValue("", { message: "It should be empty" });
     await contains(input).focus();
     expect(input).toHaveValue("Untitled spreadsheet", {
@@ -255,7 +255,7 @@ test("toggle favorite", async function () {
         },
     });
     expect(".favorite_button_enabled").toHaveCount(0);
-    await contains(".o_spreadsheet_favorite").click();
+    await contains(".o-sp-favorite").click();
     expect(".favorite_button_enabled").toHaveCount(1);
     expect.verifySteps(["favorite_toggled"]);
 });
@@ -298,7 +298,7 @@ test("Spreadsheet action is named in breadcrumb with the updated name", async fu
             },
         },
     });
-    await contains(".o_spreadsheet_name input").edit("My awesome spreadsheet");
+    await contains(".o_sp_name input").edit("My awesome spreadsheet");
     await getService("action").doAction({
         name: "Partner",
         res_model: "partner",

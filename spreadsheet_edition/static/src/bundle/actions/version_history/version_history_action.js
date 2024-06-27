@@ -13,7 +13,6 @@ import { loadSpreadsheetDependencies } from "@spreadsheet/assets_backend/helpers
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 
 import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
-import { SpreadsheetControlPanel } from "../control_panel/spreadsheet_control_panel";
 import { SpreadsheetName } from "../control_panel/spreadsheet_name";
 import { migrate } from "@spreadsheet/o_spreadsheet/migration";
 import {
@@ -25,6 +24,7 @@ import { formatToLocaleString } from "../../helpers/misc";
 import { router } from "@web/core/browser/router";
 import { RestoreVersionConfirmationDialog } from "../../version_history/restore_version_dialog/restore_version_dialog";
 import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
+import { SpreadsheetNavbar } from "../../components/spreadsheet_navbar/spreadsheet_navbar";
 
 const { ModelStore, useStoreProvider, SidePanelStore } = stores;
 
@@ -32,10 +32,11 @@ export class VersionHistoryAction extends Component {
     static template = "spreadsheet_edition.VersionHistoryAction";
     static components = {
         SpreadsheetComponent,
-        SpreadsheetControlPanel,
         SpreadsheetName,
+        SpreadsheetNavbar,
     };
     static props = { ...standardActionServiceProps };
+    static target = "fullscreen";
 
     setup() {
         this.params = this.props.action.params;

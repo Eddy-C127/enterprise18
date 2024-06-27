@@ -129,14 +129,12 @@ test("publish dashboard from control panel", async function () {
             }
         },
     });
-    const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
-    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude(
-        "Unpublished"
-    );
+    const checkbox = fixture.querySelector(".o_sp_publish_dashboard .o-checkbox input");
+    expect(fixture.querySelector(".o_sp_publish_dashboard").textContent).toInclude("Unpublished");
     expect(checkbox).not.toBeChecked();
-    await contains(checkbox).click();
+    await contains(".o_sp_publish_dashboard").click();
     expect(checkbox).toBeChecked();
-    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude("Published");
+    expect(fixture.querySelector(".o_sp_publish_dashboard").textContent).toInclude("Published");
     expect.verifySteps(["dashboard_published"]);
 });
 
@@ -159,13 +157,11 @@ test("unpublish dashboard from control panel", async function () {
             }
         },
     });
-    const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
-    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude("Published");
+    const checkbox = fixture.querySelector(".o_sp_publish_dashboard .o-checkbox input");
+    expect(fixture.querySelector(".o_sp_publish_dashboard").textContent).toInclude("Published");
     expect(checkbox).toBeChecked();
-    await contains(checkbox).click();
+    await contains(".o_sp_publish_dashboard").click();
     expect(checkbox).not.toBeChecked();
-    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude(
-        "Unpublished"
-    );
+    expect(fixture.querySelector(".o_sp_publish_dashboard").textContent).toInclude("Unpublished");
     expect.verifySteps(["dashboard_unpublished"]);
 });

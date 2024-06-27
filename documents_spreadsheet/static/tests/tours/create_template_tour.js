@@ -47,6 +47,11 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
             run: "click",
         },
         {
+            trigger: ".o-sp-breadcrumb",
+            content: "Go back to Document App",
+            run: "click",
+        },
+        {
             trigger: 'button[data-menu-xmlid="documents.Config"]',
             content: "Open Configuration menu",
             run: "click",

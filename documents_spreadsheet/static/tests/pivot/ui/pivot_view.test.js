@@ -1056,7 +1056,7 @@ test("Pivot name can be changed from the dialog", async () => {
         },
     });
     await contains(document.body.querySelector(".o_pivot_add_spreadsheet")).click();
-    await contains(".o_spreadsheet_name").edit("New name");
+    await contains(".o_sp_name").edit("New name");
     await contains(".modal-content > .modal-footer > .btn-primary").click();
     const model = getSpreadsheetActionModel(spreadsheetAction);
     await waitForDataLoaded(model);
@@ -1076,7 +1076,7 @@ test("Pivot name is not changed if the name is empty", async () => {
         },
     });
     await contains(document.body.querySelector(".o_pivot_add_spreadsheet")).click();
-    document.body.querySelector(".o_spreadsheet_name").value = "";
+    document.body.querySelector(".o_sp_name").value = "";
     await contains(".modal-content > .modal-footer > .btn-primary").click();
     await animationFrame();
     const model = getSpreadsheetActionModel(spreadsheetAction);

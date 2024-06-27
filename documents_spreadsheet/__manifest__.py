@@ -30,7 +30,6 @@
         'spreadsheet.o_spreadsheet': [
             'documents_spreadsheet/static/src/bundle/**/*.js',
             'documents_spreadsheet/static/src/bundle/**/*.xml',
-            ('remove', 'documents_spreadsheet/static/src/bundle/components/control_panel/spreadsheet_breadcrumbs.xml'),
         ],
         'web.assets_backend': [
             'documents_spreadsheet/static/src/bundle/**/*.scss',
@@ -40,7 +39,6 @@
             'documents_spreadsheet/static/src/helpers.js',
             'documents_spreadsheet/static/src/spreadsheet_action_loader.js',
             'documents_spreadsheet/static/src/view_insertion.js',
-            'documents_spreadsheet/static/src/bundle/components/control_panel/spreadsheet_breadcrumbs.xml',
         ],
         'web.assets_tests': [
             'documents_spreadsheet/static/tests/tours/*',

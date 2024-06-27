@@ -39,7 +39,7 @@ test("No locale icon if user locale matched spreadsheet locale", async function 
             }
         },
     });
-    const icon = document.querySelector(".o_spreadsheet_status .fa-globe");
+    const icon = document.querySelector(".o-spreadsheet-topbar .fa-globe");
     expect(icon).toBe(null);
 });
 
@@ -56,7 +56,7 @@ test("No locale icon if no user locale is given", async function () {
             }
         },
     });
-    const icon = document.querySelector(".o_spreadsheet_status .fa-globe");
+    const icon = document.querySelector(".o-spreadsheet-topbar .fa-globe");
     expect(icon).toBe(null);
 });
 
@@ -74,7 +74,7 @@ test("Different locales between user and spreadsheet: display icon as info", asy
             }
         },
     });
-    const icon = document.querySelector(".o_spreadsheet_status .fa-globe");
+    const icon = document.querySelector(".o-spreadsheet-topbar .fa-globe");
     expect(icon).not.toBe(null);
     expect(icon.classList.contains("text-info")).toBe(true);
     expect(icon.title).toBe(
@@ -98,7 +98,7 @@ test("no warning with different locale codes but same formats", async function (
             }
         },
     });
-    const icon = document.querySelector(".o_spreadsheet_status .fa-globe");
+    const icon = document.querySelector(".o-spreadsheet-topbar .fa-globe");
     expect(icon).toBe(null);
 });
 
@@ -116,9 +116,9 @@ test("changing spreadsheet locale to user locale: remove icon", async function (
             }
         },
     });
-    const icon = document.querySelector(".o_spreadsheet_status .fa-globe");
+    const icon = document.querySelector(".o-spreadsheet-topbar .fa-globe");
     expect(icon).not.toBe(null);
     model.dispatch("UPDATE_LOCALE", { locale: en_US });
     await animationFrame();
-    expect(document.querySelector(".o_spreadsheet_status .fa-globe")).toBe(null);
+    expect(document.querySelector(".o-spreadsheet-topbar .fa-globe")).toBe(null);
 });

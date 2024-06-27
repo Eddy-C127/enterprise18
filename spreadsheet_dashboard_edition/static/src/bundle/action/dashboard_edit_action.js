@@ -3,18 +3,18 @@
 import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
 import { registry } from "@web/core/registry";
 import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
-import { SpreadsheetControlPanel } from "@spreadsheet_edition/bundle/actions/control_panel/spreadsheet_control_panel";
 import { _t } from "@web/core/l10n/translation";
 import { CheckBox } from "@web/core/checkbox/checkbox";
 
 import { useSubEnv } from "@odoo/owl";
+import { SpreadsheetNavbar } from "@spreadsheet_edition/bundle/components/spreadsheet_navbar/spreadsheet_navbar";
 
 export class DashboardEditAction extends AbstractSpreadsheetAction {
     static template = "spreadsheet_dashboard_edition.DashboardEditAction";
     static components = {
         CheckBox,
-        SpreadsheetControlPanel,
         SpreadsheetComponent,
+        SpreadsheetNavbar,
     };
 
     resModel = "spreadsheet.dashboard";
@@ -25,18 +25,16 @@ export class DashboardEditAction extends AbstractSpreadsheetAction {
         super.setup();
         useSubEnv({
             makeCopy: this.makeCopy.bind(this),
+            onSpreadsheetShared: this.shareSpreadsheet.bind(this),
+            isDashboardPublished: () => this.record && this.record.is_published,
+            toggleDashboardPublished: this.togglePublished.bind(this),
+            isRecordReadonly: () => this.record && this.record.isReadonly,
         });
     }
 
-    _initializeWith(record) {
-        super._initializeWith(record);
-        this.state.isPublished = record.is_published;
-    }
-
-    togglePublished() {
-        this.state.isPublished = !this.state.isPublished;
+    togglePublished(is_published) {
         this.orm.write("spreadsheet.dashboard", [this.resId], {
-            is_published: this.state.isPublished,
+            is_published,
         });
     }
 
