@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { Layout } from "@web/search/layout";
+import { Pager } from "@web/core/pager/pager";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { useModel } from "@web/model/model";
@@ -28,6 +29,7 @@ export class MrpDisplay extends Component {
         PinPopup,
         MrpDisplaySearchBar,
         CheckboxItem,
+        Pager,
     };
     static props = {
         resModel: String,
@@ -68,6 +70,8 @@ export class MrpDisplay extends Component {
             workcenters: workcenters,
             showEmployeesPanel: localStorage.getItem("mrp_workorder.show_employees") === "true",
             canLoadSamples: false,
+            offset: 0,
+            limit: 40,
         });
 
         const params = this._makeModelParams();
@@ -76,7 +80,7 @@ export class MrpDisplay extends Component {
         useSubEnv({
             model: this.model,
             reload: async () => {
-                await this.model.load();
+                await this.model.root.load({ offset: this.state.offset, limit: this.state.limit });
                 await this.useEmployee.getConnectedEmployees();
             },
         });
@@ -113,7 +117,7 @@ export class MrpDisplay extends Component {
             ]);
         });
         onWillDestroy(async () => {
-            await this.processValidationStack(false);
+            await this.processValidationStack(true);
         });
     }
 
@@ -245,7 +249,7 @@ export class MrpDisplay extends Component {
         return this.model.root.records.find((mo) => mo.resId === record.data.production_id[0]);
     }
 
-    async processValidationStack() {
+    async processValidationStack(skipReload = false) {
         const productionIds = [];
         const kwargs = {};
         for (const workorder of this.validationStack["mrp.workorder"]) {
@@ -282,8 +286,10 @@ export class MrpDisplay extends Component {
                 "mrp.workorder": [],
             };
         }
-        this.env.reload();
-        this.env.searchModel.invalidateRecordCache();
+        if (!skipReload) {
+            this.env.reload();
+            this.env.searchModel.invalidateRecordCache();
+        }
         return { success: true };
     }
 
@@ -408,7 +414,7 @@ export class MrpDisplay extends Component {
         }
         const params = {
             config: { resModel, fields, activeFields },
-            limit: 40,
+            limit: this.state.limit,
         };
         const workorderFields = this.props.models.find(
             (m) => m.resModel === "mrp.workorder"
@@ -469,6 +475,14 @@ export class MrpDisplay extends Component {
             this.env.searchModel.invalidateRecordCache();
         }
     }
+
+    _onPagerChanged({ offset, limit }) {
+        this.state.offset = offset;
+        this.state.limit = limit;
+        this.env.searchModel.invalidateRecordCache();
+        this.env.reload();
+    }
+
     async loadSamples() {
         this.state.canLoadSamples = "disabled";
         await this.orm.call("mrp.production", "action_load_samples", [[]]);
