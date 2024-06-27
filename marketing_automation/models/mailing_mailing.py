@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class MassMailing(models.Model):
@@ -55,3 +56,13 @@ class MassMailing(models.Model):
 
     def _get_seen_list_extra(self):
         return ('LEFT JOIN marketing_trace m ON (s.marketing_trace_id = m.id)', 'AND (m.is_test IS NULL OR m.is_test = false)')
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_no_linked_activities(self):
+        protected = self.filtered(lambda m: m.marketing_activity_ids)
+        if protected:
+            raise UserError(
+                _("Mailings %(mailing_names)s are used in marketing campaigns. You should take care of this before unlinking the mailings.",
+                  mailing_names=", ".join(protected.mapped("name"))
+                )
+            )

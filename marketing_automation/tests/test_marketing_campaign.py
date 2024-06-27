@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.marketing_automation.tests.common import MarketingAutomationCommon
+from odoo.exceptions import UserError
 from odoo.tests import tagged, users
 
 
@@ -94,8 +95,11 @@ class TestMarketingCampaign(MarketingAutomationCommon):
             utm_source_name,
         )
 
-        # Remove template from campaign's activity (this leaves utm.source without mailing.mailing)
-        campaign.marketing_activity_ids.mass_mailing_id.unlink()
+        # Try to remove template from campaign's activity
+        with self.assertRaises(UserError):
+            campaign.marketing_activity_ids.mass_mailing_id.unlink()
+
+        campaign.marketing_activity_ids.mass_mailing_id = False
         self.assertTrue(
             self.env['utm.source'].search([('name', '=', utm_source_name)]),
             "Test prerequisite: UTM source should still exists, even though it's not related to any campaigns"
