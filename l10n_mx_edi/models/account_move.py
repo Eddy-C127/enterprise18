@@ -1037,7 +1037,7 @@ class AccountMove(models.Model):
         if self.currency_id.name == 'MXN':
             cfdi_values['tipo_cambio'] = None
         else:
-            mxn_currency = self.env["res.currency"].search([("name", "=", "MXN")], limit=1)
+            mxn_currency = self.company_currency_id
             current_currency = self.currency_id
             cfdi_values["tipo_cambio"] = current_currency._get_conversion_rate(
                 from_currency=current_currency,
