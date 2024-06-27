@@ -31,7 +31,7 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
     },
     {
         content: "Save contract with no data",
-        trigger: 'button.o_form_button_save',
+        trigger: "button.o_form_button_save:enabled",
         run: "click",
     },
     {
@@ -42,7 +42,7 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
     },
     {
         content: "Save contract",
-        trigger: 'button.o_form_button_save',
+        trigger: "button.o_form_button_save:enabled",
         run: "click",
     },
     {

@@ -49,7 +49,7 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: ".o_form_button_create", // wait for the new product to be saved
 },
 {
-    trigger: 'button[data-menu-xmlid="sale_renting.rental_order_menu"]',
+    trigger: 'button[data-menu-xmlid="sale_renting.rental_order_menu"]:enabled',
     content: _t("Let's now create an order."),
     position: 'bottom',
     run: "click",
@@ -100,7 +100,7 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: 'td.o_data_cell:contains("Test (Rental)")',
     run: "click",
 }, {
-    trigger: 'button[name=action_confirm]',
+    trigger: "button[name=action_confirm]:enabled",
     content: _t("Confirm the order when the customer agrees with the terms."),
     position: 'bottom',
     run: "click",
@@ -110,7 +110,7 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: ".o_sale_order",
 },
 {
-    trigger: 'button[name=action_open_pickup]',
+    trigger: "button[name=action_open_pickup]:enabled",
     content: _t("Click here to register the pickup."),
     position: 'bottom',
     run: "click",
@@ -125,12 +125,12 @@ registry.category("web_tour.tours").add('rental_tour', {
     trigger: ".o_sale_order",
 },
 {
-    trigger: "button[name='action_open_return']",
+    trigger: "button[name='action_open_return']:enabled",
     content: _t("Once the rental is done, you can register the return."),
     position: 'bottom',
     run: "click",
 }, {
-    trigger: "button[name='apply']",
+    trigger: "button[name='apply']:enabled",
     content: _t("Confirm the returned quantities and hit Validate."),
     position: 'bottom',
     run: "click",

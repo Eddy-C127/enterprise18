@@ -61,7 +61,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
     content: "Save this shift as a template",
     run: "click",
 }, {
-    trigger: "button[special='save']",
+    trigger: "button[special='save']:enabled",
     content: "Save this shift once it is ready.",
     run: "click",
 }, {
@@ -244,7 +244,7 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
     in_modal: false,
     run: "click",
 }, {
-    trigger: "button[special='save']",
+    trigger: "button[special='save']:enabled",
     content: "Save this shift once it is ready.",
     run: "click",
 }, {

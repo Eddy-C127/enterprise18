@@ -67,7 +67,7 @@ registry.category("web_tour.tours").add("approvals_tour", {
             run: "click",
         },
         {
-            trigger: 'button[name="action_confirm"]',
+            trigger: "button[name=action_confirm]:enabled",
             content: "confirm the request",
             run: "click",
         },
@@ -102,7 +102,7 @@ registry.category("web_tour.tours").add("approvals_tour", {
             run: "click",
         },
         {
-            trigger: 'button[name="action_confirm"]',
+            trigger: "button[name=action_confirm]:enabled",
             content: "confirm the request again",
             run: "click",
         },

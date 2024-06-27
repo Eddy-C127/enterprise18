@@ -488,7 +488,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
         run: "click",
     },
     {
-        trigger: 'button[name="action_confirm"]',
+        trigger: "button[name=action_confirm]:enabled",
         run: "click",
     },
     {

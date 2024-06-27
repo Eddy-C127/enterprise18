@@ -19,7 +19,7 @@ registry
                 run: "click",
             },
             {
-                trigger: ".o_web_studio_navbar_item button",
+                trigger: ".o_web_studio_navbar_item button:enabled",
                 run: "click",
             },
             {
@@ -56,7 +56,7 @@ registry.category("web_tour.tours").add("web_studio_test_edit_with_xml_editor", 
             allowInvisible: true,
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -116,7 +116,7 @@ registry.category("web_tour.tours").add("web_studio_enter_x2many_edition_and_add
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -181,7 +181,7 @@ registry.category("web_tour.tours").add("web_studio_enter_x2many_auto_inlined_su
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -249,7 +249,7 @@ registry
                 run: "click",
             },
             {
-                trigger: ".o_web_studio_navbar_item button",
+                trigger: ".o_web_studio_navbar_item button:enabled",
                 run: "click",
             },
             {
@@ -315,7 +315,7 @@ registry.category("web_tour.tours").add("web_studio_boolean_field_drag_and_drop"
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -348,7 +348,7 @@ registry.category("web_tour.tours").add("web_studio_field_with_group", {
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -405,7 +405,7 @@ registry.category("web_tour.tours").add("web_studio_set_tree_node_conditional_in
             trigger: ".o_list_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -452,7 +452,7 @@ registry.category("web_tour.tours").add("web_studio_elements_with_groups_form", 
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -511,7 +511,7 @@ registry.category("web_tour.tours").add("test_element_group_in_sidebar", {
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -547,7 +547,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -573,7 +573,7 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -647,7 +647,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_one2many_lines_t
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -703,7 +703,7 @@ registry.category("web_tour.tours").add("web_studio_test_address_view_id_no_edit
             },
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -742,7 +742,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_new_model_from_e
             trigger: ".o_kanban_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -782,7 +782,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -864,7 +864,7 @@ registry
                 trigger: ".o_form_view span:contains('Address Type')",
             },
             {
-                trigger: ".o_web_studio_navbar_item button",
+                trigger: ".o_web_studio_navbar_item button:enabled",
                 run: "click",
             },
             {
@@ -902,7 +902,7 @@ registry
                 trigger: ".o_form_view",
             },
             {
-                trigger: ".o_web_studio_navbar_item button",
+                trigger: ".o_web_studio_navbar_item button:enabled",
                 run: "click",
             },
             {
@@ -951,7 +951,7 @@ registry.category("web_tour.tours").add("web_studio_test_studio_view_is_last", {
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -993,7 +993,7 @@ registry.category("web_tour.tours").add("web_studio_test_edit_form_subview_attri
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1037,7 +1037,7 @@ registry.category("web_tour.tours").add("web_studio_x2many_two_levels_edition", 
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1095,7 +1095,7 @@ registry.category("web_tour.tours").add("web_studio_field_group_studio_no_fetch"
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1160,7 +1160,7 @@ registry.category("web_tour.tours").add("web_studio_test_move_similar_field", {
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1192,7 +1192,7 @@ registry.category("web_tour.tours").add("web_studio_test_related_file", {
         },
         {
             content: "second",
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1260,7 +1260,7 @@ registry.category("web_tour.tours").add("web_studio_test_undo_new_field", {
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1288,7 +1288,7 @@ registry.category("web_tour.tours").add("web_studio_test_change_lone_attr_modifi
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1336,7 +1336,7 @@ registry.category("web_tour.tours").add("web_studio_test_new_field_rename_descri
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1372,7 +1372,7 @@ registry.category("web_tour.tours").add("web_studio_test_edit_digits_option", {
         },
 
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1411,7 +1411,7 @@ registry.category("web_tour.tours").add("web_studio_no_fetch_subview", {
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1448,7 +1448,7 @@ registry.category("web_tour.tours").add("web_studio.test_button_rainbow_effect",
             run: "click",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1518,7 +1518,7 @@ registry.category("web_tour.tours").add("web_studio_test_reload_after_restoring_
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1562,7 +1562,7 @@ registry.category("web_tour.tours").add("web_studio_test_edit_reified_field", {
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {
@@ -1591,7 +1591,7 @@ registry.category("web_tour.tours").add("web_studio_test_add_all_types_fields_re
             trigger: ".o_form_view",
         },
         {
-            trigger: ".o_web_studio_navbar_item button",
+            trigger: ".o_web_studio_navbar_item button:enabled",
             run: "click",
         },
         {

@@ -37,7 +37,7 @@ registry.category("web_tour.tours").add('planning_tour', {
         position: "right",
         run: "click",
     }, {
-        trigger: "button[special='save']",
+        trigger: "button[special='save']:enabled",
         content: _t("Save this shift once it is ready."),
         position: "bottom",
         run: "click",

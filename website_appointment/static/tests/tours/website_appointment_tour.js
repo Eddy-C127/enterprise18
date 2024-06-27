@@ -38,7 +38,7 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         run: "click",
     }, {
         content: 'Go to the front end',
-        trigger: 'button[name="action_customer_preview"]',
+        trigger: "button[name=action_customer_preview]:enabled",
         run: "click",
     }, {
         content: 'Click on first date available',
