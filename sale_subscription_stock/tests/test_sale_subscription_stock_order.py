@@ -7,6 +7,7 @@ from freezegun import freeze_time
 from odoo import Command, fields
 from odoo.addons.sale_subscription_stock.tests.common_sale_subscription_stock import TestSubscriptionStockCommon
 from odoo.tests import tagged, Form
+from odoo.tests.common import new_test_user
 
 
 @tagged('post_install', '-at_install')
@@ -438,3 +439,9 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
                 len(self.subscription_order_with_bom.picking_ids[1].move_ids), len(second_invoice.invoice_line_ids),
                 'The move lines should match the moves of the second period'
             )
+
+    def test_stock_user_without_sale_permission_can_access_product_form(self):
+        stock_manager = new_test_user(
+            self.env, 'temp_stock_manager', 'stock.group_stock_manager',
+        )
+        Form(self.env['product.product'].with_user(stock_manager))
