@@ -12,7 +12,9 @@ class TestUi(TestFrontend):
         self.env['pos_preparation_display.display'].create({
             'name': 'Preparation Display (Food only)',
             'pos_config_ids': [(4, self.pos_config.id)],
-            'category_ids': [(4, self.env['pos.category'].search([('name', '=', 'Food')]).id)],
+            'category_ids': [(0, 0, {
+                'name': 'Food',
+            })],
         })
 
         self.env['pos_preparation_display.display'].create({
