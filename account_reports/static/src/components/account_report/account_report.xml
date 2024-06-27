@@ -11,6 +11,9 @@
                 <t t-set-slot="control-panel-create-button">
                     <AccountReportButtonsBar/>
                 </t>
+                <t t-set-slot="control-panel-additional-actions">
+                    <AccountReportCogMenu/>
+                </t>
 
                 <!-- Search bar (if configured for report) and filters -->
                 <t t-set-slot="layout-actions">

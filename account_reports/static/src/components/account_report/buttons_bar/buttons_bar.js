@@ -1,18 +1,10 @@
 /** @odoo-module */
 
-import { Dropdown } from "@web/core/dropdown/dropdown";
-import { DropdownItem } from "@web/core/dropdown/dropdown_item";
-
 import { Component, useState } from "@odoo/owl";
 
 export class AccountReportButtonsBar extends Component {
     static template = "account_reports.AccountReportButtonsBar";
     static props = {};
-
-    static components = {
-        Dropdown,
-        DropdownItem,
-    };
 
     setup() {
         this.controller = useState(this.env.controller);
@@ -21,14 +13,13 @@ export class AccountReportButtonsBar extends Component {
     //------------------------------------------------------------------------------------------------------------------
     // Buttons
     //------------------------------------------------------------------------------------------------------------------
-    get groupedButtons() {
-        const buttons= [];
-
-        for (const button of this.controller.buttons)
-            if (!button.always_show)
-                buttons.push(button);
-
-        return buttons;
+    get mainButton() {
+        for (const button of this.controller.buttons) {
+            if (!button.always_show) {
+                return button;  // other always_show buttons are displayed in the cog menu
+            }
+        }
+        return null;
     }
 
     get singleButtons() {

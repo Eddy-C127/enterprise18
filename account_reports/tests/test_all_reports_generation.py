@@ -97,7 +97,7 @@ class TestAllReportsGeneration(AccountTestInvoicingCommon):
                     self.assertNotEqual(options['report_id'], report.id, "Composite reports should always reroute.")
 
                 for option_button in options['buttons']:
-                    if option_button['name'] in ('PDF', 'XLSX'):  # keep "Save" and other actions
+                    if option_button['name'] in ('PDF', 'Download Excel'):  # keep "Copy to Documents" and other actions
                         # TODO remove me
                         # This test seems to have some trouble on runbot. It is running for way longer than
                         # locally. Freeze is coming, explanation are missing... Sorry 😟

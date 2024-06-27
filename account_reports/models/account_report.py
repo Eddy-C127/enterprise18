@@ -1499,38 +1499,8 @@ class AccountReport(models.Model):
     def _init_options_buttons(self, options, previous_options=None):
         options['buttons'] = [
             {'name': _('PDF'), 'sequence': 10, 'action': 'export_file', 'action_param': 'export_to_pdf', 'file_export_type': _('PDF'), 'branch_allowed': True},
-            {'name': _('XLSX'), 'sequence': 20, 'action': 'export_file', 'action_param': 'export_to_xlsx', 'file_export_type': _('XLSX'), 'branch_allowed': True},
-            {'name': _('Save'), 'sequence': 100, 'action': 'open_report_export_wizard'},
+            {'name': _('Download Excel'), 'sequence': 20, 'action': 'export_file', 'action_param': 'export_to_xlsx', 'file_export_type': _('XLSX'), 'branch_allowed': True},
         ]
-
-    def open_report_export_wizard(self, options):
-        """ Creates a new export wizard for this report and returns an act_window
-        opening it. A new account_report_generation_options key is also added to
-        the context, containing the current options selected on this report
-        (which must hence be taken into account when exporting it to a file).
-        """
-        self.ensure_one()
-        new_context = {
-            **self._context,
-            'account_report_generation_options': options,
-            'default_report_id': self.id,
-        }
-        view_id = self.env.ref('account_reports.view_report_export_wizard').id
-
-        # We have to create it before returning the action (and not just use a record in 'new' state), so that we can create
-        # the transient records used in the m2m for the different export formats.
-        new_wizard = self.with_context(new_context).env['account_reports.export.wizard'].create({'report_id': self.id})
-
-        return {
-            'type': 'ir.actions.act_window',
-            'name': _('Export'),
-            'view_mode': 'form',
-            'res_model': 'account_reports.export.wizard',
-            'res_id': new_wizard.id,
-            'target': 'new',
-            'views': [[view_id, 'form']],
-            'context': new_context,
-        }
 
     def open_account_report_file_download_error_wizard(self, errors, content):
         self.ensure_one()

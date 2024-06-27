@@ -8,6 +8,7 @@ import { Component, onWillStart, useState, useSubEnv } from "@odoo/owl";
 
 import { AccountReportController } from "@account_reports/components/account_report/controller";
 import { AccountReportButtonsBar } from "@account_reports/components/account_report/buttons_bar/buttons_bar";
+import { AccountReportCogMenu } from "@account_reports/components/account_report/cog_menu/cog_menu";
 import { AccountReportEllipsis } from "@account_reports/components/account_report/ellipsis/ellipsis";
 import { AccountReportFilters } from "@account_reports/components/account_report/filters/filters";
 import { AccountReportHeader } from "@account_reports/components/account_report/header/header";
@@ -23,6 +24,7 @@ export class AccountReport extends Component {
     static components = {
         ControlPanel,
         AccountReportButtonsBar,
+        AccountReportCogMenu,
         AccountReportSearchBar,
     };
 
