@@ -1,6 +1,6 @@
 import { expect, test, beforeEach, describe } from "@odoo/hoot";
 import { click, queryText, queryFirst } from "@odoo/hoot-dom";
-import { animationFrame } from "@odoo/hoot-mock";
+import { animationFrame, mockDate } from "@odoo/hoot-mock";
 
 import {
     onRpc,
@@ -94,6 +94,8 @@ beforeEach(() => {
     onRpc("check_access_rights", () => {
         return true;
     });
+
+    mockDate("2019-03-13 00:00:00", +1);
 });
 
 test("planning calendar view: copy previous week", async () => {
@@ -152,7 +154,7 @@ test("Resize or Drag-Drop should open recurrence update wizard", async () => {
         queryText(
             ".o_cw_popover .o_cw_popover_fields_secondary .list-group-item .o_field_datetime"
         ).split(" ")[1]
-    ).toBe("15:30:00", {
+    ).toBe("14:30:00", {
         message: "should have correct start date",
     });
 
@@ -163,7 +165,7 @@ test("Resize or Drag-Drop should open recurrence update wizard", async () => {
         queryText(
             ".o_cw_popover .o_cw_popover_fields_secondary .list-group-item .o_field_datetime"
         ).split(" ")[1]
-    ).toBe("15:30:00", {
+    ).toBe("14:30:00", {
         message: "should have correct start date",
     });
 });
