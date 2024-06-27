@@ -989,6 +989,33 @@ class AppointmentResourceBookingTest(AppointmentCommon):
         self.assertEqual(len(resource_slots), 0, "Once a resource is booked on a slot, it should not be available anymore to other appointment types.")
 
     @users('apt_manager')
+    def test_appointment_resources_with_resource_calendar(self):
+        """Check that the slots correctly take into account the default resource calendar"""
+        self.env['appointment.resource'].create({
+            'appointment_type_ids': self.apt_type_resource.ids,
+            'name': 'Resource',
+            'resource_calendar_id': self.env.ref('appointment.appointment_default_resource_calendar').id,
+        })
+        self.apt_type_resource.slot_ids.write({'start_hour': 8})
+
+        with freeze_time(self.reference_now):
+            slots = self.apt_type_resource._get_appointment_slots('UTC')
+        self.assertSlots(
+            slots,
+            [{'name_formated': 'February 2022',
+              'month_date': datetime(2022, 2, 1),
+              'weeks_count': 5,  # 31/01 -> 28/02 (06/03)
+              }
+             ],
+            {'enddate': self.global_slots_enddate,
+             'startdate': self.reference_now_monthweekstart,
+             'slots_start_hours': list(range(8, 16)),  # 8 AM => 4 PM
+             'slots_startdate': self.reference_monday.date(),  # first Monday after reference_now
+             'slots_enddate': self.reference_monday.date(),  # only test that day
+             }
+        )
+
+    @users('apt_manager')
     def test_appointment_resources_without_capacity_management(self):
         """ Check use case where capacity management is not activated """
 
