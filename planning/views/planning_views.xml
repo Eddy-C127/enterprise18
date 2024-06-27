@@ -16,7 +16,11 @@
                 <field name="allocated_hours" widget="float_time" sum="Allocated Hours" readonly="1" decoration-danger="allocated_percentage &gt; 100"/>
                 <field name="allocated_percentage" avg="Allocated Percentage" optional="hide" decoration-danger="allocated_percentage &gt; 100" readonly="1" invisible="resource_type == 'material'"/>
                 <field name="resource_id" widget="many2one_avatar_resource" optional="show"
-                    readonly="not start_datetime or not end_datetime" context="{'from_planning': True, 'search_view_ref': 'planning.resource_resource_search_view_roles', 'search_default_role_ids': role_id, 'show_job_title': True, 'form_view_ref': 'planning.resource_resource_with_employee_form_view_inherit'}" placeholder="Open Shift"/>
+                    readonly="not start_datetime or not end_datetime" placeholder="Open Shift"
+                    context="{'from_planning': True, 'search_view_ref': 'planning.resource_resource_search_view_roles',
+                            'search_default_role_ids': role_id, 'show_job_title': True,
+                            'form_view_ref': 'planning.resource_resource_with_employee_form_view_inherit',
+                            'tree_view_ref': 'planning.resource_resource_tree_view_inherit'}"/>
                 <field name="resource_type" column_invisible="True"/>
                 <field name="role_id" optional="show" context="{'search_default_resource_ids': resource_id}" placeholder="e.g. Bartender"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide" readonly="1"/>
@@ -535,7 +539,9 @@
             <tree string="Planning Role List" editable="bottom" multi_edit="1">
                 <field name="sequence" widget="handle"/>
                 <field name="name" placeholder="e.g. Cleaner"/>
-                <field name="resource_ids" widget="many2many_avatar_resource" optional="show" context="{'form_view_ref': 'planning.resource_resource_form_tags_view_inherit', 'show_job_title': True, 'from_planning': True}" placeholder="e.g. John Doe"/>
+                <field name="resource_ids" widget="many2many_avatar_resource" optional="show" placeholder="e.g. John Doe"
+                    context="{'form_view_ref': 'planning.resource_resource_form_tags_view_inherit',
+                            'show_job_title': True, 'from_planning': True, 'tree_view_ref': 'planning.resource_resource_tree_view_inherit'}"/>
                 <field name="color" widget="color_picker" optional="show"/>
             </tree>
         </field>
