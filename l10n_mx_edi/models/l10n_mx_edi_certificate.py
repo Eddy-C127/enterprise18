@@ -28,7 +28,7 @@ class Certificate(models.Model):
 
     content = fields.Binary(
         string='Certificate',
-        help='Certificate in der format',
+        help='Certificate in .cer format',
         required=True,
         attachment=False,
     )
@@ -41,7 +41,7 @@ class Certificate(models.Model):
     )
     key = fields.Binary(
         string='Certificate Key',
-        help='Certificate Key in der format',
+        help='Certificate Key in .key format',
         required=True,
         attachment=False,
     )
