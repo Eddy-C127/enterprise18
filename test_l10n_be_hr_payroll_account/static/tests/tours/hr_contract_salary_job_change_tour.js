@@ -85,6 +85,11 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
             },
         },
         {
+            content: "check that we're back on the quick login page",
+            trigger: ".o_user_switch .fa-user-circle-o",
+            run: "click",
+        },
+        {
             content: "Log as employee - input login",
             trigger: "input#login",
             run: "edit jeanjasse",
