@@ -11,8 +11,11 @@ PERIODS_PER_YEAR = {
     "daily": 260,
     "weekly": 52,
     "bi-weekly": 26,
+    "semi-monthly": 24,
     "monthly": 12,
+    "bi-monthly": 6,
     "quarterly": 4,
+    "semi-annually": 2,
     "yearly": 1,
 }
 
