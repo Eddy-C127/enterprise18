@@ -361,7 +361,7 @@ class Picking(models.Model):
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         # == Send ==
         def on_populate(cfdi_values):
@@ -408,7 +408,7 @@ class Picking(models.Model):
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         # == Cancel ==
         substitution_doc = document._get_substitution_document()

@@ -640,7 +640,7 @@ class PosOrder(models.Model):
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         # == Send ==
         def on_populate(cfdi_values):
@@ -675,7 +675,7 @@ class PosOrder(models.Model):
         self.ensure_one()
 
         # == Lock ==
-        document._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         # == Cancel ==
         def on_failure(error):
@@ -734,7 +734,7 @@ class PosOrder(models.Model):
             return
 
         # == Lock ==
-        self.env['l10n_mx_edi.document']._with_locked_records(orders)
+        self.env['res.company']._with_locked_records(orders)
 
         # == Send ==
         def on_populate(cfdi_values):
@@ -782,7 +782,7 @@ class PosOrder(models.Model):
                     origin=origin,
                 )
             )
-            self.env['l10n_mx_edi.document']._with_locked_records(cfdi_values['sequence'])
+            self.env['res.company']._with_locked_records(cfdi_values['sequence'])
             return cfdi_values['sequence']
 
         def on_failure(error, cfdi_filename=None, cfdi_str=None):
@@ -813,7 +813,7 @@ class PosOrder(models.Model):
         :param cancel_reason:   The reason for the cancellation.
         """
         # == Lock ==
-        document._with_locked_records(self)
+        self.env['res.company']._with_locked_records(self)
 
         # == Cancel ==
         def on_failure(error):
