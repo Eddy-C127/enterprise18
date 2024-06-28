@@ -17,7 +17,7 @@ class TestRentalKits(TestRentalCommon):
 
         cls.component_1 = cls.env['product.product'].create({'name': 'compo 1', 'is_storable': True})
         cls.component_2 = cls.env['product.product'].create({'name': 'compo 2', 'is_storable': True})
-        cls.env['mrp.bom'].create({
+        cls.bom = cls.env['mrp.bom'].create({
             'product_id': cls.product_id.id,
             'product_tmpl_id': cls.product_id.product_tmpl_id.id,
             'product_qty': 1.0,
@@ -130,3 +130,48 @@ class TestRentalKits(TestRentalCommon):
         self.assertEqual(len(rental_order_1.order_line), 2)
         late_fee_order_line = rental_order_1.order_line.filtered(lambda l: l.product_id.type == 'service')
         self.assertEqual(late_fee_order_line.price_unit, 30)
+
+    def test_subkits_and_same_component(self):
+        """
+        - Kit
+            - 1 x C1
+                - 1 x C2
+                - 1 x C3
+            - 2X C2
+
+        Rental with delivery
+        Ensure that qties of both delivery and return are correct
+        """
+        stock_location = self.warehouse_id.lot_stock_id
+        rental_location = self.env.company.rental_loc_id
+
+        component_3 = self.env['product.product'].create({
+            'name': 'compo 3',
+            'type': 'consu',
+        })
+
+        sub_bom = self.env['mrp.bom'].create({
+            'product_id': self.component_1.id,
+            'product_tmpl_id': self.component_1.product_tmpl_id.id,
+            'product_qty': 1.0,
+            'type': 'phantom',
+            'bom_line_ids': [
+                (0, 0, {'product_id': self.component_2.id, 'product_qty': 1}),
+                (0, 0, {'product_id': component_3.id, 'product_qty': 1})
+            ]
+        })
+        _bom_line_01, bom_line_02 = self.bom.bom_line_ids
+        bom_line_03, bom_line_04 = sub_bom.bom_line_ids
+
+        rental = self.sale_order_id.copy()
+        rental.order_line.write({'product_uom_qty': 1, 'is_rental': True})
+        rental.action_confirm()
+
+        self.assertRecordValues(rental.picking_ids.move_ids, [
+            {'product_id': self.component_2.id, 'product_qty': 2, 'bom_line_id': bom_line_02.id, 'location_id': stock_location.id},
+            {'product_id': self.component_2.id, 'product_qty': 1, 'bom_line_id': bom_line_03.id, 'location_id': stock_location.id},
+            {'product_id': component_3.id, 'product_qty': 1, 'bom_line_id': bom_line_04.id, 'location_id': stock_location.id},
+            {'product_id': self.component_2.id, 'product_qty': 2, 'bom_line_id': bom_line_02.id, 'location_id': rental_location.id},
+            {'product_id': self.component_2.id, 'product_qty': 1, 'bom_line_id': bom_line_03.id, 'location_id': rental_location.id},
+            {'product_id': component_3.id, 'product_qty': 1, 'bom_line_id': bom_line_04.id, 'location_id': rental_location.id},
+        ])
