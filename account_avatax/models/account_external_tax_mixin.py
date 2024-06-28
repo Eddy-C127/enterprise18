@@ -107,19 +107,7 @@ class AccountExternalTaxMixin(models.AbstractModel):
 
     @api.constrains('partner_id', 'fiscal_position_id')
     def _check_address(self):
-        incomplete_partner_to_records = {}
-        for record in self.filtered(lambda r: r._perform_address_validation()):
-            partner = record.partner_id
-            country = partner.country_id
-            if (
-                partner != self.env.ref('base.public_partner')
-                and (
-                    not country
-                    or (country.zip_required and not partner.zip)
-                    or (country.state_required and not partner.state_id)
-                )
-            ):
-                incomplete_partner_to_records.setdefault(partner, []).append(record)
+        incomplete_partner_to_records = self._get_partners_with_incomplete_information()
 
         if incomplete_partner_to_records:
             error = _("The following customer(s) need to have a zip, state and country when using Avatax:")
@@ -133,6 +121,27 @@ class AccountExternalTaxMixin(models.AbstractModel):
                 for partner, records in incomplete_partner_to_records.items()
             ]
             raise ValidationError(error + "\n" + "\n".join(partner_errors))
+
+    def _get_partners_with_incomplete_information(self, partner=None):
+        """
+            This getter will return a dict of partner having missing information like country_id, zip or state as the key
+            and the move as value
+        """
+        incomplete_partner_to_records = {}
+        for record in self.filtered(lambda r: r._perform_address_validation()):
+            partner = partner or record.partner_id
+            country = partner.country_id
+            if (
+                partner != self.env.ref('base.public_partner')
+                and (
+                    not country
+                    or (country.zip_required and not partner.zip)
+                    or (country.state_required and not partner.state_id)
+                )
+            ):
+                incomplete_partner_to_records.setdefault(partner, []).append(record)
+
+        return incomplete_partner_to_records
 
     # #############################################################################################
     # TO IMPLEMENT IN BUSINESS DOCUMENT
@@ -212,7 +221,9 @@ class AccountExternalTaxMixin(models.AbstractModel):
     def _get_avatax_address_from_partner(self, partner):
         """Returns a dict containing the values required for an avatax address
         """
-        if partner.partner_latitude and partner.partner_longitude:
+        # Partner contains the partner_shipping_id or the partner_id
+        incomplete_partner = self._get_partners_with_incomplete_information(partner)
+        if incomplete_partner.get(partner):
             res = {
                 'latitude': partner.partner_latitude,
                 'longitude': partner.partner_longitude,
