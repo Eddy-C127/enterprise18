@@ -186,6 +186,7 @@ msgid ""
 msgstr ""
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__ask
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
 msgid "Ask"
 msgstr "Küsi"
@@ -222,7 +223,6 @@ msgid "Call from %(phone_number)s"
 msgstr "Kõne numbrilt %(phone_number)s"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_call_from_another_device
 msgid "Call from another device"
 msgstr "Helista teisest seadmest"
@@ -307,7 +307,6 @@ msgid "Choose a device:"
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__how_to_call_on_mobile
 #: model:ir.model.fields,help:voip.field_res_users_settings__how_to_call_on_mobile
 msgid ""
 "Choose the method to be used to place a call when using the mobile application:\n"
@@ -412,6 +411,7 @@ msgid "Demo"
 msgstr "Esitlus"
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__phone
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__phone
 msgid "Device's phone"
 msgstr "Seadme telefon"
@@ -468,6 +468,10 @@ msgstr ""
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
+msgid "External Device Number"
+msgstr ""
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__external_device_number
 msgid "External device number"
 msgstr "Välise seadme number"
@@ -498,6 +502,10 @@ msgstr ""
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
+msgid "How To Call On Mobile"
+msgstr ""
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__how_to_call_on_mobile
 msgid "How to place calls on mobile"
 msgstr "Kuidas mobiiliga helistada"
@@ -508,14 +516,12 @@ msgid "ID"
 msgstr "ID"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "If enabled, incoming calls will be automatically declined in Odoo."
 msgstr ""
 "Kui see on lubatud, lükatakse Odoos sissetulevad kõned automaatselt tagasi."
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_call_from_another_device
 msgid ""
 "If enabled, placing a call in Odoo will transfer the call to the \"External "
@@ -527,7 +533,6 @@ msgstr ""
 " seda teisest seadmest – nt. teie lauatelefon."
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__external_device_number
 #: model:ir.model.fields,help:voip.field_res_users_settings__external_device_number
 msgid ""
 "If the \"Call from another device\" option is enabled, calls placed in Odoo "
@@ -753,7 +758,6 @@ msgid "Registration rejected: %(statusCode)s %(reasonPhrase)s."
 msgstr "Registreerimine tagasi lükatud: %(statusCode)s%(reasonPhrase)s."
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "Reject incoming calls"
 msgstr "Keeldu sissetulevatest kõnedest"
@@ -837,6 +841,16 @@ msgid "Send e-mail"
 msgstr ""
 
 #. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
+msgid "Should Auto Reject Incoming Calls"
+msgstr ""
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
+msgid "Should Call From Another Device"
+msgstr ""
+
+#. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_queue_mixin.py:0
 #, python-format
@@ -881,6 +895,13 @@ msgstr "Teie WebSocket'i URL"
 
 #. module: voip
 #. odoo-javascript
+#: code:addons/voip/static/src/core/user_agent_service.js:0
+#, python-format
+msgid "The WebSocket connection was lost and couldn't be reestablished."
+msgstr ""
+
+#. module: voip
+#. odoo-javascript
 #: code:addons/voip/static/src/core/registerer.js:0
 #, python-format
 msgid ""
@@ -904,7 +925,6 @@ msgid ""
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_secret
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_secret
 msgid "The password that will be used to register with the PBX server."
 msgstr ""
@@ -937,7 +957,6 @@ msgid ""
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_username
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_username
 msgid ""
 "The username (typically the extension number) that will be used to register "
@@ -949,10 +968,9 @@ msgstr ""
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid ""
-"The websocket connection with the server has been lost. Please try to "
-"refresh the page."
+"The websocket connection to the server has been lost. Attempting to "
+"reestablish the connection…"
 msgstr ""
-"Websocketi ühendus serveriga on katkenud. Palun proovige lehte värskendada."
 
 #. module: voip
 #. odoo-javascript
@@ -1023,6 +1041,7 @@ msgstr "VOIP järjekorra tugi"
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.js:0
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__voip
 #: model_terms:ir.ui.view,arch_db:voip.res_user_form
 #: model_terms:ir.ui.view,arch_db:voip.res_users_view_form_preferences
@@ -1041,13 +1060,11 @@ msgid "VoIP Environment"
 msgstr "VoIP keskkond"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_secret
 msgid "VoIP secret"
 msgstr "VoIP secret"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_username
 msgid "VoIP username / Extension number"
 msgstr "VoIP kasutajanimi / laienduse number"
@@ -1055,6 +1072,16 @@ msgstr "VoIP kasutajanimi / laienduse number"
 #. module: voip
 #: model:ir.ui.menu,name:voip.menu_voip_call_view
 msgid "Voip / Calls"
+msgstr ""
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
+msgid "Voip Secret"
+msgstr ""
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
+msgid "Voip Username"
 msgstr ""
 
 #. module: voip

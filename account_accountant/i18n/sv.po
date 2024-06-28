@@ -15,7 +15,6 @@
 # Robin Calvin, 2023
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2023
 # lynnliuying <lynn.liu1971@gmail.com>, 2023
-# Martin Trigaux, 2023
 # Simon S, 2023
 # Kristoffer Grundström <lovaren@gmail.com>, 2023
 # Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
@@ -24,6 +23,7 @@
 # Tim Levin, 2024
 # Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
 # Lasse L, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -31,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Lasse L, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -422,11 +422,6 @@ msgid "Bank reconciliation widget for a single statement line"
 msgstr "Bankavstämningswidget för en enda kontoutdragsrad"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
-msgid "Based on days"
-msgstr "Baserat på dagar"
-
-#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
@@ -619,6 +614,11 @@ msgid "Date at which the deferred expense/revenue starts"
 msgstr "Datum då upplupen kostnad/intäkt påbörjas"
 
 #. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
+msgid "Days"
+msgstr "Dagar"
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
@@ -778,11 +778,6 @@ msgid "Ending Date, included in the fiscal year."
 msgstr "Slutdatum, ingår i räkenskapsåret."
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
-msgid "Equal per month"
-msgstr "Jämnt per månad"
-
-#. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__invoicing_switch_threshold
 msgid ""
@@ -886,6 +881,11 @@ msgstr ""
 "uppdaterar en cell uppdateras alla markerade poster på en gång. Använd den "
 "här funktionen för att uppdatera flera journalposter från huvudboken eller "
 "någon Journalvyn."
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
+msgid "Full Months"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -1274,6 +1274,11 @@ msgstr "Metod använd för att generera upplupna intäkter"
 #, python-format
 msgid "Misc"
 msgstr "Övrigt"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
+msgid "Months"
+msgstr "Månader"
 
 #. module: account_accountant
 #. odoo-javascript

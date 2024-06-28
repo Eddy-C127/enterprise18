@@ -3,8 +3,8 @@
 # 	* voip
 # 
 # Translators:
-# Wil Odoo, 2023
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -183,6 +183,7 @@ msgid ""
 msgstr "確定要刪除此活動？它將會永遠消失⋯ 😔"
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__ask
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
 msgid "Ask"
 msgstr "詢問"
@@ -219,7 +220,6 @@ msgid "Call from %(phone_number)s"
 msgstr "通話要求，來電者：%(phone_number)s"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_call_from_another_device
 msgid "Call from another device"
 msgstr "來自另一裝置的通話"
@@ -305,7 +305,6 @@ msgid "Choose a device:"
 msgstr "選擇裝置："
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__how_to_call_on_mobile
 #: model:ir.model.fields,help:voip.field_res_users_settings__how_to_call_on_mobile
 msgid ""
 "Choose the method to be used to place a call when using the mobile application:\n"
@@ -411,6 +410,7 @@ msgid "Demo"
 msgstr "範例"
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__phone
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__phone
 msgid "Device's phone"
 msgstr "裝置的電話"
@@ -467,6 +467,10 @@ msgstr "輸入號碼⋯"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
+msgid "External Device Number"
+msgstr "外部裝置號碼"
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__external_device_number
 msgid "External device number"
 msgstr "外部裝置號碼"
@@ -500,6 +504,10 @@ msgstr "請稍等，不要掛線！"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
+msgid "How To Call On Mobile"
+msgstr "如何在流動裝置撥打電話"
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__how_to_call_on_mobile
 msgid "How to place calls on mobile"
 msgstr "如何在流動裝置撥打電話"
@@ -510,13 +518,11 @@ msgid "ID"
 msgstr "識別號"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "If enabled, incoming calls will be automatically declined in Odoo."
 msgstr "如果啟用，Odoo 會自動拒絕來電。"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_call_from_another_device
 msgid ""
 "If enabled, placing a call in Odoo will transfer the call to the \"External "
@@ -526,7 +532,6 @@ msgstr ""
 "如果啟用，在 Odoo 中撥打電話會將通話轉駁至「外部裝置號碼」。使用此選項可在 Odoo 中撥打電話，但從其他裝置處理該次通話，例如你的桌上電話。"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__external_device_number
 #: model:ir.model.fields,help:voip.field_res_users_settings__external_device_number
 msgid ""
 "If the \"Call from another device\" option is enabled, calls placed in Odoo "
@@ -747,7 +752,6 @@ msgid "Registration rejected: %(statusCode)s %(reasonPhrase)s."
 msgstr "登記被拒：%(statusCode)s %(reasonPhrase)s。"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "Reject incoming calls"
 msgstr "拒絕來電"
@@ -831,6 +835,16 @@ msgid "Send e-mail"
 msgstr "傳送電郵"
 
 #. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
+msgid "Should Auto Reject Incoming Calls"
+msgstr "應自動拒絕來電"
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
+msgid "Should Call From Another Device"
+msgstr "應從其他裝置撥出電話"
+
+#. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_queue_mixin.py:0
 #, python-format
@@ -873,6 +887,13 @@ msgstr "你的 WebSocket 的網址"
 
 #. module: voip
 #. odoo-javascript
+#: code:addons/voip/static/src/core/user_agent_service.js:0
+#, python-format
+msgid "The WebSocket connection was lost and couldn't be reestablished."
+msgstr "WebSocket 連線已斷線，而且無法重新建立。"
+
+#. module: voip
+#. odoo-javascript
 #: code:addons/voip/static/src/core/registerer.js:0
 #, python-format
 msgid ""
@@ -898,7 +919,6 @@ msgstr ""
 "（收到的原因：%(reasonPhrase)s）"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_secret
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_secret
 msgid "The password that will be used to register with the PBX server."
 msgstr "將用於在 PBX 伺服器註冊的密碼。"
@@ -932,7 +952,6 @@ msgid ""
 msgstr "未能啟動使用者代理。可能是 websocket 伺服器網址不正確。請要求管理員在一般設定中，檢查 websocket 伺服器網址。"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_username
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_username
 msgid ""
 "The username (typically the extension number) that will be used to register "
@@ -944,9 +963,9 @@ msgstr "將用作向 PBX 伺服器註冊的使用者名稱（通常是分機號�
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid ""
-"The websocket connection with the server has been lost. Please try to "
-"refresh the page."
-msgstr "與伺服器的 websocket 連線已斷線。請嘗試重新載入頁面。"
+"The websocket connection to the server has been lost. Attempting to "
+"reestablish the connection…"
+msgstr "與伺服器的 websocket 連線已斷線。正在嘗試重新建立連線⋯"
 
 #. module: voip
 #. odoo-javascript
@@ -1017,6 +1036,7 @@ msgstr "VoIP 列隊支援"
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.js:0
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__voip
 #: model_terms:ir.ui.view,arch_db:voip.res_user_form
 #: model_terms:ir.ui.view,arch_db:voip.res_users_view_form_preferences
@@ -1035,13 +1055,11 @@ msgid "VoIP Environment"
 msgstr "VoIP 環境"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_secret
 msgid "VoIP secret"
 msgstr "VoIP 秘密"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_username
 msgid "VoIP username / Extension number"
 msgstr "VoIP 使用者名稱 / 分機號碼"
@@ -1050,6 +1068,16 @@ msgstr "VoIP 使用者名稱 / 分機號碼"
 #: model:ir.ui.menu,name:voip.menu_voip_call_view
 msgid "Voip / Calls"
 msgstr "Voip / 通話"
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
+msgid "Voip Secret"
+msgstr "Voip 秘密"
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
+msgid "Voip Username"
+msgstr "Voip 使用者名稱"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__wsServer

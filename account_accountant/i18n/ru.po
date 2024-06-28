@@ -13,8 +13,8 @@
 # Martin Trigaux, 2023
 # Сергей Шебанин <sergey@shebanin.ru>, 2024
 # Collex100, 2024
+# Nadia Martynova, 2024
 # Wil Odoo, 2024
-# nadia martynova, 2024
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: nadia martynova, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -412,11 +412,6 @@ msgid "Bank reconciliation widget for a single statement line"
 msgstr "Виджет сверки банковских счетов для одной строки выписки"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
-msgid "Based on days"
-msgstr "На основе дней"
-
-#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
@@ -609,6 +604,11 @@ msgid "Date at which the deferred expense/revenue starts"
 msgstr "Дата, с которой начинается отсчет отложенных расходов/доходов"
 
 #. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
+msgid "Days"
+msgstr "Дней"
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
@@ -767,11 +767,6 @@ msgid "Ending Date, included in the fiscal year."
 msgstr "Дата окончания, включенная в финансовый год."
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
-msgid "Equal per month"
-msgstr "Равно в месяц"
-
-#. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__invoicing_switch_threshold
 msgid ""
@@ -874,6 +869,11 @@ msgstr ""
 "доступным для редактирования. При обновлении ячейки выбранные записи "
 "обновляются все сразу. Используйте эту функцию для обновления нескольких "
 "записей журнала из Главной книги или любого представления журнала."
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
+msgid "Full Months"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -1262,6 +1262,11 @@ msgstr "Метод, используемый для создания запис�
 #, python-format
 msgid "Misc"
 msgstr "Разное"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
+msgid "Months"
+msgstr "Месяцев"
 
 #. module: account_accountant
 #. odoo-javascript

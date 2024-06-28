@@ -185,6 +185,7 @@ msgid ""
 msgstr "이 활동을 삭제하시겠습니까? 삭제 후에는 복구할 수 없습니다.😔"
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__ask
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
 msgid "Ask"
 msgstr "물어보기"
@@ -221,7 +222,6 @@ msgid "Call from %(phone_number)s"
 msgstr "%(phone_number)s으로부터의 전화"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_call_from_another_device
 msgid "Call from another device"
 msgstr "다른 기기에서 통화"
@@ -309,7 +309,6 @@ msgid "Choose a device:"
 msgstr "디바이스 선택:"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__how_to_call_on_mobile
 #: model:ir.model.fields,help:voip.field_res_users_settings__how_to_call_on_mobile
 msgid ""
 "Choose the method to be used to place a call when using the mobile application:\n"
@@ -415,6 +414,7 @@ msgid "Demo"
 msgstr "데모"
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__phone
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__phone
 msgid "Device's phone"
 msgstr "기본 전화"
@@ -471,6 +471,10 @@ msgstr "번호를 입력하세요..."
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
+msgid "External Device Number"
+msgstr "외부 장치 번호"
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__external_device_number
 msgid "External device number"
 msgstr "외부 전화번호"
@@ -504,6 +508,10 @@ msgstr "잠시만요!"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
+msgid "How To Call On Mobile"
+msgstr "모바일로 전화하는 방법"
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__how_to_call_on_mobile
 msgid "How to place calls on mobile"
 msgstr "모바일에서 전화를 거는 방법"
@@ -514,13 +522,11 @@ msgid "ID"
 msgstr "ID"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "If enabled, incoming calls will be automatically declined in Odoo."
 msgstr "활성화하면 Odoo에서 수신 전화를 자동으로 거절합니다."
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_call_from_another_device
 msgid ""
 "If enabled, placing a call in Odoo will transfer the call to the \"External "
@@ -531,7 +537,6 @@ msgstr ""
 "(예: 사무실 전화)로 연결됩니다."
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__external_device_number
 #: model:ir.model.fields,help:voip.field_res_users_settings__external_device_number
 msgid ""
 "If the \"Call from another device\" option is enabled, calls placed in Odoo "
@@ -752,7 +757,6 @@ msgid "Registration rejected: %(statusCode)s %(reasonPhrase)s."
 msgstr "등록 거부됨: %(statusCode)s %(reasonPhrase)s."
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "Reject incoming calls"
 msgstr "수신 전화 거부"
@@ -836,6 +840,16 @@ msgid "Send e-mail"
 msgstr "이메일 전송"
 
 #. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
+msgid "Should Auto Reject Incoming Calls"
+msgstr "수신 전화 자동 거부"
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
+msgid "Should Call From Another Device"
+msgstr "다른 디바이스에서 통화해야 하는 경우"
+
+#. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_queue_mixin.py:0
 #, python-format
@@ -878,6 +892,13 @@ msgstr "웹소켓 URL"
 
 #. module: voip
 #. odoo-javascript
+#: code:addons/voip/static/src/core/user_agent_service.js:0
+#, python-format
+msgid "The WebSocket connection was lost and couldn't be reestablished."
+msgstr "WebSocket 연결이 끊어져 다시 설정할 수 없습니다."
+
+#. module: voip
+#. odoo-javascript
 #: code:addons/voip/static/src/core/registerer.js:0
 #, python-format
 msgid ""
@@ -905,7 +926,6 @@ msgstr ""
 "(사유: %(reasonPhrase)s)"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_secret
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_secret
 msgid "The password that will be used to register with the PBX server."
 msgstr "PBX 서버에 등록하는 데 사용되는 비밀번호입니다."
@@ -942,7 +962,6 @@ msgstr ""
 "URL을 확인하세요."
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_username
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_username
 msgid ""
 "The username (typically the extension number) that will be used to register "
@@ -954,9 +973,9 @@ msgstr "PBX 서버에 등록하는 데 사용되는 사용자 이름 (일반적�
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid ""
-"The websocket connection with the server has been lost. Please try to "
-"refresh the page."
-msgstr "서버와의 웹소켓 연결이 끊어졌습니다. 페이지를 새로고침해 보세요."
+"The websocket connection to the server has been lost. Attempting to "
+"reestablish the connection…"
+msgstr "서버에 대한 웹소켓 연결이 끊어졌습니다. 연결을 다시 설정하려고 시도 중입니다..."
 
 #. module: voip
 #. odoo-javascript
@@ -1027,6 +1046,7 @@ msgstr "VOIP 대기열 지원"
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.js:0
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__voip
 #: model_terms:ir.ui.view,arch_db:voip.res_user_form
 #: model_terms:ir.ui.view,arch_db:voip.res_users_view_form_preferences
@@ -1045,13 +1065,11 @@ msgid "VoIP Environment"
 msgstr "VoIP 환경"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_secret
 msgid "VoIP secret"
 msgstr "VoIP 암호"
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_username
 msgid "VoIP username / Extension number"
 msgstr "VoIP 사용자 이름 / 내선 번호"
@@ -1060,6 +1078,16 @@ msgstr "VoIP 사용자 이름 / 내선 번호"
 #: model:ir.ui.menu,name:voip.menu_voip_call_view
 msgid "Voip / Calls"
 msgstr "Voip / 통화"
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
+msgid "Voip Secret"
+msgstr "VoIP 암호"
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
+msgid "Voip Username"
+msgstr "VoIP 사용자 이름"
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_config_settings__wsServer

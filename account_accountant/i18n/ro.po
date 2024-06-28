@@ -8,11 +8,11 @@
 # Cozmin Candea <office@terrabit.ro>, 2024
 # Hongu Cosmin <cosmin513@gmail.com>, 2024
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
-# Martin Trigaux, 2024
 # Lyall Kindmurr, 2024
 # Fekete Mihai <mihai.fekete@forestandbiomass.ro>, 2024
 # Dorin Hongu <dhongu@gmail.com>, 2024
 # Larisa_nexterp, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Larisa_nexterp, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -410,11 +410,6 @@ msgid "Bank reconciliation widget for a single statement line"
 msgstr "Widget de reconciliere bancară pentru o singură linie de declarație"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
-msgid "Based on days"
-msgstr "Bazat pe zile"
-
-#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
@@ -609,6 +604,11 @@ msgid "Date at which the deferred expense/revenue starts"
 msgstr "Data la care începe cheltuiala/venitul amânat"
 
 #. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
+msgid "Days"
+msgstr "Zile"
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
@@ -768,11 +768,6 @@ msgid "Ending Date, included in the fiscal year."
 msgstr "Data de încheiere, inclusă în anul fiscal."
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
-msgid "Equal per month"
-msgstr "Egal pe lună"
-
-#. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__invoicing_switch_threshold
 msgid ""
@@ -877,6 +872,11 @@ msgstr ""
 "sunt actualizate simultan. Utilizați această caracteristică pentru a "
 "actualiza mai multe intrări în jurnal de Carte Mare sau orice vizualizare în"
 " Jurnal."
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
+msgid "Full Months"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -1266,6 +1266,11 @@ msgstr "Metoda utilizată pentru a genera intrări de venituri amânate"
 #, python-format
 msgid "Misc"
 msgstr "Diverse"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
+msgid "Months"
+msgstr "Luni"
 
 #. module: account_accountant
 #. odoo-javascript

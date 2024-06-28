@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Junko Augias, 2024
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
+# Junko Augias, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
@@ -391,11 +391,6 @@ msgid "Bank reconciliation widget for a single statement line"
 msgstr "一つの明細書明細の銀行勘定調整ウィジェット"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
-msgid "Based on days"
-msgstr "日数ベース"
-
-#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
@@ -583,6 +578,11 @@ msgid "Date at which the deferred expense/revenue starts"
 msgstr "前払費用/前受収益の開始日"
 
 #. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
+msgid "Days"
+msgstr "日"
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
@@ -740,11 +740,6 @@ msgid "Ending Date, included in the fiscal year."
 msgstr "日付を終了し、当連結会計年度に含まれています。"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
-msgid "Equal per month"
-msgstr "１カ月あたり均等"
-
-#. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__invoicing_switch_threshold
 msgid ""
@@ -841,6 +836,11 @@ msgid ""
 "Journal view."
 msgstr ""
 "リストビューから複数のレコードを選択すると、リストが編集可能になります。セルを更新すると、選択したレコードが一度に更新されます。この機能を使用して、総勘定元帳または任意の仕訳ビューから複数の仕訳を更新します。"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
+msgid "Full Months"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -1220,6 +1220,11 @@ msgstr "繰延収益仕訳を生成するために使われる方法"
 #, python-format
 msgid "Misc"
 msgstr "その他"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
+msgid "Months"
+msgstr "月"
 
 #. module: account_accountant
 #. odoo-javascript

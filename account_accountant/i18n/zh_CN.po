@@ -394,11 +394,6 @@ msgid "Bank reconciliation widget for a single statement line"
 msgstr "用于单个对账单行的银行对账工具"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
-msgid "Based on days"
-msgstr "按天计算"
-
-#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
@@ -586,6 +581,11 @@ msgid "Date at which the deferred expense/revenue starts"
 msgstr "递延费用/收入的起始日期"
 
 #. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
+msgid "Days"
+msgstr "天"
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
@@ -743,11 +743,6 @@ msgid "Ending Date, included in the fiscal year."
 msgstr "结束日期，包含在会计年度中。"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
-msgid "Equal per month"
-msgstr "每月等值"
-
-#. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__invoicing_switch_threshold
 msgid ""
@@ -845,6 +840,11 @@ msgid ""
 "Journal view."
 msgstr ""
 "在任何列表视图中，选择多项记录，列表即变为可编辑。如果更新单元格，选定记录将一次性全部更新。使用该功能可以更新总账或任何日记账视图中的多个日记帐分录。"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
+msgid "Full Months"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -1224,6 +1224,11 @@ msgstr "用于生成递延收入分录的方法"
 #, python-format
 msgid "Misc"
 msgstr "杂项"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
+msgid "Months"
+msgstr "个月"
 
 #. module: account_accountant
 #. odoo-javascript

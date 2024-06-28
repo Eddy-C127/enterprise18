@@ -408,11 +408,6 @@ msgstr ""
 "Widget per la riconciliazione bancaria di una signola voce di rendiconto"
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
-msgid "Based on days"
-msgstr "Basato sui giorni"
-
-#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
@@ -606,6 +601,11 @@ msgid "Date at which the deferred expense/revenue starts"
 msgstr "Data in cui inizieranno i risconti attivi/passivi"
 
 #. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
+msgid "Days"
+msgstr "Giorni"
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
@@ -765,11 +765,6 @@ msgid "Ending Date, included in the fiscal year."
 msgstr "Data di chiusura, inclusa nell'anno fiscale."
 
 #. module: account_accountant
-#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
-msgid "Equal per month"
-msgstr "Uguale per mese"
-
-#. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__invoicing_switch_threshold
 msgid ""
@@ -874,6 +869,11 @@ msgstr ""
 "selezionati vengono aggiornati tutti insieme. Utilizzare questa funzionalità"
 " per aggiornare registrazioni contabili multiple dal libro mastro oppure "
 "qualsiasi vista dei registri."
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
+msgid "Full Months"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -1262,6 +1262,11 @@ msgstr "Metodo utilizzato per creare registrazioni differite"
 #, python-format
 msgid "Misc"
 msgstr "Varie"
+
+#. module: account_accountant
+#: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__month
+msgid "Months"
+msgstr "Mesi"
 
 #. module: account_accountant
 #. odoo-javascript
