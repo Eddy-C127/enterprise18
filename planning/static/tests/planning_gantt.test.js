@@ -152,7 +152,7 @@ test("empty gantt view with sample data: send schedule", async function () {
         groupBy: ["resource_id"],
     });
     expect(".o_gantt_view .o_content").toHaveClass("o_view_sample_data");
-    expect(queryAll(".o_gantt_row_headers .o_gantt_row_header").length).toBeWithin(2, Infinity);
+    expect(queryAll(".o_gantt_row_headers .o_gantt_row_header").length).toBeGreaterThan(2);
 
     click(".o_gantt_button_send_all.btn-primary");
     await animationFrame();
@@ -183,7 +183,7 @@ test('add record in empty gantt with sample="1"', async function () {
 
     expect(".o_gantt_view .o_content").toHaveClass("o_view_sample_data");
     const rowHeaders = [...queryAll(".o_gantt_row_headers .o_gantt_row_header")];
-    expect(rowHeaders.length).toBeWithin(2, Infinity);
+    expect(rowHeaders.length).toBeGreaterThan(2);
     const firstRowHeader = rowHeaders[0];
     expect(firstRowHeader).toHaveText("Open Shifts");
     expect(firstRowHeader).not.toHaveClass("o_sample_data_disabled");
