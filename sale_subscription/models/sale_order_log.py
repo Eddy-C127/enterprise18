@@ -66,7 +66,7 @@ class SaleOrderLog(models.Model):
         parent_mrr = parent_currency._convert(parent_recurring_monthly,
                                               to_currency=new_currency,
                                               company=sub.env.company,
-                                              date=event_date, round=False)
+                                              date=fields.Date.today(), round=False)
         parent_transfer_log = sub.subscription_id.order_log_ids.filtered(
             lambda l: l.subscription_state == '5_renewed')
         transfer_date = parent_transfer_log and parent_transfer_log.sorted('event_date')[-1].event_date or event_date
