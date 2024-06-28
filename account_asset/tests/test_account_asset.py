@@ -844,7 +844,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         self.update_form_values(asset_form)
         asset_form.save()
 
-    def test_asset_from_move_line_form(self):
+    def test_asset_from_entry_line_form(self):
         """Test that the asset is correcly created from a move line"""
 
         move_ids = self.env['account.move'].create([{
@@ -889,6 +889,57 @@ class TestAccountAsset(TestAccountReportsCommon):
         self.assertEqual(asset.account_asset_id, self.company_data['default_account_expense'])
         self.assertEqual(asset.account_depreciation_id, self.company_data['default_account_expense'])
         self.assertEqual(asset.account_depreciation_expense_id, self.company_data['default_account_expense'])
+        self.assertEqual(asset.acquisition_date, min(move_ids.mapped('date')))
+
+    def test_asset_from_bill_move_line_form(self):
+        """Test that the asset is correcly created from a move line"""
+
+        move_ids = self.env['account.move'].create([{
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'ref': 'line1',
+            'date': '2020-06-01',
+            'invoice_date': '2020-06-15',
+            'invoice_line_ids': [
+                Command.create({
+                    'account_id': self.company_data['default_account_expense'].id,
+                    'price_unit': 300,
+                    'name': 'Furniture',
+                    'tax_ids': [],
+                }),
+            ]
+        }, {
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'ref': 'line2',
+            'date': '2020-06-01',
+            'invoice_date': '2020-06-14',
+            'invoice_line_ids': [
+                Command.create({
+                    'account_id': self.company_data['default_account_expense'].id,
+                    'price_unit': 600,
+                    'name': 'Furniture too',
+                    'tax_ids': [],
+                }),
+            ]
+        },
+        ])
+        move_ids.action_post()
+        move_line_ids = move_ids.mapped('line_ids').filtered(lambda x: x.debit)
+
+        asset_form = Form(self.env['account.asset'].with_context(default_original_move_line_ids=move_line_ids.ids))
+        asset_form.original_move_line_ids = move_line_ids
+        asset_form.account_depreciation_expense_id = self.company_data['default_account_expense']
+
+        asset = asset_form.save()
+        self.assertEqual(asset.value_residual, 900.0)
+        self.assertRecordValues(asset, [{
+            'name': 'Furniture',
+            'account_asset_id': self.company_data['default_account_expense'].id,
+            'account_depreciation_id': self.company_data['default_account_expense'].id,
+            'account_depreciation_expense_id': self.company_data['default_account_expense'].id,
+            'acquisition_date': min(move_ids.mapped('invoice_date')),
+        }])
 
     def test_asset_modify_value_00(self):
         """Test the values of the asset and value increase 'assets' after a
@@ -2689,3 +2740,24 @@ class TestAccountAsset(TestAccountReportsCommon):
             'modify_action': 'dispose',
         }).sell_dispose()
         self.assertEqual(len(fully_depreciated_asset.depreciation_move_ids), 1, "Only the disposal should be created")
+
+    def test_asset_acquisition_date_from_bill(self):
+        """Test that the invoice date is used as acquisition date instead of date"""
+        self.company_data['default_account_assets'].create_asset = 'draft'
+        self.company_data['default_account_assets'].asset_model = self.account_asset_model_fixedassets
+
+        bill = self.env['account.move'].with_context(asset_type='purchase').create({
+            'move_type': 'in_invoice',
+            'partner_id': self.partner_a.id,
+            'date': '2020-06-15',
+            'invoice_date': '2020-06-01',
+            'invoice_line_ids': [Command.create({
+                'name': 'Insurance claim',
+                'account_id': self.company_data['default_account_assets'].id,
+                'price_unit': 450,
+                'quantity': 1,
+            })],
+        })
+        bill.action_post()
+        asset = bill.asset_ids
+        self.assertEqual(asset.acquisition_date, bill.invoice_date)
