@@ -1,50 +1,75 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import { browser } from "@web/core/browser/browser"
-import { session }  from "@web/session";
+import { browser } from "@web/core/browser/browser";
+import { session } from "@web/session";
+import {
+    IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY,
+    removeIoTReportIdFromBrowserLocalStorage,
+} from "./client_action/delete_local_storage";
 
 export class IotWebsocket {
-    
     jobs = {};
-    
+
     constructor(bus_service, notification, orm) {
         this.notification = notification;
         this.bus_service = bus_service;
         this.orm = orm;
     }
-    
+
     async getDevicesFromIds(stored_content) {
-        return(await this.orm.call("ir.actions.report", "get_devices_from_ids", [0, stored_content]));
+        return await this.orm.call("ir.actions.report", "get_devices_from_ids", [
+            0,
+            stored_content,
+        ]);
     }
-    
+
     async addJob(stored_content, args) {
-        const id = args[3];
-        let response = await this.getDevicesFromIds(stored_content);
-        this.jobs[id] = response;
+        const [report_id, active_record_ids, report_data, uuid] = args;
+        const response = await this.getDevicesFromIds(stored_content).catch((error) => {
+            removeIoTReportIdFromBrowserLocalStorage(report_id);
+            throw error;
+        });
+        this.jobs[uuid] = response;
+        // The IoT is supposed to send back a confirmation request when the operation
+        // is done. This request will trigger the `jobs[uuid]` to be removed
+        // If the `jobs[uuid]` is still there after 10 seconds,
+        // we assume the connection to the printer failed
         setTimeout(() => {
-            if (this.jobs[id].length != 0) {
-                for (let device in this.jobs[id]) {
+            if (this.jobs[uuid].length !== 0) {
+                for (const device in this.jobs[uuid]) {
                     this.notification.add("Check if the printer is still connected", {
-                        title: ("Connection to printer failed " + this.jobs[id][device]["name"]),
+                        title: `Connection to printer failed ${this.jobs[uuid][device]["name"]}`,
                         type: "danger",
                     });
                 }
             }
-            delete this.jobs[id];
-        }, 10000)
-        await this.orm.call("ir.actions.report", "render_and_send", [args[0], response, args[1], args[2], args[3]]);
+            delete this.jobs[uuid];
+        }, 10000);
+        await this.orm.call("ir.actions.report", "render_and_send", [
+            report_id,
+            response,
+            active_record_ids,
+            report_data,
+            uuid,
+        ]);
     }
-        
-        setJobInLocalStorage(value, args) {
-            let links = JSON.parse(browser.localStorage.getItem("odoo-iot-linked_reports"))
-            if (links === null || typeof links !== 'object')
-                links = {}
-            links[args[0]] = value
-            browser.localStorage.setItem("odoo-iot-linked_reports", JSON.stringify(links))
-            this.addJob(value, args);
+
+    setJobInLocalStorage(value, args) {
+        let links = JSON.parse(
+            browser.localStorage.getItem(IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY)
+        );
+        if (links === null || typeof links !== "object") {
+            links = {};
         }
+        links[args[0]] = value;
+        browser.localStorage.setItem(
+            IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY,
+            JSON.stringify(links)
+        );
+        this.addJob(value, args);
     }
+}
 
 
 export const IotWebsocketService = {
