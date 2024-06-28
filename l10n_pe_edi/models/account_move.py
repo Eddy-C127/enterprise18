@@ -8,7 +8,7 @@ from num2words import num2words
 
 from odoo import api, fields, models, _
 from odoo.tools.float_utils import float_repr, float_round
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 CATALOG52 = [
     ("1002", "TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE"),
@@ -106,6 +106,27 @@ class AccountMove(models.Model):
         string="Legend",
         store=True, readonly=False, compute='_compute_l10n_pe_edi_legend_value',
         help="Peru: Specific operation type value.")
+
+    @api.constrains('name', 'company_id', 'move_type')
+    def _prevent_invoices_with_same_edi_filename(self):
+        for invoice in self.filtered(
+            lambda m: (
+                m.is_sale_document(include_receipts=True)
+                and m.country_code == 'PE'
+                and m.name not in (False, '/')
+            )
+        ):
+            if self.search_count(
+                [
+                    ('country_code', '=', 'PE'),
+                    ('move_type', 'in', ['out_invoice', 'out_refund', 'out_receipt']),
+                    ('name', '=', invoice.name),
+                    ('company_id.vat', '=', invoice.company_id.vat),
+                    ('id', '!=', invoice.id),
+                ],
+                limit=1,
+            ):
+                raise ValidationError(_('An invoice with the same sequence already exists. Please give this invoice a different sequence.'))
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
