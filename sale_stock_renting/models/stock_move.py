@@ -6,6 +6,11 @@ from odoo import models, api
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
+    def _should_ignore_rented_qty(self, sibling):
+        self.ensure_one()
+        sibling.ensure_one()
+        return self.state == 'cancel' or self.product_id != sibling.product_id or self.scrapped or self.picking_code not in ('outgoing', 'incoming')
+
     def _search_picking_for_assignation_domain(self):
         """ This modifies the picking search domain for rental moves.
 

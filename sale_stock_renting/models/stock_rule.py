@@ -14,7 +14,7 @@ class StockRule(models.Model):
             return_quantity = 0.0
             if move_to_copy.location_dest_id == move_to_copy.company_id.rental_loc_id:
                 for move in move_to_copy.sale_line_id.move_ids:
-                    if move.state == 'cancel' or move.product_id != move_to_copy.product_id or move.scrapped or move.picking_code not in ('outgoing', 'incoming'):
+                    if move._should_ignore_rented_qty(move_to_copy):
                         continue
                     if move.location_dest_id == move.company_id.rental_loc_id:
                         return_quantity += move.product_uom._compute_quantity(move.product_qty, move_to_copy.sale_line_id.product_uom, rounding_method='HALF-UP')

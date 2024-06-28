@@ -7,6 +7,9 @@ from odoo import models
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
+    def _should_ignore_rented_qty(self, sibling):
+        return super()._should_ignore_rented_qty(sibling) or self.bom_line_id != sibling.bom_line_id
+
     def _action_done(self, cancel_backorder=False):
         res = super()._action_done(cancel_backorder=cancel_backorder)
         if self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
