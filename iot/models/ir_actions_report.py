@@ -3,7 +3,8 @@
 
 import base64
 
-from odoo import fields, models
+from odoo import fields, models, _
+from odoo.exceptions import UserError
 
 
 class IrActionReport(models.Model):
@@ -78,8 +79,10 @@ class IrActionReport(models.Model):
         }
 
     def get_devices_from_ids(self, id_list):
-        device_list = []
         device_ids = self.env['iot.device'].browse(id_list)
+        if len(id_list) != len(device_ids.exists()):
+            raise UserError(_("One of the printer used to print document have been removed. Please retry the operation to choose new printers to print."))
+        device_list = []
         for device_id in device_ids:
             device_list.append({"id": device_id.id, "identifier": device_id.identifier, "name": device_id.name, "iotIdentifier": device_id.iot_id.identifier})
         return device_list
