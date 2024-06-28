@@ -139,9 +139,9 @@ export class AbstractSpreadsheetAction extends Component {
         // if we are returning to the spreadsheet via the breadcrumb, we don't want
         // to do all the "creation" options of the actions
         if (!this.props.state) {
-            await Promise.all([this._setupPreProcessingCallbacks()]);
+            await this._setupPreProcessingCallbacks();
         }
-        const [record] = await Promise.all([this._fetchData()]);
+        const record = await this._fetchData();
         this._initializeWith(record);
     }
 
