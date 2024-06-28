@@ -105,7 +105,7 @@
                 <field name="currency_id"/>
             </field>
             <div name="div_date_id" position="after">
-                <div class="text-muted o_kanban_record_subtitle o_hr_contract_job_id" name="div_job_id">
+                <div class="text-muted" name="div_job_id">
                     <t t-if="record.wage_type.raw_value == 'monthly'">
                         Wage : <field name="contract_wage"/> / Month
                     </t>
