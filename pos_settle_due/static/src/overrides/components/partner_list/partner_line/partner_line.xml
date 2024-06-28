@@ -9,13 +9,23 @@
             </div>
         </xpath>
         <xpath expr="//DropdownItem[last()]" position="after">
-            <DropdownItem t-if="partnerInfos.totalDue" onSelected="() => this.settleCustomerDue()">
-                Settle Due Accounts
+            <DropdownItem onSelected="() => this.settleCustomerDue()">
+                <t t-if="partnerInfos.totalDue gt 0">
+                    Settle due accounts
+                </t>
+                <t t-else="">
+                    Deposit money
+                </t>
             </DropdownItem>
         </xpath>
         <xpath expr="//td[hasclass('edit-partner-button-cell')]//DropdownItem[last()]" position="after">
-            <DropdownItem t-if="partnerInfos.totalDue" onSelected="() => this.settleCustomerDue()">
-                Settle Due Accounts
+            <DropdownItem onSelected="() => this.settleCustomerDue()">
+                <t t-if="partnerInfos.totalDue gt 0">
+                    Settle due accounts
+                </t>
+                <t t-else="">
+                    Deposit money
+                </t>
             </DropdownItem>
         </xpath>
     </t>

@@ -31,3 +31,15 @@ registry.category("web_tour.tours").add("pos_settle_account_due", {
             Chrome.endTour(),
         ].flat(),
 });
+
+registry.category("web_tour.tours").add("SettleDueButtonPresent", {
+    test: true,
+    steps: () =>
+        [
+            ProductScreen.clickPartnerButton(),
+            PartnerList.clickPartnerOptions("A Partner"),
+            PartnerList.checkDropDownItemText("Deposit money"),
+            PartnerList.clickPartnerOptions("B Partner"),
+            PartnerList.checkDropDownItemText("Settle due accounts"),
+        ].flat(),
+});
