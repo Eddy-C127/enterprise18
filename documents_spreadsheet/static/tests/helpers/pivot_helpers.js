@@ -1,25 +1,23 @@
-/** @odoo-module */
-
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import {
-    patchWithCleanup,
-    click,
-    nextTick,
-    getFixture,
-    makeDeferred,
-    triggerEvent,
-} from "@web/../tests/helpers/utils";
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
 import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
+import { getFixture } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
+import { onMounted } from "@odoo/owl";
+import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     getSpreadsheetActionEnv,
     getSpreadsheetActionModel,
     prepareWebClientForSpreadsheet,
-} from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
-import { waitForDataLoaded } from "@spreadsheet/helpers/model";
-import { registry } from "@web/core/registry";
-import { fieldService } from "@web/core/field_service";
-import { onMounted } from "@odoo/owl";
+} from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
+import {
+    contains,
+    getService,
+    mountWithCleanup,
+    patchWithCleanup,
+} from "@web/../tests/web_test_helpers";
+import { Deferred } from "@web/core/utils/concurrency";
+import { WebClient } from "@web/webclient/webclient";
 
 /**
  * @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model
@@ -41,13 +39,13 @@ import { onMounted } from "@odoo/owl";
  */
 export async function spawnPivotViewForSpreadsheet(params = {}) {
     await prepareWebClientForSpreadsheet();
-    const webClient = await createWebClient({
+    await makeSpreadsheetMockEnv({
         serverData: params.serverData || getBasicServerData(),
         mockRPC: params.mockRPC,
     });
+    const webClient = await mountWithCleanup(WebClient);
 
-    await doAction(
-        webClient,
+    await getService("action").doAction(
         params.actionXmlId || {
             name: "pivot view",
             res_model: params.model || "partner",
@@ -69,6 +67,7 @@ export async function spawnPivotViewForSpreadsheet(params = {}) {
  * @property {string} [model] pivot resModel
  * @property {string} [actionXmlId] xmlId of the action to load the pivot view from - model and domain will be ignored
  * @property {number} [documentId] ID of an existing document
+ * @property {object} [additionalContext] additional context for the action
  * @property {function} [actions] Actions to execute on the pivot view
  *                                before inserting in spreadsheet
  */
@@ -76,12 +75,12 @@ export async function spawnPivotViewForSpreadsheet(params = {}) {
 /**
  * Create a spreadsheet model from a Pivot controller
  *
- * @param {CreatePivotTestParams & import("@documents_spreadsheet/../tests/legacy/spreadsheet_test_utils").SpreadsheetTestParams} params
+ * @param {CreatePivotTestParams & import("@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils").SpreadsheetTestParams} params
  * @returns {Promise<object>} Webclient
  */
 export async function createSpreadsheetFromPivotView(params = {}) {
     let spreadsheetAction = {};
-    const def = makeDeferred();
+    const def = new Deferred();
     patchWithCleanup(SpreadsheetAction.prototype, {
         setup() {
             super.setup();
@@ -91,7 +90,6 @@ export async function createSpreadsheetFromPivotView(params = {}) {
             });
         },
     });
-    registry.category("services").add("field", fieldService, { force: true });
     const webClient = await spawnPivotViewForSpreadsheet({
         model: params.model,
         serverData: params.serverData,
@@ -104,17 +102,13 @@ export async function createSpreadsheetFromPivotView(params = {}) {
     if (params.actions) {
         await params.actions(target);
     }
-    await click(target.querySelector(".o_pivot_add_spreadsheet"));
+    await contains(".o_pivot_add_spreadsheet").click();
     if (params.documentId) {
-        await triggerEvent(
-            target,
-            `.o-spreadsheet-grid div[data-id='${params.documentId}']`,
-            "focus"
-        );
+        await contains(`.o-spreadsheet-grid div[data-id='${params.documentId}']`).focus();
     }
-    await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
     await def;
-    await nextTick();
+    await animationFrame();
     const model = getSpreadsheetActionModel(spreadsheetAction);
     const pivotId = model.getters.getPivotIds()[0];
     await waitForDataLoaded(model);

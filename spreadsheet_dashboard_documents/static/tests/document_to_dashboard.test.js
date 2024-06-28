@@ -1,64 +1,27 @@
-/** @odoo-module */
-
+import { defineDocumentSpreadsheetModels } from "@documents_spreadsheet/../tests/helpers/data";
+import {
+    createSpreadsheet,
+    mockActionService,
+} from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
+import { describe, expect, test } from "@odoo/hoot";
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { createSpreadsheet } from "@documents_spreadsheet/../tests/legacy/spreadsheet_test_utils";
-import { registry } from "@web/core/registry";
-import { actionService } from "@web/webclient/actions/action_service";
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
-import { doMenuAction } from "@spreadsheet/../tests/legacy/utils/ui";
-import { setCellContent } from "@spreadsheet/../tests/legacy/utils/commands";
+import { setCellContent } from "@spreadsheet/../tests/helpers/commands";
+import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";
+import { defineModels, models } from "@web/../tests/web_test_helpers";
+
+describe.current.tags("headless");
+defineDocumentSpreadsheetModels();
 
 const { topbarMenuRegistry } = spreadsheet.registries;
 
-function getServerData() {
-    const serverData = getBasicServerData();
-    serverData.models["spreadsheet.document.to.dashboard"] = {
-        fields: {},
-        records: [],
-    };
-    serverData.views["spreadsheet.document.to.dashboard,false,form"] = "<form></form>";
-    return serverData;
+class DocumentsToDashboardWizard extends models.Model {
+    _name = "spreadsheet.document.to.dashboard";
+    _views = { form: "<form/>" };
 }
+defineModels({ DocumentsToDashboardWizard });
 
-QUnit.module("spreadsheet_dashboard_documents > add document to dashboard");
-
-QUnit.test("open wizard action", async (assert) => {
-    const serverData = getServerData();
-    registry.category("services").add("actionMain", actionService);
-    const fakeActionService = {
-        dependencies: ["actionMain"],
-        start(env, { actionMain }) {
-            return {
-                ...actionMain,
-                get currentController() {
-                    return actionMain.currentController;
-                },
-                doAction(actionRequest, options) {
-                    if (actionRequest.res_model === "spreadsheet.document.to.dashboard") {
-                        assert.step("open_wizard_action");
-                        assert.deepEqual(actionRequest, {
-                            name: "Name your dashboard and select its section",
-                            type: "ir.actions.act_window",
-                            view_mode: "form",
-                            views: [[false, "form"]],
-                            target: "new",
-                            res_model: "spreadsheet.document.to.dashboard",
-                        });
-                        assert.deepEqual(options, {
-                            additionalContext: {
-                                default_document_id: 2,
-                                default_name: "",
-                            },
-                        });
-                    }
-                    actionMain.doAction(...arguments);
-                },
-            };
-        },
-    };
-    registry.category("services").add("action", fakeActionService, { force: true });
+test("open wizard action", async () => {
     const { env } = await createSpreadsheet({
-        serverData,
         spreadsheetId: 2,
         mockRPC: async function (route, args) {
             if (args.method === "save_spreadsheet_snapshot") {
@@ -66,26 +29,42 @@ QUnit.test("open wizard action", async (assert) => {
             }
         },
     });
+    mockActionService((actionRequest, options) => {
+        if (actionRequest.res_model === "spreadsheet.document.to.dashboard") {
+            expect.step("open_wizard_action");
+            expect(actionRequest).toEqual({
+                name: "Name your dashboard and select its section",
+                type: "ir.actions.act_window",
+                view_mode: "form",
+                views: [[false, "form"]],
+                target: "new",
+                res_model: "spreadsheet.document.to.dashboard",
+            });
+            expect(options).toEqual({
+                additionalContext: {
+                    default_document_id: 2,
+                    default_name: "",
+                },
+            });
+        }
+    });
     await doMenuAction(topbarMenuRegistry, ["file", "add_document_to_dashboard"], env);
-    assert.verifySteps(["open_wizard_action"]);
+    expect.verifySteps(["open_wizard_action"]);
 });
 
-QUnit.test("document's data is saved when opening wizard", async (assert) => {
-    const serverData = getServerData();
-    registry.category("services").add("actionMain", actionService);
+test("document's data is saved when opening wizard", async () => {
     const { env, model } = await createSpreadsheet({
-        serverData,
         spreadsheetId: 2,
         mockRPC: async function (route, args) {
             if (args.method === "save_spreadsheet_snapshot") {
-                assert.step("save_spreadsheet_snapshot");
+                expect.step("save_spreadsheet_snapshot");
                 const snapshotData = args.args[1];
-                assert.strictEqual(snapshotData.sheets[0].cells.A1.content, "a cell updated");
+                expect(snapshotData.sheets[0].cells.A1.content).toBe("a cell updated");
                 return true;
             }
         },
     });
     setCellContent(model, "A1", "a cell updated");
     await doMenuAction(topbarMenuRegistry, ["file", "add_document_to_dashboard"], env);
-    assert.verifySteps(["save_spreadsheet_snapshot"]);
+    expect.verifySteps(["save_spreadsheet_snapshot"]);
 });

@@ -1,12 +1,17 @@
-import { getBasicData } from "@spreadsheet/../tests/legacy/utils/data";
-import { createSpreadsheetWithPivot } from "@spreadsheet/../tests/legacy/utils/pivot";
-import { makeStoreWithModel } from "@spreadsheet/../tests/legacy/utils/stores";
+import { defineDocumentSpreadsheetModels } from "@documents_spreadsheet/../tests/helpers/data";
+import { describe, expect, test } from "@odoo/hoot";
 import { stores } from "@odoo/o-spreadsheet";
+import { Partner } from "@spreadsheet/../tests/helpers/data";
+import { createSpreadsheetWithPivot } from "@spreadsheet/../tests/helpers/pivot";
+import { makeStoreWithModel } from "@spreadsheet/../tests/helpers/stores";
+import { fields } from "@web/../tests/web_test_helpers";
+
 const { PivotSidePanelStore } = stores;
 
-QUnit.module("spreadsheet pivot side panel store");
+describe.current.tags("headless");
+defineDocumentSpreadsheetModels();
 
-QUnit.test("deferred updates", async (assert) => {
+test("deferred updates", async () => {
     const { model, pivotId } = await createSpreadsheetWithPivot({
         arch: /* xml */ `
             <pivot>
@@ -17,22 +22,24 @@ QUnit.test("deferred updates", async (assert) => {
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
-    assert.strictEqual(store.isDirty, false);
+    expect(store.isDirty).toBe(false);
     store.update({ columns: [{ name: "bar" }] });
-    assert.strictEqual(store.isDirty, true);
-    assert.deepEqual(store.definition.columns[0].name, "bar");
-    assert.deepEqual(store.definition.rows[0].name, "foo");
+    expect(store.isDirty).toBe(true);
+    expect(store.definition.columns[0].name).toEqual("bar");
+    expect(store.definition.rows[0].name).toEqual("foo");
     let definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    assert.deepEqual(definition.columns, [{ name: "product_id" }], "updates are defered");
-    assert.deepEqual(definition.rows, [{ name: "foo" }], "updates are defered");
+    expect(definition.columns).toEqual([{ name: "product_id" }], {
+        message: "updates are defered",
+    });
+    expect(definition.rows).toEqual([{ name: "foo" }], { message: "updates are defered" });
     store.applyUpdate();
-    assert.strictEqual(store.isDirty, false);
+    expect(store.isDirty).toBe(false);
     definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    assert.deepEqual(definition.columns, [{ name: "bar" }]);
-    assert.deepEqual(definition.rows, [{ name: "foo" }]);
+    expect(definition.columns).toEqual([{ name: "bar" }]);
+    expect(definition.rows).toEqual([{ name: "foo" }]);
 });
 
-QUnit.test("uncheck the defer updates checkbox applies the update", async (assert) => {
+test("uncheck the defer updates checkbox applies the update", async () => {
     const { model, pivotId } = await createSpreadsheetWithPivot({
         arch: /* xml */ `
             <pivot>
@@ -43,16 +50,16 @@ QUnit.test("uncheck the defer updates checkbox applies the update", async (asser
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
-    assert.strictEqual(store.isDirty, false);
+    expect(store.isDirty).toBe(false);
     store.update({ columns: [{ name: "bar" }] });
     store.deferUpdates(false);
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    assert.deepEqual(definition.columns, [{ name: "bar" }]);
-    assert.deepEqual(definition.rows, [{ name: "foo" }]);
-    assert.strictEqual(store.isDirty, false);
+    expect(definition.columns).toEqual([{ name: "bar" }]);
+    expect(definition.rows).toEqual([{ name: "foo" }]);
+    expect(store.isDirty).toBe(false);
 });
 
-QUnit.test("remove row then add col", async (assert) => {
+test("remove row then add col", async () => {
     const { model, pivotId } = await createSpreadsheetWithPivot({
         arch: /* xml */ `
             <pivot>
@@ -64,75 +71,68 @@ QUnit.test("remove row then add col", async (assert) => {
     store.deferUpdates(true);
     store.update({ rows: [] });
     store.update({ columns: [{ name: "bar" }] });
-    assert.deepEqual(store.definition.rows, []);
-    assert.strictEqual(store.definition.columns.length, 1);
-    assert.deepEqual(store.definition.columns[0].name, "bar");
+    expect(store.definition.rows).toEqual([]);
+    expect(store.definition.columns.length).toBe(1);
+    expect(store.definition.columns[0].name).toEqual("bar");
 });
 
-QUnit.test("non-groupable fields are filtered", async (assert) => {
-    const models = getBasicData();
-    models.partner.fields = {
-        foo: {
-            string: "Foo",
-            type: "integer",
-            store: true,
-            searchable: true,
-            aggregator: "sum",
-            groupable: true,
-        },
-        bar: {
-            string: "Bar",
-            type: "boolean",
-            store: true,
-            sortable: true,
-            groupable: false,
-            searchable: true,
-        },
-    };
-    models.partner.records = [];
+test("non-groupable fields are filtered", async () => {
+    const foo = fields.Integer({
+        string: "Foo",
+        store: true,
+        searchable: true,
+        aggregator: "sum",
+        groupable: true,
+    });
+    const bar = fields.Boolean({
+        string: "Bar",
+        store: true,
+        sortable: true,
+        groupable: false,
+        searchable: true,
+    });
+    Partner._rec_name = undefined;
+    Partner._fields = { foo, bar };
+    Partner._records = [];
     const { model, pivotId } = await createSpreadsheetWithPivot({
-        serverData: { models },
         arch: /* xml */ `
             <pivot>
                 <field name="__count" type="measure"/>
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
-    assert.strictEqual(store.unusedGroupableFields.length, 1);
-    assert.strictEqual(store.unusedGroupableFields[0].name, "foo");
+    expect(store.unusedGroupableFields.length).toBe(1);
+    expect(store.unusedGroupableFields[0].name).toBe("foo");
 });
 
-QUnit.test("fields already used are filtered", async (assert) => {
-    const models = getBasicData();
-    models.partner.fields = {
-        foo: {
-            string: "Foo",
-            type: "integer",
-            store: true,
-            searchable: true,
-            aggregator: "sum",
-            groupable: true,
-        },
-        bar: {
-            string: "Bar",
-            type: "boolean",
-            store: true,
-            sortable: true,
-            groupable: true,
-            searchable: true,
-        },
-        baz: {
-            string: "Baz",
-            type: "boolean",
-            store: true,
-            sortable: true,
-            groupable: true,
-            searchable: true,
-        },
-    };
-    models.partner.records = [];
+test("fields already used are filtered", async () => {
+    const foo = fields.Integer({
+        string: "Foo",
+        store: true,
+        searchable: true,
+        aggregator: "sum",
+        groupable: true,
+    });
+    const bar = fields.Boolean({
+        string: "Bar",
+        store: true,
+        sortable: true,
+        groupable: false,
+        searchable: true,
+    });
+    const baz = fields.Boolean({
+        string: "Baz",
+        type: "boolean",
+        store: true,
+        sortable: true,
+        groupable: true,
+        searchable: true,
+    });
+    Partner._rec_name = undefined;
+    Partner._fields = { foo, bar, baz };
+    Partner._records = [];
+
     const { model, pivotId } = await createSpreadsheetWithPivot({
-        serverData: { models },
         arch: /* xml */ `
             <pivot>
                 <field name="bar" type="col"/>
@@ -141,25 +141,19 @@ QUnit.test("fields already used are filtered", async (assert) => {
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
-    assert.strictEqual(store.unusedGroupableFields.length, 1);
-    assert.strictEqual(store.unusedGroupableFields[0].name, "baz");
+    expect(store.unusedGroupableFields.length).toBe(1);
+    expect(store.unusedGroupableFields[0].name).toBe("baz");
     store.update({ columns: [{ name: "bar" }, { name: "baz" }] });
-    assert.strictEqual(store.unusedGroupableFields.length, 0);
+    expect(store.unusedGroupableFields.length).toBe(0);
 });
 
-QUnit.test("can reuse date fields until all granularities are used", async (assert) => {
-    const models = getBasicData();
-    models.partner.fields = {
-        create_date: {
-            string: "Create date",
-            type: "datetime",
-            store: true,
-            groupable: true,
-        },
-    };
-    models.partner.records = [];
+test("can reuse date fields until all granularities are used", async () => {
+    const create_date = fields.Datetime({ string: "Create date", store: true, groupable: true });
+    Partner._rec_name = undefined;
+    Partner._fields = { create_date };
+    Partner._records = [];
+
     const { model, pivotId } = await createSpreadsheetWithPivot({
-        serverData: { models },
         arch: /* xml */ `
             <pivot>
                 <field name="__count" type="measure"/>
@@ -167,11 +161,8 @@ QUnit.test("can reuse date fields until all granularities are used", async (asse
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
-    assert.strictEqual(store.unusedGroupableFields.length, 1);
-    assert.deepEqual(
-        store.unusedGroupableFields.map((m) => m.name),
-        ["create_date"]
-    );
+    expect(store.unusedGroupableFields.length).toBe(1);
+    expect(store.unusedGroupableFields.map((m) => m.name)).toEqual(["create_date"]);
     store.update({
         columns: [
             { name: "create_date", granularity: "year" },
@@ -179,7 +170,7 @@ QUnit.test("can reuse date fields until all granularities are used", async (asse
             { name: "create_date", granularity: "month" },
         ],
     });
-    assert.strictEqual(store.unusedGroupableFields.length, 1);
+    expect(store.unusedGroupableFields.length).toBe(1);
     store.update({
         columns: [
             { name: "create_date", granularity: "year" },
@@ -189,22 +180,16 @@ QUnit.test("can reuse date fields until all granularities are used", async (asse
             { name: "create_date", granularity: "day" },
         ],
     });
-    assert.strictEqual(store.unusedGroupableFields.length, 0);
+    expect(store.unusedGroupableFields.length).toBe(0);
 });
 
-QUnit.test("add default datetime granularity", async (assert) => {
-    const models = getBasicData();
-    models.partner.fields = {
-        create_date: {
-            string: "Create date",
-            type: "datetime",
-            store: true,
-            groupable: true,
-        },
-    };
-    models.partner.records = [];
+test("add default datetime granularity", async () => {
+    const create_date = fields.Datetime({ string: "Create date", store: true, groupable: true });
+    Partner._rec_name = undefined;
+    Partner._fields = { create_date };
+    Partner._records = [];
+
     const { model, pivotId } = await createSpreadsheetWithPivot({
-        serverData: { models },
         arch: /* xml */ `
             <pivot>
                 <field name="__count" type="measure"/>
@@ -214,122 +199,82 @@ QUnit.test("add default datetime granularity", async (assert) => {
     store.deferUpdates(true);
 
     store.update({ columns: [{ name: "create_date" }] });
-    assert.strictEqual(store.definition.columns[0].granularity, "year");
+    expect(store.definition.columns[0].granularity).toBe("year");
 
     store.update({ columns: [{ name: "create_date" }, { name: "create_date" }] });
-    assert.strictEqual(store.definition.columns[0].granularity, "year");
-    assert.strictEqual(store.definition.columns[1].granularity, "quarter");
+    expect(store.definition.columns[0].granularity).toBe("year");
+    expect(store.definition.columns[1].granularity).toBe("quarter");
 
     store.update({
         columns: [{ name: "create_date", granularity: "month" }, { name: "create_date" }],
     });
-    assert.strictEqual(store.definition.columns[0].granularity, "month");
-    assert.strictEqual(store.definition.columns[1].granularity, "year");
+    expect(store.definition.columns[0].granularity).toBe("month");
+    expect(store.definition.columns[1].granularity).toBe("year");
 
     store.update({
         columns: [{ name: "create_date" }, { name: "create_date" }, { name: "create_date" }],
     });
-    assert.strictEqual(store.definition.columns[0].granularity, "year");
-    assert.strictEqual(store.definition.columns[1].granularity, "quarter");
-    assert.strictEqual(store.definition.columns[2].granularity, "month");
+    expect(store.definition.columns[0].granularity).toBe("year");
+    expect(store.definition.columns[1].granularity).toBe("quarter");
+    expect(store.definition.columns[2].granularity).toBe("month");
 });
 
-QUnit.test("non measure fields are filtered and sorted", async (assert) => {
-    const models = getBasicData();
-    models.partner.fields = {
-        foo: {
-            string: "Foo",
-            type: "integer",
-            store: true,
-        },
-        bar: {
-            string: "Bar",
-            type: "boolean",
-            store: true,
-        },
-        probability: {
-            string: "Probability",
-            type: "integer",
-            aggregator: "sum",
-            store: true,
-        },
-        dummy_float: {
-            string: "Dummy float",
-            type: "float",
-            aggregator: "sum",
-            store: true,
-        },
-        dummy_monetary: {
+test("non measure fields are filtered and sorted", async () => {
+    const partnerFields = {
+        foo: fields.Integer({ string: "Foo", store: true, aggregator: undefined }),
+        bar: fields.Boolean({ string: "Bar", store: true }),
+        probability: fields.Integer({ string: "Probability", store: true, aggregator: "sum" }),
+        dummy_float: fields.Float({ string: "Dummy float", store: true, aggregator: "sum" }),
+        dummy_monetary: fields.Monetary({
             string: "Dummy monetary",
-            type: "monetary",
-            aggregator: "sum",
             store: true,
-        },
-        dummy_many2one: {
-            string: "Dummy many2one",
-            type: "many2one",
             aggregator: "sum",
-            store: true,
-        },
-        dummy_binary: {
-            string: "Dummy binary",
-            type: "binary",
-            aggregator: "sum",
-            store: true,
-        },
-        foo_non_stored: {
-            string: "Foo non stored",
-            type: "integer",
-            aggregator: "sum",
+            currency_field: "currency_id",
+        }),
+        currency_id: fields.Many2one({
+            string: "Currency",
+            relation: "res.currency",
             store: false,
-        },
+        }),
+        dummy_many2one: fields.Many2one({
+            string: "Dummy many2one",
+            store: true,
+            aggregator: "sum",
+            relation: "res.partner",
+        }),
+        dummy_binary: fields.Binary({ string: "Dummy binary", store: true, aggregator: "sum" }),
+        foo_non_stored: fields.Integer({ string: "Foo non stored", store: false }),
     };
-    models.partner.records = [];
+    Partner._rec_name = undefined;
+    Partner._fields = partnerFields;
+    Partner._records = [];
     const { model, pivotId } = await createSpreadsheetWithPivot({
-        serverData: { models },
         arch: /* xml */ `
             <pivot>
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
-    assert.strictEqual(store.unusedMeasureFields.length, 5);
+    expect(store.unusedMeasureFields.length).toBe(5);
     const measures = ["__count", "dummy_float", "dummy_many2one", "dummy_monetary", "probability"];
-    assert.deepEqual(
-        store.unusedMeasureFields.map((m) => m.name),
-        measures
-    );
+    expect(store.unusedMeasureFields.map((m) => m.name)).toEqual(measures);
 });
 
-QUnit.test("Existing measure and dimensions fields are filtered", async (assert) => {
-    const models = getBasicData();
-    models.partner.fields = {
-        foo: {
-            string: "Foo",
-            type: "integer",
-            aggregator: "sum",
-            store: true,
-        },
-        bar: {
-            string: "Bar",
-            type: "boolean",
-            store: true,
-        },
-        probability: {
-            string: "Probability",
-            type: "integer",
-            aggregator: "sum",
-            store: true,
-        },
-        product_id: {
+test("Existing measure and dimensions fields are filtered", async () => {
+    const partnerFields = {
+        foo: fields.Integer({ string: "Foo", store: true }),
+        bar: fields.Boolean({ string: "Bar", store: true }),
+        probability: fields.Integer({ string: "Probability", store: true, aggregator: "sum" }),
+        product_id: fields.Many2one({
             string: "Product",
-            type: "many2one",
-            groupable: true,
+            relation: "product",
             store: true,
-        },
+            groupable: true,
+        }),
     };
-    models.partner.records = [];
+    Partner._rec_name = undefined;
+    Partner._fields = partnerFields;
+    Partner._records = [];
     const { model, pivotId } = await createSpreadsheetWithPivot({
-        serverData: { models },
         arch: /* xml */ `
             <pivot>
                 <field name="product_id" type="row"/>
@@ -338,18 +283,15 @@ QUnit.test("Existing measure and dimensions fields are filtered", async (assert)
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
-    assert.strictEqual(store.unusedMeasureFields.length, 2);
+    expect(store.unusedMeasureFields.length).toBe(2);
     const measures = ["foo", "probability"];
-    assert.deepEqual(
-        store.unusedMeasureFields.map((m) => m.name),
-        measures
-    );
+    expect(store.unusedMeasureFields.map((m) => m.name)).toEqual(measures);
     store.update({
         measures: [
             { name: "__count", aggregator: "sum" },
             { name: "probability", aggregator: "sum" },
         ],
     });
-    assert.strictEqual(store.unusedMeasureFields.length, 1);
-    assert.strictEqual(store.unusedMeasureFields[0].name, "foo");
+    expect(store.unusedMeasureFields.length).toBe(1);
+    expect(store.unusedMeasureFields[0].name).toBe("foo");
 });

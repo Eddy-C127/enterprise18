@@ -1,35 +1,37 @@
-/* @odoo-module */
-
+import {
+    DocumentsDocument,
+    defineDocumentSpreadsheetModels,
+} from "@documents_spreadsheet/../tests/helpers/data";
+import { createSpreadsheet } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
+import { describe, expect, getFixture, test } from "@odoo/hoot";
+import { manuallyDispatchProgrammaticEvent } from "@odoo/hoot-dom";
+import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { downloadFile } from "@web/core/network/download";
+import { selectCell, setCellContent, setSelection } from "@spreadsheet/../tests/helpers/commands";
+import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import { getCell, getCellValue } from "@spreadsheet/../tests/helpers/getters";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";
+import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
 import {
-    getFixture,
-    nextTick,
-    click,
+    contains,
+    getService,
+    mountWithCleanup,
     patchWithCleanup,
-    triggerEvent,
-} from "@web/../tests/helpers/utils";
-import { contains } from "@web/../tests/utils";
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-
-import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
-import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
-import { createSpreadsheet } from "@documents_spreadsheet/../tests/legacy/spreadsheet_test_utils";
-import {
-    setCellContent,
-    selectCell,
-    setSelection,
-} from "@spreadsheet/../tests/legacy/utils/commands";
-import { doMenuAction } from "@spreadsheet/../tests/legacy/utils/ui";
-import { getCell, getCellValue } from "@spreadsheet/../tests/legacy/utils/getters";
+} from "@web/../tests/web_test_helpers";
+import { downloadFile } from "@web/core/network/download";
+import { WebClient } from "@web/webclient/webclient";
 
 const { topbarMenuRegistry } = spreadsheet.registries;
 const { toZone } = spreadsheet.helpers;
 const { Model } = spreadsheet;
-/** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
-let target;
 
-export const TEST_LOCALES = [
+defineDocumentSpreadsheetModels();
+describe.current.tags("desktop");
+
+/** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
+
+const TEST_LOCALES = [
     {
         name: "United States",
         code: "en_US",
@@ -59,310 +61,292 @@ export const TEST_LOCALES = [
     },
 ];
 
-QUnit.module(
-    "documents_spreadsheet > Spreadsheet Client Action",
-    {
-        beforeEach: function () {
-            target = getFixture();
+test("open spreadsheet with deprecated `active_id` params", async function () {
+    await prepareWebClientForSpreadsheet();
+    await makeSpreadsheetMockEnv({
+        serverData: { models: getBasicData() },
+        mockRPC: async function (route, args) {
+            if (args.method === "join_spreadsheet_session") {
+                expect.step("spreadsheet-loaded");
+                expect(args.args[0]).toBe(1, {
+                    message: "It should load the correct spreadsheet",
+                });
+            }
         },
-    },
-    function () {
-        QUnit.test("open spreadsheet with deprecated `active_id` params", async function (assert) {
-            assert.expect(4);
-            await prepareWebClientForSpreadsheet();
-            const webClient = await createWebClient({
-                serverData: { models: getBasicData() },
-                mockRPC: async function (route, args) {
-                    if (args.method === "join_spreadsheet_session") {
-                        assert.step("spreadsheet-loaded");
-                        assert.equal(args.args[0], 1, "It should load the correct spreadsheet");
-                    }
-                },
-            });
-            await doAction(webClient, {
-                type: "ir.actions.client",
-                tag: "action_open_spreadsheet",
-                params: {
-                    active_id: 1,
-                },
-            });
-            assert.containsOnce(target, ".o-spreadsheet", "It should have opened the spreadsheet");
-            assert.verifySteps(["spreadsheet-loaded"]);
-        });
+    });
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction({
+        type: "ir.actions.client",
+        tag: "action_open_spreadsheet",
+        params: {
+            active_id: 1,
+        },
+    });
+    expect(".o-spreadsheet").toHaveCount(1, {
+        message: "It should have opened the spreadsheet",
+    });
+    expect.verifySteps(["spreadsheet-loaded"]);
+});
 
-        QUnit.test("breadcrumb is rendered in control panel", async function (assert) {
-            assert.expect(3);
+test("breadcrumb is rendered in control panel", async function () {
+    const actions = {
+        1: {
+            id: 1,
+            name: "Documents",
+            res_model: "documents.document",
+            type: "ir.actions.act_window",
+            views: [[false, "list"]],
+        },
+    };
+    const views = {
+        "documents.document,false,list": '<tree><field name="name"/></tree>',
+        "documents.document,false,search": "<search></search>",
+    };
+    const serverData = { actions, models: getBasicData(), views };
+    await prepareWebClientForSpreadsheet();
+    await makeSpreadsheetMockEnv({
+        serverData,
+    });
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction(1);
+    await getService("action").doAction({
+        type: "ir.actions.client",
+        tag: "action_open_spreadsheet",
+        params: {
+            spreadsheet_id: 1,
+        },
+    });
+    expect("ol.breadcrumb").toHaveText("Documents", {
+        message: "It should display the breadcrumb",
+    });
+    expect(".o_breadcrumb input").toHaveValue("My spreadsheet", {
+        message: "It should display the spreadsheet title",
+    });
+    expect(".o_breadcrumb .o_spreadsheet_favorite").toHaveCount(1, {
+        message: "It should display the favorite toggle button",
+    });
+});
 
-            const actions = {
-                1: {
-                    id: 1,
-                    name: "Documents",
-                    res_model: "documents.document",
-                    type: "ir.actions.act_window",
-                    views: [[false, "list"]],
-                },
-            };
-            const views = {
-                "documents.document,false,list": '<tree><field name="name"/></tree>',
-                "documents.document,false,search": "<search></search>",
-            };
-            const serverData = { actions, models: getBasicData(), views };
-            await prepareWebClientForSpreadsheet();
-            const webClient = await createWebClient({
-                serverData,
-            });
-            await doAction(webClient, 1);
-            await doAction(webClient, {
-                type: "ir.actions.client",
-                tag: "action_open_spreadsheet",
-                params: {
-                    spreadsheet_id: 1,
-                },
-            });
-            assert.strictEqual(
-                target.querySelector("ol.breadcrumb").textContent,
-                "Documents",
-                "It should display the breadcrumb"
-            );
-            assert.strictEqual(
-                target.querySelector(".o_breadcrumb input").value,
-                "My spreadsheet",
-                "It should display the spreadsheet title"
-            );
-            assert.containsOnce(
-                target,
-                ".o_breadcrumb .o_spreadsheet_favorite",
-                "It should display the favorite toggle button"
-            );
-        });
+test("Can open a spreadsheet in readonly", async function () {
+    const { model } = await createSpreadsheet({
+        mockRPC: async function (route, args) {
+            if (args.method === "join_spreadsheet_session") {
+                return {
+                    data: {},
+                    name: "name",
+                    revisions: [],
+                    isReadonly: true,
+                };
+            }
+        },
+    });
+    expect(model.getters.isReadonly()).toBe(true);
+});
 
-        QUnit.test("Can open a spreadsheet in readonly", async function (assert) {
-            const { model } = await createSpreadsheet({
-                mockRPC: async function (route, args) {
-                    if (args.method === "join_spreadsheet_session") {
-                        return {
-                            data: {},
-                            name: "name",
-                            revisions: [],
-                            isReadonly: true,
-                        };
-                    }
-                },
-            });
-            assert.ok(model.getters.isReadonly());
-        });
+test("format menu with default currency", async function () {
+    const { model, env } = await createSpreadsheet({
+        mockRPC: async function (route, args) {
+            if (args.method === "join_spreadsheet_session") {
+                return {
+                    data: {},
+                    name: "name",
+                    revisions: [],
+                    default_currency: {
+                        code: "θdoo",
+                        symbol: "θ",
+                        position: "after",
+                        decimalPlaces: 2,
+                    },
+                };
+            }
+        },
+    });
+    await doMenuAction(
+        topbarMenuRegistry,
+        ["format", "format_number", "format_number_currency"],
+        env
+    );
+    expect(getCell(model, "A1").format).toBe("#,##0.00[$θ]");
+    await doMenuAction(
+        topbarMenuRegistry,
+        ["format", "format_number", "format_number_currency_rounded"],
+        env
+    );
+    expect(getCell(model, "A1").format).toBe("#,##0[$θ]");
+});
 
-        QUnit.test("format menu with default currency", async function (assert) {
-            const { model, env } = await createSpreadsheet({
-                mockRPC: async function (route, args) {
-                    if (args.method === "join_spreadsheet_session") {
-                        return {
-                            data: {},
-                            name: "name",
-                            revisions: [],
-                            default_currency: {
-                                code: "θdoo",
-                                symbol: "θ",
-                                position: "after",
-                                decimalPlaces: 2,
-                            },
-                        };
-                    }
-                },
-            });
-            await doMenuAction(
-                topbarMenuRegistry,
-                ["format", "format_number", "format_number_currency"],
-                env
-            );
-            assert.equal(getCell(model, "A1").format, "#,##0.00[$θ]");
-            await doMenuAction(
-                topbarMenuRegistry,
-                ["format", "format_number", "format_number_currency_rounded"],
-                env
-            );
-            assert.equal(getCell(model, "A1").format, "#,##0[$θ]");
-        });
+test("dialog window not normally displayed", async function () {
+    await createSpreadsheet();
+    expect(".o_dialog").toHaveCount(0, { message: "Dialog should not normally be displayed " });
+});
 
-        QUnit.test("dialog window not normally displayed", async function (assert) {
-            assert.expect(1);
-            await createSpreadsheet();
-            const dialog = document.querySelector(".o_dialog");
-            assert.equal(dialog, undefined, "Dialog should not normally be displayed ");
-        });
+test("notify user window", async function () {
+    const { env } = await createSpreadsheet();
+    env.notifyUser({ text: "this is a notification", type: "warning", sticky: true });
+    await animationFrame();
+    expect(".o_notification:has(.o_notification_bar.bg-warning)").toHaveText(
+        "this is a notification"
+    );
+});
 
-        QUnit.test("notify user window", async function () {
-            const { env } = await createSpreadsheet();
-            env.notifyUser({ text: "this is a notification", type: "warning", sticky: true });
-            await contains(".o_notification:has(.o_notification_bar.bg-warning)", {
-                text: "this is a notification",
-            });
-        });
+test("raise error window", async function () {
+    const { env } = await createSpreadsheet();
+    env.raiseError("this is a message in an opened window that requests user action");
+    await animationFrame();
+    expect(".o_dialog").toHaveCount(1, { message: "Dialog can be opened" });
+    expect(".modal-body p").toHaveText(
+        "this is a message in an opened window that requests user action",
+        { message: "Can set dialog content" }
+    );
+    expect(document.querySelector(".o_dialog_error_text")).toBe(null, {
+        message: "NotifyUser have no error text",
+    });
+    expect(document.querySelectorAll(".modal-footer button").length).toBe(1, {
+        message: "NotifyUser have 1 button",
+    });
+});
 
-        QUnit.test("raise error window", async function (assert) {
-            assert.expect(4);
-            const { env } = await createSpreadsheet();
-            env.raiseError("this is a message in an opened window that requests user action");
-            await nextTick();
-            const dialog = document.querySelector(".o_dialog");
-            assert.ok(dialog !== undefined, "Dialog can be opened");
-            assert.equal(
-                document.querySelector(".modal-body p").textContent,
-                "this is a message in an opened window that requests user action",
-                "Can set dialog content"
-            );
-            assert.equal(
-                document.querySelector(".o_dialog_error_text"),
-                null,
-                "NotifyUser have no error text"
-            );
-            assert.equal(
-                document.querySelectorAll(".modal-footer button").length,
-                1,
-                "NotifyUser have 1 button"
-            );
-        });
+test("ask confirmation when merging", async function () {
+    const { model } = await createSpreadsheet();
+    const sheetId = model.getters.getActiveSheetId();
+    setCellContent(model, "A2", "hello");
+    setSelection(model, "A1:A2");
+    await animationFrame();
 
-        QUnit.test("ask confirmation when merging", async function (assert) {
-            const fixture = getFixture();
-            const { model } = await createSpreadsheet();
-            const sheetId = model.getters.getActiveSheetId();
-            setCellContent(model, "A2", "hello");
-            setSelection(model, "A1:A2");
-            await nextTick();
+    await contains(".o-menu-item-button[title='Merge cells']").click();
+    expect(".o_dialog").toHaveCount(1, { message: "Dialog should be open" });
+    await contains(".o_dialog .btn-secondary").click(); // cancel
+    expect(model.getters.isSingleCellOrMerge(sheetId, toZone("A1:A2"))).toBe(false);
 
-            await click(fixture, ".o-menu-item-button[title='Merge cells']");
-            const dialog = document.querySelector(".o_dialog");
-            assert.ok(dialog, "Dialog should be open");
-            await click(document, ".o_dialog .btn-secondary"); // cancel
-            assert.equal(model.getters.isSingleCellOrMerge(sheetId, toZone("A1:A2")), false);
+    await contains(".o-menu-item-button[title='Merge cells']").click();
+    await contains(".o_dialog .btn-primary").click(); // confirm
+    expect(model.getters.isSingleCellOrMerge(sheetId, toZone("A1:A2"))).toBe(true);
+});
 
-            await click(fixture, ".o-menu-item-button[title='Merge cells']");
-            await click(document, ".o_dialog .btn-primary"); // confirm
-            assert.equal(model.getters.isSingleCellOrMerge(sheetId, toZone("A1:A2")), true);
-        });
+test("Grid has still the focus after a dialog", async function () {
+    const fixture = getFixture();
+    const { model, env } = await createSpreadsheet();
+    selectCell(model, "F4");
+    env.raiseError("Notification");
+    await animationFrame();
+    await contains(".modal-footer .btn-primary").click();
+    await animationFrame();
+    const gridComposerEl = fixture.querySelector(".o-grid div.o-composer");
+    expect(document.activeElement).toBe(gridComposerEl);
+});
 
-        QUnit.test("Grid has still the focus after a dialog", async function (assert) {
-            const fixture = getFixture();
-            const { model, env } = await createSpreadsheet();
-            selectCell(model, "F4");
-            env.raiseError("Notification");
-            await nextTick();
-            await click(document, ".modal-footer .btn-primary");
-            await nextTick();
-            const gridComposerEl = fixture.querySelector(".o-grid div.o-composer");
-            assert.strictEqual(document.activeElement, gridComposerEl);
-        });
+test("menu > download as json", async function () {
+    let downloadedData = null;
+    patchWithCleanup(downloadFile, {
+        _download: (data, fileName) => {
+            expect.step("download");
+            expect(data).toInclude("Hello World");
+            expect(data).toInclude("A3");
+            expect(fileName).toBe("My spreadsheet.osheet.json");
+            downloadedData = data;
+        },
+    });
 
-        QUnit.test("menu > download as json", async function (assert) {
-            let downloadedData = null;
-            patchWithCleanup(downloadFile, {
-                _download: (data, fileName) => {
-                    assert.step("download");
-                    assert.ok(data.includes("Hello World"));
-                    assert.ok(data.includes("A3"));
-                    assert.strictEqual(fileName, "My spreadsheet.osheet.json");
-                    downloadedData = data;
-                },
-            });
+    const serverData = getBasicServerData();
+    const spreadsheet = DocumentsDocument._records[1];
+    spreadsheet.name = "My spreadsheet";
+    spreadsheet.spreadsheet_data = JSON.stringify({
+        sheets: [{ cells: { A3: { content: "Hello World" } } }],
+    });
 
-            const serverData = getBasicServerData();
-            const spreadsheet = serverData.models["documents.document"].records[1];
-            spreadsheet.name = "My spreadsheet";
-            spreadsheet.spreadsheet_data = JSON.stringify({
-                sheets: [{ cells: { A3: { content: "Hello World" } } }],
-            });
+    const { env, model } = await createSpreadsheet({
+        spreadsheetId: spreadsheet.id,
+        serverData,
+    });
 
-            const { env, model } = await createSpreadsheet({
-                spreadsheetId: spreadsheet.id,
-                serverData,
-            });
+    expect(getCellValue(model, "A3")).toBe("Hello World");
 
-            assert.strictEqual(getCellValue(model, "A3"), "Hello World");
+    await doMenuAction(topbarMenuRegistry, ["file", "download_as_json"], env);
+    expect.verifySteps(["download"]);
 
-            await doMenuAction(topbarMenuRegistry, ["file", "download_as_json"], env);
-            assert.verifySteps(["download"]);
+    const modelFromLoadedJSON = new Model(JSON.parse(downloadedData));
+    expect(getCellValue(modelFromLoadedJSON, "A3")).toBe("Hello World");
+});
 
-            const modelFromLoadedJSON = new Model(JSON.parse(downloadedData));
-            assert.strictEqual(getCellValue(modelFromLoadedJSON, "A3"), "Hello World");
-        });
+test("menu > copy", async function () {
+    const serverData = getBasicServerData();
+    const spreadsheet = DocumentsDocument._records[1];
+    spreadsheet.name = "My spreadsheet";
+    spreadsheet.spreadsheet_data = JSON.stringify({
+        sheets: [{ cells: { A3: { content: "Hello World" } } }],
+    });
 
-        QUnit.test("menu > copy", async function (assert) {
-            const serverData = getBasicServerData();
-            const spreadsheet = serverData.models["documents.document"].records[1];
-            spreadsheet.name = "My spreadsheet";
-            spreadsheet.spreadsheet_data = JSON.stringify({
-                sheets: [{ cells: { A3: { content: "Hello World" } } }],
-            });
+    const { env, model } = await createSpreadsheet({
+        spreadsheetId: spreadsheet.id,
+        serverData,
+        mockRPC: function (_, { method, args, kwargs }) {
+            if (method === "copy") {
+                expect.step("copy");
+                expect(args[0]).toEqual([2]);
+                expect("default" in kwargs).toBe(true);
+            }
+        },
+    });
 
-            const { env, model } = await createSpreadsheet({
-                spreadsheetId: spreadsheet.id,
-                serverData,
-                mockRPC: function (_, { method, args, kwargs }) {
-                    if (method === "copy") {
-                        assert.step("copy");
-                        assert.deepEqual(args[0], [2]);
-                        assert.ok("default" in kwargs);
-                    }
-                },
-            });
+    expect(getCellValue(model, "A3")).toBe("Hello World");
 
-            assert.strictEqual(getCellValue(model, "A3"), "Hello World");
+    await doMenuAction(topbarMenuRegistry, ["file", "make_copy"], env);
+    expect.verifySteps(["copy"]);
+});
 
-            await doMenuAction(topbarMenuRegistry, ["file", "make_copy"], env);
-            assert.verifySteps(["copy"]);
-        });
-
-        QUnit.test("Spreadsheet is created with locale in data", async function (assert) {
-            const serverData = getBasicServerData();
-            serverData.models["documents.document"].records.push({
+test("Spreadsheet is created with locale in data", async function () {
+    const serverData = getBasicServerData();
+    serverData.models["documents.document"] = {
+        records: [
+            {
                 id: 3000,
                 name: "My template spreadsheet",
                 spreadsheet_data: JSON.stringify({ settings: { locale: TEST_LOCALES[1] } }),
-            });
+            },
+        ],
+    };
 
-            const { model } = await createSpreadsheet({ serverData, spreadsheetId: 3000 });
-            assert.deepEqual(model.getters.getLocale().code, "fr_FR");
-        });
+    const { model } = await createSpreadsheet({ serverData, spreadsheetId: 3000 });
+    expect(model.getters.getLocale().code).toBe("fr_FR");
+});
 
-        QUnit.test("Odoo locales are displayed in setting side panel", async function (assert) {
-            const { env } = await createSpreadsheet({
-                mockRPC: function (route, { method, model }) {
-                    if (method === "get_locales_for_spreadsheet") {
-                        return TEST_LOCALES;
-                    }
-                },
-            });
-
-            env.openSidePanel("Settings", {});
-            await nextTick();
-
-            const loadedLocales = [];
-            const options = document.querySelectorAll(".o-settings-panel select option");
-            for (const option of options) {
-                loadedLocales.push(option.value);
+test("Odoo locales are displayed in setting side panel", async function () {
+    const { env } = await createSpreadsheet({
+        mockRPC: function (route, { method, model }) {
+            if (method === "get_locales_for_spreadsheet") {
+                return TEST_LOCALES;
             }
+        },
+    });
 
-            assert.deepEqual(loadedLocales, ["en_US", "fr_FR", "od_OO"]);
-        });
+    env.openSidePanel("Settings", {});
+    await animationFrame();
 
-        QUnit.test("sheetName should not be left empty", async function (assert) {
-            const fixture = getFixture();
-            await createSpreadsheet();
-
-            const sheetName = fixture.querySelector(".o-sheet-list .o-sheet-name");
-            await triggerEvent(fixture, ".o-sheet-list .o-sheet-name", "dblclick");
-            await nextTick();
-            assert.ok(fixture.querySelector(".o-sheet-name-editable"));
-
-            sheetName.innerText = "";
-            await triggerEvent(fixture, ".o-sheet-list .o-sheet-name", "keydown", { key: "Enter" });
-            await nextTick();
-            const dialog = document.querySelector(".o_dialog");
-            assert.ok(dialog, "dialog should be visible");
-
-            await click(document, ".o_dialog .btn-primary");
-            assert.ok(fixture.querySelector(".o-sheet-name-editable"));
-        });
+    const loadedLocales = [];
+    const options = document.querySelectorAll(".o-settings-panel select option");
+    for (const option of options) {
+        loadedLocales.push(option.value);
     }
-);
+
+    expect(loadedLocales).toEqual(["en_US", "fr_FR", "od_OO"]);
+});
+
+test("sheetName should not be left empty", async function () {
+    const fixture = getFixture();
+    await createSpreadsheet();
+
+    const sheetName = fixture.querySelector(".o-sheet-list .o-sheet-name");
+    // FIXME HOOT: use dblclick helper once it's fixed (ATM it doesn't dispatch dbclick if mouseUp/Down prevented)
+    manuallyDispatchProgrammaticEvent(sheetName, "dblclick");
+    await animationFrame();
+    await animationFrame();
+    expect(".o-sheet-name-editable").toHaveCount(1);
+
+    sheetName.innerText = "";
+    await contains(".o-sheet-list .o-sheet-name").press("Enter");
+    fixture.querySelector(".modal-dialog");
+    expect(".modal-dialog").toBeVisible({ message: "dialog should be visible" });
+
+    await contains(".modal-dialog .btn-primary").click();
+    expect(".o-sheet-name-editable").toHaveCount(1);
+});

@@ -1,19 +1,27 @@
-/** @odoo-module */
-
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import { nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
 import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
 import { SpreadsheetTemplateAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_template/spreadsheet_template_action";
+import { animationFrame } from "@odoo/hoot-mock";
+import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import {
     getSpreadsheetActionEnv,
     getSpreadsheetActionModel,
     prepareWebClientForSpreadsheet,
-} from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
+} from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
+import {
+    getService,
+    mockService,
+    mountWithCleanup,
+    patchTranslations,
+    patchWithCleanup,
+} from "@web/../tests/web_test_helpers";
+import { WebClient } from "@web/webclient/webclient";
+import { DocumentsDocument, SpreadsheetTemplate } from "./data";
+import { getMockEnv } from "@web/../tests/_framework/env_test_helpers";
 
 /**
- * @typedef {import("@spreadsheet/../tests/legacy/utils/data").ServerData} ServerData
+ * @typedef {import("@spreadsheet/../tests/helpers/data").ServerData} ServerData
  */
 
 /**
@@ -33,7 +41,7 @@ import {
 async function createSpreadsheetAction(actionTag, params) {
     const SpreadsheetActionComponent =
         actionTag === "action_open_spreadsheet" ? SpreadsheetAction : SpreadsheetTemplateAction;
-    let { webClient } = params;
+    const { webClient } = params;
     /** @type {any} */
     let spreadsheetAction;
     patchWithCleanup(SpreadsheetActionComponent.prototype, {
@@ -44,14 +52,10 @@ async function createSpreadsheetAction(actionTag, params) {
     });
     if (!webClient) {
         await prepareWebClientForSpreadsheet();
-        webClient = await createWebClient({
-            serverData: params.serverData || getBasicServerData(),
-            mockRPC: params.mockRPC,
-        });
+        await makeSpreadsheetMockEnv(params);
+        await mountWithCleanup(WebClient);
     }
-
-    await doAction(
-        webClient,
+    await getService("action").doAction(
         {
             type: "ir.actions.client",
             tag: actionTag,
@@ -61,7 +65,7 @@ async function createSpreadsheetAction(actionTag, params) {
         },
         { clearBreadcrumbs: true } // Sometimes in test defining custom action, Odoo opens on the action instead of opening on root
     );
-    await nextTick();
+    await animationFrame();
     return {
         webClient,
         model: getSpreadsheetActionModel(spreadsheetAction),
@@ -76,16 +80,18 @@ async function createSpreadsheetAction(actionTag, params) {
  * @param {SpreadsheetTestParams} params
  */
 export async function createSpreadsheet(params = {}) {
+    patchTranslations();
     if (!params.serverData) {
         params.serverData = getBasicServerData();
     }
     if (!params.spreadsheetId) {
-        const documents = params.serverData.models["documents.document"].records;
+        const documents = DocumentsDocument._records;
         const spreadsheetId = Math.max(...documents.map((d) => d.id)) + 1;
         documents.push({
             id: spreadsheetId,
-            name: UNTITLED_SPREADSHEET_NAME,
+            name: UNTITLED_SPREADSHEET_NAME.toString(), // toString() to force translation
             spreadsheet_data: "{}",
+            active: true,
         });
         params = { ...params, spreadsheetId };
     }
@@ -102,7 +108,7 @@ export async function createSpreadsheetTemplate(params = {}) {
         params.serverData = getBasicServerData();
     }
     if (!params.spreadsheetId) {
-        const templates = params.serverData.models["spreadsheet.template"].records;
+        const templates = SpreadsheetTemplate._records;
         const spreadsheetId = Math.max(...templates.map((d) => d.id)) + 1;
         templates.push({
             id: spreadsheetId,
@@ -117,12 +123,17 @@ export async function createSpreadsheetTemplate(params = {}) {
 /**
  * Mock the action service of the env, and add the mockDoAction function to it.
  */
-export function mockActionService(env, mockDoAction) {
-    patchWithCleanup(env.services.action, {
-        doAction(action) {
-            mockDoAction(action);
-        },
-    });
+export function mockActionService(mockDoAction) {
+    const env = getMockEnv();
+    if (!env) {
+        mockService("action", { doAction: mockDoAction });
+    } else {
+        patchWithCleanup(env.services.action, {
+            doAction(action, options) {
+                mockDoAction(action, options);
+            },
+        });
+    }
 }
 
 /**

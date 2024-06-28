@@ -2,15 +2,13 @@ import { Spreadsheet } from "@odoo/o-spreadsheet";
 import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
 import { makeFakeSpreadsheetService } from "@spreadsheet_edition/../tests/helpers/collaborative_helpers";
 import { InsertListSpreadsheetMenu } from "@spreadsheet_edition/assets/list_view/insert_list_spreadsheet_menu_owl";
-import { mockService, serverState } from "@web/../tests/web_test_helpers";
+import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
+import { mockService, patchWithCleanup } from "@web/../tests/web_test_helpers";
 import { loadJS } from "@web/core/assets";
 import { registry } from "@web/core/registry";
 
 export async function prepareWebClientForSpreadsheet() {
     await loadJS("/web/static/lib/Chart/Chart.js");
-    // ADRM TODO have a look on how to do this when converting other modules (this is never called in spreadheet_edition)
-    serverState.userContext.hasGroup = async () => true;
-    // // patchUserWithCleanup({ hasGroup: async () => true });
     mockService("spreadsheet_collaborative", makeFakeSpreadsheetService());
 
     registry.category("favoriteMenu").add(
@@ -25,6 +23,13 @@ export async function prepareWebClientForSpreadsheet() {
         },
         { sequence: 5 }
     );
+
+    // Transforming the canvas into an image might crash in Hoot since the canvas has a size of 0x0 on some test setup
+    patchWithCleanup(AbstractSpreadsheetAction.prototype, {
+        onSpreadsheetLeftUpdateVals() {
+            return { thumbnail: "someBase64Image" };
+        },
+    });
 }
 
 function getChildFromComponent(component, cls) {

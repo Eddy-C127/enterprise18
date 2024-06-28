@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { stores } from "@odoo/o-spreadsheet";
 const { HighlightStore, RendererStore } = stores;
 

@@ -1,22 +1,17 @@
-/** @odoo-module */
-
+import { defineDocumentSpreadsheetModels } from "@documents_spreadsheet/../tests/helpers/data";
+import { mockActionService } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
+import { describe, expect, getFixture, test } from "@odoo/hoot";
+import { dblclick } from "@odoo/hoot-dom";
+import { advanceTime, animationFrame } from "@odoo/hoot-mock";
+import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
 import { SpreadsheetSelectorDialog } from "@spreadsheet_edition/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog";
-import { makeTestEnv } from "@web/../tests/helpers/mock_env";
-import { browser } from "@web/core/browser/browser";
-import {
-    click,
-    getFixture,
-    mount,
-    patchWithCleanup,
-    triggerEvent,
-    nextTick,
-} from "@web/../tests/helpers/utils";
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
-import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
-import { notificationService } from "@web/core/notifications/notification_service";
+import { contains, mountWithCleanup } from "@web/../tests/web_test_helpers";
 import { registry } from "@web/core/registry";
-import { actionService } from "@web/webclient/actions/action_service";
-import { mockActionService } from "@documents_spreadsheet/../tests/legacy/spreadsheet_test_utils";
+
+defineDocumentSpreadsheetModels();
+describe.current.tags("desktop");
 
 const serviceRegistry = registry.category("services");
 
@@ -70,7 +65,7 @@ function getDefaultProps() {
 async function mountSpreadsheetSelectorDialog(config = {}) {
     await prepareWebClientForSpreadsheet();
     const target = getFixture();
-    const env = await makeTestEnv({
+    const env = await makeSpreadsheetMockEnv({
         serverData: config.serverData || serverData,
         mockRPC: config.mockRPC,
     });
@@ -83,404 +78,291 @@ async function mountSpreadsheetSelectorDialog(config = {}) {
         ...getDefaultProps(),
         ...(config.props || {}),
     };
-    await mount(SpreadsheetSelectorDialog, target, { env, props });
+    await mountWithCleanup(SpreadsheetSelectorDialog, { env, props });
     return { target, env };
 }
 
-function beforeEach() {
-    serviceRegistry.add("notification", notificationService);
-    serviceRegistry.add("action", actionService);
-}
+test("Display only spreadsheet and a blank spreadsheet", async () => {
+    const { target } = await mountSpreadsheetSelectorDialog();
+    expect(
+        target.querySelectorAll(".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)").length
+    ).toBe(3);
+});
 
-QUnit.module("documents_spreadsheet > Spreadsheet Selector Dialog", { beforeEach }, () => {
-    QUnit.test("Display only spreadsheet and a blank spreadsheet", async (assert) => {
-        const { target } = await mountSpreadsheetSelectorDialog();
-        assert.strictEqual(
-            target.querySelectorAll(".o-spreadsheet-grid:not(.o-spreadsheet-grid-ghost-item)")
-                .length,
-            3
-        );
-    });
+test("Threshold is not displayed with pivot type", async () => {
+    const { target } = await mountSpreadsheetSelectorDialog({ props: { type: "PIVOT" } });
+    expect(".modal-title").toHaveText("Select a spreadsheet to insert your pivot.");
+    expect(".o-sp-dialog-meta-name-label").toHaveText("Name of the pivot:");
+    expect(target.querySelector(".o-sp-dialog-meta-threshold")).toBe(null);
+});
 
-    QUnit.test("Threshold is not displayed with pivot type", async (assert) => {
-        const { target } = await mountSpreadsheetSelectorDialog({ props: { type: "PIVOT" } });
-        assert.strictEqual(
-            target.querySelector(".modal-title").textContent,
-            "Select a spreadsheet to insert your pivot."
-        );
-        assert.strictEqual(
-            target.querySelector(".o-sp-dialog-meta-name-label").textContent,
-            "Name of the pivot:"
-        );
-        assert.strictEqual(target.querySelector(".o-sp-dialog-meta-threshold"), null);
-    });
+test("Threshold is not displayed with link type", async () => {
+    const { target } = await mountSpreadsheetSelectorDialog({ props: { type: "LINK" } });
+    expect(".modal-title").toHaveText("Select a spreadsheet to insert your link.");
+    expect(".o-sp-dialog-meta-name-label").toHaveText("Name of the link:");
+    expect(target.querySelector(".o-sp-dialog-meta-threshold")).toBe(null);
+});
 
-    QUnit.test("Threshold is not displayed with link type", async (assert) => {
-        const { target } = await mountSpreadsheetSelectorDialog({ props: { type: "LINK" } });
-        assert.strictEqual(
-            target.querySelector(".modal-title").textContent,
-            "Select a spreadsheet to insert your link."
-        );
-        assert.strictEqual(
-            target.querySelector(".o-sp-dialog-meta-name-label").textContent,
-            "Name of the link:"
-        );
-        assert.strictEqual(target.querySelector(".o-sp-dialog-meta-threshold"), null);
-    });
+test("Threshold is not displayed with graph type", async () => {
+    await mountSpreadsheetSelectorDialog({ props: { type: "GRAPH" } });
+    expect(".modal-title").toHaveText("Select a spreadsheet to insert your graph.");
+    expect(".o-sp-dialog-meta-name-label").toHaveText("Name of the graph:");
+    expect(".o-sp-dialog-meta-threshold").toHaveCount(0);
+});
 
-    QUnit.test("Threshold is not displayed with graph type", async (assert) => {
-        const { target } = await mountSpreadsheetSelectorDialog({ props: { type: "GRAPH" } });
-        assert.strictEqual(
-            target.querySelector(".modal-title").textContent,
-            "Select a spreadsheet to insert your graph."
-        );
-        assert.strictEqual(
-            target.querySelector(".o-sp-dialog-meta-name-label").textContent,
-            "Name of the graph:"
-        );
-        assert.strictEqual(target.querySelector(".o-sp-dialog-meta-threshold"), null);
-    });
+test("Threshold is displayed with list type", async () => {
+    await mountSpreadsheetSelectorDialog({ props: { type: "LIST" } });
+    expect(".modal-title").toHaveText("Select a spreadsheet to insert your list.");
+    expect(".o-sp-dialog-meta-name-label").toHaveText("Name of the list:");
+    expect(".o-sp-dialog-meta-threshold").toHaveCount(1);
+});
 
-    QUnit.test("Threshold is displayed with list type", async (assert) => {
-        const { target } = await mountSpreadsheetSelectorDialog({ props: { type: "LIST" } });
-        assert.strictEqual(
-            target.querySelector(".modal-title").textContent,
-            "Select a spreadsheet to insert your list."
-        );
-        assert.strictEqual(
-            target.querySelector(".o-sp-dialog-meta-name-label").textContent,
-            "Name of the list:"
-        );
-        assert.ok(target.querySelector(".o-sp-dialog-meta-threshold"));
-    });
-
-    QUnit.test("Can change the name of an object", async (assert) => {
-        const NEW_NAME = "new name";
-        const fakeActionService = {
-            name: "action",
-            start() {
-                return {
-                    doAction(action) {
-                        assert.step(action.tag);
-                        assert.deepEqual(action.params.preProcessingActionData.name, "new name");
-                        assert.deepEqual(
-                            action.params.preProcessingAsyncActionData.name,
-                            "new name"
-                        );
-                    },
-                };
-            },
-        };
-        serviceRegistry.add("action", fakeActionService, { force: true });
-        const { target } = await mountSpreadsheetSelectorDialog();
-        /** @type {HTMLInputElement} */
-        const input = target.querySelector(".o-sp-dialog-meta-name input");
-        input.value = NEW_NAME;
-        await triggerEvent(input, null, "input");
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        assert.verifySteps(["action_open_spreadsheet"]);
-    });
-
-    QUnit.test("Can change the threshold of a list object", async (assert) => {
-        const threshold = 10;
-        const fakeActionService = {
-            name: "action",
-            start() {
-                return {
-                    doAction(action) {
-                        assert.step(action.tag);
-                        assert.deepEqual(
-                            action.params.preProcessingActionData.threshold,
-                            threshold
-                        );
-                        assert.deepEqual(
-                            action.params.preProcessingAsyncActionData.threshold,
-                            threshold
-                        );
-                    },
-                };
-            },
-        };
-        serviceRegistry.add("action", fakeActionService, { force: true });
-        const { target } = await mountSpreadsheetSelectorDialog({
-            props: { type: "LIST", threshold: 4 },
-        });
-        /** @type {HTMLInputElement} */
-        const input = target.querySelector(".o-sp-dialog-meta-threshold-input");
-        assert.strictEqual(input.value, "4");
-        input.value = threshold.toString();
-        await triggerEvent(input, null, "input");
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        assert.verifySteps(["action_open_spreadsheet"]);
-    });
-
-    QUnit.test(
-        "Change the search bar content trigger a new search with updated domain",
-        async (assert) => {
-            let callback;
-            patchWithCleanup(browser, {
-                setTimeout: (later) => {
-                    callback = later;
+test("Can change the name of an object", async () => {
+    const NEW_NAME = "new name";
+    const fakeActionService = {
+        name: "action",
+        start() {
+            return {
+                doAction(action) {
+                    expect.step(action.tag);
+                    expect(action.params.preProcessingActionData.name).toEqual("new name");
+                    expect(action.params.preProcessingAsyncActionData.name).toEqual("new name");
                 },
-            });
-            const { target } = await mountSpreadsheetSelectorDialog({
-                mockRPC: async function (route, args) {
-                    if (args.method === "get_spreadsheets" && args.model === "documents.document") {
-                        assert.step(JSON.stringify(args.args[0]));
-                    }
+            };
+        },
+    };
+    serviceRegistry.add("action", fakeActionService, { force: true });
+    await mountSpreadsheetSelectorDialog();
+    await contains(".o-sp-dialog-meta-name input").edit(NEW_NAME);
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    expect.verifySteps(["action_open_spreadsheet"]);
+});
+
+test("Can change the threshold of a list object", async () => {
+    const threshold = 10;
+    const fakeActionService = {
+        name: "action",
+        start() {
+            return {
+                doAction(action) {
+                    expect.step(action.tag);
+                    expect(action.params.preProcessingActionData.threshold).toEqual(threshold);
+                    expect(action.params.preProcessingAsyncActionData.threshold).toEqual(threshold);
                 },
-            });
-            /** @type {HTMLInputElement} */
-            const input = target.querySelector(".o-sp-searchview-input");
-            input.value = "a";
-            await triggerEvent(input, null, "input");
-            assert.verifySteps(["[]"]);
-            //@ts-ignore
-            callback();
-            assert.verifySteps([JSON.stringify([["name", "ilike", "a"]])]);
-        }
-    );
-
-    QUnit.test("Pager is limited to 9 elements", async (assert) => {
-        const data = JSON.parse(JSON.stringify(serverData));
-        data.models["documents.document"].records = [];
-        // Insert 20 elements
-        for (let i = 1; i <= 20; i++) {
-            data.models["documents.document"].records.push({
-                folder_id: 1,
-                id: i,
-                handler: "spreadsheet",
-                name: `Spreadsheet_${i}`,
-                spreadsheet_data: "{}",
-            });
-        }
-        const { target } = await mountSpreadsheetSelectorDialog({
-            serverData: data,
-            mockRPC: async function (route, args) {
-                if (args.method === "get_spreadsheets" && args.model === "documents.document") {
-                    assert.step(
-                        JSON.stringify({ offset: args.kwargs.offset, limit: args.kwargs.limit })
-                    );
-                }
-            },
-        });
-        await click(target, ".o_pager_next");
-        await click(target, ".o_pager_next");
-        assert.verifySteps([
-            JSON.stringify({ offset: 0, limit: 9 }),
-            JSON.stringify({ offset: 9, limit: 9 }),
-            JSON.stringify({ offset: 18, limit: 9 }),
-        ]);
+            };
+        },
+    };
+    serviceRegistry.add("action", fakeActionService, { force: true });
+    const { target } = await mountSpreadsheetSelectorDialog({
+        props: { type: "LIST", threshold: 4 },
     });
+    /** @type {HTMLInputElement} */
+    const input = target.querySelector(".o-sp-dialog-meta-threshold-input");
+    expect(input).toHaveValue(4);
+    await contains(input).edit(threshold.toString());
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    expect.verifySteps(["action_open_spreadsheet"]);
+});
 
-    QUnit.test("Can select the empty spreadsheet", async (assert) => {
-        const { target, env } = await mountSpreadsheetSelectorDialog({
-            mockRPC: async function (route, args) {
-                if (
-                    args.model === "documents.document" &&
-                    args.method === "action_open_new_spreadsheet"
-                ) {
-                    assert.step("action_open_new_spreadsheet");
-                    return {
-                        type: "ir.actions.client",
-                        tag: "action_open_spreadsheet",
-                        params: {
-                            spreadsheet_id: 789,
-                        },
-                    };
-                }
-            },
-        });
-        mockActionService(env, (action) => assert.deepEqual(action.params.spreadsheet_id, 789));
-        const blank = target.querySelector(".o-blank-spreadsheet-grid img");
-        await triggerEvent(blank, null, "focus");
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        assert.verifySteps(["action_open_new_spreadsheet"]);
-    });
-
-    QUnit.test("Can select an existing spreadsheet", async (assert) => {
-        assert.expect(1);
-        const { target, env } = await mountSpreadsheetSelectorDialog();
-        mockActionService(env, (action) => assert.deepEqual(action.params.spreadsheet_id, 1));
-        const blank = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
-        await triggerEvent(blank, null, "focus");
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-    });
-
-    QUnit.test("Selected spreadsheet is identifiable", async (assert) => {
-        const { target } = await mountSpreadsheetSelectorDialog();
-        assert.hasClass(
-            target.querySelector(
-                ".o-spreadsheet-grid.o-blank-spreadsheet-grid .o-spreadsheet-grid-image"
-            ),
-            "o-spreadsheet-grid-selected",
-            "Blank spreadsheet should be selected by default"
-        );
-        const sp = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
-        await triggerEvent(sp, null, "focus");
-        assert.hasClass(
-            sp,
-            "o-spreadsheet-grid-selected",
-            "Selected spreadsheet should be identifiable"
-        );
-    });
-
-    QUnit.test("Can double click an existing spreadsheet", async (assert) => {
-        const { target, env } = await mountSpreadsheetSelectorDialog();
-        mockActionService(env, (action) => {
-            assert.step(action.tag);
-            assert.deepEqual(action.params.spreadsheet_id, 1);
-        });
-        const spreadsheetItem = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
-        // In practice, the double click will also focus the item
-        await triggerEvent(spreadsheetItem, null, "focus");
-        await triggerEvent(spreadsheetItem, null, "dblclick");
-        assert.verifySteps(["action_open_spreadsheet"]);
-    });
-
-    QUnit.test("Can double click the empty spreadsheet", async (assert) => {
-        const { target, env } = await mountSpreadsheetSelectorDialog();
-        mockActionService(env, (action) => assert.step(action.tag));
-        const blank = target.querySelector(".o-blank-spreadsheet-grid img");
-        // In practice, the double click will also focus the item
-        await triggerEvent(blank, null, "focus");
-        await triggerEvent(blank, null, "dblclick");
-        assert.verifySteps(["action_open_spreadsheet"]);
-    });
-
-    QUnit.test("Can open blank spreadsheet with enter key", async (assert) => {
-        const fakeActionService = {
-            name: "action",
-            start() {
-                return {
-                    doAction(action) {
-                        assert.step(action.tag);
-                    },
-                };
-            },
-        };
-        serviceRegistry.add("action", fakeActionService, { force: true });
-
-        const { target } = await mountSpreadsheetSelectorDialog();
-        const blank = target.querySelector(".o-blank-spreadsheet-grid img");
-        await triggerEvent(blank, null, "keydown", { key: "Enter" });
-
-        assert.verifySteps(["action_open_spreadsheet"]);
-    });
-
-    QUnit.test("Can open existing spreadsheet with enter key", async (assert) => {
-        const fakeActionService = {
-            name: "action",
-            start() {
-                return {
-                    doAction(action) {
-                        assert.step(action.tag);
-                    },
-                };
-            },
-        };
-        serviceRegistry.add("action", fakeActionService, { force: true });
-
-        const { target } = await mountSpreadsheetSelectorDialog();
-        const spreadsheetItem = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
-        await triggerEvent(spreadsheetItem, null, "keydown", { key: "Enter" });
-
-        assert.verifySteps(["action_open_spreadsheet"]);
-    });
-
-    QUnit.test(
-        "Offset reset to zero after searching for spreadsheet in spreadsheet selector dialog",
-        async (assert) => {
-            let callback;
-            patchWithCleanup(browser, {
-                setTimeout: (later) => {
-                    callback = later;
-                },
-            });
-            let searchTerm = "";
-            const data = JSON.parse(JSON.stringify(serverData));
-            data.models["documents.document"].records = [];
-            // Insert 12 elements
-            for (let i = 1; i <= 12; i++) {
-                data.models["documents.document"].records.push({
-                    folder_id: 1,
-                    id: i,
-                    handler: "spreadsheet",
-                    name: `Spreadsheet_${i}`,
-                    spreadsheet_data: "{}",
-                });
+test("Change the search bar content trigger a new search with updated domain", async () => {
+    await mountSpreadsheetSelectorDialog({
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheets" && args.model === "documents.document") {
+                expect.step(JSON.stringify(args.args[0]));
             }
+        },
+    });
+    await contains(".o-sp-searchview-input").edit("a");
+    expect.verifySteps(["[]"]);
+    await advanceTime(500);
+    expect.verifySteps([JSON.stringify([["name", "ilike", "a"]])]);
+});
 
-            const { target } = await mountSpreadsheetSelectorDialog({
-                serverData: data,
-                mockRPC: async function (route, args) {
-                    if (args.method === "get_spreadsheets" && args.model === "documents.document") {
-                        assert.step(
-                            JSON.stringify({ offset: args.kwargs.offset, limit: args.kwargs.limit })
-                        );
-                        if (searchTerm) {
-                            const records = data.models["documents.document"].records.filter((r) =>
-                                r.name.includes(searchTerm)
-                            );
-                            return {
-                                records,
-                                total: records.length,
-                            };
-                        }
-                    }
-                },
-            });
+test("Pager is limited to 9 elements", async () => {
+    const data = JSON.parse(JSON.stringify(serverData));
+    data.models["documents.document"].records = [];
+    // Insert 20 elements
+    for (let i = 1; i <= 20; i++) {
+        data.models["documents.document"].records.push({
+            folder_id: 1,
+            id: i,
+            handler: "spreadsheet",
+            name: `Spreadsheet_${i}`,
+            spreadsheet_data: "{}",
+        });
+    }
+    await mountSpreadsheetSelectorDialog({
+        serverData: data,
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheets" && args.model === "documents.document") {
+                expect.step(
+                    JSON.stringify({ offset: args.kwargs.offset, limit: args.kwargs.limit })
+                );
+            }
+        },
+    });
+    await contains(".o_pager_next").click();
+    await contains(".o_pager_next").click();
+    expect.verifySteps([
+        JSON.stringify({ offset: 0, limit: 9 }),
+        JSON.stringify({ offset: 9, limit: 9 }),
+        JSON.stringify({ offset: 18, limit: 9 }),
+    ]);
+});
 
-            await click(target, ".o_pager_next");
-            assert.verifySteps([
-                JSON.stringify({ offset: 0, limit: 9 }),
-                JSON.stringify({ offset: 9, limit: 9 }),
-            ]);
+test("Can select the empty spreadsheet", async () => {
+    mockActionService((action) => {
+        expect.step("doAction");
+        expect(action.params.spreadsheet_id).toEqual(789);
+    });
+    await mountSpreadsheetSelectorDialog({
+        mockRPC: async function (route, args) {
+            if (
+                args.model === "documents.document" &&
+                args.method === "action_open_new_spreadsheet"
+            ) {
+                expect.step("action_open_new_spreadsheet");
+                return {
+                    type: "ir.actions.client",
+                    tag: "action_open_spreadsheet",
+                    params: {
+                        spreadsheet_id: 789,
+                    },
+                };
+            }
+        },
+    });
+    await contains(".o-blank-spreadsheet-grid img").click();
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    expect.verifySteps(["action_open_new_spreadsheet", "doAction"]);
+});
 
-            /** @type {HTMLInputElement} */
-            const input = target.querySelector(".o-sp-searchview-input");
-            searchTerm = "1";
-            input.value = searchTerm;
-            await triggerEvent(input, null, "input");
-            //@ts-ignore
-            callback();
-            await nextTick();
+test("Can select an existing spreadsheet", async () => {
+    mockActionService((action) => {
+        expect.step("doAction");
+        expect(action.params.spreadsheet_id).toEqual(1);
+    });
+    const { target } = await mountSpreadsheetSelectorDialog();
+    const blank = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
+    await contains(blank).focus();
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    expect.verifySteps(["doAction"]);
+});
 
-            assert.verifySteps([JSON.stringify({ offset: 0, limit: 9 })]);
-            assert.strictEqual(
-                target.querySelector(".o_pager_value").textContent,
-                "1-4",
-                "Pager should be reset to 1-4 after searching for spreadsheet"
-            );
-        }
-    );
-
-    QUnit.test("Can navigate through spreadsheets with arrow keys", async (assert) => {
-        const { target } = await mountSpreadsheetSelectorDialog();
-        const defaultSelected = target.querySelector(
+test("Selected spreadsheet is identifiable", async () => {
+    const { target } = await mountSpreadsheetSelectorDialog();
+    expect(
+        target.querySelector(
             ".o-spreadsheet-grid.o-blank-spreadsheet-grid .o-spreadsheet-grid-image"
-        );
-        assert.hasClass(
-            defaultSelected,
-            "o-spreadsheet-grid-selected",
-            "Blank spreadsheet should be selected by default"
-        );
+        )
+    ).toHaveClass("o-spreadsheet-grid-selected", {
+        message: "Blank spreadsheet should be selected by default",
+    });
+    const sp = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
+    await contains(sp).focus();
+    expect(sp).toHaveClass("o-spreadsheet-grid-selected", {
+        message: "Selected spreadsheet should be identifiable",
+    });
+});
 
-        // Navigate to the first spreadsheet
-        const firstSpreadsheet = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
-        await triggerEvent(firstSpreadsheet, null, "keydown", { key: "ArrowRight" });
-        assert.hasClass(
-            firstSpreadsheet,
-            "o-spreadsheet-grid-selected",
-            "First spreadsheet should be selected"
-        );
+test("Can double click an existing spreadsheet", async () => {
+    mockActionService((action) => {
+        expect.step(action.tag);
+        expect(action.params.spreadsheet_id).toEqual(1);
+    });
+    const { target } = await mountSpreadsheetSelectorDialog();
+    const spreadsheetItem = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
+    // In practice, the double click will also focus the item
+    await contains(spreadsheetItem).focus();
+    dblclick(spreadsheetItem);
+    await animationFrame();
+    expect.verifySteps(["action_open_spreadsheet"]);
+});
 
-        // Navigate back to the blank spreadsheet
-        await triggerEvent(firstSpreadsheet, null, "keydown", { key: "ArrowLeft" });
-        assert.hasClass(
-            defaultSelected,
-            "o-spreadsheet-grid-selected",
-            "Blank spreadsheet should be selected"
-        );
+test("Can double click the empty spreadsheet", async () => {
+    mockActionService((action) => expect.step(action.tag));
+    const { target } = await mountSpreadsheetSelectorDialog();
+    const blank = target.querySelector(".o-blank-spreadsheet-grid img");
+    // In practice, the double click will also focus the item
+    await contains(blank).focus();
+    dblclick(blank);
+    await animationFrame();
+    expect.verifySteps(["action_open_spreadsheet"]);
+});
+
+test("Can open blank spreadsheet with enter key", async () => {
+    mockActionService((action) => expect.step(action.tag));
+    await mountSpreadsheetSelectorDialog();
+    await contains(".o-blank-spreadsheet-grid img").press("Enter");
+    expect.verifySteps(["action_open_spreadsheet"]);
+});
+
+test("Can open existing spreadsheet with enter key", async () => {
+    mockActionService((action) => expect.step(action.tag));
+    await mountSpreadsheetSelectorDialog();
+    await contains('.o-spreadsheet-grid div[data-id="1"]').press("Enter");
+    expect.verifySteps(["action_open_spreadsheet"]);
+});
+
+test("Offset reset to zero after searching for spreadsheet in spreadsheet selector dialog", async () => {
+    const data = JSON.parse(JSON.stringify(serverData));
+    data.models["documents.document"].records = [];
+    // Insert 12 elements
+    for (let i = 1; i <= 12; i++) {
+        data.models["documents.document"].records.push({
+            folder_id: 1,
+            id: i,
+            handler: "spreadsheet",
+            name: `Spreadsheet_${i}`,
+            spreadsheet_data: "{}",
+        });
+    }
+
+    await mountSpreadsheetSelectorDialog({
+        serverData: data,
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheets" && args.model === "documents.document") {
+                expect.step(
+                    JSON.stringify({ offset: args.kwargs.offset, limit: args.kwargs.limit })
+                );
+            }
+        },
+    });
+
+    await contains(".o_pager_next").click();
+    expect.verifySteps([
+        JSON.stringify({ offset: 0, limit: 9 }),
+        JSON.stringify({ offset: 9, limit: 9 }),
+    ]);
+
+    await contains(".o-sp-searchview-input").edit("1");
+    await advanceTime(500);
+
+    expect.verifySteps([JSON.stringify({ offset: 0, limit: 9 })]);
+    expect(".o_pager_value").toHaveText("1-4", {
+        message: "Pager should be reset to 1-4 after searching for spreadsheet",
+    });
+});
+
+test("Can navigate through spreadsheets with arrow keys", async () => {
+    const { target } = await mountSpreadsheetSelectorDialog();
+    const defaultSelected = target.querySelector(
+        ".o-spreadsheet-grid.o-blank-spreadsheet-grid .o-spreadsheet-grid-image"
+    );
+    expect(defaultSelected).toHaveClass("o-spreadsheet-grid-selected", {
+        message: "Blank spreadsheet should be selected by default",
+    });
+
+    // Navigate to the first spreadsheet
+    const firstSpreadsheet = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
+    await contains(firstSpreadsheet).press("ArrowRight");
+    expect(firstSpreadsheet).toHaveClass("o-spreadsheet-grid-selected", {
+        message: "First spreadsheet should be selected",
+    });
+
+    // Navigate back to the blank spreadsheet
+    await contains(firstSpreadsheet).press("ArrowLeft");
+    expect(defaultSelected).toHaveClass("o-spreadsheet-grid-selected", {
+        message: "Blank spreadsheet should be selected",
     });
 });

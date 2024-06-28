@@ -1,28 +1,25 @@
-/** @odoo-module */
-
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import {
-    patchWithCleanup,
-    click,
-    getFixture,
-    makeDeferred,
-    triggerEvent,
-    mouseEnter,
-    nextTick,
-    getDropdownMenu,
-} from "@web/../tests/helpers/utils";
-import { findItem } from "@web/../tests/search/helpers";
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
+import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
+import { getFixture } from "@odoo/hoot";
+import { waitFor } from "@odoo/hoot-dom";
+import { animationFrame } from "@odoo/hoot-mock";
+import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     getSpreadsheetActionEnv,
     getSpreadsheetActionModel,
     prepareWebClientForSpreadsheet,
-} from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
-import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
-import { waitForDataLoaded } from "@spreadsheet/helpers/model";
-import { registry } from "@web/core/registry";
-import { fieldService } from "@web/core/field_service";
-import { contains } from "@web/../tests/utils";
+} from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
+import {
+    contains,
+    getDropdownMenu,
+    getService,
+    mountWithCleanup,
+    patchWithCleanup,
+} from "@web/../tests/web_test_helpers";
+import { Deferred } from "@web/core/utils/concurrency";
+import { WebClient } from "@web/webclient/webclient";
+
 import { onMounted } from "@odoo/owl";
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
@@ -38,18 +35,19 @@ import { onMounted } from "@odoo/owl";
  * @param {object} [params.additionalContext] additional action context
  * @param {object[]} [params.orderBy] orderBy argument
  * @param {string} [params.actionXmlId] If set, the list view will be loaded from this action - will ignore model and domain
+ * @param {Object} [params.groupBy]
  * @returns {Promise<object>} Webclient
  */
 export async function spawnListViewForSpreadsheet(params = {}) {
     const { model, serverData, mockRPC } = params;
     await prepareWebClientForSpreadsheet();
-    const webClient = await createWebClient({
+    await makeSpreadsheetMockEnv({
         serverData: serverData || getBasicServerData(),
         mockRPC,
     });
+    const webClient = await mountWithCleanup(WebClient);
 
-    await doAction(
-        webClient,
+    await getService("action").doAction(
         params.actionXmlId || {
             name: "Partners",
             res_model: model || "partner",
@@ -66,12 +64,11 @@ export async function spawnListViewForSpreadsheet(params = {}) {
     );
 
     /** sort the view by field */
-    const target = getFixture();
     for (const order of params.orderBy || []) {
         const selector = `thead th.o_column_sortable[data-name='${order.name}']`;
-        await click(target.querySelector(selector));
+        await contains(selector).click();
         if (order.asc === false) {
-            await click(target.querySelector(selector));
+            await contains(selector).click();
         }
     }
     return webClient;
@@ -88,12 +85,12 @@ export async function spawnListViewForSpreadsheet(params = {}) {
  * @param {(fixture: HTMLElement) => Promise<void>} [params.actions] orderBy argument
  * @param {object} [params.additionalContext] additional action context
  * @param {number} [params.linesNumber]
- * @param {string} [actionXmlId] xmlId of the action to load the list view from - model and domain will be ignored
+ * @param {string} [params.actionXmlId] xmlId of the action to load the list view from - model and domain will be ignored
  *
- * @returns {Promise<{model: Model, webClient: object, env: object}>}
+ * @returns {Promise<{model: Model, webClient: object, env: object, fixture: Element}>}
  */
 export async function createSpreadsheetFromListView(params = {}) {
-    const def = makeDeferred();
+    const def = new Deferred();
     let spreadsheetAction = {};
     patchWithCleanup(SpreadsheetAction.prototype, {
         setup() {
@@ -104,7 +101,6 @@ export async function createSpreadsheetFromListView(params = {}) {
             });
         },
     });
-    registry.category("services").add("field", fieldService, { force: true });
     const webClient = await spawnListViewForSpreadsheet({
         model: params.model,
         serverData: params.serverData,
@@ -119,11 +115,9 @@ export async function createSpreadsheetFromListView(params = {}) {
     }
     /** Put the current list in a new spreadsheet */
     await invokeInsertListInSpreadsheetDialog(webClient.env);
-    /** @type {HTMLInputElement} */
-    const input = fixture.querySelector(`.o-sp-dialog-meta-threshold-input`);
-    input.value = params.linesNumber ? params.linesNumber.toString() : "10";
-    await triggerEvent(input, null, "input");
-    await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+    const value = params.linesNumber ? params.linesNumber.toString() : "10";
+    await contains(".o-sp-dialog-meta-threshold-input").edit(value);
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
     await def;
     const model = getSpreadsheetActionModel(spreadsheetAction);
     await waitForDataLoaded(model);
@@ -138,14 +132,19 @@ export async function createSpreadsheetFromListView(params = {}) {
 /**
  * Toggle the CogMenu's Spreadsheet sub-dropdown
  *
- * @param {EventTarget} el
  * @returns Promise
  */
-export async function toggleCogMenuSpreadsheet(el) {
-    await contains(".o-dropdown--menu .dropdown-toggle", { text: "Spreadsheet" });
-    const dropdownMenu = getDropdownMenu(el, ".o_cp_action_menus .dropdown-toggle");
-    await mouseEnter(findItem(dropdownMenu, ".o-dropdown-item", "Spreadsheet"));
-    await contains(".o-dropdown.show", { text: "Spreadsheet" });
+export async function toggleCogMenuSpreadsheet() {
+    await waitFor(".o-dropdown--menu .dropdown-toggle");
+    const dropdownMenu = getDropdownMenu(".o_cp_action_menus .dropdown-toggle");
+    const dropdownItems = /** @type {HTMLElement[]}*/ ([
+        ...dropdownMenu.querySelectorAll(".o-dropdown-item"),
+    ]);
+    const spreadsheetItem = dropdownItems.find((el) =>
+        el.innerText.trim().toLowerCase().includes("spreadsheet")
+    );
+    await contains(spreadsheetItem).hover();
+    await waitFor(".o-dropdown.show");
 }
 
 /** While the actual flow requires to toggle the list view action menu
@@ -154,5 +153,5 @@ export async function toggleCogMenuSpreadsheet(el) {
  */
 export async function invokeInsertListInSpreadsheetDialog(env) {
     env.bus.trigger("insert-list-spreadsheet");
-    await nextTick();
+    await animationFrame();
 }

@@ -1,23 +1,22 @@
-/** @odoo-module */
-
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import {
-    patchWithCleanup,
-    click,
-    nextTick,
-    getFixture,
-    makeDeferred,
-    triggerEvent,
-} from "@web/../tests/helpers/utils";
-import { getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
 import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
+import { getFixture } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
+import { onMounted } from "@odoo/owl";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     getSpreadsheetActionEnv,
     getSpreadsheetActionModel,
     prepareWebClientForSpreadsheet,
-} from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
-import { waitForDataLoaded } from "@spreadsheet/helpers/model";
-import { onMounted } from "@odoo/owl";
+} from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
+import {
+    contains,
+    getService,
+    mountWithCleanup,
+    patchWithCleanup,
+} from "@web/../tests/web_test_helpers";
+import { Deferred } from "@web/core/utils/concurrency";
+import { WebClient } from "@web/webclient/webclient";
 
 /** @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model */
 
@@ -35,13 +34,10 @@ import { onMounted } from "@odoo/owl";
  */
 export async function spawnGraphViewForSpreadsheet(params = {}) {
     await prepareWebClientForSpreadsheet();
-    const webClient = await createWebClient({
-        serverData: params.serverData || getBasicServerData(),
-        mockRPC: params.mockRPC,
-    });
+    await makeSpreadsheetMockEnv(params);
+    const webClient = await mountWithCleanup(WebClient);
 
-    await doAction(
-        webClient,
+    await getService("action").doAction(
         {
             name: "graph view",
             res_model: params.model || "partner",
@@ -71,12 +67,12 @@ export async function spawnGraphViewForSpreadsheet(params = {}) {
 /**
  * Create a spreadsheet model from a graph controller
  *
- * @param {CreateGraphTestParams & import("@documents_spreadsheet/../tests/legacy/spreadsheet_test_utils").SpreadsheetTestParams} params
+ * @param {CreateGraphTestParams & import("@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils").SpreadsheetTestParams} params
  * @returns {Promise<object>} Webclient
  */
 export async function createSpreadsheetFromGraphView(params = {}) {
     let spreadsheetAction = {};
-    const def = makeDeferred();
+    const def = new Deferred();
     patchWithCleanup(SpreadsheetAction.prototype, {
         setup() {
             super.setup();
@@ -97,17 +93,13 @@ export async function createSpreadsheetFromGraphView(params = {}) {
     if (params.actions) {
         await params.actions(target);
     }
-    await click(target.querySelector(".o_graph_insert_spreadsheet"));
+    await contains(target.querySelector(".o_graph_insert_spreadsheet")).click();
     if (params.documentId) {
-        await triggerEvent(
-            target,
-            `.o-spreadsheet-grid div[data-id='${params.documentId}']`,
-            "focus"
-        );
+        await contains(`.o-spreadsheet-grid div[data-id='${params.documentId}']`).focus();
     }
-    await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
+    await contains(document.querySelector(".modal-content > .modal-footer > .btn-primary")).click();
     await def;
-    await nextTick();
+    await animationFrame();
     const model = getSpreadsheetActionModel(spreadsheetAction);
     await waitForDataLoaded(model);
     return {
@@ -122,5 +114,5 @@ export async function openChartSidePanel(model, env) {
     const chartId = model.getters.getChartIds(sheetId)[0];
     model.dispatch("SELECT_FIGURE", { id: chartId });
     env.openSidePanel("ChartPanel", {});
-    await nextTick();
+    await animationFrame();
 }

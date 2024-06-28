@@ -1,11 +1,10 @@
 import { RPCError } from "@web/core/network/rpc";
 
 export function mockJoinSpreadsheetSession(resModel) {
-    return function (route, args) {
-        const [id] = args.args;
-        const record = this.models[resModel].records.find((record) => record.id === id);
+    return function (resId, shareId, accessToken) {
+        const record = this.env[resModel].search_read([["id", "=", resId]])[0];
         if (!record) {
-            const error = new RPCError(`Spreadsheet ${id} does not exist`);
+            const error = new RPCError(`Spreadsheet ${resId} does not exist`);
             error.data = {};
             throw error;
         }

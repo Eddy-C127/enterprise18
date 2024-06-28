@@ -1,18 +1,17 @@
-/** @odoo-module */
-import { click, nextTick, getFixture } from "@web/../tests/helpers/utils";
-
-import { selectCell } from "@spreadsheet/../tests/legacy/utils/commands";
-
+import { defineDocumentSpreadsheetModels } from "@documents_spreadsheet/../tests/helpers/data";
+import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
+import { expect, test } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
-import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/legacy/utils/pivot_helpers";
-
+import { selectCell } from "@spreadsheet/../tests/helpers/commands";
+import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import { contains } from "@web/../tests/web_test_helpers";
 const { Model } = spreadsheet;
 const { cellMenuRegistry } = spreadsheet.registries;
 
-QUnit.module("documents_spreadsheet > see pivot records UI");
+defineDocumentSpreadsheetModels();
 
-QUnit.test("Can see records and go back after a pivot insertion", async function (assert) {
+test("Can see records and go back after a pivot insertion", async function () {
     const m = new Model();
     const models = getBasicData();
     models["documents.document"].records = [
@@ -37,9 +36,9 @@ QUnit.test("Can see records and go back after a pivot insertion", async function
     selectCell(model, "B3");
     const root = cellMenuRegistry.getAll().find((item) => item.id === "pivot_see_records");
     await root.execute(env);
-    await nextTick();
-    assert.containsNone(getFixture(), ".o-spreadsheet");
-    await click(document.body.querySelector(".o_back_button"));
-    await nextTick();
-    assert.containsOnce(getFixture(), ".o-spreadsheet");
+    await animationFrame();
+    expect(".o-spreadsheet").toHaveCount(0);
+    await contains(document.body.querySelector(".o_back_button")).click();
+    await animationFrame();
+    expect(".o-spreadsheet").toHaveCount(1);
 });

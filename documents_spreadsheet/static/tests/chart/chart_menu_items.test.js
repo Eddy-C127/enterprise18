@@ -1,50 +1,43 @@
-/** @odoo-module */
-
+import { createSpreadsheetFromGraphView } from "@documents_spreadsheet/../tests/helpers/chart_helpers";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import * as spreadsheet from "@odoo/o-spreadsheet";
+import { defineDocumentSpreadsheetModels } from "@documents_spreadsheet/../tests/helpers/data";
+import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";
+import { patchGraphSpreadsheet } from "@spreadsheet_edition/assets/graph_view/graph_view";
+import { patchWithCleanup } from "@web/../tests/web_test_helpers";
+import { GraphRenderer } from "@web/views/graph/graph_renderer";
 const { topbarMenuRegistry } = spreadsheet.registries;
 
-import { patchWithCleanup } from "@web/../tests/helpers/utils";
-import { createSpreadsheetFromGraphView } from "@documents_spreadsheet/../tests/legacy/utils/chart_helpers";
-import { GraphRenderer } from "@web/views/graph/graph_renderer";
-import { patchGraphSpreadsheet } from "@spreadsheet_edition/assets/graph_view/graph_view";
-import { doMenuAction } from "@spreadsheet/../tests/legacy/utils/ui";
+defineDocumentSpreadsheetModels();
+describe.current.tags("desktop");
 
-QUnit.module(
-    "documents_spreadsheet > Odoo Chart Menu Items",
-    {
-        beforeEach: function () {
-            patchWithCleanup(GraphRenderer.prototype, patchGraphSpreadsheet());
-        },
-    },
-    function () {
-        QUnit.test(
-            "Verify presence of chart in top menu bar in a spreadsheet with a chart",
-            async function (assert) {
-                const { model, env } = await createSpreadsheetFromGraphView();
-                const sheetId = model.getters.getActiveSheetId();
-                const chartId = model.getters.getChartIds(sheetId)[0];
+beforeEach(() => {
+    patchWithCleanup(GraphRenderer.prototype, patchGraphSpreadsheet());
+});
 
-                const root = topbarMenuRegistry.getMenuItems().find((item) => item.id === "data");
-                const children = root.children(env);
-                const chartItem = children.find((c) => c.id === `item_chart_${chartId}`);
-                assert.ok(chartItem);
-                assert.equal(chartItem.name(env), "(#1) PartnerGraph");
-            }
-        );
+test("Verify presence of chart in top menu bar in a spreadsheet with a chart", async function () {
+    const { model, env } = await createSpreadsheetFromGraphView();
+    const sheetId = model.getters.getActiveSheetId();
+    const chartId = model.getters.getChartIds(sheetId)[0];
 
-        QUnit.test("Chart focus changes on top bar menu click", async function (assert) {
-            const { model, env } = await createSpreadsheetFromGraphView();
-            const sheetId = model.getters.getActiveSheetId();
-            const chartId = model.getters.getChartIds(sheetId)[0];
+    const root = topbarMenuRegistry.getMenuItems().find((item) => item.id === "data");
+    const children = root.children(env);
+    const chartItem = children.find((c) => c.id === `item_chart_${chartId}`);
+    expect(chartItem).not.toBe(undefined);
+    expect(chartItem.name(env)).toBe("(#1) PartnerGraph");
+});
 
-            env.openSidePanel("ChartPanel");
-            assert.notOk(model.getters.getSelectedFigureId(), "No chart should be selected");
-            await doMenuAction(topbarMenuRegistry, ["data", `item_chart_${chartId}`], env);
-            assert.equal(
-                model.getters.getSelectedFigureId(),
-                chartId,
-                "The selected chart should have id " + chartId
-            );
-        });
-    }
-);
+test("Chart focus changes on top bar menu click", async function () {
+    const { model, env } = await createSpreadsheetFromGraphView();
+    const sheetId = model.getters.getActiveSheetId();
+    const chartId = model.getters.getChartIds(sheetId)[0];
+
+    env.openSidePanel("ChartPanel");
+    expect(model.getters.getSelectedFigureId()).toBe(null, {
+        message: "No chart should be selected",
+    });
+    await doMenuAction(topbarMenuRegistry, ["data", `item_chart_${chartId}`], env);
+    expect(model.getters.getSelectedFigureId()).toBe(chartId, {
+        message: "The selected chart should have id " + chartId,
+    });
+});

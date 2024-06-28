@@ -27,7 +27,7 @@
             'spreadsheet_dashboard_documents/static/src/assets/**/*.js',
             'spreadsheet_dashboard_documents/static/src/**/*.xml',
         ],
-        "web.qunit_suite_tests": [
+        'web.assets_unit_tests': [
             "spreadsheet_dashboard_documents/static/tests/**/*.js",
         ],
         'web.assets_tests': [

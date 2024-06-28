@@ -1,1119 +1,1025 @@
-/** @odoo-module */
-
 import {
-    patchUserContextWithCleanup,
-    patchUserWithCleanup,
-} from "@web/../tests/helpers/mock_services";
-import {
-    click,
-    nextTick,
-    getFixture,
-    patchWithCleanup,
-    triggerEvent,
-} from "@web/../tests/helpers/utils";
-import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
-import {
-    setupControlPanelServiceRegistry,
-    toggleMenu,
-    toggleMenuItem,
-} from "@web/../tests/search/helpers";
-import { makeView } from "@web/../tests/views/helpers";
-
-import { waitForDataLoaded } from "@spreadsheet/helpers/model";
+    defineDocumentSpreadsheetModels,
+    defineDocumentSpreadsheetTestAction,
+} from "@documents_spreadsheet/../tests/helpers/data";
 import {
     createSpreadsheetFromPivotView,
     spawnPivotViewForSpreadsheet,
-} from "@documents_spreadsheet/../tests/legacy/utils/pivot_helpers";
-import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/legacy/utils/data";
+} from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
+import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
+import { expect, getFixture, test } from "@odoo/hoot";
+import { pointerDown } from "@odoo/hoot-dom";
+import { animationFrame } from "@odoo/hoot-mock";
+import { Model, constants } from "@odoo/o-spreadsheet";
+import { selectCell, setCellContent } from "@spreadsheet/../tests/helpers/commands";
+import {
+    Partner,
+    Product,
+    getBasicData,
+    getBasicServerData,
+} from "@spreadsheet/../tests/helpers/data";
+import {
+    getCellContent,
+    getCellValue,
+    getEvaluatedCell,
+} from "@spreadsheet/../tests/helpers/getters";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { getZoneOfInsertedDataSource } from "@spreadsheet/../tests/helpers/pivot";
+import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     getSpreadsheetActionModel,
     prepareWebClientForSpreadsheet,
-} from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
+} from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
 import {
-    getEvaluatedCell,
-    getCellContent,
-    getCellValue,
-} from "@spreadsheet/../tests/legacy/utils/getters";
-import { selectCell, setCellContent } from "@spreadsheet/../tests/legacy/utils/commands";
+    contains,
+    fields,
+    getService,
+    mountView,
+    mountWithCleanup,
+    onRpc,
+    patchWithCleanup,
+    toggleMenu,
+    toggleMenuItem,
+} from "@web/../tests/web_test_helpers";
 import { user } from "@web/core/user";
 import { session } from "@web/session";
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import { Model, constants } from "@odoo/o-spreadsheet";
-import { getZoneOfInsertedDataSource } from "@spreadsheet/../tests/legacy/utils/pivot";
+import { WebClient } from "@web/webclient/webclient";
+
+defineDocumentSpreadsheetModels();
+defineDocumentSpreadsheetTestAction();
+
 const { PIVOT_TABLE_CONFIG } = constants;
 
-QUnit.module("spreadsheet pivot view", {}, () => {
-    QUnit.test("simple pivot export", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("simple pivot export", async () => {
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="foo" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.containsOnce(getFixture(), ".o_spreadsheet_pivot_side_panel");
-        assert.strictEqual(getCellContent(model, "A1"), "");
-        assert.strictEqual(getCellContent(model, "A2"), "");
-        assert.strictEqual(getCellContent(model, "A3"), "=PIVOT.HEADER(1)");
-        assert.strictEqual(getCellContent(model, "B1"), "=PIVOT.HEADER(1)");
-        assert.strictEqual(getCellContent(model, "B2"), '=PIVOT.HEADER(1,"measure","foo")');
-        assert.strictEqual(getCellContent(model, "B3"), '=PIVOT.VALUE(1,"foo")');
+        },
     });
+    expect(".o_spreadsheet_pivot_side_panel").toHaveCount(1);
+    expect(getCellContent(model, "A1")).toBe("");
+    expect(getCellContent(model, "A2")).toBe("");
+    expect(getCellContent(model, "A3")).toBe("=PIVOT.HEADER(1)");
+    expect(getCellContent(model, "B1")).toBe("=PIVOT.HEADER(1)");
+    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"measure","foo")');
+    expect(getCellContent(model, "B3")).toBe('=PIVOT.VALUE(1,"foo")');
+});
 
-    QUnit.test("simple pivot export with two measures", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("simple pivot export with two measures", async () => {
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="foo" type="measure"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.strictEqual(getCellContent(model, "B1"), "=PIVOT.HEADER(1)");
-        assert.strictEqual(getCellContent(model, "B2"), '=PIVOT.HEADER(1,"measure","foo")');
-        assert.strictEqual(getCellContent(model, "C2"), '=PIVOT.HEADER(1,"measure","probability")');
-        assert.strictEqual(getCellContent(model, "B3"), '=PIVOT.VALUE(1,"foo")');
-        assert.strictEqual(getCellContent(model, "C3"), '=PIVOT.VALUE(1,"probability")');
+        },
     });
+    expect(getCellContent(model, "B1")).toBe("=PIVOT.HEADER(1)");
+    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"measure","foo")');
+    expect(getCellContent(model, "C2")).toBe('=PIVOT.HEADER(1,"measure","probability")');
+    expect(getCellContent(model, "B3")).toBe('=PIVOT.VALUE(1,"foo")');
+    expect(getCellContent(model, "C3")).toBe('=PIVOT.VALUE(1,"probability")');
+});
 
-    QUnit.test("Insert in spreadsheet is disabled when data is empty", async (assert) => {
-        assert.expect(1);
+test("Insert in spreadsheet is disabled when data is empty", async () => {
+    const data = getBasicData();
+    data.partner.records = [];
+    data.product.records = [];
+    await makeSpreadsheetMockEnv({ serverData: { models: data } });
 
-        setupControlPanelServiceRegistry();
-        patchUserWithCleanup({ hasGroup: async () => true });
-
-        const data = getBasicData();
-        data.partner.records = [];
-        data.product.records = [];
-        const serverData = {
-            models: data,
-        };
-
-        await makeView({
-            type: "pivot",
-            resModel: "partner",
-            serverData,
-            arch: /*xml*/ `
+    await mountView({
+        type: "pivot",
+        resModel: "partner",
+        arch: /*xml*/ `
                 <pivot>
                     <field name="foo" type="measure"/>
                 </pivot>`,
-        });
-        assert.ok(document.body.querySelector("button.o_pivot_add_spreadsheet").disabled);
     });
+    expect("button.o_pivot_add_spreadsheet").toHaveProperty("disabled", true);
+});
 
-    QUnit.test("Insert in spreadsheet is disabled when no measure is specified", async (assert) => {
-        assert.expect(1);
-
-        setupControlPanelServiceRegistry();
-        patchUserWithCleanup({ hasGroup: async () => true });
-        const serverData = {
-            models: getBasicData(),
-        };
-        await makeView({
-            type: "pivot",
-            resModel: "partner",
-            serverData,
-            arch: /*xml*/ `
+test("Insert in spreadsheet is disabled when no measure is specified", async () => {
+    await mountView({
+        type: "pivot",
+        resModel: "partner",
+        arch: /*xml*/ `
                 <pivot>
                     <field name="foo" type="measure"/>
                 </pivot>`,
-        });
-
-        const target = getFixture();
-        await toggleMenu(target, "Measures");
-        await toggleMenuItem(target, "Foo");
-        assert.ok(target.querySelector("button.o_pivot_add_spreadsheet").disabled);
     });
 
-    QUnit.test(
-        "Insert in spreadsheet is disabled when same groupby occurs in both columns and rows",
-        async (assert) => {
-            setupControlPanelServiceRegistry();
-            patchUserWithCleanup({ hasGroup: async () => true });
-            const serverData = {
-                models: getBasicData(),
-            };
-            await makeView({
-                type: "pivot",
-                resModel: "partner",
-                serverData,
-                arch: /*xml*/ `
+    await toggleMenu("Measures");
+    await toggleMenuItem("Foo");
+    expect("button.o_pivot_add_spreadsheet").toHaveProperty("disabled", true);
+});
+
+test("Insert in spreadsheet is disabled when same groupby occurs in both columns and rows", async () => {
+    await mountView({
+        type: "pivot",
+        resModel: "partner",
+        arch: /*xml*/ `
             <pivot>
                 <field name="id" type="col"/>
                 <field name="id" type="row"/>
                 <field name="foo" type="measure"/>
             </pivot>`,
-            });
+    });
 
-            const target = getFixture();
-            await toggleMenu(target, "Measures");
-            await toggleMenuItem(target, "Foo");
-            assert.ok(target.querySelector("button.o_pivot_add_spreadsheet").disabled);
-        }
-    );
+    await toggleMenu("Measures");
+    await toggleMenuItem("Foo");
+    expect("button.o_pivot_add_spreadsheet").toHaveProperty("disabled", true);
+});
 
-    QUnit.test(
-        "Insert in spreadsheet is disabled when columns or rows contain duplicate groupbys",
-        async (assert) => {
-            setupControlPanelServiceRegistry();
-            patchUserWithCleanup({ hasGroup: async () => true });
-            const serverData = {
-                models: getBasicData(),
-            };
-            await makeView({
-                type: "pivot",
-                resModel: "partner",
-                serverData,
-                arch: /*xml*/ `
+test("Insert in spreadsheet is disabled when columns or rows contain duplicate groupbys", async () => {
+    await mountView({
+        type: "pivot",
+        resModel: "partner",
+        arch: /*xml*/ `
                 <pivot>
                     <field name="id" type="col"/>
                     <field name="bar" type="row"/>
                     <field name="product_id" type="row"/>
                     <field name="probability" type="measure"/>
                 </pivot>`,
-            });
+    });
 
-            const target = getFixture();
-            await toggleMenu(target, "Measures");
-            await toggleMenuItem(target, "Probability");
-            assert.ok(target.querySelector("button.o_pivot_add_spreadsheet").disabled);
-        }
-    );
+    await toggleMenu("Measures");
+    await toggleMenuItem("Probability");
+    expect("button.o_pivot_add_spreadsheet").toHaveProperty("disabled", true);
+});
 
-    QUnit.test(
-        "Insert in spreadsheet is disabled when columns and rows both contains same groupby with different aggregator",
-        async (assert) => {
-            setupControlPanelServiceRegistry();
-            patchUserWithCleanup({ hasGroup: async () => true });
-            const serverData = {
-                models: getBasicData(),
-            };
-            await makeView({
-                type: "pivot",
-                resModel: "partner",
-                serverData,
-                arch: /*xml*/ `
+test("Insert in spreadsheet is disabled when columns and rows both contains same groupby with different aggregator", async () => {
+    await mountView({
+        type: "pivot",
+        resModel: "partner",
+        arch: /*xml*/ `
                 <pivot>
                     <field name="date" interval="year" type="col"/>
                     <field name="date" interval="month" type="row"/>
                     <field name="probability" type="measure"/>
                 </pivot>`,
-            });
+    });
 
-            const target = getFixture();
-            assert.ok(target.querySelector("button.o_pivot_add_spreadsheet").disabled);
-        }
-    );
+    expect("button.o_pivot_add_spreadsheet").toHaveProperty("disabled", true);
+});
 
-    QUnit.test(
-        "Can insert in spreadsheet when group by the same date fields with different aggregates",
-        async (assert) => {
-            setupControlPanelServiceRegistry();
-            patchUserWithCleanup({ hasGroup: async () => true });
-            const serverData = {
-                models: getBasicData(),
-            };
-            await makeView({
-                type: "pivot",
-                resModel: "partner",
-                serverData,
-                arch: /*xml*/ `
+test("Can insert in spreadsheet when group by the same date fields with different aggregates", async () => {
+    await mountView({
+        type: "pivot",
+        resModel: "partner",
+        arch: /*xml*/ `
                 <pivot>
                     <field name="date" interval="year" type="col"/>
                     <field name="date" interval="month" type="col"/>
                     <field name="probability" type="measure"/>
                 </pivot>`,
-            });
+    });
 
-            const target = getFixture();
-            assert.notOk(target.querySelector("button.o_pivot_add_spreadsheet").disabled);
-        }
-    );
+    expect("button.o_pivot_add_spreadsheet").toHaveProperty("disabled", false);
+});
 
-    QUnit.test("groupby date field without interval defaults to month", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("groupby date field without interval defaults to month", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot string="Partners">
                             <field name="foo" type="col"/>
                             <!-- no interval specified -->
                             <field name="date" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        const pivot = model.getters.getPivotCoreDefinition(pivotId);
-        assert.deepEqual(pivot, {
-            columns: [{ name: "foo" }],
-            context: {},
-            domain: [],
-            measures: [{ name: "probability", aggregator: "avg" }],
-            model: "partner",
-            rows: [{ name: "date", granularity: "month" }],
-            name: "Partners by Foo",
-            sortedColumn: null,
-            type: "ODOO",
-        });
-        assert.equal(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"date:month","04/2016")');
-        assert.equal(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"date:month","10/2016")');
-        assert.equal(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"date:month","12/2016")');
-        assert.equal(
-            getCellContent(model, "B3"),
-            '=PIVOT.VALUE(1,"probability","date:month","04/2016","foo",1)'
-        );
-        assert.equal(
-            getCellContent(model, "B4"),
-            '=PIVOT.VALUE(1,"probability","date:month","10/2016","foo",1)'
-        );
-        assert.equal(
-            getCellContent(model, "B5"),
-            '=PIVOT.VALUE(1,"probability","date:month","12/2016","foo",1)'
-        );
-        assert.equal(getEvaluatedCell(model, "A3").formattedValue, "April 2016");
-        assert.equal(getEvaluatedCell(model, "A4").formattedValue, "October 2016");
-        assert.equal(getEvaluatedCell(model, "A5").formattedValue, "December 2016");
-        assert.equal(getEvaluatedCell(model, "B3").formattedValue, "");
-        assert.equal(getEvaluatedCell(model, "B4").formattedValue, "11.00");
-        assert.equal(getEvaluatedCell(model, "B5").formattedValue, "");
-
-        setCellContent(model, "B4", '=PIVOT.VALUE(1,"probability","date","10/2016","foo",1)');
-        assert.equal(getEvaluatedCell(model, "B4").formattedValue, "11.00");
+        },
     });
-
-    QUnit.test("pivot with one level of group bys", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView();
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar",FALSE)');
-        assert.strictEqual(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"bar",TRUE)');
-        assert.strictEqual(getCellContent(model, "A5"), "=PIVOT.HEADER(1)");
-        assert.strictEqual(
-            getCellContent(model, "B2"),
-            '=PIVOT.HEADER(1,"foo",1,"measure","probability")'
-        );
-        assert.strictEqual(
-            getCellContent(model, "C3"),
-            '=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",2)'
-        );
-        assert.strictEqual(getCellContent(model, "F5"), '=PIVOT.VALUE(1,"probability")');
+    const pivot = model.getters.getPivotCoreDefinition(pivotId);
+    expect(pivot).toEqual({
+        columns: [{ name: "foo" }],
+        context: {},
+        domain: [],
+        measures: [{ name: "probability", aggregator: "avg" }],
+        model: "partner",
+        rows: [{ name: "date", granularity: "month" }],
+        name: "Partners by Foo",
+        sortedColumn: null,
+        type: "ODOO",
     });
+    expect(getCellContent(model, "A3")).toBe('=PIVOT.HEADER(1,"date:month","04/2016")');
+    expect(getCellContent(model, "A4")).toBe('=PIVOT.HEADER(1,"date:month","10/2016")');
+    expect(getCellContent(model, "A5")).toBe('=PIVOT.HEADER(1,"date:month","12/2016")');
+    expect(getCellContent(model, "B3")).toBe(
+        '=PIVOT.VALUE(1,"probability","date:month","04/2016","foo",1)'
+    );
+    expect(getCellContent(model, "B4")).toBe(
+        '=PIVOT.VALUE(1,"probability","date:month","10/2016","foo",1)'
+    );
+    expect(getCellContent(model, "B5")).toBe(
+        '=PIVOT.VALUE(1,"probability","date:month","12/2016","foo",1)'
+    );
+    expect(getEvaluatedCell(model, "A3").formattedValue).toBe("April 2016");
+    expect(getEvaluatedCell(model, "A4").formattedValue).toBe("October 2016");
+    expect(getEvaluatedCell(model, "A5").formattedValue).toBe("December 2016");
+    expect(getEvaluatedCell(model, "B3").formattedValue).toBe("");
+    expect(getEvaluatedCell(model, "B4").formattedValue).toBe("11.00");
+    expect(getEvaluatedCell(model, "B5").formattedValue).toBe("");
 
-    QUnit.test("groupby date field on row gives correct name", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+    setCellContent(model, "B4", '=PIVOT.VALUE(1,"probability","date","10/2016","foo",1)');
+    expect(getEvaluatedCell(model, "B4").formattedValue).toEqual("11.00");
+});
+
+test("pivot with one level of group bys", async () => {
+    const { model } = await createSpreadsheetFromPivotView();
+    expect(getCellContent(model, "A3")).toBe('=PIVOT.HEADER(1,"bar",FALSE)');
+    expect(getCellContent(model, "A4")).toBe('=PIVOT.HEADER(1,"bar",TRUE)');
+    expect(getCellContent(model, "A5")).toBe("=PIVOT.HEADER(1)");
+    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"foo",1,"measure","probability")');
+    expect(getCellContent(model, "C3")).toBe('=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",2)');
+    expect(getCellContent(model, "F5")).toBe('=PIVOT.VALUE(1,"probability")');
+});
+
+test("groupby date field on row gives correct name", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot string="Partners">
                             <field name="date" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        const pivot = model.getters.getPivotCoreDefinition(pivotId);
-        assert.deepEqual(pivot, {
-            columns: [],
-            context: {},
-            domain: [],
-            measures: [{ name: "probability", aggregator: "avg" }],
-            model: "partner",
-            rows: [{ name: "date", granularity: "month" }],
-            name: "Partners by Date",
-            sortedColumn: null,
-            type: "ODOO",
-        });
+        },
     });
+    const pivot = model.getters.getPivotCoreDefinition(pivotId);
+    expect(pivot).toEqual({
+        columns: [],
+        context: {},
+        domain: [],
+        measures: [{ name: "probability", aggregator: "avg" }],
+        model: "partner",
+        rows: [{ name: "date", granularity: "month" }],
+        name: "Partners by Date",
+        sortedColumn: null,
+        type: "ODOO",
+    });
+});
 
-    QUnit.test("pivot with two levels of group bys in rows", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("pivot with two levels of group bys in rows", async () => {
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="bar" type="row"/>
                             <field name="product_id" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"bar",FALSE)');
-        assert.strictEqual(
-            getCellContent(model, "A4"),
-            '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41)'
-        );
-        assert.strictEqual(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"bar",TRUE)');
-        assert.strictEqual(
-            getCellContent(model, "A6"),
-            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37)'
-        );
-        assert.strictEqual(
-            getCellContent(model, "A7"),
-            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41)'
-        );
-        assert.strictEqual(getCellContent(model, "A8"), "=PIVOT.HEADER(1)");
+        },
     });
+    expect(getCellContent(model, "A3")).toBe('=PIVOT.HEADER(1,"bar",FALSE)');
+    expect(getCellContent(model, "A4")).toBe('=PIVOT.HEADER(1,"bar",FALSE,"product_id",41)');
+    expect(getCellContent(model, "A5")).toBe('=PIVOT.HEADER(1,"bar",TRUE)');
+    expect(getCellContent(model, "A6")).toBe('=PIVOT.HEADER(1,"bar",TRUE,"product_id",37)');
+    expect(getCellContent(model, "A7")).toBe('=PIVOT.HEADER(1,"bar",TRUE,"product_id",41)');
+    expect(getCellContent(model, "A8")).toBe("=PIVOT.HEADER(1)");
+});
 
-    QUnit.test("verify that there is a record for an undefined many2one header", async (assert) => {
-        assert.expect(1);
+test("verify that there is a record for an undefined many2one header", async () => {
+    const data = getBasicData();
 
-        const data = getBasicData();
+    data.partner.records = [
+        {
+            id: 1,
+            foo: 12,
+            bar: true,
+            date: "2016-04-14",
+            product_id: false,
+            probability: 10,
+        },
+    ];
 
-        data.partner.records = [
-            {
-                id: 1,
-                foo: 12,
-                bar: true,
-                date: "2016-04-14",
-                product_id: false,
-                probability: 10,
-            },
-        ];
-
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: data,
-                views: {
-                    "partner,false,pivot": /* xml */ `
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: data,
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="product_id" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"product_id",FALSE)');
+        },
     });
+    expect(getCellContent(model, "A3")).toBe('=PIVOT.HEADER(1,"product_id",FALSE)');
+});
 
-    QUnit.test("undefined date is inserted in pivot", async (assert) => {
-        assert.expect(1);
+test("undefined date is inserted in pivot", async () => {
+    const data = getBasicData();
+    data.partner.records = [
+        {
+            id: 1,
+            foo: 12,
+            bar: true,
+            date: false,
+            product_id: 37,
+            probability: 10,
+        },
+    ];
 
-        const data = getBasicData();
-        data.partner.records = [
-            {
-                id: 1,
-                foo: 12,
-                bar: true,
-                date: false,
-                product_id: 37,
-                probability: 10,
-            },
-        ];
-
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: data,
-                views: {
-                    "partner,false,pivot": /* xml */ `
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: data,
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="date" interval="day" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"date:day",FALSE)');
+        },
     });
+    expect(getCellContent(model, "A3")).toBe('=PIVOT.HEADER(1,"date:day",FALSE)');
+});
 
-    QUnit.test("pivot with two levels of group bys in cols", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("pivot with two levels of group bys in cols", async () => {
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="bar" type="col"/>
                             <field name="product_id" type="col"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.strictEqual(getCellContent(model, "A1"), "");
-        assert.strictEqual(getCellContent(model, "B1"), '=PIVOT.HEADER(1,"bar",FALSE)');
-        assert.strictEqual(
-            getCellContent(model, "B2"),
-            '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41)'
-        );
-        assert.strictEqual(
-            getCellContent(model, "B3"),
-            '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41,"measure","probability")'
-        );
-        assert.strictEqual(getCellContent(model, "C1"), '=PIVOT.HEADER(1,"bar",TRUE)');
-        assert.strictEqual(
-            getCellContent(model, "C2"),
-            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37)'
-        );
-        assert.strictEqual(
-            getCellContent(model, "C3"),
-            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37,"measure","probability")'
-        );
-        assert.strictEqual(
-            getCellContent(model, "D2"),
-            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41)'
-        );
-        assert.strictEqual(
-            getCellContent(model, "D3"),
-            '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41,"measure","probability")'
-        );
+        },
     });
+    expect(getCellContent(model, "A1")).toBe("");
+    expect(getCellContent(model, "B1")).toBe('=PIVOT.HEADER(1,"bar",FALSE)');
+    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"bar",FALSE,"product_id",41)');
+    expect(getCellContent(model, "B3")).toBe(
+        '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41,"measure","probability")'
+    );
+    expect(getCellContent(model, "C1")).toBe('=PIVOT.HEADER(1,"bar",TRUE)');
+    expect(getCellContent(model, "C2")).toBe('=PIVOT.HEADER(1,"bar",TRUE,"product_id",37)');
+    expect(getCellContent(model, "C3")).toBe(
+        '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37,"measure","probability")'
+    );
+    expect(getCellContent(model, "D2")).toBe('=PIVOT.HEADER(1,"bar",TRUE,"product_id",41)');
+    expect(getCellContent(model, "D3")).toBe(
+        '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41,"measure","probability")'
+    );
+});
 
-    QUnit.test("pivot with count as measure", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("pivot with count as measure", async () => {
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-            actions: async (target) => {
-                await toggleMenu(target, "Measures");
-                await toggleMenuItem(target, "Count");
-            },
-        });
-        assert.strictEqual(getCellContent(model, "C2"), '=PIVOT.HEADER(1,"measure","__count")');
-        assert.strictEqual(getCellContent(model, "C3"), '=PIVOT.VALUE(1,"__count")');
+        },
+        actions: async (target) => {
+            await toggleMenu("Measures");
+            await toggleMenuItem("Count");
+        },
     });
+    expect(getCellContent(model, "C2")).toBe('=PIVOT.HEADER(1,"measure","__count")');
+    expect(getCellContent(model, "C3")).toBe('=PIVOT.VALUE(1,"__count")');
+});
 
-    QUnit.test(
-        "pivot with two levels of group bys in cols with not enough cols",
-        async (assert) => {
-            assert.expect(1);
-
-            const data = getBasicData();
-            // add many values in a subgroup
-            for (let i = 0; i < 70; i++) {
-                data.product.records.push({
-                    id: i + 9999,
-                    display_name: i.toString(),
-                });
-                data.partner.records.push({
-                    id: i + 9999,
-                    bar: i % 2 === 0,
-                    product_id: i + 9999,
-                    probability: i,
-                });
-            }
-            const { model } = await createSpreadsheetFromPivotView({
-                serverData: {
-                    models: data,
-                    views: {
-                        "partner,false,pivot": /* xml */ `
+test("pivot with two levels of group bys in cols with not enough cols", async () => {
+    const data = getBasicData();
+    // add many values in a subgroup
+    for (let i = 0; i < 70; i++) {
+        Product._records.push({
+            id: i + 9999,
+            display_name: i.toString(),
+        });
+        Partner._records.push({
+            id: i + 9999,
+            bar: i % 2 === 0,
+            product_id: i + 9999,
+            probability: i,
+        });
+    }
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: data,
+            views: {
+                "partner,false,pivot": /* xml */ `
                             <pivot>
                                 <field name="bar" type="col"/>
                                 <field name="product_id" type="col"/>
                                 <field name="foo" type="row"/>
                                 <field name="probability" type="measure"/>
                             </pivot>`,
-                        "partner,false,search": /* xml */ `<search/>`,
-                    },
-                },
-            });
-            // 72 products * 1 groups + 1 row header + 1 total col
-            assert.strictEqual(model.getters.getNumberCols(model.getters.getActiveSheetId()), 75);
-        }
-    );
+                "partner,false,search": /* xml */ `<search/>`,
+            },
+        },
+    });
+    // 72 products * 1 groups + 1 row header + 1 total col
+    expect(model.getters.getNumberCols(model.getters.getActiveSheetId())).toBe(75);
+});
 
-    QUnit.test("groupby week is sorted", async (assert) => {
-        assert.expect(4);
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("groupby week is sorted", async () => {
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot string="Partners">
                             <field name="foo" type="col"/>
                             <field name="date" interval="week" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.strictEqual(getCellContent(model, "A3"), `=PIVOT.HEADER(1,"date:week","15/2016")`);
-        assert.strictEqual(getCellContent(model, "A4"), `=PIVOT.HEADER(1,"date:week","43/2016")`);
-        assert.strictEqual(getCellContent(model, "A5"), `=PIVOT.HEADER(1,"date:week","49/2016")`);
-        assert.strictEqual(getCellContent(model, "A6"), `=PIVOT.HEADER(1,"date:week","50/2016")`);
+        },
     });
+    expect(getCellContent(model, "A3")).toBe(`=PIVOT.HEADER(1,"date:week","15/2016")`);
+    expect(getCellContent(model, "A4")).toBe(`=PIVOT.HEADER(1,"date:week","43/2016")`);
+    expect(getCellContent(model, "A5")).toBe(`=PIVOT.HEADER(1,"date:week","49/2016")`);
+    expect(getCellContent(model, "A6")).toBe(`=PIVOT.HEADER(1,"date:week","50/2016")`);
+});
 
-    QUnit.test("Can save a pivot in a new spreadsheet", async (assert) => {
-        const serverData = {
-            models: getBasicData(),
-            views: {
-                "partner,false,pivot": /* xml */ `
+test("Can save a pivot in a new spreadsheet", async () => {
+    const serverData = {
+        models: getBasicData(),
+        views: {
+            "partner,false,pivot": /* xml */ `
                  <pivot string="Partners">
                      <field name="probability" type="measure"/>
                  </pivot>`,
-                "partner,false,search": /* xml */ `<search/>`,
-            },
-        };
-        await prepareWebClientForSpreadsheet();
-        const webClient = await createWebClient({
-            serverData,
-            mockRPC: function (route, args) {
-                if (route.includes("get_spreadsheets")) {
-                    return { records: [{ id: 1, name: "My Spreadsheet" }], total: 1 };
-                }
-                if (args.method === "action_open_new_spreadsheet") {
-                    assert.step("action_open_new_spreadsheet");
-                }
-            },
-        });
-
-        await doAction(webClient, {
-            res_model: "partner",
-            type: "ir.actions.act_window",
-            views: [[false, "pivot"]],
-        });
-        const target = getFixture();
-        const insertButton = target.querySelector("button.o_pivot_add_spreadsheet");
-        assert.strictEqual(insertButton.parentElement.dataset.tooltip, undefined);
-        await click(insertButton);
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        assert.verifySteps(["action_open_new_spreadsheet"]);
+            "partner,false,search": /* xml */ `<search/>`,
+        },
+    };
+    await prepareWebClientForSpreadsheet();
+    await makeSpreadsheetMockEnv({
+        serverData,
+        mockRPC: function (route, args) {
+            if (route.includes("get_spreadsheets_to_display")) {
+                return [{ id: 1, name: "My Spreadsheet" }];
+            }
+            if (args.method === "action_open_new_spreadsheet") {
+                expect.step("action_open_new_spreadsheet");
+            }
+        },
     });
+    await mountWithCleanup(WebClient);
 
-    QUnit.test("Can save a pivot in existing spreadsheet", async (assert) => {
-        const serverData = {
-            models: getBasicData(),
-            views: {
-                "partner,false,pivot": /* xml */ `
+    await getService("action").doAction({
+        res_model: "partner",
+        type: "ir.actions.act_window",
+        views: [[false, "pivot"]],
+    });
+    const target = getFixture();
+    const insertButton = target.querySelector("button.o_pivot_add_spreadsheet");
+    expect(insertButton.parentElement.dataset.tooltip).toBe(undefined);
+    await contains(insertButton).click();
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    expect.verifySteps(["action_open_new_spreadsheet"]);
+});
+
+test("Can save a pivot in existing spreadsheet", async () => {
+    const serverData = {
+        models: getBasicData(),
+        views: {
+            "partner,false,pivot": /* xml */ `
                     <pivot>
                         <field name="probability" type="measure"/>
                     </pivot>`,
-                "partner,false,search": /* xml */ `<search/>`,
-            },
-        };
-        await prepareWebClientForSpreadsheet();
-        const webClient = await createWebClient({
-            serverData,
-            mockRPC: function (route, args) {
-                if (route === "/web/action/load") {
-                    assert.step("write");
-                    return { id: args.action_id, type: "ir.actions.act_window_close" };
+            "partner,false,search": /* xml */ `<search/>`,
+        },
+    };
+    await prepareWebClientForSpreadsheet();
+    onRpc("/web/action/load", async () => {
+        expect.step("write");
+        return { id: 1, type: "ir.actions.act_window_close" };
+    });
+    await makeSpreadsheetMockEnv({
+        serverData,
+        mockRPC: function (route, args) {
+            if (route.includes("join_spreadsheet_session")) {
+                expect.step("join_spreadsheet_session");
+            }
+            if (args.model === "documents.document") {
+                switch (args.method) {
+                    case "get_spreadsheets_to_display":
+                        return [{ id: 1, name: "My Spreadsheet" }];
                 }
-                if (route.includes("join_spreadsheet_session")) {
-                    assert.step("join_spreadsheet_session");
-                }
-                if (args.model === "documents.document") {
-                    switch (args.method) {
-                        case "get_spreadsheets":
-                            return { records: [{ id: 1, name: "My Spreadsheet" }], total: 1 };
-                    }
-                }
-            },
-        });
-
-        await doAction(webClient, {
-            res_model: "partner",
-            type: "ir.actions.act_window",
-            views: [[false, "pivot"]],
-        });
-        const target = getFixture();
-        await click(target.querySelector(".o_pivot_add_spreadsheet"));
-        await triggerEvent(target, ".o-spreadsheet-grid div[data-id='1']", "focus");
-        await nextTick();
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        assert.containsOnce(target, ".o_spreadsheet_pivot_side_panel");
-        await doAction(webClient, 1); // leave the spreadsheet action
-        assert.verifySteps(["join_spreadsheet_session", "write"]);
+            }
+        },
     });
+    await mountWithCleanup(WebClient);
 
-    QUnit.test("Add pivot sheet at the end of existing sheets", async (assert) => {
-        const model = new Model();
-        model.dispatch("CREATE_SHEET", { sheetId: "42", position: 1, name: "My Sheet" });
-        const models = getBasicData();
-        models["documents.document"].records = [
-            {
-                spreadsheet_data: JSON.stringify(model.exportData()),
-                name: "a spreadsheet",
-                folder_id: 1,
-                handler: "spreadsheet",
-                id: 456,
-                is_favorited: false,
-            },
-        ];
-        const serverData = {
-            models: models,
-            views: getBasicServerData().views,
-        };
-        await prepareWebClientForSpreadsheet();
-        const webClient = await createWebClient({ serverData });
-        await doAction(webClient, {
-            res_model: "partner",
-            type: "ir.actions.act_window",
-            views: [[false, "pivot"]],
-        });
-        const fixture = getFixture();
-        await click(fixture.querySelector(".o_pivot_add_spreadsheet"));
-        await triggerEvent(fixture, ".o-spreadsheet-grid div[data-id='456']", "focus");
-        await nextTick();
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        await nextTick();
-        assert.containsN(fixture, ".o-sheet", 3, "it should have a third sheet");
-        const sheets = fixture.querySelectorAll(".o-sheet");
-        const activeSheet = fixture.querySelector(".o-sheet.active");
-        assert.equal(activeSheet, sheets[2]);
-        assert.equal(sheets[0].innerText, "Sheet1");
-        assert.equal(sheets[1].innerText, "My Sheet");
-        assert.equal(sheets[2].innerText, "Partners by Foo (Pivot #1)");
+    await getService("action").doAction({
+        res_model: "partner",
+        type: "ir.actions.act_window",
+        views: [[false, "pivot"]],
     });
+    await contains(".o_pivot_add_spreadsheet").click();
+    await contains(".o-spreadsheet-grid div[data-id='1']").click();
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    expect(".o_spreadsheet_pivot_side_panel").toHaveCount(1);
+    await getService("action").doAction(1); // leave the spreadsheet action
+    expect.verifySteps(["join_spreadsheet_session", "write"]);
+});
 
-    QUnit.test("Add pivot in spreadsheet with already the same sheet name", async (assert) => {
-        const model = new Model();
-        model.dispatch("RENAME_SHEET", {
-            sheetId: model.getters.getActiveSheetId(),
-            name: "Partners by Foo (Pivot #1)",
-        });
-        const models = getBasicData();
-        models["documents.document"].records = [
-            {
-                spreadsheet_data: JSON.stringify(model.exportData()),
-                name: "a spreadsheet",
-                folder_id: 1,
-                handler: "spreadsheet",
-                id: 456,
-                is_favorited: false,
-            },
-        ];
-        const serverData = {
-            models: models,
-            views: getBasicServerData().views,
-        };
-        await prepareWebClientForSpreadsheet();
-        const webClient = await createWebClient({ serverData });
-        await doAction(webClient, {
-            res_model: "partner",
-            type: "ir.actions.act_window",
-            views: [[false, "pivot"]],
-        });
-        const fixture = getFixture();
-        await click(fixture.querySelector(".o_pivot_add_spreadsheet"));
-        await triggerEvent(fixture, ".o-spreadsheet-grid div[data-id='456']", "focus");
-        await nextTick();
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        await nextTick();
-        assert.containsN(fixture, ".o-sheet", 2, "it should have a second sheet");
-        const sheets = fixture.querySelectorAll(".o-sheet");
-        assert.equal(sheets[0].innerText, "Partners by Foo (Pivot #1)");
-        assert.equal(sheets[1].innerText, "Sheet1");
+test("Add pivot sheet at the end of existing sheets", async () => {
+    const model = new Model();
+    model.dispatch("CREATE_SHEET", { sheetId: "42", position: 1, name: "My Sheet" });
+    const models = getBasicData();
+    models["documents.document"].records = [
+        {
+            spreadsheet_data: JSON.stringify(model.exportData()),
+            name: "a spreadsheet",
+            folder_id: 1,
+            handler: "spreadsheet",
+            id: 456,
+            is_favorited: false,
+        },
+    ];
+    const serverData = {
+        models: models,
+        views: getBasicServerData().views,
+    };
+    await prepareWebClientForSpreadsheet();
+    await makeSpreadsheetMockEnv({ serverData });
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction({
+        res_model: "partner",
+        type: "ir.actions.act_window",
+        views: [[false, "pivot"]],
     });
+    const fixture = getFixture();
+    await contains(".o_pivot_add_spreadsheet").click();
+    await contains(".o-spreadsheet-grid div[data-id='456']").click();
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    expect(".o-sheet").toHaveCount(3, { message: "it should have a third sheet" });
+    const sheets = fixture.querySelectorAll(".o-sheet");
+    const activeSheet = fixture.querySelector(".o-sheet.active");
+    expect(activeSheet).toBe(sheets[2]);
+    expect(sheets[0]).toHaveText("Sheet1");
+    expect(sheets[1]).toHaveText("My Sheet");
+    expect(sheets[2]).toHaveText("Partners by Foo (Pivot #1)");
+});
 
-    QUnit.test("pivot with a domain", async (assert) => {
-        assert.expect(3);
-
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            domain: [["bar", "=", true]],
-        });
-        const domain = model.getters.getPivotCoreDefinition(pivotId).domain;
-        assert.deepEqual(domain, [["bar", "=", true]], "It should have the correct domain");
-        assert.strictEqual(getCellContent(model, "A3"), `=PIVOT.HEADER(1,"bar",TRUE)`);
-        assert.strictEqual(getCellContent(model, "A4"), `=PIVOT.HEADER(1)`);
+test("Add pivot in spreadsheet with already the same sheet name", async () => {
+    const model = new Model();
+    model.dispatch("RENAME_SHEET", {
+        sheetId: model.getters.getActiveSheetId(),
+        name: "Partners by Foo (Pivot #1)",
     });
+    const models = getBasicData();
+    models["documents.document"].records = [
+        {
+            spreadsheet_data: JSON.stringify(model.exportData()),
+            name: "a spreadsheet",
+            folder_id: 1,
+            handler: "spreadsheet",
+            id: 456,
+            is_favorited: false,
+        },
+    ];
+    const serverData = {
+        models: models,
+        views: getBasicServerData().views,
+    };
+    await prepareWebClientForSpreadsheet();
+    await makeSpreadsheetMockEnv({ serverData });
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction({
+        res_model: "partner",
+        type: "ir.actions.act_window",
+        views: [[false, "pivot"]],
+    });
+    const fixture = getFixture();
+    await contains(".o_pivot_add_spreadsheet").click();
 
-    QUnit.test("pivot with a contextual domain", async (assert) => {
-        const uid = user.userId;
-        const serverData = getBasicServerData();
-        serverData.models.partner.records = [
-            {
-                id: 1,
-                probability: 0.5,
-                foo: uid,
-                bar: true,
-            },
-        ];
-        serverData.views["partner,false,search"] = /* xml */ `
+    await contains(".o-spreadsheet-grid div[data-id='456']").click();
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    await animationFrame();
+    expect(".o-sheet").toHaveCount(2, { message: "it should have a second sheet" });
+    const sheets = fixture.querySelectorAll(".o-sheet");
+    expect(sheets[0]).toHaveText("Partners by Foo (Pivot #1)");
+    expect(sheets[1]).toHaveText("Sheet1");
+});
+
+test("pivot with a domain", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        domain: [["bar", "=", true]],
+    });
+    const domain = model.getters.getPivotCoreDefinition(pivotId).domain;
+    expect(domain).toEqual([["bar", "=", true]], {
+        message: "It should have the correct domain",
+    });
+    expect(getCellContent(model, "A3")).toBe(`=PIVOT.HEADER(1,"bar",TRUE)`);
+    expect(getCellContent(model, "A4")).toBe(`=PIVOT.HEADER(1)`);
+});
+
+test("pivot with a contextual domain", async () => {
+    const uid = user.userId;
+    const serverData = getBasicServerData();
+    serverData.models.partner.records = [
+        {
+            id: 1,
+            probability: 0.5,
+            foo: uid,
+            bar: true,
+        },
+    ];
+    serverData.views["partner,false,search"] = /* xml */ `
             <search>
                 <filter string="Filter" name="filter" domain="[('foo', '=', uid)]"/>
             </search>
         `;
-        serverData.views["partner,false,pivot"] = /* xml */ `
+    serverData.views["partner,false,pivot"] = /* xml */ `
             <pivot>
                 <field name="probability" type="measure"/>
             </pivot>
         `;
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            serverData,
-            additionalContext: { search_default_filter: 1 },
-            mockRPC: function (route, args) {
-                if (args.method === "read_group") {
-                    assert.deepEqual(
-                        args.kwargs.domain,
-                        [["foo", "=", uid]],
-                        "data should be fetched with the evaluated the domain"
-                    );
-                    assert.step("read_group");
-                }
-            },
-        });
-        const domain = model.getters.getPivotCoreDefinition(pivotId).domain;
-        assert.deepEqual(domain, '[("foo", "=", uid)]', "It should have the raw domain string");
-        assert.deepEqual(
-            model.exportData().pivots[pivotId].domain,
-            '[("foo", "=", uid)]',
-            "domain is exported with the dynamic value"
-        );
-        assert.verifySteps(["read_group", "read_group"]);
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        serverData,
+        additionalContext: { search_default_filter: 1 },
+        mockRPC: function (route, args) {
+            if (args.method === "read_group") {
+                expect(args.kwargs.domain).toEqual([["foo", "=", uid]], {
+                    message: "data should be fetched with the evaluated the domain",
+                });
+                expect.step("read_group");
+            }
+        },
     });
+    const domain = model.getters.getPivotCoreDefinition(pivotId).domain;
+    expect(domain).toEqual('[("foo", "=", uid)]', {
+        message: "It should have the raw domain string",
+    });
+    expect(model.exportData().pivots[pivotId].domain).toEqual('[("foo", "=", uid)]', {
+        message: "domain is exported with the dynamic value",
+    });
+    expect.verifySteps(["read_group", "read_group"]);
+});
 
-    QUnit.test("pivot with a quote in name", async function (assert) {
-        assert.expect(1);
-
-        const data = getBasicData();
-        data.product.records.push({
-            id: 42,
-            display_name: `name with "`,
-        });
-        const { model } = await createSpreadsheetFromPivotView({
-            model: "product",
-            serverData: {
-                models: data,
-                views: {
-                    "product,false,pivot": /*xml*/ `
+test("pivot with a quote in name", async function () {
+    const data = getBasicData();
+    Product._records.push({
+        id: 42,
+        display_name: `name with "`,
+    });
+    const { model } = await createSpreadsheetFromPivotView({
+        model: "product",
+        serverData: {
+            models: data,
+            views: {
+                "product,false,pivot": /*xml*/ `
                         <pivot>
                             <field name="display_name" type="col"/>
                             <field name="id" type="row"/>
                         </pivot>`,
-                    "product,false,search": `<search/>`,
-                },
+                "product,false,search": `<search/>`,
             },
-        });
-        assert.equal(
-            getCellContent(model, "B1"),
-            `=PIVOT.HEADER(1,"display_name","name with \\"")`
-        );
+        },
     });
+    expect(getCellContent(model, "B1")).toBe(`=PIVOT.HEADER(1,"display_name","name with \\"")`);
+});
 
-    QUnit.test("group by related field with archived record", async function (assert) {
-        assert.expect(3);
-        // TODOAFTERSPLIT this doesn't seem to have any archived record
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("group by related field with archived record", async function () {
+    // TODOAFTERSPLIT this doesn't seem to have any archived record
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="product_id" type="col"/>
                             <field name="name" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.equal(getCellContent(model, "B1"), `=PIVOT.HEADER(1,"product_id",37)`);
-        assert.equal(getCellContent(model, "C1"), `=PIVOT.HEADER(1,"product_id",41)`);
-        assert.equal(getCellContent(model, "D1"), `=PIVOT.HEADER(1)`);
+        },
     });
+    expect(getCellContent(model, "B1")).toBe(`=PIVOT.HEADER(1,"product_id",37)`);
+    expect(getCellContent(model, "C1")).toBe(`=PIVOT.HEADER(1,"product_id",41)`);
+    expect(getCellContent(model, "D1")).toBe(`=PIVOT.HEADER(1)`);
+});
 
-    QUnit.test("group by regular field with archived record", async function (assert) {
-        assert.expect(4);
-
-        const data = getBasicData();
-        data.partner.records[0].active = false;
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: data,
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("group by regular field with archived record", async function () {
+    Partner._records[0].active = false;
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                             <field name="product_id" type="col"/>
                             <field name="foo" type="row"/>
                             <field name="probability" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-        });
-        assert.equal(getCellContent(model, "A3"), `=PIVOT.HEADER(1,"foo",1)`);
-        assert.equal(getCellContent(model, "A4"), `=PIVOT.HEADER(1,"foo",2)`);
-        assert.equal(getCellContent(model, "A5"), `=PIVOT.HEADER(1,"foo",17)`);
-        assert.equal(getCellContent(model, "A6"), `=PIVOT.HEADER(1)`);
+        },
     });
+    expect(getCellContent(model, "A3")).toBe(`=PIVOT.HEADER(1,"foo",1)`);
+    expect(getCellContent(model, "A4")).toBe(`=PIVOT.HEADER(1,"foo",2)`);
+    expect(getCellContent(model, "A5")).toBe(`=PIVOT.HEADER(1,"foo",17)`);
+    expect(getCellContent(model, "A6")).toBe(`=PIVOT.HEADER(1)`);
+});
 
-    QUnit.test("Columns of newly inserted pivot are auto-resized", async function (assert) {
-        assert.expect(1);
-
-        const data = getBasicData();
-        data.partner.fields.probability.string = "Probability with a super long name";
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                ...getBasicServerData(),
-                models: data,
-            },
-        });
-        const sheetId = model.getters.getActiveSheetId();
-        const defaultColSize = 96;
-        assert.ok(
-            model.getters.getColSize(sheetId, 1) > defaultColSize,
-            "Column should be resized"
-        );
+test("Columns of newly inserted pivot are auto-resized", async function () {
+    const data = getBasicData();
+    Partner._fields.probability = fields.Float({
+        string: "Probability with a super long name",
+        searchable: true,
+        store: true,
+        aggregator: "avg",
+        groupable: false,
     });
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            ...getBasicServerData(),
+            models: data,
+        },
+    });
+    const sheetId = model.getters.getActiveSheetId();
+    const defaultColSize = 96;
+    expect(model.getters.getColSize(sheetId, 1) > defaultColSize).toBe(true, {
+        message: "Column should be resized",
+    });
+});
 
-    QUnit.test("user related context is not saved in the spreadsheet", async function (assert) {
-        const testSession = {
-            user_companies: {
-                allowed_companies: { 15: { id: 15, name: "Hermit" } },
-                current_company: 15,
+test("user related context is not saved in the spreadsheet", async function () {
+    const testSession = {
+        user_companies: {
+            allowed_companies: {
+                15: { id: 15, name: "Hermit" },
             },
-        };
-        patchWithCleanup(session, testSession);
-        patchUserContextWithCleanup({
-            allowed_company_ids: [15],
-            tz: "bx",
-            lang: "FR",
-            uid: 4,
-        });
-        patchUserWithCleanup({ userId: 4 });
-        const context = {
-            ...user.context,
+            current_company: 15,
+        },
+    };
+    patchWithCleanup(session, testSession);
+    const userCtx = user.context;
+    patchWithCleanup(user, {
+        get context() {
+            return Object.assign({}, userCtx, {
+                allowed_company_ids: [15],
+                tz: "bx",
+                lang: "FR",
+                uid: 4,
+            });
+        },
+    });
+    patchWithCleanup(user, { userId: 4 });
+    const context = {
+        ...user.context,
+        default_stage_id: 5,
+    };
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        additionalContext: context,
+    });
+    expect(model.exportData().pivots[pivotId].context).toEqual(
+        {
             default_stage_id: 5,
-        };
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            additionalContext: context,
-        });
-        assert.deepEqual(
-            model.exportData().pivots[pivotId].context,
-            {
-                default_stage_id: 5,
-            },
-            "user related context is not stored in context"
-        );
-    });
+        },
+        { message: "user related context is not stored in context" }
+    );
+});
 
-    QUnit.test("pivot related context is not saved in the spreadsheet", async function (assert) {
-        const context = {
-            pivot_row_groupby: ["foo"],
-            pivot_column_groupby: ["bar"],
-            pivot_measures: ["probability"],
+test("pivot related context is not saved in the spreadsheet", async function () {
+    const context = {
+        pivot_row_groupby: ["foo"],
+        pivot_column_groupby: ["bar"],
+        pivot_measures: ["probability"],
+        default_stage_id: 5,
+    };
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        additionalContext: context,
+        actions: async (target) => {
+            await toggleMenu("Measures");
+            await toggleMenuItem("Count");
+        },
+        mockRPC: function (route, args) {
+            if (args.method === "read_group") {
+                expect.step(args.kwargs.fields.join(","));
+            }
+        },
+    });
+    expect.verifySteps([
+        // initial view
+        "probability:avg",
+        "probability:avg",
+        "probability:avg",
+        "probability:avg",
+        // adding count in the view
+        "probability:avg,__count",
+        "probability:avg,__count",
+        "probability:avg,__count",
+        "probability:avg,__count",
+        // loaded in the spreadsheet
+        "probability:avg,__count",
+        "probability:avg,__count",
+        "probability:avg,__count",
+        "probability:avg,__count",
+    ]);
+    expect(model.exportData().pivots[pivotId].context).toEqual(
+        {
             default_stage_id: 5,
-        };
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            additionalContext: context,
-            actions: async (target) => {
-                await toggleMenu(target, "Measures");
-                await toggleMenuItem(target, "Count");
-            },
-            mockRPC: function (route, args) {
-                if (args.method === "read_group") {
-                    assert.step(args.kwargs.fields.join(","));
-                }
-            },
-        });
-        assert.verifySteps([
-            // initial view
-            "probability:avg",
-            "probability:avg",
-            "probability:avg",
-            "probability:avg",
-            // adding count in the view
-            "probability:avg,__count",
-            "probability:avg,__count",
-            "probability:avg,__count",
-            "probability:avg,__count",
-            // loaded in the spreadsheet
-            "probability:avg,__count",
-            "probability:avg,__count",
-            "probability:avg,__count",
-            "probability:avg,__count",
-        ]);
-        assert.deepEqual(
-            model.exportData().pivots[pivotId].context,
-            {
-                default_stage_id: 5,
-            },
-            "pivot related context is not stored in context"
-        );
-    });
+        },
+        { message: "pivot related context is not stored in context" }
+    );
+});
 
-    QUnit.test("sort first pivot column (ascending)", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            actions: async (target) => {
-                await click(target.querySelector("thead .o_pivot_measure_row"));
-            },
-        });
-        assert.strictEqual(getCellValue(model, "A3"), "No");
-        assert.strictEqual(getCellValue(model, "A4"), "Yes");
-        assert.strictEqual(getCellValue(model, "B3"), "");
-        assert.strictEqual(getCellValue(model, "B4"), 11);
-        assert.strictEqual(getCellValue(model, "C3"), 15);
-        assert.strictEqual(getCellValue(model, "C4"), "");
-        assert.strictEqual(getCellValue(model, "F3"), 15);
-        assert.strictEqual(getCellValue(model, "F4"), 116);
-        assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).sortedColumn, {
-            groupId: [[], [1]],
-            measure: "probability",
-            order: "asc",
-            originIndexes: [0],
-        });
+test("sort first pivot column (ascending)", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        actions: async (target) => {
+            await contains("thead .o_pivot_measure_row").click();
+        },
     });
-
-    QUnit.test("sort first pivot column (descending)", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            actions: async (target) => {
-                await click(target.querySelector("thead .o_pivot_measure_row")); // first click toggles ascending
-                await click(target.querySelector("thead .o_pivot_measure_row")); // second is descending
-            },
-        });
-        assert.strictEqual(getCellValue(model, "A3"), "Yes");
-        assert.strictEqual(getCellValue(model, "A4"), "No");
-        assert.strictEqual(getCellValue(model, "B3"), 11);
-        assert.strictEqual(getCellValue(model, "B4"), "");
-        assert.strictEqual(getCellValue(model, "C3"), "");
-        assert.strictEqual(getCellValue(model, "C4"), 15);
-        assert.strictEqual(getCellValue(model, "F3"), 116);
-        assert.strictEqual(getCellValue(model, "F4"), 15);
-        assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).sortedColumn, {
-            groupId: [[], [1]],
-            measure: "probability",
-            order: "desc",
-            originIndexes: [0],
-        });
+    expect(getCellValue(model, "A3")).toBe("No");
+    expect(getCellValue(model, "A4")).toBe("Yes");
+    expect(getCellValue(model, "B3")).toBe("");
+    expect(getCellValue(model, "B4")).toBe(11);
+    expect(getCellValue(model, "C3")).toBe(15);
+    expect(getCellValue(model, "C4")).toBe("");
+    expect(getCellValue(model, "F3")).toBe(15);
+    expect(getCellValue(model, "F4")).toBe(116);
+    expect(model.getters.getPivotCoreDefinition(pivotId).sortedColumn).toEqual({
+        groupId: [[], [1]],
+        measure: "probability",
+        order: "asc",
+        originIndexes: [0],
     });
+});
 
-    QUnit.test("sort second pivot column (ascending)", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            actions: async (target) => {
-                await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]);
-            },
-        });
-        assert.strictEqual(getCellValue(model, "A3"), "Yes");
-        assert.strictEqual(getCellValue(model, "A4"), "No");
-        assert.strictEqual(getCellValue(model, "B3"), 11);
-        assert.strictEqual(getCellValue(model, "B4"), "");
-        assert.strictEqual(getCellValue(model, "C3"), "");
-        assert.strictEqual(getCellValue(model, "C4"), 15);
-        assert.strictEqual(getCellValue(model, "F3"), 116);
-        assert.strictEqual(getCellValue(model, "F4"), 15);
-        assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).sortedColumn, {
-            groupId: [[], [2]],
-            measure: "probability",
-            order: "asc",
-            originIndexes: [0],
-        });
+test("sort first pivot column (descending)", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        actions: async (target) => {
+            await contains("thead .o_pivot_measure_row").click(); // first click toggles ascending
+            await contains("thead .o_pivot_measure_row").click(); // second is descending
+        },
     });
-
-    QUnit.test("sort second pivot column (descending)", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            actions: async (target) => {
-                await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]); // first click toggles ascending
-                await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]); // second is descending
-            },
-        });
-        assert.strictEqual(getCellValue(model, "A3"), "No");
-        assert.strictEqual(getCellValue(model, "A4"), "Yes");
-        assert.strictEqual(getCellValue(model, "B3"), "");
-        assert.strictEqual(getCellValue(model, "B4"), 11);
-        assert.strictEqual(getCellValue(model, "C3"), 15);
-        assert.strictEqual(getCellValue(model, "C4"), "");
-        assert.strictEqual(getCellValue(model, "F3"), 15);
-        assert.strictEqual(getCellValue(model, "F4"), 116);
-        assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).sortedColumn, {
-            groupId: [[], [2]],
-            measure: "probability",
-            order: "desc",
-            originIndexes: [0],
-        });
+    expect(getCellValue(model, "A3")).toBe("Yes");
+    expect(getCellValue(model, "A4")).toBe("No");
+    expect(getCellValue(model, "B3")).toBe(11);
+    expect(getCellValue(model, "B4")).toBe("");
+    expect(getCellValue(model, "C3")).toBe("");
+    expect(getCellValue(model, "C4")).toBe(15);
+    expect(getCellValue(model, "F3")).toBe(116);
+    expect(getCellValue(model, "F4")).toBe(15);
+    expect(model.getters.getPivotCoreDefinition(pivotId).sortedColumn).toEqual({
+        groupId: [[], [1]],
+        measure: "probability",
+        order: "desc",
+        originIndexes: [0],
     });
+});
 
-    QUnit.test("sort second pivot measure (ascending)", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("sort second pivot column (ascending)", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        actions: async (target) => {
+            await contains(target.querySelectorAll("thead .o_pivot_measure_row")[1]).click();
+        },
+    });
+    expect(getCellValue(model, "A3")).toBe("Yes");
+    expect(getCellValue(model, "A4")).toBe("No");
+    expect(getCellValue(model, "B3")).toBe(11);
+    expect(getCellValue(model, "B4")).toBe("");
+    expect(getCellValue(model, "C3")).toBe("");
+    expect(getCellValue(model, "C4")).toBe(15);
+    expect(getCellValue(model, "F3")).toBe(116);
+    expect(getCellValue(model, "F4")).toBe(15);
+    expect(model.getters.getPivotCoreDefinition(pivotId).sortedColumn).toEqual({
+        groupId: [[], [2]],
+        measure: "probability",
+        order: "asc",
+        originIndexes: [0],
+    });
+});
+
+test("sort second pivot column (descending)", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        actions: async (target) => {
+            await contains(target.querySelectorAll("thead .o_pivot_measure_row")[1]).click(); // first click toggles ascending
+            await contains(target.querySelectorAll("thead .o_pivot_measure_row")[1]).click(); // second is descending
+        },
+    });
+    expect(getCellValue(model, "A3")).toBe("No");
+    expect(getCellValue(model, "A4")).toBe("Yes");
+    expect(getCellValue(model, "B3")).toBe("");
+    expect(getCellValue(model, "B4")).toBe(11);
+    expect(getCellValue(model, "C3")).toBe(15);
+    expect(getCellValue(model, "C4")).toBe("");
+    expect(getCellValue(model, "F3")).toBe(15);
+    expect(getCellValue(model, "F4")).toBe(116);
+    expect(model.getters.getPivotCoreDefinition(pivotId).sortedColumn).toEqual({
+        groupId: [[], [2]],
+        measure: "probability",
+        order: "desc",
+        originIndexes: [0],
+    });
+});
+
+test("sort second pivot measure (ascending)", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot string="Partners">
                             <field name="product_id" type="row"/>
                             <field name="probability" type="measure"/>
                             <field name="foo" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-            actions: async (target) => {
-                await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]);
-            },
-        });
-        assert.strictEqual(getCellValue(model, "A3"), "xphone");
-        assert.strictEqual(getCellValue(model, "A4"), "xpad");
-        assert.strictEqual(getCellValue(model, "B3"), 10);
-        assert.strictEqual(getCellValue(model, "B4"), 121);
-        assert.strictEqual(getCellValue(model, "C3"), 12);
-        assert.strictEqual(getCellValue(model, "C4"), 20);
-        assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).sortedColumn, {
-            groupId: [[], []],
-            measure: "foo",
-            order: "asc",
-            originIndexes: [0],
-        });
+        },
+        actions: async (target) => {
+            await contains(target.querySelectorAll("thead .o_pivot_measure_row")[1]).click();
+        },
     });
+    expect(getCellValue(model, "A3")).toBe("xphone");
+    expect(getCellValue(model, "A4")).toBe("xpad");
+    expect(getCellValue(model, "B3")).toBe(10);
+    expect(getCellValue(model, "B4")).toBe(121);
+    expect(getCellValue(model, "C3")).toBe(12);
+    expect(getCellValue(model, "C4")).toBe(20);
+    expect(model.getters.getPivotCoreDefinition(pivotId).sortedColumn).toEqual({
+        groupId: [[], []],
+        measure: "foo",
+        order: "asc",
+        originIndexes: [0],
+    });
+});
 
-    QUnit.test("sort second pivot measure (descending)", async (assert) => {
-        const { model, pivotId } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("sort second pivot measure (descending)", async () => {
+    const { model, pivotId } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot string="Partners">
                             <field name="product_id" type="row"/>
                             <field name="probability" type="measure"/>
                             <field name="foo" type="measure"/>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `<search/>`,
-                },
+                "partner,false,search": /* xml */ `<search/>`,
             },
-            actions: async (target) => {
-                await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]);
-                await click(target.querySelectorAll("thead .o_pivot_measure_row")[1]);
-            },
-        });
-        assert.strictEqual(getCellValue(model, "A3"), "xpad");
-        assert.strictEqual(getCellValue(model, "A4"), "xphone");
-        assert.strictEqual(getCellValue(model, "B3"), 121);
-        assert.strictEqual(getCellValue(model, "B4"), 10);
-        assert.strictEqual(getCellValue(model, "C3"), 20);
-        assert.strictEqual(getCellValue(model, "C4"), 12);
-        assert.deepEqual(model.getters.getPivotCoreDefinition(pivotId).sortedColumn, {
-            groupId: [[], []],
-            measure: "foo",
-            order: "desc",
-            originIndexes: [0],
-        });
+        },
+        actions: async (target) => {
+            await contains(target.querySelectorAll("thead .o_pivot_measure_row")[1]).click();
+            await contains(target.querySelectorAll("thead .o_pivot_measure_row")[1]).click();
+        },
     });
+    expect(getCellValue(model, "A3")).toBe("xpad");
+    expect(getCellValue(model, "A4")).toBe("xphone");
+    expect(getCellValue(model, "B3")).toBe(121);
+    expect(getCellValue(model, "B4")).toBe(10);
+    expect(getCellValue(model, "C3")).toBe(20);
+    expect(getCellValue(model, "C4")).toBe(12);
+    expect(model.getters.getPivotCoreDefinition(pivotId).sortedColumn).toEqual({
+        groupId: [[], []],
+        measure: "foo",
+        order: "desc",
+        originIndexes: [0],
+    });
+});
 
-    QUnit.test("search view with group by and additional row group", async (assert) => {
-        const { model } = await createSpreadsheetFromPivotView({
-            additionalContext: { search_default_group_name: true },
-            serverData: {
-                models: getBasicData(),
-                views: {
-                    "partner,false,pivot": /* xml */ `
+test("search view with group by and additional row group", async () => {
+    const { model } = await createSpreadsheetFromPivotView({
+        additionalContext: { search_default_group_name: true },
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                         <pivot>
                         </pivot>`,
-                    "partner,false,search": /* xml */ `
+                "partner,false,search": /* xml */ `
                     <search>
                         <group>
                             <filter name="group_name" context="{'group_by':'name'}"/>
@@ -1121,166 +1027,138 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                         </group>
                     </search>
                 `,
-                },
             },
-            actions: async (target) => {
-                await click(target.querySelectorAll("tbody .o_pivot_header_cell_closed")[0]);
-                // group by foo
-                await click(target.querySelector(".dropdown-menu span:nth-child(2)"));
-            },
-        });
-        assert.strictEqual(getCellContent(model, "A1"), "");
-        assert.strictEqual(getCellContent(model, "A2"), "");
-        assert.strictEqual(getCellContent(model, "A3"), '=PIVOT.HEADER(1,"name",FALSE)');
-        assert.strictEqual(getCellContent(model, "A4"), '=PIVOT.HEADER(1,"name",FALSE,"foo",1)');
-        assert.strictEqual(getCellContent(model, "A5"), '=PIVOT.HEADER(1,"name",FALSE,"foo",2)');
-        assert.strictEqual(getCellContent(model, "A6"), '=PIVOT.HEADER(1,"name",FALSE,"foo",12)');
-        assert.strictEqual(getCellContent(model, "A7"), '=PIVOT.HEADER(1,"name",FALSE,"foo",17)');
-        assert.strictEqual(getCellContent(model, "B2"), '=PIVOT.HEADER(1,"measure","__count")');
+        },
+        actions: async (target) => {
+            await contains(target.querySelectorAll("tbody .o_pivot_header_cell_closed")[0]).click();
+            // group by foo
+            await contains(".dropdown-menu span:nth-child(2)").click();
+        },
     });
+    expect(getCellContent(model, "A1")).toBe("");
+    expect(getCellContent(model, "A2")).toBe("");
+    expect(getCellContent(model, "A3")).toBe('=PIVOT.HEADER(1,"name",FALSE)');
+    expect(getCellContent(model, "A4")).toBe('=PIVOT.HEADER(1,"name",FALSE,"foo",1)');
+    expect(getCellContent(model, "A5")).toBe('=PIVOT.HEADER(1,"name",FALSE,"foo",2)');
+    expect(getCellContent(model, "A6")).toBe('=PIVOT.HEADER(1,"name",FALSE,"foo",12)');
+    expect(getCellContent(model, "A7")).toBe('=PIVOT.HEADER(1,"name",FALSE,"foo",17)');
+    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"measure","__count")');
+});
 
-    QUnit.test("Pivot name can be changed from the dialog", async (assert) => {
-        assert.expect(2);
+test("Pivot name can be changed from the dialog", async () => {
+    await spawnPivotViewForSpreadsheet();
 
-        await spawnPivotViewForSpreadsheet();
-
-        let spreadsheetAction;
-        patchWithCleanup(SpreadsheetAction.prototype, {
-            setup() {
-                super.setup();
-                spreadsheetAction = this;
-            },
-        });
-        await click(document.body.querySelector(".o_pivot_add_spreadsheet"));
-        /** @type {HTMLInputElement} */
-        const name = document.body.querySelector(".o_spreadsheet_name");
-        name.value = "New name";
-        await triggerEvent(name, null, "input");
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        const model = getSpreadsheetActionModel(spreadsheetAction);
-        await waitForDataLoaded(model);
-        const pivotId = model.getters.getPivotIds()[0];
-        assert.equal(model.getters.getPivotName(pivotId), "New name");
-        assert.equal(model.getters.getPivotDisplayName(pivotId), "(#1) New name");
+    let spreadsheetAction;
+    patchWithCleanup(SpreadsheetAction.prototype, {
+        setup() {
+            super.setup();
+            spreadsheetAction = this;
+        },
     });
+    await contains(document.body.querySelector(".o_pivot_add_spreadsheet")).click();
+    await contains(".o_spreadsheet_name").edit("New name");
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    const model = getSpreadsheetActionModel(spreadsheetAction);
+    await waitForDataLoaded(model);
+    const pivotId = model.getters.getPivotIds()[0];
+    expect(model.getters.getPivotName(pivotId)).toBe("New name");
+    expect(model.getters.getPivotDisplayName(pivotId)).toBe("(#1) New name");
+});
 
-    QUnit.test("Pivot name is not changed if the name is empty", async (assert) => {
-        assert.expect(1);
+test("Pivot name is not changed if the name is empty", async () => {
+    await spawnPivotViewForSpreadsheet();
 
-        await spawnPivotViewForSpreadsheet();
-
-        let spreadsheetAction;
-        patchWithCleanup(SpreadsheetAction.prototype, {
-            setup() {
-                super.setup();
-                spreadsheetAction = this;
-            },
-        });
-        await click(document.body.querySelector(".o_pivot_add_spreadsheet"));
-        document.body.querySelector(".o_spreadsheet_name").value = "";
-        await click(document.querySelector(".modal-content > .modal-footer > .btn-primary"));
-        await nextTick();
-        const model = getSpreadsheetActionModel(spreadsheetAction);
-        await waitForDataLoaded(model);
-        const pivotId = model.getters.getPivotIds()[0];
-        assert.equal(model.getters.getPivotName(pivotId), "Partners by Foo");
+    let spreadsheetAction;
+    patchWithCleanup(SpreadsheetAction.prototype, {
+        setup() {
+            super.setup();
+            spreadsheetAction = this;
+        },
     });
+    await contains(document.body.querySelector(".o_pivot_add_spreadsheet")).click();
+    document.body.querySelector(".o_spreadsheet_name").value = "";
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+    await animationFrame();
+    const model = getSpreadsheetActionModel(spreadsheetAction);
+    await waitForDataLoaded(model);
+    const pivotId = model.getters.getPivotIds()[0];
+    expect(model.getters.getPivotName(pivotId)).toBe("Partners by Foo");
+});
 
-    QUnit.test("Check pivot measures with m2o field", async function (assert) {
-        assert.expect(3);
-        const data = getBasicData();
-        data.partner.records.push(
-            { active: true, id: 5, foo: 12, bar: true, product_id: 37, probability: 50 },
-            { active: true, id: 6, foo: 17, bar: true, product_id: 41, probability: 12 },
-            { active: true, id: 7, foo: 17, bar: true, product_id: 37, probability: 13 },
-            { active: true, id: 8, foo: 17, bar: true, product_id: 37, probability: 14 }
-        );
-        const { model } = await createSpreadsheetFromPivotView({
-            serverData: {
-                models: data,
-                views: {
-                    "partner,false,pivot": `
+test("Check pivot measures with m2o field", async function () {
+    const data = getBasicData();
+    Partner._records.push(
+        { active: true, id: 5, foo: 12, bar: true, product_id: 37, probability: 50 },
+        { active: true, id: 6, foo: 17, bar: true, product_id: 41, probability: 12 },
+        { active: true, id: 7, foo: 17, bar: true, product_id: 37, probability: 13 },
+        { active: true, id: 8, foo: 17, bar: true, product_id: 37, probability: 14 }
+    );
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: data,
+            views: {
+                "partner,false,pivot": `
                             <pivot string="Partners">
                                 <field name="foo" type="col"/>
                                 <field name="bar" type="row"/>
                                 <field name="product_id" type="measure"/>
                             </pivot>`,
-                    "partner,false,search": `<search/>`,
-                },
+                "partner,false,search": `<search/>`,
             },
-        });
-        assert.equal(
-            getCellValue(model, "B4"),
-            1,
-            "[Cell B3] There is one distinct product for 'foo - 1' and 'bar - true'"
-        );
-        assert.equal(
-            getCellValue(model, "D4"),
-            1,
-            "[Cell C3] There is one distinct product for 'foo - 12' and 'bar - true'"
-        );
-        assert.equal(
-            getCellValue(model, "E4"),
-            2,
-            "[Cell D3] There are two distinct products for 'foo - 17' and 'bar - true'"
-        );
+        },
     });
-
-    QUnit.test("Pivot export from an action with an xml ID", async function (assert) {
-        const { actions } = getBasicServerData();
-        const { xml_id: actionXmlId } = Object.values(actions)[0];
-        const { model, pivotId } = await createSpreadsheetFromPivotView({ actionXmlId });
-        assert.deepEqual(
-            model.getters.getPivotCoreDefinition(pivotId).actionXmlId,
-            "spreadsheet.partner_action"
-        );
+    expect(getCellValue(model, "B4")).toBe(1, {
+        message: "[Cell B3] There is one distinct product for 'foo - 1' and 'bar - true'",
     });
-
-    QUnit.test("Test Autofill component", async function (assert) {
-        const fixture = getFixture();
-        const { model } = await createSpreadsheetFromPivotView();
-        selectCell(model, "A3");
-        setCellContent(model, "B3", "");
-        const handle = fixture.querySelector(".o-autofill-handler");
-        const { y } = handle.getBoundingClientRect();
-        await triggerEvent(
-            handle,
-            null,
-            "pointerdown",
-            { clientY: y },
-            { skipVisibilityCheck: true } // skipVisibilityCheck: element is only visible on hover
-        );
-        // dispatching the underlying command by hand because the dragndrop in o_spreadsheet.js
-        // does not react well to the events
-        model.dispatch("AUTOFILL_SELECT", { col: 1, row: 2 });
-        await nextTick();
-        assert.strictEqual(fixture.querySelector(".o-autofill-nextvalue").innerText, "1");
-        assert.strictEqual(
-            getCellContent(model, "B2"),
-            `=PIVOT.HEADER(1,"foo",1,"measure","probability")`
-        );
+    expect(getCellValue(model, "D4")).toBe(1, {
+        message: "[Cell C3] There is one distinct product for 'foo - 12' and 'bar - true'",
     });
-
-    QUnit.test("Inserted pivot is inserted with a table", async function (assert) {
-        const { model } = await createSpreadsheetFromPivotView();
-        const [pivotId] = model.getters.getPivotIds();
-        const sheetId = model.getters.getActiveSheetId();
-        const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
-        const tables = model.getters.getTables(sheetId);
-
-        assert.equal(tables.length, 1);
-        assert.deepEqual(tables[0].range.zone, pivotZone);
-        assert.deepEqual(tables[0].config, { ...PIVOT_TABLE_CONFIG, numberOfHeaders: 1 });
+    expect(getCellValue(model, "E4")).toBe(2, {
+        message: "[Cell D3] There are two distinct products for 'foo - 17' and 'bar - true'",
     });
+});
 
-    QUnit.test(
-        "The table has the correct number of headers when inserting a pivot",
-        async function (assert) {
-            const { model } = await createSpreadsheetFromPivotView({
-                serverData: {
-                    models: getBasicData(),
-                    views: {
-                        "partner,false,pivot": /* xml */ `
+test("Pivot export from an action with an xml ID", async function () {
+    const actionXmlId = "spreadsheet.partner_action";
+    const { model, pivotId } = await createSpreadsheetFromPivotView({ actionXmlId });
+    expect(model.getters.getPivotCoreDefinition(pivotId).actionXmlId).toEqual(
+        "spreadsheet.partner_action"
+    );
+});
+
+test("Test Autofill component", async function () {
+    const fixture = getFixture();
+    const { model } = await createSpreadsheetFromPivotView();
+    selectCell(model, "A3");
+    setCellContent(model, "B3", "");
+    pointerDown(".o-autofill-handler");
+    await animationFrame();
+    // dispatching the underlying command by hand because the dragndrop in o_spreadsheet.js
+    // does not react well to the events
+    model.dispatch("AUTOFILL_SELECT", { col: 1, row: 2 });
+    await animationFrame();
+    expect(fixture.querySelector(".o-autofill-nextvalue")).toHaveText("1");
+    expect(getCellContent(model, "B2")).toBe(`=PIVOT.HEADER(1,"foo",1,"measure","probability")`);
+});
+
+test("Inserted pivot is inserted with a table", async function () {
+    const { model } = await createSpreadsheetFromPivotView();
+    const [pivotId] = model.getters.getPivotIds();
+    const sheetId = model.getters.getActiveSheetId();
+    const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+    const tables = model.getters.getTables(sheetId);
+
+    expect(tables.length).toBe(1);
+    expect(tables[0].range.zone).toEqual(pivotZone);
+    expect(tables[0].config).toEqual({ ...PIVOT_TABLE_CONFIG, numberOfHeaders: 1 });
+});
+
+test("The table has the correct number of headers when inserting a pivot", async function () {
+    const { model } = await createSpreadsheetFromPivotView({
+        serverData: {
+            models: getBasicData(),
+            views: {
+                "partner,false,pivot": /* xml */ `
                             <pivot>
                                 <field name="date" interval="year" type="col"/>
                                 <field name="date" interval="month" type="col"/>
@@ -1288,17 +1166,15 @@ QUnit.module("spreadsheet pivot view", {}, () => {
                                 <field name="probability" type="row"/>
                                 <field name="foo" type="measure"/>
                             </pivot>`,
-                        "partner,false,search": /* xml */ `<search/>`,
-                    },
-                },
-            });
-            const [pivotId] = model.getters.getPivotIds();
-            const sheetId = model.getters.getActiveSheetId();
-            const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
-            const tables = model.getters.getTables(sheetId);
+                "partner,false,search": /* xml */ `<search/>`,
+            },
+        },
+    });
+    const [pivotId] = model.getters.getPivotIds();
+    const sheetId = model.getters.getActiveSheetId();
+    const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
+    const tables = model.getters.getTables(sheetId);
 
-            assert.deepEqual(tables[0].range.zone, pivotZone);
-            assert.equal(tables[0].config.numberOfHeaders, 3);
-        }
-    );
+    expect(tables[0].range.zone).toEqual(pivotZone);
+    expect(tables[0].config.numberOfHeaders).toBe(3);
 });
