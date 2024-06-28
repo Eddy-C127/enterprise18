@@ -30,6 +30,7 @@ sidePanelRegistry.add("LIST_PROPERTIES_PANEL", {
 initCallbackRegistry.add("insertList", insertList);
 
 cellMenuRegistry.add("listing_properties", {
+    separator: true,
     name: _t("See list properties"),
     sequence: 190,
     execute(env) {

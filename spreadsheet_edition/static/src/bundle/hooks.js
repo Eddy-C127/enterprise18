@@ -61,17 +61,19 @@ export function useSpreadsheetThumbnail() {
             canvas.width,
             canvas.height
         );
-        canvasCtx.drawImage(
-            canvas,
-            dimensions.HEADER_WIDTH - 1,
-            dimensions.HEADER_HEIGHT - 1,
-            sourceSize,
-            sourceSize,
-            0,
-            0,
-            size,
-            size
-        );
+        if (canvas.width !== 0 && canvas.height !== 0) {
+            canvasCtx.drawImage(
+                canvas,
+                dimensions.HEADER_WIDTH - 1,
+                dimensions.HEADER_HEIGHT - 1,
+                sourceSize,
+                sourceSize,
+                0,
+                0,
+                size,
+                size
+            );
+        }
         return canvasResizer.toDataURL().replace("data:image/png;base64,", "");
     };
 }

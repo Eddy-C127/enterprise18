@@ -342,7 +342,8 @@ class SpreadsheetMixin(models.AbstractModel):
 
     @api.model
     def action_open_new_spreadsheet(self, vals=None):
-        raise NotImplementedError("This method is not implemented for model %s." % self._name)
+        spreadsheet = self.create(vals or {})
+        return spreadsheet.action_open_spreadsheet()
 
     @api.model
     def get_selector_spreadsheet_models(self):

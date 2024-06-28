@@ -429,3 +429,8 @@ class SpreadsheetMixinTest(SpreadsheetTestCase):
         result = self.env["spreadsheet.mixin"].get_selector_spreadsheet_models()
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["model"], "spreadsheet.test")
+
+    def test_action_open_new_spreadsheet(self):
+        action = self.env["spreadsheet.test"].action_open_new_spreadsheet()
+        spreadsheet = self.env["spreadsheet.test"].browse(action["params"]["spreadsheet_id"])
+        self.assertTrue(spreadsheet.exists())
