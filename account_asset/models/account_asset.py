@@ -288,7 +288,9 @@ class AccountAsset(models.Model):
     @api.depends('original_move_line_ids')
     def _compute_acquisition_date(self):
         for asset in self:
-            asset.acquisition_date = asset.acquisition_date or min(asset.original_move_line_ids.mapped('date') + [fields.Date.today()])
+            asset.acquisition_date = asset.acquisition_date or min(
+                [(aml.invoice_date or aml.date) for aml in asset.original_move_line_ids] + [fields.Date.today()]
+            )
 
     @api.depends('original_move_line_ids')
     def _compute_name(self):
