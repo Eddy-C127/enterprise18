@@ -17,7 +17,7 @@ BARCODES
 
 cat > barcodesHeaders_TMP_FILE.ps << HEADER
 /showTitle { /Helvetica findfont 12 scalefont setfont moveto show } def
-(CONTINUE/PAUSE) 79 780 showTitle
+(CONTINUE/START) 79 780 showTitle
 (VALIDATE/NEXT) 336 780 showTitle
 (PREVIOUS) 79 672 showTitle
 (SKIP) 336 672 showTitle
