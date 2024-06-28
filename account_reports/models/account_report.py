@@ -6363,6 +6363,15 @@ class AccountReport(models.Model):
 
         return file_data
 
+    def action_create_composite_report(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.report',
+            'views': [[False, 'form']],
+            'context': {
+                'default_section_report_ids': self.ids,
+            }
+        }
 
 class AccountReportLine(models.Model):
     _inherit = 'account.report.line'
