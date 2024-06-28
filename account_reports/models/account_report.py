@@ -549,7 +549,7 @@ class AccountReport(models.Model):
         if mode == 'single' and options_mode == 'range':
             # 'single' date mode to 'range'.
             if date_filter:
-                date_to = fields.Date.from_string(period_date_to or date_from)
+                date_to = fields.Date.from_string(period_date_to or period_date_from)
                 date_from = self.env.company.compute_fiscalyear_dates(date_to)['date_from']
                 options_filter = 'custom'
             else:
@@ -610,6 +610,8 @@ class AccountReport(models.Model):
         if any(option in options_filter for option in ['previous', 'next']):
             new_period = date.get('period', -1 if 'previous' in options_filter else 1)
             options['date'] = self._get_shifted_dates_period(options, options['date'], new_period, tax_period='tax_period' in options_filter)
+            # This line is useful for the export and tax closing so that the period is set in the options.
+            options['date']['period'] = new_period
 
         options['date']['filter'] = options_filter
 
