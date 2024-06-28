@@ -127,9 +127,8 @@ class WorksheetTemplate(models.Model):
         self.env.flush_all()
 
         # Generate xml ids for some records: views, actions and models. This will let the ORM handle
-        # the module uninstallation (removing all data belonging to the module using their xml ids).
-        # NOTE: this is not needed for ir.model.fields, ir.model.access and ir.rule, as they are in
-        # delete 'cascade' mode, so their database entries will removed (no need their xml id).
+        # the module uninstallation (removing all data belonging to the module using their xml ids)
+        # as well as to permit the studio export feature to work with worksheet templates.
         module_name = getattr(self, f'_get_{res_model}_module_name')()
         xid_values = []
         model_counter = collections.Counter()
@@ -163,7 +162,9 @@ class WorksheetTemplate(models.Model):
             ]
         }))
 
-        self.env['ir.model.access'].sudo().create([{
+        register_xids(sorted(model.field_id, key=lambda field: field.name))
+
+        register_xids(self.env['ir.model.access'].sudo().create([{
             'name': name + '_manager_access',
             'model_id': model.id,
             'group_id': getattr(self, '_get_%s_manager_group' % res_model)().id,
@@ -179,8 +180,8 @@ class WorksheetTemplate(models.Model):
             'perm_write': True,
             'perm_read': True,
             'perm_unlink': True,
-        }])
-        self.env['ir.rule'].sudo().create([{
+        }]))
+        register_xids(self.env['ir.rule'].sudo().create([{
             'name': name + '_own',
             'model_id': model.id,
             'domain_force': "[('create_uid', '=', user.id)]",
@@ -190,7 +191,7 @@ class WorksheetTemplate(models.Model):
             'model_id': model.id,
             'domain_force': [(1, '=', 1)],
             'groups': [(6, 0, getattr(self, '_get_%s_access_all_groups' % res_model)().ids)],
-        }])
+        }]))
 
         # create the view to extend by 'studio' and add the user custom fields
         __, __, search_view = register_xids(self.env['ir.ui.view'].sudo().create([
