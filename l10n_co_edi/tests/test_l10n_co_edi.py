@@ -123,7 +123,7 @@ class TestColombianInvoice(TestCoEdiCommon):
         debit_note = self.env['account.move'].search([
             ('debit_origin_id', '=', self.invoice.id),
         ])
-        self.assertRecordValues(debit_note, [{'amount_total': 48750.0}])
+        self.assertRecordValues(debit_note, [{'amount_total': 43875.0}])
 
     def test_invoice_withholded_taxes(self):
         company = self.company_data['company']
@@ -160,3 +160,53 @@ class TestColombianInvoice(TestCoEdiCommon):
     def test_vendor_bill(self):
         with self.mock_carvajal():
             self.l10n_co_assert_generated_file_equal(self.in_invoice, self.expected_in_invoice_xml)
+
+    def test_debit_note_out_invoice(self):
+        '''Tests generation of a debit note from a credit note.'''
+        with self.mock_carvajal():
+            credit_note = self.invoice._reverse_moves(default_values_list=[{'l10n_co_edi_description_code_credit': '1'}])
+            credit_note.action_post()
+            move_debit_note_wiz = self.env['account.debit.note'].with_context(
+                active_model="account.move",
+                active_ids=credit_note.ids
+            ).create({
+                'date': self.frozen_today,
+                'reason': 'no reason',
+                'l10n_co_edi_description_code_debit': '4',
+            })
+            res = move_debit_note_wiz.create_debit()
+            debit_note = self.env['account.move'].browse(res.get('res_id'))
+
+            # Check the generated debit note has lines
+            self.assertTrue(debit_note.line_ids)
+
+            expected_debit_note_xml = misc.file_open('l10n_co_edi/tests/accepted_debit_note.xml', 'rb').read()
+            self.l10n_co_assert_generated_file_equal(debit_note, expected_debit_note_xml)
+
+    def test_debit_note_in_refund(self):
+        '''Tests generation of a debit note from a vendor refund.'''
+        with self.mock_carvajal():
+            bill = self.init_invoice('in_invoice', products=self.product_a)
+            bill.partner_id = self.company_data['company'].partner_id
+            bill.action_post()
+            credit_note = bill._reverse_moves(default_values_list=[{
+                'l10n_co_edi_description_code_credit': '1',
+                'invoice_date': self.frozen_today,
+            }])
+            credit_note.action_post()
+            move_debit_note_wiz = self.env['account.debit.note'].with_context(
+                active_model="account.move",
+                active_ids=credit_note.ids
+            ).create({
+                'date': self.frozen_today,
+                'reason': 'no reason',
+                'l10n_co_edi_description_code_debit': '4',
+            })
+            res = move_debit_note_wiz.create_debit()
+            debit_note = self.env['account.move'].browse(res.get('res_id'))
+
+            # Check the generated debit note has lines
+            self.assertTrue(debit_note.line_ids)
+
+            expected_debit_note_xml = misc.file_open('l10n_co_edi/tests/accepted_debit_note_2.xml', 'rb').read()
+            self.l10n_co_assert_generated_file_equal(debit_note, expected_debit_note_xml)

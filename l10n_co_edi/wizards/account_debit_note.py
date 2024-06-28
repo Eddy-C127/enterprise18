@@ -33,7 +33,7 @@ class AccountDebitNote(models.TransientModel):
 
     def _prepare_default_values(self, move):
         default_values = super()._prepare_default_values(move)
-        if move.company_id.country_id.code != "CO" or not self.copy_lines:
+        if move.company_id.country_id.code != "CO" or self.move_type not in ('in_refund', 'out_refund'):
             return default_values
 
         default_values['line_ids'] = [[5, 0, 0]]
@@ -45,6 +45,7 @@ class AccountDebitNote(models.TransientModel):
                 'name': line.name,
                 'quantity': line.quantity,
                 'price_unit': line.price_unit,
+                'discount': line.discount,
                 'tax_repartition_line_id': self._get_repartition_line(line).id,
                 'tax_ids': [[6, 0, line.tax_ids.ids]],
                 'tax_tag_ids': self._get_opposite_tax_tag(line),
