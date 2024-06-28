@@ -11,6 +11,7 @@ class AccountMoveSend(models.TransientModel):
         store=True,
         readonly=False,
     )
+    l10n_mx_edi_warnings = fields.Json(compute='_compute_l10n_mx_edi_warnings')
 
     @api.model
     def _get_default_l10n_mx_edi_enable_cfdi(self, move):
@@ -35,9 +36,35 @@ class AccountMoveSend(models.TransientModel):
             **values,
         }
 
+    def _l10n_mx_edi_check_invoices(self):
+        moves_to_check = self.move_ids.filtered(self._get_default_l10n_mx_edi_enable_cfdi)
+        invalid_records = moves_to_check.partner_id.filtered(
+            lambda p: not p.country_id
+        )
+        if invalid_records:
+            return {
+                "partner_country_missing": {
+                    "message": _("The following partner(s) have an RFC but no country configured."),
+                    "action_text": _("View Partner(s)"),
+                    "action": invalid_records._get_records_action(
+                        name=_("Check Country on Partner(s)")
+                    ),
+                }
+            }
+
+        return {}
+
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
+
+    @api.depends('l10n_mx_edi_checkbox_cfdi')
+    def _compute_l10n_mx_edi_warnings(self):
+        for wizard in self:
+            if wizard.l10n_mx_edi_checkbox_cfdi:
+                wizard.l10n_mx_edi_warnings = wizard._l10n_mx_edi_check_invoices()
+            else:
+                wizard.l10n_mx_edi_warnings = False
 
     @api.depends('move_ids')
     def _compute_l10n_mx_edi_enable_cfdi(self):
