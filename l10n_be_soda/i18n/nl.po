@@ -4,18 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.4alpha1+e\n"
+"Project-Id-Version: Odoo Server saas~17.3+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-16 13:53+0000\n"
-"PO-Revision-Date: 2023-06-16 15:55+0200\n"
+"POT-Creation-Date: 2024-06-28 09:26+0000\n"
+"PO-Revision-Date: 2024-06-28 09:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.3.1\n"
 
 #. module: l10n_be_soda
 #: model_terms:ir.ui.view,arch_db:l10n_be_soda.soda_import_wizard_view_form
@@ -26,27 +24,12 @@ msgstr "Annuleren"
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__company_id
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_import_wizard__company_id
 msgid "Company"
-msgstr ""
+msgstr "Bedrijf"
 
 #. module: l10n_be_soda
-#. odoo-python
-#: code:addons/l10n_be_soda/wizard/soda_import_wizard.py:0
-msgid ""
-"Could not create the account %(account_code)s. An account with this number "
-"already exists."
-msgstr ""
-"De rekening %(account_code)s kon niet worden aangemaakt. Er bestaat al een "
-"rekening met dit nummer."
-
-#. module: l10n_be_soda
-#. odoo-python
-#: code:addons/l10n_be_soda/wizard/soda_import_wizard.py:0
-msgid ""
-"Could not create the following accounts: %(account_codes)s. Accounts with "
-"these numbers already exist."
-msgstr ""
-"De volgende rekeningen konden niet worden aangemaakt: %(account_codes)s. Er "
-"bestaan al rekeningen met deze nummers."
+#: model:ir.model,name:l10n_be_soda.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuratie instellingen"
 
 #. module: l10n_be_soda
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__create_uid
@@ -61,27 +44,47 @@ msgid "Created on"
 msgstr ""
 
 #. module: l10n_be_soda
+#: model_terms:ir.ui.view,arch_db:l10n_be_soda.soda_import_wizard_view_form
+msgid "Delete"
+msgstr "Verwijderen"
+
+#. module: l10n_be_soda
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__display_name
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_import_wizard__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: l10n_be_soda
+#. odoo-python
+#: code:addons/l10n_be_soda/wizard/soda_import_wizard.py:0
+msgid ""
+"For future imports, you can map them correctly in %(left)sConfiguration > "
+"Settings > Accounting > SODA%(right)s"
+msgstr ""
+"Voor toekomstige imports kan je deze correct toewijzen via %(left)s "
+"Configuratie > Instellingen > Boekhouding > SODA %(right)s"
+
+#. module: l10n_be_soda
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__id
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_import_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_be_soda
 #: model:ir.model,name:l10n_be_soda.model_soda_import_wizard
 msgid "Import a SODA file and map accounts"
-msgstr ""
+msgstr "Importeer een SODA-bestand en map rekeningen"
 
 #. module: l10n_be_soda
 #: model:ir.model,name:l10n_be_soda.model_account_journal
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_import_wizard__journal_id
 msgid "Journal"
-msgstr ""
+msgstr "Dagboek"
+
+#. module: l10n_be_soda
+#: model:ir.model,name:l10n_be_soda.model_account_move_line
+msgid "Journal Item"
+msgstr "Boekingsregel"
 
 #. module: l10n_be_soda
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__write_uid
@@ -104,22 +107,28 @@ msgstr "Overeenkomstige rekening"
 #. odoo-python
 #: code:addons/l10n_be_soda/models/account_journal.py:0
 msgid "No attachment was provided"
-msgstr ""
+msgstr "Er is geen bijlage verstrekt"
 
 #. module: l10n_be_soda
-#: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__name
+#: model_terms:ir.ui.view,arch_db:l10n_be_soda.res_config_settings_view_form
+msgid "Open SODA Mapping"
+msgstr "Open SODA-mapping"
+
+#. module: l10n_be_soda
+#: model_terms:ir.ui.view,arch_db:l10n_be_soda.res_config_settings_view_form
+msgid "SODA"
+msgstr "SODA"
+
+#. module: l10n_be_soda
+#: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__code
+#: model_terms:ir.ui.view,arch_db:l10n_be_soda.soda_import_wizard_view_form
 msgid "SODA Account"
 msgstr "Rekening uit SODA-bestand"
 
 #. module: l10n_be_soda
-#: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__code
-msgid "SODA Account Code"
-msgstr ""
-
-#. module: l10n_be_soda
 #: model:ir.model,name:l10n_be_soda.model_soda_account_mapping
 msgid "SODA Account Mapping"
-msgstr ""
+msgstr "SODA Rekeningen-mapping"
 
 #. module: l10n_be_soda
 #. odoo-python
@@ -129,14 +138,35 @@ msgid "SODA Import"
 msgstr "SODA Import"
 
 #. module: l10n_be_soda
+#: model:ir.model.fields,field_description:l10n_be_soda.field_soda_account_mapping__name
+msgid "SODA Label"
+msgstr "SODA Label"
+
+#. module: l10n_be_soda
+#. odoo-python
+#: code:addons/l10n_be_soda/models/res_config_settings.py:0
+msgid "SODA Mapping"
+msgstr "SODA-mapping"
+
+#. module: l10n_be_soda
+#: model_terms:ir.ui.view,arch_db:l10n_be_soda.res_config_settings_view_form
+msgid "SODA Settings"
+msgstr "SODA Instelligen"
+
+#. module: l10n_be_soda
 #: model_terms:ir.ui.view,arch_db:l10n_be_soda.soda_import_wizard_view_form
-msgid "Save & Import"
-msgstr "Opslaan & Importeren"
+msgid "Save"
+msgstr "Opslaan"
+
+#. module: l10n_be_soda
+#: model:ir.actions.act_window,name:l10n_be_soda.action_open_accounting_settings
+msgid "Settings"
+msgstr "Instelligen"
 
 #. module: l10n_be_soda
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_import_wizard__soda_account_mapping_ids
 msgid "Soda Account Mapping"
-msgstr ""
+msgstr "Soda Rekeningen-mapping"
 
 #. module: l10n_be_soda
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_import_wizard__soda_code_to_name_mapping
@@ -146,46 +176,41 @@ msgstr ""
 #. module: l10n_be_soda
 #: model:ir.model.fields,field_description:l10n_be_soda.field_soda_import_wizard__soda_files
 msgid "Soda Files"
-msgstr ""
+msgstr "Soda-bestanden"
 
 #. module: l10n_be_soda
 #. odoo-python
 #: code:addons/l10n_be_soda/models/account_journal.py:0
 msgid ""
 "The SODA Entry could not be created: \n"
-"The company VAT number found in at least one document doesn't match the one "
-"from the company's journal."
+"The company VAT number found in at least one document doesn't seem to correspond to this company's VAT number nor company id"
 msgstr ""
 "De SODA-boeking kon niet worden aangemaakt: \n"
 "Het btw-nummer dat werd gevonden in minstens één document komt niet overeen "
-"met datgene van het gekozen dagboek."
+"met datgene van dit bedrijf."
 
 #. module: l10n_be_soda
 #. odoo-python
 #: code:addons/l10n_be_soda/models/account_journal.py:0
 msgid ""
-"The SODA Entry could not be created: \n"
-"The company VAT number found in the document doesn't match the one from the "
-"company's journal."
+"The Soda Entry could not be created: \n"
+"The imported document doesn't seem to correspond to this company's VAT number nor company id"
 msgstr ""
 "De SODA-boeking kon niet worden aangemaakt: \n"
 "Het btw-nummer dat werd gevonden het document komt niet overeen met datgene "
-"van het gekozen dagboek."
+"van dit bedrijf."
 
 #. module: l10n_be_soda
 #: model_terms:ir.ui.view,arch_db:l10n_be_soda.soda_import_wizard_view_form
 msgid ""
-"The accounts in the SODA file will be mapped to the accounts listed below. "
-"If you change any of\n"
-"                    them, your choice will be the default one for future "
-"imports. Any empty mapping will create new\n"
-"                    accounts according to the ones defined in the SODA file."
+"The accounts in the SODA file will be mapped to the accounts listed below. If you change any of\n"
+"                    them, your choice will be the default one for future imports. The Suspense Account (499000) will\n"
+"                    be used for accounts that are not mapped or whose mapping is not found."
 msgstr ""
 "De rekeningen uit het SODA-bestand zullen toegewezen worden aan onderstaande "
 "rekeningen. Als je één van de overeenkomstige rekeningen wijzigt, zal je "
 "keuze worden onthouden voor toekomstige imports. Voor elke lege "
-"overeenkomstige rekening zal er een nieuwe rekening worden gemaakt die "
-"overeenkomst met deze uit het SODA-bestand."
+"overeenkomstige rekening zal het wachtrekening (499000) worden gebruikt."
 
 #. module: l10n_be_soda
 #: model:ir.model.constraint,message:l10n_be_soda.constraint_soda_account_mapping_code_company_uniq
@@ -195,5 +220,19 @@ msgstr "De SODA-rekening moet uniek zijn per bedrijf"
 #. module: l10n_be_soda
 #. odoo-python
 #: code:addons/l10n_be_soda/models/account_journal.py:0
-msgid "The entry %s has already been uploaded (%s)."
-msgstr "De boeking %s werd al geüpload (%s)."
+msgid "The entry %(entry)s has already been uploaded (%(existing_entry)s)."
+msgstr "De boeking %(entry)s werd al geüpload (%(existing_entry)s)."
+
+#. module: l10n_be_soda
+#. odoo-python
+#: code:addons/l10n_be_soda/wizard/soda_import_wizard.py:0
+msgid ""
+"The following accounts were found in the SODA file but have no mapping:"
+msgstr ""
+"De volgende rekeningen zijn gevonden in het SODA-bestand, maar geen mapping zijn gevonden:"
+
+#. module: l10n_be_soda
+#. odoo-python
+#: code:addons/l10n_be_soda/wizard/soda_import_wizard.py:0
+msgid "They have been imported in the Suspense Account (499000) for now."
+msgstr "Ze zijn voorlopig geïmporteerd in de wachtrekening (499000)."
