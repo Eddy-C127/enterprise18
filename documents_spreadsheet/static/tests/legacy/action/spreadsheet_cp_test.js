@@ -211,7 +211,7 @@ QUnit.module(
                 target.querySelector(".o_field_CopyClipboardChar").innerText,
                 "localhost:8069/share/url/132465"
             );
-            await click(target, ".fa-clipboard");
+            await click(target, ".fa-clone");
             assert.verifySteps(["share url copied"]);
         });
 
