@@ -225,7 +225,7 @@ test("concurrent pill resize and groupBy change", async () => {
         domain: [["id", "in", [2, 5]]],
     });
     expect.verifySteps([
-        ["get_views", [undefined, undefined]],
+        ["get_views", []],
         ["get_gantt_data", []],
     ]);
     expect(getGridContent().rows).toEqual([
@@ -331,7 +331,7 @@ test("concurrent pill resizes return in inverse order", async () => {
     await animationFrame();
 
     expect.verifySteps([
-        ["get_views", [undefined, undefined]],
+        ["get_views", []],
         ["get_gantt_data", []],
         ["write", [[2], { stop: "2018-12-21 06:29:59" }]],
         ["get_gantt_data", []],
