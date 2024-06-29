@@ -9,6 +9,7 @@
 # Andre Roomet <andreroomet@gmail.com>, 2023
 # Patrick-Jordan Kiudorv, 2023
 # Birgit Vijar, 2024
+# Tairi Tiimann, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Birgit Vijar, 2024\n"
+"Last-Translator: Tairi Tiimann, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +44,7 @@ msgstr ""
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Carrier Labels"
-msgstr ""
+msgstr "Vedaja sildid"
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_choose_delivery_package__available_scale_ids
@@ -58,7 +59,7 @@ msgstr ""
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "Connect Scale"
-msgstr ""
+msgstr "Ühenda kaal"
 
 #. module: delivery_iot
 #: model:ir.model,name:delivery_iot.model_choose_delivery_package
@@ -78,7 +79,7 @@ msgstr "Ekspordi dokumendid"
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
 msgid "How to connect scales?"
-msgstr ""
+msgstr "Kuidas ühendada kaale?"
 
 #. module: delivery_iot
 #: model:ir.model,name:delivery_iot.model_iot_device
@@ -97,6 +98,8 @@ msgid ""
 " of the picking when they are created. Note this requires a printer to be "
 "assigned to this report."
 msgstr ""
+"Kui see on märgitud, siis Odoo prindib laosiirete loomisel automaatselt "
+"vedaja sildid. Märkus: selleks peab olema aruande jaoks määratud printer"
 
 #. module: delivery_iot
 #: model:ir.model.fields,help:delivery_iot.field_stock_picking_type__auto_print_export_documents
@@ -106,6 +109,9 @@ msgid ""
 "documents depends on the carrier and the destination. Note this requires a "
 "printer to be assigned to this report. "
 msgstr ""
+"Kui see on märgitud, siis Odoo prindib laosiirde loomisel automaatselt "
+"ekspordidokumendid. Ekspordidokumentide kättesaadavus sõltub vedajast ja "
+"sihtkohast. Märkus: selleks peab olema aruande jaoks määratud printer"
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.view_picking_type_form_inherit
@@ -114,6 +120,8 @@ msgid ""
 "                            weight of the package will be set automatically when\n"
 "                            you do a \"Put in Pack\" operation."
 msgstr ""
+"Kui ühendate oma kaalud IoT rakenduse kaudu, siis paki kaal seatakse "
+"automaatselt, kui te teete operatsiooni 'Paki'."
 
 #. module: delivery_iot
 #: model_terms:ir.ui.view,arch_db:delivery_iot.iot_device_view_form_inherit

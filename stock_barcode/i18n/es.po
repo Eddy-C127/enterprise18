@@ -204,7 +204,7 @@ msgstr "Asignación"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_full
 msgid "Allow full picking validation"
-msgstr "Permitir validación de recolección completa"
+msgstr "Permitir validación de albarán completo"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__barcode_validation_full
@@ -212,8 +212,8 @@ msgid ""
 "Allow to validate a picking even if nothing was scanned yet (and so, do an "
 "immediate transfert)"
 msgstr ""
-"Permitir validar una recolección incluso si no se ha escaneado nada aún (así"
-" se realizará un traslado inmediato)"
+"Permitir validar un albarán incluso si no se ha escaneado nada aún (así se "
+"realizará un traslado inmediato)"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -664,7 +664,7 @@ msgstr "Ubicaciones de inventario"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__is_barcode_picking_type
 msgid "Is Barcode Picking Type"
-msgstr "Es un tipo de código de barras de recolección"
+msgstr "Es un tipo de código de barras para albarán"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__write_uid
@@ -738,7 +738,7 @@ msgstr "No"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No %(picking_type)s ready for this %(barcode_type)s"
-msgstr "No hay %(picking_type)s listo este %(barcode_type)s"
+msgstr "No hay %(picking_type)s listo para este %(barcode_type)s"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__no
@@ -760,8 +760,8 @@ msgstr ""
 #, python-format
 msgid "No picking or location or product corresponding to barcode %(barcode)s"
 msgstr ""
-"No hay recolección, ubicación o producto que corresponda con el código de "
-"barras %(barcode)s"
+"No hay albarán, ubicación o producto que corresponda con el código de barras"
+" %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
@@ -769,7 +769,7 @@ msgstr ""
 #, python-format
 msgid "No picking or product corresponding to barcode %(barcode)s"
 msgstr ""
-"No hay recolección o producto que corresponda con el código de barras "
+"No hay albarán o producto que corresponda con el código de barras "
 "%(barcode)s"
 
 #. module: stock_barcode
@@ -795,7 +795,7 @@ msgstr "No fue el escaneo esperado"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.picking_view_kanban_inherit_barcode
 msgid "Open picking"
-msgstr "Abrir recolección"
+msgstr "Abrir albarán"
 
 #. module: stock_barcode
 #. odoo-python
@@ -803,7 +803,7 @@ msgstr "Abrir recolección"
 #: model:ir.actions.act_window,name:stock_barcode.open_picking
 #, python-format
 msgid "Open picking form"
-msgstr "Abrir formulario de transferencia"
+msgstr "Abrir formulario de albarán"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -871,17 +871,17 @@ msgstr "Número de movimientos parciales"
 #. module: stock_barcode
 #: model:ir.actions.act_window,name:stock_barcode.stock_picking_action_form
 msgid "Picking"
-msgstr "Recolección"
+msgstr "Albarán"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
 msgid "Picking Details"
-msgstr "Detalles de recolección"
+msgstr "Detalle del albarán"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_picking_type
 msgid "Picking Type"
-msgstr "Tipo de recolección"
+msgstr "Tipo de albarán"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -941,7 +941,7 @@ msgstr "Imprimir paquetes"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Print Picking Operations"
-msgstr "Imprimir operaciones de recolección"
+msgstr "Imprimir operaciones de picking"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1050,8 +1050,8 @@ msgid ""
 "Returns can only be created for pickings that are done, please validate "
 "first."
 msgstr ""
-"Las devoluciones solo se pueden crear para las recolecciones ya hechas, "
-"valídela primero. "
+"Las devoluciones solo se pueden crear para los pickings ya hechos, valídelos"
+" primero. "
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1520,14 +1520,14 @@ msgstr "Este paquete ya ha sido escaneado."
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "This picking is already done"
-msgstr "Ya se ha hecho esta recolección"
+msgstr "Ya se ha hecho este picking"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "This picking is cancelled"
-msgstr "Está recolección está cancelada"
+msgstr "Este albarán de picking está cancelado"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1630,7 +1630,7 @@ msgid ""
 "features. Print the"
 msgstr ""
 "Hemos creado algunos datos de demostración con códigos de barras para que "
-"pueda explorar las funciones. Imprima la"
+"pueda explorar las funciones. Imprime la"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1660,8 +1660,8 @@ msgid ""
 "You are expected to scan one or more products or a package available at the "
 "picking location"
 msgstr ""
-"Debe escanear uno o más productos o un paquete disponible en la ubicación de"
-" la recolección"
+"Debe escanear uno o más productos o un paquete disponible en la ubicación "
+"del picking"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1795,8 +1795,8 @@ msgstr "hoja de códigos de barras de stock"
 #, python-format
 msgid "to check out what this module can do! You can also print the barcode"
 msgstr ""
-"para ver lo que este módulo puede hacer! También puedes imprimir el código "
-"de barras para"
+"para ver lo que este módulo puede hacer. También puede imprimir el código de"
+" barras para"
 
 #. module: stock_barcode
 #. odoo-javascript

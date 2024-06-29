@@ -442,15 +442,14 @@ msgstr "Proveedor"
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "SKU is missing!"
-msgstr "Falta el SKU"
+msgstr "Falta el número de referencia (SKU)"
 
 #. module: delivery_shiprocket
 #. odoo-python
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "Sale Order or Picking is required to get rate."
-msgstr ""
-"Se requiere un pedido de venta o una recolección para obtener la tarifa."
+msgstr "Se requiere un pedido de venta o un albarán para obtener la tarifa."
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -596,8 +595,8 @@ msgid ""
 "define these in a package type that you set as default"
 msgstr ""
 "Shiprocket requiere las dimensiones del paquete para obtener una tarifa "
-"correcta, puede definirlas en un tipo de paquete que estableció como "
-"predeterminado"
+"correcta, puede definirlas en un tipo de paquete que estableció como por "
+"defecto"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,help:delivery_shiprocket.field_delivery_carrier__shiprocket_token_valid_upto
@@ -656,8 +655,8 @@ msgid ""
 "The method of payment. Can be either COD (Cash on delivery) Or Prepaid while"
 " creating Shiprocket order."
 msgstr ""
-"El método de pago. Puede ser pago contrareembolso o prepagado al crear la "
-"orden de Shiprocket."
+"El método de pago. Puede ser pago a contra reembolso o prepagado al crear la"
+" orden de Shiprocket."
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_token_valid_upto

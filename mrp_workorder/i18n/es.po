@@ -562,7 +562,7 @@ msgstr "Duración esperada"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_quality_check_confirmation_dialog.xml:0
 #, python-format
 msgid "Fail"
-msgstr "Fracaso"
+msgstr "Falla"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -651,7 +651,7 @@ msgstr "Imagen/PDF"
 #: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
 #, python-format
 msgid "In Progress"
-msgstr "En progreso"
+msgstr "En proceso"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_id
@@ -1044,7 +1044,7 @@ msgstr "Pendiente"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_picking_type
 msgid "Picking Type"
-msgstr "Tipo de recolección"
+msgstr "Tipo de albarán"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__picture
@@ -1842,7 +1842,7 @@ msgstr "Estado del centro de trabajo"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__employee_ids
 msgid "Working employees"
-msgstr "Empleados activos"
+msgstr "Empleados que trabajan"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__workorder_id
@@ -1941,8 +1941,8 @@ msgid ""
 "Productivity Losses."
 msgstr ""
 "Debe definir al menos una pérdida en la productividad en la categoría "
-"\"Productividad\". Cree una desde la aplicación Fabricación en el menú "
-"Configuración/Pérdidas en la productividad."
+"\"Productividad\". Cree una desde la aplicación de Fabricación en el menú "
+"Configuración/Pérdidas de productividad."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1952,8 +1952,8 @@ msgid ""
 "You need to link this user to an employee of this company to process the "
 "work order"
 msgstr ""
-"Necesita vincular este usuario a un empleado de esta empresa para procesar "
-"la orden de trabajo"
+"Para poder procesar esta orden de trabajo primero necesita vincular este "
+"usuario a un empleado de esta empresa."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -2050,4 +2050,4 @@ msgstr "asiento de taburete de madera"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production__employee_ids
 msgid "working employees"
-msgstr "empleados trabajandos"
+msgstr "empleados que trabajan"

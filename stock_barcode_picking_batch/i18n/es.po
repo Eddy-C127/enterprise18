@@ -29,8 +29,8 @@ msgstr "<i class=\"fa fa-fw fa-lg fa-truck me-3\" title=\"Transfer\"/>"
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.picking_view_kanban_inherit_barcode_picking_batch
 msgid "<span class=\"fa fa-external-link-square ms-1\" title=\"Open Batch Picking\"/>"
 msgstr ""
-"<span class=\"fa fa-external-link-square ms-1\" title=\"Open Batch "
-"Picking\"/>"
+"<span class=\"fa fa-external-link-square ms-1\" title=\"Abrir picking por "
+"lote\"/>"
 
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_barcode_batch_picking_view_info
@@ -40,7 +40,7 @@ msgstr "Asignación"
 #. module: stock_barcode_picking_batch
 #: model:ir.actions.client,name:stock_barcode_picking_batch.stock_barcode_picking_batch_client_action
 msgid "Barcode Batch Picking Client Action"
-msgstr "Acción del cliente para la recolección de lotes con código de barras"
+msgstr "Acción del cliente para el picking por lotes con código de barras"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model,name:stock_barcode_picking_batch.model_stock_picking_batch
@@ -108,7 +108,7 @@ msgstr "Líneas"
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.actions.act_window,help:stock_barcode_picking_batch.stock_barcode_batch_picking_action_kanban
 msgid "No batch transfer found"
-msgstr "No se ha encontrado ningún traslado de lotes"
+msgstr "No se ha encontrado ningún traslado por lote"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
@@ -122,7 +122,7 @@ msgstr "No se han encontrado traslados listos"
 #: code:addons/stock_barcode_picking_batch/models/stock_picking_batch.py:0
 #, python-format
 msgid "Open picking batch form"
-msgstr "Abrir el formulario de recolección de lotes"
+msgstr "Abrir el formulario de picking por lotes"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
@@ -148,28 +148,28 @@ msgstr "Escanear el paquete %s"
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 #, python-format
 msgid "Select an operation type for batch transfer"
-msgstr "Selecciona un tipo de operación para el traslado de lotes"
+msgstr "Seleccione un tipo de operación para el traslado por lote"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 #, python-format
 msgid "Select transfers for batch transfer"
-msgstr "Selecciona el tipo de traslado por lote"
+msgstr "Seleccione el traslado para el traslado por lote"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 #, python-format
 msgid "The Batch Transfer has been validated"
-msgstr "Se ha validado el traslado de lotes"
+msgstr "Se ha validado el traslado por lotes"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 #, python-format
 msgid "The batch picking has been cancelled"
-msgstr "Se ha cancelado la recolección de lotes"
+msgstr "Se ha cancelado el picking por lotes"
 
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.actions.act_window,help:stock_barcode_picking_batch.stock_barcode_batch_picking_action_kanban
@@ -179,11 +179,10 @@ msgid ""
 "            It may also be useful to assign jobs (one person = one batch) or\n"
 "            help the timing management of operations (tasks to be done at 1pm)."
 msgstr ""
-"El objetivo de la agrupación de albaraneses agrupar las operaciones que "
-"pueden (deben) realizarse juntas para aumentar su eficiencia. También puede "
-"ser útil asignar trabajos (una persona = una agrupación) o ayudar a la "
-"gestión del tiempo de las operaciones (por ejemplo, tareas a realizar a las "
-"13:00)."
+"El objetivo del traslado por lote es agrupar operaciones que pueden (deben) "
+"hacerse juntas para aumentar su eficacia. También puede ser útil para "
+"asignar trabajos (una persona = un lote) o ayudar a la gestión temporal de "
+"las operaciones (tareas que deben hacerse a las 13h)."
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model.fields,help:stock_barcode_picking_batch.field_stock_move_line__picking_id
@@ -195,14 +194,14 @@ msgstr "La operación de stock en la que se creó el paquete"
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 #, python-format
 msgid "This batch transfer is already done"
-msgstr "Ya se realizó el traslado de este lote"
+msgstr "Este traslado por lote ya está hecho"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 #, python-format
 msgid "This batch transfer is cancelled"
-msgstr "Se cancela este traslado por lotes"
+msgstr "Se cancela este traslado por lote"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript

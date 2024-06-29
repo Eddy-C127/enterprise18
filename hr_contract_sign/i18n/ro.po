@@ -8,6 +8,7 @@
 # Martin Trigaux, 2024
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
 # Maria Muntean, 2024
+# Betty Keresztesi, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Maria Muntean, 2024\n"
+"Last-Translator: Betty Keresztesi, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,28 +29,28 @@ msgstr ""
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "%(user_name)s requested a new signature on the following documents:"
-msgstr ""
+msgstr "%(user_name)s a solicitat o nouă semnătură pe următoarele documente:"
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "%s and %s are the signatories."
-msgstr ""
+msgstr "%s și %s sunt semnatarii acordului."
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "%s does not have a private email set."
-msgstr ""
+msgstr "%s nu are setat un e-mail privat."
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "%s does not have a work email set."
-msgstr ""
+msgstr "%s nu are setat un e-mail de serviciu."
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_sign_view_form
@@ -86,7 +87,7 @@ msgstr "Contract"
 #. module: hr_contract_sign
 #: model:ir.model,name:hr_contract_sign.model_hr_contract_history
 msgid "Contract history"
-msgstr ""
+msgstr "Istoric contract"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__cc_partner_ids
@@ -121,12 +122,12 @@ msgstr "Semnătură Document"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__sign_template_id
 msgid "Document to sign"
-msgstr ""
+msgstr "Document pentru semnare"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__sign_template_ids
 msgid "Documents to sign"
-msgstr ""
+msgstr "Documente de semnat"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,help:hr_contract_sign.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -135,6 +136,9 @@ msgid ""
 "        Documents with 1 responsible will only have to be signed by the employee while documents with 2 different responsible will have to be signed by both the employee and the responsible.\n"
 "        "
 msgstr ""
+"Documente de semnat. Doar documentele cu 1 sau 2 responsabili diferiți pot fi selectate.\n"
+"        Documentele cu 1 responsabil vor trebui semnate doar de angajat, în timp ce documentele cu 2 responsabili diferiți vor trebui semnate atât de angajat, cât și de responsabil.\n"
+"        "
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__mail_to
@@ -149,6 +153,10 @@ msgid ""
 "                - Private takes the email defined in Private Information\n"
 "                - If the selected email is not defined, the available one will be used."
 msgstr ""
+"E-mail utilizat pentru a trimite cererea de semnătură.\n"
+"                - Oficiu preia adresa de e-mail definită în \"email serviciu\"\n"
+"                - Private preia adresa de e-mail definită în Private Information\n"
+"                - Dacă e-mailul selectat nu este definit, va fi utilizat cel disponibil."
 
 #. module: hr_contract_sign
 #: model:ir.model,name:hr_contract_sign.model_hr_employee
@@ -173,6 +181,8 @@ msgid ""
 "Employee's role on the templates to sign. The same role must be present in "
 "all the templates"
 msgstr ""
+"Rolul angajatului în modelele care urmează să fie semnate. Același rol "
+"trebuie să fie prezent în toate modelele"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__employee_ids
@@ -187,7 +197,7 @@ msgstr "Responsabil HR"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__has_both_template
 msgid "Has Both Template"
-msgstr ""
+msgstr "Dispune de ambele șabloane"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__id
@@ -197,7 +207,7 @@ msgstr "ID"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__is_signature_request
 msgid "Is Signature Request"
-msgstr ""
+msgstr "Este o cerere de semnătură"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__write_uid
@@ -212,12 +222,12 @@ msgstr "Ultima actualizare pe"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__mail_displayed
 msgid "Mail Displayed"
-msgstr ""
+msgstr "Mail afișat"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "Mail Options"
-msgstr ""
+msgstr "Opțiuni e-mail"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__message
@@ -232,18 +242,20 @@ msgid ""
 "No appropriate template could be found, please make sure you configured them"
 " properly."
 msgstr ""
+"Nu a putut fi găsit niciun șablon corespunzător, vă rugăm să vă asigurați că"
+" le-ați configurat corect."
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "No template available"
-msgstr ""
+msgstr "Niciun șablon disponibil"
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 #, python-format
 msgid "Only %s has to sign."
-msgstr ""
+msgstr "Doar %s trebuie să semneze."
 
 #. module: hr_contract_sign
 #: model:sign.template,redirect_url_text:hr_contract_sign.template_sign_termination
@@ -258,7 +270,7 @@ msgstr "Mesaj opțional ..."
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__possible_template_ids
 msgid "Possible Template"
-msgstr ""
+msgstr "Șablon disponibil"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields.selection,name:hr_contract_sign.selection__hr_contract_sign_document_wizard__mail_to__private
@@ -291,23 +303,23 @@ msgstr "Trimite"
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_employee__sign_request_count
 #: model:ir.model.fields,field_description:hr_contract_sign.field_res_users__sign_request_count
 msgid "Sign Request Count"
-msgstr ""
+msgstr "Numărul cererilor de semnare"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "Sign Request Options"
-msgstr ""
+msgstr "Opțiuni de solicitare a semnăturii"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__sign_template_responsible_ids
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__sign_template_responsible_ids
 msgid "Sign Template Responsible"
-msgstr ""
+msgstr "Șablon semnătură responsabil"
 
 #. module: hr_contract_sign
 #: model:ir.model,name:hr_contract_sign.model_hr_contract_sign_document_wizard
 msgid "Sign document in contract"
-msgstr ""
+msgstr "Semnarea documentului în contract"
 
 #. module: hr_contract_sign
 #. odoo-python
@@ -322,7 +334,7 @@ msgstr "Solicitare Semnătură"
 #. module: hr_contract_sign
 #: model:ir.actions.server,name:hr_contract_sign.action_signature_request_wizard
 msgid "Signature request"
-msgstr ""
+msgstr "Solicitare semnătură"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__subject
@@ -332,7 +344,7 @@ msgstr "Subiect"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__template_warning
 msgid "Template Warning"
-msgstr ""
+msgstr "Avertisment șablon"
 
 #. module: hr_contract_sign
 #. odoo-python
@@ -342,6 +354,8 @@ msgid ""
 "This sign request has been canceled due to the cancellation of the related "
 "contract."
 msgstr ""
+"Această cerere de semnătură a fost anulată din cauza anulării contractului "
+"aferent."
 
 #. module: hr_contract_sign
 #: model:ir.model,name:hr_contract_sign.model_res_users
@@ -351,7 +365,7 @@ msgstr "Utilizator"
 #. module: hr_contract_sign
 #: model:ir.model.fields.selection,name:hr_contract_sign.selection__hr_contract_sign_document_wizard__mail_to__work
 msgid "Work"
-msgstr ""
+msgstr "Loc de muncă"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
@@ -365,6 +379,8 @@ msgstr "Scrieți un e-mail sau căutați un contact ..."
 msgid ""
 "You can't delete a contract linked to a signed document, archive it instead."
 msgstr ""
+"Nu puteți șterge un contract asociat unui document semnat, arhivați-l în "
+"schimb."
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_history_view_form

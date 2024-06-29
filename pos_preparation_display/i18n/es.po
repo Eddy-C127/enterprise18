@@ -29,7 +29,7 @@ msgstr "<span>Tiempo medio</span>"
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>In progress</span>"
-msgstr "<span>En progreso</span>"
+msgstr "<span>En proceso</span>"
 
 #. module: pos_preparation_display
 #. odoo-python
@@ -68,7 +68,7 @@ msgstr "Todas las categorías"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
 msgid "All the stage ids in which the order is placed"
-msgstr "Todos los IDs de etapa en donde se coloca la comanda"
+msgstr "Todos los IDs de etapa en donde se coloca el pedido"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
@@ -76,15 +76,15 @@ msgid ""
 "Archive all preparation display's orders for a fresh start. This will not "
 "affect the PoS order history."
 msgstr ""
-"Archivar todas las comandas en pantallas de preparación para iniciar de "
-"nuevo, esto no afectará el historial de comandas del punto de venta."
+"Archive todas los pedidos en pantallas de preparación para iniciar de nuevo,"
+" esto no afectará el historial de pedidos del TPV."
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_display__average_time
 msgid "Average time of all order that not in a done stage."
 msgstr ""
-"Tiempo promedio de todas las comandas que no se encuentran en estado de "
-"\"hecha\"."
+"Tiempo medio de todos los pedidos que no se encuentran en estado de "
+"\"hecho\"."
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
@@ -199,7 +199,7 @@ msgstr "Explorar datos de demostración"
 #: code:addons/pos_preparation_display/static/src/override/point_of_sale/pos_store.js:0
 #, python-format
 msgid "Failed in sending the changes to preparation display"
-msgstr "Falló al enviar los cambios a la pantalla de preparación"
+msgstr "Error al enviar los cambios a la pantalla de preparación"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -231,7 +231,7 @@ msgstr "Nota interna"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_orderline__internal_note
 msgid "Internal notes written at the time of the order"
-msgstr "Notas internas escritas al momento de hacer la comanda"
+msgstr "Notas internas escritas al momento de hacer el pedido"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__contains_bar_restaurant
@@ -287,7 +287,7 @@ msgstr "Nombre"
 #. module: pos_preparation_display
 #: model_terms:ir.actions.act_window,help:pos_preparation_display.action_preparation_display
 msgid "Need a touchscreen interface to manage order ?"
-msgstr "¿Necesita una interfaz de pantalla táctil para gestionar la orden?"
+msgstr "¿Necesita una interfaz de pantalla táctil para gestionar los pedidos?"
 
 #. module: pos_preparation_display
 #. odoo-javascript

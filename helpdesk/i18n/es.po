@@ -1550,7 +1550,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__exceeded_hours
 msgid "Exceeded Working Hours"
-msgstr "Horas laborales superadas"
+msgstr "Horas de trabajo superadas"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__exclude_stage_ids
@@ -1576,7 +1576,7 @@ msgstr "Política SLA fallida"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sla_failed
 msgid "Failed SLA Ticket"
-msgstr "Ticket de SLA fallado"
+msgstr "Ticket de SLA fallido"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -1769,7 +1769,7 @@ msgstr "Tiene SLA alcanzada"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__sla_reached_late
 msgid "Has SLA reached late"
-msgstr "Se excedió el tiempo del ANS"
+msgstr "Se excedió el tiempo del SLA"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2011,7 +2011,7 @@ msgstr "En #{kanban_getcolorname(record.color.raw_value)}"
 #: model:helpdesk.stage,name:helpdesk.stage_in_progress
 #, python-format
 msgid "In Progress"
-msgstr "En progreso"
+msgstr "En proceso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__from_stage_ids
@@ -2251,7 +2251,7 @@ msgid ""
 "Maximum number of working hours a ticket should take to reach the target "
 "stage, starting from the date it was created."
 msgstr ""
-"El número máximo de horas laborales que debería tomar para que un ticket "
+"El número máximo de horas de trabajo que debería tomar para que un ticket "
 "llegue a la etapa objetivo, empezando desde la fecha en la que se creó."
 
 #. module: helpdesk
@@ -2396,7 +2396,7 @@ msgid ""
 "available, according to their working hours and their time off."
 msgstr ""
 "Los nuevos tickets se asignarán automáticamente a los miembros del equipo "
-"que estén disponibles, según sus horas laborables y sus ausencias."
+"que estén disponibles, según sus horas de trabajo y sus ausencias."
 
 #. module: helpdesk
 #. odoo-python
@@ -2506,7 +2506,7 @@ msgstr "Número de acciones"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_status_failed
 msgid "Number of SLA Failed"
-msgstr "Número de SLA fallados"
+msgstr "Número de SLA fallidos"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage_delete_wizard__ticket_count
@@ -2534,7 +2534,7 @@ msgstr "Número de mensajes con error de envío"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "Number of open tickets with at least one SLA failed."
-msgstr "Número de tickets abiertos con al menos una SLA fallida"
+msgstr "Número de tickets abiertos con al menos un SLA fallido"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_open_ticket_count
@@ -2695,7 +2695,7 @@ msgstr "Porcentaje de calificaciones positivas"
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "Percentage of tickets that were closed without failing any SLAs."
-msgstr "Porcentaje de tickets que se cerraron sin fallar en ninguna SLA."
+msgstr "Porcentaje de tickets que se cerraron sin fallar el SLA."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -2876,17 +2876,17 @@ msgstr "Calificaciones en el Sitio Web"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_tree
 msgid "Reach Stage"
-msgstr "Etapa de contacto"
+msgstr "Alcanzar etapa"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_status__status__reached
 msgid "Reached"
-msgstr "Solucionado"
+msgstr "Alcanzado"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_status__reached_datetime
 msgid "Reached Date"
-msgstr "Fecha de solución"
+msgstr "Fecha alcanzada"
 
 #. module: helpdesk
 #. odoo-python
@@ -3074,7 +3074,7 @@ msgstr "Análisis del estado de SLA"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_fail
 msgid "SLA Status Failed"
-msgstr "Estado SLA fallido"
+msgstr "Estado del SLA fallido"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_success
@@ -3087,7 +3087,7 @@ msgstr "Estado del SLA éxitoso"
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA Success"
-msgstr "Éxito SLA"
+msgstr "SLA exitoso"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3101,7 +3101,7 @@ msgstr "Tasa de éxito del SLA "
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
 msgid "SLA in Progress"
-msgstr "SLA en progreso"
+msgstr "SLA en proceso"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_ids
@@ -3565,7 +3565,7 @@ msgstr "Todavía no hay calificaciones."
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.ticket_creation
 msgid "This"
-msgstr "Este"
+msgstr "Este/a"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
@@ -3605,7 +3605,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_stage_view_form
 msgid "This step is done. Click to block or set in progress."
 msgstr ""
-"Este paso está hecho. Haga clic para bloquear o ponerlo como en progreso."
+"Este paso está hecho. Haga clic para bloquear o ponerlo como en proceso."
 
 #. module: helpdesk
 #. odoo-python
@@ -4063,7 +4063,7 @@ msgid ""
 "We hope to have addressed your request satisfactorily. If you no longer need"
 " our assistance, please close this ticket. Thank you for your collaboration."
 msgstr ""
-"Esperamos haber respondido a su solicitud de manera satisfactoria. Si ya no "
+"Esperamos haber respondido a su solicitud satisfactoriamente. Si ya no "
 "requiere nuestra ayuda, cierre este ticket. Gracias por su colaboración. "
 
 #. module: helpdesk
@@ -4073,8 +4073,8 @@ msgid ""
 "We provide 24/7 support, Monday through Friday. Ticket responses are usually provided within 2 working days.<br>\n"
 "            Support is mainly provided in English. We can also assist in Spanish, French, and Dutch."
 msgstr ""
-"Brindamos asistencia 24/7, de lunes a viernes. Los tickets se responden normalmente dentro de 2 días hábiles.<br>\n"
-"            Principalmente brindamos asistencia en inglés, pero también le podemos ayudar en español, francés y neerlandés."
+"Ofrecemos asistencia 24 horas al día, 7 días a la semana, de lunes a viernes. Los tickets se responden normalmente dentro de 2 días laborables.<br>\n"
+"            Principalmente ofrecemos asistencia en inglés, pero también le podemos ayudar en español, francés y neerlandés."
 
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_website
@@ -4106,22 +4106,22 @@ msgstr "Dentro de"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__resource_calendar_id
 msgid "Working Hours"
-msgstr "Horas laborables"
+msgstr "Horas de trabajo"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_assignation_hours
 msgid "Working Hours to Assign"
-msgstr "Horas laborables para asignar"
+msgstr "Horas de trabajo para asignar"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__ticket_close_hours
 msgid "Working Hours to Close"
-msgstr "Horas laborables para cerrar"
+msgstr "Horas de trabajo para cerrar"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__sla_exceeded_hours
 msgid "Working Hours to Reach SLA"
-msgstr "Horas laborables para llegar a SLA"
+msgstr "Horas de trabajo para alcanzar el SLA"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_sla_status__exceeded_hours
@@ -4129,9 +4129,9 @@ msgid ""
 "Working hours exceeded for reached SLAs compared with deadline. Positive "
 "number means the SLA was reached after the deadline."
 msgstr ""
-"Se excedieron las horas laborables para las SLA logradas comparadas con la "
-"fecha límite. Los números positivos significan que se llegó a SLA después de"
-" la fecha límite."
+"Se excedieron las horas de trabajo para las SLA alcanzadas en comparación "
+"con la fecha límite. Un número positivo significa que el SLA se alcanzó "
+"después de la fecha límite."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__resource_calendar_id

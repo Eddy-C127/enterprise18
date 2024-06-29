@@ -180,7 +180,7 @@ msgid ""
 "Order %s was already sent to the carrier during label creation.\n"
 "Manifest number: %s"
 msgstr ""
-"Ya se ha enviado el pedido %s al transportista al crear la etiqueta.\n"
+"Ya se ha enviado la orden %s al transportista al crear la etiqueta.\n"
 "Número de manifiesto de carga: %s"
 
 #. module: delivery_starshipit
@@ -220,15 +220,14 @@ msgid ""
 "these in a package type that you set as default"
 msgstr ""
 "Las dimensiones del paquete son necesarias para obtener las tarifas "
-"correctas. Defínalas en el tipo de paquete que estableció como "
-"predeterminado."
+"correctas. Defínalas en el tipo de paquete que estableció como por defecto."
 
 #. module: delivery_starshipit
 #. odoo-python
 #: code:addons/delivery_starshipit/models/delivery_carrier.py:0
 #, python-format
 msgid "Please delete the order on Starshipit then try again."
-msgstr "Por favor, elimine la orden en Starshipit e inténtelo de nuevo."
+msgstr "Elimine la orden en Starshipit e inténtelo de nuevo."
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -245,7 +244,7 @@ msgstr "Proveedor"
 #. module: delivery_starshipit
 #: model:ir.model,name:delivery_starshipit.model_stock_return_picking
 msgid "Return Picking"
-msgstr "Recolección de devolución"
+msgstr "Albarán de devolución"
 
 #. module: delivery_starshipit
 #. odoo-python
@@ -422,9 +421,9 @@ msgid ""
 "The picking %(picking_name)s sequence is too long for Starshipit. Please "
 "update your pickings sequence in order to use at most 50 characters."
 msgstr ""
-"La secuencia de la recolección %(picking_name)s es demasiado larga para "
-"Starshipit. Por favor, actualice su secuencia de la recolección para "
-"utilizar como máximo 50 caracteres."
+"La secuencia del albarán %(picking_name)s es demasiado larga para "
+"Starshipit. Por favor, actualice su secuencia del albarán para utilizar como"
+" máximo 50 caracteres."
 
 #. module: delivery_starshipit
 #. odoo-python
