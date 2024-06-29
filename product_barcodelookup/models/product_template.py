@@ -4,6 +4,7 @@ import contextlib
 
 from odoo import api, models, Command
 from odoo.addons.product_barcodelookup.tools import barcode_lookup_service
+from odoo.tools import check_barcode_encoding
 
 BARCODE_WEIGHT_REGEX = r'^((?P<weight>(\d*\.?\d+))([\s?]*)(?P<unit>(([a-zA-Z]*))))$'
 
@@ -121,6 +122,9 @@ class ProductTemplate(models.Model):
     def barcode_lookup(self, barcode=False):
         api_key = barcode_lookup_service.get_barcode_lookup_key(self)
         if not api_key:
+            return False
+        if barcode and not self.env.context.get("skip_barcode_check", False) \
+                and not any(check_barcode_encoding(barcode, enc) for enc in ("upca", "ean8", "ean13")):
             return False
         params = {'barcode': barcode, 'key': api_key}
         response = barcode_lookup_service.barcode_lookup_request('https://api.barcodelookup.com/v3/products', params)

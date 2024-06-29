@@ -18,32 +18,35 @@ patch(BarcodeModel.prototype, {
         // Applicable for models ["stock.picking", "stock.quant"]
         // Applicable for the picking operation ["receipts"]
         const canManageBarcodelookup = await this.groups.group_user_admin;
-        if (canManageBarcodelookup && this.isValidForBarcodeLookup) {
-            const response = await this.orm.call("product.template", "barcode_lookup", []);
-            if (response?.authenticated) {
-                if (!barcodeData.error) {
-                    if (this.groups.group_tracking_lot) {
-                        barcodeData.error = _t(
-                            `This product doesn't exists either scan a package
-                            available at the picking location or create new product`
-                        );
-                    } else {
-                        barcodeData.error = _t("This product doesn't exists");
-                    }
+        if (
+          canManageBarcodelookup && this.isValidForBarcodeLookup &&
+          ["ean8", "ean13", "upca"].some((encoding) =>
+            this.parser.check_encoding(barcodeData.barcode, encoding)
+          )
+        ) {
+            this.trigger("playSound", "error");
+            if (!barcodeData.error) {
+                if (this.groups.group_tracking_lot) {
+                    barcodeData.error = _t(
+                        `This product doesn't exists either scan a package
+                                available at the picking location or create new product`
+                    );
+                } else {
+                    barcodeData.error = _t("This product doesn't exists");
                 }
-                return this.notification(barcodeData.error, {
-                    type: "danger",
-                    buttons: [
-                        {
-                            name: _t("Create New Product"),
-                            primary: true,
-                            onClick: () => {
-                                return this.openProductForm(barcodeData);
-                            },
-                        },
-                    ],
-                });
             }
+            return this.notification(barcodeData.error, {
+                type: "danger",
+                buttons: [
+                    {
+                        name: _t("Create New Product"),
+                        primary: true,
+                        onClick: () => {
+                            return this.openProductForm(barcodeData);
+                        },
+                    },
+                ],
+            });
         }
         return super.noProductToast(barcodeData);
     },
@@ -55,6 +58,7 @@ patch(BarcodeModel.prototype, {
                 additionalContext: {
                     "default_barcode": barcodeData?.barcode,
                     "dialog_size": "medium",
+                    "skip_barcode_check": true,
                 },
                 props: {
                     onSave: async (record) => {

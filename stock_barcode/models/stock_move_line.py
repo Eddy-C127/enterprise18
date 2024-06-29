@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.tools import frozendict
 
 
@@ -8,6 +8,7 @@ class StockMoveLine(models.Model):
     _inherit = 'stock.move.line'
 
     product_barcode = fields.Char(related='product_id.barcode')
+    formatted_product_barcode = fields.Char(compute="_compute_product_barcode")
     location_processed = fields.Boolean()
     dummy_id = fields.Char(compute='_compute_dummy_id', inverse='_inverse_dummy_id')
     parent_location_id = fields.Many2one('stock.location', compute='_compute_parent_location_id')
@@ -51,6 +52,11 @@ class StockMoveLine(models.Model):
     def _compute_product_packaging_uom_qty(self):
         for sml in self:
             sml.product_packaging_uom_qty = sml.product_packaging_id.product_uom_id._compute_quantity(sml.product_packaging_id.qty, sml.product_uom_id)
+
+    @api.depends('product_barcode')
+    def _compute_product_barcode(self):
+        for line in self:
+            line.formatted_product_barcode = f'[{line.product_barcode}]' if line.product_barcode else _('No Barcode')
 
     def _inverse_dummy_id(self):
         pass
