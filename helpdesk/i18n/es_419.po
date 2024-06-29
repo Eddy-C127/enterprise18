@@ -35,7 +35,7 @@ msgstr "# Tickets abiertos"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__rating_count
 msgid "# Ratings"
-msgstr "# Calificaciones"
+msgstr "Número de calificaciones"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__sla_policy_count
@@ -1642,6 +1642,7 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Icono de Font Awesome, por ejemplo, fa-tasks"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Future Activities"
 msgstr "Actividades futuras"
@@ -2158,6 +2159,7 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Late Activities"
 msgstr "Actividades atrasadas"
@@ -3293,6 +3295,7 @@ msgid "Show SLA Policies"
 msgstr "Mostrar políticas SLA"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Show all records which has next action date is before today"
 msgstr ""
@@ -3512,8 +3515,8 @@ msgid ""
 msgstr ""
 "El modelo (tipo de documento de Odoo) al que corresponde este seudónimo. "
 "Cualquier correo entrante que no sea respuesta a un registro existente "
-"causará la creación de un nuevo registro de este modelo (por ejemplo, una "
-"tarea de proyecto)."
+"creará un nuevo registro de este modelo (por ejemplo, una tarea de "
+"proyecto)."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_name
@@ -3855,6 +3858,7 @@ msgid "Today"
 msgstr "Hoy"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Today Activities"
 msgstr "Actividades de hoy"

@@ -31,7 +31,7 @@ msgstr ""
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "%(user)s decided, as %(role)s, to publish the employee's feedback"
-msgstr "%(user)s a decis, ca și %(role)s, să publice observațiile angajatului"
+msgstr "%(user)s a decis, ca și %(role)s, să publice feedback-ul angajatului"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -61,7 +61,7 @@ msgstr "25%"
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_config_settings__module_hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "360 Feedback"
-msgstr "360 Observație"
+msgstr "Feedback 360 "
 
 #. module: hr_appraisal
 #: model:ir.model.fields.selection,name:hr_appraisal.selection__hr_appraisal_goal__progression__050
@@ -182,6 +182,29 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Dragă <t t-out=\"ctx.get('employee_to_name', 'employee')\">angajat</t>,\n"
+"                        <br>\n"
+"                        O evaluare a fost solicitată de <t t-out=\"ctx.get('author_name', '')\">Addison Olson</t>\n"
+"                        <br>\n"
+"                        (<t t-out=\"ctx.get('author_mail', '')\">addison.olson28@example.com</t>).\n"
+"                        <t t-if=\"ctx.get('user_body')\">\n"
+"                            <div style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;\">\n"
+"                                <t t-out=\"ctx.get('user_body')\">Evaluare anuală.</t>\n"
+"                            </div>\n"
+"                        </t>\n"
+"                        <t t-if=\"ctx.get('recipient_users')\">\n"
+"                            <p style=\"margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; text-align: center;\">\n"
+"                                <a t-att-href=\"ctx.get('url')\" style=\" margin: auto; background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;\">\n"
+"                                    Vizualizați evaluarea\n"
+"                                </a>\n"
+"                            </p>\n"
+"                        </t>\n"
+"                        <br>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -191,6 +214,9 @@ msgid ""
 "                the company.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"               Descrieți ceva care v-a făcut mândru, o lucrare pozitivă pentru companie.\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -200,6 +226,10 @@ msgid ""
 "                obstacles?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Te-ai confruntat cu noi dificultăți? Te-ai confruntat cu noi\n"
+"obstacole?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -209,6 +239,10 @@ msgid ""
 "                you enjoy the most/the least?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                 Fiecare loc de muncă are puncte forte, care sunt, în opinia ta, sarcinile care\n"
+"               îți plac cel mai mult/cel mai puțin?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -218,6 +252,10 @@ msgid ""
 "                overcome their weaknesses?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Din punctul de vedere al unui manager, cum ai putea ajuta angajatul să\n"
+"                își depășească punctele slabe?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -227,6 +265,10 @@ msgid ""
 "                for you to reach your goals and look for the best collaboration.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Cum te poate ajuta compania cu nevoile și obiectivele tale pentru a\n"
+"                a-ți atinge scopurile și pentru a căuta cea mai bună colaborare.\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -236,6 +278,10 @@ msgid ""
 "                employee's desire?\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Cum îl vezi pe angajat în viitor, viziunea ta urmează\n"
+"                dorința angajatului?\n"
+"            </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -245,11 +291,14 @@ msgid ""
 "                issues.\n"
 "            </em>"
 msgstr ""
+"<em>\n"
+"                Câteva realizări care te consolează în punctele lor forte pentru a face față problemelor de la locul de muncă\n"
+"              </em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Autonomy</em>"
-msgstr ""
+msgstr "<em>Autonomie</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -259,21 +308,25 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Cultură/comportament:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-1\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Do you need rapid answer to the current situation?</em>"
-msgstr ""
+msgstr "<em>Aveți nevoie de un răspuns rapid la situația actuală?</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "<em>Give an example of long-term objective (&gt; 6 months)</em>"
-msgstr ""
+msgstr "<em>Dați un exemplu de obiectiv pe termen lung (&gt; 6 luni)</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "<em>Give an example of short-term objective (&lt; 6 months)</em>"
-msgstr ""
+msgstr "<em>Dați un exemplu de obiectiv pe termen scurt (&lt; 6 luni)</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -283,6 +336,10 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Comunicare internă:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-2\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -292,11 +349,15 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Conținutul locului de munca:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-3\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Pro-activity</em>"
-msgstr ""
+msgstr "<em>Proactivitate</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -306,11 +367,15 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Remunerație:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-5\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "<em>Stress Resistance</em>"
-msgstr ""
+msgstr "<em>Rezistența la stres</em>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -330,6 +395,10 @@ msgid ""
 "                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
 "                </span>"
 msgstr ""
+"<em>Organizarea muncii:</em>\n"
+"                <span class=\"o_stars o_five_stars\" id=\"checkId-4\">\n"
+"                    <i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/><i class=\"fa fa-star-o\" contenteditable=\"false\"/>\n"
+"                </span>"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -342,6 +411,11 @@ msgid ""
 "                            Plan appraisals with your colleagues, collect and discuss feedback.\n"
 "                        </p>"
 msgstr ""
+"<p class=\"o_view_nocontent_smiling_face\">\n"
+"                            Programați o evaluare\n"
+"                        </p><p>\n"
+"                            Planificați evaluările împreună cu colegii tăi, colectați și discutați feedback-ul.\n"
+"                        </p>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_kanban
@@ -392,6 +466,9 @@ msgid ""
 "                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state == 'new'\">Visible to Manager</span>\n"
 "                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state != 'new'\">Visible &amp; Editable by Manager</span>"
 msgstr ""
+"<span class=\"text-end\" invisible=\"employee_feedback_published\">Nu este vizibil pentru manager</span>\n"
+"                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state == 'new'\">Vizibil pentru manager</span>\n"
+"                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state != 'new'\">Vizibil &amp; Editabil de către Manager</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
@@ -399,6 +476,8 @@ msgid ""
 "<span class=\"text-end\" invisible=\"manager_feedback_published or not can_see_manager_publish\">Not Visible to Employee</span>\n"
 "                                            <span class=\"text-end\" invisible=\"not manager_feedback_published or not can_see_manager_publish\">Visible to Employee</span>"
 msgstr ""
+"<span class=\"text-end\" invisible=\"manager_feedback_published or not can_see_manager_publish\">Nu este vizibil pentru manager</span>\n"
+"                                            <span class=\"text-end\" invisible=\"not manager_feedback_published or not can_see_manager_publish\">Vizibil pentru manager</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
@@ -419,7 +498,7 @@ msgid ""
 "            </span>"
 msgstr ""
 "<span style=\"font-weight: bolder;\">\n"
-"                Părere\n"
+"                Feedback\n"
 "            </span>"
 
 #. module: hr_appraisal
@@ -429,6 +508,9 @@ msgid ""
 "                Improvements\n"
 "            </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                Îmbunătățiri\n"
+"            </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -466,7 +548,7 @@ msgstr ""
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_kanban
 msgid "<strong><span>Meeting: </span></strong>"
-msgstr ""
+msgstr "<strong><span>Întâlnire: </span></strong>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_report_view_gantt
@@ -555,23 +637,23 @@ msgstr "Analiza Evaluarilor"
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_hr_appraisal_note
 msgid "Appraisal Assessment Note"
-msgstr ""
+msgstr "Nota de evaluare"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__appraisal_confirm_mail_template
 msgid "Appraisal Confirm Mail Template"
-msgstr ""
+msgstr "Evaluare Confirmare șablon e-mail"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__employee_appraisal_count
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__appraisal_count
 msgid "Appraisal Count"
-msgstr ""
+msgstr "Numărul de evaluări"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__date_close
 msgid "Appraisal Date"
-msgstr ""
+msgstr "Data evaluării"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_request_appraisal__employee_id
@@ -582,7 +664,7 @@ msgstr "Angajat Evaluare"
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__appraisal_employee_feedback_template
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_config_settings__appraisal_employee_feedback_template
 msgid "Appraisal Employee Feedback Template"
-msgstr ""
+msgstr "Șablon de evaluare a feedback-ului angajaților"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -599,30 +681,30 @@ msgstr "Obiectiv de evaluare"
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_hr_appraisal_goal_tag
 msgid "Appraisal Goal Tags"
-msgstr ""
+msgstr "Etichete pentru Scopul evaluării"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__appraisal_manager_feedback_template
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_config_settings__appraisal_manager_feedback_template
 msgid "Appraisal Manager Feedback Template"
-msgstr ""
+msgstr "Șablon de feedback pentru managerul de evaluare"
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal Officer"
-msgstr ""
+msgstr "Responsabil cu evaluarea"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__appraisal_plan_posted
 msgid "Appraisal Plan Posted"
-msgstr ""
+msgstr "Planul de evaluare postat"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_department__appraisal_properties_definition
 msgid "Appraisal Properties"
-msgstr ""
+msgstr "Proprietăți de evaluare"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -630,7 +712,7 @@ msgstr ""
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal Request"
-msgstr ""
+msgstr "Cerere de evaluare"
 
 #. module: hr_appraisal
 #: model:mail.template,subject:hr_appraisal.mail_template_appraisal_request
@@ -651,28 +733,28 @@ msgstr "Statistici evaluări"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_department_view_form
 msgid "Appraisal Templates"
-msgstr ""
+msgstr "Șabloane de evaluare"
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal for %s to fill"
-msgstr ""
+msgstr "Evaluare de completat pentru  %s "
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal of %s"
-msgstr ""
+msgstr "Evaluare lui%s"
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Appraisal to fill"
-msgstr ""
+msgstr "Evaluare de completat"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_action_from_department
@@ -697,7 +779,7 @@ msgstr "Evaluări"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Appraisals Plans"
-msgstr ""
+msgstr "Planuri de evaluare"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_department__appraisals_to_process_count
@@ -718,7 +800,7 @@ msgstr "Solicitați să completați un sondaj către alți angajați"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__assessment_note_ids
 msgid "Assessment Note"
-msgstr ""
+msgstr "Notă de evaluare"
 
 #. module: hr_appraisal
 #: model_terms:ir.actions.act_window,help:hr_appraisal.action_hr_appraisal_goal
@@ -726,6 +808,8 @@ msgid ""
 "Assign Goals to motivate your Employees and keep track of their objectives "
 "between Appraisals."
 msgstr ""
+"Atribuiți Obiective pentru a vă motiva Angajații și urmăriți evoluția "
+"acestora între Evaluări."
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__message_attachment_count
@@ -803,7 +887,7 @@ msgstr "Anulare evaluări viitoare"
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_departure_wizard__cancel_appraisal
 msgid "Cancel all appraisal after contract end date."
-msgstr ""
+msgstr "Anulați toate evaluările după data încheierii contractului."
 
 #. module: hr_appraisal
 #: model:ir.model.fields.selection,name:hr_appraisal.selection__hr_appraisal__state__cancel
@@ -847,7 +931,7 @@ msgstr "Configurare"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Configure General Feedback Template"
-msgstr ""
+msgstr "Configurați șablonul de feedback general"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
@@ -873,24 +957,24 @@ msgstr "Data creării"
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__duration_first_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_config_settings__duration_first_appraisal
 msgid "Create a first Appraisal after"
-msgstr ""
+msgstr "Creați o primă evaluare după"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__duration_next_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_config_settings__duration_next_appraisal
 msgid "Create a second Appraisal after"
-msgstr ""
+msgstr "Creați o a doua evaluare după"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_company__duration_after_recruitment
 #: model:ir.model.fields,field_description:hr_appraisal.field_res_config_settings__duration_after_recruitment
 msgid "Create an Appraisal after recruitment"
-msgstr ""
+msgstr "Creați o evaluare după recrutare"
 
 #. module: hr_appraisal
 #: model_terms:ir.actions.act_window,help:hr_appraisal.action_hr_appraisal_goal
 msgid "Create new goals"
-msgstr ""
+msgstr "Creați obiective noi"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__create_uid
@@ -918,7 +1002,7 @@ msgstr "Data creării"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_department__custom_appraisal_templates
 msgid "Custom Appraisal Templates"
-msgstr ""
+msgstr "Personalizarea șabloanelor de evaluare"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_appraisal_report_search
@@ -931,6 +1015,8 @@ msgid ""
 "Date of the appraisal, automatically updated when the appraisal is Done or "
 "Cancelled."
 msgstr ""
+"Data evaluării, actualizată automat atunci când evaluarea este finalizată "
+"sau anulată."
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_goal__deadline
@@ -1014,7 +1100,7 @@ msgstr "Evaluarea Angajatului"
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__employee_autocomplete_ids
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_goal__employee_autocomplete_ids
 msgid "Employee Autocomplete"
-msgstr ""
+msgstr "Autocompletare Angajat"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__employee_feedback
@@ -1041,12 +1127,12 @@ msgstr "Nume angajat"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__employee_user_id
 msgid "Employee User"
-msgstr ""
+msgstr "Utilizator Angajat"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
 msgid "Employee's Feedback"
-msgstr ""
+msgstr "Feedback-ul angajatului"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.action_hr_appraisal_note
@@ -1077,7 +1163,7 @@ msgstr "Șabloane de feedback"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Fill appraisal for %s"
-msgstr ""
+msgstr "Completați evaluarea pentru %s"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__date_final_interview
@@ -1092,7 +1178,7 @@ msgstr "Data finală a interviului"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__assessment_note
 msgid "Final Rating"
-msgstr ""
+msgstr "Evaluare finală"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__message_follower_ids
@@ -1123,6 +1209,8 @@ msgid ""
 "Give one positive achievement that convinced you of the employee's\n"
 "            value."
 msgstr ""
+"Dați o realizare pozitivă care v-a convins de valoarea angajatului\n"
+"    "
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_view_form
@@ -1132,7 +1220,7 @@ msgstr "Obiectiv"
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_goal_tag_action
 msgid "Goal Tags"
-msgstr ""
+msgstr "Etichete de Obiectiv"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.action_hr_appraisal_goal
@@ -1154,17 +1242,17 @@ msgstr "Grupează după..."
 #. module: hr_appraisal
 #: model:mail.template,name:hr_appraisal.mail_template_appraisal_confirm
 msgid "HR: Appraisal Confirmation"
-msgstr ""
+msgstr "HR: Confirmarea evaluării"
 
 #. module: hr_appraisal
 #: model:mail.template,name:hr_appraisal.mail_template_appraisal_request_from_employee
 msgid "HR: Employee Appraisal Request"
-msgstr ""
+msgstr "HR: Cerere de evaluare a angajatului"
 
 #. module: hr_appraisal
 #: model:mail.template,name:hr_appraisal.mail_template_appraisal_request
 msgid "HR: Manager appraisal request"
-msgstr ""
+msgstr "HR: Cerere de evaluare a managerului"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__has_message
@@ -1175,17 +1263,17 @@ msgstr "Are mesaj"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "How could the employee improve?"
-msgstr ""
+msgstr "Cum s-ar putea îmbunătăți angajatul?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "How do I feel about my own..."
-msgstr ""
+msgstr "Cum mă simt față de propria mea..."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "How do I feel about the company..."
-msgstr ""
+msgstr "Ce părere am despre companie..."
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__id
@@ -1286,7 +1374,7 @@ msgstr "Data Ultimei Evaluări"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Last Meeting"
-msgstr ""
+msgstr "Ultima întâlnire"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__write_uid
@@ -1323,6 +1411,8 @@ msgid ""
 "Long term (&gt; 6 months) career discussion, where does the employee\n"
 "            wants to go, how to help them reach this path?"
 msgstr ""
+"Discuții privind cariera pe termen lung  (&gt; 6 months), unde dorește angajatul să ajungă,\n"
+"            cum să îl ajutăm să ajungă pe această cale?"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_request_appraisal__template_id
@@ -1342,7 +1432,7 @@ msgstr "Manager"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
 msgid "Manager Assessment will show here"
-msgstr ""
+msgstr "Evaluarea managerului va fi afișată aici"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__manager_feedback
@@ -1364,12 +1454,12 @@ msgstr "Șablon FeedBack Manager"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__manager_user_ids
 msgid "Manager Users"
-msgstr ""
+msgstr "Utilizatori Manager"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
 msgid "Manager's Feedback"
-msgstr ""
+msgstr "Feedback-ul managerului"
 
 #. module: hr_appraisal
 #: model:ir.actions.server,name:hr_appraisal.action_mark_as_done
@@ -1382,7 +1472,7 @@ msgstr "Marchează ca Efectuat"
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__meeting_count_display
 msgid "Meeting Count"
-msgstr ""
+msgstr "Numărul de întâlniri"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__meeting_ids
@@ -1467,7 +1557,7 @@ msgstr "Tip de activitate următoare"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_search
 msgid "Next Appraisal"
-msgstr ""
+msgstr "Următoarea evaluare"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__next_appraisal_date
@@ -1481,14 +1571,14 @@ msgstr "Data următoarei evaluări"
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Next Meeting"
-msgstr ""
+msgstr "Următoarea întâlnire"
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "No Meeting"
-msgstr ""
+msgstr "Nicio întâlnire"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1524,7 +1614,7 @@ msgstr "Numărul de mesaje cu eroare de livrare"
 #. module: hr_appraisal
 #: model:res.groups,name:hr_appraisal.group_hr_appraisal_user
 msgid "Officer: Access all appraisals"
-msgstr ""
+msgstr "Ofițer: Accesați toate evaluările"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_form
@@ -1535,7 +1625,7 @@ msgstr "În curs de desfășurare"
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__ongoing_appraisal_count
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee_public__ongoing_appraisal_count
 msgid "Ongoing Appraisal Count"
-msgstr ""
+msgstr "Număr de evaluări în curs"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1574,13 +1664,15 @@ msgstr "Oameni pe care îi administrez"
 #: model_terms:ir.actions.act_window,help:hr_appraisal.open_view_hr_appraisal_tree
 msgid "Plan appraisals with your colleagues, collect and discuss feedback."
 msgstr ""
+"Planificați evaluările împreună cu colegii dumneavoastră, colectați și "
+"discutați feedback-ul."
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Previous Appraisals"
-msgstr ""
+msgstr "Evaluări anterioare"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__note
@@ -1591,7 +1683,7 @@ msgstr "Nota Personala"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
 msgid "Private note (only accessible to people set as managers)"
-msgstr ""
+msgstr "Notă privată (accesibilă numai persoanelor setate ca manageri)"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_goal__progression
@@ -1657,7 +1749,7 @@ msgstr "Solicitare evaluare"
 #. module: hr_appraisal
 #: model:ir.actions.server,name:hr_appraisal.action_create_multi_appraisals
 msgid "Request Appraisals"
-msgstr ""
+msgstr "Solicită evaluări"
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_request_appraisal
@@ -1679,7 +1771,7 @@ msgstr "Eroare livrare SMS"
 #. module: hr_appraisal
 #: model_terms:ir.actions.act_window,help:hr_appraisal.open_view_hr_appraisal_tree
 msgid "Schedule an appraisal"
-msgstr ""
+msgstr "Programați o evaluare"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_search
@@ -1689,7 +1781,7 @@ msgstr "Căutați evaluarea"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
 msgid "Self Assessment will show here"
-msgstr ""
+msgstr "Autoevaluarea va apărea aici"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.request_appraisal_view_form
@@ -1706,17 +1798,20 @@ msgstr "Trimite prin email"
 msgid ""
 "Sent automatically to both employee and manager when appraisal is confirmed"
 msgstr ""
+"Trimis automat atât angajatului, cât și managerului, atunci când evaluarea "
+"este confirmată"
 
 #. module: hr_appraisal
 #: model:mail.template,description:hr_appraisal.mail_template_appraisal_request_from_employee
 msgid ""
 "Sent manually to the employee by the manager who wants to do an appraisal"
 msgstr ""
+"Trimis manual angajatului de către managerul care dorește să facă o evaluare"
 
 #. module: hr_appraisal
 #: model:mail.template,description:hr_appraisal.mail_template_appraisal_request
 msgid "Sent manually to the manager by the employee who wants an appraisal"
-msgstr ""
+msgstr "Trimis manual managerului de către angajatul care dorește o evaluare"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_note__sequence
@@ -1732,17 +1827,17 @@ msgstr "Setări"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_manager_feedback
 msgid "Short term (6-months) actions / decisions / objectives"
-msgstr ""
+msgstr "Acțiuni / decizii / obiective pe termen scurt (6 luni)"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__show_employee_feedback_full
 msgid "Show Employee Feedback Full"
-msgstr ""
+msgstr "Afișați feedback-ul complet al angajatului "
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__show_manager_feedback_full
 msgid "Show Manager Feedback Full"
-msgstr ""
+msgstr "Afișați feedback-ul complet al managerului"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_search
@@ -1810,18 +1905,20 @@ msgid ""
 "Thanks to your Appraisal Plan, without any new manual Appraisal, the new "
 "Appraisal will be automatically created on %s."
 msgstr ""
+"Datorită planului dvs. de evaluare, fără nicio nouă evaluare manuală, noua "
+"evaluare va fi creată automat la data %s."
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "The appraisal's status has been set to Done by %s"
-msgstr ""
+msgstr "Starea evaluării a fost setată la Încheiat de către %s"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_appraisal__note
 msgid "The content of this note is not visible by the Employee."
-msgstr ""
+msgstr "Conținutul acestei note nu este vizibil de către angajat."
 
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_appraisal__last_appraisal_date
@@ -1853,13 +1950,15 @@ msgid ""
 "The employee %s arrived %s months ago. The appraisal is created and you can "
 "fill it here."
 msgstr ""
+"Angajatul %s a venit acum %s luni. Evaluarea este creată și o puteți "
+"completa aici."
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "The employee feedback cannot be changed by managers."
-msgstr ""
+msgstr "Feedback-ul angajaților nu poate fi schimbat de către manageri."
 
 #. module: hr_appraisal
 #. odoo-javascript
@@ -1869,6 +1968,8 @@ msgid ""
 "The employee's feedback will be published without their consent. Do you "
 "really want to publish it? This action will be logged in the chatter."
 msgstr ""
+"Feedback-ul angajatului va fi publicat fără consimțământul acestuia. Chiar "
+"doriți să îl publicați? Această acțiune va fi înregistrată în chat."
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1878,18 +1979,20 @@ msgid ""
 "The last appraisal of %s was %s months ago. The appraisal is created and you"
 " can fill it here."
 msgstr ""
+"Ultima evaluare a lui %s a fost acum %s luni. Evaluarea este creată și o "
+"puteți completa aici."
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "The manager feedback cannot be changed by an employee."
-msgstr ""
+msgstr "Feedback-ul managerului nu poate fi modificat de un angajat."
 
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_appraisal__assessment_note
 msgid "This field is not visible to the Employee."
-msgstr ""
+msgstr "Acest câmp nu este vizibil pentru angajat."
 
 #. module: hr_appraisal
 #: model:ir.model.fields.selection,name:hr_appraisal.selection__hr_appraisal__state__new
@@ -1922,7 +2025,7 @@ msgstr "Tipul activității de excepție din înregistrare."
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__uncomplete_goals_count
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_employee__uncomplete_goals_count
 msgid "Uncomplete Goals Count"
-msgstr ""
+msgstr "Numărul obiectivelor incomplete"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1935,7 +2038,7 @@ msgstr "Nepublicat"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_search
 msgid "Upcoming Appraisals"
-msgstr ""
+msgstr "Evaluări viitoare"
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_res_users
@@ -1968,7 +2071,7 @@ msgstr "Istoric comunicare website"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "What are my best achievement(s) since my last appraisal?"
-msgstr ""
+msgstr "Care sunt cele mai bune realizări ale mele de la ultima evaluare?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -1976,6 +2079,8 @@ msgid ""
 "What are my short and long-term goals with the company, and for my\n"
 "            career?"
 msgstr ""
+"Care sunt obiectivele mele pe termen scurt și lung în cadrul companiei\n"
+"             și pentru cariera mea?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
@@ -1983,11 +2088,13 @@ msgid ""
 "What has been the most challenging aspect of my work this past year and\n"
 "            why?"
 msgstr ""
+"Care a fost cel mai provocator aspect al activității mele din ultimul an și\n"
+"            de ce?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "What would I need to improve my work?"
-msgstr ""
+msgstr "De ce aș avea nevoie pentru a-mi îmbunătăți munca?"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
@@ -1995,11 +2102,13 @@ msgid ""
 "When the Appraisals plan is saved, it will overwrite all empty Next "
 "Appraisal Dates for every employee."
 msgstr ""
+"Atunci când planul de evaluări este salvat, acesta va suprascrie toate "
+"datele de evaluare următoare necompletate pentru fiecare angajat."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_employee_feedback
 msgid "Which parts of my job do I most / least enjoy?"
-msgstr ""
+msgstr "Ce părți ale muncii mele îmi plac cel mai mult / cel mai puțin?"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2009,6 +2118,7 @@ msgid ""
 "You arrived %s months ago. Your appraisal is created and you can fill it "
 "here."
 msgstr ""
+"Ai venit acum %s luni. Evaluarea ta este creată și o poți completa aici."
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2022,14 +2132,14 @@ msgstr "Nu puteți șterge evaluarea care nu este în stare de cioră sau anulat
 #: code:addons/hr_appraisal/models/hr_employee.py:0
 #, python-format
 msgid "You cannot set 'Next Appraisal Date' in the past."
-msgstr ""
+msgstr "Nu puteți seta \"Data următoarei evaluări\" în trecut."
 
 #. module: hr_appraisal
 #. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 #, python-format
 msgid "Your Appraisal has been completed"
-msgstr ""
+msgstr "Evaluarea dumneavoastră a fost finalizată"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2039,6 +2149,8 @@ msgid ""
 "Your last appraisal was %s months ago. Your appraisal is created and you can"
 " fill it here."
 msgstr ""
+"Ultima ta evaluare a fost acum %s luni. Evaluarea ta este creată și o poți "
+"completa aici."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
@@ -2048,22 +2160,22 @@ msgstr "ex. John Doe"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_view_form
 msgid "e.g. Present yourself to your new team"
-msgstr ""
+msgstr "e.g. Prezentați-vă în fața noii dvs. echipe"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "months after recruitment, then after"
-msgstr ""
+msgstr "luni după recrutare, apoi după"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "months, then every"
-msgstr ""
+msgstr "luni, apoi la fiecare"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "months."
-msgstr ""
+msgstr "luni."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_kanban
@@ -2073,7 +2185,7 @@ msgstr "oe_kanban_text_red"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
 msgid "once published"
-msgstr ""
+msgstr "odată publicat"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_view_activity
@@ -2085,8 +2197,9 @@ msgstr "Text-pericol"
 msgid ""
 "{{ hasattr(object, 'name') and object.name or '' }} requests an Appraisal"
 msgstr ""
+"{{ hasattr(object, 'name') and object.name or '' }} solicită o evaluare"
 
 #. module: hr_appraisal
 #: model:mail.template,subject:hr_appraisal.mail_template_appraisal_confirm
 msgid "{{ object.employee_id.name }}: Appraisal Confirmed"
-msgstr ""
+msgstr "{{ object.employee_id.name }}: Evaluare confirmată"

@@ -406,7 +406,7 @@ msgstr "Mensualmente"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__move_ids
 msgid "Move"
-msgstr "Asiento"
+msgstr "Movimiento "
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -657,7 +657,7 @@ msgstr "La demanda pronosticada. Este valor debe ingresarse manualmente."
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 #, python-format
 msgid "The forecasted quantity in stock at the beginning of the period."
-msgstr "La cantidad prevista en stock al comienzo del periodo. "
+msgstr "La cantidad pronosticada en stock al inicio del periodo."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -675,7 +675,7 @@ msgid ""
 "                    It ensures everything gets scheduled on time, based on constraints such as: safety stock, production capacity, lead times.\n"
 "                    It's the perfect tool to support your S&OP meetings."
 msgstr ""
-"El programa maestro traduce sus ventas y pronóstico de demanda en un plan de producción y compra para cada componente.\n"
+"El plan maestro traduce sus ventas y pronóstico de demanda en un plan de producción y compra para cada componente.\n"
 "                    Asegura que todo se programe a tiempo, según limitaciones como: existencias de seguridad, capacidad de producción, plazos.\n"
 "                    Es la herramienta perfecta para apoyar sus reuniones de planificación de ventas y operaciones."
 
@@ -716,8 +716,8 @@ msgid ""
 "This is the minimum free stock you want to keep for that product at all "
 "times."
 msgstr ""
-"Son las existencias mínimas libres que desea mantener para ese producto en "
-"todo momento."
+"Se trata del stock libre mínimo que desea mantener para ese producto en todo"
+" momento."
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form

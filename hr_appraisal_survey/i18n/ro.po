@@ -9,6 +9,7 @@
 # Claudia Baisan, 2024
 # Martin Trigaux, 2024
 # Larisa_nexterp, 2024
+# Maria Muntean, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larisa_nexterp, 2024\n"
+"Last-Translator: Maria Muntean, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,28 +36,30 @@ msgid ""
 "360 Degree Feedback is a system or process in which managers will ask feedback from the people who work around the employee.\n"
 "            This typically includes the employee's manager, peers, and direct reports."
 msgstr ""
+"Feedback-ul la 360 de grade este un sistem sau un proces în care managerii vor solicita feedback de la persoanele care lucrează în jurul angajatului.\n"
+"            Aceasta include, de obicei, managerul, colegii și subordonații direcți ai angajatului."
 
 #. module: hr_appraisal_survey
 #: model:ir.actions.act_window,name:hr_appraisal_survey.survey_survey_action_appraisal
 #: model:ir.ui.menu,name:hr_appraisal_survey.menu_hr_appraisal_surveys
 #: model:survey.survey,title:hr_appraisal_survey.appraisal_360_feedback_template
 msgid "360 Feedback"
-msgstr "360 Observație"
+msgstr "Feedback 360 "
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_button_form_view
 msgid "<i class=\"oi oi-fw oi-arrow-right\"/>Edit Survey"
-msgstr ""
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/>Editați sondajul"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_view_form
 msgid "<span class=\"o_stat_text\">Feedbacks</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Feedback-uri</span>"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_view_form
 msgid "<span> / </span>"
-msgstr ""
+msgstr "<span> / </span>"
 
 #. module: hr_appraisal_survey
 #: model:mail.template,body_html:hr_appraisal_survey.mail_template_appraisal_ask_feedback
@@ -83,6 +86,27 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<t t-set=\"logged_user\" t-value=\"ctx.get('logged_user')\"></t>\n"
+"                <t t-set=\"employee\" t-value=\"ctx.get('employee')\"></t>\n"
+"                <t t-set=\"deadline\" t-value=\"ctx.get('deadline')\"></t>\n"
+"                <div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        <p style=\"margin-left:5px\">Dragă <t t-out=\"object.partner_id.name or 'participant'\">[participant]</t></p>\n"
+"                        <span>\n"
+"                            <t t-out=\"logged_user\">[Current user]</t> vă invită să participați la un sondaj și să vă oferiți feedback-ul cu privire la angajatul <t t-out=\"employee\">[employee]</t>.\n"
+"                            Vă rugăm să completați sondajul înainte de <t t-out=\"deadline\">[specified deadline]</t>.\n"
+"                        </span>\n"
+"                        <br>\n"
+"                        Mulțumesc!\n"
+"                        <br><br>\n"
+"                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                            <a t-att-href=\"object.get_start_url()\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                Oferiți feedback-ul dvs.\n"
+"                            </a>\n"
+"                        </div>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_1
@@ -143,7 +167,7 @@ msgstr "Admite greșelile mele"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
 msgid "All answers"
-msgstr ""
+msgstr "Toate răspunsurile"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.x_360_5_5
@@ -214,7 +238,7 @@ msgstr "Evaluare: Solicitați feedback"
 #: code:addons/hr_appraisal_survey/wizard/appraisal_ask_feedback.py:0
 #, python-format
 msgid "Appraisal: Ask Feedback new template"
-msgstr ""
+msgstr "Evaluare: Șablon nou Feedback Întrebări"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_1_5
@@ -243,12 +267,12 @@ msgstr "Feedback solicitat"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "At the conclusion of the appraisal time period"
-msgstr ""
+msgstr "La încheierea perioadei de evaluare"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "At the outset of the appraisal time period"
-msgstr ""
+msgstr "La începutul perioadei de evaluare"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__attachment_ids
@@ -300,7 +324,7 @@ msgstr "Companii"
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_hr_appraisal__completed_survey_count
 msgid "Completed Survey Count"
-msgstr ""
+msgstr "Numărul de sondaje completate"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_3
@@ -351,6 +375,8 @@ msgid ""
 "Critical or key elements of performance and professional development needs "
 "(if any), should also be noted at this time"
 msgstr ""
+"Elementele critice sau cheie ale performanței și nevoile de dezvoltare "
+"profesională (dacă există) ar trebui, de asemenea, notate în acest moment"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_8
@@ -385,7 +411,7 @@ msgstr "Departament"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Did not meet standards and expectations"
-msgstr ""
+msgstr "Nu a îndeplinit standardele și așteptările"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__display_name
@@ -435,14 +461,14 @@ msgstr "Entuziasm și implicare în proiecte/sarcini"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Exceeds standards and expectations"
-msgstr ""
+msgstr "Depășește standardele și așteptările"
 
 #. module: hr_appraisal_survey
 #. odoo-python
 #: code:addons/hr_appraisal_survey/models/hr_appraisal.py:0
 #, python-format
 msgid "Feedback Surveys"
-msgstr ""
+msgstr "Sondaje de opinie"
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -482,6 +508,9 @@ msgid ""
 "Identify professional, performance, or project objectives you recommend for "
 "employee’s continued career development over the coming year."
 msgstr ""
+"Identificați obiectivele profesionale, de performanță sau de proiect pe care"
+" le recomandați pentru dezvoltarea continuă a carierei angajatului pe "
+"parcursul anului următor."
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_5
@@ -501,6 +530,10 @@ msgid ""
 " major employee responsibilities and corresponding benchmarks against which "
 "results will be evaluated."
 msgstr ""
+"Este responsabilitatea comună a angajatului și a supraveghetorului "
+"(evaluatorului) să stabilească un plan de lucru fezabil pentru anul următor,"
+" care să includă principalele responsabilități ale angajatului și reperele "
+"corespunzătoare în raport cu care vor fi evaluate rezultatele."
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -509,6 +542,9 @@ msgid ""
 "input from the appropriate sources of feedback (internal and/or external "
 "customers, peers)."
 msgstr ""
+"Este responsabilitatea principală a supervizorului să colecteze informațiile"
+" necesare din sursele adecvate de feedback (clienți interni și/sau externi, "
+"colegi)."
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__lang
@@ -557,7 +593,7 @@ msgstr "Șablon de e-mail"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Meet standards and expectations"
-msgstr ""
+msgstr "Respectă standardele și așteptările"
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -607,7 +643,7 @@ msgstr ""
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "Overall Purpose Of Employee Appraisal"
-msgstr ""
+msgstr "Scopul general al evaluării angajatului"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,help:hr_appraisal_survey.field_survey_user_input__requested_by
@@ -706,7 +742,7 @@ msgstr "Salvează ca șablon nou"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
 msgid "See Answers"
-msgstr ""
+msgstr "Vezi răspunsurile"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_5
@@ -736,13 +772,14 @@ msgstr "Afișați bunul judecător în luarea deciziilor"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Significantly below standards and expectations"
-msgstr ""
+msgstr "Cu mult sub standarde și așteptări"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid ""
 "Significantly exceeds standards and expectations required of the position"
 msgstr ""
+"Depășește în mod semnificativ standardele și așteptările impuse de post"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.x_360_5_3
@@ -795,7 +832,7 @@ msgstr "Șablon de sondaj"
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_survey_survey__survey_type
 msgid "Survey Type"
-msgstr ""
+msgstr "Tip sondaj"
 
 #. module: hr_appraisal_survey
 #: model:ir.model,name:hr_appraisal_survey.model_survey_user_input
@@ -827,6 +864,8 @@ msgid ""
 "The appraiser should rate the employee’s major work accomplishments and "
 "performance according to the metric provided below:"
 msgstr ""
+"Evaluatorul ar trebui să evalueze principalele realizări și performanțe "
+"profesionale ale angajatului în conformitate cu metrica prezentată mai jos:"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -834,6 +873,8 @@ msgid ""
 "The employee may choose to offer comments or explanation regarding the "
 "completed review."
 msgstr ""
+"Angajatul poate alege să ofere comentarii sau explicații cu privire la "
+"evaluarea finalizată."
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -844,6 +885,11 @@ msgid ""
 "criterion. Once the form had been filled, the employee send it to their "
 "supervisor."
 msgstr ""
+"Angajatul va fi responsabil de completarea unui draft (ciornă) al "
+"formularului de evaluare ca instrument de autoevaluare și punct de plecare "
+"pentru evaluarea supervizorului. Angajatul poate adăuga exemple de realizări"
+" pentru fiecare criteriu. După ce formularul a fost completat, angajatul îl "
+"trimite supervizorului său."
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -852,6 +898,8 @@ msgid ""
 "appraisal. The motivation of the evaluation is explained in the ad hoc "
 "fields."
 msgstr ""
+"Supervizorul sintetizează și integrează toate contribuțiile în evaluarea "
+"finalizată. Motivația evaluării este explicată în câmpurile ad hoc."
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -862,6 +910,9 @@ msgid ""
 "The following employees do not have any email: \n"
 "%s"
 msgstr ""
+"Acest angajat nu are înregistrată nicio adresă de e-mail și nu va primi niciun e-mail. \n"
+"Următorii angajați nu au niciun e-mail: \n"
+"%s"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,help:hr_appraisal_survey.field_hr_department__appraisal_survey_template_id
@@ -883,6 +934,9 @@ msgid ""
 "This survey allows you to give a feedback about your collaboration with an "
 "employee. Filling it helps us improving the appraisal process."
 msgstr ""
+"Acest sondaj vă permite să oferiți un feedback cu privire la colaborarea "
+"dumneavoastră cu un angajat. Completarea acestuia ne ajută să îmbunătățim "
+"procesul de evaluare."
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_15
@@ -895,16 +949,20 @@ msgid ""
 "To assist employees in their professional growth, through the identification"
 " of strengths and opportunities for development"
 msgstr ""
+"Să sprijine angajații în dezvoltarea lor profesională, prin identificarea "
+"punctelor forte și a oportunităților de dezvoltare"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "To initiate a clear and open communication of performance expectations"
 msgstr ""
+"Să inițieze o comunicare clară și deschisă a așteptărilor privind "
+"performanța"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_hr_appraisal__total_survey_count
 msgid "Total Survey Count"
-msgstr ""
+msgstr "Numărul total de sondaje"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_5_1

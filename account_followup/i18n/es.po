@@ -52,7 +52,7 @@ msgid ""
 "- Follow-up Address: Preferred address for follow-up reports. Selected by default when you send reminders about overdue invoices.\n"
 "- Other: Other address for the company (e.g. subsidiary, ...)"
 msgstr ""
-"- Contactos: utilice esta opción para organizar los datos de contacto de los empleados de una empresa determinada (por ejemplo, director general, director financiero, etc.).\n"
+"- Contactos: utilice esta opción para organizar los datos de contacto de los empleados de una empresa determinada (por ejemplo, director ejecutivo, director financiero, etc.).\n"
 "- Dirección de facturación: dirección preferida para todas las facturas. Se selecciona por defecto cuando se factura un pedido que pertenece a esta empresa.\n"
 "- Dirección de entrega: dirección preferida para todas las entregas. Se selecciona por defecto cuando entrega una orden que pertenece a esta empresa.\n"
 "- Privada: las direcciones privadas solo son visibles por los usuarios autorizados y contienen datos sensibles (direcciones particulares de los empleados, etc.).\n"
@@ -126,7 +126,7 @@ msgstr ""
 "                        <t t-if=\"object.id != object.commercial_partner_id.id\">Estimado/a <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
 "                        <t t-else=\"\">Estimado/a <t t-out=\"object.name or ''\"></t>,</t>\n"
 "                        <br>\n"
-"                        Usted tiene un saldo pendiente de<t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"></t>\n"
+"                        Usted tiene un saldo pendiente de <t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"></t>\n"
 "                        <br>\n"
 "                        Le pedimos que tome las medidas necesarias para realizar el pago de este importe dentro de los próximos 8 días.\n"
 "                        <br>\n"
@@ -772,7 +772,7 @@ msgstr "Seguimiento más reciente"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
 msgid "Letter/Email Content"
-msgstr "Contenido de la carta o del correo"
+msgstr "Contenido de la carta o del correo electrónico"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__mail_template_id
@@ -1054,9 +1054,9 @@ msgid ""
 "                - if no level defined at all -> next date never automatically set"
 msgstr ""
 "La fecha antes de la cual no debe realizarse ninguna acción de seguimiento.\n"
-"                Usted puede establecerla de forma manual si lo desea, aunque la fecha se fija de modo automático cuando se procesan los seguimientos.\n"
+"                Puede fijarla manualmente si lo desea, pero se fija automáticamente cuando se procesan los seguimientos.\n"
 "                La fecha se calcula de acuerdo con las siguientes reglas (según los niveles de seguimiento):\n"
-"                - predeterminado -> la fecha siguiente se fija en {retraso del siguiente nivel - retraso del nivel actual} días\n"
+"                - por defecto -> la fecha siguiente se fija en {retraso del siguiente nivel - retraso del nivel actual} días\n"
 "                -  si no hay nivel siguiente -> la fecha siguiente se fija en {retraso del nivel actual - retraso del nivel anterior} días\n"
 "                - si no hay nivel siguiente NI nivel anterior -> la fecha siguiente se fija en {retraso del nivel actual} días\n"
 "                - si no hay ningún nivel definido -> la fecha siguiente nunca se fija de modo automático"
@@ -1064,7 +1064,7 @@ msgstr ""
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_move_line__invoice_origin
 msgid "The document(s) that generated the invoice."
-msgstr "El documento o documentos que generaron esta factura"
+msgstr "Los documentos que generaron esta factura."
 
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_followup_followup_line__delay
@@ -1120,7 +1120,7 @@ msgstr "Total vencido"
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__unpaid_invoice_ids
 #: model:ir.model.fields,field_description:account_followup.field_res_users__unpaid_invoice_ids
 msgid "Unpaid Invoice"
-msgstr "Factura sin pagar"
+msgstr "Factura no pagada"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__unpaid_invoices_count
@@ -1137,7 +1137,7 @@ msgstr "AML no conciliado"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
 msgid "VAT"
-msgstr "Número de identificación fiscal"
+msgstr "NIF"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.missing_information_view_form
@@ -1177,8 +1177,8 @@ msgid ""
 "You are trying to send an Email, but no follow-up contact has any email "
 "address set for customer '%s'"
 msgstr ""
-"Está intentando enviar un correo, pero ningún contacto de seguimiento tiene "
-"una cuenta de correo electrónico configurada para el cliente \"%s\""
+"Está intentando de enviar un correo, pero ningún contacto de seguimiento "
+"tiene una cuenta de correo electrónico configurada para el cliente \"%s\""
 
 #. module: account_followup
 #. odoo-python

@@ -311,7 +311,7 @@ msgstr "Lo antes posible"
 #. module: mrp_plm
 #: model:ir.model.fields.selection,name:mrp_plm.selection__mrp_eco__effectivity__date
 msgid "At Date"
-msgstr "En fecha"
+msgstr "Desde una fecha específica"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__message_attachment_count
@@ -808,7 +808,7 @@ msgstr "Editar tarea"
 #: model:mrp.eco.stage,name:mrp_plm.ecostage_bom_update_effective
 #: model:mrp.eco.stage,name:mrp_plm.ecostage_effective
 msgid "Effective"
-msgstr "Válida desde"
+msgstr "Vigente"
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco__effectivity_date
@@ -993,8 +993,8 @@ msgid ""
 "If the active field is set to False, it will allow you to hide the "
 "engineering change order without removing it."
 msgstr ""
-"Si el campo activo se establece como False, le permitirá ocultar la orden de"
-" cambio de ingeniería sin eliminarla."
+"Si desmarca el campo activo podrá ocultar la orden de cambio de ingeniería "
+"sin eliminarla."
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_bom__image_128
@@ -1370,9 +1370,8 @@ msgid ""
 "Override the default value displayed for the blocked state for kanban "
 "selection, when the ECO is in that stage."
 msgstr ""
-"Anular el valor predeterminado que se muestra para el estado bloqueado para "
-"la selección de kanban, cuando la orden de cambio de ingeniería está en esa "
-"etapa."
+"Anule el valor predeterminado que aparece en el estado bloqueado de la vista"
+" de kanban cuando la orden de cambio de ingeniería está en esa etapa."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco__legend_done
@@ -1381,9 +1380,8 @@ msgid ""
 "Override the default value displayed for the done state for kanban "
 "selection, when the ECO is in that stage."
 msgstr ""
-"Anular el valor predeterminado que se muestra para el estado hecho para la "
-"selección de kanban, cuando la orden de cambio de ingeniería está en esa "
-"etapa."
+"Anule el valor predeterminado que aparece en el estado hecho de la vista de "
+"kanban cuando la orden de cambio de ingeniería está en esa etapa."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco__legend_normal
@@ -1392,8 +1390,8 @@ msgid ""
 "Override the default value displayed for the normal state for kanban "
 "selection, when the ECO is in that stage."
 msgstr ""
-"Anular el valor predeterminado que se muestra para el estado normal en la "
-"vista de kanban, cuando la orden de cambio de ingeniería está en esa etapa."
+"Anule el valor predeterminado que aparece en el estado normal de la vista de"
+" kanban cuando la orden de cambio de ingeniería está en esa etapa."
 
 #. module: mrp_plm
 #: model:ir.ui.menu,name:mrp_plm.menu_mrp_plm_dashboard
@@ -1558,8 +1556,8 @@ msgstr "Transferencia de base"
 #: model_terms:ir.ui.view,arch_db:mrp_plm.mrp_eco_view_form
 msgid "Rebase new revision of BoM with previous eco bom and old bom changes."
 msgstr ""
-"Nueva revisión de transferencia de base de LdM con LdM de órdenes de cambio "
-"de ingeniería anteriores y cambios de LdM antiguos."
+"Modifique la nueva revisión de la LdM con la lista de la orden de cambio de "
+"ingeniería anterior y los cambios pasados."
 
 #. module: mrp_plm
 #: model:ir.model.fields,field_description:mrp_plm.field_mrp_eco_type__alias_force_thread_id
@@ -1800,8 +1798,8 @@ msgid ""
 msgstr ""
 "El modelo (tipo de documento de Odoo) al que corresponde este seudónimo. "
 "Cualquier correo entrante que no sea respuesta a un registro existente "
-"causará la creación de un nuevo registro de este modelo (por ejemplo, una "
-"tarea de proyecto)."
+"creará un nuevo registro de este modelo (por ejemplo, una tarea de "
+"proyecto)."
 
 #. module: mrp_plm
 #: model:ir.model.fields,help:mrp_plm.field_mrp_eco_type__alias_name

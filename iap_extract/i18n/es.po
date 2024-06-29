@@ -76,7 +76,7 @@ msgstr "Clase base para extraer datos de documentos"
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_can_show_send_button
 msgid "Can show the ocr send button"
-msgstr "Puede mostrar el botón de reenvío OCR"
+msgstr "Puede mostrar el botón de envío de OCR"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__done
@@ -120,7 +120,7 @@ msgstr "Estado del extracto procesado"
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_state
 msgid "Extract state"
-msgstr "Extraer estado"
+msgstr "Estado del extracto"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_status
@@ -281,8 +281,8 @@ msgid ""
 "The 'invoice_ocr' IAP account token is invalid. Please delete it to let Odoo"
 " generate a new one or fill it with a valid token."
 msgstr ""
-"El token de la cuenta IAP 'invoice_ocr' no es válido. Bórrelo para permitir "
-"que Odoo genere uno nuevo o llene con un token válido."
+"El token de la cuenta IAP 'invoice_ocr' no es válido. Elimínelo para "
+"permitir que Odoo genere uno nuevo o ingrese un token válido."
 
 #. module: iap_extract
 #. odoo-python
@@ -296,7 +296,7 @@ msgstr "No se pudo encontrar el documento."
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The document has been rejected because it is too small"
-msgstr "Se rechazó el documento porque es muy pequeño"
+msgstr "Se ha rechazado el documento porque es muy pequeño"
 
 #. module: iap_extract
 #. odoo-python
@@ -359,4 +359,4 @@ msgstr "Su documento contiene muchas páginas"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__extract_not_ready
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__extract_not_ready
 msgid "waiting extraction, but it is not ready"
-msgstr "En espera de extracción, pero no está lista"
+msgstr "en espera de extracción, pero no está lista"

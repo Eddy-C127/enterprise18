@@ -5,13 +5,13 @@
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # 稀饭~~ <wangwhai@qq.com>, 2024
-# Chloe Wang, 2024
 # Yazi Tian, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
 # Emily Jia <eji@odoo.com>, 2024
 # Jeffery CHEN <jeffery9@gmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-04 14:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -144,7 +144,7 @@ msgstr ", 只显示未核对的分录"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid ", leading to an unexplained difference of"
-msgstr ""
+msgstr "，导致出现无法解释的差异"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -1168,7 +1168,7 @@ msgstr "自定义处理程序模型名称"
 msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
-msgstr ""
+msgstr "自订引擎_report_custom_engine_last_statement_balance_amount 不支持分组方式"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1278,7 +1278,7 @@ msgstr "折旧"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "税项四舍五入差额"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
@@ -1958,7 +1958,7 @@ msgstr "包括分析模拟"
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "包括未对账付款"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
@@ -3369,14 +3369,14 @@ msgstr "使用该税务单位对您公司税务报告申报进行分组的国家
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "The currency rate cannot be equal to zero"
-msgstr ""
+msgstr "货币汇率不能等于零"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "以下项目得目前结余："
 
 #. module: account_reports
 #. odoo-javascript
@@ -3546,7 +3546,7 @@ msgstr "该报告仅显示活跃公司的数据。"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This subformula references an unknown expression: %s"
-msgstr ""
+msgstr "该子公式引用了未知表达式：%s"
 
 #. module: account_reports
 #. odoo-python
@@ -3602,7 +3602,7 @@ msgstr "贸易伙伴"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "无结单交易"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3888,7 +3888,7 @@ msgstr "无法为锁定的期间生成条目。"
 msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
-msgstr ""
+msgstr "您无法将此结账记录重置为草稿状态，因为系统中已有更新日期较晚的其他结账记录。"
 
 #. module: account_reports
 #. odoo-python
@@ -3945,7 +3945,7 @@ msgstr "期间后天数"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "不匹配您以下项目得结余："
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -3962,7 +3962,7 @@ msgstr "每4个月"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "的期初余额，与上一个期末余额不同。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4085,7 +4085,7 @@ msgstr "从上一期间结转至该行。"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "，它不是由银行结单或付款而来。"
 
 #. module: account_reports
 #. odoo-javascript

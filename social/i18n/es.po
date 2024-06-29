@@ -525,12 +525,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:social.selection__social_live_post__state__failed
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "Failed"
-msgstr "Fallido"
+msgstr "Con error"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_live_post__failure_reason
 msgid "Failure Reason"
-msgstr "Razón del fallo"
+msgstr "Razón del error"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_stream_post
@@ -597,7 +597,7 @@ msgstr "Agrupar por"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__social_account_handle
 msgid "Handle / Short Name"
-msgstr "Manipulador / Nombre corto"
+msgstr "Nombre de usuario"
 
 #. module: social
 #. odoo-javascript
@@ -949,7 +949,7 @@ msgid ""
 "Most social.live.posts directly go from Ready to Posted/Failed since they result of a single call to the third party API.\n"
 "        A 'Posting' state is also available for those that are sent through batching (like push notifications)."
 msgstr ""
-"La mayoría de las publicaciones en vivo de redes sociales van directo a Publicado/Error ya que son el resultado de una sola llamada a la API externa.\n"
+"La mayoría de social.live.posts van directo a Publicado/Error ya que son el resultado de una sola llamada a la API externa.\n"
 "También está disponible un estado de \"publicando\" para todas las que se envían por lotes (como las notificaciones push)."
 
 #. module: social
@@ -1677,8 +1677,8 @@ msgid ""
 "The post is considered as 'Posted' when all its sub-posts (one per social "
 "account) are either 'Failed' or 'Posted'"
 msgstr ""
-"Se considera \"publicada\" cuando todas las publicaciones subordinadas (una "
-"por cuenta de red social) tuvieron un error o se publicaron."
+"Se cuenta como \"publicado\" cuando todas las publicaciones subordinadas (en"
+" cada red social) están en 'Error' o 'Publicado'"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__published_date
@@ -1789,7 +1789,7 @@ msgid ""
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
 "Utilizado para hacer comparaciones cuando necesitamos restringir algunas "
-"características para una red social específica ('facebook', 'twitter', ...)."
+"funciones para una red social específica ('facebook', 'twitter', ...)."
 
 #. module: social
 #. odoo-javascript

@@ -48,7 +48,7 @@ msgstr "# Aumentos brutos"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__depreciation_entries_count
 msgid "# Posted Depreciation Entries"
-msgstr "# Asientos de depreciación registrados"
+msgstr "# Asientos de depreciación publicados"
 
 #. module: account_asset
 #. odoo-python
@@ -92,7 +92,7 @@ msgstr "(incl."
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A depreciation entry will be posted on and including the date %s."
-msgstr "Se registrará un asiento de depreciación en y con la fecha %s."
+msgstr "Se publicará un asiento de depreciación en y con la fecha %s."
 
 #. module: account_asset
 #. odoo-python
@@ -103,7 +103,7 @@ msgid ""
 "Future entries will be recomputed to depreciate the asset following the "
 "changes."
 msgstr ""
-"Se registrará un asiento de depreciación en y con la fecha %s. <br/> %s Los "
+"Se publicará un asiento de depreciación en y con la fecha %s. <br/> %s Los "
 "asientos futuros se recalcularán para depreciar el activo después de los "
 "cambios."
 
@@ -115,8 +115,8 @@ msgid ""
 "A depreciation entry will be posted on and including the date %s.<br/> A "
 "disposal entry will be posted on the %s account <b>%s</b>."
 msgstr ""
-"Se registrará un asiento de depreciación en y con la fecha %s.<br/> Se "
-"registrará un asiento de enajenación en la cuenta %s <b>%s</b>."
+"Se publicará un asiento de depreciación en y con la fecha %s.<br/> Se "
+"publicará un asiento de enajenación en la cuenta %s <b>%s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -127,9 +127,9 @@ msgid ""
 "second entry will neutralize the original income and post the  outcome of "
 "this sale on account <b>%s</b>."
 msgstr ""
-"Se registrará un asiento de depreciación en y con la fecha %s.<br/> Un "
-"segundo asiento neutralizará el ingreso original y registrará el resultado "
-"de esta venta en la cuenta <b>%s</b>."
+"Se publicará un asiento de depreciación en y con la fecha %s.<br/> Un "
+"segundo asiento neutralizará el ingreso original y publicará el resultado de"
+" esta venta en la cuenta <b>%s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -303,7 +303,7 @@ msgstr "Todas las líneas deben ser de la misma cuenta"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "All the lines should be posted"
-msgstr "Todas las líneas deben estar registradas"
+msgstr "Todas las líneas deben estar publicadas"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__already_depreciated_amount_import
@@ -842,7 +842,7 @@ msgstr "Tabla de depreciación modificada %s"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "Depreciation entry %s posted (%s)"
-msgstr "Entrada de depreciación %s registrada (%s)"
+msgstr "Entrada de depreciación %s publicada (%s)"
 
 #. module: account_asset
 #. odoo-python
@@ -1055,7 +1055,7 @@ msgid ""
 "Journal Items on this account are posted."
 msgstr ""
 "Si se selecciona esta opción, se creará automáticamente un gasto/ingreso "
-"cuando se registren los apuntes contables en esta cuenta."
+"cuando se publiquen los apuntes contables en esta cuenta."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__already_depreciated_amount_import
@@ -1332,7 +1332,7 @@ msgstr "Número de días"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__total_depreciation_entries_count
 msgid "Number of depreciation entries (posted or not)"
-msgstr "Número de asientos de depreciación (registrados o no)"
+msgstr "Número de asientos de depreciación (publicados o no)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_error_counter
@@ -1401,7 +1401,7 @@ msgstr "Duración del periodo"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Posted Entries"
-msgstr "Asientos registrados"
+msgstr "Asientos publicados"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__prorata_date
@@ -1464,8 +1464,8 @@ msgid ""
 "Reverse the depreciation entries posted in the future in order to modify the"
 " depreciation"
 msgstr ""
-"Revierta los asientos de depreciación registrados en el futuro para "
-"modificar la depreciación"
+"Revierta los asientos de depreciación publicados en el futuro para modificar"
+" la depreciación"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
@@ -1655,7 +1655,7 @@ msgid ""
 "There are unposted depreciations prior to the selected operation date, "
 "please deal with them first."
 msgstr ""
-"Hay depreciaciones no registradas anteriores a la fecha de operación "
+"Hay depreciaciones no publicadas anteriores a la fecha de operación "
 "seleccionada, resuélvalo primero."
 
 #. module: account_asset
@@ -1746,7 +1746,7 @@ msgid ""
 "By cancelling an asset, all depreciation entries will be reversed"
 msgstr ""
 "Cuando se crea un activo, el estado es \"Borrador\".\n"
-"Si el activo se confirma, el estado pasa a \"En proceso\" y las líneas de depreciación pueden registrarse en la contabilidad.\n"
+"Si el activo se confirma, el estado pasa a \"En proceso\" y las líneas de depreciación pueden publicarse en la contabilidad.\n"
 "El estado de \"En espera\" se puede establecer de forma manual cuando desee pausar la depreciación de un activo durante algún tiempo.\n"
 "Puede cerrar manualmente un activo cuando termina la depreciación.\n"
 "Al cancelar un activo, los asientos de depreciación se revertirán."
@@ -1765,8 +1765,8 @@ msgid ""
 "You can't post an entry related to a draft asset. Please post the asset "
 "before."
 msgstr ""
-"No puede registrar un asiento relacionado con un activo en borrador. Por "
-"favor, registre el activo antes."
+"No puede publicar un asiento relacionado con un activo en borrador. Por "
+"favor, publique el activo antes."
 
 #. module: account_asset
 #. odoo-python
@@ -1836,8 +1836,7 @@ msgstr "No puede disponer de un activo antes de la fecha de bloqueo."
 #, python-format
 msgid "You cannot reset to draft an entry related to a posted asset"
 msgstr ""
-"No puede restablecer a borrador un asiento relacionado a un activo "
-"registrado"
+"No puede restablecer a borrador un asiento relacionado a un activo publicado"
 
 #. module: account_asset
 #. odoo-python

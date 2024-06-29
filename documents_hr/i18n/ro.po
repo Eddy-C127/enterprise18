@@ -8,6 +8,7 @@
 # Dorin Hongu <dhongu@gmail.com>, 2024
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
 # Claudia Baisan, 2024
+# Betty Keresztesi, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Claudia Baisan, 2024\n"
+"Last-Translator: Betty Keresztesi, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +31,9 @@ msgid ""
 "                                Default tags\n"
 "                            </span>"
 msgstr ""
+"<span name=\"documents_hr_tags\" class=\"o_form_label\" invisible=\"1\">\n"
+"                                Etichete implicite\n"
+"                            </span>"
 
 #. module: documents_hr
 #: model:mail.template,body_html:documents_hr.mail_template_document_folder_link
@@ -50,6 +54,21 @@ msgid ""
 "    </tbody></table>\n"
 "                "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
+"        <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
+"            Dear <t t-esc=\"object.name\"></t>, your personal documents access link is available for you.<br><br>\n"
+"            You'll find all your personal HR documents in this folder.<br><br>\n"
+"            Please keep this link secure.<br><br>\n"
+"            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
+"                <a t-attf-href=\"{{ object.documents_share_id.full_url }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                    Your Documents\n"
+"                </a>\n"
+"            </div>\n"
+"            Have a nice day,<br>\n"
+"            The HR Team\n"
+"        </td></tr>\n"
+"    </tbody></table>\n"
+"                "
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_hr_documents_absences
@@ -125,6 +144,8 @@ msgid ""
 "Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
+"Utilizatorul asociat al angajatului și e-mailul privat trebuie să fie setate pentru a utiliza funcția \"Trimite link de acces\":\n"
+"%s"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_hr_documents_employees
@@ -156,7 +177,7 @@ msgstr "Resurse Umane"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__private_email
 msgid "Private Email"
-msgstr "Email Privat "
+msgstr "Email Privat"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
@@ -174,6 +195,8 @@ msgid ""
 "Send a share link to the private email of the employee with all the HR files"
 " he owns in Documents app"
 msgstr ""
+"Trimiteți un link de partajare la adresa privată de e-mail a angajatului cu "
+"toate fișierele HR pe care le deține în aplicația Documente"
 
 #. module: documents_hr
 #: model:mail.template,description:documents_hr.mail_template_document_folder_link
@@ -205,16 +228,18 @@ msgid ""
 "You must set a work contact address on the Employee in order to use "
 "Document's features."
 msgstr ""
+"Trebuie să setați o adresă de contact la locul de muncă al angajatului "
+"pentru a putea utiliza funcțiile Documentului."
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_folder
 msgid "hr Workspace"
-msgstr "Spațiu de Lucru HR"
+msgstr "spațiu de Lucru HR"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_folder
 msgid "hr default workspace"
-msgstr "Spațiu de Lucru Implicit HR"
+msgstr "spațiu de Lucru Implicit HR"
 
 #. module: documents_hr
 #: model:mail.template,subject:documents_hr.mail_template_document_folder_link

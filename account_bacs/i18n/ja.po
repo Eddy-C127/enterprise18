@@ -853,14 +853,26 @@ msgid "Service user number"
 msgstr "サービスユーザ番号"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service user number of your company within BACS"
 msgstr "BACS内の貴社サービスユーザ番号"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if you "
+"bank does not provide one."
+msgstr "BACSのサービスユーザ番号。銀行が提供していない場合は、ここに 'HSBC' と記入して下さい。"
+
+#. module: account_bacs
 msgid "Service user number of your company within BACS, given by the bank."
 msgstr "銀行が提供するBACS内の貴社サービスユーザ番号。"
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+msgid ""
+"Service user number of your company within BACS, given by the bank. Write "
+"'HSBC' here if your bank does not provide one."
+msgstr "銀行が提供するBACSのサービスユーザ番号。銀行が提供していない場合は、ここに 'HSBC' と記入して下さい。"
 
 #. module: account_bacs
 #. odoo-python
@@ -998,6 +1010,14 @@ msgstr "サービス利用者番号は6文字にして下さい。"
 #, python-format
 msgid "The service user number must be numeric."
 msgstr "サービスユーザ番号は数字にして下さい。"
+
+#. module: account_bacs
+#. odoo-python
+#: code:addons/account_bacs/models/res_company.py:0
+#, python-format
+msgid ""
+"The service user number must be numeric, or 'HSBC' if you don't have any."
+msgstr "サービスユーザ番号は数字でなければならず、なければ'HSBC'となります。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state

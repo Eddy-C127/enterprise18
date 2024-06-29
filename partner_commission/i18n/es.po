@@ -195,7 +195,7 @@ msgstr ""
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_purchase_order__invoice_commission_count
 msgid "Invoices that have generated commissions included in this order"
-msgstr "Las facturas que han generado comisiones incluyen esta orden"
+msgstr "Facturas que han generado comisiones que se incluyen en este pedido"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_account_move
@@ -277,12 +277,12 @@ msgstr "Solamente documentos propios"
 #. module: partner_commission
 #: model:ir.actions.server,name:partner_commission.cron_confirm_purchase_orders_ir_actions_server
 msgid "Partner Commission: confirm purchase orders"
-msgstr "Comisión de contacto: confirmar pedidos de compra"
+msgstr "Comisión de socio: confirmar pedidos de compra"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_res_partner_grade
 msgid "Partner Grade"
-msgstr "Nivel del partner"
+msgstr "Nivel del socio"
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -319,7 +319,7 @@ msgstr "Categoría de producto"
 #. module: partner_commission
 #: model:ir.model.fields,field_description:partner_commission.field_commission_plan__product_id
 msgid "Purchase Default Product"
-msgstr "Productos predeterminados de compra"
+msgstr "Productos por defecto para compras"
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_purchase_order
@@ -403,7 +403,7 @@ msgstr "Secuencia"
 #: model:ir.model.fields,field_description:partner_commission.field_purchase_order__invoice_commission_count
 #: model_terms:ir.ui.view,arch_db:partner_commission.purchase_order_form_inherit_partner_commission
 msgid "Source Invoices"
-msgstr "Factura fuente"
+msgstr "Facturas de origen "
 
 #. module: partner_commission
 #: model:ir.model,name:partner_commission.model_sale_subscription_report
@@ -423,9 +423,8 @@ msgid ""
 "The commission partner order %s must be checked manually (especially refund "
 "lines which can be duplicated)."
 msgstr ""
-"Se debe revisar la orden de comisión %s del socio de forma manual (con "
-"especial atención en las líneas del reembolso, ya que pueden estar "
-"duplicadas)."
+"El pedido %s con comisión para el socio debe comprobarse manualmente "
+"(especialmente las líneas de reembolso que pueden estar duplicadas)."
 
 #. module: partner_commission
 #: model:ir.model.fields,help:partner_commission.field_res_partner_grade__default_commission_plan_id
@@ -434,7 +433,7 @@ msgid ""
 "partner form."
 msgstr ""
 "El plan de comisión por defecto utilizado para este grado. Se puede "
-"sobrescribir en el formulario de contacto."
+"sobrescribir en el formulario de socio."
 
 #. module: partner_commission
 #: model_terms:ir.ui.view,arch_db:partner_commission.res_config_settings_view_form
@@ -462,4 +461,4 @@ msgid ""
 "won't automatically be updated according to the partner level."
 msgstr ""
 "Si el plan de comisión está congelado. Cuando se marca, el plan de comisión "
-"no se actualizará automáticamente de acuerdo con el nivel de contacto."
+"no se actualizará automáticamente de acuerdo con el nivel de socio."

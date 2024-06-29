@@ -72,7 +72,7 @@ msgid ""
 "Receipt - %s' %(object.name)) or 'Order - %s' % (object.name)"
 msgstr ""
 "(object.rental_status not in ('draft', 'sent') and 'Recibo de entrega o "
-"devolución - %s' %(object.name)) or 'Orden - %s' % (object.name)"
+"devolución - %s' %(object.name)) or 'Pedido - %s' % (object.name)"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
@@ -148,7 +148,7 @@ msgstr ""
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
 msgid "<strong>Order # — </strong>"
-msgstr "<strong>Número de Orden — </strong>"
+msgstr "<strong>Número de pedido — </strong>"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
@@ -308,7 +308,8 @@ msgstr "Configuración"
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Confirm the order when the customer agrees with the terms."
-msgstr "Confirme la orden cuando el cliente está de acuerdo con los términos."
+msgstr ""
+"Confirme el pedido cuando el cliente está de acuerdo con los términos."
 
 #. module: sale_renting
 #. odoo-javascript
@@ -346,7 +347,7 @@ msgstr "Crear una nueva recurrencia"
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.action_rental_report
 msgid "Create a new rental order"
-msgstr "Crear una nueva orden de alquiler"
+msgstr "Crear un nuevo pedido de alquiler"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_product_template_action
@@ -701,7 +702,7 @@ msgstr "Devolución tardía"
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 #, python-format
 msgid "Let's now create an order."
-msgstr "Ahora creamos una orden."
+msgstr "Ahora creamos un pedido."
 
 #. module: sale_renting
 #: model:product.template,name:sale_renting.rental_product_2_product_template
@@ -779,7 +780,7 @@ msgid ""
 "Once the quotation is confirmed, it becomes a rental order.<br> You will be "
 "able to create an invoice and collect the payment."
 msgstr ""
-"Una vez que el cliente confirme el presupuesto, se transformará en una orden"
+"Una vez que el cliente confirme el presupuesto, se transformará en un pedido"
 " de alquiler.<br> Podrá crear una factura y cobrar el pago."
 
 #. module: sale_renting
@@ -794,34 +795,34 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard__order_id
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_view_search
 msgid "Order"
-msgstr "Orden"
+msgstr "Pedido"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_report__order_id
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__order_id
 msgid "Order #"
-msgstr "Orden #"
+msgstr "Pedido #"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__order_date
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_search
 msgid "Order Date"
-msgstr "Fecha de la orden"
+msgstr "Fecha del pedido"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard_line__order_line_id
 msgid "Order Line"
-msgstr "Línea de orden"
+msgstr "Línea de pedido"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__name
 msgid "Order Reference"
-msgstr "Referencia de la orden"
+msgstr "Referencia del pedido"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__order_line_id
 msgid "Order line #"
-msgstr "Número de línea de orden"
+msgstr "Número de línea de pedido"
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.rental_order_menu
@@ -1090,7 +1091,7 @@ msgstr "Informe de análisis de alquiler"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_form
 msgid "Rental Order"
-msgstr "Orden de alquiler"
+msgstr "Pedido de alquiler"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard_line__rental_order_wizard_id
@@ -1306,7 +1307,7 @@ msgstr "Guarde el producto"
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.menu_rental_schedule
 msgid "Schedule"
-msgstr "Planificación"
+msgstr "Programar"
 
 #. module: sale_renting
 #. odoo-python
@@ -1437,7 +1438,7 @@ msgid ""
 "This is the default extra cost per day set on newly created products. You "
 "can change this value for existing products directly on the product itself."
 msgstr ""
-"Este es el coste adicional por día predeterminado en los productos recién "
+"Este es el coste adicional por día por defecto en los productos recién "
 "creados. Puede cambiar este valor para los productos existentes directamente"
 " en el producto."
 
@@ -1447,7 +1448,7 @@ msgid ""
 "This is the default extra cost per hour set on newly created products. You "
 "can change this value for existing products directly on the product itself."
 msgstr ""
-"Este es el coste predeterminado adicional por hora en los productos recién "
+"Este es el coste adicional por hora por defecto en los productos recién "
 "creados. Puede cambiar este valor para los productos existentes directamente"
 " en el producto."
 
@@ -1617,7 +1618,7 @@ msgid ""
 msgstr ""
 "Puede buscar un periodo más amplio utilizando los filtros de arriba\n"
 "                <br>\n"
-"                o crear una nueva orden de alquiler."
+"                o crear un nuevo pedido de alquiler."
 
 #. module: sale_renting
 #. odoo-python

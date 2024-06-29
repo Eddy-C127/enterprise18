@@ -78,7 +78,7 @@ msgstr "Ya existe un retuit"
 #: code:addons/social_twitter/controllers/main.py:0
 #, python-format
 msgid "Authentication failed. Please enter valid credentials."
-msgstr "Autenticación fallida. Por favor, introduzca credenciales válidas."
+msgstr "Ocurrió un error con la autenticación. Ingrese credenciales válidas."
 
 #. module: social_twitter
 #. odoo-javascript
@@ -295,7 +295,7 @@ msgstr "Por favor, seleccione una cuenta de Twitter para este tipo de flujo."
 #: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 #, python-format
 msgid "Post"
-msgstr "Publicar"
+msgstr "Publicación"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.twitter_preview
@@ -605,7 +605,7 @@ msgstr "Twitter no proporcionó un token de acceso válido o ya expiró."
 #: code:addons/social_twitter/controllers/main.py:0
 #, python-format
 msgid "Twitter did not provide a valid access token."
-msgstr "Twitter no le dio un token de acceso válido."
+msgstr "Twitter no proporcionó un token de acceso válido."
 
 #. module: social_twitter
 #: model:ir.model.fields,field_description:social_twitter.field_social_live_post__twitter_tweet_id
@@ -626,6 +626,8 @@ msgstr "Deshacer retuit"
 
 #. module: social_twitter
 #. odoo-javascript
+#. odoo-python
+#: code:addons/social_twitter/models/social_stream.py:0
 #: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 #, python-format
 msgid "Unknown"
@@ -651,7 +653,7 @@ msgid ""
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
 "Utilizado para hacer comparaciones cuando necesitamos restringir algunas "
-"características para una red social específica ('facebook', 'twitter', ...)."
+"funciones para una red social específica ('facebook', 'twitter', ...)."
 
 #. module: social_twitter
 #. odoo-python

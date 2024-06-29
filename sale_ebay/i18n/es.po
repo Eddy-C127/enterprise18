@@ -41,8 +41,8 @@ msgid ""
 " You need to have at least 2 variations selected for a multi-variations listing.\n"
 " Or if you try to delete a variation, you cannot do it by unselecting it. Setting the quantity to 0 is the safest method to make a variation unavailable."
 msgstr ""
-"Debe seleccionar al menos 2 variantes para un listado multi-variante.\n"
-"O, si intenta borrar una variante, no es posible hacerlo simplemente deseleccionándola. El método más seguro es fijar la cantidad a 0 para que la variante no esté disponible."
+"Debe seleccionar al menos 2 variantes para tener un anuncio con múltiples variantes.\n"
+"O, si intenta eliminar una variación, no es suficiente con desmarcarla. El método más seguro para eliminar una variación es establecer la cantidad en 0. "
 
 #. module: sale_ebay
 #: model:ir.model.fields.selection,name:sale_ebay.selection__product_template__ebay_listing_duration__days_10
@@ -105,7 +105,7 @@ msgstr "Subasta"
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_buy_it_now_price
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_buy_it_now_price
 msgid "Buy It Now Price"
-msgstr "Precio de comprarlo ahora"
+msgstr "Precio de \"¡Cómpralo ya!\""
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.ebay_link_listing_view
@@ -282,7 +282,7 @@ msgstr "Ebay: actualizar categorías"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
 msgid "End Item's Listing"
-msgstr "Fin de lista de elementos"
+msgstr "Finalizar el anuncio de un artículo"
 
 #. module: sale_ebay
 #. odoo-python
@@ -354,8 +354,7 @@ msgstr "Si se activa, puede utilizarse para eBay."
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Import eBay config data and sync transactions"
-msgstr ""
-"Importar datos de configuración y transacciones de sincronización de Ebay"
+msgstr "Importar datos de configuración y sincronizar transacciones de eBay"
 
 #. module: sale_ebay
 #. odoo-python
@@ -365,8 +364,8 @@ msgid ""
 "Impossible to revise a listing into a multi-variations listing.\n"
 " Create a new listing."
 msgstr ""
-"Imposible cambiar una lista a una lista de múltiples variantes.\n"
-"Crear una nueva lista."
+"Es imposible transformar un anuncio en un anuncio con distintas variantes.\n"
+"Cree un anuncio nuevo."
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_item_condition_id
@@ -406,7 +405,7 @@ msgstr "Categoría de productos"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.ebay_link_listing_view
 msgid "Link Existing Listing"
-msgstr "Enlazar lista existente"
+msgstr "Enlace a un anuncio existente"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view

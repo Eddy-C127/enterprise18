@@ -136,7 +136,7 @@ msgstr "Vista previa de Linkedin"
 #. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_social_stream_post__linkedin_author_vanity_name
 msgid "LinkedIn Vanity Name"
-msgstr "Nombre personalizado de LinkedIn"
+msgstr "Nombre Vanity de LinkedIn"
 
 #. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_social_account__linkedin_access_token
@@ -163,7 +163,7 @@ msgstr "URL de la imagen del autor de LinkedIn"
 #: code:addons/social_linkedin/controllers/main.py:0
 #, python-format
 msgid "LinkedIn did not provide a valid access token."
-msgstr "LinkedIn no le dio un token de acceso válido."
+msgstr "LinkedIn no proporcionó un token de acceso válido."
 
 #. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_social_stream_post__linkedin_post_urn
@@ -183,7 +183,7 @@ msgstr "Tipo de medios"
 #. module: social_linkedin
 #: model_terms:ir.ui.view,arch_db:social_linkedin.linkedin_preview
 msgid "Post Image"
-msgstr "Imagen de la publicación"
+msgstr "Publicar imagen"
 
 #. module: social_linkedin
 #: model:social.stream.type,name:social_linkedin.stream_type_linkedin_company_post
@@ -235,7 +235,7 @@ msgstr "Publicación en un flujo social"
 #. module: social_linkedin
 #: model:ir.model.fields,help:social_linkedin.field_social_account__linkedin_access_token
 msgid "The access token is used to perform request to the REST API"
-msgstr "El token de acceso se usa para realizar la petición de la "
+msgstr "El token de acceso se usa para realizar la solicitud de la API REST"
 
 #. module: social_linkedin
 #. odoo-python
@@ -245,8 +245,8 @@ msgid ""
 "The url that this service requested returned an error. Please contact the "
 "author of the app."
 msgstr ""
-"Se obtuvo un error en la dirección URL que este servicio pidió. Contacte al "
-"autor de la aplicación."
+"Ocurrió un error en la URL que este servicio solicitó. Contacte al autor de "
+"la aplicación."
 
 #. module: social_linkedin
 #. odoo-python
@@ -280,12 +280,12 @@ msgid ""
 "specific media ('facebook', 'twitter', ...)."
 msgstr ""
 "Se utiliza para hacer comparaciones cuando necesitamos restringir algunas "
-"características para una red social específica ('facebook', 'twitter', ...)."
+"funciones para una red social específica ('facebook', 'twitter', ...)."
 
 #. module: social_linkedin
 #: model:ir.model.fields,help:social_linkedin.field_social_stream_post__linkedin_author_vanity_name
 msgid "Vanity name, used to generate a link to the author"
-msgstr "Nombre personalizado que se usa para generar un enlace al autor."
+msgstr "Nombre Vanity que se usa para generar un enlace al autor."
 
 #. module: social_linkedin
 #. odoo-python
@@ -296,7 +296,7 @@ msgid ""
 "(error: Failed during upload registering)."
 msgstr ""
 "No pudimos subir su imagen, intente reducir el tamaño y después publíquela "
-"de nuevo (error: fallo durante el registro de la carga)."
+"de nuevo (error: falló durante el registro de la subida)."
 
 #. module: social_linkedin
 #. odoo-python

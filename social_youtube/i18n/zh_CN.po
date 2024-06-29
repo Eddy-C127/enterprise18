@@ -6,8 +6,8 @@
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
-# Chloe Wang, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,6 +171,20 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__create_date
 msgid "Created on"
 msgstr "创建日期"
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description cannot exceed 5000 characters."
+msgstr "描述不能超过 5000 个字符。"
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Description should not contain > or < symbol."
+msgstr "描述不应包含 > 或 < 符号。"
 
 #. module: social_youtube
 #: model:ir.model.fields,field_description:social_youtube.field_social_account_revoke_youtube__display_name
@@ -454,6 +468,20 @@ msgid "There is no channel linked with this YouTube account."
 msgstr "没有与此YouTube帐户关联的频道。"
 
 #. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title cannot exceed 100 characters."
+msgstr "标题不能超过 100 个字符。"
+
+#. module: social_youtube
+#. odoo-python
+#: code:addons/social_youtube/models/social_post.py:0
+#, python-format
+msgid "Title should not contain > or < symbol."
+msgstr "标题不得包含 > 或 < 符号。"
+
+#. module: social_youtube
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid ""
 "To provide our application services, note that we store the following data "
@@ -576,6 +604,13 @@ msgid "Yes, delete it"
 msgstr "是，删除它"
 
 #. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You cannot use '>' or '<' in both title and description."
+msgstr "不能在标题和描述中同时使用 '>' 或 '<' 。"
+
+#. module: social_youtube
 #. odoo-python
 #: code:addons/social_youtube/models/social_media.py:0
 #, python-format
@@ -588,6 +623,20 @@ msgstr "你没有一个有效的订阅。请在这里购买一个:%s"
 #, python-format
 msgid "You have to upload a video when posting on YouTube."
 msgstr "在YouTube上发帖时，您必须上传视频。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a description."
+msgstr "您需要对视频进行描述。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "You need to give your video a title."
+msgstr "您需要给视频提供标题。"
 
 #. module: social_youtube
 #: model:ir.model.fields.selection,name:social_youtube.selection__social_media__media_type__youtube
@@ -750,6 +799,20 @@ msgstr "YouTube没有提供有效的授权码。"
 #: model_terms:ir.ui.view,arch_db:social_youtube.social_account_view_form
 msgid "Your channel name and picture"
 msgstr "您的频道名称和图片"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your description cannot exceed 5000 characters."
+msgstr "您的描述不能超过 5000 个字符。"
+
+#. module: social_youtube
+#. odoo-javascript
+#: code:addons/social_youtube/static/src/js/social_youtube_upload_field.js:0
+#, python-format
+msgid "Your title cannot exceed 100 characters."
+msgstr "标题不能超过 100 个字符。"
 
 #. module: social_youtube
 #. odoo-python

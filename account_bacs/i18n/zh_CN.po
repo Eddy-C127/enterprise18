@@ -5,6 +5,7 @@
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # 湘子 南 <1360857908@qq.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: 湘子 南 <1360857908@qq.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -849,14 +850,26 @@ msgid "Service user number"
 msgstr "服务用户编号"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
 msgid "Service user number of your company within BACS"
 msgstr "贵公司在 BACS 中的服务用户编号"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if you "
+"bank does not provide one."
+msgstr "您的公司在 BACS 系统中的服务用户编号。如果您的银行没有提供，请在此处填写 'HSBC'。"
+
+#. module: account_bacs
 msgid "Service user number of your company within BACS, given by the bank."
 msgstr "银行提供的贵公司在 BACS 系统中的服务用户编号。"
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+msgid ""
+"Service user number of your company within BACS, given by the bank. Write "
+"'HSBC' here if your bank does not provide one."
+msgstr "银行提供的您的公司在 BACS 系统中的服务用户编号。如果您的公司的银行没有提供，请在此处填写 'HSBC'。"
 
 #. module: account_bacs
 #. odoo-python
@@ -994,6 +1007,14 @@ msgstr "服务用户编号必须为 6 个字符。"
 #, python-format
 msgid "The service user number must be numeric."
 msgstr "服务用户编号必须是数字。"
+
+#. module: account_bacs
+#. odoo-python
+#: code:addons/account_bacs/models/res_company.py:0
+#, python-format
+msgid ""
+"The service user number must be numeric, or 'HSBC' if you don't have any."
+msgstr "服务用户编号必须是数字，如果没有，则必须是 'HSBC'。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state
