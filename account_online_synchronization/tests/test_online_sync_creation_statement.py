@@ -199,6 +199,22 @@ class TestSynchStatementCreation(AccountOnlineSynchronizationCommon):
         bnk_stmt_lines = self.BankStatementLine.search([('online_transaction_identifier', '!=', False), ('journal_id', '=', self.gold_bank_journal.id)])
         self.assertEqual(len(bnk_stmt_lines), 2, 'Should only have created two lines')
 
+    @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineLink._fetch_odoo_fin')
+    def test_fetch_transactions_reauth(self, patched_refresh):
+        patched_refresh.side_effect = [
+            {
+                'success': False,
+                'code': 300,
+                'data': {'mode': 'updateCredentials'},
+            },
+            {
+                'access_token': 'open_sesame',
+            },
+        ]
+        self.account_online_account.account_online_link_id.state = 'connected'
+        res = self.account_online_account.account_online_link_id._fetch_transactions()
+        self.assertTrue('account_online_identifier' in res.get('params', {}).get('includeParam', {}))
+
     @patch('odoo.addons.account_online_synchronization.models.account_online.requests')
     def test_fetch_receive_error_message(self, patched_request):
         # We want to test that when we receive an error, a redirectWarning with the correct parameter is thrown

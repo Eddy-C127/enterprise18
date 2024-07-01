@@ -172,7 +172,7 @@ class AccountOnlineAccount(models.Model):
             if not resp_json.get('next_data'):
                 break
             data['next_data'] = resp_json.get('next_data') or {}
-        return not currently_fetching and success
+        return {'success': not currently_fetching and success, 'data': resp_json.get('data', {})}
 
     def _retrieve_transactions(self, date=None, include_pendings=False):
         last_stmt_line = self.env['account.bank.statement.line'].search([
@@ -734,12 +734,24 @@ class AccountOnlineLink(models.Model):
             accounts_to_synchronize = acc
             if not is_cron_running:
                 accounts_not_to_synchronize = self.env['account.online.account']
+                account_to_reauth = False
                 for online_account in acc:
                     # Only get transactions on account linked to a journal
-                    if refresh and online_account.fetching_status not in ('planned', 'processing') and not online_account._refresh():
-                        accounts_not_to_synchronize += online_account
-                        continue
+                    if refresh and online_account.fetching_status not in ('planned', 'processing'):
+                        refresh_res = online_account._refresh()
+                        if not refresh_res['success']:
+                            if refresh_res['data'].get('mode') == 'updateCredentials':
+                                account_to_reauth = online_account
+                            accounts_not_to_synchronize += online_account
+                            continue
                     online_account.fetching_status = 'waiting'
+                if account_to_reauth:
+                    return self._open_iframe(
+                        mode='updateCredentials',
+                        include_param={
+                            'account_online_identifier': account_to_reauth.online_identifier,
+                        },
+                    )
                 accounts_to_synchronize = acc - accounts_not_to_synchronize
                 if not accounts_to_synchronize:
                     return
@@ -994,7 +1006,7 @@ class AccountOnlineLink(models.Model):
     def action_reconnect_account(self):
         return self._open_iframe('reconnect')
 
-    def _open_iframe(self, mode='link'):
+    def _open_iframe(self, mode='link', include_param=None):
         self.ensure_one()
         if self.client_id and self.sudo().refresh_token:
             try:
@@ -1038,4 +1050,7 @@ class AccountOnlineLink(models.Model):
                 for link in existing_link:
                     link._authorize_access(record_access_token)
                 action['params']['includeParam']['recordAccessToken'] = record_access_token
+
+        if include_param:
+            action['params']['includeParam'].update(include_param)
         return action
