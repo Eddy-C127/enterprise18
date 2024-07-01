@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="pos_hr_mobile.LoginScreen" t-inherit="pos_hr.LoginScreen" t-inherit-mode="extension">
-        <xpath expr="//p[hasclass('login-barcode-text')]" position="replace">
-            <p t-if="!hasMobileScanner" class="login-barcode-text">Scan your badge</p>
-            <p t-else="" class="login-barcode-text">Tap to scan</p>
+        <xpath expr="//span[hasclass('login-barcode-text')]" position="replace">
+            <span t-if="!hasMobileScanner" class="login-barcode-text d-flex flex-grow-1 align-items-center">Scan your badge</span>
+            <span t-else="" class="login-barcode-text d-flex flex-grow-1 align-items-center">Tap to scan</span>
         </xpath>
-        <xpath expr="//span[hasclass('mobile-scanner')]" position="attributes">
+        <xpath expr="//button[hasclass('mobile-scanner')]" position="attributes">
             <attribute name="t-on-click">open_mobile_scanner</attribute>
         </xpath>
     </t>

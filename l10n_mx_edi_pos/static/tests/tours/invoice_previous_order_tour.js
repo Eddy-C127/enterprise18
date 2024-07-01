@@ -34,7 +34,7 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
             },
             {
                 content: "Validate",
-                trigger: "div.button.next.validation",
+                trigger: "button.button.next.validation",
                 run: "click",
             },
             {
@@ -121,7 +121,7 @@ registry
                 },
                 {
                     content: "Validate",
-                    trigger: "div.button.next.validation",
+                    trigger: "button.button.next.validation",
                     run: "click",
                 },
                 {

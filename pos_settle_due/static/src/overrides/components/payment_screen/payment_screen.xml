@@ -8,7 +8,7 @@
         <xpath expr="//button[hasclass('partner-button')]" position="attributes">
             <attribute name="t-att-class">
                 { 
-                    'highlight text-bg-primary' : this.highlightPartnerBtn,
+                    'highlight text-action' : this.highlightPartnerBtn,
                     'btn-warning' : this.partnerInfos.overDue and this.partnerInfos.useLimit,
                 }
             </attribute>

@@ -1,7 +1,6 @@
 import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
 import { registry } from "@web/core/registry";
 import * as RestaurantAppointment from "@pos_restaurant_appointment/../tests/tours/utils/restaurant_appointment_util";
-import { back } from "@point_of_sale/../tests/tours/utils/common";
 import * as Chrome from "@point_of_sale/../tests/tours/utils/chrome_util";
 
 registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
@@ -12,8 +11,10 @@ registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
             Dialog.confirm("Open session"),
 
             // Check that the booking gantt view is shown.
-            Chrome.clickMenuButton(),
-            Chrome.clickMenuDropdownOption("Manage Bookings"),
+            {
+                trigger: ".pos-leftheader button:contains('Booking')",
+                run: "click",
+            },
             {
                 content: "Check that the booking gantt view is shown",
                 trigger: ".pos-content .o_action_manager .o_gantt_view",
@@ -22,7 +23,7 @@ registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
                 content: "Close the booking gantt view",
                 trigger: ".o_control_panel:contains('Manage Bookings')",
             },
-            back(),
+            Chrome.clickPlanButton(),
 
             RestaurantAppointment.appointmentLabel(5, "Test Lunch"),
         ].flat(),
