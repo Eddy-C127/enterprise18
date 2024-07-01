@@ -87,14 +87,14 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
 
         # post a regular message: should not send through WhatsApp
         with self.mockWhatsappGateway(), MockRequest(self.env):
-            not_sent_message_data = MailThreadController.mail_message_post(
+            data = MailThreadController.mail_message_post(
                 'discuss.channel', discuss_channel.id,
                 {
                     'body': 'Hello, Did it work?',
                     'message_type': 'whatsapp_message'
                 }
             )
-            not_sent_message = self.env['mail.message'].browse(not_sent_message_data['id'])
+            not_sent_message = self.env["mail.message"].browse(data["Message"][0]["id"])
         self.assertWAMessage("error", fields_values={
             "failure_type": "blacklisted",
             "mail_message_id": not_sent_message,
@@ -124,14 +124,14 @@ class WhatsAppWebhookCase(WhatsAppFullCase, MockIncomingWhatsApp):
         self.assertEqual(blacklist_record.active, False)
 
         with self.mockWhatsappGateway(), MockRequest(self.env):
-            sent_message_data = MailThreadController.mail_message_post(
+            data = MailThreadController.mail_message_post(
                 'discuss.channel', discuss_channel.id,
                 {
                     'body': 'Welcome back!',
                     'message_type': 'whatsapp_message',
                 },
             )
-            sent_message = self.env['mail.message'].browse(sent_message_data['id'])
+            sent_message = self.env["mail.message"].browse(data["Message"][0]["id"])
         self.assertWAMessage("sent", fields_values={
             "failure_type": False,
             "mail_message_id": sent_message,
