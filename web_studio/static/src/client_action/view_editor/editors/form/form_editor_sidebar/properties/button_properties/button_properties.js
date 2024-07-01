@@ -9,9 +9,8 @@ import { Record } from "@web/model/record";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { Many2ManyTagsField } from "@web/views/fields/many2many_tags/many2many_tags_field";
 import { ClassAttribute } from "@web_studio/client_action/view_editor/interactive_editor/properties/class_attribute/class_attribute";
-import { LimitGroupVisibility } from "@web_studio/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility";
+import { ViewStructureProperties } from "@web_studio/client_action/view_editor/interactive_editor/properties/view_structure_properties/view_structure_properties";
 import { RainbowEffect } from "./rainbow_effect";
-import { SidebarPropertiesToolbox } from "@web_studio/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox";
 import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/view_editor_model";
 import { useSnackbarWrapper } from "@web_studio/client_action/view_editor/view_editor_hook";
 import { ModifiersProperties } from "@web_studio/client_action/view_editor/interactive_editor/properties/modifiers/modifiers_properties";
@@ -26,14 +25,13 @@ export class ButtonProperties extends Component {
     static components = {
         CheckBox,
         ClassAttribute,
-        LimitGroupVisibility,
         Many2OneField,
         Many2ManyTagsField,
         RainbowEffect,
         Record,
         SelectMenu,
         Property,
-        SidebarPropertiesToolbox,
+        ViewStructureProperties,
         ModifiersProperties,
     };
 
