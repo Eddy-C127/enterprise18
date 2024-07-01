@@ -303,7 +303,9 @@ QUnit.module(
                         assert.strictEqual(args.model, "documents.share");
                         assert.strictEqual(shareVals.default_folder_id, folderId);
                         assert.strictEqual(shareVals.default_type, "domain");
-                        assert.deepEqual(shareVals.default_domain, [["folder_id", "child_of", folderId]]);
+                        assert.deepEqual(shareVals.default_domain, [
+                            ["folder_id", "child_of", folderId],
+                        ]);
                         assert.deepEqual(shareVals.default_spreadsheet_shares, [
                             {
                                 spreadsheet_data: JSON.stringify(model.exportData()),
