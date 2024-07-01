@@ -35,10 +35,10 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
 
         # Force the closing end date in the past to avoid an error
         today = date.today()
-        end_of_last_month = today + timedelta(days=-today.day)
+        self.end_of_last_month = today + timedelta(days=-today.day)
         self.tax_return_move.write({
-            'date': end_of_last_month,
-            'tax_closing_end_date': end_of_last_month,
+            'date': self.end_of_last_month,
+            'tax_closing_end_date': self.end_of_last_month,
         })
 
     def test_posting_opens_wizard(self):
@@ -60,6 +60,7 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
         }.items())
         self.assertGreaterEqual(action['context'].items(), {
             'l10n_be_reports_generation_options': {},
+            'l10n_be_reports_closing_date': self.end_of_last_month,
             'l10n_be_action_resume_post_move_ids': self.tax_return_move.ids,
         }.items())
 

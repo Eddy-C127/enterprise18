@@ -155,6 +155,8 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
         date_from = dt_from[0:7] + '-01'
         date_to = dt_to[0:7] + '-' + str(calendar.monthrange(int(dt_to[0:4]), int(ending_month))[1])
 
+        deduction_text = self._get_deduction_text(options)
+
         complete_vat = (country_from_vat or (address.country_id and address.country_id.code or "")) + vat_no
         file_data = {
             'issued_by': issued_by,
@@ -176,6 +178,7 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             'ask_restitution': options.get('ask_restitution', False) and 'YES' or 'NO',
             'ask_payment': options.get('ask_payment', False) and 'YES' or 'NO',
             'comment': options.get('comment') or '/',
+            'prorata_deduction': deduction_text,
             'representative_node': _get_xml_export_representative_node(report),
         }
 
@@ -197,6 +200,7 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             {"<ns2:Quarter>%(quarter)s</ns2:Quarter>" if starting_month != ending_month else "<ns2:Month>%(month)s</ns2:Month>"}
             <ns2:Year>%(year)s</ns2:Year>
         </ns2:Period>
+        %(prorata_deduction)s
         <ns2:Data>""") % file_data
 
         grids_list = []
@@ -270,6 +274,10 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             'file_content': rslt.encode(),
             'file_type': 'xml',
         }
+
+    def _get_deduction_text(self, options):
+        # To Override to include deductions in XML
+        return ''
 
     def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
         def _evaluate_check(check_func):
