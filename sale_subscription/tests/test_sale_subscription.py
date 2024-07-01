@@ -2481,7 +2481,6 @@ class TestSubscription(TestSubscriptionCommon):
             subscription_c.unlink()
         # Subscription can be deleted if it is cancel
         subscription_d.action_confirm()
-        subscription_d.set_close()
         subscription_d._action_cancel()
         subscription_d.unlink()
 
@@ -2701,22 +2700,17 @@ class TestSubscription(TestSubscriptionCommon):
         sub_progress_no_invoice._action_cancel()
         self.assertEqual(sub_progress_no_invoice.state, 'cancel')
         with self.assertRaises(ValidationError):
+            # You cannot cancel a subscription that has been invoiced
             sub_paused._action_cancel()
         sub_paused.subscription_state = '6_churn'
-        sub_paused._action_cancel()
-        with self.assertRaises(ValidationError):
-            sub_paused.subscription_state = '4_paused'
-        with self.assertRaises(ValidationError):
-            sub_progress._action_cancel()
+        self.assertEqual(sub_paused.state, 'sale')
         sub_progress.subscription_state = '6_churn'
         sub_progress._action_cancel()
-        with self.assertRaises(ValidationError):
-            sub_progress.subscription_state = '3_progress'
+        sub_progress.set_open()
         action = sub_progress.prepare_renewal_order()
         renewal_so = self.env['sale.order'].browse(action['res_id'])
         renewal_so.action_confirm()
-        self.assertEqual(sub_progress.state, 'cancel')
-        self.assertEqual(sub_progress.subscription_state, '6_churn', "sub was churned")
+        self.assertEqual(sub_progress.subscription_state, '5_renewed', "sub was renewed")
         inv = renewal_so._create_invoices()
         inv._post()
         self.assertEqual(renewal_so.subscription_state, '3_progress')
@@ -2728,6 +2722,7 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(renewal_so.state, 'sale')
         self.assertTrue(renewal_so.locked)
         with self.assertRaises(ValidationError):
+            # You cannot cancel a subscription that has been invoiced
             renewal_so._action_cancel()
 
     def test_renew_different_currency(self):
@@ -3794,3 +3789,44 @@ class TestSubscriptionInvoiceSignature(TestInvoiceSignature, TestSubscription):
             self.assertEqual(pricing_2.price, pricing_1.price)
             self.assertEqual(pricing_2.plan_id, pricing_1.plan_id)
             self.assertEqual(pricing_2.pricelist_id, pricing_1.pricelist_id)
+
+    def test_renewed_churned_canceled(self):
+        context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True}
+        with freeze_time("2024-07-03"):
+            subscription = self.env['sale.order'].with_context(context_no_mail).create({
+                'name': 'TestSubscription',
+                'is_subscription': True,
+                'plan_id': self.plan_month.id,
+                'note': "original subscription description",
+                'partner_id': self.user_portal.partner_id.id,
+                'pricelist_id': self.company_data['default_pricelist'].id,
+                'sale_order_template_id': self.subscription_tmpl.id,
+            })
+            subscription._onchange_sale_order_template_id()
+            subscription.start_date = False
+            subscription.end_date = False
+            self.flush_tracking()
+            subscription.action_confirm()
+            self.flush_tracking()
+            subscription._create_recurring_invoice()
+            self.assertEqual(subscription.invoice_count, 1)
+        with freeze_time("2024-08-03"):
+            action = subscription.prepare_renewal_order()
+            renewal_so = self.env['sale.order'].browse(action['res_id'])
+            self.flush_tracking()
+            renewal_so.action_confirm()
+            self.flush_tracking()
+        with freeze_time("2024-09-03"):
+            # customer never pays (happens when the token is not working).
+            renewal_so.sudo()._cron_subscription_expiration()
+            self.flush_tracking()
+            self.assertEqual(renewal_so.subscription_state, '6_churn')
+            self.assertEqual(subscription.subscription_state, '5_renewed')
+            with self.assertRaises(ValidationError):
+                # You cannot cancel a churned renewed subscription. You can reopen it and cancel it if you want to reopen the parent
+                renewal_so._action_cancel()
+            renewal_so.reopen_order()
+            renewal_so._action_cancel()
+            self.assertFalse(renewal_so.subscription_state, "renewal is canceled")
+            self.assertEqual(renewal_so.state, 'cancel', "renewal is canceled")
+            self.assertEqual(subscription.subscription_state, '3_progress')

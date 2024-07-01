@@ -664,6 +664,8 @@ class SaleOrder(models.Model):
                 order.subscription_state = False
             elif order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + ['5_renewed']:
                 raise ValidationError(_('You cannot cancel a subscription that has been invoiced.'))
+            elif order.subscription_id and order.subscription_state == '6_churn':
+                raise ValidationError(_("You cannot cancel a churned renewed subscription."))
             if order.is_subscription:
                 order.subscription_state = False
         res = super()._action_cancel()
@@ -1069,7 +1071,7 @@ class SaleOrder(models.Model):
                 )
             if order.is_subscription and not (order in incompatible_origin or order.origin_order_id in incompatible_origin):
                 to_open_ids.append(order.id)
-        self.browse(to_open_ids).update({'subscription_state': '3_progress', 'state': 'sale', 'close_reason_id': False, 'locked': False})
+        self.browse(to_open_ids).update({'state': 'sale', 'subscription_state': '3_progress', 'close_reason_id': False, 'locked': False})
 
     @api.model
     def _cron_update_kpi(self):
