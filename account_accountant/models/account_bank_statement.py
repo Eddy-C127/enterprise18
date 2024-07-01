@@ -59,26 +59,16 @@ class AccountBankStatementLine(models.Model):
 
     @api.model
     def _action_open_bank_reconciliation_widget(self, extra_domain=None, default_context=None, name=None, kanban_first=True):
-        context = default_context or {}
-        views = [
-            (self.env.ref('account_accountant.view_bank_statement_line_kanban_bank_rec_widget').id, 'kanban'),
-            (self.env.ref('account_accountant.view_bank_statement_line_tree_bank_rec_widget').id, 'list'),
-        ]
-        helper = Markup("<p class='o_view_nocontent_smiling_face'>{}</p><p>{}</p>").format(
-            _("Nothing to do here!"),
-            _("No transactions matching your filters were found."),
-        )
-        return {
+        action_reference = 'account_accountant.action_bank_statement_line_transactions' + ('_kanban' if kanban_first else '')
+        action = self.env['ir.actions.act_window']._for_xml_id(action_reference)
+
+        action.update({
             'name': name or _("Bank Reconciliation"),
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.bank.statement.line',
-            'context': context,
-            'search_view_id': [self.env.ref('account_accountant.view_bank_statement_line_search_bank_rec_widget').id, 'search'],
-            'view_mode': 'kanban,list' if kanban_first else 'list,kanban',
-            'views': views if kanban_first else views[::-1],
+            'context': default_context or {},
             'domain': [('state', '!=', 'cancel')] + (extra_domain or []),
-            'help': helper,
-        }
+        })
+
+        return action
 
     def action_open_recon_st_line(self):
         self.ensure_one()

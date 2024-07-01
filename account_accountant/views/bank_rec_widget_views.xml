@@ -318,6 +318,42 @@
             <field name="target">new</field>
         </record>
 
+        <!--
+            The action record of Bank Reconciliation has a duplicate one below it with different view_mode (and path).
+            This was needed because the function "_action_open_bank_reconciliation_widget" was expected to return 2 
+            different view_modes namely list,kanban and kanban,list depending on the boolean "kanban_first".
+            The solution of changing the action dict was not useful because the dict view_mode would be erased on page refresh.
+        -->
+        <record id="action_bank_statement_line_transactions" model="ir.actions.act_window">
+            <field name="name">Bank Reconciliation</field>
+            <field name="res_model">account.bank.statement.line</field>
+            <field name="view_mode">list,kanban</field>
+            <field name="search_view_id" ref="view_bank_statement_line_search_bank_rec_widget"/>
+            <field name="view_id" ref="view_bank_statement_line_tree_bank_rec_widget"/>
+            <field name="path">reconciliation_list</field>
+            <field name="domain">[('state', '!=', 'cancel')]</field>
+            <field name="context">{'default_journal_id': active_id, 'search_default_journal_id': active_id}</field>
+            <field name="help" type="html">
+                <p class='o_view_nocontent_smiling_face'>Nothing to do here!</p>
+                <p>No transactions matching your filters were found.</p>
+            </field>
+        </record>
+
+        <record id="action_bank_statement_line_transactions_kanban" model="ir.actions.act_window">
+            <field name="name">Bank Reconciliation</field>
+            <field name="res_model">account.bank.statement.line</field>
+            <field name="view_mode">kanban,list</field>
+            <field name="search_view_id" ref="view_bank_statement_line_search_bank_rec_widget"/>
+            <field name="view_id" ref="view_bank_statement_line_kanban_bank_rec_widget"/>
+            <field name="path">reconciliation</field>
+            <field name="domain">[('state', '!=', 'cancel')]</field>
+            <field name="context">{'default_journal_id': active_id, 'search_default_journal_id': active_id}</field>
+            <field name="help" type="html">
+                <p class='o_view_nocontent_smiling_face'>Nothing to do here!</p>
+                <p>No transactions matching your filters were found.</p>
+            </field>
+        </record>
+
         <record id="view_move_form_bank_rec_widget" model="ir.ui.view">
             <field name="name">account.move.form.bank_rec_widget</field>
             <field name="model">account.move</field>
