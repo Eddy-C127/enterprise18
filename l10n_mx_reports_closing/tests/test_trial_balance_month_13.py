@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=C0326
+import odoo.tests
 
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 from odoo import Command
 from odoo.tests import tagged
+from freezegun import freeze_time
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestL10nMXTrialBalanceMonth13(TestAccountReportsCommon):
+class TestL10nMXTrialBalanceMonth13(TestAccountReportsCommon, odoo.tests.HttpCase):
     """ Testing the MX Trial Balance when there are Month 13 closing entries. """
     @classmethod
     @TestAccountReportsCommon.setup_country('mx')
@@ -250,3 +252,10 @@ class TestL10nMXTrialBalanceMonth13(TestAccountReportsCommon):
             ],
             options,
         )
+
+    def test_tour_trial_balance_month13_date_filter(self):
+        """ This test is created to ensure the date filter for Month 13 keeps working in case the date filter system
+            is refactored, as this module uses a hack to add the Month 13 options with the behavior we want.
+        """
+        with freeze_time('2022-06-01'):
+            self.start_tour("/web", 'trial_balance_month_13_date_filter', login=self.env.user.login)

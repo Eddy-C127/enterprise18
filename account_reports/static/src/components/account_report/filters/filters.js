@@ -335,6 +335,10 @@ export class AccountReportFilters extends Component {
         this.applyFilters("date.period");
     }
 
+    isPeriodSelected(periodType) {
+        return this.controller.options.date.filter.includes(periodType)
+    }
+
     displayPeriod(periodType) {
         const dateTo = DateTime.now();
 

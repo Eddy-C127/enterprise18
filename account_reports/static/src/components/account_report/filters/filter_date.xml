@@ -3,7 +3,7 @@
     <t t-name="account_reports.AccountReportFilterDateSelection">
         <t t-foreach="this.dateFilters(controller.options.date.mode)" t-as="dateFilter" t-key="dateFilter_index">
             <DropdownItem
-                class="{ 'd-flex justify-content-between date_filter': true, 'selected': (controller.options.date.filter.includes(dateFilter.period)) }"
+                class="{ 'd-flex justify-content-between date_filter': true, 'selected': (this.isPeriodSelected(dateFilter.period)) }"
                 onSelected="() => this.selectDateFilter(dateFilter.period, dateFilter.period != controller.options.date.period_type)"
                 closingMode="'none'"
             >

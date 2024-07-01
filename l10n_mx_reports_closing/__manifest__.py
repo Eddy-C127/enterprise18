@@ -19,6 +19,9 @@
         'web.assets_backend': [
             'l10n_mx_reports_closing/static/src/components/**/*',
         ],
+        'web.assets_tests': [
+            'l10n_mx_reports_closing/static/tests/tours/*',
+        ],
     },
     "installable": True,
     "auto_install": True,

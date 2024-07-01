@@ -8,7 +8,7 @@ class L10nMXTrialBalanceCustomHandler(models.AbstractModel):
 
     def _get_custom_display_config(self):
         return {
-            'templates': {
+            'components': {
                 'AccountReportFilters': 'l10n_mx_reports_closing.TrialBalanceFilters',
             },
         }
@@ -37,11 +37,6 @@ class L10nMXTrialBalanceCustomHandler(models.AbstractModel):
         options['date']['date_from'] = last_day_of_fiscalyear_str
         options['date']['date_to'] = last_day_of_fiscalyear_str
         options['date']['string'] = '%s, %s' % (_('Month 13'), last_day_of_fiscalyear.year)
-
-        # We do this to force the date filter box to display 'Month 13, <year>'
-        # instead of 'From: <date>; To: <date>' even when a custom date range is used.
-        # This is a bit hacky but works because of the logic in the `search_template_date_filter` template.
-        del options['date']['period_type']
 
         # Retrieve the options dictionaries corresponding to each column group.
         initial_col_group_key = options['columns'][0]['column_group_key']
