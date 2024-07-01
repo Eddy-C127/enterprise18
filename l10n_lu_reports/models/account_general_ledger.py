@@ -178,5 +178,4 @@ class AccountGeneralLedger(models.AbstractModel):
             {'values': template_vals, 'template': 'l10n_lu_reports.saft_template_inherit_l10n_lu_saft', 'file_type': 'xml'},
             template_vals['errors'],
         )
-        self.env['ir.attachment'].l10n_lu_reports_validate_xml_from_attachment(file_data['file_content'], 'saft')
         return file_data

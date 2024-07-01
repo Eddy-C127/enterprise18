@@ -5,10 +5,10 @@ from freezegun import freeze_time
 
 from odoo.tests import tagged
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
+from odoo.tests.common import test_xsd
 
 
-@tagged('post_install_l10n', 'post_install', '-at_install')
-class TestLTIntrastatReport(TestAccountReportsCommon):
+class TestLTIntrastatReportCommon(TestAccountReportsCommon):
 
     @classmethod
     @TestAccountReportsCommon.setup_country('lt')
@@ -154,16 +154,42 @@ class TestLTIntrastatReport(TestAccountReportsCommon):
         </INSTAT>
         '''
 
-    @freeze_time("2024-01-04 13:54:34")
-    def test_full_export(self):
-        self.inwards_vendor_bill.action_post()
-        self.outwards_customer_invoice.action_post()
-        self.env.cr.flush()
+    def _generate_xml(self):
         options = self._generate_options(self.report, '2022-05-01', '2022-05-31')
         arrivals, dispatches = options['intrastat_type']
         arrivals['selected'], dispatches['selected'] = False, False
         options = self.report.get_options(options)
 
-        full_export_tree = etree.fromstring(self.report_handler.lt_intrastat_export_to_xml(options)['file_content'])
+        return self.report_handler.lt_intrastat_export_to_xml(options)['file_content']
+
+
+@tagged('post_install_l10n', 'post_install', '-at_install')
+class TestLTIntrastatReport(TestLTIntrastatReportCommon):
+
+    @freeze_time("2024-01-04 13:54:34")
+    def test_full_export(self):
+        self.inwards_vendor_bill.action_post()
+        self.outwards_customer_invoice.action_post()
+        self.env.cr.flush()
+
+        full_export_tree = etree.fromstring(self._generate_xml())
         expected_tree = etree.fromstring(self.expected_content_all)
         self.assertXmlTreeEqual(full_export_tree, expected_tree)
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
+class TestLTIntrastatReportXmlValidity(TestLTIntrastatReportCommon):
+
+    # The XSD validator on the website is not correct. For such reason, the
+    # content has been added and updated in a file meanwhile:
+    # 150: - <xsd:element ref="fillingTimeHours" minOccurs="0"/>
+    # 150: + <xsd:element name="fillingTimeHours" type="xsd:integer"/>
+    # 151: - <xsd:element ref="fillingTimeMinutes" minOccurs="0"/>
+    # 151: + <xsd:element name="fillingTimeMinutes" type="xsd:integer"/>
+    # @test_xsd(url='https://intrastat.lrmuitine.lt/docs/instat-v20230419.xsd')
+    @test_xsd(path='l10n_lt_intrastat/data/intrastat.xsd')
+    def test_xml_validity(self):
+        self.inwards_vendor_bill.action_post()
+        self.outwards_customer_invoice.action_post()
+        self.env.cr.flush()
+        return self._generate_xml()

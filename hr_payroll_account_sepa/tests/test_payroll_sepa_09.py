@@ -3,18 +3,16 @@
 import base64
 from lxml import etree
 
-from odoo.addons.hr_payroll_account_sepa.tests.test_payroll_sepa import TestPayrollSEPACreditTransfer
+from odoo.addons.hr_payroll_account_sepa.tests.test_payroll_sepa import TestPayrollSEPACreditTransferCommon
+from odoo.tests.common import test_xsd
 from odoo.tests import tagged
-from odoo.tools.misc import file_path
 
 
-@tagged('post_install', '-at_install')
-class TestPayrollSEPANewCreditTransfer(TestPayrollSEPACreditTransfer):
-
+@tagged('external_l10n', 'post_install', '-at_install', '-standard')
+class TestPayrollSEPANewCreditTransferXmlValidity(TestPayrollSEPACreditTransferCommon):
+    @test_xsd(path='account_sepa/schemas/pain.001.001.09.xsd')
     def test_hr_payroll_account_sepa_09(self):
         self.bank_journal.sepa_pain_version = 'pain.001.001.09'
-        schema_file_path = file_path('account_sepa/schemas/pain.001.001.09.xsd')
-        xmlschema = etree.XMLSchema(etree.parse(schema_file_path))
 
         payslip_employee = self.env['hr.payslip.employees'].create({
             'employee_ids': [(4, self.hr_employee_john.id)]
@@ -31,10 +29,9 @@ class TestPayrollSEPANewCreditTransfer(TestPayrollSEPACreditTransfer):
 
         self.assertTrue(file, 'SEPA payment has not been created!')
 
-        # verify the xml.
         sct_doc = etree.fromstring(base64.b64decode(file))
-        self.assertTrue(xmlschema.validate(sct_doc), self.xmlschema.error_log.last_error)
 
         namespaces = {'ns': 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.09'}
         uetr_text = sct_doc.findtext('.//ns:CdtTrfTxInf/ns:PmtId/ns:UETR', namespaces=namespaces)
         self.assertEqual(uetr_text, self.payslip_run.slip_ids.sepa_uetr)
+        return sct_doc

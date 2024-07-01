@@ -348,7 +348,7 @@ class TestFetchmailServer(TestL10nClEdiCommon):
         move = invoice_form.save()
         # Since the new creation of the account move name, the name must by force to avoid errors
         move.name = 'FAC 000301'
-        move.with_context(skip_xsd=True)._post(soft=False)
+        move._post(soft=False)
         move.l10n_cl_dte_status = 'accepted'
 
         att_name = 'incoming_commercial_accept.xml'
@@ -380,7 +380,7 @@ class TestFetchmailServer(TestL10nClEdiCommon):
         move = invoice_form.save()
         # Since the new creation of the account move name, the name must by force to avoid errors
         move.name = 'FNA 000254'
-        move.with_context(skip_xsd=True)._post(soft=False)
+        move._post(soft=False)
         move.l10n_cl_dte_status = 'accepted'
 
         att_name = 'incoming_commercial_reject.xml'

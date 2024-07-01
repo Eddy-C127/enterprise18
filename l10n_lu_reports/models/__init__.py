@@ -7,7 +7,6 @@ from . import res_company
 from . import account_chart_template
 from . import account_financial_report
 from . import tax_report
-from . import ir_attachment
 from . import account_coa_report
 from . import l10n_lu_tax_report_data
 from . import account_assets_report

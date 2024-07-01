@@ -8,11 +8,9 @@ from markupsafe import Markup, escape
 
 from odoo import _, models
 from odoo.addons.l10n_ec_edi.models.account_move import L10N_EC_VAT_SUBTAXES
-from odoo.addons.l10n_ec_edi.models.ir_attachment import L10N_EC_XSD_INFOS
-from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DTF
 from odoo.tools import float_repr, float_round, html_escape
-from odoo.tools.xml_utils import cleanup_xml_node, validate_xml_from_attachment
+from odoo.tools.xml_utils import cleanup_xml_node
 from pytz import timezone
 from requests.exceptions import ConnectionError as RConnectionError
 from odoo.tools.zeep import Client
@@ -152,14 +150,10 @@ class AccountEdiFormat(models.Model):
     def _l10n_ec_post_move_edi(self, moves):
         res = {}
         for move in moves:
-            xml_string, errors = self._l10n_ec_generate_xml(move)
+            xml_string = self._l10n_ec_generate_xml(move)
 
             # Error management
-            if errors:
-                blocking_level = 'error'
-                attachment = None
-            else:
-                errors, blocking_level, attachment = self._l10n_ec_send_xml_to_authorize(move, xml_string)
+            errors, blocking_level, attachment = self._l10n_ec_send_xml_to_authorize(move, xml_string)
 
             res.update({
                 move: {
@@ -271,7 +265,6 @@ class AccountEdiFormat(models.Model):
         # Generate XML document
         xml_content = self.env['ir.qweb']._render(template, move_info)
         xml_content = cleanup_xml_node(xml_content)
-        errors = self._l10n_ec_validate_with_xsd(xml_content, doc_type)
 
         # Sign the document
         if move.company_id._l10n_ec_is_demo_environment():  # unless we're in a test environment without certificate
@@ -280,7 +273,7 @@ class AccountEdiFormat(models.Model):
             xml_signed = move.company_id.sudo().l10n_ec_edi_certificate_id._action_sign(xml_content)
 
         xml_signed = '<?xml version="1.0" encoding="utf-8" standalone="no"?>' + xml_signed
-        return xml_signed, errors
+        return xml_signed
 
     def _l10n_ec_generate_demo_xml_attachment(self, move, xml_string):
         """
@@ -458,14 +451,6 @@ class AccountEdiFormat(models.Model):
         xml_response = self.env['ir.qweb']._render('l10n_ec_edi.authorization_template', xml_values)
         xml_response = cleanup_xml_node(xml_response)
         return etree.tostring(xml_response, encoding='unicode')
-
-    def _l10n_ec_validate_with_xsd(self, xml_doc, doc_type):
-        try:
-            xsd_name = L10N_EC_XSD_INFOS[doc_type]['name']
-            validate_xml_from_attachment(self.env, xml_doc, xsd_name, prefix='l10n_ec_edi')
-            return []
-        except UserError as e:
-            return [str(e)]
 
     def _l10n_ec_format_number(self, value, decimals=2):
         return float_repr(float_round(value, decimals), decimals)

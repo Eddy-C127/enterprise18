@@ -6,10 +6,10 @@ from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 from odoo import fields
 from odoo.tests import tagged
+from odoo.tests.common import test_xsd
 
 
-@tagged('post_install_l10n', 'post_install', '-at_install')
-class TestNlXafExport(TestAccountReportsCommon):
+class TestNlXafExportCommon(TestAccountReportsCommon):
 
     @classmethod
     @TestAccountReportsCommon.setup_country('nl')
@@ -52,6 +52,10 @@ class TestNlXafExport(TestAccountReportsCommon):
 
         # init_invoice has hardcoded 2019 year's date, we are resetting it to current year's one.
         (partner_a_invoice1 + partner_a_invoice2 + partner_a_invoice3 + partner_b_invoice1 + partner_a_refund + partner_b_bill + partner_a_misc).action_post()
+
+
+@tagged('post_install_l10n', 'post_install', '-at_install')
+class TestNlXafExport(TestNlXafExportCommon):
 
     @freeze_time('2019-12-31')
     def test_xaf_export(self):
@@ -696,8 +700,19 @@ class TestNlXafExport(TestAccountReportsCommon):
             self.env.registry.enter_test_mode(self.cr)
             # Set the batch size to 10 to make sure the generator will iterate more than once.
             self.env['ir.config_parameter'].set_param('l10n_nl_reports.general_ledger_batch_size', 10)
-            xaf_stream = self.env[report.custom_handler_model_name].with_context(skip_xsd=True).l10n_nl_get_xaf(options).get('file_content')
+            xaf_stream = self.env[report.custom_handler_model_name].l10n_nl_get_xaf(options).get('file_content')
             generated_xaf = self.get_xml_tree_from_string(b''.join(xaf_stream))
             self.assertXmlTreeEqual(generated_xaf, expected_xaf)
         finally:
             self.env.registry.leave_test_mode()
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
+class TestNlXafExportXmlValidity(TestNlXafExportCommon):
+    @test_xsd(url='https://www.softwarepakketten.nl/upload/auditfiles/xaf/20140402_AuditfileFinancieelVersie_3_2.zip')
+    def test_xml_validity(self):
+        report = self.env.ref('account_reports.general_ledger_report')
+        options = self._generate_options(report, fields.Date.from_string('2019-01-01'), fields.Date.from_string('2019-12-31'))
+        xaf_stream = self.env[report.custom_handler_model_name].l10n_nl_get_xaf(options).get('file_content')
+        generated_xaf = self.get_xml_tree_from_string(b''.join(xaf_stream))
+        return generated_xaf

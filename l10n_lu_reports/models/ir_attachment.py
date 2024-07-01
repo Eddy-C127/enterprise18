@@ -34,7 +34,3 @@ class IrAttachment(models.Model):
         # EXTENDS account/models/ir_attachment.py
         self._l10n_lu_reports_load_xsd_files()
         super().action_download_xsd_files()
-
-    @api.model
-    def l10n_lu_reports_validate_xml_from_attachment(self, xml_content, document_type):
-        return tools.validate_xml_from_attachment(self.env, xml_content, XSD_INFO[document_type]['name'], prefix=XSD_INFO[document_type]['prefix'])

@@ -53,7 +53,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             {'values': template_vals, 'template': 'l10n_dk_reports.saft_template', 'file_type': 'xml'},
             template_vals['errors'],
         )
-        self.env['ir.attachment'].l10n_dk_saft_validate_xml_from_attachment(file_data['file_content'])
         return file_data
 
     @api.model

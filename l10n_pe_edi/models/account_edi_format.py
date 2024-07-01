@@ -328,10 +328,6 @@ class AccountEdiFormat(models.Model):
         signature_str = self.env['ir.qweb']._render('l10n_pe_edi.ubl_pe_21_signature_template', {'digest_value': ''})
         signature_element.getparent().replace(signature_element, objectify.fromstring(signature_str))
 
-        error = self.env['ir.attachment']._l10n_pe_edi_check_with_xsd(edi_tree_copy, latam_document_type)
-        if error:
-            return {'error': "<b>%s</b><br/>%s" % (_('XSD validation failed:'), html_escape(error)), 'blocking_level': 'error'}
-
         dbuuid, iap_server_url, iap_token = self._l10n_pe_edi_get_iap_params(company)
 
         rpc_params = {
@@ -621,9 +617,6 @@ class AccountEdiFormat(models.Model):
         # Sign the document.
         edi_tree = objectify.fromstring(edi_str)
         edi_tree = company.l10n_pe_edi_certificate_id.sudo()._sign(edi_tree)
-        error = self.env['ir.attachment']._l10n_pe_edi_check_with_xsd(edi_tree, latam_document_type)
-        if error:
-            return {'error': _('XSD validation failed: %s', error), 'blocking_level': 'error'}
         edi_str = etree.tostring(edi_tree, xml_declaration=True, encoding='ISO-8859-1')
 
         zip_edi_str = self._l10n_pe_edi_zip_edi_document([('%s.xml' % edi_filename, edi_str)])

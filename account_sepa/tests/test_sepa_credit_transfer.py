@@ -3,15 +3,14 @@
 import base64
 from lxml import etree
 
+from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.addons.account_sepa import sanitize_communication
+from odoo.tests.common import test_xsd
 from odoo.tests import tagged
-from odoo.tools.misc import file_path
 
 
-@tagged('post_install', '-at_install')
-class TestSEPACreditTransfer(AccountTestInvoicingCommon):
-
+class TestSEPACreditTransferCommon(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -64,10 +63,6 @@ class TestSEPACreditTransfer(AccountTestInvoicingCommon):
             'bank_name': 'Mock & Co',
         })
 
-        # Get a pain.001.001.03 schema validator
-        schema_file_path = file_path('account_sepa/schemas/pain.001.001.03.xsd')
-        cls.xmlschema = etree.XMLSchema(etree.parse(schema_file_path))
-
     @classmethod
     def createPayment(cls, partner, amount, ref=None):
         """ Create a SEPA credit transfer payment """
@@ -82,6 +77,9 @@ class TestSEPACreditTransfer(AccountTestInvoicingCommon):
             'ref': ref,
         })
 
+
+@tagged('post_install', '-at_install')
+class TestSEPACreditTransfer(TestSEPACreditTransferCommon):
     def testStandardSEPA(self):
         for bic in ["BBRUBEBB", False]:
             payment_1 = self.createPayment(self.partner_a, 500)
@@ -102,8 +100,6 @@ class TestSEPACreditTransfer(AccountTestInvoicingCommon):
             wizard_action = batch.validate_batch()
             self.assertFalse(wizard_action, "Validation wizard should not have returned an action")
 
-            sct_doc = etree.fromstring(base64.b64decode(batch.export_file))
-            self.assertTrue(self.xmlschema.validate(sct_doc), self.xmlschema.error_log.last_error)
             self.assertTrue(payment_1.is_move_sent)
             self.assertTrue(payment_2.is_move_sent)
 
@@ -133,8 +129,6 @@ class TestSEPACreditTransfer(AccountTestInvoicingCommon):
             self.assertTrue(len(error_wizard.error_line_ids) == 0, "Error wizard should not list any error")
 
             batch._send_after_validation()
-            sct_doc = etree.fromstring(base64.b64decode(batch.export_file))
-            self.assertTrue(self.xmlschema.validate(sct_doc), self.xmlschema.error_log.last_error)
             self.assertTrue(payment_1.is_move_sent)
             self.assertTrue(payment_2.is_move_sent)
 
@@ -249,3 +243,49 @@ class TestSEPACreditTransfer(AccountTestInvoicingCommon):
         self.partner_a.country_id = self.env.ref('base.no')
         payment = self.createPayment(self.partner_a, 500, '1234567897')
         self._check_structured_reference('no', payment)
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard')
+class TestSEPACreditTransferXmlValidity(TestSEPACreditTransferCommon):
+    @test_xsd(path='account_sepa/schemas/pain.001.001.03.xsd')
+    def test_standard_SEPA(self):
+        sct_docs = []
+        for bic in ["BBRUBEBB", False]:
+            payment_1 = self.createPayment(self.partner_a, 500)
+            payment_1.action_post()
+            payment_2 = self.createPayment(self.partner_a, 600)
+            payment_2.action_post()
+
+            self.bank_journal.bank_id.bic = bic
+            batch = self.env['account.batch.payment'].create({
+                'journal_id': self.bank_journal.id,
+                'payment_ids': [Command.set((payment_1 | payment_2).ids)],
+                'payment_method_id': self.sepa_ct_method.id,
+                'batch_type': 'outbound',
+            })
+
+            batch.validate_batch()
+            sct_docs.append(etree.fromstring(base64.b64decode(batch.export_file)))
+        return sct_docs
+
+    @test_xsd(path='account_sepa/schemas/pain.001.001.03.xsd')
+    def test_generic_SEPA(self):
+        sct_docs = []
+        for bic in ["BBRUBEBB", False]:
+            payment_1 = self.createPayment(self.partner_b, 500)
+            payment_1.action_post()
+            payment_2 = self.createPayment(self.partner_b, 700)
+            payment_2.action_post()
+
+            self.bank_journal.bank_id.bic = bic
+            batch = self.env['account.batch.payment'].create({
+                'journal_id': self.bank_journal.id,
+                'payment_ids': [Command.set((payment_1 | payment_2).ids)],
+                'payment_method_id': self.sepa_ct_method.id,
+                'batch_type': 'outbound',
+            })
+
+            batch.validate_batch()
+            batch._send_after_validation()
+            sct_docs.append(etree.fromstring(base64.b64decode(batch.export_file)))
+        return sct_docs

@@ -336,41 +336,6 @@ class L10nClEdiUtilMixin(models.AbstractModel):
         signature = crypto.sign(private_key, re.sub(b'\n\\s*', b'', message), 'sha1')
         return base64.b64encode(signature).decode()
 
-    def _xml_validator(self, xml_to_validate, validation_type, is_doc_type_voucher=False):
-        """
-        This method validates the format description of the xml files
-        http://www.sii.cl/factura_electronica/formato_dte.pdf
-        http://www.sii.cl/factura_electronica/formato_retenedores.pdf
-        http://www.sii.cl/factura_electronica/formato_iecv.pdf
-        http://www.sii.cl/factura_electronica/formato_lgd.pdf
-        http://www.sii.cl/factura_electronica/formato_ic.pdf
-        http://www.sii.cl/factura_electronica/desc_19983.pdf
-        http://www.sii.cl/factura_electronica/boletas_elec.pdf
-        http://www.sii.cl/factura_electronica/libros_boletas.pdf
-        http://www.sii.cl/factura_electronica/consumo_folios.pdf
-
-        :param xml_to_validate: xml to validate
-        :param validation_type: the type of the document
-        :return: whether the xml is valid. If the XSD files are not found returns True
-        """
-        validation_types = {
-            'doc': 'DTE_v10.xsd',
-            'env': 'EnvioDTE_v10.xsd',
-            'bol': 'EnvioBOLETA_v11.xsd',
-            'recep': 'Recibos_v10.xsd',
-            'env_recep': 'EnvioRecibos_v10.xsd',
-            'env_resp': 'RespuestaEnvioDTE_v10.xsd',
-            'sig': 'xmldsignature_v10.xsd',
-            'book': 'LibroCV_v10.xsd',
-            'consu': 'ConsumoFolio_v10.xsd',
-        }
-        # Token document doesn't required validation and the "Boleta" document is not validated since the DescuentoPct
-        # tag doesn't work properly
-        if validation_type in ('token', 'bol') or (validation_type == 'doc' and is_doc_type_voucher):
-            return True
-        xsd_fname = validation_types[validation_type]
-        return tools.validate_xml_from_attachment(self.env, xml_to_validate, xsd_fname, prefix='l10n_cl_edi')
-
     def _sign_full_xml(self, message, digital_signature, uri, xml_type, is_doc_type_voucher=False):
         """
         Signed the xml following the SII documentation:
@@ -397,11 +362,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
             'exponent': digital_signature._get_private_key_exponent(),
             'certificate': '\n' + textwrap.fill(digital_signature.certificate, 64),
         })
-        # The validation of the signature document
-        self._xml_validator(signature, 'sig')
         full_doc = self._l10n_cl_append_sig(xml_type, signature, digest_value)
-        # The validation of the full document
-        self._xml_validator(full_doc, xml_type, is_doc_type_voucher)
         return Markup('<?xml version="1.0" encoding="ISO-8859-1" ?>'
                       if xml_type != 'token' else '<?xml version="1.0" ?>') + full_doc
 

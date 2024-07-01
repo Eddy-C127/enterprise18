@@ -163,7 +163,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
             })],
         })
 
-        invoice.with_context(skip_xsd=True).action_post()
+        invoice.action_post()
 
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.l10n_cl_dte_status, 'not_sent')
@@ -222,7 +222,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
             })],
         })
 
-        invoice.with_context(skip_xsd=True)._post()
+        invoice._post()
 
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.l10n_cl_dte_status, 'not_sent')
@@ -311,7 +311,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
             }), ],
         })
 
-        invoice.with_context(skip_xsd=True).action_post()
+        invoice.action_post()
 
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.l10n_cl_dte_status, 'not_sent')
@@ -366,7 +366,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
             })],
         })
 
-        invoice.with_context(skip_xsd=True).action_post()
+        invoice.action_post()
 
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.l10n_cl_dte_status, 'not_sent')
@@ -462,7 +462,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
             })],
         })
 
-        invoice.with_context(skip_xsd=True).action_post()
+        invoice.action_post()
 
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.l10n_cl_dte_status, 'not_sent')
@@ -559,7 +559,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
                 'date': invoice.invoice_date, }, ], ]
         })
 
-        invoice.with_context(skip_xsd=True).action_post()
+        invoice.action_post()
 
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.l10n_cl_dte_status, 'not_sent')

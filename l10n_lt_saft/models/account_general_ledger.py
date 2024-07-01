@@ -118,7 +118,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             {'values': template_vals, 'template': 'l10n_lt_saft.saft_template_inherit_l10n_lt_saft', 'file_type': 'xml'},
             template_vals['errors'],
         )
-        self.env['ir.attachment'].l10n_lt_saft_validate_xml_from_attachment(file_data['file_content'])
         return file_data
 
     def _saft_get_account_type(self, account_type):

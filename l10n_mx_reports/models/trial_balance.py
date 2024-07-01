@@ -28,8 +28,6 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         file_name = f"{sat_values['vat']}{sat_values['year']}{sat_values['month']}BN"
         sat_report = etree.fromstring(self.env['ir.qweb']._render('l10n_mx_reports.cfdibalance', sat_values))
 
-        self.env['ir.attachment'].l10n_mx_reports_validate_xml_from_attachment(sat_report, 'xsd_mx_cfdibalance_1_3.xsd')
-
         return {
             'file_name': f"{file_name}.xml",
             'file_content': etree.tostring(sat_report, pretty_print=True, xml_declaration=True, encoding='utf-8'),
@@ -93,8 +91,6 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         coa_values = self._l10n_mx_get_coa_values(options)
         file_name = f"{coa_values['vat']}{coa_values['year']}{coa_values['month']}CT"
         coa_report = etree.fromstring(self.env['ir.qweb']._render('l10n_mx_reports.cfdicoa', coa_values))
-
-        self.env['ir.attachment'].l10n_mx_reports_validate_xml_from_attachment(coa_report, 'xsd_mx_cfdicoa_1_3.xsd')
 
         return {
             'file_name': f"{file_name}.xml",

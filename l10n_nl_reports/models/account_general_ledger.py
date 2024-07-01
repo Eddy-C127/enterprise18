@@ -308,9 +308,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         partner_values_query = self._l10n_nl_get_partner_values_query(options)
         self.env.cr.execute(partner_values_query)
         partner_values = self.env.cr.dictfetchall()
-        iso_country_codes = self.env['ir.attachment'].l10n_nl_reports_load_iso_country_codes()
-        if iso_country_codes:
-            check_forbidden_countries(report, partner_values, iso_country_codes)
         for row in partner_values:
             street_detail = street_split(row['partner_street'])
             header_values['partner_data'].append({
@@ -333,7 +330,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 'partner_zip': row['partner_zip'] and row['partner_zip'][:10],
                 'partner_state_name': row['partner_state_name'],
                 'partner_country_id': row['partner_country_id'],
-                'partner_country_code': row['partner_country_code'] if row['partner_country_code'] in iso_country_codes else None,
                 'partner_write_uid': row['partner_write_uid'],
                 'partner_xaf_userid': self.env['res.users'].browse(row['partner_write_uid']).l10n_nl_report_xaf_userid,
                 'partner_write_date': row['partner_write_date'],

@@ -6,12 +6,10 @@ from odoo import Command, fields, tools
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 from odoo.tests import tagged
 from odoo.tools import pycompat
+from odoo.tests.common import test_xsd
 
 
-@tagged('post_install_l10n', 'post_install', '-at_install')
-@freeze_time('2022-01-01')
-class TestDKReport(TestAccountReportsCommon):
-
+class TestDKReportCommon(TestAccountReportsCommon):
     @classmethod
     @TestAccountReportsCommon.setup_country('dk')
     def setUpClass(cls):
@@ -106,12 +104,19 @@ class TestDKReport(TestAccountReportsCommon):
         ])
         invoices.action_post()
 
-    def test_validate_dk_saft_report_values(self):
-        report = self.env.ref('account_reports.general_ledger_report')
-        options = self._generate_options(report, fields.Date.from_string('2021-01-01'), fields.Date.from_string('2021-12-31'))
+    def _generate_xml(cls):
+        report = cls.env.ref('account_reports.general_ledger_report')
+        options = cls._generate_options(report, fields.Date.from_string('2021-01-01'), fields.Date.from_string('2021-12-31'))
+        return cls.env[report.custom_handler_model_name].l10n_dk_export_saft_to_xml(options)['file_content']
 
+
+@freeze_time('2022-01-01')
+@tagged('post_install_l10n', 'post_install', '-at_install')
+class TestDKReport(TestDKReportCommon):
+
+    def test_validate_dk_saft_report_values(self):
         with tools.file_open("l10n_dk_reports/tests/xml/expected_test_saft_report.xml", "rb") as expected_xml:
-            stringified_xml = self.env[report.custom_handler_model_name].with_context(skip_xsd=True).l10n_dk_export_saft_to_xml(options)['file_content']
+            stringified_xml = self._generate_xml()
             self.assertXmlTreeEqual(
                 self.get_xml_tree_from_string(stringified_xml),
                 self.get_xml_tree_from_string(expected_xml.read()),
@@ -140,3 +145,11 @@ class TestDKReport(TestAccountReportsCommon):
         )
         for idx, content in enumerate(reader):
             self.assertSequenceEqual(expected_values[idx], content)
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
+class TestDKReportXML(TestDKReportCommon):
+
+    @test_xsd(url='https://erhvervsstyrelsen.dk/sites/default/files/2023-01/Danish_SAF-T_Financial_Schema_v_1_0_0.zip')
+    def test_xml_validity(self):
+        return self._generate_xml()

@@ -1,13 +1,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo.addons.account_saft.tests.common import TestSaftReport
 from odoo.tests import tagged
+from odoo.tests.common import test_xsd
 
 from freezegun import freeze_time
 
 
-@tagged('post_install_l10n', 'post_install', '-at_install')
-class TestAtSaftReport(TestSaftReport):
-
+class TestAtSaftReportCommon(TestSaftReport):
     @classmethod
     @TestSaftReport.setup_country('at')
     def setUpClass(cls):
@@ -94,6 +93,9 @@ class TestAtSaftReport(TestSaftReport):
         with freeze_time('2023-11-01 10:00:00'):
             return self.report_handler.l10n_at_export_saft_to_xml(options)
 
+
+@tagged('post_install_l10n', 'post_install', '-at_install')
+class TestAtSaftReport(TestAtSaftReportCommon):
     def test_saft_report_values(self):
         options = self._generate_options()
         report = self._l10n_at_saft_generate_report(options)
@@ -117,3 +119,11 @@ class TestAtSaftReport(TestSaftReport):
             'missing_partner_phone_number',
             'missing_company_settings',
         })
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
+class TestAtSaftReportXmlValidity(TestAtSaftReportCommon):
+    @test_xsd(url='https://www.bmf.gv.at/dam/jcr:3c407d8c-5657-47a7-90fc-e152d884fe42/SAF-T_AT_1.01.xsd')
+    def test_saft_report_values(self):
+        options = self._generate_options()
+        return self._l10n_at_saft_generate_report(options)['file_content']

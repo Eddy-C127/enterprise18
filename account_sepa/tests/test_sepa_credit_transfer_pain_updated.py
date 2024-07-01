@@ -4,14 +4,13 @@
 from base64 import b64decode
 from lxml import etree
 
+from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged
-from odoo.tools.misc import file_path
+from odoo.tests.common import test_xsd
 
 
-@tagged('post_install', '-at_install')
-class TestSEPACreditTransferUpdate(AccountTestInvoicingCommon):
-
+class TestSEPACreditTransferUpdateCommon(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -56,44 +55,44 @@ class TestSEPACreditTransferUpdate(AccountTestInvoicingCommon):
 
         cls.sepa_ct = cls.env.ref('account_sepa.account_payment_method_sepa_ct')
 
-        # Get a pain.001.001.09 schema validator
-        schema_file_path = file_path('account_sepa/schemas/pain.001.001.09.xsd')
-        cls.xmlschema = etree.XMLSchema(etree.parse(schema_file_path))
-
-    def test_new_generic_sepa_version_001_001_09(self):
-        payment = self.env['account.payment'].create({
-            'journal_id': self.bank_journal.id,
+        cls.payment = cls.env['account.payment'].create({
+            'journal_id': cls.bank_journal.id,
             'payment_type': 'outbound',
             'date': '2023-06-01',
             'amount': 500,
-            'partner_id': self.partner_a.id,
+            'partner_id': cls.partner_a.id,
             'partner_type': 'supplier',
         })
-        payment.payment_method_id = self.sepa_ct.id
-        payment.partner_bank_id.allow_out_payment = True
+        cls.payment.payment_method_id = cls.sepa_ct.id
+        cls.payment.partner_bank_id.allow_out_payment = True
+        cls.payment.action_post()
 
-        payment.action_post()
-        uetr = payment.sepa_uetr
-
-        batch = self.env['account.batch.payment'].create({
-            'journal_id': self.bank_journal.id,
-            'payment_ids': [(4, payment.id, None)],
-            'payment_method_id': self.sepa_ct.id,
+        cls.batch = cls.env['account.batch.payment'].create({
+            'journal_id': cls.bank_journal.id,
+            'payment_ids': [Command.set(cls.payment.id)],
+            'payment_method_id': cls.sepa_ct.id,
             'batch_type': 'outbound',
         })
+        cls.batch.validate_batch()
 
-        batch.validate_batch()
-        sct_doc = etree.fromstring(b64decode(batch.export_file))
-        self.assertTrue(self.xmlschema.validate(sct_doc), self.xmlschema.error_log.last_error)
-        self.assertTrue(payment.is_move_sent)
 
+@tagged('post_install', '-at_install', 'curr')
+class TestSEPACreditTransferUpdate(TestSEPACreditTransferUpdateCommon):
+
+    def test_new_generic_sepa_version_001_001_09(self):
+        self.assertTrue(self.batch)
+        self.assertTrue(self.payment.is_move_sent)
+
+        sct_doc = etree.fromstring(b64decode(self.batch.export_file))
+
+        uetr = self.payment.sepa_uetr
         namespaces = {'ns': 'urn:iso:std:iso:20022:tech:xsd:pain.001.001.09'}
         execution_date = sct_doc.findtext('.//ns:PmtInf/ns:ReqdExctnDt/ns:Dt', namespaces=namespaces)
         uetr_text = sct_doc.findtext('.//ns:CdtTrfTxInf/ns:PmtId/ns:UETR', namespaces=namespaces)
         cdtr_lei = sct_doc.findtext('.//ns:CdtTrfTxInf/ns:CdtrAgt/ns:FinInstnId/ns:LEI', namespaces=namespaces)
         dbtr_lei = sct_doc.findtext('.//ns:PmtInf/ns:Dbtr/ns:Id/ns:OrgId/ns:LEI', namespaces=namespaces)
 
-        self.assertEqual(execution_date, batch.date.strftime('%Y-%m-%d'))
+        self.assertEqual(execution_date, self.batch.date.strftime('%Y-%m-%d'))
         self.assertEqual(uetr_text, uetr)
         self.assertEqual(cdtr_lei, self.partner_a.account_sepa_lei)
         self.assertEqual(dbtr_lei, self.company_data['company'].account_sepa_lei)
@@ -108,3 +107,10 @@ class TestSEPACreditTransferUpdate(AccountTestInvoicingCommon):
         self.assertEqual(postal_code, self.partner_a.zip)
         self.assertEqual(city, self.partner_a.city)
         self.assertFalse(adr_line)
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard')
+class TestSEPACreditTransferUpdateXmlValidity(TestSEPACreditTransferUpdateCommon):
+    @test_xsd(path='account_sepa/schemas/pain.001.001.09.xsd')
+    def test_xml_validity(self):
+        return etree.fromstring(b64decode(self.batch.export_file))

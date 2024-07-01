@@ -125,7 +125,6 @@ class L10nLuGenerateXML(models.TransientModel):
         rendered_content = self.env['ir.qweb']._render('l10n_lu_reports.l10n_lu_electronic_report_template_2_0', lu_template_values, minimal_qcontext=True)
 
         content = "\n".join(re.split(r'\n\s*\n', rendered_content))
-        self.env['ir.attachment'].l10n_lu_reports_validate_xml_from_attachment(content, 'ecdf')
         self.env['l10n_lu.report.handler']._validate_ecdf_prefix()
         vals = {
             'report_data': base64.b64encode(bytes("<?xml version='1.0' encoding='UTF-8'?>" + content, 'utf-8')),

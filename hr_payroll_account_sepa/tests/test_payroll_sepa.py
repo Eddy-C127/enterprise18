@@ -4,17 +4,16 @@ import base64
 
 from lxml import etree
 
+from odoo import Command
 from odoo.addons.hr_payroll_account.tests.test_hr_payroll_account import TestHrPayrollAccountCommon
+from odoo.tests.common import test_xsd
 from odoo.tests import tagged
-from odoo.tools.misc import file_path
 
 
-@tagged('post_install', '-at_install')
-class TestPayrollSEPACreditTransfer(TestHrPayrollAccountCommon):
-
+class TestPayrollSEPACreditTransferCommon(TestHrPayrollAccountCommon):
     @classmethod
     def setUpClass(cls):
-        super(TestPayrollSEPACreditTransfer, cls).setUpClass()
+        super().setUpClass()
         cls.env.company.currency_id = cls.env.ref('base.USD')
         cls.env.user.company_id.write({
             'sepa_orgid_id': "0468651441",
@@ -49,10 +48,9 @@ class TestPayrollSEPACreditTransfer(TestHrPayrollAccountCommon):
             'bank_account_id': cls.bank_partner.id,
         })
 
-        # Get a pain.001.001.03 schema validator
-        schema_file_path = file_path('account_sepa/schemas/pain.001.001.03.xsd')
-        cls.xmlschema = etree.XMLSchema(etree.parse(schema_file_path))
 
+@tagged('post_install', '-at_install')
+class TestPayrollSEPACreditTransfer(TestPayrollSEPACreditTransferCommon):
     def test_00_hr_payroll_account_sepa(self):
         """ Checking the process of payslip when you create a SEPA payment. """
 
@@ -75,10 +73,6 @@ class TestPayrollSEPACreditTransfer(TestHrPayrollAccountCommon):
 
         # I verify if a file is created.
         self.assertTrue(file, 'SEPA payment has not been created!')
-
-        # I verify the xml.
-        sct_doc = etree.fromstring(base64.b64decode(file))
-        self.assertTrue(self.xmlschema.validate(sct_doc), self.xmlschema.error_log.last_error)
 
         # I verify the payslip is in done state.
         self.assertEqual(self.hr_payslip_john.state, 'done', 'State should not change!')
@@ -120,9 +114,40 @@ class TestPayrollSEPACreditTransfer(TestHrPayrollAccountCommon):
         # I verify if a file is created for the payslip run.
         self.assertTrue(file, 'SEPA payment has not been created!')
 
-        # I verify the xml.
-        sct_doc = etree.fromstring(base64.b64decode(file))
-        self.assertTrue(self.xmlschema.validate(sct_doc), self.xmlschema.error_log.last_error)
-
         # I verify the payslip is in paid state.
         self.assertEqual(self.payslip_run.state, 'close', 'State should not change!')
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard')
+class TestPayrollSEPACreditTransferXmlValidity(TestPayrollSEPACreditTransferCommon):
+
+    @test_xsd(path='account_sepa/schemas/pain.001.001.03.xsd')
+    def test_00_hr_payroll_account_sepa(self):
+        """ Checking the process of payslip when you create a SEPA payment. """
+
+        self.hr_payslip_john.action_payslip_done()
+        file = self.env['hr.payroll.payment.report.wizard'].create({
+            'payslip_ids': self.hr_payslip_john.ids,
+            'payslip_run_id': self.hr_payslip_john.payslip_run_id.id,
+            'export_format': 'sepa',
+            'journal_id': self.bank_journal.id,
+        })._create_sepa_binary()
+        return etree.fromstring(base64.b64decode(file))
+
+    @test_xsd(path='account_sepa/schemas/pain.001.001.03.xsd')
+    def test_01_hr_payroll_account_sepa(self):
+        """ Checking the process of payslip run when you create a SEPA payment. """
+
+        payslip_employee = self.env['hr.payslip.employees'].create({
+            'employee_ids': [Command.set(self.hr_employee_john.id)]
+        })
+        payslip_employee.with_context(active_id=self.payslip_run.id).compute_sheet()
+        self.payslip_run.action_validate()
+        file = self.env['hr.payroll.payment.report.wizard'].create({
+            'payslip_ids': self.payslip_run.slip_ids.ids,
+            'payslip_run_id': self.payslip_run.id,
+            'export_format': 'sepa',
+            'journal_id': self.bank_journal.id,
+        })._create_sepa_binary()
+
+        return etree.fromstring(base64.b64decode(file))

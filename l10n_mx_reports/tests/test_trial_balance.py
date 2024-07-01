@@ -3,11 +3,12 @@
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 from odoo import fields, Command
+from odoo.tests.common import test_xsd
 from odoo.tests import tagged
 from odoo.exceptions import RedirectWarning
 
-@tagged('post_install_l10n', 'post_install', '-at_install')
-class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
+
+class TestL10nMXTrialBalanceReportCommon(TestAccountReportsCommon):
 
     @classmethod
     @TestAccountReportsCommon.setup_country('mx')
@@ -136,6 +137,9 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
 
         cls.report = cls.env.ref('account_reports.trial_balance_report')
 
+
+@tagged('post_install_l10n', 'post_install', '-at_install')
+class TestL10nMXTrialBalanceReport(TestL10nMXTrialBalanceReportCommon):
     def test_generate_coa_xml(self):
         """ This test will generate a COA report and verify that every
             account with an entry in the selected period has been there.
@@ -233,7 +237,7 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
         """
 
         options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
-        coa_report = self.env[self.report.custom_handler_model_name].with_context(skip_xsd=True).action_l10n_mx_generate_coa_sat_xml(options)['file_content']
+        coa_report = self.env[self.report.custom_handler_model_name].action_l10n_mx_generate_coa_sat_xml(options)['file_content']
         self.assertXmlTreeEqual(
             self.get_xml_tree_from_string(coa_report),
             self.get_xml_tree_from_string(expected_coa_xml),
@@ -264,7 +268,7 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
         """
 
         options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
-        sat_report = self.env[self.report.custom_handler_model_name].with_context(skip_xsd=True).action_l10n_mx_generate_sat_xml(options)['file_content']
+        sat_report = self.env[self.report.custom_handler_model_name].action_l10n_mx_generate_sat_xml(options)['file_content']
         self.assertXmlTreeEqual(
             self.get_xml_tree_from_string(sat_report),
             self.get_xml_tree_from_string(expected_sat_xml),
@@ -345,3 +349,16 @@ class TestL10nMXTrialBalanceReport(TestAccountReportsCommon):
             ],
             options,
         )
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
+class TestL10nMXTrialBalanceReportXmlValidity(TestL10nMXTrialBalanceReportCommon):
+    @test_xsd(url='https://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas/CatalogoCuentas_1_3.xsd')
+    def test_coa_xml_validity(self):
+        options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
+        return self.env[self.report.custom_handler_model_name].action_l10n_mx_generate_coa_sat_xml(options)['file_content']
+
+    @test_xsd(url='https://www.sat.gob.mx/esquemas/ContabilidadE/1_3/BalanzaComprobacion/BalanzaComprobacion_1_3.xsd')
+    def test_sat_xml_validity(self):
+        options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
+        return self.env[self.report.custom_handler_model_name].action_l10n_mx_generate_sat_xml(options)['file_content']

@@ -2,7 +2,6 @@ from . import l10n_cl_edi_util
 from . import account_journal
 from . import account_move
 from . import fetchmail_server
-from . import ir_attachment
 from . import l10n_cl_account_invoice_reference
 from . import l10n_cl_certificate
 from . import l10n_cl_company_activities

@@ -74,7 +74,7 @@ class TestL10nClExportsDte(TestL10nClEdiCommon):
             'invoice_incoterm_id': self.env.ref('account.incoterm_CIF').id,
         })
 
-        invoice.with_context(skip_xsd=True).action_post()
+        invoice.action_post()
 
         self.assertEqual(invoice.state, 'posted')
         self.assertEqual(invoice.l10n_cl_dte_status, 'not_sent')

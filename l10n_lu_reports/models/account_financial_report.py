@@ -61,10 +61,6 @@ class LuxembourgishFinancialReportCustomHandler(models.AbstractModel):
             raise UserError(msg.format(ecdf_prefix, self.env.company.display_name))
         return True
 
-    def _validate_xml_content(self, content):
-        self.env['ir.attachment'].l10n_lu_reports_validate_xml_from_attachment(content, 'ecdf')
-        return True
-
     def get_financial_reports(self):
         return {
             self.env.ref("l10n_lu_reports.account_financial_report_l10n_lu_bs").id : 'CA_BILAN',
@@ -154,7 +150,6 @@ class LuxembourgishFinancialReportCustomHandler(models.AbstractModel):
 
         rendered_content = self.env['ir.qweb']._render('l10n_lu_reports.l10n_lu_electronic_report_template_2_0', lu_template_values)
         content = "\n".join(re.split(r'\n\s*\n', rendered_content))
-        self._validate_xml_content(content)
 
         return {
             'file_name': self.env['account.report'].browse(options['report_id']).get_report_filename(options) + '.xml',

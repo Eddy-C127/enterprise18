@@ -35,7 +35,7 @@ class TestL10AccountMoveReversal(TestL10nClEdiCommon):
                 'tax_ids': [],
             })],
         })
-        cls.invoice.with_context(skip_xsd=True).action_post()
+        cls.invoice.action_post()
 
     def test_l10n_cl_account_move_reversal_partial_refund(self):
         # Corrects Referenced Document Amount

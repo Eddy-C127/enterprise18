@@ -716,8 +716,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
     def assert_xml_tree_equal(self, move, xml_string, post_move=True, xpath=None):
         with freeze_time(self.frozen_today):
             post_move and move.action_post()
-            move_string, errors = self.env['account.edi.format'].with_context(skip_xsd=True)._l10n_ec_generate_xml(move)
-            self.assertFalse(errors)
+            move_string = self.env['account.edi.format']._l10n_ec_generate_xml(move)
             move_xml = etree.fromstring(move_string.encode())
             xml_expected = etree.fromstring(xml_string)
             if xpath:

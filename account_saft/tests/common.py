@@ -15,7 +15,7 @@ class TestSaftReport(TestAccountReportsCommon):
         cls.ReportException = AccountReportFileDownloadException
         cls.ReportModel = cls.env.ref('account_reports.general_ledger_report')
         cls.ReportHandlerModel = cls.env[cls.ReportModel.custom_handler_model_name]
-        cls.report_handler = cls.ReportHandlerModel.with_company(company).with_context(skip_xsd=True)
+        cls.report_handler = cls.ReportHandlerModel.with_company(company)
 
     def _generate_options(self, date_from='2023-10-01', date_to='2023-10-31'):
         return super()._generate_options(self.ReportModel, date_from, date_to)

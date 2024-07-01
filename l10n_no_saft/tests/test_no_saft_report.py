@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
+from odoo.tests.common import test_xsd
 from odoo.tests import tagged
 from odoo import fields
 
 from freezegun import freeze_time
 
 
-@tagged('post_install_l10n', 'post_install', '-at_install')
-class TestNoSaftReport(TestAccountReportsCommon):
+class TestNoSaftReportCommon(TestAccountReportsCommon):
 
     @classmethod
     @TestAccountReportsCommon.setup_country('no')
@@ -82,13 +82,16 @@ class TestNoSaftReport(TestAccountReportsCommon):
         ])
         cls.invoices.action_post()
 
+
+@tagged('post_install_l10n', 'post_install', '-at_install')
+class TestNoSaftReport(TestNoSaftReportCommon):
     @freeze_time('2019-12-31')
     def test_saft_report_values(self):
         report = self.env.ref('account_reports.general_ledger_report')
         options = self._generate_options(report, fields.Date.from_string('2019-01-01'), fields.Date.from_string('2019-12-31'))
 
         self.assertXmlTreeEqual(
-            self.get_xml_tree_from_string(self.env[report.custom_handler_model_name].with_context(skip_xsd=True).l10n_no_export_saft_to_xml(options)['file_content']),
+            self.get_xml_tree_from_string(self.env[report.custom_handler_model_name].l10n_no_export_saft_to_xml(options)['file_content']),
             self.get_xml_tree_from_string(f'''
                 <AuditFile xmlns="urn:StandardAuditFile-Taxation-Financial:NO">
                     <Header>
@@ -345,3 +348,12 @@ class TestNoSaftReport(TestAccountReportsCommon):
                 </AuditFile>
             '''),
         )
+
+
+@tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
+class TestNoSaftReportXmlValidity(TestNoSaftReportCommon):
+    @test_xsd(url='https://raw.githubusercontent.com/Skatteetaten/saf-t/master/Norwegian_SAF-T_Financial_Schema_v_1.10.xsd')
+    def test_xml_validity(self):
+        report = self.env.ref('account_reports.general_ledger_report')
+        options = self._generate_options(report, fields.Date.from_string('2019-01-01'), fields.Date.from_string('2019-12-31'))
+        return self.get_xml_tree_from_string(self.env[report.custom_handler_model_name].l10n_no_export_saft_to_xml(options)['file_content'])
