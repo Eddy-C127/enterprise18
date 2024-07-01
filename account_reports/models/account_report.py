@@ -20,9 +20,10 @@ from dateutil.relativedelta import relativedelta
 from odoo.addons.web.controllers.utils import clean_action
 from odoo import models, fields, api, _, osv, _lt
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
-from odoo.tools import  date_utils, get_lang, float_is_zero, float_repr, SQL
+from odoo.tools import date_utils, get_lang, float_is_zero, float_repr, SQL
 from odoo.tools.float_utils import float_round
-from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path, parse_version
+from odoo.tools.misc import formatLang, format_date, xlsxwriter, file_path
+from odoo.tools.parse_version import parse_version
 from odoo.tools.safe_eval import expr_eval, safe_eval
 from odoo.models import check_method_name
 from itertools import groupby
