@@ -6,6 +6,7 @@ from odoo.addons.portal.controllers.mail import MailController
 from odoo.addons.knowledge.controllers.main import KnowledgeController
 from odoo.http import request
 from odoo.addons.mail.controllers.thread import ThreadController
+from odoo.addons.mail.tools.discuss import Store
 from werkzeug.exceptions import Forbidden
 
 
@@ -52,5 +53,12 @@ class KnowledgeThreadController(ThreadController):
                 ("is_internal", "=", False) # respect internal users only flag
             ]
             res = request.env["mail.message"].sudo()._message_fetch(domain, **kwargs)
-            return {**res, "messages": res["messages"]._message_format(for_current_user=True)}
+            messages = res.pop("messages")
+            return {
+                **res,
+                "data": Store(
+                    "Message", messages._message_format(for_current_user=True)
+                ).get_result(),
+                "messages": [{"id": message.id} for message in messages],
+            }
         return super().mail_thread_messages(thread_model, thread_id, **kwargs)
