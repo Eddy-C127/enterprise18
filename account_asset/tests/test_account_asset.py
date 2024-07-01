@@ -2761,3 +2761,14 @@ class TestAccountAsset(TestAccountReportsCommon):
         bill.action_post()
         asset = bill.asset_ids
         self.assertEqual(asset.acquisition_date, bill.invoice_date)
+
+    def test_asset_write_multi_company(self):
+        assets = self.env['account.asset'].create([
+            {
+            'company_id': company_data['company'].id,
+            'name': 'test asset',
+            } for company_data in [self.company_data, self.company_data_2]
+        ])
+        self.assertEqual(assets[0].company_id, self.company_data['company'])
+        self.assertEqual(assets[1].company_id, self.company_data_2['company'])
+        assets.validate()
