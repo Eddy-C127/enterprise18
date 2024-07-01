@@ -51,6 +51,34 @@
     </tbody>
 
 
+    <xpath expr="//div[@id='total']" position="after">
+        <t t-set="leave_lines" t-value="o._get_leave_lines()"/>
+        <table class="table table-sm" t-if="leave_lines">
+            <thead class="o_black_border">
+                <tr>
+                    <th id="line_header_type">Time Off</th>
+                    <th id="line_header_used" class="text-end">Hours Used</th>
+                    <th id="line_header_accrual" class="text-end">Accrual Hours</th>
+                    <th id="line_header_balance" class="text-end">Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t id="leaves">
+                    <span t-foreach="leave_lines" t-as="line">
+                        <tr id="leaves_display">
+                            <td id="leave_line_type"><span t-out="line['type']"/></td>
+                            <td id="leave_line_used" class="text-end"><span t-out="round(line['used'], 2)"
+                                style="color:#875A7B;" t-if="line['used'] &gt; 0"/></td>
+                            <td id="leave_line_accrual" class="text-end"><span t-out="round(line['accrual'], 2)"
+                                style="color:#00A09D;" t-if="line['accrual'] &gt; 0"/></td>
+                            <td id="leave_line_balance" class="text-end"><span t-out="round(line['balance'], 2)"
+                                t-att-style="'color:#875A7B;' if line['balance'] &lt;= 0 else ''"/></td>
+                        </tr>
+                    </span>
+                </t>
+            </tbody>
+        </table>
+    </xpath>
 </template>
 
 <template id="report_payslip_us_lang">
