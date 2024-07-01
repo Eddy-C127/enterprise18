@@ -609,7 +609,7 @@ export class DocumentsInspector extends Component {
             await this.orm.write("documents.document", [record.resId], {
                 attachment_id: attachmentId,
             });
-            await record.load();
+            await record.model.load();
             this.state.previousAttachmentDirty = true;
         });
     }
