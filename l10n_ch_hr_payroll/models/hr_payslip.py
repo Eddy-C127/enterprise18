@@ -143,7 +143,7 @@ class HrPayslip(models.Model):
             if contract.l10n_ch_is_predefined_category:
                 payslip.l10n_ch_is_code = f"{canton}-{contract.l10n_ch_is_predefined_category}{'Y' if e.l10n_ch_church_tax else 'N'}"
             else:
-                payslip.l10n_ch_is_code = f"{canton}-{e.l10n_ch_tax_scale}{min(e.children, 9)}{'Y' if e.l10n_ch_church_tax else 'N'}"
+                payslip.l10n_ch_is_code = f"{canton}-{e.l10n_ch_tax_scale}{int(min(e.children, 9))}{'Y' if e.l10n_ch_church_tax else 'N'}"
 
     @api.depends('contract_id.l10n_ch_lpp_not_insured', 'state')
     def _compute_l10n_ch_lpp_not_insured(self):
@@ -163,6 +163,26 @@ class HrPayslip(models.Model):
 
     def _filter_out_of_contracts_payslips(self):
         return super()._filter_out_of_contracts_payslips().filtered(lambda p: not p.l10n_ch_after_departure_payment)
+
+    def action_refresh_from_work_entries(self):
+        if any(p.state not in ['draft', 'verify'] for p in self):
+            super().action_refresh_from_work_entries()
+        else:
+            payslips = self.filtered(lambda p: p.struct_id.country_id.code == "CH")
+            payslips.mapped('input_line_ids').unlink()
+            payslips._compute_input_line_ids()
+            payslips._compute_l10n_ch_social_insurance_id()
+            payslips._compute_l10n_ch_lpp_insurance_id()
+            payslips._compute_l10n_ch_accident_insurance_line_id()
+            payslips._compute_l10n_ch_additional_accident_insurance_line_ids()
+            payslips._compute_l10n_ch_sickness_insurance_line_ids()
+            payslips._compute_l10n_ch_compensation_fund_id()
+            payslips._compute_l10n_ch_pay_13th_month()
+            payslips._compute_l10n_ch_avs_status()
+            payslips._compute_l10n_ch_is_model()
+            payslips._compute_l10n_ch_is_code()
+            payslips._compute_l10n_ch_lpp_not_insured()
+            super().action_refresh_from_work_entries()
 
     def _get_base_local_dict(self):
         res = super()._get_base_local_dict()
