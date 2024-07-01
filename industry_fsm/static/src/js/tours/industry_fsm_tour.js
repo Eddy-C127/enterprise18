@@ -32,7 +32,6 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
     trigger: 'h1 div[name="name"] > div > textarea',
     content: markup(_t('Give it a <b>title</b> <i>(e.g. Boiler maintenance, Air-conditioning installation, etc.).</i>')),
     position: 'right',
-    width: 200,
             run: "edit Test",
         },
         {

@@ -19,13 +19,11 @@
         trigger: '.o_nocontent_help a.btn-primary',
         content: _t("Try the AI with a sample receipt."),
         position: 'bottom',
-        width: 200,
         run: "click",
     }, {
         trigger: ".o_expense_flex",
         content: _t("Choose a receipt."),
         position: 'top',
-        width: 120,
         run: "click",
     }, {
         trigger: "button[name='action_submit_expenses']",

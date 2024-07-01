@@ -23,7 +23,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
     trigger: '.oe_kanban_action_button',
     content: markup(_t('Let\'s view your <b>team\'s tickets</b>.')),
     position: 'bottom',
-    width: 200,
             run: "click",
         },
         {
@@ -34,7 +33,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
     trigger: '.o-kanban-button-new',
     content: markup(_t('Let\'s create your first <b>ticket</b>.')),
     position: 'bottom',
-    width: 200,
             run: "click",
         },
         {
@@ -74,7 +72,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
         {
     trigger: ".o-mail-Chatter-topbar button:contains(Send message)",
     content: markup(_t("Use the chatter to <b>send emails</b> and communicate efficiently with your customers. Add new people to the followers' list to make them aware of the progress of this ticket.")),
-    width: 350,
     position: "bottom",
             run: "click",
         },
@@ -85,7 +82,6 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
         {
     trigger: "button:contains(Log note)",
     content: markup(_t("<b>Log notes</b> for internal communications (you will only notify the persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or <b># mentions</b> to contact a group of people.")),
-    width: 350,
     position: "bottom",
             run: "click",
         },

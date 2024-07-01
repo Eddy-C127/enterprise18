@@ -46,7 +46,6 @@ registry.category("web_tour.tours").add('sale_subscription_tour', {
     trigger: '#name_0',
     content: markup(_t('Choose a product name.<br/><i>(e.g. eLearning Access)</i>')),
     position: 'right',
-    width: 200,
     run: "click",
 },
 {
