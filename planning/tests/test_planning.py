@@ -558,10 +558,12 @@ class TestPlanning(TestCommonPlanning, MockEmail):
                 for day in range(7)
             ],
         })
+        role = self.env['planning.role'].create({'name': 'test role'})
         # Create an employee linked to this calendar
         night_employee = self.env['hr.employee'].create({
             'name': 'Night employee',
             'resource_calendar_id': night_shifts_calendar.id,
+            'default_planning_role_id': role.id,
         })
 
         # Create a shift from 21:30 to 6:00 with an allocated 8 hours
@@ -569,6 +571,7 @@ class TestPlanning(TestCommonPlanning, MockEmail):
             'name': 'Night Shift',
             'start_datetime': datetime(2024, 5, 10, 21, 30),
             'end_datetime': datetime(2024, 5, 11, 6, 0),
+            'role_id': role.id,
         })
         night_shift.allocated_hours = 8
         # Execute auto-plan to assign the employee
