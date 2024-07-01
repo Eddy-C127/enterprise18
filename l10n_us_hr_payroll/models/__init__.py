@@ -8,3 +8,5 @@ from . import res_company
 from . import res_config_settings
 from . import l10n_us_w2
 from . import l10n_us_worker_compensation
+from . import hr_leave_allocation
+from . import hr_leave_type
