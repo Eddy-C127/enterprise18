@@ -259,7 +259,7 @@ class Task(models.Model):
         if operator not in ['=', '!='] or not isinstance(value, bool):
             raise NotImplementedError(_('Operation not supported, you should always compare planning_overlap to True or False.'))
 
-        query = """
+        sql = SQL("""(
             SELECT T1.id
             FROM project_task T1
             INNER JOIN project_task T2 ON T1.id <> T2.id
@@ -281,9 +281,9 @@ class Task(models.Model):
                 AND T2.project_id IS NOT NULL
                 AND T2.active = 't'
                 AND T2.state IN ('01_in_progress', '02_changes_requested', '03_approved', '04_waiting_normal')
-        """
-        operator_new = "inselect" if ((operator == "=" and value) or (operator == "!=" and not value)) else "not inselect"
-        return [('id', operator_new, (query, ()))]
+        )""")
+        operator_new = "in" if ((operator == "=" and value) or (operator == "!=" and not value)) else "not in"
+        return [('id', operator_new, sql)]
 
     def _compute_user_names(self):
         for task in self:
@@ -380,7 +380,7 @@ class Task(models.Model):
         if operator not in ['=', '!='] or not isinstance(value, bool):
             raise NotImplementedError(_('Operation not supported, you should always compare dependency_warning to True or False.'))
 
-        query = """
+        sql = SQL("""
             SELECT t1.id
               FROM project_task t1
               JOIN task_dependencies_rel d
@@ -390,9 +390,9 @@ class Task(models.Model):
              WHERE t1.planned_date_begin IS NOT NULL
                AND t2.date_deadline IS NOT NULL
                AND t2.date_deadline > t1.planned_date_begin
-        """
-        operator_new = "inselect" if ((operator == "=" and value) or (operator == "!=" and not value)) else "not inselect"
-        return [('id', operator_new, (query, ()))]
+        """)
+        operator_new = "in" if ((operator == "=" and value) or (operator == "!=" and not value)) else "not in"
+        return [('id', operator_new, sql)]
 
     @api.depends('planned_date_begin', 'date_deadline')
     def _compute_planned_date_start(self):

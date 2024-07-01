@@ -5,7 +5,7 @@ from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError, UserError
 from odoo.models import MAGIC_COLUMNS
 from odoo.osv.expression import FALSE_DOMAIN, OR, expression
-from odoo.tools import get_lang
+from odoo.tools import get_lang, SQL
 from odoo.tools.misc import format_datetime, format_date, partition as tools_partition, unique
 from collections.abc import Iterable
 
@@ -118,50 +118,54 @@ class DataMergeRecord(models.Model):
             )
         )
 
-        template_join = """
-        LEFT JOIN "{model_table}"
-        ON data_merge_record.res_id = "{model_table}".id
-        {extra_joins}
-        """
-
-        template_query = """
-        SELECT data_merge_record.id
-        FROM data_merge_record
-        {joins}
-        WHERE {where_clause}
-        """
+        # Build a query to filter by company_id
         join_queries = []
         where_queries = []
-        where_parameters = []
         if models_no_company and false_company_domain_is_true:
-            where_queries.append("res_model_id IN %s")
-            where_parameters.append(tuple(r[1] for r in models_no_company))
+            where_queries.append(SQL(
+                "res_model_id IN %s",
+                tuple(r[1] for r in models_no_company),
+            ))
         for model_name, model_id in models_with_company:
             Model = self.env[model_name]
             # Adapt operator and value for direct SQL query
             exp = expression([('company_id', operator, value)], Model)
             self._apply_ir_rules(exp.query)
-            from_clause, where_clause, where_params = exp.query.get_sql()
+            from_clause, where_clause = exp.query.from_clause, exp.query.where_clause
             model_table = Model._table
-            assert from_clause.startswith(f'"{model_table}"')
+            from_sql_code = from_clause.code
+            assert from_sql_code.startswith(f'"{model_table}"') and not from_clause.params
+            extra_joins = SQL(from_sql_code[len(f'"{model_table}"'):])
 
-            join_queries.append(template_join.format(
-                model_table=model_table,
-                extra_joins=from_clause[len(f'"{model_table}"'):]
+            join_queries.append(SQL(
+                """
+                LEFT JOIN %s
+                ON data_merge_record.res_id = %s.id
+                %s
+                """,
+                SQL.identifier(model_table),
+                SQL.identifier(model_table),
+                extra_joins,
             ))
-            where_queries.append(f"({where_clause} AND data_merge_record.res_model_id = %s)")
-            where_parameters.extend(where_params + [model_id])
-
-        if where_queries:
-            query = template_query.format(
-                joins=" ".join(join_queries),
-                where_clause=' OR '.join(where_queries)
-            )
-            return [('id', 'inselect', (query, where_parameters))]
-        else:
+            where_queries.append(SQL(
+                "(%s AND data_merge_record.res_model_id = %s)",
+                where_clause, model_id,
+            ))
+        if not where_queries:
             # there was a nonempty models_info but no subqueries
             # it means that nothing satisfies the domain
             return FALSE_DOMAIN
+        sql = SQL(
+            """(
+            SELECT data_merge_record.id
+            FROM data_merge_record
+            %s
+            WHERE %s
+            )""",
+            SQL(" ").join(join_queries),
+            SQL(" OR ").join(where_queries),
+        )
+        return [('id', 'in', sql)]
 
 
     #############

@@ -191,7 +191,7 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         # docs[1] --> projects[1] "Goats"
         # docs[2] --> task "Pigs UserTask" --> projects[0] "Pigs"
         docs = self.attachment_txt + self.attachment_txt_2 + doc_gif
-        # Needed for `inselect` leafs
+        # Needed for `in` query leafs
         docs.flush_recordset()
         search_domains = [
             [('project_id', 'ilike', 'pig')],

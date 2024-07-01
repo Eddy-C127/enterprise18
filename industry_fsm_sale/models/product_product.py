@@ -3,7 +3,7 @@
 from collections import defaultdict
 
 from odoo import _, api, fields, models
-from odoo.tools import float_round
+from odoo.tools import float_round, SQL
 
 
 class ProductProduct(models.Model):
@@ -96,12 +96,12 @@ class ProductProduct(models.Model):
         task = self._get_contextual_fsm_task()
         if not task:
             return []
-        op = 'inselect'
+        op = 'in'
         if value is False:
             value = 0
             operator = '>='
-            op = 'not inselect'
-        query = """
+            op = 'not in'
+        sql = SQL("""(
             SELECT sol.product_id
               FROM sale_order_line sol
          LEFT JOIN sale_order so
@@ -109,9 +109,9 @@ class ProductProduct(models.Model):
          LEFT JOIN project_task task
                 ON so.id = task.sale_order_id
              WHERE task.id = %s
-               AND sol.product_uom_qty {} %s
-        """.format(operator)
-        return [('id', op, (query, (task.id, value)))]
+               AND sol.product_uom_qty %s %s
+        )""", task.id, SQL(operator), value)
+        return [('id', op, sql)]
 
     @api.model
     def _get_contextual_fsm_task(self):

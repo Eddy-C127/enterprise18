@@ -1,4 +1,5 @@
 from odoo import fields, models
+from odoo.tools import SQL
 
 
 class AccountMove(models.Model):
@@ -15,7 +16,7 @@ class AccountMove(models.Model):
             - Move with a receivable or payable line and a partial is associated, specifically with a receivable or payable line
         """
 
-        query = """
+        sql = SQL("""(
             WITH moves_with_receivable_payable AS (
                 SELECT DISTINCT aml.move_id as id
                 FROM account_move_line aml
@@ -40,8 +41,8 @@ class AccountMove(models.Model):
                 move_rp.id IS NULL
                 OR 
                 rec_move.id IS NOT NULL
-        """
+        )""")
 
-        # op is 'inselect' if (impacting_cash_basis, '=', True) or (impacting_cash_basis, '!=', False), 'not inselect' otherwise
-        op = 'inselect' if (operator == '=') ^ (value is False) else 'not inselect'
-        return [('id', op, (query, {}))]
+        # op is 'in' if (impacting_cash_basis, '=', True) or (impacting_cash_basis, '!=', False), 'not in' otherwise
+        op = 'in' if (operator == '=') ^ (value is False) else 'not in'
+        return [('id', op, sql)]

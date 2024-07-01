@@ -13,7 +13,7 @@ from odoo import api, fields, models, _
 from odoo.addons.resource.models.utils import Intervals, sum_intervals
 from odoo.exceptions import UserError, AccessError
 from odoo.osv import expression
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_utils, format_datetime
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_utils, format_datetime, SQL
 
 _logger = logging.getLogger(__name__)
 
@@ -359,7 +359,7 @@ class Planning(models.Model):
         if operator not in ['=', '>'] or not isinstance(value, int) or value != 0:
             raise NotImplementedError(_('Operation not supported, you should always compare overlap_slot_count to 0 value with = or > operator.'))
 
-        query = """
+        sql = SQL("""(
             SELECT S1.id
             FROM planning_slot S1
             WHERE EXISTS (
@@ -371,9 +371,9 @@ class Planning(models.Model):
                    AND S1.end_datetime > S2.start_datetime
                    AND S1.allocated_percentage + S2.allocated_percentage > 100
             )
-        """
-        operator_new = (operator == ">") and "inselect" or "not inselect"
-        return [('id', operator_new, (query, ()))]
+        )""")
+        operator_new = (operator == ">") and "in" or "not in"
+        return [('id', operator_new, sql)]
 
     @api.depends('start_datetime', 'end_datetime')
     def _compute_slot_duration(self):

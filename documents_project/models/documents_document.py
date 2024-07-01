@@ -102,22 +102,21 @@ class Document(models.Model):
             ]
         elif operator in ("ilike", "not ilike", "=", "!=") and isinstance(value, str):
             query_project = self.env["project.project"]._search([(self.env["project.project"]._rec_name, operator, value)])
-            project_select, project_where_params = query_project.select()
             # We may need to flush `res_model` `res_id` if we ever get a flow that assigns + search at the same time..
             # We only apply security rules to projects as security rules on documents will be applied prior
             # to this leaf. Not applying security rules on tasks might give more result than expected but it would not allow
             # access to an unauthorized document.
             return [
-                ("id", "inselect", (f"""
+                ("id", "in", SQL("""(
                     WITH helper as (
-                        {project_select}
+                        %s
                     )
                     SELECT document.id
                     FROM documents_document document
                     LEFT JOIN project_project project ON project.id=document.res_id AND document.res_model = 'project.project'
                     LEFT JOIN project_task task ON task.id=document.res_id AND document.res_model = 'project.task'
                     WHERE COALESCE(task.project_id, project.id) IN (SELECT id FROM helper)
-                """, project_where_params))
+                )""", query_project.subselect()))
             ]
         else:
             raise ValidationError(_("Invalid project search"))
@@ -140,17 +139,17 @@ class Document(models.Model):
                 "&", ("res_model", "=", "project.task"), ("res_id", operator, value),
             ]
         elif operator in ("ilike", "not ilike", "=", "!=") and isinstance(value, str):
-            query_task = self.env["project.task"]._search([(self.env["project.task"]._rec_name, operator, value)])
+            query_task = self.env['project.task']._search([(self.env["project.task"]._rec_name, operator, value)])
             document_task_alias = query_task.make_alias('project_task', 'document')
             query_task.add_join("JOIN", document_task_alias, 'documents_document', SQL(
                 "%s = %s AND %s = %s",
                 SQL.identifier('project_task', 'id'),
-                SQL.identifier(document_task_alias, 'res_id'),
-                SQL.identifier(document_task_alias, 'res_model'),
+                self._field_to_sql(document_task_alias, 'res_id'),
+                self._field_to_sql(document_task_alias, 'res_model'),
                 'project.task',
             ))
             return [
-                ("id", "inselect", query_task.select(f"{document_task_alias}.id")),
+                ("id", "in", query_task.subselect(f"{document_task_alias}.id")),
             ]
         else:
             raise ValidationError(_("Invalid task search"))
