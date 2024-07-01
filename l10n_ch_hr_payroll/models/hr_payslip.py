@@ -73,6 +73,21 @@ class HrPayslip(models.Model):
                 continue
             payslip.l10n_ch_compensation_fund_id = payslip.contract_id.l10n_ch_compensation_fund_id
 
+    def action_refresh_from_work_entries(self):
+        if any(p.state not in ['draft', 'verify'] for p in self):
+            super().action_refresh_from_work_entries()
+        else:
+            payslips = self.filtered(lambda p: p.struct_id.country_id.code == "CH")
+            payslips.mapped('input_line_ids').unlink()
+            payslips._compute_input_line_ids()
+            payslips._compute_l10n_ch_social_insurance_id()
+            payslips._compute_l10n_ch_lpp_insurance_id()
+            payslips._compute_l10n_ch_accident_insurance_line_id()
+            payslips._compute_l10n_ch_additional_accident_insurance_line_ids()
+            payslips._compute_l10n_ch_sickness_insurance_line_ids()
+            payslips._compute_l10n_ch_compensation_fund_id()
+            super().action_refresh_from_work_entries()
+
     def _get_base_local_dict(self):
         res = super()._get_base_local_dict()
         if self.struct_id.code == "CHMONTHLY":

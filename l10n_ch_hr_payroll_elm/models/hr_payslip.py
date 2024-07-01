@@ -79,7 +79,7 @@ class HrPayslip(models.Model):
             if contract.l10n_ch_is_predefined_category:
                 payslip.l10n_ch_is_code = f"{canton}-{contract.l10n_ch_is_predefined_category}{'Y' if e.l10n_ch_church_tax else 'N'}"
             else:
-                payslip.l10n_ch_is_code = f"{canton}-{e.l10n_ch_tax_scale}{min(e.children, 9)}{'Y' if e.l10n_ch_church_tax else 'N'}"
+                payslip.l10n_ch_is_code = f"{canton}-{e.l10n_ch_tax_scale}{int(min(e.children, 9))}{'Y' if e.l10n_ch_church_tax else 'N'}"
 
     @api.depends('contract_id.l10n_ch_lpp_not_insured', 'state')
     def _compute_l10n_ch_lpp_not_insured(self):
@@ -148,6 +148,18 @@ class HrPayslip(models.Model):
         result = super().compute_sheet()
         self.env['hr.payslip.is.log.line'].create(swiss_payslips._get_is_log_lines())
         return result
+
+    def action_refresh_from_work_entries(self):
+        if any(p.state not in ['draft', 'verify'] for p in self):
+            super().action_refresh_from_work_entries()
+        else:
+            payslips = self.filtered(lambda p: p.struct_id.country_id.code == "CH")
+            payslips._compute_l10n_ch_pay_13th_month()
+            payslips._compute_l10n_ch_avs_status()
+            payslips._compute_l10n_ch_is_model()
+            payslips._compute_l10n_ch_is_code()
+            payslips._compute_l10n_ch_lpp_not_insured()
+            super().action_refresh_from_work_entries()
 
     def _l10n_ch_get_as_days_count(self):
         self.ensure_one()
