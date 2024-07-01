@@ -17,6 +17,7 @@ import { _t } from "@web/core/l10n/translation";
 import { SidebarViewToolbox } from "@web_studio/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox";
 import { ChatterProperties } from "@web_studio/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties";
 import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/view_editor_model";
+import { WidgetProperties } from "@web_studio/client_action/view_editor/interactive_editor/properties/widget_properties/widget_properties";
 
 export class FormEditorSidebar extends Component {
     static template = "web_studio.ViewEditor.FormEditorSidebar";
@@ -74,6 +75,9 @@ export class FormEditorSidebar extends Component {
             },
             chatter: {
                 component: ChatterProperties,
+            },
+            widget: {
+                component: WidgetProperties,
             },
         };
     }

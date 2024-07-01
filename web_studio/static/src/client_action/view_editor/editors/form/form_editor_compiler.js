@@ -20,6 +20,7 @@ const interestingSelector = [
     ":not(field) group group > *", // content of inner groups serves as main dropzone
     ":not(field) chatter",
     ":not(field) .oe_avatar",
+    ":not(field) widget", // should be clickable
 ].join(", ");
 
 export class FormEditorCompiler extends formView.Compiler {

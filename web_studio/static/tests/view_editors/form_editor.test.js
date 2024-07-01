@@ -1,6 +1,6 @@
 import { expect, test } from "@odoo/hoot";
 import { queryAll } from "@odoo/hoot-dom";
-import { onMounted } from "@odoo/owl";
+import { Component, onMounted, xml } from "@odoo/owl";
 
 import {
     contains,
@@ -10,9 +10,10 @@ import {
     onRpc,
     patchWithCleanup,
 } from "@web/../tests/web_test_helpers";
+import { registry } from "@web/core/registry";
 import { ImageField } from "@web/views/fields/image/image_field";
 import { charField } from "@web/views/fields/char/char_field";
-import { COMPUTED_DISPLAY_OPTIONS } from "@web_studio/client_action/view_editor/interactive_editor/properties/field_properties/field_type_properties";
+import { COMPUTED_DISPLAY_OPTIONS } from "@web_studio/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties";
 
 import {
     mountViewEditor,
@@ -678,4 +679,71 @@ test("the name of the selected element is displayed in the sidebar", async () =>
     expect(".o_web_studio_sidebar h3.o_web_studio_icon_container").toHaveText("Button");
     await contains(".nav-link:contains(Notes)").click();
     expect(".o_web_studio_sidebar h3.o_web_studio_icon_container").toHaveText("Page");
+});
+
+test("edit options and attributes on a widget node", async () => {
+    let editCount = 0;
+
+    class MyTestWidget extends Component {
+        static template = xml`<div t-attf-class="bg-{{props.color}}" t-attf-style="width:{{props.width}}px;">Inspector widget</div>`;
+        static props = ["*"];
+    }
+    registry.category("view_widgets").add("test_widget", {
+        component: MyTestWidget,
+        extractProps: ({ attrs, options }) => {
+            return {
+                width: attrs.width,
+                color: options.color,
+            };
+        },
+        supportedAttributes: [
+            {
+                label: "Width",
+                name: "width",
+                type: "string",
+            },
+        ],
+        supportedOptions: [
+            {
+                label: "Color option",
+                name: "color",
+                type: "string",
+            },
+        ],
+    });
+
+    const arch = `<form><group>
+        <widget name="test_widget"/>
+    </group></form>`;
+    onRpc("/web_studio/edit_view", async (request) => {
+        const { params } = await request.json();
+        editCount++;
+        if (editCount === 1) {
+            const newArch = `<form><group>
+                <widget name="test_widget" width="30"/>
+            </group></form>`;
+            expect(params.operations[0].new_attrs).toEqual({ width: "30" });
+            return createMockViewResult("form", newArch, Coucou);
+        }
+        if (editCount === 2) {
+            expect(params.operations[1].new_attrs).toEqual({ options: '{"color":"primary"}' });
+            const newArch = `<form><group>
+                <widget name="test_widget" width="30" options="{'color': 'primary'}"/>
+            </group></form>`;
+            return createMockViewResult("form", newArch, Coucou);
+        }
+    });
+    await mountViewEditor({
+        type: "form",
+        resModel: "coucou",
+        arch,
+    });
+
+    await contains(".o_widget_test_widget").click();
+    expect(".o_web_studio_property").toHaveCount(3);
+    await contains("input[id=width]").edit("30");
+    expect(".o_widget_test_widget div").toHaveStyle({ width: "30px" });
+    await contains(".o_widget_test_widget").click();
+    await contains("input[id=color]").edit("primary");
+    expect(".o_widget_test_widget div").toHaveClass("bg-primary");
 });

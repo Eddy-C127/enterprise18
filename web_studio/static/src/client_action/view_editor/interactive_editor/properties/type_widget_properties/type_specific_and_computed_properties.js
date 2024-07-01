@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { _t } from "@web/core/l10n/translation";
 
 /**
@@ -8,7 +6,7 @@ import { _t } from "@web/core/l10n/translation";
  * retrieve the value by itself, or you can set a function with the `getValue`
  * key to compute it specifically for one editable property.
  */
-export const EDITABLE_ATTRIBUTES = {
+const EDITABLE_FIELD_ATTRIBUTES = {
     context: {
         name: "context",
         label: _t("Context"),
@@ -47,41 +45,41 @@ export const EDITABLE_ATTRIBUTES = {
 
 export const FIELD_TYPE_ATTRIBUTES = {
     char: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
     },
     date: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
     },
     datetime: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
     },
     float: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
-        list: [EDITABLE_ATTRIBUTES.aggregate],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
+        list: [EDITABLE_FIELD_ATTRIBUTES.aggregate],
     },
     html: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
     },
     integer: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
-        list: [EDITABLE_ATTRIBUTES.aggregate],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
+        list: [EDITABLE_FIELD_ATTRIBUTES.aggregate],
     },
     many2many: {
-        common: [EDITABLE_ATTRIBUTES.domain, EDITABLE_ATTRIBUTES.context],
+        common: [EDITABLE_FIELD_ATTRIBUTES.domain, EDITABLE_FIELD_ATTRIBUTES.context],
     },
     many2one: {
         common: [
-            EDITABLE_ATTRIBUTES.domain,
-            EDITABLE_ATTRIBUTES.context,
-            EDITABLE_ATTRIBUTES.placeholder,
+            EDITABLE_FIELD_ATTRIBUTES.domain,
+            EDITABLE_FIELD_ATTRIBUTES.context,
+            EDITABLE_FIELD_ATTRIBUTES.placeholder,
         ],
     },
     monetary: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
-        list: [EDITABLE_ATTRIBUTES.aggregate],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
+        list: [EDITABLE_FIELD_ATTRIBUTES.aggregate],
     },
     selection: {
-        common: [EDITABLE_ATTRIBUTES.placeholder],
+        common: [EDITABLE_FIELD_ATTRIBUTES.placeholder],
     },
 };
 

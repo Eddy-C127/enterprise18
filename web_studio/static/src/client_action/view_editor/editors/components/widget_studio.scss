@@ -1,0 +1,12 @@
+.o_widget_web_ribbon {
+    &.o-web-studio-editor--element-clickable span {
+        pointer-events: all;
+        &:hover {
+            cursor: pointer;
+            outline: 1px dashed $o-brand-primary;
+        }
+    }
+    &.o-web-studio-editor--element-clicked span {
+        outline: 2px solid $o-brand-primary !important;
+    }
+}

@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { Component, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
@@ -10,10 +8,9 @@ import {
     getWowlFieldWidgets,
 } from "@web_studio/client_action/view_editor/editors/utils";
 import {
-    EDITABLE_ATTRIBUTES,
     FIELD_TYPE_ATTRIBUTES,
     COMPUTED_DISPLAY_OPTIONS,
-} from "./field_type_properties";
+} from "@web_studio/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties";
 
 export class TypeWidgetProperties extends Component {
     static template =
@@ -82,17 +79,22 @@ export class TypeWidgetProperties extends Component {
         return [];
     }
 
-    getSupportedOptions(props) {
-        const widgetName = props.node.attrs?.widget || props.node.field.type;
-        const fieldRegistry = registry.category("fields").content;
+    getSupportedOptionsAndAttributes(props) {
+        const widgetName = this.isField
+            ? props.node.attrs?.widget || props.node.field?.type
+            : props.node.attrs.name;
+        const itemsRegistry = registry.category(this.isField ? "fields" : "view_widgets").content;
         const widgetDescription =
-            fieldRegistry[this.env.viewEditorModel.viewType + "." + widgetName] ||
-            fieldRegistry[widgetName];
-        return (
-            widgetDescription?.[1].supportedOptions?.filter(
-                (o) => !o.viewTypes || o.viewTypes.includes(this.env.viewEditorModel.viewType)
-            ) || []
-        );
+            itemsRegistry[this.env.viewEditorModel.viewType + "." + widgetName] ||
+            itemsRegistry[widgetName];
+        return [
+            // tag the attributes as the edition changes the attribute value instead of a value from the option attribute.
+            ...(widgetDescription?.[1].supportedAttributes || []).map((e) => ({
+                ...e,
+                isAttribute: true,
+            })),
+            ...(widgetDescription?.[1].supportedOptions || []),
+        ];
     }
 
     /**
@@ -118,9 +120,18 @@ export class TypeWidgetProperties extends Component {
 
     /**
      * @returns the list of attributes available depending the type of field,
-     * as well the current widget selected
+     * as well the current widget selected. For a widget node, there is no
+     * concept of type, we simply read what supported options and attributes
+     * are on the node
      */
     _getAttributesForCurrentTypeAndWidget(props) {
+        if (!props.node.field) {
+            // node is a widget, and there is no 'type' on such elements
+            return JSON.parse(JSON.stringify(this.getSupportedOptionsAndAttributes(props)));
+        }
+
+        this.isField = true;
+
         const fieldType = props.node.field.type;
         const { viewType } = this.env.viewEditorModel;
 
@@ -128,10 +139,10 @@ export class TypeWidgetProperties extends Component {
         const fieldSpecificViewProperties = FIELD_TYPE_ATTRIBUTES[fieldType]?.[viewType] || [];
 
         return [
-            ...fieldCommonViewsProperties,
-            ...fieldSpecificViewProperties,
+            ...fieldCommonViewsProperties.map((e) => ({ ...e, isAttribute: true })),
+            ...fieldSpecificViewProperties.map((e) => ({ ...e, isAttribute: true })),
             // create a deep copy of the options description to avoid modifying the original objects
-            ...JSON.parse(JSON.stringify(this.getSupportedOptions(props))),
+            ...JSON.parse(JSON.stringify(this.getSupportedOptionsAndAttributes(props))),
         ];
     }
 
@@ -166,7 +177,7 @@ export class TypeWidgetProperties extends Component {
         return this.attributesForCurrentTypeAndWidget
             .filter((attribute) => attribute.type === type)
             .map((attribute) => {
-                if (EDITABLE_ATTRIBUTES[attribute.name]) {
+                if (attribute.isAttribute) {
                     return this.getPropertyFromAttributes(attribute, props);
                 }
                 return this.getPropertyFromOptions(attribute, props);
@@ -321,7 +332,6 @@ export class TypeWidgetProperties extends Component {
     }
 
     async onChangeProperty(value, name) {
-        const currentProperty = this.getOptionObj(name);
         if (name === "currency_field" && this.props.node.field.type === "monetary") {
             await this.onChangeCurrency(value);
             if (!this.props.node.attrs.options?.[name]) {
@@ -329,7 +339,9 @@ export class TypeWidgetProperties extends Component {
             }
             value = ""; // the currency_field arch option will be deleted
         }
-        if (EDITABLE_ATTRIBUTES[name]) {
+
+        const currentProperty = this.getOptionObj(name);
+        if (currentProperty.isAttribute) {
             return this.props.onChangeAttribute(value, name);
         }
         const options = { ...this.props.node.attrs.options };

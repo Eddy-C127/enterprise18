@@ -4,7 +4,7 @@ import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_d
 import { rpc } from "@web/core/network/rpc";
 import { Property } from "@web_studio/client_action/view_editor/property/property";
 import { SelectionContentDialog } from "@web_studio/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog";
-import { TypeWidgetProperties } from "./type_widget_properties";
+import { TypeWidgetProperties } from "@web_studio/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_widget_properties";
 import { ViewStructureProperties } from "@web_studio/client_action/view_editor/interactive_editor/properties/view_structure_properties/view_structure_properties";
 import { useService } from "@web/core/utils/hooks";
 import { ClassAttribute } from "../class_attribute/class_attribute";

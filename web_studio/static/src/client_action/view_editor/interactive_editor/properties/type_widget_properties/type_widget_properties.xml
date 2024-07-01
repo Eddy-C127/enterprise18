@@ -3,6 +3,7 @@
 <t t-name="web_studio.ViewEditor.InteractiveEditorProperties.Field.TypeWidgetProperties">
     <t t-set="property_id" t-value="props.node.xpath" />
     <Property
+        t-if="isField"
         t-key="property_id + '_widget'"
         name="'widget'"
         type="'selection'"
