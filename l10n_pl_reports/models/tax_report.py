@@ -90,7 +90,7 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
             The query gets the information on moves and information aggregated from their lines for the whole move
             like the tax amounts that are grouped by tax grid and move """
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
 
         # To get if the line contains a tag, we get the expression (if needed), to get the id. It is then given to the params
         oss_tag = self.env.ref('l10n_eu_oss.tag_oss', raise_if_not_found=False)
@@ -198,8 +198,8 @@ class PolishTaxReportCustomHandler(models.AbstractModel):
             WHERE %(search_condition)s
             GROUP BY "account_move_line__move_id".id, partn.id, country.code;
                 """,
-                table_references=table_references,
-                search_condition=search_condition,
+                table_references=query.from_clause,
+                search_condition=query.where_clause,
                 tag_name=self.with_context(lang='en_US').env['account.account.tag']._field_to_sql('tag', 'name'),
                 move_to_group_by=move_to_group_by or SQL('account_move_line__move_id.id'),
                 additional_joined_table_for_aml_aggregates=additional_joined_table_for_aml_aggregates or SQL(),

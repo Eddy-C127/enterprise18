@@ -39,7 +39,7 @@ class TestL10nMXTrialBalanceMonth13(TestAccountReportsCommon):
         })
         inv_2021.action_post()
 
-        account_current_year_earnings = cls.env['account.account'].search([('code', '=', '305.01.01'), ('company_id', '=', cls.company_data['company'].id)])
+        account_current_year_earnings = cls.env['account.account'].search([('code', '=', '305.01.01'), ('company_ids', '=', cls.company_data['company'].id)])
         closing_2021 = cls.env['account.move'].create({
             'line_ids': [
                 Command.create({

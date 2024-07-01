@@ -19,44 +19,47 @@ class IVAReportCustomHandler(models.AbstractModel):
         queries = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
 
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', domain=domain)
-            aa_code_like = '2408%%'
+            query = report._get_report_query(column_group_options, 'strict_range', domain=domain)
+            account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+            account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+            account_code_like = '2408%%'
             bimestre_expression = SQL('CAST(FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS INT)')
             bimestre_column = SQL('%s AS bimestre,', bimestre_expression) if bimestre else SQL()
             bimestre_having = SQL(
                 '''
                 HAVING SUM(
                     CASE
-                    WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.credit > 0
+                    WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.credit > 0
                         THEN account_move_line.tax_base_amount
-                    WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.debit > 0
+                    WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.debit > 0
                         THEN account_move_line.tax_base_amount * -1
                     ELSE 0
                     END
                 ) != 0
                 ''',
-                aa_code_like=aa_code_like,
+                account_code=account_code,
+                account_code_like=account_code_like,
             ) if bimestre else SQL()
             queries.append(SQL(
                 """
                 SELECT
                     %(column_group_key)s AS column_group_key,
                     SUM(CASE
-                        WHEN aa.code LIKE %(aa_code_like)s
+                        WHEN %(account_code)s LIKE %(account_code_like)s
                             THEN account_move_line.credit - account_move_line.debit
                         ELSE 0
                         END
                      ) AS balance_15_over_19,
                     SUM(CASE
-                        WHEN aa.code NOT LIKE %(aa_code_like)s
+                        WHEN %(account_code)s NOT LIKE %(account_code_like)s
                             THEN account_move_line.credit - account_move_line.debit
                         ELSE 0
                         END
                     ) AS balance,
                     SUM(CASE
-                        WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.credit > 0
+                        WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.credit > 0
                             THEN account_move_line.tax_base_amount
-                        WHEN aa.code NOT LIKE %(aa_code_like)s AND account_move_line.debit > 0
+                        WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.debit > 0
                             THEN account_move_line.tax_base_amount * -1
                         ELSE 0
                         END
@@ -66,18 +69,18 @@ class IVAReportCustomHandler(models.AbstractModel):
                     rp.name AS partner_name
                 FROM %(table_references)s
                 JOIN res_partner rp ON account_move_line.partner_id = rp.id
-                JOIN account_account aa ON account_move_line.account_id = aa.id
                 WHERE %(search_condition)s
                 GROUP BY rp.id %(bimestre_groupby)s
                 %(bimestre_having)s
                 """,
                 column_group_key=column_group_key,
-                aa_code_like=aa_code_like,
+                account_code=account_code,
+                account_code_like=account_code_like,
                 bimestre_column=bimestre_column,
                 bimestre_groupby=SQL(', %s', bimestre_expression) if bimestre else SQL(),
                 bimestre_having=bimestre_having,
-                table_references=table_references,
-                search_condition=search_condition,
+                table_references=query.from_clause,
+                search_condition=query.where_clause,
             ))
 
         self._cr.execute(SQL(' UNION ALL ').join(queries))

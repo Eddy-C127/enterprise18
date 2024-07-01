@@ -69,7 +69,6 @@ class POSTestTaxReport(TestAccountReportsCommon):
             'name': 'POS tax account',
             'code': 'POSTaxTest',
             'account_type': 'asset_current',
-            'company_id': company.id,
         })
 
         rep_ln_tax = cls.pos_tax.invoice_repartition_line_ids + cls.pos_tax.refund_repartition_line_ids

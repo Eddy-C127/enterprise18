@@ -154,8 +154,8 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         self.wizard._import_files(['account.account'])
 
         account_codes = ('401000', '445660', '622700')
-        domain = [('company_id', '=', self.company.id), ('code', 'in', account_codes)]
-        accounts = self.env['account.account'].search(domain, order='code')
+        domain = [('company_ids', '=', self.company.id), ('code', 'in', account_codes)]
+        accounts = self.env['account.account'].with_company(self.company.id).search(domain, order='code')
 
         expected_values = [{
             'name': 'Suppliers - Purchase of goods and services',

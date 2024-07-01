@@ -10,7 +10,7 @@ from PIL import ImageFont
 from odoo import api, models, _, fields
 from odoo.exceptions import UserError
 from odoo.tools import date_utils, float_repr, SQL, parse_version
-from odoo.tools.misc import format_date, get_lang, file_path
+from odoo.tools.misc import format_date, file_path
 
 
 class SlspCustomHandler(models.AbstractModel):
@@ -61,7 +61,7 @@ class SlspCustomHandler(models.AbstractModel):
             domain = [('move_id.move_type', '=', options['move_type'])]
             if not column_group_options.get('include_no_tin'):
                 domain.append(('partner_id.vat', '!=', False))
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain)
+            query = report._get_report_query(column_group_options, "strict_range", domain)
             # The joins are there to filter out months for which we would not have any lines in the report.
             queries.append(SQL(
                 """
@@ -75,8 +75,8 @@ class SlspCustomHandler(models.AbstractModel):
                 ORDER BY taxable_month DESC
                 """,
                 column_group_key=column_group_key,
-                table_references=table_references,
-                search_condition=search_condition,
+                table_references=query.from_clause,
+                search_condition=query.where_clause,
             ))
 
         self.env.cr.execute(SQL(" UNION ALL ").join(queries))
@@ -147,14 +147,10 @@ class SlspCustomHandler(models.AbstractModel):
             ]
             if not column_group_options.get('include_no_tin'):
                 domain.append(('partner_id.vat', '!=', False))
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=domain)
+            query = report._get_report_query(column_group_options, "strict_range", domain=domain)
             tail_query = report._get_engine_query_tail(offset, limit)
             currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
-            lang = self.env.user.lang or get_lang(self.env).code
-            if self.pool['account.account.tag'].name.translate:
-                account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
-            else:
-                account_tag_name = SQL.identifier('account_tag', 'name')
+            account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
             queries.append(SQL(
                 """
                   SELECT %(column_group_key)s AS column_group_key,
@@ -182,9 +178,9 @@ class SlspCustomHandler(models.AbstractModel):
                 """,
                 column_group_key=column_group_key,
                 account_tag_name=account_tag_name,
-                table_references=table_references,
+                table_references=query.from_clause,
                 currency_table_query=currency_table_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
                 tail_query=tail_query,
             ))
 
@@ -304,7 +300,7 @@ class SlspCustomHandler(models.AbstractModel):
         start_date = date_utils.start_of(end_date, 'month')
         queries = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=[
+            query = report._get_report_query(column_group_options, "strict_range", domain=[
                 ('move_id.move_type', '=', options['move_type']),
                 # Make sure to only fetch records that are in the parent's row month
                 ('date', '>=', start_date),
@@ -313,11 +309,7 @@ class SlspCustomHandler(models.AbstractModel):
             ])
             tail_query = report._get_engine_query_tail(offset, limit)
             currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
-            lang = self.env.user.lang or get_lang(self.env).code
-            if self.pool['account.account.tag'].name.translate:
-                account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
-            else:
-                account_tag_name = SQL.identifier('account_tag', 'name')
+            account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
             queries.append(SQL(
                 """
                   SELECT %(column_group_key)s AS column_group_key,
@@ -339,9 +331,9 @@ class SlspCustomHandler(models.AbstractModel):
                 """,
                 column_group_key=column_group_key,
                 account_tag_name=account_tag_name,
-                table_references=table_references,
+                table_references=query.from_clause,
                 currency_table_query=currency_table_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
                 tail_query=tail_query,
             ))
 
@@ -417,13 +409,9 @@ class SlspCustomHandler(models.AbstractModel):
             domain = [('move_id.move_type', '=', options['move_type'])]
             if not column_group_options.get('include_no_tin'):
                 domain.append(('partner_id.vat', '!=', False))
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, "strict_range", domain=domain)
+            query = report._get_report_query(column_group_options, "strict_range", domain=domain)
             currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
-            lang = self.env.user.lang or get_lang(self.env).code
-            if self.pool['account.account.tag'].name.translate:
-                account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
-            else:
-                account_tag_name = SQL.identifier('account_tag', 'name')
+            account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
             queries.append(SQL(
                 """
                   SELECT %(column_group_key)s AS column_group_key,
@@ -444,9 +432,9 @@ class SlspCustomHandler(models.AbstractModel):
                 """,
                 column_group_key=column_group_key,
                 account_tag_name=account_tag_name,
-                table_references=table_references,
+                table_references=query.from_clause,
                 currency_table_query=currency_table_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
         self.env.cr.execute(SQL(" UNION ALL ").join(queries))
         results = self.env.cr.dictfetchall()

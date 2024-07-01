@@ -15,6 +15,16 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
     def setUpClass(cls):
         super().setUpClass()
 
+        # Give codes in company_1 to the accounts in company_2.
+        context = {'allowed_company_ids': [cls.company_data['company'].id, cls.company_data_2['company'].id]}
+        cls.company_data_2['default_account_payable'].with_context(context).code = '211010'
+        cls.company_data_2['default_account_revenue'].with_context(context).code = '400010'
+        cls.company_data_2['default_account_expense'].with_context(context).code = '600010'
+        cls.env['account.account'].search([
+            ('company_ids', '=', cls.company_data_2['company'].id),
+            ('account_type', '=', 'equity_unaffected')
+        ]).with_context(context).code = '999989'
+
         # Entries in 2016 for company_1 to test the initial balance.
         cls.move_2016_1 = cls.env['account.move'].create({
             'move_type': 'entry',
@@ -193,13 +203,13 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
             [
                 ('121000 Account Receivable',           1000.0,         0.0,            1000.0),
                 ('211000 Account Payable',              100.0,          0.0,            100.0),
-                ('211000 Account Payable',              50.0,           0.0,            50.0),
+                ('211010 Account Payable',              50.0,           0.0,            50.0),
                 ('400000 Product Sales',                20000.0,        0.0,            20000.0),
-                ('400000 Product Sales',                0.0,            200.0,          -200.0),
+                ('400010 Product Sales',                0.0,            200.0,          -200.0),
                 ('600000 Expenses',                     0.0,            21000.0,        -21000.0),
-                ('600000 Expenses',                     200.0,          0.0,            200.0),
+                ('600010 Expenses',                     200.0,          0.0,            200.0),
+                ('999989 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('999999 Undistributed Profits/Losses', 200.0,          300.0,          -100.0),
-                ('999999 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('Total',                               21550.0,        21550.0,        0.0),
             ],
             options,
@@ -216,7 +226,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                 ('INV/2017/00001',                      1000.0,         0.0,            1000.0),
                 ('Total 121000 Account Receivable',     1000.0,         0.0,            1000.0),
                 ('211000 Account Payable',              100.0,          0.0,            100.0),
-                ('211000 Account Payable',              50.0,           0.0,            50.0),
+                ('211010 Account Payable',              50.0,           0.0,            50.0),
                 ('400000 Product Sales',                20000.0,        0.0,            20000.0),
                 ('INV/2017/00001',                      2000.0,         0.0,            2000.0),
                 ('INV/2017/00001',                      3000.0,         0.0,            5000.0),
@@ -224,19 +234,19 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                 ('INV/2017/00001',                      5000.0,         0.0,            14000.0),
                 ('INV/2017/00001',                      6000.0,         0.0,            20000.0),
                 ('Total 400000 Product Sales',          20000.0,        0.0,            20000.0),
-                ('400000 Product Sales',                0.0,            200.0,          -200.0),
+                ('400010 Product Sales',                0.0,            200.0,          -200.0),
                 ('BNK1/2017/00001',                     0.0,            200.0,          -200.0),
-                ('Total 400000 Product Sales',          0.0,            200.0,          -200.0),
+                ('Total 400010 Product Sales',          0.0,            200.0,          -200.0),
                 ('600000 Expenses',                     0.0,            21000.0,        -21000.0),
                 ('INV/2017/00001',                      0.0,            6000.0,         -6000.0),
                 ('INV/2017/00001',                      0.0,            7000.0,         -13000.0),
                 ('INV/2017/00001',                      0.0,            8000.0,         -21000.0),
                 ('Total 600000 Expenses',               0.0,            21000.0,        -21000.0),
-                ('600000 Expenses',                     200.0,          0.0,            200.0),
+                ('600010 Expenses',                     200.0,          0.0,            200.0),
                 ('BNK1/2017/00001',                     200.0,          0.0,            200.0),
-                ('Total 600000 Expenses',               200.0,          0.0,            200.0),
+                ('Total 600010 Expenses',               200.0,          0.0,            200.0),
+                ('999989 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('999999 Undistributed Profits/Losses', 200.0,          300.0,          -100.0),
-                ('999999 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('Total',                               21550.0,        21550.0,        0.0),
             ],
             options,
@@ -265,13 +275,13 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
             [
                 ('121000 Account Receivable',           1000.0,         0.0,            1000.0),
                 ('211000 Account Payable',              200.0,          0.0,            200.0),
-                ('211000 Account Payable',              50.0,           0.0,            50.0),
+                ('211010 Account Payable',              50.0,           0.0,            50.0),
                 ('400000 Product Sales',                20000.0,        0.0,            20000.0),
-                ('400000 Product Sales',                0.0,            200.0,          -200.0),
+                ('400010 Product Sales',                0.0,            200.0,          -200.0),
                 ('600000 Expenses',                     0.0,            21000.0,        -21000.0),
-                ('600000 Expenses',                     200.0,          0.0,            200.0),
+                ('600010 Expenses',                     200.0,          0.0,            200.0),
+                ('999989 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('999999 Undistributed Profits/Losses', 400.0,          600.0,          -200.0),
-                ('999999 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('Total',                               21850.0,        21850.0,        0.0),
             ],
             options,
@@ -288,7 +298,7 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                 ('INV/2017/00001',                      1000.0,         0.0,            1000.0),
                 ('Total 121000 Account Receivable',     1000.0,         0.0,            1000.0),
                 ('211000 Account Payable',              200.0,          0.0,            200.0),
-                ('211000 Account Payable',              50.0,           0.0,            50.0),
+                ('211010 Account Payable',              50.0,           0.0,            50.0),
                 ('400000 Product Sales',                20000.0,        0.0,            20000.0),
                 ('INV/2017/00001',                      2000.0,         0.0,            2000.0),
                 ('INV/2017/00001',                      3000.0,         0.0,            5000.0),
@@ -296,19 +306,19 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                 ('INV/2017/00001',                      5000.0,         0.0,            14000.0),
                 ('INV/2017/00001',                      6000.0,         0.0,            20000.0),
                 ('Total 400000 Product Sales',          20000.0,        0.0,            20000.0),
-                ('400000 Product Sales',                0.0,            200.0,          -200.0),
+                ('400010 Product Sales',                0.0,            200.0,          -200.0),
                 ('BNK1/2017/00001',                     0.0,            200.0,          -200.0),
-                ('Total 400000 Product Sales',          0.0,            200.0,          -200.0),
+                ('Total 400010 Product Sales',          0.0,            200.0,          -200.0),
                 ('600000 Expenses',                     0.0,            21000.0,        -21000.0),
                 ('INV/2017/00001',                      0.0,            6000.0,         -6000.0),
                 ('INV/2017/00001',                      0.0,            7000.0,         -13000.0),
                 ('INV/2017/00001',                      0.0,            8000.0,         -21000.0),
                 ('Total 600000 Expenses',               0.0,            21000.0,        -21000.0),
-                ('600000 Expenses',                     200.0,          0.0,            200.0),
+                ('600010 Expenses',                     200.0,          0.0,            200.0),
                 ('BNK1/2017/00001',                     200.0,          0.0,            200.0),
-                ('Total 600000 Expenses',               200.0,          0.0,            200.0),
+                ('Total 600010 Expenses',               200.0,          0.0,            200.0),
+                ('999989 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('999999 Undistributed Profits/Losses', 400.0,          600.0,          -200.0),
-                ('999999 Undistributed Profits/Losses', 0.0,            50.0,           -50.0),
                 ('Total',                               21850.0,        21850.0,        0.0),
             ],
             options,
@@ -396,7 +406,6 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
             'code': 'test',
             'account_type': 'liability_current',
             'currency_id': self.other_currency.id,
-            'company_id': self.company_data['company'].id,
         })
 
         move_2016 = self.env['account.move'].create({
@@ -461,13 +470,13 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
             [
                 ('121000 Account Receivable',           '',             2100.0,         0.0,            2100.0),
                 ('211000 Account Payable',              '',             100.0,          0.0,            100.0),
-                ('211000 Account Payable',              '',             50.0,           0.0,            50.0),
+                ('211010 Account Payable',              '',             50.0,           0.0,            50.0),
                 ('400000 Product Sales',                '',             20000.0,        0.0,            20000.0),
-                ('400000 Product Sales',                '',             0.0,            200.0,          -200.0),
+                ('400010 Product Sales',                '',             0.0,            200.0,          -200.0),
                 ('600000 Expenses',                     '',             0.0,            21000.0,        -21000.0),
-                ('600000 Expenses',                     '',             200.0,          0.0,            200.0),
+                ('600010 Expenses',                     '',             200.0,          0.0,            200.0),
+                ('999989 Undistributed Profits/Losses', '',             0.0,            50.0,           -50.0),
                 ('999999 Undistributed Profits/Losses', '',             200.0,          300.0,          -100.0),
-                ('999999 Undistributed Profits/Losses', '',             0.0,            50.0,           -50.0),
                 ('test foreign_curr_account',           -2300.0,        0.0,            1100.0,         -1100.0),
                 ('Initial Balance',                     -300.0,         0.0,            100.0,          -100.0),
                 ('INV/2017/00002',                      -2000.0,        0.0,            1000.0,         -1100.0),
@@ -496,9 +505,9 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
                 ('INV/2017/00001',                       5000.0,          0.0,           14000.0),
                 ('INV/2017/00001',                       6000.0,          0.0,           20000.0),
                 ('Total 400000 Product Sales',          20000.0,          0.0,          20000.0),
-                ('400000 Product Sales',                    0.0,        200.0,           -200.0),
+                ('400010 Product Sales',                    0.0,        200.0,           -200.0),
                 ('BNK1/2017/00001',                         0.0,        200.0,           -200.0),
-                ('Total 400000 Product Sales',              0.0,        200.0,           -200.0),
+                ('Total 400010 Product Sales',              0.0,        200.0,           -200.0),
                 ('Total',                               20000.0,        200.0,          19800.0),
             ],
             options,
@@ -511,8 +520,8 @@ class TestGeneralLedgerReport(TestAccountReportsCommon, odoo.tests.HttpCase):
             #   Name                                          Debit           Credit          Balance
             [   0,                                            4,              5,              6],
             [
+                ('999989 Undistributed Profits/Losses',         0.0,           50.0,           -50.0),
                 ('999999 Undistributed Profits/Losses',       200.0,          300.0,          -100.0),
-                ('999999 Undistributed Profits/Losses',         0.0,           50.0,           -50.0),
                 ('Total',                                     200.0,          350.0,          -150.0),
             ],
             options,

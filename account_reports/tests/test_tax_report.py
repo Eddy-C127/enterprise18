@@ -57,14 +57,12 @@ class TestTaxReport(TestAccountReportsCommon):
             'name': 'Tax Account',
             'code': '250000',
             'account_type': 'liability_current',
-            'company_id': cls.company_data['company'].id,
         })
 
         cls.tax_account_2 = cls.env['account.account'].create({
             'name': 'Tax Account',
             'code': '250001',
             'account_type': 'liability_current',
-            'company_id': cls.company_data['company'].id,
         })
 
         # ==== Sale taxes: group of two taxes having type_tax_use = 'sale' ====
@@ -242,8 +240,8 @@ class TestTaxReport(TestAccountReportsCommon):
         vals = {
             'name': 'Test tax group',
             'company_id': company.id,
-            'tax_receivable_account_id': cls.company_data['default_account_receivable'].sudo().copy({'company_id': company.id}).id,
-            'tax_payable_account_id': cls.company_data['default_account_payable'].sudo().copy({'company_id': company.id}).id,
+            'tax_receivable_account_id': cls.company_data['default_account_receivable'].sudo().copy({'company_ids': company.ids}).id,
+            'tax_payable_account_id': cls.company_data['default_account_payable'].sudo().copy({'company_ids': company.ids}).id,
         }
         if country:
             vals['country_id'] = country.id
@@ -995,7 +993,7 @@ class TestTaxReport(TestAccountReportsCommon):
         }
         for tax in taxes:
             invoices = self.env['account.move']
-            account = self.env['account.account'].search([('company_id', '=', company.id), ('account_type', '=', account_types[tax.type_tax_use])], limit=1)
+            account = self.env['account.account'].search([('company_ids', '=', company.id), ('account_type', '=', account_types[tax.type_tax_use])], limit=1)
             for inv_type in invoice_types[tax.type_tax_use]:
                 invoice = (invoice_generator or default_invoice_generator)(inv_type, partner, account, today, tax)
                 invoice.action_post()
@@ -1778,7 +1776,7 @@ class TestTaxReport(TestAccountReportsCommon):
                 'name': 'Tax unit test tax account',
                 'code': 'test.tax.unit',
                 'account_type': 'asset_current',
-                'company_id': company.id,
+                'company_ids': [Command.link(company.id)],
             })
             tax_group = self.env['account.tax.group'].search([('company_id', '=', company.id), ('name', '=', 'Test tax group')], limit=1)
 
@@ -2118,7 +2116,7 @@ class TestTaxReport(TestAccountReportsCommon):
             'purchase': 'expense',
         }
         for tax in taxes:
-            account = self.env['account.account'].search([('company_id', '=', company.id), ('account_type', '=', account_types[tax.type_tax_use])], limit=1)
+            account = self.env['account.account'].search([('company_ids', '=', company.id), ('account_type', '=', account_types[tax.type_tax_use])], limit=1)
             # create one entry and it's reverse
             move_form = Form(self.env['account.move'].with_context(default_move_type='entry'))
             with move_form.line_ids.new() as line:
@@ -2482,14 +2480,14 @@ class TestTaxReport(TestAccountReportsCommon):
             'code': "101007",
             'name': "test account",
             'account_type': "asset_current",
-            'company_id': company_2.id,
+            'company_ids': [Command.link(company_2.id)],
         })
 
         test_account_2 = self.env['account.account'].create({
             'code': "test",
             'name': "test",
             'account_type': "asset_current",
-            'company_id': company_2.id,
+            'company_ids': [Command.link(company_2.id)],
         })
 
         move_vals = [{
@@ -2650,7 +2648,6 @@ class TestTaxReport(TestAccountReportsCommon):
             'rounding': 0.05,
             'strategy': 'biggest_tax',
             'rounding_method': 'HALF-UP',
-            'company_id': self.company_data['company'].id,
         })
 
         tax = self.sale_tax_percentage_incl_1.copy({

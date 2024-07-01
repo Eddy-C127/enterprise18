@@ -34,7 +34,7 @@ class AccountTaxReportHandler(models.AbstractModel):
                 warnings.pop('account_reports.common_warning_draft_in_period')
 
         # Chek the use of inactive tags in the period
-        tables, where_clause = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
         rows = self.env.execute_query(SQL("""
             SELECT 1
             FROM %s
@@ -45,7 +45,7 @@ class AccountTaxReportHandler(models.AbstractModel):
             WHERE %s
             AND NOT tag.active
             LIMIT 1
-        """, tables, where_clause))
+        """, query.from_clause, query.where_clause))
         if rows:
             warnings['account_reports.tax_report_warning_inactive_tags'] = {}
 
@@ -228,15 +228,14 @@ class AccountTaxReportHandler(models.AbstractModel):
         # position to 'all' when the report is the generic tax report)
         new_options['fiscal_position'] = options['fiscal_position']
 
-        table_references, search_condition = self.env.ref('account.generic_tax_report')._get_sql_table_expression(
+        query = self.env.ref('account.generic_tax_report')._get_report_query(
             new_options,
             'strict_range',
             domain=self._get_vat_closing_entry_additional_domain()
         )
 
         # Check whether it is multilingual, in order to get the translation from the JSON value if present
-        lang = self.env.user.lang or get_lang(self.env).code
-        tax_name = self.with_context(lang=lang).env['account.tax']._field_to_sql('tax', 'name')
+        tax_name = self.env['account.tax']._field_to_sql('tax', 'name')
 
         query = SQL(
             """
@@ -253,8 +252,8 @@ class AccountTaxReportHandler(models.AbstractModel):
             GROUP BY tax.tax_group_id, "account_move_line".tax_line_id, tax.name, "account_move_line".account_id
             """,
             tax_name=tax_name,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
         self.env.cr.execute(query)
         results = self.env.cr.dictfetchall()
@@ -658,7 +657,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
         })
 
         for column_group_key, options in options_by_column_group.items():
-            table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+            query = report._get_report_query(options, 'strict_range')
 
             # Fetch the base amounts.
             self._cr.execute(SQL(
@@ -702,8 +701,8 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                 GROUP BY tax.id, src_group_tax.id, src_tax.id
                 ORDER BY src_group_tax.sequence, src_group_tax.id, src_tax.sequence, src_tax.id, tax.sequence, tax.id
                 ''',
-                table_references=table_references,
-                search_condition=search_condition,
+                table_references=query.from_clause,
+                search_condition=query.where_clause,
             ))
 
             group_of_taxes_with_extra_base_amount = set()
@@ -780,9 +779,9 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                 GROUP BY tax.id, group_tax.id %(group_by_deductible)s
                 ''',
                 select_deductible=select_deductible,
-                table_references=table_references,
+                table_references=query.from_clause,
                 join_deductible=join_deductible,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
                 group_by_deductible=group_by_deductible,
             ))
 
@@ -851,8 +850,8 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
 
         res = {}
         for column_group_key, options in options_by_column_group.items():
-            table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
-            tax_details_query = self.env['account.move.line']._get_query_tax_details(table_references, search_condition)
+            query = report._get_report_query(options, 'strict_range')
+            tax_details_query = self.env['account.move.line']._get_query_tax_details(query.from_clause, query.where_clause)
 
             # Avoid adding multiple times the same base amount sharing the same grouping_key.
             # It could happen when dealing with group of taxes for example.

@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-from odoo import models, fields, api, _
-from odoo.tools import get_lang, SQL
+from odoo import models, _
+from odoo.tools import SQL, Query
 
 
 class CashFlowReportCustomHandler(models.AbstractModel):
@@ -202,7 +201,7 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         :return: query: The SQL query to retrieve the move IDs.
         '''
 
-        table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', [('account_id', 'in', list(payment_account_ids))])
+        query = report._get_report_query(column_group_options, 'strict_range', [('account_id', 'in', list(payment_account_ids))])
         return SQL(
             '''
             SELECT
@@ -210,8 +209,8 @@ class CashFlowReportCustomHandler(models.AbstractModel):
             FROM %(table_references)s
             WHERE %(search_condition)s
             ''',
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
     def _compute_liquidity_balance(self, report, options, currency_table_query, payment_account_ids, date_scope):
@@ -224,33 +223,33 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         :return:                        A list of tuple (account_id, account_code, account_name, balance).
         '''
         queries = []
-        lang = self.env.user.lang or get_lang(self.env).code
-        account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('account_account', 'name')
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, date_scope, domain=[('account_id', 'in', payment_account_ids)])
+            query = report._get_report_query(column_group_options, date_scope, domain=[('account_id', 'in', payment_account_ids)])
+            account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+            account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+            account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
 
             queries.append(SQL(
                 '''
                 SELECT
                     %(column_group_key)s AS column_group_key,
                     account_move_line.account_id,
-                    account_account.code AS account_code,
+                    %(account_code)s AS account_code,
                     %(account_name)s AS account_name,
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
                 FROM %(table_references)s
-                JOIN account_account
-                    ON account_account.id = account_move_line.account_id
                 LEFT JOIN %(currency_table_query)s
                     ON currency_table.company_id = account_move_line.company_id
                 WHERE %(search_condition)s
-                GROUP BY account_move_line.account_id, account_account.code, account_name
+                GROUP BY account_move_line.account_id, account_code, account_name
                 ''',
                 column_group_key=column_group_key,
+                account_code=account_code,
                 account_name=account_name,
-                table_references=table_references,
+                table_references=query.from_clause,
                 currency_table_query=currency_table_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
 
         self._cr.execute(SQL(' UNION ALL ').join(queries))
@@ -270,11 +269,14 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         reconciled_aml_groupby_account = {}
 
         queries = []
-        lang = self.env.user.lang or get_lang(self.env).code
-        account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('account_account', 'name')
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             move_ids_query = self._get_move_ids_query(report, payment_account_ids, column_group_options)
+            query = Query(self.env, 'account_move_line')
+            account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+            account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+            account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+            account_type = SQL.identifier(account_alias, 'account_type')
 
             queries.append(SQL(
                 '''
@@ -283,25 +285,23 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 SELECT
                     %(column_group_key)s AS column_group_key,
                     account_move_line.account_id,
-                    account_account.code AS account_code,
+                    %(account_code)s AS account_code,
                     %(account_name)s AS account_name,
-                    account_account.account_type AS account_account_type,
+                    %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
                     SUM(ROUND(account_partial_reconcile.amount * currency_table.rate, currency_table.precision)) AS balance
-                FROM account_move_line
+                FROM %(from_clause)s
                 LEFT JOIN %(currency_table_query)s
                     ON currency_table.company_id = account_move_line.company_id
                 LEFT JOIN account_partial_reconcile
                     ON account_partial_reconcile.credit_move_id = account_move_line.id
-                JOIN account_account
-                    ON account_account.id = account_move_line.account_id
                 LEFT JOIN account_account_account_tag
                     ON account_account_account_tag.account_account_id = account_move_line.account_id
                     AND account_account_account_tag.account_account_tag_id IN %(cash_flow_tag_ids)s
                 WHERE account_move_line.move_id IN (SELECT unnest(payment_move_ids.move_id) FROM payment_move_ids)
                     AND account_move_line.account_id NOT IN %(payment_account_ids)s
                     AND account_partial_reconcile.max_date BETWEEN %(date_from)s AND %(date_to)s
-                GROUP BY account_move_line.company_id, account_move_line.account_id, account_account.code, account_name, account_account.account_type, account_account_account_tag.account_account_tag_id
+                GROUP BY account_move_line.company_id, account_move_line.account_id, account_code, account_name, account_type, account_account_account_tag.account_account_tag_id
 
                 UNION ALL
 
@@ -309,25 +309,23 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 SELECT
                     %(column_group_key)s AS column_group_key,
                     account_move_line.account_id,
-                    account_account.code AS account_code,
+                    %(account_code)s AS account_code,
                     %(account_name)s AS account_name,
-                    account_account.account_type AS account_account_type,
+                    %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
                     -SUM(ROUND(account_partial_reconcile.amount * currency_table.rate, currency_table.precision)) AS balance
-                FROM account_move_line
+                FROM %(from_clause)s
                 LEFT JOIN %(currency_table_query)s
                     ON currency_table.company_id = account_move_line.company_id
                 LEFT JOIN account_partial_reconcile
                     ON account_partial_reconcile.debit_move_id = account_move_line.id
-                JOIN account_account
-                    ON account_account.id = account_move_line.account_id
                 LEFT JOIN account_account_account_tag
                     ON account_account_account_tag.account_account_id = account_move_line.account_id
                     AND account_account_account_tag.account_account_tag_id IN %(cash_flow_tag_ids)s
                 WHERE account_move_line.move_id IN (SELECT unnest(payment_move_ids.move_id) FROM payment_move_ids)
                     AND account_move_line.account_id NOT IN %(payment_account_ids)s
                     AND account_partial_reconcile.max_date BETWEEN %(date_from)s AND %(date_to)s
-                GROUP BY account_move_line.company_id, account_move_line.account_id, account_account.code, account_name, account_account.account_type, account_account_account_tag.account_account_tag_id
+                GROUP BY account_move_line.company_id, account_move_line.account_id, account_code, account_name, account_account_type, account_account_account_tag.account_account_tag_id
 
                 UNION ALL
 
@@ -335,26 +333,27 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 SELECT
                     %(column_group_key)s AS column_group_key,
                     account_move_line.account_id AS account_id,
-                    account_account.code AS account_code,
+                    %(account_code)s AS account_code,
                     %(account_name)s AS account_name,
-                    account_account.account_type AS account_account_type,
+                    %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
-                FROM account_move_line
+                FROM %(from_clause)s
                 LEFT JOIN %(currency_table_query)s
                     ON currency_table.company_id = account_move_line.company_id
-                JOIN account_account
-                    ON account_account.id = account_move_line.account_id
                 LEFT JOIN account_account_account_tag
                     ON account_account_account_tag.account_account_id = account_move_line.account_id
                     AND account_account_account_tag.account_account_tag_id IN %(cash_flow_tag_ids)s
                 WHERE account_move_line.move_id IN (SELECT unnest(payment_move_ids.move_id) FROM payment_move_ids)
                     AND account_move_line.account_id NOT IN %(payment_account_ids)s
-                GROUP BY account_move_line.account_id, account_account.code, account_name, account_account.account_type, account_account_account_tag.account_account_tag_id)
+                GROUP BY account_move_line.account_id, account_code, account_name, account_account_type, account_account_account_tag.account_account_tag_id)
                 ''',
                 column_group_key=column_group_key,
                 move_ids_query=move_ids_query,
+                account_code=account_code,
                 account_name=account_name,
+                account_type=account_type,
+                from_clause=query.from_clause,
                 currency_table_query=currency_table_query,
                 cash_flow_tag_ids=tuple(cash_flow_tag_ids),
                 payment_account_ids=payment_account_ids,
@@ -489,8 +488,12 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         reconciled_aml_per_account = {}
 
         queries = []
-        lang = self.env.user.lang or get_lang(self.env).code
-        account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('account_account', 'name')
+
+        query = Query(self.env, 'account_move_line')
+        account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+        account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+        account_type = SQL.identifier(account_alias, 'account_type')
 
         for column in options['columns']:
             queries.append(SQL(
@@ -499,24 +502,25 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(column_group_key)s AS column_group_key,
                     account_move_line.move_id,
                     account_move_line.account_id,
-                    account_account.code AS account_code,
+                    %(account_code)s AS account_code,
                     %(account_name)s AS account_name,
-                    account_account.account_type AS account_account_type,
+                    %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
                     SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
-                FROM account_move_line
+                FROM %(from_clause)s
                 LEFT JOIN %(currency_table_query)s
                     ON currency_table.company_id = account_move_line.company_id
-                JOIN account_account
-                    ON account_account.id = account_move_line.account_id
                 LEFT JOIN account_account_account_tag
                     ON account_account_account_tag.account_account_id = account_move_line.account_id
                     AND account_account_account_tag.account_account_tag_id IN %(cash_flow_tag_ids)s
                 WHERE account_move_line.move_id IN %(move_ids)s
-                GROUP BY account_move_line.move_id, account_move_line.account_id, account_account.code, account_name, account_account.account_type, account_account_account_tag.account_account_tag_id
+                GROUP BY account_move_line.move_id, account_move_line.account_id, account_code, account_name, account_account_type, account_account_account_tag.account_account_tag_id
                 ''',
                 column_group_key=column['column_group_key'],
+                account_code=account_code,
                 account_name=account_name,
+                account_type=account_type,
+                from_clause=query.from_clause,
                 currency_table_query=currency_table_query,
                 cash_flow_tag_ids=tuple(cash_flow_tag_ids),
                 move_ids=tuple(reconciled_percentage_per_move[column['column_group_key']].keys()) or (None,)

@@ -2,8 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, _
-from odoo.tools import format_date, SQL
-from itertools import groupby
+from odoo.tools import format_date, SQL, Query
 from collections import defaultdict
 
 MAX_NAME_LENGTH = 50
@@ -23,8 +22,6 @@ class AssetsReportCustomHandler(models.AbstractModel):
         }
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        report = self._with_context_company2code2account(report)
-
         lines, totals_by_column_group = self._generate_report_lines_without_grouping(report, options)
         # add the groups by account
         if options['assets_groupby_account']:
@@ -153,16 +150,6 @@ class AssetsReportCustomHandler(models.AbstractModel):
         has_account_group = self.env['account.group'].search_count([('company_id', '=', self.env.company.id)], limit=1)
         hierarchy_activated = (previous_options or {}).get('hierarchy', True)
         options['hierarchy'] = has_account_group and hierarchy_activated or False
-
-    def _with_context_company2code2account(self, report):
-        if self.env.context.get('company2code2account') is not None:
-            return report
-
-        company2code2account = defaultdict(dict)
-        for account in self.env['account.account'].search([]):
-            company2code2account[account.company_id.id][account.code] = account
-
-        return report.with_context(company2code2account=company2code2account)
 
     def _query_lines(self, options, prefix_to_match=None, forced_account_id=None):
         """
@@ -360,37 +347,31 @@ class AssetsReportCustomHandler(models.AbstractModel):
         self.env['account.move.line'].check_access_rights('read')
         self.env['account.asset'].check_access_rights('read')
 
-        move_filter = f"""move.state {"!= 'cancel'" if options.get('all_entries') else "= 'posted'"}"""
+        query = Query(self.env, alias='asset', table=SQL.identifier('account_asset'))
+        account_alias = query.join(lhs_alias='asset', lhs_column='account_asset_id', rhs_table='account_account', rhs_column='id', link='account_asset_id')
+        query.add_join('LEFT JOIN', alias='move', table='account_move', condition=SQL(f"""
+            move.asset_id = asset.id AND move.state {"!= 'cancel'" if options.get('all_entries') else "= 'posted'"}
+        """))
 
-        query_params = {
-            'date_to': options['date']['date_to'],
-            'date_from': options['date']['date_from'],
-            'company_ids': tuple(self.env['account.report'].get_report_company_ids(options)),
-            'include_draft': options.get('all_entries', False),
-        }
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+        account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+        account_id = SQL.identifier(account_alias, 'id')
 
-        prefix_query = ''
         if prefix_to_match:
-            prefix_query = "AND asset.name ILIKE %(prefix_to_match)s"
-            query_params['prefix_to_match'] = f"{prefix_to_match}%"
-
-        account_query = ''
+            query.add_where(SQL("asset.name ILIKE %s", f"{prefix_to_match}%"))
         if forced_account_id:
-            account_query = "AND account.id = %(forced_account_id)s"
-            query_params['forced_account_id'] = forced_account_id
+            query.add_where(SQL("%s = %s", account_id, forced_account_id))
 
-        analytical_query = ''
         analytic_account_ids = []
         if options.get('analytic_accounts') and not any(x in options.get('analytic_accounts_list', []) for x in options['analytic_accounts']):
             analytic_account_ids += [[str(account_id) for account_id in options['analytic_accounts']]]
         if options.get('analytic_accounts_list'):
             analytic_account_ids += [[str(account_id) for account_id in options.get('analytic_accounts_list')]]
         if analytic_account_ids:
-            analytical_query = 'AND %(analytic_account_ids)s && %(analytic_account_query)s'
-            query_params['analytic_account_ids'] = analytic_account_ids
-            query_params['analytic_account_query'] = self.env['account.asset']._query_analytic_accounts('asset')
+            query.add_where(SQL('%s && %s', analytic_account_ids, self.env['account.asset']._query_analytic_accounts('asset')))
 
-        sql = f"""
+        sql = SQL(
+            """
             SELECT asset.id AS asset_id,
                    asset.parent_id AS parent_id,
                    asset.name AS asset_name,
@@ -406,28 +387,34 @@ class AssetsReportCustomHandler(models.AbstractModel):
                    asset.method_progress_factor AS asset_method_progress_factor,
                    asset.state AS asset_state,
                    asset.company_id AS company_id,
-                   account.code AS account_code,
-                   account.name AS account_name,
-                   account.id AS account_id,
-                   COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date < %(date_from)s AND {move_filter}), 0) + COALESCE(asset.already_depreciated_amount_import, 0) AS depreciated_before,
-                   COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s AND {move_filter}), 0) AS depreciated_during,
-                   COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s AND {move_filter} AND move.asset_number_days IS NULL), 0) AS asset_disposal_value
-              FROM account_asset AS asset
-         LEFT JOIN account_account AS account ON asset.account_asset_id = account.id
-         LEFT JOIN account_move move ON move.asset_id = asset.id
-             WHERE asset.company_id in %(company_ids)s
+                   %(account_code)s AS account_code,
+                   %(account_name)s AS account_name,
+                   %(account_id)s AS account_id,
+                   COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date < %(date_from)s), 0) + COALESCE(asset.already_depreciated_amount_import, 0) AS depreciated_before,
+                   COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s), 0) AS depreciated_during,
+                   COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s AND move.asset_number_days IS NULL), 0) AS asset_disposal_value
+              FROM %(from_clause)s
+             WHERE %(where_clause)s
+               AND asset.company_id in %(company_ids)s
                AND (asset.acquisition_date <= %(date_to)s OR move.date <= %(date_to)s)
                AND (asset.disposal_date >= %(date_from)s OR asset.disposal_date IS NULL)
                AND (asset.state not in ('model', 'draft', 'cancelled') OR (asset.state = 'draft' AND %(include_draft)s))
                AND asset.active = 't'
-               {prefix_query}
-               {account_query}
-               {analytical_query}
-          GROUP BY asset.id, account.id
-          ORDER BY account.code, asset.acquisition_date, asset.id;
-        """
+          GROUP BY asset.id, account_id, account_code, account_name
+          ORDER BY account_code, asset.acquisition_date, asset.id;
+            """,
+            account_code=account_code,
+            account_name=account_name,
+            account_id=account_id,
+            date_from=options['date']['date_from'],
+            date_to=options['date']['date_to'],
+            from_clause=query.from_clause,
+            where_clause=query.where_clause or SQL('TRUE'),
+            company_ids=tuple(self.env['account.report'].get_report_company_ids(options)),
+            include_draft=options.get('all_entries', False),
+        )
 
-        self._cr.execute(SQL(sql, **query_params))
+        self._cr.execute(sql)
         results = self._cr.dictfetchall()
         return results
 

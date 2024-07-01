@@ -38,30 +38,34 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _l10n_nl_get_opening_balance_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         new_options = self._get_options_initial_balance(options)
-        table_references, search_condition = report._get_sql_table_expression(
+        query = report._get_report_query(
             new_options,
             'from_beginning',
             domain=[('account_id.include_initial_balance', '=', True)],
         )
+        account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+        account_id = SQL.identifier(account_alias, 'id')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
         return SQL(
             """
-            SELECT acc.id AS account_id,
-                   acc.code AS account_code,
+            SELECT %(account_id)s AS account_id,
+                   %(account_code)s AS account_code,
                    COUNT(*) AS lines_count,
                    SUM(account_move_line.debit) AS sum_debit,
                    SUM(account_move_line.credit) AS sum_credit
               FROM %(table_references)s
-              JOIN account_account acc ON account_move_line.account_id = acc.id
              WHERE %(search_condition)s
-          GROUP BY acc.id
+          GROUP BY %(account_id)s, account_code
             """,
-            table_references=table_references,
-            search_condition=search_condition,
+            account_id=account_id,
+            account_code=account_code,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
     def _l10n_nl_get_partner_values_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
         return SQL(
             """
                SELECT partner.id AS partner_id,
@@ -107,13 +111,13 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                       )
              ORDER BY partner.id
             """,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
     def _l10n_nl_get_config_values_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
         return SQL(
             """
             SELECT COUNT(account_move_line.id) AS moves_count,
@@ -124,24 +128,26 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
               FROM %(table_references)s
              WHERE %(search_condition)s
             """,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
     def _l10n_nl_get_transaction_values_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
-        lang = self.env.user.lang or get_lang(self.env).code
-        journal_name = f"COALESCE(journal.name->>'{lang}', journal.name->>'en_US')" if self.pool['account.journal'].name.translate else 'journal.name'
-        product_name = f"COALESCE(product_template.name->>'{lang}', product_template.name->>'en_US')" if self.pool['product.template'].name.translate else 'product_template.name'
+        query = report._get_report_query(options, 'strict_range')
+        account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+        journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
+        account_id = SQL.identifier(account_alias, 'id')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+        product_name = self.env['product.template']._field_to_sql('product_template', 'name')
         return SQL(
-            f"""
+            """
             SELECT journal.id AS journal_id,
-                   {journal_name} AS journal_name,
+                   %(journal_name)s AS journal_name,
                    journal.code AS journal_code,
                    journal.type AS journal_type,
-                   account.id AS account_id,
-                   account.code AS account_code,
+                   %(account_id)s AS account_id,
+                   %(account_code)s AS account_code,
                    account_move_line__move_id.id AS move_id,
                    account_move_line__move_id.name AS move_name,
                    account_move_line__move_id.date AS move_date,
@@ -160,7 +166,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                    ROUND(account_move_line.balance, 2) AS line_balance,
                    ROUND(account_move_line.amount_currency, 2) AS line_amount_currency,
                    reconcile.id AS line_reconcile_name,
-                   {product_name} AS product_name,
+                   %(product_name)s AS product_name,
                    product.default_code AS product_default_code,
                    currency.id AS line_currency_id,
                    currency2.id AS line_company_currency_id,
@@ -168,7 +174,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                    currency2.name AS line_company_currency_name
               FROM %(table_references)s
               JOIN account_journal journal ON account_move_line.journal_id = journal.id
-              JOIN account_account account ON account_move_line.account_id = account.id
          LEFT JOIN account_move account_move_line__move_id ON account_move_line__move_id.id = account_move_line.move_id
          LEFT JOIN account_full_reconcile reconcile ON account_move_line.full_reconcile_id = reconcile.id
          LEFT JOIN res_currency currency ON account_move_line.currency_id = currency.id
@@ -179,8 +184,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                AND account_move_line.display_type NOT IN ('line_note', 'line_section')
           ORDER BY account_move_line.journal_id, account_move_line.id
             """,
-            table_references=table_references,
-            search_condition=search_condition,
+            journal_name=journal_name,
+            account_id=account_id,
+            account_code=account_code,
+            product_name=product_name,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
     def _l10n_nl_get_header_values(self, options):

@@ -65,7 +65,7 @@ class SaftImportWizard(models.TransientModel):
         template_data = self.env['account.chart.template']._get_chart_template_data(self.company_id.chart_template).get('template_data')
         digits = int(template_data.get('code_digits', 6))
 
-        existing_accounts = self.env['account.account'].search_fetch(
+        existing_accounts = self.env['account.account'].with_company(self.company_id).search_fetch(
             self.env['account.account']._check_company_domain(self.company_id),
             field_names=['id', 'code'],
         )
@@ -89,7 +89,7 @@ class SaftImportWizard(models.TransientModel):
                 name = element_account.find('saft:AccountDescription', namespaces=nsmap).text
                 xml_id = self._make_xml_id('account', account_code)
                 accounts_to_create[xml_id] = {
-                    'company_id': self.company_id.id,
+                    'company_ids': [Command.link(self.company_id.id)],
                     'code': account_code,
                     'account_type': account_types.get(account_type, 'asset_current'),
                     'name': name,
@@ -176,7 +176,7 @@ class SaftImportWizard(models.TransientModel):
         nsmap = self._get_cleaned_namespace(tree)
         partners_to_create = {}
         existing_partners = self.env['res.partner'].search_fetch(
-            self.env['account.account']._check_company_domain(self.company_id),
+            self.env['res.partner']._check_company_domain(self.company_id),
             field_names=['id', 'name', 'vat'],
         )
         existing_partners_mapping = {(part.name, part.vat): part.id for part in existing_partners}

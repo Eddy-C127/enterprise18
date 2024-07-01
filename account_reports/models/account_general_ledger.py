@@ -201,21 +201,21 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 groupby_companies[res['groupby']][column_group_key] = res
 
         # Affect the unaffected earnings to the first fetched account of type 'account.data_unaffected_earnings'.
-        # There is an unaffected earnings for each company but it's less costly to fetch all candidate accounts in
-        # a single search and then iterate it.
+        # It's less costly to fetch all candidate accounts in a single search and then iterate it.
         if groupby_companies:
-            equity_unaffected_account_ids_by_company = self.env['account.account'].browse(
+            unaffected_earnings_accounts = self.env['account.account'].browse(
                 self.env['account.account']._name_search(options.get('filter_search_bar'), [
                     *self.env['account.account']._check_company_domain(list(groupby_companies.keys())),
                     ('account_type', '=', 'equity_unaffected'),
                 ])
-            ).grouped('company_id')
-
+            )
             for company_id, groupby_company in groupby_companies.items():
-                if equity_unaffected_account := equity_unaffected_account_ids_by_company.get(self.env['res.company'].browse(company_id).root_id):
+                if equity_unaffected_account := unaffected_earnings_accounts.filtered(lambda a: self.env['res.company'].browse(company_id).root_id in a.company_ids):
                     for column_group_key in options['column_groups']:
-                        groupby_accounts.setdefault(equity_unaffected_account.id, {col_group_key: {'unaffected_earnings': {}} for col_group_key in options['column_groups']})
-
+                        groupby_accounts.setdefault(
+                            equity_unaffected_account.id,
+                            {col_group_key: {'unaffected_earnings': {}} for col_group_key in options['column_groups']},
+                        )
                         if unaffected_earnings := groupby_company.get(column_group_key):
                             if groupby_accounts[equity_unaffected_account.id][column_group_key]['unaffected_earnings']:
                                 for key in ['amount_currency', 'debit', 'credit', 'balance']:
@@ -278,7 +278,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             if options_group.get('include_current_year_in_unaff_earnings'):
                 query_domain += [('account_id.include_initial_balance', '=', True)]
 
-            table_references, search_condition = report._get_sql_table_expression(options_group, sum_date_scope, domain=query_domain)
+            query = report._get_report_query(options_group, sum_date_scope, domain=query_domain)
             queries.append(SQL(
                 """
                 SELECT
@@ -296,9 +296,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 GROUP BY account_move_line.account_id
                 """,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
 
             # ============================================
@@ -314,7 +314,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 # ]
 
                 new_options = self._get_options_unaffected_earnings(options_group)
-                table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range', domain=unaff_earnings_domain)
+                query = report._get_report_query(new_options, 'strict_range', domain=unaff_earnings_domain)
                 queries.append(SQL(
                     """
                     SELECT
@@ -332,9 +332,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     GROUP BY account_move_line.company_id
                     """,
                     column_group_key=column_group_key,
-                    table_references=table_references,
+                    table_references=query.from_clause,
                     ct_query=ct_query,
-                    search_condition=search_condition,
+                    search_condition=query.where_clause,
                 ))
 
         return SQL(" UNION ALL ").join(queries)
@@ -416,14 +416,15 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         """
         additional_domain = [('account_id', 'in', expanded_account_ids)] if expanded_account_ids is not None else None
         queries = []
-        lang = self.env.user.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
-        journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
-        account_name = self_lang.env['account.account']._field_to_sql('account', 'name')
+        journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
         for column_group_key, group_options in report._split_options_per_column_group(options).items():
             # Get sums for the account move lines.
             # period: [('date' <= options['date_to']), ('date', '>=', options['date_from'])]
-            table_references, search_condition = report._get_sql_table_expression(group_options, domain=additional_domain, date_scope='strict_range')
+            query = report._get_report_query(group_options, domain=additional_domain, date_scope='strict_range')
+            account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+            account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+            account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+
             ct_query = report._get_query_currency_table(group_options)
             query = SQL(
                 '''
@@ -447,7 +448,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     company.currency_id                     AS company_currency_id,
                     partner.name                            AS partner_name,
                     move.move_type                          AS move_type,
-                    account.code                            AS account_code,
+                    %(account_code)s                        AS account_code,
                     %(account_name)s                        AS account_name,
                     journal.code                            AS journal_code,
                     %(journal_name)s                        AS journal_name,
@@ -458,18 +459,18 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 LEFT JOIN %(ct_query)s                      ON currency_table.company_id = account_move_line.company_id
                 LEFT JOIN res_company company               ON company.id = account_move_line.company_id
                 LEFT JOIN res_partner partner               ON partner.id = account_move_line.partner_id
-                LEFT JOIN account_account account           ON account.id = account_move_line.account_id
                 LEFT JOIN account_journal journal           ON journal.id = account_move_line.journal_id
                 LEFT JOIN account_full_reconcile full_rec   ON full_rec.id = account_move_line.full_reconcile_id
                 WHERE %(search_condition)s
                 ORDER BY account_move_line.date, account_move_line.move_name, account_move_line.id
                 ''',
+                account_code=account_code,
                 account_name=account_name,
                 journal_name=journal_name,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             )
             queries.append(query)
 
@@ -501,7 +502,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 ]
             if new_options.get('include_current_year_in_unaff_earnings'):
                 domain += [('account_id.include_initial_balance', '=', True)]
-            table_references, search_condition = report._get_sql_table_expression(new_options, 'from_beginning', domain=domain)
+            query = report._get_report_query(new_options, 'from_beginning', domain=domain)
             queries.append(SQL(
                 """
                 SELECT
@@ -519,9 +520,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 GROUP BY account_move_line.account_id
                 """,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
 
         self._cr.execute(SQL(" UNION ALL ").join(queries))

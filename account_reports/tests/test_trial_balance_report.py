@@ -11,6 +11,16 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
     def setUpClass(cls):
         super().setUpClass()
 
+        # Give codes in company_1 to the accounts in company_2.
+        context = {'allowed_company_ids': [cls.company_data['company'].id, cls.company_data_2['company'].id]}
+        cls.company_data_2['default_account_payable'].with_context(context).code = '211010'
+        cls.company_data_2['default_account_revenue'].with_context(context).code = '400010'
+        cls.company_data_2['default_account_expense'].with_context(context).code = '600010'
+        cls.env['account.account'].search([
+            ('company_ids', '=', cls.company_data_2['company'].id),
+            ('account_type', '=', 'equity_unaffected')
+        ]).with_context(context).code = '999989'
+
         # Entries in 2016 for company_1 to test the initial balance.
         cls.move_2016_1 = cls.env['account.move'].create({
             'move_type': 'entry',
@@ -191,13 +201,13 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
             [
                 ('121000 Account Receivable',           0.0,            0.0,            1000.0,         0.0,            1000.0,         0.0),
                 ('211000 Account Payable',              100.0,          0.0,            0.0,            0.0,            100.0,          0.0),
-                ('211000 Account Payable',              50.0,           0.0,            0.0,            0.0,            50.0,           0.0),
+                ('211010 Account Payable',              50.0,           0.0,            0.0,            0.0,            50.0,           0.0),
                 ('400000 Product Sales',                0.0,            0.0,            20000.0,        0.0,            20000.0,        0.0),
-                ('400000 Product Sales',                0.0,            0.0,            0.0,            200.0,          0.0,            200.0),
+                ('400010 Product Sales',                0.0,            0.0,            0.0,            200.0,          0.0,            200.0),
                 ('600000 Expenses',                     0.0,            0.0,            0.0,            21000.0,        0.0,            21000.0),
-                ('600000 Expenses',                     0.0,            0.0,            200.0,          0.0,            200.0,          0.0),
+                ('600010 Expenses',                     0.0,            0.0,            200.0,          0.0,            200.0,          0.0),
+                ('999989 Undistributed Profits/Losses', 0.0,             50.0,          0.0,            0.0,            0.0,            50.0),
                 ('999999 Undistributed Profits/Losses', 0.0,            100.0,          0.0,            0.0,            0.0,            100.0),
-                ('999999 Undistributed Profits/Losses', 0.0,             50.0,          0.0,            0.0,            0.0,            50.0),
                 ('Total',                               150.0,          150.0,          21200.0,        21200.0,        21350.0,        21350.0),
             ],
             options,
@@ -248,11 +258,11 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
             [
                 ('121000 Account Receivable',          0.0,            0.0,             0.0,            0.0,            1000.0,         0.0,            1000.0,         0.0),
                 ('211000 Account Payable',             0.0,            0.0,             100.0,          0.0,            0.0,            0.0,            100.0,          0.0),
-                ('211000 Account Payable',             0.0,            0.0,             50.0,           0.0,            0.0,            0.0,            50.0,           0.0),
+                ('211010 Account Payable',             0.0,            0.0,             50.0,           0.0,            0.0,            0.0,            50.0,           0.0),
                 ('400000 Product Sales',               0.0,            0.0,             0.0,            300.0,          20000.0,        0.0,            19700.0,        0.0),
-                ('400000 Product Sales',               0.0,            0.0,             0.0,            50.0,           0.0,            200.0,          0.0,            250.0),
+                ('400010 Product Sales',               0.0,            0.0,             0.0,            50.0,           0.0,            200.0,          0.0,            250.0),
                 ('600000 Expenses',                    0.0,            0.0,             200.0,          0.0,            0.0,            21000.0,        0.0,            20800.0),
-                ('600000 Expenses',                    0.0,            0.0,             0.0,            0.0,            200.0,          0.0,            200.0,          0.0),
+                ('600010 Expenses',                    0.0,            0.0,             0.0,            0.0,            200.0,          0.0,            200.0,          0.0),
                 ('Total',                              0.0,            0.0,             350.0,          350.0,          21200.0,        21200.0,        21050.0,        21050.0),
             ],
             options,
@@ -272,11 +282,11 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
             [
                 ('121000 Account Receivable',          0.0,            0.0,             1000.0,         0.0,            0.0,            0.0,            1000.0,         0.0),
                 ('211000 Account Payable',             0.0,            0.0,             0.0,            0.0,            100.0,          0.0,            100.0,          0.0),
-                ('211000 Account Payable',             0.0,            0.0,             0.0,            0.0,            50.0,           0.0,            50.0,           0.0),
+                ('211010 Account Payable',             0.0,            0.0,             0.0,            0.0,            50.0,           0.0,            50.0,           0.0),
                 ('400000 Product Sales',               0.0,            0.0,             20000.0,        0.0,            0.0,            300.0,          19700.0,        0.0),
-                ('400000 Product Sales',               0.0,            0.0,             0.0,            200.0,          0.0,            50.0,           0.0,            250.0),
+                ('400010 Product Sales',               0.0,            0.0,             0.0,            200.0,          0.0,            50.0,           0.0,            250.0),
                 ('600000 Expenses',                    0.0,            0.0,             0.0,            21000.0,        200.0,          0.0,            0.0,            20800.0),
-                ('600000 Expenses',                    0.0,            0.0,             200.0,          0.0,            0.0,            0.0,            200.0,          0.0),
+                ('600010 Expenses',                    0.0,            0.0,             200.0,          0.0,            0.0,            0.0,            200.0,          0.0),
                 ('Total',                              0.0,            0.0,             21200.0,        21200.0,        350.0,          350.0,          21050.0,        21050.0),
             ],
             options,
@@ -294,13 +304,13 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
             [
                 ('121000 Account Receivable',           0.0,             0.0,             1000.0,          0.0,             1000.0,          0.0),
                 ('211000 Account Payable',              100.0,           0.0,             0.0,             0.0,             100.0,           0.0),
-                ('211000 Account Payable',              50.0,            0.0,             0.0,             0.0,             50.0,            0.0),
+                ('211010 Account Payable',              50.0,            0.0,             0.0,             0.0,             50.0,            0.0),
                 ('400000 Product Sales',                0.0,             0.0,             20000.0,         0.0,             20000.0,         0.0),
-                ('400000 Product Sales',                0.0,             0.0,             0.0,             200.0,           0.0,             200.0),
+                ('400010 Product Sales',                0.0,             0.0,             0.0,             200.0,           0.0,             200.0),
                 ('600000 Expenses',                     0.0,             0.0,             0.0,             21000.0,         0.0,             21000.0),
-                ('600000 Expenses',                     0.0,             0.0,             200.0,           0.0,             200.0,           0.0),
+                ('600010 Expenses',                     0.0,             0.0,             200.0,           0.0,             200.0,           0.0),
+                ('999989 Undistributed Profits/Losses', 0.0,             50.0,            0.0,             0.0,             0.0,             50.0),
                 ('999999 Undistributed Profits/Losses', 0.0,             100.0,           0.0,             0.0,             0.0,             100.0),
-                ('999999 Undistributed Profits/Losses', 0.0,             50.0,            0.0,             0.0,             0.0,             50.0),
                 ('Total',                               150.0,           150.0,           21200.0,         21200.0,         21350.0,         21350.0),
             ],
             options,
@@ -383,17 +393,17 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
             #   Name                                        Debit           Credit          Debit           Credit          Debit           Credit
             [0,                                                1,               2,             3,               4,             5,               6],
             [
-                ('6 Group_6',                                0.0,         21000.0,           0.0,             0.0,           0.0,         21000.0),
+                ('6 Group_6',                                0.0,         21000.0,         200.0,             0.0,         200.0,         21000.0),
                 ('600000 Expenses',                          0.0,         21000.0,           0.0,             0.0,           0.0,         21000.0),
-                ('(No Group)',                           21150.0,           150.0,         200.0,           200.0,       21350.0,           350.0),
+                ('600010 Expenses',                          0.0,             0.0,         200.0,             0.0,         200.0,             0.0),
+                ('(No Group)',                           21150.0,           150.0,           0.0,           200.0,       21150.0,           350.0),
                 ('121000 Account Receivable',             1000.0,             0.0,           0.0,             0.0,        1000.0,             0.0),
                 ('211000 Account Payable',                 100.0,             0.0,           0.0,             0.0,         100.0,             0.0),
-                ('211000 Account Payable',                  50.0,             0.0,           0.0,             0.0,          50.0,             0.0),
+                ('211010 Account Payable',                  50.0,             0.0,           0.0,             0.0,          50.0,             0.0),
                 ('400000 Product Sales',                 20000.0,             0.0,           0.0,             0.0,       20000.0,             0.0),
-                ('400000 Product Sales',                     0.0,             0.0,           0.0,           200.0,           0.0,           200.0),
-                ('600000 Expenses',                          0.0,             0.0,         200.0,             0.0,         200.0,             0.0),
+                ('400010 Product Sales',                     0.0,             0.0,           0.0,           200.0,           0.0,           200.0),
+                ('999989 Undistributed Profits/Losses',      0.0,            50.0,           0.0,             0.0,           0.0,            50.0),
                 ('999999 Undistributed Profits/Losses',      0.0,           100.0,           0.0,             0.0,           0.0,           100.0),
-                ('999999 Undistributed Profits/Losses',      0.0,            50.0,           0.0,             0.0,           0.0,            50.0),
                 ('Total',                                21150.0,         21150.0,         200.0,           200.0,       21350.0,         21350.0),
             ],
             options,

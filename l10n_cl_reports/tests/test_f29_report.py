@@ -18,8 +18,8 @@ class TestF29Reports(TestAccountReportsCommon):
             'l10n_cl_sii_taxpayer_type': '1',
             'vat': 'CL762012243',
         })
-        cl_account_310115 = cls.env['account.account'].search([('company_id', '=', cls.company_data['company'].id), ('code', '=', '310115')]).id
-        cl_account_410230 = cls.env['account.account'].search([('company_id', '=', cls.company_data['company'].id), ('code', '=', '410230')]).id
+        cl_account_310115 = cls.env['account.account'].search([('company_ids', '=', cls.company_data['company'].id), ('code', '=', '310115')]).id
+        cl_account_410230 = cls.env['account.account'].search([('company_ids', '=', cls.company_data['company'].id), ('code', '=', '410230')]).id
         cl_purchase_tax = cls.env['account.tax'].search([('name', '=', '19% F A'), ('company_id', '=', cls.company_data['company'].id)])
 
         invoice = cls.env['account.move'].create({

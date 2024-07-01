@@ -169,7 +169,7 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
             (next_groupby.split(',') if next_groupby else []) +
             ([current_groupby] if current_groupby else []))
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
 
         if current_groupby:
             _current_groupby_column = SQL.identifier('account_move_line', current_groupby)
@@ -226,13 +226,9 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
                     )
                     """,
                 )
-                table_references = SQL(
-                    """       %s
-                    LEFT JOIN move_taxes
-                           ON move_taxes.move_id = account_move_line__move_id.id
-                    """,
-                    table_references,
-                )
+                query.add_join('LEFT JOIN', alias='move_taxes', table='move_taxes', condition=SQL("""
+                    move_taxes.move_id = account_move_line__move_id.id
+                """))
 
             select_part_specific = SQL(
                 """
@@ -349,9 +345,9 @@ class EstonianKmdInfReportCustomHandler(models.AbstractModel):
             invoice_number_column=SQL.identifier('name' if kmd_inf_part == 'a' else 'ref'),
             select_part_specific=select_part_specific,
             select_comments=select_comments,
-            table_references=table_references,
+            table_references=query.from_clause,
             aml_table=SQL.identifier('aml_base' if kmd_inf_part == 'a' else 'account_move_line'),
-            search_condition=search_condition,
+            search_condition=query.where_clause,
             move_types=('out_invoice', 'out_refund') if kmd_inf_part == 'a' else ('in_invoice', 'in_refund'),
             where_part_specific=where_part_specific,
             groupby_clause=groupby_clause,

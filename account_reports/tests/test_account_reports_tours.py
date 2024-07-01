@@ -18,27 +18,27 @@ class TestAccountReportsTours(AccountTestInvoicingHttpCommon):
 
         # Create moves
         cls.account_101401 = cls.env['account.account'].search([
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
             ('code', '=', 101401)
         ])
 
         cls.account_101402 = cls.env['account.account'].search([
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
             ('code', '=', 101402)
         ])
 
         cls.account_101404 = cls.env['account.account'].search([
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
             ('code', '=', 101404)
         ])
 
         cls.account_121000 = cls.env['account.account'].search([
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
             ('code', '=', 121000)
         ])
 
         cls.account_251000 = cls.env['account.account'].search([
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
             ('code', '=', 251000)
         ])
 

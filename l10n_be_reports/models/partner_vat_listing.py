@@ -118,12 +118,12 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         new_options = {**options, 'forced_domain': []} if remove_forced_domain else options
         excluded_tax_ids = self._get_excluded_taxes().ids
 
-        table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range')
+        query = report._get_report_query(new_options, 'strict_range')
         return {
             'options': new_options,
             'excluded_tax_ids': excluded_tax_ids,
-            'table_references': table_references,
-            'search_condition': search_condition,
+            'table_references': query.from_clause,
+            'search_condition': query.where_clause,
         }
 
     def _report_custom_engine_partner_vat_listing(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):

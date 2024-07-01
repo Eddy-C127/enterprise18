@@ -368,6 +368,7 @@ class TestCashFlowReport(TestAccountReportsCommon):
     def test_cash_flow_multi_company_multi_currency_unfolding(self):
         options = self._generate_options(self.report, fields.Date.from_string('2016-01-01'), fields.Date.from_string('2017-01-01'))
         options['unfold_all'] = True
+        self.company_data_2['default_journal_bank'].default_account_id.code = '101411'
 
         account_operating_2 = self.env['account.account'].with_company(self.company_data_2['company']).create({
             'account_type': 'asset_current',
@@ -376,6 +377,7 @@ class TestCashFlowReport(TestAccountReportsCommon):
             'reconcile': True,
             'tag_ids': self.env.ref('account.account_tag_operating'),
         })
+        account_operating_2.with_company(self.env.company).code = '121160'
 
         invoice_with_company_2 = self.env['account.move'].with_company(self.company_data_2['company']).create({
             'move_type': 'entry',
@@ -421,7 +423,7 @@ class TestCashFlowReport(TestAccountReportsCommon):
             ['Cash in',                                                               0.0],
             ['Cash out',                                                              0.0],
             ['Cash and cash equivalents, closing balance',                          115.0],
-            ['101401 Bank',                                                         115.0],
+            ['101411 Bank',                                                         115.0],
             ['Total Cash and cash equivalents, closing balance',                    115.0],
         ], options)
 

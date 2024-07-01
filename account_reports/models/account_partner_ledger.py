@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-import json
 
 from odoo import api, models, _, fields
 from odoo.exceptions import UserError
 from odoo.osv import expression
 from odoo.tools import SQL
-from odoo.tools.misc import format_date, get_lang
 
 from datetime import timedelta
 from collections import defaultdict
@@ -258,7 +255,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         # Create the currency table.
         ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'from_beginning')
+            query = report._get_report_query(column_group_options, 'from_beginning')
             queries.append(SQL(
                 """
                 SELECT
@@ -273,9 +270,9 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                 GROUP BY account_move_line.partner_id
                 """,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
 
         return SQL(' UNION ALL ').join(queries)
@@ -288,7 +285,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
             # Get sums for the initial balance.
             # period: [('date' <= options['date_from'] - 1)]
             new_options = self._get_options_initial_balance(column_group_options)
-            table_references, search_condition = report._get_sql_table_expression(new_options, 'from_beginning', domain=[('partner_id', 'in', partner_ids)])
+            query = report._get_report_query(new_options, 'from_beginning', domain=[('partner_id', 'in', partner_ids)])
             queries.append(SQL(
                 """
                 SELECT
@@ -303,9 +300,9 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                 GROUP BY account_move_line.partner_id
                 """,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
 
         self._cr.execute(SQL(" UNION ALL ").join(queries))
@@ -338,7 +335,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         report = self.env.ref('account_reports.partner_ledger_report')
         ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'from_beginning')
+            query = report._get_report_query(column_group_options, 'from_beginning')
             queries.append(SQL(
                 """
                 SELECT
@@ -362,10 +359,10 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                 GROUP BY aml_with_partner.partner_id
                 """,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
                 date_to=column_group_options['date']['date_to'],
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
 
         return SQL(" UNION ALL ").join(queries)
@@ -448,15 +445,16 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
 
         ct_query = self.env['account.report']._get_query_currency_table(options)
         queries = []
-        lang = self.env.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
-        journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
-        account_name = self_lang.env['account.account']._field_to_sql('account', 'name')
+        journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
         report = self.env.ref('account_reports.partner_ledger_report')
         for column_group_key, group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(group_options, 'strict_range')
+            query = report._get_report_query(group_options, 'strict_range')
+            account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+            account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+            account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
 
             # For the move lines directly linked to this partner
+            # ruff: noqa: FURB113
             queries.append(SQL(
                 '''
                 SELECT
@@ -477,7 +475,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     ROUND(account_move_line.balance * currency_table.rate, currency_table.precision) AS balance,
                     account_move.name                                                                AS move_name,
                     account_move.move_type                                                           AS move_type,
-                    account.code                                                                     AS account_code,
+                    %(account_code)s                                                                 AS account_code,
                     %(account_name)s                                                                 AS account_name,
                     journal.code                                                                     AS journal_code,
                     %(journal_name)s                                                                 AS journal_name,
@@ -489,17 +487,17 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                 LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
                 LEFT JOIN res_company company               ON company.id = account_move_line.company_id
                 LEFT JOIN res_partner partner               ON partner.id = account_move_line.partner_id
-                LEFT JOIN account_account account           ON account.id = account_move_line.account_id
                 LEFT JOIN account_journal journal           ON journal.id = account_move_line.journal_id
                 WHERE %(search_condition)s AND %(directly_linked_aml_partner_clause)s
                 ORDER BY account_move_line.date, account_move_line.id
                 ''',
+                account_code=account_code,
                 account_name=account_name,
                 journal_name=journal_name,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
                 directly_linked_aml_partner_clause=directly_linked_aml_partner_clause,
             ))
 
@@ -530,7 +528,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     )                                                                                   AS balance,
                     account_move.name                                                                   AS move_name,
                     account_move.move_type                                                              AS move_type,
-                    account.code                                                                        AS account_code,
+                    %(account_code)s                                                                    AS account_code,
                     %(account_name)s                                                                    AS account_name,
                     journal.code                                                                        AS journal_code,
                     %(journal_name)s                                                                    AS journal_name,
@@ -542,8 +540,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     account_partial_reconcile partial,
                     account_move,
                     account_move_line aml_with_partner,
-                    account_journal journal,
-                    account_account account
+                    account_journal journal
                 WHERE
                     (account_move_line.id = partial.debit_move_id OR account_move_line.id = partial.credit_move_id)
                     AND account_move_line.partner_id IS NULL
@@ -551,18 +548,20 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     AND (aml_with_partner.id = partial.debit_move_id OR aml_with_partner.id = partial.credit_move_id)
                     AND %(indirectly_linked_aml_partner_clause)s
                     AND journal.id = account_move_line.journal_id
-                    AND account.id = account_move_line.account_id
+                    AND %(account_alias)s.id = account_move_line.account_id
                     AND %(search_condition)s
                     AND partial.max_date BETWEEN %(date_from)s AND %(date_to)s
                 ORDER BY account_move_line.date, account_move_line.id
                 ''',
+                account_code=account_code,
                 account_name=account_name,
                 journal_name=journal_name,
                 column_group_key=column_group_key,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
                 indirectly_linked_aml_partner_clause=indirectly_linked_aml_partner_clause,
-                search_condition=search_condition,
+                account_alias=SQL.identifier(account_alias),
+                search_condition=query.where_clause,
                 date_from=group_options['date']['date_from'],
                 date_to=group_options['date']['date_to'],
             ))

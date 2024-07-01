@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models
-from odoo.tools import get_lang, SQL
+from odoo.tools import SQL
+
 
 class FuenteReportCustomHandler(models.AbstractModel):
     _name = 'l10n_co.fuente.report.handler'
@@ -16,10 +16,12 @@ class FuenteReportCustomHandler(models.AbstractModel):
 
     def _get_query_results(self, report, options, domain, account=False):
         queries = []
-        lang = self.env.user.lang or get_lang(self.env).code
-        account_name = self.with_context(lang=lang).env['account.account']._field_to_sql('aa', 'name')
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', domain=domain)
+            query = report._get_report_query(column_group_options, 'strict_range', domain=domain)
+            account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+            account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+            account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+            account_id = SQL.identifier(account_alias, 'id')
             tax_base_amount_select = SQL("""
                 SUM(CASE
                     WHEN account_move_line.credit > 0
@@ -41,17 +43,16 @@ class FuenteReportCustomHandler(models.AbstractModel):
                     rp.name AS partner_name
                 FROM %(table_references)s
                 JOIN res_partner rp ON account_move_line.partner_id = rp.id
-                JOIN account_account aa ON account_move_line.account_id = aa.id
                 WHERE %(search_condition)s
                 GROUP BY rp.id %(group_by_account_id)s
                 %(having_clause)s
                 """,
                 column_group_key=column_group_key,
                 tax_base_amount_select=tax_base_amount_select,
-                account_name=SQL("aa.code || ' ' || %s AS account_name,", account_name) if account else SQL(),
-                account_id=SQL("aa.id AS account_id,") if account else SQL(),
-                table_references=table_references,
-                search_condition=search_condition,
+                account_name=SQL("%s || ' ' || %s AS account_name,", account_code, account_name) if account else SQL(),
+                account_id=SQL("%s AS account_id,", account_id) if account else SQL(),
+                table_references=query.from_clause,
+                search_condition=query.where_clause,
                 group_by_account_id=SQL(', aa.id') if account else SQL(),
                 having_clause=SQL("HAVING %s != 0", tax_base_amount_select) if account else SQL(),
             ))

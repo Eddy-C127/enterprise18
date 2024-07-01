@@ -19,7 +19,7 @@ class ICAReportCustomHandler(models.AbstractModel):
         queries = []
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
 
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range', domain=domain)
+            query = report._get_report_query(column_group_options, 'strict_range', domain=domain)
             bimestre_expression = SQL('FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2)')
             bimestre_column = SQL('%s AS bimestre,', bimestre_expression) if bimestre else SQL()
             bimestre_having = SQL('''
@@ -58,9 +58,9 @@ class ICAReportCustomHandler(models.AbstractModel):
                 """,
                 column_group_key=column_group_key,
                 bimestre_column=bimestre_column,
-                table_references=table_references,
+                table_references=query.from_clause,
                 bimestre_groupby=SQL(', %s', bimestre_expression) if bimestre else SQL(),
-                search_condition=search_condition,
+                search_condition=query.where_clause,
                 bimestre_having=bimestre_having,
             ))
 

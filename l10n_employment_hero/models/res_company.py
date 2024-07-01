@@ -55,7 +55,7 @@ class ResCompany(models.Model):
         tax_results = defaultdict(lambda: {'debit': 0, 'credit': 0})
         journal_items = response.json()
         all_item_account_codes = [journal_item['accountCode'] for journal_item in journal_items]
-        item_accounts = self.env['account.account'].search([
+        item_accounts = self.env['account.account'].with_company(self).search([
             *self.env['account.account']._check_company_domain(self),
             ('deprecated', '=', False),
             '|', ('employment_hero_account_identifier', 'in', all_item_account_codes), ('code', 'in', all_item_account_codes)

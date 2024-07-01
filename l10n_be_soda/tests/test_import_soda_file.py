@@ -178,8 +178,8 @@ class TestSodaFile(AccountTestInvoicingCommon, MailCommon):
         ''')
         entry = self.env['account.move'].browse(self.env['mail.thread'].message_process('account.move', mail))
         self.assertEqual(entry.move_type, 'entry')
-        code_id_map = {acc['code']: acc['id'] for acc in self.env['account.account'].search_read(
-            [('code', 'in', (453000, 455000, 618000)), ('company_id', '=', entry.company_id.id)],
+        code_id_map = {acc['code']: acc['id'] for acc in self.env['account.account'].with_company(entry.company_id).search_read(
+            [('code', 'in', (453000, 455000, 618000)), ('company_ids', '=', entry.company_id.id)],
             ['code', 'id'],
         )}
         self.assertRecordValues(

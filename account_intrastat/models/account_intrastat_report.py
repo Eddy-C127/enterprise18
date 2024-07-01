@@ -362,17 +362,15 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         # triangular use cases are handled by letting the intrastat_country_id editable on
         # invoices. Modifying or emptying it allow to alter the intrastat declaration
         # accordingly to specs (https://www.nbb.be/doc/dq/f_pdf_ex/intra2017fr.pdf (§ 4.x))
-        table_references, search_condition = self.env['account.report'].browse(options['report_id'])._get_sql_table_expression(options, 'strict_range', domain=domain)
+        query = self.env['account.report'].browse(options['report_id'])._get_report_query(options, 'strict_range', domain=domain)
 
         import_merchandise_code = _merchandise_import_code.get(self.env.company.country_id.code, '29')
         export_merchandise_code = _merchandise_export_code.get(self.env.company.country_id.code, '19')
         unknown_individual_vat = 'QN999999999999' if self.env.company.country_id.code in _qn_unknown_individual_vat_country_codes else 'QV999999999999'
         unknown_country_code = _unknown_country_code.get(self.env.company.country_id.code, 'QV')
         weight_category_id = self.env['ir.model.data']._xmlid_to_res_id('uom.product_uom_categ_kgm')
-        lang = self.env.user.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
-        country_name = self_lang.env['res.country']._field_to_sql('country', 'name')
-        product_country_name = self_lang.env['res.country']._field_to_sql('product_country', 'name')
+        country_name = self.env['res.country']._field_to_sql('country', 'name')
+        product_country_name = self.env['res.country']._field_to_sql('product_country', 'name')
 
         select = SQL(
             """
@@ -480,7 +478,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 LEFT JOIN res_country partner_country ON partner.country_id = partner_country.id AND partner_country.intrastat IS TRUE
                 LEFT JOIN uom_uom ref_weight_uom on ref_weight_uom.category_id = %(weight_category_id)s and ref_weight_uom.uom_type = 'reference'
             """,
-            table_references=table_references,
+            table_references=query.from_clause,
             weight_category_id=weight_category_id,
         )
         where = SQL(
@@ -495,7 +493,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 AND ref_weight_uom.active
                 %(vat_condition)s
             """,
-            search_condition=search_condition,
+            search_condition=query.where_clause,
             vat_condition=SQL("AND partner.vat IS NOT NULL") if options['intrastat_with_vat'] else SQL(),
         )
 

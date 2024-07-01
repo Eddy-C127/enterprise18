@@ -22,7 +22,7 @@ from odoo import models, fields, api, _, osv
 from odoo.addons.web.controllers.utils import clean_action
 from odoo.exceptions import RedirectWarning, UserError, ValidationError
 from odoo.models import check_method_name
-from odoo.tools import date_utils, get_lang, float_is_zero, float_repr, SQL, parse_version
+from odoo.tools import date_utils, get_lang, float_is_zero, float_repr, SQL, parse_version, Query
 from odoo.tools.float_utils import float_round, float_compare
 from odoo.tools.misc import file_path, format_date, formatLang, split_every, xlsxwriter
 from odoo.tools.safe_eval import expr_eval, safe_eval
@@ -1015,6 +1015,14 @@ class AccountReport(models.Model):
                 'child_groups': self.env['account.group'],
             })
 
+        # Precompute the account groups of the accounts in the report
+        account_ids = []
+        for line in lines:
+            markup, res_model, model_id = self._parse_line_id(line['id'])[-1]
+            if res_model == 'account.account':
+                account_ids.append(model_id)
+        self.env['account.account'].browse(account_ids).group_id
+
         new_lines, total_lines = [], []
 
         # root_line_id is the id of the parent line of the lines we want to render
@@ -1828,8 +1836,8 @@ class AccountReport(models.Model):
     # QUERIES
     ####################################################
 
-    def _get_sql_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
-        """ returns the table reference list and the search condition of the query """
+    def _get_report_query(self, options, date_scope, domain=None) -> Query:
+        """ Get a Query object that references the records needed for this report. """
         domain = self._get_options_domain(options, date_scope) + (domain or [])
 
         if options.get('forced_domain'):
@@ -1852,7 +1860,7 @@ class AccountReport(models.Model):
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.
         self.env['account.move.line']._apply_ir_rules(query)
 
-        return query.from_clause, query.where_clause
+        return query
 
     def _create_report_budget_temp_table(self, options):
         self._cr.execute("SELECT 1 FROM information_schema.tables WHERE table_name='account_report_budget_temp_aml'")
@@ -1908,20 +1916,16 @@ class AccountReport(models.Model):
                 'debit': SQL("0"),
                 'credit': SQL("0"),
             })
+            accounts_subquery = self.env['account.account']._where_calc([
+                ('company_ids', 'in', self.get_report_company_ids(options)),
+                ('internal_group', 'in', ['income', 'expense']),
+            ])
             self._cr.execute(SQL(
                 """
                 -- Insert dynamic combinations of account_id and budget_id into the temporary table
                 INSERT INTO account_report_budget_temp_aml (%(stored_aml_fields)s, budget_id)
                      SELECT %(fields_to_insert)s, budgets.id AS budget_id
-                       FROM (
-                                SELECT acc.id
-                                  FROM account_account acc
-                                 WHERE acc.company_id IN %(company_ids)s
-                                   AND (
-                                       acc.account_type LIKE %(income)s
-                                    OR acc.account_type LIKE %(expense)s
-                                       )
-                            ) AS accounts
+                       FROM (%(accounts_subquery)s) AS accounts
                  CROSS JOIN (
                                 SELECT id
                                   FROM account_report_budget
@@ -1930,10 +1934,11 @@ class AccountReport(models.Model):
                 """,
                 stored_aml_fields=stored_aml_fields,
                 fields_to_insert=fields_to_insert,
+                accounts_subquery=accounts_subquery.select(),
                 available_budget_ids=tuple(budget_option['id'] for budget_option in options['budgets']),
                 income='income%',
                 expense='expense%',
-                company_ids=tuple(self.get_report_company_ids(options)),
+                company_ids=tuple(),
             ))
 
     ####################################################
@@ -3365,7 +3370,7 @@ class AccountReport(models.Model):
 
         currency_table_query = self._get_query_currency_table(options)
         groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
-        table_references, search_condition = self._get_sql_table_expression(options, date_scope)
+        query = self._get_report_query(options, date_scope)
         tail_query = self._get_engine_query_tail(offset, limit)
         lang = get_lang(self.env, self.env.user.lang).code
         acc_tag_name = self.with_context(lang='en_US').env['account.account.tag']._field_to_sql('acc_tag', 'name')
@@ -3399,10 +3404,10 @@ class AccountReport(models.Model):
             """,
             acc_tag_name=acc_tag_name,
             select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(),
-            table_references=table_references,
+            table_references=query.from_clause,
             tag_ids=tuple(tags.ids),
             currency_table_query=currency_table_query,
-            search_condition=search_condition,
+            search_condition=query.where_clause,
             groupby_sql=SQL(', %s', groupby_sql) if groupby_sql else SQL(),
             tail_query=tail_query,
         )
@@ -3471,7 +3476,7 @@ class AccountReport(models.Model):
                     line=expressions.report_line_id.name,
                     formula=formula,
                 ))
-            table_references, search_condition = self._get_sql_table_expression(options, date_scope, domain=line_domain)
+            query = self._get_report_query(options, date_scope, domain=line_domain)
 
             tail_query = self._get_engine_query_tail(offset, limit)
             query = SQL(
@@ -3488,9 +3493,9 @@ class AccountReport(models.Model):
                 """,
                 select_count_field=SQL.identifier(next_groupby.split(',')[0] if next_groupby else 'id'),
                 select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(),
-                table_references=table_references,
+                table_references=query.from_clause,
                 currency_table_query=ct_query,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
                 group_by_groupby_sql=SQL('GROUP BY %s', groupby_sql) if groupby_sql else SQL(),
                 tail_query=tail_query,
             )
@@ -3640,7 +3645,7 @@ class AccountReport(models.Model):
             accounts_prefix_map[account_id].append(tuple(prefix))
 
         # Run main query
-        table_references, search_condition = self._get_sql_table_expression(options, date_scope)
+        query = self._get_report_query(options, date_scope)
 
         currency_table_query = self._get_query_currency_table(options)
         extra_groupby_sql = SQL(", %s", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL()
@@ -3661,9 +3666,9 @@ class AccountReport(models.Model):
             %(tail_query)s
             """,
             extra_select_sql=extra_select_sql,
-            table_references=table_references,
+            table_references=query.from_clause,
             currency_table_query=currency_table_query,
-            search_condition=search_condition,
+            search_condition=query.where_clause,
             extra_groupby_sql=extra_groupby_sql,
             tail_query=tail_query,
         )

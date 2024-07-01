@@ -155,6 +155,7 @@ class ConsolidationAccount(models.Model):
     _description = "Consolidation account"
     _order = 'sequence asc, id'
     _rec_name = 'name'
+    _check_company_domain = models.check_companies_domain_parent_of
 
     def get_default_chart_id(self):
         return self.env['consolidation.chart'].search([], order="id desc", limit=1)
@@ -167,7 +168,7 @@ class ConsolidationAccount(models.Model):
     sequence = fields.Integer()
 
     group_id = fields.Many2one('consolidation.group', string='Group')
-    account_ids = fields.Many2many('account.account', string="Accounts")
+    account_ids = fields.Many2many('account.account', string="Accounts", check_company=True)
     currency_mode = fields.Selection([('end', 'Closing Rate'), ('avg', 'Average Rate'), ('hist', 'Historical Rate')],
                                      required=True, default='end', string='Currency Conversion Method')
     line_ids = fields.One2many('consolidation.journal.line', 'account_id', string="Account")

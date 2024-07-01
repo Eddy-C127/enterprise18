@@ -188,10 +188,13 @@ class XmlPolizasExportWizard(models.TransientModel):
     def _do_query(self, ledger, options):
         """ Execute the query
         """
-        table_references, search_condition = ledger._get_sql_table_expression(options, domain=False, date_scope='strict_range')
+        query = ledger._get_report_query(options, domain=False, date_scope='strict_range')
+        account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
         ct_query = self.env['account.report']._get_query_currency_table(options)
-        lang = self.env.user.lang or tools.get_lang(self.env).code
-        product_name = self.with_context(lang=lang).env['product.template']._field_to_sql('product_template', 'name')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+        account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+        journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
+        product_name = self.env['product.template']._field_to_sql('product_template', 'name')
         query = SQL(
             '''
             SELECT
@@ -205,9 +208,9 @@ class XmlPolizasExportWizard(models.TransientModel):
                 ROUND(account_move_line.credit * currency_table.rate, currency_table.precision)  AS credit,
                 ROUND(account_move_line.balance * currency_table.rate, currency_table.precision) AS balance,
                 company.currency_id           AS company_currency_id,
-                account.code                  AS account_code,
-                account.name                  AS account_name,
-                journal.name                  AS journal_name,
+                %(account_code)s              AS account_code,
+                %(account_name)s              AS account_name,
+                %(journal_name)s              AS journal_name,
                 currency.name                 AS currency_name,
                 move.id                       AS move_id,
                 move.name                     AS move_name,
@@ -220,7 +223,6 @@ class XmlPolizasExportWizard(models.TransientModel):
             LEFT JOIN account_move move          ON move.id = account_move_line.move_id
             LEFT JOIN %(ct_query)s                 ON currency_table.company_id = account_move_line.company_id
             LEFT JOIN res_company company        ON company.id = account_move_line.company_id
-            LEFT JOIN account_account account    ON account.id = account_move_line.account_id
             LEFT JOIN account_journal journal    ON journal.id = account_move_line.journal_id
             LEFT JOIN res_currency currency      ON currency.id = account_move_line.currency_id
             LEFT JOIN res_partner partner        ON account_move_line.partner_id = partner.id
@@ -230,25 +232,18 @@ class XmlPolizasExportWizard(models.TransientModel):
             WHERE %(search_condition)s
             ORDER BY account_move_line.date, account_move_line.id
             ''',
+            account_code=account_code,
+            account_name=account_name,
+            journal_name=journal_name,
             product_name=product_name,
-            table_references=table_references,
+            table_references=query.from_clause,
             ct_query=ct_query,
-            search_condition=search_condition,
+            search_condition=query.where_clause,
         )
         self.env['account.move.line'].flush_model()
         self.env.cr.execute(query)
 
         result = self._cr.dictfetchall()
-
-        # accunt_name and journal_name will be translatable in case l10n_multilang is installed (and the cursor will then return a dict instead of string)
-        if self.env['account.journal']._fields['name'].translate:
-            result = [
-                {
-                    **res,
-                    'journal_name': res['journal_name'].get(self.env.user.lang, res['journal_name']['en_US']),
-                    'account_name': res['account_name'].get(self.env.user.lang, res['account_name']['en_US']),
-                } for res in result
-            ]
 
         return result
 

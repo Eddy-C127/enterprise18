@@ -55,7 +55,6 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
                 'name': 'Rental Tax',
                 'code': '777777',
                 'account_type': 'asset_current',
-                'company_id': cls.company_data['company'].id,
             })
         expense_tax = cls.env['account.tax'].create({
             'name': "Some taxes on normal payslip",
@@ -77,13 +76,11 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
                 'code': '654321',
                 'account_type': 'income',
                 'tax_ids': [Command.link(expense_tax.id)],
-                'company_id': cls.company_data['company'].id,
         })
         cls.expense_payable_account = cls.env['account.account'].create({
                 'name': 'payable',
                 'code': '654323',
                 'account_type': 'liability_payable',
-                'company_id': cls.company_data['company'].id,
             })
         expense_payslip_journal = cls.account_journal.copy({
             'company_id': cls.company_data['company'].id,

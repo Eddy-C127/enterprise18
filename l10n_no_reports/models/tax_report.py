@@ -7,7 +7,6 @@ from lxml import etree
 from odoo import fields, models, release, _
 from odoo.exceptions import UserError
 from odoo.tools import date_utils, SQL
-from odoo.tools.misc import get_lang
 
 _logger = logging.getLogger(__name__)
 
@@ -100,15 +99,13 @@ class AccountGenericTaxReport(models.AbstractModel):
           (2) a list of taxes (dictionaries) to be displayed in the XML
         """
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
-        tax_details_query = self.env['account.move.line']._get_query_tax_details(table_references, search_condition)
+        query = report._get_report_query(options, 'strict_range')
+        tax_details_query = self.env['account.move.line']._get_query_tax_details(query.from_clause, query.where_clause)
 
         # The following tax details query will group taxes with their tax repartition lines in order to have one result
         # per standard tax and two results per deductible taxes.
-        lang = self.env.user.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
-        acc_tag_name = self_lang.env['account.account.tag'].with_context(lang='en_US')._field_to_sql('tag', 'name')
-        tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
+        acc_tag_name = self.env['account.account.tag'].with_context(lang='en_US')._field_to_sql('tag', 'name')
+        tax_name = self.env['account.tax']._field_to_sql('tax', 'name')
 
         self._cr.execute(SQL(
             '''

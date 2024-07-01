@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, _
-from odoo.tools import get_lang, SQL
+from odoo.tools import SQL, Query
 
 
 class DisallowedExpensesCustomHandler(models.AbstractModel):
@@ -99,32 +99,35 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
         """
         company_ids = tuple(self.env['account.report'].get_report_company_ids(options))
         current = self._parse_line_id(options, line_dict_id)
-        self = self.with_context(lang=self.env.user.lang or get_lang(self.env).code)
         category_name = self.env['account.disallowed.expenses.category']._field_to_sql('category', 'name')
+
+        query = Query(self.env, alias='aml', table=SQL.identifier('account_move_line'))
+        query.add_join('LEFT JOIN', alias='account', table='account_account', condition=SQL('aml.account_id = account.id'))
+        account_code = self.env['account.account']._field_to_sql('account', 'code', query)
 
         select = SQL(
             """
             SELECT
                 SUM(aml.balance) AS total_amount,
                 ARRAY_AGG(%(account_name)s) account_name,
-                ARRAY_AGG(account.code) account_code,
+                ARRAY_AGG(%(account_code)s) account_code,
                 ARRAY_AGG(category.id) category_id,
                 ARRAY_AGG(%(category_name)s) category_name,
                 ARRAY_AGG(category.code) category_code,
-                ARRAY_AGG(account.company_id) company_id,
+                ARRAY_AGG(aml.company_id) company_id,
                 ARRAY_AGG(aml.account_id) account_id,
                 ARRAY_AGG(rate.rate) account_rate,
                 SUM(aml.balance * rate.rate) / 100 AS account_disallowed_amount
             """,
             account_name=self.env['account.account']._field_to_sql('account', 'name'),
+            account_code=account_code,
             category_name=category_name,
         )
 
         from_ = SQL(
             """
-            FROM account_move_line aml
+            FROM %(from_clause)s
             JOIN account_move move ON aml.move_id = move.id
-            JOIN account_account account ON aml.account_id = account.id
             JOIN account_disallowed_expenses_category category ON account.disallowed_expenses_category_id = category.id
             LEFT JOIN account_disallowed_expenses_rate rate ON rate.id = (
                 SELECT r2.id FROM account_disallowed_expenses_rate r2
@@ -133,7 +136,8 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
                   AND c2.id = category.id
                 ORDER BY r2.date_from DESC LIMIT 1
             )
-            """
+            """,
+            from_clause=query.from_clause,
         )
         where = SQL(
             """

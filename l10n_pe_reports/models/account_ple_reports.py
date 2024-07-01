@@ -142,7 +142,7 @@ class PeruvianTaxPleReportCustomHandler(models.AbstractModel):
             return result
 
         report = self.env["account.report"].browse(options["report_id"])
-        _table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
         if self.env.company.chart_template != 'pe':
             return build_result([])
         ref = self.env.ref
@@ -351,7 +351,7 @@ ORDER BY
             tax_group_gra=tax_group_gra,
             tax_group_other=tax_group_other,
             tax_group_ret=tax_group_ret,
-            search_condition=search_condition,
+            search_condition=query.where_clause,
         )
         self.env.flush_all()
         self.env.cr.execute(query)

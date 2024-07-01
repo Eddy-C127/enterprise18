@@ -112,7 +112,7 @@ class AustralianReportCustomHandler(models.AbstractModel):
         }]
 
     def _build_query(self, options, column_group_key=None) -> SQL:
-        table_references, search_condition = self.env.ref('l10n_au_reports.tpar_report')._get_sql_table_expression(options, 'strict_range')
+        query = self.env.ref('l10n_au_reports.tpar_report')._get_report_query(options, 'strict_range')
 
         self.env['account.move'].flush_model()
         self.env['account.move.line'].flush_model()
@@ -174,8 +174,8 @@ class AustralianReportCustomHandler(models.AbstractModel):
             column_group_key=column_group_key,
             tag_withheld_id=self.env.ref('l10n_au.tax_withheld_tag').id,
             tag_tpar_id=self.env.ref('l10n_au.service_tag').id,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
         return query

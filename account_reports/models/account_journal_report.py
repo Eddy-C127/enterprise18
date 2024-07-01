@@ -6,7 +6,7 @@ from PIL import ImageFont
 from markupsafe import Markup
 
 from odoo import models, _
-from odoo.tools import get_lang, SQL
+from odoo.tools import SQL
 from odoo.tools.misc import xlsxwriter, file_path
 from collections import defaultdict
 
@@ -79,7 +79,9 @@ class JournalReportCustomHandler(models.AbstractModel):
                 'balance': None
             }
 
-        table, search_conditions = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
+        account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
 
         groupby_clause = SQL.identifier('account_move_line', current_groupby)
         select_from_groupby = SQL('%s AS grouping_key', groupby_clause)
@@ -88,14 +90,13 @@ class JournalReportCustomHandler(models.AbstractModel):
             """
                 SELECT
                     %(select_from_groupby)s,
-                    ARRAY_AGG(DISTINCT acc.code) AS account_code,
+                    ARRAY_AGG(DISTINCT %(account_code)s) AS account_code,
                     ARRAY_AGG(DISTINCT j.code) AS journal_code,
                     SUM("account_move_line".debit) AS debit,
                     SUM("account_move_line".credit) AS credit,
                     SUM("account_move_line".balance) AS balance
                 FROM %(table)s
                 JOIN account_move am ON am.id = account_move_line.move_id
-                JOIN account_account acc ON acc.id = account_move_line.account_id
                 JOIN account_journal j ON j.id = am.journal_id
                 JOIN res_company cp ON cp.id = am.company_id
                 WHERE %(case_statement)s AND %(search_conditions)s
@@ -103,8 +104,9 @@ class JournalReportCustomHandler(models.AbstractModel):
                 ORDER BY %(groupby_clause)s
             """,
             select_from_groupby=select_from_groupby,
-            table=table,
-            search_conditions=search_conditions,
+            account_code=account_code,
+            table=query.from_clause,
+            search_conditions=query.where_clause,
             case_statement=self._get_payment_lines_filter_case_statement(options),
             groupby_clause=groupby_clause
         )
@@ -563,9 +565,11 @@ class JournalReportCustomHandler(models.AbstractModel):
         """
         # Ensure that all the data is synchronized with the database before we read it
         self.env.flush_all()
-        table, search_conditions = report._get_sql_table_expression(options, 'strict_range')
-        lang = self.env.user.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
+        query = report._get_report_query(options, 'strict_range')
+        account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
+        account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+
         query = SQL(
             """
             SELECT
@@ -583,9 +587,9 @@ class JournalReportCustomHandler(models.AbstractModel):
                 am.amount_total_in_currency_signed AS amount_currency_total,
                 am.currency_id != cp.currency_id AS is_multicurrency,
                 p.name AS partner_name,
-                acc.code AS account_code,
-                %(acc_name)s AS account_name,
-                acc.account_type AS account_type,
+                %(account_code)s AS account_code,
+                %(account_name)s AS account_name,
+                %(account_alias)s.account_type AS account_type,
                 COALESCE(account_move_line.debit, 0) AS debit,
                 COALESCE(account_move_line.credit, 0) AS credit,
                 COALESCE(account_move_line.balance, 0) AS balance,
@@ -598,7 +602,6 @@ class JournalReportCustomHandler(models.AbstractModel):
                 array_remove(array_agg(DISTINCT %(tag_name)s), NULL) AS tax_grids
             FROM %(table)s
             JOIN account_move am ON am.id = account_move_line.move_id
-            JOIN account_account acc ON acc.id = account_move_line.account_id
             LEFT JOIN res_partner p ON p.id = account_move_line.partner_id
             JOIN account_journal j ON j.id = am.journal_id
             JOIN res_company cp ON cp.id = am.company_id
@@ -610,7 +613,7 @@ class JournalReportCustomHandler(models.AbstractModel):
             LEFT JOIN account_account_tag tag ON tag_rel.account_account_tag_id = tag.id
             LEFT JOIN res_currency journal_curr ON journal_curr.id = j.currency_id
             WHERE %(case_statement)s AND %(search_conditions)s
-            GROUP BY "account_move_line".id, am.id, p.id, acc.id, j.id, cp.id, journal_curr.id
+            GROUP BY "account_move_line".id, am.id, p.id, %(account_alias)s.id, j.id, cp.id, journal_curr.id, account_code, account_name
             ORDER BY
                 CASE j.type
                     WHEN 'sale' THEN 1
@@ -621,7 +624,7 @@ class JournalReportCustomHandler(models.AbstractModel):
                 END,
                 j.sequence,
                 CASE WHEN am.name = '/' THEN 1 ELSE 0 END, am.date, am.name,
-                CASE acc.account_type
+                CASE %(account_alias)s.account_type
                     WHEN 'liability_payable' THEN 1
                     WHEN 'asset_receivable' THEN 1
                     WHEN 'liability_credit_card' THEN 5
@@ -630,13 +633,15 @@ class JournalReportCustomHandler(models.AbstractModel):
                 END,
                 account_move_line.tax_line_id NULLS FIRST
             """,
-            table=table,
+            table=query.from_clause,
             case_statement=self._get_payment_lines_filter_case_statement(options),
-            search_conditions=search_conditions,
-            acc_name=self_lang.env['account.account']._field_to_sql('acc', 'name'),
-            j_name=self_lang.env['account.journal']._field_to_sql('j', 'name'),
-            tax_name=self_lang.env['account.tax']._field_to_sql('tax', 'name'),
-            tag_name=self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
+            search_conditions=query.where_clause,
+            account_code=account_code,
+            account_name=account_name,
+            account_alias=SQL.identifier(account_alias),
+            j_name=self.env['account.journal']._field_to_sql('j', 'name'),
+            tax_name=self.env['account.tax']._field_to_sql('tax', 'name'),
+            tag_name=self.env['account.account.tag']._field_to_sql('tag', 'name')
         )
 
         self._cr.execute(query)
@@ -970,7 +975,7 @@ class JournalReportCustomHandler(models.AbstractModel):
 
     def _query_bank_journal_initial_balance(self, options, journal_id):
         report = self.env.ref('account_reports.journal_report')
-        table_references, search_conditions = report._get_sql_table_expression(options, 'to_beginning_of_period', domain=[('journal_id', '=', journal_id)])
+        query = report._get_report_query(options, 'to_beginning_of_period', domain=[('journal_id', '=', journal_id)])
         query = SQL(
             """
                 SELECT
@@ -980,8 +985,8 @@ class JournalReportCustomHandler(models.AbstractModel):
                 WHERE %(search_conditions)s
                 GROUP BY journal.id
             """,
-            table=table_references,
-            search_conditions=search_conditions
+            table=query.from_clause,
+            search_conditions=query.where_clause,
         )
         self._cr.execute(query)
         result = self._cr.dictfetchall()
@@ -1085,11 +1090,9 @@ class JournalReportCustomHandler(models.AbstractModel):
         # Use the same option as we use to get the tax details, but this time to generate the query used to fetch the
         # grid information
         tax_report_options = self._get_generic_tax_report_options(options, data)
-        table_references, search_condition = report._get_sql_table_expression(tax_report_options, 'strict_range')
-        lang = self.env.user.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
-        country_name = self_lang.env['res.country']._field_to_sql('country', 'name')
-        tag_name = self_lang.env['account.account.tag']._field_to_sql('tag', 'name')
+        query = report._get_report_query(tax_report_options, 'strict_range')
+        country_name = self.env['res.country']._field_to_sql('country', 'name')
+        tag_name = self.env['account.account.tag']._field_to_sql('tag', 'name')
         query = SQL("""
             WITH tag_info (country_name, tag_id, tag_name, tag_sign, balance) AS (
                 SELECT
@@ -1117,7 +1120,7 @@ class JournalReportCustomHandler(models.AbstractModel):
                 tag_sign AS sign
             FROM tag_info
             ORDER BY country_name, name
-        """, country_name=country_name, tag_name=tag_name, table_references=table_references, search_condition=search_condition)
+        """, country_name=country_name, tag_name=tag_name, table_references=query.from_clause, search_condition=query.where_clause)
         self._cr.execute(query)
         query_res = self.env.cr.fetchall()
 

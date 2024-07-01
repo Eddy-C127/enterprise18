@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo import Command
 from odoo.addons.sale.tests.common import TestSaleCommonBase
 from odoo.addons.mail.tests.common import mail_new_test_user
 from datetime import datetime
@@ -32,13 +32,13 @@ class TestMultiCompany(TestSaleCommonBase):
                 'name': 'Test Account',
                 'account_type': 'asset_receivable',
                 'code': 'TestAccountReceivable',
-                'company_id': cls.companyA.id,
-                'reconcile': True
+                'company_ids': [Command.link(cls.companyA.id)],
+                'reconcile': True,
             }, {
                 'name': 'Product Sales',
                 'code': 'S200000',
                 'account_type': 'income',
-                'company_id': cls.companyA.id,
+                'company_ids': [Command.link(cls.companyA.id)],
                 'reconcile': False,
             },
         ])

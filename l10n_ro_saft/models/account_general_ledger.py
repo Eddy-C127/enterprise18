@@ -6,7 +6,7 @@ import stdnum.ro
 
 from odoo import api, models, _
 from odoo.exceptions import UserError
-from odoo.tools import float_repr, SQL
+from odoo.tools import float_repr, SQL, Query
 
 from odoo.addons.account_edi_ubl_cii.models.account_edi_common import UOM_TO_UNECE_CODE
 
@@ -611,6 +611,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _l10n_ro_saft_query_assets_values(self, options):
 
+        query = Query(self.env, alias='asset', table=SQL.identifier('account_asset'))
+        query.add_join('LEFT JOIN', alias='account', table='account_account', condition=SQL('asset.account_asset_id = account.id'))
+        account_code = self.env['account.account']._field_to_sql('account', 'code', query)
+
         query = SQL(
             '''
             SELECT
@@ -630,13 +634,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 asset.method_progress_factor AS asset_method_progress_factor,
                 asset.currency_id AS asset_currency_id,
                 asset_category.code AS asset_category_code,
-                account.code AS account_code,
+                %(account_code)s AS account_code,
                 array_remove(array_agg(distinct partner.id), NULL) AS supplier_ids,
                 COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date < %(date_from)s), 0) + COALESCE(asset.already_depreciated_amount_import, 0) AS depreciated_before,
                 COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s), 0) AS depreciated_during,
                 COALESCE(SUM(move.depreciation_value) FILTER (WHERE move.date BETWEEN %(date_from)s AND %(date_to)s AND move.asset_number_days IS NULL), 0) AS asset_disposal_value
-            FROM account_asset asset
-            LEFT JOIN account_account AS account ON asset.account_asset_id = account.id
+            FROM %(from_clause)s
             LEFT JOIN account_move move ON move.asset_id = asset.id  AND move.state = 'posted'
             LEFT JOIN asset_move_line_rel rel ON rel.asset_id = asset.id
             LEFT JOIN account_move_line original_bill_aml ON original_bill_aml.id = rel.line_id
@@ -647,11 +650,13 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
               AND (asset.disposal_date >= %(date_from)s OR asset.disposal_date IS NULL)
               AND asset.state not in ('model', 'draft', 'cancelled')
               AND asset.active = 't'
-            GROUP BY asset.id, account.id, asset_category.id
-            ORDER BY account.code, asset.acquisition_date, asset.id;
+            GROUP BY asset.id, account.id, asset_category.id, account_code
+            ORDER BY account_code, asset.acquisition_date, asset.id;
             ''',
+            account_code=account_code,
             date_from=options['date']['date_from'],
             date_to=options['date']['date_to'],
+            from_clause=query.from_clause,
             company_id=self.env.company.id,
         )
         return query

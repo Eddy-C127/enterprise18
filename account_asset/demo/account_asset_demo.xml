@@ -11,14 +11,14 @@
                 ('id', '!=', obj().env.user.company_id.currency_exchange_journal_id.id)]"/>
             <field name="account_asset_id" model="account.account" search="[
                 ('account_type', '=', 'asset_fixed'),
-                ('company_id', '=', ref('base.main_company'))]"/>
+                ('company_ids', '=', ref('base.main_company'))]"/>
             <field name="account_depreciation_id" model="account.account" search="[
                 ('account_type', '=', 'asset_fixed'),
-                ('company_id', '=', ref('base.main_company'))]"/>
+                ('company_ids', '=', ref('base.main_company'))]"/>
             <field name="account_depreciation_expense_id" model="account.account" search="[
                 ('account_type', '=', 'expense'),
                 ('tag_ids', 'in', [ref('account.account_tag_operating')]),
-                ('company_id', '=', ref('base.main_company'))]"/>
+                ('company_ids', '=', ref('base.main_company'))]"/>
             <field name="state">open</field>
         </record>
     </data>

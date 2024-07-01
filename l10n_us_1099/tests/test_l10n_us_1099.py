@@ -51,17 +51,17 @@ class Test1099(AccountTestInvoicingCommon):
         )
 
         cls.company_data_2 = cls.setup_other_company()
-        company_2_id = cls.company_data_2["company"].id
-        cls.liquidity_account_comp2 = cls.env["account.account"].search(
+        company_2 = cls.company_data_2["company"]
+        cls.liquidity_account_comp2 = cls.env["account.account"].with_company(company_2).search(
             [
-                ("company_id", "=", company_2_id),
+                ("company_ids", "=", company_2.id),
                 ("account_type", "=", "asset_cash"),
             ],
             limit=1
         )
-        cls.expense_account_comp2 = cls.env["account.account"].search(
+        cls.expense_account_comp2 = cls.env["account.account"].with_company(company_2).search(
             [
-                ("company_id", "=", company_2_id),
+                ("company_ids", "=", company_2.id),
                 ("account_type", "=", "expense")
             ],
             limit=1

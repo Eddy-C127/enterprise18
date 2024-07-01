@@ -160,7 +160,9 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         period_table = SQL(period_table_format, *params)
 
         # Build query
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain=[('account_id.account_type', '=', internal_type)])
+        query = report._get_report_query(options, 'strict_range', domain=[('account_id.account_type', '=', internal_type)])
+        account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
 
         currency_table = report._get_query_currency_table(options)
         always_present_groupby = SQL("period_table.period_index, currency_table.rate, currency_table.precision")
@@ -205,17 +207,16 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 ARRAY_AGG(DISTINCT move.invoice_date) AS invoice_date,
                 ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS report_date,
                 ARRAY_AGG(DISTINCT account_move_line.expected_pay_date) AS expected_date,
-                ARRAY_AGG(DISTINCT account.code) AS account_name,
+                ARRAY_AGG(DISTINCT %(account_code)s) AS account_name,
                 ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS due_date,
                 ARRAY_AGG(DISTINCT account_move_line.currency_id) AS currency_id,
                 COUNT(account_move_line.id) AS aml_count,
-                ARRAY_AGG(account.code) AS account_code,
+                ARRAY_AGG(%(account_code)s) AS account_code,
                 %(select_period_query)s
 
             FROM %(table_references)s
 
             JOIN account_journal journal ON journal.id = account_move_line.journal_id
-            JOIN account_account account ON account.id = account_move_line.account_id
             JOIN account_move move ON move.id = account_move_line.move_id
             JOIN %(currency_table)s ON currency_table.company_id = account_move_line.company_id
 
@@ -266,15 +267,16 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 ) != 0
             %(tail_query)s
             """,
+            account_code=account_code,
             period_table=period_table,
             select_from_groupby=select_from_groupby,
             select_period_query=select_period_query,
             multiplicator=multiplicator,
             aging_date_field=aging_date_field,
-            table_references=table_references,
+            table_references=query.from_clause,
             currency_table=currency_table,
             date_to=date_to,
-            search_condition=search_condition,
+            search_condition=query.where_clause,
             groupby_clause=groupby_clause,
             tail_query=tail_query,
         )

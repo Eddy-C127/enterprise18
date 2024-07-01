@@ -203,7 +203,6 @@ class TestPayrollExpenseBatched(TestPayrollExpense):
                 {
                     'name': employee_partner.name,
                     'code': f'{default_payable_account.code}00{idx}',
-                    'company_id': self.company_data['company'].id,
                     'account_type': 'liability_payable',
                 }
             )
@@ -354,7 +353,6 @@ class TestPayrollExpenseBatched(TestPayrollExpense):
         different_account = self.env['account.account'].create({
             'name': 'Different account',
             'code': '111111111111111111111111111111111',
-            'company_id': self.company_data['company'].id,
             'account_type': 'liability_payable',
         })
         different_account_sheet.employee_id.work_contact_id.property_account_payable_id = different_account

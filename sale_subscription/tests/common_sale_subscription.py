@@ -246,13 +246,11 @@ class TestSubscriptionCommon(TestSaleCommon):
             {'name': 'Ian Anderson',
              'code': 'IA',
              'account_type': 'asset_receivable',
-             'company_id': cls.company.id,
              'reconcile': True})
         cls.account_sale = cls.env['account.account'].create(
             {'name': 'Product Sales ',
              'code': 'S200000',
              'account_type': 'income',
-             'company_id': cls.company.id,
              'reconcile': False})
 
         cls.sale_journal = cls.env['account.journal'].create(

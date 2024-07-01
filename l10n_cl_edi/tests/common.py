@@ -86,7 +86,7 @@ class TestL10nClEdiCommon(AccountEdiTestCommon):
             'l10n_cl_point_of_sale_type': 'online',
             'l10n_latam_use_documents': True,
             'default_account_id': cls.env['account.account'].search([
-                ('company_id', '=', cls.company_data['company'].id), ('code', '=', '310115')]).id
+                ('company_ids', '=', cls.company_data['company'].id), ('code', '=', '310115')]).id
         })
         caf_file_template = misc.file_open(os.path.join(
             'l10n_cl_edi', 'tests', 'template', 'caf_file_template.xml')).read()

@@ -23,7 +23,7 @@ class TestFinancialReport(TestAccountReportsCommon):
 
         # Cleanup existing "Current year earnings" accounts since we can only have one by company.
         cls.env['account.account'].search([
-            ('company_id', 'in', (cls.company_data['company'] + cls.company_data_2['company']).ids),
+            ('company_ids', 'in', (cls.company_data['company'] + cls.company_data_2['company']).ids),
             ('account_type', '=', 'equity_unaffected'),
         ]).unlink()
 
@@ -45,7 +45,6 @@ class TestFinancialReport(TestAccountReportsCommon):
             'name': 'account%s' % i,
             'code': 'code%s' % i,
             'account_type': data[0],
-            'company_id': cls.company_data['company'].id,
         } for i, data in enumerate(account_type_data)])
 
         accounts_2 = cls.env['account.account'].create([{
@@ -53,8 +52,11 @@ class TestFinancialReport(TestAccountReportsCommon):
             'name': 'account%s' % (i + 100),
             'code': 'code%s' % (i + 100),
             'account_type': data[0],
-            'company_id': cls.company_data_2['company'].id,
+            'company_ids': [Command.link(cls.company_data_2['company'].id)]
         } for i, data in enumerate(account_type_data)])
+
+        for account in accounts_2:
+            account.code = account.with_company(cls.company_data_2['company']).code
 
         # ==== Custom filters ====
 
@@ -532,6 +534,8 @@ class TestFinancialReport(TestAccountReportsCommon):
         other_company_data = self.setup_other_company(name='other_company_data', currency_id=other_currency.id)
         partner = self.env['res.partner'].create({'name': 'I am a partner', 'company_id': False})
 
+        other_company_data['default_account_receivable'].with_company(self.env.company).code = '121010'
+
         # Create and post a journal entry linked to the new partner, for the new company.
         other_company_move_2021 = self.env['account.move'].with_company(other_company_data['company']).create({
             'move_type': 'entry',
@@ -586,7 +590,7 @@ class TestFinancialReport(TestAccountReportsCommon):
             [   0,                            1,   2],
             [
                 ('The Report Line',           750, 500),
-                ('121000 Account Receivable', 750, 500),
+                ('121010 Account Receivable', 750, 500),
                 ('Total The Report Line',     750, 500),
             ],
             options,

@@ -7,7 +7,7 @@ from lxml import etree
 from odoo import Command, _, api, fields, models
 from odoo.addons.l10n_se_sie_import.xml_utils import validate_xmldsig_signature
 from odoo.exceptions import RedirectWarning, UserError
-from odoo.tools import date_utils, file_open, mimetypes, float_is_zero
+from odoo.tools import date_utils, file_open, mimetypes, float_is_zero, Query, SQL
 from odoo.tools.safe_eval import datetime
 
 _logger = logging.getLogger(__name__)
@@ -257,7 +257,7 @@ class SIEExportWizard(models.TransientModel):
 
         accounts_map = {
             account['code']: (account['id'], account['account_type'])
-            for account in self.env['account.account'].search_read([('company_id', '=', company_id)], ('id', 'code', 'account_type'))
+            for account in self.env['account.account'].search_read([('company_ids', '=', company_id)], ('id', 'code', 'account_type'))
         }
         accounts_creation = []
         for account in accounts:
@@ -265,7 +265,7 @@ class SIEExportWizard(models.TransientModel):
                 accounts_creation.append({
                     'name': account.get('name'),
                     'code': account.get('id'),
-                    'company_id': company_id,
+                    'company_ids': [Command.link(company_id)],
                 })
 
         if accounts_creation:
@@ -665,20 +665,27 @@ class SIEExportWizard(models.TransientModel):
         company_currency_id = company.currency_id.id
         default_journal = self._get_sie_default_journal()
         new_balance_moves = {}
-        self._cr.execute("""
-            SELECT account.code,
+
+        query = Query(self.env, alias='aml', table=SQL.identifier('account_move_line'))
+        query.add_join('JOIN', alias='account', table='account_account', condition=SQL('aml.account_id = account.id'))
+        account_code = self.env['account.account']._field_to_sql('account', 'code', query)
+
+        self._cr.execute(SQL("""
+            SELECT %(account_code)s AS code,
                    aml.date,
                    SUM(aml.balance) AS balance,
                    aml.ref
-              FROM account_move_line AS aml
-         LEFT JOIN account_account AS account
-                ON aml.account_id = account.id
-             WHERE aml.company_id = %s
+              FROM %(from_clause)s
+             WHERE aml.company_id = %(company_id)s
                AND aml.parent_state != 'cancel'
-          GROUP BY account.code,
+          GROUP BY %(account_code)s,
                    aml.date,
                    aml.ref
-        """, [company.id])
+            """,
+            account_code=account_code,
+            from_clause=query.from_clause,
+            company_id=company.id
+        ))
         existing_balances = defaultdict(dict)
         for balance_row in self._cr.dictfetchall():
             existing_balances[balance_row['code']].update({(balance_row['date'], balance_row['ref']): balance_row['balance']})

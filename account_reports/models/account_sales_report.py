@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
 
 from odoo import _, api, fields, models
-from odoo.tools import get_lang, SQL
+from odoo.tools import SQL
 
 
 class ECSalesReportCustomHandler(models.AbstractModel):
@@ -264,22 +263,21 @@ class ECSalesReportCustomHandler(models.AbstractModel):
         # In the case of the generic report, we don't have a country defined. So no reliable tax report whose
         # tag_ids can be used. So we have a fallback to tax_ids.
 
-        lang = self.env.user.lang or get_lang(self.env).code
         if options.get('sales_report_taxes', {}).get('use_taxes_instead_of_tags'):
             tax_elem_table = SQL('account_tax')
             tax_elem_table_id = SQL('account_tax_id')
             aml_rel_table = SQL('account_move_line_account_tax_rel')
-            tax_elem_table_name = self.with_context(lang=lang).env['account.tax']._field_to_sql('account_tax', 'name')
+            tax_elem_table_name = self.env['account.tax']._field_to_sql('account_tax', 'name')
         else:
             tax_elem_table = SQL('account_account_tag')
             tax_elem_table_id = SQL('account_account_tag_id')
             aml_rel_table = SQL('account_account_tag_account_move_line_rel')
-            tax_elem_table_name = self.with_context(lang=lang).env['account.account.tag']._field_to_sql('account_account_tag', 'name')
+            tax_elem_table_name = self.env['account.account.tag']._field_to_sql('account_account_tag', 'name')
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            table_references, search_condition = report._get_sql_table_expression(column_group_options, 'strict_range')
+            query = report._get_report_query(column_group_options, 'strict_range')
             if allowed_ids:
-                search_condition = SQL('%s AND %s.id IN %s', search_condition, tax_elem_table, tuple(allowed_ids))
+                query.add_where(SQL('%s.id IN %s', tax_elem_table, tuple(allowed_ids)))
             queries.append(SQL(
                 """
                 SELECT
@@ -306,11 +304,11 @@ class ECSalesReportCustomHandler(models.AbstractModel):
                 column_group_key=column_group_key,
                 tax_elem_table_name=tax_elem_table_name,
                 tax_elem_table=tax_elem_table,
-                table_references=table_references,
+                table_references=query.from_clause,
                 ct_query=ct_query,
                 aml_rel_table=aml_rel_table,
                 tax_elem_table_id=tax_elem_table_id,
-                search_condition=search_condition,
+                search_condition=query.where_clause,
             ))
         return SQL(' UNION ALL ').join(queries)
 

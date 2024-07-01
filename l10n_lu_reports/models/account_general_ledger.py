@@ -32,11 +32,9 @@ class AccountGeneralLedger(models.AbstractModel):
             }
 
         def _get_product_vals_list(values, encountered_product_ids):
-            lang = self.env.user.lang or get_lang(self.env).code
-            self_lang = self.with_context(lang=lang)
-            product_template_name = self_lang.env['product.template']._field_to_sql('product_template', 'name')
-            uom_name = self_lang.env['uom.uom']._field_to_sql('uom', 'name')
-            base_uom_name = self_lang.env['uom.uom']._field_to_sql('base_uom', 'name')
+            product_template_name = self.env['product.template']._field_to_sql('product_template', 'name')
+            uom_name = self.env['uom.uom']._field_to_sql('uom', 'name')
+            base_uom_name = self.env['uom.uom']._field_to_sql('base_uom', 'name')
             self._cr.execute(SQL(
                 '''
                 SELECT

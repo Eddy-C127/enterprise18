@@ -467,7 +467,7 @@ class TestBudgetReport(TestAccountReportsCommon):
             for account in self.env['account.account'].search_read([
                 ('id', '!=', self.account_1.id),
                 ('account_type', '=', 'income'),
-                ('company_id', 'in', self.report.get_report_company_ids(options)),
+                ('company_ids', 'in', self.report.get_report_company_ids(options)),
             ], ['display_name'], order='code')
         ]
         expected_lines += [
@@ -479,7 +479,7 @@ class TestBudgetReport(TestAccountReportsCommon):
             for account in self.env['account.account'].search_read([
                 ('id', '!=', self.account_1.id),
                 ('code', '=like', f'{self.account_1.code[:3]}%'),
-                ('company_id', 'in', self.report.get_report_company_ids(options)),
+                ('company_ids', 'in', self.report.get_report_company_ids(options)),
             ], ['display_name'], order='code')
         ]
 

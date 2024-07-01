@@ -17,7 +17,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.account_21400 = cls.env['account.account'].search([
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
             ('code', '=', 21400)
         ])
         cls.australian_company = cls.company_data['company']

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models, _
-from odoo.tools import get_lang, SQL
+from odoo.tools import SQL
 
 from collections import OrderedDict
 from datetime import timedelta
@@ -88,14 +87,15 @@ class ChileanReportCustomHandler(models.AbstractModel):
             ('account_id.include_initial_balance', '=', True),
             ('account_id.account_type', '!=', 'equity_unaffected'),
         ]
-        table_references, search_condition = report._get_sql_table_expression(options, 'from_beginning', domain=domain)
+        query = report._get_report_query(options, 'from_beginning', domain=domain)
+        query.add_join('JOIN', alias='aa', table='account_account', condition=SQL('account_move_line.account_id = aa.id'))
+        account_code = self.env['account.account']._field_to_sql('aa', 'code', query)
+        account_name = self.env['account.account']._field_to_sql('aa', 'name')
 
-        lang = self.env.user.lang or get_lang(self.env).code
-        aa_name = self.with_context(lang=lang).env['account.account']._field_to_sql('aa', 'name')
         sql_query = SQL(
             """
             SELECT %(column_group_key)s AS column_group_key,
-                   aa.id, aa.code, %(aa_name)s AS name,
+                   aa.id, %(account_code)s AS code, %(account_name)s AS name,
                    SUM(account_move_line.debit) AS debit,
                    SUM(account_move_line.credit) AS credit,
                    GREATEST(SUM(account_move_line.balance), 0) AS debitor,
@@ -104,16 +104,16 @@ class ChileanReportCustomHandler(models.AbstractModel):
                    CASE WHEN %(bs)s THEN GREATEST(SUM(-account_move_line.balance), 0) ELSE 0 END AS liabilities,
                    CASE WHEN %(pnl)s THEN GREATEST(SUM(account_move_line.balance), 0) ELSE 0 END AS loss,
                    CASE WHEN %(pnl)s THEN GREATEST(SUM(-account_move_line.balance), 0) ELSE 0 END AS gain
-            FROM account_account AS aa, %(table_references)s
+            FROM %(table_references)s
             WHERE %(search_condition)s
-            AND aa.id = account_move_line.account_id
-            GROUP BY aa.id, aa.code, %(aa_name)s
-            ORDER BY aa.code
+            GROUP BY aa.id, %(account_code)s, %(account_name)s
+            ORDER BY %(account_code)s
             """,
             column_group_key=column_group_key,
-            aa_name=aa_name,
-            table_references=table_references,
-            search_condition=search_condition,
+            account_code=account_code,
+            account_name=account_name,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
             bs=SQL("aa.account_type LIKE 'asset%%' OR aa.account_type LIKE 'liability%%' OR aa.account_type LIKE 'equity%%'"),
             pnl=SQL("aa.account_type LIKE 'expense%%' OR aa.account_type LIKE 'income%%'"),
         )
@@ -186,7 +186,7 @@ class ChileanReportCustomHandler(models.AbstractModel):
             fiscal_dates['date_from'] - timedelta(days=1),
             'range',
             period_type='custom')
-        table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range')
+        query = report._get_report_query(new_options, 'strict_range')
         account_types = (
             'equity_unaffected',
             'income',
@@ -203,8 +203,8 @@ class ChileanReportCustomHandler(models.AbstractModel):
             AND aa.id = account_move_line.account_id
             AND aa.account_type IN %(account_types)s
             """.strip('\n'),
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
             account_types=account_types,
         )
         self.env.cr.execute(sql_query)

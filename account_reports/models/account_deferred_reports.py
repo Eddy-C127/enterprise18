@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import calendar
 from collections import defaultdict
@@ -55,6 +54,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
 
     @api.model
     def _get_select(self):
+        account_name = self.env['account.account']._field_to_sql('account_move_line__account_id', 'name')
         return [
             SQL("account_move_line.id AS line_id"),
             SQL("account_move_line.account_id AS account_id"),
@@ -69,12 +69,12 @@ class DeferredReportCustomHandler(models.AbstractModel):
             SQL("account_move_line.analytic_distribution AS analytic_distribution"),
             SQL("account_move_line__move_id.id as move_id"),
             SQL("account_move_line__move_id.name AS move_name"),
-            SQL("account_move_line__account_id.name AS account_name"),
+            SQL("%s AS account_name", account_name),
         ]
 
     def _get_lines(self, report, options, filter_already_generated=False):
         domain = self._get_domain(report, options, filter_already_generated)
-        table_references, search_condition = report._get_sql_table_expression(options, domain=domain, date_scope='from_beginning')
+        query = report._get_report_query(options, domain=domain, date_scope='from_beginning')
         select_clause = SQL(', ').join(self._get_select())
 
         query = SQL(
@@ -87,8 +87,8 @@ class DeferredReportCustomHandler(models.AbstractModel):
             ORDER BY account_move_line.deferred_start_date, account_move_line.id
             """,
             select_clause=select_clause,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
         self.env.cr.execute(query)

@@ -10,9 +10,9 @@ import io
 import logging
 import copy
 
-from odoo import _, fields, models
+from odoo import _, fields, models, Command
 from odoo.exceptions import UserError, RedirectWarning
-from odoo.tools import float_repr, float_is_zero, get_lang, SQL
+from odoo.tools import float_repr, float_is_zero, SQL
 
 _logger = logging.getLogger(__name__)
 
@@ -152,7 +152,7 @@ class FecImportWizard(models.TransientModel):
                     }
             else:
                 data = {
-                    "company_id": self.company_id.id,
+                    "company_ids": [Command.link(self.company_id.id)],
                     "code": account_code,
                     "name": account_name,
                     "account_type": 'asset_current',
@@ -256,13 +256,13 @@ class FecImportWizard(models.TransientModel):
             when a rounding issue is found. """
 
         # Get the accounts for the debit and credit differences
-        debit_account, credit_account = [
-            self.env["account.account"].search([
+        debit_account, credit_account = (
+            self.env["account.account"].with_company(self.company_id).search([
                 *self.env['account.account']._check_company_domain(self.company_id),
                 ('code', '=like', code),
             ], order='code', limit=1)
             for code in ('6580%', '7580%')
-        ]
+        )
 
         # Check the moves for rounding issues
         currency = self.company_id.currency_id
@@ -589,8 +589,7 @@ class FecImportWizard(models.TransientModel):
         # The sum_move_lines_per_move query determines the type of the account of the lines
         # The sum_moves_per_journal query counts the account types on the lines for each move
         # The main query compares the sums with the threshold and determines the type
-        lang = self.env.user.lang or get_lang(self.env).code
-        aj_name = self.with_context(lang=lang).env['account.journal']._field_to_sql('aj', 'name')
+        aj_name = self.env['account.journal']._field_to_sql('aj', 'name')
         sql = SQL("""
             WITH sum_move_lines_per_move as (
                 SELECT aml.journal_id as journal_id,

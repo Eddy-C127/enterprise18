@@ -124,11 +124,11 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
 
     def _build_query(self, report, options, column_group_key) -> SQL:
         #pylint: disable=sql-injection
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
 
         tax_types = tuple(self._vat_book_get_selected_tax_types(options))
 
-        return self.env['account.ar.vat.line']._ar_vat_line_build_query(table_references, search_condition, column_group_key, tax_types)
+        return self.env['account.ar.vat.line']._ar_vat_line_build_query(query.from_clause, query.where_clause, column_group_key, tax_types)
 
     def _create_report_line(self, report, options, move_vals, move_id, number_values):
         """ Create a standard (non total) line for the report

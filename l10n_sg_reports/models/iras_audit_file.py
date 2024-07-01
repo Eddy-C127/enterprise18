@@ -195,7 +195,7 @@ class IrasAuditFile(models.Model):
         general_ledger_report = self.env.ref('account_reports.general_ledger_report')
         handler = self.env['account.general.ledger.report.handler']
         accounts_results = handler._query_values(general_ledger_report, options)
-        all_accounts = self.env['account.account'].search([('company_id', '=', company.id)])
+        all_accounts = self.env['account.account'].search(self.env['account.account']._check_company_domain(company))
 
         for account in all_accounts:
             initial_bal = dict(accounts_results).get(account.id, {'initial_balance': {'balance': 0, 'amount_currency': 0, 'debit': 0, 'credit': 0}})['initial_balance']

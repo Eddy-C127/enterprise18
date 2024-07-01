@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api, osv
 from odoo.addons.web.controllers.utils import clean_action
-from odoo.tools import SQL
+from odoo.tools import SQL, Query
 
 
 class AccountReport(models.AbstractModel):
@@ -142,23 +142,23 @@ class AccountReport(models.AbstractModel):
 
         self.env.cr.execute(query)
 
-    def _get_sql_table_expression(self, options, date_scope, domain=None) -> tuple[SQL, SQL]:
+    def _get_report_query(self, options, date_scope, domain=None) -> Query:
         # Override to add the context key which will eventually trigger the shadowing of the table
         context_self = self.with_context(account_report_analytic_groupby=options.get('analytic_groupby_option'))
 
         # We add the domain filter for analytic_distribution here, as the search is not available
-        table_references, search_condition = super(AccountReport, context_self)._get_sql_table_expression(options, date_scope, domain)
+        query = super(AccountReport, context_self)._get_report_query(options, date_scope, domain)
         if options.get('analytic_accounts'):
             if 'analytic_accounts_list' in options:
                 # the table will be `analytic_temp_account_move_line` and thus analytic_distribution will be a single ID
                 analytic_account_ids = tuple(str(account_id) for account_id in options['analytic_accounts'])
-                search_condition = SQL("""%s AND "account_move_line".analytic_distribution IN %s""", search_condition, analytic_account_ids)
+                query.add_where(SQL("""account_move_line.analytic_distribution IN %s""", analytic_account_ids))
             else:
                 # Real `account_move_line` table so real JSON with percentage
                 analytic_account_ids = [[str(account_id) for account_id in options['analytic_accounts']]]
-                search_condition = SQL('%s AND %s && %s', search_condition, analytic_account_ids, self.env['account.move.line']._query_analytic_accounts())
+                query.add_where(SQL('%s && %s', analytic_account_ids, self.env['account.move.line']._query_analytic_accounts()))
 
-        return table_references, search_condition
+        return query
 
     def action_audit_cell(self, options, params):
         column_group_options = self._get_column_group_options(options, params['column_group_key'])

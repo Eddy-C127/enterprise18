@@ -6,7 +6,7 @@ from io import StringIO
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.tools import groupby
+from odoo.tools import groupby, SQL
 from odoo.tools.float_utils import float_repr
 from odoo.addons.l10n_pe_reports.models.res_company import CHART_OF_ACCOUNTS
 
@@ -118,15 +118,14 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         query.left_join('account_move_line__move__partner', 'l10n_latam_identification_type_id', 'l10n_latam_identification_type', 'id',
                         'idtype')
         query.order = 'account_move_line.date, account_move_line.id'
+        account_code = self.env['account.account']._field_to_sql('account_move_line__account', 'code', query)
         qu = query.select('account_move_line.id',
                           'account_move_line.name',
                           'account_move_line.date',
                           'amount_currency',
                           'debit',
                           'credit',
-                          'account_move_line__account.code AS account_code',
-                          'account_move_line__account.name AS account_name',
-                          'account_move_line__journal.name AS journal_name',
+                          SQL('%s AS account_code', account_code),
                           'account_move_line__move.l10n_pe_sunat_transaction_type',
                           'account_move_line__currency.name AS currency_name',
                           'account_move_line.move_id',
@@ -188,7 +187,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _l10n_pe_get_txt_53_data(self, options):
         accounts = self.env['account.account'].search([
-            ('company_id', '=', self.env.company.id),
+            ('company_ids', '=', self.env.company.id),
             ('account_type', '!=', 'equity_unaffected'),
         ])
 

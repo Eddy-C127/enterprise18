@@ -156,7 +156,7 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
                     has_sublines=bool(len(query_res_lines)),
                 )
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain=[
+        query = report._get_report_query(options, 'strict_range', domain=[
             ('journal_id', '=', journal.id),
             ('account_id', '!=', journal.default_account_id.id),
         ])
@@ -200,8 +200,8 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
             select_from_groupby=SQL("%s AS grouping_key", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL('null'),
             suspens_journal_1=journal.suspense_account_id.id,
             suspens_journal_2=journal.suspense_account_id.id,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
             is_receipt=SQL("st_line.amount > 0") if internal_type == "receipts" else SQL("st_line.amount < 0"),
             last_statement_id_condition=last_statement_id_condition,
             group_by=SQL.identifier('account_move_line', current_groupby) if current_groupby else SQL('st_line.id'),  # Same key in the groupby because we can't put a null key in a group by
@@ -259,7 +259,7 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
 
         accounts = journal._get_journal_inbound_outstanding_payment_accounts() + journal._get_journal_outbound_outstanding_payment_accounts()
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'from_beginning', domain=[
+        query = report._get_report_query(options, 'from_beginning', domain=[
             ('journal_id', '=', journal.id),
             ('account_id', 'in', accounts.ids),
             ('full_reconcile_id', '=', False),
@@ -297,8 +297,8 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
                   account.reconcile
            """,
             select_from_groupby=SQL("%s AS grouping_key", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL('null'),
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
             is_receipt=SQL("account_move_line.balance > 0") if internal_type == "receipts" else SQL("account_move_line.balance < 0"),
             group_by=SQL.identifier('account_move_line', current_groupby) if current_groupby else SQL('account_move_line.account_id'),  # Same key in the groupby because we can't put a null key in a group by
         )

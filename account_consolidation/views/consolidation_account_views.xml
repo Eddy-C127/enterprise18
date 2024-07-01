@@ -74,9 +74,9 @@
                                    invisible="context.get('from_mapping', False) or not account_ids" class="oe_read_only"/>
                         <field name="account_ids"
                                invisible="context.get('from_mapping', False) or not account_ids"
-                               domain="[('company_id', 'in', company_ids)]" class="oe_read_only">
+                               class="oe_read_only">
                             <tree edit="false">
-                                <field name="company_id"/>
+                                <field name="company_ids" widget="many2many_tags"/>
                                 <field name="name"/>
                             </tree>
                         </field>
@@ -85,9 +85,9 @@
                                    invisible="context.get('from_mapping', False) or not chart_id" class="oe_edit_only"/>
                         <field name="account_ids"
                                context="{'no_mapping':True}" invisible="context.get('from_mapping', False) or not chart_id"
-                               domain="[('company_id', 'in', company_ids)]" class="oe_edit_only">
+                               class="oe_edit_only">
                             <tree edit="false">
-                                <field name="company_id"/>
+                                <field name="company_ids" widget="many2many_tags"/>
                                 <field name="name"/>
                             </tree>
                         </field>

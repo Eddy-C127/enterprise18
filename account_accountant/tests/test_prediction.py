@@ -20,7 +20,6 @@ class TestBillsPrediction(AccountTestInvoicingCommon):
             'code': 'test%s' % i,
             'name': name,
             'account_type': 'expense',
-            'company_id': cls.company.id,
         } for i, name in enumerate((
             "Test Maintenance and Repair",
             "Test Purchase of services, studies and preparatory work",

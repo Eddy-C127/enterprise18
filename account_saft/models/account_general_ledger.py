@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from collections import defaultdict
 
 from odoo.exceptions import UserError
-from odoo.tools import float_repr, get_lang, SQL
+from odoo.tools import float_repr, SQL
 
 from odoo import api, fields, models, release, _
 
@@ -85,13 +84,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             'tax_detail_per_line_map': {},
         }
         # Fill 'total_debit_in_period', 'total_credit_in_period', 'move_vals_list'.
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
-        lang = self.env.user.lang or get_lang(self.env).code
-        self_lang = self.with_context(lang=lang)
-        tax_name = self_lang.env['account.tax']._field_to_sql('tax', 'name')
-        journal_name = self_lang.env['account.journal']._field_to_sql('journal', 'name')
-        uom_name = self_lang.env['uom.uom']._field_to_sql('uom', 'name')
-        product_name = self_lang.env['product.template']._field_to_sql('product_template', 'name')
+        query = report._get_report_query(options, 'strict_range')
+        tax_name = self.env['account.tax']._field_to_sql('tax', 'name')
+        journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
+        uom_name = self.env['uom.uom']._field_to_sql('uom', 'name')
+        product_name = self.env['product.template']._field_to_sql('product_template', 'name')
         query = SQL(
             '''
             SELECT
@@ -147,8 +144,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             journal_name=journal_name,
             product_name=product_name,
             uom_name=uom_name,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
         self._cr.execute(query)
 
@@ -212,10 +209,9 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _saft_fill_report_tax_details_values(self, report, options, values):
         tax_vals_map = {}
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
-        tax_details_query = self.env['account.move.line']._get_query_tax_details(table_references, search_condition)
-        lang = self.env.user.lang or get_lang(self.env).code
-        tax_name = self.with_context(lang=lang).env['account.tax']._field_to_sql('tax', 'name')
+        query = report._get_report_query(options, 'strict_range')
+        tax_details_query = self.env['account.move.line']._get_query_tax_details(query.from_clause, query.where_clause)
+        tax_name = self.env['account.tax']._field_to_sql('tax', 'name')
         self._cr.execute(SQL('''
             SELECT
                 tax_detail.base_line_id,
@@ -304,7 +300,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         if all_partners:
             domain = [('partner_id', 'in', tuple(all_partners.ids))]
-            table_references, search_condition = report._get_sql_table_expression(new_options, 'strict_range', domain=domain)
+            query = report._get_report_query(new_options, 'strict_range', domain=domain)
             self._cr.execute(SQL(
                 '''
                 SELECT
@@ -316,8 +312,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 AND account.account_type IN ('asset_receivable', 'liability_payable')
                 GROUP BY account_move_line.partner_id
                 ''',
-                table_references=table_references,
-                search_condition=search_condition,
+                table_references=query.from_clause,
+                search_condition=query.where_clause,
             ))
 
             for partner_id, balance in self._cr.fetchall():

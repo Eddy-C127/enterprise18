@@ -13,7 +13,11 @@ class AccountAccount(models.Model):
     _inherit = "account.account"
 
     employment_hero_account_identifier = fields.Char('Matching Employment Hero Account', help="Identifier of the Employment Hero account that matches this account", size=64, index=True)
-    employment_hero_enable = fields.Boolean(related="company_id.employment_hero_enable")
+    employment_hero_enable = fields.Boolean(compute='_compute_employment_hero_enable')
+
+    def _compute_employment_hero_enable(self):
+        for record in self:
+            record.employment_hero_enable = any(record.company_ids.mapped('employment_hero_enable'))
 
 
 class AccountTax(models.Model):

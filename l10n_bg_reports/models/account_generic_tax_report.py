@@ -35,14 +35,14 @@ class BulgarianTaxReportCustomHandler(models.AbstractModel):
             # Since we only override the closing moves when we have external values and external values are not
             # available on multi-company, we will always get exactly one closing move.
             for closing_move in closing_moves:
-                account_vat_to_recover = self.env['account.account'].search([
+                account_vat_to_recover = self.env['account.account'].with_company(closing_move.company_id).search([
                     ('code', '=like', '4538%'),
-                    ('company_id', '=', closing_move.company_id.id)
+                    ('company_ids', '=', closing_move.company_id.id)
                 ], limit=1)
 
-                account_vat_to_pay = self.env['account.account'].search([
+                account_vat_to_pay = self.env['account.account'].with_company(closing_move.company_id).search([
                     ('code', '=like', '4539%'),
-                    ('company_id', '=', closing_move.company_id.id)
+                    ('company_ids', '=', closing_move.company_id.id)
                 ], limit=1)
 
                 vat_to_recover = account_vat_to_recover.current_balance

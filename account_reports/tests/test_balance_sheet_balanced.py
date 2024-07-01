@@ -477,11 +477,11 @@ class TestBalanceSheetBalanced(TestAccountReportsCommon):
             self.env.company = next(iter(self.existing_companies.filtered(lambda c: c.chart_template == coa)))
 
             coa_setup_data['counterpart_account'] = self.env['account.account'].search([
-                ('company_id', '=', self.env.company.id),
+                ('company_ids', '=', self.env.company.id),
                 ('account_type', '=', 'asset_receivable'),
             ], limit=1)
             coa_setup_data['income_account'] = self.env['account.account'].search([
-                ('company_id', '=', self.env.company.id),
+                ('company_ids', '=', self.env.company.id),
                 ('internal_group', '=', 'income'),
             ], limit=1)
             coa_setup_data['journal'] = self.env['account.journal'].search([
@@ -514,7 +514,7 @@ class TestBalanceSheetBalanced(TestAccountReportsCommon):
         # We use the Accounts Receivable account (which in general should be well-configured.)
         # However, if the Balance Sheet is incorrect for the counterpart account, the test will give weird results.
         tested_accounts_domain = [
-            ('company_id', '=', self.env.company.id),
+            ('company_ids', '=', self.env.company.id),
             ('internal_group', '!=', 'off_balance'),
         ]
         for code in NON_TESTED_ACCOUNTS['all'] + NON_TESTED_ACCOUNTS.get(coa, []):

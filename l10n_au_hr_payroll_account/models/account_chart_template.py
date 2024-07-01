@@ -13,8 +13,8 @@ class AccountChartTemplate(models.AbstractModel):
             clearing_house = self.env.ref('l10n_au_hr_payroll_account.res_partner_clearing_house', raise_if_not_found=False)
             if not clearing_house:
                 raise UserError(_("No clearing house record found for this company!"))
-            account_21400 = self.env['account.account'].search([
-                ('company_id', '=', company.id),
+            account_21400 = self.env['account.account'].with_company(company).search([
+                ('company_ids', '=', company.id),
                 ('code', '=', 21400)])
             clearing_house.with_company(company).property_account_payable_id = account_21400
 

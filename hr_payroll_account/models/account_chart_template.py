@@ -41,7 +41,7 @@ class AccountChartTemplate(models.AbstractModel):
                 company.batch_payroll_move_lines = True
             accounts = {}
             for code in account_codes:
-                account = AccountAccount.search([
+                account = AccountAccount.with_company(company).search([
                     *AccountAccount._check_company_domain(company),
                     ('code', '=like', '%s%%' % code)], limit=1)
                 if not account:

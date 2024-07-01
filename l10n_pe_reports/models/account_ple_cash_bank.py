@@ -59,6 +59,9 @@ class AccountCashFlowReportHandler(models.AbstractModel):
         ])
         self.env['account.move.line'].check_access_rights('read')
         query = self.env['account.move.line']._where_calc(domain)
+        journal_alias = query.join(lhs_alias='account_move_line', lhs_column='journal_id', rhs_table='account_journal', rhs_column='id', link='journal_id')
+        account_alias = query.join(lhs_alias=journal_alias, lhs_column='default_account_id', rhs_table='account_account', rhs_column='id', link='default_account_id')
+        account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
 
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.
         self.env['account.move.line']._apply_ir_rules(query)
@@ -67,7 +70,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                SELECT bank_statement_line.id,
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
-                      journal_account.code AS account_code,
+                      %(account_code)s AS account_code,
                       account_move_fr.move_type,
                       bank_statement_move.date,
                       account_move_fr.name AS move_name,
@@ -76,23 +79,21 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       account_move_line.move_id,
                       aml_currency.name AS currency_name,
                       latam_doctype.code AS document_type
-                 FROM %s
+                 FROM %(from_clause)s
                  JOIN account_move ON account_move_line.move_id = account_move.id
             LEFT JOIN account_move_line AS account_move_line_bs ON account_move.id = account_move_line_bs.move_id
             LEFT JOIN account_move_line AS account_move_line_fr ON account_move_line_bs.matching_number = account_move_line_fr.matching_number
             LEFT JOIN account_move AS account_move_fr ON account_move_line_fr.move_id = account_move_fr.id
                  JOIN account_bank_statement_line AS bank_statement_line ON account_move_line.statement_line_id = bank_statement_line.id
                  JOIN account_move AS bank_statement_move ON bank_statement_line.move_id = bank_statement_move.id
-                 JOIN account_journal AS journal ON account_move_line.journal_id = journal.id
-                 JOIN account_account AS journal_account ON journal.default_account_id = journal_account.id
             LEFT JOIN l10n_latam_document_type AS latam_doctype ON account_move_fr.l10n_latam_document_type_id = latam_doctype.id
             LEFT JOIN res_currency AS aml_currency ON account_move_line.currency_id = aml_currency.id
-                WHERE %s
+                WHERE %(where_clause)s
              GROUP BY bank_statement_line.id,
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
                       latam_doctype.code,
-                      journal_account.code,
+                      %(account_code)s,
                       account_move_fr.move_type,
                       bank_statement_move.journal_id,
                       bank_statement_move.date,
@@ -102,7 +103,10 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       account_move_line.move_id,
                       aml_currency.name
              ORDER BY bank_statement_move.journal_id, bank_statement_move.date, bank_statement_line.id
-        """, query.from_clause, query.where_clause or SQL("TRUE"))
+            """,
+            account_code=account_code,
+            from_clause=query.from_clause,
+            where_clause=query.where_clause or SQL("TRUE"))
         for model in (
                 'account.move.line',
                 'account.move',
@@ -202,7 +206,6 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                  JOIN account_bank_statement_line AS bank_statement_line ON account_move_line.statement_line_id = bank_statement_line.id
                  JOIN account_move AS bank_statement_move ON bank_statement_line.move_id = bank_statement_move.id
                  JOIN account_journal AS journal ON account_move_line.journal_id = journal.id
-                 JOIN account_account AS journal_account ON journal.default_account_id = journal_account.id
             LEFT JOIN res_partner_bank AS banc_account ON journal.bank_account_id = banc_account.id
             LEFT JOIN res_bank AS bank ON banc_account.bank_id = bank.id
             LEFT JOIN res_partner AS partner ON account_move.partner_id = partner.id
@@ -213,7 +216,6 @@ class AccountCashFlowReportHandler(models.AbstractModel):
              GROUP BY bank_statement_line.id,
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
-                      journal_account.code,
                       bank_statement_move.journal_id,
                       bank_statement_move.date,
                       account_move.name,
@@ -229,7 +231,6 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                 'account.move.line',
                 'account.move',
                 'account.bank.statement.line',
-                'account.journal',
                 'account.account',
                 'res.currency',
                 'l10n_latam.document.type',

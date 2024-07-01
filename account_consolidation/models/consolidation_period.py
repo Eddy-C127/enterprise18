@@ -88,7 +88,6 @@ class ConsolidationPeriod(models.Model):
         """ Compute the number of company unmapped accounts
         """
         Account = self.env['account.account'].sudo()
-        Company = self.env['res.company']
         for record in self:
             context = {'chart_id': record.chart_id.id}
             record_companies = set(record.company_period_ids.mapped('company_id.id'))
@@ -96,11 +95,11 @@ class ConsolidationPeriod(models.Model):
             company_ids = tuple(record_companies.intersection(user_companies))
 
             domain = [
-                ('company_id', 'in', company_ids),
+                ('company_ids', 'in', company_ids),
                 ('consolidation_account_chart_filtered_ids', '=', False),
                 ('used', '=', True)
             ]
-            values = Account.with_context(context)._read_group(domain, ['company_id'], ['__count'])
+            values = Account.with_context(context)._read_group(domain, ['company_ids'], ['__count'])
 
             results = [
                 {"company_id": company.id, "name": company.name, "value": count}

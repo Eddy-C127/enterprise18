@@ -807,10 +807,11 @@ class AccountMoveLine(models.Model):
             ('internal_group', 'not in', (excluded_group, 'off')),
             ('account_type', 'not in', ('liability_payable', 'asset_receivable')),
         ])
+        account_name = self.env['account.account']._field_to_sql('account_account', 'name')
         psql_lang = self._get_predict_postgres_dictionary()
         additional_queries = [SQL(account_query.select(
             SQL("account_account.id AS account_id"),
-            SQL("setweight(to_tsvector(%s, name), 'B') AS document", psql_lang),
+            SQL("setweight(to_tsvector(%(psql_lang)s, %(account_name)s), 'B') AS document", psql_lang=psql_lang, account_name=account_name),
         ))]
         query = self._build_predictive_query([('account_id', 'in', account_query)])
 

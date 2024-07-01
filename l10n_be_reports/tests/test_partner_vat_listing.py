@@ -347,7 +347,6 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
             'name': 'NEW.INCOME',
             'code': 'NEW.INCOME',
             'account_type': 'income',
-            'company_id': self.env.company.id,
         })
         invoice_3 = self.init_invoice('out_invoice', partner=self.partner_a_be, amounts=[200], taxes=[self.tax_sale_a], invoice_date='2022-06-29')
         income_line = invoice_3.line_ids.filtered(lambda x: x.account_id.internal_group == 'income')

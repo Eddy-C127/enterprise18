@@ -23,15 +23,15 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         cls.account_3400 = cls.env['account.account'].search([
             ('code', '=', 3400),
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
         ], limit=1)
         cls.account_4980 = cls.env['account.account'].search([
             ('code', '=', 4980),
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
         ], limit=1)
         cls.account_1500 = cls.env['account.account'].search([
             ('code', '=', 1500),
-            ('company_id', '=', cls.company_data['company'].id),
+            ('company_ids', '=', cls.company_data['company'].id),
         ], limit=1)
         cls.tax_19 = cls.env['account.tax'].search([
             ('name', '=', '19% I'),
@@ -453,7 +453,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         })
 
         account_1600 = self.env['account.account'].search(
-            [('code', '=', 1600), ('company_id', '=', self.company_data['company'].id), ], limit=1)
+            [('code', '=', 1600), ('company_ids', '=', self.company_data['company'].id)], limit=1)
 
         move = self.env['account.move'].create({
             'move_type': 'entry',

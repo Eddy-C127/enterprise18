@@ -23,7 +23,7 @@ class TaxReportPND(models.AbstractModel):
                 _('Total Amount'), _('WHT Amount'), _('WHT Condition'), _('Tax Type')]
 
     def _rows(self, options, report, domain, title=''):
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain)
+        query = report._get_report_query(options, 'strict_range', domain)
 
         dp = self.env.company.currency_id.decimal_places
 
@@ -61,8 +61,8 @@ class TaxReportPND(models.AbstractModel):
             """,
             title=title,
             decimal_precision=dp,
-            table_references=table_references,
-            search_condition=search_condition,
+            table_references=query.from_clause,
+            search_condition=query.where_clause,
         )
 
         self._cr.execute(query)

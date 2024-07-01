@@ -7,7 +7,7 @@ class Company(models.Model):
     _inherit = 'res.company'
 
     def _default_consolidation_color(self):
-        return self.search_count([]) % 12
+        return self.search_count([]) % 11
 
     """The color used to color mapped accounts in consolidation account tree view"""
     consolidation_color = fields.Integer('Accounts color', required=False, store=True, default=_default_consolidation_color)

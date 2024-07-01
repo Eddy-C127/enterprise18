@@ -221,7 +221,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
             date_to
         )
 
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range')
+        query = report._get_report_query(options, 'strict_range')
         tail_query = report._get_engine_query_tail(offset, limit)
         full_query = SQL(
             """
@@ -364,10 +364,10 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
             %(tail_query)s
             """,
             custom_currency_table_query=custom_currency_table_query,
-            table_references=table_references,
+            table_references=query.from_clause,
             date_to=date_to,
             tail_query=tail_query,
-            search_condition=search_condition,
+            search_condition=query.where_clause,
             select_part_not_an_exchange_move_id=select_part_not_an_exchange_move_id,
         )
         self._cr.execute(full_query)

@@ -150,7 +150,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
         wizard.action_import_sie()
 
         # Check accounts and account balances
-        accounts = set(self.env['account.account'].search([('company_id', '=', self.company.id)]).mapped('code'))
+        accounts = set(self.env['account.account'].search([('company_ids', '=', self.company.id)]).mapped('code'))
         self.assertEqual(0, len(self.reference_accounts - accounts))  # All the file accounts have been imported
 
         endyear_balance = self._get_formatted_balances([
@@ -255,7 +255,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
         wizard.action_import_sie()
 
         # Check accounts and account balances
-        accounts = set(self.env['account.account'].search([('company_id', '=', self.company.id)]).mapped('code'))
+        accounts = set(self.env['account.account'].search([('company_ids', '=', self.company.id)]).mapped('code'))
         self.assertEqual(0, len(self.reference_accounts - accounts))  # All the file accounts have been imported
 
         endyear_balance = self._get_formatted_balances([
@@ -366,7 +366,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
 
 
         # Check accounts and balances
-        accounts = set(self.env['account.account'].search([('company_id', '=', self.company.id)]).mapped('code'))
+        accounts = set(self.env['account.account'].search([('company_ids', '=', self.company.id)]).mapped('code'))
         self.assertEqual(0, len(self.reference_accounts - accounts))
         balance = self._get_formatted_balances([('company_id', '=', self.company.id), ('journal_id.code', '=like', 'SIE%')])
 

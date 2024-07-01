@@ -14,7 +14,15 @@ class Account(models.Model):
         search="_search_filtered_consolidation_account_ids",
         inverse='_inverse_filtered_consolidation_account_ids',
         )
-    consolidation_color = fields.Integer('Color', related="company_id.consolidation_color", readonly=True)
+    consolidation_color = fields.Integer('Color', compute='_compute_consolidation_color')
+
+    @api.depends('company_ids')
+    def _compute_consolidation_color(self):
+        for record in self:
+            if len(record.company_ids) > 1:
+                record.consolidation_color = 11
+            else:
+                record.consolidation_color = record.company_ids.consolidation_color
 
     @api.depends('consolidation_account_ids')
     @api.depends_context('chart_id')

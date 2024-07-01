@@ -71,12 +71,11 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
             return []
 
         cash_basis_journal_ids = self.env.companies.filtered('tax_cash_basis_journal_id').tax_cash_basis_journal_id
-        table_references, search_condition = report._get_sql_table_expression(options, 'strict_range', domain=[
+        query = report._get_report_query(options, 'strict_range', domain=[
             ('parent_state', '=', 'posted'),
             ('journal_id', 'in', cash_basis_journal_ids.ids),
         ])
-        lang = self.env.user.lang or get_lang(self.env).code
-        country_demonym = self.with_context(lang=lang).env['res.country']._field_to_sql('country', 'demonym')
+        country_demonym = self.env['res.country']._field_to_sql('country', 'demonym')
         tags = report.line_ids.expression_ids._get_matching_tags()
 
         tail_query = report._get_engine_query_tail(offset, limit)
@@ -118,9 +117,9 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
             %(tail_query)s
             """,
             country_demonym=country_demonym,
-            table_references=table_references,
+            table_references=query.from_clause,
             tags=tuple(tags.ids),
-            search_condition=search_condition,
+            search_condition=query.where_clause,
             tail_query=tail_query,
         ))
 

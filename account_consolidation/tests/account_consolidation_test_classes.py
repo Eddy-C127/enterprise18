@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from odoo import Command
 from odoo.tests import common
 from datetime import date
 
@@ -84,7 +84,7 @@ class AccountConsolidationTestCase(common.TransactionCase):
             'name': name,
             'code': code,
             'account_type': type,
-            'company_id': company.id,
+            'company_ids': [Command.link(company.id)],
             'reconcile': type in ('asset_receivable', 'liability_payable'),
         })
 

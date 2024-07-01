@@ -126,12 +126,12 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         accounts = self.env['account.account'].search([
             *self.env['account.account']._check_company_domain(self.env.company),
             ('account_type', '!=', 'equity_unaffected'),
-            ('group_id', '!=', False),
         ])
         accounts_groups_by_parent = defaultdict(lambda: defaultdict(lambda: self.env['account.account']))
         accounts_template_data = []
         for account in accounts:
-            accounts_groups_by_parent[account.group_id.parent_id][account.group_id] |= account
+            if account.group_id:
+                accounts_groups_by_parent[account.group_id.parent_id][account.group_id] |= account
         no_tag_accounts = self.env['account.account']
         multi_tag_accounts = self.env['account.account']
         parent_nature = ''
