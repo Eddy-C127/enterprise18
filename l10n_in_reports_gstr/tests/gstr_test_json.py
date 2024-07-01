@@ -393,7 +393,7 @@ gstr1_test_json = {
   'hsn': {
     'data': [
       {
-        'hsn_sc': '01111',
+        'hsn_sc': '111111',
         'uqc': 'UNT',
         'rt': 18,
         'qty': 9.5,
@@ -405,7 +405,7 @@ gstr1_test_json = {
         'num': 1
       },
       {
-        'hsn_sc': '01111',
+        'hsn_sc': '111111',
         'uqc': 'UNT',
         'rt': 0,
         'qty': 5.0,
@@ -1368,7 +1368,7 @@ gstr1_debit_note_test_json = {
     "hsn": {
         "data": [
             {
-                "hsn_sc": "01111",
+                "hsn_sc": "111111",
                 "uqc": "UNT",
                 "rt": 18,
                 "qty": 24.5,
@@ -1380,7 +1380,7 @@ gstr1_debit_note_test_json = {
                 "num": 1,
             },
             {
-                "hsn_sc": "01111",
+                "hsn_sc": "111111",
                 "uqc": "UNT",
                 "rt": 0,
                 "qty": 11.0,
