@@ -255,7 +255,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
 
     @freeze_time('2023-01-01 01:10:15')
     @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineAccount._retrieve_transactions', return_value={})
-    @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineAccount._refresh', return_value=True)
+    @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineAccount._refresh', return_value={'success': True, 'data': {}})
     def test_basic_flow_manual_fetching_transactions(self, patched_refresh, patched_transactions):
         self.addCleanup(self.env.registry.leave_test_mode)
         # flush and clear everything for the new "transaction"
@@ -290,7 +290,7 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
 
     @freeze_time('2023-01-01 01:10:15')
     @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineAccount._retrieve_transactions', return_value={})
-    @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineAccount._refresh', return_value=True)
+    @patch('odoo.addons.account_online_synchronization.models.account_online.AccountOnlineAccount._refresh', return_value={'success': True, 'data': {}})
     def test_currently_processing_fetching_transactions(self, patched_refresh, patched_transactions):
         self.account_online_account.fetching_status = 'processing'  # simulate the fact that we are currently creating entries in odoo
         limit_time = tools.config['limit_time_real_cron'] if tools.config['limit_time_real_cron'] > 0 else tools.config['limit_time_real']
