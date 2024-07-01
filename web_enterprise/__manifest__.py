@@ -70,14 +70,18 @@ This module modifies the web addon to provide Enterprise design and responsivene
         "web.assets_tests": [
             "web_enterprise/static/tests/tours/**/*.js",
         ],
+        # Unit test files
+        'web.assets_unit_tests': [
+            'web_enterprise/static/tests/**/*.test.js',
+        ],
         'web.qunit_suite_tests': [
             'web_enterprise/static/tests/views/**/*.js',
             'web_enterprise/static/tests/webclient/**/*.js',
             ('remove', 'web_enterprise/static/tests/webclient/action_manager_mobile_tests.js'),
+            ('remove', 'web_enterprise/static/tests/**/*.test.js'),
         ],
         'web.qunit_mobile_suite_tests': [
             'web_enterprise/static/tests/views/disable_patch.js',
-            'web_enterprise/static/tests/mobile/**/*.js',
             'web_enterprise/static/tests/webclient/action_manager_mobile_tests.js',
         ],
     },
