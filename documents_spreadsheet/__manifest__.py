@@ -45,8 +45,8 @@
         'web.assets_tests': [
             'documents_spreadsheet/static/tests/tours/*',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'documents_spreadsheet/static/tests/**/*',
-        ]
+        ],
     }
 }
