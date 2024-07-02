@@ -24,7 +24,7 @@ model. Furthermore, you can create a new website form or edit an existing one.
     'auto_install': True,
     'license': 'OEEL-1',
     'assets': {
-        'web_studio.studio_assets': [
+        'web_studio.studio_assets_minimal': [
             'website_studio/static/src/**/*',
         ],
         'web.assets_tests': [

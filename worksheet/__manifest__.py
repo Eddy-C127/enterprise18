@@ -20,7 +20,7 @@ Create customizable worksheet
         'web.assets_backend': [
             'worksheet/static/src/open_studio_button_widget/*',
         ],
-        'web_studio.studio_assets': [
+        'web_studio.studio_assets_minimal': [
             'worksheet/static/src/client_action/navbar/navbar.js'
         ],
         'web.qunit_suite_tests': [

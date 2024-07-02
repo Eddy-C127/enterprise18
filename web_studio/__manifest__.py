@@ -64,6 +64,10 @@ Note: Only the admin user is allowed to make those customizations.
         ],
         # This bundle is lazy loaded: it is loaded when studio is opened for the first time
         'web_studio.studio_assets': [
+            ('include', 'web.assets_backend_lazy'),
+            ('include', 'web_studio.studio_assets_minimal'),
+        ],
+        'web_studio.studio_assets_minimal': [
             'web_studio/static/src/client_action/**/*.js',
             'web_studio/static/src/views/kanban_report/**/*.js',
             ('remove', 'web_studio/static/src/client_action/studio_action_loader.js'),
@@ -104,14 +108,14 @@ Note: Only the admin user is allowed to make those customizations.
             # In tests we don't want to lazy load this
             # And we don't want to push them into any other test suite either
             # as web.tests_assets would
-            ('include', 'web_studio.studio_assets'),
+            ('include', 'web_studio.studio_assets_minimal'),
             'web_studio/static/tests/legacy/**/*.js',
         ],
         'web.qunit_mobile_suite_tests': [
             'web_studio/static/tests/legacy/views/disable_patch.js',
         ],
         'web.assets_unit_tests': [
-            ('include', 'web_studio.studio_assets'),
+            ('include', 'web_studio.studio_assets_minimal'),
             'web_studio/static/tests/**/*',
             ('remove', 'web_studio/static/tests/legacy/**/*'),
             ('remove', 'web_studio/static/tests/tours/**/*'),
