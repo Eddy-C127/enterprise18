@@ -26,11 +26,8 @@
         'spreadsheet.assets_print': [
             'spreadsheet_dashboard_edition/static/src/print_assets/**/*',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'spreadsheet_dashboard_edition/static/tests/**/*',
-        ],
-        'web.qunit_mobile_suite_tests': [
-            'spreadsheet_dashboard_edition/static/tests/legacy/mock_server.js',
         ],
     }
 }

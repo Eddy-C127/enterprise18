@@ -1,15 +1,12 @@
-/** @odoo-module **/
+import { expect, getFixture, test } from "@odoo/hoot";
+import { animationFrame, mockTimeZone } from "@odoo/hoot-mock";
+import { helpers, registries } from "@odoo/o-spreadsheet";
+import { defineTestSpreadsheetEditionModels } from "@test_spreadsheet_edition/../tests/helpers/data";
+import { createSpreadsheetTestAction } from "@test_spreadsheet_edition/../tests/helpers/helpers";
+import { contains, patchWithCleanup } from "@web/../tests/web_test_helpers";
 
-import { registries, helpers } from "@odoo/o-spreadsheet";
-import { createSpreadsheetTestAction } from "@test_spreadsheet_edition/../tests/legacy/utils/helpers";
-import {
-    getFixture,
-    editInput,
-    click,
-    patchWithCleanup,
-    triggerEvent,
-    nextTick,
-} from "@web/../tests/helpers/utils";
+defineTestSpreadsheetEditionModels();
+
 const { topbarMenuRegistry } = registries;
 
 const uuidGenerator = new helpers.UuidGenerator();
@@ -41,541 +38,437 @@ function createRevision(revisions, type, payload) {
     };
 }
 
-QUnit.module("Spreadsheet Test History Action", {}, function () {
-    QUnit.test("Open history version from the menu", async function (assert) {
-        const { env } = await createSpreadsheetTestAction(
-            "spreadsheet_test_action"
-        );
-        patchWithCleanup(env.services.action, {
-            doAction(action) {
-                assert.step(JSON.stringify(action));
-            },
-        });
-        const file = topbarMenuRegistry
-            .getAll()
-            .find((item) => item.id === "file");
-        const showHistory = file.children.find(
-            (item) => item.id === "version_history"
-        );
-        await showHistory.execute(env);
-        assert.verifySteps([
-            JSON.stringify({
-                type: "ir.actions.client",
-                tag: "action_open_spreadsheet_history",
-                params: {
-                    spreadsheet_id: 1,
-                    res_model: "spreadsheet.test",
-                },
-            }),
-        ]);
+test("Open history version from the menu", async function () {
+    const { env } = await createSpreadsheetTestAction("spreadsheet_test_action");
+    patchWithCleanup(env.services.action, {
+        doAction(action) {
+            expect.step(JSON.stringify(action));
+        },
     });
-
-    QUnit.test("load from the origin value", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                if (args.method === "get_spreadsheet_history") {
-                    assert.step(`fromSnapshot-${args.args[1]}`);
-                }
+    const file = topbarMenuRegistry.getAll().find((item) => item.id === "file");
+    const showHistory = file.children.find((item) => item.id === "version_history");
+    await showHistory.execute(env);
+    expect.verifySteps([
+        JSON.stringify({
+            type: "ir.actions.client",
+            tag: "action_open_spreadsheet_history",
+            params: {
+                spreadsheet_id: 1,
+                res_model: "spreadsheet.test",
             },
-        });
-        assert.verifySteps(["fromSnapshot-false"]);
-    });
+        }),
+    ]);
+});
 
-    QUnit.test("load action from snapshot", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                if (args.method === "get_spreadsheet_history") {
-                    assert.step(`fromSnapshot-${args.args[1]}`);
-                }
-            },
-            fromSnapshot: true,
-        });
-        assert.verifySteps(["fromSnapshot-true"]);
+test("load from the origin value", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                expect.step(`fromSnapshot-${args.args[1]}`);
+            }
+        },
     });
+    expect.verifySteps(["fromSnapshot-false"]);
+});
 
-    QUnit.test(
-        "load from snapshot when missing revisions",
-        async function (assert) {
-            await createSpreadsheetTestAction(
-                "action_open_spreadsheet_history",
-                {
-                    mockRPC: async function (route, args) {
-                        if (args.method === "get_spreadsheet_history") {
-                            assert.step(`fromSnapshot-${args.args[1]}`);
-                            return {
-                                data: {},
-                                name: "test",
-                                revisions: [
-                                    createRevision([], "REMOTE_REVISION", {
-                                        serverRevisionId: "wrong revision id",
-                                    }),
-                                ],
-                            };
-                        }
-                        if (args.method === "action_open_spreadsheet") {
-                            assert.step(`editAction-${args.model}`);
-                            return {
-                                type: "ir.actions.client",
-                                tag: "spreadsheet_test_action",
-                                params: {
-                                    spreadsheet_id: 1,
-                                },
-                            };
-                        }
+test("load action from snapshot", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                expect.step(`fromSnapshot-${args.args[1]}`);
+            }
+        },
+        fromSnapshot: true,
+    });
+    expect.verifySteps(["fromSnapshot-true"]);
+});
+
+test("load from snapshot when missing revisions", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                expect.step(`fromSnapshot-${args.args[1]}`);
+                return {
+                    data: {},
+                    name: "test",
+                    revisions: [
+                        createRevision([], "REMOTE_REVISION", {
+                            serverRevisionId: "wrong revision id",
+                        }),
+                    ],
+                };
+            }
+            if (args.method === "action_open_spreadsheet") {
+                expect.step(`editAction-${args.model}`);
+                return {
+                    type: "ir.actions.client",
+                    tag: "spreadsheet_test_action",
+                    params: {
+                        spreadsheet_id: 1,
                     },
-                }
-            );
-            assert.verifySteps(["fromSnapshot-false"]);
+                };
+            }
+        },
+    });
+    expect.verifySteps(["fromSnapshot-false"]);
 
-            let dialog = document.querySelector(".o_dialog");
-            assert.ok(dialog !== null, "Dialog to reload with snapshot opened");
-            await click(dialog, "button.btn-primary");
-            assert.verifySteps(["fromSnapshot-true"]);
-            await nextTick();
-            dialog = document.querySelector(".o_dialog");
-            assert.ok(dialog !== null, "Dialog to warn user of corrupted data");
-            await click(dialog, "button.btn-primary");
-            assert.verifySteps(["editAction-spreadsheet.test"]);
-        }
+    let dialog = document.querySelector(".o_dialog");
+    expect(dialog !== null).toBe(true, { message: "Dialog to reload with snapshot opened" });
+    await contains(dialog.querySelector("button.btn-primary")).click();
+    expect.verifySteps(["fromSnapshot-true"]);
+    await animationFrame();
+    dialog = document.querySelector(".o_dialog");
+    expect(dialog !== null).toBe(true, { message: "Dialog to warn user of corrupted data" });
+    await contains(dialog.querySelector("button.btn-primary")).click();
+    expect.verifySteps(["editAction-spreadsheet.test"]);
+});
+
+test("Side panel content", async function () {
+    mockTimeZone(+1);
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                const revisions = [];
+                revisions.push(
+                    createRevision(revisions, "REMOTE_REVISION", {
+                        name: "",
+                    })
+                );
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                revisions.push(
+                    createRevision(revisions, "REMOTE_REVISION", {
+                        user: [3, "Supergirl"],
+                    })
+                );
+                return {
+                    data: {},
+                    name: "test",
+                    revisions,
+                };
+            }
+        },
+    });
+    const revisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
+    expect(revisions.length).toBe(3, { message: "3 revisions provided" });
+
+    // Revision info
+    expect(revisions[0].querySelector(".o-version-history-info").textContent).toBe(
+        "Current Version"
+    );
+    expect(revisions[1].querySelector(".o-version-history-info").textContent).toBe(
+        "Sep 9, 2023, 2:00 PM",
+        { message: "if the revision has a name" }
+    );
+    expect(revisions[2].querySelector(".o-version-history-info")).toBe(null, {
+        message: "if the revision has no name",
+    });
+
+    // Revision name
+    expect(revisions[0].querySelector(".o-version-history-item-text input")).toHaveValue(
+        "revision 3",
+        { message: "if the revision has a name" }
+    );
+    expect(revisions[1].querySelector(".o-version-history-item-text input")).toHaveValue(
+        "revision 2",
+        { message: "if the revision has a name" }
+    );
+    expect(revisions[2].querySelector(".o-version-history-item-text input")).toHaveValue(
+        "Sep 9, 2023, 2:00 PM",
+        { message: "if the revision does not have a name" }
     );
 
-    QUnit.test("Side panel content", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                if (args.method === "get_spreadsheet_history") {
+    // contributors
+    expect(revisions[0].querySelector(".o-version-history-item-text input")).toHaveValue(
+        "revision 3",
+        { message: "if the revision has a name" }
+    );
+    expect(revisions[1].querySelector(".o-version-history-item-text input")).toHaveValue(
+        "revision 2",
+        { message: "if the revision has a name" }
+    );
+    expect(revisions[2].querySelector(".o-version-history-item-text input")).toHaveValue(
+        "Sep 9, 2023, 2:00 PM",
+        { message: "if the revision does not have a name" }
+    );
+});
+
+test("Side panel click loads the old version", async function () {
+    const { model } = await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                const revisions = [];
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                return {
+                    data: {},
+                    name: "test",
+                    revisions,
+                };
+            }
+        },
+    });
+    expect(model.getters.getSheetIds().length).toBe(3);
+    const revisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
+    // rollback to the before last revision. i.e. undo a CREATE_SHEET
+    await contains([...revisions].at(-1)).click();
+    expect(model.getters.getSheetIds().length).toBe(2);
+});
+
+test("Side panel arrow keys navigates in the history", async function () {
+    const { model } = await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                const revisions = [];
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                return {
+                    data: {},
+                    name: "test",
+                    revisions,
+                };
+            }
+        },
+    });
+    expect(model.getters.getSheetIds().length).toBe(4);
+    const target = document.querySelector(".o-version-history");
+    await contains(target).press("ArrowDown");
+    expect(model.getters.getSheetIds().length).toBe(3);
+    await contains(target).press("ArrowDown");
+    expect(model.getters.getSheetIds().length).toBe(2);
+    await contains(target).press("ArrowUp");
+    expect(model.getters.getSheetIds().length).toBe(3);
+    await contains(target).press("ArrowUp");
+    expect(model.getters.getSheetIds().length).toBe(4);
+});
+
+test("Load more revisions", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                const revisions = [];
+                for (let i = 0; i < 75; i++) {
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                }
+                return {
+                    data: {},
+                    name: "test",
+                    revisions,
+                };
+            }
+        },
+    });
+    const revisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
+    expect(revisions.length).toBe(50, { message: "the first 50 revisions are loaded" });
+    const loadMore = document.querySelector(".o-sidePanel .o-version-history-load-more");
+    expect(loadMore !== null).toBe(true, { message: "Load more button is visible" });
+    await contains(loadMore).click();
+    const newRevisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
+    expect(newRevisions.length).toBe(75, { message: "the first 50 revisions are loaded" });
+});
+
+test("Side panel > make copy", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            switch (args.method) {
+                case "get_spreadsheet_history":
                     const revisions = [];
                     revisions.push(
                         createRevision(revisions, "REMOTE_REVISION", {
-                            name: "",
+                            id: 999,
+                            nextRevisionId: "I clicked o",
                         })
                     );
-                    revisions.push(
-                        createRevision(revisions, "REMOTE_REVISION")
-                    );
-                    revisions.push(
-                        createRevision(revisions, "REMOTE_REVISION", {
-                            user: [3, "Supergirl"],
-                        })
-                    );
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
                     return {
                         data: {},
                         name: "test",
                         revisions,
                     };
-                }
-            },
-        });
-        const revisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
-        );
-        assert.strictEqual(revisions.length, 3, "3 revisions provided");
-
-        // Revision info
-        assert.equal(
-            revisions[0].querySelector(".o-version-history-info").textContent,
-            "Current Version"
-        );
-        assert.equal(
-            revisions[1].querySelector(".o-version-history-info").textContent,
-            "Sep 9, 2023, 2:00 PM",
-            "if the revision has a name"
-        );
-        assert.notOk(
-            revisions[2].querySelector(".o-version-history-info"),
-            "if the revision has no name"
-        );
-
-        // Revision name
-        assert.equal(
-            revisions[0].querySelector(".o-version-history-item-text input")
-                .value,
-            "revision 3",
-            "if the revision has a name"
-        );
-        assert.equal(
-            revisions[1].querySelector(".o-version-history-item-text input")
-                .value,
-            "revision 2",
-            "if the revision has a name"
-        );
-        assert.equal(
-            revisions[2].querySelector(".o-version-history-item-text input")
-                .value,
-            "Sep 9, 2023, 2:00 PM",
-            "if the revision does not have a name"
-        );
-
-        // contributors
-        assert.equal(
-            revisions[0].querySelector(".o-version-history-item-text input")
-                .value,
-            "revision 3",
-            "if the revision has a name"
-        );
-        assert.equal(
-            revisions[1].querySelector(".o-version-history-item-text input")
-                .value,
-            "revision 2",
-            "if the revision has a name"
-        );
-        assert.equal(
-            revisions[2].querySelector(".o-version-history-item-text input")
-                .value,
-            "Sep 9, 2023, 2:00 PM",
-            "if the revision does not have a name"
-        );
+                case "fork_history":
+                    expect(args.kwargs.revision_id).toBe(999);
+                    expect(args.kwargs.spreadsheet_snapshot.revisionId).toBe("I clicked o");
+                    expect.step("forking");
+                    // placeholder return
+                    return {
+                        type: "ir.actions.client",
+                        tag: "reload",
+                    };
+                default:
+                    break;
+            }
+        },
     });
 
-    QUnit.test(
-        "Side panel click loads the old version",
-        async function (assert) {
-            const { model } = await createSpreadsheetTestAction(
-                "action_open_spreadsheet_history",
-                {
-                    mockRPC: async function (route, args) {
-                        if (args.method === "get_spreadsheet_history") {
-                            const revisions = [];
-                            revisions.push(
-                                createRevision(revisions, "REMOTE_REVISION")
-                            );
-                            revisions.push(
-                                createRevision(revisions, "REMOTE_REVISION")
-                            );
-                            return {
-                                data: {},
-                                name: "test",
-                                revisions,
-                            };
-                        }
-                    },
-                }
-            );
-            assert.strictEqual(model.getters.getSheetIds().length, 3);
-            const revisions = document.querySelectorAll(
-                ".o-sidePanel .o-version-history-item"
-            );
-            // rollback to the before last revision. i.e. undo a CREATE_SHEET
-            await click([...revisions].at(-1));
-            assert.strictEqual(model.getters.getSheetIds().length, 2);
-        }
-    );
+    const revisions = document.querySelectorAll(".o-sidePanel .o-version-history-item");
+    await contains(revisions[1]).click();
+    await contains(revisions[1].querySelector(".o-version-history-menu")).click();
 
-    QUnit.test(
-        "Side panel arrow keys navigates in the history",
-        async function (assert) {
-            const { model } = await createSpreadsheetTestAction(
-                "action_open_spreadsheet_history",
-                {
-                    mockRPC: async function (route, args) {
-                        if (args.method === "get_spreadsheet_history") {
-                            const revisions = [];
-                            revisions.push(
-                                createRevision(revisions, "REMOTE_REVISION")
-                            );
-                            revisions.push(
-                                createRevision(revisions, "REMOTE_REVISION")
-                            );
-                            revisions.push(
-                                createRevision(revisions, "REMOTE_REVISION")
-                            );
-                            return {
-                                data: {},
-                                name: "test",
-                                revisions,
-                            };
-                        }
-                    },
-                }
-            );
-            assert.strictEqual(model.getters.getSheetIds().length, 4);
-            const target = document.querySelector(".o-version-history");
-            await triggerEvent(target, null, "keydown", { key: "ArrowDown" });
-            assert.strictEqual(model.getters.getSheetIds().length, 3);
-            await triggerEvent(target, null, "keydown", { key: "ArrowDown" });
-            assert.strictEqual(model.getters.getSheetIds().length, 2);
-            await triggerEvent(target, null, "keydown", { key: "ArrowUp" });
-            assert.strictEqual(model.getters.getSheetIds().length, 3);
-            await triggerEvent(target, null, "keydown", { key: "ArrowUp" });
-            assert.strictEqual(model.getters.getSheetIds().length, 4);
-        }
-    );
+    const menuItems = document.querySelectorAll(".o-menu .o-menu-item");
+    await contains(menuItems[1]).click();
+    expect.verifySteps(["forking"]);
+});
 
-    QUnit.test("Load more revisions", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                if (args.method === "get_spreadsheet_history") {
+test("Side panel > rename revision", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                return {
+                    data: {},
+                    name: "test",
+                    revisions: [createRevision([], "REMOTE_REVISION")],
+                };
+            }
+            if (args.method === "rename_revision") {
+                expect.step("renamed");
+                expect(args.args[0]).toBe(1); // spreadsheet Id
+                expect(args.args[1]).toBe(1); // revision id
+                expect(args.args[2]).toBe("test 11");
+                return true;
+            }
+        },
+    });
+    const nameInput = document.querySelector(".o-version-history-input");
+    expect(nameInput).not.toBe(null, { message: "Can rename the revision" });
+    await contains(nameInput).click();
+    await contains(nameInput).edit("test 11");
+    expect.verifySteps(["renamed"]);
+});
+
+test("Side panel > restore revision and confirm", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            switch (args.method) {
+                case "get_spreadsheet_history":
                     const revisions = [];
-                    for (let i = 0; i < 75; i++) {
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                    }
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
                     return {
                         data: {},
                         name: "test",
                         revisions,
                     };
-                }
-            },
-        });
-        const revisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
-        );
-        assert.strictEqual(
-            revisions.length,
-            50,
-            "the first 50 revisions are loaded"
-        );
-        const loadMore = document.querySelector(
-            ".o-sidePanel .o-version-history-load-more"
-        );
-        assert.ok(loadMore !== null, "Load more button is visible");
-        await click(loadMore);
-        const newRevisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
-        );
-        assert.strictEqual(
-            newRevisions.length,
-            75,
-            "the first 50 revisions are loaded"
-        );
+                case "restore_spreadsheet_version":
+                    expect.step("restored");
+                    expect(args.kwargs.revision_id).toBe(1);
+                    // placeholder return
+                    return {
+                        type: "ir.actions.client",
+                        tag: "reload",
+                    };
+                default:
+                    break;
+            }
+        },
     });
+    const fixture = getFixture();
+    const revisions = fixture.querySelectorAll(".o-sidePanel .o-version-history-item");
+    await contains(revisions[1]).click();
+    await contains(revisions[1].querySelector(".o-version-history-menu")).click();
 
-    QUnit.test("Side panel > make copy", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                switch (args.method) {
-                    case "get_spreadsheet_history":
-                        const revisions = [];
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION", {
-                                id: 999,
-                                nextRevisionId: "I clicked o",
-                            })
-                        );
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                        return {
-                            data: {},
-                            name: "test",
-                            revisions,
-                        };
-                    case "fork_history":
-                        assert.strictEqual(args.kwargs.revision_id, 999);
-                        assert.strictEqual(
-                            args.kwargs.spreadsheet_snapshot.revisionId,
-                            "I clicked o"
-                        );
-                        assert.step("forking");
-                        // placeholder return
-                        return {
-                            type: "ir.actions.client",
-                            tag: "reload",
-                        };
-                    default:
-                        break;
-                }
-            },
-        });
+    const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
+    await contains(menuItems[2]).click();
 
-        const revisions = document.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
-        );
-        await click(revisions[1], null);
-        await click(revisions[1], ".o-version-history-menu");
+    let dialog = document.querySelector(".o_dialog");
+    await contains(dialog.querySelector(".btn-primary")).click();
+    expect.verifySteps(["restored"]);
+});
 
-        const menuItems = document.querySelectorAll(".o-menu .o-menu-item");
-        await click(menuItems[1], null);
-        assert.verifySteps(["forking"]);
-    });
-
-    QUnit.test("Side panel > rename revision", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                if (args.method === "get_spreadsheet_history") {
+test("Side panel > restore revision and cancel", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            switch (args.method) {
+                case "get_spreadsheet_history":
+                    const revisions = [];
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
                     return {
                         data: {},
                         name: "test",
-                        revisions: [createRevision([], "REMOTE_REVISION")],
+                        revisions,
                     };
-                }
-                if (args.method === "rename_revision") {
-                    assert.equal(args.args[0], 1); // spreadsheet Id
-                    assert.equal(args.args[1], 1); // revision id
-                    assert.equal(args.args[2], "test 11");
-                    return true;
-                }
-            },
-        });
-        const nameInput = document.querySelector(".o-version-history-input");
-        assert.ok(nameInput, "Can rename the revision");
-        await click(nameInput);
-        await editInput(nameInput, null, "test 11");
-        await triggerEvent(nameInput, null, "focusout");
+                case "restore_spreadsheet_version":
+                    throw new Error("should not be called");
+                default:
+                    break;
+            }
+        },
     });
+    const fixture = getFixture();
+    const revisions = fixture.querySelectorAll(".o-sidePanel .o-version-history-item");
+    await contains(revisions[1]).click();
+    await contains(revisions[1].querySelector(".o-version-history-menu")).click();
 
-    QUnit.test("Side panel > restore revision and confirm", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                switch (args.method) {
-                    case "get_spreadsheet_history":
-                        const revisions = [];
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                        return {
-                            data: {},
-                            name: "test",
-                            revisions,
-                        };
-                    case "restore_spreadsheet_version":
-                        assert.step("restored");
-                        assert.strictEqual(args.kwargs.revision_id, 1);
-                        // placeholder return
-                        return {
-                            type: "ir.actions.client",
-                            tag: "reload",
-                        };
-                    default:
-                        break;
-                }
-            },
-        });
-        const fixture = getFixture();
-        const revisions = fixture.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
-        );
-        await click(revisions[1], null);
-        await click(revisions[1], ".o-version-history-menu");
+    const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
+    await contains(menuItems[2]).click();
 
-        const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
-        await click(menuItems[2], null);
+    const buttons = document.querySelectorAll(".o_dialog footer .btn");
+    await contains(buttons[2]).click();
+    expect(".o_dialog").toHaveCount(0);
+});
 
-        let dialog = document.querySelector(".o_dialog");
-        await click(dialog, ".btn-primary");
-        assert.verifySteps(["restored"]);
+test("Side panel > restore revision but copy instead", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            switch (args.method) {
+                case "get_spreadsheet_history":
+                    const revisions = [];
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                    revisions.push(createRevision(revisions, "REMOTE_REVISION"));
+                    return {
+                        data: {},
+                        name: "test",
+                        revisions,
+                    };
+                case "fork_history":
+                    expect.step("forking");
+                    // placeholder return
+                    return {
+                        type: "ir.actions.client",
+                        tag: "reload",
+                    };
+                case "restore_spreadsheet_version":
+                    throw new Error("should not be called");
+                default:
+                    break;
+            }
+        },
     });
+    const fixture = getFixture();
+    const revisions = fixture.querySelectorAll(".o-sidePanel .o-version-history-item");
+    await contains(revisions[1]).click();
+    await contains(revisions[1].querySelector(".o-version-history-menu")).click();
 
-    QUnit.test("Side panel > restore revision and cancel", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                switch (args.method) {
-                    case "get_spreadsheet_history":
-                        const revisions = [];
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                        return {
-                            data: {},
-                            name: "test",
-                            revisions,
-                        };
-                    case "restore_spreadsheet_version":
-                        throw new Error("should not be called");
-                    default:
-                        break;
-                }
-            },
-        });
-        const fixture = getFixture();
-        const revisions = fixture.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
-        );
-        await click(revisions[1], null);
-        await click(revisions[1], ".o-version-history-menu");
+    const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
+    await contains(menuItems[2]).click();
 
-        const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
-        await click(menuItems[2], null);
+    const buttons = document.querySelectorAll(".o_dialog footer .btn");
+    await contains(buttons[1]).click();
+    expect.verifySteps(["forking"]);
+});
 
-        const buttons = document.querySelectorAll(".o_dialog footer .btn");
-        await click(buttons[2], null);
-        assert.containsNone(document.body, ".o_dialog");
-    });
-
-    QUnit.test("Side panel > restore revision but copy instead", async function (assert) {
-        await createSpreadsheetTestAction("action_open_spreadsheet_history", {
-            mockRPC: async function (route, args) {
-                switch (args.method) {
-                    case "get_spreadsheet_history":
-                        const revisions = [];
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                        revisions.push(
-                            createRevision(revisions, "REMOTE_REVISION")
-                        );
-                        return {
-                            data: {},
-                            name: "test",
-                            revisions,
-                        };
-                    case "fork_history":
-                        assert.step("forking");
-                        // placeholder return
-                        return {
-                            type: "ir.actions.client",
-                            tag: "reload",
-                        };
-                    case "restore_spreadsheet_version":
-                        throw new Error("should not be called");
-                    default:
-                        break;
-                }
-            },
-        });
-        const fixture = getFixture();
-        const revisions = fixture.querySelectorAll(
-            ".o-sidePanel .o-version-history-item"
-        );
-        await click(revisions[1], null);
-        await click(revisions[1], ".o-version-history-menu");
-
-        const menuItems = fixture.querySelectorAll(".o-menu .o-menu-item");
-        await click(menuItems[2], null);
-
-        const buttons = document.querySelectorAll(".o_dialog footer .btn");
-        await click(buttons[1], null);
-        assert.verifySteps(["forking"]);
-    });
-
-    QUnit.test(
-        "closing side panel rolls back to parent action",
-        async function (assert) {
-            await createSpreadsheetTestAction(
-                "action_open_spreadsheet_history",
-                {
-                    mockRPC: async function (route, args) {
-                        if (args.method === "get_spreadsheet_history") {
-                            return {
-                                data: {},
-                                name: "test",
-                                revisions: [
-                                    createRevision([], "REMOTE_REVISION"),
-                                ],
-                            };
-                        }
-                        if (args.method === "action_open_spreadsheet") {
-                            assert.step(`editAction-${args.model}`);
-                            return {
-                                type: "ir.actions.client",
-                                tag: "spreadsheet_test_action",
-                                params: {
-                                    spreadsheet_id: 1,
-                                },
-                            };
-                        }
+test("closing side panel rolls back to parent action", async function () {
+    await createSpreadsheetTestAction("action_open_spreadsheet_history", {
+        mockRPC: async function (route, args) {
+            if (args.method === "get_spreadsheet_history") {
+                return {
+                    data: {},
+                    name: "test",
+                    revisions: [createRevision([], "REMOTE_REVISION")],
+                };
+            }
+            if (args.method === "action_open_spreadsheet") {
+                expect.step(`editAction-${args.model}`);
+                return {
+                    type: "ir.actions.client",
+                    tag: "spreadsheet_test_action",
+                    params: {
+                        spreadsheet_id: 1,
                     },
-                }
-            );
-            await click(document, ".o-sidePanelClose");
-            assert.verifySteps(["editAction-spreadsheet.test"]);
-        }
-    );
+                };
+            }
+        },
+    });
+    await contains(".o-sidePanelClose").click();
+    expect.verifySteps(["editAction-spreadsheet.test"]);
 });

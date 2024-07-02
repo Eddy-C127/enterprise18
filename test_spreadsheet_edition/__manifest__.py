@@ -18,7 +18,7 @@
             'test_spreadsheet_edition/static/src/**/*.js',
             'test_spreadsheet_edition/static/src/**/*.xml',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'test_spreadsheet_edition/static/tests/**/*',
         ],
     }

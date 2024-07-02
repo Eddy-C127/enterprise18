@@ -1,191 +1,171 @@
-/** @odoo-module **/
+import { Deferred } from "@web/core/utils/concurrency";
+import { patchWithCleanup, MockServer, contains } from "@web/../tests/web_test_helpers";
+import { animationFrame } from "@odoo/hoot-mock";
+import { expect, test, getFixture } from "@odoo/hoot";
 import { registry } from "@web/core/registry";
 import { actionService } from "@web/webclient/actions/action_service";
-import {
-    getFixture,
-    patchWithCleanup,
-    makeDeferred,
-    click,
-    nextTick,
-} from "@web/../tests/helpers/utils";
 import { browser } from "@web/core/browser/browser";
-import { getDashboardBasicServerData } from "./utils/test_data";
-import { createDashboardEditAction, createNewDashboard } from "./utils/test_helpers";
-import { getCellContent } from "@spreadsheet/../tests/legacy/utils/getters";
-import { doMenuAction } from "@spreadsheet/../tests/legacy/utils/ui";
-
+import {
+    defineSpreadsheetDashboardEditionModels,
+    getDashboardBasicServerData,
+} from "./helpers/test_data";
+import { createDashboardEditAction, createNewDashboard } from "./helpers/test_helpers";
+import { getCellContent } from "@spreadsheet/../tests/helpers/getters";
+import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";
 import { registries } from "@odoo/o-spreadsheet";
+
+defineSpreadsheetDashboardEditionModels();
 
 const { topbarMenuRegistry } = registries;
 
-QUnit.module("spreadsheet dashboard edition action", {}, function () {
-    QUnit.test("open dashboard with existing data", async function (assert) {
-        const serverData = getDashboardBasicServerData();
-        const spreadsheetId = createNewDashboard(serverData, {
-            sheets: [
-                {
-                    cells: {
-                        A1: { content: "Hello" },
-                    },
+test("open dashboard with existing data", async function () {
+    const serverData = getDashboardBasicServerData();
+    const spreadsheetId = createNewDashboard(serverData, {
+        sheets: [
+            {
+                cells: {
+                    A1: { content: "Hello" },
                 },
-            ],
-        });
-        const { model } = await createDashboardEditAction({ serverData, spreadsheetId });
-        assert.strictEqual(getCellContent(model, "A1"), "Hello");
+            },
+        ],
     });
+    const { model } = await createDashboardEditAction({ serverData, spreadsheetId });
+    expect(getCellContent(model, "A1")).toBe("Hello");
+});
 
-    QUnit.test("copy dashboard from topbar menu", async function (assert) {
-        const serviceRegistry = registry.category("services");
-        serviceRegistry.add("actionMain", actionService);
-        const fakeActionService = {
-            dependencies: ["actionMain"],
-            start(env, { actionMain }) {
+test("copy dashboard from topbar menu", async function () {
+    const serviceRegistry = registry.category("services");
+    serviceRegistry.add("actionMain", actionService);
+    const fakeActionService = {
+        dependencies: ["actionMain"],
+        start(env, { actionMain }) {
+            return {
+                ...actionMain,
+                doAction: (actionRequest, options = {}) => {
+                    if (
+                        actionRequest.tag === "action_edit_dashboard" &&
+                        actionRequest.params.spreadsheet_id === 111
+                    ) {
+                        expect.step("redirect");
+                    } else {
+                        return actionMain.doAction(actionRequest, options);
+                    }
+                },
+            };
+        },
+    };
+    serviceRegistry.add("action", fakeActionService, { force: true });
+    const { env } = await createDashboardEditAction({
+        mockRPC: function (route, args) {
+            if (args.model == "spreadsheet.dashboard" && args.method === "copy") {
+                expect.step("dashboard_copied");
+                const { spreadsheet_data, thumbnail } = args.kwargs.default;
+                expect(spreadsheet_data).not.toBe(undefined);
+                expect(thumbnail).not.toBe(undefined);
+                return [111];
+            }
+        },
+    });
+    await doMenuAction(topbarMenuRegistry, ["file", "make_copy"], env);
+    expect.verifySteps(["dashboard_copied", "redirect"]);
+});
+
+test("share dashboard from control panel", async function () {
+    const target = getFixture();
+    const serverData = getDashboardBasicServerData();
+    const spreadsheetId = createNewDashboard(serverData, {
+        sheets: [
+            {
+                cells: {
+                    A1: { content: "Hello" },
+                },
+            },
+        ],
+    });
+    patchWithCleanup(browser.navigator.clipboard, {
+        writeText: async (url) => {
+            expect.step("share url copied");
+            expect(url).toBe("localhost:8069/share/url/132465");
+        },
+    });
+    const def = new Deferred();
+    const { model } = await createDashboardEditAction({
+        serverData,
+        spreadsheetId,
+        mockRPC: async function (route, args) {
+            if (args.method === "action_get_share_url") {
+                await def;
+                expect.step("dashboard_shared");
+                const [shareVals] = args.args;
+                expect(args.model).toBe("spreadsheet.dashboard.share");
+                const excel = JSON.parse(JSON.stringify(model.exportXLSX().files));
+                expect(shareVals).toEqual({
+                    spreadsheet_data: JSON.stringify(model.exportData()),
+                    dashboard_id: spreadsheetId,
+                    excel_files: excel,
+                });
+                return "localhost:8069/share/url/132465";
+            }
+        },
+    });
+    expect(target.querySelector(".spreadsheet_share_dropdown")).toBe(null);
+    await contains("i.fa-share-alt").click();
+    expect(".spreadsheet_share_dropdown").toHaveText("Generating sharing link");
+    def.resolve();
+    await animationFrame();
+    expect.verifySteps(["dashboard_shared", "share url copied"]);
+    expect(".o_field_CopyClipboardChar").toHaveText("localhost:8069/share/url/132465");
+    await contains(".fa-clone").click();
+    expect.verifySteps(["share url copied"]);
+});
+
+test("publish dashboard from control panel", async function () {
+    const fixture = getFixture();
+    await createDashboardEditAction({
+        mockRPC: async function (route, args) {
+            if (args.model === "spreadsheet.dashboard" && args.method === "write") {
+                expect.step("dashboard_published");
+                expect(args.args[1]).toEqual({ is_published: true });
+            }
+        },
+    });
+    const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
+    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude(
+        "Unpublished"
+    );
+    expect(checkbox).not.toBeChecked();
+    await contains(checkbox).click();
+    expect(checkbox).toBeChecked();
+    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude("Published");
+    expect.verifySteps(["dashboard_published"]);
+});
+
+test("unpublish dashboard from control panel", async function () {
+    const fixture = getFixture();
+    await createDashboardEditAction({
+        mockRPC: async function (route, args, performRPC) {
+            if (args.model === "spreadsheet.dashboard" && args.method === "write") {
+                expect.step("dashboard_unpublished");
+                expect(args.args[1]).toEqual({ is_published: false });
+            }
+            if (
+                args.model === "spreadsheet.dashboard" &&
+                args.method === "join_spreadsheet_session"
+            ) {
                 return {
-                    ...actionMain,
-                    doAction: (actionRequest, options = {}) => {
-                        if (
-                            actionRequest.tag === "action_edit_dashboard" &&
-                            actionRequest.params.spreadsheet_id === 111
-                        ) {
-                            assert.step("redirect");
-                        } else {
-                            return actionMain.doAction(actionRequest, options);
-                        }
-                    },
+                    ...(await MockServer.current.callOrm({ route, ...args })),
+                    is_published: true,
                 };
-            },
-        };
-        serviceRegistry.add("action", fakeActionService, { force: true });
-        const { env } = await createDashboardEditAction({
-            mockRPC: function (route, args) {
-                if (args.model == "spreadsheet.dashboard" && args.method === "copy") {
-                    assert.step("dashboard_copied");
-                    const { spreadsheet_data, thumbnail } = args.kwargs.default;
-                    assert.ok(spreadsheet_data);
-                    assert.ok(thumbnail);
-                    return [111];
-                }
-            },
-        });
-        await doMenuAction(topbarMenuRegistry, ["file", "make_copy"], env);
-        assert.verifySteps(["dashboard_copied", "redirect"]);
+            }
+        },
     });
-    QUnit.test("share dashboard from control panel", async function (assert) {
-        const target = getFixture();
-        const serverData = getDashboardBasicServerData();
-        const spreadsheetId = createNewDashboard(serverData, {
-            sheets: [
-                {
-                    cells: {
-                        A1: { content: "Hello" },
-                    },
-                },
-            ],
-        });
-        patchWithCleanup(browser, {
-            navigator: {
-                clipboard: {
-                    writeText: (url) => {
-                        assert.step("share url copied");
-                        assert.strictEqual(url, "localhost:8069/share/url/132465");
-                    },
-                },
-            },
-        });
-        const def = makeDeferred();
-        const { model } = await createDashboardEditAction({
-            serverData,
-            spreadsheetId,
-            mockRPC: async function (route, args) {
-                if (args.method === "action_get_share_url") {
-                    await def;
-                    assert.step("dashboard_shared");
-                    const [shareVals] = args.args;
-                    assert.strictEqual(args.model, "spreadsheet.dashboard.share");
-                    const excel = JSON.parse(JSON.stringify(model.exportXLSX().files));
-                    assert.deepEqual(shareVals, {
-                        spreadsheet_data: JSON.stringify(model.exportData()),
-                        dashboard_id: spreadsheetId,
-                        excel_files: excel,
-                    });
-                    return "localhost:8069/share/url/132465";
-                }
-            },
-        });
-        assert.strictEqual(target.querySelector(".spreadsheet_share_dropdown"), null);
-        await click(target, "i.fa-share-alt");
-        assert.equal(
-            target.querySelector(".spreadsheet_share_dropdown")?.innerText,
-            "Generating sharing link"
-        );
-        def.resolve();
-        await nextTick();
-        assert.verifySteps(["dashboard_shared", "share url copied"]);
-        assert.strictEqual(
-            target.querySelector(".o_field_CopyClipboardChar").innerText,
-            "localhost:8069/share/url/132465"
-        );
-        await click(target, ".fa-clone");
-        assert.verifySteps(["share url copied"]);
-    });
-
-    QUnit.test("publish dashboard from control panel", async function (assert) {
-        const fixture = getFixture();
-        await createDashboardEditAction({
-            mockRPC: async function (route, args) {
-                if (args.model === "spreadsheet.dashboard" && args.method === "write") {
-                    assert.step("dashboard_published");
-                    assert.deepEqual(args.args[1], { is_published: true });
-                }
-            },
-        });
-        const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
-        assert.strictEqual(
-            fixture
-                .querySelector(".o_control_panel_navigation")
-                .textContent.includes("Unpublished"),
-            true
-        );
-        assert.strictEqual(checkbox.checked, false);
-        await click(checkbox);
-        assert.strictEqual(checkbox.checked, true);
-        assert.strictEqual(
-            fixture.querySelector(".o_control_panel_navigation").textContent.includes("Published"),
-            true
-        );
-        assert.verifySteps(["dashboard_published"]);
-    });
-
-    QUnit.test("unpublish dashboard from control panel", async function (assert) {
-        const fixture = getFixture();
-        await createDashboardEditAction({
-            mockRPC: async function (route, args, performRPC) {
-                if (args.model === "spreadsheet.dashboard" && args.method === "write") {
-                    assert.step("dashboard_unpublished");
-                    assert.deepEqual(args.args[1], { is_published: false });
-                }
-                if (
-                    args.model === "spreadsheet.dashboard" &&
-                    args.method === "join_spreadsheet_session"
-                ) {
-                    return { ...(await performRPC(route, args)), is_published: true };
-                }
-            },
-        });
-        const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
-        assert.strictEqual(
-            fixture.querySelector(".o_control_panel_navigation").textContent.includes("Published"),
-            true
-        );
-        assert.strictEqual(checkbox.checked, true);
-        await click(checkbox);
-        assert.strictEqual(checkbox.checked, false);
-        assert.strictEqual(
-            fixture
-                .querySelector(".o_control_panel_navigation")
-                .textContent.includes("Unpublished"),
-            true
-        );
-        assert.verifySteps(["dashboard_unpublished"]);
-    });
+    const checkbox = fixture.querySelector(".o_spreadsheet_control_panel .o-checkbox input");
+    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude("Published");
+    expect(checkbox).toBeChecked();
+    await contains(checkbox).click();
+    expect(checkbox).not.toBeChecked();
+    expect(fixture.querySelector(".o_control_panel_navigation").textContent).toInclude(
+        "Unpublished"
+    );
+    expect.verifySteps(["dashboard_unpublished"]);
 });

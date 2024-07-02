@@ -1,55 +1,54 @@
+import { expect, test } from "@odoo/hoot";
 import { helpers } from "@odoo/o-spreadsheet";
-import { start } from "@mail/../tests/helpers/test_utils";
-import { createSpreadsheetTestAction } from "@test_spreadsheet_edition/../tests/legacy/utils/helpers";
+import { defineTestSpreadsheetEditionModels, getDummyBasicServerData } from "@test_spreadsheet_edition/../tests/helpers/data";
+import { createSpreadsheetTestAction } from "@test_spreadsheet_edition/../tests/helpers/helpers";
 
 const { toCartesian } = helpers;
 
-import { insertRecords } from "@bus/../tests/helpers/model_definitions_helpers";
+defineTestSpreadsheetEditionModels();
 
-QUnit.module("Action with thread id", {}, () => {
-    QUnit.test("Load the action with valid thread Id", async (assert) => {
-        const spreadsheetId = 1;
-        const threadId = 1;
-        const workbookdata = {
-            sheets: [{ comments: { Z100: [{ threadId, isResolved: false }] } }],
-        };
-        insertRecords("spreadsheet.test", [
-            {
-                name: "Untitled Dummy Spreadsheet",
-                spreadsheet_data: JSON.stringify(workbookdata),
-                id: spreadsheetId,
-            },
-        ]);
-        insertRecords("spreadsheet.cell.thread", [{ id: threadId, dummy_id: spreadsheetId }]);
-        const { webClient } = await start();
-        const { model } = await createSpreadsheetTestAction("spreadsheet_test_action", {
-            webClient,
-            spreadsheetId,
-            threadId,
-        });
-        const sheetId = model.getters.getActiveSheetId();
-        assert.deepEqual(model.getters.getActivePosition(), { sheetId, ...toCartesian("Z100") });
+test("Load the action with valid thread Id", async () => {
+    const spreadsheetId = 1;
+    const threadId = 1;
+    const workbookdata = {
+        sheets: [{ comments: { Z100: [{ threadId, isResolved: false }] } }],
+    };
+    const serverData = getDummyBasicServerData();
+    serverData.models["spreadsheet.test"].records = [
+        {
+            name: "Untitled Dummy Spreadsheet",
+            spreadsheet_data: JSON.stringify(workbookdata),
+            id: spreadsheetId,
+        },
+    ];
+    serverData.models["spreadsheet.cell.thread"].records = [{ id: threadId, dummy_id: spreadsheetId }];
+    const { model } = await createSpreadsheetTestAction("spreadsheet_test_action", {
+        serverData,
+        spreadsheetId,
+        threadId,
     });
+    const sheetId = model.getters.getActiveSheetId();
+    expect(model.getters.getActivePosition()).toEqual({ sheetId, ...toCartesian("Z100") });
+});
 
-    QUnit.test("Load the action with invalid thread Id", async (assert) => {
-        const spreadsheetId = 1;
-        const threadId = 1;
-        const workbookdata = { sheets: [{ comments: { Z100: [threadId] } }] };
-        insertRecords("spreadsheet.test", [
-            {
-                name: "Untitled Dummy Spreadsheet",
-                spreadsheet_data: JSON.stringify(workbookdata),
-                id: spreadsheetId,
-            },
-        ]);
-        insertRecords("spreadsheet.cell.thread", [{ id: threadId, dummy_id: spreadsheetId }]);
-        const { webClient } = await start();
-        const { model } = await createSpreadsheetTestAction("spreadsheet_test_action", {
-            webClient,
-            spreadsheetId,
-            threadId: "invalidId",
-        });
-        const sheetId = model.getters.getActiveSheetId();
-        assert.deepEqual(model.getters.getActivePosition(), { sheetId, ...toCartesian("A1") });
+test("Load the action with invalid thread Id", async () => {
+    const spreadsheetId = 1;
+    const threadId = 1;
+    const workbookdata = { sheets: [{ comments: { Z100: [threadId] } }] };
+    const serverData = getDummyBasicServerData();
+    serverData.models["spreadsheet.test"].records = [
+        {
+            name: "Untitled Dummy Spreadsheet",
+            spreadsheet_data: JSON.stringify(workbookdata),
+            id: spreadsheetId,
+        },
+    ];
+    serverData.models["spreadsheet.cell.thread"].records = [{ id: threadId, dummy_id: spreadsheetId }];
+    const { model } = await createSpreadsheetTestAction("spreadsheet_test_action", {
+        serverData,
+        spreadsheetId,
+        threadId: "invalidId",
     });
+    const sheetId = model.getters.getActiveSheetId();
+    expect(model.getters.getActivePosition()).toEqual({ sheetId, ...toCartesian("A1") });
 });

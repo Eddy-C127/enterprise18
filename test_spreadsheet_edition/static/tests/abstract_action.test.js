@@ -1,10 +1,11 @@
-/** @odoo-module **/
+import { describe, expect, test } from "@odoo/hoot";
+import { createSpreadsheetTestAction } from "@test_spreadsheet_edition/../tests/helpers/helpers";
+import { defineTestSpreadsheetEditionModels } from "@test_spreadsheet_edition/../tests/helpers/data";
 
-import { createSpreadsheetTestAction } from "@test_spreadsheet_edition/../tests/legacy/utils/helpers";
+describe.current.tags("headless");
+defineTestSpreadsheetEditionModels();
 
-QUnit.module("spreadsheet abstract action");
-
-QUnit.test("custom colors in color picker", async function (assert) {
+test("custom colors in color picker", async function () {
     const { model } = await createSpreadsheetTestAction("spreadsheet_test_action", {
         mockRPC: async function (route, args) {
             if (args.method === "join_spreadsheet_session") {
@@ -16,5 +17,5 @@ QUnit.test("custom colors in color picker", async function (assert) {
             }
         },
     });
-    assert.deepEqual(model.getters.getCustomColors(), ["#875A7B"]);
+    expect(model.getters.getCustomColors()).toEqual(["#875A7B"]);
 });
