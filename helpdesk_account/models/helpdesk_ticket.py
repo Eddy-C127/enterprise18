@@ -15,7 +15,7 @@ class HelpdeskTicket(models.Model):
         for ticket in self:
             ticket.invoices_count = len(ticket.invoice_ids)
 
-    def action_view_invoices(self):
+    def _get_action_view_invoices(self):
         self.ensure_one()
         action = {
             'type': 'ir.actions.act_window',
@@ -31,3 +31,9 @@ class HelpdeskTicket(models.Model):
                 'res_id': self.invoice_ids.id
             })
         return action
+
+    def action_view_invoices(self):
+        return self._get_action_view_invoices()
+
+    def action_view_credit_notes(self):
+        return self._get_action_view_invoices()
