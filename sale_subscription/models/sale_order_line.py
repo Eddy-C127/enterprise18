@@ -6,7 +6,8 @@ from dateutil.relativedelta import relativedelta
 from odoo import fields, models, api, _, Command
 from odoo.tools.date_utils import get_timedelta
 from odoo.tools import format_date
-from odoo.exceptions import ValidationError
+
+from .sale_order import SUBSCRIPTION_PROGRESS_STATE
 
 INTERVAL_FACTOR = {
     'day': 30.437,  # average number of days per month over the year,
@@ -39,7 +40,7 @@ class SaleOrderLine(models.Model):
         not_subscription_lines = self.filtered(lambda line: not (line.order_id.is_subscription and line.recurring_invoice))
         return not_subscription_lines and undeletable_lines
 
-    @api.depends('order_id.is_subscription', 'recurring_invoice')
+    @api.depends('order_id.next_invoice_date', 'recurring_invoice')
     def _compute_invoice_status(self):
         skip_line_status_compute = self.env.context.get('skip_line_status_compute')
         if skip_line_status_compute:
@@ -61,6 +62,12 @@ class SaleOrderLine(models.Model):
                 to_invoice_check = to_invoice_check and line.order_id.end_date > today
             if to_invoice_check and line.order_id.start_date and line.order_id.start_date > today or (currency_id.is_zero(line.price_subtotal)):
                 line.invoice_status = 'no'
+            elif (
+                line.invoice_status == 'invoiced'
+                and line.order_id.subscription_state in SUBSCRIPTION_PROGRESS_STATE
+                and line.order_id.next_invoice_date <= today
+            ):
+                line.invoice_status = 'to invoice'
 
     @api.depends('order_id.subscription_state', 'order_id.start_date')
     def _compute_discount(self):
