@@ -9,6 +9,7 @@ from pytz.exceptions import UnknownTimeZoneError
 from babel.dates import format_datetime, format_date, format_time
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
+from markupsafe import Markup
 from urllib.parse import unquote_plus
 from werkzeug.exceptions import Forbidden, NotFound
 from werkzeug.urls import url_encode
@@ -21,6 +22,7 @@ from odoo.tools.mail import is_html_empty
 from odoo.tools.misc import babel_locale_parse, get_lang
 from odoo.addons.base.models.ir_qweb import keep_query
 from odoo.addons.base.models.res_partner import _tz_get
+from odoo.exceptions import UserError
 
 
 def _formated_weekdays(locale):
@@ -679,6 +681,9 @@ class AppointmentController(http.Controller):
 
         customer = self._get_customer_partner() or request.env['res.partner'].sudo().search([('email', '=like', email)], limit=1)
         if customer:
+            if customer.user_ids:
+                if request.env.user._is_public() or request.env.user not in customer.user_ids:
+                    raise UserError(_('Please connect to book the appointment'))
             if not customer.mobile:
                 customer.write({'mobile': phone})
             if not customer.email:
@@ -734,15 +739,17 @@ class AppointmentController(http.Controller):
                 selected_answer = question.answer_ids.filtered(lambda answer: answer.id == int(partner_inputs[question.id]))
                 description_bits.append(f'{question.name}: {selected_answer.name}')
             elif question.question_type == 'char':
+                answer_escaped = plaintext2html(partner_inputs[question.id].strip())
                 answer_input_values.append(
                     dict(base_answer_input_vals, question_id=question.id, value_text_box=partner_inputs[question.id].strip())
                 )
-                description_bits.append(f'{question.name}: {partner_inputs[question.id].strip()}')
+                description_bits.append(f'{question.name}: {answer_escaped}')
             elif question.question_type == 'text':
+                answer_escaped = plaintext2html(partner_inputs[question.id].strip())
                 answer_input_values.append(
                     dict(base_answer_input_vals, question_id=question.id, value_text_box=partner_inputs[question.id].strip())
                 )
-                description_bits.append(f'{question.name}:<br/>{plaintext2html(partner_inputs[question.id].strip())}')
+                description_bits.append(Markup('{}:<br/>{}').format(question.name, answer_escaped))
 
         if description_bits:
             description = f"<ul>{''.join(f'<li>{bit}</li>' for bit in description_bits)}</ul>"
