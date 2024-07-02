@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 from odoo import _, api, Command, fields, models, SUPERUSER_ID
 from odoo.exceptions import ValidationError
-from odoo.tools import html2plaintext, email_normalize, email_split_tuples
+from odoo.tools.mail import html2plaintext, email_normalize, email_split_tuples
 from odoo.addons.appointment.utils import invert_intervals
 from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 from ..utils import interval_from_events, intervals_overlap
