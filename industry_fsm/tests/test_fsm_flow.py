@@ -78,3 +78,15 @@ class TestFsmFlow(TestIndustryFsmCommon):
         task = self.env['project.task'].with_context(fsm_mode=True).create({'name': 'New Task'})
         # Ensure that the default user is not set as the assignee.
         self.assertNotEqual(task.user_ids, self.env.user, "Default user should not be set as the assignee of the task.")
+
+    def test_navigation_link(self):
+        partner = self.env['res.partner'].create({
+            'name': 'A Test Partner',
+            'street': 'Chaussée de Namur 40',
+            'zip': '1367',
+            'city': 'Ramillies',
+        })
+        self.assertEqual(
+            partner.action_partner_navigate()['url'],
+            "https://www.google.com/maps/dir/?api=1&destination=Chauss%C3%A9e+de+Namur+40%2C+1367+Ramillies",
+        )
