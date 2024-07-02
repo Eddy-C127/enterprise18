@@ -9,21 +9,21 @@
     </template>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document" primary="True">
         <xpath expr="//div[hasclass('row')]//div[@id='partner_vat_address_not_same_as_shipping']" position="after">
-            <span t-if="o.company_id.vat != o.l10n_mx_edi_cfdi_supplier_rfc">
+            <span t-if="o.company_id.vat != o.l10n_mx_edi_cfdi_supplier_rfc" name="l10n_mx_edi_cfdi_supplier_rfc">
                 <span>XML VAT: </span>
                 <span t-out="o.l10n_mx_edi_cfdi_supplier_rfc">EKU9003173C9</span>
             </span>
             <t t-call="l10n_mx_edi.l10n_mx_fiscal_regime_receptor"/>
         </xpath>
         <xpath expr="//div[hasclass('row')]//div[@id='partner_vat_address_same_as_shipping']" position="after">
-            <span t-if="o.company_id.vat != o.l10n_mx_edi_cfdi_supplier_rfc">
+            <span t-if="o.company_id.vat != o.l10n_mx_edi_cfdi_supplier_rfc" name="l10n_mx_edi_cfdi_supplier_rfc">
                 <span>XML VAT: </span>
                 <span t-out="o.l10n_mx_edi_cfdi_supplier_rfc">EKU9003173C9</span>
             </span>
             <t t-call="l10n_mx_edi.l10n_mx_fiscal_regime_receptor"/>
         </xpath>
         <xpath expr="//div[hasclass('row')]//div[@id='partner_vat_no_shipping']" position="after">
-            <span t-if="o.company_id.vat != o.l10n_mx_edi_cfdi_supplier_rfc">
+            <span t-if="o.company_id.vat != o.l10n_mx_edi_cfdi_supplier_rfc" name="l10n_mx_edi_cfdi_supplier_rfc">
                 <span>XML VAT: </span>
                 <span t-out="o.l10n_mx_edi_cfdi_supplier_rfc">EKU9003173C9</span>
             </span>
@@ -41,16 +41,16 @@
                 </div>
             </t>
             <t t-if="cfdi_values.get('payment_way')">
-                <div t-att-class="o_grid_layout">
+                <div name="l10n_mx_edi_cfdi_payment_way" t-att-class="o_grid_layout">
                     <strong>Payment Way:</strong>
                     <p t-out="cfdi_values['payment_way']">01 - Efectivo</p>
                 </div>
             </t>
-            <div t-att-class="o_grid_layout">
+            <div name="l10n_mx_edi_cfdi_payment_method" t-att-class="o_grid_layout">
                 <strong>Payment Method:</strong>
                 <p t-out="cfdi_values.get('payment_method')">PUE</p>
             </div>
-            <div t-if="cfdi_values.get('bank_account')" t-att-class="o_grid_layout">
+            <div name="l10n_mx_edi_cfdi_bank_account" t-if="cfdi_values.get('bank_account')" t-att-class="o_grid_layout">
                 <strong>Bank Account:</strong>
                 <p t-out="cfdi_values['bank_account']">No identificado</p>
             </div>

@@ -47,35 +47,35 @@
                         <div class="row mt-3" id="mx_edi_row_3">
                             <div class="col-5">
                                 <strong>Trailers</strong>
-                                <table class="table">
+                                <table class="table" name="table_l10n_mx_edi_trailers">
                                     <tr>
-                                        <th>Plate</th>
-                                        <th>Type</th>
+                                        <th name="th_l10n_mx_edi_trailer_name">Plate</th>
+                                        <th name="th_l10n_mx_edi_trailer_sub_type">Type</th>
                                     </tr>
                                     <t t-foreach="o.l10n_mx_edi_vehicle_id.trailer_ids" t-as="trailer">
                                         <tr>
-                                            <td><t t-esc="trailer.name"/></td>
-                                            <td><t t-esc="trailer.sub_type"/></td>
+                                            <td name="td_l10n_mx_edi_trailer_name"><t t-esc="trailer.name"/></td>
+                                            <td name="td_l10n_mx_edi_trailer_sub_type"><t t-esc="trailer.sub_type"/></td>
                                         </tr>
                                     </t>
                                 </table>
                             </div>
                             <div class="col-7">
                                 <strong>Intermediaries</strong>
-                                <table class="table">
+                                <table class="table" name="table_l10n_mx_edi_intermediaries">
                                     <tr>
-                                        <th>Type</th>
-                                        <th>Operator</th>
-                                        <th>License</th>
-                                        <th>Parts</th>
+                                        <th name="th_l10n_mx_edi_intermediaries_type">Type</th>
+                                        <th name="th_l10n_mx_edi_intermediaries_operator">Operator</th>
+                                        <th name="th_l10n_mx_edi_intermediaries_license">License</th>
+                                        <th name="th_l10n_mx_edi_intermediaries_parts">Parts</th>
                                     </tr>
                                     <t t-foreach="o.l10n_mx_edi_vehicle_id.figure_ids" t-as="figure">
                                         <tr>
-                                            <td t-esc="figure.type"/>
-                                            <td t-esc="figure.operator_id.display_name"/>
-                                            <td t-esc="figure.operator_id.l10n_mx_edi_operator_licence"
+                                            <td name="td_l10n_mx_edi_intermediaries_type" t-esc="figure.type"/>
+                                            <td name="td_l10n_mx_edi_intermediaries_operator" t-esc="figure.operator_id.display_name"/>
+                                            <td name="td_l10n_mx_edi_intermediaries_license" t-esc="figure.operator_id.l10n_mx_edi_operator_licence"
                                                 t-if="figure.type == '01'"/>
-                                            <td t-esc="', '.join(figure.part_ids.mapped('code'))"
+                                            <td name="td_l10n_mx_edi_intermediaries_parts" t-esc="', '.join(figure.part_ids.mapped('code'))"
                                                 t-if="figure.type in ('02', '03')"/>
                                         </tr>
                                     </t>
