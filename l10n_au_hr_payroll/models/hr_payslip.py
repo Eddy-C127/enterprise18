@@ -613,4 +613,4 @@ class HrPayslip(models.Model):
 
     def _l10n_au_has_extra_pay(self):
         self.ensure_one()
-        return self.contract_id._l10n_au_get_weeks_amount() == 53
+        return self.contract_id._l10n_au_get_weeks_amount(self.date_to) == 53
