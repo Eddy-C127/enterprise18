@@ -941,7 +941,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
         },
         {
             content: "Select Our Applicant",
-            trigger: 'div.o_kanban_view b.o_kanban_record_title:contains("Mitchell Admin 2")',
+            trigger: 'div.o_kanban_view span.fw-bold:contains("Mitchell Admin 2")',
             run: "click",
         },
         {
