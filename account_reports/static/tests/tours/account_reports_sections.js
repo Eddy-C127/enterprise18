@@ -99,15 +99,21 @@ registry.category("web_tour.tours").add('account_reports_sections', {
             run: 'click'
         },
         {
+            trigger: `.dropdown-menu span.dropdown-item:nth-child(3) time:contains(${new Date().getFullYear()})`,
+        },
+        {
             content: "Select another date second time",
             trigger: ".dropdown-menu span.dropdown-item:nth-child(3) .btn_previous_date",
-            extra_trigger: `.dropdown-menu span.dropdown-item:nth-child(3) time:contains(${ new Date().getFullYear() })`,
             run: 'click'
+        },
+        {
+            trigger: `.dropdown-menu span.dropdown-item:nth-child(3) time:contains(${
+                new Date().getFullYear() - 1
+            })`,
         },
         {
             content: "Apply filter by closing the dropdown",
             trigger: "#filter_date .btn:first()",
-            extra_trigger:`.dropdown-menu span.dropdown-item:nth-child(3) time:contains(${ new Date().getFullYear() - 1 })`,
             run: "click",
         },
         {
