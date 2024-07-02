@@ -105,7 +105,7 @@ export class TimesheetTimerRendererHook {
     }
 
     onRecordChanged(record, changes) {
-        if (this.timesheet.resId === record.resId) {
+        if (this.timerState.timesheetId === record.resId) {
             if (changes.project_id) {
                 this.timerState.projectId = changes.project_id;
             }
@@ -123,15 +123,19 @@ export class TimesheetTimerRendererHook {
     }
 
     async newTimesheetTimer() {
-        if (this.propsList.addNewRecord) {
-            return this.propsList.addNewRecord(true);
-        }
         const values = await this.propsList.model._loadNewRecord({
             resModel: this.propsList.resModel,
             activeFields: this.propsList.activeFields,
             fields: this.propsList.fields,
             context: this.propsList.context,
         });
+        if (values.project_id) {
+            this.timerState.projectId = values.project_id.id;
+            const timesheetTimerData = await this.startNewTimesheetTimer(values);
+            if (timesheetTimerData.id) {
+                values.id = timesheetTimerData.id;
+            }
+        }
         return new this.propsList.model.constructor.Record(
             this.propsList.model,
             {
@@ -154,13 +158,8 @@ export class TimesheetTimerRendererHook {
         this.timerState.timerRunning = true;
         this.timerState.addTimeMode = false;
         this.timerState.startSeconds = Math.floor(Date.now() / 1000);
-        if (this.timerState.defaultProject) {
-            this.timerState.projectId = this.timerState.defaultProject;
-            this._setProjectTaskDebounce();
-        } else {
-            this.timesheet = await this.newTimesheetTimer();
-            this.timerState.timesheetId = this.timesheet.resId;
-        }
+        this.timesheet = await this.newTimesheetTimer();
+        this.timerState.timesheetId = this.timesheet.resId;
     }
 
     async _onTimerStopped() {
@@ -236,17 +235,20 @@ export class TimesheetTimerRendererHook {
             this.timerState.taskId = undefined;
             this.timerState.timerRunning = false;
         }
-        if ("favorite_project" in vals) {
-            this.timerState.defaultProject = vals.favorite_project;
-        }
         if ("step_timer" in vals) {
             this.timerState.stepTimer = vals.step_timer;
         }
     }
 
     async startNewTimesheetTimer(vals = {}) {
+        const getValue = (fieldName, value) =>
+            this.propsList.fields[fieldName].type === "many2one" ? value[0] : value;
+        const values = {};
+        for (const [key, value] of Object.entries(vals)) {
+            values[key] = getValue(key, value);
+        }
         return await this.orm.call(this.propsList.resModel, "action_start_new_timesheet_timer", [
-            vals,
+            values,
         ]);
     }
 
