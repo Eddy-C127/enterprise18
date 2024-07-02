@@ -48,7 +48,8 @@ class TestEdiIAP(TestPeEdiCommon):
         # to avoid getting a status code 98 (cancellation still being processed).
         for _ in range(MAX_WAIT_ITER):
             sleep(10)
-            move.action_process_edi_web_services(with_commit=False)
+            with patch.object(threading.current_thread(), 'testing', False):
+                move.action_process_edi_web_services(with_commit=False)
             if not doc.error or doc.error != CODE_98_ERROR_MSG:
                 break
 
@@ -89,7 +90,8 @@ class TestEdiIAP(TestPeEdiCommon):
         # to avoid getting a status code 98 (cancellation still being processed).
         for _ in range(MAX_WAIT_ITER):
             sleep(10)
-            move.action_process_edi_web_services(with_commit=False)
+            with patch.object(threading.current_thread(), 'testing', False):
+                move.action_process_edi_web_services(with_commit=False)
             if not doc.error or doc.error != CODE_98_ERROR_MSG:
                 break
 
@@ -129,7 +131,8 @@ class TestEdiIAP(TestPeEdiCommon):
         # to avoid getting a status code 98 (cancellation still being processed).
         for _ in range(MAX_WAIT_ITER):
             sleep(10)
-            move.action_process_edi_web_services(with_commit=False)
+            with patch.object(threading.current_thread(), 'testing', False):
+                move.action_process_edi_web_services(with_commit=False)
             if not doc.error or doc.error != CODE_98_ERROR_MSG:
                 break
 
@@ -177,7 +180,8 @@ class TestEdiIAP(TestPeEdiCommon):
         # to avoid getting a status code 98 (cancellation still being processed).
         for _ in range(MAX_WAIT_ITER):
             sleep(10)
-            move.action_process_edi_web_services(with_commit=False)
+            with patch.object(threading.current_thread(), 'testing', False):
+                move.action_process_edi_web_services(with_commit=False)
             if doc.error and doc.error != CODE_98_ERROR_MSG:
                 break
 
