@@ -35,6 +35,7 @@
             'whatsapp/static/src/scss/*.scss',
             'whatsapp/static/src/core/common/**/*',
             'whatsapp/static/src/core/web/**/*',
+            'whatsapp/static/src/core/public_web/**/*',
             'whatsapp/static/src/**/common/**/*',
             'whatsapp/static/src/**/web/**/*',
             'whatsapp/static/src/components/**/*',

@@ -7,11 +7,6 @@ import { deserializeDateTime } from "@web/core/l10n/dates";
 import { toRaw } from "@odoo/owl";
 
 patch(Thread.prototype, {
-    _computeDiscussAppCategory() {
-        return this.channel_type === "whatsapp"
-            ? this.store.discuss.whatsapp
-            : super._computeDiscussAppCategory();
-    },
     get importantCounter() {
         if (this.channel_type === "whatsapp") {
             return this.selfMember?.message_unread_counter || this.message_needaction_counter;
