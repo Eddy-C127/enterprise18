@@ -258,8 +258,8 @@ class SaleOrderLine(models.Model):
                 duration = self.order_id.plan_id.billing_period_display
                 format_start = format_date(self.env, new_period_start, lang_code=lang_code)
                 format_next = format_date(self.env, next_invoice_date, lang_code=lang_code)
-                start_to_next = _("\n%(start)s to %(next)s", start=format_start, next=format_next)
-                description = f"{description} - {duration}{start_to_next}"
+                start_to_next = _("%(start)s to %(next)s", start=format_start, next=format_next)
+                description = f"{duration} {start_to_next}"
 
             qty_to_invoice = self._get_subscription_qty_to_invoice(last_invoice_date=new_period_start,
                                                                    next_invoice_date=next_invoice_date)
