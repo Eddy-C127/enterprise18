@@ -60,12 +60,12 @@ class HrPayslip(models.Model):
         if self.company_id.batch_payroll_move_lines:
             all_slip_mapped_data = defaultdict(lambda: defaultdict(lambda: self.env['hr.payslip']))
             for slip in payslips_to_post:
-                all_slip_mapped_data[slip.struct_id.journal_id.id][slip.date or fields.Date().end_of(slip.date_to, 'month')] |= slip
+                all_slip_mapped_data[slip.struct_id.journal_id.id][slip.date or fields.Date.end_of(slip.date_to, 'month')] |= slip
             all_slip_mapped_data = [all_slip_mapped_data]
         else:
             all_slip_mapped_data = [{
                 slip.struct_id.journal_id.id: {
-                    slip.date or fields.Date().end_of(slip.date_to, 'month'): slip
+                    slip.date or fields.Date.end_of(slip.date_to, 'month'): slip
                 }
             } for slip in payslips_to_post]
 
@@ -78,7 +78,7 @@ class HrPayslip(models.Model):
                     date = slip_date
                     move_dict = {
                         'narration': '',
-                        'ref': fields.Date().end_of(slip_mapped_data[journal_id][slip_date][0].date_to, 'month').strftime('%B %Y'),
+                        'ref': fields.Date.end_of(slip_mapped_data[journal_id][slip_date][0].date_to, 'month').strftime('%B %Y'),
                         'journal_id': journal_id,
                         'date': date,
                     }

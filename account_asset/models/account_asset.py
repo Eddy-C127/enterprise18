@@ -9,7 +9,8 @@ from math import copysign
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare, float_is_zero, formatLang, end_of
+from odoo.tools import float_compare, float_is_zero, formatLang
+from odoo.tools.date_utils import end_of
 
 DAYS_PER_MONTH = 30
 DAYS_PER_YEAR = DAYS_PER_MONTH * 12
