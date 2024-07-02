@@ -519,7 +519,7 @@ export class PlanningGanttRenderer extends GanttRenderer {
 
     async dragPillDrop({pill}) {
         const { record } = this.pills[pill.dataset.pillId];
-        if (record.repeat) {
+        if (record.repeat && this.interaction.dragAction !== "copy") {
             const recurrenceUpdate = await planningAskRecurrenceUpdate(this.dialogService);
             if (recurrenceUpdate) {
                 record.recurrence_update = recurrenceUpdate;
