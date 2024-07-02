@@ -1736,12 +1736,59 @@ class TestSubscription(TestSubscriptionCommon):
                     })],
             })
 
-            subscription_future.action_confirm()
-            subscription_now.action_confirm()
-            self.assertEqual(subscription_future.order_line.invoice_status, 'no', "The line qty should be black.")
-            self.assertEqual(subscription_now.order_line.invoice_status, 'no', "The line qty should be black.")
-            subscription_now.order_line.qty_delivered = 1
-            self.assertEqual(subscription_now.order_line.invoice_status, 'to invoice', "The line qty should be blue.")
+            subscription_past = subscription_now.copy({
+                'start_date': '2022-04-15',
+                'next_invoice_date': '2022-04-15',
+            })
+
+            subscriptions = subscription_future + subscription_now + subscription_past
+            subscriptions.action_confirm()
+
+            # Nothing delivered, nothing invoiced
+            for subscription in subscriptions:
+                self.assertEqual(
+                    subscription.order_line.invoice_status, 'no',
+                    "The line qty should be black.",
+                )
+
+            # Status after delivery
+            subscriptions.order_line.qty_delivered = 1
+            self.assertEqual(
+                subscription_future.order_line.invoice_status, 'no',
+                "Nothing to invoice for future subscription yet.",
+            )
+            for subscription in (subscription_now, subscription_past):
+                self.assertEqual(
+                    subscription.order_line.invoice_status, 'to invoice',
+                    "The line qty should be blue.",
+                )
+
+            # Status after invoice creation
+            subscriptions._create_recurring_invoice()
+            self.assertEqual(
+                subscription_future.order_line.invoice_status, 'no',
+                "Nothing to invoice for future subscription yet.",
+            )
+            self.assertEqual(
+                subscription_now.order_line.invoice_status, 'invoiced',
+                "Current subscription has been invoiced.",
+            )
+            self.assertEqual(
+                subscription_past.order_line.invoice_status, 'to invoice',
+                "Past subscription should be ready to get invoiced again.",
+            )
+
+            # Status after closing
+            subscriptions.set_close()
+            self.assertEqual(
+                subscription_future.order_line.invoice_status, 'to invoice',
+                "Future subscription still needs to be invoiced after closing due to delivery.",
+            )
+            for subscription in (subscription_now, subscription_past):
+                self.assertEqual(
+                    subscription.order_line.invoice_status, 'invoiced',
+                    "Nothing new to invoice after closing.",
+                )
 
     def test_product_pricing_respects_variants(self):
         # create a product with 2 variants
