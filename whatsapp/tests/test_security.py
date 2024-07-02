@@ -31,7 +31,7 @@ class WhatsAppSecurityCase(WhatsAppCommon):
             'variable_ids': [
                 (0, 0, {
                     'demo_value': 'Customer',
-                    'field_name': 'signup_url',
+                    'field_name': 'signup_type',
                     'field_type': 'field',
                     'line_type': 'body',
                     'name': '{{1}}',
@@ -340,7 +340,7 @@ class WhatsAppMessageSecurity(WhatsAppSecurityCase):
                 (0, 0, {
                     'demo_value': 'Customer',
                     'field_type': 'field',
-                    'field_name': 'signup_url',
+                    'field_name': 'signup_type',
                     'line_type': 'body',
                     'name': '{{1}}',
                 }),
@@ -364,8 +364,8 @@ class WhatsAppMessageSecurity(WhatsAppSecurityCase):
         # the whatsapp_admin to change the password of the system admin
         env = self.env(user=self.user_wa_admin)
         # Ensure the whatsapp admin can indeed not read the signup url directly
-        with self.assertRaisesRegex(exceptions.AccessError, "You are not allowed to modify 'User'"):
-            env.ref('base.user_admin').partner_id.signup_url
+        with self.assertRaises(exceptions.AccessError):
+            env.ref('base.user_admin').partner_id._get_signup_url()
 
         # Now, try to access the signup url of the admin user through a message sent to whatsapp.
         mail_message = self.user_admin.partner_id.message_post(body='foo')
@@ -402,7 +402,7 @@ class WhatsAppMessageSecurity(WhatsAppSecurityCase):
         # Invalidate the cache of the whatsapp message, to force fetching the new values,
         # as the cron wrote on the message using another cursor
         whatsapp_message.invalidate_recordset()
-        self.assertEqual(whatsapp_message.failure_reason, "We were not able to fetch value of field 'signup_url'")
+        self.assertEqual(whatsapp_message.failure_reason, "We were not able to fetch value of field 'signup_type'")
 
 
 @tagged('wa_template', 'security')
