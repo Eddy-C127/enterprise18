@@ -300,3 +300,20 @@ describe("trend line", () => {
         expect(definition.trend?.order).toEqual(2);
     });
 });
+test("Show values", async () => {
+    const { model, env } = await createSpreadsheetFromGraphView();
+    const sheetId = model.getters.getActiveSheetId();
+    const chartId = model.getters.getChartIds(sheetId)[0];
+    await openChartSidePanel(model, env);
+    await contains(".o-panel-design").click();
+
+    expect(model.getters.getChartDefinition(chartId).showValues).toBe(undefined);
+    let options = model.getters.getChartRuntime(chartId).chartJsConfig.options;
+    expect(options.plugins.chartShowValuesPlugin.showValues).toBe(undefined);
+
+    await contains("input[name='showValues']").click();
+
+    expect(model.getters.getChartDefinition(chartId).showValues).toBe(true);
+    options = model.getters.getChartRuntime(chartId).chartJsConfig.options;
+    expect(options.plugins.chartShowValuesPlugin.showValues).toBe(true);
+});

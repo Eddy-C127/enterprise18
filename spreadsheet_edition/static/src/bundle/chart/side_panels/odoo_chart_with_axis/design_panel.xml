@@ -27,6 +27,14 @@
             <option value="right">Right</option>
           </select>
         </Section>
+        <Section>
+          <Checkbox
+            name="'showValues'"
+            label.translate="Show values"
+            value="props.definition.showValues"
+            onChange="showValues => props.updateChart(this.props.figureId, {showValues})"
+          />
+        </Section>
         <Section class="'pt-0 o-show-trend-line'">
           <t t-set="showTrendLineLabel">Show trend line</t>
           <t t-set="trend" t-value="getTrendLineConfiguration()"/>
