@@ -7,7 +7,8 @@ from pprint import pformat
 from odoo import models, fields, _
 from odoo.addons.iap.tools.iap_tools import iap_jsonrpc
 from odoo.exceptions import UserError, ValidationError, RedirectWarning
-from odoo.tools import float_round, json_float_round, partition, format_list
+from odoo.tools import format_list, partition
+from odoo.tools.float_utils import float_round, json_float_round
 
 logger = logging.getLogger(__name__)
 
