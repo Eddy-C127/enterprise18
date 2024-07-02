@@ -72,3 +72,15 @@ class TestFsmFlow(TestIndustryFsmCommon):
     @users('Fsm user')
     def test_fsm_user_can_create_stop_timers_wizard(self):
         self.env['project.task.stop.timers.wizard'].with_user(self.env.user).create({'line_ids': [Command.create({'task_id': self.task.id})]})
+
+    def test_navigation_link(self):
+        partner = self.env['res.partner'].create({
+            'name': 'A Test Partner',
+            'street': 'Chaussée de Namur 40',
+            'zip': '1367',
+            'city': 'Ramillies',
+        })
+        self.assertEqual(
+            partner.action_partner_navigate()['url'],
+            "https://www.google.com/maps/dir/?api=1&destination=Chauss%C3%A9e+de+Namur+40%2C+1367+Ramillies",
+        )
