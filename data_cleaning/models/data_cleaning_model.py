@@ -157,6 +157,7 @@ class DataCleaningModel(models.Model):
                                     res_id = {table}.id
                                     AND cleaning_model_id = %s)
                             {active_cond}
+                        ORDER BY id
                     """).format(
                         table=sql.Identifier(self.env[cleaning_model.res_model_name]._table),
                         field_name=field_name,
