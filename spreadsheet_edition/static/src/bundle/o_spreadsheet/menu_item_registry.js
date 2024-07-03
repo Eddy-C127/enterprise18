@@ -115,19 +115,13 @@ topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
     ]);
 });
 
-const insertPivotMenu = {
-    name: _t("Insert pivot"),
-    sequence: 1020,
-    icon: "o-spreadsheet-Icon.INSERT_PIVOT",
-    isVisible: (env) => env.model.getters.getOdooPivotIds().length,
-};
-
-const reInsertPivotMenu = {
+const reinsertPivotMenu = {
     id: "reinsert_pivot",
     name: _t("Re-insert pivot"),
-    sequence: 1,
+    sequence: 1020,
     children: [REINSERT_PIVOT_CHILDREN],
-    isVisible: (env) => env.model.getters.getOdooPivotIds().length,
+    isVisible: (env) => env.model.getters.getPivotIds().length,
+    icon: "o-spreadsheet-Icon.INSERT_PIVOT",
 };
 
 const reInsertListMenu = {
@@ -148,11 +142,7 @@ const printMenu = {
 };
 
 topbarMenuRegistry.addChild("print", ["file"], printMenu);
-
-topbarMenuRegistry.addChild("insert_pivot_odoo", ["insert"], insertPivotMenu);
-topbarMenuRegistry.addChild("reinsert_pivot", ["insert", "insert_pivot_odoo"], reInsertPivotMenu);
-
-topbarMenuRegistry.addChild("reinsert_list", ["insert"], reInsertListMenu);
-
-topbarMenuRegistry.addChild("insert_pivot_odoo", ["data"], insertPivotMenu);
 topbarMenuRegistry.addChild("reinsert_list", ["data"], reInsertListMenu);
+topbarMenuRegistry.addChild("reinsert_pivot", ["data"], reinsertPivotMenu, {
+    force: true,
+});

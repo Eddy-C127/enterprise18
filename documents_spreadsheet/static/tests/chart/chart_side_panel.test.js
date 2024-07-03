@@ -143,6 +143,25 @@ test("stacked line chart", async () => {
     expect(".o-checkbox input:checked").toHaveCount(1, { message: "checkbox should be checked" });
 });
 
+test("Odoo area chart", async () => {
+    const { model, env } = await createSpreadsheetFromGraphView();
+    const sheetId = model.getters.getActiveSheetId();
+    const chartId = model.getters.getChartIds(sheetId)[0];
+    await openChartSidePanel(model, env);
+    await changeChartType("odoo_area");
+
+    let chartDefinition = model.getters.getChartDefinition(chartId);
+    expect(chartDefinition.type).toBe("odoo_line");
+    expect(chartDefinition.fillArea).toBe(true);
+    expect(chartDefinition.stacked).toBe(false);
+
+    await changeChartType("odoo_stacked_area");
+    chartDefinition = model.getters.getChartDefinition(chartId);
+    expect(chartDefinition.type).toBe("odoo_line");
+    expect(chartDefinition.fillArea).toBe(true);
+    expect(chartDefinition.stacked).toBe(true);
+});
+
 test("Change the title of a chart", async () => {
     const { model, env } = await createSpreadsheetFromGraphView();
     const sheetId = model.getters.getActiveSheetId();

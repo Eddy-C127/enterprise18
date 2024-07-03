@@ -1,17 +1,23 @@
 /** @odoo-module **/
 
 export const REINSERT_PIVOT_CHILDREN = (env) =>
-    env.model.getters.getOdooPivotIds().map((pivotId, index) => ({
+    env.model.getters.getPivotIds().map((pivotId, index) => ({
         id: `reinsert_pivot_${env.model.getters.getPivotFormulaId(pivotId)}`,
         name: env.model.getters.getPivotDisplayName(pivotId),
         sequence: index,
         execute: async (env) => {
-            const dataSource = env.model.getters.getPivot(pivotId);
-            const model = await dataSource.copyModelWithOriginalDomain();
-            const table = model.getTableStructure().export();
+            const { type } = env.model.getters.getPivotCoreDefinition(pivotId);
             const position = env.model.getters.getActivePosition();
-            env.model.dispatch("INSERT_ODOO_FIX_PIVOT", {
-                position,
+            let table;
+            if (type === "ODOO") {
+                const dataSource = env.model.getters.getPivot(pivotId);
+                const model = await dataSource.copyModelWithOriginalDomain();
+                table = model.getTableStructure().export();
+            } else {
+                table = env.model.getters.getPivot(pivotId).getTableStructure().export();
+            }
+            env.model.dispatch("INSERT_PIVOT_WITH_TABLE", {
+                ...position,
                 pivotId,
                 table,
             });

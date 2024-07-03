@@ -101,8 +101,10 @@ export function insertPivot(pivotData) {
 
         const table = ds.getTableStructure();
         ensureSuccess(
-            model.dispatch("INSERT_ODOO_FIX_PIVOT", {
-                position: { sheetId, col: 0, row: 0 },
+            model.dispatch("INSERT_PIVOT_WITH_TABLE", {
+                sheetId,
+                col: 0,
+                row: 0,
                 pivotId,
                 table: table.export(),
             })

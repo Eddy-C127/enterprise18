@@ -9,6 +9,7 @@ const uuidGenerator = new helpers.UuidGenerator();
 const { SidePanelStore } = stores;
 
 export function insertChart(chartData) {
+    const chartType = `odoo_${chartData.metaData.mode}`;
     const definition = {
         metaData: {
             groupBy: chartData.metaData.groupBy,
@@ -21,12 +22,13 @@ export function insertChart(chartData) {
             domain: new Domain(chartData.searchParams.domain).toJson(),
         },
         stacked: chartData.metaData.stacked,
+        fillArea: chartType === "odoo_line",
         cumulative: chartData.metaData.cumulated,
         title: { text: chartData.name },
         background: "#FFFFFF",
         legendPosition: "top",
         verticalAxisPosition: "left",
-        type: `odoo_${chartData.metaData.mode}`,
+        type: chartType,
         dataSourceId: uuidGenerator.uuidv4(),
         id: uuidGenerator.uuidv4(),
     };
