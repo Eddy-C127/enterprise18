@@ -226,7 +226,7 @@
                     decoration-warning="rating_avg_text == 'ok'" decoration-success="rating_avg_text == 'top'"
                     invisible="rating_avg_text == 'none'"
                     class="fw-bold" widget="badge" optional="hide"/>
-                <field name="kanban_state" nolabel="1" optional="show" widget="state_selection"/>
+                <field name="kanban_state" nolabel="1" width="20px" optional="show" widget="state_selection"/>
                 <field name="stage_id" optional="show" readonly="not context.get('default_team_id', False)"/>
             </tree>
         </field>
