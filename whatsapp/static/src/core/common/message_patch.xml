@@ -8,9 +8,6 @@
                     t-att-title="message.whatsappStatus === 'error' ? 'Failed to send': 'Sent On WhatsApp'" />
             </t>
         </xpath>
-        <xpath expr="//div[contains(@class, 'o-mail-Message-header')]//MessageSeenIndicator" position="attributes">
-            <attribute name="t-if" add="and message.whatsappStatus !== 'error'" separator=" " />
-        </xpath>
         <xpath expr="//div[contains(@class, 'o-mail-Message-bubble')]" position="attributes">
             <attribute name="t-attf-class" add="{{ message.message_type === 'whatsapp_message' ? 'bg-success-light border border-success opacity-25' : ''}}" separator=" " />
         </xpath>
