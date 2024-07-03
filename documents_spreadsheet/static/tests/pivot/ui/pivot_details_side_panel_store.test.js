@@ -166,17 +166,26 @@ test("can reuse date fields until all granularities are used", async () => {
     store.update({
         columns: [
             { name: "create_date", granularity: "year" },
+            { name: "create_date", granularity: "quarter_number" },
             { name: "create_date", granularity: "quarter" },
+            { name: "create_date", granularity: "month_number" },
             { name: "create_date", granularity: "month" },
+            { name: "create_date", granularity: "iso_week_number" },
+            { name: "create_date", granularity: "week" },
+            { name: "create_date", granularity: "day_of_month" },
         ],
     });
     expect(store.unusedGroupableFields.length).toBe(1);
     store.update({
         columns: [
             { name: "create_date", granularity: "year" },
+            { name: "create_date", granularity: "quarter_number" },
             { name: "create_date", granularity: "quarter" },
+            { name: "create_date", granularity: "month_number" },
             { name: "create_date", granularity: "month" },
+            { name: "create_date", granularity: "iso_week_number" },
             { name: "create_date", granularity: "week" },
+            { name: "create_date", granularity: "day_of_month" },
             { name: "create_date", granularity: "day" },
         ],
     });
@@ -203,7 +212,7 @@ test("add default datetime granularity", async () => {
 
     store.update({ columns: [{ name: "create_date" }, { name: "create_date" }] });
     expect(store.definition.columns[0].granularity).toBe("year");
-    expect(store.definition.columns[1].granularity).toBe("quarter");
+    expect(store.definition.columns[1].granularity).toBe("quarter_number");
 
     store.update({
         columns: [{ name: "create_date", granularity: "month" }, { name: "create_date" }],
@@ -215,8 +224,8 @@ test("add default datetime granularity", async () => {
         columns: [{ name: "create_date" }, { name: "create_date" }, { name: "create_date" }],
     });
     expect(store.definition.columns[0].granularity).toBe("year");
-    expect(store.definition.columns[1].granularity).toBe("quarter");
-    expect(store.definition.columns[2].granularity).toBe("month");
+    expect(store.definition.columns[1].granularity).toBe("quarter_number");
+    expect(store.definition.columns[2].granularity).toBe("quarter");
 });
 
 test("non measure fields are filtered and sorted", async () => {

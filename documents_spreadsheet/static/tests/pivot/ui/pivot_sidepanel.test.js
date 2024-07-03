@@ -723,8 +723,12 @@ test("pivot with twice the same date field with different granularity", async fu
     const secondDateGroup = fixture.querySelectorAll(".pivot-dimensions select")[2];
     expect(firstDateGroup).toHaveValue("year");
     expect(secondDateGroup).toHaveValue("day");
-    expect(firstDateGroup).toHaveText("Year\nQuarter\nMonth\nWeek");
-    expect(secondDateGroup).toHaveText("Quarter\nMonth\nWeek\nDay");
+    expect(firstDateGroup).toHaveText(
+        "Year\nQuarter\nQuarter & Year\nMonth\nMonth & Year\nWeek\nWeek & Year\nDay of Month"
+    );
+    expect(secondDateGroup).toHaveText(
+        "Quarter\nQuarter & Year\nMonth\nMonth & Year\nWeek\nWeek & Year\nDay of Month\nDay"
+    );
 });
 
 test("Pivot cells are highlighted when their side panel is open", async function () {

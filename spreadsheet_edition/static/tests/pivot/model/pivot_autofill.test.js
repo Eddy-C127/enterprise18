@@ -1,5 +1,6 @@
 import { defineSpreadsheetModels } from "@spreadsheet/../tests/helpers/data";
 import { describe, expect, test } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 const { toCartesian } = spreadsheet.helpers;
 import {
@@ -8,6 +9,7 @@ import {
     setCellContent,
     setCellFormat,
     setCellStyle,
+    updatePivot,
 } from "@spreadsheet/../tests/helpers/commands";
 import { getCellFormula, getCell } from "@spreadsheet/../tests/helpers/getters";
 import { createSpreadsheetWithPivot } from "@spreadsheet/../tests/helpers/pivot";
@@ -342,17 +344,31 @@ test("Autofill pivot values with date (week) 2020 has 53 weeks", async function 
 });
 
 test("Autofill empty pivot date value", async function () {
-    for (const interval of ["day", "week", "month", "quarter", "year"]) {
-        const { model } = await createSpreadsheetWithPivot({
-            arch: /* xml */ `
-                    <pivot>
-                        <field name="date" interval="${interval}" type="row"/>
-                        <field name="probability" type="measure"/>
-                    </pivot>`,
+    const { model, pivotId } = await createSpreadsheetWithPivot({
+        arch: /* xml */ `
+                <pivot>
+                    <field name="date" interval="year" type="row"/>
+                    <field name="probability" type="measure"/>
+                </pivot>`,
+    });
+    for (const granularity of [
+        "day",
+        "week",
+        "month",
+        "quarter",
+        "year",
+        "quarter_number",
+        "month_number",
+        "iso_week_number",
+        "day_of_month",
+    ]) {
+        updatePivot(model, pivotId, {
+            rows: [{ name: "date", granularity, order: "asc" }],
         });
-        setCellContent(model, "A1", `=PIVOT.HEADER(1,"date:${interval}",FALSE)`);
+        await animationFrame();
+        setCellContent(model, "A1", `=PIVOT.HEADER(1,"date:${granularity}",FALSE)`);
         expect(getPivotAutofillValue(model, "A1", { direction: "bottom", steps: 1 })).toBe(
-            `=PIVOT.HEADER(1,"date:${interval}",FALSE)`
+            `=PIVOT.HEADER(1,"date:${granularity}",FALSE)`
         );
         expect(model.getters.getTooltipFormula(getCellFormula(model, "A1"))).toEqual([
             { value: "None" },

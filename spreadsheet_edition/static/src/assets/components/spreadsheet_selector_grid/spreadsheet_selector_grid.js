@@ -1,10 +1,13 @@
-/** @odoo-module **/
-
 import { Component } from "@odoo/owl";
+import { _t } from "@web/core/l10n/translation";
 import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
-import { BLANK_SPREADSHEET_TEMPLATE } from "../../helpers";
 
 const DEFAULT_LIMIT = 9;
+const BLANK_SPREADSHEET_TEMPLATE = {
+    id: null,
+    display_name: _t("Blank spreadsheet"),
+    thumbnail: "/spreadsheet/static/img/spreadsheet.svg",
+};
 
 export class SpreadsheetSelectorGrid extends Component {
     static template = "documents_spreadsheet.SpreadsheetSelectorGrid";
