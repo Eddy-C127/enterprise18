@@ -60,9 +60,10 @@ patch(FloorScreen.prototype, {
         if (!table.appointment_resource_id) {
             return false;
         }
-        const appointments = this.pos.models["calendar.event"].getAllBy("appointment_resource_ids")[
+        const appointments = this.pos.models["calendar.event"].getBy(
+            "appointment_resource_ids",
             table.appointment_resource_id.id
-        ];
+        );
         if (!appointments) {
             return false;
         }
