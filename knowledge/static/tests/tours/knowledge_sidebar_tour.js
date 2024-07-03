@@ -1,6 +1,10 @@
 /** @odoo-module */
 
-import { changeInternalPermission, dragAndDropArticle, makeVisible } from '@knowledge/../tests/tours/knowledge_tour_utils';
+import {
+    changeInternalPermission,
+    dragAndDropArticle,
+    makeVisible,
+} from "@knowledge/../tests/tours/knowledge_tour_utils";
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { queryOne } from "@odoo/hoot-dom";
@@ -100,23 +104,31 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Open the simplified create form view
     trigger: '.o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a',
     run: "click",
-}, {
-    // Give an email address to the partner
-    trigger: '.o_field_widget[name=email] input',
-    run: "edit henri@knowledge.com",
-}, {
-    // Save the new partner
-    trigger: '.o_form_button_save',
-    run: "click",
         },
         {
-            trigger: '.o_field_tags span.o_badge_text',
+            // Give an email address to the partner
+            trigger: ".modal:not(.o_inactive_modal) .o_field_widget[name=email] input",
+            run: "edit henri@knowledge.com",
+            in_modal: false,
+            pause: true,
         },
         {
-    // Submit the invite wizard
-    trigger: 'button:contains("Invite")',
-    run: "click",
-}, {
+            // Save the new partner
+            trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
+            run: "click",
+            in_modal: false,
+        },
+        {
+            trigger: ".o_field_tags span.o_badge_text",
+            in_modal: false,
+        },
+        {
+            // Submit the invite wizard
+            trigger: ".modal:not(.o_inactive_modal) button:contains(Invite)",
+            run: "click",
+            in_modal: false,
+        },
+        {
     // Check that the article has been added to a new "Shared" section
     trigger: 'section[data-section="shared"]:contains("Shared Article")',
 },
@@ -271,22 +283,28 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: 'section[data-section="favorites"] .o_article_caret .fa-caret-right',
         },
         {
-    // Check that caret changed and that child is hidden again
-    trigger: 'section[data-section="favorites"] .o_article:not(:has(.o_article))',
-}, {
-    // Check that article in main tree is still unfolded
-    trigger: 'section[data-section="private"] .o_article:contains("Private Child 1")',
+            content: "Check that caret changed and that child is hidden again",
+            trigger: 'section[data-section="favorites"] .o_article:not(:has(.o_article))',
+            in_modal: false,
+        },
+        {
+            content: "Check that article in main tree is still unfolded",
+            trigger: 'section[data-section="private"] .o_article:contains("Private Child 1")',
+            in_modal: false,
         },
         {
             trigger: 'section[data-section="favorites"] .o_article_caret .fa-caret-right',
         },
         {
-    // Create a child from the favorite tree
-    // Force the create button to be visible (it's only visible on hover)
-    trigger: 'section[data-section="favorites"] .o_article:contains("Private Article")',
-    run: () => {
-        queryOne('section[data-section="favorites"] .o_article:contains("Private Article") a.o_article_create').style.display = "block";
-    },
+            // Create a child from the favorite tree
+            content: "Force the create button to be visible (it's only visible on hover)",
+            trigger: 'section[data-section="favorites"] .o_article:contains("Private Article")',
+            in_modal: false,
+            run() {
+                makeVisible(
+                    'section[data-section="favorites"] .o_article:contains("Private Article") a.o_article_create'
+                );
+            },
 }, {
     // Create a child
     trigger: 'section[data-section="favorites"] .o_article:contains("Private Article") a.o_article_create',
@@ -319,19 +337,21 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: 'section[data-section="private"] .o_article_caret .fa-caret-down',
         },
         {
-    // Click on the caret (should be caret down)
-    trigger: 'section[data-section="private"] .o_article_caret',
-    run: "click",
+            content: "Click on the caret (should be caret down)",
+            trigger: 'section[data-section="private"] .o_article_caret',
+            run: "click",
         },
         {
             trigger: 'section[data-section="private"] .o_article_caret .fa-caret-right',
         },
         {
-    // Check that caret changed, and that children are hidden, and that favorite has not been folded
-    trigger: 'section[data-section="private"] .o_article:not(:has(.o_article))',
+            content:
+                "Check that caret changed, and that children are hidden, and that favorite has not been folded",
+            trigger: 'section[data-section="private"] .o_article:not(:has(.o_article))',
         },
         {
-            trigger: 'section[data-section="favorites"] .o_article_handle:contains("Private Article") .fa-caret-down',
+            trigger:
+                'section[data-section="favorites"] .o_article_handle:contains("Private Article") .fa-caret-down',
         },
         {
     // Check that favorite has not been folded
@@ -368,12 +388,15 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
 }, {
     trigger: 'section[data-section="private"] .o_article_caret .fa-caret-right',
     run: () => {
-        queryOne('section[data-section="private"] .o_article:contains("Private Article") .o_article_create').style.display ='block';
+                makeVisible(
+                    'section[data-section="private"] .o_article:contains("Private Article") .o_article_create'
+                );
     }
 }, {
-    // Click on the create button
-    trigger: 'section[data-section="private"] .o_article:contains("Private Article") .o_article_create',
-    run: "click",
+            // Click on the create button
+            trigger:
+                'section[data-section="private"] .o_article:contains("Private Article") .o_article_create',
+            run: "click",
         },
         {
             trigger: 'section[data-section="private"] .o_article_caret .fa-caret-down',
@@ -559,36 +582,40 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Check that article has not been removed from the favorite tree
     trigger: 'section[data-section="favorites"] .o_article:contains("Workspace Child")',
 },
-// Remove member of child of shared article
-{
-    // Open the shared child article
-    trigger: '.o_article_name:contains("Shared Child")',
-    run: "click",
+        // Remove member of child of shared article
+        {
+            content: "Open the shared child article",
+            trigger: ".o_article_name:contains(Shared Child)",
+            run: "click",
         },
         {
-            trigger: '.o_article_active:contains("Shared Child")',
+            content: "Open the share dropdown",
+            trigger: ".o_knowledge_header .btn-share",
+            run: "click",
         },
         {
-    // Open the share dropdown
-    trigger: '.o_knowledge_header .btn-share',
-    run: "click",
-}, {
-    // Make remove member button visible
-    trigger: '.o_knowledge_share_panel:not(:has(.fa-spin))',
-    run: () => {
-        document.querySelector('.o_knowledge_share_panel .o_delete.o_remove').style.display = 'block';
-    },
-}, {
-    // Click on the delete member button
-    trigger: '.o_knowledge_share_panel .o_delete.o_remove',
-    run: "click",
-}, {
-    // Confirm restriction
-    trigger: '.modal-footer .btn-primary',
-    run: "click",
+            content: "Make remove member button visible",
+            trigger: ".o_knowledge_share_panel:not(:has(.fa-spin))",
+            run() {
+                makeVisible(".o_knowledge_share_panel .o_delete.o_remove");
+            },
         },
         {
-            trigger: '.o_knowledge_share_panel_icon',
+            content: "Click on the delete member button",
+            trigger: ".o_knowledge_share_panel .o_delete.o_remove",
+            run: "click",
+        },
+        {
+            content: "Confirm restriction",
+            trigger: ".modal:not(.o_inactive_modal) .modal-footer .btn-primary",
+            in_modal: false,
+            run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
+        },
+        {
+            trigger: ".o_knowledge_share_panel_icon",
         },
         {
     // Check that the article did not move
@@ -647,7 +674,7 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
     // Make remove member button visible
     trigger: '.o_knowledge_share_panel:not(:has(.fa-spin))',
     run: () => {
-        document.querySelector('.o_knowledge_share_panel .o_delete.o_remove').style.display = 'block';
+        makeVisible(".o_knowledge_share_panel .o_delete.o_remove");
     },
 }, {
     // Remove member
@@ -679,14 +706,17 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: '.o_field_tags span.o_badge_text',
         },
         {
-    trigger: 'button:contains("Invite")',
-    run: "click",
-},
-// Publish child of private article
-{
-    // Open private child
-    trigger: '.o_article_name:contains("Private Child 2")',
-    run: "click",
+            trigger: 'button:contains("Invite")',
+            run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
+        },
+        // Publish child of private article
+        {
+            content: "Open private child",
+            trigger: ".o_article_name:contains(Private Child 2)",
+            run: "click",
         },
         {
             trigger: '.o_article_active:contains("Private Child 2")',

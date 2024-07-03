@@ -46,7 +46,8 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     configuratorTourUtils.addOptionalProduct("Conference Chair"),
     configuratorTourUtils.addOptionalProduct("Chair floor protection"),
 {
-    trigger: 'button:contains(Confirm)',
+    trigger: ".modal:not(.o_inactive_modal) button:contains(Confirm)",
+    in_modal: false,
     id: 'quotation_product_selected',
     run: "click",
 }, {
@@ -81,7 +82,8 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 {
     trigger: '.btn-primary:not(:disabled):contains("Confirm")',
 }, {
-    trigger: 'button:contains(Confirm)',
+    trigger: ".modal:not(.o_inactive_modal) button:contains(Confirm)",
+    in_modal: false,
     id: 'quotation_product_selected',
     run: "click",
 }, {

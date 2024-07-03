@@ -124,20 +124,22 @@ registry.category("web_tour.tours").add("account_reports", {
         },
         {
             content: "Annotate is displayed",
-            trigger: ".o_web_client",
+            trigger: ".modal:not(.o_inactive_modal)",
             in_modal: false,
             run: () => {
-                Asserts.hasClass(".o_web_client", "modal-open");
+                Asserts.hasClass("body", "modal-open");
             },
         },
         {
             content: "Add text to annotate",
-            trigger: "textarea",
+            trigger: ".modal:not(.o_inactive_modal) textarea",
+            in_modal: false,
             run: "edit Footnote 121000",
         },
         {
             content: "Submit footnote",
-            trigger: ".btn.btn-primary",
+            trigger: ".modal:not(.o_inactive_modal) .btn.btn-primary:contains(save)",
+            in_modal: false,
             run: "click",
         },
         {
@@ -181,17 +183,20 @@ registry.category("web_tour.tours").add("account_reports", {
         },
         {
             content: "Annotate contains previous text value",
-            trigger: "textarea:value(Footnote 121000)",
+            trigger: ".modal:not(.o_inactive_modal) textarea:value(Footnote 121000)",
+            in_modal: false,
             run: "edit Test",
         },
         {
             content: "Add text to annotate",
-            trigger: "textarea",
+            trigger: ".modal:not(.o_inactive_modal) textarea",
+            in_modal: false,
             run: "edit Footnote 121000 edited",
         },
         {
             content: "Submit footnote",
-            trigger: ".btn.btn-primary",
+            trigger: ".modal:not(.o_inactive_modal) .btn.btn-primary",
+            in_modal: false,
             run: "click",
         },
         {
@@ -212,12 +217,14 @@ registry.category("web_tour.tours").add("account_reports", {
         },
         {
             content: "Remove text from annotate",
-            trigger: ".modal-body textarea",
+            trigger: ".modal:not(.o_inactive_modal) .modal-body textarea",
+            in_modal: false,
             run: "clear",
         },
         {
             content: "Submit footnote",
-            trigger: ".btn.btn-primary",
+            trigger: ".modal:not(.o_inactive_modal) .btn.btn-primary",
+            in_modal: false,
             run: "click",
         },
         {

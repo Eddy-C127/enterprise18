@@ -585,8 +585,9 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
             run: "click",
         },
         {
-            in_modal: true,
-            trigger: ".o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
+            trigger:
+                ".modal:not(.o_inactive_modal) .o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
+            in_modal: false,
             run: "edit another value cancel",
         },
         {
@@ -614,8 +615,9 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
             },
         },
         {
-            in_modal: true,
-            trigger: ".o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
+            trigger:
+                ".modal:not(.o_inactive_modal) .o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
+            in_modal: false,
             run: "edit another value",
         },
         {
@@ -795,16 +797,23 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
             run: "edit new model",
         },
         {
-            trigger: ".confirm_button",
+            trigger: ".modal:not(.o_inactive_modal) .confirm_button",
+            in_modal: false,
             run: "click",
         },
         {
-            trigger: "#use_stages",
+            trigger: ".modal:not(.o_inactive_modal) .modal-body #use_stages",
+            in_modal: false,
+            run: "check",
+        },
+        {
+            trigger: ".modal:not(.o_inactive_modal) .o_web_studio_model_configurator_next",
+            in_modal: false,
             run: "click",
         },
         {
-            trigger: ".o_web_studio_model_configurator_next",
-            run: "click",
+            content: "Wait the modal is closed before continue",
+            trigger: "body:not(:has(.modal))",
         },
         {
             trigger: ".o_web_studio_leave",

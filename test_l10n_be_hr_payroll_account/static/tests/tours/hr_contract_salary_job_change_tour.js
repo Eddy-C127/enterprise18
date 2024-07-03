@@ -60,8 +60,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         },
         {
             content: "Save Offer",
-            trigger: "button[name='action_save']",
+            trigger: ".modal:not(.o_inactive_modal) button[name='action_save']:contains(save)",
+            in_modal: false,
             run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
         },
         /*
          * Unlog and go to the salary configurator page logged in as the employee
@@ -174,7 +178,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         },
         {
             content: "Next 1",
-            trigger: ":iframe .o_sign_sign_item_navigator",
+            trigger: ":iframe .o_sign_sign_item_navigator:contains(click to start)",
             run: "click",
         },
         {
@@ -185,7 +189,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         // fill signature
         {
             content: "Next 2",
-            trigger: ":iframe .o_sign_sign_item_navigator",
+            trigger: ":iframe .o_sign_sign_item_navigator:contains(next)",
             run: "click",
         },
         {
@@ -195,22 +199,25 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         },
         {
             content: "Click Auto",
-            trigger: "a.o_web_sign_auto_button:contains('Auto')",
+            trigger: ".modal:not(.o_inactive_modal) a.o_web_sign_auto_button:contains(Auto)",
+            in_modal: false,
             run: "click",
         },
         {
             content: "Adopt & Sign",
-            trigger: "footer.modal-footer button.btn-primary:enabled",
+            trigger:
+                ".modal:not(.o_inactive_modal) .modal-footer button.btn-primary:enabled:contains(sign all)",
+            in_modal: false,
             run: "click",
         },
         {
             content: "Wait modal closed",
-            trigger: ":iframe body:not(:has(footer.modal-footer button.btn-primary))",
+            trigger: "body:not(:has(.modal))",
         },
         // fill date
         {
             content: "Next 4",
-            trigger: ':iframe .o_sign_sign_item_navigator:contains("next")',
+            trigger: ":iframe .o_sign_sign_item_navigator:contains(next)",
             run: "click",
         },
         {

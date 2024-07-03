@@ -40,11 +40,12 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
             }
         },
         {
-            trigger: ".o_form_button_save",
+            trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
+            in_modal: false,
             run: "click",
         },
         {
-            trigger: "body",
+            trigger: "body:not(:has(.modal))",
             run: () => {
                 const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
                 assertEqual(listingCount, 1);
@@ -97,15 +98,17 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         },
         {
             content: "Uncheck the toggle and only create the listing",
-            trigger: "div[name='auto_single_page'] input",
+            trigger: ".modal:not(.o_inactive_modal) div[name='auto_single_page'] input",
+            in_modal: false,
             run: "click",
         },
         {
-            trigger: ".o_form_button_save",
+            trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
+            in_modal: false,
             run: "click",
         },
         {
-            trigger: "body",
+            trigger: "body:not(:has(.modal))",
             run: () => {
                 const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
                 assertEqual(listingCount, 1);

@@ -2,7 +2,7 @@
 
 import { SORTABLE_TOLERANCE } from "@knowledge/components/sidebar/sidebar";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
-import { queryOne } from "@odoo/hoot-dom";
+import { queryOne, queryFirst } from "@odoo/hoot-dom";
 
 export const changeInternalPermission = (permission) => {
     const target = document.querySelector('.o_permission[aria-label="Internal Permission"]');
@@ -132,7 +132,7 @@ export function endKnowledgeTour() {
 }
 
 export function makeVisible(selector) {
-    const el = document.querySelector(selector);
+    const el = queryFirst(selector);
     if (el) {
         el.style.setProperty("visibility", "visible", "important");
         el.style.setProperty("opacity", "1", "important");

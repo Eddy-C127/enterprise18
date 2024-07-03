@@ -343,22 +343,23 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             // type something in the modal
-            trigger: '[name="relation_id"] input.o-autocomplete--input',
-            in_modal: true,
+            trigger:
+                '.modal:not(.o_inactive_modal) [name="relation_id"] input.o-autocomplete--input',
             // we are sure "Activity" exists since studio depends on mail.
             //Also, it is determinisic and field names should not conflict too much.
             run: "fill mail.activity",
+            in_modal: false,
         },
         {
             // select Activity as model
             trigger:
-                '[name="relation_id"] .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(Activity)',
-            in_modal: true,
+                '.modal:not(.o_inactive_modal) [name="relation_id"] .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(Activity)',
             run: "click",
+            in_modal: false,
         },
         {
-            in_modal: true,
-            trigger: "button:contains(Confirm):not(.disabled)",
+            trigger: ".modal:not(.o_inactive_modal) button:contains(Confirm):not(.disabled)",
+            in_modal: false,
             run: "click",
         },
         {
@@ -1580,14 +1581,15 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
             trigger: ".modal-body",
         },
         {
-            in_modal: true,
-            trigger: '[name="relation_id"] input',
+            trigger: '.modal:not(.o_inactive_modal) [name="relation_id"] input',
+            in_modal: false,
             run: `edit ${createdAppString}`,
         },
         {
             // select the first model
-            trigger: ".o-autocomplete--dropdown-menu > li > a:not(:has(.fa-spin))",
-            in_modal: true,
+            trigger:
+                ".modal:not(.o_inactive_modal) .o-autocomplete--dropdown-menu > li > a:not(:has(.fa-spin))",
+            in_modal: false,
             run: "click",
         },
         {
