@@ -157,7 +157,7 @@ class IoTController(http.Controller):
 
         def log_line_transformation(log_line):
             split = log_line.split(IOT_LOG_LINE_SEPARATOR, 1)
-            return {'levelno': int(split[0]), 'line_formatted': split[1].decode('ascii')}
+            return {'levelno': int(split[0]), 'line_formatted': split[1].decode('utf-8')}
 
         def log_current_level():
             _iot_logger.log(
