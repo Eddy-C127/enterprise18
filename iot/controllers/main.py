@@ -18,6 +18,8 @@ _iot_logger = logging.getLogger(__name__ + '.iot_log')
 # We want to catch any log level that the IoT send
 _iot_logger.setLevel(logging.DEBUG)
 
+_logger = logging.getLogger(__name__)
+
 class IoTController(http.Controller):
     def _search_box(self, mac_address):
         return request.env['iot.box'].sudo().search([('identifier', '=', mac_address)], limit=1)
@@ -60,9 +62,29 @@ class IoTController(http.Controller):
         return json.dumps(urls)
 
     @http.route('/iot/printer/status', type='json', auth='public')
-    def listen_iot_printer_status(self, print_id, device_identifier):
-        if isinstance(device_identifier, str) and isinstance(print_id, str) and request.env["iot.device"].sudo().search([("identifier", "=", device_identifier)]):
-            iot_channel = request.env['iot.channel'].sudo().get_iot_channel()
+    def listen_iot_printer_status(self, print_id, device_identifier, iot_mac=None):
+        """
+        Called by the IoT once the printing operation is over. We then forward
+        the acknowledgment to the user who made the print request to inform him
+        of the sucess of the operation.
+        """
+        if isinstance(device_identifier, str) and isinstance(print_id, str):
+            iot_device_domain = [('identifier', '=', device_identifier)]
+            if iot_mac:  # Might not exists on older version of 17 of IoT boxes
+                box = self._search_box(iot_mac)
+                if not box:
+                    _logger.warning("No IoT found with mac/identifier '%s'. Request ignored", iot_mac)
+                    return
+                iot_device_domain.append(('iot_id', '=', box.id))
+            # Note: in the case on which iot_mac is not given, we might
+            # accidentally find a device with the same identifier from another IoT
+            iot_device = request.env["iot.device"].sudo().search(iot_device_domain, limit=1)
+
+            if not iot_device:
+                _logger.warning("No IoT device found with identifier '%s' (iot_mac: %s). Request ignored", device_identifier, iot_mac)
+                return
+
+            iot_channel = request.env['iot.channel'].sudo().with_company(iot_device.company_id).get_iot_channel()
             request.env['bus.bus']._sendone(iot_channel, 'print_confirmation', {
                 'print_id': print_id,
                 'device_identifier': device_identifier
