@@ -12,7 +12,7 @@
     <!-- Demo data seems to be installed before post init hooks are executed,
         so we need to generate the project folders here -->
     <function model="project.project" name="_create_missing_folders">
-        <value model="project.project" search="[('use_documents', '=', True)]"/>
+        <value model="project.project" eval="obj().search([('use_documents', '=', True)]).ids"/>
     </function>
 
     <record id="project_1_document_1" model="documents.document">
