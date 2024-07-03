@@ -18,11 +18,10 @@ export function mockJoinSpreadsheetSession(resModel) {
 }
 
 export function mockFetchSpreadsheetHistory(resModel) {
-    return function (route, args) {
-        const [id] = args.args;
-        const record = this.models[resModel].records.find((record) => record.id === id);
+    return function (resId, fromSnapshot = false) {
+        const record = this.env[resModel].search_read([["id", "=", resId]])[0];
         if (!record) {
-            throw new Error(`Spreadsheet ${id} does not exist`);
+            throw new Error(`Spreadsheet ${resId} does not exist`);
         }
         return {
             name: record.name,

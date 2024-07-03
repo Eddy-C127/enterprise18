@@ -1,18 +1,19 @@
-/** @odoo-module **/
-import { patchWithCleanup, makeDeferred, nextTick } from "@web/../tests/helpers/utils";
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-
+import { Deferred } from "@web/core/utils/concurrency";
+import { animationFrame } from "@odoo/hoot-mock";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { WebClient } from "@web/webclient/webclient";
+import { getService, mountWithCleanup, patchWithCleanup } from "@web/../tests/web_test_helpers";
 import {
     prepareWebClientForSpreadsheet,
     getSpreadsheetActionModel,
     getSpreadsheetActionEnv,
-} from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
-import { DashboardEditAction } from "../../../src/bundle/action/dashboard_edit_action";
+} from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
 import { getDashboardBasicServerData } from "./test_data";
 import { onMounted } from "@odoo/owl";
+import { DashboardEditAction } from "../../src/bundle/action/dashboard_edit_action";
 
 /**
- * @typedef {import("@spreadsheet/../tests/legacy/utils/data").ServerData} ServerData
+ * @typedef {import("@spreadsheet/../tests/helpers/data").ServerData} ServerData
 
  * @typedef {object} SpreadsheetTestParams
  * @property {number} [spreadsheetId]
@@ -26,7 +27,7 @@ import { onMounted } from "@odoo/owl";
 export async function createDashboardEditAction(params) {
     /** @type {any} */
     let spreadsheetAction;
-    const actionMountedDef = makeDeferred();
+    const actionMountedDef = new Deferred();
     patchWithCleanup(DashboardEditAction.prototype, {
         setup() {
             super.setup();
@@ -34,29 +35,26 @@ export async function createDashboardEditAction(params) {
             spreadsheetAction = this;
         },
     });
-    await prepareWebClientForSpreadsheet();
     const serverData = params.serverData || getDashboardBasicServerData();
-    const webClient = await createWebClient({
-        serverData,
-        mockRPC: params.mockRPC,
-    });
     let spreadsheetId = params.spreadsheetId;
     if (!spreadsheetId) {
         spreadsheetId = createNewDashboard(serverData);
     }
-    await doAction(
-        webClient,
-        {
-            type: "ir.actions.client",
-            tag: "action_edit_dashboard",
-            params: {
-                spreadsheet_id: spreadsheetId,
-            },
+    await prepareWebClientForSpreadsheet();
+    await makeSpreadsheetMockEnv({
+        serverData,
+        mockRPC: params.mockRPC,
+    });
+    await mountWithCleanup(WebClient);
+    await getService("action").doAction({
+        type: "ir.actions.client",
+        tag: "action_edit_dashboard",
+        params: {
+            spreadsheet_id: spreadsheetId,
         },
-        { clearBreadcrumbs: true } // Sometimes in test defining custom action, Odoo opens on the action instead of opening on root
-    );
+    });
     await actionMountedDef;
-    await nextTick();
+    await animationFrame();
     return {
         model: getSpreadsheetActionModel(spreadsheetAction),
         env: getSpreadsheetActionEnv(spreadsheetAction),
@@ -70,6 +68,9 @@ export async function createDashboardEditAction(params) {
  * @returns {number}
  */
 export function createNewDashboard(serverData, data) {
+    if (!serverData.models["spreadsheet.dashboard"].records) {
+        serverData.models["spreadsheet.dashboard"].records = [];
+    }
     const dashboards = serverData.models["spreadsheet.dashboard"].records;
     const maxId = dashboards.length ? Math.max(...dashboards.map((d) => d.id)) : 0;
     const spreadsheetId = maxId + 1;

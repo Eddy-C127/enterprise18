@@ -1,26 +1,29 @@
 /** @odoo-module **/
 
-import { patchWithCleanup, nextTick } from "@web/../tests/helpers/utils";
-import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import { start } from "@mail/../tests/helpers/test_utils";
+import { animationFrame } from "@odoo/hoot-mock";
+import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { WebClient } from "@web/webclient/webclient";
+import { getService, mountWithCleanup, patchWithCleanup } from "@web/../tests/web_test_helpers";
 import {
     prepareWebClientForSpreadsheet,
     getSpreadsheetActionModel,
     getSpreadsheetActionEnv,
-} from "@spreadsheet_edition/../tests/legacy/utils/webclient_helpers";
+} from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
 import { SpreadsheetTestAction } from "@test_spreadsheet_edition/spreadsheet_test_action";
 import { VersionHistoryAction } from "@spreadsheet_edition/bundle/actions/version_history/version_history_action";
-
-import { getDummyBasicServerData } from "./data";
+import { SpreadsheetTest, getDummyBasicServerData } from "./data";
+import { getPyEnv } from "@spreadsheet/../tests/helpers/data";
 
 /**
- * @typedef {import("@spreadsheet/../tests/legacy/utils/data").ServerData} ServerData
+ * @typedef {import("@spreadsheet/../tests/helpers/data").ServerData} ServerData
 
  * @typedef {object} SpreadsheetTestParams
  * @property {number} [spreadsheetId]
  * @property {ServerData} [serverData] Data to be injected in the mock server
  * @property {Function} [mockRPC] Mock rpc function
  * @property {boolean} [fromSnapshot]
+ * @property {number | string} [threadId]
+ * @property {WebClient} [webClient]
  */
 
 /**
@@ -41,34 +44,31 @@ export async function createSpreadsheetTestAction(actionTag, params = {}) {
     });
 
     const serverData = params.serverData || getDummyBasicServerData();
-
-    if (!webClient) {
-        await prepareWebClientForSpreadsheet();
-        webClient = await createWebClient({
-            serverData,
-            mockRPC: params.mockRPC,
-        });
-    }
-
     let spreadsheetId = params.spreadsheetId;
     if (!spreadsheetId) {
         spreadsheetId = createNewDummySpreadsheet(serverData);
     }
-    await doAction(
-        webClient,
-        {
-            type: "ir.actions.client",
-            tag: actionTag,
-            params: {
-                spreadsheet_id: spreadsheetId,
-                res_model: "spreadsheet.test",
-                from_snapshot: params.fromSnapshot,
-                thread_id: params.threadId,
-            },
+
+    if (!webClient) {
+        await prepareWebClientForSpreadsheet();
+        webClient = await makeSpreadsheetMockEnv({
+            serverData,
+            mockRPC: params.mockRPC,
+        });
+        await mountWithCleanup(WebClient);
+    }
+
+    await getService("action").doAction({
+        type: "ir.actions.client",
+        tag: actionTag,
+        params: {
+            spreadsheet_id: spreadsheetId,
+            res_model: "spreadsheet.test",
+            from_snapshot: params.fromSnapshot,
+            thread_id: params.threadId,
         },
-        { clearBreadcrumbs: true } // Sometimes in test defining custom action, Odoo opens on the action instead of opening on root
-    );
-    await nextTick();
+    });
+    await animationFrame();
     return {
         model: getSpreadsheetActionModel(spreadsheetAction),
         env: getSpreadsheetActionEnv(spreadsheetAction),
@@ -82,6 +82,9 @@ export async function createSpreadsheetTestAction(actionTag, params = {}) {
  * @returns {number}
  */
 export function createNewDummySpreadsheet(serverData, data) {
+    if(!serverData.models["spreadsheet.test"].records){
+        serverData.models["spreadsheet.test"].records = [];
+    }
     const spreadsheetDummy = serverData.models["spreadsheet.test"].records;
     const maxId = spreadsheetDummy.length ? Math.max(...spreadsheetDummy.map((d) => d.id)) : 0;
     const spreadsheetId = maxId + 1;
@@ -94,17 +97,18 @@ export function createNewDummySpreadsheet(serverData, data) {
 }
 
 export async function setupWithThreads(workbookdata = {}, thread) {
-    const { pyEnv, webClient } = await start();
-    const spreadsheetId = pyEnv["spreadsheet.test"].create({
-        name: "Untitled Dummy Spreadsheet",
-        spreadsheet_data: JSON.stringify(workbookdata),
-    });
+    SpreadsheetTest._records = [
+        {
+            id: 1,
+            name: "Untitled Dummy Spreadsheet",
+            spreadsheet_data: JSON.stringify(workbookdata),
+        },
+    ];
 
     const result = await createSpreadsheetTestAction("spreadsheet_test_action", {
-        webClient,
-        spreadsheetId,
+        spreadsheetId: 1,
     });
-    return { ...result, pyEnv, spreadsheetId };
+    return { ...result, spreadsheetId: 1, pyEnv: getPyEnv() };
 }
 
 export async function createThread(model, pyEnv, threadPosition, messages = []) {
@@ -120,6 +124,6 @@ export async function createThread(model, pyEnv, threadPosition, messages = []) 
         })
     );
     const result = model.dispatch("ADD_COMMENT_THREAD", { ...threadPosition, threadId });
-    await nextTick();
+    await animationFrame();
     return result;
 }
