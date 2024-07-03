@@ -218,6 +218,8 @@ export const EditablePDFIframeMixin = (pdfClass) =>
                     left: `${posX * 100}%`,
                     visibility: "visible",
                 });
+                // Re-bind updated signItem to the resize function.
+                startResize(signItem, this.onResizeItem.bind(this));
             } else {
                 return;
             }
