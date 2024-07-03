@@ -122,6 +122,9 @@ export class MrpDisplaySearchModel extends SearchModel {
         const filter = Object.values(this.searchItems).find(
             (si) => si.name === "shop_floor_this_station"
         );
+        if (!filter) {
+            return; // Avoid crashing when 'This Station' filter not installed.
+        }
         filter.domain =
             "['|', ['workorder_ids.workcenter_id.id', 'in', [" +
             workcenters.map((wc) => wc.id).join(",") +
