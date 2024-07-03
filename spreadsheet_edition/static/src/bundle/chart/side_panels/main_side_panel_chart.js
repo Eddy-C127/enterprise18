@@ -15,7 +15,7 @@ const { ChartTypePicker } = spreadsheet.components;
 patch(ChartTypePicker.prototype, {
     setup() {
         super.setup();
-        this.chartTypeByCategories = this.updateChartTypeByCategories(this.props);
+        this.updateChartTypeByCategories(this.props);
         onWillUpdateProps((nexProps) => this.updateChartTypeByCategories(nexProps));
     },
 
