@@ -2607,16 +2607,9 @@ if solution_number == "1":
     rate, employer_part = payslip.l10n_ch_accident_insurance_line_id._get_non_occupational_rates(
         payslip.date_from,
         contract.employee_id.gender)
-    result_rate = - rate
+    result_rate = - rate * (100 - employer_part) / 100
 
-payslips_values = previous_payslips._get_line_values(
-    ['LAASALARY', 'AANP'],
-    vals_list=['amount', 'total'],
-    compute_sum=True)
-previous_aanp_salary = payslips_values['LAASALARY']['sum']['total']
-previous_aanp_deduction = payslips_values['AANP']['sum']['amount']
-aanp_salary = previous_aanp_salary + categories['LAASALARY']
-result = aanp_salary - previous_aanp_deduction
+result = categories['LAASALARY']
         </field>
         <field name="note">Accident Insurance (Non Occupational Rates)</field>
         <field name="l10n_ch_gross_included" eval="False"/>
@@ -2648,14 +2641,7 @@ if solution_number in ["1", "2", "3"]:
         contract.employee_id.gender)
     result_rate = (rate * employer_part / 100.0)
 
-payslips_values = previous_payslips._get_line_values(
-    ['LAASALARY', 'AAP.COMP'],
-    vals_list=['amount', 'total'],
-    compute_sum=True)
-previous_aap_salary = payslips_values['LAASALARY']['sum']['total']
-previous_aap_deduction = payslips_values['AAP.COMP']['sum']['amount']
-aap_salary = previous_aap_salary + categories['LAASALARY']
-result = aap_salary - previous_aap_deduction
+result = categories['LAASALARY']
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">Accident Insurance (Occupational Rates)</field>
@@ -2678,9 +2664,14 @@ result = aap_salary - previous_aap_deduction
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 solution_number = payslip.l10n_ch_accident_insurance_line_id.solution_number
-result = result_rules['AANP']['total']
-rate, employer_part = payslip.l10n_ch_accident_insurance_line_id._get_non_occupational_rates(payslip.date_from, contract.employee_id.gender)
-result_rate = -employer_part
+result_rate = 0
+if solution_number == "1":
+    rate, employer_part = payslip.l10n_ch_accident_insurance_line_id._get_non_occupational_rates(
+        payslip.date_from,
+        contract.employee_id.gender)
+    result_rate = rate * (employer_part / 100)
+
+result = categories['LAASALARY']
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">Accident Insurance (Non Occupational Rates)</field>
@@ -2701,14 +2692,11 @@ result_rate = -employer_part
         <field name="l10n_ch_code">1975</field>
         <field name="sequence">122</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OPTAANP' in inputs or result_rules['AANP.COMP']['total'] > 0</field>
+        <field name="condition_python">result = 'OPTAANP' in inputs</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-if 'OPTAANP' in inputs:
-    result = inputs['OPTAANP'].amount
-    result_name = inputs['OPTAANP'].name
-else:
-    result = result_rules['AANP.COMP']['total']
+result = inputs['OPTAANP'].amount
+result_name = inputs['OPTAANP'].name
         </field>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
@@ -2900,7 +2888,8 @@ result = payslip.l10n_ch_additional_accident_insurance_line_ids
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['LAACSALARY1']
-result_rate = - payslip.l10n_ch_additional_accident_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)[2]
+wage_from, wage_to, rate, employer_rate = payslip.l10n_ch_additional_accident_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = -rate * (100 - employer_rate)/100
         </field>
         <field name="note">Main Additional Accident Insurance (LAAC)</field>
         <field name="l10n_ch_gross_included" eval="False"/>
@@ -2928,7 +2917,8 @@ result = len(payslip.l10n_ch_additional_accident_insurance_line_ids) > 1
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['LAACSALARY2']
-result_rate = - payslip.l10n_ch_additional_accident_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)[2]
+wage_from, wage_to, rate, employer_rate = payslip.l10n_ch_additional_accident_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = -rate * (100 - employer_rate) / 100
         </field>
         <field name="note">Second Additional Accident Insurance (LAAC)</field>
         <field name="l10n_ch_gross_included" eval="False"/>
@@ -2955,8 +2945,9 @@ result = payslip.l10n_ch_additional_accident_insurance_line_ids
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = result_rules['LAAC1']['total']
-result_rate = - payslip.l10n_ch_additional_accident_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)[3]
+result = categories['LAACSALARY1']
+wage_from, wage_to, rate, employer_rate = payslip.l10n_ch_additional_accident_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = rate * (employer_rate) / 100
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">Additional Accident Insurance (LAAC)</field>
@@ -2981,8 +2972,9 @@ result = len(payslip.l10n_ch_additional_accident_insurance_line_ids) > 1
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = result_rules['LAAC2']['total']
-result_rate = - payslip.l10n_ch_additional_accident_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)[3]
+result = categories['LAACSALARY2']
+wage_from, wage_to, rate, employer_rate = payslip.l10n_ch_additional_accident_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = rate * (employer_rate) / 100
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">Additional Accident Insurance (LAAC)</field>
@@ -3004,15 +2996,12 @@ result_rate = - payslip.l10n_ch_additional_accident_insurance_line_ids[1]._get_r
         <field name="sequence">125</field>
         <field name="condition_select">python</field>
         <field name="condition_python">
-result = 'OPTLAAC' in inputs or (result_rules['LAAC1.COMP']['total'] + result_rules['LAAC2.COMP']['total']) > 0
+result = 'OPTLAAC' in inputs
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-if 'OPTLAAC' in inputs:
-    result = inputs['OPTLAAC'].amount
-    result_name = inputs['OPTLAAC'].name
-else:
-    result = result_rules['LAAC1.COMP']['total'] + result_rules['LAAC2.COMP']['total']
+result = inputs['OPTLAAC'].amount
+result_name = inputs['OPTLAAC'].name
         </field>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
@@ -3205,7 +3194,8 @@ result = payslip.l10n_ch_sickness_insurance_line_ids
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['IJMSALARY1']
-result_rate = - payslip.l10n_ch_sickness_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)[2]
+wage_to, wage_from, rate, employer_part = payslip.l10n_ch_sickness_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = - rate * (100 - employer_part) / 100
         </field>
         <field name="note">Daily Sickness Insurance</field>
         <field name="l10n_ch_gross_included" eval="False"/>
@@ -3231,7 +3221,8 @@ result = len(payslip.l10n_ch_sickness_insurance_line_ids) > 1
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = categories['IJMSALARY2']
-result_rate = - payslip.l10n_ch_sickness_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)[2]
+wage_to, wage_from, rate, employer_part = payslip.l10n_ch_sickness_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = - rate * (100 - employer_part) / 100
         </field>
         <field name="note">Daily Sickness Insurance</field>
         <field name="l10n_ch_gross_included" eval="False"/>
@@ -3255,8 +3246,9 @@ result = payslip.l10n_ch_sickness_insurance_line_ids
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = result_rules['IJM1']['total']
-result_rate = - payslip.l10n_ch_sickness_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)[3]
+result = categories['IJMSALARY1']
+wage_to, wage_from, rate, employer_part = payslip.l10n_ch_sickness_insurance_line_ids[0]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = rate * (employer_part / 100)
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">Daily Sickness Insurance</field>
@@ -3281,8 +3273,9 @@ result = len(payslip.l10n_ch_sickness_insurance_line_ids) > 1
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = result_rules['IJM2']['total']
-result_rate = - payslip.l10n_ch_sickness_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)[3]
+result = categories['IJMSALARY2']
+wage_to, wage_from, rate, employer_part = payslip.l10n_ch_sickness_insurance_line_ids[1]._get_rates(payslip.date_from, contract.employee_id.gender)
+result_rate = rate * (employer_part / 100)
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="note">Daily Sickness Insurance</field>
@@ -3304,15 +3297,12 @@ result_rate = - payslip.l10n_ch_sickness_insurance_line_ids[1]._get_rates(paysli
         <field name="sequence">128</field>
         <field name="condition_select">python</field>
         <field name="condition_python">
-result = 'OPTIJM' in inputs or (result_rules['IJM1.COMP']['total'] + result_rules['IJM2.COMP']['total']) > 0
+result = 'OPTIJM' in inputs
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-if 'OPTIJM' in inputs:
-    result = inputs['OPTIJM'].amount
-    result_name = inputs['OPTIJM'].name
-else:
-    result = result_rules['IJM1.COMP']['total'] + result_rules['IJM2.COMP']['total']
+result = inputs['OPTIJM'].amount
+result_name = inputs['OPTIJM'].name
         </field>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
