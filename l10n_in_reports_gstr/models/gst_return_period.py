@@ -1419,7 +1419,7 @@ class L10nInGSTReturnPeriod(models.Model):
                     domain
                     + [
                         ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                        ("move_id.l10n_in_gst_treatment", "!=", "overseas"),
+                        ("move_id.l10n_in_gst_treatment", "not in", ["overseas", "special_economic_zone"]),
                         ("tax_tag_ids", "in", other_than_gst_tag),
                     ]
                 )
