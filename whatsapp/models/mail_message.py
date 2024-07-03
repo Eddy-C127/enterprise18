@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields
+from odoo.addons.mail.tools.discuss import Store
 
 
 class MailMessage(models.Model):
@@ -44,15 +45,18 @@ class MailMessage(models.Model):
             'partners': [('DELETE' if unlink_reaction else 'ADD', {'id': partner_id.id})],
         })
 
-    def _message_format(self, *args, **kwargs):
-        vals_list = super()._message_format(*args, **kwargs)
-        whatsapp_mail_message = self.filtered(lambda m: m.message_type == 'whatsapp_message')
-        if whatsapp_mail_message:
-            whatsapp_message_by_message_id = {
-                whatsapp_message.mail_message_id.id: whatsapp_message
-                for whatsapp_message in self.env['whatsapp.message'].sudo().search([('mail_message_id', 'in', whatsapp_mail_message.ids)])
-            }
-            for vals in vals_list:
-                if whatsapp_message_by_message_id.get(vals['id']):
-                    vals['whatsappStatus'] = whatsapp_message_by_message_id[vals['id']].state
-        return vals_list
+    def _to_store(self, store: Store, **kwargs):
+        super()._to_store(store, **kwargs)
+        if whatsapp_mail_messages := self.filtered(lambda m: m.message_type == "whatsapp_message"):
+            for whatsapp_message in (
+                self.env["whatsapp.message"]
+                .sudo()
+                .search([("mail_message_id", "in", whatsapp_mail_messages.ids)])
+            ):
+                store.add(
+                    "Message",
+                    {
+                        "id": whatsapp_message.mail_message_id.id,
+                        "whatsappStatus": whatsapp_message.state,
+                    },
+                )

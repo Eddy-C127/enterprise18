@@ -56,9 +56,7 @@ class KnowledgeThreadController(ThreadController):
             messages = res.pop("messages")
             return {
                 **res,
-                "data": Store(
-                    "Message", messages._message_format(for_current_user=True)
-                ).get_result(),
+                "data": Store(messages, for_current_user=True).get_result(),
                 "messages": [{"id": message.id} for message in messages],
             }
         return super().mail_thread_messages(thread_model, thread_id, **kwargs)
