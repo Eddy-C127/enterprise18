@@ -2013,12 +2013,10 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         self._clean_cfdi_values(cfdi_values)
         cfdi = self.env['ir.qweb']._render(qweb_template, cfdi_values)
 
-        if 'cartaporte_30' in qweb_template:
-            # Since we are inheriting version 2.0 of the Carta Porte template,
-            # we need to update both the namespace prefix and its URI to version 3.0.
-            cfdi = str(cfdi) \
-                .replace('cartaporte20', 'cartaporte30') \
-                .replace('CartaPorte20', 'CartaPorte30')
+        if 'cfdi_cartaporte' in qweb_template:
+            # Since we are inheriting version 3.0 of the Carta Porte template,
+            # we need to update both the namespace prefix and its URI to version 3.1.
+            cfdi = re.sub(r'([cC]arta[pP]orte)30', r'\g<1>31', str(cfdi))
 
         cfdi_infos = self.env['l10n_mx_edi.document']._decode_cfdi_attachment(cfdi)
         cfdi_cadena_crypted = certificate._get_encrypted_cadena(cfdi_infos['cadena'])

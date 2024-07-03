@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from dateutil.relativedelta import relativedelta
 
 from odoo import Command
@@ -50,7 +49,10 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                     'partner_id': self.partner_us.id,
                     'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_02').id,
                     'l10n_mx_edi_customs_doc_identification': '0123456789',
-                    'l10n_mx_edi_customs_regime_id': self.custom_regime_exd.id,
+                    'l10n_mx_edi_customs_regime_ids': [Command.set([
+                        self.custom_regime_imd.id,
+                        self.custom_regime_exd.id,
+                    ])],
                 },
             )
 
@@ -71,7 +73,10 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                     'partner_id': self.partner_us.id,
                     'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_01').id,
                     'l10n_mx_edi_importer_id': self.partner_mx.id,
-                    'l10n_mx_edi_customs_regime_id': self.custom_regime_imd.id,
+                    'l10n_mx_edi_customs_regime_ids': [Command.set([
+                        self.custom_regime_imd.id,
+                        self.custom_regime_exd.id,
+                    ])],
                     'l10n_mx_edi_pedimento_number': "15  48  3009  0001234",
                 },
             )

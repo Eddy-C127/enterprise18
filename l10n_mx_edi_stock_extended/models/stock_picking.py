@@ -8,6 +8,7 @@ from .product_template import MX_PACKAGING_CATALOG
 class Picking(models.Model):
     _inherit = 'stock.picking'
 
+    # DEPRECATED -> This field has been replaced by a Many2many in 'l10n_mx_edi_stock_extended_31'
     l10n_mx_edi_customs_regime_id = fields.Many2one(
         string="Customs Regime",
         help="Regime associated to the good's transfer (import or export).",
