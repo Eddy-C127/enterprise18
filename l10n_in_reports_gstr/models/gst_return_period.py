@@ -181,7 +181,7 @@ class L10nInGSTReturnPeriod(models.Model):
     def _check_gstr_status(self):
         for record in self:
             if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
-                raise UserError("You cannot change GST filing period after sending/receiving GSTR data")
+                raise UserError(_("You cannot change GST filing period after sending/receiving GSTR data"))
 
     @api.onchange('year')
     def _check_isyear(self):
@@ -209,7 +209,7 @@ class L10nInGSTReturnPeriod(models.Model):
         for record in self:
             periodicity = record.tax_unit_id.main_company_id.account_tax_periodicity or record.company_id.account_tax_periodicity
             if periodicity not in ["monthly", "trimester"]:
-                raise UserError(("To Create Return Period Periodicity should be Monthly or Quarterly"))
+                raise UserError(_("To Create Return Period Periodicity should be Monthly or Quarterly"))
             record.periodicity = periodicity
 
     @api.depends('month', 'quarter', 'year')
@@ -295,7 +295,7 @@ class L10nInGSTReturnPeriod(models.Model):
         else:
             for record in self:
                 if record.gstr1_status != 'to_send' or record.gstr2b_status != 'not_recived':
-                    raise UserError("You cannot delete GST Return Period after sending/receiving GSTR data")
+                    raise UserError(_("You cannot delete GST Return Period after sending/receiving GSTR data"))
 
     def _cron_refresh_gst_token(self):
         # If Token is already expired than we can't refresh it.
@@ -1171,7 +1171,10 @@ class L10nInGSTReturnPeriod(models.Model):
         else:
             self.sudo().write({
                 "gstr1_blocking_level": "error",
-                "gstr1_error": "Something is wrong in response. Please contact support. \n response: %s"%(response),
+                "gstr1_error": _(
+                    "Something is wrong in response. Please contact support.\n response: %(response)s",
+                    response=response
+                ),
             })
 
     def button_check_gstr1_status(self):
@@ -1199,7 +1202,7 @@ class L10nInGSTReturnPeriod(models.Model):
                 self.sudo().message_post(body=_("GSTR-1 Successfully Sent"), author_id=odoobot.id)
             elif data.get("status_cd") == "IP":
                 self.sudo().write({
-                    "gstr1_error": "Waiting for GSTR-1 processing, try in a few minutes",
+                    "gstr1_error": _("Waiting for GSTR-1 processing, try in a few minutes"),
                     "gstr1_blocking_level": "warning"
                 })
             elif data.get("status_cd") in ("PE", "ER"):
@@ -1251,7 +1254,10 @@ class L10nInGSTReturnPeriod(models.Model):
             else:
                 self.sudo().write({
                     "gstr1_blocking_level": "error",
-                    "gstr1_error": "Something is wrong in response. Please contact support. \n response: %s"%(response),
+                    "gstr1_error": _(
+                        "Something is wrong in response. Please contact support. \n response: %(response)s",
+                        response=response
+                    ),
                 })
 
         elif response.get("error"):
@@ -1268,7 +1274,7 @@ class L10nInGSTReturnPeriod(models.Model):
         else:
             self.sudo().write({
                 "gstr1_blocking_level": "error",
-                "gstr1_error": "Something is wrong in response. Please contact support",
+                "gstr1_error": _("Something is wrong in response. Please contact support"),
             })
 
     def _cron_check_gstr1_status(self):
@@ -1575,21 +1581,21 @@ class L10nInGSTReturnPeriod(models.Model):
                                 if line.tax_line_id.amount < 0:
                                     amount_total += line.balance * sign
                             if 'bill_total' in gstr2b_bill and gstr2b_bill['bill_total'] != amount_total:
-                                exception.append(_("Total amount as per GSTR-2B is %s", gstr2b_bill['bill_total']))
+                                exception.append(_("The total amount as per GSTR-2B is %s", gstr2b_bill['bill_total']))
                             if 'vat' in gstr2b_bill and gstr2b_bill['vat'] != matched_bills.partner_id.vat:
-                                exception.append(_("Vat number as per GSTR-2B is %s", gstr2b_bill['vat']))
+                                exception.append(_("The GSTIN as per GSTR-2B is %s", gstr2b_bill['vat']))
                             if 'bill_date' in gstr2b_bill and gstr2b_bill['bill_date'] != matched_bills.invoice_date:
-                                exception.append(_("Bill Date as per GSTR-2B is %s", gstr2b_bill['bill_date']))
+                                exception.append(_("The bill date as per GSTR-2B is %s", gstr2b_bill['bill_date']))
                             if 'bill_type' in gstr2b_bill and (matched_bills.move_type == 'in_refund' and gstr2b_bill['bill_type'] == 'bill') or \
                                 (matched_bills.move_type != 'in_refund' and gstr2b_bill['bill_type'] == 'credit_note'):
-                                exception.append(_("Bill type as per GSTR-2B is %s", invoice_type))
+                                exception.append(_("The bill type as per GSTR-2B is %s", invoice_type))
                         elif (gstr2b_bill.get('bill_total') == matched_bills.amount_total or \
                             gstr2b_bill.get('bill_taxable_value') == matched_bills.amount_untaxed) and \
                             gstr2b_bill.get('vat') == matched_bills.partner_id.vat and \
                             gstr2b_bill.get('bill_date') == matched_bills.invoice_date and \
                             (matched_bills.move_type == 'in_refund' and gstr2b_bill.get('bill_type') == 'credit_note') or \
                             (matched_bills.move_type != 'in_refund' and gstr2b_bill.get('bill_type') == 'bill'):
-                            exception.append(_("Referance number as per GSTR-2B is %s", gstr2b_bill['bill_number']))
+                            exception.append(_("The reference number as per GSTR-2B is %s", gstr2b_bill['bill_number']))
                         matched_bills.write({
                             "l10n_in_exception": '<br/>'.join(exception),
                             "l10n_in_gstr2b_reconciliation_status": exception and "partially_matched" or "matched",
@@ -1603,10 +1609,14 @@ class L10nInGSTReturnPeriod(models.Model):
                             other_bills = Markup("<br/>").join(Markup("<a href='#' data-oe-model='account.move' data-oe-id='%s'>%s</a>") % (
                                     other_bill.id, other_bill.name) for other_bill in matched_bills - bill)
                             bill.message_post(
-                            subject=_("GSTR-2B Reconciliation"),
-                            body=_("Referance number is same other bills: %s", other_bills))
+                                subject=_("GSTR-2B Reconciliation"),
+                                body=_(
+                                    "The reference number is the same as on other bills: %(other_bills)s",
+                                    other_bills=other_bills
+                                )
+                            )
                         matched_bills.write({
-                            "l10n_in_exception": "We find same referance in other bills. For more details check message in chatter.",
+                            "l10n_in_exception": _("We have found the same reference in other bills. For more details, please check the message in Chatter."),
                             'l10n_in_gstr2b_reconciliation_status': "bills_not_in_gstr2",
                             "l10n_in_gst_return_period_id": self.id,
                         })
@@ -1634,7 +1644,8 @@ class L10nInGSTReturnPeriod(models.Model):
                         "message_ids":[(0, 0, {
                             'model': 'account.move',
                             'body': _(
-                                "This Bill is Created from GSTR2B Reconciliation because no bill matched with given details"
+                                "This bill was created from the GSTR-2B reconciliation because "
+                                "no existing bill matched with the given details."
                             ),
                             'attachment_ids': _create_attachment(
                                 self.env['account.move'],
@@ -1787,7 +1798,7 @@ class L10nInGSTReturnPeriod(models.Model):
         else:
             self.sudo().write({
                 "gstr2b_blocking_level": "error",
-                "gstr2b_error": "Shomehow this GSTR2B attachment is not json",
+                "gstr2b_error": _("Somehow, the attached GSTR2B file is not in JSON format."),
             })
 
     # ===============================
