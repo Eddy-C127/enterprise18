@@ -3,8 +3,9 @@
 
 import uuid
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools.image import base64_to_image
 
 
 class SocialPostTemplate(models.Model):
@@ -83,7 +84,7 @@ class SocialPostTemplate(models.Model):
             if jpeg_images and not non_jpeg_images:
                 for jpeg_image in jpeg_images:
                     try:
-                        image = tools.base64_to_image(jpeg_image.with_context(bin_size=False).datas)
+                        image = base64_to_image(jpeg_image.with_context(bin_size=False).datas)
                     except UserError:
                         # image could not be loaded
                         error_code = 'corrupted'
