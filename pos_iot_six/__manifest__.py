@@ -6,7 +6,10 @@
     'category': 'Sales/Point Of Sale',
     'summary': 'Integrate your POS with a Six payment terminal through IoT',
     'data': [
+        'wizard/add_six_terminal_views.xml',
         'views/pos_payment_method_views.xml',
+        'views/iot_box_views.xml',
+        'security/ir.model.access.csv'
     ],
     'depends': ['pos_iot'],
     'installable': True,
