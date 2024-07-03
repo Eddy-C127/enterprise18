@@ -311,6 +311,20 @@ test("Re-insert a list correctly ask for lines number", async function () {
     });
 });
 
+test("Validates input and shows error message when input is invalid", async function () {
+    const { model, env } = await createSpreadsheetFromListView();
+    selectCell(model, "Z1");
+
+    await doMenuAction(topbarMenuRegistry, ["data", "reinsert_list", "reinsert_list_1"], env);
+    await animationFrame();
+
+    await contains(".modal-body input").edit("");
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+
+    await contains(".modal-body span.text-danger", { count: 1 });
+    expect(".modal-body span.text-danger").toHaveText("Please enter a valid number.");
+});
+
 test("Re-insert a list with a selected number of records", async function () {
     const { model, env } = await createSpreadsheetFromListView();
     selectCell(model, "Z1");
