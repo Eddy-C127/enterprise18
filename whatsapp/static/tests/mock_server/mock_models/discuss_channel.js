@@ -64,10 +64,14 @@ export class DiscussChannel extends mailModels.DiscussChannel {
                 memberCount: DiscussChannelMember.search_count([["channel_id", "=", channel.id]]),
                 model: "discuss.channel",
             });
-            broadcast_store.add(DiscussChannelMember.browse(selfMemberId));
+            broadcast_store.add(
+                DiscussChannelMember.browse(selfMemberId).map((record) => record.id)
+            );
             BusBus._sendone(channel, "mail.record/insert", broadcast_store.get_result());
         }
-        return new mailDataHelpers.Store(DiscussChannel.browse(channel.id)).get_result();
+        return new mailDataHelpers.Store(
+            DiscussChannel.browse(channel.id).map((record) => record.id)
+        ).get_result();
     }
     /**
      * @override
