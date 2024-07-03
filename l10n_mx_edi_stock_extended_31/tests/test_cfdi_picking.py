@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from dateutil.relativedelta import relativedelta
 
 from odoo import Command
@@ -72,7 +71,10 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                     'partner_id': self.partner_us.id,
                     'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended_30.l10n_mx_edi_customs_document_type_02').id,
                     'l10n_mx_edi_customs_doc_identification': '0123456789',
-                    'l10n_mx_edi_customs_regime_id': self.custom_regime_exd.id,
+                    'l10n_mx_edi_customs_regime_ids': [Command.set([
+                        self.custom_regime_imd.id,
+                        self.custom_regime_exd.id,
+                    ])],
                 },
             )
 
@@ -93,8 +95,11 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                     'partner_id': self.partner_us.id,
                     'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended_30.l10n_mx_edi_customs_document_type_01').id,
                     'l10n_mx_edi_importer_id': self.partner_mx.id,
-                    'l10n_mx_edi_customs_regime_id': self.custom_regime_imd.id,
                     'l10n_mx_edi_pedimento_number': "15  48  3009  0001234",
+                    'l10n_mx_edi_customs_regime_ids': [Command.set([
+                        self.custom_regime_imd.id,
+                        self.custom_regime_exd.id,
+                    ])],
                 },
             )
 
@@ -102,3 +107,54 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                 picking.l10n_mx_edi_cfdi_try_send()
 
             self._assert_picking_cfdi(picking, 'test_delivery_guide_comex_incoming')
+
+    def test_delivery_guide_hazardous_product_outgoing(self):
+        '''Test the delivery guide of an (1) hazardous product'''
+        self.product.write({
+            'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_12352120').id,
+            'l10n_mx_edi_hazardous_material_code': '1052',
+            'l10n_mx_edi_hazard_package_type': '1H1',
+        })
+        with self.mx_external_setup(self.frozen_today):
+            warehouse = self._create_warehouse()
+            picking = self._create_picking(warehouse)
+
+            with self.with_mocked_pac_sign_success():
+                picking.l10n_mx_edi_cfdi_try_send()
+
+            self._assert_picking_cfdi(picking, 'test_delivery_guide_hazardous_product_outgoing')
+
+    def test_delivery_guide_maybe_hazardous_product_outgoing_0(self):
+        '''Test the delivery guide of a maybe (0,1) hazardous product
+           Instance not hazardous
+        '''
+        self.product.write({
+            'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_12352106').id,
+            'l10n_mx_edi_hazardous_material_code': '0',
+        })
+        with self.mx_external_setup(self.frozen_today):
+            warehouse = self._create_warehouse()
+            picking = self._create_picking(warehouse)
+
+            with self.with_mocked_pac_sign_success():
+                picking.l10n_mx_edi_cfdi_try_send()
+
+            self._assert_picking_cfdi(picking, 'test_delivery_guide_maybe_hazardous_product_outgoing_0')
+
+    def test_delivery_guide_maybe_hazardous_product_outgoing_1(self):
+        '''Test the delivery guide of a maybe (0,1) hazardous product
+           Instance hazardous
+        '''
+        self.product.write({
+            'unspsc_code_id': self.env.ref('product_unspsc.unspsc_code_12352106').id,
+            'l10n_mx_edi_hazardous_material_code': '1052',
+            'l10n_mx_edi_hazard_package_type': '1H1',
+        })
+        with self.mx_external_setup(self.frozen_today):
+            warehouse = self._create_warehouse()
+            picking = self._create_picking(warehouse)
+
+            with self.with_mocked_pac_sign_success():
+                picking.l10n_mx_edi_cfdi_try_send()
+
+            self._assert_picking_cfdi(picking, 'test_delivery_guide_maybe_hazardous_product_outgoing_1')

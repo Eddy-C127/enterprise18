@@ -2036,11 +2036,19 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         cfdi = self.env['ir.qweb']._render(qweb_template, cfdi_values)
 
         if 'cartaporte_30' in qweb_template:
-            # Since we are inheriting version 2.0 of the Carta Porte template,
-            # we need to update both the namespace prefix and its URI to version 3.0.
-            cfdi = str(cfdi) \
-                .replace('cartaporte20', 'cartaporte30') \
-                .replace('CartaPorte20', 'CartaPorte30')
+            # Due to the multiple inherits and position="replace" used in the XML templates,
+            # we need to manually rearrange the order of the CartaPorte node's children using lxml etree.
+            carta_porte_20_etree = etree.fromstring(str(cfdi))
+            carta_porte_element = carta_porte_20_etree.find('.//{*}CartaPorte')
+            regimenes_aduanero_element = carta_porte_element.find('.//{*}RegimenesAduaneros')
+            if regimenes_aduanero_element is not None:
+                carta_porte_element.remove(regimenes_aduanero_element)
+                carta_porte_element.insert(0, regimenes_aduanero_element)
+            carta_porte_20 = etree.tostring(carta_porte_20_etree).decode()
+
+            # Since we are inheriting versions 2.0 and 3.0 of the Carta Porte template,
+            # we need to update both the namespace prefix and its URI to version 3.1.
+            cfdi = re.sub(r'([cC]arta[pP]orte)[23]0', r'\g<1>31', carta_porte_20)
 
         cfdi_infos = self.env['l10n_mx_edi.document']._decode_cfdi_attachment(cfdi)
         cfdi_cadena_crypted = certificate._get_encrypted_cadena(cfdi_infos['cadena'])

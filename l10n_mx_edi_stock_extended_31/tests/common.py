@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
 from odoo import Command
 from odoo.addons.l10n_mx_edi_extended.tests.common import TestMxExtendedEdiCommon
 
 
 class TestMXEdiStockCommon(TestMxExtendedEdiCommon):
-
     @classmethod
     def setUpClass(cls, chart_template_ref='mx'):
         super().setUpClass(chart_template_ref=chart_template_ref)
@@ -40,6 +38,8 @@ class TestMXEdiStockCommon(TestMxExtendedEdiCommon):
             'vehicle_config': 'T3S1',
             'vehicle_licence': 'ABC123',
             'trailer_ids': [Command.create({'name': 'trail1', 'sub_type': 'CTR003'})],
+            'environment_insurer': 'DEMO INSURER',
+            'environment_insurance_policy': 'DEMO INSURER POLICY',
             'figure_ids': [
                 Command.create({
                     'type': '01',
