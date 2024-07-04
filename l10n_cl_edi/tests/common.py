@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import base64
 import logging
+import os
+
+from dateutil.relativedelta import relativedelta
 
 from odoo.addons.account_edi.tests.common import AccountEdiTestCommon
 
 from odoo import fields
-from odoo.tests import tagged
-from odoo.tools import misc, os, relativedelta
+from odoo.tools import misc
 
 _logger = logging.getLogger(__name__)
 

@@ -1,4 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import json
 import re
 from contextlib import contextmanager
 from unittest.mock import patch, DEFAULT
@@ -16,7 +17,6 @@ from odoo.addons.l10n_br_edi.tests.data_invoice_1 import (
 from .mocked_successful_status_response import RESPONSE as SUCCESSFUL_STATUS_RESPONSE
 from odoo.exceptions import UserError, ValidationError, AccessError
 from odoo.tests import tagged
-from odoo.tools import json
 
 
 @tagged("post_install_l10n", "post_install", "-at_install")

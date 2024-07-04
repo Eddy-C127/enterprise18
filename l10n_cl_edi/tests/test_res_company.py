@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
+import os.path
 
 from odoo import fields
 from odoo.exceptions import UserError
 from odoo.tests import TransactionCase, tagged
-from odoo.tools import misc, os
+from odoo.tools import misc
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

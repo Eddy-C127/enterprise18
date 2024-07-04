@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from dateutil.relativedelta import relativedelta
 
 from odoo import  models, api, fields
-from odoo.tools.date_utils import relativedelta
 from odoo.tools import format_date, clean_context
 
 

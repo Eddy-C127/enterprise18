@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import base64
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import fields, Command
 from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
 
-from odoo.tools import misc, relativedelta
+from odoo.tools import misc
 
 
 class TestL10nClEdiStockCommon(ValuationReconciliationTestCommon):

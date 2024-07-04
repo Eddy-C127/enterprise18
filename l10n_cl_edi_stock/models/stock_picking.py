@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import logging
 import base64
+import io
+import logging
 import re
 
 from lxml import etree
@@ -11,7 +12,6 @@ from odoo import models, fields, _
 from odoo.addons.l10n_cl_edi.models.l10n_cl_edi_util import UnexpectedXMLResponse
 from odoo.exceptions import UserError
 from odoo.tools import float_repr, html_escape
-from odoo.tools import BytesIO
 
 _logger = logging.getLogger(__name__)
 
@@ -435,7 +435,7 @@ class Picking(models.Model):
 
     def _pdf417_barcode(self, barcode_data):
         #  This method creates the graphic representation of the barcode
-        barcode_file = BytesIO()
+        barcode_file = io.BytesIO()
         if pdf417gen is None:
             return False
         bc = pdf417gen.encode(barcode_data, security_level=5, columns=13)

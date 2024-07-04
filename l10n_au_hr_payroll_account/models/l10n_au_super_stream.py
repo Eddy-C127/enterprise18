@@ -2,9 +2,10 @@
 
 import io
 import base64
+from operator import itemgetter
 
 from odoo import api, fields, models, _
-from odoo.tools import format_list, groupby, itemgetter, pycompat
+from odoo.tools import format_list, groupby, pycompat
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare
 
