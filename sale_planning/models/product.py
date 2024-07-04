@@ -7,7 +7,13 @@ from odoo.exceptions import ValidationError
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    planning_enabled = fields.Boolean('Plan Services', help='If enabled, a shift will automatically be generated for the selected role when confirming the Sales Order. Only employees with this role will automatically be assigned shifts for Sales Orders containing this service.')
+    planning_enabled = fields.Boolean(
+        'Plan Services',
+        help="""If enabled, a shift will automatically be generated for the selected role when confirming the Sales Order. \
+                With the 'auto plan' feature, only employees with this role will be automatically assigned shifts for Sales Orders containing this service. \
+                The system will consider employee availability and the remaining time to be planned. \
+                You can also manually schedule open shifts for your Sales Order or assign them to any employee you prefer.""",
+    )
     planning_role_id = fields.Many2one('planning.role')
 
     @api.constrains('planning_enabled', 'uom_id')
