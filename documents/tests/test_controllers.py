@@ -173,8 +173,10 @@ class TestDocumentsRoutes(HttpCaseWithUserDemo):
     def test_upload_attachment_public(self):
         """Check the upload and notifications for public users."""
         files = [('files', ('test.txt', b'test', 'image/svg+xml'))]
+        # Authenticate to set `self.session` for `http.Request.csrf_token(self)`. Use `None` to simulate public auth. + self.authenticate(None, None)
+        self.authenticate(None, None)
         response = self.url_open(
-            f'/document/upload/{self.share_folder_b.id}/{self.share_folder_b.access_token}', files=files
+            f'/document/upload/{self.share_folder_b.id}/{self.share_folder_b.access_token}', files=files, data={'csrf_token': http.Request.csrf_token(self)}
         )
         document = self.env['documents.document'].search([('folder_id', '=', self.folder_b.id)])
         self.assertEqual(response.status_code, 200)
@@ -194,7 +196,7 @@ class TestDocumentsRoutes(HttpCaseWithUserDemo):
         files = [('files', ('test.txt', b'test', 'text/plain'))]
         demo_session = self.authenticate('demo', 'demo')
         demo_user = self.env['res.users'].browse(demo_session.uid)
-        self.url_open(f'/document/upload/{self.share_folder_b.id}/{self.share_folder_b.access_token}', files=files)
+        self.url_open(f'/document/upload/{self.share_folder_b.id}/{self.share_folder_b.access_token}', files=files, data={'csrf_token': http.Request.csrf_token(self)})
         document = self.env['documents.document'].search([('folder_id', '=', self.folder_b.id)])
 
         file_uploaded_note = document.message_ids[0]

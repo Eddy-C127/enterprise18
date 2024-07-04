@@ -388,7 +388,7 @@ class ShareRoute(http.Controller):
     # Upload file(s) route.
     @http.route(["/document/upload/<int:share_id>/<token>/",
                  "/document/upload/<int:share_id>/<token>/<int:document_id>"],
-                type='http', auth='public', methods=['POST'], csrf=False)
+                type='http', auth='public', methods=['POST'])
     def upload_attachment(self, share_id, token, document_id=None, **kwargs):
         """
         Allows public upload if provided with the right token and share_Link.

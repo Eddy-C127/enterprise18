@@ -89,6 +89,7 @@
                             <form class="o_docs_upload_wrapper position-relative d-inline-block" t-if="upload" enctype="multipart/form-data" t-attf-action="/document/upload/#{share_id}/#{token}" method="POST">
                                 <button title="Upload" class="btn btn-primary"><i class="fa fa-upload"/>  Upload</button>
                                 <input name="files" multiple="multiple" type="file" onchange="form.submit()"/>
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                             </form>
                         </div>
                         <div>
@@ -107,6 +108,7 @@
                             <figure class="o_card_left d-flex position-relative flex-column flex-nowrap justify-content-between m-0">
                                 <form t-if="request_upload and document_request" class="o_hidden" enctype="multipart/form-data" t-attf-action="/document/upload/#{share_id}/#{token}/#{document.id}" method="POST">
                                     <input name="requestFile" class="o_request_upload" type="file" onchange="form.submit()"/>
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 </form>
                                 <div t-if="document_request" onclick="document.querySelector('.o_request_upload').click()" t-attf-class="d-flex align-items-center justify-content-center o_request_icon #{request_upload and 'o_request_allowed' or ''}">
                                     <i class="fa fa-upload fa-2x"/>
@@ -145,6 +147,7 @@
                         <form class="o_docs_upload_wrapper position-relative d-inline-block" t-if="upload" enctype="multipart/form-data" t-attf-action="/document/upload/#{share_id}/#{token}" method="POST">
                             <button title="Upload" class="btn btn-primary"><i class="fa fa-upload"/>  Upload</button>
                             <input name="files" multiple="multiple" type="file" onchange="form.submit()"/>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         </form>
                     </div>
                     <div>
@@ -210,6 +213,7 @@
                     <figure class="o_card_left d-flex position-relative flex-column flex-nowrap justify-content-between m-0">
                         <form class="o_hidden" enctype="multipart/form-data" t-attf-action="/document/upload/#{share_id}/#{token}/#{document_ids.id}" method="POST">
                             <input name="requestFile" class="o_request_upload" type="file" onchange="form.submit()"/>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         </form>
                         <div onclick="document.querySelector('.o_request_upload').click()"
                             class="d-flex align-items-center justify-content-center o_request_icon o_request_allowed">
