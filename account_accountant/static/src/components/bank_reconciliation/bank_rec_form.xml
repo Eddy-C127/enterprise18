@@ -21,7 +21,7 @@
                     t-on-click="(ev) => this.actionReset()">
                 <span>Reset</span>
             </button>
-            <button accesskey="c"
+            <button accesskey="e"
                     class="btn btn-secondary"
                     t-if="!data.st_line_to_check and areAllLinesValid"
                     t-on-click="(ev) => this.actionToCheck()">
@@ -31,7 +31,7 @@
                     t-if="!data.st_line_to_check and !areAllLinesValid">
                 <span>To Check</span>
             </button>
-            <button accesskey="c"
+            <button accesskey="e"
                     class="btn btn-secondary"
                     t-if="data.st_line_to_check"
                     t-on-click="(ev) => this.actionSetAsChecked()">
@@ -58,6 +58,7 @@
 
                         <t t-if="reco_model_index lt 5 or is_selected">
                             <button
+                                t-att-accesskey="'SHIFT+'+(reco_model_index + 1)"
                                 t-on-click="() => this.actionSelectRecoModel(reco_model)"
                                 class="btn recon_model_button me-1 my-1"
                                 t-att-class="{'btn-secondary': !is_selected, 'btn-primary': is_selected}"
