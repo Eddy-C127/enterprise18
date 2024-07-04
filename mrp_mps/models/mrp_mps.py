@@ -336,6 +336,8 @@ class MrpProductionSchedule(models.Model):
             mps_ids.insert(i, mps_id)
         mps = self.browse(mps_ids)
 
+        mps._assign_mps_sequence()
+
         components_list = set()
         components_vals = []
         for record in mps:
@@ -345,7 +347,7 @@ class MrpProductionSchedule(models.Model):
             dummy, components = bom.explode(record.product_id, 1)
             for component in components:
                 if component[0].product_id.is_storable:
-                    components_list.add((component[0].product_id.id, record.warehouse_id.id, record.company_id.id, record.mps_sequence))
+                    components_list.add((component[0].product_id.id, record.warehouse_id.id, record.company_id.id))
         for component in components_list:
             if self.env['mrp.production.schedule'].search_count([
                 ('product_id', '=', component[0]),
@@ -359,11 +361,44 @@ class MrpProductionSchedule(models.Model):
                 'company_id': component[2],
                 'is_indirect': True,
                 'replenish_trigger': 'never',
-                'mps_sequence': component[3] + 1
             })
         if components_vals:
             self.env['mrp.production.schedule'].create(components_vals)
         return mps
+
+    def _assign_mps_sequence(self):
+        """ Determine the sequence of the new MPS records as well as any existing record they impact.
+        Will parse the indirect_demand_trees for each record and see at what level the corresponding product is found.
+        The final order will be as follow:
+        - final product 1
+        - final product 2
+        - final product 3
+            - semi-finished product 1
+            - semi-finished product 2
+            - semi-finished product 3
+                - component 1
+                - component 2
+                - component 3
+        """
+        schedules_to_compute = self.browse(self.get_impacted_schedule()) | self
+        indirect_demand_trees = schedules_to_compute._get_indirect_demand_tree()
+
+        def _get_level_dict(nodes_to_check, level_dict=False, current_level=0):
+            if not level_dict:
+                level_dict = {}
+            next_nodes = []
+            for node in nodes_to_check:
+                if node.product not in level_dict:
+                    level_dict[node.product] = current_level
+                next_nodes += node.children
+            if next_nodes:
+                return _get_level_dict(next_nodes, level_dict, current_level + 1)
+            return level_dict
+
+        level_by_product = _get_level_dict(indirect_demand_trees)
+
+        for mps in schedules_to_compute:
+            mps.mps_sequence = 10 + level_by_product[mps.product_id]
 
     def get_production_schedule_view_state(self):
         """ Prepare and returns the fields used by the MPS client action.

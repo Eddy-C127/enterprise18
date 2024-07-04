@@ -816,10 +816,70 @@ class TestMpsMps(common.TransactionCase):
     def test_mps_sequence(self):
         """ Test that products added automatically have a higher sequence than their parent. """
         self.assertEqual(self.mps_table.mps_sequence, 10)
+        self.assertEqual(self.mps_chair.mps_sequence, 10)
+        self.assertEqual(self.mps_wardrobe.mps_sequence, 10)
         self.assertEqual(self.mps_table_leg.mps_sequence, 11)
         self.assertEqual(self.mps_drawer.mps_sequence, 11)
         self.assertEqual(self.mps_screw.mps_sequence, 12)
         self.assertEqual(self.mps_bolt.mps_sequence, 12)
+
+    def test_mps_sequence_2(self):
+        shelf = self.env['product.product'].create({
+            'name': 'shelf',
+            'is_storable': True,
+        })
+        plank = self.env['product.product'].create({
+            'name': 'plank',
+            'is_storable': True,
+        })
+        wood = self.env['product.product'].create({
+            'name': 'wood',
+            'is_storable': True,
+        })
+        bom_shelf = self.env['mrp.bom'].create({
+            'product_id': shelf.id,
+            'product_tmpl_id': shelf.product_tmpl_id.id,
+            'product_uom_id': shelf.uom_id.id,
+            'consumption': 'flexible',
+            'product_qty': 1.0,
+            'type': 'normal',
+            'bom_line_ids': [
+                Command.create({'product_id': plank.id, 'product_qty': 2}),
+                Command.create({'product_id': self.screw.id, 'product_qty': 3}),
+            ],
+        })
+        bom_plank = self.env['mrp.bom'].create({
+            'product_id': plank.id,
+            'product_tmpl_id': plank.product_tmpl_id.id,
+            'product_uom_id': plank.uom_id.id,
+            'consumption': 'flexible',
+            'product_qty': 1.0,
+            'type': 'normal',
+            'bom_line_ids': [
+                Command.create({'product_id': wood.id, 'product_qty': 2}),
+            ],
+        })
+        mps_wood = self.env['mrp.production.schedule'].create({
+            'product_id': wood.id,
+            'warehouse_id': self.warehouse.id,
+        })
+        self.assertEqual(mps_wood.mps_sequence, 10)
+        mps_shelf = self.env['mrp.production.schedule'].create({
+            'product_id': shelf.id,
+            'warehouse_id': self.warehouse.id,
+            'bom_id': bom_shelf.id
+        })
+        self.assertEqual(mps_shelf.mps_sequence, 10)
+        self.assertEqual(self.mps_screw.mps_sequence, 11)
+        self.assertEqual(mps_wood.mps_sequence, 12)
+
+        mps_plank = self.env['mrp.production.schedule'].create({
+            'product_id': plank.id,
+            'warehouse_id': self.warehouse.id,
+            'bom_id': bom_plank.id
+        })
+        self.assertEqual(mps_plank.mps_sequence, 11)
+        self.assertEqual(mps_wood.mps_sequence, 12)
 
     def test_is_indirect(self):
         """ Test that products added automatically are flagged as indirect demand products. """
