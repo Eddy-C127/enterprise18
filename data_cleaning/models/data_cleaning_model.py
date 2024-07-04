@@ -144,6 +144,7 @@ class DataCleaningModel(models.Model):
                                     res_id = %(table)s.id
                                     AND cleaning_model_id = %(cleaning_model_id)s)
                             %(active_cond)s
+                        ORDER BY id
                         """,
                         table=table,
                         field=(field := active_model._field_to_sql(active_model._table, field_name)),
