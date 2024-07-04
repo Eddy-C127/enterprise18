@@ -26,7 +26,7 @@
             <attribute name="t-if">(not task.is_fsm and timesheets and allow_timesheets) or (task.is_fsm and task.allow_worksheets and task.worksheet_count)</attribute>
         </xpath>
         <xpath expr="//div[@id='nav-report']" position="before">
-            <div t-if="task.is_fsm and (task.display_sign_report_primary or task.display_sign_report_secondary)" class="d-grid flex-grow-1 align-items-center mb-2">
+            <div t-if="(task.is_fsm or task.allow_worksheets) and (task.display_sign_report_primary or task.display_sign_report_secondary)" class="d-grid flex-grow-1 align-items-center mb-2">
                 <t t-call="industry_fsm.portal_task_sign_button"/>
             </div>
         </xpath>
