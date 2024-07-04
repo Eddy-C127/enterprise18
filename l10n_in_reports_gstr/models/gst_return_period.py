@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import json
+import re
 from babel.dates import get_quarter_names
 from datetime import datetime, timedelta
 from dateutil import relativedelta
@@ -1547,6 +1548,13 @@ class L10nInGSTReturnPeriod(models.Model):
                 "mimetype": "application/json",
                 })
 
+        def _remove_special_characters(ref):
+            """Remove special characters from bill reference numbers."""
+            if not ref:
+                return ref
+            pattern = re.compile(r'[^a-zA-Z0-9]')
+            return pattern.sub('', ref)
+
         def match_bills(gstr2b_streamline_bills, matching_dict):
             create_vals = []
             checked_bills = self.env['account.move']
@@ -1554,8 +1562,9 @@ class L10nInGSTReturnPeriod(models.Model):
                 amount = gstr2b_bill.get('bill_total')
                 if gstr2b_bill.get('bill_taxable_value'):
                     amount = gstr2b_bill.get('bill_taxable_value')
+                sanitized_ref = _remove_special_characters(gstr2b_bill.get('bill_number'))
                 matching_keys = _get_matching_keys(
-                    gstr2b_bill.get('bill_number'), gstr2b_bill.get('vat'), gstr2b_bill.get('bill_date'),
+                    sanitized_ref, gstr2b_bill.get('vat'), gstr2b_bill.get('bill_date'),
                     gstr2b_bill.get('bill_type'), amount)
                 matched_bills = False
                 for matching_key in matching_keys:
@@ -1716,7 +1725,10 @@ class L10nInGSTReturnPeriod(models.Model):
                     amount = bill.amount_untaxed
                 if bill.move_type == 'in_refund':
                     bill_type = 'credit_note'
-                matching_keys = _get_matching_keys(bill.ref, bill.partner_id.vat, bill.invoice_date, bill_type, amount)
+                # Sanitize the reference to remove any special characters, ensuring it is suitable for matching
+                sanitized_ref = _remove_special_characters(bill.ref)
+                # Retrieve matching keys based on the sanitized reference, partner VAT, invoice date, bill type, and amount
+                matching_keys = _get_matching_keys(sanitized_ref, bill.partner_id.vat, bill.invoice_date, bill_type, amount)
                 for matching_key in matching_keys:
                     matching_dict.setdefault(matching_key, AccountMove)
                     matching_dict[matching_key] += bill
