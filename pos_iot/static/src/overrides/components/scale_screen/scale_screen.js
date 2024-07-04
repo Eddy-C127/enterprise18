@@ -67,7 +67,21 @@ patch(ScaleScreen.prototype, {
                 body: data.status.message_body,
             });
         } else {
-            this.state.weight = data.value;
+            if (this.state.tareLoading) {
+                this.state.tare = data.value;
+                setTimeout(() => {
+                    this.state.tareLoading = false;
+                }, 3000);
+            } else {
+                this.state.weight = data.value;
+            }
         }
+    },
+    /**
+     * @override
+     */
+    async handleTareButtonClick() {
+        this.state.tareLoading = true;
+        this._readScale();
     },
 });
