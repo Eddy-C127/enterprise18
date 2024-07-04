@@ -107,7 +107,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
         request.session['my_subscriptions_history'] = orders.ids[:100]
 
         values.update({
-            'subscriptions': orders,
+            'subscriptions': orders if not order_id else orders.with_context(force_sale_url=True),
             'page_name': 'subscription',
             'pager': pager,
             'default_url': '/my/subscriptions',

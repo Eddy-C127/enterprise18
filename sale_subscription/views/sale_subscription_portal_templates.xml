@@ -369,7 +369,7 @@
     <!-- Modify portal templates -->
     <template id="portal_my_home_menu_subscription" name="Portal layout : subscription menu entry" inherit_id="sale.portal_my_home_menu_sale" priority="10">
          <li id="portal_breadcrumbs_sale" position="after">
-             <li t-elif="page_name == 'subscription' or sale_order and sale_order.is_subscription" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
+             <li t-elif="page_name == 'subscription'" t-attf-class="breadcrumb-item #{'active ' if not sale_order else ''}">
                 <a t-if="sale_order" t-attf-href="/my/subscriptions?{{ keep_query() }}">Subscriptions</a>
                 <t t-else="">Subscriptions</t>
             </li>
