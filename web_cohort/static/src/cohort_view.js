@@ -8,9 +8,6 @@ import { CohortModel } from "./cohort_model";
 
 export const cohortView = {
     type: "cohort",
-    display_name: "Cohort",
-    icon: "oi oi-view-cohort",
-    multiRecord: true,
     buttonTemplate: "web_cohort.CohortView.Buttons",
     searchMenuTypes: ["filter", "comparison", "favorite"],
     Model: CohortModel,

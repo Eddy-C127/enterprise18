@@ -9,19 +9,16 @@ import { MapRenderer } from "./map_renderer";
 
 export const mapView = {
     type: "map",
-    display_name: _t("Map"),
-    icon: "fa fa-map-marker",
-    multiRecord: true,
     Controller: MapController,
     Renderer: MapRenderer,
     Model: MapModel,
     ArchParser: MapArchParser,
-    buttonTemplate:  "web_map.MapView.Buttons",
+    buttonTemplate: "web_map.MapView.Buttons",
 
     props: (genericProps, view, config) => {
         let modelParams = genericProps.state;
         if (!modelParams) {
-            const { arch,  resModel, fields, context} = genericProps;
+            const { arch, resModel, fields, context } = genericProps;
             const parser = new view.ArchParser();
             const archInfo = parser.parse(arch);
             const views = config.views || [];
@@ -39,8 +36,7 @@ export const mapView = {
                 limit: archInfo.limit || 80,
                 numbering: archInfo.routing || false,
                 offset: 0,
-                panelTitle:
-                    archInfo.panelTitle || config.getDisplayName() || _t("Items"),
+                panelTitle: archInfo.panelTitle || config.getDisplayName() || _t("Items"),
                 resModel: resModel,
                 resPartnerField: archInfo.resPartnerField,
                 routing: archInfo.routing || false,
