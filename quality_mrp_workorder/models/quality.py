@@ -72,6 +72,10 @@ class QualityCheck(models.Model):
         self.ensure_one()
         return super()._check_to_unlink() and not self.workorder_id
 
+    def _update_lot_from_lot_line(self):
+        self.ensure_one()
+        return super()._update_lot_from_lot_line() and (not self.production_id or self.move_id.picking_type_id.prefill_lot_tablet)
+
     def action_pass_and_next(self):
         self.ensure_one()
         super().do_pass()

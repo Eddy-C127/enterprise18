@@ -41,8 +41,7 @@ class QualityCheck(models.Model):
         return super(QualityCheck, op_level_comp_qc)._compute_lot_line_id()
 
     def _update_lot_from_lot_line(self):
-        self.ensure_one()
-        return super()._update_lot_from_lot_line() and (not self.production_id or self.move_id.picking_type_id.prefill_lot_tablet)
+        return super()._update_lot_from_lot_line()
 
     def _can_move_line_to_failure_location(self):
         self.ensure_one()
