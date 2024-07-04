@@ -217,7 +217,7 @@ class WebStudioController(http.Controller):
         menu_values.update(self._get_icon_fields(icon))
         menu_values['child_id'] = child_menu_vals
 
-        new_menu = request.env['ir.ui.menu'].with_context(**{'ir.ui.menu.full_list': True}).create(menu_values)
+        new_menu = request.env['ir.ui.menu'].with_context(**{'ir.ui.menu.full_list': True, 'studio': True}).create(menu_values)
 
         return {
             'menu_id': new_menu.id,
@@ -266,7 +266,7 @@ class WebStudioController(http.Controller):
             action_ref = 'ir.actions.act_url,' + str(action.id)
 
         # create the submenu
-        new_menu = request.env['ir.ui.menu'].create({
+        new_menu = request.env['ir.ui.menu'].with_context(studio=True).create({
             'name': menu_name,
             'action': action_ref,
             'parent_id': parent_menu_id,
@@ -382,7 +382,7 @@ class WebStudioController(http.Controller):
             for k, v in values.items()
             if k in request.env['ir.model.fields']._fields
         }
-        new_field = request.env['ir.model.fields'].create(values)
+        new_field = request.env['ir.model.fields'].with_context(studio=True).create(values)
 
         if default_value:
             if new_field.ttype == 'selection':
@@ -435,7 +435,7 @@ class WebStudioController(http.Controller):
                             # reuse the same view_id in the corresponding view_ids record
                             vals['view_id'] = action_id.view_id.id
 
-                        request.env['ir.actions.act_window.view'].create(vals)
+                        request.env['ir.actions.act_window.view'].with_context(studio=True).create(vals)
 
                     for view_id in action_id.view_ids:
                         if view_id.view_mode in view_modes:
@@ -744,7 +744,7 @@ class WebStudioController(http.Controller):
         default_prio = view._fields["priority"].default(view)
         if priority <= default_prio:
             priority = 99
-        return request.env['ir.ui.view'].create({
+        return request.env['ir.ui.view'].with_context(studio=True).create({
             'type': view.type,
             'model': view.model,
             'inherit_id': view.id,
@@ -813,7 +813,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
     def create_default_view(self, model, view_type, attrs):
         attrs['string'] = "Default %s view for %s" % (view_type, model)
         arch = self._get_default_view(view_type, attrs)
-        request.env['ir.ui.view'].create({
+        request.env['ir.ui.view'].with_context(studio=True).create({
             'type': view_type,
             'model': model,
             'arch': arch,
@@ -1016,7 +1016,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
                     'field': field.name,
                     'count_field': button_count_field_name,
                 }
-            button_count_field = request.env['ir.model.fields'].create({
+            button_count_field = request.env['ir.model.fields'].with_context(studio=True).create({
                 'name': button_count_field_name,
                 'field_description': '%s count' % field.field_description,
                 'model': model.model,
@@ -1036,7 +1036,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
         ])
         if not button_action:
             # Link the button with an associated act_window
-            button_action = request.env['ir.actions.act_window'].create({
+            button_action = request.env['ir.actions.act_window'].with_context(studio=True).create({
                 'name': button_name,
                 'res_model': field.model,
                 'view_mode': 'tree,form',
@@ -1085,7 +1085,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
                     options['color_field'] = 'color'
                 else:
                     if 'x_color' not in related_model_id.field_id.mapped('name'):
-                        request.env['ir.model.fields'].create({
+                        request.env['ir.model.fields'].with_context(studio=True).create({
                             'model': related_model_id.name,
                             'model_id': related_model_id.id,
                             'name': 'x_color',
@@ -1303,7 +1303,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
         color_field_name = 'x_color'
         if not request.env['ir.model.fields'].search_count([('model_id', '=', model_id), ('name', '=', color_field_name), ('ttype', '=', 'integer')], limit=1):
             # create a field if it doesn't exist in the model
-            request.env['ir.model.fields'].create({
+            request.env['ir.model.fields'].with_context(studio=True).create({
                 'model': model,
                 'model_id': model_id,
                 'name': color_field_name,
@@ -1430,7 +1430,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             ])
             # create a field many2one x_studio_cover_image_id if it doesn't exist in the model
             if not field_id:
-                field_id = request.env['ir.model.fields'].create({
+                field_id = request.env['ir.model.fields'].with_context(studio=True).create({
                     'model': ir_model.model,
                     'model_id': ir_model.id,
                     'relation': 'ir.attachment',
@@ -1500,7 +1500,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             ])
             # create a field selection x_priority if it doesn't exist in the model
             if not field_id:
-                field_id = request.env['ir.model.fields'].create({
+                field_id = request.env['ir.model.fields'].with_context(studio=True).create({
                     'model': model,
                     'model_id': model_id,
                     'name': 'x_priority',
@@ -1547,7 +1547,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             ])
             # create a field selection x_avatar_image if it doesn't exist in the model
             if not field_id:
-                field_id = IrModelFields.create({
+                field_id = IrModelFields.with_context(studio=True).create({
                     'model': model,
                     'model_id': model_id,
                     'name': 'x_avatar_image',
@@ -1736,7 +1736,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
         if existing_alias:
             existing_alias.alias_name = alias_name
         elif alias_name:
-            request.env['mail.alias'].create({
+            request.env['mail.alias'].with_context(studio=True).create({
                 'alias_domain_id': current_alias_domain.id,
                 'alias_model_id': model_id,
                 'alias_name': alias_name,
