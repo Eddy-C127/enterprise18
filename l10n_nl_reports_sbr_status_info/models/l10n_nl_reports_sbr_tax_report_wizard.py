@@ -1,12 +1,11 @@
-from odoo import models, fields, api
-from lxml.etree import Element
+from odoo import models, fields
 
 
 class L10nNlTaxReportSBRWizard(models.TransientModel):
     _inherit = 'l10n_nl_reports_sbr.tax.report.wizard'
 
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company)
-    password = fields.Char(related='company_id.l10n_nl_reports_sbr_password', readonly=False, store=True)
+    password = fields.Char(default=lambda self: self.env.company.l10n_nl_reports_sbr_password, store=True)  # Deprecated
 
     def _additional_processing(self, options, kenmerk, closing_move):
         # OVERRIDE
@@ -19,15 +18,3 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
         })
         status_service_cron = self.env.ref('l10n_nl_reports_sbr_status_info.cron_l10n_nl_reports_status_process')
         status_service_cron._trigger()
-
-    @api.model
-    def _get_view(self, view_id=None, view_type='form', **options):
-        arch, view = super()._get_view(view_id, view_type, **options)
-        if view_type == 'form':
-            node = arch.find(".//field[@name='can_report_be_sent']...")
-            if node is not None:
-                pwd_element = Element('field')
-                pwd_element.set('name', 'company_id')
-                pwd_element.set('invisible', '1')
-                node.append(pwd_element)
-        return arch, view
