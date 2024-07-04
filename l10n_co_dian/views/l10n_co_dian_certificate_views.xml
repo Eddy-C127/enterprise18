@@ -42,11 +42,12 @@
         <field name="name">l10n_co_dian.certificate.view.tree</field>
         <field name="model">l10n_co_dian.certificate</field>
         <field name="arch" type="xml">
-            <tree string="certificate Tree">
+            <tree string="certificate Tree" delete="false">
                 <field name="serial_number"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <button string="Delete" icon="fa-remove" name="unlink" type="object" confirm="Are you sure you want to delete this record?"/>
             </tree>
         </field>
     </record>

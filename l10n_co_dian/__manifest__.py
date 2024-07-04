@@ -10,6 +10,7 @@
         'views/account_journal_views.xml',
         'views/account_move_views.xml',
         'views/l10n_co_dian_certificate_views.xml',
+        'views/l10n_co_dian_operation_mode.xml',
         'views/report_invoice.xml',
         'views/res_config_settings_views.xml',
         'views/templates.xml',

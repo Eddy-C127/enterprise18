@@ -654,14 +654,24 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         newest_date = now + timedelta(days=10)
         if not (oldest_date <= fields.Datetime.to_datetime(move.invoice_date) <= newest_date):
             constraints['dian_date'] = _("The issue date can not be older than 5 days or more than 5 days in the future.")
+        # required fields on invoice
+        if not move.l10n_co_dian_post_time:
+            constraints['l10n_co_dian_post_time'] = _("A posted time is required to compute the CUFE/CUDE/CUDS.")
         # required fields on company
-        mandatory_fields = ['l10n_co_dian_software_id', 'l10n_co_dian_software_security_code']
-        if move.company_id.l10n_co_dian_test_environment:
-            mandatory_fields.append('l10n_co_dian_testing_id')
-        for field in mandatory_fields:
-            constraints[f"dian_{field}"] = self._check_required_fields(move.company_id, field)
-        constraints["dian_certificates"] = self.sudo()._check_required_fields(move.company_id, field)
+        operation_mode = self._dian_get_operation_mode(move)
+        if not operation_mode:
+            constraints["dian_operation_modes"] = _("No DIAN Operation Mode Matches")
+        else:
+            mandatory_fields = ['dian_software_id', 'dian_software_operation_mode', 'dian_software_security_code']
+            if move.company_id.l10n_co_dian_test_environment:
+                mandatory_fields.append('dian_testing_id')
+            for field in mandatory_fields:
+                constraints[field] = self._check_required_fields(operation_mode, field)
+            if move.l10n_co_dian_identifier_type in ('cude', 'cuds') and not operation_mode.dian_software_security_code:
+                constraints['l10n_co_dian_identifier_type'] = _("The software PIN is required to compute the CUDE/CUDS.")
         # required fields on journal
+        if move.move_type == 'out_invoice' and not move.journal_id.l10n_co_dian_technical_key:
+            constraints['l10n_co_dian_technical_key'] = _("A technical key on the journal is required to compute the CUFE.")
         for field in ('l10n_co_edi_dian_authorization_number', 'l10n_co_edi_dian_authorization_date',
                       'l10n_co_edi_dian_authorization_end_date', 'l10n_co_edi_min_range_number',
                       'l10n_co_edi_max_range_number', 'l10n_co_dian_technical_key'):
@@ -809,15 +819,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
 
     def _dian_get_identifier_vals(self, invoice, invoice_vals):
         """ Returns the values used to compute the CUFE/CUDE/CUDS """
-        if not invoice.l10n_co_dian_post_time:
-            raise UserError(_("A posted time is required to compute the CUFE/CUDE/CUDS."))
-        if invoice.move_type == 'out_invoice' and not invoice.journal_id.l10n_co_dian_technical_key:
-            raise UserError(_("A technical key on the journal is required to compute the CUFE."))
-        if (
-            invoice.l10n_co_dian_identifier_type in ('cude', 'cuds')
-            and not invoice.company_id.l10n_co_dian_software_security_code
-        ):
-            raise UserError(_("The software PIN is required to compute the CUDE/CUDS."))
+        operation_mode = self._dian_get_operation_mode(invoice)
 
         def format_float(amount, precision_digits=invoice_vals['vals']['currency_dp']):
             return invoice_vals['format_float'](amount, precision_digits)
@@ -827,7 +829,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             return sum(ttvals['tax_amount'] for ttvals in invoice_vals['vals']['tax_total_vals'] if ttvals['tax_co_type'] == co_tax_code)
 
         if invoice.l10n_co_dian_identifier_type in ('cude', 'cuds'):
-            key = invoice.company_id.l10n_co_dian_software_security_code
+            key = operation_mode.dian_software_security_code
         else:
             key = invoice.journal_id.l10n_co_dian_technical_key
 
@@ -845,7 +847,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'ValTotFac': format_float(invoice_vals['vals']['monetary_total_vals']['payable_amount']),
             'supplier_company_id': invoice_vals['vals']['accounting_supplier_party_vals']['party_vals']['party_tax_scheme_vals'][0]['company_id'],
             'customer_company_id': invoice_vals['vals']['accounting_customer_party_vals']['party_vals']['party_tax_scheme_vals'][0]['company_id'],
-            'key': key,
+            'key': key or 'missing_key',
             'profile_execution_id': invoice_vals['vals']['profile_execution_id'],
         }
         if invoice.l10n_co_edi_is_support_document:
@@ -875,11 +877,11 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             url = 'https://catalogo-vpfe.dian.gov.co/document/searchqr?documentkey='
         return url + identifier
 
-    def _dian_get_security_code(self, invoice):
+    def _dian_get_security_code(self, invoice, operation_mode):
         """ Returns the value for the 'SoftwareSecurityCode' node """
         return sha384((
-            invoice.company_id.l10n_co_dian_software_id
-            + invoice.company_id.l10n_co_dian_software_security_code
+            operation_mode.dian_software_id
+            + operation_mode.dian_software_security_code
             + invoice.name
         ).encode()).hexdigest()
 
@@ -898,11 +900,19 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             return invoice.l10n_co_edi_operation_type
         return '10' if invoice.partner_id.country_code == 'CO' else '11'
 
+    def _dian_get_operation_mode(self, invoice):
+        """Looks for the desired operation mode record based on the mode type"""
+        mode = 'invoice' if invoice.is_sale_document() else 'bill'
+        return invoice.company_id.l10n_co_dian_operation_mode_ids.filtered(
+            lambda operation_mode: operation_mode.dian_software_operation_mode == mode
+        )
+
     def _dian_sign_xml(self, xml, invoice):
         errors = []
         certificates = invoice.company_id.sudo().l10n_co_dian_certificate_ids._get_certificate_chain()
         cert_public = xml_utils._decode_certificate(certificates[-1])
         cert_private = xml_utils._decode_private_key(certificates[-1])
+        operation_mode = self._dian_get_operation_mode(invoice)
 
         x509_certificates = []
         for cert in certificates:
@@ -921,7 +931,8 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'sts_namespace': sts_namespace,
             'provider_check_digit': invoice.company_id.partner_id._get_vat_verification_code(),
             'provider_id': invoice.company_id.partner_id._get_vat_without_verification_code(),
-            'software_security_code': self._dian_get_security_code(invoice),
+            'software_id': operation_mode.dian_software_id,
+            'software_security_code': self._dian_get_security_code(invoice, operation_mode),
             'qr_code_val': self._dian_get_qr_code_url(invoice, root.findtext('./cbc:UUID', namespaces=root.nsmap)),
             'document_id': "xmldsig-" + str(xml_utils._uuid1()),
             'key_info_id': "xmldsig-" + str(xml_utils._uuid1()) + "-keyinfo",

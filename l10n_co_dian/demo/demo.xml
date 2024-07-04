@@ -5,6 +5,12 @@
         <field name="key" type="base64" file="l10n_co_dian/demo/demo_key.pem"/>
         <field name="company_id" eval="ref('base.demo_company_co')"/>
     </record>
+    <record id="l10n_co_dian.dian_operation_mode_demo" model="l10n_co_dian.operation_mode">
+        <field name="dian_software_id">Odoo</field>
+        <field name="dian_software_operation_mode">invoice</field>
+        <field name="dian_software_security_code">12345</field>
+        <field name="company_id" eval="ref('base.demo_company_co')"/>
+    </record>
 
     <record id="base.partner_demo_company_co" model="res.partner">
         <field name="l10n_latam_identification_type_id" eval="ref('l10n_co.rut')"/>
@@ -18,7 +24,7 @@
         <field name="street">CL 12A</field>
         <field name="country_id" eval="ref('base.co')"/>
         <field name="state_id" eval="ref('base.state_co_03')"/>
-        <field name="l10n_co_dian_software_security_code">12345</field>
+        <field name="l10n_co_dian_operation_mode_ids" eval="[(4, ref('l10n_co_dian.dian_operation_mode_demo'))]"/>
         <field name="l10n_co_dian_test_environment" eval="True"/>
         <field name="l10n_co_dian_certificate_ids" eval="[(4, ref('l10n_co_dian.dian_certificate_demo'))]"/>
     </record>

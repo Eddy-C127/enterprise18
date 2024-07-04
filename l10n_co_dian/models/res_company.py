@@ -4,12 +4,14 @@ from odoo import models, fields
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    l10n_co_dian_software_id = fields.Char(string="Software ID")
-    l10n_co_dian_software_security_code = fields.Char(string="Software PIN")
+    l10n_co_dian_operation_mode_ids = fields.One2many(
+        string="DIAN Operation Modes",
+        comodel_name="l10n_co_dian.operation_mode",
+        inverse_name="company_id",
+    )
     l10n_co_dian_certificate_ids = fields.One2many(comodel_name='l10n_co_dian.certificate', inverse_name='company_id')
     l10n_co_dian_test_environment = fields.Boolean(string="Test environment", default=True)
     l10n_co_dian_certification_process = fields.Boolean()
-    l10n_co_dian_testing_id = fields.Char(string="Testing ID")
     l10n_co_dian_provider = fields.Selection(
         selection=[
             ('dian', "DIAN: Free service"),

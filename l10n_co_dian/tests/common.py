@@ -40,11 +40,24 @@ class TestCoDianCommon(AccountTestInvoicingCommon):
             'city': city_bogota.name,
             'state_id': city_bogota.state_id.id,
             'l10n_co_edi_header_actividad_economica': '0114',
-            'l10n_co_dian_software_id': 'Odoo',
-            'l10n_co_dian_software_security_code': '12345',
+            'l10n_co_dian_operation_mode_ids': [
+                Command.create({
+                    'dian_software_operation_mode': 'invoice',
+                    'dian_software_id': 'Odoo',
+                    'dian_software_security_code': '12345',
+                    'dian_testing_id': 'test_id',
+                    'company_id': cls.company_data['company'].id,
+                }),
+                Command.create({
+                    'dian_software_operation_mode': 'bill',
+                    'dian_software_id': 'Odoo',
+                    'dian_software_security_code': '12345',
+                    'dian_testing_id': 'test_id',
+                    'company_id': cls.company_data['company'].id,
+                }),
+            ],
             'l10n_co_dian_certificate_ids': [Command.set(cls.certificate_demo.ids)],
             'l10n_co_dian_test_environment': True,
-            'l10n_co_dian_testing_id': 'test_id',
             'l10n_co_dian_provider': 'dian',
         })
         cls.company_data['company'].partner_id.write({

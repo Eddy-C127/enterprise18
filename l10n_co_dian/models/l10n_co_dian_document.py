@@ -115,12 +115,13 @@ class L10nCoDianDocument(models.Model):
         """ Send the document to the 'SendTestSetAsync' (asynchronous) webservice.
         NB: later, need to fetch the result by calling the 'GetStatusZip' webservice.
         """
+        operation_mode = self.env['account.edi.xml.ubl_dian']._dian_get_operation_mode(move)
         response = xml_utils._build_and_send_request(
             self,
             payload={
                 'file_name': "invoice.zip",
                 'content_file': b64encode(zipped_content).decode(),
-                'test_set_id': move.company_id.l10n_co_dian_testing_id,
+                'test_set_id': operation_mode.dian_testing_id,
                 'soap_body_template': "l10n_co_dian.send_test_set_async",
             },
             service="SendTestSetAsync",
