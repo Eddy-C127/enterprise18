@@ -16,6 +16,8 @@ In your project plan, you can compare your timesheets and your forecast to bette
     'data': [
         'views/project_forecast_views.xml',
         'views/project_project_views.xml',
+        'report/planning_analysis_report_views.xml',
+        'report/timesheet_forecast_report_views.xml',
     ],
     'demo': [
         'data/product_demo.xml',

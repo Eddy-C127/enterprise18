@@ -110,6 +110,11 @@
             <graph string="Tickets Analysis" sample="1" disable_linking="1">
                 <field name="team_id"/>
                 <field name="stage_id"/>
+                <field name="ticket_close_hours" widget="float_time"/>
+                <field name="avg_response_hours" widget="float_time"/>
+                <field name="ticket_assignation_hours" widget="float_time"/>
+                <field name="first_response_hours" widget="float_time"/>
+                <field name="ticket_deadline_hours" widget="float_time"/>
                 <field name="ticket_open_hours" widget="float_time"/>
                 <field name="rating_avg" type="measure" invisible="1"/>
             </graph>

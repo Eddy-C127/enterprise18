@@ -39,11 +39,14 @@
             <graph string="Helpdesk Tickets" type="bar" sample="1" js_class="helpdesk_ticket_graph">
                 <field name="stage_id"/>
                 <field name="rating_last_value" string="Rating (/5)"/>
+                <field name="avg_response_hours" widget="float_time"/>
                 <field name="close_hours" string="Hours to Close" widget="float_time"/>
+                <field name="first_response_hours" widget="float_time"/>
+                <field name="sla_deadline_hours" widget="float_time"/>
                 <field name="assign_hours" string="Hours to Assign" widget="float_time"/>
                 <field name="color" invisible="1"/>
                 <field name="answered_customer_message_count" invisible="1"/>
-                <field name="total_response_hours" invisible="1"/>
+                <field name="total_response_hours" invisible="1" widget="float_time"/>
             </graph>
         </field>
     </record>
@@ -495,7 +498,7 @@
             <field name="stage_id" position="replace">
                 <field name="team_id"/>
                 <field name="answered_customer_message_count" invisible="1"/>
-                <field name="total_response_hours" invisible="1"/>
+                <field name="total_response_hours" invisible="1" widget="float_time"/>
             </field>
         </field>
     </record>

@@ -379,7 +379,7 @@
             <graph string="Planning" sample="1" js_class="planning_graph">
                 <field name="start_datetime" interval="week"/>
                 <field name="resource_id"/>
-                <field name="allocated_hours" type="measure"/>
+                <field name="allocated_hours" type="measure" widget="float_time"/>
             </graph>
         </field>
     </record>

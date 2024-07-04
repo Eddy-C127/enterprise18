@@ -24,6 +24,7 @@
             <field name="arch" type="xml">
                 <graph string="Payroll Analysis" type="line" sample="1">
                     <field name="date_from"/>
+                    <field name="number_of_hours" widget="float_time"/>
                     <field name="net_wage" type="measure"/>
                 </graph>
             </field>
