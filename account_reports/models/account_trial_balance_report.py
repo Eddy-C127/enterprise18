@@ -102,7 +102,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         for column_group in options['column_groups'].values():
             column_group['forced_options']['general_ledger_strict_range'] = True
 
-        if options['comparison']['periods']:
+        if options.get('comparison', {}).get('periods'):
             # Reverse the order the group of columns with the same column_group_key while keeping the original order inside the group
             new_columns_order = []
             current_column = []
@@ -136,7 +136,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         # End balance
         end_date_to = options['date']['date_to']
-        end_date_from = options['comparison']['periods'][-1]['date_from'] if options['comparison']['periods'] else options['date']['date_from']
+        end_date_from = options['comparison']['periods'][-1]['date_from'] if options.get('comparison', {}).get('periods') else options['date']['date_from']
         end_forced_options = {
             'date': {
                 'mode': 'range',

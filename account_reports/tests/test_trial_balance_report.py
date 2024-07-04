@@ -245,6 +245,30 @@ class TestTrialBalanceReport(TestAccountReportsCommon):
             options,
         )
 
+    def test_trial_with_disabled_comparison_filter(self):
+        self.report.filter_period_comparison = False
+        options = self._generate_options(self.report, fields.Date.from_string('2017-01-01'), fields.Date.from_string('2017-12-31'))
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #                                           [  Initial Balance   ]          [       Balance      ]          [       Total        ]
+            #   Name                                    Debit           Credit          Debit           Credit          Debit           Credit
+            [   0,                                      1,              2,              3,              4,              5,              6],
+            [
+                ('121000 Account Receivable',           0.0,             0.0,             1000.0,          0.0,             1000.0,          0.0),
+                ('211000 Account Payable',              100.0,           0.0,             0.0,             0.0,             100.0,           0.0),
+                ('211000 Account Payable',              50.0,            0.0,             0.0,             0.0,             50.0,            0.0),
+                ('400000 Product Sales',                0.0,             0.0,             20000.0,         0.0,             20000.0,         0.0),
+                ('400000 Product Sales',                0.0,             0.0,             0.0,             200.0,           0.0,             200.0),
+                ('600000 Expenses',                     0.0,             0.0,             0.0,             21000.0,         0.0,             21000.0),
+                ('600000 Expenses',                     0.0,             0.0,             200.0,           0.0,             200.0,           0.0),
+                ('999999 Undistributed Profits/Losses', 0.0,             100.0,           0.0,             0.0,             0.0,             100.0),
+                ('999999 Undistributed Profits/Losses', 0.0,             50.0,            0.0,             0.0,             0.0,             50.0),
+                ('Total',                               150.0,           150.0,           21200.0,         21200.0,         21350.0,         21350.0),
+            ],
+            options,
+        )
+
     def test_trial_balance_account_group_with_hole(self):
         """
         Let's say you have the following account groups: 10, 101, 1012
