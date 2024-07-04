@@ -165,13 +165,15 @@ export class GanttArchParser {
                         popoverArchParams.bodyTemplate.removeAttribute("t-name");
                         const footer = popoverArchParams.bodyTemplate.querySelector("footer");
                         if (footer) {
+                            popoverArchParams.displayGenericButtons = false;
                             footer.remove();
                             const footerTemplate = new Document().createElement("t");
                             footerTemplate.append(...footer.children);
                             popoverArchParams.footerTemplate = footerTemplate;
-                            popoverArchParams.displayGenericButtons = !exprToBoolean(
-                                footer.getAttribute("replace")
-                            );
+                            const replace = footer.getAttribute("replace");
+                            if (replace && !exprToBoolean(replace)) {
+                                popoverArchParams.displayGenericButtons = true;
+                            }
                         }
                     }
                 }

@@ -1146,7 +1146,7 @@ test("range will not exceed 10 years", async () => {
     expect(getGridContent().range).toBe("From: 03/01/2010 to: 02/28/2020");
 });
 
-test("popover-template with a footer", async () => {
+test("popover-template with an added footer", async () => {
     expect.assertions(9);
     onRpc("unlink", ({ model, method, args }) => {
         expect(model).toBe("tasks");
@@ -1160,7 +1160,7 @@ test("popover-template with a footer", async () => {
                 <templates>
                     <t t-name="gantt-popover">
                         Content
-                        <footer>
+                        <footer replace="0">
                             <button name="unlink" type="object" string="Delete" icon="fa-trash" class="btn btn-sm btn-secondary"/>
                         </footer>
                     </t>
@@ -1183,7 +1183,7 @@ test("popover-template with a footer", async () => {
     expect(SELECTORS.pill).toHaveCount(0);
 });
 
-test("popover-template with a footer (replace='1')", async () => {
+test("popover-template with a replaced footer", async () => {
     expect.assertions(9);
     onRpc("unlink", ({ model, method, args }) => {
         expect(model).toBe("tasks");
@@ -1197,7 +1197,7 @@ test("popover-template with a footer (replace='1')", async () => {
                 <templates>
                     <t t-name="gantt-popover">
                         Content
-                        <footer replace="1">
+                        <footer>
                             <button name="unlink" type="object" string="Delete" icon="fa-trash" class="btn btn-sm btn-secondary"/>
                         </footer>
                     </t>
@@ -1233,9 +1233,7 @@ test("popover-template with a button in the body", async () => {
             <gantt date_start="start" date_stop="stop">
                 <templates>
                     <t t-name="gantt-popover">
-                            <button name="unlink" type="object" string="Delete" icon="fa-trash" class="btn btn-sm btn-secondary"/>
-                        <footer>
-                        </footer>
+                        <button name="unlink" type="object" string="Delete" icon="fa-trash" class="btn btn-sm btn-secondary"/>
                     </t>
                 </templates>
             </gantt>
