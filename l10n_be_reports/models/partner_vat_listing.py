@@ -197,6 +197,7 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
                 {f'GROUP BY {grouping_key_param}' if current_groupby else ''}
           ) AS subquery
           GROUP BY subquery.grouping_key
+          ORDER BY subquery.grouping_key
           {tail_query}
       """
 
