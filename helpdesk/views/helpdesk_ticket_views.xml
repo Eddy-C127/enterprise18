@@ -40,9 +40,12 @@
                 <field name="user_id" string="Assigned"/>
                 <field name="close_hours" string="Working Hours to Close" widget="float_time" invisible="1"/>
                 <field name="assign_hours" string="Working Hours to Assign" widget="float_time" invisible="1"/>
+                <field name="avg_response_hours" widget="float_time"/>
+                <field name="first_response_hours" widget="float_time"/>
+                <field name="sla_deadline_hours" widget="float_time"/>
                 <field name="color" invisible="1"/>
                 <field name="answered_customer_message_count" invisible="1"/>
-                <field name="total_response_hours" invisible="1"/>
+                <field name="total_response_hours" invisible="1" widget="float_time"/>
             </graph>
         </field>
     </record>
@@ -507,7 +510,7 @@
                 <field name="team_id"/>
                 <field name="stage_id"/>
                 <field name="answered_customer_message_count" invisible="1"/>
-                <field name="total_response_hours" invisible="1"/>
+                <field name="total_response_hours" invisible="1" widget="float_time"/>
             </field>
             <field name="user_id" position="attributes">
                 <attribute name="invisible">1</attribute>
