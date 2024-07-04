@@ -453,6 +453,7 @@ class HrContractSalary(http.Controller):
             'contract_update_template_id': contract.contract_update_template_id.id,
             'date_start': offer.contract_start_date or fields.Date.today().replace(day=1),
             'contract_type_id': contract.contract_type_id.id,
+            'originated_offer_id': offer.id,
         }
         if 'work_entry_source' in contract:
             contract_vals['work_entry_source'] = contract.work_entry_source
@@ -512,9 +513,7 @@ class HrContractSalary(http.Controller):
         else:
             employee_department = employee_infos['department_id']
 
-        employee_vals = {'job_title': employee_infos['job_title'],
-                         'job_id': employee_infos['employee_job_id'],
-                         'department_id': employee_department}
+        employee_vals = {}
         work_contact_vals = {}
         bank_account_vals = {}
         attachment_create_vals = []

@@ -52,6 +52,7 @@ class HrContract(models.Model):
         tracking=True, string="Wage with Holidays")
     wage_on_signature = fields.Monetary(string="Wage on Payroll", help="Wage on contract signature", tracking=True, aggregator="avg")
     salary_offer_ids = fields.One2many('hr.contract.salary.offer', 'employee_contract_id')
+    originated_offer_id = fields.Many2one('hr.contract.salary.offer', help="The original offer")
     salary_offers_count = fields.Integer(compute='_compute_salary_offers_count', compute_sudo=True)
 
     # Employer costs fields
@@ -192,6 +193,12 @@ class HrContract(models.Model):
         if not triggers:
             benefit_fields |= {'wage_with_holidays'}
         return tuple(benefit_fields - self._benefit_black_list())
+
+    def _get_employee_vals_to_update(self):
+        vals = super()._get_employee_vals_to_update()
+        if self.originated_offer_id and self.originated_offer_id.job_title:
+            vals['job_title'] = self.originated_offer_id.job_title
+        return vals
 
     @api.model
     def _benefit_black_list(self):

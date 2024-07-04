@@ -58,6 +58,7 @@
             </field>
             <group name="contract_details_0" position="inside">
                 <field name="default_contract_id" context="{'form_view_ref': 'hr_contract_salary.hr_contract_view_form_contract_templates'}"/>
+                <field name="originated_offer_id" readonly="1"/>
             </group>
             <page name="other" position="after">
                 <page string="Signatories" groups="hr_contract.group_hr_contract_manager">
