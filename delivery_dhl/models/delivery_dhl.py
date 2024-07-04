@@ -246,6 +246,9 @@ class Providerdhl(models.Model):
             shipment_request['Label'] = srm._set_label(self.dhl_label_template)
             shipment_request['schemaVersion'] = 10.0
             shipment_request['LanguageCode'] = 'en'
+            if picking.carrier_id.shipping_insurance:
+                shipment_request['SpecialService'] = []
+                shipment_request['SpecialService'].append(srm._set_insurance(shipment_request['ShipmentDetails']))
             self._dhl_add_custom_data_to_request(shipment_request, 'ship')
             dhl_response = srm._process_shipment(shipment_request)
             traking_number = dhl_response.AirwayBillNumber
