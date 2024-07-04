@@ -165,6 +165,7 @@ export class PlanningControllerActions {
             }
         );
         this.toggleHighlightPlannedFilter([...open_shift_assigned, ...sale_line_planned]);
+        this.notificationFn = notificationRemove;
     }
 
     autoPlanDomain() {

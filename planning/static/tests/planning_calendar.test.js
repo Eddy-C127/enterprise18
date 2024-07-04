@@ -103,6 +103,10 @@ test("planning calendar view: copy previous week", async () => {
         expect.step("copy_previous_week()");
         return {};
     });
+    onRpc("auto_plan_ids", async function() {
+        await this.env["planning.slot"].write([2], { resource_id: 1 });
+        return { open_shift_assigned: [2] };
+    })
     await mountWithCleanup(WebClient);
     await getService("action").doAction(1);
     patchWithCleanup(getService("action"), {
@@ -131,7 +135,21 @@ test("planning calendar view: copy previous week", async () => {
     expect(".o_notification_body").toHaveCount(1);
     click(".o_switch_view.o_list");
     await animationFrame();
-    expect(".o_action_manager").not.toHaveClass("o_notification_body");
+    click(".o_switch_view.o_calendar");
+    await animationFrame();
+    expect(".o_notification_body").toHaveCount(0);
+
+    // Check for auto plan
+    click(".btn.btn-secondary[title='Automatically plan open shifts and sales orders']");
+    await animationFrame();
+
+    // Switch the view and verify the notification
+    expect(".o_notification_body").toHaveCount(1);
+    click(".o_switch_view.o_list");
+    await animationFrame();
+    click(".o_switch_view.o_calendar");
+    await animationFrame();
+    expect(".o_notification_body").toHaveCount(0);
 });
 
 test("Resize or Drag-Drop should open recurrence update wizard", async () => {
