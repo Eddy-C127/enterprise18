@@ -208,6 +208,13 @@ class DHLProvider():
         return_service.SpecialServiceType = "PV"
         return return_service
 
+    def _set_insurance(self, shipment_details):
+        insurance_service = self.factory.SpecialService()
+        insurance_service.SpecialServiceType = "II"
+        insurance_service.ChargeValue = shipment_details.InsuredAmount
+        insurance_service.CurrencyCode = shipment_details.CurrencyCode
+        return insurance_service
+
     def _process_shipment(self, shipment_request):
         ShipmentRequest  = self.client._Client__obj.get_element('ns0:ShipmentRequest')
         document = etree.Element('root')
