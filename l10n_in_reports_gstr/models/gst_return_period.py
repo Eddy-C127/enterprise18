@@ -19,6 +19,7 @@ from odoo.addons.l10n_in_edi.models.account_edi_format import DEFAULT_IAP_ENDPOI
 import logging
 
 _logger = logging.getLogger(__name__)
+TOLERANCE_AMOUNT = 1.0  # Default fallback tolerance amount for GSTR-2B matching if the system parameter is unset.
 
 
 class L10nInGSTReturnPeriod(models.Model):
@@ -1466,9 +1467,17 @@ class L10nInGSTReturnPeriod(models.Model):
             pattern = re.compile(r'[^a-zA-Z0-9]')
             return pattern.sub('', ref)
 
+        def _get_tolerance_amount():
+            tolerance_value = self.env['ir.config_parameter'].sudo().get_param('l10n_in_reports_gstr.gstr2b_matching_tolerance_amount', TOLERANCE_AMOUNT)
+            return float(tolerance_value)
+
         def match_bills(gstr2b_streamline_bills, matching_dict):
             create_vals = []
             checked_bills = self.env['account.move']
+            try:
+                tolerance_amount = _get_tolerance_amount()
+            except ValueError:
+                tolerance_amount = 0.009
             for gstr2b_bill in gstr2b_streamline_bills:
                 amount = gstr2b_bill.get('bill_total')
                 if gstr2b_bill.get('bill_taxable_value'):
@@ -1500,7 +1509,7 @@ class L10nInGSTReturnPeriod(models.Model):
                             for line in matched_bills.line_ids:
                                 if line.tax_line_id.amount < 0:
                                     amount_total += line.balance * sign
-                            if 'bill_total' in gstr2b_bill and gstr2b_bill['bill_total'] != amount_total:
+                            if 'bill_total' in gstr2b_bill and not (amount_total - tolerance_amount <= gstr2b_bill['bill_total'] <= amount_total + tolerance_amount):
                                 exception.append(_("Total amount as per GSTR-2B is %s", gstr2b_bill['bill_total']))
                             if 'vat' in gstr2b_bill and gstr2b_bill['vat'] != matched_bills.partner_id.vat:
                                 exception.append(_("Vat number as per GSTR-2B is %s", gstr2b_bill['vat']))
