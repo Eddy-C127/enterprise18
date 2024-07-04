@@ -4,6 +4,7 @@ import { components, helpers } from "@odoo/o-spreadsheet";
 import { Component, useRef, useState, useEffect } from "@odoo/owl";
 import { formatToLocaleString } from "../../helpers/misc";
 import { _t } from "@web/core/l10n/translation";
+import { pyToJsLocale } from "@web/core/l10n/utils";
 
 const { createActions } = helpers;
 
@@ -111,7 +112,7 @@ export class VersionHistoryItem extends Component {
     }
 
     formatRevisionTimeStamp(ISOdatetime) {
-        const code = this.env.model.getters.getLocale().code.replace("_", "-");
+        const code = pyToJsLocale(this.env.model.getters.getLocale().code);
         return formatToLocaleString(ISOdatetime, code);
     }
 }

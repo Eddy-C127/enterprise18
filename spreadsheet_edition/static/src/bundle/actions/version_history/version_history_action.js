@@ -3,6 +3,7 @@ import { onMounted, onWillStart, useState, Component, useSubEnv } from "@odoo/ow
 import { useService } from "@web/core/utils/hooks";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { _t } from "@web/core/l10n/translation";
+import { pyToJsLocale } from "@web/core/l10n/utils";
 import { registry } from "@web/core/registry";
 
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
@@ -110,7 +111,7 @@ export class VersionHistoryAction extends Component {
         const data = this.model.exportData();
         const revision = this.state.restorableRevisions.find((rev) => rev.id === revisionId);
         data.revisionId = revision.nextRevisionId;
-        const code = this.model.getters.getLocale().code.replace("_", "-");
+        const code = pyToJsLocale(this.model.getters.getLocale().code);
         const timestamp = formatToLocaleString(revision.timestamp, code);
         const name = _t("%(name)s (restored from %(timestamp)s)", {
             name: this.state.spreadsheetName,
@@ -131,7 +132,7 @@ export class VersionHistoryAction extends Component {
 
     async restoreRevision(revisionId) {
         const revision = this.state.restorableRevisions.find((rev) => rev.id === revisionId);
-        const code = this.model.getters.getLocale().code.replace("_", "-");
+        const code = pyToJsLocale(this.model.getters.getLocale().code);
         const timestamp = formatToLocaleString(revision.timestamp, code);
         this.dialog.add(RestoreVersionConfirmationDialog, {
             title: _t("Heads up!"),

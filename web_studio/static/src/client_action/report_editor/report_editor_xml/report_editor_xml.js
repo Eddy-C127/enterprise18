@@ -39,7 +39,7 @@ class TranslationButton extends Component {
         return localization.multiLang;
     }
     get lang() {
-        return user.lang.split("_")[0].toUpperCase();
+        return new Intl.Locale(user.lang).language.toUpperCase();
     }
     onClick() {
         this.addDialog(TranslationDialog, {

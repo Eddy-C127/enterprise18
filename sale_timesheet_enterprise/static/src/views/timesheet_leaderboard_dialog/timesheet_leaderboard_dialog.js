@@ -137,7 +137,7 @@ export class TimesheetLeaderboardDialog extends Component {
     }
 
     get currentFormattedDate() {
-        return this.state.date.setLocale(user.lang.replaceAll("_", "-")).toLocaleString({
+        return this.state.date.setLocale(user.lang).toLocaleString({
             year: "numeric",
             month: "long",
         });

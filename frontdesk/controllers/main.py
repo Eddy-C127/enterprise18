@@ -3,14 +3,14 @@
 
 from odoo import http, fields
 from odoo.http import request
-from odoo.tools import consteq
+from odoo.tools import consteq, py_to_js_locale
 
 class Frontdesk(http.Controller):
     def _get_additional_info(self, frontdesk, lang, is_mobile=False):
         return request.render('frontdesk.frontdesk', {
             'frontdesk': frontdesk,
             'is_mobile': is_mobile,
-            'current_lang': lang,
+            'current_lang': py_to_js_locale(lang),
         })
 
     def _verify_token(self, frontdesk, token):
