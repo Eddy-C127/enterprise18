@@ -6,14 +6,14 @@
 Accounting reports for the Philippines
     """,
     "version": "1.0",
-    "category": "Localization",
-    "icon": "/base/static/img/country_flags/ph.png",
+    "category": "Accounting/Localizations/Reporting",
     "license": "OEEL-1",
     "depends": [
         "l10n_ph",
         "account_reports",
     ],
     "data": [
+        "data/sawt_qap_report.xml",
         "data/slsp_report.xml",
     ],
     'assets': {

@@ -1,4 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from odoo.addons.l10n_ph.tests.common import TestPhCommon
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 from odoo import Command, fields
@@ -6,56 +7,11 @@ from odoo.tests import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestSLSPGeneration(TestAccountReportsCommon):
-    # pylint: disable=C0326
+class TestSLSPGeneration(TestAccountReportsCommon, TestPhCommon):
 
     @classmethod
-    @TestAccountReportsCommon.setup_country('ph')
     def setUpClass(cls):
         super().setUpClass()
-
-        # Start by setting up test partners/company
-
-        cls.company_data['company'].write({
-            'name': 'Test Company',
-            'street': '8 Super Street',
-            'city': 'Super City',
-            'zip': '8888',
-            'country_id': cls.env.ref('base.ph').id,
-            'vat': '123-456-789-123',
-        })
-        cls.partner_a.write({
-            'name': 'Test Partner',
-            'street': '9 Super Street',
-            'city': 'Super City',
-            'zip': '8888',
-            'country_id': cls.env.ref('base.ph').id,
-            'vat': '789-456-123-789',
-        })
-        cls.partner_b.write({
-            'name': 'Test Partner Company',
-            'street': '10 Super Street',
-            'city': 'Super City',
-            'zip': '8888',
-            'country_id': cls.env.ref('base.ph').id,
-            'is_company': True,
-            'vat': '789-456-123-456',
-        })
-        cls.partner_c = cls.env['res.partner'].create({
-            'name': 'Test Partner Company Member',
-            'property_payment_term_id': cls.pay_terms_b.id,
-            'property_supplier_payment_term_id': cls.pay_terms_b.id,
-            'property_account_position_id': cls.fiscal_pos_a.id,
-            'property_account_receivable_id': cls.company_data['default_account_receivable'].copy().id,
-            'property_account_payable_id': cls.company_data['default_account_payable'].copy().id,
-            'street': '11 Super Street',
-            'city': 'Super City',
-            'zip': '8888',
-            'country_id': cls.env.ref('base.ph').id,
-            'vat': '789-456-123-123',
-            'company_id': False,
-            'parent_id': cls.partner_b.id,
-        })
 
         # Gather taxes that we will use to build our moves. We need a variety of them as we want to test the different cases.
         vat_exempt_sale = cls.env.ref(f'account.{cls.company_data["company"].id}_l10n_ph_tax_sale_vat_exempt')
@@ -136,9 +92,9 @@ class TestSLSPGeneration(TestAccountReportsCommon):
             12: ['', 'NUMBER'],
 
             # Moves data
-            14: ['2020-02-29', '789-456-123-456', 'Test Partner Company', 'Test Partner Company Member', '10 Super Street\nSuper City  8888\nPhilippines', 300.0, '',    '',    300.0, 36.0, 336.0],
-            15: ['2020-01-31', '789-456-123-789', '',                     'Test Partner',                '9 Super Street\nSuper City  8888\nPhilippines',  450.0, 200.0, '',    250.0, 30.0, 280.0],
-            16: ['2020-01-31', '789-456-123-456', 'Test Partner Company', '',                            '10 Super Street\nSuper City  8888\nPhilippines', 600.0, '',    100.0, 500.0, 60.0, 560.0],
+            14: ['2020-02-29', '789-456-123-456', 'Test Partner Company', 'Smith John Doe', '10 Super Street\nSuper City  8888\nPhilippines', 300.0, '',    '',    300.0, 36.0, 336.0],  # noqa: E241
+            15: ['2020-01-31', '789-456-123-789', '',                     'Test Partner',   '9 Super Street\nSuper City  8888\nPhilippines',  450.0, 200.0, '',    250.0, 30.0, 280.0],  # noqa: E241
+            16: ['2020-01-31', '789-456-123-456', 'Test Partner Company', '',               '10 Super Street\nSuper City  8888\nPhilippines', 600.0, '',    100.0, 500.0, 60.0, 560.0],  # noqa: E241
 
             # Totals
             18: ['Grand total:', '', '', '', '', 1350.0, 200.0, 100.0, 1050.0, 126.0, 1176.0],
@@ -174,9 +130,9 @@ class TestSLSPGeneration(TestAccountReportsCommon):
             12: ['', 'NUMBER'],
 
             # Partners data
-            14: ['2020-02-29', '789-456-123-456', 'Test Partner Company', 'Test Partner Company Member', '10 Super Street\nSuper City  8888\nPhilippines', 300.0, '',    '',    300.0, '',   '',    300.0, 36.0, 336.0],
-            15: ['2020-01-31', '789-456-123-789', '',                     'Test Partner',                '9 Super Street\nSuper City  8888\nPhilippines',  500.0, 200.0, '',    300.0, 50.0, '',    250.0, 36.0, 336.0],
-            16: ['2020-01-31', '789-456-123-456', 'Test Partner Company', '',                            '10 Super Street\nSuper City  8888\nPhilippines', 850.0, '',    100.0, 750.0, '',   250.0, 500.0, 90.0, 840.0],
+            14: ['2020-02-29', '789-456-123-456', 'Test Partner Company', 'Smith John Doe', '10 Super Street\nSuper City  8888\nPhilippines', 300.0, '',    '',    300.0, '',   '',    300.0, 36.0, 336.0],  # noqa: E241
+            15: ['2020-01-31', '789-456-123-789', '',                     'Test Partner',   '9 Super Street\nSuper City  8888\nPhilippines',  500.0, 200.0, '',    300.0, 50.0, '',    250.0, 36.0, 336.0],  # noqa: E241
+            16: ['2020-01-31', '789-456-123-456', 'Test Partner Company', '',               '10 Super Street\nSuper City  8888\nPhilippines', 850.0, '',    100.0, 750.0, '',   250.0, 500.0, 90.0, 840.0],  # noqa: E241
 
             # Totals
             18: ['Grand total:', '', '', '', '', 1650.0, 200.0, 100.0, 1350.0, 50.0, 250.0, 1050.0, 162.0, 1512.0],

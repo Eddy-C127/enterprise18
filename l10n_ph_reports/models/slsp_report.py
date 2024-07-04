@@ -15,7 +15,7 @@ from odoo.tools.misc import format_date, file_path
 
 class SlspCustomHandler(models.AbstractModel):
     _name = 'l10n_ph.slsp.report.handler'
-    _inherit = 'account.report.custom.handler'
+    _inherit = 'l10n_ph.generic.report.handler'
     _description = 'Summary Lists of Sales and Purchases Custom Handler'
 
     def _get_custom_display_config(self):
@@ -41,16 +41,7 @@ class SlspCustomHandler(models.AbstractModel):
         # Initialise the custom options for this report.
         options['include_imports'] = (previous_options or {}).get('include_imports', False)
 
-    def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
-        report_lines = self._build_month_lines(report, options)
-        if grand_total_line := self._build_grand_total_line(options):
-            report_lines.append(grand_total_line)
-
-        # Inject sequences on the dynamic lines
-        return [(0, line) for line in report_lines]
-
     # First level, month rows
-
     def _build_month_lines(self, report, options):
         """ Fetches the months for which we have entries *that have tax grids* and build a report line for each of them. """
         month_lines = []
@@ -92,47 +83,22 @@ class SlspCustomHandler(models.AbstractModel):
                 'unfolded': line_id in options['unfolded_lines'] or unfold_all,
                 'columns': [report._build_column_dict(None, _column) for _column in options['columns']],
                 'level': 0,
-                'expand_function': '_report_expand_unfoldable_line_sls_expand_month',
+                'expand_function': '_report_expand_unfoldable_line_l10n_ph_expand_month',
             })
 
         return month_lines
 
-    def _report_expand_unfoldable_line_sls_expand_month(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
+    def _report_expand_unfoldable_line_l10n_ph_expand_month(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
         """ Used to expand a month line and load the second level, being the partner lines. """
-        report = self.env.ref("l10n_ph_reports.slsp_report")
-        month = report._parse_line_id(line_dict_id)[-1][0]
+        report = self.env['account.report'].browse(options['report_id'])
+        month = report._get_markup(line_dict_id)
+        partner_lines_values = self._query_partners(report, options, month, offset)
+        return self._get_report_expand_unfoldable_line_value(report, options, line_dict_id, progress, partner_lines_values,
+                                                             report_line_method=self._get_report_line_partner)
 
-        partner_lines_values = self._query_partners(options, report, month, offset)
-
-        partner_lines = []
-        has_more = False
-        treated_results_count = 0
-        next_progress = progress
-        for partner_id, line_values in partner_lines_values.items():
-            if options['export_mode'] != 'print' and report.load_more_limit and treated_results_count == report.load_more_limit:
-                # We loaded one more than the limit on purpose: this way we know we need a "load more" line
-                has_more = True
-                break
-
-            new_line = self._get_report_line_partner(options, partner_id, line_values, month, line_dict_id)
-            partner_lines.append(new_line)
-            next_progress = {
-                column['column_group_key']: line_col.get('no_format', 0)
-                for column, line_col in zip(options['columns'], new_line['columns'])
-                if column['expression_label'] == 'balance'
-            }
-            treated_results_count += 1
-
-        return {
-            'lines': partner_lines,
-            'offset_increment': treated_results_count,
-            'has_more': has_more,
-            'progress': next_progress,
-        }
-
-    def _query_partners(self, options, report, month, offset):
-        """ Query the values for the partner line.
-        The partner line will sum up the values for the different columns, while being filtered for the given month only.
+    def _query_partners(self, report, options, month, offset):
+        """ Query the values for the partner lines.
+        The partner lines will sum up the values for the different columns while only being filtered for the given month.
         """
         limit = report.load_more_limit + 1 if report.load_more_limit and options['export_mode'] != 'print' else None
         end_date = fields.Date.from_string(month)  # Month is already set to the last day of the month.
@@ -153,18 +119,18 @@ class SlspCustomHandler(models.AbstractModel):
             account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
             queries.append(SQL(
                 """
-                  SELECT %(column_group_key)s AS column_group_key,
-                         cp.vat as partner_vat,
-                         case when (cp.id = p.id and cp.is_company) or cp.id != p.id then cp.name else '' end as register_name,
-                         p.id as partner_id,
-                         case when p.is_company = false then p.name else '' end as partner_name,
-                         p.last_name || ' ' || p.first_name || ' ' || p.middle_name as formatted_partner_name,
-                         p.is_company as is_company,
-                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '') AS tag_name,
+                  SELECT %(column_group_key)s                                                                   AS column_group_key,
+                         cp.vat                                                                                 AS partner_vat,
+                         case when (cp.id = p.id and cp.is_company) or cp.id != p.id then cp.name else '' end   AS register_name,
+                         p.id                                                                                   AS partner_id,
+                         case when p.is_company = false then p.name else '' end                                 AS partner_name,
+                         p.last_name || ' ' || p.first_name || ' ' || p.middle_name                             AS formatted_partner_name,
+                         p.is_company                                                                           AS is_company,
+                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                      AS tag_name,
                          SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
-                         ) AS balance
+                         )                                                                                      AS balance
                     FROM %(table_references)s
                     JOIN res_partner p ON p.id = account_move_line__move_id.partner_id
                     JOIN res_partner cp ON cp.id = p.commercial_partner_id
@@ -212,42 +178,19 @@ class SlspCustomHandler(models.AbstractModel):
                         'partner_address': partner_addresses[values['partner_id']],
                     }
                 }
-            # Sum the balances on the right expression label.
-            # We use a map of tax grids to do that easily.
-            for expression_label, grids in options['report_grids_map'].items():
-                if expression_label not in lines_values[values['partner_id']][values['column_group_key']]:
-                    lines_values[values['partner_id']][values['column_group_key']][expression_label] = 0
-                if values['tag_name'] in grids:  # In this report, we always sum, so it's easy
-                    lines_values[values['partner_id']][values['column_group_key']][expression_label] += values['balance']
+            self._eval_report_grids_map(options, values, column_values=lines_values[values['partner_id']][values['column_group_key']])
+        return self._filter_lines_with_values(options, lines_values)
 
-        lines_with_values = {}
-        grids = list(options['report_grids_map'].keys())
-        for line, value in lines_values.items():
-            for column_group_key in options['column_groups']:
-                if any(value[column_group_key][grid] != 0 for grid in grids):
-                    lines_with_values[line] = value
-
-        return lines_with_values
-
-    def _get_report_line_partner(self, options, partner_id, line_values, month, parent_line):
+    def _get_report_line_partner(self, report, options, partner_id, line_values, parent_line_id):
         """ Format the given values to match the report line format. """
-        report = self.env.ref("l10n_ph_reports.sls_report")
-
-        line_columns = []
-        for column in options['columns']:
-            col_value = line_values[column['column_group_key']].get(column['expression_label'])
-            line_columns.append(report._build_column_dict(
-                col_value=col_value or '',
-                col_data=column,
-                options=options,
-            ))
-
+        month = report._get_markup(parent_line_id)
+        line_columns = self._get_line_columns(report, options, line_values)
         # Set the markup with the month, we can reuse it to filter the detailed move lines
-        line_id = report._get_generic_line_id('res.partner', partner_id, markup=month, parent_line_id=parent_line)
+        line_id = report._get_generic_line_id('res.partner', partner_id, markup=month, parent_line_id=parent_line_id)
         unfold_all = options['export_mode'] == 'print' or options.get('unfold_all')
         return {
             'id': line_id,
-            'parent_id': parent_line,
+            'parent_id': parent_line_id,
             'name': line_values['name'] or line_values['register_name'],
             'is_company': line_values['is_company'],  # This is only used when building the export, as we expect a slightly different behavior for companies
             'unfoldable': True,
@@ -255,43 +198,18 @@ class SlspCustomHandler(models.AbstractModel):
             'columns': line_columns,
             'level': 1,
             'caret_options': 'res.partner',
-            'expand_function': '_report_expand_unfoldable_line_sls_expand_partner',
+            'expand_function': '_report_expand_unfoldable_line_l10n_ph_expand_partner',
         }
 
-    def _report_expand_unfoldable_line_sls_expand_partner(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
-        """ Used to expand a month line and load the third level, being the account move lines. """
-        report = self.env.ref("account_reports.partner_ledger_report")
-        month, _model, partner_id = report._parse_line_id(line_dict_id)[-1]
+    def _report_expand_unfoldable_line_l10n_ph_expand_partner(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
+        """ Used to expand a partner line and load the third level, being the account move lines. """
+        report = self.env['account.report'].browse(options['report_id'])
+        month = report._get_markup(line_dict_id)
+        partner_id = report._get_res_id_from_line_id(line_dict_id, 'res.partner')
+        lines_values = self._query_moves(report, options, partner_id, month, offset)
+        return self._get_report_expand_unfoldable_line_value(report, options, line_dict_id, progress, lines_values, report_line_method=self._get_report_line_move)
 
-        move_lines = []
-        lines_values = self._query_moves(options, report, partner_id, month, offset)
-        has_more = False
-        treated_results_count = 0
-        next_progress = progress
-
-        for move_id, line_values in lines_values.items():
-            if options['export_mode'] != 'print' and report.load_more_limit and treated_results_count == report.load_more_limit:
-                # We loaded one more than the limit on purpose: this way we know we need a "load more" line
-                has_more = True
-                break
-
-            new_line = self._get_report_line_move(options, move_id, line_values, line_dict_id)
-            move_lines.append(new_line)
-            next_progress = {
-                column['column_group_key']: line_col.get('no_format', 0)
-                for column, line_col in zip(options['columns'], new_line['columns'])
-                if column['expression_label'] == 'balance'
-            }
-            treated_results_count += 1
-
-        return {
-            'lines': move_lines,
-            'offset_increment': treated_results_count,
-            'has_more': has_more,
-            'progress': next_progress,
-        }
-
-    def _query_moves(self, options, report, partner_id, month, offset):
+    def _query_moves(self, report, options, partner_id, month, offset):
         """ Query the values for the partner line.
         The move line will sum up the values for the different columns, while being filtered for the given month only.
         """
@@ -312,14 +230,14 @@ class SlspCustomHandler(models.AbstractModel):
             account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
             queries.append(SQL(
                 """
-                  SELECT %(column_group_key)s AS column_group_key,
-                         account_move_line__move_id.id AS move_id,
-                         account_move_line__move_id.name AS move_name,
-                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '') AS tag_name,
+                  SELECT %(column_group_key)s                                                                               AS column_group_key,
+                         account_move_line__move_id.id                                                                      AS move_id,
+                         account_move_line__move_id.name                                                                    AS move_name,
+                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                                  AS tag_name,
                          SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
-                         ) AS balance
+                         )                                                                                                  AS balance
                     FROM %(table_references)s
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
@@ -356,40 +274,16 @@ class SlspCustomHandler(models.AbstractModel):
                         'move_name': values['move_name'],
                     }
                 }
-            # Sum the balances on the right expression label.
-            # We use a map of tax grids to do that easily
-            for expression_label, grids in options['report_grids_map'].items():
-                if expression_label not in lines_values[values['move_id']][values['column_group_key']]:
-                    lines_values[values['move_id']][values['column_group_key']][expression_label] = 0
-                if values['tag_name'] in grids:  # In this report, we always sum so it's easy
-                    lines_values[values['move_id']][values['column_group_key']][expression_label] += values['balance']
+            self._eval_report_grids_map(options, values, column_values=lines_values[values['move_id']][values['column_group_key']])
+        return self._filter_lines_with_values(options, lines_values)
 
-        lines_with_values = {}
-        grids = list(options['report_grids_map'].keys())
-        for line, value in lines_values.items():
-            for column_group_key in options['column_groups']:
-                if any(value[column_group_key][grid] != 0 for grid in grids):
-                    lines_with_values[line] = value
-
-        return lines_with_values
-
-    def _get_report_line_move(self, options, move_id, line_values, partner_line_id):
+    def _get_report_line_move(self, report, options, move_id, line_values, parent_line_id):
         """ Format the given values to match the report line format. """
-        report = self.env.ref("l10n_ph_reports.sls_report")
-
-        line_columns = []
-        for column in options['columns']:
-            col_value = line_values[column['column_group_key']].get(column['expression_label'])
-            line_columns.append(report._build_column_dict(
-                col_value=col_value or '',
-                col_data=column,
-                options=options,
-            ))
-
-        line_id = report._get_generic_line_id('account.move', move_id, parent_line_id=partner_line_id)
+        line_columns = self._get_line_columns(report, options, line_values)
+        line_id = report._get_generic_line_id('account.move', move_id, parent_line_id=parent_line_id)
         return {
             'id': line_id,
-            'parent_id': partner_line_id,
+            'parent_id': parent_line_id,
             'name': line_values['name'],
             'unfoldable': False,
             'unfolded': False,
@@ -398,90 +292,7 @@ class SlspCustomHandler(models.AbstractModel):
             'caret_options': 'account.move',
         }
 
-    # Grand total
-
-    def _build_grand_total_line(self, options):
-        """ The grand total line is the sum of all values in the given reporting period. """
-        queries = []
-        report = self.env.ref("l10n_ph_reports.slp_report")
-
-        for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
-            domain = [('move_id.move_type', '=', options['move_type'])]
-            if not column_group_options.get('include_no_tin'):
-                domain.append(('partner_id.vat', '!=', False))
-            query = report._get_report_query(column_group_options, "strict_range", domain=domain)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
-            account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
-            queries.append(SQL(
-                """
-                  SELECT %(column_group_key)s AS column_group_key,
-                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '') AS tag_name,
-                         SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
-                             * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
-                             * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
-                         ) AS balance
-                    FROM %(table_references)s
-                    JOIN res_partner p ON p.id = account_move_line__move_id.partner_id
-                    JOIN res_partner cp ON cp.id = p.commercial_partner_id
-                    JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
-                    JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN %(currency_table_query)s
-                      ON currency_table.company_id = account_move_line.company_id
-                   WHERE %(search_condition)s
-                GROUP BY column_group_key, %(account_tag_name)s
-                """,
-                column_group_key=column_group_key,
-                account_tag_name=account_tag_name,
-                table_references=query.from_clause,
-                currency_table_query=currency_table_query,
-                search_condition=query.where_clause,
-            ))
-        self.env.cr.execute(SQL(" UNION ALL ").join(queries))
-        results = self.env.cr.dictfetchall()
-        return results and self._get_report_line_grand_total(options, self._process_grand_total_line(results, options))
-
-    def _process_grand_total_line(self, data_dict, options):
-        """ Taking in the values from the database, this will construct the column values by using the tax grid mapping
-        set in the option of each report section.
-        """
-        lines_values = {}
-        for values in data_dict:
-            if values['column_group_key'] not in lines_values:
-                lines_values[values['column_group_key']] = lines_values
-            # Sum the balances on the right expression label.
-            # We use a map of tax grids to do that easily
-            for expression_label, grids in options['report_grids_map'].items():
-                if expression_label not in lines_values[values['column_group_key']]:
-                    lines_values[values['column_group_key']][expression_label] = 0
-                if values['tag_name'] in grids:  # In this report, we always sum so it's easy
-                    lines_values[values['column_group_key']][expression_label] += values['balance']
-        return lines_values
-
-    def _get_report_line_grand_total(self, options, res):
-        """ Format the given values to match the report line format. """
-        report = self.env.ref("l10n_ph_reports.sls_report")
-
-        line_columns = []
-        for column in options['columns']:
-            col_value = res[column['column_group_key']].get(column['expression_label'])
-            line_columns.append(report._build_column_dict(
-                col_value=col_value or '',
-                col_data=column,
-                options=options,
-            ))
-
-        line_id = report._get_generic_line_id('', '', markup='grand_total')
-        return {
-            'id': line_id,
-            'name': _('Grand Total'),
-            'unfoldable': False,
-            'unfolded': False,
-            'columns': line_columns,
-            'level': 0,
-        }
-
     # xlsx export methods
-
     @api.model
     def export_slsp(self, options):
         """ Export the report to a XLSX file formatted base on the BIR standards """
