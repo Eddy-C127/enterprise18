@@ -1,7 +1,7 @@
 import { SelectCreateAutoPlanDialog } from "@project_enterprise/views/view_dialogs/select_auto_plan_create_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { Avatar } from "@mail/views/web/fields/avatar/avatar";
-import { markup, useEffect } from "@odoo/owl";
+import { markup, onWillUnmount, useEffect } from "@odoo/owl";
 import { localization } from "@web/core/l10n/localization";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { useService } from "@web/core/utils/hooks";
@@ -30,6 +30,9 @@ export class TaskGanttRenderer extends GanttRenderer {
         );
         const position = localization.direction === "rtl" ? "bottom" : "right";
         this.milestonePopover = usePopover(MilestonesPopover, { position });
+        onWillUnmount(() => {
+            this.notificationFn?.();
+        });
     }
 
     /**
@@ -229,7 +232,7 @@ export class TaskGanttRenderer extends GanttRenderer {
                     }
                 );
             } else {
-                this.notificationService.add(warningString, {
+                this.notificationFn = this.notificationService.add(warningString, {
                     title: _t("Warning"),
                     type: "warning",
                     sticky: true,

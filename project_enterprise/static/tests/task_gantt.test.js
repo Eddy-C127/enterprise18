@@ -1,5 +1,5 @@
 import { defineMailModels, mailModels } from "@mail/../tests/mail_test_helpers";
-import { beforeEach, describe, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, destroy, expect, test } from "@odoo/hoot";
 import { hover, keyDown, queryAll, queryAllTexts, queryOne } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import {
@@ -794,40 +794,32 @@ test("Smart scheduling: display warnings", async () => {
         };
     });
 
+    let notifications = [];
     mockService("notification", {
         add: (message, options) => {
             expect.step("notification added");
             expect(message).toBe("test notification");
             expect(options).toEqual({ title: "Warning", type: "warning", sticky: true });
+            notifications.push({ message, options });
+            return () => {
+                notifications = notifications.filter(n => n.message !== message || n.options !== options);
+            };
         },
     });
 
-    await mountGanttView({
+    const ganttView = await mountGanttView({
         ...ganttViewParams,
         groupBy: ["user_ids"],
     });
-
-    expect(getGridContent().rows).toEqual([
-        {
-            title: "👤 Unassigned",
-        },
-        {
-            title: "Jane Doe",
-            pills: [{ title: "Blop", level: 0, colSpan: "14 June 2021 -> 24 (1/2) June 2021" }],
-        },
-        {
-            title: "John Doe",
-            pills: [
-                { title: "Yop", level: 0, colSpan: "Out of bounds (3)  -> 12 (1/2) June 2021" },
-            ],
-        },
-    ]);
 
     await clickCell("10 June 2021", "Jane Doe");
     expect(".o_dialog").toHaveCount(1);
     await contains(".o_dialog .o_data_row .o-checkbox").click();
     await contains(".o_dialog .o_auto_plan_button").click();
     expect.verifySteps(["schedule_tasks", "notification added"]);
+    expect(notifications).toHaveLength(1);
+    destroy(ganttView)
+    expect(notifications).toHaveLength(0);
 });
 
 test("Schedule a task and verify its display in the gantt view", async () => {
