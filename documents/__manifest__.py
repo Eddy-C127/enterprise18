@@ -79,6 +79,7 @@ App to upload and manage your documents.
             'web/static/lib/bootstrap/scss/_variables.scss',
             ('include', 'web._assets_bootstrap_backend'),
             'documents/static/src/scss/documents_public_pages.scss',
+            'documents/static/src/js/documents_public_pages.js',
         ],
         'documents.pdf_js_assets': [
             ('include', 'web.pdf_js_lib'),
