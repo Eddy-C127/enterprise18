@@ -101,7 +101,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         for column_group in options['column_groups'].values():
             column_group['forced_options']['general_ledger_strict_range'] = True
 
-        if not options['comparison'].get('periods'):
+        if options.get('comparison') and not options['comparison'].get('periods'):
             options['comparison']['period_order'] = 'ascending'
 
         # Initial balance
@@ -120,7 +120,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         # End balance
         end_date_to = options['date']['date_to']
-        end_date_from = options['comparison']['periods'][-1]['date_from'] if options['comparison']['periods'] else options['date']['date_from']
+        end_date_from = options['comparison']['periods'][-1]['date_from'] if options.get('comparison', {}).get('periods') else options['date']['date_from']
         end_forced_options = {
             'date': {
                 'mode': 'range',
