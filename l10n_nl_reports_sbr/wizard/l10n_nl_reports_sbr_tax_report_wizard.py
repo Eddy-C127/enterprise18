@@ -331,8 +331,8 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
         xbrl_data = report_handler.export_tax_report_to_xbrl(options)
         report_file = xbrl_data['file_content']
 
-        serv_root_cert = self.env.company._l10n_nl_get_server_root_certificate_bytes()
-        certificate, private_key = self.env.company._l10n_nl_get_certificate_and_key_bytes(bytes(self.password or '', 'utf-8') or None)
+        serv_root_cert = self.env.company.sudo()._l10n_nl_get_server_root_certificate_bytes()
+        certificate, private_key = self.env.company.sudo()._l10n_nl_get_certificate_and_key_bytes(bytes(self.password or '', 'utf-8') or None)
         try:
             with NamedTemporaryFile(delete=False) as f:
                 f.write(serv_root_cert)
@@ -365,7 +365,7 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
             os.unlink(f.name)
 
         if not self.is_test:
-            self.env.company.l10n_nl_reports_sbr_last_sent_date_to = self.date_to
+            self.env.company.sudo().l10n_nl_reports_sbr_last_sent_date_to = self.date_to
             subject = _("Tax report sent")
             body = _(
                 "The tax report from %s to %s was sent to Digipoort.<br/>We will post its processing status in this chatter once received.<br/>Discussion id: %s",

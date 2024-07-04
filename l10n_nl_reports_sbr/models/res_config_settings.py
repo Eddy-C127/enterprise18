@@ -35,7 +35,7 @@ class ResConfigSettings(models.TransientModel):
             x509.load_pem_x509_certificate(stored_cert)
             return certificate, False
         except ValueError:
-            password
+            pass
         try:
             # DER format
             der_cert = x509.load_der_x509_certificate(stored_cert)

@@ -4,6 +4,7 @@ from odoo.exceptions import UserError, RedirectWarning
 from cryptography.hazmat.primitives import serialization
 from cryptography import x509
 from datetime import datetime
+from requests.exceptions import HTTPError
 import base64
 import requests
 
@@ -81,6 +82,6 @@ class ResCompany(models.Model):
                 der_root_obj = x509.load_der_x509_certificate(req_root.content)
                 cert_root_bytes = der_root_obj.public_bytes(serialization.Encoding.PEM)
                 self.l10n_nl_reports_sbr_server_root_cert = base64.b64encode(cert_root_bytes)
-            except:
+            except HTTPError:
                 raise UserError(_("The server root certificate is not accessible at the moment. Please try again later."))
         return cert_root_bytes
