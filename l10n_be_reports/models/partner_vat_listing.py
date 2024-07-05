@@ -197,6 +197,7 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
                 %(groupby_clause)s
           ) AS subquery
           GROUP BY subquery.grouping_key
+          ORDER BY subquery.grouping_key
           %(tail_query)s
             """,
             grouping_key_param=grouping_key_param,
