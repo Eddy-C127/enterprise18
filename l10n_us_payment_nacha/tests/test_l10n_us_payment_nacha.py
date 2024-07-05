@@ -94,7 +94,7 @@ class TestNacha(AccountTestInvoicingCommon):
             # header
             "101 111111118  IMM_ORIG2011301945A094101DESTINATION            company_1_data         {:8d}".format(self.batch.id),
             # batch header for payments today "BATCH 0"
-            "5220company_1_data   BATCH/OUT/2020/0001COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
+            "5220company_1_data  BATCH/OUT/2020/0001 COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
             # entry detail for payment "partner_a_1"
             "622123456780987654321        0000012345               partner_a               0ORIGINAT0000000",
             # entry detail for payment "partner_b_2"
@@ -102,7 +102,7 @@ class TestNacha(AccountTestInvoicingCommon):
             # batch control record for "BATCH 0"
             "82200000020024691356000000000000000000069134COMPANY_ID                         ORIGINAT0000000",
             # batch header for payments tomorrow "BATCH 1"
-            "5220company_1_data   BATCH/OUT/2020/0001COMPANY_IDCCDBATCH 1   201201201201   1ORIGINAT0000001",
+            "5220company_1_data  BATCH/OUT/2020/0001 COMPANY_IDCCDBATCH 1   201201201201   1ORIGINAT0000001",
             # entry detail for payment "partner_a_2"
             "622123456780987654321        0000054321               partner_a               0ORIGINAT0000000",
             # entry detail for payment "partner_b_1"
@@ -120,7 +120,7 @@ class TestNacha(AccountTestInvoicingCommon):
             # header
             "101 111111118  IMM_ORIG2011301945A094101DESTINATION            company_1_data         {:8d}".format(self.batch.id),
             # batch header for payments today "BATCH 0"
-            "5200company_1_data   BATCH/OUT/2020/0001COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
+            "5200company_1_data  BATCH/OUT/2020/0001 COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
             # entry detail for payment "partner_a_1"
             "622123456780987654321        0000012345               partner_a               0ORIGINAT0000000",
             # entry detail for payment "partner_b_2"
@@ -130,7 +130,7 @@ class TestNacha(AccountTestInvoicingCommon):
             # batch control record for "BATCH 0"
             "82000000030037037034000000069134000000069134COMPANY_ID                         ORIGINAT0000000",
             # batch header for payments tomorrow "BATCH 1"
-            "5200company_1_data   BATCH/OUT/2020/0001COMPANY_IDCCDBATCH 1   201201201201   1ORIGINAT0000001",
+            "5200company_1_data  BATCH/OUT/2020/0001 COMPANY_IDCCDBATCH 1   201201201201   1ORIGINAT0000001",
             # entry detail for payment "partner_a_2"
             "622123456780987654321        0000054321               partner_a               0ORIGINAT0000000",
             # entry detail for payment "partner_b_1"

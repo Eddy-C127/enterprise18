@@ -77,9 +77,9 @@ class AccountBatchPayment(models.Model):
 
         # Truncate beginning of name if needed because that remains more recognizable:
         # "MYBATCH/OUT/2023/00005" becomes "BATCH/OUT/2023/00005" instead of "MYBATCH/OUT/2023/000"
-        batch.append("{:>20.20}".format(self.name[-20:]))  # Company Discretionary Data (optional)
+        batch.append("{:20.20}".format(self.name[-20:]))  # Company Discretionary Data (optional)
 
-        batch.append("{:0>10.10}".format(self.journal_id.nacha_company_identification))  # Company Identification
+        batch.append("{:10.10}".format(self.journal_id.nacha_company_identification))  # Company Identification
         batch.append(self.journal_id.nacha_entry_class_code)  # Standard Entry Class Code
         batch.append("{:10.10}".format(description))  # Company Entry Description
         batch.append("{:6.6}".format(date.strftime("%y%m%d")))  # Company Descriptive Date
