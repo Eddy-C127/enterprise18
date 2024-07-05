@@ -3810,3 +3810,22 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(pricing_2.price, pricing_1.price)
             self.assertEqual(pricing_2.plan_id, pricing_1.plan_id)
             self.assertEqual(pricing_2.pricelist_id, pricing_1.pricelist_id)
+
+    def test_recurring_create_invoice_branch(self):
+        self.company.child_ids = [Command.create({'name': 'Branch'})]
+        branch = self.company.child_ids[0]
+        self.product.company_id = branch
+        sub = self.env['sale.order'].with_company(branch).create({
+            'name': 'TestSubscription',
+            'is_subscription': True,
+            'plan_id': self.plan_month.id,
+            'partner_id': self.user_portal.partner_id.id,
+            'pricelist_id': self.company_data['default_pricelist'].id,
+            'order_line': [(0, 0, {'product_id': self.product.id})],
+        })
+        sub.action_confirm()
+        self.env['sale.order']._cron_recurring_create_invoice()
+
+        self.assertEqual(sub.invoice_count, 1)
+        self.assertEqual(sub.invoice_ids.company_id, branch)
+        self.assertEqual(sub.invoice_ids.state, 'posted')
