@@ -7,8 +7,8 @@ from odoo.addons.mail.tools.discuss import Store
 class MailThread(models.AbstractModel):
     _inherit = 'mail.thread'
 
-    def _to_store(self, store: Store, request_list):
-        super()._to_store(store, request_list)
+    def _thread_to_store(self, store: Store, **kwargs):
+        super()._thread_to_store(store, **kwargs)
         store.add(
             "Thread",
             {

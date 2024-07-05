@@ -3,12 +3,12 @@ import { mailModels } from "@mail/../tests/mail_test_helpers";
 export class MailThread extends mailModels.MailThread {
     /**
      * @override
-     * @type {typeof mailModels.MailThread["prototype"]["_to_store"]}
+     * @type {typeof mailModels.MailThread["prototype"]["_thread_to_store"]}
      */
-    _to_store(ids, store, request_list) {
+    _thread_to_store(ids, store, request_list) {
         /** @type {import("mock_models").WhatsAppTemplate} */
         const WhatsAppTemplate = this.env["whatsapp.template"];
-        super._to_store(...arguments);
+        super._thread_to_store(...arguments);
         store.add("Thread", {
             id: ids[0],
             model: this._name,
