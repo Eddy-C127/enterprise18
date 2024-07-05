@@ -1,4 +1,5 @@
 from odoo import fields, models, Command, tools
+from odoo.tools import SQL
 
 import re
 from collections import defaultdict
@@ -212,10 +213,12 @@ class AccountReconcileModel(models.Model):
         :param st_line: A statement line.
         :param partner: The partner associated to the statement line.
         """
-        def get_order_by_clause(alias=None):
-            direction = 'DESC' if self.matching_order == 'new_first' else 'ASC'
-            dotted_alias = f'{alias}.' if alias else ''
-            return f'{dotted_alias}date_maturity {direction}, {dotted_alias}date {direction}, {dotted_alias}id {direction}'
+        def get_order_by_clause(prefix=SQL()):
+            direction = SQL(' DESC') if self.matching_order == 'new_first' else SQL(' ASC')
+            return SQL(", ").join(
+                SQL("%s%s%s", prefix, SQL(field), direction)
+                for field in ('date_maturity', 'date', 'id')
+            )
 
         assert self.rule_type == 'invoice_matching'
         self.env['account.move'].flush_model()
@@ -223,14 +226,14 @@ class AccountReconcileModel(models.Model):
 
         aml_domain = self._get_invoice_matching_amls_domain(st_line, partner)
         query = self.env['account.move.line']._where_calc(aml_domain)
-        tables, where_clause, where_params = query.get_sql()
+        tables = query.from_clause
+        where_clause = query.where_clause or SQL("TRUE")
 
-        aml_cte = ''
-        all_params = []
-        sub_queries = []
+        aml_cte = SQL()
+        sub_queries: list[SQL] = []
         numerical_tokens, exact_tokens, _text_tokens = self._get_invoice_matching_st_line_tokens(st_line)
         if numerical_tokens or exact_tokens:
-            aml_cte = rf'''
+            aml_cte = SQL('''
                 WITH aml_cte AS (
                     SELECT
                         account_move_line.id as account_move_line_id,
@@ -239,19 +242,18 @@ class AccountReconcileModel(models.Model):
                         account_move_line.name as account_move_line_name,
                         account_move_line__move_id.name as account_move_line__move_id_name,
                         account_move_line__move_id.ref as account_move_line__move_id_ref
-                    FROM {tables}
+                    FROM %s
                     JOIN account_move account_move_line__move_id ON account_move_line__move_id.id = account_move_line.move_id
-                    WHERE {where_clause}
+                    WHERE %s
                 )
-            '''
-            all_params += where_params
+            ''', tables, where_clause)
         if numerical_tokens:
             for table_alias, field in (
                 ('account_move_line', 'name'),
                 ('account_move_line__move_id', 'name'),
                 ('account_move_line__move_id', 'ref'),
             ):
-                sub_queries.append(rf'''
+                sub_queries.append(SQL(r'''
                     SELECT
                         account_move_line_id as id,
                         account_move_line_date as date,
@@ -259,47 +261,49 @@ class AccountReconcileModel(models.Model):
                         UNNEST(
                             REGEXP_SPLIT_TO_ARRAY(
                                 SUBSTRING(
-                                    REGEXP_REPLACE({table_alias}_{field}, '[^0-9\s]', '', 'g'),
+                                    REGEXP_REPLACE(%(field)s, '[^0-9\s]', '', 'g'),
                                     '\S(?:.*\S)*'
                                 ),
                                 '\s+'
                             )
                         ) AS token
                     FROM aml_cte
-                    WHERE {table_alias}_{field} IS NOT NULL
-                ''')
+                    WHERE %(field)s IS NOT NULL
+                ''', field=SQL("%s_%s", SQL(table_alias), SQL(field))))
         if exact_tokens:
             for table_alias, field in (
                 ('account_move_line', 'name'),
                 ('account_move_line__move_id', 'name'),
                 ('account_move_line__move_id', 'ref'),
             ):
-                sub_queries.append(rf'''
+                sub_queries.append(SQL('''
                     SELECT
                         account_move_line_id as id,
                         account_move_line_date as date,
                         account_move_line_date_maturity as date_maturity,
-                        {table_alias}_{field} AS token
+                        %(field)s AS token
                     FROM aml_cte
-                    WHERE COALESCE({table_alias}_{field}, '') != ''
-                ''')
+                    WHERE %(field)s != ''
+                ''', field=SQL("%s_%s", SQL(table_alias), SQL(field))))
         if sub_queries:
-            order_by = get_order_by_clause(alias='sub')
-            self._cr.execute(
-                aml_cte +
+            order_by = get_order_by_clause(prefix=SQL('sub.'))
+            candidate_ids = [r[0] for r in self.env.execute_query(SQL(
                 '''
+                    %s
                     SELECT
                         sub.id,
                         COUNT(*) AS nb_match
-                    FROM (''' + ' UNION ALL '.join(sub_queries) + ''') AS sub
+                    FROM (%s) AS sub
                     WHERE sub.token IN %s
                     GROUP BY sub.date_maturity, sub.date, sub.id
                     HAVING COUNT(*) > 0
-                    ORDER BY nb_match DESC, ''' + order_by + '''
+                    ORDER BY nb_match DESC, %s
                 ''',
-                all_params + [tuple(numerical_tokens + exact_tokens)],
-            )
-            candidate_ids = [r[0] for r in self._cr.fetchall()]
+                aml_cte,
+                SQL(" UNION ALL ").join(sub_queries),
+                tuple(numerical_tokens + exact_tokens),
+                order_by,
+            ))]
             if candidate_ids:
                 return {
                     'allow_auto_reconcile': True,
@@ -309,31 +313,33 @@ class AccountReconcileModel(models.Model):
         if not partner:
             st_line_currency = st_line.foreign_currency_id or st_line.journal_id.currency_id or st_line.company_currency_id
             if st_line_currency == self.company_id.currency_id:
-                aml_amount_field = 'amount_residual'
+                aml_amount_field = SQL('amount_residual')
             else:
-                aml_amount_field = 'amount_residual_currency'
+                aml_amount_field = SQL('amount_residual_currency')
 
-            order_by = get_order_by_clause(alias='account_move_line')
-            self._cr.execute(
-                f'''
+            order_by = get_order_by_clause(prefix=SQL('account_move_line.'))
+            rows = self.env.execute_query(SQL(
+                '''
                     SELECT account_move_line.id
-                    FROM {tables}
+                    FROM %s
                     WHERE
-                        {where_clause}
+                        %s
                         AND account_move_line.currency_id = %s
-                        AND ROUND(account_move_line.{aml_amount_field}, %s) = ROUND(%s, %s)
-                    ORDER BY {order_by}
+                        AND ROUND(account_move_line.%s, %s) = ROUND(%s, %s)
+                    ORDER BY %s
                 ''',
-                where_params + [
-                    st_line_currency.id,
-                    st_line_currency.decimal_places,
-                    -st_line.amount_residual,
-                    st_line_currency.decimal_places,
-                ],
-            )
-            amls = self.env['account.move.line'].browse([row[0] for row in self._cr.fetchall()])
+                tables,
+                where_clause,
+                st_line_currency.id,
+                aml_amount_field,
+                st_line_currency.decimal_places,
+                -st_line.amount_residual,
+                st_line_currency.decimal_places,
+                order_by,
+            ))
+            amls = self.env['account.move.line'].browse([row[0] for row in rows])
         else:
-            amls = self.env['account.move.line'].search(aml_domain, order=get_order_by_clause())
+            amls = self.env['account.move.line'].search(aml_domain, order=get_order_by_clause().code)
 
         if amls:
             return {

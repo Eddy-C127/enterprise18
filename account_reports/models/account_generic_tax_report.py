@@ -35,7 +35,7 @@ class AccountTaxReportHandler(models.AbstractModel):
 
         # Chek the use of inactive tags in the period
         tables, where_clause = report._get_sql_table_expression(options, 'strict_range')
-        self._cr.execute(SQL("""
+        rows = self.env.execute_query(SQL("""
             SELECT 1
             FROM %s
             JOIN account_account_tag_account_move_line_rel aml_tag
@@ -46,8 +46,7 @@ class AccountTaxReportHandler(models.AbstractModel):
             AND NOT tag.active
             LIMIT 1
         """, tables, where_clause))
-
-        if self._cr.fetchone():
+        if rows:
             warnings['account_reports.tax_report_warning_inactive_tags'] = {}
 
 
@@ -610,9 +609,9 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
         # If all child taxes have a 'none' type_tax_use, all amounts are aggregated and only the group appears on the report.
         company_ids = report.get_report_company_ids(options)
         company_domain = self.env['account.tax']._check_company_domain(company_ids)
-        _, company_where_clause, company_where_params = self.env['account.tax'].with_context(active_test=False)._where_calc(company_domain).get_sql()
-        self._cr.execute(
-            f'''
+        company_where_query = self.env['account.tax'].with_context(active_test=False)._where_calc(company_domain)
+        self._cr.execute(SQL(
+            '''
                 SELECT
                     account_tax.id,
                     account_tax.type_tax_use,
@@ -622,11 +621,10 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
                 JOIN account_tax ON account_tax.id = account_tax_rel.parent_tax
                 JOIN account_tax child_tax ON child_tax.id = account_tax_rel.child_tax
                 WHERE account_tax.amount_type = 'group'
-                AND {company_where_clause}
+                AND %s
                 GROUP BY account_tax.id
-            ''',
-            company_where_params,
-        )
+            ''', company_where_query.where_clause or SQL("TRUE")
+        ))
         group_of_taxes_info = {}
         child_to_group_of_taxes = {}
         for row in self._cr.dictfetchall():

@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError
-from odoo.tools import groupby
+from odoo.tools import groupby, SQL
 from odoo.tools.misc import formatLang
 
 
@@ -406,17 +406,14 @@ class AccountReconcileWizard(models.TransientModel):
                 ('company_id', '=', wizard.company_id.id),
             ]
             query = self.env['account.reconcile.model']._where_calc(domain)
-            tables, where_clause, where_params = query.get_sql()
-            query_str = f"""
+            reco_model_ids = [r[0] for r in self.env.execute_query(SQL("""
                 SELECT account_reconcile_model.id
-                FROM {tables}
+                FROM %s
                 JOIN account_reconcile_model_line line ON line.model_id = account_reconcile_model.id
-                WHERE {where_clause}
+                WHERE %s
                 GROUP BY account_reconcile_model.id
                 HAVING COUNT(account_reconcile_model.id) = 1
-            """
-            self._cr.execute(query_str, where_params)
-            reco_model_ids = [r[0] for r in self._cr.fetchall()]
+            """, query.from_clause, query.where_clause or SQL("TRUE")))]
             wizard.reco_model_autocomplete_ids = self.env['account.reconcile.model'].browse(reco_model_ids)
 
     # ==== Onchange methods ====

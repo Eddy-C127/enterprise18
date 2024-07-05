@@ -7,7 +7,7 @@ from datetime import datetime
 import random
 
 from odoo import api, models, fields, _
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_round
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_round, SQL
 from odoo.osv.expression import OR
 
 
@@ -534,21 +534,19 @@ class ProductProduct(models.Model):
 
         query = self.env['quality.point']._where_calc([('company_id', '=', self.env.company.id)])
         self.env['quality.point']._apply_ir_rules(query, 'read')
-        _, where_clause, where_clause_args = query.get_sql()
-        additional_where_clause = self._additional_quality_point_where_clause()
-        where_clause += additional_where_clause
-        parent_category_ids = [int(parent_id) for parent_id in self.categ_id.parent_path.split('/')[:-1]] if self.categ_id else []
 
-        self.env.cr.execute("""
-            SELECT COUNT(*)
-                FROM quality_point
-                WHERE %s
-                AND (
+        additional_where_clause = self._additional_quality_point_where_clause()
+        if additional_where_clause:
+            query.add_where(additional_where_clause)
+
+        parent_category_ids = [int(parent_id) for parent_id in self.categ_id.parent_path.split('/')[:-1]] if self.categ_id else []
+        query.add_where(SQL(
+            """
                     (
                         -- QP has at least one linked product and one is right
-                        EXISTS (SELECT 1 FROM product_product_quality_point_rel rel WHERE rel.quality_point_id = quality_point.id AND rel.product_product_id = ANY(%%s))
+                        EXISTS (SELECT 1 FROM product_product_quality_point_rel rel WHERE rel.quality_point_id = quality_point.id AND rel.product_product_id = ANY(%s))
                         -- Or QP has at least one linked product category and one is right
-                        OR EXISTS (SELECT 1 FROM product_category_quality_point_rel rel WHERE rel.quality_point_id = quality_point.id AND rel.product_category_id = ANY(%%s))
+                        OR EXISTS (SELECT 1 FROM product_category_quality_point_rel rel WHERE rel.quality_point_id = quality_point.id AND rel.product_category_id = ANY(%s))
                     )
                     OR (
                         -- QP has no linked products
@@ -556,10 +554,11 @@ class ProductProduct(models.Model):
                         -- And QP has no linked product categories
                         AND NOT EXISTS (SELECT 1 FROM product_category_quality_point_rel rel WHERE rel.quality_point_id = quality_point.id)
                     )
-                )
-        """ % (where_clause,), where_clause_args + [self.ids, parent_category_ids]
-        )
-        return self.env.cr.fetchone()[0]
+            """,
+            self.ids, parent_category_ids,
+        ))
+        rows = self.env.execute_query(query.select("COUNT(*)"))
+        return rows[0][0]
 
     def action_see_quality_control_points(self):
         self.ensure_one()
@@ -584,5 +583,5 @@ class ProductProduct(models.Model):
         ]
         return action
 
-    def _additional_quality_point_where_clause(self):
-        return ""
+    def _additional_quality_point_where_clause(self) -> SQL:
+        return SQL()

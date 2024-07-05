@@ -3432,8 +3432,7 @@ class AccountReport(models.Model):
                     prefixes_to_compute.add((prefix, tuple(excluded_prefixes)))
 
         # Create the subquery for the WITH linking our prefixes with account.account entries
-        all_prefixes_queries = []
-        prefix_params = []
+        all_prefixes_queries: list[SQL] = []
         prefilter = self.env['account.account']._check_company_domain(self.get_report_company_ids(options))
         for prefix, excluded_prefixes in prefixes_to_compute:
             account_domain = [
@@ -3461,28 +3460,15 @@ class AccountReport(models.Model):
                 account_domain.append('!')
                 account_domain += osv.expression.OR(excluded_prefixes_domains)
 
-            prefix_tables, prefix_where_clause, prefix_where_params = self.env['account.account']._where_calc(account_domain).get_sql()
-
-            prefix_params.append(prefix)
-            for excluded_prefix in excluded_prefixes:
-                prefix_params.append(excluded_prefix)
-
-            prefix_select_query = ', '.join(['%s'] * (len(excluded_prefixes) + 1)) # +1 for prefix
-            prefix_select_query = f'ARRAY[{prefix_select_query}]'
-
-            all_prefixes_queries.append(f"""
-                SELECT
-                    {prefix_select_query} AS prefix,
-                    account_account.id AS account_id
-                FROM {prefix_tables}
-                WHERE {prefix_where_clause}
-            """)
-            prefix_params += prefix_where_params
+            prefix_query = self.env['account.account']._where_calc(account_domain)
+            all_prefixes_queries.append(prefix_query.select(
+                SQL("%s AS prefix", [prefix, *excluded_prefixes]),
+                SQL("account_account.id AS account_id"),
+            ))
 
         # Build a map to associate each account with the prefixes it matches
         accounts_prefix_map = defaultdict(list)
-        self._cr.execute(' UNION ALL '.join(all_prefixes_queries), prefix_params)
-        for prefix, account_id in self._cr.fetchall():
+        for prefix, account_id in self.env.execute_query(SQL(' UNION ALL ').join(all_prefixes_queries)):
             accounts_prefix_map[account_id].append(tuple(prefix))
 
         # Run main query
@@ -3654,9 +3640,7 @@ class AccountReport(models.Model):
         query_results_dict = {}
         for query_list in (num_queries, string_queries, monetary_queries):
             if query_list:
-                query = SQL(' UNION ALL ').join(SQL("(%s)", query) for query in query_list)
-                self._cr.execute(query)
-                query_results = self._cr.fetchall()
+                query_results = self.env.execute_query(SQL(' UNION ALL ').join(SQL("(%s)", query) for query in query_list))
                 query_results_dict.update(dict(query_results))
 
         # Build result dict
@@ -3928,18 +3912,17 @@ class AccountReport(models.Model):
                 external_values_domain.append(('date', '>=', date_from))
 
             if expression.formula == 'most_recent':
-                tables, where_clause, where_params = self.env['account.report.external.value']._where_calc(external_values_domain).get_sql()
-                self._cr.execute(f"""
+                query = self.env['account.report.external.value']._where_calc(external_values_domain)
+                rows = self.env.execute_query(SQL("""
                     SELECT ARRAY_AGG(id)
-                    FROM {tables}
-                    WHERE {where_clause}
+                    FROM %s
+                    WHERE %s
                     GROUP BY date
                     ORDER BY date DESC
                     LIMIT 1
-                """, where_params)
-                record_ids = self._cr.fetchone()
-                if record_ids:
-                    external_values_domain = [('id', 'in', record_ids[0])]
+                """, query.from_clause, query.where_clause or SQL("TRUE")))
+                if rows:
+                    external_values_domain = [('id', 'in', rows[0][0])]
 
             return {
                 'name': _("Manual values"),

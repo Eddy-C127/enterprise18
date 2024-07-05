@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models
+from odoo.tools import SQL
 from odoo.osv.expression import AND
 
 
@@ -35,11 +36,11 @@ class ProductProduct(models.Model):
         return action
 
     def _additional_quality_point_where_clause(self):
-        return super()._additional_quality_point_where_clause() + """
-            AND (
+        return SQL("""(
                 operation_id IS NULL
                 OR operation_id IN (
                     SELECT ope.id FROM mrp_routing_workcenter AS ope
                     INNER JOIN mrp_bom as bom ON ope.bom_id = bom.id
-                    WHERE bom.active = 't' ))
-        """
+                    WHERE bom.active = 't'
+                )
+            )""")

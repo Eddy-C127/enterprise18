@@ -2316,24 +2316,23 @@ class Article(models.Model):
         """
         self.flush_model()
 
-        args = []
-        base_where_domain = ''
+        base_where_domain = SQL()
         if self.ids:
-            base_where_domain = "WHERE id in %s"
-            args.append(tuple(self.ids))
+            base_where_domain = SQL("WHERE id in %s", tuple(self.ids))
 
-        where_clause = ''
+        where_clause = SQL()
         if filter_domain:
-            query = self.with_context(active_test=False)._where_calc(filter_domain)
-            table_name, where_clause, where_params = query.get_sql()
-            where_clause = f'WHERE {where_clause.replace(table_name, "article_perms")}'
-            args += where_params
+            query = self.with_context(active_test=False)._where_calc(filter_domain or [])
+            where_clause = query.where_clause
+            if where_clause:
+                where_clause = SQL(where_clause.code.replace(query.table, "article_perms"), *where_clause.params)
+                where_clause = SQL('WHERE %s', where_clause)
 
-        sql = f'''
+        return dict(self.env.execute_query(SQL('''
     WITH RECURSIVE article_perms as (
         SELECT id, id as article_id, parent_id, internal_permission, is_desynchronized
           FROM knowledge_article
-          {base_where_domain}
+          %s
          UNION
         SELECT parents.id, perms.article_id, parents.parent_id,
                COALESCE(perms.internal_permission, parents.internal_permission),
@@ -2346,10 +2345,9 @@ class Article(models.Model):
     )
     SELECT article_id, max(internal_permission)
       FROM article_perms
-           {where_clause}
-  GROUP BY article_id'''
-        self._cr.execute(sql, args)
-        return dict(self._cr.fetchall())
+        %s
+    GROUP BY article_id
+        ''', base_where_domain, where_clause)))
 
     @api.model
     def _get_partner_member_permissions(self, partner):
@@ -2360,13 +2358,12 @@ class Article(models.Model):
         self.env['knowledge.article'].flush_model()
         self.env['knowledge.article.member'].flush_model()
 
-        args = [partner.id]
-        base_where_domain = ''
         if self.ids:
-            base_where_domain = "WHERE perms1.id in %s"
-            args.append(tuple(self.ids))
+            base_where_domain = SQL("WHERE perms1.id in %s", tuple(self.ids))
+        else:
+            base_where_domain = SQL()
 
-        sql = f'''
+        return dict(self.env.execute_query(SQL('''
     WITH RECURSIVE article_perms as (
         SELECT a.id, a.parent_id, m.permission, a.is_desynchronized
           FROM knowledge_article a
@@ -2376,7 +2373,7 @@ class Article(models.Model):
         SELECT perms1.id, perms1.id as article_id, perms1.parent_id,
                perms1.permission, perms1.is_desynchronized
           FROM article_perms as perms1
-          {base_where_domain}
+            %s
          UNION
         SELECT perms2.id, perms_rec.article_id, perms2.parent_id,
                COALESCE(perms_rec.permission, perms2.permission),
@@ -2390,9 +2387,10 @@ class Article(models.Model):
     SELECT article_id, max(permission)
       FROM article_rec
      WHERE permission IS NOT NULL
-  GROUP BY article_id'''
-        self._cr.execute(sql, args)
-        return dict(self._cr.fetchall())
+  GROUP BY article_id''',
+            partner.id,
+            base_where_domain,
+        )))
 
     def _get_article_member_permissions(self, additional_fields=False):
         """ Retrieve the permission for all the members that apply to the target article.

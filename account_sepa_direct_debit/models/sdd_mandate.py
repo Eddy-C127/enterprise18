@@ -4,6 +4,7 @@
 from datetime import datetime
 
 from odoo import api, fields, models, _
+from odoo.tools import SQL
 
 from odoo.exceptions import UserError
 
@@ -108,21 +109,14 @@ class SDDMandate(models.Model):
         """
         self.flush_model(['state', 'start_date', 'end_date', 'company_id', 'partner_id', 'one_off'])
 
-        query_obj = self._where_calc([
+        query = self._where_calc([
             ('state', 'not in', ['draft', 'revoked']),
             ('start_date', '<=', date),
             '|', ('end_date', '>=', date), ('end_date', '=', None),
             ('company_id', '=', company_id),
             ('partner_id', '=', partner_id),
         ])
-        tables, where_clause, where_clause_params = query_obj.get_sql()
-
-        self._cr.execute('''
-            SELECT sdd_mandate.id
-            FROM ''' + tables + '''
-            WHERE ''' + where_clause + '''
-            AND
-            (
+        query.add_where(SQL("""(
                 (
                     SELECT COUNT(payment.id)
                     FROM account_payment payment
@@ -131,11 +125,9 @@ class SDDMandate(models.Model):
                 )  = 0
                 OR
                 sdd_mandate.one_off IS FALSE
-            )
-            LIMIT 1
-        ''', where_clause_params)
-        res = self._cr.fetchone()
-        return res and self.browse(res[0]) or self.env['sdd.mandate']
+            )"""))
+        query.limit = 1
+        return self.env['sdd.mandate'].browse(query)
 
     @api.depends()
     def _compute_from_moves(self):
@@ -149,7 +141,7 @@ class SDDMandate(models.Model):
             return
         self.env['account.move'].flush_model(['sdd_mandate_id', 'move_type'])
 
-        self._cr.execute('''
+        query_res = dict(self.env.execute_query(SQL('''
             SELECT
                 move.sdd_mandate_id,
                 ARRAY_AGG(move.id) AS invoice_ids
@@ -157,15 +149,14 @@ class SDDMandate(models.Model):
             WHERE move.sdd_mandate_id IS NOT NULL
             AND move.move_type IN ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')
             GROUP BY move.sdd_mandate_id
-        ''')
-        query_res = dict((mandate_id, invoice_ids) for mandate_id, invoice_ids in self._cr.fetchall())
+        ''')))
 
         for mandate in self:
             invoice_ids = query_res.get(mandate.id, [])
             mandate.paid_invoice_ids = [(6, 0, invoice_ids)]
             mandate.paid_invoices_nber = len(invoice_ids)
 
-        self._cr.execute('''
+        query_res = dict(self.env.execute_query(SQL('''
             SELECT
                 move.sdd_mandate_id,
                 ARRAY_AGG(payment.id) AS payment_ids
@@ -176,8 +167,7 @@ class SDDMandate(models.Model):
             AND move.state = 'posted'
             AND method.code IN %s
             GROUP BY move.sdd_mandate_id
-        ''', [tuple(self.payment_ids.payment_method_id._get_sdd_payment_method_code())])
-        query_res = dict((mandate_id, payment_ids) for mandate_id, payment_ids in self._cr.fetchall())
+        ''', tuple(self.payment_ids.payment_method_id._get_sdd_payment_method_code()))))
 
         for mandate in self:
             payment_ids = query_res.get(mandate.id, [])

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models
+from odoo.tools import SQL
 
 
 class AccountReconcileModel(models.Model):
@@ -33,35 +34,35 @@ class AccountReconcileModel(models.Model):
 
         aml_domain = self._get_invoice_matching_amls_domain(st_line, partner)
         query = self.env['account.move.line']._where_calc(aml_domain)
-        tables, where_clause, where_params = query.get_sql()
 
-        additional_conditions = []
-        for token in text_tokens:
-            additional_conditions.append(r"%s ~ sub.name")
-            where_params.append(token)
+        additional_conditions = SQL(" OR ").join(
+            SQL("%s ~ sub.name", token)
+            for token in text_tokens
+        )
 
-        self._cr.execute(
-            rf'''
+        candidate_ids = [r[0] for r in self.env.execute_query(SQL(
+            r'''
                 WITH account_batch_payment_name AS (
                     SELECT DISTINCT
                         batch.id,
                         SUBSTRING(REGEXP_REPLACE(LOWER(batch.name), '[^0-9a-z\s]', '', 'g'), '\S(?:.*\S)*') AS name,
                         ARRAY_AGG(account_move_line.id) AS aml_ids
-                    FROM {tables}
+                    FROM %s
                     JOIN account_payment pay ON pay.id = account_move_line.payment_id
                     JOIN account_batch_payment batch ON
                         batch.id = pay.batch_payment_id
                         AND batch.state != 'reconciled'
-                    WHERE {where_clause}
+                    WHERE %s
                     GROUP BY batch.id, batch.name
                 )
                 SELECT sub.aml_ids
                 FROM account_batch_payment_name sub
-                WHERE {' OR '.join(additional_conditions)}
+                WHERE %s
             ''',
-            where_params,
-        )
-        candidate_ids = [r[0] for r in self._cr.fetchall()]
+            query.from_clause,
+            query.where_clause or SQL("TRUE"),
+            additional_conditions or SQL("TRUE"),
+        ))]
         if candidate_ids:
             return {
                 'allow_auto_reconcile': True,

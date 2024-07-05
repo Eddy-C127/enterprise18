@@ -4,6 +4,7 @@ from collections import defaultdict
 import json
 
 from odoo import _, api, fields, models, Command
+from odoo.tools import SQL
 from odoo.addons.web.controllers.utils import clean_action
 
 
@@ -21,28 +22,25 @@ class BankRecWidget(models.Model):
 
         amls_domain = st_line._get_default_amls_matching_domain()
         query = self.env['account.move.line']._where_calc(amls_domain)
-        tables, where_clause, where_params = query.get_sql()
-
-        if batch_payments:
-            where_clause += " AND pay.batch_payment_id IN %s"
-            where_params.append(tuple(batch_payments.ids))
-
-        self._cr.execute(
-            f'''
+        rows = self.env.execute_query(SQL(
+            '''
                 SELECT
                     pay.batch_payment_id,
                     ARRAY_AGG(account_move_line.id) AS aml_ids
-                FROM {tables}
+                FROM %s
                 JOIN account_payment pay ON pay.id = account_move_line.payment_id
                 JOIN account_batch_payment batch ON batch.id = pay.batch_payment_id
-                WHERE {where_clause}
+                WHERE %s
+                    AND %s
                     AND pay.batch_payment_id IS NOT NULL
                     AND batch.state != 'reconciled'
                 GROUP BY pay.batch_payment_id
             ''',
-            where_params,
-        )
-        return {r[0]: r[1] for r in self._cr.fetchall()}
+            query.from_clause,
+            query.where_clause or SQL("TRUE"),
+            SQL("pay.batch_payment_id IN %s", tuple(batch_payments.ids)) if batch_payments else SQL("TRUE")
+        ))
+        return {r[0]: r[1] for r in rows}
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS

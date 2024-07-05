@@ -1,5 +1,5 @@
 from odoo import models, _, osv
-from odoo.tools import groupby
+from odoo.tools import groupby, SQL
 from odoo.tools.float_utils import float_repr
 
 
@@ -63,8 +63,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.
         self.env['account.move.line']._apply_ir_rules(query)
 
-        from_clause, where_clause, where_clause_params = query.get_sql()
-        sql = f"""
+        sql = SQL("""
                SELECT bank_statement_line.id,
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
@@ -77,7 +76,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       account_move_line.move_id,
                       aml_currency.name AS currency_name,
                       latam_doctype.code AS document_type
-                 FROM {from_clause}
+                 FROM %s
                  JOIN account_move ON account_move_line.move_id = account_move.id
             LEFT JOIN account_move_line AS account_move_line_bs ON account_move.id = account_move_line_bs.move_id
             LEFT JOIN account_move_line AS account_move_line_fr ON account_move_line_bs.matching_number = account_move_line_fr.matching_number
@@ -88,7 +87,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                  JOIN account_account AS journal_account ON journal.default_account_id = journal_account.id
             LEFT JOIN l10n_latam_document_type AS latam_doctype ON account_move_fr.l10n_latam_document_type_id = latam_doctype.id
             LEFT JOIN res_currency AS aml_currency ON account_move_line.currency_id = aml_currency.id
-                WHERE {where_clause}
+                WHERE %s
              GROUP BY bank_statement_line.id,
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
@@ -103,7 +102,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       account_move_line.move_id,
                       aml_currency.name
              ORDER BY bank_statement_move.journal_id, bank_statement_move.date, bank_statement_line.id
-        """
+        """, query.from_clause, query.where_clause or SQL("TRUE"))
         for model in (
                 'account.move.line',
                 'account.move',
@@ -114,8 +113,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                 'l10n_latam.document.type',
         ):
             self.env[model].flush_model()
-        self.env.cr.execute(sql, where_clause_params)
-
+        self.env.cr.execute(sql)
         lines_data = self._cr.dictfetchall()
 
         data = []
@@ -184,8 +182,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.
         self.env['account.move.line']._apply_ir_rules(query)
 
-        from_clause, where_clause, where_clause_params = query.get_sql()
-        sql = f"""
+        sql = SQL("""
                SELECT bank_statement_line.id,
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
@@ -197,7 +194,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       partner.vat,
                       partner.name AS partner_name,
                       partner_latam_idtype.l10n_pe_vat_code
-                 FROM {from_clause}
+                 FROM %s
                  JOIN account_move AS account_move ON account_move_line.move_id = account_move.id
             LEFT JOIN account_move_line AS account_move_line_bs ON account_move.id = account_move_line_bs.move_id
             LEFT JOIN account_move_line AS account_move_line_fr ON account_move_line_bs.matching_number = account_move_line_fr.matching_number
@@ -212,7 +209,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
             LEFT JOIN l10n_latam_identification_type AS partner_latam_idtype ON partner.l10n_latam_identification_type_id = partner_latam_idtype.id
             LEFT JOIN l10n_latam_document_type AS latam_doctype ON account_move.l10n_latam_document_type_id = latam_doctype.id
             LEFT JOIN res_currency AS aml_currency ON account_move_line.currency_id = aml_currency.id
-                WHERE {where_clause}
+                WHERE %s
              GROUP BY bank_statement_line.id,
                       bank_statement_line.amount,
                       bank_statement_line.payment_ref,
@@ -227,7 +224,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                       partner.name,
                       partner_latam_idtype.l10n_pe_vat_code
              ORDER BY bank_statement_move.journal_id, bank_statement_move.date, bank_statement_line.id
-        """
+        """, query.from_clause, query.where_clause or SQL("TRUE"))
         for model in (
                 'account.move.line',
                 'account.move',
@@ -238,11 +235,10 @@ class AccountCashFlowReportHandler(models.AbstractModel):
                 'l10n_latam.document.type',
         ):
             self.env[model].flush_model()
-        self.env.cr.execute(sql, where_clause_params)
+        self.env.cr.execute(sql)
         lines_data = self._cr.dictfetchall()
 
         data = []
-
         period = options['date']['date_from'].replace('-', '')
         for _move_id, line_vals in groupby(lines_data, lambda l: l['move_id']):
             # Only consider the first line.
