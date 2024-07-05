@@ -28,7 +28,7 @@ class TestUi(TestFrontend):
 
         cls.pos_config.write({
             'module_pos_restaurant_appointment': True,
-            'appointment_type_ids': [(6, 0, [cls.appointment_type.id])],
+            'appointment_type_id': cls.appointment_type.id,
         })
 
         cls.table_5_resource = cls.env['appointment.resource'].create({

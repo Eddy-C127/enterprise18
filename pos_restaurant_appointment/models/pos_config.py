@@ -7,4 +7,4 @@ from odoo import fields, models
 class PosConfig(models.Model):
     _inherit = 'pos.config'
 
-    appointment_type_ids = fields.Many2many('appointment.type', string='Appointment Type')
+    appointment_type_id = fields.Many2one('appointment.type', string='Appointment Type')

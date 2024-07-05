@@ -3,7 +3,6 @@
 
 from odoo import api, models, fields
 from datetime import timedelta
-from itertools import chain
 
 
 class CalendarEvent(models.Model):
@@ -14,10 +13,10 @@ class CalendarEvent(models.Model):
     def _load_pos_data_domain(self, data):
         now = fields.Datetime.now()
         dayAfter = fields.Date.today() + timedelta(days=1)
-        appointment_type_ids = list(chain.from_iterable([config['appointment_type_ids'] for config in data['pos.config']['data']]))
+        appointment_type_id = [config['appointment_type_id'] for config in data['pos.config']['data']]
         return [
             ('booking_line_ids.appointment_resource_id', 'in', [table['appointment_resource_id'] for table in data['restaurant.table']['data']]),
-            ('appointment_type_id', 'in', appointment_type_ids),
+            ('appointment_type_id', 'in', appointment_type_id),
             '|', '&', ('start', '>=', now), ('start', '<=', dayAfter), '&', ('stop', '>=', now), ('stop', '<=', dayAfter),
         ]
 
@@ -27,7 +26,7 @@ class CalendarEvent(models.Model):
 
     @api.model
     def _fields_for_restaurant_table(self):
-        return ['id', 'start', 'duration', 'stop', 'name', 'appointment_type_id', 'appointment_resource_ids', 'resource_total_capacity_reserved']
+        return ['id', 'start', 'duration', 'stop', 'name', 'appointment_type_id', 'appointment_attended', 'appointment_resource_ids', 'resource_total_capacity_reserved']
 
     @api.model
     def _send_table_notifications(self, events, command):
@@ -57,6 +56,31 @@ class CalendarEvent(models.Model):
                 "command": command,
                 "event": item['event'],
             }))
+
+    def action_open_booking_gantt_view(self):
+        appointment_type_id = self.appointment_resource_ids[0].appointment_type_ids[0].id if self.appointment_resource_ids else self.id
+        return {
+            'name': 'Manage Bookings',
+            'type': 'ir.actions.act_window',
+            'res_model': 'calendar.event',
+            "views": [(self.env.ref("pos_restaurant_appointment.calendar_event_view_gantt_booking_resource_inherited").id, "gantt")],
+            'target': 'new',
+            'context': {
+                'appointment_booking_gantt_show_all_resources': True,
+                'active_model': 'appointment.type',
+                "search_default_appointment_type_id": appointment_type_id,
+            }
+        }
+
+    def action_open_booking_form_view(self):
+        return {
+            'name': 'Edit Booking',
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+            'res_model': 'calendar.event',
+            'views': [(self.env.ref('pos_restaurant_appointment.calendar_event_view_form_gantt_booking_inherit').id, 'form')],
+            'res_id': self.id,
+        }
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -92,13 +92,18 @@ patch(FloorScreen.prototype, {
     isCustomerLate(table) {
         const dateNow = DateTime.now();
         const dateStart = deserializeDateTime(this.getFirstAppointment(table)?.start).ts;
-        const order = this.pos.models["pos.order"].find((o) => o.table_id.id === table.id);
-        return !order && dateNow > dateStart;
+        return dateNow > dateStart && !this.getFirstAppointment(table).appointment_attended;
     },
     appointmentStarted(table) {
         return (
             this.getFirstAppointment(table) &&
             deserializeDateTime(this.getFirstAppointment(table).start).ts < DateTime.now().ts
         );
+    },
+    onClickAppointment(ev, table) {
+        if (!this.pos.isEditMode) {
+            ev.stopPropagation();
+            return this.pos.editBooking(this.getFirstAppointment(table));
+        }
     },
 });
