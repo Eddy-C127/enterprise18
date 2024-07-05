@@ -6,7 +6,7 @@ from odoo import fields, models
 class HREmployee(models.Model):
     _inherit = "hr.employee"
 
-    l10n_bd_disabled = fields.Boolean(string="Disabled", tracking=True)
+    l10n_bd_disabled = fields.Boolean(string="BD: Disabled", tracking=True)
     l10n_bd_disabled_dependent = fields.Integer(string="Number of disabled dependent people", tracking=True)
     l10n_bd_gazetted_war_founded_freedom_fighter = fields.Boolean(
         string="Gazetted War-Founded Freedom Fighter",

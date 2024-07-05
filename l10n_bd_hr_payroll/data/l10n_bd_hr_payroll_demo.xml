@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="partner_demo_company_bd" model="res.partner">
+    <record id="base.partner_demo_company_bd" model="res.partner">
         <field name="name">My Bangladeshi Company</field>
         <field name="street">Bangladeshi Street</field>
         <field name="zip">1000</field>
@@ -8,7 +8,7 @@
         <field name="country_id" ref="base.bd"/>
     </record>
 
-    <record id="demo_company_bd" model="res.company" forcecreate="1">
+    <record id="base.demo_company_bd" model="res.company" forcecreate="1">
         <field name="name">My Bangladeshi Company</field>
         <field name="currency_id" ref="base.BDT"/>
         <field name="partner_id" ref="partner_demo_company_bd"/>

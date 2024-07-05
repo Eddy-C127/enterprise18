@@ -9,6 +9,7 @@ Bangladesh Payroll Rules.
 
     """,
     'depends': ['hr_payroll'],
+    'auto_install': ['hr_payroll'],
     'data': [
         'data/hr_rule_parameters_data.xml',
         'data/hr_payroll_structure_type_data.xml',
