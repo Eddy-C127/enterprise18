@@ -46,14 +46,6 @@ patch(DocumentsInspector.prototype, {
         return result;
     },
 
-    openSpreadsheet(record) {
-        this.env.bus.trigger("documents-open-preview", {
-            documents: [record],
-            isPdfSplit: false,
-            rules: [],
-            hasPdfSplit: false,
-        });
-    },
 
     /**
      * @override
