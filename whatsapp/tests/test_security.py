@@ -239,9 +239,8 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                         "subject": False,
                                         "subtype_description": False,
                                         "thread": {
-                                            "model": "discuss.channel",
                                             "id": employee_channel.id,
-                                            "module_icon": "/mail/static/description/icon.png",
+                                            "model": "discuss.channel",
                                         },
                                         "write_date": fields.Datetime.to_string(message.write_date),
                                     },
@@ -255,6 +254,13 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                         "type": "partner",
                                         "userId": self.user_admin.id,
                                         "write_date": admin_write_date,
+                                    },
+                                ],
+                                "Thread": [
+                                    {
+                                        "id": employee_channel.id,
+                                        "model": "discuss.channel",
+                                        "module_icon": "/mail/static/description/icon.png",
                                     },
                                 ],
                             },
