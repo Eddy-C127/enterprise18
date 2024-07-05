@@ -492,6 +492,13 @@ class Task(models.Model):
 
             for (timesheet_product_id, price_unit, uom_id), timesheets in product_timesheets_dict.items():
                 sol = sols_by_product_and_price_dict.get((timesheet_product_id, price_unit))  # get the existing SOL with the product and the correct price unit
+                mapping_uom = self.env['uom.uom'].browse(uom_id)
+                total_amount = 0
+                for timesheet in timesheets:
+                    if timesheet.product_uom_category_id == mapping_uom.category_id and timesheet.product_uom_id != mapping_uom:
+                        total_amount += timesheet.product_uom_id._compute_quantity(timesheet.unit_amount, mapping_uom, rounding_method='HALF-UP')
+                    else:
+                        total_amount += timesheet.unit_amount
                 if not sol:  # Then we create it
                     sol = self.env['sale.order.line'].sudo().create({
                         'order_id': self.sale_order_id.id,
@@ -500,7 +507,7 @@ class Task(models.Model):
                         # The project and the task are given to prevent the SOL to create a new project or task based on the config of the product.
                         'project_id': self.project_id.id,
                         'task_id': self.id,
-                        'product_uom_qty': sum(timesheets.mapped('unit_amount')),
+                        'product_uom_qty': total_amount,
                         'product_uom': uom_id,
                     })
 
