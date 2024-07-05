@@ -178,9 +178,9 @@ class LuxembourgishFinancialReportCustomHandler(models.AbstractModel):
             notes = self.env['account.report.manager'].search([
                 ('company_id', '=', self.env.company.id),
                 ('report_id', '=', report.id)
-            ]).footnotes_ids
+            ]).annotations_ids
             for note in notes:
-                # for footnotes on accounts on financial reports, the line field will be:
+                # for annotations on accounts on financial reports, the line field will be:
                 # 'financial_report_group_xxx_yyy', with xxx the line id and yyy the account id
                 split = note.line.split('_')
                 if len(split) > 1 and split[-2].isnumeric() and split[-1].isnumeric():

@@ -109,8 +109,9 @@
                     .btn_dropdown { color: $o-enterprise-action-color }
                     .btn_foldable { color: $o-enterprise-action-color }
                     .btn_ellipsis { color: $o-enterprise-action-color }
-                    .btn_footnote_go { color: $o-enterprise-action-color }
+                    .btn_annotation_go { color: $o-enterprise-action-color }
                     .btn_debug { color: $o-enterprise-action-color }
+                    .btn_annotation { color: $o-enterprise-action-color }
                 }
             }
         }
@@ -196,7 +197,7 @@
     // buttons
     //------------------------------------------------------------------------------------------------------------------
     .btn_debug, .btn_dropdown, .btn_foldable, .btn_foldable_empty, .btn_sortable, .btn_ellipsis,
-    .btn_more, .btn_footnote_go, .btn_footnote_delete, .btn_action, .btn_edit {
+    .btn_more, .btn_annotation, .btn_annotation_go, .btn_annotation_delete, .btn_action, .btn_edit {
         border: none;
         color: $o-gray-300;
         font-size: inherit;
@@ -217,8 +218,9 @@
     .btn_foldable_empty:hover { cursor: default  }
     .btn_ellipsis > i { vertical-align: bottom }
     .btn_more { opacity: 1 }
-    .btn_footnote_go { color: $o-gray-600 }
-    .btn_footnote_delete {
+    .btn_annotation { margin-left: 6px }
+    .btn_annotation_go { color: $o-gray-600 }
+    .btn_annotation_delete {
         margin-left: 4px;
         vertical-align: baseline;
     }
@@ -239,9 +241,9 @@
     .dropdown { display: inline }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Footnote
+    // Annotation
     //------------------------------------------------------------------------------------------------------------------
-    .footnotes {
+    .annotations {
         border-top: 1px solid $o-gray-300;
         font-size: 0.8rem;
         padding: 24px 0;
@@ -257,7 +259,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 // Dialogs
 //----------------------------------------------------------------------------------------------------------------------
-.account_report_footnote_dialog {
+.account_report_annotation_dialog {
     textarea {
         border: 1px solid $o-gray-300;
         border-radius: 0.25rem;
@@ -346,4 +348,84 @@
 .carryover_popover {
     margin: 12px;
     width: 300px;
+}
+
+.o_web_client:has(.annotation_popover) {
+
+    .popover:has(.annotation_tooltip) { visibility: hidden; }
+
+    .popover:has(.annotation_popover) {
+        max-height: 45%;
+        max-width: 60%;
+        white-space: pre-wrap;
+        overflow-y: auto;
+
+        .annotation_popover {
+            overflow: scroll;
+
+            .annotation_popover_line th{
+                background-color: $o-white;
+                position: sticky;
+                top: 0;
+                z-index: 10;
+            }
+
+        }
+
+        .annotation_popover_line:nth-child(2n+2) { background: $o-gray-200; }
+
+        .annotation_popover_line {
+            .o_datetime_input {
+                border: none;
+            }
+        }
+
+        tr, th, td:not(:has(.btn_annotation_update)):not(:has(.btn_annotation_delete)) {
+            padding: .5rem 1rem .5rem .5rem;
+            vertical-align: top;
+        }
+
+        .annotation_popover_editable_cell {
+            background-color: transparent;
+            border: 0;
+            box-shadow: none;
+            color: $o-gray-700;
+            resize: none;
+            width: 85px;
+            outline: none;
+        }
+    }
+}
+
+label:focus-within input { border: 0; }
+
+.popover:has(.annotation_tooltip) {
+
+    > .tooltip-inner {
+        padding: 0;
+        color: $o-white;
+        background-color: $o-white;
+
+        > .annotation_tooltip {
+            color: $o-gray-700;
+            background-color: $o-white;
+            white-space: pre-wrap;
+
+            > .annotation_tooltip_line:nth-child(2n+2) { background: $o-gray-200; }
+
+            tr, th, td {
+                padding: .25rem .5rem .25rem .25rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: top;
+            }
+        }
+
+        + .popover-arrow {
+            &.top-0::after { border-right-color: $o-white; }
+            &.bottom-0::after { border-left-color: $o-white; }
+            &.start-0::after { border-bottom-color: $o-white; }
+            &.end-0::after { border-top-color: $o-white; }
+        }
+    }
 }

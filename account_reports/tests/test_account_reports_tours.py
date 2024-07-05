@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 # pylint: disable=C0326
 
-from odoo import Command
+from odoo import Command, fields
 
 from odoo.tests import tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingHttpCommon
@@ -57,27 +57,32 @@ class TestAccountReportsTours(AccountTestInvoicingHttpCommon):
 
         move.action_post()
 
-        # Line ids
-        line_id_ta = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_total_assets0').id)
-        line_id_ca = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_current_assets_view0').id, parent_line_id=line_id_ta)
-        line_id_ba = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_bank_view0').id, parent_line_id=line_id_ca)
-        line_id_101401 = cls.report._get_generic_line_id('account.account', cls.account_101401.id, markup={'groupby': 'account_id'}, parent_line_id=line_id_ba)
-        line_id_cas = cls.report._get_generic_line_id('account.report.line', cls.env.ref('account_reports.account_financial_report_current_assets0').id, parent_line_id=line_id_ca)
-        line_id_101404 = cls.report._get_generic_line_id('account.account', cls.account_101404.id, markup={'groupby': 'account_id'}, parent_line_id=line_id_cas)
+    def test_account_reports_tours(self):
+        self.start_tour("/web", 'account_reports', login=self.env.user.login)
 
-        # Create footnotes
-        cls.report.write({
-            'footnotes_ids': [
+    def test_account_reports_annotations_tours(self):
+        # Line ids
+        line_id_ta = self.report._get_generic_line_id('account.report.line', self.env.ref('account_reports.account_financial_report_total_assets0').id)
+        line_id_ca = self.report._get_generic_line_id('account.report.line', self.env.ref('account_reports.account_financial_report_current_assets_view0').id, parent_line_id=line_id_ta)
+        line_id_ba = self.report._get_generic_line_id('account.report.line', self.env.ref('account_reports.account_financial_report_bank_view0').id, parent_line_id=line_id_ca)
+        line_id_101401 = self.report._get_generic_line_id('account.account', self.account_101401.id, markup={'groupby': 'account_id'}, parent_line_id=line_id_ba)
+        line_id_cas = self.report._get_generic_line_id('account.report.line', self.env.ref('account_reports.account_financial_report_current_assets0').id, parent_line_id=line_id_ca)
+        line_id_101404 = self.report._get_generic_line_id('account.account', self.account_101404.id, markup={'groupby': 'account_id'}, parent_line_id=line_id_cas)
+        # Create annotations
+        date = fields.Date.today().strftime('%Y-%m-%d')
+        self.report.write({
+            'annotations_ids': [
                 Command.create({
                     'line_id': line_id_101401,
-                    'text': 'Footnote 101401',
+                    'text': 'Annotation 101401',
+                    'date': date,
                 }),
                 Command.create({
                     'line_id': line_id_101404,
-                    'text': 'Footnote 101404',
+                    'text': 'Annotation 101404',
+                    'date': date,
                 }),
             ]
         })
 
-    def test_account_reports_tours(self):
-        self.start_tour("/web", 'account_reports', login=self.env.user.login)
+        self.start_tour("/web", 'account_reports_annotations', login=self.env.user.login)

@@ -87,24 +87,6 @@
                                 </table>
                             </t>
                         </div>
-
-                        <!-- Footnotes -->
-                        <t t-if="controller.hasVisibleFootnotes">
-                            <ol class="footnotes">
-                                <t t-foreach="controller.visibleFootnotes" t-as="footnote" t-key="footnote.id">
-                                    <li t-att-id="footnote.href">
-                                        <t t-out="footnote.text"/>
-
-                                        <button
-                                            class="btn btn_footnote_delete"
-                                            t-on-click="() => controller.deleteFootnote(footnote)"
-                                        >
-                                            <i class="fa fa-trash-o"/>
-                                        </button>
-                                    </li>
-                                </t>
-                            </ol>
-                        </t>
                     </div>
                 </t>
                 <t t-else="">

@@ -3,7 +3,10 @@
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { useService } from "@web/core/utils/hooks";
-import { Component, useState } from "@odoo/owl";
+import { usePopover } from "@web/core/popover/popover_hook";
+import { Component, useState, useRef } from "@odoo/owl";
+
+import { AccountReportAnnotationsPopover } from "@account_reports/components/account_report/line_name/popover/annotations_popover";
 
 export class AccountReportLineName extends Component {
     static template = "account_reports.AccountReportLineName";
@@ -20,6 +23,14 @@ export class AccountReportLineName extends Component {
         this.action = useService("action");
         this.orm = useService("orm");
         this.controller = useState(this.env.controller);
+        this.annotationPopOver = usePopover(AccountReportAnnotationsPopover, {
+            setActiveElement: false,
+            position: "bottom",
+            animation: false,
+            closeOnClickAway: (target) => !target.closest(".annotation_popover"),
+        });
+
+        this.lineNameCell = useRef("lineNameCell");
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -130,9 +141,34 @@ export class AccountReportLineName extends Component {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    // Footnote
+    // Annotation
     // -----------------------------------------------------------------------------------------------------------------
-    get hasVisibleFootnote() {
-        return this.props.line.visible_footnote;
+    get hasVisibleAnnotation() {
+        return this.props.line.visible_annotations;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Annotation Popover
+    //------------------------------------------------------------------------------------------------------------------
+    async toggleAnnotationPopover() {
+        if (this.annotationPopOver.isOpen) {
+            this.annotationPopOver.close();
+        } else {
+            await this.controller.refreshAnnotations();
+            this.annotationPopOver.open(this.lineNameCell.el, {
+                controller: this.controller,
+                lineName: this,
+                lineID: this.props.line.id,
+            });
+        }
+    }
+
+    async addAnnotation(ev) {
+        this.annotationPopOver.open(this.lineNameCell.el, {
+            controller: this.controller,
+            lineName: this,
+            isAddingAnnotation: true,
+            lineID: this.props.line.id,
+        });
     }
 }

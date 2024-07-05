@@ -12,6 +12,7 @@
             t-on-click="() => this.toggleFoldable()"
             t-att-colspan="props.line.colspan || 1"
             tabindex="1"
+            t-ref="lineNameCell"
         >
             <div class="wrapper">
                 <t t-if="props.line.unfoldable">
@@ -45,18 +46,13 @@
                             maxCharacters: 80,
                         }"/>
 
-                        <t t-if="hasVisibleFootnote">
-                            <!-- Visible footnotes -->
-                            <sup>
-                                <a
-                                    class="btn btn_footnote_go"
-                                    t-att-href="props.line.visible_footnote.href"
-                                    t-att-data-tooltip="props.line.visible_footnote.text"
-                                    data-tooltip-position="right"
-                                >
-                                    <t t-out="props.line.visible_footnote.number"/>
-                                </a>
-                            </sup>
+                        <t t-if="props.line.visible_annotations?.length">
+                            <button
+                                class="btn btn_annotation"
+                                t-on-click="toggleAnnotationPopover"
+                            >
+                                <i class="fa fa-commenting"/>
+                            </button>
                         </t>
 
                         <t t-if="hasCaretOptions">
@@ -73,9 +69,13 @@
                                             </DropdownItem>
                                         </t>
 
-                                        <DropdownItem onSelected="() => controller.addFootnote(props.line.id)">
-                                            Annotate
-                                        </DropdownItem>
+                                        <t t-if="!props.line.visible_annotations?.length">
+                                            <div class="o-dropdown-item dropdown-item o-navigable"
+                                                 t-on-click="(ev) => this.addAnnotation(ev, props.line.id)"
+                                            >
+                                                Annotate
+                                            </div>
+                                        </t>
                                     </div>
                                 </t>
                             </Dropdown>

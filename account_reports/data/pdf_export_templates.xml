@@ -44,14 +44,16 @@
                          </t>
                      </div>
 
-                     <!-- Footnotes -->
-                     <ul class="o_footnote">
-                         <t t-foreach="footnotes" t-as="footnote">
+                     <!-- Annotations -->
+                     <ol class="o_annotation">
+                        <t t-foreach="annotations" t-as="annotation">
                             <li>
-                                <t t-out="str(footnote.get('number')) + '. ' + str(footnote.get('text'))"/>
+                                <t t-out="annotation.get('number')"/>.
+                                <t t-if="annotation.get('date')"><t t-out="annotation['date']"/> -</t>
+                                <t t-out="annotation.get('text')"/>
                             </li>
-                         </t>
-                     </ul>
+                        </t>
+                     </ol>
                  </div>
              </body>
          </html>
@@ -270,10 +272,12 @@
             <tr t-att-class="o_line_level + o_bold + o_overflow" name="pdf_export_main_table_body_lines_tr">
                 <td t-att-colspan="line.get('colspan', '1')" class="o_line_name_level">
                     <t t-out="line.get('name')"/>
-                    <t t-if="line.get('footnote')">
-                        <sup>
-                            <span class="o_fw_bold" t-out="line['footnote']"/>
-                        </sup>
+                    <t t-if="line.get('annotations')">
+                        <t t-foreach="annotations" t-as="annotation">
+                            <t t-if="annotation.get('number') and annotation['number'] in (line.get('annotations') or [])">
+                                <sup t-out="annotation['number']"/>
+                            </t>
+                        </t>
                     </t>
                 </td>
 

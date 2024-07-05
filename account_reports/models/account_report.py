@@ -49,20 +49,45 @@ LINE_ID_HIERARCHY_DELIMITER = '|'
 CURRENCIES_USING_LAKH = {'AFN', 'BDT', 'INR', 'MMK', 'NPR', 'PKR', 'LKR'}
 
 
-class AccountReportFootnote(models.Model):
-    _name = 'account.report.footnote'
-    _description = 'Account Report Footnote'
+class AccountReportAnnotation(models.Model):
+    _name = 'account.report.annotation'
+    _description = 'Account Report Annotation'
 
-    report_id = fields.Many2one('account.report')
-    line_id = fields.Char(index=True)
-    text = fields.Char()
+    report_id = fields.Many2one('account.report', help="The id of the annotated report.")
+    line_id = fields.Char(index=True, help="The id of the annotated line.")
+    text = fields.Char(string="The annotation's content.")
+    date = fields.Date(help="Date considered as annotated by the annotation.")
+    fiscal_position_id = fields.Many2one('account.fiscal.position', help="The fiscal position used while annotating.")
 
+    @api.model_create_multi
+    def create(self, values):
+        fiscal_positions_with_foreign_vat = self.env['account.fiscal.position'].search([('foreign_vat', '!=', False)], limit=1)
+        for annotation in values:
+            if 'line_id' in annotation:
+                annotation['line_id'] = self._remove_tax_grouping_from_line_id(annotation['line_id'])
+            if 'fiscal_position_id' in annotation:
+                if annotation['fiscal_position_id'] == 'domestic':
+                    del annotation['fiscal_position_id']
+                elif annotation['fiscal_position_id'] == 'all':
+                    annotation['fiscal_position_id'] = fiscal_positions_with_foreign_vat
+                else:
+                    annotation['fiscal_position_id'] = int(annotation['fiscal_position_id'])
+
+        return super().create(values)
+
+    def _remove_tax_grouping_from_line_id(self, line_id):
+        """
+        Remove the tax grouping from the line_id. This is needed because the tax grouping is not relevant for the annotation.
+        Tax grouping are any group using 'account.group' in the line_id.
+        """
+        split_line_id = [group for group in self.env['account.report']._parse_line_id(line_id, markup_as_string=True) if group[1] != 'account.group']
+        return '|'.join('~'.join(map(str, tup)) for tup in split_line_id)
 
 class AccountReport(models.Model):
     _inherit = 'account.report'
 
     horizontal_group_ids = fields.Many2many(string="Horizontal Groups", comodel_name='account.report.horizontal.group')
-    footnotes_ids = fields.One2many(string="Footnotes", comodel_name='account.report.footnote', inverse_name='report_id')
+    annotations_ids = fields.One2many(string="Annotations", comodel_name='account.report.annotation', inverse_name='report_id')
 
     # Those fields allow case-by-case fine-tuning of the engine, for custom reports.
     custom_handler_model_id = fields.Many2one(string='Custom Handler Model', comodel_name='ir.model')
@@ -4476,15 +4501,88 @@ class AccountReport(models.Model):
 
         return sorted_list
 
-    def get_footnotes(self, options):
+    def _get_annotations_domain_date_from(self, options):
+        if options['date']['filter'] in {'today', 'custom'} and options['date']['mode'] == 'single':
+            fiscal_year = self.env['account.fiscal.year'].search_fetch([
+                ('company_id', '=', self.env.company.id),
+                ('date_from', '<=', options['date']['date_to']),
+                ('date_to', '>=', options['date']['date_to']),
+            ], limit=1, field_names=['date_from'])
+            if fiscal_year:
+                return fiscal_year.date_from
+
+            period_date_from, _ = date_utils.get_fiscal_year(
+                datetime.datetime.strptime(options['date']['date_to'], '%Y-%m-%d'),
+                day=self.env.company.fiscalyear_last_day,
+                month=int(self.env.company.fiscalyear_last_month)
+            )
+            return period_date_from.date()
+
+        date_from = datetime.datetime.strptime(options['date']['date_from'], '%Y-%m-%d')
+        if options['date']['period_type'] == "fiscalyear":
+            period_date_from, _ = date_utils.get_fiscal_year(date_from)
+        elif options['date']['period_type'] in ["year", "quarter", "month", "week", "day", "hour"]:
+            period_date_from = date_utils.start_of(date_from, options['date']['period_type'])
+        else:
+            period_date_from = date_from
+        return period_date_from
+
+    def _adjust_date_for_joined_comparison(self, options, period_date_from):
+        comparison_filter = options.get('comparison', {}).get('filter')
+        if comparison_filter == 'previous_period':
+            comparison_date_from = datetime.datetime.strptime(options['comparison'].get('periods', [{}])[-1].get('date_from'), '%Y-%m-%d')
+            return min(period_date_from, comparison_date_from)
+        return period_date_from
+
+    def _adjust_domain_for_unjoined_comparison(self, options, dates_domain):
+        comparison_filter = options.get('comparison', {}).get('filter')
+        if comparison_filter and comparison_filter not in {'no_comparison', 'previous_period'}:
+            unlinked_comparison_periods_domains_list = [
+                ['&', ('date', '>=', period['date_from']), ('date', '<=', period['date_to'])]
+                for period in options['comparison']['periods']
+            ]
+            dates_domain = osv.expression.OR([dates_domain, *unlinked_comparison_periods_domains_list])
+
+        return dates_domain
+
+    def _build_annotations_domain(self, options):
+        period_date_from = self._get_annotations_domain_date_from(options)
+        period_date_from = self._adjust_date_for_joined_comparison(options, period_date_from)
+        dates_domain = osv.expression.AND([
+            [('date', '>=', period_date_from)],
+            [('date', '<=', options['date']['date_to'])],
+        ])
+        dates_domain = self._adjust_domain_for_unjoined_comparison(options, dates_domain)
+
+        domain = osv.expression.AND([
+            [('report_id', '=', options['report_id'])],
+            osv.expression.OR([
+                [('date', '=', False)],
+                dates_domain,
+            ]),
+        ])
+
+        if fiscal_positions := self.env['account.move.line'].search(self._get_options_fiscal_position_domain(options)).move_id.fiscal_position_id:
+            domain = osv.expression.AND([domain, [('fiscal_position_id', 'in', fiscal_positions.ids)]])
+
+        return domain
+
+    def get_annotations(self, options):
+        """
+        This method handles which annotations have to be displayed on the report.
+        This decision is based on the different dates and mode of display of those dates in the report.
+
+        param options: dict of options used to generate the report
+        return: dict of lists containing for each annotated line_id of the report the list of annotations linked to it
+        """
         self.ensure_one()
-
-        footnotes = {}
-
-        for footnote in self.env['account.report.footnote'].search_read([('report_id', '=', options['report_id'])]):
-            footnotes[footnote['line_id']] = footnote
-
-        return footnotes
+        annotations_by_line = defaultdict(list)
+        annotations = self.env['account.report.annotation'].search_read(self._build_annotations_domain(options))
+        for annotation in annotations:
+            line_id_without_tax_grouping = self.env['account.report.annotation']._remove_tax_grouping_from_line_id(annotation['line_id'])
+            annotation['create_date'] = annotation['create_date'].date()
+            annotations_by_line[line_id_without_tax_grouping].append(annotation)
+        return annotations_by_line
 
     def get_report_information(self, options):
         """
@@ -4516,7 +4614,7 @@ class AccountReport(models.Model):
                 'show_unreconciled': self.filter_unreconciled,
                 'show_hide_0_lines': self.filter_hide_0_lines,
             },
-            'footnotes': self.get_footnotes(options),
+            'annotations': self.get_annotations(options),
             'groups': {
                 'analytic_accounting': self.env.user.has_group('analytic.group_analytic_accounting'),
                 'account_readonly': self.env.user.has_group('account.group_account_readonly'),
@@ -5100,22 +5198,32 @@ class AccountReport(models.Model):
 
         render_values['lines'] = lines
 
-        # Manage footnotes.
-        footnotes_to_render = []
-        number = 0
-        for line in lines:
-            footnote_data = report_info['footnotes'].get(str(line.get('id')))
-            if footnote_data:
-                number += 1
-                line['footnote'] = str(number)
-                footnotes_to_render.append({'id': footnote_data['id'], 'number': number, 'text': footnote_data['text']})
-
-        render_values['footnotes'] = footnotes_to_render
+        # Manage annotations.
+        render_values['annotations'] = self._build_annotations_list_for_pdf_export(options['date'], lines, report_info['annotations'])
 
         options['css_custom_class'] = report_info['custom_display'].get('css_custom_class', '')
 
         # Render.
         return self.env['ir.qweb']._render(template, render_values)
+
+    def _build_annotations_list_for_pdf_export(self, date_options, lines, annotations_per_line_id):
+        annotations_to_render = []
+        number = 0
+        for line in lines:
+            if line_annotations := annotations_per_line_id.get(line['id']):
+                line['annotations'] = []
+                for annotation in line_annotations:
+                    report_period_date_from = datetime.datetime.strptime(date_options['date_from'], '%Y-%m-%d').date()
+                    report_period_date_to = datetime.datetime.strptime(date_options['date_to'], '%Y-%m-%d').date()
+                    if not annotation['date'] or report_period_date_from <= annotation['date'] <= report_period_date_to:
+                        number += 1
+                        line['annotations'].append(str(number))
+                        annotations_to_render.append({
+                            'number': str(number),
+                            'text': annotation['text'],
+                            'date': format_date(self.env, annotation['date']) if annotation['date'] else None,
+                        })
+        return annotations_to_render
 
     def _filter_out_folded_children(self, lines):
         """ Returns a list containing all the lines of the provided list that need to be displayed when printing,
@@ -5232,6 +5340,7 @@ class AccountReport(models.Model):
         date_default_style = workbook.add_format({'font_name': 'Lato', 'align': 'left', 'font_size': 12, 'font_color': '#666666', 'num_format': 'yyyy-mm-dd'})
         default_col1_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'indent': 2})
         default_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666'})
+        annotation_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'font_color': '#666666', 'text_wrap': True})
         title_style = workbook.add_format({'font_name': 'Lato', 'font_size': 12, 'bold': True, 'bottom': 2})
         level_0_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 6, 'font_color': '#666666'})
         level_1_style = workbook.add_format({'font_name': 'Lato', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
@@ -5244,6 +5353,7 @@ class AccountReport(models.Model):
 
         print_mode_self = self.with_context(no_format=True)
         lines = self._filter_out_folded_children(print_mode_self._get_lines(options))
+        annotations = self.get_annotations(options)
 
         # For reports with lines generated for accounts, the account name and codes are shown in a single column.
         # To help user post-process the report if they need, we should in such a case split the account name and code in two columns.
@@ -5274,6 +5384,11 @@ class AccountReport(models.Model):
             if options['show_horizontal_group_total'] and header_level_index != 0:
                 horizontal_group_name = next((group['name'] for group in options['available_horizontal_groups'] if group['id'] == options['selected_horizontal_group_id']), None)
                 write_cell(sheet, x_offset, y_offset, horizontal_group_name, title_style)
+            if annotations:
+                # When growth comparison is active, an additional column is present in the xlsx.
+                # The annotations have to be moved by one column so they don't overlap with it.
+                annotations_x_offset = x_offset + 1 if options['show_growth_comparison'] else x_offset
+                write_cell(sheet, annotations_x_offset, y_offset, 'Annotations', title_style, colspan)
             y_offset += 1
             x_offset = original_x_offset + 1
 
@@ -5297,6 +5412,7 @@ class AccountReport(models.Model):
             lines = self.sort_lines(lines, options)
 
         # Add lines.
+        counter = 1
         for y in range(0, len(lines)):
             level = lines[y].get('level')
             if lines[y].get('caret_options'):
@@ -5348,6 +5464,14 @@ class AccountReport(models.Model):
                     write_cell(sheet, x + lines[y].get('colspan', 1) - 1, y + y_offset, cell_value, date_default_style, datetime=True)
                 else:
                     write_cell(sheet, x + lines[y].get('colspan', 1) - 1, y + y_offset, cell_value, style)
+
+            # Write annotations.
+            if annotations and (line_annotations := annotations.get(lines[y]['id'])):
+                line_annotation_text = []
+                for line_annotation in line_annotations:
+                    line_annotation_text.append(f"{counter} - {line_annotation['text']}")
+                    counter += 1
+                write_cell(sheet, annotations_x_offset, y + y_offset, "\n".join(line_annotation_text), annotation_style)
 
     def _add_options_xlsx_sheet(self, workbook, options_list):
         """Adds a new sheet for xlsx report exports with a summary of all filters and options activated at the moment of the export."""

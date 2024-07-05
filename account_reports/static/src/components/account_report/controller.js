@@ -4,8 +4,6 @@ import { browser } from "@web/core/browser/browser";
 import { session } from "@web/session";
 import { useService } from "@web/core/utils/hooks";
 
-import { AccountReportFootnoteDialog } from "@account_reports/components/account_report/footnote/dialog/footnote_dialog";
-
 export class AccountReportController {
     constructor(action) {
         this.action = action;
@@ -49,7 +47,7 @@ export class AccountReportController {
             await this.sortLines();
 
         this.setLineVisibility(this.lines);
-        this.refreshVisibleFootnotes();
+        this.refreshVisibleAnnotations();
         this.saveSessionOptions(this.options);
     }
 
@@ -195,8 +193,8 @@ export class AccountReportController {
         return this.data.filters;
     }
 
-    get footnotes() {
-        return this.data.footnotes;
+    get annotations() {
+        return this.data.annotations;
     }
 
     get groups() {
@@ -219,15 +217,15 @@ export class AccountReportController {
         return this.data.report;
     }
 
-    get visibleFootnotes() {
-        return this.data.visible_footnotes;
+    get visibleAnnotations() {
+        return this.data.visible_annotations;
     }
 
     //------------------------------------------------------------------------------------------------------------------
     // Generic data setters
     //------------------------------------------------------------------------------------------------------------------
-    set footnotes(value) {
-        this.data.footnotes = value;
+    set annotations(value) {
+        this.data.annotations = value;
     }
 
     set columnGroupsTotals(value) {
@@ -243,8 +241,8 @@ export class AccountReportController {
         this.data.lines_order = value;
     }
 
-    set visibleFootnotes(value) {
-        this.data.visible_footnotes = value;
+    set visibleAnnotations(value) {
+        this.data.visible_annotations = value;
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -266,8 +264,8 @@ export class AccountReportController {
         return "date" in this.options && "string" in this.options.date;
     }
 
-    get hasVisibleFootnotes() {
-        return this.visibleFootnotes.length > 0;
+    get hasVisibleAnnotations() {
+        return Boolean(this.visibleAnnotations.length);
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -495,7 +493,7 @@ export class AccountReportController {
 
         this.setLineVisibility(this.lines.slice(lineIndex + 1, lastLineIndex));
         targetLine.unfolded = true;
-        this.refreshVisibleFootnotes();
+        this.refreshVisibleAnnotations();
 
         // Update options
         if (!this.options.unfolded_lines.includes(targetLine.id))
@@ -521,7 +519,7 @@ export class AccountReportController {
 
         targetLine.unfolded = false;
 
-        this.refreshVisibleFootnotes();
+        this.refreshVisibleAnnotations();
 
         // Update options
         this.options.unfolded_lines = this.options.unfolded_lines.filter(
@@ -592,74 +590,53 @@ export class AccountReportController {
     }
 
     //------------------------------------------------------------------------------------------------------------------
-    // Footnotes
+    // Annotations
     //------------------------------------------------------------------------------------------------------------------
-    async refreshFootnotes() {
-        this.footnotes = await this.orm.call(
-            "account.report",
-            "get_footnotes",
-            [
-                this.action.context.report_id,
-                this.options,
-            ],
-        );
+    async refreshAnnotations() {
+        this.annotations = await this.orm.call("account.report", "get_annotations", [
+            this.action.context.report_id,
+            this.options,
+        ]);
 
-        this.refreshVisibleFootnotes();
-    }
-
-    async addFootnote(lineID) {
-        this.dialog.add(AccountReportFootnoteDialog, {
-            lineID: lineID,
-            reportID: this.options.report_id,
-            footnoteID: this.footnotes[lineID] ? this.footnotes[lineID].id : null,
-            context: this.context,
-            text: this.footnotes[lineID] ? this.footnotes[lineID].text : "",
-            refresh: this.refreshFootnotes.bind(this),
-        });
-    }
-
-    async deleteFootnote(footnote) {
-        await this.orm.call(
-            "account.report.footnote",
-            "unlink",
-            [
-                footnote.id,
-            ],
-            {
-                context: this.context,
-            },
-        );
-
-        await this.refreshFootnotes();
+        this.refreshVisibleAnnotations();
     }
 
     //------------------------------------------------------------------------------------------------------------------
     // Visibility
     //------------------------------------------------------------------------------------------------------------------
-    refreshVisibleFootnotes() {
-        let visibleFootnotes = [];
 
-        this.lines.forEach(line => {
-            if (this.footnotes[line.id] && line.visible) {
-                const number = visibleFootnotes.length + 1;
+    removeTaxGroupingFromLineId(lineId) {
+        // Tax grouping is not relevant for annotations, so we remove it from the line id.
+        return lineId.split("|").filter((line_id_component) => !line_id_component.includes("account.group")).join("|");
+    }
 
-                visibleFootnotes.push({
-                    ...this.footnotes[line.id],
-                    "href": `footnote_${number}`,
-                });
+    refreshVisibleAnnotations() {
+        const visibleAnnotations = [];
 
-                line["visible_footnote"] = {
-                    "number": number,
-                    "href": `#footnote_${number}`,
-                    "text": this.footnotes[line.id].text,
-                };
+        this.lines.forEach((line) => {
+            line["visible_annotations"] = [];
+            const lineWithoutTaxGrouping = this.removeTaxGroupingFromLineId(line.id);
+            if (line.visible && this.annotations[lineWithoutTaxGrouping]) {
+                for (const index in this.annotations[lineWithoutTaxGrouping]) {
+                    const annotation = this.annotations[lineWithoutTaxGrouping][index];
+                    visibleAnnotations.push({
+                        ...annotation,
+                    });
+                    line["visible_annotations"].push({
+                        ...annotation,
+                    });
+                }
             }
 
-            if (line.visible_footnote && (!this.footnotes[line.id] || !line.visible))
-                delete line.visible_footnote;
+            if (
+                line.visible_annotations &&
+                (!this.annotations[lineWithoutTaxGrouping] || !line.visible)
+            ) {
+                delete line.visible_annotations;
+            }
         });
 
-        this.visibleFootnotes = visibleFootnotes;
+        this.visibleAnnotations = visibleAnnotations;
     }
 
     /**
@@ -747,8 +724,9 @@ export class AccountReportController {
                 callOnSectionsSource,
             ],
         );
-        if (dispatchReportAction?.help)
+        if (dispatchReportAction?.help) {
             dispatchReportAction.help = owl.markup(dispatchReportAction.help)
+        }
 
         return dispatchReportAction ? this.actionService.doAction(dispatchReportAction) : null;
     }
