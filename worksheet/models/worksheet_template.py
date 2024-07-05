@@ -218,7 +218,7 @@ class WorksheetTemplate(models.Model):
         # Add unique constraint on the x_model_id field since we want one worksheet per host record
         conname = '%s_x_%s_id_uniq' % (name, res_model)
         concode = 'unique(x_%s_id)' % (res_model)
-        tools.add_constraint(self.env.cr, name, conname, concode)
+        tools.sql.add_constraint(self.env.cr, name, conname, concode)
 
     def _get_template_action_context(self):
         return {
