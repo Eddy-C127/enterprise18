@@ -95,13 +95,8 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
                     mandatoryBenefitSelected = Boolean(+newValue);
                 }
 
-                if (dependentBenefits) {
-                    dependentBenefits = dependentBenefits.trim().split(' ');
-                    for (const mandatoryBenefitSelected of dependentBenefits) {
-                        if (!mandatoryBenefitSelected) {
-                            this.updateDependentBenefits(dependentBenefits, mandatoryBenefitSelected);
-                        }
-                    }
+                if (dependentBenefits && !mandatoryBenefitSelected) {
+                    this.updateDependentBenefits(dependentBenefits, mandatoryBenefitSelected);
                 }
                 if (requested_documents) {
                     requested_documents.split(',').forEach(requested_document => {
