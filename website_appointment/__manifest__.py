@@ -25,6 +25,7 @@ Allow clients to Schedule Appointments through your Website
         'views/appointment_templates_validation.xml',
         'views/website_pages_views.xml',
         'views/snippets/s_appointments.xml',
+        'views/snippets/s_appointments_preview_data.xml',
         'views/snippets/s_online_appointment.xml',
         'views/snippets/s_searchbar.xml',
         'views/snippets/snippets.xml',
