@@ -188,13 +188,15 @@ class Task(models.Model):
                 """
                     %s
                     GROUP BY %s
+                    ORDER BY %s
                 """,
                 query_str,
                 SQL(", ").join([
                     SQL.identifier(Task._table, 'id'),
                     SQL.identifier(user_alias, 'id'),
                     SQL.identifier(partner_alias, 'name'),
-                ])
+                ]),
+                SQL.identifier(partner_alias, 'name'),
             )
         )
         return self.env.cr.dictfetchall()
