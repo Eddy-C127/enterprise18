@@ -4,3 +4,4 @@
 from . import iot
 from . import ir_actions_report
 from . import update
+from . import ir_http

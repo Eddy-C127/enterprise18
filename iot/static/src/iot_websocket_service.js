@@ -2,6 +2,7 @@
 
 import { registry } from "@web/core/registry";
 import { browser } from "@web/core/browser/browser"
+import { session }  from "@web/session";
 
 export class IotWebsocket {
     
@@ -44,27 +45,28 @@ export class IotWebsocket {
             this.addJob(value, args);
         }
     }
-    
-    
+
+
 export const IotWebsocketService = {
-            dependencies: ["bus_service", "notification", "orm"],
+    dependencies: ["bus_service", "notification", "orm"],
             
-            async start(env, {bus_service, notification, orm}) {
-                let ws = new IotWebsocket(bus_service, notification, orm)
-                const iot_channel = await orm.call("iot.channel", "get_iot_channel", [0]);
-                if (iot_channel)
-                {
-                    bus_service.addChannel(iot_channel);
-                    bus_service.addEventListener("notification", async (message) => {
-                        for (let i in message['detail']) {
-                            if (message['detail'][i]['type'] == "print_confirmation" && ws.jobs[message['detail'][i]['payload']['print_id']]) {
-                                const deviceId = message['detail'][i]['payload']['device_identifier'];
-                                const printId = message['detail'][i]['payload']['print_id'];
-                                delete ws.jobs[printId][ws.jobs[printId].findIndex(element => element && element['identifier'] == deviceId)];
-                            }
-                        }    
-                    })
+    async start(env, {bus_service, notification, orm}) {
+        let ws = new IotWebsocket(bus_service, notification, orm);
+
+        const iot_channel = session.iot_channel;
+        if (iot_channel)
+        {
+            bus_service.addChannel(iot_channel);
+            bus_service.addEventListener("notification", async (message) => {
+                for (let i in message['detail']) {
+                    if (message['detail'][i]['type'] == "print_confirmation" && ws.jobs[message['detail'][i]['payload']['print_id']]) {
+                        const deviceId = message['detail'][i]['payload']['device_identifier'];
+                        const printId = message['detail'][i]['payload']['print_id'];
+                        delete ws.jobs[printId][ws.jobs[printId].findIndex(element => element && element['identifier'] == deviceId)];
+                    }
                 }
+            })
+        }
         return ws;
     },
 }
