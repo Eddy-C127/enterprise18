@@ -106,7 +106,7 @@ class MailActivity(models.Model):
                 self.env["res.partner"],
             )
             if partner:
-                store.add("Persona", partner.mail_partner_format()[partner])
+                store.add(partner)
                 activity_data["partner"] = {"id": partner.id, "type": "partner"}
             store.add("Activity", activity_data)
 
