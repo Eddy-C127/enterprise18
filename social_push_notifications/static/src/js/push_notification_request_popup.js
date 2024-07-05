@@ -1,12 +1,12 @@
 /** @odoo-module **/
 
-import Widget from "@web/legacy/js/core/widget";
+import publicWidget from "@web/legacy/js/public/public_widget";
 
 /**
  * Simple widget that shows a small popup to request the notifications permission.
  * We use a jQuery 'dropdown' menu so that it automatically closes when clicked outside.
  */
-var NotificationRequestPopup = Widget.extend({
+const NotificationRequestPopup = publicWidget.Widget.extend({
     template: 'social_push_notifications.NotificationRequestPopup',
     events: {
         'click .o_social_push_notifications_permission_allow': '_onClickAllow',

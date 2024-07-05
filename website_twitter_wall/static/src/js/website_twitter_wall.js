@@ -2,12 +2,11 @@
 
 import { rpc, RPCError } from "@web/core/network/rpc";
 import { renderToElement } from "@web/core/utils/render";
-import Widget from "@web/legacy/js/core/widget";
 import publicWidget from "@web/legacy/js/public/public_widget";
 
 import { markup } from "@odoo/owl";
 
-var TweetWall = Widget.extend({
+const TweetWall = publicWidget.Widget.extend({
     template: 'website_twitter_wall_tweets',
 
     /**
