@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 from lxml import builder
 from lxml import etree
 from requests.adapters import HTTPAdapter
-from urllib3.util.ssl_ import create_urllib3_context, DEFAULT_CIPHERS
+from urllib3.util.ssl_ import create_urllib3_context
 import time
 import datetime
 import base64
@@ -19,7 +19,9 @@ try:
 except ImportError:
     _logger.warning('OpenSSL library not found. If you plan to use l10n_ar_edi, please install the library from https://pypi.python.org/pypi/pyOpenSSL')
 
-AFIP_CIPHERS = DEFAULT_CIPHERS + ":!DH"
+
+# Exclude some ciphers in order avoid failure on servers where the DH key is too small
+AFIP_CIPHERS = "DEFAULT:!DH"
 
 
 class L10nArHTTPAdapter(HTTPAdapter):
