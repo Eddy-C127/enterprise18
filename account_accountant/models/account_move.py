@@ -303,16 +303,21 @@ class AccountMove(models.Model):
                 continue
 
             ref = _("Deferral of %s", line.move_id.name or '')
-            # Defer the current invoice
-            move_fully_deferred = self.create({
+
+            move_vals = {
                 'move_type': 'entry',
                 'deferred_original_move_ids': [Command.set(line.move_id.ids)],
                 'journal_id': deferred_journal.id,
                 'company_id': self.company_id.id,
                 'partner_id': line.partner_id.id,
-                'date': line.move_id.date,
                 'auto_post': 'at_date',
                 'ref': ref,
+            }
+
+            # Defer the current invoice
+            move_fully_deferred = self.create({
+                **move_vals,
+                'date': line.move_id.date,
             })
             # We write the lines after creation, to make sure the `deferred_original_move_ids` is set.
             # This way we can avoid adding taxes for deferred moves.
@@ -326,13 +331,8 @@ class AccountMove(models.Model):
 
             # Create the deferred entries for the periods [deferred_start_date, deferred_end_date]
             deferral_moves = self.create([{
-                'move_type': 'entry',
-                'deferred_original_move_ids': [Command.set(line.move_id.ids)],
-                'journal_id': deferred_journal.id,
-                'partner_id': line.partner_id.id,
+                **move_vals,
                 'date': period[1],
-                'auto_post': 'at_date',
-                'ref': ref,
             } for period in periods])
             remaining_balance = line.balance
             for period_index, (period, deferral_move) in enumerate(zip(periods, deferral_moves)):

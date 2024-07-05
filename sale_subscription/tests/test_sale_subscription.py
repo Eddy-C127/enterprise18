@@ -3855,3 +3855,22 @@ class TestSubscriptionInvoiceSignature(TestInvoiceSignature, TestSubscription):
             self.assertEqual(len(log), 1)
             self.assertEqual(log.event_type, '0_creation')
             self.assertEqual(log.subscription_state, '1_draft')
+
+    def test_recurring_create_invoice_branch(self):
+        self.company.child_ids = [Command.create({'name': 'Branch'})]
+        branch = self.company.child_ids[0]
+        product = self.product.copy({'company_id': branch.id})
+        sub = self.env['sale.order'].with_company(branch).create({
+            'name': 'TestSubscription',
+            'is_subscription': True,
+            'plan_id': self.plan_month.id,
+            'partner_id': self.user_portal.partner_id.id,
+            'pricelist_id': self.company_data['default_pricelist'].id,
+            'order_line': [(0, 0, {'product_id': product.id})],
+        })
+        sub.action_confirm()
+        self.env['sale.order']._cron_recurring_create_invoice()
+
+        self.assertEqual(sub.invoice_count, 1)
+        self.assertEqual(sub.invoice_ids.company_id, branch)
+        self.assertEqual(sub.invoice_ids.state, 'posted')
