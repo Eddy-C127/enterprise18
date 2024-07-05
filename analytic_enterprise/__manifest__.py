@@ -22,7 +22,7 @@ that have no counterpart in the general financial accounts.
     'auto_install': True,
     'license': 'OEEL-1',
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'analytic_enterprise/static/src/**/*',
         ],
         'web.qunit_suite_tests': [

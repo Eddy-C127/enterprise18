@@ -36,6 +36,14 @@ linked to an SO, or only the validated timesheets
     'assets': {
         'web.assets_backend': [
             'sale_timesheet_enterprise/static/src/**/*',
+            ('remove', 'sale_timesheet_enterprise/static/src/views/timer_timesheet_grid/**'),
+            ('remove', 'sale_timesheet_enterprise/static/src/views/timesheet_grid/**'),
+            ('remove', 'sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_timer_grid/**'),
+        ],
+        'web.assets_backend_lazy': [
+            'sale_timesheet_enterprise/static/src/views/timer_timesheet_grid/**',
+            'sale_timesheet_enterprise/static/src/views/timesheet_grid/**',
+            'sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_timer_grid/**',
         ],
         'web.qunit_suite_tests': [
             'sale_timesheet_enterprise/static/tests/**/*.js',

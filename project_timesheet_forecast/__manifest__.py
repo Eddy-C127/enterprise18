@@ -28,7 +28,7 @@ Better plan your future schedules by considering time effectively spent on old p
     'license': 'OEEL-1',
     'uninstall_hook': '_uninstall_hook',
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'project_timesheet_forecast/static/src/**/*',
         ],
     },

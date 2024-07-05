@@ -42,6 +42,12 @@ Adds the following options:
     'assets': {
         'web.assets_backend': [
             'industry_fsm/static/src/**/*',
+            ('remove', 'industry_fsm/static/src/views/fsm_my_task_map/**'),
+            ('remove', 'industry_fsm/static/src/views/industry_fsm_grid/**'),
+        ],
+        'web.assets_backend_lazy': [
+            'industry_fsm/static/src/views/fsm_my_task_map/**',
+            'industry_fsm/static/src/views/industry_fsm_grid/**',
         ],
         'web.assets_frontend': [
             'industry_fsm/static/src/js/tours/**/*',

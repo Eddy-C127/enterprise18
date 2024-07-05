@@ -28,6 +28,8 @@
         'web.assets_backend': [
             'account_consolidation/static/src/scss/consolidation_kanban.scss',
             'account_consolidation/static/src/components/**/*',
+        ],
+        'web.assets_backend_lazy': [
             'account_consolidation/static/src/views/**/*',
         ],
         'web.qunit_suite_tests': [

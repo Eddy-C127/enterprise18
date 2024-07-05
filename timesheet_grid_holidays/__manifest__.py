@@ -15,7 +15,7 @@ This module prevents taking time offs into account when computing employee overt
     'auto_install': True,
     'license': 'OEEL-1',
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'timesheet_grid_holidays/static/src/**/*',
         ],
     }

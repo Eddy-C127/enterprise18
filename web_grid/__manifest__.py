@@ -7,8 +7,7 @@
     'version': '0.1',
     'depends': ['web'],
     'assets': {
-        'web.assets_backend': [
-            'web_grid/static/src/components/grid_cell.xml',
+        'web.assets_backend_lazy': [
             'web_grid/static/src/**/*',
 
             # Don't include dark mode files in light mode

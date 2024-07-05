@@ -25,6 +25,10 @@
     'assets': {
         'web.assets_backend': [
             'helpdesk_timesheet/static/src/**/*',
+            ('remove', 'helpdesk_timesheet/static/src/views/**'),
+        ],
+        'web.assets_backend_lazy': [
+            'helpdesk_timesheet/static/src/views/**',
         ],
         'web.qunit_suite_tests': [
             "helpdesk_timesheet/static/tests/*",

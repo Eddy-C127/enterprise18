@@ -13,7 +13,7 @@
     'auto_install': True,
     'license': 'OEEL-1',
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'web_map/static/src/**/*',
         ],
         'web.qunit_suite_tests': [

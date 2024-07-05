@@ -29,9 +29,13 @@ Bridge module for project and enterprise
             'project_enterprise/static/src/components/**/*',
             'project_enterprise/static/src/views/**/*',
             'project_enterprise/static/src/**/*.xml',
+            ('remove', 'project_enterprise/static/src/views/project_task_map/**'),
 
             # Don't include dark mode files in light mode
             ('remove', 'project_enterprise/static/src/components/**/*.dark.scss'),
+        ],
+        'web.assets_backend_lazy': [
+            'project_enterprise/static/src/views/project_task_map/**',
         ],
         "web.assets_web_dark": [
             'project_enterprise/static/src/components/**/*.dark.scss',
