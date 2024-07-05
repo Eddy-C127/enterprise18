@@ -2301,14 +2301,15 @@ class PlanningPlanning(models.Model):
     def _send_planning(self, slots, message=None, employees=False):
         email_from = self.env.user.email or self.env.user.company_id.email or ''
         # extract planning URLs
-        employee_url_map = employees.sudo()._planning_get_url(self)
+        employees_sudo = employees.sudo()
+        employee_url_map = employees_sudo._planning_get_url(self)
+        ics_url_per_employee_id = {e.id: f'/planning/{self.access_token}/{e.employee_token}.ics' for e in employees_sudo}
 
         # send planning email template with custom domain per employee
         template = self.env.ref('planning.email_template_planning_planning', raise_if_not_found=False)
         template_context = {
             'slot_unassigned': self.include_unassigned,
             'message': message,
-            'planning_ics_url': f'/planning/ics/{self.access_token}.ics',
         }
         if template:
             # /!\ For security reason, we only given the public employee to render mail template
@@ -2318,7 +2319,7 @@ class PlanningPlanning(models.Model):
                     template_context['start_datetime'] = self.date_start
                     template_context['end_datetime'] = self.date_end
                     template_context['planning_url'] = employee_url_map[employee.id]
-                    template_context['planning_url_ics'] = employee_url_map[employee.id] + '.ics'
+                    template_context['planning_url_ics'] = ics_url_per_employee_id[employee.id]
                     template_context['assigned_new_shift'] = bool(slots.filtered(lambda slot: slot.employee_id.id == employee.id))
                     template.with_context(**template_context).send_mail(self.id, email_values={'email_to': employee.work_email, 'email_from': email_from}, email_layout_xmlid='mail.mail_notification_light')
         # mark as sent
