@@ -53,7 +53,7 @@ class ApprovalRequest(models.Model):
         self.product_line_ids._check_products_vendor()
 
         for line in self.product_line_ids:
-            seller = line._get_seller_id()
+            seller = line.seller_id
             vendor = seller.partner_id
             po_domain = line._get_purchase_orders_domain(vendor)
             purchase_orders = self.env['purchase.order'].search(po_domain)

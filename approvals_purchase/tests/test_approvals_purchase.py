@@ -1,7 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import datetime
+
+from odoo import Command
 
 from odoo.addons.approvals_purchase.tests.common import TestApprovalsCommon
 from odoo.exceptions import UserError
@@ -74,6 +75,13 @@ class TestApprovalsPurchase(TestApprovalsCommon):
             'min_qty': 1,
             'price': 15,
         })]
+
+        # reset the product again, in order to compute seller_id
+        with request_form.product_line_ids.edit(0) as line:
+            line.product_id = self.product_computer
+            line.product_id = self.product_mouse
+        request_purchase = request_form.save()
+
         # Should be ok now, check the approval request has purchase order.
         request_purchase.action_create_purchase_orders()
         self.assertEqual(request_purchase.purchase_order_count, 1)
@@ -457,3 +465,26 @@ class TestApprovalsPurchase(TestApprovalsCommon):
             purchase_order.order_line[1].product_qty, 2,
             "Must have 2 fortnights (= 30 units)."
         )
+
+    def test_product_line_seller(self):
+        category_test = self.env['approval.category'].create({
+            'name': "Create RFQ's",
+            'approval_type': 'purchase',
+            'has_product': 'required',
+            'has_quantity': 'required',
+            'automated_sequence': True,
+            'sequence_code': 'APPR',
+        })
+        product_with_vendor = self.product_earphone
+        product_without_vendor = self.product_mouse
+        approval = self.env['approval.request'].create({
+            'category_id': category_test.id,
+            'product_line_ids': [
+                Command.create({'product_id': product_with_vendor.id}),
+                Command.create({'product_id': product_without_vendor.id}),
+            ],
+        })
+        self.assertFalse(approval.product_line_ids[0].has_no_seller)
+        self.assertEqual(approval.product_line_ids[0].seller_id.partner_id, self.partner_seller_1)
+        self.assertTrue(approval.product_line_ids[1].has_no_seller)
+        self.assertFalse(approval.product_line_ids[1].seller_id)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -27,6 +26,10 @@ class ApprovalProductLine(models.Model):
         help="The quantity converted into the UoM used by the product in Purchase Order.")
     purchase_order_line_id = fields.Many2one('purchase.order.line')
     product_id = fields.Many2one(domain=lambda self: self._domain_product_id())
+    product_template_id = fields.Many2one(related='product_id.product_tmpl_id')
+    seller_id = fields.Many2one('product.supplierinfo', 'Vendors', compute='_compute_seller_id',
+        store=True, readonly=False)
+    has_no_seller = fields.Boolean(compute='_compute_has_no_seller', export_string_translation=False)
 
     @api.depends('approval_request_id.approval_type', 'product_uom_id', 'quantity')
     def _compute_po_uom_qty(self):
@@ -41,23 +44,32 @@ class ApprovalProductLine(models.Model):
             else:
                 line.po_uom_qty = 0.0
 
-    def _get_seller_id(self):
-        self.ensure_one()
-        res = self.env['product.supplierinfo']
-        if self.product_id and self.po_uom_qty:
-            res = self.product_id.with_company(self.company_id)._select_seller(
-                quantity=self.po_uom_qty,
-                uom_id=self.product_id.uom_po_id,
-            )
-        return res
+    @api.depends('product_id', 'po_uom_qty')
+    def _compute_seller_id(self):
+        for line in self:
+            if line.product_id and line.po_uom_qty:
+                line.seller_id = line.product_id.with_company(line.company_id)._select_seller(
+                    quantity=line.po_uom_qty,
+                    uom_id=line.product_id.uom_po_id,
+                )
+
+    @api.depends('product_id', 'po_uom_qty')
+    def _compute_has_no_seller(self):
+        for line in self:
+            line.has_no_seller = False
+            if line.product_id and line.po_uom_qty:
+                line.has_no_seller = not bool(line.product_id.with_company(line.company_id)._select_seller(
+                    quantity=line.po_uom_qty,
+                    uom_id=line.product_id.uom_po_id,
+                ))
 
     def _check_products_vendor(self):
         """ Raise an error if at least one product requires a seller. """
-        product_lines_without_seller = self.filtered(lambda line: not line._get_seller_id())
+        product_lines_without_seller = self.filtered(lambda line: not line.seller_id)
         if product_lines_without_seller:
             product_names = product_lines_without_seller.product_id.mapped('display_name')
             raise UserError(
-                _('Please set a vendor on product(s) %s.', ', '.join(product_names))
+                _('Please select a vendor on product line or set it on product(s) %s.', ', '.join(product_names))
             )
 
     def _get_purchase_orders_domain(self, vendor):
