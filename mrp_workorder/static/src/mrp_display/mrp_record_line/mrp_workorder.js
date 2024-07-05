@@ -6,6 +6,7 @@ import { Field } from "@web/views/fields/field";
 import { StockMove } from "./stock_move";
 import { useService } from "@web/core/utils/hooks";
 import { MrpTimer } from "@mrp/widgets/timer";
+import { markup } from "@odoo/owl";
 
 export class MrpWorkorder extends StockMove {
     static components = { ...StockMove.components, Field, MrpTimer };
@@ -23,7 +24,7 @@ export class MrpWorkorder extends StockMove {
         this.isLongPressable = true;
         this.dialogService = useService("dialog");
         this.name = this.props.record.data.name;
-        this.note = this.props.record.data.operation_note;
+        this.note = false;
         this.checks = this.props.record.data.check_ids;
     }
 
@@ -58,7 +59,10 @@ export class MrpWorkorder extends StockMove {
         return `${doneChecks}/${checks}`;
     }
 
-    displayInstruction() {
+    async displayInstruction() {
+        if (this.hasOperationNote && !this.note) {
+            this.note = await this.fetchOperationNote(this);
+        }
         const params = {
             body: this.note,
             confirmLabel: _t("Discard"),
@@ -89,4 +93,13 @@ export class MrpWorkorder extends StockMove {
     async clicked() {
         // Override with an empty body to cancel the behavior of clicked() in the 'StockMove' parent class
     }
+}
+
+export async function fetchOperationNote(record) {
+   const operationNote = await record.props.record.model.orm.read(
+            "mrp.workorder",
+            [record.props.record.resId],
+            ["operation_note"]
+        );
+    return markup(operationNote[0].operation_note);
 }
