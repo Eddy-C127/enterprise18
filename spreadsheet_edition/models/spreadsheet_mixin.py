@@ -549,7 +549,7 @@ class SpreadsheetMixin(models.AbstractModel):
                     if command["type"] == "CREATE_IMAGE" and command["definition"]["path"].startswith("/web/image/"):
                         attachment_copy = spreadsheet._get_spreadsheet_image_attachment(command["definition"]["path"], mapping)
                         if attachment_copy:
-                            command["definition"]["path"] = f"/web/image/{attachment_copy.id}"
+                            command["definition"]["path"] = get_attachment_image_src(command["definition"]["path"], attachment_copy)
                 revision.commands = json.dumps(data)
             data = json.loads(spreadsheet.spreadsheet_data) if spreadsheet.spreadsheet_data else {}
             spreadsheet._copy_spreadsheet_images_data(data, mapping)
@@ -567,7 +567,7 @@ class SpreadsheetMixin(models.AbstractModel):
                 if figure["tag"] == "image" and figure["data"]["path"].startswith("/web/image/"):
                     attachment_copy = self._get_spreadsheet_image_attachment(figure["data"]["path"], mapping)
                     if attachment_copy:
-                        figure["data"]["path"] = f"/web/image/{attachment_copy.id}"
+                        figure["data"]["path"] = get_attachment_image_src(figure["data"]["path"], attachment_copy)
 
     def _get_spreadsheet_image_attachment(self, path: str, mapping):
         attachment_id = int(path.split("/")[3].split("?")[0])
@@ -577,3 +577,10 @@ class SpreadsheetMixin(models.AbstractModel):
             mapping[attachment_id] = attachment_copy
             return attachment_copy
         return self.env["ir.attachment"]
+
+
+def get_attachment_image_src(original_path, attachment_copy):
+    has_access_token = f"access_token={attachment_copy.access_token}" in original_path
+    if has_access_token:
+        return f"/web/image/{attachment_copy.id}?access_token={attachment_copy.access_token}"
+    return f"/web/image/{attachment_copy.id}"
