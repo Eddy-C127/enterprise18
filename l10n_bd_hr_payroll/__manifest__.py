@@ -19,6 +19,5 @@ Bangladesh Payroll Rules.
         'data/hr_payslip_input_type_data.xml',
         'views/hr_employee_views.xml',
     ],
-    'demo': ['data/l10n_bd_hr_payroll_demo.xml'],
     'license': 'OEEL-1',
 }
