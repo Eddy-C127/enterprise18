@@ -98,3 +98,43 @@ registry.category("web_tour.tours").add("MakeBillTour", {
             BillScreen.clickOk(),
         ].flat(),
 });
+
+registry.category("web_tour.tours").add("PreparationDisplayTourEmptyInternalNotes", {
+    test: true,
+    url: "/pos/ui",
+    steps: () =>
+        [
+            ProductScreen.confirmOpeningPopup(),
+            FloorScreen.clickTable("5"),
+            ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.orderlineIsToOrder("Coca-Cola"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+            ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.addInternalNote(""),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+        ].flat(),
+});
+
+registry.category("web_tour.tours").add("PreparationDisplayTourWithInternalNotes", {
+    test: true,
+    url: "/pos/ui",
+    steps: () =>
+        [
+            ProductScreen.confirmOpeningPopup(),
+            FloorScreen.clickTable("5"),
+            ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.orderlineIsToOrder("Coca-Cola"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+            ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.addInternalNote(""),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+            ProductScreen.clickDisplayedProduct("Coca-Cola"),
+            ProductScreen.addInternalNote("Test Internal Notes"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+        ].flat(),
+});

@@ -92,8 +92,12 @@ class PosOrder(models.Model):
 
                         # Merge the two lines, so that if the quantity was changed it's also applied
                         old_quantity = quantity_data.pop(key, None)
-                        quantity_data[key_new]["display"] += old_quantity["display"]
-                        quantity_data[key_new]["order"] += old_quantity["order"]
+                        if old_quantity:
+                            if key_new in quantity_data:
+                                quantity_data[key_new]["display"] += old_quantity["display"]
+                                quantity_data[key_new]["order"] += old_quantity["order"]
+                            else:
+                                quantity_data[key_new] = old_quantity
 
         # Check if pos_order have new lines or if some lines have more quantity than before
         if any([quantities['order'] > quantities['display'] for quantities in quantity_data.values()]):
