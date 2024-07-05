@@ -687,6 +687,19 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
                             "size": {"width": 10, "height": 10},
                             "mimetype": "image/png"
                         }
+                    },
+                    {
+                        "id": "14",
+                        "x": 0,
+                        "y": 0,
+                        "width": 10,
+                        "height": 10,
+                        "tag": "image",
+                        "data": {
+                            "path": f"/web/image/{image.id}?access_token={image.generate_access_token()[0]}",
+                            "size": {"width": 10, "height": 10},
+                            "mimetype": "image/png"
+                        }
                     }
                 ],
             }],
@@ -700,7 +713,8 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         copied_data = json.loads(copy.spreadsheet_data)
         copied_snapshot = copy._get_spreadsheet_snapshot()
         for data_copy in (copied_data, copied_snapshot):
-            image_definition = data_copy["sheets"][0]["figures"][0]["data"]
+            [figure, figure_with_token] = data_copy["sheets"][0]["figures"]
+            image_definition = figure["data"]
             path = image_definition["path"]
             attachment_copy_id = int(path.split("/")[3])
             attachment_copy = self.env["ir.attachment"].browse(attachment_copy_id)
@@ -708,6 +722,15 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             self.assertEqual(attachment_copy.res_id, copy.id)
             self.assertEqual(attachment_copy.res_model, "documents.document")
             self.assertEqual(image_definition["path"], f"/web/image/{attachment_copy_id}")
+
+            image_definition = figure_with_token["data"]
+            path = image_definition["path"]
+            attachment_copy_id = int(path.split("/")[3].split("?")[0])
+            attachment_copy = self.env["ir.attachment"].browse(attachment_copy_id)
+            self.assertEqual(
+                image_definition["path"],
+                f"/web/image/{attachment_copy_id}?access_token={attachment_copy.access_token}"
+            )
 
     def test_copy_image_in_revision(self):
         spreadsheet = self.create_spreadsheet()
@@ -725,12 +748,20 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             "definition": {
                 "path": "/web/image/%s" % image.id,
             }
+        }, {
+            "type": "CREATE_IMAGE",
+            "figureId": "image-id2",
+            "position": {"x": 0, "y": 0},
+            "size": {"width": 1, "height": 1},
+            "definition": {
+                "path": "/web/image/%s?access_token=%s" % (image.id, image.generate_access_token()[0]),
+            }
         }]
 
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet, commands=commands))
         copy = spreadsheet.copy()
         revision = copy.spreadsheet_revision_ids
-        command = json.loads(revision.commands)["commands"][0]
+        [command, command_with_token] = json.loads(revision.commands)["commands"]
         path = command["definition"]["path"]
         attachment_copy_id = int(path.split("/")[3])
         attachment_copy = self.env["ir.attachment"].browse(attachment_copy_id)
@@ -738,6 +769,14 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.assertEqual(attachment_copy.res_id, copy.id)
         self.assertEqual(attachment_copy.res_model, "documents.document")
         self.assertEqual(command["definition"]["path"], f"/web/image/{attachment_copy_id}")
+
+        path = command_with_token["definition"]["path"]
+        attachment_copy_id = int(path.split("/")[3].split("?")[0])
+        attachment_copy = self.env["ir.attachment"].browse(attachment_copy_id)
+        self.assertEqual(
+            command_with_token["definition"]["path"],
+            f"/web/image/{attachment_copy_id}?access_token={attachment_copy.access_token}"
+        )
 
     def test_create_spreadsheet_with_image_linked_to_other_record(self):
         image = self.env["ir.attachment"].create({
