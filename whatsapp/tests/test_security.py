@@ -245,7 +245,6 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                     "id": employee_channel.id,
                                     "module_icon": "/mail/static/description/icon.png",
                                 },
-                                "sms_ids": [],
                             },
                         },
                     },
