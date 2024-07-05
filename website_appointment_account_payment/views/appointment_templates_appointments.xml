@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<template id="appointments_cards" inherit_id="website_appointment.appointments_cards">
+<template id="appointments_cards" inherit_id="website_appointment.appointment_card_body">
     <xpath expr="//div[hasclass('o_wappointment_card_location')]" position="before">
         <div t-if="appointment.has_payment_step and appointment.product_id" class="mt-2">
             <strong class="text-primary" t-esc="appointment.product_id.lst_price"

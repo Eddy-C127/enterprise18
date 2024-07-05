@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import datetime
+
 from odoo import http
 from odoo.http import request
 
@@ -22,7 +24,14 @@ class AppointmentSnippets(http.Controller):
            ...appointments
           }
         """
-        domain = [('category', 'in', ['punctual', 'recurring']), ('website_published', '=', True), ('staff_user_ids', '!=', False)]
+        current_website = request.env['website'].get_current_website()
+        domain = [
+            ('category', 'in', ['punctual', 'recurring']),
+            ('website_published', '=', True),
+            ('staff_user_ids', '!=', False),
+            '|', ('end_datetime', '=', False), ('end_datetime', '>=', datetime.datetime.now()),
+            '|', ("website_id", "=", current_website.id), ("website_id", "=", False)
+        ]
         if appointment_type_id:
             appointment_types = request.env["appointment.type"].browse(appointment_type_id).filtered_domain(domain)
         else:
