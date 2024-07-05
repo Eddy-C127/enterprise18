@@ -12,6 +12,8 @@ class TestProjectLeaves(common.TransactionCase):
     def setUp(self):
         super().setUp()
 
+        self.env.user.tz = "Europe/Brussels"
+
         self.user_hruser = mail_new_test_user(self.env, login='usertest', groups='base.group_user,hr_holidays.group_hr_holidays_user')
         self.employee_hruser = self.env['hr.employee'].create({
             'name': 'Test HrUser',
