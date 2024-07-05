@@ -54,6 +54,7 @@ class MrpProductionWorkcenterLine(models.Model):
     picture = fields.Binary(related='current_quality_check_id.picture', readonly=False)
     additional = fields.Boolean(related='current_quality_check_id.additional')
     product_description_variants = fields.Char(related='production_id.product_description_variants')
+    has_operation_note = fields.Boolean("Has Description", compute='_compute_has_operation_note')
 
     # used to display the connected employee that will start a workorder on the tablet view
     employee_id = fields.Many2one('hr.employee', string="Employee", compute='_compute_employee_id')
@@ -377,6 +378,12 @@ class MrpProductionWorkcenterLine(models.Model):
     def _compute_quality_alert_count(self):
         for workorder in self:
             workorder.quality_alert_count = len(workorder.quality_alert_ids)
+
+    def _compute_has_operation_note(self):
+        relevant_workorders = self.env['mrp.workorder'].search_fetch(
+            ['&', ('id', 'in', self.ids), ('operation_note', '!=', False)], ['id'])
+        for workorder in self:
+            workorder.has_operation_note = workorder.id in relevant_workorders.ids
 
     def _create_checks(self):
         for wo in self:

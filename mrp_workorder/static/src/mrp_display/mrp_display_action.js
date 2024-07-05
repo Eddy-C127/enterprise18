@@ -54,7 +54,7 @@ export class MrpDisplayAction extends Component {
                 "move_raw_ids",
                 "name",
                 "operation_id",
-                "operation_note",
+                "has_operation_note",
                 "product_id",
                 "production_id",
                 "qty_producing",

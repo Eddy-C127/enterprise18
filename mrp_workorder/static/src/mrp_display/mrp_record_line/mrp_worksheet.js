@@ -3,6 +3,7 @@
 import { useService } from "@web/core/utils/hooks";
 import { QualityCheck } from "./quality_check";
 import { MrpWorksheetDialog } from "../dialog/mrp_worksheet_dialog";
+import { fetchOperationNote } from "./mrp_workorder";
 
 export class MrpWorksheet extends QualityCheck {
     static template = "mrp_workorder.MrpWorksheet";
@@ -41,6 +42,9 @@ export class MrpWorksheet extends QualityCheck {
                 value: this.props.record.data.worksheet_google_slide,
                 page: 1,
             };
+        }
+        if (!this.props.record.data.operation_note) {
+            this.props.record.data.operation_note  = await fetchOperationNote(this);
         }
         this.dialog.add(MrpWorksheetDialog, {
             worksheetText: this.props.record.data.operation_note,

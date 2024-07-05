@@ -6,7 +6,7 @@ import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { Component, useState } from "@odoo/owl";
 import { Field } from "@web/views/fields/field";
 import { StockMove } from "./mrp_record_line/stock_move";
-import { MrpWorkorder } from "./mrp_record_line/mrp_workorder";
+import { fetchOperationNote, MrpWorkorder } from "./mrp_record_line/mrp_workorder";
 import { QualityCheck } from "./mrp_record_line/quality_check";
 import { mrpTimerField } from "@mrp/widgets/timer";
 import { PriorityField } from "@web/views/fields/priority/priority_field";
@@ -355,6 +355,9 @@ export class MrpDisplayRecord extends Component {
             this.openWorksheet();
             return;
         }
+        if (this.record.has_operation_note && !this.record.operation_note) {
+            this.record.operation_note = await fetchOperationNote(this);
+        }
         const params = {
             body: record.data.note,
             record,
@@ -633,7 +636,7 @@ export class MrpDisplayRecord extends Component {
         }
         const hasPDF = this.record.worksheet;
         const hasSlide = this.record.worksheet_google_slide;
-        const hasNote = this.record.operation_note.length;
+        const hasNote = this.record.has_operation_note;
         return hasPDF || hasSlide || hasNote;
     }
 
