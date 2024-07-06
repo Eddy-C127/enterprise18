@@ -1,4 +1,5 @@
 from cryptography.hazmat.primitives import serialization
+from importlib import metadata
 
 import pytz
 
@@ -6,6 +7,7 @@ from odoo import models, fields, api, _
 from odoo.fields import datetime
 from odoo.exceptions import ValidationError, UserError
 from odoo.addons.l10n_co_dian import xml_utils
+from odoo.tools import parse_version
 
 
 class Certificate(models.Model):
@@ -57,14 +59,20 @@ class Certificate(models.Model):
         except ValueError as e:
             raise ValidationError(_("Invalid certificate:\n") + str(e))
         else:
+            if parse_version(metadata.version('cryptography')) < parse_version('42.0.0'):
+                not_valid_after = certificate.not_valid_after
+                not_valid_before = certificate.not_valid_before
+            else:
+                not_valid_after = certificate.not_valid_after_utc.replace(tzinfo=None)
+                not_valid_before = certificate.not_valid_before_utc.replace(tzinfo=None)
             return {
                 'public_key': certificate.public_key().public_bytes(
                     encoding=serialization.Encoding.DER,
                     format=serialization.PublicFormat.SubjectPublicKeyInfo
                 ),
                 'serial_number': certificate.serial_number,
-                'not_valid_before': self._convert_to_naive_utc_datetime(certificate.not_valid_before),
-                'not_valid_after': self._convert_to_naive_utc_datetime(certificate.not_valid_after),
+                'not_valid_before': not_valid_before,
+                'not_valid_after': not_valid_after,
             }
 
     def _is_valid(self):
