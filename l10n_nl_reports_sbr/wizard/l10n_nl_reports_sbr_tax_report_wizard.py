@@ -149,7 +149,8 @@ class MemoryCertificateAndKeyHTTPAdapter(requests.adapters.HTTPAdapter):
         context.load_cert_chain = patched_load_cert_chain
         return connection
 
-class BinarySignatureTimestamp(wsse.signature.BinarySignature):
+
+class BinarySignatureTimestamp(wsse.BinarySignature):
     """
         This signature use in-memory certificate and private key
         and applies a different timestamp and modified signature format.
