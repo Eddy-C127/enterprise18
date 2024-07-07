@@ -4,11 +4,12 @@ import io
 import re
 import xlsxwriter
 
+from importlib import metadata
 from PIL import ImageFont
 
 from odoo import api, models, _, fields
 from odoo.exceptions import UserError
-from odoo.tools import date_utils, float_repr, SQL
+from odoo.tools import date_utils, float_repr, SQL, parse_version
 from odoo.tools.misc import format_date, get_lang, file_path
 
 
@@ -720,7 +721,15 @@ class SlspCustomHandler(models.AbstractModel):
         report_font = fonts[font_type]
 
         # 8.43 is the default width of a column in Excel.
-        col_width = sheet.col_sizes.get(col, [8.43])[0]
+        if parse_version(metadata.version('xlsxwriter')) >= parse_version('3.0.6'):
+            # cols_sizes was removed in 3.0.6 and colinfo was replaced by col_info
+            # see https://github.com/jmcnamara/XlsxWriter/commit/860f4a2404549aca1eccf9bf8361df95dc574f44
+            try:
+                col_width = sheet.col_info[col][0]
+            except KeyError:
+                col_width = 8.43
+        else:
+            col_width = sheet.col_sizes.get(col, [8.43])[0]
 
         with contextlib.suppress(ValueError):
             # This is needed, otherwise we could compute width on very long number such as 12.0999999998
