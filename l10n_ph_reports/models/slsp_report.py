@@ -714,7 +714,7 @@ class SlspCustomHandler(models.AbstractModel):
         """
 
         def get_string_width(font, string):
-            return font.getsize(string)[0] / 5
+            return font.getlength(string) / 5
 
         # Get the correct font for the row style
         font_type = ('Bol' if style.bold else 'Reg') + ('Ita' if style.italic else '')
