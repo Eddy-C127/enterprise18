@@ -3,7 +3,9 @@
 import base64
 import logging
 import ssl
+from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import padding
 from datetime import datetime
 from lxml import etree
 from pytz import timezone
@@ -117,9 +119,8 @@ class Certificate(models.Model):
         '''
         self.ensure_one()
         key_pem = self._get_pem_key(self.key, self.password)
-        private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, bytes(key_pem))
-        encrypt = 'sha256WithRSAEncryption'
-        cadena_crypted = crypto.sign(private_key, bytes(cadena.encode()), encrypt)
+        private_key = serialization.load_pem_private_key(bytes(key_pem), password=None)
+        cadena_crypted = private_key.sign(bytes(cadena.encode()), padding.PKCS1v15(), hashes.SHA256())
         return base64.b64encode(cadena_crypted)
 
     @api.model
