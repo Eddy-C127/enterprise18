@@ -6,7 +6,7 @@ function daysToLastWeekWednesday() {
     const today = new Date();
     const dayOfWeek = today.getDay();
     const daysUntilPreviousWed = (dayOfWeek + 7 - 3) % 7;
-    const daysToLastWeekWed = dayOfWeek >= 3 ? 7 + daysUntilPreviousWed : daysUntilPreviousWed;
+    const daysToLastWeekWed = (dayOfWeek >= 3 || dayOfWeek == 0) ? 7 + daysUntilPreviousWed : daysUntilPreviousWed;
     return daysToLastWeekWed;
 }
 
