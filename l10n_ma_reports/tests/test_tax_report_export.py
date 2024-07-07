@@ -13,12 +13,12 @@ class TestAccountMaExport(TestAccountReportsCommon):
         super().setUpClass()
 
         cls.company_data['company'].write({
-            'vat': 'MA122233411',
+            'vat': '001561191000066',
         })
 
         cls.partner_ma = cls.env['res.partner'].create({
             'name': 'Ma customer',
-            'vat': 'MA122233412',
+            'vat': '002136093000040',
             'country_id': cls.env.ref('base.ma').id,
         })
 
@@ -42,7 +42,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
         report = self._l10n_ma_generate_report()
         self._report_compare_with_test_file(report, test_xml="""
             <DeclarationReleveDeduction>
-                <idf>MA122233411</idf>
+                <idf>001561191000066</idf>
                 <annee>2019</annee>
                 <periode>1</periode>
                 <regime>1</regime>
@@ -57,7 +57,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
         report = self._l10n_ma_generate_report(options)
         self._report_compare_with_test_file(report, test_xml="""
             <DeclarationReleveDeduction>
-                <idf>MA122233411</idf>
+                <idf>001561191000066</idf>
                 <annee>2019</annee>
                 <periode>1</periode>
                 <regime>2</regime>
@@ -86,7 +86,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
         report = self._l10n_ma_generate_report()
         self._report_compare_with_test_file(report, test_xml="""
             <DeclarationReleveDeduction>
-                <idf>MA122233411</idf>
+                <idf>001561191000066</idf>
                 <annee>2019</annee>
                 <periode>1</periode>
                 <regime>1</regime>
@@ -99,7 +99,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
                         <tva>100.0</tva>
                         <ttc>600.0</ttc>
                         <refF>
-                            <if>MA122233412</if>
+                            <if>002136093000040</if>
                             <nom>Ma customer</nom>
                             <ice>20727021</ice>
                         </refF>
@@ -121,7 +121,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
         """
         partner_ma_with_ice = self.env['res.partner'].create({
             'name': 'Ma customer with ice',
-            'vat': 'MA122233411',
+            'vat': '001561191000066',
             'country_id': self.env.ref('base.ma').id,
             'l10n_ma_ice': '20727021',
         })
@@ -165,7 +165,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
             generated_export_string,
             self.get_xml_tree_from_string("""
                 <DeclarationReleveDeduction>
-                    <idf>MA122233411</idf>
+                    <idf>001561191000066</idf>
                     <annee>2019</annee>
                     <periode>1</periode>
                     <regime>1</regime>
@@ -178,7 +178,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
                             <tva>100.0</tva>
                             <ttc>600.0</ttc>
                             <refF>
-                                <if>MA122233411</if>
+                                <if>001561191000066</if>
                                 <nom>Ma customer with ice</nom>
                                 <ice>20727021</ice>
                             </refF>
@@ -219,7 +219,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
         errors = self.handler._l10n_ma_prepare_vat_report_values(self.default_options)['errors']
         self.assertTrue('company_vat_missing' in errors)
 
-        self.env.company.vat = 'MA122233411'
+        self.env.company.vat = '001561191000066'
         options = self._generate_options(self.report, '2019-01-01', '2019-02-01')
         errors = self.handler._l10n_ma_prepare_vat_report_values(options)['errors']
         self.assertTrue('period_invalid' in errors)
@@ -247,7 +247,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
         report = self._l10n_ma_generate_report()
         self._report_compare_with_test_file(report, test_xml="""
             <DeclarationReleveDeduction>
-                <idf>MA122233411</idf>
+                <idf>001561191000066</idf>
                 <annee>2019</annee>
                 <periode>1</periode>
                 <regime>1</regime>
