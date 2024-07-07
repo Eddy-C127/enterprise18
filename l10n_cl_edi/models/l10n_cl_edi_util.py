@@ -8,11 +8,13 @@ import re
 import textwrap
 import urllib3
 
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from functools import wraps
 
 from lxml import etree
 from markupsafe import Markup
-from OpenSSL import crypto
 from urllib3.exceptions import NewConnectionError
 from requests.exceptions import ConnectionError, HTTPError
 
@@ -181,8 +183,10 @@ class L10nClEdiUtilMixin(models.AbstractModel):
         """
         Sign the message using the given private key and sha1 message digest.
         """
-        private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, private_key)
-        signature = crypto.sign(private_key, re.sub(b'\n\\s*', b'', message), 'sha1')
+        if isinstance(private_key, str):
+            private_key = private_key.encode()
+        private_key = load_pem_private_key(private_key, password=None)
+        signature = private_key.sign(re.sub(b'\n\\s*', b'', message), padding.PKCS1v15(), hashes.SHA1())
         return base64.b64encode(signature).decode()
 
     def _xml_validator(self, xml_to_validate, validation_type, is_doc_type_voucher=False):
