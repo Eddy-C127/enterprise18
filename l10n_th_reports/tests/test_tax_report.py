@@ -1,8 +1,14 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import io
-import xlrd
+import unittest
+from datetime import datetime
 from freezegun import freeze_time
+try:
+    from openpyxl import load_workbook
+except ImportError:
+    load_workbook = None
+
 
 from odoo import Command
 from odoo.addons.account_reports.tests.account_sales_report_common import AccountSalesReportCommon
@@ -30,13 +36,17 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         return res
 
     def compare_xlsx_data(self, report_data, expected_data):
+        if load_workbook is None:
+            raise unittest.SkipTest("openpyxl not available")
         report_file = io.BytesIO(report_data)
-        xl = xlrd.open_workbook(file_contents=report_file.read())
-        sheet = xl.sheet_by_index(0)
+        xlsx = load_workbook(filename=report_file, data_only=True)
+        sheet = xlsx.worksheets[0]
+        sheet_values = list(sheet.values)
 
         result = []
-        for row in range(6, sheet.nrows):
-            result.append(sheet.row_values(row))
+
+        for row in sheet_values[6:]:
+            result.append([v if v is not None else '' for v in list(row)])
 
         self.assertEqual(result, expected_data)
 
@@ -137,7 +147,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_sale_tax_report(options)['file_content']
         expected = [
             ['No.', 'Tax Invoice No.', 'Reference', 'Invoice Date', 'Contact Name', 'Tax ID', 'Company Information', 'Total Amount', 'Total Excluding VAT Amount', 'Vat Amount'],
-            [1.0, 'INV/2023/00001', '', 45066.0, 'Partner B', '12345678', 'Branch 12345678', 2080.0, 2000.0, 140.0],
+            [1, 'INV/2023/00001', '', datetime(2023, 5, 20), 'Partner B', '12345678', 'Branch 12345678', 2080.0, 2000.0, 140.0],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', 'Total', 2080.0, 2000.0, 140]
@@ -156,7 +166,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_sale_tax_report(options)['file_content']
         expected = [
             ['No.', 'Tax Invoice No.', 'Reference', 'Invoice Date', 'Contact Name', 'Tax ID', 'Company Information', 'Total Amount', 'Total Excluding VAT Amount', 'Vat Amount'],
-            [1.0, 'INV/2023/00001', '', 45066.0, 'Partner B', '12345678', '', 2080.0, 2000.0, 140.0],
+            [1, 'INV/2023/00001', '', datetime(2023, 5, 20), 'Partner B', '12345678', '', 2080.0, 2000.0, 140.0],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', 'Total', 2080.0, 2000.0, 140]
@@ -179,7 +189,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_purchase_tax_report(options)['file_content']
         expected = [
             ['No.', 'Tax Invoice No.', 'Reference', 'Invoice Date', 'Contact Name', 'Tax ID', 'Company Information', 'Total Amount', 'Total Excluding VAT Amount', 'Vat Amount'],
-            [1.0, 'BILL/2023/05/0001', '', 45066.0, 'Partner B', '12345678', '', 2080.0, 2000.0, 140.0],
+            [1, 'BILL/2023/05/0001', '', datetime(2023, 5, 20), 'Partner B', '12345678', '', 2080.0, 2000.0, 140.0],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', 'Total', 2080.0, 2000.0, 140.0]
@@ -204,8 +214,8 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_purchase_tax_report(options)['file_content']
         expected = [
             ['No.', 'Tax Invoice No.', 'Reference', 'Invoice Date', 'Contact Name', 'Tax ID', 'Company Information', 'Total Amount', 'Total Excluding VAT Amount', 'Vat Amount'],
-            [1.0, 'RBILL/2023/05/0001', '', 45066.0, 'Partner B', '12345678', '', -1040.0, -1000.0, -70.0],
-            [2.0, 'BILL/2023/05/0001', '', 45066.0, 'Partner B', '12345678', '', 2080.0, 2000.0, 140.0],
+            [1, 'RBILL/2023/05/0001', '', datetime(2023, 5, 20), 'Partner B', '12345678', '', -1040.0, -1000.0, -70.0],
+            [2, 'BILL/2023/05/0001', '', datetime(2023, 5, 20), 'Partner B', '12345678', '', 2080.0, 2000.0, 140.0],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', 'Total', 1040.0, 1000.0, 70.0]
