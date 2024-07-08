@@ -1,38 +1,45 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * sale_ebay
+# 	* sale_ebay
 #
 # Translators:
-# Djordje Marjanovic <djordje_m@yahoo.com>, 2017
-# Ljubisa Jovev <ljubisa.jovev@gmail.com>, 2017
-# Martin Trigaux <mat@odoo.com>, 2017
-# Nemanja Dragovic <nemanjadragovic94@gmail.com>, 2017
+# Uros Kalajdzic <ukalajdzic@gmail.com>, 2022
+# Martin Trigaux, 2022
+# Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2022
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.saas~18+e\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2017-09-20 11:33+0000\n"
-"Last-Translator: Nemanja Dragovic <nemanjadragovic94@gmail.com>, 2017\n"
-"Language-Team: Serbian (Latin) (https://www.transifex.com/odoo/teams/41243/sr%40latin/)\n"
-"Language: sr@latin\n"
+"POT-Creation-Date: 2024-06-03 09:03+0000\n"
+"PO-Revision-Date: 2022-09-22 05:48+0000\n"
+"Last-Translator: Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, "
+"2022\n"
+"Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-msgid " If you want to set quantity to 0, the Out Of Stock option should be enabled and the listing duration should set to Good 'Til Canceled"
+msgid ""
+" If you want to set quantity to 0, the Out Of Stock option should be enabled "
+"and the listing duration should set to Good 'Til Cancelled"
 msgstr ""
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
 msgid ""
-" You need to have at least 2 variations selected for a multi-variations listing.\n"
-" Or if you try to delete a variation, you cannot do it by unselecting it. Setting the quantity to 0 is the safest method to make a variation unavailable."
+" You need to have at least 2 variations selected for a multi-variations "
+"listing.\n"
+" Or if you try to delete a variation, you cannot do it by unselecting it. "
+"Setting the quantity to 0 is the safest method to make a variation "
+"unavailable."
 msgstr ""
 
 #. module: sale_ebay
@@ -73,7 +80,9 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-msgid "All the quantities must be greater than 0 or you need to enable the Out Of Stock option."
+msgid ""
+"All the quantities must be greater than 0 or you need to enable the Out Of "
+"Stock option."
 msgstr ""
 
 #. module: sale_ebay
@@ -96,13 +105,13 @@ msgstr ""
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.ebay_link_listing_view
 msgid "Cancel"
-msgstr "Odustani"
+msgstr "Otkaži"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_category_id
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_category_id
 msgid "Category"
-msgstr "Категорија"
+msgstr "Kategorija"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_category_2_id
@@ -123,17 +132,17 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__category_type
 msgid "Category Type"
-msgstr "Tip kategorije"
+msgstr "Tip Kategorije"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_item_condition__code
 msgid "Code"
-msgstr "Šifra"
+msgstr "Kod"
 
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Podešavanje konfiguracije"
 
 #. module: sale_ebay
 #. odoo-python
@@ -149,7 +158,7 @@ msgstr "Kontakt"
 #. module: sale_ebay
 #: model:ir.actions.act_window,name:sale_ebay.action_country_all_form
 msgid "Countries"
-msgstr ""
+msgstr "Zemlje"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -160,7 +169,7 @@ msgstr ""
 #: model:ir.model,name:sale_ebay.model_res_country
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_country
 msgid "Country"
-msgstr "Država"
+msgstr "Zemlja"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__create_uid
@@ -178,7 +187,7 @@ msgstr "Kreirao"
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__create_date
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_site__create_date
 msgid "Created on"
-msgstr "Datum kreiranja"
+msgstr "Kreirano"
 
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_res_currency
@@ -276,7 +285,7 @@ msgstr ""
 #: code:addons/sale_ebay/models/product.py:0
 msgid ""
 "Error Encountered.\n"
-"'%s'"
+"%r"
 msgstr ""
 
 #. module: sale_ebay
@@ -350,7 +359,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__write_uid
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_site__write_uid
 msgid "Last Updated by"
-msgstr "Promenio"
+msgstr "Poslednje izmenio/la"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__write_date
@@ -359,7 +368,7 @@ msgstr "Promenio"
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__write_date
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_site__write_date
 msgid "Last Updated on"
-msgstr "Vreme promene"
+msgstr "Poslednje ažuriranje dana"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_last_sync
@@ -416,7 +425,7 @@ msgstr ""
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Mode"
-msgstr "Način"
+msgstr "Model"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -429,7 +438,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__name
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_site__name
 msgid "Name"
-msgstr "Naziv"
+msgstr "Ime"
 
 #. module: sale_ebay
 #. odoo-python
@@ -468,7 +477,9 @@ msgstr ""
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_config_settings.py:0
-msgid "Please provide your ebay production keys before enabling the account deletion notifications."
+msgid ""
+"Please provide your ebay production keys before enabling the account "
+"deletion notifications."
 msgstr ""
 
 #. module: sale_ebay
@@ -500,7 +511,7 @@ msgstr "Kategorije proizvoda"
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Varijante proizvoda"
 
 #. module: sale_ebay
 #. odoo-python
@@ -564,12 +575,12 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Porudžbenica"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Sales Team"
-msgstr ""
+msgstr "prodajni Tim"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -650,7 +661,7 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__short_summary
 msgid "Summary"
-msgstr "Sumarno"
+msgstr "Pregled"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -679,13 +690,16 @@ msgstr ""
 #: code:addons/sale_ebay/models/res_config_settings.py:0
 msgid ""
 "The python 'cryptography' module is not installed on your server.\n"
-"It is necessary to support eBay account deletion notifications, please contact your system administrator to install it."
+"It is necessary to support eBay account deletion notifications, please "
+"contact your system administrator to install it."
 msgstr ""
 
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_subtitle
 #: model:ir.model.fields,help:sale_ebay.field_product_template__ebay_subtitle
-msgid "The subtitle is restricted to 55 characters. Fees can be claimed by eBay for this feature"
+msgid ""
+"The subtitle is restricted to 55 characters. Fees can be claimed by eBay for "
+"this feature"
 msgstr ""
 
 #. module: sale_ebay
@@ -697,28 +711,41 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_category_2_id
 #: model:ir.model.fields,help:sale_ebay.field_product_template__ebay_category_2_id
-msgid "The use of a secondary category is not allowed on every eBay sites. Fees can be claimed by eBay for this feature"
+msgid ""
+"The use of a secondary category is not allowed on every eBay sites. Fees can "
+"be claimed by eBay for this feature"
 msgstr ""
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-msgid "There is no last synchronization date in your System Parameters. Create a System Parameter record with the key \"ebay_last_sync\" and the value set to the date of the oldest order you wish to synchronize in the format \"YYYY-MM-DD\"."
+msgid ""
+"There is no last synchronization date in your System Parameters. Create a "
+"System Parameter record with the key \"ebay_last_sync\" and the value set to "
+"the date of the oldest order you wish to synchronize in the format \"YYYY-MM-"
+"DD\"."
 msgstr ""
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/product.py:0
-msgid "This function should not be called with a range of more than 30 days, as eBay does not handle longer timespans. Instead use synchronize_orders which split in as many calls as needed."
+msgid ""
+"This function should not be called with a range of more than 30 days, as "
+"eBay does not handle longer timespans. Instead use synchronize_orders which "
+"split in as many calls as needed."
 msgstr ""
 
 #. module: sale_ebay
 #. odoo-python
 #: code:addons/sale_ebay/models/res_partner.py:0
 msgid ""
-"This is an automated notification as a deletion request has been received from eBay concerning the account \"%s (%s)\". The account has been anonymised already and his portal access revoked (if they had any).\n"
+"This is an automated notification as a deletion request has been received "
+"from eBay concerning the account \"%(account_name)s (%(account_id)s)\". The "
+"account has been anonymised already and his portal access revoked (if they "
+"had any).\n"
 "\n"
-"However, personal information might remain in linked documents, please review them according to laws that apply."
+"However, personal information might remain in linked documents, please "
+"review them according to laws that apply."
 msgstr ""
 
 #. module: sale_ebay
@@ -730,12 +757,12 @@ msgstr "Naslov"
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_stock_picking
 msgid "Transfer"
-msgstr "Transfer"
+msgstr "Prenos"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_policy__policy_type
 msgid "Type"
-msgstr "Tip"
+msgstr "Vrsta"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_sync_stock
@@ -757,7 +784,7 @@ msgstr ""
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
 msgid "Variants"
-msgstr "Varijacije"
+msgstr "Varijante"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_verification_token
@@ -767,7 +794,7 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_zip_code
 msgid "Zip"
-msgstr "ZIP"
+msgstr "Poštanski broj"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
@@ -898,7 +925,8 @@ msgstr ""
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
-msgid "eBay requires supporting customer account deletion/closure notifications."
+msgid ""
+"eBay requires supporting customer account deletion/closure notifications."
 msgstr ""
 
 #. module: sale_ebay
@@ -945,4 +973,17 @@ msgstr ""
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_sales_team
 msgid "ebay Sales Team"
+msgstr ""
+
+#. module: sale_ebay
+#: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
+msgid "to setup this mechanism."
+msgstr ""
+
+#. module: sale_ebay
+#: code:addons/sale_ebay/tools/ebaysdk.py:0
+#, python-format
+msgid ""
+"An unexpected error occured from eBay.\n"
+"Please check your credentials and try again later."
 msgstr ""
