@@ -4,9 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { registry } from "@web/core/registry";
-import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
-import { serializeDate, today } from "@web/core/l10n/dates";
 import { Component, onWillStart, useState } from "@odoo/owl";
 import { ManualBarcodeScanner } from "./components/manual_barcode";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
@@ -25,23 +23,21 @@ export class MainMenu extends Component {
         this.state = useState({ displayDemoMessage });
         this.barcodeService = useService('barcode');
         useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this._onBarcodeScanned(ev.detail.barcode));
-        const orm = useService('orm');
 
         onWillStart(async () => {
-            this.locationsEnabled = await user.hasGroup('stock.group_stock_multi_locations');
-            this.packagesEnabled = await user.hasGroup('stock.group_tracking_lot');
-            this.trackingEnabled = await user.hasGroup('stock.group_production_lot');
-            const args = [
-                ["user_id", "=?", user.userId],
-                ["location_id.usage", "in", ["internal", "transit"]],
-                ["inventory_date", "<=", serializeDate(today())],
-            ]
-            this.quantCount = await orm.searchCount("stock.quant", args);
-            const fileExtension = new Audio().canPlayType("audio/ogg") ? "ogg" : "mp3";
-            this.sounds = {
-                success: new Audio(url(`/stock_barcode/static/src/audio/success.${fileExtension}`)),
-            };
-            this.sounds.success.load();
+            const data = await rpc("/stock_barcode/get_main_menu_data");
+            this.locationsEnabled = data.groups.locations;
+            this.packagesEnabled = data.groups.package;
+            this.trackingEnabled = data.groups.tracking;
+            this.quantCount = data.quant_count;
+            this.soundEnable = data.play_sound;
+            if (this.soundEnable) {
+                const fileExtension = new Audio().canPlayType("audio/ogg") ? "ogg" : "mp3";
+                this.sounds = {
+                    success: new Audio(url(`/stock_barcode/static/src/audio/success.${fileExtension}`)),
+                };
+                this.sounds.success.load();
+            }
         });
     }
 
@@ -68,10 +64,17 @@ export class MainMenu extends Component {
         this.dialogService.add(ConfirmationDialog, params);
     }
 
+    playSound(soundName) {
+        if (this.soundEnable) {
+            this.sounds[soundName].currentTime = 0;
+            this.sounds[soundName].play();
+        }
+    }
+
     async _onBarcodeScanned(barcode) {
         const res = await rpc('/stock_barcode/scan_from_main_menu', { barcode });
         if (res.action) {
-            this.sounds["success"].play();
+            this.playSound("success");
             return this.actionService.doAction(res.action);
         }
         this.notificationService.add(res.warning, { type: 'danger' });

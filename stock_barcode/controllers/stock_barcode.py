@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from collections import defaultdict
 
-from odoo import http, _
+from odoo import fields, http, _
 from odoo.http import request
 from odoo.exceptions import UserError
 from odoo.osv import expression
@@ -96,6 +95,27 @@ class StockBarcodeController(http.Controller):
         return {
             'data': data,
             'groups': self._get_groups_data(),
+        }
+
+    @http.route('/stock_barcode/get_main_menu_data', type='json', auth='user')
+    def get_main_menu_data(self):
+        user = request.env.user
+        groups = {
+            'locations': user.has_group('stock.group_stock_multi_locations'),
+            'package': user.has_group('stock.group_tracking_lot'),
+            'tracking': user.has_group('stock.group_production_lot'),
+        }
+        quant_count = request.env['stock.quant'].search_count([
+            ("user_id", "=?", user.id),
+            ("location_id.usage", "in", ["internal", "transit"]),
+            ("inventory_date", "<=", fields.Date.context_today(user)),
+        ])
+        mute_sound = request.env['ir.config_parameter'].sudo().get_param('stock_barcode.mute_sound_notifications')
+        play_sound = bool(not mute_sound or mute_sound == "False")
+        return {
+            'groups': groups,
+            'play_sound': play_sound,
+            'quant_count': quant_count,
         }
 
     @http.route('/stock_barcode/get_specific_barcode_data', type='json', auth='user')
