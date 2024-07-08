@@ -1,10 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tools.float_utils import float_compare
+from datetime import date
+
+from odoo.addons.hr_payroll_account.tests.common import TestPayslipValidationCommon
 
 
-class TestL10NHkHrPayrollAccountCommon(AccountTestInvoicingCommon):
+class TestL10NHkHrPayrollAccountCommon(TestPayslipValidationCommon):
 
     @classmethod
     def setup_armageddon_tax(cls, tax_name, company_data):
@@ -12,18 +13,13 @@ class TestL10NHkHrPayrollAccountCommon(AccountTestInvoicingCommon):
         return None
 
     @classmethod
-    @AccountTestInvoicingCommon.setup_country('hk')
+    @TestPayslipValidationCommon.setup_country('hk')
     def setUpClass(cls):
         super().setUpClass()
 
-        admin = cls.env['res.users'].search([('login', '=', 'admin')])
-        admin.company_ids |= cls.company
-
-        cls.env.user.tz = 'Asia/Hong_Kong'
-
-        cls.resource_calendar_40_hours_per_week = cls.env['resource.calendar'].create({
+        resource_calendar = cls.env['resource.calendar'].create({
             'name': "Test Calendar : 40 Hours/Week",
-            'company_id': cls.company.id,
+            'company_id': cls.env.company.id,
             'hours_per_day': 8.0,
             'tz': "Asia/Hong_Kong",
             'two_weeks_calendar': False,
@@ -48,47 +44,22 @@ class TestL10NHkHrPayrollAccountCommon(AccountTestInvoicingCommon):
             ]
         })
 
-    @classmethod
-    def _generate_payslip(cls, date_from, date_to, struct_id=False, input_line_ids=False):
-        work_entries = cls.contract.generate_work_entries(date_from, date_to)
-        payslip = cls.env['hr.payslip'].create([{
-            'name': "Test Payslip",
-            'employee_id': cls.employee.id,
-            'contract_id': cls.contract.id,
-            'company_id': cls.env.company.id,
-            'struct_id': struct_id or cls.env.ref('l10n_hk_hr_payroll.hr_payroll_structure_cap57_employee_salary').id,
-            'date_from': date_from,
-            'date_to': date_to,
-            'input_line_ids': input_line_ids or [],
-        }])
-        work_entries.action_validate()
-        payslip.compute_sheet()
-        return payslip
+        cls._setup_common(
+            country=cls.env.ref('base.hk'),
+            structure=cls.env.ref('l10n_hk_hr_payroll.hr_payroll_structure_cap57_employee_salary'),
+            structure_type=cls.env.ref('l10n_hk_hr_payroll.structure_type_employee_cap57'),
+            resource_calendar=resource_calendar,
+            contract_fields={
+                'date_start': date(2023, 1, 1),
+                'wage': 20000.0,
+                'l10n_hk_internet': 200.0,
+            },
+            employee_fields={
+                'marital': "single",
+            }
+        )
 
-    @classmethod
-    def _generate_leave(cls, date_from, date_to, holiday_status_id):
-        return cls.env['hr.leave'].create({
-            'employee_id': cls.employee.id,
-            'request_date_from': date_from,
-            'request_date_to': date_to,
-            'holiday_status_id': cls.env.ref(holiday_status_id).id,
-        }).action_validate()
+        admin = cls.env['res.users'].search([('login', '=', 'admin')])
+        admin.company_ids |= cls.env.company
 
-    def _validate_payslip(self, payslip, results):
-        error = []
-        line_values = payslip._get_line_values(set(results.keys()) | set(payslip.line_ids.mapped('code')))
-        for code, value in results.items():
-            payslip_line_value = line_values[code][payslip.id]['total']
-            if float_compare(payslip_line_value, value, 2):
-                error.append("Code: %s - Expected: %s - Reality: %s" % (code, value, payslip_line_value))
-        for line in payslip.line_ids:
-            if line.code not in results:
-                error.append("Missing Line: '%s' - %s," % (line.code, line_values[line.code][payslip.id]['total']))
-        if error:
-            error.append("Payslip Period: %s - %s" % (payslip.date_from, payslip.date_to))
-            error.append("Payslip Actual Values: ")
-            error.append("        {")
-            for line in payslip.line_ids:
-                error.append("            '%s': %s," % (line.code, line_values[line.code][payslip.id]['total']))
-            error.append("        }")
-        self.assertEqual(len(error), 0, '\n' + '\n'.join(error))
+        cls.env.user.tz = 'Asia/Hong_Kong'

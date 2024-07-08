@@ -114,7 +114,7 @@ else:
     elif employee.gender == 'male':
         x = payslip._rule_parameter('l10n_bd_male_yearly_exempt')
     if employee.l10n_bd_disabled_dependent:
-        x += payslip._rule_parameter('l10n_bd_per_disabled_dependent_yearly_exempt')
+        x += payslip._rule_parameter('l10n_bd_per_disabled_dependent_yearly_exempt') * employee.l10n_bd_disabled_dependent
 
     yearly_taxable_amount -= min(yearly_taxable_amount, x)
     income_tax = 0

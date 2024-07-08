@@ -14,31 +14,9 @@ class TestPaymentInLieuOfNotice(TestL10NHkHrPayrollAccountCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.work_contact = cls.env['res.partner'].create([{
-            'name': "Test Employee",
-            'company_id': cls.env.company.id,
-        }])
-
-        cls.employee = cls.env['hr.employee'].create({
-            'name': 'Test Employee',
-            'work_contact_id': cls.work_contact.id,
-            'resource_calendar_id': cls.resource_calendar_40_hours_per_week.id,
-            'company_id': cls.env.company.id,
-            'country_id': cls.env.ref('base.hk').id,
-            'marital': "single",
-        })
-
-        cls.contract = cls.env['hr.contract'].create({
-            'name': "Contract For Payslip Test",
-            'employee_id': cls.employee.id,
-            'resource_calendar_id': cls.resource_calendar_40_hours_per_week.id,
-            'company_id': cls.env.company.id,
-            'structure_type_id': cls.env.ref('l10n_hk_hr_payroll.structure_type_employee_cap57').id,
+        cls.contract.write({
             'date_start': date(2022, 1, 1),
             'date_end': date(2023, 4, 21),
-            'wage': 20000.0,
-            'l10n_hk_internet': 200.0,
-            'state': "close",
         })
 
     def test_regular(self):

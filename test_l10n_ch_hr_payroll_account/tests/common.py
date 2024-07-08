@@ -1,15 +1,14 @@
-# -*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import date
 
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.addons.hr_payroll_account.tests.common import TestPayslipValidationCommon
 
 
-class TestL10NChHrPayrollAccountCommon(AccountTestInvoicingCommon):
+class TestL10NChHrPayrollAccountCommon(TestPayslipValidationCommon):
 
     @classmethod
-    @AccountTestInvoicingCommon.setup_country('ch')
+    @TestPayslipValidationCommon.setup_country('ch')
     def setUpClass(cls):
         super().setUpClass()
 
