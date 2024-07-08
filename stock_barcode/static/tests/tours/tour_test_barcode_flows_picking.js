@@ -2696,12 +2696,12 @@ registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_
             helper.assertLineDestinationLocation(2, "WH/Stock");
 
             helper.assertLineProduct(3, "productlot1");
-            helper.assertLineQty(3, "0 / 3");
-            helper.assertLineDestinationLocation(3, "WH/Stock");
+            helper.assertLineQty(3, "3 / 3");
+            helper.assertLineDestinationLocation(3, ".../Section 1");
 
             helper.assertLineProduct(4, "productlot1");
-            helper.assertLineQty(4, "3 / 3");
-            helper.assertLineDestinationLocation(4, ".../Section 1");
+            helper.assertLineQty(4, "0 / 3");
+            helper.assertLineDestinationLocation(4, "WH/Stock");
         }
     },
 
@@ -2773,14 +2773,14 @@ registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_
             helper.assert(line.querySelector('[name="package"]').innerText, "pack-128");
 
             helper.assertLineProduct(3, "productlot1");
-            helper.assertLineQty(3, "1 / 1");
-            helper.assertLineTrackingNumber(3, "lot-02");
-            helper.assertLineDestinationLocation(3, ".../Section 2");
+            helper.assertLineQty(3, "3 / 3");
+            helper.assertLineTrackingNumber(3, false);
+            helper.assertLineDestinationLocation(3, ".../Section 1");
 
             helper.assertLineProduct(4, "productlot1");
-            helper.assertLineQty(4, "3 / 3");
-            helper.assertLineTrackingNumber(4, false);
-            helper.assertLineDestinationLocation(4, ".../Section 1");
+            helper.assertLineQty(4, "1 / 1");
+            helper.assertLineTrackingNumber(4, "lot-02");
+            helper.assertLineDestinationLocation(4, ".../Section 2");
 
             line = helper.getLine({ index: 5 });
             helper.assertLineProduct(5, "productlot1");

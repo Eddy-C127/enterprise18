@@ -608,7 +608,20 @@ export default class BarcodeModel extends EventBus {
             this._getNewLineDefaultValues(params.fieldsParams)
         );
         const previousIndex = (params.copyOf || this.selectedLine || {}).sortIndex;
-        newLine.sortIndex = (previousIndex && previousIndex + "1") || this._getLineIndex();
+        if (previousIndex !== undefined) {
+            // In case we copy an existing line, we update sort index of following
+            // lines to interpose new line just behind the copied line.
+            const newIndex = previousIndex + 1;
+            for (const line of this.currentState.lines) {
+                if (line.sortIndex >= newIndex) {
+                    line.sortIndex += 1;
+                }
+            }
+            this.currentSortIndex += 1;
+            newLine.sortIndex = newIndex;
+        } else {
+            newLine.sortIndex = this._getLineIndex();
+        }
         await this.updateLine(newLine, params.fieldsParams);
         this.currentState.lines.push(newLine);
         return newLine;
@@ -642,7 +655,7 @@ export default class BarcodeModel extends EventBus {
     }
 
     _getLineIndex() {
-        const sortIndex = String(this.currentSortIndex).padStart(4, '0');
+        const sortIndex = this.currentSortIndex;
         this.currentSortIndex++;
         return sortIndex;
     }
@@ -715,7 +728,7 @@ export default class BarcodeModel extends EventBus {
         // Use the line with lowest ID as the reference (info shown on summary
         // line and also the move line opened for the form view.)
         const referenceLine = sortedSublines.reduce((result, line) => {
-            return (!result.id || result.id > line.id) ? line : result;
+            return line.id && (!result.id || (result.id > line.id)) ? line : result;
         })
         return Object.assign({}, referenceLine, {
             ids,
@@ -1433,7 +1446,7 @@ export default class BarcodeModel extends EventBus {
                     // than the scanned one (or if no location was scanned).
                     foundLine = line;
                     if ((this.lineIsInTheCurrentLocation(line)) &&
-                        (this.tracking === 'none' || !dataLotName || dataLotName === lineLotName)) {
+                        (line.product_id.tracking === 'none' || !dataLotName || dataLotName === lineLotName)) {
                         // In case of tracked product, stop searching only if no
                         // LN/SN was scanned or if it's the same.
                         break;
