@@ -52,7 +52,9 @@ class HrSalaryRule(models.Model):
 # worked_days: dict containing the computed worked days
 # inputs: dict containing the computed inputs.
 
-# Note: returned value have to be set in the variable 'result'
+# Output:
+#----------------------
+# result: boolean True if the rule should be calculated, False otherwise
 
 result = rules['NET'] > categories['NET'] * 0.10''',
         help='Applied this rule for calculation if condition is true. You can specify condition like basic > 1000.')
@@ -78,7 +80,15 @@ result = rules['NET'] > categories['NET'] * 0.10''',
 # worked_days: dict containing the computed worked days
 # inputs: dict containing the computed inputs.
 
-# Note: returned value have to be set in the variable 'result'
+# Output:
+#----------------------
+# result: float, base amount of the rule
+# result_rate: float, rate between -100.0 and 100.0, which defaults to 100.0 (%).
+# result_quantity: float, quantity, which defaults to 1.
+# result_name: string, name of the line, which defaults to the name field of the salary rule.
+               This is useful if the name depends should depend on something computed in the rule.
+# The total returned by the salary rule is calculated as:
+# total = result * result_rate * result_quantity
 
 result = contract.wage * 0.10''')
     amount_percentage_base = fields.Char(string='Percentage based on', help='result will be affected to a variable')
