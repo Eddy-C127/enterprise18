@@ -38,7 +38,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
             run: "click",
         },
         {
-            trigger: '[data-menu-xmlid="documents.dashboard"]',
+            trigger: ".o-sp-breadcrumb",
             content: "Go back to Document App",
             run: "click",
         },
@@ -48,7 +48,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
             run: "click",
         },
         {
-            trigger: '[data-menu-xmlid="documents.dashboard"]',
+            trigger: ".o-sp-breadcrumb",
             content: "Wait for the spreadsheet to be properly unloaded",
             run: "click",
         },
@@ -101,7 +101,7 @@ registry.category("web_tour.tours").add("spreadsheet_create_list_view", {
             run: "click",
         },
         {
-            trigger: '[data-menu-xmlid="documents.dashboard"]',
+            trigger: ".o-sp-breadcrumb",
             content: "Wait for the spreadsheet to be properly unloaded",
             run: "click",
         },

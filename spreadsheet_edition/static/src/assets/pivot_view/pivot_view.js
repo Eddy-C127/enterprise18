@@ -1,18 +1,31 @@
-/** @odoo-module **/
-
 import { registry } from "@web/core/registry";
 import { PivotRenderer } from "@web/views/pivot/pivot_renderer";
 import { user } from "@web/core/user";
 import { intersection, unique } from "@web/core/utils/arrays";
 import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
-import { PERIODS } from "@spreadsheet_edition/assets/helpers";
 import { omit } from "@web/core/utils/objects";
 
 import { _t } from "@web/core/l10n/translation";
 import { SpreadsheetSelectorDialog } from "@spreadsheet_edition/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog";
 
 import { onWillStart } from "@odoo/owl";
+
+/**
+ * This const is defined in o-spreadsheet library, but has to be redefined here
+ * because o-spreadsheet is lazy loaded in another bundle than this file is.
+ */
+const ALL_PERIODS = {
+    quarter: _t("Quarter & Year"),
+    month: _t("Month & Year"),
+    week: _t("Week & Year"),
+    day: _t("Day"),
+    year: _t("Year"),
+    quarter_number: _t("Quarter"),
+    month_number: _t("Month"),
+    iso_week_number: _t("Week"),
+    day_of_month: _t("Day of Month"),
+};
 
 patch(PivotRenderer.prototype, {
     setup() {
@@ -34,7 +47,7 @@ patch(PivotRenderer.prototype, {
             this.model.metaData.fullColGroupBys[0] || this.model.metaData.fullRowGroupBys[0];
         if (groupBy) {
             let [field, period] = groupBy.split(":");
-            period = PERIODS[period];
+            period = ALL_PERIODS[period];
             if (period) {
                 name = _t("%(pivot_title)s by %(group_by)s (%(granularity)s)", {
                     pivot_title: name,

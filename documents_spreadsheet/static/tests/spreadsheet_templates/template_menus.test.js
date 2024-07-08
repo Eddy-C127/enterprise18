@@ -196,7 +196,7 @@ test("Name template with spreadsheet name", async function () {
         },
     });
     const target = getFixture();
-    const input = target.querySelector(".o_spreadsheet_name input");
+    const input = target.querySelector(".o_sp_name input");
     await contains(input).edit("My spreadsheet");
     await doMenuAction(topbarMenuRegistry, ["file", "save_as_template"], env);
     await animationFrame();

@@ -44,6 +44,7 @@ topbarComponentRegistry.add("filter_component", {
     isVisible: (env) => {
         return !env.model.getters.isReadonly() || env.model.getters.getGlobalFilters().length;
     },
+    sequence: 30,
 });
 
 cellMenuRegistry.add("use_global_filter", {

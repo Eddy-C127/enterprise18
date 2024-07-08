@@ -37,7 +37,7 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
             content: "Check that there are now two sheets",
         },
         {
-            trigger: '[data-menu-xmlid="documents.dashboard"]',
+            trigger: ".o-sp-breadcrumb",
             content: "Go back to Document App",
             run: "click",
         },
@@ -68,7 +68,7 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
             run: "click",
         },
         {
-            trigger: '[data-menu-xmlid="documents.dashboard"]',
+            trigger: ".o-sp-breadcrumb",
             content: "Go back to Document App",
             run: "click",
         },

@@ -202,7 +202,7 @@ test("insert action in new spreadsheet", async function () {
     await animationFrame();
     expect.verifySteps(["spreadsheet-created"]);
     expect(".o_spreadsheet_action").toHaveCount(1);
-    expect(".o_breadcrumb .o_spreadsheet_name input").toHaveValue("Untitled spreadsheet");
+    expect(".o_navbar .o_sp_name input").toHaveValue("Untitled spreadsheet");
 });
 
 test("kanban view", async function () {

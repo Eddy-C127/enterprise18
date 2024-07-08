@@ -8,17 +8,17 @@ import { SpreadsheetName } from "@spreadsheet_edition/bundle/actions/control_pan
 import { Model } from "@odoo/o-spreadsheet";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
-import { DocumentsSpreadsheetControlPanel } from "../components/control_panel/spreadsheet_control_panel";
 import { _t } from "@web/core/l10n/translation";
 
 import { useState, useSubEnv } from "@odoo/owl";
+import { DocumentsSpreadsheetNavbar } from "../components/documents_spreadsheet_navbar/documents_spreadsheet_navbar";
 
 export class SpreadsheetAction extends AbstractSpreadsheetAction {
     static template = "documents_spreadsheet.SpreadsheetAction";
     static components = {
         SpreadsheetComponent,
-        DocumentsSpreadsheetControlPanel,
         SpreadsheetName,
+        DocumentsSpreadsheetNavbar,
     };
     static path = "spreadsheet";
     static displayName = _t("Spreadsheet");
@@ -38,6 +38,7 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
             newSpreadsheet: this.createNewSpreadsheet.bind(this),
             makeCopy: this.makeCopy.bind(this),
             saveAsTemplate: this.saveAsTemplate.bind(this),
+            onSpreadsheetShared: this.shareSpreadsheet?.bind(this),
         });
     }
 

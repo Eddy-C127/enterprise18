@@ -6,7 +6,7 @@
     'category': 'Hidden',
     'summary': 'Spreadsheet',
     'description': 'Spreadsheet',
-    'depends': ['spreadsheet', 'mail'],
+    'depends': ['spreadsheet', 'mail', 'web_enterprise'],
     'data': [
         'security/ir.model.access.csv',
         'views/spreadsheet_views.xml',
@@ -20,7 +20,6 @@
             'spreadsheet_edition/static/src/bundle/**/*.js',
             'spreadsheet_edition/static/src/bundle/**/filter_editor_side_panel.xml',
             'spreadsheet_edition/static/src/bundle/**/*.xml',
-            ('remove', 'spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_breadcrumbs.xml'),
             ('remove', 'spreadsheet_edition/static/src/bundle/pivot/pivot.xml'),
         ],
         'spreadsheet.assets_print': [
@@ -29,7 +28,6 @@
         'web.assets_backend': [
             'spreadsheet_edition/static/src/**/*.scss',
             'spreadsheet_edition/static/src/bundle/pivot/pivot.xml',
-            'spreadsheet_edition/static/src/bundle/actions/control_panel/spreadsheet_breadcrumbs.xml',
             'spreadsheet_edition/static/src/assets/**/*',
         ],
         'web.qunit_suite_tests': [

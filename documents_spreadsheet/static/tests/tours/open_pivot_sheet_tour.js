@@ -95,7 +95,7 @@ registry.category("web_tour.tours").add("spreadsheet_open_pivot_sheet", {
             },
         },
         {
-            trigger: '[data-menu-xmlid="documents.dashboard"]',
+            trigger: ".o-sp-breadcrumb",
             content: "Go back to Document App",
             run: "click",
         },

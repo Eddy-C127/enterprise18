@@ -2,9 +2,8 @@
 <templates>
 
 <div t-name="documents_spreadsheet.SpreadsheetAction" class="o_spreadsheet_action">
-    <DocumentsSpreadsheetControlPanel
-        t-props="controlPanelProps"
-        onSpreadsheetShared.bind="shareSpreadsheet"
+    <DocumentsSpreadsheetNavbar
+        t-props="navbarProps"
         isReadonly="isReadonly || !!accessToken"
         onFavoriteToggled.bind="_onSpreadSheetFavoriteToggled"
         isFavorited="state.isFavorited"
