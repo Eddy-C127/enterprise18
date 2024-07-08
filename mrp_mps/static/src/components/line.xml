@@ -66,7 +66,7 @@
                         <span t-attf-class="{{! (groups.mrp_mps_show_actual_demand and groups.mrp_mps_show_demand_forecast) and 'o_hidden' or ''}}"> / </span>
                         <input type="text"
                         t-att-data-date_index="forecast_index"
-                        t-attf-class="text-end o_highlight form-control {{! groups.mrp_mps_show_demand_forecast and 'o_hidden' or groups.mrp_mps_show_actual_demand and 'o_mps_inline' or ''}} {{forecast.forecast_qty ? '' : 'o_zero_qty'}}"
+                        t-attf-class="text-end o_highlight form-control {{! groups.mrp_mps_show_demand_forecast and 'o_hidden' or groups.mrp_mps_show_actual_demand and 'mt-1' or ''}} {{forecast.forecast_qty ? '' : 'o_zero_qty'}}"
                         t-att-value="formatFloat(forecast.forecast_qty)"
                         t-on-change.stop="(ev) => this._onChangeForecast(ev, productionSchedule.id)"
                         t-on-focus.prevent="_onFocusInput"/>
@@ -117,7 +117,7 @@
                             <t t-esc="formatFloat(forecast.incoming_qty)"/>
                         </a>
                         <span t-attf-class="{{! (groups.mrp_mps_show_actual_replenishment and groups.mrp_mps_show_to_replenish) and 'o_hidden' or ''}}"> / </span>
-                        <div t-attf-class="input-group {{! groups.mrp_mps_show_to_replenish and 'o_hidden' or  groups.mrp_mps_show_actual_replenishment and 'o_mps_inline' or ''}}">
+                        <div t-attf-class="input-group {{! groups.mrp_mps_show_to_replenish and 'o_hidden' or  groups.mrp_mps_show_actual_replenishment and 'mt-1' or ''}}">
                             <button type="button"
                                 t-if="forecast.replenish_qty_updated"
                                 t-on-click.stop="(ev) => this._onClickAutomaticMode(ev, productionSchedule.id)"
