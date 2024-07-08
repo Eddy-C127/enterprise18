@@ -315,6 +315,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
                     fieldsParams: Object.assign({}, quant, params.fieldsParams),
                 };
                 const newlyCreatedLine = await super._createNewLine(lineParams);
+                this.selectedLineVirtualId = newlyCreatedLine.virtual_id;
                 // Keeps the first created line so that the one who will be selected.
                 newLine = newLine || newlyCreatedLine;
                 // If the quant already exits, we add it into the `initialState` to
