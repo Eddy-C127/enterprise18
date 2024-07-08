@@ -3,7 +3,7 @@ import { CharField, charField } from "@web/views/fields/char/char_field";
 import { scanBarcode } from "@web/webclient/barcode/barcode_dialog";
 
 export class BarcodeScannerWidget extends CharField {
-    static template = "point_of_sale.barcodeformbarcode";
+    static template = "product_barcodelookup.barcodeformbarcode";
     setup() {
         super.setup();
     }

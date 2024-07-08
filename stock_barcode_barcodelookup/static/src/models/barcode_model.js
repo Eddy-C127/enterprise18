@@ -53,7 +53,7 @@ patch(BarcodeModel.prototype, {
 
     async openProductForm(barcodeData=false) {
         return await this.action.doAction(
-            "stock_barcode_barcodelookup.product_barcodelookup_action",
+            "stock_barcode_barcodelookup.stock_barcodelookup_product_product_action",
             {
                 additionalContext: {
                     "default_barcode": barcodeData?.barcode,

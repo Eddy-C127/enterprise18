@@ -9,6 +9,7 @@
     ],
     'assets': {
         'point_of_sale._assets_pos': [
+            "product_barcodelookup/static/src/widgets/**/*",
             "pos_barcodelookup/static/src/**/*",
         ],
     },

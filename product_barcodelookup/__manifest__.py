@@ -5,8 +5,14 @@
     'version': '1.0',
     'depends': ['product'],
     'data': [
+        'views/product_product_views.xml',
         'views/res_config_settings_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'product_barcodelookup/static/src/**/*',
+        ],
+    },
     'auto_install': True,
     'license': 'OEEL-1',
 }

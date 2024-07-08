@@ -129,3 +129,13 @@ class ProductTemplate(models.Model):
         params = {'barcode': barcode, 'key': api_key}
         response = barcode_lookup_service.barcode_lookup_request('https://api.barcodelookup.com/v3/products', params)
         return response.json() if not isinstance(response, dict) else response
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        products = super().create(vals_list)
+        for product in products:
+            if 'is_published' in product and not self._context.get('website_published') and product.public_categ_ids:
+                product.is_published = True
+            if 'available_in_pos' in product and not self._context.get('can_be_sold') and product.pos_categ_ids:
+                product.available_in_pos = True
+        return products
