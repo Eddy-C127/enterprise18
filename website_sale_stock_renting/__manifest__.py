@@ -21,9 +21,6 @@ appropriate views and selling choices.
             'website_sale_stock_renting/static/tests/tours/**/*',
         ],
     },
-    'demo': [
-        'data/demo.xml',
-    ],
     'auto_install': True,
     'license': 'OEEL-1',
 }

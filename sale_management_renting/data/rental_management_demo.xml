@@ -3,7 +3,7 @@
 
     <!-- Add a rental quotation template -->
     <record id="rental_order_template_1" model="sale.order.template">
-        <field name="name">Meeting Room</field>
+        <field name="name">Rent Rooms</field>
         <field name="number_of_days">45</field>
     </record>
 
@@ -15,6 +15,11 @@
     <record id="rental_order_template_option_1" model="sale.order.template.option">
         <field name="sale_order_template_id" ref="rental_order_template_1"/>
         <field name="product_id" ref="sale_renting.rental_product_1"/>
+    </record>
+
+    <record id="rental_order_template_option_2" model="sale.order.template.option">
+        <field name="sale_order_template_id" ref="rental_order_template_1"/>
+        <field name="product_id" ref="sale_renting.rental_product_3"/>
     </record>
 
 </odoo>

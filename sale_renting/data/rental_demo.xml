@@ -32,6 +32,18 @@
         <field name="extra_daily" eval="200.0"/>
     </record>
 
+    <record id="rental_product_3" model="product.product">
+        <field name="name">Printer</field>
+        <field name="categ_id" ref="sale_renting.cat_renting"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="default_code">RENT003</field>
+        <field name="image_1920" type="base64" file="sale_renting/static/img/printer.png"/>
+        <field name="rent_ok" eval="True"/>
+        <field name="extra_hourly" eval="7.50"/>
+        <field name="extra_daily" eval="75.00"/>
+    </record>
+
     <!-- Rental pricings -->
 
     <record id="rental_pricing_1" model="product.pricing">
@@ -63,12 +75,43 @@
         <field name="currency_id" ref="base.USD"/>
     </record>
 
+    <record id="rental_pricing_6" model="product.pricing">
+        <field name="recurrence_id" ref="sale_renting.recurrence_hourly"/>
+        <field name="price" eval="5.0"/>
+    </record>
+
+    <record id="rental_pricing_7" model="product.pricing">
+        <field name="recurrence_id" ref="sale_renting.recurrence_daily"/>
+        <field name="price" eval="20.0"/>
+    </record>
+
+    <record id="rental_pricing_8" model="product.pricing">
+        <field name="recurrence_id" ref="sale_renting.recurrence_weekly"/>
+        <field name="price" eval="100.0"/>
+    </record>
+
     <record id="rental_product_1" model="product.product"> <!-- Projector -->
         <field name="product_pricing_ids" eval="[(6,0,[ref('rental_pricing_1'), ref('rental_pricing_2')])]"/>
     </record>
 
     <record id="rental_product_2" model="product.product"> <!-- Meeting Room -->
         <field name="product_pricing_ids" eval="[(6,0,[ref('rental_pricing_3'), ref('rental_pricing_4'), ref('rental_pricing_5')])]"/>
+    </record>
+
+    <record id="rental_product_3" model="product.product">
+        <!-- Needed to avoid triggering the constraint -->
+        <field name="product_pricing_ids" eval="[Command.clear()]"/>
+    </record>
+
+    <record id="rental_product_3" model="product.product"> <!-- Printer -->
+        <field
+            name="product_pricing_ids"
+            eval="[Command.set([
+                    ref('rental_pricing_6'),
+                    ref('rental_pricing_7'),
+                    ref('rental_pricing_8')
+                  ])]"
+        />
     </record>
 
     <!-- Rental Sale orders -->
