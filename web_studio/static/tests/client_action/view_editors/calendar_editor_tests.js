@@ -81,4 +81,55 @@ QUnit.module("View Editors", (hooks) => {
             ["Day", "Month", "Week", "Year"] // the selectMenu sorts by alphabetical order (it is changeable)
         );
     });
+
+    function getQuickCreateTest(attribute, parsedValue) {
+        return async (assert) => {
+            const xmlAttribute = attribute !== null ? `quick_create="${attribute}"` : "";
+
+            await createViewEditor({
+                serverData,
+                type: "calendar",
+                resModel: "coucou",
+                arch: `
+                    <calendar date_start="date_start" ${xmlAttribute}>
+                        <field name="display_name"/>
+                    </calendar>`,
+                mockRPC(route, args) {
+                    if (args.method === "check_access_rights") {
+                        return true;
+                    } else if (route === "/web_studio/edit_view") {
+                        assert.step("edit_view");
+                        assert.deepEqual(args.operations, [
+                            {
+                                new_attrs: { quick_create: !parsedValue },
+                                type: "attributes",
+                                position: "attributes",
+                                target: {
+                                    tag: "calendar",
+                                    attrs: {},
+                                    xpath_info: [{ tag: "calendar", indice: 1 }],
+                                    isSubviewAttr: true,
+                                },
+                            },
+                        ]);
+                    }
+                },
+            });
+
+            assert.strictEqual(
+                target.querySelector(".o_web_studio_property input[name=quick_create]").checked,
+                parsedValue
+            );
+
+            await click(target, ".o_web_studio_property input[name=quick_create]");
+
+            assert.verifySteps(["edit_view"]);
+        };
+    }
+
+    QUnit.test("toggling quick_create from true", getQuickCreateTest(true, true));
+
+    QUnit.test("toggling quick_create from false", getQuickCreateTest(false, false));
+
+    QUnit.test("toggling quick_create when attribute is missing", getQuickCreateTest(null, true));
 });

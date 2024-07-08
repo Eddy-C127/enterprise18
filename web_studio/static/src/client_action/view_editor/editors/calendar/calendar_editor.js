@@ -33,7 +33,6 @@ export class CalendarEditorSidebar extends Component {
     }
 
     onViewAttributeChanged(value, name) {
-        value = value ? value : "";
         return this.editArchAttributes({ [name]: value });
     }
 
