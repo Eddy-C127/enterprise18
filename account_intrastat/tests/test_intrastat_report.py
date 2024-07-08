@@ -1135,3 +1135,73 @@ class TestIntrastatReport(TestAccountReportsCommon):
             ],
             options,
         )
+
+    def test_intrastat_comparison_period(self):
+        """Test comparison filter with the intrastat report
+        The following use cases are tested:
+            - one customer only in month 1
+            - one customer only in month 2
+            - one customer in both months 1 and 2
+        """
+
+        def create_invoice_comparison(partner, date):
+            return self.env['account.move'].create({
+                'move_type': 'out_invoice',
+                'partner_id': partner.id,
+                'invoice_date': date,
+                'date': date,
+                'company_id': self.company_data['company'].id,
+                'intrastat_country_id': self.env.ref('base.be').id,
+                'invoice_line_ids': [Command.create({
+                    'product_id': self.spanish_rioja.product_variant_ids.id,
+                    'quantity': 1,
+                    'price_unit': 20,
+                })],
+            }).action_post()
+
+        partner_be_1, partner_be_2, partner_nl = self.env['res.partner'].create([
+            {
+                'name': 'BE Partner 1',
+                'country_id': self.env.ref('base.be').id,
+                'vat': 'BE0477472701',
+            },
+            {
+                'name': 'BE Partner 2',
+                'country_id': self.env.ref('base.be').id,
+                'vat': 'BE0475646428',
+            },
+            {
+                'name': 'NL Partner',
+                'country_id': self.env.ref('base.nl').id,
+                'vat': 'NL000099998B57',
+            },
+        ])
+
+        create_invoice_comparison(partner_be_1, '2024-06-01')
+        create_invoice_comparison(partner_be_1, '2024-07-01')
+        create_invoice_comparison(partner_be_2, '2024-06-01')
+        create_invoice_comparison(partner_nl, '2024-07-01')
+
+        default_options = {
+            'comparison': {'filter': 'last_month', 'number_period': 1},
+        }
+
+        options = self._generate_options(self.report, '2024-07-01', '2024-07-31', default_options)
+        options = self._update_comparison_filter(options, self.report, 'previous_period', 1)
+        options['intrastat_grouped'] = True
+        options['unfold_all'] = True
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            [0, 12, 24],  # Name, Value July 2024, Value June 2024
+            [
+                ('Dispatch - None - 22042176 - ES - BE0477472701 - BE - 102',       20.00,      20.00),
+                ('INV/2024/00002',                                                  20.00,      ''),
+                ('INV/2024/00001',                                                  '',         20.00),
+                ('Dispatch - None - 22042176 - ES - NL000099998B57 - BE - 102',     20.00,      ''),
+                ('INV/2024/00004',                                                  20.00,      ''),
+                ('Dispatch - None - 22042176 - ES - BE0475646428 - BE - 102',       '',         20.00),
+                ('INV/2024/00003',                                                  '',         20.00),
+            ],
+            options,
+        )

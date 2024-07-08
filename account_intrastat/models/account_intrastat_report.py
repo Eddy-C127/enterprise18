@@ -66,12 +66,11 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             results = self._cr.dictfetchall()
 
             # Fill dictionaries
-            for new_id, res in enumerate(results):
-                current_move_info = move_info_dict.setdefault(new_id, {})
+            for res in results:
+                line_id = self._get_report_line_id(report, res)
                 column_group_key = res['column_group_key']
+                current_move_info = move_info_dict.setdefault(line_id, {'name': self._get_move_info_name(res)})
                 current_move_info[column_group_key] = res
-                current_move_info['name'] = self._get_move_info_name(res)
-                current_move_info['id'] = self._get_report_line_id(report, res)
 
                 # We add the value to the total (for total line)
                 total_values_dict.setdefault(column_group_key, {'value': 0})
@@ -216,12 +215,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         uom_precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
         for column in options['columns']:
             expression_label = column['expression_label']
-            value = line_vals.get(column['column_group_key'], {}).get(expression_label, False)
+            value = line_vals.get(column['column_group_key'], {}).get(expression_label, None)
 
-            if options.get('commodity_flow') != 'code' and column['expression_label'] == 'system':
-                value = f"{value} ({line_vals.get(column['column_group_key'], {}).get('type', False)})"
-            if column['expression_label'] == 'supplementary_units' and value:
-                value = float_repr(float_round(value, precision_digits=uom_precision), precision_digits=uom_precision)
+            if value:
+                if options.get('commodity_flow') != 'code' and column['expression_label'] == 'system':
+                    value = f"{value} ({line_vals.get(column['column_group_key'], {}).get('type', False)})"
+                elif column['expression_label'] == 'supplementary_units':
+                    value = float_repr(float_round(value, precision_digits=uom_precision), precision_digits=uom_precision)
 
             columns.append(report._build_column_dict(value, column, options=options))
 
@@ -237,7 +237,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
         unfold_all = self._context.get('print_mode') or options.get('unfold_all')
         return {
-            'id': line_vals['id'],
+            'id': line_id,
             'name': line_vals['name'],
             'columns': columns,
             'unfoldable': True,
@@ -299,6 +299,11 @@ class IntrastatReportCustomHandler(models.AbstractModel):
 
             if col_expr_label == 'system' and options.get('commodity_flow') != 'code':
                 col_value = f"{col_value} ({aml_data['type']})"
+
+            # if several columns with same name but different group key (i.e. with period comparison),
+            # then ensure that None is set as value for the non-corresponding columns.
+            col_value = col_value if column.get('column_group_key') == aml_data.get('column_group_key') else None
+
             new_column = report._build_column_dict(col_value, column, options=options)
             line_columns.append(new_column)
 
@@ -338,7 +343,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
     @api.model
     def _prepare_query(self, options, column_group_key=None, expanded_line_options=None):
         query_blocks, where_params = self._build_query(options, column_group_key, expanded_line_options)  # pylint: disable=sql-injection
-        query = SQL("{select} {from} {where} {order}").format(**query_blocks)
+        query = SQL("({select} {from} {where} {order})").format(**query_blocks)
         return query, where_params
 
     @api.model
