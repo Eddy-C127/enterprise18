@@ -10214,13 +10214,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'IP.DED': -49.69,
             'NET': 2263.05,
             'REMUNERATION': 1987.5,
-            'ONSSEMPLOYERBASIC': 604.08,
+            'ONSSEMPLOYERBASIC': 603.84,
             'ONSSEMPLOYERFFE': 1.69,
             'ONSSEMPLOYERMFFE': 2.41,
             'ONSSEMPLOYERCPAE': 5.55,
             'ONSSEMPLOYERRESTREINT': 40.8,
             'ONSSEMPLOYERUNEMP': 2.41,
-            'ONSSEMPLOYER': 656.95,
+            'ONSSEMPLOYER': 656.71,
             'CO2FEE': 31.34,
         }
         self._validate_payslip(payslip, payslip_results)
@@ -10267,13 +10267,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'IP.DED': -49.69,
             'NET': 2322.57,
             'REMUNERATION': 1987.5,
-            'ONSSEMPLOYERBASIC': 604.08,
+            'ONSSEMPLOYERBASIC': 603.6,
             'ONSSEMPLOYERFFE': 1.69,
             'ONSSEMPLOYERMFFE': 2.41,
             'ONSSEMPLOYERCPAE': 5.55,
             'ONSSEMPLOYERRESTREINT': 40.8,
             'ONSSEMPLOYERUNEMP': 2.41,
-            'ONSSEMPLOYER': 656.95,
+            'ONSSEMPLOYER': 656.47,
             'CO2FEE': 31.34,
         }
         self._validate_payslip(payslip, payslip_results)
@@ -10331,13 +10331,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'IP.DED': -49.69,
             'NET': 2258.69,
             'REMUNERATION': 1987.5,
-            'ONSSEMPLOYERBASIC': 604.08,
+            'ONSSEMPLOYERBASIC': 603.84,
             'ONSSEMPLOYERFFE': 1.69,
             'ONSSEMPLOYERMFFE': 2.41,
             'ONSSEMPLOYERCPAE': 5.55,
             'ONSSEMPLOYERRESTREINT': 40.8,
             'ONSSEMPLOYERUNEMP': 2.41,
-            'ONSSEMPLOYER': 656.95,
+            'ONSSEMPLOYER': 656.71,
             'CO2FEE': 31.34,
         }
         self._validate_payslip(payslip, payslip_results)
@@ -10384,13 +10384,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'IP.DED': -49.69,
             'NET': 2300.64,
             'REMUNERATION': 1987.5,
-            'ONSSEMPLOYERBASIC': 634.68,
+            'ONSSEMPLOYERBASIC': 634.43,
             'ONSSEMPLOYERFFE': 1.78,
             'ONSSEMPLOYERMFFE': 2.54,
             'ONSSEMPLOYERCPAE': 5.83,
             'ONSSEMPLOYERRESTREINT': 42.87,
             'ONSSEMPLOYERUNEMP': 2.54,
-            'ONSSEMPLOYER': 690.23,
+            'ONSSEMPLOYER': 689.98,
             'CO2FEE': 31.34,
         }
         self._validate_payslip(payslip, payslip_results)
@@ -10413,7 +10413,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         # HolPayRecN should be equal to 0
         payslip_results = {
             'BASIC': 2650.0,
-            'HolPayRecN': 0,
+            'HolPayRecN': 0.0,
             'ATN.INT': 5.0,
             'ATN.MOB': 4.0,
             'SALARY': 2659.0,
@@ -10437,13 +10437,13 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'IP.DED': -49.69,
             'NET': 2350.64,
             'REMUNERATION': 1987.5,
-            'ONSSEMPLOYERBASIC': 665.28,
+            'ONSSEMPLOYERBASIC': 665.02,
             'ONSSEMPLOYERFFE': 1.86,
             'ONSSEMPLOYERMFFE': 2.66,
             'ONSSEMPLOYERCPAE': 6.12,
             'ONSSEMPLOYERRESTREINT': 44.94,
             'ONSSEMPLOYERUNEMP': 2.66,
-            'ONSSEMPLOYER': 723.51,
+            'ONSSEMPLOYER': 723.25,
             'CO2FEE': 31.34,
         }
         self._validate_payslip(payslip, payslip_results)

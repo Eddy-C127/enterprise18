@@ -1460,6 +1460,16 @@
             <field name="rule_parameter_id" ref="rule_parameter_cp200_global_rate"/>
             <field name="date_from" eval="datetime(2023, 10, 1).date()"/>
         </record>
+        <record id="rule_parameter_cp200_global_rate_jan_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">38.08</field>
+            <field name="rule_parameter_id" ref="rule_parameter_cp200_global_rate"/>
+            <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_cp200_global_rate_apr_2024" model="hr.rule.parameter.value">
+            <field name="parameter_value">38.07</field>
+            <field name="rule_parameter_id" ref="rule_parameter_cp200_global_rate"/>
+            <field name="date_from" eval="datetime(2024, 4, 1).date()"/>
+        </record>
 
         <record id="rule_parameter_cp200_amiante_rate" model="hr.rule.parameter">
             <field name="name">CP200: Amiante ONSS Employer Rate</field>
