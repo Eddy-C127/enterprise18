@@ -87,6 +87,10 @@ msgid ""
 "                            Creating the invoice will automatically stop these timers.\n"
 "                        </span>"
 msgstr ""
+"<span>\n"
+"                            Деякі працівники наразі мають активні таймери для табелів, які ви намагаєтесь виставити.\n"
+"                            Створення рахунку-фактури автоматично зупинить ці таймери.\n"
+"                        </span>"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -139,7 +143,7 @@ msgstr "Цільовий час виставлення рахунків"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__billing_rate_target
 msgid "Billing rate target for the employees"
-msgstr ""
+msgstr "Цільова ставка для виставлення у рахунку для співробітників"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -154,6 +158,8 @@ msgid ""
 "Boost productivity and competitiveness by displaying a leaderboard based on "
 "the billing rates."
 msgstr ""
+"Підвищуйте продуктивність і конкурентоспроможність, відображаючи таблицю "
+"лідерів на основі платіжних ставок."
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -200,6 +206,8 @@ msgid ""
 "Difference between the number of %s ordered on the sales order item and the "
 "number of %s delivered"
 msgstr ""
+"Різниця в кількості між замовленою %s в рядку замовлення на продаж та "
+"доставленою кількістю %s"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__display_name
@@ -214,7 +222,7 @@ msgstr "Показати прогрес поточного завдання."
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
 msgid "Display the Billing Rate on My Timesheets view"
-msgstr ""
+msgstr "Відобразити платіжну ставку у вікні «Мої табелі»."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_employee
@@ -227,6 +235,8 @@ msgid ""
 "Even small tasks like answering an email should be recorded and rounded up "
 "to a quarter of an hour."
 msgstr ""
+"Навіть невеликі завдання, такі як відповідь на електронний лист, слід "
+"записувати та округляти до 15 хвилин."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
@@ -250,6 +260,8 @@ msgid ""
 "If you help a colleague on a project, your time should be recorded on this "
 "project's timesheet as well."
 msgstr ""
+"Якщо ви допомагаєте колезі над проєктом, ваш час також має бути зафіксовано "
+"в табелі цього проєкту."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -267,6 +279,8 @@ msgid ""
 "It's part of the job to search for information. A customer can't expect you "
 "to know everything on the spot. These hours should also be billable."
 msgstr ""
+"Це частина роботи — пошук інформації. Клієнт не може очікувати, що ви будете"
+" знати все одразу. Ці години також мають бути оплачуваними."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_move_line
@@ -294,7 +308,7 @@ msgstr "Таблиця лідерів"
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_4
 #, python-format
 msgid "Make it a habit to record timesheets every day."
-msgstr ""
+msgstr "Зробіть собі за звичку записувати табелі кожного дня."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.timesheet_view_grid_by_invoice_type
@@ -304,12 +318,12 @@ msgstr "Місяць"
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "Motivate employees to fill timesheets with these tips."
-msgstr ""
+msgstr "Мотивуйте ваших співробітників заповнювати табелі з цими порадами."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "No tips found. Let's create one!"
-msgstr ""
+msgstr "Не знайдено порад. Створіть її!"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_project_task__portal_effective_hours
@@ -353,13 +367,14 @@ msgstr "Проект"
 #, python-format
 msgid "Record timesheets to determine your billing rate!"
 msgstr ""
+"Записуйте табелі для визначення вашої ставки для виставлення у рахунку!"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 #, python-format
 msgid "Record timesheets to earn your rank!"
-msgstr ""
+msgstr "Запишіть табелі, щоби заробити ваш ранг!"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
@@ -378,11 +393,14 @@ msgid ""
 "Set a target billing rate for your employees. If their current rate falls "
 "below the target, it will be highlighted in red."
 msgstr ""
+"Встановіть цільову ставку для виставлення у рахунку на ваших співробітниках."
+" Якщо їх поточна ставка падає нижче цільової, вона буде підсвічена червоним "
+"кольором."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
 msgid "Set employee billing time targets"
-msgstr ""
+msgstr "Встановіть на співробітнику цільовий час для виставлення у рахунку"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -401,7 +419,7 @@ msgstr "Показувати більше"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_use_timesheet_leaderboard
 msgid "Show the leaderboard on My Timesheets view"
-msgstr ""
+msgstr "Показувати таблицю лідерів на перегляді Мої табелі"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__billing_rate_target
@@ -416,12 +434,13 @@ msgstr "Завдання"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_hr_employee_check_billable_time_target
 msgid "The billable time target cannot be negative."
-msgstr ""
+msgstr "Цільовий час для виставлення у рахунок не може бути менше нуля."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_res_company_check_billing_rate
 msgid "The billing rate target percentage must be between 0 and 100."
 msgstr ""
+"Цільовий відсоток ставки для виставлення у рахунок має бути від 0 до 100."
 
 #. module: sale_timesheet_enterprise
 #. odoo-python
@@ -469,7 +488,7 @@ msgstr "Виставлення рахунків по табелям"
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_timesheet_tip
 msgid "Timesheets Leaderboard Tip"
-msgstr ""
+msgstr "Поради таблиці лідерів табелів"
 
 #. module: sale_timesheet_enterprise
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_1
@@ -477,6 +496,8 @@ msgid ""
 "Timesheets are the lifeblood of our company; they have a direct impact on "
 "revenues."
 msgstr ""
+"Табелі є джерелом життя нашої компанії; вони безпосередньо впливають на "
+"доходи."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -486,14 +507,14 @@ msgstr "Табель враховується при виставленні ра
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__name
 msgid "Tip Name"
-msgstr ""
+msgstr "Назва поради"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.xml:0
 #, python-format
 msgid "Tip of the day"
-msgstr ""
+msgstr "Порада дня"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.actions.act_window,name:sale_timesheet_enterprise.hr_timesheet_tip_action
@@ -513,7 +534,7 @@ msgstr "Всього годин"
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 #, python-format
 msgid "Total Time Leaderboard"
-msgstr ""
+msgstr "Підсумок таблиці лідерів часу"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_remaining_hours
@@ -536,7 +557,7 @@ msgstr "Разом:"
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 #, python-format
 msgid "Total: %(totalTime)s"
-msgstr ""
+msgstr "Всього: %(totalTime)s"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields.selection,name:sale_timesheet_enterprise.selection__res_config_settings__invoiced_timesheet__approved
@@ -560,11 +581,11 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.hr_timesheet_tip_view_tree
 msgid "e.g. Make it a habit to record timesheets every day."
-msgstr ""
+msgstr "напр. Візьміть за звичку щодня записувати табелі."
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 #, python-format
 msgid "o_timesheet_leaderboard_confetti"
-msgstr ""
+msgstr "o_timesheet_leaderboard_confetti"

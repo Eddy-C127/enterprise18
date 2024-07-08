@@ -20,8 +20,8 @@
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Eneli Õigus <enelioigus@gmail.com>, 2023
 # Leaanika Randmets, 2023
-# Anna, 2024
 # Siim Raasuke, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Siim Raasuke, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,14 +60,14 @@ msgstr "%(amount)s (fikseeritud)"
 #: code:addons/sale_renting/models/product_pricing.py:0
 #, python-format
 msgid "%(amount)s / %(duration)s"
-msgstr ""
+msgstr "%(amount)s / %(duration)s"
 
 #. module: sale_renting
 #. odoo-python
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 #, python-format
 msgid "%(duration)s %(unit)s"
-msgstr ""
+msgstr "%(duration)s %(unit)s"
 
 #. module: sale_renting
 #. odoo-python
@@ -94,7 +94,7 @@ msgstr "123 Main St"
 #. module: sale_renting
 #: model:sale.temporal.recurrence,name:sale_renting.recurrence_2_weeks
 msgid "2 Weeks"
-msgstr ""
+msgstr "2 nädalat"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
@@ -114,22 +114,22 @@ msgstr "3 Tundi"
 #. module: sale_renting
 #: model:sale.temporal.recurrence,name:sale_renting.recurrence_3_year
 msgid "3 years"
-msgstr ""
+msgstr "3 aastat"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "456 Other St"
-msgstr ""
+msgstr "456 Other St"
 
 #. module: sale_renting
 #: model:sale.temporal.recurrence,name:sale_renting.recurrence5_year
 msgid "5 Years"
-msgstr ""
+msgstr "5 aastat"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_view_kanban
 msgid "<i class=\"fa fa-warning\"/> Late"
-msgstr ""
+msgstr "<i class=\"fa fa-warning\"/> Hilinenud"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_product_form_view_rental_gantt
@@ -144,6 +144,9 @@ msgid ""
 "                    <span invisible=\"duration_days in [0,1]\"> days </span>\n"
 "                    <span invisible=\"duration_days == 0 or remaining_hours == 0\">and </span>"
 msgstr ""
+"<span invisible=\"duration_days != 1\"> päev </span>\n"
+"                    <span invisible=\"duration_days in [0,1]\"> päeva </span>\n"
+"                    <span invisible=\"duration_days == 0 or remaining_hours == 0\">ja </span>"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
@@ -151,6 +154,8 @@ msgid ""
 "<span invisible=\"remaining_hours != 1\"> hour </span>\n"
 "                    <span invisible=\"remaining_hours in [0,1]\"> hours </span>"
 msgstr ""
+"<span invisible=\"remaining_hours != 1\"> tund </span>\n"
+"                    <span invisible=\"remaining_hours in [0,1]\"> tundi </span>"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
@@ -338,7 +343,7 @@ msgstr "Loo renditellimused"
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.sale_temporal_recurrence_action
 msgid "Create a new period"
-msgstr ""
+msgstr "Loo uus periood"
 
 #. module: sale_renting
 #: model_terms:ir.actions.act_window,help:sale_renting.rental_order_action
@@ -477,7 +482,7 @@ msgstr "päevad"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.res_config_settings_view_form
 msgid "Default Delay Costs"
-msgstr ""
+msgstr "Vaikimisi viivituskulud "
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_res_config_settings__extra_product
@@ -540,7 +545,7 @@ msgstr "Eeldatav tagastamine"
 #: code:addons/sale_renting/models/sale_order_line.py:0
 #, python-format
 msgid "Expected: %(date)s"
-msgstr ""
+msgstr "Eeldatav: %(date)s"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_product__extra_daily
@@ -599,7 +604,7 @@ msgstr "On kättesaadavad read"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__has_rented_products
 msgid "Has Rented Products"
-msgstr ""
+msgstr "On renditud tooteid"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__has_returnable_lines
@@ -662,7 +667,7 @@ msgstr "On ületanud tähtaja"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "Jane Doe"
-msgstr ""
+msgstr "Jane Doe"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
@@ -1066,7 +1071,7 @@ msgstr ""
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__remaining_hours
 msgid "Remaining duration in hours"
-msgstr ""
+msgstr "Järelejäänud kestus tundides"
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.rental_menu_root
@@ -1110,13 +1115,13 @@ msgstr "Renditellimused"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
 msgid "Rental Pricelist Rules"
-msgstr ""
+msgstr "Rendihinnakirja reeglid"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__rental_return_date
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order_line__return_date
 msgid "Rental Return Date"
-msgstr ""
+msgstr "Rendi tagastamise kuupäev"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_sale_rental_schedule
@@ -1127,7 +1132,7 @@ msgstr "Rentimise ajakava"
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__rental_start_date
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order_line__start_date
 msgid "Rental Start Date"
-msgstr ""
+msgstr "Rendi alguskuupäev"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_order__rental_status
@@ -1159,12 +1164,12 @@ msgstr "Rentimise perioodid"
 #: model:ir.model.fields,field_description:sale_renting.field_product_product__display_price
 #: model:ir.model.fields,field_description:sale_renting.field_product_template__display_price
 msgid "Rental price"
-msgstr ""
+msgstr "Hind"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_template_form_view_rental
 msgid "Rental prices"
-msgstr ""
+msgstr "Rendihinnad"
 
 #. module: sale_renting
 #. odoo-python
@@ -1176,7 +1181,7 @@ msgstr ""
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_pricelist_view
 msgid "Rental rules"
-msgstr ""
+msgstr "Renditingimused"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_rental_order_wizard_line
@@ -1191,12 +1196,12 @@ msgstr "Rentimised"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricing__recurrence_id
 msgid "Renting Period"
-msgstr ""
+msgstr "Rendi periood"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricelist__product_pricing_ids
 msgid "Renting Price Rules"
-msgstr ""
+msgstr "Rendihinna reeglid"
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.menu_rental_reporting
@@ -1255,7 +1260,7 @@ msgstr "Tagastatud"
 #: code:addons/sale_renting/models/sale_order_line.py:0
 #, python-format
 msgid "Returned: %(date)s"
-msgstr ""
+msgstr "Tagastatud: %(date)s"
 
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_sale_temporal_recurrence
@@ -1297,7 +1302,7 @@ msgstr "Müügiesindaja"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.report_rental_order_document
 msgid "Sample Document"
-msgstr ""
+msgstr "Näidisdokument"
 
 #. module: sale_renting
 #. odoo-javascript
@@ -1506,7 +1511,7 @@ msgstr "Mõõtühik"
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 msgid "Update Rental Prices"
-msgstr ""
+msgstr "Uuenda rendihindu"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_wizard_view_form

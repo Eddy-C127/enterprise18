@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2023-12-01 12:59+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -218,6 +218,15 @@ msgstr "תנועות יומן"
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
 msgid ""
+"Most accounting software in Europe support exporting SAF-T file for audit purposes.\n"
+"                            Use the"
+msgstr ""
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid ""
 "Most accounting software in France support exporting FEC file for audit purposes.\n"
 "                            Use the"
 msgstr ""
@@ -236,6 +245,20 @@ msgstr ""
 #, python-format
 msgid "Review Manually"
 msgstr "סקירה ידנית"
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid "SAF-T"
+msgstr ""
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid "SAF-T Import module"
+msgstr ""
 
 #. module: account_base_import
 #. odoo-javascript
@@ -303,6 +326,15 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #, python-format
+msgid ""
+"We will setup your charts of accounts and the history of journal entries, "
+"that will stay in draft."
+msgstr ""
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
 msgid "Winbooks"
 msgstr ""
 
@@ -357,4 +389,11 @@ msgstr ""
 msgid ""
 "to import the FEC file. We will setup your charts of accounts and the "
 "history of journal entries."
+msgstr ""
+
+#. module: account_base_import
+#. odoo-javascript
+#: code:addons/account_base_import/static/src/xml/account_import.xml:0
+#, python-format
+msgid "to import the SAF-T file."
 msgstr ""

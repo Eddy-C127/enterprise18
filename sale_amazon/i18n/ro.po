@@ -786,7 +786,7 @@ msgstr ""
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "Home Marketplace"
-msgstr ""
+msgstr "Home Marketplace"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__id
@@ -1229,7 +1229,7 @@ msgstr "Echipa de vânzări alocată comenzilor Amazon pentru raportare"
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__sku
 msgid "The Stock Keeping Unit."
-msgstr "Unitatea de stocare."
+msgstr "Unitatea de gestionare a stocurilor."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1253,12 +1253,13 @@ msgstr ""
 #: model:ir.model.fields,help:sale_amazon.field_res_partner__amazon_email
 #: model:ir.model.fields,help:sale_amazon.field_res_users__amazon_email
 msgid "The encrypted email of the customer. Does not forward mails."
-msgstr "Emailul criptat al clienților. Nu trimite mesaje."
+msgstr "E-mailul criptat al clientului. Nu redirecționează e-mailurile."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__base_marketplace_id
 msgid "The home marketplace of this account; used for authentication only."
 msgstr ""
+"Piața de origine a acestui cont; utilizată numai pentru autentificare."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__last_orders_sync
@@ -1268,8 +1269,8 @@ msgid ""
 " in Odoo."
 msgstr ""
 "Ultima dată de sincronizare pentru comenzile plasate pe acest cont. "
-"Comenzile al căror statut nu s-a schimbat de la această dată nu vor fi "
-"create și actualizate în Odoo."
+"Comenzile al căror status nu s-a schimbat de la această dată nu vor fi "
+"create și nici actualizate în Odoo."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__location_id
@@ -1284,7 +1285,8 @@ msgstr ""
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__refresh_token
 msgid "The long-lived token that can be exchanged for a new access token."
 msgstr ""
-"Tokenul de durată lungă care poate fi schimbat cu un nou token de acces."
+"Tokenul cu durată lungă de viață care poate fi schimbat cu un nou token de "
+"acces."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__marketplace_id
@@ -1300,7 +1302,7 @@ msgstr "Piața la care acest cont are acces."
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__active_marketplace_ids
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__active_marketplace_ids
 msgid "The marketplaces this account sells on."
-msgstr "Piața pe care acest cont o vinde."
+msgstr "Piețele pe care acest cont vinde."
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__aws_credentials_expiry
@@ -1328,26 +1330,26 @@ msgid ""
 msgstr ""
 "Comanda a fost anulată de către clientul Amazon în timp ce unele produse au "
 "fost deja livrate. Vă rugăm să creați un retur pentru această comandă pentru"
-" "
+" a ajusta stocul."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "The order was not found on this account's marketplaces."
-msgstr ""
+msgstr "Comanda nu a fost găsită pe piețele acestui cont."
 
 #. module: sale_amazon
 #. odoo-python
 #: code:addons/sale_amazon/models/amazon_account.py:0
 #, python-format
 msgid "The provided reference does not match any Amazon order."
-msgstr ""
+msgstr "Referința furnizată nu se potrivește cu nicio comandă Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_recover_order_wizard__amazon_order_ref
 msgid "The reference to the Amazon order to recover, in 3-7-7 format"
-msgstr ""
+msgstr "Referința la ordinul Amazon de recuperare, în format 3-7-7"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1356,11 +1358,13 @@ msgstr ""
 msgid ""
 "The sales order of this delivery order is not linked to an Amazon account."
 msgstr ""
+"Comanda de vânzare a acestei comenzi de livrare nu este legată de un cont "
+"Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__account_id
 msgid "The seller account used to manage this product."
-msgstr "Contul vânzătorului folosit pentru a gestiona acest produs."
+msgstr "Contul vânzătorului utilizat pentru gestionarea acestui produs."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__aws_access_key
@@ -1412,6 +1416,11 @@ msgid ""
 "- Done: The delivery details have been processed.\n"
 "- Error: The synchronization of the delivery order failed."
 msgstr ""
+"Starea de sincronizare a comenzii de livrare către Amazon:\n"
+"- În așteptare: Comanda de livrare a fost confirmată și va fi sincronizată în curând.\n"
+"- Procesare: Detaliile de livrare au fost trimise și sunt în curs de procesare.\n"
+"- Efectuat: Detaliile de livrare au fost procesate.\n"
+"- Eroare: Sincronizarea comenzii de livrare a eșuat."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_offer__amazon_sync_status
@@ -1421,6 +1430,10 @@ msgid ""
 "- Done: The stock level has been processed.\n"
 "- Error: The synchronization of the stock level failed."
 msgstr ""
+"Statusul sincronizarii nivelului de stoc al produsului către Amazon:\n"
+"- Procesare: Nivelul stocului a fost trimis și este în curs de procesare.\n"
+"- Terminat: Nivelul stocului a fost procesat.\n"
+"- Eroare: Sincronizarea nivelului stocurilor a eșuat."
 
 #. module: sale_amazon
 #. odoo-python
@@ -1430,6 +1443,8 @@ msgid ""
 "The synchronization with Amazon failed. Amazon gave us this information "
 "about the problem:"
 msgstr ""
+"Sincronizarea cu Amazon a eșuat. Amazon ne-a oferit aceste informații despre"
+" problemă:"
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_account__name
@@ -1464,6 +1479,8 @@ msgid ""
 "                                          cannot be undone. Are you sure you"
 " want to proceed?"
 msgstr ""
+"Această acțiune va deconecta contul dvs. de la Amazon și nu poate fi "
+"anulată. Sunteți sigur că doriți să continuați?"
 
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_stock_picking
@@ -1473,12 +1490,12 @@ msgstr "Transfer"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Unlink account"
-msgstr "Deconectați-vă contul"
+msgstr "Deconectare cont"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Unlinked Account"
-msgstr ""
+msgstr "Cont neasociat"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1503,6 +1520,8 @@ msgid ""
 "Whether the available quantities of FBM products linked to this account are "
 "synchronized with Amazon."
 msgstr ""
+"Dacă cantitățile disponibile de produse FBM asociate acestui cont sunt "
+"sincronizate cu Amazon."
 
 #. module: sale_amazon
 #: model:ir.model.fields,help:sale_amazon.field_amazon_marketplace__tax_included
@@ -1541,7 +1560,7 @@ msgstr ""
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid "Your Amazon account is linked with Odoo."
-msgstr "Contul dvs. Amazon este conectat cu Odoo."
+msgstr "Contul dvs. Amazon este asociat cu Odoo."
 
 #. module: sale_amazon
 #. odoo-python

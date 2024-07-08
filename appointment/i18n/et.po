@@ -2124,7 +2124,7 @@ msgstr "Lingitud ressurss"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__linked_resource_ids
 msgid "List of resources that can be combined to handle a bigger demand."
-msgstr ""
+msgstr "Nimekiri ressursidest mis ühendatult sobivad suurema koormuse jaoks."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__location_id
@@ -2152,13 +2152,13 @@ msgstr "Tundub hea!"
 #: code:addons/appointment/static/src/xml/appointment_resources.xml:0
 #, python-format
 msgid "Make your choice"
-msgstr ""
+msgstr "Tee oma valik"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manage_capacity
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_manage_capacity
 msgid "Manage Capacities"
-msgstr ""
+msgstr "Halda mahutavusi"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__resource_manage_capacity
@@ -2167,27 +2167,30 @@ msgid ""
 "Manage the maximum amount of people a resource can handle (e.g. Table for 6 "
 "persons, ...)"
 msgstr ""
+"Halda mitu inimest saavad korraga resurssi kasutada (Näiteks laud 6 "
+"inimesele)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manual_confirmation
 msgid "Manual Confirmation"
-msgstr ""
+msgstr "Käsitsi kinnitamine"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Max in"
-msgstr ""
+msgstr "maksimaalselt sees"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__capacity
 msgid ""
 "Maximum amount of people for this resource (e.g. Table for 6 persons, ...)"
 msgstr ""
+"Maksimaalne arv inimesi selle ressursi jaoks (Näiteks laud 6 inimese jaoks)"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__current_user
 msgid "Me (only with Users)"
-msgstr ""
+msgstr "Mina (ainult kasutajatega)"
 
 #. module: appointment
 #. odoo-python
@@ -2200,7 +2203,7 @@ msgstr "Kohtuge minuga"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__videocall_redirection
 msgid "Meeting redirection URL"
-msgstr ""
+msgstr "Koosoleku ümbersuunamise URL"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2215,7 +2218,7 @@ msgstr "Sõnumi saatmise veateade"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Message from the Organizer"
-msgstr ""
+msgstr "Sõnum korraldajalt"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_ids
@@ -2287,12 +2290,12 @@ msgstr "Pole Kohtumist Seadistatud"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
-msgstr ""
+msgstr "Kohtumist või ressursi ei leitud."
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
 msgid "No Custom Availabilities Shared!"
-msgstr ""
+msgstr "Kohaldatud vabu aegu pole jagatud!"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__hide
@@ -2302,7 +2305,7 @@ msgstr "Pilt Puudub"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_invite_action
 msgid "No Shared Links yet!"
-msgstr ""
+msgstr "Linke pole veel jagatud!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
@@ -2350,12 +2353,12 @@ msgstr "Veateatega sõnumite arv"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Number of people"
-msgstr ""
+msgstr "Inimeste arv"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__event_videocall_source__discuss
 msgid "Odoo Discuss"
-msgstr ""
+msgstr "Odoo Sõnumid"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_onboarding_onboarding
@@ -2365,17 +2368,17 @@ msgstr "Onboarding"
 #. module: appointment
 #: model:onboarding.onboarding.step,step_image_alt:appointment.appointment_onboarding_configure_calendar_provider_step
 msgid "Onboarding Connect your calendar"
-msgstr ""
+msgstr "Liitumisprotsessi ühendamine kalendriga"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,step_image_alt:appointment.appointment_onboarding_preview_invite_step
 msgid "Onboarding Get your link"
-msgstr ""
+msgstr "Liitumisprotsses lingi loomine"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,step_image_alt:appointment.appointment_onboarding_create_appointment_type_step
 msgid "Onboarding Set Your Availabilities"
-msgstr ""
+msgstr "Liitumisprotsess, märgi oma vabad ajad"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_onboarding_onboarding_step
@@ -2463,48 +2466,48 @@ msgstr "Varasem"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_booker_id
 msgid "Person who is booking the appointment"
-msgstr ""
+msgstr "Isik kes broneerib kohtumise"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Phone number*"
-msgstr ""
+msgstr "Telefoninumber*"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Phone: %(phone)s"
-msgstr ""
+msgstr "Telefon: %(phone)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/appointment.py:0
 #, python-format
 msgid "Phone: %s"
-msgstr ""
+msgstr "Telefon: %s"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
 msgid "Pick User/Resource then Time"
-msgstr ""
+msgstr "Vali kasutaja/ressurss ja siis aeg"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Pick a Work Schedule..."
-msgstr ""
+msgstr "Vali tööaeg"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Pick a schedule to restrict openings"
-msgstr ""
+msgstr "Vali graafik mille põhjal piirata vabu aegasid"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Pick your availabilities"
-msgstr ""
+msgstr "Vali oma vabad ajad"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__placeholder
@@ -2519,7 +2522,7 @@ msgstr "Palun valige teine kuupäev."
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_ids
 msgid "Possible resources"
-msgstr ""
+msgstr "Valitavad ressursid"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_ids
@@ -2539,7 +2542,7 @@ msgstr "Eelvaade"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Punctual"
-msgstr ""
+msgstr "Punktuaalne"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__question_id
@@ -2621,7 +2624,7 @@ msgstr "Ressurss"
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_resources
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_resources_bookings
 msgid "Resource Bookings"
-msgstr ""
+msgstr "Ressurside broneerimine"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__calendar_id
@@ -2651,12 +2654,12 @@ msgstr "Ressursid"
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resource_booking
 msgid "Resources Bookings"
-msgstr ""
+msgstr "Ressurside broneerimised"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resources_on_leave
 msgid "Resources intersecting with leave time"
-msgstr ""
+msgstr "Ressursid mis lõikuvad puhkustega"
 
 #. module: appointment
 #. odoo-python
@@ -2668,17 +2671,17 @@ msgstr "Vastutaja"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to Resource"
-msgstr ""
+msgstr "Piira ressurssi"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_resource_ids
 msgid "Restrict to Resources"
-msgstr ""
+msgstr "Piira ressursse"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to User"
-msgstr ""
+msgstr "Piira kasutajale"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_user_ids
@@ -2688,7 +2691,7 @@ msgstr "Piira kasutajatele"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Restrict to specific Resources"
-msgstr ""
+msgstr "Piira kindlale ressursile"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2719,7 +2722,7 @@ msgstr "Planeeri"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__schedule_based_on
 msgid "Schedule Based On"
-msgstr ""
+msgstr "Plaan põhineb"
 
 #. module: appointment
 #. odoo-javascript
@@ -2787,24 +2790,24 @@ msgstr "Vali Kuupäevad"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_resource
 msgid "Select Time then User/Resource"
-msgstr ""
+msgstr "Vali aeg, siis kasutaja/ressurss"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_auto_assign
 msgid "Select Time then auto-assign"
-msgstr ""
+msgstr "Vali aeg, siis määra automaatselt"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Select a date &amp; time"
-msgstr ""
+msgstr "Vali kuupäev ja aeg"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 #, python-format
 msgid "Select a time"
-msgstr ""
+msgstr "Vali aeg"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -2834,7 +2837,7 @@ msgstr "Saadetud kõikidele osalejatele kui kohtumine on tühistatud"
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_booked_mail_template
 msgid "Sent to followers of an appointment type when a meeting is booked"
-msgstr ""
+msgstr "Kui koosolek on broneeritud, siis teavitatakse kohtumise jälgijaid"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__sequence
@@ -2861,7 +2864,7 @@ msgstr "Jaga"
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #, python-format
 msgid "Share Appointment Link"
-msgstr ""
+msgstr "jaga kohtumise linki"
 
 #. module: appointment
 #. odoo-javascript
@@ -2893,6 +2896,8 @@ msgid ""
 "Share calendar link allowing people to book meetings with you, your team or "
 "a resource."
 msgstr ""
+"Jaga kalendri linki, et oleks võimalik broneerida kohtumisi sinu, tiimi või "
+"ressursiga."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_onboarding_link_view_form
@@ -2900,16 +2905,18 @@ msgid ""
 "Share this link to let people book meetings with you, your team or a "
 "resource."
 msgstr ""
+"Jaga seda linki, et oleks võimalik broneerida kohtumisi sinu, tiimi või "
+"ressursiga."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
 msgid "Shareable"
-msgstr ""
+msgstr "Jagatav"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Shared Links"
-msgstr ""
+msgstr "Jagatud lingid"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code
@@ -2930,7 +2937,7 @@ msgstr "Lühikoodi vormingu hoiatus"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__show
 msgid "Show Pictures"
-msgstr ""
+msgstr "Näita pilte"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__char
@@ -2960,14 +2967,14 @@ msgstr "Vabandame,"
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry, it is no longer possible to schedule an appointment."
-msgstr ""
+msgstr "Vabandame, enam pole võimalik broneerida kohtumist."
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 #, python-format
 msgid "Sorry, there is not any more availability for the asked capacity."
-msgstr ""
+msgstr "Vabandame, rohkem pole vaba ruumi"
 
 #. module: appointment
 #. odoo-javascript
@@ -2987,24 +2994,24 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__source_resource_ids
 msgid "Source combination"
-msgstr ""
+msgstr "Lähte kombinatsioon"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__appointment_resource_ids
 msgid "Specific Resources"
-msgstr ""
+msgstr "Konkreetsed ressursid"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
 msgid "Specific Users/Resources"
-msgstr ""
+msgstr "Konkreetne kasutaja/ressurss"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_users
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_users_appointments
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_staff_appointment
 msgid "Staff Bookings"
-msgstr ""
+msgstr "Töötajate broneerimised"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__leave_start_dt
@@ -3065,7 +3072,7 @@ msgstr "Sümptomid"
 #. module: appointment
 #: model:appointment.type,name:appointment.appointment_type_tennis_court
 msgid "Tennis Court"
-msgstr ""
+msgstr "Tennise väljak"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__value_text_box
@@ -3086,17 +3093,17 @@ msgstr "See URL on juba kasutusel, palun valige teine kood."
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_type_check_resource_manual_confirmation_percentage
 msgid "The capacity percentage should be between 0 and 100%"
-msgstr ""
+msgstr "Mahutavuse protsent peaks olema 0 ja 100% vahel"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_booking_line_check_capacity_reserved
 msgid "The capacity reserved should be positive."
-msgstr ""
+msgstr "Reserveeritud mahutavus peaks olema positiivne"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_booking_line_check_capacity_used
 msgid "The capacity used can not be lesser than the capacity reserved"
-msgstr ""
+msgstr "Kasutatud mahutavus ei saa olla vähem kui reserveeritud mahutavus"
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
@@ -3108,7 +3115,7 @@ msgstr "Lõppaeg peab olema hilisem kui algusaeg."
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "The event %s cannot book resources without an appointment type."
-msgstr ""
+msgstr "Üritus %s ei saa broneerida ressurse ilma, et kohtumise tüüks valitud"
 
 #. module: appointment
 #. odoo-python
@@ -3122,7 +3129,7 @@ msgstr "Mudelis ei eksisteeri '%s' välja"
 #: code:addons/appointment/models/appointment_invite.py:0
 #, python-format
 msgid "The following appointment type(s) have no resource assigned: %s."
-msgstr ""
+msgstr "Järgnevatel kohtumiste tüüpidel pole ressursse määratud: %s."
 
 #. module: appointment
 #. odoo-python
@@ -3152,7 +3159,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_resource_check_capacity
 msgid "The resource should have at least one capacity."
-msgstr ""
+msgstr "Ressursil peaks olema vähemalt üks mahutavus."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__sequence
@@ -3160,6 +3167,8 @@ msgid ""
 "The sequence dictates if the resource is going to be picked in higher priority against another resource\n"
 "        (e.g. for 2 tables of 4, the lowest sequence will be picked first)"
 msgstr ""
+"Järgnevus määrab kas ressurss valitakse teise asemel\n"
+"(näiteks 2 lauda 4 inimesele, madalama järgnevusega laud valitakse ennem)"
 
 #. module: appointment
 #. odoo-javascript
@@ -3184,6 +3193,8 @@ msgid ""
 "This allows to share the resource with multiple attendee for a same time "
 "slot (e.g. a bar counter)"
 msgstr ""
+"See lubab valida ressurssi mitmele külalisele samas ajavahemikus (näiteks "
+"baarilaud)"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3200,6 +3211,7 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned"
 msgstr ""
+"Sellel kohtumise tüübil pole vabu aegu kuna ühtegi ressurssi pole määratud"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3207,6 +3219,8 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned and does not have any opening hours configured"
 msgstr ""
+"Sellel kohtumise tüübil puuduvad saadavused, sest ressursid pole määratud "
+"ning lahtiolekuajad on seadistamata"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3280,21 +3294,21 @@ msgstr "Kokku"
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_total_capacity
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_tree
 msgid "Total Capacity"
-msgstr ""
+msgstr "Kogu mahutavus"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resource_total_capacity_reserved
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Total Capacity Reserved"
-msgstr ""
+msgstr "Kogu reserveeritud mahutavus"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resource_total_capacity_used
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Total Capacity Used"
-msgstr ""
+msgstr "Kogu kasutatud mahutavus"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
@@ -3326,7 +3340,7 @@ msgstr "Uncertain"
 #: code:addons/appointment/static/src/views/gantt/gantt_popover.xml:0
 #, python-format
 msgid "Unconfirm Check-In"
-msgstr ""
+msgstr "Tühista kohalolek"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3365,6 +3379,17 @@ msgid ""
 "\n"
 "            - Anytime: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
+"Kasutatakse selle kohtumistüübi kategooria määratlemiseks.\n"
+"\n"
+"         Võib olla üks järgmistest:\n"
+"\n"
+"             - Korduv: vaikekategooria, inimesed pääsevad veebisaidilt ligi ning neil on võimalus leppida kokku kohtumisi kasutajatega\n"
+"\n"
+"- Punktuaalne: korduv ajavahemik on 2 aja vahel valitav. Ligipääsetav veebilehelt\n"
+"\n"
+"             - Kohandatud: kasutaja loob ja jagab teisele kasutajale kohandatud kohtumistüübi käsitsi valitud ajavahemikega\n"
+"\n"
+"             - Igal ajal: kasutaja loob ja jagab teisele kasutajale kohtumise tüübi, mis hõlmab kõiki nende ajavahemikke"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
@@ -3409,6 +3434,7 @@ msgid ""
 "If kept empty, the working schedule of the company set on the resource will "
 "be used"
 msgstr ""
+"Kui jätta tühjaks, siis tööaeg valitakse ressursil määratud ettevõtte järgi"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select
@@ -3431,23 +3457,25 @@ msgstr "Tööaeg"
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 #, python-format
 msgid "You cannot invite more than 10 people"
-msgstr ""
+msgstr "Ei saa kutsuda rohkem kui 10 inimest"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_details_column
 msgid "Your Appointment"
-msgstr ""
+msgstr "Teie kohtumine"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid ""
 "Your appointment has been reserved! We will come back to you to confirm it."
 msgstr ""
+"Teie kohtumine on reserveeritud! Tuleme tagasi su juurde, et kinnitada "
+"kohtumine."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Your appointment has successfully been booked!"
-msgstr ""
+msgstr "Teie kohtumine on edukalt broneeritud!"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3457,7 +3485,7 @@ msgstr "Teie kohtumine on vähem kui"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 msgid "Your choice"
-msgstr ""
+msgstr "Teie valik"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3477,7 +3505,7 @@ msgstr "nt. \"Mul on iiveldus...\""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "e.g. \"John Doe - Tennis Court Booking\""
-msgstr ""
+msgstr "Näiteks \"John Doe - Tennise väljaku broneering\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3492,7 +3520,7 @@ msgstr "nt. \"Täname usalduse eest, ootame teiega kohtumist!\""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "e.g. \"What are your symptoms?\""
-msgstr ""
+msgstr "Näiteks \"Mis on te sümptomid?\""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3502,7 +3530,7 @@ msgstr "e.g. +1(605)691-3277"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "e.g. Inventory count and valuation"
-msgstr ""
+msgstr "Näiteks Laoaruanne ja väärtus"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3512,7 +3540,7 @@ msgstr "nt. Jaan Tamm"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "e.g. Tennis Court 1"
-msgstr ""
+msgstr "Näiteks tennise väljak 1"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3521,6 +3549,9 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
+"näiteks john.doe@email.com\r\n"
+"jane.doe@example.com\r\n"
+". . ."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3529,6 +3560,9 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
+"näiteks john.doe@email.com\r\n"
+"jane.doe@example.com\r\n"
+". . ."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3573,14 +3607,14 @@ msgstr "inimesed"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "persons)"
-msgstr ""
+msgstr "isikud)"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "somebody"
-msgstr ""
+msgstr "keegi"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,description:appointment.appointment_onboarding_create_appointment_type_step
@@ -3595,12 +3629,12 @@ msgstr "kohtumiste planeerimiseks"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "total capacity"
-msgstr ""
+msgstr "kogu mahutavus"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "when over"
-msgstr ""
+msgstr "kui on läbi"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments

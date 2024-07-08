@@ -9,6 +9,7 @@
 # Martin Trigaux, 2024
 # Larisa_nexterp, 2024
 # Betty Keresztesi, 2024
+# Maria Muntean, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Betty Keresztesi, 2024\n"
+"Last-Translator: Maria Muntean, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr ""
 #: code:addons/hr_recruitment_extract/models/hr_applicant.py:0
 #, python-format
 msgid "%s's Application"
-msgstr ""
+msgstr "Aplicarea lui %s"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
@@ -227,17 +228,17 @@ msgstr "Evaluări"
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_cron_update_ocr_status_ir_actions_server
 msgid "Recruitment OCR: Update All Status"
-msgstr ""
+msgstr "OCR Recrutare: Actualizați toate statusurile"
 
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_cron_ocr_validate_ir_actions_server
 msgid "Recruitment OCR: Validate CV"
-msgstr ""
+msgstr "OCR Recrutare: Validați CV-ul"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_res_config_settings__recruitment_extract_show_ocr_option_selection
 msgid "Recruitment processing option"
-msgstr ""
+msgstr "Opțiunea de procesare a recrutării"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_applicant__message_has_sms_error
@@ -247,7 +248,7 @@ msgstr "Eroare livrare SMS"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_res_company__recruitment_extract_show_ocr_option_selection
 msgid "Send mode on applicant attachments"
-msgstr ""
+msgstr "Modul de trimitere a atașamentelor candidatului"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
@@ -274,8 +275,10 @@ msgstr "Istoric comunicare website"
 #, python-format
 msgid "You cannot send a CV for an applicant who's not in first stage!"
 msgstr ""
+"Nu puteți trimite un CV pentru un candidat care nu este în prima etapă!"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
 msgid "You don't have enough credit to extract data from your Resume."
 msgstr ""
+"Nu aveți suficiente credite pentru a extrage date din CV-ul dumneavoastră."

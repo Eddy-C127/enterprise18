@@ -6,6 +6,7 @@
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
 # Martin Trigaux, 2024
 # Larisa_nexterp, 2024
+# Maria Muntean, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larisa_nexterp, 2024\n"
+"Last-Translator: Maria Muntean, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +44,7 @@ msgstr "Confirmă"
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.hr_payslip_run_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.hr_payslip_view_form
 msgid "Create Payment Report"
-msgstr ""
+msgstr "Creați un raport de plată"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_run_sepa_wizard__create_uid
@@ -73,19 +74,19 @@ msgstr "Angajat"
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Employees With Invalid Bank Accounts"
-msgstr ""
+msgstr "Angajați cu conturi bancare nevalide"
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Employees with untrusted Bank Account numbers"
-msgstr ""
+msgstr "Angajați cu numere de cont bancar nesigure"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip__sepa_export
 msgid "Export file related to this payslip"
-msgstr ""
+msgstr "Exporta fisierul aferent acestui fluturaș de salariu"
 
 #. module: hr_payroll_account_sepa
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.hr_payslip_view_form
@@ -95,12 +96,12 @@ msgstr "Fișier exportat"
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip_run__sepa_export
 msgid "Exported SEPA .xml file"
-msgstr ""
+msgstr "Fișierul SEPA .xml exportat"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip_run__sepa_export_filename
 msgid "Exported SEPA .xml file name"
-msgstr ""
+msgstr "Numele fișierului SEPA .xml exporta"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip__sepa_export_filename
@@ -122,12 +123,12 @@ msgstr "Dată generare"
 #. module: hr_payroll_account_sepa
 #: model:ir.model,name:hr_payroll_account_sepa.model_hr_payslip_run_sepa_wizard
 msgid "HR Payslip Run SEPA Wizard"
-msgstr ""
+msgstr "Rulare Asistent HR Payslip SEPA"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model,name:hr_payroll_account_sepa.model_hr_payslip_sepa_wizard
 msgid "HR Payslip SEPA Wizard"
-msgstr ""
+msgstr "Asistent HR Payslip SEPA"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_run_sepa_wizard__id
@@ -144,6 +145,8 @@ msgid ""
 "Invalid bank account for the following employees:\n"
 "%s"
 msgstr ""
+"Cont bancar nevalid pentru următorii angajați:\n"
+"%s"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_run_sepa_wizard__write_uid
@@ -160,7 +163,7 @@ msgstr "Ultima actualizare pe"
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip__sepa_export_filename
 msgid "Name of the export file generated for this payslip"
-msgstr ""
+msgstr "Numele fișierului de export generat pentru aceast fluturaș"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model,name:hr_payroll_account_sepa.model_hr_payslip
@@ -176,34 +179,34 @@ msgstr "Fluturas loturi"
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip__sepa_export
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip_run__sepa_export
 msgid "SEPA File"
-msgstr ""
+msgstr "Fișier SEPA"
 
 #. module: hr_payroll_account_sepa
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.hr_payslip_run_sepa_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.hr_payslip_sepa_view_form
 msgid "Select a bank journal."
-msgstr ""
+msgstr "Selectați un jurnal bancar."
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Some employees (%s) don't have a bank account."
-msgstr ""
+msgstr "Unii angajați (%s) nu au un cont bancar."
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Some employees (%s) don't have a valid name on the work contact."
-msgstr ""
+msgstr "Unii angajați (%s) nu au un nume valid pe contactul de muncă."
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
 #: code:addons/hr_payroll_account_sepa/models/hr_payslip.py:0
 #, python-format
 msgid "Some employees (%s) don't have a work contact."
-msgstr ""
+msgstr "Unii angajați (%s) nu au un contact de muncă."
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
@@ -213,6 +216,8 @@ msgid ""
 "The following employees have invalid bank accounts and could not be trusted:\n"
 "%s"
 msgstr ""
+"Următorii angajați au conturi bancare nevalide și nu pot fi considerați de încredere:\n"
+"%s"
 
 #. module: hr_payroll_account_sepa
 #. odoo-python
@@ -228,7 +233,7 @@ msgstr ""
 #. module: hr_payroll_account_sepa
 #: model:ir.actions.server,name:hr_payroll_account_sepa.trust_employee_bank
 msgid "Trust Bank Account"
-msgstr ""
+msgstr "Cont bancar de încredere"
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payslip__sepa_uetr
@@ -249,6 +254,8 @@ msgid ""
 "Untrusted bank account for the following employees:\n"
 "%s"
 msgstr ""
+"Cont bancar nesigur pentru următorii angajați:\n"
+"%s"
 
 #. module: hr_payroll_account_sepa
 #. odoo-python

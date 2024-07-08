@@ -9,6 +9,8 @@
 # Dorin Hongu <dhongu@gmail.com>, 2024
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
 # Martin Trigaux, 2024
+# Larisa_nexterp, 2024
+# Corina Calin, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Corina Calin, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +82,7 @@ msgstr "Activare alte valute"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Add other countries"
-msgstr ""
+msgstr "Adăugați alte țări"
 
 #. module: sale_ebay
 #. odoo-python
@@ -275,7 +277,7 @@ msgstr "Ebay: recuperare comenzi"
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.ir_cron_sale_ebay_stock_sync_ir_actions_server
 msgid "Ebay: synchronise stock"
-msgstr ""
+msgstr "Ebay: sincronizare stoc"
 
 #. module: sale_ebay
 #: model:ir.actions.server,name:sale_ebay.ir_cron_sale_ebay_categories_ir_actions_server
@@ -306,6 +308,8 @@ msgid ""
 "Error Encountered.\n"
 "%r"
 msgstr ""
+"Eroare întâmpinată.\n"
+"%r"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
@@ -330,7 +334,7 @@ msgstr "Galerie Plus"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Generate Token"
-msgstr ""
+msgstr "Generare token"
 
 #. module: sale_ebay
 #: model:ir.model.fields.selection,name:sale_ebay.selection__product_template__ebay_listing_duration__gtc
@@ -350,7 +354,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:sale_ebay.field_res_country__ebay_available
 #: model:ir.model.fields,help:sale_ebay.field_res_currency__ebay_available
 msgid "If activated, can be used for eBay."
-msgstr ""
+msgstr "Dacă este activat, poate fi utilizat pentru eBay."
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -401,7 +405,7 @@ msgstr "Ultima actualizare"
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_ebay_category__leaf_category
 msgid "Leaf Category"
-msgstr ""
+msgstr "Cel mai mic nivel de categorie"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.ebay_link_listing_view
@@ -442,7 +446,7 @@ msgstr "Locatie"
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_account_deletion_endpoint
 msgid "Marketplace account deletion notification endpoint"
-msgstr ""
+msgstr "Punct final de notificare a ștergerii contului de piață"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -507,6 +511,8 @@ msgid ""
 "Please provide your ebay production keys before enabling the account "
 "deletion notifications."
 msgstr ""
+"Vă rugăm să furnizați cheile dvs. de producție ebay înainte de a activa "
+"notificările de ștergere a contului."
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
@@ -698,7 +704,7 @@ msgstr "Sincronizează acum"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "Synchronization"
-msgstr ""
+msgstr "Sincronizare"
 
 #. module: sale_ebay
 #. odoo-python
@@ -722,6 +728,8 @@ msgid ""
 "The python 'cryptography' module is not installed on your server.\n"
 "It is necessary to support eBay account deletion notifications, please contact your system administrator to install it."
 msgstr ""
+"Modulul python \"cryptography\" nu este instalat pe serverul dumneavoastră.\n"
+"Acesta este necesar pentru a suporta notificările de ștergere a contului eBay, vă rugăm să contactați administratorul de sistem pentru a-l instala."
 
 #. module: sale_ebay
 #: model:ir.model.fields,help:sale_ebay.field_product_product__ebay_subtitle
@@ -773,6 +781,10 @@ msgid ""
 "eBay does not handle longer timespans. Instead use synchronize_orders which "
 "split in as many calls as needed."
 msgstr ""
+"Această funcție nu trebuie apelată cu un interval mai mare de 30 de zile, "
+"deoarece eBay nu gestionează intervale de timp mai lungi. În schimb, "
+"utilizați sincronizare_comenzi care se împarte în atâtea apeluri câte sunt "
+"necesare."
 
 #. module: sale_ebay
 #. odoo-python
@@ -783,6 +795,9 @@ msgid ""
 "\n"
 "However, personal information might remain in linked documents, please review them according to laws that apply."
 msgstr ""
+"Aceasta este o notificare automată deoarece a fost primită o cerere de ștergere de la eBay cu privire la contul \"%s (%s)\". Contul a fost deja anonimizat, iar accesul său la portal a fost revocat (dacă a existat vreunul).\n"
+"\n"
+"Cu toate acestea, informațiile personale ar putea rămâne în documentele asociate, vă rugăm să le revizuiți în conformitate cu legile aplicabile."
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_title
@@ -815,7 +830,7 @@ msgstr "Folosiți eBay"
 #: model:ir.model.fields,field_description:sale_ebay.field_res_country__ebay_available
 #: model:ir.model.fields,field_description:sale_ebay.field_res_currency__ebay_available
 msgid "Use on eBay"
-msgstr ""
+msgstr "Utilizați pe eBay"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.product_template_sale_ebay_form_view
@@ -825,7 +840,7 @@ msgstr "Variante"
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_verification_token
 msgid "Verification Token"
-msgstr ""
+msgstr "Token de verificare"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_zip_code
@@ -841,7 +856,7 @@ msgstr "eBay"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "eBay Account"
-msgstr ""
+msgstr "Cont eBay"
 
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_ebay_category
@@ -858,7 +873,7 @@ msgstr "Descriere eBay"
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_domain
 msgid "eBay Environment"
-msgstr "eBay Environment"
+msgstr "Mediu eBay"
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_fixed_price
@@ -891,17 +906,17 @@ msgstr "ID de listare eBay"
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "eBay Marketplace Account Deletion/Closure Notifications"
-msgstr ""
+msgstr "Notificări de ștergere/închidere a contului eBay Marketplace"
 
 #. module: sale_ebay
 #: model:mail.activity.type,summary:sale_ebay.ebay_GDPR_notification
 msgid "eBay Odoo connector notification - account deletion"
-msgstr ""
+msgstr "Notificare conector eBay Odoo - ștergerea contului"
 
 #. module: sale_ebay
 #: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
 msgid "eBay Options"
-msgstr ""
+msgstr "Opțiuni eBay"
 
 #. module: sale_ebay
 #: model:ir.model,name:sale_ebay.model_ebay_policy
@@ -938,7 +953,7 @@ msgstr "Website eBay"
 #. module: sale_ebay
 #: model:mail.activity.type,name:sale_ebay.ebay_GDPR_notification
 msgid "eBay connector: account deletion notification"
-msgstr ""
+msgstr "Conector eBay: notificare de ștergere a contului"
 
 #. module: sale_ebay
 #. odoo-python
@@ -968,6 +983,8 @@ msgstr "Parametrii eBay"
 msgid ""
 "eBay requires supporting customer account deletion/closure notifications."
 msgstr ""
+"eBay solicită suport pentru notificările de ștergere/închidere a conturilor "
+"clienților."
 
 #. module: sale_ebay
 #: model:ir.model.fields,field_description:sale_ebay.field_product_product__ebay_url
@@ -1014,3 +1031,18 @@ msgstr "Monedă eBay"
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_sales_team
 msgid "ebay Sales Team"
 msgstr "Echipă de Vânzări eBay"
+
+#. module: sale_ebay
+#: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
+msgid "to setup this mechanism."
+msgstr "pentru a configura acest mecanism."
+
+#. module: sale_ebay
+#: code:addons/sale_ebay/tools/ebaysdk.py:0
+#, python-format
+msgid ""
+"An unexpected error occured from eBay.\n"
+"Please check your credentials and try again later."
+msgstr ""
+"A apărut o eroare neașteptată de la eBay.\n"
+"Vă rugăm să vă verificați credențialele și să încercați din nou mai târziu."
