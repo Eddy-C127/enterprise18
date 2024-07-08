@@ -8,7 +8,7 @@ class PosPreparationDisplayOrder(models.Model):
 
     def _export_for_ui(self, preparation_display):
         data = super()._export_for_ui(preparation_display)
-        if self.employee_id:
+        if data and self.employee_id:
             data['responsible'] = self.employee_id.name
         return data
 
