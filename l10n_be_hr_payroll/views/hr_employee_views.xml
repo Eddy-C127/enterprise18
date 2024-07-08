@@ -18,9 +18,6 @@
                 </div>
                 <field name="disabled_spouse_bool" invisible="marital not in ['married', 'cohabitant'] or company_country_code != 'BE'"/>
             </xpath>
-            <xpath expr="//field[@name='birthday']" position="after">
-                <field name="disabled" invisible="company_country_code != 'BE'"/>
-            </xpath>
             <xpath expr="//field[@name='children']" position="after">
                 <field name="l10n_be_dependent_children_attachment" invisible="company_country_code != 'BE' or children &lt;= 0"/>
                 <field name="disabled_children_bool"  invisible="company_country_code != 'BE' or children &lt;= 0"/>

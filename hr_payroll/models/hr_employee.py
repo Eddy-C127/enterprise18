@@ -25,6 +25,7 @@ class HrEmployee(models.Model):
     sim_card = fields.Binary(string="SIM Card Copy", groups="hr_contract.group_hr_contract_manager")
     internet_invoice = fields.Binary(string="Internet Subscription Invoice", groups="hr_contract.group_hr_contract_manager")
     is_non_resident = fields.Boolean(string='Non-resident', help='If recipient lives in a foreign country', groups="hr.group_hr_user")
+    disabled = fields.Boolean(string="Disabled", help="If the employee is declared disabled by law", groups="hr.group_hr_user", tracking=True)
 
     _sql_constraints = [
         ('unique_registration_number', 'UNIQUE(registration_number, company_id)', 'No duplication of registration numbers is allowed')

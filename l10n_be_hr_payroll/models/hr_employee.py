@@ -22,7 +22,6 @@ class HrEmployee(models.Model):
         ('high_pension', 'With High Pensions')
     ], string='Tax status for spouse', groups="hr.group_hr_user", default='without_income', required=False, tracking=True)
     spouse_fiscal_status_explanation = fields.Char(compute='_compute_spouse_fiscal_status_explanation', groups="hr.group_hr_user")
-    disabled = fields.Boolean(string="Disabled", help="If the employee is declared disabled by law", groups="hr.group_hr_user", tracking=True)
     disabled_spouse_bool = fields.Boolean(string='Disabled Spouse', help='if recipient spouse is declared disabled by law', groups="hr.group_hr_user", tracking=True)
     disabled_children_bool = fields.Boolean(string='Disabled Children', help='if recipient children is/are declared disabled by law', groups="hr.group_hr_user", tracking=True)
     disabled_children_number = fields.Integer('Number of disabled children', groups="hr.group_hr_user", tracking=True)

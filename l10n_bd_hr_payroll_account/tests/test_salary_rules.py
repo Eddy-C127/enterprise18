@@ -182,7 +182,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         self._validate_payslip(payslip, payslip_results)
 
     def test_disabled_payslip_1(self):
-        self.employee.l10n_bd_disabled = True
+        self.employee.disabled = True
         self.contract.wage = 40000.0
         payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
         payslip_results = {
@@ -195,7 +195,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         self._validate_payslip(payslip, payslip_results)
 
     def test_disabled_payslip_2(self):
-        self.employee.l10n_bd_disabled = True
+        self.employee.disabled = True
         self.contract.wage = 60000.0
         payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
         payslip_results = {
@@ -208,7 +208,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
         self._validate_payslip(payslip, payslip_results)
 
     def test_disabled_payslip_3(self):
-        self.employee.l10n_bd_disabled = True
+        self.employee.disabled = True
         self.contract.wage = 80000.0
         payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
         payslip_results = {

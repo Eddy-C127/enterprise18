@@ -363,7 +363,7 @@ result = - 0.15 * contract.l10n_ke_education
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-basic = categories['BASIC'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
+basic = categories['BASIC'] - employee.disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
 result = payslip._rule_parameter('l10n_ke_ahl_employee') * basic
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
@@ -636,7 +636,7 @@ result = result_rules['NSSF_AMOUNT']['total']
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-basic = categories['BASIC'] - employee.l10n_ke_disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
+basic = categories['BASIC'] - employee.disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
 result = payslip._rule_parameter('l10n_ke_ahl_employer') * basic
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
