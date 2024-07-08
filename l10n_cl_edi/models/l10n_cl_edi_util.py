@@ -306,7 +306,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
             # mocked response
             return None
         token = self._get_token(mode, digital_signature)
-        if token is None:
+        if not token:
             self._report_connection_err(_('No response trying to get a token'))
             return False
         url = SERVER_URL[mode].replace('/DTEWS/', '')
@@ -388,7 +388,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
         if mode == 'SIIDEMO':
             return None
         token = self._get_token(mode, digital_signature)
-        if token is None:
+        if not token:
             self._report_connection_err(_('Token cannot be generated. Please try again'))
             return False
         return self._get_send_status_ws(mode, company_vat, track_id, token)
@@ -406,7 +406,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
         if mode == 'SIIDEMO':
             return None
         token = self._get_token(mode, digital_signature)
-        if token is None:
+        if not token:
             self._report_connection_err(_('Token cannot be generated. Please try again'))
             return False
         settings = Settings(strict=False, extra_http_headers={'Cookie': 'TOKEN=' + token})
@@ -430,7 +430,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
         if mode == 'SIIDEMO':
             return None
         token = self._get_token(mode, digital_signature)
-        if token is None:
+        if not token:
             self._report_connection_err(_('Token cannot be generated. Please try again'))
             return False
         settings = Settings(strict=False, extra_http_headers={'Cookie': 'TOKEN=' + token})
