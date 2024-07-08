@@ -50,11 +50,10 @@
         <field name="inherit_id" ref="hr_timesheet.view_kanban_account_analytic_line"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='task_id']" position="after">
-                <field name="helpdesk_ticket_id" groups="helpdesk_timesheet.group_use_helpdesk_timesheet"/>
-            </xpath>
-            <xpath expr="//span[@t-esc='record.task_id.value']" position="after">
-                <span t-esc="record.helpdesk_ticket_id.value" t-att-title="record.helpdesk_ticket_id.value"
-                    groups="helpdesk_timesheet.group_use_helpdesk_timesheet"/>
+                <span class="d-flex flex-column text-truncate" t-att-title="record.helpdesk_ticket_id.value"
+                    groups="helpdesk_timesheet.group_use_helpdesk_timesheet">
+                    <field name="helpdesk_ticket_id" />
+                </span>
             </xpath>
         </field>
     </record>
@@ -161,7 +160,10 @@
         <field name="mode">primary</field>
         <field name="priority">25</field>
         <field name="arch" type="xml">
-            <xpath expr="//span[@t-esc='record.task_id.value']" position="replace"/>
+            <xpath expr="//templates" position="before">
+                <field name="task_id"/>
+            </xpath>
+            <xpath expr="//div//field[@name='task_id']" position="replace"/>
         </field>
     </record>
 

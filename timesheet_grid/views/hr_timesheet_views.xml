@@ -66,11 +66,9 @@
                 <xpath expr="/kanban" position="inside">
                     <field name="validated" invisible="1" force_save="0"/>
                 </xpath>
-                <xpath expr="//div[hasclass('o_kanban_record_headings')]" position="after">
-                    <div>
-                        <span t-att-class="'o_status_bubble mx-0 float-end mt-1 o_color_bubble_' + (record.validated.raw_value ? 10 : 0)"
-                            class="o_timesheet_status_bubble" t-att-title="record.validated.raw_value ? 'Validated': 'Draft'"/>
-                    </div>
+                <xpath expr="//div/div" position="after">
+                    <span t-att-class="'o_status_bubble mx-0 float-end mt-1 o_color_bubble_' + (record.validated.raw_value ? 10 : 0)"
+                        class="o_timesheet_status_bubble ms-auto" t-att-title="record.validated.raw_value ? 'Validated': 'Draft'"/>
                 </xpath>
             </field>
         </record>
@@ -105,33 +103,31 @@
                     <field name="display_timer" invisible="1"/>
                     <field name="is_timer_running" invisible="1"/>
                 </xpath>
-                <xpath expr="//div/span[@name='duration']" position="replace"/>
+                <xpath expr="//footer/div" position="replace"/>
                 <field name="name" position="attributes">
                     <attribute name="required">0</attribute>
                 </field>
-                <xpath expr="//div[hasclass('o_kanban_record_top')]//img" position="attributes">
+                <xpath expr="//div/span/field[@name='employee_id']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
-                <xpath expr="//div[hasclass('o_kanban_record_headings')]" position="after">
-                    <div invisible="readonly_timesheet or display_timer">
+                <xpath expr="//div/div" position="after">
+                    <div invisible="readonly_timesheet or display_timer" class="ms-auto">
                         <field name="unit_amount" string="Time Spent" widget="timesheet_uom" options="{'force_button': true}"/>
                     </div>
-                    <div class="ms-1">
-                        <div invisible="readonly_timesheet or not display_timer">
-                            <field name="duration_unit_amount" widget="timesheet_uom_timer" decoration-danger="duration_unit_amount &gt; 24 or unit_amount &lt; 0"
-                                decoration-muted="unit_amount == 0"
-                                class="d-flex align-items-center justify-content-center"/>
-                        </div>
-                        <div invisible="not readonly_timesheet">
-                            <field name="unit_amount_validate" widget="timesheet_uom" decoration-danger="duration_unit_amount &gt; 24 or unit_amount &lt; 0"
-                                decoration-muted="unit_amount == 0"/>
-                        </div>
+                    <div invisible="readonly_timesheet or not display_timer" class="col ms-auto">
+                        <field name="duration_unit_amount" widget="timesheet_uom_timer" decoration-danger="duration_unit_amount &gt; 24 or unit_amount &lt; 0"
+                            decoration-muted="unit_amount == 0"
+                            class="d-flex align-items-center justify-content-center"/>
+                    </div>
+                    <div invisible="not readonly_timesheet" class="ms-auto">
+                        <field name="unit_amount_validate" widget="timesheet_uom" decoration-danger="duration_unit_amount &gt; 24 or unit_amount &lt; 0"
+                            decoration-muted="unit_amount == 0"/>
                     </div>
                  </xpath>
-                 <xpath expr="//div[hasclass('o_kanban_record_headings')]" position="attributes">
+                 <xpath expr="//div/div" position="attributes">
                     <attribute name="class" remove="ps-2" separator=" "/>
                  </xpath>
-                 <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="inside">
+                 <xpath expr="//footer" position="inside">
                     <xpath expr="//span[hasclass('o_timesheet_status_bubble')]" position="move"/>
                  </xpath>
             </field>
