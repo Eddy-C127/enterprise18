@@ -661,9 +661,7 @@ class DMFAOccupation(DMFANode):
 
         # See: https://www.socialsecurity.be/employer/instructions/dmfa/fr/latest/instructions/fill_in_dmfa/dmfa_fillinrules/workerrecord_occupationrecords/occupationrecord.html
         if contract.time_credit or contract.resource_calendar_id.work_time_rate < 100:
-            if contract.time_credit and contract.time_credit_type_id.code == 'LEAVE300':
-                hours_per_week = contract.standard_calendar_id.hours_per_week
-            elif contract.time_credit and contract.time_credit_type_id.code == 'LEAVE301':
+            if contract.time_credit and contract.time_credit_type_id.code in ['LEAVE300', 'LEAVE301', 'LEAVE281']:
                 hours_per_week = contract.standard_calendar_id.hours_per_week
             else:
                 hours_per_week = contract.company_id.resource_calendar_id.hours_per_week
@@ -672,7 +670,7 @@ class DMFAOccupation(DMFANode):
         self.ref_mean_working_hours = ('%.2f' % hours_per_week).replace('.', '').zfill(4)
 
         # Voir Annexe 44: Réorganisation du temps de travail
-        if contract.time_credit and contract.time_credit_type_id.code == 'LEAVE300':
+        if contract.time_credit and contract.time_credit_type_id.code in ['LEAVE300', 'LEAVE301']:
             if not contract.resource_calendar_id.hours_per_week:
                 self.reorganisation_measure = 3
             else:
@@ -693,8 +691,7 @@ class DMFAOccupation(DMFANode):
         self.ActivityCode = -1  # Facultative
         self.days_justification = -1 # YTI: Will be useful for payroll based on attendances
 
-        if contract.time_credit and contract.time_credit_type_id.code == 'LEAVE301':
-            # YTI: Could be cleaned by setting calendar correctly at the beginning
+        if contract.time_credit and contract.time_credit_type_id.code == 'LEAVE281':
             days_per_week = 5.0
             mean_working_hours = 38.0
         else:
