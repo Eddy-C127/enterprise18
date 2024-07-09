@@ -29,6 +29,7 @@ export class MainComponentAction extends Component {
                 resModel: this.resModel,
                 SearchModel: MrpMpsSearchModel,
                 context: this.props.action.context,
+                domain: this.props.action.domain,
                 orderBy: [{name: "id", asc: true}],
                 searchMenuTypes: ['filter', 'favorite'],
                 searchViewArch: views.views.search.arch,
