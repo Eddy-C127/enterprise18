@@ -298,7 +298,7 @@ class RentalOrderLine(models.Model):
 
         If the rental picking setting is activated:
         Process all lines at the same time. """
-        if self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
+        if self.create_uid.has_group('sale_stock_renting.group_rental_stock_picking'):
             super()._action_launch_stock_rule(previous_product_uom_qty)
         else:
             other_lines = self.filtered(lambda sol: not sol.is_rental)
