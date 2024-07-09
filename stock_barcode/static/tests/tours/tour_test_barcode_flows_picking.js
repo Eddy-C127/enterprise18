@@ -4043,9 +4043,10 @@ registry.category("web_tour.tours").add('test_split_line_reservation', {test: tr
 ]});
 
 registry.category("web_tour.tours").add('test_split_line_on_destination_scan', {test: true, steps: () => [
-    // Scans 2x product1.
-    { trigger: '.o_barcode_line', run: "scan product1"},
-    { trigger: '.o_barcode_line', run: "scan product1"},
+    // Open the receipt then scans 2x product1.
+    { trigger: '.o_stock_barcode_main_menu', run: "scan receipt_split_line_on_destination_scan" },
+    { trigger: '.o_barcode_line', run: "scan product1" },
+    { trigger: '.o_barcode_line', run: "scan product1" },
     {
         trigger: '.o_barcode_line.o_selected .qty-done:contains("2")',
         run: () => {
@@ -4055,7 +4056,7 @@ registry.category("web_tour.tours").add('test_split_line_on_destination_scan', {
         }
     },
     // Scans the line's destination -> The line should be splitted in two.
-    { trigger: '.o_barcode_line', run: "scan LOC-01-00-00"},
+    { trigger: '.o_barcode_line', run: "scan LOC-01-00-00" },
     {
         trigger: '.o_barcode_line:nth-child(2)',
         run: () => {
@@ -4081,6 +4082,77 @@ registry.category("web_tour.tours").add('test_split_line_on_destination_scan', {
         }
     },
     ...stepUtils.validateBarcodeOperation(),
+    // Now, open the internal transfer and scan Section 1 as the source location.
+    { trigger: '.o_stock_barcode_main_menu', run: "scan internal_split_line_on_destination_scan" },
+    {
+        trigger: '.o_barcode_line',
+        run: () => {
+            helper.assertLinesCount(2);
+            helper.assertLineLocations(0, ".../Section 1", "WH/Stock");
+            helper.assertLineQty(0, "0 / 3");
+            helper.assertLineLocations(1, ".../Section 2", "WH/Stock");
+            helper.assertLineQty(1, "0 / 4");
+        }
+    },
+    { trigger: '.o_scan_message.o_scan_src', run: "scan LOC-01-01-00" },
+    // Scan 2x product2 then scan Section 3 as the destination.
+    { trigger: '.o_barcode_line', run: "scan product2" },
+    { trigger: '.o_barcode_line', run: "scan product2" },
+    { trigger: '.o_barcode_line.o_selected .qty-done:contains("2")', run: "scan shelf3" },
+    {
+        trigger: '.o_scan_message.o_scan_src',
+        run: () => {
+            helper.assertLinesCount(3);
+            helper.assertLineLocations(0, ".../Section 1", ".../Section 3");
+            helper.assertLineQty(0, "2 / 2");
+            helper.assertLineLocations(1, ".../Section 1", "WH/Stock");
+            helper.assertLineQty(1, "0 / 1");
+            helper.assertLineLocations(2, ".../Section 2", "WH/Stock");
+            helper.assertLineQty(2, "0 / 4");
+        }
+    },
+    // Scan 1x product2 then scan WH/Stock as the destination.
+    { trigger: '.o_barcode_line', run: "scan LOC-01-01-00" },
+    { trigger: '.o_scan_message.o_scan_product', run: "scan product2" },
+    { trigger: '.o_barcode_line.o_selected.o_line_completed', run: "scan LOC-01-00-00" },
+    {
+        trigger: '.o_scan_message.o_scan_src',
+        run: () => {
+            helper.assertLinesCount(3);
+            helper.assertLineLocations(0, ".../Section 1", ".../Section 3");
+            helper.assertLineQty(0, "2 / 2");
+            helper.assertLineLocations(1, ".../Section 1", "WH/Stock");
+            helper.assertLineQty(1, "1 / 1");
+            helper.assertLineLocations(2, ".../Section 2", "WH/Stock");
+            helper.assertLineQty(2, "0 / 4");
+        }
+    },
+    // Scan Section 2 as the source and then 2x product2.
+    { trigger: '.o_barcode_line', run: "scan LOC-01-02-00" },
+    { trigger: '.o_scan_message.o_scan_product', run: "scan product2" },
+    { trigger: '.o_scan_message.o_scan_product_or_dest', run: "scan product2" },
+    // Now scan Section 2 also as the destination.
+    { trigger: '.o_barcode_line.o_selected .qty-done:contains("2")', run: "scan LOC-01-02-00" },
+    {
+        trigger: '.o_scan_message.o_scan_src',
+        run: () => {
+            helper.assertLinesCount(4);
+            helper.assertLineLocations(0, ".../Section 1", ".../Section 3");
+            helper.assertLineQty(0, "2 / 2");
+            helper.assertLineLocations(1, ".../Section 1", "WH/Stock");
+            helper.assertLineQty(1, "1 / 1");
+            helper.assertLineLocations(2, ".../Section 2", ".../Section 2");
+            helper.assertLineQty(2, "2 / 2");
+            helper.assertLineLocations(3, ".../Section 2", "WH/Stock");
+            helper.assertLineQty(3, "0 / 2");
+        }
+    },
+    // Scan 2x product2, Section 1 as the destination and close the internal transfer.
+    { trigger: '.o_scan_message.o_scan_src', run: "scan LOC-01-02-00" },
+    { trigger: '.o_scan_message.o_scan_product', run: "scan product2" },
+    { trigger: '.o_scan_message.o_scan_product_or_dest', run: "scan product2" },
+    { trigger: '.o_scan_message.o_scan_dest', run: "scan LOC-01-01-00" },
+    ...stepUtils.validateBarcodeOperation('.o_validate_page.btn-success'),
 ]});
 
 registry.category("web_tour.tours").add('test_split_line_on_exit_for_delivery', {test: true, steps: () => [
