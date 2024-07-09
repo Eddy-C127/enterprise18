@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import new_test_user, tagged
+from odoo.tests import Form, new_test_user, tagged
 from odoo.tests.common import TransactionCase
 from odoo.exceptions import AccessError
 from odoo.fields import Command
@@ -395,3 +395,25 @@ class TestUserAccess(TransactionCase):
 
             self.assertNotEqual(slot_1.end_datetime, initial_end_date, 'End date should be updated')
             self.assertFalse(slot_2.resource_id, 'Resource should be the False for archeived resource shifts')
+
+    def test_resource_conflicts_with_user(self):
+        planning_slots = self.env['planning.slot'].create([
+            {
+                'resource_id': self.res_internal_user.id,
+                'allocated_hours': 4,
+                'start_datetime': datetime(2019, 6, 6, 8, 0, 0),
+                'end_datetime': datetime(2019, 6, 6, 12, 0, 0),
+                'state': 'published',
+            }, {
+                'resource_id': self.res_internal_user.id,
+                'allocated_hours': 4,
+                'start_datetime': datetime(2019, 6, 6, 8, 0, 0),
+                'end_datetime': datetime(2019, 6, 6, 12, 0, 0),
+            }
+        ])
+        with Form(planning_slots[0].with_user(self.planning_user)) as slot:
+            self.assertEqual(slot.record.overlap_slot_count, 0)
+            self.assertFalse(slot.record.conflicting_slot_ids)
+        with Form(planning_slots[0].with_user(self.planning_mgr)) as slot:
+            self.assertEqual(slot.record.overlap_slot_count, 1)
+            self.assertEqual(slot.record.conflicting_slot_ids, planning_slots[1])
