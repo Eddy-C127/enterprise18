@@ -288,7 +288,7 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
         self.assertRecordValues(sheet, [
             {'state': 'approve', 'payslip_id': payslip.id, 'payment_state': 'not_paid', 'account_move_ids': []},
         ])
-        self.assertTrue(sheet_original_move.reversal_move_id)
+        self.assertTrue(sheet_original_move.reversal_move_ids)
 
     @freeze_time('2024-01-01')
     def test_unlink_payslip_moves_user(self):

@@ -307,7 +307,7 @@ class AccountMove(models.Model):
         if len(self.company_id) != 1 or len(self.journal_id) != 1:
             raise UserError(_("You can only process invoices sharing the same company and journal."))
 
-        refunds = self.reversal_move_id
+        refunds = self.reversal_move_ids
         invoices = self | refunds
         failed_invoices = invoices.filtered(lambda x: (
             (
@@ -977,14 +977,14 @@ class AccountMove(models.Model):
             for invl in self._l10n_mx_edi_cfdi_invoice_line_ids()
         ]
         Document._add_base_lines_tax_amounts(base_lines, cfdi_values['company'])
-        if global_invoice and self.reversal_move_id:
+        if global_invoice and self.reversal_move_ids:
             refund_base_lines = [
                 {
                     **invl._convert_to_tax_base_line_dict(),
                     'uom': invl.product_uom_id,
                     'name': invl.name,
                 }
-                for invl in self.reversal_move_id._l10n_mx_edi_cfdi_invoice_line_ids()
+                for invl in self.reversal_move_ids._l10n_mx_edi_cfdi_invoice_line_ids()
             ]
             for refund_base_line in refund_base_lines:
                 refund_base_line['quantity'] *= -1

@@ -1047,7 +1047,7 @@ class TestTaxReportDefaultPart(TestAccountReportsCommon):
         )
 
         tax_lines_with_caret_options = [report_line for report_line in report_lines if report_line.get('caret_options') == 'generic_tax_report']
-        expected_amls = invoice.line_ids.filtered(lambda x: x.tax_line_id or x.tax_ids) + invoice.reversal_move_id.line_ids.filtered(lambda x: x.tax_line_id or x.tax_ids)
+        expected_amls = invoice.line_ids.filtered(lambda x: x.tax_line_id or x.tax_ids) + invoice.reversal_move_ids.line_ids.filtered(lambda x: x.tax_line_id or x.tax_ids)
         expected_amls_based_on_tax_dict = {
             'tax (10.0%)': expected_amls,
         }

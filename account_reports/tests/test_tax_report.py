@@ -2147,7 +2147,7 @@ class TestTaxReport(TestAccountReportsCommon):
 
             self.assertEqual(
                 move.line_ids.tax_repartition_line_id,
-                move.reversal_move_id.line_ids.tax_repartition_line_id,
+                move.reversal_move_ids.line_ids.tax_repartition_line_id,
                 "The same repartition line should be used when reverting a misc operation, to ensure they sum up to 0 in all cases."
             )
 

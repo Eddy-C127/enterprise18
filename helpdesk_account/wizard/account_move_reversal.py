@@ -14,7 +14,7 @@ class AccountMoveReversal(models.TransientModel):
 
     @api.model
     def _get_default_moves_domain(self, ticket):
-        return [('state', '=', 'posted'), ('move_type', '=', 'out_invoice'), ('reversal_move_id', '=', False)]
+        return [('state', '=', 'posted'), ('move_type', '=', 'out_invoice'), ('reversal_move_ids', '=', False)]
 
     @api.model
     def default_get(self, fields):
@@ -45,7 +45,7 @@ class AccountMoveReversal(models.TransientModel):
     @api.depends('helpdesk_sale_order_id')
     def _compute_move_ids(self):
         for r in self.filtered('helpdesk_sale_order_id'):
-            r.move_ids = r.helpdesk_sale_order_id.invoice_ids.filtered(lambda move: move.state == 'posted' and move.move_type == 'out_invoice' and not move.reversal_move_id)
+            r.move_ids = r.helpdesk_sale_order_id.invoice_ids.filtered(lambda move: move.state == 'posted' and move.move_type == 'out_invoice' and not move.reversal_move_ids)
 
     def _get_suitable_move_domain(self):
         self.ensure_one()
@@ -54,8 +54,8 @@ class AccountMoveReversal(models.TransientModel):
             domain.append(('partner_id', 'child_of', self.helpdesk_ticket_id.partner_id.commercial_partner_id.id))
         if self.helpdesk_sale_order_id:
             domain.append(('id', 'in', self.helpdesk_sale_order_id.invoice_ids.ids))
-        if all(reversal_move.payment_state in ['paid', 'in_payment'] for reversal_move in self.helpdesk_sale_order_id.invoice_ids.reversal_move_id):
-            domain.append(('reversal_move_id', '=', False))
+        if all(reversal_move.payment_state in ['paid', 'in_payment'] for reversal_move in self.helpdesk_sale_order_id.invoice_ids.reversal_move_ids):
+            domain.append(('reversal_move_ids', '=', False))
         return domain
 
     @api.depends('helpdesk_ticket_id.sale_order_id.invoice_ids', 'helpdesk_ticket_id.partner_id.commercial_partner_id', 'helpdesk_sale_order_id')

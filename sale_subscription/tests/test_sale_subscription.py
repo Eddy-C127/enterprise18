@@ -2085,7 +2085,7 @@ class TestSubscription(TestSubscriptionCommon):
         })
         res = refund_wizard.refund_moves()
         refund_move = self.env['account.move'].browse(res['res_id'])
-        self.assertEqual(inv.reversal_move_id, refund_move, "The initial move should be reversed")
+        self.assertEqual(inv.reversal_move_ids, refund_move, "The initial move should be reversed")
         self.assertEqual(subscription.order_line.qty_invoiced, 0, "The products should be not be invoiced")
 
     def test_discount_parent_line(self):

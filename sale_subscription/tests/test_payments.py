@@ -532,7 +532,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             })
             res = refund_wizard.refund_moves()
             refund_move = self.env['account.move'].browse(res['res_id'])
-            self.assertEqual(inv.reversal_move_id, refund_move, "The initial move should be reversed")
+            self.assertEqual(inv.reversal_move_ids, refund_move, "The initial move should be reversed")
             self.assertEqual(subscription.next_invoice_date, datetime.date(2023, 3, 18), "The next invoice date not incremented")
 
     def test_subscription_invoice_after_payment(self):

@@ -770,13 +770,13 @@ class TestAccountAsset(TestAccountReportsCommon):
         Hashed_car.depreciation_move_ids.button_hash()
 
         for i in range(0, 4):
-            self.assertFalse(Hashed_car.depreciation_move_ids[i].reversal_move_id)
+            self.assertFalse(Hashed_car.depreciation_move_ids[i].reversal_move_ids)
 
         Hashed_car.set_to_cancelled()
 
         self.assertEqual(Hashed_car.state, 'cancelled')
         for i in range(0, 2):
-            self.assertTrue(Hashed_car.depreciation_move_ids[i].reversal_move_id.id > 0 or Hashed_car.depreciation_move_ids[i].reversed_entry_id.id > 0)
+            self.assertTrue(Hashed_car.depreciation_move_ids[i].reversal_move_ids.id > 0 or Hashed_car.depreciation_move_ids[i].reversed_entry_id.id > 0)
 
         # The depreciation schedule report should not contain cancelled assets
         report = self.env.ref('account_asset.assets_report')
@@ -808,7 +808,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         }])
         self.assertEqual(len(Locked_car.depreciation_move_ids), 4)
         for depreciation in Locked_car.depreciation_move_ids:
-            self.assertTrue(depreciation.reversal_move_id or depreciation.reversed_entry_id)
+            self.assertTrue(depreciation.reversal_move_ids or depreciation.reversed_entry_id)
 
 
     def test_asset_form(self):

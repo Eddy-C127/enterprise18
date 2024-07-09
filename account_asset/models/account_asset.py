@@ -301,7 +301,7 @@ class AccountAsset(models.Model):
         'original_value', 'salvage_value', 'already_depreciated_amount_import',
         'depreciation_move_ids.state',
         'depreciation_move_ids.depreciation_value',
-        'depreciation_move_ids.reversal_move_id'
+        'depreciation_move_ids.reversal_move_ids'
     )
     def _compute_value_residual(self):
         for record in self:
@@ -892,7 +892,7 @@ class AccountAsset(models.Model):
     def set_to_cancelled(self):
         for asset in self:
             posted_moves = asset.depreciation_move_ids.filtered(lambda m: (
-                not m.reversal_move_id
+                not m.reversal_move_ids
                 and not m.reversed_entry_id
                 and m.state == 'posted'
             ))
@@ -1016,7 +1016,7 @@ class AccountAsset(models.Model):
         all_move_dates_before_date = (self.depreciation_move_ids.filtered(
             lambda x:
             x.date <= date
-            and not x.reversal_move_id
+            and not x.reversal_move_ids
             and not x.reversed_entry_id
             and x.state == 'posted'
         ).sorted('date')).mapped('date')
@@ -1029,7 +1029,7 @@ class AccountAsset(models.Model):
             # So, we use the earliest beginning of a move that comes after the last move not cancelled
             future_moves_beginning_date = self.depreciation_move_ids.filtered(
                 lambda m: m.date > last_move_date_not_reversed and (
-                    not m.reversal_move_id and not m.reversed_entry_id and m.state == 'posted'
+                    not m.reversal_move_ids and not m.reversed_entry_id and m.state == 'posted'
                     or m.state == 'draft'
                 )
             ).mapped('asset_depreciation_beginning_date')
@@ -1040,7 +1040,7 @@ class AccountAsset(models.Model):
                 # in order to correctly compute the moves just before and after the pause date
                 first_moves = self.depreciation_move_ids.filtered(
                     lambda m: m.asset_depreciation_beginning_date >= beginning_fiscal_year and (
-                        not m.reversal_move_id and not m.reversed_entry_id and m.state == 'posted'
+                        not m.reversal_move_ids and not m.reversed_entry_id and m.state == 'posted'
                         or m.state == 'draft'
                     )
                 ).sorted(lambda m: (m.asset_depreciation_beginning_date, m.id))
@@ -1074,7 +1074,7 @@ class AccountAsset(models.Model):
         """
         for asset in self:
             obsolete_moves = asset.depreciation_move_ids.filtered(lambda m: m.state == 'draft' or (
-                not m.reversal_move_id
+                not m.reversal_move_ids
                 and not m.reversed_entry_id
                 and m.state == 'posted'
                 and m.date > date
