@@ -2,7 +2,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import pytz
-from datetime import datetime
+from calendar import monthrange
+from datetime import datetime, timedelta
+
 
 from odoo import api, fields, models, _
 from odoo.tools import get_timedelta
@@ -101,10 +103,8 @@ class PlanningRecurrency(models.Model):
                 resource = recurrency.slot_ids.resource_id[-1:]
 
                 # We check whether the slot was generated outisde working days (includes public holidays), if so we will generate the recurrent slots normally
-                is_slot_outside_working_days = all(
-                    slot.start_datetime.date() != start.date()
-                    for start, stop, dummy in company_calendar_working_days
-                )
+                days_of_slot = {slot.start_datetime.date() + timedelta(days=i) for i in range(slot_duration.days + 1)}
+                is_slot_outside_working_days = not days_of_slot <= {start.date() for start, stop, dummy in company_calendar_working_days}
 
                 def can_slot_be_generated(next_start):
                     next_start_utc = next_start.replace(tzinfo=pytz.utc)
@@ -180,6 +180,11 @@ class PlanningRecurrency(models.Model):
                 slot_values_list = []
                 for next_start in get_all_next_starts():
                     next_end = next_start + slot_duration
+                    # Check that the duration is not longer than the month of the start to avoid overlapping slots
+                    if slot.repeat_unit == 'month':
+                        days_in_month = monthrange(next_start.year, next_start.month)[1]
+                        if slot_duration.days >= days_in_month:
+                            next_end -= timedelta(days=slot_duration.days - (days_in_month - 1))
                     slot_values = slot.copy_data({
                         'start_datetime': next_start,
                         'end_datetime': next_end,

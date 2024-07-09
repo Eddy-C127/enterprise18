@@ -1018,3 +1018,34 @@ class TestRecurrencySlotGeneration(TestCommonPlanning):
             self.env['planning.recurrency']._cron_schedule_next()
             self.assertEqual(len(self.get_by_employee(self.employee_joseph)), 6, 'second run should not generate any slots')
             self.assertEqual(len(self.get_by_employee(self.employee_bert)), 6, 'second run should not generate any slots')
+
+    def test_full_month_recurrency(self):
+        """
+        Check slot generation with an original slot of 31 days (full month) repeated monthly.
+            - February being shorter than 31 days, the generated slot should not exceed the length of the month to avoid
+            overlapping slots.
+            - February also starts on a weekend, but the slot should still be generated as the original slot contains
+            non-working days.
+        """
+        self.configure_recurrency_span(1)
+        self.env.user.tz = 'UTC'
+
+        slot = self.env['planning.slot'].create({
+            'name': 'Full month recurrency',
+            'start_datetime': datetime(2020, 1, 1, 8, 0),
+            'end_datetime': datetime(2020, 1, 31, 15, 0),
+            'resource_id': self.resource_bert.id,
+            'repeat': True,
+            'repeat_type': 'x_times',
+            'repeat_number': 4,
+            'repeat_interval': 1,
+            'repeat_unit': 'month',
+        })
+
+        self.assertEqual(
+            slot.recurrency_id.slot_ids.mapped(lambda r: (r.start_datetime, r.end_datetime)),
+            [(datetime(2020, 1, 1, 8, 0), datetime(2020, 1, 31, 15, 0)),
+             (datetime(2020, 2, 1, 8, 0), datetime(2020, 2, 29, 15, 0)),
+             (datetime(2020, 3, 1, 8, 0), datetime(2020, 3, 31, 15, 0)),
+             (datetime(2020, 4, 1, 8, 0), datetime(2020, 4, 30, 15, 0))],
+        )
