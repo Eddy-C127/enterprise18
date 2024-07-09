@@ -552,8 +552,11 @@ export default class BarcodePickingModel extends BarcodeModel {
         if (!this.shouldSplitLine(line)) {
             return false;
         }
-        // Gives the line's destination to the new line (the picking destination is used otherwise.)
-        const fieldsParams = { location_dest_id: line.location_dest_id.id };
+        // Use line's locations otherwise the picking's locations are used as default locations.
+        const fieldsParams = {
+            location_id: line.location_id.id,
+            location_dest_id: line.location_dest_id.id,
+        };
         const newLine = await this._createNewLine({ copyOf: line, fieldsParams });
         // Update the reservation of the both old and new lines.
         newLine.reserved_uom_qty = line.reserved_uom_qty - line.qty_done;

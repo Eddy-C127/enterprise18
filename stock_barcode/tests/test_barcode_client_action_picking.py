@@ -2638,11 +2638,13 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         """ Ensures a non-complete line is split when a destination is scanned. """
         self.clean_access_rights()
         self.env.user.write({'groups_id': [(4, self.env.ref('stock.group_stock_multi_locations').id, 0)]})
+        self.picking_type_internal.restrict_scan_dest_location = 'mandatory'
+        self.picking_type_internal.restrict_scan_source_location = 'mandatory'
         # Creates a receipt for 4x product1 and confirm it.
         receipt = self.env['stock.picking'].create({
             'location_dest_id': self.picking_type_in.default_location_dest_id.id,
             'location_id': self.supplier_location.id,
-            'name': "receipt test_split_line_on_destination_scan",
+            'name': "receipt_split_line_on_destination_scan",
             'picking_type_id': self.picking_type_in.id,
         })
         self.env['stock.move'].create({
@@ -2653,13 +2655,36 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             'product_id': self.product1.id,
             'product_uom_qty': 4,
         })
-        # Process the receipt in a tour, then checks its move lines values.
         receipt.action_confirm()
-        url = self._get_client_action_url(receipt.id)
-        self.start_tour(url, 'test_split_line_on_destination_scan', login='admin')
+        # Create an internal transfer for 7x product2 (reserved from two different locations.)
+        self.env['stock.quant']._update_available_quantity(self.product2, self.shelf1, 3)
+        self.env['stock.quant']._update_available_quantity(self.product2, self.shelf2, 4)
+        internal = self.env['stock.picking'].create({
+            'location_dest_id': self.stock_location.id,
+            'location_id': self.stock_location.id,
+            'name': "internal_split_line_on_destination_scan",
+            'picking_type_id': self.picking_type_internal.id,
+        })
+        self.env['stock.move'].create({
+            'location_dest_id': internal.location_dest_id.id,
+            'location_id': internal.location_id.id,
+            'name': "product2 x7",
+            'picking_id': internal.id,
+            'product_id': self.product2.id,
+            'product_uom_qty': 7,
+        })
+        internal.action_confirm()
+        # Process the receipt and the internal transfer in a tour, then checks its move lines values.
+        self.start_tour('/odoo/barcode', 'test_split_line_on_destination_scan', login='admin')
         self.assertRecordValues(receipt.move_line_ids, [
-            {'qty_done': 2, 'location_dest_id': receipt.location_dest_id.id},
-            {'qty_done': 2, 'location_dest_id': self.shelf1.id},
+            {'quantity': 2, 'picked': True, 'location_dest_id': receipt.location_dest_id.id},
+            {'quantity': 2, 'picked': True, 'location_dest_id': self.shelf1.id},
+        ])
+        self.assertRecordValues(internal.move_line_ids, [
+            {'quantity': 2, 'picked': True, 'location_id': self.shelf1.id, 'location_dest_id': self.shelf3.id},
+            {'quantity': 2, 'picked': True, 'location_id': self.shelf2.id, 'location_dest_id': self.shelf2.id},
+            {'quantity': 1, 'picked': True, 'location_id': self.shelf1.id, 'location_dest_id': self.stock_location.id},
+            {'quantity': 2, 'picked': True, 'location_id': self.shelf2.id, 'location_dest_id': self.shelf1.id},
         ])
 
     def test_split_line_on_exit_for_delivery(self):
