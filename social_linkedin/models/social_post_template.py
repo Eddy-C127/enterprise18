@@ -33,13 +33,13 @@ class SocialPostTemplate(models.Model):
                     f'/web/image/{image._origin.id or image.id}'
                     for image in post.image_ids.sorted(lambda image: image._origin.id or image.id, reverse=True)
                 ]
-            elif url_in_message := self.env['social.post']._extract_url_from_message(post.message):
-                preview = self.env['mail.link.preview'].sudo()._search_or_create_from_url(url_in_message) or {}
-                link_preview['url'] = url_in_message
-                link_preview['domain'] = urlparse(url_in_message).hostname
-                if image_url := preview.get('og_image'):
+            elif url := self.env["social.post"]._extract_url_from_message(post.message):
+                preview = self.env["mail.link.preview"].sudo()._search_or_create_from_url(url)
+                link_preview["url"] = url
+                link_preview["domain"] = urlparse(url).hostname
+                if image_url := preview.og_image:
                     image_urls.append(image_url)
-                if title := preview.get('og_title'):
+                if title := preview.og_title:
                     link_preview['title'] = title
 
             post.linkedin_preview = self.env['ir.qweb']._render('social_linkedin.linkedin_preview', {
