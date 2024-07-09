@@ -255,7 +255,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
             for line_vals in sheet_line_vals[move_idx].values():
                 for field, value in line_vals.items():
                     if field in FORMAT_NEEDED_FIELDS and value != '':
-                        line_vals[field] = "{:.2f}".format(value)
+                        line_vals[field] = round(value, 2)
 
     def _get_sheet_line_vals(self, lines):
         """ Parse the invoice lines to generate each report lines based on the combination
@@ -346,7 +346,10 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
             for move_idx in sheet_vals['line_vals']:
                 for line_vals in sheet_vals['line_vals'][move_idx].values():
                     for col_idx, field in enumerate(sheet_vals['fields']):
-                        sheet_vals['sheet'].write(sheet_vals['row_idx'], col_idx, line_vals[field])
+                        if field in FORMAT_NEEDED_FIELDS and line_vals[field] and options.get('number_format'):
+                            sheet_vals['sheet'].write(sheet_vals['row_idx'], col_idx, line_vals[field], options.get('number_format'))
+                        else:
+                            sheet_vals['sheet'].write(sheet_vals['row_idx'], col_idx, line_vals[field])
                     sheet_vals['row_idx'] += 1
 
     def export_libros_de_iva(self, options):
@@ -354,9 +357,11 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         output = io.BytesIO()
         workbook = xlsxwriter.Workbook(output, {'in_memory': True, 'strings_to_formulas': False})
 
+        number_format = workbook.add_format({'num_format': '0.00'})
         sheet_income = workbook.add_worksheet('EXPEDIDAS_INGRESOS')
         sheet_expense = workbook.add_worksheet('RECIBIDAS_GASTOS')
 
+        options['number_format'] = number_format
         self._fill_libros_header(sheet_income, sheet_expense)
         self._fill_libros_content(sheet_income, sheet_expense, report, options)
 
