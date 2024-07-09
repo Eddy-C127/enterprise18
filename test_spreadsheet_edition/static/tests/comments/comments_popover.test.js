@@ -52,13 +52,13 @@ test("Selecting the cell with an unsolved thread opens the thread in edit mode",
     const mailComposerInput = fixture.querySelector(".o-mail-Composer textarea");
     expect(document.activeElement).toBe(mailComposerInput);
 });
-test("Selecting the cell with an unsolved thread does not open the thread popover", async () => {
+test("Selecting the cell with a resolved thread does not open the thread popover", async () => {
     const { model, pyEnv } = await setupWithThreads();
     const sheetId = model.getters.getActiveSheetId();
     await createThread(model, pyEnv, { sheetId, col: 0, row: 0 }, ["wave"]);
     const threadId = model.getters.getSpreadsheetThreads([sheetId])[0].threadId;
-    model.dispatch("EDIT_COMMENT_THREAD", { threadId, sheetId, col: 0, row: 0 });
-    selectCell(model, "A2");
+    model.dispatch("EDIT_COMMENT_THREAD", { threadId, sheetId, col: 0, row: 0, isResolved: true });
+    selectCell(model, "A1");
     await animationFrame();
     expect(".o-thread-popover").toHaveCount(0);
     expect(".o-mail-Thread").toHaveCount(0);
