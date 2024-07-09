@@ -5,6 +5,7 @@ from freezegun import freeze_time
 
 from odoo import Command
 from odoo.tests import Form, common
+from odoo.exceptions import UserError
 
 class TestWorkorderDurationHr(common.TransactionCase):
     @classmethod
@@ -81,3 +82,10 @@ class TestWorkorderDurationHr(common.TransactionCase):
             line.loss_id = self.env.ref('mrp.block_reason7')
         wo_form.save()
         self.assertEqual(wo.duration, 150)
+        # Check that the work order cannot be started when it's finished
+        self.mo.qty_producing = 1
+        self.env.user.employee_id = self.employee_1
+        wo.do_finish()
+        self.assertEqual(wo.state, 'done')
+        with self.assertRaises(UserError):
+            wo.button_start()
