@@ -75,8 +75,8 @@ class KnowledgeArticleThread(models.Model):
         have access to an article to post a message in the thread.
         We need to apply this method with sudo for portal users because they do not have access to the
         `mail.message` model, which is needed to post the message.
-        This idea is based on the method `portal_chatter_post` which needs to check access rights in
-        order to let the portal post in the chatter.
+        This idea is based on the override of `mail_message_post` method in portal which needs to
+        check access rights in order to let the portal post in the chatter.
 
         Before posting as a portal we filter what's being sent to lessen security risks. Notably
         partner_ids should be a list of ids (not the records themselves) so that we don't allow command
