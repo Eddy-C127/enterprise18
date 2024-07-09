@@ -20,7 +20,10 @@ class MrpProductionSchedule(models.Model):
 
     @api.model
     def _default_warehouse_id(self):
-        return self.env['stock.warehouse'].search(self.env['stock.warehouse']._check_company_domain(self.env.company), limit=1)
+        warehouse = self.env['stock.warehouse'].search(self.env['stock.warehouse']._check_company_domain(self.env.company), limit=1)
+        if not warehouse:
+            self.env['stock.warehouse']._warehouse_redirect_warning()
+        return warehouse
 
     forecast_ids = fields.One2many('mrp.product.forecast', 'production_schedule_id',
         'Forecasted quantity at date')
