@@ -5,6 +5,7 @@ from odoo import Command
 from odoo.addons.industry_fsm_sale.tests.common import TestFsmFlowSaleCommon
 from odoo.exceptions import UserError
 from odoo.tests import tagged, Form
+from odoo.tools.float_utils import float_compare
 
 
 @tagged('-at_install', 'post_install')
@@ -195,3 +196,37 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
             line.price_unit = 0.01
         so_form.save()
         self.assertEqual(sol.qty_to_invoice, 2.0, "$0.01 shouldn't count as free")
+
+    def test_uom_conversion_fsm_task_to_so(self):
+        """Checks that the hours recorded on Timesheets are converted to the correct UOM on the Sales Order"""
+
+        working_time = self.env['uom.category'].search([('name', '=', 'Working Time')])
+        quarter_hour = self.env['uom.uom'].create({
+            'name': 'Quarter-Hours',
+            'category_id': working_time.id,
+            'ratio': 32.0,
+            'uom_type': 'smaller',
+        })
+        self.service_timesheet._inverse_service_policy()  # trigger value changes for invoice policy and service_type
+        self.service_timesheet.uom_id = quarter_hour
+        self.service_timesheet.list_price = 40
+        self.fsm_project.sale_line_employee_ids = [Command.create({
+            'employee_id': self.employee_user2.id,
+            'timesheet_product_id': self.service_timesheet.id,
+            'price_unit': 40,
+        })]
+        field_task = self.env['project.task'].create({
+            'name': 'Field Task',
+            'project_id': self.fsm_project.id,
+            'timesheet_ids': [Command.create({
+                'employee_id': self.employee_user2.id,
+                'name': '/',
+                'unit_amount': 1.75,  # 01:45
+                'product_uom_id': self.env['uom.uom'].search([('name', '=', 'Hours')]).id
+            })],
+            'partner_id': self.partner_1.id,
+        })
+        field_task.action_fsm_validate()
+        sale_order = field_task.sale_order_id
+        order_lines = sale_order.order_line
+        self.assertEqual(float_compare(order_lines.product_uom_qty, 7.0, precision_digits=2), 0, "The Ordered Quantities should match the Timesheets at the time of creation")

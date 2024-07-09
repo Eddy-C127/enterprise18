@@ -523,12 +523,19 @@ class Task(models.Model):
 
             for (timesheet_product_id, price_unit, uom_id), timesheets in product_timesheets_dict.items():
                 sol = sols_by_product_and_price_dict.get((timesheet_product_id, price_unit))  # get the existing SOL with the product and the correct price unit
+                mapping_uom = self.env['uom.uom'].browse(uom_id)
+                total_amount = 0
+                for timesheet in timesheets:
+                    if timesheet.product_uom_category_id == mapping_uom.category_id and timesheet.product_uom_id != mapping_uom:
+                        total_amount += timesheet.product_uom_id._compute_quantity(timesheet.unit_amount, mapping_uom, rounding_method='HALF-UP')
+                    else:
+                        total_amount += timesheet.unit_amount
                 if not sol:  # Then we create it
                     sol_vals = {
                         **self._get_sale_order_line_vals(),
                         'price_unit': 0.0 if self.under_warranty else price_unit,
                         'product_id': timesheet_product_id,
-                        'product_uom_qty': sum(timesheets.mapped('unit_amount')),
+                        'product_uom_qty': total_amount,
                     }
                     sol = self.env['sale.order.line'].sudo().create(sol_vals)
                 # Link the SOL to the timesheets
