@@ -541,7 +541,7 @@ class Document(models.Model):
 
             if record.attachment_id:
                 # versioning
-                if attachment_id:
+                if attachment_id and attachment_id != record.attachment_id.id:
                     # Link the new attachment to the related record and link the previous one
                     # to the document.
                     self.env["ir.attachment"].browse(attachment_id).with_context(

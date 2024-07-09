@@ -425,6 +425,17 @@ class TestCaseDocuments(TransactionCase):
         check_attachment_res_fields(old_attachment, "documents.document", document.id)
         self.assertEqual(document.attachment_id.id, new_attachment.id, "the document should contain the new attachment")
         self.assertEqual(document.previous_attachment_ids, original_attachment, "the history should contain the original attachment")
+        document.write({"attachment_id": document.attachment_id.id})
+        check_attachment_res_fields(new_attachment, "res.users", self.doc_user.id)
+        self.assertEqual(
+            document.attachment_id.id,
+            new_attachment.id,
+            "the document attachment should not have changed",
+        )
+        self.assertTrue(
+            new_attachment not in document.previous_attachment_ids,
+            "the history should not contain the new attachment",
+        )
         document.write({'datas': DATA})
         self.assertEqual(document.attachment_id, new_attachment)
 
