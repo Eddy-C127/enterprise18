@@ -1,3 +1,4 @@
+from . import pos_config
 from . import pricer_tag
 from . import product_product
 from . import product_template
