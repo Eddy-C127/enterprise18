@@ -11,14 +11,14 @@ import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/a
 import { _t } from "@web/core/l10n/translation";
 
 import { useState, useSubEnv } from "@odoo/owl";
-import { DocumentsSpreadsheetNavbar } from "../components/documents_spreadsheet_navbar/documents_spreadsheet_navbar";
+import { SpreadsheetNavbar } from "@spreadsheet_edition/bundle/components/spreadsheet_navbar/spreadsheet_navbar";
 
 export class SpreadsheetAction extends AbstractSpreadsheetAction {
     static template = "documents_spreadsheet.SpreadsheetAction";
     static components = {
         SpreadsheetComponent,
         SpreadsheetName,
-        DocumentsSpreadsheetNavbar,
+        SpreadsheetNavbar,
     };
     static path = "spreadsheet";
     static displayName = _t("Spreadsheet");

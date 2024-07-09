@@ -19,6 +19,7 @@
             <div class="d-flex align-items-center">
                 <div t-if="breadcrumbs.length > 1" class="btn btn-link o-sp-breadcrumb fw-normal" t-on-click="onBreadcrumbClicked" t-esc="breadcrumbTitle"/>
                 <SpreadsheetName name="props.spreadsheetName" isReadonly="props.isReadonly" onSpreadsheetNameChanged="props.onSpreadsheetNameChanged" />
+                <t t-slot="navbar-additional-actions"/>
             </div>
         </xpath>
         <xpath expr="//t[@t-call='web.NavBar.SectionsMenu']" position="replace"/>

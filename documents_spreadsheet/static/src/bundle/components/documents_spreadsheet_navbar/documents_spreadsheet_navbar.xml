@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<templates>
-
-    <t t-name="documents_spreadsheet.DocumentsSpreadsheetNavbar" t-inherit="spreadsheet_edition.SpreadsheetNavbar" t-inherit-mode="primary">
-        <xpath expr="//SpreadsheetName" position="after">
-            <a title="Toggle favorite" t-on-click="props.onFavoriteToggled" t-attf-class="o-sp-favorite fa fa-lg fa-star{{!props.isFavorited ? '-o' : ' favorite_button_enabled'}}"/>
-        </xpath>
-    </t>
-</templates>

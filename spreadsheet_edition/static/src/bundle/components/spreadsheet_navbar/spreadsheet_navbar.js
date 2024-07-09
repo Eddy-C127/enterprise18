@@ -16,6 +16,10 @@ export class SpreadsheetNavbar extends EnterpriseNavBar {
             type: Function,
             optional: true,
         },
+        slots: {
+            type: Object,
+            optional: true,
+        },
     };
 
     setup() {
