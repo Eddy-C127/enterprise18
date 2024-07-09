@@ -48,5 +48,10 @@ export class EnterpriseNavBar extends NavBar {
         if (appSubMenus) {
             appSubMenus.classList.toggle("o_hidden", !this.isInApp);
         }
+
+        const breadcrumb = this.navRef.el.querySelector(".o_breadcrumb");
+        if (breadcrumb) {
+            breadcrumb.classList.toggle("o_hidden", !this.isInApp);
+        }
     }
 }

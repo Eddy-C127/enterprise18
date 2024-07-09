@@ -101,7 +101,7 @@ test("scroll position is kept", async () => {
     expect(".o_form_view").toHaveCount(1);
     expect(".o_kanban_view").toHaveCount(0);
 
-    click(".o_control_panel .o_back_button");
+    click(".o_breadcrumb .o_back_button");
     await animationFrame();
     expect(".o_form_view").toHaveCount(0);
     expect(".o_kanban_view").toHaveCount(1);

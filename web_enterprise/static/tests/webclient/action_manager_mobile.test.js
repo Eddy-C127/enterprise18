@@ -105,7 +105,7 @@ test("lazy load mobile-friendly view", async () => {
     expect(".o_form_view").toHaveCount(1);
 
     // go back to lazy loaded view
-    click(".o_control_panel .o_breadcrumb .o_back_button");
+    click(".o_breadcrumb .o_back_button");
     await animationFrame();
     expect(".o_list_view").toHaveCount(0);
     expect(".o_form_view").toHaveCount(0);
@@ -133,7 +133,7 @@ test("lazy load mobile-friendly view; legacy url", async () => {
     expect(".o_form_view").toHaveCount(1);
 
     // go back to lazy loaded view
-    click(".o_control_panel .o_breadcrumb .o_back_button");
+    click(".o_breadcrumb .o_back_button");
     await animationFrame();
     expect(".o_list_view").toHaveCount(0);
     expect(".o_form_view").toHaveCount(0);
