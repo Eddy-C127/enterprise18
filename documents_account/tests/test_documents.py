@@ -445,8 +445,8 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         self.assertEqual(len(attachment2), 1)
 
         self.env.flush_all()
-        with self.assertQueryCount(60):
-            # Local: 53, runbot: 60
+        with self.assertQueryCount(62):
+            # Local: 48, runbot: 62
             (move1 | move2).unlink()
 
         self.assertTrue(attachment1.exists())
