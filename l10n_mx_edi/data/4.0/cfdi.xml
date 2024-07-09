@@ -82,6 +82,7 @@
                                 </t>
                             </cfdi:Retenciones>
                         </cfdi:Impuestos>
+                        <cfdi:CuentaPredial t-if="line_values['cuenta_predial']" t-att-Numero="line_values['cuenta_predial']"/>
                     </cfdi:Concepto>
                 </t>
             </cfdi:Conceptos>

@@ -32,6 +32,12 @@ class TestCFDIInvoice(TestMxEdiCommon):
                             'quantity': 5,
                             'discount': 20.0,
                         }),
+                        # Product with Predial Account
+                        Command.create({
+                            'product_id': self._create_product(l10n_mx_edi_predial_account='123456789').id,
+                            'quantity': 3.0,
+                            'tax_ids': [],
+                        }),
                         # Ignored lines by the CFDI:
                         Command.create({
                             'product_id': self.product.id,

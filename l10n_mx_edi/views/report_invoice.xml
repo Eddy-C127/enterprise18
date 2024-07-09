@@ -57,6 +57,18 @@
             <t t-set="o_grid_layout" t-value="original_o_grid_layout"/>
         </xpath>
 
+        <!-- Add new column on invoice lines: Predial Account -->
+        <xpath expr="//table[@name='invoice_line_table']//th[@name='th_quantity']" position="before">
+            <th class="text-end" name="th_predial_account">
+                <span>Predial Account</span>
+            </th>
+        </xpath>
+        <xpath expr="//table[@name='invoice_line_table']//td[@name='td_quantity']" position="before">
+            <td t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" name="td_predial_account">
+                <span t-out="line.product_id.l10n_mx_edi_predial_account"></span>
+            </td>
+        </xpath>
+
         <!-- Add new column on invoice lines: Product Code -->
         <xpath expr="//table[@name='invoice_line_table']//th[@name='th_quantity']" position="before">
             <th class="text-end" name="th_product_unspsc_code">

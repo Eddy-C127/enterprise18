@@ -48,6 +48,7 @@ This module allows the creation of the EDI documents and the communication with 
         'views/res_bank_view.xml',
         'views/res_config_settings_view.xml',
         'views/res_country_view.xml',
+        'views/product_views.xml',
 
         'wizard/account_move_send_views.xml',
         'wizard/l10n_mx_edi_invoice_cancel.xml',
