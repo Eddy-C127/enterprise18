@@ -10,7 +10,6 @@ from hashlib import sha384
 
 from odoo import models, fields, _
 from odoo.addons.l10n_co_dian import xml_utils
-from odoo.exceptions import UserError
 from odoo.tools import cleanup_xml_node, float_repr
 from odoo.addons.l10n_co_edi.models.res_partner import FINAL_CONSUMER_VAT
 from odoo.addons.l10n_co_edi.models.account_invoice import L10N_CO_EDI_TYPE
@@ -642,7 +641,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         # EXTENDS account.edi.xml.ubl_20
         xml, errors = super()._export_invoice(invoice, convert_fixed_taxes=False)
         if errors:
-            raise UserError("\n".join(errors))
+            return xml, errors
         xml = self._dian_insert_corporate_registration_scheme_node(invoice, xml)
         return self._dian_sign_xml(xml, invoice)
 
