@@ -172,7 +172,6 @@ class TestRentalCommon(TransactionCase):
         partner = self.env['res.partner'].create({'name': 'A partner'})
         pricelist_A = self.env['product.pricelist'].create({
             'name': 'Pricelist A',
-            'discount_policy': 'without_discount',
             'company_id': self.env.company.id,
             'item_ids': [(0, 0, {
                 'applied_on': '3_global',
@@ -182,7 +181,6 @@ class TestRentalCommon(TransactionCase):
         })
         pricelist_B = self.env['product.pricelist'].create({
             'name': 'Pricelist B',
-            'discount_policy': 'without_discount',
             'company_id': self.env.company.id,
             'item_ids': [(0, 0, {
                 'applied_on': '3_global',

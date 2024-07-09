@@ -42,6 +42,7 @@ class ProductTemplate(models.Model):
         if not product_or_template.rent_ok:
             return res
 
+        res['list_price'] = res['price']  # No pricelist discount for rental prices
         currency = website.currency_id
         pricelist = website.pricelist_id
         ProductPricing = self.env['product.pricing']
@@ -226,8 +227,9 @@ class ProductTemplate(models.Model):
             }
         ), None
 
-    def _get_sales_prices(self, pricelist, fiscal_position):
-        prices = super()._get_sales_prices(pricelist, fiscal_position)
+    def _get_sales_prices(self, website):
+        prices = super()._get_sales_prices(website)
+        pricelist = website.pricelist_id
 
         for template in self:
             if not template.rent_ok:

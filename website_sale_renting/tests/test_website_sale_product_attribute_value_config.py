@@ -93,9 +93,6 @@ class TestWebsiteSaleRentingProductAttributeValueConfig(TestSaleProductAttribute
         currency_ratio = 2
         pricelist.currency_id = self._setup_currency(currency_ratio)
 
-        # ensure pricelist is set to with_discount
-        pricelist.discount_policy = 'with_discount'
-
         computer = self.computer.with_context(website_id=self.website.id)
         price_3_hours = self.website.currency_id.round(
             self.price_3_hours * discount_rate * currency_ratio

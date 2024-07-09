@@ -57,6 +57,7 @@ class ProductTemplate(models.Model):
         if not product_or_template.recurring_invoice:
             return res
 
+        res['list_price'] = res['price']  # No pricelist discount for subscription prices
         currency = website.currency_id
         pricelist = website.pricelist_id
         requested_plan = request and request.params.get('plan_id')
@@ -139,9 +140,10 @@ class ProductTemplate(models.Model):
             }
         ), 0
 
-    def _get_sales_prices(self, pricelist, fiscal_position):
-        prices = super()._get_sales_prices(pricelist, fiscal_position)
-
+    def _get_sales_prices(self, website):
+        prices = super()._get_sales_prices(website)
+        pricelist = website.pricelist_id
+        fiscal_position = website.fiscal_position_id.sudo()
         currency = pricelist.currency_id or self.env.company.currency_id
         date = fields.Date.context_today(self)
         website = self.env['website'].get_current_website()

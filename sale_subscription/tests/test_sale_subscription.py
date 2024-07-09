@@ -2957,7 +2957,6 @@ class TestSubscription(TestSubscriptionCommon):
     def test_subscription_pricelist_discount(self):
         context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True, }
         pricelist = self.company_data['default_pricelist']
-        pricelist.discount_policy = 'without_discount'
         pricelist.item_ids.create({
             'pricelist_id': pricelist.id,
             'compute_price': 'percentage',
@@ -2988,7 +2987,6 @@ class TestSubscription(TestSubscriptionCommon):
     def test_non_subscription_pricelist_discount(self):
         context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True, }
         pricelist = self.company_data['default_pricelist']
-        pricelist.discount_policy = 'without_discount'
         pricelist.item_ids.create({
             'pricelist_id': pricelist.id,
             'compute_price': 'percentage',
