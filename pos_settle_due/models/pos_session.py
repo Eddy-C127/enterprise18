@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
+from odoo import models
 
 
 class PosSession(models.Model):
@@ -21,7 +21,8 @@ class PosSession(models.Model):
 
     def _get_pos_ui_res_partner(self, params):
         partners_list = super()._get_pos_ui_res_partner(params)
-        if self.config_id.currency_id != self.env.company.currency_id and self.user_has_groups('account.group_account_readonly'):
+        if self.config_id.currency_id != self.env.company.currency_id and self.user_has_groups('account.group_account_readonly') or self.env.ref('point_of_sale.group_pos_user') in self.env.user.groups_id:
             for partner in partners_list:
-                partner['total_due'] = self.env.company.currency_id._convert(partner['total_due'], self.config_id.currency_id, self.env.company, fields.Date.today())
+                partner_id = self.env['res.partner'].browse(partner['id'])
+                partner['total_due'] = partner_id.get_total_due(self.config_id.currency_id.id)
         return partners_list
