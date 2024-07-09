@@ -318,9 +318,10 @@ class Planning(models.Model):
                     AND S1.id <> S2.id AND S1.resource_id = S2.resource_id
                     AND S1.allocated_percentage + S2.allocated_percentage > 100
                     and S1.id in %s
+                    AND (%s or S2.state = 'published')
                 GROUP BY S1.id;
             """
-            self.env.cr.execute(query, (tuple(self.ids),))
+            self.env.cr.execute(query, (tuple(self.ids), self.env.user.has_group('planning.group_planning_manager')))
             overlap_mapping = dict(self.env.cr.fetchall())
             for slot in self:
                 slot_result = overlap_mapping.get(slot.id, [])

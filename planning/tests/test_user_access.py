@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.tests import new_test_user, tagged, HttpCase
+from odoo.tests import Form, new_test_user, tagged, HttpCase
 #from odoo.tests.common import TransactionCase
 from odoo.exceptions import AccessError, UserError
 from odoo.fields import Command
@@ -435,3 +435,25 @@ class TestUserAccess(HttpCase):
 
         # 2. Launching tour as planning user with no additional hr right
         self.start_tour("/", 'planning_avatar_card_non_hr_user', login='planuser')
+
+    def test_resource_conflicts_with_user(self):
+        planning_slots = self.env['planning.slot'].create([
+            {
+                'resource_id': self.res_internal_user.id,
+                'allocated_hours': 4,
+                'start_datetime': datetime(2019, 6, 6, 8, 0, 0),
+                'end_datetime': datetime(2019, 6, 6, 12, 0, 0),
+                'state': 'published',
+            }, {
+                'resource_id': self.res_internal_user.id,
+                'allocated_hours': 4,
+                'start_datetime': datetime(2019, 6, 6, 8, 0, 0),
+                'end_datetime': datetime(2019, 6, 6, 12, 0, 0),
+            }
+        ])
+        with Form(planning_slots[0].with_user(self.planning_user)) as slot:
+            self.assertEqual(slot.record.overlap_slot_count, 0)
+            self.assertFalse(slot.record.conflicting_slot_ids)
+        with Form(planning_slots[0].with_user(self.planning_mgr)) as slot:
+            self.assertEqual(slot.record.overlap_slot_count, 1)
+            self.assertEqual(slot.record.conflicting_slot_ids, planning_slots[1])
