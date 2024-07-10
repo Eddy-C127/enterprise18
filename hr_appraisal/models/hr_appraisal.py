@@ -33,7 +33,7 @@ class HrAppraisal(models.Model):
     active = fields.Boolean(default=True)
     employee_id = fields.Many2one(
         'hr.employee', required=True, string='Employee', index=True,
-        default=_get_default_employee)
+        default=_get_default_employee, ondelete='cascade')
     employee_user_id = fields.Many2one('res.users', string="Employee User", related='employee_id.user_id')
     company_id = fields.Many2one('res.company', related='employee_id.company_id', store=True)
     department_id = fields.Many2one(
@@ -576,7 +576,13 @@ class HrAppraisal(models.Model):
             return True
         # This record only exists if the scenario has been already launched
         goal_tag = self.env.ref('hr_appraisal.hr_appraisal_goal_tag_softskills', raise_if_not_found=False)
-        return bool(goal_tag)
+        if goal_tag:
+            return True
+        return bool(self.env['ir.module.module'].search_count([
+            '&',
+                ('state', 'in', ['installed', 'to upgrade', 'uninstallable']),
+                ('demo', '=', True)
+        ]))
 
     def _load_demo_data(self):
         if self.has_demo_data():

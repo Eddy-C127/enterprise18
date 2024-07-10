@@ -14,7 +14,7 @@ class HrAppraisalGoal(models.Model):
     name = fields.Char(required=True)
     employee_id = fields.Many2one(
         'hr.employee', string="Employee",
-        default=lambda self: self.env.user.employee_id, required=True)
+        default=lambda self: self.env.user.employee_id, required=True, ondelete='cascade')
     employee_autocomplete_ids = fields.Many2many('hr.employee', compute='_compute_is_manager')
     company_id = fields.Many2one(related='employee_id.company_id')
     manager_id = fields.Many2one('hr.employee', string="Manager", compute="_compute_manager_id", readonly=False, store=True, required=True)

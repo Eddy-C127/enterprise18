@@ -249,4 +249,4 @@ class TestHrAppraisal(TransactionCase):
         self.assertTrue(appraisals, "Appraisal not created")
 
     def test_load_scenario(self):
-        self.env['hr_attendance']._load_demo_data()
+        self.env['hr.appraisal']._load_demo_data()

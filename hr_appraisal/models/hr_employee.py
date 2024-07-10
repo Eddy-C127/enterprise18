@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
+
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
@@ -100,3 +100,9 @@ class HrEmployee(models.Model):
             'context': {'default_employee_id': self.id},
         })
         return action
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_expect_goal_manager(self):
+        is_goal_manager = self.env['hr.appraisal.goal'].search_count([('manager_id', 'in', self.ids)])
+        if is_goal_manager:
+            raise UserError(_("You cannot delete an employee who is a goal's manager, archive it instead."))
