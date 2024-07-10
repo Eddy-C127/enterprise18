@@ -652,7 +652,7 @@ class MrpProductionWorkcenterLine(models.Model):
             and super()._web_gantt_reschedule_is_relation_candidate(master, slave, start_date_field_name, stop_date_field_name)
 
     def _web_gantt_reschedule_compute_dates(self, date_candidate, search_forward, start_date_field_name, stop_date_field_name):
-        from_date, to_date = self.workcenter_id._get_first_available_slot(date_candidate, self.duration_expected, backward=not search_forward, leaves_to_ignore=self.leave_id)
+        from_date, to_date = self.workcenter_id._get_first_available_slot(date_candidate, self.duration_expected, forward=search_forward, leaves_to_ignore=self.leave_id)
         return [from_date, to_date]
 
     def _web_gantt_reschedule_write_new_dates(self, new_start_date, new_stop_date, start_date_field_name, stop_date_field_name):
