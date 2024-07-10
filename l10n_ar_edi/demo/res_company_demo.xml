@@ -60,15 +60,15 @@
             <field name='l10n_ar_afip_pos_system'>BFEWS</field>
         </record>
 
-        <function name="_onchange_type" model="account.journal">
+        <function name="_compute_refund_sequence" model="account.journal">
             <value eval="[ref('l10n_ar_edi.ws_fe_journal_ri')]"/>
         </function>
 
-        <function name="_onchange_type" model="account.journal">
+        <function name="_compute_refund_sequence" model="account.journal">
             <value eval="[ref('l10n_ar_edi.ws_fex_journal_ri')]"/>
         </function>
 
-        <function name="_onchange_type" model="account.journal">
+        <function name="_compute_refund_sequence" model="account.journal">
             <value eval="[ref('l10n_ar_edi.ws_bfe_journal_ri')]"/>
         </function>
         
