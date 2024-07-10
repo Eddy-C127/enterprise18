@@ -4,7 +4,9 @@
 from collections import defaultdict
 
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.osv import expression
+
 
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
@@ -25,6 +27,16 @@ class HelpdeskTicket(models.Model):
              "You can also change or remove the sales order item of each timesheet entry individually.")
     remaining_hours_available = fields.Boolean(related="sale_line_id.remaining_hours_available", export_string_translation=False)
     remaining_hours_so = fields.Float('Time Remaining on SO', compute='_compute_remaining_hours_so', search='_search_remaining_hours_so', aggregator="avg")
+
+    @api.constrains('sale_line_id')
+    def _check_sale_line_type(self):
+        for ticket in self:
+            if ticket.sale_line_id and not ticket.sale_line_id.is_service:
+                raise ValidationError(_(
+                    'You cannot link order item %(order_id)s - %(product_id)s to this ticket because it is not a service product.',
+                    order_id=ticket.sale_line_id.order_id.name,
+                    product_id=ticket.sale_line_id.product_id.display_name,
+                ))
 
     @api.depends('sale_line_id', 'timesheet_ids', 'timesheet_ids.unit_amount')
     def _compute_remaining_hours_so(self):

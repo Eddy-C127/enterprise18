@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo.exceptions import ValidationError
 from odoo.tests import tagged, Form
 from odoo.addons.sale_timesheet.tests.common import TestCommonSaleTimesheet
 
@@ -236,3 +237,30 @@ class TestSaleTimesheetInTicket(TestCommonSaleTimesheet):
             'employee_id': self.employee_user.id,
         })
         self.assertEqual(timesheet.commercial_partner_id, ticket.commercial_partner_id)
+
+    def test_allowing_service_product_type_sol_in_helpdesk(self):
+        """ Test to validate allowing service product type in ticket """
+
+        # Create a sale order
+        sale_order = self.env['sale.order'].with_context(mail_notrack=True, mail_create_nolog=True).create({
+            'partner_id': self.partner_a.id,
+        })
+
+        # Create a sale order line with a consumable product
+        sale_order_line = self.env['sale.order.line'].create({
+            'order_id': sale_order.id,  # Corrected reference to the created sale order
+            'product_id': self.product_consumable.id,
+            'product_uom_qty': 10,
+        })
+
+        # Confirm the sale order
+        sale_order.action_confirm()
+
+        # Test that creating a helpdesk ticket with a non-service product raises a ValidationError
+        with self.assertRaises(ValidationError, msg="Creating a helpdesk ticket with a non-service product should raise a ValidationError"):
+            self.env['helpdesk.ticket'].create({
+                'name': 'Test Ticket with non_service Product',
+                'team_id': self.helpdesk_team.id,
+                'partner_id': self.partner_a.id,
+                'sale_line_id': sale_order_line.id,
+            })
