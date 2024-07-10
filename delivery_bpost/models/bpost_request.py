@@ -313,7 +313,7 @@ class BpostRequest():
         used in creating the request in making order in bpost.
         """
         boxes = []
-        for package in picking.package_ids:
+        for package in picking.move_line_ids.result_package_id:
             package_lines = picking.move_line_ids.filtered(lambda sml: sml.result_package_id.id == package.id)
             parcel_value = sum(sml.sale_price for sml in package_lines)
             weight_in_kg = carrier._bpost_convert_weight(package.shipping_weight)

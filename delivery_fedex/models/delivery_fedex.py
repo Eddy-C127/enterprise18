@@ -220,7 +220,8 @@ class ProviderFedex(models.Model):
 
             srm.transaction_detail(picking.id)
 
-            package_type = picking.package_ids and picking.package_ids[0].package_type_id.shipper_package_code or self.fedex_default_package_type_id.shipper_package_code
+            packages = picking.move_line_ids.result_package_id
+            package_type = packages and packages[0].package_type_id.shipper_package_code or self.fedex_default_package_type_id.shipper_package_code
             srm.shipment_request(self.fedex_droppoff_type, self.fedex_service_type, package_type, self.fedex_weight_unit, self.fedex_saturday_delivery)
             srm.set_currency(_convert_curr_iso_fdx(order_currency.name))
             srm.set_shipper(picking.company_id.partner_id, picking.picking_type_id.warehouse_id.partner_id)
@@ -248,7 +249,7 @@ class ProviderFedex(models.Model):
                 send_etd = superself.env['ir.config_parameter'].get_param("delivery_fedex.send_etd")
                 srm.commercial_invoice(self.fedex_document_stock_type, send_etd)
 
-            package_count = len(picking.package_ids) or 1
+            package_count = len(picking.move_line_ids.result_package_id) or 1
 
             # For india picking courier is not accepted without this details in label.
             po_number = order.display_name or False
@@ -352,7 +353,8 @@ class ProviderFedex(models.Model):
 
         srm.transaction_detail(picking.id)
 
-        package_type = picking.package_ids and picking.package_ids[0].package_type_id.shipper_package_code or self.fedex_default_package_type_id.shipper_package_code
+        packages = picking.move_line_ids.result_package_id
+        package_type = packages and packages[0].package_type_id.shipper_package_code or self.fedex_default_package_type_id.shipper_package_code
         srm.shipment_request(self.fedex_droppoff_type, self.fedex_service_type, package_type, self.fedex_weight_unit, self.fedex_saturday_delivery)
         srm.set_currency(_convert_curr_iso_fdx(picking.company_id.currency_id.name))
         srm.set_shipper(picking.partner_id, picking.partner_id)
@@ -365,7 +367,7 @@ class ProviderFedex(models.Model):
             net_weight = self._fedex_convert_weight(picking._get_estimated_weight(), self.fedex_weight_unit)
         else:
             net_weight = self._fedex_convert_weight(picking.shipping_weight, self.fedex_weight_unit)
-        package_type = picking.package_ids[:1].package_type_id or picking.carrier_id.fedex_default_package_type_id
+        package_type = packages[:1].package_type_id or picking.carrier_id.fedex_default_package_type_id
         order = picking.sale_id
         po_number = order.display_name or False
         dept_number = False
