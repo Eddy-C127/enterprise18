@@ -1,9 +1,11 @@
 /** @odoo-module **/
 
 import {
-    AccountMoveUploadKanbanController,
+    AccountMoveKanbanController,
+} from "@account/views/account_move_kanban/account_move_kanban_controller";
+import {
     AccountMoveListController,
-} from "@account/components/bills_upload/bills_upload";
+} from "@account/views/account_move_list/account_move_list_controller";
 import { Component, onWillStart, useSubEnv } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
 import { _t } from "@web/core/l10n/translation";
@@ -88,5 +90,5 @@ export function qrBillScannerController() {
     }
 }
 
-patch(AccountMoveUploadKanbanController.prototype, qrBillScannerController());
+patch(AccountMoveKanbanController.prototype, qrBillScannerController());
 patch(AccountMoveListController.prototype, qrBillScannerController());
