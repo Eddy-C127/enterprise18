@@ -8,28 +8,20 @@ from odoo.exceptions import UserError
 class EventMailScheduler(models.Model):
     _inherit = 'event.mail'
 
-    @api.model
-    def _selection_template_model(self):
-        return super(EventMailScheduler, self)._selection_template_model() + [('social.post.template', 'Social')]
-
-    def _selection_template_model_get_mapping(self):
-        return {**super(EventMailScheduler, self)._selection_template_model_get_mapping(), 'social_post': 'social.post.template'}
-
-    notification_type = fields.Selection(selection_add=[('social_post', 'Social Post')], ondelete={'social_post': 'set default'})
-
-    @api.depends('notification_type')
-    def _compute_template_model_id(self):
-        social_model = self.env['ir.model']._get('social.post.template')
-        social_mails = self.filtered(lambda mail: mail.notification_type == 'social_post')
-        social_mails.template_model_id = social_model
-        super(EventMailScheduler, self - social_mails)._compute_template_model_id()
+    notification_type = fields.Selection(selection_add=[('social_post', 'Social Post')])
+    template_ref = fields.Reference(ondelete={'social.post.template': 'cascade'}, selection_add=[('social.post.template', 'Social Post')])
 
     @api.constrains('template_ref', 'interval_type')
     def _check_interval_type(self):
         """Cannot select "after_sub" if the notification type is "social_post"."""
         for mail in self:
-            if mail.template_ref and mail.template_ref._name == 'social.post.template' and mail.interval_type == 'after_sub':
+            if mail.notification_type == 'social_post' and mail.interval_type == 'after_sub':
                 raise UserError(_('As social posts have no recipients, they cannot be triggered by registrations.'))
+
+    def _compute_notification_type(self):
+        super()._compute_notification_type()
+        social_schedulers = self.filtered(lambda scheduler: scheduler.template_ref and scheduler.template_ref._name == 'social.post.template')
+        social_schedulers.notification_type = 'social_post'
 
     def execute(self):
         social_post_mails = self.filtered(
@@ -54,11 +46,3 @@ class EventMailScheduler(models.Model):
             })
 
         return super(EventMailScheduler, self - social_post_mails).execute()
-
-    @api.onchange('notification_type')
-    def set_template_ref_model(self):
-        super().set_template_ref_model()
-        mail_model = self.env['social.post.template']
-        if self.notification_type == 'social_post':
-            record = mail_model.search([], limit=1)
-            self.template_ref = "{},{}".format('social.post.template', record.id) if record else False

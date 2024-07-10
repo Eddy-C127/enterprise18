@@ -5,7 +5,7 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo.addons.event.tests.common import EventCase
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError
 from odoo.tests import Form, users
 
 
@@ -28,7 +28,6 @@ class EventSocialCase(EventCase):
             self.env['event.type'].create({
                 'name': 'Super category',
                 'event_type_mail_ids': [(0, 0, {
-                    'notification_type': 'social_post',
                     'template_ref': 'social.post.template,%i' % social_template.id,
                     'interval_type': 'after_sub'
                 })],
@@ -36,7 +35,6 @@ class EventSocialCase(EventCase):
 
         with self.assertRaises(UserError):
             self.env['event.mail'].create({
-                'notification_type': 'social_post',
                 'template_ref': 'social.post.template,%i' % social_template.id,
                 'interval_type': 'after_sub',
                 'event_id': self.test_event.id,
@@ -48,7 +46,7 @@ class EventSocialCase(EventCase):
         social_template = self.env['social.post.template'].create({'message': 'Join the Python side of the force!'})
         category = self.env['event.type'].create({
             'name': 'Super category',
-            'event_type_mail_ids': [(0, 0, {'notification_type': 'social_post', 'template_ref': 'social.post.template,%i' % social_template.id})],
+            'event_type_mail_ids': [(0, 0, {'template_ref': 'social.post.template,%i' % social_template.id})],
         })
         event_form = Form(self.env['event.event'])
         event_form.name = 'Test event'
@@ -59,30 +57,4 @@ class EventSocialCase(EventCase):
 
         self.assertEqual(event.name, 'Test event')
         self.assertEqual(len(event.event_mail_ids), 1)
-        self.assertEqual(event.event_mail_ids.notification_type, 'social_post')
         self.assertEqual(event.event_mail_ids.template_ref, social_template)
-
-    def test_social_post_template_ref_model_constraint(self):
-        mail_template = self.env['mail.template'].create({
-            'name': 'test template',
-            'model_id': self.env['ir.model']._get_id('event.registration')
-        })
-        social_template = self.env['social.post.template'].create({'message': 'Join the Python side of the force !'})
-
-        with self.assertRaises(ValidationError):
-            self.env['event.mail'].create({
-                'event_id': self.test_event.id,
-                'notification_type': 'social_post',
-                'interval_unit': 'now',
-                'interval_type': 'before_event',
-                'template_ref': mail_template, # Incorrect template reference model
-            })
-
-        with self.assertRaises(ValidationError):
-            self.env['event.mail'].create({
-                'event_id': self.test_event.id,
-                'notification_type': 'mail',
-                'interval_unit': 'now',
-                'interval_type': 'before_event',
-                'template_ref': social_template, # Incorrect template reference model
-            })

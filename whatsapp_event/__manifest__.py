@@ -11,6 +11,11 @@
     'demo': [
         'data/event_mail_demo.xml'
     ],
+    'assets': {
+        'web.assets_backend': [
+            'whatsapp_event/static/src/template_reference_field/field_event_mail_template_reference.xml',
+        ],
+    },
     'license': 'OEEL-1',
     'auto_install': True,
 }

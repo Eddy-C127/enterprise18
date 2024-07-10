@@ -60,13 +60,11 @@ class TestWhatsappSchedule(EventCase, WhatsAppCommon):
                 (0, 0, {  # right at subscription
                     'interval_unit': 'now',
                     'interval_type': 'after_sub',
-                    'notification_type': 'whatsapp',
                     'template_ref': 'whatsapp.template,%i' % cls.whatsapp_template_sub.id}),
                 (0, 0, {  # 3 days before event
                     'interval_nbr': 3,
                     'interval_unit': 'days',
                     'interval_type': 'before_event',
-                    'notification_type': 'whatsapp',
                     'template_ref': 'whatsapp.template,%i' % cls.whatsapp_template_rem.id}),
             ],
             'name': 'Test Event',

@@ -13,5 +13,10 @@ This module allows you to schedule social posts from the event communication."""
         'security/ir.model.access.csv',
     ],
     'auto_install': True,
+    'assets': {
+        'web.assets_backend': [
+            'event_social/static/src/template_reference_field/field_event_mail_template_reference.xml',
+        ],
+    },
     'license': 'OEEL-1',
 }

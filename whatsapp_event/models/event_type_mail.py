@@ -1,19 +1,14 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class EventTypeMail(models.Model):
     _inherit = 'event.type.mail'
 
-    @api.model
-    def _selection_template_model(self):
-        return super()._selection_template_model() + [('whatsapp.template', 'WhatsApp')]
+    template_ref = fields.Reference(ondelete={'whatsapp.template': 'cascade'}, selection_add=[('whatsapp.template', 'WhatsApp')])
 
-    notification_type = fields.Selection(selection_add=[('whatsapp', 'WhatsApp')], ondelete={'whatsapp': 'set default'})
-
-    def _compute_template_model_id(self):
-        whatsapp_model = self.env['ir.model']._get('whatsapp.template')
-        whatsapp_mails = self.filtered(lambda mail: mail.notification_type == 'whatsapp')
-        whatsapp_mails.template_model_id = whatsapp_model
-        super(EventTypeMail, self - whatsapp_mails)._compute_template_model_id()
+    def _compute_notification_type(self):
+        super()._compute_notification_type()
+        social_schedulers = self.filtered(lambda scheduler: scheduler.template_ref and scheduler.template_ref._name == 'whatsapp.template')
+        social_schedulers.notification_type = 'whatsapp'
