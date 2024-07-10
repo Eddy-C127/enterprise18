@@ -68,9 +68,6 @@
                     <field name="all_employees_allowed" column_invisible="True"/>
                     <field name="employee_assigned_ids" widget="many2many_avatar_user" domain="not all_employees_allowed and [('id','in',allowed_employees)] or []" optional="hidden"/>
             </xpath>
-            <xpath expr="//tree" position='attributes'>
-                <attribute name="js_class">tablet_list_view</attribute>
-            </xpath>
         </field>
     </record>
 
