@@ -4,7 +4,7 @@ from datetime import datetime
 from odoo import Command
 from odoo.addons.industry_fsm_sale.tests.common import TestFsmFlowSaleCommon
 from odoo.exceptions import UserError
-from odoo.tests import tagged
+from odoo.tests import tagged, new_test_user
 from odoo.tests.common import Form
 from odoo.tools.float_utils import float_compare
 
@@ -231,3 +231,30 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         sale_order = field_task.sale_order_id
         order_lines = sale_order.order_line
         self.assertEqual(float_compare(order_lines.product_uom_qty, 7.0, precision_digits=2), 0, "The Ordered Quantities should match the Timesheets at the time of creation")
+
+    def test_task_sale_order_auto_fills_salesperson(self):
+        """
+        Check that sale order has an assigned salesperson by default when adding products to it.
+        Expected behavior is: 1st assignee if any, current user if not
+        """
+        assignee_1 = new_test_user(self.env, login='john')
+        assignee_2 = new_test_user(self.env, login='albert')
+
+        task_no_assignee, task_with_assignee = self.env['project.task'].with_context({
+            'default_project_id': self.fsm_project_employee_rate.id,
+        }).create([
+            {
+                'name': 'No assignee',
+                'partner_id': self.partner_1.id
+            },
+            {
+                'name': 'With assignee',
+                'partner_id': self.partner_1.id,
+                'user_ids': [assignee_1.id, assignee_2.id],
+            },
+        ])
+
+        task_no_assignee._fsm_create_sale_order()
+        task_with_assignee._fsm_create_sale_order()
+        self.assertEqual(task_no_assignee.sale_order_id.user_id, self.env.user)
+        self.assertEqual(task_with_assignee.sale_order_id.user_id, assignee_1)

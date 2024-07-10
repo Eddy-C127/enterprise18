@@ -401,7 +401,8 @@ class Task(models.Model):
             'origin': f'{self.project_id.name} - {self.name}',
         })
         # update after creation since onchange_partner_id sets the current user
-        sale_order.user_id = user_id.id
+        if user_id:
+            sale_order.user_id = user_id
 
         self.sale_order_id = sale_order
 
