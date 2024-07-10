@@ -330,7 +330,7 @@
             <field name="employee_ids" eval="[(4, ref('l10n_in_hr_employee_vihaan'))]"/>
             <field name="monthly_amount">5500</field>
             <field name="total_amount">5500</field>
-            <field name="deduction_type_id" ref="hr_payroll.hr_salary_attachment_type_assignment"/>
+            <field name="other_input_type_id" ref="hr_payroll.input_assignment_salary"/>
             <field name="date_start" eval="DateTime.today() - relativedelta(years=1, month=10, day=1)"/>
             <field name="description">Health Insurance</field>
             <field name="company_id" ref="base.demo_company_in"/>

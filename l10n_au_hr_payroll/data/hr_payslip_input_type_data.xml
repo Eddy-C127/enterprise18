@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="input_leave_loading_lump" model="hr.payslip.input.type">
         <field name="name">Leave loading lump sum</field>
         <field name="code">LEAVE.LOAD</field>
@@ -172,6 +171,8 @@
         <field name="name">Cents per Kilometer: Mileage for business purposes up to ATO measure</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_1</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_paygw_treatment">no_paygw</field>
@@ -183,6 +184,8 @@
         <field name="name">Cents per Kilometer: Mileage for business purposes in excess of ATO measure</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_2</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">excess</field>
@@ -195,6 +198,8 @@
         <field name="name">Cents per Kilometer: Mileage for other vehicles</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_3</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -207,6 +212,8 @@
         <field name="name">Cents per Kilometer: Mileage for private purposes assessed to be fully spent</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_4</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -219,6 +226,8 @@
         <field name="name">Cents per Kilometer: Mileage for private purposes assessed not to be fully spent</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_5</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -231,6 +240,8 @@
         <field name="name">Award Transport: Transport for business purposes traced to historical award</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_6</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_paygw_treatment">no_paygw</field>
@@ -242,6 +253,8 @@
         <field name="name">Award Transport: Transport for business purposes not traced to historical award</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_7</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -254,6 +267,8 @@
         <field name="name">Award Transport: Transport for private purposes</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_8</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -266,6 +281,8 @@
         <field name="name">Laundry: Allowance for approved uniforms up to ATO measure</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_9</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_paygw_treatment">no_paygw</field>
@@ -277,6 +294,8 @@
         <field name="name">Laundry: Allowance for approved uniforms above ATO measure</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_10</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">excess</field>
@@ -289,6 +308,8 @@
         <field name="name">Laundry: Allowance for the exception for conventional clothing</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_11</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -301,6 +322,8 @@
         <field name="name">Laundry: Allowance for non-approved uniforms or private purposes</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_12</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -313,6 +336,8 @@
         <field name="name">Call Back: Called back to work overtime after leaving premises</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_13</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">salary</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -324,6 +349,8 @@
         <field name="name">On Call: Pre-sacrificed amount for payments outside ordinary hours</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_14</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">salary</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -335,6 +362,8 @@
         <field name="name">On Call: Pre-sacrificed amount for payments within ordinary hours</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_15</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -346,6 +375,8 @@
         <field name="name">Domestic Travel Allowance: For meals, accommodation and incidentals when sleeping away for business purposes up to ATO measures</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_16</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_paygw_treatment">no_paygw</field>
@@ -357,6 +388,8 @@
         <field name="name">Domestic Travel Allowance: For meals, accommodation and incidentals when not sleeping away for business purposes</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_17</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -369,6 +402,8 @@
         <field name="name">Domestic Travel Allowance: For meals, accommodation and incidentals when sleeping away for business purposes above ATO measures</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_18</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">excess</field>
@@ -381,6 +416,8 @@
         <field name="name">Domestic Travel Allowance: For meals, accommodation and incidentals when sleeping away for private purposes</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_19</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -393,6 +430,8 @@
         <field name="name">Overseas Travel Allowance: For meals and incidentals for business purposes up to ATO measures</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_20</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_paygw_treatment">no_paygw</field>
@@ -404,6 +443,8 @@
         <field name="name">Overseas Travel Allowance: For meals and incidentals for business purposes above ATO measures</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_21</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">excess</field>
@@ -416,6 +457,8 @@
         <field name="name">Overseas Travel Allowance: For meals and incidentals for private purposes</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_22</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -428,6 +471,8 @@
         <field name="name">Overseas Accommodation Allowance: For business purposes</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_23</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -440,6 +485,8 @@
         <field name="name">Overseas Accommodation Allowance: For private purposes</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_24</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -452,6 +499,8 @@
         <field name="name">Work-Related Non-Expense: Allowance to compensate for specific work, activities, disabilities, skills or qualifications</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_25</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -463,6 +512,8 @@
         <field name="name">Qualifications Expense: To cover the cost of qualifications, insurance, licenses and certifications</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_26</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -474,6 +525,8 @@
         <field name="name">Uniform Allowance: For purchase of approved uniforms</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_27</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -486,6 +539,8 @@
         <field name="name">Car: Fixed rates paid to cover transport costs not covered by award transport</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_28</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -498,6 +553,8 @@
         <field name="name">Home Office: Allowance to cover the cost of equipment or connection</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_29</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -510,6 +567,8 @@
         <field name="name">Fares: Allowance to cover the cost of fares</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_30</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -522,6 +581,8 @@
         <field name="name">Other Deductible: Deductible allowances not defined separately elsewhere</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">ALLOWANCE_31</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_paygw_treatment">regular</field>
@@ -534,6 +595,8 @@
         <field name="name">Living Away From Home Allowance</field>
         <field name="country_id" ref="base.au"/>
         <field name="code">LAWFHA</field>
+        <field name="default_no_end_date" eval="True"/>
+        <field name="available_in_attachments" eval="True"/>
         <field name="l10n_au_payment_type">allowance</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_paygw_treatment">no_paygw</field>

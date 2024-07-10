@@ -230,7 +230,7 @@
         <record id="child_support" model="hr.salary.attachment">
             <field name="employee_ids" eval="[(4, ref('hr.employee_qdp'))]"/>
             <field name="monthly_amount">7500</field>
-            <field name="deduction_type_id" ref="hr_payroll.hr_salary_attachment_type_child_support"/>
+            <field name="other_input_type_id" ref="hr_payroll.input_child_support"/>
             <field name="date_start" eval="DateTime.today()"/>
             <field name="description">Child Support</field>
         </record>

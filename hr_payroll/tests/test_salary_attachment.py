@@ -22,18 +22,8 @@ class TestSalaryAttachment(TestPayslipBase):
             'date_generated_from': datetime(self.current_year, 1, 1, 0, 0),
             'date_generated_to': datetime(self.current_year, 1, 1, 0, 0),
         })
-        self.attachement_type, self.child_support_type = self.env['hr.salary.attachment.type'].create([
-            {
-                'name': 'Attachment of Salary',
-                'code': 'ATTACH_SALARY',
-                'no_end_date': False,
-            },
-            {
-                'name': 'Child Support',
-                'code': 'CHILD_SUPPORT',
-                'no_end_date': True,
-            }
-        ])
+        self.attachement_type = self.env.ref('hr_payroll.input_attachment_salary')
+        self.child_support_type = self.env.ref('hr_payroll.input_child_support')
 
     def action_pay_payslip(self, employee):
         payslip = self.env['hr.payslip'].create({
@@ -48,7 +38,7 @@ class TestSalaryAttachment(TestPayslipBase):
         attachment = self.env['hr.salary.attachment'].create({
             'employee_ids': [self.toto.id],
             'description': 'Fixed amount',
-            'deduction_type_id': self.attachement_type.id,
+            'other_input_type_id': self.attachement_type.id,
             'date_start': date(self.current_year, 1, 1),
             'monthly_amount': 200,
             'total_amount': 600,
@@ -66,7 +56,7 @@ class TestSalaryAttachment(TestPayslipBase):
         attachment = self.env['hr.salary.attachment'].create({
             'employee_ids': [self.toto.id],
             'description': 'Monthly amount',
-            'deduction_type_id': self.child_support_type.id,
+            'other_input_type_id': self.child_support_type.id,
             'date_start': date(self.current_year, 1, 1),
             'monthly_amount': 500,
         })
@@ -84,7 +74,7 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Fixed amount A',
-                'deduction_type_id': self.attachement_type.id,
+                'other_input_type_id': self.attachement_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 200,
                 'total_amount': 500,
@@ -92,7 +82,7 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Fixed amount B',
-                'deduction_type_id': self.attachement_type.id,
+                'other_input_type_id': self.attachement_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 100,
                 'total_amount': 1000,
@@ -114,14 +104,14 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Monthly amount A',
-                'deduction_type_id': self.child_support_type.id,
+                'other_input_type_id': self.child_support_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 200,
             },
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Monthly amount B',
-                'deduction_type_id': self.child_support_type.id,
+                'other_input_type_id': self.child_support_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 500,
             }
@@ -135,7 +125,7 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Fixed amount',
-                'deduction_type_id': self.attachement_type.id,
+                'other_input_type_id': self.attachement_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 200,
                 'total_amount': 600,
@@ -143,7 +133,7 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Montly amount',
-                'deduction_type_id': self.child_support_type.id,
+                'other_input_type_id': self.child_support_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 500,
             }
@@ -157,7 +147,7 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Fixed A',
-                'deduction_type_id': self.attachement_type.id,
+                'other_input_type_id': self.attachement_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 100,
                 'total_amount': 1000,
@@ -165,7 +155,7 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Fixed B',
-                'deduction_type_id': self.attachement_type.id,
+                'other_input_type_id': self.attachement_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 200,
                 'total_amount': 500,
@@ -173,14 +163,14 @@ class TestSalaryAttachment(TestPayslipBase):
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Montly A',
-                'deduction_type_id': self.child_support_type.id,
+                'other_input_type_id': self.child_support_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 100,
             },
             {
                 'employee_ids': [self.toto.id],
                 'description': 'Montly B',
-                'deduction_type_id': self.child_support_type.id,
+                'other_input_type_id': self.child_support_type.id,
                 'date_start': date(self.current_year, 1, 1),
                 'monthly_amount': 200,
             }

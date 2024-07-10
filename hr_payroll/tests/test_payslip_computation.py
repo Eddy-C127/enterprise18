@@ -291,7 +291,7 @@ class TestPayslipComputation(TestPayslipContractBase):
             {
                 'employee_ids': [(4, self.richard_emp.id)],
                 'monthly_amount': 150,
-                'deduction_type_id': self.env.ref('hr_payroll.hr_salary_attachment_type_child_support').id,
+                'other_input_type_id': self.env.ref('hr_payroll.input_child_support').id,
                 'date_start': date(2016, 1, 1),
                 'description': 'Child Support',
             },
@@ -300,7 +300,7 @@ class TestPayslipComputation(TestPayslipContractBase):
                 'monthly_amount': 400,
                 'total_amount': 1000,
                 'paid_amount': 1000,
-                'deduction_type_id': self.env.ref('hr_payroll.hr_salary_attachment_type_assignment').id,
+                'other_input_type_id': self.env.ref('hr_payroll.input_assignment_salary').id,
                 'date_start': date(2015, 1, 1),
                 'date_end': date(2015, 4, 1),
                 'description': 'Unpaid fine',
@@ -313,7 +313,7 @@ class TestPayslipComputation(TestPayslipContractBase):
                 'monthly_amount': 250,
                 'paid_amount': 1450,
                 'total_amount': 1500,
-                'deduction_type_id': self.env.ref('hr_payroll.hr_salary_attachment_type_attachment').id,
+                'other_input_type_id': self.env.ref('hr_payroll.input_attachment_salary').id,
                 'date_start': date(2016, 1, 1),
                 'description': 'Car accident',
         })

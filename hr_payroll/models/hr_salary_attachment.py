@@ -38,13 +38,14 @@ class HrSalaryAttachment(models.Model):
         default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
     description = fields.Char(required=True)
-    deduction_type_id = fields.Many2one(
-        'hr.salary.attachment.type',
-        string='Type',
+    other_input_type_id = fields.Many2one(
+        'hr.payslip.input.type',
+        string="Type",
         required=True,
         tracking=True,
+        domain=[('available_in_attachments', '=', True)]
     )
-    no_end_date = fields.Boolean(related='deduction_type_id.no_end_date', store=True)
+    no_end_date = fields.Boolean(compute='_compute_no_end_date', store=True, readonly=False)
     monthly_amount = fields.Monetary('Payslip Amount', required=True, tracking=True, help='Amount to pay each payslip.')
     occurrences = fields.Integer(
         compute='_compute_occurrences',
@@ -65,7 +66,7 @@ class HrSalaryAttachment(models.Model):
         'Remaining Amount', compute='_compute_remaining_amount', store=True,
         help='Remaining amount to be paid.',
     )
-    is_quantity = fields.Boolean(related='deduction_type_id.is_quantity')
+    is_quantity = fields.Boolean(related='other_input_type_id.is_quantity')
     is_refund = fields.Boolean()
     date_start = fields.Date('Start Date', required=True, default=lambda r: start_of(fields.Date.today(), 'month'), tracking=True)
     date_estimated_end = fields.Date(
@@ -98,6 +99,11 @@ class HrSalaryAttachment(models.Model):
     has_similar_attachment = fields.Boolean(compute='_compute_has_similar_attachment')
     has_similar_attachment_warning = fields.Char(compute='_compute_has_similar_attachment')
 
+    @api.depends('other_input_type_id')
+    def _compute_no_end_date(self):
+        for attachment in self:
+            attachment.no_end_date = attachment.other_input_type_id.default_no_end_date
+
     @api.depends('employee_ids')
     def _compute_employee_count(self):
         for attachment in self:
@@ -122,7 +128,7 @@ class HrSalaryAttachment(models.Model):
                 continue
             attachment.occurrences = ceil(attachment.total_amount / attachment.monthly_amount)
 
-    @api.depends('deduction_type_id', 'date_end')
+    @api.depends('no_end_date', 'date_end')
     def _compute_has_total_amount(self):
         for record in self:
             if record.no_end_date and not record.date_end:
@@ -173,7 +179,7 @@ class HrSalaryAttachment(models.Model):
                     ('employee_ids', 'in', record.employee_ids.ids),
                     ('monthly_amount', '=', record.monthly_amount),
                     ('date_start', '<=', record.date_start),
-                    ('deduction_type_id', '=', record.deduction_type_id.id),
+                    ('other_input_type_id', '=', record.other_input_type_id.id),
                 ])
                 similar = similar.filtered(lambda s: s.employee_count == 1)
             record.has_similar_attachment = similar if record.state == 'open' else False
@@ -192,7 +198,7 @@ class HrSalaryAttachment(models.Model):
                 'employee_ids': [(4, employee.id)],
                 'company_id': self.company_id.id,
                 'description': self.description,
-                'deduction_type_id': self.deduction_type_id.id,
+                'other_input_type_id': self.other_input_type_id.id,
                 'monthly_amount': self.monthly_amount,
                 'total_amount': self.total_amount,
                 'paid_amount': self.paid_amount,
