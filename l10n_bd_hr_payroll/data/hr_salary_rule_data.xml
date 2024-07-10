@@ -138,7 +138,7 @@ else:
         yearly_taxable_amount -= taxable_in_current
         income_tax += taxable_in_current * rate
 
-result = -max(income_tax, payslip._rule_parameter('l10n_bd_yearly_maximum_tax')) / 12
+result = -max(income_tax, payslip._rule_parameter('l10n_bd_yearly_minimum_tax')) / 12
         </field>
     </record>
 </odoo>
