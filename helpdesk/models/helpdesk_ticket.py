@@ -394,7 +394,9 @@ class HelpdeskTicket(models.Model):
         display_partner_name = self._context.get('with_partner', False)
         ticket_with_name = self.filtered('name')
         for ticket in ticket_with_name:
-            name = f'{ticket.name} (#{ticket.ticket_ref})'
+            name = ticket.name
+            if ticket.ticket_ref:
+                name += f' (#{ticket.ticket_ref})'
             if display_partner_name and ticket.partner_name:
                 name += f' - {ticket.partner_name}'
             ticket.display_name = name

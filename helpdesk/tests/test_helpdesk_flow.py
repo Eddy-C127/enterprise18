@@ -725,3 +725,35 @@ should be in the ticket's description
             'partner_phone': ''
         })
         self.assertEqual(self.helpdesk_user.partner_id.phone, '123')
+
+    def test_ticket_display_name(self):
+        """
+        Test to verify that the display_name should not display the ID of its record when
+        it is not yet defined, leading to the display of '#False' in the interface.
+        Additionally test the display of partner_name in the display_name when passed in context.
+
+        The ticket is created in cache with the method `new` to allow the display_name
+        to be computed with the ticket_id still being `False`.
+        """
+        ticket = self.env['helpdesk.ticket'].new({
+            'name': "test ticket",
+            'partner_id': self.partner.id
+        })
+        self.assertEqual(ticket.display_name, "test ticket")
+
+        # create a record with the values passed from above ticket
+        record = self.env['helpdesk.ticket'].create({
+            'name': ticket.name,
+            'partner_id': ticket.partner_id.id
+        })
+        # verify that the ticket_ref is now added to the display_name
+        self.assertEqual(record.display_name, f"test ticket (#{record.ticket_ref})")
+
+        # create another record with the partner_name in the context
+        record_partner = self.env['helpdesk.ticket'].with_context(with_partner=True).create({
+            'name': "test ticket with partner",
+            'partner_id': self.partner.id
+        })
+        # verify that the partner_name is now added to the display_name
+        self.assertEqual(record_partner.display_name,
+                         f"test ticket with partner (#{record_partner.ticket_ref}) - {self.partner.name}")
