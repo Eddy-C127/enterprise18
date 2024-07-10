@@ -14,12 +14,6 @@
                             <t t-out="'Yes' if options.get('ask_restitution') else 'No'"/>
                         </div>
                     </div>
-                    <div class="row" t-if="'ask_payment' in options">
-                        <div class="col-5"> Ask payment: </div>
-                        <div class="col-7 o_text-muted">
-                            <t t-out="'Yes' if options.get('ask_payment') else 'No'"/>
-                        </div>
-                    </div>
                     <div class="row" t-if="'client_nihil' in options">
                         <div class="col-5"> Client nihil: </div>
                         <div class="col-7 o_text-muted">

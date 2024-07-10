@@ -176,7 +176,6 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             'year': str(dt_to[:4]),
             'client_nihil': options.get('client_nihil', False) and 'YES' or 'NO',
             'ask_restitution': options.get('ask_restitution', False) and 'YES' or 'NO',
-            'ask_payment': options.get('ask_payment', False) and 'YES' or 'NO',
             'comment': options.get('comment') or '/',
             'prorata_deduction': deduction_text,
             'representative_node': _get_xml_export_representative_node(report),
@@ -263,7 +262,7 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
         rslt += Markup("""
         </ns2:Data>
         <ns2:ClientListingNihil>%(client_nihil)s</ns2:ClientListingNihil>
-        <ns2:Ask Restitution="%(ask_restitution)s" Payment="%(ask_payment)s"/>
+        <ns2:Ask Restitution="%(ask_restitution)s"/>
         <ns2:Comment>%(comment)s</ns2:Comment>
     </ns2:VATDeclaration>
 </ns2:VATConsignment>

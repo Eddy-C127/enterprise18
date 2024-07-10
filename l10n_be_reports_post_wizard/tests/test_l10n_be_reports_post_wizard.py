@@ -132,7 +132,7 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
                     <ns2:Amount GridNumber="71">0.00</ns2:Amount>
                 </ns2:Data>
                 <ns2:ClientListingNihil>NO</ns2:ClientListingNihil>
-                <ns2:Ask Restitution="NO" Payment="NO"/>
+                <ns2:Ask Restitution="NO"/>
                 <ns2:Comment>{test_comment}</ns2:Comment>
             </ns2:VATDeclaration>
         </ns2:VATConsignment>

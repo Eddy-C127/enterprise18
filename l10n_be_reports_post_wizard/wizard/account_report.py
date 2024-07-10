@@ -10,6 +10,5 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
             options.update({
                 'closing_entry': previous_options.get('closing_entry'),
                 'ask_restitution': previous_options.get('ask_restitution'),
-                'ask_payment': previous_options.get('ask_payment'),
                 'client_nihil': previous_options.get('client_nihil'),
             })
