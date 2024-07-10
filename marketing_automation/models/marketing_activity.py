@@ -103,6 +103,8 @@ class MarketingActivity(models.Model):
     total_reply = fields.Integer(compute='_compute_statistics')
     total_bounce = fields.Integer(compute='_compute_statistics')
     statistics_graph_data = fields.Char(compute='_compute_statistics_graph_data')
+    # activity summary
+    activity_summary = fields.Html(string='Activity Summary', compute='_compute_activity_summary')
 
     @api.constrains('trigger_type', 'parent_id')
     def _check_consistency_in_activities(self):
@@ -210,6 +212,20 @@ class MarketingActivity(models.Model):
                 activity_data[act_id]['statistics_graph_data'] = json.dumps(graph_data)
             for activity in self:
                 activity.update(activity_data[activity._origin.id])
+
+    @api.depends('mass_mailing_id', 'server_action_id', 'interval_number', 'interval_type', 'trigger_type', 'parent_id', 'validity_duration', 'validity_duration_number', 'validity_duration_type')
+    def _compute_activity_summary(self):
+        """ Compute activity summary based on selection made by user, which includes information about the
+        activity's starting point, the linked Server Action or Mail/SMS Template, trigger type, and the expiry duration.
+        """
+        for activity in self:
+            activity.activity_summary = self.env['ir.qweb']._render('marketing_automation.marketing_activity_summary_template', {
+                'activity': activity,
+                'parent_activity_name': activity.parent_id.name,
+                'activity_type_label': dict(activity._fields['activity_type']._description_selection(self.env))[activity.activity_type],
+                'interval_type_label': dict(activity._fields['interval_type']._description_selection(self.env))[activity.interval_type],
+                'validity_duration_type_label': dict(activity._fields['validity_duration_type']._description_selection(self.env))[activity.validity_duration_type]
+            })
 
     @api.constrains('parent_id')
     def _check_parent_id(self):

@@ -18,6 +18,7 @@
         'views/marketing_participant_views.xml',
         'security/ir.model.access.csv',
         'security/sms_security.xml',
+        'data/marketing_activity_data_templates_sms.xml',
     ],
     'uninstall_hook': '_uninstall_hook',
     'auto_install': True,

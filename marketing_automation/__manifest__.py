@@ -23,6 +23,7 @@
         'views/marketing_trace_views.xml',
         'views/marketing_campaign_views.xml',
         'data/ir_cron_data.xml',
+        'data/marketing_activity_data_templates.xml',
     ],
     'application': True,
     'license': 'OEEL-1',

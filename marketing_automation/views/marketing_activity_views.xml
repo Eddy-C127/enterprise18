@@ -39,8 +39,6 @@
                                 placeholder="Pick a Server Action..."/>
                             <field name="statistics_graph_data" invisible="1" />
                             <field name="mass_mailing_id_mailing_type" invisible="1" />
-                        </group>
-                        <group>
                             <label for="interval_number" string="Trigger"/>
                             <div>
                                 <div>
@@ -70,6 +68,11 @@
                             <field name="model_name" invisible="1"/>
                             <field name="utm_campaign_id" invisible="1"/>
                         </group>
+                        <div>
+                            <div class="card card-body rounded-2">
+                                <field name="activity_summary" nolabel="1" class="ps-2"/>
+                            </div>
+                        </div>
                     </group>
                     <group string="Domain">
                         <field name="activity_domain" widget="domain" options="{'foldable': True, 'model': 'model_name'}" />
