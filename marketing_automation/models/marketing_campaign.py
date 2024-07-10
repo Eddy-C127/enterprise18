@@ -590,7 +590,7 @@ for record in records:
                 'templates': {
                     'welcome': {
                         'title': _('Welcome Flow'),
-                        'description': _('Send a welcome email to new subscribers, remove the address that bounced.'),
+                        'description': _('Send a welcome email to new subscribers, remove the addresses that bounced.'),
                         'icon': '/marketing_automation/static/img/hand_peace.svg',
                         'function': '_get_marketing_template_welcome_values',
                     },
