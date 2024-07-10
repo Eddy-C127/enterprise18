@@ -1,17 +1,18 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from dateutil.relativedelta import relativedelta
 import datetime
 import logging
 import pytz
 
-from dateutil.relativedelta import relativedelta
-
 from odoo import api, fields, models, _
+
 from odoo.exceptions import UserError
+from odoo.tools import convert
 from odoo.tools.misc import format_date
 
 _logger = logging.getLogger(__name__)
+
 
 class HrAppraisal(models.Model):
     _name = "hr.appraisal"
@@ -567,4 +568,23 @@ class HrAppraisal(models.Model):
             'target': 'new',
             'name': _('Appraisal Request'),
             'context': {'default_appraisal_id': self.id},
+        }
+
+    @api.model
+    def has_demo_data(self):
+        if not self.env.user.has_group("hr_appraisal.group_hr_appraisal_user"):
+            return True
+        # This record only exists if the scenario has been already launched
+        goal_tag = self.env.ref('hr_appraisal.hr_appraisal_goal_tag_softskills', raise_if_not_found=False)
+        return bool(goal_tag)
+
+    def _load_demo_data(self):
+        if self.has_demo_data():
+            return
+        self.env['hr.employee']._load_scenario()
+        convert.convert_file(self.env, 'hr_appraisal', 'data/scenarios/hr_appraisal_scenario.xml', None, mode='init',
+            kind='data')
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
         }

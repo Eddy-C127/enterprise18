@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from freezegun import freeze_time
@@ -248,3 +247,6 @@ class TestHrAppraisal(TransactionCase):
         self.env['res.company']._run_employee_appraisal_plans()
         appraisals = self.HrAppraisal.search([('employee_id', '=', self.hr_employee.id)])
         self.assertTrue(appraisals, "Appraisal not created")
+
+    def test_load_scenario(self):
+        self.env['hr_attendance']._load_demo_data()

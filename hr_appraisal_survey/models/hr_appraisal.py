@@ -1,7 +1,7 @@
-# -*- encoding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, _, api, SUPERUSER_ID
+from odoo.tools import convert
 
 
 class HrAppraisal(models.Model):
@@ -69,3 +69,12 @@ class HrAppraisal(models.Model):
         for appraisal in self.with_user(SUPERUSER_ID):
             body = _('A new 360 Feedback report has been completed for the appraisal of %(employee_name)s.', employee_name=appraisal.employee_id.name)
             appraisal.message_post(body=body, subtype_xmlid='hr_appraisal_survey.mt_360_feedback')
+
+    def _load_demo_data(self):
+        super()._load_demo_data()
+        convert.convert_file(self.env, 'hr_appraisal_survey', 'data/scenarios/scenario_appraisal_demo.xml', None, mode='init',
+        kind='data')
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }

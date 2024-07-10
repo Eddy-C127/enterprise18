@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+
+        <!-- Goals type -->
+        <record id="hr_appraisal_goal_tag_softskills" model="hr.appraisal.goal.tag">
+            <field name="name">Soft Skills</field>
+        </record>
+        <record id="hr_appraisal_goal_tag_hardskills" model="hr.appraisal.goal.tag">
+            <field name="name">Hard Skills</field>
+        </record>
+        <record id="hr_appraisal_goal_tag_training" model="hr.appraisal.goal.tag">
+            <field name="name">Training</field>
+        </record>
+        <record id="hr_appraisal_goal_tag_programming" model="hr.appraisal.goal.tag">
+            <field name="name">Programming</field>
+        </record>
+        <record id="hr_appraisal_goal_tag_internal" model="hr.appraisal.goal.tag">
+            <field name="name">Internal</field>
+        </record>
+        <record id="hr_appraisal_goal_tag_external" model="hr.appraisal.goal.tag">
+            <field name="name">External</field>
+        </record>
+
         <record id="base.user_demo" model="res.users">
             <field name="groups_id" eval="[
                 (3, ref('hr.group_hr_user')),
