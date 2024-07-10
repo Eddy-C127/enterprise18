@@ -24,7 +24,7 @@
             <div class="pivot_filter_input" t-if="!(relationState.relatedModel.technical === 'res.users' and relationState.defaultValue === 'current_user')">
                 <MultiRecordSelector
                     resModel="relationState.relatedModel.technical"
-                    resIds="relationState.defaultValue"
+                    resIds="relationState.defaultValue || []"
                     t-key="relationState.relatedModel.technical"
                     placeholder="''"
                     update.bind="onValuesSelected"
