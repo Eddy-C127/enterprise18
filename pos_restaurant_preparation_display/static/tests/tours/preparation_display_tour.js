@@ -1,3 +1,4 @@
+import * as Order from "@point_of_sale/../tests/tours/utils/generic_components/order_widget_util";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/utils/payment_screen_util";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/utils/receipt_screen_util";
 import * as FloorScreen from "@pos_restaurant/../tests/tours/utils/floor_screen_util";
@@ -79,5 +80,13 @@ registry.category("web_tour.tours").add("PreparationDisplayTourInternalNotes", {
             ProductScreen.addInternalNote("Test Internal Notes"),
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
+            Order.hasLine({
+                productName: "Coca-Cola",
+                internalNote: "Test Internal Notes",
+            }),
+            Order.hasLine({
+                productName: "Coca-Cola",
+                internalNote: "",
+            }),
         ].flat(),
 });

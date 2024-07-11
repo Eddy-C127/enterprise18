@@ -40,7 +40,7 @@ class PosOrder(models.Model):
 
         # create a dictionary with the key as a tuple of product_id, internal_note and attribute_value_ids
         for pdis_line in pdis_lines:
-            key = (pdis_line.product_id.id, pdis_line.internal_note or '', json.dumps(pdis_line.attribute_value_ids.ids))
+            key = (pdis_line.product_id.id, pdis_line.internal_note or '', json.dumps(pdis_line.attribute_value_ids.ids), pdis_line.pos_order_line_uuid)
             line_qty = pdis_line.product_quantity - pdis_line.product_cancelled
             if not quantity_data.get(key):
                 quantity_data[key] = {
@@ -55,7 +55,7 @@ class PosOrder(models.Model):
 
         for line in self.lines.filtered(lambda li: not li.skip_change):
             line_note = line.note or ""
-            key = (line.product_id.id, line_note, json.dumps(line.attribute_value_ids.ids))
+            key = (line.product_id.id, line_note, json.dumps(line.attribute_value_ids.ids), line.uuid)
 
             if not quantity_data.get(key):
                 quantity_data[key] = {
@@ -73,14 +73,14 @@ class PosOrder(models.Model):
             for line in pdis_lines[::-1]:
                 product_id = str(line.product_id.id)
                 for note in note_history.get(product_id, []):
-                    if line.internal_note == note['old'] and note['qty'] > 0 and line.product_quantity <= note['qty'] - note.get('used_qty', 0):
+                    if note["uuid"] == line.pos_order_line_uuid and line.internal_note == note['old'] and note['qty'] > 0 and line.product_quantity <= note['qty'] - note.get('used_qty', 0):
                         if not note.get('used_qty'):
                             note['used_qty'] = line.product_quantity
                         else:
                             note['used_qty'] += line.product_quantity
 
-                        key = (line.product_id.id, line.internal_note or '', json.dumps(line.attribute_value_ids.ids))
-                        key_new = (line.product_id.id, note['new'] or '', json.dumps(line.attribute_value_ids.ids))
+                        key = (line.product_id.id, line.internal_note or '', json.dumps(line.attribute_value_ids.ids), line.pos_order_line_uuid)
+                        key_new = (line.product_id.id, note['new'] or '', json.dumps(line.attribute_value_ids.ids), line.pos_order_line_uuid)
 
                         line.internal_note = note['new']
                         flag_change = True
@@ -132,6 +132,7 @@ class PosOrder(models.Model):
                             'product_id': product_id,
                             'product_quantity': line_qty,
                             'preparation_display_order_id': pdis_ticket.id,
+                            'pos_order_line_uuid': line.uuid,
                         })
             elif data['order'] < data['display']:
                 qty_to_cancel = data['display'] - data['order']

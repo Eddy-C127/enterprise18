@@ -25,12 +25,12 @@ patch(OrderlineNoteButton.prototype, {
                     added = true;
                 }
             }
-
             if (!added) {
                 order.uiState.noteHistory[productId].push({
                     old: oldNote,
                     new: inputNote || "",
                     lineId: selectedOrderline.id,
+                    uuid: selectedOrderline.uuid,
                 });
             }
         }
