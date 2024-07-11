@@ -713,6 +713,10 @@ class TestNlXafExportXmlValidity(TestNlXafExportCommon):
     def test_xml_validity(self):
         report = self.env.ref('account_reports.general_ledger_report')
         options = self._generate_options(report, fields.Date.from_string('2019-01-01'), fields.Date.from_string('2019-12-31'))
-        xaf_stream = self.env[report.custom_handler_model_name].l10n_nl_get_xaf(options).get('file_content')
-        generated_xaf = self.get_xml_tree_from_string(b''.join(xaf_stream))
+        try:
+            self.env.registry.enter_test_mode(self.cr)
+            xaf_stream = self.env[report.custom_handler_model_name].l10n_nl_get_xaf(options).get('file_content')
+            generated_xaf = self.get_xml_tree_from_string(b''.join(xaf_stream))
+        finally:
+            self.env.registry.leave_test_mode()
         return generated_xaf
