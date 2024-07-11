@@ -25,7 +25,6 @@ Mexican Payroll Rules.
         'data/hr_payroll_structure_type_data.xml',
         'views/hr_payroll_report.xml',
         'data/hr_payroll_structure_data.xml',
-        'data/hr_payslip_input_type_data.xml',
         'data/hr_rule_parameters_data.xml',
         'data/salary_rules/hr_salary_rule_regular_pay_data.xml',
         'data/salary_rules/hr_salary_rule_christmas_bonus_data.xml',
