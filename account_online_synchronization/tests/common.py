@@ -49,7 +49,7 @@ class AccountOnlineSynchronizationCommon(AccountTestInvoicingCommon):
             :param amount_currency: Amount of transaction in foreign currency, update transaction only if foreign_currency_code is given, by default equals 8.0
             :return: A dictionnary representing an online transaction (not formatted)
         """
-        transaction_identifier = transaction_identifier or self.transaction_id
+        transaction_identifier = transaction_identifier if transaction_identifier is not None else self.transaction_id
         if date:
             date = date if isinstance(date, str) else fields.Date.to_string(date)
         else:

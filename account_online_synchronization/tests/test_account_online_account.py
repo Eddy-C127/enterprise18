@@ -46,6 +46,46 @@ class TestAccountOnlineAccount(AccountOnlineSynchronizationCommon):
         )
 
     @freeze_time('2023-08-01')
+    def test_get_filtered_transactions_with_empty_transaction_identifier(self):
+        """ This test verifies that transactions without a transaction identifier
+            are not filtered due to their empty transaction identifier.
+        """
+        self.BankStatementLine.with_context(skip_statement_line_cron_trigger=True).create({
+            'date': '2023-08-01',
+            'journal_id': self.gold_bank_journal.id,
+            'online_transaction_identifier': '',
+            'payment_ref': 'transaction_ABCD01',
+            'amount': 10.0,
+        })
+
+        transactions_to_filtered = [
+            self._create_one_online_transaction(transaction_identifier=''),
+            self._create_one_online_transaction(transaction_identifier=''),
+        ]
+
+        filtered_transactions = self.account_online_account._get_filtered_transactions(transactions_to_filtered)
+
+        self.assertEqual(
+            filtered_transactions,
+            [
+                {
+                    'payment_ref': 'transaction_',
+                    'date': '2023-08-01',
+                    'online_transaction_identifier': '',
+                    'amount': 10.0,
+                    'partner_name': None,
+                },
+                {
+                    'payment_ref': 'transaction_',
+                    'date': '2023-08-01',
+                    'online_transaction_identifier': '',
+                    'amount': 10.0,
+                    'partner_name': None,
+                },
+            ]
+        )
+
+    @freeze_time('2023-08-01')
     def test_format_transactions(self):
         transactions_to_format = [
             self._create_one_online_transaction(transaction_identifier='ABCD01'),
