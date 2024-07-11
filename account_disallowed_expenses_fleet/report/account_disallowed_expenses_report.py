@@ -105,8 +105,7 @@ class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
             vehicle_is_null=SQL("""AND vehicle.id IS NULL""") if current.get('account_id') and not current.get('vehicle_id') and options.get('vehicle_split') else SQL()
         )
 
-        category_name = self.env['account.disallowed.expenses.category']._field_to_sql('category', 'name')
-        group_by = SQL("GROUP BY category.id, %s", category_name)
+        group_by = SQL("GROUP BY category.id")
 
         if len(current) == 1 and current.get('category_id'):
             # Expanding a category
@@ -125,13 +124,13 @@ class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
                 order_by = SQL("ORDER BY account.id")
         elif current.get('vehicle_id') and not current.get('account_id'):
             # Expanding a vehicle
-            group_by = SQL("%s, vehicle.id, vehicle.name, account.id", group_by)
-            order_by = SQL("ORDER BY vehicle.id, vehicle.name, account.id")
+            group_by = SQL("%s, vehicle.id, account.id", group_by)
+            order_by = SQL("ORDER BY vehicle.id, account.id")
         elif current.get('account_id') and options.get('multi_rate_in_period'):
             # Expanding an account
             if options.get('vehicle_split'):
-                group_by = SQL("%s, vehicle.id, vehicle.name, rate.rate, fleet_rate.rate", group_by)
-                order_by = SQL("ORDER BY vehicle.id, vehicle.name, rate.rate, fleet_rate.rate")
+                group_by = SQL("%s, vehicle.id, rate.rate, fleet_rate.rate", group_by)
+                order_by = SQL("ORDER BY vehicle.id, rate.rate, fleet_rate.rate")
             else:
                 group_by = SQL("%s, rate.rate, fleet_rate.rate", group_by)
                 order_by = SQL("ORDER BY rate.rate, fleet_rate.rate")
