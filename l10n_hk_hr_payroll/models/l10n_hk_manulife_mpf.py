@@ -9,7 +9,8 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.tools import format_date, xlsxwriter
+from odoo.tools import format_date
+from odoo.tools.misc import xlsxwriter
 
 from odoo.addons.l10n_hk_hr_payroll.models.l10n_hk_ird import MONTH_SELECTION
 
