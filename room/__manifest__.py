@@ -7,7 +7,7 @@
     'description': 'Experience the Ease of Booking Meeting Rooms with Real-Time Availability Display.',
     'category': 'Productivity/Room',
     'version': '1.0',
-    'depends': ['mail'],
+    'depends': ['mail', 'web_gantt'],
     'data': [
         'views/room_booking_views.xml',
         'views/room_room_views.xml',

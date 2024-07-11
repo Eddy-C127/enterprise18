@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _
+from odoo import fields, models, _
 from odoo.tools import format_list
 from lxml import etree
 
@@ -52,6 +52,8 @@ GANTT_VALID_ATTRIBUTES = set([
 
 class View(models.Model):
     _inherit = 'ir.ui.view'
+
+    type = fields.Selection(selection_add=[('gantt', 'Gantt')])
 
     def _validate_tag_gantt(self, node, name_manager, node_info):
         if not node_info['validate']:
@@ -108,3 +110,9 @@ class View(models.Model):
             models[self._name] = list(self._fields.keys())
             return models
         return super()._get_view_fields(view_type, models)
+
+    def _get_view_info(self):
+        return {'gantt': {'icon': 'fa fa-tasks'}} | super()._get_view_info()
+
+    def _is_qweb_based_view(self, view_type):
+        return view_type == 'gantt' or super()._is_qweb_based_view(view_type)

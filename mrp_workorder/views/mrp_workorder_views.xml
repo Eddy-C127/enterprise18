@@ -93,10 +93,92 @@
         </field>
     </record>
 
+<record id="workcenter_line_gantt_production" model="ir.ui.view">
+        <field name="name">mrp.production.work.order.gantt.production</field>
+        <field name="model">mrp.workorder</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <gantt class="o_mrp_workorder_gantt" date_stop="date_finished" date_start="date_start" string="Operations" default_group_by="production_id" create="0" delete="0"
+                progress="progress" plan="0"
+                decoration-danger="json_popover and 'text-danger' in json_popover"
+                decoration-success="state == 'done'"
+                decoration-warning="state == 'cancel' or (json_popover and 'text-warning' in json_popover)"
+                color="workcenter_id"
+                display_unavailability="0"
+                progress_bar="workcenter_id"
+                total_row="True"
+                js_class="mrp_workorder_gantt"
+                precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                sample="1"
+                form_view_id="mrp.mrp_production_workorder_form_view_inherit">
+
+                <field name="date_start"/>
+                <field name="state"/>
+                <field name="workcenter_id"/>
+                <field name="json_popover"/>
+
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row g-0">
+                            <div class="col">
+                                <ul class="ps-1 mb-0 list-unstyled">
+                                    <li><strong>Start Date: </strong> <t t-esc="date_start.toFormat('F')"/></li>
+                                    <li><strong>Stop Date: </strong> <t t-esc="date_finished.toFormat('F')"/></li>
+                                    <li><strong>Workcenter: </strong> <t t-esc="workcenter_id[1]"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_view_gantt" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.gantt</field>
+        <field name="model">mrp.workorder</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <gantt class="o_mrp_workorder_gantt" date_stop="date_finished" date_start="date_start" string="Operations" default_group_by="workcenter_id" create="0"
+                delete="0" sample="1"
+                progress="progress" plan="0"
+                decoration-danger="json_popover and 'text-danger' in json_popover"
+                decoration-success="state == 'done'"
+                decoration-warning="state == 'cancel' or (json_popover and 'text-warning' in json_popover)"
+                color="production_id"
+                display_unavailability="1"
+                progress_bar="workcenter_id"
+                total_row="True"
+                js_class="mrp_workorder_gantt"
+                precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                form_view_id="mrp.mrp_production_workorder_form_view_inherit">
+
+                <field name="date_start"/>
+                <field name="state"/>
+                <field name="workcenter_id"/>
+                <field name="json_popover"/>
+
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row g-0">
+                            <div class="col">
+                                <ul class="ps-1 mb-0 list-unstyled">
+                                    <li><strong>Start Date: </strong><t t-esc="date_start.toFormat('F')"/></li>
+                                    <li><strong>Stop Date: </strong><t t-esc="date_finished.toFormat('F')"/></li>
+                                    <li><strong>Workcenter: </strong> <t t-esc="workcenter_id[1]"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+
     <record id="workcenter_line_gantt_production_dependencies" model="ir.ui.view">
         <field name="name">mrp.production.work.order.gantt.production.dependencies</field>
         <field name="model">mrp.workorder</field>
-        <field name="inherit_id" ref="mrp.workcenter_line_gantt_production"/>
+        <field name="inherit_id" ref="workcenter_line_gantt_production"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <xpath expr="//gantt" position="attributes">
@@ -109,7 +191,7 @@
     <record id="mrp_workorder_view_gantt_dependencies" model="ir.ui.view">
         <field name="name">mrp.workorder.view.gantt.dependencies</field>
         <field name="model">mrp.workorder</field>
-        <field name="inherit_id" ref="mrp.mrp_workorder_view_gantt"/>
+        <field name="inherit_id" ref="mrp_workorder_view_gantt"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <xpath expr="//gantt" position="attributes">
@@ -233,8 +315,8 @@
         </field>
     </record>
 
-    <!-- override to change the no content image -->
     <record model="ir.actions.act_window" id="mrp.mrp_workorder_todo">
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,gantt</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
             No work orders to do!
@@ -250,8 +332,13 @@
         <field name="context">{'search_default_my_work_order': 0, 'search_default_ready': 1, 'search_default_waiting': True, 'search_default_progress': True, 'search_default_pending': True}</field>
     </record>
 
-    <!-- override to change the no content image -->
+
+    <record model="ir.actions.act_window" id="mrp.action_mrp_routing_time" >
+        <field name="view_mode">graph,pivot,tree,form,gantt,calendar</field>
+    </record>
+
     <record model="ir.actions.act_window" id="mrp.action_mrp_workorder_production_specific">
+        <field name="view_mode">tree,form,gantt,calendar,pivot,graph</field>
          <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
             No work orders to do!
@@ -266,8 +353,9 @@
         </field>
     </record>
 
-    <!-- override to change the no content image -->
     <record model="ir.actions.act_window" id="mrp.action_mrp_workorder_workcenter">
+        <field name="view_mode">gantt,tree,form,calendar,pivot,graph</field>
+        <field name="view_id" ref="mrp_workorder_view_gantt"/>
          <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
             No work orders to do!
@@ -282,8 +370,9 @@
         </field>
     </record>
 
-    <!-- override to change the no content image -->
     <record model="ir.actions.act_window" id="mrp.action_mrp_workorder_production">
+        <field name="view_mode">gantt,tree,form,calendar,pivot,graph</field>
+        <field name="view_id" ref="workcenter_line_gantt_production"/>
          <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
             No work orders to do!
