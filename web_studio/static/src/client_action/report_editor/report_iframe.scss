@@ -76,6 +76,9 @@ div.page {
     &:empty::before {
         content: attr(oe-expression-readable);
     }
+    &[data-oe-demo]:empty::before {
+        content: attr(data-oe-demo);
+    }
 }
 
 [t-esc]:empty::before {
