@@ -39,13 +39,13 @@ export class Order extends Component {
 
     getSortedOrderlines() {
         return this.props.order.orderlines.sort((a, b) => {
-            const sequenceA = this.preparationDisplay.categories[a.productCategoryIds[0]].sequence;
-            const sequenceB = this.preparationDisplay.categories[b.productCategoryIds[0]].sequence;
-            if (sequenceA === 0 && sequenceB === 0) {
-                return a.productCategoryIds[0] - b.productCategoryIds[0];
+            const categoryA = this.preparationDisplay.getProductCategories(a.productCategoryIds)[0];
+            const categoryB = this.preparationDisplay.getProductCategories(b.productCategoryIds)[0];
+            if (categoryA.sequence === 0 && categoryB.sequence === 0) {
+                return categoryA.id - categoryB.id;
             }
 
-            return sequenceA - sequenceB;
+            return categoryA.sequence - categoryB.sequence;
         });
     }
     _computeDuration() {
