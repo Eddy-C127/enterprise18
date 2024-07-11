@@ -21,6 +21,7 @@ class IotBox(models.Model):
     ip_url = fields.Char('IoT Box Home Page', readonly=True, compute='_compute_ip_url')
     drivers_auto_update = fields.Boolean('Automatic drivers update', help='Automatically update drivers when the IoT Box boots', default=True)
     version = fields.Char('Image Version', readonly=True)
+    is_websocket_active = fields.Boolean("Is Websocket active?", readonly=True, default=False)
     company_id = fields.Many2one('res.company', 'Company')
 
     def _compute_ip_url(self):
@@ -134,6 +135,8 @@ class IotChannel(models.Model):
 
     def update_is_open(self):
         self.is_open = bool(self.env['iot.device'].search_count([('report_ids', '!=', False)], limit=1))
+        if not self.is_open:
+            self.env["iot.box"].search([]).write({"is_websocket_active": False})
 
     _sql_constraints = [
         ('unique_name', 'unique(name)', 'The channel name must be unique'),
