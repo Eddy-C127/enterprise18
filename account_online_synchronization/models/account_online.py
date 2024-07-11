@@ -253,7 +253,11 @@ class AccountOnlineAccount(models.Model):
         existing_bank_statement_lines = self.env['account.bank.statement.line'].search_fetch(
             [
                 ('journal_id', '=', journal_id.id),
-                ('online_transaction_identifier', 'in', [transaction.get('online_transaction_identifier') for transaction in new_transactions]),
+                ('online_transaction_identifier', 'in', [
+                    transaction['online_transaction_identifier']
+                    for transaction in new_transactions
+                    if transaction.get('online_transaction_identifier')
+                ]),
             ],
             ['online_transaction_identifier']
         )
@@ -262,9 +266,10 @@ class AccountOnlineAccount(models.Model):
         filtered_transactions = []
         # Remove transactions already imported in Odoo
         for transaction in new_transactions:
-            if transaction['online_transaction_identifier'] in existing_online_transaction_identifier:
-                continue
-            existing_online_transaction_identifier.add(transaction['online_transaction_identifier'])
+            if transaction_identifier := transaction['online_transaction_identifier']:
+                if transaction_identifier in existing_online_transaction_identifier:
+                    continue
+                existing_online_transaction_identifier.add(transaction_identifier)
 
             filtered_transactions.append(transaction)
         return filtered_transactions
