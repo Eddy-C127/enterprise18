@@ -10,7 +10,7 @@ class AccountJournal(models.Model):
         # add a 'l10n_fr_has_rejected_tax_report' key
         dashboard_data = super()._get_journal_dashboard_data_batched()
         tax_journal_id = self.company_id.account_tax_periodicity_journal_id or self.filtered(lambda journal: journal.type == 'general')[:1]
-        if tax_journal_id:
+        if tax_journal_id and tax_journal_id.id in dashboard_data:
             dashboard_data[tax_journal_id.id]['l10n_fr_has_rejected_tax_report'] = bool(
                 self.env['account.report.async.export'].search([
                     ('report_id', '=', self.env.ref('l10n_fr.tax_report').id),
