@@ -90,7 +90,8 @@ export class StudioActionContainer extends Component {
             return tab.action;
         }
         if (tab.action) {
-            return tab.action;
+            const action = tab.action;
+            return action instanceof Function ? action(this.env) : action;
         } else if (editorTab === "reports" && editedReport) {
             return "web_studio.report_editor";
         } else {
