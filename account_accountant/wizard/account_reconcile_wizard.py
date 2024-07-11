@@ -457,7 +457,7 @@ class AccountReconcileWizard(models.TransientModel):
 
     def _get_date_after_lock_date(self):
         self.ensure_one()
-        lock_dates = self.company_id._get_violated_lock_dates(self.date, bool(self.tax_id))
+        lock_dates = self.company_id._get_violated_lock_dates(self.date, bool(self.tax_id), self.journal_id)
         if lock_dates:
             return lock_dates[-1][0] + timedelta(days=1)
 

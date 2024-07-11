@@ -413,7 +413,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         date_to = fields.Date.from_string(options['date']['date_to'])
         if date_to.day != calendar.monthrange(date_to.year, date_to.month)[1]:
             raise UserError(_("You cannot generate entries for a period that does not end at the end of the month."))
-        if self.env.company._get_violated_lock_dates(date_to, False):
+        if self.env.company._get_violated_lock_dates(date_to, False, journal):
             raise UserError(_("You cannot generate entries for a period that is locked."))
         options['all_entries'] = False  # We only want to create deferrals for posted moves
         report = self.env["account.report"].browse(options["report_id"])

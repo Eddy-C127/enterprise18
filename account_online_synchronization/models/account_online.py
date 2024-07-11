@@ -127,7 +127,7 @@ class AccountOnlineAccount(models.Model):
         self.account_online_link_id._get_consent_expiring_date()
 
         # Set last_sync date (date of latest statement or accounting lock date or False)
-        last_sync = self.env.company.fiscalyear_lock_date
+        last_sync = self.env.company._get_user_fiscal_lock_date(journal)
         bnk_stmt_line = self.env['account.bank.statement.line'].search([('journal_id', 'in', self.journal_ids.ids)], order="date desc", limit=1)
         if bnk_stmt_line:
             last_sync = bnk_stmt_line.date

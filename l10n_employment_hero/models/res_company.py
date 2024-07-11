@@ -35,7 +35,7 @@ class ResCompany(models.Model):
         """
         for company in self:
             if company.employment_hero_lock_date:
-                if company.employment_hero_lock_date < company._get_user_fiscal_lock_date():
+                if company.employment_hero_lock_date < company._get_user_fiscal_lock_date(self.employment_hero_journal_id):
                     raise ValidationError(_("The Employment Hero Lock Date must be posterior (or equal) to the fiscal Lock Dates."))
 
     def _eh_payroll_fetch_journal_entries(self, eh_payrun):
@@ -120,11 +120,9 @@ class ResCompany(models.Model):
 
     def _eh_get_lock_date(self):
         self.ensure_one()
-        lock_date = max(self.employment_hero_lock_date or date.min,
-                        self.fiscalyear_lock_date or date.min)
-        if self.parent_id:
-            # We need to use sudo, since we might not have access to a parent company.
-            lock_date = max(lock_date, self.sudo().parent_id._eh_get_lock_date())
+        # We need to use sudo, since we might not have access to a parent company.
+        max_eh_lock_date = max(c.employment_hero_lock_date or date.min for c in self.sudo().parent_ids)
+        lock_date = max(max_eh_lock_date, self._get_user_fiscal_lock_date(self.employment_hero_journal_id))
         return lock_date
 
     def _eh_payroll_fetch_payrun(self):

@@ -8,3 +8,4 @@ from . import test_account_reconcile_wizard
 from . import test_deferred_management
 from . import test_ui
 from . import test_signature
+from . import test_change_lock_date_wizard

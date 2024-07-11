@@ -492,14 +492,13 @@ class LuxembourgElectronicReportTest(TestAccountReportsCommon):
         self.assertEqual(report_lines[3]['columns'][0]['no_format'], 7150)
 
         # Remove the tax lock date
-        def _autorise_lock_date_changes(*args, **kwargs):
-            pass
-
-        with patch('odoo.addons.account_lock.models.res_company.ResCompany._autorise_lock_date_changes', new=_autorise_lock_date_changes):
-            lock_date_wizard = self.env['account.change.lock.date'].create({
-                'tax_lock_date': False,
-            })
-            lock_date_wizard.change_lock_date()
+        lock_date_wizard = self.env['account.change.lock.date'].create({
+            'tax_lock_date': False,
+            'exception_applies_to': 'everyone',
+            'exception_duration': 'forever',
+        })
+        lock_date_wizard.change_lock_date()
+        self.assertEqual(self.env.company.tax_lock_date, False)
 
         # Create another move with a date before the now removed tax lock date
         move = self.env['account.move'].create(move_vals)

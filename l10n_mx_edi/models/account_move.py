@@ -1684,7 +1684,7 @@ class AccountMove(models.Model):
         cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
         if cfdi_values['root_company'].l10n_mx_edi_pac_test_env:
             try:
-                self._check_fiscalyear_lock_date()
+                self._check_fiscal_lock_dates()
                 self.line_ids._check_tax_lock_date()
 
                 self.button_draft()
@@ -1713,7 +1713,7 @@ class AccountMove(models.Model):
             and self.state == 'posted'
         ):
             try:
-                self._check_fiscalyear_lock_date()
+                self._check_fiscal_lock_dates()
                 self.line_ids._check_tax_lock_date()
 
                 self.button_draft()

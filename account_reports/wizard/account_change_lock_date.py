@@ -15,7 +15,7 @@ class AccountChangeLockDate(models.TransientModel):
         Calls the _generate_default_external_values in account_report
         to create default external values for either all reports except the tax reports,
         or only the tax reports, depending on the lock date type:
-            - fiscalyear_lock_date is used to create default values in all reports except the tax reports for that date
+            - max(fiscalyear_lock_date, hard_lock_date) is used to create default values in all reports except the tax reports for that date
             - tax_lock_date is used to create default values only in tax reports for that date
         """
         # extends account.accountant

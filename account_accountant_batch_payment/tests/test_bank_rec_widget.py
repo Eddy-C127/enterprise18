@@ -236,11 +236,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         self.assertRecordValues(payments[-1].line_ids, [{'reconciled': True}] * 2)
 
         # Chose to cancel the payments without a lock date.
-        def _autorise_lock_date_changes(*args, **kwargs):
-            pass
-
-        with patch('odoo.addons.account_lock.models.res_company.ResCompany._autorise_lock_date_changes', new=_autorise_lock_date_changes):
-            self.env.company.fiscalyear_lock_date = None
+        self.env.company.fiscalyear_lock_date = None
         rejection_wizard.rejected_payment_ids.line_ids.remove_move_reconcile()
         rejection_wizard.rejected_payment_ids.batch_payment_id = batch
         rejection_wizard.button_cancel_payments()

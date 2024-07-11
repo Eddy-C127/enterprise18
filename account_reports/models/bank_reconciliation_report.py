@@ -1,3 +1,4 @@
+from datetime import date
 import logging
 from odoo import models, fields, _
 from odoo.exceptions import UserError
@@ -465,8 +466,9 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
             *report._get_options_domain(options, 'from_beginning'),
         ]
 
-        if journal.company_id.fiscalyear_lock_date:
-            domain.append(('date', '>', journal.company_id.fiscalyear_lock_date))
+        fiscal_lock_date = journal.company_id._get_user_fiscal_lock_date(journal)
+        if fiscal_lock_date != date.min:
+            domain.append(('date', '>', fiscal_lock_date))
 
         if journal.company_id.account_opening_move_id:
             domain.append(('move_id', '!=', journal.company_id.account_opening_move_id.id))

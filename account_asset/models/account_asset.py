@@ -509,7 +509,7 @@ class AccountAsset(models.Model):
             if move.state == 'draft' and 'analytic_distribution' in vals:
                 # Only draft entries to avoid recreating all the analytic items
                 move.line_ids.analytic_distribution = vals['analytic_distribution']
-            lock_date = move.company_id._get_user_fiscal_lock_date()
+            lock_date = move.company_id._get_user_fiscal_lock_date(self.journal_id)
             if move.date > lock_date:
                 if 'account_depreciation_id' in vals:
                     # ::2 (0, 2, 4, ...) because we want all first lines of the depreciation entries, which corresponds to the
@@ -861,7 +861,7 @@ class AccountAsset(models.Model):
     def set_to_close(self, invoice_line_ids, date=None, message=None):
         self.ensure_one()
         disposal_date = date or fields.Date.today()
-        if disposal_date <= self.company_id._get_user_fiscal_lock_date():
+        if disposal_date <= self.company_id._get_user_fiscal_lock_date(self.journal_id):
             raise UserError(_("You cannot dispose of an asset before the lock date."))
         if invoice_line_ids and self.children_ids.filtered(lambda a: a.state in ('draft', 'open') or a.value_residual > 0):
             raise UserError(_("You cannot automate the journal entry for an asset that has a running gross increase. Please use 'Dispose' on the increase(s)."))

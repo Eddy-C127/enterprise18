@@ -272,7 +272,7 @@ class AccountMove(models.Model):
     def _l10_ec_check_tax_lock_date(self, vals):
         # Check the locks date for changes in ref field values
         for move in self:
-            lock_date = move.company_id._get_user_fiscal_lock_date()
+            lock_date = move.company_id._get_user_fiscal_lock_date(move.journal_id)
             if 'ref' in vals and lock_date and move.date <= lock_date:
                 raise ValidationError(_("The operation is refused as it would impact an already issued tax statement. "
                                         "Please change the journal entry date or check the fiscal lock date (%s) to proceed."),
