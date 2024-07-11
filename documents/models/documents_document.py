@@ -556,9 +556,15 @@ class Document(models.Model):
                             "res_id": record.res_id if record.res_model else record.id,
                         }
                     )
-                    record.attachment_id.with_context(no_document=True).write(
-                        {"res_model": "documents.document", "res_id": record.id}
-                    )
+                    related_record = self.env[record.res_model].browse(record.res_id)
+                    if (
+                        not hasattr(related_record, "message_main_attachment_id")
+                        or related_record.message_main_attachment_id
+                        != record.attachment_id
+                    ):
+                        record.attachment_id.with_context(no_document=True).write(
+                            {"res_model": "documents.document", "res_id": record.id}
+                        )
                     if attachment_id in record.previous_attachment_ids.ids:
                         record.previous_attachment_ids = [(3, attachment_id, False)]
                     record.previous_attachment_ids = [(4, record.attachment_id.id, False)]

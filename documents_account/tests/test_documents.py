@@ -131,37 +131,68 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
                 'folder_id': folder_test.id,
                 'journal_id': invoice_test.journal_id.id,
             })
-            attachment_txt_test = self.env['ir.attachment'].create({
-                'datas': TEXT,
-                'name': 'fileText_test.txt',
-                'mimetype': 'text/plain',
-                'res_model': 'account.move',
-                'res_id': invoice_test.id
-            })
-            attachment_txt_alternative_test = self.env['ir.attachment'].create({
-                'datas': TEXT,
-                'name': 'fileText_test_alternative.txt',
-                'mimetype': 'text/plain',
-                'res_model': 'account.move',
-                'res_id': invoice_test.id
-            })
-            attachment_txt_main_attachment_test = self.env['ir.attachment'].create({
-                'datas': TEXT,
-                'name': 'fileText_main_attachment.txt',
-                'mimetype': 'text/plain',
-                'res_model': 'account.move',
-                'res_id': invoice_test.id
-            })
 
-            invoice_test.write({'message_main_attachment_id': attachment_txt_test.id})
-            txt_doc = self.env['documents.document'].search([('attachment_id', '=', attachment_txt_test.id)])
-            self.assertEqual(txt_doc.folder_id, folder_test, 'the text test document have a folder')
-            invoice_test.write({'message_main_attachment_id': attachment_txt_alternative_test.id})
-            self.assertEqual(txt_doc.attachment_id.id, attachment_txt_alternative_test.id,
-                             "the attachment of the document should have swapped")
-            attachment_txt_main_attachment_test.register_as_main_attachment()
-            self.assertEqual(txt_doc.attachment_id.id, attachment_txt_main_attachment_test.id,
-                             "the attachment of the document should have swapped")
+            attachments = self.env["ir.attachment"]
+            for i in range(3):
+                attachment = self.env["ir.attachment"].create({
+                    "datas": TEXT,
+                    "name": f"fileText_test{i}.txt",
+                    "mimetype": "text/plain",
+                    "res_model": "account.move",
+                    "res_id": invoice_test.id,
+                })
+                attachment.register_as_main_attachment(force=False)
+                attachments |= attachment
+
+            document = self.env["documents.document"].search(
+                [("attachment_id", "=", attachments[0].id)]
+            )
+            self.assertEqual(
+                document.folder_id, folder_test, "the text test document have a folder"
+            )
+
+            def check_main_attachment_and_document(
+                main_attachment, doc_attachment, previous_attachment_ids
+            ):
+                self.assertRecordValues(
+                    invoice_test,
+                    [{"message_main_attachment_id": main_attachment.id}],
+                )
+                self.assertRecordValues(
+                    document,
+                    [
+                        {
+                            "attachment_id": doc_attachment.id,
+                            "previous_attachment_ids": previous_attachment_ids,
+                        }
+                    ],
+                )
+
+            # Ensure the main attachment is the first one and ensure the document is correctly linked
+            check_main_attachment_and_document(attachments[0], attachments[0], [])
+
+            # Switch the main attachment to the second one and ensure the document is updated correctly
+            invoice_test.write({"message_main_attachment_id": attachments[1].id})
+            check_main_attachment_and_document(
+                attachments[1], attachments[1], attachments[0].ids
+            )
+
+            # Switch the main attachment to the third one and ensure the document is updated correctly
+            attachments[2].register_as_main_attachment(force=True)
+            check_main_attachment_and_document(
+                attachments[2], attachments[2], (attachments[0] + attachments[1]).ids
+            )
+
+            # Ensure all attachments are still linked to the invoice
+            attachments = self.env["ir.attachment"].search(
+                [("res_model", "=", "account.move"), ("res_id", "=", invoice_test.id)]
+            )
+            self.assertEqual(
+                len(attachments),
+                3,
+                "there should be 3 attachments linked to the invoice",
+            )
+
             # deleting the setting to prevent duplicate settings.
             setting.unlink()
 
