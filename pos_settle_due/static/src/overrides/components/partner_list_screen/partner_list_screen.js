@@ -20,6 +20,11 @@ patch(PartnerListScreen.prototype, {
     get partnerInfos() {
         return this.pos.getPartnerCredit(this.props.partner);
     },
+    editPartner(partner) {
+        this.pos.refreshTotalDueOfPartner(partner).then((_updatedDue) => {
+            return super.editPartner(partner);
+        })
+    },
     async settleCustomerDue() {
         const updatedDue = await this.pos.refreshTotalDueOfPartner(
             this.state.editModeProps.partner
