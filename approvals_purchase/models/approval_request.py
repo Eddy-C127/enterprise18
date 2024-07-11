@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from odoo.tools.misc import clean_context
 
 
 class ApprovalRequest(models.Model):
@@ -122,7 +123,7 @@ class ApprovalRequest(models.Model):
             'view_mode': 'list,form',
             'res_model': 'purchase.order',
             'type': 'ir.actions.act_window',
-            'context': self.env.context,
+            'context': clean_context(self.env.context),   # avoid 'default_name' context key propagation
             'domain': domain,
         }
         return action
