@@ -48,7 +48,7 @@ class TestChatbotCreateTicket(HelpdeskChatbotCase):
             'chatbot_script_id': self.chatbot_script.id,
             'user_id': user.id,
         })
-        discuss_channel = self.env['discuss.channel'].sudo().browse(data["Thread"][0]['id'])
+        discuss_channel = self.env['discuss.channel'].sudo().browse(data["discuss.channel"][0]['id'])
 
         self._post_answer_and_trigger_next_step(
             discuss_channel,

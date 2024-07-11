@@ -9,7 +9,7 @@ export class MailThread extends mailModels.MailThread {
         /** @type {import("mock_models").WhatsAppTemplate} */
         const WhatsAppTemplate = this.env["whatsapp.template"];
         super._thread_to_store(...arguments);
-        store.add("Thread", {
+        store.add("mail.thread", {
             id: ids[0],
             model: this._name,
             canSendWhatsapp:

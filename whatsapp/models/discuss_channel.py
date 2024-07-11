@@ -117,13 +117,17 @@ class DiscussChannel(models.Model):
         new_msg = super().message_post(message_type=message_type, **kwargs)
         if self.channel_type == 'whatsapp' and message_type == 'whatsapp_message':
             if new_msg.author_id == self.whatsapp_partner_id:
-                self.env['bus.bus']._sendone(self, "mail.record/insert", {
-                    "Thread": {
-                        'id': self.id,
-                        "model": "discuss.channel",
-                        'whatsapp_channel_valid_until': self.whatsapp_channel_valid_until,
-                    },
-                })
+                self.env["bus.bus"]._sendone(
+                    self,
+                    "mail.record/insert",
+                    Store(
+                        "discuss.channel",
+                        {
+                            "id": self.id,
+                            "whatsapp_channel_valid_until": self.whatsapp_channel_valid_until,
+                        },
+                    ).get_result(),
+                )
             if not new_msg.wa_message_ids:
                 whatsapp_message = self.env['whatsapp.message'].create({
                     'body': new_msg.body,
@@ -247,12 +251,7 @@ class DiscussChannel(models.Model):
             new_member.channel_id.message_post(body=message_body, message_type="notification", subtype_xmlid="mail.mt_comment")
             broadcast_store = Store(new_member)
             broadcast_store.add(
-                "Thread",
-                {
-                    "id": self.id,
-                    "memberCount": self.member_count,
-                    "model": "discuss.channel",
-                },
+                "discuss.channel", {"id": self.id, "memberCount": self.member_count}
             )
             self.env["bus.bus"]._sendone(self, "mail.record/insert", broadcast_store.get_result())
         return Store(self).get_result()
@@ -274,14 +273,15 @@ class DiscussChannel(models.Model):
     def _to_store(self, store: Store):
         super()._to_store(store)
         for channel in self.filtered(lambda channel: channel.channel_type == "whatsapp"):
-            data = {
-                "id": channel.id,
-                "model": "discuss.channel",
-                "whatsapp_channel_valid_until": fields.Datetime.to_string(
-                    channel.whatsapp_channel_valid_until
-                ),
-            }
-            store.add("Thread", data)
+            store.add(
+                "discuss.channel",
+                {
+                    "id": channel.id,
+                    "whatsapp_channel_valid_until": fields.Datetime.to_string(
+                        channel.whatsapp_channel_valid_until
+                    ),
+                },
+            )
 
     def _types_allowing_seen_infos(self):
         return super()._types_allowing_seen_infos() + ["whatsapp"]

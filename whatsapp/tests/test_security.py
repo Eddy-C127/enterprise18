@@ -161,23 +161,27 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                     {
                         "type": "mail.record/insert",
                         "payload": {
-                            "Thread": {
-                                "id": employee_channel.id,
-                                "model": "discuss.channel",
-                                "last_interest_dt": "2020-03-22 10:31:06",
-                            }
+                            "discuss.channel": [
+                                {
+                                    "id": employee_channel.id,
+                                    "last_interest_dt": "2020-03-22 10:31:06",
+                                },
+                            ],
                         },
                     },
                     {
                         "type": "mail.record/insert",
                         "payload": {
-                            "ChannelMember": [
+                            "discuss.channel.member": [
                                 {
                                     "id": member.id,
                                     "message_unread_counter": 0,
                                     "message_unread_counter_bus_id": bus_last_id - 4,
                                     "new_message_separator": message.id + 1,
-                                    "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
+                                    "persona": {
+                                        "id": self.user_admin.partner_id.id,
+                                        "type": "partner",
+                                    },
                                     "syncUnread": True,
                                     "thread": {
                                         "id": employee_channel.id,
@@ -185,30 +189,22 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                     },
                                 },
                             ],
-                            "Persona": [
-                                {
-                                    "id": self.user_admin.partner_id.id,
-                                    "name": "Mitchell Admin",
-                                    "type": "partner",
-                                },
+                            "res.partner": [
+                                {"id": self.user_admin.partner_id.id, "name": "Mitchell Admin"}
                             ],
                         },
                     },
                     {
                         "type": "mail.record/insert",
                         "payload": {
-                            "Thread": {
-                                "id": employee_channel.id,
-                                "is_pinned": True,
-                                "model": "discuss.channel",
-                            }
+                            "discuss.channel": [{"id": employee_channel.id, "is_pinned": True}]
                         },
                     },
                     {
                         "type": "discuss.channel/new_message",
                         "payload": {
                             "data": {
-                                "Message": [
+                                "mail.message": [
                                     {
                                         "attachments": [],
                                         "author": {
@@ -245,22 +241,21 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                         "write_date": fields.Datetime.to_string(message.write_date),
                                     },
                                 ],
-                                "Persona": [
+                                "mail.thread": [
+                                    {
+                                        "id": employee_channel.id,
+                                        "model": "discuss.channel",
+                                        "module_icon": "/mail/static/description/icon.png",
+                                    },
+                                ],
+                                "res.partner": [
                                     {
                                         "id": self.user_admin.partner_id.id,
                                         "isInternalUser": True,
                                         "is_company": False,
                                         "name": "Mitchell Admin",
-                                        "type": "partner",
                                         "userId": self.user_admin.id,
                                         "write_date": admin_write_date,
-                                    },
-                                ],
-                                "Thread": [
-                                    {
-                                        "id": employee_channel.id,
-                                        "model": "discuss.channel",
-                                        "module_icon": "/mail/static/description/icon.png",
                                     },
                                 ],
                             },
@@ -270,13 +265,17 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                     {
                         "type": "mail.record/insert",
                         "payload": {
-                            "ChannelMember": [
+                            "discuss.channel": [{"id": employee_channel.id, "memberCount": 2}],
+                            "discuss.channel.member": [
                                 {
                                     "create_date": member_create_date,
                                     "fetched_message_id": {"id": message.id},
                                     "id": member.id,
                                     "last_seen_dt": "2020-03-22 10:31:06",
-                                    "persona": {"id": self.user_admin.partner_id.id, "type": "partner"},
+                                    "persona": {
+                                        "id": self.user_admin.partner_id.id,
+                                        "type": "partner",
+                                    },
                                     "seen_message_id": {"id": message.id},
                                     "thread": {
                                         "id": employee_channel.id,
@@ -284,7 +283,7 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                     },
                                 },
                             ],
-                            "Persona": [
+                            "res.partner": [
                                 {
                                     "active": True,
                                     "email": "test.admin@test.example.com",
@@ -293,16 +292,8 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                     "isInternalUser": True,
                                     "is_company": False,
                                     "name": "Mitchell Admin",
-                                    "type": "partner",
                                     "userId": self.user_admin.id,
                                     "write_date": admin_write_date,
-                                },
-                            ],
-                            "Thread": [
-                                {
-                                    "id": employee_channel.id,
-                                    "memberCount": 2,
-                                    "model": "discuss.channel",
                                 },
                             ],
                         },

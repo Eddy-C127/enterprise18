@@ -32,7 +32,7 @@ patch(MockServer.prototype, {
         );
     },
     _mockMailActivity_FormatCallActivities(activities) {
-        const store = { Activity: [] };
+        const store = { "mail.activity": [] };
         for (const activity of activities) {
             const [user] = this.pyEnv["res.users"].search_read([["id", "=", activity.user_id]]);
             const state = (() => {
@@ -74,7 +74,7 @@ patch(MockServer.prototype, {
             }
             activityData.mobile = record.mobile || relatedPartner?.mobile;
             activityData.phone = record.phone || relatedPartner?.phone;
-            store.Activity.push(activityData);
+            store["mail.activity"].push(activityData);
         }
         return store;
     },

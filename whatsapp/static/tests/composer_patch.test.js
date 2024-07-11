@@ -1,3 +1,4 @@
+import { Composer } from "@mail/core/common/composer";
 import {
     contains,
     createFile,
@@ -10,7 +11,8 @@ import {
     start,
     startServer,
 } from "@mail/../tests/mail_test_helpers";
-import { Composer } from "@mail/core/common/composer";
+import { mailDataHelpers } from "@mail/../tests/mock_server/mail_mock_server";
+
 import { beforeEach, describe, test } from "@odoo/hoot";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { patchWithCleanup } from "@web/../tests/web_test_helpers";
@@ -142,14 +144,14 @@ test("Disabled composer should be enabled after message from whatsapp user", asy
 
     // stimulate the notification sent after receiving a message from whatsapp user
     const [channel] = pyEnv["discuss.channel"].search_read([["id", "=", channelId]]);
-
-    pyEnv["bus.bus"]._sendone(channel, "mail.record/insert", {
-        Thread: {
+    pyEnv["bus.bus"]._sendone(
+        channel,
+        "mail.record/insert",
+        new mailDataHelpers.Store("discuss.channel", {
             id: channelId,
-            model: "discuss.channel",
             whatsapp_channel_valid_until: DateTime.utc().plus({ days: 1 }).toSQL(),
-        },
-    });
+        }).get_result()
+    );
     await contains(".o-mail-Composer-actions");
     await contains("button[title='Attach files']");
     await contains(".o-mail-Composer-send");

@@ -20,7 +20,7 @@ class MailActivity(models.Model):
                 lambda approver: activity.user_id == approver.user_id
             )
             store.add(
-                "Activity",
+                "mail.activity",
                 {
                     "id": activity.id,
                     "approver_id": approver.id,

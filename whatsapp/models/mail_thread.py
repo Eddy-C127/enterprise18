@@ -10,7 +10,7 @@ class MailThread(models.AbstractModel):
     def _thread_to_store(self, store: Store, **kwargs):
         super()._thread_to_store(store, **kwargs)
         store.add(
-            "Thread",
+            "mail.thread",
             {
                 "canSendWhatsapp": self.env['whatsapp.template']._can_use_whatsapp(self._name),
                 "id": self.id,

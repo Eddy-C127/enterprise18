@@ -6,6 +6,8 @@ import {
     start,
     startServer,
 } from "@mail/../tests/mail_test_helpers";
+import { mailDataHelpers } from "@mail/../tests/mock_server/mail_mock_server";
+
 import { describe, test } from "@odoo/hoot";
 import { serializeDateTime } from "@web/core/l10n/dates";
 import { Command, serverState } from "@web/../tests/web_test_helpers";
@@ -120,12 +122,14 @@ test("Allow SeenIndicators in WhatsApp Channels", async () => {
 
     const [channel] = pyEnv["discuss.channel"].search_read([["id", "=", channelId]]);
     // Simulate received channel seen notification
-    pyEnv["bus.bus"]._sendone(channel, "mail.record/insert", {
-        ChannelMember: {
+    pyEnv["bus.bus"]._sendone(
+        channel,
+        "mail.record/insert",
+        new mailDataHelpers.Store("discuss.channel.member", {
             id: memberIds[1],
             seen_message_id: messageId,
-        },
-    });
+        }).get_result()
+    );
     await contains(".o-mail-MessageSeenIndicator i", { count: 2 });
 });
 

@@ -63,7 +63,7 @@ export class MailActivity extends mailModels.MailActivity {
             }
             activityData.mobile = record.mobile || relatedPartner?.mobile;
             activityData.phone = record.phone || relatedPartner?.phone;
-            store.add("Activity", activityData);
+            store.add("mail.activity", activityData);
         }
     }
 }
