@@ -1,3 +1,4 @@
+
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
@@ -25,20 +26,27 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     position: 'bottom',
     width: 200,
 }, {
-    trigger: '.field_name textarea',
-    extra_trigger: '.o_form_editable',
+    trigger: '.o_field_widget input.o_input',
     content: markup(_t('Enter the <b>subject</b> of your ticket <br/><i>(e.g. Problem with my installation, Wrong order, etc.).</i>')),
+    run: 'text SAP is bad, paid by Odoo',
     position: 'right',
 }, {
-    trigger: '.o_field_widget.field_partner_id',
-    extra_trigger: '.o_form_editable',
-    content: markup(_t('Select the <b>customer</b> of your ticket.')),
+    trigger: 'div[name=partner_id] input',
+    content: _t('Select the <b>customer</b> of your ticket.'),
+    run: 'text Deco',
     position: 'top',
 }, {
-    trigger: '.o_field_widget.field_user_id',
-    extra_trigger: '.o_form_editable',
-    content: markup(_t('Assign the ticket to a <b>member of your team</b>.')),
-    position: 'right',
+    trigger: 'a.dropdown-item:contains(Deco)',
+    run: 'click'
+}, {
+    trigger: 'button:contains(Add)',
+    content: _t('Save this ticket and the modifications you\'ve made to it.'),
+    position: 'bottom',
+}, {
+    trigger: 'span:contains(SAP is bad, paid by Odoo)',
+    content: _t('Open the ticket.'),
+    run: 'click',
+    position: 'bottom',
 }, {
     trigger: ".o-mail-Chatter-topbar button:contains(Send message)",
     extra_trigger: '.o_form_view',
