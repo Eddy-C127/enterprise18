@@ -559,6 +559,9 @@ class SendCloud:
 
     def _prepare_parcel_common_data(self, picking, is_return, sender_id=False):
         if picking.sale_id.pickup_location_data:
+            # actual partner data is stored on partner_id's parent, partner_id contains access_point data
+            if not picking.partner_id.parent_id:
+                raise UserError(_('The delivery address of the customer has been removed from the pickup location. This information is required by Sendcloud. Please go to the delivery partner via the delivery order and make sure the parent of the delivery partner is the partner you want to ship to.'))
             to_partner_id = picking.partner_id.parent_id
         else:
             to_partner_id = picking.partner_id
