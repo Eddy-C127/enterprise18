@@ -694,7 +694,7 @@ class BankRecWidget(models.Model):
         tax_type = line.tax_ids[0].type_tax_use if line.tax_ids else None
         is_refund = (tax_type == 'sale' and line.balance > 0.0) or (tax_type == 'purchase' and line.balance < 0.0)
 
-        if line.force_price_included_taxes:
+        if line.force_price_included_taxes and line.tax_ids:
             handle_price_include = True
             extra_context = {'force_price_include': True}
             base_amount = line.tax_base_amount_currency
@@ -772,7 +772,7 @@ class BankRecWidget(models.Model):
 
     def _lines_recompute_taxes(self):
         self.ensure_one()
-        base_lines = self.line_ids.filtered(lambda x: x.flag == 'manual' and not x.tax_repartition_line_id and x.tax_ids)
+        base_lines = self.line_ids.filtered(lambda x: x.flag == 'manual' and not x.tax_repartition_line_id)
         tax_lines = self.line_ids.filtered(lambda x: x.flag == 'tax_line')
 
         tax_results = self.env['account.tax']._compute_taxes(
@@ -1046,14 +1046,12 @@ class BankRecWidget(models.Model):
                 line.tax_base_amount_currency = line.amount_currency
                 line.force_price_included_taxes = True
         else:
-            original_base_amount_currency = line.tax_base_amount_currency
-            line.tax_base_amount_currency = False
             if line.force_price_included_taxes:
                 # Removing taxes letting the field empty.
                 # If the user didn't touch the amount_currency/balance, restore the original amount.
-                line.amount_currency = original_base_amount_currency
-                line.tax_base_amount_currency = False
+                line.amount_currency = line.tax_base_amount_currency
                 self._line_value_changed_amount_currency(line)
+            line.tax_base_amount_currency = False
 
         self._lines_recompute_taxes()
         self._lines_add_auto_balance_line()
