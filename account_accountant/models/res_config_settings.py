@@ -9,11 +9,6 @@ class ResConfigSettings(models.TransientModel):
 
     fiscalyear_last_day = fields.Integer(related='company_id.fiscalyear_last_day', required=True, readonly=False)
     fiscalyear_last_month = fields.Selection(related='company_id.fiscalyear_last_month', required=True, readonly=False)
-    period_lock_date = fields.Date(string='Lock Date for Non-Advisers',
-                                   related='company_id.period_lock_date', readonly=False)
-    fiscalyear_lock_date = fields.Date(string='Lock Date for All Users',
-                                       related='company_id.fiscalyear_lock_date', readonly=False)
-    tax_lock_date = fields.Date("Tax Lock Date", related='company_id.tax_lock_date', readonly=False)
     use_anglo_saxon = fields.Boolean(string='Anglo-Saxon Accounting', related='company_id.anglo_saxon_accounting', readonly=False)
     invoicing_switch_threshold = fields.Date(string="Invoicing Switch Threshold", related='company_id.invoicing_switch_threshold', readonly=False)
     group_fiscal_year = fields.Boolean(string='Fiscal Years', implied_group='account_accountant.group_fiscal_year')
