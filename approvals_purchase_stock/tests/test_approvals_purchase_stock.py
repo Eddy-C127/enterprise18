@@ -30,3 +30,8 @@ class TestApprovalsPurchaseStock(TestApprovalsCommon):
         po_2 = request_purchase.product_line_ids[1].purchase_order_line_id.order_id
         self.assertEqual(po_1.picking_type_id.id, self.wh_picking_type_1.id)
         self.assertEqual(po_2.picking_type_id.id, self.wh_picking_type_2.id)
+
+        # Confirm POs via smart button and check pickings are created
+        button_context = request_purchase.action_open_purchase_orders()['context']
+        po_1.with_context(button_context).button_confirm()
+        po_2.with_context(button_context).button_confirm()
