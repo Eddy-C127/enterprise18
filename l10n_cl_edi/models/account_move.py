@@ -83,6 +83,7 @@ services reception has been received as well.
         ('ERM', 'Provide Receipt of Merchandise or Services'),
         ('RFP', 'Claim for Partial Lack of Merchandise'),
         ('RFT', 'Claim for Total Lack of Merchandise'),
+        ('NCA', 'Reception of Cancellation that References Document'),
     ], string='Claim', copy=False, help='The reason why the DTE was accepted or claimed by the customer')
     l10n_cl_claim_description = fields.Char(string='Claim Detail', readonly=True, copy=False)
     l10n_cl_sii_send_file = fields.Many2one('ir.attachment', string='SII Send file', copy=False)
@@ -364,14 +365,31 @@ services reception has been received as well.
             return None
 
         try:
-            response_code = response['listaEventosDoc']['codEvento']
+            events = response['listaEventosDoc']
+
+            # listaEventosDoc can be either a list or a CompoundValue (which behaves like but isn't a dict)
+            if not isinstance(events, list):
+                events = [events]
+
+            # listaEventosDoc can also be falsy and empty, for example if codResp is 16 and the client didn't accept or
+            # claim the invoice yet. In that case we keep checking until it is and keep the response code unset.
+            response_code = False
+
+            # The purpose of this loop is to check each event has a `codEvento` value. If it doesn't something's wrong
+            # and we log that as an error. We store the value of the last event in l10n_cl_claim, to mark the claim as
+            # successfully parsed. It would make more sense to have it be a list instead of a single value, since a list
+            # of events can be returned, but l10n_cl_claim was defined to only hold a single value and that's not
+            # something we can change in stable. It's currently not used anywhere in the standard code except to check
+            # if we already parsed the claim and if not to retrieve its status from the SII.
+            for event in events:
+                response_code = event['codEvento']
+            self.l10n_cl_claim = response_code
         except Exception as error:
             _logger.error(error)
             if not self.env.context.get('cron_skip_connection_errs'):
                 self.message_post(body=_('Asking for claim status with response:') + Markup('<br/>: %s <br/>') % response +
                                        _('failed due to:') + Markup('<br/> %s') % error)
         else:
-            self.l10n_cl_claim = response_code
             self.message_post(body=_('Asking for claim status with response:') + Markup('<br/> %s') % response)
 
     # SII Vendor Bill Buttons
