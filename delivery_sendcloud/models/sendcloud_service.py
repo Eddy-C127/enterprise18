@@ -584,7 +584,7 @@ class SendCloud:
             'country_state': to_partner_id.state_id.code or '',
             'postal_code': to_partner_id.zip,
             'country': to_partner_id.country_id.code,
-            'telephone': to_partner_id.phone or to_partner_id.mobile or '',
+            'telephone': to_partner_id.mobile or to_partner_id.phone or '',
             'email': to_partner_id.email or '',
             'request_label': True,
             'apply_shipping_rules': apply_rules,
@@ -615,7 +615,7 @@ class SendCloud:
                 'from_state': from_partner_id.state_id.code or '',
                 'from_postal_code': from_partner_id.zip or '',
                 'from_country': from_partner_id.country_id.code,
-                'from_telephone': from_partner_id.phone or from_partner_id.mobile or '',
+                'from_telephone': from_partner_id.mobile or from_partner_id.phone or '',
                 'from_email': from_partner_id.email or '',
             })
         return parcel_common
