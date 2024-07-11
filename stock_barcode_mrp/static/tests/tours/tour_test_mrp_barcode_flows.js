@@ -886,3 +886,45 @@ registry.category("web_tour.tours").add('test_multi_company_record_access_in_mrp
         { trigger: '.o_stock_barcode_main_menu', isCheck: true },
     ]
 });
+
+registry.category("web_tour.tours").add('test_reserve_quantity_in_backorder_despite_packs', {
+    test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan test_res_quant pick' },
+        {
+            extra_trigger: '.o_barcode_client_action',
+            trigger: '.o_barcode_line .btn.o_edit',
+            run: 'click'
+        },
+        { trigger: 'div[name="qty_done"] .o_input', run: 'text 10' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.btn.o_put_in_pack', run: 'click' },
+        {
+            extra_trigger: '.o_barcode_line.o_line_completed',
+            trigger: '.o_barcode_line.o_line_not_completed .btn.o_edit',
+            run: 'click'
+        },
+        { trigger: 'div[name="qty_done"] .o_input', run: 'text 10' },
+        { trigger: '.btn.o_save', run: 'click' },
+        {
+            extra_trigger: '.o_barcode_lines_header',
+            trigger: '.btn.o_put_in_pack',
+            run: 'click'
+        },
+        {
+            trigger: '.o_barcode_line.o_line_completed.o_selected',
+            run: () => { helper.assertLinesCount(3); }
+        },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { trigger: '.o_barcode_backorder_dialog .btn.btn-primary', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan test_res_quant prod' },
+        { trigger: '.o_barcode_line.o_line_not_completed .btn.o_edit', run: 'click' },
+        { trigger: 'div[name="qty_done"] .o_input', run: 'text 10' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.o_barcode_line.o_header .btn.o_edit', run: 'click' },
+        { trigger: 'div[name="qty_producing"] .o_input', run: 'text 10' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { trigger: '.modal-content .btn.btn-primary[name=action_backorder]', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', isCheck: true },
+    ]
+});

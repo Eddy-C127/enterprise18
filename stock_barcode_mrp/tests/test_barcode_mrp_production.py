@@ -3,6 +3,8 @@
 from odoo.tests import Form, tagged
 from odoo.addons.stock_barcode.tests.test_barcode_client_action import TestBarcodeClientAction
 
+from freezegun import freeze_time
+
 
 @tagged('post_install', '-at_install')
 class TestMRPBarcodeClientAction(TestBarcodeClientAction):
@@ -558,3 +560,32 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 ('product_id', '=', company2_product.id),
             ], limit=1)
         )
+
+    @freeze_time('2000-05-05 00:00:00')
+    def test_reserve_quantity_in_backorder_despite_packs(self):
+        self.clean_access_rights()
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        self.env.user.groups_id = [(4, grp_pack.id)]
+        self.env.user._get_default_warehouse_id().manufacture_steps = 'pbm'
+
+        self.env['stock.quant']._update_available_quantity(self.component01, self.stock_location, quantity=100)
+        with Form(self.env['mrp.production']) as production_form:
+            production_form.product_id = self.final_product
+            production_form.product_qty = 100
+            with production_form.move_raw_ids.new() as raw_moves_form:
+                raw_moves_form.product_id = self.component01
+                raw_moves_form.product_uom_qty = 100
+        production = production_form.save()
+        production.name = 'test_res_quant prod'
+        production.action_confirm()
+        pick_operation = production.picking_ids[0]
+        pick_operation.name = 'test_res_quant pick'
+        pick_operation.move_ids[0].quantity = 100
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = f"/web#action={action_id.id}"
+        self.start_tour(url, 'test_reserve_quantity_in_backorder_despite_packs', login='admin', timeout=180)
+
+        backorder_production = next(prod for prod in production.backorder_ids if prod.id != production.id)
+        self.assertEqual(backorder_production.move_raw_ids[0].quantity, 10)
+        self.assertTrue(str(backorder_production.date_start), '2000-05-05 00:00:00')
