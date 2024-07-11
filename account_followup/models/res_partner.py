@@ -156,6 +156,20 @@ class ResPartner(models.Model):
         action_values['domain'] = domain
         return action_values
 
+    @api.onchange('unreconciled_aml_ids')
+    def _onchange_total(self):
+        today = fields.Date.context_today(self)
+        total_overdue = 0
+        total_due = 0
+        for aml in self.unreconciled_aml_ids:
+            is_overdue = today > aml.date_maturity if aml.date_maturity else today > aml.date
+            if self.env.company in aml.company_id.parent_ids and not aml.blocked:
+                total_due += aml.amount_residual
+                if is_overdue:
+                    total_overdue += aml.amount_residual
+        self.total_due = total_due
+        self.total_overdue = total_overdue
+
     @api.depends('invoice_ids')
     @api.depends_context('company', 'allowed_company_ids')
     def _compute_total_due(self):
