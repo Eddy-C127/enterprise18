@@ -193,6 +193,6 @@ class PaymentTransaction(models.Model):
         """ Cancel draft invoices attached to subscriptions. """
         self.ensure_one()
         subscriptions = self.sale_order_ids.filtered('is_subscription')
-        draft_invoices = subscriptions.order_line.invoice_lines.move_id.filtered(lambda am: am.state == 'draft')
+        draft_invoices = subscriptions.order_line.account_move_line_ids.move_id.filtered(lambda am: am.state == 'draft')
         if draft_invoices:
             draft_invoices.state = 'cancel'

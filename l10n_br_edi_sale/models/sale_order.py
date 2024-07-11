@@ -38,8 +38,8 @@ class SaleOrder(models.Model):
                 )
             )
 
-    def _prepare_invoice(self):
-        res = super()._prepare_invoice()
+    def _prepare_account_move_values(self):
+        res = super()._prepare_account_move_values()
         res.update(
             {
                 "l10n_br_edi_transporter_id": self.l10n_br_edi_transporter_id.id,

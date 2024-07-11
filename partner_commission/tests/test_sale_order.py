@@ -78,7 +78,7 @@ class TestSaleOrder(TestCommissionsSetup):
         so = form.save()
         so.action_confirm()
 
-        inv = self.env['account.move'].create(so._prepare_invoice())
+        inv = self.env['account.move'].create(so._prepare_account_move_values())
 
         self.assertEqual(inv.referrer_id, so.referrer_id)
 
@@ -119,7 +119,7 @@ class TestSaleOrder(TestCommissionsSetup):
 
         invoice_wizard = self.env['sale.advance.payment.inv'].with_context(tracking_disable=True).create({
             'advance_payment_method': 'fixed',
-            'sale_order_ids': [Command.set(so.ids)],
+            'order_ids': [Command.set(so.ids)],
             'fixed_amount': 100,
         })
 

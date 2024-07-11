@@ -18,7 +18,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
     def test_auto_payment_with_token(self):
 
-        self.original_prepare_invoice = self.subscription._prepare_invoice
+        self.original_prepare_invoice = self.subscription._prepare_account_move_values
 
         with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment),\
             patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail',
@@ -37,7 +37,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.subscription.transaction_ids._post_process()
             self.assertEqual(self.mock_send_success_count, 1, 'a mail to the invoice recipient should have been sent')
             self.assertEqual(self.subscription.subscription_state, '3_progress', 'subscription with online payment and a payment method set should stay opened when transaction succeeds')
-            invoice = self.subscription.invoice_ids.sorted('date')[-1]
+            invoice = self.subscription.account_move_ids.sorted('date')[-1]
             recurring_total_with_taxes = self.subscription.amount_total
             self.assertEqual(invoice.amount_total, recurring_total_with_taxes,
                              'website_subscription: the total of the recurring invoice created should be the subscription '
@@ -81,7 +81,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.assertFalse(vals, "The subscriptions are not flagged anymore, the payment succeeded")
 
     def test_auto_payment_across_time(self):
-        self.original_prepare_invoice = self.subscription._prepare_invoice
+        self.original_prepare_invoice = self.subscription._prepare_account_move_values
 
         with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment), \
                 patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail',
@@ -124,7 +124,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
                 self.subscription.action_confirm()
                 self.assertEqual(self.subscription.end_date, datetime.date(2021, 5, 2))
                 self.env['sale.order']._cron_recurring_create_invoice()
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 tx = self.env['payment.transaction'].search([('invoice_ids', 'in', invoice.ids)])
                 tx._post_process()
                 # Two products are invoiced
@@ -136,29 +136,29 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             with freeze_time("2021-02-03"):
                 self.env.invalidate_all()
                 self.env['sale.order']._cron_recurring_create_invoice()
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 tx = self.env['payment.transaction'].search([('invoice_ids', 'in', invoice.ids)])
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 self.assertEqual(invoice.date, datetime.date(2021, 2, 3), 'We invoiced today')
                 tx._post_process()
 
             with freeze_time("2021-03-03"):
                 self.env.invalidate_all()
                 self.env['sale.order']._cron_recurring_create_invoice()
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 tx = self.env['payment.transaction'].search([('invoice_ids', 'in', invoice.ids)])
                 tx._post_process()
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 self.assertEqual(invoice.date, datetime.date(2021, 3, 3), 'We invoiced today')
 
             # We continue
             with freeze_time("2021-04-03"):
                 self.subscription.invalidate_recordset()
                 self.env['sale.order']._cron_recurring_create_invoice()
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 tx = self.env['payment.transaction'].search([('invoice_ids', 'in', invoice.ids)])
                 tx._post_process()
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 tx = self.env['payment.transaction'].search([('invoice_ids', 'in', invoice.ids)])
                 tx._post_process()
                 self.assertEqual(invoice.date, datetime.date(2021, 4, 3), 'We invoiced today')
@@ -167,12 +167,12 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
                 self.subscription.invalidate_recordset(fnames=['subscription_state'])
                 self.env['sale.order']._cron_recurring_create_invoice()
                 self.assertEqual(self.subscription.subscription_state, '6_churn', 'the end_date is passed, the subscription is automatically closed')
-                invoice = self.subscription.invoice_ids.sorted('date')[-1]
+                invoice = self.subscription.account_move_ids.sorted('date')[-1]
                 self.assertEqual(invoice.date, datetime.date(2021, 4, 3), 'We should not create a new invoices')
 
     def test_do_payment_calls_send_payment_request_only_once(self):
         self.invoice = self.env['account.move'].create(
-            self.subscription._prepare_invoice()
+            self.subscription._prepare_account_move_values()
         )
         with patch(
             'odoo.addons.payment.models.payment_transaction.PaymentTransaction'
@@ -242,7 +242,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
              self.mock_mail_gateway():
             self.subscription._create_recurring_invoice()
 
-        invoice = self.subscription.order_line.invoice_lines.move_id
+        invoice = self.subscription.order_line.account_move_line_ids.move_id
         self.assertFalse(invoice, "The draft invoice should be deleted when something goes wrong in _handle_automatic_invoices")
         self.assertEqual(
             self.subscription.next_invoice_date, self.subscription.start_date,
@@ -269,7 +269,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             with self.assertRaises(Exception):
                 invoice.transaction_ids._post_process()
 
-        invoice = self.subscription.order_line.invoice_lines.move_id
+        invoice = self.subscription.order_line.account_move_line_ids.move_id
         self.assertTrue(
             invoice and invoice.state == "posted",
             "The draft invoice has to be kept as we committed after the payment succeeded "
@@ -292,7 +292,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
              self.mock_mail_gateway():
             self.subscription._create_recurring_invoice()
 
-        invoice = self.subscription.order_line.invoice_lines.move_id
+        invoice = self.subscription.order_line.account_move_line_ids.move_id
         self.assertFalse(self.subscription.pending_transaction, "The pending transaction flag should not remain")
         self.assertFalse(invoice, "The draft invoice should be deleted when something goes wrong in _handle_automatic_invoices")
         self.assertEqual(
@@ -307,7 +307,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         with freeze_time("2021-01-03"):
             self.subscription.action_confirm()
             self.subscription._create_invoices()
-            self.subscription.order_line.invoice_lines.move_id._post()
+            self.subscription.order_line.account_move_line_ids.move_id._post()
             self.assertEqual(self.subscription.next_invoice_date, datetime.date(2021, 2, 3), 'the next invoice date should be updated')
             self.assertEqual(self.subscription.invoice_count, 1)
 
@@ -359,25 +359,25 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             all_subs.action_confirm()
             self.env['sale.order']._cron_recurring_create_invoice()
             # Make sure, the account_moves order corresponds to the subscription order.
-            account_moves = sub1.invoice_ids | sub2.invoice_ids | sub3.invoice_ids | sub4.invoice_ids
+            account_moves = sub1.account_move_ids | sub2.account_move_ids | sub3.account_move_ids | sub4.account_move_ids
 
         with freeze_time("2022-02-01"):
             self.env['account.payment.register'] \
-                .with_context(active_model='account.move', active_ids=sub1.invoice_ids.ids) \
+                .with_context(active_model='account.move', active_ids=sub1.account_move_ids.ids) \
                 .create({
                 'currency_id': sub1.currency_id.id,
                 'amount': 50,
             })._create_payments()
-            self.assertEqual(sub1.invoice_ids.payment_state, 'partial')
+            self.assertEqual(sub1.account_move_ids.payment_state, 'partial')
             self.env['account.payment.register'] \
                 .with_context(active_model='account.move',
-                              active_ids=sub0.invoice_ids.ids).create(
+                              active_ids=sub0.account_move_ids.ids).create(
                 {
                     'currency_id': sub0.currency_id.id,
                     'amount': 400,
                 })._create_payments()
 
-            self.assertTrue(sub0.invoice_ids.payment_state in ['in_payment', 'paid'])
+            self.assertTrue(sub0.account_move_ids.payment_state in ['in_payment', 'paid'])
             self.assertEqual(account_moves.mapped('payment_state'), ['partial', 'not_paid', 'not_paid', 'not_paid'])
             template_limit = {account_moves[0].id: 5, account_moves[1].id: 60, account_moves[2].id: 5, account_moves[3].id: 15}
             date_data = [(aml.date_maturity,
@@ -429,10 +429,10 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
             # We don't pay tbis invoice to simulate bad historical data
             self.env['sale.order']._cron_recurring_create_invoice()
-            invoice_to_skip = sub.invoice_ids
+            invoice_to_skip = sub.account_move_ids
         with freeze_time("2024-01-01"):
             self.env['sale.order']._cron_recurring_create_invoice()
-            invoice_to_pay = sub.invoice_ids - invoice_to_skip
+            invoice_to_pay = sub.account_move_ids - invoice_to_skip
             self.env['account.payment.register'] \
                 .with_context(active_model='account.move',
                               active_ids=invoice_to_pay.ids).create(
@@ -476,7 +476,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
         self.assertEqual(tx.state, 'done')
         self.assertFalse(tx.invoice_ids, "We should not have created an invoice")
-        self.assertFalse(subscription.invoice_ids, "We should not have created an invoice on the subscription")
+        self.assertFalse(subscription.account_move_ids, "We should not have created an invoice on the subscription")
         self.assertEqual(
             subscription.start_date, subscription.next_invoice_date,
             "The subscription next invoice date should not have been updated"
@@ -500,7 +500,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             subscription._create_recurring_invoice()
             self.assertEqual(subscription.next_invoice_date, datetime.date(2023, 2, 18), "The next invoice date is incremented")
             subscription._get_invoiced()
-            inv = subscription.invoice_ids
+            inv = subscription.account_move_ids
 
             test_payment_token = self.env['payment.token'].create({
                 'payment_details': 'Test',
@@ -541,8 +541,8 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         with mute_logger('odoo.addons.sale.models.payment_transaction'):
             tx._post_process()
         self.assertEqual(self.subscription.state, 'sale')
-        self.assertEqual(len(self.subscription.invoice_ids), 1)
-        self.assertEqual(self.subscription.invoice_ids.state, 'posted')
+        self.assertEqual(len(self.subscription.account_move_ids), 1)
+        self.assertEqual(self.subscription.account_move_ids.state, 'posted')
 
     def test_manually_captured_payment_providers_not_allowed(self):
         self.provider.capture_manually = True
@@ -597,7 +597,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             subscription.write({'transaction_ids': [Command.set(transaction_ids.ids)]})
             subscription.action_confirm()
             subscription._create_invoices(final=True)
-            draft_invoice = subscription.order_line.invoice_lines.move_id.filtered(lambda am: am.state == 'draft')
+            draft_invoice = subscription.order_line.account_move_line_ids.move_id.filtered(lambda am: am.state == 'draft')
             transaction_ids._set_error("Payment declined!")
             transaction_ids._post_process()
             self.assertEqual(len(draft_invoice), 1, "A single draft invoice must be created after the payment was done.")

@@ -162,4 +162,4 @@ class TestMultiCompany(TestSaleCommonBase):
         invoice_wizard = self.env['sale.advance.payment.inv'].with_context(invoice_ctx).with_company(self.companyB).create({})
         invoice_wizard.create_invoices()
         self.assertFalse(self.task_1.task_to_invoice, "Task should not be invoiceable")
-        self.assertEqual(self.task_1.sale_order_id.invoice_ids[0].company_id.id, so_company_id, "The company of the invoice should be the same as the one from the SO")
+        self.assertEqual(self.task_1.sale_order_id.account_move_ids[0].company_id.id, so_company_id, "The company of the invoice should be the same as the one from the SO")

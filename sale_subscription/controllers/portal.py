@@ -370,7 +370,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         kwargs.update(partner_id=partner_sudo.id)
         if not is_validation:  # Renewal transaction
             invoice_to_pay = None
-            for invoice in order_sudo.invoice_ids:
+            for invoice in order_sudo.account_move_ids:
                 if (invoice.state == 'posted' and
                     invoice.move_type == 'out_invoice' and
                     invoice.payment_state not in ['paid', 'in_payment', 'reversed']):

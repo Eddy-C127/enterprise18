@@ -42,7 +42,7 @@ class AccountReconcileModel(models.Model):
 
             # Find some related invoices.
             aml_domain = self._get_invoice_matching_amls_domain(st_line, partner)
-            invoices = sale_orders.invoice_ids
+            invoices = sale_orders.account_move_ids
             if not invoices:
                 # The sale orders are not yet invoiced. Return them to allow the user to invoice them from
                 # the bank reco widget.

@@ -65,9 +65,9 @@ class SaleOrder(models.Model):
         for order in self:
             order.l10n_mx_edi_cfdi_to_public = False
 
-    def _prepare_invoice(self):
+    def _prepare_account_move_values(self):
         # OVERRIDE
-        vals = super()._prepare_invoice()
+        vals = super()._prepare_account_move_values()
         vals['l10n_mx_edi_cfdi_to_public'] = self.l10n_mx_edi_cfdi_to_public
         vals['l10n_mx_edi_usage'] = self.l10n_mx_edi_usage
         vals['l10n_mx_edi_payment_method_id'] = self.l10n_mx_edi_payment_method_id.id

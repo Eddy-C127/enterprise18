@@ -194,7 +194,7 @@ class SaleOrder(models.Model):
                 'product_id': shipping_product.product_variant_ids[0].id,
                 'product_uom_qty': 1,
                 'price_unit': price_unit,
-                'tax_id': [(4, tax_id.id)] if tax_id else False,
+                'tax_ids': [(4, tax_id.id)] if tax_id else False,
                 'is_delivery': True,
             })
 
@@ -263,7 +263,7 @@ class SaleOrder(models.Model):
             'order_id': self.id,
             'product_uom_qty': qty,
             'price_unit': price_unit,
-            'tax_id': tax_commands,
+            'tax_ids': tax_commands,
         })
 
         if 'BuyerCheckoutMessage' in transaction:

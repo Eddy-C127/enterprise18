@@ -97,7 +97,7 @@ class TestSubscriptionStockCommon(TestSubscriptionCommon, ValuationReconciliatio
             'order_line': [Command.create({
                 'product_id': cls.sub_product_order.id,
                 'product_uom_qty': 1,
-                'tax_id': [Command.clear()],
+                'tax_ids': [Command.clear()],
             })]
         })
 
@@ -110,7 +110,7 @@ class TestSubscriptionStockCommon(TestSubscriptionCommon, ValuationReconciliatio
             'order_line': [Command.create({
                 'product_id': cls.sub_product_delivery.id,
                 'product_uom_qty': 1,
-                'tax_id': [Command.clear()],
+                'tax_ids': [Command.clear()],
             })]
         })
 
