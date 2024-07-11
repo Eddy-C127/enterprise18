@@ -862,6 +862,9 @@ class AccountMove(models.Model):
                         })
                     self.tax_totals = tax_totals
 
+            # Set the imported flag after taxes have been computed
+            move_form.invoice_line_ids.is_imported = True
+
             if (
                 not move_form.currency_id.is_zero(tax_amount_rounding_error) and
                 float_compare(abs(tax_amount_rounding_error), threshold, precision_digits=2) <= 0

@@ -220,6 +220,7 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
         self.assertEqual(invoice.amount_total, 330)
         for line in invoice.invoice_line_ids:
             self.assertEqual(line.tax_ids[0], tax_15_included)
+            self.assertTrue(line.is_imported)
 
     def test_merge_check_ocr_status(self):
         # test check_ocr_status with lines merging
