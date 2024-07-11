@@ -1,4 +1,4 @@
-# coding: utf-8
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
@@ -92,7 +92,7 @@ class TestNacha(AccountTestInvoicingCommon):
     def testGenerateNachaFileUnbalanced(self):
         expected = [
             # header
-            "101 111111118  IMM_ORIG2011301945A094101DESTINATION            company_1_data         {:8d}".format(self.batch.id),
+            f"101 111111118  IMM_ORIG2011301945A094101DESTINATION            company_1_data         {self.batch.id:8d}",
             # batch header for payments today "BATCH 0"
             "5220company_1_data  BATCH/OUT/2020/0001 COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
             # entry detail for payment "partner_a_1"
@@ -120,7 +120,7 @@ class TestNacha(AccountTestInvoicingCommon):
         journal.nacha_discretionary_data = "00000000000123456789"
         expected = [
             # header
-            "101 111111118  IMM_ORIG2011301945A094101DESTINATION            company_1_data         {:8d}".format(self.batch.id),
+            f"101 111111118  IMM_ORIG2011301945A094101DESTINATION            company_1_data         {self.batch.id:8d}",
             # batch header for payments today "BATCH 0"
             "5200company_1_data  00000000000123456789COMPANY_IDCCDBATCH 0   201130201130   1ORIGINAT0000000",
             # entry detail for payment "partner_a_1"
