@@ -43,7 +43,8 @@ class TestPayslipValidationCommon(AccountTestInvoicingCommon):
 
         cls.structure = structure
 
-        cls.env.user.tz = tz or 'America/Los_Angeles'
+        cls.tz = tz or 'America/Los_Angeles'
+        cls.env.user.tz = cls.tz
 
         cls.work_contact = cls.env['res.partner'].create({
             'name': country_code + ' Employee',
@@ -53,7 +54,7 @@ class TestPayslipValidationCommon(AccountTestInvoicingCommon):
             'name': "Standard Calendar : 40 Hours/Week",
             'company_id': cls.env.company.id,
             'hours_per_day': 8.0,
-            'tz': tz or 'America/Los_Angeles',
+            'tz': cls.tz,
             'two_weeks_calendar': False,
             'hours_per_week': 40.0,
             'full_time_required_hours': 40.0,
