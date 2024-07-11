@@ -2721,6 +2721,10 @@
         </function>
     </data>
 
+    <function model="res.config.settings" name="unlink">
+        <value model="res.config.settings" eval="obj().search([]).ids"/>
+    </function>
+
     <!-- Activate Documents on HR applications -->
     <function model="res.config.settings" name="create">
         <value model="res.config.settings" eval="dict(
