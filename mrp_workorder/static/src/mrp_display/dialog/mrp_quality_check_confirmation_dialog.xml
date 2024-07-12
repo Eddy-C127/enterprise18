@@ -77,8 +77,12 @@
                                 barcode_trigger="continue">Continue consumption</button>
                     </div>
                     <div>
-                        <button t-if="props.record.data.previous_check_id" t-on-click="back" class="btn btn-secondary me-2">&lt; Back</button>
-                        <button t-if="props.record.data.next_check_id" t-on-click="skip" class="btn btn-secondary">Skip &gt;</button>
+                        <button t-if="props.record.data.previous_check_id"
+                                t-on-click="back" class="btn btn-secondary me-2"
+                                barcode_trigger="prev">&lt; Back</button>
+                        <button t-if="props.record.data.next_check_id"
+                                t-on-click="skip" class="btn btn-secondary"
+                                barcode_trigger="skip">Skip &gt;</button>
                     </div>
                 </div>
             </t>
