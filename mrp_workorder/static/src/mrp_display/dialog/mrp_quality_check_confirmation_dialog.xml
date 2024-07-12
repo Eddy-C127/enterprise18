@@ -87,10 +87,12 @@
                     <div>
                         <button t-if="props.previousCheck" t-on-click="back"
                                 class="btn btn-secondary me-2"
-                                t-att-disabled="state.disabled">&lt; Back</button>
+                                t-att-disabled="state.disabled"
+                                barcode_trigger="prev">&lt; Back</button>
                         <button t-if="props.nextCheck" t-on-click="skip"
                                 class="btn btn-secondary"
-                                t-att-disabled="state.disabled">Skip &gt;</button>
+                                t-att-disabled="state.disabled"
+                                barcode_trigger="skip">Skip &gt;</button>
                     </div>
                 </div>
             </t>
