@@ -41,7 +41,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
     def _l10n_mx_edi_add_digital_stamp(self, path_xslt, cfdi):
         """Add digital stamp certificate attributes in XML report"""
         tree = fromstring(cfdi)
-        certificate = self.env.company.l10n_mx_edi_certificate_ids.sudo()._get_valid_certificate()
+        certificate = self.env.company.sudo().l10n_mx_edi_certificate_ids._get_valid_certificate()
         if not certificate:
             return tree
         cadena = certificate._get_cadena_chain(tree, path_xslt)
