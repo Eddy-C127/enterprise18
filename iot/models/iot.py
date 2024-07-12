@@ -105,15 +105,39 @@ class IotChannel(models.Model):
     _name = "iot.channel"
     _description = "The Websocket Iot Channel"
 
+    SYSTEM_PARAMETER_KEY = 'iot.ws_channel'
+
+    # TODO: remove in master, too complicate and scenario to handle multi-company with the IoT
     name = fields.Char('Name', default=lambda self: f'iot_channel-{secrets.token_hex(16)}')
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company) #One2one
 
+    def _get_iot_no_company_set_ws_company_id(self):
+        """Get the company ID of the default company when no company is set on the IoT device"""
+        # When the IoT reaches the server to get the WS channel,
+        # it does a public request thus the environment is set on the "public user"
+        # In this case, if no ID is set on the IoT, it will default to the current environment company.
+        # It's computation can be simplified to the following lines
+
+        # simplification of Environment.company computation
+        public_user_companies = self.env.ref('base.public_user')._get_company_ids()
+        return public_user_companies[0] if public_user_companies else False
+
+    def _create_channel_if_not_exist(self):
+        # Temporary workaround to adapt the previous model to the new one
+        # If a WS already exist, we keep its value, otherwise, we generate it randomly
+        icp = self.env['ir.config_parameter'].sudo()
+        existing_channel = self.with_company(
+            self._get_iot_no_company_set_ws_company_id()).env['iot.channel'].search(
+                [('company_id', "=", self.env.company.id)], limit=1)
+        iot_channel = existing_channel.name or f'iot_channel-{secrets.token_hex(16)}'
+        icp.set_param(self.SYSTEM_PARAMETER_KEY, iot_channel)
+        return iot_channel
+
     def get_iot_channel(self):
         if self.env.is_system() or self.env.user.has_group('base.group_user'):
-            iot_channel = self.env['iot.channel'].search([('company_id', "=", self.env.company.id)], limit=1)
-            if not iot_channel.ids:
-                iot_channel = self.env['iot.channel'].sudo().create({})
-            return iot_channel.name
+            icp = self.env['ir.config_parameter'].sudo()
+            iot_channel = icp.get_param(self.SYSTEM_PARAMETER_KEY)
+            return iot_channel or self._create_channel_if_not_exist()
         return False
 
     _sql_constraints = [
