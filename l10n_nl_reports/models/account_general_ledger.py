@@ -398,6 +398,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         with registry(self.env.cr.dbname).cursor() as cr:
             self = self.with_env(self.env(cr=cr))
             batch_size = int(self.env['ir.config_parameter'].sudo().get_param('l10n_nl_reports.general_ledger_batch_size', 10**4))
+            # System parameter to allow users to set docRef length (default 999 as per spec) for compatibility with other software
+            docref_length = int(self.env['ir.config_parameter'].sudo().get_param('l10n_nl_reports.docref_max_length', 999))
             transaction_values_query = self._l10n_nl_get_transaction_values_query(options)
             self.env.cr.execute(transaction_values_query)
 
@@ -452,7 +454,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                                 {inv_ref}""").format(
                                     line_id=row['line_id'],
                                     account_code=row['account_code'],
-                                    line_ref=row['line_ref'] and row['line_ref'][:999] or '/',
+                                    line_ref=row['line_ref'] and row['line_ref'][:docref_length] or '/',
                                     line_date=row['line_date'],
                                     line_name=row['line_name'],
                                     amount=row['line_credit'] or row['line_debit'],
