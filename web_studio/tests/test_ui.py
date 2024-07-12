@@ -835,6 +835,25 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             </pivot>
         '''.format(field_id=field_id))
 
+    @mute_logger('odoo.addons.base.models.ir_ui_view')
+    def test_postprocess_empty_groups_attribute(self):
+        view = self.env["ir.ui.view"].create({
+            "name": "simple view",
+            "model": "res.partner",
+            "type": "form",
+            "arch": '''
+                       <form>
+                           <field name="display_name" groups=""/>
+                       </form>
+                   '''
+        })
+        studio_view = self.env[view.model].with_context(studio=True).get_view(view.id, view.type)
+        assertViewArchEqual(self, studio_view["arch"], '''
+            <form>
+                <field name="display_name" groups="" studio_groups="[]"/>
+            </form>
+        ''')
+
     def test_field_with_groups_in_tree_node_has_groups_too(self):
         # The field has a group in python in which the user is
         # The node has also a group in which the user is not

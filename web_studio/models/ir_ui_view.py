@@ -98,9 +98,9 @@ class View(models.Model):
             set_invisible_nodes = set()
 
             for node in tree.xpath('//*[@groups]'):
-                node_groups[node] = node.get('groups')
-
-                if not self.user_has_groups(node.get('groups')):
+                groups = node.get('groups')
+                node_groups[node] = groups
+                if groups and not self.user_has_groups(groups):
                     # Make invisible nodes for which the user is not part of the group,
                     # and remove the `groups` from the node before calling super so the nodes are not deleted.
                     if node.tag == 't' and node.get('postprocess_added'):
