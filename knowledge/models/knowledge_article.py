@@ -1098,7 +1098,7 @@ class Article(models.Model):
             limit_days = self.DEFAULT_ARTICLE_TRASH_LIMIT_DAYS
         timeout_ago = datetime.utcnow() - timedelta(days=limit_days)
         domain = [("write_date", "<", timeout_ago), ("to_delete", "=", True)]
-        return self.search(domain).unlink()
+        return self.with_context(active_test=False).search(domain, limit=100).unlink()
 
     def action_archive(self):
         self._action_archive_articles()
