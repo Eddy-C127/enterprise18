@@ -6,6 +6,7 @@ from markupsafe import Markup
 from odoo import models, fields, api, _
 from odoo.addons.iap import InsufficientCreditError
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import html2plaintext
 
 FREIGHT_MODEL_SELECTION = [
     ("CIF", "Freight contracting on behalf of the Sender (CIF)"),
@@ -471,64 +472,45 @@ class AccountMove(models.Model):
                 },
             }
 
-    def _l10n_br_get_locations(self, customer, company_partner, transporter):
-        locations = {
-            "entity": {
-                "name": customer.name,
-                "businessName": customer.name,
-                "federalTaxId": customer.vat,
-                "stateTaxId": customer.l10n_br_ie_code,
-                "address": {
-                    "neighborhood": customer.street2,
-                    "street": customer.street_name,
-                    "zipcode": customer.zip,
-                    "cityName": customer.city,
-                    "state": customer.state_id.name,
-                    "number": customer.street_number,
-                    "complement": customer.street_number2,
-                    "phone": customer.phone,
-                    "email": customer.email,
-                },
-            },
-            "establishment": {
-                "name": company_partner.name,
-                "businessName": company_partner.name,
-                "federalTaxId": company_partner.vat,
-                "cityTaxId": company_partner.l10n_br_im_code,
-                "stateTaxId": company_partner.l10n_br_ie_code,
-                "address": {
-                    "neighborhood": company_partner.street2,
-                    "street": company_partner.street_name,
-                    "cityName": company_partner.city,
-                    "state": company_partner.state_id.name,
-                    "countryCode": company_partner.country_id.l10n_br_edi_code,
-                    "number": company_partner.street_number,
-                    "complement": company_partner.street_number2,
-                },
+    def _l10n_br_get_location_dict(self, partner):
+        return {
+            "name": partner.name,
+            "businessName": partner.name,
+            "type": self._l10n_br_get_partner_type(partner),
+            "federalTaxId": partner.vat,
+            "cityTaxId": partner.l10n_br_im_code,
+            "stateTaxId": partner.l10n_br_ie_code,
+            "suframa": partner.l10n_br_isuf_code,
+            "address": {
+                "neighborhood": partner.street2,
+                "street": partner.street_name,
+                "zipcode": partner.zip,
+                "cityName": partner.city,
+                "state": partner.state_id.name,
+                "countryCode": partner.country_id.l10n_br_edi_code,
+                "number": partner.street_number,
+                "complement": partner.street_number2,
+                "phone": partner.phone,
+                "email": partner.email,
             },
         }
 
+    def _l10n_br_get_locations(self, customer, company_partner, transporter):
+        locations = {
+            "entity": self._l10n_br_get_location_dict(customer),
+            "establishment": self._l10n_br_get_location_dict(company_partner),
+        }
+
         if not self.l10n_br_is_service_transaction:
-            locations["transporter"] = {
-                "name": transporter.name,
-                "businessName": transporter.name,
-                "type": self._l10n_br_get_partner_type(transporter),
-                "federalTaxId": transporter.vat,
-                "cityTaxId": transporter.l10n_br_im_code,
-                "stateTaxId": transporter.l10n_br_ie_code,
-                "suframa": transporter.l10n_br_isuf_code,
-                "address": {
-                    "neighborhood": transporter.street2,
-                    "street": transporter.street_name,
-                    "zipcode": transporter.zip,
-                    "state": transporter.state_id.name,
-                    "countryCode": transporter.country_id.l10n_br_edi_code,
-                    "number": transporter.street_number,
-                    "complement": transporter.street_number2,
-                },
-            }
+            locations["transporter"] = self._l10n_br_get_location_dict(transporter)
 
         return locations
+
+    def _l10n_br_get_additional_info(self):
+        info = self.narration and html2plaintext(self.narration)  # html2plaintext turns False into "False"
+        return {
+            "additionalInfo": {"otherInfo" if self.l10n_br_is_service_transaction else "complementaryInfo": info}
+        }
 
     def _l10n_br_prepare_invoice_payload(self):
         def deep_update(d, u):
@@ -597,6 +579,8 @@ class AccountMove(models.Model):
                         ],
                     },
                 },
+                **self._l10n_br_get_additional_info(),
+                "shippingDate": fields.Date.to_string(self.delivery_date),
             },
         }
 
