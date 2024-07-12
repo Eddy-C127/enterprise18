@@ -79,8 +79,11 @@ class AccountReportAnnotation(models.Model):
         Remove the tax grouping from the line_id. This is needed because the tax grouping is not relevant for the annotation.
         Tax grouping are any group using 'account.group' in the line_id.
         """
-        split_line_id = [group for group in self.env['account.report']._parse_line_id(line_id, markup_as_string=True) if group[1] != 'account.group']
-        return '|'.join('~'.join(map(str, tup)) for tup in split_line_id)
+        return self.env['account.report']._build_line_id([
+            (markup, model, res_id)
+            for markup, model, res_id in self.env['account.report']._parse_line_id(line_id, markup_as_string=True)
+            if model != 'account.group'
+        ])
 
 class AccountReport(models.Model):
     _inherit = 'account.report'

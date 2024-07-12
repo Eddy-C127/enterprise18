@@ -76,6 +76,9 @@ Accounting Reports
         'web.qunit_suite_tests': [
             'account_reports/static/tests/legacy/*.js',
         ],
+        'web.assets_unit_tests': [
+            'account_reports/static/tests/*.js',
+        ],
         'web.assets_tests': [
             'account_reports/static/tests/tours/**/*',
         ],

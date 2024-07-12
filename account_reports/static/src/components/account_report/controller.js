@@ -6,6 +6,8 @@ import { session } from "@web/session";
 import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
 import { useService } from "@web/core/utils/hooks";
 
+import { removeTaxGroupingFromLineId } from "@account_reports/js/util";
+
 export class AccountReportController {
     constructor(action) {
         this.action = action;
@@ -615,17 +617,12 @@ export class AccountReportController {
     // Visibility
     //------------------------------------------------------------------------------------------------------------------
 
-    removeTaxGroupingFromLineId(lineId) {
-        // Tax grouping is not relevant for annotations, so we remove it from the line id.
-        return lineId.split("|").filter((line_id_component) => !line_id_component.includes("account.group")).join("|");
-    }
-
     refreshVisibleAnnotations() {
         const visibleAnnotations = [];
 
         this.lines.forEach((line) => {
             line["visible_annotations"] = [];
-            const lineWithoutTaxGrouping = this.removeTaxGroupingFromLineId(line.id);
+            const lineWithoutTaxGrouping = removeTaxGroupingFromLineId(line.id);
             if (line.visible && this.annotations[lineWithoutTaxGrouping]) {
                 for (const index in this.annotations[lineWithoutTaxGrouping]) {
                     const annotation = this.annotations[lineWithoutTaxGrouping][index];
