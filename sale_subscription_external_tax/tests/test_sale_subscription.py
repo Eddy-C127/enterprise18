@@ -44,7 +44,7 @@ class TestSaleSubscriptionExternal(TestSubscriptionCommon, TestSaleSubscriptionE
         )
 
     def test_02_subscription_do_payment(self):
-        invoice_values = self.subscription._prepare_account_move_values()
+        invoice_values = self.subscription._prepare_invoice()
         new_invoice = self.env["account.move"].create(invoice_values)
 
         payment_method = self.env['payment.token'].create({

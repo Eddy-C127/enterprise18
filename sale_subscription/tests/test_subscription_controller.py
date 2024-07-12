@@ -151,7 +151,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
 
     def test_automatic_invoice_token(self):
 
-        self.original_prepare_invoice = self.subscription._prepare_account_move_values
+        self.original_prepare_invoice = self.subscription._prepare_invoice
         self.mock_send_success_count = 0
         with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment),\
             patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail', wraps=self._mock_subscription_send_success_mail):
@@ -253,7 +253,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         return subscription
 
     def test_controller_transaction_refund(self):
-        self.original_prepare_invoice = self.subscription._prepare_account_move_values
+        self.original_prepare_invoice = self.subscription._prepare_invoice
         self.mock_send_success_count = 0
         self.pricing_month.price = 10
         subscription = self.subscription.create({

@@ -7,8 +7,8 @@ from odoo import models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    def _prepare_account_move_values(self):
-        res = super()._prepare_account_move_values()
+    def _prepare_invoice(self):
+        res = super()._prepare_invoice()
         if self.partner_shipping_id.country_id.intrastat:
             res['intrastat_country_id'] = self.partner_shipping_id.country_id.id
         return res

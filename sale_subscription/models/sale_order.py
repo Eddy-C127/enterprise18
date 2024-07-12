@@ -535,8 +535,8 @@ class SaleOrder(models.Model):
             self.env['sale.order.log']._create_log(self, initial_values.copy())
         return res
 
-    def _prepare_account_move_values(self):
-        vals = super()._prepare_account_move_values()
+    def _prepare_invoice(self):
+        vals = super()._prepare_invoice()
         if self.sale_order_template_id.journal_id:
             vals['journal_id'] = self.sale_order_template_id.journal_id.id
         return vals

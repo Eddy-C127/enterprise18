@@ -18,7 +18,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
     def test_auto_payment_with_token(self):
 
-        self.original_prepare_invoice = self.subscription._prepare_account_move_values
+        self.original_prepare_invoice = self.subscription._prepare_invoice
 
         with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment),\
             patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail',
@@ -81,7 +81,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.assertFalse(vals, "The subscriptions are not flagged anymore, the payment succeeded")
 
     def test_auto_payment_across_time(self):
-        self.original_prepare_invoice = self.subscription._prepare_account_move_values
+        self.original_prepare_invoice = self.subscription._prepare_invoice
 
         with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment), \
                 patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail',
@@ -172,7 +172,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
     def test_do_payment_calls_send_payment_request_only_once(self):
         self.invoice = self.env['account.move'].create(
-            self.subscription._prepare_account_move_values()
+            self.subscription._prepare_invoice()
         )
         with patch(
             'odoo.addons.payment.models.payment_transaction.PaymentTransaction'
