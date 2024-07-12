@@ -33,9 +33,21 @@ class AccountMove(models.Model):
         for i, move in enumerate(self):
             if main_attachment_id and not move.env.context.get('no_document') and move.move_type != 'entry':
                 previous_attachment_id = move.message_main_attachment_id.id
+                if previous_attachment_id == main_attachment_id:
+                    continue
                 document = False
                 if previous_attachment_id:
-                    document = move.env['documents.document'].sudo().search([('attachment_id', '=', previous_attachment_id)], limit=1)
+                    # Search also in previous_attachment_ids to handle the case where
+                    # the attachment is not the main one due to versioning
+                    document = (
+                        move.env["documents.document"]
+                        .sudo()
+                        .search([
+                            "|",
+                            ("attachment_id", "=", previous_attachment_id),
+                            ("previous_attachment_ids", "in", previous_attachment_id),
+                        ], limit=1)
+                    )
                 if document:
                     document.attachment_id = main_attachment_id
                 else:

@@ -196,6 +196,119 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
             # deleting the setting to prevent duplicate settings.
             setting.unlink()
 
+    def test_bridge_account_account_settings_on_write_with_versioning(self):
+        """
+        With accounting-document centralization activated, make sure that the right attachment
+        is set as main attachment on the invoice when versioning is involved and only one document
+        is being created and updated.
+        """
+        folder_test = self.env["documents.folder"].create({"name": "folder_test"})
+        self.env.user.company_id.documents_account_settings = True
+
+        invoice_test = (
+            self.env["account.move"]
+            .with_context(default_move_type="in_invoice")
+            .create({
+                "name": "invoice_test",
+                "move_type": "in_invoice",
+            })
+        )
+
+        self.env["documents.account.folder.setting"].create({
+            "folder_id": folder_test.id,
+            "journal_id": invoice_test.journal_id.id,
+        })
+
+        attachments = self.env["ir.attachment"]
+        for i in range(1, 3):
+            attachment = self.env["ir.attachment"].create({
+                "datas": TEXT,
+                "name": f"attachment-{i}.txt",
+                "mimetype": "text/plain",
+                "res_model": "account.move",
+                "res_id": invoice_test.id,
+            })
+            attachment.register_as_main_attachment(force=False)
+            attachments |= attachment
+
+        first_attachment, second_attachment = attachments[0], attachments[1]
+
+        document = self.env["documents.document"].search(
+            [("res_model", "=", "account.move"), ("res_id", "=", invoice_test.id)]
+        )
+        self.assertEqual(
+            len(document), 1, "there should be 1 document linked to the invoice"
+        )
+        self.assertEqual(
+            document.folder_id, folder_test, "the text test document have a folder"
+        )
+
+        def check_main_attachment_and_document(
+            main_attachment, doc_attachment, previous_attachment_ids
+        ):
+            self.assertRecordValues(
+                invoice_test,
+                [{"message_main_attachment_id": main_attachment.id}],
+            )
+            self.assertRecordValues(
+                document,
+                [
+                    {
+                        "attachment_id": doc_attachment.id,
+                        "previous_attachment_ids": previous_attachment_ids,
+                    }
+                ],
+            )
+
+        # Ensure the main attachment is attachment-1
+        check_main_attachment_and_document(first_attachment, first_attachment, [])
+
+        # Version the main attachment:
+        # attachment-1 become attachment-3
+        # version attachement become attachment-1
+        document.write({
+            "datas": TEXT,
+            "name": "attachment-3.txt",
+            "mimetype": "text/plain",
+        })
+        third_attachment = document.attachment_id
+        first_attachment = document.previous_attachment_ids[0]
+        check_main_attachment_and_document(
+            third_attachment, third_attachment, first_attachment.ids
+        )
+
+        # Switch main attachment to attachment-2
+        second_attachment.register_as_main_attachment(force=True)
+        check_main_attachment_and_document(
+            second_attachment,
+            second_attachment,
+            (first_attachment + third_attachment).ids,
+        )
+
+        # restore versioned attachment (attachment-1)
+        document.write({"attachment_id": document.previous_attachment_ids[0].id})
+        check_main_attachment_and_document(
+            second_attachment,
+            first_attachment,
+            (third_attachment + second_attachment).ids,
+        )
+
+        # Switch main attachment to attachment-3
+        third_attachment.register_as_main_attachment(force=True)
+        check_main_attachment_and_document(
+            third_attachment,
+            third_attachment,
+            (second_attachment + first_attachment).ids,
+        )
+
+        # Ensure there is still only one document linked to the invoice
+        document = self.env["documents.document"].search(
+            [("res_model", "=", "account.move"), ("res_id", "=", invoice_test.id)]
+        )
+        self.assertEqual(
+            len(document), 1, "there should be 1 document linked to the invoice"
+        )
+
     def test_journal_entry(self):
         """
         Makes sure the settings apply their values when an ir_attachment is set as message_main_attachment_id
