@@ -3,7 +3,7 @@
 
 import json
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from lxml import html
 from unittest.mock import patch
 from urllib import parse
@@ -1459,6 +1459,44 @@ class TestKnowledgeArticleRemoval(KnowledgeCommonBusinessCase):
             self.env.user.partner_id: 'none',
             self.customer: 'read'
         })
+
+    def test_trashed_article_garbage_collect(self):
+        [normal, trashed_not_to_unlink, archived_not_trashed] = self.env['knowledge.article'].create([{
+            'name': 'Normal article',
+            'internal_permission': 'write',
+        }, {
+            'active': False,
+            'to_delete': True,
+            'internal_permission': 'write',
+            'name': 'Trashed not to unlink',
+            'parent_id': False,
+        }, {
+            'active': False,
+            'internal_permission': 'write',
+            'to_delete': False,
+            'name': 'Only Archived',
+            'parent_id': False,
+        }])
+
+        self.env['knowledge.article'].flush_model()
+
+        before = datetime.now() - timedelta(days=self.env['knowledge.article'].DEFAULT_ARTICLE_TRASH_LIMIT_DAYS + 1)
+        # Older article
+        with patch.object(self.env.cr, 'now', return_value=before):
+            trashed_to_unlink = self.env['knowledge.article'].create({
+                'active': False,
+                'internal_permission': 'write',
+                'to_delete': True,
+                'name': 'Trashed to unlink',
+                'parent_id': False,
+            })
+            self.env['knowledge.article'].flush_model()
+
+        self.env['knowledge.article']._gc_trashed_articles()
+        self.assertFalse(trashed_to_unlink.exists())
+        self.assertTrue(normal.exists())
+        self.assertTrue(trashed_not_to_unlink.exists(), "This article's deletion date is not yet passed.")
+        self.assertTrue(archived_not_trashed.exists(), "This article is archived and not trashed (to_delete = False), it shouldn't be unlinked.")
 
 @tagged('post_install', '-at_install', 'knowledge_internals', 'knowledge_management')
 class TestKnowledgeShare(KnowledgeCommonWData):
