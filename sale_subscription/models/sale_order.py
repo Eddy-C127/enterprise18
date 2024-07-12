@@ -613,7 +613,7 @@ class SaleOrder(models.Model):
         for order in self:
             if (order.state == 'cancel'
                 and order.is_subscription
-                and any(state in ['draft', 'posted'] for state in order.order_line.account_move_line_ids.move_id.mapped('state'))):
+                and any(state in ['draft', 'posted'] for state in order.order_line.invoice_lines.move_id.mapped('state'))):
                 raise UserError(
                     _('You cannot set to draft a cancelled quotation linked to invoiced subscriptions. Please create a new quotation.'))
         res = super().action_draft()
@@ -635,7 +635,7 @@ class SaleOrder(models.Model):
                 cancel_message_body = _("The renewal %s has been cancelled.", order._get_html_link())
                 order.subscription_id.message_post(body=cancel_message_body)
             elif (order.subscription_state in SUBSCRIPTION_PROGRESS_STATE + SUBSCRIPTION_DRAFT_STATE
-                  and not any(state in ['draft', 'posted'] for state in order.order_line.account_move_line_ids.move_id.mapped('state'))):
+                  and not any(state in ['draft', 'posted'] for state in order.order_line.invoice_lines.move_id.mapped('state'))):
                 # subscription_id means a renewal because no upsell could enter this condition
                 # When we cancel a quote or a confirmed subscription that was not invoiced, we remove the order logs and
                 # reopen the parent order if the conditions are met.
@@ -1540,7 +1540,7 @@ class SaleOrder(models.Model):
         for order in self:
             if not order.is_subscription:
                 continue
-            if order.order_line.account_move_line_ids.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund') and r.state == 'draft'):
+            if order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund') and r.state == 'draft'):
                 order_already_invoiced |= order
         if order_already_invoiced:
             order_error = ", ".join(order_already_invoiced.mapped('name'))

@@ -127,7 +127,7 @@ class SaleOrderLine(models.Model):
         super(SaleOrderLine, self - recurring_lines)._compute_pricelist_item_id()
         recurring_lines.pricelist_item_id = False
 
-    @api.depends('recurring_invoice', 'account_move_line_ids.deferred_start_date', 'account_move_line_ids.deferred_end_date',
+    @api.depends('recurring_invoice', 'invoice_lines.deferred_start_date', 'invoice_lines.deferred_end_date',
                  'order_id.next_invoice_date', 'order_id.last_invoice_date')
     def _compute_qty_to_invoice(self):
         return super()._compute_qty_to_invoice()
@@ -138,7 +138,7 @@ class SaleOrderLine(models.Model):
             return super()._get_invoice_lines()
         else:
             last_invoice_date = self.order_id.last_invoice_date or self.order_id.start_date
-            invoice_line = self.account_move_line_ids.filtered(
+            invoice_line = self.invoice_lines.filtered(
                 lambda line: line.date and last_invoice_date and line.date > last_invoice_date)
             return invoice_line
 
@@ -171,7 +171,7 @@ class SaleOrderLine(models.Model):
             # But sometimes, migrated contract and account_move_line don't have these value set.
             # We fall back on the  l.move_id.invoice_date which could be wrong if the invoice is posted during another
             # period than the subscription.
-            related_invoice_lines = line.account_move_line_ids.filtered(
+            related_invoice_lines = line.invoice_lines.filtered(
                 lambda l: l.move_id.state != 'cancel' and
                         l.deferred_start_date and l.deferred_end_date and
                         start_date <= l.deferred_start_date <= day_before_end_date and
@@ -182,8 +182,8 @@ class SaleOrderLine(models.Model):
             result[line.id] = qty_invoiced
         return result
 
-    @api.depends('recurring_invoice', 'account_move_line_ids', 'account_move_line_ids.deferred_start_date',
-                 'account_move_line_ids.deferred_end_date', 'order_id.next_invoice_date', 'order_id.last_invoice_date')
+    @api.depends('recurring_invoice', 'invoice_lines', 'invoice_lines.deferred_start_date',
+                 'invoice_lines.deferred_end_date', 'order_id.next_invoice_date', 'order_id.last_invoice_date')
     def _compute_qty_invoiced(self):
         other_lines = self.env['sale.order.line']
         subscription_qty_invoiced = self._get_subscription_qty_invoiced()

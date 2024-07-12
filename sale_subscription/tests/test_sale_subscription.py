@@ -1065,7 +1065,7 @@ class TestSubscription(TestSubscriptionCommon):
             sub.action_confirm()
             # first invoice: automatic or not, it's the same behavior. All line are invoiced
             sub._create_invoices()
-            sub.order_line.account_move_line_ids.move_id._post()
+            sub.order_line.invoice_lines.move_id._post()
             self.assertEqual("2021-02-01", sub.next_invoice_date.strftime("%Y-%m-%d"))
             inv = sub.invoice_ids.sorted('date')[-1]
             invoice_start_periods = inv.invoice_line_ids.mapped('deferred_start_date')
@@ -2129,7 +2129,7 @@ class TestSubscription(TestSubscriptionCommon):
             renewal_so = self.env['sale.order'].browse(action['res_id'])
             renewal_so.action_confirm()
             renewal_so._create_invoices()
-            renewal_so.order_line.account_move_line_ids.move_id._post()
+            renewal_so.order_line.invoice_lines.move_id._post()
             self.assertEqual(renewal_so.start_date, datetime.date(2023, 1, 1))
             self.assertEqual(renewal_so.next_invoice_date, datetime.date(2024, 1, 1))
             action = subscription_2.prepare_renewal_order()
