@@ -128,9 +128,8 @@
         <field name="model">maintenance.request</field>
         <field name="inherit_id" ref="maintenance.hr_equipment_request_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//span[hasclass('oe_grey')]" position="after">
-                <field name="maintenance_for" invisible="1"/>
-                <span class="oe_grey" t-if="record.maintenance_for.raw_value == 'workcenter' and record.workcenter_id.raw_value"><field name="workcenter_id"/><br/></span>
+            <xpath expr="//field[@name='schedule_date']" position="before">
+                <field name="workcenter_id"/>
             </xpath>
         </field>
     </record>
