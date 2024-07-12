@@ -37,23 +37,14 @@
         <field name="inherit_id" ref="mrp.mrp_workcenter_view_kanban"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//div[@t-attf-class='oe_kanban_content oe_kanban_global_click']" position="inside">
-                <field name="maintenance_open_count" invisible="1"/>
-                <field name="activity_ids" invisible="1"/>
-                <div class="o_kanban_record_bottom">
-                    <div class="oe_kanban_bottom_left">
-                        <div class="badge text-bg-danger" t-if="!selection_mode and record.maintenance_open_count.raw_value" >
-                            <t t-out="record.maintenance_open_count.raw_value"/> Request
-                        </div>
+            <xpath expr="//t[@t-name='kanban-card']" position="inside">
+                <footer class="fs-6">
+                    <div class="badge text-bg-danger" t-if="!selection_mode and record.maintenance_open_count.raw_value" >
+                        <field name="maintenance_open_count"/> Request
                     </div>
-                    <div class="oe_kanban_bottom_right">
-                        <div class="o_kanban_inline_block" t-if="!selection_mode">
-                            <field name="activity_ids" widget="kanban_activity" />
-                        </div>
-                        <field name="technician_user_id" widget="many2one_avatar_user"/>
-                    </div>
-                </div>
-                <div class="oe_clear"></div>
+                    <field t-if="!selection_mode" name="activity_ids" class="ms-auto" widget="kanban_activity" />
+                    <field name="technician_user_id" widget="many2one_avatar_user"/>
+                </footer>
             </xpath>
         </field>
     </record>
