@@ -29,7 +29,7 @@ class TestSaleExternalTaxesSalePortal(HttpCaseWithUserPortal):
             'order_line': [
                 (0, 0, {
                     'product_id': self.product_test.id,
-                    'tax_ids': None,
+                    'tax_id': None,
                     'price_unit': self.product_test.list_price,
                 }),
             ],

@@ -58,7 +58,7 @@ class TestSaleAvalara(TestAccountAvataxCommon):
         else:
             for line in order.order_line:
                 product_name = line.product_id.display_name
-                self.assertGreater(len(line.tax_ids), 0, "Line with %s did not get any taxes set." % product_name)
+                self.assertGreater(len(line.tax_id), 0, "Line with %s did not get any taxes set." % product_name)
 
             self.assertGreater(order.amount_tax, 0.0, "Invoice has a tax_amount of 0.0.")
 
@@ -71,27 +71,27 @@ class TestSaleAvalara(TestAccountAvataxCommon):
             'order_line': [
                 (0, 0, {
                     'product_id': self.product_user.id,
-                    'tax_ids': None,
+                    'tax_id': None,
                     'price_unit': self.product_user.list_price,
                 }),
                 (0, 0, {
                     'product_id': self.product_user_discound.id,
-                    'tax_ids': None,
+                    'tax_id': None,
                     'price_unit': self.product_user_discound.list_price,
                 }),
                 (0, 0, {
                     'product_id': self.product_accounting.id,
-                    'tax_ids': None,
+                    'tax_id': None,
                     'price_unit': self.product_accounting.list_price,
                 }),
                 (0, 0, {
                     'product_id': self.product_expenses.id,
-                    'tax_ids': None,
+                    'tax_id': None,
                     'price_unit': self.product_expenses.list_price,
                 }),
                 (0, 0, {
                     'product_id': self.product_invoicing.id,
-                    'tax_ids': None,
+                    'tax_id': None,
                     'price_unit': self.product_invoicing.list_price,
                 }),
             ]
@@ -131,13 +131,13 @@ class TestSaleAvalara(TestAccountAvataxCommon):
                     'product_id': self.product.id,
                     'product_uom_qty': 1,
                     'price_unit': 1.48,
-                    'tax_ids': self.tax_with_diff_amount.ids,
+                    'tax_id': self.tax_with_diff_amount.ids,
                 }),
                 (0, 0, {
                     'product_id': self.product.id,
                     'product_uom_qty': 1,
                     'price_unit': 1.48,
-                    'tax_ids': self.tax_with_diff_amount.ids,
+                    'tax_id': self.tax_with_diff_amount.ids,
                 }),
             ],
         })
@@ -260,7 +260,7 @@ class TestSaleAvalara(TestAccountAvataxCommon):
             payment.sudo().create_invoices()
             downpayment_invoice = order.invoice_ids
             downpayment_invoice.sudo().action_post()
-        self.assertEqual(downpayment_invoice.invoice_line_ids.tax_ids, order.order_line.tax_ids)
+        self.assertEqual(downpayment_invoice.invoice_line_ids.tax_ids, order.order_line.tax_id)
         self.assertAlmostEqual(downpayment_invoice.amount_total, 18.9)
 
 
@@ -289,7 +289,7 @@ class TestAccountAvalaraSalesTaxItemsIntegration(TestAccountAvataxCommon):
                 'order_line': [
                     (0, 0, {
                         'product_id': cls.product.id,
-                        'tax_ids': None,
+                        'tax_id': None,
                         'price_unit': cls.product.list_price,
                     }),
                 ]
@@ -425,7 +425,7 @@ class TestAccountAvalaraSalesTaxItemsIntegration(TestAccountAvataxCommon):
                 'order_line': [
                     (0, 0, {
                         'product_id': self.product.id,
-                        'tax_ids': None,
+                        'tax_id': None,
                         'price_unit': self.product.list_price,
                     }),
                 ]

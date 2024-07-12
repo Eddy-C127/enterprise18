@@ -34,7 +34,7 @@ class TestSaleSubscriptionStockRule(TestSubscriptionStockCommon):
                 Command.create({
                     'product_id': prod.id,
                     'product_uom_qty': 1,
-                    'tax_ids': [Command.clear()],
+                    'tax_id': [Command.clear()],
                 }),
             ]
         })

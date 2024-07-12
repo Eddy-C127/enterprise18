@@ -35,7 +35,7 @@ class TestSaleAvalaraBr(TestAvalaraBrCommon):
         else:
             for line in order.order_line:
                 product_name = line.product_id.display_name
-                self.assertGreater(len(line.tax_ids), 0, "Line with %s did not get any taxes set." % product_name)
+                self.assertGreater(len(line.tax_id), 0, "Line with %s did not get any taxes set." % product_name)
 
             self.assertGreater(order.amount_tax, 0.0, "Invoice has a tax_amount of 0.0.")
 
@@ -54,7 +54,7 @@ class TestSaleAvalaraBr(TestAvalaraBrCommon):
                 (0, 0, {
                     'product_id': product.id,
                     'price_unit': product.list_price,
-                    'tax_ids': None,
+                    'tax_id': None,
                 }) for product in products
             ]
         })

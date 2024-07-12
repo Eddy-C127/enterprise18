@@ -179,7 +179,7 @@ class TestSaleTimesheetInTicket(TestCommonSaleTimesheet):
             'product_uom': service.uom_id.id,
             'price_unit': service.list_price,
             'order_id': sale_order.id,
-            'tax_ids': False,
+            'tax_id': False,
         })
 
         sale_order.action_confirm()
