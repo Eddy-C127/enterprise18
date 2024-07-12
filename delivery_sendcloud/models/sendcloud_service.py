@@ -79,6 +79,7 @@ class SendCloud:
         if order:
             default_package = carrier.sendcloud_default_package_type_id
             target_weight = default_package.max_weight if default_package else False
+            target_weight = int(carrier.sendcloud_convert_weight(target_weight, grams=True)) if target_weight else False
             packages_no, total_weight = self._split_shipping(carrier.sendcloud_shipping_id, total_weight, target_weight)
         if packages_no > 1:
             # We're forcefully calling this method from a sale order, as we only want an estimation of the rating, take the 'heaviest' methods
