@@ -26,11 +26,7 @@ export class AccountReportAnnotationsPopover extends Component {
             value: this.props.isAddingAnnotation ? this._getNewAnnotation() : {},
         });
 
-        this.annotations = useState(
-            this.props.controller.visibleAnnotations.filter((annotation) => {
-                return annotation.line_id === this.props.lineID;
-            })
-        );
+        this.annotations = useState(this.props.controller.visibleAnnotations[this.props.lineID]);
 
         this.popoverTable = useRef("popoverTable");
         this.currentPromise = null;
@@ -49,9 +45,7 @@ export class AccountReportAnnotationsPopover extends Component {
     async refreshAnnotations() {
         this.currentPromise = null;
         await this.props.controller.refreshAnnotations();
-        this.annotations = this.props.controller.visibleAnnotations.filter((annotation) => {
-            return annotation.line_id === this.props.lineID;
-        });
+        this.annotations = this.props.controller.visibleAnnotations[this.props.lineID];
         if (this.isAddingAnnotation) {
             this.cleanNewAnnotation();
         }

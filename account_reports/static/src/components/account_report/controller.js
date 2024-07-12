@@ -618,7 +618,18 @@ export class AccountReportController {
     //------------------------------------------------------------------------------------------------------------------
 
     refreshVisibleAnnotations() {
-        const visibleAnnotations = [];
+        const visibleAnnotations = new Proxy(
+            {},
+            {
+                get(target, name) {
+                    return name in target ? target[name] : [];
+                },
+                set(target, name, newValue) {
+                    target[name] = newValue;
+                    return true;
+                },
+            }
+        );
 
         this.lines.forEach((line) => {
             line["visible_annotations"] = [];
@@ -626,9 +637,10 @@ export class AccountReportController {
             if (line.visible && this.annotations[lineWithoutTaxGrouping]) {
                 for (const index in this.annotations[lineWithoutTaxGrouping]) {
                     const annotation = this.annotations[lineWithoutTaxGrouping][index];
-                    visibleAnnotations.push({
-                        ...annotation,
-                    });
+                    visibleAnnotations[lineWithoutTaxGrouping] = [
+                        ...visibleAnnotations[lineWithoutTaxGrouping],
+                        { ...annotation },
+                    ];
                     line["visible_annotations"].push({
                         ...annotation,
                     });
