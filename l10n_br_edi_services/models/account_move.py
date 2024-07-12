@@ -126,6 +126,11 @@ class AccountMove(models.Model):
         # and should not be included in the legal XML and PDF.
         self._l10n_br_log_informative_taxes(payload)
 
+        # Rename the terms and conditions field for service invoices.
+        additional_info = payload["header"].get("additionalInfo", {})
+        if "complementaryInfo" in additional_info:
+            additional_info["otherInfo"] = additional_info.pop("complementaryInfo")
+
         for line in payload.get("lines", []):
             line["taxDetails"] = [
                 detail for detail in line["taxDetails"] if detail["taxImpact"]["impactOnFinalPrice"] != "Informative"

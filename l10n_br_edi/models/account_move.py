@@ -4,7 +4,7 @@ import json
 from odoo import models, fields, api, _
 from odoo.addons.iap import InsufficientCreditError
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import street_split
+from odoo.tools import street_split, html2plaintext
 
 FREIGHT_MODEL_SELECTION = [
     ("CIF", "Freight contracting on behalf of the Sender (CIF)"),
@@ -352,6 +352,29 @@ class AccountMove(models.Model):
 
         return payment_mode
 
+    def _l10n_br_get_location_dict(self, partner):
+        street_data = street_split(partner.street)
+        return {
+            "name": partner.name,
+            "businessName": partner.name,
+            "type": self._l10n_br_get_partner_type(partner),
+            "federalTaxId": partner.vat,
+            "cityTaxId": partner.l10n_br_im_code,
+            "stateTaxId": partner.l10n_br_ie_code,
+            "suframa": partner.l10n_br_isuf_code,
+            "address": {
+                "neighborhood": partner.street2,
+                "street": street_data["street_name"],
+                "zipcode": partner.zip,
+                "cityName": partner.city,
+                "state": partner.state_id.name,
+                "countryCode": partner.country_id.l10n_br_edi_code,
+                "number": street_data["street_number"],
+                "phone": partner.phone,
+                "email": partner.email,
+            },
+        }
+
     def _l10n_br_prepare_invoice_payload(self):
         def deep_update(d, u):
             """Like {}.update but handles nested dicts recursively. Based on https://stackoverflow.com/a/3233356."""
@@ -383,9 +406,7 @@ class AccountMove(models.Model):
             errors.append(str(e).replace("- ", ""))
 
         customer = self.partner_id
-        customer_street_data = street_split(customer.street)
         company_partner = self.company_id.partner_id
-        company_street_data = street_split(company_partner.street)
 
         transporter = self.l10n_br_edi_transporter_id
         is_invoice = self.move_type == "out_invoice"
@@ -393,8 +414,6 @@ class AccountMove(models.Model):
             transporter = self.company_id.partner_id if is_invoice else customer
         elif self.l10n_br_edi_freight_model == "ReceiverVehicle":
             transporter = customer if is_invoice else self.company_id.partner_id
-
-        transporter_street_data = street_split(transporter.street)
 
         errors.extend(self._l10n_br_edi_check_calculated_tax())
         errors.extend(self._l10n_br_edi_validate_partner(customer))
@@ -413,53 +432,9 @@ class AccountMove(models.Model):
                 "companyLocation": self._l10n_br_edi_vat_for_api(company_partner.vat),
                 **invoice_refs,
                 "locations": {
-                    "entity": {
-                        "name": customer.name,
-                        "businessName": customer.name,
-                        "federalTaxId": customer.vat,
-                        "stateTaxId": customer.l10n_br_ie_code,
-                        "address": {
-                            "neighborhood": customer.street2,
-                            "street": customer_street_data["street_name"],
-                            "zipcode": customer.zip,
-                            "cityName": customer.city,
-                            "state": customer.state_id.name,
-                            "number": customer_street_data["street_number"],
-                            "phone": customer.phone,
-                            "email": customer.email,
-                        },
-                    },
-                    "establishment": {
-                        "name": company_partner.name,
-                        "businessName": company_partner.name,
-                        "federalTaxId": company_partner.vat,
-                        "cityTaxId": company_partner.l10n_br_im_code,
-                        "stateTaxId": company_partner.l10n_br_ie_code,
-                        "address": {
-                            "neighborhood": company_partner.street2,
-                            "cityName": company_partner.city,
-                            "state": company_partner.state_id.name,
-                            "countryCode": company_partner.country_id.l10n_br_edi_code,
-                            "number": company_street_data["street_number"],
-                        },
-                    },
-                    "transporter": {
-                        "name": transporter.name,
-                        "businessName": transporter.name,
-                        "type": self._l10n_br_get_partner_type(transporter),
-                        "federalTaxId": transporter.vat,
-                        "cityTaxId": transporter.l10n_br_im_code,
-                        "stateTaxId": transporter.l10n_br_ie_code,
-                        "suframa": transporter.l10n_br_isuf_code,
-                        "address": {
-                            "street": transporter_street_data["street_name"],
-                            "neighborhood": transporter.street2,
-                            "zipcode": transporter.zip,
-                            "state": transporter.state_id.name,
-                            "countryCode": transporter.country_id.l10n_br_edi_code,
-                            "number": transporter_street_data["street_number"],
-                        },
-                    },
+                    "entity": self._l10n_br_get_location_dict(customer),
+                    "establishment": self._l10n_br_get_location_dict(company_partner),
+                    "transporter": self._l10n_br_get_location_dict(transporter),
                 },
                 "payment": {
                     "paymentInfo": {
@@ -480,6 +455,10 @@ class AccountMove(models.Model):
                         "modFreight": self.l10n_br_edi_freight_model,
                     },
                 },
+                "additionalInfo": {
+                    "complementaryInfo": self.narration and html2plaintext(self.narration),  # html2plaintext turns False into "False"
+                },
+                "shippingDate": fields.Date.to_string(self.delivery_date),
             },
         }
 
