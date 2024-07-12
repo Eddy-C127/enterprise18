@@ -1,4 +1,4 @@
-import { Component, useState, onWillUpdateProps, useChildSubEnv } from "@odoo/owl";
+import { Component, useState, onWillUpdateProps, useChildSubEnv, onWillStart } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { Thread } from "@mail/core/common/thread";
@@ -28,21 +28,21 @@ export class CellThread extends Component {
             /** @type {import("models").Thread} */
             thread: undefined,
         });
-        this.loadThread(this.props.threadId);
+        onWillStart(() => this.loadThread(this.props.threadId));
 
-        onWillUpdateProps((nextProps) => {
+        onWillUpdateProps(async (nextProps) => {
             if (this.props.threadId !== nextProps.threadId) {
-                this.loadThread(nextProps.threadId);
+                await this.loadThread(nextProps.threadId);
             }
         });
     }
 
-    loadThread(threadId) {
+    async loadThread(threadId) {
         this.state.thread = this.mailStore.Thread.insert({
             model: CellThread.threadModel,
             id: threadId,
         });
-        this.state.thread.fetchNewMessages();
+        await this.state.thread.fetchNewMessages();
     }
 
     get placeholder() {
