@@ -49,7 +49,7 @@ class TestCommittedAchievedAmount(TestAccountBudgetCommon):
             ]
         })
         purchase_order.action_create_invoice()
-        invoices = purchase_order.account_move_ids
+        invoices = purchase_order.invoice_ids
         invoices.write({'invoice_date': '2019-01-10'})
         invoices.action_post()
 
@@ -107,7 +107,7 @@ class TestCommittedAchievedAmount(TestAccountBudgetCommon):
             ]
         })
         purchase_order.action_create_invoice()
-        invoices = purchase_order.account_move_ids
+        invoices = purchase_order.invoice_ids
         invoices.write({'invoice_date': '2019-01-10'})
         invoices.action_post()
 

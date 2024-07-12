@@ -45,11 +45,11 @@ class TestSubscriptionPaymentsAccount(AccountPaymentCommon, TestSubscriptionComm
             with freeze_time("2023-02-01"):
                 (sub2 | self.subscription).action_confirm()
                 self.env['sale.order'].with_context(test_provider=new_provider)._create_recurring_invoice()
-                self.assertEqual(self.subscription.account_move_ids, sub2.account_move_ids)
-                invoice = sub2.account_move_ids
+                self.assertEqual(self.subscription.invoice_ids, sub2.invoice_ids)
+                invoice = sub2.invoice_ids
                 invoice.journal_id.type = 'bank'
-                self.assertEqual(self.subscription.account_move_ids.invoice_line_ids.mapped('quantity'),
-                                 self.subscription.order_line.mapped('product_uom_qty') + sub2.order_line.mapped('product_uom_qty'))
+                self.assertEqual(self.subscription.invoice_ids.invoice_line_ids.mapped('quantity'),
+                                self.subscription.order_line.mapped('product_uom_qty') + sub2.order_line.mapped('product_uom_qty'))
                 tx = self.env['payment.transaction'].search([('invoice_ids', 'in', invoice.ids)])
                 tx._set_done()
                 tx._create_payment()

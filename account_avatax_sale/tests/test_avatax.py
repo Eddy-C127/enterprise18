@@ -258,7 +258,7 @@ class TestSaleAvalara(TestAccountAvataxCommon):
                     })
             )
             payment.sudo().create_invoices()
-            downpayment_invoice = order.account_move_ids
+            downpayment_invoice = order.invoice_ids
             downpayment_invoice.sudo().action_post()
         self.assertEqual(downpayment_invoice.invoice_line_ids.tax_ids, order.order_line.tax_ids)
         self.assertAlmostEqual(downpayment_invoice.amount_total, 18.9)
@@ -433,4 +433,4 @@ class TestAccountAvalaraSalesTaxItemsIntegration(TestAccountAvataxCommon):
             orders = self.sale_order | sale_order_b
             orders.action_confirm()
             orders._create_invoices()
-        self.assertEqual(len(orders.account_move_ids), 2, "Different invoices should be created")
+        self.assertEqual(len(orders.invoice_ids), 2, "Different invoices should be created")

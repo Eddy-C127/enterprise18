@@ -263,7 +263,7 @@ class SaleOrder(models.Model):
     @api.depends('subscription_state', 'state', 'is_subscription', 'amount_untaxed')
     def _compute_recurring_monthly(self):
         """ Compute the amount monthly recurring revenue. When a subscription has a parent still ongoing.
-        Depending on account_move_ids force the recurring monthly to be recomputed regularly, even for the first invoice
+        Depending on invoice_ids force the recurring monthly to be recomputed regularly, even for the first invoice
         where confirmation is set the next_invoice_date and first invoice do not update it (in automatic mode).
         """
         for order in self:
@@ -275,7 +275,7 @@ class SaleOrder(models.Model):
     @api.depends('subscription_state', 'state', 'is_subscription', 'amount_untaxed')
     def _compute_recurring_total(self):
         """ Compute the amount monthly recurring revenue. When a subscription has a parent still ongoing.
-        Depending on account_move_ids force the recurring monthly to be recomputed regularly, even for the first invoice
+        Depending on invoice_ids force the recurring monthly to be recomputed regularly, even for the first invoice
         where confirmation is set the next_invoice_date and first invoice do not update it (in automatic mode).
         """
         for order in self:
@@ -352,7 +352,7 @@ class SaleOrder(models.Model):
             return res
         # Ensure that we give value to everyone
         subscriptions.update({
-            'account_move_ids': [],
+            'invoice_ids': [],
             'invoice_count': 0
         })
 
@@ -380,7 +380,7 @@ class SaleOrder(models.Model):
         orders_vals = self.env.cr.fetchall()
         for origin_order_id, invoices_ids in orders_vals:
             so_by_origin[origin_order_id].update({
-                'account_move_ids': invoices_ids,
+                'invoice_ids': invoices_ids,
                 'invoice_count': len(invoices_ids)
             })
         return res
@@ -1463,7 +1463,7 @@ class SaleOrder(models.Model):
                 continue
             try:
                 self._subscription_commit_cursor(auto_commit)  # To avoid a rollback in case something is wrong, we create the invoices one by one
-                draft_invoices = subscription.account_move_ids.filtered(lambda am: am.state == 'draft')
+                draft_invoices = subscription.invoice_ids.filtered(lambda am: am.state == 'draft')
                 if subscription.payment_token_id and draft_invoices:
                     draft_invoices.button_cancel()
                 elif draft_invoices:

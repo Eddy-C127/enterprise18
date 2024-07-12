@@ -26,7 +26,7 @@ class AccountMove(models.Model):
         stock_move_lines = rental_stock_move_lines
 
         # Get the other customer invoices and refunds.
-        ordered_invoice_ids = sale_orders.mapped('account_move_ids')\
+        ordered_invoice_ids = sale_orders.mapped('invoice_ids')\
             .filtered(lambda i: i.state not in ['draft', 'cancel'])\
             .sorted(lambda i: (i.invoice_date, i.id))
 

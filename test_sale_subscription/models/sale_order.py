@@ -29,7 +29,7 @@ class SaleOrder(models.Model):
 
     def _test_demo_create_invoices(self, automatic=False):
         self._create_recurring_invoice()
-        self.account_move_ids.filtered(lambda inv: inv.state == 'draft')._post(False)
+        self.invoice_ids.filtered(lambda inv: inv.state == 'draft')._post(False)
 
     @api.model
     def _test_demo_generate_subscriptions(self):

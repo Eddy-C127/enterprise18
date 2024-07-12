@@ -157,7 +157,7 @@ class HelpdeskTicket(models.Model):
 
     def action_view_invoices(self):
         self.ensure_one()
-        invoices = self.sale_order_id.account_move_ids
+        invoices = self.sale_order_id.invoice_ids
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.move",
