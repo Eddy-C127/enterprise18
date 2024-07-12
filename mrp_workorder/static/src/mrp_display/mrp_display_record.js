@@ -78,8 +78,13 @@ export class MrpDisplayRecord extends Component {
             this.props.production.save();
         }
         const title = _t("Register Production: %s", this.props.production.data.product_id[1]);
-        const reload = () => this.env.reload();
-        const params = { body: '', record: this.props.production, reload, title, qtyToProduce: this.record.qty_remaining };
+        const params = {
+            body: "",
+            record: this.props.production,
+            reload: this.env.reload.bind(this),
+            title,
+            qtyToProduce: this.record.qty_remaining,
+        };
         this.dialog.add(MrpRegisterProductionDialog, params);
     }
 
@@ -92,7 +97,7 @@ export class MrpDisplayRecord extends Component {
         await production.update({ qty_producing: qtyToSet }, { save: true });
         // Calls `set_qty_producing` because the onchange won't be triggered.
         await production.model.orm.call("mrp.production", "set_qty_producing", production.resIds);
-        await this.env.reload();
+        await this.env.reload(this.props.production);
     }
 
     async generateSerialNumber() {
@@ -104,7 +109,7 @@ export class MrpDisplayRecord extends Component {
         if (action && typeof action === "object") {
             return this._doAction(action);
         }
-        await this.env.reload();
+        await this.env.reload(this.props.production);
     }
 
     get productionComplete() {
@@ -360,7 +365,7 @@ export class MrpDisplayRecord extends Component {
     }
 
     async qualityCheckDone(updateChecks = false, qualityState = "pass") {
-        await this.env.reload();
+        await this.env.reload(this.props.production);
         if (updateChecks){
             /*
                 Continue consumption case:
@@ -470,7 +475,6 @@ export class MrpDisplayRecord extends Component {
                 action.context.skip_redirection = true;
                 return this._doAction(action);
             }
-            await this.props.updateEmployees();
         }
         if (resModel === "mrp.production") {
             const args = [this.props.production.resId];
@@ -485,7 +489,7 @@ export class MrpDisplayRecord extends Component {
             // wizard will straight mark the MO as done without the confirmation delay.
             if (action && typeof action === "object") {
                 action.context.skip_redirection = true;
-                return this._doAction(action, resId);
+                return this._doAction(action);
             }
         }
         // Makes the validation taking a little amount of time (see o_fadeout_animation CSS class).
@@ -519,7 +523,6 @@ export class MrpDisplayRecord extends Component {
             if (action.context) {
                 action.context.skip_redirection = true;
             }
-            return this._doAction(action);
         } else if (this.props.record.resModel === "mrp.production") {
             await this.props.removeFromValidationStack(this.props.record);
             this.state.validated = true;
@@ -536,16 +539,25 @@ export class MrpDisplayRecord extends Component {
         if (!skipRemoveFromStack){
             await this.props.removeFromValidationStack(this.props.record);
         }
+        if (this.trackingMode === "serial" && this.props.production.data.product_qty > 1) {
+            // To make sure we see any potentially created backorders
+            this.env.reload();
+        } else {
+            this.env.reload(this.props.production);
+        }
         this.state.validated = true;
-        await this.props.updateEmployees();
     }
 
-    _doAction(action, idToRemoveFromCache = false) {
-        let onClose = () => this.env.reload();
-        if (idToRemoveFromCache) {
+    _doAction(action) {
+        let onClose;
+        if (this.props.production.data.qty_producing < this.props.production.data.product_qty) {
+            // Make sure to reload all records in case of a possible backorder
             onClose = () => {
-                this.env.searchModel.removeRecordFromCache(idToRemoveFromCache);
                 this.env.reload();
+            };
+        } else {
+            onClose = () => {
+                this.env.reload(this.props.production);
             };
         }
         return this.model.action.doAction(action, { onClose });
@@ -599,7 +611,7 @@ export class MrpDisplayRecord extends Component {
         } else if (shouldStop) {
             await this.model.orm.call(resModel, "stop_employee", [resId, [admin_id]]);
         }
-        await this.env.reload();
+        await this.env.reload(this.props.production);
     }
 
     get showWorksheetCheck() {
@@ -642,10 +654,16 @@ export class MrpDisplayRecord extends Component {
         // wizard will straight mark the MO as done without the confirmation delay.
         if (action && typeof action === "object") {
             action.context.skip_redirection = true;
-            return this._doAction(action, this.props.record.resId);
+            return this._doAction(action);
         }
         await this.productionValidation();
         this.env.searchModel.removeRecordFromCache(this.props.record.resId);
-        this.env.reload();
+        const productions_root = this.props.record._parentRecord.model.root;
+        // Manually remove the parent MO from the model, to avoid a full reload.
+        productions_root.records.splice(
+            productions_root.records.findIndex((r) => r.resId === this.props.production.resId),
+            1
+        );
+        productions_root.count--;
     }
 }

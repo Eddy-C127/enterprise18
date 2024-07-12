@@ -61,7 +61,7 @@ export class QualityCheck extends MrpWorkorder {
                 await Promise.all(this.env.model.root.records.map(async (record) => record.save()));
                 await record.model.orm.call(record.resModel, "action_next", [record.resId]);
             }
-            this.env.reload();
+            this.env.reload(this.props.record);
             return;
         } else if (record.data.test_type === "print_label") {
             const res = await record.model.orm.call(record.resModel, "action_print", [
@@ -130,11 +130,13 @@ export class QualityCheck extends MrpWorkorder {
     async onFileUploaded(info) {
         this.props.record.update({ picture: info.data, quality_state: "pass" });
         this.props.record.save({ reload: false });
+        this.props.record._parentRecord.model.notify();
     }
 
     _pass() {
         this.props.record.update({ quality_state: "pass" });
         this.props.record.save({ reload: false });
+        this.props.record._parentRecord.model.notify();
     }
 
     get lotInfo(){

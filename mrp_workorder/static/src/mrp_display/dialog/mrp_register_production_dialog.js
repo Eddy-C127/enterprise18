@@ -25,7 +25,7 @@ export class MrpRegisterProductionDialog extends MrpQualityCheckConfirmationDial
             // Calls `set_qty_producing` because the onchange won't be triggered.
             await this.props.record.model.orm.call("mrp.production", "set_qty_producing", this.props.record.resIds);
         }
-        await this.props.reload();
+        await this.props.reload(this.props.record);
         this.props.close();
     }
 
@@ -42,8 +42,7 @@ export class MrpRegisterProductionDialog extends MrpQualityCheckConfirmationDial
             "action_generate_serial",
             [this.props.record.resId]
         );
-        await this.props.record.load();
-        this.render();
+        await this.props.reload(this.props.record);
     }
 
     get lotInfo() {

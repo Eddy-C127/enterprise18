@@ -79,8 +79,23 @@ export class MrpDisplay extends Component {
         this.model = useState(useModel(RelationalModel, params));
         useSubEnv({
             model: this.model,
-            reload: async () => {
-                await this.model.root.load({ offset: this.state.offset, limit: this.state.limit });
+            reload: async (record = false) => {
+                if (record) {
+                    while (record && record.resModel !== "mrp.production") {
+                        record = record._parentRecord;
+                    }
+                    await record.load();
+                    await record.model.notify();
+                } else {
+                    clearInterval(this.refreshInterval);
+                    await this.model.root.load({
+                        offset: this.state.offset,
+                        limit: this.state.limit,
+                    });
+                    this.refreshInterval = setInterval(() => {
+                        this.env.reload();
+                    }, 600000);
+                }
                 await this.useEmployee.getConnectedEmployees();
             },
         });
@@ -115,9 +130,13 @@ export class MrpDisplay extends Component {
             this.state.canLoadSamples = await this.orm.call("mrp.production", "can_load_samples", [
                 [],
             ]);
+            this.refreshInterval = setInterval(() => {
+                this.env.reload();
+            }, 600000);
         });
         onWillDestroy(async () => {
-            await this.processValidationStack(true);
+            clearInterval(this.refreshInterval);
+            await this.processValidationStack();
         });
     }
 
@@ -190,7 +209,7 @@ export class MrpDisplay extends Component {
                 type: "warning",
             });
         }
-        this.env.reload();
+        this.env.reload(workorder);
     }
 
     get barcodeTargetRecord(){
@@ -249,7 +268,7 @@ export class MrpDisplay extends Component {
         return this.model.root.records.find((mo) => mo.resId === record.data.production_id[0]);
     }
 
-    async processValidationStack(skipReload = false) {
+    async processValidationStack() {
         const productionIds = [];
         const kwargs = {};
         for (const workorder of this.validationStack["mrp.workorder"]) {
@@ -286,10 +305,7 @@ export class MrpDisplay extends Component {
                 "mrp.workorder": [],
             };
         }
-        if (!skipReload) {
-            this.env.reload();
-            this.env.searchModel.invalidateRecordCache();
-        }
+        this.env.searchModel.invalidateRecordCache();
         return { success: true };
     }
 
@@ -367,6 +383,7 @@ export class MrpDisplay extends Component {
     async selectWorkcenter(workcenterId) {
         // Waits all the MO under validation are actually validated before to change the WC.
         const result = await this.processValidationStack();
+        await this.useEmployee.getConnectedEmployees();
         if (result.success) {
             this.env.searchModel.invalidateRecordCache();
             this.state.activeWorkcenter = Number(workcenterId);
@@ -385,7 +402,6 @@ export class MrpDisplay extends Component {
             if (relevantStack.every((rec) => rec.isValidated)) {
                 // Empties the validation stack if all under validation MO or WO are validated.
                 this.validationStack[record.resModel] = [];
-                await this.env.reload();
             }
         } else {
             const index = relevantStack.indexOf(foundRecord);
