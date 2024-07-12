@@ -482,7 +482,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'currency': currency,
             'currency_dp': self._get_currency_decimal_places(currency),
             'price_amount': line._l10n_co_dian_gross_price_subtotal() / line.quantity if line.quantity else 0.0,
-            'base_quantity': 1,  # required
+            'base_quantity': line.quantity,
         })
         invoice_line_vals['base_quantity_attrs']['unitCode'] = self._dian_uom_code(line)
         return invoice_line_vals
