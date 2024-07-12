@@ -34,9 +34,7 @@ export class StockMove extends Component {
     }
 
     formatFloat(val) {
-        const digits = this.decimalPrecision;
-        const strVal = formatFloat(val, { digits });
-        return String(parseFloat(strVal));
+        return formatFloat(val, { digits: this.decimalPrecision });
     }
 
     get isComplete() {
