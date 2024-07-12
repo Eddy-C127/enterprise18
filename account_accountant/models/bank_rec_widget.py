@@ -1625,7 +1625,13 @@ class BankRecWidget(models.Model):
         # Determine price unit based on the total amount and taxes applied.
         taxes_data = taxes._convert_to_dict_for_taxes_computation()
         taxes_computation = self.env['account.tax']._prepare_taxes_computation(taxes_data, special_mode='total_included')
-        evaluation_context = self.env['account.tax']._eval_taxes_computation_prepare_context(price_total, 1.0, {})
+        evaluation_context = self.env['account.tax']._eval_taxes_computation_prepare_context(
+            price_unit=price_total,
+            quantity=1.0,
+            product_values={},
+            rounding_method=self.company_id.tax_calculation_rounding_method,
+            precision_rounding=self.transaction_currency_id.rounding,
+        )
         taxes_computation = self.env['account.tax']._eval_taxes_computation(taxes_computation, evaluation_context)
         return taxes_computation['total_excluded'] + sum(x['tax_amount_factorized'] for x in taxes_computation['taxes_data'] if x['_original_price_include'])
 
