@@ -155,7 +155,7 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
         )
 
         group_by = SQL(
-            """GROUP BY category.id, %s%s""",
+            """GROUP BY category.id %s%s""",
             current.get('category_id') and SQL(", account_id") or SQL(),
             current.get('account_id') and options['multi_rate_in_period'] and SQL(", rate.rate") or SQL(),
         )
