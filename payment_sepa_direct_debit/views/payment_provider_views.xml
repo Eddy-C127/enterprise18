@@ -7,7 +7,7 @@
         <field name="model">payment.provider</field>
         <field name="inherit_id" ref="payment.payment_provider_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('o_payment_provider_desc')]//field[@name='state']" position="attributes">
+            <xpath expr="//field[@name='state']" position="attributes">
                 <attribute name="invisible">code == 'sepa_direct_debit'</attribute>
             </xpath>
         </field>
