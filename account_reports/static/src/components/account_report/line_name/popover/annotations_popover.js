@@ -1,4 +1,4 @@
-import { Component, useState, useRef } from "@odoo/owl";
+import { Component, useState, useRef, onWillDestroy } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
 import { DateTimeInput } from "@web/core/datetime/datetime_input";
 import { AnnotationPopoverLine } from "@account_reports/components/account_report/line_name/popover_line/annotation_popover_line";
@@ -20,7 +20,6 @@ export class AccountReportAnnotationsPopover extends Component {
     };
 
     setup() {
-        this.orm = useService("orm");
         this.notificationService = useService("notification");
 
         this.newAnnotation = useState({
@@ -34,6 +33,13 @@ export class AccountReportAnnotationsPopover extends Component {
         );
 
         this.popoverTable = useRef("popoverTable");
+        this.currentPromise = null;
+
+        onWillDestroy(async () => {
+            if (this.currentPromise) {
+                await this.currentPromise;
+            }
+        });
     }
 
     get isAddingAnnotation() {
@@ -41,11 +47,14 @@ export class AccountReportAnnotationsPopover extends Component {
     }
 
     async refreshAnnotations() {
+        this.currentPromise = null;
         await this.props.controller.refreshAnnotations();
         this.annotations = this.props.controller.visibleAnnotations.filter((annotation) => {
             return annotation.line_id === this.props.lineID;
         });
-        this.cleanNewAnnotation();
+        if (this.isAddingAnnotation) {
+            this.cleanNewAnnotation();
+        }
     }
 
     _getNewAnnotation() {
@@ -79,7 +88,7 @@ export class AccountReportAnnotationsPopover extends Component {
 
     async saveNewAnnotation(newAnnotation) {
         if (newAnnotation.text) {
-            await this.orm.call(
+            this.currentPromise = this.env.services.orm.call(
                 "account.report.annotation",
                 "create",
                 [
@@ -95,20 +104,30 @@ export class AccountReportAnnotationsPopover extends Component {
                     context: this.props.context,
                 }
             );
-            await this.refreshAnnotations();
-            this.popoverTable.el.scrollIntoView({ behavior: "smooth", block: "end" });
+            // We're using a .then() here to make sure that even if the component is destroyed
+            // we'll call the function to finalize the logic.
+            this.currentPromise.then(async () => {
+                await this.refreshAnnotations();
+                if (this.popoverTable.el) {
+                    this.popoverTable.el.scrollIntoView({ behavior: "smooth", block: "end" });
+                }
+            });
         }
     }
 
     async deleteAnnotation(annotationId) {
-        await this.orm.call("account.report.annotation", "unlink", [annotationId], {
-            context: this.props.controller.context,
-        });
+        this.currentPromise = this.env.services.orm.call(
+            "account.report.annotation",
+            "unlink",
+            [annotationId],
+            { context: this.props.controller.context }
+        );
+        await this.currentPromise;
         await this.refreshAnnotations();
     }
 
     async editAnnotation(editedAnnotation, existingAnnotation) {
-        await this.orm.call(
+        this.currentPromise = this.env.services.orm.call(
             "account.report.annotation",
             "write",
             [[existingAnnotation.id], { text: editedAnnotation.text, date: editedAnnotation.date }],
@@ -116,6 +135,7 @@ export class AccountReportAnnotationsPopover extends Component {
                 context: this.props.controller.context,
             }
         );
+        await this.currentPromise;
         await this.refreshAnnotations();
     }
 }

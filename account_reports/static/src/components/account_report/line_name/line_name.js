@@ -154,7 +154,6 @@ export class AccountReportLineName extends Component {
         if (this.annotationPopOver.isOpen) {
             this.annotationPopOver.close();
         } else {
-            await this.controller.refreshAnnotations();
             this.annotationPopOver.open(this.lineNameCell.el, {
                 controller: this.controller,
                 lineName: this,
