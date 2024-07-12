@@ -103,10 +103,9 @@ class IotDevice(models.Model):
     def write(self, vals):
         return_value = super().write(vals)
         if 'report_ids' in vals:
-            channel = self.env['iot.channel'].search([('company_id', '=', self.env.company.id)])
-            if (channel):
-                channel.update_is_open()
+            self.env['iot.channel'].update_is_open()
         return return_value
+
 
 class KeyboardLayout(models.Model):
     _name = 'iot.keyboard.layout'
@@ -116,28 +115,38 @@ class KeyboardLayout(models.Model):
     layout = fields.Char('Layout')
     variant = fields.Char('Variant')
 
-class IotChannel(models.Model):
+
+class IotChannel(models.AbstractModel):
     _name = "iot.channel"
     _description = "The Websocket Iot Channel"
 
-    name = fields.Char('Name', default=lambda self: f'iot_channel-{secrets.token_hex(16)}')
-    company_id = fields.Many2one('res.company', default=lambda self: self.env.company) #One2one
-    is_open = fields.Boolean(default=False)
+    SYSTEM_PARAMETER_KEY = 'iot.ws_channel'
+
+    def _create_channel_if_not_exist(self):
+        iot_channel = f'iot_channel-{secrets.token_hex(16)}'
+        self.env['ir.config_parameter'].sudo().set_param(self.SYSTEM_PARAMETER_KEY, iot_channel)
+        return iot_channel
 
     def get_iot_channel(self, check=False):
-        if self.env.is_system() or self.env.user._is_internal():
-            iot_channel = self.search([('company_id', "=", self.env.company.id)], limit=1)
-            if not iot_channel.ids:
-                iot_channel = self.env['iot.channel'].sudo().create({})
-            if not check or iot_channel.is_open:
-                return iot_channel.name
+        """
+        Get the IoT channel name.
+        To facilitate multi-company, the channel is unique for every company and IoT
+
+        :param check: If False, it will force to return the channel name even if it is unused.
+        """
+        if (self.env.is_system() or self.env.user._is_internal()) and (not check or self.update_is_open()):
+            iot_channel_key_value = self.env['ir.config_parameter'].sudo().get_param(self.SYSTEM_PARAMETER_KEY)
+            return iot_channel_key_value or self._create_channel_if_not_exist()
         return ''
 
     def update_is_open(self):
-        self.is_open = bool(self.env['iot.device'].search_count([('report_ids', '!=', False)], limit=1))
-        if not self.is_open:
-            self.env["iot.box"].search([]).write({"is_websocket_active": False})
+        """
+        Wherever the IoT Channel should be open or not.
+        For performance reasons, we only open the channel if there is at least one IoT device with a report set.
 
-    _sql_constraints = [
-        ('unique_name', 'unique(name)', 'The channel name must be unique'),
-    ]
+        :return: True if the channel should be open, False otherwise
+        """
+        is_open = bool(self.env['iot.device'].search_count([('report_ids', '!=', False)], limit=1))
+        if not is_open:
+            self.env["iot.box"].search([]).write({"is_websocket_active": False})
+        return is_open

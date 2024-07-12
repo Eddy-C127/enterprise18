@@ -84,7 +84,7 @@ class IoTController(http.Controller):
                 _logger.warning("No IoT device found with identifier '%s' (iot_mac: %s). Request ignored", device_identifier, iot_mac)
                 return
 
-            iot_channel = request.env['iot.channel'].sudo().with_company(iot_device.company_id).get_iot_channel()
+            iot_channel = request.env['iot.channel'].sudo().get_iot_channel()
             request.env['bus.bus']._sendone(iot_channel, 'print_confirmation', {
                 'print_id': print_id,
                 'device_identifier': device_identifier
@@ -165,7 +165,7 @@ class IoTController(http.Controller):
             # Mark the received devices as connected, disconnect the others.
             connected_iot_devices.write({'connected': True})
             (previously_connected_iot_devices - connected_iot_devices).write({'connected': False})
-            iot_channel = request.env['iot.channel'].sudo().with_company(box.company_id).get_iot_channel(check=True)
+            iot_channel = request.env['iot.channel'].sudo().get_iot_channel(check=True)
             return iot_channel
 
     def _is_iot_log_enabled(self):
