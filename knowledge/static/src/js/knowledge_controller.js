@@ -117,7 +117,11 @@ export class KnowledgeArticleFormController extends FormController {
      * If the article has no name set, tries to rename it.
      */
     ensureArticleName() {
-        if (!this.model.root.data.name) {
+        const recordData = this.model.root.data;
+        if (
+            !recordData.name &&
+            !(recordData.is_locked || !recordData.user_can_write || !recordData.active)
+        ) {
             return this.renameArticle();
         }
     }
