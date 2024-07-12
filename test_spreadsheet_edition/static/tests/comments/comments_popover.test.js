@@ -25,8 +25,8 @@ test("Hover cell only shows messages, Composer appears on click", async () => {
     const sheetId = model.getters.getActiveSheetId();
     await createThread(model, pyEnv, { sheetId, ...toCartesian("A1") }, ["wave"]);
 
-    env.getStore(HoveredCellStore).hover(0, 0);
-    await waitFor(".o-thread-popover", { timeout: 500, visible: false});
+    env.getStore(HoveredCellStore).hover({ col: 0, row: 0 });
+    await animationFrame();
 
     expect(".o-thread-popover .o-mail-Thread").toHaveCount(1);
     expect(".o-thread-popover .o-mail-Composer").toHaveCount(0);
