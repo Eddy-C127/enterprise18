@@ -71,7 +71,7 @@ export class MrpWorkorder extends StockMove {
                     "button_finish",
                     this.props.record.resIds
                 );
-                await this.env.reload();
+                await this.env.reload(this.props.record);
             };
             params.confirmLabel = _t("Validate");
             params.cancel = () => {};
@@ -83,7 +83,7 @@ export class MrpWorkorder extends StockMove {
     async longPress() {
         const { record } = this.props;
         await record.model.orm.call(record.resModel, "button_finish", [record.resId]);
-        await this.env.reload();
+        await this.env.reload(this.props.record);
     }
 
     async clicked() {

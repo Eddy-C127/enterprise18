@@ -35,8 +35,8 @@ export class MrpMenuDialog extends Component {
         ]);
         this.action.doAction(action, {
             onClose: async () => {
-                await this.props.reload();
-            }
+                await this.props.reload(this.props.record);
+            },
         });
         this.props.close();
     }
@@ -174,7 +174,7 @@ export class MrpMenuDialog extends Component {
         }
         await this.action.doAction(action, {
             onClose: async () => {
-                await this.props.reload();
+                await this.props.reload(this.props.record);
                 if (type === 'remove_step') {
                     this.notification.add(_t("Your suggestion to delete the %s step was succesfully created.", check.display_name),
                         { type: "success", }

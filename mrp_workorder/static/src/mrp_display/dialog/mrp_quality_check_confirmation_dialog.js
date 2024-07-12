@@ -109,7 +109,11 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         }
         const res = await this.props.record.model.orm.call(this.props.record.resModel, action, [this.props.record.resId]);
         if (res) {
-            this.action.doAction(res, {onClose: this.props.reload});
+            this.action.doAction(res, {
+                onClose: () => {
+                    this.props.reload(this.props.record);
+                },
+            });
             if (res.type === "ir.actions.act_window") {
                 this.props.close();
                 return;
