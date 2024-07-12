@@ -119,7 +119,7 @@ class TestSaleOrder(TestCommissionsSetup):
 
         invoice_wizard = self.env['sale.advance.payment.inv'].with_context(tracking_disable=True).create({
             'advance_payment_method': 'fixed',
-            'order_ids': [Command.set(so.ids)],
+            'sale_order_ids': [Command.set(so.ids)],
             'fixed_amount': 100,
         })
 
