@@ -5,9 +5,9 @@
 # Translators:
 # Lucia Pacheco, 2023
 # Iran Villalobos López, 2023
-# Fernanda Alvarez, 2023
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Wil Odoo, 2024
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -355,10 +355,10 @@ msgstr ""
 "<div>\n"
 "                    <p>Apreciable <t t-out=\"ctx.get('employee_name', '')\">Anita Oliver</t>,<br><br></p>\n"
 "                    <t t-if=\"ctx.get('open_shift_available')\">\n"
-"                        <p>Un nuevo turno abierto está disponible:</p>\n"
+"                        <p>Hay un nuevo turno abierto disponible:</p>\n"
 "                    </t>\n"
 "                    <t t-else=\"\">\n"
-"                        <p>Se le asignó la siguiente jornada:</p>\n"
+"                        <p>Se le asignó el siguiente horario:</p>\n"
 "                    </t>\n"
 "                    <br>\n"
 "                    <table style=\"width: 80%; margin: auto;\">\n"
@@ -446,7 +446,7 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
 "assigned to another employee."
 msgstr ""
-"<i class=\"fa fa-exclamation-circle text-warning\"/>Ya se le asignó este "
+"<i class=\"fa fa-exclamation-circle text-warning\"/> Ya se le asignó este "
 "turno a otro empleado."
 
 #. module: planning
@@ -708,7 +708,7 @@ msgstr "Agregar turno"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Additional message"
-msgstr "Mensajes adicionales"
+msgstr "Mensaje adicional"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
@@ -2619,11 +2619,11 @@ msgid ""
 "passes by in order to always get shifts 6 months ahead. This value can be "
 "modified from the settings of Planning, in debug mode."
 msgstr ""
-"Para evitar la contaminación de su base de datos y problemas de rendimiento,"
-" solo se crean turnos para los próximos 6 meses. Luego se crean de forma "
-"gradual a medida que pasa el tiempo con el fin de obtener los turnos de los "
+"Solo se crean turnos para los próximos 6 meses para evitar que haya "
+"problemas de rendimiento en su base de datos. Luego se crean de forma "
+"gradual conforme pasa el tiempo con el fin de obtener los turnos de los "
 "siguientes 6 meses. Puede modificar este valor desde los ajustes de "
-"Planeación, en modo de debug."
+"Planeación en modo de debug."
 
 #. module: planning
 #. odoo-javascript
@@ -2688,7 +2688,7 @@ msgstr "Mesero"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Wednesday, 15"
-msgstr "Miércoles, 15"
+msgstr "Miércoles 15"
 
 #. module: planning
 #. odoo-javascript

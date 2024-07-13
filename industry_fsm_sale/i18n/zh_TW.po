@@ -269,6 +269,14 @@ msgstr "該值無效： %s"
 
 #. module: industry_fsm_sale
 #. odoo-python
+#: code:addons/industry_fsm_sale/models/product_template.py:0
+#, python-format
+msgid ""
+"The following products are currently associated with a Field Service "
+"project, you cannot change their Invoicing Policy or Type:%s"
+msgstr "以下產品目前已與外勤服務專案項目關聯，不可更改其開立發票政策或類型：%s"
+
+#. module: industry_fsm_sale
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
 msgid "Invoice"

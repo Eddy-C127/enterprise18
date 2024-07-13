@@ -352,7 +352,8 @@ msgstr "Đọc thêm về tài khoản Twitter"
 #: code:addons/social_twitter/models/social_stream_post.py:0
 #, python-format
 msgid "Replies from Tweets older than 7 days must be accessed on Twitter.com"
-msgstr "Phải truy cập câu trả lời từ các Tweet cũ hơn 7 ngày trên Twitter.com"
+msgstr ""
+"Câu trả lời từ các Tweet cũ hơn 7 ngày phải được truy cập trên Twitter.com"
 
 #. module: social_twitter
 #: model_terms:ir.ui.view,arch_db:social_twitter.social_stream_post_view_kanban
@@ -625,6 +626,8 @@ msgstr "Hoàn tác tweet lại"
 
 #. module: social_twitter
 #. odoo-javascript
+#. odoo-python
+#: code:addons/social_twitter/models/social_stream.py:0
 #: code:addons/social_twitter/static/src/xml/social_twitter_templates.xml:0
 #, python-format
 msgid "Unknown"
