@@ -181,9 +181,9 @@ class PaymentTransaction(models.Model):
         self.sale_order_ids.filtered('is_subscription').payment_exception = False
         return super()._set_authorize(**kwargs)
 
-    def _set_canceled(self, **kwargs):
+    def _set_canceled(self, state_message=None, **kwargs):
         self._handle_unsuccessful_transaction()
-        return super()._set_canceled(**kwargs)
+        return super()._set_canceled(state_message, **kwargs)
 
     def _set_error(self, state_message):
         self._handle_unsuccessful_transaction()
