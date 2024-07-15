@@ -1,7 +1,7 @@
 from collections import defaultdict
 from unittest.mock import patch
 
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError, ValidationError, RedirectWarning
 from odoo.tests.common import tagged
 from odoo.modules.neutralize import get_neutralization_queries
 from .common import TestAccountAvataxCommon
@@ -183,6 +183,40 @@ class TestAccountAvalaraInternal(TestAccountAvalaraInternalCommon):
             # ensure this doesn't raise:
             # odoo.exceptions.ValidationError
             # This entry contains some tax from an unallowed country. Please check its fiscal position and your tax configuration.
+            invoice.button_external_tax_calculation()
+
+    def test_invoice_branch_company(self):
+        branch = self.env['res.company'].create({
+            'name': "Branch A",
+            'parent_id': self.env.company.id,
+        })
+        child_branch = self.env['res.company'].create({
+            'name': "Branch B",
+            'parent_id': branch.id,
+        })
+        self.cr.precommit.run()  # load the CoA
+
+        invoice = self._create_invoice(post=False, company_id=child_branch.id)
+
+        # Avalara configuration defined on parent company
+        # Should not raise RedirectWarning: ('Please add your AvaTax credentials')
+        with self._capture_request(return_value={'lines': [], 'summary': []}):
+            invoice.button_external_tax_calculation()
+
+        self.env.company.avalara_api_id = False
+        # No avalara configuration defined in the parent tree
+        with self.assertRaises(RedirectWarning, msg='Please add your AvaTax credentials'):
+            with self._capture_request(return_value={'lines': [], 'summary': []}):
+                invoice.button_external_tax_calculation()
+
+        child_branch.write({
+            'avalara_api_id': "AVALARA_LOGIN_ID",
+            'avalara_api_key': "AVALARA_API_KEY",
+            'avalara_environment': 'sandbox',
+            'avalara_commit': True,
+        })
+        # Avalara configuration defined on the child branch
+        with self._capture_request(return_value={'lines': [], 'summary': []}):
             invoice.button_external_tax_calculation()
 
     def test_posted_invoice(self):

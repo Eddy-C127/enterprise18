@@ -208,6 +208,14 @@ class AccountExternalTaxMixin(models.AbstractModel):
             'number': "%s,%s" % (line_data["model_name"], line_data["id"]),
         }
 
+    @api.model
+    def _find_avatax_credentials_company(self, company):
+        has_avatax_credentials = bool(company.sudo().avalara_api_id and company.sudo().avalara_api_key)
+        if has_avatax_credentials:
+            return company
+        elif company.parent_id:
+            return self._find_avatax_credentials_company(company.parent_id)
+
     # #############################################################################################
     # PRIVATE UTILITIES
     # #############################################################################################
@@ -293,12 +301,6 @@ class AccountExternalTaxMixin(models.AbstractModel):
         """
         if not self:
             return {}
-        if not self.company_id.sudo().avalara_api_id or not self.company_id.sudo().avalara_api_key:
-            raise RedirectWarning(
-                _('Please add your AvaTax credentials'),
-                self.env.ref('base_setup.action_general_configuration').id,
-                _("Go to the configuration panel"),
-            )
         client = self._get_client(self.company_id)
         transactions = {record: record._get_avatax_taxes(commit) for record in self}
         # TODO batch the `create_transaction`
@@ -371,6 +373,14 @@ class AccountExternalTaxMixin(models.AbstractModel):
             return '%s\n%s' % (title, messages)
 
     def _get_client(self, company):
+        company = self._find_avatax_credentials_company(company)
+        if not company:
+            raise RedirectWarning(
+                _('Please add your AvaTax credentials'),
+                self.env.ref('base_setup.action_general_configuration').id,
+                _("Go to the configuration panel"),
+            )
+
         client = AvataxClient(
             app_name='Odoo',
             app_version=version,
