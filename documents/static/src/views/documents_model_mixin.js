@@ -73,7 +73,9 @@ export const DocumentsModelMixin = (component) =>
             if (this.config.resModel !== "documents.document") {
                 return res;
             }
-            this.env.documentsView.bus.trigger("documents-close-preview");
+            this.env.searchModel.skipLoadClosePreview
+                ? this.env.searchModel.skipLoadClosePreview = false
+                : this.env.documentsView.bus.trigger("documents-close-preview");
             this._reapplySelection();
             this._computeFileSize();
             return res;
