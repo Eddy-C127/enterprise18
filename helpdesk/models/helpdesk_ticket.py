@@ -352,7 +352,7 @@ class HelpdeskTicket(models.Model):
 
     def _get_partner_email_update(self):
         self.ensure_one()
-        if self.partner_id.email and self.partner_email != self.partner_id.email:
+        if self.partner_id.email and self.partner_email and self.partner_email != self.partner_id.email:
             ticket_email_normalized = tools.email_normalize(self.partner_email) or self.partner_email or False
             partner_email_normalized = tools.email_normalize(self.partner_id.email) or self.partner_id.email or False
             return ticket_email_normalized != partner_email_normalized
@@ -360,7 +360,7 @@ class HelpdeskTicket(models.Model):
 
     def _get_partner_phone_update(self):
         self.ensure_one()
-        if self.partner_id.phone and self.partner_phone != self.partner_id.phone:
+        if self.partner_id.phone and self.partner_phone and self.partner_phone != self.partner_id.phone:
             ticket_phone_formatted = self.partner_phone or False
             partner_phone_formatted = self.partner_id.phone or False
             return ticket_phone_formatted != partner_phone_formatted
