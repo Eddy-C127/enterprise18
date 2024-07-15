@@ -2,7 +2,7 @@ import { Domain } from "@web/core/domain";
 import { useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
 import { ProjectTaskKanbanModel } from "@project/views/project_task_kanban/project_task_kanban_model";
-import { ProjectEnterpriseTaskListModel } from "./views/project_task_tree/project_task_list_model";
+import { ProjectEnterpriseTaskListModel } from "./project_task_tree/project_task_list_model";
 
 export function useProjectModelActions({ getContext, resModel }) {
     const orm = useService("orm");

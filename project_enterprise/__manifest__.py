@@ -24,7 +24,7 @@ Bridge module for project and enterprise
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
-            'project_enterprise/static/src/project_conflicted_tasks.js',
+            'project_enterprise/static/src/views/project_conflicted_tasks.js',
             'project_enterprise/static/src/scss/**/*',
             'project_enterprise/static/src/components/**/*',
             'project_enterprise/static/src/views/project_task_calendar/**',

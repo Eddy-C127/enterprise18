@@ -3,7 +3,7 @@ import { deserializeDate, deserializeDateTime, serializeDateTime } from "@web/co
 import { GanttModel } from "@web_gantt/gantt_model";
 import { sortBy } from "@web/core/utils/arrays";
 import { Domain } from "@web/core/domain";
-import { useProjectModelActions } from "../../project_conflicted_tasks";
+import { useProjectModelActions } from "../project_conflicted_tasks";
 
 const MAP_MANY_2_MANY_FIELDS = [
     {
