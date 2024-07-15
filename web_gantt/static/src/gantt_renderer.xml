@@ -271,7 +271,7 @@
 
     <t t-name="web_gantt.GanttRenderer.TotalRow">
         <t t-if="model.metaData.groupedBy.length">
-            <div class="o_gantt_row_sidebar bg-view d-flex align-items-center justify-content-end">
+            <div class="o_gantt_row_sidebar bg-view d-flex align-items-center justify-content-end" t-att-class="{ o_sample_data_disabled: model.useSampleModel }">
                 <h4
                     class="o_gantt_row_title pe-3 my-0 fw-bold"
                     t-att-title="totalRow.name"
@@ -279,7 +279,7 @@
                 />
             </div>
         </t>
-        <div class="o_gantt_row_total o_gantt_grid_columns bg-view">
+        <div class="o_gantt_row_total o_gantt_grid_columns bg-view" t-att-class="{ o_sample_data_disabled: model.useSampleModel }">
             <t t-foreach="columns" t-as="column" t-key="column.id">
                 <div
                     class="o_gantt_cell"
