@@ -1,4 +1,4 @@
-import { TaskGanttRenderer } from "@project_enterprise/task_gantt_renderer";
+import { TaskGanttRenderer } from "@project_enterprise/views/task_gantt/task_gantt_renderer";
 
 export class FsmTaskGanttRenderer extends TaskGanttRenderer {
     getSelectCreateDialogProps(params) {

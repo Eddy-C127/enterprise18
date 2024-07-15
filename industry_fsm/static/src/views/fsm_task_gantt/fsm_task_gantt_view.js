@@ -1,4 +1,4 @@
-import { taskGanttView } from "@project_enterprise/task_gantt_view";
+import { taskGanttView } from "@project_enterprise/views/task_gantt/task_gantt_view";
 import { registry } from "@web/core/registry";
 
 import { FsmTaskGanttController } from "./fsm_task_gantt_controller";

@@ -1,4 +1,4 @@
-import { TaskGanttController } from "@project_enterprise/task_gantt_controller";
+import { TaskGanttController } from "@project_enterprise/views/task_gantt/task_gantt_controller";
 
 export class FsmTaskGanttController extends TaskGanttController {
     create(context) {

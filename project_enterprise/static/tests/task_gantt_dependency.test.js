@@ -1,7 +1,7 @@
 import { defineMailModels, mailModels } from "@mail/../tests/mail_test_helpers";
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { mockDate } from "@odoo/hoot-mock";
-import { TaskGanttRenderer } from "@project_enterprise/task_gantt_renderer";
+import { TaskGanttRenderer } from "@project_enterprise/views/task_gantt/task_gantt_renderer";
 import { defineModels, fields, findComponent, models, onRpc } from "@web/../tests/web_test_helpers";
 import { getConnector, getConnectorMap } from "@web_gantt/../tests/gantt_dependency_helpers";
 import { SELECTORS, mountGanttView } from "@web_gantt/../tests/web_gantt_test_helpers";

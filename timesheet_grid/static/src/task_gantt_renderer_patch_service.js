@@ -1,5 +1,5 @@
 import { patch } from "@web/core/utils/patch";
-import { TaskGanttRenderer } from "@project_enterprise/task_gantt_renderer";
+import { TaskGanttRenderer } from "@project_enterprise/views/task_gantt/task_gantt_renderer";
 import { useService } from "@web/core/utils/hooks";
 
 patch(TaskGanttRenderer.prototype, {
