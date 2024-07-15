@@ -1632,6 +1632,11 @@ class SaleOrder(models.Model):
         close_contract_ids.set_close()
         return close_contract_ids
 
+    def _process_auto_invoice(self, invoice):
+        """ Hook for extension, to support different invoice states """
+        invoice.action_post()
+        return
+
     def _handle_automatic_invoices(self, invoice, auto_commit):
         """ This method handle the subscription with or without payment token """
         Mail = self.env['mail.mail']
@@ -1640,7 +1645,7 @@ class SaleOrder(models.Model):
         payment_token = self.payment_token_id
 
         if not payment_token or len(payment_token) > 1:
-            invoice.action_post()
+            self._process_auto_invoice(invoice)
             return invoice
 
         if not payment_token.partner_id.country_id:
