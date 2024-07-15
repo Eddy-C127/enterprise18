@@ -16,6 +16,7 @@ export class DocumentsSearchModel extends SearchModel {
 
     setup(services) {
         super.setup(services);
+        this.skipLoadClosePreview = false;
         onWillStart(async () => {
             this.deletionDelay = await this.orm.call("documents.document", "get_deletion_delay", [[]]);
         });
@@ -158,6 +159,7 @@ export class DocumentsSearchModel extends SearchModel {
         await this.orm.write("documents.document", recordIds, {
             tag_ids: [[x2mCommand, valueId]],
         });
+        this.skipLoadClosePreview = true;
         this.trigger("update");
         await this._reloadSections();  // update the tag count
     }
