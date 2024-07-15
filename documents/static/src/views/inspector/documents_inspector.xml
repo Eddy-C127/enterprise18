@@ -207,7 +207,7 @@
                             <t t-set="fieldName" t-translation="off">name</t>
                         </t>
                         <t t-if="isDebugMode and records[0].data.type === 'binary'" t-call="documents.DocumentsInspector.field">
-                            <t t-set="fieldName">file_extension</t>
+                            <t t-set="fieldName" t-translation="off">file_extension</t>
                         </t>
                         <t t-if="records[0].data.type === 'url'" t-call="documents.DocumentsInspector.field">
                             <t t-set="fieldName" t-translation="off">url</t>
