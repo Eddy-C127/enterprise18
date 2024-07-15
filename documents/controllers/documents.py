@@ -245,7 +245,7 @@ class ShareRoute(http.Controller):
         """
         ids_list = [int(x) for x in file_ids.split(',')]
         documents = request.env['documents.document'].browse(ids_list)
-        documents.check_access_rights('read')
+        documents.check_access_rule('read')
         response = self._make_zip(zip_name, documents)
         return response
 

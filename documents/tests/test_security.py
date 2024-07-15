@@ -2,11 +2,16 @@
 
 import base64
 
+from odoo import http
+from odoo.addons.base.tests.common import HttpCaseWithUserDemo
+from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 from odoo.exceptions import AccessError, ValidationError
 from odoo.tools import mute_logger
 
 from psycopg2 import IntegrityError
+
+GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
 
 
 class TestCaseSecurity(TransactionCase):
@@ -435,3 +440,62 @@ class TestCaseSecurity(TransactionCase):
                     'folder_id': folder.id,
                     'url': url,
                 })
+
+
+@tagged('post_install', '-at_install')
+class TestCaseSecurityRoutes(HttpCaseWithUserDemo):
+
+    @mute_logger('odoo.http')
+    def test_documents_zip_access(self):
+        user_folder, admin_folder = self.env['documents.folder'].create([
+            {
+                'name': 'User Folder',
+                'group_ids': [(6, 0, [self.ref('base.group_user')])],
+                'read_group_ids': [(6, 0, [self.ref('base.group_user')])],
+            },
+            {
+                'name': 'Folder',
+                'group_ids': [(6, 0, [self.ref('base.group_system')])],
+                'read_group_ids': [(6, 0, [self.ref('base.group_system')])],
+            }
+        ])
+        user_attachment, admin_attachment = self.env['ir.attachment'].create([
+            {
+                'datas': GIF,
+                'name': 'attachmentGif_A.gif',
+                'res_model': 'documents.document',
+                'res_id': 0,
+            },
+            {
+                'datas': GIF,
+                'name': 'attachmentGif_B.gif',
+                'res_model': 'documents.document',
+                'res_id': 0,
+            }
+        ])
+        user_document, admin_document = self.env['documents.document'].create([
+            {
+                'folder_id': user_folder.id,
+                'name': 'new name A',
+                'attachment_id': user_attachment.id,
+            },
+            {
+                'folder_id': admin_folder.id,
+                'name': 'new name B',
+                'attachment_id': admin_attachment.id,
+            }
+        ])
+        self.env['res.users'].create({
+            'name': "user",
+            'login': "user",
+            'password': "useruser",
+            'email': "user@yourcompany.com",
+            'groups_id': [(6, 0, [self.ref('documents.group_documents_user')])]
+        })
+        self.authenticate('user', 'useruser')
+        response = self.url_open('/document/zip', data={
+            'file_ids': ','.join(map(str, [user_document.id, admin_document.id])),
+            'zip_name': 'testZip.zip',
+            'csrf_token': http.Request.csrf_token(self),
+        })
+        self.assertNotEqual(response.status_code, 200)
