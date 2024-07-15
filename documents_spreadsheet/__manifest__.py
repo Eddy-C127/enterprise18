@@ -34,11 +34,15 @@
         'web.assets_backend': [
             'documents_spreadsheet/static/src/bundle/**/*.scss',
             'documents_spreadsheet/static/src/documents_view/**/*',
+            ('remove', 'documents_spreadsheet/static/src/documents_view/activity/**'),
             'documents_spreadsheet/static/src/spreadsheet_clone_xlsx_dialog/**/*',
             'documents_spreadsheet/static/src/spreadsheet_template/**/*',
             'documents_spreadsheet/static/src/helpers.js',
             'documents_spreadsheet/static/src/spreadsheet_action_loader.js',
             'documents_spreadsheet/static/src/view_insertion.js',
+        ],
+        'web.assets_backend_lazy': [
+            'documents_spreadsheet/static/src/documents_view/activity/**',
         ],
         'web.assets_tests': [
             'documents_spreadsheet/static/tests/tours/*',

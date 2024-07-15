@@ -32,6 +32,10 @@ Documents app in the desired format(s).
     'assets': {
         'web.assets_backend': [
             'documents_account/static/**/*',
+            ('remove', 'documents_account/static/src/views/activity/**'),
         ],
+        'web.assets_backend_lazy': [
+            'documents_account/static/src/views/activity/**',
+        ]
     }
 }

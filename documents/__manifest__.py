@@ -64,7 +64,11 @@ App to upload and manage your documents.
             'documents/static/src/js/**/*',
             'documents/static/src/owl/**/*',
             'documents/static/src/views/**/*',
+            ('remove', 'documents/static/src/views/activity/**'),
             'documents/static/src/web/**/*',
+        ],
+        'web.assets_backend_lazy': [
+            'documents/static/src/views/activity/**',
         ],
         'web._assets_primary_variables': [
             'documents/static/src/scss/documents.variables.scss',
