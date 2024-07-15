@@ -27,8 +27,8 @@
         <field name="sequence">30</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = -contract.l10n_eg_social_insurance_reference
-result_rate = 11
+result = contract.l10n_eg_social_insurance_reference
+result_rate = -11
         </field>
         <field name="struct_id" ref="l10n_eg_hr_payroll.hr_payroll_structure_eg_employee_salary"/>
     </record>
