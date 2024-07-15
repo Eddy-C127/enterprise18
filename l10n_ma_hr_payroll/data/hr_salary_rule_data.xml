@@ -16,13 +16,10 @@
             <field name="code">EXTRA_HOURS_25</field>
             <field name="sequence">1</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = 'EXTRA_HOURS_25' in inputs</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-result = inputs['EXTRA_HOURS_25'].amount
-result_name = inputs['EXTRA_HOURS_25'].name
-            </field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ma_hr_payroll.input_extra_hours_25"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ma_hr_payroll.input_extra_hours_25"/>
             <field name="struct_id" ref="hr_payroll_salary_ma_structure_base"/>
         </record>
         <record id="l10n_ma_hr_rule_extra_hours_50" model="hr.salary.rule">
@@ -30,13 +27,10 @@ result_name = inputs['EXTRA_HOURS_25'].name
             <field name="code">EXTRA_HOURS_50</field>
             <field name="sequence">2</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = 'EXTRA_HOURS_50' in inputs</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-result = inputs['EXTRA_HOURS_50'].amount
-result_name = inputs['EXTRA_HOURS_50'].name
-            </field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ma_hr_payroll.input_extra_hours_50"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ma_hr_payroll.input_extra_hours_50"/>
             <field name="struct_id" ref="hr_payroll_salary_ma_structure_base"/>
         </record>
         <record id="l10n_ma_hr_rule_extra_hours_100" model="hr.salary.rule">
@@ -44,13 +38,10 @@ result_name = inputs['EXTRA_HOURS_50'].name
             <field name="code">EXTRA_HOURS_100</field>
             <field name="sequence">3</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
-            <field name="condition_select">python</field>
-            <field name="condition_python">result = 'EXTRA_HOURS_100' in inputs</field>
-            <field name="amount_select">code</field>
-            <field name="amount_python_compute">
-result = inputs['EXTRA_HOURS_100'].amount
-result_name = inputs['EXTRA_HOURS_100'].name
-            </field>
+            <field name="condition_select">input</field>
+            <field name="condition_other_input_id" ref="l10n_ma_hr_payroll.input_extra_hours_100"/>
+            <field name="amount_select">input</field>
+            <field name="amount_other_input_id" ref="l10n_ma_hr_payroll.input_extra_hours_100"/>
             <field name="struct_id" ref="hr_payroll_salary_ma_structure_base"/>
         </record>
         <record id="l10n_ma_hr_rule_seniority" model="hr.salary.rule">

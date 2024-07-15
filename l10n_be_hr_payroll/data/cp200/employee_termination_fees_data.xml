@@ -20,12 +20,8 @@ result = contract._get_contract_wage()
         <field name="code">YEAREND_BONUS</field>
         <field name="category_id" ref="hr_payroll_head_div_impos"/>
         <field name="condition_select">none</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['YEAREND_BONUS'].amount if 'YEAREND_BONUS' in inputs else 0
-if 'YEAREND_BONUS' in inputs:
-    result_name = inputs['YEAREND_BONUS'].name
-        </field>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_be_hr_payroll.cp200_other_input_yearend_bonus"/>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
 
@@ -94,12 +90,8 @@ result = contract.eco_checks
         <field name="code">VARIABLE_SALARY</field>
         <field name="category_id" ref="hr_payroll_head_div_impos"/>
         <field name="condition_select">none</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['VARIABLE_SALARY'].amount if 'VARIABLE_SALARY' in inputs else 0
-if 'VARIABLE_SALARY' in inputs:
-    result_name = inputs['VARIABLE_SALARY'].name
-        </field>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_be_hr_payroll.cp200_other_input_variable_salary"/>
         <field name="struct_id" ref="l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_termination_fees"/>
     </record>
 

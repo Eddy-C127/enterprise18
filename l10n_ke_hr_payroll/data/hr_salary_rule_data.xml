@@ -130,13 +130,10 @@ result = contract.l10n_ke_pension_allowance - payslip._rule_parameter('l10n_ke_p
         <field name="name">Fixed Bonus</field>
         <field name="code">BONUS</field>
         <field name="sequence">31</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'BONUS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['BONUS'].amount
-result_name = inputs['BONUS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ke_hr_payroll.input_fixed_bonus"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ke_hr_payroll.input_fixed_bonus"/>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
     </record>
 
@@ -145,13 +142,10 @@ result_name = inputs['BONUS'].name
         <field name="name">Fixed Commission</field>
         <field name="code">COMMISSION</field>
         <field name="sequence">31</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'COMMISSION' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['COMMISSION'].amount
-result_name = inputs['COMMISSION'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ke_hr_payroll.input_fixed_commission"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ke_hr_payroll.input_fixed_commission"/>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
     </record>
 
@@ -493,13 +487,10 @@ result = categories['STATUTORY_DED']
         <field name="name">HELB</field>
         <field name="code">HELB</field>
         <field name="sequence">61</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'HELB' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['HELB'].amount
-result_name = inputs['HELB'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ke_hr_payroll.input_helb"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ke_hr_payroll.input_helb"/>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
     </record>
@@ -585,13 +576,10 @@ result = categories['OTHER_DED']
         <field name="name">Fringe Benefit</field>
         <field name="code">FRINGE_BENEFIT</field>
         <field name="sequence">73</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'FRINGE_BENEFIT' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['FRINGE_BENEFIT'].amount
-result_name = inputs['FRINGE_BENEFIT'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ke_hr_payroll.input_fringe_benefit"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ke_hr_payroll.input_fringe_benefit"/>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
     </record>

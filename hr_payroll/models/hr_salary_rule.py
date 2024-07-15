@@ -34,12 +34,14 @@ class HrSalaryRule(models.Model):
     condition_select = fields.Selection([
         ('none', 'Always True'),
         ('range', 'Range'),
+        ('input', 'Other Input'),
         ('python', 'Python Expression')
     ], string="Condition Based on", default='none', required=True)
     condition_range = fields.Char(string='Range Based on', default='contract.wage',
         help='This will be used to compute the % fields values; in general it is on basic, '
              'but you can also use categories code fields in lowercase as a variable names '
              '(hra, ma, lta, etc.) and the variable basic.')
+    condition_other_input_id = fields.Many2one('hr.payslip.input.type', domain=[('is_quantity', '=', False)])
     condition_python = fields.Text(string='Python Condition', required=True,
         default='''
 # Available variables:
@@ -56,18 +58,20 @@ class HrSalaryRule(models.Model):
 #----------------------
 # result: boolean True if the rule should be calculated, False otherwise
 
-result = rules['NET'] > categories['NET'] * 0.10''',
+result = rules['NET']['total'] > categories['NET'] * 0.10''',
         help='Applied this rule for calculation if condition is true. You can specify condition like basic > 1000.')
     condition_range_min = fields.Float(string='Minimum Range', help="The minimum amount, applied for this rule.")
     condition_range_max = fields.Float(string='Maximum Range', help="The maximum amount, applied for this rule.")
     amount_select = fields.Selection([
         ('percentage', 'Percentage (%)'),
         ('fix', 'Fixed Amount'),
+        ('input', 'Other Input'),
         ('code', 'Python Code'),
     ], string='Amount Type', index=True, required=True, default='fix', help="The computation method for the rule amount.")
     amount_fix = fields.Float(string='Fixed Amount', digits='Payroll')
     amount_percentage = fields.Float(string='Percentage (%)', digits='Payroll Rate',
         help='For example, enter 50.0 to apply a percentage of 50%')
+    amount_other_input_id = fields.Many2one('hr.payslip.input.type', domain=[('is_quantity', '=', False)])
     amount_python_compute = fields.Text(string='Python Code',
         default='''
 # Available variables:
@@ -132,12 +136,16 @@ result = contract.wage * 0.10''')
                         self.amount_percentage or 0.0)
             except Exception as e:
                 self._raise_error(localdict, _("Wrong percentage base or quantity defined for:"), e)
-        else:  # python code
-            try:
-                safe_eval(self.amount_python_compute or 0.0, localdict, mode='exec', nocopy=True)
-                return float(localdict['result']), localdict.get('result_qty', 1.0), localdict.get('result_rate', 100.0)
-            except Exception as e:
-                self._raise_error(localdict, _("Wrong python code defined for:"), e)
+        if self.amount_select == 'input':
+            if self.amount_other_input_id.code not in localdict['inputs']:
+                return 0.0, 1.0, 100.0
+            return localdict['inputs'][self.amount_other_input_id.code].amount, 1.0, 100.0
+        # python code
+        try:
+            safe_eval(self.amount_python_compute or 0.0, localdict, mode='exec', nocopy=True)
+            return float(localdict['result']), localdict.get('result_qty', 1.0), localdict.get('result_rate', 100.0)
+        except Exception as e:
+            self._raise_error(localdict, _("Wrong python code defined for:"), e)
 
     def _satisfy_condition(self, localdict):
         self.ensure_one()
@@ -150,12 +158,14 @@ result = contract.wage * 0.10''')
                 return self.condition_range_min <= result <= self.condition_range_max
             except Exception as e:
                 self._raise_error(localdict, _("Wrong range condition defined for:"), e)
-        else:  # python code
-            try:
-                safe_eval(self.condition_python, localdict, mode='exec', nocopy=True)
-                return localdict.get('result', False)
-            except Exception as e:
-                self._raise_error(localdict, _("Wrong python condition defined for:"), e)
+        if self.condition_select == 'input':
+            return self.amount_other_input_id.code in localdict['inputs']
+        # python code
+        try:
+            safe_eval(self.condition_python, localdict, mode='exec', nocopy=True)
+            return localdict.get('result', False)
+        except Exception as e:
+            self._raise_error(localdict, _("Wrong python condition defined for:"), e)
 
     def _get_report_field_name(self):
         self.ensure_one()

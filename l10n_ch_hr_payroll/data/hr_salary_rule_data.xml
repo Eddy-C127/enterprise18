@@ -81,13 +81,10 @@ else:
         <field name="code">BASICCORRECTION</field>
         <field name="l10n_ch_code">1001</field>
         <field name="sequence">1</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'BASICCORRECTION' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['BASICCORRECTION'].amount
-result_name = inputs['BASICCORRECTION'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_salary_correction"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_salary_correction"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -174,13 +171,10 @@ result_name = inputs['BASICLESSON'].name
         <field name="code">FEE</field>
         <field name="l10n_ch_code">1010</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'FEE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['FEE'].amount
-result_name = inputs['FEE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_fee_ch"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_fee_ch"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -203,13 +197,10 @@ result_name = inputs['FEE'].name
         <field name="code">FUNALW</field>
         <field name="l10n_ch_code">1031</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'FUNALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['FUNALW'].amount
-result_name = inputs['FUNALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_funalw"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_funalw"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -232,13 +223,10 @@ result_name = inputs['FUNALW'].name
         <field name="code">HOUSEALW</field>
         <field name="l10n_ch_code">1033</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'HOUSEALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['HOUSEALW'].amount
-result_name = inputs['HOUSEALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_house_allowance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_house_allowance"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -261,13 +249,10 @@ result_name = inputs['HOUSEALW'].name
         <field name="code">OVERTIMEAFTER</field>
         <field name="l10n_ch_code">1067</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OVERTIMEAFTER' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OVERTIMEAFTER'].amount
-result_name = inputs['OVERTIMEAFTER'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_after_departure"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_after_departure"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -291,13 +276,10 @@ result_name = inputs['OVERTIMEAFTER'].name
         <field name="code">OVERTIME100</field>
         <field name="l10n_ch_code">1065</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OVERTIME100' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OVERTIME100'].amount
-result_name = inputs['OVERTIME100'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_overtime100"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_overtime100"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -321,13 +303,10 @@ result_name = inputs['OVERTIME100'].name
         <field name="code">OVERTIME125</field>
         <field name="l10n_ch_code">1061</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OVERTIME125' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OVERTIME125'].amount
-result_name = inputs['OVERTIME125'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_125"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_125"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -351,13 +330,10 @@ result_name = inputs['OVERTIME125'].name
         <field name="code">TEAMWORK</field>
         <field name="l10n_ch_code">1070</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'TEAMWORK' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['TEAMWORK'].amount
-result_name = inputs['TEAMWORK'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_team_work"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_team_work"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -380,13 +356,10 @@ result_name = inputs['TEAMWORK'].name
         <field name="code">ONCALLALW</field>
         <field name="l10n_ch_code">1071</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'ONCALLALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['ONCALLALW'].amount
-result_name = inputs['ONCALLALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_oncallalw"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_oncallalw"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -409,13 +382,10 @@ result_name = inputs['ONCALLALW'].name
         <field name="code">SUNDAYALW</field>
         <field name="l10n_ch_code">1073</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'SUNDAYALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['SUNDAYALW'].amount
-result_name = inputs['SUNDAYALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_sunday_allowance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_sunday_allowance"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -438,13 +408,10 @@ result_name = inputs['SUNDAYALW'].name
         <field name="code">NIGHTALW</field>
         <field name="l10n_ch_code">1076</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'NIGHTALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['NIGHTALW'].amount
-result_name = inputs['NIGHTALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_nightalw"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_nightalw"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -467,13 +434,10 @@ result_name = inputs['NIGHTALW'].name
         <field name="code">ADVANCE</field>
         <field name="l10n_ch_code">1110</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'ADVANCE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['ADVANCE'].amount
-result_name = inputs['ADVANCE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_advance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_advance"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -553,13 +517,10 @@ result = categories['BASIC']
         <field name="code">VACALW</field>
         <field name="l10n_ch_code">1162</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'VACALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['VACALW'].amount
-result_name = inputs['VACALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_vacalw"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_vacalw"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -584,13 +545,10 @@ result_name = inputs['VACALW'].name
         <field name="code">HOLDEP</field>
         <field name="l10n_ch_code">1163</field>
         <field name="sequence">10</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'HOLDEP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['HOLDEP'].amount
-result_name = inputs['HOLDEP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_departure"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_departure"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -698,13 +656,10 @@ else:
         <field name="code">GRAT</field>
         <field name="l10n_ch_code">1201</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'GRAT' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['GRAT'].amount
-result_name = inputs['GRAT'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_gratification"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_gratification"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -728,13 +683,10 @@ result_name = inputs['GRAT'].name
         <field name="code">PREVYBONUS</field>
         <field name="l10n_ch_code">1209</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'PREVYBONUS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['PREVYBONUS'].amount
-result_name = inputs['PREVYBONUS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_prevybonus"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_prevybonus"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -758,13 +710,10 @@ result_name = inputs['PREVYBONUS'].name
         <field name="code">14THMONTH</field>
         <field name="l10n_ch_code">1205</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = '14THMONTH' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['14THMONTH'].amount
-result_name = inputs['14THMONTH'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_14th_month"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_14th_month"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -787,13 +736,10 @@ result_name = inputs['14THMONTH'].name
         <field name="code">BONUS</field>
         <field name="l10n_ch_code">1210</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'BONUS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['BONUS'].amount
-result_name = inputs['BONUS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_bonus"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_bonus"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -817,13 +763,10 @@ result_name = inputs['BONUS'].name
         <field name="code">SPEIND</field>
         <field name="l10n_ch_code">1212</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'SPEIND' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['SPEIND'].amount
-result_name = inputs['SPEIND'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_special_indemnity"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_special_indemnity"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -847,13 +790,10 @@ result_name = inputs['SPEIND'].name
         <field name="code">IMPBONUS</field>
         <field name="l10n_ch_code">1216</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'IMPBONUS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['IMPBONUS'].amount
-result_name = inputs['IMPBONUS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_impbonus"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_impbonus"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -877,13 +817,10 @@ result_name = inputs['IMPBONUS'].name
         <field name="code">COMMISSION</field>
         <field name="l10n_ch_code">1218</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'COMMISSION' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['COMMISSION'].amount
-result_name = inputs['COMMISSION'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_commission"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_commission"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -907,13 +844,10 @@ result_name = inputs['COMMISSION'].name
         <field name="code">JUBILEE</field>
         <field name="l10n_ch_code">1230</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'JUBILEE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['JUBILEE'].amount
-result_name = inputs['JUBILEE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_jubilee_gift"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_jubilee_gift"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -937,13 +871,10 @@ result_name = inputs['JUBILEE'].name
         <field name="code">SEVPAY</field>
         <field name="l10n_ch_code">1401</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'SEVPAY' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['SEVPAY'].amount
-result_name = inputs['SEVPAY'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_sevpay"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_sevpay"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -967,13 +898,10 @@ result_name = inputs['SEVPAY'].name
         <field name="code">SICKWAGE</field>
         <field name="l10n_ch_code">1300</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'SICKWAGE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['SICKWAGE'].amount
-result_name = inputs['SICKWAGE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_sick_wage"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_sick_wage"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -993,13 +921,10 @@ result_name = inputs['SICKWAGE'].name
         <field name="code">ACCIDENTWAGE</field>
         <field name="l10n_ch_code">1301</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'ACCIDENTWAGE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['ACCIDENTWAGE'].amount
-result_name = inputs['ACCIDENTWAGE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_accident_wage"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_accident_wage"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1019,13 +944,10 @@ result_name = inputs['ACCIDENTWAGE'].name
         <field name="code">PENSIONCAPITAL</field>
         <field name="l10n_ch_code">1410</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'PENSIONCAPITAL' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['PENSIONCAPITAL'].amount
-result_name = inputs['PENSIONCAPITAL'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_pension_capital"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_pension_capital"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1049,13 +971,10 @@ result_name = inputs['PENSIONCAPITAL'].name
         <field name="code">CAFEE</field>
         <field name="l10n_ch_code">1500</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CAFEE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CAFEE'].amount
-result_name = inputs['CAFEE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_ca_fee"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_ca_fee"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1079,13 +998,10 @@ result_name = inputs['CAFEE'].name
         <field name="code">MEALS</field>
         <field name="l10n_ch_code">1900</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'MEALS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['MEALS'].amount
-result_name = inputs['MEALS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_free_meals"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_free_meals"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1109,13 +1025,10 @@ result_name = inputs['MEALS'].name
         <field name="code">ROOM</field>
         <field name="l10n_ch_code">1901</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'ROOM' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['ROOM'].amount
-result_name = inputs['ROOM'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_free_room"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_free_room"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1135,13 +1048,10 @@ result_name = inputs['ROOM'].name
         <field name="code">HOUSING</field>
         <field name="l10n_ch_code">1902</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'HOUSING' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['HOUSING'].amount
-result_name = inputs['HOUSING'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_free_housing"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_free_housing"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1165,13 +1075,10 @@ result_name = inputs['HOUSING'].name
         <field name="code">COMPCAR</field>
         <field name="l10n_ch_code">1910</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'COMPCAR' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['COMPCAR'].amount
-result_name = inputs['COMPCAR'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_company_car"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_company_car"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1195,13 +1102,10 @@ result_name = inputs['COMPCAR'].name
         <field name="code">HOUSERENT</field>
         <field name="l10n_ch_code">1950</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'HOUSERENT' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['HOUSERENT'].amount
-result_name = inputs['HOUSERENT'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_rental_housing"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_overtime_rental_housing"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1225,13 +1129,10 @@ result_name = inputs['HOUSERENT'].name
         <field name="code">TAXPFEE</field>
         <field name="l10n_ch_code">1960</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'TAXPFEE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['TAXPFEE'].amount
-result_name = inputs['TAXPFEE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_taxpfee"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_taxpfee"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1255,13 +1156,10 @@ result_name = inputs['TAXPFEE'].name
         <field name="code">ACTIONCOLLAB</field>
         <field name="l10n_ch_code">1961</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'ACTIONCOLLAB' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['ACTIONCOLLAB'].amount
-result_name = inputs['ACTIONCOLLAB'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_action_collab"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_action_collab"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1285,13 +1183,10 @@ result_name = inputs['ACTIONCOLLAB'].name
         <field name="code">OPTCOLLAB</field>
         <field name="l10n_ch_code">1962</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OPTCOLLAB' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OPTCOLLAB'].amount
-result_name = inputs['OPTCOLLAB'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_optcollab"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_optcollab"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1315,13 +1210,10 @@ result_name = inputs['OPTCOLLAB'].name
         <field name="code">OPTLPP</field>
         <field name="l10n_ch_code">1972</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OPTLPP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OPTLPP'].amount
-result_name = inputs['OPTLPP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_lpp"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_lpp"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1345,13 +1237,10 @@ result_name = inputs['OPTLPP'].name
         <field name="code">OPTLPPRED</field>
         <field name="l10n_ch_code">1973</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OPTLPPRED' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OPTLPPRED'].amount
-result_name = inputs['OPTLPPRED'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_lpp_redemption"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_lpp_redemption"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1375,13 +1264,10 @@ result_name = inputs['OPTLPPRED'].name
         <field name="code">OPTCM</field>
         <field name="l10n_ch_code">1974</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OPTCM' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OPTCM'].amount
-result_name = inputs['OPTCM'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_cm"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_cm"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1401,13 +1287,10 @@ result_name = inputs['OPTCM'].name
         <field name="code">THIRDPILLB</field>
         <field name="l10n_ch_code">1977</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'THIRDPILLB' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['THIRDPILLB'].amount
-result_name = inputs['THIRDPILLB'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_thirdpillb"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_thirdpillb"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1431,13 +1314,10 @@ result_name = inputs['THIRDPILLB'].name
         <field name="code">THIRDPILLA</field>
         <field name="l10n_ch_code">1978</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'THIRDPILLA' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['THIRDPILLA'].amount
-result_name = inputs['THIRDPILLA'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_thirdpilla"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_thirdpilla"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1461,13 +1341,10 @@ result_name = inputs['THIRDPILLA'].name
         <field name="code">IMPROV</field>
         <field name="l10n_ch_code">1980</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'IMPROV' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['IMPROV'].amount
-result_name = inputs['IMPROV'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_improv"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_improv"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1491,13 +1368,10 @@ result_name = inputs['IMPROV'].name
         <field name="code">INDAPG</field>
         <field name="l10n_ch_code">2000</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'INDAPG' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['INDAPG'].amount
-result_name = inputs['INDAPG'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_apg"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_apg"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1521,13 +1395,10 @@ result_name = inputs['INDAPG'].name
         <field name="code">MILITARYWAGE</field>
         <field name="l10n_ch_code">2005</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'MILITARYWAGE' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['MILITARYWAGE'].amount
-result_name = inputs['MILITARYWAGE'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_military_wage"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_military_wage"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1551,13 +1422,10 @@ result_name = inputs['MILITARYWAGE'].name
         <field name="code">INDAI</field>
         <field name="l10n_ch_code">2025</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'INDAI' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['INDAI'].amount
-result_name = inputs['INDAI'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_ai"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_ai"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1577,13 +1445,10 @@ result_name = inputs['INDAI'].name
         <field name="code">ANNAI</field>
         <field name="l10n_ch_code">2026</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'ANNAI' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['ANNAI'].amount
-result_name = inputs['ANNAI'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_annuities_ai"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_annuities_ai"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1603,13 +1468,10 @@ result_name = inputs['ANNAI'].name
         <field name="code">INDACC</field>
         <field name="l10n_ch_code">2030</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'INDACC' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['INDACC'].amount
-result_name = inputs['INDACC'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_accident"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_accident"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1633,13 +1495,10 @@ result_name = inputs['INDACC'].name
         <field name="code">INDSICK</field>
         <field name="l10n_ch_code">2035</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'INDSICK' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['INDSICK'].amount
-result_name = inputs['INDSICK'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_illness"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_illness"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1663,13 +1522,10 @@ result_name = inputs['INDSICK'].name
         <field name="code">THIRDPARTYCOR</field>
         <field name="l10n_ch_code">2050</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'THIRDPARTYCOR' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['THIRDPARTYCOR'].amount
-result_name = inputs['THIRDPARTYCOR'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_third_party_correction"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_third_party_correction"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1693,13 +1549,10 @@ result_name = inputs['THIRDPARTYCOR'].name
         <field name="code">INDMAT</field>
         <field name="l10n_ch_code">2040</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'INDMAT' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['INDMAT'].amount
-result_name = inputs['INDMAT'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_maternity"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_indemnity_maternity"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1718,13 +1571,10 @@ result_name = inputs['INDMAT'].name
         <field name="code">RHTITP</field>
         <field name="l10n_ch_code">2065</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'RHTITP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['RHTITP'].amount
-result_name = inputs['RHTITP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_indemnite_perte_de_gain"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_indemnite_perte_de_gain"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -1747,13 +1597,10 @@ result_name = inputs['RHTITP'].name
         <field name="code">SMRHTITPDED</field>
         <field name="l10n_ch_code">2060</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'SMRHTITPDED' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['SMRHTITPDED'].amount
-result_name = inputs['SMRHTITPDED'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_ded_rht_itp"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_ded_rht_itp"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1775,13 +1622,10 @@ result_name = inputs['SMRHTITPDED'].name
         <field name="code">DEATHALW</field>
         <field name="l10n_ch_code">1420</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'DEATHALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['DEATHALW'].amount
-result_name = inputs['DEATHALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_dead_alw"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_dead_alw"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1804,13 +1648,10 @@ result_name = inputs['DEATHALW'].name
         <field name="code">CHOMALW</field>
         <field name="l10n_ch_code">2070</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CHOMALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CHOMALW'].amount
-result_name = inputs['CHOMALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_indemnite_chomage"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_indemnite_chomage"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1833,13 +1674,10 @@ result_name = inputs['CHOMALW'].name
         <field name="code">CRHTITP</field>
         <field name="l10n_ch_code">2075</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CRHTITP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CRHTITP'].amount
-result_name = inputs['CRHTITP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_delai_carence_rht_itp"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_delai_carence_rht_itp"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1862,13 +1700,10 @@ result_name = inputs['CRHTITP'].name
         <field name="code">CHILDALW</field>
         <field name="l10n_ch_code">3000</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CHILDALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CHILDALW'].amount
-result_name = inputs['CHILDALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_child_allowance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_child_allowance"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1892,13 +1727,10 @@ result_name = inputs['CHILDALW'].name
         <field name="code">CHILDALWPAY</field>
         <field name="l10n_ch_code">3001</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CHILDALWPAY' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CHILDALWPAY'].amount
-result_name = inputs['CHILDALWPAY'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_childalwpay"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_childalwpay"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1922,13 +1754,10 @@ result_name = inputs['CHILDALWPAY'].name
         <field name="code">TRAININGALW</field>
         <field name="l10n_ch_code">3010</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'TRAININGALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['TRAININGALW'].amount
-result_name = inputs['TRAININGALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_training_allowance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_training_allowance"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1948,13 +1777,10 @@ result_name = inputs['TRAININGALW'].name
         <field name="code">BIRTHALW</field>
         <field name="l10n_ch_code">3034</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'BIRTHALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['BIRTHALW'].amount
-result_name = inputs['BIRTHALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_birth_allowance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_birth_allowance"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -1978,13 +1804,10 @@ result_name = inputs['BIRTHALW'].name
         <field name="code">MARRIAGEALW</field>
         <field name="l10n_ch_code">3035</field>
         <field name="sequence">20</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'MARRIAGEALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['MARRIAGEALW'].amount
-result_name = inputs['MARRIAGEALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_marriage_allowance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_marriage_allowance"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -2009,12 +1832,10 @@ result_name = inputs['MARRIAGEALW'].name
         <field name="l10n_ch_code">4900</field>
         <field name="sequence">20</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = 'GROSSCOMP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['GROSSCOMP'].amount
-result_name = inputs['GROSSCOMP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_grosscomp"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_grosscomp"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="True"/>
         <field name="l10n_ch_laac_included" eval="True"/>
@@ -2655,13 +2476,10 @@ result = categories['LAASALARY']
         <field name="code">OPTAANP</field>
         <field name="l10n_ch_code">1975</field>
         <field name="sequence">122</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OPTAANP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OPTAANP'].amount
-result_name = inputs['OPTAANP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_aanp"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_aanp"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -2957,15 +2775,10 @@ result_rate = rate * (employer_rate) / 100
         <field name="code">OPTLAAC</field>
         <field name="l10n_ch_code">1976</field>
         <field name="sequence">125</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">
-result = 'OPTLAAC' in inputs
-        </field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OPTLAAC'].amount
-result_name = inputs['OPTLAAC'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_laac"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_laac"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -3258,15 +3071,10 @@ result_rate = rate * (employer_part / 100)
         <field name="code">OPTIJM</field>
         <field name="l10n_ch_code">1971</field>
         <field name="sequence">128</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">
-result = 'OPTIJM' in inputs
-        </field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OPTIJM'].amount
-result_name = inputs['OPTIJM'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_ijm"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_optional_ijm"/>
         <field name="l10n_ch_gross_included" eval="True"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -3322,13 +3130,10 @@ Source:
         <field name="code">LPPRED</field>
         <field name="l10n_ch_code">5051</field>
         <field name="sequence">130</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'LPPRED' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['LPPRED'].amount
-result_name = inputs['LPPRED'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_lpp_redemption"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_lpp_redemption"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -3831,13 +3636,10 @@ result_rate = contract.l10n_ch_compensation_fund_id._get_caf_rates(payslip.date_
         <field name="code">SERVICECAR</field>
         <field name="l10n_ch_code">5080</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'SERVICECAR' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['SERVICECAR'].amount
-result_name = inputs['SERVICECAR'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_restreint_private_share_service_car"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_restreint_private_share_service_car"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -3854,13 +3656,10 @@ result_name = inputs['SERVICECAR'].name
         <field name="code">BIKCORRECTION</field>
         <field name="l10n_ch_code">5100</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'BIKCORRECTION' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['BIKCORRECTION'].amount
-result_name = inputs['BIKCORRECTION'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_action_bik_correction"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_action_bik_correction"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -3877,13 +3676,10 @@ result_name = inputs['BIKCORRECTION'].name
         <field name="code">CASHCORRECTION</field>
         <field name="l10n_ch_code">5110</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CASHCORRECTION' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CASHCORRECTION'].amount
-result_name = inputs['CASHCORRECTION'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_action_cash_correction"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_action_cash_correction"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -3950,13 +3746,10 @@ result = - result_rules['OPTLPPRED']['total']
         <field name="code">TRAVEXP</field>
         <field name="l10n_ch_code">6000</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'TRAVEXP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['TRAVEXP'].amount
-result_name = inputs['TRAVEXP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_travel_expense"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_travel_expense"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -3976,13 +3769,10 @@ result_name = inputs['TRAVEXP'].name
         <field name="code">EFFECTIVEEXPAT</field>
         <field name="l10n_ch_code">6020</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'EFFECTIVEEXPAT' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['EFFECTIVEEXPAT'].amount
-result_name = inputs['EFFECTIVEEXPAT'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_effective_expatriate_costs"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_effective_expatriate_costs"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4002,13 +3792,10 @@ result_name = inputs['EFFECTIVEEXPAT'].name
         <field name="code">FLATEXPAT</field>
         <field name="l10n_ch_code">6035</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'FLATEXPAT' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['FLATEXPAT'].amount
-result_name = inputs['FLATEXPAT'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_flat_expatriate_costs"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_flat_expatriate_costs"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4028,13 +3815,10 @@ result_name = inputs['FLATEXPAT'].name
         <field name="code">FAMILYALW</field>
         <field name="l10n_ch_code">3030</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'FAMILYALW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['FAMILYALW'].amount
-result_name = inputs['FAMILYALW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_family_allowance"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_family_allowance"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4053,13 +3837,10 @@ result_name = inputs['FAMILYALW'].name
         <field name="code">CAREXP</field>
         <field name="l10n_ch_code">6001</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CAREXP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CAREXP'].amount
-result_name = inputs['CAREXP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_car_expense"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_car_expense"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4077,13 +3858,10 @@ result_name = inputs['CAREXP'].name
         <field name="code">LUNCHEXP</field>
         <field name="l10n_ch_code">6002</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'LUNCHEXP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['LUNCHEXP'].amount
-result_name = inputs['LUNCHEXP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_lunch_expense"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_lunch_expense"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4101,13 +3879,10 @@ result_name = inputs['LUNCHEXP'].name
         <field name="code">NIGHTEXP</field>
         <field name="l10n_ch_code">6010</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'NIGHTEXP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['NIGHTEXP'].amount
-result_name = inputs['NIGHTEXP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_nightly_expense"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_nightly_expense"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4125,13 +3900,10 @@ result_name = inputs['NIGHTEXP'].name
         <field name="code">OTHEREXP</field>
         <field name="l10n_ch_code">6030</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OTHEREXP' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OTHEREXP'].amount
-result_name = inputs['OTHEREXP'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_other_expense"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_other_expense"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4149,13 +3921,10 @@ result_name = inputs['OTHEREXP'].name
         <field name="code">REPFEES</field>
         <field name="l10n_ch_code">6040</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'REPFEES' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['REPFEES'].amount
-result_name = inputs['REPFEES'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_representation_fees"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_representation_fees"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4175,13 +3944,10 @@ result_name = inputs['REPFEES'].name
         <field name="code">CARFEES</field>
         <field name="l10n_ch_code">6050</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'CARFEES' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['CARFEES'].amount
-result_name = inputs['CARFEES'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_car_fees"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_car_fees"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>
@@ -4201,13 +3967,10 @@ result_name = inputs['CARFEES'].name
         <field name="code">OTHERFEES</field>
         <field name="l10n_ch_code">6070</field>
         <field name="sequence">280</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OTHERFEES' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OTHERFEES'].amount
-result_name = inputs['OTHERFEES'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_other_fees"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_ch_hr_payroll.input_holiday_other_fees"/>
         <field name="l10n_ch_gross_included" eval="False"/>
         <field name="l10n_ch_aanp_included" eval="False"/>
         <field name="l10n_ch_laac_included" eval="False"/>

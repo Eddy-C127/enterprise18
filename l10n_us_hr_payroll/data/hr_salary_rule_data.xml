@@ -5,13 +5,10 @@
         <field name="name">Commission</field>
         <field name="code">COMMISSION</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'COMMISSION' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['COMMISSION'].amount
-result_name = inputs['COMMISSION'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_us_hr_payroll.input_commission"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_us_hr_payroll.input_commission"/>
         <field name="struct_id" ref="l10n_us_hr_payroll.hr_payroll_structure_us_employee_salary"/>
     </record>
 
@@ -20,13 +17,10 @@ result_name = inputs['COMMISSION'].name
         <field name="name">Tips</field>
         <field name="code">TIPS</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'TIPS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['TIPS'].amount
-result_name = inputs['TIPS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_us_hr_payroll.input_tips"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_us_hr_payroll.input_tips"/>
         <field name="struct_id" ref="l10n_us_hr_payroll.hr_payroll_structure_us_employee_salary"/>
     </record>
 
@@ -887,13 +881,10 @@ result_rate = payslip._rule_parameter('l10n_us_ny_reemployment_tax_rate')
         <field name="name">Allocated Tips</field>
         <field name="code">ALLOCATEDTIPS</field>
         <field name="sequence">180</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'ALLOCATEDTIPS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['ALLOCATEDTIPS'].amount
-result_name = inputs['ALLOCATEDTIPS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_us_hr_payroll.input_allocated_tips"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_us_hr_payroll.input_allocated_tips"/>
         <field name="struct_id" ref="l10n_us_hr_payroll.hr_payroll_structure_us_employee_salary"/>
     </record>
 

@@ -28,13 +28,10 @@
         <field name="name">Commission</field>
         <field name="code">COMMISSION</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'COMMISSION' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['COMMISSION'].amount
-result_name = inputs['COMMISSION'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_hk_hr_payroll.input_commission"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_hk_hr_payroll.input_commission"/>
         <field name="struct_id" ref="l10n_hk_hr_payroll.hr_payroll_structure_cap57_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
     </record>
@@ -44,13 +41,10 @@ result_name = inputs['COMMISSION'].name
         <field name="name">Back Pay</field>
         <field name="code">BACKPAY</field>
         <field name="sequence">6</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'BACKPAY' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['BACKPAY'].amount
-result_name = inputs['BACKPAY'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_hk_hr_payroll.input_back_pay"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_hk_hr_payroll.input_back_pay"/>
         <field name="struct_id" ref="l10n_hk_hr_payroll.hr_payroll_structure_cap57_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
     </record>
@@ -95,13 +89,10 @@ result_name = inputs['GLOBAL_DEDUCTION'].name
         <field name="name">Reimbursement</field>
         <field name="code">GLOBAL_REIMBURSEMENT</field>
         <field name="sequence">99</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'GLOBAL_REIMBURSEMENT' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['GLOBAL_REIMBURSEMENT'].amount
-result_name = inputs['GLOBAL_REIMBURSEMENT'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_hk_hr_payroll.input_global_reimbursement"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_hk_hr_payroll.input_global_reimbursement"/>
         <field name="struct_id" ref="l10n_hk_hr_payroll.hr_payroll_structure_cap57_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
     </record>
@@ -139,11 +130,8 @@ result_name = inputs['GLOBAL_REIMBURSEMENT'].name
         <field name="sequence">103</field>
         <field name="condition_select">python</field>
         <field name="condition_python">result = inputs['REFERRAL_FEE'].amount > 0.0 if 'REFERRAL_FEE' in inputs else False</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['REFERRAL_FEE'].amount
-result_name = inputs['REFERRAL_FEE'].name
-        </field>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_hk_hr_payroll.input_referral_fee"/>
         <field name="struct_id" ref="l10n_hk_hr_payroll.hr_payroll_structure_cap57_employee_salary"/>
     </record>
 

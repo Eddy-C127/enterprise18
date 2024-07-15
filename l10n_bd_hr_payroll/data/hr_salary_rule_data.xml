@@ -6,13 +6,10 @@
         <field name="struct_id" ref="l10n_bd_hr_payroll.hr_payroll_structure_bd_employee_salary"/>
         <field name="code">OTHER_ALLOW</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'OTHER_ALLOW' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['OTHER_ALLOW'].amount
-result_name = inputs['OTHER_ALLOW'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_bd_hr_payroll.input_other_allowances"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_bd_hr_payroll.input_other_allowances"/>
     </record>
 
     <record id="l10n_bd_salary_arrears_rule" model="hr.salary.rule">
@@ -21,13 +18,10 @@ result_name = inputs['OTHER_ALLOW'].name
         <field name="struct_id" ref="l10n_bd_hr_payroll.hr_payroll_structure_bd_employee_salary"/>
         <field name="code">SALARY_ARREARS</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'SALARY_ARREARS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['SALARY_ARREARS'].amount
-result_name = inputs['SALARY_ARREARS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_bd_hr_payroll.input_salary_arrears"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_bd_hr_payroll.input_salary_arrears"/>
     </record>
 
     <record id="l10n_bd_over_time_rule" model="hr.salary.rule">
@@ -36,12 +30,10 @@ result_name = inputs['SALARY_ARREARS'].name
         <field name="struct_id" ref="l10n_bd_hr_payroll.hr_payroll_structure_bd_employee_salary"/>
         <field name="code">EXTRA_HOURS</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'EXTRA_HOURS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['EXTRA_HOURS'].amount
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_bd_hr_payroll.input_extra_hours"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_bd_hr_payroll.input_extra_hours"/>
     </record>
 
     <record id="l10n_bd_prov_fund_rule" model="hr.salary.rule">
@@ -50,12 +42,10 @@ result = inputs['EXTRA_HOURS'].amount
         <field name="struct_id" ref="l10n_bd_hr_payroll.hr_payroll_structure_bd_employee_salary"/>
         <field name="code">PROV_FUND</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'PROV_FUND' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['PROV_FUND'].amount
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_bd_hr_payroll.input_provident_fund"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_bd_hr_payroll.input_provident_fund"/>
     </record>
 
     <record id="l10n_bd_grat_fund_rule" model="hr.salary.rule">
@@ -64,12 +54,10 @@ result = inputs['PROV_FUND'].amount
         <field name="struct_id" ref="l10n_bd_hr_payroll.hr_payroll_structure_bd_employee_salary"/>
         <field name="code">GRAT_FUND</field>
         <field name="sequence">5</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'GRAT_FUND' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['GRAT_FUND'].amount
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_bd_hr_payroll.input_gratuity_fund"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_bd_hr_payroll.input_gratuity_fund"/>
     </record>
 
     <record id="l10n_bd_tax_exemption_rule" model="hr.salary.rule">
@@ -78,13 +66,10 @@ result = inputs['GRAT_FUND'].amount
         <field name="struct_id" ref="l10n_bd_hr_payroll.hr_payroll_structure_bd_employee_salary"/>
         <field name="code">TAX_CREDITS</field>
         <field name="sequence">105</field>
-        <field name="condition_select">python</field>
-        <field name="condition_python">result = 'TAX_CREDITS' in inputs</field>
-        <field name="amount_select">code</field>
-        <field name="amount_python_compute">
-result = inputs['TAX_CREDITS'].amount
-result_name = inputs['TAX_CREDITS'].name
-        </field>
+        <field name="condition_select">input</field>
+        <field name="condition_other_input_id" ref="l10n_bd_hr_payroll.input_tax_credits"/>
+        <field name="amount_select">input</field>
+        <field name="amount_other_input_id" ref="l10n_bd_hr_payroll.input_tax_credits"/>
     </record>
 
     <record id="l10n_bd_taxable_amount_rule" model="hr.salary.rule">
