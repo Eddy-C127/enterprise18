@@ -64,7 +64,6 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
      */
     async createNewSpreadsheet() {
         const action = await this.orm.call("documents.document", "action_open_new_spreadsheet");
-        this._notifyCreation();
         this.actionService.doAction(action, { clear_breadcrumbs: true });
     }
 

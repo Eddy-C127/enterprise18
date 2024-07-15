@@ -26,7 +26,6 @@ export class TemplateDialog extends Component {
     setup() {
         this.orm = useService("orm");
         this.viewService = useService("view");
-        this.notificationService = useService("notification");
         this.actionService = useService("action");
         this.companyService = useService("company");
 
@@ -129,11 +128,6 @@ export class TemplateDialog extends Component {
             return;
         }
         this.state.isCreating = true;
-
-        this.notificationService.add(_t("New sheet saved in Documents"), {
-            type: "info",
-            sticky: false,
-        });
 
         this.actionService.doAction(await this._getOpenSpreadsheetAction(), {
             additionalContext: this.props.context,
