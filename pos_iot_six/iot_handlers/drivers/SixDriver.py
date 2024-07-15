@@ -41,6 +41,7 @@ TIMAPI.six_perform_transaction.argtypes = [
     ctypes.c_int,                   # int error_size
 ]
 
+
 class SixDriver(CtypesTerminalDriver):
     connection_type = 'tim'
 
@@ -65,9 +66,9 @@ class SixDriver(CtypesTerminalDriver):
         error_code = ctypes.c_int(CTYPES_BUFFER_SIZE)
         error = create_ctypes_string_buffer()
 
-        _logger.critical('SixDriver.processTransaction: %s', transaction)
         # Transaction
         try:
+            _logger.info('Start transaction #%d amount: %f', transaction_id, transaction['amount'])
             result = TIMAPI.six_perform_transaction(
                 ctypes.cast(self.dev, ctypes.c_void_p),  # t_terminal_manager *terminal_manager
                 transaction['posId'].encode(),  # char *pos_id
@@ -86,6 +87,7 @@ class SixDriver(CtypesTerminalDriver):
                 error,  # char *error
                 ctypes_int_buffer_size  # int error_size
             )
+            _logger.debug('Finished transaction #%d with result %d', transaction_id, result)
             # Transaction successful
             if result == 1:
                 self.send_status(

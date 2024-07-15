@@ -59,7 +59,7 @@ TIMAPI.six_setup_terminal_settings.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
 TIMAPI.six_terminal_connected.argtypes = [ctypes.c_void_p]
 
 class TIMInterface(Interface):
-    _loop_delay = 10
+    _loop_delay = 30
     connection_type = 'tim'
 
     def __init__(self):
