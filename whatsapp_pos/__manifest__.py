@@ -8,6 +8,7 @@
     'data': [
         'data/whatsapp_template_data.xml',
         'views/res_config_settings_views.xml',
+        'views/pos_order_views.xml',
     ],
     'demo': [
         'data/point_of_sale_demo.xml',

@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from odoo import models, _
 
 
 class PosOrder(models.Model):
@@ -46,3 +46,13 @@ class PosOrder(models.Model):
 
     def _mail_get_partners(self):
         return {pos_order.id: pos_order.partner_id for pos_order in self}
+
+    def action_send_whatsapp(self):
+        return {
+            'name': _('Send Whatsapp'),
+            'view_mode': 'form',
+            'res_model': 'whatsapp.composer',
+            'type': 'ir.actions.act_window',
+            'context': {'template_types': ['marketing']},
+            'target': 'new'
+        }
