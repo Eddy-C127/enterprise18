@@ -1682,3 +1682,40 @@ class TestCFDIInvoice(TestMxEdiCommon):
                         payment.move_id._l10n_mx_edi_cfdi_payment_try_send()
                     document = payment.l10n_mx_edi_payment_document_ids.filtered(lambda x: x.state == 'payment_sent')[:1]
                     assert_cfdi_date(document, tz)
+
+    def test_invoice_negative_lines_cfdi_amounts(self):
+        """ Ensure the base amounts are correct in CFDI xml after dispatching the negative lines. """
+        product1 = self._create_product(name='product_1')
+        product2 = self._create_product(name='product_2')
+        product3 = self._create_product(name='product_3')
+        downpayment = self._create_product(name='down_payment')
+        with self.mx_external_setup(self.frozen_today):
+            invoice = self._create_invoice(
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': product1.id,
+                        'price_unit': 1000.0,
+                        'quantity': 1.0,
+                    }),
+                    Command.create({
+                        'product_id': product2.id,
+                        'price_unit': 1500.0,
+                        'quantity': 1.0,
+                    }),
+                    Command.create({
+                        'product_id': product3.id,
+                        'price_unit': 3000.0,
+                        'quantity': 1.0,
+                    }),
+                    Command.create({
+                        'product_id': downpayment.id,
+                        'price_unit': 4950.0,   # It represents a 90% down payment
+                        'quantity': -1.0,
+                    }),
+                ],
+            )
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+            # The down payment line should be dispatched to the 3 other lines, removing the 2
+            # biggest ones and generating a discount of 450 on the lowest one
+            self._assert_invoice_cfdi(invoice, 'test_invoice_negative_lines_cfdi_amounts')

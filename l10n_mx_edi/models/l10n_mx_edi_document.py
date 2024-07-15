@@ -795,7 +795,7 @@ class L10nMxEdiDocument(models.Model):
                         base = tax_values['base']
                         tax = tax_values['importe']
                     else:
-                        distribute_ratio = abs(discount_to_distribute / neg_base_line['price_subtotal'])
+                        distribute_ratio = abs(discount_to_distribute / tax_values['base'])
                         base = neg_base_line['currency'].round(tax_values['base'] * distribute_ratio)
                         tax = neg_base_line['currency'].round(tax_values['importe'] * distribute_ratio)
 
