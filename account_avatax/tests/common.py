@@ -171,7 +171,7 @@ class TestAccountAvataxCommon(TestAvataxCommon, AccountTestInvoicingCommon):
         return res
 
     @classmethod
-    def _create_invoice(cls):
+    def _create_invoice(cls, post=True, **kwargs):
         invoice = cls.env['account.move'].create({
             'move_type': 'out_invoice',
             'partner_id': cls.partner.id,
@@ -179,9 +179,11 @@ class TestAccountAvataxCommon(TestAvataxCommon, AccountTestInvoicingCommon):
             'invoice_date': '2020-01-01',
             'invoice_line_ids': [
                 (0, 0, {'product_id': cls.product.id, 'price_unit': 100}),
-            ]
+            ],
+            **kwargs,
         })
-        invoice.action_post()
+        if post:
+            invoice.action_post()
         return invoice
 
     @classmethod
