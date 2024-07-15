@@ -26,7 +26,7 @@
     'installable': True,
     'application': True,
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'room/static/src/room_booking_gantt_view/**/*',
         ],
         'web.qunit_suite_tests': [

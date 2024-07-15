@@ -15,7 +15,7 @@ Odoo Web Gantt chart view.
         'web._assets_primary_variables': [
             'web_gantt/static/src/gantt_view.variables.scss',
         ],
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'web_gantt/static/src/**/*',
 
             # Don't include dark mode files in light mode

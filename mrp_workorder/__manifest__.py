@@ -42,6 +42,10 @@
             'mrp_workorder/static/src/**/*.scss',
             'mrp_workorder/static/src/**/*.js',
             'mrp_workorder/static/src/**/*.xml',
+            ('remove', 'mrp_workorder/static/src/mrp_workorder_gantt_*'),
+        ],
+        'web.assets_backend_lazy': [
+            'mrp_workorder/static/src/mrp_workorder_gantt_*',
         ],
         'web.assets_tests': [
             'mrp_workorder/static/tests/tours/**/*',

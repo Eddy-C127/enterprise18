@@ -25,6 +25,10 @@
     'assets': {
         'web.assets_backend': [
             'hr_payroll_holidays/static/src/**/*',
+            ('remove', 'hr_payroll_holidays/static/src/js/hr_work_entries_gantt.*'),
+        ],
+        'web.assets_backend_lazy': [
+            'hr_payroll_holidays/static/src/js/hr_work_entries_gantt.*',
         ],
     },
     'license': 'OEEL-1',

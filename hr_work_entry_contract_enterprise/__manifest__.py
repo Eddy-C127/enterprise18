@@ -17,7 +17,7 @@
     ],
     'auto_install': True,
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'hr_work_entry_contract_enterprise/static/**/*',
         ],
     },

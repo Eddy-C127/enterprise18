@@ -24,14 +24,13 @@ Bridge module for project and enterprise
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
-            'project_enterprise/static/src/*',
+            'project_enterprise/static/src/project_conflicted_tasks.js',
             'project_enterprise/static/src/scss/**/*',
             'project_enterprise/static/src/components/**/*',
-            'project_enterprise/static/src/views/**/*',
-            'project_enterprise/static/src/**/*.xml',
-            ('remove', 'project_enterprise/static/src/views/project_task_map/**'),
-            ('remove', 'project_enterprise/static/src/views/project_task_graph/**'),
-            ('remove', 'project_enterprise/static/src/views/project_task_pivot/**'),
+            'project_enterprise/static/src/views/project_task_calendar/**',
+            'project_enterprise/static/src/views/project_task_tree/**',
+            'project_enterprise/static/src/views/view_dialogs/**',
+            'project_enterprise/static/src/xml/**',
 
             # Don't include dark mode files in light mode
             ('remove', 'project_enterprise/static/src/components/**/*.dark.scss'),
@@ -40,6 +39,8 @@ Bridge module for project and enterprise
             'project_enterprise/static/src/views/project_task_map/**',
             'project_enterprise/static/src/views/project_task_graph/**',
             'project_enterprise/static/src/views/project_task_pivot/**',
+            'project_enterprise/static/src/views/task_gantt/**',
+            'project_enterprise/static/src/views/project_gantt/**',
         ],
         "web.assets_web_dark": [
             'project_enterprise/static/src/components/**/*.dark.scss',

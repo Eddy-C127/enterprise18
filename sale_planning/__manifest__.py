@@ -31,7 +31,10 @@ Plan shifts and keep an eye on the hours consumed on your plannable products.
     'assets': {
         'web.assets_backend': [
             'sale_planning/static/src/components/**/*',
-            'sale_planning/static/src/views/**/*',
+            'sale_planning/static/src/views/planning_hooks.js',
+        ],
+        'web.assets_backend_lazy': [
+            'sale_planning/static/src/views/sale_planning_gantt/**',
         ],
         'web.assets_frontend': [
             'sale_planning/static/src/js/frontend/**/*',

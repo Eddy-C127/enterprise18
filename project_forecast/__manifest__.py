@@ -27,6 +27,8 @@ Schedule your teams across projects and estimate deadlines more accurately.
     'assets': {
         'web.assets_backend': [
             'project_forecast/static/src/components/**/*',
+        ],
+        'web.assets_backend_lazy': [
             'project_forecast/static/src/views/**/*',
         ],
         'web.assets_frontend': [

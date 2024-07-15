@@ -63,10 +63,12 @@
             'hr_payroll/static/src/**/*',
             ('remove', 'hr_payroll/static/src/js/hr_payroll_report_graph_view.js'),
             ('remove', 'hr_payroll/static/src/js/hr_payroll_report_pivot_*'),
+            ('remove', 'hr_payroll/static/src/js/hr_work_entries_gantt.*'),
         ],
         'web.assets_backend_lazy': [
             'hr_payroll/static/src/js/hr_payroll_report_graph_view.js',
             'hr_payroll/static/src/js/hr_payroll_report_pivot_*',
+            'hr_payroll/static/src/js/hr_work_entries_gantt.*',
         ],
         'web.assets_tests': [
             'hr_payroll/static/tests/**/*.js',

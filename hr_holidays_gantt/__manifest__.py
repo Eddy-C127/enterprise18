@@ -12,7 +12,7 @@
         'views/hr_holidays_gantt_view.xml',
     ],
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'hr_holidays_gantt/static/src/**/*',
         ],
     },

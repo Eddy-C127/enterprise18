@@ -13,7 +13,7 @@
         'views/hr_attendance_gantt.xml'
     ],
     'assets': {
-        'web.assets_backend': [
+        'web.assets_backend_lazy': [
             'hr_attendance_gantt/static/src/**/*',
         ],
         'web.assets_unit_tests': [
