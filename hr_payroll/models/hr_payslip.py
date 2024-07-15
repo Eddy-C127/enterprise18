@@ -420,11 +420,11 @@ class HrPayslip(models.Model):
         return self.write({'state': 'draft'})
 
     def _get_pdf_reports(self):
-        classic_report = self.env.ref('hr_payroll.action_report_payslip')
+        default_report = self.env.ref('hr_payroll.action_report_payslip')
         result = defaultdict(lambda: self.env['hr.payslip'])
         for payslip in self:
             if not payslip.struct_id or not payslip.struct_id.report_id:
-                result[classic_report] |= payslip
+                result[default_report] |= payslip
             else:
                 result[payslip.struct_id.report_id] |= payslip
         return result

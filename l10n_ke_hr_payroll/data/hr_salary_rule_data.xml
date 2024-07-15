@@ -220,11 +220,8 @@ result = result_rules['GROSS']['total'] - categories['KE_UT_ALW'] - categories['
         <field name="amount_python_compute">
 lower_limit = payslip._rule_parameter('l10n_ke_nssf_lower_limit')
 pensionable = categories['BASIC'] + categories['COMMISSIONS']
-if pensionable > lower_limit:
-    result = lower_limit *0.06
-else:
-    result = pensionable * 0.06
-result = result
+result = min(lower_limit, pensionable)
+result_rate = 6
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -244,12 +241,11 @@ lower_limit = payslip._rule_parameter('l10n_ke_nssf_lower_limit')
 upper_limit = payslip._rule_parameter('l10n_ke_nssf_upper_limit')
 pensionable = categories['BASIC'] + categories['COMMISSION']
 result = 0
-
 if upper_limit &lt; pensionable:
-    result = (upper_limit - lower_limit) * 0.06
+    result = (upper_limit - lower_limit)
 elif lower_limit &lt; pensionable:
-    result = (pensionable - lower_limit) * 0.06
-result = result
+    result = (pensionable - lower_limit)
+result_rate = 6
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -317,7 +313,8 @@ result = result_rules['NHIF_AMOUNT_HIDDEN']['total'] and not contract.l10n_ke_is
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = - 0.15 * result_rules['NHIF_AMOUNT_HIDDEN']['total']
+result = result_rules['NHIF_AMOUNT_HIDDEN']['total']
+result_rate = -15
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -334,7 +331,8 @@ result = contract.l10n_ke_voluntary_medical_insurance and not contract.l10n_ke_i
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = - 0.15 * contract.l10n_ke_voluntary_medical_insurance
+result = contract.l10n_ke_voluntary_medical_insurance
+result_rate = -15
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -351,7 +349,8 @@ result = contract.l10n_ke_life_insurance and not contract.l10n_ke_is_secondary
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = - 0.15 * contract.l10n_ke_life_insurance
+result = contract.l10n_ke_life_insurance
+result_rate = -15
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -368,7 +367,8 @@ result = contract.l10n_ke_education and not contract.l10n_ke_is_secondary
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = - 0.15 * contract.l10n_ke_education
+result = contract.l10n_ke_education
+result_rate = -15
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -382,8 +382,8 @@ result = - 0.15 * contract.l10n_ke_education
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-basic = categories['BASIC'] - employee.disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
-result = payslip._rule_parameter('l10n_ke_ahl_employee') * basic
+result = categories['BASIC'] - employee.disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
+result_rate = payslip._rule_parameter('l10n_ke_ahl_employee') * 100
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -400,10 +400,11 @@ result = payslip.date_from &gt;= datetime(2024, 3, 19).date() and not contract.l
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = - min(
-    payslip._rule_parameter('l10n_ke_ahl_relief_cap'),
-    result_rules['AHL_AMOUNT']['total'] * payslip._rule_parameter('l10n_ke_ahl_relief_rate')
-)
+if payslip._rule_parameter('l10n_ke_ahl_relief_cap') &lt; result_rules['AHL_AMOUNT']['total'] * payslip._rule_parameter('l10n_ke_ahl_relief_rate'):
+    result = - payslip._rule_parameter('l10n_ke_ahl_relief_cap')
+else:
+    result = result_rules['AHL_AMOUNT']['total']
+    result_rate = - payslip._rule_parameter('l10n_ke_ahl_relief_rate') * 100
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payroll_report" eval="True"/>
@@ -675,8 +676,8 @@ result = result_rules['NSSF_AMOUNT']['total']
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-basic = categories['BASIC'] - employee.disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
-result = payslip._rule_parameter('l10n_ke_ahl_employer') * basic
+result = categories['BASIC'] - employee.disabled * payslip._rule_parameter('l10n_ke_disability_threshold')
+result_rate = payslip._rule_parameter('l10n_ke_ahl_employer') * 100
         </field>
         <field name="struct_id" ref="l10n_ke_hr_payroll.hr_payroll_structure_ken_employee_salary"/>
         <field name="appears_on_payslip" eval="False"/>

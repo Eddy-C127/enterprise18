@@ -1,4 +1,3 @@
-#-*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -31,6 +30,17 @@ class HrPayrollStructure(models.Model):
             }) for rule in default_structure.rule_ids]
         return vals
 
+    def _get_domain_report(self):
+        return [
+            ('model', '=', 'hr.payslip'),
+            ('report_type', '=', 'qweb-pdf'),
+            '|',
+            ('report_name', 'ilike', 'l10n_' + self.env.company.country_code.lower()),
+            '&',
+            ('report_name', 'ilike', 'hr_payroll'),
+            ('report_name', 'not ilike', 'l10n')
+        ]
+
     name = fields.Char(required=True)
     code = fields.Char()
     active = fields.Boolean(default=True)
@@ -42,7 +52,7 @@ class HrPayrollStructure(models.Model):
         'hr.salary.rule', 'struct_id', copy=True,
         string='Salary Rules', default=_get_default_rule_ids)
     report_id = fields.Many2one('ir.actions.report',
-        string="Report", domain="[('model','=','hr.payslip'),('report_type','=','qweb-pdf')]", default=_get_default_report_id)
+        string="Template", domain=_get_domain_report, default=_get_default_report_id)
     payslip_name = fields.Char(string="Payslip Name", translate=True,
         help="Name to be set on a payslip. Example: 'End of the year bonus'. If not set, the default value is 'Salary Slip'")
     hide_basic_on_pdf = fields.Boolean(help="Enable this option if you don't want to display the Basic Salary on the printed pdf.")

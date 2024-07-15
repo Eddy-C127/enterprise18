@@ -60,7 +60,7 @@ Prerequisites:
         'security/ir.model.access.csv',
         'security/l10n_be_hr_payroll_security.xml',
         'data/report_paperformat.xml',
-        'views/report_payslip_template.xml',
+        'views/report_payslip_templates.xml',
         'views/reports.xml',
         'wizard/hr_payroll_employee_departure_notice_views.xml',
         'wizard/hr_payroll_employee_departure_holiday_attest_views.xml',

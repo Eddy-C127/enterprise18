@@ -77,28 +77,28 @@
                     </group>
                 </group>
                 <notebook colspan="4">
-                     <page name="salary_rules" string="Salary Rules">
-                       <field name="rule_ids" readonly="not id">
-                         <tree>
-                            <field name="name"/>
-                            <field name="code"/>
-                            <field name="category_id"/>
-                            <field name="sequence" column_invisible="True"/>
-                            <field name="partner_id"/>
-                         </tree>
-                      </field>
-                     </page>
-                     <page string="Unpaid Work Entry Types" name="unpaid_work_entry_types">
-                       <field name="unpaid_work_entry_type_ids"/>
-                     </page>
-                     <page name="other_input" string="Other Input">
-                       <field name="input_line_type_ids">
-                         <tree>
-                            <field name="name"/>
-                            <field name="code"/>
-                         </tree>
-                      </field>
-                     </page>
+                    <page name="salary_rules" string="Salary Rules">
+                        <field name="rule_ids" readonly="not id">
+                            <tree>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="category_id"/>
+                                <field name="sequence" column_invisible="True"/>
+                                <field name="partner_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Unpaid Work Entry Types" name="unpaid_work_entry_types">
+                        <field name="unpaid_work_entry_type_ids"/>
+                    </page>
+                    <page name="other_input" string="Other Input">
+                        <field name="input_line_type_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </tree>
+                        </field>
+                    </page>
                 </notebook>
             </sheet>
             </form>
