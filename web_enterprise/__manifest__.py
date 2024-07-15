@@ -41,9 +41,13 @@ This module modifies the web addon to provide Enterprise design and responsivene
             'web_enterprise/static/src/webclient/**/*.xml',
             'web_enterprise/static/src/views/**/*.js',
             'web_enterprise/static/src/views/**/*.xml',
+            ('remove', 'web_enterprise/static/src/views/pivot/**'),
 
             # Don't include dark mode files in light mode
             ('remove', 'web_enterprise/static/src/**/*.dark.scss'),
+        ],
+        'web.assets_backend_lazy': [
+            'web_enterprise/static/src/views/pivot/**',
         ],
         'web.assets_web': [
             ('replace', 'web/static/src/main.js', 'web_enterprise/static/src/main.js'),

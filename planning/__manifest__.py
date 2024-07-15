@@ -41,9 +41,11 @@ Schedule your teams and employees with shift.
             'planning/static/src/scss/planning_list.scss',
             'planning/static/src/js/tours/planning.js',
             ('remove', 'planning/static/src/views/planning_graph/**'),
+            ('remove', 'planning/static/src/views/planning_pivot/**'),
         ],
         'web.assets_backend_lazy': [
             'planning/static/src/views/planning_graph/**',
+            'planning/static/src/views/planning_pivot/**',
         ],
         'web.assets_frontend': [
             'planning/static/src/scss/planning_calendar_report.scss',

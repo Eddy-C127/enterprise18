@@ -27,12 +27,14 @@
         ],
         'web.assets_backend': [
             'spreadsheet_edition/static/src/**/*.scss',
-            'spreadsheet_edition/static/src/bundle/pivot/pivot.xml',
             'spreadsheet_edition/static/src/assets/**/*',
             ('remove', 'spreadsheet_edition/static/src/assets/graph_view/**'),
+            ('remove', 'spreadsheet_edition/static/src/assets/pivot_view/**'),
         ],
         'web.assets_backend_lazy': [
             'spreadsheet_edition/static/src/assets/graph_view/**',
+            'spreadsheet_edition/static/src/assets/pivot_view/**',
+            'spreadsheet_edition/static/src/bundle/pivot/pivot.xml',
         ],
         'web.qunit_suite_tests': [
             'spreadsheet_edition/static/tests/legacy/**/*',

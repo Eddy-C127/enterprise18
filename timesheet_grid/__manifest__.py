@@ -44,6 +44,7 @@
             ('remove', 'timesheet_grid/static/src/components/timesheet_grid_many2one/**'),
             ('remove', 'timesheet_grid/static/src/components/timesheet_many2one_avatar_employee_grid_row/**'),
             ('remove', 'timesheet_grid/static/src/components/grid_timesheet_uom/**'),
+            ('remove', 'timesheet_grid/static/src/js/views/timesheet_pivot/**'),
         ],
         'web.assets_backend_lazy': [
             'timesheet_grid/static/src/views/timer_timesheet_grid/**',
@@ -53,6 +54,7 @@
             'timesheet_grid/static/src/components/timesheet_grid_many2one/**',
             'timesheet_grid/static/src/components/timesheet_many2one_avatar_employee_grid_row/**',
             'timesheet_grid/static/src/components/grid_timesheet_uom/**',
+            'timesheet_grid/static/src/js/views/timesheet_pivot/**',
         ],
         'web.assets_tests': [
             'timesheet_grid/static/tests/tours/**',
