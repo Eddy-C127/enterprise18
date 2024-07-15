@@ -96,12 +96,26 @@ class DeliveryCarrier(models.Model):
             },
         }
 
+    def rate_shipment(self, order):
+        res = super().rate_shipment(order)
+        if hasattr(self, '%s_rate_shipment' % self.delivery_type):
+            if res.get('no_rate'):
+                res['warning_message'] = _('There is no rate available for this order with the selected shipping product.')
+        return res
+
     def sendcloud_rate_shipment(self, order):
         """ Returns shipping rate for the order and chosen shipping method """
         order_weight = self.env.context.get('order_weight', None)
         sendcloud = self._get_sendcloud()
         try:
-            price, packages_no = sendcloud._get_shipping_rate(self, order=order, order_weight=order_weight)
+            result = sendcloud._get_shipping_rate(self, order=order, order_weight=order_weight)
+            if not result:
+                return {
+                    'success': True,
+                    'price': 0.0,
+                    'no_rate': True,
+                }
+            price, packages_no = result
         except (UserError, ValidationError) as e:
             return {
                 'success': False,
@@ -155,7 +169,9 @@ class DeliveryCarrier(models.Model):
                 price = 0.0
                 for parcel in parcels:
                     # get price for each parcel
-                    price += sendcloud._get_shipping_rate(pick.carrier_id, picking=pick, parcel=parcel)[0]
+                    shipping_rate = sendcloud._get_shipping_rate(pick.carrier_id, picking=pick, parcel=parcel)
+                    if shipping_rate:
+                        price += shipping_rate[0]
             except UserError:
                 # if the price fetch fails need to log that they failed and continue
                 pick.message_post(body=_('Failed to get the actual price!'))

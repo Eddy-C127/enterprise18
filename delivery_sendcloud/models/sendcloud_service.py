@@ -87,8 +87,7 @@ class SendCloud:
         shipping_prices = self._get_shipping_prices(shipping_methods, to_country, from_country, total_weight)
 
         if not shipping_prices:
-            raise UserError(_('There is no rate available for this order with the selected shipping product'))
-
+            return False
         shipping_price = min(shipping_prices.items(), key=lambda p: float(p[1]['price']))
         price = float(shipping_price[1].get('price')) * packages_no
         currency = shipping_price[1].get('currency')
@@ -396,10 +395,7 @@ class SendCloud:
         # Assign consequent price to each method, delete the method if no price is available
         for shipping_method in reversed(shipping_methods):
             price = shipping_prices.get(shipping_method['id'], {}).get('price')
-            if not price:
-                shipping_methods.remove(shipping_method)  # Safe thanks to reversed()
-            else:
-                shipping_method['price'] = price
+            shipping_method['price'] = price or 0.0
 
         method_shipments = self._assign_packages_to_methods(carrier_id, delivery_packages, shipping_methods, use_multicollo)
         parcel_common = self._prepare_parcel_common_data(picking, is_return, sender_id)
