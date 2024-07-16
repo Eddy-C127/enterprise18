@@ -95,11 +95,12 @@ export async function insertPivot(model, sheetId = model.getters.getActiveSheetI
     const pivotId = "PIVOT#1";
     /** @type {OdooPivotDefinition} */
     const pivot = {
-        columns: [{ name: "foo" }],
-        rows: [{ name: "bar" }],
+        columns: [{ fieldName: "foo" }],
+        rows: [{ fieldName: "bar" }],
         measures: [
             {
-                name: "probability",
+                id: "probability:sum",
+                fieldName: "probability",
                 aggregator: "sum",
             },
         ],

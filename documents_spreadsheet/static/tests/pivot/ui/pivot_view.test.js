@@ -68,8 +68,8 @@ test("simple pivot export", async () => {
     expect(getCellContent(model, "A2")).toBe("");
     expect(getCellContent(model, "A3")).toBe("=PIVOT.HEADER(1)");
     expect(getCellContent(model, "B1")).toBe("=PIVOT.HEADER(1)");
-    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"measure","foo")');
-    expect(getCellContent(model, "B3")).toBe('=PIVOT.VALUE(1,"foo")');
+    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"measure","foo:sum")');
+    expect(getCellContent(model, "B3")).toBe('=PIVOT.VALUE(1,"foo:sum")');
 });
 
 test("simple pivot export with two measures", async () => {
@@ -87,10 +87,10 @@ test("simple pivot export with two measures", async () => {
         },
     });
     expect(getCellContent(model, "B1")).toBe("=PIVOT.HEADER(1)");
-    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"measure","foo")');
-    expect(getCellContent(model, "C2")).toBe('=PIVOT.HEADER(1,"measure","probability")');
-    expect(getCellContent(model, "B3")).toBe('=PIVOT.VALUE(1,"foo")');
-    expect(getCellContent(model, "C3")).toBe('=PIVOT.VALUE(1,"probability")');
+    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"measure","foo:sum")');
+    expect(getCellContent(model, "C2")).toBe('=PIVOT.HEADER(1,"measure","probability:avg")');
+    expect(getCellContent(model, "B3")).toBe('=PIVOT.VALUE(1,"foo:sum")');
+    expect(getCellContent(model, "C3")).toBe('=PIVOT.VALUE(1,"probability:avg")');
 });
 
 test("Insert in spreadsheet is disabled when data is empty", async () => {
@@ -208,12 +208,12 @@ test("groupby date field without interval defaults to month", async () => {
     });
     const pivot = model.getters.getPivotCoreDefinition(pivotId);
     expect(pivot).toEqual({
-        columns: [{ name: "foo" }],
+        columns: [{ fieldName: "foo" }],
         context: {},
         domain: [],
-        measures: [{ name: "probability", aggregator: "avg" }],
+        measures: [{ id: "probability:avg", fieldName: "probability", aggregator: "avg" }],
         model: "partner",
-        rows: [{ name: "date", granularity: "month" }],
+        rows: [{ fieldName: "date", granularity: "month" }],
         name: "Partners by Foo",
         sortedColumn: null,
         type: "ODOO",
@@ -222,13 +222,13 @@ test("groupby date field without interval defaults to month", async () => {
     expect(getCellContent(model, "A4")).toBe('=PIVOT.HEADER(1,"date:month","10/2016")');
     expect(getCellContent(model, "A5")).toBe('=PIVOT.HEADER(1,"date:month","12/2016")');
     expect(getCellContent(model, "B3")).toBe(
-        '=PIVOT.VALUE(1,"probability","date:month","04/2016","foo",1)'
+        '=PIVOT.VALUE(1,"probability:avg","date:month","04/2016","foo",1)'
     );
     expect(getCellContent(model, "B4")).toBe(
-        '=PIVOT.VALUE(1,"probability","date:month","10/2016","foo",1)'
+        '=PIVOT.VALUE(1,"probability:avg","date:month","10/2016","foo",1)'
     );
     expect(getCellContent(model, "B5")).toBe(
-        '=PIVOT.VALUE(1,"probability","date:month","12/2016","foo",1)'
+        '=PIVOT.VALUE(1,"probability:avg","date:month","12/2016","foo",1)'
     );
     expect(getEvaluatedCell(model, "A3").formattedValue).toBe("April 2016");
     expect(getEvaluatedCell(model, "A4").formattedValue).toBe("October 2016");
@@ -237,7 +237,7 @@ test("groupby date field without interval defaults to month", async () => {
     expect(getEvaluatedCell(model, "B4").formattedValue).toBe("11.00");
     expect(getEvaluatedCell(model, "B5").formattedValue).toBe("");
 
-    setCellContent(model, "B4", '=PIVOT.VALUE(1,"probability","date","10/2016","foo",1)');
+    setCellContent(model, "B4", '=PIVOT.VALUE(1,"probability:avg","date","10/2016","foo",1)');
     expect(getEvaluatedCell(model, "B4").formattedValue).toEqual("11.00");
 });
 
@@ -246,9 +246,13 @@ test("pivot with one level of group bys", async () => {
     expect(getCellContent(model, "A3")).toBe('=PIVOT.HEADER(1,"bar",FALSE)');
     expect(getCellContent(model, "A4")).toBe('=PIVOT.HEADER(1,"bar",TRUE)');
     expect(getCellContent(model, "A5")).toBe("=PIVOT.HEADER(1)");
-    expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"foo",1,"measure","probability")');
-    expect(getCellContent(model, "C3")).toBe('=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",2)');
-    expect(getCellContent(model, "F5")).toBe('=PIVOT.VALUE(1,"probability")');
+    expect(getCellContent(model, "B2")).toBe(
+        '=PIVOT.HEADER(1,"foo",1,"measure","probability:avg")'
+    );
+    expect(getCellContent(model, "C3")).toBe(
+        '=PIVOT.VALUE(1,"probability:avg","bar",FALSE,"foo",2)'
+    );
+    expect(getCellContent(model, "F5")).toBe('=PIVOT.VALUE(1,"probability:avg")');
 });
 
 test("groupby date field on row gives correct name", async () => {
@@ -270,9 +274,9 @@ test("groupby date field on row gives correct name", async () => {
         columns: [],
         context: {},
         domain: [],
-        measures: [{ name: "probability", aggregator: "avg" }],
+        measures: [{ id: "probability:avg", fieldName: "probability", aggregator: "avg" }],
         model: "partner",
-        rows: [{ name: "date", granularity: "month" }],
+        rows: [{ fieldName: "date", granularity: "month" }],
         name: "Partners by Date",
         sortedColumn: null,
         type: "ODOO",
@@ -380,16 +384,16 @@ test("pivot with two levels of group bys in cols", async () => {
     expect(getCellContent(model, "B1")).toBe('=PIVOT.HEADER(1,"bar",FALSE)');
     expect(getCellContent(model, "B2")).toBe('=PIVOT.HEADER(1,"bar",FALSE,"product_id",41)');
     expect(getCellContent(model, "B3")).toBe(
-        '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41,"measure","probability")'
+        '=PIVOT.HEADER(1,"bar",FALSE,"product_id",41,"measure","probability:avg")'
     );
     expect(getCellContent(model, "C1")).toBe('=PIVOT.HEADER(1,"bar",TRUE)');
     expect(getCellContent(model, "C2")).toBe('=PIVOT.HEADER(1,"bar",TRUE,"product_id",37)');
     expect(getCellContent(model, "C3")).toBe(
-        '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37,"measure","probability")'
+        '=PIVOT.HEADER(1,"bar",TRUE,"product_id",37,"measure","probability:avg")'
     );
     expect(getCellContent(model, "D2")).toBe('=PIVOT.HEADER(1,"bar",TRUE,"product_id",41)');
     expect(getCellContent(model, "D3")).toBe(
-        '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41,"measure","probability")'
+        '=PIVOT.HEADER(1,"bar",TRUE,"product_id",41,"measure","probability:avg")'
     );
 });
 
@@ -1138,7 +1142,9 @@ test("Test Autofill component", async function () {
     model.dispatch("AUTOFILL_SELECT", { col: 1, row: 2 });
     await animationFrame();
     expect(fixture.querySelector(".o-autofill-nextvalue")).toHaveText("1");
-    expect(getCellContent(model, "B2")).toBe(`=PIVOT.HEADER(1,"foo",1,"measure","probability")`);
+    expect(getCellContent(model, "B2")).toBe(
+        `=PIVOT.HEADER(1,"foo",1,"measure","probability:avg")`
+    );
 });
 
 test("Inserted pivot is inserted with a table", async function () {

@@ -75,7 +75,7 @@ test("Reinsert a pivot with a contextual search domain", async function () {
     await animationFrame(); // wait for data to be loaded
     await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
     expect(getCellFormula(model, "E10")).toBe(
-        `=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",${uid})`,
+        `=PIVOT.VALUE(1,"probability:avg","bar",FALSE,"foo",${uid})`,
         { message: "It should contain a pivot formula" }
     );
 });
@@ -116,7 +116,9 @@ test("Reinsert a pivot with new data", async function () {
     await animationFrame(); // wait for data to be loaded
     await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
     expect(getCellFormula(model, "I8")).toBe(`=PIVOT.HEADER(1,"foo",25)`);
-    expect(getCellFormula(model, "I10")).toBe(`=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",25)`);
+    expect(getCellFormula(model, "I10")).toBe(
+        `=PIVOT.VALUE(1,"probability:avg","bar",FALSE,"foo",25)`
+    );
 });
 
 test("Reinsert a pivot with an updated record", async function () {
@@ -251,9 +253,12 @@ test("reinsert pivot with anchor on merge but not top left", async function () {
     const [pivotId] = model.getters.getPivotIds();
     const pivotZone = getZoneOfInsertedDataSource(model, "pivot", pivotId);
     model.dispatch("REMOVE_TABLE", { sheetId, target: [pivotZone] });
-    expect(getCellFormula(model, "B2")).toBe(`=PIVOT.HEADER(1,"foo",1,"measure","probability")`, {
-        message: "It should contain a pivot formula",
-    });
+    expect(getCellFormula(model, "B2")).toBe(
+        `=PIVOT.HEADER(1,"foo",1,"measure","probability:avg")`,
+        {
+            message: "It should contain a pivot formula",
+        }
+    );
     model.dispatch("ADD_MERGE", {
         sheetId,
         target: [{ top: 0, bottom: 1, left: 0, right: 0 }],
@@ -263,9 +268,12 @@ test("reinsert pivot with anchor on merge but not top left", async function () {
     const { col, row } = toCartesian("A2");
     expect(model.getters.isInMerge({ sheetId, col, row })).toBe(true);
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    expect(getCellFormula(model, "B2")).toBe(`=PIVOT.HEADER(1,"foo",1,"measure","probability")`, {
-        message: "It should contain a pivot formula",
-    });
+    expect(getCellFormula(model, "B2")).toBe(
+        `=PIVOT.HEADER(1,"foo",1,"measure","probability:avg")`,
+        {
+            message: "It should contain a pivot formula",
+        }
+    );
 });
 
 test("Verify presence of pivot properties on pivot cell", async function () {

@@ -53,7 +53,10 @@ export class PivotDetailsSidePanel extends Component {
     formatSort() {
         const sortedColumn = this.pivot.definition.sortedColumn;
         const order = sortedColumn.order === "asc" ? _t("ascending") : _t("descending");
-        const measureDisplayName = this.pivot.getMeasure(sortedColumn.measure).displayName;
+        const measure = this.pivot.definition.measures.find(
+            (m) => m.fieldName === sortedColumn.measure
+        );
+        const measureDisplayName = this.pivot.getMeasure(measure.id).displayName;
         return `${measureDisplayName} (${order})`;
     }
 

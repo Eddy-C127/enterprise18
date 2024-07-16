@@ -239,8 +239,8 @@ test("can drag a column dimension to row", async function () {
         message: "it should not show the update/discard buttons",
     });
     let definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "foo" }]);
-    expect(definition.rows).toEqual([{ name: "bar" }]);
+    expect(definition.columns).toEqual([{ fieldName: "foo" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar" }]);
     await contains(".pivot-dimensions div:nth-child(2)").dragAndDrop(
         ".pivot-dimensions div:nth-child(4)",
         { position: "bottom" }
@@ -252,15 +252,15 @@ test("can drag a column dimension to row", async function () {
     // TODO use a snapshot
     definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     // update is not applied until the user clicks on the save button
-    expect(definition.columns).toEqual([{ name: "foo" }]);
-    expect(definition.rows).toEqual([{ name: "bar" }]);
+    expect(definition.columns).toEqual([{ fieldName: "foo" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar" }]);
     await contains(".pivot-defer-update .btn-link").click();
     expect(".pivot-defer-update .btn").toHaveCount(0, {
         message: "it should not show the update/discard buttons",
     });
     definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.columns).toEqual([]);
-    expect(definition.rows).toEqual([{ name: "bar" }, { name: "foo" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar" }, { fieldName: "foo" }]);
 });
 
 test("updates are applied immediately after defer update checkbox has been unchecked", async function () {
@@ -290,7 +290,7 @@ test("updates are applied immediately after defer update checkbox has been unche
     });
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.columns).toEqual([]);
-    expect(definition.rows).toEqual([{ name: "bar" }, { name: "foo" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar" }, { fieldName: "foo" }]);
 });
 
 test("remove pivot dimension", async function () {
@@ -320,7 +320,7 @@ test("remove pivot dimension", async function () {
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.columns).toEqual([]);
-    expect(definition.rows).toEqual([{ name: "bar" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar" }]);
 });
 
 test("remove pivot date time dimension", async function () {
@@ -349,7 +349,7 @@ test("remove pivot date time dimension", async function () {
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.rows).toEqual([{ name: "date", granularity: "month" }]);
+    expect(definition.rows).toEqual([{ fieldName: "date", granularity: "month" }]);
 });
 
 test("add column dimension", async function () {
@@ -372,7 +372,7 @@ test("add column dimension", async function () {
     await contains(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]).click();
     await contains(".pivot-defer-update .o-checkbox").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "bar", order: "asc" }]);
+    expect(definition.columns).toEqual([{ fieldName: "bar", order: "asc" }]);
     expect(definition.rows).toEqual([]);
 });
 
@@ -397,7 +397,7 @@ test("add row dimension", async function () {
     await contains(".pivot-defer-update .o-checkbox").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.columns).toEqual([]);
-    expect(definition.rows).toEqual([{ name: "bar", order: "asc" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar", order: "asc" }]);
 });
 
 test("select dimensions with arrow keys", async function () {
@@ -434,7 +434,7 @@ test("select dimensions with arrow keys", async function () {
     await contains(".o-popover input").press("Enter");
     await contains(".pivot-defer-update .o-checkbox").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "bar", order: "asc" }]);
+    expect(definition.columns).toEqual([{ fieldName: "bar", order: "asc" }]);
     expect(definition.rows).toEqual([]);
 });
 
@@ -523,7 +523,7 @@ test("add and search dimension", async function () {
     await contains(".pivot-defer-update .btn-link").click();
     expect(
         JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))).columns
-    ).toEqual([{ name: "foobar", order: "asc" }]);
+    ).toEqual([{ fieldName: "foobar", order: "asc" }]);
     expect(model.getters.getPivotCoreDefinition(pivotId).rows).toEqual([]);
 });
 
@@ -551,8 +551,8 @@ test("remove pivot measure", async function () {
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "foo" }]);
-    expect(definition.rows).toEqual([{ name: "bar" }]);
+    expect(definition.columns).toEqual([{ fieldName: "foo" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar" }]);
     expect(definition.measures).toEqual([]);
 });
 
@@ -578,11 +578,11 @@ test("add measure", async function () {
     await contains(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]).click();
     await contains(".pivot-defer-update .o-checkbox").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "foo" }]);
-    expect(definition.rows).toEqual([{ name: "bar" }]);
+    expect(definition.columns).toEqual([{ fieldName: "foo" }]);
+    expect(definition.rows).toEqual([{ fieldName: "bar" }]);
     expect(definition.measures).toEqual([
-        { name: "probability", aggregator: "avg" },
-        { name: "__count", aggregator: "sum" },
+        { id: "probability:avg", fieldName: "probability", aggregator: "avg" },
+        { id: "__count:sum", fieldName: "__count", aggregator: "sum" },
     ]);
 });
 
@@ -609,7 +609,9 @@ test("change measure aggregator", async function () {
     await contains(".pivot-defer-update .btn-link").click();
     expect(fixture.querySelector(".pivot-measure select")).toHaveValue("min");
     const definition = model.getters.getPivotCoreDefinition(pivotId);
-    expect(definition.measures).toEqual([{ name: "probability", aggregator: "min" }]);
+    expect(definition.measures).toEqual([
+        { id: "probability:min", fieldName: "probability", aggregator: "min" },
+    ]);
 });
 
 test("pivot with a reference field measure", async function () {
@@ -666,13 +668,13 @@ test("change dimension order", async function () {
     expect(fixture.querySelector(".pivot-dimensions select")).toHaveValue("desc");
     await contains(".pivot-defer-update .btn-link").click();
     let definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.rows).toEqual([{ name: "foo", order: "desc" }]);
+    expect(definition.rows).toEqual([{ fieldName: "foo", order: "desc" }]);
 
     // reset to automatic
     await contains(".pivot-dimensions select").select("");
     await contains(".pivot-defer-update .btn-link").click();
     definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.rows).toEqual([{ name: "foo" }]);
+    expect(definition.rows).toEqual([{ fieldName: "foo" }]);
 });
 
 test("change date dimension granularity", async function () {
@@ -698,7 +700,7 @@ test("change date dimension granularity", async function () {
     expect(fixture.querySelectorAll(".pivot-dimensions select")[0]).toHaveValue("week");
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.rows).toEqual([{ name: "date", granularity: "week" }]);
+    expect(definition.rows).toEqual([{ fieldName: "date", granularity: "week" }]);
 });
 
 test("pivot with twice the same date field with different granularity", async function () {
