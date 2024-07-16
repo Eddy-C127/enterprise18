@@ -142,6 +142,7 @@ test("Reinsert a pivot with an updated record", async function () {
 
 test("Reinsert an Odoo pivot which has no formula on the sheet (meaning the data is not loaded)", async function () {
     const spreadsheetData = {
+        version: 16,
         sheets: [
             {
                 id: "sheet1",

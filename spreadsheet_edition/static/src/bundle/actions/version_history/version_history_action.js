@@ -14,7 +14,6 @@ import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_d
 
 import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
 import { SpreadsheetName } from "../control_panel/spreadsheet_name";
-import { migrate } from "@spreadsheet/o_spreadsheet/migration";
 import {
     useSpreadsheetCurrencies,
     useSpreadsheetLocales,
@@ -231,7 +230,7 @@ export class VersionHistoryAction extends Component {
         );
         const data = this.spreadsheetData;
         this.model = new Model(
-            migrate(data),
+            data,
             {
                 custom: {
                     env: this.env,

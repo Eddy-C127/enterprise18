@@ -9,7 +9,6 @@ import { standardActionServiceProps } from "@web/webclient/actions/action_servic
 import { UNTITLED_SPREADSHEET_NAME, DEFAULT_LINES_NUMBER } from "@spreadsheet/helpers/constants";
 import { createDefaultCurrencyFormat } from "@spreadsheet/currency/helpers";
 import * as spreadsheet from "@odoo/o-spreadsheet";
-import { migrate } from "@spreadsheet/o_spreadsheet/migration";
 import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks";
 import { RecordFileStore } from "../image/record_file_store";
 import { useSpreadsheetCurrencies, useSpreadsheetLocales, useSpreadsheetThumbnail } from "../hooks";
@@ -155,7 +154,7 @@ export class AbstractSpreadsheetAction extends Component {
             ? createDefaultCurrencyFormat(defaultCurrency)
             : undefined;
         this.model = new Model(
-            migrate(this.spreadsheetData),
+            this.spreadsheetData,
             {
                 custom: { env: this.env, orm: this.orm, odooDataProvider },
                 external: {
