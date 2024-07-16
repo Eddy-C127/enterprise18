@@ -9,14 +9,14 @@ class AccountJournal(models.Model):
     def _get_journal_dashboard_data_batched(self):
         # add a 'l10n_fr_has_rejected_tax_report' key
         dashboard_data = super()._get_journal_dashboard_data_batched()
-        tax_journal_id = self.company_id.account_tax_periodicity_journal_id or self.filtered(lambda journal: journal.type == 'general')[:1]
-        if tax_journal_id and tax_journal_id.id in dashboard_data:
-            dashboard_data[tax_journal_id.id]['l10n_fr_has_rejected_tax_report'] = bool(
-                self.env['account.report.async.export'].search([
-                    ('report_id', '=', self.env.ref('l10n_fr.tax_report').id),
-                    ('state', '=', 'rejected'),
-                ], limit=1)
-            )
+        tax_journal_ids = self.company_id.account_tax_periodicity_journal_id or self.filtered(lambda journal: journal.type == 'general')[:1]
+        rejected_tax_report = self.env['account.report.async.export'].search([
+            ('report_id', '=', self.env.ref('l10n_fr.tax_report').id),
+            ('state', '=', 'rejected'),
+        ], limit=1)
+        for tax_journal_id in tax_journal_ids.filtered(lambda j: j.country_code == 'FR'):
+            if tax_journal_id.id in dashboard_data:
+                dashboard_data[tax_journal_id.id]['l10n_fr_has_rejected_tax_report'] = bool(rejected_tax_report)
         return dashboard_data
 
     def show_rejected_tax_reports(self):
