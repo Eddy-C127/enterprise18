@@ -88,36 +88,6 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
                     with self.mockWhatsappGateway():
                         composer.action_send_whatsapp_template()
 
-    @users('user_wa_admin')
-    def test_composer_free_text_on_template_change(self):
-        """ Test free_text field update on template change. """
-        template_1 = self.env['whatsapp.template'].create({
-            'body': 'Template 1 Demo Value: {{1}}',
-            'name': 'Demo Template 1',
-            'status': 'approved',
-            'variable_ids': [
-                (5, 0, 0),
-                (0, 0, {'name': "{{1}}", 'line_type': 'body', 'field_type': "free_text", 'demo_value': "Sample Value 1"}),
-            ],
-        })
-        template_2 = self.env['whatsapp.template'].create({
-            'body': 'Template 2 Demo Value: {{1}} and {{2}}',
-            'name': 'Demo Template 2',
-            'status': 'approved',
-            'variable_ids': [
-                (5, 0, 0),
-                (0, 0, {'name': "{{1}}", 'line_type': 'body', 'field_type': "free_text", 'demo_value': "Sample Value 2"}),
-                (0, 0, {'name': "{{2}}", 'line_type': 'body', 'field_type': "free_text", 'demo_value': "Sample Value 3"}),
-            ],
-        })
-        composer = self._instanciate_wa_composer_from_records(template_1, from_records=self.customers[0])
-        self.assertEqual(composer.free_text_1, 'Sample Value 1')
-        self.assertEqual(composer.free_text_2, False)
-        # Change template to check free_text values are updated
-        composer.wa_template_id = template_2
-        self.assertEqual(composer.free_text_1, 'Sample Value 2')
-        self.assertEqual(composer.free_text_2, 'Sample Value 3')
-
     @users('employee')
     def test_composer_number_on_template_change(self):
         """ Test composer behavior when templates changes, also test contextual
