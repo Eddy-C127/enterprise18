@@ -928,3 +928,50 @@ registry.category("web_tour.tours").add('test_reserve_quantity_in_backorder_desp
         { trigger: '.o_stock_barcode_main_menu', isCheck: true },
     ]
 });
+
+registry.category("web_tour.tours").add('test_kit_bom_decomposition_keeps_location', {
+   test: true, steps: () => [
+        /* Test 1: two move lines
+            same final product, same bom, different location */
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan test_kit_bom_decomposition_keeps_location_picking1' },
+        { trigger: '.btn.o_add_line', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'text final' },
+        { trigger: '.dropdown-item:contains("Final Product")', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'text LOC-01-01-00' },
+        { trigger: '.dropdown-item:contains("Section 1")', run: 'click' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.btn.o_add_line', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'text final' },
+        { trigger: '.dropdown-item:contains("Final Product")', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'text LOC-01-02-00' },
+        { trigger: '.dropdown-item:contains("Section 2")', run: 'click' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { extra_trigger: '.o_notification_body', trigger: '.btn.o_validate_page', run: 'click' },
+        /* Test 2: two move lines
+            different final product, different bom, different location */
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan test_kit_bom_decomposition_keeps_location_picking2' },
+        { trigger: '.btn.o_add_line', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'text final' },
+        { trigger: '.dropdown-item:contains("Final Product")', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'text LOC-01-01-00' },
+        { trigger: '.dropdown-item:contains("Section 1")', run: 'click' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.btn.o_add_line', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Product"]', run: 'text final2' },
+        { trigger: '.dropdown-item:contains("final2")', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'click' },
+        { trigger: '.o_input[placeholder="Destination Location"]', run: 'text LOC-01-02-00' },
+        { trigger: '.dropdown-item:contains("Section 2")', run: 'click' },
+        { trigger: '.btn.o_save', run: 'click' },
+        { trigger: '.btn.o_validate_page', run: 'click' },
+        { extra_trigger: '.o_notification_body', trigger: '.btn.o_validate_page', run: 'click' },
+    ]
+});
