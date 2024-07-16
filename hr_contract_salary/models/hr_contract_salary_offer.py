@@ -96,7 +96,6 @@ class HrContractSalaryOffer(models.Model):
             offer.validity_days_count = (offer.offer_end_date - offer.offer_create_date).days \
                 if offer.offer_end_date else False
 
-
     @api.onchange('employee_job_id')
     def _onchange_employee_job_id(self):
         self.job_title = self.employee_job_id.name

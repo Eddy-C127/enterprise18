@@ -53,7 +53,11 @@
         ],
         'web.assets_backend': [
             'hr_contract_salary/static/src/js/binary_field_contract.js',
-            'hr_contract_salary/static/src/xml/binary_field_contract.xml'
+            'hr_contract_salary/static/src/xml/binary_field_contract.xml',
+            'hr_contract_salary/static/src/js/url_field.js',
+            'hr_contract_salary/static/src/xml/url_field.xml',
+            'hr_contract_salary/static/src/js/copy_clipboard_field.js',
+            'hr_contract_salary/static/src/scss/copy_clipboard_field.scss',
         ],
     }
 }

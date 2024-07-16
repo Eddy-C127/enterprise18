@@ -104,7 +104,7 @@
                             <field name="contract_start_date"/>
                             <field name="offer_create_date" readonly="1"/>
                             <field name="offer_end_date"/>
-                            <field name="url" widget="CopyClipboardURL" invisible="not id"/>
+                            <field name="url" widget="HrContractSalaryCopyClipboardURL" invisible="not id"/>
                             <label for="validity_days_count"/>
                             <div class="o_row">
                                 <field name="validity_days_count" class="o_hr_narrow_field" nolabel="1"/>

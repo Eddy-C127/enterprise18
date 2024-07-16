@@ -11,6 +11,7 @@ class HrContractSalaryOffer(models.Model):
     contract_type_id = fields.Many2one(
         'hr.contract.type', "Contract Type",
         compute='_compute_contract_type_id',
+        store=True,
         readonly=False,
         tracking=True)
     new_car = fields.Boolean(
