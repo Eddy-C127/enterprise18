@@ -319,7 +319,7 @@ class StockMove(models.Model):
                 moves_need_reporting_domain += [('date', '>=', from_date)]
 
             # We set the env company here because it is needed for the stock master to correctly compute product quantities.
-            moves_need_reporting = self.with_context(allowed_company_ids=company.ids).search(moves_need_reporting_domain, order='date')
+            moves_need_reporting = self.with_context(allowed_company_ids=company.ids).search(moves_need_reporting_domain, order='date,id')
 
             # Don't send moves linked to a picking if the corresponding invoice wasn't yet sent (KRA requirement)
             # or if there is missing information on the product / UoM.
