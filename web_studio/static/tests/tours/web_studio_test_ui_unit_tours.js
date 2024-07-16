@@ -832,7 +832,6 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
         },
         {
             trigger: ".o_arrow_button_current:contains(In Progress)",
-            allowDisabled: true,
         },
         {
             trigger: ".o_form_button_save",

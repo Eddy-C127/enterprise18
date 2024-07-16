@@ -46,7 +46,6 @@
             }, 
             {
                 trigger: 'button[data-value="posted"].btn',
-                allowDisabled: true,
             },
             {
                 trigger: '.dropdown-item[data-menu-xmlid="account.menu_board_journal_1"]',

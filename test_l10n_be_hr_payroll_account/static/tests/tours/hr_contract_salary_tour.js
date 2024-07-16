@@ -150,7 +150,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             },
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -159,7 +158,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2671.14"]',
         },
         {
@@ -168,7 +166,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -182,7 +179,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 100 && click label:contains(Transportation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2976.62"]',
         },
         {
@@ -191,7 +187,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -205,7 +200,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 150 && click label:contains(Transportation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2917.47"]',
         },
         {
@@ -214,7 +208,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -228,7 +221,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 150 && click label:contains(Transportation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2886.87"]',
         },
         {
@@ -237,7 +229,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 75 && click label:contains(Transportation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2930.88"]',
         },
         {
@@ -246,7 +237,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 150 && click label:contains(Transportation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2886.87"]',
         },
         {
@@ -255,7 +245,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -264,7 +253,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2982.81"]',
         },
         {
@@ -274,7 +262,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "selectByLabel Bike 2",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2965.61"]',
         },
         {
@@ -284,7 +271,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "selectByLabel Bike 1",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2982.81"]',
         },
         {
@@ -293,7 +279,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -302,7 +287,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 0 && click label:contains(Internet)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3026.13"]',
         },
         {
@@ -311,7 +295,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 38 && click label:contains(Internet)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -320,7 +303,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3020.63"]',
         },
         {
@@ -329,7 +311,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -338,7 +319,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "range 10",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2860.17"]',
         },
         {
@@ -347,7 +327,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "range 0",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -356,7 +335,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2405.12"]',
         },
         {
@@ -365,7 +343,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -374,7 +351,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3103.16"]',
         },
         {
@@ -384,7 +360,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         // In order to choose Fuel card, the mandatory advantage, company car, should be selected first
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -393,7 +368,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2671.14"]',
         },
         {
@@ -402,7 +376,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "range 250",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2499.2"]',
         },
         {
@@ -411,7 +384,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "range 0",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2671.14"]',
         },
         {
@@ -543,7 +515,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -552,7 +523,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -562,7 +532,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "selectByLabel Married",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2431.1"]',
         },
         {
@@ -571,7 +540,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2431.1"]',
         },
         {
@@ -580,7 +548,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2431.1"]',
         },
         {
@@ -590,7 +557,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "selectByLabel With High Income",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -600,7 +566,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "selectByLabel Single",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -609,7 +574,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 3 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
@@ -618,7 +582,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
@@ -627,7 +590,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 1 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2663.69"]',
         },
         {
@@ -636,7 +598,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 0 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
@@ -645,7 +606,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
@@ -654,7 +614,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 0 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -663,7 +622,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -672,7 +630,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 2 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2282.69"]',
         },
         {
@@ -681,7 +638,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 1 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2366.69"]',
         },
         {
@@ -690,7 +646,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 2 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
@@ -699,7 +654,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 1 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2483.69"]',
         },
         {
@@ -708,7 +662,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 0 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2444.69"]',
         },
         {
@@ -717,7 +670,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 0 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2366.69"]',
         },
         {
@@ -726,7 +678,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 0 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2282.69"]',
         },
         {
@@ -735,7 +686,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "edit 0 && click h2:contains(Situation)",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Net"][value="2114.69"]',
         },
         {
@@ -744,7 +694,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             run: "click",
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="3000"]',
         },
         {
@@ -825,7 +774,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             },
         },
         {
-            allowDisabled: true,
             trigger: 'input[name="Gross"][value="2671.14"]',
         },
         {

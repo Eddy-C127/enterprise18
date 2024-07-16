@@ -89,7 +89,6 @@ registry.category("web_tour.tours").add("approvals_tour", {
         {
             trigger: 'button[aria-label="Current state"][data-value="refused"]',
             content: "wait the request status compute",
-            allowDisabled: true,
         },
         {
             trigger: 'button[name="action_cancel"]',

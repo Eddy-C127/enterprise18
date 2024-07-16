@@ -5007,7 +5007,7 @@ registry.category("web_tour.tours").add('test_barcode_signature_flow', {test: tr
     },
     // Sign the picking
     {
-        trigger: ".modal-footer button.btn-primary",
+        trigger: ".modal-footer button.btn-primary:enabled",
         run: "click",
     },
     // The picking now should be validated automatically. Wait until the picking is validated
@@ -5035,7 +5035,7 @@ registry.category("web_tour.tours").add('test_barcode_signature_flow', {test: tr
     },
     // Sign the picking
     {
-        trigger: ".modal-footer button.btn-primary",
+        trigger: ".modal-footer button.btn-primary:enabled",
         run: "click",
     },
     // Validate the picking

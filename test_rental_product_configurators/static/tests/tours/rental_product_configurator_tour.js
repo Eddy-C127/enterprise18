@@ -36,7 +36,6 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     configuratorTourUtils.selectAttribute("Customizable Desk", "Color", "Black", "color"),
 {
     trigger: '.btn-primary:disabled:contains("Confirm")',
-    allowDisabled: true, // check confirm button is disabled
 },
     // Check on the style to ensure that the color is the one set in backend.
     configuratorTourUtils.selectAttribute("Customizable Desk", "Color", "White", "color"),
@@ -99,6 +98,5 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
 }, {
     content: "verify that the rental has been confirmed",
     trigger: '.o_statusbar_status button.o_arrow_button_current:contains("Sales Order")',
-    allowDisabled: true,
 }, ...stepUtils.discardForm(),
 ]});
