@@ -664,3 +664,12 @@ class TestRentalPicking(TestRentalCommon):
         self.assertEqual(action_open_return_2.get('res_id'), picking_in.id)
         self.assertEqual(action_open_return_2.get('domain'), '')
         self.assertEqual(action_open_return_2.get('xml_id'), 'stock.action_picking_tree_all')
+
+    def test_create_rental_transfers(self):
+        """ E.g., a public/portal user signs & pays for an order via the portal
+        """
+        public_user = self.env.ref('base.public_user')
+        rental_order_1 = self.sale_order_id.copy()
+        rental_order_1.order_line.write({'product_uom_qty': 1, 'is_rental': True})
+        rental_order_1.with_user(public_user).sudo().action_confirm()
+        self.assertTrue(rental_order_1.picking_ids)
