@@ -50,13 +50,13 @@ class HrApplicant(models.Model):
             self.stage_id = first_hired_stage[0].id
 
     def action_show_proposed_contracts(self):
-        self._check_interviewer_access()
+        self.candidate_id._check_interviewer_access()
         action_vals = {
             "type": "ir.actions.act_window",
             "res_model": "hr.contract",
             "domain": [["applicant_id", "=", self.id], '|', ["active", "=", False], ["active", "=", True]],
             "name": _("Proposed Contracts"),
-            "context": {'default_employee_id': self.emp_id.id, 'default_applicant_id': self.id},
+            "context": {'default_employee_id': self.employee_id.id, 'default_applicant_id': self.id},
         }
         if self.proposed_contracts_count == 1:
             action_vals.update({

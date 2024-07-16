@@ -73,7 +73,7 @@ class HrContractSalaryOffer(models.Model):
     def _compute_display_name(self):
         for offer in self:
             if offer.applicant_id:
-                name = offer.applicant_id.emp_id.name or \
+                name = offer.applicant_id.employee_id.name or \
                     offer.applicant_id.partner_id.name or \
                     offer.applicant_id.partner_name
             else:

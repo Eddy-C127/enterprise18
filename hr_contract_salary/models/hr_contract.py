@@ -95,8 +95,11 @@ class HrContract(models.Model):
     @api.constrains('hr_responsible_id', 'sign_template_id')
     def _check_hr_responsible_id(self):
         for contract in self:
-            if contract.sign_template_id and not (contract.hr_responsible_id.has_group('sign.group_sign_user') and contract.hr_responsible_id.email_formatted):
-                raise ValidationError(_("HR Responsible %s should be a User of Sign and have a valid email address when New Contract Document Template is specified", contract.hr_responsible_id.name))
+            if contract.sign_template_id:
+                if not contract.hr_responsible_id.has_group('sign.group_sign_user'):
+                    raise ValidationError(_("HR Responsible %s should be a user of Sign when New Contract Document Template is specified", contract.hr_responsible_id.name))
+                if not contract.hr_responsible_id.email_formatted:
+                    raise ValidationError(_("HR Responsible %s should have a valid email address when New Contract Document Template is specified", contract.hr_responsible_id.name))
 
     @api.depends('wage', 'wage_on_signature')
     def _compute_contract_wage(self):

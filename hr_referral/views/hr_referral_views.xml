@@ -26,7 +26,6 @@
                 <field name="ref_user_id" widget="many2one_avatar_user"/>
                 <field name="applicant_id" column_invisible="True"/>
                 <field name="applicant_name" optional="show"/>
-                <field name="applicant_subject" optional="hide"/>
                 <field name="stage_id"/>
                 <field name="points" decoration-success="points > 0" decoration-danger="0 > points"/>
                 <field name="write_date" optional="show"/>

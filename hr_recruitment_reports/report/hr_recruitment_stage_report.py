@@ -33,7 +33,7 @@ class HrRecruitmentStageReport(models.Model):
 SELECT
     ROW_NUMBER() OVER () AS ID,
     ha.id AS applicant_id,
-    ha.partner_name AS name,
+    c.partner_name AS name,
     ha.job_id AS job_id,
     ha.company_id AS company_id,
     CASE
@@ -51,6 +51,10 @@ SELECT
     END AS stage_id
 FROM
     hr_applicant ha
+JOIN
+    hr_candidate c
+ON
+    c.id = ha.candidate_id
 JOIN
     mail_message mm
 ON
@@ -72,7 +76,7 @@ UNION ALL
 SELECT
     ROW_NUMBER() OVER () AS id,
     ha.id AS applicant_id,
-    ha.partner_name AS name,
+    c.partner_name AS name,
     ha.job_id AS job_id,
     ha.company_id AS company_id,
     CASE
@@ -91,6 +95,10 @@ SELECT
     ha.stage_id
 FROM
     hr_applicant ha
+JOIN
+    hr_candidate c
+ON
+    c.id = ha.candidate_id
 JOIN
     hr_recruitment_stage hrs
 ON

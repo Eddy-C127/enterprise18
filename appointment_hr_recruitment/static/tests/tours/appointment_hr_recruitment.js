@@ -18,7 +18,7 @@ registry.category("web_tour.tours").add('appointment_hr_recruitment_tour', {
         trigger: '.o_kanban_record:contains("Test Applicant")',
         run: 'click',
     },{
-        trigger: 'button[name="action_makeMeeting"]',
+        trigger: 'button[name="action_create_meeting"]',
         run: 'click',
     }, {
         trigger: 'button.dropdownAppointmentLink',

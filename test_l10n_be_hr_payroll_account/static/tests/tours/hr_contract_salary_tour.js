@@ -91,13 +91,13 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         // Test Applicant
         {
             content: "Applicant Name",
-            trigger: '.oe_title [name="name"] textarea',
-            run: "edit Jojo Zeboss' Application",
+            trigger: 'div [name="candidate_id"] input',
+            run: "edit Mitchell Admin 2",
         },
         {
-            content: "Applicant's Name",
-            trigger: '.oe_title [name="partner_name"] input',
-            run: "edit Mitchell Admin 2",
+            content: "Applicant Name",
+            trigger: "a:contains('Mitchell Admin 2')",
+            run: "click",
         },
         {
             content: "Applicant's Email",
@@ -965,14 +965,14 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "click",
         },
         {
-            content: "Application Name",
-            trigger: '.oe_title [name="name"] textarea',
-            run: "edit Mitchell's Application",
+            content: "Applicant Name",
+            trigger: 'div [name="candidate_id"] input',
+            run: "edit Mitchell Admin 3",
         },
         {
-            content: "Applicant's Name",
-            trigger: '.oe_title [name="partner_name"] input',
-            run: "edit Mitchell Admin 3",
+            content: "Applicant Name",
+            trigger: "a:contains('Mitchell Admin 3')",
+            run: "click",
         },
         {
             content: "Add Email Address",
@@ -1147,7 +1147,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Go back on the employee",
-            trigger: "li > a:contains('Mitchell Admin 3')",
+            trigger: "li > a:contains('Mitchell Admin 3'):last",
             run: "click",
         },
         {

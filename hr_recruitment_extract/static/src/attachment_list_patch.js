@@ -8,7 +8,7 @@ AttachmentList.props.push("reloadChatterParentView?");
 patch(AttachmentList.prototype, {
     onConfirmUnlink(attachment) {
         super.onConfirmUnlink(attachment);
-        if (attachment.thread?.model === "hr.applicant") {
+        if (attachment.thread?.model === "hr.candidate") {
             this.props.reloadChatterParentView();
         }
     },

@@ -22,7 +22,7 @@ class TestHrReferral(TestHrReferralBase):
     def test_referral_change_referrer(self):
         # Create an applicant
         job_applicant = self.env['hr.applicant'].create({
-            'name': 'Technical worker',
+            'candidate_id': self.env['hr.candidate'].create({'partner_name': 'Technical worker'}).id,
             'description': 'A nice job offer!',
             'job_id': self.job_dev.id,
             'ref_user_id': self.richard_user.id
@@ -42,7 +42,7 @@ class TestHrReferral(TestHrReferralBase):
         with self.assertRaises(UserError):
             self.mug_shop.sudo().buy()
         job_applicant = self.env['hr.applicant'].create({
-            'name': 'Technical worker',
+            'candidate_id': self.env['hr.candidate'].create({'partner_name': 'Technical worker'}).id,
             'description': 'A nice applicant!',
             'job_id': self.job_dev.id,
             'ref_user_id': self.richard_user.id,
@@ -66,7 +66,7 @@ class TestHrReferral(TestHrReferralBase):
         self.env['hr.referral.link.to.share'].with_user(self.richard_user.id).create({'job_id': self.job_dev.id}).url
 
         job_applicant = self.env['hr.applicant'].create({
-            'name': 'Technical worker',
+            'candidate_id': self.env['hr.candidate'].create({'partner_name': 'Technical worker'}).id,
             'description': 'A nice applicant!',
             'job_id': self.job_dev.id,
             'source_id': self.richard_user.utm_source_id.id
@@ -101,7 +101,7 @@ class TestHrReferral(TestHrReferralBase):
             'points': 1000,  # points must be ignored for 'not hired stage'
         })
         job_applicant = self.env['hr.applicant'].create({
-            'name': 'Technical worker',
+            'candidate_id': self.env['hr.candidate'].create({'partner_name': 'Technical worker'}).id,
             'description': 'A nice applicant!',
             'job_id': self.job_dev.id,
             'ref_user_id': self.richard_user.id,
@@ -169,7 +169,7 @@ class TestHrReferral(TestHrReferralBase):
             'points': 0,
         })
         job_applicant = self.env['hr.applicant'].create({
-            'name': 'Technical worker',
+            'candidate_id': self.env['hr.candidate'].create({'partner_name': 'Technical worker'}).id,
             'description': 'A nice applicant!',
             'job_id': self.job_dev.id,
             'ref_user_id': self.richard_user.id,

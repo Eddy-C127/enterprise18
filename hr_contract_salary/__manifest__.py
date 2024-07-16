@@ -22,6 +22,7 @@
         'views/hr_contract_salary_templates.xml',
         'views/hr_contract_views.xml',
         'views/hr_applicant_views.xml',
+        'views/hr_candidate_views.xml',
         'views/hr_job_views.xml',
         'views/res_config_settings_views.xml',
         'views/hr_contract_salary_benefit_views.xml',

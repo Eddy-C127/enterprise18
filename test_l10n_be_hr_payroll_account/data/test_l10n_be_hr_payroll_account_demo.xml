@@ -468,214 +468,264 @@
         <field name="no_of_recruitment">6</field>
     </record>
 
-    <record id="hr_case_salesman0" model="hr.applicant">
-        <field name="name">Sales Manager</field>
-        <field name="job_id" ref="hr_job_6"/>
-        <field name="department_id" ref="hr_department_4"/>
-        <field name="type_id" ref="hr_recruitment.degree_graduate"/>
-        <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_sales')])]"/>
-        <field name="user_id" ref="base.user_demo"/>
-        <field name="priority">1</field>
+    <record id="hr_candidate_salesman0" model="hr.candidate">
         <field name="partner_name">Jun Theodor</field>
         <field name="partner_mobile">9963214587</field>
-        <field name="stage_id" ref="hr_recruitment.stage_job1"/>
-        <field name="company_id" ref="base.demo_company_be"/>
     </record>
-    <record id="hr_case_salesman1" model="hr.applicant">
-        <field name="name">Sales</field>
+    <record id="hr_case_salesman0" model="hr.applicant">
+        <field name="candidate_id" ref="hr_candidate_salesman0"/>
         <field name="job_id" ref="hr_job_6"/>
         <field name="department_id" ref="hr_department_4"/>
         <field name="type_id" ref="hr_recruitment.degree_graduate"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_sales')])]"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="priority">1</field>
-        <field name="partner_name">Farran Michaela</field>
-        <field name="partner_mobile">998655451</field>
         <field name="stage_id" ref="hr_recruitment.stage_job1"/>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_salesman1" model="hr.candidate">
+        <field name="partner_name">Farran Michaela</field>
+        <field name="partner_mobile">998655451</field>
+    </record>
+    <record id="hr_case_salesman1" model="hr.applicant">
+        <field name="candidate_id" ref="hr_candidate_salesman1"/>
+        <field name="job_id" ref="hr_job_6"/>
+        <field name="department_id" ref="hr_department_4"/>
+        <field name="type_id" ref="hr_recruitment.degree_graduate"/>
+        <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_sales')])]"/>
+        <field name="user_id" ref="base.user_demo"/>
+        <field name="priority">1</field>
+        <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+        <field name="company_id" ref="base.demo_company_be"/>
+    </record>
+
+    <record id="hr_candidate_dev0" model="hr.candidate">
+        <field name="partner_name">Suzanne Conway</field>
+        <field name="partner_mobile">8955545</field>
+    </record>
     <record id="hr_case_dev0" model="hr.applicant">
-        <field name="name">Developer PHP</field>
+        <field name="candidate_id" ref="hr_candidate_dev0"/>
         <field name="job_id" ref="hr_job_4"/>
         <field name="department_id" ref="hr_department_2"/>
         <field name="type_id" ref="hr_recruitment.degree_graduate"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="priority">3</field>
-        <field name="partner_name">Suzanne Conway</field>
-        <field name="partner_mobile">8955545</field>
         <field name="stage_id" ref="hr_recruitment.stage_job1"/>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
-    <record id="hr_case_dev1" model="hr.applicant">
-        <field name="name">Developer Fullstack</field>
-        <field name="job_id" ref="hr_job_4"/>
-        <field name="department_id" ref="hr_department_2"/>
-        <field name="type_id" ref="hr_recruitment.degree_graduate"/>
-        <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
-        <field name="user_id" ref="base.user_admin"/>
-        <field name="priority">0</field>
+
+    <record id="hr_candidate_dev1" model="hr.candidate">
         <field name="partner_name">Francisco Burke</field>
         <field name="partner_mobile">879895515</field>
-        <field name="stage_id" ref="hr_recruitment.stage_job1"/>
-        <field name="company_id" ref="base.demo_company_be"/>
     </record>
-    <record id="hr_case_dev2" model="hr.applicant">
-        <field name="name">Developer Python</field>
+    <record id="hr_case_dev1" model="hr.applicant">
+        <field name="candidate_id" ref="hr_candidate_dev1"/>
         <field name="job_id" ref="hr_job_4"/>
         <field name="department_id" ref="hr_department_2"/>
         <field name="type_id" ref="hr_recruitment.degree_graduate"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="priority">0</field>
+        <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+        <field name="company_id" ref="base.demo_company_be"/>
+    </record>
+
+    <record id="hr_candidate_dev2" model="hr.candidate">
         <field name="partner_name">Julio Hill</field>
         <field name="partner_mobile">98765411</field>
-        <field name="stage_id" ref="hr_recruitment.stage_job1"/>
-        <field name="company_id" ref="base.demo_company_be"/>
     </record>
-    <record id="hr_case_dev3" model="hr.applicant">
-        <field name="name">Developer C/C++</field>
+    <record id="hr_case_dev2" model="hr.applicant">
+        <field name="candidate_id" ref="hr_candidate_dev2"/>
         <field name="job_id" ref="hr_job_4"/>
         <field name="department_id" ref="hr_department_2"/>
         <field name="type_id" ref="hr_recruitment.degree_graduate"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="priority">0</field>
+        <field name="stage_id" ref="hr_recruitment.stage_job1"/>
+        <field name="company_id" ref="base.demo_company_be"/>
+    </record>
+
+    <record id="hr_candidate_dev3" model="hr.candidate">
         <field name="partner_name">Elias Klein</field>
         <field name="partner_mobile">654687987654</field>
+    </record>
+    <record id="hr_case_dev3" model="hr.applicant">
+        <field name="candidate_id" ref="hr_candidate_dev3"/>
+        <field name="job_id" ref="hr_job_4"/>
+        <field name="department_id" ref="hr_department_2"/>
+        <field name="type_id" ref="hr_recruitment.degree_graduate"/>
+        <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="priority">0</field>
         <field name="company_id" ref="base.demo_company_be"/>
         <field name="stage_id" ref="hr_recruitment.stage_job1"/>
     </record>
+
+    <record id="hr_candidate_traineemca0" model="hr.candidate">
+        <field name="partner_name">Lance Greene</field>
+        <field name="partner_mobile">9988774455</field>
+        <field name="partner_phone">6633225</field>
+    </record>
     <record id="hr_case_traineemca0" model="hr.applicant">
-        <field name="name">Trainee - MCA</field>
+        <field name="candidate_id" ref="hr_candidate_traineemca0"/>
         <field name="job_id" ref="hr_job_7"/>
         <field name="department_id" ref="hr_department_2"/>
         <field name="type_id" ref="hr_recruitment.degree_licenced"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_manager')])]"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="priority">2</field>
-        <field name="partner_name">Lance Greene</field>
-        <field name="partner_mobile">9988774455</field>
         <field name="stage_id" ref="hr_recruitment.stage_job4"/>
-        <field name="partner_phone">6633225</field>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_fresher0" model="hr.candidate">
+        <field name="partner_name">Bryan Evans</field>
+        <field name="partner_phone">999666735</field>
+    </record>
     <record id="hr_case_fresher0" model="hr.applicant">
-        <field name="name">Fresher</field>
+        <field name="candidate_id" ref="hr_candidate_fresher0"/>
         <field name="job_id" ref="hr_job_7"/>
         <field name="department_id" ref="hr_department_0"/>
         <field name="type_id" ref="hr_recruitment.degree_bachelor"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
         <field name="user_id" ref="base.user_demo"/>
         <field name="priority">0</field>
-        <field name="partner_name">Bryan Evans</field>
         <field name="stage_id" ref="hr_recruitment.stage_job3"/>
-        <field name="partner_phone">999666735</field>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_mkt0" model="hr.candidate">
+        <field name="partner_name">Emily Walsh</field>
+    </record>
     <record id="hr_case_mkt0" model="hr.applicant">
-        <field name="name">Marketing</field>
+        <field name="candidate_id" ref="hr_candidate_mkt0"/>
         <field name="job_id" ref="hr_job_6"/>
         <field name="department_id" ref="hr_department_4"/>
         <field name="type_id" ref="hr_recruitment.degree_graduate"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_manager')])]"/>
         <field name="user_id" ref="base.user_admin"/>
-        <field name="partner_name">Emily Walsh</field>
         <field name="stage_id" ref="hr_recruitment.stage_job1"/>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_mkt1" model="hr.candidate">
+        <field name="partner_name">Nadine Knight</field>
+    </record>
     <record id="hr_case_mkt1" model="hr.applicant">
-        <field name="name">Marketing 2 Year Experience</field>
+        <field name="candidate_id" ref="hr_candidate_mkt1"/>
         <field name="job_id" ref="hr_job_6"/>
         <field name="department_id" ref="hr_department_4"/>
         <field name="type_id" ref="hr_recruitment.degree_graduate"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_manager')])]"/>
         <field name="user_id" ref="base.user_admin"/>
-        <field name="partner_name">Nadine Knight</field>
         <field name="priority">3</field>
         <field name="stage_id" ref="hr_recruitment.stage_job3"/>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_yrsexperienceinphp0" model="hr.candidate">
+        <field name="partner_name">Jamie Salazar</field>
+    </record>
     <record id="hr_case_yrsexperienceinphp0" model="hr.applicant">
-        <field name="name">Marketing Job</field>
+        <field name="candidate_id" ref="hr_candidate_yrsexperienceinphp0"/>
         <field name="job_id" ref="hr_job_6"/>
         <field name="department_id" ref="hr_department_4"/>
         <field name="type_id" ref="hr_recruitment.degree_graduate"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_manager')])]"/>
         <field name="user_id" ref="base.user_admin"/>
-        <field name="partner_name">Jamie Salazar</field>
         <field name="stage_id" ref="hr_recruitment.stage_job5"/>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_marketingjob0" model="hr.candidate">
+        <field name="partner_name">Nadine Hopkins</field>
+    </record>
     <record id="hr_case_marketingjob0" model="hr.applicant">
-        <field name="name">More than 5 yrs Experience in PHP</field>
+        <field name="candidate_id" ref="hr_candidate_marketingjob0"/>
         <field name="job_id" ref="hr_job_4"/>
         <field name="department_id" ref="hr_department_2"/>
         <field name="type_id" ref="hr_recruitment.degree_licenced"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_reserve')])]"/>
         <field name="user_id" ref="base.user_demo"/>
-        <field name="partner_name">Nadine Hopkins</field>
         <field name="stage_id" ref="hr_recruitment.stage_job5"/>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_financejob0" model="hr.candidate">
+        <field name="partner_name">Sherri Lopez</field>
+        <field name="partner_phone">33968745</field>
+    </record>
     <record id="hr_case_financejob0" model="hr.applicant">
-        <field name="name">Finance Manager</field>
+        <field name="candidate_id" ref="hr_candidate_financejob0"/>
         <field name="job_id" ref="hr_job_5"/>
         <field name="department_id" ref="hr_department_0"/>
         <field name="type_id" ref="hr_recruitment.degree_licenced"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_reserve')])]"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="priority">1</field>
-        <field name="partner_name">Sherri Lopez</field>
         <field name="stage_id" ref="hr_recruitment.stage_job2"/>
-        <field name="partner_phone">33968745</field>
         <field name="company_id" ref="base.demo_company_be"/>
+    </record>
+
+    <record id="hr_candidate_financejob1" model="hr.candidate">
+        <field name="partner_name">Forrest Cooper</field>
     </record>
     <record id="hr_case_financejob1" model="hr.applicant">
-        <field name="name">Finance</field>
+        <field name="candidate_id" ref="hr_candidate_financejob1"/>
         <field name="job_id" ref="hr_job_5"/>
         <field name="department_id" ref="hr_department_0"/>
         <field name="type_id" ref="hr_recruitment.degree_licenced"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_reserve')])]"/>
         <field name="user_id" ref="base.user_admin"/>
         <field name="priority">1</field>
-        <field name="partner_name">Forrest Cooper</field>
         <field name="stage_id" ref="hr_recruitment.stage_job2"/>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_traineemca1" model="hr.candidate">
+        <field name="partner_name">Earnest Gonzales</field>
+        <field name="partner_mobile">9898745745</field>
+        <field name="partner_phone">6630125</field>
+    </record>
     <record id="hr_case_traineemca1" model="hr.applicant">
-        <field name="name">Trainee - MCA</field>
+        <field name="candidate_id" ref="hr_candidate_traineemca1"/>
         <field name="job_id" ref="hr_job_7"/>
         <field name="department_id" ref="hr_department_2"/>
         <field name="type_id" ref="hr_recruitment.degree_licenced"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_sales')])]"/>
-        <field name="partner_name">Earnest Gonzales</field>
-        <field name="partner_mobile">9898745745</field>
         <field name="stage_id" ref="hr_recruitment.stage_job4"/>
-        <field name="partner_phone">6630125</field>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_programmer" model="hr.candidate">
+        <field name="partner_name">Saul Cole</field>
+        <field name="partner_mobile">9812398524</field>
+        <field name="partner_phone">6630125</field>
+    </record>
     <record id="hr_case_programmer" model="hr.applicant">
-        <field name="name">Programmer</field>
+        <field name="candidate_id" ref="hr_candidate_programmer"/>
         <field name="job_id" ref="hr_job_4"/>
         <field name="department_id" ref="hr_department_2"/>
         <field name="type_id" ref="hr_recruitment.degree_licenced"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
-        <field name="partner_name">Saul Cole</field>
-        <field name="partner_mobile">9812398524</field>
         <field name="stage_id" ref="hr_recruitment.stage_job4"/>
-        <field name="partner_phone">6630125</field>
         <field name="salary_expected">11000.0</field>
         <field name="company_id" ref="base.demo_company_be"/>
     </record>
+
+    <record id="hr_candidate_advertisement" model="hr.candidate">
+        <field name="partner_name">Hugh Torres</field>
+        <field name="partner_mobile">9988774455</field>
+    </record>
     <record id="hr_case_advertisement" model="hr.applicant">
-        <field name="name">Advertisement</field>
+        <field name="candidate_id" ref="hr_candidate_advertisement"/>
         <field name="job_id" ref="hr_job_3"/>
         <field name="department_id" ref="hr_department_3"/>
         <field name="type_id" ref="hr_recruitment.degree_licenced"/>
         <field name="categ_ids" eval="[(6,0,[ref('hr_recruitment.tag_applicant_it')])]"/>
-        <field name="partner_name">Hugh Torres</field>
-        <field name="partner_mobile">9988774455</field>
         <field name="stage_id" ref="hr_recruitment.stage_job2"/>
         <field name="salary_expected">11000.0</field>
         <field name="company_id" ref="base.demo_company_be"/>

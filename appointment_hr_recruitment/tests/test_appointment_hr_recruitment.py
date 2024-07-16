@@ -20,8 +20,7 @@ class AppointmentHrRecruitmentTest(HttpCase):
             'no_of_recruitment': 5,
         })
         applicant = self.env['hr.applicant'].sudo().create({
-            'name': 'Test Applicant',
-            'partner_name': 'Test Applicant',
+            'candidate_id': self.env['hr.candidate'].create({'partner_name': 'Test Applicant'}).id,
             'job_id': job_developer.id,
         })
         appointment_type = self.env['appointment.type'].create({'name': "Test AppointmentHrRecruitment"})

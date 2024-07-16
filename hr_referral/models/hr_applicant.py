@@ -132,9 +132,9 @@ class Applicant(models.Model):
 
     def _send_notification(self, body, action_value='hr_referral.action_hr_applicant_employee_referral'):
         if self.partner_name:
-            subject = _('Referral: %(partner)s (%(applicant)s)', partner=self.partner_name, applicant=self.name)
+            subject = _('Referral: %(partner)s (%(applicant)s)', partner=self.partner_name, applicant=self.display_name)
         else:
-            subject = _('Referral: %s', self.name)
+            subject = _('Referral: %s', self.display_name)
         action_url = f'/odoo/action-{action_value}?active_model={self._name}'
         body = Markup("<a class='o_document_link' href=%s>%s</a><br>%s") % (action_url, subject, body)
         odoobot = self.env.ref('base.partner_root')

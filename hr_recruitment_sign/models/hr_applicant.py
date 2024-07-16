@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields, _
@@ -14,10 +13,10 @@ class Applicant(models.Model):
         self.ensure_one()
 
         # if an applicant does not already has associated partner_id create it
-        if not self.partner_id:
+        if not self.candidate_id.partner_id:
             if not self.partner_name:
                 raise UserError(_('You must define a Contact Name for this applicant.'))
-            self.partner_id = self.env['res.partner'].create({
+            self.candidate_id.partner_id = self.env['res.partner'].create({
                 'is_company': False,
                 'name': self.partner_name,
                 'email': self.email_from,
@@ -48,17 +47,3 @@ class Applicant(models.Model):
                 'view_ids': [(view_id, 'kanban'), (False, 'tree')],
                 'domain': [('id', 'in', request_ids.ids)]
             }
-
-    def _get_employee_create_vals(self):
-        vals = super()._get_employee_create_vals()
-        request_ids = self.env['sign.request.item'].search([
-            ('partner_id', '=', self.partner_id.id)]).sign_request_id
-        vals['sign_request_ids'] = request_ids.ids
-        return vals
-
-    def _update_employee_from_applicant(self):
-        for applicant in self:
-            request_ids = self.env['sign.request.item'].search([
-                ('partner_id', '=', applicant.partner_id.id)]).sign_request_id
-            applicant.emp_id.sign_request_ids |= request_ids
-        return super()._update_employee_from_applicant()

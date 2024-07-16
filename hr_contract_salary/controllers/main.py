@@ -48,7 +48,7 @@ class SignContract(Sign):
             contract.active = True
             contract.hash_token = False
             if contract.applicant_id:
-                contract.applicant_id.emp_id = contract.employee_id
+                contract.applicant_id.employee_id = contract.employee_id
             self._create_activity_benefit(contract, 'running')
             contract.wage_on_signature = contract.wage_with_holidays
             offer.state = "half_signed"
@@ -588,7 +588,7 @@ class HrContractSalary(http.Controller):
         }
         offer = request.env['hr.contract.salary.offer'].sudo().browse(offer_id).exists()
         applicant = offer.applicant_id
-        employee = kw.get('employee') or contract.employee_id or applicant.emp_id
+        employee = kw.get('employee') or contract.employee_id or applicant.employee_id
         if not employee and applicant:
             existing_contract = request.env['hr.contract'].sudo().with_context(active_test=False).search([
                 ('applicant_id', '=', applicant.id), ('employee_id', '!=', False)], limit=1)

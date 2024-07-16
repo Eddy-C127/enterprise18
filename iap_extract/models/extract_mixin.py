@@ -45,7 +45,7 @@ class ExtractMixin(models.AbstractModel):
             ('to_validate', 'To validate'),
             ('done', 'Completed flow'),
         ],
-        'Extract state', default='no_extract_requested', required=True, copy=False)
+        'Extract state', default='no_extract_requested', required=False, copy=False)
     extract_status = fields.Char('Extract status', copy=False)
     extract_error_message = fields.Text('Error message', compute='_compute_error_message')
     extract_document_uuid = fields.Char('ID of the request to IAP-OCR', copy=False, readonly=True)

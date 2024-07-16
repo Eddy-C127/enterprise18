@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, _
@@ -33,7 +32,7 @@ class ResPartner(models.Model):
 
     def write(self, vals):
         partners_email_changed = self.filtered(lambda r: r.email != vals['email']) if 'email' in vals else None
-        res = super(ResPartner, self).write(vals)
+        res = super().write(vals)
         if partners_email_changed:
             request_items = self.env['sign.request.item'].sudo().search([
                 ('partner_id', 'in', partners_email_changed.ids),

@@ -73,7 +73,7 @@ class HrRecruitmentReport(models.Model):
                     WHEN a.date_closed IS NOT NULL THEN 'is_hired'
                     ELSE 'in_progress'
                 END AS state,
-                CASE WHEN a.partner_name IS NOT NULL THEN a.partner_name ELSE a.name END as name,
+                c.partner_name as name,
                 CASE WHEN a.active IS FALSE THEN 1 ELSE 0 END as refused,
                 CASE WHEN a.date_closed IS NOT NULL THEN 1 ELSE 0 END as hired,
                 CASE WHEN a.date_closed IS NOT NULL THEN 100 ELSE 0 END as hiring_ratio,
@@ -83,13 +83,14 @@ class HrRecruitmentReport(models.Model):
 
         from_ = """
                 hr_applicant a
+                JOIN hr_candidate c ON c.id = a.candidate_id
                 %s
         """ % from_clause
 
         join_ = """
                 calendar_event m
                 ON a.id = m.applicant_id
-                GROUP BY a.id
+                GROUP BY a.id, c.partner_name
         """
 
         return '(SELECT %s FROM %s LEFT OUTER JOIN %s)' % (select_, from_, join_)

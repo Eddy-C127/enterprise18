@@ -51,9 +51,9 @@ class TestLinkExpirationDate(HttpCase):
             'job_id': self.job.id,
         })
         applicant = self.env['hr.applicant'].create({
-            'name': 'Guillermo De La Cruz, wanna be a Vampire',
-            'partner_name': 'Guillermo De La Cruz',
-            'email_from': 'Guillermo@example.com'
+            'candidate_id': self.env['hr.candidate'].create({
+                'partner_name': 'Guillermo De La Cruz',
+                'email_from': 'Guillermo@example.com'}).id,
         })
 
         with freeze_time(self.offer_date):
@@ -95,8 +95,7 @@ class TestLinkExpirationDate(HttpCase):
 
     def test_applicant_with_archived_contract(self):
         applicant = self.env['hr.applicant'].create({
-            'name': 'demo',
-            'partner_name': 'demo',
+            'candidate_id': self.env['hr.candidate'].create({'partner_name': 'demo'}).id,
         })
 
         applicant_contract = self.env['hr.contract'].create({

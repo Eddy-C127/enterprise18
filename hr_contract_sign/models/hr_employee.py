@@ -26,7 +26,6 @@ class HrEmployee(models.Model):
                 sign_from_role = self.env['sign.request.item'].search([
                     ('partner_id', 'in', partner_ids.ids),
                     ('role_id', '=', self.env.ref('sign.sign_item_role_employee').id)]).mapped('sign_request_id')
-
             employee.sign_request_count = len(set(sign_from_contract + sign_from_role + employee.sign_request_ids))
 
     def open_employee_sign_requests(self):
