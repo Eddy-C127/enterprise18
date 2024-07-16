@@ -4,22 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~17.3+e\n"
+"Project-Id-Version: Odoo Server saas~17.4+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-03 09:02+0000\n"
-"PO-Revision-Date: 2024-06-03 09:02+0000\n"
+"POT-Creation-Date: 2024-07-16 08:43+0000\n"
+"PO-Revision-Date: 2024-07-16 08:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: sale_subscription
-#. odoo-python
-#: code:addons/sale_subscription/models/sale_order_line.py:0
-msgid "%(start)s to %(next)s"
-msgstr ""
 
 #. module: sale_subscription
 #. odoo-python
@@ -43,6 +37,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale_subscription/models/product.py:0
 msgid "%(price)s %(billing_period_display_sentence)s"
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order_line.py:0
+msgid "%(start)s to %(next)s"
 msgstr ""
 
 #. module: sale_subscription
@@ -595,7 +595,7 @@ msgid ""
 "                    Your subscription <t t-out=\"ctx.get('code') or ''\">CODE</t> is still valid but will be <strong>suspended</strong>\n"
 "                    on <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t><br>\n"
 "                    <div style=\"margin: 16px 0px; text-align: center;\">\n"
-"                        <a t-attf-href=\"{{ ctx['payment_link'] }}\" style=\"display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                        <a t-attf-href=\"{{ ctx.get('payment_link', object.get_portal_url()) }}\" style=\"display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
 "                            Pay Now\n"
 "                        </a>\n"
 "                    </div>\n"
@@ -2494,6 +2494,7 @@ msgid "Optional Plans"
 msgstr ""
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__order_reference
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_log_report_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Order"
@@ -2993,8 +2994,9 @@ msgid "Refused"
 msgstr ""
 
 #. module: sale_subscription
-#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__order_reference
-msgid "Related Order"
+#: model:product.template,name:sale_subscription.product_fee_product_template
+#: model:sale.order.template.line,name:sale_subscription.montly_template_line2
+msgid "Registration fee"
 msgstr ""
 
 #. module: sale_subscription
@@ -3859,7 +3861,9 @@ msgstr ""
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-msgid "The upsell %s has been cancelled. Please recheck the quantities as they may have been affected by this cancellation."
+msgid ""
+"The upsell %s has been cancelled. Please recheck the quantities as they may "
+"have been affected by this cancellation."
 msgstr ""
 
 #. module: sale_subscription
@@ -4060,6 +4064,11 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__billing_period_unit
 msgid "Unit"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__price_unit
+msgid "Unit Price"
 msgstr ""
 
 #. module: sale_subscription

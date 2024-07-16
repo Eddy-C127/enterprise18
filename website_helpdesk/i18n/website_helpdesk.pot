@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~17.3+e\n"
+"Project-Id-Version: Odoo Server saas~17.4+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-03 09:03+0000\n"
-"PO-Revision-Date: 2024-06-03 09:03+0000\n"
+"POT-Creation-Date: 2024-07-16 08:43+0000\n"
+"PO-Revision-Date: 2024-07-16 08:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,13 +18,6 @@ msgstr ""
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team
 msgid "<b>About our team</b>"
-msgstr ""
-
-#. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid ""
-"<i class=\"fa fa-check-circle fa-1x text-success me-2\" role=\"img\" aria-"
-"label=\"Success\" title=\"Success\"/>"
 msgstr ""
 
 #. module: website_helpdesk
@@ -157,6 +150,11 @@ msgid "Contact us"
 msgstr ""
 
 #. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
+msgid "Contact us <i class=\"oi oi-arrow-right\"/>"
+msgstr ""
+
+#. module: website_helpdesk
 #. odoo-python
 #: code:addons/website_helpdesk/__init__.py:0
 msgid "Customer Care (Public)"
@@ -203,7 +201,7 @@ msgstr ""
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "Go to the Homepage"
+msgid "Go to Homepage"
 msgstr ""
 
 #. module: website_helpdesk
@@ -234,6 +232,11 @@ msgstr ""
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
 msgid "How can we help you?"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
+msgid "Image"
 msgstr ""
 
 #. module: website_helpdesk
@@ -271,9 +274,8 @@ msgid "No results found. Please try another search."
 msgstr ""
 
 #. module: website_helpdesk
-#. odoo-python
-#: code:addons/website_helpdesk/controllers/main.py:0
-msgid "Other Information"
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
+msgid "Our team will get right on it."
 msgstr ""
 
 #. module: website_helpdesk
@@ -289,6 +291,11 @@ msgstr ""
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
 msgid "Search for articles, best practices and more..."
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
+msgid "Select your Team for help"
 msgstr ""
 
 #. module: website_helpdesk
@@ -322,7 +329,7 @@ msgstr ""
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "Thank you for contacting us, our team will get right on it!"
+msgid "Thank you!"
 msgstr ""
 
 #. module: website_helpdesk
@@ -337,13 +344,13 @@ msgid "The full URL to access the document through the website."
 msgstr ""
 
 #. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
-msgid "Type Filter"
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
+msgid "Ticket #"
 msgstr ""
 
 #. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "View Ticket"
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
+msgid "Type Filter"
 msgstr ""
 
 #. module: website_helpdesk
@@ -401,7 +408,7 @@ msgstr ""
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "Your Ticket Number is"
+msgid "Your ticket has been sent."
 msgstr ""
 
 #. module: website_helpdesk

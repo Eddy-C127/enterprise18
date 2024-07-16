@@ -4,16 +4,25 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~17.3+e\n"
+"Project-Id-Version: Odoo Server saas~17.4+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-03 09:04+0000\n"
-"PO-Revision-Date: 2024-06-03 09:04+0000\n"
+"POT-Creation-Date: 2024-07-16 08:45+0000\n"
+"PO-Revision-Date: 2024-07-16 08:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: hr_payroll_account_sepa
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.view_employee_form
+msgid ""
+"<span class=\"d-flex gap-2 w-50\">\n"
+"                            <span invisible=\"is_trusted_bank_account\" class=\"text-muted\">Untrusted</span>\n"
+"                            <span invisible=\"not is_trusted_bank_account\" class=\"text-success\">Trusted</span>\n"
+"                        </span>"
+msgstr ""
 
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_payroll_payment_report_wizard__journal_id
@@ -73,6 +82,21 @@ msgid "SEPA"
 msgstr ""
 
 #. module: hr_payroll_account_sepa
+#: model:ir.model.fields,field_description:hr_payroll_account_sepa.field_hr_employee__is_trusted_bank_account
+msgid "Send Money"
+msgstr ""
+
+#. module: hr_payroll_account_sepa
+#: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_employee__is_trusted_bank_account
+msgid ""
+"Sending fake invoices with a fraudulent account number is a common phishing "
+"practice. To protect yourself, always verify new bank account numbers, "
+"preferably by calling the vendor, as phishing usually happens when their "
+"emails are compromised. Once verified, you can activate the ability to send "
+"money."
+msgstr ""
+
+#. module: hr_payroll_account_sepa
 #. odoo-python
 #: code:addons/hr_payroll_account_sepa/wizard/hr_payroll_payment_report_wizard.py:0
 msgid "Some employees (%s) don't have a valid name on the work contact."
@@ -101,7 +125,7 @@ msgid ""
 msgstr ""
 
 #. module: hr_payroll_account_sepa
-#: model:ir.actions.server,name:hr_payroll_account_sepa.trust_employee_bank
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.view_employee_form
 msgid "Trust Bank Account"
 msgstr ""
 
@@ -113,6 +137,11 @@ msgstr ""
 #. module: hr_payroll_account_sepa
 #: model:ir.model.fields,help:hr_payroll_account_sepa.field_hr_payslip__sepa_uetr
 msgid "Unique end-to-end transaction reference"
+msgstr ""
+
+#. module: hr_payroll_account_sepa
+#: model_terms:ir.ui.view,arch_db:hr_payroll_account_sepa.view_employee_form
+msgid "Untrust Bank Account"
 msgstr ""
 
 #. module: hr_payroll_account_sepa

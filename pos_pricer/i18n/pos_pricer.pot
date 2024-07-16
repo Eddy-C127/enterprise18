@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~17.3+e\n"
+"Project-Id-Version: Odoo Server saas~17.4+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-03 09:03+0000\n"
-"PO-Revision-Date: 2024-06-03 09:03+0000\n"
+"POT-Creation-Date: 2024-07-16 08:43+0000\n"
+"PO-Revision-Date: 2024-07-16 08:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -93,6 +93,14 @@ msgid "Identifier of the store in the Pricer system"
 msgstr ""
 
 #. module: pos_pricer
+#. odoo-javascript
+#: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
+msgid ""
+"Invalid tag name. Should be 1 letter followed by 16 digits. Example: "
+"'N4081315789813275'"
+msgstr ""
+
+#. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_tag__name
 msgid "It is recommended to use a barcode scanner for input"
 msgstr ""
@@ -130,6 +138,12 @@ msgid "Login of your Pricer account"
 msgstr ""
 
 #. module: pos_pricer
+#. odoo-javascript
+#: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
+msgid "No product found for barcode '%s'"
+msgstr ""
+
+#. module: pos_pricer
 #: model:ir.actions.server,name:pos_pricer.pricer_sync_cron_ir_actions_server
 msgid "POS Pricer: tags update synchronization "
 msgstr ""
@@ -141,13 +155,12 @@ msgstr ""
 
 #. module: pos_pricer
 #: model:ir.ui.menu,name:pos_pricer.pos_menu_pricer_configuration
-#: model_terms:ir.ui.view,arch_db:pos_pricer.product_template_form_view_pricers
+#: model_terms:ir.ui.view,arch_db:pos_pricer.product_product_form_view_pricers
 msgid "Pricer"
 msgstr ""
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_display_price
-#: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_display_price
 msgid "Pricer Display Price"
 msgstr ""
 
@@ -163,7 +176,6 @@ msgstr ""
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_product_to_create_or_update
-#: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_product_to_create_or_update
 msgid "Pricer Product To Create Or Update"
 msgstr ""
 
@@ -174,7 +186,6 @@ msgstr ""
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_store_id
-#: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_store_id
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_form_view
 #: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_view_list
 msgid "Pricer Store"
@@ -237,8 +248,12 @@ msgid "Pricer tag"
 msgstr ""
 
 #. module: pos_pricer
+#: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__dummy_tag_barcode
+msgid "Pricer tag barcode"
+msgstr ""
+
+#. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_tag_ids
-#: model:ir.model.fields,field_description:pos_pricer.field_product_template__pricer_tag_ids
 msgid "Pricer tags ids"
 msgstr ""
 
@@ -248,8 +263,39 @@ msgid "Product"
 msgstr ""
 
 #. module: pos_pricer
+#. odoo-javascript
+#: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
+msgid "Product '%s' found"
+msgstr ""
+
+#. module: pos_pricer
+#: model:ir.model,name:pos_pricer.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: pos_pricer
+#: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__dummy_prod_barcode
+msgid "Product barcode"
+msgstr ""
+
+#. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__product_ids
 msgid "Products"
+msgstr ""
+
+#. module: pos_pricer
+#: model_terms:ir.ui.view,arch_db:pos_pricer.pricer_pricer_store_form_view
+msgid "Quick pairing"
+msgstr ""
+
+#. module: pos_pricer
+#: model:ir.model.fields,help:pos_pricer.field_pricer_store__dummy_tag_barcode
+msgid "Scan the Pricer tag barcode here"
+msgstr ""
+
+#. module: pos_pricer
+#: model:ir.model.fields,help:pos_pricer.field_pricer_store__dummy_prod_barcode
+msgid "Scan the product barcode here"
 msgstr ""
 
 #. module: pos_pricer
@@ -258,8 +304,31 @@ msgid "Status message of the last synchronization with Pricer"
 msgstr ""
 
 #. module: pos_pricer
+#: model:ir.model,name:pos_pricer.model_stock_move
+msgid "Stock Move"
+msgstr ""
+
+#. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__name
 msgid "Store Name"
+msgstr ""
+
+#. module: pos_pricer
+#. odoo-javascript
+#: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
+msgid "Tag '%s' found"
+msgstr ""
+
+#. module: pos_pricer
+#. odoo-javascript
+#: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
+msgid "Tag '%s' not found, creating it"
+msgstr ""
+
+#. module: pos_pricer
+#. odoo-javascript
+#: code:addons/pos_pricer/static/src/views/pricer_quick_pairing_form_view.js:0
+msgid "Tag '%s' successfully linked with product '%s'"
 msgstr ""
 
 #. module: pos_pricer
@@ -273,7 +342,6 @@ msgstr ""
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_tag__pricer_store_id
 #: model:ir.model.fields,help:pos_pricer.field_product_product__pricer_store_id
-#: model:ir.model.fields,help:pos_pricer.field_product_template__pricer_store_id
 msgid ""
 "This product will be linked to and displayed on the Pricer tags of the store"
 " selected here"
@@ -281,7 +349,6 @@ msgstr ""
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_product_product__pricer_tag_ids
-#: model:ir.model.fields,help:pos_pricer.field_product_template__pricer_tag_ids
 msgid ""
 "This product will be linked to and displayed on the Pricer tags with ids "
 "listed here. It is recommended to use a barcode scanner"

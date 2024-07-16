@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~17.3+e\n"
+"Project-Id-Version: Odoo Server saas~17.4+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-03 09:05+0000\n"
-"PO-Revision-Date: 2024-06-03 09:05+0000\n"
+"POT-Creation-Date: 2024-07-16 08:46+0000\n"
+"PO-Revision-Date: 2024-07-16 08:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -146,6 +146,11 @@ msgid "Manual Consumption"
 msgstr ""
 
 #. module: stock_barcode_mrp
+#: model:ir.model,name:stock_barcode_mrp.model_mrp_production
+msgid "Manufacturing Order"
+msgstr ""
+
+#. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_byproduct_line_ids
 msgid "Move Byproduct Line"
 msgstr ""
@@ -237,11 +242,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 msgid "Product not Allowed"
-msgstr ""
-
-#. module: stock_barcode_mrp
-#: model:ir.model,name:stock_barcode_mrp.model_mrp_production
-msgid "Production Order"
 msgstr ""
 
 #. module: stock_barcode_mrp
@@ -340,6 +340,11 @@ msgid "To produce more products create a new MO."
 msgstr ""
 
 #. module: stock_barcode_mrp
+#: model:ir.model,name:stock_barcode_mrp.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Transfers allow you to move products from one location to another."
 msgstr ""
@@ -354,6 +359,11 @@ msgstr ""
 msgid ""
 "When activated, then the registration of consumption for that component is recorded manually exclusively.\n"
 "If not activated, and any of the components consumption is edited manually on the manufacturing order, Odoo assumes manual consumption also."
+msgstr ""
+
+#. module: stock_barcode_mrp
+#: model:ir.model,name:stock_barcode_mrp.model_mrp_production_backorder
+msgid "Wizard to mark as done or create back order"
 msgstr ""
 
 #. module: stock_barcode_mrp
