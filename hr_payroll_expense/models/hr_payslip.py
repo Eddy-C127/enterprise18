@@ -17,6 +17,10 @@ class HrPayslip(models.Model):
         help="Expenses to reimburse to employee.")
     expenses_count = fields.Integer(compute='_compute_expenses_count', compute_sudo=True)
 
+    def _compute_input_line_ids(self):
+        super()._compute_input_line_ids()
+        self._update_expense_input_line_ids_without_linking()
+
     @api.depends('expense_sheet_ids')
     def _compute_expenses_count(self):
         for payslip in self:
@@ -69,6 +73,14 @@ class HrPayslip(models.Model):
             self._update_expense_sheets()
         return res
 
+    def _get_employee_sheets_to_refund_in_payslip(self):
+        return self.env['hr.expense.sheet'].sudo().search([
+            ('employee_id', 'in', self.employee_id.ids),
+            ('state', '=', 'approve'),
+            ('payment_mode', '=', 'own_account'),
+            ('refund_in_payslip', '=', True),
+            ('payslip_id', '=', False)])
+
     def _link_expenses_to_payslip(self, clear_existing=True):
         """
         Link expenses to a payslip if the payslip is in draft state and the expense is not already linked to a payslip.
@@ -78,12 +90,7 @@ class HrPayslip(models.Model):
                 "You don't have the access rights to link an expense report to a payslip. You need to be a payroll officer to do that.")
             )
 
-        sheets_sudo = self.env['hr.expense.sheet'].sudo().search([
-            ('employee_id', 'in', self.employee_id.ids),
-            ('state', '=', 'approve'),
-            ('payment_mode', '=', 'own_account'),
-            ('refund_in_payslip', '=', True),
-            ('payslip_id', '=', False)])
+        sheets_sudo = self._get_employee_sheets_to_refund_in_payslip()
         # group by employee
         sheets_by_employee = sheets_sudo.grouped('employee_id')
         for slip_sudo in self.sudo():
@@ -109,6 +116,30 @@ class HrPayslip(models.Model):
                     'input_type_id': expense_type.id
                 }))
             payslip.input_line_ids = input_lines_vals
+
+    def _update_expense_input_line_ids_without_linking(self):
+        """
+        Includes expenses in input_line_ids of the payslip without linking the expense sheets to the payslip.
+        """
+        expense_type = self.env.ref('hr_payroll_expense.expense_other_input', raise_if_not_found=False)
+        if not expense_type:
+            _logger.warning("The 'hr_payroll_expense.expense_other_input' payslip input type is missing.")
+            return
+
+        sheets_sudo = self._get_employee_sheets_to_refund_in_payslip()
+        sheets_by_employee = sheets_sudo.grouped('employee_id')
+        for slip_sudo in self.sudo():
+            payslip_sheets = slip_sudo.expense_sheet_ids or \
+                sheets_by_employee.get(slip_sudo.employee_id, self.env['hr.expense.sheet'])
+            total = sum(payslip_sheets.mapped('total_amount'))
+            lines_to_remove = slip_sudo.input_line_ids.filtered(lambda x: x.input_type_id == expense_type)
+            input_lines_vals = [Command.delete(line.id) for line in lines_to_remove]
+            if total:
+                input_lines_vals.append(Command.create({
+                    'amount': total,
+                    'input_type_id': expense_type.id
+                }))
+            slip_sudo.input_line_ids = input_lines_vals
 
     def _update_expense_sheets(self):
         expense_type = self.env.ref('hr_payroll_expense.expense_other_input', raise_if_not_found=False)
