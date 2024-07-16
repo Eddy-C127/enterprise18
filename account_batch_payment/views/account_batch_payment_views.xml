@@ -111,7 +111,7 @@ if records:
             <field name="view_mode">tree,form,kanban,activity</field>
             <field name="view_id" ref="view_batch_payment_tree"/>
             <field name="search_view_id" ref="view_batch_payment_search"/>
-            <field name="domain" eval="[('batch_type', '=', 'inbound')]"/>
+            <field name="domain">[('batch_type', '=', 'inbound')]</field>
             <field name="context">{'search_default_open': 1, 'default_batch_type': 'inbound'}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -130,7 +130,7 @@ if records:
             <field name="view_mode">tree,form,kanban,activity</field>
             <field name="view_id" ref="view_batch_payment_tree"/>
             <field name="search_view_id" ref="view_batch_payment_search"/>
-            <field name="domain" eval="[('batch_type', '=', 'outbound')]"/>
+            <field name="domain">[('batch_type', '=', 'outbound')]</field>
             <field name="context">{'search_default_open': 1, 'default_batch_type': 'outbound'}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">

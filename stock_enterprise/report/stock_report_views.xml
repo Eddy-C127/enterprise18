@@ -106,7 +106,7 @@
             <field name="res_model">stock.report</field>
             <field name="view_mode">graph,pivot</field>
             <field name="search_view_id" ref="stock_enterprise.stock_report_search_view"/>
-            <field name="domain" eval="[('picking_type_code', '!=', False)]"/>
+            <field name="domain">[('picking_type_code', '!=', False)]</field>
             <field name="context">{
                 'search_default_done_deliveries': 1,
                 'search_default_filter_date_done': 1}</field> <!-- Use context keys for cohort view -->

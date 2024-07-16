@@ -50,7 +50,7 @@
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="base.view_model_search"/>
         <field name="view_id" ref="base.view_model_tree"/>
-        <field name="domain" eval="[]"/>
+        <field name="domain">[]</field>
     </record>
 
     <menuitem id="ir_model_menu_merge_action_manager"

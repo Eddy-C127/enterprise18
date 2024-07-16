@@ -54,7 +54,7 @@
         <record id="action_account_followup" model="ir.actions.client">
             <field name="name">Customers Statement</field>
             <field name="tag">account_report_followup</field>
-            <field name="context" eval="{'model': 'account.followup.report'}" />
+            <field name="context">{'model': 'account.followup.report'}</field>
         </record>
     </data>
 </odoo>

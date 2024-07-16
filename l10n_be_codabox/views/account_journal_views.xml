@@ -6,7 +6,7 @@
             <field name="res_model">res.config.settings</field>
             <field name="view_mode">form</field>
             <field name="target">inline</field>
-            <field name="context" eval="{'module': 'account', 'bin_size': False}"/>
+            <field name="context">{'module': 'account', 'bin_size': False}</field>
         </record>
 
         <record id="account_journal_dashboard_inherit_l10n_be_codabox" model="ir.ui.view">

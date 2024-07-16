@@ -215,7 +215,7 @@
         <field name="res_model">sign.template</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="search_view_id" ref="sign_template_view_search"/>
-        <field name="context" eval="{'search_default_favorite': 1}"/>
+        <field name="context">{'search_default_favorite': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No template yet
