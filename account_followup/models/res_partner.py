@@ -584,12 +584,13 @@ class ResPartner(models.Model):
         followup_data = self._query_followup_data(all_partners=True)
         in_need_of_action = self.env['res.partner'].browse([d['partner_id'] for d in followup_data.values() if d['followup_status'] == 'in_need_of_action'])
         in_need_of_action_auto = in_need_of_action.filtered(lambda p: p.followup_line_id.auto_execute and p.followup_reminder_type == 'automatic')
-        for partner in in_need_of_action_auto:
+        for partner in in_need_of_action_auto[:1000]:
             try:
                 partner._execute_followup_partner()
             except UserError as e:
                 # followup may raise exception due to configuration issues
                 # i.e. partner missing email
+                partner._message_log(body=e)
                 _logger.warning(e, exc_info=True)
 
     def _cron_execute_followup(self):
