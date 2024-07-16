@@ -74,7 +74,7 @@
         <field name="name">budget.analytic.view.tree</field>
         <field name="model">budget.analytic</field>
         <field name="arch" type="xml">
-            <tree decoration-info="state == 'draft'" decoration-muted="state in ('done','canceled', 'revised')" string="Budget" js_class="budget_list_view">
+            <tree decoration-info="state == 'draft'" decoration-muted="state in ('done','canceled', 'revised')" string="Budget">
                 <header>
                     <button display="always" class="btn btn-secondary" string="Generate" type="action"
                             name="%(account_budget.budget_split_wizard_action)d"/>
