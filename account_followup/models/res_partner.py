@@ -179,8 +179,6 @@ class ResPartner(models.Model):
             for unreconciled_aml in partner.unreconciled_aml_ids:
                 if not unreconciled_aml.blocked:
                     unreconciled_aml.followup_line_id = previous_followup_line
-                    # When a specific followup line is manually selected, we consider the followup as processed
-                    unreconciled_aml.last_followup_date = today
 
     def _get_unreconciled_aml_domain(self):
         return [
