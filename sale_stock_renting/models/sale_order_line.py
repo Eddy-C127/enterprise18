@@ -266,7 +266,7 @@ class RentalOrderLine(models.Model):
     def _prepare_procurement_values(self, group_id=False):
         """ Change the planned and deadline dates of rental delivery pickings. """
         values = super()._prepare_procurement_values(group_id)
-        if self.is_rental and self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
+        if self.is_rental and self._are_rental_pickings_enabled():
             values.update({
                 'date_planned': self.order_id.rental_start_date,
                 'date_deadline': self.order_id.rental_start_date,
@@ -275,7 +275,7 @@ class RentalOrderLine(models.Model):
 
     def _get_qty_procurement(self, previous_product_uom_qty=False):
         qty = super()._get_qty_procurement(previous_product_uom_qty)
-        if self.is_rental and self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
+        if self.is_rental and self._are_rental_pickings_enabled():
             outgoing_moves = self.move_ids.filtered(lambda m: m.location_dest_id == m.company_id.rental_loc_id and m.state != 'cancel' and not m.scrapped and self.product_id == m.product_id)
             for move in outgoing_moves:
                 qty += move.product_uom._compute_quantity(move.product_qty, self.product_uom, rounding_method='HALF-UP')
@@ -298,7 +298,7 @@ class RentalOrderLine(models.Model):
 
         If the rental picking setting is activated:
         Process all lines at the same time. """
-        if self.create_uid.has_group('sale_stock_renting.group_rental_stock_picking'):
+        if not self or self._are_rental_pickings_enabled():
             super()._action_launch_stock_rule(previous_product_uom_qty)
         else:
             other_lines = self.filtered(lambda sol: not sol.is_rental)
@@ -306,7 +306,7 @@ class RentalOrderLine(models.Model):
 
     def _get_outgoing_incoming_moves(self):
         outgoing_moves, incoming_moves = super()._get_outgoing_incoming_moves()
-        if self.is_rental and self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
+        if self.is_rental and self._are_rental_pickings_enabled():
             for move in self.move_ids.filtered(lambda r: r.state != 'cancel' and not r.scrapped and self.product_id == r.product_id):
                 if move.location_dest_id == self.company_id.rental_loc_id:
                     outgoing_moves |= move
@@ -318,8 +318,11 @@ class RentalOrderLine(models.Model):
     def _compute_qty_delivered(self):
         super()._compute_qty_delivered()
 
+        if not self._are_rental_pickings_enabled():
+            return
+
         for line in self:
-            if line.is_rental and self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
+            if line.is_rental:
                 qty = 0.0
                 outgoing_moves, dummy = line._get_outgoing_incoming_moves()
                 for move in outgoing_moves:
@@ -341,3 +344,10 @@ class RentalOrderLine(models.Model):
             padding_timedelta_before = timedelta(hours=line.product_id.preparation_time)
             line.reservation_begin = line.start_date and line.start_date - padding_timedelta_before
         (self - lines).reservation_begin = None
+
+    def _are_rental_pickings_enabled(self):
+        if self:
+            return self[0].order_id.create_uid.has_group(
+                'sale_stock_renting.group_rental_stock_picking'
+            )
+        return self.env.user.has_group('sale_stock_renting.group_rental_stock_picking')
