@@ -51,6 +51,8 @@ Indian Payroll Salary Rules.
         'wizard/hr_payroll_payment_report.xml',
         'views/report_hr_yearly_salary_detail_template.xml',
         'views/report_payroll_advice_template.xml',
+        'views/l10n_in_salary_statement.xml',
+        'views/report_l10n_in_salary_statement.xml',
     ],
     'demo': [
         'data/l10n_in_hr_payroll_demo.xml',
