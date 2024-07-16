@@ -21,7 +21,7 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
         a descendants checks which might be costly.
 
         Done as admin as only admin has access to Duplicate button currently."""
-        with self.assertQueryCount(admin=59):
+        with self.assertQueryCount(admin=49):
             workspace_children = self.workspace_children.with_env(self.env)
             shared = self.article_shared.with_env(self.env)
             _duplicates = (workspace_children + shared).copy_batch()
@@ -31,7 +31,7 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
     @warmup
     def test_article_creation_single_shared_grandchild(self):
         """ Test with 2 levels of hierarchy in a private/shared environment """
-        with self.assertQueryCount(employee=25):
+        with self.assertQueryCount(employee=21):
             _article = self.env['knowledge.article'].create({
                 'body': '<p>Hello</p>',
                 'name': 'Article in shared',
@@ -43,7 +43,7 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
     @users('employee')
     @warmup
     def test_article_creation_single_workspace(self):
-        with self.assertQueryCount(employee=22):
+        with self.assertQueryCount(employee=19):
             _article = self.env['knowledge.article'].create({
                 'body': '<p>Hello</p>',
                 'name': 'Article in workspace',
@@ -55,7 +55,7 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
     @users('employee')
     @warmup
     def test_article_creation_multi_roots(self):
-        with self.assertQueryCount(employee=24):
+        with self.assertQueryCount(employee=15):
             _article = self.env['knowledge.article'].create([
                 {'body': '<p>Hello</p>',
                  'internal_permission': 'write',
@@ -67,7 +67,7 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
     @users('employee')
     @warmup
     def test_article_creation_multi_shared_grandchild(self):
-        with self.assertQueryCount(employee=52):
+        with self.assertQueryCount(employee=21):
             _article = self.env['knowledge.article'].create([
                 {'body': '<p>Hello</p>',
                  'name': f'Article {index} in workspace',
@@ -79,14 +79,14 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
     @users('employee')
     @warmup
     def test_article_favorite(self):
-        with self.assertQueryCount(employee=16):
+        with self.assertQueryCount(employee=15):
             shared_article = self.shared_children[0].with_env(self.env)
             shared_article.action_toggle_favorite()
 
     @users('employee')
     @warmup
     def test_article_get_valid_parent_options(self):
-        with self.assertQueryCount(employee=9):
+        with self.assertQueryCount(employee=6):
             child_writable_article = self.workspace_children[1].with_env(self.env)
             # don't check actual results, those are tested in ``TestKnowledgeArticleUtilities`` class
             _res = child_writable_article.get_valid_parent_options(search_term="")
@@ -101,7 +101,7 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
     @users('employee')
     @warmup
     def test_article_invite_members(self):
-        with self.assertQueryCount(employee=86):
+        with self.assertQueryCount(employee=82):
             shared_article = self.shared_children[0].with_env(self.env)
             partners = (self.customer + self.partner_employee_manager + self.partner_employee2).with_env(self.env)
             shared_article.invite_members(partners, 'write')
@@ -110,14 +110,14 @@ class KnowledgePerformanceCase(KnowledgeCommonWData):
     @warmup
     def test_article_move_to(self):
         before_id = self.workspace_children[0].id
-        with self.assertQueryCount(employee=29):  # knowledge: 28
+        with self.assertQueryCount(employee=24):  # knowledge: 23
             writable_article = self.workspace_children[1].with_env(self.env)
             writable_article.move_to(parent_id=writable_article.parent_id.id, before_article_id=before_id)
 
     @users('employee')
     @warmup
     def test_get_user_sorted_articles(self):
-        with self.assertQueryCount(employee=9):
+        with self.assertQueryCount(employee=3):
             self.env['knowledge.article'].get_user_sorted_articles('')
 
 @tagged('knowledge_performance', 'post_install', '-at_install')
