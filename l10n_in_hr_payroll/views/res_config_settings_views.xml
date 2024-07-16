@@ -20,6 +20,19 @@
                             </group>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-12 o_setting_box" id="statutory_compliance" invisible="company_country_code != 'IN'">
+                        <div class="o_setting_left_pane">
+                            <field name="l10n_in_is_statutory_compliance"></field>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="l10n_in_is_statutory_compliance" string="Payroll Statutory Compliance"/>
+                            <group class="mt16" invisible="not l10n_in_is_statutory_compliance">
+                                <field name="l10n_in_epf_employer_id" placeholder="Code of 10 Numbers"/>
+                                <field name="l10n_in_esic_ip_number" placeholder="Code of 17 Digits"/>
+                                <field name="l10n_in_pt_number" placeholder="Code of 11 Digits"/>
+                            </group>
+                        </div>
+                    </div>
                 </div>
             </xpath>
         </field>
