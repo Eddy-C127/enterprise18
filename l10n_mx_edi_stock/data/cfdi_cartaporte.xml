@@ -52,7 +52,7 @@
                 <cartaporte31:CartaPorte
                     t-att-TranspInternac="'Sí' if record.l10n_mx_edi_external_trade else 'No'"
                     t-att-TotalDistRec="record.l10n_mx_edi_distance"
-                    t-att-EntradaSalidaMerc="'Salida' if record.l10n_mx_edi_external_trade else None"
+                    t-att-EntradaSalidaMerc="entrada_salida_merc"
                     t-att-ViaEntradaSalida="record.l10n_mx_edi_transport_type if record.l10n_mx_edi_external_trade else None"
                     t-att-PaisOrigenDestino="receptor['customer'].country_id.l10n_mx_edi_code if record.l10n_mx_edi_external_trade else None"
                     t-att-IdCCP="idccp"
@@ -75,6 +75,7 @@
                                 t-att-CodigoPostal="origen['domicilio']['codigo_postal']"
                                 t-att-Estado="origen['domicilio']['estado']"
                                 t-att-Pais="origen['domicilio']['pais']"
+                                t-att-Colonia="origen['domicilio']['colonia']"
                                 t-att-Municipio="origen['domicilio']['municipio']"/>
                         </cartaporte31:Ubicacion>
                         <cartaporte31:Ubicacion
@@ -90,6 +91,7 @@
                                 t-att-CodigoPostal="destino['domicilio']['codigo_postal']"
                                 t-att-Estado="destino['domicilio']['estado']"
                                 t-att-Pais="destino['domicilio']['pais']"
+                                t-att-Colonia="destino['domicilio']['colonia']"
                                 t-att-Municipio="destino['domicilio']['municipio']"/>
                         </cartaporte31:Ubicacion>
                     </cartaporte31:Ubicaciones>
@@ -103,7 +105,39 @@
                                 t-att-Cantidad="format_float(move.quantity, 6)"
                                 t-att-ClaveUnidad="move.product_uom.unspsc_code_id.code"
                                 t-att-Descripcion="move.description_picking or move.product_id.name"
-                                t-att-PesoEnKg="format_float(move.weight, 3)">
+                                t-att-PesoEnKg="format_float(move.weight, 3)"
+                                t-att-FraccionArancelaria="move.product_id.l10n_mx_edi_tariff_fraction_id.code
+                                                           if record.l10n_mx_edi_external_trade
+                                                           else None"
+                                t-att-MaterialPeligroso="move.product_id.l10n_mx_edi_hazardous_material_code == '0' and 'No'
+                                                         or move.product_id.l10n_mx_edi_hazardous_material_code and 'Sí'
+                                                         or None"
+                                t-att-CveMaterialPeligroso="move.product_id.l10n_mx_edi_hazardous_material_code
+                                                            if move.product_id.l10n_mx_edi_hazardous_material_code
+                                                            and move.product_id.l10n_mx_edi_hazardous_material_code != '0'
+                                                            else None"
+                                t-att-Embalaje="move.product_id.l10n_mx_edi_hazard_package_type
+                                                if move.product_id.l10n_mx_edi_hazardous_material_code
+                                                and move.product_id.l10n_mx_edi_hazardous_material_code != '0'
+                                                else None"
+                                t-att-DescripEmbalaje="move.picking_id._l10n_mx_edi_get_packaging_desc(move.product_id.l10n_mx_edi_hazard_package_type)
+                                                       if move.product_id.l10n_mx_edi_hazardous_material_code
+                                                       and move.product_id.l10n_mx_edi_hazardous_material_code != '0'
+                                                       else None"
+                                t-att-TipoMateria="move.product_id.l10n_mx_edi_material_type
+                                                   if record.l10n_mx_edi_external_trade
+                                                   else None"
+                                t-att-DescripcionMateria="move.product_id.l10n_mx_edi_material_description
+                                                          if record.l10n_mx_edi_external_trade
+                                                          and move.product_id.l10n_mx_edi_material_type == '05'
+                                                          else None">
+                                <cartaporte31:DocumentacionAduanera
+                                    xmlns:cartaporte31="http://www.sat.gob.mx/CartaPorte31"
+                                    t-if="record.l10n_mx_edi_external_trade"
+                                    t-att-TipoDocumento="tipo_documento"
+                                    t-att-NumPedimento="num_pedimento"
+                                    t-att-IdentDocAduanero="ident_doc_aduanero"
+                                    t-att-RFCImpo="rfc_impo"/>
                                 <cartaporte31:CantidadTransporta
                                     t-att-Cantidad="format_float(move.quantity, 6)"
                                     t-att-IDOrigen="'OR' + str(record.location_id.id).rjust(6,'0')"
@@ -120,7 +154,17 @@
                                 t-att-PlacaVM="record.l10n_mx_edi_vehicle_id.vehicle_licence"/>
                             <cartaporte31:Seguros
                                 t-att-AseguraRespCivil="record.l10n_mx_edi_vehicle_id.transport_insurer"
-                                t-att-PolizaRespCivil="record.l10n_mx_edi_vehicle_id.transport_insurance_policy"/>
+                                t-att-PolizaRespCivil="record.l10n_mx_edi_vehicle_id.transport_insurance_policy"
+                                t-att-AseguraMedAmbiente="record.l10n_mx_edi_vehicle_id.environment_insurer
+                                                          if any(moves.product_id.filtered(
+                                                              lambda c: c.l10n_mx_edi_hazardous_material_code
+                                                              and c.l10n_mx_edi_hazardous_material_code != '0'))
+                                                          else None"
+                                t-att-PolizaMedAmbiente="record.l10n_mx_edi_vehicle_id.environment_insurance_policy
+                                                         if any(moves.product_id.filtered(
+                                                            lambda c: c.l10n_mx_edi_hazardous_material_code
+                                                            and c.l10n_mx_edi_hazardous_material_code != '0'))
+                                                         else None"/>
                             <cartaporte31:Remolques t-if="record.l10n_mx_edi_vehicle_id.trailer_ids">
                                 <t t-foreach="record.l10n_mx_edi_vehicle_id.trailer_ids" t-as="trailer">
                                     <cartaporte31:Remolque

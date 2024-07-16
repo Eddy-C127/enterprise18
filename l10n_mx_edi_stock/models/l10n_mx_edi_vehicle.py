@@ -108,6 +108,12 @@ class Vehicle(models.Model):
         string='Intermediaries',
         default=_default_intermediary,
         help='Information corresponding to the transport intermediaries, as well as those taxpayers related to the transportation method used to transport the goods')
+    environment_insurer = fields.Char(
+        string="Environment Insurer",
+        help="The name of the insurer that covers the liability risks of the environment when transporting hazardous materials")
+    environment_insurance_policy = fields.Char(
+        string="Environment Insurance Policy",
+        help="Environment Insurance Policy Number - used when transporting hazardous materials")
 
     @api.depends('vehicle_licence')
     def _compute_display_name(self):

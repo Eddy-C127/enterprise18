@@ -12,6 +12,7 @@
                 <field name="l10n_mx_edi_is_delivery_guide_needed" invisible="1"/>
                 <field name="l10n_mx_edi_external_trade" invisible="1"/>
                 <field name="l10n_mx_edi_update_sat_needed" invisible="1"/>
+                <field name="l10n_mx_edi_customs_document_type_code" invisible="1"/>
             </xpath>
 
             <xpath expr="//header" position="inside">
@@ -88,6 +89,29 @@
                                 required="l10n_mx_edi_transport_type == '01'"/>
                          <field name="l10n_mx_edi_gross_vehicle_weight"
                                 invisible="not l10n_mx_edi_is_delivery_guide_needed or l10n_mx_edi_transport_type != '01'"/>
+                        <field name="l10n_mx_edi_customs_regime_ids"
+                               invisible="not l10n_mx_edi_is_delivery_guide_needed or not l10n_mx_edi_external_trade"
+                               domain="[('goods_direction', 'in', ('import' if picking_type_code == 'incoming' else 'export', 'both'))]"
+                               widget="many2many_tags"
+                               options="{'create': False}"/>
+                        <field name="l10n_mx_edi_customs_document_type_id"
+                               invisible="not l10n_mx_edi_is_delivery_guide_needed or not l10n_mx_edi_external_trade"
+                               domain="[('goods_direction', 'in', ('import' if picking_type_code == 'incoming' else 'export', 'both'))]"
+                               options="{'create': False}"/>
+                        <field name="l10n_mx_edi_pedimento_number"
+                               invisible="not l10n_mx_edi_is_delivery_guide_needed
+                                          or not l10n_mx_edi_external_trade
+                                          or l10n_mx_edi_customs_document_type_code != '01'
+                                          or picking_type_code != 'incoming'"/>
+                        <field name="l10n_mx_edi_customs_doc_identification"
+                               invisible="not l10n_mx_edi_is_delivery_guide_needed
+                                          or not l10n_mx_edi_external_trade
+                                          or l10n_mx_edi_customs_document_type_code == '01'"/>
+                        <field name="l10n_mx_edi_importer_id"
+                               invisible="not l10n_mx_edi_is_delivery_guide_needed
+                                          or not l10n_mx_edi_external_trade
+                                          or l10n_mx_edi_customs_document_type_code != '01'
+                                          or picking_type_code !='incoming'"/>
                     </group>
 
                     <group string="Distance" name="mx_edi_group_distance">

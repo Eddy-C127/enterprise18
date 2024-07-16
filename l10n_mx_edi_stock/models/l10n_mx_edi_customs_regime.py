@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from odoo import fields, models
 
 
-class MexicanEDICustomsDocumentType(models.Model):
-    _name = 'l10n_mx_edi.customs.document.type'
-    _description = 'Mexican Customs Document Type'
+class MexicanEDICustomsRegime(models.Model):
+    _name = 'l10n_mx_edi.customs.regime'
+    _description = 'Mexican Customs Regime'
 
     code = fields.Char(string='Code', required=True)
     name = fields.Char(string='Name', required=True)

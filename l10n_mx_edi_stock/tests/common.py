@@ -9,8 +9,8 @@ class TestMXEdiStockCommon(TestMxExtendedEdiCommon):
 
         cls.customer_location = cls.env.ref('stock.stock_location_customers')
 
-        cls.custom_regime_imd = cls.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_regime_imd')
-        cls.custom_regime_exd = cls.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_regime_exd')
+        cls.custom_regime_imd = cls.env.ref('l10n_mx_edi_stock.l10n_mx_edi_customs_regime_imd')
+        cls.custom_regime_exd = cls.env.ref('l10n_mx_edi_stock.l10n_mx_edi_customs_regime_exd')
 
         cls.product.write({
             'is_storable': True,

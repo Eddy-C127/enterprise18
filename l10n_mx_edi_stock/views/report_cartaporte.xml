@@ -6,11 +6,10 @@
             <t t-set="information_block" t-value=""/>
         </xpath>
         <xpath expr="//div[hasclass('page')]/div[hasclass('row')]" position="replace"/>
-        <xpath expr="//table[@name='stock_move_table']" position="replace"></xpath>
-        <xpath expr="//table[@name='stock_move_line_table']" position="replace"></xpath>
-        <xpath expr="//table[@name='stock_backorder_table']" position="replace"></xpath>
+        <xpath expr="//table[@name='stock_move_table']" position="replace"/>
+        <xpath expr="//table[@name='stock_move_line_table']" position="replace"/>
+        <xpath expr="//table[@name='stock_backorder_table']" position="replace"/>
         <xpath expr="//div[@id='delivery_guide_details']" position="replace">
-
             <t t-set="cartaporte_values" t-value="o._l10n_mx_edi_get_cartaporte_pdf_values()"/>
             <div id="mx_edi_section_cartaporte">
                 <div class="row">
@@ -18,9 +17,13 @@
                         <strong>Carta Porte</strong>
                         <div>IdCCP: <t t-out="cartaporte_values['idccp']"/></div>
                         <div>Transporte Internacional: <t t-out="cartaporte_values['transp_internac']"/></div>
-                        <div>Pais Origen Destino: <t t-out="cartaporte_values['pais_origen_destino']"/></div>
-                        <div>Via Entrada Salida: <t t-out="cartaporte_values['via_entrada_salida']"/></div>
                         <div>Total Distancia Recorrida: <t t-out="cartaporte_values['total_dist_recorrida']"/></div>
+                        <t t-if="cartaporte_values['external_trade']">
+                            <div>Pais Origen Destino: <t t-out="cartaporte_values['pais_origen_destino']"/></div>
+                            <div>Via Entrada Salida: <t t-out="cartaporte_values['via_entrada_salida']"/></div>
+                            <div>Regimenes Aduanero: <t t-out="cartaporte_values['regimenes_aduanero']"/></div>
+                            <div>Entrada/Salida de Mercancia: <t t-out="cartaporte_values['entrada_salida_merc']"/></div>
+                        </t>
                     </div>
                     <div id="mx_edi_detail_mercancias" class="col-6">
                         <strong>Mercancias</strong>
@@ -34,6 +37,7 @@
                     <div id="mx_edi_detail_domicilio_origen" class="col-6">
                         <strong>Domicilio Origen</strong>
                         <div>Calle: <t t-out="cartaporte_values['origen_domicilio']['calle']"/></div>
+                        <div>Colonia: <t t-out="cartaporte_values['origen_domicilio']['colonia']"/></div>
                         <div>Municipio: <t t-out="cartaporte_values['origen_domicilio']['municipio']"/></div>
                         <div>Estado: <t t-out="cartaporte_values['origen_domicilio']['estado']"/></div>
                         <div>Pais: <t t-out="cartaporte_values['origen_domicilio']['pais']"/></div>
@@ -42,6 +46,7 @@
                     <div id="mx_edi_detail_domicilio_destino" class="col-6">
                         <strong>Domicilio Destino</strong>
                         <div>Calle: <t t-out="cartaporte_values['destino_domicilio']['calle']"/></div>
+                        <div>Colonia: <t t-out="cartaporte_values['destino_domicilio']['colonia']"/></div>
                         <div>Municipio: <t t-out="cartaporte_values['destino_domicilio']['municipio']"/></div>
                         <div>Estado: <t t-out="cartaporte_values['destino_domicilio']['estado']"/></div>
                         <div>Pais: <t t-out="cartaporte_values['destino_domicilio']['pais']"/></div>
@@ -87,17 +92,17 @@
                         <div id="mx_edi_detail_seguros">
                             <div>Asegura Resp Civil: <t t-out="cartaporte_values['asegura_resp_civil']"/></div>
                             <div>Poliza Resp Civil: <t t-out="cartaporte_values['poliza_resp_civil']"/></div>
-                        </div>
-                        <div id="mx_edi_detail_tipos_figura">
-                            <div>Num Reg Id Trib Figura: <t t-out="cartaporte_values['peso_bruto_total']"/></div>
-                            <div>Residencia Fiscal Figura: <t t-out="cartaporte_values['peso_bruto_total']"/></div>
+                            <div>Asegura Med Ambiente: <t t-out="cartaporte_values['asegura_med_ambiente']"/></div>
+                            <div>Poliza Med Ambiente: <t t-out="cartaporte_values['poliza_med_ambiente']"/></div>
                         </div>
                     </div>
                     <div id="mx_edi_detail_tipos_figura_table" class="col-4">
                         <ul>
                             <li t-foreach="cartaporte_values['figures']" t-as="figure">
-                                <div>Tipo Figura: <t t-out="figure['tipo_figura']"/></div>
+                                <div>Tipo: <t t-out="figure['tipo_figura']"/></div>
+                                <div>RFC: <t t-out="figure['rfc_figura']"/></div>
                                 <div>Licencia: <t t-out="figure['num_licencia']"/></div>
+                                <div>Nombre: <t t-out="figure['nombre_figura']"/></div>
                             </li>
                         </ul>
                     </div>

@@ -12,6 +12,8 @@ from odoo.addons.l10n_mx_edi.models.l10n_mx_edi_document import CANCELLATION_REA
 from odoo.exceptions import UserError
 from odoo.osv import expression
 
+from .product_template import MX_PACKAGING_CATALOG
+
 MAPBOX_GEOCODE_URL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
 MAPBOX_MATRIX_URL = 'https://api.mapbox.com/directions-matrix/v1/mapbox/driving/'
 
@@ -123,31 +125,83 @@ class Picking(models.Model):
         store=True,
         readonly=False,
     )
+    l10n_mx_edi_customs_regime_ids = fields.Many2many(
+        string="Customs Regimes",
+        help="Regimes associated to the good's transfer (import or export).",
+        comodel_name='l10n_mx_edi.customs.regime',
+        ondelete='restrict',
+    )
+    l10n_mx_edi_customs_document_type_id = fields.Many2one(
+        string="Customs Document Type",
+        help="Type of customs document associated with the transport of the goods.",
+        comodel_name='l10n_mx_edi.customs.document.type',
+        ondelete="restrict",
+    )
+    l10n_mx_edi_customs_document_type_code = fields.Char(related='l10n_mx_edi_customs_document_type_id.code')
+    l10n_mx_edi_pedimento_number = fields.Char(
+        string="Pedimento Number",
+        help="Pedimento number associated with the import of the goods.",
+    )
+    l10n_mx_edi_customs_doc_identification = fields.Char(
+        string="Customs Document Identification",
+        help="Folio of the customs document associated with the import of the goods.",
+    )
+    l10n_mx_edi_importer_id = fields.Many2one(
+        string="Importer",
+        help="Importer registered in the customs documentation.",
+        comodel_name='res.partner',
+        ondelete="restrict",
+    )
 
     def _l10n_mx_edi_get_cartaporte_pdf_values(self):
         self.ensure_one()
+
         cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(self.company_id)
         self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
         self._l10n_mx_edi_add_picking_cfdi_values(cfdi_values)
-        ubicacion_fields = ('id_ubicacion', 'rfc_remitente_destinatario', 'num_reg_id_trib', 'residencia_fiscal', 'fecha_hora_salida_llegada')
+
+        origen_domicilio = {field: cfdi_values['origen']['domicilio'][field] or '-' for field in cfdi_values['origen']['domicilio']}
+        destino_domicilio = {field: cfdi_values['destino']['domicilio'][field] or '-' for field in cfdi_values['destino']['domicilio']}
+        origen_domicilio['municipio'] = self.company_id.city or '-'
+        destino_domicilio['municipio'] = self.partner_id.city or '-'
+        have_hazardous_material = any(self.move_ids.product_id.mapped('l10n_mx_edi_hazardous_material_code'))
+
+        ubicacion_fields = (
+            'id_ubicacion',
+            'rfc_remitente_destinatario',
+            'num_reg_id_trib',
+            'residencia_fiscal',
+            'fecha_hora_salida_llegada',
+        )
+        external_trade_vals = {
+            'external_trade': True,
+            'transp_internac': 'Sí',
+            'entrada_salida_merc': cfdi_values.get('entrada_salida_merc') or '-',
+            'regimenes_aduanero': ', '.join(cfdi_values.get('regimenes_aduanero') or "") or '-',
+            'pais_origen_destino': self.partner_id.country_id.l10n_mx_edi_code or '-',
+            'via_entrada_salida': self.l10n_mx_edi_transport_type or '-',
+        } if self.l10n_mx_edi_external_trade else {
+            'external_trade': False,
+            'transp_internac': 'No',
+        }
         figures = [
             {
                 'tipo_figura': figure.type or '-',
+                'rfc_figura': figure.operator_id.vat or '-',
                 'num_licencia': figure.type == '01' and figure.operator_id.l10n_mx_edi_operator_licence or '-',
+                'nombre_figura': figure.operator_id.name or '-',
             }
             for figure in self.l10n_mx_edi_vehicle_id.figure_ids.sorted('type')
         ]
 
         return {
             **self._l10n_mx_edi_get_extra_picking_report_values(),
+            **external_trade_vals,
             'idccp': cfdi_values['idccp'] or '-',
-            'origen_domicilio': {field: cfdi_values['origen']['domicilio'][field] or '-' for field in cfdi_values['origen']['domicilio']},
-            'destino_domicilio': {field: cfdi_values['destino']['domicilio'][field] or '-' for field in cfdi_values['destino']['domicilio']},
+            'origen_domicilio': origen_domicilio,
+            'destino_domicilio': destino_domicilio,
             'origen_ubicacion': {field: cfdi_values['origen'][field] or '-' for field in ubicacion_fields},
             'destino_ubicacion': {field: cfdi_values['destino'][field] or '-' for field in (*ubicacion_fields, 'distancia_recorrida')},
-            'transp_internac': 'Sí' if self.l10n_mx_edi_external_trade else 'No',
-            'pais_origen_destino': self.partner_id.country_id.l10n_mx_edi_code if self.l10n_mx_edi_external_trade else '-',
-            'via_entrada_salida': self.l10n_mx_edi_transport_type if self.l10n_mx_edi_external_trade else '-',
             'total_dist_recorrida': self.l10n_mx_edi_distance or '-',
             'peso_bruto_total': cfdi_values['format_float'](sum(self.move_ids.mapped('weight')), 3),
             'unidad_peso': cfdi_values['weight_uom'].unspsc_code_id.code or '-',
@@ -160,6 +214,8 @@ class Picking(models.Model):
             'placa_vm': self.l10n_mx_edi_vehicle_id.vehicle_licence or '-',
             'asegura_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurer or '-',
             'poliza_resp_civil': self.l10n_mx_edi_vehicle_id.transport_insurance_policy or '-',
+            'asegura_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurer if have_hazardous_material else '-',
+            'poliza_med_ambiente': self.l10n_mx_edi_vehicle_id.environment_insurance_policy if have_hazardous_material else '-',
             'figures': figures,
         }
 
@@ -187,6 +243,10 @@ class Picking(models.Model):
         return super()._get_mail_thread_data_attachments() \
             - self.l10n_mx_edi_document_ids.attachment_id \
             + self.l10n_mx_edi_cfdi_attachment_id
+
+    @api.model
+    def _l10n_mx_edi_get_packaging_desc(self, code):
+        return dict(MX_PACKAGING_CATALOG).get(code, None)
 
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
@@ -285,13 +345,11 @@ class Picking(models.Model):
     # -------------------------------------------------------------------------
 
     def _l10n_mx_edi_cfdi_check_external_trade_config(self):
-        """ Comex Features (Exports) have been extracted to l10n_mx_edi_stock_extended.
-        This method suggests the module installation when trying to generate a delivery guide for an export country.
-        """
+        """ Check the configuration of the partner's address. """
         self.ensure_one()
         errors = []
-        if self.l10n_mx_edi_external_trade:
-            errors.append(_("The Delivery Guide is only available for shipping in MX. You might want to install comex features"))
+        if not self.partner_id.zip or not self.partner_id.state_id:
+            errors.append(_("A zip code and state are required to generate a delivery guide"))
         return errors
 
     def _l10n_mx_edi_cfdi_check_picking_config(self):
@@ -306,6 +364,18 @@ class Picking(models.Model):
             errors.append(_("Distance in KM must be specified when using federal transport"))
         if self.l10n_mx_edi_vehicle_id and not self.l10n_mx_edi_gross_vehicle_weight:
             errors.append(_("Please define a gross vehicle weight."))
+
+        if self.l10n_mx_edi_external_trade:
+            if not self.l10n_mx_edi_customs_document_type_code:
+                errors.append(_("Please define a customs regime."))
+            # Code '01' corresponds to 'Pedimento'.
+            if self.l10n_mx_edi_customs_document_type_code != '01' and not self.l10n_mx_edi_customs_doc_identification:
+                errors.append(_("Please define a customs document identification."))
+            if self.l10n_mx_edi_importer_id and not self.l10n_mx_edi_importer_id.vat:
+                errors.append(_("Please define a VAT number for the importer '%s'.", self.l10n_mx_edi_importer_id.name))
+            if any(not move.product_id.l10n_mx_edi_material_type for move in self.move_ids):
+                errors.append(_("At least one product is missing a material type."))
+
         return errors
 
     def _l10n_mx_edi_add_picking_cfdi_values(self, cfdi_values):
@@ -355,9 +425,6 @@ class Picking(models.Model):
 
         if self.picking_type_code == 'outgoing':
             cfdi_values['destino']['rfc_remitente_destinatario'] = receptor['rfc']
-            if self.l10n_mx_edi_external_trade:
-                cfdi_values['destino']['num_reg_id_trib'] = receptor['customer'].vat
-                cfdi_values['destino']['residencia_fiscal'] = receptor['customer'].country_id.l10n_mx_edi_code
             if warehouse_partner.country_id.l10n_mx_edi_code != 'MEX':
                 cfdi_values['origen']['rfc_remitente_destinatario'] = 'XEXX010101000'
                 cfdi_values['origen']['num_reg_id_trib'] = emisor['supplier'].vat
@@ -368,9 +435,6 @@ class Picking(models.Model):
             self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['destino'], receptor['customer'])
         else:
             cfdi_values['origen']['rfc_remitente_destinatario'] = receptor['rfc']
-            if self.l10n_mx_edi_external_trade:
-                cfdi_values['origen']['num_reg_id_trib'] = receptor['customer'].vat
-                cfdi_values['origen']['residencia_fiscal'] = receptor['customer'].country_id.l10n_mx_edi_code
             if warehouse_partner.country_id.l10n_mx_edi_code != 'MEX':
                 cfdi_values['destino']['rfc_remitente_destinatario'] = 'XEXX010101000'
                 cfdi_values['destino']['num_reg_id_trib'] = emisor['supplier'].vat
@@ -380,15 +444,35 @@ class Picking(models.Model):
             self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['origen'], receptor['customer'])
             self._l10n_mx_edi_add_domicilio_cfdi_values(cfdi_values['destino'], warehouse_partner)
 
+        if self.l10n_mx_edi_external_trade:
+            cfdi_values['tipo_documento'] = self.l10n_mx_edi_customs_document_type_code
+            if self.picking_type_code == 'outgoing':
+                cfdi_values['destino']['num_reg_id_trib'] = receptor['customer'].vat
+                cfdi_values['destino']['residencia_fiscal'] = receptor['customer'].country_id.l10n_mx_edi_code
+            else:  # picking_type_code in ('incoming', 'internal')
+                cfdi_values['origen']['num_reg_id_trib'] = receptor['customer'].vat
+                cfdi_values['origen']['residencia_fiscal'] = receptor['customer'].country_id.l10n_mx_edi_code
+            if self.picking_type_code in ('outgoing', 'incoming'):
+                cfdi_values['entrada_salida_merc'] = 'Salida' if self.picking_type_code == 'outgoing' else 'Entrada'
+                cfdi_values['regimenes_aduanero'] = self.l10n_mx_edi_customs_regime_ids.mapped('code')
+
+            # Code '01' corresponds to 'Pedimento'.
+            if self.l10n_mx_edi_customs_document_type_code == '01':
+                if self.picking_type_code == 'incoming':
+                    cfdi_values['num_pedimento'] = self.l10n_mx_edi_pedimento_number
+                    cfdi_values['rfc_impo'] = self.l10n_mx_edi_importer_id.vat
+            else:
+                cfdi_values['ident_doc_aduanero'] = self.l10n_mx_edi_customs_doc_identification
+
     @api.model
     def _l10n_mx_edi_add_domicilio_cfdi_values(self, cfdi_values, partner):
         cfdi_values['domicilio'] = {
             'calle': partner.street,
             'codigo_postal': partner.zip,
-            'colonia': None,
+            'colonia': partner.l10n_mx_edi_colony_code,
             'estado': partner.state_id.code,
             'pais': partner.country_id.l10n_mx_edi_code,
-            'municipio': None,
+            'municipio': partner.city_id.l10n_mx_edi_code or partner.city,
         }
 
     @api.model

@@ -47,7 +47,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                 warehouse,
                 picking_vals={
                     'partner_id': self.partner_us.id,
-                    'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_02').id,
+                    'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock.l10n_mx_edi_customs_document_type_02').id,
                     'l10n_mx_edi_customs_doc_identification': '0123456789',
                     'l10n_mx_edi_customs_regime_ids': [Command.set([
                         self.custom_regime_imd.id,
@@ -71,7 +71,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                 outgoing=False,
                 picking_vals={
                     'partner_id': self.partner_us.id,
-                    'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock_extended.l10n_mx_edi_customs_document_type_01').id,
+                    'l10n_mx_edi_customs_document_type_id': self.env.ref('l10n_mx_edi_stock.l10n_mx_edi_customs_document_type_01').id,
                     'l10n_mx_edi_importer_id': self.partner_mx.id,
                     'l10n_mx_edi_customs_regime_ids': [Command.set([
                         self.custom_regime_imd.id,

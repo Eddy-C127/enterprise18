@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 from odoo import fields, models
+
 
 MX_PACKAGING_CATALOG = [
     ('1A1', 'Bidones (Tambores) de Acero 1 de tapa no desmontable'),
@@ -64,6 +62,7 @@ MX_PACKAGING_CATALOG = [
     ('7L1', 'Bultos de Tela'),
     ('Z01', 'No aplica')
 ]
+
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
