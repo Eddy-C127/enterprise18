@@ -560,3 +560,59 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 ('product_id', '=', company2_product.id),
             ], limit=1)
         )
+
+    def test_kit_bom_decomposition_keeps_location(self):
+        self.clean_access_rights()
+        self.env.user.groups_id += self.env.ref('stock.group_stock_multi_locations')
+        self.picking_type_internal.active = True
+
+        final_2 = self.env['product.product'].create({
+            'name': 'final2',
+            'is_storable': True,
+            'barcode': 'final2',
+        })
+        for comp1, comp2, final_prod in [
+            (self.component01, self.product1, self.final_product),
+            (self.component01, self.product2, final_2),
+        ]:
+            self.env['mrp.bom'].create({
+                'product_tmpl_id': final_prod.product_tmpl_id.id,
+                'product_id': final_prod.id,
+                'product_qty': 1.0,
+                'type': 'phantom',
+                'bom_line_ids': [
+                    (0, 0, {'product_id': comp1.id, 'product_qty': 1.0}),
+                    (0, 0, {'product_id': comp2.id, 'product_qty': 1.0}),
+                ],
+            })
+
+        test_pickings = self.env['stock.picking']
+        for i in range(1, 3):
+            test_pickings += self.env['stock.picking'].create({
+                'name': f'test_kit_bom_decomposition_keeps_location_picking{i}',
+                'picking_type_id': self.picking_type_internal.id,
+                'location_id': self.stock_location.id,
+                'location_dest_id': self.stock_location.id,
+            })
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_kit_bom_decomposition_keeps_location', login='admin', timeout=180)
+
+        expected_move_line_vals_list = [
+            [
+                {'product_id': self.component01.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf1.id},
+                {'product_id': self.product1.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf1.id},
+                {'product_id': self.component01.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf2.id},
+                {'product_id': self.product1.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf2.id},
+            ],
+            [
+                {'product_id': self.component01.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf1.id},
+                {'product_id': self.product1.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf1.id},
+                {'product_id': self.component01.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf2.id},
+                {'product_id': self.product2.id, 'location_id': self.stock_location.id, 'location_dest_id': self.shelf2.id},
+            ]
+        ]
+
+        for test_picking, expected_move_line_vals in zip(test_pickings, expected_move_line_vals_list):
+            self.assertRecordValues(test_picking.move_line_ids, expected_move_line_vals)
