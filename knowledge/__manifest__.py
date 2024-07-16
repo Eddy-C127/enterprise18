@@ -67,8 +67,15 @@
             'knowledge/static/src/js/tools/**/*',
             'knowledge/static/src/webclient/**/*',
             'knowledge/static/src/views/**/*',
+            ('remove', 'knowledge/static/src/views/hierarchy/**'),
             'knowledge/static/src/services/**/*',
             'knowledge/static/src/macros/**/*',
+        ],
+        'web.assets_backend_lazy': [
+            'knowledge/static/src/views/hierarchy/**',
+        ],
+        'web.assets_backend_lazy_dark': [
+            'knowledge/static/src/scss/knowledge_views.dark.scss',
         ],
         "web.assets_web_dark": [
             'knowledge/static/src/scss/knowledge_views.dark.scss',
