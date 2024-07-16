@@ -244,10 +244,15 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
     in_modal: false,
     run: "click",
 }, {
-    trigger: "button[special='save']:enabled",
+    trigger: ".modal button[special='save']:enabled",
+    in_modal: false,
     content: "Save this shift once it is ready.",
     run: "click",
-}, {
+},
+{
+    trigger: "body:not(:has(.modal))",
+},
+{
     trigger: '.o_gantt_pill :contains("test_role")',
     content: "Click again on the newly assigned shift",
     run: "click",

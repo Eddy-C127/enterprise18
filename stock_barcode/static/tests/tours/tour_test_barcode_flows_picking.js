@@ -3837,23 +3837,26 @@ registry.category("web_tour.tours").add('test_put_in_pack_before_dest', {test: t
     },
 
     {
-        trigger: '.modal-title:contains("Choose destination location")',
-        run: "click",
-    },
-
-    {
-        trigger: '.o_field_widget[name="location_dest_id"] input',
-        run: 'click',
-    },
-    {
-        isActive: ["auto"],
-        trigger: '.ui-menu-item > a:contains("Section 2")',
+        trigger: '.modal .modal-title:contains("Choose destination location")',
         in_modal: false,
         run: "click",
     },
 
     {
-        trigger: '.o_field_widget[name="location_dest_id"]',
+        trigger: '.modal .o_field_widget[name="location_dest_id"] input',
+        in_modal: false,
+        run: 'click',
+    },
+    {
+        isActive: ["auto"],
+        trigger: '.modal .ui-menu-item > a:contains("Section 2")',
+        in_modal: false,
+        run: "click",
+    },
+
+    {
+        trigger: '.modal .o_field_widget[name="location_dest_id"]',
+        in_modal: false,
         run: function () {
             helper.assert(
                 document.querySelector('.o_field_widget[name="location_dest_id"] input').value,
@@ -3863,8 +3866,12 @@ registry.category("web_tour.tours").add('test_put_in_pack_before_dest', {test: t
     },
 
     {
-        trigger: '.btn-primary',
+        trigger: '.modal .btn-primary',
+        in_modal: false,
         run: "click",
+    },
+    {
+        trigger: "body:not(:has(.modal))",
     },
     ...stepUtils.validateBarcodeOperation(),
 ]});

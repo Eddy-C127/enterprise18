@@ -51,8 +51,12 @@ registry
             configuratorTourUtils.assertOptionalProductPriceInfo("Optional product", "per month"),
             {
                 content: "Confirm the configurator",
-                trigger: 'button:contains(Confirm)',
+                trigger: ".modal button:contains(Confirm)",
+                in_modal: false,
                 run: 'click',
+            },
+            {
+                trigger: "body:not(:has(.modal))",
             },
             // Don't end the tour with a form in edition mode.
             ...tourUtils.saveForm(),

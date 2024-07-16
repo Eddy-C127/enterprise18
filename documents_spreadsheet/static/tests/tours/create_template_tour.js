@@ -42,9 +42,13 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
             run: "click",
         },
         {
-            trigger: `button[name="save_template"]`,
+            trigger: `.modal button[name="save_template"]`,
+            in_modal: false,
             content: "Save as template",
             run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
         },
         {
             trigger: ".o-sp-breadcrumb",

@@ -123,35 +123,50 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     // open the share dropdown
     trigger: '.o_knowledge_header .btn:contains("Share")',
     run: "click",
-}, {
-    // click on 'Invite'
-    trigger: '.o_knowledge_share_panel .btn:contains("Invite")',
-    run: "click",
-}, {
-    // Type the invited person's name
-    trigger: '.o_field_many2many_tags_email[name=partner_ids] input',
-    run: "edit micheline@knowledge.com",
-}, {
-    // Open the simplified create form view
-    trigger: '.o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a',
-    run: "click",
-}, {
-    // Give an email address to the partner
-    trigger: '.o_field_widget[name=email] input',
-    run: "edit micheline@knowledge.com",
-}, {
-    // Save the new partner
-    trigger: '.o_form_button_save',
-    run: "click",
-},
-{
-    trigger: ".o_field_tags span.o_badge_text",
-},
-{
-    // Submit the invite wizard
-    trigger: 'button:contains("Invite")',
-    run: "click",
-}, {
+        },
+        {
+            content: "click on 'Invite'",
+            trigger: '.o_knowledge_share_panel .btn:contains("Invite")',
+            in_modal: false,
+            run: "click",
+        },
+        {
+            content: "Type the invited person's name",
+            trigger: ".o_field_many2many_tags_email[name=partner_ids] input",
+            in_modal: false,
+            run: "edit micheline@knowledge.com",
+        },
+        {
+            content: "Open the simplified create form view",
+            trigger: ".o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a",
+            in_modal: false,
+            run: "click",
+        },
+        {
+            content: "Give an email address to the partner",
+            trigger: ".modal .o_field_widget[name=email] input",
+            in_modal: false,
+            run: "edit micheline@knowledge.com",
+        },
+        {
+            content: "Save the new partner",
+            in_modal: false,
+            trigger: ".modal .o_form_button_save",
+            run: "click",
+        },
+        {
+            trigger: ".o_field_tags span.o_badge_text",
+        },
+        {
+            // Submit the invite wizard
+            trigger: '.modal button:contains("Invite")',
+            in_modal: false,
+            run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
+        },
+        {
     // add to favorite
     trigger: '.o_knowledge_toggle_favorite',
     run: "click",

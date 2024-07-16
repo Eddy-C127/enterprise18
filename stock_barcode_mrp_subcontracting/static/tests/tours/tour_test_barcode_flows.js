@@ -113,31 +113,42 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_product', {test: true, steps: () => [
-    {
-        trigger: 'button.btn-secondary.o_mrp_subcontracting',
-        run: "click",
-    },
+registry.category("web_tour.tours").add("test_receipt_flexible_subcontracted_product", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "button.btn-secondary.o_mrp_subcontracting",
+            in_modal: false,
+            run: "click",
+        },
 
-    {
-        trigger: ".o_field_widget[name=qty_producing] input",
-        position: "right",
-        run: "edit 1 && click body",
-    },
-    {
-        trigger: "div[name=move_line_raw_ids] td[name=quantity]",
-        run: "click",
-    },
+        {
+            trigger: ".modal .o_field_widget[name=qty_producing] input",
+            in_modal: false,
+            position: "right",
+            run: "edit 1 && click .modal-body",
+        },
+        {
+            trigger: ".modal div[name=move_line_raw_ids] td[name=quantity]",
+            in_modal: false,
+            run: "click",
+        },
 
-    {
-        trigger: "div[name=move_line_raw_ids] [name=quantity] input",
-        run: "edit 2",
-    },
-    {
-        trigger: ".modal-footer .btn-primary[name=subcontracting_record_component]",
-        content: _t('Record production'),
-        position: "bottom",
-        run: "click",
-    },
-    ...stepUtils.validateBarcodeOperation(),
-]});
+        {
+            trigger: ".modal div[name=move_line_raw_ids] [name=quantity] input",
+            in_modal: false,
+            run: "edit 2",
+        },
+        {
+            trigger: ".modal .modal-footer .btn-primary[name=subcontracting_record_component]",
+            in_modal: false,
+            content: _t("Record production"),
+            position: "bottom",
+            run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
+        },
+        ...stepUtils.validateBarcodeOperation(),
+    ],
+});

@@ -709,9 +709,6 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: 'button:contains("Invite")',
             run: "click",
         },
-        {
-            trigger: "body:not(:has(.modal))",
-        },
         // Publish child of private article
         {
             content: "Open private child",

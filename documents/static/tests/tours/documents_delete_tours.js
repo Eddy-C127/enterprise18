@@ -36,14 +36,19 @@ function deleteWorspaceSteps() {
             run: "click",
         },
         {
-            trigger: ".modal-footer .btn-outline-danger",
+            trigger: ".modal .modal-footer .btn-outline-danger",
+            in_modal: false,
             content: "Delete workspace",
             run: "click",
         },
         {
-            trigger: "button:has(span:contains('Move to trash'))",
+            trigger: ".modal button:contains(Move to trash)",
+            in_modal: false,
             content: "Confirm",
             run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
         },
     ];
 }

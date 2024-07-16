@@ -25,6 +25,9 @@ registry.category("web_tour.tours").add("pos_settle_account_due", {
             Utils.selectButton("Yes"),
             ProductScreen.closePos(),
             Dialog.confirm("Close Register"),
+            {
+                trigger: "body:not(:has(.modal))",
+            },
             Chrome.endTour(),
         ].flat(),
 });
