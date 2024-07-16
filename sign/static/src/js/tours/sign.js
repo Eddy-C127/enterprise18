@@ -76,8 +76,8 @@ registry.category("web_tour.tours").add("sign_tour", {
             run: "click",
         },
         {
-            trigger: ":iframe .o_sign_sign_item_navigator",
-            alt_trigger: ":iframe .o_sign_sign_item[data-signature]",
+            trigger:
+                ":iframe .o_sign_sign_item_navigator, :iframe .o_sign_sign_item[data-signature]",
             content: markup(
                 _t(
                     "Draw your most beautiful signature!<br>You can also create one automatically or load a signature from your computer."

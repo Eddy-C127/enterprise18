@@ -47,8 +47,8 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger: ".o_fsm_product_kanban_view",
             },
             {
-                trigger: ".o_kanban_record:first-child button:has(i.fa-shopping-cart)",
-                alt_trigger: ".o_fsm_product_kanban_view .o_kanban_record",
+                trigger:
+                    ".o_kanban_record:first-child button:has(i.fa-shopping-cart), .o_fsm_product_kanban_view .o_kanban_record",
             content: markup(_t('Click on a product to add it to your <b>list of materials</b>. <i>Tip: for large quantities, click on the number to edit it directly.</i>')),
                 position: "right",
                 run: "click",

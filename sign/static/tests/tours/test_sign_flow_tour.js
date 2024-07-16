@@ -116,8 +116,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         },
         {
             content: "view",
-            trigger: ".modal-footer button.btn-primary",
-            alt_trigger: ".modal-footer button.btn-secondary",
+            trigger: ".modal-footer button.btn-primary, .modal-footer button.btn-secondary",
             run: "click",
         },
     ],
