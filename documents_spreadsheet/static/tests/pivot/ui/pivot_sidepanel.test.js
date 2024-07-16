@@ -582,7 +582,7 @@ test("add measure", async function () {
     expect(definition.rows).toEqual([{ name: "bar" }]);
     expect(definition.measures).toEqual([
         { name: "probability", aggregator: "avg" },
-        { name: "__count" },
+        { name: "__count", aggregator: "sum" },
     ]);
 });
 
