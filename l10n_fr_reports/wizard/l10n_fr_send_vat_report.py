@@ -222,11 +222,11 @@ class L10nFrSendVatReport(models.TransientModel):
             {'id': 'HA', 'value': None},  # amount of payment
             {'id': 'KA', 'value': None},  # payment reference
         ]
-
+        is_neutralized = self.env['ir.config_parameter'].sudo().get_param('database.is_neutralized')
         return {
             'date_from': dt_from,
             'date_to': dt_to,
-            'is_test': '1' if self.test_interchange else '0',
+            'is_test': '1' if self.test_interchange or is_neutralized else '0',
             'type': "INFENT",  # constant
             'declarations': [{
                 'type': "IDT",  # depends on the procedure
