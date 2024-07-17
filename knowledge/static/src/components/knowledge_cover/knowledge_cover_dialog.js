@@ -4,7 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { AutoResizeImage, ImageSelector } from '@web_editor/components/media_dialog/image_selector';
 import { ConfirmationDialog } from '@web/core/confirmation_dialog/confirmation_dialog';
 import { Dialog } from '@web/core/dialog/dialog';
-import { UnsplashError } from '@web_unsplash/components/media_dialog/image_selector';
+import { UnsplashError } from '@web_unsplash/unsplash_error/unsplash_error';
 import { useService, useChildRef } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
@@ -73,7 +73,7 @@ export class KnowledgeCoverSelector extends ImageSelector {
      * Upload the unsplash image clicked.
      */
     onClickRecord(unsplashRecord) {
-        this.uploadService.uploadUnsplashRecords(
+        this.unsplashService.uploadUnsplashRecords(
             [unsplashRecord],
             {resModel: this.props.resModel, resId: this.props.resId},
             async (attachments) => this.onUploaded(attachments[0])
