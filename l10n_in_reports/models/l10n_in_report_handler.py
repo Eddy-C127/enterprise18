@@ -131,6 +131,20 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
         ).product_id.uom_id.ids
         return 'l10n_in_reports.invalid_uqc_code_warning', invalid_uqc_codes
 
+    @api.model
+    def _get_out_of_fiscal_year_reversed_moves(self, options):
+        out_of_fiscal_year_reversed_moves = self.env['account.move'].search(
+            [
+                ('date', '>=', options['date']['date_from']),
+                ('date', '<=', options['date']['date_to']),
+                ('move_type', '=', 'out_refund'),
+                ('state', '=', 'posted'),
+                ('reversed_entry_id', '!=', False),
+                ('line_ids.tax_tag_ids', '!=', False),
+            ]
+        ).filtered(lambda move: move.reversed_entry_id.invoice_date < move.get_fiscal_year_start_date(move.company_id, move.invoice_date)).ids
+        return 'l10n_in_reports.out_of_fiscal_year_reversed_moves_warning', out_of_fiscal_year_reversed_moves
+
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
         if warnings is not None:
             hsn_base_line_expression = self.env.ref('l10n_in_reports.account_report_gstr1_hsn_taxable_amount_balance')
@@ -153,6 +167,7 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
                 self._get_invalid_service_hsn_products(aml_domain),
                 self._get_invalid_goods_hsn_products(aml_domain),
                 self._get_invalid_uqc_codes(aml_domain),
+                self._get_out_of_fiscal_year_reversed_moves(options)
             ]
 
             for warning_template_ref, wrong_data in all_checks:
@@ -197,3 +212,7 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
     @api.model
     def open_invalid_uqc_codes(self, options, params):
         return self._l10n_in_open_action(_('Invalid UQC Code'), 'uom.uom', [(False, 'list'), (False, 'form')], params)
+
+    @api.model
+    def open_out_of_fiscal_year_reversed_moves(self, options, params):
+        return self._l10n_in_open_action(_('Credit Notes'), 'account.move', [(False, 'list'), (False, 'form')], params)

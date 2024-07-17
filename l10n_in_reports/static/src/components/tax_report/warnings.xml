@@ -56,4 +56,14 @@
         </span>
     </t>
 
+    <t t-name="l10n_in_reports.out_of_fiscal_year_reversed_moves_warning">
+        <span>
+            Some
+            <a type="button" t-on-click="(ev) => controller.reportAction(ev, 'open_out_of_fiscal_year_reversed_moves', warningParams)">
+                Credit Notes
+            </a>
+            for invoices issued during financial year shouldn't be in GSTR-1 after November 30th, so it's advisable to remove the tax from it
+        </span>
+    </t>
+
 </templates>
