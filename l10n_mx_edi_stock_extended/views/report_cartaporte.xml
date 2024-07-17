@@ -2,7 +2,7 @@
 <odoo>
     <template id="l10n_mx_edi_stock_report_cartaporte" inherit_id="l10n_mx_edi_stock.l10n_mx_edi_stock_report_cartaporte">
         <xpath expr="//div[@id='mx_edi_detail_cartaporte']" position="inside">
-            <div t-if="cartaporte_values.get('regimen_aduanero')">Regimen Aduanero: <t t-out="cartaporte_values['regimen_aduanero']"/></div>
+            <div name="regimenes_aduanero" t-if="cartaporte_values.get('regimenes_aduanero')" class="lh-1">Regimenes Aduanero: <t t-out="cartaporte_values['regimenes_aduanero']"/></div>
             <div t-if="cartaporte_values.get('entrada_salida_merc')">Entrada/Salida de Mercancia: <t t-out="cartaporte_values['entrada_salida_merc']"/></div>
         </xpath>
 

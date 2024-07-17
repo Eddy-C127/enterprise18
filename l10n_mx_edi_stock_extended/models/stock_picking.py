@@ -8,12 +8,11 @@ from .product_template import MX_PACKAGING_CATALOG
 class Picking(models.Model):
     _inherit = 'stock.picking'
 
-    # DEPRECATED -> This field has been replaced by a Many2many in 'l10n_mx_edi_stock_extended_31'
-    l10n_mx_edi_customs_regime_id = fields.Many2one(
-        string="Customs Regime",
-        help="Regime associated to the good's transfer (import or export).",
+    l10n_mx_edi_customs_regime_ids = fields.Many2many(
+        string="Customs Regimes",
+        help="Regimes associated to the good's transfer (import or export).",
         comodel_name='l10n_mx_edi.customs.regime',
-        ondelete="restrict",
+        ondelete='restrict',
     )
     l10n_mx_edi_customs_document_type_id = fields.Many2one(
         string="Customs Document Type",
@@ -107,4 +106,4 @@ class Picking(models.Model):
 
             if self.picking_type_code in ('outgoing', 'incoming'):
                 cfdi_values['entrada_salida_merc'] = 'Salida' if self.picking_type_code == 'outgoing' else 'Entrada'
-                cfdi_values['regimen_aduanero'] = self.l10n_mx_edi_customs_regime_id.code
+                cfdi_values['regimenes_aduanero'] = self.l10n_mx_edi_customs_regime_ids.mapped('code')
