@@ -309,15 +309,17 @@ class AccountMoveLine(models.Model):
         return super()._get_computed_taxes()
 
     def turn_as_asset(self):
+        if len(self.company_id) != 1:
+            raise UserError(_("All the lines should be from the same company"))
+        if any(line.move_id.state == 'draft' for line in self):
+            raise UserError(_("All the lines should be posted"))
+        if any(account != self[0].account_id for account in self.mapped('account_id')):
+            raise UserError(_("All the lines should be from the same account"))
         ctx = self.env.context.copy()
         ctx.update({
             'default_original_move_line_ids': [(6, False, self.env.context['active_ids'])],
             'default_company_id': self.company_id.id,
         })
-        if any(line.move_id.state == 'draft' for line in self):
-            raise UserError(_("All the lines should be posted"))
-        if any(account != self[0].account_id for account in self.mapped('account_id')):
-            raise UserError(_("All the lines should be from the same account"))
         return {
             "name": _("Turn as an asset"),
             "type": "ir.actions.act_window",
