@@ -17,6 +17,14 @@
             <div class="o_side_panel_title">Model</div>
             <div class="o_model_name"><t t-esc="def.modelDisplayName"/> (<t t-esc="def.model"/>)</div>
         </div>
+        <Section class="'o_side_panel_section'">
+            <div class="o_side_panel_title">
+                Columns
+            </div>
+            <div t-foreach="getColumnFields()" t-as="field" t-key="field.name">
+                <div t-esc="field.string" t-att-title="field.name"/>
+            </div>
+        </Section>
         <div class="o_side_panel_section">
             <div class="o_side_panel_title">Domain</div>
             <DomainSelector resModel="def.model" domain="def.domain" t-key="'list_' + def.id"/>
@@ -24,12 +32,12 @@
                 <i class="oi oi-arrow-right me-1"/>Edit domain
             </div>
         </div>
-        <div class="o_side_panel_section" t-if="def.orderBy.length !== 0">
-            <div class="o_side_panel_title">Sorting</div>
-            <t t-foreach="def.orderBy" t-as="sort" t-key="sort_index">
-                <div t-esc="formatSort(sort)"/>
-            </t>
-        </div>
+        <EditListSortingSection
+            resModel="def.model"
+            orderBy="def.orderBy"
+            fields="listFields"
+            onUpdateSorting.bind="this.onUpdateSorting"
+        />
         <Section class="'o_side_panel_section pt-0'">
             <div class="o_pivot_last_update text-muted"><i>Last updated at <t t-esc="getLastUpdate()"/></i></div>
         </Section>

@@ -176,6 +176,31 @@ test("remove and update a domain of a list concurrently", async () => {
     );
 });
 
+test("remove and update a sorting of a list concurrently", async () => {
+    insertList(alice, "1");
+    await network.concurrent(() => {
+        const listDefinition = alice.getters.getListModelDefinition("1");
+        alice.dispatch("REMOVE_ODOO_LIST", {
+            listId: "1",
+        });
+        const orderBy = [{ name: "foo", asc: true }];
+        bob.dispatch("UPDATE_ODOO_LIST", {
+            listId: "1",
+            list: {
+                ...listDefinition,
+                searchParams: {
+                    ...listDefinition.searchParams,
+                    orderBy: orderBy,
+                },
+            },
+        });
+    });
+    spExpect([alice, bob, charlie]).toHaveSynchronizedValue(
+        (user) => user.getters.getListIds().length,
+        0
+    );
+});
+
 test("Duplicate and remove list at the same time concurrently", async () => {
     insertList(alice, "1");
     await network.concurrent(() => {

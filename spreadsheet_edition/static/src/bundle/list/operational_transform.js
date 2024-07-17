@@ -16,7 +16,7 @@ otRegistry
     )
     .addTransformation(
         "REMOVE_ODOO_LIST",
-        ["RENAME_ODOO_LIST", "UPDATE_ODOO_LIST_DOMAIN"],
+        ["RENAME_ODOO_LIST", "UPDATE_ODOO_LIST_DOMAIN", "UPDATE_ODOO_LIST"],
         (toTransform, executed) => {
             if (toTransform.listId === executed.listId) {
                 return undefined;

@@ -170,14 +170,16 @@ test("Open list properties", async function () {
     expect(title).toBe("List properties");
 
     const sections = target.querySelectorAll(".o_side_panel_section");
-    expect(sections.length).toBe(4, { message: "it should have 4 sections" });
-    const [pivotName, pivotModel, domain] = sections;
+    expect(sections.length).toBe(6, { message: "it should have 6 sections" });
+    const [listName, listModel, columns, domain] = sections;
 
-    expect(pivotName.children[0]).toHaveText("List Name");
-    expect(pivotName.children[1]).toHaveText("(#1) Partners");
+    expect(listName.children[0]).toHaveText("List Name");
+    expect(listName.children[1]).toHaveText("(#1) Partners");
 
-    expect(pivotModel.children[0]).toHaveText("Model");
-    expect(pivotModel.children[1]).toHaveText("Partner (partner)");
+    expect(listModel.children[0]).toHaveText("Model");
+    expect(listModel.children[1]).toHaveText("Partner (partner)");
+
+    expect(columns.children[0]).toHaveText("Columns");
 
     expect(domain.children[0]).toHaveText("Domain");
     expect(domain.children[1]).toHaveText("Match all records\nInclude archived");
@@ -261,7 +263,10 @@ test("Add list in an existing spreadsheet", async () => {
     const list = model.getters.getListDefinition("1");
     const fields = model.getters.getListDataSource("1").getFields();
     const callback = insertList.bind({ isEmptySpreadsheet: false })({
-        list: list,
+        list: {
+            ...list,
+            columns: list.columns.map((col) => ({ name: col })),
+        },
         threshold: 10,
         fields: fields,
         name: "my list",
@@ -729,6 +734,185 @@ test("Update the list domain from the side panel", async function () {
     expect(dsHelpers.getConditionText(fixture)).toBe("Id = 1");
 });
 
+test("Update the list sorting from the side panel", async function () {
+    const { model, env } = await createSpreadsheetFromListView();
+    const [listId] = model.getters.getListIds();
+    env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
+    await animationFrame();
+    await contains(".add-dimension").click();
+    for (let i = 0; i < 5; i++) {
+        await contains(".o-popover input").press("ArrowDown");
+    }
+    await contains(".o-autocomplete-value-focus").click();
+    expect(model.getters.getListDefinition(listId).orderBy).toEqual([{ name: "date", asc: true }]);
+    await contains(".add-dimension").click();
+    for (let i = 0; i < 7; i++) {
+        await contains(".o-popover input").press("ArrowDown");
+    }
+    await contains(".o-autocomplete-value-focus").click();
+    const fixture = getFixture();
+    fixture.querySelector(".o-select-order").value = false;
+    fixture.querySelector(".o-select-order").dispatchEvent(new Event("change"));
+    expect(model.getters.getListDefinition(listId).orderBy).toEqual([
+        { name: "date", asc: false },
+        { name: "foo", asc: true },
+    ]);
+    model.dispatch("REQUEST_UNDO");
+    expect(model.getters.getListDefinition(listId).orderBy).toEqual([
+        { name: "date", asc: true },
+        { name: "foo", asc: true },
+    ]);
+    await contains(".o-delete-rule").click();
+    expect(model.getters.getListDefinition(listId).orderBy).toEqual([{ name: "foo", asc: true }]);
+});
+
+test("List sorting selector should display only sortable fields", async function () {
+    Partner._fields.foo = fields.Integer({ sortable: false });
+    Partner._fields.bar = fields.Boolean({ sortable: false });
+    const { model, env } = await createSpreadsheetFromListView({});
+    const [listId] = model.getters.getListIds();
+    const fixture = getFixture();
+    env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
+    await animationFrame();
+    await contains(".add-dimension").click();
+    const options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+    const availableFields = options.map((el) => el.innerText);
+    expect(availableFields).toEqual([
+        "Active",
+        "Creation Date",
+        "Currency",
+        "Date",
+        "Display name",
+        "field_with_array_agg",
+        "Id",
+        "Json Field",
+        "Last Modified on",
+        "Money!",
+        "name",
+        "Probability",
+        "Product",
+        "Properties",
+        "Tags",
+        "Users",
+    ]);
+});
+
+test("List sorting selector should not display already used fields", async function () {
+    Partner._fields.foo = fields.Integer({ sortable: false });
+    Partner._fields.bar = fields.Boolean({ sortable: false });
+    const { model, env } = await createSpreadsheetFromListView({});
+    const [listId] = model.getters.getListIds();
+    const fixture = getFixture();
+    env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
+    await animationFrame();
+    await contains(".add-dimension").click();
+    await contains(".o-popover input").press("ArrowDown");
+    await contains(".o-popover input").press("ArrowDown");
+    await contains(".o-autocomplete-value-focus").click();
+    await contains(".add-dimension").click();
+    let options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+    let availableFields = options.map((el) => el.innerText);
+    expect(availableFields).toEqual([
+        "Active",
+        /* "Creation Date", this field should not be available anymore as it is used */
+        "Currency",
+        "Date",
+        "Display name",
+        "field_with_array_agg",
+        "Id",
+        "Json Field",
+        "Last Modified on",
+        "Money!",
+        "name",
+        "Probability",
+        "Product",
+        "Properties",
+        "Tags",
+        "Users",
+    ]);
+    await contains(".o-popover input").press("ArrowDown");
+    await contains(".o-popover input").press("ArrowDown");
+    await contains(".o-autocomplete-value-focus").click();
+    await contains(".add-dimension").click();
+    options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+    availableFields = options.map((el) => el.innerText);
+    expect(availableFields).toEqual([
+        "Active",
+        /* "Creation Date", this field should not be available anymore as it is used */
+        /* "Currency", this field should not be available anymore as it is used */
+        "Date",
+        "Display name",
+        "field_with_array_agg",
+        "Id",
+        "Json Field",
+        "Last Modified on",
+        "Money!",
+        "name",
+        "Probability",
+        "Product",
+        "Properties",
+        "Tags",
+        "Users",
+    ]);
+});
+
+test("List sorting selector should display used fields again when corresponding rule is deleted", async function () {
+    Partner._fields.foo = fields.Integer({ sortable: false });
+    Partner._fields.bar = fields.Boolean({ sortable: false });
+    const { model, env } = await createSpreadsheetFromListView({});
+    const [listId] = model.getters.getListIds();
+    const fixture = getFixture();
+    env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
+    await animationFrame();
+    await contains(".add-dimension").click();
+    await contains(".o-popover input").press("ArrowDown");
+    await contains(".o-popover input").press("ArrowDown");
+    await contains(".o-autocomplete-value-focus").click();
+    await contains(".add-dimension").click();
+    let options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+    let availableFields = options.map((el) => el.innerText);
+    expect(availableFields).toEqual([
+        "Active",
+        /* "Creation Date", this field should not be available anymore as it is used */
+        "Currency",
+        "Date",
+        "Display name",
+        "field_with_array_agg",
+        "Id",
+        "Json Field",
+        "Last Modified on",
+        "Money!",
+        "name",
+        "Probability",
+        "Product",
+        "Properties",
+        "Tags",
+        "Users",
+    ]);
+    await contains(".o-delete-rule").click();
+    await contains(".add-dimension").click();
+    options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
+    availableFields = options.map((el) => el.innerText);
+    expect(availableFields).toEqual([
+        "Active",
+        "Creation Date",
+        "Currency",
+        "Date",
+        "Display name",
+        "field_with_array_agg",
+        "Id",
+        "Json Field",
+        "Last Modified on",
+        "Money!",
+        "name",
+        "Probability",
+        "Product",
+        "Properties",
+        "Tags",
+        "Users",
+    ]);
+});
+
 test("Inserting a list preserves the ascending sorting from the list", async function () {
     const serverData = getBasicServerData();
     Partner._fields.foo.sortable = true;
@@ -783,11 +967,14 @@ test("Sorting from the list is displayed in the properties panel", async functio
     env.openSidePanel("LIST_PROPERTIES_PANEL", { listId });
     await animationFrame();
     const fixture = getFixture();
-    const sortingSection = fixture.querySelectorAll(".o_side_panel_section")[3];
-    const barSortingText = sortingSection.querySelectorAll("div")[1].innerText;
-    const fooSortingText = sortingSection.querySelectorAll("div")[2].innerText;
-    expect(barSortingText).toBe("Bar (descending)");
-    expect(fooSortingText).toBe("Foo (ascending)");
+    const sortingRuleCards = fixture.querySelectorAll(".o_sorting_rule_column");
+    expect(sortingRuleCards[0].innerText).toBe("Bar");
+    expect(sortingRuleCards[1].innerText).toBe("Foo");
+    const selectOrderDropdowns = fixture.querySelectorAll(".o-select-order");
+    /** Bar should be descending */
+    expect(selectOrderDropdowns[0].value).toBe("false");
+    /** Foo should be ascending */
+    expect(selectOrderDropdowns[1].value).toBe("true");
 });
 
 test("Opening the sidepanel of a list while the panel of another list is open updates the side panel", async function () {

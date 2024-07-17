@@ -23,6 +23,7 @@ sidePanelRegistry.add("LIST_PROPERTIES_PANEL", {
         return {
             isOpen: getters.isExistingList(initialProps.listId),
             props: initialProps,
+            key: initialProps.listId,
         };
     },
 });
