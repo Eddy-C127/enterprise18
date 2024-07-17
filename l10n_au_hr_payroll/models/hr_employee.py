@@ -4,6 +4,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from odoo.tools.float_utils import float_compare
 
+
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
@@ -17,7 +18,8 @@ class HrEmployee(models.Model):
         string="TFN Status",
         default="000000000",
         required=True,
-        groups="hr.group_hr_user")
+        groups="hr.group_hr_user",
+        help="TFN Declaration status of the employee. All options except 'Declaration not completed...' will be treated as TFN provided.")
     l10n_au_tfn = fields.Char(
         string="Tax File Number",
         compute="_compute_l10n_au_tfn",
@@ -30,22 +32,6 @@ class HrEmployee(models.Model):
         inverse="_inverse_l10n_au_abn",
         store=True,
         readonly=False,
-        groups="hr.group_hr_user")
-    l10n_au_scale = fields.Selection(
-        selection=[
-            ("1", "(1) National, tax-free threshold NOT claimed"),
-            ("2", "(2) National, tax-free threshold claimed"),
-            ("3", "(3) Foreign resident"),
-            ("4", "(4) TFN not provided"),
-            ("5", "(5) Medicare levy full exemption claimed"),
-            ("6", "(6) Medicare levy half exemption claimed")],
-        string="Scale For Withholding",
-        compute="_compute_l10n_au_scale",
-        inverse="_inverse_l10n_au_scale",
-        store=True,
-        required=True,
-        readonly=False,
-        precompute=True,
         groups="hr.group_hr_user")
     l10n_au_nat_3093_amount = fields.Float(
         string="Estimated Tax Offset",
@@ -81,10 +67,25 @@ class HrEmployee(models.Model):
         default="X",
         groups="hr.group_hr_user",
         required=True)
-    l10n_au_medicare_reduction = fields.Char(
+    l10n_au_medicare_reduction = fields.Selection(
+        selection=[
+            ("X", "Not Applicable"),
+            ("0", "Spouse Only"),
+            ("1", "1 Child"),
+            ("2", "2 Children"),
+            ("3", "3 Childern"),
+            ("4", "4 Childern"),
+            ("5", "5 Childern"),
+            ("6", "6 Childern"),
+            ("7", "7 Childern"),
+            ("8", "8 Childern"),
+            ("9", "9 Childern"),
+            ("A", "10+ Childern"),
+        ],
         string="Medicare levy reduction",
         compute="_compute_l10n_au_medicare_reduction",
         store=True,
+        readonly=False,
         groups="hr.group_hr_user",
         help="Medicare levy reduction, dependent on marital status and number of children")
     l10n_au_tax_free_threshold = fields.Boolean(
@@ -114,12 +115,275 @@ class HrEmployee(models.Model):
         string="Child Support Garnishee Amount",
         groups="hr.group_hr_user")
     super_account_warning = fields.Text(compute="_compute_proportion_warnings", groups="hr.group_hr_user")
+    l10n_au_employment_basis_code = fields.Selection(
+        selection=[
+            ("F", "Full time"),
+            ("P", "Part time"),
+            ("C", "Casual"),
+            ("L", "Labour hire"),
+            ("V", "Voluntary agreement"),
+            ("D", "Death beneficiary"),
+            ("N", "Non-employee")],
+        string="Employment Type",
+        default="F",
+        required=True,
+        groups="hr.group_hr_user"
+    )
+    l10n_au_tax_treatment_category = fields.Selection(
+        selection=[
+            ("R", "Regular"),
+            ("A", "Actor"),
+            ("C", "Horticulture & Shearing"),
+            ("S", "Seniors & Pensioners"),
+            ("H", "Working Holiday Makers"),
+            ("W", "Seasonal Worker Program"),
+            ("F", "Foreign Resident"),
+            ("N", "No TFN"),
+            ("D", "ATO-defined"),
+            ("V", "Voluntary Agreement")],
+        default="R",
+        required=True,
+        string="Tax Treatment Category",
+        groups="hr.group_hr_user")
+    l10n_au_income_stream_type = fields.Selection(
+        selection=[
+            ("SAW", "Salary and wages"),
+            ("CHP", "Closely held payees"),
+            ("IAA", "Inbound assignees to Australia"),
+            ("WHM", "Working holiday makers"),
+            ("SWP", "Seasonal worker programme"),
+            ("FEI", "Foreign employment income"),
+            ("JPD", "Joint petroleum development area"),
+            ("VOL", "Voluntary agreement"),
+            ("LAB", "Labour hire"),
+            ("OSP", "Other specified payments")],
+        string="Income Stream Type", default="SAW",
+        compute="_compute_l10n_au_income_stream_type",
+        precompute=True,
+        store=True, readonly=False, required=True,
+        groups="hr.group_hr_user")
+    l10n_au_tax_treatment_option_actor = fields.Selection(
+        selection=[
+            ("D", "Daily Performer"),
+            ("P", "Promotional Activity")
+        ], string="Actor Option", groups="hr.group_hr_user")
+    l10n_au_less_than_3_performance = fields.Boolean(string="Less than 3 Performances", groups="hr.group_hr_user")
+    l10n_au_tax_treatment_option_voluntary = fields.Selection(
+        selection=[
+            ("C", "Commissioner's Instalment Rate"),
+            ("O", "Other Rate"),
+        ], string="Voluntary Agreement Option", groups="hr.group_hr_user")
+    l10n_au_tax_treatment_option_seniors = fields.Selection(
+        selection=[
+            ("S", "Single"),
+            ("M", "Married"),
+            ("I", "Illness-separated"),
+        ], string="Seniors Option", groups="hr.group_hr_user")
+    l10n_au_comissioners_installment_rate = fields.Float(
+        string="Commissioner's Instalment Rate", groups="hr.group_hr_user")
+    l10n_au_tax_treatment_code = fields.Char(
+        string="Tax Code", store=True,
+        compute="_compute_l10n_au_tax_treatment_code",
+        groups="hr.group_hr_user"
+    )
+    l10n_au_work_country_id = fields.Many2one(
+        "res.country", string="Country", help="Country where the work is performed", groups="hr.group_hr_user"
+    )
+    l10n_au_withholding_variation = fields.Selection(
+        selection=[
+            ("none", "None"),
+            ("salaries", "Salaries"),
+            ("leaves", "Salaries and Unused Leaves"),
+        ],
+        string="Withholding Variation",
+        default="none",
+        groups="hr.group_hr_user",
+        required=True,
+        help="Employee has a custom withholding rate.",
+    )
+    l10n_au_withholding_variation_amount = fields.Float(string="Withholding Variation Rate", groups="hr.group_hr_user")
+    l10n_au_additional_withholding_amount = fields.Monetary(
+        string="Additional Withholding Amount",
+        groups="hr.group_hr_user",
+        help="Additional amount will be withheld from the employee's salary after PAYG withholding. (Schedule 14)")
+
+    # == CRUD Methods ==
+
+    def write(self, vals):
+        if 'l10n_au_tax_treatment_category' in vals and vals.get('l10n_au_tax_treatment_category') != 'H':
+            vals['l10n_au_nat_3093_amount'] = 0
+        return super().write(vals)
+
+    # == Constraints ==
+
+    @api.constrains(
+        "l10n_au_tax_treatment_category",
+        "l10n_au_income_stream_type",
+        "l10n_au_tfn_declaration",
+        "l10n_au_tax_free_threshold",
+        "is_non_resident",
+    )
+    def _check_l10n_au_tax_treatment(self):
+        for rec in self:
+            if rec.company_country_code != "AU":
+                continue
+            # TFN Declaration Constraints
+            elif rec.l10n_au_tfn_declaration != "000000000" and rec.l10n_au_tax_treatment_category == "N":
+                raise ValidationError(_("The Employee has a TFN provided so the No TFN tax treatment category cannot be used."))
+            # Tax-Free Threshold Constraints
+            if rec.is_non_resident and rec.l10n_au_tax_free_threshold:
+                raise ValidationError(_("A foreign resident cannot claim the tax-free threshold"))
+            # Tax treatment category constraints
+            if rec.l10n_au_tax_treatment_category == "V" and rec.l10n_au_income_stream_type != "VOL":
+                raise ValidationError(_("Income Stream Type should be VOL for Tax Treatment Category V."))
+            elif rec.l10n_au_tax_treatment_category == "H" and rec.l10n_au_income_stream_type != "WHM":
+                raise ValidationError(_("Income Stream Type should be WHM for Tax Treatment Category H."))
+            elif rec.l10n_au_tax_treatment_category == "C":
+                if not (rec.l10n_au_tax_free_threshold or rec.is_non_resident):
+                    raise ValidationError(_("Horticulturist must claim the Tax-free Threshold or be a Foreign Resident."))
+            elif rec.l10n_au_tax_treatment_category == "W" and rec.l10n_au_income_stream_type != "SWP":
+                raise ValidationError(_("Income Stream Type should be SWP for Tax Treatment Category W."))
+            elif rec.l10n_au_tax_treatment_category == "S" and rec.is_non_resident:
+                raise ValidationError(_("Seniors cannot be a foreign resident for tax purposes"))
+            elif rec.l10n_au_tax_treatment_category == "F" and not rec.is_non_resident:
+                raise ValidationError(_("Employees with Foreign Resident tax category must be a foreign resident for tax purposes."))
+
+    @api.constrains(
+        'l10n_au_tax_treatment_category',
+        'l10n_au_tax_treatment_option_actor',
+        'l10n_au_tax_treatment_option_voluntary',
+        'l10n_au_tax_treatment_option_seniors',
+        'l10n_au_employment_basis_code',
+    )
+    def _check_l10n_au_tax_treatment_option(self):
+        for rec in self:
+            if rec.l10n_au_tax_treatment_category == "V" and not rec.l10n_au_tax_treatment_option_voluntary:
+                raise ValidationError(_("Voluntary Agreement Option is required for Tax Treatment Category Voluntary Agreement"))
+            elif rec.l10n_au_tax_treatment_category == "S" and not rec.l10n_au_tax_treatment_option_seniors:
+                raise ValidationError(_("Seniors Option is required for Tax Treatment Category Seniors & Pensioners"))
+            if rec.l10n_au_employment_basis_code == "V" and rec.l10n_au_tax_treatment_category != "V":
+                raise ValidationError(_("To use the Voluntary Employment Type you must be using the Voluntary Tax Treatment Category."))
+
+    @api.constrains(
+        "l10n_au_training_loan",
+        "l10n_au_tax_treatment_category",
+        "l10n_au_medicare_surcharge",
+        "l10n_au_medicare_exemption",
+        "l10n_au_medicare_reduction")
+    def _check_l10n_au_loan_and_medicare(self):
+        for rec in self:
+            if rec.l10n_au_medicare_surcharge != "X" and (rec.l10n_au_medicare_reduction != 'X' or rec.l10n_au_medicare_exemption != 'X'):
+                raise ValidationError(_("Employees cannot claim both a surcharge and exemption/reduction for Medicare levy"))
+            if rec.l10n_au_tax_treatment_category not in ["R", "S"]:
+                if rec.l10n_au_tax_treatment_category != "F" and rec.l10n_au_training_loan:
+                    raise ValidationError(_("Training loan is only available for Regular and Seniors & Pensioners and Foreign Residents"))
+                if rec.l10n_au_medicare_surcharge != 'X' or rec.l10n_au_medicare_exemption != 'X' or rec.l10n_au_medicare_reduction != 'X':
+                    raise ValidationError(_("Medicare surcharge, exemption and reduction are only available for Regular and Seniors & Pensioners"))
 
     @api.constrains('l10n_au_tfn')
     def _check_l10n_au_tfn(self):
         for employee in self:
             if employee.l10n_au_tfn and (len(employee.l10n_au_tfn) < 8 or not employee.l10n_au_tfn.isdigit()):
                 raise ValidationError(_("The TFN must be at least 8 characters long and contain only numbers."))
+
+    # == Compute Methods ==
+
+    @api.depends('l10n_au_tax_treatment_category')
+    def _compute_l10n_au_income_stream_type(self):
+        for rec in self:
+            # rec.l10n_au_income_stream_type = "SAW"
+            if rec.l10n_au_tax_treatment_category == "V":
+                rec.l10n_au_income_stream_type = "VOL"
+            elif rec.l10n_au_tax_treatment_category == "H":
+                rec.l10n_au_income_stream_type = "WHM"
+            elif rec.l10n_au_tax_treatment_category == "W":
+                rec.l10n_au_income_stream_type = "SWP"
+            else:
+                rec.l10n_au_income_stream_type = rec.l10n_au_income_stream_type
+
+    @api.depends(
+        "l10n_au_tax_treatment_category",
+        "l10n_au_employment_basis_code",
+        "l10n_au_medicare_surcharge",
+        "l10n_au_medicare_exemption",
+        "l10n_au_medicare_reduction",
+        "l10n_au_tax_free_threshold",
+        "l10n_au_training_loan",
+        "l10n_au_tfn_declaration",
+        "is_non_resident",
+        "l10n_au_tax_treatment_option_actor",
+        "l10n_au_less_than_3_performance",
+        "l10n_au_tax_treatment_option_voluntary",
+        "l10n_au_tax_treatment_option_seniors",
+        "company_id.l10n_au_registered_for_whm")
+    def _compute_l10n_au_tax_treatment_code(self):
+        for rec in self:
+            code = rec.l10n_au_tax_treatment_category  # First character
+            code += rec._get_second_code()  # Second Character
+            # Third Character
+            if rec.l10n_au_tax_treatment_category in ["R", "S", "F"] and rec.l10n_au_employment_basis_code != "D" and rec.l10n_au_training_loan:
+                code += "S"
+            else:
+                code += "X"
+            if rec.l10n_au_tax_treatment_category in ["R", "S"]:
+                code += rec.l10n_au_medicare_surcharge  # Fourth Character
+                code += rec.l10n_au_medicare_exemption  # Fifth Character
+                code += rec.l10n_au_medicare_reduction  # Sixth Character
+            else:
+                code += 'XXX'
+            rec.l10n_au_tax_treatment_code = code
+
+    def _get_second_code(self) -> str:
+        self.ensure_one()
+        match self.l10n_au_tax_treatment_category:
+            case "R":
+                if self.l10n_au_employment_basis_code == "C":
+                    code = "D"
+                elif self.l10n_au_tax_free_threshold:
+                    code = "T"
+                else:
+                    code = "N"
+            case "A":
+                if self.l10n_au_tax_treatment_option_actor == "P":
+                    code = "P"
+                # If actor option is Daily Performer
+                elif not self.l10n_au_tax_free_threshold:
+                    code = "N"
+                else:
+                    code = "D" if self.l10n_au_less_than_3_performance else "T"
+            case "C":
+                if self.is_non_resident:
+                    code = "F"
+                else:
+                    code = "T"
+            case "S":
+                code = self.l10n_au_tax_treatment_option_seniors
+                if self.l10n_au_tfn_declaration == "000000000":
+                    code = "F"
+            case "H":
+                if self.l10n_au_tfn_declaration == "000000000":
+                    code = "F"
+                elif self.company_id.l10n_au_registered_for_whm:
+                    code = "R"
+                else:
+                    code = "U"
+            case "W":
+                code = "P"
+            case "F":
+                code = "F"
+            case "N":
+                code = "F" if self.is_non_resident else "A"
+            case "D":
+                if self.l10n_au_employment_basis_code == "N":
+                    code = "C"
+                elif self.l10n_au_employment_basis_code == "D":
+                    code = "B"
+                else:
+                    code = "V"
+            case "V":
+                code = self.l10n_au_tax_treatment_option_voluntary
+
+        return str(code)
 
     @api.depends("l10n_au_tfn_declaration")
     def _compute_l10n_au_tfn(self):
@@ -137,49 +401,17 @@ class HrEmployee(models.Model):
 
     def _inverse_l10n_au_abn(self):
         for employee in self:
-            if employee.l10n_au_abn and employee.l10n_au_tfn_declaration == "provided":
+            if employee.l10n_au_abn and employee.l10n_au_tfn_declaration != "000000000":
                 employee.l10n_au_tfn = ""
 
-    @api.depends("is_non_resident", "l10n_au_tax_free_threshold", "l10n_au_tfn_declaration", "l10n_au_medicare_exemption")
-    def _compute_l10n_au_scale(self):
-        for employee in self:
-            if employee.l10n_au_tfn_declaration == "000000000":
-                employee.l10n_au_scale = "4"
-            elif employee.is_non_resident:
-                employee.l10n_au_scale = "3"
-            elif employee.l10n_au_medicare_exemption == "F":
-                employee.l10n_au_scale = "5"
-            elif employee.l10n_au_medicare_exemption == "H":
-                employee.l10n_au_scale = "6"
-            elif employee.l10n_au_tax_free_threshold:
-                employee.l10n_au_scale = "2"
-            elif not employee.l10n_au_tax_free_threshold:
-                employee.l10n_au_scale = "1"
-            else:
-                employee.l10n_au_scale = "4"
-
-    def _inverse_l10n_au_scale(self):
-        for employee in self:
-            employee.is_non_resident = employee.l10n_au_scale == "3"
-            if employee.l10n_au_scale == "1":
-                employee.l10n_au_tax_free_threshold = False
-            elif employee.l10n_au_scale == "2":
-                employee.l10n_au_tax_free_threshold = True
-            elif employee.l10n_au_scale == "4":
-                employee.l10n_au_tfn_declaration = "000000000"
-            elif employee.l10n_au_scale == "5":
-                employee.l10n_au_medicare_exemption = "F"
-            elif employee.l10n_au_scale == "6":
-                employee.l10n_au_medicare_exemption = "H"
-
-    @api.depends("marital", "children")
+    @api.depends("marital", "children", "l10n_au_tax_free_threshold")
     def _compute_l10n_au_medicare_reduction(self):
         for employee in self:
-            if employee.marital in ["married", "cohabitant"]:
+            if employee.marital in ["married", "cohabitant"] and employee.l10n_au_tax_free_threshold:
                 if not employee.children:
                     employee.l10n_au_medicare_reduction = "0"
                 elif employee.children < 10:
-                    employee.l10n_au_medicare_reduction = employee.children
+                    employee.l10n_au_medicare_reduction = str(employee.children)
                 else:
                     employee.l10n_au_medicare_reduction = "A"
             else:

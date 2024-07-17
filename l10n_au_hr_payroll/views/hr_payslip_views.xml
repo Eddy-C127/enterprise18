@@ -24,11 +24,6 @@
             <field name="struct_id" position="after">
                 <field name="l10n_au_termination_type" invisible="not l10n_au_termination_type"/>
             </field>
-            <field name="input_line_ids" position="after">
-                <group invisible="country_code != 'AU'">
-                    <field name="l10n_au_allowance_withholding"/>
-                </group>
-            </field>
             <xpath expr="//page[@name='account_info']/group" position="after">
                 <group name="l10n_au" invisible="country_code != 'AU'">
                     <field name="l10n_au_income_stream_type" invisible="1"/>

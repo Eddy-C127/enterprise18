@@ -20,42 +20,24 @@
                     <group>
                         <group name="l10n_au_general" string="General" invisible="country_code != 'AU'">
                             <field name="l10n_au_pay_day"/>
-                            <field name="l10n_au_income_stream_type"/>
-                            <field name="l10n_au_country_code"
-                                invisible="l10n_au_income_stream_type not in ['FEI', 'IAA', 'WHM']"
-                                required="l10n_au_income_stream_type in ['FEI', 'IAA', 'WHM']"
-                            />
                             <field name="l10n_au_cessation_type_code" invisible="not date_end"/>
-                            <label for="l10n_au_withholding_variation"/>
-                            <div class="d-flex align-items-baseline">
-                                <field name="l10n_au_withholding_variation" nolabel="1"
-                                    class="oe_inline" />
-                                <field name="l10n_au_withholding_variation_amount"
-                                    invisible="l10n_au_withholding_variation == 'none'" nolabel="1"
-                                    widget="float" class="oe_inline o_input_6ch" />
-                                <span invisible="l10n_au_withholding_variation == 'none'" class="oe_grey p-2"> %</span>
-                            </div>
                         </group>
-                        <group name="tax_treatment" string="Tax Treatment" invisible="country_code != 'AU'">
-                            <field name="l10n_au_employment_basis_code"/>
-                            <field name="l10n_au_tax_treatment_category"/>
-                            <field name="l10n_au_tax_treatment_option" widget="l10n_au_tax_selection"/>
-                            <field name="l10n_au_performances_per_week" invisible="l10n_au_tax_treatment_category != 'A'"/>
-                            <field name="l10n_au_tax_treatment_code"/>
+                        <group name="tax_treatment" string="Tax Treatment" invisible="country_code != 'AU' and l10n_au_tax_treatment_category != 'A'" groups="hr.group_hr_user">
+                            <field name="l10n_au_performances_per_week" />
                         </group>
                         <group name="l10n_au_leave_loading" string="Leave Loading / Workplace Giving"
                             invisible="country_code != 'AU'">
-                            <field name="l10n_au_leave_loading"/>
-                            <field name="l10n_au_leave_loading_leave_types" invisible="l10n_au_leave_loading != 'once'">
+                            <field name="l10n_au_eligible_for_leave_loading"/>
+                            <field name="l10n_au_leave_loading" invisible="not l10n_au_eligible_for_leave_loading"/>
+                            <field name="l10n_au_leave_loading_leave_types" invisible="not l10n_au_eligible_for_leave_loading or l10n_au_leave_loading != 'once'">
                                 <tree editable="bottom">
                                     <field name="display_name"/>
                                     <field name="work_entry_type_id"/>
                                 </tree>
                             </field>
-                            <field name="l10n_au_leave_loading_rate" invisible="not l10n_au_leave_loading"/>
-                            <field name="l10n_au_workplace_giving_type"/>
-                            <field name="l10n_au_workplace_giving" invisible="l10n_au_workplace_giving_type in ('none', 'employer_deduction')"/>
-                            <field name="l10n_au_workplace_giving_employer" invisible="l10n_au_workplace_giving_type in ('none', 'employee_deduction')"/>
+                            <field name="l10n_au_leave_loading_rate" invisible="not l10n_au_eligible_for_leave_loading or not l10n_au_leave_loading"/>
+                            <field name="l10n_au_workplace_giving" />
+                            <field name="l10n_au_workplace_giving_employer" />
                         </group>
                         <group name="salary_sacrifice" string="Salary Sacrifice" invisible="country_code != 'AU'">
                             <field name="l10n_au_salary_sacrifice_superannuation"/>

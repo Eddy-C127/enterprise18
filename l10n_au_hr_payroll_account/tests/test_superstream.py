@@ -128,7 +128,6 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             "l10n_au_medicare_surcharge": "X",
             "l10n_au_medicare_reduction": "X",
             "l10n_au_child_support_deduction": 0,
-            "l10n_au_scale": "2",
         })
 
     def _test_super_stream(self, superstream, expected_saff_lines: list, payment_total: float):

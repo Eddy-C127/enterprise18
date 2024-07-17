@@ -47,7 +47,7 @@
     </record>
 
     <record id="rule_category_super_contribution" model="hr.salary.rule.category">
-        <field name="name">Super Contribution</field>
+        <field name="name">Superannuation</field>
         <field name="code">SUPER</field>
     </record>
 
@@ -93,5 +93,23 @@
         <field name="name">Workplace Giving</field>
         <field name="code">WORK.GIVING</field>
         <field name="parent_id" ref="hr_payroll.DED"/>
+    </record>
+
+    <!-- Extra Payments -->
+    <record id="rule_category_extra_payments" model="hr.salary.rule.category">
+        <field name="name">Extra Payments</field>
+        <field name="code">EXTRA</field>
+    </record>
+
+    <!-- Fringe Benefits -->
+    <record id="rule_category_benefits" model="hr.salary.rule.category">
+        <field name="name">Benefits</field>
+        <field name="code">BENEFITS</field>
+    </record>
+
+    <!-- Return to work -->
+    <record id="rule_category_return_to_work" model="hr.salary.rule.category">
+        <field name="name">Return to work</field>
+        <field name="code">RTW</field>
     </record>
 </odoo>

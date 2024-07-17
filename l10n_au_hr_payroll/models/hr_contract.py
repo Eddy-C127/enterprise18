@@ -36,6 +36,7 @@ class HrContract(models.Model):
             ("5", "Saturday"),
             ("6", "Sunday")],
         string="Regular Pay Day")
+    l10n_au_eligible_for_leave_loading = fields.Boolean(string="Eligible for Leave Loading")
     l10n_au_leave_loading = fields.Selection(
         selection=[
             ("regular", "Regular"),
@@ -47,46 +48,7 @@ class HrContract(models.Model):
         string="Leave Types for Leave Loading",
         help="Leave Types that should be taken into account for leave loading, both regular and lump sum.")
     l10n_au_leave_loading_rate = fields.Float(string="Leave Loading Rate (%)")
-    l10n_au_employment_basis_code = fields.Selection(
-        selection=[
-            ("F", "(F) Full time"),
-            ("P", "(P) Part time"),
-            ("C", "(C) Casual"),
-            ("L", "(L) Labour hire"),
-            ("V", "(V) Voluntary agreement"),
-            ("D", "(D) Death beneficiary"),
-            ("N", "(N) Non-employee")],
-        string="Employment Code",
-        default="F",
-        required=True,
-        compute="_compute_l10n_au_employment_basis_code",
-        readonly=False,
-        store=True)
-    l10n_au_tax_treatment_category = fields.Selection(
-        related="structure_type_id.l10n_au_tax_treatment_category", string="Category")
-    l10n_au_tax_treatment_option = fields.Selection(
-        [
-            ("T", "(T) Tax-free Threshold"),
-            ("N", "(N) No Tax-free Threshold"),
-            ("D", "(D) Daily Work Pattern"),
-            ("P", "(P) Promotional Program"),
-            ("F", "(F) Foreign Resident"),
-            ("A", "(A) Australian Resident"),
-            ("R", "(R) Registered"),
-            ("U", "(U) Unregistered"),
-            ("C", "(C) Commissioner's Instalment Rate"),
-            ("O", "(O) Other Rate"),
-            ("S", "(S) Single"),
-            ("M", "(M) Married"),
-            ("I", "(I) Illness-separated"),
-            ("V", "(V) Downward Variation"),
-            ("B", "(B) Death Beneficiary"),
-            ("Z", "(Z) Non-employee"),
-        ],
-        default="T", required=True, compute="_compute_l10n_au_tax_treatment_option",
-        readonly=False, string="Option")
-    l10n_au_tax_treatment_code = fields.Char(string="Code", store=True,
-        compute="_compute_l10n_au_tax_treatment_code")
+    l10n_au_tax_treatment_category = fields.Selection(related="employee_id.l10n_au_tax_treatment_category", string="Tax Treatment Category")
     l10n_au_cessation_type_code = fields.Selection(
         CESSATION_TYPE_CODE,
         string="Cessation Type",
@@ -99,31 +61,9 @@ class HrContract(models.Model):
             "C": the natural conclusion of a limited employment relationship due to contract/engagement duration or task completion, seasonal work completion, or to cease casuals that are no longer required.
             "T": the administrative arrangements performed to transfer employees across payroll systems, move them temporarily to another employer (machinery of government for public servants), transfer of business, move them to outsourcing arrangements or other such technical activities.
         """)
-    l10n_au_withholding_variation = fields.Selection(
-        selection=[
-            ("none", "None"),
-            ("salaries", "Salaries"),
-            ("leaves", "Salaries and Unused Leaves"),
-        ],
-        string="Withholding Variation",
-        default="none",
-        required=True,
-        help="Employee has a custom withholding rate.",
-    )
-    l10n_au_withholding_variation_amount = fields.Float(string="Withholding Variation rate")
     l10n_au_performances_per_week = fields.Integer(string="Performances per week")
-    l10n_au_income_stream_type = fields.Selection(related="structure_type_id.l10n_au_income_stream_type", readonly=False)
-    l10n_au_country_code = fields.Many2one("res.country", string="Country", help="Country where the work is performed")
-    l10n_au_workplace_giving_type = fields.Selection(
-        selection=[
-            ('none', 'None'),
-            ("employee_deduction", "Employee Deduction"),
-            ("employer_deduction", "Employer Deduction"),
-            ("both", "Employer and Employee Deductions"),
-        ], required=True, default='none', string='Workplace Giving Type'
-    )
-    l10n_au_workplace_giving = fields.Float(string="Workplace Giving Employee", compute="_compute_workplace_giving", readonly=False, store=True)
-    l10n_au_workplace_giving_employer = fields.Float(string="Workplace Giving Employer", compute="_compute_workplace_giving", readonly=False, store=True)
+    l10n_au_workplace_giving = fields.Float(string="Workplace Giving Employee")
+    l10n_au_workplace_giving_employer = fields.Float(string="Salary Sacrificed Workplace Giving")
     l10n_au_salary_sacrifice_superannuation = fields.Float(string="Salary Sacrifice Superannuation")
     l10n_au_salary_sacrifice_other = fields.Float(string="Salary Sacrifice Other Benefits")
     l10n_au_yearly_wage = fields.Monetary(string="Yearly Wage", compute="_compute_yearly_wage", inverse="_inverse_yearly_wages", readonly=False, store=True)
@@ -142,49 +82,6 @@ class HrContract(models.Model):
         for contract in self:
             if contract.country_code == 'AU' and contract.schedule_pay not in allowed_schedule_pay:
                 raise UserError(_('Australian contracts are only supported for daily, weekly, fortnightly, monthly and quarterly pay schedules.'))
-
-    @api.depends('wage_type')
-    def _compute_l10n_au_employment_basis_code(self):
-        for contract in self:
-            contract.l10n_au_employment_basis_code = "C" if contract.wage_type == "hourly" else "F"
-
-    @api.depends("l10n_au_tax_treatment_category", "employee_id", "employee_id.l10n_au_tax_free_threshold", "employee_id.is_non_resident", "employee_id.marital")
-    def _compute_l10n_au_tax_treatment_option(self):
-        for contract in self:
-            is_non_resident = contract.employee_id.is_non_resident
-            if contract.l10n_au_tax_treatment_category in ("R", "A"):
-                tax_treatment = "T" if contract.employee_id.l10n_au_tax_free_threshold else "N"
-            elif contract.l10n_au_tax_treatment_category == "C":
-                tax_treatment = "F" if is_non_resident else "T"
-            elif contract.l10n_au_tax_treatment_category == "S":
-                tax_treatment = "M" if contract.employee_id.marital in ("married", "cohabitant") else "S"
-            elif contract.l10n_au_tax_treatment_category == "H":
-                tax_treatment = "F" if is_non_resident else "R"
-            elif contract.l10n_au_tax_treatment_category == "N":
-                tax_treatment = "F" if is_non_resident else "A"
-            elif contract.l10n_au_tax_treatment_category == "D":
-                tax_treatment = "V" if contract.l10n_au_withholding_variation != 'none' else "B"
-            else:
-                tax_treatment = contract.l10n_au_tax_treatment_option
-            contract.l10n_au_tax_treatment_option = tax_treatment
-
-    @api.depends(
-        "l10n_au_tax_treatment_category", "l10n_au_tax_treatment_option",
-        "employee_id.l10n_au_training_loan",
-        "employee_id.l10n_au_medicare_exemption",
-        "employee_id.l10n_au_medicare_surcharge",
-        "employee_id.l10n_au_medicare_reduction")
-    def _compute_l10n_au_tax_treatment_code(self):
-        for contract in self:
-            tax_treatment_code_values = [
-                contract.l10n_au_tax_treatment_category or "",
-                contract.l10n_au_tax_treatment_option or "",
-                ("S" if contract.employee_id.l10n_au_training_loan else "X"),
-                contract.employee_id.l10n_au_medicare_exemption or "",
-                contract.employee_id.l10n_au_medicare_surcharge or "",
-                contract.employee_id.l10n_au_medicare_reduction or "",
-            ]
-            contract.l10n_au_tax_treatment_code = "".join(tax_treatment_code_values)
 
     @api.depends("wage_type", "hourly_wage", "schedule_pay")
     def _compute_wage(self):
@@ -216,25 +113,6 @@ class HrContract(models.Model):
                 contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", "annually")
             else:
                 contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.wage, contract.schedule_pay, "annually")
-
-    @api.depends('l10n_au_workplace_giving_type')
-    def _compute_workplace_giving(self):
-        """ Changing the workplace_giving_type requires resetting the unused value to 0 """
-        for contract in self:
-            workplace_employee_giving = workplace_employer_giving = 0
-            giving_type = contract.l10n_au_workplace_giving_type
-            if giving_type == 'employee_deduction':
-                workplace_employee_giving = contract.l10n_au_workplace_giving
-            elif giving_type == 'employer_deduction':
-                workplace_employer_giving = contract.l10n_au_workplace_giving_employer
-            elif giving_type == 'both':
-                workplace_employee_giving = contract.l10n_au_workplace_giving
-                workplace_employer_giving = contract.l10n_au_workplace_giving_employer
-
-            contract.write({
-                'l10n_au_workplace_giving': workplace_employee_giving,
-                'l10n_au_workplace_giving_employer': workplace_employer_giving,
-            })
 
     def _inverse_yearly_wages(self):
         if self.country_code != "AU":

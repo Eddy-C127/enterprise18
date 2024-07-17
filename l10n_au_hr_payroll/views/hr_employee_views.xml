@@ -13,39 +13,69 @@
                     <field name="super_account_warning" />
                 </div>
             </xpath>
-            <xpath expr="//page[@name='hr_settings']//group" position="inside">
-                <group name="l10n_au_personal" string="Personal Information" invisible="company_country_code != 'AU'">
-                    <field name="is_non_resident"/>
-                    <field name="l10n_au_training_loan"/>
-                </group>
-                <group name="l10n_au_tfn_abn" string="TFN / ABN" invisible="company_country_code != 'AU'">
-                    <field name="l10n_au_tfn_declaration"/>
-                    <field name="l10n_au_tfn"
+            <group name="payroll_group" position="replace" />
+            <xpath expr="//page[@name='hr_settings']//group" position="after">
+                <group name="au_payroll" string="Australian Payroll">
+                    <group name="l10n_au_personal" string="Personal Information" invisible="company_country_code != 'AU'">
+                        <field name="is_non_resident"/>
+                        <field name="l10n_au_tax_free_threshold" invisible="is_non_resident"/>
+                        <field name="l10n_au_tfn_declaration"/>
+                        <field name="l10n_au_tfn"
                         readonly="l10n_au_tfn_declaration != 'provided'"
                         required="l10n_au_tfn_declaration == 'provided'"
                         placeholder="141592653"/>
-                    <field name="l10n_au_abn"/>
-                    <field name="l10n_au_extra_pay"/>
-                </group>
-                <group name="l10n_au_info" string="Tax and Contributions" invisible="company_country_code != 'AU'">
-                    <field name="l10n_au_tax_free_threshold" invisible="is_non_resident"/>
-                    <field name="l10n_au_nat_3093_amount"/>
-                    <field name="l10n_au_medicare_exemption"/>
-                    <field name="l10n_au_medicare_surcharge" invisible="1"/> <!-- Hidden to be computed for 17.1-->
-                    <field name="l10n_au_medicare_reduction"/>
-                    <field name="l10n_au_scale"/>
-                </group>
-                <group name="l10n_au_child" string="Child Support" invisible="company_country_code != 'AU'">
-                    <field name="l10n_au_child_support_deduction"/>
-                    <field name="l10n_au_child_support_garnishee"/>
-                    <field name="l10n_au_child_support_garnishee_amount" widget="percentage"
+                        <field name="l10n_au_abn" invisible="l10n_au_tax_treatment_category != 'V'"/>
+                        <field name="l10n_au_previous_id_bms"/>
+                    </group>
+                    <group name="l10n_au_info" string="Tax and Contributions" invisible="company_country_code != 'AU'">
+                        <field name="l10n_au_employment_basis_code" />
+                        <field name="l10n_au_income_stream_type" />
+                        <field name="l10n_au_work_country_id" invisible="l10n_au_income_stream_type != 'FEI'" />
+                        <field name="l10n_au_tax_treatment_category" />
+                        <field name="l10n_au_tax_treatment_option_actor"
+                            invisible="l10n_au_tax_treatment_category != 'A'"
+                            required="l10n_au_tax_treatment_category == 'A'"/>
+                        <field name="l10n_au_less_than_3_performance"
+                            invisible="l10n_au_tax_treatment_category != 'A' or l10n_au_tax_treatment_option_actor != 'D'"/>
+                        <field name="l10n_au_tax_treatment_option_voluntary"
+                            invisible="l10n_au_tax_treatment_category != 'V'"
+                            required="l10n_au_tax_treatment_category == 'V'"/>
+                        <field name="l10n_au_tax_treatment_option_seniors"
+                            invisible="l10n_au_tax_treatment_category != 'S'"
+                            required="l10n_au_tax_treatment_category == 'S'"/>
+                        <field name="l10n_au_comissioners_installment_rate"
+                            invisible="l10n_au_tax_treatment_category != 'V' or l10n_au_tax_treatment_option_voluntary != 'C'"/>
+                        <div class="row text-danger" colspan="2" invisible="l10n_au_tax_treatment_category != 'V' or l10n_au_tax_treatment_option_voluntary != 'C' or l10n_au_comissioners_installment_rate != 0">
+                            <span>
+                                <p>The commissioner's instalment rate cannot be 0%. 20% will be applied instead.</p>
+                            </span>
+                        </div>
+                        <field name="l10n_au_training_loan"/>
+                        <field name="l10n_au_medicare_surcharge" invisible="l10n_au_employment_basis_code == 'C'"/>
+                        <field name="l10n_au_medicare_exemption" invisible="not l10n_au_tax_free_threshold or l10n_au_employment_basis_code == 'C'"/>
+                        <field name="l10n_au_medicare_reduction" invisible="l10n_au_employment_basis_code == 'C'"/>
+                        <field name="l10n_au_tax_treatment_code" groups="base.group_no_one"/>
+                    </group>
+                    <group name="l10n_au_deductions" string="Deductions, offsets and withholding" invisible="company_country_code != 'AU'">
+                        <field name="l10n_au_child_support_deduction"/>
+                        <field name="l10n_au_child_support_garnishee"/>
+                        <field name="l10n_au_child_support_garnishee_amount" widget="percentage"
                         invisible="l10n_au_child_support_garnishee in ['fixed', False]"/>
-                    <field name="l10n_au_child_support_garnishee_amount"
+                        <field name="l10n_au_child_support_garnishee_amount"
                         invisible="l10n_au_child_support_garnishee in ['percentage', False]"/>
+                        <field name="l10n_au_nat_3093_amount" invisible="l10n_au_tax_treatment_category == 'H'"/>
+                        <field name="l10n_au_extra_pay"/>
+                        <label for="l10n_au_withholding_variation"/>
+                        <div class="d-flex align-items-baseline">
+                            <field name="l10n_au_withholding_variation" nolabel="1" class="oe_inline" />
+                            <field name="l10n_au_withholding_variation_amount"
+                                invisible="l10n_au_withholding_variation == 'none'" nolabel="1"
+                                widget="float" class="oe_inline o_input_6ch" />
+                            <span invisible="l10n_au_withholding_variation == 'none'" class="oe_grey p-2"> %</span>
+                        </div>
+                        <field name="l10n_au_additional_withholding_amount" />
+                    </group>
                 </group>
-            </xpath>
-            <xpath expr="//field[@name='registration_number']" position="replace">
-                <field name="l10n_au_previous_id_bms" invisible="company_country_code != 'AU'"/>
             </xpath>
             <xpath expr="//notebook" position="inside">
                 <page name="super_accounts" string="Super Accounts" invisible="company_country_code != 'AU'" groups="hr.group_hr_user">

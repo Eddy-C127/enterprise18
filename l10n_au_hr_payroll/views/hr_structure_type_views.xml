@@ -19,10 +19,6 @@
                     </page>
                 </notebook>
             </sheet>
-            <field name="default_work_entry_type_id" position="after">
-                <field name="l10n_au_income_stream_type" invisible="country_code != 'AU'"/>
-                <field name="l10n_au_tax_treatment_category" invisible="country_code != 'AU'"/>
-            </field>
         </field>
     </record>
 

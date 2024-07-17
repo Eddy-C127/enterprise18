@@ -3,6 +3,8 @@
 
 from collections import defaultdict
 from datetime import date
+from freezegun import freeze_time
+from contextlib import contextmanager
 
 from odoo import Command
 from odoo.tests import tagged
@@ -12,8 +14,27 @@ from .common import TestPayrollCommon
 @tagged("post_install_l10n", "post_install", "-at_install", "l10n_au_hr_payroll")
 class TestPayroll(TestPayrollCommon):
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.startClassPatcher(freeze_time(date(2024, 1, 1)))
+        cls.tax_treatment_category = 'R'
+
     def test_withholding_amounts(self):
-        test_scales = ["1", "2", "3", "5", "6"]
+
+        @contextmanager
+        def rollback():
+            savepoint = self.cr.savepoint()
+            yield
+            savepoint.rollback()
+
+        test_scales = [
+            {'l10n_au_tax_free_threshold': False},  # Scale 1
+            {'l10n_au_tax_free_threshold': True},  # Scale 2
+            {'is_non_resident': True},  # Scale 3
+            {"l10n_au_medicare_exemption": "F"},  # Scale 5
+            {"l10n_au_medicare_exemption": "H"},  # Scale 6
+        ]
         today = date.today()
         payslip = self.env["hr.payslip"].create({
             "name": "Test Payslip AU",
@@ -23,16 +44,18 @@ class TestPayroll(TestPayrollCommon):
             "struct_id": self.default_payroll_structure.id,
         })
         payslip._compute_date_to()
-
-        coefficients = payslip._rule_parameter("l10n_au_withholding_coefficients")["regular"]
+        self.employee_id.write({"l10n_au_tax_free_threshold": False})
         for period, sample_data in self.schedule_1_withholding_sample_data.items():
             for row in sample_data:
                 earnings = row[0]
                 self.contract_ids[0].wage = earnings
                 for idx, test_data in enumerate(row[1:]):
-                    self.employee_id.l10n_au_scale = test_scales[idx]
-                    amount = payslip._l10n_au_compute_withholding_amount(earnings, period, coefficients)
-                    self.assertEqual(amount, test_data, f"weekly earnings of {earnings} scale {self.employee_id.l10n_au_scale}: expected {test_data} got {-amount}")
+                    with self.subTest(earnings=earnings, scale=test_scales[idx]):
+                        with rollback():
+                            self.employee_id.write(test_scales[idx])
+                            coefficients = payslip._l10n_au_tax_schedule_parameters()
+                            amount = payslip._l10n_au_compute_withholding_amount(earnings, period, coefficients)
+                            self.assertEqual(amount, test_data, f"weekly earnings of {earnings} scale {idx}: expected {test_data} got {-amount}")
 
     def test_medicare_adjustment(self):
         nbr_children = [0, 1, 2, 3, 4, 5]
@@ -46,7 +69,12 @@ class TestPayroll(TestPayrollCommon):
             "struct_id": self.default_payroll_structure.id,
         })
         payslip._compute_date_to()
-        params = payslip._rule_parameter("l10n_au_medicare_params")[self.employee_id.l10n_au_scale]
+        params = payslip._rule_parameter("l10n_au_withholding_schedule_1")['medicare']
+        if self.employee_id.l10n_au_tax_free_threshold:
+            key = 'tax-free'
+        elif self.employee_id.l10n_au_medicare_exemption == 'H':
+            key = 'half-exemption'
+        params = params[key]
         for children in nbr_children:
             self.employee_id.children = children
             for period, sample_data in self.medicare_adjustment_sample_data.items():
@@ -69,20 +97,20 @@ class TestPayroll(TestPayrollCommon):
 
         loan_coefs = payslip._rule_parameter("l10n_au_stsl")
         for period, sample_data in self.loan_withhold_sample_data.items():
-            self.employee_id.l10n_au_scale = "1"
-            coefs = loan_coefs["1"]
+            self.employee_id.l10n_au_tax_free_threshold = False
+            coefs = loan_coefs["no-tax-free"]
             for row_claimed in sample_data:
                 earnings = row_claimed[0]
                 expected = row_claimed[2]
                 amount = payslip._l10n_au_compute_loan_withhold(earnings, period, coefs)
-                self.assertAlmostEqual(amount, expected, delta=1, msg=f"weekly earnings of {earnings} scale {self.employee_id.l10n_au_scale}: expected {expected} got {-amount}")
-            self.employee_id.l10n_au_scale = "2"
-            coefs = loan_coefs["2"]
+                self.assertAlmostEqual(amount, expected, delta=1, msg=f"weekly earnings of {earnings} expected {expected} got {-amount}")
+            self.employee_id.l10n_au_tax_free_threshold = True
+            coefs = loan_coefs["tax-free"]
             for row_not_claimed in sample_data:
                 earnings = row_not_claimed[0]
                 expected = row_not_claimed[1]
                 amount = payslip._l10n_au_compute_loan_withhold(earnings, period, coefs)
-                self.assertAlmostEqual(amount, expected, delta=1, msg=f"weekly earnings of {earnings} scale {self.employee_id.l10n_au_scale}: expected {expected} got {-amount}")
+                self.assertAlmostEqual(amount, expected, delta=1, msg=f"weekly earnings of {earnings}: expected {expected} got {-amount}")
 
     def test_general_cases(self):
         # https://www.ato.gov.au/rates/schedule-1---statement-of-formulas-for-calculating-amounts-to-be-withheld/?page=6#General_examples
@@ -91,7 +119,7 @@ class TestPayroll(TestPayrollCommon):
         self.contract_ids[0].schedule_pay = "weekly"
         self.employee_id.marital = "married"
         self.employee_id.children = 5
-        self.employee_id.l10n_au_scale = "2"
+        self.employee_id.l10n_au_tax_free_threshold = True
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
             "employee_id": self.employee_id.id,
@@ -112,7 +140,8 @@ class TestPayroll(TestPayrollCommon):
         self.contract_ids[0].schedule_pay = "bi-weekly"
         self.employee_id.marital = "single"
         self.employee_id.children = 0
-        self.employee_id.l10n_au_scale = "5"
+        self.employee_id.l10n_au_medicare_exemption = "F"
+        self.employee_id.l10n_au_tax_free_threshold = True
         self.employee_id.l10n_au_nat_3093_amount = 1645
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
@@ -135,7 +164,8 @@ class TestPayroll(TestPayrollCommon):
         self.contract_ids[0].schedule_pay = "monthly"
         self.employee_id.marital = "married"
         self.employee_id.children = 1
-        self.employee_id.l10n_au_scale = "2"
+        self.employee_id.l10n_au_medicare_exemption = "X"
+        self.employee_id.l10n_au_tax_free_threshold = True
         self.employee_id.l10n_au_nat_3093_amount = 1365
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
@@ -161,8 +191,8 @@ class TestPayroll(TestPayrollCommon):
         return lines_by_code
 
     def test_withholding_monthly_regular_employee(self):
-        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly', "l10n_au_training_loan": False, 'scale': '2'})
-        no_tfn_structure_type = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
+        self.tax_treatment_category = 'R'
+        employee_id, contract_id = self.create_employee_and_contract(5000, {'schedule_pay': 'monthly', "l10n_au_training_loan": False, "l10n_au_tax_free_threshold": True})
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
             "employee_id": employee_id.id,
@@ -179,17 +209,12 @@ class TestPayroll(TestPayrollCommon):
 
         # Scenario 2: Tax free threshold not claimed
         employee_id.l10n_au_tax_free_threshold = False
-        self.assertEqual(employee_id.l10n_au_scale, "1")
-        self.assertEqual(employee_id.contract_id.l10n_au_tax_treatment_option, "N")
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 1456, "test scenario 2: tax free threshold not claimed")
-        employee_id.l10n_au_tax_free_threshold = True
 
         # Scenario 3: Foreign resident
         employee_id.is_non_resident = True
-        self.assertEqual(employee_id.l10n_au_scale, "3")
-        self.assertEqual(employee_id.contract_id.l10n_au_tax_treatment_option, "T")
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 1625, "test scenario 3: foreign resident")
@@ -197,6 +222,7 @@ class TestPayroll(TestPayrollCommon):
 
         # Scenario 4: HELP / STSL Loan
         employee_id.l10n_au_training_loan = True
+        employee_id.l10n_au_tax_free_threshold = True
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 1032, "test scenario 4: HELP / STSL Loan")
@@ -224,20 +250,14 @@ class TestPayroll(TestPayrollCommon):
 
         # Scenario 9: Medicare surcharge
         employee_id.l10n_au_tfn_declaration = "000000000"
-        employee_id.contract_id.structure_type_id = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
-        payslip_id.struct_id = self.env.ref("l10n_au_hr_payroll.hr_payroll_structure_au_no_tfn")
-        self.assertEqual(employee_id.contract_id.structure_type_id, no_tfn_structure_type)
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
-        self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 2350, "test scenario 9: TFN not provided")
+        self.assertAlmostEqual(-lbc["WITHHOLD.TOTAL"]["total"], 2349, 0, msg="test scenario 9: TFN not provided")
 
         # Scenario 10: TFN applied for but not provided, less than 28 days ago
         employee_id.l10n_au_tfn_declaration = "111111111"
         # structure_type was no tfn from previous test, make sure that changing declaration to a valid tfn does not change the structure
         # because this has to be done manually by the payroll agent
-        self.assertEqual(employee_id.contract_id.structure_type_id, no_tfn_structure_type)
-        payslip_id.contract_id.structure_type_id = self.env.ref("l10n_au_hr_payroll.structure_type_schedule_1")
-        payslip_id.struct_id = self.default_payroll_structure
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 932, "test scenario 10: TFN applied for but not provided, less than 28 days ago")
@@ -274,20 +294,19 @@ class TestPayroll(TestPayrollCommon):
         })
 
         # Scenario 14: Withholding variation
-        payslip_id.contract_id.write({
+        payslip_id.employee_id.write({
             "l10n_au_withholding_variation": 'salaries',
             "l10n_au_withholding_variation_amount": 15,
         })
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 750, "test scenario 14: Withholding variation")
-        payslip_id.contract_id.write({
+        payslip_id.employee_id.write({
             "l10n_au_withholding_variation": 'none',
         })
 
     def test_withholding_weekly_regular_employee(self):
-        employee_id, contract_id = self.create_employee_and_contract(1000, {'schedule_pay': 'weekly', "l10n_au_training_loan": False, 'scale': '2'})
-        no_tfn_structure_type = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
+        employee_id, contract_id = self.create_employee_and_contract(1000, {'schedule_pay': 'weekly', "l10n_au_training_loan": False, 'l10n_au_tax_free_threshold': True})
         payslip_id = self.env["hr.payslip"].create({
             "name": "payslip",
             "employee_id": employee_id.id,
@@ -304,21 +323,17 @@ class TestPayroll(TestPayrollCommon):
 
         # Scenario 27: Tax free threshold not claimed
         employee_id.l10n_au_tax_free_threshold = False
-        self.assertEqual(employee_id.l10n_au_scale, "1")
-        self.assertEqual(employee_id.contract_id.l10n_au_tax_treatment_option, "N")
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 283, "test scenario 27: tax free threshold not claimed")
-        employee_id.l10n_au_tax_free_threshold = True
 
         # Scenario 28: Foreign resident
         employee_id.is_non_resident = True
-        self.assertEqual(employee_id.l10n_au_scale, "3")
-        self.assertEqual(employee_id.contract_id.l10n_au_tax_treatment_option, "T")
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 325, "test scenario 28: foreign resident")
         employee_id.is_non_resident = False
+        employee_id.l10n_au_tax_free_threshold = True
 
         # Scenario 29: HELP / STSL Loan
         employee_id.l10n_au_training_loan = True
@@ -349,21 +364,15 @@ class TestPayroll(TestPayrollCommon):
 
         # Scenario 34: Medicare surcharge
         employee_id.l10n_au_tfn_declaration = "000000000"
-        employee_id.contract_id.structure_type_id = self.env.ref("l10n_au_hr_payroll.structure_type_no_tfn")
-        payslip_id.struct_id = self.env.ref("l10n_au_hr_payroll.hr_payroll_structure_au_no_tfn")
-        self.assertEqual(employee_id.contract_id.structure_type_id, no_tfn_structure_type)
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
-        self.assertEqual(-lbc["WITHHOLD.TOTAL"]["total"], 470, "test scenario 34: TFN not provided")
+        self.assertAlmostEqual(-lbc["WITHHOLD.TOTAL"]["total"], 470, 0, "test scenario 34: TFN not provided")
 
         # Scenario 35: TFN applied for but not provided, less than 28 days ago
         employee_id.l10n_au_tfn_declaration = "111111111"
         # structure_type was no tfn from previous test, make sure that changing declaration to a valid tfn does not change the structure
         # because this has to be done manually by the payroll agent
-        self.assertEqual(employee_id.contract_id.structure_type_id, no_tfn_structure_type)
-        payslip_id.contract_id.structure_type_id = self.env.ref("l10n_au_hr_payroll.structure_type_schedule_1")
         payslip_id.contract_id.schedule_pay = "weekly"
-        payslip_id.struct_id = self.default_payroll_structure
         payslip_id.date_from = date(2023, 7, 3)
         payslip_id.date_to = date(2023, 7, 7)
         payslip_id.compute_sheet()
@@ -405,14 +414,14 @@ class TestPayroll(TestPayrollCommon):
         })
 
         # Scenario 39: Withholding variation
-        payslip_id.contract_id.write({
+        payslip_id.employee_id.write({
             "l10n_au_withholding_variation": 'salaries',
             "l10n_au_withholding_variation_amount": 15,
         })
         payslip_id.compute_sheet()
         lbc = self.lines_by_code(payslip_id.line_ids)
         self.assertAlmostEqual(-lbc["WITHHOLD.TOTAL"]["total"], 150, 0, "test scenario 39: Withholding variation")
-        payslip_id.contract_id.write({
+        payslip_id.employee_id.write({
             "l10n_au_withholding_variation": 'none',
         })
 

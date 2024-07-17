@@ -70,25 +70,25 @@
         <value eval="datetime(2023, 9, 30).date()"/>
     </function>
 
-    <record id="hr_payslip_0_au" model="hr.payslip">
+    <record id="hr_payslip_0_au" model="hr.payslip" context="{'allowed_company_ids': [ref('base.demo_company_au')]}">
         <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip Return To Work</field>
         <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
         <field name="date_to" eval="datetime(2023, 7, 31).date()"/>
-        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_return_to_work"/>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
         <field name="input_line_ids" eval="[(5, 0, 0),
             (0, 0, {'input_type_id': ref('l10n_au_hr_payroll.input_b2work'), 'amount': 15000})
         ]"/>
     </record>
-    <record id="hr_payslip_1_au" model="hr.payslip">
+    <record id="hr_payslip_1_au" model="hr.payslip" context="{'allowed_company_ids': [ref('base.demo_company_au')]}">
         <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip July</field>
         <field name="date_from" eval="datetime(2023, 7, 1).date()"/>
         <field name="date_to" eval="datetime(2023, 7, 31).date()"/>
     </record>
-    <record id="hr_payslip_2_au" model="hr.payslip">
+    <record id="hr_payslip_2_au" model="hr.payslip" context="{'allowed_company_ids': [ref('base.demo_company_au')]}">
         <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip August</field>
@@ -98,7 +98,7 @@
             (0, 0, {'input_type_id': ref('hr_payroll.input_child_support'), 'amount': 200})
         ]"/>
     </record>
-    <record id="hr_payslip_3_au" model="hr.payslip">
+    <record id="hr_payslip_3_au" model="hr.payslip" context="{'allowed_company_ids': [ref('base.demo_company_au')]}">
         <field name="company_id" ref="base.demo_company_au"/>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
         <field name="name">Roger Payslip September Termination</field>
@@ -149,7 +149,7 @@
         <field name="holiday_status_id" ref="l10n_au_hr_payroll.hr_leave_type_long_service"/>
         <field name="number_of_days">10</field>
         <field name="state">confirm</field>
-        <field name="validation_type">no</field>
+        <field name="validation_type">no_validation</field>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
     </record>
     <record id="hr_leave_allocation_long_service_78_to_93" model="hr.leave.allocation">
@@ -157,7 +157,7 @@
         <field name="holiday_status_id" ref="l10n_au_hr_payroll.hr_leave_type_long_service"/>
         <field name="number_of_days">10</field>
         <field name="state">confirm</field>
-        <field name="validation_type">no</field>
+        <field name="validation_type">no_validation</field>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
     </record>
     <record id="hr_leave_allocation_long_service_post_93" model="hr.leave.allocation">
@@ -165,7 +165,7 @@
         <field name="holiday_status_id" ref="l10n_au_hr_payroll.hr_leave_type_long_service"/>
         <field name="number_of_days">10</field>
         <field name="state">confirm</field>
-        <field name="validation_type">no</field>
+        <field name="validation_type">no_validation</field>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
     </record>
     <record id="hr_leave_allocation_annual_pre_93" model="hr.leave.allocation">
@@ -173,7 +173,7 @@
         <field name="holiday_status_id" ref="l10n_au_hr_payroll.hr_leave_type_annual_au"/>
         <field name="number_of_days">10</field>
         <field name="state">confirm</field>
-        <field name="validation_type">no</field>
+        <field name="validation_type">no_validation</field>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
     </record>
     <record id="hr_leave_allocation_annual_post_93" model="hr.leave.allocation">
@@ -181,7 +181,7 @@
         <field name="holiday_status_id" ref="l10n_au_hr_payroll.hr_leave_type_annual_au"/>
         <field name="number_of_days">10</field>
         <field name="state">confirm</field>
-        <field name="validation_type">no</field>
+        <field name="validation_type">no_validation</field>
         <field name="employee_id" ref="l10n_au_hr_payroll.hr_employee_au"/>
     </record>
 

@@ -2,11 +2,12 @@
 
 from collections import defaultdict
 from datetime import datetime, date
-from math import floor
+from math import floor, ceil
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _
-from odoo.exceptions import AccessError, UserError
+from odoo.exceptions import AccessError, UserError, ValidationError
+
 
 PERIODS_PER_YEAR = {
     "daily": 260,
@@ -20,21 +21,27 @@ PERIODS_PER_YEAR = {
     "annually": 1,
 }
 
+NUMBER_OF_WEEKS = {
+    "daily": 1 / 5,
+    "weekly": 1,
+    "bi-weekly": 2,
+    "monthly": 13 / 3,
+    "quarterly": 13,
+    "yearly": 13 * 4,
+}
+
 
 class HrPayslip(models.Model):
     _inherit = "hr.payslip"
 
     l10n_au_income_stream_type = fields.Selection(
-        related="contract_id.l10n_au_income_stream_type")
+        related="employee_id.l10n_au_income_stream_type", store=True)
     l10n_au_foreign_tax_withheld = fields.Float(
         string="Foreign Tax Withheld",
         help="Foreign tax withheld for the current financial year")
     l10n_au_exempt_foreign_income = fields.Float(
         string="Exempt Foreign Income",
         help="Exempt foreign income for the current financial year")
-    l10n_au_allowance_withholding = fields.Float(
-        string="Withholding for Allowance",
-        help="Amount to be withheld from allowances")
     l10n_au_schedule_pay = fields.Selection(related="contract_id.schedule_pay", store=True, index=True)
     l10n_au_termination_type = fields.Selection([
         ("normal", "Non-Genuine Redundancy"),
@@ -48,6 +55,7 @@ class HrPayslip(models.Model):
             "year_slips": slips,
             "ytd_total": self._l10n_au_get_year_to_date_totals(),
             "ytd_gross": slips._get_line_values(['GROSS'], compute_sum=True)['GROSS']['sum']['total'],
+            "ytd_inputs": self._l10n_au_get_ytd_inputs(),
         })
         return res
 
@@ -71,6 +79,7 @@ class HrPayslip(models.Model):
             return wage
 
     def _compute_input_line_ids(self):
+        super()._compute_input_line_ids()
         for payslip in self:
             if not payslip.struct_id or payslip.company_id.country_id.code != "AU":
                 continue
@@ -93,7 +102,6 @@ class HrPayslip(models.Model):
             # automatic description for other types
             for line in payslip.input_line_ids.filtered(lambda line: line.code == "OD"):
                 line.name = line.input_type_id.name.split("-")[1].strip()
-        return super()._compute_input_line_ids()
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -133,6 +141,13 @@ class HrPayslip(models.Model):
             totals["worked_days"][line.work_entry_type_id]["amount"] += line.amount
         return totals
 
+    def _l10n_au_get_ytd_inputs(self):
+        inputs = defaultdict(lambda: defaultdict(float))
+        year_slips = self._l10n_au_get_year_to_date_slips()
+        for line in year_slips.input_line_ids:
+            inputs[line.input_type_id]["amount"] += line.amount
+        return inputs
+
     @api.model
     def _l10n_au_compute_weekly_earning(self, amount, period):
         """ Given an amount and a pay schedule, calculate the weekly earning used to calculate withholding amounts.
@@ -161,6 +176,12 @@ class HrPayslip(models.Model):
 
     @api.model
     def _l10n_au_convert_amount(self, amount, period_from, period_to):
+        """
+        Convert an amount from a period to another.
+        https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-1-statement-of-formulas-for-calculating-amounts-to-be-withheld/working-out-the-weekly-earnings
+        """
+        if period_to == "weekly":
+            return amount / NUMBER_OF_WEEKS[period_from]
         coefficient = PERIODS_PER_YEAR[period_from] / PERIODS_PER_YEAR[period_to]
         return amount * coefficient
 
@@ -174,11 +195,10 @@ class HrPayslip(models.Model):
         """
         self.ensure_one()
         employee_id = self.employee_id
-        contract = self.contract_id
         # if custom withholding rate
-        if contract.l10n_au_withholding_variation != "none" and not unused_leaves\
-            or contract.l10n_au_withholding_variation == "leaves":
-            return period_earning * contract.l10n_au_withholding_variation_amount / 100
+        if employee_id.l10n_au_withholding_variation != "none" and not unused_leaves\
+            or employee_id.l10n_au_withholding_variation == "leaves":
+            return period_earning * employee_id.l10n_au_withholding_variation_amount / 100
 
         # Compute the weekly earning as per government legislation.
         # They recommend to calculate the weekly equivalent of the earning, if using another pay schedule.
@@ -187,18 +207,31 @@ class HrPayslip(models.Model):
         weekly_withhold = 0.0
 
         # For scale 4 (no tfn provided), cents are ignored when applying the rate.
-        if employee_id.l10n_au_scale == "4":
-            coefficients = self._rule_parameter("l10n_au_withholding_no_tfn")
-            coefficient = coefficients["foreign"] if employee_id.is_non_resident else coefficients["national"]
-            weekly_withhold = floor(weekly_earning) * (coefficient / 100)
-            return self._l10n_au_convert_amount(weekly_withhold, "weekly", period)
+        # Final withhold amount is rounded up
+        if (employee_id.l10n_au_tax_treatment_category == "N"
+            or employee_id.l10n_au_tfn_declaration == '000000000'):
+            weekly_withhold = floor(weekly_earning) * (coefficients / 100)
+            return ceil(self._l10n_au_convert_amount(weekly_withhold, "weekly", period))
 
+        # Categories with flat rate withholding
+        if (
+            employee_id.l10n_au_tax_treatment_category in ["C", "V"]
+            or (
+                employee_id.l10n_au_tax_treatment_category == "W"
+                and self.company_id.l10n_au_registered_for_palm
+            )
+            or (
+                employee_id.l10n_au_tax_treatment_category == "A"
+                and employee_id.l10n_au_tax_treatment_option_actor == "P"
+            )
+        ):
+            weekly_withhold = weekly_earning * (coefficients / 100)
+            return self._l10n_au_convert_amount(weekly_withhold, "weekly", period)
         # The formula to compute the withholding amount is:
         #   y = a * x - b, where:
         #   y is the weekly amount to withhold
         #   x is the number of whole dollars in the weekly earning + 99 cents
         #   a and b are the coefficient defined in the data.
-        coefficients = coefficients[employee_id.l10n_au_scale]
         for coef in coefficients:
             if weekly_earning < float(coef[0]):
                 weekly_withhold = coef[1] * weekly_earning - coef[2]
@@ -262,7 +295,7 @@ class HrPayslip(models.Model):
 
         return period_amount
 
-    def _l10n_au_compute_termination_withhold(self, employee_id, ytd_total):
+    def _l10n_au_compute_termination_withhold(self, ytd_total):
         """
         Compute the withholding amount for the termination payment.
 
@@ -289,9 +322,9 @@ class HrPayslip(models.Model):
         # We then compare the whole-of-income cap with the ETP cap amount. This amount changes every year.
         # If both caps are equal, we use the whole-of-income cap. Otherwise, we use the smallest of the two caps.
 
-        whole_of_income_cap = (self._rule_parameter("l10n_au_whoic_cap")
+        whole_of_income_cap = (self._rule_parameter("l10n_au_whoic_cap_schedule_11")
                                - ytd_total["slip_lines"]["Taxable Salary"]["total"])
-        etp_cap = self._rule_parameter("l10n_au_etp_cap")
+        etp_cap = self._rule_parameter("l10n_au_etp_cap_schedule_11")
         smallest_withholding_cap = min(whole_of_income_cap, etp_cap)
 
         # 2) Working out the withholding amount
@@ -312,13 +345,13 @@ class HrPayslip(models.Model):
         # a) Compute the preservation age.
         # The withholding amount varies depending on whether the employee has reached their preservation age by the
         # end of the income year in which the payment is made.
-
+        employee_id = self.employee_id
         if not employee_id.birthday:
             raise UserError(_("In order to process a termination payment, a birth date should be set on the private information tab of the employee's form view."))
 
-        tfn_provided = employee_id.l10n_au_scale != '4'
+        tfn_provided = employee_id.l10n_au_tfn_declaration != "000000000"
         is_non_resident = employee_id.is_non_resident
-        life_benefits_etp_rates = self._rule_parameter("l10n_au_etp_withholding_life_benefits")
+        life_benefits_etp_rates = self._rule_parameter("l10n_au_etp_withholding_life_benefits_schedule_11")
         over_the_cap_rate = life_benefits_etp_rates['over_cap']
         no_tfn_rate = life_benefits_etp_rates['no_tfn']
 
@@ -326,7 +359,7 @@ class HrPayslip(models.Model):
         genuine_redundancy = self.env.ref("l10n_au_hr_payroll.input_genuine_redundancy")
         early_retirement = self.env.ref("l10n_au_hr_payroll.input_early_retirement_scheme")
 
-        preservation_ages = self._rule_parameter("l10n_au_preservation_age")
+        preservation_ages = self._rule_parameter("l10n_au_preservation_age_schedule_11")
         # The preservation age is determined based on the financial year in which the employee was born.
         birth_financial_year = self.contract_id._l10n_au_get_financial_year_start(employee_id.birthday).year
         years_list = list(preservation_ages['years'].values())
@@ -341,8 +374,8 @@ class HrPayslip(models.Model):
 
         # b) Some payments have a tax free limit, which depends on the completed years of services.
         complete_years_of_service = relativedelta(self.date_to, employee_id.first_contract_date).years
-        base_tax_free_limit = self._rule_parameter("l10n_au_tax_free_base")
-        tax_free_limit = base_tax_free_limit + (complete_years_of_service * self._rule_parameter("l10n_au_tax_free_year"))
+        base_tax_free_limit = self._rule_parameter("l10n_au_tax_free_base_schedule_11")
+        tax_free_limit = base_tax_free_limit + (complete_years_of_service * self._rule_parameter("l10n_au_tax_free_yearly_schedule_11"))
 
         # c) tax-free component.
         tax_free_amount = 0.0
@@ -415,7 +448,7 @@ class HrPayslip(models.Model):
             for allocation in allocations.filtered(
                 lambda x:
                     x.employee_id == self.employee_id and
-                    x.date_from <= payslip.contract_id.date_end or payslip.date_to
+                    x.date_from <= (payslip.contract_id.date_end or payslip.date_to)
                 ):
                 leave_type = leaves_by_date[payslip.id][allocation.holiday_status_id.l10n_au_leave_type]
                 unused = allocation.number_of_days - allocation.leaves_taken
@@ -514,10 +547,9 @@ class HrPayslip(models.Model):
         self.ensure_one()
 
         # For scale 4 (no tfn provided), cents are ignored when applying the rate.
-        if self.employee_id.l10n_au_scale == "4":
-            no_tfn_coefficients = self._rule_parameter("l10n_au_withholding_no_tfn")
-            coefficient = no_tfn_coefficients["foreign"] if self.employee_id.is_non_resident else no_tfn_coefficients["national"]
-            withhold = leave_amount * (coefficient / 100)
+        if self.employee_id.l10n_au_tax_treatment_category == "N" or \
+            self.employee_id.l10n_au_tfn_declaration == '000000000':
+            withhold = leave_amount * (coefficients / 100)
             return withhold
 
         # TFN provided, we apply the normal table to the amount / period.
@@ -529,13 +561,13 @@ class HrPayslip(models.Model):
 
         extra_withhold = (leave_withhold - normal_withhold) * PERIODS_PER_YEAR[period]
         # <300 apply min(tax_table or 32%)
-        if leave_amount < self._rule_parameter('rule_parameter_leaves_low_threshold'):
-            return min(extra_withhold, leave_amount * self._rule_parameter('rule_parameter_leaves_low_withhold'))
+        if leave_amount < self._rule_parameter('rule_parameter_leaves_low_threshold_schedule_7'):
+            return min(extra_withhold, leave_amount * self._rule_parameter('rule_parameter_leaves_low_withhold_schedule_7'))
         return extra_withhold
 
     def _l10n_au_calculate_long_service_leave_withholding(self, leave_withholding_rate, long_service_leaves, basic_amount):
         self.ensure_one()
-        coefficients = self._rule_parameter("l10n_au_withholding_coefficients")["regular"]
+        coefficients = self._l10n_au_tax_schedule_parameters()
         pre_1978 = long_service_leaves["pre_1978"]
         pre_1993 = long_service_leaves["pre_1993"]
         post_1993 = long_service_leaves["post_1993"]
@@ -554,7 +586,7 @@ class HrPayslip(models.Model):
 
     def _l10n_au_calculate_annual_leave_withholding(self, leave_withholding_rate, annual_leaves, basic_amount):
         self.ensure_one()
-        coefficients = self._rule_parameter("l10n_au_withholding_coefficients")["regular"]
+        coefficients = self._l10n_au_tax_schedule_parameters()
         pre_1993 = annual_leaves["pre_1993"]
         post_1993 = annual_leaves["post_1993"]
 
@@ -575,11 +607,11 @@ class HrPayslip(models.Model):
         self.ensure_one()
         basic_amount = self.contract_id.wage
         leaves, leaves_total = self._l10n_au_get_leaves_for_withhold()
-        if self.contract_id.l10n_au_withholding_variation == 'leaves':
-            l10n_au_leave_withholding = self.contract_id.l10n_au_withholding_variation_amount
+        if self.employee_id.l10n_au_withholding_variation == 'leaves':
+            l10n_au_leave_withholding = self.employee_id.l10n_au_withholding_variation_amount
             return leaves_total * l10n_au_leave_withholding / 100
 
-        l10n_au_leave_withholding = self._rule_parameter("l10n_au_leave_withholding")
+        l10n_au_leave_withholding = self._rule_parameter("l10n_au_leave_withholding_schedule_7")
         withholding = 0.0
         # 2. Calculate long service leave withholding
         withholding = self._l10n_au_calculate_long_service_leave_withholding(l10n_au_leave_withholding, leaves["long_service"], basic_amount)
@@ -614,3 +646,119 @@ class HrPayslip(models.Model):
     def _l10n_au_has_extra_pay(self):
         self.ensure_one()
         return self.contract_id._l10n_au_get_weeks_amount(self.date_to) == 53
+
+    def _l10n_au_compute_backpay_withhold(self, net_salary, backpay, salary_withhold):
+        """Compute withhold for back payments
+        Args:
+            net_salary (float): Net salary including the backpayments
+            backpay (float): Backpay amount
+            salary_withhold (float): Withholding amount for the salary
+        """
+        if self.employee_id.l10n_au_tax_treatment_category != "H":
+            return 0
+        coefficients = self._l10n_au_tax_schedule_parameters()
+        total_withhold = self._l10n_au_compute_withholding_amount(net_salary, self.contract_id.schedule_pay, coefficients)
+
+        backpay_withhold = total_withhold - salary_withhold
+        backpay_withhold *= PERIODS_PER_YEAR[self.contract_id.schedule_pay]
+        return min(backpay_withhold, backpay * self._rule_parameter('l10n_au_withholding_backpay') / 100)
+
+    def _l10n_au_tax_schedule_parameters(self) -> float | list[tuple[float]]:
+        self.ensure_one()
+        employee = self.employee_id
+        match employee.l10n_au_tax_treatment_category:
+            case "R":  # Regular
+                rates = self._rule_parameter("l10n_au_withholding_schedule_1")
+                # Foreign or no TFN
+                if employee.l10n_au_tfn_declaration != "000000000" and employee.is_non_resident:
+                    return rates["foreign"]
+                if employee.l10n_au_tfn_declaration == "000000000":
+                    residence = "foreign" if employee.is_non_resident else "resident"
+                    return rates["no-tfn"][residence]
+                # TFN provided
+                if employee.l10n_au_medicare_exemption == "F":
+                    return rates["full-exemption"]
+                elif employee.l10n_au_medicare_exemption == "H":
+                    return rates["half-exemption"]
+                # No exemption
+                elif employee.l10n_au_medicare_exemption == "X":
+                    tax_threshold = "tax-free" if employee.l10n_au_tax_free_threshold else "no-tax-free"
+                    return rates[tax_threshold]
+            case "A":  # Actors
+                rates = self._rule_parameter("l10n_au_withholding_schedule_3")
+                if employee.l10n_au_tax_treatment_option_actor == "P":
+                    if not employee.birthday:
+                        raise ValidationError(_("In order to process this payslip, a birth date should be set on the private information tab of the employee's form view."))
+                    # if age less than 18, use underage
+                    if relativedelta(date.today(), employee.birthday).years < 18:
+                        if self.contract_id.schedule_pay not in ["weekly", "fortnightly", "monthly"]:
+                            raise ValidationError(_("The pay schedule for this employee is not supported for underage actors."))
+                        return rates["promotional"]["underage"][self.contract_id.schedule_pay]
+                    # if age greater than 18
+                    tfn_status = 'tfn' if employee.l10n_au_tfn_declaration != "000000000" else 'no-tfn'
+                    return rates["promotional"][tfn_status]
+                elif employee.l10n_au_tax_treatment_option_actor == "D":
+                    # Foreigner or no tfn
+                    if employee.is_non_resident and employee.l10n_au_tfn_declaration != "000000000":
+                        return rates["foreigner"]
+                    elif employee.is_non_resident and employee.l10n_au_tfn_declaration == "000000000":
+                        return rates["no-tfn"]["foreign"]
+                    elif not employee.is_non_resident and employee.l10n_au_tfn_declaration == "000000000":
+                        return rates["no-tfn"]["resident"]
+                # Resident with tfn
+                tax_threshold = "tax-free" if employee.l10n_au_tax_free_threshold else "no-tax-free"
+                return rates[tax_threshold]
+            case "C":  # Horticulture & Shearing
+                rates = self._rule_parameter("l10n_au_withholding_schedule_2")
+                tfn_status = 'tfn' if employee.l10n_au_tfn_declaration != "000000000" else 'no-tfn'
+                if employee.is_non_resident:
+                    return rates["foreign"][tfn_status]
+                else:
+                    return rates["resident"][tfn_status]
+            case "S":  # Seniors & Pensioners
+                rates = self._rule_parameter("l10n_au_withholding_schedule_9")
+                # No TFN provided
+                if employee.l10n_au_tfn_declaration == "000000000":
+                    return rates["no-tfn"]["foreign"] if employee.is_non_resident else rates["no-tfn"]["resident"]
+                # TFN provided
+                if employee.l10n_au_tfn_declaration != "000000000":
+                    if employee.l10n_au_tax_treatment_option_seniors == "S":
+                        return rates["single"]
+                    elif employee.l10n_au_tax_treatment_option_seniors == "M":
+                        return rates["couple"]
+                    elif employee.l10n_au_tax_treatment_option_seniors == "I":
+                        return rates["illness-separated"]
+            case "H":  # Working Holiday Makers
+                rates = self._rule_parameter("l10n_au_withholding_schedule_15")
+                # No TFN
+                if employee.l10n_au_tfn_declaration == "000000000":
+                    return rates["no-tfn"]
+                # TFN Provided
+                if self.company_id.l10n_au_registered_for_whm:
+                    return rates["registered"]
+                else:
+                    return rates["unregistered"]
+            case "W":  # Seasonal Worker Program
+                rate = self._rule_parameter("l10n_au_withholding_schedule_palm")
+                if self.company_id.l10n_au_registered_for_palm:
+                    return rate['registered']
+                return rate['unregistered']
+            case "F":  # Foreign Resident
+                return self._rule_parameter("l10n_au_withholding_foreign_resident")['foreign']
+            case "N":
+                rates = self._rule_parameter("l10n_au_withholding_no_tfn")
+                return rates["foreign"] if employee.is_non_resident else rates["resident"]
+            case "D":
+                raise ValidationError(_("The tax treatment category 'D' is not yet supported."))
+            case "V":
+                rate = self._rule_parameter("l10n_au_withholding_schedule_10")
+                if employee.l10n_au_tax_treatment_option_voluntary == "C":
+                    return employee.l10n_au_comissioners_installment_rate or rate
+                elif employee.l10n_au_tax_treatment_option_voluntary == "O":
+                    return rate
+
+        # In case no option satisfied. Config issue
+        raise UserError(_(
+            "The Employee '%(employee)s' with tax treatment category '%(category)s' has no valid tax schedule.",
+            employee=employee.name, category=employee.l10n_au_tax_treatment_category
+        ))

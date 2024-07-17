@@ -13,6 +13,7 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.default_payroll_structure = cls.env.ref("l10n_au_hr_payroll.hr_payroll_structure_au_regular")
+        cls.tax_treatment_category = 'R'
         cls.long_service = cls.env['hr.leave.type'].create({
             'name': 'Long Service Leave',
             'company_id': cls.australian_company.id,
@@ -40,14 +41,14 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
             'schedule_pay': 'monthly',
             'wage': 7000,
             'casual_loading': 0,
-            'tax_treatment_category': 'V',
+            # 'tax_treatment_category': 'V',
             'birthday': fields.Date.to_date(birthday),
             'contract_date_start': fields.Date.to_date(date_start),
             'contract_date_end': fields.Date.to_date(date_end),
             'tfn': 12345678,
             'tfn_declaration': 'provided' if tfn_provided else '000000000',
             'non_resident': not resident,
-            'l10n_au_tax_free_threshold': True,
+            'l10n_au_tax_free_threshold': resident
         })
         employee.is_non_resident = not resident
         return employee, contract
@@ -457,7 +458,7 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
             },
         )
 
-        self.assertEqual(employee.l10n_au_scale, "4")
+        employee.l10n_au_tax_free_threshold = False
         self.assertFalse(employee.is_non_resident)
         self.assertEqual(employee.l10n_au_tfn_declaration, '000000000')
 
@@ -502,13 +503,12 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
             },
         )
 
-        self.assertEqual(employee.l10n_au_scale, "4")
         self.assertTrue(employee.is_non_resident)
         self.assertEqual(employee.l10n_au_tfn_declaration, '000000000')
 
         expected_gross = 4794.45
         expected_withhold = -2157.5
-        normal_withholding = -1162.6
+        normal_withholding = -1163
         self._test_payslip(
             employee,
             contract,
@@ -537,8 +537,8 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
     # Withholding Var. + impact leaves
     def test_11_termination_unused_leaves(self):
         employee, contract = self.get_unused_leaves_employee('1976-1-1', '1992-08-1992', '2024-3-12')
-        contract.l10n_au_withholding_variation = "leaves"
-        contract.l10n_au_withholding_variation_amount = 30
+        employee.l10n_au_withholding_variation = "leaves"
+        employee.l10n_au_withholding_variation_amount = 30
 
         self.create_leaves(
             employee,
@@ -582,8 +582,8 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
     # Withholding Var. + does not impact leaves
     def test_12_termination_unused_leaves(self):
         employee, contract = self.get_unused_leaves_employee('1976-1-1', '1992-08-1992', '2024-3-12')
-        contract.l10n_au_withholding_variation = "salaries"
-        contract.l10n_au_withholding_variation_amount = 30
+        employee.l10n_au_withholding_variation = "salaries"
+        employee.l10n_au_withholding_variation_amount = 30
         self.create_leaves(
             employee,
             contract,
@@ -638,7 +638,6 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
 
         self.assertFalse(employee.is_non_resident)
         self.assertEqual(employee.l10n_au_tfn_declaration, 'provided')
-        self.assertEqual(employee.l10n_au_scale, '2')
 
         expected_gross = 36184.51
         expected_withhold = -12480
@@ -675,9 +674,8 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
         employee, contract = self.get_unused_leaves_employee('1958-1-1', '2005-1-1', '2015-1-14')
         contract.schedule_pay = "weekly"
         contract.wage = 1000
-        self.env.ref("l10n_au_hr_payroll.rule_parameter_withholding_coefficients_2023").date_from = fields.Date.from_string("2014-1-1")
+        self.env.ref("l10n_au_hr_payroll.rule_parameter_withholding_schedule_1_2023").date_from = fields.Date.from_string("2014-1-1")
         self.env.ref("l10n_au_hr_payroll.rule_parameter_study_loan_coefficients_2023").date_from = fields.Date.from_string("2014-1-1")
-        self.env.ref("l10n_au_hr_payroll.rule_parameter_medicare_levy_2023").date_from = fields.Date.from_string("2014-1-1")
         self.env.ref("l10n_au_hr_payroll.rule_parameter_super_2023").date_from = fields.Date.from_string("2014-1-1")
 
         self.env['hr.rule.parameter.value'].create({
@@ -708,7 +706,6 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
 
         self.assertFalse(employee.is_non_resident)
         self.assertEqual(employee.l10n_au_tfn_declaration, 'provided')
-        self.assertEqual(employee.l10n_au_scale, '2')
 
         expected_gross = 8000
         expected_withhold = -2560
@@ -751,28 +748,46 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
         # Payg
         self.env["hr.rule.parameter.value"].create(
             {
-                "rule_parameter_id": self.env.ref("l10n_au_hr_payroll.rule_parameter_withholding_coefficients").id,
+                "rule_parameter_id": self.env.ref("l10n_au_hr_payroll.rule_parameter_withholding_schedule_1").id,
                 "date_from": fields.datetime(2014, 7, 1).date(),
                 "parameter_value": {
-                    "regular": {
-                        "2": [
-                            (355, 0.0, 0.0),
-                            (395, 0.1900, 67.4635),
-                            (493, 0.2900, 106.9673),
-                            (711, 0.2100, 67.4642),
-                            (1282, 0.3477, 165.4431),
-                            (1538, 0.3450, 161.9815),
-                            (3461, 0.3900, 231.2123),
-                            ("inf", 0.4900, 577.3662),
-                        ],
-                    }
+                    "tax-free": [
+                        (355, 0.0, 0.0),
+                        (395, 0.1900, 67.4635),
+                        (493, 0.2900, 106.9673),
+                        (711, 0.2100, 67.4642),
+                        (1282, 0.3477, 165.4431),
+                        (1538, 0.3450, 161.9815),
+                        (3461, 0.3900, 231.2123),
+                        ("inf", 0.4900, 577.3662),
+                    ],
+                    "medicare": {
+                        "tax-free": {
+                            "WEST": 548,
+                            "MLFT": 38474,
+                            "WFTD": 52,
+                            "ADDC": 3533,
+                            "SOPM": 0.1000,
+                            "SOPD": 0.0800,
+                            "WLA": 438.4800,
+                            "ML": 0.0200,
+                        },
+                        "half-exemption": {
+                            "WEST": 924,
+                            "MLFT": 38474,
+                            "WFTD": 52,
+                            "ADDC": 3533,
+                            "SOPM": 0.0500,
+                            "SOPD": 0.0400,
+                            "WLA": 739.8800,
+                            "ML": 0.010,
+                        },
+                    },
                 },
             }
         )
 
         self.env.ref("l10n_au_hr_payroll.rule_parameter_study_loan_coefficients_2023").date_from = fields.Date.from_string("2014-1-1")
-        self.env.ref("l10n_au_hr_payroll.rule_parameter_medicare_levy_2023").date_from = fields.Date.from_string("2014-1-1")
-        # self.env.ref("l10n_au_hr_payroll.rule_parameter_super_2023").date_from = fields.Date.from_string("2014-1-1")
         self.env["hr.rule.parameter.value"].create(
             {
                 "rule_parameter_id": self.env.ref("l10n_au_hr_payroll.rule_parameter_super").id,
@@ -811,7 +826,6 @@ class TestPayrollUnusedLeaves(TestPayrollCommon):
         self.assertFalse(employee.is_non_resident)
         self.assertEqual(employee.l10n_au_tfn_declaration, 'provided')
         self.assertEqual(employee.l10n_au_tax_free_threshold, True)
-        self.assertEqual(employee.l10n_au_scale, '2')
 
         expected_gross = 80000  # manual amount
         expected_withhold = -26794

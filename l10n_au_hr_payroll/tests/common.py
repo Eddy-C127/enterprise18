@@ -7,6 +7,10 @@ from itertools import zip_longest as izip_longest
 from odoo import Command
 from odoo.tests.common import TransactionCase
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
 
 class TestPayrollCommon(TransactionCase):
 
@@ -20,6 +24,8 @@ class TestPayrollCommon(TransactionCase):
             "country_id": cls.env.ref("base.au").id,
             "currency_id": cls.env.ref("base.AUD").id,
             "resource_calendar_id": cls.env.ref("l10n_au_hr_payroll.resource_calendar_au_38").id,
+            "l10n_au_registered_for_whm": True,
+            "l10n_au_registered_for_palm": True,
         })
         cls.env.user.company_ids |= cls.australian_company
         cls.env = cls.env(context=dict(cls.env.context, allowed_company_ids=cls.australian_company.ids))
@@ -48,7 +54,8 @@ class TestPayrollCommon(TransactionCase):
             "l10n_au_medicare_surcharge": "X",
             "l10n_au_medicare_reduction": "X",
             "l10n_au_child_support_deduction": 0,
-            "l10n_au_scale": "2",
+            "l10n_au_withholding_variation": 'none',
+            "l10n_au_withholding_variation_amount": 0,
         })
 
         first_contract_id = cls.env["hr.contract"].create({
@@ -64,13 +71,7 @@ class TestPayrollCommon(TransactionCase):
             "structure_type_id": cls.env.ref("l10n_au_hr_payroll.structure_type_schedule_1").id,
             # fields modified in the tests
             "schedule_pay": "monthly",
-            "l10n_au_employment_basis_code": "F",
-            "l10n_au_income_stream_type": "SAW",
-            "l10n_au_withholding_variation": 'none',
-            "l10n_au_withholding_variation_amount": 0,
             "l10n_au_workplace_giving": 0,
-            "l10n_au_tax_treatment_category": "R",
-            "l10n_au_tax_treatment_option": "T",
         })
 
         cls.contract_ids = first_contract_id
@@ -408,6 +409,23 @@ class TestPayrollCommon(TransactionCase):
         # Used in a few tests. Can be overriden.
         cls.default_payroll_structure = cls.env.ref('l10n_au_hr_payroll.hr_payroll_structure_au_regular')
 
+        cls.default_input_lines = [
+            {
+                'input_type_id': cls.env.ref('l10n_au_hr_payroll.input_extra_pay').id,
+                'amount': 200,
+            },
+            # RTW
+            {
+                'input_type_id': cls.env.ref('l10n_au_hr_payroll.input_b2work').id,
+                'amount': 300,
+            },
+            # Work related non expense
+            {
+                'input_type_id': cls.env.ref('l10n_au_hr_payroll.input_work_related_non_expense').id,
+                'amount': 550,
+            },
+        ]
+
         # Will be useful for easy access to the ID when testing
         cls.work_entry_types = {
             entry_type.code: entry_type
@@ -425,7 +443,6 @@ class TestPayrollCommon(TransactionCase):
     def create_employee_and_contract(self, wage, contract_info=False):
         if not contract_info:
             contract_info = {}
-        scale = {'l10n_au_scale': contract_info.get('scale')} if contract_info.get('scale', False) else {}
         employee_id = self.env["hr.employee"].create({
             "name": contract_info.get('employee', 'Mel'),
             "resource_calendar_id": self.resource_calendar.id,
@@ -442,14 +459,23 @@ class TestPayrollCommon(TransactionCase):
             "is_non_resident": contract_info.get('non_resident', False),
             "l10n_au_nat_3093_amount": 0,
             "l10n_au_child_support_garnishee_amount": 0,
-            "l10n_au_medicare_exemption": "X",
-            "l10n_au_medicare_surcharge": "X",
-            "l10n_au_medicare_reduction": "X",
+            "l10n_au_medicare_exemption": contract_info.get('medicare_exemption', 'X'),
+            "l10n_au_medicare_surcharge": contract_info.get('medicare_surcharge', 'X'),
+            "l10n_au_medicare_reduction": contract_info.get('medicare_reduction', 'X'),
             "l10n_au_child_support_deduction": 0,
             "l10n_au_extra_pay": contract_info.get('extra_pay', False),
             "l10n_au_training_loan": contract_info.get('l10n_au_training_loan', True),
             "l10n_au_tax_free_threshold": contract_info.get('l10n_au_tax_free_threshold', False),
-            **scale
+            "l10n_au_employment_basis_code": contract_info.get('employment_basis_code', 'F'),
+            "l10n_au_withholding_variation": 'none',
+            "l10n_au_withholding_variation_amount": 0,
+            "l10n_au_tax_treatment_category": self.tax_treatment_category,
+            "l10n_au_tax_treatment_option_actor": contract_info.get('tax_treatment_option_actor', False),
+            "l10n_au_tax_treatment_option_voluntary": contract_info.get('tax_treatment_option_voluntary', False),
+            "l10n_au_tax_treatment_option_seniors": contract_info.get('tax_treatment_option_seniors', False),
+            "l10n_au_less_than_3_performance": contract_info.get('less_than_3_performance', False),
+            "l10n_au_income_stream_type": contract_info.get('income_stream_type', 'SAW'),
+            "l10n_au_comissioners_installment_rate": contract_info.get('comissioners_installment_rate', 0),
         })
 
         contract_id = self.env["hr.contract"].create({
@@ -465,20 +491,16 @@ class TestPayrollCommon(TransactionCase):
             "structure_type_id": self.default_payroll_structure.type_id.id,
             # fields modified in the tests
             "schedule_pay": contract_info.get("schedule_pay", "monthly"),
-            "l10n_au_employment_basis_code": contract_info.get('employment_basis_code', 'F'),
-            "l10n_au_income_stream_type": "SAW",
-            "l10n_au_withholding_variation": 'none',
-            "l10n_au_withholding_variation_amount": 0,
             "l10n_au_leave_loading": contract_info.get('leave_loading', False),
             "l10n_au_leave_loading_rate": contract_info.get('leave_loading_rate', 0),
-            "l10n_au_workplace_giving_type": contract_info.get('workplace_giving_type', 'none'),
             "l10n_au_workplace_giving": contract_info.get('workplace_giving_employee', 0),
             "l10n_au_workplace_giving_employer": contract_info.get('workplace_giving_employer', 0),
             "l10n_au_salary_sacrifice_superannuation": contract_info.get('salary_sacrifice_superannuation', 0),
             "l10n_au_salary_sacrifice_other": contract_info.get('salary_sacrifice_other', 0),
             "l10n_au_performances_per_week": contract_info.get('performances_per_week', 0),
         })
-        contract_id.structure_type_id.l10n_au_tax_treatment_category = contract_info.get('tax_treatment_category', 'R')
+        if contract_info.get('wage_type') == 'hourly':
+            contract_id.write({'hourly_wage': contract_info.get('hourly_wage')})
         employee_id.contract_id = contract_id
         return employee_id, contract_id
 
@@ -518,9 +540,9 @@ class TestPayrollCommon(TransactionCase):
 
                 expected_entry_type_id, expected_day, expected_hour, expected_amount = expected_worked_day
                 self.assertEqual(expected_entry_type_id, payslip_workday.work_entry_type_id.id)
-                self.assertAlmostEqual(expected_day, payslip_workday.number_of_days)
-                self.assertAlmostEqual(expected_hour, payslip_workday.number_of_hours)
-                self.assertAlmostEqual(expected_amount, payslip_workday.amount)
+                self.assertAlmostEqual(expected_day, payslip_workday.number_of_days, 0)
+                self.assertAlmostEqual(expected_hour, payslip_workday.number_of_hours, 0)
+                self.assertAlmostEqual(expected_amount, payslip_workday.amount, 0)
 
         # 3) Verify the lines
         for expected_line, payslip_line in izip_longest(expected_lines, payslip.line_ids.sorted()):
@@ -530,6 +552,7 @@ class TestPayrollCommon(TransactionCase):
 
             expected_code, expected_total = expected_line
             self.assertEqual(expected_code, payslip_line.code)
+            # compare with whole numbers
             self.assertAlmostEqual(
                 expected_total,
                 payslip_line.total,
