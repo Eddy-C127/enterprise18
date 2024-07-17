@@ -435,7 +435,7 @@ class ResCompany(models.Model):
             limit=1,
         )
         if not company:
-            _logger.error("No OSCU initialized company could be found. %s", failed_action)
+            _logger.warning("No OSCU initialized company could be found. %s", failed_action)
 
         return company
 
