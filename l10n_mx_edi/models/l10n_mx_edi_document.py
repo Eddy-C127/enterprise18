@@ -2040,10 +2040,11 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             # we need to manually rearrange the order of the CartaPorte node's children using lxml etree.
             carta_porte_20_etree = etree.fromstring(str(cfdi))
             carta_porte_element = carta_porte_20_etree.find('.//{*}CartaPorte')
-            regimenes_aduanero_element = carta_porte_element.find('.//{*}RegimenesAduaneros')
-            if regimenes_aduanero_element is not None:
-                carta_porte_element.remove(regimenes_aduanero_element)
-                carta_porte_element.insert(0, regimenes_aduanero_element)
+            if carta_porte_element is not None:
+                regimenes_aduanero_element = carta_porte_element.find('.//{*}RegimenesAduaneros')
+                if regimenes_aduanero_element is not None:
+                    carta_porte_element.remove(regimenes_aduanero_element)
+                    carta_porte_element.insert(0, regimenes_aduanero_element)
             carta_porte_20 = etree.tostring(carta_porte_20_etree).decode()
 
             # Since we are inheriting versions 2.0 and 3.0 of the Carta Porte template,
