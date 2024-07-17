@@ -10,9 +10,10 @@ class PlanningRecurrency(models.Model):
 
     def _get_misc_recurrence_stop(self):
         res = super()._get_misc_recurrence_stop()
-        initial_slot = self.slot_ids.sorted('end_datetime')[0]
+        sorted_slots = self.slot_ids.sorted('end_datetime')
+        initial_slot, last_slot = sorted_slots[0], sorted_slots[-1]
         end_contract = self.env['hr.contract'].sudo().search_fetch([
-            ('employee_id', '=', self.slot_ids.resource_id.employee_id.id),
+            ('employee_id', '=', last_slot.employee_id.id),
             ('state', '=', 'open'),
             ('date_end', '!=', False)
         ], field_names=['date_end'], limit=1).date_end
