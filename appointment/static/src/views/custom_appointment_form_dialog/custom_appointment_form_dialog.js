@@ -61,7 +61,7 @@ export class CustomAppointmentFormViewDialog extends FormViewDialog {
             buttonTemplate: 'appointment.FormViewDialog.buttons',
             inviteUrl: this.props.inviteUrl,
             onLinkCopied: this.props.onLinkCopied.bind(this),
-            type: 'appointment_type_view_form_custom_share',
+            jsClass: "appointment_type_view_form_custom_share",
         });
     }
 }
