@@ -42,6 +42,7 @@ class SaleOrder(models.Model):
             tax_totals['amount_total'] = order.amount_total
             tax_totals['amount_untaxed'] = order.amount_untaxed
             tax_totals['formatted_amount_total'] = formatLang(self.env, order.amount_total, currency_obj=currency)
+            tax_totals['subtotals_order'] = [group_name]
 
             order.tax_totals = tax_totals
 
