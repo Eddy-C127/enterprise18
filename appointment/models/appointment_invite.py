@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
 import re
+import secrets
 import uuid
+
 from markupsafe import Markup
 from werkzeug.urls import url_encode, url_join
 
@@ -18,7 +19,7 @@ class AppointmentShare(models.Model):
     _order = 'create_date DESC, id DESC'
     _rec_name = 'short_code'
 
-    access_token = fields.Char('Token', default=lambda s: uuid.uuid4(), required=True, copy=False, readonly=True)
+    access_token = fields.Char('Token', default=lambda s: uuid.uuid4().hex, required=True, copy=False, readonly=True)
     short_code = fields.Char('Short Code', default=lambda s: s._get_unique_short_code(), required=True)
     short_code_format_warning = fields.Boolean('Short Code Format Warning', compute="_compute_short_code_warning")
     short_code_unique_warning = fields.Boolean('Short Code Unique Warning', compute="_compute_short_code_warning")
@@ -252,11 +253,10 @@ class AppointmentShare(models.Model):
             return False
         return True
 
-    def _get_unique_short_code(self, short_code=False):
-        short_access_token = self.access_token[:8] if self.access_token else uuid.uuid4().hex[:8]
-        short_code = short_code or self.short_code or short_access_token
+    def _get_unique_short_code(self, short_code=None):
+        short_code = short_code or self.short_code or (self.access_token[:8] if self.access_token else secrets.token_hex(4))
         nb_short_code = self.env['appointment.invite'].search_count([('id', '!=', self._origin.id), ('short_code', '=', short_code)])
-        if bool(nb_short_code):
+        if nb_short_code:
             short_code = "%s_%s" % (short_code, nb_short_code)
         return short_code
 
