@@ -36,7 +36,7 @@ class WebsiteForumHelpdesk(WebsiteForum):
                 for teams in teams_per_forum_dict.values()
                 for t in teams
             ]
-        elif helpdesk_teams := teams_per_forum_dict.get(request.env['forum.forum']):
+        elif helpdesk_teams := teams_per_forum_dict.get(forum):
             teams = [(t.id, t.display_name) for t in helpdesk_teams]
         else:
             teams = []
