@@ -379,6 +379,7 @@ class TestTimerButtons(TestFsmFlowSaleCommon):
 
         # Should not be visible after the order is fully invoiced
         new_line.product_uom_qty = 0
+        invoice = self.task.sale_order_id.invoice_ids
         self.assertEqual(self.task.sale_order_id.invoice_status, 'invoiced')
         self.assertFalse(self.task.display_create_invoice_primary)
         self.assertFalse(self.task.display_create_invoice_secondary)

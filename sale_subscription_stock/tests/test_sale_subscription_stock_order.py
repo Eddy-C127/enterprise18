@@ -27,8 +27,8 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             # Check that the invoice information are correct
             self.assertEqual(sub.invoice_count, 1, 'The automated action should have invoiced the first period')
             self.assertEqual(sub.order_line.qty_invoiced, 1, 'Order line should now be marked as invoiced')
-            self.assertEqual(sub.account_move_ids.amount_total, 45)
-            invoice_line = sub.account_move_ids.invoice_line_ids
+            self.assertEqual(sub.invoice_ids.amount_total, 45)
+            invoice_line = sub.invoice_ids.invoice_line_ids
             self.assertEqual(' '.join(invoice_line.name.split(' ')[2:]), '03/02/2022 to 04/01/2022')
             self.assertEqual(invoice_line.product_id, self.sub_product_order)
             self.assertEqual(invoice_line.quantity, 1)
@@ -169,12 +169,12 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
                 Command.create({
                 'product_id': self.sub_product_order.id,
                 'product_uom_qty': 1,
-                    'tax_ids': [Command.clear()],
+                'tax_id': [Command.clear()],
                 }),
                 Command.create({
                 'product_id': self.sub_product_order_2.id,
                 'product_uom_qty': 2,
-                    'tax_ids': [Command.clear()],
+                'tax_id': [Command.clear()],
                 }),
             ]
         })
@@ -202,13 +202,13 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
                 Command.create({
                 'product_id': self.sub_product_order.id,
                 'product_uom_qty': 1,
-                    'tax_ids': [Command.clear()],
+                'tax_id': [Command.clear()],
                 }),
                 Command.create({
                 'product_id': self.test_product_order.id,
                 'price_unit': 1,
                 'product_uom_qty': 1,
-                    'tax_ids': [Command.clear()],
+                'tax_id': [Command.clear()],
                 }),
             ]
         })
@@ -372,10 +372,10 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
             'pricelist_id': self.company_data['default_pricelist'].id,
             'order_line': [
                 Command.create(
-                    {'product_id': self.sub_product_order.id, 'product_uom_qty': 1, 'tax_ids': [Command.clear()]}
+                    {'product_id': self.sub_product_order.id, 'product_uom_qty': 1, 'tax_id': [Command.clear()]}
                 ),
                 Command.create(
-                    {'product_id': self.additional_kit_product.id, 'product_uom_qty': 1, 'tax_ids': [Command.clear()]}
+                    {'product_id': self.additional_kit_product.id, 'product_uom_qty': 1, 'tax_id': [Command.clear()]}
                 )
             ]
         })

@@ -31,7 +31,7 @@ class TestHelpdeskStock(common.HelpdeskCommon):
         })
         so.action_confirm()
         so._create_invoices()
-        invoice = so.account_move_ids
+        invoice = so.invoice_ids
         invoice.action_post()
         so.picking_ids[0].move_ids[0].quantity = 1
         so.picking_ids[0].button_validate()

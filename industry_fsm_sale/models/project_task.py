@@ -160,7 +160,7 @@ class Task(models.Model):
         (self - employee_rate_fsm_tasks).update({'warning_message': False})
 
     @api.depends_context('uid')
-    @api.depends('sale_order_id.account_move_ids')
+    @api.depends('sale_order_id.invoice_ids')
     def _compute_portal_invoice_count(self):
         """ The goal of portal_invoice_count field is to show the Invoices stat button in Project sharing feature. """
         is_portal_user = self.env.user._is_portal()
@@ -168,8 +168,8 @@ class Task(models.Model):
         available_invoices = False
         if is_portal_user:
             sale_orders_sudo = self.sale_order_id.sudo()
-            invoices_by_so = {so.id: set(so.account_move_ids.ids) for so in sale_orders_sudo}
-            available_invoices = set(self.env['account.move'].search([('id', 'in', sale_orders_sudo.account_move_ids.ids)]).ids)
+            invoices_by_so = {so.id: set(so.invoice_ids.ids) for so in sale_orders_sudo}
+            available_invoices = set(self.env['account.move'].search([('id', 'in', sale_orders_sudo.invoice_ids.ids)]).ids)
         for task in self:
             task.portal_invoice_count = len(invoices_by_so.get(task.sale_order_id.id, set()).intersection(available_invoices)) if is_portal_user else task.invoice_count
 
@@ -237,7 +237,7 @@ class Task(models.Model):
             not self.under_warranty and not self._has_no_billable_products()
 
     def action_view_invoices(self):
-        invoices = self.mapped('sale_order_id.account_move_ids')
+        invoices = self.mapped('sale_order_id.invoice_ids')
         # prevent view with onboarding banner
         list_view = self.env.ref('account.view_move_tree')
         kanban_view = self.env.ref('account.view_account_move_kanban')
@@ -272,7 +272,7 @@ class Task(models.Model):
             "name": "Portal Invoices",
             "type": "ir.actions.act_url",
             "url":
-                self.env['account.move'].search([('id', 'in', self.sale_order_id.sudo().account_move_ids.ids)], limit=1).get_portal_url()
+                self.env['account.move'].search([('id', 'in', self.sale_order_id.sudo().invoice_ids.ids)], limit=1).get_portal_url()
                 if self.portal_invoice_count == 1
                 else f"/my/projects/{self.project_id.id}/task/{self.id}/invoices",
         }

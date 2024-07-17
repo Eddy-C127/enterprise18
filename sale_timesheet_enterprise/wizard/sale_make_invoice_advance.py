@@ -26,7 +26,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
     def _get_timesheets(self):
         timesheet_domain = [
             ('project_id', '!=', False),
-            ('order_id', 'in', self.order_ids.ids),
+            ('order_id', 'in', self.sale_order_ids.ids),
             ('validated', '=', False),
         ]
         if self.date_start_invoice_timesheet and self.date_end_invoice_timesheet:

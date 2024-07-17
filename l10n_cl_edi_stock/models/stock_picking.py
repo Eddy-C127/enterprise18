@@ -272,7 +272,7 @@ class Picking(models.Model):
                 price = move.product_id.lst_price
                 qty = move.quantity
             elif guide_price == "sale_order":
-                taxes = sale_line.tax_ids
+                taxes = sale_line.tax_id
                 qty = move.product_uom._compute_quantity(move.quantity, sale_line.product_uom)
                 price = sale_line.price_unit * (1 - (sale_line.discount or 0.0) / 100.0)
 
