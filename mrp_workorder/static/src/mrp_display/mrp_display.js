@@ -101,7 +101,7 @@ export class MrpDisplay extends Component {
             this.group_mrp_routings = await user.hasGroup("mrp.group_mrp_routings");
             await this.useEmployee.getConnectedEmployees(true);
             // select the workcenter received in the context
-            if (this.state.activeWorkcenter && !this.state.workcenters.some(wc => wc.id === this.state.activeWorkcenter)) {
+            if (this.props.context.workcenter_id) {
                 const workcenters = await this.orm.searchRead("mrp.workcenter", [["id", "=", this.state.activeWorkcenter]], ["display_name"]);
                 this.state.workcenters = workcenters;
             }
