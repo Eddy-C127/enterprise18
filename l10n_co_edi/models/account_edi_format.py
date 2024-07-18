@@ -285,7 +285,9 @@ class AccountEdiFormat(models.Model):
 
         sign = 1 if invoice.is_outbound() else -1
 
-        regular_tax_lines = invoice.line_ids.filtered(lambda line: line.tax_line_id and not line.tax_line_id.l10n_co_edi_type.retention)
+        regular_tax_lines = invoice.line_ids.filtered(
+            lambda line: line.tax_line_id and not line.tax_line_id.l10n_co_edi_type.retention and line.tax_line_id.l10n_co_edi_type.code not in code_to_filter
+        )
         withholding_amount = '%.2f' % (invoice.amount_untaxed + abs(sum(regular_tax_lines.mapped('amount_currency'))))
         withholding_amount_company = '%.2f' % (-sign * invoice.amount_untaxed_signed + sum(sign * line.balance for line in regular_tax_lines))
 
