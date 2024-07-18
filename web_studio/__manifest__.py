@@ -88,7 +88,8 @@ Note: Only the admin user is allowed to make those customizations.
         ],
         "web_studio.studio_assets_dark": [
             'web_studio/static/src/client_action/variables.dark.scss',
-            ('include', 'web_studio.studio_assets'),
+            ('include', 'web.assets_backend_lazy_dark'),
+            ('include', 'web_studio.studio_assets_minimal'),
         ],
         'web.assets_tests': [
             'web_studio/static/tests/tours/**/*',

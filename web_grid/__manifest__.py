@@ -13,6 +13,9 @@
             # Don't include dark mode files in light mode
             ('remove', 'web_grid/static/src/**/*.dark.scss'),
         ],
+        'web.assets_backend_lazy_dark': [
+            'web_grid/static/src/**/*.dark.scss',
+        ],
         'web.qunit_suite_tests': [
             'web_grid/static/tests/helpers.js',
             'web_grid/static/tests/grid_cells/*',
@@ -21,9 +24,6 @@
         ],
         'web.qunit_mobile_suite_tests': [
             'web_grid/static/tests/grid_view_mobile_tests.js',
-        ],
-        "web.assets_web_dark": [
-            'web_grid/static/src/**/*.dark.scss',
         ],
     },
     'auto_install': True,

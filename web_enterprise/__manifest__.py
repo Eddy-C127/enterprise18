@@ -49,6 +49,12 @@ This module modifies the web addon to provide Enterprise design and responsivene
         'web.assets_backend_lazy': [
             'web_enterprise/static/src/views/pivot/**',
         ],
+        'web.assets_backend_lazy_dark': [
+            ('include', 'web.dark_mode_variables'),
+            # web._assets_backend_helpers
+            ('before', 'web_enterprise/static/src/scss/bootstrap_overridden.scss', 'web_enterprise/static/src/scss/bootstrap_overridden.dark.scss'),
+            ('after', 'web/static/lib/bootstrap/scss/_functions.scss', 'web_enterprise/static/src/scss/bs_functions_overridden.dark.scss'),
+        ],
         'web.assets_web': [
             ('replace', 'web/static/src/main.js', 'web_enterprise/static/src/main.js'),
         ],
