@@ -4,14 +4,14 @@
         <field name="name">spreadsheet.document.to.dashboard.view.form</field>
         <field name="model">spreadsheet.document.to.dashboard</field>
         <field name="arch" type="xml">
-            <form >
+            <form>
                 <div class="alert alert-warning" role="alert">
                     We're sending the original spreadsheet to the trash. No worries, though! You can still make edits by heading over to the Dashboard configuration.
                 </div>
                 <group>
                     <group>
                         <field name="name"/>
-                        <field name="dashboard_group_id"/>
+                        <field name="dashboard_group_id" placeholder="Choose a dashboard section..."/>
                     </group>
                     <group>
                         <field name="group_ids" widget="many2many_tags"/>
@@ -24,5 +24,4 @@
             </form>
         </field>
     </record>
-
 </odoo>
