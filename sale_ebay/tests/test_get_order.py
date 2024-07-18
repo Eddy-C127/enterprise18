@@ -1,10 +1,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import datetime
-from unittest.mock import patch, Mock
+from unittest.mock import patch
 
+from odoo import Command
 from odoo.tests import TransactionCase
-from odoo.tools import mute_logger
 
 from .test_data import EBAY_ANSWER_1
 
@@ -51,3 +50,41 @@ class TestEbay(TransactionCase):
                 number_of_ebay_loggings,
                 "No new loggings should have been created."
             )
+
+    def test_get_matching_url_variants(self):
+        pta = self.env['product.attribute'].create({'name': 'color'})
+        product_template = self.env['product.template'].create({
+            'name': "Test template",
+            'attribute_line_ids': [Command.create({
+                'attribute_id': pta.id,
+                'value_ids': [
+                    Command.create({'name': 'blue', 'attribute_id': pta.id}),
+                    Command.create({'name': 'red', 'attribute_id': pta.id}),
+                    Command.create({'name': 'green', 'attribute_id': pta.id}),
+                    Command.create({'name': 'yellow', 'attribute_id': pta.id}),
+                ]
+            })],
+        })
+        eBay_urls = [
+            "https://www.ebay.com/itm/item_name/item_id?vti=variant_desc",
+            "https://www.ebay.com/thingy?ViewItem&987654=item_id&var=0123456",
+            "https://www.ebay.com/itm/item_name/987654&vti=variant_desc",
+            "https://www.ebay.com/itm/item_name/987654",
+        ]
+        for i in range(4):
+            product_template.product_variant_ids[i].update({
+                'name': f"Test_{i}", 'ebay_variant_url': eBay_urls[i]
+            })
+
+        for url in eBay_urls[:3]:
+            variant = self.env['sale.order']._get_matching_url_variants(
+                url, product_template.product_variant_ids
+            )
+            msg = "The variant should match the URL received from eBay."
+            self.assertEqual(variant.ebay_variant_url, url, msg=msg)
+        for url in eBay_urls[3]:
+            variant = self.env['sale.order']._get_matching_url_variants(
+                url, product_template.product_variant_ids
+            )
+            msg = "The urls shouldn't matched, as there is only info about the product template."
+            self.assertEqual(variant, self.env['product.product'], msg=msg)
