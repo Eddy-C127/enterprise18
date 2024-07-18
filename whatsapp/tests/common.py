@@ -338,6 +338,7 @@ class WhatsAppCase(MockOutgoingWhatsApp):
 
     def _assertWAMessage(self, wa_message, status='sent',
                          fields_values=None, attachment_values=None,
+                         free_text_json_values=None,  # custom free_text_json check on whatsapp.message
                          mail_message_values=None):
         """ Assert content of WhatsApp message.
 
@@ -348,6 +349,8 @@ class WhatsAppCase(MockOutgoingWhatsApp):
           names / values allowing to check message content (e.g. body);
         :param dict attachment_values: if given, should be a dictionary of field
           names / values allowing to check attachment values (e.g. mimetype);
+        :param free_text_json_values: if given, should be a dictionary of free_text_json
+          fields names / values to check free_text_json values (e.g. free_text_1, button_dynamic_url_1);
         :param dict mail_message_values: if given, should be a dictionary of
           field names/values to check inner mail.message content;
         """
@@ -395,14 +398,27 @@ class WhatsAppCase(MockOutgoingWhatsApp):
                         f'whatsapp.message invalid attachment: expected {fvalue} for {fname}, got {attachment_value}'
                     )
 
+        # Check free_text_json
+        if free_text_json_values:
+            free_text_json = wa_message.free_text_json
+            for fname, fvalue in free_text_json_values.items():
+                with self.subTest(fname=fname, fvalue=fvalue):
+                    self.assertEqual(
+                        free_text_json.get(fname), fvalue,
+                        f'whatsapp.message free_text_json: expected {fvalue} for {fname}, got {free_text_json.get(fname)}'
+                    )
+
     def assertWAMessage(self, status='sent', fields_values=None,
-                        attachment_values=None, mail_message_values=None):
+                        attachment_values=None,
+                        free_text_json_values=None,  # custom free_text_json check on whatsapp.message
+                        mail_message_values=None):
         """ Assert and check content of a unique whatsapp message created under
         mock. """
         self._assertWAMessage(
             self._new_wa_msg, status=status,
             fields_values=fields_values,
             attachment_values=attachment_values,
+            free_text_json_values=free_text_json_values,
             mail_message_values=mail_message_values,
         )
 

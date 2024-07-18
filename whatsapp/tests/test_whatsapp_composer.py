@@ -88,6 +88,61 @@ class WhatsAppComposerInternals(WhatsAppComposerCase, CronMixinCase):
                     with self.mockWhatsappGateway():
                         composer.action_send_whatsapp_template()
 
+    @users('user_wa_admin')
+    def test_composer_free_text_on_template_change(self):
+        """ Test free_text and button_dynamic_url fields update on template change
+        and make sure it is correctly sent even after modifying it. """
+        template_1 = self.env['whatsapp.template'].create({
+            'body': 'Template 1 Demo Value: {{1}}',
+            'name': 'Demo Template 1',
+            'status': 'approved',
+            'variable_ids': [
+                (5, 0, 0),
+                (0, 0, {'name': "{{1}}", 'line_type': 'body', 'field_type': "free_text", 'demo_value': "Sample Value 1"}),
+            ],
+        })
+        template_2 = self.env['whatsapp.template'].create({
+            'body': 'Template 2 Demo Value: {{1}} and {{2}}',
+            'name': 'Demo Template 2',
+            'status': 'approved',
+            'variable_ids': [
+                (5, 0, 0),
+                (0, 0, {'name': "{{1}}", 'line_type': 'body', 'field_type': "free_text", 'demo_value': "Sample Value 2"}),
+                (0, 0, {'name': "{{2}}", 'line_type': 'body', 'field_type': "free_text", 'demo_value': "Sample Value 3"}),
+            ],
+        })
+        btn = {'button_type': 'url', 'url_type': 'dynamic'}
+        self._add_button_to_template(template_1, 'Odoo EXPO', website_url='https://www.odoo.com/', **btn)
+        self._add_button_to_template(template_2, 'Odoo Bash', website_url='https://runbot.odoo.com/', **btn)
+        self._add_button_to_template(template_2, 'Odoo Combat', website_url='https://www.odoo.com/', **btn)
+        composer_form = self._wa_composer_form(template_1, from_records=self.customers[0])
+        self.assertEqual(composer_form.free_text_1, 'Sample Value 1')
+        self.assertEqual(composer_form.free_text_2, False)
+        self.assertEqual(composer_form.button_dynamic_url_1, 'https://www.odoo.com/???')
+        self.assertEqual(composer_form.button_dynamic_url_2, '')
+        # Change template to check free_text values are updated
+        composer_form.wa_template_id = template_2
+        self.assertEqual(composer_form.free_text_1, 'Sample Value 2')
+        self.assertEqual(composer_form.free_text_2, 'Sample Value 3')
+        self.assertEqual(composer_form.button_dynamic_url_1, 'https://runbot.odoo.com/???')
+        self.assertEqual(composer_form.button_dynamic_url_2, 'https://www.odoo.com/???')
+        # Edit demo value and check it is updated after sending message
+        composer_form.free_text_1 = 'Edited Value'
+        composer_form.button_dynamic_url_1 = 'https://runbot.odoo.com/runbot'
+        composer_form.button_dynamic_url_2 = 'https://www.odoo.com/combat'
+        with self.mockWhatsappGateway():
+            composer = composer_form.save()
+            composer.action_send_whatsapp_template()
+            self.assertWAMessage(
+                "sent",
+                fields_values={
+                    "body": "<p>Template 2 Demo Value: Edited Value and Sample Value 3</p>",
+                },
+                free_text_json_values={
+                    "button_dynamic_url_1": 'https://runbot.odoo.com/runbot',
+                    "button_dynamic_url_2": 'https://www.odoo.com/combat'
+                })
+
     @users('employee')
     def test_composer_number_on_template_change(self):
         """ Test composer behavior when templates changes, also test contextual
