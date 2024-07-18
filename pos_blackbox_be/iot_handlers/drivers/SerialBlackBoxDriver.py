@@ -11,7 +11,7 @@ from odoo.addons.hw_drivers.iot_handlers.drivers.SerialBaseDriver import SerialD
 _logger = logging.getLogger(__name__)
 
 BlackboxProtocol = SerialProtocol(
-    name='Retail Innovation Cleancash',
+    name='Blackbox',
     baudrate=19200,
     bytesize=serial.EIGHTBITS,
     stopbits=serial.STOPBITS_ONE,
