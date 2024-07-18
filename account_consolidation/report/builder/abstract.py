@@ -322,12 +322,17 @@ class AbstractBuilder(ABC):
         :rtype: tuple
         """
         report = self.env['account.report'].browse(options['report_id'])
-        if section.parent_id:
-            section_parent_id = report._get_generic_line_id(None, None, markup=f'section_{section.parent_id.id}')
-            section_id = report._get_generic_line_id(None, None, markup=f'section_{section.id}', parent_line_id=section_parent_id)
-        else:
-            section_parent_id = None
-            section_id = report._get_generic_line_id(None, None, markup=f'section_{section.id}')
+        section_parent_id = ''
+        parent_line_id = section.parent_id
+        while parent_line_id:
+            new_section_parent_id = report._get_generic_line_id(None, None, markup=f'section_{parent_line_id.id}')
+            if section_parent_id:
+                section_parent_id = report._build_subline_id(new_section_parent_id, report._build_line_id(report._parse_line_id(section_parent_id)[1:]))
+            else:
+                section_parent_id = new_section_parent_id
+            parent_line_id = parent_line_id.parent_id
+
+        section_id = report._get_generic_line_id(None, None, markup=f'section_{section.id}', parent_line_id=section_parent_id)
 
         section_line = {
             'id': section_id,
