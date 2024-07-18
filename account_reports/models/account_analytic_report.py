@@ -106,33 +106,46 @@ class AccountReport(models.AbstractModel):
 
         project_plan, other_plans = self.env['account.analytic.plan']._get_all_plans()
         analytic_cols = ", ".join(n._column_name() for n in (project_plan + other_plans))
-        analytic_distribution_equivalent = SQL(f'to_jsonb(UNNEST(ARRAY[{analytic_cols}]))')
+        analytic_distribution_equivalent = SQL(f'to_jsonb(UNNEST(ARRAY[account_analytic_line.{analytic_cols}]))')
 
-        stored_aml_fields, fields_to_insert = self.env['account.move.line']._prepare_aml_shadowing_for_report({
-            'id': SQL.identifier("id"),
+        change_equivalence_dict = {
+            'id': SQL("account_analytic_line.id"),
             'balance': SQL("-amount"),
-            'company_id': SQL.identifier("company_id"),
-            'journal_id': SQL.identifier("journal_id"),
             'display_type': 'product',
             'parent_state': 'posted',
-            'date': SQL.identifier("date"),
             'account_id': SQL.identifier("general_account_id"),
-            'partner_id': SQL.identifier("partner_id"),
             'debit': SQL("CASE WHEN (amount < 0) THEN -amount else 0 END"),
             'credit': SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
             'analytic_distribution': analytic_distribution_equivalent,
-        })
+        }
+
+        all_stored_aml_fields = {
+            field
+            for field, attrs in self.env['account.move.line'].fields_get().items()
+            if attrs['type'] not in ['many2many', 'one2many'] and attrs.get('store')
+        }
+
+        for aml_field in all_stored_aml_fields:
+            if aml_field not in change_equivalence_dict:
+                change_equivalence_dict[aml_field] = SQL(f"account_move_line.{aml_field}")
+
+        stored_aml_fields, fields_to_insert = self.env['account.move.line']._prepare_aml_shadowing_for_report(change_equivalence_dict)
 
         query = SQL("""
             -- Create a temporary table, dropping not null constraints because we're not filling those columns
             CREATE TEMPORARY TABLE IF NOT EXISTS analytic_temp_account_move_line () inherits (account_move_line) ON COMMIT DROP;
             ALTER TABLE analytic_temp_account_move_line NO INHERIT account_move_line;
+            ALTER TABLE analytic_temp_account_move_line DROP CONSTRAINT account_move_line_check_amount_currency_balance_sign;
             ALTER TABLE analytic_temp_account_move_line ALTER COLUMN move_id DROP NOT NULL;
             ALTER TABLE analytic_temp_account_move_line ALTER COLUMN currency_id DROP NOT NULL;
 
             INSERT INTO analytic_temp_account_move_line (%(stored_aml_fields)s)
             SELECT %(fields_to_insert)s
-            FROM (SELECT * FROM account_analytic_line WHERE general_account_id IS NOT NULL) AS account_analytic_line;
+            FROM account_analytic_line
+            LEFT JOIN account_move_line
+                ON account_analytic_line.move_line_id = account_move_line.id
+            WHERE
+                account_analytic_line.general_account_id IS NOT NULL;
 
             -- Create a supporting index to avoid seq.scans
             CREATE INDEX IF NOT EXISTS analytic_temp_account_move_line__composite_idx ON analytic_temp_account_move_line (analytic_distribution, journal_id, date, company_id);

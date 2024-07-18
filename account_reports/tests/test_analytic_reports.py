@@ -36,6 +36,10 @@ class TestAnalyticReport(TestAccountReportsCommon):
             'name': 'Account 3',
             'plan_id': cls.analytic_plan_child.id
         })
+        cls.analytic_account_parent_3 = cls.env['account.analytic.account'].create({
+            'name': 'Account 4',
+            'plan_id': cls.analytic_plan_parent.id
+        })
 
     def test_report_group_by_analytic_plan(self):
 
@@ -548,6 +552,86 @@ class TestAnalyticReport(TestAccountReportsCommon):
                 ['INV/2023/00001',                      0.00,           100.00,         -100.00],
                 ['Total 400000 Product Sales',          0.00,           100.00,         -100.00],
                 ['Total',                               0.00,           100.00,         -100.00],
+            ],
+            options,
+        )
+
+    def test_analytic_groupby_with_horizontal_groupby(self):
+
+        out_invoice_1 = self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'date': '2024-07-01',
+            'invoice_date': '2024-07-01',
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.product_b.id,
+                    'price_unit': 500.0,
+                    'analytic_distribution': {
+                        self.analytic_account_parent_2.id: 80,
+                        self.analytic_account_parent_3.id: -10,
+                    },
+                }),
+            ]
+        }])
+        out_invoice_1.action_post()
+
+        out_invoice_2 = self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'date': '2024-07-01',
+            'invoice_date': '2024-07-01',
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'price_unit': 100.0,
+                    'analytic_distribution': {
+                        self.analytic_account_parent.id: 100,
+                    },
+                }),
+            ]
+        }])
+        out_invoice_2.action_post()
+
+        horizontal_group = self.env['account.report.horizontal.group'].create({
+            'name': 'Horizontal Group Journal Entries',
+            'report_ids': [self.report.id],
+            'rule_ids': [
+                Command.create({
+                    'field_name': 'move_id',  # this field is specific to account.move.line and not in account.analytic.line
+                    'domain': f"[('id', 'in', {(out_invoice_1 + out_invoice_2).ids})]",
+                }),
+            ],
+        })
+
+        options = self._generate_options(
+            self.report,
+            '2024-01-01',
+            '2024-12-31',
+            default_options={
+                'analytic_accounts_groupby': [self.analytic_account_parent.id, self.analytic_account_parent_2.id, self.analytic_account_parent_3.id],
+                'selected_horizontal_group_id': horizontal_group.id,
+            }
+        )
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #   Horizontal groupby      [             Move 2              ]     [               Move 1                ]
+            #   Analytic groupby        A1          A2      A3      Balance     A1          A2       A3         Balance
+            [   0,                      1,          2,      3,      4,          5,          6,      7,          8],
+            [
+                ['Net Profit',          100.00,     0.00,   0.00,   100.00,     0.00,    400.00,    -50.00,     500.00],
+                ['Income',              100.00,     0.00,   0.00,   100.00,     0.00,    400.00,    -50.00,     500.00],
+                ['Gross Profit',        100.00,     0.00,   0.00,   100.00,     0.00,    400.00,    -50.00,     500.00],
+                ['Operating Income',    100.00,     0.00,   0.00,   100.00,     0.00,    400.00,    -50.00,     500.00],
+                ['Cost of Revenue',       0.00,     0.00,   0.00,     0.00,     0.00,      0.00,      0.00,       0.00],
+                ['Total Gross Profit',  100.00,     0.00,   0.00,   100.00,     0.00,    400.00,    -50.00,     500.00],
+                ['Other Income',          0.00,     0.00,   0.00,     0.00,     0.00,      0.00,      0.00,       0.00],
+                ['Total Income',        100.00,     0.00,   0.00,   100.00,     0.00,    400.00,    -50.00,     500.00],
+                ['Expenses',              0.00,     0.00,   0.00,     0.00,     0.00,      0.00,      0.00,       0.00],
+                ['Expenses',              0.00,     0.00,   0.00,     0.00,     0.00,      0.00,      0.00,       0.00],
+                ['Depreciation',          0.00,     0.00,   0.00,     0.00,     0.00,      0.00,      0.00,       0.00],
+                ['Total Expenses',        0.00,     0.00,   0.00,     0.00,     0.00,      0.00,      0.00,       0.00],
             ],
             options,
         )
