@@ -155,6 +155,44 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
         mail = self.env['mail.mail'].search([('recipient_ids', '=', self.partner_a.id)] + attachaments_domain)
         self.assertTrue(mail, "A payment reminder email should have been sent.")
 
+    def test_followup_lines_branches(self):
+        branch = self.env['res.company'].create({
+            'name': 'branch',
+            'parent_id': self.env.company.id
+        })
+        self.cr.precommit.run()  # load the COA
+
+        report = self.env['account.followup.report']
+        options = {
+            'partner_id': self.partner_a.id,
+        }
+
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'company_id': branch.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 500,
+                'tax_ids': [],
+            })]
+        })
+        invoice.action_post()
+
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            report._get_followup_report_lines(options),
+            #   Name                                    Date,           Due Date,       Doc.      Total Due
+            [   0,                                      1,              2,              3,        5],
+            [
+                ('INV/2016/00001',                      '01/01/2016',   '01/01/2016',   '',       '$\xa0500.00'),
+                ('',                                    '',             '',             '',       '$\xa0500.00'),
+                ('',                                    '',             '',             '',       '$\xa0500.00'),
+            ],
+            options,
+        )
+
     def test_followup_report_address_1(self):
         ''' Test child contact priorities: the company will be used when there is no followup or billing contacts
         '''
