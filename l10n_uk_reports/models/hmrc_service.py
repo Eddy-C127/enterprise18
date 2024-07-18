@@ -51,13 +51,13 @@ class HmrcService(models.AbstractModel):
                     resp.raise_for_status()
                     response = resp.json()
                     response = response.get('result', {})
-                    self._write_tokens(response)
+                    self._write_tokens(user, response)
                 except:
                     # If it is a connection error, don't delete credentials and re-raise
                     raise
                 else: #In case no error was thrown, but an error is indicated
                     if response.get('error'):
-                        self._clean_tokens()
+                        self._clean_tokens(user)
                         self._cr.commit() # Even with the raise, we want to commit the cleaning of the tokens in the db
                         raise UserError(_(
                             'There was a problem refreshing the tokens.  Please log in again. %(error)s',
@@ -157,19 +157,19 @@ class HmrcService(models.AbstractModel):
         return gov_dict
 
     @api.model
-    def _write_tokens(self, tokens):
-        vals = {}
-        vals['l10n_uk_hmrc_vat_token_expiration_time'] = tokens.get('expiration_time')
-        vals['l10n_uk_hmrc_vat_token'] = tokens.get('access_token')
-        self.env.user.sudo().write(vals)
+    def _write_tokens(self, user, tokens):
+        user.sudo().write({
+            'l10n_uk_hmrc_vat_token_expiration_time': tokens.get('expiration_time'),
+            'l10n_uk_hmrc_vat_token': tokens.get('access_token'),
+        })
 
     @api.model
-    def _clean_tokens(self):
-        vals = {}
-        vals['l10n_uk_user_token'] = ''
-        vals['l10n_uk_hmrc_vat_token_expiration_time'] = False
-        vals['l10n_uk_hmrc_vat_token'] = ''
-        self.env.user.sudo().write(vals)
+    def _clean_tokens(self, user):
+        user.sudo().write({
+            'l10n_uk_user_token': '',
+            'l10n_uk_hmrc_vat_token_expiration_time': False,
+            'l10n_uk_hmrc_vat_token': '',
+        })
 
     def _get_local_hmrc_oauth_url(self):
         """ The user will be redirected to this url after accepting (or not) permission grant.

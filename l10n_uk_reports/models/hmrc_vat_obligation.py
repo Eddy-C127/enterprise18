@@ -91,7 +91,7 @@ class HmrcVatObligation(models.Model):
             error_message = _('No open obligations were found for the moment.')
         elif error_code == 'CLIENT_OR_AGENT_NOT_AUTHORISED':
             # In case one user needs to submit the report for two companies, they will need to re-login.
-            self.env['hmrc.service'].sudo()._clean_tokens()
+            self.env['hmrc.service']._clean_tokens(user)
             return []
         else:
             error_message = response.get('message', error_code)

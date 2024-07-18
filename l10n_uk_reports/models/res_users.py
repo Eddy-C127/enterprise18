@@ -17,7 +17,7 @@ class User(models.Model):
 
     def hmrc_reset_tokens(self):
         self.ensure_one()
-        self.env['hmrc.service'].sudo()._clean_tokens()
+        self.env['hmrc.service']._clean_tokens(self)
         return True
 
     def _l10n_uk_hmrc_unique_reference(self):
