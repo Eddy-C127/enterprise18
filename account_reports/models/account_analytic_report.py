@@ -106,24 +106,28 @@ class AccountReport(models.AbstractModel):
         if self.env.cr.fetchone():
             return
 
-        line_fields = self.env['account.move.line'].fields_get()
-        self.env.cr.execute("SELECT column_name FROM information_schema.columns WHERE table_name='account_move_line'")
-        stored_fields = set(f[0] for f in self.env.cr.fetchall() if f[0] in line_fields)
+        # Single query to get columns for both tables
+        self.env.cr.execute("""
+            SELECT table_name, column_name
+            FROM information_schema.columns
+            WHERE table_name IN ('account_move_line', 'account_analytic_line')
+        """)
+        columns = self.env.cr.fetchall()
+
+        # Separate columns for each table
+        stored_move_line_fields = {col[1] for col in columns if col[0] == 'account_move_line'}
+        stored_analytic_line_fields = {col[1] for col in columns if col[0] == 'account_analytic_line'}
+
         changed_equivalence_dict = {
-            "id": sql.Identifier("id"),
             "balance": sql.SQL("-amount"),
-            "company_id": sql.Identifier("company_id"),
-            "journal_id": sql.Identifier("journal_id"),
             "display_type": sql.Literal("product"),
             "parent_state": sql.Literal("posted"),
-            "date": sql.Identifier("date"),
             "account_id": sql.Identifier("general_account_id"),
-            "partner_id": sql.Identifier("partner_id"),
             "debit": sql.SQL("CASE WHEN (amount < 0) THEN amount else 0 END"),
             "credit": sql.SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
         }
         selected_fields = []
-        for fname in stored_fields:
+        for fname in stored_move_line_fields:
             if fname in changed_equivalence_dict:
                 selected_fields.append(sql.SQL('{original} AS "account_move_line.{asname}"').format(
                     original=changed_equivalence_dict[fname],
@@ -132,22 +136,10 @@ class AccountReport(models.AbstractModel):
             elif fname == 'analytic_distribution':
                 project_plan, other_plans = self.env['account.analytic.plan']._get_all_plans()
                 analytic_cols = ", ".join(n._column_name() for n in (project_plan+other_plans))
-                selected_fields.append(sql.SQL(f'to_jsonb(UNNEST(ARRAY[{analytic_cols}])) AS "account_move_line.analytic_distribution"'))
+                selected_fields.append(sql.SQL(f'to_jsonb(UNNEST(ARRAY[account_analytic_line.{analytic_cols}])) AS "account_move_line.analytic_distribution"'))
             else:
-                if line_fields[fname].get("translate"):
-                    typecast = sql.SQL('jsonb')
-                elif line_fields[fname].get("type") == "monetary":
-                    typecast = sql.SQL('numeric')
-                elif line_fields[fname].get("type") == "many2one":
-                    typecast = sql.SQL('integer')
-                elif line_fields[fname].get("type") == "datetime":
-                    typecast = sql.SQL('date')
-                elif line_fields[fname].get("type") in ["selection", "reference"]:
-                    typecast = sql.SQL('text')
-                else:
-                    typecast = sql.SQL(self.env['account.move.line']._fields[fname].column_type[0])
-                selected_fields.append(sql.SQL('cast(NULL AS {typecast}) AS "account_move_line.{fname}"').format(
-                    typecast=typecast,
+                selected_fields.append(sql.SQL('{table}.{fname} AS "account_move_line.{fname}"').format(
+                    table=sql.SQL("account_analytic_line") if fname in stored_analytic_line_fields else sql.SQL("account_move_line"),
                     fname=sql.SQL(fname),
                 ))
 
@@ -160,14 +152,21 @@ class AccountReport(models.AbstractModel):
 
             INSERT INTO analytic_temp_account_move_line ({all_fields})
             SELECT {table}
-            FROM (SELECT * FROM account_analytic_line WHERE general_account_id IS NOT NULL) AS account_analytic_line;
+            FROM
+                account_analytic_line
+            LEFT JOIN
+                account_move_line
+            ON
+                account_analytic_line.move_line_id = account_move_line.id
+            WHERE
+                account_analytic_line.general_account_id IS NOT NULL;
 
             -- Create a supporting index to avoid seq.scans
             CREATE INDEX IF NOT EXISTS analytic_temp_account_move_line__composite_idx ON analytic_temp_account_move_line (analytic_distribution, journal_id, date, company_id);
             -- Update statistics for correct planning
             ANALYZE analytic_temp_account_move_line
         """).format(
-            all_fields=sql.SQL(', ').join(sql.Identifier(fname) for fname in stored_fields),
+            all_fields=sql.SQL(', ').join(sql.Identifier(fname) for fname in stored_move_line_fields),
             table=sql.SQL(', ').join(selected_fields),
         )
 

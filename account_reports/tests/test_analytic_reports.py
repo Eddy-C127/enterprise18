@@ -510,3 +510,71 @@ class TestAnalyticReport(TestAccountReportsCommon):
             out_invoices.invoice_line_ids,
             "Both amls should be shown",
         )
+
+    def test_analytic_groupby_with_horizontal_groupby(self):
+        horizontal_group = self.env['account.report.horizontal.group'].create({
+            'name': 'Horizontal Group Products',
+            'report_ids': [self.report.id],
+            'rule_ids': [
+                Command.create({
+                    'field_name': 'product_id',
+                    'domain': f"[('id', 'in', {(self.product_a + self.product_b).ids})]",
+                }),
+            ],
+        })
+
+        out_invoice = self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'date': '2024-07-01',
+            'invoice_date': '2024-07-01',
+            'invoice_line_ids': [
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'price_unit': 100.0,
+                    'analytic_distribution': {
+                        self.analytic_account_parent.id: 100,
+                    },
+                }),
+                Command.create({
+                    'product_id': self.product_b.id,
+                    'price_unit': 500.0,
+                    'analytic_distribution': {
+                        self.analytic_account_parent_2.id: 80,
+                    },
+                }),
+            ]
+        }])
+        out_invoice.action_post()
+
+        options = self._generate_options(
+            self.report,
+            '2024-01-01',
+            '2024-12-31',
+            default_options={
+                'analytic_accounts_groupby': [self.analytic_account_parent.id, self.analytic_account_parent_2.id],
+                'selected_horizontal_group_id': horizontal_group.id,
+            }
+        )
+
+        self.assertLinesValues(
+            self.report._get_lines(options),
+            #   Horizontal groupby      [        Product A        ]     [        Product B         ]
+            #   Analytic groupby        A1          A2      Balance     A1          A2       Balance
+            [0,                         1,          2,      3,          4,       5,          6],
+            [
+                ['Net Profit',          100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
+                ['Income',              100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
+                ['Gross Profit',        100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
+                ['Operating Income',    100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
+                ['Cost of Revenue',     0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
+                ['Total Gross Profit',  100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
+                ['Other Income',        0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
+                ['Total Income',        100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
+                ['Expenses',            0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
+                ['Expenses',            0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
+                ['Depreciation',        0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
+                ['Total Expenses',      0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
+            ],
+            options,
+        )
