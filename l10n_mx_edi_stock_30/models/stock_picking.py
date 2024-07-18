@@ -2,6 +2,7 @@
 import uuid
 
 from odoo import _, api, fields, models
+from odoo.tools.sql import column_exists, create_column
 
 
 class Picking(models.Model):
@@ -19,6 +20,26 @@ class Picking(models.Model):
         store=True,
         readonly=False,
     )
+
+    def _auto_init(self):
+        if not column_exists(self.env.cr, "stock_picking", "l10n_mx_edi_gross_vehicle_weight"):
+            create_column(self.env.cr, "stock_picking", "l10n_mx_edi_gross_vehicle_weight", "float8")
+        if not column_exists(self.env.cr, "stock_picking", "l10n_mx_edi_is_cfdi_needed"):
+            create_column(self.env.cr, "stock_picking", "l10n_mx_edi_is_cfdi_needed", "boolean")
+            query = '''
+                UPDATE stock_picking
+                   SET l10n_mx_edi_is_cfdi_needed = True
+                 WHERE id IN (
+                       SELECT sp.id
+                         FROM stock_picking sp
+                    LEFT JOIN stock_picking_type spt ON sp.picking_type_id = spt.id
+                    LEFT JOIN res_company rcomp ON sp.company_id = rcomp.id
+                    LEFT JOIN res_country country ON rcomp.account_fiscal_country_id = country.id
+                        WHERE country.code = 'MX' AND spt.code IN ('incoming', 'outgoing')
+                )
+            '''
+            self.env.cr.execute(query)
+        return super()._auto_init()
 
     @api.depends('company_id', 'picking_type_code')
     def _compute_l10n_mx_edi_is_delivery_guide_needed(self):
