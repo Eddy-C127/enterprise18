@@ -45,3 +45,22 @@ class FrenchReportCustomHandler(models.AbstractModel):
             'target': 'new',
             'context': {**self.env.context, 'l10n_fr_generation_options': options},
         }
+
+    def action_audit_cell(self, options, params):
+        # OVERRIDES 'account_reports'
+
+        # Each line of the French VAT report is rounded to the unit.
+        # In addition, the tax amounts are computed using the rounded base amounts.
+        # The computation of the tax lines is done using the 'aggregation' engine,
+        # so the tax tags are no longer used in the report.
+
+        # That means the 'expression_label' needs to be adjusted when auditing tax lines,
+        # in order to target the expression that uses the 'tax_tags' engine,
+        # if we want to display the expected journal items.
+
+        report_line = self.env['account.report.line'].browse(params['report_line_id'])
+
+        if set(report_line.expression_ids.mapped('label')) == {'balance', 'balance_from_tags'}:
+            params['expression_label'] = 'balance_from_tags'
+
+        return report_line.report_id.action_audit_cell(options, params)

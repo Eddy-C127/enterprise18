@@ -4074,7 +4074,7 @@ class AccountReport(models.Model):
 
         # Audit of move lines
         # If we're auditing a groupby line, we need to make sure to restrict the result of what we audit to the right group values
-        column = next(col for col in report_line.report_id.column_ids if col.expression_label == expression_label)
+        column = next((col for col in report_line.report_id.column_ids if col.expression_label == expression_label), self.env['account.report.column'])
         if column.custom_audit_action_id:
             action_dict = column.custom_audit_action_id._get_action_dict()
         else:
