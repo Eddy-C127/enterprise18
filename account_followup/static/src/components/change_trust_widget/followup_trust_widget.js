@@ -11,6 +11,7 @@ class FollowupTrustPopOver extends Component {
     static props = {
         record: Object,
         widget: Object,
+        close: { optional: true, type: Function },
     };
 }
 
