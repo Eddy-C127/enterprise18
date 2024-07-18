@@ -141,6 +141,10 @@ class WebsiteIntegrator extends Component {
                 res_id: page.id,
                 res_model: "website.controller.page",
                 views: [[false, "form"]],
+                context: {
+                    studio: true,
+                    form_view_ref: "website_studio.website_controller_page_form_dialog_new",
+                },
             },
             {
                 onClose: () => this.loadWebsitePages(),
@@ -156,6 +160,7 @@ class WebsiteIntegrator extends Component {
             default_page_type: type,
             default_website_published: true,
             "website_studio.create_page": true,
+            studio: true,
         };
         if (type === "listing") {
             context.default_use_menu = true;

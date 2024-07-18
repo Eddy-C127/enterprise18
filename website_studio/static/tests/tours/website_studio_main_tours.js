@@ -22,11 +22,11 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
         },
         {
             content: "Set the name of the page",
-            trigger: "div[name='page_name'] input",
+            trigger: "div[name='name'] input",
             run: "edit MyCustom Name && press Tab",
         },
         {
-            trigger: "div[name='name_slugified']:contains(mycustom-name)",
+            trigger: "div[name='name_slugified'] input:value(mycustom-name)",
         },
         {
             content: "listing is displayed in the menu by default",
@@ -80,11 +80,11 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         },
         {
             content: "Set the name of the page",
-            trigger: "div[name='page_name'] input",
+            trigger: "div[name='name'] input",
             run: "edit MyCustom Name && press Tab",
         },
         {
-            trigger: "div[name='name_slugified']:contains(mycustom-name)",
+            trigger: "div[name='name_slugified'] input:value(mycustom-name)",
         },
         {
             content: "listing is displayed in the menu by default",

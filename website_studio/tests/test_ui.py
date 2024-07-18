@@ -145,17 +145,20 @@ class TestUi(odoo.tests.HttpCase):
         self.start_tour("/web", 'website_studio_listing_and_page', login="admin", timeout=3600)
         created_pages = self.env["website.controller.page"].search([])
         self.assertEqual(len(created_pages), 2)
-        self.assertEqual(created_pages[0].name_slugified, 'mycustom-name')
-        self.assertEqual(len(created_pages[0].menu_ids), 1)
-        self.assertEqual(len(created_pages[0].view_id), 1)
-        self.assertEqual(created_pages[0].page_type, 'listing')
 
-        self.assertEqual(created_pages[1].name_slugified, 'mycustom-name')
-        self.assertEqual(len(created_pages[1].menu_ids), 0)
-        self.assertEqual(len(created_pages[1].view_id), 1)
-        self.assertEqual(created_pages[1].page_type, 'single')
+        listing = created_pages.filtered(lambda r: r.page_type == "listing")
+        single = created_pages - listing
 
-        listing_tree = etree.fromstring(created_pages[0].view_id.arch)
+        self.assertEqual(listing.name_slugified, 'mycustom-name')
+        self.assertEqual(len(listing.menu_ids), 1)
+        self.assertEqual(len(listing.view_id), 1)
+
+        self.assertEqual(single.name_slugified, 'mycustom-name')
+        self.assertEqual(len(single.menu_ids), 0)
+        self.assertEqual(len(single.view_id), 1)
+        self.assertEqual(single.page_type, 'single')
+
+        listing_tree = etree.fromstring(listing.view_id.arch)
         name_field = listing_tree.xpath("//span[@t-field='record.display_name']")
         self.assertEqual(len(name_field), 1)
         tag_loop = listing_tree.xpath("//t[@t-foreach='record.x_studio_tag_ids']")
@@ -167,7 +170,7 @@ class TestUi(odoo.tests.HttpCase):
         monetary_field = listing_tree.xpath("//span[@t-field='record.x_studio_monetary']")
         self.assertEqual(len(monetary_field), 1)
 
-        page_tree = etree.fromstring(created_pages[1].view_id.arch)
+        page_tree = etree.fromstring(single.view_id.arch)
         name_field = page_tree.xpath("//span[@t-field='record.display_name']")
         self.assertEqual(len(name_field), 2)
         tag_field = page_tree.xpath("//span[@t-field='tag.display_name']")

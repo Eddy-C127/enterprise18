@@ -1,6 +1,6 @@
 from odoo import api, fields, models, Command, _
-
 from lxml import etree
+
 
 def adapt_arch_to_model(arch, fields_dict):
     """
@@ -77,7 +77,16 @@ def adapt_arch_to_model(arch, fields_dict):
     return etree.tostring(arch, encoding='utf-8', pretty_print=True)
 
 class WebsiteControllerPageStudio(models.Model):
-    _inherit = "website.controller.page"
+    _name = "website.controller.page"
+    _inherit = ['studio.mixin', "website.controller.page"]
+
+    def _default_name(self):
+        default_model = self._context.get("default_model")
+        if default_model:
+            model = self.env["ir.model"]._get(default_model)
+            return model.name
+
+    name = fields.Char(string="View Name", default=_default_name)
 
     use_menu = fields.Boolean(compute="_compute_use_menu_auto_single_page", readonly=False,
         string="Create Website Menu")
@@ -107,7 +116,7 @@ class WebsiteControllerPageStudio(models.Model):
             if not values.get("model_id", values.get("model_name")):
                 continue
             page_type = values.get("page_type")
-            name_slugified = values.get("name_slugified")
+            name_slugified = self.env['ir.http']._slugify(values.get("name_slugified", ""))
             model = self.env["ir.model"].browse(values["model_id"])
             if 'x_studio_website_description' not in self.env[model.model]._fields:
                 # add a field on the model to store the description
@@ -130,11 +139,11 @@ class WebsiteControllerPageStudio(models.Model):
                 sub_vals = dict(values, page_type="single", view_id=view.id, auto_single_page=False, use_menu=False)
                 vals_list.append(sub_vals)
 
-            if not values.get("menu_ids") and values.get("use_menu") and "page_name" in values:
+            if not values.get("menu_ids") and values.get("use_menu") and "name" in values:
                 # Fix me: make one menu per website ???
                 website = Website.browse(values.get("website_id")) or Website.get_current_website()
                 menu_values = {
-                    'name': values["page_name"],
+                    'name': values["name"],
                     'url': f"/model/{name_slugified}",
                     'website_id': website.id,
                     'parent_id': website.menu_id.id,

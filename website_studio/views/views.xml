@@ -7,33 +7,42 @@
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
-                <field name="page_type" invisible="1" />
-                <field name="model_id" invisible="1" force_save="True"/>
-                <field name="website_published" invisible="1"/>
-
+            <sheet>
+                <div name="button_box">
+                    <field name="is_published" widget="website_redirect_button" invisible="not id"/>
+                </div>
+                <widget name="web_ribbon" text="Published" invisible="not website_published" />
+                <widget name="web_ribbon" text="Unpublished" invisible="website_published" bg_color="text-bg-danger" />
+                <div class="oe_title h1">
+                    <field name="name" />
+                </div>
                 <group>
                     <group string="Basic parameters">
-                        <field name="page_name" />
                         <label for="name_slugified" string="URL"/>
-                        <div>
-                            <span>/model/</span>
-                            <field name="name_slugified" nolabel="1" class="d-inline bg-300" force_save="True"/>
+                        <div class="d-flex">
+                            <span class="bg-300 align-self-baseline">/model/</span>
+                            <field name="name_slugified" nolabel="1" force_save="True"/>
                             <span invisible="name_slugified" class="bg-300">...</span>
-                            <span invisible="page_type == 'listing'">
+                            <span class="bg-300 flex-shrink-0 align-self-baseline" invisible="page_type == 'listing'">
                                 /my-little-record-23
                             </span>
                         </div>
+                        <field name="page_type" readonly="id" />
+                        <field name="model_id" readonly="id" force_save="True" string="Exposed model"/>
+                        <field name="website_id" />
+                        <field name="website_published" widget="boolean_toggle"/>
                     </group>
                     <group string="Advanced">
                         <field name="record_domain" widget="domain" options="{'model': 'model'}"/>
-                        <field name="view_id"/>
+                        <field name="view_id" readonly="1" invisible="not id" />
                     </group>
                     <notebook>
-                        <page string="Menus">
+                        <page string="Menus" invisible="not id">
                             <field name="menu_ids" />
                         </page>
                     </notebook>
                 </group>
+            </sheet>
             </form>
         </field>
     </record>
@@ -48,12 +57,10 @@
                 <field name="model" invisible="1"/>
             </xpath>
 
-            <xpath expr="//field[@name='view_id']" position="replace">
-                <field name="use_menu" widget="boolean_toggle" options='{"autosave": False}' invisible="page_type == 'single'" />
-                <field name="auto_single_page" widget="boolean_toggle" options='{"autosave": False}' invisible="page_type == 'single'" readonly="page_type == 'single'" />
+            <xpath expr="//field[@name='view_id']" position="after">
+                <field name="use_menu" widget="boolean_toggle" options='{"autosave": False}' invisible="id or page_type == 'single'" />
+                <field name="auto_single_page" widget="boolean_toggle" options='{"autosave": False}' invisible="id or page_type == 'single'" readonly="page_type == 'single'" />
             </xpath>
-
-            <xpath expr="//notebook" position="replace"/>
         </field>
     </record>
 

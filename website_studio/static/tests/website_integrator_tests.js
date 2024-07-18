@@ -162,7 +162,7 @@ QUnit.module("Website Integrator", (hooks) => {
                             {
                                 id: 1,
                                 website_id: false,
-                                page_name: "test",
+                                name: "test",
                                 page_type: "listing",
                                 name_slugified: "test",
                             }

@@ -112,7 +112,7 @@ class WebsiteStudioController(http.Controller):
     def get_website_pages(self, res_model=None):
         pages = request.env["website.controller.page"].search_read(
             [("model", "=", res_model)],
-            ["website_id", "page_name", "page_type", "name_slugified"]
+            ["website_id", "name", "page_type", "name_slugified"]
         )
         return {
             "pages": pages,

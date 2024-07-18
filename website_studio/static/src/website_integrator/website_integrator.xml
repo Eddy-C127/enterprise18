@@ -8,7 +8,7 @@
             <t t-else="">New Page</t>
         </ThumbnailItem>
         <t t-foreach="this.getPages(group.type, website.id)" t-as="page" t-key="page.id">
-            <t t-set="item" t-value="{...page, name: page.page_name, icon: group.iconData, tooltip: this.computePageUrl(page) }" />
+            <t t-set="item" t-value="{...page, name: page.name, icon: group.iconData, tooltip: this.computePageUrl(page) }" />
             <t t-set="onItemClicked" t-value="page.page_type === 'listing' ? this.openPageUrl.bind(this, page) : this.onConfigurePage.bind(this, page)" />
             <ThumbnailItem onClick="page.page_type === 'listing' ? this.openPageUrl.bind(this, page) : this.onConfigurePage.bind(this, page)" icon="item.icon">
                 <t t-esc="item.name" />
