@@ -2,7 +2,7 @@
 <odoo>
     <record id="stock_picking_form_inherit_l10n_ke_edi_stock" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="name">stock.picking.form.inherit.l10n_ke_edi_stock</field>
+        <field name="name">stock.picking.form.inherit.l10n.ke.edi.oscu.stock</field>
         <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
@@ -31,7 +31,7 @@
     </record>
     <record id="stock_picking_tree_inherit_l10n_ke_edi_stock" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="name">stock.picking.tree.inherit.l10n_ke_edi_stock</field>
+        <field name="name">stock.picking.tree.inherit.l10n.ke.edi.oscu.stock</field>
         <field name="inherit_id" ref="stock.vpicktree" />
         <field name="arch" type="xml">
             <field name="origin" position="after">
@@ -43,7 +43,7 @@
     <!-- New picking view for cancelling the errors -->
     <record id="stock_picking_tree_inherit_l10n_ke_edi_stock_special" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="name">stock.picking.tree.inherit.l10n_ke_edi_stock</field>
+        <field name="name">stock.picking.tree.inherit.l10n.ke.edi.oscu.stock</field>
         <field name="mode">primary</field>
         <field name="inherit_id" ref="stock.vpicktree" />
         <field name="arch" type="xml">
