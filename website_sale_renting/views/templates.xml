@@ -53,6 +53,35 @@
             </xpath>
     </template>
 
+    <template id="rental_pricing_table" name="Rental Pricing Table">
+        <table
+            id="oe_wsale_rental_pricing_table"
+            t-attf-class="o_not_editable table {{is_accordion and 'table-sm mb-0'}}"
+        >
+            <tbody>
+                <t
+                    t-foreach="combination_info['pricing_table']"
+                    t-as="pricing_info"
+                >
+                    <t
+                        t-set="hide_border_bottom_classes"
+                        t-value="'border-bottom-0' if pricing_info_last and is_accordion else ''"
+                    />
+                    <tr>
+                        <td
+                            t-attf-class="{{hide_border_bottom_classes}} ps-0"
+                            t-out="pricing_info[0]"
+                        />
+                        <td
+                            t-attf-class="{{hide_border_bottom_classes}} pe-0 text-muted text-end"
+                            t-out="pricing_info[1]"
+                        />
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </template>
+
     <template id="rental_product" inherit_id="website_sale.product" name="Select pickup Date and Return Date">
         <xpath expr="//t[@t-set='combination_info']" position="attributes">
             <attribute name="t-value">product.with_context(start_date=start_date, end_date=end_date)._get_combination_info()</attribute>
@@ -113,22 +142,52 @@
             </div>
         </xpath>
         <div id="product_documents" position="before">
-            <t t-if="combination_info.get('is_rental') and (not website.prevent_zero_price_sale or combination_info['current_rental_price'])">
+            <t
+                t-if="combination_info.get('is_rental')
+                    and (not website.prevent_zero_price_sale or combination_info['current_rental_price'])
+                    and not (is_view_active('website_sale_comparison.accordion_specs_item') or is_view_active('website_sale.accordion_more_information'))"
+            >
                 <div class="variant_attribute">
                     <strong class="attribute_name">Pricing</strong>
-                    <table class="o_not_editable" id="oe_wsale_rental_pricing_table">
-                        <tbody>
-                            <t t-foreach="combination_info['pricing_table']" t-as="pricing_info">
-                                <tr>
-                                    <td t-out="pricing_info[0]"/>
-                                    <td class="py-1 ps-4 text-muted" t-esc="pricing_info[1]"/>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>
+                    <t t-call="website_sale_renting.rental_pricing_table"/>
                 </div>
             </t>
         </div>
+    </template>
+
+    <template id="accordion_rental_item" name="Rental Accordion Item" inherit_id="website_sale.product_accordion">
+        <xpath expr="//div[@id='product_accordion']/div" position="before">
+            <div
+                t-if="combination_info.get('is_rental')
+                      and (not website.prevent_zero_price_sale or combination_info['current_rental_price'])
+                      and (is_view_active('website_sale_comparison.accordion_specs_item') or is_view_active('website_sale.accordion_more_information'))"
+                class="accordion-item"
+            >
+                <div class="accordion-header mb-0 h6">
+                    <button
+                        class="accordion-button collapsed fw-medium"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#rental_pricing"
+                        aria-expanded="false"
+                        aria-controls="rental_pricing"
+                    >
+                        Rental Pricing
+                    </button>
+                </div>
+                <div
+                    id="rental_pricing"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#product_accordion"
+                >
+                    <div class="accordion-body pt-0">
+                        <t t-call="website_sale_renting.rental_pricing_table">
+                            <t t-set="is_accordion" t-value="True"/>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
     </template>
 
     <template id="variants" inherit_id="website_sale.variants">
