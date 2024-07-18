@@ -247,11 +247,7 @@ class HrPayslip(models.Model):
                 )
                 # Only take deduction types present in structure
                 deduction_types = list(set(valid_attachments.other_input_type_id.mapped('code')))
-                struct_deduction_lines = list(set(slip.struct_id.rule_ids.mapped('code')))
-                included_deduction_types = [f for f in deduction_types if attachment_types[f].code in struct_deduction_lines]
-                for deduction_type in included_deduction_types:
-                    if not slip.struct_id.rule_ids.filtered(lambda r: r.active and r.code == attachment_types[deduction_type].code):
-                        continue
+                for deduction_type in deduction_types:
                     attachments = valid_attachments.filtered(lambda a: a.other_input_type_id.code == deduction_type)
                     amount = attachments._get_active_amount()
                     name = ', '.join(attachments.mapped('description'))
