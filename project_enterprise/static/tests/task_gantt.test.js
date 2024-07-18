@@ -829,3 +829,65 @@ test("Smart scheduling: display warnings", async () => {
     await contains(".o_dialog .o_auto_plan_button").click();
     expect.verifySteps(["schedule_tasks", "notification added"]);
 });
+
+test("Schedule a task and verify its display in the gantt view", async () => {
+    Task._records.push({
+        id: 3,
+        name: "Gnop",
+        user_ids: 100,
+    });
+
+    onRpc("web_gantt_write", ({ args }) => {
+        expect.step("web_gantt_write");
+        expect(args[0]).toEqual([3], { message: "should write on the correct record" });
+        expect(args[1]).toEqual(
+            { start: "2021-06-09 23:00:00", stop: "2021-06-10 22:59:59", user_ids: 100 },
+            { message: "should write these changes" }
+        );
+    });
+
+    await mountGanttView({
+        ...ganttViewParams,
+        groupBy: ["user_ids"],
+    });
+
+    expect(getGridContent().rows).toEqual([
+        {
+            title: "👤 Unassigned",
+        },
+        {
+            title: "Jane Doe",
+            pills: [{ title: "Blop", level: 0, colSpan: "14 June 2021 -> 24 (1/2) June 2021" }],
+        },
+        {
+            title: "John Doe",
+            pills: [
+                { title: "Yop", level: 0, colSpan: "Out of bounds (3)  -> 12 (1/2) June 2021" },
+            ],
+        },
+    ]);
+
+    await clickCell("10 June 2021", "Jane Doe");
+    expect(".o_dialog").toHaveCount(1);
+    await contains(".o_dialog .o_data_row .o-checkbox").click();
+    await contains(".o_dialog .o_select_button").click();
+    expect(getGridContent().rows).toEqual([
+        {
+            title: "👤 Unassigned",
+        },
+        {
+            title: "Jane Doe",
+            pills: [
+                { title: "Gnop", level: 0, colSpan: "10 June 2021 -> 10 June 2021" },
+                { title: "Blop", level: 0, colSpan: "14 June 2021 -> 24 (1/2) June 2021" },
+            ],
+        },
+        {
+            title: "John Doe",
+            pills: [
+                { title: "Yop", level: 0, colSpan: "Out of bounds (3)  -> 12 (1/2) June 2021" },
+            ],
+        },
+    ]);
+    expect.verifySteps(["web_gantt_write"]);
+});
