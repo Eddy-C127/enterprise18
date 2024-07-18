@@ -24,7 +24,7 @@ export class MailMessage extends mailModels.MailMessage {
         const WhatsAppMessage = this.env["whatsapp.message"];
 
         super._to_store(...arguments);
-        const messages = MailMessage._filter([["id", "in", ids]]);
+        const messages = MailMessage.browse(ids);
         for (const message of messages) {
             const [whatsappMessage] = WhatsAppMessage.search_read([
                 ["mail_message_id", "=", message.id],

@@ -76,7 +76,7 @@ export class VoipCall extends models.ServerModel {
         if (!Array.isArray(ids)) {
             ids = [ids];
         }
-        const records = this._filter([["id", "in", ids]]);
+        const records = this.browse(ids);
         this.compute_display_name(records);
         const formattedCalls = [];
         for (const call of records) {
@@ -105,7 +105,7 @@ export class VoipCall extends models.ServerModel {
         if (!Array.isArray(ids)) {
             ids = [ids];
         }
-        const records = this._filter([["id", "in", ids]]);
+        const records = this.browse(ids);
         if (records.length !== 1) {
             throw new Error("self.ensure_one");
         }

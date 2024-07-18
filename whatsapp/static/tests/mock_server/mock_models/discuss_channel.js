@@ -37,7 +37,7 @@ export class DiscussChannel extends mailModels.DiscussChannel {
         const DiscussChannelMember = this.env["discuss.channel.member"];
         /** @type {import("mock_models").BusBus} */
         const BusBus = this.env["bus.bus"];
-        const [channel] = this._filter([["id", "in", ids]]);
+        const [channel] = this.browse(ids);
 
         const selfMember = this._find_or_create_member_for_self(channel.id);
         if (selfMember) {
@@ -62,14 +62,10 @@ export class DiscussChannel extends mailModels.DiscussChannel {
                 id: channel.id,
                 memberCount: DiscussChannelMember.search_count([["channel_id", "=", channel.id]]),
             });
-            broadcast_store.add(
-                DiscussChannelMember.browse(selfMemberId).map((record) => record.id)
-            );
+            broadcast_store.add(DiscussChannelMember.browse(selfMemberId));
             BusBus._sendone(channel, "mail.record/insert", broadcast_store.get_result());
         }
-        return new mailDataHelpers.Store(
-            DiscussChannel.browse(channel.id).map((record) => record.id)
-        ).get_result();
+        return new mailDataHelpers.Store(DiscussChannel.browse(channel.id)).get_result();
     }
     /**
      * @override

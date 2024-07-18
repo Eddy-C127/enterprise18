@@ -27,7 +27,7 @@ export class MailActivity extends mailModels.MailActivity {
         /** @type {import("mock_models").ResPartner} */
         const ResPartner = this.env["res.partner"];
 
-        const activities = this._filter([["id", "in", ids]]);
+        const activities = this.browse(ids);
         const now = serializeDate(today());
         for (const activity of activities) {
             const [user] = ResUsers.search_read([["id", "=", activity.user_id]]);

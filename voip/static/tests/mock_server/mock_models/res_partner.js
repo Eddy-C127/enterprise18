@@ -19,7 +19,7 @@ export class ResPartner extends mailModels.ResPartner {
 
     /** @param {number[]} ids */
     _format_contacts(ids) {
-        const contacts = this._filter([["id", "in", ids]]);
+        const contacts = this.browse(ids);
         return contacts.map((contact) => ({
             id: contact.id,
             displayName: contact.display_name,
