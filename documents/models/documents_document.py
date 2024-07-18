@@ -743,7 +743,7 @@ class Document(models.Model):
 
     def _get_access_action(self, access_uid=None, force_website=False):
         self.ensure_one()
-        if access_uid and not force_website and self.active:
+        if access_uid and not force_website and self.active and self.env.user.has_group("documents.group_documents_user"):
             url_params = url_encode({
                 'preview_id': self.id,
                 'view_id': self.env.ref("documents.document_view_kanban").id,
