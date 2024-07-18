@@ -4789,9 +4789,11 @@ class AccountReport(models.Model):
             ]),
         ])
 
-        if fiscal_positions := self.env['account.move.line'].search(self._get_options_fiscal_position_domain(options)).move_id.fiscal_position_id:
-            domain = osv.expression.AND([domain, [('fiscal_position_id', 'in', fiscal_positions.ids)]])
-
+        fiscal_position_option = options.get('fiscal_position')
+        if isinstance(fiscal_position_option, int):
+            domain = osv.expression.AND([domain, [('fiscal_position_id', '=', fiscal_position_option)]])
+        elif fiscal_position_option == 'domestic':
+            domain = osv.expression.AND([domain, [('fiscal_position_id', '=', False)]])
         return domain
 
     def get_annotations(self, options):
