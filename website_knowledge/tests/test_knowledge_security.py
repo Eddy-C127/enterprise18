@@ -46,7 +46,7 @@ class TestWKnowledgeSecurity(KnowledgeCommonWData):
         self.assertTrue(article_shared.is_user_favorite)
 
     @mute_logger('odoo.addons.base.models.ir_model', 'odoo.addons.base.models.ir_rule')
-    @users('portal_test')
+    @users('employee')
     def test_models_as_user(self):
         """ Test publish flag giving read access to articles """
         article_hidden = self.private_children[0].with_env(self.env)
