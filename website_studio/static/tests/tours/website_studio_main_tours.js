@@ -16,10 +16,6 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
             run: "click",
         },
         {
-            trigger: ".o_website_studio_listing",
-            run: "click",
-        },
-        {
             content: "Create a listing page",
             trigger: ".o_website_studio_listing .o_web_studio_thumbnail_item",
             run: "click",
@@ -27,19 +23,19 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
         {
             content: "Set the name of the page",
             trigger: "div[name='page_name'] input",
-            run: "edit MyCustom Name && click body",
+            run: "edit MyCustom Name && press Tab",
         },
         {
             trigger: "div[name='name_slugified']:contains(mycustom-name)",
-            run: () => {
-                // listing is displayed in the menu by default
-                assertEqual(document.querySelector("div[name='use_menu'] input").checked, true);
-                // creating a listing automatically creates a detailed page for each record to be consulted separately
-                assertEqual(
-                    document.querySelector("div[name='auto_single_page'] input").checked,
-                    true
-                );
-            },
+        },
+        {
+            content: "listing is displayed in the menu by default",
+            trigger: "div[name='use_menu'] input:checked",
+        },
+        {
+            content:
+                "creating a listing automatically creates a detailed page for each record to be consulted separately",
+            trigger: "div[name='auto_single_page'] input:checked",
         },
         {
             trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
@@ -57,7 +53,7 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
                 assertEqual(document.querySelector(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
                 // the page has the right name
                 assertEqual(document.querySelector(".o_website_studio_single .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
-            }
+            },
         },
     ],
 });
@@ -86,19 +82,19 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         {
             content: "Set the name of the page",
             trigger: "div[name='page_name'] input",
-            run: "edit MyCustom Name && click body",
+            run: "edit MyCustom Name && press Tab",
         },
         {
             trigger: "div[name='name_slugified']:contains(mycustom-name)",
-            run: () => {
-                // listing is displayed in the menu by default
-                assertEqual(document.querySelector("div[name='use_menu'] input").checked, true);
-                // creating a listing automatically creates a detailed page for each record to be consulted separately
-                assertEqual(
-                    document.querySelector("div[name='auto_single_page'] input").checked,
-                    true
-                );
-            },
+        },
+        {
+            content: "listing is displayed in the menu by default",
+            trigger: "div[name='use_menu'] input:checked",
+        },
+        {
+            content:
+                "creating a listing automatically creates a detailed page for each record to be consulted separately",
+            trigger: "div[name='auto_single_page'] input:checked",
         },
         {
             content: "Uncheck the toggle and only create the listing",
@@ -120,7 +116,7 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
                 assertEqual(pagesCount, 0);
                 // the listing has the right name
                 assertEqual(document.querySelector(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
-            }
+            },
         },
     ],
 });

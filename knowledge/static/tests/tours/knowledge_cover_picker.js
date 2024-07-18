@@ -39,14 +39,18 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
             run: "edit Birds && click body",
         },
         {
-    // Make the add cover button visible (only visible on hover)
-    trigger: '.o_article_active:contains("Birds")',
+            content: "Make the add cover button visible (only visible on hover)",
+            trigger: '.o_article_active:contains("Birds")',
         },
         {
-    // Click on add cover button
-    trigger: '.o_knowledge_add_cover',
-    allowInvisible: true,
-        run: "click",
+            content: "click on toggle menu",
+            trigger: "#dropdown_tools_panel[title='More actions']",
+            run: "click",
+        },
+        {
+            content: "Click on add cover button",
+            trigger: ".o_knowledge_add_cover",
+            run: "click",
         },
         {
             trigger: ".modal-body .unsplash_error",
@@ -76,9 +80,8 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     trigger: '.o_knowledge_cover img[style="object-position: 50% 50%;"]',
         },
         {
-    // Click on the reposition cover button
-    trigger: '.o_knowledge_reposition_cover',
-    allowInvisible: true,
+            content: "Click on the reposition cover button",
+            trigger: ".o_knowledge_reposition_cover",
             run: "click",
         },
         {
@@ -99,9 +102,8 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     trigger: '.o_knowledge_cover img[style="object-position: 50% 50%;"]',
         },
         {
-    // Move cover again but use the "save" button this time
-    trigger: '.o_knowledge_reposition_cover',
-    allowInvisible: true,
+            content: "Move cover again but use the 'save' button this time",
+            trigger: ".o_knowledge_reposition_cover",
             run: "click",
         },
         {
@@ -151,9 +153,8 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     trigger: '.o_knowledge_cover img[style="object-position: 50% 0.01%;"]',
         },
         {
-    // Click on replace cover button
-    trigger: '.o_knowledge_replace_cover',
-    allowInvisible: true,
+            content: "Click on replace cover button",
+            trigger: ".o_knowledge_replace_cover",
             run: "click",
         },
         {
@@ -171,9 +172,8 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     trigger: '.o_knowledge_edit_cover_buttons',
         },
         {
-    // Click on remove cover button
-    trigger: '.o_knowledge_remove_cover',
-    allowInvisible: true,
+            content: "Click on remove cover button",
+            trigger: ".o_knowledge_remove_cover",
             run: "click",
         },
         {
@@ -189,9 +189,13 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     trigger: '.o_article_active:contains("odoo")',
         },
         {
-    // Click on add cover button
-    trigger: '.o_knowledge_add_cover',
-    allowInvisible: true,
+            content: "click on toggle menu",
+            trigger: "#dropdown_tools_panel[title='More actions']",
+            run: "click",
+        },
+        {
+            content: "Click on add cover button",
+            trigger: ".o_knowledge_add_cover",
             run: "click",
         },
         {
@@ -215,9 +219,13 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     trigger: '.o_knowledge_edit_cover_buttons',
         },
         {
-    // Click on add cover button
-    trigger: '.o_knowledge_add_cover',
-    allowInvisible: true,
+            content: "click on toggle menu",
+            trigger: "#dropdown_tools_panel[title='More actions']",
+            run: "click",
+        },
+        {
+            content: "Click on add cover button",
+            trigger: ".o_knowledge_add_cover",
             run: "click",
         },
         {
@@ -235,9 +243,9 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     trigger: '.modal-body .o_existing_attachment_cell img[title="odoo_logo.png"]',
         },
         {
-    // Click on delete cover button
-    trigger: '.modal-body .o_existing_attachment_cell:has(img[title="odoo_logo.png"]) .o_existing_attachment_remove',
-    allowInvisible: true,
+            content: "Click on delete cover button",
+            trigger:
+                '.modal-body .o_existing_attachment_cell:has(img[title="odoo_logo.png"]) .o_existing_attachment_remove',
             run: "click",
         },
         {
@@ -267,9 +275,7 @@ registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
             trigger: '.o_article_active:contains("odoo")',
         },
         {
-    trigger: '.o_knowledge_body:not(:has(.o_widget_knowledge_cover))',
-    allowInvisible: true,
-            run: "click",
+            trigger: ".o_knowledge_body:not(:has(.o_widget_knowledge_cover))",
         },
         ...endKnowledgeTour(),
     ],

@@ -18,9 +18,8 @@ patch(accountTourSteps, {
             {
                 content: "Breadcrumb back to Bank Reconciliation from the report",
                 trigger: ".breadcrumb-item a:contains('Bank Reconciliation')",
-                allowInvisible: true,
                 run: "click",
             },
-        ]
+        ];
     },
 });

@@ -21,8 +21,8 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
         },
         {
             content: "Statement button",
-            trigger: ".o_bank_rec_st_line:eq(2) .oe_kanban_action_a:contains('Statement')",
-            allowInvisible: true,
+            trigger:
+                ".o_bank_rec_st_line:eq(2) .oe_kanban_action_a:contains('Statement'):not(:visible)",
             run: "click",
         },
         {

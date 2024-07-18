@@ -52,8 +52,7 @@ registry.category("web_tour.tours").add("web_studio_test_edit_with_xml_editor", 
             run: "click",
         },
         {
-            trigger: ".someDiv",
-            allowInvisible: true,
+            trigger: ".someDiv:not(:visible)",
         },
         {
             trigger: ".o_web_studio_navbar_item button:enabled",
@@ -484,8 +483,7 @@ registry.category("web_tour.tours").add("web_studio_elements_with_groups_form", 
                 ".o_web_studio_form_view_editor .o_web_studio_hook:not(.o_web_studio_nearest_hook)",
         },
         {
-            trigger: ".o_web_studio_form_view_editor .o_field_widget[name='website']",
-            allowInvisible: true,
+            trigger: ".o_web_studio_form_view_editor .o_field_widget[name='website']:not(:visible)",
             run() {
                 const countFields = document.querySelectorAll(
                     ".o_web_studio_form_view_editor .o_field_widget[name]"
@@ -975,8 +973,7 @@ registry.category("web_tour.tours").add("web_studio_test_studio_view_is_last", {
             run: "drag_and_drop(.o_web_studio_form_view_editor .o_inner_group .o_web_studio_hook:last)",
         },
         {
-            trigger: ".o_web_studio_form_view_editor .o_field_widget[name='website']",
-            allowInvisible: true,
+            trigger: ".o_web_studio_form_view_editor .o_field_widget[name='website']:not(:visible)",
         },
     ],
 });

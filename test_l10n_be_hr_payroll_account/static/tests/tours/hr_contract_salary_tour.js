@@ -257,8 +257,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose Bike 2",
-            trigger: "select[name=select_company_bike_depreciated_cost]",
-            allowInvisible: true,
+            trigger: "select[name=select_company_bike_depreciated_cost]:not(:visible)",
             run: "selectByLabel Bike 2",
         },
         {
@@ -266,8 +265,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose Bike 1",
-            trigger: "select[name=select_company_bike_depreciated_cost]",
-            allowInvisible: true,
+            trigger: "select[name=select_company_bike_depreciated_cost]:not(:visible)",
             run: "selectByLabel Bike 1",
         },
         {
@@ -452,8 +450,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Certificate",
-            trigger: "select[name=certificate]",
-            allowInvisible: true,
+            trigger: "select[name=certificate]:not(:visible)",
             run: "selectByLabel Master",
         },
         {
@@ -493,20 +490,17 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Nationality",
-            trigger: "select[name=country_id]",
-            allowInvisible: true,
+            trigger: "select[name=country_id]:not(:visible)",
             run: "selectByLabel Belgium",
         },
         {
             content: "Country of Birth",
-            trigger: "select[name=country_of_birth]",
-            allowInvisible: true,
+            trigger: "select[name=country_of_birth]:not(:visible)",
             run: "selectByLabel Belgium",
         },
         {
             content: "Lang",
-            trigger: "select[name=lang]",
-            allowInvisible: true,
+            trigger: "select[name=lang]:not(:visible)",
             run: "selectByLabel English",
         },
         {
@@ -527,8 +521,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Set Married",
-            trigger: "select[name=marital]",
-            allowInvisible: true,
+            trigger: "select[name=marital]:not(:visible)",
             run: "selectByLabel Married",
         },
         {
@@ -552,8 +545,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Set High Spouse Income",
-            trigger: "select[name=spouse_fiscal_status]",
-            allowInvisible: true,
+            trigger: "select[name=spouse_fiscal_status]:not(:visible)",
             run: "selectByLabel With High Income",
         },
         {
@@ -561,8 +553,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unset Married",
-            trigger: "select[name=marital]",
-            allowInvisible: true,
+            trigger: "select[name=marital]:not(:visible)",
             run: "selectByLabel Single",
         },
         {
@@ -703,8 +694,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose a new car",
-            trigger: `select[name="select_company_car_total_depreciated_cost"]`,
-            allowInvisible: true,
+            trigger: `select[name="select_company_car_total_depreciated_cost"]:not(:visible)`,
             run: "selectByLabel a3",
         },
         // set personal info
@@ -1247,8 +1237,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Choose a new car in waiting list",
-            trigger: `select[name="select_wishlist_car_total_depreciated_cost"]`,
-            allowInvisible: true,
+            trigger: `select[name="select_wishlist_car_total_depreciated_cost"]:not(:visible)`,
             run: "selectByLabel Corsa",
         },
         {
@@ -1310,8 +1299,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Certificate",
-            trigger: "select[name=certificate]",
-            allowInvisible: true,
+            trigger: "select[name=certificate]:not(:visible)",
             run: "selectByLabel Master",
         },
         {
@@ -1334,8 +1322,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Lang",
-            trigger: "select[name=lang]",
-            allowInvisible: true,
+            trigger: "select[name=lang]:not(:visible)",
             run: "selectByLabel English",
         },
         {
@@ -1358,14 +1345,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Nationality",
-            trigger: "select[name=country_id]",
-            allowInvisible: true,
+            trigger: "select[name=country_id]:not(:visible)",
             run: "selectByLabel Belgium",
         },
         {
             content: "Country of Birth",
-            trigger: "select[name=country_of_birth]",
-            allowInvisible: true,
+            trigger: "select[name=country_of_birth]:not(:visible)",
             run: "selectByLabel Belgium",
         },
         {
@@ -1373,8 +1358,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Country",
-            trigger: "select[name=private_country_id]",
-            allowInvisible: true,
+            trigger: "select[name=private_country_id]:not(:visible)",
             run: "selectByLabel Belgium",
         },
         {

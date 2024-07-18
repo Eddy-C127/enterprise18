@@ -237,8 +237,8 @@ registry.category("web_tour.tours").add("knowledge_search_favorites_tour", {
         // insert a first kanban view
         ...embedKnowledgeKanbanViewSteps("Article 1"),
         { // wait for embedded view to load and click on rename button
-            trigger: '.o_knowledge_behavior_type_embedded_view:has(.o_knowledge_embedded_view .o_control_panel:contains(Articles)) .o_control_panel_breadcrumbs_actions .dropdown-toggle',
-            allowInvisible: true,
+            trigger:
+                ".o_knowledge_behavior_type_embedded_view:has(.o_knowledge_embedded_view .o_control_panel:contains(Articles)) .o_control_panel_breadcrumbs_actions .dropdown-toggle",
             run: "click",
         }, {
             trigger: '.dropdown-item:contains(Edit)',
