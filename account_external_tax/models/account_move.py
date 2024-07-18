@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models
+from odoo import models, _
 from odoo.tools import float_compare, formatLang
 
 
@@ -27,11 +27,11 @@ class AccountMove(models.Model):
                 {
                     'amount': move.tax_totals['amount_untaxed'],
                     'formatted_amount': move.tax_totals['formatted_amount_untaxed'],
-                    'name': 'Untaxed Amount'
+                    'name': move.tax_totals['subtotals'][0]['name'] if len(move.tax_totals['subtotals']) == 1 else _("Untaxed Amount")
                 }
             ]
 
-            for _, groups in move.tax_totals['groups_by_subtotal'].items():
+            for groups in move.tax_totals['groups_by_subtotal'].values():
                 for group in groups:
                     group['tax_group_base_amount'] = move.tax_totals['amount_untaxed']
                     group['formatted_tax_group_base_amount'] = move.tax_totals['formatted_amount_untaxed']
