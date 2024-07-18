@@ -18,7 +18,8 @@ class AccountMove(models.Model):
     def _compute_l10n_ke_oscu_show_create_purchase_order_button(self):
         for move in self:
             move.l10n_ke_oscu_show_create_purchase_order_button = (
-                not move.line_ids.purchase_line_id
+                move.country_code == 'KE'
+                and not move.line_ids.purchase_line_id
                 and move.state == 'draft'
                 and move.is_purchase_document(include_receipts=True)
                 and not move.l10n_ke_oscu_invoice_number
@@ -28,7 +29,8 @@ class AccountMove(models.Model):
     def _compute_l10n_ke_oscu_show_create_sale_order_button(self):
         for move in self:
             move.l10n_ke_oscu_show_create_sale_order_button = (
-                not move.line_ids.sale_line_ids
+                move.country_code == 'KE'
+                and not move.line_ids.sale_line_ids
                 and move.state == 'draft'
                 and move.is_sale_document(include_receipts=True)
                 and not move.l10n_ke_oscu_invoice_number

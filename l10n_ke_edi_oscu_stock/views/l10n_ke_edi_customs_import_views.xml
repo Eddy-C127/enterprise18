@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="l10n_ke_edi_customs_import_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ke.edi.customs.import.tree</field>
+        <field name="name">l10n.ke.edi.oscu.stock.customs.import.tree</field>
         <field name="model">l10n_ke_edi.customs.import</field>
         <field name="arch" type="xml">
             <tree string="Customs Imports">
@@ -20,7 +20,7 @@
     </record>
 
     <record id="l10n_ke_edi_customs_import_view_branch_form" model="ir.ui.view">
-        <field name="name">l10n_ke_edi.customs.import.form</field>
+        <field name="name">l10n.ke.edi.oscu.stock.customs.import.form</field>
         <field name="model">l10n_ke_edi.customs.import</field>
         <field name="arch" type="xml">
             <form string="Customs Import">
@@ -94,7 +94,7 @@
     </record>
 
     <record id="l10n_ke_customs_import_search_view" model="ir.ui.view">
-        <field name="name">l10n_ke.customs.import.search</field>
+        <field name="name">l10n.ke.edi.oscu.stock.customs.import.search</field>
         <field name="model">l10n_ke_edi.customs.import</field>
         <field name="arch" type="xml">
             <search string="Product">
