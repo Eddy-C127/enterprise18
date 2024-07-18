@@ -410,6 +410,8 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 period_end = options_date_to - datetime.timedelta(30*(period_number-1)+1)
                 period_start = options_date_to - datetime.timedelta(30*(period_number))
                 domain = [('date_maturity', '>=', period_start), ('date_maturity', '<=', period_end)]
+                if period_number == 5:
+                    domain = [('date_maturity', '<=', period_end)]
         else:
             domain = []
         return domain
