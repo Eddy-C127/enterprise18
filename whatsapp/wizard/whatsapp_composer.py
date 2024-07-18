@@ -182,9 +182,9 @@ class WhatsAppComposer(models.TransientModel):
     def _compute_button_dynamic_url(self):
         for rec in self:
             freetext_btn_vars = rec.wa_template_id.variable_ids.filtered(lambda line: line.line_type == 'button' and line.field_type == 'free_text')
-            if not rec.button_dynamic_url_1:
+            if not rec._origin.button_dynamic_url_1:
                 rec.button_dynamic_url_1 = freetext_btn_vars[0].demo_value if len(freetext_btn_vars) > 0 else ''
-            if not rec.button_dynamic_url_2:
+            if not rec._origin.button_dynamic_url_2:
                 rec.button_dynamic_url_2 = freetext_btn_vars[1].demo_value if len(freetext_btn_vars) > 1 else ''
 
     @api.depends('wa_template_id')
@@ -199,7 +199,9 @@ class WhatsAppComposer(models.TransientModel):
             if rec.wa_template_id.variable_ids:
                 free_text_count = 1
                 for param in rec.wa_template_id.variable_ids.filtered(lambda line: line.line_type == 'body' and line.field_type == 'free_text'):
-                    if not rec[f"free_text_{free_text_count}"]:
+                    # This is just a hack to work on stable version as we can't force view update on stable.
+                    # As we need to change view, it will be done properly on master.
+                    if not rec._origin[f"free_text_{free_text_count}"]:
                         rec[f"free_text_{free_text_count}"] = param.demo_value
                     free_text_count += 1
 
