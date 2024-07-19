@@ -2584,36 +2584,37 @@ class AccountMove(models.Model):
         return True
 
     def _l10n_mx_edi_import_cfdi_invoice(self, invoice, file_data, new=False):
-        invoice.ensure_one()
-        if invoice.l10n_mx_edi_cfdi_attachment_id:
-            # invoice is already associated with a CFDI document, do nothing
-            return False
-        tree = file_data['xml_tree']
-        # handle payments
-        if tree.findall('.//{*}Pagos'):
-            invoice.message_post(body=_("Importing a CFDI Payment is not supported."))
-            return
-        move_type = 'refund' if tree.attrib.get('TipoDeComprobante') == 'E' else 'invoice'
-        if invoice.journal_id.type == 'sale':
-            move_type = 'out_' + move_type
-        elif invoice.journal_id.type == 'purchase':
-            move_type = 'in_' + move_type
-        else:
-            return
-        invoice.move_type = move_type
-        if not invoice.invoice_line_ids:
-            # don't fill the invoice if it already has lines, simply give it the cfdi info
-            invoice._l10n_mx_edi_import_cfdi_fill_invoice(tree)
-        # create the document
-        self.env['l10n_mx_edi.document'].create({
-            'move_id': invoice.id,
-            'invoice_ids': [Command.set(invoice.ids)],
-            'state': 'invoice_sent' if invoice.is_sale_document() else 'invoice_received',
-            'sat_state': 'not_defined',
-            'attachment_id': file_data['attachment'].id,
-            'datetime': fields.Datetime.now(),
-        })
-        return True
+        with invoice._get_edi_creation() as invoice:
+            invoice.ensure_one()
+            if invoice.l10n_mx_edi_cfdi_attachment_id:
+                # invoice is already associated with a CFDI document, do nothing
+                return False
+            tree = file_data['xml_tree']
+            # handle payments
+            if tree.findall('.//{*}Pagos'):
+                invoice.message_post(body=_("Importing a CFDI Payment is not supported."))
+                return
+            move_type = 'refund' if tree.attrib.get('TipoDeComprobante') == 'E' else 'invoice'
+            if invoice.journal_id.type == 'sale':
+                move_type = 'out_' + move_type
+            elif invoice.journal_id.type == 'purchase':
+                move_type = 'in_' + move_type
+            else:
+                return
+            invoice.move_type = move_type
+            if not invoice.invoice_line_ids:
+                # don't fill the invoice if it already has lines, simply give it the cfdi info
+                invoice._l10n_mx_edi_import_cfdi_fill_invoice(tree)
+            # create the document
+            self.env['l10n_mx_edi.document'].create({
+                'move_id': invoice.id,
+                'invoice_ids': [Command.set(invoice.ids)],
+                'state': 'invoice_sent' if invoice.is_sale_document() else 'invoice_received',
+                'sat_state': 'not_defined',
+                'attachment_id': file_data['attachment'].id,
+                'datetime': fields.Datetime.now(),
+            })
+            return True
 
     def _get_edi_decoder(self, file_data, new=False):
         # EXTENDS 'account'
