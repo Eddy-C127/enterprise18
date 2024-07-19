@@ -78,7 +78,7 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     stepUtils.showAppsMenuItem(),
     ...StepToFSMProductsKanbanWithFavoritesFilterSteps,
     {
-        trigger: ".o_kanban_record .o_kanban_record_title span:contains(Product A)",
+        trigger: ".o_kanban_record:contains(Product A)",
     },
     {
         content: 'Add quantity to the first product (no lot)',

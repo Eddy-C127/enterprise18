@@ -140,7 +140,7 @@ test("click on the minus/plus_buttons to decrease/increase the quantity of a pro
             "Using the plus button should increase the product quantity by 1 unit (expected 2)",
     });
 
-    click(".o_kanban_record:nth-of-type(2) .o_product_added");
+    click(".o_kanban_record.o_product_added");
     await runAllTimers(); // for skipping the debounce delay
     expect(".o_kanban_record:nth-of-type(2) .o_product_catalog_quantity .o_input").toHaveValue(3, {
         message:

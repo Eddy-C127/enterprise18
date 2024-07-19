@@ -16,14 +16,12 @@ export class ProductProduct extends models.Model {
         "kanban,false": `
             <kanban records_draggable="0" js_class="fsm_product_kanban">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <field name="name"/>
-                            <field name="default_code"/>
-                            <div name="o_kanban_price"
-                            t-attf-id="product-{{record.id.raw_value}}-price"
-                            class="d-flex flex-column"/>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name"/>
+                        <field name="default_code"/>
+                        <div name="o_kanban_price"
+                        t-attf-id="product-{{record.id.raw_value}}-price"
+                        class="d-flex flex-column"/>
                     </t>
                 </templates>
             </kanban>

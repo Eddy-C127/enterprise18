@@ -34,7 +34,7 @@ registry.category("web_tour.tours").add(
             run: "click",
         },
         {
-            trigger: '.o_kanban_record_top .o_kanban_record_title:has(span:contains("Super Product"))',
+            trigger: '.o_kanban_record:contains("Super Product")',
             content: 'Add a Super Product to the main_so',
             run: "click",
         },
@@ -54,7 +54,7 @@ registry.category("web_tour.tours").add(
             run: "click",
         },
         {
-            trigger: '.o_kanban_record_top .o_kanban_record_title:has(span:contains("Super Product"))',
+            trigger: '.o_kanban_record:contains("Super Product")',
             content: 'Add a Super Product to the main_so',
             run: "click",
         },
@@ -74,7 +74,7 @@ registry.category("web_tour.tours").add(
             run: "click",
         },
         {
-            trigger: '.o_kanban_record_top .o_kanban_record_title:has(span:contains("Super Product"))',
+            trigger: '.o_kanban_record:contains("Super Product")',
             content: 'Add a Super Product to the main_so',
             run: "click",
         },
