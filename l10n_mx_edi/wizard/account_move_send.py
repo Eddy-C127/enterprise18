@@ -142,6 +142,3 @@ class AccountMoveSend(models.TransientModel):
                     'error_title': _("Error when sending the CFDI to the PAC:"),
                     'errors': errors,
                 }
-
-                if self._can_commit():
-                    self._cr.commit()
