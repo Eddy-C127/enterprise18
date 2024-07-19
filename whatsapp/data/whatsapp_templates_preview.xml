@@ -26,26 +26,26 @@
                 </div>
                 <div class="o_whatsapp_message_links cursor-default px-2" t-if="buttons">
                     <hr class="position-relative w-100 m-0"/>
-                    <t t-foreach="buttons" t-as="button">
-                        <t t-if="button.sequence &lt; 2">
-                            <span t-attf-class="o_whatsapp_message_link d-block text-center my-3">
-                                <t t-if="button.button_type=='phone_number'">
-                                    <i t-attf-class="fa fs-5 fa-phone"/>
-                                </t>
-                                <t t-elif="button.button_type=='url'">
-                                    <i t-attf-class="fa fs-5 fa-external-link"/>
-                                </t>
-                                <t t-else="">
-                                    <i t-attf-class="fa fs-5 fa-reply"/>
-                                </t>
-                                <t t-out="button.name"/>
-                            </span>
-                        </t>
-                        <t t-if="button.sequence == 2">
-                            <span t-attf-class="o_whatsapp_message_link d-block text-center my-3">
-                                <i t-attf-class="fa fs-5  fa-list-ul"/> See all options
-                            </span>
-                        </t>
+                    <t t-set="filtered_buttons" t-value="buttons[:3] if len(buttons) &lt; 4 else buttons[:2]" />
+                    <t t-set="show_all_options_button" t-value="len(buttons) &gt;= 4" />
+                    <t t-foreach="filtered_buttons" t-as="button">
+                        <span t-attf-class="o_whatsapp_message_link d-block text-center my-3">
+                            <t t-if="button.button_type == 'phone_number'">
+                                <i t-attf-class="fa fs-5 fa-phone"/>
+                            </t>
+                            <t t-elif="button.button_type == 'url'">
+                                <i t-attf-class="fa fs-5 fa-external-link"/>
+                            </t>
+                            <t t-else="">
+                                <i t-attf-class="fa fs-5 fa-reply"/>
+                            </t>
+                            <t t-out="button.name"/>
+                        </span>
+                    </t>
+                    <t t-if="show_all_options_button">
+                        <span t-attf-class="o_whatsapp_message_link d-block text-center my-3">
+                            <i t-attf-class="fa fs-5  fa-list-ul"/> See all options
+                        </span>
                     </t>
                 </div>
             </div>
