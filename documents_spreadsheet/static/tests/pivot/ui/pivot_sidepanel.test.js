@@ -605,6 +605,7 @@ test("change measure aggregator", async function () {
             computedBy: undefined,
             format: undefined,
             isHidden: undefined,
+            display: undefined,
         },
     ]);
 });
@@ -741,4 +742,25 @@ test("Pivot cells are highlighted when their side panel is open", async function
     ]);
     await contains(".o-sidePanelClose").click();
     expect(getHighlightsFromStore(env)).toEqual([]);
+});
+
+test("Can change measure display as from the side panel", async function () {
+    const { model, env } = await createSpreadsheetFromPivotView();
+    const pivotId = model.getters.getPivotIds()[0];
+    env.openSidePanel("PivotSidePanel", { pivotId });
+    await animationFrame();
+
+    await contains(".pivot-measure .fa-cog").click();
+    await contains(".o-sidePanel select").select("%_of");
+
+    expect(model.getters.getPivotCoreDefinition(pivotId).measures[0]).toEqual({
+        id: "probability:avg",
+        fieldName: "probability",
+        aggregator: "avg",
+        display: {
+            type: "%_of",
+            fieldNameWithGranularity: "foo",
+            value: "(previous)",
+        },
+    });
 });
