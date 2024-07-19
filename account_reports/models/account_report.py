@@ -1139,7 +1139,7 @@ class AccountReport(models.Model):
             fp_ids_to_exclude = self.env['account.fiscal.position'].search([
                 ('id', '!=', fiscal_position.id if fiscal_position else False),
                 ('foreign_vat', '!=', False),
-                ('country_id', '=', self.env.company.account_fiscal_country_id.id),
+                ('country_id', '=', self.country_id.id),
             ]).ids
 
             if fiscal_position and fiscal_position.country_id == self.env.company.account_fiscal_country_id:
