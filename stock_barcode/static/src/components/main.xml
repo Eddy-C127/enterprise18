@@ -25,10 +25,13 @@
                 </nav>
                 <nav class="navbar-nav">
                     <t t-if="state.view === 'barcodeLines'">
-                        <button class="o_stock_mobile_barcode btn" t-on-click="openManualScanner">
-                            <i class="fa fa-barcode text-primary" role="img"/>
+                        <button t-if="cameraScannerSupported"
+                                class="o_stock_mobile_barcode btn"
+                                t-att-class="cameraScannerClassState"
+                                t-on-click="toggleCameraScanner">
+                            <i class="fa fa-barcode" role="img"/>
                         </button>
-                        <button t-on-click="toggleBarcodeActions" class="o_barcode_actions btn">
+                        <button t-on-click="() => this.changeView('actionsView')" class="o_barcode_actions btn">
                             <i class="fa fa-cog oi-large"/>
                         </button>
                     </t>
@@ -36,6 +39,9 @@
                         <i class="oi oi-close oi-large"/>
                     </button>
                 </nav>
+            </div>
+            <div t-if="state.cameraScannedEnabled" class="text-bg-800">
+                <BarcodeVideoScanner t-props="barcodeVideoScannerProps"/>
             </div>
             <t t-if="state.view === 'barcodeLines'">
                 <div t-if="state.displayNote" class="alert alert-warning text-start mb-0">
@@ -102,6 +108,7 @@
         </div>
         <div t-elif="state.view === 'actionsView'"
              class="o_barcode_settings d-flex flex-grow-1 flex-column p-2">
+            <BarcodeInput onSubmit.bind="onBarcodeSubmitted"/>
             <div t-if="env.model.printButtons">
                 <div class="w-100 my-2 d-flex justify-contents-center">
                     <hr class="flex-grow-1"/>

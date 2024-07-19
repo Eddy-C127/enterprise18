@@ -89,7 +89,7 @@ patch(MainComponent.prototype, {
 
     async toggleHeaderView() {
         await this.env.model.save();
-        this.state.view = 'headerProductPage';
+        this.changeView("headerProductPage");
     },
 
     openByProductLines() {

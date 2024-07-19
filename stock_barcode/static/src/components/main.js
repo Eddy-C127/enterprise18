@@ -13,13 +13,14 @@ import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { View } from "@web/views/view";
-import { ManualBarcodeScanner } from './manual_barcode';
+import { BarcodeVideoScanner, isBarcodeScannerSupported } from '@web/webclient/barcode/barcode_video_scanner';
 import { url } from '@web/core/utils/urls';
 import { utils as uiUtils } from "@web/core/ui/ui_service";
 import { Component, EventBus, onPatched, onWillStart, useState, useSubEnv } from "@odoo/owl";
 import { ImportBlockUI } from "@base_import/import_block_ui";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
+import { BarcodeInput } from "./manual_barcode";
 
 // Lets `barcodeGenericHandlers` knows those commands exist so it doesn't warn when scanned.
 COMMANDS["OCDMENU"] = () => {};
@@ -53,12 +54,14 @@ class MainComponent extends Component {
     static props = { ...standardActionServiceProps };
     static template = "stock_barcode.MainComponent";
     static components = {
-        ImportBlockUI,
+        BarcodeInput,
+        BarcodeVideoScanner,
         Chatter,
-        View,
         GroupedLineComponent,
+        ImportBlockUI,
         LineComponent,
         PackageLineComponent,
+        View,
     };
 
     //--------------------------------------------------------------------------
@@ -81,6 +84,7 @@ class MainComponent extends Component {
         this._scrollBehavior = 'smooth';
         this.isMobile = uiUtils.isSmall();
         this.state = useState({
+            cameraScannedEnabled: false,
             view: "barcodeLines", // Could be also 'printMenu' or 'editFormView'.
             displayNote: false,
             uiBlocked: false,
@@ -112,6 +116,7 @@ class MainComponent extends Component {
                 this.sounds.notify.load();
                 this.sounds.success.load();
             }
+            this.setupCameraScanner();
             this.groups = barcodeData.groups;
             this.env.model.setData(barcodeData);
             this.state.displayNote = Boolean(this.env.model.record.note);
@@ -210,6 +215,33 @@ class MainComponent extends Component {
     }
 
     //--------------------------------------------------------------------------
+    // Camera scanner
+    //--------------------------------------------------------------------------
+
+    toggleCameraScanner() {
+        this.state.cameraScannedEnabled = !this.state.cameraScannedEnabled;
+    }
+
+    setupCameraScanner() {
+        this.cameraScannerSupported = isBarcodeScannerSupported();
+        this.barcodeVideoScannerProps = {
+            delayBetweenScan: this.config.delay_between_scan || 2000,
+            facingMode: "environment",
+            onResult: (barcode) => this.onBarcodeScanned(barcode),
+            onError: (error) => {
+                this.state.cameraScannedEnabled = false;
+                const message = error.message;
+                this.notification.add(message, { type: 'warning' });
+            },
+            cssClass: "o_stock_barcode_camera_video",
+        };
+    }
+
+    get cameraScannerClassState() {
+        return this.state.cameraScannedEnabled ? "bg-success text-white" : "text-primary";
+    }
+
+    //--------------------------------------------------------------------------
     // Handlers
     //--------------------------------------------------------------------------
 
@@ -243,18 +275,14 @@ class MainComponent extends Component {
         }
     }
 
-    openManualScanner() {
-        this.dialog.add(ManualBarcodeScanner, {
-            facingMode: "environment",
-            onResult: (barcode) => {
-                barcode = this.env.model.cleanBarcode(barcode);
-                this.onBarcodeScanned(barcode);
-            },
-            onError: () => {},
-        });
+    onBarcodeSubmitted(barcode) {
+        this.changeView("barcodeLines");
+        barcode = this.env.model.cleanBarcode(barcode);
+        this.onBarcodeScanned(barcode);
     }
 
     async exit(ev) {
+        this.state.cameraScannedEnabled = false;
         if (this.state.view === "barcodeLines") {
             await this.env.model.beforeQuit();
             this._exit();
@@ -311,23 +339,24 @@ class MainComponent extends Component {
         this._onRefreshState({ recordId, lineId });
     }
 
-    toggleBarcodeActions() {
-        this.state.view = "actionsView";
+    changeView(view) {
+        this.state.cameraScannedEnabled = false;
+        this.state.view = view;
     }
 
     async toggleBarcodeLines(lineId) {
         await this.env.model.displayBarcodeLines(lineId);
         this._editedLineParams = undefined;
-        this.state.view = "barcodeLines";
+        this.changeView("barcodeLines");
     }
 
     async toggleInformation() {
         if (this.env.model.formViewId) {
             if (this.state.view === "infoFormView") {
-                this.state.view = "barcodeLines";
+                this.changeView("barcodeLines");
             } else {
                 await this.env.model.save();
-                this.state.view = "infoFormView";
+                this.changeView("infoFormView");
             }
         }
     }
@@ -416,12 +445,12 @@ class MainComponent extends Component {
 
     onOpenPackage(packageId) {
         this._inspectedPackageId = packageId;
-        this.state.view = "packagePage";
+        this.changeView("packagePage");
     }
 
     async newScrapProduct() {
         await this.env.model.save();
-        this.state.view = 'scrapProductPage';
+        this.changeView("scrapProductPage");
     }
 
     get displayOperationButtons() {
@@ -453,7 +482,7 @@ class MainComponent extends Component {
             }
             this._editedLineParams = this.env.model.getEditedLineParams(line);
         }
-        this.state.view = "productPage";
+        this.changeView("productPage");
     }
 
     async _onRefreshState(paramsRefresh) {

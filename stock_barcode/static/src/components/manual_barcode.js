@@ -1,14 +1,14 @@
 import { BarcodeDialog } from '@web/webclient/barcode/barcode_dialog';
-import { onMounted, useRef, useState } from "@odoo/owl";
+import { Component, onMounted, useRef, useState } from "@odoo/owl";
 
-
-export class ManualBarcodeScanner extends BarcodeDialog {
-    static template = "stock_barcode.ManualBarcodeScanner";
+export class BarcodeInput extends Component {
+    static template = "stock_barcode.BarcodeInput";
+    static props = {
+        onSubmit: Function,
+    };
 
     setup() {
-        super.setup();
         this.state = useState({
-            ...this.state,
             barcode: false,
         });
         this.barcodeManual = useRef('manualBarcode');
@@ -26,7 +26,15 @@ export class ManualBarcodeScanner extends BarcodeDialog {
      */
     _onKeydown(ev) {
         if (ev.key === "Enter" && this.state.barcode) {
-            this.onResult(this.state.barcode);
+            this.props.onSubmit(this.state.barcode);
         }
     }
+}
+
+export class ManualBarcodeScanner extends BarcodeDialog {
+    static template = "stock_barcode.ManualBarcodeScanner";
+    static components = {
+        ...BarcodeDialog.components,
+        BarcodeInput,
+    };
 }

@@ -92,6 +92,9 @@ class StockBarcodeController(http.Controller):
         data['config'] = data.get('config', {})
         data['config']['play_sound'] = bool(not mute_sound or mute_sound == "False")
         data['config']['barcode_separator_regex'] = request.env['ir.config_parameter'].sudo().get_param('stock_barcode.barcode_separator_regex', '.^')
+        delay_between_scan = request.env['ir.config_parameter'].sudo().get_param('stock_barcode.delay_between_scan')
+        if delay_between_scan and delay_between_scan.isnumeric():
+            data['config']['delay_between_scan'] = int(delay_between_scan)
         return {
             'data': data,
             'groups': self._get_groups_data(),

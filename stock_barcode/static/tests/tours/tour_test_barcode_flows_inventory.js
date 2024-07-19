@@ -307,18 +307,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_multi_locatio
         trigger: '.o_barcode_client_action',
         run: 'scan product1',
     },
-    // Open manual scanner.
-    {
-        trigger: '.o_barcode_client_action .o_stock_mobile_barcode',
-        run: "click",
-    },
-    // Manually add 'product1'.
-    {
-        trigger: '.modal-content .modal-footer #manual_barcode',
-        run: "edit product1",
-    },
-    // Apply the manual entry of barcode.
-    { trigger: '.modal-content .modal-footer input+button', run: "click" },
+    ...stepUtils.inputManuallyBarcode("product1"),
     {
         trigger: '.o_barcode_client_action',
         run: 'scan product2',

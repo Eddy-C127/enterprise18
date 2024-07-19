@@ -168,18 +168,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     },
     // Scans manually (with a custom separator) lot + quantity but with a lot already scanned,
     // so it should increment the quantity on the line with this lot.
-    {
-        trigger: '.o_barcode_client_action .o_stock_mobile_barcode',
-        run: "click",
-    },
-    {
-        trigger: '.modal-content .modal-footer #manual_barcode',
-        run: "edit 305Alt02910LOT-AAA",
-    },
-    {
-        trigger: '.modal-content .modal-footer input+button',
-        run: "click",
-    },
+    ...stepUtils.inputManuallyBarcode("305Alt02910LOT-AAA"),
     {
         trigger: '.o_barcode_line.o_selected .qty-done:contains("10")',
         run: function () {
@@ -876,19 +865,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
     // The following scanned barcode should be decomposed like that:
     //      - (01)00000076543210    > product barcode (76543210)
     //      - (30)00000008          > quantity (8)
-
-    // Open manual scanner.
-    {
-        trigger: '.o_barcode_client_action .o_stock_mobile_barcode',
-        run: "click",
-    },
-    // Manually add '(01)00000076543210(10)b1-b001(30)00000008' barcode for GS1 test.
-    {
-        trigger: '.modal-content .modal-footer #manual_barcode',
-        run: "edit ((01)00000076543210(30)00000008)",
-    },
-    // Apply the manual entry of barcode.
-    { trigger: '.modal-content .modal-footer input+button', run: "click" },
+    ...stepUtils.inputManuallyBarcode("((01)00000076543210(30)00000008)"),
 
     {
         trigger: '.o_barcode_line.o_selected',
