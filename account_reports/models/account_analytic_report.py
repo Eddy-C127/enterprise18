@@ -123,7 +123,7 @@ class AccountReport(models.AbstractModel):
             "display_type": sql.Literal("product"),
             "parent_state": sql.Literal("posted"),
             "account_id": sql.Identifier("general_account_id"),
-            "debit": sql.SQL("CASE WHEN (amount < 0) THEN amount else 0 END"),
+            "debit": sql.SQL("CASE WHEN (amount < 0) THEN -amount else 0 END"),
             "credit": sql.SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
         }
         selected_fields = []
