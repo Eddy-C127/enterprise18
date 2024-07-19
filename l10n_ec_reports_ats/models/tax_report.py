@@ -13,7 +13,6 @@ from collections import defaultdict
 
 SALE_DOCUMENT_CODES = ['01', '02', '03', '04', '05']
 LOCAL_PURCHASE_DOCUMENT_CODES = ['01', '02', '03', '04', '05', '09', '11', '12', '19', '20', '21', '43', '45', '47', '48']
-FOREIGN_PURCHASE_DOCUMENT_CODES = ['15', '110'] # (15) Sales receipts issued abroad, (110) Credit note issued abroad
 ATS_SALE_DOCUMENT_TYPE = {
     '01': '18',
     '02': '18',
@@ -65,7 +64,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             ('company_id', '=', company.id),
             ('l10n_ec_entity', '!=', False),
         ])
-        num_estab_ruc = len(set(sale_journals.mapped('l10n_ec_emission')))
+        num_estab_ruc = len(set(sale_journals.mapped('l10n_ec_entity')))
 
         values = {
             'company': self.env.company,
@@ -127,7 +126,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             [
                 ('move_type', 'in', ('in_invoice', 'in_refund')),
                 ('state', '=', 'posted'),
-                ('l10n_latam_document_type_id.code', 'in', LOCAL_PURCHASE_DOCUMENT_CODES + FOREIGN_PURCHASE_DOCUMENT_CODES),
+                ('l10n_latam_document_type_id.code', 'in', LOCAL_PURCHASE_DOCUMENT_CODES),
                 ('date', '>=', date_start),
                 ('date', '<=', date_finish),
                 ('company_id', '=', self.env.company.id)
@@ -372,14 +371,13 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                 # Electronic invoices should not be added up in total sales, only old preprinted invoices
                 if sale_vals[id_partner]['tipoEmision'] == 'F':
                     total_sales += sale_vals[id_partner]['amount_untaxed_signed']
-
-            entities = [
-                entity
-                for entity, values in groupby(
-                    (invoice_values for invoice_values in invoices_values if invoice_values['move_type'] == 'out_invoice' and invoice_values['journal_entity']),
-                    lambda m: m['l10n_latam_document_number'].split('-')[1]
-                )
-            ]
+            # Get all the establishments registered at the SRI
+            sale_journals = self.env['account.journal'].search([
+                ('type', '=', 'sale'),
+                ('company_id', '=', self.env.company.id),
+                ('l10n_ec_entity', '!=', False),
+            ])
+            entities = list(set(sale_journals.mapped('l10n_ec_entity')))
             entities.sort()
 
             values.update({
@@ -458,7 +456,7 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                 'move_type': invoice.move_type,
                 'partner': invoice.partner_id,
                 'latam_document_type_code': invoice.l10n_latam_document_type_id.code,
-                'emission_point': invoice.journal_id.l10n_ec_emission,
+                'entity_point': invoice.journal_id.l10n_ec_entity,
                 'l10n_latam_document_number': invoice.l10n_latam_document_number,
                 'journal_entity': invoice.journal_id.l10n_latam_use_documents and invoice.journal_id.active,
                 'tipoComprobante': tipo_comprobante,
@@ -481,7 +479,8 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         group_sales = {}
         errors = []
 
-        for id_partner, partner_invoices_values in groupby(invoices_values, key=lambda m: (m['partner'], m['latam_document_type_code'], m['tipoEmision'])):
+        # The ATS validates by partner identification number. We must get the commercial partner instead of the partner
+        for id_partner, partner_invoices_values in groupby(invoices_values, key=lambda m: (m['partner'].commercial_partner_id, m['latam_document_type_code'], m['tipoEmision'])):
             partner = partner_invoices_values[0]['partner']
             identification_type_code = PartnerIdTypeEc.get_ats_code_for_partner(partner, 'out_').value
             id_cliente, validation_errors = self._l10n_ec_get_validated_partner_vat(partner)
@@ -562,10 +561,10 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         for invoice_values in invoices_values:
             # ATS electronic documents are excluded
             if invoice_values['tipoEmision'] == 'F':
-                emission_point = invoice_values['emission_point']
+                entity_point = invoice_values['entity_point']
                 invoice_subtotal = invoice_values['baseImponible'] + invoice_values['baseImpGrav']
                 invoice_subtotal = invoice_subtotal * (1 if invoice_values['move_type'] == 'out_invoice' else -1)
-                entity_totals[emission_point]['total'] += invoice_subtotal
+                entity_totals[entity_point]['total'] += invoice_subtotal
         return entity_totals
 
     @api.model
