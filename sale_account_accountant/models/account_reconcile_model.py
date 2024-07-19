@@ -2,6 +2,7 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import models, fields
+from odoo.tools import SQL
 
 
 class AccountReconcileModel(models.Model):
@@ -32,11 +33,40 @@ class AccountReconcileModel(models.Model):
             '|',
             ('invoice_status', 'in', ('to invoice', 'invoiced')),
             ('state', '=', 'sent'),
-            '|',
-            ('name', 'in', exact_tokens),
-            ('name', 'in', text_tokens),
         ]
-        sale_orders = self.env['sale.order'].search(domain)
+
+        sale_orders = self.env['sale.order']
+        if exact_tokens:
+            sale_orders = self.env['sale.order'].search(domain + [('name', 'in', exact_tokens)])
+
+        if not sale_orders and text_tokens:
+            query = self.env['sale.order']._where_calc(domain)
+
+            additional_conditions = SQL(" OR ").join(
+                SQL("%s ~ sub.name", token.lower())
+                for token in text_tokens
+            )
+
+            sale_order_ids = [r[0] for r in self.env.execute_query(SQL(
+                r'''
+                    WITH sale_order_name AS (
+                        SELECT
+                            sale_order.id,
+                            SUBSTRING(REGEXP_REPLACE(LOWER(sale_order.name), '[^0-9a-z\s]', '', 'g'), '\S(?:.*\S)*') AS name
+                        FROM %s
+                        WHERE %s
+                    )
+                    SELECT sub.id
+                    FROM sale_order_name sub
+                    WHERE %s
+                ''',
+                query.from_clause,
+                query.where_clause or SQL("TRUE"),
+                additional_conditions or SQL("TRUE"),
+            ))]
+            if sale_order_ids:
+                sale_orders = sale_orders.browse(sale_order_ids)
+
         if sale_orders:
             results = {'sale_orders': sale_orders}
 

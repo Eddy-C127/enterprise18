@@ -178,6 +178,12 @@ class AccountReconcileModel(models.Model):
         exact_tokens = []
         text_tokens = []
         for text_value in st_line_text_values:
+            # Exact tokens
+            exact_tokens.extend([
+                token for token in (text_value or '').split()
+                if len(token) >= significant_token_size]
+            )
+            # Text tokens
             tokens = [
                 ''.join(x for x in token if re.match(r'[0-9a-zA-Z\s]', x))
                 for token in (text_value or '').split()
@@ -199,9 +205,6 @@ class AccountReconcileModel(models.Model):
 
                 numerical_tokens.append(formatted_token)
 
-            # Exact tokens.
-            if len(tokens) == 1:
-                exact_tokens.append(text_value)
         return numerical_tokens, exact_tokens, text_tokens
 
     def _get_invoice_matching_amls_candidates(self, st_line, partner):

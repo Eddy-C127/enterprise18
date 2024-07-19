@@ -11,57 +11,31 @@ class AccountReconcileModel(models.Model):
         assert self.rule_type == 'invoice_matching'
         self.env['account.batch.payment'].flush_model()
 
-        _numerical_tokens, _exact_tokens, text_tokens = self._get_invoice_matching_st_line_tokens(st_line)
-        if not text_tokens:
+        _numerical_tokens, exact_tokens, _text_tokens = self._get_invoice_matching_st_line_tokens(st_line)
+        if not exact_tokens:
             return
 
-        batch_sequence_code = 'account.inbound.batch.payment' if st_line.amount > 0.0 else 'account.outbound.batch.payment'
-
-        sequence_prefix = self.env['ir.sequence'].sudo()\
-            .search(
-                [('code', '=', batch_sequence_code), ('company_id', 'in', (st_line.company_id.id, False))],
-                order='company_id',
-                limit=1,
-            )\
-            .prefix
-        if not sequence_prefix:
-            return
-
-        sequence_prefix = sequence_prefix.lower()
-        text_tokens = [x.lower() for x in text_tokens if x.lower().startswith(sequence_prefix)]
-        if not text_tokens:
+        batches = self.env['account.batch.payment'].search([('state', '!=', 'reconciled'), ('name', 'in', exact_tokens)])
+        if not batches:
             return
 
         aml_domain = self._get_invoice_matching_amls_domain(st_line, partner)
         query = self.env['account.move.line']._where_calc(aml_domain)
 
-        additional_conditions = SQL(" OR ").join(
-            SQL("%s ~ sub.name", token)
-            for token in text_tokens
-        )
-
         candidate_ids = [r[0] for r in self.env.execute_query(SQL(
-            r'''
-                WITH account_batch_payment_name AS (
-                    SELECT DISTINCT
-                        batch.id,
-                        SUBSTRING(REGEXP_REPLACE(LOWER(batch.name), '[^0-9a-z\s]', '', 'g'), '\S(?:.*\S)*') AS name,
-                        ARRAY_AGG(account_move_line.id) AS aml_ids
-                    FROM %s
-                    JOIN account_payment pay ON pay.id = account_move_line.payment_id
-                    JOIN account_batch_payment batch ON
-                        batch.id = pay.batch_payment_id
-                        AND batch.state != 'reconciled'
-                    WHERE %s
-                    GROUP BY batch.id, batch.name
-                )
-                SELECT sub.aml_ids
-                FROM account_batch_payment_name sub
+            '''
+                SELECT DISTINCT account_move_line.id
+                FROM %s
+                JOIN account_payment pay ON pay.id = account_move_line.payment_id
+                JOIN account_batch_payment batch
+                    ON batch.id = pay.batch_payment_id
+                    AND batch.id = ANY(%s)
+                    AND batch.state != 'reconciled'
                 WHERE %s
             ''',
             query.from_clause,
+            [batches.ids],
             query.where_clause or SQL("TRUE"),
-            additional_conditions or SQL("TRUE"),
         ))]
         if candidate_ids:
             return {
