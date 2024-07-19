@@ -267,12 +267,12 @@ test("non measure fields are filtered and sorted", async () => {
             </pivot>`,
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
-    expect(store.unusedMeasureFields.length).toBe(5);
+    expect(store.measureFields.length).toBe(5);
     const measures = ["__count", "dummy_float", "dummy_many2one", "dummy_monetary", "probability"];
-    expect(store.unusedMeasureFields.map((m) => m.name)).toEqual(measures);
+    expect(store.measureFields.map((m) => m.name)).toEqual(measures);
 });
 
-test("Existing measure and dimensions fields are filtered", async () => {
+test("Existing dimensions fields are filtered, but not measures", async () => {
     const partnerFields = {
         foo: fields.Integer({ string: "Foo", store: true }),
         bar: fields.Boolean({ string: "Bar", store: true }),
@@ -296,15 +296,14 @@ test("Existing measure and dimensions fields are filtered", async () => {
     });
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
-    expect(store.unusedMeasureFields.length).toBe(2);
-    const measures = ["foo", "probability"];
-    expect(store.unusedMeasureFields.map((m) => m.name)).toEqual(measures);
+    expect(store.measureFields.length).toBe(4);
+    const measures = ["__count", "foo", "probability", "product_id"];
+    expect(store.measureFields.map((m) => m.name)).toEqual(measures);
     store.update({
         measures: [
             { id: "__count:sum", fieldName: "__count", aggregator: "sum" },
             { id: "probability:sum", fieldName: "probability", aggregator: "sum" },
         ],
     });
-    expect(store.unusedMeasureFields.length).toBe(1);
-    expect(store.unusedMeasureFields[0].name).toBe("foo");
+    expect(store.measureFields.length).toBe(4);
 });
