@@ -118,7 +118,7 @@ class AccountReport(models.AbstractModel):
             'date': SQL.identifier("date"),
             'account_id': SQL.identifier("general_account_id"),
             'partner_id': SQL.identifier("partner_id"),
-            'debit': SQL("CASE WHEN (amount < 0) THEN amount else 0 END"),
+            'debit': SQL("CASE WHEN (amount < 0) THEN -amount else 0 END"),
             'credit': SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
             'analytic_distribution': analytic_distribution_equivalent,
         })
