@@ -250,7 +250,7 @@ test("Autofill last column cells vertically by targeting col headers", async fun
     expect(getPivotAutofillValue(model, "F5", { direction: "top", steps: 4 })).toBe(
         getCellFormula(model, "F1")
     );
-    setCellContent(model, "H10", `=PIVOT.VALUE(1,"probability","bar","true")`);
+    setCellContent(model, "H10", `=PIVOT.VALUE(1,"probability:avg","bar","true")`);
     expect(getPivotAutofillValue(model, "H10", { direction: "top", steps: 5 })).toBe("");
 });
 
@@ -295,16 +295,16 @@ test("Autofill pivot values with date in cols", async function () {
         '=PIVOT.HEADER(1,"date:day","04/15/2016")'
     );
     expect(getCellFormula(model, "B2")).toBe(
-        '=PIVOT.HEADER(1,"date:day","04/14/2016","measure","probability")'
+        '=PIVOT.HEADER(1,"date:day","04/14/2016","measure","probability:avg")'
     );
     expect(getPivotAutofillValue(model, "B2", { direction: "right", steps: 1 })).toBe(
-        '=PIVOT.HEADER(1,"date:day","04/15/2016","measure","probability")'
+        '=PIVOT.HEADER(1,"date:day","04/15/2016","measure","probability:avg")'
     );
     expect(getCellFormula(model, "B3")).toBe(
-        '=PIVOT.VALUE(1,"probability","foo",1,"date:day","04/14/2016")'
+        '=PIVOT.VALUE(1,"probability:avg","foo",1,"date:day","04/14/2016")'
     );
     expect(getPivotAutofillValue(model, "B3", { direction: "right", steps: 1 })).toBe(
-        '=PIVOT.VALUE(1,"probability","foo",1,"date:day","04/15/2016")'
+        '=PIVOT.VALUE(1,"probability:avg","foo",1,"date:day","04/15/2016")'
     );
 });
 
@@ -363,7 +363,7 @@ test("Autofill empty pivot date value", async function () {
         "day_of_month",
     ]) {
         updatePivot(model, pivotId, {
-            rows: [{ name: "date", granularity, order: "asc" }],
+            rows: [{ fieldName: "date", granularity, order: "asc" }],
         });
         await animationFrame();
         setCellContent(model, "A1", `=PIVOT.HEADER(1,"date:${granularity}",FALSE)`);

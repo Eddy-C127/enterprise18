@@ -50,7 +50,7 @@ test("Can set a value from a pivot header context menu", async function () {
     expect(getCellValue(model, "B3")).toBe("");
     expect(getCellValue(model, "B4")).toBe(121);
     selectCell(model, "A3");
-    expect(getCell(model, "B3").content).toBe('=PIVOT.VALUE(1,"probability","product_id",37)', {
+    expect(getCell(model, "B3").content).toBe('=PIVOT.VALUE(1,"probability:avg","product_id",37)', {
         message: "the formula field matches the filter",
     });
     const root = cellMenuRegistry.getMenuItems().find((item) => item.id === "use_global_filter");
@@ -120,7 +120,7 @@ test("Can open context menu without argument", async function () {
                     <field name="probability" type="measure"/>
                 </pivot>`,
     });
-    expect(getCell(model, "B5").content).toBe('=PIVOT.VALUE(1,"probability")');
+    expect(getCell(model, "B5").content).toBe('=PIVOT.VALUE(1,"probability:avg")');
     await addGlobalFilter(
         model,
         {

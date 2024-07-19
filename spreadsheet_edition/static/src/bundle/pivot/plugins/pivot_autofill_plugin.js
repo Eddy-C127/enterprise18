@@ -125,7 +125,10 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (getNumberOfPivotFunctions(tokens) !== 1) {
             return [];
         }
-        const { functionName, args } = this.getters.getFirstPivotFunction(this.getters.getActiveSheetId(), tokens);
+        const { functionName, args } = this.getters.getFirstPivotFunction(
+            this.getters.getActiveSheetId(),
+            tokens
+        );
         const pivotId = this.getters.getPivotId(args[0]);
         if (!pivotId) {
             return [{ title: _t("Missing pivot"), value: _t("Missing pivot #%s", args[0]) }];
@@ -690,7 +693,7 @@ export class PivotAutofillPlugin extends UIPlugin {
                 value: rows[index],
             });
         }
-        if (cols.length === 1 && definition.measures.map((m) => m.name).includes(cols[0])) {
+        if (cols.length === 1 && definition.measures.map((m) => m.id).includes(cols[0])) {
             domain.push({
                 type: "char",
                 field: "measure",
@@ -754,7 +757,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isColumnGroupBy(dataSource, definition, fieldName) {
         const name = dataSource.parseGroupField(fieldName).field.name;
-        return definition.columns.map((col) => col.name).includes(name);
+        return definition.columns.map((col) => col.fieldName).includes(name);
     }
 
     /**
@@ -765,7 +768,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isRowGroupBy(dataSource, definition, fieldName) {
         const name = dataSource.parseGroupField(fieldName).field.name;
-        return definition.rows.map((row) => row.name).includes(name);
+        return definition.rows.map((row) => row.fieldName).includes(name);
     }
 
     _getColMeasureIndex(table, values) {

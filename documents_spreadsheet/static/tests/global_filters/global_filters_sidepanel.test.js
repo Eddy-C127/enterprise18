@@ -418,6 +418,7 @@ test("Creating a date filter without a data source does not display Field Matchi
 
 test("open relational global filter panel then go to pivot on sheet 2", async function () {
     const spreadsheetData = {
+        version: 16,
         sheets: [
             { id: "sheet1" },
             {
@@ -654,6 +655,7 @@ test("Trying to duplicate a filter label will trigger a toaster", async function
 
 test("Create a new relational global filter with a pivot", async function () {
     const spreadsheetData = {
+        version: 16,
         pivots: {
             "PIVOT#1": {
                 colGroupBys: ["foo"],

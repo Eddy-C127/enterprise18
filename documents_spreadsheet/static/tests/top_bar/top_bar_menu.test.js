@@ -55,6 +55,7 @@ test("Action action_download_spreadsheet is correctly fired with topbar menu", a
 
 test("Datasources are loaded before exporting in Excel", async function () {
     const spreadsheetData = {
+        version: 16,
         sheets: [
             {
                 id: "sh1",

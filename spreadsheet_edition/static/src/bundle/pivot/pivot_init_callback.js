@@ -25,7 +25,7 @@ function ensureSuccess(result) {
 
 function addEmptyGranularity(dimensions, fields) {
     return dimensions.map((dimension) => {
-        if (isDateField(fields[dimension.name])) {
+        if (isDateField(fields[dimension.fieldName])) {
             return {
                 granularity: "month",
                 ...dimension,
@@ -38,7 +38,8 @@ function addEmptyGranularity(dimensions, fields) {
 export function insertPivot(pivotData) {
     const fields = pivotData.metaData.fields;
     const measures = pivotData.metaData.activeMeasures.map((measure) => ({
-        name: measure,
+        id: fields[measure]?.aggregator ? `${measure}:${fields[measure].aggregator}` : measure,
+        fieldName: measure,
         aggregator: fields[measure]?.aggregator,
     }));
     /** @type {import("@spreadsheet").OdooPivotCoreDefinition} */

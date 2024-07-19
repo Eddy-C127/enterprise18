@@ -23,20 +23,20 @@ test("deferred updates", async () => {
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
     expect(store.isDirty).toBe(false);
-    store.update({ columns: [{ name: "bar" }] });
+    store.update({ columns: [{ fieldName: "bar" }] });
     expect(store.isDirty).toBe(true);
-    expect(store.definition.columns[0].name).toEqual("bar");
-    expect(store.definition.rows[0].name).toEqual("foo");
+    expect(store.definition.columns[0].fieldName).toEqual("bar");
+    expect(store.definition.rows[0].fieldName).toEqual("foo");
     let definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "product_id" }], {
+    expect(definition.columns).toEqual([{ fieldName: "product_id" }], {
         message: "updates are defered",
     });
-    expect(definition.rows).toEqual([{ name: "foo" }], { message: "updates are defered" });
+    expect(definition.rows).toEqual([{ fieldName: "foo" }], { message: "updates are defered" });
     store.applyUpdate();
     expect(store.isDirty).toBe(false);
     definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "bar" }]);
-    expect(definition.rows).toEqual([{ name: "foo" }]);
+    expect(definition.columns).toEqual([{ fieldName: "bar" }]);
+    expect(definition.rows).toEqual([{ fieldName: "foo" }]);
 });
 
 test("uncheck the defer updates checkbox applies the update", async () => {
@@ -51,11 +51,11 @@ test("uncheck the defer updates checkbox applies the update", async () => {
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
     expect(store.isDirty).toBe(false);
-    store.update({ columns: [{ name: "bar" }] });
+    store.update({ columns: [{ fieldName: "bar" }] });
     store.deferUpdates(false);
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
-    expect(definition.columns).toEqual([{ name: "bar" }]);
-    expect(definition.rows).toEqual([{ name: "foo" }]);
+    expect(definition.columns).toEqual([{ fieldName: "bar" }]);
+    expect(definition.rows).toEqual([{ fieldName: "foo" }]);
     expect(store.isDirty).toBe(false);
 });
 
@@ -70,10 +70,10 @@ test("remove row then add col", async () => {
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
     store.update({ rows: [] });
-    store.update({ columns: [{ name: "bar" }] });
+    store.update({ columns: [{ fieldName: "bar" }] });
     expect(store.definition.rows).toEqual([]);
     expect(store.definition.columns.length).toBe(1);
-    expect(store.definition.columns[0].name).toEqual("bar");
+    expect(store.definition.columns[0].fieldName).toEqual("bar");
 });
 
 test("non-groupable fields are filtered", async () => {
@@ -143,7 +143,7 @@ test("fields already used are filtered", async () => {
     store.deferUpdates(true);
     expect(store.unusedGroupableFields.length).toBe(1);
     expect(store.unusedGroupableFields[0].name).toBe("baz");
-    store.update({ columns: [{ name: "bar" }, { name: "baz" }] });
+    store.update({ columns: [{ fieldName: "bar" }, { fieldName: "baz" }] });
     expect(store.unusedGroupableFields.length).toBe(0);
 });
 
@@ -165,28 +165,28 @@ test("can reuse date fields until all granularities are used", async () => {
     expect(store.unusedGroupableFields.map((m) => m.name)).toEqual(["create_date"]);
     store.update({
         columns: [
-            { name: "create_date", granularity: "year" },
-            { name: "create_date", granularity: "quarter_number" },
-            { name: "create_date", granularity: "quarter" },
-            { name: "create_date", granularity: "month_number" },
-            { name: "create_date", granularity: "month" },
-            { name: "create_date", granularity: "iso_week_number" },
-            { name: "create_date", granularity: "week" },
-            { name: "create_date", granularity: "day_of_month" },
+            { fieldName: "create_date", granularity: "year" },
+            { fieldName: "create_date", granularity: "quarter_number" },
+            { fieldName: "create_date", granularity: "quarter" },
+            { fieldName: "create_date", granularity: "month_number" },
+            { fieldName: "create_date", granularity: "month" },
+            { fieldName: "create_date", granularity: "iso_week_number" },
+            { fieldName: "create_date", granularity: "week" },
+            { fieldName: "create_date", granularity: "day_of_month" },
         ],
     });
     expect(store.unusedGroupableFields.length).toBe(1);
     store.update({
         columns: [
-            { name: "create_date", granularity: "year" },
-            { name: "create_date", granularity: "quarter_number" },
-            { name: "create_date", granularity: "quarter" },
-            { name: "create_date", granularity: "month_number" },
-            { name: "create_date", granularity: "month" },
-            { name: "create_date", granularity: "iso_week_number" },
-            { name: "create_date", granularity: "week" },
-            { name: "create_date", granularity: "day_of_month" },
-            { name: "create_date", granularity: "day" },
+            { fieldName: "create_date", granularity: "year" },
+            { fieldName: "create_date", granularity: "quarter_number" },
+            { fieldName: "create_date", granularity: "quarter" },
+            { fieldName: "create_date", granularity: "month_number" },
+            { fieldName: "create_date", granularity: "month" },
+            { fieldName: "create_date", granularity: "iso_week_number" },
+            { fieldName: "create_date", granularity: "week" },
+            { fieldName: "create_date", granularity: "day_of_month" },
+            { fieldName: "create_date", granularity: "day" },
         ],
     });
     expect(store.unusedGroupableFields.length).toBe(0);
@@ -207,21 +207,25 @@ test("add default datetime granularity", async () => {
     const { store } = makeStoreWithModel(model, PivotSidePanelStore, pivotId);
     store.deferUpdates(true);
 
-    store.update({ columns: [{ name: "create_date" }] });
+    store.update({ columns: [{ fieldName: "create_date" }] });
     expect(store.definition.columns[0].granularity).toBe("year");
 
-    store.update({ columns: [{ name: "create_date" }, { name: "create_date" }] });
+    store.update({ columns: [{ fieldName: "create_date" }, { fieldName: "create_date" }] });
     expect(store.definition.columns[0].granularity).toBe("year");
     expect(store.definition.columns[1].granularity).toBe("quarter_number");
 
     store.update({
-        columns: [{ name: "create_date", granularity: "month" }, { name: "create_date" }],
+        columns: [{ fieldName: "create_date", granularity: "month" }, { fieldName: "create_date" }],
     });
     expect(store.definition.columns[0].granularity).toBe("month");
     expect(store.definition.columns[1].granularity).toBe("year");
 
     store.update({
-        columns: [{ name: "create_date" }, { name: "create_date" }, { name: "create_date" }],
+        columns: [
+            { fieldName: "create_date" },
+            { fieldName: "create_date" },
+            { fieldName: "create_date" },
+        ],
     });
     expect(store.definition.columns[0].granularity).toBe("year");
     expect(store.definition.columns[1].granularity).toBe("quarter_number");
@@ -297,8 +301,8 @@ test("Existing measure and dimensions fields are filtered", async () => {
     expect(store.unusedMeasureFields.map((m) => m.name)).toEqual(measures);
     store.update({
         measures: [
-            { name: "__count", aggregator: "sum" },
-            { name: "probability", aggregator: "sum" },
+            { id: "__count:sum", fieldName: "__count", aggregator: "sum" },
+            { id: "probability:sum", fieldName: "probability", aggregator: "sum" },
         ],
     });
     expect(store.unusedMeasureFields.length).toBe(1);

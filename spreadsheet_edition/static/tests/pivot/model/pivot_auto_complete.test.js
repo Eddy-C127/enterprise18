@@ -74,9 +74,9 @@ test("PIVOT.VALUE measure", async function () {
     expect(autoComplete.proposals).toEqual([
         {
             description: "Probability",
-            fuzzySearchKey: 'Probability"probability"',
-            htmlContent: [{ color: "#00a82d", value: '"probability"' }],
-            text: '"probability"',
+            fuzzySearchKey: 'Probabilityprobability"probability:avg"',
+            htmlContent: [{ color: "#00a82d", value: '"probability:avg"' }],
+            text: '"probability:avg"',
         },
         {
             description: "Count",
@@ -86,7 +86,7 @@ test("PIVOT.VALUE measure", async function () {
         },
     ]);
     autoComplete.selectProposal(autoComplete.proposals[0].text);
-    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability"');
+    expect(composer.currentContent).toBe('=PIVOT.VALUE(1,"probability:avg"');
     expect(composer.autocompleteProvider).toBe(undefined, { message: "autocomplete closed" });
 });
 
@@ -100,7 +100,7 @@ test("PIVOT.VALUE measure with the pivot id as a string", async function () {
     const { store: composer } = makeStoreWithModel(model, ComposerStore);
     composer.startEdition('=PIVOT.VALUE("1",');
     const autoComplete = composer.autocompleteProvider;
-    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"probability"']);
+    expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"probability:avg"']);
 });
 
 test("PIVOT.VALUE measure with pivot id that does not exists", async function () {

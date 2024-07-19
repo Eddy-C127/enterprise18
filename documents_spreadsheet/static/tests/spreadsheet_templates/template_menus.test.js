@@ -130,7 +130,7 @@ test("Save as template menu", async function () {
                         expect(context.default_thumbnail).not.toBe(undefined);
                         expect(cells.A3.content).toBe(`=PIVOT.HEADER(1,"product_id",37)`);
                         expect(cells.B3.content).toBe(
-                            `=PIVOT.VALUE(1,"probability","product_id",37,"bar",FALSE)`
+                            `=PIVOT.VALUE(1,"probability:avg","product_id",37,"bar",FALSE)`
                         );
                         expect(cells.A11.content).toBe("😃");
                         return Promise.resolve(true);
