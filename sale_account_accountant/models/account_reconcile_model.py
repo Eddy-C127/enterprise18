@@ -32,11 +32,40 @@ class AccountReconcileModel(models.Model):
             '|',
             ('invoice_status', 'in', ('to invoice', 'invoiced')),
             ('state', '=', 'sent'),
-            '|',
-            ('name', 'in', exact_tokens),
-            ('name', 'in', text_tokens),
         ]
-        sale_orders = self.env['sale.order'].search(domain)
+
+        sale_orders = self.env['sale.order']
+        if exact_tokens:
+            sale_orders = self.env['sale.order'].search(domain + [('name', 'in', exact_tokens)])
+
+        if not sale_orders and text_tokens:
+            query = self.env['sale.order']._where_calc(domain)
+            tables, where_clause, where_params = query.get_sql()
+
+            additional_conditions = []
+            for token in text_tokens:
+                additional_conditions.append(r"%s ~ sub.name")
+                where_params.append(token.lower())
+
+            self._cr.execute(
+                rf'''
+                    WITH sale_order_name AS (
+                        SELECT
+                            sale_order.id,
+                            SUBSTRING(REGEXP_REPLACE(LOWER(sale_order.name), '[^0-9a-z\s]', '', 'g'), '\S(?:.*\S)*') AS name
+                        FROM {tables}
+                        WHERE {where_clause}
+                    )
+                    SELECT sub.id
+                    FROM sale_order_name sub
+                    WHERE {' OR '.join(additional_conditions)}
+                    ''',
+                where_params,
+            )
+            sale_order_ids = [r[0] for r in self._cr.fetchall()]
+            if sale_order_ids:
+                sale_orders = sale_orders.browse(sale_order_ids)
+
         if sale_orders:
             results = {'sale_orders': sale_orders}
 
