@@ -583,71 +583,72 @@ class AccountMove(models.Model):
         :param boolean is_new:  whether the vendor bill is newly created or to be updated
         :returns:               the imported vendor bill
         """
-        content = json.loads(data['content'])
-        message_to_log = []
+        with self._get_edi_creation() as self:
+            content = json.loads(data['content'])
+            message_to_log = []
 
-        self.move_type = {
-            'S': 'in_invoice',
-            'R': 'in_refund',
-        }.get(content['rcptTyCd'], 'in_invoice')
+            self.move_type = {
+                'S': 'in_invoice',
+                'R': 'in_refund',
+            }.get(content['rcptTyCd'], 'in_invoice')
 
-        branch = self.env['res.partner'].search([('vat', '=ilike', content['spplrTin']),
-                                                 ('l10n_ke_branch_code', '=', content['spplrBhfId'])], limit=1)
-        if branch:
-            self.partner_id = branch
-        else:
-            self.partner_id = self.env['res.partner'].create({
-                'name': content['spplrNm'],
-                'vat': content['spplrTin'],
-                'l10n_ke_branch_code': content['spplrBhfId'],
-            })
-            message_to_log.extend((
-                _(
-                    "A vendor with a matching Tax ID and Branch ID was not found. "
-                    "One with the corresponding details was created."
-                ),
-                "",
-            ))
+            branch = self.env['res.partner'].search([('vat', '=ilike', content['spplrTin']),
+                                                    ('l10n_ke_branch_code', '=', content['spplrBhfId'])], limit=1)
+            if branch:
+                self.partner_id = branch
+            else:
+                self.partner_id = self.env['res.partner'].create({
+                    'name': content['spplrNm'],
+                    'vat': content['spplrTin'],
+                    'l10n_ke_branch_code': content['spplrBhfId'],
+                })
+                message_to_log.extend((
+                    _(
+                        "A vendor with a matching Tax ID and Branch ID was not found. "
+                        "One with the corresponding details was created."
+                    ),
+                    "",
+                ))
 
-        self.invoice_date = datetime.strptime(content['salesDt'], '%Y%m%d').date()
-        self.l10n_ke_control_unit = content['spplrSdcId']
-        uom_codes = [line['qtyUnitCd'] for line in content['itemList']]
-        uom_map = {
-            uom.l10n_ke_quantity_unit_id.code: uom
-            for uom in self.env['uom.uom'].search([('l10n_ke_quantity_unit_id.code', 'in', uom_codes)])
-        }
-        tax_rate_map = {code: content[f'taxRt{code}'] for code in TAX_CODE_LETTERS}
+            self.invoice_date = datetime.strptime(content['salesDt'], '%Y%m%d').date()
+            self.l10n_ke_control_unit = content['spplrSdcId']
+            uom_codes = [line['qtyUnitCd'] for line in content['itemList']]
+            uom_map = {
+                uom.l10n_ke_quantity_unit_id.code: uom
+                for uom in self.env['uom.uom'].search([('l10n_ke_quantity_unit_id.code', 'in', uom_codes)])
+            }
+            tax_rate_map = {code: content[f'taxRt{code}'] for code in TAX_CODE_LETTERS}
 
-        invoice_lines = []
-        for item in content['itemList']:
-            line = {}
-            product, msg = self.env['product.product']._l10n_ke_oscu_find_product_from_json(
-                {k: item[k] for k in ('itemNm', 'bcd', 'itemClsCd')}
-            )
-            if msg:
-                message_to_log.append(msg)
-            line['product_id'] = product and product.id or None
-            line['tax_ids'] = self.env['account.tax'].search([
-                ('type_tax_use', '=', 'purchase'),
-                *self.env['account.tax']._check_company_domain(self.company_id),
-                ('l10n_ke_tax_type_id.code', '=', item['taxTyCd']),
-                ('amount', '=', tax_rate_map[item['taxTyCd']]),  # in handy if tax rates would change
-                ('amount_type', '=', 'percent'),
-            ], limit=1).ids
+            invoice_lines = []
+            for item in content['itemList']:
+                line = {}
+                product, msg = self.env['product.product']._l10n_ke_oscu_find_product_from_json(
+                    {k: item[k] for k in ('itemNm', 'bcd', 'itemClsCd')}
+                )
+                if msg:
+                    message_to_log.append(msg)
+                line['product_id'] = product and product.id or None
+                line['tax_ids'] = self.env['account.tax'].search([
+                    ('type_tax_use', '=', 'purchase'),
+                    *self.env['account.tax']._check_company_domain(self.company_id),
+                    ('l10n_ke_tax_type_id.code', '=', item['taxTyCd']),
+                    ('amount', '=', tax_rate_map[item['taxTyCd']]),  # in handy if tax rates would change
+                    ('amount_type', '=', 'percent'),
+                ], limit=1).ids
 
-            # If we don't already have a matching UoM from the product
-            line['product_uom_id'] = uom_map.get(item['qtyUnitCd'], self.env['uom.uom']).id or (product and product.uom_id.id) or self.env.ref('uom.product_uom_unit').id
-            line['name'] = item['itemNm']
-            line['quantity'] = item['qty']
-            line['price_unit'] = item['prc']
-            line['discount'] = item['dcRt']
-            invoice_lines.append(Command.create(line))
+                # If we don't already have a matching UoM from the product
+                line['product_uom_id'] = uom_map.get(item['qtyUnitCd'], self.env['uom.uom']).id or (product and product.uom_id.id) or self.env.ref('uom.product_uom_unit').id
+                line['name'] = item['itemNm']
+                line['quantity'] = item['qty']
+                line['price_unit'] = item['prc']
+                line['discount'] = item['dcRt']
+                invoice_lines.append(Command.create(line))
 
-        self.invoice_line_ids = invoice_lines
-        message = Markup("<br/>").join(message_to_log)
-        # for message in message_to_log:
-        self.sudo().message_post(body=message)
-        return True
+            self.invoice_line_ids = invoice_lines
+            message = Markup("<br/>").join(message_to_log)
+            # for message in message_to_log:
+            self.sudo().message_post(body=message)
+            return True
 
     # === Report generation === #
     def _get_name_invoice_report(self):

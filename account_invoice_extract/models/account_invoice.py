@@ -882,8 +882,10 @@ class AccountMove(models.Model):
 
     @api.model
     def _import_invoice_ocr(self, invoice, file_data, new=False):
-        invoice.message_main_attachment_id = file_data['attachment']
-        invoice._send_batch_for_digitization()
+        with invoice._get_edi_creation() as invoice:
+            invoice.message_main_attachment_id = file_data['attachment']
+            invoice._send_batch_for_digitization()
+
         return True
 
     def _get_edi_decoder(self, file_data, new=False):
