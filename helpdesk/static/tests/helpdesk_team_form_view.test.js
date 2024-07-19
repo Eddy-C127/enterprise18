@@ -1,8 +1,14 @@
 import { expect, describe, test } from "@odoo/hoot";
 import { click } from "@odoo/hoot-dom";
-import { tick } from "@odoo/hoot-mock";
+import { animationFrame } from "@odoo/hoot-mock";
 
-import { onRpc, clickSave, mountView, patchWithCleanup } from "@web/../tests/web_test_helpers";
+import {
+    onRpc,
+    clickSave,
+    mountView,
+    patchWithCleanup,
+    fieldInput,
+} from "@web/../tests/web_test_helpers";
 
 import { defineHelpdeskModels } from "@helpdesk/../tests/helpdesk_test_helpers";
 import { HelpdeskTeam } from "./mock_server/mock_models/helpdesk_team";
@@ -78,7 +84,6 @@ test("reload the page when use_sla is disabled in all teams", async (assert) => 
 
     expect.verifySteps([
         "check_features_enabled",
-        "check_modules_to_install",
         "web_save",
         "check_features_enabled",
         "reload_context",
@@ -108,7 +113,7 @@ test("reload the page when the feature use_timesheet is enabled in one team", as
         },
     });
 
-    click("div[name='use_helpdesk_timesheet'] input");
+    await fieldInput("use_helpdesk_timesheet").check();
     await clickSave();
 
     expect.verifySteps([
@@ -119,26 +124,20 @@ test("reload the page when the feature use_timesheet is enabled in one team", as
     ]);
 });
 
-test("reload the page when the feature use_timesheet is enabled in all teams", async (assert) => {
-    let mockHelpdeskTimesheetModuleInstall = false;
+test("do not reload if the feature is already installed", async (assert) => {
+    HelpdeskTeam._records[0].use_helpdesk_timesheet = true;
     onRpc(({ method, args }) => {
         if (method === "check_modules_to_install") {
             expect.step(method);
             expect(args[0]).toEqual(["use_helpdesk_timesheet"]);
-            if (mockHelpdeskTimesheetModuleInstall) {
-                return false;
-            } else {
-                mockHelpdeskTimesheetModuleInstall = true;
-                return true;
-            }
+            return false;
         }
     });
 
     const helpdeskForm = await mountView({
         resModel: "helpdesk.team",
         type: "form",
-        resIds: [1, 2],
-        resId: 1,
+        resId: 2,
         arch: formViewArch,
     });
     patchWithCleanup(helpdeskForm.env.services.action, {
@@ -149,21 +148,11 @@ test("reload the page when the feature use_timesheet is enabled in all teams", a
         },
     });
 
-    click("div[name='use_helpdesk_timesheet'] input");
-    await clickSave();
-    click(".o_pager_next");
-    await tick();
-    click("div[name='use_helpdesk_timesheet'] input");
+    await fieldInput("use_helpdesk_timesheet").check();
     await clickSave();
     // Check we reload only the first time we enable the timesheet feature in a helpdesk team
 
-    expect.verifySteps([
-        "check_features_enabled",
-        "check_modules_to_install",
-        "web_save",
-        "reload_context",
-        "web_save",
-    ]);
+    expect.verifySteps(["check_features_enabled", "check_modules_to_install", "web_save"]);
 });
 
 test("reload when the feature is disabled in all teams", async (assert) => {
@@ -193,15 +182,16 @@ test("reload when the feature is disabled in all teams", async (assert) => {
     click("div[name='use_alias'] input");
     await clickSave();
     click(".o_pager_next");
-    await tick();
+    await animationFrame();
     click("div[name='use_alias'] input");
     await clickSave();
 
     expect.verifySteps([
         "check_features_enabled",
-        "check_modules_to_install",
         "web_save",
         "check_features_enabled",
         "web_save",
+        "check_features_enabled",
+        "reload_context",
     ]);
 });

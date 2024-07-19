@@ -50,13 +50,11 @@ export class HelpdeskTeamController extends FormController {
         await super.onWillSaveRecord(...arguments);
         const fields = [];
         for (const [fName, value] of Object.entries(changes)) {
-            if (this.fieldsToObserve[fName] !== value) {
-                if (fName in this.fieldsToObserve) {
-                    fields.push(fName);
-                }
-                if (fName in this.featuresToObserve) {
-                    this.featuresToCheck.push(fName);
-                }
+            if (value && fName in this.fieldsToObserve && this.fieldsToObserve[fName] !== value) {
+                fields.push(fName);
+            }
+            if (fName in this.featuresToObserve && value !== this.featuresToObserve[fName]) {
+                this.featuresToCheck.push(fName);
             }
         }
         if (Object.keys(fields).length) {
