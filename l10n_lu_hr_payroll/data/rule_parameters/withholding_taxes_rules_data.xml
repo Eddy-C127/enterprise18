@@ -1,271 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <odoo>
-
     <!-- Source: https://impotsdirects.public.lu/fr/baremes.html#Ex -->
-
-    <record id="rule_parameter_health_fund_tax" model="hr.rule.parameter">
-        <field name="name">Lux Tax: Health Fund</field>
-        <field name="code">l10n_lu_health_fund_tax</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_health_fund_tax_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">-2.8</field>
-        <field name="rule_parameter_id" ref="rule_parameter_health_fund_tax"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_retirement_fund_tax" model="hr.rule.parameter">
-        <field name="name">Lux Tax: Retirement Fund</field>
-        <field name="code">l10n_lu_retirement_fund_tax</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_retirement_fund_tax_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">-8</field>
-        <field name="rule_parameter_id" ref="rule_parameter_retirement_fund_tax"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-
-    <!-- CIS -->
-    <record id="rule_parameter_cis_min_amount" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Min Amount</field>
-        <field name="code">l10n_lu_cis_min_amount</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_min_amount_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">300</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_min_amount"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cis_min_amount_2021" model="hr.rule.parameter.value">
-        <field name="parameter_value">396</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_min_amount"/>
-        <field name="date_from" eval="datetime(2021, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cis_min_amount_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">300</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_min_amount"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cis_max_amount" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Max Amount</field>
-        <field name="code">l10n_lu_cis_max_amount</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_max_amount_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">600</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_max_amount"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cis_max_amount_2021" model="hr.rule.parameter.value">
-        <field name="parameter_value">696</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_max_amount"/>
-        <field name="date_from" eval="datetime(2021, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cis_max_amount_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">600</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_max_amount"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cis_lower_bound" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Lower Bound</field>
-        <field name="code">l10n_lu_cis_lower_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_lower_bound_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">936</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_lower_bound"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cis_middle_bound_1" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Middle Bound 1</field>
-        <field name="code">l10n_lu_cis_middle_bound_1</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_middle_bound_1_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">11265</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_middle_bound_1"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cis_middle_bound_2" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Middle Bound 2</field>
-        <field name="code">l10n_lu_cis_middle_bound_2</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_middle_bound_2_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">40000</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_middle_bound_2"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cis_upper_bound" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Upper Bound</field>
-        <field name="code">l10n_lu_cis_upper_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_upper_bound_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">80000</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_upper_bound"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cis_lower_rate" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Lower Rate</field>
-        <field name="code">l10n_lu_cis_lower_rate</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_lower_rate_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">0.029</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_lower_rate"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cis_upper_rate" model="hr.rule.parameter">
-        <field name="name">Lux CIS: Upper Rate</field>
-        <field name="code">l10n_lu_cis_upper_rate</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cis_upper_rate_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">0.015</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_upper_rate"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cis_upper_rate_2021" model="hr.rule.parameter.value">
-        <field name="parameter_value">0.0174</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_upper_rate"/>
-        <field name="date_from" eval="datetime(2021, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cis_upper_rate_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">0.015</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cis_upper_rate"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <!-- CI-CO2 -->
-    <record id="rule_parameter_ci_co2_max_amount" model="hr.rule.parameter">
-        <field name="name">Lux CI-CO2: Max Amount</field>
-        <field name="code">l10n_lu_ci_co2_max_amount</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_ci_co2_max_amount_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">168</field>
-        <field name="rule_parameter_id" ref="rule_parameter_ci_co2_max_amount"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_ci_co2_lower_bound" model="hr.rule.parameter">
-        <field name="name">Lux CI-CO2: Lower Bound</field>
-        <field name="code">l10n_lu_ci_co2_lower_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_ci_co2_lower_bound_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">936</field>
-        <field name="rule_parameter_id" ref="rule_parameter_ci_co2_lower_bound"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_ci_co2_middle_bound" model="hr.rule.parameter">
-        <field name="name">Lux CI-CO2: Middle Bound</field>
-        <field name="code">l10n_lu_ci_co2_middle_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_ci_co2_middle_bound_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">40000</field>
-        <field name="rule_parameter_id" ref="rule_parameter_ci_co2_middle_bound"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_ci_co2_upper_bound" model="hr.rule.parameter">
-        <field name="name">Lux CI-CO2: Upper Bound</field>
-        <field name="code">l10n_lu_ci_co2_upper_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_ci_co2_upper_bound_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">80000</field>
-        <field name="rule_parameter_id" ref="rule_parameter_ci_co2_upper_bound"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_ci_co2_rate" model="hr.rule.parameter">
-        <field name="name">Lux CI-CO2: Rate</field>
-        <field name="code">l10n_lu_ci_co2_rate</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_ci_co2_rate_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">0.0042</field>
-        <field name="rule_parameter_id" ref="rule_parameter_ci_co2_rate"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <!-- CISSM -->
-    <record id="rule_parameter_cissm_max_amount" model="hr.rule.parameter">
-        <field name="name">Lux CISSM: Max Amount</field>
-        <field name="code">l10n_lu_cissm_max_amount</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cissm_max_amount_2022" model="hr.rule.parameter.value">
-        <field name="parameter_value">70</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_max_amount"/>
-        <field name="date_from" eval="datetime(2022, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cissm_max_amount_2023" model="hr.rule.parameter.value">
-        <field name="parameter_value">70</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_max_amount"/>
-        <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cissm_lower_bound" model="hr.rule.parameter">
-        <field name="name">Lux CISSM: Lower Bound</field>
-        <field name="code">l10n_lu_cissm_lower_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cissm_lower_bound_2022" model="hr.rule.parameter.value">
-        <field name="parameter_value">1500</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_lower_bound"/>
-        <field name="date_from" eval="datetime(2022, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cissm_lower_bound_2023" model="hr.rule.parameter.value">
-        <field name="parameter_value">1800</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_lower_bound"/>
-        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cissm_middle_bound" model="hr.rule.parameter">
-        <field name="name">Lux CISSM: Middle Bound</field>
-        <field name="code">l10n_lu_cissm_middle_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cissm_middle_bound_2022" model="hr.rule.parameter.value">
-        <field name="parameter_value">2500</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_middle_bound"/>
-        <field name="date_from" eval="datetime(2022, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cissm_middle_bound_2023" model="hr.rule.parameter.value">
-        <field name="parameter_value">3000</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_middle_bound"/>
-        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_cissm_upper_bound" model="hr.rule.parameter">
-        <field name="name">Lux CISSM: Upper Bound</field>
-        <field name="code">l10n_lu_cissm_upper_bound</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_cissm_upper_bound_2022" model="hr.rule.parameter.value">
-        <field name="parameter_value">3000</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_upper_bound"/>
-        <field name="date_from" eval="datetime(2022, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_cissm_upper_bound_2023" model="hr.rule.parameter.value">
-        <field name="parameter_value">3600</field>
-        <field name="rule_parameter_id" ref="rule_parameter_cissm_upper_bound"/>
-        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
-    </record>
-
     <!-- CATEGORY 1 -->
+
+    <!-- Daily -->
+    <record id="rule_parameter_withholding_daily_taxes_threshold_1" model="hr.rule.parameter">
+        <field name="name">Lux Withholding Daily Taxes: Threshold Category 1</field>
+        <field name="code">l10n_lu_withholding_daily_taxes_threshold_1</field>
+        <field name="country_id" ref="base.lu"/>
+    </record>
+    <record id="rule_parameter_withholding_daily_taxes_threshold_1_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">(503.40, 3.1604)</field>
+        <field name="rule_parameter_id" ref="rule_parameter_withholding_daily_taxes_threshold_1"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
 
     <!-- Monthly -->
     <record id="rule_parameter_withholding_taxes_1" model="hr.rule.parameter">
@@ -435,6 +183,18 @@
 
     <!-- CATEGORY 1a -->
 
+    <!-- Daily -->
+    <record id="rule_parameter_withholding_daily_taxes_threshold_1a" model="hr.rule.parameter">
+        <field name="name">Lux Withholding Daily Taxes: Threshold Category 1A</field>
+        <field name="code">l10n_lu_withholding_daily_taxes_threshold_1a</field>
+        <field name="country_id" ref="base.lu"/>
+    </record>
+    <record id="rule_parameter_withholding_daily_taxes_threshold_1a_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">(503.40, 3.1088)</field>
+        <field name="rule_parameter_id" ref="rule_parameter_withholding_daily_taxes_threshold_1a"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
     <!-- Monthly -->
     <record id="rule_parameter_withholding_taxes_1a" model="hr.rule.parameter">
         <field name="name">Lux Withholding Taxes: Category 1a</field>
@@ -574,6 +334,18 @@
     </record>
 
     <!-- CATEGORY 2 -->
+
+    <!-- Daily -->
+    <record id="rule_parameter_withholding_daily_taxes_threshold_2" model="hr.rule.parameter">
+        <field name="name">Lux Withholding Daily Taxes: Threshold Category 2</field>
+        <field name="code">l10n_lu_withholding_daily_taxes_threshold_2</field>
+        <field name="country_id" ref="base.lu"/>
+    </record>
+    <record id="rule_parameter_withholding_daily_taxes_threshold_2_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">(1003.40, 6.3210)</field>
+        <field name="rule_parameter_id" ref="rule_parameter_withholding_daily_taxes_threshold_2"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
 
     <!-- Monthly -->
     <record id="rule_parameter_withholding_taxes_2" model="hr.rule.parameter">
@@ -739,67 +511,5 @@
         <field name="parameter_value">(301020.00, 1896.32)</field>
         <field name="rule_parameter_id" ref="rule_parameter_withholding_annual_taxes_threshold_2"/>
         <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <!-- OTHER -->
-
-    <record id="rule_parameter_withholding_taxes_min_social_pay" model="hr.rule.parameter">
-        <field name="name">Lux Withholding Taxes: Minimal Social Pay</field>
-        <field name="code">l10n_lu_min_social_pay</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_withholding_taxes_min_social_pay_2022" model="hr.rule.parameter.value">
-        <field name="parameter_value">2256.95</field>
-        <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
-        <field name="date_from" eval="datetime(2022, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_withholding_taxes_min_social_pay_2023" model="hr.rule.parameter.value">
-        <field name="parameter_value">2387.40</field>
-        <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
-        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_withholding_taxes_min_social_pay_2023_04" model="hr.rule.parameter.value">
-        <field name="parameter_value">2508.24</field>
-        <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
-        <field name="date_from" eval="datetime(2023, 4, 1).date()"/>
-    </record>
-    <record id="rule_parameter_withholding_taxes_min_social_pay_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">2570.93</field>
-        <field name="rule_parameter_id" ref="rule_parameter_withholding_taxes_min_social_pay"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_vat_rate" model="hr.rule.parameter">
-        <field name="name">Lux: VAT rate</field>
-        <field name="code">l10n_vat_rate</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_vat_rate_2017" model="hr.rule.parameter.value">
-        <field name="parameter_value">0.16</field>
-        <field name="rule_parameter_id" ref="rule_parameter_vat_rate"/>
-        <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
-    </record>
-    <record id="rule_parameter_vat_rate_2024" model="hr.rule.parameter.value">
-        <field name="parameter_value">0.17</field>
-        <field name="rule_parameter_id" ref="rule_parameter_vat_rate"/>
-        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
-    </record>
-
-    <record id="rule_parameter_tax_credit" model="hr.rule.parameter">
-        <field name="name">Lux: Tax Credit</field>
-        <field name="code">l10n_tax_credit</field>
-        <field name="country_id" ref="base.lu"/>
-    </record>
-    <record id="rule_parameter_tax_credit_rate" model="hr.rule.parameter.value">
-        <field name="parameter_value">
-[
-(    0.00,        935.99,   00.00,      00.00,    00.00),
-(  936.00,      11265.00,  300.00,    -936.00,    0.029),
-(11266.00,      40000.00,  600.00,      00.00,    00.00),
-(40001.00,      79999.00,  600.00,  -40000.00,    0.015),
-(80000.00,         'inf',   00.00,      00.00,    00.00)
-]</field>
-        <field name="rule_parameter_id" ref="rule_parameter_tax_credit"/>
-        <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
     </record>
 </odoo>

@@ -4,7 +4,7 @@
     <td id="employee_infos" position="inside">
         <div id="employee_tax_card_number">
             <strong class="me-2">Tax Card Number:</strong>
-            <span t-field="o.employee_id.l10n_lu_tax_card_number"/>
+            <span t-field="o.employee_id.l10n_lu_tax_id_number"/>
         </div>
     </td>
 
@@ -25,15 +25,15 @@
     </t>
 </template>
 
-<template id="report_payslip_lux_thirteen_month" inherit_id="l10n_lu_hr_payroll.report_payslip_lux" primary="True">
+<template id="report_payslip_lux_gratification" inherit_id="l10n_lu_hr_payroll.report_payslip_lux" primary="True">
     <div id="worked_days_table" position="replace"/>
 </template>
 
-<template id="report_payslip_lux_lang_thirteen_month">
+<template id="report_payslip_lux_lang_gratification">
     <t t-call="web.html_container">
         <t t-foreach="docs" t-as="o">
             <t t-set="o" t-value="o.with_context(lang=o.employee_id.lang or o.env.lang)"/>
-            <t t-call="l10n_lu_hr_payroll.report_payslip_lux_thirteen_month" t-lang="o.env.lang"/>
+            <t t-call="l10n_lu_hr_payroll.report_payslip_lux_gratification" t-lang="o.env.lang"/>
         </t>
     </t>
 </template>

@@ -1281,17 +1281,38 @@ class HrPayslip(models.Model):
                 result[code][payslip_id][vals] += row[vals] or 0.0
         return result
 
+    # YTI TODO: Convert in a single SQL request + Handle children
+    def _get_category_data(self, category_code):
+        category_data = {'quantity': 0.0, 'total': 0.0}
+        for line in self.line_ids:
+            if line.category_id.code == category_code:
+                category_data['quantity'] += line.quantity
+                category_data['total'] += line.total
+        return category_data
+
     def _get_worked_days_line_amount(self, code):
         wds = self.worked_days_line_ids.filtered(lambda wd: wd.code == code)
         return sum([wd.amount for wd in wds])
+
+    def _get_paid_worked_days_line_amount(self):
+        wds = self.worked_days_line_ids.filtered(lambda wd: wd.work_entry_type_id.id not in self.struct_id.unpaid_work_entry_type_ids.ids)
+        return sum(wd.amount for wd in wds)
 
     def _get_worked_days_line_number_of_hours(self, code):
         wds = self.worked_days_line_ids.filtered(lambda wd: wd.code == code)
         return sum([wd.number_of_hours for wd in wds])
 
+    def _get_paid_worked_days_line_number_of_hours(self):
+        wds = self.worked_days_line_ids.filtered(lambda wd: wd.work_entry_type_id.id not in self.struct_id.unpaid_work_entry_type_ids.ids)
+        return sum(wd.number_of_hours for wd in wds)
+
     def _get_worked_days_line_number_of_days(self, code):
         wds = self.worked_days_line_ids.filtered(lambda wd: wd.code == code)
         return sum([wd.number_of_days for wd in wds])
+
+    def _get_paid_worked_days_line_number_of_days(self):
+        wds = self.worked_days_line_ids.filtered(lambda wd: wd.work_entry_type_id.id not in self.struct_id.unpaid_work_entry_type_ids.ids)
+        return sum(wd.number_of_days for wd in wds)
 
     def _get_input_line_amount(self, code):
         lines = self.input_line_ids.filtered(lambda line: line.code == code)

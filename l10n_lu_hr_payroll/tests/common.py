@@ -26,6 +26,8 @@ class TestLuPayrollCommon(TransactionCase):
             'company_id': cls.lux_company.id,
             'identification_id': 111111111,
         })
+        cls.employee_david.resource_calendar_id.tz = "Europe/Brussels"
+        cls.lux_company.resource_calendar_id.tz = "Europe/Brussels"
         cls.contract_david = cls.env['hr.contract'].create({
             'name': 'david Contract',
             'employee_id': cls.employee_david.id,

@@ -4,10 +4,6 @@
         <field name="model">l10n.lu.monthly.declaration.wizard</field>
         <field name="arch" type="xml">
             <form string="Monthly Declaration">
-                <field name="batch_ids" invisible="1"/>
-                <field name="company_id" invisible="1"/>
-                <field name="can_generate" invisible="1"/>
-                <field name="decsal_name" invisible="1"/>
                 <sheet>
                     <group>
                         <group>
@@ -36,6 +32,7 @@
                             </page>
                         </notebook>
                     </group>
+                    <field name="decsal_name" invisible="1"/>
                     <p invisible="not decsal_file">
                         Your DECSAL file has been generated: <field name="decsal_file" readonly="1" filename="decsal_name"/>
                     </p>

@@ -17,47 +17,69 @@ class TestPayslipValidation(TestPayslipValidationCommon):
             country=cls.env.ref('base.lu'),
             structure=cls.env.ref('l10n_lu_hr_payroll.hr_payroll_structure_lux_employee_salary'),
             structure_type=cls.env.ref('l10n_lu_hr_payroll.structure_type_employee_lux'),
+            tz="Europe/Brussels",
             contract_fields={
                 'wage': 4000,
                 'l10n_lu_meal_voucher_amount': 50.4,
+                'date_start': date(2024, 1, 1),
+            },
+            employee_fields={
+                'l10n_lu_tax_credit_cis': True,
+                'l10n_lu_tax_id_number': '123',
             }
         )
 
-    def test_basic_payslip_1(self):
-        self.contract.wage = 1000.0
+    def test_basic_payslip(self):
+        self.contract.wage = 4250
+        self.contract.l10n_lu_meal_voucher_amount = 0
+        self.employee.l10n_lu_tax_credit_cis = False
         payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
-        payslip_results = {'BASIC': 1000.0, 'BIK_TRANSPORT_NO_VAT': 0.0, 'VPA': 0.0, 'BIK_TRANSPORT_VAT': 0.0, 'COTISATION_BASE': 1000.0, 'MEAL_VOUCHERS': 50.4, 'GROSS': 1050.4, 'HEALTH_FUND': -28.0, 'RETIREMENT_FUND': -80.0, 'SICK_FUND': -2.5, 'DED_TOTAL': -110.5, 'TRANS_FEES': 0.0, 'TAXABLE': 939.9, 'TAXES': 0.0, 'CIS': 50.0, 'CI_CO2': 14.0, 'CISSM': 0.0, 'TOTAL_TAX_CREDIT': 0.0, 'DEP_INS': -5.0, 'NET': 934.9, 'MEAL_VOUCHERS.2': -50.4, 'BIK_TRANSPORT_NO_VAT.2': 0.0, 'BIK_TRANSPORT_VAT.2': 0.0, 'BIK_VARIOUS.2': 0.0, 'NET_TO_PAY': 884.5}
+        payslip_results = {'BASIC': 4250.0, 'GROSS': 4250.0, 'HEALTH_FUND': 119.0, 'CASH_SICKNESS_FUND': 10.63, 'RETIREMENT_FUND': 340.0, 'DEPENDENCY_INSURANCE': 50.5, 'TOTAL_CONTRIBUTIONS': 520.13, 'TOTAL_ALLOWANCES': 0.0, 'TAXABLE_AMOUNT': 3780.38, 'TAXES': 534.6, 'CISSM': 0.0, 'NET_TEMP': 3195.27, 'NET': 3195.27}
         self._validate_payslip(payslip, payslip_results)
 
-    def test_basic_payslip_2(self):
-        self.contract.wage = 2000.0
-        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
-        payslip_results = {'BASIC': 2000.0, 'BIK_TRANSPORT_NO_VAT': 0.0, 'VPA': 0.0, 'BIK_TRANSPORT_VAT': 0.0, 'COTISATION_BASE': 2000.0, 'MEAL_VOUCHERS': 50.4, 'GROSS': 2050.4, 'HEALTH_FUND': -56.0, 'RETIREMENT_FUND': -160.0, 'SICK_FUND': -5.0, 'DED_TOTAL': -221.0, 'TRANS_FEES': 0.0, 'TAXABLE': 1829.4, 'TAXES': -71.7, 'CIS': 50.0, 'CI_CO2': 14.0, 'CISSM': 70.0, 'TOTAL_TAX_CREDIT': 71.7, 'DEP_INS': -19.0, 'NET': 1810.4, 'MEAL_VOUCHERS.2': -50.4, 'BIK_TRANSPORT_NO_VAT.2': 0.0, 'BIK_TRANSPORT_VAT.2': 0.0, 'BIK_VARIOUS.2': 0.0, 'NET_TO_PAY': 1760.0}
-        self._validate_payslip(payslip, payslip_results)
-
-    def test_basic_payslip_3(self):
-        self.contract.wage = 3000.0
-        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
-        payslip_results = {'BASIC': 3000.0, 'BIK_TRANSPORT_NO_VAT': 0.0, 'VPA': 0.0, 'BIK_TRANSPORT_VAT': 0.0, 'COTISATION_BASE': 3000.0, 'MEAL_VOUCHERS': 50.4, 'GROSS': 3050.4, 'HEALTH_FUND': -84.0, 'RETIREMENT_FUND': -240.0, 'SICK_FUND': -7.5, 'DED_TOTAL': -331.5, 'TRANS_FEES': 0.0, 'TAXABLE': 2718.9, 'TAXES': -225.9, 'CIS': 50.0, 'CI_CO2': 14.0, 'CISSM': 64.17, 'TOTAL_TAX_CREDIT': 128.17, 'DEP_INS': -33.0, 'NET': 2588.16, 'MEAL_VOUCHERS.2': -50.4, 'BIK_TRANSPORT_NO_VAT.2': 0.0, 'BIK_TRANSPORT_VAT.2': 0.0, 'BIK_VARIOUS.2': 0.0, 'NET_TO_PAY': 2537.76}
-        self._validate_payslip(payslip, payslip_results)
-
-    def test_basic_payslip_4(self):
-        self.contract.wage = 3500.0
-        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
-        payslip_results = {'BASIC': 3500.0, 'BIK_TRANSPORT_NO_VAT': 0.0, 'VPA': 0.0, 'BIK_TRANSPORT_VAT': 0.0, 'COTISATION_BASE': 3500.0, 'MEAL_VOUCHERS': 50.4, 'GROSS': 3550.4, 'HEALTH_FUND': -98.0, 'RETIREMENT_FUND': -280.0, 'SICK_FUND': -8.75, 'DED_TOTAL': -386.75, 'TRANS_FEES': 0.0, 'TAXABLE': 3163.65, 'TAXES': -338.8, 'CIS': 46.75, 'CI_CO2': 13.09, 'CISSM': 5.83, 'TOTAL_TAX_CREDIT': 65.67, 'DEP_INS': -40.0, 'NET': 2850.52, 'MEAL_VOUCHERS.2': -50.4, 'BIK_TRANSPORT_NO_VAT.2': 0.0, 'BIK_TRANSPORT_VAT.2': 0.0, 'BIK_VARIOUS.2': 0.0, 'NET_TO_PAY': 2800.12}
-        self._validate_payslip(payslip, payslip_results)
-
-    def test_basic_payslip_5(self):
-        self.contract.wage = 4000.0
-        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
-        payslip_results = {'BASIC': 4000.0, 'BIK_TRANSPORT_NO_VAT': 0.0, 'VPA': 0.0, 'BIK_TRANSPORT_VAT': 0.0, 'COTISATION_BASE': 4000.0, 'MEAL_VOUCHERS': 50.4, 'GROSS': 4050.4, 'HEALTH_FUND': -112.0, 'RETIREMENT_FUND': -320.0, 'SICK_FUND': -10.0, 'DED_TOTAL': -442.0, 'TRANS_FEES': 0.0, 'TAXABLE': 3608.4, 'TAXES': -474.6, 'CIS': 39.25, 'CI_CO2': 10.99, 'CISSM': 0.0, 'TOTAL_TAX_CREDIT': 50.23, 'DEP_INS': -47.0, 'NET': 3137.03, 'MEAL_VOUCHERS.2': -50.4, 'BIK_TRANSPORT_NO_VAT.2': 0.0, 'BIK_TRANSPORT_VAT.2': 0.0, 'BIK_VARIOUS.2': 0.0, 'NET_TO_PAY': 3086.63}
-        self._validate_payslip(payslip, payslip_results)
-
-    def test_gratification_payslip(self):
-        self.employee.departure_date = date(2024, 1, 31)
-        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
-        self._add_other_inputs(payslip, {
-            'l10n_lu_hr_payroll.input_gratification_lu': 2000,
+    def test_basic_payslip_with_benefits(self):
+        self.contract.write({
+            'wage': 4250,
+            'l10n_lu_meal_voucher_amount': 2.80,
+            'l10n_lu_alw_vehicle': 300,
+            'l10n_lu_bik_vehicle': 500,
+            'l10n_lu_bik_vehicle_vat_included': False,
         })
-        payslip_results = {'BASIC': 4000.0, 'BIK_TRANSPORT_NO_VAT': 0.0, 'VPA': 0.0, 'BIK_TRANSPORT_VAT': 0.0, 'COTISATION_BASE': 4000.0, 'MEAL_VOUCHERS': 50.4, 'GROSS': 4050.4, 'HEALTH_FUND': -112.0, 'RETIREMENT_FUND': -320.0, 'SICK_FUND': -10.0, 'DED_TOTAL': -442.0, 'TRANS_FEES': 0.0, 'TAXABLE': 3608.4, 'TAXES': -474.6, 'CIS': 39.25, 'CI_CO2': 10.99, 'CISSM': 0.0, 'TOTAL_TAX_CREDIT': 50.23, 'DEP_INS': -47.0, 'BASIC_GRATIFICATION': 2000.0, 'GRAT_HEALTH_FUND': -56.0, 'GRAT_RETIREMENT_FUND': -160.0, 'GROSS_GRATIFICATION': 1780.0, 'TAX_ON_NON_PERIOD_REVENUE': -685.3, 'NET_GRATIFICATION': 1094.7, 'NET': 4231.73, 'MEAL_VOUCHERS.2': -50.4, 'BIK_TRANSPORT_NO_VAT.2': 0.0, 'BIK_TRANSPORT_VAT.2': 0.0, 'BIK_VARIOUS.2': 0.0, 'NET_TO_PAY': 4181.33}
+        self.employee.write({
+            'l10n_lu_deduction_ac_ae_daily': 7.26,
+            'l10n_lu_deduction_fd_daily': 8.58,
+            'l10n_lu_tax_credit_cis': True,
+        })
+        self.contract.wage = 4250
+        self.contract.l10n_lu_meal_voucher_amount = 2.80
+        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 31))
+        self.env['hr.payslip.input'].create({
+            'payslip_id': payslip.id,
+            'input_type_id': self.env.ref('l10n_lu_hr_payroll.input_wage_supplement_70').id,
+            'amount': 10,
+        })
+        self.env['hr.payslip.input'].create({
+            'payslip_id': payslip.id,
+            'input_type_id': self.env.ref('l10n_lu_hr_payroll.input_overtime').id,
+            'amount': 10,
+        })
+        self.env['hr.payslip.input'].create({
+            'payslip_id': payslip.id,
+            'input_type_id': self.env.ref('l10n_lu_hr_payroll.input_overtime_supplement_40').id,
+            'amount': 10,
+        })
+        payslip.compute_sheet()
+        payslip_results = {'BASIC': 4250.0, 'VEHICLE_ALLOWANCE': 300.0, 'BIK_VEHICLE': 500.0, 'WAGE_SUPPLEMENT_70': 171.97, 'OVERTIME': 245.66, 'OVERTIME_SUPPLEMENT_40': 98.27, 'GROSS': 5565.9, 'CASH_SICKNESS_FUND': 11.8, 'DEPENDENCY_INSURANCE': 67.55, 'HEALTH_FUND': 153.09, 'RETIREMENT_FUND': 417.76, 'TOTAL_CONTRIBUTIONS': 650.2, 'AC_AE': 181.5, 'FD': 214.5, 'OVERTIME_ALW': 238.79, 'OVERTIME_SUPPLEMENT_40_ALW': 98.27, 'WAGE_SUPPLEMENT_70_ALW': 171.97, 'TOTAL_ALLOWANCES': 905.02, 'TAXABLE_AMOUNT': 4078.22, 'TAXES': 644.5, 'CIS': -16.51, 'CISSM': 0.0, 'CIS_CI_CO2': -4.62, 'NET_TEMP': 4292.33, 'BIK_VEHICLE_NET': 500.0, 'MEAL_VOUCHERS': 50.4, 'NET': 3741.93}
+        self._validate_payslip(payslip, payslip_results)
+
+    def test_basic_payslip_incomplete_month(self):
+        self.contract.wage = 4250
+        self.contract.l10n_lu_meal_voucher_amount = 0
+        self.employee.write({
+            'l10n_lu_deduction_ac_ae_daily': 7.26,
+            'l10n_lu_deduction_fd_daily': 8.58,
+            'l10n_lu_tax_credit_cis': True,
+        })
+        payslip = self._generate_payslip(date(2024, 1, 1), date(2024, 1, 15))
+        payslip_results = {'BASIC': 2032.61, 'GROSS': 2032.61, 'HEALTH_FUND': 56.91, 'CASH_SICKNESS_FUND': 5.08, 'RETIREMENT_FUND': 162.61, 'DEPENDENCY_INSURANCE': 23.88, 'TOTAL_CONTRIBUTIONS': 248.48, 'FD': 103.28, 'AC_AE': 87.39, 'TOTAL_ALLOWANCES': 190.67, 'TAXABLE_AMOUNT': 1617.34, 'TAXES': 168.8, 'CIS': -21.51, 'CIS_CI_CO2': -6.02, 'CISSM': 0.0, 'NET_TEMP': 1642.86, 'NET': 1642.86}
         self._validate_payslip(payslip, payslip_results)

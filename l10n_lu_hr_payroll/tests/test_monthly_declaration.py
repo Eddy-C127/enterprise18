@@ -150,28 +150,28 @@ class TestLuMonthlyDeclaration(TestLuPayrollCommon):
         self.assertEqual(len(declaration_lines), 4, "Should have 4 lines, 1 for company identification + 1 for each employee")
 
         employee_values = {
-            laura_employee.id: {
+            laura_employee.identification_id: {
                 1: self.lux_company.l10n_lu_official_social_security,
                 3: 202203,  # period reference YYYYMM
-                4: 139130,  # 4000 (wage) / 23 (number working days) * 8 (worked days)
+                4: 410000,
                 5: 64,  # 8 days * 8h
                 13: '04',  # period start date - start of contract
                 14: 15,  # period end date - end of contract
             },
-            madison_employee.id: {
+            madison_employee.identification_id: {
                 0: 1,
                 1: self.lux_company.l10n_lu_official_social_security,
-                4: 311304,
+                4: 843174,
                 5: 136,  # 17 days (9 days 1st contract + 9 days 2nd contract - 1 day unemployment) * 8h
-                10: 8,  # 1 day of situational unemployment
-                11: 12000,  # 120.00 encoded in the wizard
+                10: 12000,  # 120.00 encoded in the wizard
+                11: 8,  # 1 day of situational unemployment
                 13: '01',  # period start date - start of month
                 14: 31,  # period end date - end of month
             },
-            self.employee_david.id: {
+            self.employee_david.identification_id: {
                 1: self.lux_company.l10n_lu_official_social_security,
                 2: self.employee_david.identification_id,
-                4: int((self.contract_david.wage) * 100),
+                4: 630368,
                 5: 184,  # 23 days * 8h
                 10: 0,
                 11: 0,
@@ -185,12 +185,12 @@ class TestLuMonthlyDeclaration(TestLuPayrollCommon):
             fields = line.split(';')
             self.assertEqual(len(fields), 20)
 
-            employee_id = int(fields[-1])
-            if employee_id in employees_done:
+            employee_identification_id = fields[2]
+            if employee_identification_id in employees_done:
                 raise Exception('There should be only one line per employee')
-            employees_done.append(employee_id)
+            employees_done.append(employee_identification_id)
 
-            for idx, val in employee_values[employee_id].items():
+            for idx, val in employee_values[employee_identification_id].items():
                 self.assertEqual(str(val), fields[idx], f"Error: expected {val} on field #{idx} found {fields[idx]} instead: \n{line}")
 
     def test_04_multiple_contracts_different_structures(self):
@@ -253,7 +253,7 @@ class TestLuMonthlyDeclaration(TestLuPayrollCommon):
         jade_entries = [
             line.split(';')
             for line in declaration_lines
-            if int(line.split(';')[-1]) == jade_employee.id
+            if line.split(';')[2] == jade_employee.identification_id
         ]
         self.assertEqual(len(jade_entries), 2)
 
