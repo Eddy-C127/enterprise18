@@ -389,76 +389,72 @@ class DataMergeRecord(models.Model):
                 }
 
                 # Query to check the number of columns in the referencing table
-                query = psycopg2.sql.SQL(
+                query = SQL(
                     """
                     SELECT COUNT("column_name")
                     FROM "information_schema"."columns"
                     WHERE "table_name" ILIKE %s
-                    """
+                    """, query_dict['table']
                 )
-                self._cr.execute(query, (query_dict['table'],))
-                column_count = self._cr.fetchone()[0]
+                [[column_count]] = self.env.execute_query(query)
 
                 ## Relation table for M2M
                 if column_count == 2:
                     # Retrieve the "other" column
-                    query = psycopg2.sql.SQL(
+                    query = SQL(
                         """
                         SELECT "column_name"
                         FROM "information_schema"."columns"
                         WHERE
                             "table_name" LIKE %s
                         AND "column_name" <> %s
-                        """
+                        """,
+                        query_dict['table'],
+                        query_dict['column'],
                     )
-                    self._cr.execute(query, (query_dict['table'], query_dict['column']))
-                    othercol = self._cr.fetchone()[0]
+                    [[othercol]] = self.env.execute_query(query)
                     query_dict.update({'othercol': othercol})
 
                     for rec_id in source_ids:
                         # This query will filter out existing records
                         # e.g. if the record to merge has tags A, B, C and the master record has tags C, D, E
                         #      we only need to add tags A, B
-                        query = psycopg2.sql.SQL(
+                        query = SQL(
                             """
-                            UPDATE {table} o
-                            SET {column} =  %(destination_id)s            --- master record
-                            WHERE {column} = %(record_id)s         --- record to merge
+                            UPDATE %(table)s o
+                            SET %(column)s =  %(destination_id)s  --- master record
+                            WHERE %(column)s = %(record_id)s      --- record to merge
                             AND NOT EXISTS (
-                            SELECT 1
-                            FROM  {table} i
-                            WHERE {column} = %(destination_id)s
-                            AND i.{othercol} = o.{othercol}
+                                SELECT 1
+                                FROM  %(table)s i
+                                WHERE %(column)s = %(destination_id)s
+                                AND i.%(othercol)s = o.%(othercol)s
                             )
                             """).format(
-                            table=psycopg2.sql.Identifier(query_dict['table']),
-                            column=psycopg2.sql.Identifier(query_dict['column']),
-                            othercol=psycopg2.sql.Identifier(query_dict['othercol']),
+                            table=SQL.identifier(query_dict['table']),
+                            column=SQL.identifier(query_dict['column']),
+                            othercol=SQL.identifier(query_dict['othercol']),
+                            destination_id=destination.id,
+                            record_id=rec_id,
                         )
-                        params = {
-                            'destination_id': destination.id,
-                            'record_id': rec_id,
-                            'othercol': othercol
-                        }
-                        self._cr.execute(query, params)
+                        self.env.execute_query(query)
                 else:
-                    query = psycopg2.sql.SQL(
-                        """
-                        UPDATE {table} o
-                        SET {column}  = %(destination_id)s            --- master record
-                        WHERE {column} = %(record_id)s         --- record to merge
-                        """).format(
-                        table=psycopg2.sql.Identifier(query_dict['table']),
-                        column=psycopg2.sql.Identifier(query_dict['column']),
-                    )
+                    sql_table = SQL.identifier(query_dict['table'])
+                    sql_column = SQL.identifier(query_dict['column'])
                     for rec_id in source_ids:
                         try:
                             with self._cr.savepoint():
-                                params = {
-                                    'destination_id': destination.id,
-                                    'record_id': rec_id
-                                }
-                                self._cr.execute(query, params)
+                                self.env.execute_query(SQL(
+                                    """
+                                    UPDATE %(table)s o
+                                    SET %(column)s  = %(destination_id)s  --- master record
+                                    WHERE %(column)s = %(record_id)s      --- record to merge
+                                    """,
+                                    table=sql_table,
+                                    column=sql_column,
+                                    destination_id=destination.id,
+                                    record_id=rec_id,
+                                ))
                         except psycopg2.errors.UniqueViolation:
                             _logger.warning('Query %s failed, due to an unique constraint', query)
                         except psycopg2.IntegrityError as e:

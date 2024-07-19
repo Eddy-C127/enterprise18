@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, tools
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.tools.sql import drop_view_if_exists, SQL
 
-from psycopg2 import sql
 
 class PlanningAnalysisReport(models.Model):
     _name = "planning.analysis.report"
@@ -106,10 +105,5 @@ class PlanningAnalysisReport(models.Model):
         """
 
     def init(self):
-        tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute(
-            sql.SQL("CREATE or REPLACE VIEW {} as ({})").format(
-                sql.Identifier(self._table),
-                sql.SQL(self._table_query)
-            )
-        )
+        drop_view_if_exists(self.env.cr, self._table)
+        self.env.cr.execute(SQL("""CREATE or REPLACE VIEW %s as (%s)""", SQL.identifier(self._table), SQL(self._table_query)))

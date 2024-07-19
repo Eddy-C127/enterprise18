@@ -1,6 +1,5 @@
-from psycopg2 import sql
-
-from odoo import fields, models, tools
+from odoo import fields, models
+from odoo.tools.sql import drop_view_if_exists, SQL
 
 
 class HrWorkEntryReport(models.Model):
@@ -78,9 +77,5 @@ class HrWorkEntryReport(models.Model):
         ) work_schedule ON we.contract_id = work_schedule.contract_id
         """
 
-        tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute(
-            sql.SQL("CREATE or REPLACE VIEW {} as ({})").format(
-                sql.Identifier(self._table),
-                sql.SQL(query)
-            ))
+        drop_view_if_exists(self.env.cr, self._table)
+        self.env.cr.execute(SQL("""CREATE or REPLACE VIEW %s as (%s)""", SQL.identifier(self._table), SQL(query)))

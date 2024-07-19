@@ -2,9 +2,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from ast import literal_eval
-from psycopg2 import sql
 
-from odoo import api, fields, models, tools
+from odoo import api, fields, models
+from odoo.tools.sql import drop_view_if_exists, SQL
 
 
 class HrPayrollReport(models.Model):
@@ -145,11 +145,8 @@ class HrPayrollReport(models.Model):
         %s
         %s
         %s""" % (self._select(additional_rules), self._from(additional_rules), self._group_by(additional_rules))
-        tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute(
-            sql.SQL("CREATE or REPLACE VIEW {} as ({})").format(
-                sql.Identifier(self._table),
-                sql.SQL(query)))
+        drop_view_if_exists(self.env.cr, self._table)
+        self.env.cr.execute(SQL("""CREATE or REPLACE VIEW %s as (%s)""", SQL.identifier(self._table), SQL(query)))
 
     @api.model
     def _get_action(self):

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, tools
-from psycopg2 import sql
+from odoo import fields, models
+from odoo.tools.sql import drop_view_if_exists, SQL
 
 
 class l10nBeWorkEntryDailyBenefitReport(models.Model):
@@ -21,9 +21,9 @@ class l10nBeWorkEntryDailyBenefitReport(models.Model):
     benefit_name = fields.Char('Benefit Name', readonly=True)
 
     def init(self):
-        tools.drop_view_if_exists(self._cr, self._table)
-        statement = sql.SQL("""
-            CREATE OR REPLACE VIEW {table_name} AS (
+        drop_view_if_exists(self._cr, self._table)
+        statement = SQL("""
+            CREATE OR REPLACE VIEW %s AS (
                     SELECT work_entry.employee_id,
                            GREATEST(day_serie.day_serie, timezone(calendar.tz::text, work_entry.date_start::timestamp with time zone))::date AS day,
                            advantage.benefit_name
@@ -44,5 +44,5 @@ class l10nBeWorkEntryDailyBenefitReport(models.Model):
 
                     HAVING sum(date_part('hour'::text, LEAST(day_serie.day_serie + '1 day'::interval, timezone(calendar.tz::text, work_entry.date_stop::timestamp with time zone)) - GREATEST(day_serie.day_serie, timezone(calendar.tz::text, work_entry.date_start::timestamp with time zone)))) > 0::double precision
             );
-        """).format(table_name=sql.Identifier(self._table))
+        """, SQL.identifier(self._table))
         self._cr.execute(statement)

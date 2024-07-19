@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import tools
 from odoo import fields, models
+from odoo.tools.sql import drop_view_if_exists, SQL
 
-from psycopg2 import sql
 
 class HrRecruitmentStageReport(models.Model):
     _name = 'hr.recruitment.stage.report'
@@ -29,8 +28,8 @@ class HrRecruitmentStageReport(models.Model):
     date_end = fields.Date('End Date', readonly=True)
 
     def init(self):
-        tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute(sql.SQL("""CREATE OR REPLACE VIEW {} AS (
+        drop_view_if_exists(self.env.cr, self._table)
+        query = """
 SELECT
     ROW_NUMBER() OVER () AS ID,
     ha.id AS applicant_id,
@@ -119,4 +118,5 @@ LEFT JOIN LATERAL (
 ) md ON TRUE
 WHERE
     hrs.hired_stage IS NOT TRUE
-)""").format(sql.Identifier(self._table)))
+        """
+        self.env.cr.execute(SQL("CREATE OR REPLACE VIEW %s AS (%s)", SQL.identifier(self._table), SQL(query)))

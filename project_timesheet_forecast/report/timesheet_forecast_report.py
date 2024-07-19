@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from psycopg2 import sql
+from odoo import api, fields, models
+from odoo.tools.sql import drop_view_if_exists, SQL
 
-from odoo import api, fields, models, tools
 
 class TimesheetForecastReport(models.Model):
 
@@ -143,12 +143,8 @@ class TimesheetForecastReport(models.Model):
             self._where_union()
         )
 
-        tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute(
-            sql.SQL("CREATE or REPLACE VIEW {} as ({})").format(
-                sql.Identifier(self._table),
-                sql.SQL(query)
-            ))
+        drop_view_if_exists(self.env.cr, self._table)
+        self.env.cr.execute(SQL("""CREATE or REPLACE VIEW %s as (%s)""", SQL.identifier(self._table), SQL(query)))
 
     @api.model
     def read_group(self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True):
