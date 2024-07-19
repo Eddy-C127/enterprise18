@@ -46,7 +46,6 @@
             <field name="product_uom_qty">3</field>
             <field name="qty_delivered">3</field>
             <field name="price_unit">65.00</field>
-            <field name="product_uom" ref="uom.product_uom_unit"/>
         </record>
         <record id="subscription_project_line_2" model="sale.order.line">
             <field name="name">Security Services</field>
@@ -56,7 +55,6 @@
             <field name="product_uom_qty">10</field>
             <field name="qty_delivered">7</field>
             <field name="price_unit">75.00</field>
-            <field name="product_uom" ref="uom.product_uom_unit"/>
         </record>
 
         <function model="sale.order" name="action_confirm" eval="[[ref('subscription_project_1')]]" context="{'action_no_send_mail': True}"/>
