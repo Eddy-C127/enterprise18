@@ -425,9 +425,10 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         """ Group the taxes by colombian type using the (tax.amount, tax.amount_type, tax.l10n_co_edi_type) """
         # OVERRIDE account.edi.xml.ubl_20
         tax = tax_values['tax_repartition_line'].tax_id
+        code_to_filter = ['07', 'ZZ'] if base_line['record'].move_id.move_type in ('in_invoice', 'in_refund') else ['ZZ']
         return {
             'tax_co_type': tax.l10n_co_edi_type.code,
-            'tax_co_ret': tax.l10n_co_edi_type.retention,
+            'tax_co_ret': tax.l10n_co_edi_type.retention or tax.l10n_co_edi_type.code in code_to_filter,
             'tax_amount_type': tax.amount_type,
             '_tax_category_vals_': self._get_tax_category_list(base_line['record'].move_id, tax)[0],  # used to render the TaxCategory nodes
         }
