@@ -284,6 +284,10 @@ class L10nMxEdiDocument(models.Model):
     # BUTTON ACTIONS
     # -------------------------------------------------------------------------
 
+    @api.model
+    def _can_commit(self):
+        return not tools.config['test_enable'] and not modules.module.current_test
+
     def _get_source_records(self):
         """ Get the originator records for the current document.
         This is useful when some flows are the same across multiple input documents.
@@ -2080,6 +2084,9 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         # == Success ==
         on_success(cfdi_values, cfdi_filename, sign_results['cfdi_str'], populate_return=populate_return)
 
+        if self._can_commit():
+            self._cr.commit()
+
     def _cancel_api(self, company, cancel_reason, on_failure, on_success):
         """ Common way to cancel a document.
 
@@ -2125,6 +2132,9 @@ Content-Disposition: form-data; name="xml"; filename="xml"
 
         # == Success ==
         on_success()
+
+        if self._can_commit():
+            self._cr.commit()
 
     # -------------------------------------------------------------------------
     # SAT
@@ -2217,6 +2227,10 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             cfdi_infos['uuid'],
         )
         self._update_document_sat_state(sat_results['value'], error=sat_results.get('error'))
+
+        if self._can_commit():
+            self._cr.commit()
+
         return sat_results
 
     @api.model
@@ -2290,5 +2304,3 @@ Content-Disposition: form-data; name="xml"; filename="xml"
                 self.env.ref('l10n_mx_edi.ir_cron_update_pac_status_invoice')._trigger()
             else:
                 document._update_sat_state()
-                if not tools.config['test_enable'] and not modules.module.current_test:
-                    self._cr.commit()
