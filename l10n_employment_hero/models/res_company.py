@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import requests
-from datetime import datetime
+from datetime import datetime, date
 from collections import defaultdict
 
 from requests import HTTPError
@@ -8,7 +8,7 @@ from werkzeug.urls import url_join
 from urllib.parse import quote
 
 from odoo import _, api, fields, models, Command
-from odoo.exceptions import UserError, AccessError
+from odoo.exceptions import UserError, AccessError, ValidationError
 from odoo.tools.misc import format_date, format_datetime
 
 
@@ -19,19 +19,24 @@ class ResCompany(models.Model):
     employment_hero_api_key = fields.Char(string='API Key', groups='base.group_system')
     employment_hero_base_url = fields.Char(string='Payroll URL', groups='base.group_system')
     employment_hero_identifier = fields.Char(string='Business Id', groups='base.group_system')
-    employment_hero_lock_date = fields.Date(string='Fetch Payrun After', help="Import payruns paid after this date. This date cannot be prior to the Lock Date for All Users.")
+    employment_hero_lock_date = fields.Date(string='Fetch Payrun After', help="Only import payruns paid after this date (and any other relevant lock dates).")
     employment_hero_journal_id = fields.Many2one(
         comodel_name='account.journal',
         string='Payroll Journal',
     )
 
-    @api.onchange('fiscalyear_lock_date', 'employment_hero_lock_date')
-    def _onchange_exclude_before(self):
-        fiscalyear_lock_date = self.fiscalyear_lock_date
-        if self.parent_id:
-            # We need to use sudo, since we might not have access to a parent company.
-            fiscalyear_lock_date = max(fiscalyear_lock_date, self.sudo().parent_id.fiscalyear_lock_date)
-        self.employment_hero_lock_date = max(self.employment_hero_lock_date, fiscalyear_lock_date)
+    @api.constrains('employment_hero_lock_date')
+    def _check_employment_hero_lock_date(self):
+        """
+        Ensure that we do not set a Employment Hero Lock Date before the relevant fiscal Lock Dates.
+        This avoids unexpected behavior / user frustration; since we only start fetching from the maximum of both of these dates.
+        We accept that the Employment Hero Lock Date can get outdated in case we change the relevant fiscal Lock Dates:
+        The field is assumed to be mostly used when setting up the DB to fetch historical data.
+        """
+        for company in self:
+            if company.employment_hero_lock_date:
+                if company.employment_hero_lock_date < company._get_user_fiscal_lock_date():
+                    raise ValidationError(_("The Employment Hero Lock Date must be posterior (or equal) to the fiscal Lock Dates."))
 
     def _eh_payroll_fetch_journal_entries(self, eh_payrun):
         self.ensure_one()
@@ -113,6 +118,15 @@ class ResCompany(models.Model):
 
         return move
 
+    def _eh_get_lock_date(self):
+        self.ensure_one()
+        lock_date = max(self.employment_hero_lock_date or date.min,
+                        self.fiscalyear_lock_date or date.min)
+        if self.parent_id:
+            # We need to use sudo, since we might not have access to a parent company.
+            lock_date = max(lock_date, self.sudo().parent_id._eh_get_lock_date())
+        return lock_date
+
     def _eh_payroll_fetch_payrun(self):
         self.ensure_one()
         if not self.env.user.has_group('account.group_account_manager'):
@@ -121,9 +135,9 @@ class ResCompany(models.Model):
             raise UserError(_("The configuration of your Employment Hero integration for company %(company_name)s isn't complete."
                               "Please make sure to fill the api key, url, the business and the payroll journal id before retrying.", company_name=self.name))
 
-        from_formatted_datetime = self.employment_hero_lock_date and datetime.combine(self.employment_hero_lock_date, datetime.min.time()).replace(hour=23, minute=59, second=59)
+        from_formatted_datetime = datetime.combine(self._eh_get_lock_date(), datetime.min.time()).replace(hour=23, minute=59, second=59)
         from_formatted_datetime = format_datetime(self.env, from_formatted_datetime, dt_format="yyyy-MM-dd'T'HH:mm:ss", tz='UTC')
-        filters = "$filter=DatePaid gt datetime'%s'&" % (from_formatted_datetime) if from_formatted_datetime else ''
+        filters = "$filter=DatePaid gt datetime'%s'&" % (from_formatted_datetime)
         offest = 0
         limit = 100
         payruns = []
