@@ -635,9 +635,10 @@ msgstr "선택하면, 트랜잭션 기호가 반대로 표시됩니다"
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__auto_sync
 msgid ""
-"If possible, we will try to automatically fetch new transactions for this "
-"record"
-msgstr "가능한 경우 자동으로 해당 자료에 대한 새로운 거래 내역을 가져옵니다."
+"If possible, we will try to automatically fetch new transactions for this record\n"
+"                                    \n"
+"If the automatic sync is disabled. that will be due to security policy on the bank's end. So, they have to launch the sync manually"
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

@@ -61,6 +61,9 @@ msgid ""
 "    There are no many2one fields related to the current model.\n"
 "    To create a one2many field on the current model, you must first create its many2one counterpart on the model you want to relate to.\n"
 msgstr ""
+"\n"
+"    Немає полів many2one, пов’язаних із поточною моделлю.\n"
+"Щоб створити поле one2many у поточній моделі, ви повинні спочатку створити його аналог у моделі, яку ви хочете пов’язати.\n"
 
 #. module: web_studio
 #. odoo-python
@@ -97,14 +100,14 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 #, python-format
 msgid "\" failed."
-msgstr ""
+msgstr "\" не вдалося."
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #, python-format
 msgid "%(rule_string)s (%(model_name)s)"
-msgstr ""
+msgstr "%(rule_string)s (%(model_name)s)"
 
 #. module: web_studio
 #. odoo-python
@@ -118,7 +121,7 @@ msgstr "%s Звіт"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 #, python-format
 msgid "'My model'"
-msgstr ""
+msgstr "'Моя модель'"
 
 #. module: web_studio
 #. odoo-python
@@ -226,7 +229,7 @@ msgstr "Дія для підтвердження:"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Action to run"
-msgstr ""
+msgstr "Дія для запуску"
 
 #. module: web_studio
 #. odoo-javascript
@@ -372,14 +375,14 @@ msgstr "Додати нове значення"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Add record at the bottom"
-msgstr ""
+msgstr "Додати запис на кнопці"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Add record on top"
-msgstr ""
+msgstr "Додати запис зверху"
 
 #. module: web_studio
 #. odoo-javascript
@@ -417,6 +420,8 @@ msgid ""
 "All changes done to the report's structure will be discarded and the report "
 "will be reset to its factory settings."
 msgstr ""
+"Усі зміни, внесені до структури звіту, буде скасовано, і звіт буде скинуто "
+"до заводських налаштувань."
 
 #. module: web_studio
 #. odoo-javascript
@@ -424,7 +429,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__group_id
 #, python-format
 msgid "Allowed Group"
-msgstr ""
+msgstr "Дозволені групи"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__responsible_id

@@ -5,15 +5,15 @@
 # Translators:
 # Arnis Putniņš <arnis@allegro.lv>, 2023
 # JanisJanis <jbojars@gmail.com>, 2023
-# Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2023
+# Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2023\n"
+"Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +56,7 @@ msgstr "Summa:"
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Barcode Scanners/Card Readers"
-msgstr ""
+msgstr "Svītrkodu lasītāji/Karšu lasītāji"
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_print_via_proxy
@@ -159,10 +159,19 @@ msgid ""
 "Enable barcode scanning with a remotely connected barcode scanner and card "
 "swiping with a Vantiv card reader."
 msgstr ""
+"Iespējojiet svītrkodu skenēšanu ar attālināti piespēgu svītrkodu skenētāju "
+"un karšu lasītāju ar Vantiv karšu lasītāju."
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_electronic_scale
 msgid "Enables Electronic Scale integration."
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
+#, python-format
+msgid "Failed to request last transaction status"
 msgstr ""
 
 #. module: pos_iot
@@ -274,6 +283,23 @@ msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
+#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
+#, python-format
+msgid "No worldline terminal configured"
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
+#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
+#, python-format
+msgid ""
+"No worldline terminal device configured for any payment methods. Double "
+"check if your configured payment method define the field Payment Terminal "
+"Device"
+msgstr ""
+
+#. module: pos_iot
+#. odoo-javascript
 #: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.xml:0
 #, python-format
 msgid "Ok"
@@ -357,6 +383,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__proxy_ip
 msgid "Proxy IP Address"
 msgstr "Proxy IP adrese"
+
+#. module: pos_iot
+#. odoo-python
+#: code:addons/pos_iot/models/pos_printer.py:0
+#, python-format
+msgid "Proxy IP cannot be empty."
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form

@@ -3,7 +3,7 @@
 # 	* account_online_synchronization
 # 
 # Translators:
-# Mustafa Rawi <mustafa@cubexco.com>, 2023
+# Mustafa Rawi <mustafa@mrawi.com>, 2023
 # Wil Odoo, 2024
 # Malaz Abuidris <msea@odoo.com>, 2024
 # 
@@ -636,9 +636,10 @@ msgstr "إذا كان محدداً، سيتم عكس علامة المعاملة
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__auto_sync
 msgid ""
-"If possible, we will try to automatically fetch new transactions for this "
-"record"
-msgstr "سوف نحاول جلب معاملات جديدة لهذا السجل آلياً، إن أمكن "
+"If possible, we will try to automatically fetch new transactions for this record\n"
+"                                    \n"
+"If the automatic sync is disabled. that will be due to security policy on the bank's end. So, they have to launch the sync manually"
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python

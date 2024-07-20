@@ -634,9 +634,10 @@ msgstr "若剔選，交易正負符號會反轉"
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__auto_sync
 msgid ""
-"If possible, we will try to automatically fetch new transactions for this "
-"record"
-msgstr "可以時，我們會嘗試自動讀取此記錄的新交易"
+"If possible, we will try to automatically fetch new transactions for this record\n"
+"                                    \n"
+"If the automatic sync is disabled. that will be due to security policy on the bank's end. So, they have to launch the sync manually"
+msgstr ""
 
 #. module: account_online_synchronization
 #. odoo-python
