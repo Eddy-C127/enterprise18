@@ -20,7 +20,7 @@ class TestReconciliationWidget(ValuationReconciliationTestCommon):
             'property_cost_method': 'average',
             'property_stock_account_input_categ_id': self.company_data['default_account_stock_in'].copy().id,
             'property_stock_account_output_categ_id': self.company_data['default_account_stock_out'].copy().id,
-            'property_stock_journal': avco_1.property_stock_journal.copy(),
+            'property_stock_journal': avco_1.property_stock_journal.copy().id,
             'property_stock_valuation_account_id': self.company_data['default_account_stock_valuation'].copy().id
         })
 

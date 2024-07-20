@@ -15,17 +15,17 @@ class WorkflowActionRuleAccount(models.Model):
     journal_id = fields.Many2one(
         comodel_name='account.journal',
         company_dependent=True,
+        compute='_compute_journal_id',
+        store=True,
+        readonly=False,
         domain="[('id', 'in', suitable_journal_ids)]",
     )
     suitable_journal_ids = fields.Many2many('account.journal', compute='_compute_suitable_journal_ids')
     display_journal_id = fields.Boolean(compute='_compute_suitable_journal_ids')
     move_type = fields.Char(compute='_compute_move_type')
 
-    @api.constrains('journal_id', 'create_model')
-    def _check_journal_id(self):
-        # As journal_id is company_dependant it can't be computed.
-        # A constrain is used so that it gets default values on
-        # write/create.
+    @api.depends('journal_id', 'create_model')
+    def _compute_journal_id(self):
         for record in self:
             if record.journal_id not in record.suitable_journal_ids:
                 record.journal_id = record.suitable_journal_ids[:1]

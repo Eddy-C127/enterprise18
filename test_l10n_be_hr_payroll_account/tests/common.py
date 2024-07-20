@@ -238,17 +238,17 @@ class TestPayrollAccountCommon(odoo.tests.HttpCase):
             'account_type': 'liability_payable',
             'reconcile': True,
         })
-        cls.env['ir.property']._set_default(
+        cls.env['ir.default'].set(
+            'res.partner',
             'property_account_receivable_id',
-            'res.partner',
-            a_recv,
-            cls.company_id,
+            a_recv.id,
+            company_id=cls.company_id.id,
         )
-        cls.env['ir.property']._set_default(
-            'property_account_payable_id',
+        cls.env['ir.default'].set(
             'res.partner',
-            a_pay,
-            cls.company_id,
+            'property_account_payable_id',
+            a_pay.id,
+            company_id=cls.company_id.id,
         )
 
         with file_open('sign/static/demo/signature.png', "rb") as f:

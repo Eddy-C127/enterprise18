@@ -158,40 +158,24 @@ class MrpReport(models.Model):
         return from_str
 
     def _join_expected_component_cost_unit(self):
+        cr = self.env.cr
+        standard_price_sql = self.env['product.product']._field_to_sql('product', 'standard_price')
         return f"""
             LEFT JOIN (
                 SELECT
                     SUM(
-                        COALESCE(
-                            ir_prop_1.value_float,
-                            COALESCE(
-                                ir_prop_2.value_float,
-                                ir_prop_3.value_float
-                            )
-                        ) * bom_line.product_qty
+                        {cr.mogrify(standard_price_sql).decode(cr.connection.encoding)}
                     )                                                                   AS value,
                     MIN(mo.id)                                                          AS mo_id
                 FROM mrp_production                                                     AS mo
                 JOIN mrp_bom_line                                                       AS bom_line
                     ON bom_line.bom_id = mo.bom_id
-                {self._left_join_ir_prop_with_fallback('ir_prop_1')}
-                {self._left_join_ir_prop_with_fallback('ir_prop_2', False)}
-                {self._left_join_ir_prop_with_fallback('ir_prop_3', False, False)}
+                JOIN product_product                                                    AS product
+                    ON product.id = bom_line.product_id
                 WHERE mo.state = 'done'
                 GROUP BY mo.id
             ) product_standard_price
                 ON product_standard_price.mo_id = mo.id
-        """
-
-    def _left_join_ir_prop_with_fallback(self, alias, use_res=True, use_company=True):
-        res_id_operation = "= 'product.product,' || bom_line.product_id" if use_res else "IS NULL"
-        company_id_operation = f"= {int(self.env.company.id)}" if use_company else "IS NULL"
-
-        return f"""
-            LEFT JOIN ir_property                                                   AS {alias}
-                ON {alias}.res_id {res_id_operation}
-                AND {alias}.company_id {company_id_operation}
-                AND {alias}.fields_id = {int(self.env['ir.model.fields']._get_ids('product.product').get('standard_price'))}
         """
 
     def _join_expected_operation_cost_unit(self):

@@ -396,18 +396,19 @@ class ResPartner(models.Model):
     def _get_followup_data_query(self, partner_ids=None):
         self.env['account.move.line'].check_access('read')
         self.env['account.move.line'].flush_model()
-        self.env['ir.property'].flush_model()
         self.env['res.partner'].flush_model()
         self.env['account_followup.followup.line'].flush_model()
+        ResPartner = self.env['res.partner'].with_company(self.env.company.root_id.id)
         return f"""
             SELECT partner.id as partner_id,
                    ful.id as followup_line_id,
                    CASE WHEN partner.balance <= 0 THEN 'no_action_needed'
-                        WHEN in_need_of_action_aml.id IS NOT NULL AND (prop_date.value_datetime IS NULL OR prop_date.value_datetime::date <= %(current_date)s) THEN 'in_need_of_action'
+                        WHEN in_need_of_action_aml.id IS NOT NULL AND (followup_next_action_date IS NULL OR followup_next_action_date <= %(current_date)s) THEN 'in_need_of_action'
                         WHEN exceeded_unreconciled_aml.id IS NOT NULL THEN 'with_overdue_invoices'
                         ELSE 'no_action_needed' END as followup_status
             FROM (
           SELECT partner.id,
+                 {self.env.cr.mogrify(ResPartner._field_to_sql('partner', 'followup_next_action_date')).decode(self.env.cr.connection.encoding)} AS followup_next_action_date,
                  MAX(COALESCE(next_ful.delay, ful.delay)) as followup_delay,
                  SUM(aml.balance) as balance
             FROM res_partner partner
@@ -462,9 +463,6 @@ class ResPartner(models.Model):
                    AND COALESCE(line.date_maturity, line.date) < %(current_date)s
                  LIMIT 1
             ) exceeded_unreconciled_aml ON true
-            LEFT OUTER JOIN ir_property prop_date ON prop_date.res_id = CONCAT('res.partner,', partner.id)
-                                                 AND prop_date.name = 'followup_next_action_date'
-                                                 AND prop_date.company_id = %(root_company_id)s
         """, {
             'company_ids': self.env.company.search([('id', 'child_of', self.env.company.id)]).ids,
             'root_company_id': self.env.company.root_id.id,

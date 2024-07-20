@@ -3,11 +3,20 @@
 import unittest
 
 from odoo.tests.common import TransactionCase
+from odoo.tools.sql import convert_column
+from odoo.tools import lazy_property
 
 
 class TestCommon(TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.addClassCleanup(lambda: cls.registry.setup_models(cls.cr))
+
     def setUp(self):
         super(TestCommon, self).setUp()
+
+        self.registry.setup_models(self.cr)
 
         self.DMModel  = self.env['data_merge.model']
         self.DMRule   = self.env['data_merge.rule']
@@ -59,6 +68,12 @@ class TestCommon(TransactionCase):
             'name': 'test of test model 2',
             'res_model_id': self.DMTestModel2.id,
         })
+
+        field = self.registry['x_dm_test_model_cd']._fields['x_cd']
+        field.company_dependent = True
+        self.registry.field_depends_context[field] = ('company',)
+        lazy_property.reset_all(field)
+        convert_column(self.env.cr, 'x_dm_test_model_cd', 'x_cd', 'jsonb')
 
     def _create_record(self, model, **kwargs):
         return self.env[model].create(kwargs)

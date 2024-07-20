@@ -51,11 +51,7 @@ class AccountChartTemplate(models.AbstractModel):
             journal = self.ref('hr_payroll_account_journal')
             if not journal.default_account_id and default_account:
                 journal.default_account_id = accounts[default_account].id
-            self.env['ir.property']._set_multi(
-                "journal_id",
-                "hr.payroll.structure",
-                {structure.id: journal for structure in structures},
-            )
+            structures.with_company(company).journal_id = journal
 
             for rule, rule_mapping in rules_mapping.items():
                 vals = {}

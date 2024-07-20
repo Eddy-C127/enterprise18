@@ -1,7 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-from odoo.tools import SQL
 
 
 class ResPartner(models.Model):
@@ -30,26 +29,16 @@ class ResPartner(models.Model):
 
     @api.constrains('l10n_de_datev_identifier')
     def _check_datev_identifier(self):
-        self.flush_model(['l10n_de_datev_identifier'])
-        self.env.cr.execute(SQL("""
-            SELECT 1
-            FROM ir_property property JOIN res_company company ON property.company_id = company.id
-            WHERE property.name = 'l10n_de_datev_identifier' AND property.company_id = %(company_id)s
-            HAVING count(*) > 1
-        """, company_id=self.env.company.id))
-
-        if self.env.cr.dictfetchone():
+        partners = self.filtered('l10n_de_datev_identifier')
+        identifiers = partners.mapped('l10n_de_datev_identifier')
+        if not len(partners) == len(set(identifiers)) == self.search_count(
+                [('l10n_de_datev_identifier', 'in', identifiers)], limit=len(identifiers) + 1):
             raise ValidationError(_('You have already defined a partner with the same Datev identifier. '))
 
     @api.constrains('l10n_de_datev_identifier_customer')
     def _check_datev_identifier_customer(self):
-        self.flush_model(['l10n_de_datev_identifier_customer'])
-        self.env.cr.execute(SQL("""
-            SELECT 1
-            FROM ir_property property JOIN res_company company ON property.company_id = company.id
-            WHERE property.name = 'l10n_de_datev_identifier_customer' AND property.company_id = %(company_id)s
-            HAVING count(*) > 1
-        """, company_id=self.env.company.id))
-
-        if self.env.cr.dictfetchone():
+        partners = self.filtered('l10n_de_datev_identifier_customer')
+        identifiers = partners.mapped('l10n_de_datev_identifier_customer')
+        if not len(partners) == len(set(identifiers)) == self.search_count(
+                [('l10n_de_datev_identifier_customer', 'in', identifiers)], limit=len(identifiers) + 1):
             raise ValidationError(_('You have already defined a partner with the same Datev Customer identifier'))

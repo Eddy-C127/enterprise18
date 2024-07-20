@@ -15,7 +15,7 @@ class ResConfigSettings(models.TransientModel):
 
     @api.onchange('padding_time')
     def _onchange_padding_time(self):
-        self.env['ir.property']._set_default("preparation_time", "product.template", self.padding_time)
+        self.env['ir.default'].set('product.template', 'preparation_time', self.padding_time)
 
     def set_values(self):
         rental_group_before = self.env.user.has_group('sale_stock_renting.group_rental_stock_picking')

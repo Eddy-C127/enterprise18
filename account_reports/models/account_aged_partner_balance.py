@@ -64,26 +64,11 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 partner_lines_map[model_id] = line
 
         if partner_lines_map:
-            # Query trust for the required partners
-            self._cr.execute("""
-                SELECT res_id, value_text
-                FROM ir_property
-                WHERE res_id IN %s
-                AND name = 'trust'
-                AND company_id IN %s
-            """, [
-                tuple(f"res.partner,{partner_id}" for partner_id in partner_lines_map),
-                tuple(report.get_report_company_ids(options)),
-            ])
-
-            trust_map = {}
-            for res_id_str, trust in self._cr.fetchall():
-                partner_id = int(res_id_str.split(',')[1])
-                trust_map[partner_id] = trust
-
-            # Set the trust key into the line dicts
-            for partner_id, line_dict in partner_lines_map.items():
-                line_dict['trust'] = trust_map.get(partner_id, 'normal')
+            for partner, line_dict in zip(
+                    self.env['res.partner'].browse(partner_lines_map),
+                    partner_lines_map.values()
+            ):
+                line_dict['trust'] = partner.with_company(partner.company_id or self.env.company).trust
 
         return lines
 

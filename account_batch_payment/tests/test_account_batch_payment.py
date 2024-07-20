@@ -119,9 +119,10 @@ class TestAccountBatchPayment(AccountTestInvoicingCommon):
         child_comp = self.company_data['company'].child_ids[0]
 
         # needed for computation of payment.destination_account_id
-        (self.env['ir.property']
-         .search([('name', '=', 'property_account_receivable_id'), ('company_id', '=', self.company_data['company'].id)], limit=1)
-         .copy({'company_id': child_comp.id}))
+        field_record = self.env['ir.model.fields']._get('res.partner', 'property_account_receivable_id')
+        self.env['ir.default'].search(
+            [('field_id', '=', field_record.id), ('company_id', '=', self.company_data['company'].id)], limit=1
+        ).copy({'company_id': child_comp.id})
 
         self.env.user.write({
             'company_ids': [Command.set((self.company_data['company'] + child_comp).ids)],

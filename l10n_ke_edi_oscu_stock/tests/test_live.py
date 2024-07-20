@@ -425,7 +425,7 @@ class TestKeEdiStock(TestKeEdiCommon):
             ('company_id', '=', self.env.company.id),
             ('is_inventory', '=', True),
         ])
-        inventory_adjustment_location = self.env['ir.property']._get('property_stock_inventory', 'product.template')
+        inventory_adjustment_location = self.env['product.template']._fields['property_stock_inventory'].get_company_dependent_fallback(self.env['product.template'])
         expected_stock_move_vals = [{
             'product_id': self.product_a.id,
             'product_uom': self.product_a.uom_id.id,

@@ -519,21 +519,27 @@ class DataMergeRecord(models.Model):
 
         # Company-dependent fields
         with self._cr.savepoint():
-            params = {
-                'destination_id': f'{destination._name},{destination.id}',
-                'source_ids': tuple(f'{destination._name},{src}' for src in source_ids),
-            }
-            self._cr.execute("""
-UPDATE ir_property AS _ip1
-SET res_id = %(destination_id)s
-WHERE res_id IN %(source_ids)s
-AND NOT EXISTS (
-     SELECT
-     FROM ir_property AS _ip2
-     WHERE _ip2.res_id = %(destination_id)s
-     AND _ip2.fields_id = _ip1.fields_id
-     AND _ip2.company_id = _ip1.company_id
-)""", params)
+            for fname, field in destination._fields.items():
+                if field.company_dependent:
+                    self._cr.execute(SQL(
+                        # TODO check if orderby is needed to get deterministic result
+                        """
+                        UPDATE %(table)s
+                        SET %(col)s = NULLIF(
+                            (
+                                SELECT jsonb_object_agg(key, value)
+                                FROM %(table)s, jsonb_each(%(col)s)
+                                WHERE id IN %(source_ids)s
+                            ) || COALESCE(%(col)s, '{}'::jsonb),
+                            '{}'::jsonb
+                        )
+                        WHERE id = %(destination_id)s
+                        """,
+                        table=SQL.identifier(destination._table),
+                        col=SQL.identifier(fname),
+                        destination_id=destination.id,
+                        source_ids=tuple(source_ids),
+                    ))
 
 
     #############

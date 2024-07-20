@@ -78,7 +78,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                       partner.email AS partner_email,
                       partner.website AS partner_website,
                       partner.vat AS partner_vat,
-                      credit_limit.value_float AS partner_credit_limit,
+                      %(partner_credit_limit)s AS partner_credit_limit,
                       partner.street AS partner_street,
                       partner.city AS partner_city,
                       partner.zip AS partner_zip,
@@ -98,7 +98,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             LEFT JOIN res_country_state state ON partner.state_id = state.id
             LEFT JOIN res_partner_bank ON res_partner_bank.partner_id = partner.id
             LEFT JOIN res_bank ON res_partner_bank.bank_id = res_bank.id
-            LEFT JOIN ir_property credit_limit ON credit_limit.res_id = 'res.partner,' || partner.id AND credit_limit.name = 'credit_limit'
     LEFT JOIN LATERAL (
                             SELECT contact.name
                               FROM res_partner contact
@@ -112,6 +111,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                       )
              ORDER BY partner.id
             """,
+            partner_credit_limit=self.env['res.partner']._field_to_sql('partner', 'credit_limit'),
             table_references=query.from_clause,
             search_condition=query.where_clause,
         )

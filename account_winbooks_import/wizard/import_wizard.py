@@ -196,7 +196,7 @@ class WinbooksImportWizard(models.TransientModel):
             if centralid == 'V03':
                 tax_group_name = 'tax_payable_account_id'
             if property_name:
-                self.env['ir.property']._set_default(property_name, model_name, account, self.env.company)
+                self.env['ir.default'].set(model_name, property_name, account.id, company_id=self.env.company.id)
             if tax_group_name:
                 self.env['account.tax.group'].search(self.env['account.tax.group']._check_company_domain(self.env.company))[tax_group_name] = account
 
@@ -277,7 +277,7 @@ class WinbooksImportWizard(models.TransientModel):
         account_ids = AccountAccount.create(account_data_list)
         for account, rec_number, journal_centred, is_deprecated in zip(account_ids, rec_number_list, journal_centered_list, is_deprecated_list):
             account_data[rec_number] = account.id
-            # create the ir.property if this is marked as a default account for something
+            # create the ir.default if this is marked as a default account for something
             journal_centred and manage_centralid(account, journal_centred)
             # we can't deprecate the account now as we still need to add lines with this account
             # keep the list in memory so that we can deprecate later
@@ -327,9 +327,9 @@ class WinbooksImportWizard(models.TransientModel):
                     'type': journal_type,
                 }
                 if data['type'] == 'sale':
-                    data['default_account_id'] = self.env['ir.property']._get('property_account_income_categ_id', 'product.category').id
+                    data['default_account_id'] = self.env['product.category']._fields['property_account_income_categ_id'].get_company_dependent_fallback(self.env['product.category']).id
                 if data['type'] == 'purchase':
-                    data['default_account_id'] = self.env['ir.property']._get('property_account_expense_categ_id', 'product.category').id
+                    data['default_account_id'] = self.env['product.category']._fields['property_account_expense_categ_id'].get_company_dependent_fallback(self.env['product.category']).id
                 journal = AccountJournal.create(data)
             journal_data[rec.get('DBKID')] = journal.id
             journals += journal

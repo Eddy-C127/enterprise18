@@ -112,10 +112,10 @@ class AccountReport(models.Model):
         super()._auto_init()
 
         def precommit():
-            self.env['ir.property']._set_default(
-                name='tax_closing_start_date',
-                model=self._name,
-                value=fields.Date.context_today(self).replace(month=1, day=1),
+            self.env['ir.default'].set(
+                'account.report',
+                'tax_closing_start_date',
+                fields.Date.context_today(self).replace(month=1, day=1),
             )
         self.env.cr.precommit.add(precommit)
 

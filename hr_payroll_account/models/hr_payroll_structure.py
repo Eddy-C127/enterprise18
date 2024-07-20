@@ -13,7 +13,7 @@ class HrPayrollStructure(models.Model):
         return default_structure.journal_id if default_structure else False
 
     journal_id = fields.Many2one(
-        'account.journal', 'Salary Journal', readonly=False, required=True,
+        'account.journal', 'Salary Journal', readonly=False,
         company_dependent=True, default=lambda self: self._get_default_journal_id())
 
     @api.constrains('journal_id')

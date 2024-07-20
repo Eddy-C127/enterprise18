@@ -48,20 +48,12 @@ class ResConfigSettings(models.TransientModel):
     @api.depends('company_id')
     def _compute_property_stock_account(self):
         account_stock_properties_names = self._get_account_stock_properties_names()
+        ProductCategory = self.env['product.category']
         for record in self:
-            properties = self.env['ir.property'].sudo().search([
-                ('name', 'in', account_stock_properties_names),
-                ('company_id', '=', record.company_id.id),
-                ('res_id', '=', False),
-            ])
-            for field in account_stock_properties_names:
-                stock_property = properties.filtered(lambda p: p.name == field)
-                if stock_property and stock_property.value_reference:
-                    model, record_id = stock_property.value_reference.split(',')
-                    value = self.env[model].search([('id', '=', record_id)])
-                    record[field] = value
-                else:
-                    record[field] = False
+            record = record.with_company(record.company_id)
+            for fname in account_stock_properties_names:
+                field = ProductCategory._fields[fname]
+                record[fname] = field.get_company_dependent_fallback(ProductCategory)
 
     def _set_property_stock_journal(self):
         for record in self:
@@ -88,12 +80,7 @@ class ResConfigSettings(models.TransientModel):
             record._set_property('property_stock_account_output_categ_id')
 
     def _set_property(self, field_name):
-        self.env['ir.property']._set_default(
-            field_name,
-            'product.category',
-            self[field_name],
-            self.company_id,
-        )
+        self.env['ir.default'].set('product.category', field_name, self[field_name].id, company_id=self.company_id.id)
 
     @api.model
     def _get_account_stock_properties_names(self):

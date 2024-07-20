@@ -29,8 +29,8 @@ class ResConfigSettings(models.TransientModel):
 
     @api.onchange('extra_hour')
     def _onchange_extra_hour(self):
-        self.env['ir.property']._set_default("extra_hourly", "product.template", self.extra_hour)
+        self.env['ir.default'].set('product.template', 'extra_hourly', self.extra_hour)
 
     @api.onchange('extra_day')
     def _onchange_extra_day(self):
-        self.env['ir.property']._set_default("extra_daily", "product.template", self.extra_day)
+        self.env['ir.default'].set('product.template', 'extra_daily', self.extra_day)

@@ -1,16 +1,6 @@
 <odoo noupdate="1">
-    <record forcecreate="True" id="property_extra_hourly" model="ir.property">
-        <field name="name">property_extra_hourly</field>
-        <field name="fields_id" search="[('model','=','product.template'),('name','=','extra_hourly')]"/>
-        <field name="value" model="product.template" eval="obj().env.company.extra_hour"/>
-        <field name="type">float</field>
-    </record>
-    <record forcecreate="True" id="property_extra_daily" model="ir.property">
-        <field name="name">property_extra_daily</field>
-        <field name="fields_id" search="[('model','=','product.template'),('name','=','extra_daily')]"/>
-        <field name="value" model="product.template" eval="obj().env.company.extra_day"/>
-        <field name="type">float</field>
-    </record>
+    <function model="ir.default" name="set" eval="('product.template', 'extra_hourly', obj().env.company.extra_hour)"/>
+    <function model="ir.default" name="set" eval="('product.template', 'extra_daily', obj().env.company.extra_day)"/>
 
     <record id="recurrence_hourly" model="sale.temporal.recurrence">
         <field name="name">Hourly</field>

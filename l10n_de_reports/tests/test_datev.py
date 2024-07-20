@@ -20,10 +20,12 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         self.partner_a.l10n_de_datev_identifier = 123
         with self.assertRaises(ValidationError, msg='You have already defined a partner with the same Datev identifier. '):
             self.partner_b.l10n_de_datev_identifier = 123
+        self.partner_b.l10n_de_datev_identifier = 120
 
         self.partner_a.l10n_de_datev_identifier_customer = 123
         with self.assertRaises(ValidationError, msg='You have already defined a partner with the same Datev Customer identifier'):
             self.partner_b.l10n_de_datev_identifier_customer = 123
+        self.partner_b.l10n_de_datev_identifier_customer = 120
 
         company_b = self.env['res.company'].create({
             'name': 'Company B',
