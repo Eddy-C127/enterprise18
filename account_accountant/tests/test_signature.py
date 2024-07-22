@@ -10,7 +10,7 @@ class TestInvoiceSignature(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        if not hasattr(cls.env.user, 'sign_signature'):
+        if cls.env.ref('base.module_sign').state != 'installed':
             cls.skipTest(cls, "`sign` module not installed")
 
         cls.env.company.sign_invoice = True
