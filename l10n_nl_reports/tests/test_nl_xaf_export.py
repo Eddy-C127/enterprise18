@@ -203,62 +203,62 @@ class TestNlXafExport(TestNlXafExportCommon):
                     </vatCodes>
                     <periods>
                         <period>
-                            <periodNumber>901</periodNumber>
+                            <periodNumber>01</periodNumber>
                             <periodDesc>January 2019</periodDesc>
                             <startDatePeriod>2019-01-01</startDatePeriod>
                             <endDatePeriod>2019-01-31</endDatePeriod>
                         </period><period>
-                            <periodNumber>902</periodNumber>
+                            <periodNumber>02</periodNumber>
                             <periodDesc>February 2019</periodDesc>
                             <startDatePeriod>2019-02-01</startDatePeriod>
                             <endDatePeriod>2019-02-28</endDatePeriod>
                         </period><period>
-                            <periodNumber>903</periodNumber>
+                            <periodNumber>03</periodNumber>
                             <periodDesc>March 2019</periodDesc>
                             <startDatePeriod>2019-03-01</startDatePeriod>
                             <endDatePeriod>2019-03-31</endDatePeriod>
                         </period><period>
-                            <periodNumber>904</periodNumber>
+                            <periodNumber>04</periodNumber>
                             <periodDesc>April 2019</periodDesc>
                             <startDatePeriod>2019-04-01</startDatePeriod>
                             <endDatePeriod>2019-04-30</endDatePeriod>
                         </period><period>
-                            <periodNumber>905</periodNumber>
+                            <periodNumber>05</periodNumber>
                             <periodDesc>May 2019</periodDesc>
                             <startDatePeriod>2019-05-01</startDatePeriod>
                             <endDatePeriod>2019-05-31</endDatePeriod>
                         </period><period>
-                            <periodNumber>906</periodNumber>
+                            <periodNumber>06</periodNumber>
                             <periodDesc>June 2019</periodDesc>
                             <startDatePeriod>2019-06-01</startDatePeriod>
                             <endDatePeriod>2019-06-30</endDatePeriod>
                         </period><period>
-                            <periodNumber>907</periodNumber>
+                            <periodNumber>07</periodNumber>
                             <periodDesc>July 2019</periodDesc>
                             <startDatePeriod>2019-07-01</startDatePeriod>
                             <endDatePeriod>2019-07-31</endDatePeriod>
                         </period><period>
-                            <periodNumber>908</periodNumber>
+                            <periodNumber>08</periodNumber>
                             <periodDesc>August 2019</periodDesc>
                             <startDatePeriod>2019-08-01</startDatePeriod>
                             <endDatePeriod>2019-08-31</endDatePeriod>
                         </period><period>
-                            <periodNumber>909</periodNumber>
+                            <periodNumber>09</periodNumber>
                             <periodDesc>September 2019</periodDesc>
                             <startDatePeriod>2019-09-01</startDatePeriod>
                             <endDatePeriod>2019-09-30</endDatePeriod>
                         </period><period>
-                            <periodNumber>910</periodNumber>
+                            <periodNumber>10</periodNumber>
                             <periodDesc>October 2019</periodDesc>
                             <startDatePeriod>2019-10-01</startDatePeriod>
                             <endDatePeriod>2019-10-31</endDatePeriod>
                         </period><period>
-                            <periodNumber>911</periodNumber>
+                            <periodNumber>11</periodNumber>
                             <periodDesc>November 2019</periodDesc>
                             <startDatePeriod>2019-11-01</startDatePeriod>
                             <endDatePeriod>2019-11-30</endDatePeriod>
                         </period><period>
-                            <periodNumber>912</periodNumber>
+                            <periodNumber>12</periodNumber>
                             <periodDesc>December 2019</periodDesc>
                             <startDatePeriod>2019-12-01</startDatePeriod>
                             <endDatePeriod>2019-12-31</endDatePeriod>
@@ -302,7 +302,7 @@ class TestNlXafExport(TestNlXafExportCommon):
                             <transaction>
                                 <nr>___ignore___</nr>
                                 <desc>INV/2019/00001</desc>
-                                <periodNumber>901</periodNumber>
+                                <periodNumber>01</periodNumber>
                                 <trDt>2019-01-01</trDt>
                                 <amnt>1494.0</amnt>
                                 <trLine>
@@ -379,7 +379,7 @@ class TestNlXafExport(TestNlXafExportCommon):
                             </transaction><transaction>
                                 <nr>___ignore___</nr>
                                 <desc>INV/2019/00002</desc>
-                                <periodNumber>901</periodNumber>
+                                <periodNumber>01</periodNumber>
                                 <trDt>2019-01-01</trDt>
                                 <amnt>1494.0</amnt>
                                 <trLine>
@@ -456,7 +456,7 @@ class TestNlXafExport(TestNlXafExportCommon):
                             </transaction><transaction>
                                 <nr>___ignore___</nr>
                                 <desc>INV/2019/00003</desc>
-                                <periodNumber>901</periodNumber>
+                                <periodNumber>01</periodNumber>
                                 <trDt>2019-01-01</trDt>
                                 <amnt>1494.0</amnt>
                                 <trLine>
@@ -533,7 +533,7 @@ class TestNlXafExport(TestNlXafExportCommon):
                             </transaction><transaction>
                                 <nr>___ignore___</nr>
                                 <desc>RINV/2019/00001</desc>
-                                <periodNumber>901</periodNumber>
+                                <periodNumber>01</periodNumber>
                                 <trDt>2019-01-01</trDt>
                                 <amnt>1494.0</amnt>
                                 <trLine>
@@ -615,7 +615,7 @@ class TestNlXafExport(TestNlXafExportCommon):
                             <transaction>
                                 <nr>___ignore___</nr>
                                 <desc>BILL/2019/01/0001</desc>
-                                <periodNumber>901</periodNumber>
+                                <periodNumber>01</periodNumber>
                                 <trDt>2019-01-01</trDt>
                                 <amnt>1161.6</amnt>
                                 <trLine>
