@@ -304,6 +304,7 @@ class AccountMove(models.Model):
             'move_type': 'entry',
             'currency_id': current_currency.id,
             'asset_move_type': vals.get('asset_move_type', 'depreciation'),
+            'company_id': asset.company_id.id,
         }
         return move_vals
 
