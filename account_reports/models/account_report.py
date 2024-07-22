@@ -4730,8 +4730,10 @@ class AccountReport(models.Model):
 
     def _get_annotations_domain_date_from(self, options):
         if options['date']['filter'] in {'today', 'custom'} and options['date']['mode'] == 'single':
+            options_company_ids = [company['id'] for company in options['companies']]
+            root_companies_ids = self.env['res.company'].browse(options_company_ids).root_id.ids
             fiscal_year = self.env['account.fiscal.year'].search_fetch([
-                ('company_id', '=', self.env.company.id),
+                ('company_id', 'in', root_companies_ids),
                 ('date_from', '<=', options['date']['date_to']),
                 ('date_to', '>=', options['date']['date_to']),
             ], limit=1, field_names=['date_from'])
