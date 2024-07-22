@@ -57,7 +57,7 @@ class AccountMove(models.Model):
         attachments = super()._get_vat_report_attachments(report, options)
 
         # Add the XML along with other attachments when the VAT report is posted
-        if self.env.company.account_fiscal_country_id.code == 'BE':
+        if report.country_id.code == 'BE':
             xml_data = self.env[report.custom_handler_model_name].export_tax_report_to_xml(options)
             attachments.append((xml_data['file_name'], xml_data['file_content']))
 
