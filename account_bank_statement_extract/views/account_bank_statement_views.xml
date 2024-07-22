@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bank_statement_extract_view_form_bank_rec_widget" model="ir.ui.view">
+        <field name="name">bank.statement.extract.view.form.bank.rec.widget</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account_accountant.view_bank_statement_form_bank_rec_widget"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position='before'>
+                <div role="status" class="alert alert-danger text-center"
+                     invisible="not is_in_extractable_state or extract_state != 'not_enough_credit'">
+                    You don't have enough credit to extract data from your statement.
+                    <button type="object" name="buy_credits" class="btn btn-link">
+                        <i class="oi oi-fw o_button_icon oi-arrow-right"/>
+                        Buy credits
+                    </button>
+                    <button type="object" name="action_manual_send_for_digitization" class="btn btn-link">
+                        <i class="oi oi-fw o_button_icon oi-arrow-right"/>
+                        Retry
+                    </button>
+                </div>
+                <div role="status" class="alert alert-info text-center"
+                     invisible="not is_in_extractable_state or extract_state != 'waiting_extraction'">
+                    All transactions will be automated by Artificial Intelligence, it might take 5 seconds.
+                    <button type="object" name="check_ocr_status" class="btn btn-link">
+                        <i class="oi oi-fw o_button_icon oi-arrow-right"/>
+                        Refresh
+                    </button>
+                </div>
+                <div role="status" class="alert alert-info text-center"
+                     invisible="not is_in_extractable_state or extract_state != 'extract_not_ready'">
+                    The data extraction is not finished yet. The extraction usually takes between 5 and 10 seconds.
+                    <button type="object" name="check_ocr_status" class="btn btn-link">
+                        <i class="oi oi-fw o_button_icon oi-arrow-right"/>
+                        Refresh
+                    </button>
+                </div>
+                <div role="status" class="alert alert-danger text-center"
+                     invisible="not is_in_extractable_state or extract_state != 'error_status'">
+                    <field name="extract_error_message" class="oe_inline" style="width:auto !important;"/>
+                    <button type="object" name="action_manual_send_for_digitization" class="btn btn-link">
+                        <i class="oi oi-fw o_button_icon oi-arrow-right"/>
+                        Retry
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -9,7 +9,7 @@
             <div id="msg_invoice_extract" position="replace"/>
 
             <setting id="account_ocr_settings" position="after">
-                <setting invisible="not module_account_invoice_extract">
+                <setting invisible="not module_account_extract">
                     <widget name="iap_buy_more_credits" service_name="invoice_ocr"/>
                 </setting>
                 <setting invisible="not module_account_invoice_extract">
