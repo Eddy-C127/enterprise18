@@ -17,7 +17,6 @@ const interestingSelector = [
     ":not(field) button", // should be clickable
     ":not(field) label", // should be clickable
     ":not(field) group", // any group: outer or inner
-    ":not(field) group group > *", // content of inner groups serves as main dropzone
     ":not(field) div.oe_chatter",
     ":not(field) .oe_avatar",
 ].join(", ");
@@ -31,6 +30,16 @@ export class FormEditorCompiler extends formView.Compiler {
         for (const el of xml.querySelectorAll(interestingSelector)) {
             const xpath = computeXpath(el);
             el.setAttribute("studioXpath", xpath);
+        }
+
+        // content of inner groups serves as main dropzone
+        // TODO in master: add `:not(field) group:not(:has(> group)) > *` to interestingSelector
+        for (const el of xml.querySelectorAll("group")) {
+            const children = [...el.children];
+            if (children.some((node) => node.tagName === "group")) {
+                continue;
+            }
+            children.forEach((node) => node.setAttribute("studioXpath", computeXpath(node)));
         }
 
         // done after construction of xpaths
