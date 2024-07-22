@@ -5017,14 +5017,17 @@ class AccountReport(models.Model):
         date_default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'indent': 2, 'num_format': 'yyyy-mm-dd'})
         date_default_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'num_format': 'yyyy-mm-dd'})
         default_col1_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666', 'indent': 2})
+        default_col2_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666'})
         default_style = workbook.add_format({'font_name': 'Arial', 'font_size': 12, 'font_color': '#666666'})
         title_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'bottom': 2})
         level_0_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 6, 'font_color': '#666666'})
-        level_1_col1_total_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
         level_1_col1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666', 'indent': 1})
+        level_1_col1_total_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
+        level_1_col2_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
         level_1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 13, 'bottom': 1, 'font_color': '#666666'})
         level_2_col1_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 2})
         level_2_col1_total_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666', 'indent': 1})
+        level_2_col2_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
         level_2_style = workbook.add_format({'font_name': 'Arial', 'bold': True, 'font_size': 12, 'font_color': '#666666'})
         col1_styles = {}
 
@@ -5042,11 +5045,9 @@ class AccountReport(models.Model):
 
         # Set the first column width to 50.
         # If we have account lines and split the name and code in two columns, we will also set the second column.
+        sheet.set_column(0, 0, 50)
         if len(account_lines_split_names) > 0:
-            sheet.set_column(0, 0, 11)
-            sheet.set_column(1, 1, 50)
-        else:
-            sheet.set_column(0, 0, 50)
+            sheet.set_column(1, 1, 13)
 
         original_x_offset = 1 if len(account_lines_split_names) > 0 else 0
 
@@ -5074,6 +5075,10 @@ class AccountReport(models.Model):
         y_offset += 1
         x_offset = original_x_offset + 1
 
+        if account_lines_split_names:
+            # If we have a separate account code column, add a title for it
+            sheet.write(y_offset, x_offset - 1, _("Account Code"), title_style)
+
         for column in options['columns']:
             colspan = column.get('colspan', 1)
             write_with_colspan(sheet, x_offset, y_offset, column.get('name', ''), colspan, title_style)
@@ -5091,14 +5096,18 @@ class AccountReport(models.Model):
                 y_offset += 1
                 style = level_0_style
                 col1_style = style
+                col2_style = style
             elif level == 1:
                 style = level_1_style
                 col1_style = level_1_col1_total_style if is_total_line else level_1_col1_style
+                col2_style = level_1_col2_style
             elif level == 2:
                 style = level_2_style
                 col1_style = level_2_col1_total_style if is_total_line else level_2_col1_style
+                col2_style = level_2_col2_style
             elif level >= 3:
                 style = default_style
+                col2_style = style
                 level_col1_styles = col1_styles.get(level)
                 if not level_col1_styles:
                     level_col1_styles = col1_styles[level] = {
@@ -5119,21 +5128,25 @@ class AccountReport(models.Model):
             else:
                 style = default_style
                 col1_style = default_col1_style
+                col2_style = default_col2_style
 
             # write the first column, with a specific style to manage the indentation
             x_offset = original_x_offset + 1
             if lines[y]['id'] in account_lines_split_names:
                 code, name = account_lines_split_names[lines[y]['id']]
-                sheet.write(y + y_offset, x_offset - 2, code, style)
-                sheet.write(y + y_offset, x_offset - 1, name, col1_style)
+                sheet.write(y + y_offset, x_offset - 2, name, col1_style)
+                sheet.write(y + y_offset, x_offset - 1, code, col2_style)
             else:
-                if lines[y].get('parent_id') and lines[y]['parent_id'] in account_lines_split_names:
-                    sheet.write(y + y_offset, x_offset - 2, account_lines_split_names[lines[y]['parent_id']][0], style)
                 cell_type, cell_value = self._get_cell_type_value(lines[y])
                 if cell_type == 'date':
-                    sheet.write_datetime(y + y_offset, x_offset - 1, cell_value, date_default_col1_style)
+                    sheet.write_datetime(y + y_offset, x_offset - 2, cell_value, date_default_col1_style)
                 else:
-                    sheet.write(y + y_offset, x_offset - 1, cell_value, col1_style)
+                    sheet.write(y + y_offset, x_offset - 2, cell_value, col1_style)
+
+                if lines[y].get('parent_id') and lines[y]['parent_id'] in account_lines_split_names:
+                    sheet.write(y + y_offset, x_offset - 1, account_lines_split_names[lines[y]['parent_id']][0], col2_style)
+                elif account_lines_split_names:
+                    sheet.write(y + y_offset, x_offset - 1, "", col2_style)
 
             #write all the remaining cells
             columns = lines[y]['columns']
