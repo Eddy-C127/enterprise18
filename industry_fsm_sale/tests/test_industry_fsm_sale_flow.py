@@ -184,6 +184,8 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         product = self.product_a.with_context({'fsm_task_id': self.task.id})
         product.set_fsm_quantity(2)
         so = self.task.sale_order_id
+        if so.state == 'draft':
+            so.action_confirm()  # needed if stock is not installed
         sol = so.order_line[-1]
         self.assertEqual(sol.qty_to_invoice, 2.0)
 
