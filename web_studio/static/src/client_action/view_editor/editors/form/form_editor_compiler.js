@@ -17,7 +17,7 @@ const interestingSelector = [
     ":not(field) button", // should be clickable
     ":not(field) label", // should be clickable
     ":not(field) group", // any group: outer or inner
-    ":not(field) group group > *", // content of inner groups serves as main dropzone
+    ":not(field) group:not(:has(> group)) > *", // content of inner groups serves as main dropzone
     ":not(field) chatter",
     ":not(field) .oe_avatar",
     ":not(field) widget", // should be clickable

@@ -3047,6 +3047,47 @@ QUnit.module("View Editors", (hooks) => {
             ["Display Name", "IDCusto", "Last Modified on", "Name", "SomeTestField"]
         );
     });
+
+    QUnit.test("InnerGroup without OuterGroup", async function (assert) {
+        const arch = `<form>
+            <group>
+                <div>
+                    <field name="display_name"/>
+                </div>
+                <field name="char_field"/>
+            </group>
+        </form>`;
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: "coucou",
+            arch,
+            mockRPC: (route, args) => {
+                if (route === "/web_studio/edit_view") {
+                    assert.step("edit_view");
+                    const { target, position, type } = args.operations[0];
+                    assert.deepEqual(target, {
+                        tag: "div",
+                        attrs: {},
+                        xpath_info: [
+                            { tag: "form", indice: 1 },
+                            { tag: "group", indice: 1 },
+                            { tag: "div", indice: 1 },
+                        ],
+                    });
+                    assert.strictEqual(position, "after");
+                    assert.strictEqual(type, "add");
+                }
+            },
+        });
+
+        disableHookAnimation(target);
+        await dragAndDrop(
+            target.querySelector(".o_web_studio_new_fields .o_web_studio_field_integer"),
+            target.querySelectorAll(".o_web_studio_hook")[1]
+        );
+        assert.verifySteps(["edit_view"]);
+    });
 });
 
 QUnit.module("View Editors", (hooks) => {
