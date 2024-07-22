@@ -20,8 +20,8 @@ from odoo.tools.float_utils import float_is_zero
 
 CFDI_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'
 CANCELLATION_REASON_SELECTION = [
-    ('01', "01 - Invoice issued with errors (with related document)"),
-    ('02', "02 - Invoice issued with errors (no replacement)"),
+    ('01', "01 - Document issued with errors (with related document)"),
+    ('02', "02 - Document issued with errors (no replacement)"),
     ('03', "03 - The operation was not carried out"),
     ('04', "04 - Nominative operation related to the global invoice"),
 ]
@@ -31,7 +31,7 @@ CANCELLATION_REASON_DESCRIPTION = (
     "This option applies when there is an error in the document data, so it must be reissued. In this case, the replacement document is"
     " referenced in the cancellation request.\n"
     f"{CANCELLATION_REASON_SELECTION[1][1]}.\n"
-    "This option applies when there is an error in the invoice data and no replacement document will be generated.\n"
+    "This option applies when there is an error in the document data and no replacement document will be generated.\n"
     f"{CANCELLATION_REASON_SELECTION[2][1]}.\n"
     "This option applies when a transaction was invoiced that does not materialize.\n"
     f"{CANCELLATION_REASON_SELECTION[3][1]}.\n"
@@ -203,8 +203,7 @@ class L10nMxEdiDocument(models.Model):
             'payment_sent': (
                 'payment_cancel',
                 None,
-                # pylint: disable=unnecessary-lambda
-                lambda x: x.move_id._l10n_mx_edi_cfdi_invoice_try_cancel_payment(x),
+                lambda x: x.action_request_cancel_payment(),
             ),
         }
 
@@ -449,6 +448,12 @@ class L10nMxEdiDocument(models.Model):
             'target': 'new',
             'context': {'default_document_id': self.id},
         }
+
+    def action_request_cancel_payment(self):
+        """ Cancel the current payment document.
+        """
+        self.ensure_one()
+        self.move_id._l10n_mx_edi_cfdi_invoice_try_cancel_payment(self)
 
     # -------------------------------------------------------------------------
     # CFDI: HELPERS

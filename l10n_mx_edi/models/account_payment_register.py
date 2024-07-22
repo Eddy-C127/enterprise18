@@ -13,6 +13,8 @@ class AccountPaymentRegister(models.TransientModel):
         help="Indicates the way the payment was/will be received, where the options could be: "
              "Cash, Nominal Check, Credit Card, etc.")
 
+    l10n_mx_edi_cfdi_origin = fields.Char(string="CFDI Origin")
+
     # -------------------------------------------------------------------------
     # HELPERS
     # -------------------------------------------------------------------------
@@ -45,10 +47,12 @@ class AccountPaymentRegister(models.TransientModel):
         # OVERRIDE
         payment_vals = super()._create_payment_vals_from_wizard(batch_result)
         payment_vals['l10n_mx_edi_payment_method_id'] = self.l10n_mx_edi_payment_method_id.id
+        payment_vals['l10n_mx_edi_cfdi_origin'] = self.l10n_mx_edi_cfdi_origin
         return payment_vals
 
     def _create_payment_vals_from_batch(self, batch_result):
         # OVERRIDE
         payment_vals = super()._create_payment_vals_from_batch(batch_result)
         payment_vals['l10n_mx_edi_payment_method_id'] = batch_result['payment_values']['l10n_mx_edi_payment_method_id']
+        payment_vals['l10n_mx_edi_cfdi_origin'] = batch_result['payment_values'].get('l10n_mx_edi_cfdi_origin')
         return payment_vals

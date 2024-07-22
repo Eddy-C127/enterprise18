@@ -1817,3 +1817,121 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_global_invoice_try_send()
         self._assert_global_invoice_cfdi_from_invoices(invoice, 'test_global_invoice_year_month_format')
+
+    def test_payment_workflow(self):
+        """ Test the payment workflow, here is the flow we test :
+                1) create and sign an invoice
+                2) create a first payment and send it
+                3) unreconcile the first payment
+                4) create a second payment with cfdi_origin referring the first payment uuid and send it
+                5) cancel the first payment
+                6) cancel the second payment
+        """
+        # Create invoice
+        invoice = self._create_invoice(invoice_date_due='2017-01-01')
+
+        # Sign.
+        with freeze_time('2017-01-07'), self.with_mocked_pac_sign_success():
+            invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        sent_doc_values = {
+            'move_id': invoice.id,
+            'datetime': fields.Datetime.from_string('2017-01-07 00:00:00'),
+            'state': 'invoice_sent',
+            'cancellation_reason': False,
+            'attachment_origin': False,
+        }
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids, [sent_doc_values])
+
+        # Create new payment
+        payment1 = self.env['account.payment.register']\
+            .with_context(active_model='account.move', active_ids=invoice.ids)\
+            .create({
+                'payment_date': '2017-06-01',
+                'amount': 1160.0,
+            })\
+            ._create_payments()
+
+        with freeze_time('2017-06-02'), self.with_mocked_pac_sign_success():
+            invoice.l10n_mx_edi_cfdi_invoice_try_update_payments()
+            payment1.l10n_mx_edi_payment_document_ids.action_force_payment_cfdi()
+
+        payment1_doc_values = {
+            'move_id': payment1.move_id.id,
+            'datetime': fields.Datetime.from_string('2017-06-02 00:00:00'),
+            'state': 'payment_sent',
+            'cancellation_reason': False,
+            'attachment_origin': False,
+        }
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids.sorted(), [
+            payment1_doc_values,
+            sent_doc_values,
+        ])
+
+        # Unreconcile the first payment
+        payment1.line_ids.remove_move_reconcile()
+
+        # Create a new payment with a cfdi origin containing the uuid of the first payment
+        payment2 = self.env['account.payment.register']\
+            .with_context(active_model='account.move', active_ids=invoice.ids)\
+            .create({
+                'payment_date': '2017-06-01',
+                'amount': 1160.0,
+                'l10n_mx_edi_cfdi_origin': f'04|{payment1.l10n_mx_edi_cfdi_uuid}',
+            })\
+            ._create_payments()
+
+        with freeze_time('2017-06-02'), self.with_mocked_pac_sign_success():
+            invoice.l10n_mx_edi_cfdi_invoice_try_update_payments()
+            payment2.l10n_mx_edi_payment_document_ids.action_force_payment_cfdi()
+
+        payment2_doc_values = {
+            'move_id': payment2.move_id.id,
+            'datetime': fields.Datetime.from_string('2017-06-02 00:00:00'),
+            'state': 'payment_sent',
+            'cancellation_reason': False,
+            'attachment_origin': f'04|{payment1.l10n_mx_edi_cfdi_uuid}',
+        }
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids.sorted(), [
+            payment2_doc_values,
+            payment1_doc_values,
+            sent_doc_values,
+        ])
+
+        # Cancel the first payment, it should apply the cancellation reason '1'
+        with freeze_time('2017-08-05'), self.with_mocked_pac_cancel_success():
+            payment1.l10n_mx_edi_payment_document_ids.action_cancel()
+
+        payment1_cancel_doc_values = {
+            'move_id': payment1.move_id.id,
+            'datetime': fields.Datetime.from_string('2017-08-05 00:00:00'),
+            'state': 'payment_cancel',
+            'cancellation_reason': '01',
+            'attachment_origin': False,
+        }
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids.sorted(), [
+            payment1_cancel_doc_values,
+            payment2_doc_values,
+            payment1_doc_values,
+            sent_doc_values,
+        ])
+
+        # Cancel the second payment, it should apply the cancellation reason '2'
+        with freeze_time('2017-08-06'), self.with_mocked_pac_cancel_success():
+            payment2.l10n_mx_edi_payment_document_ids.action_cancel()
+
+        payment2_cancel_doc_values = {
+            'move_id': payment2.move_id.id,
+            'datetime': fields.Datetime.from_string('2017-08-06 00:00:00'),
+            'state': 'payment_cancel',
+            'cancellation_reason': '02',
+            'attachment_origin': f'04|{payment1.l10n_mx_edi_cfdi_uuid}',
+        }
+
+        self.assertRecordValues(invoice.l10n_mx_edi_invoice_document_ids.sorted(), [
+            payment2_cancel_doc_values,
+            payment1_cancel_doc_values,
+            payment2_doc_values,
+            payment1_doc_values,
+            sent_doc_values,
+        ])

@@ -803,16 +803,18 @@ class AccountMove(models.Model):
         return super()._need_cancel_request() or self._l10n_mx_edi_need_cancel_request()
 
     def button_request_cancel(self):
-        # EXTENDS 'account'
-        super().button_request_cancel()
-
         # Check the CFDI state to restrict this code to MX only.
         if self._l10n_mx_edi_need_cancel_request():
             doc = self.l10n_mx_edi_document_ids.filtered(lambda x: (
                 x.attachment_uuid == self.l10n_mx_edi_cfdi_uuid
                 and x.state in ('invoice_sent', 'payment_sent')
             ))[0]
-            return doc.action_request_cancel()
+            if doc.state == 'invoice_sent':
+                return doc.action_request_cancel()
+            else:
+                return doc.action_request_cancel_payment()
+
+        return super().button_request_cancel()
 
     def _reverse_moves(self, default_values_list=None, cancel=False):
         # OVERRIDE
