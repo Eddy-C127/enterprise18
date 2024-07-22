@@ -599,7 +599,12 @@ test("change measure aggregator", async function () {
     expect(fixture.querySelector(".pivot-measure select")).toHaveValue("min");
     const definition = model.getters.getPivotCoreDefinition(pivotId);
     expect(definition.measures).toEqual([
-        { id: "probability:min", fieldName: "probability", aggregator: "min" },
+        {
+            id: "probability:min",
+            fieldName: "probability",
+            aggregator: "min",
+            userDefinedName: undefined,
+        },
     ]);
 });
 
