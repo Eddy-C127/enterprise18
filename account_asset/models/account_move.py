@@ -279,6 +279,7 @@ class AccountMove(models.Model):
             'asset_value_change': vals.get('asset_value_change', False),
             'move_type': 'entry',
             'currency_id': current_currency.id,
+            'company_id': asset.company_id.id,
         }
         return move_vals
 

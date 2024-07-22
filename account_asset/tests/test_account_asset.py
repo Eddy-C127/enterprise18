@@ -2772,3 +2772,43 @@ class TestAccountAsset(TestAccountReportsCommon):
         self.assertEqual(assets[0].company_id, self.company_data['company'])
         self.assertEqual(assets[1].company_id, self.company_data_2['company'])
         assets.validate()
+
+    def test_depreciation_moves_company_with_sub_company(self):
+        """The depreciation moves should have the company of the asset, even in multicompany setup"""
+        company = self.env.company
+        branch_x = self.env['res.company'].create({
+            'name': 'Branch X',
+            'country_id': company.country_id.id,
+            'parent_id': company.id,
+        })
+
+        asset_vals = {
+            'method_period': '12',
+            'method_number': 5,
+            'name': "Car with purple sticker",
+            'original_value': 10000.0,
+            'acquisition_date': fields.Date.today() - relativedelta(years=1),
+            'account_asset_id': self.company_data['default_account_assets'].id,
+            'account_depreciation_id': self.company_data['default_account_assets'].copy().id,
+            'account_depreciation_expense_id': self.company_data['default_account_expense'].id,
+            'journal_id': self.company_data['default_journal_misc'].id,
+        }
+
+        setup_list = [
+            {'company_ids': (company + branch_x).ids, 'company_id': branch_x.id},
+            {'company_ids': branch_x.ids, 'company_id': branch_x.id},
+            {'company_ids': (company + branch_x).ids, 'company_id': company.id},
+            {'company_ids': company.ids, 'company_id': company.id},
+        ]
+
+        expected_vals_list = [branch_x, branch_x, company, company]
+
+        for setup, expected in zip(setup_list, expected_vals_list):
+            with self.subTest(setup=setup, expected_company=expected):
+                self.env.user.write({
+                    'company_ids': [Command.set(setup['company_ids'])],
+                    'company_id': setup['company_id'],
+                })
+                asset = self.env['account.asset'].create(asset_vals)
+                asset.compute_depreciation_board()
+                self.assertEqual(asset.depreciation_move_ids.mapped('company_id'), expected)
