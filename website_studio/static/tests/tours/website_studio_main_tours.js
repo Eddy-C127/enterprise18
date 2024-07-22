@@ -30,14 +30,16 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
             run: "edit MyCustom Name && click body",
         },
         {
-            trigger: "div[name='name_slugified']",
+            trigger: "div[name='name_slugified']:contains(mycustom-name)",
             run: () => {
-                assertEqual(document.querySelector( "div[name='name_slugified']").textContent, "mycustom-name");
                 // listing is displayed in the menu by default
                 assertEqual(document.querySelector("div[name='use_menu'] input").checked, true);
                 // creating a listing automatically creates a detailed page for each record to be consulted separately
-                assertEqual(document.querySelector("div[name='auto_single_page'] input").checked, true);
-            }
+                assertEqual(
+                    document.querySelector("div[name='auto_single_page'] input").checked,
+                    true
+                );
+            },
         },
         {
             trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
@@ -87,14 +89,16 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
             run: "edit MyCustom Name && click body",
         },
         {
-            trigger: "div[name='name_slugified']",
+            trigger: "div[name='name_slugified']:contains(mycustom-name)",
             run: () => {
-                assertEqual(document.querySelector( "div[name='name_slugified']").textContent, "mycustom-name");
                 // listing is displayed in the menu by default
                 assertEqual(document.querySelector("div[name='use_menu'] input").checked, true);
                 // creating a listing automatically creates a detailed page for each record to be consulted separately
-                assertEqual(document.querySelector("div[name='auto_single_page'] input").checked, true);
-            }
+                assertEqual(
+                    document.querySelector("div[name='auto_single_page'] input").checked,
+                    true
+                );
+            },
         },
         {
             content: "Uncheck the toggle and only create the listing",
