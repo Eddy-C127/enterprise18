@@ -336,7 +336,7 @@ test("adding a colorpicker inside the menu", async () => {
                         </templates>
                     </kanban>
                 `;
-        return createMockViewResult("kanban", newArch, Coucou, true);
+        return createMockViewResult("kanban", newArch, Coucou);
     });
     await mountViewEditor({
         type: "kanban",
@@ -391,7 +391,7 @@ test("adding a colorpicker when menu is not present", async () => {
                         </templates>
                     </kanban>
                 `;
-        return createMockViewResult("kanban", newArch, Coucou, true);
+        return createMockViewResult("kanban", newArch, Coucou);
     });
     await mountViewEditor({
         type: "kanban",

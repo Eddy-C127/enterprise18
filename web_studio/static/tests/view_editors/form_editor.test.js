@@ -342,7 +342,7 @@ test("signature field edition (change full_name)", async () => {
             Coucou._fields[newFieldName] = fields.Binary({
                 string: "Signature",
             });
-            return createMockViewResult("form", newArch, Coucou, true);
+            return createMockViewResult("form", newArch, Coucou);
         } else if (editViewCount === 2) {
             expect(params.operations[1].new_attrs.options).toBe('{"full_name":"display_name"}', {
                 message: "correct options for 'signature' widget should be passed",

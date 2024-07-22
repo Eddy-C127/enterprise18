@@ -10,6 +10,7 @@ import { animationFrame } from "@odoo/hoot-mock";
 import {
     defineModels,
     fields,
+    MockServer,
     models,
     mountView,
     onRpc,
@@ -95,26 +96,26 @@ class Article extends models.Model {
             category: "workspace",
         },
     ];
-
-    static getArticleById(articleId) {
-        return this._records.find((article) => article.id === articleId);
-    }
 }
 
 defineMailModels();
 defineModels([Article]);
 
-onRpc("get_sidebar_articles", () => {
-    return { articles: Article._records, favorite_ids: [] };
+onRpc("get_sidebar_articles", function () {
+    return {
+        articles: this.env["article"]._filter(),
+        favorite_ids: [],
+    };
 });
 
 onRpc(
     "get_article_hierarchy",
     async function ({ args: [articleId], kwargs: { exclude_article_ids: excludeArticleIds } }) {
+        const Article = this.env["article"];
         // returns ancestors of the current article (without the ones given in excludeArticleIds)
-        return Article._records
-            .slice(0, Article._records.indexOf(Article.getArticleById(articleId)) - 1)
-            .filter((article) => !excludeArticleIds.includes(article.id));
+        return Article.slice(0, Article.indexOf(Article.browse(articleId)[0]) - 1).filter(
+            (article) => !excludeArticleIds.includes(article.id)
+        );
     }
 );
 
@@ -125,9 +126,10 @@ before(() => {
     patchWithCleanup(KnowledgeHierarchy.props, { ...standardWidgetProps });
     registry.category("view_widgets").add("knowledge_hierarchy", {
         component: KnowledgeHierarchy,
-        fieldDependencies: Object.keys(Article._fields).map((fieldName) => {
-            return { name: fieldName, type: Article._fields[fieldName]().type };
-        }),
+        fieldDependencies: Object.entries(Article._fields).map(([fieldName, field]) => ({
+            name: fieldName,
+            type: field.type,
+        })),
     });
     // Patch to allow loading an article easily
     patchWithCleanup(KnowledgeHierarchy.prototype, {
@@ -144,7 +146,8 @@ after(() => registry.category("view_widgets").remove("knowledge_hierarchy"));
  * @param {number} articleId
  */
 const assertCurrentArticle = (articleId) => {
-    expect(`.o_article_active:contains(${Article.getArticleById(articleId).name})`).toHaveCount(1);
+    const [article] = MockServer.env["article"].browse(articleId);
+    expect(`.o_article_active:contains(${article.name})`).toHaveCount(1);
 };
 
 /**
@@ -157,8 +160,7 @@ const assertHierarchyArticles = async (articleIds) => {
         // Open dropdown to check articles between root and parent
         await openHierarchyDropdown();
     }
-    articleIds.forEach((articleId, idx) => {
-        const article = Article.getArticleById(articleId);
+    MockServer.env["article"].browse(articleIds).forEach((article, idx) => {
         if (idx === articleIds.length - 1) {
             // current article
             expect(`.o_hierarchy_item:last-of-type:contains(${article.icon || "📄"})`).toHaveCount(
@@ -190,7 +192,8 @@ const assertHierarchyArticles = async (articleIds) => {
  * @param {number} id of the article to open
  */
 const clickHierarchyArticle = async (articleId) => {
-    const articleName = Article.getArticleById(articleId).name;
+    const [article] = MockServer.env["article"].browse(articleId);
+    const articleName = article.name;
     const articleElement = queryFirst(`.o_hierarchy_item:contains(${articleName})`);
     if (articleElement) {
         click(articleElement.querySelector("a"));
@@ -198,7 +201,7 @@ const clickHierarchyArticle = async (articleId) => {
         await openHierarchyDropdown();
         click(`.o-dropdown-item:contains(${articleName})`);
     }
-    return await animationFrame();
+    return animationFrame();
 };
 
 /**
@@ -210,7 +213,7 @@ const openHierarchyDropdown = async () => {
         return;
     }
     click(".o_hierarchy_item a:contains('...')");
-    return await animationFrame();
+    return animationFrame();
 };
 
 const viewParams = {
@@ -248,21 +251,20 @@ test("Hierarchy - Open articles in hierarchy", async function () {
     assertCurrentArticle(2);
 });
 
-test("Hierarchy - Inaccessible articles", async function (assert) {
-    Article.getArticleById(2).user_has_access = false;
-    Article.getArticleById(4).user_can_write = false;
+test("Hierarchy - Inaccessible articles", async function () {
+    Article._records[1].user_has_access = false;
+    Article._records[3].user_can_write = false;
     await mountView({ ...viewParams, resId: 4 });
     // Check that the hierarchy is correct and that current article's icon and name are readonly
     await assertHierarchyArticles([1, 2, 3, 4]);
     expect(".o_hierarchy_item a.o_article_emoji").toHaveCount(0);
     expect(".o_hierarchy_item input").toHaveCount(0);
     // Check that the link to the article in the dropdown is disabled
-    expect(
-        `.o-dropdown-item.disabled:contains(${Article.getArticleById(2).display_name})`
-    ).toHaveCount(1);
+    const [article] = MockServer.env["article"].browse(2);
+    expect(`.o-dropdown-item.disabled:contains(${article.display_name})`).toHaveCount(1);
 });
 
-test("Hierarchy - Use breadcrumbs", async function (assert) {
+test("Hierarchy - Use breadcrumbs", async function () {
     /**
      * Assert that the breadcrumbs buttons are enabled/disabled
      * @param {boolean} isPrevEnabled
@@ -282,11 +284,11 @@ test("Hierarchy - Use breadcrumbs", async function (assert) {
     };
     const clickBack = async () => {
         click(".o_widget_knowledge_hierarchy .oi-chevron-left");
-        return await animationFrame();
+        return animationFrame();
     };
     const clickNext = async () => {
         click(".o_widget_knowledge_hierarchy .oi-chevron-right");
-        return await animationFrame();
+        return animationFrame();
     };
     await mountView({ ...viewParams, resId: 2 });
     assertCurrentArticle(2);

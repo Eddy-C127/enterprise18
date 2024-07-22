@@ -52,14 +52,13 @@ class ViewEditorParent extends Component {
     `;
 }
 
-export async function createMockViewResult(type, arch, model, reloadModelClass = false) {
-    if (reloadModelClass) {
-        delete MockServer.current.models[model._name];
-        const updatedModel = MockServer.current.getModelDefinition(model);
-        MockServer.current.modelSpecs[updatedModel._name] = updatedModel;
-        await MockServer.current.loadModels();
-    }
-    const models = MockServer.current.models;
+/**
+ * @param {string} type
+ * @param {string} arch
+ * @param {import("@web/../tests/web_test_helpers")["models"]["Model"]} model
+ */
+export async function createMockViewResult(type, arch, model) {
+    const { models } = MockServer.current;
     return {
         models: Object.fromEntries(
             Object.entries(models).map(([name, model]) => [name, { fields: model._fields }])
