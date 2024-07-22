@@ -1,6 +1,7 @@
 /** @odoo-module */
 
 import { _t } from "@web/core/l10n/translation";
+import { isDisplayStandalone } from "@web/core/browser/feature_detection";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { onWillStart, useState } from "@odoo/owl";
@@ -20,17 +21,23 @@ export class MrpWorkcenterDialog extends ConfirmationDialog {
     setup() {
         super.setup();
         this.ormService = useService("orm");
+        this.menu = useService("menu");
         this.notification = useService("notification");
         this.workcenters = this.props.workcenters || [];
         this.state = useState({
             activeWorkcenters: this.props.active ? [...this.props.active] : [],
         });
+        this.isDisplayStandalone = isDisplayStandalone();
 
         onWillStart(async () => {
             if (!this.workcenters.length) {
                 await this._loadWorkcenters();
             }
         });
+    }
+
+    get appName() {
+        return encodeURIComponent(this.menu.getCurrentApp().name);
     }
 
     get active() {

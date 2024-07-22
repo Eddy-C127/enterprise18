@@ -46,7 +46,7 @@
                     <div class="flex flex-column">
                         <div class="flex mb-1">
                             <button class="btn btn-light fa fa-refresh" t-on-click="onClickRefresh"/>
-                            <button class="o_home_menu btn btn-light text-nowrap" t-on-click="close">
+                            <button t-if="!pwaService.isScopedApp" class="o_home_menu btn btn-light text-nowrap" t-on-click="close">
                                 <i class="fa fa-lg fa-sign-out me-md-1"/><span class="d-none d-md-inline">Close</span>
                             </button>
                         </div>

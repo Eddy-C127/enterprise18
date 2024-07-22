@@ -47,6 +47,7 @@ export class MrpDisplay extends Component {
         this.viewService = useService("view");
         this.actionService = useService("action");
         this.dialogService = useService("dialog");
+        this.pwaService = useService("pwa");
 
         this.display = {
             ...this.props.display,
