@@ -159,7 +159,7 @@ result = contract.wage * 0.10''')
             except Exception as e:
                 self._raise_error(localdict, _("Wrong range condition defined for:"), e)
         if self.condition_select == 'input':
-            return self.amount_other_input_id.code in localdict['inputs']
+            return self.condition_other_input_id.code in localdict['inputs']
         # python code
         try:
             safe_eval(self.condition_python, localdict, mode='exec', nocopy=True)
