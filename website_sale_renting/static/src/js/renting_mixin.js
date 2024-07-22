@@ -60,13 +60,6 @@ export const RentingMixin = {
     },
 
     _isDurationWithHours() {
-        if (
-            this.rentingMinimalTime &&
-            this.rentingMinimalTime.duration > 0 &&
-            this.rentingMinimalTime.unit !== "hour"
-        ) {
-            return false;
-        }
         const unitInput = this.el.querySelector("input[name=rental_duration_unit]");
         return unitInput && unitInput.value === "hour";
     },
