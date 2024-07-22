@@ -1,4 +1,4 @@
-import { beforeEach, expect, describe, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { click } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 
@@ -15,9 +15,7 @@ import { defineHelpdeskModels, helpdeskModels } from "@helpdesk/../tests/helpdes
 
 const { ResPartner, ResUsers } = helpdeskModels;
 
-
 describe.current.tags("desktop");
-defineModels([ResPartner, ResUsers]);
 defineHelpdeskModels();
 
 const mountViewParams = {
@@ -84,13 +82,11 @@ test("edit the target", async () => {
         string: "helpdesk target closed",
         default: 1,
     });
-    Object.assign(ResUsers._records,
-        {
-            id: 1,
-            name: "Pierre",
-            helpdesk_target_closed: 0,
-        }
-    );
+    Object.assign(ResUsers._records, {
+        id: 1,
+        name: "Pierre",
+        helpdesk_target_closed: 0,
+    });
 
     await mountView(mountViewParams);
     await click(".o_target_to_set:nth-child(1)");
@@ -128,20 +124,16 @@ test("dashboard rendering with empty many2one", async () => {
         string: "Partner",
         relation: "helpdesk.partner",
     });
-    Object.assign(ResPartner._records,
-        {
-            id: 1,
-            name: "Pierre",
-            helpdesk_partner_id: false,
-        }
-    );
-    Object.assign(ResUsers._records,
-        {
-            id: 1,
-            name: "Pierre",
-            partner_id: 1,
-        }
-    );
+    Object.assign(ResPartner._records, {
+        id: 1,
+        name: "Pierre",
+        helpdesk_partner_id: false,
+    });
+    Object.assign(ResUsers._records, {
+        id: 1,
+        name: "Pierre",
+        partner_id: 1,
+    });
 
     await mountView(mountViewParams);
     expect("div.o_helpdesk_content").toHaveCount(1, {
