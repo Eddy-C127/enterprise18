@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <form string="Edition of Payslip Lines in the Payslip">
                 <field name="payslip_id" invisible="1"/>
+                <field name="ytd_computation" invisible="True"/>
                 <span><strong>Tip:</strong> Each time you edit the quantity or the amount on a line, we recompute the following lines. We recommend that you edit from top to bottom to prevent your edition from being overwritten by the automatic recalculation. Be careful that reordering the lines doesn't recompute them.</span>
                 <field name="worked_days_line_ids" widget="worked_days_line_one2many" nolabel="1" context="{'default_slip_id': payslip_id}">
                     <tree string="Worked Days" editable="bottom" delete="0">
@@ -15,6 +16,8 @@
                         <field name="number_of_hours"/>
                         <field name="code" optional="hide"/>
                         <field name="amount"/>
+                        <field name="ytd" optional="show" readonly="0"
+                            column_invisible="not parent.ytd_computation"/>
                     </tree>
                 </field>
                 <field name="line_ids" widget="payslip_line_one2many" nolabel="1" context="{'default_slip_id': payslip_id}">
@@ -30,6 +33,8 @@
                         <field name="salary_rule_id" options="{'no_create_edit': True}" required="1"/>
                         <field name="amount"/>
                         <field name="total" readonly="1" force_save="1"/>
+                        <field name="ytd" optional="show" readonly="0" force_save="1"
+                            column_invisible="not parent.ytd_computation"/>
                     </tree>
                 </field>
                 <footer>

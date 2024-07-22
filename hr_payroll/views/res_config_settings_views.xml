@@ -46,6 +46,13 @@
                                 title="Number of days prior to the work permit expiration date that a warning is triggered.">
                                 <field name="work_permit_expiration_notice_period" class="w-25"/><span>Days</span>
                             </setting>
+                            <setting string="YTD Reset Date" id="ytd_reset_date"
+                                title="Day where the 'Year To Date' will be reset every year.">
+                                <div class="content-group">
+                                    <field name="ytd_reset_day" class="o_light_label" style="width: 3ch;"/>
+                                    <field name="ytd_reset_month" class="o_light_label"/>
+                                </div>
+                            </setting>
                         </block>
                     </app>
                 </xpath>

@@ -8,6 +8,7 @@ import pytz
 from collections import defaultdict, Counter
 from datetime import date, datetime, time
 from dateutil.relativedelta import relativedelta
+from functools import reduce
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError, ValidationError
@@ -143,6 +144,7 @@ class HrPayslip(models.Model):
         readonly=True)
     payment_report_filename = fields.Char(readonly=True)
     payment_report_date = fields.Date(readonly=True)
+    ytd_computation = fields.Boolean(related='struct_id.ytd_computation')
 
     def _get_schedule_period_start(self):
         schedule = self.contract_id.schedule_pay or self.contract_id.structure_type_id.default_schedule_pay
@@ -584,6 +586,8 @@ class HrPayslip(models.Model):
                 'compute_date': today
             })
         self.env['hr.payslip.line'].create(payslips._get_payslip_lines())
+        if any(payslips.mapped('ytd_computation')):
+            self._compute_worked_days_ytd()
         return True
 
     def action_refresh_from_work_entries(self):
@@ -834,8 +838,60 @@ class HrPayslip(models.Model):
         self.ensure_one()
         return amount * quantity * rate / 100.0
 
+    def _get_last_ytd_payslips(self):
+        if not self:
+            return self
+
+        earliest_date_to = min(self.mapped('date_to'))
+        earliest_ytd_date_to = min(
+            company.get_last_ytd_reset_date(earliest_date_to) for company in self.company_id
+        )
+        ytd_payslips_grouped = self.env['hr.payslip']._read_group(
+            domain=[
+                ('employee_id', 'in', self.employee_id.ids),
+                ('struct_id', 'in', self.struct_id.ids),
+                ('ytd_computation', '=', True),
+                ('date_to', '>=', earliest_ytd_date_to),
+                ('date_to', '<=', max(self.mapped('date_to'))),
+                ('state', 'in', ['done', 'paid']),
+            ],
+            groupby=['employee_id', 'struct_id'],
+            aggregates=['id:recordset']
+        )
+
+        ytd_payslips_sorted = defaultdict(lambda: self.env['hr.payslip'])
+        for employee_id, struct_id, payslips in ytd_payslips_grouped:
+            ytd_payslips_sorted[(employee_id, struct_id)] = payslips.sorted(
+                key=lambda p: p.date_to, reverse=True
+            )
+
+        last_ytd_payslips = defaultdict(lambda: self.env['hr.payslip'])
+        for payslip in self:
+            last_payslips = ytd_payslips_sorted[(payslip.employee_id, payslip.struct_id)].filtered(
+                lambda p: p.date_to <= payslip.date_to
+            )
+            if last_payslips and last_payslips[0].date_to >=\
+                    payslip.company_id.get_last_ytd_reset_date(payslip.date_to):
+                last_ytd_payslips[payslip] = last_payslips[0]
+
+        return last_ytd_payslips
+
     def _get_payslip_lines(self):
         line_vals = []
+
+        if any(self.mapped('ytd_computation')):
+            last_ytd_payslips = self._get_last_ytd_payslips()
+            code_set = set(self.struct_id.rule_ids.mapped('code'))
+        else:
+            last_ytd_payslips = defaultdict(lambda: self.env['hr.payslip'])
+            code_set = set()
+        ytd_payslips = reduce(
+            lambda ytd_payslips, payslip: ytd_payslips | payslip, last_ytd_payslips.values(),
+            self.env['hr.payslip']
+        )
+
+        line_values = ytd_payslips._get_line_values(code_set, ['ytd'])
+
         for payslip in self:
             if not payslip.contract_id:
                 raise UserError(_("There's no contract set on payslip %(payslip)s for %(employee)s. Check that there is at least a contract set on the employee form.", payslip=payslip.name, employee=payslip.employee_id.name))
@@ -883,6 +939,8 @@ class HrPayslip(models.Model):
                                 'rate': rate,
                                 'total': tot_rule,
                                 'slip_id': payslip.id,
+                                'ytd': line_values[rule.code][last_ytd_payslips[payslip].id]
+                                    ['ytd'] + tot_rule,
                             })
                     else:
                         amount, qty, rate = rule._compute_rule(localdict)
@@ -909,9 +967,27 @@ class HrPayslip(models.Model):
                             'rate': rate,
                             'total': tot_rule,
                             'slip_id': payslip.id,
+                            'ytd': line_values[rule.code][last_ytd_payslips[payslip].id]
+                                ['ytd'] + tot_rule,
                         }
             line_vals += list(result.values())
         return line_vals
+
+    def _compute_worked_days_ytd(self):
+        last_ytd_payslips = self._get_last_ytd_payslips()
+        ytd_payslips = reduce(
+            lambda ytd_payslips, payslip: ytd_payslips | payslip, last_ytd_payslips.values(),
+            self.env['hr.payslip']
+        )
+
+        code_set = set(self.worked_days_line_ids.mapped('code'))
+        worked_days_line_values = ytd_payslips._get_worked_days_line_values(code_set, ['ytd'])
+
+        for payslip in self:
+            for worked_days in payslip.worked_days_line_ids:
+                worked_days.ytd = worked_days_line_values[worked_days.code][
+                    last_ytd_payslips[payslip].id
+                ]['ytd'] + worked_days.amount
 
     @api.depends('employee_id')
     def _compute_company_id(self):
@@ -1104,7 +1180,7 @@ class HrPayslip(models.Model):
     def _get_line_values(self, code_list, vals_list=None, compute_sum=False):
         if vals_list is None:
             vals_list = ['total']
-        valid_values = {'quantity', 'amount', 'total'}
+        valid_values = {'quantity', 'amount', 'total', 'ytd'}
         if set(vals_list) - valid_values:
             raise UserError(_('The following values are not valid:\n%s', '\n'.join(list(set(vals_list) - valid_values))))
         result = defaultdict(lambda: defaultdict(lambda: dict.fromkeys(vals_list, 0.0)))
@@ -1156,7 +1232,7 @@ class HrPayslip(models.Model):
     def _get_worked_days_line_values(self, code_list, vals_list=None, compute_sum=False):
         if vals_list is None:
             vals_list = ['amount']
-        valid_values = {'number_of_hours', 'number_of_days', 'amount'}
+        valid_values = {'number_of_hours', 'number_of_days', 'amount', 'ytd'}
         if set(vals_list) - valid_values:
             raise UserError(_('The following values are not valid:\n%s', '\n'.join(list(set(vals_list) - valid_values))))
         result = defaultdict(lambda: defaultdict(lambda: dict.fromkeys(vals_list, 0.0)))
@@ -1299,6 +1375,7 @@ class HrPayslip(models.Model):
                 'amount': line.amount,
                 'quantity': line.quantity,
                 'rate': line.rate,
+                'ytd': line.ytd,
                 'slip_id': self.id}) for line in self.line_ids],
             'worked_days_line_ids': [(0, 0, {
                 'name': line.name,
@@ -1308,6 +1385,7 @@ class HrPayslip(models.Model):
                 'number_of_days': line.number_of_days,
                 'number_of_hours': line.number_of_hours,
                 'amount': line.amount,
+                'ytd': line.ytd,
                 'slip_id': self.id}) for line in self.worked_days_line_ids]
         })
 

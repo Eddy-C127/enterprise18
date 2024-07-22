@@ -51,6 +51,8 @@ class HrPayrollStructure(models.Model):
     use_worked_day_lines = fields.Boolean(default=True, help="Worked days won't be computed/displayed in payslips.")
     schedule_pay = fields.Selection(related='type_id.default_schedule_pay')
     input_line_type_ids = fields.Many2many('hr.payslip.input.type', string='Other Input Line')
+    ytd_computation = fields.Boolean(default=False, string='Year to Date Computation',
+        help="Adds a column in the payslip that shows the accumulated amount paid for different rules during the year")
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)

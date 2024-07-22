@@ -12,6 +12,8 @@ class HrPayrollEditPayslipLinesWizard(models.TransientModel):
     line_ids = fields.One2many('hr.payroll.edit.payslip.line', 'edit_payslip_lines_wizard_id', string='Payslip Lines')
     worked_days_line_ids = fields.One2many('hr.payroll.edit.payslip.worked.days.line', 'edit_payslip_lines_wizard_id', string='Worked Days Lines')
 
+    ytd_computation = fields.Boolean(related='payslip_id.ytd_computation')
+
     def recompute_following_lines(self, line_id):
         self.ensure_one()
         wizard_line = self.env['hr.payroll.edit.payslip.line'].browse(line_id)
@@ -96,6 +98,7 @@ class HrPayrollEditPayslipLine(models.TransientModel):
     slip_id = fields.Many2one(related="edit_payslip_lines_wizard_id.payslip_id", string='Pay Slip')
     struct_id = fields.Many2one(related="slip_id.struct_id")
     category_id = fields.Many2one(related='salary_rule_id.category_id', readonly=True)
+    ytd = fields.Float(string='YTD', digits='Payroll', readonly=True)
 
     edit_payslip_lines_wizard_id = fields.Many2one('hr.payroll.edit.payslip.lines.wizard', required=True, ondelete='cascade')
 
@@ -116,6 +119,7 @@ class HrPayrollEditPayslipLine(models.TransientModel):
             'quantity': line.quantity,
             'rate': line.rate,
             'total': line.total,
+            'ytd': line.ytd,
             'slip_id': line.slip_id.id
         } for line in self]
 
@@ -131,6 +135,7 @@ class HrPayrollEditPayslipWorkedDaysLine(models.TransientModel):
     number_of_days = fields.Float(string='Number of Days')
     number_of_hours = fields.Float(string='Number of Hours')
     amount = fields.Float(string='Amount')
+    ytd = fields.Float(string='YTD', digits='Payroll', readonly=True)
 
     edit_payslip_lines_wizard_id = fields.Many2one('hr.payroll.edit.payslip.lines.wizard', required=True, ondelete='cascade')
 
@@ -143,5 +148,6 @@ class HrPayrollEditPayslipWorkedDaysLine(models.TransientModel):
             'number_of_days': line.number_of_days,
             'number_of_hours': line.number_of_hours,
             'amount': line.amount,
+            'ytd': line.ytd,
             'payslip_id': line.slip_id.id
         } for line in self]

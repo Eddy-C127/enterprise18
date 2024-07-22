@@ -149,6 +149,9 @@
                                 <field name="number_of_days" sum="Total Working Days" readonly="1" force_save="1"/>
                                 <field name="number_of_hours"  widget="float_time" sum="Total Working Hours" readonly="1" force_save="1"/>
                                 <field name="amount" readonly="1" sum="Total Amount" force_save="1"/>
+                                <field name="ytd" readonly="1" force_save="1"
+                                    column_invisible="not parent.ytd_computation"
+                                    optional="show"/>
                                 <field name="is_paid" readonly="1" column_invisible="True" force_save="1"/>
                                 <field name="sequence" readonly="1" column_invisible="True" force_save="1"/>
                                 <field name="currency_id" column_invisible="True"/>
@@ -161,6 +164,7 @@
                                     <field name="number_of_days"/>
                                     <field name="number_of_hours" widget="float_time"/>
                                     <field name="amount"/>
+                                    <field name="ytd" readonly="1" invisible="not parent.ytd_computation"/>
                                     <field name="is_paid"/>
                                     <field name="contract_id"/>
                                     <field name="currency_id" invisible="1"/>
@@ -212,6 +216,9 @@
                                 <field name="salary_rule_id" groups="base.group_no_one" readonly="1" force_save="1"/>
                                 <field name="amount" readonly="1" force_save="1"/>
                                 <field name="total" readonly="1" force_save="1"/>
+                                <field name="ytd" readonly="1" force_save="1"
+                                    column_invisible="not parent.ytd_computation"
+                                    optional="show"/>
                                 <field name="currency_id" column_invisible="True"/>
                             </tree>
                             <form string="Payslip Line">
@@ -224,6 +231,7 @@
                                     <field name="rate"/>
                                     <field name="amount"/>
                                     <field name="total"/>
+                                    <field name="ytd" readonly="1" invisible="not parent.ytd_computation"/>
                                     <field name="salary_rule_id"/>
                                     <field name="currency_id" invisible="1"/>
                                 </group>

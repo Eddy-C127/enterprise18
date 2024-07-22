@@ -23,6 +23,7 @@ class HrPayslipWorkedDays(models.Model):
         help="The contract this worked days should be applied to")
     currency_id = fields.Many2one('res.currency', related='payslip_id.currency_id')
     is_credit_time = fields.Boolean(string='Credit Time')
+    ytd = fields.Monetary(string='YTD')
 
     @api.depends(
         'work_entry_type_id', 'payslip_id', 'payslip_id.struct_id',

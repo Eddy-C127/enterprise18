@@ -24,6 +24,7 @@ class HrPayslipLine(models.Model):
     amount = fields.Monetary()
     quantity = fields.Float(digits='Payroll', default=1.0)
     total = fields.Monetary(string='Total')
+    ytd = fields.Monetary(string='YTD')
 
     amount_select = fields.Selection(related='salary_rule_id.amount_select', readonly=True)
     amount_fix = fields.Float(related='salary_rule_id.amount_fix', readonly=True)

@@ -79,6 +79,7 @@
                             <th id="line_header_hours">Number of Hours</th>
                             <th id="line_header_days">Number of Days</th>
                             <th id="line_header_amount" class="text-end">Amount</th>
+                            <th id="line_header_ytd" t-if="o.ytd_computation" class="text-end">YTD</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,6 +93,10 @@
                                     <td id="worked_days_days"><span t-field="worked_days.number_of_days"/></td>
                                     <td id="worked_days_amount" class="text-end"><span t-out="worked_days.amount" digits="[42, 2]"
                                             t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                    <td id="worked_days_ytd" t-if="o.ytd_computation" class="text-end">
+                                        <span t-esc="worked_days.ytd"
+                                            t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
+                                    </td>                                 
                                 </tr>
                             </span>
                         </t>
@@ -111,6 +116,11 @@
                                     <td id="payslip_line_total" class="text-end"><span t-esc="line.total"
                                             t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'
                                             t-att-style="'color:#875A7B;' if line.total &lt; 0 else ''"/></td>
+                                    <td id="payslip_line_ytd" t-if="o.ytd_computation" class="text-end">
+                                        <span t-esc="line.ytd"
+                                            t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"
+                                            t-att-style="'color:#875A7B;' if line.ytd &lt; 0 else ''"/>
+                                    </td>
                                 </tr>
                             </span>
                         </t>
