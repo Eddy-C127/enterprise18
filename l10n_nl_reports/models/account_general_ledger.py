@@ -33,7 +33,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _l10n_nl_compute_period_number(self, date_str):
         date = fields.Date.from_string(date_str)
-        return date.strftime('%y%m')[1:]
+        return date.strftime('%y%m')[2:]
 
     def _l10n_nl_get_opening_balance_query(self, options):
         report = self.env['account.report'].browse(options['report_id'])
