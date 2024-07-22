@@ -11,10 +11,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 17.5alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-13 15:23+0000\n"
-"PO-Revision-Date: 2023-11-13 16:29+0100\n"
+"POT-Creation-Date: 2024-08-08 09:20+0000\n"
+"PO-Revision-Date: 2024-08-08 09:20+0000\n"
 "Last-Translator: Dylan Kiss <dyki@odoo.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -2080,6 +2080,12 @@ msgid "Draft"
 msgstr "Concept"
 
 #. module: l10n_be_reports
+#. odoo-python
+#: code:addons/l10n_be_reports/models/partner_vat_listing.py:0
+msgid "Duplicate VAT number"
+msgstr "Duplicaat BTW-nummer"
+
+#. module: l10n_be_reports
 #: model:ir.model.fields.selection,name:l10n_be_reports.selection__l10n_be_form_325__sender_lang_code__1
 msgid "Dutch"
 msgstr "Nederlands"
@@ -2658,6 +2664,12 @@ msgid "Partner with missing information"
 msgstr "Partner met ontbrekende informatie"
 
 #. module: l10n_be_reports
+#. odoo-javascript
+#: code:addons/l10n_be_reports/static/src/components/partner_vat_listing/warnings.xml:0
+msgid "Partners sharing the same VAT number"
+msgstr "Partners die hetzelfde BTW-nummer delen"
+
+#. module: l10n_be_reports
 #: model:ir.model.fields,field_description:l10n_be_reports.field_account_reports_export_wizard__l10n_be_reports_periodic_vat_wizard_id
 msgid "Periodic VAT Export Wizard"
 msgstr "Wizard periodieke btw-rapporten exporteren"
@@ -3225,3 +3237,9 @@ msgstr "hier"
 #, python-format
 msgid "to see the list."
 msgstr "om de lijst te bekijken."
+
+#. module: l10n_be_reports
+#. odoo-javascript
+#: code:addons/l10n_be_reports/static/src/components/partner_vat_listing/warnings.xml:0
+msgid "will be grouped in the XML export."
+msgstr ""

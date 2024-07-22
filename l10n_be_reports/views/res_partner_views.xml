@@ -87,7 +87,7 @@
             <field name="name">res.partner.vat.listing.warning.view.tree</field>
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
-                <tree create="false" editable="bottom">
+                <tree create="false" editable="bottom" expand="1">
                     <field name="name" readonly="true"/>
                     <field name="country_id"/>
                     <field name="vat"/>
@@ -95,5 +95,15 @@
             </field>
         </record>
 
+        <record id="res_partner_view_search" model="ir.ui.view">
+            <field name="name">res.partner.search.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="before">
+                    <filter string="VAT Number" name="group_by_vat_number" context="{'group_by': 'vat'}" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>

@@ -67,20 +67,43 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
                 'alert_type': 'warning',
                 'count': len(warning_partners),
                 'ids': warning_partners,
+                'name': _('Missing partners'),
+            }
+
+        duplicate_partner_ids = self._get_duplicate_vat_partners_ids(report, options)
+        if duplicate_partner_ids:
+            warnings['l10n_be_reports.duplicate_partner_vat'] = {
+                'ids': list(duplicate_partner_ids),
+                'alert_type': 'warning',
+                'name': _('Duplicate VAT number'),
+                'context': {'search_default_group_by_vat_number': 1},
             }
 
     def action_warning_partners(self, options, params):
-        view_id = (
-                self.env.ref('l10n_be_reports.res_partner_vat_listing_warning_view_tree', raise_if_not_found=False) or
-                self.env.ref('base.view_partner_tree')  # In case the DB was not updated.
-        ).id
+        view_id = self.env.ref('l10n_be_reports.res_partner_vat_listing_warning_view_tree').id
         return {
-            'name': _('Missing partners'),
+            'name': params['name'],
             'res_model': 'res.partner',
             'views': [(view_id, 'tree')],
             'domain': [('id', 'in', params['ids'])],
             'type': 'ir.actions.act_window',
+            'context': params.get('context', {}),
         }
+
+    def _get_duplicate_vat_partners_ids(self, report, options):
+        partners_id_vat_map = self._get_accepted_partners_vat_map(report, options)
+        duplicate_partner_ids = set()
+
+        if partners_id_vat_map:
+            partner_vat_id_dict = {}
+            for partner_id, partner_vat in partners_id_vat_map.items():
+                if partner_vat in partner_vat_id_dict:
+                    duplicate_partner_ids.add(partner_id)
+                    duplicate_partner_ids.add(partner_vat_id_dict[partner_vat])
+                else:
+                    partner_vat_id_dict[partner_vat] = partner_id
+
+        return duplicate_partner_ids
 
     def _get_excluded_taxes(self):
         tag_49_ids = self.env.ref('l10n_be.tax_report_line_49').expression_ids._get_matching_tags().ids
