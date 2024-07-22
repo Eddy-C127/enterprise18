@@ -175,7 +175,6 @@ class ResetConfirmationPopup extends ConfirmationDialog {
     };
 }
 
-
 const CUSTOM_BRANDING_ATTR = [
     "ws-view-id",
     "ws-call-key",
@@ -346,9 +345,6 @@ export class ReportEditorWysiwyg extends Component {
                     visitNode(el, (node) => {
                         CUSTOM_BRANDING_ATTR.forEach((attr) => {
                             node.removeAttribute(attr);
-                            if (node.getAttribute("contenteditable") === "true") {
-                                node.removeAttribute("contenteditable");
-                            }
                         });
                         node.classList.remove("o_dirty");
                     });

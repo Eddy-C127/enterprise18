@@ -1331,7 +1331,7 @@ registry.category("web_tour.tours").add("web_studio.test_remove_branding_on_copy
                 for (const attr of copy.attributes) {
                     attributeCopy[attr.name] = attr.value;
                 }
-                assertEqual(JSON.stringify(attributeCopy), "{}");
+                assertEqual(JSON.stringify(attributeCopy), `{"contenteditable":"true"}`);
             },
         },
     ],
