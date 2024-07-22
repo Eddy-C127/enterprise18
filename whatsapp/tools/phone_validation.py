@@ -62,5 +62,11 @@ def wa_phone_format(record, fname=False, number=False, country=None,
             if raise_exception:
                 raise
             return False
-        return f'{parsed.country_code}{parsed.national_number}'
+        zeros = ''
+        # Not only for italian numbers, but for all numbers with leading zeros
+        if parsed.italian_leading_zero:
+            zeros = '0'
+            if parsed.number_of_leading_zeros:
+                zeros = '0' * parsed.number_of_leading_zeros
+        return f'{parsed.country_code}' + zeros + f'{parsed.national_number}'
     return formatted
