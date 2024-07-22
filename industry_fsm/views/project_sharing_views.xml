@@ -12,7 +12,7 @@
                 <field name="planned_date_begin"/>
                 <field name="fsm_done" />
             </xpath>
-            <xpath expr="//span[@t-if='record.partner_id.value']" position="inside">
+            <xpath expr="//field[@t-if='record.partner_id.value']" position="after">
                 <span t-if="record.is_fsm.raw_value and record.partner_city.value">
                     • <field name="partner_city"/>
                 </span>

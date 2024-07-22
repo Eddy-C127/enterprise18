@@ -24,7 +24,7 @@ registry.category("web_tour.tours").add(
             run: "click",
         },
         {
-            trigger: '.o_kanban_record_top .o_kanban_record_headings:has(.o_kanban_record_title:has(span:contains("task 1")))',
+            trigger: '.o_kanban_record:contains("task 1")',
             content: 'Open the task 1',
             run: "click",
         },
@@ -44,7 +44,7 @@ registry.category("web_tour.tours").add(
             run: "click",
         },
         {
-            trigger: '.o_kanban_record_top .o_kanban_record_headings:has(.o_kanban_record_title:has(span:contains("task 2")))',
+            trigger: '.o_kanban_record:contains("task 2")',
             content: 'Open the task 2',
             run: "click",
         },
@@ -64,7 +64,7 @@ registry.category("web_tour.tours").add(
             run: "click",
         },
         {
-            trigger: '.o_kanban_record_top .o_kanban_record_headings:has(.o_kanban_record_title:has(span:contains("task 3")))',
+            trigger: '.o_kanban_record:contains("task 3")',
             content: 'Open the task 3',
             run: "click",
         },

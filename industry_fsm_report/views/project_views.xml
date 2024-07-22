@@ -77,13 +77,8 @@
             <xpath expr="//kanban" position="inside">
                 <field name="worksheet_template_id" />
             </xpath>
-            <xpath expr="//strong[hasclass('o_kanban_record_title')]" position="after">
-                <t t-if="record.worksheet_template_id.raw_value">
-                    <br />
-                    <span>
-                        <field name="worksheet_template_id"/>
-                    </span>
-                </t>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="worksheet_template_id" class="mt-1"/>
             </xpath>
         </field>
     </record>

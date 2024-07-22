@@ -37,16 +37,16 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.project_sharing_project_task_view_kanban"/>
         <field name="arch" type="xml">
-            <div name="date_deadline" position="attributes">
+            <field name="date_deadline" position="attributes">
                 <attribute name="invisible">planned_date_begin or not date_deadline or state in ['1_done', '1_canceled']</attribute>
-            </div>
-            <div name="date_deadline" position="after">
+            </field>
+            <field name="date_deadline" position="after">
                 <div invisible="not planned_date_begin" t-att-class="(luxon.DateTime.fromISO(record.date_deadline.raw_value) &lt; luxon.DateTime.local() and !['1_done', '1_canceled'].includes(record.state.raw_value)) ? 'text-danger' : ''">
                     <field name="planned_date_begin"/>
                     <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" invisible="not planned_date_begin"/>
                     <field name="date_deadline"/>
                 </div>
-            </div>
+            </field>
         </field>
     </record>
 

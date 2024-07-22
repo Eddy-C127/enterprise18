@@ -193,9 +193,9 @@
                 <field name="is_fsm"/>
                 <field name="fsm_done" />
             </xpath>
-            <xpath expr="//templates//span[@t-if='record.partner_id.value']" position="inside">
+            <xpath expr="//field[@t-if='record.partner_id.value']" position="after">
                 <span t-if="record.is_fsm.raw_value and record.partner_city.value">
-                    • <field name="partner_city"/>
+                    • <field name="partner_city" class="me-1"/>
                 </span>
             </xpath>
         </field>

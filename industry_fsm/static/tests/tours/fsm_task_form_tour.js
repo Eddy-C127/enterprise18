@@ -53,7 +53,7 @@ registry.category("web_tour.tours").add(
                 run: 'click',
             }, {
                 content: "Check that parent task exists",
-                trigger: '.o_kanban_record_title span:contains("New fsm parent task")',
+                trigger: '.o_kanban_record:contains("New fsm parent task")',
                 run: "click",
             }
         ]
