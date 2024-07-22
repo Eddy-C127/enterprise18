@@ -1349,14 +1349,14 @@ class Task(models.Model):
         cell_dt = timedelta(hours=1) if scale in ['day', 'week'] else timedelta(hours=12)
 
         result = {}
-        for user_id in res_ids:
+        for user_id in res_ids + [False]:
             resource_id = user_resource_mapping.get(user_id)
             calendar = leaves_mapping.get(resource_id, company_leaves)
             # remove intervals smaller than a cell, as they will cause half a cell to turn grey
             # ie: when looking at a week, a employee start everyday at 8, so there is a unavailability
             # like: 2019-05-22 20:00 -> 2019-05-23 08:00 which will make the first half of the 23's cell grey
             notable_intervals = filter(lambda interval: interval[1] - interval[0] >= cell_dt, calendar)
-            result['unavailabilities'] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
+            result[user_id] = [{'start': interval[0], 'stop': interval[1]} for interval in notable_intervals]
 
         return result
 
