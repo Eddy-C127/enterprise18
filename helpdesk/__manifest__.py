@@ -82,10 +82,6 @@ Features:
         ],
         'web.assets_unit_tests': [
             'helpdesk/static/tests/**/*',
-            ('remove', 'helpdesk/static/tests/legacy/**/*'),
-        ],
-        'web.qunit_suite_tests': [
-            'helpdesk/static/tests/legacy/**/*',
         ],
         'web.assets_tests': [
             'helpdesk/static/tests/tours/**/*',
