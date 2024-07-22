@@ -1,12 +1,19 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import json
+import logging
 
+from lxml import etree
 from markupsafe import Markup
+from stdnum.br.cnpj import format as format_cnpj
+from stdnum.br.cpf import format as format_cpf
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, Command
 from odoo.addons.iap import InsufficientCreditError
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import html2plaintext
+from odoo.tools.xml_utils import find_xml_value
+
+_logger = logging.getLogger(__name__)
 
 FREIGHT_MODEL_SELECTION = [
     ("CIF", "Freight contracting on behalf of the Sender (CIF)"),
@@ -619,3 +626,170 @@ class AccountMove(models.Model):
 
         if len(pending_invoices) > batch_size:
             self.env.ref("l10n_br_edi.ir_cron_l10n_br_edi_check_status")._trigger()
+
+    def _l10n_br_edi_import_invoice(self, invoice, data, is_new):
+        namespaces = {'nfe': 'http://www.portalfiscal.inf.br/nfe'}
+
+        def get_xml_text(tree, xpath):
+            return find_xml_value(xpath, tree, namespaces=namespaces)
+
+        def get_xml_attribute(xpath, attribute):
+            return tree.xpath(xpath, namespaces=namespaces)[0].get(attribute)
+
+        def get_latam_document_type():
+            return self.env['l10n_latam.document.type'].search([
+                ('country_id.code', '=', 'BR'),
+                ('code', '=', get_xml_text(tree, './/nfe:mod'))
+            ], limit=1).id
+
+        def get_partner_id(xpath, create_if_not_found=False):
+            partner_tree = tree.xpath(xpath, namespaces=namespaces)
+            if not partner_tree:
+                return False
+
+            Partner = self.env['res.partner']
+            partner_tree = partner_tree[0]
+            cnpj_id = self.env.ref('l10n_br.cnpj').id
+            if cnpj := get_xml_text(partner_tree, './/nfe:CNPJ'):
+                if partner := Partner.search([('l10n_latam_identification_type_id', '=', cnpj_id), ('vat', 'in', (cnpj, format_cnpj(cnpj)))], limit=1):
+                    return partner.id
+
+            cpf_id = self.env.ref('l10n_br.cpf').id
+            if cpf := get_xml_text(partner_tree, './/nfe:CPF'):
+                if partner := Partner.search([('l10n_latam_identification_type_id', '=', cpf_id), ('vat', 'in', (cpf, format_cpf(cpf)))], limit=1):
+                    return partner.id
+
+            if create_if_not_found:
+                country_id = False
+                if c_pays := get_xml_text(partner_tree, './/nfe:cPais'):
+                    country_id = self.env['res.country'].search([('l10n_br_edi_code', '=', c_pays)], limit=1).id
+
+                state_id = False
+                if uf := get_xml_text(partner_tree, './/nfe:UF'):
+                    state_id = self.env['res.country.state'].search([('country_id', '=', country_id), ('code', '=', uf)], limit=1).id
+
+                city_id = False
+                if x_mun := get_xml_text(partner_tree, './/nfe:xMun'):
+                    city_domain = [('country_id', '=', country_id), ('name', '=ilike', x_mun)]
+                    if state_id:
+                        city_domain += [('state_id', '=', state_id)]
+
+                    city_id = self.env['res.city'].search(city_domain, limit=1).id
+
+                return Partner.create({
+                    'is_company': True,
+                    'vat': cnpj or cpf,
+                    'l10n_latam_identification_type_id': cnpj_id if cnpj else cpf_id,
+                    'name': get_xml_text(partner_tree, './/nfe:xNome'),
+                    'street_name': get_xml_text(partner_tree, './/nfe:xLgr'),
+                    'street_number': get_xml_text(partner_tree, './/nfe:nro'),
+                    'street2': get_xml_text(partner_tree, './/nfe:xBairro'),
+                    'street_number2': get_xml_text(partner_tree, './/nfe:xCpl'),
+                    'city_id': city_id,
+                    'state_id': state_id,
+                    'zip': get_xml_text(partner_tree, './/nfe:CEP'),
+                    'country_id': country_id,
+                    'phone': get_xml_text(partner_tree, './/nfe:fone'),
+                    'l10n_br_ie_code': get_xml_text(partner_tree, './/nfe:IE'),
+                    'l10n_br_im_code': get_xml_text(partner_tree, './/nfe:IM'),
+                }).id
+
+        def get_payment_method():
+            possible_values = self._fields.get('l10n_br_edi_payment_method').get_values(self.env)
+            t_pag = get_xml_text(tree, './/nfe:tPag')
+            return t_pag if t_pag in possible_values else '99'
+
+        def get_freight_model():
+            mod_frete = get_xml_text(tree, './/nfe:modFrete')
+            return {
+                '0': 'CIF',
+                '1': 'FOB',
+                '2': 'Thirdparty',
+                '3': 'SenderVehicle',
+                '4': 'ReceiverVehicle',
+                '9': 'FreeShipping',
+            }.get(mod_frete)
+
+        def get_lines_vals(vendor_id):
+            def get_uom_id(u_com):
+                return {
+                    'KG': self.env.ref('uom.product_uom_kgm'),
+                    'G': self.env.ref('uom.product_uom_gram'),
+                    'L': self.env.ref('uom.product_uom_litre'),
+                    'M': self.env.ref('uom.product_uom_meter'),
+                    'MM': self.env.ref('uom.product_uom_millimeter'),
+                    'M2': self.env.ref('uom.uom_square_meter'),
+                    'M3': self.env.ref('uom.product_uom_cubic_meter'),
+                    'DZ': self.env.ref('uom.product_uom_dozen'),
+                    'GL': self.env.ref('uom.product_uom_gal'),
+                    'TON': self.env.ref('uom.product_uom_ton'),
+                }.get(u_com, self.env.ref('uom.product_uom_unit')).id
+
+            def get_product_id():
+                def get_product_id_supplierinfo(supplierinfo):
+                    """ Return a product.product id only if the supplierinfo refers to exactly one variant. """
+                    if supplierinfo.product_id:
+                        return supplierinfo.product_id.id
+                    if supplierinfo.product_variant_count == 1:
+                        return supplierinfo.product_tmpl_id.product_variant_id.id
+
+                c_prod = get_xml_text(line, './/nfe:cProd')
+                if vendor_id:
+                    domain = [('partner_id', '=', vendor_id)]
+                    if c_prod:
+                        if product_id := get_product_id_supplierinfo(self.env['product.supplierinfo'].search(domain + [('product_code', '=', c_prod)], limit=1)):
+                            return product_id
+
+                    if x_prod := get_xml_text(line, './/nfe:xProd'):
+                        if product_id := get_product_id_supplierinfo(self.env['product.supplierinfo'].search(domain + [('product_name', '=', x_prod)], limit=1)):
+                            return product_id
+
+                if c_prod:
+                    return self.env['product.product'].search([('default_code', '=', c_prod)], limit=1).id
+
+            vals = []
+            for line in tree.xpath('.//nfe:det/nfe:prod', namespaces=namespaces):
+                product_id = get_product_id()
+                description = ' '.join([get_xml_text(line, './/nfe:xProd'), get_xml_text(line, './/nfe:cProd')])
+                vals.append({
+                    'product_id': product_id,
+                    'name': False if product_id else description,
+                    'quantity': get_xml_text(line, './/nfe:qCom'),
+                    'product_uom_id': get_uom_id(get_xml_text(line, './/nfe:uTrib')),
+                    'price_unit': get_xml_text(line, './/nfe:vUnCom'),
+                    'price_total': get_xml_text(line, './/nfe:vProd'),
+                    'is_imported': True,  # don't change imported price when modifying this line
+                })
+
+            return vals
+
+        try:
+            tree = etree.fromstring(data['content'])
+        except (etree.ParseError, ValueError) as e:
+            _logger.info("XML parsing of %s failed: %s", data['filename'], e)
+            return
+
+        # emit is required in leiauteNFe_v4.00.xsd
+        vendor = get_partner_id('.//nfe:emit', create_if_not_found=True)
+        invoice.write({
+            'partner_id': vendor,
+            'l10n_latam_document_type_id': get_latam_document_type(),
+            'name': get_xml_text(tree, './/nfe:nNF'),
+            'invoice_date': get_xml_text(tree, './/nfe:dhEmi'),  # ignore timezone offset, because this is a date field
+            'delivery_date': get_xml_text(tree, './/nfe:dhSaiEnt'),  # ignore timezone offset, because this is a date field
+            'l10n_br_access_key': get_xml_attribute('.//nfe:infNFe', 'Id'),
+            'invoice_line_ids': [Command.create(line) for line in get_lines_vals(vendor)],
+            'l10n_br_edi_payment_method': get_payment_method(),
+            'l10n_br_edi_transporter_id': get_partner_id('.//nfe:transporta'),
+            'l10n_br_edi_freight_model': get_freight_model(),
+        })
+
+    def _get_edi_decoder(self, file_data, new=False):
+        # EXTENDS 'account'
+        def is_nfe(content):
+            return b"<nfeProc " in content and b"<NFe " in content
+
+        if file_data['type'] == 'xml' and is_nfe(file_data['content']):
+            return self._l10n_br_edi_import_invoice
+
+        return super()._get_edi_decoder(file_data, new=new)

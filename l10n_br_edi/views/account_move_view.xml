@@ -40,7 +40,8 @@
                            readonly="state in ['cancel', 'posted']"/>
                 </field>
                 <field name="checked" position="after">
-                    <field name="l10n_br_access_key" invisible="country_code != 'BR' or not l10n_br_access_key"
+                    <!-- Show for Brazilian invoices with an access key and for all Brazilian vendor bills. -->
+                    <field name="l10n_br_access_key" invisible="country_code != 'BR' or move_type not in ('in_invoice', 'out_invoice') or (move_type == 'out_invoice' and not l10n_br_access_key)"
                            readonly="state in ['cancel', 'posted']"/>
                 </field>
                 <group name="sale_info_group" position="inside">
