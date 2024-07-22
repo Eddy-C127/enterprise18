@@ -334,7 +334,7 @@ test("The HomeMenu input does not take the focus if it is already on a textarea"
     expect(".o_search_hidden").toBeFocused();
 });
 
-test("home search input shouldn't be focused on touch devices [REQUIRE FOCUS]", async () => {
+test("home search input shouldn't be focused on touch devices", async () => {
     mockTouch(true);
     await mountWithCleanup(HomeMenu, {
         props: getDefaultHomeMenuProps(),
