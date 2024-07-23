@@ -36,8 +36,7 @@ test("Hover cell only shows messages, Composer appears on click", async () => {
     await animationFrame();
     expect(".o-mail-Thread").toHaveCount(1);
     expect(".o-mail-Composer").toHaveCount(1);
-    const mailComposerInput = fixture.querySelector(".o-mail-Composer textarea");
-    expect(document.activeElement).toBe(mailComposerInput);
+    expect(".o-mail-Composer textarea:first").toBeFocused();
 });
 
 test("Selecting the cell with an unsolved thread opens the thread in edit mode", async () => {
@@ -49,8 +48,7 @@ test("Selecting the cell with an unsolved thread opens the thread in edit mode",
     expect(".o-thread-popover").toHaveCount(1);
     expect(".o-mail-Thread").toHaveCount(1);
     expect(".o-mail-Composer").toHaveCount(1);
-    const mailComposerInput = fixture.querySelector(".o-mail-Composer textarea");
-    expect(document.activeElement).toBe(mailComposerInput);
+    expect(".o-mail-Composer textarea:first").toBeFocused();
 });
 test("Selecting the cell with a resolved thread does not open the thread popover", async () => {
     const { model, pyEnv } = await setupWithThreads();
@@ -72,9 +70,9 @@ test("Send messages from the popover", async () => {
     await action.execute(env);
     await animationFrame();
 
-    let mailComposerInput = fixture.querySelector(".o-mail-Composer textarea");
-    expect(document.activeElement).toBe(mailComposerInput);
+    expect(".o-mail-Composer textarea:first").toBeFocused();
 
+    let mailComposerInput = fixture.querySelector(".o-mail-Composer textarea");
     await contains(mailComposerInput).edit("msg1", { confirm: false });
     await contains(mailComposerInput).press("Enter", { ctrlKey: true });
     await waitFor(".o-mail-Message", { timeout: 500, visible: false });
@@ -82,7 +80,7 @@ test("Send messages from the popover", async () => {
     expect(threadIds).toEqual([{ threadId: 1, isResolved: false }]);
     expect(fixture.querySelectorAll(".o-mail-Message").length).toBe(1);
 
-    expect(document.activeElement).toBe(fixture.querySelector(".o-mail-Composer textarea"));
+    expect(".o-mail-Composer textarea:first").toBeFocused();
     mailComposerInput = fixture.querySelector(".o-mail-Composer textarea");
     await contains(mailComposerInput, { visible: false }).edit("msg2");
     await animationFrame();

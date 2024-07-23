@@ -270,22 +270,16 @@ test("Can double click an existing spreadsheet", async () => {
         expect.step(action.tag);
         expect(action.params.spreadsheet_id).toEqual(1);
     });
-    const { target } = await mountSpreadsheetSelectorDialog();
-    const spreadsheetItem = target.querySelector('.o-spreadsheet-grid div[data-id="1"]');
-    // In practice, the double click will also focus the item
-    await contains(spreadsheetItem).focus();
-    dblclick(spreadsheetItem);
+    await mountSpreadsheetSelectorDialog();
+    dblclick(`.o-spreadsheet-grid div[data-id="1"]`);
     await animationFrame();
     expect.verifySteps(["action_open_spreadsheet"]);
 });
 
 test("Can double click the empty spreadsheet", async () => {
     mockActionService((action) => expect.step(action.tag));
-    const { target } = await mountSpreadsheetSelectorDialog();
-    const blank = target.querySelector(".o-blank-spreadsheet-grid img");
-    // In practice, the double click will also focus the item
-    await contains(blank).focus();
-    dblclick(blank);
+    await mountSpreadsheetSelectorDialog();
+    dblclick(".o-blank-spreadsheet-grid img");
     await animationFrame();
     expect.verifySteps(["action_open_spreadsheet"]);
 });

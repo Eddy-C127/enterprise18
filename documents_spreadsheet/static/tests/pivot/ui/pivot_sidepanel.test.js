@@ -2,7 +2,6 @@ import { defineDocumentSpreadsheetModels } from "@documents_spreadsheet/../tests
 import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
 import { getHighlightsFromStore } from "@documents_spreadsheet/../tests/helpers/store_helpers";
 import { beforeEach, describe, expect, getFixture, test } from "@odoo/hoot";
-import { manuallyDispatchProgrammaticEvent } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 import { registries } from "@odoo/o-spreadsheet";
 import {
@@ -308,14 +307,10 @@ test("remove pivot dimension", async function () {
             },
         },
     });
-    const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
     await contains(".pivot-defer-update input").click();
-    manuallyDispatchProgrammaticEvent(
-        fixture.querySelector(".pivot-dimensions .fa-times"),
-        "click"
-    ); // HOOT FIXME: click helper does not trigger "click" event if a mouseUp/Down event is prevented
+    await contains(".pivot-dimensions .fa-times").click();
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
@@ -338,14 +333,10 @@ test("remove pivot date time dimension", async function () {
             },
         },
     });
-    const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
     await contains(".pivot-defer-update input").click();
-    manuallyDispatchProgrammaticEvent(
-        fixture.querySelector(".pivot-dimensions .fa-times"),
-        "click"
-    ); // HOOT FIXME: click helper does not trigger "click" event
+    await contains(".pivot-dimensions .fa-times").click();
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
@@ -542,12 +533,10 @@ test("remove pivot measure", async function () {
             },
         },
     });
-    const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
     await contains(".pivot-defer-update input").click();
-    const allDiv = fixture.querySelectorAll(".pivot-dimensions .fa-times");
-    manuallyDispatchProgrammaticEvent(allDiv[allDiv.length - 1], "click"); // HOOT FIXME: click helper does not trigger "click" event
+    await contains(".pivot-dimensions .fa-times:last").click();
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));

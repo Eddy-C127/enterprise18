@@ -7,6 +7,7 @@ import {
     mockActionService,
 } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
 import { describe, expect, test } from "@odoo/hoot";
+import { press } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { setCellContent } from "@spreadsheet/../tests/helpers/commands";
@@ -223,7 +224,8 @@ test("Can Insert odoo formulas from Insert > Functions > Odoo", async function (
     await contains(".o-menu-item[title='Odoo']", skipVisibilityChecks).click();
     await contains(".o-menu-item[title='ODOO.CURRENCY.RATE']", skipVisibilityChecks).click();
 
-    await contains(document.activeElement).press("Enter");
+    press("Enter");
+    await animationFrame();
 
     expect(getCellContent(model, "A1")).toBe("=ODOO.CURRENCY.RATE()");
 });

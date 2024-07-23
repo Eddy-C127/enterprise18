@@ -4,7 +4,7 @@ import {
 } from "@documents_spreadsheet/../tests/helpers/data";
 import { createSpreadsheet } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
 import { describe, expect, getFixture, test } from "@odoo/hoot";
-import { manuallyDispatchProgrammaticEvent } from "@odoo/hoot-dom";
+import { dblclick } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { selectCell, setCellContent, setSelection } from "@spreadsheet/../tests/helpers/commands";
@@ -224,15 +224,13 @@ test("ask confirmation when merging", async function () {
 });
 
 test("Grid has still the focus after a dialog", async function () {
-    const fixture = getFixture();
     const { model, env } = await createSpreadsheet();
     selectCell(model, "F4");
     env.raiseError("Notification");
     await animationFrame();
     await contains(".modal-footer .btn-primary").click();
     await animationFrame();
-    const gridComposerEl = fixture.querySelector(".o-grid div.o-composer");
-    expect(document.activeElement).toBe(gridComposerEl);
+    expect(".o-grid div.o-composer:first").toBeFocused();
 });
 
 test("menu > download as json", async function () {
@@ -335,14 +333,11 @@ test("sheetName should not be left empty", async function () {
     const fixture = getFixture();
     await createSpreadsheet();
 
-    const sheetName = fixture.querySelector(".o-sheet-list .o-sheet-name");
-    // FIXME HOOT: use dblclick helper once it's fixed (ATM it doesn't dispatch dbclick if mouseUp/Down prevented)
-    manuallyDispatchProgrammaticEvent(sheetName, "dblclick");
-    await animationFrame();
+    dblclick(".o-sheet-list .o-sheet-name");
     await animationFrame();
     expect(".o-sheet-name-editable").toHaveCount(1);
 
-    sheetName.innerText = "";
+    fixture.querySelector(".o-sheet-list .o-sheet-name").innerText = "";
     await contains(".o-sheet-list .o-sheet-name").press("Enter");
     fixture.querySelector(".modal-dialog");
     expect(".modal-dialog").toBeVisible({ message: "dialog should be visible" });

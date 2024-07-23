@@ -1,4 +1,4 @@
-import { beforeEach, expect, getFixture, test } from "@odoo/hoot";
+import { expect, test } from "@odoo/hoot";
 import { animationFrame } from "@odoo/hoot-mock";
 import { helpers, registries } from "@odoo/o-spreadsheet";
 import { getActionMenu } from "@spreadsheet/../tests/helpers/ui";
@@ -10,11 +10,6 @@ const { cellMenuRegistry, topbarMenuRegistry } = registries;
 const { toCartesian } = helpers;
 
 defineTestSpreadsheetEditionModels();
-
-let fixture;
-beforeEach(() => {
-    fixture = getFixture();
-});
 
 test("visibility menu", async () => {
     const { model, env } = await setupWithThreads();
@@ -35,8 +30,7 @@ test("Insert thread topbar menu", async () => {
     expect(".o-thread-popover").toHaveCount(1);
     expect(".o-mail-Thread").toHaveCount(0);
     expect(".o-mail-Composer").toHaveCount(1);
-    const mailComposerInput = fixture.querySelector(".o-mail-Composer textarea");
-    expect(document.activeElement).toBe(mailComposerInput);
+    expect(".o-mail-Composer textarea:first").toBeFocused();
 });
 
 test("Open sidepanel from topbar menu", async () => {
@@ -59,8 +53,7 @@ test("Start a thread from cell menu", async () => {
     expect(".o-thread-popover").toHaveCount(1);
     expect(".o-mail-Thread").toHaveCount(0);
     expect(".o-mail-Composer").toHaveCount(1);
-    const composerInput = fixture.querySelector(".o-thread-popover .o-mail-Composer textarea");
-    expect(document.activeElement).toBe(composerInput);
+    expect(".o-thread-popover .o-mail-Composer textarea:first").toBeFocused();
 });
 
 test("Jump to an existing thread from the cell menu", async () => {

@@ -162,9 +162,7 @@ test("cancel ir.menu selection", async function () {
 
 test("menu many2one field input is focused", async function () {
     await openMenuSelector();
-    expect(document.activeElement).toBe(target.querySelector(".o-ir-menu-selector input"), {
-        message: "the input should be focused",
-    });
+    expect(".o-ir-menu-selector input:first").toBeFocused();
 });
 
 test("ir.menu link keep breadcrumb", async function () {
