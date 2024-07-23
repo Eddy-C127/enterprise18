@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import api, fields, models, Command, _
 from odoo.exceptions import UserError
 
 
@@ -120,11 +120,22 @@ class purchase_order(models.Model):
         price = line.price_unit or 0.0
         quantity = line.product_id and line.product_uom._compute_quantity(line.product_qty, line.product_id.uom_id) or line.product_qty
         price = line.product_id and line.product_uom._compute_price(price, line.product_id.uom_id) or price
+        # adds a product_custom_attribute_value_ids if the PO was generated from an SO
+        so_lines = self.env['stock.move'].browse(line.move_ids._rollup_move_dests(set())).mapped('sale_line_id')
+        so_line = so_lines[0] if so_lines else line.move_dest_ids.sale_line_id
+        pcavs = so_line.product_custom_attribute_value_ids
+        pcavs_vals_list = []
+        for pcav in pcavs:
+            pcavs_vals_list.append(Command.create({
+                'custom_product_template_attribute_value_id': pcav.custom_product_template_attribute_value_id.id,
+                'custom_value': pcav.custom_value,
+            }))
         return {
             'name': line.name,
             'product_uom_qty': quantity,
             'product_id': line.product_id and line.product_id.id or False,
             'product_uom': line.product_id and line.product_id.uom_id.id or line.product_uom.id,
+            'product_custom_attribute_value_ids': pcavs_vals_list,
             'price_unit': price,
             'company_id': company.id,
             'display_type': line.display_type,
