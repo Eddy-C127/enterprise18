@@ -537,10 +537,7 @@ class AccountAsset(models.Model):
 
             degressive_total_value = residual_declining * (1 - self.method_progress_factor * self._get_delta_days(start_yearly_period, period_end_date) / days_in_fiscalyear)
             degressive_amount = residual_amount - degressive_total_value
-            if self.currency_id.compare_amounts(residual_amount, 0) > 0:
-                return max(degressive_amount, linear_amount)
-            else:
-                return min(degressive_amount, linear_amount)
+            return self._degressive_linear_amount(residual_amount, degressive_amount, linear_amount)
 
         days_until_period_end = self._get_delta_days(self.paused_prorata_date, period_end_date)
         days_before_period = self._get_delta_days(self.paused_prorata_date, period_start_date + relativedelta(days=-1))
@@ -589,12 +586,8 @@ class AccountAsset(models.Model):
             amount = _get_max_between_linear_and_degressive(linear_amount)
 
         amount = max(amount, 0) if self.currency_id.compare_amounts(residual_amount, 0) > 0 else min(amount, 0)
+        amount = self._get_depreciation_amount_end_of_lifetime(residual_amount, amount, days_until_period_end)
 
-        if abs(residual_amount) < abs(amount) or days_until_period_end >= self.asset_lifetime_days:
-            # If the residual amount is less than the computed amount, we keep the residual amount
-            # If total_days is greater or equals to asset lifetime days, it should mean that
-            # the asset will finish in this period and the value for this period is equal to the residual amount.
-            amount = residual_amount
         return number_days, self.currency_id.round(amount)
 
     def compute_depreciation_board(self, date=False):
@@ -1123,3 +1116,21 @@ class AccountAsset(models.Model):
             move_ids += self.env['account.move'].search([('asset_id', '=', asset.id), ('state', '=', 'draft')]).ids
 
         return move_ids
+
+    def _degressive_linear_amount(self, residual_amount, degressive_amount, linear_amount):
+        if self.currency_id.compare_amounts(residual_amount, 0) > 0:
+            return max(degressive_amount, linear_amount)
+        else:
+            return min(degressive_amount, linear_amount)
+
+    def _get_depreciation_amount_end_of_lifetime(self, residual_amount, amount, days_until_period_end):
+        if abs(residual_amount) < abs(amount) or days_until_period_end >= self.asset_lifetime_days:
+            # If the residual amount is less than the computed amount, we keep the residual amount
+            # If total_days is greater or equals to asset lifetime days, it should mean that
+            # the asset will finish in this period and the value for this period is equal to the residual amount.
+            amount = residual_amount
+        return amount
+
+    def _get_own_book_value(self):
+        self.ensure_one()
+        return self.value_residual + self.salvage_value

@@ -133,7 +133,7 @@ class AssetModify(models.TransientModel):
     def _compute_gain_or_loss(self):
         for record in self:
             balances = abs(sum([invoice.balance for invoice in record.invoice_line_ids]))
-            comparison = record.company_id.currency_id.compare_amounts(record.asset_id.value_residual + record.asset_id.salvage_value, balances)
+            comparison = record.company_id.currency_id.compare_amounts(record.asset_id._get_own_book_value(), balances)
             if record.modify_action in ('sell', 'dispose') and comparison < 0:
                 record.gain_or_loss = 'gain'
             elif record.modify_action in ('sell', 'dispose') and comparison > 0:
@@ -255,12 +255,11 @@ class AssetModify(models.TransientModel):
             asset_vals.update({'state': 'open'})
             self.asset_id.message_post(body=_("Asset unpaused. %s", self.name))
 
-        current_asset_book = self.asset_id.value_residual + self.asset_id.salvage_value
-        after_asset_book = self.value_residual + self.salvage_value
+        current_asset_book = self.asset_id._get_own_book_value()
+        after_asset_book = self._get_own_book_value()
         increase = after_asset_book - current_asset_book
 
-        new_residual = min(current_asset_book - min(self.salvage_value, self.asset_id.salvage_value), self.value_residual)
-        new_salvage = min(current_asset_book - new_residual, self.salvage_value)
+        new_residual, new_salvage = self._get_new_asset_values(current_asset_book)
         residual_increase = max(0, self.value_residual - new_residual)
         salvage_increase = max(0, self.salvage_value - new_salvage)
 
@@ -314,7 +313,7 @@ class AssetModify(models.TransientModel):
                 'salvage_value': salvage_increase,
                 'prorata_date': self.date + relativedelta(days=1),
                 'prorata_computation_type': 'daily_computation' if self.asset_id.prorata_computation_type == 'daily_computation' else 'constant_periods',
-                'original_value': residual_increase + salvage_increase,
+                'original_value': self._get_increase_original_value(residual_increase, salvage_increase),
                 'account_asset_id': self.account_asset_id.id,
                 'account_depreciation_id': self.account_depreciation_id.id,
                 'account_depreciation_expense_id': self.account_depreciation_expense_id.id,
@@ -385,4 +384,16 @@ class AssetModify(models.TransientModel):
     @api.depends('asset_id', 'value_residual', 'salvage_value')
     def _compute_gain_value(self):
         for record in self:
-            record.gain_value = record.value_residual + record.salvage_value > record.asset_id.value_residual + record.asset_id.salvage_value
+            record.gain_value = record._get_own_book_value() > record.asset_id._get_own_book_value()
+
+    def _get_own_book_value(self):
+        return self.value_residual + self.salvage_value
+
+    def _get_increase_original_value(self, residual_increase, salvage_increase):
+        return residual_increase + salvage_increase
+
+    def _get_new_asset_values(self, current_asset_book):
+        self.ensure_one()
+        new_residual = min(current_asset_book - min(self.salvage_value, self.asset_id.salvage_value), self.value_residual)
+        new_salvage = min(current_asset_book - new_residual, self.salvage_value)
+        return new_residual, new_salvage
