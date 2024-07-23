@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import logging
 
 from odoo import api, Command, models, _
-from odoo.exceptions import ValidationError
 
 from odoo.addons.account.models.chart_template import template, TAX_TAG_DELIMITER
+
+
+_logger = logging.getLogger(__name__)
 
 
 class AccountChartTemplate(models.AbstractModel):
@@ -42,7 +45,7 @@ class AccountChartTemplate(models.AbstractModel):
                     *AccountAccount._check_company_domain(company),
                     ('code', '=like', '%s%%' % code)], limit=1)
                 if not account:
-                    raise ValidationError(_('No existing account for code %s', code))
+                    _logger.warning("Payroll configuration: Missing account %s", code)
                 accounts[code] = account
 
             journal = self.ref('hr_payroll_account_journal')
