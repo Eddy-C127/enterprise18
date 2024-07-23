@@ -3,7 +3,7 @@
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
-function deleteWorspaceSteps() {
+function deleteWorkspaceSteps() {
     return [
         {
             trigger: '.o_search_panel_label_title:contains("Workspace1")',
@@ -50,6 +50,10 @@ function deleteWorspaceSteps() {
         {
             trigger: "body:not(:has(.modal))",
         },
+        {
+            trigger: '.o_kanban_renderer:not(:has(.o_kanban_record:contains("Chouchou")))',
+            content: "Check that the document is no longer visible",
+        },
     ];
 }
 
@@ -65,7 +69,7 @@ function restoreDocumentSteps() {
             content: "Check that we are in the trash",
         },
         {
-            trigger: ".o_record_selector",
+            trigger: '.o_kanban_record_title:contains("Chouchou")',
             content: "Select document",
             run: "click",
         },
@@ -126,10 +130,10 @@ registry.category("web_tour.tours").add("document_delete_tour", {
         },
         ...restoreDocumentSteps(),
         // 2) Archive a folder (and this its documents) and restore the archived document
-        ...deleteWorspaceSteps(),
+        ...deleteWorkspaceSteps(),
         ...restoreDocumentSteps(),
         // 3) Archive a folder (and this its documents) and delete permanently the document
-        ...deleteWorspaceSteps(),
+        ...deleteWorkspaceSteps(),
         {
             trigger: '.o_search_panel_label_title:contains("Trash")',
             content: "Open trash",
@@ -140,7 +144,7 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             content: "Check that we are in the trash",
         },
         {
-            trigger: ".o_record_selector",
+            trigger: '.o_kanban_record_title:contains("Chouchou")',
             content: "Select document",
             run: "click",
         },
