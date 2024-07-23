@@ -3627,7 +3627,7 @@ registry.category("web_tour.tours").add('test_put_in_pack_no_freeze', {test: tru
 
     { trigger: '.o_kanban_record:contains(Receipts)', run: 'click' },
 
-    { trigger: '.o_kanban_record_headings:last', run: 'click' },
+    { trigger: 'button[name="action_open_picking_client_action"]:last', run: 'click' },
 
     { trigger: '.o_edit', run: "click" },
 
@@ -5066,7 +5066,7 @@ registry.category("web_tour.tours").add('test_barcode_signature_flow', {test: tr
         run: "click",
     },
     {
-        trigger: "button.o_kanban_record_title > span:contains(Delivery Order 1)",
+        trigger: "button > span:contains(Delivery Order 1)",
         run: "click",
     },
     // Press validate before signing the picking
@@ -5087,7 +5087,7 @@ registry.category("web_tour.tours").add('test_barcode_signature_flow', {test: tr
     // The picking now should be validated automatically. Wait until the picking is validated
     { trigger: ".o_kanban_tip_filter" },
     {
-        trigger: "button.o_kanban_record_title > span:contains(Delivery Order 2)",
+        trigger: "button > span:contains(Delivery Order 2)",
         run: "click",
     },
     // Open picking settings menu
@@ -5143,7 +5143,7 @@ registry.category("web_tour.tours").add('test_open_picking_dont_override_assigne
         run: 'click',
     },
     {
-        trigger: '.btn.o_kanban_record_title > span:contains("test_responsible_receipt")',
+        trigger: '.btn > span:contains("test_responsible_receipt")',
         run: 'click',
     },
     {
