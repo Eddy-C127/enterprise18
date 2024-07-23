@@ -89,3 +89,17 @@ class TestWorkorderDurationHr(common.TransactionCase):
         self.assertEqual(wo.state, 'done')
         with self.assertRaises(UserError):
             wo.button_start()
+
+    def test_allowed_employees_restriction(self):
+        """
+        Ensure that the employee linked to the current user cannot start a work order
+        in a work center where this employee is not authorized to work.
+        """
+        self.workcenter.employee_ids = self.employee_1
+        self.assertEqual(self.mo.workorder_ids.workcenter_id, self.workcenter)
+        self.env.user.employee_id = self.employee_2
+        with self.assertRaises(UserError):
+            self.mo.workorder_ids.button_start()
+        self.env.user.employee_id = self.employee_1
+        self.mo.workorder_ids.button_start()
+        self.assertEqual(self.mo.workorder_ids.state, 'progress')
