@@ -5,6 +5,9 @@ patch(OrderlineNoteButton.prototype, {
     // Override
     async onClick() {
         const { confirmed, inputNote, oldNote } = await super.onClick();
+        if (!this._isInternalNote()) {
+            return { confirmed, inputNote, oldNote };
+        }
         const selectedOrderline = this.pos.get_order().get_selected_orderline();
         const productId = selectedOrderline.product_id.id;
         const order = selectedOrderline.order_id;
