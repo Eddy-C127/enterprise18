@@ -33,6 +33,7 @@ class CzechTaxReportTest(AccountSalesReportCommon):
             'journal_id': self.company_data['default_journal_purchase'].id,
             'partner_id': self.partner_a.id,
             'invoice_date': invoice_date,
+            'taxable_supply_date': invoice_date,
             'invoice_line_ids': [
                 Command.create({
                     'product_id': self.product_a.id,
