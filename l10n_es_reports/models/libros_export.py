@@ -1,7 +1,7 @@
 import io
 import xlsxwriter
 
-from odoo import models, _
+from odoo import models, _, api
 from odoo.exceptions import UserError
 from odoo.tools import get_quarter_number, format_date
 from collections import defaultdict
@@ -203,6 +203,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         })
         return line_vals
 
+    @api.model
     def _merge_base_line(self, line_vals, base_line):
         is_income = base_line.move_id.is_sale_document(include_receipts=True)
         sign = -1 if is_income else 1
@@ -224,7 +225,12 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
     def _merge_surcharge_line(self, line_vals, surcharge_line):
         return
 
+    # TODO: remove this method in master
     def _merge_tax(self, line_vals, move, tax, tax_amount):
+        return
+
+    @api.model
+    def _merge_line_tax(self, line_vals, line, tax, tax_amount):
         if tax.l10n_es_type == 'recargo':
             line_vals.update({
                 'total_amount': line_vals['total_amount'] + tax_amount,
@@ -247,7 +253,8 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                 'tax_rate': tax.amount,
                 'taxed_amount': line_vals['taxed_amount'] + tax_amount,
             })
-            if not move.is_sale_document(include_receipts=True):
+            # add amount to tax_deductible only if the line have mod303 in the tax grid (supports pro rata tax type)
+            if not line.move_id.is_sale_document(include_receipts=True) and any('mod303' in tag for tag in line.tax_tag_ids.mapped('name')):
                 line_vals['tax_deductible'] += tax_amount
 
     def _format_sheet_line_vals(self, sheet_line_vals):
@@ -328,7 +335,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                     tax_amount = move.company_id.currency_id.round(line.balance * ratio)
                     remaining_tax_balance -= tax_amount
                 # update the report line with the tax amount
-                self._merge_tax(sheet_line_vals[move.id][tax_key], move, tax, tax_amount * sign)
+                self._merge_line_tax(sheet_line_vals[move.id][tax_key], line, tax, tax_amount * sign)
 
         self._format_sheet_line_vals(inc_line_vals)
         self._format_sheet_line_vals(exp_line_vals)
