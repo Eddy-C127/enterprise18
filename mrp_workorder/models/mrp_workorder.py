@@ -271,8 +271,8 @@ class MrpProductionWorkcenterLine(models.Model):
                 main_employee = self.env['hr.employee'].get_session_owner()
                 if not main_employee:
                     raise UserError(_("There is no session chief. Please log in."))
-                if any(main_employee not in [emp.id for emp in wo.allowed_employees] and not wo.all_employees_allowed for wo in self):
-                    raise UserError(_("You are not allowed to work on the workorder"))
+            if any(main_employee not in [emp.id for emp in wo.allowed_employees] and not wo.all_employees_allowed for wo in self):
+                raise UserError(_("You are not allowed to work on the workorder"))
 
         res = super().button_start()
 
