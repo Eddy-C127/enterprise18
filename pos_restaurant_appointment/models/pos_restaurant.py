@@ -19,7 +19,7 @@ class RestaurantTable(models.Model):
         for table in tables:
             if not table.appointment_resource_id:
                 table.appointment_resource_id = table.env['appointment.resource'].sudo().create({
-                    'name': f'{table.floor_id.name} - {table.name}',
+                    'name': f'{table.floor_id.name} - {table.table_number}',
                     'capacity': table.seats,
                     'pos_table_ids': table,
                 })
@@ -34,7 +34,7 @@ class RestaurantTable(models.Model):
         else:
             if self.appointment_resource_id:
                 self.appointment_resource_id.sudo().write({
-                    'name': f'{self.floor_id.name} - {self.name}',
+                    'name': f'{self.floor_id.name} - {self.table_number}',
                     'capacity': self.seats,
                 })
 

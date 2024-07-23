@@ -14,7 +14,7 @@ class PosPreparationDisplayOrder(models.Model):
             order_for_ui['table'] = {
                 'id': self.pos_order_id.table_id.id,
                 'seats': self.pos_order_id.table_id.seats,
-                'name': self.pos_order_id.table_id.name,
+                'table_number': self.pos_order_id.table_id.table_number,
                 'color': self.pos_order_id.table_id.color,
             }
 
