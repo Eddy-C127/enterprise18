@@ -696,7 +696,7 @@ export class ReportEditorWysiwyg extends Component {
 
     async resetReport() {
         if (this.wysiwyg?.odooEditor) {
-            this.wysiwyg.odooEditor.document.getSelection().removeAllRanges();
+            this.wysiwyg.odooEditor.document.getSelection()?.removeAllRanges();
         }
         const state = reactive({ includeHeaderFooter: true });
         this.addDialog(ResetConfirmatiopnPopup, {
@@ -708,8 +708,11 @@ export class ReportEditorWysiwyg extends Component {
             cancel: () => {},
             confirm: async () => {
                 await this.reportEditorModel.saveReport();
-                this.reportEditorModel.renderKey++;
-                return this.reportEditorModel.resetReport(state.includeHeaderFooter);
+                try {
+                    await this.reportEditorModel.resetReport(state.includeHeaderFooter);
+                } finally {
+                    this.reportEditorModel.renderKey++;
+                }
             },
         });
     }
