@@ -21,7 +21,7 @@ def interval_from_events(event_ids):
     :param <calendar.event> event_ids: Any recordset of events
     :return Intervals|Iterable[tuple[datetime, datetime, <calendar.event>]]:
     """
-    return Intervals([(event.start, event.stop, event) for event in event_ids])
+    return Intervals([(event.start, event.stop, event) for event in event_ids if event.start and event.stop])
 
 def invert_intervals(intervals, first_start, last_stop):
     """Return the intervals between the intervals that were passed in.
