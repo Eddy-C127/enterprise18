@@ -6,7 +6,7 @@ import { redirect } from "@web/core/utils/urls";
 
 registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     wait_for: Promise.resolve(odoo.__TipTemplateDef),
     steps: () => [
         /*

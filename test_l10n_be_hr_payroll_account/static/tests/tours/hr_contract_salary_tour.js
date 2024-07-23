@@ -3,6 +3,7 @@
 import { registry } from "@web/core/registry";
 import { createFile, inputFiles } from "@web/../tests/utils";
 import { queryOne } from "@odoo/hoot-dom";
+import { redirect } from "@web/core/utils/urls";
 
 registry.category("web_tour.tours").add("hr_contract_salary_tour", {
     test: true,
@@ -13,7 +14,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
             content: "Go on configurator",
             trigger: ".navbar",
             run: function () {
-                window.location.href = window.location.origin + "/web";
+                redirect("/odoo");
             },
         },
         {
@@ -828,7 +829,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
 });
 registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     wait_for: Promise.resolve(odoo.__TipTemplateDef),
     steps: () => [
         {
@@ -914,7 +915,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_hr_sign", {
 });
 registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     wait_for: Promise.resolve(odoo.__TipTemplateDef),
     steps: () => [
         {
@@ -1023,7 +1024,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             run: "edit mitchel3_work@example.com",
         },
         {
-            trigger: '.o-mail-Message-body a[href*="/web#action=hr.plan_wizard_action"]',
+            trigger: '.o-mail-Message-body a[href*="/action-hr.plan_wizard_action"]',
         },
         {
             content: "Save Employee",
@@ -1470,7 +1471,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
             content: "Go on configurator",
             trigger: "h1.hr_cs_brand_optional",
             run: function () {
-                window.location.href = window.location.origin + "/web";
+                redirect("/odoo");
             },
         },
         {
@@ -1482,7 +1483,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
 
 registry.category("web_tour.tours").add("hr_contract_salary_tour_counter_sign", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     wait_for: Promise.resolve(odoo.__TipTemplateDef),
     steps: () => [
         {
