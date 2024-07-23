@@ -3830,3 +3830,28 @@ class TestSubscriptionInvoiceSignature(TestInvoiceSignature, TestSubscription):
             self.assertFalse(renewal_so.subscription_state, "renewal is canceled")
             self.assertEqual(renewal_so.state, 'cancel', "renewal is canceled")
             self.assertEqual(subscription.subscription_state, '3_progress')
+
+    def test_sale_order_log_creation(self):
+        """ Test that duplicating a canceled quotation is possible
+        """
+        with freeze_time("2024-07-30"):
+            self.subscription.write({
+                        'start_date': False,
+                        'next_invoice_date': False,
+            })
+            self.subscription._onchange_sale_order_template_id()
+            self.subscription._action_cancel()
+            self.assertFalse(self.subscription.subscription_state)
+            sub = self.subscription.copy()
+            self.assertFalse(sub.subscription_state)
+            self.assertEqual(sub.state, 'draft')
+        with freeze_time("2024-07-31"):
+            self.flush_tracking()
+            sub.action_confirm()
+            self.flush_tracking()
+            self.assertEqual(sub.subscription_state, '3_progress')
+            self.assertFalse(self.subscription.subscription_state)
+            log = sub.order_log_ids
+            self.assertEqual(len(log), 1)
+            self.assertEqual(log.event_type, '0_creation')
+            self.assertEqual(log.subscription_state, '1_draft')

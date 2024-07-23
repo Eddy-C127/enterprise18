@@ -116,7 +116,7 @@ class SaleOrderLog(models.Model):
             'event_type': '0_creation',
             'amount_signed': max(order.recurring_monthly, 0),
             'recurring_monthly': max(order.recurring_monthly, 0),
-            'subscription_state': initial_values.get('subscription_state', '1_draft'),
+            'subscription_state': initial_values.get('subscription_state') or '1_draft',
         })
 
     @api.model
