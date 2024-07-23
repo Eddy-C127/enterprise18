@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-19 17:20+0000\n"
-"PO-Revision-Date: 2024-06-19 17:20+0000\n"
+"POT-Creation-Date: 2025-01-17 15:43+0000\n"
+"PO-Revision-Date: 2025-01-17 15:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -291,8 +291,8 @@ msgid ""
 "5. Advances provided for long-term intangible assets and unfinished fixed "
 "intangible assets"
 msgstr ""
-"5. Poskytnuté zálohy na dlouhodobý nehmotný majetek a nedokončené dlouhodobé"
-"nehmotný majetek"
+"5. Poskytnuté zálohy na dlouhodobý nehmotný majetek a nedokončené "
+"dlouhodobénehmotný majetek"
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_bs_aktiva_b_III_5
@@ -403,8 +403,7 @@ msgstr "A.II.2.1. Ostatní kapitálové fondy"
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_bs_pasiva_a_II_2_2
 msgid ""
 "A.II.2.2. Gains and losses from revaluation of assets and liabilities (+/-)"
-msgstr ""
-"A.II.2.2. Zisky a ztráty z přecenění majetku a závazků (+/-)"
+msgstr "A.II.2.2. Zisky a ztráty z přecenění majetku a závazků (+/-)"
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_bs_pasiva_a_II_2_3
@@ -412,17 +411,15 @@ msgid ""
 "A.II.2.3. Gains and losses from revaluation in the course of transformations"
 " of business corporations (+/-)"
 msgstr ""
-"A.II.2.3. Zisky a ztráty z přecenění v průběhu přeměn"
-" obchodních korporací (+/-)"
+"A.II.2.3. Zisky a ztráty z přecenění v průběhu přeměn obchodních korporací "
+"(+/-)"
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_bs_pasiva_a_II_2_4
 msgid ""
 "A.II.2.4. Differences resulting from transformations of bussiness "
 "corporations (+/-)"
-msgstr ""
-"A.II.2.4. Rozdíly vyplývající z přeměn podniků"
-"korporace (+/-)"
+msgstr "A.II.2.4. Rozdíly vyplývající z přeměn podnikůkorporace (+/-)"
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_bs_pasiva_a_II_2_5
@@ -430,8 +427,7 @@ msgid ""
 "A.II.2.5. Differences from the valuation in the course of transformations of"
 " business corporations (+/-)"
 msgstr ""
-"A.II.2.5. Rozdíly oproti ocenění v průběhu přeměn"
-" obchodní korporace (+/-)"
+"A.II.2.5. Rozdíly oproti ocenění v průběhu přeměn obchodní korporace (+/-)"
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_bs_passiv_a_III
@@ -809,8 +805,7 @@ msgstr "H. Úrokové náklady a podobné náklady"
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_pl_line_22
 msgid ""
 "H.1. Interest expenses and similar costs controlled or controlling entity"
-msgstr ""
-"H.1. Úrokové náklady a podobné náklady ovládaná nebo ovládající osoba"
+msgstr "H.1. Úrokové náklady a podobné náklady ovládaná nebo ovládající osoba"
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_pl_line_23
@@ -867,6 +862,13 @@ msgid "IV.2. Other revenues from other long-term financial assets"
 msgstr "IV.2. Ostatní výnosy z ostatního dlouhodobého finančního majetku"
 
 #. module: l10n_cz_reports
+#. odoo-python
+#: code:addons/l10n_cz_reports/models/tax_report_handler.py:0
+#, python-format
+msgid "Install \"Czech Republic - Accounting Reports 2025\""
+msgstr "Instalace \"Czech Republic - Accounting Reports 2025\""
+
+#. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_pl_line_28
 msgid "J. Income tax"
 msgstr "J. Daň z příjmu"
@@ -900,6 +902,17 @@ msgstr "Čistý obrat běžného účetního období (+/-)"
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_pl_line_8
 msgid "Operating profit / loss (+/-) "
 msgstr "Provozní zisk/ztráta (+/-)"
+
+#. module: l10n_cz_reports
+#. odoo-python
+#: code:addons/l10n_cz_reports/models/tax_report_handler.py:0
+#, python-format
+msgid ""
+"Please install the module \"Czech Republic - Accounting Reports 2025\" to "
+"have this functionality."
+msgstr ""
+"Nainstalujte prosím modul \"Czech Republic - Accounting Reports 2025\""
+"mít tuto funkci."
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_pl_line_26
@@ -947,8 +960,7 @@ msgid ""
 "V.1. Interest revenues and similar revenues - controlled or controlling "
 "entity"
 msgstr ""
-"V.1. Výnosy z úroků a podobné výnosy - kontrolované nebo kontrolující "
-"entita"
+"V.1. Výnosy z úroků a podobné výnosy - kontrolované nebo kontrolující entita"
 
 #. module: l10n_cz_reports
 #: model:account.report.line,name:l10n_cz_reports.l10n_cz_reports_pl_line_19
