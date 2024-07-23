@@ -593,7 +593,7 @@ class SaleOrder(models.Model):
                     "origin_order_id": order.origin_order_id.id,
                     'subscription_state': '7_upsell'
                 })
-            elif order.subscription_state and 'subscription_state' not in default:
+            elif (not order.subscription_state and order.plan_id) or (order.subscription_state and 'subscription_state' not in default):
                 vals.update({
                     'subscription_state': '1_draft'
                 })

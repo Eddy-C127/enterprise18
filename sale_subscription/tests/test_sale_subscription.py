@@ -3843,7 +3843,7 @@ class TestSubscriptionInvoiceSignature(TestInvoiceSignature, TestSubscription):
             self.subscription._action_cancel()
             self.assertFalse(self.subscription.subscription_state)
             sub = self.subscription.copy()
-            self.assertFalse(sub.subscription_state)
+            self.assertEqual(sub.subscription_state, '1_draft')
             self.assertEqual(sub.state, 'draft')
         with freeze_time("2024-07-31"):
             self.flush_tracking()
