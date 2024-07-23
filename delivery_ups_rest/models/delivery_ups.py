@@ -261,7 +261,7 @@ class ProviderUPS(models.Model):
 
     def ups_rest_cancel_shipment(self, picking):
         ups = UPSRequest(self)
-        ups._cancel_shipping(picking.carrier_tracking_ref)
+        ups._cancel_shipping(picking.carrier_tracking_ref.partition('+')[0])
         picking.message_post(body=_(u'Shipment #%s has been cancelled', picking.carrier_tracking_ref))
         picking.write({'carrier_tracking_ref': '',
                         'carrier_price': 0.0})
