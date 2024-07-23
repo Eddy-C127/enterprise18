@@ -112,9 +112,13 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             run: "click",
         },
         {
-            trigger: ".modal-footer .btn-primary",
+            trigger: ".modal .modal-footer .btn-primary:contains(move to trash)",
+            in_modal: false,
             content: "Confirm deletion",
             run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
         },
         {
             trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",

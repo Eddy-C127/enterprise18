@@ -151,20 +151,25 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
         {
             content: "Save the new partner",
             in_modal: false,
-            trigger: ".modal .o_form_button_save",
+            trigger: ".modal .o_form_button_save:contains(save & close)",
             run: "click",
         },
         {
-            trigger: ".o_field_tags span.o_badge_text",
+            trigger: "body:not(:has(.modal:contains(create recipients)))",
+            in_modal: false,
         },
         {
-            // Submit the invite wizard
-            trigger: '.modal button:contains("Invite")',
+            trigger: ".modal .o_field_tags span.o_badge_text",
+            in_modal: false,
+        },
+        {
+            content: "Submit the invite wizard",
+            trigger: ".modal button:contains(Invite)",
             in_modal: false,
             run: "click",
         },
         {
-            trigger: "body:not(:has(.modal))",
+            trigger: "body:not(:has(.modal:contains(invite people)))",
         },
         {
     // add to favorite

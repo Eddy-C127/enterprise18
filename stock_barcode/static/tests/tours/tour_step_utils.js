@@ -20,6 +20,9 @@ export const stepUtils = {
     validateBarcodeOperation(trigger = ".o_barcode_client_action") {
         return [
             {
+                trigger: "body:not(:has(.modal))",
+            },
+            {
                 trigger,
                 run: "scan OBTVALI",
             },

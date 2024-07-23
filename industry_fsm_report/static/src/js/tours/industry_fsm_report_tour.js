@@ -5,7 +5,7 @@
  */
 
 import { markup } from "@odoo/owl";
-
+import { queryFirst } from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
@@ -96,66 +96,54 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger: ".o_project_portal_sidebar",
             },
             {
-            trigger: 'a[data-bs-target="#modalaccept"]',
+                trigger: "a[data-bs-target='#modalaccept']:contains(sign report)",
             content: markup(_t('Invite your customer to <b>validate and sign your task report</b>.')),
             position: 'right',
             id: 'sign_report',
                 run: "click",
             },
             {
+                isActive: ["auto"],
                 in_modal: false,
-                isActive: ["auto"],
-                trigger: ".o_project_portal_sidebar",
-            },
-            {
-                isActive: ["auto"],
-            trigger: 'div[name="worksheet_map"] h5#task_worksheet',
+                trigger: "div[name=worksheet_map] h5#task_worksheet",
             content: ('"Worksheet" section is rendered'),
                 run: "click",
             },
             {
+                isActive: ["auto"],
                 in_modal: false,
-                isActive: ["auto"],
-                trigger: ".o_project_portal_sidebar",
-            },
-            {
-                isActive: ["auto"],
-            trigger: 'div[name="worksheet_map"] div[class*="row"] div:not(:empty)',
+                trigger: "div[name=worksheet_map] div[class*=row] div:not(:empty)",
             content: ('At least a field is rendered'),
                 run: "click",
             },
             {
-            trigger: '.o_web_sign_auto_button',
+                trigger: ".modal .o_web_sign_auto_button:contains(auto)",
+                in_modal: false,
             content: markup(_t('Save time by automatically generating a <b>signature</b>.')),
             position: 'right',
                 run: "click",
             },
             {
+                trigger:
+                    ".modal .o_portal_sign_submit:enabled:contains(sign report):has(i.fa-check)",
                 in_modal: false,
-                isActive: ["auto"],
-                trigger: ".o_project_portal_sidebar",
-            },
-            {
-            trigger: '.o_portal_sign_submit:enabled',
             content: markup(_t('Validate the <b>signature</b>.')),
             position: 'left',
                 run: "click",
             },
             {
-                in_modal: false,
-                isActive: ["auto"],
-                trigger: ".o_project_portal_sidebar",
+                trigger: "body:not(:has(a[data-bs-target='#modalaccept']:contains(sign report))",
             },
             {
-            trigger: 'a:contains(Back to edit mode)',
+                trigger: "body:not(:has(.modal:visible)",
             content: markup(_t('Go back to your Field Service <b>task</b>.')),
             position: 'right',
-                run: "click",
-            },
-            {
-                in_modal: false,
-                isActive: ["auto"],
-                trigger: ".o_form_project_tasks",
+                run(helpers) {
+                    const el = queryFirst(".alert-info a.alert-link:contains(Back to edit mode)");
+                    if (el) {
+                        helpers.click(el);
+                    }
+                },
             },
             {
             trigger: 'button[name="action_send_report"]',

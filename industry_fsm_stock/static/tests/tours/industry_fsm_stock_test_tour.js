@@ -32,16 +32,16 @@ const StepToFSMProductsKanbanWithFavoritesFilterSteps = [
 
 const AddTrackingLineAndValidateSteps = [
     {
-        in_modal: true,
+        in_modal: false,
         content: 'Add a line in the wizard',
-        trigger: 'div[name="tracking_line_ids"] a[role="button"]:contains(Add a line)',
+        trigger: ".modal div[name=tracking_line_ids] a[role=button]:contains(Add a line)",
         run: "click",
     },
     {
-        in_modal: true,
+        in_modal: false,
         content: 'Enter the lot number',
         trigger:
-            'div[name="tracking_line_ids"] tr.o_data_row.o_selected_row div[name="lot_id"] input[type="text"]',
+            ".modal div[name=tracking_line_ids] tr.o_data_row.o_selected_row div[name=lot_id] input[type=text]",
         run: 'edit Lot_1',
     },
     {
@@ -53,8 +53,12 @@ const AddTrackingLineAndValidateSteps = [
     },
     {
         content: 'Validate',
-        trigger: 'button[name="generate_lot"]',
+        trigger: ".modal button[name=generate_lot]",
+        in_modal: false,
         run: "click",
+    },
+    {
+        trigger: "body:not(:has(.modal))",
     },
 ];
 

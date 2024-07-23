@@ -110,7 +110,6 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: ".modal:not(.o_inactive_modal) .o_field_widget[name=email] input",
             run: "edit henri@knowledge.com",
             in_modal: false,
-            pause: true,
         },
         {
             // Save the new partner
@@ -127,6 +126,9 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: ".modal:not(.o_inactive_modal) button:contains(Invite)",
             run: "click",
             in_modal: false,
+        },
+        {
+            trigger: "body:not(:has(.modal:contains(invite))",
         },
         {
     // Check that the article has been added to a new "Shared" section
@@ -706,8 +708,12 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: '.o_field_tags span.o_badge_text',
         },
         {
-            trigger: 'button:contains("Invite")',
+            trigger: ".modal button:contains(Invite)",
+            in_modal: false,
             run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal))",
         },
         // Publish child of private article
         {
@@ -1012,9 +1018,11 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             trigger: '.o_field_tags span.o_badge_text',
         },
         {
-    trigger: 'button:contains("Invite")',
-    run: "click",
-}, {
+            trigger: ".modal button:contains(Invite)",
+            in_modal: false,
+            run: "click",
+        },
+        {
     trigger: 'section[data-section="shared"] .o_article:contains("Shared Article") + .o_article:contains("Shared 2")',
     run: () => {
         dragAndDropArticle(
@@ -1050,10 +1058,12 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             'section[data-section="shared"] .o_article_name:contains("Shared Child")',
         );
     },
-}, {
-    // Moving under a shared article should ask for confirmation
-    trigger: '.modal-footer .btn-primary',
-    run: "click",
+        },
+        {
+            content: "Moving under a shared article should ask for confirmation",
+            trigger: '.modal .modal-footer .btn-primary',
+            in_modal: false,
+            run: "click",
         },
         {
             trigger: 'section[data-section="private"]:not(:has(.o_article:contains("Moved to Share")))',
