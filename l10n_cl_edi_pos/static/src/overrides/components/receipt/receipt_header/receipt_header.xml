@@ -11,5 +11,17 @@
             <div t-if="props.data.company.cl_vat" class="text-center fw-bolder pb-2" t-esc="props.data.date" />
             <br/>
         </xpath>
+        <xpath expr="//div[hasclass('pos-receipt-contact')]" position="after">
+            <div t-if="props.data.company.cl_vat and props.data.partner" class="pos-receipt-partner text-center" style="font-size: 75%;">
+                <div>--------------------------------</div>
+                <!-- partner informations -->
+                <div>Cliente: <t t-esc="props.data.partner.name" /></div>
+                <div>RUT: <t t-esc="props.data.partner.vat" /></div>
+                <div>Dirección: <t t-esc="props.data.partner.street" /> <t t-if="props.data.partner.street2" t-esc="props.data.partner.street2" /></div>
+                <div>Comuna: <t t-esc="props.data.partner.city" /></div>
+                <div>Giro: <t t-esc="props.data.partner.l10n_cl_activity_description" /></div>
+                <div>Teléfono: <t t-esc="props.data.partner.phone" /></div>
+            </div>
+        </xpath>
     </t>
 </templates>

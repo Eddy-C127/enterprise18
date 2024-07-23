@@ -22,5 +22,5 @@ class ResPartner(models.Model):
     def _load_pos_data_fields(self, config_id):
         result = super()._load_pos_data_fields(config_id)
         if self.env.company.country_id.code == 'CL':
-            result += ['l10n_latam_identification_type_id', 'l10n_cl_sii_taxpayer_type', 'l10n_cl_activity_description', 'l10n_cl_dte_email']
+            result += ['l10n_latam_identification_type_id', 'l10n_cl_sii_taxpayer_type', 'l10n_cl_activity_description', 'l10n_cl_dte_email', 'street2']
         return result

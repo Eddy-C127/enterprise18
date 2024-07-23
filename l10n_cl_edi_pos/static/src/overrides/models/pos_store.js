@@ -1,5 +1,6 @@
 import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { patch } from "@web/core/utils/patch";
+import { pick } from "@web/core/utils/objects";
 
 patch(PosStore.prototype, {
     // @Override
@@ -52,6 +53,18 @@ patch(PosStore.prototype, {
         result.l10n_latam_document_type = order.account_move.l10n_latam_document_type_id.name;
         result.l10n_latam_document_number = order.account_move.l10n_latam_document_number;
         result.date = order.receiptDate;
+        result.partner = order.isFactura()
+            ? pick(
+                  order.partner,
+                  "name",
+                  "vat",
+                  "street",
+                  "street2",
+                  "city",
+                  "l10n_cl_activity_description",
+                  "phone"
+              )
+            : false;
 
         return result;
     },
