@@ -16,6 +16,7 @@ const serviceRegistry = registry.category("services");
 let target;
 const roles = { 1: { name: "test" }, 2: { name: "selection 1" } };
 const responsible = 1;
+let pageCount = 3;
 
 QUnit.module("initial all pages dialog", function (hooks) {
     const mountInitialAllPagesDialog = async (additionalProps = {}) => {
@@ -31,6 +32,7 @@ QUnit.module("initial all pages dialog", function (hooks) {
                 close: () => {},
                 roles,
                 responsible,
+                pageCount,
                 ...additionalProps,
             },
             env,

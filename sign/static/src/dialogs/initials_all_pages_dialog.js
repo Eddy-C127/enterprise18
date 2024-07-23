@@ -14,6 +14,7 @@ export class InitialsAllPagesDialog extends Component {
         close: Function,
         roles: Object,
         responsible: Number,
+        pageCount: Number,
     };
 
     setup() {

@@ -15,7 +15,7 @@
             </div>
             <t t-set-slot="footer">
                 <button class="btn btn-primary" t-on-click="onAddOnceClick">Add Once</button>
-                <button class="btn btn-secondary" t-on-click="onAddToAllPagesClick">Add to all pages</button>
+                <button class="btn btn-secondary" t-on-click="onAddToAllPagesClick" t-att-hidden="props.pageCount &lt;= 1">Add to all pages</button>
             </t>
         </Dialog>
     </t>

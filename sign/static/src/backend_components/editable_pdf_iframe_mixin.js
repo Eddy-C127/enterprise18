@@ -178,7 +178,9 @@ export const EditablePDFIframeMixin = (pdfClass) =>
                 Object.assign(data, { id, posX, posY, page: targetPage });
                 if (data.type === "initial") {
                     this.helperLines.hide();
-                    return this.openDialogAfterInitialDrop(data);
+                    if (this.pageCount > 1) {
+                        return this.openDialogAfterInitialDrop(data);
+                    }
                 }
                 this.signItems[targetPage][id] = {
                     data,
@@ -246,6 +248,7 @@ export const EditablePDFIframeMixin = (pdfClass) =>
                 },
                 responsible: this.currentRole,
                 roles: this.signRolesById,
+                pageCount: this.pageCount
             });
         }
 
