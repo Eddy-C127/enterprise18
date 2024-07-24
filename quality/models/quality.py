@@ -53,7 +53,7 @@ class QualityPoint(models.Model):
         help="Quality Point will apply to every Products in the selected Product Categories.")
 
     picking_type_ids = fields.Many2many(
-        'stock.picking.type', string='Operation Types', required=True, check_company=True)
+        'stock.picking.type', string='Operation Types', required=True, check_company=True, domain="[('code', '!=', 'repair_operation')]")
     company_id = fields.Many2one(
         'res.company', string='Company', required=True, index=True,
         default=lambda self: self.env.company)
