@@ -925,6 +925,10 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_reco
             }
         },
         {
+            content: "Wait for deletion",
+            trigger: ".o_data_row:contains('Open balance')",
+        },
+        {
             content: "Select reconciliation model creating a new move",
             trigger: ".recon_model_button:contains('test reconcile')",
             run: "click",

@@ -93,7 +93,6 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
             '/web',
             'account_accountant_bank_rec_widget_reconciliation_button',
             login=self.env.user.login,
-            step_delay=100,
         )
         # Mount the validated statement line to confirm that information matches.
         wizard._js_action_mount_st_line(st_line.id)
