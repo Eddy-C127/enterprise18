@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from odoo import Command
 from odoo.tests import tagged
 from odoo.tests.common import Form
 from odoo.addons.stock_barcode.tests.test_barcode_client_action import TestBarcodeClientAction
@@ -421,6 +422,40 @@ class TestBarcodeBatchClientAction(TestBarcodeClientAction):
             {'lot_id': lot1.id, 'quantity': 1, 'picked': True},
             {'lot_id': lot3.id, 'quantity': 1, 'picked': True},
         ])
+
+    def test_barcode_batch_scan_other_reserved_lost(self):
+        """ Checks that scanning a lot won't erase the reserved one if the
+        scanned one is reserved too."""
+        self.clean_access_rights()
+        grp_pack = self.env.ref('stock.group_tracking_lot')
+        self.env.user.write({'groups_id': [(4, grp_pack.id, 0)]})
+        # Create some lots and add quantity in stock for them.
+        common_vals = {'product_id': self.productlot1.id, 'company_id': self.env.company.id}
+        lots = self.env['stock.lot'].create([{**common_vals, 'name': f'lot{i}'} for i in range(1, 4)])
+        for lot in lots:
+            self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 3, lot_id=lot)
+        # Create a delivery and batch it alone (a batch with a single picking is enough for this test's purpose.)
+        delivery = self.env['stock.picking'].create({
+            'name': "delivery with lots",
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+            'move_ids': [Command.create({
+                'name': 'productlot1 delivery move',
+                'location_id': self.stock_location.id,
+                'location_dest_id': self.customer_location.id,
+                'product_id': self.productlot1.id,
+                'product_uom': self.uom_unit.id,
+                'product_uom_qty': 9,
+            })],
+        })
+        batch = self.env['stock.picking.batch'].create({
+            'name': "delivery batch",
+            'picking_ids': [Command.link(delivery.id)],
+        })
+        batch.action_confirm()
+        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        self.start_tour(f'/web#action={action.id}', 'test_barcode_batch_scan_other_reserved_lost', login='admin', timeout=180)
 
     def test_put_in_pack_from_multiple_pages(self):
         """ A batch picking of 2 internal pickings where prod1 and prod2 are reserved in shelf1 and shelf2,

@@ -719,6 +719,47 @@ registry.category("web_tour.tours").add('test_barcode_batch_scan_lots', {test: t
     { trigger: '.o_notification.border-success', isCheck: true },
 ]});
 
+registry.category("web_tour.tours").add("test_barcode_batch_scan_other_reserved_lost", {test: true, steps: () => [
+    { trigger: ".o_stock_barcode_main_menu", run: "scan delivery batch" },
+    { trigger: ".o_barcode_line button.o_toggle_sublines" },
+    {
+        trigger: ".o_barcode_line .o_sublines .o_barcode_line:first-child.o_selected",
+        run: () => {
+            const sublines = helper.getSublines();
+            const selectedSubline = helper.getSubline({ selected: true });
+            helper.assert(sublines[0], selectedSubline, "First lot should be selected");
+            helper.assertLinesTrackingNumbers(sublines, ["lot1", "lot2", "lot3"]);
+        }
+    },
+    // Scan lot2 one time: second line (lot2 line) should be selected.
+    { trigger: ".o_barcode_line", run: "scan lot2" },
+    // Scan lot2 three more time
+    { trigger: ".o_sublines .o_barcode_line:nth-child(2).o_selected", run: "scan lot2" },
+    { trigger: ".o_barcode_line", run: "scan lot2" },
+    { trigger: ".o_barcode_line", run: "scan lot2" },
+    {
+        trigger: ".o_sublines .o_barcode_line:nth-child(2).o_selected.o_faulty",
+        run: () => {
+            const sublines = helper.getSublines();
+            const selectedSubline = helper.getSubline({ selected: true });
+            helper.assert(sublines[1], selectedSubline, "First lot should be selected");
+            helper.assertLinesTrackingNumbers([sublines[1]], ["lot2"]);
+            helper.assertLineQty(sublines[1], "4 / 3");
+        }
+    },
+    // Scan lot3: should select the 3th line.
+    { trigger: ".o_barcode_line", run: "scan lot3" },
+    // Scan lot1: should select the 1st line.
+    { trigger: ".o_sublines .o_barcode_line:last-child.o_selected", run: "scan lot1" },
+    // Scan again lot3: should re-select the 3th line.
+    { trigger: ".o_sublines .o_barcode_line:first-child.o_selected", run: "scan lot3" },
+    // Scan lot3 and lot1 once again to complete the delivery.
+    { trigger: ".o_sublines .o_barcode_line:last-child.o_selected", run: "scan lot3" },
+    { trigger: ".o_sublines .o_barcode_line:last-child.o_selected.o_line_completed", run: "scan lot1" },
+    { trigger: ".o_validate_page.btn-success" },
+    { trigger: ".o_stock_barcode_main_menu", isCheck: true },
+]});
+
 registry.category("web_tour.tours").add('test_batch_create', {test: true, steps: () => [
     {
         trigger: '.o_stock_barcode_main_menu:contains("Barcode Scanning")',
