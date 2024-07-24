@@ -40,7 +40,8 @@ class AccountFiscalYear(models.Model):
             date_to = fy.date_to
             if date_to < date_from:
                 raise ValidationError(_('The ending date must not be prior to the starting date.'))
-
+            if fy.company_id.parent_id:
+                raise ValidationError(_('You cannot have a fiscal year on a child company.'))
 
             domain = [
                 ('id', '!=', fy.id),
