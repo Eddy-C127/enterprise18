@@ -5,7 +5,6 @@
  */
 
 import { markup } from "@odoo/owl";
-import { queryFirst } from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 import { patch } from "@web/core/utils/patch";
@@ -126,24 +125,22 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger: "body:not(:has(a[data-bs-target='#modalaccept']:contains(sign report))",
             },
             {
-                trigger: "body:not(:has(.modal:visible)",
+                trigger: "body:not(:has(.modal:contains(sign report)))",
             content: markup(_t('Go back to your Field Service <b>task</b>.')),
             position: 'right',
-                run(helpers) {
-                    const el = queryFirst(".alert-info a.alert-link:contains(Back to edit mode)");
-                    if (el) {
-                        helpers.click(el);
-                    }
-                },
             },
             {
-            trigger: 'button[name="action_send_report"]',
+                trigger: ".alert-info a.alert-link:contains(Back to edit mode)",
+                run: "click",
+            },
+            {
+                trigger: 'button[name="action_send_report"]:enabled',
             content: markup(_t('<b>Send your task report</b> to your customer.')),
             position: 'bottom',
                 run: "click",
             },
             {
-            trigger: 'button[name="document_layout_save"]',
+                trigger: 'button[name="document_layout_save"]:enabled',
             content: markup(_t('Customize your <b>layout</b>.')),
             position: 'right',
                 run: "click",
@@ -154,7 +151,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger: ".o_form_project_tasks",
             },
             {
-            trigger: 'button[name="action_send_mail"]',
+                trigger: 'button[name="action_send_mail"]:enabled',
             content: markup(_t('<b>Send your task report</b> to your customer.')),
             position: 'right',
                 run: "click",
