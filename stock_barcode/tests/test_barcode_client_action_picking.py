@@ -3,6 +3,7 @@
 from unittest.mock import patch
 
 import odoo
+from odoo import Command
 from odoo.tests import Form, tagged
 from odoo.addons.stock_barcode.tests.test_barcode_client_action import TestBarcodeClientAction
 
@@ -2140,6 +2141,36 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {'product_id': self.productlot1.id, 'location_dest_id': self.shelf1.id, 'qty_done': 1, 'lot_id': lot1.id},
             {'product_id': self.productlot1.id, 'location_dest_id': self.shelf1.id, 'qty_done': 1, 'lot_id': lot2.id},
         ])
+
+    def test_picking_type_mandatory_scan_product_packaging(self):
+        """ Check a product's packaging can also be scanned when the scan of a product is mandatory.
+        """
+        self.clean_access_rights()
+        group_packaging = self.env.ref('product.group_stock_packaging')
+        self.env.user.write({'groups_id': [Command.link(group_packaging.id)]})
+        self.picking_type_in.restrict_scan_product = True
+        self.env['product.packaging'].create({
+            'barcode': 'product1x10',
+            'name': "product1 x10",
+            'product_id': self.product1.id,
+            'qty': 10,
+        })
+        receipt = self.env['stock.picking'].create({
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.picking_type_in.id,
+            'move_ids': [Command.create({
+                'name': 'product1 x 10',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.product1.id,
+                'product_uom': self.product1.uom_id.id,
+                'product_uom_qty': 10,
+            })],
+        })
+        receipt.action_confirm()
+        url = self._get_client_action_url(receipt.id)
+        self.start_tour(url, 'test_picking_type_mandatory_scan_product_packaging', login='admin')
 
     def test_picking_type_mandatory_scan_complete_flux(self):
         """ From the receipt to the delivery, make a complete flux with each
