@@ -71,7 +71,6 @@ registry.category("web_tour.tours").add('rental_tour', {
 }, {
     isActive: ["auto"],
     trigger: '.o_field_widget[name=partner_id] .ui-menu-item > a:contains(Agrolait)',
-    in_modal: false,
     run: "click",
 },
 {

@@ -23,7 +23,6 @@ registry.category("web_tour.tours").add('planning_test_tour', {
 }, {
     isActive: ["auto"],
     trigger: ".o-autocomplete--dropdown-item > a:contains('Aaron')",
-    in_modal: false,
     run: "click",
 }, {
     trigger: ".o_field_widget[name='role_id'] input",
@@ -32,7 +31,6 @@ registry.category("web_tour.tours").add('planning_test_tour', {
 }, {
     isActive: ["auto"],
     trigger: ".o-autocomplete--dropdown-item > a:contains('Developer')",
-    in_modal: false,
     run: "click",
 }, {
     trigger: ".o_field_widget[name='start_datetime'] input",
@@ -241,11 +239,9 @@ registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backe
 }, {
     isActive: ["auto"],
     trigger: ".o-autocomplete--dropdown-item > a:contains('bety')",
-    in_modal: false,
     run: "click",
 }, {
     trigger: ".modal button[special='save']:enabled",
-    in_modal: false,
     content: "Save this shift once it is ready.",
     run: "click",
 },

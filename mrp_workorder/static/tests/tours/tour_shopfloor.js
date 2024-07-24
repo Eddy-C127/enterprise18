@@ -54,30 +54,25 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     {
         content: "Register production check",
         trigger: ".modal:not(.o_inactive_modal) .btn.fa-plus",
-        in_modal: false,
         run: "click",
     },
     {
         content: "Validate production check",
         trigger: '.modal:not(.o_inactive_modal) button:contains("Validate"):enabled',
-        in_modal: false,
         run: "click",
     },
     {
         trigger:
             '.modal:not(.o_inactive_modal):contains(Instructions) button[barcode_trigger="NEXT"]',
-        in_modal: false,
         run: "scan OBTNEXT",
     },
     {
         trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Register legs")',
-        in_modal: false,
     },
     {
         content: "Component not tracked registration and continue production",
         trigger:
             '.modal:not(.o_inactive_modal):contains(Register legs) button[barcode_trigger="CONT"]',
-        in_modal: false,
         run: "click",
     },
     {
@@ -121,11 +116,9 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Release")',
-        in_modal: false,
     },
     {
         trigger: ".modal:not(.o_inactive_modal) .modal-header .btn-close",
-        in_modal: false,
         run: "click",
     },
     {
@@ -135,17 +128,14 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         trigger: '.modal:not(.o_inactive_modal) .modal-title:contains("Release")',
-        in_modal: false,
     },
     {
         trigger: '.modal:not(.o_inactive_modal) button[barcode_trigger="NEXT"]',
-        in_modal: false,
         run: "click",
     },
     {
         content: "Close first operation",
         trigger: '.card-footer button[barcode_trigger="CLWO"]:contains(Mark as Done)',
-        in_modal: false,
         run: "click",
     },
     {
@@ -161,32 +151,26 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     {
         content: "Add an operation button",
         trigger: '.modal:not(.o_inactive_modal) button[name="addComponent"]',
-        in_modal: false,
         run: "click",
     },
     {
         content: "Add Color",
         trigger: ".modal:not(.o_inactive_modal) .o_field_widget[name=product_id] input",
-        in_modal: false,
         run: "edit color",
     },
     {
         trigger: '.ui-menu-item > a:contains("Color")',
         run: "click",
-        in_modal: false,
     },
     {
         trigger: ".modal:not(.o_inactive_modal) button[name=add_product]",
-        in_modal: false,
         run: "click",
     },
     {
         trigger: "body:not(:has(.modal))",
-        in_modal: false,
     },
     {
         trigger: "button[barcode_trigger=CLWO]:contains(Mark as Done)",
-        in_modal: false,
         run: "click",
     },
     {

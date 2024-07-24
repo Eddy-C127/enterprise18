@@ -32,13 +32,11 @@ const StepToFSMProductsKanbanWithFavoritesFilterSteps = [
 
 const AddTrackingLineAndValidateSteps = [
     {
-        in_modal: false,
         content: 'Add a line in the wizard',
         trigger: ".modal div[name=tracking_line_ids] a[role=button]:contains(Add a line)",
         run: "click",
     },
     {
-        in_modal: false,
         content: 'Enter the lot number',
         trigger:
             ".modal div[name=tracking_line_ids] tr.o_data_row.o_selected_row div[name=lot_id] input[type=text]",
@@ -48,13 +46,11 @@ const AddTrackingLineAndValidateSteps = [
         isActive: ["auto"],
         content: 'Select Lot_1',
         trigger: ".o-autocomplete--dropdown-menu li:contains(Lot_1)",
-        in_modal: false,
         run: "click",
     },
     {
         content: 'Validate',
         trigger: ".modal button[name=generate_lot]",
-        in_modal: false,
         run: "click",
     },
     {
@@ -241,7 +237,6 @@ registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
         isActive: ["auto"],
         content: 'Select WH B',
         trigger: ".ui-menu-item > a:contains(WH B)",
-        in_modal: false,
         run: "click",
     },
     {

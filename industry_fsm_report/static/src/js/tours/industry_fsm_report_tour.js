@@ -50,7 +50,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             position: 'bottom',
             },
             {
-                in_modal: false,
                 isActive: ["auto"],
                 trigger: ".o_form_button_save",
                 run: "click",
@@ -70,7 +69,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             fsmTimerStopStepIndex + 1,
             0,
             {
-                in_modal: false,
                 isActive: ["auto"],
                 trigger: ".o_form_project_tasks",
             },
@@ -81,7 +79,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 run: "click",
             },
             {
-                in_modal: false,
                 isActive: ["auto"],
                 trigger: ".o_project_portal_sidebar",
             },
@@ -94,21 +91,18 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             },
             {
                 isActive: ["auto"],
-                in_modal: false,
                 trigger: "div[name=worksheet_map] h5#task_worksheet",
             content: ('"Worksheet" section is rendered'),
                 run: "click",
             },
             {
                 isActive: ["auto"],
-                in_modal: false,
                 trigger: "div[name=worksheet_map] div[class*=row] div:not(:empty)",
             content: ('At least a field is rendered'),
                 run: "click",
             },
             {
                 trigger: ".modal .o_web_sign_auto_button:contains(auto)",
-                in_modal: false,
             content: markup(_t('Save time by automatically generating a <b>signature</b>.')),
             position: 'right',
                 run: "click",
@@ -116,7 +110,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger:
                     ".modal .o_portal_sign_submit:enabled:contains(sign report):has(i.fa-check)",
-                in_modal: false,
             content: markup(_t('Validate the <b>signature</b>.')),
             position: 'left',
                 run: "click",
@@ -146,7 +139,6 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 run: "click",
             },
             {
-                in_modal: false,
                 isActive: ["auto"],
                 trigger: ".o_form_project_tasks",
             },

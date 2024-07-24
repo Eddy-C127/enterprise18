@@ -118,30 +118,25 @@ registry.category("web_tour.tours").add("test_receipt_flexible_subcontracted_pro
     steps: () => [
         {
             trigger: "button.btn-secondary.o_mrp_subcontracting",
-            in_modal: false,
             run: "click",
         },
 
         {
             trigger: ".modal .o_field_widget[name=qty_producing] input",
-            in_modal: false,
             position: "right",
             run: "edit 1 && click .modal-body",
         },
         {
             trigger: ".modal div[name=move_line_raw_ids] td[name=quantity]",
-            in_modal: false,
             run: "click",
         },
 
         {
             trigger: ".modal div[name=move_line_raw_ids] [name=quantity] input",
-            in_modal: false,
             run: "edit 2",
         },
         {
             trigger: ".modal .modal-footer .btn-primary[name=subcontracting_record_component]",
-            in_modal: false,
             content: _t("Record production"),
             position: "bottom",
             run: "click",

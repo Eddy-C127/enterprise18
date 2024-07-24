@@ -39,7 +39,6 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
         },
         {
             trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
-            in_modal: false,
             run: "click",
         },
         {
@@ -99,12 +98,10 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         {
             content: "Uncheck the toggle and only create the listing",
             trigger: ".modal:not(.o_inactive_modal) div[name='auto_single_page'] input",
-            in_modal: false,
             run: "click",
         },
         {
             trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
-            in_modal: false,
             run: "click",
         },
         {

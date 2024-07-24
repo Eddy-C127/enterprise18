@@ -49,7 +49,6 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
             run: "click",
         },
         {
-            in_modal: false,
             isActive: ["auto"],
             trigger: ".o_form_project_tasks",
         },
@@ -74,7 +73,6 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
             run: "click",
         },
         {
-            in_modal: false,
             isActive: ["auto"],
             trigger: ".o_form_project_tasks",
         },

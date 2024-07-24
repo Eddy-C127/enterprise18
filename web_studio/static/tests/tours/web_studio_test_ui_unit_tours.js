@@ -421,7 +421,6 @@ registry.category("web_tour.tours").add("web_studio_set_tree_node_conditional_in
         },
         {
             trigger: ".o_model_field_selector_popover_item_name:contains('Display Name')",
-            in_modal: false,
             run: "click",
         },
         {
@@ -585,7 +584,6 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         {
             trigger:
                 ".modal:not(.o_inactive_modal) .o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
-            in_modal: false,
             run: "edit another value cancel",
         },
         {
@@ -615,7 +613,6 @@ registry.category("web_tour.tours").add("web_studio_custom_selection_field_edit_
         {
             trigger:
                 ".modal:not(.o_inactive_modal) .o_web_studio_add_selection .o-web-studio-interactive-list-item-input",
-            in_modal: false,
             run: "edit another value",
         },
         {
@@ -796,17 +793,14 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
         },
         {
             trigger: ".modal:not(.o_inactive_modal) .confirm_button",
-            in_modal: false,
             run: "click",
         },
         {
             trigger: ".modal:not(.o_inactive_modal) .modal-body #use_stages",
-            in_modal: false,
             run: "check",
         },
         {
             trigger: ".modal:not(.o_inactive_modal) .o_web_studio_model_configurator_next",
-            in_modal: false,
             run: "click",
         },
         {
@@ -1206,30 +1200,24 @@ registry.category("web_tour.tours").add("web_studio_test_related_file", {
             run: "click",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
             run: "edit Related Partner",
         },
         {
-            in_modal: false,
             trigger: "[data-name=partner_id] > button.o_model_field_selector_popover_item_relation",
             run: "click",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover_title:contains(Related Partner)",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
             run: "edit New File",
         },
         {
-            in_modal: false,
             trigger:
                 ".o_model_field_selector_popover_item_name:contains(New File):not(:contains(filename))",
             run: "click",
@@ -1605,16 +1593,13 @@ registry.category("web_tour.tours").add("web_studio_test_add_all_types_fields_re
             run: "click",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
             run: "edit Display Name",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover_item_name:contains(Display Name)",
             run: "click",
         },

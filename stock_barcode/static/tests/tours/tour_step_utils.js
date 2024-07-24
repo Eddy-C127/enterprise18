@@ -5,11 +5,9 @@ export const stepUtils = {
         return [
             {
                 trigger: ".modal:not(.o_inactive_modal) .modal-title:contains(Add extra product?)",
-                in_modal: false,
             },
             {
                 trigger: ".modal:not(.o_inactive_modal) .btn-primary",
-                in_modal: false,
                 run: "click",
             },
             {

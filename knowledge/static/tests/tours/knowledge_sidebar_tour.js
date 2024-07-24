@@ -109,23 +109,19 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             // Give an email address to the partner
             trigger: ".modal:not(.o_inactive_modal) .o_field_widget[name=email] input",
             run: "edit henri@knowledge.com",
-            in_modal: false,
         },
         {
             // Save the new partner
             trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
             run: "click",
-            in_modal: false,
         },
         {
             trigger: ".o_field_tags span.o_badge_text",
-            in_modal: false,
         },
         {
             // Submit the invite wizard
             trigger: ".modal:not(.o_inactive_modal) button:contains(Invite)",
             run: "click",
-            in_modal: false,
         },
         {
             trigger: "body:not(:has(.modal:contains(invite))",
@@ -287,12 +283,10 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
         {
             content: "Check that caret changed and that child is hidden again",
             trigger: 'section[data-section="favorites"] .o_article:not(:has(.o_article))',
-            in_modal: false,
         },
         {
             content: "Check that article in main tree is still unfolded",
             trigger: 'section[data-section="private"] .o_article:contains("Private Child 1")',
-            in_modal: false,
         },
         {
             trigger: 'section[data-section="favorites"] .o_article_caret .fa-caret-right',
@@ -301,7 +295,6 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             // Create a child from the favorite tree
             content: "Force the create button to be visible (it's only visible on hover)",
             trigger: 'section[data-section="favorites"] .o_article:contains("Private Article")',
-            in_modal: false,
             run() {
                 makeVisible(
                     'section[data-section="favorites"] .o_article:contains("Private Article") a.o_article_create'
@@ -610,7 +603,6 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
         {
             content: "Confirm restriction",
             trigger: ".modal:not(.o_inactive_modal) .modal-footer .btn-primary",
-            in_modal: false,
             run: "click",
         },
         {
@@ -709,7 +701,6 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
         },
         {
             trigger: ".modal button:contains(Invite)",
-            in_modal: false,
             run: "click",
         },
         {
@@ -1019,7 +1010,6 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
         },
         {
             trigger: ".modal button:contains(Invite)",
-            in_modal: false,
             run: "click",
         },
         {
@@ -1062,7 +1052,6 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
         {
             content: "Moving under a shared article should ask for confirmation",
             trigger: '.modal .modal-footer .btn-primary',
-            in_modal: false,
             run: "click",
         },
         {

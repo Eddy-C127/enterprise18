@@ -127,45 +127,37 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
         {
             content: "click on 'Invite'",
             trigger: '.o_knowledge_share_panel .btn:contains("Invite")',
-            in_modal: false,
             run: "click",
         },
         {
             content: "Type the invited person's name",
             trigger: ".o_field_many2many_tags_email[name=partner_ids] input",
-            in_modal: false,
             run: "edit micheline@knowledge.com",
         },
         {
             content: "Open the simplified create form view",
             trigger: ".o-autocomplete--dropdown-menu .o_m2o_dropdown_option_create_edit a",
-            in_modal: false,
             run: "click",
         },
         {
             content: "Give an email address to the partner",
             trigger: ".modal .o_field_widget[name=email] input",
-            in_modal: false,
             run: "edit micheline@knowledge.com",
         },
         {
             content: "Save the new partner",
-            in_modal: false,
             trigger: ".modal .o_form_button_save:contains(save & close)",
             run: "click",
         },
         {
             trigger: "body:not(:has(.modal:contains(create recipients)))",
-            in_modal: false,
         },
         {
             trigger: ".modal .o_field_tags span.o_badge_text",
-            in_modal: false,
         },
         {
             content: "Submit the invite wizard",
             trigger: ".modal button:contains(Invite)",
-            in_modal: false,
             run: "click",
         },
         {
@@ -185,7 +177,6 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
 }, {
     // open the share dropdown
     trigger: '.o_member_email:contains("micheline@knowledge.com")',
-    in_modal: false,
 }, {
     // go back to private article
     trigger: 'section[data-section="private"] .o_article .o_article_name:contains("My Private Article")',
@@ -245,7 +236,6 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour', {
     run: "click",
 }, {
     trigger: '.o_select_menu_item:contains("Article 3")',
-    in_modal: false,
     run: "click",
 }, {
     trigger: '.o_select_menu_toggler_slot:contains("Article 3")',

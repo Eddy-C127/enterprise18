@@ -17,7 +17,6 @@ registry.category("web_tour.tours").add("pos_settle_account_due", {
                 isActive: ["auto"],
                 trigger: "div.o_popover :contains('Settle Due Accounts')",
                 content: "Check the popover opened",
-                in_modal: false,
                 run: "click",
             },
             Utils.selectButton("Bank"),

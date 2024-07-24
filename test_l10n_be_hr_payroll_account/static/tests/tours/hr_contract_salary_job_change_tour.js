@@ -61,7 +61,6 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Save Offer",
             trigger: ".modal:not(.o_inactive_modal) button[name='action_save']:contains(save)",
-            in_modal: false,
             run: "click",
         },
         {
@@ -205,14 +204,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_job_change", {
         {
             content: "Click Auto",
             trigger: ".modal:not(.o_inactive_modal) a.o_web_sign_auto_button:contains(Auto)",
-            in_modal: false,
             run: "click",
         },
         {
             content: "Adopt & Sign",
             trigger:
                 ".modal:not(.o_inactive_modal) .modal-footer button.btn-primary:enabled:contains(sign all)",
-            in_modal: false,
             run: "click",
         },
         {

@@ -72,7 +72,6 @@ registry.category("web_tour.tours").add('knowledge_main_flow_tour_portal', {
     run: "click",
 }, {
     trigger: '.o_select_menu_item:contains("Workspace Article")',
-    in_modal: false,
     run: "click",
 }, {
     trigger: 'button:contains("Open")',

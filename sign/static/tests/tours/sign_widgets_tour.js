@@ -52,7 +52,6 @@ registry.category("web_tour.tours").add("sign_widgets_tour", {
         },
         {
             content: "Select a style",
-            in_modal: false,
             trigger: ".dropdown-menu .dropdown-item:nth-child(3)",
             run: "click",
         },
@@ -63,7 +62,6 @@ registry.category("web_tour.tours").add("sign_widgets_tour", {
         },
         {
             content: "Select a style",
-            in_modal: false,
             trigger: ".dropdown-menu .dropdown-item:nth-child(2)",
             run: "click",
         },

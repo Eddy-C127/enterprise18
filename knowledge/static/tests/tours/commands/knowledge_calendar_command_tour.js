@@ -120,22 +120,18 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Create a new start property
     trigger: '.o_select_menu_menu input',
-    in_modal: false,
     run: "edit Start Property",
 }, {
     trigger: '.o_select_menu_menu .o_select_menu_item.o_create_datetime',
-    in_modal: false,
     run: 'click',
 }, { // Open the stop dropwdown
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler',
     run: 'click',
 }, { // Create a new stop property
     trigger: '.o_select_menu_menu input',
-    in_modal: false,
     run: "edit Stop Property",
 }, {
     trigger: '.o_select_menu_menu .o_select_menu_item.o_create_choice',
-    in_modal: false,
     run: 'click',
 }, { // Insert the calendar
     trigger: '.modal-footer .btn-primary',
@@ -248,7 +244,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, {
     trigger: '.o_select_menu_menu .o_select_menu_item:contains("Date Property")',
-    in_modal: false,
     run: 'click',
 }, { // Check that stop date has been removed as the start type changed,
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler_slot span.text-muted',
@@ -265,14 +260,12 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Select the previously created property
     trigger: '.o_select_menu_menu .o_select_menu_item:contains("Boolean Property")',
-    in_modal: false,
     run: 'click',
 }, { // Open the scale dropdown
     trigger: '.o_scale .o_select_menu_toggler',
     run: 'click',
 }, { // Select the month scale
     trigger: '.o_select_menu_menu .o_select_menu_item:contains("Month")',
-    in_modal: false,
     run: 'click',
 }, { // Save changes
     trigger: '.modal-footer .btn-primary',
@@ -295,7 +288,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, {
     trigger: '.o_select_menu_menu .o_select_menu_item:contains("Start Property")',
-    in_modal: false,
     run: 'click',
 }, { // Check that stop date has been removed as the start type changed,
     trigger: '.o_knowledge_item_calendar_dialog_date_stop .o_select_menu_toggler_slot span.text-muted',
@@ -304,7 +296,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, { // Select the stop date
     trigger: '.o_select_menu_menu .o_select_menu_item:contains("Stop Property")',
-    in_modal: false,
     run: 'click',
 }, { // Save changes
     trigger: '.modal-footer .btn-primary',
@@ -342,7 +333,6 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
     run: 'click',
 }, {
     trigger: '.o-dropdown--menu .o_scale_button_week',
-    in_modal: false,
     run: 'click',
 }, { // Move the item in the calendar
     trigger: '.fc-timegrid-event .o_event_title:contains("Item Article")',

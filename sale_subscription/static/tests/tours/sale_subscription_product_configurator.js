@@ -52,7 +52,6 @@ registry
             {
                 content: "Confirm the configurator",
                 trigger: ".modal button:contains(Confirm)",
-                in_modal: false,
                 run: 'click',
             },
             {

@@ -37,13 +37,11 @@ function deleteWorkspaceSteps() {
         },
         {
             trigger: ".modal .modal-footer .btn-outline-danger",
-            in_modal: false,
             content: "Delete workspace",
             run: "click",
         },
         {
             trigger: ".modal button:contains(Move to trash)",
-            in_modal: false,
             content: "Confirm",
             run: "click",
         },
@@ -117,7 +115,6 @@ registry.category("web_tour.tours").add("document_delete_tour", {
         },
         {
             trigger: ".modal .modal-footer .btn-primary:contains(move to trash)",
-            in_modal: false,
             content: "Confirm deletion",
             run: "click",
         },

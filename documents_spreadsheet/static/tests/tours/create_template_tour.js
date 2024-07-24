@@ -43,7 +43,6 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
         },
         {
             trigger: `.modal button[name="save_template"]`,
-            in_modal: false,
             content: "Save as template",
             run: "click",
         },

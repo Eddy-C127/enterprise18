@@ -158,7 +158,6 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
         },
         {
             trigger: ".o-dropdown--menu .o_web_studio_selector_value",
-            in_modal: false,
             run: "click",
         },
         {
@@ -348,18 +347,15 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             // we are sure "Activity" exists since studio depends on mail.
             //Also, it is determinisic and field names should not conflict too much.
             run: "fill mail.activity",
-            in_modal: false,
         },
         {
             // select Activity as model
             trigger:
                 '.modal:not(.o_inactive_modal) [name="relation_id"] .o-autocomplete--dropdown-menu li a:not(:has(.fa-spin)):contains(Activity)',
             run: "click",
-            in_modal: false,
         },
         {
             trigger: ".modal:not(.o_inactive_modal) button:contains(Confirm):not(.disabled)",
-            in_modal: false,
             run: "click",
         },
         {
@@ -1622,14 +1618,12 @@ registry.category("web_tour.tours").add("web_studio_alter_field_existing_in_mult
         },
         {
             trigger: '.modal:not(.o_inactive_modal) [name="relation_id"] input',
-            in_modal: false,
             run: `edit ${createdAppString}`,
         },
         {
             // select the first model
             trigger:
                 ".modal:not(.o_inactive_modal) .o-autocomplete--dropdown-menu > li > a:not(:has(.fa-spin))",
-            in_modal: false,
             run: "click",
         },
         {
@@ -2032,23 +2026,19 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
             run: "click",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
             run: "edit X Test",
         },
         {
-            in_modal: false,
             run: "click",
             trigger:
                 ".o_model_field_selector_popover_item[data-name='x_test'] .o_model_field_selector_popover_item_relation",
         },
         {
-            in_modal: false,
             trigger: ".o_model_field_selector_popover_search input",
             run: "edit X Studio Monetary Test",
         },
         {
-            in_modal: false,
             run: "click",
             trigger:
                 ".o_model_field_selector_popover_item[data-name='x_studio_monetary_test'] button",

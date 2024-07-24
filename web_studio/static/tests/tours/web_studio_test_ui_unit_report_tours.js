@@ -727,7 +727,6 @@ registry.category("web_tour.tours").add("web_studio.test_toolbar_appearance", {
         },
         {
             trigger: "body:not(:has(.o-we-toolbar))",
-            in_modal: false,
         },
     ],
 });

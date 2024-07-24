@@ -16,12 +16,10 @@ patch(registry.category("web_tour.tours").get("planning_test_tour"), {
                 trigger: ".o_field_many2one[name='project_id'] input",
                 content: "Create project named-'New Project' for this shift",
                 run: "edit New Project",
-                in_modal: false,
             },
             {
                 isActive: ["auto"],
                 trigger: "ul.ui-autocomplete a:contains(New Project)",
-                in_modal: false,
                 run: "click",
             }
         );
@@ -35,18 +33,15 @@ patch(registry.category("web_tour.tours").get("planning_test_tour"), {
                 trigger: ".o_gantt_button_add",
                 content: "Click Add record to verify the naming format of planning template",
                 run: "click",
-                in_modal: false,
             },
             {
                 trigger: "span.o_selection_badge:contains('[New Project]')",
                 content: "Check the naming format of planning template",
-                in_modal: false,
             },
             {
                 isActive: ["auto"],
                 content: "exit the shift modal",
                 trigger: ".modal:not(.o_inactive_modal) button[special=cancel]",
-                in_modal: false,
                 run: "click",
             }
         );
