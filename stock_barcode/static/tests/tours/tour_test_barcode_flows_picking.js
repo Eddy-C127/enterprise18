@@ -2424,6 +2424,19 @@ registry.category("web_tour.tours").add('test_receipt_scan_package_and_location_
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
+registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_product_packaging', {test: true, steps: () => [
+    {
+        trigger: '.o_barcode_line',
+        run: () => {
+            helper.assertScanMessage("scan_product");
+            helper.assert(Boolean(document.querySelector('button.o_edit[disabled]')), true,
+                "Edit button should be visible but disabled");
+        }
+    },
+    { trigger: '.o_barcode_line', run: "scan product1x10" },
+    { trigger: '.o_barcode_line.o_selected.o_line_completed', isCheck: true },
+]});
+
 registry.category("web_tour.tours").add('test_picking_type_mandatory_scan_complete_flux_receipt', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',

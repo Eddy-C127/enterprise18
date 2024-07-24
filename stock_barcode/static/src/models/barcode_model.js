@@ -984,14 +984,15 @@ export default class BarcodeModel extends EventBus {
         if (barcodeData.action) { // As action is always a single data, call it and do nothing else.
             return await barcodeData.action();
         }
+
+        if (barcodeData.packaging) {
+            Object.assign(barcodeData, this._retrievePackagingData(barcodeData));
+        }
+
         // Depending of the configuration, the user can be forced to scan a specific barcode type.
         const check = this._checkBarcode(barcodeData);
         if (check.error) {
             return this.notification(check.message, { title: check.title, type: "danger" });
-        }
-
-        if (barcodeData.packaging) {
-            Object.assign(barcodeData, this._retrievePackagingData(barcodeData));
         }
 
         if (barcodeData.product) { // Remembers the product if a (packaging) product was scanned.
