@@ -16,14 +16,12 @@
         'web.assets_backend_lazy_dark': [
             'web_grid/static/src/**/*.dark.scss',
         ],
-        'web.qunit_suite_tests': [
-            'web_grid/static/tests/helpers.js',
-            'web_grid/static/tests/grid_cells/*',
-            'web_grid/static/tests/grid_view_tests.js',
-            'web_grid/static/tests/mock_server.js',
+        'web.assets_unit_tests': [
+            'web_grid/static/tests/**/*.test.js',
+            'web_grid/static/tests/grid_mock_server.js',
         ],
-        'web.qunit_mobile_suite_tests': [
-            'web_grid/static/tests/grid_view_mobile_tests.js',
+        'web.qunit_suite_tests': [
+            'web_grid/static/tests/legacy/helpers.js',
         ],
     },
     'auto_install': True,
