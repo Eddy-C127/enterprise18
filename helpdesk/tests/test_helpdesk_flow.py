@@ -815,3 +815,40 @@ should be in the ticket's description
         # verify that the partner_name is now added to the display_name
         self.assertEqual(record_partner.display_name,
                          f"test ticket with partner (#{record_partner.ticket_ref}) - {self.partner.name}")
+
+    def test_helpdesk_team_with_deleted_user(self):
+        user = self.env['res.users'].create({
+            'name': 'demo user',
+            'login': 'login',
+        })
+
+        helpdesk_team1 = self.env['helpdesk.team'].create({
+            'name': 'helpdesk team1',
+            'company_id': self.env.company.id,
+            'auto_assignment': True,
+            'assign_method': 'randomly',
+            'member_ids': [(6, 0, [user.id])],
+        })
+
+        helpdesk_team2 = self.env['helpdesk.team'].create({
+            'name': 'helpdesk team2',
+            'company_id': self.env.company.id,
+            'auto_assignment': True,
+            'assign_method': 'balanced',
+            'member_ids': [(6, 0, [user.id])],
+        })
+
+        user.unlink()
+
+        ticket1 = self.env['helpdesk.ticket'].create({
+            'name': 'test ticket1',
+            'team_id': helpdesk_team1.id,
+        })
+
+        ticket2 = self.env['helpdesk.ticket'].create({
+            'name': 'test ticket2',
+            'team_id': helpdesk_team2.id,
+        })
+
+        self.assertFalse(ticket1.user_id)
+        self.assertFalse(ticket2.user_id)

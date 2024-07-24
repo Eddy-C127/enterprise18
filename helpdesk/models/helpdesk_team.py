@@ -927,6 +927,8 @@ class HelpdeskTeam(models.Model):
         users_per_working_days = team_without_manually._get_working_users_per_first_working_day()
         result = dict.fromkeys(self.ids, self.env['res.users'])
         for team in team_without_manually:
+            if not team.member_ids:
+                continue
             member_ids = team.member_ids.ids  # By default, all members of the team
             for user_ids in users_per_working_days:
                 if any(user_id in team.member_ids.ids for user_id in user_ids):
