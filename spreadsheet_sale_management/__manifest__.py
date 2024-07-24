@@ -25,4 +25,8 @@
             'spreadsheet_sale_management/static/tests/**/*',
         ],
     },
+    'demo': [
+        'demo/sale_order_spreadsheet_demo.xml',
+        'demo/sale_order_template_demo.xml',
+    ]
 }
