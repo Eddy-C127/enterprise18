@@ -131,12 +131,12 @@ class View(models.Model):
                     # e.g. `in_group_12`
                     node.set('studio_no_fetch', '1')
 
-            def is_in_tree(node):
+            def is_in_list(node):
                 parent = node.getparent()
-                return parent is not None and parent.tag == "tree"
+                return parent is not None and parent.tag == "list"
 
             for node in set_invisible_nodes:
-                if is_in_tree(node):
+                if is_in_list(node):
                     column_invisible = 'True'
                     node.set('column_invisible', column_invisible)
                 else:
@@ -245,12 +245,12 @@ class View(models.Model):
         if 'x_color' in model._fields:
             fields.append(E.field(name='x_color', widget='color_picker'))
         tree_params = {} if not self._context.get('list_editable') else {'editable': self._context.get('list_editable')}
-        tree = E.tree(**tree_params)
+        tree = E.list(**tree_params)
         tree.extend(fields)
         arch = etree.tostring(tree, encoding='unicode', pretty_print=True)
 
         return self.create({
-            'type': 'tree',
+            'type': 'list',
             'model': res_model,
             'arch': arch,
             'name': "Default %s view for %s" % ('list', res_model),

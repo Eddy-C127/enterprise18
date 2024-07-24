@@ -65,7 +65,6 @@ class WebStudioController(http.Controller):
 
     @http.route('/web_studio/get_studio_action', type='json', auth='user')
     def get_studio_action(self, action_name, model, view_id=None, view_type=None):
-        view_type = 'tree' if view_type == 'list' else view_type  # list is stored as tree in db
         model = request.env['ir.model']._get(model)
 
         action = None
@@ -397,7 +396,6 @@ class WebStudioController(http.Controller):
     def add_view_type(self, action_type, action_id, res_model, view_type, args, context=None):
         if context:
             request.update_context(**context)
-        view_type = 'tree' if view_type == 'list' else view_type  # list is stored as tree in db
 
         if view_type == 'activity':
             model = request.env['ir.model']._get(res_model)
@@ -418,8 +416,6 @@ class WebStudioController(http.Controller):
         action_id = request.env[action_type].browse(action_id)
         if action_id:
             if 'view_mode' in args:
-                args['view_mode'] = args['view_mode'].replace('list', 'list')  # list is stored as tree in db
-
                 # As view_id and view_ids have precedence on view_mode, we need to correctly set them
                 if action_id.view_id or action_id.view_ids:
                     view_modes = args['view_mode'].split(',')
@@ -469,7 +465,6 @@ class WebStudioController(http.Controller):
     def get_studio_view_arch(self, model, view_type, view_id=False, context=None):
         if context:
             request.update_context(**context)
-        view_type = 'tree' if view_type == 'list' else view_type  # list is stored as tree in db
 
         if not view_id:
             # TOFIX: it's possibly not the used view ; see fields_get_view
@@ -492,7 +487,7 @@ class WebStudioController(http.Controller):
 
         ViewModel = request.env[view.model]
         fields_view = ViewModel.with_context(dict(context, studio=True)).get_view(view.id, view.type)
-        view_type = 'list' if view.type == 'tree' else view.type
+        view_type = view.type
         models = fields_view['models']
 
         return {
@@ -860,7 +855,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
                 expr = xpath
             # Hack to check if the last subview xpath element is not the same than expr
             # E.g when we add a field in an empty subview list the expr computed
-            # by studio will be only '/tree' but this is useless since the
+            # by studio will be only '/list' but this is useless since the
             # subview xpath already specify this element. So in this case,
             # we don't add the expr computed by studio.
             elif not xpath.endswith(expr):
@@ -1582,7 +1577,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
     def _operation_statusbar(self, arch, operation, model=None):
         """ Create and insert a header as the first child of the form. """
         xpath_node = etree.SubElement(arch, 'xpath', {
-            'expr': '//form[1]/*[1] | //tree[1]/*[1]',
+            'expr': '//form[1]/*[1] | //list[1]/*[1]',
             'position': 'before'
         })
         xpath_node.append(etree.Element('header'))

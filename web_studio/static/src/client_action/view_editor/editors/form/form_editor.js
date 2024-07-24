@@ -51,7 +51,7 @@ export const formEditor = {
     Controller: FormEditorController,
     props(genericProps, editor, config) {
         const arch = genericProps.arch;
-        Array.from(arch.querySelectorAll("field > tree, field > form, field > kanban")).forEach(
+        Array.from(arch.querySelectorAll("field > list, field > form, field > kanban")).forEach(
             (el) => {
                 // Inline subviews sometimes have a "groups" attribute, allowing to have different
                 // x2many views depending on access rights. Outside Studio, this has no impact

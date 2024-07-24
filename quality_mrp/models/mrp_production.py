@@ -77,7 +77,7 @@ class MrpProduction(models.Model):
             'default_production_id': self.id,
             }
         action['domain'] = [('id', 'in', self.quality_alert_ids.ids)]
-        action['views'] = [(False, 'list'),(False,'form')]
+        action['views'] = [(False, 'list'), (False, 'form')]
         if self.quality_alert_count == 1:
             action['views'] = [(False, 'form')]
             action['res_id'] = self.quality_alert_ids.id

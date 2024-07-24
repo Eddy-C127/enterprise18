@@ -99,7 +99,7 @@ defineActions([
         type: "ir.actions.act_window",
         views: [
             [false, "kanban"],
-            [false, "tree"],
+            [false, "list"],
             [false, "form"],
         ],
     },

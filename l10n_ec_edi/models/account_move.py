@@ -404,7 +404,7 @@ class AccountMove(models.Model):
     # ===== OVERRIDES PORTAL WITHHOLD AND PURCHASE LIQUIDATION =====
 
     def _compute_amount(self):
-        # EXTENDS account to properly compute withhold subtotals to be shown in tree view, email template, etc.
+        # EXTENDS account to properly compute withhold subtotals to be shown in list view, email template, etc.
         withholds = self.filtered(lambda x: x._l10n_ec_is_withholding())
         withholds._l10n_ec_wth_calculate_amount()
         other_moves = self - withholds

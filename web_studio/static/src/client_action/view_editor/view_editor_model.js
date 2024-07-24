@@ -187,7 +187,7 @@ export class ViewEditorModel extends Reactive {
             };
 
             if (
-                ["list", "tree", "form"].includes(this.viewType) &&
+                ["list", "list", "form"].includes(this.viewType) &&
                 this.mode === "interactive" &&
                 this._subviewInfo
             ) {
@@ -220,7 +220,7 @@ export class ViewEditorModel extends Reactive {
                 resModel: this.resModel,
                 SearchModel: searchModel,
                 setOverlay:
-                    !["form", "list", "tree", "kanban", "search"].includes(this.viewType) ||
+                    !["form", "list", "list", "kanban", "search"].includes(this.viewType) ||
                     this.mode !== "interactive",
                 display: { controlPanel: false, searchPanel: false },
                 globalState,
@@ -417,7 +417,7 @@ export class ViewEditorModel extends Reactive {
         const staticList = record.data[fieldName];
         const resIds = staticList.records.map((r) => r.resId);
         const resModel = staticList.resModel;
-        const archTag = viewType === "list" ? "tree" : viewType;
+        const archTag = viewType;
 
         // currentFullXpath is the absolute xpath to the current edited subview as a function of the whole full arch
         // while xpath is the absolute xpath to the field we want to edit a subarch for, as a function of its subArch
@@ -464,7 +464,7 @@ export class ViewEditorModel extends Reactive {
             resIds,
             viewType,
             parentRecord: record,
-            xpath: `${xpath}/${archTag}[${position}]`, // /form[x]/field[y]/tree[z]
+            xpath: `${xpath}/${archTag}[${position}]`, // /form[x]/field[y]/list[z]
             fieldName,
             getArch: memoizeOnce((mainArch) => {
                 return getSubArch(mainArch, xpathToField, archTag, position);
@@ -511,7 +511,7 @@ export class ViewEditorModel extends Reactive {
         if (!this.isEditingSubview) {
             return null;
         }
-        const temp = [`/${this.mainViewType === "list" ? "tree" : this.mainViewType}[1]`];
+        const temp = [`/${this.mainViewType}[1]`];
         this.breadcrumbs.slice(1).forEach(({ data }) => {
             const withoutView = data.xpath.split("/").slice(2);
             temp.push(...withoutView);
@@ -539,10 +539,7 @@ export class ViewEditorModel extends Reactive {
         if (isXpathFullAbsolute) {
             xpath_info = xpathToLegacyXpathInfo(xpath);
         } else {
-            const fullAbsolute = computeXpath(
-                element,
-                this.viewType === "list" ? "tree" : this.viewType
-            );
+            const fullAbsolute = computeXpath(element, this.viewType);
             xpath_info = xpathToLegacyXpathInfo(fullAbsolute);
         }
 
@@ -666,7 +663,6 @@ export class ViewEditorModel extends Reactive {
     //-----------------------------------------------------------------
 
     async _createInlineView({ subViewType, fullXpath, subViewRef, resModel, fieldName }) {
-        subViewType = subViewType === "list" ? "tree" : subViewType;
         // We build the correct xpath if we are editing a 'sub' subview
         // Use specific view if available in context
         // We write views in the base language to make sure we do it on the source term field
@@ -832,7 +828,7 @@ export function useEditNodeAttributes({ isRoot = false } = {}) {
         let target;
         let node;
         if (isRoot) {
-            target = vem.getFullTarget(`/${vem.viewType === "list" ? "tree" : vem.viewType}`);
+            target = vem.getFullTarget(`/${vem.viewType}`);
             target.isSubviewAttr = true;
         } else {
             target = vem.getFullTarget(vem.activeNodeXpath);

@@ -138,7 +138,6 @@ class ActionEditor extends Component {
     }
 
     setDefaultView(viewType) {
-        viewType = viewType === "tree" ? "list" : viewType;
         let viewModes = this.studio.editedAction.view_mode.split(",");
         viewModes = viewModes.filter((m) => m !== viewType);
         viewModes.unshift(viewType);

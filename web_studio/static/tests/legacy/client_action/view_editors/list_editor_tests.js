@@ -438,7 +438,7 @@ QUnit.module(
                             },
                             xpath_info: [
                                 {
-                                    tag: "tree",
+                                    tag: "list",
                                     indice: 1,
                                 },
                                 {
@@ -485,7 +485,7 @@ QUnit.module(
                             },
                             xpath_info: [
                                 {
-                                    tag: "tree",
+                                    tag: "list",
                                     indice: 1,
                                 },
                                 {
@@ -601,7 +601,7 @@ QUnit.module(
                         },
                         xpath_info: [
                             {
-                                tag: "tree",
+                                tag: "list",
                                 indice: 1,
                             },
                             {
@@ -939,9 +939,9 @@ QUnit.module(
             await click(target.querySelector(".nav-tabs > li:nth-child(2) a"));
 
             // Check that the one2many, many2many and binary fields are present in the view
-            assert.containsOnce(target, 'th[data-studio-xpath="/tree[1]/field[4]"]', "One2many field is present in the view");
-            assert.containsOnce(target, 'th[data-studio-xpath="/tree[1]/field[5]"]', "Many2many field is present in the view");
-            assert.containsOnce(target, 'th[data-studio-xpath="/tree[1]/field[6]"]', "Binary field is present in the view");
+            assert.containsOnce(target, 'th[data-studio-xpath="/list[1]/field[4]"]', "One2many field is present in the view");
+            assert.containsOnce(target, 'th[data-studio-xpath="/list[1]/field[5]"]', "Many2many field is present in the view");
+            assert.containsOnce(target, 'th[data-studio-xpath="/list[1]/field[6]"]', "Binary field is present in the view");
 
             // Check that the one2many, many2many and binary fields cannot be selected in the Sort By dropdown
             await click(target.querySelector(".o_web_studio_sidebar .o_web_studio_property_sort_by .o_select_menu_toggler"));
@@ -1744,7 +1744,7 @@ QUnit.module(
             await click(selectorContains(target, ".o_web_studio_sidebar .nav-link", "View"));
             await click(target.querySelector(".o_web_studio_sidebar input#show_invisible"));
             // select the second column
-            await click(target.querySelector('thead th[data-studio-xpath="/tree[1]/field[2]"]'));
+            await click(target.querySelector('thead th[data-studio-xpath="/list[1]/field[2]"]'));
             assert.verifySteps([]);
             // disable invisible
             await click(target.querySelector(".o_web_studio_sidebar input#invisible"));
@@ -1788,7 +1788,7 @@ QUnit.module(
             await click(target.querySelector(".o_web_studio_sidebar input#show_invisible"));
 
             // select the second column
-            await click(target.querySelector('thead th[data-studio-xpath="/tree[1]/field[2]"]'));
+            await click(target.querySelector('thead th[data-studio-xpath="/list[1]/field[2]"]'));
             // disable invisible
             await click(target.querySelector(".o_web_studio_sidebar input#invisible"));
             assert.verifySteps(["edit_view"]);
@@ -1864,7 +1864,7 @@ QUnit.module(
                                     xpath_info: [
                                         {
                                             indice: 1,
-                                            tag: "tree",
+                                            tag: "list",
                                         },
                                         {
                                             indice: 1,
@@ -2013,7 +2013,7 @@ QUnit.module(
                                     xpath_info: [
                                         {
                                             indice: 1,
-                                            tag: "tree",
+                                            tag: "list",
                                         },
                                         {
                                             indice: 3,
@@ -2028,7 +2028,7 @@ QUnit.module(
                                     xpath_info: [
                                         {
                                             indice: 1,
-                                            tag: "tree",
+                                            tag: "list",
                                         },
                                         {
                                             indice: 1,
@@ -2061,7 +2061,7 @@ QUnit.module(
             // move the m2o at index 0
             await dragAndDrop(
                 target.querySelector(
-                    '.o_web_studio_list_view_editor th[data-studio-xpath="/tree[1]/field[3]"]'
+                    '.o_web_studio_list_view_editor th[data-studio-xpath="/list[1]/field[3]"]'
                 ),
                 target.querySelector("th.o_web_studio_hook")
             );
@@ -2143,21 +2143,21 @@ QUnit.module(
                 "should not have aggregate selection for character type column"
             );
 
-            await click(target.querySelector('thead th[data-studio-xpath="/tree[1]/field[2]"]')); // select the second column
+            await click(target.querySelector('thead th[data-studio-xpath="/list[1]/field[2]"]')); // select the second column
             assert.containsOnce(
                 target,
                 ".o_web_studio_sidebar .o_web_studio_property_aggregate",
                 "should have aggregate selection for float type column"
             );
 
-            await click(target.querySelector('thead th[data-studio-xpath="/tree[1]/field[3]"]')); // select the third column
+            await click(target.querySelector('thead th[data-studio-xpath="/list[1]/field[3]"]')); // select the third column
             assert.containsOnce(
                 target,
                 ".o_web_studio_sidebar .o_web_studio_property_aggregate",
                 "should have aggregate selection for monetary type column"
             );
 
-            await click(target.querySelector('thead th[data-studio-xpath="/tree[1]/field[4]"]')); // select the fourth column
+            await click(target.querySelector('thead th[data-studio-xpath="/list[1]/field[4]"]')); // select the fourth column
             assert.containsOnce(
                 target,
                 ".o_web_studio_sidebar .o_web_studio_property_aggregate",
@@ -2220,7 +2220,7 @@ QUnit.module(
             );
         });
 
-        QUnit.test("error during tree rendering: undo", async function (assert) {
+        QUnit.test("error during list rendering: undo", async function (assert) {
             serverData.models.coucou.records = [];
             const notificationService = {
                 start() {

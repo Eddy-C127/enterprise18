@@ -77,7 +77,7 @@ export class ListEditorRenderer extends listView.Renderer {
     getColumnHookData(col, position) {
         let xpath;
         if (!col) {
-            return { xpath: "/tree", position: "inside" };
+            return { xpath: "/list", position: "inside" };
         }
         if (col.type === "button_group") {
             if (position === "before") {

@@ -3280,7 +3280,7 @@ QUnit.module("View Editors", (hooks) => {
                 const { model, field_name, subview_type, subview_xpath, view_id } = args;
                 assert.strictEqual(model, "product");
                 assert.strictEqual(field_name, "product_ids");
-                assert.strictEqual(subview_type, "tree");
+                assert.strictEqual(subview_type, "list");
                 assert.strictEqual(subview_xpath, "/form[1]/sheet[1]/field[2]");
                 assert.strictEqual(view_id, 1);
 
@@ -3382,7 +3382,7 @@ QUnit.module("View Editors", (hooks) => {
                 const target = operation.target;
                 assert.deepEqual(target.attrs, { name: "display_name" });
                 assert.strictEqual(target.tag, "field");
-                assert.strictEqual(target.subview_xpath, "/form[1]/sheet[1]/field[2]/tree[1]");
+                assert.strictEqual(target.subview_xpath, "/form[1]/sheet[1]/field[2]/list[1]");
 
                 const newArch = /*xml */ `
                     <form>
@@ -3619,7 +3619,7 @@ QUnit.module("View Editors", (hooks) => {
                 const { model, field_name, subview_type, subview_xpath, view_id } = args;
                 assert.strictEqual(model, "product");
                 assert.strictEqual(field_name, "product_ids");
-                assert.strictEqual(subview_type, "tree");
+                assert.strictEqual(subview_type, "list");
                 assert.strictEqual(subview_xpath, "/form[1]/sheet[1]/field[2]");
                 assert.strictEqual(view_id, 1);
 
@@ -3944,11 +3944,11 @@ QUnit.module("View Editors", (hooks) => {
                         node: {
                             tag: "field",
                             attrs: { name: "coucou_id" },
-                            subview_xpath: "/form[1]/sheet[1]/field[2]/tree[1]",
+                            subview_xpath: "/form[1]/sheet[1]/field[2]/list[1]",
                             xpath_info: [
                                 {
                                     indice: 1,
-                                    tag: "tree",
+                                    tag: "list",
                                 },
                                 {
                                     indice: 2,
@@ -3960,11 +3960,11 @@ QUnit.module("View Editors", (hooks) => {
                         target: {
                             tag: "field",
                             attrs: { name: "m2o" },
-                            subview_xpath: "/form[1]/sheet[1]/field[2]/tree[1]",
+                            subview_xpath: "/form[1]/sheet[1]/field[2]/list[1]",
                             xpath_info: [
                                 {
                                     indice: 1,
-                                    tag: "tree",
+                                    tag: "list",
                                 },
                                 {
                                     indice: 1,

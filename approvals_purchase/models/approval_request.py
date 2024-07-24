@@ -119,7 +119,7 @@ class ApprovalRequest(models.Model):
         domain = [('id', 'in', purchase_ids)]
         action = {
             'name': _('Purchase Orders'),
-            'view_type': 'tree',
+            'view_type': 'list',
             'view_mode': 'list,form',
             'res_model': 'purchase.order',
             'type': 'ir.actions.act_window',

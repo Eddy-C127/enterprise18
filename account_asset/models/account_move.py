@@ -322,7 +322,7 @@ class AccountMove(models.Model):
         return self.asset_id.open_asset(['form'])
 
     def action_open_asset_ids(self):
-        return self.asset_ids.open_asset(['tree', 'form'])
+        return self.asset_ids.open_asset(['list', 'form'])
 
 
 class AccountMoveLine(models.Model):

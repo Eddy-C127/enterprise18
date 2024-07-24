@@ -472,7 +472,7 @@ if records:
 
     <menuitem id="menu_finance_config_assets" name="Assets and Revenues" parent="account.menu_finance_configuration" sequence="25"/>
 
-    <!-- Override of move line list view. Avoid the assets taking a random tree view, and make sure to only display relevant fields by default. -->
+    <!-- Override of move line list view. Avoid the assets taking a random list view, and make sure to only display relevant fields by default. -->
 
     <record id="view_move_line_tree_asset" model="ir.ui.view">
         <field name="name">account.move.line.list.asset</field>

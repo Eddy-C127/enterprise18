@@ -131,7 +131,7 @@
         </record>
 
         <record id="view_move_tree" model="ir.ui.view">
-            <field name="name">Add withhold date to move general tree</field>
+            <field name="name">Add withhold date to move general.list</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_move_tree"/>
             <field name="arch" type="xml">
@@ -142,7 +142,7 @@
         </record>
 
         <record id="view_invoice_tree" model="ir.ui.view">
-            <field name="name">Add withhold date to invoice tree</field>
+            <field name="name">Add withhold date to invoice.list</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_invoice_tree"/>
             <field name="arch" type="xml">

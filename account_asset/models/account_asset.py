@@ -901,7 +901,7 @@ class AccountAsset(models.Model):
             view_mode = 'form'
             if len(move_ids) > 1:
                 name = _('Disposal Moves')
-                view_mode = 'tree,form'
+                view_mode = 'list,form'
             return {
                 'name': name,
                 'view_mode': view_mode,
@@ -984,14 +984,14 @@ class AccountAsset(models.Model):
     def open_asset(self, view_mode):
         if len(self) == 1:
             view_mode = ['form']
-        views = [v for v in [(False, 'tree'), (False, 'form')] if v[1] in view_mode]
+        views = [v for v in [(False, 'list'), (False, 'form')] if v[1] in view_mode]
         ctx = dict(self._context)
         ctx.pop('default_move_type', None)
         action = {
             'name': _('Asset'),
             'view_mode': ','.join(view_mode),
             'type': 'ir.actions.act_window',
-            'res_id': self.id if 'tree' not in view_mode else False,
+            'res_id': self.id if 'list' not in view_mode else False,
             'res_model': 'account.asset',
             'views': views,
             'domain': [('id', 'in', self.ids)],

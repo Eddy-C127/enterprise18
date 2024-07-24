@@ -43,7 +43,7 @@ class ResPartner(models.Model):
         else:
             action['domain'] = search_domain
             action['views'] = [
-                (self.env['ir.model.data']._xmlid_to_res_id('helpdesk.helpdesk_tickets_view_tree_res_partner'), view_type) if view_type == 'tree' else
+                (self.env['ir.model.data']._xmlid_to_res_id('helpdesk.helpdesk_tickets_view_tree_res_partner'), view_type) if view_type == 'list' else
                 (view_id, view_type)
                 for view_id, view_type in action['views']
             ]

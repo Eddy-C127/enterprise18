@@ -772,7 +772,7 @@ class HelpdeskTeam(models.Model):
             'search_default_is_open': not is_ticket_closed,
             'default_team_id': self.id,
         }
-        view_mode = 'tree,kanban,form,activity,pivot,graph,cohort'
+        view_mode = 'list,kanban,form,activity,pivot,graph,cohort'
         if is_ticket_closed:
             domain = expression.AND([domain, [
                 ('close_date', '>=', datetime.date.today() - datetime.timedelta(days=6)),

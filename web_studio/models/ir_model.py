@@ -570,10 +570,10 @@ class IrModel(models.Model):
         available_view_types = set(map(lambda v: v['type'], model_views))
         # in actions, kanban should be first, then list, etc.
         # this is arbitrary, but we need consistency!
-        VIEWS_ORDER = {'kanban': 0, 'tree': 1, 'form': 2, 'calendar': 3, 'gantt': 4, 'map': 5,
+        VIEWS_ORDER = {'kanban': 0, 'list': 1, 'form': 2, 'calendar': 3, 'gantt': 4, 'map': 5,
                        'pivot': 6, 'graph': 7, 'qweb': 8, 'activity': 9}
         sorted_view_types = list(sorted(available_view_types, key=lambda vt: VIEWS_ORDER.get(vt, 10)))
-        view_mode = ','.join(sorted_view_types) if sorted_view_types else 'tree,form'
+        view_mode = ','.join(sorted_view_types) if sorted_view_types else 'list,form'
         action = self.env['ir.actions.act_window'].create({
             'name': name,
             'res_model': self.model,

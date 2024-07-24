@@ -274,7 +274,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
     def test_create_action_button_in_list_view(self):
         self.start_tour("/odoo?debug=tests", 'web_studio_test_create_action_button_in_list_view', login="admin")
         view = self.env["ir.ui.view"].search([
-            ("name", "=", "res.partner.tree"),
+            ("name", "=", "res.partner.list"),
         ], limit=1)
         studioView = _get_studio_view(view)
         model = self.env["ir.model"].search([("model", "=", "res.partner")])
@@ -379,7 +379,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         userView = self.env["ir.ui.view"].create({
             "name": "simple user",
             "model": "res.users",
-            "type": "tree",
+            "type": "list",
             "arch": '''
                 <list class="test-user-list">
                     <field name="display_name" />
@@ -416,7 +416,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         user_view = self.env["ir.ui.view"].create({
             "name": "simple user",
             "model": "res.users",
-            "type": "tree",
+            "type": "list",
             "arch": '''
                 <list class="test-user-list">
                     <field name="display_name" />
@@ -476,7 +476,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "res_id": doesNotHaveGroup.id,
         })
         self.testView.write({
-            "type": "tree",
+            "type": "list",
             "arch": '''
                 <list>
                     <field name="display_name" />
@@ -493,7 +493,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.start_tour("/odoo?debug=tests", 'web_studio_field_with_group', login="admin", timeout=200)
 
         self.assertEqual(len(operations), 1)
-        self.assertEqual(operations[0]["target"]["xpath_info"], [{'tag': 'tree', 'indice': 1}, {'tag': 'field', 'indice': 3}])
+        self.assertEqual(operations[0]["target"]["xpath_info"], [{'tag': 'list', 'indice': 1}, {'tag': 'field', 'indice': 3}])
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, """
              <data>
@@ -795,7 +795,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 },
                 'xpath_info': [
                     {
-                        'tag': 'tree',
+                        'tag': 'list',
                         'indice': 2
                     },
                     {
@@ -803,7 +803,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                         'indice': 1
                     },
                 ],
-                'subview_xpath': "/form[1]/field[2]/tree[2]",
+                'subview_xpath': "/form[1]/field[2]/list[2]",
             },
             'position': 'before',
             'node': {
@@ -865,7 +865,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         view = self.env["ir.ui.view"].create({
             "name": "simple view",
             "model": "res.partner",
-            "type": "tree",
+            "type": "list",
             "arch": '''
                 <list>
                     <field name="display_name"/>
@@ -896,7 +896,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.testViewList = self.env["ir.ui.view"].create({
             "name": "simple partner",
             "model": "res.partner",
-            "type": "tree",
+            "type": "list",
             "arch": '''
                 <list>
                     <field name="display_name" />
@@ -1036,7 +1036,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.testViewList = self.env["ir.ui.view"].create({
             "name": "simple partner",
             "model": "res.partner",
-            "type": "tree",
+            "type": "list",
             "arch": '''
                 <list>
                     <field name="function" />

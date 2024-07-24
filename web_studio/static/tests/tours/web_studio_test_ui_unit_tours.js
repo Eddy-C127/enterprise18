@@ -1109,7 +1109,7 @@ registry.category("web_tour.tours").add("web_studio_field_group_studio_no_fetch"
                 assertEqual(
                     this.anchor.querySelectorAll("th:not(.o_web_studio_hook)")[0].dataset
                         .studioXpath,
-                    "/tree[1]/field[2]"
+                    "/list[1]/field[2]"
                 );
             },
         },

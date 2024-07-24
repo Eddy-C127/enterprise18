@@ -1889,7 +1889,7 @@ registry.category("web_tour.tours").add("web_studio_test_remove_action_button_in
             run: "click",
         },
         {
-            trigger: 'button[studioxpath="/tree[1]/header[1]/button[1]"]',
+            trigger: 'button[studioxpath="/list[1]/header[1]/button[1]"]',
             run: "click",
         },
         {

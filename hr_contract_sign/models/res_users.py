@@ -53,6 +53,6 @@ class ResUsers(models.Model):
             'name': 'Signature Requests',
             'view_mode': 'kanban,list',
             'res_model': 'sign.request',
-            'view_ids': [(view_id, 'kanban'), (False, 'tree')],
+            'view_ids': [(view_id, 'kanban'), (False, 'list')],
             'domain': [('id', 'in', sign_request_ids.ids)]
         }

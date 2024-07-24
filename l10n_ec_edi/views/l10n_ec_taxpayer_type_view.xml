@@ -24,7 +24,7 @@
     <record id="view_taxpayer_type_tree" model="ir.ui.view">
         <field name="name">view.taxpayer.type.list</field>
         <field name="model">l10n_ec.taxpayer.type</field>
-        <field name="type">tree</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Taxpayer Type" decoration-muted="(not active)">
                 <field name="sequence" widget="handle"/>

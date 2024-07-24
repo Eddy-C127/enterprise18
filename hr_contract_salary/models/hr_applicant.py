@@ -113,7 +113,6 @@ class HrApplicant(models.Model):
 
         return {
             'type': 'ir.actions.act_window',
-            'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'hr.contract.salary.offer',
             'res_id': offer.id,

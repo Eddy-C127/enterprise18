@@ -40,7 +40,7 @@ QUnit.module("Worksheet", (hooks) => {
         const bus = new EventBus();
         const modelFormAction = {
             name: "fakeFormAction",
-            view_mode: "tree,form"
+            view_mode: "list,form"
         }
 
         const fakeStudioService = {

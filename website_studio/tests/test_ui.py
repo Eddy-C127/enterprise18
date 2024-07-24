@@ -80,7 +80,7 @@ class TestUi(odoo.tests.HttpCase):
         self.listView = self.env["ir.ui.view"].create({
             "name": "simpleView",
             "model": "x_test_model",
-            "type": "tree",
+            "type": "list",
             "arch": '''
                 <list>
                     <field name="x_name" />

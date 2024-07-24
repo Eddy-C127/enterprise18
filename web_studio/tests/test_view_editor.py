@@ -379,7 +379,7 @@ class TestEditView(TestStudioController):
         self.assertEqual(self.env['ir.actions.server']._fields['code'].groups, 'base.group_system')
         view = self.env['ir.ui.view'].create({
             'name': 'foo',
-            'type': 'tree',
+            'type': 'list',
             'model': 'ir.actions.server',
             'arch': """
                 <list>
@@ -448,10 +448,10 @@ class TestEditView(TestStudioController):
                         'name': 'x_test_field_x'
                     },
                     'xpath_info': [
-                        {'tag': 'tree', 'indice': 1},
+                        {'tag': 'list', 'indice': 1},
                         {'tag': 'field', 'indice': 1}
                     ],
-                    'subview_xpath': "//field[@name='user_ids']/tree"
+                    'subview_xpath': "//field[@name='user_ids']/list"
                 },
                 'position': 'attributes',
                 'node': {
@@ -489,12 +489,12 @@ class TestEditView(TestStudioController):
             'res_id': test_group.id,
         })
         for view_type, arch, expected_modifiers in [
-            ('tree', """
+            ('list', """
                 <list>
                     <field name="name" groups="base.test_group"/>
                 </list>
             """, {'column_invisible': 'True', 'invisible': None}),
-            ('tree', """
+            ('list', """
                 <list>
                     <header>
                         <button name="name" groups="base.test_group"/>
@@ -510,7 +510,7 @@ class TestEditView(TestStudioController):
                     </field>
                 </form>
             """, {'column_invisible': 'True', 'invisible': None}),
-            ('tree', """
+            ('list', """
                 <list>
                     <field name="child_ids">
                         <form>

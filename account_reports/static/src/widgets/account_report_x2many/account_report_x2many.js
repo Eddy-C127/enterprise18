@@ -26,11 +26,11 @@ export class AccountReportListRenderer extends ListRenderer {
         this.columns = this.getActiveColumns(this.props.list);
 
         onWillUpdateProps((nextProps) => {
-            // We need to rebuild the tree if `props.list.records` changed on edit.
+            // We need to rebuild the list if `props.list.records` changed on edit.
             this.lines = this.formatData(nextProps.list.records);
         });
 
-        // We transform the list into a tree
+        // We transform the list into a list
         this.lines = this.formatData(this.props.list.records);
 
         useNestedSortable({

@@ -319,7 +319,7 @@ class LuReportAppendixOpEx(models.AbstractModel):
 
         lines = []
         if options['export_mode'] != 'print': # don't print "add lines" in the pdf report
-            # this is a line that just has an action that opens the appendix tree view
+            # this is a line that just has an action that opens the appendix list view
             # to add as many appendix lines as the user needs
             action_line = self._get_appendix_line(report, options, {}, _('Add appendix lines'))
             action_line[1]['unfoldable'] = True

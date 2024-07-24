@@ -411,7 +411,7 @@ class TestStudioIrModel(TransactionCase):
             ]
         })
         action = model._create_default_action('x_rockets')
-        self.assertEqual(action.view_mode, 'tree,form', 'tree and form should be set as a default view mode on window action')
+        self.assertEqual(action.view_mode, 'list,form', 'list and form should be set as a default view mode on window action')
 
     def test_22_rename_window_action(self):
         """ Test renaming a menu will rename the windows action."""

@@ -149,7 +149,7 @@ export class TableOfContentBehavior extends AbstractBehavior {
      *      /!\ We only increase by one, even if we are comparing a H5 to a H3
      *          This avoids some strange spacing and lets the user choose its headers style
      * - If the header tag is "smaller" than the previous one
-     *   -> When going down, check if our current "tree" (our hierarchy starting with the highest
+     *   -> When going down, check if our current "list" (our hierarchy starting with the highest
      *      tag) already has this type of tag at a certain depth, and use that.
      *      Otherwise use the depth of the tag (0 for h1, 1 for h2, 2 for h3, ...).
      *

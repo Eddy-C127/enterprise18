@@ -196,7 +196,7 @@ class WorksheetTemplate(models.Model):
         # create the view to extend by 'studio' and add the user custom fields
         __, __, search_view = register_xids(self.env['ir.ui.view'].sudo().create([
             self._prepare_default_form_view_values(model),
-            self._prepare_default_tree_view_values(model),
+            self._prepare_default_list_view_values(model),
             self._prepare_default_search_view_values(model)
         ]))
         action = register_xids(self.env['ir.actions.act_window'].sudo().create({
@@ -276,13 +276,13 @@ class WorksheetTemplate(models.Model):
             """ % (res_model_name, res_model_name)
         }
 
-    def _prepare_default_tree_view_values(self, model):
+    def _prepare_default_list_view_values(self, model):
         """Create a default list view for the model created from the template."""
         res_model_name = self.res_model.replace('.', '_')
         tree_arch_func = getattr(self, f'_default_{res_model_name}_worksheet_tree_arch', False)
         return {
-            'type': 'tree',
-            'name': 'tree_view_' + self.name.replace(' ', '_'),
+            'type': 'list',
+            'name': 'list_view_' + self.name.replace(' ', '_'),
             'model': model.model,
             'arch': tree_arch_func and tree_arch_func() or """
                 <list default_order="create_date DESC">

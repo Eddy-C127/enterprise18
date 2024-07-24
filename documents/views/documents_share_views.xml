@@ -14,7 +14,7 @@
     </record>
 
     <record id="share_view_tree" model="ir.ui.view">
-        <field name="name">share tree</field>
+        <field name="name">share.list</field>
         <field name="model">documents.share</field>
         <field name="arch" type="xml">
             <list create="false" default_order="create_date desc" decoration-muted="state == 'expired'">
