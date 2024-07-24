@@ -2825,6 +2825,47 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         )
 
     # === GS1 TESTS ===#
+    def test_gs1_delivery_ambiguous_lot_number(self):
+        """
+        Have a delivery for a product tracked by lots then scan a lot who exists for
+        two different products and check the move line has the right lot.
+        Do the same test by scanning a packaging instead of the product.
+        """
+        self.clean_access_rights()
+        group_packaging = self.env.ref('product.group_stock_packaging')
+        self.env.user.write({'groups_id': [(4, group_packaging.id)]})
+        self.env.company.nomenclature_id = self.env.ref('barcodes_gs1_nomenclature.default_gs1_nomenclature')
+        product_a, product_b = self.env['product.product'].create([{
+            'name': name,
+            'type': 'product',
+            'categ_id': self.env.ref('product.product_category_all').id,
+            'barcode': barcode,
+            'tracking': 'lot',
+        } for (name, barcode) in [('Product A', '22222220'), ('Product B', '44444440')]])
+        # Creates 2 lot numbers (same name but different product.)
+        lot_b, lot_a = self.env['stock.lot'].create([
+            {'name': '12345', 'product_id': product.id} for product in [product_b, product_a]
+        ])
+        # Create a product packaging
+        self.env['product.packaging'].create({
+            'barcode': '10000000240489',
+            'name': "Packaging - Product A x1",
+            'product_id': product_a.id,
+            'qty': 1,
+        })
+        # For the purpose of the test, lot for product_b has to be created first.
+        for [product, lot] in [[product_b, lot_b], [product_a, lot_a]]:
+            self.env['stock.quant'].with_context(inventory_mode=True).create({
+                'product_id': product.id,
+                'inventory_quantity': 1,
+                'lot_id': lot.id,
+                'location_id': self.stock_location.id,
+            }).action_apply_inventory()
+        # Run the tour.
+        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action.id)
+        self.start_tour(url, 'test_gs1_delivery_ambiguous_lot_number', login='admin', timeout=180)
+
     def test_gs1_delivery_ambiguous_serial_number(self):
         """
         Have a delivery for a product tracked by SN then scan a SN who exists for
