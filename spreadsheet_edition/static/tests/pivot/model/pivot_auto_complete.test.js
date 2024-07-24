@@ -10,11 +10,11 @@ import { makeStoreWithModel } from "@spreadsheet/../tests/helpers/stores";
 describe.current.tags("headless");
 defineSpreadsheetModels();
 
-const { ComposerStore } = stores;
+const { CellComposerStore } = stores;
 
 test("PIVOT.VALUE.* autocomplete pivot id", async function () {
     const { model } = await createSpreadsheetWithPivot();
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     await insertPivotInSpreadsheet(model, "pivot2", { arch: getBasicPivotArch() });
     for (const func of ["PIVOT", "PIVOT.HEADER", "PIVOT.VALUE"]) {
         composer.startEdition(`=${func}(`);
@@ -46,7 +46,7 @@ test("PIVOT.VALUE.* autocomplete pivot id", async function () {
 test("do not show autocomplete if pivot id already set", async function () {
     const { model } = await createSpreadsheetWithPivot();
     await insertPivotInSpreadsheet(model, "pivot2", { arch: getBasicPivotArch() });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     for (const func of ["PIVOT", "PIVOT.HEADER", "PIVOT.VALUE"]) {
         // id as a number
         composer.startEdition(`=${func}(1`);
@@ -68,7 +68,7 @@ test("PIVOT.VALUE measure", async function () {
                 <field name="__count" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition("=PIVOT.VALUE(1,");
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals).toEqual([
@@ -97,7 +97,7 @@ test("PIVOT.VALUE measure with the pivot id as a string", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE("1",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"probability:avg"']);
@@ -105,14 +105,14 @@ test("PIVOT.VALUE measure with the pivot id as a string", async function () {
 
 test("PIVOT.VALUE measure with pivot id that does not exists", async function () {
     const { model } = await createSpreadsheetWithPivot();
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition(`=PIVOT.VALUE(9999,`);
     expect(composer.autocompleteProvider).toBe(undefined);
 });
 
 test("PIVOT.VALUE measure without any pivot id", async function () {
     const { model } = await createSpreadsheetWithPivot();
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition(`=PIVOT.VALUE(,`);
     expect(composer.autocompleteProvider).toBe(undefined);
 });
@@ -125,7 +125,7 @@ test("PIVOT.VALUE group with a single col group", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals).toEqual([
@@ -155,7 +155,7 @@ test("PIVOT.VALUE group with a pivot id as string", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE("1","probability",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
@@ -169,7 +169,7 @@ test("PIVOT.VALUE group with a single row group", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals).toEqual([
@@ -199,7 +199,7 @@ test("ODOO.VALUE group with a single date grouped by day", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals).toEqual([
@@ -229,7 +229,7 @@ test("PIVOT.VALUE search field", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","prod');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
@@ -244,7 +244,7 @@ test("PIVOT.VALUE search field with both col and row group", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     // (notice the space after the comma)
     composer.startEdition('=PIVOT.VALUE(1,"probability", ');
     const autoComplete = composer.autocompleteProvider;
@@ -265,7 +265,7 @@ test("PIVOT.VALUE group with row and col groups for the first group", async func
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual([
@@ -285,7 +285,7 @@ test("PIVOT.VALUE group with row and col groups for the col group", async functi
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","product_id",1,');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"date:month"', '"#date:month"']);
@@ -300,7 +300,7 @@ test("PIVOT.VALUE group with two rows, on the first group", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability", ,1,"date", "11/2020")');
     //..................................................^ the cursor is here
     composer.changeComposerCursorSelection(29, 29);
@@ -316,7 +316,7 @@ test("PIVOT.VALUE search a positional group", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","#pro');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"#product_id"']);
@@ -330,7 +330,7 @@ test("PIVOT.VALUE autocomplete relational field for group value", async function
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","product_id",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals).toEqual([
@@ -360,7 +360,7 @@ test("PIVOT.VALUE autocomplete date field for group value", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","date:month",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals).toEqual([
@@ -401,7 +401,7 @@ test("PIVOT.VALUE autocomplete date field with no specified granularity for grou
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","date:month",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals).toEqual([
@@ -443,7 +443,7 @@ test("PIVOT.VALUE autocomplete field after a date field", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","date:month","11/2020",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
@@ -458,7 +458,7 @@ test("PIVOT.VALUE autocomplete field after a date field with granularity in arch
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","date","11/2020",');
     expect(composer.autocompleteProvider).toBe(undefined);
 });
@@ -472,7 +472,7 @@ test("PIVOT.VALUE autocomplete field after a date field without granularity", as
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","date","11/2020",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete).toBe(undefined);
@@ -486,7 +486,7 @@ test("PIVOT.VALUE no autocomplete for positional group field", async function ()
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.VALUE(1,"probability","#product_id",');
     expect(composer.autocompleteProvider).toBe(undefined);
 });
@@ -499,7 +499,7 @@ test("PIVOT.HEADER first field", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition("=PIVOT.HEADER(1,");
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
@@ -516,7 +516,7 @@ test("PIVOT.HEADER search field", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.HEADER(1,"pro');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(['"product_id"', '"#product_id"']);
@@ -533,7 +533,7 @@ test("PIVOT.HEADER group value", async function () {
                 <field name="probability" type="measure"/>
             </pivot>`,
     });
-    const { store: composer } = makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = makeStoreWithModel(model, CellComposerStore);
     composer.startEdition('=PIVOT.HEADER(1,"product_id",');
     const autoComplete = composer.autocompleteProvider;
     expect(autoComplete.proposals.map((p) => p.text)).toEqual(["37", "41"]);
