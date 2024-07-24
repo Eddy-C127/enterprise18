@@ -19,6 +19,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         self._create_st_line(500.0, payment_ref="line1", sequence=1)
         self._create_st_line(100.0, payment_ref="line2", sequence=2)
         self._create_st_line(100.0, payment_ref="line3", sequence=3)
+        self._create_st_line(1000.0, payment_ref="line_credit", sequence=4, journal_id=self.company_data['default_journal_credit'].id)
 
         payment_method_line = self.company_data['default_journal_bank'].inbound_payment_method_line_ids\
             .filtered(lambda l: l.code == 'batch_payment')

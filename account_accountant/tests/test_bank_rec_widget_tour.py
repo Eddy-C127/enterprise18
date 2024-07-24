@@ -14,6 +14,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         cls.st_line1 = cls._create_st_line(1000.0, payment_ref="line1", sequence=1)
         cls.st_line2 = cls._create_st_line(1000.0, payment_ref="line2", sequence=2)
         cls._create_st_line(1000.0, payment_ref="line3", sequence=3)
+        cls._create_st_line(1000.0, payment_ref="line_credit", sequence=4, journal_id=cls.company_data['default_journal_credit'].id)
 
         # INV/2019/00001:
         cls._create_invoice_line(

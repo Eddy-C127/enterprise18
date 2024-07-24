@@ -16,7 +16,7 @@ class AccountJournal(models.Model):
 
     def __get_bank_statements_available_sources(self):
         rslt = super(AccountJournal, self).__get_bank_statements_available_sources()
-        rslt.append(("online_sync", _("Automated Bank Synchronization")))
+        rslt.append(("online_sync", _("Online Synchronization")))
         return rslt
 
     next_link_synchronization = fields.Datetime("Online Link Next synchronization", related='account_online_link_id.next_refresh')
