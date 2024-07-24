@@ -326,8 +326,10 @@ export class TypeWidgetProperties extends Component {
     }
 
     async onChangeProperty(value, name) {
-        const currentProperty = this.getOptionObj(name);
-        if (name === "currency_field" && this.props.node.field.type === "monetary") {
+        if (name === "show_time" && !value && this.props.node.field.type === "datetime" && !this.props.node.attrs.widget) {
+            this.onChangeWidget("datetime")
+        }
+        else if (name === "currency_field" && this.props.node.field.type === "monetary") {
             await this.onChangeCurrency(value);
             if (!this.props.node.attrs.options?.[name]) {
                 return;
@@ -337,6 +339,7 @@ export class TypeWidgetProperties extends Component {
         if (EDITABLE_ATTRIBUTES[name]) {
             return this.props.onChangeAttribute(value, name);
         }
+        const currentProperty = this.getOptionObj(name);
         const options = { ...this.props.node.attrs.options };
         if (value || currentProperty.type === "boolean") {
             if (currentProperty.type === "digits") {
