@@ -273,12 +273,13 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
                 let foundLine = false;
                 for (const line of parentLine.lines) {
                     const lineLotName = line.lot_name || (line.lot_id && line.lot_id.name) || false;
-                    if (dataLotName && (
-                            (lineLotName && dataLotName === lineLotName) ||
-                            this._canOverrideTrackingNumber(line, dataLotName)
-                    )) {
+                    const sameLotName = Boolean(lineLotName && dataLotName === lineLotName);
+                    if (dataLotName && (sameLotName || this._canOverrideTrackingNumber(line, dataLotName))) {
                         foundLine = line;
-                        break;
+                        if (sameLotName) {
+                            // Prioritize this line if it has the scanned lot.
+                            break;
+                        }
                     }
                 }
                 return foundLine;
