@@ -1121,7 +1121,12 @@ class AccountMove(models.Model):
                 percentage_paid = abs(invoice_values['reconciled_amount'] / invoice.amount_total)
             else:
                 percentage_paid = 0.0
-            for key in ('retenciones_list', 'traslados_list'):
+            for key in (
+                'retenciones_list',
+                'traslados_list',
+                'local_traslados_list',
+                'local_retenciones_reduced_list',
+            ):
                 for tax_values in inv_cfdi_values[key]:
                     for tax_key in ('base', 'importe'):
                         if tax_values[tax_key] is not None:
@@ -1238,48 +1243,69 @@ class AccountMove(models.Model):
 
         withholding_values_map = defaultdict(lambda: {'importe': 0.0})
         transferred_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
+        local_retenciones_reduced_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
+        local_traslados_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
         pay_rate = cfdi_values['tipo_cambio'] or 1.0
         for cfdi_inv_values in invoice_values_list:
             inv_rate = cfdi_inv_values['equivalencia'] or 1.0
             to_mxn_rate = pay_rate / inv_rate
-            for tax_values in cfdi_inv_values['retenciones_list']:
-                key = frozendict({'impuesto': tax_values['impuesto']})
-                withholding_values_map[key]['importe'] += tax_values['importe'] / inv_rate
+            for result_dict, key in (
+                (withholding_values_map, 'retenciones_list'),
+                (local_retenciones_reduced_values_map, 'local_retenciones_reduced_list'),
+            ):
+                for tax_values in cfdi_inv_values[key]:
+                    tax_key = frozendict({
+                        'impuesto': tax_values['impuesto'],
+                        'tipo_factor': tax_values['tipo_factor'],
+                        'tasa_o_cuota': tax_values['tasa_o_cuota'],
+                        'local_tax_name': tax_values['local_tax_name'],
+                    })
+                    result_dict[tax_key]['importe'] += tax_values['importe'] / inv_rate
 
-                tax_amount_mxn = tax_values['importe'] * to_mxn_rate
-                if tax_values['impuesto'] == '001':
-                    update_tax_amount('total_retenciones_isr', tax_amount_mxn)
-                elif tax_values['impuesto'] == '002':
-                    update_tax_amount('total_retenciones_iva', tax_amount_mxn)
-                elif tax_values['impuesto'] == '003':
-                    update_tax_amount('total_retenciones_ieps', tax_amount_mxn)
+                    tax_amount_mxn = tax_values['importe'] * to_mxn_rate
+                    if tax_values['impuesto'] == '001':
+                        update_tax_amount('total_retenciones_isr', tax_amount_mxn)
+                    elif tax_values['impuesto'] == '002':
+                        update_tax_amount('total_retenciones_iva', tax_amount_mxn)
+                    elif tax_values['impuesto'] == '003':
+                        update_tax_amount('total_retenciones_ieps', tax_amount_mxn)
 
-            for tax_values in cfdi_inv_values['traslados_list']:
-                key = frozendict({
-                    'impuesto': tax_values['impuesto'],
-                    'tipo_factor': tax_values['tipo_factor'],
-                    'tasa_o_cuota': tax_values['tasa_o_cuota']
-                })
-                tax_amount = tax_values['importe'] or 0.0
-                transferred_values_map[key]['base'] += tax_values['base'] / inv_rate
-                transferred_values_map[key]['importe'] += tax_amount / inv_rate
+            for result_dict, key in (
+                (transferred_values_map, 'traslados_list'),
+                (local_traslados_values_map, 'local_traslados_list'),
+            ):
+                for tax_values in cfdi_inv_values[key]:
+                    tax_key = frozendict({
+                        'impuesto': tax_values['impuesto'],
+                        'tipo_factor': tax_values['tipo_factor'],
+                        'tasa_o_cuota': tax_values['tasa_o_cuota'],
+                        'local_tax_name': tax_values['local_tax_name'],
+                    })
+                    tax_amount = tax_values['importe'] or 0.0
+                    result_dict[tax_key]['base'] += tax_values['base'] / inv_rate
+                    result_dict[tax_key]['importe'] += tax_amount / inv_rate
 
-                base_amount_mxn = tax_values['base'] * to_mxn_rate
-                tax_amount_mxn = tax_amount * to_mxn_rate
-                if check_transferred_tax_values(tax_values, '002', 'Tasa', 0.0):
-                    update_tax_amount('total_traslados_base_iva0', base_amount_mxn)
-                    update_tax_amount('total_traslados_impuesto_iva0', tax_amount_mxn)
-                elif check_transferred_tax_values(tax_values, '002', 'Exento', 0.0):
-                    update_tax_amount('total_traslados_base_iva_exento', base_amount_mxn)
-                elif check_transferred_tax_values(tax_values, '002', 'Tasa', 0.08):
-                    update_tax_amount('total_traslados_base_iva8', base_amount_mxn)
-                    update_tax_amount('total_traslados_impuesto_iva8', tax_amount_mxn)
-                elif check_transferred_tax_values(tax_values, '002', 'Tasa', 0.16):
-                    update_tax_amount('total_traslados_base_iva16', base_amount_mxn)
-                    update_tax_amount('total_traslados_impuesto_iva16', tax_amount_mxn)
+                    base_amount_mxn = tax_values['base'] * to_mxn_rate
+                    tax_amount_mxn = tax_amount * to_mxn_rate
+                    if check_transferred_tax_values(tax_values, '002', 'Tasa', 0.0):
+                        update_tax_amount('total_traslados_base_iva0', base_amount_mxn)
+                        update_tax_amount('total_traslados_impuesto_iva0', tax_amount_mxn)
+                    elif check_transferred_tax_values(tax_values, '002', 'Exento', 0.0):
+                        update_tax_amount('total_traslados_base_iva_exento', base_amount_mxn)
+                    elif check_transferred_tax_values(tax_values, '002', 'Tasa', 0.08):
+                        update_tax_amount('total_traslados_base_iva8', base_amount_mxn)
+                        update_tax_amount('total_traslados_impuesto_iva8', tax_amount_mxn)
+                    elif check_transferred_tax_values(tax_values, '002', 'Tasa', 0.16):
+                        update_tax_amount('total_traslados_base_iva16', base_amount_mxn)
+                        update_tax_amount('total_traslados_impuesto_iva16', tax_amount_mxn)
 
         # Rounding global tax amounts.
-        for dictionary in (withholding_values_map, transferred_values_map):
+        for dictionary in (
+            withholding_values_map,
+            transferred_values_map,
+            local_retenciones_reduced_values_map,
+            local_traslados_values_map,
+        ):
             for values in dictionary.values():
                 if 'base' in values:
                     values['base'] = self.currency_id.round(values['base'])
@@ -1302,19 +1328,25 @@ class AccountMove(models.Model):
             else:
                 cfdi_values[key] = None
 
-        cfdi_values['retenciones_list'] = [
-            {**k, **v}
-            for k, v in withholding_values_map.items()
-        ]
-        cfdi_values['traslados_list'] = [
-            {**k, **v}
-            for k, v in transferred_values_map.items()
-        ]
+        for target_key, source_dict in (
+            ('retenciones_list', withholding_values_map),
+            ('traslados_list', transferred_values_map),
+            ('local_retenciones_reduced_list', local_retenciones_reduced_values_map),
+            ('local_traslados_list', local_traslados_values_map),
+        ):
+            cfdi_values[target_key] = [
+                {**k, **v}
+                for k, v in source_dict.items()
+            ]
 
         # Cleanup attributes for Exento taxes.
-        for tax_values in cfdi_values['traslados_list']:
-            if tax_values['tipo_factor'] == 'Exento':
-                tax_values['importe'] = None
+        for key in (
+            'traslados_list',
+            'local_traslados_list',
+        ):
+            for tax_values in cfdi_values[key]:
+                if tax_values['tipo_factor'] == 'Exento':
+                    tax_values['importe'] = None
 
     # -------------------------------------------------------------------------
     # CFDI: DOCUMENTS

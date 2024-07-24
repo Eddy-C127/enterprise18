@@ -742,6 +742,7 @@ class L10nMxEdiDocument(models.Model):
                 'tipo_factor': tax.l10n_mx_factor_type,
                 'impuesto': TAX_TYPE_TO_CFDI_CODE.get(tax.l10n_mx_tax_type),
                 'tax_amount_field': tax.amount,
+                'local_tax_name': tax.tax_group_id.name if tax.l10n_mx_tax_type == 'local' else None,
             }
 
         to_process = []
@@ -860,14 +861,15 @@ class L10nMxEdiDocument(models.Model):
 
             # Transferred Taxes.
             base_line['transferred_values_list'] = []
+            base_line['local_transferred_values_list'] = []
             for tax_details in list(tax_details_transferred['tax_details_per_record'][base_line['record']]['tax_details'].values()):
                 tax_values = {
                     'base': tax_details['base_amount_currency'],
                     'importe': tax_details['tax_amount_currency'],
                     'impuesto': tax_details['impuesto'],
                     'tipo_factor': tax_details['tipo_factor'],
+                    'local_tax_name': tax_details['local_tax_name'],
                 }
-
                 if tax_details['tipo_factor'] == 'Tasa':
                     tax_values['tasa_o_cuota'] = tax_details['tax_amount_field'] / 100.0
                 elif tax_details['tipo_factor'] == 'Cuota':
@@ -875,18 +877,22 @@ class L10nMxEdiDocument(models.Model):
                 else:
                     tax_values['tasa_o_cuota'] = None
 
-                base_line['transferred_values_list'].append(tax_values)
+                if tax_values['local_tax_name']:
+                    base_line['local_transferred_values_list'].append(tax_values)
+                else:
+                    base_line['transferred_values_list'].append(tax_values)
 
             # Withholding Taxes.
             base_line['withholding_values_list'] = []
+            base_line['local_withholding_values_list'] = []
             for tax_details in list(tax_details_withholding['tax_details_per_record'][base_line['record']]['tax_details'].values()):
                 tax_values = {
                     'base': tax_details['base_amount_currency'],
                     'importe': -tax_details['tax_amount_currency'],
                     'impuesto': tax_details['impuesto'],
                     'tipo_factor': tax_details['tipo_factor'],
+                    'local_tax_name': tax_details['local_tax_name'],
                 }
-
                 if tax_details['tipo_factor'] == 'Tasa':
                     tax_values['tasa_o_cuota'] = -tax_details['tax_amount_field'] / 100.0
                 elif tax_details['tipo_factor'] == 'Cuota':
@@ -894,7 +900,10 @@ class L10nMxEdiDocument(models.Model):
                 else:
                     tax_values['tasa_o_cuota'] = None
 
-                base_line['withholding_values_list'].append(tax_values)
+                if tax_values['local_tax_name']:
+                    base_line['local_withholding_values_list'].append(tax_values)
+                else:
+                    base_line['withholding_values_list'].append(tax_values)
 
     @api.model
     def _add_base_lines_cfdi_values(self, cfdi_values, base_lines):
@@ -915,7 +924,9 @@ class L10nMxEdiDocument(models.Model):
             uom = line['uom']
             discount = line['discount']
             transferred_values_list = line['transferred_values_list']
+            local_transferred_values_list = line['local_transferred_values_list']
             withholding_values_list = line['withholding_values_list']
+            local_withholding_values_list = line['local_withholding_values_list']
 
             is_refund_gi = cfdi_values['receptor']['uso_cfdi'] == 'G02'
             if is_refund_gi:
@@ -937,7 +948,9 @@ class L10nMxEdiDocument(models.Model):
                 'unidad': (uom.name or '').upper(),
                 'description': description,
                 'traslados_list': [],
+                'local_traslados_list': local_transferred_values_list,
                 'retenciones_list': [],
+                'local_retenciones_list': local_withholding_values_list,
             }
 
             # Discount.
@@ -964,17 +977,33 @@ class L10nMxEdiDocument(models.Model):
         # Taxes.
         withholding_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
         withholding_reduced_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
+        local_withholding_reduced_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
         transferred_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
+        local_transferred_values_map = defaultdict(lambda: {'base': 0.0, 'importe': 0.0})
         for cfdi_line_values in line_values_list:
-            for tax_values in cfdi_line_values['retenciones_list']:
-                key = frozendict({'impuesto': tax_values['impuesto']})
-                withholding_reduced_values_map[key]['importe'] += tax_values['importe']
-            for result_dict, key in ((withholding_values_map, 'retenciones_list'), (transferred_values_map, 'traslados_list')):
+            for result_dict, key in (
+                (withholding_reduced_values_map, 'retenciones_list'),
+                (local_withholding_reduced_values_map, 'local_retenciones_list'),
+            ):
                 for tax_values in cfdi_line_values[key]:
                     tax_key = frozendict({
                         'impuesto': tax_values['impuesto'],
                         'tipo_factor': tax_values['tipo_factor'],
-                        'tasa_o_cuota': tax_values['tasa_o_cuota']
+                        'tasa_o_cuota': tax_values['tasa_o_cuota'],
+                        'local_tax_name': tax_values['local_tax_name'],
+                    })
+                    result_dict[tax_key]['importe'] += tax_values['importe']
+            for result_dict, key in (
+                (withholding_values_map, 'retenciones_list'),
+                (transferred_values_map, 'traslados_list'),
+                (local_transferred_values_map, 'local_traslados_list'),
+            ):
+                for tax_values in cfdi_line_values[key]:
+                    tax_key = frozendict({
+                        'impuesto': tax_values['impuesto'],
+                        'tipo_factor': tax_values['tipo_factor'],
+                        'tasa_o_cuota': tax_values['tasa_o_cuota'],
+                        'local_tax_name': tax_values['local_tax_name'],
                     })
                     result_dict[tax_key]['base'] += tax_values['base']
                     result_dict[tax_key]['importe'] += tax_values['importe']
@@ -982,7 +1011,9 @@ class L10nMxEdiDocument(models.Model):
         for target_key, source_dict in (
             ('retenciones_list', withholding_values_map),
             ('retenciones_reduced_list', withholding_reduced_values_map),
+            ('local_retenciones_reduced_list', local_withholding_reduced_values_map),
             ('traslados_list', transferred_values_map),
+            ('local_traslados_list', local_transferred_values_map),
         ):
             cfdi_values[target_key] = [
                 {
@@ -995,22 +1026,33 @@ class L10nMxEdiDocument(models.Model):
 
         # Totals.
         transferred_tax_amounts = [x['importe'] for x in cfdi_values['traslados_list'] if x['tipo_factor'] != 'Exento']
+        local_transferred_tax_amounts = [x['importe'] for x in cfdi_values['local_traslados_list'] if x['tipo_factor'] != 'Exento']
         withholding_tax_amounts = [x['importe'] for x in cfdi_values['retenciones_list'] if x['tipo_factor'] != 'Exento']
+        local_withholding_tax_amounts = [x['importe'] for x in cfdi_values['local_retenciones_reduced_list'] if x['tipo_factor'] != 'Exento']
         cfdi_values['total_impuestos_trasladados'] = sum(transferred_tax_amounts)
+        cfdi_values['total_local_impuestos_trasladados'] = sum(local_transferred_tax_amounts)
         cfdi_values['total_impuestos_retenidos'] = sum(withholding_tax_amounts)
+        cfdi_values['total_local_impuestos_retenidos'] = sum(local_withholding_tax_amounts)
         cfdi_values['subtotal'] = sum(x['importe'] for x in line_values_list)
         cfdi_values['descuento'] = sum(x['descuento'] for x in line_values_list if x['descuento'])
         cfdi_values['total'] = cfdi_values['subtotal'] \
                              - cfdi_values['descuento'] \
                              + cfdi_values['total_impuestos_trasladados'] \
-                             - cfdi_values['total_impuestos_retenidos']
+                             - cfdi_values['total_impuestos_retenidos'] \
+                             + cfdi_values['total_local_impuestos_trasladados'] \
+                             - cfdi_values['total_local_impuestos_retenidos']
 
         if currency.is_zero(cfdi_values['descuento']):
             cfdi_values['descuento'] = None
 
         # Cleanup attributes for Exento taxes.
         for line in base_lines:
-            for key in ('transferred_values_list', 'withholding_values_list'):
+            for key in (
+                'transferred_values_list',
+                'local_transferred_values_list',
+                'withholding_values_list',
+                'local_withholding_values_list',
+            ):
                 for tax_values in line[key]:
                     if tax_values['tipo_factor'] == 'Exento':
                         tax_values['importe'] = None

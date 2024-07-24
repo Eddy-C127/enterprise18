@@ -109,6 +109,9 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         cls.tax_10_ret_isr.type_tax_use = 'sale'
         cls.tax_10_67_ret = cls.env["account.chart.template"].ref('tax8')
         cls.tax_10_67_ret.type_tax_use = 'sale'
+        cls.local_tax_16_transferred = cls.tax_16.copy(default={'name': 'local 16%'})
+        cls.local_tax_8_withholding = cls.tax_8.copy(default={'name': 'local -8%', 'amount': -8})
+        cls.local_tax_16_transferred.l10n_mx_tax_type = cls.local_tax_8_withholding.l10n_mx_tax_type = 'local'
         cls.existing_taxes_combinations_to_test = [
             # pylint: disable=bad-whitespace
             # Line 1                                                Line 2                  Line 3
@@ -122,6 +125,7 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
             (cls.tax_16 + cls.tax_10_ret_isr + cls.tax_10_67_ret,),
             (cls.tax_8_ieps + cls.tax_0,),
             (cls.tax_53_ieps + cls.tax_16,),
+            (cls.local_tax_16_transferred,                  cls.local_tax_8_withholding,    cls.tax_16),
         ]
 
         (cls.product_a + cls.product_b).unlink()
