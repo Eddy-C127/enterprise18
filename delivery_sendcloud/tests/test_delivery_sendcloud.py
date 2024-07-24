@@ -470,3 +470,17 @@ class TestDeliverySendCloud(TransactionCase):
         self.assertEqual(parcel.get('quantity'), 2)
         self.assertEqual(parcel.get('shipment', {}).get('id'), 2)
         self.assertAlmostEqual(24, float(parcel.get('weight')))
+
+    def test_extract_house_number(self):
+        api = self.sendcloud._get_sendcloud()
+        addresses = [
+            ('Friedrichstr. 13/1', '13/1'),
+            ('Rue du pont 11 A', '11 A'),
+            ('Place Albert 1er 15B', '15B'),
+            ('123-456 Main Street', '123-456'),
+            ('456B Elm St', '456B'),
+            ('789 C Oak Avenue', '789 C'),
+            ('20A1 Vo Thi Sau Street, Tan Dinh Ward, District 1', '20A1')
+        ]
+        for address in addresses:
+            self.assertEqual(api._get_house_number(address[0]), address[1])
