@@ -44,7 +44,6 @@ registry.category("web_tour.tours").add('timesheet_tour', {
     trigger: '.o_grid_view .o_grid_row:not(.o_grid_section).o_grid_cell_today',
     content: _t("Click on the cell to set the number of hours you spent on this project."),
     position: 'bottom',
-    consumeEvent: 'mouseover',
     run: "click",
 }, 
 {
@@ -60,6 +59,5 @@ registry.category("web_tour.tours").add('timesheet_tour', {
     trigger: '.o_grid_view .o_grid_cell',
     content: markup(_t('Set the number of hours you spent on this project (e.g. 1:30 or 1.5). <i>Tip: use the tab keys to easily navigate from one cell to another.</i>')),
     position: 'bottom',
-    consumeEvent: 'change',
     run: "click",
 }]});
