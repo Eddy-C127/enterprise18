@@ -92,22 +92,21 @@ class MailActivity(models.Model):
     def _format_call_activities(self, store: Store):
         """Serializes call activities for transmission to/use by the client side."""
         call_activities = self.filtered(lambda activity: activity.activity_type_id.category == "phonecall")
-        for activity in call_activities:
-            model = self.env[activity.res_model]
-            record = model.browse(activity.res_id)
-            activity_data = {
-                **activity.read(["id", "res_name", "phone", "mobile", "res_id", "res_model", "state", "date_deadline", "mail_template_ids"])[0],
-                "activity_category": activity.activity_type_id.category,
-                "modelName": activity.sudo().res_model_id.display_name,
-                "user_id": activity._read_format(["user_id"])[0]["user_id"],
-            }
-            partner = next(
-                iter(record._mail_get_partners(introspect_fields=True)[record.id]),
-                self.env["res.partner"],
-            )
-            if partner:
-                activity_data["partner"] = Store.one(partner)
-            store.add(activity, activity_data)
+        for model_name, activities in call_activities.grouped("res_model").items():
+            model = self.env[model_name]
+            records = model.browse(activities.mapped("res_id"))
+            partners_by_records = records._mail_get_partners(introspect_fields=True)
+            for activity in activities:
+                activity_data = {
+                    **activity.read(["id", "res_name", "phone", "mobile", "res_id", "res_model", "state", "date_deadline", "mail_template_ids"])[0],
+                    "activity_category": activity.activity_type_id.category,
+                    "modelName": activity.sudo().res_model_id.display_name,
+                    "user_id": activity._read_format(["user_id"])[0]["user_id"],
+                }
+                partner = partners_by_records.get(activity.res_id)[:1]
+                if partner:
+                    activity_data["partner"] = Store.one(partner)
+                store.add("Activity", activity_data)
 
     def _get_phone_numbers_by_activity(self):
         """Batch compute the phone numbers associated with the activities.
