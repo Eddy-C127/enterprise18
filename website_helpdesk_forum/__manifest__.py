@@ -34,6 +34,9 @@ Website Forum integration for the helpdesk module
         'web.assets_frontend': [
             'website_helpdesk_forum/static/src/**/*',
         ],
+        'web.assets_tests': [
+            'website_helpdesk_forum/static/tests/tours/**/*',
+        ],
     },
     'auto_install': True,
     'license': 'OEEL-1',
