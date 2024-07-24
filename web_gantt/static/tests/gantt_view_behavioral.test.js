@@ -1574,7 +1574,9 @@ test("close tooltip when drag pill", async () => {
     });
     await moveTo({ pill: "Task 2" });
     // check popover
-    expect(".o_popover", "popover should have been closed").toHaveCount(0);
+    expect(".o_popover").toHaveCount(0, {
+        message: "popover should have been closed",
+    });
 });
 
 test("drag&drop on other pill in grouped view", async () => {

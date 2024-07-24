@@ -327,10 +327,7 @@ describe("basic flow with home menu", () => {
 
         await contains(".o_menu_toggle").click();
 
-        expect.verifySteps(
-            ["web_read"],
-            "the underlying view should reload when toggling the HomeMenu to off"
-        );
+        expect.verifySteps(["web_read"]);
         expect(".o_home_menu").toHaveCount(0);
         expect(".o_form_view").toHaveCount(1);
         expect(".o_menu_toggle").not.toHaveClass("o_menu_toggle_back");

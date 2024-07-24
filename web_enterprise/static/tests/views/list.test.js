@@ -275,9 +275,8 @@ test("upsell studio feature is not polluted by another view", async () => {
 
     click(".o_optional_columns_dropdown_toggle");
     await animationFrame();
-    let dropdown = getDropdownMenu(".o_optional_columns_dropdown");
-    expect(".dropdown-item", { root: dropdown }).toHaveCount(2);
-    expect(".dropdown-item-studio", { root: dropdown }).toHaveCount(1);
+    expect(".dropdown-item").toHaveCount(2);
+    expect(".dropdown-item-studio").toHaveCount(1);
 
     await getService("action").doAction({
         id: 99,
@@ -290,7 +289,7 @@ test("upsell studio feature is not polluted by another view", async () => {
 
     click(".modal .o_optional_columns_dropdown_toggle");
     await animationFrame();
-    dropdown = getDropdownMenu(".modal .o_optional_columns_dropdown");
+    let dropdown = getDropdownMenu(".modal .o_optional_columns_dropdown");
     expect(queryAll(".dropdown-item", { root: dropdown })).toHaveCount(1);
     expect(queryAll(".dropdown-item-studio", { root: dropdown })).toHaveCount(0);
     click(".modal-header .btn-close");

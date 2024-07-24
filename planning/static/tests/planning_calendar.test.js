@@ -116,12 +116,12 @@ test("planning calendar view: copy previous week", async () => {
     click(".o_control_panel_main_buttons .o_button_copy_previous_week");
     await animationFrame();
     // verify action_copy_previous_week() invoked
-    expect.verifySteps(["copy_previous_week()"])
+    expect.verifySteps(["copy_previous_week()"]);
 
     // deselect "Maganlal" from Assigned to
     click(".o_calendar_filter_item[data-value='2'] > input");
     await animationFrame();
-    expect(".fc-event", 1, "should display 1 events on the week").toHaveCount(1, {
+    expect(".fc-event").toHaveCount(1, {
         message: "should display 1 events on the week",
     });
     click(".o_control_panel_main_buttons .o_button_send_all");

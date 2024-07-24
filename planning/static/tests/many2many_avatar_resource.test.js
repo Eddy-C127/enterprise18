@@ -180,9 +180,9 @@ test("many2many_avatar_resource widget in form view", async () => {
         message: "There should not be any avatar for material resource",
     });
     expect(".o_avatar_card_buttons button").toHaveCount(0);
-    expect(".o_avatar_card .o_resource_roles_tags > .o_tag", {
+    expect(".o_avatar_card .o_resource_roles_tags > .o_tag").toHaveCount(2, {
         message: "Roles should be listed in the card",
-    }).toHaveCount(2);
+    });
 
     // 3. Clicking on human resource's avatar with no user associated
     click(".many2many_tags_avatar_field_container .o_tag img");
