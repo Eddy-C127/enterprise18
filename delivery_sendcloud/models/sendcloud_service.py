@@ -312,9 +312,9 @@ class SendCloud:
         return list(parcel_items.values())
 
     def _get_house_number(self, address):
-        house_number = re.findall(r"([1-9]+\w*)", address)
+        house_number = re.search(r"(\d+[-\/]?\d* ?[a-zA-Z]?\d*)(?![a-zA-Z])", address)
         if house_number:
-            return house_number[0]
+            return house_number.group()
         return ' '
 
     def _validate_partner_details(self, partner):
