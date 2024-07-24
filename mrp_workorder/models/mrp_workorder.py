@@ -265,7 +265,7 @@ class MrpProductionWorkcenterLine(models.Model):
         action['context']['default_workorder_id'] = self.id
         return action
 
-    def button_start(self, bypass=False):
+    def button_start(self, raise_on_invalid_state=False, bypass=False):
         skip_employee_check = bypass or (not request and not self.env.user.employee_id)
         main_employee = False
         if not skip_employee_check:
@@ -283,7 +283,7 @@ class MrpProductionWorkcenterLine(models.Model):
             if any(main_employee not in [emp.id for emp in wo.allowed_employees] and not wo.all_employees_allowed for wo in self):
                 raise UserError(_("You are not allowed to work on the workorder"))
 
-        res = super().button_start()
+        res = super().button_start(raise_on_invalid_state=raise_on_invalid_state)
 
         for wo in self:
             if len(wo.time_ids) == 1 or all(wo.time_ids.mapped('date_end')):
@@ -292,7 +292,7 @@ class MrpProductionWorkcenterLine(models.Model):
                         check._update_component_quantity()
 
             if main_employee:
-                if len(wo.allowed_employees) == 0 or main_employee in [emp.id for emp in wo.allowed_employees]:
+                if (len(wo.allowed_employees) == 0 or main_employee in [emp.id for emp in wo.allowed_employees]) and wo.state not in ('done', 'cancel'):
                     wo.start_employee(self.env['hr.employee'].browse(main_employee).id)
                     wo.employee_ids |= self.env['hr.employee'].browse(main_employee)
 
