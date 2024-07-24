@@ -30,16 +30,23 @@ export const EditablePDFIframeMixin = (pdfClass) =>
          */
         onResizeItem(signItem, change, end = false) {
             this.helperLines.show(signItem.el);
-            Object.assign(signItem.el.style, {
-                height: `${change.height * 100}%`,
-                width: `${change.width * 100}%`,
-            });
-            Object.assign(signItem.data, {
-                width: change.width,
-                height: change.height,
-                updated: true,
-            });
-            this.updateSignItemFontSize(signItem);
+            /**
+             * Apply the changes only if they respect the minimum width/height.
+             * The minimum width is 5.5% of the page width
+             * The minimum height is 1% of the page height
+             */
+            if (change.width >= 0.055 && change.height >= 0.01) {
+                Object.assign(signItem.el.style, {
+                    height: `${change.height * 100}%`,
+                    width: `${change.width * 100}%`,
+                });
+                Object.assign(signItem.data, {
+                    width: change.width,
+                    height: change.height,
+                    updated: true,
+                });
+                this.updateSignItemFontSize(signItem);
+            }
             if (end) {
                 this.helperLines.hide();
                 this.saveChanges();
