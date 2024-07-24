@@ -645,6 +645,46 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_1
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
+registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_lot_number', {test:true, steps: () => [
+    // Create a delivery.
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan WHOUT' },
+    // Scan the GS1 barcode (contains product + lot)
+    {
+        trigger: '.o_scan_message.o_scan_product',
+        run: 'scan 0100000022222220152407101012345',
+    },
+    {
+        trigger: '.o_barcode_line .qty-done:contains(1)',
+        run: function () {
+            helper.assertLinesCount(1);
+            const line = helper.getLine({ barcode: "22222220" });
+            helper.assertLineIsHighlighted(line, true);
+            helper.assertLineQty(line, "1");
+            helper.assertLineTrackingNumber(line, "12345");
+        }
+    },
+
+    // Cancel the transfer and do the same but with packaging barcode instead.
+    { trigger: '.o_barcode_client_action', run: 'scan OCDCANC' },
+    { trigger: '.o_stock_barcode_main_menu', run: 'scan WHIN' },
+    // Scan the GS1 barcode (contains product packaging + lot)
+    {
+        trigger: '.o_scan_message.o_scan_product',
+        run: 'scan 0110000000240489152407101012345',
+    },
+    {
+        trigger: '.o_barcode_line .qty-done:contains(1)',
+        run: function () {
+            helper.assertLinesCount(1);
+            const line = helper.getLine({ barcode: "22222220" });
+            helper.assertLineIsHighlighted(line, true);
+            helper.assertLineQty(line, "1");
+            helper.assertLineTrackingNumber(line, "12345");
+        }
+    },
+    ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
+]});
+
 registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_number', {test:true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
@@ -652,7 +692,7 @@ registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_numb
     },
     {
         trigger: '.o_barcode_client_action',
-        run: 'scan 01057115440019521524071010304',
+        run: 'scan 01057115440019521524071021304',
     },
     {
         trigger: '.o_barcode_line .qty-done:contains(1)',
