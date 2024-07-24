@@ -8,10 +8,10 @@ import { makeStore } from "@spreadsheet/../tests/helpers/stores";
 describe.current.tags("headless");
 defineSpreadsheetModels();
 
-const { ComposerStore } = stores;
+const { CellComposerStore } = stores;
 
 test("ODOO.FILTER.VALUE", async function () {
-    const { store: composer, model } = await makeStore(ComposerStore);
+    const { store: composer, model } = await makeStore(CellComposerStore);
     await addGlobalFilter(model, {
         label: "filter 1",
         id: "42",
@@ -53,7 +53,7 @@ test("ODOO.FILTER.VALUE", async function () {
 });
 
 test("escape double quotes in filter name", async function () {
-    const { store: composer, model } = await makeStore(ComposerStore);
+    const { store: composer, model } = await makeStore(CellComposerStore);
     await addGlobalFilter(model, {
         label: 'my "special" filter',
         id: "42",

@@ -9,10 +9,10 @@ import { makeStore, makeStoreWithModel } from "@spreadsheet/../tests/helpers/sto
 describe.current.tags("headless");
 defineSpreadsheetModels();
 
-const { ComposerStore } = stores;
+const { CellComposerStore } = stores;
 
 test("ODOO.LIST id", async function () {
-    const { store: composer, model } = await makeStore(ComposerStore);
+    const { store: composer, model } = await makeStore(CellComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["foo", "bar", "date", "product_id"],
@@ -34,7 +34,7 @@ test("ODOO.LIST id", async function () {
 });
 
 test("ODOO.LIST id exact match", async function () {
-    const { store: composer, model } = await makeStore(ComposerStore);
+    const { store: composer, model } = await makeStore(CellComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["foo", "bar", "date", "product_id"],
@@ -47,7 +47,7 @@ test("ODOO.LIST id exact match", async function () {
 
 test("ODOO.LIST field name", async function () {
     const model = await createModelWithDataSource();
-    const { store: composer } = await makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = await makeStoreWithModel(model, CellComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["product_id", "bar"],
@@ -74,7 +74,7 @@ test("ODOO.LIST field name", async function () {
 
 test("ODOO.LIST.HEADER field name", async function () {
     const model = await createModelWithDataSource();
-    const { store: composer } = await makeStoreWithModel(model, ComposerStore);
+    const { store: composer } = await makeStoreWithModel(model, CellComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["product_id", "bar"],
@@ -90,7 +90,7 @@ test("ODOO.LIST.HEADER field name", async function () {
 });
 
 test("ODOO.LIST field name with invalid list id", async function () {
-    const { store: composer, model } = await makeStore(ComposerStore);
+    const { store: composer, model } = await makeStore(CellComposerStore);
     insertListInSpreadsheet(model, {
         model: "partner",
         columns: ["foo", "bar", "date", "product_id"],
