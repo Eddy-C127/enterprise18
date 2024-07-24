@@ -58,6 +58,9 @@ export class Digipad extends Component {
         this._checkInputValue();
         const numberValue = Number(this.value || 0);
         this.value = (numberValue + interval).toFixed(this.precision);
+        if (this.value % 1 == 0) {
+            this.value = String(Math.floor(this.value));
+        }
         await this.props.record.update(this.changes);
     }
 
