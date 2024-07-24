@@ -332,10 +332,14 @@ export class TypeWidgetProperties extends Component {
     }
 
     async onChangeProperty(value, name) {
-        if (name === "show_seconds" && !value && this.props.node.field.type === "datetime" && !this.props.node.attrs.widget) {
-            this.onChangeWidget("datetime")
-        }
-        else if (name === "currency_field" && this.props.node.field.type === "monetary") {
+        if (
+            ["show_seconds", "show_time"].includes(name) &&
+            !value &&
+            this.props.node.field.type === "datetime" &&
+            !this.props.node.attrs.widget
+        ) {
+            this.onChangeWidget("datetime");
+        } else if (name === "currency_field" && this.props.node.field.type === "monetary") {
             await this.onChangeCurrency(value);
             if (!this.props.node.attrs.options?.[name]) {
                 return;
