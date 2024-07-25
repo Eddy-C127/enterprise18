@@ -5,7 +5,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_partner_property_form"/>
         <field name="arch" type="xml">
-            <field name="property_supplier_payment_term_id" position="after">
+            <field name="property_outbound_payment_method_line_id" position="after">
                 <field name="box_1099_id" options="{'no_create': True}" groups="account.group_account_invoice,account.group_account_readonly"/>
             </field>
         </field>
