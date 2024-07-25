@@ -125,6 +125,9 @@ class Frontdesk(models.Model):
             'domain': [('station_id.id', '=', self.id)],
         }
 
+    def get_kiosk_url(self):
+        return self.kiosk_url
+
     def _get_frontdesk_field(self):
         return ['description', 'host_selection', 'drink_offer', 'self_check_in', 'theme',
           'drink_ids', 'ask_email', 'ask_phone', 'ask_company', 'authenticate_guest']

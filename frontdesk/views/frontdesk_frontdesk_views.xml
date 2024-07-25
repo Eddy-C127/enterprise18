@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="frontdesk_action_install_kiosk_pwa" model="ir.actions.client">
+        <field name="name">Frontdesk</field>
+        <field name="target">new</field>
+        <field name="res_model">frontdesk.frontdesk</field>
+        <field name="tag">install_kiosk_pwa</field>
+        <field name="context">{'app_id': 'frontdesk', 'footer': false}</field>
+    </record>
+
     <record id="frontdesk_frontdesk_view_form" model="ir.ui.view">
         <field name="name">frontdesk.frontdesk.view.form</field>
         <field name="model">frontdesk.frontdesk</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_open_kiosk" type="object" string="Open Kiosk" class="btn-primary" groups="frontdesk.frontdesk_group_user"/>
+                    <button name="%(frontdesk_action_install_kiosk_pwa)d" type="action" string="Open Kiosk" class="btn-primary" groups="frontdesk.frontdesk_group_user"/>
                 </header>
                 <sheet>
                     <field name="active" invisible="1"/>
@@ -129,7 +137,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <button class="btn btn-primary" name="action_open_kiosk" type="object"
+                                        <button class="btn btn-primary" name="%(frontdesk_action_install_kiosk_pwa)d" type="action"
                                         groups="frontdesk.frontdesk_group_user">Open Desk</button>
                                     </div>
                                     <div class="col-6">
