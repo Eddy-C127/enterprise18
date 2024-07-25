@@ -100,7 +100,7 @@ export class AccountReportController {
 
         const cacheKey = this.getCacheKey(options['sections_source_id'], reportToDisplayId)
         if (!this.reportInformationMap[cacheKey]) {
-            this.reportInformationMap[cacheKey] = this.orm.silent.call(
+            this.reportInformationMap[cacheKey] = this.orm.call(
                 "account.report",
                 "get_report_information",
                 [
@@ -139,7 +139,7 @@ export class AccountReportController {
                     loadOptions['selected_section_id'] = this.lastOpenedSectionByReport[reportId];
             }
 
-            this.reportOptionsMap[cacheKey] = this.orm.silent.call(
+            this.reportOptionsMap[cacheKey] = this.orm.call(
                 "account.report",
                 "get_options",
                 [
