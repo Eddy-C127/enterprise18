@@ -2021,7 +2021,7 @@ class AccountReport(models.Model):
         """ Return a list of all children lines for specified parent_line_id.
         NB: It will return the parent_line itself!
 
-        For instance if parent_line_ids is '~account.report.line~84|groupby:currency_id~res.currency~174'
+        For instance if parent_line_ids is '~account.report.line~84|{"groupby": "currency_id"}~res.currency~174'
         (where | is the LINE_ID_HIERARCHY_DELIMITER), it will return every subline for this currency.
         :param lines: list of report lines
         :param parent_line_id: id of a specified line
@@ -4151,9 +4151,8 @@ class AccountReport(models.Model):
         parsed_line_dict_id = self._parse_line_id(calling_line_dict_id)
         groupby_domain = []
         for markup, dummy, model_id in parsed_line_dict_id:
-            groupby_match = re.match("groupby:(?P<groupby_field>.*)", markup)
-            if groupby_match:
-                groupby_domain.append((groupby_match['groupby_field'], '=', model_id))
+            if isinstance(markup, dict) and 'groupby' in markup:
+                groupby_domain.append((markup['groupby'], '=', model_id))
         return groupby_domain
 
     def _get_expression_audit_aml_domain(self, expression_to_audit, options):
