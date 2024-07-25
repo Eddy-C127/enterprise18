@@ -103,7 +103,7 @@ class TestPlanningOverlap(TestProjectCommon):
     def test_same_user_past_overlap(self):
         tasks = self.task_1 + self.task_2
         with freeze_time('1900-01-04'):
-            tasks.write({
+            tasks.with_context(mail_auto_subscribe_no_notify=True).write({
                 'user_ids': self.user_projectuser,
                 'planned_date_begin': datetime.now() + relativedelta(hours=8),
                 'date_deadline': datetime.now() + relativedelta(hours=10),
