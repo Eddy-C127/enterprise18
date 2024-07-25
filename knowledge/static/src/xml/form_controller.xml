@@ -8,7 +8,7 @@
     <t t-name="Knowledge.FormView" t-inherit="web.FormView" t-inherit-mode="extension">
         <xpath expr="//Layout" position="inside">
             <t t-set-slot="control-panel-knowledge-button">
-                <button class="o_knowledge_icon_search btn opacity-trigger-hover" type="button" t-on-click="onClickSearchKnowledgeArticle" title="Search Knowledge Articles">
+                <button class="o_knowledge_icon_search btn opacity-trigger-hover" t-att-class="{'btn-secondary': env.isSmall}" type="button" t-on-click="onClickSearchKnowledgeArticle" title="Search Knowledge Articles">
                     <t t-call="Knowledge.KnowledgeIcon"/>
                 </button>
             </t>
