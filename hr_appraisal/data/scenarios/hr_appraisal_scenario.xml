@@ -2,17 +2,17 @@
 <odoo>
     <data noupdate="1">
         <!-- Employee -->
-        <record id="hr.employee_mw" model="hr.employee">
+        <record id="hr.employee_mw" model="hr.employee" forcecreate="1">
             <field name="next_appraisal_date" eval="(DateTime.now() + relativedelta(months=4)).strftime('%Y-%m-%d')"/>
         </record>
 
         <!-- Appraisal Note -->
-        <record id="note_good" model="hr.appraisal.note">
+        <record id="note_good" model="hr.appraisal.note" forcecreate="1">
             <field name="name">Good</field>
         </record>
 
         <!-- Appraisal -->
-        <record id="hr_appraisal_0" model="hr.appraisal">
+        <record id="hr_appraisal_0" model="hr.appraisal" forcecreate="1">
             <field name="active">True</field>
             <field name="employee_id" ref="hr.employee_sj"/>
             <field name="state">pending</field>
@@ -314,7 +314,7 @@
             </field>
         </record>
 
-        <record id="hr_appraisal_1" model="hr.appraisal">
+        <record id="hr_appraisal_1" model="hr.appraisal" forcecreate="1">
             <field name="active">True</field>
             <field name="employee_id" ref="hr.employee_eg"/>
             <field name="state">pending</field>
@@ -487,7 +487,7 @@
             </field>
         </record>
 
-        <record id="hr_appraisal_2" model="hr.appraisal">
+        <record id="hr_appraisal_2" model="hr.appraisal" forcecreate="1">
             <field name="active">True</field>
             <field name="employee_id" ref="hr.employee_eg"/>
             <field name="state">done</field>
@@ -558,7 +558,7 @@
         </record>
 
         <!-- Calendar Event -->
-        <record id="calendar_event_appraisal_1" model="calendar.event">
+        <record id="calendar_event_appraisal_1" model="calendar.event" forcecreate="1">
             <field name="user_id" ref="base.user_admin"/>
             <field name="name">Appraisal of Emma Granger</field>
             <field name="partner_ids" eval="[(6,0,[ref('hr.work_contact_sj'), ref('hr.work_contact_mw'),
@@ -571,27 +571,27 @@
         </record>
 
         <!-- Appraisal Goal Type -->
-        <record id="hr_appraisal_goal_tag_softskills" model="hr.appraisal.goal.tag">
+        <record id="hr_appraisal_goal_tag_softskills" model="hr.appraisal.goal.tag" forcecreate="1">
             <field name="name">Soft Skills</field>
         </record>
-        <record id="hr_appraisal_goal_tag_hardskills" model="hr.appraisal.goal.tag">
+        <record id="hr_appraisal_goal_tag_hardskills" model="hr.appraisal.goal.tag" forcecreate="1">
             <field name="name">Hard Skills</field>
         </record>
-        <record id="hr_appraisal_goal_tag_training" model="hr.appraisal.goal.tag">
+        <record id="hr_appraisal_goal_tag_training" model="hr.appraisal.goal.tag" forcecreate="1">
             <field name="name">Training</field>
         </record>
-        <record id="hr_appraisal_goal_tag_programming" model="hr.appraisal.goal.tag">
+        <record id="hr_appraisal_goal_tag_programming" model="hr.appraisal.goal.tag" forcecreate="1">
             <field name="name">Programming</field>
         </record>
-        <record id="hr_appraisal_goal_tag_internal" model="hr.appraisal.goal.tag">
+        <record id="hr_appraisal_goal_tag_internal" model="hr.appraisal.goal.tag" forcecreate="1">
             <field name="name">Internal</field>
         </record>
-        <record id="hr_appraisal_goal_tag_external" model="hr.appraisal.goal.tag">
+        <record id="hr_appraisal_goal_tag_external" model="hr.appraisal.goal.tag" forcecreate="1">
             <field name="name">External</field>
         </record>
 
         <!-- Appraisal Goal -->
-        <record id="hr_appraisal_goal_1" model="hr.appraisal.goal">
+        <record id="hr_appraisal_goal_1" model="hr.appraisal.goal" forcecreate="1">
             <field name="name">Team Management</field>
             <field name="employee_id" ref="hr.employee_sj"/>
             <field name="manager_id" ref="hr.employee_mw"/>
@@ -644,7 +644,7 @@
             </field>
         </record>
 
-        <record id="hr_appraisal_goal_2" model="hr.appraisal.goal">
+        <record id="hr_appraisal_goal_2" model="hr.appraisal.goal" forcecreate="1">
             <field name="name">Javascript</field>
             <field name="employee_id" ref="hr.employee_sj"/>
             <field name="manager_id" ref="hr.employee_mw"/>
@@ -696,7 +696,7 @@
             </field>
         </record>
 
-        <record id="hr_appraisal_goal_3" model="hr.appraisal.goal">
+        <record id="hr_appraisal_goal_3" model="hr.appraisal.goal" forcecreate="1">
             <field name="name">Deadlines</field>
             <field name="employee_id" ref="hr.employee_eg"/>
             <field name="manager_id" ref="hr.employee_sj"/>
@@ -717,7 +717,7 @@
             </field>
         </record>
 
-        <record id="hr_appraisal_goal_4" model="hr.appraisal.goal">
+        <record id="hr_appraisal_goal_4" model="hr.appraisal.goal" forcecreate="1">
             <field name="name">Python</field>
             <field name="employee_id" ref="hr.employee_eg"/>
             <field name="manager_id" ref="hr.employee_sj"/>
