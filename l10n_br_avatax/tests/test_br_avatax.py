@@ -307,6 +307,54 @@ class TestAvalaraBrInvoice(TestAvalaraBrInvoiceCommon):
         self.assertEqual(payload['header']['invoicesRefs'][0]['documentCode'], f'account.move_{invoice.id}', 'The credit note should reference the original invoice.')
 
 
+@tagged('post_install_l10n', '-at_install', 'post_install')
+class TestAvalaraBrSettings(TestAvalaraBrInvoiceCommon):
+    @classmethod
+    def setUpClass(cls, chart_template_ref='br'):
+        super().setUpClass(chart_template_ref=chart_template_ref)
+        cls.settings = cls.env['res.config.settings'].create({})
+
+    def test_01_create_account_success(self):
+        return_value = {
+            'avalara_api_id': 'API_ID',
+            'avalara_api_key': 'API_KEY',
+        }
+        with self._capture_request_br(return_value=return_value):
+            self.settings.create_account()
+
+        self.assertRecordValues(self.env.company, [{
+            'l10n_br_avatax_api_identifier': 'API_ID',
+            'l10n_br_avatax_api_key': 'API_KEY',
+        }])
+
+    def test_02_create_account_error_type_1(self):
+        return_value = {
+            'message': 'One or more errors occurred. (CEP \'32516-076\' not found)',
+            'isError': True,
+        }
+        with self._capture_request_br(return_value=return_value), \
+             self.assertRaisesRegex(UserError, r'One or more errors occurred. \(CEP \'32516-076\' not found\)'):
+            self.settings.create_account()
+
+        return_value = {
+            'message': 'An unhandled error occurred. Trace ID: xxx',
+            'isError': True
+        }
+        with self._capture_request_br(return_value=return_value), \
+             self.assertRaisesRegex(UserError, 'Please ensure the address on your company is correct'):
+            self.settings.create_account()
+
+    def test_03_create_account_error_type_2(self):
+        return_value = {
+            'message': '{"errors":{"Login do usuário master":["Login já utlizado"]},"title":"One or more validation errors occurred.","status":400,"traceId":"0HMPVCEB27KLU:000000E5"}',
+            'isError': True,
+        }
+
+        with self._capture_request_br(return_value=return_value), \
+             self.assertRaisesRegex(UserError, 'Login já utlizado'):
+            self.settings.create_account()
+
+
 @tagged('external_l10n', 'external', '-at_install', 'post_install', '-standard')
 class TestAvalaraBrInvoiceIntegration(TestAvalaraBrInvoiceCommon):
     def test_01_invoice_integration_br(self):
