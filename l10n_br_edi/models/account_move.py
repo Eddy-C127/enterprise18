@@ -486,7 +486,7 @@ class AccountMove(models.Model):
                 "street": partner.street_name,
                 "zipcode": partner.zip,
                 "cityName": partner.city,
-                "state": partner.state_id.name,
+                "state": partner.state_id.code,
                 "countryCode": partner.country_id.l10n_br_edi_code,
                 "number": partner.street_number,
                 "complement": partner.street_number2,
