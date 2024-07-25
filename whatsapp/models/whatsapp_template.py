@@ -496,6 +496,8 @@ class WhatsAppTemplate(models.Model):
     def button_submit_template(self):
         """Register template to WhatsApp Business Account """
         self.ensure_one()
+        if not self.template_type:
+            raise ValidationError(_("Template category is missing"))
         wa_api = WhatsAppApi(self.wa_account_id)
         attachment = False
         if self.header_type in ('image', 'video', 'document'):
