@@ -367,7 +367,7 @@ class AccountMove(models.Model):
                 "street": street_data["street_name"],
                 "zipcode": partner.zip,
                 "cityName": partner.city,
-                "state": partner.state_id.name,
+                "state": partner.state_id.code,
                 "countryCode": partner.country_id.l10n_br_edi_code,
                 "number": street_data["street_number"],
                 "phone": partner.phone,
