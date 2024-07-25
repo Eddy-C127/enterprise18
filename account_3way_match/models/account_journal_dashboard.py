@@ -17,20 +17,13 @@ class AccountJournal(models.Model):
     def _patch_dashboard_query_3way_match(self, query):
         query.add_where("("
             "account_move.move_type NOT IN %s "
-            "OR account_move.release_to_pay = 'yes' "
-            "OR account_move.invoice_date_due < %s"
+            "OR account_move.release_to_pay in ('yes', 'exception') "
         ")", [
             tuple(self.env['account.move'].get_purchase_types(include_receipts=True)),
-            fields.Date.context_today(self),
         ])
 
     def _get_open_bills_to_pay_query(self):
         query = super()._get_open_bills_to_pay_query()
-        self._patch_dashboard_query_3way_match(query)
-        return query
-
-    def _get_draft_bills_query(self):
-        query = super()._get_draft_bills_query()
         self._patch_dashboard_query_3way_match(query)
         return query
 
