@@ -31,6 +31,7 @@ export function insertChart(chartData) {
         type: chartType,
         dataSourceId: uuidGenerator.uuidv4(),
         id: uuidGenerator.uuidv4(),
+        actionXmlId: chartData.actionXmlId,
     };
     return (model, stores) => {
         model.dispatch("CREATE_CHART", {
@@ -42,12 +43,6 @@ export function insertChart(chartData) {
             },
             definition,
         });
-        if (chartData.menuXMLId) {
-            model.dispatch("LINK_ODOO_MENU_TO_CHART", {
-                chartId: definition.id,
-                odooMenuId: chartData.menuXMLId,
-            });
-        }
         const sidePanel = stores.get(SidePanelStore);
         sidePanel.open("ChartPanel", { figureId: definition.id });
     };

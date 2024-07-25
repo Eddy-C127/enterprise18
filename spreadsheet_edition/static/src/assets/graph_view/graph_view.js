@@ -26,6 +26,8 @@ export const patchGraphSpreadsheet = () => ({
     },
 
     async onInsertInSpreadsheet() {
+        const { actionId } = this.env.config;
+        const { xml_id } = actionId ? await this.actionService.loadAction(actionId) : {};
         const actionOptions = {
             preProcessingAsyncAction: "insertChart",
             preProcessingAsyncActionData: {
@@ -40,7 +42,7 @@ export const patchGraphSpreadsheet = () => ({
                         "graph_order"
                     ),
                 },
-                menuXMLId: this.menu.getCurrentApp()?.xmlid || this.menu.getCurrentApp()?.id,
+                actionXmlId: xml_id,
             },
         };
         const params = {
