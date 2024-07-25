@@ -1,4 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from json import JSONDecodeError
 from pprint import pformat
 
 from odoo import fields, models, api, _
@@ -79,15 +80,18 @@ class ResConfigSettings(models.TransientModel):
             self.company_id.l10n_br_avatax_api_identifier = result['avalara_api_id']
             self.company_id.l10n_br_avatax_api_key = result['avalara_api_key']
         else:
-            # API sometimes returns error as a JSON string
+            # API returns errors either as a string containing JSON:
             # {'message': '{"errors":{"Login do usuário master":["Login já utlizado"]},"title":"One or more validation errors occurred.","status":400,"traceId":"0HMPVCEB27KLU:000000E5"}', 'isError': True}
+            # Or as a regular string:
+            # {'message': 'An unhandled error occurred. Trace ID: xxx', 'isError': True}
             if 'message' in result:
-                # API sometimes returns non-descript "unhandled errors" as a string, they contain no further detail
-                # {'message': 'An unhandled error occurred. Trace ID: xxx', 'isError': True}
-                if 'unhandled error occurred' in result['message']:
-                    raise UserError(_('The Avatax platform failed to create your account. Please ensure the address on your company is correct. If it is please contact support at odoo.com/help.'))
-
-                result = json.loads(result['message'])
+                try:
+                    result = json.loads(result['message'])
+                except JSONDecodeError:
+                    if 'unhandled error occurred' in result['message']:
+                        raise UserError(_('The Avatax platform failed to create your account. Please ensure the address on your company is correct. If it is please contact support at odoo.com/help.'))
+                    else:
+                        raise UserError(result['message'])
 
             errors = result.get('errors')
             if errors:
