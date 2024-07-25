@@ -31,11 +31,11 @@ class HelpdeskStage(models.Model):
              "By default, the email will be sent from the email alias of the helpdesk team.\n"
              "Otherwise it will be sent from the company's email address, or from the catchall (as defined in the System Parameters).")
     legend_blocked = fields.Char(
-        'Red Kanban Label', default=lambda s: _('Blocked'), translate=True, required=True)
+        'Red Kanban Label', default=lambda s: s.env._('Blocked'), translate=True, required=True)
     legend_done = fields.Char(
-        'Green Kanban Label', default=lambda s: _('Ready'), translate=True, required=True)
+        'Green Kanban Label', default=lambda s: s.env._('Ready'), translate=True, required=True)
     legend_normal = fields.Char(
-        'Grey Kanban Label', default=lambda s: _('In Progress'), translate=True, required=True)
+        'Grey Kanban Label', default=lambda s: s.env._('In Progress'), translate=True, required=True)
     ticket_count = fields.Integer(compute='_compute_ticket_count', export_string_translation=False)
 
     def _compute_ticket_count(self):

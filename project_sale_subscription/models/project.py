@@ -4,7 +4,7 @@
 import json
 from collections import defaultdict
 
-from odoo import fields, models, _lt
+from odoo import fields, models
 from odoo.osv import expression
 
 
@@ -48,7 +48,7 @@ class Project(models.Model):
 
     def _get_profitability_labels(self):
         labels = super()._get_profitability_labels()
-        labels['subscriptions'] = _lt('Subscriptions')
+        labels['subscriptions'] = self.env._('Subscriptions')
         return labels
 
     def _get_profitability_sequence_per_invoice_type(self):

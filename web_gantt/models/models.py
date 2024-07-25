@@ -4,9 +4,9 @@ from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 from lxml.builder import E
 
-from odoo import _, _lt, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
-from odoo.tools.misc import OrderedSet, unique
+from odoo.tools import _, unique, OrderedSet
 
 
 class Base(models.AbstractModel):

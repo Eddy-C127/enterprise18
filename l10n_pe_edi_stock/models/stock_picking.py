@@ -10,9 +10,11 @@ from lxml import etree
 from json.decoder import JSONDecodeError
 from markupsafe import Markup
 
-from odoo import api, models, fields, _, _lt
+from odoo import api, models, fields
 from odoo.exceptions import UserError
+from odoo.tools import _, LazyTranslate
 
+_lt = LazyTranslate(__name__)
 _logger = logging.getLogger(__name__)
 
 DEFAULT_PE_DATE_FORMAT = '%Y-%m-%d'
@@ -399,18 +401,18 @@ class Picking(models.Model):
             response = requests.post(credentials["login_url"] % urllib.parse.quote_plus(credentials["access_id"]), data=data, headers=headers, timeout=20)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
-            return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["request"], e))}
+            return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["request"]), e))}
 
         try:
             response_json = response.json()
         except JSONDecodeError as e:
-            return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["json_decode"], e))}
+            return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["json_decode"]), e))}
 
         if "error" in response_json or "error_description" in response_json:
-            error_msg = str(Markup("%s<br/>%s: %s") % (ERROR_MESSAGES["response_code "], response_json.get("error", ""), response_json.get("error_description", "")))
+            error_msg = str(Markup("%s<br/>%s: %s") % (str(ERROR_MESSAGES["response_code"]), response_json.get("error", ""), response_json.get("error_description", "")))
             return {"error": error_msg}
         if not response_json.get("access_token"):
-            return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["response_unknown"], response_json))}
+            return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["response_unknown"]), response_json))}
 
         token = response_json["access_token"]
         return {"token": token}
@@ -467,21 +469,21 @@ class Picking(models.Model):
             response = requests.post(url, json=data, headers=headers, verify=True, timeout=20)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
-            to_return = {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["request"], e))}
+            to_return = {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["request"]), e))}
             if isinstance(e, requests.exceptions.HTTPError) and e.response.status_code == 401:
                 to_return.update({"error_reason": "unauthorized"})
             return to_return
         try:
             response_json = response.json()
         except JSONDecodeError as e:
-            return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["json_decode"], e))}
+            return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["json_decode"]), e))}
 
         if isinstance(response_json.get("errors"), list) and len(response_json["errors"]) > 0 and isinstance(response_json["errors"][0], dict):
             code = response_json["errors"][0].get("cod", "")
             msg = response_json["errors"][0].get("msg", "")
-            return {"error": str(Markup("%s<br/>%s: %s") % (ERROR_MESSAGES["response_code"], code, msg))}
+            return {"error": str(Markup("%s<br/>%s: %s") % (str(ERROR_MESSAGES["response_code"]), code, msg))}
         if not response_json.get("numTicket"):
-            return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["response_unknown"], response_json))}
+            return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["response_unknown"]), response_json))}
 
         return {"ticket_number": response_json["numTicket"]}
 
@@ -499,38 +501,38 @@ class Picking(models.Model):
             response = requests.get(url, params={'numTicket': ticket_number}, headers=headers, timeout=10)
             response.raise_for_status()
         except requests.exceptions.RequestException as e:
-            to_return = {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["request"], e))}
+            to_return = {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["request"]), e))}
             if isinstance(e, requests.exceptions.HTTPError) and e.response.status_code == 401:
                 to_return.update({"error_reason": "unauthorized"})
             return to_return
         try:
             response_json = response.json()
         except JSONDecodeError as e:
-            return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["json_decode"], e))}
+            return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["json_decode"]), e))}
 
         if response_json.get("codRespuesta") == "98":
-            error_msg = ERROR_MESSAGES["processing"]
+            error_msg = str(ERROR_MESSAGES["processing"])
             return {"error": error_msg, "error_reason": "processing"}
         if response_json.get("error"):
             code = response_json["error"].get("numError", "")
             msg = response_json["error"].get("desError", "")
             if code == "1033":
-                error_msg = ERROR_MESSAGES["duplicate"]
+                error_msg = str(ERROR_MESSAGES["duplicate"])
                 return {"error": error_msg, "error_reason": "duplicate"}
             else:
-                return {"error": str(Markup("%s %s: %s") % (ERROR_MESSAGES["response_code"], code, msg)), "error_reason": "rejected"}
+                return {"error": str(Markup("%s %s: %s") % (str(ERROR_MESSAGES["response_code"]), code, msg)), "error_reason": "rejected"}
         if not response_json.get("arcCdr") or response_json.get("codRespuesta") != "0":
             if "codRespuesta" in response_json:
-                return {"error": str(Markup("%s %s") % (ERROR_MESSAGES["request"], response_json["codRespuesta"])), "error_reason": "rejected"}
+                return {"error": str(Markup("%s %s") % (str(ERROR_MESSAGES["request"]), response_json["codRespuesta"])), "error_reason": "rejected"}
             else:
-                return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["response_unknown"], response_json))}
+                return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["response_unknown"]), response_json))}
 
         cdr_zip = response_json["arcCdr"]
 
         try:
             cdr = self.env["account.edi.format"]._l10n_pe_edi_unzip_edi_document(base64.b64decode(cdr_zip))
         except Exception as e:
-            return {"error": str(Markup("%s<br/>%s") % (ERROR_MESSAGES["unzip"], e))}
+            return {"error": str(Markup("%s<br/>%s") % (str(ERROR_MESSAGES["unzip"]), e))}
 
         return {"cdr": cdr}
 

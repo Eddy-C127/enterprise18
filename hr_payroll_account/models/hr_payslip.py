@@ -177,7 +177,7 @@ class HrPayslip(models.Model):
         if not acc_id:
             raise UserError(_('The Expense Journal "%s" has not properly configured the default Account!', self.journal_id.name))
         existing_adjustment_line = (
-            line_id for line_id in line_ids if line_id['name'] == _('Adjustment Entry')
+            line_id for line_id in line_ids if line_id['name'] == self.env._('Adjustment Entry')
         )
         adjust_credit = next(existing_adjustment_line, False)
 

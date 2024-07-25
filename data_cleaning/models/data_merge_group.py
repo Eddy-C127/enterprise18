@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, api, fields, _
+from odoo import api, fields, models
 from odoo.models import MAGIC_COLUMNS
 from odoo.osv import expression
 from odoo.tools import split_every
@@ -32,7 +32,7 @@ class DataMergeGroup(models.Model):
     @api.depends('model_id', 'similarity')
     def _compute_display_name(self):
         for group in self:
-            group.display_name = _('%(model)s - Similarity: %(similarity)s%%', model=group.model_id.name, similarity=int(group.similarity * 100))
+            group.display_name = self.env._('%(model)s - Similarity: %(similarity)s%%', model=group.model_id.name, similarity=int(group.similarity * 100))
 
     def _get_similarity_fields(self):
         self.ensure_one()

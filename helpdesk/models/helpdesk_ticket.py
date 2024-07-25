@@ -583,7 +583,7 @@ class HelpdeskTicket(models.Model):
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
-        return [dict(vals, name=_("%s (copy)", ticket.name)) for ticket, vals in zip(self, vals_list)]
+        return [dict(vals, name=self.env._("%s (copy)", ticket.name)) for ticket, vals in zip(self, vals_list)]
 
     def _unsubscribe_portal_users(self):
         self.message_unsubscribe(partner_ids=self.message_partner_ids.filtered('user_ids.share').ids)

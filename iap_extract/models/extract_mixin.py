@@ -6,10 +6,11 @@ import logging
 from dateutil.relativedelta import relativedelta
 from psycopg2 import IntegrityError, OperationalError
 
-from odoo import api, fields, models, _lt, _
+from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
+from odoo.tools import _, LazyTranslate
 
-
+_lt = LazyTranslate(__name__)
 _logger = logging.getLogger(__name__)
 
 ERROR_MESSAGES = {
@@ -59,9 +60,10 @@ class ExtractMixin(models.AbstractModel):
             if record.extract_status in ('success', 'processing'):
                 record.extract_error_message = ''
             else:
-                record.extract_error_message = ERROR_MESSAGES.get(
+                lazy_message = ERROR_MESSAGES.get(
                     record.extract_status, ERROR_MESSAGES['error_internal']
                 )
+                record.extract_error_message = self.env._(lazy_message)  # pylint: disable=gettext-variable
 
     @api.depends('extract_state')
     def _compute_extract_state_processed(self):

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api, _
+from odoo import api, fields, models
 from odoo.addons.helpdesk.models.helpdesk_ticket import TICKET_PRIORITY
+
 
 class HelpdeskSLA(models.Model):
     _name = "helpdesk.sla"
@@ -63,7 +64,7 @@ class HelpdeskSLA(models.Model):
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
-        return [dict(vals, name=_("%s (copy)", sla.name)) for sla, vals in zip(self, vals_list)]
+        return [dict(vals, name=self.env._("%s (copy)", sla.name)) for sla, vals in zip(self, vals_list)]
 
     def action_open_helpdesk_ticket(self):
         self.ensure_one()

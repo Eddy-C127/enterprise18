@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api, _
+from odoo import api, fields, models
 
 
 class IrModel(models.Model):
@@ -45,7 +45,7 @@ class IrModel(models.Model):
 
     def action_merge_contextual_enable(self, module='data_cleaning'):
         server_action_values = {
-            'name': _('Merge'),
+            'name': self.env._('Merge'),
             'binding_view_types': 'list',
             'state': 'code',
             'code': "action = env['data_merge.record'].action_deduplicates(records)",

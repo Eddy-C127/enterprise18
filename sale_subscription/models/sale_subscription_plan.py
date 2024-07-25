@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _, _lt, Command
-from odoo.tools import get_timedelta
+from odoo import api, fields, models, Command
+from odoo.tools import _, get_timedelta
 
 
 class SaleSubscriptionPlan(models.Model):
@@ -121,4 +121,4 @@ class SaleSubscriptionPlan(models.Model):
     @api.depends('auto_close_limit')
     def _compute_auto_close_limit_display(self):
         for plan in self:
-            plan.auto_close_limit_display = _lt('%s days', plan.auto_close_limit)
+            plan.auto_close_limit_display = self.env._('%s days', plan.auto_close_limit)

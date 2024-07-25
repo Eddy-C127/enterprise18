@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _, _lt
+from odoo import api, fields, models
+from odoo.tools import _
+
 
 class Project(models.Model):
     _inherit = 'project.project'
@@ -65,7 +67,7 @@ class Project(models.Model):
         buttons = super(Project, self)._get_stat_buttons()
         buttons.append({
             'icon': 'life-ring',
-            'text': _lt('Tickets'),
+            'text': self.env._('Tickets'),
             'number': self.sudo().ticket_count,
             'action_type': 'object',
             'action': 'action_open_project_tickets',

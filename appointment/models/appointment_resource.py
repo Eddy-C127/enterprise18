@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 from odoo.tools.translate import html_translate
 
 
@@ -86,7 +86,7 @@ class AppointmentResource(models.Model):
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
-        return [dict(vals, name=_("%s (copy)", resource.name)) for resource, vals in zip(self, vals_list)]
+        return [dict(vals, name=self.env._("%s (copy)", resource.name)) for resource, vals in zip(self, vals_list)]
 
     def _get_filtered_possible_capacity_combinations(self, asked_capacity, capacity_info):
         """ Get combinations of resources with total capacity based on the capacity needed and the resources we want.

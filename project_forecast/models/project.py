@@ -5,8 +5,7 @@ import ast
 import datetime
 import json
 
-from odoo import api, fields, models, _, _lt
-from odoo.osv import expression
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import format_list
 
@@ -38,7 +37,7 @@ class Project(models.Model):
             different_company_slots = slots.filtered(lambda slot: slot.company_id != project.company_id)
             if not different_company_slots:
                 continue
-            raise UserError(_(
+            raise UserError(self.env._(
                 "You cannot update the company for project %(project_name)s as it's linked to shifts in another company.\n"
                 "If you want to change the company for another, leave the project's company blank, transfer shifts %(slots_names)s "
                 "to the destination company and then change the project's company.",
@@ -73,7 +72,7 @@ class Project(models.Model):
         buttons = super(Project, self)._get_stat_buttons()
         buttons.append({
             'icon': 'tasks',
-            'text': _lt('Planned'),
+            'text': self.env._('Planned'),
             'number': '%s Hours' % (self.total_forecast_time),
             'action_type': 'object',
             'action': 'action_project_forecast_from_project',

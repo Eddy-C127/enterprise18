@@ -4,7 +4,7 @@
 import ast
 from dateutil.relativedelta import relativedelta
 
-from odoo import models, api, fields, _
+from odoo import api, fields, models
 from odoo.tools import split_every, SQL
 
 # When cleaning_mode = automatic, _clean_records calls action_validate.
@@ -223,7 +223,7 @@ class DataCleaningModel(models.Model):
                 notify_author=True,
                 partner_ids=partner_ids,
                 res_id=self.id,
-                subject=_('Data to Clean'),
+                subject=self.env._('Data to Clean'),
             )
 
     ############

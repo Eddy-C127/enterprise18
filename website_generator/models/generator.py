@@ -8,10 +8,13 @@ import re
 import requests
 import tarfile
 
-from odoo import api, fields, models, _lt
+from odoo import api, fields, models
 from odoo.addons.iap.tools.iap_tools import iap_jsonrpc
 from odoo.exceptions import AccessError
+from odoo.tools import LazyTranslate
 from urllib.parse import urljoin, urlparse
+
+_lt = LazyTranslate(__name__)
 
 DEFAULT_WSS_ENDPOINT = 'https://iap-scraper.odoo.com/'
 GET_RESULT_TIMEOUT_SECONDS = 3600  # 1 hour
@@ -88,7 +91,7 @@ class WebsiteGeneratorRequest(models.Model):
     @api.depends('status')
     def _compute_status_message(self):
         for record in self:
-            record.status_message = STATUS_MESSAGES.get(record.status, STATUS_MESSAGES['error_internal'])
+            record.status_message = self.env._(STATUS_MESSAGES.get(record.status, STATUS_MESSAGES['error_internal']))  # pylint: disable=gettext-variable
 
     def _get_call_params(self):
         ICP = self.env['ir.config_parameter'].sudo()

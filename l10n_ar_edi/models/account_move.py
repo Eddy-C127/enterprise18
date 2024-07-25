@@ -608,7 +608,7 @@ class AccountMove(models.Model):
 
             hint_msgs = []
             for code in return_codes:
-                fix = afip_errors._hint_msg(code, afip_ws)
+                fix = afip_errors._hint_msg(self.env, code, afip_ws)
                 if fix:
                     hint_msgs.append(fix)
             if hint_msgs:
@@ -688,7 +688,7 @@ class AccountMove(models.Model):
             raise UserError(_('For WS "%(ws)s" country code is mandatory country: %(country)s', ws=self.journal_id.l10n_ar_afip_ws,
                             country=self.commercial_partner_id.country_id.name))
         elif not self.commercial_partner_id.country_id.l10n_ar_afip_code:
-            hint_msg = afip_errors._hint_msg('country_afip_code', self.journal_id.l10n_ar_afip_ws)
+            hint_msg = afip_errors._hint_msg(self.env, 'country_afip_code', self.journal_id.l10n_ar_afip_ws)
             msg = _('For "%(ws)s" WS the afip code country is mandatory: %(country)s', ws=self.journal_id.l10n_ar_afip_ws,
                     country=self.commercial_partner_id.country_id.name)
             if hint_msg:

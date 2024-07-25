@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _lt
+from odoo import api, fields, models
+
 
 class Project(models.Model):
     _inherit = 'project.project'
@@ -47,7 +48,7 @@ class Project(models.Model):
         if self.env.user.has_group('account.group_account_readonly'):
             buttons.append({
                 'icon': 'pencil-square-o',
-                'text': _lt('Assets'),
+                'text': self.env._('Assets'),
                 'number': self.sudo().assets_count,
                 'action_type': 'object',
                 'action': 'action_open_project_assets',

@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 from odoo.osv import expression
 
 from typing import Optional
@@ -43,20 +43,20 @@ class VoipCall(models.Model):
             if call.activity_name:
                 return call.activity_name
             if call.state == "aborted":
-                return _("Aborted call to %(phone_number)s", phone_number=call.phone_number)
+                return self.env._("Aborted call to %(phone_number)s", phone_number=call.phone_number)
             if call.state == "missed":
-                return _("Missed call from %(phone_number)s", phone_number=call.phone_number)
+                return self.env._("Missed call from %(phone_number)s", phone_number=call.phone_number)
             if call.state == "rejected":
                 if call.direction == "incoming":
-                    return _("Rejected call from %(phone_number)s", phone_number=call.phone_number)
-                return _("Rejected call to %(phone_number)s", phone_number=call.phone_number)
+                    return self.env._("Rejected call from %(phone_number)s", phone_number=call.phone_number)
+                return self.env._("Rejected call to %(phone_number)s", phone_number=call.phone_number)
             if call.partner_id:
                 if call.direction == "incoming":
-                    return _("Call from %(correspondent)s", correspondent=call.partner_id.name)
-                return _("Call to %(correspondent)s", correspondent=call.partner_id.name)
+                    return self.env._("Call from %(correspondent)s", correspondent=call.partner_id.name)
+                return self.env._("Call to %(correspondent)s", correspondent=call.partner_id.name)
             if call.direction == "incoming":
-                return _("Call from %(phone_number)s", phone_number=call.phone_number)
-            return _("Call to %(phone_number)s", phone_number=call.phone_number)
+                return self.env._("Call from %(phone_number)s", phone_number=call.phone_number)
+            return self.env._("Call to %(phone_number)s", phone_number=call.phone_number)
 
         for call in self:
             call.display_name = get_name(call)

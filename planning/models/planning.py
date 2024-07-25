@@ -2238,7 +2238,7 @@ class PlanningRole(models.Model):
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
-        return [dict(vals, name=_("%s (copy)", role.name)) for role, vals in zip(self, vals_list)]
+        return [dict(vals, name=self.env._("%s (copy)", role.name)) for role, vals in zip(self, vals_list)]
 
 
 class PlanningPlanning(models.Model):

@@ -357,7 +357,7 @@ class HelpdeskTeam(models.Model):
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
-        return [dict(vals, name=_("%s (copy)", team.name)) for team, vals in zip(self, vals_list)]
+        return [dict(vals, name=self.env._("%s (copy)", team.name)) for team, vals in zip(self, vals_list)]
 
     def _change_privacy_visibility(self, new_visibility):
         """

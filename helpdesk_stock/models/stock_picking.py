@@ -2,7 +2,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
-from odoo import models, _
+from odoo import models
+
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
@@ -28,7 +29,7 @@ class StockPicking(models.Model):
                     continue
                 state_desc = dict(self._fields['state']._description_selection(self.env))[pickings[0].state].lower()
                 body = Markup('<br/>').join(
-                    picking._get_html_link() + _('Return %(status)s', status=state_desc)
+                    picking._get_html_link() + self.env._('Return %(status)s', status=state_desc)
                     for picking in pickings
                 )
                 ticket.message_post(subtype_id=subtype.id, body=body)

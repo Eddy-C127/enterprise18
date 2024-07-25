@@ -1,4 +1,6 @@
-from odoo import _lt, _
+from odoo.tools import LazyTranslate
+
+_lt = LazyTranslate(__name__)
 
 PROXY_ERROR_CODES = {
     "error_codabox_not_configured": _lt("CodaBox is not configured. Please check your configuration."),
@@ -25,8 +27,8 @@ def get_error_msg(error):
     error_type = error.get("type")
     codabox_error_code = error.get("codabox_error_code")
     if error_type == 'error_connecting_codabox' and codabox_error_code:
-        return CODABOX_ERROR_CODES.get(codabox_error_code, _("Unknown error %s while contacting CodaBox. Please contact Odoo support.", codabox_error_code))
-    return PROXY_ERROR_CODES.get(error_type, _("Unknown error %s while contacting CodaBox. Please contact Odoo support.", error_type))
+        return CODABOX_ERROR_CODES.get(codabox_error_code, _lt("Unknown error %s while contacting CodaBox. Please contact Odoo support.", codabox_error_code))
+    return PROXY_ERROR_CODES.get(error_type, _lt("Unknown error %s while contacting CodaBox. Please contact Odoo support.", error_type))
 
 
 def get_iap_endpoint(env):

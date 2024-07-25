@@ -12,12 +12,14 @@ from dateutil.relativedelta import relativedelta
 from markupsafe import Markup
 
 from requests.exceptions import RequestException, Timeout, ConnectionError
-from odoo import api, fields, models, modules, tools, _
+from odoo import api, fields, models, modules, tools
 from odoo.exceptions import UserError, CacheMiss, MissingError, ValidationError, RedirectWarning
 from odoo.http import request
 from odoo.addons.account_online_synchronization.models.odoofin_auth import OdooFinAuth
 from odoo.tools.misc import format_amount, format_date, get_lang
+from odoo.tools import _, LazyTranslate
 
+_lt = LazyTranslate(__name__)
 _logger = logging.getLogger(__name__)
 pattern = re.compile("^[a-z0-9-_]+$")
 runbot_pattern = re.compile(r"^https:\/\/[a-z0-9-_]+\.[a-z0-9-_]+\.odoo\.com$")
@@ -25,7 +27,7 @@ runbot_pattern = re.compile(r"^https:\/\/[a-z0-9-_]+\.[a-z0-9-_]+\.odoo\.com$")
 class OdooFinRedirectException(UserError):
     """ When we need to open the iframe in a given mode. """
 
-    def __init__(self, message=_('Redirect'), mode='link'):
+    def __init__(self, message=_lt('Redirect'), mode='link'):
         self.mode = mode
         super().__init__(message)
 

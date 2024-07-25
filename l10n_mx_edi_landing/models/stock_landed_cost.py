@@ -1,6 +1,6 @@
 # coding: utf-8
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.addons.l10n_mx_edi_extended.models.account_move import CUSTOM_NUMBERS_PATTERN
 
@@ -26,7 +26,7 @@ class StockLandedCost(models.Model):
         (
             'l10n_mx_edi_customs_number',
             'UNIQUE (l10n_mx_edi_customs_number)',
-            _('The custom number must be unique!'),
+            'The custom number must be unique!',
         )
     ]
 
@@ -40,5 +40,6 @@ class StockLandedCost(models.Model):
                 continue
             custom_number = landed_cost.l10n_mx_edi_customs_number.strip()
             if not CUSTOM_NUMBERS_PATTERN.match(custom_number):
-                raise ValidationError(_("Error!, The format of the customs number is incorrect. \n%s\n"
-                                        "For example: 15  48  3009  0001234", help_message))
+                raise ValidationError(self.env._(
+                    "Error!, The format of the customs number is incorrect. \n%s\n"
+                    "For example: 15  48  3009  0001234", help_message))

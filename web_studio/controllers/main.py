@@ -526,7 +526,7 @@ class WebStudioController(http.Controller):
         operations = operations or []
         for op in operations:
             if op['type'] not in OPERATIONS_WHITELIST:
-                raise ValidationError(_('The operation  type "%s" is not supported', op['type']))
+                raise ValidationError(request.env._('The operation  type "%s" is not supported', op['type']))
         parser = etree.XMLParser(remove_blank_text=True)
         if studio_view_arch == "":
             studio_view_arch = '<data/>'
@@ -570,7 +570,7 @@ class WebStudioController(http.Controller):
             char_op['node']['field_description'].update({
                 'name': filename,
                 'type': 'char',
-                'field_description': _('Filename for %s', op['node']['field_description']['name']),
+                'field_description': request.env._('Filename for %s', op['node']['field_description']['name']),
             })
             node = op.get('node')
             if node and node.get('tag') == 'field' and node.get('field_description') and node['field_description'].get('related'):

@@ -1,7 +1,6 @@
 from . import models
 from . import wizard
 
-from odoo.tools.translate import _lt
 from odoo.exceptions import UserError
 
 
@@ -15,7 +14,7 @@ def _l10n_be_codabox_pre_init_hook(env):
         return
 
     if not env['ir.module.module'].search_count([('demo', '=', True)]):
-        raise UserError(_lt("The CodaBox module must be installed and configured by an Accounting Firm."))
+        raise UserError(env._("The CodaBox module must be installed and configured by an Accounting Firm."))
 
     accounting_firm = env['res.partner'].create({
         'name': 'Demo Accounting Firm',

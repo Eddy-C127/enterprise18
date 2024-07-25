@@ -1,4 +1,8 @@
-from odoo import _, _lt
+from typing import Literal
+
+from odoo.tools import LazyTranslate
+
+_lt = LazyTranslate(__name__)
 
 WSFE_ERRORS = {
     '501': _lt('This is an internal error in AFIP. Please wait a couple of minutes and try again'),
@@ -61,7 +65,8 @@ ERRORS = {
     }
 }
 
-def _hint_msg(error_code, afipws):
+
+def _hint_msg(env, error_code: str, afipws: Literal['wsfe', 'wsfex', 'wsbfe']):
     """Get explanation and/or hints on errors returned by wsfe webservice.
 
     :param str error_code:
@@ -69,33 +74,33 @@ def _hint_msg(error_code, afipws):
     :rtype: str
     """
     if afipws == 'wsfe' and error_code in WSFE_ERRORS:
-        return str(WSFE_ERRORS.get(error_code))
+        return env._(WSFE_ERRORS.get(error_code, ''))  # pylint: disable=gettext-variable
 
     elif afipws == 'wsfex' and error_code in WSFEX_ERRORS:
-        return str(WSFEX_ERRORS.get(error_code))
+        return env._(WSFEX_ERRORS.get(error_code, ''))  # pylint: disable=gettext-variable
 
     elif afipws == 'wsbfe' and error_code in WBSFE_ERRORS:
-        return str(WBSFE_ERRORS.get(error_code))
+        return env._(WBSFE_ERRORS.get(error_code, ''))  # pylint: disable=gettext-variable
 
     elif error_code in ERRORS:
-        return str(ERRORS.get(error_code))
+        return env._(ERRORS.get(error_code, ''))  # pylint: disable=gettext-variable
 
     elif error_code == 'reprocess':
-        return _('The invoice is trying to be reprocessed')
+        return env._('The invoice is trying to be reprocessed')
 
     elif error_code == 'rejected':
-        return _('The invoice has not been accepted by AFIP, please fix the errors and try again')
+        return env._('The invoice has not been accepted by AFIP, please fix the errors and try again')
 
     # Observations codes
     elif error_code == "17;;":
-        return str(ERRORS["17"])
+        return env._(ERRORS["17"])  # pylint: disable=gettext-variable
 
     res = []
     # Observations can separate using ; multiple values can came at the same time, so we split the codes
     # in order to show all the related help
     for item in error_code.split(';'):
         code = item.strip()
-        if ERRORS.get(code):
-            res.append(code + ' - ' + ERRORS.get(code))
+        if message := ERRORS.get(code):
+            res.append(code + ' - ' + env._(message))  # pylint: disable=gettext-variable
 
     return '\n* '.join(res)

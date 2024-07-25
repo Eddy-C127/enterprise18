@@ -1,5 +1,6 @@
-from odoo import http, _, _lt
+from odoo import http
 from odoo.http import request
+from odoo.tools import _
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
 
@@ -62,7 +63,7 @@ class L10nCOWebsiteSale(WebsiteSale):
                 'identification_types': LatamIdentificationType.search([
                     '|', ('country_id', '=', False), ('country_id.code', '=', 'CO')
                 ]) if can_edit_vat else LatamIdentificationType,
-                'vat_label': _lt('Identification Number'),
+                'vat_label': request.env._('Identification Number'),
                 'obligation_types': request.env['l10n_co_edi.type_code'].sudo().search([]),
                 'selected_obligation_types_ids': request.httprequest.form.getlist('l10n_co_edi_obligation_type_ids', int) or [],
                 'fiscal_regimen_selection': request.env["res.partner"]._fields["l10n_co_edi_fiscal_regimen"].selection,

@@ -13,11 +13,11 @@ from odoo.tools.zeep import Client, Plugin
 from odoo.tools.zeep.exceptions import Fault
 from odoo.tools.zeep.wsdl.utils import etree_to_string
 
-from odoo import _, _lt
+from odoo.tools import _, LazyTranslate
 from odoo.tools.float_utils import float_repr
 from odoo.exceptions import UserError
 
-
+_lt = LazyTranslate(__name__)
 _logger = logging.getLogger(__name__)
 # uncomment to enable logging of SOAP requests and responses
 # logging.getLogger('zeep.transports').setLevel(logging.DEBUG)

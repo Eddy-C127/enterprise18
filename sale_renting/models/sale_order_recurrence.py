@@ -1,6 +1,17 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, _lt, fields, models
+from odoo import fields, models
+from odoo.tools import LazyTranslate
+
+_lt = LazyTranslate(__name__)
+
+SINGULAR_LABELS = {
+    'hour': _lt("Hour"),
+    'day': _lt("Day"),
+    'week': _lt("Week"),
+    'month': _lt("Month"),
+    'year': _lt("Year"),
+}
 
 
 class SaleOrderRecurrence(models.Model):
@@ -40,7 +51,7 @@ class SaleOrderRecurrence(models.Model):
     def _compute_duration_display(self):
         for record in self:
             duration = record.duration
-            record.duration_display = _(
+            record.duration_display = self.env._(
                 "%(duration)s %(unit)s", duration=duration, unit=record._get_unit_label(duration)
             )
 
@@ -48,12 +59,5 @@ class SaleOrderRecurrence(models.Model):
         """ Get the translated product pricing unit label. """
         self.ensure_one()
         if duration == 1:
-            singular_labels = {
-                'hour': _lt("Hour"),
-                'day': _lt("Day"),
-                'week': _lt("Week"),
-                'month': _lt("Month"),
-                'year': _lt("Year"),
-            }
-            return str(singular_labels[self.unit])
+            return self.env._(SINGULAR_LABELS[self.unit])  # pylint: disable=gettext-variable
         return dict(self._fields['unit']._description_selection(self.env))[self.unit]

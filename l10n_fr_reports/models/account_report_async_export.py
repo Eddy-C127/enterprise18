@@ -1,13 +1,13 @@
-from markupsafe import Markup
-
-from odoo import models, fields, api, _, _lt
-from odoo.exceptions import UserError
-from odoo.addons.iap.tools import iap_tools
-
-from datetime import timedelta
 import json
+from datetime import timedelta
 
+from markupsafe import Markup
+from odoo import api, fields, models
+from odoo.addons.iap.tools import iap_tools
+from odoo.exceptions import UserError
+from odoo.tools import LazyTranslate, _
 
+_lt = LazyTranslate(__name__)
 ENDPOINT = "https://l10n-fr-aspone.api.odoo.com"
 
 # Allows to translate the errors returned by IAP
@@ -212,8 +212,11 @@ class AccountReportAsyncExport(models.Model):
             err = response['error']
             if isinstance(response['error'], str):
                 msg = ERROR_CODE_TO_MSG[err]
+                msg_rest = ''
             else:
-                msg = ERROR_CODE_TO_MSG[err[0]] + err[1]
+                msg = ERROR_CODE_TO_MSG[err[0]]
+                msg_rest = err[1]
+            msg = self.env._(msg) + msg_rest  # pylint: disable=gettext-variable
             raise UserError(msg)
 
         # Error from ASPOne

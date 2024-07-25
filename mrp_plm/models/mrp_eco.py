@@ -166,13 +166,13 @@ class MrpEcoStage(models.Model):
     approval_roles = fields.Char('Approval Roles', compute='_compute_approvals', store=True)
     is_blocking = fields.Boolean('Blocking Stage', compute='_compute_is_blocking', store=True)
     legend_blocked = fields.Char(
-        'Red Kanban Label', default=lambda s: _('Blocked'), translate=True, required=True,
+        'Red Kanban Label', default=lambda s: s.env._('Blocked'), translate=True, required=True,
         help='Override the default value displayed for the blocked state for kanban selection, when the ECO is in that stage.')
     legend_done = fields.Char(
-        'Green Kanban Label', default=lambda s: _('Ready'), translate=True, required=True,
+        'Green Kanban Label', default=lambda s: s.env._('Ready'), translate=True, required=True,
         help='Override the default value displayed for the done state for kanban selection, when the ECO is in that stage.')
     legend_normal = fields.Char(
-        'Grey Kanban Label', default=lambda s: _('In Progress'), translate=True, required=True,
+        'Grey Kanban Label', default=lambda s: s.env._('In Progress'), translate=True, required=True,
         help='Override the default value displayed for the normal state for kanban selection, when the ECO is in that stage.')
     description = fields.Text(help="Description and tooltips of the stage states.")
 

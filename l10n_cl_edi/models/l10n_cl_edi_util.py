@@ -25,8 +25,10 @@ from odoo.tools.zeep.exceptions import TransportError
 from odoo.tools.zeep import Client, Settings
 
 
-from odoo import _, _lt, models, fields, tools
+from odoo import models, fields
+from odoo.tools import _, LazyTranslate
 
+_lt = LazyTranslate(__name__)
 _logger = logging.getLogger(__name__)
 
 MSG_ERROR = {
@@ -107,7 +109,7 @@ def l10n_cl_edi_retry(max_retries=MAX_RETRIES, logger=None, custom_msg=None):
                     break
             msg = _('- It was not possible to get a response after %s retries.', max_retries)
             if custom_msg is not None:
-                msg = custom_msg + msg
+                msg = custom_msg + "<br/>" + msg
             self._report_connection_err(msg)
 
         return wrapper_retry
@@ -372,10 +374,11 @@ class L10nClEdiUtilMixin(models.AbstractModel):
 
     def _report_connection_err(self, error):
         # raise error
+        error_msg = str(error)
         if not self.env.context.get('cron_skip_connection_errs'):
-            self.message_post(body=str(error))
+            self.message_post(body=error_msg)
         else:
-            _logger.warning(error)
+            _logger.warning(error_msg)
 
     @l10n_cl_edi_retry(logger=_logger)
     def _get_seed_ws(self, mode):
@@ -505,7 +508,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
             return False
         return self._get_send_status_ws(mode, company_vat, track_id, token)
 
-    @l10n_cl_edi_retry(logger=_logger, custom_msg=_('Asking for claim status failed due to:'))
+    @l10n_cl_edi_retry(logger=_logger, custom_msg=_lt('Asking for claim status failed due to:'))
     def _get_dte_claim_ws(self, mode, settings, company_vat, document_type_code, document_number):
         return Client(CLAIM_URL[mode] + '?wsdl', operation_timeout=TIMEOUT, settings=settings).service.listarEventosHistDoc(
             self._l10n_cl_format_vat(company_vat)[:-2],
@@ -529,7 +532,7 @@ class L10nClEdiUtilMixin(models.AbstractModel):
             return False
         return response
 
-    @l10n_cl_edi_retry(logger=_logger, custom_msg=_('Document acceptance or claim failed due to:') + '<br/> ')
+    @l10n_cl_edi_retry(logger=_logger, custom_msg=_lt('Document acceptance or claim failed due to:'))
     def _send_sii_claim_response_ws(self, mode, settings, company_vat, document_type_code, document_number, claim_type):
         return Client(CLAIM_URL[mode] + '?wsdl', operation_timeout=TIMEOUT, settings=settings).service.ingresarAceptacionReclamoDoc(
             self._l10n_cl_format_vat(company_vat)[:-2],

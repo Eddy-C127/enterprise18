@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from markupsafe import Markup
-from odoo import models, _
+from odoo import models
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -28,7 +28,7 @@ class AccountMove(models.Model):
                         continue
                     state_desc = dict(self._fields['state']._description_selection(self.env))[invoices[0].state].lower()
                     body = Markup('<br/>').join(
-                        invoice._get_html_link() + _('Refund %(status)s', status=state_desc)
+                        invoice._get_html_link() + invoice.env._('Refund %(status)s', status=state_desc)
                         for invoice in invoices
                     )
                     ticket.message_post(subtype_id=subtype_id.id, body=body)

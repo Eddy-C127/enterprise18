@@ -217,7 +217,7 @@ result = contract.wage * 0.10''')
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
-        return [dict(vals, name=_("%s (copy)", rule.name)) for rule, vals in zip(self, vals_list)]
+        return [dict(vals, name=self.env._("%s (copy)", rule.name)) for rule, vals in zip(self, vals_list)]
 
     def write(self, vals):
         res = super().write(vals)

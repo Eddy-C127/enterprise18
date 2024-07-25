@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _, _lt, Command
+from odoo import api, fields, models, Command
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_compare, SQL
+from odoo.tools import float_compare, _, SQL
 from odoo.tools.misc import formatLang
-from collections import defaultdict, namedtuple
 from dateutil.relativedelta import relativedelta
 
 

@@ -10,11 +10,11 @@ from datetime import datetime, date
 import psycopg2
 import psycopg2.errors
 
-from odoo import models, api, fields, _
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError, UserError
 from odoo.models import MAGIC_COLUMNS
 from odoo.osv.expression import FALSE_DOMAIN, OR, expression
-from odoo.tools import get_lang, SQL
+from odoo.tools import _, get_lang, SQL
 from odoo.tools.misc import format_datetime, format_date, partition as tools_partition, unique
 
 _logger = logging.getLogger(__name__)

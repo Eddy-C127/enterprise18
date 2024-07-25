@@ -2,7 +2,6 @@
 
 from base64 import b64encode
 
-from odoo import _
 from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tools import file_open, float_is_zero
@@ -136,7 +135,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
         documents = self.env['ir.attachment'].search([
             ('company_id', '=', self.company.id),
             ('res_model', '=', 'account.move'),
-            ('description', '=', _('SIE imported file'))
+            ('description', '=', self.env._('SIE imported file'))
         ])
         self.assertFalse(documents.ids, "No documents should be created by the file import")
 
@@ -200,7 +199,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
             '4545-6633', '7410-2365', '7788-3333', '7841-9999', '7856-8999', '7888-9999', '7899-5558', '7901', '7902',
             '7903', '8798-8989', '8977-9665', '8978-5621', '8978-6235', '8978-8999'
         )
-        file_partners = [_('SIE undefined imported partner - %s', name) for name in file_ids]
+        file_partners = [self.env._('SIE undefined imported partner - %s', name) for name in file_ids]
         file_partners += ['Åkesson & co', 'Decoration A/S', 'Reklamförbundet org', 'Simone & Partners - Sprl']
         file_bad_partners = [
             'SIE undefined imported partner - 1000', 'SIE undefined imported partner - DK122333',
@@ -233,7 +232,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
         documents = self.env['ir.attachment'].search([
             ('company_id', '=', self.company.id),
             ('res_model', '=', 'account.move'),
-            ('description', '=', _('SIE imported file'))
+            ('description', '=', self.env._('SIE imported file'))
         ])
 
         document_names = documents.sorted('name').mapped('name')
@@ -305,7 +304,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
             '4545-6633', '7410-2365', '7788-3333', '7841-9999', '7856-8999', '7888-9999', '7899-5558', '7901', '7902',
             '7903', '8798-8989', '8977-9665', '8978-5621', '8978-6235', '8978-8999'
         )
-        file_partners = [_('SIE undefined imported partner - %s', name) for name in file_ids]
+        file_partners = [self.env._('SIE undefined imported partner - %s', name) for name in file_ids]
         file_partners += ['Åkesson & co', 'Decoration A/S', 'Reklamförbundet org', 'Simone & Partners - Sprl']
         file_bad_partners = [
             'SIE undefined imported partner - 1000',
@@ -340,7 +339,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
         documents = self.env['ir.attachment'].search([
             ('company_id', '=', self.company.id),
             ('res_model', '=', 'account.move'),
-            ('description', '=', _('SIE imported file'))
+            ('description', '=', self.env._('SIE imported file'))
         ])
 
         document_names = documents.sorted('name').mapped('name')
@@ -397,7 +396,7 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
             '4545-6633', '7410-2365', '7788-3333', '7841-9999', '7856-8999', '7888-9999', '7899-5558', '7901', '7902',
             '7903', '8798-8989', '8977-9665', '8978-5621', '8978-6235', '8978-8999'
         )
-        file_partners = [_('SIE undefined imported partner - %s', name) for name in file_ids]
+        file_partners = [self.env._('SIE undefined imported partner - %s', name) for name in file_ids]
         file_partners += [
             'Åkesson & co', 'Decoration A/S', 'Reklamförbundet org', 'Simone & Partners - Sprl', 'Svenska Statoil AB', 'Hyresvärden AB'
         ]
@@ -418,6 +417,6 @@ class AccountTestSIEImport(AccountTestInvoicingCommon):
         n_attachments = self.env['ir.attachment'].search_count([
             ('company_id', '=', self.company.id),
             ('res_model', '=', 'account.move'),
-            ('description', '=', _('SIE imported file')),
+            ('description', '=', self.env._('SIE imported file')),
         ])
         self.assertEqual(4, n_attachments, 'ir.attachment documents imported mismatch files')

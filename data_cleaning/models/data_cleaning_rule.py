@@ -3,28 +3,10 @@
 
 import re
 
-from odoo import models, api, fields, _
+from odoo import models, api, fields
 from odoo.tools import html2plaintext
 from odoo.exceptions import ValidationError
 
-
-ACTIONS = [
-    ('trim', _('Trim Spaces')),
-    ('case', _('Set Type Case')),
-    ('phone', _('Format Phone')),
-    ('html', _('Scrap HTML')),
-]
-
-ACTIONS_TRIM = [
-    ('all', _('All Spaces')),
-    ('superfluous', _('Superfluous Spaces')),
-]
-
-ACTIONS_CASE = [
-    ('first', _('First Letters to Uppercase')),
-    ('upper', _('All Uppercase')),
-    ('lower', _('All Lowercase')),
-]
 
 ACTIONS_PYTHON = {
     'trim_all': lambda record, value: value.replace(' ', ''),
@@ -67,12 +49,28 @@ class DataCleaningRule(models.Model):
         domain="[('model_id', '=', res_model_id), ('ttype', 'in', ('char', 'text', 'html')), ('store', '=', True)]",
         required=True, ondelete='cascade')
 
-    action = fields.Selection(ACTIONS, string='Action', default='trim', required=True)
+    action = fields.Selection(
+        [
+            ('trim', 'Trim Spaces'),
+            ('case', 'Set Type Case'),
+            ('phone', 'Format Phone'),
+            ('html', 'Scrap HTML'),
+        ],
+        string='Action', default='trim', required=True)
     action_trim = fields.Selection(
-        ACTIONS_TRIM, string='Trim', default='all',
+        [
+            ('all', 'All Spaces'),
+            ('superfluous', 'Superfluous Spaces'),
+        ],
+        string='Trim', default='all',
         help="Which spaces are trimmed by the rule. Leading, trailing, and successive spaces are considered superfluous.")
     action_case = fields.Selection(
-        ACTIONS_CASE, string='Case', default='first',
+        [
+            ('first', 'First Letters to Uppercase'),
+            ('upper', 'All Uppercase'),
+            ('lower', 'All Lowercase'),
+        ],
+        string='Case', default='first',
         help="How the type case is set by the rule. 'First Letters to Uppercase' sets every letter to lowercase except the first letter of each word, which is set to uppercase.")
     action_technical = fields.Char(compute='_compute_action')
     action_display = fields.Char(compute='_compute_action')
@@ -81,15 +79,19 @@ class DataCleaningRule(models.Model):
 
     @api.depends('action', 'action_trim', 'action_case')
     def _compute_action(self):
+        def get_display_name(rule, field_name):
+            action = rule[field_name]
+            selections = self._fields[field_name]._description_selection(self.env)
+            return action, next((label for key, label in selections if key == action), '')
         for rule in self:
-            action = rule.action
-            action_display = dict(ACTIONS).get(action, '')
-            if action == 'trim':
-                action = '%s_%s' % (action, rule.action_trim)
-                action_display = '%s (%s)' % (action_display, dict(ACTIONS_TRIM).get(rule.action_trim))
-            elif action == 'case':
-                action = '%s_%s' % (action, rule.action_case)
-                action_display = '%s (%s)' % (action_display, dict(ACTIONS_CASE).get(rule.action_case))
+            action, action_display = get_display_name(rule, 'action')
+            action_display = action_display or ''
+            for action_with_detail in ('trim', 'case'):
+                if action == action_with_detail:
+                    action_detail, action_display_detail = get_display_name(rule, f'action_{action}')
+                    action = f"{action}_{action_detail}"
+                    action_display = f"{action_display} ({action_display_detail})"
+                    break
             rule.action_technical = action
             rule.action_display = action_display
 
@@ -129,4 +131,4 @@ class DataCleaningRule(models.Model):
             try:
                 import phonenumbers
             except ModuleNotFoundError:
-                raise ValidationError(_('The Python module `phonenumbers` is not installed. Format phone will not work.'))
+                raise ValidationError(self.env._('The Python module `phonenumbers` is not installed. Format phone will not work.'))

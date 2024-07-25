@@ -712,7 +712,7 @@ class SIEExportWizard(models.TransientModel):
                     for (date_of_balance, ref), balance in existing_balances[account_code].items()
                     if (period == 'closing' and date_of_balance <= line_date)
                        or (date_of_balance < line_date)
-                       or (date_of_balance == line_date and ref == _('SIE opening/closing balance move'))
+                       or (date_of_balance == line_date and ref == self.env._('SIE opening/closing balance move'))
                 ))
                 remaining = balance_at_date - existing_sum - running_correction
                 if not float_is_zero(remaining, 6) and line_date.isoformat() >= main_year_start:

@@ -1,6 +1,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _
+from odoo.tools import LazyTranslate
+
+_lt = LazyTranslate(__name__)
+
 
 class WhatsAppError(Exception):
     def __init__(self, message='', error_code=False, failure_type=False):
@@ -18,10 +21,10 @@ class WhatsAppError(Exception):
         if error_code:
             formated_message = f'{error_code}: {message}'
         elif failure_type == 'account':
-            formated_message = _("Whatsapp account is misconfigured or shared.")
+            formated_message = _lt("Whatsapp account is misconfigured or shared.")
         elif failure_type == 'network':
-            formated_message = _("Whatsapp could not be reached or the query was malformed.")
+            formated_message = _lt("Whatsapp could not be reached or the query was malformed.")
         else:
-            formated_message = _("Unknown error when processing whatsapp request.")
+            formated_message = _lt("Unknown error when processing whatsapp request.")
 
         super().__init__(formated_message)

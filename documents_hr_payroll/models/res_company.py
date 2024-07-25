@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 
 
 class ResCompany(models.Model):
@@ -29,7 +29,7 @@ class ResCompany(models.Model):
         parent_folder_id = self.env.ref('documents_hr.documents_hr_folder', raise_if_not_found=False)
 
         folders = self.env["documents.folder"].sudo().create([{
-            'name': _('Payroll'),
+            'name': company.env._('Payroll'),
             'group_ids': [(4, group_payroll_user.id)],
             'read_group_ids': [(4, group_user.id)],
             'parent_folder_id': parent_folder_id.id if parent_folder_id else False,

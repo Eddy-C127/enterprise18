@@ -5,10 +5,10 @@ import re
 from difflib import SequenceMatcher
 from stdnum.eu.vat import guess_country
 
-from odoo import api, fields, models, Command, _, _lt
+from odoo import api, fields, models, Command
 from odoo.addons.iap.tools import iap_tools
 from odoo.exceptions import AccessError
-from odoo.tools import float_compare
+from odoo.tools import _, float_compare
 from odoo.tools.misc import clean_context, formatLang
 
 _logger = logging.getLogger(__name__)
@@ -90,7 +90,7 @@ class AccountMove(models.Model):
             self._check_ocr_status()
         except Exception as e:
             _logger.warning("Error while reloading AI data on account.move %d: %s", self.id, e)
-            raise AccessError(_lt("Couldn't reload AI data."))
+            raise AccessError(self.env._("Couldn't reload AI data."))
 
     @api.model
     def _contact_iap_extract(self, pathinfo, params):

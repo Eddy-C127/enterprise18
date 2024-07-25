@@ -7,10 +7,10 @@ from datetime import timedelta, datetime
 from dateutil.relativedelta import relativedelta
 from odoo.tools.date_utils import get_timedelta
 
-from odoo import fields, models, api, _, _lt
+from odoo import api, fields, models
 from odoo.osv import expression
 from odoo.exceptions import UserError
-from odoo.tools import format_list, topological_sort
+from odoo.tools import _, format_list, topological_sort
 from odoo.tools.sql import SQL
 from odoo.addons.resource.models.utils import filter_domain_leaf
 from odoo.osv.expression import is_leaf

@@ -126,8 +126,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         def get_company_action(message):
             return {
                 'message': message,
-                'action_text': _("View Company/ies"),
-                'action': values['company']._get_records_action(name=_('Invalid Company/ies'))
+                'action_text': self.env._("View Company/ies"),
+                'action': values['company']._get_records_action(name=self.env._('Invalid Company/ies'))
             }
 
         errors = {}
@@ -218,7 +218,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         def build_partners_action(partners, message):
             return {
                 'message': message,
-                'action': partners._get_records_action(name=_("Invalid Partner(s)")),
+                'action': partners._get_records_action(name=self.env._("Invalid Partner(s)")),
             }
 
         faulty_partners = defaultdict(lambda: self.env['res.partner'])
@@ -268,8 +268,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         return {
             key: {
                 'message': descriptions[key],
-                'action_text': _('View Partners'),
-                'action': partners._get_records_action(name=_("Invalid Partner(s)")),
+                'action_text': self.env._('View Partners'),
+                'action': partners._get_records_action(name=self.env._("Invalid Partner(s)")),
             }
             for key, partners in faulty_partners.items()
         }
@@ -423,8 +423,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         def get_product_action(message, products, level='warning'):
             return {
                 'message': message,
-                'action_text': _('View Product(s)'),
-                'action': products._get_records_action(name=("Invalid Product(s)")),
+                'action_text': self.env._('View Product(s)'),
+                'action': products._get_records_action(name=self.env._("Invalid Product(s)")),
                 'level': level,
             }
 

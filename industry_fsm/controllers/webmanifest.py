@@ -1,7 +1,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _lt
 from odoo.addons.web.controllers import webmanifest
+from odoo.tools.translate import LazyTranslate
+
+_lt = LazyTranslate(__name__)
 
 
 class WebManifest(webmanifest.WebManifest):

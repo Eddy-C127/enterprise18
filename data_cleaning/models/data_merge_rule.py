@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, models, fields, api
+from odoo import fields, models
+
 
 class DataMergeRule(models.Model):
     _name = 'data_merge.rule'
@@ -23,10 +24,10 @@ class DataMergeRule(models.Model):
     ]
 
     def _available_match_modes(self):
-        modes = [('exact', _("Exact Match"))]
+        modes = [('exact', self.env._("Exact Match"))]
         # can't conditionally set demo data...
         if self.env.context.get('install_mode') or self.env.registry.has_unaccent:
-            modes.append(('accent', _("Case/Accent Insensitive Match")))
+            modes.append(('accent', self.env._("Case/Accent Insensitive Match")))
         return modes
 
     def _update_default_rules(self):

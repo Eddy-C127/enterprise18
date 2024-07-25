@@ -3,9 +3,12 @@ import math
 import re
 from functools import partial
 
-from odoo import _lt
 from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
+
+# keep code as-is but do not translate,
+# the language is not known in this context
+_lt = lambda x: x  # noqa: E731
 
 
 # Codes from the updated document of 30 june 2017

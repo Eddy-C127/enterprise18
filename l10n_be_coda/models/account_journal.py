@@ -6,13 +6,16 @@
 import time
 import re
 
-from odoo import models, fields, tools, _, _lt
+from odoo import models, fields, tools
 from odoo.exceptions import UserError
+from odoo.tools.translate import LazyTranslate
+
+_lt = LazyTranslate(__name__)
 
 
 class safedict(dict):
     def __init__(self, *args, return_val=None, **kwargs):
-        self.__return_val = return_val if return_val is not None else _('Wrong CODA code')
+        self.__return_val = return_val if return_val is not None else _lt('Wrong CODA code')
         super().__init__(*args, **kwargs)
 
     def __getitem__(self, k):
@@ -338,6 +341,7 @@ class AccountJournal(models.Model):
         return re.match(r'0{5}\d{9}05[ D] +', coda_string) is not None
 
     def _parse_bank_statement_file(self, attachment):
+        _ = self.env._
         pattern = re.compile("[\u0020-\u1EFF\n\r]+")  # printable characters
 
         # Try different encodings for the file
@@ -370,11 +374,13 @@ class AccountJournal(models.Model):
             return _('Name: %(name)s, Town: %(city)s', name=rmspaces(s[:16]), city=rmspaces(s[16:]))
 
         def parse_operation(tr_type, family, operation, category):
-            return "{tr_type}: {family} ({operation})".format(
-                tr_type=sepa_transaction_type[tr_type],
-                family=transaction_code[family][0],
-                operation=transaction_code[family][1].get(operation, default_transaction_code.get(operation, _('undefined')))
-            )
+            transaction_type = sepa_transaction_type[tr_type]
+            transaction_family, transaction_operations = transaction_code[family]
+            transaction_operation = transaction_operations.get(operation, default_transaction_code.get(operation, _lt('undefined')))
+            tr_type = _(transaction_type)  # pylint: disable=gettext-variable
+            tr_family = _(transaction_family)  # pylint: disable=gettext-variable
+            tr_operation = _(transaction_operation)  # pylint: disable=gettext-variable
+            return f"{tr_type}: {tr_family} ({tr_operation})"
 
         def parse_structured_communication(co_type, communication):
             # pylint: disable=C0321,C0326

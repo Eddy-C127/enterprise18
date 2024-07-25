@@ -14,11 +14,13 @@ from markupsafe import Markup
 from psycopg2 import OperationalError
 
 
-from odoo import _, _lt, fields, models
+from odoo import fields, models
 from odoo.addons.l10n_cl_edi.models.l10n_cl_edi_util import UnexpectedXMLResponse, InvalidToken
 from odoo.exceptions import UserError
+from odoo.tools import _, LazyTranslate
 from odoo.tools.float_utils import float_repr
 
+_lt = LazyTranslate(__name__)
 _logger = logging.getLogger(__name__)
 
 try:

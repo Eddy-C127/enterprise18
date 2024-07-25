@@ -355,7 +355,7 @@ class AppointmentType(models.Model):
         vals_list = super().copy_data(default=default)
         return [dict(
             vals,
-            name=_("%s (copy)", appointment_type.name),
+            name=self.env._("%s (copy)", appointment_type.name),
             category=appointment_type.category,
         ) for appointment_type, vals in zip(self, vals_list)]
 

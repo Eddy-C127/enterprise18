@@ -8,7 +8,7 @@ import re
 import psycopg2.errors
 from dateutil.relativedelta import relativedelta
 
-from odoo import models, api, fields, _
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import SQL
 
@@ -164,7 +164,7 @@ class DataMergeModel(models.Model):
                 notify_author=True,
                 partner_ids=partner_ids,
                 res_id=self.id,
-                subject=_('Duplicates to Merge'),
+                subject=self.env._('Duplicates to Merge'),
             )
 
     def _cron_find_duplicates(self):
@@ -230,7 +230,7 @@ class DataMergeModel(models.Model):
                 try:
                     self._cr.execute(sql)
                 except psycopg2.errors.UndefinedFunction:
-                    raise UserError(_('Missing required PostgreSQL extension: unaccent')) from None
+                    raise UserError(self.env._('Missing required PostgreSQL extension: unaccent')) from None
 
                 rows = self._cr.fetchall()
                 ids = ids + [row[1] for row in rows]
@@ -299,11 +299,11 @@ class DataMergeModel(models.Model):
         models = set(self.env['ir.model'].browse(self.res_model_id.ids).mapped('model'))
         for model_name in models:
             if model_name and hasattr(self.env[model_name], '_prevent_merge') and self.env[model_name]._prevent_merge:
-                raise ValidationError(_('Deduplication is forbidden on the model: %s', model_name))
+                raise ValidationError(self.env._('Deduplication is forbidden on the model: %s', model_name))
 
     def copy_data(self, default=None):
         vals_list = super().copy_data(default=default)
-        return [dict(vals, name=_("%s (copy)", merge_model.name)) for merge_model, vals in zip(self, vals_list)]
+        return [dict(vals, name=self.env._("%s (copy)", merge_model.name)) for merge_model, vals in zip(self, vals_list)]
 
     def write(self, vals):
         if 'active' in vals and not vals['active']:

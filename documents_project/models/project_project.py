@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import json
 from collections import defaultdict
 
-from odoo import api, fields, models, _, _lt
+from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
-from odoo.tools import frozendict
+from odoo.tools import _, frozendict
 
 
 class ProjectProject(models.Model):
@@ -177,7 +176,7 @@ class ProjectProject(models.Model):
         if self.use_documents:
             buttons.append({
                 'icon': 'file-text-o',
-                'text': _lt('Documents'),
+                'text': self.env._('Documents'),
                 'number': self.document_count,
                 'action_type': 'object',
                 'action': 'action_view_documents_project',

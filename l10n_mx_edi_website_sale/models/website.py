@@ -1,6 +1,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _lt
+from odoo import models
+from odoo.tools import LazyTranslate
+
+_lt = LazyTranslate(__name__)
 
 
 class Website(models.Model):

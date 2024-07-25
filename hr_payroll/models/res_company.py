@@ -5,7 +5,7 @@ import calendar
 from datetime import date
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -38,7 +38,7 @@ class ResCompany(models.Model):
             # We try if the date exists in 2023, which is not a leap year.
             max_possible_day = calendar.monthrange(2023, int(company.ytd_reset_month))[1]
             if company.ytd_reset_day < 1 or company.ytd_reset_day > max_possible_day:
-                raise ValidationError(_("The YTD reset day must be a valid day of the month : since the current month is %(month)s, it should be between 1 and %(day)s.",
+                raise ValidationError(self.env._("The YTD reset day must be a valid day of the month : since the current month is %(month)s, it should be between 1 and %(day)s.",
                     month=company._fields['ytd_reset_month'].selection[int(company.ytd_reset_month) - 1][1],
                     day=max_possible_day
                 ))
@@ -47,7 +47,7 @@ class ResCompany(models.Model):
         note = self.env['ir.qweb']._render('hr_payroll.hr_payroll_note_demo_content', {'date_today': fields.Date.today().strftime(self.env['res.lang']._get_data(code=self.env.user.lang).date_format)})
         self.env['hr.payroll.note'].sudo().create([{
             'company_id': company.id,
-            'name': _('Note'),
+            'name': self.env._('Note'),
             'note': note,
         } for company in self])
 
