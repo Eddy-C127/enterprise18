@@ -29,11 +29,13 @@ class ResCompany(models.Model):
 
     @api.depends('partner_id.country_id')
     def _compute_sepa_origid(self):
-        """ Set default value for :
+        """ Set default value if missing for :
             - sepa_orgid_issr, which correspond to the field 'Issuer' of an 'OrganisationIdentification', as described in ISO 20022.
             - sepa_orgid_id, which correspond to the field 'Identification' of an 'OrganisationIdentification', as described in ISO 20022.
         """
         for company in self:
+            if company.sepa_orgid_id or company.sepa_orgid_issr:
+                continue
             if company.partner_id.country_id.code == 'BE':
                 company.sepa_orgid_issr = 'KBO-BCE'
                 company.sepa_orgid_id = company.vat[:2].upper() + company.vat[2:].replace(' ', '') if company.vat else ''
