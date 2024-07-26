@@ -1159,10 +1159,16 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
             'project_id': self.fsm_project.id,
         })
         self.env['stock.quant']._update_available_quantity(product, child_location, quantity=1, lot_id=sn1)
+
+        self.product_a.type = 'product'
+        self.env['stock.quant']._update_available_quantity(self.product_a, child_location, quantity=1)
+
         # create so field service
         task_sn.write({'partner_id': self.partner_1.id})
         task_sn.with_user(self.project_user)._fsm_ensure_sale_order()
         # add product
+
+        self.product_a.with_context({'fsm_task_id': task_sn.id}).set_fsm_quantity(1)
         wizard = product.with_context({'fsm_task_id': task_sn.id}).action_assign_serial()
         wizard_id = self.env['fsm.stock.tracking'].browse(wizard['res_id'])
         wizard_id.write({

@@ -66,10 +66,10 @@ class Task(models.Model):
                         ml_vals['quantity'] = missing_qty
                         ml_vals['lot_id'] = so_line.fsm_lot_id.id
                         ml_to_create.append(ml_vals)
+                quants = self.env['stock.quant']._gather(fsm_sn_move.product_id, fsm_sn_move.location_id, lot_id=so_line.fsm_lot_id)
                 if fsm_sn_move.product_id.tracking == "serial":
-                    quants = self.env['stock.quant']._gather(fsm_sn_move.product_id, fsm_sn_move.location_id, lot_id=so_line.fsm_lot_id)
-                    quant = quants.filtered(lambda q: q.quantity == 1.0)[:1]
-                    ml_vals['location_id'] = quant.location_id.id or fsm_sn_move.location_id.id
+                    quants = quants.filtered(lambda q: q.quantity == 1.0)
+                ml_vals['location_id'] = quants[:1].location_id.id or fsm_sn_move.location_id.id
             all_fsm_sn_moves |= fsm_sn_moves
         self.env['stock.move.line'].create(ml_to_create)
         for so_line in self.sale_order_id.order_line:
