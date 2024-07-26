@@ -160,9 +160,13 @@ class ResCompany(models.Model):
         cert = base64.decodebytes(self.with_context(bin_size=False).l10n_ar_afip_ws_crt) if self.l10n_ar_afip_ws_crt else ''
         res = (pkey, cert)
         if not all(res):
-            error = '\n * ' + _(' Missing private key.') if not pkey else ''
-            error += '\n * ' + _(' Missing certificate.') if not cert else ''
-            raise UserError(_('Missing configuration to connect to AFIP:') + error)
+            errors = []
+            if not pkey:
+                errors.append(_(" * Missing private key."))
+            if not cert:
+                errors.append(_(" * Missing certificate."))
+            error_message = _("Missing configuration to connect to AFIP:\n%(errors)s", errors="\n".join(errors))
+            raise UserError(error_message)
         self._l10n_ar_is_afip_crt_expire()
         return res
 

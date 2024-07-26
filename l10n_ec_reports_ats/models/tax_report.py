@@ -138,9 +138,11 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             is_from_ecuador = in_inv.commercial_partner_id.country_id == self.env.ref('base.ec')
             invoice_lines = in_inv.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_section', 'line_note'))
             if is_from_ecuador and any(len(l.tax_ids & ec_vat_taxes) != 1 for l in invoice_lines):
-                errors.append(f'{in_inv.name} :' + _('Invoice lines should have exactly one VAT tax.'))
+                errors.append(_("%(invoice)s: Invoice lines should have exactly one VAT tax.", invoice=in_inv.name))
             if not is_from_ecuador and any(len(l.tax_ids & ec_vat_taxes) > 1 for l in invoice_lines):
-                errors.append(f'{in_inv.name} :' + _('Import invoice lines should have at most one VAT tax.'))
+                errors.append(
+                    _("%(invoice)s: Import invoice lines should have at most one VAT tax.", invoice=in_inv.name)
+                )
 
             # This will create base_amounts and tax_amounts dicts with this structure:
             # {
@@ -231,7 +233,12 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
             if in_inv.l10n_latam_document_type_id.code in ('04', '05'):
                 modified_move = in_inv.reversed_entry_id or in_inv.debit_origin_id
                 if not modified_move:
-                    errors.append(f'{in_inv.name}: ' + _("The credit (NCs) or debit (NDs) note doesn't have the invoice that modifies it. It must be created from the original invoice"))
+                    errors.append(
+                        _(
+                            "%(invoice)s: The credit (NCs) or debit (NDs) note doesn't have the invoice that modifies it. It must be created from the original invoice",
+                            invoice=in_inv.name,
+                        ),
+                    )
                 else:
                     estab_mod, emision_mod, secuencial_mod = self._l10n_ec_get_document_number_vals(modified_move)
                     inv_values.update({
@@ -321,9 +328,9 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
                 self._get_reimbursements_values(in_inv, values, errors)
 
                 purchase_vals.append(values)
-
+        error_template = _("%s: IR tax without 3 digit ats code")
         for tax in withhold_taxes_without_ats_code:
-            errors.append(f'{tax.name}: ' + _('IR tax without 3 digit ats code'))
+            errors.append(error_template % tax.name)
 
         return purchase_vals, errors
 
@@ -496,10 +503,11 @@ class L10nECTaxReportATSCustomHandler(models.AbstractModel):
         )
 
         invoices_values = []
+        error_template = _("%s: Invoice lines should have exactly one VAT tax.")
         for invoice in invoices:
             invoice_lines = invoice.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_section', 'line_note'))
             if any(len(l.tax_ids & ec_vat_taxes) != 1 for l in invoice_lines):
-                errors.append(f'{invoice.name} :' + _('Invoice lines should have exactly one VAT tax.'))
+                errors.append(error_template % invoice.name)
 
             # This will create base_amounts and tax_amounts dicts with this structure:
             # {

@@ -33,19 +33,19 @@ class ResConfigSettings(models.TransientModel):
 
     def l10n_ar_connection_test(self):
         self.ensure_one()
-        error = ''
+        errors = []
         if not self.l10n_ar_afip_ws_crt:
-            error += '\n* ' + _('Please set a certificate in order to make the test')
+            errors.append(_("Please set a certificate in order to make the test"))
         if not self.l10n_ar_afip_ws_key:
-            error += '\n* ' + _('Please set a private key in order to make the test')
-        if error:
-            raise UserError(error)
+            errors.append(_("Please set a private key in order to make the test"))
+        if errors:
+            raise UserError("\n* ".join(errors))
 
-        res = ''
-        for webservice in [item[0] for item in self.env['l10n_ar.afipws.connection']._get_l10n_ar_afip_ws()]:
+        results = []
+        for webservice in [item[0] for item in self.env["l10n_ar.afipws.connection"]._get_l10n_ar_afip_ws()]:
             try:
                 self.company_id._l10n_ar_get_connection(webservice)
-                res += ('\n* %s: ' + _('Connection is available')) % webservice
+                results.append(_("* %(webservice)s: Connection is available", webservice=webservice))
             except UserError as error:
                 hint_msg = re.search('.*(HINT|CONSEJO): (.*)', str(error))
                 if hint_msg:
@@ -53,10 +53,19 @@ class ResConfigSettings(models.TransientModel):
                         else '\n'.join(re.search('.*' + webservice + ': (.*)\n\n', str(error)).groups())
                 else:
                     msg = str(error)
-                res += '\n* %s: ' % webservice + _('Connection failed') + '. %s' % msg.strip()
+                results.append(
+                    _("* %(webservice)s: Connection failed. %(message)s", webservice=webservice, message=msg.strip())
+                )
             except Exception as error:
-                res += ('\n* %s: ' + _('Connection failed') + '. ' + _('This is what we get') + ' %s') % (webservice, repr(error))
-        raise UserError(res)
+                results.append(
+                    _(
+                        "* %(webservice)s: Connection failed. This is what we get: %(error)s",
+                        webservice=webservice,
+                        error=repr(error),
+                    ),
+                )
+
+        raise UserError("\n".join(results))
 
     def random_demo_cert(self):
         self.company_id.set_demo_random_cert()

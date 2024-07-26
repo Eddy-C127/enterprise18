@@ -98,7 +98,7 @@ export class ListAutofillPlugin extends UIPlugin {
             const fieldName = functionName === "ODOO.LIST" ? evaluatedArgs[2] : evaluatedArgs[1];
             return this.getters.getListDataSource(listId).getListHeaderValue(fieldName);
         }
-        return _t("Record #") + evaluatedArgs[1];
+        return _t("Record #%(record_number)s", { record_number: evaluatedArgs[1] });
     }
 
     _getListFunction(listId, position, field) {

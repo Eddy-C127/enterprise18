@@ -34,7 +34,7 @@ class Certificate(models.Model):
             try:
                 key = xml_utils._decode_private_key(self)
             except ValueError as e:
-                raise ValidationError(_("Invalid certificate key:\n") + str(e))
+                raise ValidationError(_("Invalid certificate key:\n%(error)s", error=str(e)))
             if key.public_key().public_bytes(
                 encoding=serialization.Encoding.DER,
                 format=serialization.PublicFormat.SubjectPublicKeyInfo
@@ -57,7 +57,7 @@ class Certificate(models.Model):
         try:
             certificate = xml_utils._decode_certificate(self)
         except ValueError as e:
-            raise ValidationError(_("Invalid certificate:\n") + str(e))
+            raise ValidationError(_("Invalid certificate:\n%(error)s", error=str(e)))
         else:
             if parse_version(metadata.version('cryptography')) < parse_version('42.0.0'):
                 not_valid_after = certificate.not_valid_after

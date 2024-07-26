@@ -608,7 +608,7 @@ class AccountOnlineLink(models.Model):
                         if context['redirect_warning_url'] == 'odoo_support':
                             url_params = urllib.parse.urlencode({'stage': 'bank_sync', 'summary': odoo_help_summary, 'description': odoo_help_description[:1500]})
                             url = f'https://www.odoo.com/help?{url_params}'
-                            message += '\n\n' + _("If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly.")
+                            message += _("\n\nIf you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly.")
                             message_post = Markup('%s<br>%s <a href="%s" >%s</a>') % (message, _("You can contact Odoo support"), url, _("Here"))
                             button_label = _('Report issue')
                         else:

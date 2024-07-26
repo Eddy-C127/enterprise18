@@ -29,7 +29,7 @@ from dateutil.relativedelta import relativedelta
 from datetime import timedelta
 
 from odoo import api, fields, models, http, _, Command
-from odoo.tools import config, email_normalize, get_lang, is_html_empty, format_date, formataddr, groupby, consteq
+from odoo.tools import config, email_normalize, format_list, get_lang, is_html_empty, format_date, formataddr, groupby, consteq
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import hmac
 from odoo.tools.pdf import reshape_text
@@ -518,7 +518,10 @@ class SignRequest(models.Model):
         for cc_partner in cc_partners_valid:
             self._send_completed_document_mail(signers, request_edited, cc_partner)
         if cc_partners_valid:
-            body = _("The mail has been sent to contacts in copy: ") + ', '.join(cc_partners_valid.mapped('name'))
+            body = _(
+                "The mail has been sent to contacts in copy: %(contacts)s",
+                contacts=format_list(self.env, cc_partners_valid.mapped("name")),
+            )
             if not is_html_empty(self.message_cc):
                 body += self.message_cc
             self.message_post(body=body, attachment_ids=self.attachment_ids.ids + self.completed_document_attachment_ids.ids)

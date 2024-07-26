@@ -55,13 +55,13 @@ PE_RELATED_DOCUMENT = [
     ('82', 'Declaración jurada de mudanza'),
 ]
 ERROR_MESSAGES = {
-    "request": _lt("There was an error communicating with the SUNAT service.") + " " + _lt("Details:"),
-    "json_decode": _lt("Could not decode the response received from SUNAT.") + " " + _lt("Details:"),
+    "request": _lt("There was an error communicating with the SUNAT service. Details:"),
+    "json_decode": _lt("Could not decode the response received from SUNAT. Details:"),
     "unzip": _lt("Could not decompress the ZIP file received from SUNAT."),
     "processing": _lt("The delivery guide is being processed by SUNAT. Click on 'Retry' to refresh the state."),
     "duplicate": _lt("A delivery guide with this number is already registered with SUNAT. Click on 'Retry' to try sending with a new number."),
-    "response_code": _lt("SUNAT returned an error code.") + " " + _lt("Details:"),
-    "response_unknown": _lt("Could not identify content in the response retrieved from SUNAT.") + " " + _lt("Details:"),
+    "response_code": _lt("SUNAT returned an error code. Details:"),
+    "response_unknown": _lt("Could not identify content in the response retrieved from SUNAT. Details:"),
 }
 
 

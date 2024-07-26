@@ -117,7 +117,7 @@ class ApprovalCategory(models.Model):
         for vals in vals_list:
             if vals.get('automated_sequence'):
                 sequence = self.env['ir.sequence'].create({
-                    'name': _('Sequence') + ' ' + vals['sequence_code'],
+                    'name': _('Sequence %(code)s', code=vals['sequence_code']),
                     'padding': 5,
                     'prefix': vals['sequence_code'],
                     'company_id': vals.get('company_id'),
@@ -129,7 +129,7 @@ class ApprovalCategory(models.Model):
         if 'sequence_code' in vals:
             for approval_category in self:
                 sequence_vals = {
-                    'name': _('Sequence') + ' ' + vals['sequence_code'],
+                    'name': _('Sequence %(code)s', code=vals['sequence_code']),
                     'padding': 5,
                     'prefix': vals['sequence_code'],
                 }

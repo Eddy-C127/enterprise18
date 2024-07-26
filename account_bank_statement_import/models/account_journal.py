@@ -137,12 +137,11 @@ class AccountJournal(models.Model):
 
     def _check_parsed_data(self, stmts_vals, account_number):
         """ Basic and structural verifications """
-        extra_msg = _('If it contains transactions for more than one account, it must be imported on each of them.')
         if len(stmts_vals) == 0:
-            raise UserError(
-                _('This file doesn\'t contain any statement for account %s.', account_number)
-                + '\n' + extra_msg
-            )
+            raise UserError(_(
+                'This file doesn\'t contain any statement for account %s.\nIf it contains transactions for more than one account, it must be imported on each of them.',
+                account_number,
+            ))
 
         no_st_line = True
         for vals in stmts_vals:
@@ -150,10 +149,10 @@ class AccountJournal(models.Model):
                 no_st_line = False
                 break
         if no_st_line:
-            raise UserError(
-                _('This file doesn\'t contain any transaction for account %s.', account_number)
-                + '\n' + extra_msg
-            )
+            raise UserError(_(
+                'This file doesn\'t contain any transaction for account %s.\nIf it contains transactions for more than one account, it must be imported on each of them.',
+                account_number,
+            ))
 
     def _statement_import_check_bank_account(self, account_number):
         # Needed for CH to accommodate for non-unique account numbers

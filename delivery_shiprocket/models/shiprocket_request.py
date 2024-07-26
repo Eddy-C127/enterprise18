@@ -91,21 +91,23 @@ class ShipRocket:
         """
         errors = json_data.get('errors', {})
         payload = json_data.get('payload', {})
-        message = ''
+        message_template = _("Shiprocket Error: %s")
 
         if errors:
-            for value in errors.values():
-                sub_msg = "\n".join(value) if isinstance(value, list) else value or ''
-                message += _("Shiprocket Error: %s", sub_msg) + '\n'
-        elif 'message' in json_data:
-            message = _("Shiprocket Error: %s", json_data['message'])
-        elif 'error_message' in payload:
-            message = _("Shiprocket Error: %s", payload['error_message'])
-        elif 'awb_assign_error' in payload:
-            message = _('Shiprocket Error: %s', payload['awb_assign_error'])
-        elif not json_data.get('label_created') and 'response' in json_data:
-            message = _('Shiprocket Error: %s', json_data['response'])
-        return message
+            return "\n".join(
+                message_template % ("\n".join(value) if isinstance(value, list) else value or "")
+                for value in errors.values()
+            )
+
+        if "message" in json_data:
+            return message_template % json_data["message"]
+        if "error_message" in payload:
+            return message_template % payload["error_message"]
+        if "awb_assign_error" in payload:
+            return message_template % payload["awb_assign_error"]
+        if not json_data.get("label_created") and "response" in json_data:
+            return message_template % json_data["response"]
+        return ""
 
     def _fetch_shiprocket_channels(self):
         """

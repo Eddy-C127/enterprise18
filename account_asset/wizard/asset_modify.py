@@ -324,7 +324,7 @@ class AssetModify(models.TransientModel):
             })
             asset_increase.validate()
 
-            subject = _('A gross increase has been created: ') + asset_increase._get_html_link()
+            subject = _('A gross increase has been created: %(link)s', link=asset_increase._get_html_link())
             self.asset_id.message_post(body=subject)
 
         if self.currency_id.compare_amounts(increase, 0) < 0:

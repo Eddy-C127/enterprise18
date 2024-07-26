@@ -215,9 +215,9 @@ class Applicant(models.Model):
                 )
             if self.stage_id.hired_stage:
                 self.referral_state = 'hired'
-                self._send_notification(_('Your referrer is hired!') + additional_message)
+                self._send_notification(_("Your referrer is hired! %(message)s", message=additional_message))
             else:
-                self._send_notification(_('Your referrer got a step further!') + additional_message)
+                self._send_notification(_("Your referrer got a step further! %(message)s", message=additional_message))
 
         self.env['hr.referral.points'].create(point_stage)
         self.invalidate_recordset(['earned_points'])

@@ -3,6 +3,7 @@
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import ValidationError
+from odoo.tools import format_list
 
 
 class SaleOrder(models.Model):
@@ -46,12 +47,13 @@ class SaleOrder(models.Model):
         bookings = self.order_line.calendar_booking_ids
         unavailable_bookings = bookings._filter_unavailable_bookings()
         if unavailable_bookings:
-            raise ValidationError(_(
-                "The following bookings are not available anymore during the selected period"
-                " and your cart must be updated. We are sorry for the inconvenience."
-            ) + '\n\n' + ', '.join(
-                [booking._get_description() for booking in unavailable_bookings]
-            ))
+            raise ValidationError(
+                _(
+                    "The following bookings are not available anymore during the selected period"
+                    " and your cart must be updated. We are sorry for the inconvenience.\n\n%(bookings)s",
+                    bookings=format_list(self.env, [booking._get_description() for booking in unavailable_bookings]),
+                ),
+            )
         return super()._check_cart_is_ready_to_be_paid()
 
     def _cart_find_product_line(self, product_id=None, line_id=None, calendar_booking_id=False, **kwargs):

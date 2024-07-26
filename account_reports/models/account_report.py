@@ -359,12 +359,13 @@ class AccountReport(models.Model):
         # Abbreviate the name
         max_nb_journals_displayed = 5
         nb_remaining = len(names_to_display) - max_nb_journals_displayed
+        displayed_names = ', '.join(names_to_display[:max_nb_journals_displayed])
         if nb_remaining == 1:
-            options['name_journal_group'] = ', '.join(names_to_display[:max_nb_journals_displayed]) + _(" and one other")
+            options['name_journal_group'] = _("%(names)s and one other", names=displayed_names)
         elif nb_remaining > 1:
-            options['name_journal_group'] = ', '.join(names_to_display[:max_nb_journals_displayed]) + _(" and %s others", nb_remaining)
+            options['name_journal_group'] = _("%(names)s and %(remaining)s others", names=displayed_names, remaining=nb_remaining)
         else:
-            options['name_journal_group'] = ', '.join(names_to_display)
+            options['name_journal_group'] = displayed_names
 
     @api.model
     def _get_options_journals(self, options):

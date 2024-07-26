@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+from markupsafe import Markup
 
 from odoo import models, fields, api, _, _lt
 from odoo.exceptions import UserError
@@ -6,6 +6,7 @@ from odoo.addons.iap.tools import iap_tools
 
 from datetime import timedelta
 import json
+
 
 ENDPOINT = "https://l10n-fr-aspone.api.odoo.com"
 
@@ -62,9 +63,9 @@ class AccountReportAsyncExport(models.Model):
             if report.state == 'to_send':
                 report.message = ""
             elif report.state == 'accepted':
-                report.message = _("<b> The report has been fully processed by the recipient </b>") + msg
+                report.message = Markup("<b> ") + _("The report has been fully processed by the recipient") + Markup(" </b>") + msg
             elif report.state == 'rejected':
-                report.message = _("<b> The report has been rejected </b>") + msg
+                report.message = Markup("<b> ") + _("The report has been rejected") + Markup(" </b>") + msg
             else:
                 report.message = _(
                     "<b> Warning, the report has not been fully processed by the recipient yet </b>") + msg

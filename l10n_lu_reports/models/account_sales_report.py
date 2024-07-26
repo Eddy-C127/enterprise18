@@ -319,7 +319,7 @@ class LuxembourgishECSalesReportCustomHandler(models.AbstractModel):
             try:
                 attached_declarations.append((name, self.get_data_from_xml(dec, self.env.company.matr_number)))
             except ValidationError as err:
-                raise ValidationError(_("Error in file ") + name + ": " + str(err))
+                raise ValidationError(_("Error in file %(file_name)s: %(error)s", file_name=name, error=str(err)))
         summarized_data, original_declarations = self.summarize_data(attached_declarations)
         corrections = self.compare_declarations(summarized_data, options)
         return corrections, original_declarations

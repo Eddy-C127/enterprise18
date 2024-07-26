@@ -170,7 +170,7 @@ class RentalOrderLine(models.Model):
             'location_dest_id': location_dest_id.id,
             'partner_id': self.order_partner_id.id,
             'sale_line_id': self.id,
-            'name': _("Rental move:") + " %s" % (self.order_id.name),
+            'name': _("Rental move: %(order)s", order=self.order_id.name),
         })
 
         for lot_id in lot_ids:
@@ -225,7 +225,7 @@ class RentalOrderLine(models.Model):
             'location_dest_id': location_dest_id.id,
             'partner_id': self.order_partner_id.id,
             'sale_line_id': self.id,
-            'name': _("Rental move:") + " %s" % (self.order_id.name),
+            'name': _("Rental move: %(order)s", order=self.order_id.name),
             'state': 'confirmed',
         })
         rental_stock_move._action_assign()

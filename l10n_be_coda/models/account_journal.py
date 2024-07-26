@@ -530,7 +530,7 @@ class AccountJournal(models.Model):
                 o_idx = p_idx; p_idx +=  1; note.append(_('Detail') + ': ' + _('Type of R transaction') + ': ' + sepa_type[communication[o_idx:p_idx]])
                 o_idx = p_idx; p_idx +=  4; note.append(_('Detail') + ': ' + _('Reason') + ': ' + rmspaces(communication[o_idx:p_idx]))
             else:
-                structured_com = _('Type of structured communication not supported: ') + co_type
+                structured_com = _('Type of structured communication not supported: %(type)s', type=co_type)
                 note.append(communication)
             return structured_com, note
 
@@ -546,7 +546,11 @@ class AccountJournal(models.Model):
                 statements.append(statement)
                 statement['version'] = line[127]
                 if statement['version'] not in ['1', '2']:
-                    raise UserError(_('Error') + ' R001: ' + _('CODA V%s statements are not supported, please contact your bank', statement['version']))
+                    raise UserError(_(
+                        "Error %(error_code)s: CODA V%(version)s statements are not supported, please contact your bank",
+                        error_code="R001",
+                        version=statement["version"],
+                    ))
                 statement['globalisation_stack'] = []
                 statement['lines'] = []
                 statement['date'] = time.strftime(tools.DEFAULT_SERVER_DATE_FORMAT, time.strptime(rmspaces(line[5:11]), '%d%m%y'))
@@ -563,7 +567,10 @@ class AccountJournal(models.Model):
                         statement['acc_number'] = 'BE%02d' % (98 - int(statement['acc_number'] + '111400') % 97) + statement['acc_number']
                         statement['currency'] = rmspaces(line[18:21])
                     elif line[1] == '1':  # foreign bank account BBAN structure
-                        raise UserError(_('Error') + ' R1001: ' + _('Foreign bank accounts with BBAN structure are not supported '))
+                        raise UserError(_(
+                            'Error %(error_code)s: Foreign bank accounts with BBAN structure are not supported.',
+                            error_code="R1001",
+                        ))
                     elif line[1] == '2':    # Belgian bank account IBAN structure
                         statement['acc_number'] = rmspaces(line[5:21])
                         statement['currency'] = rmspaces(line[39:42])
@@ -571,7 +578,7 @@ class AccountJournal(models.Model):
                         statement['acc_number'] = rmspaces(line[5:39])
                         statement['currency'] = rmspaces(line[39:42])
                     else:  # Something else, not supported
-                        raise UserError(_('Error') + ' R1003: ' + _('Unsupported bank account structure '))
+                        raise UserError(_('Error %(error_code)s: Unsupported bank account structure.', error_code="R1003"))
                 statement['description'] = rmspaces(line[90:125])
                 statement['balance_start'] = float(rmspaces(line[43:58])) / 1000
                 if line[42] == '1':  # 1 = Debit, the starting balance is negative
@@ -622,14 +629,22 @@ class AccountJournal(models.Model):
                     statement['lines'].append(statementLine)
                 elif line[1] == '2':
                     if statement['lines'][-1]['ref'][0:4] != line[2:6]:
-                        raise UserError(_('Error') + 'R2004: ' + _('CODA parsing error on movement data record 2.2, seq nr %s! Please report this issue via your Odoo support channel.', line[2:10]))
+                        raise UserError(_(
+                            "Error %(error_code)s: CODA parsing error on movement data record 2.2, seq nr %(seq_nr)s! Please report this issue via your Odoo support channel.",
+                            error_code="R2004",
+                            seq_nr=line[2:10],
+                        ))
                     statement['lines'][-1]['communication'] += line[10:63]
                     statement['lines'][-1]['payment_reference'] = rmspaces(line[63:98])
                     statement['lines'][-1]['counterparty_bic'] = rmspaces(line[98:109])
                     # TODO 113, 114-117, 118-121, 122-125
                 elif line[1] == '3':
                     if statement['lines'][-1]['ref'][0:4] != line[2:6]:
-                        raise UserError(_('Error') + 'R2005: ' + _('CODA parsing error on movement data record 2.3, seq nr %s! Please report this issue via your Odoo support channel.', line[2:10]))
+                        raise UserError(_(
+                            "Error %(error_code)s: CODA parsing error on movement data record 2.3, seq nr %(seq_nr)s! Please report this issue via your Odoo support channel.",
+                            error_code="R2005",
+                            seq_nr=line[2:10],
+                        ))
                     if statement['version'] == '1':
                         statement['lines'][-1]['counterpartyNumber'] = rmspaces(line[10:22])
                         statement['lines'][-1]['counterpartyName'] = rmspaces(line[47:73])
@@ -646,7 +661,11 @@ class AccountJournal(models.Model):
                         statement['lines'][-1]['communication'] += line[82:125]
                 else:
                     # movement data record 2.x (x != 1,2,3)
-                    raise UserError(_('Error') + 'R2006: ' + _('\nMovement data records of type 2.%s are not supported ', line[1]))
+                    raise UserError(_(
+                        "Error %(error_code)s:\nMovement data records of type 2.%(type)s are not supported",
+                        error_code="R2006",
+                        type=line[1],
+                    ))
             elif line[0] == '3':
                 if line[1] == '1':
                     infoLine = {}
@@ -672,11 +691,19 @@ class AccountJournal(models.Model):
                     statement['lines'].append(infoLine)
                 elif line[1] == '2':
                     if infoLine['ref'] != rmspaces(line[2:10]):
-                        raise UserError(_('Error') + 'R3004: ' + _('CODA parsing error on information data record 3.2, seq nr %s! Please report this issue via your Odoo support channel.', line[2:10]))
+                        raise UserError(_(
+                            "Error %(error_code)s: CODA parsing error on information data record 3.2, seq nr %(seq_nr)s! Please report this issue via your Odoo support channel.",
+                            error_code="R3004",
+                            seq_nr=line[2:10],
+                        ))
                     statement['lines'][-1]['communication'] += rmspaces(line[10:115])
                 elif line[1] == '3':
                     if infoLine['ref'] != rmspaces(line[2:10]):
-                        raise UserError(_('Error') + 'R3005: ' + _('CODA parsing error on information data record 3.3, seq nr %s! Please report this issue via your Odoo support channel.', line[2:10]))
+                        raise UserError(_(
+                            "Error %(error_code)s: CODA parsing error on information data record 3.3, seq nr %(seq_nr)s! Please report this issue via your Odoo support channel.",
+                            error_code="R3005",
+                            seq_nr=line[2:10],
+                        ))
                     statement['lines'][-1]['communication'] += rmspaces(line[10:100])
             elif line[0] == '4':
                 comm_line = {}
@@ -724,7 +751,7 @@ class AccountJournal(models.Model):
                         or (line['type'] == 'globalisation' and line['ref_move'] in statement['globalisation_stack'] and line['transaction_type'] in [1, 2]):
                     note = []
                     if line.get('counterpartyName'):
-                        note.append(_('Counter Party') + ': ' + line['counterpartyName'])
+                        note.append(_('Counter Party: %s', line['counterpartyName']))
                     else:
                         line['counterpartyName'] = False
                     if line.get('counterpartyNumber'):
@@ -739,18 +766,18 @@ class AccountJournal(models.Model):
                         ):
                             line['counterpartyNumber'] = False
                         if line['counterpartyNumber']:
-                            note.append(_('Counter Party Account') + ': ' + line['counterpartyNumber'])
+                            note.append(_('Counter Party Account: %s', line['counterpartyNumber']))
                     else:
                         line['counterpartyNumber'] = False
 
                     if line.get('counterpartyAddress'):
-                        note.append(_('Counter Party Address') + ': ' + line['counterpartyAddress'])
+                        note.append(_('Counter Party Address: %s', line['counterpartyAddress']))
                     structured_com = False
                     if line['communication_struct']:
                         structured_com, extend_notes = parse_structured_communication(line['communication_type'], line['communication'])
                         note.extend(extend_notes)
                     elif line.get('communication'):
-                        note.append(_('Communication') + ': ' + rmspaces(line['communication']))
+                        note.append(_('Communication: %s', rmspaces(line['communication'])))
                     if not self.coda_split_transactions and statement_line and line['ref_move'] == statement_line[-1]['ref'][:4]:
                         to_add['amount'] = to_add.get('amount', 0) + line['amount']
                         to_add['narration'] = to_add.get('narration', '') + "\n" + "\n".join(note)
@@ -773,7 +800,7 @@ class AccountJournal(models.Model):
                             line_data['amount'] += temp_data.pop('amount')
                         statement_line.append(line_data)
             if statement['coda_note'] != '':
-                statement_data.update({'coda_note': _('Communication: ') + '\n' + statement['coda_note']})
+                statement_data.update({'coda_note': _('Communication:\n%s', statement['coda_note'])})
             statement_data.update({'transactions': statement_line})
             ret_statements.append(statement_data)
 

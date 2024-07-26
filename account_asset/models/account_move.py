@@ -241,7 +241,7 @@ class AccountMove(models.Model):
                         invoice_list.extend([move] * units_quantity)
                         for i in range(1, units_quantity + 1):
                             if units_quantity > 1:
-                                vals['name'] = move_line.name + _(" (%(current)s of %(total)s)", current=i, total=units_quantity)
+                                vals['name'] = _("%(move_line)s (%(current)s of %(total)s)", move_line=move_line.name, current=i, total=units_quantity)
                             create_list.extend([vals.copy()])
 
         assets = self.env['account.asset'].with_context({}).create(create_list)

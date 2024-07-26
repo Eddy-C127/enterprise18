@@ -116,7 +116,7 @@ class AccountJournal(models.Model):
                         notes.append(_('Counter Party: %(partner)s', partner=partner_name))
                     partner_address = CAMT._get_partner_address(entry_details, ns, counter_party)
                     if partner_address:
-                        notes.append(_('Address:\n') + partner_address)
+                        notes.append(_('Address:\n%s', partner_address))
                     transaction_id = CAMT._get_transaction_id(entry_details, namespaces=ns)
                     if transaction_id:
                         notes.append(_('Transaction ID: %s', transaction_id))

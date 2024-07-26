@@ -267,7 +267,7 @@ class SaleOrder(models.Model):
         })
 
         if 'BuyerCheckoutMessage' in transaction:
-            self.message_post(body=_('The Buyer Posted :\n') + transaction['BuyerCheckoutMessage'])
+            self.message_post(body=_("The Buyer Posted:\n%(message)s", message=transaction['BuyerCheckoutMessage']))
 
         self.env['product.template']._put_in_queue(product.id)
 
@@ -289,7 +289,9 @@ class SaleOrder(models.Model):
             shipping_name = order['ShippingServiceSelected']['ShippingService']
             if self.picking_ids and shipping_name:
                 self.picking_ids[-1].message_post(
-                    body=_('The Buyer Chose The Following Delivery Method :\n') + shipping_name)
+                    body=_("The Buyer Chose The Following Delivery Method:\n%(method)s", method=shipping_name),
+                )
         except UserError as e:
-            self.message_post(body=
-                _('Ebay Synchronisation could not confirm because of the following error:\n%s', str)(e))
+            self.message_post(
+                body=_("ebay Synchronization could not confirm because of the following error:\n%s", str)(e)
+            )

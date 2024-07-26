@@ -79,7 +79,7 @@ class L10nArAfipWsConsult(models.TransientModel):
         title = _('Invoice number %s\n', self.number)
         if error:
             _logger.warning('%s\n%s' % (title, error))
-            raise UserError(_('AFIP Errors') + ' %s' % error)
+            raise UserError(_("AFIP Errors: %(error)s", error=error))
 
         msg = ''
         data = serialize_object(res, dict)

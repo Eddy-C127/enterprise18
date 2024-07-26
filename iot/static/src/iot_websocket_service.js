@@ -51,7 +51,9 @@ export class IotWebsocket {
                 this.jobs[uuid].forEach((device) => {
                     device._removeSendingNotification();
                     this.notification.add(_t("Check the IoT connection. Try restarting if needed."), {
-                        title: (_t("Connection to printer failed ") + device["display_name"]),
+                        title: _t("Connection to printer failed %(device)s", {
+                            device: device["display_name"]
+                        }),
                         type: "danger",
                     });
                 });

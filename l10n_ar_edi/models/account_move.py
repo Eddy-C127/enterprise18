@@ -596,21 +596,25 @@ class AccountMove(models.Model):
 
     def _prepare_return_msg(self, afip_ws, errors, obs, events, return_codes):
         self.ensure_one()
-        msg = ''
+        msg = ""
         if any([errors, obs, events]):
+            messages = []
             if errors:
-                msg += '\n' + _('AFIP Validation Error') + ': %s' % errors
-            if obs and obs != ' ':
-                msg += '\n' + _('AFIP Validation Observation') + ': %s' % obs
+                messages.append(_("AFIP Validation Error: %(error)s", error=errors))
+            if obs and obs != " ":
+                messages.append(_("AFIP Validation Observation: %(obs)s", obs=obs))
             if events:
-                msg += '\n' + _('AFIP Validation Event') + ': %s' % events
+                messages.append(_("AFIP Validation Event: %(event)s", event=events))
+
             hint_msgs = []
             for code in return_codes:
                 fix = afip_errors._hint_msg(code, afip_ws)
                 if fix:
                     hint_msgs.append(fix)
             if hint_msgs:
-                msg += '\n\n' + _('HINT') + ':\n\n * ' + '\n * '.join(hint_msgs)
+                messages.append("\n\n" + _("HINT") + ":\n\n * " + "\n * ".join(hint_msgs))
+
+            msg = "\n".join(messages)
         return msg
 
     def _ws_verify_request_data(self, client, auth, ws_method, request_data):

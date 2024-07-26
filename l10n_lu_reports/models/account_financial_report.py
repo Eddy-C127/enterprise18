@@ -210,9 +210,16 @@ class LuxembourgishFinancialReportCustomHandler(models.AbstractModel):
                 # Check the length of the references <= 10 (XML report limit)
                 if any([len(r['value']) > 10 for r in references.values()]):
                     raise UserError(
-                        _("Some references are not in the requested format (max. 10 characters):") + "\n    " +
-                        "\n    ".join([names[i[0]] + ": " + i[1]['value'] for i in references.items() if len(i[1]['value']) > 10]) +
-                        "\n" + _("Cannot export them.")
+                        _(
+                            "Some references are not in the requested format (max. 10 characters):\n    %(references)s\nCannot export them.",
+                            references="\n    ".join(
+                                [
+                                    f"{names[i[0]]}: {i[1]['value']}"
+                                    for i in references.items()
+                                    if len(i[1]["value"]) > 10
+                                ],
+                            ),
+                        ),
                     )
                 for ref in references:
                     form['field_values'].update({ref: references[ref]})
