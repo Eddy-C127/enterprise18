@@ -18,9 +18,9 @@ class TestSpreadsheetDashboard(DashboardTestCommon, SpreadsheetTestCase):
 
     def test_join_published(self):
         dashboard = self.create_dashboard().with_user(self.user)
-        self.assertFalse(dashboard.join_spreadsheet_session()["is_published"])
-        dashboard.sudo().is_published = True
         self.assertTrue(dashboard.join_spreadsheet_session()["is_published"])
+        dashboard.sudo().is_published = False
+        self.assertFalse(dashboard.join_spreadsheet_session()["is_published"])
 
     def test_load_with_user_locale(self):
         dashboard = self.create_dashboard().with_user(self.user)
