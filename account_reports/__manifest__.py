@@ -78,6 +78,7 @@ Accounting Reports
         ],
         'web.assets_unit_tests': [
             'account_reports/static/tests/*.js',
+            'account_reports/static/tests/account_report/**/*.js',
         ],
         'web.assets_tests': [
             'account_reports/static/tests/tours/**/*',

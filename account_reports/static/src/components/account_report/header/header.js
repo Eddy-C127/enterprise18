@@ -46,15 +46,29 @@ export class AccountReportHeader extends Component {
         return colspan;
     }
 
-    get budgetColumnHeaderColspan() {
-        return this.controller.options.columns.filter((x) => x.column_group_key == this.controller.options.columns[0].column_group_key).length;
-    }
-
     //------------------------------------------------------------------------------------------------------------------
     // Subheaders
     //------------------------------------------------------------------------------------------------------------------
     get subheaders() {
-        return JSON.parse(JSON.stringify(this.controller.options.columns));
+        const columns = JSON.parse(JSON.stringify(this.controller.options.columns));
+        const columnsPerGroupKey = {};
+
+        columns.forEach((column) => {
+            columnsPerGroupKey[`${column.column_group_key}_${column.expression_label}`] = column;
+        });
+
+        return this.controller.lines[0].columns.map((column) => {
+            if (columnsPerGroupKey[`${column.column_group_key}_${column.expression_label}`]) {
+                return columnsPerGroupKey[`${column.column_group_key}_${column.expression_label}`];
+            } else if (column.comparison_mode) {
+                return {
+                    expression_label: "",
+                    sortable: false,
+                    name: "",
+                    colspan: 1,
+                };
+            }
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -21,7 +21,7 @@
             onStateChanged="(isOpen) => this.applyFilters(isOpen, 'comparison')"
         >
             <button class="btn btn-secondary">
-                <i class="fa fa-bar-chart me-1"/>Comparison
+                <i class="fa fa-percent me-1"/>Comparison
                 <t t-if="controller.options.comparison.string">
                     : <t t-out="controller.options.comparison.string"/>
                 </t>

@@ -1,9 +1,7 @@
 /* global owl:readonly */
 
-import { _t } from "@web/core/l10n/translation";
 import { browser } from "@web/core/browser/browser";
 import { session } from "@web/session";
-import { SelectCreateDialog } from "@web/views/view_dialogs/select_create_dialog";
 import { useService } from "@web/core/utils/hooks";
 
 import { removeTaxGroupingFromLineId } from "@account_reports/js/util";
@@ -253,7 +251,7 @@ export class AccountReportController {
     // Helpers
     //------------------------------------------------------------------------------------------------------------------
     get needsColumnPercentComparison() {
-        return Boolean(this.options.column_percent_comparison);
+        return this.options.column_percent_comparison === "growth";
     }
 
     get hasCustomSubheaders() {
@@ -272,12 +270,12 @@ export class AccountReportController {
         return Boolean(this.visibleAnnotations.length);
     }
 
-    get selectedBudgets() {
-        if (!this.options.budgets)
-            return []
-
-        return this.options.budgets
-               .filter((x) => x.dirtySelected === undefined ? x.selected : x.dirtySelected);
+    get hasBudgetColumn() {
+        return this.options.column_headers.some((columns) => {
+            return columns.some((column) => {
+                return Boolean(column.forced_options?.compute_budget);
+            });
+        });
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -753,39 +751,6 @@ export class AccountReportController {
     // -----------------------------------------------------------------------------------------------------------------
     // Budget
     // -----------------------------------------------------------------------------------------------------------------
-
-    async addAccountsToBudget(budget) {
-        this.dialog.add(SelectCreateDialog, {
-            title: _t("Add Accounts"),
-            noCreate: true,
-            multiSelect:true,
-            resModel: 'account.account',
-            domain: [
-                ['company_id', 'parent_of', budget.company_id],
-                '|', ['budget_item_ids', '=', false], '!', ['budget_item_ids', 'any', [['budget_id', '=', budget.id]]]
-            ],
-            onSelected: (selection) => this.onAccountsSelectedForBudget(budget, selection),
-        });
-    }
-
-    async onAccountsSelectedForBudget(budget, selection) {
-        const accountIds = Array.isArray(selection) ? selection : [selection];
-
-        const res = await this.orm.call(
-            "account.report",
-            "action_add_accounts_to_budget",
-            [
-                this.options.report_id,
-                this.options,
-                budget.id,
-                accountIds,
-                this.columnGroupsTotals,
-            ],
-        );
-
-        this.lines = res.lines;
-        this.columnGroupsTotals = res.column_groups_totals;
-    }
 
     async openBudget(budget) {
         this.actionService.doAction({

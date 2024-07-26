@@ -1,5 +1,5 @@
 import { _t } from "@web/core/l10n/translation";
-import { Component, useRef, useState } from "@odoo/owl";
+import { Component, useState } from "@odoo/owl";
 
 import { useService } from "@web/core/utils/hooks";
 import { WarningDialog } from "@web/core/errors/error_dialogs";
@@ -23,18 +23,23 @@ export class AccountReportFilters extends Component {
 
     setup() {
         this.dialog = useService("dialog");
+        this.orm = useService("orm");
+        this.notification = useService("notification");
         this.companyService = useService("company");
         this.controller = useState(this.env.controller);
         this.dirtyFilter = useState({ value: false });
         if (this.env.controller.options.date) {
             this.dateFilter = useState(this.initDateFilters());
         }
-        this.budgetCreateInput = useRef("budget_create_input");
+        this.budgetName = useState({
+            value: "",
+            invalid: false,
+        });
     }
 
     focusInnerInput(index, items) {
         const selectedItem = items[index];
-        selectedItem.el.querySelector(":scope input").focus();
+        selectedItem.el.querySelector(":scope input")?.focus();
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -63,6 +68,12 @@ export class AccountReportFilters extends Component {
             }
         }
         return _t("None");
+    }
+
+    get isHorizontalGroupSelected() {
+        return this.controller.options.available_horizontal_groups.some((group) => {
+            return group.id === this.controller.options.selected_horizontal_group_id;
+        });
     }
 
     get selectedTaxUnitName() {
@@ -216,6 +227,12 @@ export class AccountReportFilters extends Component {
         const hasFiscalPositions =
             this.controller.options.available_vat_fiscal_positions.length > minimumFiscalPosition;
         return hasFiscalPositions && isMultiCompany;
+    }
+
+    get isBudgetSelected() {
+        return this.controller.options.budgets?.some((budget) => {
+            return budget.selected;
+        });
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -459,30 +476,59 @@ export class AccountReportFilters extends Component {
         );
     }
 
-    selectBudget(budget) {
-        this.dirtyFilter.value = true;
+    async selectHorizontalGroup(horizontalGroupId) {
+        if (horizontalGroupId === this.controller.options.selected_horizontal_group_id) {
+            return;
+        }
 
-        /* The dirtySelected key is needed so that the owl template of the header is not immediately
-        re-rendered when cliking on the budget dropdown item. It keeps the former value of the field, so
-        that we can display it as before until the server gets called. When the get_options() server call is
-        executed, it disregards this key, so an undefined value for it means budget.selected is the
-        status returned by the server directly.
-        */
-        if (budget.dirtySelected === undefined)
-            budget.dirtySelected = budget.selected;
-        else
-            budget.dirtySelected = undefined;
+        if (this.isBudgetSelected) {
+            this.notification.add(
+                _t("It's not possible to select a budget with the horizontal group feature."),
+                {
+                    type: "warning",
+                }
+            );
+            return;
+        }
+        await this.filterClicked("selected_horizontal_group_id", horizontalGroupId, true);
+    }
+
+    selectBudget(budget) {
+        if (this.isHorizontalGroupSelected) {
+            this.notification.add(
+                _t("It's not possible to select a horizontal group with the budget feature."),
+                {
+                    type: "warning",
+                }
+            );
+            return;
+        }
+        this.dirtyFilter.value = true;
         budget.selected = !budget.selected;
     }
 
     async createBudget() {
-        const createdId = await this.controller.orm.call(
-            "account.report.budget",
-            "create",
-            [{name:this.budgetCreateInput.el.value}],
-        );
-        this.budgetCreateInput.el.value = null;
+        const budgetName = this.budgetName.value.trim();
+        if (!budgetName.length) {
+            this.budgetName.invalid = true;
+            this.notification.add(_t("Please enter a valid budget name."), {
+                type: "danger",
+            });
+            return;
+        }
+        const createdId = await this.orm.call("account.report.budget", "create", [
+            { name: budgetName },
+        ]);
+        this.budgetName.value = "";
+        this.budgetName.invalid = false;
         const options = this.controller.options;
-        this.controller.reload('budgets', {...options, budgets: [...options.budgets, {id: createdId, selected: true}]});
+        this.controller.reload("budgets", {
+            ...options,
+            budgets: [
+                ...options.budgets,
+                // Selected by default if we don't have any horizontal group selected
+                { id: createdId, selected: !this.isHorizontalGroupSelected },
+            ],
+        });
     }
 }

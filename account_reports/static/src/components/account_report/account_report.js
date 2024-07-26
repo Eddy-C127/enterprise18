@@ -96,8 +96,11 @@ export class AccountReport extends Component {
     get tableClasses() {
         let classes = "";
 
-        if (this.controller.options.columns.length > 1)
+        if (this.controller.hasBudgetColumn) {
+            classes += " budget-striped";
+        } else if (this.controller.options.columns.length > 1) {
             classes += " striped";
+        }
 
         if (this.controller.options['horizontal_split'])
             classes += " w-50 mx-2";

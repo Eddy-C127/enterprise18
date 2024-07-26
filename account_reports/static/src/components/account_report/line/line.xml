@@ -30,7 +30,13 @@
 
             <!-- Value columns -->
             <t t-foreach="props.line.columns" t-as="cell" t-key="cell_index">
-                <t t-component="env.component('AccountReportLineCell')" t-props="{ line: props.line, cell: cell }"/>
+                <!-- Condition for budget column only, should be changed in the future when we'll remove popover for editable cell -->
+                <t t-if="cell.column_group_key?.includes('compute_budget')">
+                    <AccountReportLineCellEditable t-props="{ line: props.line, cell: cell }"/>
+                </t>
+                <t t-else="">
+                    <t t-component="env.component('AccountReportLineCell')" t-props="{ line: props.line, cell: cell }"/>
+                </t>
             </t>
 
             <!-- Growth comparison column -->

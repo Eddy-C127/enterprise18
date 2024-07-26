@@ -353,12 +353,17 @@
                             </h1>
                         </div>
 
-                        <field name="item_ids" nolabel="1">
-                            <tree editable="bottom">
-                                <field name="account_id"/>
-                                <field name="amount"/>
-                            </tree>
-                        </field>
+                        <notebook>
+                            <page string="Budget Items" name="budget_items">
+                                <field name="item_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="account_id" width="40%"/>
+                                        <field name="date" string="Months" options="{'min_precision': 'months'}" width="30%"/>
+                                        <field name="amount" width="30%"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

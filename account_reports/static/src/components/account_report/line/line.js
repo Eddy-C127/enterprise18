@@ -6,12 +6,16 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, useState } from "@odoo/owl";
 
 import { AccountReportDebugPopover } from "@account_reports/components/account_report/line/popover/debug_popover";
+import { AccountReportLineCellEditable } from "@account_reports/components/account_report/line_cell_editable/line_cell_editable";
 
 export class AccountReportLine extends Component {
     static template = "account_reports.AccountReportLine";
     static props = {
         lineIndex: Number,
         line: Object,
+    };
+    static components = {
+        AccountReportLineCellEditable,
     };
 
     setup() {

@@ -36,6 +36,10 @@ export class AccountReportLineCell extends Component {
     // Attributes
     // -----------------------------------------------------------------------------------------------------------------
     get cellClasses() {
+        if (this.props.cell.comparison_mode) {
+            return this.comparisonClasses;
+        }
+
         let classes = "";
 
         if (this.props.cell.auditable)
@@ -149,5 +153,26 @@ export class AccountReportLineCell extends Component {
                 position: localization.direction === "rtl" ? "bottom" : "right",
             },
         );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Comparison cell
+    // -----------------------------------------------------------------------------------------------------------------
+    get comparisonClasses() {
+        let classes = "text-end";
+
+        switch (this.props.cell.comparison_mode) {
+            case "green":
+                classes += " text-success";
+                break;
+            case "muted":
+                classes += " muted";
+                break;
+            case "red":
+                classes += " text-danger";
+                break;
+        }
+
+        return classes;
     }
 }
