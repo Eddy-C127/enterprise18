@@ -96,7 +96,7 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     },
     {
         trigger: 'div.o_field_widget[name="lot_id"] input ',
-        position: 'bottom',
+        tooltipPosition: 'bottom',
         run: "edit NE2",
     },
     {

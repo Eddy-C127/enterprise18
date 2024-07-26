@@ -8,7 +8,7 @@ registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
     content: "Open the Planning app",
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: 'input[type="range"]',

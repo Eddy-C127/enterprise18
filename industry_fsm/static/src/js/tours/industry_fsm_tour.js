@@ -11,7 +11,7 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
         {
     trigger: '.o_app[data-menu-xmlid="industry_fsm.fsm_menu_root"]',
     content: markup(_t('Ready to <b>manage your onsite interventions</b>? <i>Click Field Service to start.</i>')),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
             run: "click",
         },
         {
@@ -21,7 +21,7 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
         {
     trigger: '.o-kanban-button-new',
     content: markup(_t('Let\'s create your first <b>task</b>.')),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
             run: "click",
         },
         {
@@ -31,13 +31,13 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
         {
     trigger: 'h1 div[name="name"] > div > textarea',
     content: markup(_t('Give it a <b>title</b> <i>(e.g. Boiler maintenance, Air-conditioning installation, etc.).</i>')),
-    position: 'right',
+    tooltipPosition: 'right',
             run: "edit Test",
         },
         {
     trigger: ".o_field_widget[name=partner_id]",
     content: markup(_t('Select the <b>customer</b> for your task.')),
-    position: "right",
+    tooltipPosition: "right",
         },
         {
             trigger: '.o_field_widget[name="partner_id"] input',
@@ -55,20 +55,20 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
         {
     trigger: 'button[name="action_timer_start"]',
     content: markup(_t('Launch the timer to <b>track the time spent</b> on your task.')),
-    position: "bottom",
+    tooltipPosition: "bottom",
     id: 'fsm_start',
             run: "click",
         },
         {
     trigger: 'button[name="action_timer_stop"]',
     content: markup(_t('Stop the <b>timer</b> when you are done.')),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
             run: "click",
         },
         {
     trigger: 'button[name="save_timesheet"]',
     content: markup(_t('Confirm the <b>time spent</b> on your task. <i>Tip: note that the duration has automatically been rounded to 15 minutes.</i>')),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
             id: "fsm_save_timesheet",
             run: "click",
         },
@@ -79,7 +79,7 @@ registry.category("web_tour.tours").add("industry_fsm_tour", {
         {
     trigger: "button[name='action_fsm_validate']",
     content: markup(_t('Let\'s <b>mark your task as done!</b> <i>Tip: when doing so, your stock will automatically be updated, and your task will be closed.</i>')),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
             run: "click",
         },
         {

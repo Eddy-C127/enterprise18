@@ -20,14 +20,14 @@ registry.category("web_tour.tours").add("documents_tour", {
             content: markup(
                 _t("Want to become a <b>paperless company</b>? Let's discover Odoo Documents.")
             ),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
             trigger:
                 'body:not(:has(.o-FileViewer)) img[src="https://img.youtube.com/vi/Ayab6wZ_U1A/0.jpg"]',
             content: markup(_t("Click on a thumbnail to <b>preview the document</b>.")),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -36,7 +36,7 @@ registry.category("web_tour.tours").add("documents_tour", {
         {
             trigger: "[title='Close (Esc)']",
             content: markup(_t("Click the cross to <b>exit preview</b>.")),
-            position: "left",
+            tooltipPosition: "left",
             run: "click",
         },
         {
@@ -50,7 +50,7 @@ registry.category("web_tour.tours").add("documents_tour", {
                     "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter documents and structure your process.</i>"
                 )
             ),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: function (actions) {
                 queryOne(".o_search_panel_filter_value:eq(0) .o_search_panel_label_title").click();
             },
@@ -61,7 +61,7 @@ registry.category("web_tour.tours").add("documents_tour", {
         {
             trigger: ".o_kanban_record:contains(mail.png)",
             content: markup(_t("Click on a card to <b>select the document</b>.")),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -72,7 +72,7 @@ registry.category("web_tour.tours").add("documents_tour", {
                     "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your process, according to the workspace.</i>"
                 )
             ),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -82,7 +82,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             // the nth(0) ensures that the filter of the preceding step has been applied.
             trigger: ".o_kanban_record:nth(0):contains(Mails_inbox.pdf)",
             content: _t("Let's process this document, coming from our scanner."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -93,7 +93,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             content: _t(
                 "As this PDF contains multiple documents, let's split and process in bulk."
             ),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -106,7 +106,7 @@ registry.category("web_tour.tours").add("documents_tour", {
                     "Click on the <b>page separator</b>: we don't want to split these two pages as they belong to the same document."
                 )
             ),
-            position: "right",
+            tooltipPosition: "right",
             run: "click",
         },
         {
@@ -115,7 +115,7 @@ registry.category("web_tour.tours").add("documents_tour", {
         {
             trigger: ".o_documents_pdf_page_selector:nth(5)",
             content: markup(_t("<b>Deselect this page</b> as we plan to process all bills first.")),
-            position: "left",
+            tooltipPosition: "left",
             run: "click",
         },
         {
@@ -125,7 +125,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             // equivalent to '.o_pdf_manager_button:contains(Create an Expense)' but language agnostic.
             trigger: ".o_pdf_manager_button:nth-last-child(2)",
             content: _t("Let's process these bills: send to Finance workspace."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -134,7 +134,7 @@ registry.category("web_tour.tours").add("documents_tour", {
         {
             trigger: ".o_documents_pdf_page_selector",
             content: markup(_t("<b>Select</b> this page to continue.")),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -144,7 +144,7 @@ registry.category("web_tour.tours").add("documents_tour", {
             // equivalent to '.o_pdf_manager_button:contains(Send to Legal)' but language agnostic.
             trigger: ".o_pdf_manager_button:nth-child(4)",
             content: _t("Send this letter to the legal department, by assigning the right tags."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
     ],

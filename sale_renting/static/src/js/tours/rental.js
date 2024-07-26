@@ -12,12 +12,12 @@ registry.category("web_tour.tours").add('rental_tour', {
     steps: () => [stepUtils.showAppsMenuItem(), {
     trigger: '.o_app[data-menu-xmlid="sale_renting.rental_menu_root"]',
     content: markup(_t("Want to <b>rent products</b>? \n Let's discover Odoo Rental App.")),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: '.dropdown-item[data-menu-xmlid="sale_renting.menu_rental_products"]',
     content: _t("At first, let's create some products to rent."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 },
 {
@@ -27,22 +27,22 @@ registry.category("web_tour.tours").add('rental_tour', {
 {
     trigger: '.o-kanban-button-new',
     content: _t("Click here to set up your first rental product."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: ".o_field_widget[name='name'] textarea",
     content: _t("Enter the product name."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "edit Test",
 }, {
     trigger: '.o_form_button_save',
     content: _t("Save the product."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: ".nav-item a.nav-link:contains(Rental prices)",
     content: _t("The rental configuration is available here."),
-    position: 'top',
+    tooltipPosition: 'top',
     run: "click",
 },
 {
@@ -51,22 +51,22 @@ registry.category("web_tour.tours").add('rental_tour', {
 {
     trigger: 'button[data-menu-xmlid="sale_renting.rental_order_menu"]:enabled',
     content: _t("Let's now create an order."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: '.dropdown-item[data-menu-xmlid="sale_renting.rental_orders_all"]',
     content: _t("Go to the orders menu."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: '.o-kanban-button-new',
     content: _t("Click here to create a new quotation."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: ".o_field_widget[name=partner_id] input",
     content: _t("Create or select a customer here."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "edit Agrolait",
 }, {
     isActive: ["auto"],
@@ -79,12 +79,12 @@ registry.category("web_tour.tours").add('rental_tour', {
 {
     trigger: "a:contains('Add a product')",
     content: _t("Click here to start filling the quotation."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: ".o_field_widget[name=product_id] input, .o_field_widget[name=product_template_id] input",
     content: _t("Select your rental product."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "edit Test",
 }, {
     isActive: ["auto"],
@@ -93,7 +93,7 @@ registry.category("web_tour.tours").add('rental_tour', {
 }, {
     trigger: ".o_field_widget[name=product_id] input, .o_field_widget[name=product_template_id] input",
     content: _t("Select the rental dates and check the price."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "edit Test",
 }, {
     trigger: 'td.o_data_cell:contains("Test (Rental)")',
@@ -101,7 +101,7 @@ registry.category("web_tour.tours").add('rental_tour', {
 }, {
     trigger: "button[name=action_confirm]:enabled",
     content: _t("Confirm the order when the customer agrees with the terms."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 },
 {
@@ -111,12 +111,12 @@ registry.category("web_tour.tours").add('rental_tour', {
 {
     trigger: "button[name=action_open_pickup]:enabled",
     content: _t("Click here to register the pickup."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: "button[name='apply']",
     content: _t("Validate the operation after checking the picked-up quantities."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 },
 {
@@ -126,12 +126,12 @@ registry.category("web_tour.tours").add('rental_tour', {
 {
     trigger: "button[name='action_open_return']:enabled",
     content: _t("Once the rental is done, you can register the return."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: "button[name='apply']:enabled",
     content: _t("Confirm the returned quantities and hit Validate."),
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: '.text-bg-default:contains("Returned")',

@@ -91,7 +91,7 @@ registry.category("web_tour.tours").add('rental_product_configurator_tour', {
     run: "edit 5.0 && click body",
 }, {
     trigger: 'button[name=action_confirm]',
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     content: "verify that the rental has been confirmed",

@@ -36,12 +36,12 @@
             {
                 trigger: 'a[name="action_create_vendor_bill"]',
                 content: markup(_t('Create your first vendor bill.<br/><br/><i>Tip: If you don’t have one on hand, use our sample bill.</i>')),
-                position: 'bottom',
+                tooltipPosition: 'bottom',
                 run: "click",
             }, {
                 trigger: 'button.btn-primary[name="action_post"]',
                 content: _t('After the data extraction, check and validate the bill. If no vendor has been found, add one before validating.'),
-                position: 'bottom',
+                tooltipPosition: 'bottom',
                 run: "click",
             }, 
             {
@@ -50,12 +50,12 @@
             {
                 trigger: '.dropdown-item[data-menu-xmlid="account.menu_board_journal_1"]',
                 content: _t('Let’s go back to the dashboard.'),
-                position: 'bottom',
+                tooltipPosition: 'bottom',
                 run: "click",
             }, {
                 trigger: 'button[name="action_configure_bank_journal"]',
                 content: _t('Connect your bank and get your latest transactions.'),
-                position: 'bottom',
+                tooltipPosition: 'bottom',
                 run: function () {
                     // Close the modal
                     // We can't test bank sync in the tour

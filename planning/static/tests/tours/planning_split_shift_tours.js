@@ -8,7 +8,7 @@ registry.category("web_tour.tours").add('planning_split_shift_week', {
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
     content: "Let's start managing your employees' schedule!",
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: 'input[type="range"]',

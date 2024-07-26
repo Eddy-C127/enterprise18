@@ -2297,7 +2297,7 @@ registry.category("web_tour.tours").add('test_bypass_source_scan', {test: true, 
     },
     {
         trigger: '.o_field_many2one[name=lot_id] input',
-        position: "bottom",
+        tooltipPosition: "bottom",
         run: "clear",
     },
 

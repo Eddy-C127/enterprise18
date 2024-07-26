@@ -15,37 +15,37 @@ registry.category("web_tour.tours").add("frontdesk_tour", {
             content: _t(
                 "Looking for a better way to manage your visitors? \n It begins right here."
             ),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
             trigger: '.dropdown-item[data-menu-xmlid="frontdesk.frontdesk_menu_visitors"]',
             content: _t("Here, you'll see list of all the visitors."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
             trigger: ".o_list_button_add",
             content: _t("Let's add a new visitor."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
             trigger: ".o_field_widget[name='name'] input",
             content: _t("Enter the visitor's name."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
             trigger: ".o_field_widget[name='station_id'] .o_field_many2one_selection",
             content: _t("Select or create a station on the fly from where the visitor arrived."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
             trigger: ".o_form_button_save",
             content: _t("Save the visitor."),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
     ],

@@ -22,25 +22,25 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: 'button[name="action_fsm_view_material"]',
             content: markup(_t('Let\'s <b>track the material</b> you use for your task.')),
-                position: 'bottom',
+                tooltipPosition: 'bottom',
                 run: "click",
             },
             {
                 trigger: ".o-kanban-button-new",
             content: markup(_t('Let\'s create a new <b>product</b>.')),
-                position: 'right',
+                tooltipPosition: 'right',
                 run: "click",
             },
             {
                 trigger: '.o_field_text textarea',
             content: markup(_t('Choose a <b>name</b> for your product <i>(e.g. Bolts, Screws, Boiler, etc.).</i>')),
-                position: 'right',
+                tooltipPosition: 'right',
                 run: "edit Test",
             },
             {
                 trigger: ".breadcrumb-item.o_back_button",
             content: markup(_t("Use the breadcrumbs to navigate to your <b>list of products</b>.")),
-                position: "bottom",
+                tooltipPosition: "bottom",
                 run: "click",
             },
             {
@@ -50,7 +50,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger:
                     ".o_kanban_record:first-child button:has(i.fa-shopping-cart), .o_fsm_product_kanban_view .o_kanban_record",
             content: markup(_t('Click on a product to add it to your <b>list of materials</b>. <i>Tip: for large quantities, click on the number to edit it directly.</i>')),
-                position: "right",
+                tooltipPosition: "right",
                 run: "click",
             },
             {
@@ -59,7 +59,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: ".breadcrumb-item.o_back_button",
             content: markup(_t("Use the breadcrumbs to return to your <b>task</b>.")),
-                position: "bottom",
+                tooltipPosition: "bottom",
                 run: "click",
             }
         );
@@ -72,7 +72,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: ".o_statusbar_buttons > button:contains('Create Invoice')",
             content: markup(_t("<b>Invoice your time and material</b> to your customer.")),
-                position: "bottom",
+                tooltipPosition: "bottom",
                 run: "click",
             },
             {
@@ -81,7 +81,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: ".modal-footer button[id='create_invoice_open'].btn-primary",
             content: markup(_t("Confirm the creation of your <b>invoice</b>.")),
-                position: "bottom",
+                tooltipPosition: "bottom",
                 run: "click",
             },
             {

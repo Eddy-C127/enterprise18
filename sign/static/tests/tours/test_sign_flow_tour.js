@@ -16,7 +16,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         {
             content: "Click on Template Menu",
             trigger: 'a[data-menu-xmlid="sign.sign_template_menu"]',
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {
@@ -30,7 +30,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         {
             content: 'Search template "template_1_roles"',
             trigger: ".o_cp_searchview input",
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "edit template_1_role(2)",
         },
         {
@@ -59,7 +59,7 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
         {
             content: "Click to start",
             trigger: ':iframe .o_sign_sign_item_navigator:contains("Click to start")',
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {

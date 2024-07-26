@@ -64,14 +64,14 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
 
     {
         trigger: ".o_field_widget[name=qty_producing] input",
-        position: "right",
+        tooltipPosition: "right",
         run: "edit 1 && click body",
     },
 
     {
         trigger: ".modal-footer .btn[name=subcontracting_record_component]",
         content: _t('Continue'),
-        position: "bottom",
+        tooltipPosition: "bottom",
         run: "click",
     },
     {
@@ -80,7 +80,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
     {
         trigger: ".modal-footer .btn-secondary",
         content: _t('Discard'),
-        position: "bottom",
+        tooltipPosition: "bottom",
         run: "click",
     },
 
@@ -91,14 +91,14 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
 
     {
         trigger: ".o_field_widget[name=qty_producing] input",
-        position: "right",
+        tooltipPosition: "right",
         run: "edit 1 && click body",
     },
 
     {
         trigger: ".modal-footer .btn[name=subcontracting_record_component]",
         content: _t('Continue'),
-        position: "bottom",
+        tooltipPosition: "bottom",
         run: "click",
     },
     {
@@ -107,7 +107,7 @@ registry.category("web_tour.tours").add('test_receipt_tracked_subcontracted_prod
     {
         trigger: ".modal-footer .btn-primary[name=subcontracting_record_component]",
         content: _t('Record production'),
-        position: "bottom",
+        tooltipPosition: "bottom",
         run: "click",
     },
     ...stepUtils.validateBarcodeOperation(),
@@ -123,7 +123,7 @@ registry.category("web_tour.tours").add("test_receipt_flexible_subcontracted_pro
 
         {
             trigger: ".modal .o_field_widget[name=qty_producing] input",
-            position: "right",
+            tooltipPosition: "right",
             run: "edit 1 && click .modal-body",
         },
         {
@@ -138,7 +138,7 @@ registry.category("web_tour.tours").add("test_receipt_flexible_subcontracted_pro
         {
             trigger: ".modal .modal-footer .btn-primary[name=subcontracting_record_component]",
             content: _t("Record production"),
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {

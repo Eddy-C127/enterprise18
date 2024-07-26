@@ -8,7 +8,7 @@ registry.category("web_tour.tours").add('industry_fsm_sale_products_tour', {
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="industry_fsm.fsm_menu_root"]',
     content: 'Go to industry FSM',
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: 'input.o_searchview_input',

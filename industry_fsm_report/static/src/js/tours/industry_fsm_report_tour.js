@@ -25,7 +25,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
             trigger: 'button[name="action_fsm_worksheet"]',
             content: markup(_t('Open your <b>worksheet</b> in order to fill it in with the details of your intervention.')),
-            position: 'bottom',
+            tooltipPosition: 'bottom',
                 run: "click",
             },
             {
@@ -47,7 +47,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             trigger: '.o_form_sheet div[name] input',
             content: markup(_t('Fill in your <b>worksheet</b> with the details of your intervention.')),
             run: "edit My intervention details",
-            position: 'bottom',
+            tooltipPosition: 'bottom',
             },
             {
                 isActive: ["auto"],
@@ -57,7 +57,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
             trigger: ".breadcrumb-item.o_back_button:nth-of-type(2)",
             content: markup(_t("Use the breadcrumbs to return to your <b>task</b>.")),
-                position: "bottom",
+                tooltipPosition: "bottom",
                 run: "click",
             }
         );
@@ -75,7 +75,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
             trigger: 'button[name="action_preview_worksheet"]',
             content: markup(_t('<b>Review and sign</b> the <b>task report</b> with your customer.')),
-            position: 'bottom',
+            tooltipPosition: 'bottom',
                 run: "click",
             },
             {
@@ -85,7 +85,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: "a[data-bs-target='#modalaccept']:contains(sign report)",
             content: markup(_t('Invite your customer to <b>validate and sign your task report</b>.')),
-            position: 'right',
+            tooltipPosition: 'right',
             id: 'sign_report',
                 run: "click",
             },
@@ -104,14 +104,14 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: ".modal .o_web_sign_auto_button:contains(auto)",
             content: markup(_t('Save time by automatically generating a <b>signature</b>.')),
-            position: 'right',
+            tooltipPosition: 'right',
                 run: "click",
             },
             {
                 trigger:
                     ".modal .o_portal_sign_submit:enabled:contains(sign report):has(i.fa-check)",
             content: markup(_t('Validate the <b>signature</b>.')),
-            position: 'left',
+            tooltipPosition: 'left',
                 run: "click",
             },
             {
@@ -120,7 +120,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: "body:not(:has(.modal:contains(sign report)))",
             content: markup(_t('Go back to your Field Service <b>task</b>.')),
-            position: 'right',
+            tooltipPosition: 'right',
             },
             {
                 trigger: ".alert-info a.alert-link:contains(Back to edit mode)",
@@ -129,13 +129,13 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: 'button[name="action_send_report"]:enabled',
             content: markup(_t('<b>Send your task report</b> to your customer.')),
-            position: 'bottom',
+            tooltipPosition: 'bottom',
                 run: "click",
             },
             {
                 trigger: 'button[name="document_layout_save"]:enabled',
             content: markup(_t('Customize your <b>layout</b>.')),
-            position: 'right',
+            tooltipPosition: 'right',
                 run: "click",
             },
             {
@@ -145,7 +145,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             {
                 trigger: 'button[name="action_send_mail"]:enabled',
             content: markup(_t('<b>Send your task report</b> to your customer.')),
-            position: 'right',
+            tooltipPosition: 'right',
                 run: "click",
             }
         );

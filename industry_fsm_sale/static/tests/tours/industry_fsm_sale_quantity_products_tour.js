@@ -6,7 +6,7 @@ registry.category("web_tour.tours").add('industry_fsm_sale_quantity_products_tou
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="industry_fsm.fsm_menu_root"]',
     content: 'Go to industry FSM',
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: '.o_kanban_record span:contains("Fsm task")',
@@ -27,7 +27,7 @@ registry.category("web_tour.tours").add('industry_fsm_sale_quantity_products_tou
 }, {
     trigger: '.breadcrumb-item.o_back_button:nth-of-type(3)',
     content: 'Back to the list of products',
-    position: 'bottom',
+    tooltipPosition: 'bottom',
     run: "click",
 }, {
     trigger: '.o_kanban_record:nth-child(2) .o_product_catalog_buttons .btn-secondary:contains("Add")',

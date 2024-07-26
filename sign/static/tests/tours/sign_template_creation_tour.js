@@ -63,7 +63,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         {
             content: "Click on Template Menu",
             trigger: 'a[data-menu-xmlid="sign.sign_template_menu"]',
-            position: "bottom",
+            tooltipPosition: "bottom",
             run: "click",
         },
         {

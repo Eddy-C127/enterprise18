@@ -31,7 +31,7 @@ registry.category("web_tour.tours").add('test_serial_tracked_and_register', {tes
     },
     {
         trigger: 'div.o_field_widget[name="lot_id"] input ',
-        position: 'bottom',
+        tooltipPosition: 'bottom',
         run: "edit Magic_3",
     },
     {
@@ -44,7 +44,7 @@ registry.category("web_tour.tours").add('test_serial_tracked_and_register', {tes
     },
     {
         trigger: 'div.o_field_widget[name="finished_lot_id"] input ',
-        position: 'bottom',
+        tooltipPosition: 'bottom',
         run: "edit Magic Potion_2",
     },
     {
@@ -64,7 +64,7 @@ registry.category("web_tour.tours").add('test_serial_tracked_and_register', {tes
     },
     {
         trigger: 'div.o_field_widget[name="lot_id"] input ',
-        position: 'bottom',
+        tooltipPosition: 'bottom',
         run: "edit Magic_1",
     },
     {
