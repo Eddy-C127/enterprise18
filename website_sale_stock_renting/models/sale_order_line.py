@@ -18,10 +18,10 @@ class SaleOrderLine(models.Model):
         # during the period
         self.shop_warning = _(
             """
-            You asked for %(desired_qty)s products but only %(new_qty)s are available from
+            You asked for %(desired_qty)s %(product_name)s but only %(new_qty)s are available from
             %(rental_period)s.
             """,
-            desired_qty=desired_qty, new_qty=new_qty,
+            desired_qty=desired_qty, product_name=self.product_id.name, new_qty=new_qty,
             rental_period=self._get_rental_order_line_description()
         )
         return self.shop_warning
