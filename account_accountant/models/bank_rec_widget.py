@@ -813,15 +813,17 @@ class BankRecWidget(models.Model):
 
         # Newly created tax lines.
         for tax_line_vals in tax_results['tax_lines_to_add']:
-            line_ids_commands.append(Command.create(self._lines_prepare_tax_line(tax_line_vals)))
+            if tax_line_vals['tax_amount']:
+                line_ids_commands.append(Command.create(self._lines_prepare_tax_line(tax_line_vals)))
 
         # Update of existing tax lines.
         for tax_line_vals, to_update in tax_results['tax_lines_to_update']:
-            new_line_vals = self._lines_prepare_tax_line(to_update)
-            line_ids_commands.append(Command.update(tax_line_vals['record'].id, {
-                'amount_currency': new_line_vals['amount_currency'],
-                'balance': new_line_vals['balance'],
-            }))
+            if tax_line_vals['tax_amount']:
+                new_line_vals = self._lines_prepare_tax_line(to_update)
+                line_ids_commands.append(Command.update(tax_line_vals['record'].id, {
+                    'amount_currency': new_line_vals['amount_currency'],
+                    'balance': new_line_vals['balance'],
+                }))
 
         self.line_ids = line_ids_commands
 
