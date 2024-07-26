@@ -32,6 +32,7 @@ Australian Payroll Rules.
         "views/l10n_au_payevnt_0004_template.xml",
         "views/l10n_au_super_fund_views.xml",
         "views/l10n_au_super_account_views.xml",
+        "wizards/l10n_au_termination_payment.xml",
         "views/ir_ui_menu.xml",
         "data/ir_sequence_data.xml",
         "data/resource_calendar_data.xml",
@@ -50,7 +51,6 @@ Australian Payroll Rules.
         "data/salary_rules/hr_salary_rule_whm_data.xml",
         "data/hr_work_entry_type_data.xml",
         "data/hr_payroll_dashboard_warning_data.xml",
-        "wizards/l10n_au_termination_payment.xml"
     ],
     "assets": {
         "web.assets_backend": [
