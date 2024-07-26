@@ -1499,6 +1499,117 @@ class TestCFDIInvoice(TestMxEdiCommon):
                 payment4.move_id._l10n_mx_edi_cfdi_payment_try_send()
             self._assert_invoice_payment_cfdi(payment4.move_id, 'test_partial_payment_2_pay4')
 
+    def test_partial_payment_3(self):
+        """ Test a reconciliation chain with reconciliation with credit note in between. """
+        date1 = self.frozen_today - relativedelta(days=2)
+        date2 = self.frozen_today - relativedelta(days=1)
+        date3 = self.frozen_today
+        self.setup_rates(self.usd, (date1, 17.0), (date2, 16.5), (date3, 17.5))
+
+        with self.mx_external_setup(date1):
+            # MXN invoice at rate 19720 USD = 1160 MXN (1:17)
+            invoice = self._create_invoice(
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                        'price_unit': 1000.0,
+                    }),
+                ],
+            )
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+
+        with self.mx_external_setup(date2):
+            # Pay 1914 USD = 116 MXN (1:16.5)
+            payment1 = self._create_payment(
+                invoice,
+                amount=1914.0,
+                currency_id=self.usd.id,
+                payment_date=date2,
+            )
+            with self.with_mocked_pac_sign_success():
+                payment1.move_id._l10n_mx_edi_cfdi_payment_try_send()
+            self._assert_invoice_payment_cfdi(payment1.move_id, 'test_partial_payment_3_pay1')
+            self.assertRecordValues(invoice, [{'amount_residual': 1044.0}])
+
+            # USD Credit note at rate 1914 USD = 116 MXN (1:16.5)
+            refund = self._create_invoice(
+                move_type='out_refund',
+                currency_id=self.usd.id,
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                        'price_unit': 1650.0,
+                    }),
+                ],
+            )
+            (refund + invoice).line_ids.filtered(lambda line: line.display_type == 'payment_term').reconcile()
+            self.assertRecordValues(invoice + refund, [
+                # The refund reconciled 116 MXN:
+                # - 112.59 MXN with the invoice.
+                # - 3.41 MXN as an exchange difference (1972 - 1914) / 17 ~= 3.41)
+                {'amount_residual': 931.41},
+                {'amount_residual': 0.0},
+            ])
+
+            # Pay 1914 USD = 116 MXN (1:16.5)
+            # The credit note should be subtracted from the residual chain.
+            payment2 = self._create_payment(
+                invoice,
+                amount=1914.0,
+                currency_id=self.usd.id,
+                payment_date=date2,
+            )
+            with self.with_mocked_pac_sign_success():
+                payment2.move_id._l10n_mx_edi_cfdi_payment_try_send()
+            self._assert_invoice_payment_cfdi(payment2.move_id, 'test_partial_payment_3_pay2')
+            self.assertRecordValues(invoice, [{'amount_residual': 815.41}])
+
+        with self.mx_external_setup(date3):
+            # Pay 10% in USD at rate 1:17.5
+            payment3 = self._create_payment(
+                invoice,
+                amount=2030.0,
+                currency_id=self.usd.id,
+                payment_date=date3,
+            )
+            with self.with_mocked_pac_sign_success():
+                payment3.move_id._l10n_mx_edi_cfdi_payment_try_send()
+            self._assert_invoice_payment_cfdi(payment3.move_id, 'test_partial_payment_3_pay3')
+            self.assertRecordValues(invoice, [{'amount_residual': 699.41}])
+
+            # USD Credit note at rate 2030 USD = 116 MXN (1:17.5)
+            refund = self._create_invoice(
+                move_type='out_refund',
+                currency_id=self.usd.id,
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                        'price_unit': 1750.0,
+                    }),
+                ],
+            )
+            (refund + invoice).line_ids.filtered(lambda line: line.display_type == 'payment_term').reconcile()
+            self.assertRecordValues(invoice + refund, [
+                # The refund reconciled 116 MXN with the invoice.
+                # An exchange difference of (2030 - 1972) / 17 ~= 3.41 has been created.
+                {'amount_residual': 580.0},
+                {'amount_residual': 0.0},
+            ])
+
+            # Pay 10% in USD at rate 1:17.5
+            # The credit note should be subtracted from the residual chain.
+            payment4 = self._create_payment(
+                invoice,
+                amount=2030.0,
+                currency_id=self.usd.id,
+                payment_date=date3,
+            )
+            with self.with_mocked_pac_sign_success():
+                payment4.move_id._l10n_mx_edi_cfdi_payment_try_send()
+            self._assert_invoice_payment_cfdi(payment4.move_id, 'test_partial_payment_3_pay4')
+            self.assertRecordValues(invoice, [{'amount_residual': 464.0}])
+
     def test_foreign_curr_payment_comp_curr_invoice_forced_balance(self):
         date1 = self.frozen_today - relativedelta(days=1)
         date2 = self.frozen_today

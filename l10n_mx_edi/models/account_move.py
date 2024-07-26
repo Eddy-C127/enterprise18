@@ -1865,31 +1865,52 @@ class AccountMove(models.Model):
         for invoice in invoices:
             pay_rec_lines = invoice.line_ids\
                 .filtered(lambda line: line.account_type in ('asset_receivable', 'liability_payable'))
+
+            # Track the amount in exchange moves too.
             exchange_move_map = {}
+
+            # Track the reconciliation to each payment because they have to be sent too.
             reconciliation_values[invoice] = {
                 'payments': defaultdict(lambda: {
                     'invoice_amount_currency': 0.0,
                     'balance': 0.0,
                     'invoice_exchange_balance': 0.0,
                     'payment_amount_currency': 0.0,
+                    'other_residual': 0.0,
                 }),
             }
+
+            # If a reconciliation has been made with something that is not a payment like a credit note, it has to be taken into account
+            # when computing the residual amounts before and after.
+            other_residual = 0.0
             for field1, field2 in (('credit', 'debit'), ('debit', 'credit')):
-                for partial in pay_rec_lines[f'matched_{field1}_ids'].sorted(lambda x: not x.exchange_move_id):
+                for partial in pay_rec_lines[f'matched_{field1}_ids'].sorted(lambda x: (
+                    not x.exchange_move_id,
+                    x[f'{field1}_move_id'].invoice_date or x[f'{field1}_move_id'].date,
+                    x[f'{field1}_move_id'].id,
+                )):
                     counterpart_line = partial[f'{field1}_move_id']
                     counterpart_move = counterpart_line.move_id
+                    is_payment = counterpart_move._l10n_mx_edi_is_cfdi_payment()
 
                     if partial.exchange_move_id:
                         exchange_move_map[partial.exchange_move_id] = counterpart_move
 
-                    if counterpart_move._l10n_mx_edi_is_cfdi_payment():
+                    if counterpart_move in exchange_move_map:
+                        if is_payment:
+                            pay_results = reconciliation_values[invoice]['payments'][exchange_move_map[counterpart_move]]
+                            pay_results['invoice_exchange_balance'] += partial.amount
+                        else:
+                            other_residual += partial[f'{field2}_amount_currency']
+                    elif is_payment:
                         pay_results = reconciliation_values[invoice]['payments'][counterpart_move]
                         pay_results['invoice_amount_currency'] += partial[f'{field2}_amount_currency']
                         pay_results['payment_amount_currency'] += partial[f'{field1}_amount_currency']
                         pay_results['balance'] += partial.amount
-                    elif counterpart_move in exchange_move_map:
-                        pay_results = reconciliation_values[invoice]['payments'][exchange_move_map[counterpart_move]]
-                        pay_results['invoice_exchange_balance'] += partial.amount
+                        pay_results['other_residual'] += other_residual
+                        other_residual = 0.0
+                    else:
+                        other_residual += partial[f'{field2}_amount_currency']
 
         # Compute the chain of payments.
         results = {}
@@ -1898,9 +1919,14 @@ class AccountMove(models.Model):
             invoice_results = results[invoice] = []
             residual = invoice.amount_total
             for pay, pay_results in sorted(list(payment_values.items()), key=lambda x: x[0].date):
+                # Extract the part reconciled by the payment.
                 reconciled_invoice_amount = pay_results['invoice_amount_currency']
                 if invoice.currency_id == invoice.company_currency_id:
                     reconciled_invoice_amount += pay_results['invoice_exchange_balance']
+
+                # Subtract the residual amount implies by others reconciliation like credit notes.
+                residual -= pay_results['other_residual']
+
                 invoice_results.append({
                     **pay_results,
                     'payment': pay,
