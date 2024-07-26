@@ -3,10 +3,16 @@
 
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document" priority="50">
         <xpath expr="//div[@name='informations_reference']" position="after">
-            <div t-if="doc.is_subscription" class="col" name="plan">
-                <strong>Recurring Plan</strong>
-                <div t-field="doc.plan_id.name"/>
-            </div>
+            <t t-if="doc.is_subscription">
+                <div class="col" name="plan">
+                    <strong>Recurring Plan</strong>
+                    <div t-field="doc.plan_id.name"/>
+                </div>
+                <div t-if="doc.start_date" class="col" name="subscription_start_date">
+                    <strong>Start Date</strong>
+                    <div t-field="doc.start_date"/>
+                </div>
+            </t>
         </xpath>
     </template>
 
