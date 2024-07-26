@@ -80,10 +80,10 @@
                         <t t-if="!isMobile">
                             <t t-if="viewType == 'grid'">
                                 <div>
-                                    <span class="text-muted">Press</span> <b>Enter</b> <span class="text-muted">or [a] to launch the timer</span>
+                                    <span class="text-muted">Press</span> <b>Enter</b> <span class="text-muted">or <b>[a]</b> to launch the timer</span>
                                 </div>
                                 <div>
-                                    <span class="text-muted">Press</span> <b>Shift</b> <span class="text-muted">+ [A] to add <t t-esc="props.stepTimer"/> min</span>
+                                    <span class="text-muted">Press</span> <b>Shift</b> <span class="text-muted">+ <b>[A]</b> to add <t t-esc="props.stepTimer"/> min</span>
                                 </div>
                             </t>
                             <t t-else="">
