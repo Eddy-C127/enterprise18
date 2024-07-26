@@ -11,10 +11,7 @@ class MailThread(models.AbstractModel):
         super()._thread_to_store(store, request_list=request_list, **kwargs)
         if request_list:
             store.add(
-                "mail.thread",
-                {
-                    "canSendWhatsapp": self.env['whatsapp.template']._can_use_whatsapp(self._name),
-                    "id": self.id,
-                    "model": self._name,
-                },
+                self,
+                {"canSendWhatsapp": self.env["whatsapp.template"]._can_use_whatsapp(self._name)},
+                as_thread=True,
             )

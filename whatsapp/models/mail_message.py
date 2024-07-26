@@ -31,7 +31,7 @@ class MailMessage(models.Model):
         self.env["bus.bus"]._sendone(
             self._bus_notification_target(),
             "mail.record/insert",
-            Store("mail.message", {"id": self.id, "reactions": reactionGroups}).get_result(),
+            Store(self, {"reactions": reactionGroups}).get_result(),
         )
 
     def _get_whatsapp_reaction_format(self, content, partner_id, unlink_reaction=False):
@@ -57,9 +57,5 @@ class MailMessage(models.Model):
                 .search([("mail_message_id", "in", whatsapp_mail_messages.ids)])
             ):
                 store.add(
-                    "mail.message",
-                    {
-                        "id": whatsapp_message.mail_message_id.id,
-                        "whatsappStatus": whatsapp_message.state,
-                    },
+                    whatsapp_message.mail_message_id, {"whatsappStatus": whatsapp_message.state}
                 )

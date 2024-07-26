@@ -121,11 +121,8 @@ class DiscussChannel(models.Model):
                     self,
                     "mail.record/insert",
                     Store(
-                        "discuss.channel",
-                        {
-                            "id": self.id,
-                            "whatsapp_channel_valid_until": self.whatsapp_channel_valid_until,
-                        },
+                        self,
+                        {"whatsapp_channel_valid_until": self.whatsapp_channel_valid_until},
                     ).get_result(),
                 )
             if not new_msg.wa_message_ids:
@@ -249,11 +246,11 @@ class DiscussChannel(models.Model):
             }])
             message_body = Markup(f'<div class="o_mail_notification">{_("joined the channel")}</div>')
             new_member.channel_id.message_post(body=message_body, message_type="notification", subtype_xmlid="mail.mt_comment")
-            broadcast_store = Store(new_member)
-            broadcast_store.add(
-                "discuss.channel", {"id": self.id, "memberCount": self.member_count}
+            self.env["bus.bus"]._sendone(
+                self,
+                "mail.record/insert",
+                Store(new_member).add(self, {"memberCount": self.member_count}).get_result(),
             )
-            self.env["bus.bus"]._sendone(self, "mail.record/insert", broadcast_store.get_result())
         return Store(self).get_result()
 
     # ------------------------------------------------------------
@@ -274,13 +271,7 @@ class DiscussChannel(models.Model):
         super()._to_store(store)
         for channel in self.filtered(lambda channel: channel.channel_type == "whatsapp"):
             store.add(
-                "discuss.channel",
-                {
-                    "id": channel.id,
-                    "whatsapp_channel_valid_until": fields.Datetime.to_string(
-                        channel.whatsapp_channel_valid_until
-                    ),
-                },
+                channel, {"whatsapp_channel_valid_until": channel.whatsapp_channel_valid_until}
             )
 
     def _types_allowing_seen_infos(self):

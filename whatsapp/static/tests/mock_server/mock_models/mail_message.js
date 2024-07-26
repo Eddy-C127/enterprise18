@@ -30,7 +30,7 @@ export class MailMessage extends mailModels.MailMessage {
                 ["mail_message_id", "=", message.id],
             ]);
             if (whatsappMessage) {
-                store.add("mail.message", { id: message.id, whatsappStatus: whatsappMessage.state });
+                store.add(this.browse(message.id), { whatsappStatus: whatsappMessage.state });
             }
         }
     }

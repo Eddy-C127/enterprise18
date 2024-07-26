@@ -147,8 +147,7 @@ test("Disabled composer should be enabled after message from whatsapp user", asy
     pyEnv["bus.bus"]._sendone(
         channel,
         "mail.record/insert",
-        new mailDataHelpers.Store("discuss.channel", {
-            id: channelId,
+        new mailDataHelpers.Store(pyEnv["discuss.channel"].browse(channelId), {
             whatsapp_channel_valid_until: DateTime.utc().plus({ days: 1 }).toSQL(),
         }).get_result()
     );

@@ -1,6 +1,6 @@
 import { mailModels } from "@mail/../tests/mail_test_helpers";
 
-import { getKwArgs } from "@web/../tests/web_test_helpers";
+import { getKwArgs, makeKwArgs } from "@web/../tests/web_test_helpers";
 
 export class MailThread extends mailModels.MailThread {
     /**
@@ -15,15 +15,17 @@ export class MailThread extends mailModels.MailThread {
         const WhatsAppTemplate = this.env["whatsapp.template"];
         super._thread_to_store(...arguments);
         if (request_list) {
-            store.add("mail.thread", {
-                id: ids[0],
-                model: this._name,
-                canSendWhatsapp:
-                    WhatsAppTemplate.search_count([
-                        ["model", "=", this._name],
-                        ["status", "=", "approved"],
-                    ]) > 0,
-            });
+            store.add(
+                this.env[this._name].browse(ids[0]),
+                {
+                    canSendWhatsapp:
+                        WhatsAppTemplate.search_count([
+                            ["model", "=", this._name],
+                            ["status", "=", "approved"],
+                        ]) > 0,
+                },
+                makeKwArgs({ as_thread: true })
+            );
         }
     }
 }

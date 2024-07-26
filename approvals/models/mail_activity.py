@@ -19,11 +19,4 @@ class MailActivity(models.Model):
             approver = request.approver_ids.filtered(
                 lambda approver: activity.user_id == approver.user_id
             )
-            store.add(
-                "mail.activity",
-                {
-                    "id": activity.id,
-                    "approver_id": approver.id,
-                    "approver_status": approver.status,
-                },
-            )
+            store.add(activity, {"approver_id": approver.id, "approver_status": approver.status})

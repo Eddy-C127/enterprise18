@@ -14,8 +14,7 @@ export class MailActivity extends mailModels.MailActivity {
                 ["user_id", "=", activity.user_id],
             ]);
             if (approver) {
-                store.add("mail.activity", {
-                    id: activity.id,
+                store.add(this.browse(activity.id), {
                     approver_id: approver.id,
                     approver_status: approver.status,
                 });

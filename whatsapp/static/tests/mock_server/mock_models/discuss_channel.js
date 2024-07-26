@@ -22,8 +22,7 @@ export class DiscussChannel extends mailModels.DiscussChannel {
             ["channel_type", "=", "whatsapp"],
         ]);
         for (const channel of channels) {
-            store.add("discuss.channel", {
-                id: channel.id,
+            store.add(this.browse(channel.id), {
                 whatsapp_channel_valid_until: channel.whatsapp_channel_valid_until || false,
             });
         }
@@ -58,8 +57,7 @@ export class DiscussChannel extends mailModels.DiscussChannel {
                     subtype_xmlid: "mail.mt_comment",
                 })
             );
-            const broadcast_store = new mailDataHelpers.Store("discuss.channel", {
-                id: channel.id,
+            const broadcast_store = new mailDataHelpers.Store(this.browse(channel.id), {
                 memberCount: DiscussChannelMember.search_count([["channel_id", "=", channel.id]]),
             });
             broadcast_store.add(DiscussChannelMember.browse(selfMemberId));

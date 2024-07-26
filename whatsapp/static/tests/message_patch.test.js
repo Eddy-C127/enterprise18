@@ -125,8 +125,7 @@ test("Allow SeenIndicators in WhatsApp Channels", async () => {
     pyEnv["bus.bus"]._sendone(
         channel,
         "mail.record/insert",
-        new mailDataHelpers.Store("discuss.channel.member", {
-            id: memberIds[1],
+        new mailDataHelpers.Store(pyEnv["discuss.channel.member"].browse(memberIds[1]), {
             seen_message_id: messageId,
         }).get_result()
     );

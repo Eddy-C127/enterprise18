@@ -107,7 +107,7 @@ class MailActivity(models.Model):
             )
             if partner:
                 activity_data["partner"] = Store.one(partner)
-            store.add("mail.activity", activity_data)
+            store.add(activity, activity_data)
 
     def _get_phone_numbers_by_activity(self):
         """Batch compute the phone numbers associated with the activities.
