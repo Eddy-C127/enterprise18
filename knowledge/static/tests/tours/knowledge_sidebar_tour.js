@@ -915,10 +915,11 @@ registry.category("web_tour.tours").add('knowledge_sidebar_tour', {
             'section[data-section="workspace"] .o_section_header',
         );
     },
-}, {
-    // Cancel the move
-    trigger: '.modal-footer .btn-secondary',
-    run: "click",
+        },
+        {
+            content: "Cancel the move",
+            trigger: ".modal-footer .btn-secondary:enabled",
+            run: "click",
         },
         {
             trigger: 'section[data-section="workspace"]:not(:has(.o_article:contains("Workspace Article")))',
