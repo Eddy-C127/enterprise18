@@ -3,10 +3,10 @@
 import unicodedata
 import uuid
 import re
+
 import xml.etree.ElementTree as ET
-from odoo.osv import expression
+
 from odoo import api, fields, models, _, Command
-from odoo.tools import ustr
 from odoo.exceptions import ValidationError
 
 OPTIONS_WL = [
@@ -32,13 +32,13 @@ def sanitize_for_xmlid(s):
         Strips leading and trailing spaces, converts unicode chars to ascii,
         lowers all chars, replaces spaces with underscores and truncates the
         resulting string to 20 characters.
-        :param s: str
+
+        :type s: str
         :rtype: str
     """
-    s = ustr(s)
     uni = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode('ascii')
 
-    slug_str = re.sub(r'[\W]', ' ', uni).strip().lower()
+    slug_str = re.sub(r'\W', ' ', uni).strip().lower()
     slug_str = re.sub(r'[-\s]+', '_', slug_str)
     return slug_str[:20]
 
@@ -63,7 +63,7 @@ class Base(models.AbstractModel):
         else:
             module = self.env['ir.module.module'].get_studio_module()
             IrModelData.create({
-                'name': '%s_%s' % (sanitize_for_xmlid(name), uuid.uuid4()),
+                'name': '%s_%s' % (sanitize_for_xmlid(name or 'False'), uuid.uuid4()),
                 'model': self._name,
                 'res_id': self.id,
                 'module': module.name,
