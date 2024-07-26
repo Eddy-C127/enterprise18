@@ -2,6 +2,9 @@
 from contextlib import contextmanager
 from unittest.mock import patch
 
+from freezegun import freeze_time
+
+from odoo import fields
 from odoo.tests.common import tagged
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
 
@@ -100,3 +103,15 @@ class TestSaleSubscriptionExternal(TestSubscriptionCommon, TestSaleSubscriptionE
             tx._post_process()
 
         self.assertTrue(sub._is_paid(), 'Subscription should be fully paid')
+
+    def test_04_subscription_date(self):
+        self.subscription.date_order = '2024-01-01'
+        self.assertFalse(self.subscription.next_invoice_date, "Shouldn't have a next invoice date for this test.")
+
+        today = '2024-02-02'
+        with freeze_time(today):
+            self.assertEqual(
+                self.subscription._get_date_for_external_taxes(),
+                fields.Date.from_string(today),
+                'The current date should be sent for subscriptions.'
+            )

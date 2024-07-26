@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models
+from odoo import models, fields
 
 
 class SaleSubscription(models.Model):
@@ -31,3 +31,10 @@ class SaleSubscription(models.Model):
         res = super().action_confirm()
         self._get_and_set_external_taxes_on_eligible_records()
         return res
+
+    def _get_date_for_external_taxes(self):
+        """Override to always send a current date for subscriptions. order_date will never change and if taxes change
+        it will never be reflected on the subscription. This overrides it to be either the next invoice date so
+        customers know what they will be charged. Or it will be the current date for new or churned subscriptions
+        without a next invoice date."""
+        return (self.next_invoice_date or fields.Date.context_today(self)) if self.is_subscription else super()._get_date_for_external_taxes()
