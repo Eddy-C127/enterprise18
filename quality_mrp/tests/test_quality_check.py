@@ -300,10 +300,11 @@ class TestQualityCheck(TestQualityMrpCommon):
 
     def test_failure_location(self):
         """ Ensure that a failing move line gets sent to its prescribed failure location (and
-        passing line(s) destinations are not affected).
+        passing line(s) destinations are not affected). Also, ensure that it is possible to fail a portion of
+        a backorder quantity.
         """
         qcp = self.env['quality.point'].create({
-            'product_ids': [Command.link(self.product.id)],
+            'product_ids': [Command.link(self.product_2.id)],
             'picking_type_ids': [Command.link(self.picking_type_id)],
             'measure_on': 'move_line',
             'test_type_id': self.env.ref('quality_control.test_type_passfail').id,
@@ -312,21 +313,40 @@ class TestQualityCheck(TestQualityMrpCommon):
         })
 
         with Form(self.env['mrp.production']) as mo_form:
-            mo_form.product_id = self.product
-            mo_form.product_qty = 2
+            mo_form.product_id = self.product_2
+            mo_form.product_qty = 20
             with mo_form.move_raw_ids.new() as move_raw:
-                move_raw.product_id = self.product_2
-                move_raw.product_uom_qty = 2
+                move_raw.product_id = self.product_3
+                move_raw.product_uom_qty = 20
             mrp_production = mo_form.save()
         mrp_production.action_confirm()
 
+        mrp_production.qty_producing = 12
+        # Fail 5 units from the MO
         action = mrp_production.check_ids.action_open_quality_check_wizard()
         wizard = self.env[action['res_model']].with_context(action['context']).create({})
-        wizard.qty_failed = 1
+        wizard.qty_failed = 5
         wizard.failure_location_id = qcp.failure_location_ids.id
         wizard.confirm_fail()
 
         self.assertEqual(
             set(mrp_production.finished_move_line_ids.location_dest_id.ids),
             {self.failure_location.id, mrp_production.location_dest_id.id},
+        )
+        # validate the MO and create a backorder
+        action = mrp_production.button_mark_done()
+        backorder_form = Form(self.env['mrp.production.backorder'].with_context(**action['context']))
+        backorder_form.save().action_backorder()
+        self.assertTrue(mrp_production.procurement_group_id)
+        backorder_ids = mrp_production.procurement_group_id.mrp_production_ids[1]
+        backorder_ids.qty_producing = 8
+        # Fail one unit from the backorder
+        action = backorder_ids.check_ids.action_open_quality_check_wizard()
+        wizard = self.env[action['res_model']].with_context(action['context']).create({})
+        wizard.qty_failed = 1
+        wizard.failure_location_id = qcp.failure_location_ids.id
+        wizard.confirm_fail()
+        self.assertEqual(
+            set(backorder_ids.finished_move_line_ids.location_dest_id.ids),
+            {self.failure_location.id, backorder_ids.location_dest_id.id},
         )
