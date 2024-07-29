@@ -201,6 +201,7 @@ L10N_EC_EDI_XML_OUT_INV = """
     </infoTributaria>
     <infoFactura>
         <fechaEmision>25/01/2022</fechaEmision>
+        <dirEstablecimiento>Avenida Machala 42</dirEstablecimiento>
         <obligadoContabilidad>SI</obligadoContabilidad>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
         <razonSocialComprador>EC Test Partner AàÁ³$£€èêÈÊöÔÇç¡⅛&amp;@™</razonSocialComprador>
@@ -223,6 +224,8 @@ L10N_EC_EDI_XML_OUT_INV = """
             <pago>
                 <formaPago>16</formaPago>
                 <total>448.00</total>
+                <plazo>0</plazo>
+                <unidadTiempo>dias</unidadTiempo>
             </pago>
         </pagos>
     </infoFactura>
@@ -269,6 +272,7 @@ L10N_EC_EDI_XML_DEBIT_NOTE = """
     </infoTributaria>
     <infoNotaDebito>
         <fechaEmision>25/01/2022</fechaEmision>
+        <dirEstablecimiento>Avenida Machala 42</dirEstablecimiento>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
         <razonSocialComprador>EC Test Partner AàÁ³$£€èêÈÊöÔÇç¡⅛&amp;@™</razonSocialComprador>
         <identificacionComprador>0453661050152</identificacionComprador>
@@ -287,6 +291,14 @@ L10N_EC_EDI_XML_DEBIT_NOTE = """
             </impuesto>
         </impuestos>
         <valorTotal>448.00</valorTotal>
+        <pagos>
+            <pago>
+                <formaPago>16</formaPago>
+                <total>448.00</total>
+                <plazo>0</plazo>
+                <unidadTiempo>dias</unidadTiempo>
+            </pago>
+        </pagos>
     </infoNotaDebito>
     <motivos>
         <motivo>
@@ -318,6 +330,7 @@ L10N_EC_EDI_XML_CREDIT_NOTE = """
     </infoTributaria>
     <infoNotaCredito>
         <fechaEmision>25/01/2022</fechaEmision>
+        <dirEstablecimiento>Avenida Machala 42</dirEstablecimiento>
         <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
         <razonSocialComprador>EC Test Partner AàÁ³$£€èêÈÊöÔÇç¡⅛&amp;@™</razonSocialComprador>
         <identificacionComprador>0453661050152</identificacionComprador>
@@ -381,6 +394,7 @@ L10N_EC_EDI_XML_PURCHASE_LIQ = """
     </infoTributaria>
     <infoLiquidacionCompra>
         <fechaEmision>25/01/2022</fechaEmision>
+        <dirEstablecimiento>Avenida Machala 42</dirEstablecimiento>
         <obligadoContabilidad>SI</obligadoContabilidad>
         <tipoIdentificacionProveedor>05</tipoIdentificacionProveedor>
         <razonSocialProveedor>EC Test Partner AàÁ³$£€èêÈÊöÔÇç¡⅛&amp;@™</razonSocialProveedor>
@@ -454,6 +468,7 @@ L10N_EC_EDI_XML_IN_WTH = """
     </infoTributaria>
     <infoCompRetencion>
         <fechaEmision>25/01/2022</fechaEmision>
+        <dirEstablecimiento>Avenida Machala 42</dirEstablecimiento>
         <obligadoContabilidad>SI</obligadoContabilidad>
         <tipoIdentificacionSujetoRetenido>04</tipoIdentificacionSujetoRetenido>
         <parteRel>NO</parteRel>
@@ -518,6 +533,7 @@ L10N_EC_EDI_XML_PURCHASE_LIQ_WTH = """
     </infoTributaria>
     <infoCompRetencion>
         <fechaEmision>25/01/2022</fechaEmision>
+        <dirEstablecimiento>Avenida Machala 42</dirEstablecimiento>
         <obligadoContabilidad>SI</obligadoContabilidad>
         <tipoIdentificacionSujetoRetenido>05</tipoIdentificacionSujetoRetenido>
         <parteRel>NO</parteRel>
@@ -771,6 +787,7 @@ L10N_EC_EDI_REIMBURSEMENT_LIQUIDATION = """
     </infoTributaria>
     <infoLiquidacionCompra>
         <fechaEmision>25/01/2022</fechaEmision>
+        <dirEstablecimiento>Avenida Machala 42</dirEstablecimiento>
         <obligadoContabilidad>SI</obligadoContabilidad>
         <tipoIdentificacionProveedor>05</tipoIdentificacionProveedor>
         <razonSocialProveedor>EC Test Partner AàÁ³$£€èêÈÊöÔÇç¡⅛&amp;@™</razonSocialProveedor>

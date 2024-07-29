@@ -169,7 +169,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
             'tax_ids': [Command.set(self._get_tax_by_xml_id('tax_vat_412').ids)],
         })])
         self._get_tax_by_xml_id('tax_vat_412').amount_type = 'division'  # tax included in price
-        self.test_xml_tree_out_invoice_basic(invoice_line_args=line_vals, xpath="""
+        self.test_xml_tree_out_invoice_basic(invoice_line_args=line_vals, xpath=xpath or """
             <xpath expr="//totalSinImpuestos" position="replace">
                 <totalSinImpuestos>426.290000</totalSinImpuestos>
             </xpath>
@@ -189,6 +189,8 @@ class TestEcEdiXmls(TestEcEdiCommon):
                 <pago>
                     <formaPago>16</formaPago>
                     <total>477.63</total>
+                    <plazo>0</plazo>
+                    <unidadTiempo>dias</unidadTiempo>
                 </pago>
             </xpath>
             <xpath expr="//detalles/detalle" position="after">
@@ -227,7 +229,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                     </impuestos>
                 </detalle>
             </xpath>
-        """ if not xpath else xpath)
+        """)
 
     def test_xml_tree_out_invoice_multicurrency(self):
         """Checks the XML of the 'richer' invoice when created in another currency than USD.
@@ -264,6 +266,8 @@ class TestEcEdiXmls(TestEcEdiCommon):
                 <pago>
                     <formaPago>16</formaPago>
                     <total>955.26</total>
+                    <plazo>0</plazo>
+                    <unidadTiempo>dias</unidadTiempo>
                 </pago>
             </xpath>
             <xpath expr="//detalles/detalle" position="replace">

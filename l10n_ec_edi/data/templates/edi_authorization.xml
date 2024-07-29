@@ -2,13 +2,13 @@
 <odoo>
     <data>
         <template id="authorization_template">
-            <RespuestaAutorizacion>
+            <autorizacion>
                 <estado>AUTORIZADO</estado>
                 <numeroAutorizacion t-out="authorization_number"/>
                 <fechaAutorizacion t-out="authorization_date"/>
                 <ambiente t-out='mode'/>
                 <comprobante t-out="xml_file_content"/>
-            </RespuestaAutorizacion>
+            </autorizacion>
         </template>
     </data>
 </odoo>
