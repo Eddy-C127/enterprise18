@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-from odoo.osv import expression
 
 ISSUING_ENTITY = [
     ('01', 'National Superintendency for the Control of Security Services, Weapons, Ammunition and Explosives for Civil Use'),
@@ -22,6 +21,7 @@ class L10nPeEdiVehicle(models.Model):
     _name = 'l10n_pe_edi.vehicle'
     _description = 'PE EDI Vehicle'
     _check_company_auto = True
+    _rec_names_search = ['name', 'license_plate']
 
     name = fields.Char(
         string='Vehicle Name',
@@ -56,17 +56,7 @@ class L10nPeEdiVehicle(models.Model):
         help="The number of the vehicle's special authorization",
     )
 
-    @api.depends('license_plate')
+    @api.depends('name', 'license_plate')
     def _compute_display_name(self):
-        # OVERRIDE
         for vehicle in self:
             vehicle.display_name = f"[{vehicle.license_plate}] {vehicle.name}"
-
-    @api.model
-    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
-        # OVERRIDE
-        domain = domain or []
-        if operator != 'ilike' or (name or '').strip():
-            name_domain = ['|', ('name', 'ilike', name), ('license_plate', 'ilike', name)]
-            domain = expression.AND([name_domain, domain])
-        return self._search(domain, limit=limit, order=order)

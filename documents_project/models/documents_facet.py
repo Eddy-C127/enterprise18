@@ -24,8 +24,10 @@ class TagsCategories(models.Model):
         ])
 
     @api.model
-    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
-        return super()._name_search(name, self._get_facet_domain(domain), operator, limit, order)
+    def _search_display_name(self, operator, value):
+        domain = super()._search_display_name(operator, value)
+        domain = self._get_facet_domain(domain)
+        return domain
 
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None, **read_kwargs):

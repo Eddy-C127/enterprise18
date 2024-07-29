@@ -1145,7 +1145,8 @@ class Article(models.Model):
         """
         return "📄"
 
-    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
+    @api.model
+    def _search_display_name(self, operator, value):
         """ This override is meant to make the 'name_search' symmetrical to the display_name.
         As we append the icon (emoji) before the article name, when searching based on that same
         syntax '[emoji] name' we need to return the appropriate results.
@@ -1154,29 +1155,28 @@ class Article(models.Model):
         are based on display_name / name_search to match records (for example when importing the article
         parent record, without this override it will never match). """
 
-        if operator not in ('=', 'ilike'):
-            return super()._name_search(name, domain, operator, limit, order)
+        if operator not in ('=', 'ilike') or not isinstance(value, str):
+            return super()._search_display_name(operator, value)
 
-        article_name, icon = self._extract_icon_from_name(name)
+        article_name, icon = self._extract_icon_from_name(value)
         if not icon:
-            return super()._name_search(name, domain, operator, limit, order)
+            return super()._search_display_name(operator, value)
 
-        domain = domain or []
         if icon == self._get_no_icon_placeholder():
             # special case using the icon placeholder (no icon stored but the display_name returns one)
-            domain = expression.AND([domain, [
+            domain = [
                 ('name', operator, article_name),
                 '|',
                 ('icon', '=', icon),
                 ('icon', '=', False),
-            ]])
+            ]
         else:
-            domain = expression.AND([domain, [
+            domain = [
                 ('name', operator, article_name),
                 ('icon', '=', icon),
-            ]])
+            ]
 
-        return self._search(domain, limit=limit, order=order)
+        return domain
 
     def _get_common_copied_data(self):
         return {
@@ -2874,7 +2874,7 @@ class Article(models.Model):
 
     @api.model
     def _extract_icon_from_name(self, name):
-        """ See name_create / _name_search overrides for details. """
+        """ See name_create / _search_display_name overrides for details. """
         if not isinstance(name, str) or len(name) < 3:
             return name, None
 

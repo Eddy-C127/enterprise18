@@ -203,12 +203,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         # Affect the unaffected earnings to the first fetched account of type 'account.data_unaffected_earnings'.
         # It's less costly to fetch all candidate accounts in a single search and then iterate it.
         if groupby_companies:
-            unaffected_earnings_accounts = self.env['account.account'].browse(
-                self.env['account.account']._name_search(options.get('filter_search_bar'), [
-                    *self.env['account.account']._check_company_domain(list(groupby_companies.keys())),
-                    ('account_type', '=', 'equity_unaffected'),
-                ])
-            )
+            unaffected_earnings_accounts = self.env['account.account'].search([
+                ('display_name', 'ilike', options.get('filter_search_bar')),
+                *self.env['account.account']._check_company_domain(list(groupby_companies.keys())),
+                ('account_type', '=', 'equity_unaffected'),
+            ])
             for company_id, groupby_company in groupby_companies.items():
                 if equity_unaffected_account := unaffected_earnings_accounts.filtered(lambda a: self.env['res.company'].browse(company_id).root_id in a.company_ids):
                     for column_group_key in options['column_groups']:

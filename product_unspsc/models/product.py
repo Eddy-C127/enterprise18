@@ -41,13 +41,18 @@ class ProductCode(models.Model):
             prod.display_name = f"{prod.code} {prod.name or ''}"
 
     @api.model
-    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
-        if name:
-            if operator in ('=', '!='):
-                name_domain = ['|', ('code', '=', name.split(' ')[0]), ('name', operator, name)]
-            else:
-                name_domain = ['|', ('code', '=like', name.split(' ')[0] + '%'), ('name', operator, name)]
-            if operator in expression.NEGATIVE_TERM_OPERATORS:
-                name_domain = ['&', '!'] + name_domain[1:]
-            domain = expression.AND([name_domain, domain])
-        return self._search(domain, limit=limit, order=order)
+    def _search_display_name(self, operator, value):
+        if isinstance(value, str) and value:
+            code_value = value.split(' ')[0]
+            is_negative = operator in expression.NEGATIVE_TERM_OPERATORS
+            positive_operator = expression.TERM_OPERATORS_NEGATION[operator] if is_negative else operator
+            domain = [
+                '|',
+                ('code', '=', code_value) if positive_operator == '=' else
+                ('code', '=ilike', f'{code_value}%'),
+                ('name', positive_operator, value),
+            ]
+            if is_negative:
+                domain = ['!', *domain]
+            return domain
+        return super()._search_display_name(operator, value)

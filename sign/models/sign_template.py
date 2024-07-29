@@ -11,6 +11,7 @@ from random import randint
 
 from odoo import api, fields, models, Command, _
 from odoo.exceptions import UserError, AccessError, ValidationError
+from odoo.osv import expression
 from odoo.tools import pdf
 
 
@@ -50,14 +51,19 @@ class SignTemplate(models.Model):
     is_sharing = fields.Boolean(compute='_compute_is_sharing', help='Checked if this template has created a shared document for you')
 
     @api.model
-    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
-        if not order:
-            return super()._name_search(name, domain, operator, limit, order)
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
         # Display favorite templates first
-        template_ids = super()._name_search(name, domain, operator, None, order)
-        templates = self.browse(template_ids)
-        templates = templates.sorted(key=lambda t: self.env.user in t.favorited_ids, reverse=True)
-        return templates[:limit].ids
+        domain = expression.AND([[('display_name', operator, name)], args or []])
+        templates = self.search_fetch(domain, ['display_name'], limit=limit)
+        if limit is None or len(templates) < limit:
+            templates = templates.sorted(key=lambda t: self.env.user in t.favorited_ids, reverse=True)
+        else:
+            favorited_templates = self.search_fetch(
+                expression.AND([domain, [('favorited_ids', '=', self.env.user.id)]]),
+                ['display_name'], limit=limit)
+            templates = favorited_templates + (templates - favorited_templates)
+            templates = templates[:limit]
+        return [(template.id, template.display_name) for template in templates.sudo()]
 
     @api.depends('attachment_id.datas')
     def _compute_num_pages(self):

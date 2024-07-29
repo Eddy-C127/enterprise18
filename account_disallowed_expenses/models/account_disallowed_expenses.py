@@ -47,14 +47,16 @@ class AccountDisallowedExpensesCategory(models.Model):
         return dict(self.env.cr.fetchall())
 
     @api.model
-    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
-        domain = domain or []
-        if name:
-            name_domain = ['|', ('code', '=ilike', name.split(' ')[0] + '%'), ('name', operator, name)]
-            if operator in expression.NEGATIVE_TERM_OPERATORS:
-                name_domain = ['&', '!'] + name_domain[1:]
-            domain = expression.AND([name_domain, domain])
-        return self._search(domain, limit=limit, order=order)
+    def _search_display_name(self, operator, value):
+        if value and isinstance(value, str):
+            code_value = value.split(' ')[0]
+            is_negative = operator in expression.NEGATIVE_TERM_OPERATORS
+            positive_operator = expression.TERM_OPERATORS_NEGATION[operator] if is_negative else operator
+            domain = ['|', ('code', '=ilike', f'{code_value}%'), ('name', positive_operator, value)]
+            if is_negative:
+                domain = ['!', *domain]
+            return domain
+        return super()._search_display_name(operator, value)
 
     def action_read_category(self):
         self.ensure_one()
