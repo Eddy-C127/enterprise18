@@ -8,7 +8,7 @@ from werkzeug.urls import url_join
 
 from odoo import fields, _
 from odoo.exceptions import UserError
-from odoo.tools import float_repr, float_compare, format_list
+from odoo.tools import float_repr, float_compare, format_list, float_is_zero
 
 # More information at : https://api.sendcloud.dev/docs/sendcloud-public-api/integrations
 BASE_URL = "https://panel.sendcloud.sc/api/v2/"
@@ -520,7 +520,7 @@ class SendCloud:
             return products_values
 
         for line in sale_order.order_line:
-            if line.product_id.type == 'consu' or line.display_type:
+            if line.product_id.type == 'consu' or line.display_type or float_is_zero(line.product_uom_qty, precision_rounding=line.product_uom.rounding):
                 continue
             if line.product_id.id in products_values:
                 products_values[line.product_id.id]['tot_qty'] += line.product_uom_qty
