@@ -118,8 +118,8 @@ class CalendarEvent(models.Model):
 
     @api.depends('start', 'stop', 'appointment_resource_ids', 'appointment_resource_id')
     def _compute_resources_on_leave(self):
+        self.resources_on_leave = False
         resource_events = self.filtered(lambda event: event.appointment_resource_ids or event.appointment_resource_id)
-        (self - resource_events).resources_on_leave = False
         if not resource_events:
             return
 
