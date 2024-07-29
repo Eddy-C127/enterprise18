@@ -146,14 +146,16 @@ class MainComponent extends Component {
     }
 
     playSound(ev) {
-        if (this.state.uiBlocked) {
+        if (!this.config.play_sound || this.state.uiBlocked) {
             return;
         }
         const type = ev.detail || "notify";
-        if (this.config.play_sound) {
-            this.sounds[type].currentTime = 0;
-            this.sounds[type].play();
-        }
+        this.sounds[type].currentTime = 0;
+        this.sounds[type].play().catch((error) => {
+            // `play` returns a promise. In case this promise is rejected (permission
+            // issue for example), catch it to avoid Odoo's `UncaughtPromiseError`.
+            console.log(error);
+        });
     }
 
     //--------------------------------------------------------------------------
