@@ -27,4 +27,4 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
         if invalid_iban_employee_ids:
             raise UserError(_(
                 'Invalid IBAN for the following employees:\n%s',
-                '\n'.join(invalid_iban_employee_ids).mapped('name')))
+                '\n'.join(invalid_iban_employee_ids.mapped('name'))))
