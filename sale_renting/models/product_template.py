@@ -17,6 +17,7 @@ class ProductTemplate(models.Model):
         string="Custom Pricings",
         auto_join=True,
         copy=False,
+        domain=['|', ('pricelist_id', '=', False), ('pricelist_id.active', '=', True)],
     )
     display_price = fields.Char(
         string="Rental price",

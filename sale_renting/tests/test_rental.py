@@ -152,6 +152,9 @@ class TestRentalCommon(TransactionCase):
         sale_order.write({'pricelist_id': pricelist_B.id})
         sale_order._recompute_prices()
         self.assertEqual(sol.price_unit, 15, "Pricing should take into account pricelist B")
+        pricelist_B.active = False
+        sale_order._recompute_prices()
+        self.assertEqual(sol.price_unit, 42, "Pricing should not take into account archived pricelist B")
 
     def test_delay_pricing(self):
         # Return Products late and verify duration is correct.
