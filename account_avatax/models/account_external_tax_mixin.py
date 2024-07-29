@@ -41,18 +41,36 @@ class AccountExternalTaxMixin(models.AbstractModel):
             rate = detail['rate'] if fixed else detail['rate'] * 100
             # 4 precision digits is the same as is used on the amount field of account.tax
             name_precision = 4
-            tax_name = '%s [%s] (%s)' % (
+            rounded_rate = float_round(rate, name_precision)
+            tax_group_name = detail['taxName'].removesuffix(' TAX')
+            tax_name = '%s %s' % (
+                tax_group_name,
+                ("$ %.4g" if fixed else "%.4g%%") % rounded_rate,
+            )
+            tax_description = '%s [%s] (%s)' % (
                 detail['taxName'],
                 detail['jurisCode'],
-                ("$ %s" if fixed else "%s %%") % float_repr(float_round(rate, name_precision), name_precision),
+                ("$ %s" if fixed else "%s %%") % float_repr(rounded_rate, name_precision),
             )
-            key = (tax_name, doc.company_id)
+            group_key = (tax_group_name, doc.company_id)
+            if group_key not in tax_group_cache:
+                tax_group_cache[group_key] = self.env['account.tax.group'].search([
+                    *self.env['account.tax.group']._check_company_domain(doc.company_id),
+                    ('name', '=', tax_group_name),
+                ], limit=1) or self.env['account.tax.group'].sudo().with_company(doc.company_id).create({
+                    'name': tax_group_name,
+                })
+
+            key = (tax_description, doc.company_id)
             if key not in tax_cache:
                 tax_cache[key] = self.env['account.tax'].search([
                     *self.env['account.tax']._check_company_domain(doc.company_id),
                     ('name', '=', tax_name),
+                    ('description', '=', tax_description),
                 ]) or self.env['account.tax'].sudo().with_company(doc.company_id).create({
                     'name': tax_name,
+                    'description': tax_description,
+                    'tax_group_id': tax_group_cache[group_key].id,
                     'amount': rate,
                     'amount_type': 'fixed' if fixed else 'percent',
                     'refund_repartition_line_ids': [
@@ -68,6 +86,7 @@ class AccountExternalTaxMixin(models.AbstractModel):
 
         details, summary = super()._get_external_taxes()
         tax_cache = {}
+        tax_group_cache = {}
 
         query_results = self.filtered('is_avatax')._query_avatax_taxes()
         errors = []
