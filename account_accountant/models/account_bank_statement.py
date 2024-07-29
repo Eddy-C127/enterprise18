@@ -9,15 +9,16 @@ from lxml import etree
 from markupsafe import Markup
 
 class AccountBankStatement(models.Model):
-    _inherit = 'account.bank.statement'
+    _name = "account.bank.statement"
+    _inherit = ['mail.thread.main.attachment', 'account.bank.statement']
 
     def action_open_bank_reconcile_widget(self):
         self.ensure_one()
         return self.env['account.bank.statement.line']._action_open_bank_reconciliation_widget(
             name=self.name,
             default_context={
-                'default_statement_id': self.id,
-                'default_journal_id': self.journal_id.id,
+                'search_default_statement_id': self.id,
+                'search_default_journal_id': self.journal_id.id,
             },
             extra_domain=[('statement_id', '=', self.id)]
         )

@@ -11,6 +11,12 @@
                         <field name="problem_description"/>
                     </div>
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_bank_reconcile_widget" type="object"
+                                class="oe_stat_button" invisible="not line_ids">
+                            <field name="line_ids" widget="statinfo" />
+                        </button>
+                        </div>
                         <group>
                             <field name="create_date" invisible="1"/>
                             <field name="is_valid" invisible="1"/>
@@ -23,6 +29,8 @@
                             <field name="attachment_ids" widget="many2many_binary"/>
                         </group>
                     </sheet>
+                    <div class="o_attachment_preview"/>
+                    <chatter/>
                 </form>
             </field>
         </record>
@@ -480,12 +488,9 @@
             <field name="model">account.bank.statement</field>
             <field name="inherit_id" ref="account.view_bank_statement_tree"/>
             <field name="arch" type="xml">
-                <tree position="attributes">
-                    <attribute name="editable">top</attribute>
+                <tree position="inside">
+                    <button name="action_open_bank_reconcile_widget" string="Transactions" type="object"/>
                 </tree>
-                <field name="name" position="attributes">
-                    <attribute name="widget">bank_rec_widget_open</attribute>
-                </field>
             </field>
         </record>
 
