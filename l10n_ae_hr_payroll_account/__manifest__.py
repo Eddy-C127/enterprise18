@@ -13,6 +13,9 @@ Accounting Data for UAE Payroll Rules.
     'data': [
         'data/account_chart_template_data.xml',
     ],
+    'demo': [
+        'data/l10n_ae_hr_payroll_account_demo.xml',
+    ],
     'license': 'OEEL-1',
     'auto_install': True,
 }
