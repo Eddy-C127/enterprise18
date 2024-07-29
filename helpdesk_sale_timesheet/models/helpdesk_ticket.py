@@ -6,10 +6,22 @@ from collections import defaultdict
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
+from odoo.tools.misc import unquote
 
 
 class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
+
+    def _domain_sale_line_id(self):
+        domain = expression.AND([
+            self.env['sale.order.line']._sellable_lines_domain(),
+            self.env['sale.order.line']._domain_sale_line_service(),
+            [
+                ('company_id', '=', unquote('company_id')),
+                ('order_partner_id', 'child_of', 'commercial_partner_id'),
+            ],
+        ])
+        return str(domain)
 
     use_helpdesk_sale_timesheet = fields.Boolean('Reinvoicing Timesheet activated on Team', related='team_id.use_helpdesk_sale_timesheet', readonly=True)
     sale_order_id = fields.Many2one('sale.order', compute="_compute_helpdesk_sale_order", compute_sudo=True, store=True, readonly=False)
@@ -18,9 +30,7 @@ class HelpdeskTicket(models.Model):
     sale_line_id = fields.Many2one(
         'sale.order.line', string="Sales Order Item", tracking=True,
         compute="_compute_sale_line_id", store=True, readonly=False,
-        domain=lambda self: self.env['sale.order.line']._domain_sale_line_service_str(
-            "[('company_id', '=', company_id), ('order_partner_id', 'child_of', commercial_partner_id)]"
-        ),
+        domain=_domain_sale_line_id,
         help="Sales Order Item to which the time spent on this ticket will be added in order to be invoiced to your customer.\n"
              "By default the last prepaid sales order item that has time remaining will be selected.\n"
              "Remove the sales order item in order to make this ticket non-billable.\n"

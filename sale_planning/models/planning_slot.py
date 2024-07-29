@@ -14,10 +14,16 @@ from odoo.addons.resource.models.utils import Intervals
 class PlanningSlot(models.Model):
     _inherit = 'planning.slot'
 
+    def _domain_sale_line_id(self):
+        return expression.AND([
+            self.env['sale.order.line']._sellable_lines_domain(),
+            self.env['sale.order.line']._domain_sale_line_service(),
+        ])
+
     start_datetime = fields.Datetime(required=False)
     end_datetime = fields.Datetime(required=False)
     sale_line_id = fields.Many2one('sale.order.line', string='Sales Order Item',
-        domain=lambda self: self.env['sale.order.line']._domain_sale_line_service(),
+        domain=_domain_sale_line_id,
         index=True, ondelete='cascade', group_expand='_group_expand_sale_line_id',
         help="Sales order item for which this shift will be performed. When sales orders are automatically planned,"
              " the remaining hours of the sales order item, as well as the role defined on the service, are taken into account.")

@@ -7,10 +7,27 @@ from collections import defaultdict
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.osv import expression
+from odoo.tools.misc import unquote
 
 
 class Task(models.Model):
     _inherit = "project.task"
+
+    def _domain_sale_line_id(self):
+        domain = expression.AND([
+            self.env['sale.order.line']._sellable_lines_domain(),
+            self.env['sale.order.line']._domain_sale_line_service(),
+            [
+                '|',
+                    '|',
+                        ('order_partner_id', 'child_of', unquote('partner_id if partner_id else []')),
+                        ('order_id.partner_shipping_id', 'child_of', unquote('partner_id if partner_id else []')),
+                    '|',
+                        ('order_partner_id', '=?', unquote('partner_id')),
+                        ('order_id.partner_shipping_id', '=?', unquote('partner_id')),
+            ],
+        ])
+        return str(domain)
 
     allow_material = fields.Boolean(related='project_id.allow_material', export_string_translation=False)
     allow_quotations = fields.Boolean(related='project_id.allow_quotations', export_string_translation=False)
@@ -31,13 +48,6 @@ class Task(models.Model):
     # Project Sharing fields
     portal_quotation_count = fields.Integer(compute='_compute_portal_quotation_count')
     portal_invoice_count = fields.Integer('Invoice Count', compute='_compute_portal_invoice_count')
-    sale_line_id = fields.Many2one(
-        comodel_name='sale.order.line',
-        domain=lambda self: self.env['sale.order.line']._domain_sale_line_service_str("""[
-        '|', '|', ('order_partner_id', 'child_of', partner_id if partner_id else []), ('order_id.partner_shipping_id', 'child_of', partner_id if partner_id else []),
-             '|', ('order_partner_id', '=?', partner_id), ('order_id.partner_shipping_id', '=?', partner_id)
-        ]""")
-    )
 
     @property
     def SELF_READABLE_FIELDS(self):
