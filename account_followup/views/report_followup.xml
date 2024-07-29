@@ -58,7 +58,7 @@
 
                 <div class="oe_structure"></div>
                 <div class="row fallback_header">
-                    <div class="col-5 offset-7">
+                    <div class="o_followup_address col-5 offset-7">
                         <span t-field="partner_addr.self"
                             t-options='{"widget": "contact", "fields": contact_widget_fields, "no_marker": True}'>Address</span>
                         <span t-field="partner_addr.vat"/>
