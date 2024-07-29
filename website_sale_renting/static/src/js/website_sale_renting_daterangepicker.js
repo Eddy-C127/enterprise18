@@ -116,6 +116,12 @@ publicWidget.registry.WebsiteSaleDaterangePicker = publicWidget.Widget.extend(Re
                 el.querySelector("input[name=renting_end_date]"),
             ]
         ).enable();
+
+        // Removing the pointer event here to avoid updating templates in stable.
+        const inputElement = el.querySelector("input[name=renting_start_date]");
+        if (inputElement?.disabled){
+            inputElement.parentElement.querySelector('div .input-group-text.cursor-pointer')?.classList.add("pe-none");
+        }
     },
 
     // ------------------------------------------
