@@ -20,7 +20,6 @@
         'data/l10n_br.ncm.code.csv',
         'data/l10n_br.cnae.code.csv',
         'data/product_product.xml',
-        'data/res.city.csv',
         'data/res_country_data.xml',
         'data/l10n_br_operation_type_data.xml',
     ],

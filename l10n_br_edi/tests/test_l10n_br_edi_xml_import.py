@@ -102,7 +102,7 @@ class TestL10nBrEDIXMLImport(AccountTestInvoicingCommon, ProductVariantsCommon):
                     "street_number": "2",
                     "street2": "Praia do Morro",
                     "street_number2": "Nao consta",
-                    "city_id": self.env.ref("l10n_br_avatax.city_br_243").id,
+                    "city_id": self.env.ref("l10n_br.city_br_243").id,
                     "state_id": self.env.ref("base.state_br_es").id,
                     "zip": "29216600",
                     "country_id": self.env.ref("base.br").id,
@@ -118,7 +118,7 @@ class TestL10nBrEDIXMLImport(AccountTestInvoicingCommon, ProductVariantsCommon):
             self._create_invoice_from_xml("NFe3224023.xml", old="<UF>ES</UF>", new="<UF>XX</UF>").partner_id,
             [
                 {
-                    "city_id": self.env.ref("l10n_br_avatax.city_br_243").id,
+                    "city_id": self.env.ref("l10n_br.city_br_243").id,
                     "state_id": False,
                 }
             ],

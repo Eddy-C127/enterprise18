@@ -254,7 +254,7 @@ class TestL10nBREDI(TestL10nBREDICommon):
 class TestL10nBREDIServices(TestL10nBREDICommon):
 
     def test_l10n_br_edi_informative_taxes(self):
-        rio_city = self.env.ref("l10n_br_avatax.city_br_002")
+        rio_city = self.env.ref("l10n_br.city_br_002")
         self.invoice.invoice_line_ids.mapped("product_id").write(
             {
                 "type": "service",

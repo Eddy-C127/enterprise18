@@ -19,6 +19,7 @@ Provides electronic invoicing for Brazil through Avatax.
         "views/res_country_views.xml",
         "views/report_invoice.xml",
         "views/account_portal_views.xml",
+        "views/payment_method_views.xml",
         "wizard/account_move_send_views.xml",
         "wizard/l10n_br_edi_invoice_update_views.xml",
         "wizard/l10n_br_edi_cancel_range_views.xml",
