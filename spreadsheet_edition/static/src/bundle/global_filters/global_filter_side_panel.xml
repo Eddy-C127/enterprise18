@@ -12,7 +12,7 @@
 
     <div t-name="spreadsheet_edition.GlobalFiltersSidePanel" class="o_spreadsheet_global_filters_side_panel h-100">
         <div class="h-100 overflow-auto" t-ref="filtersList">
-            <div class="o_side_panel_section pivot_filter_section bg-white"
+            <div class="o_side_panel_section pivot_filter_section"
                 t-foreach="filters"
                 t-as="filter"
                 t-key="'filter_' + filter_index"
