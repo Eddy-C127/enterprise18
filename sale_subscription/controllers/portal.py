@@ -121,7 +121,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
     @http.route(['/my/subscriptions/<int:order_id>', '/my/subscriptions/<int:order_id>/<access_token>',
                  '/my/subscription/<int:order_id>', '/my/subscription/<int:order_id>/<access_token>'],
                 type='http', auth='public', website=True)
-    def subscription(self, order_id, access_token=None, message='', message_class='', report_type=None, download=False, **kw):
+    def subscription(self, order_id, access_token=None, message='', report_type=None, download=False, **kw):
         order_sudo, redirection = self._get_subscription(access_token, order_id)
         if redirection:
             return redirection
@@ -170,7 +170,6 @@ class CustomerPortal(payment_portal.PaymentPortal):
             'is_salesman': request.env.user.has_group('sales_team.group_sale_salesman'),
             'action': action,
             'message': message,
-            'message_class': message_class,
             'pricelist': order_sudo.pricelist_id.sudo(),
             'enable_token_management': enable_token_management,
             'token_management_url': f'/my/payment_method?{url_encode(token_management_url_params)}',
@@ -297,10 +296,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
                     'default_token_id': order_sudo.payment_token_id.id,
                     'transaction_route': order_sudo.get_portal_url(suffix='/transaction'),
                     'assign_token_route': f'/my/subscriptions/assign_token/{sale_order_id}',
-                    'landing_route': order_sudo.get_portal_url() + '&' + url_encode({
-                        'message': _("Your payment method has been changed for this subscription."),
-                        'message_class': 'alert-success',
-                    })
+                    'landing_route': order_sudo.get_portal_url(),
                 })
         if subscription_invoice_id:
             subscription_invoice_id = self._cast_as_int(subscription_invoice_id)
