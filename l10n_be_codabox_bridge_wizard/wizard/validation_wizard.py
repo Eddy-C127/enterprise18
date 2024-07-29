@@ -18,6 +18,7 @@ class L10nBeCodaBoxValidationWizard(models.TransientModel):
         help='This is the password you have received from Odoo the first time you connected to CodaBox.',
     )
     confirmation_url = fields.Char(required=True)
+    pasted_password = fields.Char(store=False)
 
     def validate_connection(self):
         self.fidu_password = False  # Avoid storing the password in the DB

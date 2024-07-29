@@ -43,7 +43,6 @@ msgstr ""
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fidu_password
 #: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__fidu_password
-#: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.validation_wizard_view
 msgid "Accounting Firm Password"
 msgstr "Wachtwoord accountantskantoor"
 
@@ -168,6 +167,11 @@ msgstr "Bevestig nieuw wachtwoord"
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.change_password_wizard_view
 msgid "Confirm new password"
 msgstr "Bevestig nieuw wachtwoord"
+
+#. module: l10n_be_codabox_bridge_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.validation_wizard_view
+msgid "Confirm the Accounting Firm Password"
+msgstr "Bevestig het wachtwoord van het accountantskantoor"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__confirmation_url
@@ -312,10 +316,6 @@ msgstr "Aantal verbindingen"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__new_fidu_password
-msgid "New Password"
-msgstr "Nieuw wachtwoord"
-
-#. module: l10n_be_codabox_bridge_wizard
 #: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.change_password_wizard_view
 msgid "New Password"
 msgstr "Nieuw wachtwoord"
@@ -358,6 +358,16 @@ msgstr ""
 #, python-format
 msgid "Password successfully changed."
 msgstr "Wachtwoord succesvol gewijzigd."
+
+#. module: l10n_be_codabox_bridge_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.validation_wizard_view
+msgid "Paste it here"
+msgstr "Plak het hier"
+
+#. module: l10n_be_codabox_bridge_wizard
+#: model:ir.model.fields,field_description:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__pasted_password
+msgid "Pasted Password"
+msgstr "Geplakt Wachtwoord"
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__confirm_fidu_password
@@ -478,7 +488,6 @@ msgstr ""
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__current_fidu_password
-#: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fidu_password
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_validation_wizard__fidu_password
 msgid ""
 "This is the password you have received from Odoo the first time you "
@@ -486,6 +495,17 @@ msgid ""
 msgstr ""
 "Dit is het wachtwoord dat je de eerste keer van Odoo hebt ontvangen toen je "
 "verbinding maakte met CodaBox."
+
+#. module: l10n_be_codabox_bridge_wizard
+#: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_connection_wizard__fidu_password
+msgid ""
+"This is the password you have received from Odoo the first time you "
+"connected to CodaBox. Check the documentation if you have forgotten your "
+"password."
+msgstr ""
+"Dit is het wachtwoord dat je de eerste keer van Odoo hebt ontvangen toen je "
+"verbinding maakte met CodaBox. Gelieve de documentatie te controleren als je"
+" je wachtwoord vergeten hebt.
 
 #. module: l10n_be_codabox_bridge_wizard
 #: model:ir.model.fields,help:l10n_be_codabox_bridge_wizard.field_l10n_be_codabox_change_password_wizard__new_fidu_password
@@ -511,3 +531,17 @@ msgid ""
 msgstr ""
 "Valideer de verbinding aan de kant van CodaBox (met je gebruikelijke myCodaBox-inloggegevens).\n"
 "Dit hoeft slechts eenmaal te worden gedaan."
+
+#. module: l10n_be_codabox_bridge_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
+msgid "You can access the documentation"
+msgstr "U kunt de documentatie raadplegen"
+
+#. module: l10n_be_codabox_bridge_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox_bridge_wizard.connection_wizard_view
+msgid ""
+"by clicking here\n"
+"                        <i class=\"fa fa-external-link\" aria-hidden=\"true\"/>"
+msgstr ""
+"door hier te klikken\n"
+"                        <i class=\"fa fa-external-link\" aria-hidden=\"true\"/>"

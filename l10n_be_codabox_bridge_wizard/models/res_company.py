@@ -2,8 +2,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import re
 import requests
+
 from odoo import models, fields, _, api
 from odoo.exceptions import UserError
+
 from odoo.addons.l10n_be_codabox.const import get_error_msg, get_iap_endpoint
 
 

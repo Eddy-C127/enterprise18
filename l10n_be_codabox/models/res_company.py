@@ -14,7 +14,7 @@ class ResCompany(models.Model):
     l10n_be_codabox_fiduciary_vat = fields.Char(string="Accounting Firm VAT", compute="_compute_l10n_be_codabox_fiduciary_vat")
     l10n_be_codabox_iap_token = fields.Char(string="IAP Access Token")
     l10n_be_codabox_is_connected = fields.Boolean(string="CodaBox Is Connected")
-    l10n_be_codabox_soda_journal = fields.Many2one("account.journal", string="Journal in which SODA's will be imported", domain="[('type', '=', 'bank')]")
+    l10n_be_codabox_soda_journal = fields.Many2one("account.journal", string="Journal in which SODA's will be imported", domain="[('type', '=', 'general')]")
 
     def _compute_l10n_be_codabox_fiduciary_vat(self):
         for company in self:

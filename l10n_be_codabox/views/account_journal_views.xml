@@ -32,6 +32,14 @@
                         </t>
                     </t>
                 </xpath>
+                <xpath expr='//t[@t-name="JournalMiscelaneous"]//div[hasclass("o_kanban_primary_right")]' position='inside'>
+                    <t t-if="journal_type == 'general' and dashboard.l10n_be_codabox_journal_is_soda">
+                        <a t-if="dashboard.l10n_be_codabox_number_draft" type="object" name="l10n_be_codabox_action_open_settings_open_draft_soda_entries"
+                           class="oe_kanban_action oe_kanban_action_a float-end">
+                            <t t-out="dashboard.l10n_be_codabox_number_draft"/> Drafts to Validate
+                        </a>
+                    </t>
+                </xpath>
             </field>
         </record>
     </data>

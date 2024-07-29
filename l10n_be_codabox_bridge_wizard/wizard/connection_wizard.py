@@ -27,7 +27,8 @@ class L10nBeCodaBoxConnectionWizard(models.TransientModel):
     l10n_be_codabox_is_connected = fields.Boolean(related='company_id.l10n_be_codabox_is_connected')
     fidu_password = fields.Char(
         string='Accounting Firm Password',
-        help='This is the password you have received from Odoo the first time you connected to CodaBox.',
+        help='This is the password you have received from Odoo the first time you connected to CodaBox.'
+             ' Check the documentation if you have forgotten your password.',
         groups="base.group_system",
     )
     show_fidu_password = fields.Boolean(compute='_compute_show_fidu_password')
