@@ -358,7 +358,7 @@ class CalendarEvent(models.Model):
             partner_values = [
                 {'email': email, 'name': name if name else email}
                 for name, email in name_emails
-                if email in remaining_emails
+                if email_normalize(email) in remaining_emails
             ]
             partners += self.env['res.partner'].create(partner_values)
         return partners

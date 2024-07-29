@@ -968,7 +968,7 @@ class AppointmentType(models.Model):
         guests = guests or self.env['res.partner']
         attendee_status = self._get_default_appointment_attendee_status(start, stop, asked_capacity)
         attendee_values = [Command.create({'partner_id': pid, 'state': attendee_status}) for pid in partners.ids] + \
-            [Command.create({'partner_id': guest.id}) for guest in guests if guest]
+            [Command.create({'partner_id': guest.id}) for guest in guests - partners if guest]
         return {
             'alarm_ids': [Command.set(self.reminder_ids.ids)],
             'allday': False,
