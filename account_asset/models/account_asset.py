@@ -184,7 +184,7 @@ class AccountAsset(models.Model):
     @api.depends('original_value', 'model_id')
     def _compute_salvage_value(self):
         for asset in self:
-            if asset.model_id.salvage_value_pct != 0.0 and asset.state == 'draft':
+            if asset.model_id.salvage_value_pct != 0.0:
                 asset.salvage_value = asset.original_value * asset.model_id.salvage_value_pct
 
     @api.depends('depreciation_move_ids.date', 'state')
