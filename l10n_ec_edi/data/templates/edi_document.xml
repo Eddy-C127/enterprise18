@@ -18,6 +18,7 @@
                 <t t-call="l10n_ec_edi.common_tax_info_template"/>
                 <infoNotaDebito>
                     <t t-call="l10n_ec_edi.common_info_template"/>
+                    <t t-call="l10n_ec_edi.common_payment_terms_template"/>
                 </infoNotaDebito>
 
                 <t t-call="l10n_ec_edi.debit_reasons_template"/>
@@ -109,8 +110,8 @@
         </template>
 
         <template id="common_tax_info_template">
-            <t t-set="street" t-value="journal.l10n_ec_emission_address_id.street"/>
-            <t t-set="address" t-value="street and clean_str(street) or ''"/>
+            <t t-set="company_street" t-value="company.partner_id.street"/>
+            <t t-set="company_address" t-value="company_street and clean_str(company_street) or ''"/>
             <t t-set="in_production" t-value="company.l10n_ec_production_env"/>
             <t t-set="test_name" t-value="'PRUEBAS SERVICIO DE RENTAS INTERNAS'"/>
             <infoTributaria>
@@ -125,13 +126,15 @@
                 <estab t-out="journal.l10n_ec_entity"/>
                 <ptoEmi t-out="journal.l10n_ec_emission"/>
                 <secuencial t-out="sequential"/>
-                <dirMatriz t-out="address"/>
+                <dirMatriz t-out="company_address"/>
                 <agenteRetencion t-out="company.l10n_ec_withhold_agent_number"/>
                 <contribuyenteRimpe t-if="company.l10n_ec_regime == 'rimpe'" t-out="'CONTRIBUYENTE RÉGIMEN RIMPE'"/>
             </infoTributaria>
         </template>
 
         <template id="common_info_template">
+            <t t-set="street" t-value="journal.l10n_ec_emission_address_id.street"/>
+            <t t-set="address" t-value="street and clean_str(street) or ''"/>
             <!-- All docs -->
             <fechaEmision t-out="strftime(move.invoice_date or move.l10n_ec_withhold_date)"/>
             <dirEstablecimiento t-out="address"/>
@@ -189,6 +192,8 @@
         </template>
 
         <template id="withhold_info_template">
+             <t t-set="street" t-value="journal.l10n_ec_emission_address_id.street"/>
+            <t t-set="address" t-value="street and clean_str(street) or ''"/>
             <!-- Same as common_info_template -->
             <fechaEmision t-out="strftime(move.invoice_date or move.l10n_ec_withhold_date)"/>
             <dirEstablecimiento t-out="address"/>
@@ -249,8 +254,8 @@
                 <pago t-as="pago" t-foreach="pagos">
                     <formaPago t-out="pago['payment_code']"/>
                     <total t-out="format_num_2(pago['payment_total'])"/>
-                    <plazo t-if="is_liquidation and pago.get('time_unit')" t-out="pago['payment_term']"/>
-                    <unidadTiempo t-if="is_liquidation and pago.get('time_unit')" t-out="pago['time_unit']"/>
+                    <plazo t-if="pago.get('time_unit')" t-out="pago['payment_term']"/>
+                    <unidadTiempo t-if="pago.get('time_unit')" t-out="pago['time_unit']"/>
                 </pago>
             </pagos>
         </template>
