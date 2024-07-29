@@ -37,9 +37,12 @@ class WebsiteAppointmentUITest(AppointmentCommon):
             self.env, login='user_portal', groups='base.group_portal', name='Portal User',
             company_id=self.company_admin.id, email='portal@example.com')
         self.start_tour('/web', 'website_appointment_tour', login='apt_manager')
-        guest_names = ['Raoul', 'new_zeadland2@test.example.com', 'def@gmail.example.com', 'test1@gmail.com', 'test2@gmail.com', 'abc@gmail.com']
+        guest_names = [
+            'Raoul', 'new_zeadland2@test.example.com', 'def@gmail.example.com', 'test1@gmail.com', 'test2@gmail.com',
+            'abc@gmail.com', 'Appointment Manager'
+        ]
         new_partners = self.env['res.partner'].search_count([('name', 'in', guest_names)])
-        self.assertEqual(new_partners, 6)
+        self.assertEqual(new_partners, 7)
         event = self.env['calendar.event'].search([('name', '=', 'Appointment Manager - Test Booking')], limit=1)
         expected_names = {'Appointment Manager', 'test1@gmail.com', 'Portal User', 'test2@gmail.com',
             'new_zeadland2@test.example.com', 'Raoul', 'def@gmail.example.com', 'abc@gmail.com'}

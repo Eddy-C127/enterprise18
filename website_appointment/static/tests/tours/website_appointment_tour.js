@@ -69,7 +69,8 @@ registry.category("web_tour.tours").add('website_appointment_tour', {
         content: 'Removing the Invalid Email from the text area',
         trigger: '#o_appointment_input_guest_emails',
         run:()=>{
-            document.querySelector('#o_appointment_input_guest_emails').value = '"Raoul" <hello@gmail.com>\r\ntest1@gmail.com\r\nnew_zeadland2@test.example.com\r\n\r\nportal@example.com'
+            document.querySelector('#o_appointment_input_guest_emails').value =
+                '"Raoul" <hello@gmail.com>\r\ntest1@gmail.com\r\nnew_zeadland2@test.example.com\r\n\r\nportal@example.com\r\napt_manager@test.example.com'
         }
     }, {
         content: 'Confirm the appointment',
