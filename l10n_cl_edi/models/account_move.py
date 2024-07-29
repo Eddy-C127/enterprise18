@@ -7,10 +7,12 @@ import re
 from collections import namedtuple
 from datetime import datetime
 from io import BytesIO
+
+import psycopg2.errors
+from lxml import etree
 from markupsafe import Markup
 from psycopg2 import OperationalError
 
-from lxml import etree
 
 from odoo import _, _lt, fields, models
 from odoo.addons.l10n_cl_edi.models.l10n_cl_edi_util import UnexpectedXMLResponse, InvalidToken
@@ -200,12 +202,12 @@ services reception has been received as well.
         try:
             with self.env.cr.savepoint(flush=False):
                 self.env.cr.execute(f'SELECT 1 FROM {self._table} WHERE id IN %s FOR UPDATE NOWAIT', [tuple(self.ids)])
+        except psycopg2.errors.LockNotAvailable:
+            if not self.env.context.get('cron_skip_connection_errs'):
+                raise UserError(_('This electronic document is being processed already.')) from None
+            return
         except OperationalError as e:
-            if e.pgcode == '55P03':
-                if not self.env.context.get('cron_skip_connection_errs'):
-                    raise UserError(_('This electronic document is being processed already.'))
-                return
-            raise UserError(_('An error occurred while processing this document.'))
+            raise UserError(_('An error occurred while processing this document.')) from None
         # To avoid double send on double-click
         if self.l10n_cl_dte_status != "not_sent":
             return None
@@ -236,12 +238,10 @@ services reception has been received as well.
         try:
             with self.env.cr.savepoint(flush=False):
                 self.env.cr.execute('SELECT * FROM account_move WHERE id IN %s FOR UPDATE NOWAIT', [tuple(self.ids)])
-        except OperationalError as e:
-            if e.pgcode == '55P03':
-                if not self.env.context.get('cron_skip_connection_errs'):
-                    raise UserError(_('This invoice is being processed already.'))
-                return
-            raise e
+        except psycopg2.errors.LockFileExists:
+            if not self.env.context.get('cron_skip_connection_errs'):
+                raise UserError(_('This invoice is being processed already.')) from None
+            return
         # To avoid double send on double-click
         if self.l10n_cl_dte_status != "not_sent":
             return None

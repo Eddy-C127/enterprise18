@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-from odoo import models, api, fields, _
-from odoo.exceptions import UserError, ValidationError
-from odoo.tools import SQL
-
-from psycopg2 import ProgrammingError, errorcodes
-
-from dateutil.relativedelta import relativedelta
-
 import ast
 import timeit
 import logging
 import re
+
+import psycopg2.errors
+from dateutil.relativedelta import relativedelta
+
+from odoo import models, api, fields, _
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools import SQL
 
 _logger = logging.getLogger(__name__)
 
@@ -229,10 +227,8 @@ class DataMergeModel(models.Model):
 
                 try:
                     self._cr.execute(sql)
-                except ProgrammingError as e:
-                    if e.pgcode == errorcodes.UNDEFINED_FUNCTION:
-                        raise UserError(_('Missing required PostgreSQL extension: unaccent'))
-                    raise
+                except psycopg2.errors.UndefinedFunction:
+                    raise UserError(_('Missing required PostgreSQL extension: unaccent')) from None
 
                 rows = self._cr.fetchall()
                 ids = ids + [row[1] for row in rows]

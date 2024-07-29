@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import ast
+import itertools
+import logging
+from collections.abc import Iterable
+from datetime import datetime, date
+
+import psycopg2
+import psycopg2.errors
+
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError, UserError
 from odoo.models import MAGIC_COLUMNS
 from odoo.osv.expression import FALSE_DOMAIN, OR, expression
 from odoo.tools import get_lang, SQL
 from odoo.tools.misc import format_datetime, format_date, partition as tools_partition, unique
-from collections.abc import Iterable
-
-from datetime import datetime, date
-import psycopg2
-import itertools
-import ast
-import logging
-import operator as py_operator
 
 _logger = logging.getLogger(__name__)
 ALLOWED_COMPANY_OPERATORS = ['not in', 'in', '=', '!=', 'ilike', 'not ilike', 'like', 'not like']
@@ -458,13 +459,10 @@ class DataMergeRecord(models.Model):
                                     'record_id': rec_id
                                 }
                                 self._cr.execute(query, params)
+                        except psycopg2.errors.UniqueViolation:
+                            _logger.warning('Query %s failed, due to an unique constraint', query)
                         except psycopg2.IntegrityError as e:
-                            # Failed update, probably due to a unique constraint
-                            # updating fails, most likely due to a violated unique constraint
-                            if psycopg2.errorcodes.UNIQUE_VIOLATION == e.pgcode:
-                                _logger.warning('Query %s failed, due to an unique constraint', query)
-                            else:
-                                _logger.warning('Query %s failed', query)
+                            _logger.warning('Query %s failed', query)
                         except psycopg2.Error:
                             raise ValidationError(_('Query Failed.'))
 
@@ -516,13 +514,10 @@ class DataMergeRecord(models.Model):
                             'model': destination._name
                         }
                         self._cr.execute(q, params)
+                except psycopg2.errors.UniqueViolation:
+                    _logger.warning('Query %s failed, due to an unique constraint', query)
                 except psycopg2.IntegrityError as e:
-                    # Failed update, probably due to a unique constraint
-                    # updating fails, most likely due to a violated unique constraint
-                    if psycopg2.errorcodes.UNIQUE_VIOLATION == e.pgcode:
-                        _logger.warning('Query %s failed, due to an unique constraint', query)
-                    else:
-                        _logger.warning('Query %s failed', query)
+                    _logger.warning('Query %s failed', query)
                 except psycopg2.Error:
                     raise ValidationError(_('Query Failed.'))
 

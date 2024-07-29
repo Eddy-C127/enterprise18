@@ -5,16 +5,15 @@ import logging
 from datetime import timedelta
 
 import dateutil.parser
-import psycopg2
 from markupsafe import Markup
 from werkzeug import urls
 
 from odoo import _, api, exceptions, fields, models
 from odoo.exceptions import UserError, ValidationError
-from odoo.service.model import PG_CONCURRENCY_ERRORS_TO_RETRY as CONCURRENCY_ERRORS
+from odoo.service.model import PG_CONCURRENCY_EXCEPTIONS_TO_RETRY as CONCURRENCY_ERRORS
 
-from odoo.addons.sale_amazon import const, utils as amazon_utils
-from odoo.addons.sale_amazon.controllers.onboarding import compute_oauth_signature
+from .. import const, utils as amazon_utils
+from ..controllers.onboarding import compute_oauth_signature
 
 
 _logger = logging.getLogger(__name__)
@@ -429,8 +428,7 @@ class AmazonAccount(models.Model):
                             raise  # Don't treat a rate limit error as a business error.
                         except Exception as error:
                             amazon_order_ref = order_data['AmazonOrderId']
-                            if isinstance(error, psycopg2.OperationalError) \
-                                and error.pgcode in CONCURRENCY_ERRORS:
+                            if isinstance(error, CONCURRENCY_ERRORS):
                                 _logger.info(
                                     "A concurrency error occurred while processing the order data "
                                     "with amazon_order_ref %s for Amazon account with id %s. "

@@ -4,9 +4,9 @@ import io
 import logging
 import re
 
+import psycopg2.errors
 from lxml import etree
 from markupsafe import Markup
-from psycopg2 import OperationalError
 
 from odoo import models, fields, _
 from odoo.addons.l10n_cl_edi.models.l10n_cl_edi_util import UnexpectedXMLResponse
@@ -519,12 +519,10 @@ class Picking(models.Model):
         try:
             with self.env.cr.savepoint(flush=False):
                 self.env.cr.execute(f'SELECT 1 FROM {self._table} WHERE id IN %s FOR UPDATE NOWAIT', [tuple(self.ids)])
-        except OperationalError as e:
-            if e.pgcode == '55P03':
-                if not self.env.context.get('cron_skip_connection_errs'):
-                    raise UserError(_('This electronic document is being processed already.'))
-                return
-            raise e
+        except psycopg2.errors.LockNotAvailable:
+            if not self.env.context.get('cron_skip_connection_errs'):
+                raise UserError(_('This electronic document is being processed already.')) from None
+            return
         # To avoid double send on double-click
         if self.l10n_cl_dte_status != "not_sent":
             return None

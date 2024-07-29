@@ -1,9 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+import contextlib
+import re
+
+import psycopg2.errors
 
 from odoo import api, fields, models, _
 
-from psycopg2 import ProgrammingError, errorcodes
-import re
 
 class HrExpense(models.Model):
     _inherit = ['hr.expense']
@@ -40,19 +42,15 @@ class HrExpense(models.Model):
             'company_id': self.company_id.id or self.env.company.id,
             'limit_parameter': int(limit_parameter),
         }
-        try:
+        # In case there is an error while parsing the to_tsquery (wrong character for example)
+        # We don't want to have a traceback, instead return False
+        with contextlib.suppress(psycopg2.errors.SyntaxError):
             with self.env.cr.savepoint():
                 self.env.cr.execute(sql_query, params)
                 result = self.env.cr.fetchone()
             if result:
                 return result[1]
-        except ProgrammingError as e:
-            # In case there is an error while parsing the to_tsquery (wrong character for example)
-            # We don't want to have a traceback, instead return False
-            if e.pgcode == errorcodes.SYNTAX_ERROR:
-                return False
-            else:
-                raise
+
         return False
 
 
