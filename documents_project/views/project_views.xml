@@ -71,6 +71,15 @@
         <field name="groups_ids" eval="[(4, ref('documents.group_documents_user'))]" />
     </record>
 
+    <record id="project_embedded_action_documents_dashboard" model="ir.embedded.actions">
+        <field name="parent_res_model">project.project</field>
+        <field name="sequence">50</field>
+        <field name="parent_action_id" ref="project.project_update_all_action"/>
+        <field name="action_id" ref="documents_project.action_view_documents_project_project"/>
+        <field name="domain">[('use_documents', '=', True)]</field>
+        <field name="groups_ids" eval="[(4, ref('documents.group_documents_user'))]"/>
+    </record>
+
     <record id="view_task_form2_document_inherit" model="ir.ui.view">
         <field name="name">project.task.form.inherit</field>
         <field name="model">project.task</field>

@@ -18,9 +18,11 @@
                         <a t-on-click="addBudget">Add Budget</a>
                     </div>
                 </t>
-                <span t-if="!state.data.budget_items.data.length" class="text-muted fst-italic">
-                    Compare expected and actual revenues and costs.
-                </span>
+                <div t-if="!state.data.budget_items.data.length" class="ps-3">
+                    <span class="text-muted fst-italic">
+                        Compare expected and actual revenues and costs.
+                    </span>
+                </div>
                 <table t-else="" class="table table-sm table-striped table-hover mb-0">
                     <thead class="bg-100 align-middle">
                         <tr>

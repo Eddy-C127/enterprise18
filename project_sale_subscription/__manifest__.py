@@ -16,6 +16,11 @@
     'demo': [
         'demo/subscription_demo.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'project_sale_subscription/static/src/components/project_right_side_panel/**/*',
+        ],
+    },
     'installable': True,
     'auto_install': True,
     'license': 'OEEL-1',
