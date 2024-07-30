@@ -404,7 +404,7 @@ test("download spreadsheet document while selecting requested document", async f
 test("can open spreadsheet while multiple documents are selected along with it", async function () {
     const serverData = getTestServerData();
     serverData.models["documents.folder"].records = [
-        { id: 1, display_name: "demo-workspace", has_write_access: true },
+        { id: 1, name: "demo-workspace", has_write_access: true },
     ];
     serverData.models["documents.document"].records = [
         {
@@ -442,6 +442,44 @@ test("can open spreadsheet while multiple documents are selected along with it",
     await contains(records[1].querySelector(".o_record_selector")).click();
     await contains(records[2].querySelector(".o_record_selector")).click();
     await contains(".oe_kanban_previewer").click();
-    expect(".o_AttachmentViewer").toHaveCount(0);
+    expect(".o-FileViewer").toHaveCount(0);
     expect.verifySteps(["action_open_spreadsheet"]);
+});
+
+test("spreadsheet should be skipped while toggling the preview in the FileViewer", async function () {
+    const serverData = getTestServerData();
+    serverData.models["documents.folder"].records = [
+        { id: 1, name: "dogsFTW", has_write_access: true },
+    ];
+    serverData.models["documents.document"].records = [
+        {
+            name: "dog-stats",
+            raw: "{}",
+            folder_id: 1,
+            handler: "spreadsheet",
+            thumbnail_status: "present",
+        },
+        {
+            folder_id: 1,
+            mimetype: "image/png",
+            name: "pug",
+        },
+        {
+            folder_id: 1,
+            mimetype: "image/png",
+            name: "chihuahua",
+        },
+    ];
+    await makeSpreadsheetMockEnv({ serverData });
+    await mountView({
+        type: "kanban",
+        resModel: "documents.document",
+        arch: basicDocumentKanbanArch,
+        searchViewArch: getEnrichedSearchArch(),
+    });
+
+    await contains(".o_kanban_record:nth-of-type(3) div[name='document_preview']").click();
+    expect(".o-FileViewer").toHaveCount(1);
+    await contains(".o-FileViewer-navigation[aria-label='Next']").click();
+    expect("div[name='name'] span").toHaveText("pug");
 });

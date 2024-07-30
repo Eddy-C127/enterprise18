@@ -31,6 +31,17 @@ export const DocumentsSpreadsheetControllerMixin = () => ({
         };
     },
 
+
+    /**
+     * Prevents spreadsheets from being in the viewable attachments list
+     * when previewing a file in the FileViewer.
+     *
+     * @override
+     */
+    isRecordPreviewable(record) {
+        return super.isRecordPreviewable(record) && record.data.handler !== "spreadsheet";
+    },
+
     async sharePopupAction(documentShareVals) {
         const selection = this.env.model.root.selection;
         const documents = selection.length ? selection : this.env.model.root.records;

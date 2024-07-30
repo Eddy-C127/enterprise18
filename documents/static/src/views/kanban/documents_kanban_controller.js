@@ -58,6 +58,11 @@ export class DocumentsKanbanController extends KanbanController {
             setPreviewStore: (previewStore) => {
                 this.documentStates.previewStore = previewStore;
             },
+            isRecordPreviewable: this.isRecordPreviewable.bind(this),
         };
+    }
+
+    isRecordPreviewable(record) {
+        return record.isViewable();
     }
 }
