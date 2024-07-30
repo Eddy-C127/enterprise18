@@ -204,19 +204,24 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         # There is an unaffected earnings for each company but it's less costly to fetch all candidate accounts in
         # a single search and then iterate it.
         if groupby_companies:
-            candidates_account_ids = self.env['account.account']._name_search(options.get('filter_search_bar'), [
-                *self.env['account.account']._check_company_domain(list(groupby_companies.keys())),
-                ('account_type', '=', 'equity_unaffected'),
-            ])
-            for account in self.env['account.account'].browse(candidates_account_ids):
-                company_unaffected_earnings = groupby_companies.get(account.company_id.id)
-                if not company_unaffected_earnings:
-                    continue
-                for column_group_key in options['column_groups']:
-                    unaffected_earnings = company_unaffected_earnings[column_group_key]
-                    groupby_accounts.setdefault(account.id, {col_group_key: {} for col_group_key in options['column_groups']})
-                    groupby_accounts[account.id][column_group_key]['unaffected_earnings'] = unaffected_earnings
-                del groupby_companies[account.company_id.id]
+            equity_unaffected_account_ids_by_company = self.env['account.account'].browse(
+                self.env['account.account']._name_search(options.get('filter_search_bar'), [
+                    *self.env['account.account']._check_company_domain(list(groupby_companies.keys())),
+                    ('account_type', '=', 'equity_unaffected'),
+                ])
+            ).grouped('company_id')
+
+            for company_id, groupby_company in groupby_companies.items():
+                if equity_unaffected_account := equity_unaffected_account_ids_by_company.get(self.env['res.company'].browse(company_id).root_id):
+                    for column_group_key in options['column_groups']:
+                        groupby_accounts.setdefault(equity_unaffected_account.id, {col_group_key: {'unaffected_earnings': {}} for col_group_key in options['column_groups']})
+
+                        if unaffected_earnings := groupby_company.get(column_group_key):
+                            if groupby_accounts[equity_unaffected_account.id][column_group_key]['unaffected_earnings']:
+                                for key in ['amount_currency', 'debit', 'credit', 'balance']:
+                                    groupby_accounts[equity_unaffected_account.id][column_group_key]['unaffected_earnings'][key] += unaffected_earnings[key]
+                            else:
+                                groupby_accounts[equity_unaffected_account.id][column_group_key]['unaffected_earnings'] = unaffected_earnings
 
         # Retrieve the accounts to browse.
         # groupby_accounts.keys() contains all account ids affected by:
