@@ -18,7 +18,7 @@
             </div>
             <button name="action_paid" position="after">
                 <button name="action_register_payment"
-                        type="object" string="Register Payment"
+                        type="object" string="Pay"
                         invisible="state != 'close' or country_code != 'AU'"
                         class="oe_highlight"
                         context="{'dont_redirect_to_payments': True, 'hr_payroll_payment_register': True, 'hr_payroll_payment_register_batch': id}"/>
