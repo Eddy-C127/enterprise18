@@ -81,6 +81,7 @@
                     &.muted { color: var(--AccountReport-muted-data-color, $o-gray-300) }
                     &:empty::after{ content: "\00a0" } //!\\ Prevents the collapse of empty table rows
                     &:empty { line-height: 1 }
+                    .btn_annotation { color: $o-enterprise-action-color }
                 }
 
                 &:not(.empty) > td { border-bottom: 1px solid var(--AccountReport-fine-line-separator-color, $o-gray-200) }
@@ -111,7 +112,6 @@
                     .btn_ellipsis { color: $o-enterprise-action-color }
                     .btn_annotation_go { color: $o-enterprise-action-color }
                     .btn_debug { color: $o-enterprise-action-color }
-                    .btn_annotation { color: $o-enterprise-action-color }
                 }
             }
         }
