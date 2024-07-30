@@ -161,12 +161,12 @@ class TestAccountReports(TestAccountReportsCommon):
                 ('EQUITY',                                      460.0),
                 ('Unallocated Earnings',                        460.0),
                 ('Current Year Unallocated Earnings',           460.0),
-                ('Current Year Earnings',                       460.0),
-                ('Current Year Allocated Earnings',               0.0),
-                ('Total Current Year Unallocated Earnings',     460.0),
                 ('Previous Years Unallocated Earnings',           0.0),
                 ('Total Unallocated Earnings',                  460.0),
                 ('Retained Earnings',                             0.0),
+                ('Current Year Retained Earnings',                0.0),
+                ('Previous Years Retained Earnings',              0.0),
+                ('Total Retained Earnings',                       0.0),
                 ('Total EQUITY',                                460.0),
 
                 ('LIABILITIES + EQUITY',                        460.0),
@@ -625,12 +625,12 @@ class TestAccountReports(TestAccountReportsCommon):
                 ('EQUITY', 230.0, 690.0),
                 ('Unallocated Earnings', 230.0, 690.0),
                 ('Current Year Unallocated Earnings', 230.0, 690.0),
-                ('Current Year Earnings', 230.0, 690.0),
-                ('Current Year Allocated Earnings', 0, 0),
-                ('Total Current Year Unallocated Earnings', 230.0, 690.0),
                 ('Previous Years Unallocated Earnings', 0, 0),
                 ('Total Unallocated Earnings', 230.0, 690.0),
                 ('Retained Earnings', 0, 0),
+                ('Current Year Retained Earnings', 0, 0),
+                ('Previous Years Retained Earnings', 0, 0),
+                ('Total Retained Earnings', 0, 0),
                 ('Total EQUITY', 230.0, 690.0),
 
                 ('LIABILITIES + EQUITY', 230.0, 690.0),
@@ -719,12 +719,12 @@ class TestAccountReports(TestAccountReportsCommon):
                 ('EQUITY', 0, 690.0),
                 ('Unallocated Earnings', 0, 690.0),
                 ('Current Year Unallocated Earnings', 0, 690.0),
-                ('Current Year Earnings', 0, 690.0),
-                ('Current Year Allocated Earnings', 0, 0),
-                ('Total Current Year Unallocated Earnings', 0, 690.0),
                 ('Previous Years Unallocated Earnings', 0, 0),
                 ('Total Unallocated Earnings', 0, 690.0),
                 ('Retained Earnings', 0, 0),
+                ('Current Year Retained Earnings', 0, 0),
+                ('Previous Years Retained Earnings', 0, 0),
+                ('Total Retained Earnings', 0, 0),
                 ('Total EQUITY', 0, 690.0),
 
                 ('LIABILITIES + EQUITY', 0, 690.0),
@@ -804,12 +804,12 @@ class TestAccountReports(TestAccountReportsCommon):
                 ('EQUITY', -500.0, 460.0),
                 ('Unallocated Earnings', -500.0, 460.0),
                 ('Current Year Unallocated Earnings', -500.0, 460.0),
-                ('Current Year Earnings', -500.0, 460.0),
-                ('Current Year Allocated Earnings', 0, 0),
-                ('Total Current Year Unallocated Earnings', -500.0, 460.0),
                 ('Previous Years Unallocated Earnings', 0, 0),
                 ('Total Unallocated Earnings', -500.0, 460.0),
                 ('Retained Earnings', 0, 0),
+                ('Current Year Retained Earnings', 0, 0),
+                ('Previous Years Retained Earnings', 0, 0),
+                ('Total Retained Earnings', 0, 0),
                 ('Total EQUITY', -500.0, 460.0),
 
                 ('LIABILITIES + EQUITY', -500.0, 460.0),
@@ -830,11 +830,11 @@ class TestAccountReports(TestAccountReportsCommon):
             default_options=additional_options
         )
 
-        # Check result of line Current Year Earnings of the report
+        # Check result of line Current Year Unallocated Earnings of the report
         self.assertLinesValues(
-            report._get_lines(options)[22:23],
+            report._get_lines(options)[21:22],
             list(range(len(list_values) + 1)),
-            [('Current Year Earnings', *list_values)],
+            [('Current Year Unallocated Earnings', *list_values)],
             options,
         )
 
