@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, _
+from odoo import api, models, fields, _
 
 from odoo.exceptions import UserError
 from odoo.tools import SQL
@@ -9,6 +9,13 @@ from odoo.tools import SQL
 class AccountMoveLine(models.Model):
     _name = "account.move.line"
     _inherit = "account.move.line"
+
+    exclude_bank_lines = fields.Boolean(compute='_compute_exclude_bank_lines', store=True)
+
+    @api.depends('journal_id')
+    def _compute_exclude_bank_lines(self):
+        for move_line in self:
+            move_line.exclude_bank_lines = move_line.account_id != move_line.journal_id.default_account_id
 
     @api.constrains('tax_ids', 'tax_tag_ids')
     def _check_taxes_on_closing_entries(self):

@@ -24,7 +24,11 @@
                 <t t-if="'journal_id' in props.line">
                     <button
                         class="btn btn_action"
-                        t-on-click="(ev) => controller.reportAction(ev, 'journal_report_open_aml_by_move', { journal_id: props.line.journal_id })"
+                        t-on-click="(ev) => controller.reportAction(ev, 'journal_report_open_aml_by_move', {
+                            journal_id: props.line.journal_id,
+                            line_id: props.line.id,
+                            view_ref: 'account_reports.view_journal_report_audit_move_line_tree',
+                        })"
                     >
                         Audit
                     </button>

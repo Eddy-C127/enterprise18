@@ -1301,15 +1301,19 @@ class JournalReportCustomHandler(models.AbstractModel):
     def journal_report_open_aml_by_move(self, options, params):
         report = self.env['account.report'].browse(options['report_id'])
         journal = self.env['account.journal'].browse(params['journal_id'])
+        action = report.open_journal_items(options=options, params=params)
 
-        return {
-            'type': 'ir.actions.act_window',
-            'name': journal.name,
-            'res_model': 'account.move.line',
-            'views': [[False, 'tree']],
-            'domain': [
-                ('journal_id.id', '=', journal.id),
-                *report._get_options_domain(options, 'strict_range'),
-            ],
-            'context': {'search_default_group_by_move': 1},
+        context_update = {
+            'search_default_group_by_account': 0,
+            'search_default_group_by_partner': 1,
+            'search_default_group_by_move': 2,
+            'show_more_partner_info': 1,
         }
+
+        if journal.type == 'bank':
+            context_update['search_default_exclude_bank_lines'] = 1
+        elif journal.type in ('sale', 'purchase'):
+            context_update['search_default_invoices_lines'] = 1
+
+        action.get('context', {}).update(context_update)
+        return action
