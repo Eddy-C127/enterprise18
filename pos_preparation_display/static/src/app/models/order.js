@@ -5,6 +5,7 @@ export class Order extends Reactive {
     constructor({
         id,
         stage_id,
+        generalNote,
         displayed,
         responsible,
         orderlines,
@@ -21,6 +22,7 @@ export class Order extends Reactive {
     setup(order) {
         this.id = order.id;
         this.stageId = order.stage_id;
+        this.generalNote = order.generalNote;
         this.displayed = order.displayed;
         this.responsible = order.responsible;
         this.orderlines = order.orderlines;

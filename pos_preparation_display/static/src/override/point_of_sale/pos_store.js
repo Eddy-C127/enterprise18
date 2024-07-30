@@ -46,6 +46,7 @@ patch(PosStore.prototype, {
                 await this.data.call("pos_preparation_display.order", "process_order", [
                     o.id,
                     cancelled,
+                    o.general_note || "",
                     o.uiState.noteHistory,
                 ]);
             } catch (error) {

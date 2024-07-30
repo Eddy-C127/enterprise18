@@ -164,7 +164,7 @@ class PosUrbanPiperController(http.Controller):
             'delivery_identifier': details['id'],
             'delivery_status': details['order_state'].lower(),
             'delivery_channel': details['channel'].capitalize(),
-            'delivery_note': details.get('instructions'),
+            'general_note': details.get('instructions'),
             'prep_time': get_prep_time(details),
             'delivery_json': json.dumps(data),
             'user_id':  pos_config_sudo.current_session_id.user_id.id,

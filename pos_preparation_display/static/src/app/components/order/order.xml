@@ -51,6 +51,14 @@
                 </div>
             </div>
 
+            <div class="m-2 text-break" t-if="this.props.order.generalNote?.length > 0" t-on-click="clickOrder">
+                <p class="fw-bold mb-2 px-2 fs-6">General Note</p>
+                <ul class="small text-muted px-4">
+                    <t t-foreach="this.props.order.generalNote.split('\n')" t-as="subNote" t-key="general_note">
+                        <li><t t-esc="subNote"/></li>
+                    </t>
+                </ul>
+            </div>
             <div class="o_pdis_order_card_footer bg-100">
                 <t t-set="o_pdis_last_stage" t-value="this.preparationDisplay.lastStage.id == this.props.order.stageId"/>
                 <div t-attf-class="{{ o_pdis_last_stage ? 'd-flex pt-1' : ''}}">

@@ -15,9 +15,10 @@ class PosPreparationDisplayOrder(models.Model):
         'preparation_display_order_id',
         string="Order Lines",
         readonly=True)
+    pdis_general_note = fields.Text("General Note", help="Current general-note displayed on preparation display")
 
     @api.model
-    def process_order(self, order_id, cancelled=False, note_history=None):
+    def process_order(self, order_id, cancelled=False, general_note=None, note_history=None):
         if not order_id:
             return
 
@@ -25,7 +26,7 @@ class PosPreparationDisplayOrder(models.Model):
         if not order:
             return
 
-        data = order._process_preparation_changes(cancelled, note_history)
+        data = order._process_preparation_changes(cancelled, general_note, note_history)
         preparation_displays = self.env['pos_preparation_display.display'].search([
             '&',
             '|', ('pos_config_ids', '=', False),
@@ -161,6 +162,7 @@ class PosPreparationDisplayOrder(models.Model):
                 'displayed': self.displayed,
                 'orderlines': preparation_display_orderlines,
                 'tracking_number': self.pos_order_id.tracking_number,
+                'generalNote': self.pdis_general_note or '',
             }
 
     @api.model

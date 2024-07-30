@@ -70,9 +70,6 @@
         <xpath expr="//div[hasclass('pads')]//div[hasclass('pads')]//button[hasclass('load-order-button')]" position="attributes">
             <attribute name="t-if">!_selectedSyncedOrder.delivery_identifier</attribute>
         </xpath>
-        <xpath expr="//OrderWidget" position="attributes">
-            <attribute name="delivery_note">_selectedSyncedOrder.delivery_note</attribute>
-        </xpath>
         <xpath expr="//div[hasclass('switchpane')]" position="before">
             <t t-set="order" t-value="getSelectedOrder()"/>
             <t t-if="ui.isSmall and order?.delivery_identifier and  order?.state !== 'paid'">

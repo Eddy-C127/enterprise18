@@ -17,7 +17,6 @@ patch(PosOrder.prototype, {
 
     export_for_printing(baseUrl, headerData) {
         const data = super.export_for_printing(baseUrl, headerData);
-        data.orderNotes = this.delivery_note;
         data.headerData.deliveryId = this.delivery_identifier;
         data.headerData.deliveryChannel = this.delivery_channel;
         return data;

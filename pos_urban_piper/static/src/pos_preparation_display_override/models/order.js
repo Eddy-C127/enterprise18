@@ -7,7 +7,6 @@ patch(Order.prototype, {
         this.delivery_status = order.delivery_status;
         this.delivery_channel = order.delivery_channel;
         this.delivery_identifier = order.delivery_identifier;
-        this.delivery_note = order.delivery_note;
         this.prep_time = order.prep_time;
         this.order_otp = order.order_otp;
         this.config_id = order.config_id;

@@ -11,10 +11,6 @@ class PosOrder(models.Model):
         ('dispatched', 'Dispatched'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled')], string='Delivery Status', help='Status of the order as provided by UrbanPiper.')
-    delivery_note = fields.Text(
-        string='Delivery Note',
-        help='Special instructions for the order provided by UrbanPiper.'
-    )
     delivery_channel = fields.Text(
         string='Delivery Channel',
         help='Platform through which the order was created, e.g., Zomato, Swiggy.'

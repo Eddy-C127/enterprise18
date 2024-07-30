@@ -17,7 +17,6 @@ class PosPreparationDisplayOrder(models.Model):
                 'delivery_status': self.pos_order_id.delivery_status,
                 'delivery_channel': self.pos_order_id.delivery_channel,
                 'delivery_identifier': self.pos_order_id.delivery_identifier,
-                'delivery_note': self.pos_order_id.delivery_note,
                 'prep_time': self.pos_order_id.prep_time,
                 'order_otp': order_otp,
                 'config_id': self.pos_order_id.session_id.config_id.id,

@@ -19,17 +19,6 @@
         <xpath expr="//div[hasclass('o_pdis_order_card_header_top')]" position="attributes">
             <attribute name="t-if">!this.props.order.delivery_identifier</attribute>
         </xpath>
-        <xpath expr="//div[hasclass('o_pdis_orderline')]/t" position="after">
-            <div t-if="this.props.order.delivery_note" class="mx-2 mt-4">
-                <hr/>
-                <div class="d-flex align-items-center">
-                    <i class="fa fa-sticky-note me-2 mb-2"/><h5>Instructions</h5>
-                </div>
-                <span class="text-muted">
-                    <t t-esc="this.props.order.delivery_note"/>
-                </span>
-            </div>
-        </xpath>
         <xpath expr="//div[hasclass('o_pdis_alert-timer')]/div[hasclass('rounded-pill')]" position="before">
             <div class="rounded-pill py-1 px-3" t-if="this.props.order.delivery_identifier"
             t-att-class="{ 
