@@ -336,7 +336,8 @@ class TransferModel(models.Model):
                 line_amount = amount_left
                 amount_left = 0
             else:
-                line_amount = (line.percent / 100.0) * amount
+                currency = self.journal_id.currency_id or self.company_id.currency_id
+                line_amount = currency.round((line.percent / 100.0) * amount)
                 amount_left -= line_amount
 
             move_line = line._get_destination_account_transfer_move_line_values(account, line_amount, is_debit,

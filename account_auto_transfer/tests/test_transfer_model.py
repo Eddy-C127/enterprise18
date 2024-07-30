@@ -478,3 +478,50 @@ class TransferModelTestCase(AccountAutoTransferTestCase):
         error_message = "You cannot delete an automatic transfer that has posted moves*"
         with self.assertRaisesRegex(UserError, error_message):
             self.transfer_model.unlink()
+
+    @freeze_time('2022-01-01')
+    def test_compute_transfer_lines_100_percent_transfer(self):
+        """ Transfer 100% of the source account in separate destinations. """
+        self.transfer_model.date_start = datetime.strftime(datetime.today() + relativedelta(day=1), "%Y-%m-%d")
+
+        _, slave_ids = self._create_accounts(0, 3)
+        self.transfer_model.write({
+            'account_ids': [Command.link(self.company_data['default_account_revenue'].id)],
+            'line_ids': [
+                Command.create({
+                    'percent': 15,
+                    'account_id': slave_ids[0].id
+                }),
+                Command.create({
+                    'percent': 42.50,
+                    'account_id': slave_ids[1].id
+                }),
+                Command.create({
+                    'percent': 42.50,
+                    'account_id': slave_ids[2].id
+                }),
+            ]
+        })
+        self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.partner_a.id,
+            'invoice_date': datetime.today(),
+            'invoice_line_ids': [
+                Command.create({
+                    'name': 'line_xyz',
+                    'account_id': self.company_data['default_account_revenue'].id,
+                    'price_unit': 410.34,
+                }),
+            ]
+        }).action_post()
+        self.transfer_model.action_activate()
+        self.transfer_model.action_perform_auto_transfer()
+        lines = self.transfer_model.move_ids.line_ids
+        # 100% of the total amount
+        self.assertAlmostEqual(lines.filtered(lambda l: l.account_id == self.company_data['default_account_revenue']).debit, 410.34)
+        # 15% of the total amount
+        self.assertAlmostEqual(lines.filtered(lambda l: l.account_id == slave_ids[0]).credit, 61.55)
+        # 42.50% of the total amount
+        self.assertAlmostEqual(lines.filtered(lambda l: l.account_id == slave_ids[1]).credit, 174.39)
+        # the remaining amount of the total amount (42.50%)
+        self.assertAlmostEqual(lines.filtered(lambda l: l.account_id == slave_ids[2]).credit, 174.4)
