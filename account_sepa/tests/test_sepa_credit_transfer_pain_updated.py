@@ -6,6 +6,7 @@ from lxml import etree
 
 from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.exceptions import UserError
 from odoo.tests import tagged
 from odoo.tests.common import test_xsd
 
@@ -107,6 +108,44 @@ class TestSEPACreditTransferUpdate(TestSEPACreditTransferUpdateCommon):
         self.assertEqual(postal_code, self.partner_a.zip)
         self.assertEqual(city, self.partner_a.city)
         self.assertFalse(adr_line)
+
+    def test_uetr_generation_on_sepa_version_change(self):
+        # Create a bank journal with the default SEPA Pain version and other necessary details
+        journal = self.bank_journal.copy({
+            'sepa_pain_version': 'pain.001.001.03',
+            'bank_id': self.bank_ing.id,
+            'bank_acc_number': 'BE21631445294403',
+            'currency_id': self.env.ref('base.EUR').id,
+        })
+
+        # Create an outbound payment using the copied journal
+        payment = self.env['account.payment'].create({
+            'journal_id': journal.id,
+            'payment_type': 'outbound',
+            'date': '2023-06-01',
+            'amount': 500,
+            'partner_id': self.partner_a.id,
+            'partner_type': 'supplier',
+        })
+        payment.payment_method_id = self.sepa_ct.id
+
+        # Ensure the UETR is not generated initially
+        self.assertEqual(payment.sepa_uetr, False, "UETR should not be generated for SEPA version 'pain.001.001.03'")
+
+        # Change the SEPA Pain version to the new version
+        journal.sepa_pain_version = 'pain.001.001.09'
+
+        payment.action_post()
+
+        batch = self.env['account.batch.payment'].create({
+            'journal_id': journal.id,
+            'payment_ids': [Command.link(payment.id)],
+            'payment_method_id': self.sepa_ct.id,
+            'batch_type': 'outbound',
+        })
+
+        with self.assertRaisesRegex(UserError, "Some payments are missing a value for 'UETR', required for the SEPA Pain.001.001.09 format."):
+            batch.export_batch_payment()
 
 
 @tagged('external_l10n', 'post_install', '-at_install', '-standard')
