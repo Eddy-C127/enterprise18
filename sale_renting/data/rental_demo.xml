@@ -144,10 +144,8 @@
 
     <record id="rental_order_line_2" model="sale.order.line">
         <field name="order_id" ref="rental_order_1"/>
-        <field name="name" model="sale.order.line" eval="obj().env.ref('product.product_delivery_02').get_product_multiline_description_sale()"/>
         <field name="product_id" ref="product.product_delivery_02"/>
         <field name="product_uom_qty">5</field>
-        <field name="product_uom" ref="uom.product_uom_unit"/>
         <field name="price_unit">145.00</field>
     </record>
 
@@ -181,10 +179,8 @@
 
     <record id="rental_order_line_4" model="sale.order.line">
         <field name="order_id" ref="rental_order_2"/>
-        <field name="name" model="sale.order.line" eval="obj().env.ref('product.product_delivery_01').get_product_multiline_description_sale()"/>
         <field name="product_id" ref="product.product_delivery_01"/>
         <field name="product_uom_qty">2</field>
-        <field name="product_uom" ref="uom.product_uom_unit"/>
         <field name="price_unit">65.00</field>
     </record>
 

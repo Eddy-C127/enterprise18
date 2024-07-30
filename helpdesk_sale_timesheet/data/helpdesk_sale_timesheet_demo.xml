@@ -74,9 +74,7 @@
     </record>
     <record id="sale_order_line_helpdesk_sale_timesheet_1" model="sale.order.line">
         <field name="order_id" ref="sale_order_helpdesk_sale_timesheet_1"/>
-        <field name="name" model="sale.order.line" eval="obj().env.ref('product.product_product_1').get_product_multiline_description_sale()"/>
         <field name="product_id" ref="product.product_product_1"/>
-        <field name="product_uom_qty">1</field>
         <field name="price_unit">30.75</field>
     </record>
     <function model="sale.order" name="action_confirm" eval="[ref('sale_order_helpdesk_sale_timesheet_1')]"/>

@@ -7,9 +7,7 @@
         <field name="partner_shipping_id" ref="base.res_partner_2"/>
     </record>
     <record id="sale_order_line_helpdesk_1" model="sale.order.line">
-        <field name="name" model="sale.order.line" eval="obj().env.ref('product.product_product_27').get_product_multiline_description_sale()"/>
         <field name="product_id" ref="product.product_product_27"/>
-        <field name="product_uom_qty">1</field>
         <field name="price_unit">3645.00</field>
         <field name="order_id" ref="sale_order_helpdesk_1"/>
     </record>
@@ -20,9 +18,7 @@
         <field name="partner_shipping_id" ref="base.res_partner_10"/>
     </record>
     <record id="sale_order_line_helpdesk_2" model="sale.order.line">
-        <field name="name" model="sale.order.line" eval="obj().env.ref('product.product_product_10').get_product_multiline_description_sale()"/>
         <field name="product_id" ref="product.product_product_10"/>
-        <field name="product_uom_qty">1</field>
         <field name="price_unit">14.00</field>
         <field name="order_id" ref="sale_order_helpdesk_2"/>
     </record>
@@ -33,9 +29,7 @@
         <field name="partner_shipping_id" ref="base.res_partner_2"/>
     </record>
     <record id="sale_order_line_helpdesk_3" model="sale.order.line">
-        <field name="name" model="sale.order.line" eval="obj().env.ref('product.product_product_12').get_product_multiline_description_sale()"/>
         <field name="product_id" ref="product.product_product_12"/>
-        <field name="product_uom_qty">1</field>
         <field name="price_unit">12.50</field>
         <field name="order_id" ref="sale_order_helpdesk_3"/>
     </record>

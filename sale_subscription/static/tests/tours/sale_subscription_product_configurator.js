@@ -9,14 +9,9 @@ registry
     .category('web_tour.tours')
     .add('sale_subscription_product_configurator', {
         test: true,
-        url: '/web',
+        url: '/odoo',
         steps: () => [
-            stepUtils.showAppsMenuItem(),
-            {
-                content: "Open the subscription app",
-                trigger: '.o_app[data-menu-xmlid="sale_subscription.menu_sale_subscription_root"]',
-                run: 'click',
-            },
+            ...stepUtils.goToAppSteps("sale_subscription.menu_sale_subscription_root", "Open the subscription app"),
             {
                 content: "Create a new SO",
                 trigger: '.o_list_button_add',
@@ -49,15 +44,8 @@ registry
             configuratorTourUtils.assertProductPriceInfo("Main product", "per month"),
             configuratorTourUtils.assertOptionalProductPrice("Optional product", '16.00'),
             configuratorTourUtils.assertOptionalProductPriceInfo("Optional product", "per month"),
-            {
-                content: "Confirm the configurator",
-                trigger: ".modal button:contains(Confirm)",
-                run: 'click',
-            },
-            {
-                trigger: "body:not(:has(.modal))",
-            },
+            ...configuratorTourUtils.saveConfigurator(),
             // Don't end the tour with a form in edition mode.
-            ...tourUtils.saveForm(),
+            ...stepUtils.saveForm(),
         ],
    });
