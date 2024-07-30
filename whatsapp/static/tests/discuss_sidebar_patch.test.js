@@ -123,12 +123,12 @@ test("whatsapp are sorted by last activity time in the sidebar: most recent at t
     await start();
     await openDiscuss();
     await contains(".o-mail-DiscussSidebarChannel", { count: 2 });
-    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });
-    await click(":nth-child(2 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 1" });
+    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel-item)", { text: "WhatsApp 2" });
+    await click(":nth-child(2 of .o-mail-DiscussSidebarChannel-item) .o-mail-DiscussSidebarChannel", { text: "WhatsApp 1" });
     await insertText(".o-mail-Composer-input", "Blabla");
     await click(".o-mail-Composer-send:enabled");
-    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 1" });
-    await contains(":nth-child(2 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });
+    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel-item)", { text: "WhatsApp 1" });
+    await contains(":nth-child(2 of .o-mail-DiscussSidebarChannel-item)", { text: "WhatsApp 2" });
 });
 
 test("Whatsapp - Sidebar channel icons should have the partner's avatar", async () => {
