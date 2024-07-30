@@ -4,9 +4,6 @@
     <t t-name="knowledge.ArticlesStructureBehavior">
     <t t-set="show_less">Show Less</t>
     <t t-set="show_all">Show All</t>
-    <t t-set="switch_mode">Switch Mode</t>
-    <t t-set="refresh">Refresh</t>
-    <t t-set="update">Update</t>
         <BehaviorToolbar>
             <t t-set-slot="buttons">
                 <BehaviorToolbarButton
@@ -14,14 +11,14 @@
                     icon="state.showAllChildren ? 'fa-eye-slash' : 'fa-eye'"
                     label="state.showAllChildren ? show_less : show_all"
                     onClick.bind="_onSwitchMode"
-                    title="switch_mode"
+                    title.translate="Switch Mode"
                 />
                 <BehaviorToolbarButton
                     hidden="props.readonly"
                     icon="['fa-refresh', this.state.refreshing || this.state.changeContent ? 'fa-spin' : ''].join(' ')"
-                    label="refresh"
+                    label.translate="Refresh"
                     onClick.bind="_onRefreshBtnClick"
-                    title="update"
+                    title.translate="Update"
                 />
             </t>
         </BehaviorToolbar>

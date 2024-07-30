@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <div t-name="knowledge.DrawBehaviorDialog">
-        <t t-set="title">Insert a drawing board</t>
-        <Dialog title="title" size="'md'">
+        <Dialog title.translate="Insert a drawing board" size="'md'">
             <div class="alert alert-warning" role="alert" t-if="state.isError">
                 Sorry, we could not find your drawing, please verify that the URL is valid.
             </div>

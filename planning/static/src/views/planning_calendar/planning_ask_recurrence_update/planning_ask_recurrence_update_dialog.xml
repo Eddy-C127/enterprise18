@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="planning.PlanningAskRecurrenceUpdateDialog">
-        <Dialog size="'sm'" title="'Edit Recurrent Shift'">
+        <Dialog size="'sm'" title.translate="Edit Recurrent Shift">
             <t t-foreach="Object.entries(possibleValues)" t-as="value" t-key="value[0]">
                 <t t-set="name" t-value="value[0]"/>
                 <t t-set="state" t-value="value[1]"/>

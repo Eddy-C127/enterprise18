@@ -2,9 +2,6 @@
 <templates>
     <!-- /file template -->
     <t t-name="knowledge.FileBehavior">
-        <t t-set="send_as_message">Send as Message</t>
-        <t t-set="use_as_attachment">Use as Attachment</t>
-        <t t-set="download">Download</t>
         <div class="d-flex justify-content-between flex-wrap w-100">
             <div class="d-flex flex-grow-1">
                 <div class="o_knowledge_file_image d-flex align-items-center">
@@ -25,26 +22,23 @@
                         <div t-if="state.fileModel.extension" class="o_knowledge_file_extension text-uppercase small"
                             t-out="state.fileModel.extension"/>
                         <div class="flex-grow-1 d-flex justify-content-end">
-                            <t t-set="sendAsMessageLabel">Send as Message</t>
-                            <t t-set="useAsAttachmentLabel">Use as Attachment</t>
-                            <t t-set="downloadLabel">Download</t>
                             <BehaviorToolbar>
                                 <t t-set-slot="buttons">
                                     <BehaviorToolbarButton
                                         hidden="!targetRecordInfo?.canPostMessages"
                                         icon="'fa-envelope'"
-                                        label="sendAsMessageLabel"
+                                        label.translate="Send as Message"
                                         onClick.bind="onClickAttachToMessage"
                                     />
                                     <BehaviorToolbarButton
                                         hidden="!targetRecordInfo?.canAttachFiles"
                                         icon="'fa-paperclip'"
-                                        label="useAsAttachmentLabel"
+                                        label.translate="Use as Attachment"
                                         onClick.bind="onClickUseAsAttachment"
                                     />
                                     <BehaviorToolbarButton
                                         icon="'fa-download'"
-                                        label="downloadLabel"
+                                        label.translate="Download"
                                         onClick.bind="onClickDownload"
                                     />
                                 </t>

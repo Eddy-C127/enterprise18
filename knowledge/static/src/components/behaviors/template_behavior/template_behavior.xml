@@ -2,9 +2,6 @@
 <templates>
     <!-- /clipboard template -->
     <t t-name="knowledge.TemplateBehavior">
-        <t t-set="send_as_message">Send as Message</t>
-        <t t-set="copy">Copy</t>
-        <t t-set="copy_to_clipboard">Copy to Clipboard</t>
         <div class="d-flex justify-content-between flex-wrap w-100">
             <div class="o_knowledge_template_label px-2 py-1 text-break">Clipboard</div>
             <BehaviorToolbar>
@@ -12,7 +9,7 @@
                     <BehaviorToolbarButton
                         hidden="!targetRecordInfo?.canPostMessages"
                         icon="'fa-envelope'"
-                        label="send_as_message"
+                        label.translate="Send as Message"
                         onClick.bind="onClickSendAsMessage"
                     />
                     <BehaviorToolbarButton
@@ -24,10 +21,10 @@
                     <BehaviorToolbarButton
                         buttonRef="copyToClipboardButton"
                         icon="'fa-clipboard'"
-                        label="copy"
+                        label.translate="Copy"
                         name="'copyToClipboard'"
                         onClick.bind="onClickCopyToClipboard"
-                        title="copy_to_clipboard"
+                        title.translate="Copy to Clipboard"
                     />
                 </t>
             </BehaviorToolbar>

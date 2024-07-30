@@ -18,11 +18,10 @@
                     onModelSelected.bind="onModelSelected"
                 />
             </div>
-            <t t-set="includeChildrenLabel">Include children</t>
             <Checkbox
                 t-if="relationState.relatedModel.hasParentRelation"
                 name="'includeChildren'"
-                label="includeChildrenLabel"
+                label.translate="Include children"
                 value="relationState.includeChildren"
                 onChange="(value) => this.relationState.includeChildren = value"
             />

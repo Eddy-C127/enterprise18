@@ -7,7 +7,7 @@
         <t t-call="StudioApprovalInfos.contents" />
     </div>
     <t t-else="">
-        <Dialog title="'Approval'" contentClass="'o-approval-dialog'">
+        <Dialog title.translate="Approval" contentClass="'o-approval-dialog'">
             <h3 t-if="approval.action or approval.method">
                 <strong>Action to approve:</strong> <t t-esc="approval.method ? 'method' : ''"/> <t t-esc="approval.action or approval.method"/>
             </h3>

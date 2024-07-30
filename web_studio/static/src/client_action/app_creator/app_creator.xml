@@ -69,9 +69,8 @@
             <header class="modal-header">
                 <h4 class="modal-title text-break">Suggested features for your new model</h4>
             </header>
-            <t t-set="label">Create your app</t>
             <ModelConfigurator
-                label="label"
+                label.translate="Create your app"
                 onConfirmOptions.bind="onConfirmOptions"
                 onPrevious="() => this.state.previous()"
             />
