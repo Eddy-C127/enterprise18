@@ -12,7 +12,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     # Stored because a product could have been rent_ok when added to the SO but then updated
-    is_rental = fields.Boolean(compute='_compute_is_rental', store=True, precompute=True)
+    is_rental = fields.Boolean(compute='_compute_is_rental', store=True, precompute=True, readonly=False, copy=True)
 
     qty_returned = fields.Float("Returned", default=0.0, copy=False)
     start_date = fields.Datetime(related='order_id.rental_start_date')
