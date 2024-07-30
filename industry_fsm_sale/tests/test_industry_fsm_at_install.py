@@ -27,6 +27,8 @@ class TestFsmFlowSaleAtInstall(TestFsmFlowCommon):
             And assert after each operation on product count
         3) Set product quantity after confirming SO
         """
+        self.env['res.config.settings'].create({'group_product_pricelist': True}).execute()
+
         if not self.env.company.chart_template:
             self.env["account.chart.template"].try_loading('generic_coa', self.env.company)
 
@@ -114,7 +116,6 @@ class TestFsmFlowSaleAtInstall(TestFsmFlowCommon):
         self.task._compute_quotation_count()  # it means we return to the form view of the task, So the compute will be trigger again.
         self.assertEqual(self.task.quotation_count, 1, '1 quotation should be linked to the task since we create a quotation via the Create Quotation button.')
         self.assertEqual(self.task.action_fsm_view_quotations()['res_id'], quotation.id, "Created quotation id should be in the action")
-        self.env['res.config.settings'].create({'group_product_pricelist': True}).execute()
         # The salesperson is accessing the pricelist_id.
         user_salesperson = new_test_user(self.env, 'salesperson', 'sales_team.group_sale_salesman,industry_fsm.group_fsm_user')
         task = self.task.with_user(user_salesperson)
