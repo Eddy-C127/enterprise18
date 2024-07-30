@@ -43,6 +43,7 @@ export class DocumentsListController extends ListController {
             setPreviewStore: (previewStore) => {
                 this.documentStates.previewStore = previewStore;
             },
+            isRecordPreviewable: this.isRecordPreviewable.bind(this),
         };
     }
 
@@ -82,6 +83,10 @@ export class DocumentsListController extends ListController {
             await this.toggleArchiveState(true);
         };
         root.records[0].openDeleteConfirmationDialog(root, callback, false);
+    }
+
+    isRecordPreviewable(record) {
+        return record.isViewable();
     }
 }
 

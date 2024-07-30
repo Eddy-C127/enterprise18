@@ -632,8 +632,63 @@ QUnit.module(
                 await click(records[1], ".o_record_selector");
                 await click(records[2], ".o_record_selector");
                 await click(fixture.querySelector(".oe_kanban_previewer"));
-                assert.containsNone(target, ".o_AttachmentViewer");
+                assert.containsNone(target, ".o-FileViewer");
                 assert.verifySteps(["action_open_spreadsheet"]);
+            }
+        );
+
+        QUnit.test(
+            "spreadsheet should be skipped while toggling the preview in the FileViewer",
+            async function (assert) {
+                const pyEnv = await startServer();
+                const documentsFolderId = pyEnv["documents.folder"].create({
+                    display_name: "dogsFTW",
+                    has_write_access: true,
+                });
+                pyEnv["documents.document"].create([
+                    {
+                        name: "dog-stats",
+                        raw: "{}",
+                        folder_id: documentsFolderId,
+                        handler: "spreadsheet",
+                        thumbnail_status: "present",
+                    },
+                    {
+                        folder_id: documentsFolderId,
+                        mimetype: "image/png",
+                        name: "pug",
+                    },
+                    {
+                        folder_id: documentsFolderId,
+                        mimetype: "image/png",
+                        name: "chihuahua",
+                    },
+                ]);
+                const { openView } = await createDocumentsViewWithMessaging({
+                    hasWebClient: true,
+                    serverData: {
+                        views: {
+                            "documents.document,false,kanban": `<kanban js_class="documents_kanban">
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div>
+                                        <div name="document_preview" class="o_kanban_image_wrapper">THUMBNAIL</div>
+                                        <field name="name"/>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>`,
+                        },
+                    },
+                });
+                await openView({
+                    res_model: "documents.document",
+                    views: [[false, "kanban"]],
+                });
+                await click(target, ".o_kanban_record:nth-of-type(3) div[name='document_preview']");
+                assert.containsOnce(target, ".o-FileViewer");
+                await click(target, ".o-FileViewer-navigation[aria-label='Next']");
+                assert.strictEqual(target.querySelector("div[name='name'] input").value, "pug");
             }
         );
     }
