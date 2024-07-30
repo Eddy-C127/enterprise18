@@ -749,10 +749,11 @@ class AppointmentController(http.Controller):
 
         booking_line_values = []
         if appointment_type.schedule_based_on == 'resources':
+            capacity_to_assign = asked_capacity
             for resource in resources:
                 resource_remaining_capacity = resources_remaining_capacity.get(resource)
-                new_capacity_reserved = min(resource_remaining_capacity, asked_capacity, resource.capacity)
-                asked_capacity -= new_capacity_reserved
+                new_capacity_reserved = min(resource_remaining_capacity, capacity_to_assign, resource.capacity)
+                capacity_to_assign -= new_capacity_reserved
                 booking_line_values.append({
                     'appointment_resource_id': resource.id,
                     'capacity_reserved': new_capacity_reserved,

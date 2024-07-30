@@ -282,6 +282,42 @@ class AppointmentUITest(AppointmentUICommon):
                     self.assertFalse(event.videocall_location,
                         "Should not have a videocall_location as the appointment type doesn't have any videocall source")
 
+    @freeze_time('2022-02-13')
+    @users('apt_manager')
+    def test_appointment_crossing_manual_confirmation_treshold(self):
+        """ Test that when crossing over the manual confirmation treshold, the attendees are not confirmed """
+        self.assertFalse(self.apt_type_resource.meeting_ids)  # Assert initial data
+        self.authenticate(self.env.user.login, self.env.user.login)
+        resource = self.env['appointment.resource'].sudo().create([{
+            "appointment_type_ids": self.apt_type_resource.ids,
+            "capacity": 4,
+            "name": "Resource",
+        }])
+        self.apt_type_resource.sudo().write({
+            "resource_manual_confirmation": True,
+            "resource_manual_confirmation_percentage": 0.5,  # Set Manual Confirmation at 50%
+        })
+        appointment_data = {
+            "asked_capacity": 4,
+            "available_resource_ids": [resource.id],
+            "csrf_token": http.Request.csrf_token(self),
+            "datetime_str": "2022-02-14 15:00:00",
+            "duration_str": "1.0",
+            "email": "test@test.example.com",
+            "name": "Online Meeting",
+            "phone": "2025550999",
+        }
+
+        url = f"/appointment/{self.apt_type_resource.id}/submit"
+        res = self.url_open(url, data=appointment_data)
+        self.assertEqual(res.status_code, 200, "Response should = OK")
+
+        meeting = self.env["calendar.event"].search([("appointment_type_id", "=", self.apt_type_resource.id)])
+        self.assertTrue(meeting)
+        self.assertEqual(meeting.attendee_ids.state, "needsAction",
+            "Crossing over the manual confirmation percentage should confirm the attendees immediately.")
+        self.assertEqual(meeting.resource_total_capacity_reserved, 4)
+
     @freeze_time('2022-02-14T7:00:00')
     def test_get_appointment_type_page_view(self):
         """ Test if the appointment_type_page always shows available slots if there are some. """
