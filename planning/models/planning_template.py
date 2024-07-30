@@ -34,8 +34,8 @@ class PlanningTemplate(models.Model):
     @api.depends('start_time', 'end_time', 'duration_days')
     def _compute_name(self):
         for shift_template in self:
-            if not 0 <= shift_template.start_time < 24:
-                raise ValidationError(_('The start hour must be greater or equal to 0 and lower than 24.'))
+            if not (0 <= shift_template.start_time < 24 and 0 <= shift_template.end_time < 24):
+                raise ValidationError(_('The start and end hours must be greater or equal to 0 and lower than 24.'))
             start_time = time(hour=int(shift_template.start_time), minute=round(math.modf(shift_template.start_time)[0] / (1 / 60.0)))
             end_time = time(hour=int(shift_template.end_time), minute=round(math.modf(shift_template.end_time)[0] / (1 / 60.0)))
             shift_template.name = '%s - %s %s' % (
