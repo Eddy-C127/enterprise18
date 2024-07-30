@@ -244,7 +244,7 @@ class AccountMove(models.Model):
             invoice.l10n_ec_withhold_ids = withhold_ids
             invoice.l10n_ec_withhold_count = withhold_count
 
-    @api.onchange('l10n_latam_document_type_id', 'l10n_latam_document_number')
+    @api.onchange('l10n_latam_document_type_id', 'l10n_latam_document_number', 'partner_id')
     def _inverse_l10n_latam_document_number(self):
         super()._inverse_l10n_latam_document_number()
         self._l10n_ec_check_number_prefix()
