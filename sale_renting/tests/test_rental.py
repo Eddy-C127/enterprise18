@@ -590,6 +590,38 @@ class TestRentalCommon(TransactionCase):
             self.assertEqual(pricing_2.recurrence_id, pricing_1.recurrence_id)
             self.assertEqual(pricing_2.pricelist_id, pricing_1.pricelist_id)
 
+    def test_copy_rental_status(self):
+        """ Check that the rental status is duplicated from list view
+        """
+        partner = self.env['res.partner'].create({'name': 'A partner'})
+        now = self.env.cr.now()
+        pickup_date = now + relativedelta(days=1)
+        return_date = pickup_date + relativedelta(hours=1)
+
+        sale_order = self.env['sale.order'].with_context(in_rental_app=True).create({
+            'partner_id': partner.id,
+            'rental_start_date': pickup_date,
+            'rental_return_date': return_date,
+            'order_line': [
+                Command.create({
+                    'product_id': self.product_id.id,
+                    'is_rental': True,
+                }),
+                Command.create({
+                    'product_id': self.product_id.id,
+                    'is_rental': False,
+                })
+            ]
+        })
+
+        sol_rent = sale_order.order_line.filtered('is_rental')
+        sol_buy = sale_order.order_line - sol_rent
+
+        dupe_order = sale_order.copy()
+        self.assertEqual(dupe_order.rental_status, "draft")
+        self.assertEqual(dupe_order.order_line[0].is_rental, sol_rent.is_rental)
+        self.assertEqual(dupe_order.order_line[1].is_rental, sol_buy.is_rental)
+
 
 @tagged('post_install', '-at_install')
 class TestUi(HttpCase):
