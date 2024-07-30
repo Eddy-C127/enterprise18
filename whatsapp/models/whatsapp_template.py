@@ -81,7 +81,7 @@ class WhatsAppTemplate(models.Model):
     template_type = fields.Selection([
         ('authentication', 'Authentication'),
         ('marketing', 'Marketing'),
-        ('utility', 'Utility')], string="Category", default='marketing', tracking=True,
+        ('utility', 'Utility')], string="Category", default='marketing', tracking=True, required=True,
         help="Authentication - One-time passwords that your customers use to authenticate a transaction or login.\n"
              "Marketing - Promotions or information about your business, products or services. Or any message that isn't utility or authentication.\n"
              "Utility - Messages about a specific transaction, account, order or customer request.")
