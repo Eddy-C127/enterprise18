@@ -36,15 +36,18 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
         ).ids
         return 'l10n_in_reports.invalid_inter_state_warning', inter_state_igst
 
+    def _get_invalid_no_hsn_line_domain(self):
+        return [
+            ('l10n_in_hsn_code', '=', False),
+            ('display_type', '!=', 'tax')
+        ]
+
     @api.model
     def _get_invalid_no_hsn_products(self, aml_domain):
         missing_hsn = self.env['account.move.line'].search(
-            aml_domain +
-            [
-                ('l10n_in_hsn_code', '=', False),
-            ]
-        ).product_id.ids
-        return 'l10n_in_reports.missing_hsn_warning', missing_hsn
+            aml_domain + self._get_invalid_no_hsn_line_domain()
+        )
+        return 'l10n_in_reports.missing_hsn_warning', missing_hsn.ids
 
     @api.model
     def _get_invalid_service_hsn_products(self, aml_domain):
@@ -52,10 +55,10 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
             aml_domain +
             [
                 ('l10n_in_hsn_code', '!=', False),
-                ('l10n_in_hsn_code', 'like', '99%'),
+                ('l10n_in_hsn_code', '=like', '99%'),
                 ('product_id.type', '!=', 'service'),
             ]
-        ).product_id.ids
+        ).ids
         return 'l10n_in_reports.invalid_type_service_for_hsn_warning', invalid_type_service_for_hsn
 
     @api.model
@@ -65,9 +68,9 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
             [
                 ('l10n_in_hsn_code', '!=', False),
                 ('product_id.type', '=', 'service'),
-                ('l10n_in_hsn_code', 'not like', '99%'),
+                '!', ('l10n_in_hsn_code', '=like', '99%'),
             ]
-        ).product_id.ids
+        ).ids
         return 'l10n_in_reports.invalid_hsn_for_service_warning', invalid_hsn_for_service
 
     @api.model
@@ -181,15 +184,15 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
 
     @api.model
     def open_missing_hsn_products(self, options, params):
-        return self._l10n_in_open_action(_('Missing HSN for Products'), 'product.product', [(False, 'list'), (False, 'form')], params)
+        return self._l10n_in_open_action(_('Missing HSN for Journal Items'), 'account.move.line', [(False, 'list'), (False, 'form')], params)
 
     @api.model
     def open_invalid_type_service_for_hsn_products(self, options, params):
-        return self._l10n_in_open_action(_('Invalid Product Type'), 'product.product', [(False, 'list'), (False, 'form')], params)
+        return self._l10n_in_open_action(_('Invalid Product Type'), 'account.move.line', [(False, 'list'), (False, 'form')], params)
 
     @api.model
     def open_invalid_hsn_for_service_products(self, options, params):
-        return self._l10n_in_open_action(_('Invalid HSN Code'), 'product.product', [(False, 'list'), (False, 'form')], params)
+        return self._l10n_in_open_action(_('Invalid HSN Code'), 'account.move.line', [(False, 'list'), (False, 'form')], params)
 
     @api.model
     def open_invalid_uqc_codes(self, options, params):

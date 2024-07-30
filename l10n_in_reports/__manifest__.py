@@ -15,6 +15,7 @@ Accounting reports for India
         'data/account_financial_html_report_gstr1.xml',
         'data/account_financial_html_report_gstr3b.xml',
         'data/balance_sheet.xml',
+        'views/account_move_views.xml',
     ],
     'auto_install': ['l10n_in', 'account_reports'],
     'installable': True,
