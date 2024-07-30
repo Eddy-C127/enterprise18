@@ -95,6 +95,9 @@ class AccountJournal(models.Model):
             It returns the content of the XML file.
         """
         pain_version = self.sepa_pain_version
+        if payments and pain_version == 'pain.001.001.09' and any(not payment['sepa_uetr'] for payment in payments):
+            raise UserError(_("Some payments are missing a value for 'UETR', required for the SEPA Pain.001.001.09 format."))
+
         Document = self._get_document(pain_version)
         CstmrCdtTrfInitn = etree.SubElement(Document, "CstmrCdtTrfInitn")
 
