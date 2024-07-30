@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
@@ -6,6 +5,7 @@ import io
 import re
 import logging
 from PIL import Image
+from pprint import pformat
 
 from datetime import datetime, timedelta
 from markupsafe import Markup
@@ -355,7 +355,9 @@ class ProductTemplate(models.Model):
     def _ebay_execute(self, verb, data=None, list_nodes=[], verb_attrs=None, files=None):
         ebay_api = self._get_ebay_api()
         try:
-            return ebay_api.execute(verb, data, list_nodes, verb_attrs, files)
+            response = ebay_api.execute(verb, data, list_nodes, verb_attrs, files)
+            _logger.info("eBay API response for operation %s: %s", verb, pformat(response.dict()))
+            return response
         except EbayConnectionError as e:
             errors = e.response.dict()['Errors']
             if not isinstance(errors, list):
