@@ -11,6 +11,7 @@ patch(DiscussApp, {
         const res = super.new(data);
         res.whatsapp = {
             extraClass: "o-mail-DiscussSidebarCategory-whatsapp",
+            icon: "fa fa-whatsapp",
             id: "whatsapp",
             name: _t("WhatsApp"),
             hideWhenEmpty: true,
