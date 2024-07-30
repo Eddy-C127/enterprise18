@@ -143,8 +143,6 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
         })
 
         def get_join_bus():
-            # sudo: bus.bus: reading non-sensitive last id
-            bus_last_id = self.env["bus.bus"].sudo()._bus_last_id()
             message = self.env["mail.message"].search([], order="id desc", limit=1)
             member = self.env["discuss.channel.member"].search([], order="id desc", limit=1)
             admin_write_date = fields.Datetime.to_string(self.user_admin.partner_id.write_date)
@@ -176,7 +174,7 @@ class WhatsAppDiscussSecurity(WhatsAppSecurityCase):
                                 {
                                     "id": member.id,
                                     "message_unread_counter": 0,
-                                    "message_unread_counter_bus_id": bus_last_id - 4,
+                                    "message_unread_counter_bus_id": 0,
                                     "new_message_separator": message.id + 1,
                                     "persona": {
                                         "id": self.user_admin.partner_id.id,
