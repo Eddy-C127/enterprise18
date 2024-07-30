@@ -405,7 +405,7 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
             'ContactType': self.contact_type,
             'DateTimeCreation': fields.Datetime.now().strftime("%Y%m%d%H%M"),
             'MessageReferenceSupplierVAT': ((self.env.company.account_representative_id.vat or vat) + '-' + str(uuid.uuid4()))[:20],
-            'ProfessionalAssociationForTaxServiceProvidersName': self.env.company.account_representative_id.name or '',
+            'ProfessionalAssociationForTaxServiceProvidersName': (self.env.company.account_representative_id.name or '')[:20],
             'SoftwarePackageName': 'Odoo',
             'SoftwarePackageVersion': '.'.join(self.sudo().env.ref('base.module_base').latest_version.split('.')[0:3]),
             'SoftwareVendorAccountNumber': 'swo02770',
