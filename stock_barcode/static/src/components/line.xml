@@ -21,12 +21,11 @@
 
     <t t-name="stock_barcode.LineUpperButtons">
         <div class="d-flex flex-nowrap gap-2 mb-1">
-            <button class="o_line_button o_picture btn" t-if="imageData"
-                    t-attf-class="btn-{{isSelected || isComplete ? 'light' : 'secondary'}}"
-                    t-on-click="onClickImage"
-                    t-attf-style="background-image: url('data:image/png;base64,{{imageData}}');
-                                  background-size: 100%;
-                                  background-repeat: no-repeat;"/>
+            <button class="o_line_button o_picture p-0 btn" t-if="imageSource"
+                t-attf-class="btn-{{isSelected || isComplete ? 'light' : 'secondary'}}"
+                t-on-click="onClickImage">
+                <img loading="lazy" t-att-src="imageSource"/>
+            </button>
             <button t-if="!displayToggleBtn" class="o_line_button o_edit btn"
                     t-on-click="() => this.props.editLine(this.line)"
                     t-attf-class="btn-{{isSelected || isComplete ? 'light' : 'secondary'}}"

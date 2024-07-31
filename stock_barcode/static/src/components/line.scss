@@ -77,6 +77,11 @@ $o-barcode-completed-color: #befdcc;
             font-size: $font-size-lg;
         }
 
+        &.o_picture img {
+            max-width: 42px;
+            max-height: 42px;
+        }
+
         &.btn-light {
             --btn-border-color: #{$gray-400};
             --btn-hover-bg: #{$o-white};

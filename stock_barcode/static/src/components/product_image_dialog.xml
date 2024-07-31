@@ -6,7 +6,7 @@
                 t-on-click="props.close"
                 contentClass="'o_barcode_image_dialog bg-transparent shadow-none border-0'">
             <div class="h-100 d-flex justify-content-center align-items-center">
-                <img class="mw-100 mh-100" t-att-src="state.source" t-att-alt="props.title"/>
+                <img class="mw-100 mh-100" t-att-src="source" t-att-alt="props.title"/>
             </div>
         </Dialog>
     </t>

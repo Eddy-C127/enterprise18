@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, api
+from odoo import api, fields, models
 from odoo.osv import expression
 
 
 class Product(models.Model):
     _inherit = 'product.product'
     _barcode_field = 'barcode'
+
+    has_image = fields.Boolean(compute='_compute_has_image')
+
+    @api.depends('has_image')
+    def _compute_has_image(self):
+        for product in self:
+            product.has_image = bool(product.image_128)
 
     @api.model
     def _search(self, domain, offset=0, limit=None, order=None):
@@ -23,8 +30,8 @@ class Product(models.Model):
             'code',
             'default_code',
             'display_name',
+            'has_image',
             'is_storable',
-            'image_128',
             'tracking',
             'uom_id',
         ]

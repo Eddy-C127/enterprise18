@@ -8,7 +8,9 @@ export default class LineComponent extends Component {
     static template = "stock_barcode.LineComponent";
 
     setup() {
-        this.imageData = this.props.line.product_id.image_128;
+        this.imageSource = this.props.line.product_id.has_image
+            ? `/web/image/product.product/${this.props.line.product_id.id}/image_128`
+            : null;
     }
 
     get destinationLocationPath () {
