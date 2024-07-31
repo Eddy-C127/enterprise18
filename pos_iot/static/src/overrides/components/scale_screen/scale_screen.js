@@ -33,7 +33,7 @@ patch(ScaleScreen.prototype, {
      * @override
      */
     onMounted() {
-        this.iot_box = this.hardwareProxy.iotBoxes.find((box) => box.ip === this.scale._iot_ip);
+        this.iot_box = this.hardwareProxy.iotBoxes.find((box) => box.ip === this.scale.iotIp);
         this._error = false;
         if (!this.isManualMeasurement) {
             this.scale.action({ action: "start_reading" });
