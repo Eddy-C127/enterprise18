@@ -864,7 +864,13 @@ export default class BarcodeModel extends EventBus {
                 const productRule = parsedBarcode.find(bc => bc.rule.type === "product");
                 this.gs1Filters = {};
                 if (productRule) {
-                    const product = await this.cache.getRecordByBarcode(productRule.value, 'product.product');
+                    let product = await this.cache.getRecordByBarcode(productRule.value, 'product.product');
+                    if (!product) {
+                        const packaging = await this.cache.getRecordByBarcode(productRule.value, 'product.packaging');
+                        if (packaging) {
+                            product = this.cache.getRecord('product.product', packaging.product_id);
+                        }
+                    }
                     if(product){
                         this.gs1Filters['stock.lot'] = {product_id: product.id};
                     }

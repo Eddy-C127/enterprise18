@@ -1405,3 +1405,34 @@ registry.category("web_tour.tours").add('test_gs1_receipt_packaging_with_uom', {
         }
     },
 ]});
+
+registry.category("web_tour.tours").add('test_gs1_tracked_packaging', {test: true, steps: () => [
+    // Create a receipt and check non-existing lot is correctly scanned alongside the packaging.
+    { trigger: '.o_stock_barcode_main_menu', run: "scan WHIN" },
+    { trigger: '.o_barcode_client_action', run: "scan 020000001265325610lot-001" },
+    {
+        trigger: '.o_barcode_line',
+        run: () => {
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "6", "Scanned packaging has quantity of 6");
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertLineTrackingNumber(0, "lot-001");
+        },
+    },
+    { trigger: '.o_validate_page', run: "click" },
+
+    // Create a delivery and check existing lot is correctly found alongside the packaging.
+    { trigger: '.o_stock_barcode_main_menu', run: "scan WHOUT" },
+    { trigger: '.o_barcode_client_action', run: "scan 020000001265325610lot-001" },
+    {
+        trigger: '.o_barcode_line',
+        run: () => {
+            helper.assertLinesCount(1);
+            helper.assertLineQty(0, "6", "Scanned packaging has quantity of 6");
+            helper.assertLineProduct(0, "productlot1");
+            helper.assertLineTrackingNumber(0, "lot-001");
+        },
+    },
+    { trigger: '.o_validate_page', run: "click" },
+    { trigger: '.o_notification_bar.bg-success' },
+]});
