@@ -534,9 +534,18 @@ class Task(models.Model):
                     else:
                         total_amount += timesheet.unit_amount
                 if not sol:  # Then we create it
+                    order = self.sale_order_id
                     sol_vals = {
                         **self._get_sale_order_line_vals(),
-                        'price_unit': 0.0 if self.under_warranty else price_unit,
+                        'price_unit': 0.0 if self.under_warranty else self.env['product.product'].browse(timesheet_product_id)._get_tax_included_unit_price(
+                            order.company_id,
+                            order.currency_id,
+                            order.date_order,
+                            'sale',
+                            fiscal_position=order.fiscal_position_id,
+                            product_price_unit=price_unit,
+                            product_currency=order.currency_id
+                        ),
                         'product_id': timesheet_product_id,
                         'product_uom_qty': total_amount,
                     }
