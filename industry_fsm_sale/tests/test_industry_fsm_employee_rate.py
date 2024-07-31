@@ -210,3 +210,56 @@ class TestIndustryFsmEmployeeRate(TestFsmFlowSaleCommon):
         self.assertEqual(len(so.order_line), 2, 'The generated SO should have 2 SOLs.')
         self.assertEqual(so.order_line.product_id, self.product_order_timesheet1, 'The both SOLs of this generated SO should have the same service product.')
         self.assertNotEqual(so.order_line[0].price_unit, so.order_line[1].price_unit, 'The only different in the both SOLs is the price unit.')
+
+    def test_fsm_employee_rate_fpos(self):
+        """ Test fiscal position applied correctly on employee mappings unit price """
+
+        tax_include_src, tax_exclude_dst = self.env['account.tax'].create([{
+            'name': "Include 10%",
+            'amount': 10.00,
+            'amount_type': 'percent',
+            'price_include': True,
+        }, {
+            'name': "Exclude 10%",
+            'amount': 10.00,
+            'amount_type': 'percent',
+            'price_include': False,
+        }])
+
+        fpos_incl_excl = self.env['account.fiscal.position'].create({
+            'name': "incl -> excl",
+            'sequence': 3,
+        })
+        self.env['account.fiscal.position.tax'].create({
+            'position_id': fpos_incl_excl.id,
+            'tax_src_id': tax_include_src.id,
+            'tax_dest_id': tax_exclude_dst.id
+        })
+        partner = self.env['res.partner'].create({
+            'name': "George",
+            'property_account_position_id': fpos_incl_excl.id,
+        })
+        self.product_order_timesheet1.taxes_id = tax_include_src
+
+        self.fsm_project_employee_rate.sale_line_employee_ids.unlink()
+        self.env['project.sale.line.employee.map'].with_context(default_project_id=self.fsm_project_employee_rate.id).create({
+            'employee_id': self.employee_manager.id,
+            'timesheet_product_id': self.product_order_timesheet1.id,
+            'price_unit': 20.0,
+        })
+
+        task = self.Task.create({
+            'name': 'Fsm Task',
+            'partner_id': partner.id,
+            'timesheet_ids': [
+                Command.create({
+                    'name': '/',
+                    'employee_id': self.employee_manager.id,
+                    'unit_amount': 1.0,
+                    'project_id': self.fsm_project_employee_rate.id,
+                }),
+            ]
+        })
+        task.action_fsm_validate()
+        so = task.sale_order_id
+        self.assertAlmostEqual(so.order_line.price_unit, 18.18, 2)

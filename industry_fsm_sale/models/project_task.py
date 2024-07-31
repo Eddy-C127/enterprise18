@@ -501,10 +501,20 @@ class Task(models.Model):
                     else:
                         total_amount += timesheet.unit_amount
                 if not sol:  # Then we create it
+                    order = self.sale_order_id
+                    timesheet_product = self.env['product.product'].browse(timesheet_product_id)
                     sol = self.env['sale.order.line'].sudo().create({
-                        'order_id': self.sale_order_id.id,
+                        'order_id': order.id,
                         'product_id': timesheet_product_id,
-                        'price_unit': price_unit,
+                        'price_unit': timesheet_product._get_tax_included_unit_price(
+                            order.company_id,
+                            order.currency_id,
+                            order.date_order,
+                            'sale',
+                            fiscal_position=order.fiscal_position_id,
+                            product_price_unit=price_unit,
+                            product_currency=order.currency_id
+                        ),
                         # The project and the task are given to prevent the SOL to create a new project or task based on the config of the product.
                         'project_id': self.project_id.id,
                         'task_id': self.id,
