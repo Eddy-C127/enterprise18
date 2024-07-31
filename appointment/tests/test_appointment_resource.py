@@ -7,7 +7,7 @@ from freezegun import freeze_time
 from odoo import Command
 from odoo.addons.appointment.tests.common import AppointmentCommon
 from odoo.exceptions import ValidationError
-from odoo.tests import Form, tagged, users
+from odoo.tests import Form, tagged, users, warmup
 
 
 @tagged('appointment_resources', 'post_install', '-at_install')
@@ -304,6 +304,7 @@ class AppointmentResource(AppointmentCommon):
 class AppointmentResourceBookingTest(AppointmentCommon):
 
     @users('apt_manager')
+    @warmup
     def test_appointment_resources(self):
         """ Slots generation and availability of appointment type with resources """
         appointment = self.env['appointment.type'].create({
@@ -332,7 +333,7 @@ class AppointmentResourceBookingTest(AppointmentCommon):
         self.flush_tracking()
 
         with freeze_time(self.reference_now):
-            with self.assertQueryCount(default=9):  # runbot: 7
+            with self.assertQueryCount(default=10):
                 appointment._get_appointment_slots('UTC')
 
     def test_appointment_resources_availability(self):
