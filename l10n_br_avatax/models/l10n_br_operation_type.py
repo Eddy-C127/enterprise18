@@ -15,4 +15,5 @@ class L10nBrOperationType(models.Model):
     name = fields.Char(
         required=True,
         string="Name",
+        translate=True,
     )
