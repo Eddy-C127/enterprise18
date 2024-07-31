@@ -2396,8 +2396,8 @@ class AccountReport(models.Model):
                 else:
                     rslt = self.format_value(
                         options,
-                        column_dict['no_format'],
-                        column_dict['figure_type'],
+                        column_dict.get('no_format'),
+                        column_dict.get('figure_type'),
                         format_params=column_dict.get('format_params'),
                     )
 
