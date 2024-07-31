@@ -137,15 +137,12 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             errors['settings_accounting_basis_missing'] = {
                 'message': _('Please set the company Tax Accounting Basis.'),
                 'action_text': _('View Settings'),
-                'action': self.env['res.config.settings']._get_records_action(
-                    name=_("Settings"),
-                    context={
-                        **self.env.context,
-                        'module': 'account',
-                        'default_search_setting': _("Tax Accounting Basis (RO)"),
-                        'bin_size': False,
-                    }
-                )
+                'action': {
+                    'name': _("Settings"),
+                    'type': 'ir.actions.act_url',
+                    'target': 'self',
+                    'url': '/odoo/settings#l10n_ro_saft_tax_accounting_basis',
+                }
             }
 
         # The company must have a bank account defined.

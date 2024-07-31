@@ -228,15 +228,12 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             values['errors']['settings_region_id_missing'] = {
                 'message': _("Missing department code for journal entries on the company"),
                 'action_text': _("View Settings"),
-                'action': self.env['res.config.settings']._get_records_action(
-                    name=_("Settings"),
-                    context={
-                        **self.env.context,
-                        'module': 'account',
-                        'default_search_setting': _("Intrastat region"),
-                        'bin_size': False,
-                    }
-                )
+                'action': {
+                    'name': _("Settings"),
+                    'type': 'ir.actions.act_url',
+                    'target': 'self',
+                    'url': '/odoo/settings#intrastat_statistics',
+                }
             }
 
         if missing_required_values['transport_code']:
@@ -336,15 +333,12 @@ class IntrastatReportCustomHandler(models.AbstractModel):
             values['errors']['settings_approval_number_missing'] = {
                 'message': _("Please set the approval number issued by your local collection center in the Accounting settings"),
                 'action_text': _("View Settings"),
-                'action': self.env['res.config.settings']._get_records_action(
-                    name=_("Settings"),
-                    context={
-                        **self.env.context,
-                        'module': 'account',
-                        'default_search_setting': _("DEBWEB2 Identifier"),
-                        'bin_size': False,
-                    }
-                )
+                'action': {
+                    'name': _("Settings"),
+                    'type': 'ir.actions.act_url',
+                    'target': 'self',
+                    'url': '/odoo/settings#intrastat_statistics',
+                }
             }
 
         # Software used, 14 character maximum allowed (must include the version too)
