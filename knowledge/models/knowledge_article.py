@@ -1056,7 +1056,7 @@ class Article(models.Model):
         })
         return record.id, record.display_name
 
-    @api.depends('icon')
+    @api.depends('name', 'template_name', 'icon', 'is_template')
     def _compute_display_name(self):
         for rec in self:
             name = (rec.template_name if rec.is_template else rec.name) or _('Untitled')
