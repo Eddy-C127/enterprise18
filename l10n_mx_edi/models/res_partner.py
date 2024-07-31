@@ -80,3 +80,8 @@ class ResPartner(models.Model):
         if country_id.code == 'MX':
             res.extend([self.env['ir.model.fields']._get(self._name, 'l10n_mx_edi_fiscal_regime')])
         return res
+
+    def _deduce_country_code(self):
+        if self.country_code == 'MX':
+            return 'MX'
+        return super()._deduce_country_code()
