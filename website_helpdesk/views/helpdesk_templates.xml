@@ -350,14 +350,14 @@
     </template>
 
     <template id="footer" name="Knowledge Base: Footer">
-        <section class="s_call_to_action o_cc o_cc3 o_colored_level pt64 pb64" data-snippet="s_call_to_action" data-name="Call to Action">
+        <section class="s_call_to_action o_cc o_cc3 o_colored_level mt-5 pt64 pb64 " data-snippet="s_call_to_action" data-name="Call to Action">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-9">
+                <div class="d-block d-lg-flex align-items-center gap-2">
+                    <div class="flex-grow-1">
                         <h3>Can't find your answer?</h3>
                         <p class="lead">Our support team is here to help.</p>
                     </div>
-                    <div class="col-lg-3" id="footer_buttons">
+                    <div class="d-flex flex-wrap flex-sm-nowrap gap-2 mt-4 mt-lg-0" id="footer_buttons">
                         <a class="btn btn-primary btn-lg text-nowrap" title="Contact us" t-attf-href="{{team.website_url}}?contact_form=1">Contact Us</a>
                     </div>
                 </div>
