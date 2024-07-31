@@ -3212,6 +3212,33 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         url = f'/web#action={action.id}'
         self.start_tour(url, 'test_gs1_receipt_packaging_with_uom', login='admin', timeout=180)
 
+    def test_gs1_tracked_packaging(self):
+        """ Ensures we can scan a GS1 barcode containing a packaging for a
+        tracked product and the lot in one scan.
+        """
+        self.clean_access_rights()
+        self.env.company.nomenclature_id = self.env.ref('barcodes_gs1_nomenclature.default_gs1_nomenclature')
+        group_tracking = self.env.ref('stock.group_production_lot')
+        group_packaging = self.env.ref('product.group_stock_packaging')
+        self.env.user.write({'groups_id': [(4, group_tracking.id, 0), (4, group_packaging.id, 0)]})
+
+        self.env['product.packaging'].create({
+            'name': 'productlot1 6 pack',
+            'qty': 6,
+            'barcode': '12653256',
+            'product_id': self.productlot1.id
+        })
+
+        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action.id)
+        self.start_tour(url, 'test_gs1_tracked_packaging', login='admin', timeout=180)
+        lot = self.env['stock.lot'].search([('name', '=', 'lot-001')])
+        move_lines = self.env['stock.move.line'].search([('product_id', '=', self.productlot1.id)])
+        self.assertRecordValues(move_lines, [
+            {'quantity': 6, 'lot_id': lot.id, 'location_id': self.supplier_location.id, 'location_dest_id': self.stock_location.id},
+            {'quantity': 6, 'lot_id': lot.id, 'location_id': self.stock_location.id, 'location_dest_id': self.customer_location.id},
+        ])
+
     def test_split_line_on_scan(self):
         """
         This test ensures that move lines are split correctly

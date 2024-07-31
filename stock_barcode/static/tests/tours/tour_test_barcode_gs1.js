@@ -1342,3 +1342,36 @@ registry.category("web_tour.tours").add('test_gs1_receipt_packaging_with_uom', {
         }
     },
 ]});
+
+registry.category("web_tour.tours").add('test_gs1_tracked_packaging', {test: true, steps: () => [
+    // Create a receipt and check non-existing lot is correctly scanned alongside the packaging.
+    { trigger: '.o_stock_barcode_main_menu', run: "scan WH-RECEIPTS" },
+    { trigger: '.o_barcode_client_action', run: "scan 020000001265325610lot-001" },
+    {
+        trigger: '.o_barcode_line',
+        run: () => {
+            helper.assertLinesCount(1);
+            const line = helper.getLine({ barcode: "productlot1" });
+            helper.assertLineQty(line, "6", "Scanned packaging has quantity of 6");
+            helper.assertLineProduct(line, "productlot1");
+            helper.assertLinesTrackingNumbers([line], ["lot-001"]);
+        },
+    },
+    { trigger: '.o_validate_page' },
+
+    // Create a delivery and check existing lot is correctly found alongside the packaging.
+    { trigger: '.o_stock_barcode_main_menu', run: "scan WH-DELIVERY" },
+    { trigger: '.o_barcode_client_action', run: "scan 020000001265325610lot-001" },
+    {
+        trigger: '.o_barcode_line',
+        run: () => {
+            helper.assertLinesCount(1);
+            const line = helper.getLine({ barcode: "productlot1" });
+            helper.assertLineQty(line, "6", "Scanned packaging has quantity of 6");
+            helper.assertLineProduct(line, "productlot1");
+            helper.assertLinesTrackingNumbers([line], ["lot-001"]);
+        },
+    },
+    { trigger: '.o_validate_page' },
+    { trigger: '.o_notification.border-success', isCheck: true },
+]});
