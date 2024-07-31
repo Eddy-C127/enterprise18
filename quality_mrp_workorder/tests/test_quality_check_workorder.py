@@ -28,17 +28,11 @@ class TestQualityCheckWorkorder(TestMrpCommon):
         # Registering the first component in the operation of the BoM
         bom.bom_line_ids[0].operation_id = bom.operation_ids[0]
 
-        # Create Quality Point for the product consumed in the operation of the BoM
-        self.env['quality.point'].create({
-            'product_ids': [bom.bom_line_ids[0].product_id.id],
-            'picking_type_ids': [picking_type_id],
-            'measure_on': 'move_line',
-        })
-        # Create Quality Point for all products (that should not apply on components)
+        # Create Quality Point for all products
         self.env['quality.point'].create({
             'product_ids': [],
             'picking_type_ids': [picking_type_id],
-            'measure_on': 'move_line',
+            'measure_on': 'product',
         })
 
         # Create Production of Painted Boat to produce 5.0 Unit.
@@ -51,10 +45,8 @@ class TestQualityCheckWorkorder(TestMrpCommon):
         production.qty_producing = 3.0
 
         # Check that the Quality Check were created and has correct values
-        self.assertEqual(len(production.move_raw_ids[0].move_line_ids.check_ids), 1)
-        self.assertEqual(len(production.move_raw_ids[1].move_line_ids.check_ids), 0)
         self.assertEqual(len(production.check_ids.filtered(lambda qc: qc.product_id == production.product_id)), 1)
-        self.assertEqual(len(production.check_ids), 2)
+        self.assertEqual(len(production.check_ids), 1)
 
     def test_register_consumed_materials(self):
         """

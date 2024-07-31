@@ -788,9 +788,9 @@ class TestQualityCheck(TestQualityCommon):
         backorder.with_user(user).button_validate()
         self.assertEqual(backorder.state, 'done')
 
-    def test_failure_location_move_line(self):
+    def test_failure_location_move(self):
         """ Quality point per quantity with failure locations list, a picking with 2 products / moves,
-            fail one move with qty less than total move qty, a new move line with the failing quantity is created,
+            fail one move with qty less than total move qty, a new move with the failing quantity is created,
             moving it to the failure location chosen
         """
         self.env['quality.point'].create({
@@ -847,8 +847,8 @@ class TestQualityCheck(TestQualityCommon):
         wizard.qty_failed = 1
         wizard.failure_location_id = self.failure_location.id
         wizard.confirm_fail()
-        # there should be 3 move lines and 3 checks
-        self.assertEqual(len(receipt.move_line_ids), 3)
+        # there should be 3 moves and 3 checks
+        self.assertEqual(len(receipt.move_ids), 3)
         self.assertRecordValues(receipt.check_ids, [
             {'quality_state': 'pass', 'product_id': self.product.id, 'qty_line': 2, 'failure_location_id': False},
             {'quality_state': 'fail', 'product_id': self.product_2.id, 'qty_line': 1, 'failure_location_id': self.failure_location.id},

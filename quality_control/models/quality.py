@@ -6,7 +6,7 @@ from datetime import datetime
 
 import random
 
-from odoo import api, models, fields, _
+from odoo import api, Command, models, fields, _
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_round, SQL
 from odoo.osv.expression import OR
 
@@ -373,7 +373,7 @@ class QualityCheck(models.Model):
 
     def _move_line_to_failure_location(self, failure_location_id, failed_qty=None):
         """ This function is used to fail move lines and can optionally:
-             - split it into failed and passed qties (i.e. 2 move lines w/1 check each)
+             - split it into failed and passed qties (i.e. 2 moves w/1 check each)
              - send the failed qty to a failure location
         :param failure_location_id: id of location to send failed qty to
         :param failed_qty: qty failed on check, defaults to None, if None all quantity of the move is failed
@@ -382,23 +382,34 @@ class QualityCheck(models.Model):
             if not check._can_move_line_to_failure_location():
                 continue
             failed_qty = failed_qty or check.move_line_id.quantity
-            old_move_line = check.move_line_id
-            dest_location = failure_location_id or old_move_line.location_dest_id.id
-            if failure_location_id:
-                check.failure_location_id = failure_location_id
-            if failed_qty == check.move_line_id.quantity:
-                old_move_line.location_dest_id = dest_location
+            move_line = check.move_line_id
+            move = move_line.move_id
+            dest_location = failure_location_id or move_line.location_dest_id.id
+            if failed_qty == move_line.quantity:
+                move_line.location_dest_id = dest_location
+                if move_line.quantity == move.quantity:
+                    move.location_dest_id = dest_location
                 return
-            old_move_line.quantity -= failed_qty
-            failed_move_line = old_move_line.with_context(default_check_ids=None, no_checks=True).copy({
+            move_line.quantity -= min(failed_qty, move_line.quantity)
+            failed_move_line = move_line.with_context(default_check_ids=None, no_checks=True).copy({
                 'location_dest_id': dest_location,
                 'quantity': failed_qty,
+            })
+            move.copy({
+                'location_dest_id': dest_location,
+                'move_dest_ids': move.move_dest_ids,
+                'move_orig_ids': move.move_orig_ids,
+                'product_uom_qty': 0,
+                'state': 'assigned',
+                'move_line_ids': [Command.link(failed_move_line.id)],
             })
             # switch the checks, check in self should always be the failed one,
             # new check linked to original move line will be passed check
             new_check = self.create(failed_move_line._get_check_values(check.point_id))
             check.move_line_id = failed_move_line
-            new_check.move_line_id = old_move_line
+            check.failure_location_id = dest_location
+            new_check.move_line_id = move_line
+            new_check.qty_tested = 0
             new_check.do_pass()
 
     def _get_check_action_name(self):

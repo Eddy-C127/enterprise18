@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class QualityPoint(models.Model):
@@ -10,6 +11,12 @@ class QualityPoint(models.Model):
     @api.model
     def _get_domain_for_production(self, quality_points_domain):
         return quality_points_domain
+
+    @api.constrains('measure_on', 'picking_type_ids')
+    def _check_measure_on(self):
+        for point in self:
+            if point.measure_on == 'move_line' and any(pt.code == 'mrp_operation' for pt in point.picking_type_ids):
+                raise UserError(_("The Quantity quality check type is not possible with manufacturing operation types."))
 
 
 class QualityCheck(models.Model):
