@@ -61,7 +61,7 @@ class MrpProduction(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'mrp_production.additional.workorder',
             'views': [[self.env.ref('mrp_workorder.view_mrp_production_additional_workorder_wizard').id, 'form']],
-            'name': _('Add Workorder'),
+            'name': _('Add Work Order'),
             'target': 'new',
             'context': {
                 'default_production_id': self.id,

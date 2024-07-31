@@ -11,18 +11,18 @@ class MrpWorkorderAdditionalWorkorder(models.TransientModel):
         'mrp.production', required=True,
         default=lambda self: self.env.context.get('active_id', None),
     )
-    name = fields.Char('Operation name', required=True)
+    name = fields.Char('Title', required=True)
     blocked_by_workorder_id = fields.Many2one('mrp.workorder',
-                                     string="Blocked By",
+                                     string="Insert after operation",
                                      domain="[('production_id', '=', production_id)]",
                                      copy=False)
-    workcenter_id = fields.Many2one('mrp.workcenter', required=True)
+    workcenter_id = fields.Many2one('mrp.workcenter', string="Work Center", required=True)
     duration_expected = fields.Float('Expected Duration')
-    date_start = fields.Datetime('Start')
+    date_start = fields.Datetime('Date Start')
     company_id = fields.Many2one(related='production_id.company_id')
     employee_assigned_ids = fields.Many2many(
         'hr.employee', 'mrp_workorder_additional_employee_assigned',
-        'additional_workorder_id', 'employee_id', string='Assigned'
+        'additional_workorder_id', 'employee_id', string='Employee'
     )
 
     def add_workorder(self):
