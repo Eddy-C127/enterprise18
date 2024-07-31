@@ -59,6 +59,11 @@
             </td>
         </xpath>
 
+        <xpath expr="//table[@name='invoice_line_table']/tbody//span[@t-field='line.price_unit']" position="replace">
+            <t t-set="line_edi_values" t-value="line._l10n_ec_prepare_edi_vals_to_export_USD()"/>
+            <span t-out="line_edi_values['price_unit']" t-options="{'widget': 'float', 'decimal_precision': 'Product Price'}"/>
+        </xpath>
+
         <!-- Add a table for payment methods and additional info -->
         <xpath expr="//div[@id='payment_term']" position="after">
             <t t-if="o.l10n_latam_document_type_id and o.l10n_latam_internal_type != 'credit_note'">
