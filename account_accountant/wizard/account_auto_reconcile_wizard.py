@@ -35,12 +35,13 @@ class AccountAutoReconcileWizard(models.TransientModel):
     )
     search_mode = fields.Selection(
         selection=[
-            ('one_to_one', 'Opposite balances one by one'),
-            ('zero_balance', 'Accounts with zero balances'),
+            ('one_to_one', "Perfect Match"),
+            ('zero_balance', "Clear Account"),
         ],
         string='Reconcile',
         required=True,
         default='one_to_one',
+        help="Reconcile journal items with opposite balance or clear accounts with a zero balance",
     )
 
     @api.model

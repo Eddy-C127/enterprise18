@@ -14,17 +14,6 @@ class MatchingLink extends Component {
         this.action = useService("action");
     }
 
-    showMatchingButton() {
-        const mandatoryFilters = ["account_id", "partner_id"];
-        const searchFilters = this.env.searchModel.getSearchItems(
-            (item) =>
-                !item.isActive &&
-                item.type === "field" &&
-                mandatoryFilters.includes(item.fieldName)
-        );
-        return searchFilters.length;
-    }
-
     async reconcile() {
         this.action.doAction("account_accountant.action_move_line_posted_unreconciled", {
             additionalContext: {

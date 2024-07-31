@@ -10,9 +10,6 @@
                 <span t-out="props.record.data[props.name]"/>
             </a>
         </t>
-        <t t-elif="props.record.data.is_account_reconcile and showMatchingButton()">
-            <button class="journal_item_matching_button btn btn-sm btn-secondary lh-1 text-uppercase" t-on-click="reconcile">Match</button>
-        </t>
     </t>
 
 </templates>
