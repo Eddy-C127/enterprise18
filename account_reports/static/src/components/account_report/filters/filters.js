@@ -432,13 +432,30 @@ export class AccountReportFilters extends Component {
     //------------------------------------------------------------------------------------------------------------------
     selectJournal(journal) {
         if (journal.model === "account.journal.group") {
+            const wasSelected = journal.selected;
+            this.ToggleSelectedJournal(journal);
             this.controller.options.__journal_group_action = {
-                action: journal.selected ? "remove" : "add",
+                action: wasSelected ? "remove" : "add",
                 id: parseInt(journal.id),
             };
+            // Toggle the selected status after the action is set
+            journal.selected = !wasSelected;
+        } else {
+            journal.selected = !journal.selected;
         }
-        journal.selected = !journal.selected;
         this.applyFilters("journals");
+    }
+
+    ToggleSelectedJournal(selectedJournal) {
+        if (selectedJournal.selected) {
+            this.controller.options.journals.forEach((journal) => {
+                journal.selected = false;
+            });
+        } else {
+            this.controller.options.journals.forEach((journal) => {
+                journal.selected = selectedJournal.journals.includes(journal.id) && journal.model === "account.journal";
+            });
+        }
     }
 
     async filterVariant(reportId) {

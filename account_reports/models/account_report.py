@@ -296,10 +296,12 @@ class AccountReport(models.Model):
                     'name': group.display_name,
                     'title': group.display_name,
                     'selected': selected,
-                    'journal_types': list(set(remaining_journals.mapped('type'))),
+                    'journals': (company_vals['available_journals'] - group.excluded_journal_ids).ids,
+                    'journal_types': list(set((company_vals['available_journals'] - group.excluded_journal_ids).mapped('type'))),
                 })
                 if selected:
                     company_vals['selected_journal_groups'] |= group
+                    options['selected_journal_groups'] = journal_groups_options[-1]
 
             # Journals.
             for journal in company_vals['available_journals']:
@@ -317,7 +319,7 @@ class AccountReport(models.Model):
         if journal_groups_options:
             options['journals'].append({
                 'id': 'divider',
-                'name': _("Journal Groups"),
+                'name': _("Multi-ledger"),
                 'model': 'account.journal.group',
             })
             options['journals'] += journal_groups_options
@@ -4267,7 +4269,7 @@ class AccountReport(models.Model):
             ctx['search_default_date_before'] = 1
 
         journal_type = params.get('journal_type')
-        if journal_type:
+        if journal_type or options.get('selected_journal_groups') and options['selected_journal_groups']['journal_types']:
             type_to_view_param = {
                 'bank': {
                     'filter': 'search_default_bank',
@@ -4290,9 +4292,15 @@ class AccountReport(models.Model):
                     'view_id': self.env.ref('account.view_move_line_tree_grouped_sales_purchases').id
                 },
             }
-            ctx.update({
-                type_to_view_param[journal_type]['filter']: 1,
-            })
+            if options.get('selected_journal_groups'):
+                ctx_to_update = {}
+                for journal_type in options['selected_journal_groups']['journal_types']:
+                    ctx_to_update[type_to_view_param[journal_type]['filter']] = 1
+                ctx.update(ctx_to_update)
+            else:
+                ctx.update({
+                    type_to_view_param[journal_type]['filter']: 1,
+                })
             view_id = type_to_view_param[journal_type]['view_id']
 
         action_domain = [('display_type', 'not in', ('line_section', 'line_note'))]
