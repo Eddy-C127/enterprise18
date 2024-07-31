@@ -1062,8 +1062,7 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
         return report_line
 
     def _check_line_consistency(self, report, options, report_line, tax, warnings=None):
-        tax_details = tax._prepare_dict_for_taxes_computation()
-        tax_applied = tax_details['amount'] * tax_details['_factor'] / 100
+        tax_applied = tax.amount * sum(tax.invoice_repartition_line_ids.filtered(lambda tax_rep: tax_rep.repartition_type == 'tax').mapped('factor')) / 100
 
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             net_value = next((col['no_format'] for col in report_line['columns'] if col['column_group_key'] == column_group_key and col['expression_label'] == 'net'), 0)
