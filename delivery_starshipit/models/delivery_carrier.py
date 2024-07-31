@@ -196,7 +196,7 @@ class DeliveryCarrier(models.Model):
                                                 'As you are in a test environment, please make sure to cancel the order with your carrier directly.\n'
                                                 'Manifest number: %(manifest_number)s',
                                                 order=picking.name, manifest_number=order_data['order']['manifest_number']))
-                self._starshipit_cancel_shipment(picking)
+                self.starshipit_cancel_shipment(picking)
                 picking.message_post(body=_('Order %s was archived.', picking.name))
         return res
 
@@ -208,7 +208,7 @@ class DeliveryCarrier(models.Model):
         result = starshipit._get_tracking_link(starshipit_order_number)
         return result.get('results', {}).get('tracking_url', False)
 
-    def _starshipit_cancel_shipment(self, pickings):
+    def starshipit_cancel_shipment(self, pickings):
         """ Archive the shipment on starshipit side.
         Note that this will not do anything with the carrier and the user is expected to handle that himself.
         This is done instead of trying to cancel as we always label right away and once labelled, we cannot cancel anymore.
@@ -304,7 +304,7 @@ class DeliveryCarrier(models.Model):
                                             'As you are in a test environment, please make sure to cancel the order with your carrier directly.\n'
                                             'Manifest number: %(manifest_number)s',
                                             order=picking.name, manifest_number=order_data['order']['manifest_number']))
-            self._starshipit_cancel_shipment(picking)
+            self.starshipit_cancel_shipment(picking)
             picking.message_post(body=_('Return order %s was archived.', picking.name))
 
     def _create_label_for_order(self, order_id):
