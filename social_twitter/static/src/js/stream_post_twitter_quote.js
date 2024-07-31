@@ -7,7 +7,7 @@ import { SocialPostFormatterMixin } from '@social/js/social_post_formatter_mixin
 import { Dialog } from '@web/core/dialog/dialog';
 import { sprintf } from '@web/core/utils/strings';
 import { useService } from '@web/core/utils/hooks';
-import { Component, markup } from "@odoo/owl";
+import { Component, markup, useState } from "@odoo/owl";
 
 export class StreamPostTwitterQuote extends SocialPostFormatterMixin(Component) {
     static template = "social_twitter.TwitterQuoteDialog";
@@ -16,6 +16,9 @@ export class StreamPostTwitterQuote extends SocialPostFormatterMixin(Component) 
     setup() {
         super.setup();
         this.notification = useService('notification');
+        this.state = useState({
+            isEditMode: false,
+        });
     }
 
     _confirmQuoteTweet(event) {
