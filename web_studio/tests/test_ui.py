@@ -1766,3 +1766,21 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         target_field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('name', '=', 'display_name')])
         self.assertEqual(len(field), 1)
         self.assertEqual(field.related_field_id, target_field)
+
+    def test_add_many2one_without_related(self):
+        """ Test ensure raise a warning and not the current view does not contain studio arch when the user
+            tries to add one2many field but the model does not contain any related many2one field.
+        """
+
+        self.create_empty_app()
+        self.newView.arch = '''<form>
+            <group>
+                <field name="x_name"/>
+            </group>
+        </form>'''
+        self.start_tour("/web?debug=tests", 'web_studio_add_one2many_no_related_many2one', login="admin")
+
+        studioView = _get_studio_view(self.newView)
+
+        # Does not contain studio arch
+        assertViewArchEqual(self, studioView.arch, False)

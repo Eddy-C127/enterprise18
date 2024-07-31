@@ -1612,3 +1612,40 @@ registry.category("web_tour.tours").add("web_studio_test_add_all_types_fields_re
         },
     ],
 });
+
+registry.category("web_tour.tours").add("web_studio_add_one2many_no_related_many2one", {
+    test: true,
+    steps: () => [
+        {
+            trigger: ".o_home_menu_background",
+        },
+        {
+            trigger: ".o_main_navbar .o_web_studio_navbar_item",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_new_app",
+        },
+        {
+            trigger: ".o_app[data-menu-xmlid='web_studio.studio_app_menu']",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_sidebar .o_web_studio_field_one2many",
+            run: "drag_and_drop .o_web_studio_form_view_editor .o_inner_group",
+        },
+        {
+            trigger: "h4.modal-title",
+            run() {
+                assertEqual(
+                    this.anchor.textContent,
+                    "No related many2one fields found"
+                );
+            },
+        },
+        {
+            trigger: ".modal-footer .btn.btn-primary",
+            run: "click",
+        },
+    ],
+});

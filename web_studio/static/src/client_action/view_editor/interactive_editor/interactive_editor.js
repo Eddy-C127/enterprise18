@@ -345,6 +345,9 @@ export class InteractiveEditor extends Component {
         if (!_operation && structure === "field") {
             _operation = await this.addField(droppedData);
         }
+        if (!_operation) {
+            return;
+        }
         const operation = {
             target:
                 _operation?.target ||
