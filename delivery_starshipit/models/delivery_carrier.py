@@ -206,6 +206,9 @@ class DeliveryCarrier(models.Model):
         result = starshipit._get_tracking_link(starshipit_order_number)
         return result.get('results', {}).get('tracking_url', False)
 
+    def starshipit_cancel_shipment(self, pickings):
+        self._starshipit_cancel_shipment(pickings)
+
     def _starshipit_cancel_shipment(self, pickings):
         """ Archive the shipment on starshipit side.
         Note that this will not do anything with the carrier and the user is expected to handle that himself.
