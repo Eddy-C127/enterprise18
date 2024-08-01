@@ -213,7 +213,7 @@
                     <filter name="group_by_template" string="Template" domain="[]" context="{'group_by': 'template_id'}"/>
                     <filter name="group_by_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
                 </group>
-                <searchpanel>
+                <searchpanel class="searchpanel-xs-hide">
                     <field name="state" select="multi" icon="fa-inbox" enable_counters="1"/>
                     <field name="template_tags" string="tags" select="multi" icon="fa-tag" enable_counters="1"/>
                 </searchpanel>
