@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from datetime import date
 from unittest.mock import patch
+from freezegun import freeze_time
 
 from odoo import fields
 from odoo.tests import tagged
@@ -13,6 +14,7 @@ class TestPayrollTerminationPayment(TestPayrollCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.startClassPatcher(freeze_time(date(2024, 1, 1)))
         cls.default_payroll_structure = cls.env.ref("l10n_au_hr_payroll.hr_payroll_structure_au_regular")
 
     def test_termination_payslip_1(self):
