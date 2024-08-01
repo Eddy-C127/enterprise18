@@ -54,6 +54,7 @@ class AccountJournal(models.Model):
         # }
         soda_files = {}
         soda_code_to_name_mapping = {}
+        errors_to_chatter = set()
         for attachment in attachments:
             parsed_attachment = etree.parse(io.BytesIO(attachment.raw))
             # The document VAT number must match the journal's company's VAT number
@@ -62,12 +63,10 @@ class AccountJournal(models.Model):
             ent_num = parsed_ent_num.text and re.search(r'\d+', parsed_ent_num.text).group()
             if ent_num != journal_company_vat:
                 if len(attachments) == 1:
-                    message = _('The Soda Entry could not be created: \n'
-                                'The imported document doesn\'t seem to correspond to this company\'s VAT number nor company id')
+                    message = _('The imported document doesn\'t seem to correspond to this company\'s VAT number nor company id')
                 else:
-                    message = _('The SODA Entry could not be created: \n'
-                                'The company VAT number found in at least one document doesn\'t seem to correspond to this company\'s VAT number nor company id')
-                raise UserError(message)
+                    message = _('The company VAT number found in at least one document doesn\'t seem to correspond to this company\'s VAT number nor company id')
+                errors_to_chatter.add(message)
             # account.move.ref is SocialNumber+SequenceNumber+AccountPeriodYYYY/AccountPeriodmm : check that this move has not already been imported
             account_period = parsed_attachment.find('.//AccountPeriod').text
             ref = "%s-%s-%s/%s" % (parsed_attachment.find('.//Source').text, parsed_attachment.find('.//SeqNumber').text, account_period[:4], account_period[4:])
@@ -94,7 +93,6 @@ class AccountJournal(models.Model):
                     'credit': float(elem.find('./Amount/Credit').text),
                 })
                 soda_code_to_name_mapping[code] = name
-
         wizard = self.env['soda.import.wizard'].create({
             'soda_files': soda_files,
             'soda_code_to_name_mapping': soda_code_to_name_mapping,
@@ -112,4 +110,7 @@ class AccountJournal(models.Model):
             'res_model': 'soda.import.wizard',
             'res_id': wizard.id,
             'target': 'new',
+            'context': {
+                'errors': list(errors_to_chatter),
+            },
         }

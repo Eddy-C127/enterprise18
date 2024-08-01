@@ -99,6 +99,9 @@ class SodaImportWizard(models.TransientModel):
                         ),
                     )
                 )
+            if errors := self.env.context.get('errors', False):
+                for error in errors:
+                    move.message_post(body=error)
             moves += move
         return moves
 
