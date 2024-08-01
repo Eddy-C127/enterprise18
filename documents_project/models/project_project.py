@@ -4,7 +4,7 @@ import json
 from collections import defaultdict
 
 from odoo import api, fields, models, _, _lt
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 from odoo.tools import frozendict
 
 
@@ -214,3 +214,11 @@ class ProjectProject(models.Model):
 
     def _check_create_documents(self):
         return self.use_documents and super()._check_create_documents()
+
+    def _check_project_read_access(self):
+        try:
+            self.check_access_rights('read')
+            self.check_access_rule('read')
+        except AccessError:
+            return False
+        return True
