@@ -16,19 +16,19 @@
                 <field name="total_depreciation_entries_count" invisible="1"/>
                 <field name="parent_id" invisible="1"/>
                 <header>
-                    <button name="validate" invisible="state != 'draft'" string="Confirm" type="object" class="oe_highlight"/>
-                    <button type="object" name="compute_depreciation_board" string="Compute Depreciation" invisible="state != 'draft'"/>
+                    <button name="validate" invisible="state != 'draft'" string="Confirm" type="object" class="oe_highlight" data-hotkey="q"/>
+                    <button type="object" name="compute_depreciation_board" string="Compute Depreciation" invisible="state != 'draft'" data-hotkey="d"/>
                     <button name="set_to_draft" string="Set to Draft" type="object" invisible="depreciation_move_ids or state not in ['open', 'cancelled']"/>
                     <button name="set_to_running" string="Set to Running" type="object" invisible="state != 'close'"/>
                     <button name="resume_after_pause" string="Resume Depreciation" type="object" class="oe_highlight" invisible="state != 'paused'"/>
                     <button name="action_asset_modify" invisible="state != 'open'" string="Modify Depreciation" type="object" data-hotkey="e" class="oe_highlight"/>
-                    <button name="action_save_model" invisible="state not in ('open', 'paused', 'close')" string="Save as Model" type="object"/>
-                    <button name="set_to_cancelled" string="Cancel Asset" type="object" invisible="state != 'open'"/>
+                    <button name="action_save_model" invisible="state not in ('open', 'paused', 'close')" string="Save as Model" type="object" data-hotkey="m"/>
+                    <button name="set_to_cancelled" string="Cancel Asset" type="object" invisible="state != 'open'" data-hotkey="x"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,open" invisible="state == 'model'"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box" invisible="state == 'model'">
-                        <button class="oe_stat_button" name="open_entries"  type="object" icon="fa-bars">
+                        <button class="oe_stat_button" name="open_entries"  type="object" icon="fa-bars" data-hotkey="p">
                             <field string="Posted Entries" name="depreciation_entries_count" widget="statinfo" />
                         </button>
                         <button class="oe_stat_button" name="open_increase"  type="object" icon="fa-chevron-circle-up" invisible="gross_increase_count == 0">
