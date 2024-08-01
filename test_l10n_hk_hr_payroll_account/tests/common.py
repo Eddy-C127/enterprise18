@@ -1,7 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import date
-
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tools.float_utils import float_compare
 
@@ -58,7 +56,7 @@ class TestL10NHkHrPayrollAccountCommon(AccountTestInvoicingCommon):
             'employee_id': cls.employee.id,
             'contract_id': cls.contract.id,
             'company_id': cls.env.company.id,
-            'struct_id': struct_id or cls.env.ref('l10n_hk_hr_payroll.structure_type_employee_cap57').id,
+            'struct_id': struct_id or cls.env.ref('l10n_hk_hr_payroll.hr_payroll_structure_cap57_employee_salary').id,
             'date_from': date_from,
             'date_to': date_to,
             'input_line_ids': input_line_ids or [],
