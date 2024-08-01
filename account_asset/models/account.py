@@ -7,12 +7,12 @@ from odoo import api, fields, models, _
 class AccountAccount(models.Model):
     _inherit = 'account.account'
 
-    asset_model = fields.Many2one(
+    asset_model_ids = fields.Many2many(
         'account.asset',
         domain=[('state', '=', 'model')],
-        help="If this is selected, an expense/revenue will be created automatically "
-             "when Journal Items on this account are posted.",
-        tracking=True)
+        help="An asset wil be created for each asset model when this account is used on a vendor bill or a refund",
+        tracking=True,
+    )
     create_asset = fields.Selection([('no', 'No'), ('draft', 'Create in draft'), ('validate', 'Create and validate')],
                                     required=True, default='no', tracking=True)
     # specify if the account can generate asset depending on it's type. It is used in the account form view

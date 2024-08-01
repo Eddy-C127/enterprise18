@@ -162,6 +162,14 @@ class AccountAsset(models.Model):
 
     net_gain_on_sale = fields.Monetary(string="Net gain on sale", help="Net value of gain or loss on sale of an asset", copy=False)
 
+    linked_assets_ids = fields.One2many(
+        comodel_name='account.asset',
+        string="Linked Assets",
+        compute='_compute_linked_assets',
+    )
+    count_linked_asset = fields.Integer(compute="_compute_linked_assets")
+    warning_count_assets = fields.Boolean(compute="_compute_linked_assets")
+
     # -------------------------------------------------------------------------
     # COMPUTE METHODS
     # -------------------------------------------------------------------------
@@ -356,6 +364,15 @@ class AccountAsset(models.Model):
             asset.depreciation_entries_count = depreciation_per_asset.get(asset.id, 0)
             asset.total_depreciation_entries_count = len(asset.depreciation_move_ids)
             asset.gross_increase_count = len(asset.children_ids)
+
+    @api.depends('original_move_line_ids.asset_ids')
+    def _compute_linked_assets(self):
+        for asset in self:
+            asset.linked_assets_ids = asset.original_move_line_ids.asset_ids - self
+            asset.count_linked_asset = len(asset.linked_assets_ids)
+            confirmed_assets = asset.linked_assets_ids.filtered(lambda x: x.state == "open")
+            # The warning_count_assets is useful to put the smart button in red, in case at least one asset has been confirmed
+            asset.warning_count_assets = len(confirmed_assets) > 0
 
     # -------------------------------------------------------------------------
     # ONCHANGE METHODS
@@ -729,6 +746,14 @@ class AccountAsset(models.Model):
     # -------------------------------------------------------------------------
     # PUBLIC ACTIONS
     # -------------------------------------------------------------------------
+
+    def action_open_linked_assets(self):
+        action = self.linked_assets_ids.open_asset(['tree', 'form'])
+        action.get('context', {}).update({
+            'from_linked_assets': 0,
+        })
+        return action
+
     def action_asset_modify(self):
         """ Returns an action opening the asset modification wizard.
         """

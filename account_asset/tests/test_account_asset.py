@@ -433,7 +433,7 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         # The account needs a default model for the invoice to validate the revenue
         self.company_data['default_account_assets'].create_asset = 'validate'
-        self.company_data['default_account_assets'].asset_model = account_asset_model
+        self.company_data['default_account_assets'].asset_model_ids = account_asset_model
 
         invoice = self.env['account.move'].create({
             'move_type': 'in_invoice',
@@ -1330,7 +1330,7 @@ class TestAccountAsset(TestAccountReportsCommon):
             'state': 'model',
         })
 
-        depreciation_account.write({'create_asset': 'draft', 'asset_model': revenue_model.id})
+        depreciation_account.write({'create_asset': 'draft', 'asset_model_ids': revenue_model})
 
         invoice = self.env['account.move'].create({
             'invoice_date': '2019-07-01',
@@ -1460,7 +1460,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         })
 
         self.company_data['default_account_assets'].create_asset = "validate"
-        self.company_data['default_account_assets'].asset_model = asset_model
+        self.company_data['default_account_assets'].asset_model_ids = asset_model
 
         invoice = self.env['account.move'].create({
             'move_type': 'in_refund',
@@ -1518,7 +1518,7 @@ class TestAccountAsset(TestAccountReportsCommon):
             'state': 'model',
         })
         self.company_data['default_account_assets'].create_asset = 'draft'
-        self.company_data['default_account_assets'].asset_model = asset_model
+        self.company_data['default_account_assets'].asset_model_ids = asset_model
         account_assets_multiple = self.company_data['default_account_assets'].copy()
         account_assets_multiple.multiple_assets_per_line = True
 
@@ -1640,7 +1640,7 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         # 1. Automatic creation
         asset_account.create_asset = 'draft'
-        asset_account.asset_model = self.account_asset_model_fixedassets.id
+        asset_account.asset_model_ids = self.account_asset_model_fixedassets
         asset_account.multiple_assets_per_line = True
 
         vendor_bill_auto = self.env['account.move'].create({
@@ -1664,7 +1664,7 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         # 2. Manual creation
         asset_account.create_asset = 'no'
-        asset_account.asset_model = None
+        asset_account.asset_model_ids = None
         asset_account.multiple_assets_per_line = False
 
         vendor_bill_manu = self.env['account.move'].create({
@@ -1889,7 +1889,7 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         depreciation_account.can_create_asset = True
         depreciation_account.create_asset = 'draft'
-        depreciation_account.asset_model = asset_model
+        depreciation_account.asset_model_ids = asset_model
 
         refund = self.env['account.move'].create({
             'move_type': 'in_refund',
@@ -2606,7 +2606,7 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         other_account_on_bill = self.company_data['default_account_assets'].copy()
         other_account_on_bill.create_asset = 'draft'
-        other_account_on_bill.asset_model = asset_model
+        other_account_on_bill.asset_model_ids = asset_model
         invoice = self.env['account.move'].create({
             'move_type': 'in_invoice',
             'invoice_date': '2020-12-31',
@@ -2846,7 +2846,7 @@ class TestAccountAsset(TestAccountReportsCommon):
     def test_asset_acquisition_date_from_bill(self):
         """Test that the invoice date is used as acquisition date instead of date"""
         self.company_data['default_account_assets'].create_asset = 'draft'
-        self.company_data['default_account_assets'].asset_model = self.account_asset_model_fixedassets
+        self.company_data['default_account_assets'].asset_model_ids = self.account_asset_model_fixedassets
 
         bill = self.env['account.move'].with_context(asset_type='purchase').create({
             'move_type': 'in_invoice',

@@ -222,6 +222,8 @@ class AccountMove(models.Model):
                         units_quantity = max(1, int(move_line.quantity))
                     else:
                         units_quantity = 1
+
+                    model_ids = move_line.account_id.asset_model_ids
                     vals = {
                         'name': move_line.name,
                         'company_id': move_line.company_id.id,
@@ -231,17 +233,16 @@ class AccountMove(models.Model):
                         'state': 'draft',
                         'acquisition_date': move.invoice_date if not move.reversed_entry_id else move.reversed_entry_id.invoice_date,
                     }
-                    model_id = move_line.account_id.asset_model
-                    if model_id:
-                        vals.update({
-                            'model_id': model_id.id,
-                        })
-                    auto_validate.extend([move_line.account_id.create_asset == 'validate'] * units_quantity)
-                    invoice_list.extend([move] * units_quantity)
-                    for i in range(1, units_quantity + 1):
-                        if units_quantity > 1:
-                            vals['name'] = move_line.name + _(" (%(current)s of %(total)s)", current=i, total=units_quantity)
-                        create_list.extend([vals.copy()])
+                    for model_id in model_ids or [None]:
+                        if model_id:
+                            vals['model_id'] = model_id.id
+
+                        auto_validate.extend([move_line.account_id.create_asset == 'validate'] * units_quantity)
+                        invoice_list.extend([move] * units_quantity)
+                        for i in range(1, units_quantity + 1):
+                            if units_quantity > 1:
+                                vals['name'] = move_line.name + _(" (%(current)s of %(total)s)", current=i, total=units_quantity)
+                            create_list.extend([vals.copy()])
 
         assets = self.env['account.asset'].with_context({}).create(create_list)
         for asset, vals, invoice, validate in zip(assets, create_list, invoice_list, auto_validate):

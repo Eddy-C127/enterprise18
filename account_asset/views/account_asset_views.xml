@@ -28,6 +28,20 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box" invisible="state == 'model'">
+                        <button name="action_open_linked_assets"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-id-card-o"
+                            invisible="count_linked_asset == 0 or warning_count_assets">
+                            <field string="Asset(s)" name="count_linked_asset" widget="statinfo"/>
+                        </button>
+                        <button name="action_open_linked_assets"
+                            type="object"
+                            class="oe_stat_button text-danger"
+                            icon="fa-id-card-o"
+                            invisible="count_linked_asset == 0 or not warning_count_assets">
+                            <field string="Asset(s)" name="count_linked_asset" widget="statinfo"/>
+                        </button>
                         <button class="oe_stat_button" name="open_entries"  type="object" icon="fa-bars" data-hotkey="p">
                             <field string="Posted Entries" name="depreciation_entries_count" widget="statinfo" />
                         </button>
