@@ -22,7 +22,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
             content: markup(_t('Open your <b>worksheet</b> in order to fill it in with the details of your intervention.')),
             position: 'bottom',
         }, {
-            trigger: '.o_form_sheet div[name] input',
+            trigger: '.o_form_sheet div[name] input, .o_form_sheet .note-editable',
             extra_trigger: '.o_control_panel:not(:has(button[name="action_fsm_worksheet"]))',
             content: markup(_t('Fill in your <b>worksheet</b> with the details of your intervention.')),
             run: "text My intervention details",
