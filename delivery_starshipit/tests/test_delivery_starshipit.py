@@ -84,18 +84,18 @@ class TestDeliveryStarShipIt(TransactionCase):
             'zip': 3675,
             'phone': '0353483783',
         })
-        cls.au_partner = cls.env.ref('base.res_partner_2')
-        cls.au_partner.write({
-            'country_id': cls.env.ref('base.au').id,
+        cls.au_partner = cls.env['res.partner'].create({
+            'name': 'Deco Addict',
+            'is_company': True,
             'street': '26 Acheron Road',
             'street2': False,
-            'state_id': cls.env.ref('base.state_au_7').id,
             'city': 'Hazelwood North',
+            'country_id': cls.env.ref('base.au').id,
             'zip': 3840,
+            'state_id': cls.env.ref('base.state_au_7').id,
+            'email': 'deco.addict82@example.com',
             'phone': '0353229781',
         })
-        # partner in us (azure)
-        cls.us_partner = cls.env.ref('base.res_partner_12')
 
         cls.product_to_ship1 = cls.env["product.product"].create({
             'name': 'Door with Legs',
