@@ -232,11 +232,11 @@ class OSSTaxReportCustomHandlerOss(models.AbstractModel):
         return None
 
 
-class GenericTaxReportCustomHandler(models.AbstractModel):
-    _inherit = 'account.generic.tax.report.handler'
+class AccountTaxReportHandler(models.AbstractModel):
+    _inherit = 'account.tax.report.handler'
 
     def _get_vat_closing_entry_additional_domain(self):
-        # OVERRIDE
+        # EXTENDS account_reports
         domain = super()._get_vat_closing_entry_additional_domain()
         domain += [
             ('tax_tag_ids', 'not in', self.env.ref('l10n_eu_oss.tag_oss').ids),
