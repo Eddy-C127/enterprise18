@@ -21,7 +21,7 @@ export class AccountReportListRenderer extends ListRenderer {
         // From ListRenderer
         // We can't really use `super.setup()` because it expects to be used on a html table.
         this.allColumns = this.processAllColumn(this.props.archInfo.columns, this.props.list);
-        this.keyOptionalFields = this.createKeyOptionalFields();
+        this.keyOptionalFields = `optional_fields,${this.createViewKey()}`;
         this.optionalActiveFields = this.computeOptionalActiveFields();
         this.columns = this.getActiveColumns(this.props.list);
 

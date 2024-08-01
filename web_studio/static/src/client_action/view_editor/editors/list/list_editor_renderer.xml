@@ -7,7 +7,7 @@
       <div class="d-flex justify-content-between mt-2 mb-2">
         <div class="d-flex align-items-center align-content-around flex-wrap gap-1">
           <t t-foreach="props.archInfo.headerButtons" t-as="button" t-key="button.id">
-            <button 
+            <button
               class="btn btn-secondary o-web-studio-editor--element-clickable"
               t-att-studioxpath="button.studioXpath"
               t-att-data-studio-xpath="button.studioXpath"
@@ -74,7 +74,7 @@
       <attribute name="t-att-data-studio-xpath">column.studioXpath</attribute>
     </xpath>
 
-    <xpath expr="//t[@t-if='props.onOpenFormView']" position="attributes">
+    <xpath expr="//t[@t-if='hasOpenFormViewColumn']" position="attributes">
       <attribute name="t-if">props.archInfo.openFormView</attribute>
     </xpath>
 
