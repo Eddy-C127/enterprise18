@@ -161,20 +161,37 @@ class MrpReport(models.Model):
         return f"""
             LEFT JOIN (
                 SELECT
-                    SUM(ir_prop.value_float * bom_line.product_qty)                     AS value,
+                    SUM(
+                        COALESCE(
+                            ir_prop_1.value_float,
+                            COALESCE(
+                                ir_prop_2.value_float,
+                                ir_prop_3.value_float
+                            )
+                        ) * bom_line.product_qty
+                    )                                                                   AS value,
                     MIN(mo.id)                                                          AS mo_id
                 FROM mrp_production                                                     AS mo
-                JOIN res_company                                                        AS rc
-                    ON rc.id = {int(self.env.company.id)}
                 JOIN mrp_bom_line                                                       AS bom_line
                     ON bom_line.bom_id = mo.bom_id
-                JOIN ir_property                                                        AS ir_prop
-                    ON ir_prop.res_id = 'product.product,' || bom_line.product_id
-                WHERE ir_prop.name = 'standard_price'
-                    AND mo.state = 'done'
+                {self._left_join_ir_prop_with_fallback('ir_prop_1')}
+                {self._left_join_ir_prop_with_fallback('ir_prop_2', False)}
+                {self._left_join_ir_prop_with_fallback('ir_prop_3', False, False)}
+                WHERE mo.state = 'done'
                 GROUP BY mo.id
             ) product_standard_price
                 ON product_standard_price.mo_id = mo.id
+        """
+
+    def _left_join_ir_prop_with_fallback(self, alias, use_res=True, use_company=True):
+        res_id_operation = "= 'product.product,' || bom_line.product_id" if use_res else "IS NULL"
+        company_id_operation = f"= {int(self.env.company.id)}" if use_company else "IS NULL"
+
+        return f"""
+            LEFT JOIN ir_property                                                   AS {alias}
+                ON {alias}.res_id {res_id_operation}
+                AND {alias}.company_id {company_id_operation}
+                AND {alias}.fields_id = {int(self.env['ir.model.fields']._get_ids('product.product').get('standard_price'))}
         """
 
     def _join_expected_operation_cost_unit(self):
@@ -189,8 +206,6 @@ class MrpReport(models.Model):
                         {self._get_expected_duration()} * wc.employee_costs_hour * op.employee_ratio
                     )                                                                           AS employee_cost
                 FROM mrp_production                                                             AS mo
-                JOIN res_company                                                                AS rc
-                    ON rc.id = {int(self.env.company.id)}
                 JOIN mrp_bom                                                                    AS bom
                     ON mo.bom_id = bom.id
                 JOIN mrp_routing_workcenter                                                     AS op
