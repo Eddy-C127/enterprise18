@@ -323,7 +323,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
                 extra_payment_form_values.update(
                     {
                     'transaction_route_subscription': f'/my/subscriptions/{subscription.id}/transaction',
-                    'access_token': invoice_sudo.access_token,
+                    'access_token': subscription.access_token,
                     'is_subscription': True,
                 })
         return extra_payment_form_values

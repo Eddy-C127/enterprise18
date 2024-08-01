@@ -180,3 +180,27 @@ class TestSubscriptionPaymentFlows(TestSubscriptionCommon, PaymentHttpCommon):
             JsonRpcException, msg='odoo.exceptions.ValidationError'
         ):
             self.make_jsonrpc_request(url, route_kwargs)
+
+    @mute_logger('odoo.http')
+    def test_transaction_route_from_email(self):
+        url = self._build_url(f'/my/subscriptions/{self.subscription.id}/transaction')
+        self.subscription.write({
+            'partner_id': self.partner.id,
+            'company_id': self.company.id,
+            'sale_order_template_id': self.subscription_tmpl.id,
+            'payment_token_id': self.payment_token.id,
+        })
+        self.subscription._onchange_sale_order_template_id()
+        self.subscription.action_confirm()
+        invoice = self.subscription._create_invoices()
+        invoice._post()
+        # A "send email" action triggered on invoice, sends an email with the invoice access token
+        # but the subscription transaction url expects the order access_token.
+        # Make sure that if the wrong access_token is sent throw validation error.
+        route_kwargs = {
+            'access_token': invoice._portal_ensure_token(),
+        }
+        with mute_logger("odoo.http"), self.assertRaises(
+            JsonRpcException, msg='odoo.exceptions.ValidationError'
+        ):
+            self.make_jsonrpc_request(url, route_kwargs)
