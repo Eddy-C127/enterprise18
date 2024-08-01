@@ -18,4 +18,4 @@ class ProjectTaskCreateTimesheet(models.TransientModel):
                     time=date.strftime(get_lang(self.env).time_format),
                 ),
             )
-        super().save_timesheet()
+        return super().save_timesheet()
