@@ -51,14 +51,14 @@
             </xpath>
 
             <setting id="post_bank_transactions_and_payments_setting" position="after">
-                <setting string="Deferred entries:" company_dependent="1">
+                <setting string="Deferred expense entries:" company_dependent="1">
                     <div class="content-group">
                         <div class="row mt8">
                             <label for="deferred_expense_journal_id" class="col-lg-5 o_light_label" string="Journal"/>
                             <field name="deferred_expense_journal_id" domain="[('type', '=', 'general'), ('active', '=', True)]"/>
                         </div>
                         <div class="row mt8">
-                            <label for="deferred_expense_account_id" class="col-lg-5 o_light_label" string="Deferred Account"/>
+                            <label for="deferred_expense_account_id" class="col-lg-5 o_light_label" string="Deferred expense"/>
                             <field name="deferred_expense_account_id" domain="[('account_type', '=', 'asset_current'), ('deprecated', '=', False)]"/>
                         </div>
                         <div class="row mt8">
@@ -71,14 +71,14 @@
                         </div>
                     </div>
                 </setting>
-                <setting string="Post Deferred Revenue Entries in:" company_dependent="1">
+                <setting string="Deferred revenue entries:" company_dependent="1">
                     <div class="content-group">
                         <div class="row mt8">
                             <label for="deferred_revenue_journal_id" class="col-lg-5 o_light_label" string="Journal"/>
                             <field name="deferred_revenue_journal_id" domain="[('type', '=', 'general'), ('active', '=', True)]"/>
                         </div>
                         <div class="row mt8">
-                            <label for="deferred_revenue_account_id" class="col-lg-5 o_light_label" string="Deferred Account"/>
+                            <label for="deferred_revenue_account_id" class="col-lg-5 o_light_label" string="Deferred revenue"/>
                             <field name="deferred_revenue_account_id" domain="[('account_type', '=', 'liability_current'), ('deprecated', '=', False)]"/>
                         </div>
                         <div class="row mt8">
