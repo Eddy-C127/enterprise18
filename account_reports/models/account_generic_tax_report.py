@@ -371,7 +371,11 @@ class AccountTaxReportHandler(models.AbstractModel):
                     if record_id != report_line_id or column['expression_label'] != column_expression_label:
                         continue
 
-                    if operation_type == 'due':
+                    # We accept 3 types of operations:
+                    # 1) due and 2) deductible - This is used for reports that have lines for the payable vat and
+                    # lines for the reclaimable vat.
+                    # 3) total - This is used for reports that have a single line with the payable/reclaimable vat.
+                    if operation_type in {'due', 'total'}:
                         total_amount += column['no_format']
                     elif operation_type == 'deductible':
                         total_amount -= column['no_format']

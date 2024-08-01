@@ -78,6 +78,8 @@ Accounting reports for Netherlands
         'data/account_financial_report_profit_loss.xml',
         'data/account_financial_report_balance_sheet.xml',
         'data/xml_audit_file_3_2.xml',
+        'data/tax_report.xml',
+        'views/res_config_settings_views.xml',
     ],
     'installable': True,
     'auto_install': ['l10n_nl', 'account_reports'],
