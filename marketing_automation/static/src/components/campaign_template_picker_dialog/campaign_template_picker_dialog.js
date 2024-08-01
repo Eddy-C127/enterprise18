@@ -1,7 +1,4 @@
-/** @odoo-module **/
-
 import { Dialog } from "@web/core/dialog/dialog";
-import { _t } from "@web/core/l10n/translation";
 import { Notebook } from "@web/core/notebook/notebook";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, useState } from "@odoo/owl";
@@ -24,7 +21,6 @@ export class CampaignTemplatePickerDialog extends Component {
      */
     setup() {
         super.setup();
-        this.title = _t("Create a Marketing Automation Campaign");
         this.orm = useService("orm");
         this.action = useService("action");
         this.activeTemplate = useState({});

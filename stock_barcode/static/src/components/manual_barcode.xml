@@ -13,7 +13,7 @@
     </t>
 
     <t t-name="stock_barcode.ManualBarcodeScanner">
-        <Dialog title="title" size="'sm'" fullscreen="false">
+        <Dialog title.translate="Barcode Manual Entry" size="'sm'" fullscreen="false">
             <div class="px-2">
                 <input id="manual_barcode" t-model="state.barcode" type="text" name="barcode"
                        class="border-0 form-control o_input border-bottom" t-ref="manualBarcode"

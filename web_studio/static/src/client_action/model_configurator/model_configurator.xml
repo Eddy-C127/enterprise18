@@ -41,7 +41,7 @@
 </t>
 
 <t t-name="web_studio.ModelConfiguratorDialog" >
-    <Dialog title="title" footer="false" contentClass="'o_web_studio_model_configurator'">
+    <Dialog title.translate="Suggested features for your new model" footer="false" contentClass="'o_web_studio_model_configurator'">
         <ModelConfigurator embed="true" onConfirmOptions.bind="onConfirm" label="props.confirmLabel" onPrevious.bind="onPrevious"/>
     </Dialog>
 </t>

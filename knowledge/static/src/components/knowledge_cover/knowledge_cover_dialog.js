@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { _t } from "@web/core/l10n/translation";
 import { AutoResizeImage, ImageSelector } from '@web_editor/components/media_dialog/image_selector';
 import { ConfirmationDialog } from '@web/core/confirmation_dialog/confirmation_dialog';
@@ -141,7 +139,6 @@ export class KnowledgeCoverDialog extends Component {
     setup() {
         this.size = 'xl';
         this.contentClass = 'o_select_media_dialog h-100';
-        this.title = _t("Choose a nice cover");
         this.modalRef = useChildRef();
     }
 

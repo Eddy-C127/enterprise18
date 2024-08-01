@@ -1,6 +1,5 @@
 import { Component, useState, onWillUpdateProps, useChildSubEnv, onWillStart } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
-import { _t } from "@web/core/l10n/translation";
 import { Thread } from "@mail/core/common/thread";
 import { Composer } from "@mail/core/common/composer";
 import { SpreadsheetCommentComposer } from "./spreadsheet_comment_composer";
@@ -43,9 +42,5 @@ export class CellThread extends Component {
             id: threadId,
         });
         await this.state.thread.fetchNewMessages();
-    }
-
-    get placeholder() {
-        return _t("Add a comment...");
     }
 }

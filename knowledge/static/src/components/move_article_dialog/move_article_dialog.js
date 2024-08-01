@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 import { Dialog } from '@web/core/dialog/dialog';
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
@@ -19,7 +17,6 @@ class MoveArticleDialog extends Component {
 
     setup() {
         this.size = 'md';
-        this.title = _t("Move an Article");
         this.orm = useService("orm");
         this.state = useState({selectedParentArticle: false, selectionDisplayGroups: []});
         this.placeholderLabel = _t('Choose an Article...');

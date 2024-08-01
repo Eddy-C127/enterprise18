@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { Component, useRef, useState } from "@odoo/owl";
 import { rpc } from "@web/core/network/rpc";
 import { useBus, useService, useOwnedDialogs } from "@web/core/utils/hooks";
@@ -8,7 +7,6 @@ import { useNestedSortable } from "@web/core/utils/nested_sortable";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { MenuCreatorDialog } from "@web_studio/client_action/menu_creator/menu_creator";
 import { useDialogConfirmation, useSubEnvAndServices } from "@web_studio/client_action/utils";
-import { _t } from "@web/core/l10n/translation";
 
 const EditMenuDialogProps = { ...Dialog.props };
 EditMenuDialogProps.close = { type: Function };
@@ -28,8 +26,6 @@ class EditMenuDialog extends Component {
         this.orm = useService("orm");
 
         useBus(this.env.bus, "ACTION_MANAGER:UPDATE", () => this.cancel());
-
-        this.title = _t("Edit Menu");
 
         // States and data
         this.state = useState({ tree: {}, flatMenus: {} });

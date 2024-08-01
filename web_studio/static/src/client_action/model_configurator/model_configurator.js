@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import { Dialog } from "@web/core/dialog/dialog";
 import { Component, useState } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
@@ -138,9 +137,5 @@ export class ModelConfiguratorDialog extends Component {
 
     onPrevious() {
         this.props.close();
-    }
-
-    get title() {
-        return _t("Suggested features for your new model");
     }
 }

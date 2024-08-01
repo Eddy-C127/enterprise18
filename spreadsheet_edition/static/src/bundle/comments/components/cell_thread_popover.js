@@ -1,6 +1,5 @@
 import { Component, useState, onWillUpdateProps, useChildSubEnv } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
-import { _t } from "@web/core/l10n/translation";
 import { Thread } from "@mail/core/common/thread";
 import { CellThread } from "./cell_thread";
 import { SpreadsheetCommentComposer } from "./spreadsheet_comment_composer";
@@ -65,10 +64,6 @@ export class CellThreadPopover extends Component {
             model: CellThreadPopover.threadModel,
             id: threadId,
         });
-    }
-
-    get placeholder() {
-        return _t("Add a comment...");
     }
 
     async insertNewThread(value, postData) {

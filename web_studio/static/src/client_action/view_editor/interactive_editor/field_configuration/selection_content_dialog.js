@@ -1,7 +1,4 @@
-/** @odoo-module */
-
 import { Dialog } from "@web/core/dialog/dialog";
-import { _t } from "@web/core/l10n/translation";
 import { useSortable } from "@web/core/utils/sortable_owl";
 
 import { Component, useRef, useState } from "@odoo/owl";
@@ -55,10 +52,6 @@ export class SelectionContentDialog extends Component {
 
     set selection(items) {
         this.state.choices = items;
-    }
-
-    get title() {
-        return _t("Field Properties");
     }
 
     selectionToItem(selection, params = {}) {

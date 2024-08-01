@@ -1,6 +1,3 @@
-/** @odoo-module **/
-
-import { _t } from "@web/core/l10n/translation";
 import { BarcodeScanner } from '@barcodes/components/barcode_scanner';
 import { Dialog } from "@web/core/dialog/dialog";
 import { Component, onMounted, useRef, useState } from "@odoo/owl";
@@ -18,7 +15,6 @@ export class ManualBarcodeScanner extends Component {
     static template = "stock_barcode.ManualBarcodeScanner";
 
     setup() {
-        this.title = _t("Barcode Manual Entry");
         this.state = useState({
             barcode: false,
         });

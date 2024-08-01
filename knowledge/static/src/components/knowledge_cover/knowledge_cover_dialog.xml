@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates id="template" xml:space="preserve">
 <t t-name="knowledge.KnowledgeCoverDialog">
-    <Dialog contentClass="contentClass" size="size" title="title" modalRef="modalRef">
+    <Dialog contentClass="contentClass" size="size" title.translate="Choose a nice cover" modalRef="modalRef">
         <KnowledgeCoverSelector articleCoverId="props.articleCoverId"
                                 save.bind="save" 
                                 searchTerm="props.articleName"

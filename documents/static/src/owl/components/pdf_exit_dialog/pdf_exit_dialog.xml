@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-name="documents.ExitToolsDialog">
-        <Dialog size="'md'" title="title" modalRef="modalRef">
+        <Dialog size="'md'" title.translate="Exit Split Tools" modalRef="modalRef">
             <t t-if="this.props.isRuleApplied">
                 What do you want to do with the remaining pages ?
             </t>

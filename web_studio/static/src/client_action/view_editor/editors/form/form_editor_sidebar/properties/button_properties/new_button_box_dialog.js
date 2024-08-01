@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { Component, useState } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
 import { Many2XAutocomplete } from "@web/views/fields/relational_utils";
@@ -27,9 +25,6 @@ export class NewButtonBoxDialog extends Component {
             field: undefined,
         });
         this.text = undefined;
-    }
-    get title() {
-        return _t("Add a Button");
     }
     async update(selection) {
         if (!selection[0].display_name) {

@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import { Dialog } from "@web/core/dialog/dialog";
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
@@ -45,10 +43,6 @@ export class DialogAddNewButton extends Component {
             resId: this.state.actionId,
             domain: [["binding_model_id", "=", this.props.model]],
         };
-    }
-
-    get title() {
-        return _t("Buttons Properties");
     }
 
     get checkValidity() {

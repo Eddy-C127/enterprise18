@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { Component, useState } from "@odoo/owl";
 import { useOwnedDialogs } from "@web/core/utils/hooks";
 import { Dialog } from "@web/core/dialog/dialog";
@@ -82,7 +81,6 @@ export class MenuCreatorDialog extends Component {
         this.addDialog = useOwnedDialogs();
         this.menuCreatorModel = useState(new MenuCreatorModel({ allowNoModel: true }));
         this.state = useState({ showValidation: false });
-        this.title = _t("Create your menu");
         const { confirm, cancel } = useDialogConfirmation({
             confirm: async (data = {}) => {
                 if (!this.menuCreatorModel.isValid) {

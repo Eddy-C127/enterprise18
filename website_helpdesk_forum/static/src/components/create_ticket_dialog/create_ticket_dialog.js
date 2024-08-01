@@ -17,7 +17,6 @@ export class CreateTicketDialog extends Component {
     setup() {
         this.state = useState({});
         this.inputText = useRef("inputText");
-        this.dialogTitle = _t('Create Ticket');
         this.notification = useService("notification");
         this.orm = useService("orm");
 

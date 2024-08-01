@@ -1,7 +1,4 @@
-/** @odoo-module **/
-
 import { Dialog } from "@web/core/dialog/dialog";
-import { _t } from "@web/core/l10n/translation";
 import { useChildRef } from "@web/core/utils/hooks";
 import { Component } from "@odoo/owl";
 
@@ -17,7 +14,6 @@ export class ExitSplitToolsDialog extends Component {
 
     setup() {
         this.modalRef = useChildRef();
-        this.title = _t("Exit Split Tools");
     }
     /**
      * @public

@@ -1,4 +1,3 @@
-/** @odoo-module */
 import { Component, useState } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
@@ -38,10 +37,6 @@ class SimpleNewModelDialog extends Component {
 
         this._confirm = confirm;
         this._cancel = cancel;
-    }
-
-    get title() {
-        return _t("Create a new Model");
     }
 
     confirm(data = {}) {

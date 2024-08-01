@@ -1,7 +1,4 @@
-/** @odoo-module **/
-
 import { Dialog } from "@web/core/dialog/dialog";
-import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
@@ -10,7 +7,6 @@ import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator
 import { Component, useState } from "@odoo/owl";
 
 export class IconCreatorDialog extends Component {
-    static title = _t("Edit Application Icon");
     static props = {
         editedAppData: Object,
         appId: Number,

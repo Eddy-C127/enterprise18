@@ -2,7 +2,7 @@
 <templates>
     <!-- /video template -->
     <t t-name="knowledge.VideoSelectorDialog">
-        <Dialog size="'xl'" title="title" bodyClass="'o_knowledge_video_selector_dialog'">
+        <Dialog size="'xl'" title.translate="Embed a video" bodyClass="'o_knowledge_video_selector_dialog'">
             <VideoSelector
                 selectMedia.bind="selectMedia"
                 errorMessages.bind="errorMessages"/>

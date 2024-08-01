@@ -1,10 +1,6 @@
-/** @odoo-module */
-
-import { _t } from "@web/core/l10n/translation";
 import { Component, useState } from "@odoo/owl";
 import { Dialog } from "@web/core/dialog/dialog";
 import { VideoSelector } from "@web_editor/components/media_dialog/video_selector";
-
 
 export class VideoSelectorDialog extends Component {
     static template = "knowledge.VideoSelectorDialog";
@@ -24,7 +20,6 @@ export class VideoSelectorDialog extends Component {
      */
     setup () {
         super.setup();
-        this.title = _t("Embed a video");
         this.media = {};
         this.state = useState({
             enableInsertVideoButton: false

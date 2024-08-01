@@ -94,7 +94,6 @@ export class IrMenuSelector extends Component {
 
 export class IrMenuSelectorDialog extends Component {
     static components = { Dialog, IrMenuSelector };
-    static title = _t("Select an Odoo menu to link in your spreadsheet");
     static template = "spreadsheet_edition.IrMenuSelectorDialog";
     static props = {
         onMenuSelected: Function,
