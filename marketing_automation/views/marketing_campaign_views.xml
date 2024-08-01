@@ -135,7 +135,7 @@
                                 'default_model_id': model_id,
                                 'default_utm_campaign_id': utm_campaign_id,
                             }">
-                            <kanban default_order="interval_standardized">
+                            <kanban default_order="interval_standardized" can_open="false">
                                 <field name="interval_standardized" />
                                 <field name="id" />
                                 <field name="model_name" />
@@ -269,7 +269,7 @@
                                                     <field name="domain" widget="domain" options="{'foldable': True, 'model': 'model_name'}" readonly="1"/>
                                                 </div>
                                                 <div t-if="!read_only_mode" class="o_ma_child_activity text-center">
-                                                    <div class="o_ma_child_activity_title card-footer">
+                                                    <div class="o_ma_child_activity_title card-footer user-select-none">
                                                         <i class="fa fa-plus-circle" /> Add child activity
                                                     </div>
                                                     <div class="o_ma_child_activity_buttons">
