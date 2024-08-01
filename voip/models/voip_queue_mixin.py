@@ -110,10 +110,6 @@ class VoipQueueMixin(models.AbstractModel):
                 ("mobile", "!=", False),
             ]
         )
-        self.env["bus.bus"]._sendmany(
-            [
-                [self.env.user.partner_id, "delete_call_activity", {"id": activity.id}]
-                for activity in related_activities
-            ]
-        )
+        for activity in related_activities:
+            self.env.user._bus_send("delete_call_activity", {"id": activity.id})
         related_activities.unlink()

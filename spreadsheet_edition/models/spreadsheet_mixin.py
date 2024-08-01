@@ -19,7 +19,8 @@ CollaborationMessage = Dict[str, Any]
 
 
 class SpreadsheetMixin(models.AbstractModel):
-    _inherit = "spreadsheet.mixin"
+    _name = "spreadsheet.mixin"
+    _inherit = ["spreadsheet.mixin", "bus.listener.mixin"]
 
     spreadsheet_snapshot = fields.Binary()
     spreadsheet_revision_ids = fields.One2many(
@@ -321,7 +322,7 @@ class SpreadsheetMixin(models.AbstractModel):
     def _broadcast_spreadsheet_message(self, message: CollaborationMessage):
         """Send the message to the spreadsheet channel"""
         self.ensure_one()
-        self.env["bus.bus"]._sendone(self, "spreadsheet", dict(message, id=self.id))
+        self._bus_send("spreadsheet", dict(message, id=self.id))
 
     def _delete_collaborative_data(self):
         self.spreadsheet_snapshot = False

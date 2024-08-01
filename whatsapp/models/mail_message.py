@@ -28,11 +28,7 @@ class MailMessage(models.Model):
                 'partner_id': partner_id.id,
             })
             reactionGroups.append(self._get_whatsapp_reaction_format(reaction_content, partner_id))
-        self.env["bus.bus"]._sendone(
-            self._bus_notification_target(),
-            "mail.record/insert",
-            Store(self, {"reactions": reactionGroups}).get_result(),
-        )
+        self._bus_send_store(self, {"reactions": reactionGroups})
 
     def _get_whatsapp_reaction_format(self, content, partner_id, unlink_reaction=False):
         self.ensure_one()

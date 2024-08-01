@@ -117,13 +117,8 @@ class DiscussChannel(models.Model):
         new_msg = super().message_post(message_type=message_type, **kwargs)
         if self.channel_type == 'whatsapp' and message_type == 'whatsapp_message':
             if new_msg.author_id == self.whatsapp_partner_id:
-                self.env["bus.bus"]._sendone(
-                    self,
-                    "mail.record/insert",
-                    Store(
-                        self,
-                        {"whatsapp_channel_valid_until": self.whatsapp_channel_valid_until},
-                    ).get_result(),
+                self._bus_send_store(
+                    self, {"whatsapp_channel_valid_until": self.whatsapp_channel_valid_until}
                 )
             if not new_msg.wa_message_ids:
                 whatsapp_message = self.env['whatsapp.message'].create({
@@ -246,11 +241,7 @@ class DiscussChannel(models.Model):
             }])
             message_body = Markup(f'<div class="o_mail_notification">{_("joined the channel")}</div>')
             new_member.channel_id.message_post(body=message_body, message_type="notification", subtype_xmlid="mail.mt_comment")
-            self.env["bus.bus"]._sendone(
-                self,
-                "mail.record/insert",
-                Store(new_member).add(self, {"memberCount": self.member_count}).get_result(),
-            )
+            self._bus_send_store(Store(new_member).add(self, {"memberCount": self.member_count}))
         return Store(self).get_result()
 
     # ------------------------------------------------------------
@@ -263,7 +254,7 @@ class DiscussChannel(models.Model):
                 and self.whatsapp_mail_message_id.author_id == partner) \
                 or len(self.channel_member_ids) <= 2):
             msg = _("You can't leave this channel. As you are the owner of this WhatsApp channel, you can only delete it.")
-            self._send_transient_message(partner, msg)
+            partner._bus_send_transient_message(self, msg)
             return
         super()._action_unfollow(partner)
 

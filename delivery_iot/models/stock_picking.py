@@ -38,7 +38,7 @@ class StockPicking(models.Model):
             elif self.picking_type_id.auto_print_export_documents and 'ShippingDoc' in attachments_names:
                 report = self.env['ir.actions.report']._get_report_from_name('delivery_iot.report_shipping_docs')
             if report.device_ids:
-                self.env['bus.bus']._sendone(self.env.user.partner_id, 'iot_print_documents', {
+                self.env.user._bus_send('iot_print_documents', {
                     'documents': message.attachment_ids.mapped('datas'),
                     'iot_device_identifier': report.device_ids[0].identifier,
                     'iot_ip': report.device_ids[0].iot_ip,

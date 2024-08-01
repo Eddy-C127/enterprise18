@@ -453,22 +453,17 @@ class AccountOnlineLink(models.Model):
                 journal=journal,
                 connection_state_details=connection_state_details,
             )
-        accounting_user_group = self.env.ref('account.group_account_user')
-
-        self.env['bus.bus']._sendmany([
-            (
-                user.partner_id,
-                'online_sync',
-                {
-                    'id': journal.id,
-                    'connection_state_details': {
-                        key: value
-                        for key, value in connection_state_details.items()
-                        if key in ('status', 'error_type', 'nb_fetched_transactions')
-                    },
-                }
-            ) for user in accounting_user_group.users
-        ])
+        self.env.ref('account.group_account_user').users._bus_send(
+            'online_sync',
+            {
+                'id': journal.id,
+                'connection_state_details': {
+                    key: value
+                    for key, value in connection_state_details.items()
+                    if key in ('status', 'error_type', 'nb_fetched_transactions')
+                },
+            },
+        )
         if connection_state_details_status == 'error' and not tools.config['test_enable'] and not modules.module.current_test:
             # In case the status is in error, and we aren't in test mode, we commit to save the last connection state and to send the websocket message
             self.env.cr.commit()

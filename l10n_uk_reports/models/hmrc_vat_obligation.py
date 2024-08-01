@@ -214,7 +214,7 @@ class HmrcVatObligation(models.Model):
             self.sudo().write({'status': "fulfilled"})
 
             # Show a confirmation popup.
-            self.env['bus.bus']._sendone(self.env.user.partner_id, 'simple_notification', {
+            self.env.user._bus_send('simple_notification', {
                 'type': 'success',
                 'message': _("The VAT report has been successfully submitted to HMRC."),
             })

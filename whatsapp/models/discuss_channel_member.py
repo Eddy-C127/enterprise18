@@ -19,7 +19,5 @@ class DiscussChannelMember(models.Model):
         ])
         members_to_be_unpinned = members.filtered(lambda m: m.message_unread_counter == 0)
         members_to_be_unpinned.write({'unpin_dt': datetime.now()})
-        self.env['bus.bus']._sendmany([
-            (member.partner_id, 'discuss.channel/unpin', {'id': member.channel_id.id})
-            for member in members_to_be_unpinned
-        ])
+        for member in members_to_be_unpinned:
+            member._bus_send("discuss.channel/unpin", {"id": member.channel_id.id})

@@ -12,7 +12,7 @@ from odoo.exceptions import ValidationError
 class TestWebsiteHelpdeskLivechat(HttpCase, HelpdeskCommon):
     def setUp(self):
         super().setUp()
-
+        self.maxDiff = None
         self.livechat_channel = self.env['im_livechat.channel'].create({
             'name': 'The channel',
             'user_ids': [Command.set([self.helpdesk_manager.id])]

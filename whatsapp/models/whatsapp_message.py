@@ -423,9 +423,12 @@ class WhatsAppMessage(models.Model):
             channel_member.write({'fetched_message_id': self.mail_message_id.id})
             notification_type = 'discuss.channel.member/fetched'
         if notification_type:
-            self.env['bus.bus']._sendone(channel, notification_type, {
-                'channel_id': channel.id,
-                'id': channel_member.id,
-                'last_message_id': self.mail_message_id.id,
-                'partner_id': channel.whatsapp_partner_id.id,
-            })
+            channel._bus_send(
+                notification_type,
+                {
+                    "channel_id": channel.id,
+                    "id": channel_member.id,
+                    "last_message_id": self.mail_message_id.id,
+                    "partner_id": channel.whatsapp_partner_id.id,
+                },
+            )

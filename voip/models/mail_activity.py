@@ -31,15 +31,12 @@ class MailActivity(models.Model):
         call_activities = activities.filtered(
             lambda activity: (activity.phone or activity.mobile) and activity.activity_category == "phonecall"
         )
-        notifications = [[user.partner_id, "refresh_call_activities", {}] for user in call_activities.user_id]
-        self.env["bus.bus"]._sendmany(notifications)
+        call_activities.user_id._bus_send("refresh_call_activities", {})
         return activities
 
     def write(self, values):
         if "date_deadline" in values and self.user_id:
-            self.env["bus.bus"]._sendmany(
-                [[partner, "refresh_call_activities", {}] for partner in self.user_id.partner_id]
-            )
+            self.user_id._bus_send("refresh_call_activities", {})
         return super().write(values)
 
     @api.model
@@ -83,10 +80,9 @@ class MailActivity(models.Model):
         activity that it has been marked as done. This is useful to trigger the
         refresh of the “Next Activities” tab.
         """
-        to_notify = self.filtered(
+        self.filtered(
             lambda activity: activity.activity_type_id.category == "phonecall"
-        ).user_id.partner_id
-        self.env["bus.bus"]._sendmany([[partner, "refresh_call_activities", {}] for partner in to_notify])
+        ).user_id._bus_send("refresh_call_activities", {})
         return super()._action_done(feedback=feedback, attachment_ids=attachment_ids)
 
     def _format_call_activities(self, store: Store):

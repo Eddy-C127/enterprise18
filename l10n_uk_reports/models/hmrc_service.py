@@ -65,7 +65,7 @@ class HmrcService(models.AbstractModel):
                         ))
                     else:
                         # Let the user know they established the connection and can submit the report.
-                        self.env['bus.bus']._sendone(self.env.user.partner_id, 'simple_notification', {
+                        self.env.user._bus_send('simple_notification', {
                             'type': 'success',
                             'message': _("You are successfully connected to HMRC. You can now send the VAT report."),
                         })

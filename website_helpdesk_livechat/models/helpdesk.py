@@ -61,11 +61,18 @@ class DiscussChannel(models.Model):
         key = kwargs.get('body').split()
         msg = _('Something is missing or wrong in the command')
         partners = self.with_context(active_test=False).channel_partner_ids.filtered(lambda partner: partner != self.env.user.partner_id)
-        if key[0].lower() == '/ticket':
+        ticket_command = "/ticket"
+        if key[0].lower() == ticket_command:
             if len(key) == 1:
-                msg = _("""
-                    Create a new helpdesk ticket by typing <b>/ticket <i>ticket title</i></b><br>
-                    """)
+                msg = _(
+                    "Create a new helpdesk ticket by typing: "
+                    "%(pre_start)s%(ticket_command)s %(i_start)sticket title%(i_end)s%(pre_end)s",
+                    ticket_command=ticket_command,
+                    pre_start=Markup("<pre>"),
+                    pre_end=Markup("</pre>"),
+                    i_start=Markup("<i>"),
+                    i_end=Markup("</i>"),
+                )
             else:
                 customer = partners[:1]
                 list_value = key[1:]
@@ -85,7 +92,7 @@ class DiscussChannel(models.Model):
                     'team_id': team_id,
                 })
                 msg = _("Created a new ticket: %s", helpdesk_ticket._get_html_link())
-        return self._send_transient_message(self.env.user.partner_id, msg)
+        self.env.user._bus_send_transient_message(self, msg)
 
     def fetch_ticket_by_keyword(self, list_keywords, load_counter=0):
         keywords = re.findall(r'\w+', ' '.join(list_keywords))
@@ -120,20 +127,47 @@ class DiscussChannel(models.Model):
             )
         return msg
 
-
     def execute_command_helpdesk_search(self, **kwargs):
         key = kwargs.get('body').split()
         partner = self.env.user.partner_id
         msg = _('Something is missing or wrong in command')
-        if key[0].lower() == '/search_tickets':
+        search_tickets_command = "/search_tickets"
+        if key[0].lower() == search_tickets_command:
             if len(key) == 1:
-                msg = _('Search helpdesk tickets by typing <b>/search_tickets <i>keyword</i></b>')
+                msg = _(
+                    "Search helpdesk tickets by typing: "
+                    "%(pre_start)s%(search_tickets_command)s %(i_start)skeywords%(i_end)s%(pre_end)s",
+                    search_tickets_command=search_tickets_command,
+                    pre_start=Markup("<pre>"),
+                    pre_end=Markup("</pre>"),
+                    i_start=Markup("<i>"),
+                    i_end=Markup("</i>"),
+                )
             else:
                 list_keywords = key[1:]
                 tickets = self.fetch_ticket_by_keyword(list_keywords)
                 if tickets:
-                    msg = _('Tickets search results for ') + Markup('<b>') + ' '.join(list_keywords) + Markup('</b>: <br/>') + tickets
+                    msg = _(
+                        "Tickets search results for %(b_start)s%(keywords)s%(b_end)s: %(br)s%(tickets)s",
+                        keywords=" ".join(list_keywords),
+                        b_start=Markup("<b>"),
+                        b_end=Markup("</b>"),
+                        br=Markup("<br/>"),
+                        tickets=tickets,
+                    )
                 else:
-                    msg = _('No tickets found for %s.', Markup("<b>%s</b>") % ''.join(list_keywords)) + \
-                        Markup("<br>") + _("Make sure you are using the right format:") + Markup("<br> <b>/search_tickets <i>%s</i></b>") % _("keyword")
-        return self._send_transient_message(partner, msg)
+                    msg = _(
+                        "No tickets found for %(b_start)s%(keywords)s%(b_end)s.%(br)s"
+                        "Make sure you are using the right format: "
+                        "%(pre_start)s%(search_tickets_command)s %(i_start)skeywords%(i_end)s%(pre_end)s",
+                        keywords=" ".join(list_keywords),
+                        b_start=Markup("<b>"),
+                        b_end=Markup("</b>"),
+                        br=Markup("<br/>"),
+                        search_tickets_command=search_tickets_command,
+                        pre_start=Markup("<pre>"),
+                        pre_end=Markup("</pre>"),
+                        i_start=Markup("<i>"),
+                        i_end=Markup("</i>"),
+                    )
+        partner._bus_send_transient_message(self, msg)
