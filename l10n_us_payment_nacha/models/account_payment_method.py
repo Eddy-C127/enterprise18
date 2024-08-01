@@ -10,7 +10,7 @@ class AccountPaymentMethod(models.Model):
         res = super()._get_payment_method_information()
         res['nacha'] = {
             'mode': 'multi',
-            'domain': [('type', '=', 'bank')],
+            'type': ('bank',),
             'currency_ids': self.env.ref("base.USD").ids,
             'country_id': self.env.ref("base.us").id
         }

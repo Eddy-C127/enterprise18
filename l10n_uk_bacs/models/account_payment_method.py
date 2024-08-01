@@ -12,10 +12,10 @@ class AccountPaymentMethod(models.Model):
         res = super()._get_payment_method_information()
         res['bacs_dc'] = {
             'mode': 'multi',
-            'domain': [('type', '=', 'bank')],
+            'type': ('bank',),
         }
         res['bacs_dd'] = {
             'mode': 'multi',
-            'domain': [('type', '=', 'bank')],
+            'type': ('bank',),
         }
         return res

@@ -10,7 +10,7 @@ class AccountPaymentMethod(models.Model):
     @api.model
     def _get_payment_method_information(self):
         res = super()._get_payment_method_information()
-        res['sdd'] = {'mode': 'multi', 'domain': [('type', '=', 'bank')]}
+        res['sdd'] = {'mode': 'multi', 'type': ('bank',)}
         return res
 
     @api.model

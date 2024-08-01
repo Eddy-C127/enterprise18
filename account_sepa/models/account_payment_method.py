@@ -12,6 +12,6 @@ class AccountPaymentMethod(models.Model):
         res = super()._get_payment_method_information()
         res['sepa_ct'] = {
             'mode': 'multi',
-            'domain': [('type', '=', 'bank')],
+            'type': ('bank',),
         }
         return res
