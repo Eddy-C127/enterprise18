@@ -256,11 +256,8 @@ QUnit.module("Studio", (hooks) => {
 
         await click(target.querySelector(".o_kanban_record")); // open a record
         assert.containsOnce(target, ".o_form_view");
-        assert.strictEqual(
-            $(target).find(".o_form_view input:propValue(yop)").length,
-            1,
-            "should have open the same record"
-        );
+        const inputs = [...target.querySelectorAll(".o_form_view input")].filter((el) => el.value === "yop");
+        assert.strictEqual(inputs.length, 1, "should have open the same record")
 
         let prom = makeDeferred();
         const unpatch = patch(StudioView.prototype, {

@@ -9,6 +9,7 @@ import {
     useState,
 } from "@odoo/owl";
 import { loadBundle } from "@web/core/assets";
+import { ensureJQuery } from "@web/core/ensure_jquery";
 import { _t } from "@web/core/l10n/translation";
 import { rpc } from "@web/core/network/rpc";
 import { omit } from "@web/core/utils/objects";
@@ -236,6 +237,7 @@ export class ReportEditorWysiwyg extends Component {
         });
 
         onWillStart(async () => {
+            await ensureJQuery();
             await Promise.all([
                 loadBundle("web_editor.backend_assets_wysiwyg"),
                 this.reportEditorModel.loadReportQweb(),
