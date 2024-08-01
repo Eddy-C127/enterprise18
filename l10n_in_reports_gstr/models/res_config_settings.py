@@ -23,12 +23,3 @@ class ResConfigSettings(models.TransientModel):
             'company_id': self.company_id.id,
         })
         return otp_validation_wizard.gst_send_otp()
-
-    def l10n_in_reports_gstr_buy_iap(self):
-        if not self.l10n_in_edi_production_env:
-            raise UserError(_("You must enable production environment to buy credits"))
-        return {
-            'type': 'ir.actions.act_url',
-            'url': self.env["iap.account"].get_credits_url(service_name="l10n_in_edi", base_url=''),
-            'target': '_new'
-        }

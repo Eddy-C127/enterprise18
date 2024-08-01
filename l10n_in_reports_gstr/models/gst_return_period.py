@@ -9,11 +9,9 @@ from itertools import groupby
 from markupsafe import Markup
 
 from odoo import api, fields, models, _
-from odoo.addons.iap import jsonrpc
 from odoo.exceptions import UserError, AccessError, ValidationError, RedirectWarning
 from odoo.tools import date_utils, get_lang, html_escape, SQL
 from odoo.tools.misc import format_date
-from odoo.addons.l10n_in_edi.models.account_edi_format import DEFAULT_IAP_ENDPOINT, DEFAULT_IAP_TEST_ENDPOINT
 
 import logging
 
@@ -1820,22 +1818,19 @@ class L10nInGSTReturnPeriod(models.Model):
     # ========================================
 
     def _request(self, url, company, params=None):
-        iap_service = self.env["iap.account"].get("l10n_in_edi")
         if not params:
             params = {}
-        params.update(
-            {
-                "username": company.sudo().l10n_in_gstr_gst_username,
-                "gstin": company.vat,
-                "account_token": iap_service.account_token,
-                'dbuuid': self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
-            }
-        )
-        default_endpoint = DEFAULT_IAP_ENDPOINT if company.sudo().l10n_in_edi_production_env else DEFAULT_IAP_TEST_ENDPOINT
-        endpoint = self.env["ir.config_parameter"].sudo().get_param("l10n_in_reports_gstr.endpoint", default_endpoint)
-        url = "%s%s" % (endpoint, url)
+        params.update({
+            "username": company.sudo().l10n_in_gstr_gst_username,
+            'dbuuid': self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
+        })
         try:
-            return jsonrpc(url=url, params=params, timeout=25)
+            self.env['iap.account']._l10n_in_connect_to_server(
+                company.sudo().l10n_in_edi_production_env,
+                params,
+                url,
+                "l10n_in_reports_gstr.endpoint"
+            )
         except AccessError as e:
             _logger.warning("Connection error: %s", e.args[0])
             return {
