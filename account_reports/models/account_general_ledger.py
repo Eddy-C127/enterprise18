@@ -377,7 +377,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 has_more = True
                 break
 
-            if aml_result['ref']:
+            # For asset_receivable the name will already contains the ref with the _compute_name
+            if aml_result['ref'] and aml_result['account_type'] != 'asset_receivable':
                 aml_result['communication'] = f"{aml_result['ref']} - {aml_result['name']}"
             else:
                 aml_result['communication'] = aml_result['name']
@@ -424,6 +425,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
             account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
             account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
+            account_type = self.env['account.account']._field_to_sql(account_alias, 'account_type')
 
             ct_query = report._get_query_currency_table(group_options)
             query = SQL(
@@ -450,6 +452,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     move.move_type                          AS move_type,
                     %(account_code)s                        AS account_code,
                     %(account_name)s                        AS account_name,
+                    %(account_type)s                        AS account_type,
                     journal.code                            AS journal_code,
                     %(journal_name)s                        AS journal_name,
                     full_rec.id                             AS full_rec_name,
@@ -466,6 +469,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 ''',
                 account_code=account_code,
                 account_name=account_name,
+                account_type=account_type,
                 journal_name=journal_name,
                 column_group_key=column_group_key,
                 table_references=query.from_clause,
