@@ -138,7 +138,7 @@ class AccountReport(models.AbstractModel):
                 analytic_cols = ", ".join(n._column_name() for n in (project_plan+other_plans))
                 selected_fields.append(sql.SQL(f'to_jsonb(UNNEST(ARRAY[account_analytic_line.{analytic_cols}])) AS "account_move_line.analytic_distribution"'))
             else:
-                selected_fields.append(sql.SQL('{table}.{fname} AS "account_move_line.{fname}"').format(
+                selected_fields.append(sql.SQL('{table}."{fname}" AS "account_move_line.{fname}"').format(
                     table=sql.SQL("account_analytic_line") if fname in stored_analytic_line_fields else sql.SQL("account_move_line"),
                     fname=sql.SQL(fname),
                 ))
