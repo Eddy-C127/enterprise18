@@ -25,7 +25,7 @@ export class StreamPostTwitterQuote extends SocialPostFormatterMixin(Component) 
         let formData = new FormData(event.currentTarget.closest('.modal-content').querySelector('form'));
 
         const xhr = new window.XMLHttpRequest();
-        xhr.open('POST', sprintf('social_twitter/%s/quote', this.originalPost.stream_id.raw_value));
+        xhr.open('POST', sprintf('/social_twitter/%s/quote', this.originalPost.stream_id.raw_value));
         formData.append('csrf_token', odoo.csrf_token);
         formData.append('tweet_id', this.originalPost.twitter_tweet_id.raw_value);
         formData.append('stream_id', this.originalPost.stream_id.raw_value);

@@ -76,7 +76,9 @@
         <Dialog title="props.title" size="'md'" bodyClass="'o_social_quote_modal o_social_comments_modal'">
             <StreamPostCommentsReplyTwitterQuote
                     mediaSpecificProps="props.mediaSpecificProps"
-                    originalPost="props.originalPost"/>
+                    originalPost="props.originalPost"
+                    onAddComment="() => {}"
+                    preventAddComment="() => {}"/>
             <t t-call="social_twitter.StreamPostCommentsOriginalPostQuote"/>
             <t t-set-slot="footer">
                 <button class="btn btn-primary" t-on-click="_confirmQuoteTweet">Post</button>
