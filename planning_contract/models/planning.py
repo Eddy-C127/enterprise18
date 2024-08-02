@@ -71,13 +71,9 @@ class Planning(models.Model):
         """
         Override to take into account the ongoing contract for flexible employees.
         If the employee has an ongoing contract, we verify that the planned slot is within the contract period.
-        If not, we return 0 hours.
+        If not, we return the working hours within the contract period. If no period overlaps, we return 0.
         """
-        working_hours = super()._get_working_hours_over_period(start_utc, end_utc, work_intervals, calendar_intervals)
         if self.resource_id._is_flexible():
-            # Convert datetime to date for comparison
-            start_utc_date = start_utc.date()
-            end_utc_date = end_utc.date()
             contract = self.resource_id.employee_id.contract_id
             if contract and contract.state == 'open':
                 start_contract_utc = pytz.utc.localize(datetime.combine(fields.Datetime.to_datetime(contract.date_start), datetime.min.time()))
@@ -86,4 +82,8 @@ class Planning(models.Model):
                 # if the interval of planned slot is outside the contract period, set 0 hours
                 if (contract.date_end and start_utc > end_contract_utc) or (start_contract_utc > end_utc):
                     return 0
-        return working_hours
+                # if the interval partially overlaps with the contract, return the working hours within the contract period
+                slot_start = max(start_utc, start_contract_utc)
+                slot_end = min(end_utc, end_contract_utc) if contract.date_end else end_utc
+                return super()._get_working_hours_over_period(slot_start, slot_end, work_intervals, calendar_intervals)
+        return super()._get_working_hours_over_period(start_utc, end_utc, work_intervals, calendar_intervals)

@@ -112,7 +112,7 @@ class PlanningRecurrency(models.Model):
                         next_start_utc.date() == start.date()
                         for start, stop, dummy in company_calendar_working_days
                     )
-                    return lands_on_working_day or resource._is_flexible() or is_slot_outside_working_days
+                    return lands_on_working_day or (resource and resource._is_flexible()) or is_slot_outside_working_days
 
                 def get_all_next_starts():
                     generated_recurrency_slots = -1

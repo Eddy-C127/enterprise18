@@ -194,3 +194,33 @@ class TestPeriodDuplication(TestCommonPlanning):
         ])
         self.assertEqual(1, len(duplicated_slots), 'one slot duplicated')
         self.assertEqual(11, duplicated_slots.allocated_hours, 'allocated hours should be the same as the original slot')
+
+    def test_duplication_on_non_working_days_for_regular_employee(self):
+        """ When applying copy_previous week, slots of regular 9-5 employees
+        which land on non-working days should not be copied to the next week.
+
+        Test Case:
+        =========
+        1) set an employee with a regular calendar.
+        2) create a shift on a Sunday
+        3) apply copy_previous_week and verify that the shift is not copied to the next Sunday
+        """
+
+        employee = self.employee_bert
+
+        # set a shift on Sunday for 8 hours
+        self.env['planning.slot'].create({
+            'employee_id': employee.id,
+            'start_datetime': datetime(2020, 10, 18, 8, 0),
+            'end_datetime': datetime(2020, 10, 18, 16, 0),
+        })
+
+        # copy the slot to the next Sunday
+        self.env['planning.slot'].action_copy_previous_week('2020-10-19 00:00:00', [['start_datetime', '<=', '2020-10-18 23:59:59'], ['end_datetime', '>=', '2020-10-12 00:00:00']])
+
+        duplicated_slots = self.env['planning.slot'].search([
+            ('employee_id', '=', employee.id),
+            ('start_datetime', '>', datetime(2020, 10, 19, 0, 0)),
+            ('end_datetime', '<', datetime(2022, 10, 25, 23, 59)),
+        ])
+        self.assertEqual(0, len(duplicated_slots), 'no slot should be duplicated on a non-working days')

@@ -25,9 +25,7 @@ class HrContract(models.Model):
         compute='_compute_schedule_pay', store=True, readonly=False)
     resource_calendar_id = fields.Many2one(default=lambda self: self.env.company.resource_calendar_id,
         help='''Employee's working schedule.
-
-        When left empty, employee is consider to have a fully flexible schedule, allowing to work at any time \
-        and any day of the week. (Work Entry Source cannot be "Working Schedule" in this case)
+        When left empty, the employee is considered to have a fully flexible schedule, allowing them to work without any time limit, anytime of the week.
         '''
     )
     hours_per_week = fields.Float(related='resource_calendar_id.hours_per_week')

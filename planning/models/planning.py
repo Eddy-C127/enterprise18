@@ -256,7 +256,7 @@ class Planning(models.Model):
             .filtered('calendar_id') \
             ._get_valid_work_intervals(start_utc, end_utc, calendars=slots.company_id.resource_calendar_id)
         for slot in slots:
-            if (not slot.resource_id and slot.allocation_type == 'planning') or slot.resource_id._is_flexible():
+            if (not slot.resource_id and slot.allocation_type == 'planning') or (slot.resource_id and slot.resource_id._is_flexible()):
                 slot.allocated_percentage = 100 * slot.allocated_hours / slot._calculate_slot_duration()
             else:
                 work_hours = slot._get_working_hours_over_period(start_utc, end_utc, resource_work_intervals, calendar_work_intervals)
@@ -2171,14 +2171,15 @@ class Planning(models.Model):
         period = self.end_datetime - self.start_datetime
         slot_duration = period.total_seconds() / 3600
         # For flexible hours, if the resource's calendar is in calendar_intervals, use it to calculate the working hours
-        if self.resource_id._is_flexible() and self.resource_id.calendar_id.id in calendar_intervals or self.resource_id._is_fully_flexible():
-            # If the resource is fully flexible hours, we return the whole slot interval
+        if self.resource_id:
             if self.resource_id._is_fully_flexible():
+                # If the resource is fully flexible hours, we return the whole slot interval
                 return round(sum_intervals(slot_interval), 2)
-            # Otherwise we take into account the `hours_per_day` of the flexible calendar
-            max_hours_per_day = self.resource_id.calendar_id.hours_per_day
-            max_duration = (period.days + (1 if period.seconds else 0)) * max_hours_per_day
-            return round(min(slot_duration, max_duration), 2)
+            elif self.resource_id._is_flexible() and self.resource_id.calendar_id.id in calendar_intervals:
+                # Otherwise we take into account the `hours_per_day` of the flexible calendar
+                max_hours_per_day = self.resource_id.calendar_id.hours_per_day
+                max_duration = (period.days + (1 if period.seconds else 0)) * max_hours_per_day
+                return round(min(slot_duration, max_duration), 2)
 
         # For open shift, take the `hours_per_day` of the company's default calendar
         if not self.resource_id and self.allocation_type == 'forecast':

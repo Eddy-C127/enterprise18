@@ -10,7 +10,7 @@ class TestHrAttendanceGantt(TransactionCase):
     def test_gantt_progress_bar(self):
         contracts_installed = 'hr.contract' in self.env
         calendar_8 = self.env['resource.calendar'].create({
-            'name': 'Calendar 1',
+            'name': 'Calendar 8h',
             'tz': 'UTC',
             'hours_per_day': 8.0,
             'attendance_ids': [
@@ -20,7 +20,7 @@ class TestHrAttendanceGantt(TransactionCase):
         })
 
         calendar_10 = self.env['resource.calendar'].create({
-            'name': 'Calendar 1',
+            'name': 'Calendar 10h',
             'tz': 'UTC',
             'hours_per_day': 10.0,
             'attendance_ids': [
@@ -30,7 +30,7 @@ class TestHrAttendanceGantt(TransactionCase):
         })
 
         calendar_12 = self.env['resource.calendar'].create({
-            'name': 'Calendar 1',
+            'name': 'Calendar 12h',
             'tz': 'UTC',
             'hours_per_day': 12.0,
             'attendance_ids': [
@@ -61,7 +61,7 @@ class TestHrAttendanceGantt(TransactionCase):
                     'state': 'close'
                 },
                 {
-                    'name': 'Johnny Contract 8 hours',
+                    'name': 'Johnny Contract 12 hours',
                     'employee_id': contract_emp.id,
                     'date_start': date(2024, 3, 1),
                     'resource_calendar_id': calendar_12.id,
