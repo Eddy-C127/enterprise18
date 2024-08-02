@@ -28,15 +28,23 @@ class TimesheetForecastReport(models.Model):
 
     def _number_of_days_without_weekend(self):
         return """
-            (SELECT COUNT(*)
-            FROM generate_series(F.start_datetime, F.end_datetime, '1 day') AS g(day)
-            WHERE EXTRACT(ISODOW FROM g.day) < 6)
+            WITH no_weekend_days AS (
+                SELECT
+                    F.id AS forecast_id,
+                    GREATEST(COUNT(*), 1) AS no_weekend_days_count
+                FROM
+                    planning_slot F,
+                    generate_series(F.start_datetime, F.end_datetime, '1 day') AS g(day)
+                WHERE EXTRACT(ISODOW FROM g.day) < 6
+                GROUP BY F.id
+            )
         """
 
     @api.model
     def _select(self):
-        nb_days = self._number_of_days_without_weekend()
+        nb_days_with_clause = self._number_of_days_without_weekend()
         select_str = """
+            %s
             SELECT
                 d::date AS entry_date,
                 F.employee_id AS employee_id,
@@ -45,13 +53,13 @@ class TimesheetForecastReport(models.Model):
                 F.user_id AS user_id,
                 0.0 AS effective_hours,
                 0.0 As effective_costs,
-                F.allocated_hours / GREATEST( %s, 1) AS planned_hours,
-                (F.allocated_hours / GREATEST( %s, 1)) * E.hourly_cost AS planned_costs,
-                F.allocated_hours / GREATEST( %s, 1) AS difference,
+                F.allocated_hours / W.no_weekend_days_count AS planned_hours,
+                (F.allocated_hours / W.no_weekend_days_count) * E.hourly_cost AS planned_costs,
+                F.allocated_hours / W.no_weekend_days_count AS difference,
                 'forecast' AS line_type,
                 F.id AS id,
                 CASE WHEN F.state = 'published' THEN TRUE ELSE FALSE END AS is_published
-        """ % (nb_days, nb_days, nb_days)
+        """ % (nb_days_with_clause)
         return select_str
 
     @api.model
@@ -65,6 +73,7 @@ class TimesheetForecastReport(models.Model):
                 LEFT JOIN planning_slot F ON d::date >= F.start_datetime::date AND d::date <= F.end_datetime::date
                 LEFT JOIN hr_employee E ON F.employee_id = E.id
                 LEFT JOIN resource_resource R ON E.resource_id = R.id
+                LEFT JOIN no_weekend_days W ON F.id = W.forecast_id
         """
         return from_str
 
