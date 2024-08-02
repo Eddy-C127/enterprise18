@@ -58,7 +58,7 @@ class TestAccountReportsTours(AccountTestInvoicingHttpCommon):
         move.action_post()
 
     def test_account_reports_tours(self):
-        self.start_tour("/web", 'account_reports', login=self.env.user.login)
+        self.start_tour("/odoo", 'account_reports', login=self.env.user.login)
 
     def test_account_reports_annotations_tours(self):
         # Line ids
@@ -85,4 +85,4 @@ class TestAccountReportsTours(AccountTestInvoicingHttpCommon):
             ]
         })
 
-        self.start_tour("/web", 'account_reports_annotations', login=self.env.user.login)
+        self.start_tour("/odoo", 'account_reports_annotations', login=self.env.user.login)

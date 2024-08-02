@@ -133,4 +133,4 @@ class TestReportSections(AccountTestInvoicingHttpCommon):
         self.section_1.filter_journals = True
 
         with patch.object(type(self.env['account.report']), '_init_options_custom', patched_init_options_custom):
-            self.start_tour("/web", 'account_reports_sections', login=self.env.user.login)
+            self.start_tour("/odoo", 'account_reports_sections', login=self.env.user.login)
