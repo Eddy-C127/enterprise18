@@ -9,7 +9,12 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
     def send_xbrl(self):
         # Extends to write the password on the company if it didn't exist.
         # TODO change this in master to add the password directly in the base SBR module.
-        self.company_id.sudo().l10n_nl_reports_sbr_password = self.password
+        sudo_company = self.company_id.sudo()
+        if self.password != sudo_company.l10n_nl_reports_sbr_password:
+            password_bytes = bytes(self.password or '', 'utf-8')
+            # Should raise if the password is not the correct one.
+            sudo_company._l10n_nl_get_certificate_and_key_bytes(password_bytes)
+            sudo_company.l10n_nl_reports_sbr_password = self.password
         return super().send_xbrl()
 
     def _additional_processing(self, options, kenmerk, closing_move):
