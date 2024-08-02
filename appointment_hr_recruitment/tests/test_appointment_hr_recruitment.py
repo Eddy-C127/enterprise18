@@ -25,6 +25,6 @@ class AppointmentHrRecruitmentTest(HttpCase):
             'job_id': job_developer.id,
         })
         appointment_type = self.env['appointment.type'].create({'name': "Test AppointmentHrRecruitment"})
-        self.start_tour('/web', 'appointment_hr_recruitment_tour', login='admin')
+        self.start_tour('/odoo', 'appointment_hr_recruitment_tour', login='admin')
         appointment_invite = self.env['appointment.invite'].search([('appointment_type_ids', 'in', appointment_type.ids)])
         self.assertTrue(appointment_invite.applicant_id == applicant)

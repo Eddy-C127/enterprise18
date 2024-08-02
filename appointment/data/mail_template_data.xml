@@ -21,7 +21,7 @@
         <a t-attf-href="/calendar/meeting/join?token={{ object.access_token }}"
             style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">
             Join</a>
-        <a t-attf-href="/web?#id={{ object.id }}&amp;view_type=form&amp;model=calendar.event"
+        <a t-attf-href="/odoo/calendar.event/{{ object.id }}"
             style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">
             View</a>
     </div>

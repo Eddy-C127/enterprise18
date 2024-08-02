@@ -6,7 +6,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 const oldWriteText = navigator.clipboard.writeText;
 
 registry.category("web_tour.tours").add('appointment_crm_meeting_tour', {
-    url: '/web',
+    url: '/odoo',
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), {
         trigger: '.o_app[data-menu-xmlid="crm.crm_menu_root"]',

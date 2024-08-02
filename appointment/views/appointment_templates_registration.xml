@@ -115,7 +115,7 @@
                                                 </div>
                                             </t>
                                             <div groups="appointment.group_appointment_manager" class=" o_not_editable alert alert-info mt-4 text-center" role="status">
-                                                <a class="alert-link" t-attf-href="/web#id=#{appointment_type.id}&amp;view_type=form&amp;model=#{appointment_type._name}&amp;action=appointment.appointment_type_action">
+                                                <a class="alert-link" t-attf-href="/odoo/action-appointment.appointment_type_action/{appointment_type.id}">
                                                     <i class="fa fa-pencil me-2" role="img" aria-label="Edit" title="Create custom questions in backend"/>Add Custom Questions
                                                 </a>
                                             </div>
