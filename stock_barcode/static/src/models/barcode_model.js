@@ -9,6 +9,7 @@ import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { FNC1_CHAR } from "@barcodes_gs1_nomenclature/js/barcode_parser";
 import { EventBus } from "@odoo/owl";
+import { BarcodeObject } from "../barcode_object";
 
 export default class BarcodeModel extends EventBus {
     constructor(resModel, resId, services) {
@@ -41,7 +42,8 @@ export default class BarcodeModel extends EventBus {
         for (const ruleId of nomenclature.rule_ids) {
             nomenclature.rules.push(this.cache.getRecord('barcode.rule', ruleId));
         }
-        this.parser = new BarcodeParser({nomenclature: nomenclature});
+        this.parser = new BarcodeParser({ nomenclature });
+        BarcodeObject.setEnv(this.cache, this.parser);
         this.scannedLinesVirtualId = [];
 
         this.actionMutex = new Mutex();
@@ -617,17 +619,40 @@ export default class BarcodeModel extends EventBus {
                 return;
             }
             this._currentBarcode = barcode;
+
+            // Filters out already scanned URI.
+            const filteredBarcodes = [];
+            for (const bc of barcodes) {
+                const matchedURI = bc.match(/^urn:.*$/);
+                if (matchedURI && this.uriInCache(matchedURI[0])) {
+                    continue;
+                }
+                filteredBarcodes.push(bc);
+            }
+
+            const parsedBarcodes = [];
+            this.trigger("addBarcodesCountToProcess", filteredBarcodes.length)
+            // Parse all barcodes.
+            for (const bc of filteredBarcodes) {
+                const barcodeObject = BarcodeObject.forBarcode(bc);
+                await barcodeObject.setRecords();
+                parsedBarcodes.push(barcodeObject);
+            }
+            // Fetch all needed missing data and add them to the cache.
+            await this.cache.getMissingRecords();
+            // Link parsed barcodes with missing information to the corresponding record(s).
+            for (const barcodeObject of parsedBarcodes) {
+                if (barcodeObject.hasMissingRecords) {
+                    await barcodeObject.setRecords();
+                }
+            }
+
             this.actionMutex.exec(async () => {
-                const message = _t("Processing %(number)s barcodes", { number: barcodes.length });
-                this.trigger("blockUI", message);
-                for (const barcodePart of barcodes) {
-                    const matchedURI = barcodePart.match(/^urn:.*$/);
-                    if (matchedURI && this.uriInCache(matchedURI[0])) {
-                        continue; // In case the barcode is an already scanned URI, we ignore it.
-                    }
+                for (const barcodePart of filteredBarcodes) {
+                    this.trigger("updateBarcodesCountProcessed");
+                    // TODO: use already parsed barcode in `_processBarcode` instead of parse it again.
                     await this._processBarcode(barcodePart);
                 }
-                this.trigger("unblockUI");
                 delete this._currentBarcode;
             });
         } else {
@@ -638,6 +663,24 @@ export default class BarcodeModel extends EventBus {
             this.actionMutex.exec(() => this._processBarcode(barcode));
         }
         this.notificationCache.clear();
+    }
+
+    async getGs1Filters(gs1RulesData) {
+        const gs1Filters = {};
+        const productRule = gs1RulesData.find(bc => bc.type === "product");
+        if (productRule) {
+            let product = await this.cache.getRecordByBarcode(productRule.value, "product.product");
+            if (!product) {
+                const packaging = await this.cache.getRecordByBarcode(productRule.value, "product.packaging");
+                if (packaging) {
+                    product = this.cache.getRecord("product.product", packaging.product_id);
+                }
+            }
+            if (product) {
+                gs1Filters["stock.lot"] = { product_id: product.id };
+            }
+        }
+        return gs1Filters;
     }
 
     // --------------------------------------------------------------------------
@@ -906,25 +949,23 @@ export default class BarcodeModel extends EventBus {
             result.match = true;
             return result;
         }
+        let parsedBarcode;
         try {
-            const parsedBarcode = this.parser.parse_barcode(barcode);
+            parsedBarcode = this.parser.parse_barcode(barcode);
+        } catch (err) {
+            // The barcode can't be parsed but the error is caught to fallback
+            // on the classic way to handle barcodes.
+            console.log(`%cWarning: error about ${barcode}`, 'text-weight: bold;');
+            console.log(err.message);
+        }
+        if (parsedBarcode) {
             if (parsedBarcode.length) { // With the GS1 nomenclature, the parsed result is a list.
-                const productRule = parsedBarcode.find(bc => bc.rule.type === "product");
-                this.gs1Filters = {};
-                if (productRule) {
-                    let product = await this.cache.getRecordByBarcode(productRule.value, 'product.product');
-                    if (!product) {
-                        const packaging = await this.cache.getRecordByBarcode(productRule.value, 'product.packaging');
-                        if (packaging) {
-                            product = this.cache.getRecord('product.product', packaging.product_id);
-                        }
-                    }
-                    if(product){
-                        this.gs1Filters['stock.lot'] = {product_id: product.id};
-                    }
-                }
+                const gs1Filters = await this.getGs1Filters(parsedBarcode);
                 for (const data of parsedBarcode) {
-                    const parsedData = await this._processGs1Data(data);
+                    if (data.type === "lot" && result.product?.tracking === "none") {
+                        continue; // For product not tracked, we don't care about the lot.
+                    }
+                    const parsedData = await this._processGs1Data(data, gs1Filters);
                     Object.assign(result, parsedData);
                 }
                 if(result.match) {
@@ -944,11 +985,6 @@ export default class BarcodeModel extends EventBus {
                     return result; // Simple barcode, no more information to retrieve.
                 }
             }
-        } catch (err) {
-            // The barcode can't be parsed but the error is caught to fallback
-            // on the classic way to handle barcodes.
-            console.log(`%cWarning: error about ${barcode}`, 'text-weight: bold;');
-            console.log(err.message);
         }
         const fetchedRecord = await this._fetchRecordFromTheCache(barcode, filters, result);
         return Object.assign(result, fetchedRecord);
@@ -956,7 +992,7 @@ export default class BarcodeModel extends EventBus {
 
     async _fetchRecordFromTheCache(barcode, filters, data) {
         const result = data || { barcode, match: false };
-        const recordByData = await this.cache.getRecordByBarcode(barcode, false, false, filters);
+        const recordByData = await this.cache.getRecordByBarcode(barcode, false, { filters });
         if (recordByData.size > 1) {
             const message = _t(
                 "Barcode scan is ambiguous with several model: %s. Use the most likely.",
@@ -1037,10 +1073,10 @@ export default class BarcodeModel extends EventBus {
         this.action.doAction(action, options);
     }
 
-    async _processGs1Data(data) {
+    async _processGs1Data(data, filters) {
         const result = {};
-        const { rule, value } = data;
-        if (['location', 'location_dest'].includes(rule.type)) {
+        const { rule, type, value } = data;
+        if (["location", "location_dest"].includes(type)) {
             const location = await this.cache.getRecordByBarcode(value, 'stock.location');
             if (!location) {
                 return;
@@ -1048,9 +1084,9 @@ export default class BarcodeModel extends EventBus {
                 result.location = location;
                 result.match = true;
             }
-        } else if (rule.type === 'lot') {
+        } else if (type === "lot") {
             if (this.useExistingLots) {
-                result.lot = await this.cache.getRecordByBarcode(value, 'stock.lot', false, this.gs1Filters);
+                result.lot = await this.cache.getRecordByBarcode(value, 'stock.lot', { filters });
             }
             if (!result.lot) { // No existing lot found, set a lot name.
                 result.lotName = value;
@@ -1058,7 +1094,7 @@ export default class BarcodeModel extends EventBus {
             if (result.lot || result.lotName) {
                 result.match = true;
             }
-        } else if (rule.type === 'package') {
+        } else if (type === "package") {
             const stockPackage = await this.cache.getRecordByBarcode(value, 'stock.quant.package');
             if (stockPackage) {
                 result.package = stockPackage;
@@ -1067,7 +1103,7 @@ export default class BarcodeModel extends EventBus {
                 result.packageName = value;
             }
             result.match = true;
-        } else if (rule.type === 'package_type') {
+        } else if (type === "package_type") {
             const packageType = await this.cache.getRecordByBarcode(value, 'stock.package.type');
             if (packageType) {
                 result.packageType = packageType;
@@ -1076,7 +1112,7 @@ export default class BarcodeModel extends EventBus {
                 const message = _t("An unexisting package type was scanned. This part of the barcode can't be processed.");
                 this.notification(message, { type: "warning" });
             }
-        } else if (rule.type === 'product') {
+        } else if (type === "product") {
             const product = await this.cache.getRecordByBarcode(value, 'product.product');
             if (product) {
                 result.product = product;
@@ -1088,11 +1124,11 @@ export default class BarcodeModel extends EventBus {
                     result.match = true;
                 }
             }
-        } else if (rule.type === 'quantity') {
+        } else if (type === "quantity") {
             result.quantity = value;
             // The quantity is usually associated to an UoM, but we
             // ignore this info if the UoM setting is disabled.
-            if (this.groups.group_uom) {
+            if (this.groups.group_uom && rule?.associated_uom_id) {
                 result.uom = await this.cache.getRecord('uom.uom', rule.associated_uom_id);
             }
             result.match = result.quantity ? true : false;

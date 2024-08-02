@@ -88,6 +88,8 @@ class MainComponent extends Component {
             view: "barcodeLines", // Could be also 'printMenu' or 'editFormView'.
             displayNote: false,
             uiBlocked: false,
+            barcodesProcessed: 0,
+            barcodesToProcess: 0,
         });
         this.barcodeService = useService('barcode');
         useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this.onBarcodeScanned(ev.detail.barcode));
@@ -96,6 +98,28 @@ class MainComponent extends Component {
         useBus(this.env.model, "playSound", this.playSound.bind(this));
         useBus(this.env.model, "blockUI", this.blockUI.bind(this));
         useBus(this.env.model, "unblockUI", this.unblockUI.bind(this));
+        useBus(this.env.model, "addBarcodesCountToProcess", (ev) => {
+            this.state.barcodesToProcess += ev.detail;
+            if (this.state.barcodesToProcess > this.state.barcodesProcessed) {
+                this.blockUIMessage = _t("Processing %(processed)s/%(toProcess)s barcodes", {
+                    processed: this.state.barcodesProcessed,
+                    toProcess: this.state.barcodesToProcess,
+                });
+                this.blockUI();
+            }
+        });
+        useBus(this.env.model, "updateBarcodesCountProcessed", (ev) => {
+            this.state.barcodesProcessed++;
+            this.blockUIMessage = _t("Processing %(processed)s/%(toProcess)s barcodes", {
+                processed: this.state.barcodesProcessed,
+                toProcess: this.state.barcodesToProcess,
+            });
+            if (this.state.barcodesProcessed >= this.state.barcodesToProcess) {
+                this.state.barcodesProcessed = 0;
+                this.state.barcodesToProcess = 0;
+                this.unblockUI();
+            }
+        });
         useBus(bus, "refresh", (ev) => this._onRefreshState(ev.detail));
 
         onWillStart(async () => {
@@ -136,7 +160,6 @@ class MainComponent extends Component {
     }
 
     blockUI(ev) {
-        this.blockUIMessage = ev.detail;
         this.state.uiBlocked = true;
     }
 

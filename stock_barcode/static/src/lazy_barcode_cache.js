@@ -27,6 +27,7 @@ export default class LazyBarcodeCache {
             this.nomenclature = cacheData['barcode.nomenclature'][0];
         }
         this.setCache(cacheData);
+        this.waitingFetch = [];
     }
 
     /**
@@ -73,12 +74,18 @@ export default class LazyBarcodeCache {
      * @param {boolean} [copy=true] if true, returns a deep copy (to avoid to write the cache)
      * @returns copy of the record send by the server (fields limited to _get_fields_stock_barcode)
      */
-    getRecord(model, id) {
+    getRecord(model, id, raiseErrorIfMissing=true) {
         if (!this.dbIdCache.hasOwnProperty(model)) {
-            throw new Error(`Model ${model} doesn't exist in the cache`);
+            if (raiseErrorIfMissing) {
+                throw new Error(`Model ${model} doesn't exist in the cache`);
+            }
+            return null;
         }
         if (!this.dbIdCache[model].hasOwnProperty(id)) {
-            throw new Error(`Record ${model} with id=${id} doesn't exist in the cache, it should return by the server`);
+            if (raiseErrorIfMissing) {
+                throw new Error(`Record ${model} with id=${id} doesn't exist in the cache, it should return by the server`);
+            }
+            return null;
         }
         const record = this.dbIdCache[model][id];
         return JSON.parse(JSON.stringify(record));
@@ -91,17 +98,31 @@ export default class LazyBarcodeCache {
      * @param {Object} [filters]
      * @returns copy of the record send by the server (fields limited to _get_fields_stock_barcode)
      */
-    async getRecordByBarcode(barcode, model = false, onlyInCache = false, filters = {}) {
+    async getRecordByBarcode(barcode, model = false, options = {}) {
+        const onlyInCache = Boolean(options.onlyInCache);
+        const filters = options.filters || {};
+        const fetchLater = Boolean(options.fetchLater);
         if (model) {
             if (!this.dbBarcodeCache.hasOwnProperty(model)) {
+                if (fetchLater) {
+                    this.waitingFetch.push({ barcode, model, options });
+                    return null;
+                }
+                if (onlyInCache) {
+                    return null;
+                }
                 throw new Error(`Model ${model} doesn't exist in the cache`);
             }
             if (!this.dbBarcodeCache[model].hasOwnProperty(barcode)) {
+                if (fetchLater) {
+                    this.waitingFetch.push({ barcode, model, options });
+                    return null;
+                }
                 if (onlyInCache) {
                     return null;
                 }
                 await this._getMissingRecord(barcode, model, filters);
-                return await this.getRecordByBarcode(barcode, model, true, filters);
+                return await this.getRecordByBarcode(barcode, model, { onlyInCache: true, filters });
             }
             const ids = this.dbBarcodeCache[model][barcode];
             for (const id of ids) {
@@ -151,7 +172,7 @@ export default class LazyBarcodeCache {
                     return result;
                 }
                 await this._getMissingRecord(barcode, model, filters);
-                return await this.getRecordByBarcode(barcode, model, true, filters);
+                return await this.getRecordByBarcode(barcode, model, { onlyInCache: true, filters });
             }
             return result;
         }
@@ -167,6 +188,14 @@ export default class LazyBarcodeCache {
     async _getMissingRecord(barcode, model, filters = {}) {
         const keyCache = JSON.stringify([...arguments]);
         const missCache = this.missingBarcode;
+        if (filters) {
+            // If we already tried to find the same model's record for the given barcode but
+            // without the filters, there is no need to try again with the filter.
+            const keyCacheWithoutFilters = JSON.stringify([barcode, model, {}]);
+            if (missCache.has(keyCacheWithoutFilters)) {
+                return false;
+            }
+        }
         const params = { barcode, model_name: model };
         // Check if we already try to fetch this missing record.
         if (missCache.has(keyCache)) {
@@ -190,6 +219,30 @@ export default class LazyBarcodeCache {
         const result = await rpc('/stock_barcode/get_specific_barcode_data', params);
         this.setCache(result);
         missCache.add(keyCache);
+    }
+
+    async getMissingRecords() {
+        if (!this.waitingFetch.length) {
+            return; // Nothing to fetch.
+        }
+        const params = { kwargs: {} };
+        for (const data of this.waitingFetch) {
+            const { barcode, model } = data;
+            const keyCache = JSON.stringify([barcode, model, {}]);
+            if (this.missingBarcode.has(keyCache)) {
+                continue; // Avoid already fetched records.
+            }
+            this.missingBarcode.add(keyCache);
+            if (!params.kwargs[model]) {
+                params.kwargs[model] = [];
+            }
+            params.kwargs[model].push(barcode);
+        }
+        if (Boolean(Object.keys(params.kwargs))) {
+            const result = await rpc("/stock_barcode/get_specific_barcode_data_batch", params);
+            this.setCache(result);
+        }
+        this.waitingFetch = [];
     }
 
     /**
