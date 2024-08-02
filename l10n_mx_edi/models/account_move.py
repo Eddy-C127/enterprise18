@@ -2439,7 +2439,7 @@ class AccountMove(models.Model):
                 domain.append(('l10n_mx_tax_type', '=', tax_type))
             taxes = self.env['account.tax'].search(domain, limit=2)
             if len(taxes) != 1:
-                line.move_id.to_check = True
+                line.move_id.checked = False
             if not taxes:
                 msg = _('Could not retrieve the %(tax_type)s tax with rate %(rate)s%%.', tax_type=tax_type, rate=amount)
                 msg_wh = _('Could not retrieve the %(tax_type)s withholding tax with rate %(rate)s%%.', tax_type=tax_type, rate=amount)

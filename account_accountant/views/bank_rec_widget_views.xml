@@ -101,8 +101,8 @@
                     <separator/>
                     <filter name="matched" string="Matched" domain="[('is_reconciled', '=', True)]"/>
                     <filter name="not_matched" string="Not Matched"
-                            domain="[('is_reconciled', '=', False), ('to_check', '=', False)]"/>
-                    <filter name="to_check" string="To Check" domain="[('to_check', '=', True)]"/>
+                            domain="[('is_reconciled', '=', False), ('checked', '=', True)]"/>
+                    <filter name="to_check" string="To Check" domain="[('checked', '=', False)]"/>
                     <separator/>
                     <filter name="date" string="Date" date="date"/>
                     <separator/>
@@ -133,7 +133,7 @@
                     <field name="journal_id"/>
                     <field name="statement_id"/>
                     <field name="is_reconciled"/>
-                    <field name="to_check"/>
+                    <field name="checked"/>
                     <field name="partner_bank_id"/>
                     <field name="currency_id"/>
                     <field name="foreign_currency_id"/>
@@ -151,7 +151,7 @@
                             </div>
                             <div t-attf-class="oe_kanban_card oe_kanban_global_click o_bank_rec_st_line_kanban_card"
                                  t-att-st-line-id="record.id.raw_value"
-                                 t-att-st-line-todo="!record.is_reconciled.raw_value || record.to_check.raw_value"
+                                 t-att-st-line-todo="!record.is_reconciled.raw_value || !record.checked.raw_value"
                                  style="width:100%">
 
                                 <t t-set="text_amount_class"
@@ -184,7 +184,7 @@
                                     </div>
                                     <div id="row2_col2">
                                         <div class="o_field_many2many_tags o_field_widget d-flex flex-row flex-nowrap">
-                                            <span t-if="record.to_check.raw_value" class="badge text-bg-warning fw-normal">To check</span>
+                                            <span t-if="!record.checked.raw_value" class="badge text-bg-warning fw-normal">To check</span>
                                             <div t-if="record.is_reconciled.raw_value" class="badge text-bg-success fw-normal" title="Matched">
                                                 <i class="fa fa-check"/>
                                             </div>
@@ -212,7 +212,7 @@
                     <field name="statement_valid" column_invisible="True"/>
                     <field name="state" column_invisible="True"/>
                     <field name="is_reconciled" column_invisible="True"/>
-                    <field name="to_check" column_invisible="True"/>
+                    <field name="checked" column_invisible="True"/>
                     <field name="country_code" column_invisible="True"/>
                     <field name="currency_id" column_invisible="True"/>
                     <field name="company_id" column_invisible="True"/>

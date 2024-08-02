@@ -1210,7 +1210,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
             'model_id': 'account.move.line',
             'user_id': self.uid,
             'name': 'To Check',
-            'domain': '[("move_id.to_check", "=", True)]',
+            'domain': '[("move_id.checked", "=", False)]',
         })
 
         report = self.env['account.report'].create({
@@ -1242,8 +1242,8 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 self.init_invoice("out_invoice", self.partner_a, "2023-09-01", amounts=[1000])
                 + self.init_invoice("out_invoice", self.partner_a, "2023-09-01", amounts=[1000])
         )
-        moves[0].to_check = True
         moves.action_post()
+        moves[0].checked = False
 
         options = self._generate_options(report, '2023-01-01', '2023-12-31')
 
@@ -1252,7 +1252,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 opt['selected'] = True
                 break
 
-        # Ensure that only the move with the 'to_check' attribute is included in the report
+        # Ensure that only the move with the 'checked' at false attribute is included in the report
         self.assertLinesValues(
             report._get_lines(options),
             #      Name   Balance

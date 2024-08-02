@@ -39,7 +39,7 @@
                     <field name="l10n_br_edi_transporter_id" invisible="country_code != 'BR' or l10n_br_edi_freight_model in ('SenderVehicle', 'ReceiverVehicle') or l10n_br_is_service_transaction"
                            readonly="state in ['cancel', 'posted']"/>
                 </field>
-                <field name="to_check" position="after">
+                <field name="checked" position="after">
                     <field name="l10n_br_access_key" invisible="country_code != 'BR' or not l10n_br_access_key"
                            readonly="state in ['cancel', 'posted']"/>
                 </field>

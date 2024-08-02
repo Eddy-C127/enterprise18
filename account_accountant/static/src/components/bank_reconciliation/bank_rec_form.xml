@@ -23,17 +23,17 @@
             </button>
             <button accesskey="e"
                     class="btn btn-secondary"
-                    t-if="!data.st_line_to_check and areAllLinesValid"
+                    t-if="data.st_line_checked and areAllLinesValid"
                     t-on-click="(ev) => this.actionToCheck()">
                 <span>To Check</span>
             </button>
             <button class="btn btn-secondary text-muted"
-                    t-if="!data.st_line_to_check and !areAllLinesValid">
+                    t-if="data.st_line_checked and !areAllLinesValid">
                 <span>To Check</span>
             </button>
             <button accesskey="e"
                     class="btn btn-secondary"
-                    t-if="data.st_line_to_check"
+                    t-if="!data.st_line_checked"
                     t-on-click="(ev) => this.actionSetAsChecked()">
                 <span>Set as Checked</span>
             </button>

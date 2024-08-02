@@ -60,4 +60,3 @@ class account_journal(models.Model):
                 },
             )
         return super().open_action()
-

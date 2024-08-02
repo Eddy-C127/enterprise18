@@ -25,8 +25,8 @@ class BankRecWidget(models.Model):
         related='st_line_id.move_id',
         depends=['st_line_id'],
     )
-    st_line_to_check = fields.Boolean(
-        related='st_line_id.move_id.to_check',
+    st_line_checked = fields.Boolean(
+        related='st_line_id.move_id.checked',
         depends=['st_line_id'],
     )
     st_line_is_reconciled = fields.Boolean(
@@ -1488,8 +1488,8 @@ class BankRecWidget(models.Model):
             self._action_validate()
 
     def _action_to_check(self):
-        self.st_line_id.move_id.to_check = True
-        self.invalidate_recordset(fnames=['st_line_to_check'])
+        self.st_line_id.move_id.checked = False
+        self.invalidate_recordset(fnames=['st_line_checked'])
         self._action_validate()
 
     def _js_action_to_check(self):
@@ -1501,8 +1501,8 @@ class BankRecWidget(models.Model):
                 self._action_to_check()
         else:
             # No need any validation.
-            self.st_line_id.move_id.to_check = True
-            self.invalidate_recordset(fnames=['st_line_to_check'])
+            self.st_line_id.move_id.checked = False
+            self.invalidate_recordset(fnames=['st_line_checked'])
             self.return_todo_command = {'done': True}
 
     def _js_action_reset(self):
@@ -1518,8 +1518,8 @@ class BankRecWidget(models.Model):
 
     def _js_action_set_as_checked(self):
         self.ensure_one()
-        self.st_line_id.move_id.to_check = False
-        self.invalidate_recordset(fnames=['st_line_to_check'])
+        self.st_line_id.move_id.checked = True
+        self.invalidate_recordset(fnames=['st_line_checked'])
         self.return_todo_command = {'done': True}
 
     def _action_clear_manual_operations_form(self):
@@ -1564,9 +1564,9 @@ class BankRecWidget(models.Model):
         ]
         self._lines_recompute_taxes()
 
-        if reco_model.to_check != self.st_line_to_check:
-            self.st_line_id.move_id.to_check = reco_model.to_check
-            self.invalidate_recordset(fnames=['st_line_to_check'])
+        if reco_model.to_check:
+            self.st_line_id.move_id.checked = False
+            self.invalidate_recordset(fnames=['st_line_checked'])
 
         # Compute the residual balance on which apply the newly selected model.
         auto_balance_line_vals = self._lines_prepare_auto_balance_line()

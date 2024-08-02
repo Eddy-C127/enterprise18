@@ -1639,7 +1639,7 @@ class L10nInGSTReturnPeriod(models.Model):
                         "l10n_in_gst_treatment": partner and partner.l10n_in_gst_treatment in ('deemed_export', 'uin_holders') and partner.l10n_in_gst_treatment or default_l10n_in_gst_treatment,
                         "journal_id": journal.id,
                         "l10n_in_gstr2b_reconciliation_status": "gstr2_bills_not_in_odoo",
-                        "to_check": True,
+                        "checked": False,
                         "l10n_in_gst_return_period_id": self.id,
                         "message_ids":[(0, 0, {
                             'model': 'account.move',

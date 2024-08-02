@@ -567,7 +567,7 @@ class AccountReconcileWizard(models.TransientModel):
             'journal_id': self.journal_id.id,
             'company_id': self.company_id.id,
             'date': self._get_date_after_lock_date() or self.date,
-            'to_check': self.to_check,
+            'checked': not self.to_check,
             'line_ids': self._create_write_off_lines(partner=partner)
         }
         write_off_move = self.env['account.move'].with_context(

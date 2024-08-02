@@ -448,7 +448,7 @@ export class BankRecKanbanController extends KanbanController {
         const stLines = this.model.root.records;
 
         // Find all available records that need to be validated.
-        const isRecordReady = (x) => (!x.data.is_reconciled || x.data.to_check);
+        const isRecordReady = (x) => (!x.data.is_reconciled || !x.data.checked);
         let waitBeforeReturn = Boolean(afterStLineId);
         let availableRecordIds = [];
         for (const stLine of (records || stLines)) {
@@ -911,7 +911,7 @@ export class BankRecKanbanController extends KanbanController {
                 context: {
                     default_match_journal_ids: [journalId],
                     default_line_ids: defaultLineIds,
-                    default_to_check: this.state.bankRecRecordData.to_check,
+                    default_to_check: !this.state.bankRecRecordData.checked,
                 },
             });
         });
