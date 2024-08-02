@@ -23,10 +23,10 @@ patch(BarcodePickingModel.prototype, {
     async _processGs1Data(data) {
         const result = {};
         const { rule, value } = data;
-        if (rule.type === 'expiration_date') {
+        if (rule?.type === "expiration_date") {
             result.expirationDate = getFormattedDate(value);
             result.match = true;
-        } else if (rule.type === 'use_date') {
+        } else if (rule?.type === "use_date") {
             result.useDate = value;
             result.match = true;
         } else {

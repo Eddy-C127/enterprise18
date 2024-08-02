@@ -29,6 +29,7 @@ export default class BarcodeModel extends EventBus {
         this._currentLocation = false; // Reminds the current source when the scanned one is forgotten.
         this.needSourceConfirmation = false;
         this.useTrackingNumber = true;
+        this.uriCache = new Set(); // Avoid to scan multiple times the same URI.
     }
 
     setData(data) {
@@ -569,12 +570,42 @@ export default class BarcodeModel extends EventBus {
         return options.onClose();
     }
 
+    /**
+     * Check if the URI was already scanned.
+     * @param {String} uri
+     * @returns {Boolean}
+     */
+    uriInCache(uri) {
+        return this.uriCache.has(uri);
+    }
+
+    /**
+     * Sometimes, the model receives multiple barcodes as one single string.
+     * This method decomposes it into a list of barcodes.
+     * @param {String} barcode
+     * @returns {Array<String>}
+     */
+    splitBarcode(barcode) {
+        // If the barcode has multiple URI, separate them.
+        const matchedURI = [...barcode.matchAll(/urn:(?:[a-z0-9 -]+:){3} [0-9.]+/g)];
+        if (matchedURI.length > 1) {
+            return matchedURI.map(uri => uri[0]);
+        }
+        // If the barcode contains the separator, split it.
+        const sepRegex = RegExp(this.config.barcode_separator_regex);
+        const splitBarcodes = barcode.split(sepRegex).filter(bc => bc);
+        if (splitBarcodes.length > 1) {
+            return [...splitBarcodes];
+        }
+        return [];
+    }
+
     async processBarcode(barcode) {
-        const barcodes = barcode.split(RegExp(this.config.barcode_separator_regex)).filter(bc => bc);
+        const barcodes = this.splitBarcode(barcode);
         if (barcodes.length > 1) {
             if (barcode === this._currentBarcode) {
                 // Scanning multiple barcodes at once can take some time and the user may be
-                // tempted to scan again, thinking that the barcodes didn't scan.
+                // tempted to scan again, thinking that the barcodes weren't scanned.
                 // To avoid processing the same group of barcodes multiple times, we keep the
                 // last scanned group of barcodes in memory and nothing will be done if the barcode
                 // is scanned again while previous one is still in process.
@@ -585,12 +616,20 @@ export default class BarcodeModel extends EventBus {
                 const message = _t("Processing %(number)s barcodes", { number: barcodes.length });
                 this.trigger("blockUI", message);
                 for (const barcodePart of barcodes) {
+                    const matchedURI = barcodePart.match(/^urn:.*$/);
+                    if (matchedURI && this.uriInCache(matchedURI[0])) {
+                        continue; // In case the barcode is an already scanned URI, we ignore it.
+                    }
                     await this._processBarcode(barcodePart);
                 }
                 this.trigger("unblockUI");
                 delete this._currentBarcode;
             });
         } else {
+            const matchedURI = barcode.match(/^urn:.*$/);
+            if (matchedURI && this.uriInCache(matchedURI[0])) {
+                return; // Ignored because already scanned.
+            }
             this.actionMutex.exec(() => this._processBarcode(barcode));
         }
     }
@@ -1301,6 +1340,13 @@ export default class BarcodeModel extends EventBus {
         // And finally, if the scanned barcode modified a line, selects this line.
         if (currentLine) {
             this._selectLine(currentLine);
+        }
+
+        const matchedURI = barcode.match(/^urn:.*$/);
+        if (matchedURI) {
+            // If the process goes right and the scanned barcode is an URI, add
+            // it to the cache to avoid scanning it a second time.
+            this.uriCache.add(barcode);
         }
         this.trigger('update');
     }
