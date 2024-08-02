@@ -30,6 +30,7 @@ We support sending and cancelling of customer invoices.
     'auto_install': ['l10n_pe'],
     "data": [
         'security/ir.model.access.csv',
+        'data/iap_service_data.xml',
         'data/ubl_pe_21_templates.xml',
         'data/uom_data.xml',
         'data/ir_sequence_data.xml',

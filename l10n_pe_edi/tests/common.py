@@ -75,8 +75,9 @@ class TestPeEdiCommon(AccountEdiTestCommon):
 
         cls.company_data['default_journal_sale'].l10n_latam_use_documents = True
 
+        iap_service = cls.env.ref('l10n_pe_edi.iap_service_l10n_pe_edi')
         cls.iap_account = cls.env['iap.account'].create({
-            'service_name': 'l10n_pe_edi',
+            'service_id': iap_service.id,
             'company_ids': [(6, 0, cls.company_data['company'].ids)],
         })
 

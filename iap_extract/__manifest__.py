@@ -9,6 +9,7 @@
     'depends': ['base', 'iap', 'mail', 'iap_mail'],
     'data': [
         'data/config_parameter_endpoint.xml',
+        'data/iap_service_data.xml',
         'data/mail_template_data.xml',
     ],
     'auto_install': True,

@@ -41,12 +41,14 @@ class TestExtractMixin(common.TransactionCase):
         cls.env.cr._now = datetime.now()
 
         # Avoid passing on the iap.account's `get` method to avoid the cr.commit breaking the test transaction.
+        partner_autocomplete = cls.env.ref('partner_autocomplete.iap_service_partner_autocomplete')
+        invoice_ocr = cls.env.ref('iap_extract.iap_service_ocr')
         cls.env['iap.account'].create([
             {
-                'service_name': 'partner_autocomplete',
+                'service_id': partner_autocomplete.id,
             },
             {
-                'service_name': 'invoice_ocr',
+                'service_id': invoice_ocr.id,
                 'account_token': 'test_token',
             }
         ])

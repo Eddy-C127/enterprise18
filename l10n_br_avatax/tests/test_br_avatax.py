@@ -6,7 +6,7 @@ from unittest import SkipTest
 from unittest.mock import patch
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.addons.l10n_br_avatax.models.account_external_tax_mixin import AccountExternalTaxMixinL10nBR, IAP_SERVICE_NAME
+from odoo.addons.l10n_br_avatax.models.account_external_tax_mixin import AccountExternalTaxMixinL10nBR
 from odoo.exceptions import UserError
 from odoo.tests.common import tagged
 from .mocked_invoice_response import generate_response
@@ -33,9 +33,10 @@ class TestAvalaraBrCommon(AccountTestInvoicingCommon):
         cls._setup_partners()
 
         # Ensure the IAP service exists for this company. Otherwise, iap.account's get() method will fail.
+        iap_service = cls.env.ref('l10n_br_avatax.iap_service_br_avatax')
         cls.env['iap.account'].create(
             {
-                'service_name': IAP_SERVICE_NAME,
+                'service_id': iap_service.id,
                 'company_ids': [(6, 0, cls.company_data['company'].ids)],
             }
         )
