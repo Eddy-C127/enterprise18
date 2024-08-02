@@ -36,9 +36,10 @@ class CashFlowReportCustomHandler(models.AbstractModel):
     def _get_report_data(self, report, options, layout_data):
         report_data = {}
 
-        currency_table_query = report._get_query_currency_table(options)
-
         payment_account_ids = self._get_account_ids(report, options)
+        if not payment_account_ids:
+            return report_data
+        currency_table_query = report._get_query_currency_table(options)
 
         # Compute 'Cash and cash equivalents, beginning of period'
         for aml_data in self._compute_liquidity_balance(report, options, currency_table_query, payment_account_ids, 'to_beginning_of_period'):
@@ -191,7 +192,7 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         payment_account_ids = set((res[0] or []) + (res[1] or []) + (res[2] or []) + (res[3] or []))
 
         if not payment_account_ids:
-            return (), ()
+            return ()
 
         return tuple(payment_account_ids)
 
