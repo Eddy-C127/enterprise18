@@ -65,7 +65,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     @api.model
     def l10n_pe_export_ple_51_to_txt(self, options):
-        txt_data = self._l10n_pe_get_txt_data(options)
+        txt_data = self._l10n_pe_get_txt_data(options, ple_version="ple_51")
 
         return self._l10n_pe_get_file_txt(options, txt_data, "0501")
 
@@ -79,18 +79,16 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     @api.model
     def l10n_pe_export_ple_61_to_txt(self, options):
-        txt_data = self._l10n_pe_get_txt_data(options)
+        txt_data = self._l10n_pe_get_txt_data(options, ple_version="ple_61")
         return self._l10n_pe_get_file_txt(options, txt_data, "0601")
 
-    def _l10n_pe_get_txt_data(self, options):
+    def _l10n_pe_get_txt_data(self, options, ple_version=None):
         """ Generates the TXT content for the PLE reports with the entries data """
-        def _get_ple_document_type(move_type, country_code, document_type):
-            if move_type in ("out_invoice", "out_refund"):
-                return "140100"
-            if move_type in ("in_invoice", "in_refund") and country_code == "PE" and document_type not in ("91", "97", "98"):
-                return "080100"
-            if move_type in ("in_invoice", "in_refund") and country_code != "PE" and document_type in ("91", "97", "98"):
-                return "080200"
+        def _get_ple_document_type(move_type, document_type, company_vat, partner_vat):
+            if move_type in ("out_invoice", "out_refund") and document_type and company_vat:
+                return company_vat.zfill(11)[:11]
+            if move_type in ("in_invoice", "in_refund") and document_type and partner_vat:
+                return partner_vat.zfill(11)[:11]
             return ""
 
         # Retrieve the data from the ledger itself, unfolding every group
@@ -152,7 +150,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 serie_folio = ple._get_serie_folio(line["move_name"]  or "")
                 transaction_type = line["l10n_pe_sunat_transaction_type"]
                 ple_journal_type = "M" if not transaction_type else ("A" if transaction_type == "opening" else "C" if transaction_type == "closing" else "")
-                ple_document_type = _get_ple_document_type(line["move_type"], line["country_code"], line["document_type"])
+                ple_document_type = _get_ple_document_type(line["move_type"], line["document_type"], self.env.company.vat, line["partner_vat"])
+
                 data.append(
                     {
                         "period": "%s00" % period[:6],
@@ -174,11 +173,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                         "glosa_ref": "",
                         "debit": float_repr(line["debit"], precision_digits=2),
                         "credit": float_repr(line["credit"], precision_digits=2),
-                        "book": "%s&%s&%s&%s" % (
+                        "book": "" if ple_version == "ple_61" else "%s%s%s%s" % (
                             ple_document_type,
-                            "%s00" % period[:6],
-                            line["move_id"],
-                            "%s%s" % (ple_journal_type, count)
+                            line["document_type"].zfill(2)[-2:],
+                            serie_folio["serie"].replace(" ", "").replace("/", "").zfill(4)[-4:],
+                            serie_folio["folio"].replace(" ", "").zfill(10)[-10:]
                         ) if ple_document_type else "",
                         "state": "1",
                     }
