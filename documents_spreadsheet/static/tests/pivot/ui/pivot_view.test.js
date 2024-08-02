@@ -1153,8 +1153,7 @@ test("Inserted pivot is inserted with a table", async function () {
     const tables = model.getters.getTables(sheetId);
 
     expect(tables.length).toBe(1);
-    // FIXME: the table should be updated when we fix the pivot formula to the pivot spread zone
-    expect(tables[0].range.zone).toEqual(toZone("A1"));
+    expect(tables[0].range.zone).toEqual(toZone("A1:F5"));
     expect(tables[0].config).toEqual({ ...PIVOT_TABLE_CONFIG, numberOfHeaders: 1 });
 });
 
@@ -1178,7 +1177,6 @@ test("The table has the correct number of headers when inserting a pivot", async
     const sheetId = model.getters.getActiveSheetId();
     const tables = model.getters.getTables(sheetId);
 
-    // FIXME: the table should be updated when we fix the pivot formula to the pivot spread zone
-    expect(tables[0].range.zone).toEqual(toZone("A1"));
+    expect(tables[0].range.zone).toEqual(toZone("A1:F9"));
     expect(tables[0].config.numberOfHeaders).toBe(3);
 });
