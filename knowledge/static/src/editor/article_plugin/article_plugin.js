@@ -10,7 +10,7 @@ const ARTICLE_LINKS_SELECTOR = ".o_knowledge_behavior_type_article";
 class KnowledgeArticlePlugin extends Plugin {
     static dependencies = ["dom", "selection"];
     static resources = (p) => ({
-        powerboxCommands: [
+        powerboxItems: [
             {
                 category: "navigation",
                 name: _t("Article"),

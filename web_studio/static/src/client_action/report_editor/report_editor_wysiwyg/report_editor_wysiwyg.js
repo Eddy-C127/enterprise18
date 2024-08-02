@@ -292,7 +292,7 @@ export class ReportEditorWysiwyg extends Component {
                         name: _t("Report Tools"),
                         sequence: 10,
                     },
-                    powerboxCommands: this.getPowerboxCommands(),
+                    powerboxItems: this.getPowerboxCommands(),
                 },
             },
             this.env.services

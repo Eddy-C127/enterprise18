@@ -18,7 +18,7 @@ class AppointmentFormViewDialog extends FormViewDialog {
 class AppointmentPlugin extends Plugin {
     static dependencies = ["dom", "selection", "link"];
     static resources = (p) => ({
-        powerboxCommands: [
+        powerboxItems: [
             {
                 name: _t("Appointment"),
                 description: _t("Add a specific appointment"),
