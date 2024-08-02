@@ -66,8 +66,12 @@
                 <field name="ref" optional="hide" readonly="False"/>
                 <field name="product_id" readonly="1" optional="hide"/>
                 <field name="name" optional="show"/>
+                <field name="analytic_distribution" widget="analytic_distribution"
+                       groups="analytic.group_analytic_accounting"
+                       optional="show"
+                       options="{'product_field': 'product_id', 'account_field': 'account_id', 'force_applicability': 'optional'}"/>
                 <field name="tax_ids" widget="many2many_tags" optional="hide" readonly="1"/>
-                <field name="amount_currency" groups="base.group_multi_currency" optional="show" readonly="1" invisible="is_same_currency"/>
+                <field name="amount_currency" string="In Currency" groups="base.group_multi_currency" optional="show" readonly="1" invisible="is_same_currency"/>
                 <field name="currency_id" groups="base.group_multi_currency" optional="hide" string="Currency" readonly="1" invisible="is_same_currency"/>
                 <field name="debit" sum="Total Debit" readonly="1"/>
                 <field name="credit" sum="Total Credit" readonly="1"/>
@@ -77,13 +81,9 @@
                 <field name="tax_line_id" string="Originator Tax" optional="hide" readonly="1"/>
                 <field name="date_maturity" readonly="1" optional="hide"/>
                 <field name="balance" sum="Total Balance" optional="hide" readonly="1"/>
-                <field name="matching_number" readonly="1" optional="show" widget="matching_link_widget"/>
+                <field name="matching_number" string="Matching" readonly="1" optional="show" widget="matching_link_widget"/>
                 <field name="amount_residual" sum="Total Residual" string="Residual" optional="show" readonly="1" invisible="not is_account_reconcile"/>
                 <field name="amount_residual_currency" sum="Total Residual in Currency" string="Residual in Currency" optional="hide" readonly="1" invisible="is_same_currency or not is_account_reconcile"/>
-                <field name="analytic_distribution" widget="analytic_distribution"
-                       groups="analytic.group_analytic_accounting"
-                       optional="show"
-                       options="{'product_field': 'product_id', 'account_field': 'account_id', 'force_applicability': 'optional'}"/>
                 <field name="move_type" column_invisible="True"/>
                 <field name="parent_state" column_invisible="True"/>
                 <field name="account_type" column_invisible="True"/>
