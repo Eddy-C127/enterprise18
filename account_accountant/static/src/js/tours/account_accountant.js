@@ -27,7 +27,7 @@
                 }
                 return markup(message);
             },
-            url: "/web",
+            url: "/odoo",
             sequence: 50,
             steps: () => [
             ...accountTourSteps.goToAccountMenu('Let’s automate your bills, bank transactions and accounting processes.'),

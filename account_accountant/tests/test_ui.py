@@ -41,4 +41,4 @@ class TestUi(AccountTestMockOnlineSyncCommon):
         all_moves = self.env['account.move'].search([('company_id', '=', self.env.company.id), ('move_type', '!=', 'entry')])
         all_moves.filtered(lambda m: not m.inalterable_hash and not m.deferred_move_ids and m.state != 'draft').button_draft()
         all_moves.with_context(force_delete=True).unlink()
-        self.start_tour("/web", 'account_accountant_tour', login="admin")
+        self.start_tour("/odoo", 'account_accountant_tour', login="admin")

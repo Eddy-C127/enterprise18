@@ -46,7 +46,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         })
 
     def test_tour_bank_rec_widget(self):
-        self.start_tour('/web', 'account_accountant_bank_rec_widget', login=self.env.user.login)
+        self.start_tour('/odoo', 'account_accountant_bank_rec_widget', login=self.env.user.login)
 
         self.assertRecordValues(self.st_line1.line_ids, [
             # pylint: disable=C0326
@@ -76,13 +76,13 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
             invoice_date='2019-01-01',
             invoice_line_ids=[{'price_unit': 2000.0}],
         )
-        self.start_tour('/web?debug=assets', 'account_accountant_bank_rec_widget_ui', timeout=120, login=self.env.user.login)
+        self.start_tour('/odoo?debug=assets', 'account_accountant_bank_rec_widget_ui', timeout=120, login=self.env.user.login)
 
     def test_tour_bank_rec_widget_rainbowman_reset(self):
-        self.start_tour('/web?debug=assets', 'account_accountant_bank_rec_widget_rainbowman_reset', login=self.env.user.login)
+        self.start_tour('/odoo?debug=assets', 'account_accountant_bank_rec_widget_rainbowman_reset', login=self.env.user.login)
 
     def test_tour_bank_rec_widget_statements(self):
-        self.start_tour('/web?debug=assets', 'account_accountant_bank_rec_widget_statements', login=self.env.user.login)
+        self.start_tour('/odoo?debug=assets', 'account_accountant_bank_rec_widget_statements', login=self.env.user.login)
 
     def test_tour_invoice_creation_from_reco_model(self):
         """ Test if move is created and added as a new_aml line in bank reconciliation widget """
@@ -90,7 +90,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
         # The tour creates a move through reco model button, posts it, returns to widget and validates the move
         self.start_tour(
-            '/web',
+            '/odoo',
             'account_accountant_bank_rec_widget_reconciliation_button',
             login=self.env.user.login,
         )
@@ -116,7 +116,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
 
         self.start_tour(
-            '/web',
+            '/odoo',
             'account_accountant_bank_rec_widget_reconciliation_button',
             login=self.env.user.login,
         )
@@ -167,7 +167,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
         # The tour creates a move through reco model button, posts it, returns to widget and validates the move
         self.start_tour(
-            '/web',
+            '/odoo',
             'account_accountant_bank_rec_widget_reconciliation_button',
             login=self.env.user.login,
         )

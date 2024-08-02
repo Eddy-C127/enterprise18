@@ -44,4 +44,4 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
             'payment_method_id': payment_method_line.payment_method_id.id,
         })
 
-        self.start_tour('/web', 'account_accountant_batch_payment_bank_rec_widget', login=self.env.user.login)
+        self.start_tour('/odoo', 'account_accountant_batch_payment_bank_rec_widget', login=self.env.user.login)
