@@ -1,12 +1,10 @@
+# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from datetime import datetime
 import logging
-from urllib.parse import urlparse, parse_qs
-
-from odoo import models, api, _
+from datetime import datetime
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-
 from . import product
 
 _logger = logging.getLogger(__name__)
@@ -215,13 +213,14 @@ class SaleOrder(models.Model):
                 _('Product created from eBay transaction %s', transaction['TransactionID']))
 
         if product.product_variant_count > 1:
-            variant = self.env['product.product']
             if 'Variation' in transaction:
-                eBay_variants = product.product_variant_ids.filtered(lambda l: l.ebay_use)
-                eBay_url = transaction['Variation']['VariationViewItemURL']
-                variant = self._get_matching_url_variants(eBay_url, eBay_variants)
-            # If multiple variants but only one listed on eBay as Item Specific, or url mismatch
-            if not variant or len(variant) > 1:
+                variant = product.product_variant_ids.filtered(
+                    lambda l:
+                    l.ebay_use and
+                    l.ebay_variant_url.split("vti", 1)[1] ==
+                    transaction['Variation']['VariationViewItemURL'].split("vti", 1)[1])
+            # If multiple variants but only one listed on eBay as Item Specific
+            else:
                 call_data = {'ItemID': product.ebay_id, 'IncludeItemSpecifics': True}
                 resp = product._ebay_execute('GetItem', call_data)
                 name_value_list = resp.dict()['Item']['ItemSpecifics']['NameValueList']
@@ -245,38 +244,6 @@ class SaleOrder(models.Model):
                 else:
                     product.ebay_listing_status = 'Ended'
         return product, variant
-
-    @api.model
-    def _get_matching_url_variants(self, eBay_url, eBay_variants):
-        # as eBay changed its variant URL, there is multiple different cases.
-        parsed_ebay_url = urlparse(eBay_url)
-        parsed_url_by_vti_query = parse_qs(parsed_ebay_url.query).get('vti')
-        if parsed_url_by_vti_query:
-            # ebay.domain/itm/item_name/item_id?vti=variant_desc
-            return eBay_variants.filtered(
-                lambda l: (
-                    parse_qs(urlparse(l.ebay_variant_url).query).get('vti')
-                ) == parsed_url_by_vti_query
-            )
-        parsed_url_by_var_query = parse_qs(parsed_ebay_url.query).get('var')
-        if parsed_url_by_var_query:
-            # ebay.domain/thingy?ViewItem&item_id=item_id&var=variant_id
-            return eBay_variants.filtered(
-                lambda l: (
-                    parse_qs(urlparse(l.ebay_variant_url).query).get('var')
-                ) == parsed_url_by_var_query
-            )
-        eBay_path_vti_splitted = parsed_ebay_url.path.split('vti', 1)
-        if len(eBay_path_vti_splitted) > 1:
-            # ebay.domain/itm/item_name/item_id&vti=variant_desc (not a query param)
-            return eBay_variants.filtered(
-                lambda l: (
-                    urlparse(l.ebay_variant_url).path.split('vti', 1)
-                ) == eBay_path_vti_splitted
-            )
-        # we will treat ebay.domain/itm/item_name/item_id and ebay.domain/itm/item_id
-        # after as we can't identify the variant from it
-        return self.env['product.product']
 
     def _process_order_new_transaction(self, transaction):
         self.ensure_one()
