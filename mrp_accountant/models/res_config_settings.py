@@ -14,6 +14,20 @@ class ResConfigSettings(models.TransientModel):
         compute='_compute_property_stock_account',
         inverse='_set_property_stock_account_production_cost_id')
 
+    account_production_wip_account_id = fields.Many2one(
+        comodel_name='account.account',
+        string='WIP Account',
+        readonly=False,
+        related='company_id.account_production_wip_account_id',
+    )
+
+    account_production_wip_overhead_account_id = fields.Many2one(
+        comodel_name='account.account',
+        string='WIP Overhead Account',
+        readonly=False,
+        related='company_id.account_production_wip_overhead_account_id',
+    )
+
     @api.model
     def _get_account_stock_properties_names(self):
         return super()._get_account_stock_properties_names() + [

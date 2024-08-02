@@ -11,6 +11,20 @@
                     <field name="property_stock_account_production_cost_id"/>
                 </div>
             </xpath>
+            <xpath expr="//setting[@id='general_accounts']" position="after">
+                <setting string="WIP Account Properties">
+                        <div class="content-group">
+                            <div class="row mt8">
+                                <label for="account_production_wip_account_id" class="col-lg-4 o_light_label"/>
+                                <field name="account_production_wip_account_id"/>
+                            </div>
+                            <div class="row mt8">
+                                <label for="account_production_wip_overhead_account_id" class="col-lg-4 o_light_label"/>
+                                <field name="account_production_wip_overhead_account_id"/>
+                            </div>
+                        </div>
+                    </setting>
+            </xpath>
         </field>
     </record>
 </odoo>
