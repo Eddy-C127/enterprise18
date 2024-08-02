@@ -30,11 +30,24 @@
         <field name="company_id" ref="base.main_company"/>
     </record>
 
+    <record id="res_partner_troy" model="res.partner">
+        <field name="name">Troy Cruz</field>
+        <field name="street">5 King Street</field>
+        <field name="city">Los Angeles</field>
+        <field name="zip">90001</field>
+        <field name="state_id" ref="base.state_us_5"/>
+        <field name="country_id" ref="base.us"/>
+        <field name="phone">256.424.4557</field>
+        <field name="email">troy.cruz@example.com</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
     <record id="hr_employee_troy" model="hr.employee">
         <field name="name">Troy Cruz</field>
         <field name="job_id" ref="job_developer_united_states"/>
         <field name="country_id" ref="base.us"/>
         <field name="company_id" ref="base.main_company"/>
+        <field name="address_id" ref="res_partner_troy"/>
         <field name="image_1920" type="base64" file="l10n_us_hr_payroll/static/img/hr_employee_troy.jpg"/>
         <field name="gender">male</field>
         <field name="ssnid">876545679</field>
@@ -68,8 +81,9 @@
     <record id="res_partner_maggie_work_address" model="res.partner">
         <field name="name">US Offices</field>
         <field name="street">4906 Crosswind Drive</field>
-        <field name="city">Henderson</field>
-        <field name="zip">42420</field>
+        <field name="city">Alamo</field>
+        <field name="city_id" ref="l10n_us_hr_payroll.city_us_3008"/>
+        <field name="zip">94507</field>
         <field name="state_id" ref="base.state_us_5"/>
         <field name="country_id" ref="base.us"/>
         <field name="company_id" ref="base.main_company"/>

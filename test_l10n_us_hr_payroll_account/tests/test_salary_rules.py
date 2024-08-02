@@ -1669,3 +1669,72 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'NET': 5805.68,
         }
         self._validate_payslip(payslip, payslip_results)
+
+    def test_066_al_state_tax_married_example_1(self):
+        # Source https://www.revenue.alabama.gov/ultraviewer/viewer/basic_viewer/index.html?form=2023/01/whbooklet_0123.pdf.pdf
+        self.work_address.state_id = self.env.ref('base.state_us_1')
+        self.contract.write({
+            'wage': 850,
+            'schedule_pay': 'weekly',
+        })
+        self.employee.write({
+            'l10n_us_w4_allowances_count': 3,
+            'l10n_us_state_filing_status': 'al_status_4',
+            'l10n_us_filing_status': 'jointly',
+            'children': 2,
+        })
+
+        payslip = self._generate_payslip(datetime.date(2023, 4, 1), datetime.date(2023, 4, 7))
+        payslip.compute_sheet()
+
+        payslip_results = {
+            'BASIC': 850.0,
+            'GROSS': 850.0,
+            'TAXABLE': 850.0,
+            'FIT': -31.73,
+            'MEDICARE': -12.33,
+            'MEDICAREADD': 0,
+            'SST': -52.7,
+            'ALINCOMETAX': -29.76,
+            'COMPANYFUTA': 51,
+            'COMPANYMEDICARE': 12.33,
+            'COMPANYSOCIAL': 52.7,
+            'COMPANYSUI': 22.95,
+            'NET': 723.48,
+        }
+        self._validate_payslip(payslip, payslip_results)
+
+    def test_067_wa_state_example_1(self):
+        # Source https://paidleave.wa.gov/app/uploads/2021/12/Employer-Wage-Reporting-and-Premiums-Toolkit-Version-20.1.pdf
+        self.work_address.state_id = self.env.ref('base.state_us_48')
+        self.contract.write({
+            'wage': 3500,
+            'schedule_pay': 'monthly',
+        })
+        self.employee.write({
+            'l10n_us_w4_allowances_count': 3,
+            'l10n_us_filing_status': 'jointly',
+        })
+
+        payslip = self._generate_payslip(datetime.date(2024, 4, 1), datetime.date(2024, 4, 30))
+        payslip.compute_sheet()
+
+        payslip_results = {
+            'BASIC': 3500.0,
+            'GROSS': 3500.0,
+            'TAXABLE': 3500.0,
+            'FIT': -106.67,
+            'MEDICARE': -50.75,
+            'MEDICAREADD': 0.0,
+            'SST': -217.0,
+            'WACARESFUND': -20.3,
+            'WAPFMLFAMILY': -12.44,
+            'WAPFMLMEDICAL': -6.06,
+            'COMPANYFUTA': 210.0,
+            'COMPANYMEDICARE': 50.75,
+            'COMPANYSOCIAL': 217.0,
+            'COMPANYSUI': 43.75,
+            'COMPANYWAPFML': 7.4,
+            'NET': 3086.78,
+        }
+        self._validate_payslip(payslip, payslip_results)

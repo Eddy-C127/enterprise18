@@ -33,6 +33,116 @@
         <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
     </record>
 
+    <record id="rule_parameter_co_income_tax_rate" model="hr.rule.parameter">
+        <field name="name">US: Colorado Income Tax Rate</field>
+        <field name="code">l10n_us_co_income_tax_rate</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_income_tax_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.044</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_income_tax_rate"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_deduction_jointly" model="hr.rule.parameter">
+        <field name="name">US: Colorado Deduction for Married Filing Jointly or Qualifying Surviving Spouse</field>
+        <field name="code">l10n_us_co_ded_jointly</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_deduction_jointly_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">9000</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_deduction_jointly"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_deduction_single" model="hr.rule.parameter">
+        <field name="name">US: Colorado Deduction for Single or Married Filing Separately or Head of Household</field>
+        <field name="code">l10n_us_co_ded_single</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_deduction_single_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">4500</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_deduction_single"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_opt_aurora" model="hr.rule.parameter">
+        <field name="name">US: Colorado Occupational Privilege Tax Aurora</field>
+        <field name="code">l10n_us_co_opt_aurora</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_opt_aurora_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">2</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_opt_aurora"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_opt_denver" model="hr.rule.parameter">
+        <field name="name">US: Colorado Occupational Privilege Tax Denver</field>
+        <field name="code">l10n_us_co_opt_denver</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_opt_denver_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">5.75</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_opt_denver"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_opt_denver_employer" model="hr.rule.parameter">
+        <field name="name">US: Colorado Occupational Privilege Tax Denver - Employer</field>
+        <field name="code">l10n_us_co_opt_denver_employer</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_opt_denver_employer_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">5</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_opt_denver_employer"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_opt_glendale" model="hr.rule.parameter">
+        <field name="name">US: Colorado Occupational Privilege Tax Glendale</field>
+        <field name="code">l10n_us_co_opt_glendale</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_opt_glendale_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">5</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_opt_glendale"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_opt_greenwood_village" model="hr.rule.parameter">
+        <field name="name">US: Colorado Occupational Privilege Tax Greenwood Village</field>
+        <field name="code">l10n_us_co_opt_greenwood_village</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_opt_greenwood_village_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">2</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_opt_greenwood_village"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_opt_sheridan" model="hr.rule.parameter">
+        <field name="name">US: Colorado Occupational Privilege Tax Sheridan</field>
+        <field name="code">l10n_us_co_opt_sheridan</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_opt_sheridan_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">3</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_opt_sheridan"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_co_famli_rate" model="hr.rule.parameter">
+        <field name="name">US: Colorado FAMLI Rate</field>
+        <field name="code">l10n_us_co_famli_rate</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_co_famli_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">-0.45</field>
+        <field name="rule_parameter_id" ref="rule_parameter_co_famli_rate"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
     <!--
         Use these if the Form W-4 is from 2019 or earlier, or if the Form W-4 is
         from 2020 or later and the box in Step 2 of Form W-4 is NOT checked.
@@ -887,6 +997,202 @@
     },
 }</field>
         <field name="rule_parameter_id" ref="rule_parameter_ca_tax_rate_tables"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_al_personal_exempt" model="hr.rule.parameter">
+        <field name="name">US: Alabama Withholding - Personal Exempt</field>
+        <field name="code">l10n_us_al_personal_exempt</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_al_personal_exempt_2023" model="hr.rule.parameter.value">
+        <field name="parameter_value">1500</field>
+        <field name="rule_parameter_id" ref="rule_parameter_al_personal_exempt"/>
+        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_al_amount_per_dependent_table" model="hr.rule.parameter">
+        <field name="name">US: Alabama Withholding - Amount Per Dependent and Gross Income Threshold</field>
+        <field name="code">l10n_us_al_amount_per_dependent_table</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_al_amount_per_dependent_table_2023" model="hr.rule.parameter.value">
+        <field name="parameter_value">[
+            (1000, 50000),
+            (500, 100000),
+            (300, 99999999999999),
+        ]</field>
+        <field name="rule_parameter_id" ref="rule_parameter_al_amount_per_dependent_table"/>
+        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_al_tax_rates_table" model="hr.rule.parameter">
+        <field name="name">US: Alabama Withholding - Tax Rates and Brackets</field>
+        <field name="code">l10n_us_al_tax_rates_table</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_al_tax_rates_table_2023" model="hr.rule.parameter.value">
+        <field name="parameter_value">[
+            (500, 0.02),
+            (2500, 0.04),
+            (99999999999999, 0.05),
+        ]</field>
+        <field name="rule_parameter_id" ref="rule_parameter_al_tax_rates_table"/>
+        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_al_standard_deduction_table" model="hr.rule.parameter">
+        <field name="name">US: Alabama Withholding - Standard Deduction Table</field>
+        <field name="code">l10n_us_al_standard_deduction_table</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_al_standard_deduction_table_2023" model="hr.rule.parameter.value">
+        <field name="parameter_value">{
+    'single': [
+        (0, 25999, 3000),
+        (26000, 26499, 2975),
+        (26500, 26999, 2950),
+        (27000, 27499, 2925),
+        (27500, 27999, 2900),
+        (28000, 28499, 2875),
+        (28500, 28999, 2850),
+        (29000, 29499, 2825),
+        (29500, 29999, 2800),
+        (30000, 30499, 2775),
+        (30500, 30999, 2750),
+        (31000, 31499, 2725),
+        (31500, 31999, 2700),
+        (32000, 32499, 2675),
+        (32500, 32999, 2650),
+        (33000, 33499, 2625),
+        (33500, 33999, 2600),
+        (34000, 34499, 2575),
+        (34500, 34999, 2550),
+        (35000, 35499, 2525),
+        (35500, 99999999999999, 2500)],
+    'head': [
+        (0, 25999, 5200),
+        (26000, 26499, 5065),
+        (26500, 26999, 4930),
+        (27000, 27499, 4795),
+        (27500, 27999, 4660),
+        (28000, 28499, 4525),
+        (28500, 28999, 4390),
+        (29000, 29499, 4255),
+        (29500, 29999, 4120),
+        (30000, 30499, 3985),
+        (30500, 30999, 3850),
+        (31000, 31499, 3715),
+        (31500, 31999, 3580),
+        (32000, 32499, 3445),
+        (32500, 32999, 3310),
+        (33000, 33499, 3175),
+        (33500, 33999, 3040),
+        (34000, 34499, 2905),
+        (34500, 34999, 2770),
+        (35000, 35499, 2635),
+        (35500, 99999999999999, 2500)],
+    'separately': [
+        (0, 12999, 4250),
+        (13000, 13249, 4162),
+        (13250, 13499, 4074),
+        (13500, 13749, 3986),
+        (13750, 13999, 3898),
+        (14000, 14249, 3810),
+        (14250, 14499, 3722),
+        (14500, 14749, 3634),
+        (14750, 14999, 3546),
+        (15000, 15249, 3458),
+        (15250, 15499, 3370),
+        (15500, 15749, 3282),
+        (15750, 15999, 3194),
+        (16000, 16249, 3106),
+        (16250, 16499, 3018),
+        (16500, 16749, 2930),
+        (16750, 16999, 2842),
+        (17000, 17249, 2754),
+        (17250, 17499, 2666),
+        (17500, 17749, 2578),
+        (17750, 99999999999999, 2500)],
+    'jointly': [
+        (0, 25999, 8500),
+        (26000, 26499, 8325),
+        (26500, 26999, 8150),
+        (27000, 27499, 7975),
+        (27500, 27999, 7800),
+        (28000, 28499, 7625),
+        (28500, 28999, 7450),
+        (29000, 29499, 7275),
+        (29500, 29999, 7100),
+        (30000, 30499, 6925),
+        (30500, 30999, 6750),
+        (31000, 31499, 6575),
+        (31500, 31999, 6400),
+        (32000, 32499, 6225),
+        (32500, 32999, 6050),
+        (33000, 33499, 5875),
+        (33500, 33999, 5700),
+        (34000, 34499, 5525),
+        (34500, 34999, 5350),
+        (35000, 35499, 5175),
+        (35500, 99999999999999, 5000)],
+}</field>
+        <field name="rule_parameter_id" ref="rule_parameter_al_standard_deduction_table"/>
+        <field name="date_from" eval="datetime(2023, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_nv_cep_rate" model="hr.rule.parameter">
+        <field name="name">US: Nevada CEP rate</field>
+        <field name="code">l10n_us_nv_cep_rate</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_nv_cep_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.05</field>
+        <field name="rule_parameter_id" ref="rule_parameter_nv_cep_rate"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_wa_pfml_family_rate" model="hr.rule.parameter">
+        <field name="name">US: Washington PFML Family Rate</field>
+        <field name="code">l10n_us_wa_pfml_family_rate</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_wa_pfml_family_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">-0.35557</field>
+        <field name="rule_parameter_id" ref="rule_parameter_wa_pfml_family_rate"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_wa_pfml_medical_rate" model="hr.rule.parameter">
+        <field name="name">US: Washington PFML Medical Rate</field>
+        <field name="code">l10n_us_wa_pfml_medical_rate</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_wa_pfml_medical_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">-0.173012</field>
+        <field name="rule_parameter_id" ref="rule_parameter_wa_pfml_medical_rate"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_wa_pfml_employer_rate" model="hr.rule.parameter">
+        <field name="name">US: Washington PFML Family Medical Rate - Employer</field>
+        <field name="code">l10n_us_wa_pfml_employer_rate</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_wa_pfml_employer_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.211418</field>
+        <field name="rule_parameter_id" ref="rule_parameter_wa_pfml_employer_rate"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
+
+    <record id="rule_parameter_wa_cares_fund_rate" model="hr.rule.parameter">
+        <field name="name">US: Washington Cares Fund rate</field>
+        <field name="code">l10n_us_wa_cares_fund_rate</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="rule_parameter_wa_cares_fund_rate_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">0.58</field>
+        <field name="rule_parameter_id" ref="rule_parameter_wa_cares_fund_rate"/>
         <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
     </record>
 
