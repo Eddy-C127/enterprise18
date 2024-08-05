@@ -3,7 +3,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
 registry.category("web_tour.tours").add("ticket_create_sol_tour", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     steps: () => [
     stepUtils.showAppsMenuItem(), {
         trigger: ".o_app[data-menu-xmlid='helpdesk.menu_helpdesk_root']",

@@ -22,4 +22,4 @@ class TestTicketSOLUi(odoo.tests.HttpCase):
             'team_id': helpdesk_team.id,
             'partner_id': partner_a.id,
         })
-        self.start_tour('/web', 'ticket_create_sol_tour', login='admin')
+        self.start_tour('/odoo', 'ticket_create_sol_tour', login='admin')

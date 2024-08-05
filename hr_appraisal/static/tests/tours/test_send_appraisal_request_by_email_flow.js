@@ -3,7 +3,7 @@
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add("test_send_appraisal_request_by_email_flow", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         {
