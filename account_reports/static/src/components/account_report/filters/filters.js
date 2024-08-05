@@ -293,10 +293,12 @@ export class AccountReportFilters extends Component {
             "month": 0,
             "quarter": 0,
             "year": 0,
-        }
+        };
 
         const specifier = this.controller.options.date.filter.split('_')[0];
-        const period = this.controller.options.date.period_type
+        const periodType = this.controller.options.date.period_type;
+        // In case the period is fiscalyear it will be computed exactly like a year period.
+        const period = periodType === "fiscalyear" ? "year" : periodType;
         // Set the filter value based on the specifier
         filters[period] = this.controller.options.date.period || (specifier === 'previous' ? -1 : specifier === 'next' ? 1 : 0);
 
