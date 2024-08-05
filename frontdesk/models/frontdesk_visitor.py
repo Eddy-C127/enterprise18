@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from werkzeug.urls import url_encode, url_join
+from werkzeug.urls import url_join
 from markupsafe import Markup
 
 from odoo import models, fields, api, _, SUPERUSER_ID
@@ -95,15 +95,11 @@ class FrontdeskVisitor(models.Model):
         for visitor in self:
             if visitor.drink_ids.notify_user_ids:
                 action = visitor.env.ref('frontdesk.action_frontdesk_visitor').id
-                url = url_encode({
-                    'id': visitor.id,
-                    'action': action,
-                    'model': 'frontdesk.visitor',
-                    'view_type': 'form',
-                })
                 name = f"{self.name} ({self.company})" if self.company else self.name
                 msg = _("%(name)s just checked-in. Requested Drink: %(drink)s.",
-                    name=Markup('<a href="%s">%s</a>') % (url_join(visitor.get_base_url(), '/web?#%s' % url), name),
+                    name=Markup('<a href="%s">%s</a>') % (
+                        url_join(visitor.get_base_url(), f'/odoo/action-{action}/{visitor.id}'), name
+                    ),
                     drink=', '.join(drink.name for drink in visitor.drink_ids),
                 )
                 visitor._notify_by_discuss(visitor.drink_ids.notify_user_ids, msg)

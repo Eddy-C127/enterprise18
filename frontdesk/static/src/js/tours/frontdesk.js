@@ -6,7 +6,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("frontdesk_tour", {
-    url: "/web",
+    url: "/odoo",
     rainbowManMessage: () => markup(_t("<b>Congratulations!!!</b> You have created your first visitor.")),
     steps: () => [
         stepUtils.showAppsMenuItem(),
