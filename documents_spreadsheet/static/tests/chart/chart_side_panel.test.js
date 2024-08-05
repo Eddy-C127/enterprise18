@@ -237,3 +237,66 @@ test("Cumulative line chart", async () => {
         message: "checkbox should no longer be checked",
     });
 });
+
+describe("trend line", () => {
+    test("activate trend line with the checkbox", async function () {
+        const { model, env } = await createSpreadsheetFromGraphView();
+        const sheetId = model.getters.getActiveSheetId();
+        const chartId = model.getters.getChartIds(sheetId)[0];
+        await openChartSidePanel(model, env);
+        await contains(".o-panel-design").click();
+
+        await contains("input[name='showTrendLine']").click();
+        const definition = model.getters.getChartDefinition(chartId);
+        expect(definition.trend).toEqual({
+            type: "polynomial",
+            order: 1,
+            display: true,
+        });
+        const runtime = model.getters.getChartRuntime(chartId);
+        expect(runtime.chartJsConfig.data.datasets.length).toEqual(2);
+    });
+
+    test("Can change trend type", async function () {
+        const { model, env } = await createSpreadsheetFromGraphView();
+        const sheetId = model.getters.getActiveSheetId();
+        const chartId = model.getters.getChartIds(sheetId)[0];
+        await openChartSidePanel(model, env);
+        await contains(".o-panel-design").click();
+        await contains("input[name='showTrendLine']").click();
+
+        let definition = model.getters.getChartDefinition(chartId);
+        expect(definition.trend).toEqual({
+            type: "polynomial",
+            order: 1,
+            display: true,
+        });
+
+        for (const trendType of ["exponential", "logarithmic", "polynomial"]) {
+            await contains(".trend-type-selector").select(trendType);
+            definition = model.getters.getChartDefinition(chartId);
+            expect(definition.trend?.type).toEqual(trendType);
+        }
+    });
+
+    test("Can change polynomial degree", async function () {
+        const { model, env } = await createSpreadsheetFromGraphView();
+        const sheetId = model.getters.getActiveSheetId();
+        const chartId = model.getters.getChartIds(sheetId)[0];
+        await openChartSidePanel(model, env);
+        await contains(".o-panel-design").click();
+        await contains("input[name='showTrendLine']").click();
+
+        let definition = model.getters.getChartDefinition(chartId);
+        expect(definition.trend).toEqual({
+            type: "polynomial",
+            order: 1,
+            display: true,
+        });
+
+        await contains(".trend-type-selector").select("polynomial");
+        await contains(".trend-order-input").edit("2");
+        definition = model.getters.getChartDefinition(chartId);
+        expect(definition.trend?.order).toEqual(2);
+    });
+});
