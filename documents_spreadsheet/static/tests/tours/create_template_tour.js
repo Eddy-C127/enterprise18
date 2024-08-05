@@ -8,7 +8,7 @@ const TEMPLATE_NAME = `${SHEET_NAME} - Template`;
 
 registry.category("web_tour.tours").add("documents_spreadsheet_create_template_tour", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     steps: () => [
         ...stepUtils.goToAppSteps("documents.menu_root", "Open Document app"),
         {

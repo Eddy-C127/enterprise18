@@ -80,7 +80,7 @@ function restoreDocumentSteps() {
 }
 
 registry.category("web_tour.tours").add("document_delete_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         stepUtils.showAppsMenuItem(),

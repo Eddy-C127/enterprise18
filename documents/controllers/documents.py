@@ -409,7 +409,7 @@ class ShareRoute(http.Controller):
         button_text = share.name or _('Share link')
         chatter_message = Markup("""<b>%s</b> %s <br/>
                                <b>%s</b> %s <br/>
-                               <a class="btn btn-primary" href="/web#id=%s&model=documents.share&view_type=form" target="_blank">
+                               <a class="btn btn-primary" href="/odoo/documents.share/%s" target="_blank">
                                   <b>%s</b>
                                </a>
                              """) % (

@@ -745,8 +745,7 @@ class Document(models.Model):
         self.ensure_one()
         if access_uid and not force_website and self.active:
             url_params = url_encode({
-                'model': 'documents.document',
-                'action_id': self.env.ref("documents.document_action").id,
+                'preview_id': self.id,
                 'view_id': self.env.ref("documents.document_view_kanban").id,
                 'menu_id': self.env.ref("documents.menu_root").id,
                 'folder_id': self.folder_id.id,
@@ -754,6 +753,6 @@ class Document(models.Model):
 
             return {
                 "type": "ir.actions.act_url",
-                "url": f"/web?preview_id={self.id}#{url_params}"
+                "url": f"/odoo/action-documents.document_action?{url_params}"
             }
         return super()._get_access_action(access_uid=access_uid, force_website=force_website)

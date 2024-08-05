@@ -21,6 +21,6 @@ class TestDocumentDeletion(HttpCase):
         })
         folder_copy = folder
         document_copy = document
-        self.start_tour("/web", 'document_delete_tour', login='admin')
+        self.start_tour("/odoo", 'document_delete_tour', login='admin')
         self.assertFalse(folder_copy.exists(), "The folder should not exist anymore")
         self.assertFalse(document_copy.exists(), "The document should not exist anymore")

@@ -27,15 +27,14 @@ class SignRequest(models.Model):
         self.ensure_one()
         if self.reference_doc._name == 'documents.document':
             url_params = url_encode({
-                'model': 'documents.document',
-                'action_id': self.env.ref("documents.document_action").id,
+                'preview_id': self.reference_doc.id,
                 'view_id': self.env.ref("documents.document_view_kanban").id,
                 'menu_id': self.env.ref("documents.menu_root").id,
                 'folder_id': self.reference_doc.folder_id.id,
             })
             return {
                 'type': 'ir.actions.act_url',
-                'url': f"/web?preview_id={self.reference_doc.id}#{url_params}",
+                'url': f"/odoo/action-documents.document_action?{url_params}",
                 'target': 'self',
             }
         else:

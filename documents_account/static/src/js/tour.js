@@ -5,7 +5,7 @@ import { registry } from "@web/core/registry";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("documents_account_tour", {
-    url: "/web",
+    url: "/odoo",
     rainbowManMessage: () => markup(_t("Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is complete. Try uploading your own documents now.")),
     sequence: 170,
     steps: () => [

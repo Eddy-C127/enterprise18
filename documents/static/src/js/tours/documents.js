@@ -6,7 +6,7 @@ import { markup } from "@odoo/owl";
 import { queryOne } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add("documents_tour", {
-    url: "/web",
+    url: "/odoo",
     rainbowManMessage: () =>
         markup(
             _t(

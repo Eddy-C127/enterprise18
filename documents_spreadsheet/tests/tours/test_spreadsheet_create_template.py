@@ -9,4 +9,4 @@ from odoo.tests import tagged
 class TestSpreadsheetCreateTemplate(SpreadsheetTestTourCommon):
 
     def test_01_spreadsheet_create_template(self):
-        self.start_tour("/web", "documents_spreadsheet_create_template_tour", login="admin")
+        self.start_tour("/odoo", "documents_spreadsheet_create_template_tour", login="admin")
