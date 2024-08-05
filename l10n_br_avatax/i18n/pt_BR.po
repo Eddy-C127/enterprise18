@@ -173,12 +173,12 @@ msgstr "Modelo de plano da contas"
 #. module: l10n_br_avatax
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_operation_type__active
 msgid "Active"
-msgstr ""
+msgstr "Ativo"
 
 #. module: l10n_br_avatax
 #: model:product.template,name:l10n_br_avatax.added_taxes_consumable_product_product_template
 msgid "Added Taxes Consumable Product"
-msgstr ""
+msgstr "Produtos consumíveis com imposto adicionado"
 
 #. module: l10n_br_avatax
 #: model:ir.model.fields.selection,name:l10n_br_avatax.selection__product_template__l10n_br_use_type__agricultural_production
@@ -644,6 +644,8 @@ msgid ""
 "Brazil: this is the operation type related to the goods transaction. This "
 "will define the CFOP used on the NF-e."
 msgstr ""
+"Brasil: Este é o tipo de operação relacionado a transações de produtos. Isso "
+"determinará o CFOP usado na NF-e."
 
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_291
@@ -1209,7 +1211,7 @@ msgstr "Frete"
 #. module: l10n_br_avatax
 #: model:product.template,name:l10n_br_avatax.fusca_repair_product
 msgid "Fusca Repair"
-msgstr ""
+msgstr "Reparo do fusca"
 
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_210
@@ -1707,7 +1709,7 @@ msgstr "Manacapuru"
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_007
 msgid "Manaus"
-msgstr ""
+msgstr "Manaus"
 
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_105
@@ -1967,13 +1969,13 @@ msgstr "Apenas administradores podem fazer ping no Avatax."
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_account_move__l10n_br_goods_operation_type_id
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_account_payment__l10n_br_goods_operation_type_id
 msgid "Operation Type"
-msgstr ""
+msgstr "Tipo de Operação"
 
 #. module: l10n_br_avatax
 #: model:ir.actions.act_window,name:l10n_br_avatax.l10n_br_operation_type_action
 #: model:ir.ui.menu,name:l10n_br_avatax.l10n_br_operation_type_menu
 msgid "Operation Types"
-msgstr ""
+msgstr "Tipos de Operação"
 
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_026
@@ -2290,7 +2292,7 @@ msgstr "Recife"
 #. module: l10n_br_avatax
 #: model:product.template,name:l10n_br_avatax.regular_consumable_product_product_template
 msgid "Regular Consumable Product"
-msgstr ""
+msgstr "Produto consumível regular"
 
 #. module: l10n_br_avatax
 #: model:l10n_br.operation.type,name:l10n_br_avatax.operation_type_174
@@ -2454,7 +2456,7 @@ msgstr "Rio das Ostras"
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_002
 msgid "Rio de Janeiro"
-msgstr ""
+msgstr "Rio de Janeiro"
 
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_118
@@ -2872,7 +2874,7 @@ msgstr "Subproduto"
 #. module: l10n_br_avatax
 #: model:product.template,name:l10n_br_avatax.subtracted_consumable_product_product_template
 msgid "Subtracted Consumable Product"
-msgstr ""
+msgstr "Produto consumível subtraído"
 
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_098
@@ -3014,7 +3016,7 @@ msgstr "São Mateus"
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_001
 msgid "São Paulo"
-msgstr ""
+msgstr "São Paulo"
 
 #. module: l10n_br_avatax
 #: model:res.city,name:l10n_br_avatax.city_br_303
@@ -3078,7 +3080,7 @@ msgstr "Contribuinte isento"
 #. module: l10n_br_avatax
 #: model:ir.model.fields,field_description:l10n_br_avatax.field_l10n_br_operation_type__technical_name
 msgid "Technical Name"
-msgstr ""
+msgstr "Nome técnico"
 
 #. module: l10n_br_avatax
 #: model:ir.model.fields,help:l10n_br_avatax.field_account_tax__l10n_br_avatax_code
@@ -3185,6 +3187,7 @@ msgstr "A empresa a que este código se aplica."
 msgid ""
 "The name that will be sent as operationType to the Brazilian Avatax API."
 msgstr ""
+"O nome enviado como tipo de operação (operationType) para a API da Avatax do Brasil."
 
 #. module: l10n_br_avatax
 #: model:ir.model.fields,help:l10n_br_avatax.field_l10n_br_service_code__code
