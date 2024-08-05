@@ -32,6 +32,10 @@ class TestAnalyticReport(TestAccountReportsCommon):
             'name': 'Account 2',
             'plan_id': cls.analytic_plan_parent.id
         })
+        cls.analytic_account_parent_3 = cls.env['account.analytic.account'].create({
+            'name': 'Account 4',
+            'plan_id': cls.analytic_plan_parent.id
+        })
         cls.analytic_account_child = cls.env['account.analytic.account'].create({
             'name': 'Account 3',
             'plan_id': cls.analytic_plan_child.id
@@ -541,6 +545,7 @@ class TestAnalyticReport(TestAccountReportsCommon):
                     'price_unit': 500.0,
                     'analytic_distribution': {
                         self.analytic_account_parent_2.id: 80,
+                        self.analytic_account_parent_3.id: -10,
                     },
                 }),
             ]
@@ -552,29 +557,29 @@ class TestAnalyticReport(TestAccountReportsCommon):
             '2024-01-01',
             '2024-12-31',
             default_options={
-                'analytic_accounts_groupby': [self.analytic_account_parent.id, self.analytic_account_parent_2.id],
+                'analytic_accounts_groupby': [self.analytic_account_parent.id, self.analytic_account_parent_2.id, self.analytic_account_parent_3.id],
                 'selected_horizontal_group_id': horizontal_group.id,
             }
         )
 
         self.assertLinesValues(
             self.report._get_lines(options),
-            #   Horizontal groupby      [        Product A        ]     [        Product B         ]
-            #   Analytic groupby        A1          A2      Balance     A1          A2       Balance
-            [0,                         1,          2,      3,          4,       5,          6],
+            #   Horizontal groupby      [          Product A          ]     [          Product B          ]
+            #   Analytic groupby        A1      A2      A3      Balance     A1      A2      A3      Balance
+            [    0,                     1,      2,      3,      4,          5,      6,      7,      8],
             [
-                ['Net Profit',          100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
-                ['Income',              100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
-                ['Gross Profit',        100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
-                ['Operating Income',    100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
-                ['Cost of Revenue',     0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
-                ['Total Gross Profit',  100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
-                ['Other Income',        0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
-                ['Total Income',        100.00,     0.00,   100.00,     0.00,    400.00,     500.00],
-                ['Expenses',            0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
-                ['Expenses',            0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
-                ['Depreciation',        0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
-                ['Total Expenses',      0.00,       0.00,   0.00,       0.00,    0.00,       0.00],
+                ['Net Profit',          100.00, 0.00,   0.00,   100.00,     0.00,   400.00, -50.00, 500.00],
+                ['Income',              100.00, 0.00,   0.00,   100.00,     0.00,   400.00, -50.00, 500.00],
+                ['Gross Profit',        100.00, 0.00,   0.00,   100.00,     0.00,   400.00, -50.00, 500.00],
+                ['Operating Income',    100.00, 0.00,   0.00,   100.00,     0.00,   400.00, -50.00, 500.00],
+                ['Cost of Revenue',     0.00,   0.00,   0.00,   0.00,       0.00,   0.00,   0.00,   0.00],
+                ['Total Gross Profit',  100.00, 0.00,   0.00,   100.00,     0.00,   400.00, -50.00, 500.00],
+                ['Other Income',        0.00,   0.00,   0.00,   0.00,       0.00,   0.00,   0.00,   0.00],
+                ['Total Income',        100.00, 0.00,   0.00,   100.00,     0.00,   400.00, -50.00, 500.00],
+                ['Expenses',            0.00,   0.00,   0.00,   0.00,       0.00,   0.00,   0.00,   0.00],
+                ['Expenses',            0.00,   0.00,   0.00,   0.00,       0.00,   0.00,   0.00,   0.00],
+                ['Depreciation',        0.00,   0.00,   0.00,   0.00,       0.00,   0.00,   0.00,   0.00],
+                ['Total Expenses',      0.00,   0.00,   0.00,   0.00,       0.00,   0.00,   0.00,   0.00],
             ],
             options,
         )
