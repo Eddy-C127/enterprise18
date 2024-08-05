@@ -62,38 +62,39 @@
                             </div>
                             <t t-foreach="l10n_mx_edi_fields" t-as="field">
                                 <t t-value="default_vals.get(field.name)" t-set="val"/>
-                                <div class="col-lg-6 mb-3">
-                                    <t t-if="field.ttype == 'selection'">
-                                        <label class="col-form-label" t-att-for="field.name">
+                                <div class="col-lg-6 mb-3" t-if="field.ttype in ('selection', 'many2one')">
+                                    <label class="col-form-label" t-att-for="field.name">
+                                        <t t-out="field.field_description"/>
+                                    </label>
+                                    <select t-att-name="field.name" class="form-select">
+                                        <option t-att-selected="not val" disabled="disabled"
+                                                value="">
+                                            <t t-out="'Select the %s ...' % field.field_description.lower()"/>
+                                        </option>
+                                        <t t-if="field.ttype == 'selection'" t-foreach="field.selection_ids" t-as="selection">
+                                            <option t-att-selected="val and val == selection.value"
+                                                    t-att-value="selection.value">
+                                                <t t-out="selection.name"/>
+                                            </option>
+                                        </t>
+                                        <t t-if="field.name == 'l10n_mx_edi_payment_method_id'" t-foreach="l10n_mx_edi_payment_methods" t-as="method">
+                                            <option t-att-selected="val and int(val) == method.id"
+                                                    t-att-value="method.id"
+                                                    t-out="method.name"/>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div t-if="field.ttype == 'boolean'">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                                t-att-id="field.name"
+                                                t-att-name="field.name"
+                                                t-att-checked="val"/>
+                                        <label class="form-check-label fw-normal"
+                                                t-att-for="field.name">
                                             <t t-out="field.field_description"/>
                                         </label>
-                                        <select t-att-name="field.name" class="form-select">
-                                            <option t-att-selected="not val" disabled="disabled"
-                                                    value="">
-                                                <t t-out="'Select the %s ...' % field.field_description.lower()"/>
-                                            </option>
-                                            <t t-foreach="field.selection_ids" t-as="selection">
-                                                <option t-att-selected="val and val == selection.value"
-                                                        t-att-value="selection.value">
-                                                    <t t-out="selection.name"/>
-                                                </option>
-                                            </t>
-                                        </select>
-                                    </t>
-                                </div>
-                                <div>
-                                    <t t-if="field.ttype == 'boolean'">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input"
-                                                    t-att-id="field.name"
-                                                    t-att-name="field.name"
-                                                    t-att-checked="val"/>
-                                            <label class="form-check-label fw-normal"
-                                                    t-att-for="field.name">
-                                                <t t-out="field.field_description"/>
-                                            </label>
-                                        </div>
-                                    </t>
+                                    </div>
                                 </div>
                             </t>
                         </div>
