@@ -17,6 +17,7 @@ import { _t } from "@web/core/l10n/translation";
 import { SidebarViewToolbox } from "@web_studio/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox";
 import { ChatterProperties } from "@web_studio/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties";
 import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/view_editor_model";
+import { OTdLabelProperties } from "./properties/o_td_label_properties/o_td_label_properties";
 
 class FormComponents extends Component {
     static template = "web_studio.FormEditor.Sidebar.Components";
@@ -57,8 +58,13 @@ export class FormEditorSidebar extends Component {
         this.dialog = useService("dialog");
         this.viewEditorModel = useState(this.env.viewEditorModel);
         this.editArchAttributes = useEditNodeAttributes({ isRoot: true });
+    }
 
-        this.propertiesComponents = {
+    get propertiesComponents() {
+        const activeNode = this.env.viewEditorModel.activeNode;
+        const isOTdLabel =
+            activeNode?.arch.tagName === "div" && activeNode.arch.classList.contains("o_td_label");
+        return {
             button: {
                 component: ButtonProperties,
                 props: {
@@ -81,7 +87,7 @@ export class FormEditorSidebar extends Component {
                 component: PageProperties,
             },
             div: {
-                component: ChatterProperties,
+                component: isOTdLabel ? OTdLabelProperties : ChatterProperties,
             },
         };
     }

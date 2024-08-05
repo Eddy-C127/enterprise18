@@ -240,6 +240,16 @@ export class FormEditorCompiler extends formView.Compiler {
                 compiled.setAttribute("isAvatar", true);
                 this.avatars.push(compiled);
             }
+
+            if (node.classList.contains("o_td_label") && !node.children.length && !node.textContent.trim()) {
+                compiled.classList.add("o-web-studio-editor--element-clickable");
+                const xpath = node.getAttribute("studioXpath");
+                compiled.setAttribute(
+                    "t-on-click",
+                    `(ev) => __comp__.env.config.onNodeClicked("${xpath}")`
+                );
+            }
+
             const name = node.getAttribute("name"); // not sure that part works
             if (name === "message_ids") {
                 this.chatterData.remove_message_ids = true;
