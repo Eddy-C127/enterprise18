@@ -45,6 +45,44 @@
                     </div>
                 </div>
                 <sheet>
+                    <div name="button_box" class="oe_button_box" invisible="l10n_in_gstr_activate_einvoice_fetch == 'do_nothing'">
+                        <button class="oe_stat_button"
+                                name="action_get_irn_data"
+                                type="object"
+                                icon="fa-download"
+                                invisible="irn_status"
+                                help="Click this button to fetch the e-invoice from the government portal.">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">
+                                    Fetch E-Invoice
+                                </span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button disabled"
+                                name="action_get_irn_data"
+                                type="object"
+                                invisible="irn_status not in ['to_download', 'to_process']"
+                                help="E-invoice fetching is in progress.">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">
+                                    <i class="fa fa-spinner fa-spin p-1"/>
+                                    Fetching
+                                </span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button text-danger"
+                                name="action_get_irn_data"
+                                type="object"
+                                icon="fa-download text-danger"
+                                invisible="irn_status != 'process_with_error'"
+                                help="An error occurred while fetching the e-invoice. Please check the logger section for details.">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">
+                                    Fetch E-Invoice
+                                </span>
+                            </div>
+                        </button>
+                    </div>
                     <widget name="web_ribbon" title="Done" bg_color="text-bg-success" invisible="gstr3b_status != 'filed'"/>
                     <label for="month" string="GST Filing" class="text-muted"/>
                     <h2>

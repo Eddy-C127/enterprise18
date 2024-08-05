@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo.tests import tagged
-from .gstr_test_json import gstr2b_test_json
 import logging
 import json
 
-from odoo.addons.l10n_in_reports.tests.common import L10nInTestAccountReportsCommon
+from odoo.addons.l10n_in_reports_gstr.tests.common import L10nInTestAccountGstReportsCommon
 
 _logger = logging.getLogger(__name__)
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestReports(L10nInTestAccountReportsCommon):
+class TestReports(L10nInTestAccountGstReportsCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -64,10 +63,11 @@ class TestReports(L10nInTestAccountReportsCommon):
 
     def test_gstr2b(self):
 
+        gstr2b_json = self._read_mock_json('gstr2b_response.json')
         self.report.gstr2b_json_from_portal_ids = self.env['ir.attachment'].create({
             'name': 'gstr2b.json',
             'mimetype': 'application/json',
-            'raw': json.dumps(gstr2b_test_json),
+            'raw': json.dumps(gstr2b_json),
         })
         self.report.gstr2b_match_data()
 

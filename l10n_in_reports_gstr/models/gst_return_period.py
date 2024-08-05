@@ -3,16 +3,19 @@
 
 import json
 import re
+import markupsafe
+
 from babel.dates import get_quarter_names
 from datetime import datetime, timedelta
 from dateutil import relativedelta
 from itertools import groupby
 from markupsafe import Markup
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError, AccessError, ValidationError, RedirectWarning
 from odoo.tools import date_utils, get_lang, html_escape, SQL
 from odoo.tools.misc import format_date
+from .irn_exception import IrnException
 
 import logging
 
@@ -142,6 +145,18 @@ class L10nInGSTReturnPeriod(models.Model):
     ], compute="_compute_gstr3b_status", store=True)
 
     # ===============================
+    # Bill using IRN
+    # ===============================
+
+    irn_status = fields.Selection(selection=[
+        ('to_download', 'To Download'),
+        ('to_process', 'To Process'),
+        ('process_with_error', 'Process With Error')
+    ], string="IRN Status", readonly=True, tracking=True)
+    list_of_irn_json_attachment_ids = fields.Many2many('ir.attachment', 'irn_attachment_portal_json', string='JSON with list of IRNs')
+    l10n_in_gstr_activate_einvoice_fetch = fields.Selection(related="company_id.l10n_in_gstr_activate_einvoice_fetch")
+
+    # ===============================
     # GSTR Common Methods
     # ===============================
 
@@ -253,8 +268,9 @@ class L10nInGSTReturnPeriod(models.Model):
     def _compute_display_tax_unit(self):
         self.display_tax_unit = self.env['account.tax.unit'].search_count([], limit=1) > 0
 
-    def _check_config(self, next_gst_action=False):
-        company = self.company_id
+    @api.model
+    def _check_config(self, next_gst_action=False, company=False):
+        company = company or self.company_id
         action = False
         button_name = msg = ""
         if not company.vat:
@@ -265,7 +281,7 @@ class L10nInGSTReturnPeriod(models.Model):
             action = self.env.ref('account.action_account_config').id
         if not company._is_l10n_in_gstr_token_valid():
             context = {
-                'default_company_id': self.company_id.id,
+                'default_company_id': company.id,
                 'dialog_size': 'medium',
                 'active_id': self._context.get('active_id', self.id),
                 'active_model': self._context.get('active_model', 'l10n_in.gst.return.period'),
@@ -340,6 +356,43 @@ class L10nInGSTReturnPeriod(models.Model):
         if "404" in error_codes:
             blocking_level = "warning"
         return blocking_level
+
+    @api.model
+    def _get_gst_return_period(self, company, create_if_not_found=False):
+        """
+        Retrieve or create the GST return period for a given company and date.
+
+        :param company: The company for which the GST return period is to be retrieved or created.
+        :param create_if_not_found: If `True`, a new GST return period will be created if not found.
+
+        :returns: The GST return period record for the specified company and date.
+        """
+        def _search_or_create_gst_return_period(period_date):
+            month = period_date.strftime('%m').zfill(2)
+            year = period_date.strftime('%Y')
+            GstReturnPeriod = self.env['l10n_in.gst.return.period']
+            domain = [
+                ('company_id', '=', company.id),
+                ('month', '=', month),
+                ('year', '=', year),
+            ]
+            return_period = GstReturnPeriod.search(domain)
+            if create_if_not_found:
+                tax_units = self.env['account.tax.unit'].search([('main_company_id', '=', company.id)], limit=1)
+                if tax_units and return_period and not return_period.tax_unit_id:
+                    raise UserError(f"GST return period already exists for {period_date.strftime('%b-%Y')}, but it's not associated with the relevant tax unit.")
+            if create_if_not_found and not return_period:
+                return_period = GstReturnPeriod.create({
+                    'company_id': company.id,
+                    'year': year,
+                    'month': month,
+                    'tax_unit_id': tax_units.id if create_if_not_found else False,
+                })
+            return return_period
+
+        current_return_period_date = fields.Date.context_today(self)
+        current_return_period = _search_or_create_gst_return_period(current_return_period_date)
+        return current_return_period
 
     # ===============================
     # GSTR-1
@@ -1845,6 +1898,286 @@ class L10nInGSTReturnPeriod(models.Model):
         })
         return action
 
+    # ===============================
+    # Bills from E-Invoice IRN
+    # ===============================
+
+    def action_get_irn_data(self):
+        """
+        Fetch the IRN (Invoice Reference Number) data for the company.
+        Ensures the company is in production and has IAP credits, then triggers a cron to fetch
+        the list of IRNs relevant to the current GST period.
+
+        :returns: a notification action informing the user that the fetch is in progress.
+        """
+        if self.company_id.l10n_in_edi_production_env:
+            edi_credits = self.env["iap.account"].get_credits(service_name="l10n_in_edi")
+            if edi_credits < 3:
+                url = self.env["iap.account"].get_credits_url(service_name="l10n_in_edi")
+                self.irn_status = 'process_with_error'
+                self.message_post(body=markupsafe.Markup("""
+                    <p><b>%s</b></p><p>%s <a href="%s">%s</a></p>""") % (
+                    _("You have insufficient credits to retrieve this document!"),
+                    _("Please buy more credits and retry: "),
+                    url,
+                    _("Buy Credits")
+                ))
+                return True
+        context = {
+            'active_id': self.id,
+            'active_model': 'l10n_in.gst.return.period'
+        }
+        self.with_context(context)._check_config(next_gst_action='fetch_irn')
+        self.irn_status = 'to_download'
+        self.message_post(body=_("IRN Processing is running in the background."))
+        self.env.ref('l10n_in_reports_gstr.ir_cron_auto_sync_einvoice_irn')._trigger()
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'type': 'info',
+                'sticky': False,
+                'message': _("Processing is running in the background. You can continue your work."),
+                'next': {
+                    'type': 'ir.actions.client',
+                    'tag': 'soft_reload',
+                },
+            }
+        }
+
+    def _get_irn_data(self):
+        """ Fetch and process IRN data
+        The process of retrieving IRN data entails the following steps:
+        1. Obtain an e-invoice file token from the IAP.
+        2. Use the token to retrieve the e-invoice file details, these include encryption keys and file URLs.
+        3. Retrieve the IRN list file data from the encrypted file URLs, creates JSON attachments for each file. In most cases there is only one.
+        4. Update the IRN status and trigger the next step in the workflow if successful.
+        """
+        def extract_token_from_error(response):
+            """
+            Extracts a token from a specific error message if present.
+            :returns: The extracted token or `False` if not found.
+            """
+            handle_error_code = 'EINV30130'  # Specific error code to handle
+            errors = response.get('error', [])
+            if isinstance(errors, dict):
+                errors['code'] = errors.pop('error_cd', None)
+            for error in list(errors):
+                if error.get('code', '') == handle_error_code:
+                    token_match = re.search(r'token\s([a-f0-9]+)(?=.*The link is valid till 1 day)', error.get('message', ''))
+                    if token_match:
+                        return token_match.group(1)
+            return False
+
+        # Retrieve file token
+        file_token_response = self._get_einvoice_file_token(
+            company=self.company_id,
+            month_year=self.return_period_month_year,
+            section_code="B2B",
+        )
+        if (file_token := file_token_response.get('data', {}).get('token')) is None:
+            file_token = extract_token_from_error(file_token_response)
+        if not file_token:
+            raise IrnException(file_token_response.get('error', {}))
+        # Retrieve encryption keys and URLs for the e-invoice files
+        einvoice_details_response = self._get_einvoice_details_from_file(
+            company=self.company_id,
+            month_year=self.return_period_month_year,
+            token=file_token,
+        )
+        if not (
+            (data := einvoice_details_response.get('data', {}))
+            and (url_list := [url['ul'] for url in data.get('urls') if 'ul' in url])
+            and (key := data.get('ek'))
+        ):
+            raise IrnException(einvoice_details_response.get('error', {}))
+        # Process the URLs to fetch IRN data and create attachments, exluding those that already exist
+        attachment_ids = self.env['ir.attachment']
+        for url in url_list:
+            irn_details_response = self._get_encrypted_large_file_data(
+                company=self.company_id,
+                month_year=self.return_period_month_year,
+                url=url,
+                encryption_key=key,
+            )
+            data = irn_details_response.get('data', {})
+            if not data or not data.get('irnList', {}):
+                raise IrnException(irn_details_response.get('error', {}))
+            attachment_ids |= self.env['ir.attachment'].create({
+                'name': f'file_{url}.json',
+                'mimetype': 'application/json',
+                'raw': json.dumps(data),
+            })
+        if attachment_ids:
+            self.list_of_irn_json_attachment_ids.unlink()
+            self.list_of_irn_json_attachment_ids = attachment_ids
+        # Update the IRN status and trigger the next workflow step
+        self.irn_status = "to_process"
+        self.env.ref('l10n_in_reports_gstr.ir_cron_auto_match_einvoice_irn')._trigger()
+
+    def irn_match_data(self):
+        """
+        Matches or creates bills (account moves) based on IRN (Invoice Reference Number) data retrieved from JSON attachments.
+
+        This method processes JSON data containing IRN information and attempts to match each entry with existing bills in the system.
+        If a match is found, the IRN number is updated. If no match is found, a new bill is created.
+        It handles updates, cancellations, and posting relevant messages based on the IRN status.
+        """
+        AccountMove = self.env['account.move']
+        checked_moves = self.env['account.move']
+        # Collect JSON data from the attachments
+        json_payload_list = [
+            json_file.raw
+            for json_file in self.list_of_irn_json_attachment_ids
+                if json_file.mimetype == 'application/json'
+        ]
+
+        if not json_payload_list:
+            # No valid JSON attachments found, log an error
+            self.irn_status = "process_with_error"
+            msg = _("Somehow this IRN attachment is not JSON. Please attempt to retrieve the data from the portal again.")
+            self.message_post(body=msg)
+            return checked_moves
+
+        # Process the JSON data
+        irn_numbers = set()
+        streamline_bills = []
+        for json_dump in json_payload_list:
+            json_payload = json.loads(json_dump)
+            for entry in json_payload.get('irnList', {}):
+                ctin = entry.get('ctin')
+                irn_details = entry.get('irnDtl', [])
+                for detail in irn_details:
+                    vals = {
+                        'vat': ctin,
+                        'bill_number': detail.get('docNum'),
+                        'bill_date': datetime.strptime(detail.get('docDt'), '%d/%m/%Y').strftime('%Y-%m-%d'),
+                        'bill_total': detail.get('totInvAmt'),
+                        'bill_value_json': detail,
+                        'bill_type': detail.get('docType'),
+                        'section_code': detail.get('supplyType'),
+                        'irn_number': detail.get('irn'),
+                        'irn_status': detail.get('irnStatus'),
+                        'ack_no': detail.get('ackNo'),
+                        'ack_date': detail.get('ackDt'),
+                        'ewb_no': detail.get('ewbNo'),
+                        'ewb_date': detail.get('ewbDt'),
+                        'cancel_date': detail.get('cnldt')
+                    }
+                    streamline_bills.append(vals)
+                    irn_numbers.add(detail.get('irn'))
+
+        # Perform bulk search for bills with matching IRN numbers
+        existing_bills = AccountMove.search([
+            ("l10n_in_irn_number", "in", list(irn_numbers)),
+            ("company_id", "in", self.company_ids.ids or self.company_id.ids)
+        ])
+        # Create a mapping of existing bills by IRN number
+        existing_bills_dict = {bill.l10n_in_irn_number: bill for bill in existing_bills}
+
+        # Match or create bills based on the extracted data
+        for bill in streamline_bills:
+            irn_number = bill.get('irn_number')
+            bill_already_exists = existing_bills_dict.get(irn_number)
+            if not bill_already_exists:
+                # Check if the bill exists by bill number and date if IRN number does not match
+                domain = [
+                    ("move_type", "in", AccountMove.get_purchase_types()),
+                    ("ref", "=", bill.get('bill_number')),
+                    ("invoice_date", "=", bill.get('bill_date')),
+                    ("company_id", "in", self.company_ids.ids or self.company_id.ids),
+                ]
+                if bill.get('vat'):
+                    domain.append(("partner_id.vat", "=", bill.get('vat')))
+                bill_already_exists = AccountMove.search(domain, limit=1)
+
+                if bill_already_exists:
+                    # Update the existing bill with the IRN number
+                    bill_already_exists.l10n_in_irn_number = irn_number
+                    msg = _("This bill was found in the GST portal while retrieving the list of IRNs.")
+                    bill_already_exists.with_context(no_new_invoice=True).message_post(body=msg)
+
+            if not bill_already_exists:
+                # Create a new bill if no match is found
+                journal = self.env['account.journal'].search([
+                    *self.env['account.journal']._check_company_domain(self.company_id),
+                    ('type', '=', 'purchase')
+                ], limit=1)
+                move_type = "in_invoice" if bill.get('bill_type') != "CRN" else "in_refund"
+                created_move = self.env['account.move'].with_context(skip_is_manually_modified=True).create({
+                    'journal_id': journal.id,
+                    'move_type': move_type,
+                    'l10n_in_irn_number': irn_number
+                })
+
+                if self.l10n_in_gstr_activate_einvoice_fetch == 'automatic':
+                    try:
+                        gov_json_data = created_move._l10n_in_retrieve_details_from_irn(irn_number, self.company_id)
+                    except IrnException as e:
+                        created_move.message_post(body=Markup("%s<br/> %s") % (_("Fetching IRN details failed with error(s):"), str(e)))
+                        checked_moves |= created_move
+                        continue
+                    if gov_json_data:
+                        # Create an attachment for the fetched data and update the bill
+                        attachment = self.env['ir.attachment'].create({
+                            'name': '%s.json' % irn_number,
+                            'mimetype': 'application/json',
+                            'raw': json.dumps(gov_json_data),
+                            'res_model': 'account.move',
+                            'res_id': created_move.id,
+                        })
+                        created_move._extend_with_attachments(attachment, new=True)
+                        msg = _("This bill was created from the GST portal because no existing invoice matched the provided details.")
+                        created_move.with_context(account_predictive_bills_disable_prediction=True, no_new_invoice=True).message_post(body=msg)
+
+                        # Cancel the created bill if the IRN status indicates cancellation
+                        if bill.get('irn_status') == 'CNL' and created_move.state != 'cancel':
+                            created_move.message_post(body=_("This bill has been marked as canceled based on the e-invoice status."))
+                            created_move.button_cancel()
+
+                if not (tools.config['test_enable'] or tools.config['test_file']):
+                    self.env.cr.commit()
+            else:
+                # Cancel the existing bill if the IRN status indicates cancellation
+                if bill.get('irn_status') == 'CNL' and bill_already_exists.state != 'cancel':
+                    bill_already_exists.message_post(body=_("This bill has been marked as canceled based on the e-invoice status."))
+                    bill_already_exists.button_cancel()
+
+            checked_moves |= bill_already_exists or created_move
+
+        # Post a final message with the number of processed bills
+        msg = _("Fetching complete. %s bills have been matched or created.", len(checked_moves))
+        self.message_post(body=msg)
+        self.irn_status = False  # Reset IRN status after processing
+
+    def _cron_get_irn_data(self):
+        """
+        Cron job to fetch IRN data for GST return periods with 'to_download' status.
+        Calls `_get_irn_data()` for each period, handling errors if they occur.
+
+        :rtype: None
+        """
+        return_periods = self.search([('irn_status', '=', 'to_download')])
+        for return_period in return_periods:
+            try:
+                return_period._get_irn_data()
+            except IrnException as e:
+                return_period.irn_status = 'process_with_error'
+                return_period.message_post(body=Markup("%s<br/> %s") % (_("Fetching List of e-invoice..."), str(e)))
+
+    def _cron_irn_match_data(self):
+        """
+        Cron job method that matches IRN data for GST return periods with 'to_process' status.
+
+        This method searches for all GST return periods marked for IRN data processing and
+        calls the `irn_match_data` method on each applicable return period to perform the matching operation.
+
+        :rtype: None
+        """
+        return_periods = self.search([('irn_status', '=', 'to_process')])
+        for return_period in return_periods:
+            return_period.irn_match_data()
+
     # ========================================
     # API calls
     # ========================================
@@ -1908,3 +2241,53 @@ class L10nInGSTReturnPeriod(models.Model):
             "file_number": file_number,
         }
         return self._request(url="/iap/l10n_in_reports/1/gstr2b/all", params=params, company=company)
+
+    def _get_einvoice_file_token(self, company, month_year, section_code):
+        """
+        Retrieve the e-invoice file token for the specified return period and section code.
+
+        :param company: The company for which the e-invoice file token is being retrieved.
+        :param month_year: The return period in the format 'MM/YYYY'.
+        :param section_code: The section code for the e-invoice.
+
+        :returns: The response from the request containing the e-invoice file token.
+        """
+        params = {
+            "ret_period": month_year,
+            "suptyp": section_code,
+            "gstin": company.vat,
+            "auth_token": company.sudo().l10n_in_gstr_gst_token,
+        }
+        return self._request(url="/iap/l10n_in_reports/1/einvoice/vendor/irnlist", params=params, company=company)
+
+    def _get_einvoice_details_from_file(self, company, month_year, token):
+        """
+        Get details of the e-invoice file using the provided file token.
+
+        :param company: The company requesting the details.
+        :param month_year: Return period ('MM/YYYY').
+        :param token: E-invoice file token.
+
+        :returns: E-invoice details response.
+        """
+        params = {
+            "ret_period": month_year,
+            "gstin": company.vat,
+            "file_token": token,
+            "auth_token": company.sudo().l10n_in_gstr_gst_token,
+        }
+        return self._request(url="/iap/l10n_in_reports/1/einvoice/filedtl", params=params, company=company)
+
+    def _get_encrypted_large_file_data(self, company, month_year, url, encryption_key):
+        """
+        Retrieve data from an encrypted large file using its URL and encryption key.
+        :returns: Decrypted file data response.
+        """
+        params = {
+            "file_url": url,
+            "encryption_key": encryption_key,
+            "gstin": company.vat,
+            "ret_period": month_year,
+            "auth_token": company.sudo().l10n_in_gstr_gst_token,
+        }
+        return self._request(url="/iap/l10n_in_reports/1/all/largefile", params=params, company=company)

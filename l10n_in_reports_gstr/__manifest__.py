@@ -20,6 +20,7 @@ GST return filing using IAP
         "views/gst_return_period.xml",
         "views/account_move_views.xml",
         "views/res_config_settings.xml",
+        "views/account_journal_dashboard_view.xml",
         "wizard/gst_otp_validation.xml",
     ],
     "demo": [

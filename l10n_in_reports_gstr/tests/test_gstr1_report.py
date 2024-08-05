@@ -2,17 +2,16 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo.tests import tagged
 from odoo import Command
-from .gstr_test_json import gstr1_test_json, gstr1_debit_note_test_json
 import logging
 from datetime import date
 
-from odoo.addons.l10n_in_reports.tests.common import L10nInTestAccountReportsCommon
+from odoo.addons.l10n_in_reports_gstr.tests.common import L10nInTestAccountGstReportsCommon
 
 _logger = logging.getLogger(__name__)
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-class TestReports(L10nInTestAccountReportsCommon):
+class TestReports(L10nInTestAccountGstReportsCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -104,12 +103,14 @@ class TestReports(L10nInTestAccountReportsCommon):
     def test_gstr1_json(self):
         self._setup_moves(self._create_credit_note)
         gstr_report = self._create_gstr_report()
-        self.assertDictEqual(gstr_report._get_gstr1_json(), gstr1_test_json)
+        gstr1_expected_json = self._read_mock_json('gstr1_expected_response.json')
+        self.assertDictEqual(gstr_report._get_gstr1_json(), gstr1_expected_json)
 
     def test_gstr1_debit_note_json(self):
         self._setup_moves(self._create_debit_note)
         gstr_report = self._create_gstr_report()
-        self.assertDictEqual(gstr_report._get_gstr1_json(), gstr1_debit_note_test_json)
+        gstr1_debit_note_expected_json = self._read_mock_json('gstr1_debit_note_expected_response.json')
+        self.assertDictEqual(gstr_report._get_gstr1_json(), gstr1_debit_note_expected_json)
 
     def test_gstr1_credit_note_warning_pre_and_post_november(self):
         invoice_1 = self._init_inv(partner=self.partner_a, taxes=self.comp_igst_18, line_vals={'price_unit': 500, 'quantity': 2}, invoice_date=date(2022, 8, 1))

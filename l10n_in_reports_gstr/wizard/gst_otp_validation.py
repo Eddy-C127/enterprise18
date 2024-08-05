@@ -79,4 +79,10 @@ class GstOtpValidation(models.TransientModel):
                 return_period.button_check_gstr1_status()
             elif next_gst_action == "fetch_gstr2b":
                 return_period.action_get_gstr2b_data()
+            elif next_gst_action == 'fetch_irn_from_account_move':
+                response_message = return_period.l10n_in_update_move_using_irn()
+                response['params']['next'] = response_message
+            elif next_gst_action == 'fetch_irn':
+                response_message = return_period.action_get_irn_data()
+                response['params']['next'] = response_message
         return response

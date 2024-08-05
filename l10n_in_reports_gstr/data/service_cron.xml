@@ -49,4 +49,31 @@ env.ref("l10n_in_reports_gstr.ir_cron_auto_match_gstr2b_data")._trigger()
         <field name="interval_type">days</field>
     </record>
 
+    <record id="ir_cron_auto_sync_einvoice_irn" model="ir.cron">
+        <field name="name">Indian Accounting: Download E-Invoice IRN Data</field>
+        <field name="model_id" ref="model_l10n_in_gst_return_period"/>
+        <field name="code">model._cron_get_irn_data()</field>
+        <field name="state">code</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+
+    <record id="ir_cron_auto_match_einvoice_irn" model="ir.cron">
+        <field name="name">Indian Accounting; Match E-Invoice IRN Data</field>
+        <field name="model_id" ref="model_l10n_in_gst_return_period"/>
+        <field name="code">model._cron_irn_match_data()</field>
+        <field name="state">code</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+
+    <record id="ir_cron_auto_fetch_einvoice_details" model="ir.cron">
+        <field name="name">Indian Accounting; Fetch E-Invoice detail bill using IRN</field>
+        <field name="model_id" ref="model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">model._l10n_in_cron_update_with_irn(job_count=50)</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+
 </odoo>

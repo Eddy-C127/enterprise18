@@ -84,33 +84,11 @@ class AccountMove(models.Model):
                 move_line_vals.update({'product_id': products.id})
         return move_line_vals
 
-    @api.model
-    def _l10n_in_qr_scan_get_partner_vals_by_vat(self, vat):
-        partner_details = self.env['res.partner'].read_by_vat(vat)
-        if partner_details:
-            partner_data = partner_details[0]
-            if partner_data.get('partner_gid'):
-                partner_data = self.env['res.partner'].enrich_company(company_domain=None, partner_gid=partner_data.get('partner_gid'), vat=partner_data.get('vat'))
-                partner_data = self.env['res.partner']._iap_replace_logo(partner_data)
-            return {
-                'name': partner_data.get('name'),
-                'company_type': 'company',
-                'partner_gid': partner_data.get('partner_gid'),
-                'vat': partner_data.get('vat'),
-                'l10n_in_gst_treatment': 'regular',
-                'image_1920': partner_data.get('image_1920'),
-                'street': partner_data.get('street'),
-                'street2': partner_data.get('street2'),
-                'city': partner_data.get('city'),
-                'zip': partner_data.get('zip'),
-            }
-        return {}
-
     def _l10n_in_get_partner_from_gstin(self, gstin):
         partner = self.env['res.partner']._retrieve_partner(vat=gstin)
         if partner:
             return partner.id
-        partner_vals = self._l10n_in_qr_scan_get_partner_vals_by_vat(gstin)
+        partner_vals = self.env['res.partner']._l10n_in_get_partner_vals_by_vat(gstin)
         if partner_vals:
             partner = self.env['res.partner'].create(partner_vals)
             #read_by_vat method is not providing the state/country code

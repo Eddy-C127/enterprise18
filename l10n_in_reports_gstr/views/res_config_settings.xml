@@ -9,6 +9,13 @@
                 <attribute name="invisible">0</attribute>
             </div>
             <xpath expr="//block[@id='india_localization']" position="inside">
+                <setting name="vendor_einvoice_in"
+                         string="Fetch Vendor E-Invoiced Document"
+                         invisible="country_code != 'IN'"
+                         help="This feature helps you to quickly create draft vendor bills using the data your vendor submitted during E-invoicing on the GST portal."
+                         company_dependent="1">
+                    <field name="l10n_in_gstr_activate_einvoice_fetch" widget="radio" class="oe_inline" string="Fetch Vendor E-Invoiced Document"/>
+                </setting>
                 <setting id="l10n_in_gst_iap"
                          string="Indian GST"
                          help="Setup GST Service for this company"

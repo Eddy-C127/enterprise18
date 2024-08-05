@@ -17,6 +17,9 @@ class ResConfigSettings(models.TransientModel):
         string="Is auto refresh token",
         related="company_id.l10n_in_gstr_gst_auto_refresh_token",
         readonly=False)
+    l10n_in_gstr_activate_einvoice_fetch = fields.Selection(
+        related="company_id.l10n_in_gstr_activate_einvoice_fetch",
+        readonly=False)
 
     def l10n_in_gstr_gst_send_otp(self):
         otp_validation_wizard = self.env['l10n_in.gst.otp.validation'].create({
