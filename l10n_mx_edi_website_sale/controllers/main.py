@@ -41,6 +41,7 @@ class WebsiteSaleL10nMX(WebsiteSale):
         l10n_mx_edi_fields = [
             request.env['ir.model.fields']._get('res.partner', 'l10n_mx_edi_fiscal_regime'),
             request.env['ir.model.fields']._get('account.move', 'l10n_mx_edi_usage'),
+            request.env['ir.model.fields']._get('account.move', 'l10n_mx_edi_payment_method_id'),
             request.env['ir.model.fields']._get('res.partner', 'l10n_mx_edi_no_tax_breakdown'),
         ]
 
@@ -52,6 +53,7 @@ class WebsiteSaleL10nMX(WebsiteSale):
             default_vals['l10n_mx_edi_fiscal_regime'] = partner.l10n_mx_edi_fiscal_regime
             default_vals['l10n_mx_edi_usage'] = order.l10n_mx_edi_usage
             default_vals['l10n_mx_edi_no_tax_breakdown'] = partner.l10n_mx_edi_no_tax_breakdown
+            default_vals['l10n_mx_edi_payment_method_id'] = order.l10n_mx_edi_payment_method_id
 
         # === POST & possibly redirect ===
         can_edit_vat = partner.can_edit_vat()
@@ -65,6 +67,7 @@ class WebsiteSaleL10nMX(WebsiteSale):
                     'l10n_mx_edi_fiscal_regime': kw.get('l10n_mx_edi_fiscal_regime'),
                     'l10n_mx_edi_usage': kw.get('l10n_mx_edi_usage'),
                     'l10n_mx_edi_no_tax_breakdown': kw.get('l10n_mx_edi_no_tax_breakdown') == 'on',
+                    'l10n_mx_edi_payment_method_id': int(kw.get('l10n_mx_edi_payment_method_id', False)) or False,
                 }
                 partner_vals = {}
                 # VAT field
@@ -77,6 +80,7 @@ class WebsiteSaleL10nMX(WebsiteSale):
                         partner_vals['vat'] = default_vals['vat']
                 # Other fields
                 order.l10n_mx_edi_usage = default_vals['l10n_mx_edi_usage']
+                order.l10n_mx_edi_payment_method_id = default_vals['l10n_mx_edi_payment_method_id']
                 partner_vals.update({
                     'l10n_mx_edi_fiscal_regime': default_vals['l10n_mx_edi_fiscal_regime'],
                     'l10n_mx_edi_no_tax_breakdown': default_vals['l10n_mx_edi_no_tax_breakdown'],
@@ -95,6 +99,7 @@ class WebsiteSaleL10nMX(WebsiteSale):
             'partner': partner.id,
             'order': order,
             'l10n_mx_edi_fields': l10n_mx_edi_fields,
+            'l10n_mx_edi_payment_methods': request.env['l10n_mx_edi.payment.method'].sudo().search([]),
             'company_country_code': order.company_id.country_id.code,
             'default_vals': default_vals,
             'errors': errors,
