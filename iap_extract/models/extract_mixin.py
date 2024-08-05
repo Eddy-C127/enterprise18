@@ -101,7 +101,7 @@ class ExtractMixin(models.AbstractModel):
 
     @api.model
     def _cron_validate(self):
-        records_to_validate = self.search(self._get_validation_domain())
+        records_to_validate = self.with_context(skip_is_manually_modified=True).search(self._get_validation_domain())
 
         for record in records_to_validate:
             try:
@@ -202,7 +202,7 @@ class ExtractMixin(models.AbstractModel):
     def check_ocr_status(self):
         """ Actively check the status of the extraction on the concerned records. """
 
-        records_to_check = self.filtered(lambda a: a.extract_state in ['waiting_extraction', 'extract_not_ready'])
+        records_to_check = self.with_context(skip_is_manually_modified=True).filtered(lambda a: a.extract_state in ['waiting_extraction', 'extract_not_ready'])
 
         for record in records_to_check:
             record._check_ocr_status()

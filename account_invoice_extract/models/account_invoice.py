@@ -68,6 +68,7 @@ class AccountMove(models.Model):
     extract_partner_name = fields.Char("Extract Detected Partner Name", readonly=True)
 
     def action_reload_ai_data(self):
+        self = self.with_context(skip_is_manually_modified=True)  # noqa: PLW0642
         try:
             with self._get_edi_creation() as move_form:
                 # The OCR doesn't overwrite the fields, so it's necessary to reset them
@@ -269,7 +270,7 @@ class AccountMove(models.Model):
         # OVERRIDE
         # On the validation of an invoice, send the different corrected fields to iap to improve the ocr algorithm.
         posted = super()._post(soft)
-        self._validate_ocr()
+        self.with_context(skip_is_manually_modified=True)._validate_ocr()
         return posted
 
     def get_boxes(self):
@@ -646,6 +647,7 @@ class AccountMove(models.Model):
         return invoice_lines_to_create
 
     def _fill_document_with_results(self, ocr_results):
+        self = self.with_context(skip_is_manually_modified=True)  # noqa: PLW0642
         if self.state != 'draft' or ocr_results is None:
             return
 
@@ -690,6 +692,9 @@ class AccountMove(models.Model):
             self.write({'extract_word_ids': data})
 
     def _save_form(self, ocr_results):
+        # Avoid marking is_manually_modified as True when posting an invoice
+        self = self.with_context(skip_is_manually_modified=True)  # noqa: PLW0642
+
         date_ocr = self._get_ocr_selected_value(ocr_results, 'date', "")
         due_date_ocr = self._get_ocr_selected_value(ocr_results, 'due_date', "")
         total_ocr = self._get_ocr_selected_value(ocr_results, 'total', 0.0)
