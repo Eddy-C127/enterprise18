@@ -36,7 +36,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         return {
             'file_name': f"{file_name}.xml",
-            'file_content': etree.tostring(sat_report, pretty_print=True, xml_declaration=True, encoding='utf-8'),
+            'file_content': self.env['l10n_mx_edi.document']._convert_xml_to_attachment_data(sat_report),
             'file_type': 'xml',
         }
 
@@ -115,7 +115,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         return {
             'file_name': f"{file_name}.xml",
-            'file_content': etree.tostring(coa_report, pretty_print=True, xml_declaration=True, encoding='utf-8'),
+            'file_content': self.env['l10n_mx_edi.document']._convert_xml_to_attachment_data(coa_report),
             'file_type': 'xml',
         }
 

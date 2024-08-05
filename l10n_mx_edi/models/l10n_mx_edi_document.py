@@ -1069,6 +1069,20 @@ class L10nMxEdiDocument(models.Model):
 
         clean_node(cfdi_values)
 
+    @api.model
+    def _convert_xml_to_attachment_data(self, xml_string):
+        """
+        Create and return a raw XML string value with custom hardcoded declaration.
+        This ensures the generated string to have double quote in the XML declaration,
+        because some third party vendors do not accept single quoted declaration.
+        """
+        custom_declaration = b'<?xml version="1.0" encoding="UTF-8"?>\n'
+        return custom_declaration + etree.tostring(
+            element_or_tree=xml_string,
+            pretty_print=True,
+            encoding='UTF-8',
+        )
+
     # -------------------------------------------------------------------------
     # GLOBAL CFDI
     # -------------------------------------------------------------------------
@@ -1774,10 +1788,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             attachment_values = document_values.pop('attachment_id')
 
             # Pretty-print the xml.
-            attachment_values['raw'] = etree.tostring(
-                etree.fromstring(attachment_values['raw']),
-                pretty_print=True, xml_declaration=True, encoding='UTF-8',
-            )
+            xml_string = etree.fromstring(attachment_values['raw'])
+            attachment_values['raw'] = self.env['l10n_mx_edi.document']._convert_xml_to_attachment_data(xml_string)
         else:
             attachment_values = None
 
@@ -2058,7 +2070,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         cfdi_infos = self.env['l10n_mx_edi.document']._decode_cfdi_attachment(cfdi)
         cfdi_cadena_crypted = certificate._get_encrypted_cadena(cfdi_infos['cadena'])
         cfdi_infos['cfdi_node'].attrib['Sello'] = cfdi_cadena_crypted
-        cfdi_str = etree.tostring(cfdi_infos['cfdi_node'], pretty_print=True, xml_declaration=True, encoding='UTF-8')
+        cfdi_str = self.env['l10n_mx_edi.document']._convert_xml_to_attachment_data(cfdi_infos['cfdi_node'])
 
         # == Check credentials ==
         pac_name = root_company.l10n_mx_edi_pac
