@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from werkzeug.urls import url_encode
 
 from odoo import _, fields, models
 
@@ -20,7 +19,7 @@ class HrReferralAlertMailWizard(models.TransientModel):
         return [(6, 0, user_ids.ids)]
 
     def _default_body(self):
-        url = '/web#' + url_encode({'action': 'hr_referral.action_hr_referral_welcome_screen'})
+        url = '/odoo/action-hr_referral.action_hr_referral_welcome_screen'
         return _('A new alert has been added to the Referrals app! Check your <a href=%(url)s>dashboard</a> now!', url=url)
 
     user_ids = fields.Many2many('res.users', 'Users', domain=_get_user_domain, default=_default_user_ids, store=False)

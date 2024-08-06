@@ -4,7 +4,7 @@
 
     registry.category("web_tour.tours").add('applicant_sign_request_tour', {
             test: true,
-            url: '/web',
+            url: '/odoo',
             steps: () => [
             {
                 content: "Access on the recruitment app",

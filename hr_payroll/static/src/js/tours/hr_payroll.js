@@ -6,7 +6,7 @@ import { registry } from "@web/core/registry";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('payroll_tours', {
-    url: "/web",
+    url: "/odoo",
     rainbowManMessage: _t('Congratulations! You created your first contract and generated your first payslip!'),
     sequence: 80,
     steps: () => [

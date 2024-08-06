@@ -3,7 +3,6 @@
 
 import json
 from markupsafe import Markup, escape
-from werkzeug.urls import url_encode
 
 from odoo import api, fields, models, _
 from odoo.exceptions import AccessError, UserError
@@ -136,8 +135,7 @@ class Applicant(models.Model):
             subject = _('Referral: %(partner)s (%(applicant)s)', partner=self.partner_name, applicant=self.name)
         else:
             subject = _('Referral: %s', self.name)
-        url = url_encode({'action': action_value, 'active_model': self._name})
-        action_url = '/web#' + url
+        action_url = f'/odoo/action-{action_value}?active_model={self._name}'
         body = Markup("<a class='o_document_link' href=%s>%s</a><br>%s") % (action_url, subject, body)
         odoobot = self.env.ref('base.partner_root')
         # Do *not* notify on `self` as it will lead to unintended behavior.
@@ -212,7 +210,7 @@ class Applicant(models.Model):
                     gained=gained_points,
                     new_line=Markup('<br/>'),
                     total=available_points,
-                    link1=Markup('<a href="/web#action=hr_referral.action_hr_referral_reward&active_model=hr.referral.reward">'),
+                    link1=Markup('<a href="/odoo/action-hr_referral.action_hr_referral_reward?active_model=hr.referral.reward">'),
                     link2=Markup('</a>'),
                 )
             if self.stage_id.hired_stage:
@@ -334,7 +332,7 @@ class Applicant(models.Model):
             if message.onclick == 'url':
                 msg['url'] = message.url
             elif message.onclick == 'all_jobs':
-                msg['url'] = '/web#%s' % url_encode({'action': 'hr_referral.action_hr_job_employee_referral'})
+                msg['url'] = '/odoo/action-hr_referral.action_hr_job_employee_referral'
             result['message'].append(msg)
 
         return result

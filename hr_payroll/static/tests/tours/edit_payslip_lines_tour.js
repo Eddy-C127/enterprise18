@@ -5,7 +5,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
 registry.category("web_tour.tours").add('hr_payroll_edit_payslip_lines_tour', {
     test: true,
-    url: '/web',
+    url: '/odoo',
     steps: () => [
     stepUtils.showAppsMenuItem(),
     {
