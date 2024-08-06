@@ -5,7 +5,7 @@ from odoo import fields, models
 
 class HrPayslipInput(models.Model):
     _inherit = "hr.payslip.input.type"
-
+    _order = "l10n_au_payment_type"
     currency_id = fields.Many2one(
         "res.currency", string="Currency",
         default=lambda self: self.env.company.currency_id,
@@ -24,6 +24,8 @@ class HrPayslipInput(models.Model):
             ("etp", "ETP"),
             ("allowance", "Allowance"),
             ("lump_sum", "Lump Sum"),
+            ("deduction", "Deduction"),
+            ("leave", "Leave"),
             ("other", "Other"),
         ],
         string="Payment Type",
@@ -46,7 +48,7 @@ class HrPayslipInput(models.Model):
         string="PAYGW Treatment",
     )
 
-    l10n_au_payroll_code = fields.Char(string="Payroll Code")
+    l10n_au_payroll_code = fields.Char(string="STP Code")
     l10n_au_payroll_code_description = fields.Selection(
         selection=[
             ('G1', 'G1'),

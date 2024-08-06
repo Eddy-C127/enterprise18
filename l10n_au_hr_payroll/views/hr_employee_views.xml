@@ -13,6 +13,9 @@
                     <field name="super_account_warning" />
                 </div>
             </xpath>
+            <xpath expr="//label[@for='private_street']" position="before">
+                <field name='l10n_au_other_names' invisible="company_country_code != 'AU'"/>
+            </xpath>
             <group name="payroll_group" position="replace" />
             <xpath expr="//page[@name='hr_settings']//group" position="after">
                 <group name="au_payroll" string="Australian Payroll">
@@ -25,7 +28,8 @@
                         required="l10n_au_tfn_declaration == 'provided'"
                         placeholder="141592653"/>
                         <field name="l10n_au_abn" invisible="l10n_au_tax_treatment_category != 'V'"/>
-                        <field name="l10n_au_previous_id_bms"/>
+                        <field name="l10n_au_previous_payroll_id" groups="base.group_no_one" />
+                        <field name="l10n_au_payroll_id" groups="base.group_no_one" />
                     </group>
                     <group name="l10n_au_info" string="Tax and Contributions" invisible="company_country_code != 'AU'">
                         <field name="l10n_au_employment_basis_code" />
@@ -58,12 +62,9 @@
                     </group>
                     <group name="l10n_au_deductions" string="Deductions, offsets and withholding" invisible="company_country_code != 'AU'">
                         <field name="l10n_au_child_support_deduction"/>
-                        <field name="l10n_au_child_support_garnishee"/>
-                        <field name="l10n_au_child_support_garnishee_amount" widget="percentage"
-                        invisible="l10n_au_child_support_garnishee in ['fixed', False]"/>
-                        <field name="l10n_au_child_support_garnishee_amount"
-                        invisible="l10n_au_child_support_garnishee in ['percentage', False]"/>
-                        <field name="l10n_au_nat_3093_amount" invisible="l10n_au_tax_treatment_category == 'H'"/>
+                        <field name="l10n_au_child_support_garnishee_amount" widget="percentage"/>
+                        <field name="l10n_au_nat_3093_amount"
+                            invisible="not (l10n_au_tax_treatment_category == 'R' and l10n_au_tax_free_threshold) or l10n_au_tax_treatment_category != 'S'" />
                         <field name="l10n_au_extra_pay"/>
                         <label for="l10n_au_withholding_variation"/>
                         <div class="d-flex align-items-baseline">

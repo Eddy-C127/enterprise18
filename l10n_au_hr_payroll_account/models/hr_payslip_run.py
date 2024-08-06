@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import RedirectWarning, UserError
 
 
@@ -11,9 +11,37 @@ class HrPayslipRun(models.Model):
         'account.batch.payment', string='Payment Batch', readonly=True, copy=False
     )
     l10n_au_payment_batch_state = fields.Selection(related='l10n_au_payment_batch_id.state', tracking=False)
+    l10n_au_stp_status = fields.Selection([
+        ("draft", "Draft"),
+        ("ready", "Ready"),
+        ("sent", "Submitted"),
+        ("error", "Error"),
+    ], string="STP Status", compute="_compute_stp_status", help="Is the payslip ready for STP submission?")
+    l10n_au_stp_count = fields.Integer(compute='_compute_stp_count')
+
+    @api.depends('slip_ids', 'slip_ids.state')
+    def _compute_stp_status(self):
+        for run in self:
+            run.l10n_au_stp_status = 'draft'
+            if not run.slip_ids:
+                continue
+            elif all(payslip.l10n_au_stp_status == 'sent' for payslip in run.slip_ids):
+                run.l10n_au_stp_status = 'sent'
+            elif any(payslip.state == 'draft' for payslip in run.slip_ids):
+                run.l10n_au_stp_status = 'draft'
+            elif any(payslip.l10n_au_stp_status == 'error' for payslip in run.slip_ids):
+                run.l10n_au_stp_status = 'error'
+            elif all(payslip.l10n_au_stp_status == 'ready' for payslip in run.slip_ids):
+                run.l10n_au_stp_status = 'ready'
+
+    def _compute_stp_count(self):
+        for run in self:
+            run.l10n_au_stp_count = self.env['l10n_au.stp'].search_count([('payslip_batch_id', '=', run.id)])
 
     def action_register_payment(self):
         self.ensure_one()
+        if any(m.state != 'posted' for m in self.slip_ids.move_id):
+            raise UserError(_("You can only register payment for posted journal entries."))
         if not self.slip_ids.struct_id.rule_ids.filtered(lambda r: r.code == "NET").account_credit.reconcile:
             raise UserError(_('The credit account on the NET salary rule is not reconciliable'))
 
@@ -60,3 +88,8 @@ class HrPayslipRun(models.Model):
                 'default_export_format': export_format,
             },
         }
+
+    def action_open_stp(self):
+        return self.env['l10n_au.stp'] \
+            .search([('payslip_batch_id', 'in', self.ids)]) \
+            ._get_records_action(name=_("Single Touch Payroll"))

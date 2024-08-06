@@ -66,6 +66,10 @@ class HrContract(models.Model):
     l10n_au_workplace_giving_employer = fields.Float(string="Salary Sacrificed Workplace Giving")
     l10n_au_salary_sacrifice_superannuation = fields.Float(string="Salary Sacrifice Superannuation")
     l10n_au_salary_sacrifice_other = fields.Float(string="Salary Sacrifice Other Benefits")
+    l10n_au_extra_negotiated_super = fields.Float(string="Extra Negotiated Super %",
+        help="This is an additional Super Contribution negotiated by the employee. Paid by employer. (RESC)")
+    l10n_au_extra_compulsory_super = fields.Float(string="Extra Compulsory Super %",
+        help="This is an additional Compulsory Super Contribution required by the fund or territory law. (Not RESC)")
     l10n_au_yearly_wage = fields.Monetary(string="Yearly Wage", compute="_compute_yearly_wage", inverse="_inverse_yearly_wages", readonly=False, store=True)
     wage = fields.Monetary(compute="_compute_wage", readonly=False, store=True)
     hourly_wage = fields.Monetary(compute="_compute_hourly_wage", readonly=False, store=True)
@@ -74,6 +78,14 @@ class HrContract(models.Model):
         "l10n_au_casual_loading_span",
         "CHECK(l10n_au_casual_loading >= 0 AND l10n_au_casual_loading <= 1)",
         "The casual loading is a percentage and should have a value between 0 and 100."
+    ), (
+        "l10n_au_extra_negotiated_super_span",
+        "CHECK(l10n_au_extra_negotiated_super >= 0 AND l10n_au_extra_negotiated_super <= 1)",
+        "The Extra Negotiated super is a percentage and should have a value between 0 and 100.",
+    ), (
+        "l10n_au_extra_compulsory_super_span",
+        "CHECK(l10n_au_extra_compulsory_super >= 0 AND l10n_au_extra_compulsory_super <= 1)",
+        "The Extra Compulsory super is a percentage and should have a value between 0 and 100.",
     )]
 
     @api.constrains('employee_id', 'schedule_pay')

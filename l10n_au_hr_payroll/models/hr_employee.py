@@ -34,16 +34,19 @@ class HrEmployee(models.Model):
         readonly=False,
         groups="hr.group_hr_user")
     l10n_au_nat_3093_amount = fields.Float(
-        string="Estimated Tax Offset",
+        string="Annual Tax Offset",
         groups="hr.group_hr_user",
-        help="Amount of tax offset the employee entered in his NAT3039 withholding declaration, 0 if the employee did not present a declaration")
+        help="Amount of tax offset the employee entered in his NAT3093 withholding declaration, 0 if the employee did not present a declaration")
     l10n_au_extra_pay = fields.Boolean(
         string="Withhold for Extra Pay",
         groups="hr.group_hr_user",
         help="Whether the employee wants additional withholding in case of 53 weekly pays or 27 fortnightly pays in a year")
-    l10n_au_previous_id_bms = fields.Char(
-        string="Previous BMS ID",
+    l10n_au_previous_payroll_id = fields.Char(
+        string="Previous Payroll ID",
         groups="hr.group_hr_user")
+    l10n_au_payroll_id = fields.Char(
+        string="Payroll ID",
+        groups="hr.group_hr_user", size=20)
     l10n_au_training_loan = fields.Boolean(
         string="HELP / STSL",
         groups="hr.group_hr_user",
@@ -115,6 +118,7 @@ class HrEmployee(models.Model):
         string="Child Support Garnishee Amount",
         groups="hr.group_hr_user")
     super_account_warning = fields.Text(compute="_compute_proportion_warnings", groups="hr.group_hr_user")
+    l10n_au_other_names = fields.Char("Other Given Names", groups="hr.group_hr_user")
     l10n_au_employment_basis_code = fields.Selection(
         selection=[
             ("F", "Full time"),
@@ -215,6 +219,14 @@ class HrEmployee(models.Model):
         return super().write(vals)
 
     # == Constraints ==
+
+    @api.constrains("private_country_id", "l10n_au_income_stream_type")
+    def _check_l10n_au_work_country(self):
+        for rec in self:
+            if rec.country_id.code in ["AU", False] and rec.l10n_au_income_stream_type in ["IAA", "WHM"]:
+                raise ValidationError(_(
+                    "Inbound assignees to Australia and Working Holiday Makers must have a Nationality set other than Australia."
+                ))
 
     @api.constrains(
         "l10n_au_tax_treatment_category",
@@ -393,15 +405,15 @@ class HrEmployee(models.Model):
             else:
                 employee.l10n_au_tfn = ""
 
-    @api.depends("l10n_au_tfn")
+    @api.depends("l10n_au_tfn", "l10n_au_income_stream_type")
     def _compute_l10n_au_abn(self):
         for employee in self:
-            if employee.l10n_au_tfn:
+            if employee.l10n_au_tfn and employee.l10n_au_income_stream_type != "VOL":
                 employee.l10n_au_abn = ""
 
     def _inverse_l10n_au_abn(self):
         for employee in self:
-            if employee.l10n_au_abn and employee.l10n_au_tfn_declaration != "000000000":
+            if employee.l10n_au_abn and employee.l10n_au_tfn_declaration != "000000000" and employee.l10n_au_income_stream_type != "VOL":
                 employee.l10n_au_tfn = ""
 
     @api.depends("marital", "children", "l10n_au_tax_free_threshold")

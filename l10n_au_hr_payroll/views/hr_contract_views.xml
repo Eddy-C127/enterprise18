@@ -22,7 +22,7 @@
                             <field name="l10n_au_pay_day"/>
                             <field name="l10n_au_cessation_type_code" invisible="not date_end"/>
                         </group>
-                        <group name="tax_treatment" string="Tax Treatment" invisible="country_code != 'AU' and l10n_au_tax_treatment_category != 'A'" groups="hr.group_hr_user">
+                        <group name="tax_treatment" string="Tax Treatment" invisible="country_code != 'AU' or l10n_au_tax_treatment_category != 'A'" groups="hr.group_hr_user">
                             <field name="l10n_au_performances_per_week" />
                         </group>
                         <group name="l10n_au_leave_loading" string="Leave Loading / Workplace Giving"
@@ -38,6 +38,10 @@
                             <field name="l10n_au_leave_loading_rate" invisible="not l10n_au_eligible_for_leave_loading or not l10n_au_leave_loading"/>
                             <field name="l10n_au_workplace_giving" />
                             <field name="l10n_au_workplace_giving_employer" />
+                        </group>
+                        <group name="l10n_au_super_contributions" string="Super Contributions" invisible="country_code != 'AU'">
+                            <field name="l10n_au_extra_negotiated_super" widget="percentage"/>
+                            <field name="l10n_au_extra_compulsory_super" widget="percentage"/>
                         </group>
                         <group name="salary_sacrifice" string="Salary Sacrifice" invisible="country_code != 'AU'">
                             <field name="l10n_au_salary_sacrifice_superannuation"/>

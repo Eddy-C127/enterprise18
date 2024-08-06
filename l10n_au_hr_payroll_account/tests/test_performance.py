@@ -8,7 +8,7 @@ from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests.common import users, warmup, tagged
+from odoo.tests.common import users, warmup, tagged, new_test_user
 
 _logger = logging.getLogger(__name__)
 
@@ -109,6 +109,7 @@ class TestPerformance(AccountTestInvoicingCommon):
             "fund_id": cls.super_fund.id,
         } for i in range(cls.EMPLOYEES_COUNT)])
 
+        cls.employees[1].user_id = new_test_user(cls.env, login='employee1', groups='hr.group_hr_manager')
         cls.company.l10n_au_hr_super_responsible_id = cls.employees[1]
 
         cls.contracts = cls.env['hr.contract'].create([{

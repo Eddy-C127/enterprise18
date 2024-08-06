@@ -6,6 +6,14 @@
     -->
 
     <!-- BASIC SALARY, sequence 1 -->
+    <function model="hr.salary.rule" name="write">
+        <value model="hr.salary.rule" search="[
+            ('struct_id', '=', ref('l10n_au_hr_payroll.hr_payroll_structure_au_regular')),
+            ('code', '=', 'BASIC')]"/>
+        <value eval="{
+            'amount_python_compute': &quot;result = payslip.paid_amount + (inputs['BASIC.CORRECTION'].amount if 'BASIC.CORRECTION' in inputs else 0)&quot;
+        }"/>
+    </function>
 
     <record id="l10n_au_ote_structure_1" model="hr.salary.rule">
         <field name="category_id" ref="l10n_au_hr_payroll.rule_category_ote"/>
@@ -505,10 +513,12 @@ result = -payslip._l10n_au_compute_child_support(net_salary)
         <field name="code">SUPER.CONTRIBUTION</field>
         <field name="sequence">220</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = contract.l10n_au_salary_sacrifice_superannuation</field>
+        <field name="condition_python">
+result = contract.l10n_au_salary_sacrifice_superannuation or contract.l10n_au_extra_negotiated_super or contract.l10n_au_extra_compulsory_super
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = contract.l10n_au_salary_sacrifice_superannuation
+result = contract.l10n_au_salary_sacrifice_superannuation + categories['OTE'] * (payslip.l10n_au_extra_negotiated_super + payslip.l10n_au_extra_compulsory_super)
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>

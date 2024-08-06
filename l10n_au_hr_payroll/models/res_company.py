@@ -16,3 +16,6 @@ class ResCompany(models.Model):
         string="Superannuation Fund Generated Employer Identifier")
     l10n_au_registered_for_whm = fields.Boolean("Registered for Working Holiday Maker")
     l10n_au_registered_for_palm = fields.Boolean("Registered for PALM Scheme")
+
+    l10n_au_previous_bms_id = fields.Char("Previous BMS ID")
+    l10n_au_bms_id = fields.Char("BMS ID", readonly=False)

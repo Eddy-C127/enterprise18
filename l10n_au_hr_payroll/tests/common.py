@@ -411,7 +411,7 @@ class TestPayrollCommon(TransactionCase):
 
         cls.default_input_lines = [
             {
-                'input_type_id': cls.env.ref('l10n_au_hr_payroll.input_extra_pay').id,
+                'input_type_id': cls.env.ref('l10n_au_hr_payroll.input_bonus_commissions').id,
                 'amount': 200,
             },
             # RTW
@@ -449,8 +449,10 @@ class TestPayrollCommon(TransactionCase):
             "company_id": self.australian_company.id,
             "private_street": "1 Test Street",
             "private_city": "Sydney",
-            "private_country_id": self.env.ref("base.au").id,
+            "private_country_id": contract_info.get('country_id', self.env.ref("base.au").id),
             "work_phone": "123456789",
+            "private_phone": "123456789",
+            "private_email": "test@odoo.com",
             "birthday": contract_info.get('birthday', date.today() - relativedelta(years=22)),
             # fields modified in the tests
             "marital": "single",
@@ -498,6 +500,7 @@ class TestPayrollCommon(TransactionCase):
             "l10n_au_salary_sacrifice_superannuation": contract_info.get('salary_sacrifice_superannuation', 0),
             "l10n_au_salary_sacrifice_other": contract_info.get('salary_sacrifice_other', 0),
             "l10n_au_performances_per_week": contract_info.get('performances_per_week', 0),
+            "state": 'open'
         })
         if contract_info.get('wage_type') == 'hourly':
             contract_id.write({'hourly_wage': contract_info.get('hourly_wage')})

@@ -13,7 +13,7 @@
         <field name="currency_id" ref="base.AUD"/>
         <field name="partner_id" ref="base.partner_demo_company_au"/>
         <field name="resource_calendar_id" ref="l10n_au_hr_payroll.resource_calendar_au_38"/>
-        <field name="vat">83 914 571 673</field>
+        <field name="vat">83914571673</field>
     </record>
 
     <record id="res_partner_employee_au" model="res.partner">
@@ -21,10 +21,10 @@
         <field name="company_id" ref="base.demo_company_au"/>
     </record>
 
-    <record id="base.user_admin" model="res.users">
-        <field name="company_ids" eval="[(4, ref('base.demo_company_au'))]"/>
-        <field name="tz">Australia/Sydney</field>
-    </record>
+    <function model="res.users" name="write">
+        <value eval="[ref('base.user_root'), ref('base.user_admin'), ref('base.user_demo')]"/>
+        <value eval="{'company_ids': [(4, ref('base.demo_company_au'))], 'tz': 'Australia/Sydney'}"/>
+    </function>
 
     <record id="hr_employee_au" model="hr.employee">
         <field name="company_id" ref="base.demo_company_au"/>
@@ -237,17 +237,6 @@
     <function model="hr.leave" name="action_validate" eval="[ref('l10n_au_hr_payroll.hr_leave_long_service_post_93')]" />
     <function model="hr.leave" name="action_validate" eval="[ref('l10n_au_hr_payroll.hr_leave_annual_pre_93')]" />
     <function model="hr.leave" name="action_validate" eval="[ref('l10n_au_hr_payroll.hr_leave_annual_post_93')]" />
-
-    <record id="l10n_au_payevent_transaction_sequence_demo" model="ir.sequence">
-        <field name="company_id" ref="base.demo_company_au"/>
-        <field name="name">PayEvent.0004 Transaction Sequence demo</field>
-        <field name="code">payevent0004.transaction</field>
-        <field name="implementation">standard</field>
-        <field name="prefix">PAYEVENT0004</field>
-        <field name="padding">10</field>
-        <field name="number_increment">1</field>
-        <field name="number_next_actual">1</field>
-    </record>
 
     <record id="hr_payroll_super_fund_partner" model="res.partner">
         <field name="name">Fund A Partner</field>

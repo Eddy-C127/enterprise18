@@ -2,7 +2,7 @@
 
 from datetime import date
 
-from odoo.tests import tagged
+from odoo.tests import tagged, new_test_user
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
@@ -38,10 +38,8 @@ class L10nPayrollAccountCommon(AccountTestInvoicingCommon):
         cls.aba_ct = bank_journal.outbound_payment_method_line_ids.filtered(lambda l: l.code == 'aba_ct')
 
         # Employees Setup
-        cls.employee_contact_1 = cls.env['res.partner'].create([{
-            'name': "Mel",
-            'company_id': cls.env.company.id,
-        }])
+        cls.employee_user_1 = new_test_user(cls.env, login='mel', groups='hr.group_hr_manager')
+        cls.employee_contact_1 = cls.employee_user_1.partner_id
         cls.employee_contact_2 = cls.env['res.partner'].create([{
             'name': "Harry",
             'company_id': cls.env.company.id,
@@ -66,23 +64,40 @@ class L10nPayrollAccountCommon(AccountTestInvoicingCommon):
             'aba_bsb': '654321'
         })
         cls.employee_1 = cls.env["hr.employee"].create({
-            "name": "Mel",
+            "name": "Mel Gibson",
             "resource_calendar_id": cls.resource_calendar.id,
             "company_id": cls.company.id,
+            "user_id": cls.employee_user_1.id,
             'work_contact_id': cls.employee_contact_1.id,
             'bank_account_id': cls.bank_accounts_emp_1[1].id,
             "work_phone": "123456789",
+            "private_phone": "123456789",
+            "private_email": "mel@odoo.com",
+            "private_street": "1 Test Street",
+            "private_city": "Sydney",
+            "private_state_id": cls.env.ref("base.state_au_2").id,
+            "private_zip": "2000",
+            "private_country_id": cls.env.ref("base.au").id,
+            "birthday": date(2000, 1, 1),
             "l10n_au_tfn_declaration": "provided",
             "l10n_au_tfn": "12345678",
             "l10n_au_tax_free_threshold": True,
         })
         cls.employee_2 = cls.env["hr.employee"].create({
-            "name": "Harry",
+            "name": "Harry Potter",
             "resource_calendar_id": cls.resource_calendar.id,
             "company_id": cls.company.id,
             'work_contact_id': cls.employee_contact_2.id,
             'bank_account_id': cls.bank_accounts_emp_2.id,
             "work_phone": "123456789",
+            "private_phone": "123456789",
+            "private_email": "harry@odoo.com",
+            "private_street": "1 Test Street",
+            "private_city": "Sydney",
+            "private_state_id": cls.env.ref("base.state_au_2").id,
+            "private_zip": "2000",
+            "private_country_id": cls.env.ref("base.au").id,
+            "birthday": date(2000, 3, 1),
             "l10n_au_tfn_declaration": "provided",
             "l10n_au_tfn": "12345678",
             "l10n_au_tax_free_threshold": True,
@@ -111,7 +126,7 @@ class L10nPayrollAccountCommon(AccountTestInvoicingCommon):
             "resource_calendar_id": cls.resource_calendar.id,
             "company_id": cls.company.id,
             "date_start": date(2023, 1, 1),
-            "date_end": False,
+            "date_end": date(2024, 5, 31),
             "wage_type": "monthly",
             "wage": 5000.0,
             "structure_type_id": schedule.id,
@@ -132,3 +147,4 @@ class L10nPayrollAccountCommon(AccountTestInvoicingCommon):
             "state": "open"
         })
         cls.company.l10n_au_hr_super_responsible_id = cls.employee_1
+        cls.company.l10n_au_stp_responsible_id = cls.employee_1

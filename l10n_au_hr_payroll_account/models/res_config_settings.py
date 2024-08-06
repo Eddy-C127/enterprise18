@@ -18,6 +18,10 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         groups="hr_payroll.group_hr_payroll_manager"
     )
+    l10n_au_previous_bms_id = fields.Char(related="company_id.l10n_au_previous_bms_id", readonly=False)
+    l10n_au_bms_id = fields.Char(related='company_id.l10n_au_bms_id', readonly=False)
+    l10n_au_stp_responsible_id = fields.Many2one(
+        related="company_id.l10n_au_stp_responsible_id", readonly=False)
 
     @api.depends('company_id')
     def _compute_super_payable_account(self):

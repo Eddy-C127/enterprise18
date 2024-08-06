@@ -5,7 +5,7 @@ from datetime import datetime, date
 from math import floor, ceil
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, _
+from odoo import api, Command, fields, models, _
 from odoo.exceptions import AccessError, UserError, ValidationError
 
 
@@ -27,7 +27,7 @@ NUMBER_OF_WEEKS = {
     "bi-weekly": 2,
     "monthly": 13 / 3,
     "quarterly": 13,
-    "yearly": 13 * 4,
+    "annually": 13 * 4,
 }
 
 
@@ -47,6 +47,10 @@ class HrPayslip(models.Model):
         ("normal", "Non-Genuine Redundancy"),
         ("genuine", "Genuine Redundancy"),
     ], string="Termination Type", readonly=True)
+    l10n_au_extra_negotiated_super = fields.Float(compute="_compute_l10n_au_extra_negotiated_super", store=True, readonly=True)
+    l10n_au_extra_compulsory_super = fields.Float(compute="_compute_l10n_au_extra_compulsory_super", store=True, readonly=True)
+    l10n_au_salary_sacrifice_superannuation = fields.Float(compute="_compute_l10n_au_salary_sacrifice_superannuation", store=True, readonly=True)
+    l10n_au_salary_sacrifice_other = fields.Float(compute="_compute_l10n_au_salary_sacrifice_other", store=True, readonly=True)
 
     def _get_base_local_dict(self):
         res = super()._get_base_local_dict()
@@ -103,11 +107,90 @@ class HrPayslip(models.Model):
             for line in payslip.input_line_ids.filtered(lambda line: line.code == "OD"):
                 line.name = line.input_type_id.name.split("-")[1].strip()
 
+    # Computed here to keep individual values for each payslip without a separate salary rule
+    # Only recompute when payslip is recomputed or when contract is changed
+    @api.depends('contract_id')
+    def _compute_l10n_au_extra_negotiated_super(self):
+        for payslip in self:
+            if payslip.country_code != "AU":
+                continue
+            if payslip.state not in ['draft', 'verify']:
+                continue
+            payslip.l10n_au_extra_negotiated_super = payslip.contract_id.l10n_au_extra_negotiated_super
+
+    @api.depends('contract_id')
+    def _compute_l10n_au_extra_compulsory_super(self):
+        for payslip in self:
+            if payslip.country_code != "AU":
+                continue
+            if payslip.state not in ['draft', 'verify']:
+                continue
+            payslip.l10n_au_extra_compulsory_super = payslip.contract_id.l10n_au_extra_compulsory_super
+
+    @api.depends('contract_id')
+    def _compute_l10n_au_salary_sacrifice_superannuation(self):
+        for payslip in self:
+            if payslip.country_code != "AU":
+                continue
+            if payslip.state not in ['draft', 'verify']:
+                continue
+            payslip.l10n_au_salary_sacrifice_superannuation = payslip.contract_id.l10n_au_salary_sacrifice_superannuation
+
+    @api.depends('contract_id')
+    def _compute_l10n_au_salary_sacrifice_other(self):
+        for payslip in self:
+            if payslip.country_code != "AU":
+                continue
+            if payslip.state not in ['draft', 'verify']:
+                continue
+            payslip.l10n_au_salary_sacrifice_other = payslip.contract_id.l10n_au_salary_sacrifice_other
+
+    @api.constrains('input_line_ids', 'employee_id')
+    def _check_input_lines(self):
+        for payslip in self:
+            employee = payslip.employee_id
+
+            input_director_fees = self.env.ref("l10n_au_hr_payroll.input_gross_director_fee")
+            if input_director_fees in payslip.input_line_ids.mapped("input_type_id") \
+                and employee.l10n_au_income_stream_type in ["OSP", "WHM", "LAB", "VOL", "SWP"]:
+                raise ValidationError(_(
+                    "Director fees are not allowed for income stream type '%s'.",
+                    employee.l10n_au_income_stream_type,
+                ))
+
+            if (payslip.contract_id.l10n_au_salary_sacrifice_superannuation or payslip.contract_id.l10n_au_salary_sacrifice_other)\
+                and employee.l10n_au_income_stream_type in ["OSP", "LAB", "VOL"]:
+                raise ValidationError(_(
+                    "Salary sacrifice is not allowed for income stream type '%s'.",
+                    self.employee_id.l10n_au_income_stream_type,
+                ))
+
+            if payslip.input_line_ids.filtered(lambda x: x.code == "BBC") and employee.l10n_au_income_stream_type == "OSP":
+                raise ValidationError(_("Bonuses and Commissions are not allowed for income stream type 'OSP'."))
+
+            overtime_lines = payslip.worked_days_line_ids.filtered(lambda l: l.work_entry_type_id.l10n_au_work_stp_code == "T")
+            overtime_inputs = payslip.input_line_ids.filtered(lambda l: l.l10n_au_payroll_code == "Overtime")
+            if (overtime_lines or overtime_inputs) and employee.l10n_au_income_stream_type in ["OSP", "LAB", "VOL"]:
+                raise ValidationError(_("Overtime is not allowed for income stream type '%s'.", employee.l10n_au_income_stream_type))
+
+            if payslip.l10n_au_foreign_tax_withheld and employee.l10n_au_income_stream_type != "FEI":
+                raise ValidationError(_("Foreign Income tax Witholding is only allowed for income stream type 'FEI'."))
+            if payslip.l10n_au_exempt_foreign_income and employee.l10n_au_income_stream_type != "SAW":
+                raise ValidationError(_("Exempt Foreign Income is only allowed for income stream type 'SAW'."))
+
     @api.model_create_multi
     def create(self, vals_list):
         payslips = super().create(vals_list)
         payslips._add_unused_leaves_to_payslip()
         return payslips
+
+    def compute_sheet(self):
+        # Update the contribution amounts from the contract
+        self.env.add_to_compute(self._fields['l10n_au_extra_negotiated_super'], self)
+        self.env.add_to_compute(self._fields['l10n_au_extra_compulsory_super'], self)
+        self.env.add_to_compute(self._fields['l10n_au_salary_sacrifice_superannuation'], self)
+        self.env.add_to_compute(self._fields['l10n_au_salary_sacrifice_other'], self)
+        return super().compute_sheet()
 
     def action_refresh_from_work_entries(self):
         # Force Recompute gross unused leaves amounts

@@ -33,7 +33,8 @@ class TestPayrollWhm(TestPayrollCommon):
             'wage': 5000,
             'casual_loading': 0,
             'l10n_au_training_loan': False,
-            'income_stream_type': 'WHM'
+            'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
         })
         self._test_payslip(
             employee,
@@ -71,7 +72,8 @@ class TestPayrollWhm(TestPayrollCommon):
             'tfn_declaration': '000000000',
             'tfn': False,
             'l10n_au_training_loan': False,
-            'income_stream_type': 'WHM'
+            'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
         })
         self._test_payslip(
             employee,
@@ -108,7 +110,8 @@ class TestPayrollWhm(TestPayrollCommon):
             'wage': 5000,
             'casual_loading': 0,
             'l10n_au_training_loan': False,
-            'income_stream_type': 'WHM'
+            'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
         })
         self._test_payslip(
             employee,
@@ -149,7 +152,8 @@ class TestPayrollWhm(TestPayrollCommon):
             'wage': 5000,
             'casual_loading': 0,
             'l10n_au_training_loan': False,
-            'income_stream_type': 'WHM'
+            'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
         })
         self._test_payslip(
             employee,
@@ -206,7 +210,8 @@ class TestPayrollWhm(TestPayrollCommon):
             'wage': 18000,
             'casual_loading': 0,
             'l10n_au_training_loan': False,
-            'income_stream_type': 'WHM'
+            'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
         })
         initial_payslip_date = date(2023, 7, 1)
         for month in range(12):
@@ -256,6 +261,7 @@ class TestPayrollWhm(TestPayrollCommon):
             'l10n_au_training_loan': False,
             'l10n_au_tax_free_threshold': False,
             'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
             'non_resident': True})
 
         self.assertTrue(self.australian_company.l10n_au_registered_for_whm)
@@ -307,6 +313,7 @@ class TestPayrollWhm(TestPayrollCommon):
             'l10n_au_training_loan': False,
             'l10n_au_tax_free_threshold': False,
             'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
             'non_resident': True})
 
         self.australian_company.l10n_au_registered_for_whm = False
@@ -358,6 +365,7 @@ class TestPayrollWhm(TestPayrollCommon):
             'l10n_au_training_loan': False,
             'l10n_au_tax_free_threshold': False,
             'income_stream_type': 'WHM',
+            'country_id': self.env.ref('base.hk').id,
             'non_resident': True})
 
         self.assertTrue(self.australian_company.l10n_au_registered_for_whm)

@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 
-from odoo import api, fields, models, _
+from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError
 
 
@@ -9,11 +9,35 @@ class HrPayslip(models.Model):
     _inherit = "hr.payslip"
 
     has_superstream = fields.Boolean(compute="_compute_has_superstream")
+    l10n_au_stp_status = fields.Selection([
+        ("draft", "Draft"),
+        ("ready", "Ready"),
+        ("sent", "Submitted"),
+        ("error", "Error"),
+    ], string="STP Status", compute="_compute_stp_status")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        payslips = super().create(vals_list)
+        payslips._add_to_stp()
+        return payslips
 
     @api.depends('state')
     def _compute_has_superstream(self):
         for rec in self:
             rec.has_superstream = bool(rec._get_superstreams())
+
+    @api.depends('state')
+    def _compute_stp_status(self):
+        stp_records = self.env['l10n_au.stp'].search([('payslip_ids', 'in', self.ids)])
+        for payslip in self:
+            if payslip.country_code != 'AU':
+                payslip.l10n_au_stp_status = False
+            elif payslip.state not in ('done', 'paid'):
+                payslip.l10n_au_stp_status = 'draft'
+            else:
+                stp = stp_records.filtered(lambda r: payslip in r.payslip_ids)
+                payslip.l10n_au_stp_status = 'sent' if stp.state == 'sent' else 'ready'
 
     def action_payslip_done(self):
         """
@@ -33,6 +57,8 @@ class HrPayslip(models.Model):
 
     def action_payslip_draft(self):
         self._clear_super_stream_lines()
+        if any(state == 'sent' for state in self.state):
+            raise UserError(_("A payslip cannot be reset to draft after submitting to ATO."))
         return super().action_payslip_draft()
 
     def _get_superstreams(self):
@@ -76,6 +102,39 @@ class HrPayslip(models.Model):
     def action_open_superstream(self):
         return self._get_superstreams()._get_records_action()
 
+    def _add_to_stp(self):
+        stp = self.env["l10n_au.stp"].search(
+            [
+                ("state", "=", "generate"),
+                ("payslip_batch_id", "=", self.payslip_run_id.id),
+                ('company_id', '=', self.company_id.id)
+            ],
+            order="create_date desc",
+            limit=1,
+        )
+
+        if not stp:
+            stp = self.env['l10n_au.stp'].create({'company_id': self.company_id.id})
+
+        stp.write({
+            'payslip_batch_id': self.payslip_run_id.id,
+            'payslip_ids': [Command.link(rec) for rec in self.ids],
+        })
+
+    def action_open_payslip_stp(self):
+        if self.payslip_run_id:
+            stp = self.env['l10n_au.stp'].search([('payslip_batch_id', '=', self.payslip_run_id.id)], limit=1)
+        else:
+            stp = self.env['l10n_au.stp'].search([('payslip_ids', '=', self.id)], limit=1)
+        return {
+            'name': _('STP Report'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'l10n_au.stp',
+            'view_mode': 'form',
+            'res_id': stp.id,
+            'target': 'current',
+        }
+
     def action_register_payment(self):
         """ Exclude the super payment lines from the payment.
             Super lines will be registered with the superstream record.
@@ -103,4 +162,35 @@ class HrPayslip(models.Model):
                 'default_payslip_run_id': self.payslip_run_id.id,
                 'default_export_format': export_format,
             },
+        }
+
+    def _l10n_au_get_year_to_date_totals(self, include_ytd_balances=True):
+        totals = super()._l10n_au_get_year_to_date_totals()
+        if include_ytd_balances:
+            ytd_balances = self.env["l10n_au.payslip.ytd"].search([("employee_id", "in", self.employee_id.ids)])
+            for ytd_balance in ytd_balances:
+                totals["slip_lines"][ytd_balance.rule_id.category_id.name]["total"] += ytd_balance.start_value
+                totals["slip_lines"][ytd_balance.rule_id.category_id.name][ytd_balance.rule_id.code] += ytd_balance.start_value
+        return totals
+
+    def _get_payslip_lines(self):
+        lines = super()._get_payslip_lines()
+        ytd_balances = self.env["l10n_au.payslip.ytd"].search_read(
+            [("employee_id", "in", self.employee_id.ids), ("finalised", "=", False)],
+            ["employee_id", "rule_id", "start_value"],
+            load=""
+        )
+        ytd_balances = {(balance["employee_id"], balance["rule_id"]): balance["start_value"] for balance in ytd_balances}
+        for line in lines:
+            line['ytd'] += ytd_balances.get((line['employee_id'], line['salary_rule_id']), 0)
+
+        return lines
+
+    def _get_ytd_super(self):
+        """Computes YTD of Super RESC and Non-RESC for a payslip"""
+        self.ensure_one()
+        ytd_slips = self.with_context(l10n_au_include_current_slip=True)._l10n_au_get_year_to_date_slips()
+        return {
+            'RESC': sum(slip.l10n_au_extra_negotiated_super + slip.contract_id.l10n_au_salary_sacrifice_superannuation for slip in ytd_slips),
+            'NON_RESC': self._get_line_values(["SUPER"], ["ytd"])["SUPER"][self.id]['ytd'] + sum(ytd_slips.mapped('l10n_au_extra_compulsory_super')),
         }

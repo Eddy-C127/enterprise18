@@ -3,7 +3,7 @@
 from odoo import fields, models
 
 
-class ResCompany(models.TransientModel):
+class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     l10n_au_branch_code = fields.Char(
