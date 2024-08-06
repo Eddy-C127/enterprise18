@@ -106,7 +106,8 @@ class L10nInGSTReturnPeriod(models.Model):
         "  * Error: there is an error that blocks the current Electronic Return filing operation.")
     gstr1_include_einvoice = fields.Boolean(
         string="E-Invoice in GSTR-1",
-        help="Enable this option to include invoice with generated E-invoices being pushing to GSTR-1."
+        help="Enable this option to include invoice with generated E-invoices being pushing to GSTR-1.",
+        tracking=True
     )
 
     # ===============================
