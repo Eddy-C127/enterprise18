@@ -122,3 +122,19 @@ registry.category("web_tour.tours").add('test_receipt_flexible_subcontracted_pro
     },
     ...stepUtils.validateBarcodeOperation(),
 ]});
+
+registry.category("web_tour.tours").add('test_receipt_subcontract_bom_product_manual_add_src_location', {
+    test: true, steps: () => [
+        { trigger: 'button.o_add_quantity', run: 'click' },
+        { trigger: 'button.o_add_line', run: 'click' },
+        {
+            trigger: 'div[name=product_id] input',
+            run: 'text Chocolate Eclairs',
+        },
+        {
+            trigger: '.dropdown-item:not(:has(.o_m2o_dropdown_option_create)):contains(\'Chocolate Eclairs\')',
+            run: 'click',
+        },
+        { trigger: 'button.o_save', run: 'click' },
+        { trigger: 'button.o_validate_page', run: 'click' },
+]});

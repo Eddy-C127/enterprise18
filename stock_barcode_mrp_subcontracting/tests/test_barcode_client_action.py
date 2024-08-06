@@ -132,3 +132,31 @@ class TestSubcontractingBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(len(sub_order), 1)
         self.assertEqual(sub_order.state, 'done')
         self.assertEqual(sub_order.move_raw_ids.quantity, 2)  # because we record more than expected
+
+    def test_receipt_subcontract_bom_product_manual_add_src_location(self):
+        """ Having a receipt for some product which has a subcontract bom: if the transfer is
+        opened in barcode and the form is used to add another move line (for the same product), the
+        src location of the new move line should also be the subcontract location.
+        """
+        self.clean_access_rights()
+
+        receipt = self.env['stock.picking'].create({
+            'name': 'TRSBPMASL picking',
+            'location_id': self.supplier_location.id,
+            'location_dest_id': self.stock_location.id,
+            'picking_type_id': self.env.ref('stock.picking_type_in').id,
+            'partner_id': self.subcontractor_partner.id,
+            'move_ids_without_package': [Command.create({
+                'name': 'TRSBPMASL move',
+                'location_id': self.supplier_location.id,
+                'location_dest_id': self.stock_location.id,
+                'product_id': self.subcontracted_product.id,
+                'product_uom_qty': 1,
+            })],
+        })
+        receipt.action_confirm()
+
+        url = self._get_client_action_url(receipt.id)
+        self.start_tour(url, 'test_receipt_subcontract_bom_product_manual_add_src_location', login='admin', timeout=180)
+
+        self.assertEqual(receipt.move_line_ids.location_id, self.env.company.subcontracting_location_id)
