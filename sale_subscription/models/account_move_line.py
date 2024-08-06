@@ -63,3 +63,17 @@ class AccountMoveLine(models.Model):
                 values['deferred_start_date'] = line.deferred_start_date
                 values['deferred_end_date'] = line.deferred_end_date
         return data_list
+
+    @api.depends('move_id.ref')
+    def _compute_name(self):
+        """
+            This override is needed cause in the function _subscription_post_success_payment we do a write on the ref,
+            the compute_name of the account_move_line is triggered again and override the description. So for line that
+            have the boolean recurring_invoice we don't recompute the name.
+        """
+        move_line_to_recompute = self
+        for line in move_line_to_recompute.filtered(lambda l: l.move_id.inalterable_hash is False):
+            if line.sale_line_ids and all(sale_line.recurring_invoice for sale_line in line.sale_line_ids):
+                move_line_to_recompute = move_line_to_recompute - line
+
+        super(AccountMoveLine, move_line_to_recompute)._compute_name()
