@@ -213,9 +213,9 @@ class HrContract(models.Model):
                 continue
             hours_per_day = contract.resource_calendar_id.hours_per_day
             if contract.wage_type == "hourly":
-                contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", "yearly")
+                contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", "annually")
             else:
-                contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.wage, contract.schedule_pay, "yearly")
+                contract.l10n_au_yearly_wage = Payslip._l10n_au_convert_amount(contract.wage, contract.schedule_pay, "annually")
 
     @api.depends('l10n_au_workplace_giving_type')
     def _compute_workplace_giving(self):
@@ -240,8 +240,8 @@ class HrContract(models.Model):
         if self.country_code != "AU":
             return
         hours_per_day = self.resource_calendar_id.hours_per_day
-        self.wage = self.env['hr.payslip']._l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", self.schedule_pay)
-        self.hourly_wage = self.env['hr.payslip']._l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", "daily") / hours_per_day
+        self.wage = self.env['hr.payslip']._l10n_au_convert_amount(self.l10n_au_yearly_wage, "annually", self.schedule_pay)
+        self.hourly_wage = self.env['hr.payslip']._l10n_au_convert_amount(self.l10n_au_yearly_wage, "annually", "daily") / hours_per_day
 
     def get_hourly_wages(self):
         self.ensure_one()

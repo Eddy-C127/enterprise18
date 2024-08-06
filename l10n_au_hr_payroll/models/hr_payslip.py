@@ -17,7 +17,7 @@ PERIODS_PER_YEAR = {
     "bi-monthly": 6,
     "quarterly": 4,
     "semi-annually": 2,
-    "yearly": 1,
+    "annually": 1,
 }
 
 
