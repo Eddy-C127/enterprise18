@@ -76,7 +76,7 @@ class PaymentTransaction(models.Model):
             tx._cancel_draft_invoices()
 
         tx_to_invoice._invoice_sale_orders()
-        tx_to_invoice.invoice_ids._post()
+        tx_to_invoice.invoice_ids.with_company(self.company_id)._post()
         tx_to_invoice.filtered(lambda t: not t.subscription_action).invoice_ids.transaction_ids._send_invoice()
 
     def _get_invoiced_subscription_transaction(self):
