@@ -2,10 +2,6 @@ import { Message } from "@mail/core/common/message";
 import { patch } from "@web/core/utils/patch";
 
 patch(Message.prototype, {
-    /** @override */
-    get canReplyTo() {
-        return super.canReplyTo && !this.message.thread?.composer?.threadExpired;
-    },
     get showSeenIndicator() {
         return super.showSeenIndicator && this.message.whatsappStatus !== "error";
     },

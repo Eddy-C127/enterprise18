@@ -10,4 +10,8 @@ patch(Message.prototype, {
         }
         return super.editable;
     },
+    /** @override */
+    canReplyTo(thread) {
+        return super.canReplyTo(thread) && !this.thread?.composer?.threadExpired;
+    },
 });
