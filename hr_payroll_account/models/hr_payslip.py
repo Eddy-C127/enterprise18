@@ -19,9 +19,8 @@ class HrPayslip(models.Model):
     batch_payroll_move_lines = fields.Boolean(related='company_id.batch_payroll_move_lines')
 
     def action_payslip_cancel(self):
-        moves = self.move_id
-        moves.filtered(lambda x: x.state == 'posted').button_cancel()
-        moves.unlink()
+        moves = self.mapped('move_id')
+        moves._unlink_or_reverse()
         return super().action_payslip_cancel()
 
     def action_payslip_done(self):

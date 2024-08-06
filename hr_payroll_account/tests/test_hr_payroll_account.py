@@ -524,3 +524,70 @@ class TestHrPayrollAccount(TestHrPayrollAccountCommon):
         self.assertEqual(invoice_lines[1].amount_currency, line_amount)
         self.assertEqual(invoice_lines[1].credit, 0)
         self.assertEqual(invoice_lines[1].debit, line_amount)
+
+    def test_payslip_cancel_1(self):
+        """ Checking if canceling a payslip unlinks the draft associated entry """
+
+        # Create an account for the HRA salary rule
+        self.test_account = self.env['account.account'].create({
+            'name': 'House Rental',
+            'code': '654321',
+            'account_type': 'income',
+        })
+
+        # Assign the account to the salary rule and the rule to the hr structure
+        self.hra_rule.account_credit = self.test_account
+        self.hra_rule.account_debit = self.test_account
+        self.hr_structure_softwaredeveloper.rule_ids = [Command.link(self.hra_rule.id)]
+
+        # Create accounting entry
+        self.hr_payslip_john.compute_sheet()
+        self.hr_payslip_john.action_payslip_done()
+
+        self.assertTrue(self.hr_payslip_john.move_id, 'Accounting entry has not been created!')
+
+        invoice = self.hr_payslip_john.move_id
+
+        # Cancel the payslip
+        self.hr_payslip_john.action_payslip_cancel()
+
+        self.assertFalse(invoice.exists(), 'Invoice has not been deleted')
+        self.assertFalse(self.hr_payslip_john.move_id, 'Accounting entry has not been deleted!')
+
+    def test_payslip_cancel_2(self):
+        """ Checking if canceling a payslip reverses the posted entry """
+
+        self.hr_payslip_john.journal_id.restrict_mode_hash_table = True
+        # Create an account for the HRA salary rule
+        self.test_account = self.env['account.account'].create({
+            'name': 'House Rental',
+            'code': '654321',
+            'account_type': 'income',
+        })
+
+        # Assign the account to the salary rule and the rule to the hr structure
+        self.hra_rule.account_credit = self.test_account
+        self.hra_rule.account_debit = self.test_account
+        self.hr_structure_softwaredeveloper.rule_ids = [Command.link(self.hra_rule.id)]
+
+        # Create accounting entry
+        self.hr_payslip_john.compute_sheet()
+        self.hr_payslip_john.action_payslip_done()
+
+        self.assertTrue(self.hr_payslip_john.move_id, 'Accounting entry has not been created!')
+
+        invoice = self.hr_payslip_john.move_id
+        invoice.action_post()
+        invoice.button_hash()
+
+        # Cancel the payslip: posted entry will be reversed
+        self.hr_payslip_john.action_payslip_cancel()
+        self.assertTrue(invoice.exists(), 'Invoice has been deleted')
+
+        line_amount = self.hra_rule.amount_percentage / 100 * self.hr_payslip_john._get_contract_wage()
+
+        reverse_invoice = self.env['account.move.line'].search([
+            ('amount_currency', '=', line_amount),
+            ('move_id', '!=', invoice.id),
+        ])
+        self.assertTrue(reverse_invoice, 'Reverse move not created')
