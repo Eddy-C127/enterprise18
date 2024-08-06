@@ -387,7 +387,6 @@ test("Future Open ended record not shown before it happens and appears after sta
         },
     ]);
     mockDate("2018-11-02 17:00:00");
-    await selectGanttRange({ startDate: "2018-11-03", stopDate: "2018-11-03" });
     await selectGanttRange({ startDate: "2018-11-02", stopDate: "2018-11-02" });
     gridContent = getGridContent();
     expect(gridContent.range).toBe("From: 11/02/2018 to: 11/02/2018");
