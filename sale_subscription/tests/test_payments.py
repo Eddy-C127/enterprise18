@@ -709,3 +709,66 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.assertAlmostEqual(invoice2.amount_total_signed, -1076.9)
             self.assertTrue(self.subscription.payment_exception)
             self.assertEqual(self.subscription.next_invoice_date, datetime.date(2024, 2, 23), "The next invoice date should not be updated")
+
+    def test_automate_payments_invoice_multiple_subscriptions(self):
+        """
+        Ensure that invoices with multiple linked subscriptions (through its invoice lines)
+        are able to automate its payments when paying with tokenizeable payment method.
+        """
+        # Create two subscriptions and confirm them.
+        sub_params = {
+            'partner_id': self.partner.id,
+            'company_id': self.company.id,
+            'sale_order_template_id': self.subscription_tmpl.id
+        }
+        subscription_1 = self.subscription.create(sub_params)
+        subscription_2 = self.subscription.create(sub_params)
+        for sub in [subscription_1, subscription_2]:
+            sub._onchange_sale_order_template_id()
+            sub.action_confirm()
+
+        # Generate invoice consolidating the billing of the two subscriptions above.
+        invoice = self.env['sale.advance.payment.inv'].create({
+            'advance_payment_method': 'delivered',
+            'sale_order_ids': [Command.set((subscription_1 + subscription_2).ids)],
+            'consolidated_billing': True,
+        })._create_invoices(subscription_1 + subscription_2)
+
+        # Ensure that the subscriptions are present in the invoice lines.
+        for sub in [subscription_1, subscription_2]:
+            self.assertTrue(sub in invoice.invoice_line_ids.subscription_id)
+
+        # Define test payment token for later assignment.
+        test_payment_token = self.env['payment.token'].create({
+            'payment_details': 'Test',
+            'partner_id': subscription_1.partner_id.id,
+            'provider_id': self.dummy_provider.id,
+            'payment_method_id': self.payment_method_id,
+            'provider_ref': 'test'
+        })
+
+        # Create transaction and set it as done.
+        subscriptions_sudo = invoice.sudo().invoice_line_ids.subscription_id
+        tx_sudo = self._create_transaction(
+            sale_order_ids=[Command.set(subscriptions_sudo.ids)],
+            invoice_ids=[Command.set(invoice.ids)],
+            subscription_action='assign_token',
+            currency_id=invoice.sudo().currency_id.id,
+            partner_id=self.partner.sudo().id,
+            provider_id=self.dummy_provider.id,
+            payment_method_id=self.payment_method_id,
+            token_id=test_payment_token.id,
+            amount=invoice.amount_total,
+            flow='direct',
+            landing_route='/my/invoices/%s?access_token=%s' % (invoice.id, invoice.access_token),
+        )
+        tx_sudo._set_done()
+        tx_sudo._post_process()
+
+        # Ensure token was assigned in each subscription after completing the payment.
+        for sub in [subscription_1, subscription_2]:
+            self.assertEqual(
+                sub.payment_token_id.id,
+                test_payment_token.id,
+                "Token must be assigned to subscription after transaction creation."
+            )

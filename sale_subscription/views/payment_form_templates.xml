@@ -29,7 +29,7 @@
             <t t-if="is_subscription and not sale_order and mode == 'payment' and not reference_prefix">
                 <label>
                     <input name="o_payment_automate_payments_new_token" type="checkbox" class="form-check-input"/>
-                    <small class="text-600">Automate payments for this subscription</small>
+                    <small class="text-600">Automate payments for the linked subscriptions</small>
                 </label>
                 <br/>
             </t>
@@ -47,7 +47,7 @@
         <xpath expr="//div[@name='o_payment_inline_form']" position="inside">
             <label t-if="is_subscription and not sale_order and mode == 'payment' and not reference_prefix" class="mt-2">
                 <input name="o_payment_automate_payments_saved_token" t-att-payment-option-id="token_sudo.id" type="checkbox" class="form-check-input"/>
-                <small class="text-600">Automate payments for this subscription</small>
+                <small class="text-600">Automate payments for the linked subscriptions</small>
             </label>
         </xpath>
     </template>

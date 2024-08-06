@@ -135,7 +135,8 @@ class PaymentTransaction(models.Model):
         """
         super()._post_process()
         for tx in self:
-            if tx.state == 'done' and tx.sale_order_ids.is_subscription:
+            orders = tx.sale_order_ids or tx.invoice_ids.line_ids.subscription_id
+            if tx.state == 'done' and any(orders.mapped('is_subscription')):
                 if tx.operation != 'validation':
                     tx.with_context(forced_invoice=True)._create_or_link_to_invoice()
                 self._post_subscription_action()

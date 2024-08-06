@@ -7,7 +7,7 @@ from math import ceil
 from werkzeug.urls import url_encode
 
 from odoo import http, fields
-from odoo.exceptions import AccessError, MissingError, UserError
+from odoo.exceptions import AccessError, MissingError, UserError, ValidationError
 from odoo.fields import Command
 from odoo.http import request
 from odoo.tools.translate import _
@@ -52,6 +52,15 @@ class CustomerPortal(payment_portal.PaymentPortal):
         except MissingError:
             return order_sudo, request.redirect('/my')
         return order_sudo, None
+
+    def _get_invoice_sudo(self, access_token, invoice_id):
+        try:
+            invoice_sudo = self._document_check_access('account.move', invoice_id, access_token)
+        except AccessError:
+            raise ValidationError(_('Invalid access token.'))
+        except MissingError:
+            raise ValidationError(_('Invoice not found.'))
+        return invoice_sudo
 
     @http.route(['/my/subscriptions', '/my/subscriptions/page/<int:page>', '/my/subscription'], type='http', auth="user", website=True)
     def my_subscription(self, page=1, date_begin=None, date_end=None, sortby=None, filterby=None, order_id=None, **kw):
@@ -312,14 +321,23 @@ class PaymentPortal(payment_portal.PaymentPortal):
                     raise
             invoice_sudo = request.env['account.move'].sudo().browse(subscription_invoice_id)
 
-            subscription = invoice_sudo.invoice_line_ids.subscription_id
-            if subscription:
+            subscriptions = invoice_sudo.invoice_line_ids.subscription_id
+            if subscriptions:
                 # Reroute the next steps of the payment flow to the portal view of the invoice.
                 # Add `is_subscription` variable in invoice information for differentiating subscriptions from regular SOs.
+                # Call different transaction methods depending on the quantity of subscriptions linked to the invoice lines.
+                if len(subscriptions) == 1:
+                    transaction_route = f'/my/subscriptions/{subscriptions[0].id}/transaction'
+                    access_token = subscriptions[0].access_token
+                else:
+                    # Multiple subscriptions: we send the invoice and fetch the subscriptions from its invoice lines.
+                    transaction_route = f'/my/subscriptions/invoice/{invoice_sudo.id}/transaction'
+                    access_token = invoice_sudo.access_token
+
                 extra_payment_form_values.update(
                     {
-                    'transaction_route_subscription': f'/my/subscriptions/{subscription.id}/transaction',
-                    'access_token': subscription.access_token,
+                    'transaction_route_subscription': transaction_route,
+                    'access_token': access_token,
                     'is_subscription': True,
                 })
         return extra_payment_form_values
@@ -414,6 +432,43 @@ class PaymentPortal(payment_portal.PaymentPortal):
                 **kwargs
             )
 
+        return tx_sudo._get_processing_values()
+
+    @http.route('/my/subscriptions/invoice/<int:invoice_id>/transaction', type='json', auth='public')
+    def subscription_transaction_from_invoice(
+        self, invoice_id, access_token, is_validation=False, **kwargs
+    ):
+        # We should not do validation with this flow, return an empty dict instead.
+        if is_validation:
+            return {}
+
+        # Get the invoice record using the access token.
+        invoice_sudo = self._get_invoice_sudo(access_token, invoice_id)
+
+        # Validate the transaction's kwargs and then update it with invoice information.
+        self._validate_transaction_kwargs(kwargs)
+        logged_in = not request.env.user._is_public()
+        partner_sudo = request.env.user.partner_id if logged_in else invoice_sudo.partner_id
+        amount = kwargs.get('amount', 0) or invoice_sudo.amount_total
+        tokenize = kwargs.get('tokenization_requested')
+        kwargs.update({
+            'partner_id': partner_sudo.id,
+            'amount': amount,
+            'currency_id': invoice_sudo.currency_id.id,
+            'tokenization_requested': tokenize,
+        })
+
+        # Get subscriptions linked to the invoice lines and create the transaction linking to them.
+        subscriptions_sudo = invoice_sudo.invoice_line_ids.subscription_id
+        tx_sudo = self._create_transaction(
+            custom_create_values={
+                'sale_order_ids': [Command.set(subscriptions_sudo.ids)],
+                'invoice_ids': [Command.set(invoice_sudo.ids)],
+                'subscription_action': 'assign_token' if tokenize else 'manual_send_mail',
+            },
+            is_validation=False,
+            **kwargs
+        )
         return tx_sudo._get_processing_values()
 
     @http.route('/my/subscriptions/assign_token/<int:order_id>', type='json', auth='user')
