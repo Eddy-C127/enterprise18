@@ -464,4 +464,10 @@ export class PreparationDisplay extends Reactive {
     exit() {
         window.location.href = "/web#action=pos_preparation_display.action_preparation_display";
     }
+
+    getProductCategories(productCategoryIds) {
+        return productCategoryIds
+            .map((id) => this.categories[id])
+            .filter((category) => category !== undefined);
+    }
 }

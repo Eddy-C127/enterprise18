@@ -39,8 +39,8 @@ export class Order extends Component {
     getSortedOrderlines() {
         return this.props.order.orderlines.sort(
             (a, b) =>
-                this.preparationDisplay.categories[a.productCategoryIds[0]].sequence -
-                this.preparationDisplay.categories[b.productCategoryIds[0]].sequence
+                this.preparationDisplay.getProductCategories(a.productCategoryIds)[0].sequence -
+                this.preparationDisplay.getProductCategories(b.productCategoryIds)[0].sequence
         );
     }
     _computeDuration() {
