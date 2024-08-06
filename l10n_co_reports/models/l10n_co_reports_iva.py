@@ -23,22 +23,12 @@ class IVAReportCustomHandler(models.AbstractModel):
             queries.append(f"""
                 SELECT
                     %s AS column_group_key,
+                    SUM((account_move_line.credit - account_move_line.debit) / 0.15) AS balance_15_over_19,
+                    SUM(account_move_line.credit - account_move_line.debit) AS balance,
                     SUM(CASE
-                        WHEN aa.code LIKE '2408%%'
-                            THEN account_move_line.credit - account_move_line.debit
-                        ELSE 0
-                        END
-                     ) AS balance_15_over_19,
-                    SUM(CASE
-                        WHEN aa.code NOT LIKE '2408%%'
-                            THEN account_move_line.credit - account_move_line.debit
-                        ELSE 0
-                        END
-                    ) AS balance,
-                    SUM(CASE
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.credit > 0
+                        WHEN account_move_line.credit > 0
                             THEN account_move_line.tax_base_amount
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.debit > 0
+                        WHEN account_move_line.debit > 0
                             THEN account_move_line.tax_base_amount * -1
                         ELSE 0
                         END
@@ -53,9 +43,9 @@ class IVAReportCustomHandler(models.AbstractModel):
                 GROUP BY rp.id {bimestre and ', CAST(FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS INT)' or ''}
                 {bimestre and '''HAVING SUM(
                         CASE
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.credit > 0
+                        WHEN account_move_line.credit > 0
                             THEN account_move_line.tax_base_amount
-                        WHEN aa.code NOT LIKE '2408%%' AND account_move_line.debit > 0
+                        WHEN account_move_line.debit > 0
                             THEN account_move_line.tax_base_amount * -1
                         ELSE 0
                         END
@@ -68,7 +58,7 @@ class IVAReportCustomHandler(models.AbstractModel):
 
     def _get_domain(self, report, options, line_dict_id=None):
         domain = super()._get_domain(report, options, line_dict_id=line_dict_id)
-        domain += ['|', ('account_id.code', '=like', '2367%'), ('account_id.code', '=like', '2408%')]
+        domain += [('account_id.code', '=like', '2367%')]
         return domain
 
     def _report_expand_unfoldable_line_iva(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
