@@ -12,12 +12,12 @@ const OnlineAppointmentCtaWidget = publicWidget.Widget.extend({
     _onCtaClick: function (ev) {
         let url = '/appointment';
 
-        const selectedAppointments = ev.target.dataset.appointmentTypes;
+        const selectedAppointments = ev.target.closest('.s_online_appointment').dataset.appointmentTypes;
         const appointmentsTypeIds = selectedAppointments ? JSON.parse(selectedAppointments) : [];
         const nbSelectedAppointments = appointmentsTypeIds.length;
         if (nbSelectedAppointments === 1) {
             url += `/${encodeURIComponent(appointmentsTypeIds[0])}`;
-            const selectedUsers = ev.target.dataset.staffUsers;
+            const selectedUsers = ev.target.closest('.s_online_appointment').dataset.staffUsers;
             if (JSON.parse(selectedUsers).length) {
                 url += `?filter_staff_user_ids=${encodeURIComponent(selectedUsers)}`;
             }
