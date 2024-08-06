@@ -6,7 +6,7 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("industry_fsm_tour", {
     sequence: 90,
-    url: "/web",
+    url: "/odoo",
     steps: () => [
         {
     trigger: '.o_app[data-menu-xmlid="industry_fsm.fsm_menu_root"]',

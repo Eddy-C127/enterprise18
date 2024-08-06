@@ -6,7 +6,7 @@ registry.category("web_tour.tours").add(
     'industry_fsm_sale_products_compute_catalog_tour',
     {
         test: true,
-        url: "/web",
+        url: "/odoo",
         steps: () => [
         {
             trigger: '.o_app[data-menu-xmlid="sale.sale_menu_root"]',

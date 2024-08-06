@@ -94,4 +94,4 @@ class TestFsmStockUI(HttpCase):
         self.user_admin.groups_id += self.env.ref('stock.group_production_lot')
         if not self.user_admin.tz:
             self.user_admin.tz = "Europe/Brussels"
-        self.start_tour('/web', 'industry_fsm_stock_test_tour', login=self.user_admin.login)
+        self.start_tour('/odoo', 'industry_fsm_stock_test_tour', login=self.user_admin.login)

@@ -73,7 +73,7 @@ const AddTrackingLineAndValidateSteps = [
  */
 registry.category("web_tour.tours").add('industry_fsm_stock_test_tour', {
     test: true,
-    url: "/web",
+    url: "/odoo",
     steps: () => [
     stepUtils.showAppsMenuItem(),
     ...StepToFSMProductsKanbanWithFavoritesFilterSteps,
