@@ -160,10 +160,10 @@ class HrContract(models.Model):
             _l10n_au_convert_amount = self.env['hr.payslip']._l10n_au_convert_amount
             if contract.wage_type == "hourly":
                 contract.wage = _l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", contract.schedule_pay)
-                contract.l10n_au_yearly_wage = _l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", "yearly")
+                contract.l10n_au_yearly_wage = _l10n_au_convert_amount(contract.hourly_wage * hours_per_day, "daily", "annually")
             else:
                 contract.hourly_wage = _l10n_au_convert_amount(contract.wage, contract.schedule_pay, "daily") / hours_per_day
-                contract.l10n_au_yearly_wage = _l10n_au_convert_amount(contract.wage, contract.schedule_pay, "yearly")
+                contract.l10n_au_yearly_wage = _l10n_au_convert_amount(contract.wage, contract.schedule_pay, "annually")
 
     def _inverse_yearly_wages(self):
         if self.country_code != "AU":
@@ -171,8 +171,8 @@ class HrContract(models.Model):
         hours_per_day = self.resource_calendar_id.hours_per_day
         # YTI TODO Clean that brol
         _l10n_au_convert_amount = self.env['hr.payslip']._l10n_au_convert_amount
-        self.wage = _l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", self.schedule_pay)
-        self.hourly_wage = _l10n_au_convert_amount(self.l10n_au_yearly_wage, "yearly", "daily") / hours_per_day
+        self.wage = _l10n_au_convert_amount(self.l10n_au_yearly_wage, "annually", self.schedule_pay)
+        self.hourly_wage = _l10n_au_convert_amount(self.l10n_au_yearly_wage, "annually", "daily") / hours_per_day
 
     def get_hourly_wages(self):
         self.ensure_one()
