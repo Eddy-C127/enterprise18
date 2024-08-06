@@ -88,11 +88,11 @@ result = rules['NET']['total'] > categories['NET'] * 0.10''',
 #----------------------
 # result: float, base amount of the rule
 # result_rate: float, rate between -100.0 and 100.0, which defaults to 100.0 (%).
-# result_quantity: float, quantity, which defaults to 1.
+# result_qty: float, quantity, which defaults to 1.
 # result_name: string, name of the line, which defaults to the name field of the salary rule.
                This is useful if the name depends should depend on something computed in the rule.
 # The total returned by the salary rule is calculated as:
-# total = result * result_rate * result_quantity
+# total = result * result_rate * result_qty
 
 result = contract.wage * 0.10''')
     amount_percentage_base = fields.Char(string='Percentage based on', help='result will be affected to a variable')
