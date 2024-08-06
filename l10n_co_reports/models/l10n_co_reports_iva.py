@@ -20,46 +20,31 @@ class IVAReportCustomHandler(models.AbstractModel):
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
 
             query = report._get_report_query(column_group_options, 'strict_range', domain=domain)
-            account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
-            account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
-            account_code_like = '2408%%'
             bimestre_expression = SQL('CAST(FLOOR((EXTRACT(MONTH FROM account_move_line.date) + 1) / 2) AS INT)')
             bimestre_column = SQL('%s AS bimestre,', bimestre_expression) if bimestre else SQL()
             bimestre_having = SQL(
                 '''
                 HAVING SUM(
                     CASE
-                    WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.credit > 0
+                    WHEN account_move_line.credit > 0
                         THEN account_move_line.tax_base_amount
-                    WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.debit > 0
+                    WHEN account_move_line.debit > 0
                         THEN account_move_line.tax_base_amount * -1
                     ELSE 0
                     END
                 ) != 0
                 ''',
-                account_code=account_code,
-                account_code_like=account_code_like,
             ) if bimestre else SQL()
             queries.append(SQL(
                 """
                 SELECT
                     %(column_group_key)s AS column_group_key,
+                    SUM((account_move_line.credit - account_move_line.debit) / 0.15) AS balance_15_over_19,
+                    SUM(account_move_line.credit - account_move_line.debit) AS balance,
                     SUM(CASE
-                        WHEN %(account_code)s LIKE %(account_code_like)s
-                            THEN account_move_line.credit - account_move_line.debit
-                        ELSE 0
-                        END
-                     ) AS balance_15_over_19,
-                    SUM(CASE
-                        WHEN %(account_code)s NOT LIKE %(account_code_like)s
-                            THEN account_move_line.credit - account_move_line.debit
-                        ELSE 0
-                        END
-                    ) AS balance,
-                    SUM(CASE
-                        WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.credit > 0
+                        WHEN account_move_line.credit > 0
                             THEN account_move_line.tax_base_amount
-                        WHEN %(account_code)s NOT LIKE %(account_code_like)s AND account_move_line.debit > 0
+                        WHEN account_move_line.debit > 0
                             THEN account_move_line.tax_base_amount * -1
                         ELSE 0
                         END
@@ -74,8 +59,6 @@ class IVAReportCustomHandler(models.AbstractModel):
                 %(bimestre_having)s
                 """,
                 column_group_key=column_group_key,
-                account_code=account_code,
-                account_code_like=account_code_like,
                 bimestre_column=bimestre_column,
                 bimestre_groupby=SQL(', %s', bimestre_expression) if bimestre else SQL(),
                 bimestre_having=bimestre_having,
@@ -88,7 +71,7 @@ class IVAReportCustomHandler(models.AbstractModel):
 
     def _get_domain(self, report, options, line_dict_id=None):
         domain = super()._get_domain(report, options, line_dict_id=line_dict_id)
-        domain += ['|', ('account_id.code', '=like', '2367%'), ('account_id.code', '=like', '2408%')]
+        domain += [('account_id.code', '=like', '2367%')]
         return domain
 
     def _report_expand_unfoldable_line_iva(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
