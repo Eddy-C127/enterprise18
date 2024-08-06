@@ -104,7 +104,7 @@ export class KnowledgeSidebarRow extends Component {
         }
         if (this.props.unfolded) {
             this.env.fold(this.props.article.id);
-        } else {
+        } else if (!this.state.loading) {
             this.state.loading = true;
             // If there are a lot of articles, make sure the rendering caused
             // by the state change and the one cause by the prop update are not
