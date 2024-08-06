@@ -82,6 +82,10 @@ class HrContract(models.Model):
         for contract in self:
             contract.payslips_count = mapped_counts.get(contract.id, 0)
 
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        return [dict(vals, name=_("%s (copy)", contract.name)) for contract, vals in zip(self, vals_list)]
+
     def _get_salary_costs_factor(self):
         self.ensure_one()
         factors = {
