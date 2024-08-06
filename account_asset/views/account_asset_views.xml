@@ -77,10 +77,14 @@
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" readonly="state != 'draft'"/>
                             <field
                                 name="account_asset_id"
-                                domain="[('account_type', 'in', (
-                                    'asset_fixed',
-                                    'asset_non_current',
-                                    'asset_current'))]"
+                                domain="[
+                                    ('company_ids', 'in', company_id),
+                                    ('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current',
+                                        'asset_current')
+                                    ),
+                                ]"
                                 context="{
                                     'default_account_type': 'asset_fixed',
                                     'hide_model_on_account': state == 'model' and not id,
@@ -92,10 +96,14 @@
                                 readonly="state == 'close'"/>
                             <field
                                 name="account_depreciation_id"
-                                domain="[('account_type', 'in', (
-                                    'asset_fixed',
-                                    'asset_non_current',
-                                    'asset_current'))]"
+                                domain="[
+                                    ('company_ids', 'in', company_id),
+                                    ('account_type', 'in', (
+                                        'asset_fixed',
+                                        'asset_non_current',
+                                        'asset_current')
+                                    ),
+                                ]"
                                 context="{
                                     'default_account_type': 'asset_non_current',
                                     'hide_model_on_account': state == 'model' and not id,
@@ -106,9 +114,13 @@
                                 readonly="state == 'close'"/>
                             <field
                                 name="account_depreciation_expense_id"
-                                domain="[('account_type', 'in', (
-                                    'expense_depreciation',
-                                    'expense'))]"
+                                domain="[
+                                    ('company_ids', 'in', company_id),
+                                    ('account_type', 'in', (
+                                        'expense_depreciation',
+                                        'expense')
+                                    ),
+                                ]"
                                 context="{
                                     'default_account_type': 'expense_depreciation',
                                     'default_tax_ids': [],
@@ -169,10 +181,14 @@
                                     <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" readonly="state != 'draft'"/>
                                     <field
                                         name="account_asset_id"
-                                        domain="[('account_type', 'in', (
-                                            'asset_fixed',
-                                            'asset_non_current',
-                                            'asset_current'))]"
+                                        domain="[
+                                            ('company_ids', 'in', company_id),
+                                            ('account_type', 'in', (
+                                                'asset_fixed',
+                                                'asset_non_current',
+                                                'asset_current')
+                                            ),
+                                        ]"
                                         context="{
                                             'default_account_type': 'asset_fixed',
                                             'hide_model_on_account': state == 'model' and not id,
@@ -183,10 +199,14 @@
                                         readonly="state == 'close'"/>
                                     <field
                                         name="account_depreciation_id"
-                                        domain="[('account_type', 'in', (
-                                            'asset_fixed',
-                                            'asset_non_current',
-                                            'asset_current'))]"
+                                        domain="[
+                                            ('company_ids', 'in', company_id),
+                                            ('account_type', 'in', (
+                                                'asset_fixed',
+                                                'asset_non_current',
+                                                'asset_current')
+                                            ),
+                                        ]"
                                         context="{
                                             'default_account_type': 'asset_non_current',
                                             'hide_model_on_account': state == 'model' and not id,
@@ -197,9 +217,13 @@
                                         readonly="state == 'close'"/>
                                     <field
                                         name="account_depreciation_expense_id"
-                                        domain="[('account_type', 'in', (
-                                            'expense_depreciation',
-                                            'expense'))]"
+                                        domain="[
+                                            ('company_ids', 'in', company_id),
+                                            ('account_type', 'in', (
+                                                'expense_depreciation',
+                                                'expense')
+                                            ),
+                                        ]"
                                         context="{
                                             'default_account_type': 'expense_depreciation',
                                             'hide_model_on_account': state == 'model' and not id,
