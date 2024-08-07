@@ -10,7 +10,7 @@
         'web.assets_backend_lazy': [
             'web_cohort/static/src/**/*',
         ],
-        'web.qunit_suite_tests': [
+        'web.assets_unit_tests': [
             'web_cohort/static/tests/**/*.js',
         ],
     },

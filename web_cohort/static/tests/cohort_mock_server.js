@@ -1,5 +1,4 @@
-/** @odoo-module **/
-
+import { makeKwArgs } from "@web/../tests/web_test_helpers";
 import { parseDate } from "@web/core/l10n/dates";
 import { registry } from "@web/core/registry";
 
@@ -9,9 +8,8 @@ import { registry } from "@web/core/registry";
  * @param {Object} kwargs
  * @returns {Promise}
  */
-function _mockGetCohortData(route, args) {
-    const model = args.model;
-    const kwargs = args.kwargs;
+function _mockGetCohortData({ args, kwargs, model }) {
+    kwargs = makeKwArgs(kwargs);
     const displayFormats = {
         day: "dd MM yyyy",
         week: "WW kkkk",
@@ -23,10 +21,10 @@ function _mockGetCohortData(route, args) {
     let initialChurnValue = 0;
     const columnsAvg = {};
 
-    const groups = this.mockReadGroup(model, {
-        domain: kwargs.domain,
-        fields: [kwargs.date_start],
+    const { groups } = this.env[model].web_read_group({
+        ...kwargs,
         groupby: [kwargs.date_start + ":" + kwargs.interval],
+        fields: [kwargs.date_start],
     });
     const totalCount = groups.length;
     for (const group of groups) {
@@ -49,16 +47,13 @@ function _mockGetCohortData(route, args) {
             format,
         });
 
-        const records = this.mockSearchController({
-            model: model,
-            domain: group.__domain,
-        });
+        const records = this.env[model].search_read(group.__domain);
         let value = 0;
         if (kwargs.measure === "__count") {
             value = records.length;
         } else {
             if (records.length) {
-                value = records.records
+                value = records
                     .map((r) => r[kwargs.measure])
                     .reduce(function (a, b) {
                         return a + b;
@@ -92,7 +87,7 @@ function _mockGetCohortData(route, args) {
             }
 
             const compareDate = colStartDate.toFormat(displayFormats[kwargs.interval]);
-            let colRecords = records.records.filter((record) => {
+            let colRecords = records.filter((record) => {
                 return (
                     record[kwargs.date_stop] &&
                     parseDate(record[kwargs.date_stop], { format: "yyyy-MM-dd" }).toFormat(
@@ -114,7 +109,7 @@ function _mockGetCohortData(route, args) {
             }
 
             if (kwargs.timeline === "backward" && column === 0) {
-                colRecords = records.records.filter((record) => {
+                colRecords = records.filter((record) => {
                     return (
                         record[kwargs.date_stop] &&
                         parseDate(record[kwargs.date_stop], { format: "yyyy-MM-dd" }) >=
@@ -171,4 +166,4 @@ function _mockGetCohortData(route, args) {
     });
 }
 
-registry.category("mock_server").add("get_cohort_data", _mockGetCohortData);
+registry.category("mock_rpc").add("get_cohort_data", _mockGetCohortData);
