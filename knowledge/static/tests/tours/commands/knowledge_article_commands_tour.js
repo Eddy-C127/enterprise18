@@ -636,7 +636,7 @@ const clipboardUsageSteps = [{ // open the chatter
 }];
 
 registry.category("web_tour.tours").add('knowledge_article_commands_tour', {
-    url: '/web',
+    url: '/odoo',
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), {
     // open the Knowledge App

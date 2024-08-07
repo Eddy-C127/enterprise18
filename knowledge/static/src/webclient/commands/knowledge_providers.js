@@ -118,7 +118,7 @@ const fn = (hidden) => {
 
             },
             category: "knowledge_articles",
-            href: `/web#id=${article.id}&model=knowledge.article&view_type=form&menu_id=${knowledgeMainMenuId}`,
+            href: `/odoo/knowledge.article/${article.id}?menu_id=${knowledgeMainMenuId}`,
             name: article.name || _t("Untitled"),
             props: {
                 isFavorite: article.is_user_favorite,

@@ -6,7 +6,7 @@ import { endKnowledgeTour, openCommandBar } from './knowledge_tour_utils';
 
 registry.category("web_tour.tours").add('knowledge_embedded_view_filters_tour', {
     test: true,
-    url: '/web',
+    url: '/odoo',
     steps: () => [stepUtils.showAppsMenuItem(), {
         // open Knowledge App
         trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',

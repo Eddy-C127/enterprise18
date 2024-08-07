@@ -50,7 +50,7 @@ class TestKnowledgeArticleTours(HttpCaseWithUserDemo):
         })
 
     def test_knowledge_article_comments(self):
-        self.start_tour('/web', 'knowledge_article_comments', login='demo')
+        self.start_tour('/odoo', 'knowledge_article_comments', login='demo')
 
         # assert messages and resolved status
         self.assertTrue(self.test_article_thread.is_resolved)

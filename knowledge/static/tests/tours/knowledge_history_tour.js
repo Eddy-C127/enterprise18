@@ -42,7 +42,7 @@ function changeArticleContentAndSave(newContent) {
 
 registry.category("web_tour.tours").add('knowledge_history_tour', {
     test: true,
-    url: '/web',
+    url: '/odoo',
     steps: () => [stepUtils.showAppsMenuItem(), {
         // open Knowledge App
         trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',

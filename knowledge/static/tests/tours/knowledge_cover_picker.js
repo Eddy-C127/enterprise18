@@ -17,7 +17,7 @@ function moveCover(position) {
  */
 registry.category("web_tour.tours").add("knowledge_cover_selector_tour", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     steps: () => [
         stepUtils.showAppsMenuItem(),
         {

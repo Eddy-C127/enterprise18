@@ -91,7 +91,7 @@ const embedKanbanSteps = [{ // scroll to the embedded view to load it
 }];
 
 registry.category("web_tour.tours").add('knowledge_article_commands_readonly_tour', {
-    url: '/web',
+    url: '/odoo',
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(), {
     // open the Knowledge App

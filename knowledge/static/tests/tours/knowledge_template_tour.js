@@ -6,7 +6,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
 
 registry.category("web_tour.tours").add("knowledge_load_template", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         stepUtils.showAppsMenuItem(), {

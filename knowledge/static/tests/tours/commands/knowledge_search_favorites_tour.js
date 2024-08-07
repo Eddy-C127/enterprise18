@@ -159,7 +159,7 @@ const validateFavoriteFiltersSteps = function (kanban1, kanban2) {
 };
 
 registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         stepUtils.showAppsMenuItem(),
@@ -231,7 +231,7 @@ registry.category("web_tour.tours").add("knowledge_items_search_favorites_tour",
 });
 
 registry.category("web_tour.tours").add("knowledge_search_favorites_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [stepUtils.showAppsMenuItem(),
         // insert a first kanban view

@@ -6,7 +6,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
 registry.category("web_tour.tours").add('knowledge_properties_tour', {
     test: true,
-    url: '/web',
+    url: '/odoo',
     steps: () => [stepUtils.showAppsMenuItem(), {
     // open Knowledge App
     trigger: '.o_app[data-menu-xmlid="knowledge.knowledge_menu_root"]',
