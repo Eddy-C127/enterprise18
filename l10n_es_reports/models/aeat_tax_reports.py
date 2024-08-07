@@ -1236,7 +1236,7 @@ class SpanishMod349TaxReportCustomHandler(models.AbstractModel):
             line_options['date']['date_to'] =  datetime.strftime(line_date_to, '%Y-%m-%d')
 
             invoice_line_data = self._get_partner_subline(line_options, invoice_report_line_xml_id, line_partner.id)
-            previous_report_amount = invoice_line_data['columns'][0]['no_format']
+            previous_report_amount = invoice_line_data['columns'][0]['no_format'] if invoice_line_data else 0.0
 
             # Now, we can report the record!
             rslt += self._l10n_es_boe_format_string('2349')
