@@ -633,4 +633,4 @@ class TestUi(HttpCase):
         # run successfully if a partner is created during the flow
         # create it in advance here instead
         self.env['res.partner'].name_create('Agrolait')
-        self.start_tour("/web", 'rental_tour', login="admin")
+        self.start_tour("/odoo", 'rental_tour', login="admin")

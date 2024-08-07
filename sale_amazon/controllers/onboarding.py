@@ -5,7 +5,6 @@ import logging
 import pprint
 
 from werkzeug.exceptions import Forbidden
-from werkzeug.urls import url_encode
 
 from odoo import _, http
 from odoo.exceptions import UserError, ValidationError
@@ -64,7 +63,7 @@ class AmazonController(http.Controller):
         account.seller_key = seller_key
 
         # Craft the URL of the Amazon account.
-        account_url = self._compute_account_url(account_id)
+        account_url = f'/odoo/action-sale_amazon.list_amazon_account_action/{account_id}'
 
         # Request and set the refresh token on the account and finalize the set up.
         try:
@@ -77,21 +76,3 @@ class AmazonController(http.Controller):
             )
 
         return request.redirect(account_url, local=False)
-
-    @staticmethod
-    def _compute_account_url(account_id):
-        """ Craft the URL of the account's form view.
-
-        :param int account_id: The account for which the URL must be computed, as an
-                               `amazon.account` id.
-        :return: The URL of the account's form view.
-        :rtype: str
-        """
-        action = request.env.ref('sale_amazon.list_amazon_account_action', raise_if_not_found=False)
-        get_params_string = url_encode({
-            'id': account_id,
-            'model': 'amazon.account',
-            'view_type': 'form',
-            'action': action and action.id,
-        })
-        return f'/web#{get_params_string}'
