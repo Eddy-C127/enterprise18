@@ -84,5 +84,11 @@ class IrActionReport(models.Model):
             raise UserError(_("One of the printer used to print document have been removed. Please retry the operation to choose new printers to print."))
         device_list = []
         for device_id in device_ids:
-            device_list.append({"id": device_id.id, "identifier": device_id.identifier, "name": device_id.name, "iotIdentifier": device_id.iot_id.identifier})
+            device_list.append({
+                "id": device_id.id,
+                "identifier": device_id.identifier,
+                "name": device_id.name,
+                "iotIdentifier": device_id.iot_id.identifier,
+                "display_name": device_id.display_name
+            })
         return device_list
