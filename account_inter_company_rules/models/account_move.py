@@ -142,8 +142,7 @@ class AccountMoveLine(models.Model):
 
         analytic_distribution = {}
         if self.analytic_distribution:
-            account_ids = self._get_analytic_account_ids()
-            accounts_with_company = self.env['account.analytic.account'].browse(account_ids).filtered('company_id')
+            accounts_with_company = self.distribution_analytic_account_ids.filtered('company_id')
 
             for key, val in self.analytic_distribution.items():
                 is_company_account = False
