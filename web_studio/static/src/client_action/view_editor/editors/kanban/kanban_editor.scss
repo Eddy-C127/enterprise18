@@ -1,8 +1,5 @@
 .o_web_studio_kanban_view_editor:not(.o_web_studio_kanban_view_editor_legacy) {
         $-web-studio-kanban-edition-gap: 6px;
-        width: 66%;
-        transform: scale(1.5);
-        transform-origin: top left;
 
         .o_kanban_record {
             transition: padding .3s;
@@ -20,12 +17,17 @@
                 display: none !important;
             }
 
+            main > div.o-web-studio-editor--element-clickable {
+                margin: 0;
+                max-width: 100%;
+            }
+
             // make space to show aside/menu hooks
             &:has(>.o_web_studio_hook.o_web_studio_hook_visible[data-position=before]) {
-                padding-left: 50px;
+                padding-left: 60px;
             }
             &:has(>.o_web_studio_hook.o_web_studio_hook_visible[data-position=after]) {
-                padding-right: 50px;
+                padding-right: 60px;
             }
 
             // Always show groups, even with empty content
@@ -73,12 +75,12 @@
                 transition: all .2s;
 
                 &.o_web_studio_hook_visible {
-                    padding: 4px;
+                    padding: 6px;
                     background: rgba($o-brand-secondary, 0.1);
                     z-index: 100;
 
                     &[data-structures="aside"], &[data-type="t"] {
-                        width: 40px !important;
+                        width: 50px !important;
                     }
 
                     &[data-type="ribbon"] {
@@ -89,7 +91,7 @@
                     cursor: pointer;
                     background-color: rgba($o-brand-primary, 0.02);
                     border: 1px dashed rgba($o-brand-primary, 0.5);
-                    padding: 15px !important;
+                    padding: 18px !important;
 
                     &[data-type="ribbon"] div {
                         opacity: 1 !important;

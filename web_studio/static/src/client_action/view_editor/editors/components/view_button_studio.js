@@ -36,9 +36,11 @@ export class ViewButtonStudio extends ViewButton {
         if (this.props.tag === "a") {
             ev.preventDefault();
         }
-        if (!this.props.studioXpath) {
-            return;
-        }
-        this.env.config.onNodeClicked(this.props.studioXpath);
+        const target = ev.target.classList.contains("o-web-studio-editor--element-clickable")
+            ? ev.target
+            : ev.target.closest("o-web-studio-editor--element-clickable");
+        this.env.config.onNodeClicked(
+            target?.getAttribute("studioxpath") || this.props.studioXpath
+        );
     }
 }
