@@ -25,6 +25,15 @@
             <xpath expr="//field[@name='transient']" position="after">
                 <field name="is_merge_enabled"/>
             </xpath>
+        </field>
+    </record>
+
+    <record id="ir_model_view_tree_primary" model="ir.ui.view">
+        <field name="name">ir.model.view.tree.inherit.data.merge.primary</field>
+        <field name="model">ir.model</field>
+        <field name="inherit_id" ref="ir_model_view_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
             <xpath expr="//tree" position="attributes">
                 <attribute name="action">action_merge</attribute>
                 <attribute name="type">object</attribute>
@@ -49,7 +58,7 @@
         <field name="res_model">ir.model</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="base.view_model_search"/>
-        <field name="view_id" ref="base.view_model_tree"/>
+        <field name="view_id" ref="data_cleaning.ir_model_view_tree_primary"/>
         <field name="domain">[]</field>
     </record>
 
