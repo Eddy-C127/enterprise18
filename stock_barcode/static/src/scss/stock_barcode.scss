@@ -92,14 +92,6 @@
     }
 }
 
-// Target barcode home menu
-.o_web_client:has(.o_stock_barcode_main_menu) .o_action_manager {
-    background-size: cover;
-    background-attachment: fixed;
-    background-color: var(--homeMenu-bg-color, #e7e9ed);
-    background-image: var(--homeMenu-bg-image, url(/web_enterprise/static/img/background-light.svg));
-}
-
 // Target any barcode kanbanView
 .o_web_client:has(.o_stock_barcode_list_kanban_view, .o_stock_barcode_operations_kanban_view) {
     @include media-breakpoint-down(md) {
