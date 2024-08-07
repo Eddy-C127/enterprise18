@@ -165,12 +165,17 @@ test("Threads are not affected by paste from clipboard os", () => {
         ...toCartesian("B2"),
         threadId: 1,
     });
+    model.dispatch("COPY");
     model.selection.selectCell(1, 1);
     model.dispatch("PASTE_FROM_OS_CLIPBOARD", {
         target: [toZone("C2")],
         text: "coucou",
         pasteOption: {},
+        clipboardContent: {
+            ["text/plain"]: "Copy in OS clipboard",
+        },
     });
+    model.dispatch("COPY");
     model.dispatch("PASTE", { target: [toZone("C2")] });
     expect(model.getters.getThreadInfo(1)).toEqual({
         sheetId,

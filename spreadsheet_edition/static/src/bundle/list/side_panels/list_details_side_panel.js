@@ -38,13 +38,13 @@ export class ListDetailsSidePanel extends Component {
         return [
             {
                 name: "Duplicate",
-                icon: "fa-copy",
-                onClick: () => this.duplicateList(),
+                icon: "o-spreadsheet-Icon.COPY",
+                execute: () => this.duplicateList(),
             },
             {
                 name: "Delete",
-                icon: "fa-trash",
-                onClick: () => this.deleteList(),
+                icon: "o-spreadsheet-Icon.TRASH",
+                execute: () => this.deleteList(),
             },
         ];
     }

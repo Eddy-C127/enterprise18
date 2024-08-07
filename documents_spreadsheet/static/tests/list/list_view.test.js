@@ -825,7 +825,7 @@ test("Duplicate a list from the side panel", async function () {
     expect(model.getters.getListIds().length).toBe(1);
     expect(".o_sp_en_display_name").toHaveText("(#1) Partners by Foo");
     await contains(".os-cog-wheel-menu-icon").click();
-    await contains(".os-cog-wheel-menu .fa-copy").click();
+    await contains(".o-popover .fa-clone").click();
     expect(model.getters.getListIds().length).toBe(2);
     expect(".o_sp_en_display_name").toHaveText("(#2) Partners by Foo");
 });
