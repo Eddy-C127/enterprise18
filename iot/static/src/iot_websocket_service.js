@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { browser } from "@web/core/browser/browser";
 import { session } from "@web/session";
@@ -31,18 +32,30 @@ export class IotWebsocket {
             throw error;
         });
         this.jobs[uuid] = response;
+
+        // For each printer device, we add a notification that the print is being sent.
+        // This notification is sticky so it won't disappear until the print is done, and stored
+        // in the device object, this allows us to manipulate it later on (remove it when the
+        // print is done or if the connection fails)
+        this.jobs[uuid].forEach((device) => {
+            device._removeSendingNotification = this.notification.add(_t('Sending to printer %s...', device["display_name"]), {
+                type: "info",
+                sticky: true,
+            });
+        });
         // The IoT is supposed to send back a confirmation request when the operation
         // is done. This request will trigger the `jobs[uuid]` to be removed
         // If the `jobs[uuid]` is still there after 10 seconds,
         // we assume the connection to the printer failed
         setTimeout(() => {
             if (this.jobs[uuid].length !== 0) {
-                for (const device in this.jobs[uuid]) {
-                    this.notification.add("Check if the printer is still connected", {
-                        title: `Connection to printer failed ${this.jobs[uuid][device]["name"]}`,
+                this.jobs[uuid].forEach((device) => {
+                    device._removeSendingNotification();
+                    this.notification.add(_t("Check the IoT connection. Try restarting if needed."), {
+                        title: (_t("Connection to printer failed ") + device["display_name"]),
                         type: "danger",
                     });
-                }
+                });
             }
             delete this.jobs[uuid];
         }, 10000);
@@ -53,6 +66,17 @@ export class IotWebsocket {
             report_data,
             uuid,
         ]);
+    }
+
+    onPrintConfirmation(deviceId, printId) {
+        const jobIndex = this.jobs[printId].findIndex((element) => element && element["identifier"] === deviceId);
+        const device = this.jobs[printId][jobIndex];
+
+        device._removeSendingNotification();
+        this.notification.add(_t('Printing operation completed on printer %s', device["display_name"]), {
+            type: "success",
+        });
+        delete this.jobs[printId][jobIndex];
     }
 
     setJobInLocalStorage(value, args) {
@@ -83,13 +107,11 @@ export const IotWebsocketService = {
         {
             bus_service.addChannel(iot_channel);
             bus_service.addEventListener("notification", async (message) => {
-                for (let i in message['detail']) {
-                    if (message['detail'][i]['type'] == "print_confirmation" && ws.jobs[message['detail'][i]['payload']['print_id']]) {
-                        const deviceId = message['detail'][i]['payload']['device_identifier'];
-                        const printId = message['detail'][i]['payload']['print_id'];
-                        delete ws.jobs[printId][ws.jobs[printId].findIndex(element => element && element['identifier'] == deviceId)];
+                message['detail'].forEach(({type, payload}) => {
+                    if (type === "print_confirmation" && ws.jobs[payload['print_id']]) {
+                        ws.onPrintConfirmation(payload['device_identifier'], payload['print_id']);
                     }
-                }
+                });
             })
         }
         return ws;
