@@ -69,11 +69,13 @@ patch(ScaleScreen.prototype, {
         } else {
             if (this.state.tareLoading) {
                 this.state.tare = data.value;
+                this.pos.setScaleTare(data.value);
                 setTimeout(() => {
                     this.state.tareLoading = false;
                 }, 3000);
             } else {
                 this.state.weight = data.value;
+                this.pos.setScaleWeight(data.value);
             }
         }
     },
