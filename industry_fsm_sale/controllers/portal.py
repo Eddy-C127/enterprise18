@@ -89,3 +89,10 @@ class CustomerPortal(SaleCustomerPortal, AccountCustomerPortal):
             page_name='Task invoices',
         )
         return request.render('account.portal_my_invoices', values)
+
+    def _prepare_project_sharing_session_info(self, project, task=None):
+        session_info = super()._prepare_project_sharing_session_info(project, task)
+        session_info['action_context'].update({
+            'is_fsm': project.is_fsm,
+        })
+        return session_info
