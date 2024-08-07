@@ -62,7 +62,7 @@ class TestQualityWorksheet(HttpCase, TestQualityCommon):
         action = self.env.ref('stock.action_picking_tree_all')
         action['res_id'] = receipt.id
         action['view_id'] = self.env.ref('stock.view_picking_form')
-        url = '/web#action=%s&active_id=%s' % (action.id, receipt.id)
+        url = f'/odoo/{receipt.id}/action-{action.id}'
         self.start_tour(url, 'test_multiple_worksheet_checks', login='admin')
         # there should be 3 move lines and 3 checks
         self.assertEqual(len(receipt.move_line_ids), 3)

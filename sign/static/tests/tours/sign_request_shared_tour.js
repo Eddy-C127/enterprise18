@@ -4,7 +4,7 @@ import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add("shared_sign_request_tour", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     steps: () => [
         {
             content: "Open Sign APP",

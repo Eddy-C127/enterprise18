@@ -52,7 +52,7 @@ function dragAndDropSignItemAtHeight(type, page, height = 0.5, width = 0.5) {
 
 registry.category("web_tour.tours").add("sign_template_creation_tour", {
     test: true,
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     steps: () => [
         stepUtils.showAppsMenuItem(),
         {

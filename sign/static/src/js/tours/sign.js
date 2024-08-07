@@ -7,7 +7,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("sign_tour", {
-    url: "/web",
+    url: "/odoo",
     rainbowManMessage: _t("Congratulations, you signed your first document!"),
     sequence: 150,
     steps: () => [

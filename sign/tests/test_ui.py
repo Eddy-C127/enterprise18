@@ -17,9 +17,9 @@ class TestUi(odoo.tests.HttpCase, SignRequestCommon):
         group_order_template = self.env.ref('sale_management.group_sale_order_template', raise_if_not_found=False)
         if group_order_template:
             self.env.ref('base.group_user').write({"implied_ids": [(4, group_order_template.id)]})
-        self.start_tour("/web", 'sign_widgets_tour', login='admin')
+        self.start_tour("/odoo", 'sign_widgets_tour', login='admin')
 
-        self.start_tour("/web", 'shared_sign_request_tour', login='admin')
+        self.start_tour("/odoo", 'shared_sign_request_tour', login='admin')
         shared_sign_request = self.env['sign.request'].search([('reference', '=', 'template_1_role-Shared'), ('state', '=', 'shared')])
         self.assertTrue(shared_sign_request.exists(), 'A shared sign request should be created')
         signed_sign_request = self.env['sign.request'].search([('reference', '=', 'template_1_role'), ('state', '=', 'signed')])
@@ -59,7 +59,7 @@ class TestUi(odoo.tests.HttpCase, SignRequestCommon):
             'name': 'Mitchell Admin',
             'sign_signature': img_content,
         })
-        self.start_tour("/web", 'test_sign_flow_tour', login='admin')
+        self.start_tour("/odoo", 'test_sign_flow_tour', login='admin')
 
     def test_template_edition(self):
         blank_template = self.env['sign.template'].create({
@@ -67,7 +67,7 @@ class TestUi(odoo.tests.HttpCase, SignRequestCommon):
             'attachment_id': self.attachment.id,
         })
 
-        self.start_tour("/web", "sign_template_creation_tour", login="admin")
+        self.start_tour("/odoo", "sign_template_creation_tour", login="admin")
 
         self.assertEqual(blank_template.name, 'filled_template', 'The tour should have changed the template name')
         self.assertEqual(len(blank_template.sign_item_ids), 4)
@@ -79,4 +79,4 @@ class TestUi(odoo.tests.HttpCase, SignRequestCommon):
         self.assertEqual(set(blank_template.sign_item_ids.mapped("name")), set(["Name", "Signature", "placeholder", "Selection"]))
 
     def test_report_modal(self):
-        self.start_tour("/web", "sign_report_modal_tour", login="admin")
+        self.start_tour("/odoo", "sign_report_modal_tour", login="admin")
