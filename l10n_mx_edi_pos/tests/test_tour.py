@@ -17,13 +17,13 @@ class TestUi(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
         })
 
     def test_mx_pos_invoice_order(self):
-        self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_order", login=self.env.user.login)
+        self.start_tour("/odoo", "l10n_mx_edi_pos.tour_invoice_order", login=self.env.user.login)
 
     def test_mx_pos_invoice_order_default_usage(self):
-        self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_order_default_usage", login=self.env.user.login)
+        self.start_tour("/odoo", "l10n_mx_edi_pos.tour_invoice_order_default_usage", login=self.env.user.login)
 
     def test_mx_pos_invoice_previous_order(self):
-        self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_previous_order", login=self.env.user.login)
+        self.start_tour("/odoo", "l10n_mx_edi_pos.tour_invoice_previous_order", login=self.env.user.login)
         invoice = self.env['account.move'].search([('move_type', '=', 'out_invoice')], order='id desc', limit=1)
         self.assertRecordValues(invoice, [{
             'partner_id': self.partner_mx.id,
@@ -32,7 +32,7 @@ class TestUi(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
         }])
 
     def test_mx_pos_invoice_previous_order_default_usage(self):
-        self.start_tour("/web", "l10n_mx_edi_pos.tour_invoice_previous_order_default_usage", login=self.env.user.login)
+        self.start_tour("/odoo", "l10n_mx_edi_pos.tour_invoice_previous_order_default_usage", login=self.env.user.login)
         invoice = self.env['account.move'].search([('move_type', '=', 'out_invoice')], order='id desc', limit=1)
         self.assertRecordValues(invoice, [{
             'partner_id': self.partner_mx.id,
