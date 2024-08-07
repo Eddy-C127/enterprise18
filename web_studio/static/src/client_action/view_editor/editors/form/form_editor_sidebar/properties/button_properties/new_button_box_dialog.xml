@@ -18,7 +18,7 @@
             <Many2XAutocomplete
                 value="this.state.field?.display_name"
                 resModel="'ir.model.fields'"
-                fieldString="'Field'"
+                fieldString.translate="Field"
                 update.bind="update"
                 activeActions="{}"
                 getDomain.bind="getDomain"
