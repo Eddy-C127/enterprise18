@@ -6,7 +6,7 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('planning_tour', {
     sequence: 120,
-    url: '/web',
+    url: '/odoo',
     rainbowManMessage: () => markup(_t("<b>Congratulations!</b></br> You are now a master of planning.")),
     steps: () => [
     {

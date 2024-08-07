@@ -3,7 +3,7 @@
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add('planning_avatar_card_non_hr_user', {
-    url: '/web?debug=tests',
+    url: '/odoo?debug=tests',
     test: true,
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',

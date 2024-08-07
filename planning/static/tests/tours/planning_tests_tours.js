@@ -4,7 +4,7 @@ import { markup } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add('planning_test_tour', {
-    url: '/web',
+    url: '/odoo',
     test: true,
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
@@ -135,7 +135,7 @@ registry.category("web_tour.tours").add('planning_test_tour', {
 }]});
 
 registry.category("web_tour.tours").add('planning_test_tour_no_email', {
-    url: '/web',
+    url: '/odoo',
     test: true,
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
@@ -173,7 +173,7 @@ registry.category("web_tour.tours").add('planning_test_tour_no_email', {
 },]});
 
 registry.category("web_tour.tours").add('planning_shift_switching_backend', {
-    url: '/web',
+    url: '/odoo',
     test: true,
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
@@ -216,7 +216,7 @@ registry.category("web_tour.tours").add('planning_shift_switching_backend', {
 }]});
 
 registry.category("web_tour.tours").add('planning_assigning_unwanted_shift_backend', {
-    url: '/web',
+    url: '/odoo',
     test: true,
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',

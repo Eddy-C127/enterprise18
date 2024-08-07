@@ -227,4 +227,4 @@ class TestUi(TestUiCommon):
                          "Splitting a recurrent shift should only split one occurrence")
 
     def test_onboarding_tour(self):
-        self.start_tour("/web", 'planning_tour', login='admin')
+        self.start_tour("/odoo", 'planning_tour', login='admin')
