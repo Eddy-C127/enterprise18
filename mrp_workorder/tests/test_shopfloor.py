@@ -140,7 +140,7 @@ class TestShopFloor(HttpCase):
 
         # Tour
         action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
-        url = '/web?#action=%s' % (action['id'])
+        url = f"/odoo/action-{action['id']}"
         self.start_tour(url, "test_shop_floor", login='admin')
 
         self.assertEqual(mo.move_finished_ids.quantity, 2)
@@ -213,7 +213,7 @@ class TestShopFloor(HttpCase):
         mo.button_plan()
 
         action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
-        url = '/web?#action=%s' % (action['id'])
+        url = f"/odoo/action-{action['id']}"
         self.start_tour(url, "test_generate_serials_in_shopfloor", login='admin')
 
     def test_canceled_wo(self):
@@ -269,5 +269,5 @@ class TestShopFloor(HttpCase):
         self.assertEqual(mo_backorder.workorder_ids[1].state, 'ready')
 
         action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
-        url = '/web?#action=%s' % (action['id'])
+        url = f"/odoo/action-{action['id']}"
         self.start_tour(url, "test_canceled_wo", login='admin')

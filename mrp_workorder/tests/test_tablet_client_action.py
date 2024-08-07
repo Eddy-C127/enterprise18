@@ -9,8 +9,7 @@ from odoo.tests import Form
 class TestWorkorderClientActionCommon(TestMrpWorkorderCommon):
     @classmethod
     def _get_client_action_url(cls, workorder_id):
-        action = cls.env["ir.actions.actions"]._for_xml_id("mrp_workorder.tablet_client_action")
-        return '/web#action=%s&active_id=%s' % (action['id'], workorder_id)
+        return f'/odoo/{workorder_id}/action-mrp_workorder.tablet_client_action'
 
     @classmethod
     def setUpClass(cls):

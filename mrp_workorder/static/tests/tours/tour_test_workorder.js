@@ -102,7 +102,7 @@ registry.category("web_tour.tours").add('test_serial_tracked_and_register', {tes
 
 registry.category("web_tour.tours").add('test_access_shop_floor_with_multicomany', {
     test: true,
-    url: '/web#cids=1&action=menu',
+    url: '/odoo/action-menu',
     steps: () => [{
         content: 'Select Shop Floor app',
         trigger: 'a.o_app:contains("Shop Floor")',
