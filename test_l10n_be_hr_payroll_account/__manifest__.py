@@ -12,6 +12,7 @@
         'l10n_be_hr_payroll_account',
         'l10n_be',
         'l10n_be_hr_payroll_sd_worx',
+        'l10n_be_hr_payroll_group_s',
         'account_accountant',
         'hr_payroll_account_sepa',
         'documents_hr_payroll',

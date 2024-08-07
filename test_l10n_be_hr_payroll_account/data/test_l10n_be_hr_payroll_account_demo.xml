@@ -1527,6 +1527,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000001</field>
     </record>
 
     <record id="hr_contract_al" model="hr.contract">
@@ -1548,6 +1549,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000002</field>
     </record>
 
     <record id="hr_contract_mit" model="hr.contract">
@@ -1569,6 +1571,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000003</field>
     </record>
 
     <record id="hr_contract_stw" model="hr.contract">
@@ -1591,6 +1594,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000004</field>
     </record>
 
     <record id="hr_contract_qdp" model="hr.contract">
@@ -1612,6 +1616,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000005</field>
     </record>
 
     <record id="resource_calendar_4_5_wednesday_off" model="resource.calendar">
@@ -1654,6 +1659,7 @@
         <field name="time_credit" eval="True"/>
         <field name="work_time_rate">0.80</field>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000006</field>
     </record>
 
     <record id="hr_contract_niv" model="hr.contract">
@@ -1679,6 +1685,7 @@
         <field name="time_credit" eval="True"/>
         <field name="work_time_rate">0.80</field>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000007</field>
     </record>
 
     <record id="hr_contract_jth" model="hr.contract">
@@ -1701,6 +1708,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" ref="test_l10n_be_hr_payroll_account.resource_calendar_4_5_wednesday_off"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000008</field>
     </record>
 
     <record id="hr_contract_chs" model="hr.contract">
@@ -1722,6 +1730,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000009</field>
     </record>
 
     <record id="hr_contract_jve" model="hr.contract">
@@ -1743,6 +1752,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000010</field>
     </record>
 
     <record id="hr_contract_fme" model="hr.contract">
@@ -1765,6 +1775,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000011</field>
     </record>
 
     <record id="hr_contract_fpi" model="hr.contract">
@@ -1787,6 +1798,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000012</field>
     </record>
 
     <record id="hr_contract_vad" model="hr.contract">
@@ -1809,6 +1821,7 @@
         <field name="contract_update_template_id" ref="hr_contract_salary.sign_template_cdi_developer"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
         <field name="rd_percentage">100</field>
+        <field name="group_s_code">000013</field>
     </record>
 
     <!--Leave Type-->
@@ -2175,6 +2188,7 @@
         <field name="date_start" eval="time.strftime('2019-01-01')"/>
         <field name="date_end" eval="time.strftime('2019-12-31')"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
+        <field name="group_s_code">000014</field>
     </record>
 
     <record id="hr_contract_cdi_joseph_noluck_2" model="hr.contract">
@@ -2200,6 +2214,7 @@
         <field name="date_start" eval="time.strftime('2020-01-01')"/>
         <field name="date_end" eval="False"/>
         <field name="resource_calendar_id" model="resource.calendar" eval="obj().search([('company_id', '=', obj().env.ref('base.demo_company_be').id)], limit=1)"/>
+        <field name="group_s_code">000015</field>
     </record>
 
     <record id="hr_employee_joseph_noluck" model="hr.employee">
@@ -2737,6 +2752,7 @@
         <field name="company_id" ref="base.demo_company_be"/>
         <field name="date_start" eval="(DateTime.today() + relativedelta(months=-6))"/>
         <field name="resource_calendar_id" ref="test_l10n_be_hr_payroll_account.resource_calendar_1_5_monday_student"/>
+        <field name="group_s_code">000016</field>
     </record>
 
     <!-- Reset company on superuser -->

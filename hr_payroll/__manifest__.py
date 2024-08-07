@@ -54,6 +54,7 @@
         'views/hr_payroll_dashboard_warning_views.xml',
         'views/hr_payroll_headcount_views.xml',
         'views/hr_payroll_menu.xml',
+        'views/hr_work_entry_export_mixin_views.xml',
         'report/hr_contract_history_report_views.xml',
         'wizard/hr_payroll_payment_report_wizard.xml',
     ],
