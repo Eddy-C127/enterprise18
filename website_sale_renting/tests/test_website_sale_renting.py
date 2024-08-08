@@ -116,6 +116,7 @@ class TestWebsiteSaleRenting(TestWebsiteSaleRentingCommon):
         # 2024-04-15 is a Monday
         with freeze_time(datetime(year=2024, month=4, day=15, hour=0, minute=0, second=0, tzinfo=tzinfo)):
             now = fields.Datetime.now()
+            self.env.user.tz = 'Europe/Brussels'
             so = self.env['sale.order'].create({
                 'partner_id': self.partner.id,
                 'company_id': self.company.id,
