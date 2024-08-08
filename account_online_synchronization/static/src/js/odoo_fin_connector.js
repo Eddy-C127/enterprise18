@@ -16,8 +16,8 @@ function OdooFinConnector(parent, action) {
     action.params.colorScheme = cookie.get("color_scheme");
     let mode = action.params.mode || 'link';
     // Ensure that the proxyMode is valid
-    const modeRegexp = /^[a-z0-9-_]+$/i;
-    const runbotRegexp = /^https:\/\/[a-z0-9-_]+\.[a-z0-9-_]+\.odoo\.com$/i;
+    const modeRegexp = /^[a-z0-9-_]+$/;
+    const runbotRegexp = /^https:\/\/[a-z0-9-_]+\.[a-z0-9-_]+\.odoo\.com$/;
     if (!modeRegexp.test(action.params.proxyMode) && !runbotRegexp.test(action.params.proxyMode)) {
         return;
     }
