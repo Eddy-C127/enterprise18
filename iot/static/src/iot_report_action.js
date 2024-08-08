@@ -25,6 +25,7 @@ async function iotReportActionHandler(action, options, env) {
         const args = [action.id, action.context.active_ids, action.data, uuid()];
         const report_id = action.id;
         const local_lists = JSON.parse(browser.localStorage.getItem("odoo-iot-linked_reports"));
+        const onClose = options.onClose;
         const list = local_lists ? local_lists[report_id] : undefined;
         if (!list) {
             const action_wizard = await orm.call("ir.actions.report", "get_action_wizard", args);
@@ -32,9 +33,15 @@ async function iotReportActionHandler(action, options, env) {
         }
         else {
             await env.services.iot_websocket.addJob(list, args);
+
+            // We close here to prevent premature closure if the device selection modal is displayed.
+            if (action.close_on_report_download) {
+                env.services.action.doAction({ type: "ir.actions.act_window_close" }, { onClose });
+            }
         }
-        if (options.onClose) {
-            options.onClose();
+        
+        if (onClose) {
+            onClose();
         }
         return true;
     }
