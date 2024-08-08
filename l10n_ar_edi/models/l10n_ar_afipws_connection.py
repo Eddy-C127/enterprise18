@@ -1,6 +1,13 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.serialization import Encoding, load_pem_private_key
+from cryptography.hazmat.primitives.serialization.pkcs7 import (
+    PKCS7Options,
+    PKCS7SignatureBuilder,
+)
+from cryptography.x509 import load_pem_x509_certificate
 from lxml import builder
 from lxml import etree
 from requests.adapters import HTTPAdapter
@@ -13,11 +20,6 @@ import logging
 from odoo.tools.zeep import Client, Transport
 
 _logger = logging.getLogger(__name__)
-
-try:
-    from OpenSSL import crypto
-except ImportError:
-    _logger.warning('OpenSSL library not found. If you plan to use l10n_ar_edi, please install the library from https://pypi.python.org/pypi/pyOpenSSL')
 
 
 # Exclude some ciphers in order avoid failure on servers where the DH key is too small
@@ -177,14 +179,14 @@ class L10nArAfipwsConnection(models.Model):
         request = etree.tostring(request_xml, pretty_print=True)
 
         # sign request
-        PKCS7_NOSIGS = 0x4
-        pkey = crypto.load_privatekey(crypto.FILETYPE_PEM, private_key)
-        signcert = crypto.load_certificate(crypto.FILETYPE_PEM, certificate)
-        bio_in = crypto._new_mem_buf(request)
-        pkcs7 = crypto._lib.PKCS7_sign(signcert._x509, pkey._pkey, crypto._ffi.NULL, bio_in, PKCS7_NOSIGS)
-        bio_out = crypto._new_mem_buf()
-        crypto._lib.i2d_PKCS7_bio(bio_out, pkcs7)
-        signed_request = crypto._bio_to_string(bio_out)
+        pkey = load_pem_private_key(private_key, None)
+        signcert = load_pem_x509_certificate(certificate)
+        signed_request = (
+            PKCS7SignatureBuilder()
+            .set_data(request)
+            .add_signer(signcert, pkey, hashes.SHA256())
+            .sign(Encoding.DER, [PKCS7Options.Binary])
+        )
 
         wsdl = {'production': "https://wsaa.afip.gov.ar/ws/services/LoginCms?WSDL",
                 'testing': "https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL"}.get(environment_type)
