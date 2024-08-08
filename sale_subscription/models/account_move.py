@@ -2,6 +2,7 @@
 
 from odoo import models, _
 from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_PROGRESS_STATE
+from dateutil.relativedelta import relativedelta
 
 
 class AccountMove(models.Model):
@@ -35,7 +36,10 @@ class AccountMove(models.Model):
                 # Churn sub are reopened in the _post_process of payment transaction.
                 # Renewed sub should not be incremented as the renewal is the running contract.
                 # Invoices for renewed contract can be posted when the delivered products arrived after the renewal date.
-                subscription.next_invoice_date = subscription.next_invoice_date + subscription.plan_id.billing_period
+                last_invoice_end_dates = [date for date in subscription.order_line.mapped('last_invoiced_date') if date]
+                subscription.next_invoice_date = max(last_invoice_end_dates) + relativedelta(days=1) if last_invoice_end_dates else subscription.start_date
+                if all(subscription.order_line.mapped(lambda line: line._is_postpaid_line())):
+                    subscription.next_invoice_date += subscription.plan_id.billing_period
                 subscription.last_reminder_date = False
             subscription.pending_transaction = False
         if all_subscriptions:

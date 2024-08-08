@@ -5,7 +5,6 @@ import logging
 from dateutil.relativedelta import relativedelta
 from markupsafe import escape, Markup
 from psycopg2.extensions import TransactionRollbackError
-from ast import literal_eval
 from collections import defaultdict
 import traceback
 
@@ -14,7 +13,6 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_is_zero
 from odoo.osv import expression
 from odoo.tools import config, format_amount, format_list, plaintext2html, split_every, str2bool
-from odoo.tools.date_utils import get_timedelta
 from odoo.tools.misc import format_date
 
 _logger = logging.getLogger(__name__)
@@ -412,8 +410,6 @@ class SaleOrder(models.Model):
             last_date = order.next_invoice_date and order.plan_id.billing_period and order.next_invoice_date - order.plan_id.billing_period
             start_date = order.start_date or fields.Date.today()
             if order.state == 'sale' and last_date and last_date >= start_date:
-                # we use get_timedelta and not the effective invoice date because
-                # we don't want gaps. Invoicing date could be shifted because of technical issues.
                 order.last_invoice_date = last_date
             else:
                 order.last_invoice_date = False
@@ -1572,9 +1568,9 @@ class SaleOrder(models.Model):
         """ Override to increment periods when needed """
         order_already_invoiced = self.env['sale.order']
         for order in self:
-            if not order.is_subscription:
-                continue
-            if order.order_line.invoice_lines.move_id.filtered(lambda r: r.move_type in ('out_invoice', 'out_refund') and r.state == 'draft'):
+            if order.is_subscription and order.order_line.invoice_lines.move_id.filtered(
+                    lambda r: r.move_type in ('out_invoice', 'out_refund') and r.state == 'draft'
+            ):
                 order_already_invoiced |= order
         if order_already_invoiced:
             order_error = ", ".join(order_already_invoiced.mapped('name'))

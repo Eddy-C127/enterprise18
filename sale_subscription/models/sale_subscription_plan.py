@@ -14,12 +14,14 @@ class SaleSubscriptionPlan(models.Model):
     company_id = fields.Many2one('res.company')
 
     # Billing Period, use billing_period property for access to the timedelta
-    billing_period_value = fields.Integer(string="Duration", required=True, default=1)
+    billing_period_value = fields.Integer(string="Billing Period ", required=True, default=1)
     billing_period_unit = fields.Selection([("week", "Weeks"), ("month", "Months"), ('year', 'Years')],
                                            string="Unit", required=True, default='month')
 
     billing_period_display = fields.Char(compute='_compute_billing_period_display', string="Billing Period", search='_search_billing_period_display')
     billing_period_display_sentence = fields.Char(compute='_compute_billing_period_display_sentence', string="Billing Period Display")
+
+    billing_first_day = fields.Boolean(string="Align to Period Start", default=False, help="Align all subscription invoices on the first day of each billing period.")
 
     # Self Service
     user_closable = fields.Boolean(string="Closable", default=False,

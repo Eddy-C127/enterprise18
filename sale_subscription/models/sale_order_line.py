@@ -309,9 +309,8 @@ class SaleOrderLine(models.Model):
             else:
                 line.parent_line_id = False
 
-    def _get_invoice_line_periods(self):
-        """ Util to compute the relevant next period to invoice for a line depending if it is pre-paid or post-paid
-            Returns: (Date, Date) tuple for start of period and end of period
+    def _get_invoice_line_parameters(self):
+        """ Util to compute the relevant next period to invoice for a line dependent on his pre-paid or post-paid status
         """
         self.ensure_one()
         today = fields.Date.today()
@@ -321,7 +320,7 @@ class SaleOrderLine(models.Model):
         if self.order_id.subscription_state == '7_upsell':
             # We start at the beginning of the upsell as it's a part of recurrence
             new_period_start = max(start_date, first_contract_date)
-            new_period_stop = self.order_id.next_invoice_date - relativedelta(days=1)
+            new_period_stop = self.order_id.next_invoice_date
         else:
             # We need to invoice the next period: last_invoice_date will be today once this invoice is created. We use get_timedelta to avoid gaps
             # We always use next_invoice_date as the recurrence are synchronized with the invoicing periods.
@@ -329,11 +328,25 @@ class SaleOrderLine(models.Model):
             if self._is_postpaid_line():
                 new_period_start = self.last_invoiced_date and self.last_invoiced_date + relativedelta(days=1) or self.order_id.start_date
                 theoretical_stop = new_period_start and new_period_start + self.order_id.plan_id.billing_period - relativedelta(days=1)
-                new_period_stop = min(theoretical_stop, fields.Date.today())
+                new_period_stop = min(date for date in [fields.Date.today(), theoretical_stop, self.order_id.end_date] if date)
+                return new_period_start, new_period_stop, 1, None
             else:
                 new_period_start = self.order_id.next_invoice_date or max(start_date, first_contract_date)
-                new_period_stop = new_period_start + self.order_id.plan_id.billing_period - relativedelta(days=1)
-        return new_period_start, new_period_stop
+                new_period_stop = new_period_start + self.order_id.plan_id.billing_period
+
+        if self.order_id.end_date and new_period_stop > self.order_id.end_date:
+            next_date_1st = self.order_id.end_date + relativedelta(days=1)
+        elif not self.order_id.plan_id.billing_first_day or self.order_id.plan_id.billing_period_unit == 'week':
+            return new_period_start, new_period_stop - relativedelta(days=1), 1, None
+        elif self.order_id.plan_id.billing_period_unit == 'month':
+            next_date_1st = new_period_stop + relativedelta(day=1)
+        elif self.order_id.plan_id.billing_period_unit == 'year':
+            next_date_1st = new_period_stop + relativedelta(day=1, month=1)
+
+        number_of_days = (next_date_1st - new_period_start).days
+        ratio = number_of_days / (new_period_stop - new_period_start).days
+
+        return new_period_start, next_date_1st - relativedelta(days=1), ratio, number_of_days
 
     def _prepare_invoice_line(self, **optional_values):
         self.ensure_one()
@@ -342,31 +355,28 @@ class SaleOrderLine(models.Model):
             return res
         elif self.order_id.plan_id and (self.recurring_invoice or self.order_id.subscription_state == '7_upsell'):
             lang_code = self.order_id.partner_id.lang
-            parent_order_id = self.order_id.id
-            new_period_start, new_period_stop = self._get_invoice_line_periods()
-            description = self.name
-            if self.order_id.subscription_state == '7_upsell':
-                parent_order_id = self.order_id.subscription_id.id
-            else:
-                default_next_invoice_date = new_period_start + self.order_id.plan_id.billing_period
-                # remove 1 day as normal people thinks in terms of inclusive ranges.
-                next_invoice_date = default_next_invoice_date - relativedelta(days=1)
+            parent_order_id = self.order_id.subscription_id.id if self.order_id.subscription_state == '7_upsell' else self.order_id.id
+            duration = self.order_id.plan_id.billing_period_display
+
+            new_period_start, new_period_stop, ratio, number_of_days = self._get_invoice_line_parameters()
+
+            if ratio != 1 and self.product_id.type == 'service':
+                duration = _('%s days', number_of_days)
+                res['price_unit'] = res['price_unit'] * ratio
 
             description = res.get('name') or self.name
             if self.recurring_invoice:
-                duration = self.order_id.plan_id.billing_period_display
                 format_start = format_date(self.env, new_period_start, lang_code=lang_code)
                 format_next = format_date(self.env, new_period_stop, lang_code=lang_code)
                 start_to_next = _("%(start)s to %(next)s", start=format_start, next=format_next)
                 description += f"\n{duration} {start_to_next}"
 
             qty_to_invoice = self._get_subscription_qty_to_invoice(last_invoiced_date=new_period_start, next_invoice_date=new_period_stop)
-            deferred_end_date = new_period_stop
             res.update({
                 'name': description,
                 'quantity': qty_to_invoice.get(self.id, 0.0),
                 'deferred_start_date': new_period_start,
-                'deferred_end_date': deferred_end_date,
+                'deferred_end_date': new_period_stop,
                 'subscription_id': parent_order_id,
             })
         elif self.order_id.is_subscription and not res.get('subscription_id'):

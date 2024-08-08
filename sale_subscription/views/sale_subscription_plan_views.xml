@@ -30,6 +30,7 @@
                                 <field name="billing_period_value" style="width: 3rem;"/>
                                 <field name="billing_period_unit" class="oe_inline"/>
                             </div>
+                            <field name="billing_first_day" invisible="billing_period_unit == 'week'"/>
                             <label for="auto_close_limit"/>
                             <div>
                                 <field name="auto_close_limit" style="width: 3rem;"/>Days

@@ -54,17 +54,16 @@ class SaleOrderLine(models.Model):
             line_condition = True
         return line_condition
 
-    def _get_invoice_line_periods(self):
+    def _get_invoice_line_parameters(self):
         self.ensure_one()
-        res = super()._get_invoice_line_periods()
         if self._is_postpaid_line() and self.order_id.subscription_state == '5_renewed':
             aml = self.invoice_lines.filtered(
                 lambda l: l.move_id.state == 'posted' and
                        l.deferred_start_date and l.deferred_end_date and
                        l.deferred_end_date == self.last_invoiced_date)
             if aml:
-                return aml[:1].deferred_start_date, aml[:1].deferred_end_date
-        return res
+                return aml[:1].deferred_start_date, aml[:1].deferred_end_date, 1, None
+        return super()._get_invoice_line_parameters()
 
     # =============================
     #       Delivery logic

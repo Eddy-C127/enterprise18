@@ -345,6 +345,75 @@ class TestSubscription(TestSubscriptionCommon, MockEmail):
             self.assertEqual(invoice_periods, "1 Months 03/03/2021 to 04/02/2021")
             self.assertEqual(inv.invoice_line_ids.date, datetime.date(2021, 3, 3))
 
+    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.models')
+    def test_limited_service_sale_order(self):
+        """ Test behaviour of on_change_template """
+        with freeze_time("2021-01-03"):
+            sub = self.subscription
+            sub.order_line = [Command.clear()]
+            context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True}
+            sub_product_tmpl = self.env['product.template'].with_context(context_no_mail).create({
+                'name': 'Subscription Product',
+                'type': 'service',
+                'recurring_invoice': True,
+                'uom_id': self.env.ref('uom.product_uom_unit').id,
+            })
+            product = sub_product_tmpl.product_variant_id
+            sub.order_line = [Command.create({'product_id': product.id,
+                                              'name': "coucou",
+                                              'price_unit': 42,
+                                              'product_uom_qty': 2,
+                                              })]
+            sub.write({'start_date': False, 'next_invoice_date': False, 'end_date': '2021-03-18'})
+            sub.action_confirm()
+            inv = sub._create_recurring_invoice()
+            self.assertAlmostEqual(inv.amount_untaxed, 84)
+
+        with freeze_time("2021-02-03"):
+            # February
+            inv = sub._create_recurring_invoice()
+            self.assertAlmostEqual(inv.amount_untaxed, 84)
+
+        with freeze_time("2021-03-03"):
+            # March
+            inv = sub._create_recurring_invoice()
+            self.assertAlmostEqual(inv.amount_untaxed, 84 * 16 / 31, 1)   # 03 to 18 = 16 days (03 and 18 are inclusive)
+
+    @mute_logger('odoo.addons.base.models.ir_model', 'odoo.models')
+    def test_invoice_on_period_start_service_sale_order(self):
+        """ Test behaviour of on_change_template """
+        with freeze_time("2021-01-15"):
+            sub = self.subscription
+            sub.order_line = [Command.clear()]
+            context_no_mail = {'no_reset_password': True, 'mail_create_nosubscribe': True, 'mail_create_nolog': True}
+            sub_product_tmpl = self.env['product.template'].with_context(context_no_mail).create({
+                'name': 'Subscription Product',
+                'type': 'service',
+                'recurring_invoice': True,
+                'uom_id': self.env.ref('uom.product_uom_unit').id,
+            })
+            product = sub_product_tmpl.product_variant_id
+            sub.order_line = [Command.create({'product_id': product.id,
+                                              'name': "coucou",
+                                              'price_unit': 42,
+                                              'product_uom_qty': 2,
+                                              })]
+            sub.write({'start_date': False, 'next_invoice_date': False, 'end_date': '2021-03-18'})
+            sub.plan_id.billing_first_day = True
+            sub.action_confirm()
+            inv = sub._create_recurring_invoice()
+            self.assertAlmostEqual(inv.amount_untaxed, 84 * 17 / 31, 1)   # 15 to 31 is 17 days (15 and 31 included)
+
+        with freeze_time("2021-02-01"):
+            # February
+            inv = sub._create_recurring_invoice()
+            self.assertAlmostEqual(inv.amount_untaxed, 84)
+
+        with freeze_time("2021-03-01"):
+            # March
+            inv = sub._create_recurring_invoice()
+            self.assertAlmostEqual(inv.amount_untaxed, 84 * 18 / 31, 1)  # 01 to 18 is 18 is 18 days (1 and 18 and inc.)
+
     @mute_logger('odoo.models.unlink')
     def test_renewal(self):
         """ Test subscription renewal """
