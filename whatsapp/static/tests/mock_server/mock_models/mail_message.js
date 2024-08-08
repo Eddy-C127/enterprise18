@@ -7,11 +7,12 @@ export class MailMessage extends mailModels.MailMessage {
      * @override
      * @type {typeof mailModels.MailMessage["prototype"]["_to_store"]}
      */
-    _to_store(ids, store, for_current_user, follower_by_message_partner) {
+    _to_store(ids, store, fields, for_current_user, follower_by_message_partner) {
         const kwargs = getKwArgs(
             arguments,
             "ids",
             "store",
+            "fields",
             "for_current_user",
             "follower_by_message_partner"
         );
