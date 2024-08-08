@@ -15,6 +15,7 @@ import {
 import {
     makeFakeDialogService,
     makeFakeNotificationService,
+    makeFakePwaService,
 } from "@web/../tests/helpers/mock_services";
 import { registry } from "@web/core/registry";
 import { uiService } from "@web/core/ui/ui_service";
@@ -81,6 +82,7 @@ QUnit.module("Room Booking View", (hooks) => {
         addBusServicesToRegistry();
         registry.category("services").add("dialog", makeFakeDialogService());
         registry.category("services").add("notification", makeFakeNotificationService());
+        registry.category("services").add("pwa", makeFakePwaService());
         registry.category("services").add("ui", uiService);
     });
 
