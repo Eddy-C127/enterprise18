@@ -124,8 +124,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         delivery_with_move.action_confirm()
         delivery_with_move.action_assign()
 
-        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_barcode_picking_client_action")
-        url = '/web#action=%s&active_id=%s' % (action['id'], delivery_with_move.id)
+        url = f'/odoo/{delivery_with_move.id}/action-stock_barcode.stock_barcode_picking_client_action'
         self.start_tour(url, 'test_picking_scan_package_confirmation', login='admin', timeout=180)
 
     def test_internal_picking_from_scratch_with_package(self):
@@ -527,8 +526,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         delivery_from_stock_2.action_confirm()
         delivery_from_stock_2.action_assign()
 
-        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_barcode_action_main_menu")
-        url = f'/web#action={action["id"]}'
+        url = '/odoo/action-stock_barcode.stock_barcode_action_main_menu'
         self.start_tour(url, 'test_delivery_source_location', login='admin', timeout=180)
 
     def test_delivery_lot_with_multi_companies(self):
@@ -2340,8 +2338,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         individual barcode encodings are separated by the separator."""
         self.clean_access_rights()
         self.env['ir.config_parameter'].set_param('stock_barcode.barcode_separator_regex', '[,|]')
-        action_main_menu = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = f"/web#action={action_main_menu.id}"
+        url = "/odoo/action-stock_barcode.stock_barcode_action_main_menu"
         self.start_tour(url, "test_scan_aggregate_barcode", login="admin", timeout=180)
         # Check the receipt values.
         domain = [('picking_type_id', '=', self.picking_type_in.id), ('state', '=', 'done')]
@@ -2708,7 +2705,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         delivery.action_confirm()
 
         action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = f"/web#action={action.id}"
+        url = "/odoo/action-stock_barcode.stock_barcode_action_main_menu"
         self.start_tour(url, 'test_split_line_on_exit_for_delivery', login='admin')
         # Checks delivery moves values:
         # - product1 line should not be split (completed line)
@@ -2900,7 +2897,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         })
         receipt_picking.action_confirm()
         action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = f"/web#action={action.id}"
+        url = "/odoo/action-stock_barcode.stock_barcode_action_main_menu"
         self.start_tour(url, 'test_open_picking_dont_override_assigned_user', login='admin', timeout=180)
         self.assertEqual(receipt_picking.user_id.id, bob.id, "Picking responsible should be unchanged after click when previously set")
 
@@ -3455,8 +3452,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
         self.assertFalse(delivery2.signature)
 
-        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_picking_type_action_kanban")
-        url = '/web?#action=%s' % (action['id'])
+        url = '/odoo/action-stock_barcode.stock_picking_type_action_kanban'
         self.start_tour(url, 'test_barcode_signature_flow', login="admin")
 
         self.assertTrue(delivery2.signature)

@@ -90,7 +90,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             'categ_id': self.env.ref('product.product_category_all').id,
             'barcode': 'product_no_company',
         })
-        self.start_tour("/web", 'test_inventory_adjustment_multi_company', login='admin', timeout=180)
+        self.start_tour("/odoo", 'test_inventory_adjustment_multi_company', login='admin', timeout=180)
         # Checks an inventory adjustment was correctly validated for each company.
         inventory_moves = self.env['stock.move'].search([
             ('is_inventory', '=', True),
@@ -672,4 +672,4 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
             }).id,
         })
         self.assertEqual(product.qty_available, 10)
-        self.start_tour("/web", 'stock_barcode_package_with_lot', login="admin")
+        self.start_tour("/odoo", 'stock_barcode_package_with_lot', login="admin")

@@ -70,8 +70,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
 
         mo.action_confirm()
 
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_process_confirmed_mo', login='admin', timeout=180)
         self.assertEqual(mo.state, 'done')
         self.assertEqual(mo.qty_produced, 1)
@@ -86,8 +85,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
             'product_id': self.component01.id,
             'location_id': self.stock_location.id,
         })
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_create', login='admin', timeout=180)
         mo = self.env['mrp.production'].search([], order='id desc', limit=1)
         self.assertEqual(mo.state, 'done')
@@ -124,8 +122,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 'location_id': self.stock_location.id,
             })
 
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_create_bom', login='admin', timeout=180)
         mo = self.env['mrp.production'].search([], order='id desc', limit=1)
         self.assertEqual(mo.state, 'done')
@@ -157,8 +154,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
             'location_id': self.stock_location.id,
             'lot_id': lot_id.id
         })
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_create_tracked_bom', login='admin', timeout=180)
         mo = self.env['mrp.production'].search([], order='id desc', limit=1)
         self.assertEqual(mo.state, 'done')
@@ -217,8 +213,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         mo = mo_form.save()
         mo.action_confirm()
 
-        action = self.env.ref('stock_barcode_mrp.stock_barcode_mo_client_action')
-        url = '/web?debug=assets#action=%s&active_id=%s' % (action.id, mo.id)
+        url = f'/odoo/{mo.id}/action-stock_barcode_mrp.stock_barcode_mo_client_action?debug=assets'
         self.start_tour(url, 'test_barcode_production_reserved_from_multiple_locations', login='admin', timeout=180)
 
     def test_barcode_production_scan_other_than_reserved(self):
@@ -273,8 +268,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         mo = mo_form.save()
         mo.action_confirm()
 
-        action = self.env.ref('stock_barcode_mrp.stock_barcode_mo_client_action')
-        url = '/web?debug=assets#action=%s&active_id=%s' % (action.id, mo.id)
+        url = f'/odoo/{mo.id}/action-stock_barcode_mrp.stock_barcode_mo_client_action?debug=assets'
         self.start_tour(url, 'test_barcode_production_scan_other_than_reserved', login='admin', timeout=180)
 
         # Checks move lines values after MO is completed.
@@ -305,8 +299,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 (0, 0, {'product_id': self.component01.id, 'product_qty': 2.0}),
             ],
         })
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_component_no_stock', login='admin', timeout=180)
 
     def test_mo_scrap_digipad_view(self):
@@ -324,8 +317,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         # Ensure state != 'cancel' && state != 'draft' to allow Scrap
         mo.action_confirm()
 
-        action = self.env.ref('stock_barcode_mrp.stock_barcode_mo_client_action')
-        url = '/web?debug=assets#action=%s&active_id=%s' % (action.id, mo.id)
+        url = f'/odoo/{mo.id}/action-stock_barcode_mrp.stock_barcode_mo_client_action?debug=assets'
         self.start_tour(url, 'test_mo_scrap_digipad_view', login='admin', timeout=180)
 
     def test_barcode_production_components_reservation_state(self):
@@ -348,8 +340,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
             })]
         })
         mo.action_confirm()
-        action = self.env.ref('stock_barcode_mrp.stock_barcode_mo_client_action')
-        url = f"/web#action={action.id}&active_id={mo.id}"
+        url = f"/odoo/{mo.id}/action-stock_barcode_mrp.stock_barcode_mo_client_action"
 
         # when MO component's are reserved
         self.assertEqual(mo.move_raw_ids.move_line_ids.quantity, mo.move_raw_ids.product_uom_qty)
@@ -390,8 +381,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 'location_id': self.stock_location.id,
             })
 
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_add_scrap', login='admin', timeout=180)
         mo = self.env['mrp.production'].search([], order='id desc', limit=1)
         self.assertEqual(mo.scrap_count, 1)
@@ -426,8 +416,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 'location_id': self.stock_location.id,
             })
 
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_add_byproduct', login='admin', timeout=180)
         mo = self.env['mrp.production'].search([], order='id desc', limit=1)
         self.assertEqual(len(mo.move_byproduct_ids), 1)
@@ -498,6 +487,5 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 (0, 0, {'product_id': self.component01.id, 'product_qty': 1.0, 'product_uom_id': uom_kg.id}),
             ],
         })
-        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_picking_type_action_kanban"
         self.start_tour(url, 'test_barcode_production_component_different_uom', login='admin', timeout=180)

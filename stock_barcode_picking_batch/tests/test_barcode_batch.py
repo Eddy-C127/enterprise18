@@ -175,8 +175,7 @@ class TestBarcodeBatchClientAction(TestBarcodeClientAction):
         self.picking_delivery_package.name = 'picking_delivery_package'
 
     def _get_batch_client_action_url(self, batch_id):
-        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode_picking_batch.stock_barcode_picking_batch_client_action")
-        return '/web#action=%s&active_id=%s' % (action['id'], batch_id)
+        return f'/odoo/{batch_id}/action-stock_barcode_picking_batch.stock_barcode_picking_batch_client_action'
 
     def test_barcode_batch_receipt_1(self):
         """ Create a batch picking with 3 receipts, then open the batch in
@@ -397,8 +396,7 @@ class TestBarcodeBatchClientAction(TestBarcodeClientAction):
         batch_delivery.name = "test_barcode_batch_scan_lots - delivery"
 
         # Process both of them (first the receipt then the delivery.)
-        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        self.start_tour(f'/web#action={action.id}', 'test_barcode_batch_scan_lots', login='admin', timeout=180)
+        self.start_tour('/odoo/action-stock_barcode.stock_barcode_action_main_menu', 'test_barcode_batch_scan_lots', login='admin', timeout=180)
 
         # Checks pickings move lines values.
         lot1, lot2, lot3 = (batch_receipt | batch_delivery).move_line_ids.lot_id.sorted('name')

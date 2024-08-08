@@ -115,5 +115,4 @@ class TestBarcodeClientAction(HttpCase):
         super(TestBarcodeClientAction, self).tearDown()
 
     def _get_client_action_url(self, picking_id):
-        action = self.env["ir.actions.actions"]._for_xml_id("stock_barcode.stock_barcode_picking_client_action")
-        return '/web#action=%s&active_id=%s' % (action['id'], picking_id)
+        return f'/odoo/{picking_id}/action-stock_barcode.stock_barcode_picking_client_action'
