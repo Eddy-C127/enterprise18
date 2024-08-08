@@ -33,7 +33,7 @@
             <table class="table table-sm table-bordered">
                 <tr>
                     <td><strong>Name</strong></td>
-                    <td><span t-field="o.employee_id"/></td>
+                    <td><span t-field="o.employee_id.legal_name"/></td>
                     <td><strong>Job Position</strong></td>
                     <td><span t-field="o.employee_id.job_id"/></td>
                 </tr>
@@ -206,7 +206,7 @@
             <table class="o_ignore_layout_styling table table-sm table-bordered">
                 <tr>
                     <td><strong>Name</strong></td>
-                    <td><span t-field="o.employee_id">Marc Demo</span></td>
+                    <td><span t-field="o.employee_id.legal_name">Marc Demo</span></td>
                     <td><strong>Job Position</strong></td>
                     <td><span t-field="o.employee_id.job_id">SDE</span></td>
                 </tr>

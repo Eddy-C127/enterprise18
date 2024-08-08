@@ -36,7 +36,7 @@
                                     <span>Natural Person</span>
                                 </div>
                                 <div class="fw-bold">3b. Income recipient</div>
-                                <div class="ms-4" t-esc="report_data['employee'].name"/>
+                                <div class="ms-4" t-esc="report_data['employee'].legal_name"/>
                                 <div class="ms-4" t-esc="report_data['f2015_adres']"/>
                                 <div class="ms-4" >
                                     <span t-esc="report_data['employee_city']"/>

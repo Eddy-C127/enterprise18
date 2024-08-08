@@ -58,7 +58,7 @@ class L10nBeHrPayrollEcoVoucherController(http.Controller):
         rows = []
         for line in wizard.line_ids:
             employee = line.employee_id
-            employee_name = re.sub(r"[\(].*?[\)]", "", employee.name)
+            employee_name = re.sub(r"[\(].*?[\)]", "", employee.legal_name)
             quantity = 1
             amount = round(line.amount, 2)
             birthdate = employee.birthday or fields.Date.today()
@@ -137,7 +137,7 @@ class L10nBeHrPayrollGroupInsuranceController(http.Controller):
         rows = []
         for line in wizard.line_ids:
             employee = line.employee_id
-            employee_name = employee.name
+            employee_name = employee.legal_name
             amount = round(line.amount, 2)
             birthdate = employee.birthday or fields.Date.today()
 

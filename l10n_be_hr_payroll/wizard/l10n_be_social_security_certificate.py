@@ -74,7 +74,7 @@ class L10nBeSocialSecurityCertificate(models.TransientModel):
                 grouped_payslips.append((department.name, all_payslips.filtered(lambda p: p.employee_id.department_id == department)))
         else:
             for employee in all_payslips.employee_id:
-                grouped_payslips.append((employee.name, all_payslips.filtered(lambda p: p.employee_id == employee)))
+                grouped_payslips.append((employee.legal_name, all_payslips.filtered(lambda p: p.employee_id == employee)))
 
         report_data = []
         for aggregate_name, aggregate_payslips in grouped_payslips:

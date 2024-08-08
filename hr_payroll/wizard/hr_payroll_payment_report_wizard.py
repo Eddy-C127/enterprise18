@@ -37,7 +37,7 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
             rows.append((
                 format_date(self.env, fields.Date.today()),
                 format_date(self.env, slip.date_from) + ' - ' + format_date(self.env, slip.date_to),
-                slip.employee_id.name,
+                slip.employee_id.legal_name,
                 private_address,
                 slip.employee_id.bank_account_id.acc_number,
                 str(slip.net_wage) + slip.currency_id.symbol

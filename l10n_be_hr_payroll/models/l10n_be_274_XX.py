@@ -446,7 +446,7 @@ class L10nBe274XX(models.Model):
             employee = line.employee_id.sudo()
 
             rows.append((
-                employee.name,
+                employee.legal_name,
                 employee.identification_id,
                 employee.department_id.name or employee.contract_id.department_id.name,
                 employee.first_contract_date.strftime("%d-%m-%Y") if employee.first_contract_date else '',

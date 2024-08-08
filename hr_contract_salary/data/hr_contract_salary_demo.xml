@@ -37,7 +37,7 @@
 
     <record id="sign_item_cdi_developer_01" model="sign.item">
         <field name="type_id" ref="sign.sign_item_type_text"/>
-        <field name="name">employee_id.name</field>
+        <field name="name">employee_id.legal_name</field>
         <field name="required" eval="True"/>
         <field name="responsible_id" ref="sign.sign_item_role_employee"/>
         <field name="page">1</field>

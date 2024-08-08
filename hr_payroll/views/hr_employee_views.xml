@@ -10,12 +10,18 @@
             <field name="company_id" position="after">
                 <field name="currency_id" invisible="1"/>
             </field>
-            <group name="identification_group" position="after">
-                <group name="payroll_group" string="Payroll">
-                    <field name="registration_number"/>
-                    <field name="disabled"/>
-                </group>
-            </group>
+            <page name="hr_settings" position="before">
+                <page name="hr_payroll" string="Payroll" groups="hr.group_hr_user">
+                    <group>
+                        <group name="payroll_group" string="Payroll">
+                            <field name="legal_name"/>
+                            <field name="lang" string="Payslip Language"/>
+                            <field name="registration_number"/>
+                            <field name="disabled"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
             <xpath expr="//field[@name='country_of_birth']" position="after">
                 <field name="is_non_resident" eval="False"/>
             </xpath>

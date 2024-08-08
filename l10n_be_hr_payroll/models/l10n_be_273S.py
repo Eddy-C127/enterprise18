@@ -152,7 +152,7 @@ class L10nBe273S(models.Model):
                 {
                     'identification': {
                         'nature': "Citizen",
-                        'name': employee.name,
+                        'name': employee.legal_name,
                         'street': employee.private_street,
                         'city': employee.private_city,
                         'zip': employee.private_zip,

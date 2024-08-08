@@ -273,7 +273,7 @@ class L10nBe28110(models.Model):
             if len(postcode) > 4 or not postcode.isdecimal():
                 raise UserError(_("The belgian postcode length shouldn't exceed 4 characters and should contain only numbers for employee %s", employee.name))
 
-            names = re.sub(r"\([^()]*\)", "", employee.name).strip().split()
+            names = re.sub(r"\([^()]*\)", "", employee.legal_name).strip().split()
             first_name = names[-1]
             last_name = ' '.join(names[:-1])
             if len(first_name) > 30:

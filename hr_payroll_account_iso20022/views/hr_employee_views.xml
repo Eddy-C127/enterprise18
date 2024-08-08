@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='bank_account_id']" position="replace">
-                <label for="bank_account_id"/>
+                <label for="bank_account_id" string="Bank Account"/>
                 <div class="o_row" name="div_bank_account">
                     <field name="bank_account_id" context="{'default_partner_id': work_contact_id}" options="{'no_quick_create': True}" readonly="not id"/>
                     <div class="d-flex" invisible="not bank_account_id">

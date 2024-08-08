@@ -1072,7 +1072,7 @@ class HrPayslip(models.Model):
 
             slip.name = '%(payslip_name)s - %(employee_name)s - %(dates)s' % {
                 'payslip_name': payslip_name,
-                'employee_name': slip.employee_id.name,
+                'employee_name': slip.employee_id.legal_name,
                 'dates': slip._get_period_name(formated_date_cache),
             }
 

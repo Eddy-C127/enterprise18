@@ -162,7 +162,7 @@ class HrPayslipEmployeeDepartureNotice(models.TransientModel):
         ], order='date_start desc', limit=1)
 
         termination_payslip = self.env['hr.payslip'].create({
-            'name': '%s - %s' % (struct_id.payslip_name, self.employee_id.display_name),
+            'name': '%s - %s' % (struct_id.payslip_name, self.employee_id.legal_name),
             'employee_id': self.employee_id.id,
             'date_from': self.start_notice_period,
             'date_to': self.start_notice_period,

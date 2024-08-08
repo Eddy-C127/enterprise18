@@ -162,7 +162,7 @@ class HrPayslipEmployeeDepartureHoliday(models.TransientModel):
         struct_n_id = self.env.ref('l10n_be_hr_payroll.hr_payroll_structure_cp200_employee_departure_n_holidays')
 
         termination_payslip_n = self.env['hr.payslip'].create({
-            'name': '%s - %s' % (struct_n_id.payslip_name, self.employee_id.display_name),
+            'name': '%s - %s' % (struct_n_id.payslip_name, self.employee_id.legal_name),
             'employee_id': self.employee_id.id,
             'contract_id': self.employee_id.contract_id.id,
             'struct_id': struct_n_id.id,
@@ -244,10 +244,10 @@ class HrPayslipEmployeeDepartureHoliday(models.TransientModel):
             'contract_id': termination_payslip_n.contract_id.id
         }])
         termination_payslip_n.compute_sheet()
-        termination_payslip_n.name = '%s - %s' % (struct_n_id.payslip_name, self.employee_id.display_name)
+        termination_payslip_n.name = '%s - %s' % (struct_n_id.payslip_name, self.employee_id.legal_name)
 
         termination_payslip_n1 = self.env['hr.payslip'].create({
-            'name': '%s - %s' % (struct_n1_id.payslip_name, self.employee_id.display_name),
+            'name': '%s - %s' % (struct_n1_id.payslip_name, self.employee_id.legal_name),
             'employee_id': self.employee_id.id,
             'contract_id': self.employee_id.contract_id.id,
             'struct_id': struct_n1_id.id,
@@ -324,7 +324,7 @@ class HrPayslipEmployeeDepartureHoliday(models.TransientModel):
             'contract_id': termination_payslip_n1.contract_id.id
         }])
         termination_payslip_n1.compute_sheet()
-        termination_payslip_n1.name = '%s - %s' % (struct_n1_id.payslip_name, self.employee_id.display_name)
+        termination_payslip_n1.name = '%s - %s' % (struct_n1_id.payslip_name, self.employee_id.legal_name)
 
         return {
             'name': _('Termination'),

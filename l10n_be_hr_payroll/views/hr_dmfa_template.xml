@@ -1763,7 +1763,7 @@
                         <p style="page-break-before:always;"> </p>
                         <div class="row">
                             <div class="col-12 border p-2">
-                                <div class="mb-2"><h3>Employee: <t t-esc="natural_person.employee.name"/></h3></div>
+                                <div class="mb-2"><h3>Employee: <t t-esc="natural_person.employee.legal_name"/></h3></div>
                                 <div class="mb-2">NISS: <t t-esc="natural_person.identification_id"/></div>
                                 <t t-foreach="natural_person.worker_records" t-as="worker_record">
                                     <div class="mb-2">Worker Code: <t t-esc="worker_record.worker_code"/></div>
