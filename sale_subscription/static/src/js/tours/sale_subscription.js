@@ -8,7 +8,6 @@ import { markup } from "@odoo/owl";
 registry.category("web_tour.tours").add('sale_subscription_tour', {
     url: "/web",
     sequence: 250,
-    rainbowMan: true,
     rainbowManMessage: () => markup(_t("<b>Congratulations</b>, your first subscription quotation is ready to be sent!")),
     steps: () => [{
     trigger: '.o_app[data-menu-xmlid="sale_subscription.menu_sale_subscription_root"]',

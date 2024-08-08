@@ -7,7 +7,6 @@
 
     registry.category("web_tour.tours").add('hr_expense_extract_tour' , {
         url: "/web",
-        rainbowMan: true,
         rainbowManMessage: () => markup(_t("<b>Congratulations</b>, you are now an expert of Expenses.")),
         sequence: 42,
         steps: () => [stepUtils.showAppsMenuItem(), {
