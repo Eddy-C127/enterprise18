@@ -24,7 +24,7 @@ test("Basic topbar rendering for whatsapp channels", async () => {
     await start();
     await openDiscuss(channelId);
     await contains(".o-mail-Discuss-header .o-mail-ThreadIcon .fa-whatsapp");
-    await contains(".o-mail-Discuss-threadName:disabled", { value: "WhatsApp 1" });
+    await contains(".o-mail-Discuss-threadName", { value: "WhatsApp 1" });
     await contains(".o-mail-Discuss-header button[title='Add Users']");
     await contains(".o-mail-Discuss-header button[name='member-list']");
     await contains(".o-mail-Discuss-header button[name='call']", { count: 0 });
