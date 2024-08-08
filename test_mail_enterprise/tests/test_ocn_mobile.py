@@ -200,7 +200,7 @@ class TestPushNotification(SMSCommon):
 
         # Test AtMention Message
         self.record_simple.with_user(self.user_email).message_post(
-            body=Markup('<a href="/web" data-oe-id="%i" data-oe-model="res.partner" >@user</a>') %
+            body=Markup('<a href="/odoo" data-oe-id="%i" data-oe-model="res.partner" >@user</a>') %
                  self.user_inbox.partner_id.id,
             message_type='comment', subtype_xmlid="mail.mt_comment"
         )

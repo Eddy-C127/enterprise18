@@ -79,7 +79,7 @@ class TestRentalProductConfigUi(TestMatrixCommon, TestProductConfiguratorCommon)
         if not loaded_demo_data(self.env):
             _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
             return
-        self.start_tour("/web", 'rental_product_configurator_tour', login='salesman')
+        self.start_tour("/odoo", 'rental_product_configurator_tour', login='salesman')
 
         rental_order = self.env['sale.order'].search([('create_uid', "=", self.salesman.id)])
 
