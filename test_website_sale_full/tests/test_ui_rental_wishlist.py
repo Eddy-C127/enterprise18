@@ -18,4 +18,4 @@ class TestUi(HttpCase, TestWebsiteSaleRentingCommon):
             'country_id': self.env.ref('base.us').id,
             'state_id': self.env.ref('base.state_us_39').id,
         })
-        self.start_tour("/web", 'shop_buy_rental_product_wishlist', login='admin')
+        self.start_tour("/odoo", 'shop_buy_rental_product_wishlist', login='admin')

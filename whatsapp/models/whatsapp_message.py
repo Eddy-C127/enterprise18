@@ -346,7 +346,7 @@ class WhatsAppMessage(models.Model):
             if self.mail_message_id.model and self.mail_message_id.res_id:
                 if not record_name:
                     record_name = self.env[self.mail_message_id.model].browse(self.mail_message_id.res_id).display_name
-                url = f"{self.get_base_url()}/web#model={self.mail_message_id.model}&id={self.mail_message_id.res_id}"
+                url = f"{self.get_base_url()}/odoo/{self.mail_message_id.model}/{self.mail_message_id.res_id}"
                 record_link = f"<a target='_blank' href='{url}'>{escape(record_name)}</a>"
             else:
                 record_link = record_name or _("another document")

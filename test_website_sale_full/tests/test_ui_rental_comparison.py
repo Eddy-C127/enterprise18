@@ -31,4 +31,4 @@ class TestUi(HttpCase, TestWebsiteSaleRentingCommon):
             'value_ids': [(6, 0, v.ids)],
         } for v in self.values_processor])
         self.computer.is_published = True
-        self.start_tour("/web", 'shop_buy_rental_product_comparison', login='admin')
+        self.start_tour("/odoo", 'shop_buy_rental_product_comparison', login='admin')

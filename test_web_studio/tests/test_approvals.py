@@ -380,6 +380,6 @@ class TestStudioApprovalsUIUnit(HttpCase):
             "users_to_notify": [Command.link(self.admin_user.id)],
         })
 
-        url = f"/web#action=studio&mode=editor&_action={self.testAction.id}&_view_type=form&_tab=views&menu_id={self.testMenu.id}"
+        url = f"/odoo/action-studio?mode=editor&_action={self.testAction.id}&_view_type=form&_tab=views&menu_id={self.testMenu.id}"
         self.start_tour(url, "test_web_studio.test_disable_approvals", login="admin")
         self.assertEqual(rule.active, False)

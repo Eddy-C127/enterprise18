@@ -33,7 +33,7 @@ class DiscussChannel(WhatsAppFullCase, MockIncomingWhatsApp):
                 template_as_emp,
                 self.user_employee,
                 f'<p>A new template was sent on <a target="_blank" '
-                f'href="{test_record.get_base_url()}/web#model={test_record._name}&amp;id={test_record.id}">'
+                f'href="{test_record.get_base_url()}/odoo/{test_record._name}/{test_record.id}">'
                 f'{escape(test_record.display_name)}</a>.<br>'
                 f'Future replies will be transferred to a new chat.</p>',
                 "Should contain channel switch message with related document link"
@@ -64,8 +64,8 @@ class DiscussChannel(WhatsAppFullCase, MockIncomingWhatsApp):
                 self.assertEqual(answer.body, '<p>Hello</p>')
                 self.assertIn(
                     first_info.body,
-                    f'<p>Related WhatsApp Base Test: <a target="_blank" href="{test_record.get_base_url()}/web#'
-                    f'model={test_record._name}&amp;id={test_record.id}">{escape(test_record.display_name)}</a></p>',
+                    f'<p>Related WhatsApp Base Test: <a target="_blank" href="{test_record.get_base_url()}/odoo/'
+                    f'{test_record._name}/{test_record.id}">{escape(test_record.display_name)}</a></p>',
                     "Should contain a link and display_name to the new record from which the template was sent"
                 )
                 discuss_channel.sudo().unlink()
@@ -96,7 +96,7 @@ class DiscussChannel(WhatsAppFullCase, MockIncomingWhatsApp):
         self.assertIn(
             first_info.body,
             f'<p>Related WhatsApp NoThread / NoResponsible /NoName: <a target="_blank"'
-            f' href="{test_record_noname.get_base_url()}/web#model={test_record_noname._name}&amp;id={test_record_noname.id}">'
+            f' href="{test_record_noname.get_base_url()}/odoo/{test_record_noname._name}/{test_record_noname.id}">'
             f'{escape(test_record_noname.customer_id.name)}</a></p>',
             "Should contain a link and display_name to the new record from which the template was sent")
 

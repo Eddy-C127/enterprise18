@@ -190,7 +190,7 @@ class DiscussChannel(models.Model):
             if related_message:
                 # Add message in channel about the related document
                 info = _("Related %(model_name)s: ", model_name=self.env['ir.model']._get(related_message.model).display_name)
-                url = Markup('{base_url}/web#model={model}&id={res_id}').format(
+                url = Markup('{base_url}/odoo/{model}/{res_id}').format(
                     base_url=self.get_base_url(), model=related_message.model, res_id=related_message.res_id)
                 related_record_name = related_message.record_name
                 if not related_record_name:
@@ -205,7 +205,7 @@ class DiscussChannel(models.Model):
                 if hasattr(related_record, 'message_post'):
                     # Add notification in document about the new message and related channel
                     info = _("A new WhatsApp channel is created for this document")
-                    url = Markup('{base_url}/web#model=discuss.channel&id={channel_id}').format(
+                    url = Markup('{base_url}/odoo/discuss.channel/{channel_id}').format(
                         base_url=self.get_base_url(), channel_id=channel.id)
                     related_record.message_post(
                         author_id=self.env.ref('base.partner_root').id,
