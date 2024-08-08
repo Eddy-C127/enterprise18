@@ -22,7 +22,7 @@ class PosScaleDummy {
 }
 
 registry.category("web_tour.tours").add("pos_iot_scale_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         stepUtils.showAppsMenuItem(),

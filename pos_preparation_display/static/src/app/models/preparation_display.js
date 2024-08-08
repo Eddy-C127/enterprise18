@@ -1,5 +1,6 @@
 import { user } from "@web/core/user";
 import { Reactive } from "@web/core/utils/reactive";
+import { redirect } from "@web/core/utils/urls";
 import { Order } from "@pos_preparation_display/app/models/order";
 import { Orderline } from "@pos_preparation_display/app/models/orderline";
 import { Stage } from "@pos_preparation_display/app/models/stage";
@@ -423,7 +424,7 @@ export class PreparationDisplay extends Reactive {
     }
 
     exit() {
-        window.location.href = "/web#action=pos_preparation_display.action_preparation_display";
+        redirect("/odoo/action-pos_preparation_display.action_preparation_display");
     }
 
     getProductCategories(productCategoryIds) {
