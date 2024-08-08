@@ -4745,7 +4745,7 @@ class AccountReport(models.Model):
                 day=self.env.company.fiscalyear_last_day,
                 month=int(self.env.company.fiscalyear_last_month)
             )
-            return period_date_from.date()
+            return period_date_from
 
         date_from = datetime.datetime.strptime(options['date']['date_from'], '%Y-%m-%d')
         if options['date']['period_type'] == "fiscalyear":
