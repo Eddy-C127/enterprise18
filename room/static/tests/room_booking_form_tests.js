@@ -70,26 +70,13 @@ QUnit.module("Room Booking Form", (hooks) => {
 
     // Test view flow with no existing bookings
     QUnit.test("Room Booking Form - No existing booking", async (assert) => {
-        let bookingId = 1;
-        let notifyView;
-        let target;
-        const mockRPC = (route, args) => {
+        const mockRPC = async (route, args) => {
             if (route === "/room/room_test/get_existing_bookings") {
                 return [];
-            } else if (route === "/room/room_test/booking/create") {
-                notifyView("booking/create", [
-                    {
-                        id: bookingId++,
-                        start_datetime: args.start_datetime,
-                        stop_datetime: args.stop_datetime,
-                        name: args.name,
-                    },
-                ]);
-                return true;
             }
         };
         patchDate(2023, 5, 17, 10, 35, 0);
-        ({ notifyView, target } = await mountRoomBookingView(mockRPC, true));
+        const { target } = await mountRoomBookingView(mockRPC);
         await clickSchedule(target);
         // First slot is now
         const slotsList = target.querySelectorAll(".o_room_scheduler_slots .col");

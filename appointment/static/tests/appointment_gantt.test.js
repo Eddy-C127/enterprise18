@@ -156,7 +156,7 @@ test("group pill colors", async () => {
     mockDate("2022-01-12 11:00:00", 0);
     Object.assign(CalendarEvent._records[0], {
         appointment_type_id: 1,
-        start: "2022-01-12 10:46:00",
+        start: "2022-01-12 11:16:00",
         stop: "2022-01-12 12:00:00",
     });
     Object.assign(CalendarEvent._records[1], {
