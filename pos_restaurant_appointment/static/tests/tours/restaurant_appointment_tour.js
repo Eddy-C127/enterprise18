@@ -2,6 +2,11 @@ import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
 import { registry } from "@web/core/registry";
 import * as RestaurantAppointment from "@pos_restaurant_appointment/../tests/tours/utils/restaurant_appointment_util";
 import * as Chrome from "@point_of_sale/../tests/tours/utils/chrome_util";
+import * as FloorScreen from "@pos_restaurant/../tests/tours/utils/floor_screen_util";
+import * as ProductScreenPos from "@point_of_sale/../tests/tours/utils/product_screen_util";
+import * as ProductScreenResto from "@pos_restaurant/../tests/tours/utils/product_screen_util";
+
+const ProductScreen = { ...ProductScreenPos, ...ProductScreenResto };
 
 registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
     test: true,
@@ -9,6 +14,10 @@ registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
     steps: () =>
         [
             Dialog.confirm("Open session"),
+
+            // Make sure there is a currently active order.
+            FloorScreen.clickTable("4"),
+            ProductScreen.clickDisplayedProduct("Coca-Cola", true),
 
             // Check that the booking gantt view is shown.
             {
@@ -24,7 +33,10 @@ registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
                 trigger: ".o_control_panel:contains('Manage Bookings')",
             },
             Chrome.clickPlanButton(),
-
             RestaurantAppointment.appointmentLabel(5, "Test Lunch"),
+
+            // Going back to the table, it should still be possible to add items
+            FloorScreen.clickTable("4"),
+            ProductScreen.clickDisplayedProduct("Coca-Cola", true),
         ].flat(),
 });
