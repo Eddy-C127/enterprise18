@@ -11,3 +11,4 @@ from . import hr_contract
 from . import hr_payroll_structure
 from . import res_company
 from . import res_config_settings
+from . import res_partner_bank
