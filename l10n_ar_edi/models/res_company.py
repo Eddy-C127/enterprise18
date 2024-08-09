@@ -187,13 +187,13 @@ class ResCompany(models.Model):
         req_subject.C = self.partner_id.country_id.code.encode('ascii', 'ignore')
 
         if self.partner_id.state_id:
-            req_subject.ST = self.partner_id.state_id.name.encode('ascii', 'ignore')
+            req_subject.ST = self.partner_id.state_id.name.encode('ascii', 'ignore')[:128]
 
         common_name = 'AFIP WS %s - %s' % (self._get_environment_type(), self.name)
         common_name = common_name[:50]
 
-        req_subject.L = self.partner_id.city.encode('ascii', 'ignore')
-        req_subject.O = self.name.encode('ascii', 'ignore')
+        req_subject.L = self.partner_id.city.encode('ascii', 'ignore')[:128]
+        req_subject.O = self.name.encode('ascii', 'ignore')[:64]
         req_subject.OU = 'IT'.encode('ascii', 'ignore')
         req_subject.CN = common_name.encode('ascii', 'ignore')
         req_subject.serialNumber = ('CUIT %s' % self.partner_id.ensure_vat()).encode('ascii', 'ignore')
