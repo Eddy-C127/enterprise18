@@ -12,7 +12,7 @@ from odoo.addons.social.controllers.main import SocialController, SocialValidati
 from odoo.exceptions import UserError
 from odoo.http import request
 from werkzeug.exceptions import Forbidden, NotFound
-from werkzeug.urls import url_encode, url_join
+from werkzeug.urls import url_join
 
 _logger = logging.getLogger(__name__)
 
@@ -48,14 +48,7 @@ class SocialTwitterController(SocialController):
                 return request.render('social.social_http_error_view',
                                       {'error_message': str(e)})
 
-        url_params = {
-            'action': request.env.ref('social.action_social_stream_post').id,
-            'view_type': 'kanban',
-            'model': 'social.stream.post',
-        }
-
-        url = '/web?#%s' % url_encode(url_params)
-        return request.redirect(url)
+        return request.redirect('/odoo/action-social.action_social_stream_post')
 
     # ========================================================
     # COMMENTS / LIKES

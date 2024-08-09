@@ -90,7 +90,7 @@ function createReplies(textareaSelector) {
 registry.category("web_tour.tours").add(
     'social_twitter/static/tests/tours/tour_social_twitter_spam.js',
     {
-        url: '/web',
+        url: '/odoo',
         test: true,
         steps: () => [
         {

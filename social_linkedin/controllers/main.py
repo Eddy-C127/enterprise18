@@ -3,14 +3,12 @@
 
 import json
 import requests
-import werkzeug
 
 from odoo import http, _
 from odoo.addons.social.controllers.main import SocialController
 from odoo.addons.social.controllers.main import SocialValidationException
 from odoo.exceptions import UserError
 from odoo.http import request
-from werkzeug.urls import url_encode
 
 
 class SocialLinkedinController(SocialController):
@@ -47,12 +45,7 @@ class SocialLinkedinController(SocialController):
             except SocialValidationException as e:
                 return request.render('social.social_http_error_view', {'error_message': e.get_message(), 'documentation_data': e.get_documentation_data()})
 
-
-        return request.redirect('/web?#%s' % url_encode({
-            'action': request.env.ref('social.action_social_stream_post').id,
-            'view_type': 'kanban',
-            'model': 'social.stream.post',
-        }))
+        return request.redirect('/odoo/action-social.action_social_stream_post')
 
     # ========================================================
     # COMMENTS / LIKES

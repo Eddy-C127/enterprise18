@@ -12,7 +12,7 @@ from odoo.addons.social.controllers.main import SocialController
 from odoo.addons.social.controllers.main import SocialValidationException
 from odoo.http import request
 from werkzeug.exceptions import Forbidden
-from werkzeug.urls import url_encode, url_join
+from werkzeug.urls import url_join
 
 
 class SocialInstagramController(SocialController):
@@ -39,12 +39,7 @@ class SocialInstagramController(SocialController):
         except SocialValidationException as e:
             return request.render('social.social_http_error_view', {'error_message': e.get_message(), 'documentation_data': e.get_documentation_data()})
 
-        url = '/web?#%s' % url_encode({
-            'action': request.env.ref('social.action_social_stream_post').id,
-            'view_type': 'kanban',
-            'model': 'social.stream.post',
-        })
-        return request.redirect(url)
+        return request.redirect('/odoo/action-social.action_social_stream_post')
 
     # ========================================================
     # COMMENTS / LIKES

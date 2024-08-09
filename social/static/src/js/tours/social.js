@@ -7,7 +7,7 @@ import { stepUtils } from "@web_tour/tour_service/tour_utils";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("social_tour", {
-    url: "/web",
+    url: "/odoo",
         rainbowManMessage: () => markup(_t(`<strong>Congrats! Come back in a few minutes to check your statistics.</strong>`)),
         sequence: 190,
     steps: () => [
