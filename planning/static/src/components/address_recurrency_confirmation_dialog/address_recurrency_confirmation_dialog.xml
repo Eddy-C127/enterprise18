@@ -7,6 +7,7 @@
                 <p>This shift is recurrent. Delete:</p>
                 <div>
                     <input type="radio"
+                           id="this"
                            class="form-check-input o_radio_input me-2"
                            name="recurrenceUpdate" value="this"
                            t-on-change="() => props.onChangeRecurrenceUpdate('this')"
@@ -16,6 +17,7 @@
                 </div>
                 <div>
                     <input type="radio"
+                           id="subsequent"
                            class="form-check-input o_radio_input me-2"
                            name="recurrenceUpdate" value="subsequent"
                            t-on-change="() => props.onChangeRecurrenceUpdate('subsequent')"
@@ -25,6 +27,7 @@
                 </div>
                 <div>
                     <input type="radio"
+                           id="all"
                            class="form-check-input o_radio_input me-2"
                            name="recurrenceUpdate" value="all"
                            t-on-change="() => props.onChangeRecurrenceUpdate('all')"
