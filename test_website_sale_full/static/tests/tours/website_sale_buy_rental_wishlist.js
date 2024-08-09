@@ -13,7 +13,7 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_wishlist', {
             run: "click",
         },
         {
-            trigger: 'a[href="/shop/wishlist"] .badge.text-bg-primary:contains(1)',
+            trigger: 'a[href="/shop/wishlist"] .badge.bg-primary:contains(1)',
         },
         {
             content: "go to wishlist",
