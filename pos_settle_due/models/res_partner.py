@@ -25,7 +25,7 @@ class ResPartner(models.Model):
         config_id = self.env['pos.config'].browse(data['pos.config']['data'][0]['id'])
 
         if config_id.currency_id != self.env.company.currency_id and self.env.user.has_group('account.group_account_readonly'):
-            for partner in response['data']['res.partner']:
+            for partner in response['data']:
                 partner['total_due'] = self.env.company.currency_id._convert(partner['total_due'], config_id.currency_id, self.env.company, fields.Date.today())
 
         return response
