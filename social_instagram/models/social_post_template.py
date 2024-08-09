@@ -88,7 +88,7 @@ class SocialPostTemplate(models.Model):
                     except UserError:
                         # image could not be loaded
                         error_code = 'corrupted'
-                        return error_code
+                        return jpeg_image.name, error_code
 
                     image_ratio = image.width / image.height if image.height else 0
                     if image_ratio < 0.8 or image_ratio > 1.91:
