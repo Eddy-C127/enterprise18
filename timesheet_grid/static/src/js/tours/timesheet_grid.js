@@ -9,7 +9,7 @@ import { markup } from "@odoo/owl";
 registry.category("web_tour.tours").add('timesheet_tour', {
     sequence: 100,
     rainbowManMessage: () => _t("Congratulations, you are now a master of Timesheets."),
-    url: "/web",
+    url: "/odoo",
     steps: () => [stepUtils.showAppsMenuItem(), {
     trigger: '.o_app[data-menu-xmlid="hr_timesheet.timesheet_menu_root"]',
     content: markup(_t('Track the <b>time spent</b> on your projects. <i>It starts here.</i>')),

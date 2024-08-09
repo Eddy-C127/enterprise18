@@ -174,10 +174,9 @@ class Company(models.Model):
             :param user_ids : list of user identifier to send the reminder
             :param template_xmlid : xml id of the reminder mail template
         """
-        action_url = '%s/web#menu_id=%s&action=%s' % (
-            self.get_base_url(),
-            self.env.ref('hr_timesheet.timesheet_menu_root').id,
-            self.env.ref(action_xmlid).id,
+        action_url = (
+            f"{self.get_base_url()}/odoo/action-{action_xmlid}"
+            f"?menu_id={self.env.ref('hr_timesheet.timesheet_menu_root').id}"
         )
 
         # send mail template to users having email address

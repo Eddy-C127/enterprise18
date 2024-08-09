@@ -15,4 +15,4 @@ class TestRecordTime(HttpCase):
         })
 
     def test_record_time(self):
-        self.start_tour('/web', 'timesheet_record_time', login='admin', timeout=100)
+        self.start_tour('/odoo', 'timesheet_record_time', login='admin', timeout=100)
