@@ -71,6 +71,13 @@ class BudgetReport(models.Model):
                            AND aal.date <= bl.date_to
                            AND aal.company_id = bl.company_id
                            AND %(condition)s
+                           AND (
+                               CASE
+                                   WHEN ba.budget_type = 'expense' THEN aal.amount < 0
+                                   WHEN ba.budget_type = 'revenue' THEN aal.amount > 0
+                                   ELSE TRUE
+                               END
+                           )
                    ) AS budget ON TRUE
             """,
             analytic_fields=SQL(', ').join(self.env['account.analytic.line']._field_to_sql('aal', fname) for fname in plan_fnames),

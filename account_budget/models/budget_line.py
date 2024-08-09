@@ -67,11 +67,11 @@ class BudgetLine(models.Model):
             date_from = line.date_from
             date_to = line.date_to
             if budget_type == 'expense':
-                aal_types = ('vendor_bill',)
+                aal_amount_condition = SQL('aal.amount < 0')
             elif budget_type == 'revenue':
-                aal_types = ('invoice',)
+                aal_amount_condition = SQL('aal.amount > 0')
             else:
-                aal_types = ('invoice', 'vendor_bill')
+                aal_amount_condition = SQL('TRUE')
             if budget_type == 'expense':
                 purchase_order_query = SQL(
                     """SELECT (pol.product_qty - pol.qty_invoiced) / po.currency_rate * pol.price_unit::FLOAT * (a.rate)::FLOAT AS committed,
@@ -113,7 +113,7 @@ class BudgetLine(models.Model):
                            AND aal.date <= %(date_to)s
                            AND aal.company_id = %(company_id)s
                            AND %(all_conditions)s
-                           AND aal.category in %(aal_types)s
+                           AND %(aal_amount_condition)s
                     )
                     SELECT %(line_id)s as id,
                            COALESCE(SUM(pod.committed), 0) + COALESCE(SUM(aal.committed), 0) AS committed,
@@ -128,7 +128,7 @@ class BudgetLine(models.Model):
                 aal_fields=SQL(', ').join(self._field_to_sql('aal', fname) for fname in account_fname),
                 all_conditions=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('aal', fname), account_ids[fname]) for fname in fnames),
                 join_condition=budget_type == 'expense' and SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('pod', fname), self._field_to_sql('aal', fname)) for fname in account_fname) or SQL('FALSE'),
-                aal_types=aal_types,
+                aal_amount_condition=aal_amount_condition,
                 purchase_order_query=purchase_order_query
             )
             return query
