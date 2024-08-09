@@ -92,7 +92,7 @@
                     <StockMove t-props="subRecordProps(byproductMove)" label="getByproductLabel(byproductMove)"/>
                 </t>
             </ul>
-            <div class="card-footer d-flex justify-content-between align-items-center test bg-white my-1"
+            <div class="card-footer d-flex justify-content-between align-items-center my-1"
                 t-att-class="{'py-0': !state.underValidation, 'pe-0': !displayCloseProductionButton}">
                 <t t-if="props.record.resModel=='mrp.production'" t-call="mrp_workorder.MrpDisplayProductionFooter"/>
                 <t t-if="props.record.resModel=='mrp.workorder'" t-call="mrp_workorder.MrpDisplayWorkorderFooter"/>
