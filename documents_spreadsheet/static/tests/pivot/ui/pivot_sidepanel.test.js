@@ -310,7 +310,7 @@ test("remove pivot dimension", async function () {
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
     await contains(".pivot-defer-update input").click();
-    await contains(".pivot-dimensions .fa-times").click();
+    await contains(".pivot-dimensions .fa-trash").click();
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
@@ -336,7 +336,7 @@ test("remove pivot date time dimension", async function () {
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
     await contains(".pivot-defer-update input").click();
-    await contains(".pivot-dimensions .fa-times").click();
+    await contains(".pivot-dimensions .fa-trash").click();
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
@@ -359,7 +359,7 @@ test("add column dimension", async function () {
     const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    await contains(".add-dimension.btn").click();
+    await contains(".add-dimension.o-button").click();
     await contains(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]).click();
     await contains(".pivot-defer-update .o-checkbox").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
@@ -383,7 +383,7 @@ test("add row dimension", async function () {
     const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    await contains(fixture.querySelectorAll(".add-dimension.btn")[1]).click();
+    await contains(fixture.querySelectorAll(".add-dimension.o-button")[1]).click();
     await contains(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]).click();
     await contains(".pivot-defer-update .o-checkbox").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
@@ -407,7 +407,7 @@ test("select dimensions with arrow keys", async function () {
     const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    await contains(".add-dimension.btn").click();
+    await contains(".add-dimension.o-button").click();
     let options = [...fixture.querySelectorAll(".o-popover .o-autocomplete-dropdown > div")];
     expect(options.every((el) => !el.className.includes("o-autocomplete-value-focus"))).toBe(true);
     await contains(".o-popover input").press("ArrowDown");
@@ -433,7 +433,7 @@ test("escape key closes the autocomplete popover", async function () {
     const { env, pivotId } = await createSpreadsheetFromPivotView();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    await contains(".add-dimension.btn").click();
+    await contains(".add-dimension.o-button").click();
     expect(".o-popover input").toHaveCount(1);
     await contains(".o-popover input").press("Escape");
     expect(".o-popover input").toHaveCount(0);
@@ -443,10 +443,10 @@ test("add pivot dimension input autofocus", async function () {
     const { env, pivotId } = await createSpreadsheetFromPivotView();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    await contains(".add-dimension.btn").click();
+    await contains(".add-dimension.o-button").click();
     expect(".o-popover input").toBeFocused();
     await contains(".o-popover input").press("Escape");
-    await contains(".add-dimension.btn").click();
+    await contains(".add-dimension.o-button").click();
     expect(".o-popover input").toBeFocused();
 });
 
@@ -466,7 +466,7 @@ test("clicking the add button toggles the fields popover", async function () {
     const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    const addButton = fixture.querySelectorAll(".add-dimension.btn")[1];
+    const addButton = fixture.querySelectorAll(".add-dimension.o-button")[1];
     await contains(addButton).click();
     expect(".o-popover").toHaveCount(1);
     await contains(addButton).click();
@@ -506,7 +506,7 @@ test("add and search dimension", async function () {
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
     await contains(".pivot-defer-update input").click();
-    await contains(".add-dimension.btn").click();
+    await contains(".add-dimension.o-button").click();
     await contains(".o-popover input").edit("foo"); // does not confirm because there are more than one field
     await contains(".o-popover input").edit("fooba");
     expect(model.getters.getPivotCoreDefinition(pivotId).columns).toEqual([]);
@@ -536,7 +536,7 @@ test("remove pivot measure", async function () {
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
     await contains(".pivot-defer-update input").click();
-    await contains(".pivot-dimensions .fa-times:last").click();
+    await contains(".pivot-dimensions .fa-trash:last").click();
     await animationFrame();
     await contains(".pivot-defer-update .btn-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
@@ -563,7 +563,7 @@ test("add measure", async function () {
     const fixture = getFixture();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    await contains(fixture.querySelectorAll(".add-dimension.btn")[2]).click();
+    await contains(fixture.querySelectorAll(".add-dimension.o-button")[2]).click();
     await contains(fixture.querySelectorAll(".o-popover .o-autocomplete-value")[0]).click();
     await contains(".pivot-defer-update .o-checkbox").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));

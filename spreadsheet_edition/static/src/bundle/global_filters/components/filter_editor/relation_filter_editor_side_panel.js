@@ -7,9 +7,6 @@ import { useService } from "@web/core/utils/hooks";
 import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
 
 import { useState } from "@odoo/owl";
-import { components } from "@odoo/o-spreadsheet";
-
-const { Checkbox } = components;
 
 /**
  * @typedef {import("@spreadsheet").OdooField} OdooField
@@ -33,7 +30,6 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         ModelSelector,
         MultiRecordSelector,
         FilterEditorFieldMatching,
-        Checkbox,
     };
     setup() {
         super.setup();

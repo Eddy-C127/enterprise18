@@ -152,14 +152,14 @@ test("Side panel content", async function () {
     expect(revisions.length).toBe(4, { message: "3 revisions provided + initial state" });
 
     // Revision info
-    expect(revisions[0].querySelector(".o-version-history-info").textContent).toBe(
-        "Current Version"
+    expect(revisions[0].querySelector(".o-sp-badge").textContent).toBe(
+        "Current"
     );
-    expect(revisions[1].querySelector(".o-version-history-info").textContent).toBe(
+    expect(revisions[1].querySelector(".o-version-history-timestamp").textContent).toBe(
         "Sep 9, 2023, 2:00 PM",
         { message: "if the revision has a name" }
     );
-    expect(revisions[2].querySelector(".o-version-history-info")).toBe(null, {
+    expect(revisions[2].querySelector(".o-version-history-timestamp")).toBe(null, {
         message: "if the revision has no name",
     });
 
@@ -352,7 +352,7 @@ test("Side panel > rename revision", async function () {
             }
         },
     });
-    const nameInput = document.querySelector(".o-version-history-input");
+    const nameInput = document.querySelector(".o-version-history-item-text input");
     expect(nameInput).not.toBe(null, { message: "Can rename the revision" });
     await contains(nameInput).click();
     await contains(nameInput).edit("test 11");

@@ -12,7 +12,7 @@
         </div>
         <div t-if="connectedUsers.length > 0"
             class="o_spreadsheet_number_users ps-2"
-            t-att-class="connectedUsers.length > 1 ? 'text-info' : 'text-muted'"
+            t-att-class="connectedUsers.length > 1 ? 'text-info' : ''"
             t-att-data-tooltip-template="connectedUsers.length > 1 and 'spreadsheet_edition.SpreadsheetUsersTooltip'"
             t-att-data-tooltip-info="tooltipInfo"
         >

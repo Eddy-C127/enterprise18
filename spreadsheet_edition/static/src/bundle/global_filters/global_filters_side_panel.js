@@ -3,7 +3,9 @@
 import { FilterValue } from "@spreadsheet/global_filters/components/filter_value/filter_value";
 import { _t } from "@web/core/l10n/translation";
 import { Component, useRef } from "@odoo/owl";
-import { hooks } from "@odoo/o-spreadsheet";
+import { hooks, components } from "@odoo/o-spreadsheet";
+
+const { Section } = components;
 
 /**
  * This is the side panel to define/edit a global filter.
@@ -11,7 +13,7 @@ import { hooks } from "@odoo/o-spreadsheet";
  */
 export class GlobalFiltersSidePanel extends Component {
     static template = "spreadsheet_edition.GlobalFiltersSidePanel";
-    static components = { FilterValue };
+    static components = { FilterValue, Section };
     static props = {
         onCloseSidePanel: { type: Function, optional: true },
     };

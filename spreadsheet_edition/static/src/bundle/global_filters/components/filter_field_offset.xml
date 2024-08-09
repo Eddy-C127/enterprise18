@@ -3,7 +3,7 @@
     <t t-name="spreadsheet_edition.FilterFieldOffset">
         <div class="o_filter_field_offset d-flex flex-column justify-content-end w-50 ps-3">
             <span class="text-muted">Period offset</span>
-            <select class="o_input"
+            <select class="o-input"
                 t-att-disabled="!props.active"
                 t-on-change="onOffsetSelected"
                 t-att-title="title"

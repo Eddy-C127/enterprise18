@@ -27,7 +27,7 @@
             <select
                 t-model="dateState.type"
                 t-on-change="onDateOptionChange"
-                class="o_input">
+                class="o-input o-filter-range-type">
                 <t t-foreach="dateRangeTypes" t-as="range" t-key="range.type">
                     <option t-att-selected="isDateTypeSelected(range.type) ? 1 : 0" t-att-value="range.type">
                         <t t-esc="range.description" />
@@ -38,20 +38,19 @@
         <div class="o_side_panel_section"
              t-if="dateState.type !== 'from_to'">
             <div class="o_side_panel_title">Default value</div>
-            <div t-if="dateState.type !== 'relative'" class="d-flex align-items-center mt-2">
-                <input
-                    type="checkbox"
-                    class="me-2"
-                    id="date_automatic_filter"
-                    t-att-checked="dateState.defaultValue"
-                    t-on-change="toggleDateDefaultValue"
+            <t t-if="dateState.type !== 'relative'" class="d-flex align-items-center mt-2">
+                <Checkbox
+                    name="'date_automatic_filter'"
+                    label.translate="Automatically filter on the current period"
+                    value="!!dateState.defaultValue"
+                    onChange.bind="toggleDateDefaultValue"
+                    className="'me-2'"
                 />
-                <label for="date_automatic_filter"> Automatically filter on the current period </label>
-            </div>
+            </t>
             <select
                 t-else="1"
                 t-model="dateState.defaultValue"
-                class="o_input o_relative_date_selection">
+                class="o-input o_relative_date_selection">
                 <option value="" />
                 <t t-foreach="relativeDateRangesTypes" t-as="range" t-key="range.type">
                     <option t-att-selected="range.type === dateState.defaultValue ? 1 : 0" t-att-value="range.type">
@@ -60,7 +59,7 @@
                 </t>
             </select>
             <div class="pt-3" t-if="dateState.defaultValue and dateState.type !== 'relative'">
-                <select t-model="dateState.defaultValue" class="o_input">
+                <select t-model="dateState.defaultValue" class="o-input">
                     <option value="this_month">Month</option>
                     <option value="this_quarter">Quarter</option>
                     <option value="this_year">Year</option>

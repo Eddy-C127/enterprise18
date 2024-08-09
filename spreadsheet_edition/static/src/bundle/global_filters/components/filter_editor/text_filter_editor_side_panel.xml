@@ -9,11 +9,21 @@
                 placeholder="placeholder"
             />
         </div>
-        <div class="o_side_panel_section">
-            <label class="o-checkbox">
-                <input type="checkbox" class="o_input restrict_to_range" t-model="textState.restrictValuesToRange"/>
-                Restrict values to a range
-            </label>
+        <Section>
+            <t t-set-slot="title">Filter value</t>
+            <div class="o-section-subtitle">Default value</div>
+            <TextFilterValue
+                value="textState.defaultValue"
+                options="textOptionsFromRange"
+                onValueChanged="(value) => (this.textState.defaultValue = value)"
+            />
+            <div class="o-section-subtitle mt-4">Possible values</div>
+            <Checkbox
+                className="'restrict_to_range mb-1'"
+                label.translate="Restrict values to a range"
+                onChange="(value) => (this.textState.restrictValuesToRange = value)"
+                value="!!textState.restrictValuesToRange"
+            />
             <SelectionInput
                 t-if="textState.restrictValuesToRange"
                 ranges="this.rangesForSelectionInput"
@@ -22,15 +32,8 @@
                 onSelectionChanged.bind="this.onRangeChanged"
                 onSelectionConfirmed.bind="this.onRangeConfirmed"
             />
-        </div>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Default value</div>
-            <TextFilterValue
-                value="textState.defaultValue"
-                options="textOptionsFromRange"
-                onValueChanged="(value) => (this.textState.defaultValue = value)"
-            />
-        </div>
+
+        </Section>
         <t t-if="shouldDisplayFieldMatching()">
             <div class="o_side_panel_section">
                 <SidePanelCollapsible collapsedAtInit="!isNewFilter">

@@ -10,9 +10,8 @@
                     label="stackedLabel"
                     value="props.definition.stacked"
                     onChange.bind="onUpdateStacked"
+                    className="'mb-2'"
                 />
-            </Section>
-            <Section class="'pt-0'">
                 <Checkbox
                     name="'cumulative'"
                     label="cumulativeLabel"

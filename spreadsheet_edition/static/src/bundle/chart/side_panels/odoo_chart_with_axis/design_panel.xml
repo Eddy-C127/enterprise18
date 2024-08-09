@@ -7,13 +7,12 @@
       <t t-set-slot="general-extension">
         <Section class="'pt-0'">
           <t t-set-slot="title">Vertical axis position</t>
-          <select
-            t-att-value="props.definition.verticalAxisPosition"
-            class="o-input o-chart-vertical-axis-position"
-            t-on-change="this.updateVerticalAxisPosition">
-            <option value="left">Left</option>
-            <option value="right">Right</option>
-          </select>
+          <RadioSelection
+            choices="axisChoices"
+            selectedValue="props.definition.verticalAxisPosition"
+            name="'axis'"
+            onChange.bind="updateVerticalAxisPosition"
+          />
         </Section>
         <Section class="'pt-0'">
           <t t-set-slot="title">Legend position</t>
@@ -41,5 +40,5 @@
         />
       </t>
     </SidePanelCollapsible>
-  </t>     
+  </t>
 </odoo>

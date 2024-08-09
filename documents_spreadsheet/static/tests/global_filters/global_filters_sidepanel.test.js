@@ -133,9 +133,7 @@ test("Display with an existing 'Date' global filter", async function () {
         defaultValue: {},
     });
     await openGlobalFilterSidePanel();
-    const sections = target.querySelectorAll(
-        ".o_spreadsheet_global_filters_side_panel .o_side_panel_section"
-    );
+    const sections = target.querySelectorAll(".o_spreadsheet_global_filters_side_panel .o-section");
     expect(sections.length).toBe(2);
     const labelElement = sections[0].querySelector(".o_side_panel_filter_label");
     expect(labelElement).toHaveText(label);
@@ -205,7 +203,7 @@ test("Create a new text global filter with a range", async function () {
     await openGlobalFilterSidePanel();
     await clickCreateFilter("text");
     await editGlobalFilterLabel("My Label");
-    await contains("input[type=checkbox].restrict_to_range").click();
+    await contains(".restrict_to_range input[type=checkbox]").click();
     selectCell(model, "B1");
     await animationFrame();
     expect(".o-selection-input input").toHaveValue("B1");
@@ -220,7 +218,7 @@ test("Create a new text global filter with a default value from a range", async 
     await openGlobalFilterSidePanel();
     await clickCreateFilter("text");
     await editGlobalFilterLabel("My Label");
-    await contains("input[type=checkbox].restrict_to_range").click();
+    await contains(".restrict_to_range input[type=checkbox]").click();
     selectCell(model, "B1");
     await animationFrame();
     await animationFrame(); // SelectionInput component needs an extra tick to update
@@ -239,7 +237,7 @@ test("Create a new text global filter, set a default value ,then restrict values
     await clickCreateFilter("text");
     await editGlobalFilterLabel("My Label");
     await editGlobalFilterDefaultValue("hi");
-    await contains("input[type=checkbox].restrict_to_range").click();
+    await contains(".restrict_to_range input[type=checkbox]").click();
     selectCell(model, "B1");
     await animationFrame();
     await animationFrame(); // SelectionInput component needs an extra tick to update
@@ -278,7 +276,7 @@ test("check range text filter but don't select any range", async function () {
     await openGlobalFilterSidePanel();
     await clickCreateFilter("text");
     await editGlobalFilterLabel("My Label");
-    await contains("input[type=checkbox].restrict_to_range").click();
+    await contains(".restrict_to_range input[type=checkbox]").click();
     await animationFrame();
     expect(".o-selection-input input").toHaveValue("");
     await saveGlobalFilter();
@@ -291,11 +289,11 @@ test("check and uncheck range for text filter", async function () {
     await openGlobalFilterSidePanel();
     await clickCreateFilter("text");
     await editGlobalFilterLabel("My Label");
-    await contains("input[type=checkbox].restrict_to_range").click();
+    await contains(".restrict_to_range input[type=checkbox]").click();
     selectCell(model, "B1");
     await animationFrame();
     expect(".o-selection-input input").toHaveValue("B1");
-    await contains("input[type=checkbox].restrict_to_range").click();
+    await contains(".restrict_to_range input[type=checkbox]").click();
     await saveGlobalFilter();
     const [globalFilter] = model.getters.getGlobalFilters();
     expect(globalFilter.rangeOfAllowedValues).toBe(undefined);
@@ -511,9 +509,7 @@ test("Display with an existing 'Relation' global filter", async function () {
         },
     });
     await openGlobalFilterSidePanel();
-    const sections = target.querySelectorAll(
-        ".o_spreadsheet_global_filters_side_panel .o_side_panel_section"
-    );
+    const sections = target.querySelectorAll(".o_spreadsheet_global_filters_side_panel .o-section");
     expect(sections.length).toBe(2);
     const labelElement = sections[0].querySelector(".o_side_panel_filter_label");
     expect(labelElement).toHaveText(label);
@@ -867,10 +863,10 @@ test("Create a new date filter", async function () {
     expect(".o-sidePanel").toHaveCount(1);
     await editGlobalFilterLabel("My Label");
 
-    const range = target.querySelectorAll(".o_input:nth-child(2)")[0];
+    const range = target.querySelector(".o-filter-range-type");
     await contains(range).select("fixedPeriod");
 
-    await contains("input#date_automatic_filter").click();
+    await contains("input[name=date_automatic_filter]").click();
 
     const pivotFieldMatching = target.querySelectorAll(".o_spreadsheet_field_matching")[0];
     const listFieldMatching = target.querySelectorAll(".o_spreadsheet_field_matching")[1];
@@ -912,10 +908,10 @@ test("Create a new date filter with period offsets", async function () {
     await clickCreateFilter("date");
     await editGlobalFilterLabel("My Label");
 
-    const range = target.querySelectorAll(".o_input:nth-child(2)")[0];
+    const range = target.querySelector(".o-filter-range-type");
     await contains(range).select("fixedPeriod");
 
-    await contains("input#date_automatic_filter").click();
+    await contains("input[name=date_automatic_filter]").click();
 
     const pivotFieldMatching = target.querySelectorAll(".o_spreadsheet_field_matching")[0];
     const listFieldMatching = target.querySelectorAll(".o_spreadsheet_field_matching")[1];
@@ -959,11 +955,11 @@ test("Cannot a new date filter with period offsets without setting the field cha
     await editGlobalFilterLabel("My Label");
 
     const pivotFieldMatching = target.querySelectorAll(".o_spreadsheet_field_matching")[0];
-    expect(".o_filter_field_offset select.o_input").toHaveProperty("disabled", true);
+    expect(".o_filter_field_offset select.o-input").toHaveProperty("disabled", true);
 
     // pivot
     await selectFieldMatching("date", pivotFieldMatching);
-    expect(".o_filter_field_offset select.o_input").toHaveProperty("disabled", false);
+    expect(".o_filter_field_offset select.o-input").toHaveProperty("disabled", false);
 });
 
 test("Create a new relative date filter with an empty default value", async () => {
@@ -978,7 +974,7 @@ test("Create a new relative date filter with an empty default value", async () =
     await clickCreateFilter("date");
     await editGlobalFilterLabel("My Label");
 
-    const range = target.querySelector(".o_input:nth-child(2)");
+    const range = target.querySelector(".o-filter-range-type");
     await contains(range).select("relative");
 
     const relativeSelection = target.querySelector("select.o_relative_date_selection");
@@ -1028,7 +1024,7 @@ test("Create a new relative date filter", async function () {
     await clickCreateFilter("date");
     await editGlobalFilterLabel("My Label");
 
-    const range = target.querySelector(".o_input:nth-child(2)");
+    const range = target.querySelector(".o-filter-range-type");
     await contains(range).select("relative");
 
     const relativeSelection = target.querySelector("select.o_relative_date_selection");
@@ -1142,7 +1138,7 @@ test("Create a new from_to date filter", async function () {
     await clickCreateFilter("date");
     await editGlobalFilterLabel("My Label");
 
-    const range = target.querySelector(".o_input:nth-child(2)");
+    const range = target.querySelector(".o-filter-range-type");
     await contains(range).select("from_to");
     await saveGlobalFilter();
     const [globalFilter] = model.getters.getGlobalFilters();
@@ -1616,7 +1612,7 @@ test("Changing the range of a date global filter reset the current value", async
     )[1];
     const selectField = timeRangeOption.querySelector("select");
     await contains(selectField).select("fixedPeriod");
-    await contains("input#date_automatic_filter").click();
+    await contains("input[name=date_automatic_filter]").click();
     const automaticTimeRangeOption = target.querySelectorAll(
         ".o_spreadsheet_filter_editor_side_panel .o_side_panel_section"
     )[2];
@@ -1649,7 +1645,7 @@ test("Date filter automatic filter value checkbox is working", async function ()
     );
     await openGlobalFilterSidePanel();
     await contains(".o_side_panel_filter_icon.fa-cog").click();
-    await contains("input#date_automatic_filter").click();
+    await contains("input[name=date_automatic_filter]").click();
 
     await saveGlobalFilter();
     await animationFrame();
@@ -1659,7 +1655,7 @@ test("Date filter automatic filter value checkbox is working", async function ()
         period: "july",
     });
     await contains(".o_side_panel_filter_icon.fa-cog").click();
-    await contains("input#date_automatic_filter").click();
+    await contains("input[name=date_automatic_filter]").click();
     await saveGlobalFilter();
     await animationFrame();
     expect(model.getters.getGlobalFilter("42").defaultValue).toBe(undefined);
@@ -1694,8 +1690,8 @@ test("Filter edit side panel is initialized with the correct values", async func
     await contains(".o-sidePanel .fa-cog").click();
 
     const panel = target.querySelector(".o-sidePanel");
-    expect(panel.querySelectorAll(".o_input")[0]).toHaveValue("This month");
-    expect(panel.querySelectorAll(".o_input")[1]).toHaveValue("fixedPeriod");
+    expect(panel.querySelectorAll(".o-input")[0]).toHaveValue("This month");
+    expect(panel.querySelectorAll(".o-input")[1]).toHaveValue("fixedPeriod");
 
     const pivotField = panel.querySelectorAll(".o_spreadsheet_field_matching ")[0];
     const pivotFieldValue = pivotField.querySelector(".o_model_field_selector_value span");

@@ -6,11 +6,12 @@ import { _t } from "@web/core/l10n/translation";
 
 const { toXC, createActions } = helpers;
 const { useStore } = stores;
-const { Menu } = components;
+const { Menu, Section } = components;
+
 export class CommentThreadsSidePanel extends Component {
     static template = "documents_spreadsheet.CommentThreadsSidePanel";
     static props = { onCloseSidePanel: Function };
-    static components = { CellThread, Menu };
+    static components = { CellThread, Menu, Section };
 
     setup() {
         this.state = useState({
@@ -22,6 +23,12 @@ export class CommentThreadsSidePanel extends Component {
             threadId: undefined,
         });
         this.commentsStore = useStore(CommentsStore);
+    }
+
+    get sheetIds() {
+        return this.state.mode === "allSheets"
+            ? this.env.model.getters.getSheetIds()
+            : [this.env.model.getters.getActiveSheetId()];
     }
 
     get selectedThreadId() {
@@ -36,11 +43,17 @@ export class CommentThreadsSidePanel extends Component {
         return this.env.model.getters.getSpreadsheetThreads(sheetIds);
     }
 
+    /**
+     * @param {number} numberOfComments
+     */
+    getNumberOfCommentsLabel(numberOfComments) {
+        return numberOfComments === 1 ? _t("1 thread") : _t("%s threads", numberOfComments);
+    }
+
     getThreadTitle(threadId) {
-        const { sheetId, col, row } = this.env.model.getters.getThreadInfo(threadId);
-        const sheetName = this.env.model.getters.getSheetName(sheetId);
+        const { col, row } = this.env.model.getters.getThreadInfo(threadId);
         const xc = toXC(col, row);
-        return `${sheetName}, ${xc}`;
+        return `${xc}`;
     }
 
     selectThread(threadId) {

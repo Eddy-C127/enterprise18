@@ -5,7 +5,6 @@ import { FilterFieldOffset } from "../filter_field_offset";
 import { RELATIVE_DATE_RANGE_TYPES } from "@spreadsheet/helpers/constants";
 import { AbstractFilterEditorSidePanel } from "./filter_editor_side_panel";
 import { FilterEditorFieldMatching } from "./filter_editor_field_matching";
-
 import { useState } from "@odoo/owl";
 
 const RANGE_TYPES = [
@@ -122,7 +121,7 @@ export class DateFilterEditorSidePanel extends AbstractFilterEditorSidePanel {
         this.dateState.defaultValue = undefined;
     }
 
-    toggleDateDefaultValue(ev) {
-        this.dateState.defaultValue = ev.target.checked ? "this_month" : undefined;
+    toggleDateDefaultValue(checked) {
+        this.dateState.defaultValue = checked ? "this_month" : undefined;
     }
 }

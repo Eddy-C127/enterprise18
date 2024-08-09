@@ -10,6 +10,7 @@ import { FilterEditorLabel } from "./filter_editor_label";
 
 import { onWillStart, Component, useRef, useState, toRaw } from "@odoo/owl";
 
+const { Checkbox, Section } = spreadsheet.components;
 const { toNumber } = spreadsheet.helpers;
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
@@ -32,6 +33,8 @@ export class AbstractFilterEditorSidePanel extends Component {
     static components = {
         FilterEditorLabel,
         SidePanelCollapsible,
+        Checkbox,
+        Section,
     };
     static props = {
         id: { type: String, optional: true },

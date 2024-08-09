@@ -54,7 +54,7 @@ registry.category("web_tour.tours").add("spreadsheet_open_pivot_sheet", {
                 assert(pivots.length, 1, "There should be one filter");
                 const pivot = pivots[0];
                 assert(
-                    pivot.querySelector("div.o_side_panel_title").textContent,
+                    pivot.querySelector("span.o_side_panel_filter_label").textContent,
                     "MyFilter1",
                     "Invalid filter name"
                 );

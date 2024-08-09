@@ -9,7 +9,7 @@ const { createActions } = helpers;
 
 export class VersionHistoryItem extends Component {
     static template = "spreadsheet_edition.VersionHistoryItem";
-    static components = { Menu: components.Menu };
+    static components = { Menu: components.Menu, TextInput: components.TextInput };
     static props = {
         active: Boolean,
         revision: Object,
@@ -23,7 +23,6 @@ export class VersionHistoryItem extends Component {
             position: null,
         });
         this.state = useState({ editName: this.defaultName });
-        this.inputRef = useRef("revisionName");
         this.menuButtonRef = useRef("menuButton");
         this.itemRef = useRef("item");
 
@@ -48,6 +47,10 @@ export class VersionHistoryItem extends Component {
         );
     }
 
+    get formattedTimeStamp() {
+        return this.formatRevisionTimeStamp(this.props.revision.timestamp);
+    }
+
     get isLatestVersion() {
         return (
             this.env.historyManager.getRevisions()[0].nextRevisionId ===
@@ -55,26 +58,8 @@ export class VersionHistoryItem extends Component {
         );
     }
 
-    get dateValue() {
-        return this.isLatestVersion
-            ? _t("Current Version")
-            : this.formatRevisionTimeStamp(this.props.revision.timestamp);
-    }
-
-    onKeyDown(ev) {
-        switch (ev.key) {
-            case "Enter":
-                this.renameRevision();
-                this.props.onBlur?.();
-                break;
-            case "Escape":
-                this.state.editName = this.defaultName;
-                this.props.onBlur?.();
-                break;
-        }
-    }
-
-    renameRevision() {
+    renameRevision(newName) {
+        this.state.editName = newName;
         if (!this.state.editName) {
             this.state.editName = this.defaultName;
         }
@@ -115,9 +100,9 @@ export class VersionHistoryItem extends Component {
 
     openMenu() {
         this.props.onActivation(this.revision.nextRevisionId);
-        const { x, y, height } = this.menuButtonRef.el.getBoundingClientRect();
+        const { x, y, height, width } = this.menuButtonRef.el.getBoundingClientRect();
         this.menuState.isOpen = true;
-        this.menuState.position = { x, y: y + height };
+        this.menuState.position = { x: x + width, y: y + height };
     }
 
     closeMenu() {
