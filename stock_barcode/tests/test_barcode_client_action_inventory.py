@@ -507,6 +507,7 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         self.assertEqual(productlot1_quant.lot_id.name, 'toto-42')
         self.assertEqual(productlot1_quant.location_id.id, self.stock_location.id)
 
+    # === GS1 TESTS ===#
     def test_gs1_inventory_gtin_8(self):
         """ Simulate scanning a product with his gs1 barcode """
         self.clean_access_rights()

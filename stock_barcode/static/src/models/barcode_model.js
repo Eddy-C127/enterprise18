@@ -103,6 +103,10 @@ export default class BarcodeModel extends EventBus {
         return this.getQtyDemand(line) ? this.getQtyDemand(line) - this.getQtyDone(line) : 0;
     }
 
+    getlotName(line) {
+        return (line.lot_id && line.lot_id.name) || line.lot_name || false;
+    }
+
     getEditedLineParams(line) {
         return { currentId: line.id };
     }
@@ -1207,7 +1211,7 @@ export default class BarcodeModel extends EventBus {
             const lotName = barcodeData.lotName || barcodeData.lot.name;
             for (const line of this.currentState.lines) {
                 if (line.product_id.tracking === 'serial' && this.getQtyDone(line) !== 0 &&
-                    ((line.lot_id && line.lot_id.name) || line.lot_name) === lotName) {
+                    this.getlotName(line) === lotName) {
                     return this.notification(
                         _t("The scanned serial number %s is already used.", lotName),
                         { type: 'danger' }
@@ -1483,7 +1487,7 @@ export default class BarcodeModel extends EventBus {
         const quantPackage = barcodeData.package;
         const dataLotName = lotName || (lot && lot.name) || false;
         for (const line of this.pageLines) {
-            const lineLotName = line.lot_name || (line.lot_id && line.lot_id.name) || false;
+            const lineLotName = this.getlotName(line);
             if (line.product_id.id !== product.id) {
                 continue; // Not the same product.
             }
@@ -1605,7 +1609,7 @@ export default class BarcodeModel extends EventBus {
         }
         const {lot, lotName} = barcodeData;
         const dataLotName = lotName || (lot && lot.name) || false;
-        const lineLotName = line.lot_name || (line.lot_id && line.lot_id.name) || false;
+        const lineLotName = this.getlotName(line);
         if (dataLotName && lineLotName && dataLotName !== lineLotName) {
             return true;
         }

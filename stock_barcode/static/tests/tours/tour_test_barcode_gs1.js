@@ -86,7 +86,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             helper.assertLinesCount(1);
             const line = helper.getLine({ selected: true });
             helper.assertLineProduct(line, "PRO_GTIN_12_lot");
-            helper.assert(line.querySelector('.o_line_lot_name').textContent, 'LOT-AAA');
+            helper.assertLineTrackingNumber(line, "LOT-AAA");
             helper.assertLineQty(line, "5");
         }
     },
@@ -108,7 +108,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             const subline = helper.getSubline({ selected: true });
             helper.assertLineProduct(parentLine, "PRO_GTIN_12_lot");
             helper.assertLineQty(parentLine, "6");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, 'LOT-AAB');
+            helper.assertLineTrackingNumber(subline, "LOT-AAB");
             helper.assertLineQty(subline, "1");
         }
     },
@@ -125,7 +125,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             const subline = helper.getSubline({ selected: true });
             helper.assertLineProduct(parentLine, "PRO_GTIN_12_lot");
             helper.assertLineQty(parentLine, "15");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, 'LOT-AAB');
+            helper.assertLineTrackingNumber(subline, "LOT-AAB");
             helper.assertLineQty(subline, "10");
         }
     },
@@ -143,7 +143,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             const subline = helper.getSubline({ selected: true });
             helper.assertLineProduct(parentLine, "PRO_GTIN_12_lot");
             helper.assertLineQty(parentLine, "20");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, 'LOT-AAB');
+            helper.assertLineTrackingNumber(subline, "LOT-AAB");
             helper.assertLineQty(subline, "15");
         }
     },
@@ -162,7 +162,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             const subline = helper.getSubline({ selected: true });
             helper.assertLineProduct(parentLine, "PRO_GTIN_12_lot");
             helper.assertLineQty(parentLine, "40");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, 'LOT-AAC');
+            helper.assertLineTrackingNumber(subline, "LOT-AAC");
             helper.assertLineQty(subline, "20");
         }
     },
@@ -178,7 +178,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             const subline = helper.getSubline({ selected: true });
             helper.assertLineProduct(parentLine, "PRO_GTIN_12_lot");
             helper.assertLineQty(parentLine, "45");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, 'LOT-AAA');
+            helper.assertLineTrackingNumber(subline, "LOT-AAA");
             helper.assertLineQty(subline, "10");
         }
     },
@@ -197,7 +197,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             helper.assertSublinesCount(0);
             const line = helper.getLine({ selected: true });
             helper.assertLineProduct(line, "PRO_GTIN_14_serial");
-            helper.assert(line.querySelector('.o_line_lot_name').textContent, 'Serial1');
+            helper.assertLineTrackingNumber(line, "Serial1");
             helper.assertLineQty(line, "1");
         }
     },
@@ -237,7 +237,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
             const parentLine = document.querySelector('.o_barcode_line.o_selected');
             const subline = document.querySelector('.o_sublines .o_barcode_line.o_selected');
             helper.assertLineQty(parentLine, "3");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, 'Serial3');
+            helper.assertLineTrackingNumber(subline, "Serial3");
             helper.assertLineQty(subline, "1");
         }
     },
@@ -252,11 +252,13 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         run: function () {
             helper.assertLinesCount(2);
             helper.assertSublinesCount(4);
-            const parentLine = document.querySelector('.o_barcode_line.o_selected');
-            const subline = document.querySelector('.o_sublines .o_barcode_line.o_selected');
+            const parentLine = helper.getLine({ selected: true });
+            const subline = helper.getSubline({ selected: true });
             helper.assertLineQty(parentLine, "23");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, '');
+            helper.assertLineTrackingNumber(subline, false);
             helper.assertLineQty(subline, "20");
+            const barcodeIconVisible = Boolean(subline.querySelector(".o_line_tracking_number"));
+            helper.assert(barcodeIconVisible, false, "The SN HTML element should not be visible");
         }
     },
     // Scans a serial number, it should not write it on the previous line (as
@@ -270,10 +272,10 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
         run: function () {
             helper.assertLinesCount(2);
             helper.assertSublinesCount(5);
-            const parentLine = document.querySelector('.o_barcode_line.o_selected');
-            const subline = document.querySelector('.o_sublines .o_barcode_line.o_selected');
+            const parentLine = helper.getLine({ selected: true });
+            const subline = helper.getSubline({ selected: true });
             helper.assertLineQty(parentLine, "24");
-            helper.assert(subline.querySelector('.o_line_lot_name').textContent, 'Serial4');
+            helper.assertLineTrackingNumber(subline, "Serial4");
             helper.assertLineQty(subline, "1");
         }
     },
@@ -925,9 +927,8 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
         trigger: '.o_barcode_line:contains("b1-b001")',
         run: function () {
             helper.assertLinesCount(1);
-            const line = helper.getLine({barcode: '76543210'});
-            helper.assert(line.querySelector('.o_line_lot_name').innerText, 'b1-b001');
-            helper.assertLineQty(line, '8/40');
+            helper.assertLineTrackingNumber(0, "b1-b001");
+            helper.assertLineQty(0, "8/40");
         }
     },
     // Scan the product, lot and quantity all at once:

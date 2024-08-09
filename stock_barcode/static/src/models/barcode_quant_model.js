@@ -84,7 +84,7 @@ export default class BarcodeQuantModel extends BarcodeModel {
 
         if (line) { // Message depends of the selected line's state.
             const { tracking } = line.product_id;
-            const trackingNumber = (line.lot_id && line.lot_id.name) || line.lot_name;
+            const trackingNumber = this.getlotName(line);
             if (this._lineIsNotComplete(line)) {
                 if (tracking !== 'none') {
                     return tracking === 'lot' ? messages.scanLot : messages.scanSerial;
@@ -132,7 +132,8 @@ export default class BarcodeQuantModel extends BarcodeModel {
 
     displaySetButton(line) {
         const isSelected = this.selectedLineVirtualId === line.virtual_id;
-        return isSelected && (this.showQuantityCount || line.product_id.tracking === 'serial');
+        return isSelected && (this.showQuantityCount || (
+            line.product_id.tracking === "serial" && this.getlotName(line)));
     }
 
     setData(data) {
@@ -179,7 +180,19 @@ export default class BarcodeQuantModel extends BarcodeModel {
     }
 
     lineIsFaulty(line) {
-        return line.inventory_quantity_set && line.inventory_quantity !== line.quantity;
+        if (this.showQuantityCount) {
+            return line.inventory_quantity_set && line.inventory_quantity !== line.quantity;
+        }
+        return false; // Never show a line as faulty if we don't display the expected quantity.
+    }
+
+    lineIsTracked(line) {
+        const lineIsTracked = super.lineIsTracked(...arguments);
+        if (lineIsTracked && line.product_id.tracking === "serial") {
+            // Count quants tracked by SN as untracked if they have no SN and multiple quantity.
+            return this.getlotName(line) || (this.getQtyDone(line) <= 1 && this.getQtyDemand(line) <= 1);
+        }
+        return lineIsTracked
     }
 
     get printButtons() {

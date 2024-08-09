@@ -101,7 +101,7 @@
     </t>
 
     <t t-name="stock_barcode.LineLot">
-        <div t-if="isTracked" class="d-flex justify-content-between align-items-center">
+        <div t-if="isTracked" class="o_line_tracking_number d-flex justify-content-between align-items-center">
             <div name="lot">
                 <i class="fa fa-fw fa-barcode" t-attf-class="{{nextExpected === 'lot' ? 'o_next_expected' : ''}}"/>
                 <span class="o_line_lot_name ms-1" t-esc="lotName"/>
