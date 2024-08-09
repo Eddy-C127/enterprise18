@@ -556,14 +556,12 @@ class Document(models.Model):
                 if attachment_id and attachment_id != record.attachment_id.id:
                     # Link the new attachment to the related record and link the previous one
                     # to the document.
-                    self.env["ir.attachment"].browse(attachment_id).with_context(
-                        no_document=True
-                    ).write(
-                        {
+                    attachment = self.env["ir.attachment"].browse(attachment_id)
+                    if (attachment.res_model, attachment.res_id) != (record.res_model, record.res_id):
+                        attachment.with_context(no_document=True).write({
                             "res_model": record.res_model or "documents.document",
                             "res_id": record.res_id if record.res_model else record.id,
-                        }
-                    )
+                        })
                     related_record = self.env[record.res_model].browse(record.res_id)
                     if (
                         not hasattr(related_record, "message_main_attachment_id")
