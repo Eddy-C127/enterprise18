@@ -203,7 +203,7 @@ class ResCompany(models.Model):
                     _("Go to the company"),
                 )
 
-        if not self.l10n_ke_oscu_serial_number.startswith('ODOO/' + self.vat + '/'):
+        if not self.l10n_ke_oscu_serial_number.upper().startswith('ODOO/' + self.vat.upper() + '/'):
             raise UserError(_('Your serial number should contain the PIN number and start: ODOO/%s/', self.vat))
 
     def action_l10n_ke_oscu_initialize(self):
