@@ -32,6 +32,7 @@
         'views/l10n_ch_salary_certificate_report_views.xml',
         'views/l10n_ch_hr_payroll_insurance_report_pdf.xml',
         'views/l10n_ch_hr_payroll_salary_certificate.xml',
+        'views/l10n_ch_sickness_insurance_views.xml',
     ],
     'license': 'OEEL-1',
     'auto_install': True,
