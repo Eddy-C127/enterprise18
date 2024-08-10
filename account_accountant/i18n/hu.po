@@ -7,19 +7,19 @@
 # 5768b353f27900ae76ad88cc42dfd5b8_3bb349f, 2023
 # Ákos Nagy <akos.nagy@oregional.hu>, 2023
 # Tamás Dombos, 2023
-# gezza <geza.nagy@oregional.hu>, 2023
-# Martin Trigaux, 2023
 # Csaba Tóth <i3rendszerhaz@gmail.com>, 2023
-# krnkris, 2023
 # Tamás Németh <ntomasz81@gmail.com>, 2024
+# gezza <geza.nagy@oregional.hu>, 2024
+# Martin Trigaux, 2024
+# krnkris, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-07-19 07:30+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Tamás Németh <ntomasz81@gmail.com>, 2024\n"
+"Last-Translator: krnkris, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -248,6 +248,20 @@ msgid "Amount"
 msgstr "Összeg"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Company Currency)"
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Foreign Currency)"
+msgstr ""
+
+#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Amount Computation"
 msgstr ""
@@ -258,8 +272,12 @@ msgid "Amount Currency"
 msgstr "Összeg pénzneme"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid "Amount Transaction Currency"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Amount in Currency"
@@ -352,7 +370,10 @@ msgid "Bank & Cash Moves"
 msgstr "Átutalások és készpénzmozgások"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__bank_account
+#, python-format
 msgid "Bank Account"
 msgstr "Bankszámla"
 
@@ -391,7 +412,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_bank_rec_widget
 msgid "Bank reconciliation widget for a single statement line"
-msgstr ""
+msgstr "Banki egyeztető widget egy kivonat sorhoz"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -592,6 +613,11 @@ msgstr "nap"
 #, python-format
 msgid "Debit"
 msgstr "Terhelés"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__journal_default_account_id
+msgid "Default Account"
+msgstr ""
 
 #. module: account_accountant
 #. odoo-python
@@ -969,6 +995,11 @@ msgid "Invoicing Switch Threshold"
 msgstr ""
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
+msgid "Is Multi Currency"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
 msgid "Is Reconciled"
 msgstr ""
@@ -1248,6 +1279,11 @@ msgid "Name"
 msgstr "Név"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
+msgid "Narration"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
@@ -1303,6 +1339,7 @@ msgid "Not Matched"
 msgstr ""
 
 #. module: account_accountant
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
 msgid "Notes"
@@ -1600,6 +1637,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Record cost of goods sold in your journal entries"
 msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__ref
+msgid "Ref"
+msgstr "Hiv."
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Reference"
+msgstr "Hivatkozás"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -1985,6 +2034,7 @@ msgstr "Tranzakció"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr ""
 
@@ -2087,6 +2137,12 @@ msgstr ""
 
 #. module: account_accountant
 #. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr ""
+
+#. module: account_accountant
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
 msgid ""

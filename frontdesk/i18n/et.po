@@ -23,6 +23,7 @@
 # Martin Trigaux, 2023
 # Mihkel avalah, 2023
 # Anna, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -30,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,7 +138,7 @@ msgstr "Tagasi"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_search
 msgid "By Responsible"
-msgstr ""
+msgstr "Vastutava isiku põhiselt"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_form
@@ -512,7 +513,7 @@ msgstr "Viimati uuendatud"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__latest_check_in
 msgid "Latest Check In"
-msgstr ""
+msgstr "Viimane registreerumine"
 
 #. module: frontdesk
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_frontdesk__theme__light
@@ -535,7 +536,7 @@ msgstr "Sõnum"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_search
 msgid "My Station"
-msgstr ""
+msgstr "Minu töökoht"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_drink__name
@@ -548,7 +549,7 @@ msgstr "Nimi"
 #: code:addons/frontdesk/static/src/register_page/register_page.xml:0
 #, python-format
 msgid "No, thank you"
-msgstr ""
+msgstr "Ei, aitäh"
 
 #. module: frontdesk
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_frontdesk__ask_company__none
@@ -562,12 +563,12 @@ msgstr "Pole"
 #: code:addons/frontdesk/static/src/drink_page/drink_page.xml:0
 #, python-format
 msgid "Nothing, thanks."
-msgstr ""
+msgstr "Ei, aitäh."
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__notify_sms
 msgid "Notify by SMS"
-msgstr ""
+msgstr "Teavita SMS-iga"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__notify_discuss
@@ -577,7 +578,7 @@ msgstr ""
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__notify_email
 msgid "Notify by email"
-msgstr ""
+msgstr "Teavita e-postiga"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
@@ -587,7 +588,7 @@ msgstr ""
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__drink_offer
 msgid "Offer Drinks"
-msgstr ""
+msgstr "Paku jooke"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_kanban
@@ -597,7 +598,7 @@ msgstr "Kohapeal"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_kanban
 msgid "Open Desk"
-msgstr ""
+msgstr "Ava laud"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
@@ -624,7 +625,7 @@ msgstr "Valikud"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__ask_company
 msgid "Organization"
-msgstr ""
+msgstr "Organisatsioon"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__pending
@@ -634,7 +635,7 @@ msgstr "Töökäsu ootel"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_drink__notify_user_ids
 msgid "People to Notify"
-msgstr ""
+msgstr "Inimesed, keda teavitada"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__ask_phone
@@ -656,12 +657,12 @@ msgstr "Planeeritud"
 #: code:addons/frontdesk/static/src/register_page/register_page.xml:0
 #, python-format
 msgid "Please have a seat."
-msgstr ""
+msgstr "Palun istuge."
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_qr_expired
 msgid "Please rescan it."
-msgstr ""
+msgstr "Palun skaneeri see uuesti."
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__visitor_properties
@@ -679,7 +680,7 @@ msgstr "QR Kood"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_qr_expired
 msgid "QR Code Expired."
-msgstr ""
+msgstr "QR-koodi kehtivusaeg on lõppenud."
 
 #. module: frontdesk
 #. odoo-javascript
@@ -713,7 +714,7 @@ msgstr "Vastutaja"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__responsible_ids
 msgid "Responsibles"
-msgstr ""
+msgstr "Vastutavad"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__sms_template_id
@@ -772,17 +773,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__station_id
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_search
 msgid "Station"
-msgstr ""
+msgstr "Jaam"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_search
 msgid "Station Name"
-msgstr ""
+msgstr "Töökoha nimi"
 
 #. module: frontdesk
 #: model:ir.actions.act_window,name:frontdesk.action_open_station_visitor
 msgid "Station Visitors"
-msgstr ""
+msgstr "Töökoha külastajad"
 
 #. module: frontdesk
 #: model:ir.actions.act_window,name:frontdesk.action_frontdesk_frontdesk
@@ -790,7 +791,7 @@ msgstr ""
 #: model:ir.ui.menu,name:frontdesk.frontdesk_menu_stations
 #: model:ir.ui.menu,name:frontdesk.frontdesk_menu_stations_config
 msgid "Stations"
-msgstr ""
+msgstr "Jaamad"
 
 #. module: frontdesk
 #: model:ir.actions.act_window,name:frontdesk.action_frontdesk_station_report
@@ -809,7 +810,7 @@ msgstr "Olek"
 #: code:addons/frontdesk/static/src/end_page/end_page.xml:0
 #, python-format
 msgid "Thank you for registering!"
-msgstr ""
+msgstr "Täname registreerimise eest!"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__theme
@@ -834,12 +835,12 @@ msgstr "Külastaja"
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__company
 msgid "Visitor Company"
-msgstr ""
+msgstr "Külastaja ettevõte"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__visitor_properties_definition
 msgid "Visitor Properties"
-msgstr ""
+msgstr "Külastaja omadused"
 
 #. module: frontdesk
 #. odoo-python
@@ -870,7 +871,7 @@ msgstr "Tere tulemast"
 #: code:addons/frontdesk/static/src/navbar/navbar.xml:0
 #, python-format
 msgid "Who are you visiting?"
-msgstr ""
+msgstr "Keda te külastate?"
 
 #. module: frontdesk
 #. odoo-javascript
@@ -882,21 +883,21 @@ msgstr "Kes sa oled?"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_form
 msgid "Write message..."
-msgstr ""
+msgstr "Kirjuta sõnum..."
 
 #. module: frontdesk
 #. odoo-javascript
 #: code:addons/frontdesk/static/src/register_page/register_page.xml:0
 #, python-format
 msgid "Yes, please"
-msgstr ""
+msgstr "Jah, palun"
 
 #. module: frontdesk
 #. odoo-javascript
 #: code:addons/frontdesk/static/src/register_page/register_page.xml:0
 #, python-format
 msgid "You have been registered!"
-msgstr ""
+msgstr "Te olete registreeritud!"
 
 #. module: frontdesk
 #. odoo-javascript
@@ -924,7 +925,7 @@ msgstr "Sinu nimi"
 #: code:addons/frontdesk/static/src/visitor_form/visitor_form.xml:0
 #, python-format
 msgid "Your Phone Number"
-msgstr ""
+msgstr "Sinu telefoninumber"
 
 #. module: frontdesk
 #: model:mail.template,subject:frontdesk.frontdesk_mail_template
@@ -969,7 +970,7 @@ msgstr "nt. john@company.com"
 #: code:addons/frontdesk/static/src/end_page/end_page.xml:0
 #, python-format
 msgid "has been informed."
-msgstr ""
+msgstr "on teavitatud."
 
 #. module: frontdesk
 #. odoo-javascript

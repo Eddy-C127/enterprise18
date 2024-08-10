@@ -11,6 +11,7 @@
 # Dorin Hongu <dhongu@gmail.com>, 2024
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
 # Betty Keresztesi, 2024
+# Alin Miclea, 2024
 # 
 msgid ""
 msgstr ""
@@ -18,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Betty Keresztesi, 2024\n"
+"Last-Translator: Alin Miclea, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,12 +45,12 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-secondary\">Disconnected</span>"
-msgstr ""
+msgstr "<span class=\"badge text-bg-secondary\">Deconectat</span>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-success\">Connected</span>"
-msgstr ""
+msgstr "<span class=\"badge text-bg-success\">Conectat</span>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -78,14 +79,14 @@ msgstr "Adăugați expertul IoT Box"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Are you sure you want to reboot the IoT box?"
-msgstr ""
+msgstr "Sigur doriți să reporniți caseta IoT?"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Are you sure you want to restart Odoo on the IoT box?"
-msgstr ""
+msgstr "Sigur doriți să reporniți Odoo pe cutia IoT?"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__drivers_auto_update
@@ -128,14 +129,14 @@ msgstr "Verificați dacă dispozitivul este încă conectat"
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
 #: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
 msgid "Clear Selected Devices"
-msgstr ""
+msgstr "Ștergeți Selecție"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "Clear automatic reports"
-msgstr ""
+msgstr "Ștergeți rapoartele automate"
 
 #. module: iot
 #. odoo-javascript
@@ -281,7 +282,7 @@ msgstr "Afișare"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_select_printers_wizard__display_device_ids
 msgid "Display Device"
-msgstr ""
+msgstr "Dispozitiv de afișare"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__display_name
@@ -309,7 +310,7 @@ msgstr "Adresa de domeniu"
 #: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
 #, python-format
 msgid "Download Logs"
-msgstr ""
+msgstr "Jurnale descărcări"
 
 #. module: iot
 #. odoo-javascript
@@ -464,7 +465,7 @@ msgstr "Ultima actualizare pe"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Last restarting process hasn't finished yet"
-msgstr ""
+msgstr "Ultimul proces de repornire nu s-a terminat încă"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__layout
@@ -507,14 +508,21 @@ msgstr "Rețea"
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "No IoT Box found!"
-msgstr ""
+msgstr "Nu a fost găsită nicio casetă IoT!"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "No printer selected"
+msgstr "Nu a fost selectată nicio imprimantă"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "No report to display"
-msgstr ""
+msgstr "Niciun raport de afișat"
 
 #. module: iot
 #. odoo-javascript
@@ -546,6 +554,8 @@ msgid ""
 "Please accept the certificate of your IoT Box (procedure depends on your "
 "browser):"
 msgstr ""
+"Vă rugăm să acceptați certificatul cutiei dvs. IoT (procedura depinde de "
+"browserul dvs.):"
 
 #. module: iot
 #. odoo-javascript
@@ -609,21 +619,21 @@ msgstr "Rapoarte"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Restart Failed"
-msgstr ""
+msgstr "Repornirea a eșuat"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Restart finished"
-msgstr ""
+msgstr "Repornire finalizată"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Restarting"
-msgstr ""
+msgstr "Repornire"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
@@ -636,9 +646,16 @@ msgid "Scale"
 msgstr "Cântar"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "Select at least one printer"
+msgstr "Selectați cel puțin o imprimantă"
+
+#. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
 msgid "Selection of printers"
-msgstr ""
+msgstr "Selecția imprimantelor"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -660,12 +677,12 @@ msgstr "Succes"
 #. module: iot
 #: model:ir.model,name:iot.model_iot_channel
 msgid "The Websocket Iot Channel"
-msgstr ""
+msgstr "Canalul Iot Websocket"
 
 #. module: iot
 #: model:ir.model.constraint,message:iot.constraint_iot_channel_unique_name
 msgid "The channel name must be unique"
-msgstr ""
+msgstr "Numele trebuie să fie unic"
 
 #. module: iot
 #. odoo-python
@@ -696,7 +713,7 @@ msgstr "Nu există niciun dispozitiv conectat la casetele dvs. IoT"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Timed out"
-msgstr ""
+msgstr "A expirat"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__token
@@ -737,7 +754,7 @@ msgstr "USB"
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "Unlink"
-msgstr ""
+msgstr "Deconectare"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
@@ -770,4 +787,4 @@ msgstr "Conectare"
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "to add an IoT Box."
-msgstr ""
+msgstr "pentru a adăuga o casetă IoT."

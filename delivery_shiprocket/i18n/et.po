@@ -13,8 +13,8 @@
 # Patrick-Jordan Kiudorv, 2023
 # Leaanika Randmets, 2023
 # Birgit Vijar, 2024
-# Stevin Lilla, 2024
 # Anna, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "<b>Click on Add a New Channel</b>"
-msgstr ""
+msgstr "<b>Klõpsa \"Lisa uus kanal\"</b>"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
@@ -59,7 +59,7 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "<b>Now click on Add for MANUAL</b>"
-msgstr ""
+msgstr "<b>Nüüd klõpsa \"Lisa käsitsi\"</b>"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
@@ -121,19 +121,19 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "Add Manual Channel"
-msgstr ""
+msgstr "Lisa käsitsi kanal"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "Add New Channel"
-msgstr ""
+msgstr "Lisa uus kanal"
 
 #. module: delivery_shiprocket
 #. odoo-python
 #: code:addons/delivery_shiprocket/models/delivery_carrier.py:0
 #, python-format
 msgid "Authentication failed! Please check your credentials."
-msgstr ""
+msgstr "Autentimine ebaõnnestus! Palun kontrolli oma volitusi."
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields.selection,name:delivery_shiprocket.selection__delivery_carrier__shiprocket_payment_method__cod
@@ -148,7 +148,7 @@ msgstr "Transpordifirma"
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_channel__channel_code
 msgid "Channel Code"
-msgstr ""
+msgstr "Kanali kood"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_channel__name
@@ -180,12 +180,12 @@ msgstr "Riik on kohustuslik!"
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "Courier (%s): %s"
-msgstr ""
+msgstr "Kuller (%s): %s"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_courier__courier_code
 msgid "Courier Code"
-msgstr ""
+msgstr "Kulleri kood"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -199,12 +199,12 @@ msgstr ""
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "Courier: %s"
-msgstr ""
+msgstr "Kuller: %s"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "Create API User"
-msgstr ""
+msgstr "Loo API kasutaja"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,help:delivery_shiprocket.field_delivery_carrier__shiprocket_pickup_request
@@ -234,7 +234,7 @@ msgstr "Kuvatav nimi"
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_stock_picking__eway_bill_number
 msgid "EWay Bill"
-msgstr ""
+msgstr "EWay arve"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -280,12 +280,12 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_manifests_generate
 msgid "Generate Manifest"
-msgstr ""
+msgstr "Loo lastideklaratsioon"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,help:delivery_shiprocket.field_delivery_carrier__shiprocket_access_token
 msgid "Generate access token using Shiprocket credentials"
-msgstr ""
+msgstr "Loo juurdepääsuluba kasutades Shiprocketi volitusi"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,help:delivery_shiprocket.field_delivery_carrier__shiprocket_courier_ids
@@ -388,7 +388,7 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_pickup_request
 msgid "Pickup Request"
-msgstr ""
+msgstr "Korje taotlus"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -420,7 +420,7 @@ msgstr "Hind"
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "SKU is missing!"
-msgstr ""
+msgstr "SKU puudub!"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -441,7 +441,7 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "Save Manual Channel"
-msgstr ""
+msgstr "Salvesta käsitsi tehtud kanal"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_courier__name
@@ -451,12 +451,12 @@ msgstr "Teenuse nimi"
 #. module: delivery_shiprocket
 #: model:product.template,name:delivery_shiprocket.product_product_delivery_shiprocket_product_template
 msgid "ShipRocket"
-msgstr ""
+msgstr "ShipRocket"
 
 #. module: delivery_shiprocket
 #: model:delivery.carrier,name:delivery_shiprocket.delivery_carrier_shiprocket
 msgid "ShipRocket Domestic"
-msgstr ""
+msgstr "ShipRocket riigisisene"
 
 #. module: delivery_shiprocket
 #: model:ir.model,name:delivery_shiprocket.model_delivery_carrier
@@ -468,23 +468,23 @@ msgstr "Tarneviisid"
 #: model:ir.model.fields.selection,name:delivery_shiprocket.selection__stock_package_type__package_carrier_type__shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.stock_picking_form_inherit_shiprocket
 msgid "Shiprocket"
-msgstr ""
+msgstr "Shiprocket"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_access_token
 msgid "Shiprocket Access Token"
-msgstr ""
+msgstr "Shiprocket ligipääsuvõti"
 
 #. module: delivery_shiprocket
 #: model:ir.model,name:delivery_shiprocket.model_shiprocket_channel
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_channel_id
 msgid "Shiprocket Channel"
-msgstr ""
+msgstr "Shiprocket kanal"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "Shiprocket Configuration"
-msgstr ""
+msgstr "Shiprcoket seadistus"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_res_config_settings__module_delivery_shiprocket
@@ -494,19 +494,19 @@ msgstr "Shiprocket süsteemi ühendamine"
 #. module: delivery_shiprocket
 #: model:ir.model,name:delivery_shiprocket.model_shiprocket_courier
 msgid "Shiprocket Courier"
-msgstr ""
+msgstr "Shiprocket kuller"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_courier_ids
 msgid "Shiprocket Couriers"
-msgstr ""
+msgstr "Shiprocket kullerid"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_email
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_channel__shiprocket_email
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_shiprocket_courier__shiprocket_email
 msgid "Shiprocket Email"
-msgstr ""
+msgstr "Shiprocket email"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -517,24 +517,24 @@ msgstr ""
 #: code:addons/delivery_shiprocket/models/shiprocket_request.py:0
 #, python-format
 msgid "Shiprocket Error: %s"
-msgstr ""
+msgstr "Shiprocket viga: %s"
 
 #. module: delivery_shiprocket
 #. odoo-python
 #: code:addons/delivery_shiprocket/models/delivery_carrier.py:0
 #, python-format
 msgid "Shiprocket Notification"
-msgstr ""
+msgstr "Shiprcoket teavitus"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_stock_picking__shiprocket_orders
 msgid "Shiprocket Order(s)"
-msgstr ""
+msgstr "Shiprocket tellimused"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_password
 msgid "Shiprocket Password"
-msgstr ""
+msgstr "Shiprocket parool"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.res_config_settings_view_form_sale_shiprocket
@@ -545,7 +545,7 @@ msgstr "Shiprocket tarneviis"
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "Shiprocket Tutorial"
-msgstr ""
+msgstr "Shiprocket õpetus"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
@@ -555,7 +555,7 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
 msgid "Shiprocket Website"
-msgstr ""
+msgstr "Shiprocket veebileht"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -628,7 +628,7 @@ msgstr ""
 #. module: delivery_shiprocket
 #: model:ir.model.fields,field_description:delivery_shiprocket.field_delivery_carrier__shiprocket_token_valid_upto
 msgid "Token Expiry"
-msgstr ""
+msgstr "Token aegumine"
 
 #. module: delivery_shiprocket
 #: model:ir.model,name:delivery_shiprocket.model_stock_picking

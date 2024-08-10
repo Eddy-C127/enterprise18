@@ -31,12 +31,12 @@ msgstr "(fus orar:"
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "<i class=\"fa fa-check me-2\"/>Booked"
-msgstr ""
+msgstr "<i class=\"fa fa-check me-2\"/>Rezervat"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "Awaiting Payment"
-msgstr ""
+msgstr "În așteptarea plății"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_sale_order_line__calendar_booking_ids
@@ -51,7 +51,7 @@ msgstr "Întâlnire"
 #. module: website_appointment_sale
 #: model:ir.model,name:website_appointment_sale.model_calendar_booking
 msgid "Meeting Booking"
-msgstr ""
+msgstr "Rezervare întâlnire"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_sale_order__calendar_event_count
@@ -62,11 +62,13 @@ msgstr "Întâlniri"
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "Oops, it looks like the following Meeting(s) were not booked smoothly:"
 msgstr ""
+"Oops, se pare că următoarea (următoarele) Întâlnire(i) nu au fost rezervate "
+"corespunzător:"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
 msgid "Please Contact Us"
-msgstr ""
+msgstr "Vă rugăm să ne contactați"
 
 #. module: website_appointment_sale
 #: model:ir.model.fields,field_description:website_appointment_sale.field_calendar_booking__order_line_id
@@ -91,6 +93,8 @@ msgid ""
 "The following bookings are not available anymore during the selected period "
 "and your cart must be updated. We are sorry for the inconvenience."
 msgstr ""
+"Următoarele rezervări nu mai sunt disponibile în perioada selectată și coșul"
+" dvs. trebuie actualizat. Ne cerem scuze pentru neplăcerile create."
 
 #. module: website_appointment_sale
 #. odoo-python
@@ -100,6 +104,8 @@ msgid ""
 "The following bookings were not confirmed due to insufficient availability "
 "or configuration changes: %s"
 msgstr ""
+"Următoarele rezervări nu au fost confirmate din cauza disponibilității "
+"insuficiente sau a schimbărilor de configurație: %s"
 
 #. module: website_appointment_sale
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.appointment_sale_confirmation_cards
@@ -110,6 +116,7 @@ msgstr "Vizualizare detalii"
 #: model_terms:ir.ui.view,arch_db:website_appointment_sale.website_sale_confirmation_appointment
 msgid "We are looking forward to seeing you at the following Meeting(s):"
 msgstr ""
+"Așteptăm cu nerăbdare să vă vedem la următoarea (următoarele) reuniune(i):"
 
 #. module: website_appointment_sale
 #: model:ir.model,name:website_appointment_sale.model_website
@@ -121,4 +128,4 @@ msgstr "Site web"
 #: code:addons/website_appointment_sale/models/sale_order.py:0
 #, python-format
 msgid "You cannot manually change the quantity of a Booking Fees product."
-msgstr ""
+msgstr "Nu puteți modifica manual cantitatea unui produs Taxe de rezervare."

@@ -13,17 +13,17 @@
 # Collex100, 2024
 # Martin Trigaux, 2024
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2024
-# Wil Odoo, 2024
 # Malaz Abuidris <msea@odoo.com>, 2024
-# nadia martynova, 2024
+# Nadia Martynova, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 14:45+0000\n"
+"POT-Creation-Date: 2024-07-17 13:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: nadia martynova, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -320,6 +320,11 @@ msgid "Accounting Report"
 msgstr "Бухгалтерский отчет"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_report_expression
+msgid "Accounting Report Expression"
+msgstr "Выражение бухгалтерского отчета"
+
+#. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
 msgstr "Строка бухгалтерского отчета"
@@ -503,6 +508,15 @@ msgstr "Вся дебиторская задолженность"
 #, python-format
 msgid "All Report Variants"
 msgstr "Все варианты отчетов"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid ""
+"All selected companies or branches do not share the same Tax ID. Please "
+"checkthe Tax ID of the selected companies."
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -797,6 +811,13 @@ msgid "Carryover from %s to %s"
 msgstr "Перенос с %s на %s"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Carryover lines for: %s"
+msgstr "Линии переноса для: %s"
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
 msgstr "Наличные"
@@ -921,6 +942,13 @@ msgstr "Изменение ожидаемой даты"
 #, python-format
 msgid "Change expected payment date"
 msgstr "Изменение ожидаемой даты платежа"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Check them"
+msgstr "Проверьте их"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -3160,6 +3188,13 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Some journal items appear to point to obsolete report lines."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
@@ -4028,6 +4063,13 @@ msgstr "[Черновик]"
 #, python-format
 msgid "addressed to"
 msgstr "адресованный"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "and correct their tax tags if necessary."
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year

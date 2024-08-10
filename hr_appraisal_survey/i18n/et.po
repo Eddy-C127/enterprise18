@@ -13,6 +13,7 @@
 # Leaanika Randmets, 2023
 # Martin Trigaux, 2023
 # Anna, 2024
+# Siim Raasuke, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Siim Raasuke, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +40,8 @@ msgid ""
 "360 Degree Feedback is a system or process in which managers will ask feedback from the people who work around the employee.\n"
 "            This typically includes the employee's manager, peers, and direct reports."
 msgstr ""
+"360-kraadine tagasiside on süsteem või protsess, kus juhid küsivad tagasisidet töötaja ümber töötavatelt inimestelt.\n"
+"            See hõlmab tavaliselt töötaja juhti, kolleege ja alluvaid."
 
 #. module: hr_appraisal_survey
 #: model:ir.actions.act_window,name:hr_appraisal_survey.survey_survey_action_appraisal
@@ -50,7 +53,7 @@ msgstr "360 Tagasiside"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_button_form_view
 msgid "<i class=\"oi oi-fw oi-arrow-right\"/>Edit Survey"
-msgstr ""
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/>Muuda küsitlust"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_view_form
@@ -60,7 +63,7 @@ msgstr "<span class=\"o_stat_text\">Tagasiside</span>"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_view_form
 msgid "<span> / </span>"
-msgstr ""
+msgstr "<span> / </span>"
 
 #. module: hr_appraisal_survey
 #: model:mail.template,body_html:hr_appraisal_survey.mail_template_appraisal_ask_feedback
@@ -87,6 +90,27 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<t t-set=\"logged_user\" t-value=\"ctx.get('logged_user')\"></t>\n"
+"                <t t-set=\"employee\" t-value=\"ctx.get('employee')\"></t>\n"
+"                <t t-set=\"deadline\" t-value=\"ctx.get('deadline')\"></t>\n"
+"                <div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        <p style=\"margin-left:5px\">Lugupeetud <t t-out=\"object.partner_id.name or 'participant'\">[osaline]</t></p>\n"
+"                        <span>\n"
+"                            <t t-out=\"logged_user\">[Praegune kasutaja]</t> kutsub sind osalema küsitluses ja andma tagasisidet  <t t-out=\"employee\">[töötaja]</t> osas.\n"
+"                            Palun täitke küsitlus enne <t t-out=\"deadline\">[määratud kuupäev]</t>.\n"
+"                        </span>\n"
+"                        <br>\n"
+"                        Aitäh!\n"
+"                        <br><br>\n"
+"                        <div style=\"margin: 16px 0px 16px 0px; text-align: center;\">\n"
+"                            <a t-att-href=\"object.get_start_url()\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                Anna oma tagasiside\n"
+"                            </a>\n"
+"                        </div>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_1
@@ -216,7 +240,7 @@ msgstr "Hindamine: Küsi tagasisidet"
 #: code:addons/hr_appraisal_survey/wizard/appraisal_ask_feedback.py:0
 #, python-format
 msgid "Appraisal: Ask Feedback new template"
-msgstr ""
+msgstr "Hinnang: Küsi tagasisidet uus mall"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_1_5
@@ -245,12 +269,12 @@ msgstr "Tagasiside küsitud"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "At the conclusion of the appraisal time period"
-msgstr ""
+msgstr "Hindamisperioodi lõpus"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "At the outset of the appraisal time period"
-msgstr ""
+msgstr "Hindamisperioodi alguses"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__attachment_ids
@@ -301,7 +325,7 @@ msgstr "Ettevõtted"
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_hr_appraisal__completed_survey_count
 msgid "Completed Survey Count"
-msgstr ""
+msgstr "Lõpetatud küsitluste arv"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_3
@@ -351,6 +375,8 @@ msgid ""
 "Critical or key elements of performance and professional development needs "
 "(if any), should also be noted at this time"
 msgstr ""
+"Kriitilised või olulised tulemuslikkuse ja professionaalse arengu vajadused "
+"(kui neid on) tuleks samuti sel hetkel märkida"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_8
@@ -386,7 +412,7 @@ msgstr "Osakond"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Did not meet standards and expectations"
-msgstr ""
+msgstr "Ei vastanud standarditele ja ootustele"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__display_name
@@ -436,14 +462,14 @@ msgstr "Entusiasm ning mõju projektidele/ülesannetele"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Exceeds standards and expectations"
-msgstr ""
+msgstr "Ületab standardeid ja ootusi"
 
 #. module: hr_appraisal_survey
 #. odoo-python
 #: code:addons/hr_appraisal_survey/models/hr_appraisal.py:0
 #, python-format
 msgid "Feedback Surveys"
-msgstr ""
+msgstr "Tagasiside küsitlused"
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -483,6 +509,8 @@ msgid ""
 "Identify professional, performance, or project objectives you recommend for "
 "employee’s continued career development over the coming year."
 msgstr ""
+"Määrake professionaalsed, tulemuslikkuse või projektieesmärgid, mida "
+"soovitate töötaja jätkuvaks karjääriarenguks järgmisel aastal."
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_5
@@ -502,6 +530,9 @@ msgid ""
 " major employee responsibilities and corresponding benchmarks against which "
 "results will be evaluated."
 msgstr ""
+"Töötaja ja juhendaja (hindaja) ühine vastutus on koostada teostatav tööplaan"
+" järgmiseks aastaks, sealhulgas peamised töötaja vastutusalad ja vastavad "
+"mõõdikud, mille alusel tulemusi hinnatakse."
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -510,6 +541,8 @@ msgid ""
 "input from the appropriate sources of feedback (internal and/or external "
 "customers, peers)."
 msgstr ""
+"Juhendaja peamine vastutus on koguda vajalik sisend sobivatelt tagasiside "
+"allikatelt (sisemised ja/või välised kliendid, kolleegid)."
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_appraisal_ask_feedback__lang
@@ -558,7 +591,7 @@ msgstr "Meili mall"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Meet standards and expectations"
-msgstr ""
+msgstr "Vastab standarditele ja ootustele"
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -608,7 +641,7 @@ msgstr ""
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "Overall Purpose Of Employee Appraisal"
-msgstr ""
+msgstr "Töötaja hindamise üldine eesmärk"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,help:hr_appraisal_survey.field_survey_user_input__requested_by
@@ -668,7 +701,7 @@ msgstr "Esitlusmudel"
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_survey_user_input__requested_by
 msgid "Requested by"
-msgstr ""
+msgstr "Soovis"
 
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
@@ -708,7 +741,7 @@ msgstr "Salvesta uue mallina"
 #. module: hr_appraisal_survey
 #: model_terms:ir.ui.view,arch_db:hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree
 msgid "See Answers"
-msgstr ""
+msgstr "Näe vastuseid"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.y_360_5_5
@@ -738,13 +771,13 @@ msgstr "Näidake üles head otsustusvõimet"
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid "Significantly below standards and expectations"
-msgstr ""
+msgstr "Tugevalt alla standardeid ja ootusi"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_3
 msgid ""
 "Significantly exceeds standards and expectations required of the position"
-msgstr ""
+msgstr "Tugevalt ületab positsioonile kehtestatud standardeid ja ootusi"
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.x_360_5_3
@@ -829,6 +862,8 @@ msgid ""
 "The appraiser should rate the employee’s major work accomplishments and "
 "performance according to the metric provided below:"
 msgstr ""
+"Hindaja peaks hindama töötaja peamisi töösaavutusi ja tulemuslikkust "
+"vastavalt allolevale mõõdikule:"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -836,6 +871,8 @@ msgid ""
 "The employee may choose to offer comments or explanation regarding the "
 "completed review."
 msgstr ""
+"Töötaja võib soovi korral pakkuda kommentaare või selgitusi lõpetatud "
+"hindamise kohta."
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -846,6 +883,10 @@ msgid ""
 "criterion. Once the form had been filled, the employee send it to their "
 "supervisor."
 msgstr ""
+"Töötaja vastutab hindamisvormi eelnõu täitmise eest, kasutades seda "
+"enesehindamise tööriistana ja lähtudes juhendaja hinnangust. Töötaja saab "
+"lisada saavutuste näiteid iga kriteeriumi kohta. Kui vorm on täidetud, "
+"saadab töötaja selle oma juhendajale."
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
@@ -854,6 +895,8 @@ msgid ""
 "appraisal. The motivation of the evaluation is explained in the ad hoc "
 "fields."
 msgstr ""
+"Juhendaja sünteesib ja integreerib kogu sisendi lõplikku hindamisse. "
+"Hinnangu motiveerimist selgitatakse ad hoc-väljadel."
 
 #. module: hr_appraisal_survey
 #. odoo-python
@@ -864,6 +907,9 @@ msgid ""
 "The following employees do not have any email: \n"
 "%s"
 msgstr ""
+"Sellel töötajal pole registreeritud e-posti aadressi ja ta ei saa ühtegi e-kirja. \n"
+"Järgnevatel töötajatel puudub e-posti aadress: \n"
+"%s"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,help:hr_appraisal_survey.field_hr_department__appraisal_survey_template_id
@@ -885,6 +931,8 @@ msgid ""
 "This survey allows you to give a feedback about your collaboration with an "
 "employee. Filling it helps us improving the appraisal process."
 msgstr ""
+"See küsitlus võimaldab teil anda tagasisidet koostöö kohta töötajaga. Selle "
+"täitmine aitab meil täiustada hindamisprotsessi."
 
 #. module: hr_appraisal_survey
 #: model:survey.question.answer,value:hr_appraisal_survey.arow_3_1_15
@@ -897,16 +945,18 @@ msgid ""
 "To assist employees in their professional growth, through the identification"
 " of strengths and opportunities for development"
 msgstr ""
+"Aidata kaasa töötajate professionaalsele arengule, tuvastades tugevused ja "
+"arenguvõimalused"
 
 #. module: hr_appraisal_survey
 #: model_terms:survey.question,description:hr_appraisal_survey.appraisal_1
 msgid "To initiate a clear and open communication of performance expectations"
-msgstr ""
+msgstr "Et algatada selge ja avatud suhtlus tulemuslikkuse ootuste kohta"
 
 #. module: hr_appraisal_survey
 #: model:ir.model.fields,field_description:hr_appraisal_survey.field_hr_appraisal__total_survey_count
 msgid "Total Survey Count"
-msgstr ""
+msgstr "Küsitluste koguarv"
 
 #. module: hr_appraisal_survey
 #: model:survey.question,title:hr_appraisal_survey.appraisal_5_1

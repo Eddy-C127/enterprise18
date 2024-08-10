@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Sarah Park, 2024
+# Daye Jeong, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-07-19 07:30+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -250,6 +250,20 @@ msgid "Amount"
 msgstr "금액"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Company Currency)"
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Foreign Currency)"
+msgstr ""
+
+#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Amount Computation"
 msgstr "금액 계산"
@@ -260,8 +274,12 @@ msgid "Amount Currency"
 msgstr "통화 금액"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid "Amount Transaction Currency"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Amount in Currency"
@@ -354,7 +372,10 @@ msgid "Bank & Cash Moves"
 msgstr "은행 및 현금 업무"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__bank_account
+#, python-format
 msgid "Bank Account"
 msgstr "은행 계좌"
 
@@ -595,6 +616,11 @@ msgstr "일"
 #, python-format
 msgid "Debit"
 msgstr "차변"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__journal_default_account_id
+msgid "Default Account"
+msgstr "기본 계정"
 
 #. module: account_accountant
 #. odoo-python
@@ -979,6 +1005,11 @@ msgid "Invoicing Switch Threshold"
 msgstr "청구서 변경 마감일"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
+msgid "Is Multi Currency"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
 msgid "Is Reconciled"
 msgstr "조정됨"
@@ -1258,6 +1289,11 @@ msgid "Name"
 msgstr "이름"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
+msgid "Narration"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
@@ -1312,6 +1348,7 @@ msgid "Not Matched"
 msgstr "일치하지 않습니다."
 
 #. module: account_accountant
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
 msgid "Notes"
@@ -1609,6 +1646,18 @@ msgstr "조정 모델"
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Record cost of goods sold in your journal entries"
 msgstr "전표입력 시 제조원가를 기록합니다"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__ref
+msgid "Ref"
+msgstr "참조"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Reference"
+msgstr "참조"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -1996,6 +2045,7 @@ msgstr "거래"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "거래 통화"
 
@@ -2098,6 +2148,12 @@ msgstr "상각 처리"
 
 #. module: account_accountant
 #. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr ""
+
+#. module: account_accountant
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
 msgid ""

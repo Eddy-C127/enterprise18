@@ -3,11 +3,10 @@
 # 	* helpdesk_sale_timesheet
 # 
 # Translators:
+# Tamás Németh <ntomasz81@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Ákos Nagy <akos.nagy@oregional.hu>, 2023
-# Gergő Kertész <gergo.kertesz@maxflow.hu>, 2023
 # Tamás Dombos, 2023
-# Tamás Németh <ntomasz81@gmail.com>, 2023
 # krnkris, 2024
 # gezza <geza.nagy@oregional.hu>, 2024
 # 
@@ -28,7 +27,7 @@ msgstr ""
 #. module: helpdesk_sale_timesheet
 #: model:helpdesk.sla,name:helpdesk_sale_timesheet.helpdesk_sla_4
 msgid "4 hours to finish"
-msgstr ""
+msgstr "4 óra a befejezésig"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.product_template_form_view_invoice_policy_inherit_helpdesk
@@ -36,6 +35,8 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o fa-fw\" title=\"Values set here are "
 "company-specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
+"<span class=\"fa fa-lg fa-building-o fa-fw\" title=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_account_analytic_line
@@ -50,12 +51,12 @@ msgstr "Szín"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket_convert_wizard
 msgid "Convert Helpdesk Tickets to Tasks"
-msgstr ""
+msgstr "Ügyfélszolgálati jegyek feladatokra konvertálása"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_project_task_convert_wizard
 msgid "Convert Project Tasks to Tickets"
-msgstr ""
+msgstr "Projekt feladatok jegyre konvertálása"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
@@ -70,12 +71,12 @@ msgstr "nap"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Days Spent"
-msgstr ""
+msgstr "Eltöltött napok"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Days:"
-msgstr ""
+msgstr "Napok:"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
@@ -85,7 +86,7 @@ msgstr "Leírás"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__display_invoice_button
 msgid "Display Invoice Button"
-msgstr ""
+msgstr "Számlázás gomb megjelenítése"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_account_analytic_line__display_sol
@@ -115,7 +116,7 @@ msgstr "Ügyfélszolgálati csapat"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket
 msgid "Helpdesk Ticket"
-msgstr "Ügyfélszolgálati hibajegy"
+msgstr "Ügyfélszolgálati jegy"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
@@ -130,7 +131,7 @@ msgstr "Eltöltött órák"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Hours:"
-msgstr ""
+msgstr "Órák:"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__invoice_count
@@ -148,12 +149,12 @@ msgstr "Számlák"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Non-billable"
-msgstr ""
+msgstr "Nem számlázható"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_sla_view_form_inherit_sale_timesheet
 msgid "OR"
-msgstr ""
+msgstr "VAGY"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_product_template
@@ -180,7 +181,7 @@ msgstr ""
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_order_id
 msgid "Ref. Sales Order"
-msgstr "Hiv. értékesítési rendelés"
+msgstr "Hiv. vevői rendelés"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__use_helpdesk_sale_timesheet
@@ -232,7 +233,7 @@ msgstr ""
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla_report_analysis
 msgid "SLA Status Analysis"
-msgstr ""
+msgstr "SLA állapot elemzés"
 
 #. module: helpdesk_sale_timesheet
 #. odoo-python
@@ -242,7 +243,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 #, python-format
 msgid "Sales Order"
-msgstr "Megrendelések"
+msgstr "Vevői rendelés"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__sale_line_id
@@ -250,7 +251,7 @@ msgstr "Megrendelések"
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__sale_line_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Sales Order Item"
-msgstr "Értékesítési rendelés tétel"
+msgstr "Vevői rendelés tétel"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_line_id
@@ -264,12 +265,12 @@ msgstr ""
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__sale_line_ids
 msgid "Sales Order Items"
-msgstr ""
+msgstr "Vevői rendelés tételek"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "Vevői megrendelés sor"
+msgstr "Vevői rendelés sor"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
@@ -286,17 +287,17 @@ msgstr ""
 #: code:addons/helpdesk_sale_timesheet/models/sale_order.py:0
 #, python-format
 msgid "Ticket"
-msgstr "Hibajegy"
+msgstr "Jegy"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket_report_analysis
 msgid "Ticket Analysis"
-msgstr "Hibajegyek elemzése"
+msgstr "Jegyek elemzése"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_sale_order__ticket_count
 msgid "Ticket Count"
-msgstr ""
+msgstr "Jegyek száma"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.sale_order_form_inherit_helpdesk_sale
@@ -306,7 +307,7 @@ msgstr "Jegyek"
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Timesheets"
-msgstr "Munkaidő-nyilvántartások"
+msgstr "Időkimutatások"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet

@@ -25,8 +25,10 @@
 # JanaAvalah, 2024
 # Martin Trigaux, 2024
 # Leaanika Randmets, 2024
+# Tairi Tiimann, 2024
 # Siim Raasuke, 2024
 # Anna, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -34,7 +36,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-22 15:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1147,7 +1149,7 @@ msgstr "Iga-aastane korduv tulu"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Anticipate payment"
-msgstr ""
+msgstr "Oota makset"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1426,7 +1428,7 @@ msgstr "Vali toote nimi.<br/><i>(nt. E-õpe ligipääsuõigus)</i>"
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Choose the invoice duration for your subscription"
-msgstr ""
+msgstr "Vali oma tellimuse arve kestus"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log__event_type__2_churn
@@ -1580,7 +1582,7 @@ msgstr "Erandkorras leping"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__event_type__15_contraction
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_log_report_search
 msgid "Contraction"
-msgstr ""
+msgstr "Kokkutõmbumine"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -2182,6 +2184,8 @@ msgid ""
 "If present, this condition must be satisfied before executing the automation"
 " rule."
 msgstr ""
+"Kui olemas, peab see tingimus olema täidetud enne automatiseerimisreegli "
+"täitmist."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
@@ -2434,7 +2438,7 @@ msgstr ""
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Let's choose the customer for your subscription"
-msgstr ""
+msgstr "Vali klient oma tellimuse jaoks"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -2492,7 +2496,7 @@ msgstr "MRR muutus"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__mrr_change_normalized
 msgid "MRR Change (normalized)"
-msgstr ""
+msgstr "MRR muutus (normaliseeritud)"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__mrr_change_amount
@@ -2929,14 +2933,14 @@ msgstr "Ülemliin"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_tree
 msgid "Parent Subscription"
-msgstr ""
+msgstr "Ülemtellimus"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/res_partner.py:0
 #, python-format
 msgid "Partner Subscription"
-msgstr ""
+msgstr "Partneri tellimus"
 
 #. module: sale_subscription
 #: model:ir.actions.server,name:sale_subscription.model_sale_order_subscription_pause_record
@@ -3272,7 +3276,7 @@ msgstr "Põhjus"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__record_getter
 msgid "Record Getter"
-msgstr ""
+msgstr "Kirje hankija"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__is_subscription
@@ -3328,7 +3332,7 @@ msgstr "Korduvad hinnad"
 #: model:ir.model.fields,field_description:sale_subscription.field_product_pricelist__product_subscription_pricing_ids
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__product_subscription_pricing_ids
 msgid "Recurring Pricing"
-msgstr ""
+msgstr "Korduv hinnastamine"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_total
@@ -3752,6 +3756,8 @@ msgid ""
 "Some triggers need a reference to a selection field. This field is used to "
 "store it."
 msgstr ""
+"Mõned käivitajad vajavad viidet valikuväljale. Selle viite talletamiseks "
+"kasutatakse seda välja."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_field_ref
@@ -3759,11 +3765,13 @@ msgid ""
 "Some triggers need a reference to another field. This field is used to store"
 " it."
 msgstr ""
+"Mõned käivitajad vajavad viidet teisele väljale. Selle viite talletamiseks "
+"kasutatakse seda välja."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__source_id
 msgid "Source"
-msgstr "Kandideerimise allikad"
+msgstr "Allikas"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__product_ids
@@ -3784,7 +3792,7 @@ msgstr "Etapp"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__subscription_state_from
 msgid "Stage from"
-msgstr ""
+msgstr "Etapp alates"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
@@ -3863,7 +3871,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
 msgid "Subscription Action"
-msgstr ""
+msgstr "Tellimuse tegevus"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_subscription_report
@@ -3908,7 +3916,7 @@ msgstr "Tellimusteave"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
 msgid "Subscription Log Analysis"
-msgstr ""
+msgstr "Tellimuste logi analüüs"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__order_log_ids
@@ -3938,7 +3946,7 @@ msgstr "Tellimustoode"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Subscription Quotation"
-msgstr ""
+msgstr "Tellimuse pakkumine"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__activity_user__contract
@@ -3995,7 +4003,7 @@ msgstr "Tellimuse etapi kategooria muudatuse toimumise ajal"
 #. module: sale_subscription
 #: model:mail.message.subtype,description:sale_subscription.subtype_state_change
 msgid "Subscription state has changed"
-msgstr ""
+msgstr "Tellimuse olek on muutunud"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_portal_content_inherit
@@ -4110,7 +4118,7 @@ msgstr "Tiimijuht"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "Tell us, why are you leaving?"
-msgstr ""
+msgstr "Ütle meile, miks sa lahkud?"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_log_report_search
@@ -4162,6 +4170,8 @@ msgid ""
 "The automation rule will be triggered if and only if one of these fields is "
 "updated.If empty, all fields are watched."
 msgstr ""
+"Automaatikareegel käivitub ainult siis, kui üks neist väljadest on "
+"uuendatud. Kui tühi, jälgitakse kõiki välju."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4182,7 +4192,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
 msgid "The duration can't be negative or 0."
-msgstr ""
+msgstr "Kestus ei saa olla negatiivne ega 0."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__first_contract_date
@@ -4248,7 +4258,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
 msgid "The reason for closing a subscription"
-msgstr ""
+msgstr "Tellimuse sulgemise põhjus"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
@@ -4301,6 +4311,8 @@ msgid ""
 "The upsell %s has been canceled. Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
+"Lisamüük %s on tühistatud. Palun kontrollige üle kogused mis võivad olla "
+"mõjutatud selle tühistamise poolt."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4319,12 +4331,12 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
-msgstr ""
+msgstr "Seal on"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is an"
-msgstr ""
+msgstr "Seal on"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
@@ -4338,6 +4350,8 @@ msgid ""
 "This code will be run to find on which record the automation rule should be "
 "run."
 msgstr ""
+"See kood käivitatakse, et leida, millisel kirjel tuleks automatiseeritud "
+"reegel käivitada."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form

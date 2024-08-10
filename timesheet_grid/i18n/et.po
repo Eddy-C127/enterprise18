@@ -16,8 +16,8 @@
 # JanaAvalah, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Leaanika Randmets, 2023
-# Anna, 2023
 # Tairi Tiimann, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -25,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tairi Tiimann, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1288,12 +1288,12 @@ msgstr "Kinnitamist ootavad ajaarvestuslehed"
 #. module: timesheet_grid
 #: model:mail.template,name:timesheet_grid.mail_template_timesheet_reminder
 msgid "Timesheets: Approver Reminder"
-msgstr ""
+msgstr "Tööaja arvestusleht: Kinnitaja meeldetuletus"
 
 #. module: timesheet_grid
 #: model:mail.template,name:timesheet_grid.mail_template_timesheet_reminder_user
 msgid "Timesheets: Employee Reminder"
-msgstr ""
+msgstr "Tööaja arvestusleht: Töötaja meeldetuletus"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate
@@ -1440,6 +1440,13 @@ msgstr "Te ei pääse juurde tööaja arvestuslehtedele, mis pole Teie omad."
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid "You can't encode numbers with more than six digits."
+msgstr ""
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid ""
@@ -1525,7 +1532,7 @@ msgstr "nädala lõppu"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "and click on"
-msgstr ""
+msgstr "ja klõpsa"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
@@ -1565,7 +1572,7 @@ msgstr "või [a] taimeri käivitamiseks"
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 #, python-format
 msgid "or click on"
-msgstr ""
+msgstr "või klõpsa"
 
 #. module: timesheet_grid
 #. odoo-javascript

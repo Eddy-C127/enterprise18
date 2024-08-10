@@ -20,18 +20,18 @@
 # דודי מלכה <Dudimalka6@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Yihya Hugirat <hugirat@gmail.com>, 2024
-# Ha Ketem <haketem@gmail.com>, 2024
-# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
 # hed shefer <hed@laylinetech.com>, 2024
 # yael terner, 2024
+# Ha Ketem <haketem@gmail.com>, 2024
+# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 14:45+0000\n"
+"POT-Creation-Date: 2024-07-17 13:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: yael terner, 2024\n"
+"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -317,6 +317,11 @@ msgid "Accounting Report"
 msgstr "דוח הנה\"כ"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_report_expression
+msgid "Accounting Report Expression"
+msgstr "ביטוי בדוח הנה\"ח"
+
+#. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
 msgstr "שורת דוח חשבונאי"
@@ -498,6 +503,15 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Report Variants"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid ""
+"All selected companies or branches do not share the same Tax ID. Please "
+"checkthe Tax ID of the selected companies."
 msgstr ""
 
 #. module: account_reports
@@ -790,6 +804,13 @@ msgid "Carryover from %s to %s"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Carryover lines for: %s"
+msgstr "העברת שורות עבור:%s"
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
 msgstr "מזומן"
@@ -913,6 +934,13 @@ msgstr ""
 #, python-format
 msgid "Change expected payment date"
 msgstr "שנה את מועד התשלום הצפוי"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Check them"
+msgstr "בדוק אותם"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -3115,6 +3143,13 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Some journal items appear to point to obsolete report lines."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
@@ -3925,6 +3960,13 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "addressed to"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "and correct their tax tags if necessary."
 msgstr ""
 
 #. module: account_reports

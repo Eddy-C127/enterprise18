@@ -4,21 +4,22 @@
 # 
 # Translators:
 # Manuela Silva <mmsrs@sky.com>, 2023
-# NumerSpiral HBG, 2024
 # Nuno Silva <nuno.silva@arxi.pt>, 2024
 # Wil Odoo, 2024
 # Ricardo Martins <ricardo.nbs.martins@gmail.com>, 2024
 # Luiz Fernando <lfpsgs@outlook.com>, 2024
 # Maitê Dietze, 2024
 # Arxi, 2024
+# NumerSpiral HBG, 2024
+# Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 14:45+0000\n"
+"POT-Creation-Date: 2024-07-17 13:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Arxi, 2024\n"
+"Last-Translator: Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -304,6 +305,11 @@ msgid "Accounting Report"
 msgstr "Relatório financeiro"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_report_expression
+msgid "Accounting Report Expression"
+msgstr "Expressão do relatório financeiro"
+
+#. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
 msgstr "Linha do relatório financeiro"
@@ -486,6 +492,15 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Report Variants"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid ""
+"All selected companies or branches do not share the same Tax ID. Please "
+"checkthe Tax ID of the selected companies."
 msgstr ""
 
 #. module: account_reports
@@ -778,6 +793,13 @@ msgid "Carryover from %s to %s"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Carryover lines for: %s"
+msgstr "Passar as linhas para: %s"
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
 msgstr "Numerário"
@@ -901,6 +923,13 @@ msgstr ""
 #, python-format
 msgid "Change expected payment date"
 msgstr "Alterar data de pagamento esperada"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Check them"
+msgstr ""
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -3101,6 +3130,13 @@ msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Some journal items appear to point to obsolete report lines."
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
@@ -3116,7 +3152,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity_reminder_day
 msgid "Start from"
-msgstr ""
+msgstr "Começar de"
 
 #. module: account_reports
 #. odoo-python
@@ -3911,6 +3947,13 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "addressed to"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "and correct their tax tags if necessary."
 msgstr ""
 
 #. module: account_reports

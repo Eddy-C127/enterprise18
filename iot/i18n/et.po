@@ -18,7 +18,8 @@
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Martin Aavastik <martin@avalah.ee>, 2023
 # Aveli Kannel <aveli@avalah.ee>, 2023
-# Anna, 2023
+# Anna, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -26,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,7 +88,7 @@ msgstr ""
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__drivers_auto_update
 msgid "Automatic drivers update"
-msgstr ""
+msgstr "Automaatne draiverite uuendamine"
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_box__drivers_auto_update
@@ -125,14 +126,14 @@ msgstr ""
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
 #: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
 msgid "Clear Selected Devices"
-msgstr ""
+msgstr "Kustuta valitud seadmed"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "Clear automatic reports"
-msgstr ""
+msgstr "Kustuta automaatsed aruanded"
 
 #. module: iot
 #. odoo-javascript
@@ -275,7 +276,7 @@ msgstr "Ekraan"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_select_printers_wizard__display_device_ids
 msgid "Display Device"
-msgstr ""
+msgstr "Kuva seade"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__display_name
@@ -317,7 +318,7 @@ msgstr "Laadi alla logid"
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Firefox only: Click on Confirm Security Exception"
-msgstr ""
+msgstr "Ainult Firefox: Klõpsa nupule \"Kinnita turvaerand\"."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__fiscal_data_module
@@ -458,7 +459,7 @@ msgstr "Viimati uuendatud"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Last restarting process hasn't finished yet"
-msgstr ""
+msgstr "Viimane taaskäivitamisprotsess pole veel lõppenud"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__layout
@@ -505,6 +506,13 @@ msgstr ""
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "No printer selected"
+msgstr "Printer pole valitud"
+
+#. module: iot
+#. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "No report to display"
@@ -515,7 +523,7 @@ msgstr ""
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Odoo cannot reach the IoT Box."
-msgstr ""
+msgstr "Odoo ei suuda IoT Boxiga ühendust luua."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -630,9 +638,16 @@ msgid "Scale"
 msgstr "Mõõtkava"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "Select at least one printer"
+msgstr "Vali vähemalt üks printer"
+
+#. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
 msgid "Selection of printers"
-msgstr ""
+msgstr "Printerite valik"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -659,7 +674,7 @@ msgstr ""
 #. module: iot
 #: model:ir.model.constraint,message:iot.constraint_iot_channel_unique_name
 msgid "The channel name must be unique"
-msgstr ""
+msgstr "Kanali nimi peab olema unikaalne"
 
 #. module: iot
 #. odoo-python

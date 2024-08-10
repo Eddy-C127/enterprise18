@@ -122,6 +122,9 @@ msgid ""
 "                    the authorization you receive from a customer\n"
 "                    to automatically collect money on their account."
 msgstr ""
+"「直接扣賬指示」是指\n"
+"                    你從客戶收到授權，\n"
+"                    自動在其賬戶直接收取款項。"
 
 #. module: account_bacs
 #. odoo-python
@@ -209,7 +212,7 @@ msgstr "BACS 直接扣賬指示"
 msgid ""
 "BACS Direct Debit scheme only accepts IBAN account numbers. Please select an"
 " IBAN-compliant debtor account for this BACS Direct Debit Instruction."
-msgstr ""
+msgstr "BACS 直接扣賬方案只接受 IBAN 賬戶號碼。請為此 BACS 直接扣賬指示，選擇符合 IBAN 要求的付款人賬戶。"
 
 #. module: account_bacs
 #. odoo-python
@@ -219,7 +222,7 @@ msgstr ""
 msgid ""
 "BACS Direct Debit scheme only accepts UK bank accounts. Please select a UK "
 "bank account for this BACS Direct Debit Instruction."
-msgstr ""
+msgstr "BACS 直接扣賬方案只接受英國銀行賬戶。請為此 BACS 直接扣賬指示，選擇一個英國銀行賬戶。"
 
 #. module: account_bacs
 #. odoo-python
@@ -361,7 +364,7 @@ msgstr "配置設定"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Contra total for batch is greater than 999,999,999.99."
-msgstr ""
+msgstr "批次的抵銷總額大於 999,999,999.99。"
 
 #. module: account_bacs
 #. odoo-python
@@ -369,7 +372,7 @@ msgstr ""
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Contra total for date %s is greater than 999,999,999.99."
-msgstr ""
+msgstr "日期 %s 的抵銷總額大於 999,999,999.99。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_ddi_usable
@@ -401,7 +404,7 @@ msgstr "建立於"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Credit total for batch is greater than 99,999,999,999.99."
-msgstr ""
+msgstr "批次的貸記總額大於 99,999,999,999.99。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__partner_id
@@ -428,12 +431,12 @@ msgstr "日期"
 #: code:addons/account_bacs/models/account_journal.py:0
 #, python-format
 msgid "Debit total for batch is greater than 99,999,999,999.99."
-msgstr ""
+msgstr "批次的借記總額大於 99,999,999,999.99。"
 
 #. module: account_bacs
 #: model:ir.actions.report,name:account_bacs.ddi_form_report_main
 msgid "Direct Debit Instruction form"
-msgstr ""
+msgstr "直接扣賬指示表格"
 
 #. module: account_bacs
 #: model:ir.model.constraint,message:account_bacs.constraint_bacs_ddi_name_unique
@@ -458,22 +461,22 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_rep
 msgid "Direct debit repeating collection in a series"
-msgstr ""
+msgstr "直接扣賬，透過序列重複收款"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_regular
 msgid "Direct debit single collection"
-msgstr ""
+msgstr "直接扣賬單次收款"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_fin
 msgid "Direct debit-final collection of a series"
-msgstr ""
+msgstr "直接扣賬 － 序列的末項收款"
 
 #. module: account_bacs
 #: model:ir.model.fields.selection,name:account_bacs.selection__account_payment__bacs_payment_type__dd_sub_init
 msgid "Direct debit-first collection of a series"
-msgstr ""
+msgstr "直接扣賬 － 序列的首項收款"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__display_name
@@ -614,7 +617,7 @@ msgstr "最後更新於"
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Maximum amount is %.2f."
-msgstr ""
+msgstr "最大金額為 %.2f。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_has_error
@@ -639,7 +642,7 @@ msgstr "你的銀行或建屋互助會的名稱及完整郵寄地址"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Name(s) of Account Holder(s)"
-msgstr ""
+msgstr "賬戶持有人名稱"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__activity_calendar_event_id
@@ -923,6 +926,8 @@ msgid ""
 "The account %s, of journal '%s', is not of type IBAN.\n"
 "A valid IBAN account is required to use BACS features."
 msgstr ""
+"賬戶 %s（所屬日記賬為 %s）不是 IBAN 類型。\n"
+"要使用 BACS 功能，需要有效的 IBAN 賬戶。"
 
 #. module: account_bacs
 #. odoo-python
@@ -1013,6 +1018,11 @@ msgid ""
 "- 'active' means that this DDI can be used to pay invoices. \n"
 "- 'closed' designates a DDI that has been marked as not to use anymore without invalidating the previous transactions done with it.- 'revoked' means the DDI has been signaled as fraudulent by the customer. It cannot be used anymore, and should not ever have been. You will probably need to refund the related invoices, if any.\n"
 msgstr ""
+"此 DDI 所處的狀態。 \n"
+"- 「草稿」：DDI 在可以使用前仍需確認。 \n"
+"- 「生效」：DDI 可用於支付發票。\n"
+"- 「關閉」：DDI 已被標記，在已使用該授權完成的交易未設為無效前，該授權都不應再使用。\n"
+"- 「撤銷」：DDI 已被客戶標記為欺詐性質。該授權不能再被使用，也不應該再用。你可能需要退還相關發票的款項（如果有）。\n"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__name

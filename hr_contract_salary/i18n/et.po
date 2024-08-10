@@ -18,8 +18,9 @@
 # JanaAvalah, 2023
 # Piia Paurson <piia@avalah.ee>, 2023
 # Mihkel avalah, 2023
-# Anna, 2023
 # Birgit Vijar, 2024
+# Anna, 2024
+# Siim Raasuke, 2024
 # 
 msgid ""
 msgstr ""
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Birgit Vijar, 2024\n"
+"Last-Translator: Siim Raasuke, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,6 +42,8 @@ msgid ""
 " If checked, any change on this information will trigger a new computation "
 "of the gross-->net salary."
 msgstr ""
+"Kui märgistatud, käivitab igasugune muudatus selle teabe juures uue "
+"brutotasu --> netotasu arvutuse."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__signatures_count
@@ -85,6 +88,15 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>Palju õnne!</h2>\n"
+"    Saate oma palgapaketti konfigureerida, klõpsates alloleval lingil.<br>\n"
+"    See link aegub kuupäeval <t t-out=\"ctx.get('validity_end')\"></t>.\n"
+"    <div style=\"padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Konfigureerige oma pakett</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
 
 #. module: hr_contract_salary
 #: model:mail.template,body_html:hr_contract_salary.mail_template_send_offer_applicant
@@ -99,6 +111,15 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>Palju õnne!</h2>\n"
+"    Saate oma palgapaketti konfigureerida, klõpsates alloleval lingil.<br>\n"
+"    See link aegub kuupäeval <t t-out=\"ctx.get('validity_end')\"></t>.\n"
+"    <div style=\"padding: 16px 0px 16px 0px;\">\n"
+"        <a t-attf-href=\"/salary_package/simulation/offer/{{ctx.get('offer_id')}}?token={{ctx.get('access_token')}}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Konfigureerige oma pakett</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
@@ -142,6 +163,8 @@ msgid ""
 "<span class=\"text-muted fst-italic\" invisible=\"contract_id\">An offer template need to be selected to have an offer link.</span>\n"
 "                        <span class=\"text-muted fst-italic\" invisible=\"not display_warning_message\">An applicant name needs to be set to have an offer link.</span>"
 msgstr ""
+"<span class=\"text-muted fst-italic\" invisible=\"contract_id\">Pakkumise lingi saamiseks tuleb valida pakkumise mall.</span>\n"
+"                        <span class=\"text-muted fst-italic\" invisible=\"not display_warning_message\">Peab olema määratud kandidaadi nimi, et pakkumise linki saaks luua.</span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
@@ -158,6 +181,12 @@ msgid ""
 "                                    There are currently no requested fields.\n"
 "                                </span>"
 msgstr ""
+"<span>\n"
+"                                    Seda välja saab muuta ainult serveri administraator. Kui sellele väljale on vajalikud muudatused, võtke ühendust administraatoriga.\n"
+"                                </span>\n"
+"                                <span invisible=\"requested_documents_fields_string\">\n"
+"                                    Praegu ei ole nõutud välju.\n"
+"                                </span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
@@ -259,6 +288,8 @@ msgid ""
 "current one to be editable. Before edition, the current benefit is always "
 "set to false."
 msgstr ""
+"Kõik hüvitised selles väljas peavad olema valitud, et praegust hüvitist "
+"saaks muuta. Enne muutmist on praegune hüvitis alati seatud valeks."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__always
@@ -384,7 +415,7 @@ msgstr "Eelis"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid "Benefit Field"
-msgstr ""
+msgstr "Hüvitise väli"
 
 #. module: hr_contract_salary
 #: model:ir.actions.act_window,name:hr_contract_salary.hr_contract_benefit_action
@@ -399,11 +430,12 @@ msgstr "Eelised"
 #, python-format
 msgid "Benefits that are not linked to a field should always be displayed."
 msgstr ""
+"Hüvitised, mis ei ole seotud ühegi väljaga, peaksid alati olema nähtavad."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_public
 msgid "Benefit Field"
-msgstr ""
+msgstr "Hüvitise väli"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_birthdate
@@ -443,6 +475,9 @@ msgid ""
 "- Employee signs his contract: Activity is created as soon as the employee signed the contract\n"
 "- Contract is countersigned: HR responsible have signed the contract and conclude the process."
 msgstr ""
+"Vali, millal tegevus luuakse:\n"
+"- Töötaja allkirjastab oma lepingu: Tegevus luuakse kohe, kui töötaja on lepingu allkirjastanud.\n"
+"- Leping on vastallkirjastatud: HR vastutaja on lepingu allkirjastanud ja protsess on lõpetatud."
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_city
@@ -479,7 +514,7 @@ msgstr "Lepingu hüvitise tüüp"
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_benefit_value
 msgid "Contract Benefit Value"
-msgstr ""
+msgstr "Lepingu hüvitise väärtus"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -535,7 +570,7 @@ msgstr "Lepingu ja töötaja analüüsi raport"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid "Contract field linked to this benefit"
-msgstr ""
+msgstr "Lepingu väli, mis on seotud selle hüvitisega"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_id
@@ -543,6 +578,8 @@ msgid ""
 "Contract field linked to this benefit cost. If not set, the benefit won't be"
 " taken into account when computing the employee budget."
 msgstr ""
+"Lepingu väli, mis on seotud selle hüvitise kuludega. Kui see ei ole "
+"määratud, ei arvestata hüvitist töötaja eelarvet arvutades."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
@@ -553,6 +590,7 @@ msgstr ""
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__manual_res_field_id
 msgid "Contract field used to manually encode an benefit value."
 msgstr ""
+"Lepingu väli, mida kasutatakse hüvitise väärtuse käsitsi sisestamiseks."
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_history
@@ -674,7 +712,7 @@ msgstr "Vaikimisi juurdepääsukoodi kehtivusaeg"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_res_config_settings__employee_salary_simulator_link_validity
 msgid "Default Salary Configurator Link Validity Duration For Employees"
-msgstr ""
+msgstr "Vaikimisi palga konfigureerija lingi kehtivuse kestus töötajatele"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_job__default_contract_id
@@ -682,6 +720,9 @@ msgid ""
 "Default contract used to generate an offer. If empty, benefits will be taken"
 " from current contract of the employee/nothing for an applicant."
 msgstr ""
+"Vaikimisi leping, mida kasutatakse pakkumise genereerimiseks. Kui see on "
+"tühi, võetakse hüvitised töötaja hetkelepingust või ei pakuta midagi "
+"kandidaadile."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__default_contract_id
@@ -715,6 +756,9 @@ msgid ""
 "- When the benefit is set: Unique creation the first time the employee will take the benefit\n"
 "- When the benefit is modified: Activity will be created for each change regarding the benefit."
 msgstr ""
+"Määra, millal süsteem loob uue tegevuse:\n"
+"- Kui hüvitis on määratud: Unikaalne loomine esmakordselt, kui töötaja kasutab hüvitist.\n"
+"- Kui hüvitist muudetakse: Tegevus luuakse iga muudatuse kohta, mis puudutab hüvitist."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__sign_frenquency
@@ -723,6 +767,9 @@ msgid ""
 "- When the benefit is set: Unique signature request the first time the employee will take the benefit\n"
 "- When the benefit is modified: Signature request will be created for each change regarding the benefit."
 msgstr ""
+"Määra, millal süsteem loob uue allkirja taotluse:\n"
+"- Kui hüvitis on määratud: Unikaalne allkirja taotlus esmakordselt, kui töötaja kasutab hüvitist.\n"
+"- Kui hüvitist muudetakse: Allkirja taotlus luuakse iga muudatuse kohta, mis puudutab hüvitist."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__department_id
@@ -796,6 +843,9 @@ msgid ""
 "signatures related to the benefit. eg: A company car policy to approve if "
 "you choose a company car."
 msgstr ""
+"Siia valitud dokumendid esitatakse töötajale täiendavate allkirjade "
+"saamiseks, mis on seotud hüvitisega. Näiteks: ettevõtte auto poliitika, kui "
+"valid ettevõtte auto."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -1101,6 +1151,8 @@ msgid ""
 "If checked, the value of this information will be computed in all "
 "information set as Monthly Total"
 msgstr ""
+"Kui märgistatud, arvutatakse selle teabe väärtus kõigis teabe kogumites, mis"
+" on määratud kui Kuu Kogusumma."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__image_1920
@@ -1134,6 +1186,8 @@ msgid ""
 "In addition to your legal leaves, you can chose up to 30 extra days off.\n"
 "            The amount of annual time off (legal leaves) you get depends on your work schedule in the previous year. A full-time work schedule through the 12 months of the last year, under your contract, will grant you 20 annual time off (legal leaves)."
 msgstr ""
+"Peale seaduslike puhkepäevade saad valida kuni 30 täiendavat puhkepäeva.\n"
+"            Aasta puhkepäevade arv (seaduslikud puhkepäevad), mida saad, sõltub eelmise aasta tööplaanist. Täistööajaga tööplaan eelmise aasta 12 kuu jooksul annab sulle 20 seaduslikku puhkepäeva.\""
 
 #. module: hr_contract_salary
 #. odoo-javascript
@@ -1175,7 +1229,7 @@ msgstr "On nõutud"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__is_origin_contract_template
 msgid "Is origin contract a contract template?"
-msgstr ""
+msgstr "Kas päritolev leping on lepingumall?"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1613,6 +1667,12 @@ msgid ""
 "Sum of Benefits value: You can pick in all benefits and compute a sum of them\n"
 "Monthly Total: The information will be a total of all the informations in the category Monthly Benefits"
 msgstr ""
+"Valige, kuidas teabe väärtus arvutatakse:\n"
+"Fikseeritud väärtus: Määrake määratud väärtus, mis on staatiline kõigi linkide jaoks\n"
+"Lepinguväärtus: Hankige väärtus lepingurekordi väljast\n"
+"Palgalehe väärtus: Hankige väärtus palgalehe andmete väljast\n"
+"Hüvede summa: Valige kõik hüved ja arvutage nende summa\n"
+"Kuu kokku: Teave on kõikide kategooria \"Kuu hüved\" teabe kogusumma"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_place_of_birth
@@ -1794,7 +1854,7 @@ msgstr "Palgapakkumiste arv"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_tree
 msgid "Salary Package Benefit"
-msgstr ""
+msgstr "Palgapaketi hüvis"
 
 #. module: hr_contract_salary
 #: model:ir.ui.menu,name:hr_contract_salary.salary_package_menu
@@ -1807,12 +1867,12 @@ msgstr "Palgapaketi konfiguratsioon"
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_offer
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "Salary Package Offer"
-msgstr ""
+msgstr "Palgapaketi pakkumine"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_tree
 msgid "Salary Package Offers"
-msgstr ""
+msgstr "Palgapaketi pakkumised"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_personal_info
@@ -2057,7 +2117,7 @@ msgstr "Struktuuri tüüp"
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_resume__value_type__sum
 msgid "Sum of Benefits Values"
-msgstr ""
+msgstr "Hüvede väärtuse summa"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__sign_template_id
@@ -2091,6 +2151,8 @@ msgid ""
 "The employee does not have a valid work email set. The Simulation Link won't"
 " be able to be completed."
 msgstr ""
+"Töötajal ei ole määratud kehtivat töö-e-posti aadressi. Simulatsioonilinki "
+"ei saa lõpule viia."
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2123,6 +2185,8 @@ msgid ""
 "The type of activity that will be created automatically on the contract if "
 "this benefit is chosen by the employee."
 msgstr ""
+"Tüüp tegevusest, mis luuakse automaatselt lepingus, kui töötaja valib selle "
+"hüve."
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_benefits
@@ -2157,7 +2221,7 @@ msgstr "See link on kehtetu. Uue hankimiseks võtke ühendust HR vastutajaga..."
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "This offer has been updated, please request an updated link.."
-msgstr ""
+msgstr "See pakkumine on uuendatud, palun küsige uuendatud linki..."
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2165,7 +2229,7 @@ msgstr ""
 #: code:addons/hr_contract_salary/controllers/main.py:0
 #, python-format
 msgid "This offer is outdated, please request an updated link..."
-msgstr ""
+msgstr "See pakkumine on aegunud, palun küsige uuendatud linki..."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__display_name
@@ -2275,18 +2339,18 @@ msgstr "Veebilehe suhtluse ajalugu"
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__activity_creation_type__onchange
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__sign_frenquency__always
 msgid "When the benefit is modified"
-msgstr ""
+msgstr "Kui hüvis on muudetud"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__activity_creation_type__always
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__sign_frenquency__onchange
 msgid "When the benefit is set"
-msgstr ""
+msgstr "Kui hüvis on määratud"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__show_name
 msgid "Whether the name should be displayed in the Salary Configurator"
-msgstr ""
+msgstr "Kas nime peaks kuvama palgakonfigureerijas"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_type__periodicity__yearly

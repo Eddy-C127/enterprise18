@@ -5,17 +5,17 @@
 # Translators:
 # Jolien De Paepe, 2024
 # Gunther Clauwaert <gclauwae@hotmail.com>, 2024
-# Wil Odoo, 2024
 # Martin Trigaux, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 14:45+0000\n"
+"POT-Creation-Date: 2024-07-17 13:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,6 +313,11 @@ msgid "Accounting Report"
 msgstr "Boekhoudkundig rapport"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_report_expression
+msgid "Accounting Report Expression"
+msgstr "Boekhoudkundige rapportuitdrukking"
+
+#. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
 msgstr "Boekhoudkundige rapportregel"
@@ -495,6 +500,15 @@ msgstr "Totaal te ontvangen"
 #, python-format
 msgid "All Report Variants"
 msgstr "Alle rapportvarianten"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid ""
+"All selected companies or branches do not share the same Tax ID. Please "
+"checkthe Tax ID of the selected companies."
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -787,6 +801,13 @@ msgid "Carryover from %s to %s"
 msgstr "Overdracht van %s naar %s"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Carryover lines for: %s"
+msgstr "Overdrachtsregels voor: %s"
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
 msgstr "Kas"
@@ -910,6 +931,13 @@ msgstr "Verander verwachte datum"
 #, python-format
 msgid "Change expected payment date"
 msgstr "Verander verwachte betalingsdatum"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Check them"
+msgstr "Controleer ze"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -3150,6 +3178,13 @@ msgstr "Sommige"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Some journal items appear to point to obsolete report lines."
+msgstr "Sommige boekingen lijken te wijzen op verouderde rapportregels."
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
@@ -4025,6 +4060,13 @@ msgstr "[Concept]"
 #, python-format
 msgid "addressed to"
 msgstr "verstuurd naar"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "and correct their tax tags if necessary."
+msgstr "en corrigeer wanneer nodig hun btw-labels."
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year

@@ -15,20 +15,21 @@
 # Donatas <donatasvaliulis16@gmail.com>, 2023
 # Anatolij, 2023
 # Monika Raciunaite <monika.raciunaite@gmail.com>, 2023
-# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2023
 # Jonas Zinkevicius <jozi@odoo.com>, 2023
 # UAB "Draugiški sprendimai" <transifex@draugiskisprendimai.lt>, 2023
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Linas Versada <linaskrisiukenas@gmail.com>, 2023
+# Greta Šeštokė, 2024
+# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-26 16:09+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Linas Versada <linaskrisiukenas@gmail.com>, 2023\n"
+"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,6 +89,16 @@ msgstr ""
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__favorite_count
 msgid "#Is Favorite"
+msgstr ""
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
+"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
+"have it restored instead."
 msgstr ""
 
 #. module: knowledge
@@ -1050,6 +1061,13 @@ msgstr ""
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
+msgid ""
+"<span style=\"font-size: 14px;\">Not sure how to do it? Check the video "
+"below 👇</span>"
+msgstr ""
+
+#. module: knowledge
+#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "<span style=\"font-size: 14px;\">Press Ctrl-Z to undo any change</span>"
 msgstr ""
 
@@ -1959,6 +1977,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_item_calendar
@@ -2907,7 +2926,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.xml:0
+#: code:addons/knowledge/static/src/components/embedded_view_actions_menu/embedded_view_actions_menu.xml:0
 #, python-format
 msgid "Edit"
 msgstr "Redaguoti"
@@ -3123,6 +3142,13 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_3
 msgid "Gender(s): W"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#, python-format
+msgid "Generate an Article with AI"
 msgstr ""
 
 #. module: knowledge
@@ -4084,7 +4110,7 @@ msgstr "Nariai"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__article_member_ids
 msgid "Members Information"
-msgstr ""
+msgstr "Informacija nariams"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__root_article_id
@@ -4199,15 +4225,6 @@ msgstr ""
 #, python-format
 msgid "Move to Workspace"
 msgstr "Perkelti į darbo erdvę"
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"Move to target of %(article_name)s is ambiguous, you should specify the "
-"category."
-msgstr ""
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__my_activity_date_deadline
@@ -4390,11 +4407,6 @@ msgid "No template yet."
 msgstr ""
 
 #. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Not sure how to do it?"
-msgstr ""
-
-#. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
 #, python-format
@@ -4483,6 +4495,13 @@ msgid "Ongoing"
 msgstr "Vykstantis"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
+#, python-format
+msgid "Only Internal Users can access this view."
+msgstr ""
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 #: code:addons/knowledge/models/knowledge_article.py:0
@@ -4531,7 +4550,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.xml:0
+#: code:addons/knowledge/static/src/components/embedded_view_actions_menu/embedded_view_actions_menu.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 #, python-format
@@ -4773,7 +4792,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
 #, python-format
 msgid "Private"
-msgstr ""
+msgstr "Privatus"
 
 #. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_product_management
@@ -4924,7 +4943,6 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.xml:0
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.xml:0
 #, python-format
 msgid "Rename"
@@ -5157,11 +5175,6 @@ msgstr "Sekcija"
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "See a doctor and send us the sick note."
-msgstr ""
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "See how it works <i class=\"fa fa-youtube-play\"/>"
 msgstr ""
 
 #. module: knowledge
@@ -5583,6 +5596,15 @@ msgstr ""
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid "The article '%s' needs at least one member with 'Write' access."
+msgstr ""
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"The destination placement of %(article_name)s is ambiguous, you should "
+"specify the category."
 msgstr ""
 
 #. module: knowledge
@@ -6101,6 +6123,13 @@ msgid "Write"
 msgstr ""
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
+#, python-format
+msgid "Write an article about"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 msgid ""
 "Write it without any article(<em><s>the</s> YourCompany, <s>a</s> "
@@ -6187,6 +6216,15 @@ msgstr ""
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #, python-format
 msgid "You can't leave an article for which you are the last writer"
+msgstr ""
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"You can't move %(article_name)s under %(item_name)s, as %(item_name)s is an "
+"Article Item. Convert %(item_name)s into an Article first."
 msgstr ""
 
 #. module: knowledge

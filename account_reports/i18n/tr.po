@@ -19,17 +19,18 @@
 # Levent Karakaş <levent@mektup.at>, 2023
 # Tugay Hatıl <tugayh@projetgrup.com>, 2023
 # Murat Kaplan <muratk@projetgrup.com>, 2024
-# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # Ediz Duman <neps1192@gmail.com>, 2024
 # Ayhan Kızıltan, 2024
+# Ömer ABA <omeraba93@gmail.com>, 2024
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 14:45+0000\n"
+"POT-Creation-Date: 2024-07-17 13:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ayhan Kızıltan, 2024\n"
+"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -315,6 +316,11 @@ msgid "Accounting Report"
 msgstr "Muhasebe Raporu"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_report_expression
+msgid "Accounting Report Expression"
+msgstr "Muhasebe Raporu İfadesi"
+
+#. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
 msgstr "Muhasebe Rapor Satırı"
@@ -497,6 +503,15 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Report Variants"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid ""
+"All selected companies or branches do not share the same Tax ID. Please "
+"checkthe Tax ID of the selected companies."
 msgstr ""
 
 #. module: account_reports
@@ -789,6 +804,13 @@ msgid "Carryover from %s to %s"
 msgstr ""
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Carryover lines for: %s"
+msgstr "Devreden satırlar: %s"
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
 msgstr "Kasa"
@@ -912,6 +934,13 @@ msgstr ""
 #, python-format
 msgid "Change expected payment date"
 msgstr "Beklenen ödeme tarihini değiştir."
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Check them"
+msgstr "Onları kontrol et"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -3079,7 +3108,7 @@ msgstr "Ara..."
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Sections"
-msgstr ""
+msgstr "Bölümler"
 
 #. module: account_reports
 #. odoo-python
@@ -3110,6 +3139,13 @@ msgstr "Uyarı Hareketini Göster"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Some journal items appear to point to obsolete report lines."
 msgstr ""
 
 #. module: account_reports
@@ -3929,6 +3965,13 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "addressed to"
+msgstr ""
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "and correct their tax tags if necessary."
 msgstr ""
 
 #. module: account_reports

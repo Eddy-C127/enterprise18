@@ -10,6 +10,7 @@
 # Arma Gedonsky <armagedonsky@hot.ee>, 2023
 # Martin Trigaux, 2023
 # Anna, 2023
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2023\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +50,15 @@ msgstr "%(name)s pilet"
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_done
 msgid "Alright, we should have everything we need"
 msgstr "Olgu, meil peaks olema nüüd kõik mida vajame"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/chatbot_script.py:0
+#, python-format
+msgid ""
+"An \"Email\" step type must exist before the \"Create Ticket\" step for a "
+"ticket to be created."
+msgstr "Pileti loomiseks on vajalik \"Email\" etapp enne \"Loo pilet\" etappi."
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial_misc

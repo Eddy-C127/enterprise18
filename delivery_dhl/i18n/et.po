@@ -12,8 +12,9 @@
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Eneli Õigus <enelioigus@gmail.com>, 2023
 # JanaAvalah, 2023
-# Anna, 2023
 # Birgit Vijar, 2024
+# Anna, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Birgit Vijar, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +33,7 @@ msgstr ""
 #. module: delivery_dhl
 #: model_terms:ir.ui.view,arch_db:delivery_dhl.view_delivery_carrier_form_with_provider_dhl
 msgid "'rate': {}, 'ship': {}, 'return': {}"
-msgstr ""
+msgstr "'rate': {}, 'ship': {}, 'return': {}"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__0
@@ -137,7 +138,7 @@ msgstr "9 - Europack"
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__a
 msgid "A - Auto Reversals"
-msgstr ""
+msgstr "A - Automaatne tühistamine"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_region_code__am
@@ -147,7 +148,7 @@ msgstr "Ameerika"
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_region_code__ap
 msgid "Asia Pacific"
-msgstr ""
+msgstr "Aasia ja Vaikse ookeani piirkond"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__b
@@ -157,7 +158,7 @@ msgstr ""
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__c
 msgid "C - Medical Express"
-msgstr ""
+msgstr "C - Meditsiiniline kiirteenus"
 
 #. module: delivery_dhl
 #: model:ir.model.fields,field_description:delivery_dhl.field_stock_package_type__package_carrier_type
@@ -217,7 +218,7 @@ msgstr "DHL dokumendid"
 #: model:delivery.carrier,name:delivery_dhl.delivery_carrier_dhl_eu_dom
 #: model:product.template,name:delivery_dhl.product_product_delivery_dhl_eu_dom_product_template
 msgid "DHL EU"
-msgstr ""
+msgstr "DHL EU"
 
 #. module: delivery_dhl
 #: model:delivery.carrier,name:delivery_dhl.delivery_carrier_dhl_eu_intl
@@ -262,7 +263,7 @@ msgstr "DHL SiteID"
 #: model:delivery.carrier,name:delivery_dhl.delivery_carrier_dhl_us_dom
 #: model:product.template,name:delivery_dhl.product_product_delivery_dhl_us_dom_product_template
 msgid "DHL US"
-msgstr ""
+msgstr "DHL US"
 
 #. module: delivery_dhl
 #: model:delivery.carrier,name:delivery_dhl.delivery_carrier_dhl_us_intl
@@ -389,7 +390,7 @@ msgstr "Sildi formaat"
 #. module: delivery_dhl
 #: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_label_image_format
 msgid "Label Image Format"
-msgstr ""
+msgstr "Sildista pildi formaat"
 
 #. module: delivery_dhl
 #: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_label_template
@@ -429,7 +430,7 @@ msgstr "PDF"
 #. module: delivery_dhl
 #: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_package_dimension_unit
 msgid "Package Dimension Unit"
-msgstr ""
+msgstr "Paki mõõtühik"
 
 #. module: delivery_dhl
 #: model:ir.model.fields,field_description:delivery_dhl.field_delivery_carrier__dhl_package_weight_unit
@@ -465,7 +466,7 @@ msgstr "Hind"
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__q
 msgid "Q - Medical Express"
-msgstr ""
+msgstr "Q - Meditsiiniline kiirteenus"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__r
@@ -566,12 +567,12 @@ msgstr ""
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__u
 msgid "U - Express Worldwide"
-msgstr ""
+msgstr "U - Ülemaailmne kiirteenus"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__v
 msgid "V - Europack"
-msgstr ""
+msgstr "V - Europack"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__w
@@ -586,7 +587,7 @@ msgstr ""
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__y
 msgid "Y - Express 12:00"
-msgstr ""
+msgstr "Y - Kiirteenus 12:00"
 
 #. module: delivery_dhl
 #. odoo-python
@@ -605,7 +606,7 @@ msgstr ""
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_product_code__z
 msgid "Z - Destination Charges"
-msgstr ""
+msgstr "Z - Sihtkohatasud"
 
 #. module: delivery_dhl
 #: model:ir.model.fields.selection,name:delivery_dhl.selection__delivery_carrier__dhl_label_image_format__zpl2

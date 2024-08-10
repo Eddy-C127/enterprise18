@@ -5,12 +5,12 @@
 # Translators:
 # Quim - eccit <quim@eccit.com>, 2023
 # jabiri7, 2023
-# Óscar Fonseca <tecnico@pyming.com>, 2023
 # Martin Trigaux, 2023
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
 # Josep Anton Belchi, 2023
 # Ivan Espinola, 2023
 # marcescu, 2023
+# Óscar Fonseca <tecnico@pyming.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: marcescu, 2023\n"
+"Last-Translator: Óscar Fonseca <tecnico@pyming.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,8 +155,8 @@ msgid ""
 "The next month work entries are not generated yet or are validated already "
 "for time off %s"
 msgstr ""
-"Les entrades de treball del mes següent encara no es generen o es validen ja"
-" per temps desactivat %s"
+"Les prestacions del mes vinent encara no s'han generat o ja han estat "
+"validades per l'absència %s"
 
 #. module: hr_payroll_holidays
 #. odoo-python
@@ -177,8 +177,7 @@ msgid ""
 "The time off %s can not be reported because it is defined over more than 2 "
 "months"
 msgstr ""
-"Temps desactivat %s no es pot informar perquè està definit durant més de 2 "
-"mesos"
+"L'Absència %s no es pot ajornar perquè està establert per a més de 2 mesos."
 
 #. module: hr_payroll_holidays
 #. odoo-python
@@ -207,6 +206,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_payroll_holidays.res_config_settings_view_form
 msgid "Time Off"
 msgstr "Absències"
+
+#. module: hr_payroll_holidays
+#. odoo-python
+#: code:addons/hr_payroll_holidays/models/hr_payslip.py:0
+#, python-format
+msgid "Time Off Not Related To An Allocation"
+msgstr ""
 
 #. module: hr_payroll_holidays
 #. odoo-python
@@ -260,6 +266,13 @@ msgstr "Temps lliure validat per a ajornar"
 #, python-format
 msgid "You have some"
 msgstr "Vostè té alguns"
+
+#. module: hr_payroll_holidays
+#. odoo-javascript
+#: code:addons/hr_payroll_holidays/static/src/views/hooks.js:0
+#, python-format
+msgid "You have some <button>time off</button> to defer to the next month."
+msgstr ""
 
 #. module: hr_payroll_holidays
 #. odoo-javascript

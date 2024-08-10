@@ -8,19 +8,19 @@
 # Zsolt Godó <zsolttokio@gmail.com>, 2023
 # Tamás Dombos, 2023
 # Krisztián Juhász <juhasz.krisztian@josafar.hu>, 2023
-# gezza <geza.nagy@oregional.hu>, 2023
 # Martin Trigaux, 2023
 # Tamás Németh <ntomasz81@gmail.com>, 2023
 # Ákos Nagy <akos.nagy@oregional.hu>, 2023
 # krnkris, 2023
+# gezza <geza.nagy@oregional.hu>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: krnkris, 2023\n"
+"Last-Translator: gezza <geza.nagy@oregional.hu>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,6 +33,13 @@ msgstr ""
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
 #, python-format
 msgid " + Add a tag"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#, python-format
+msgid "%s (remaining pages)"
 msgstr ""
 
 #. module: documents
@@ -92,12 +99,12 @@ msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2017
-msgid "2022"
+msgid "2023"
 msgstr ""
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_fiscal_year_2018
-msgid "2023"
+msgid "2024"
 msgstr ""
 
 #. module: documents
@@ -117,6 +124,13 @@ msgstr ""
 msgid ""
 "<br/>\n"
 "                    is sharing content with you"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "<b>Select</b> this page to continue."
 msgstr ""
 
 #. module: documents
@@ -720,6 +734,12 @@ msgid "Archived"
 msgstr "Archivált"
 
 #. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved to trash"
+msgstr ""
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_search
 msgid "Archived Workspace"
 msgstr ""
@@ -946,6 +966,13 @@ msgstr "Bezárás"
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close split tools"
+msgstr ""
+
+#. module: documents
+#. openerp-web
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
 msgstr ""
 
 #. module: documents
@@ -2033,6 +2060,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
 #, python-format
 msgid "Move to trash"
 msgstr ""
@@ -2216,7 +2244,7 @@ msgstr "Hibák száma"
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction_counter
 #: model:ir.model.fields,help:documents.field_documents_share__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Üzenetek száma, melyek akciót igényelnek"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_has_error_counter
@@ -2543,6 +2571,12 @@ msgid "Restore"
 msgstr "Visszaállítás"
 
 #. module: documents
+#: code:addons/documents/models/folder.py:0
+#, python-format
+msgid "Restricted Folder"
+msgstr ""
+
+#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_has_sms_error
 msgid "SMS Delivery error"
@@ -2641,7 +2675,7 @@ msgstr "Sorszám"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
-msgid "Set As 2023 Contracts"
+msgid "Set As 2024 Contracts"
 msgstr ""
 
 #. module: documents

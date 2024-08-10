@@ -32,7 +32,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__answered_customer_message_count
 msgid "# Exchanges"
-msgstr ""
+msgstr "# Udvekslinger"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__open_ticket_count
@@ -66,7 +66,7 @@ msgstr "%s (kopi)"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_sla_view_form
 msgid "(any of these tags)"
-msgstr ""
+msgstr "(enhver af disse tags)"
 
 #. module: helpdesk
 #: model:helpdesk.sla,name:helpdesk.helpdesk_sla_1
@@ -81,7 +81,7 @@ msgstr "7 dage til lukning"
 #. module: helpdesk
 #: model:helpdesk.sla,name:helpdesk.helpdesk_sla_3
 msgid "8 hours to finish"
-msgstr ""
+msgstr "8 timer til slut"
 
 #. module: helpdesk
 #: model_terms:digest.tip,tip_description:helpdesk.digest_tip_helpdesk_0
@@ -104,6 +104,9 @@ msgid ""
 "persons you specifically tag). Use <b>@ mentions</b> to ping a colleague or "
 "<b># mentions</b> to contact a group of people."
 msgstr ""
+"<b>Log noter</b> til intern kommunikation (du vil kun underrette de "
+"personer, du specifikt tagger). Brug <b>@ omtal</b> til at pinge en kollega "
+"eller <b># omtale</b> for at kontakte en gruppe personer."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -131,6 +134,17 @@ msgid ""
 "    </div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"        Kære<t t-out=\"object.sudo().partner_id.name or 'Madam/Sir'\">Fru/Hr</t>,<br><br>\n"
+"       Vi vil gerne informere dig om, at vi har lukket din sag (reference <t t-out=\"object.id or ''\">15</t>). \n"
+"        Vi stoler på, at de leverede tjenester har levet op til dine forventninger, og at du har fundet en tilfredsstillende løsning på dit problem<br><br>\n"
+"       Men hvis du har yderligere spørgsmål eller kommentarer, så tøv ikke med at besvare denne e-mail for at genåbne din sag. \n"
+"        Vores team er altid her for at hjælpe dig, og vi vil med glæde hjælpe dig med eventuelle yderligere bekymringer, du måtte have.<br><br>\n"
+"       tak for dit valg af vores tjenester og for dit samarbejde gennem hele denne proces. Vi værdsætter virkelig din virksomhed og værdsætter muligheden for at tjene dig.<br><br>\n"
+"        Venlig Hilsen,<br><br>\n"
+"        <t t-out=\"object.team_id.name or 'Helpdesk'\">Helpdesk</t> Team.\n"
+"    </div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.rating_ticket_request_email_template
@@ -193,6 +207,63 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"access_token\" t-value=\"object._rating_get_access_token()\"></t>\n"
+"    <t t-set=\"partner\" t-value=\"object._rating_get_partner()\"></t>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0;\">\n"
+"    <tbody>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            <t t-if=\"partner.name\">\n"
+"                Hej<t t-out=\"partner.name or ''\">Brandon Freeman</t>,<br><br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                Hej,<br>\n"
+"            </t>\n"
+"            Brug venligst et øjeblik på at bedømme vores tjenester relateret til sagen\"<strong t-out=\"object.name or ''\">Bordbenene er ubalancerede</strong>\"\n"
+"            <t t-if=\"object._rating_get_operator().name\">\n"
+"                tildelt til <strong t-out=\"object._rating_get_operator().name or ''\">Mitchell Admin</strong>.<br><br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                .<br><br>\n"
+"            </t>\n"
+"        </td></tr>\n"
+"        <tr><td style=\"text-align: center;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"o_mail_notification\" style=\"width:100%; margin: 32px 0px 32px 0px;\">\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <strong>Fortæl os, hvordan du har det med vores tjenester</strong><br>\n"
+"                    <span style=\"text-color: #888888\">(klik på en af ​​disse smileys)</span>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <table style=\"width:100%;text-align:center;margin-top:2rem;\">\n"
+"                        <tr>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/5\">\n"
+"                                    <img alt=\"Satisfied\" src=\"/rating/static/src/img/rating_5.png\" title=\"Satisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/3\">\n"
+"                                    <img alt=\"Okay\" src=\"/rating/static/src/img/rating_3.png\" title=\"Okay\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/1\">\n"
+"                                    <img alt=\"Dissatisfied\" src=\"/rating/static/src/img/rating_1.png\" title=\"Dissatisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td></tr>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            Vi sætter pris på din feedback. Det hjælper os med at forbedre os løbende.\n"
+"            <br><br><span style=\"margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;\">Denne kundeundersøgelse er blevet sendt, fordi din sagen er blevet flyttet til scenen <b t-out=\"object.stage_id.name or ''\">Igangværende</b>.</span>\n"
+"        </td></tr>\n"
+"    </tbody>\n"
+"    </table>\n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.new_ticket_request_email_template
@@ -230,6 +301,38 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    Kære<t t-out=\"object.sudo().partner_id.name or object.sudo().partner_name or 'Madam/Sir'\">Fru/Hr</t>,<br><br>\n"
+"    Diin forespørgelse\n"
+"    <t t-if=\"object.get_portal_url()\">\n"
+"        <a t-attf-href=\"/my/ticket/{{ object.id }}/{{ object.access_token }}\" t-out=\"object.name or ''\">Bordbenene er ubalancerede</a>\n"
+"    </t>\n"
+"    som modtaget og bliver gennemgået af vores <t t-out=\"object.team_id.name or ''\">VIP Support</t> team.<br><br>\n"
+"   Referencen for din sag er <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
+"\n"
+"   For at give yderligere oplysninger skal du blot besvare denne e-mail.<br><br>\n"
+"    <t t-if=\"object.team_id.show_knowledge_base\">\n"
+"        Tøv ikke med at besøge vores <a t-attf-href=\"{{ object.team_id.get_knowledge_base_url() }}\">Help Center</a>. Du kan måske finde svaret på dit spørgsmål.\n"
+"        <br><br>\n"
+"    </t>\n"
+"    <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
+"        Du er velkommen til at lukke din sag, hvis der ikke længere er brug for vores hjælp. Tak for dit samarbejde.<br><br>\n"
+"    </t>\n"
+"\n"
+"    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
+"        <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.get_portal_url()\" target=\"_blank\">Vis sag</a>\n"
+"        <t t-if=\"object.team_id.allow_portal_ticket_closing\">\n"
+"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"'/my/ticket/close/%s/%s' % (object.id, object.access_token)\" target=\"_blank\">Luk sag</a>\n"
+"        </t>\n"
+"        <t t-if=\"object.team_id.use_website_helpdesk_forum or object.team_id.use_website_helpdesk_knowledge or object.team_id.use_website_helpdesk_slides\">\n"
+"            <a style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\" t-att-href=\"object.team_id.feature_form_url\" target=\"_blank\">Besøg Help Center</a>\n"
+"        </t><br><br>\n"
+"    </div>\n"
+"\n"
+"    Bedste hilsner,<br><br>\n"
+"    <t t-out=\"object.team_id.name or 'Helpdesk'\">Helpdesk</t> Team\n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -269,6 +372,10 @@ msgid ""
 " this by navigating to the General Settings and configuring the "
 "corresponding field.</span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\" role=\"img\"/><span class=\"ms-2\">For at "
+"bruge et e-mail-alias er det første trin at konfigurere et Alias-domæne. Du "
+"kan opnå dette ved at navigere til de generelle indstillinger og konfigurere"
+" det tilsvarende felt</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -280,6 +387,12 @@ msgid ""
 "                                    Type <b>:shortcut</b> to insert canned responses in your messages\n"
 "                                </span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/>\n"
+"                                <span class=\"ms-2\">\n"
+"                                    Skriv<b>/sag</b> for at lave sager<br/>\n"
+"                                    Skriv<b>/søg_sager</b> for at finde sager<br/>\n"
+"                                    Skriv<b>:genvej</b> for at indsætte standardsvar i dine beskeder\n"
+"                                </span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -299,12 +412,12 @@ msgstr "<small class=\"text-end\">Fase:</small>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<small class=\"text-muted\">Assigned to</small>"
-msgstr ""
+msgstr "<small class=\"text-muted\">Tildelt til</small>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<small class=\"text-muted\">Customer</small>"
-msgstr ""
+msgstr "<small class=\"text-muted\">Kunde</small>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
@@ -335,12 +448,12 @@ msgstr "<span class=\"o_field_widget o_readonly_modifier\">Arbejdstimer</span>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "<span class=\"o_stat_text order-2\">Open</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text order-2\">Åbne</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "<span class=\"o_stat_text order-2\">Tickets</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text order-2\">Sager</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -349,6 +462,9 @@ msgid ""
 "                                    Avg. Rating\n"
 "                                </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                                    Gennemsnitlig bedømmelse\n"
+"                                </span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_partner_form_inherit_helpdesk
@@ -398,7 +514,7 @@ msgstr "<span>Rapportering</span>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span>SLA Success Rate</span>"
-msgstr ""
+msgstr "<span>SLA-succesrate</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -415,7 +531,7 @@ msgstr "<span>Visning</span>"
 msgid ""
 "<span>Your ticket has successfully been closed. Thank you for your "
 "collaboration.</span>"
-msgstr ""
+msgstr "<span>Din sag er blevet lukket. Tak for dit samarbejde.</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -430,7 +546,7 @@ msgstr "<strong class=\"col-lg-2\">Håndteret af</strong>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
 msgid "<strong class=\"col-lg-3\">Reported on</strong>"
-msgstr ""
+msgstr "<strong class=\"col-lg-3\">Rapporteret vedr</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -531,12 +647,16 @@ msgid ""
 "Adapt your <b>pipeline</b> to your workflow by adding <b>stages</b> <i>(e.g."
 " Awaiting Customer Feedback, etc.).</i>"
 msgstr ""
+"Tilpas din <b>pipeline</b> til din arbejdsgang ved at tilføje <b>stadier</b>"
+" <i>(f.eks. Afventer kundefeedback mv.).</i>"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_stage_action
 msgid ""
 "Adapt your pipeline to your workflow and track the progress of your tickets."
 msgstr ""
+"Tilpas din pipeline til din arbejdsgang og følg fremskridtene for dine "
+"sager."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_stage_view_form
@@ -560,6 +680,8 @@ msgid ""
 "Add your stage and place it at the right step of your workflow by dragging &"
 " dropping it."
 msgstr ""
+"Tilføj din scene og placer den i det rigtige trin i din arbejdsgang ved at "
+"trække og slippe den."
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_helpdesk_manager
@@ -637,7 +759,7 @@ msgstr "Alle sager"
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__internal
 msgid "All internal users (company)"
-msgstr ""
+msgstr "Alle interne brugere (virksomhed)"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -671,7 +793,7 @@ msgstr "Er du sikker på du vil fortsætte?"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
-msgstr ""
+msgstr "Er du sikker på, at du vil slette disse stadier?"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -724,6 +846,8 @@ msgid ""
 "At each stage, employees can block tickets or mark them as ready for the next step.\n"
 "                                You can customize the meaning of each state."
 msgstr ""
+"På hvert trin kan medarbejderne blokere sager eller markere dem som klar til næste trin\n"
+"                                Du kan tilpasse betydningen af ​​hver stadie."
 
 #. module: helpdesk
 #. odoo-python
@@ -735,6 +859,10 @@ msgid ""
 "that is not publicly available, or there is no customer associated with the "
 "ticket."
 msgstr ""
+"På nuværende tidspunkt er der ingen kundeeksempel tilgængelig at vise. Den "
+"aktuelle sag kan ikke tilgås af kunden, da den tilhører et helpdesk-team, "
+"der ikke er offentligt tilgængelig, eller der ikke er nogen kunde tilknyttet"
+" sagen."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_attachment_count
@@ -745,7 +873,7 @@ msgstr "Antal vedhæftninger"
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_auto_assignment
 msgid "Auto Assigment"
-msgstr ""
+msgstr "Automatisk tildeling"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -881,6 +1009,8 @@ msgid ""
 "Centralize, manage, share and grow your knowledge library. Allow customers "
 "to search your articles in the help center for answers to their questions."
 msgstr ""
+"Centraliser, administrer, del og udvid dit vidensbibliotek. Tillad kunder at"
+" søge i dine artikler i Hjælp for at få svar på deres spørgsmål."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1064,6 +1194,8 @@ msgid ""
 "Create teams to organize your tickets by expertise or geographical region, "
 "and define a different workflow for each team."
 msgstr ""
+"Opret teams til at organisere dine sager efter ekspertise eller geografisk "
+"region, og definer en forskellig arbejdsgang for hvert team."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1244,7 +1376,7 @@ msgstr "Deadline"
 #: code:addons/helpdesk/static/src/views/helpdesk_ticket_pivot/helpdesk_ticket_pivot_model.js:0
 #, python-format
 msgid "Deadline reached"
-msgstr ""
+msgstr "Deadline nået"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_defaults
@@ -1303,7 +1435,7 @@ msgstr "Kassér"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__display_extra_info
 msgid "Display Extra Info"
-msgstr ""
+msgstr "Vis ekstra info"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__display_name
@@ -1377,6 +1509,10 @@ msgid ""
 "By default, the email will be sent from the email alias of the helpdesk team.\n"
 "Otherwise it will be sent from the company's email address, or from the catchall (as defined in the System Parameters)."
 msgstr ""
+"E-mail sendes automatisk til kunden, når sagen når dette stadie. Som "
+"standard vil e-mailen blive sendt fra e-mail-aliaset for helpdesk-teamet. "
+"Ellers vil det blive sendt fra virksomhedens e-mailadresse eller fra "
+"catchall (som defineret i systemparametrene)."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__email_cc
@@ -1479,7 +1615,7 @@ msgstr "Følg alle teamets sager"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_my_home_helpdesk_ticket
 msgid "Follow all your helpdesk tickets"
-msgstr ""
+msgstr "Følg alle dine helpdesk-sager"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search_base
@@ -1504,6 +1640,7 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr "Skrifttype awesome icon f.eks. fa-opgaver"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Future Activities"
 msgstr "Fremtidige aktiviteter"
@@ -1514,6 +1651,8 @@ msgid ""
 "Get in touch with your website visitors. Create and search tickets from your"
 " conversations. Answer in an instant by using canned responses."
 msgstr ""
+"Kom i kontakt med dine besøgende på din hjemmeside. Opret og søg sager fra "
+"dine samtaler. Svar på et øjeblik ved at bruge standardsvar."
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_analysis_action
@@ -1533,7 +1672,7 @@ msgstr "Modtag sager via en online formular"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Grant discounts, free products or free shipping"
-msgstr ""
+msgstr "Giv rabatter, gratis produkter eller gratis forsendelse"
 
 #. module: helpdesk
 #. odoo-python
@@ -1544,6 +1683,9 @@ msgid ""
 "followers. Employees automatically get access to the tickets they are "
 "assigned to."
 msgstr ""
+"Giv medarbejdere adgang til dit helpdesk-team eller sager ved at tilføje dem"
+" som følgere. Medarbejdere får automatisk adgang til de sager, de er "
+"tildelt."
 
 #. module: helpdesk
 #. odoo-python
@@ -1554,6 +1696,9 @@ msgid ""
 " followers. Customers automatically get access to their tickets in their "
 "portal."
 msgstr ""
+"Giv portalbrugere adgang til dit helpdesk-team eller sager ved at tilføje "
+"dem som følgere. Kunder får automatisk adgang til deres sager i deres "
+"portal."
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__kanban_state__done
@@ -1654,7 +1799,7 @@ msgstr "Helpdesk faser"
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_stage_delete_wizard
 msgid "Helpdesk Stage Delete Wizard"
-msgstr ""
+msgstr "Helpdesk Stage Slette Wizard"
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_helpdesk_tag
@@ -1681,7 +1826,7 @@ msgstr "Helpdesk team"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_search
 msgid "Helpdesk Team Search"
-msgstr ""
+msgstr "Helpdesk Team Søg"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_team_action
@@ -1726,7 +1871,7 @@ msgstr "Helpdesk: Anmodning om vurdering af sag"
 #. module: helpdesk
 #: model:mail.template,name:helpdesk.new_ticket_request_email_template
 msgid "Helpdesk: Ticket Received"
-msgstr ""
+msgstr "Helpdesk: Sag modtaget"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -1836,6 +1981,11 @@ msgid ""
 "If enabled, portal users will have access to your customer satisfaction statistics from the last 30 days in their portal.\n"
 "They will only have access to the ratings themselves, and not to the written feedback if any was left. You can also manually hide ratings of your choosing."
 msgstr ""
+"Hvis aktiveret, vil portalbrugere have adgang til din "
+"kundetilfredshedsstatistik fra de sidste 30 dage i deres portal. De vil kun "
+"have adgang til selve vurderingerne og ikke til den skriftlige feedback, "
+"hvis der var nogen tilbage. Du kan også manuelt skjule vurderinger efter "
+"eget valg."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_bounced_content
@@ -1878,12 +2028,12 @@ msgstr "Inaktiv periode (dage)"
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__invited_internal
 msgid "Invited internal users (private)"
-msgstr ""
+msgstr "Inviterede interne brugere (privat)"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__portal
 msgid "Invited portal users and all internal users (public)"
-msgstr ""
+msgstr "Inviterede portalbrugere og alle interne brugere (offentlig)"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__message_is_follower
@@ -1909,11 +2059,13 @@ msgid ""
 "It is necessary to enable customer ratings in the settings of your helpdesk "
 "team so that they can be displayed on the portal."
 msgstr ""
+"Det er nødvendigt at aktivere kundevurderinger i indstillingerne for dit "
+"helpdesk-team, så de kan vises på portalen."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__duration_tracking
 msgid "JSON that maps ids from a many2one field to seconds spent"
-msgstr ""
+msgstr "JSON, der kortlægger id'er fra et many2one-felt til brugte sekunder"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__legend_blocked
@@ -2005,6 +2157,7 @@ msgid "Last Updated on"
 msgstr "Sidst opdateret den"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Late Activities"
 msgstr "Overskredet aktiviteter"
@@ -2021,6 +2174,8 @@ msgid ""
 " to search your forum posts in the help center for answers to their "
 "questions."
 msgstr ""
+"Lad dine kunder svare på hinandens spørgsmål på et forum. Tillad kunder at "
+"søge i dine forumindlæg i Hjælp for at få svar på deres spørgsmål."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2405,7 +2560,7 @@ msgstr "Okay"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__oldest_unanswered_customer_message_date
 msgid "Oldest Unanswered Customer Message Date"
-msgstr ""
+msgstr "Ældste ubesvarede kundemeddelelsesdato"
 
 #. module: helpdesk
 #: model:helpdesk.stage,name:helpdesk.stage_on_hold
@@ -2488,12 +2643,12 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__is_partner_email_update
 msgid "Partner Email will Update"
-msgstr ""
+msgstr "Partner email opdateres"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__is_partner_phone_update
 msgid "Partner Phone will Update"
-msgstr ""
+msgstr "Partnertelefon vil opdatere"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_ticket_ids
@@ -2514,11 +2669,18 @@ msgid ""
 "- Invited portal users and all internal users: all internal users can access the team and all of its tickets without distinction.\n"
 "Portal users can only access the tickets they are following. This access can be modified on each ticket individually by adding or removing the portal user as follower."
 msgstr ""
+"Personer, for hvem dette helpdesk-team og dets sager vil være synlige.\n"
+"\n"
+"- Inviterede interne brugere: interne brugere kan få adgang til holdet og de sager, de følger. Denne adgang kan ændres på hver sag individuelt ved at tilføje eller fjerne brugeren som følger. En bruger med helpdesk > administratoradgangsniveau kan stadig få adgang til dette team og dets sager, selvom de ikke eksplicit er en del af følgerne.\n"
+"\n"
+"- Alle interne brugere: alle interne brugere kan få adgang til holdet og alle dets sager uden forskel.\n"
+"\n"
+"- Inviterede portalbrugere og alle interne brugere: alle interne brugere kan få adgang til holdet og alle dets sager uden forskel. Portalbrugere kan kun få adgang til de sager, de følger. Denne adgang kan ændres på hver enkelt sag ved at tilføje eller fjerne portalbrugeren som følger."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "People to whom this team and its tickets will be visible"
-msgstr ""
+msgstr "Personer, som dette team og dets sager vil være synlige for"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__rating_percentage_satisfaction
@@ -2539,6 +2701,8 @@ msgid ""
 "Percentage of tickets whose SLAs have successfully been reached on time over"
 " the total number of tickets closed within the past 7 days."
 msgstr ""
+"Procentdel af sager, hvis SLA'er er nået til tiden i forhold til det samlede"
+" antal lukkede sager inden for de seneste 7 dage."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -2624,7 +2788,7 @@ msgstr "Prioritet"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__privacy_visibility_warning
 msgid "Privacy Visibility Warning"
-msgstr ""
+msgstr "Advarsel om privatlivssynlighed"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__properties
@@ -2767,7 +2931,7 @@ msgstr "Reference"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_refund_status
 msgid "Refund Status"
-msgstr ""
+msgstr "Tilbagebetalingsstatus"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_credit_notes
@@ -2782,7 +2946,7 @@ msgstr "Reparation"
 #. module: helpdesk
 #: model:mail.message.subtype,name:helpdesk.mt_ticket_repair_status
 msgid "Repair Status"
-msgstr ""
+msgstr "Reparationsstatus"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_product_repairs
@@ -2792,7 +2956,7 @@ msgstr "Reparationer"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
 msgid "Reported on"
-msgstr ""
+msgstr "Rapporteret vedr"
 
 #. module: helpdesk
 #: model:ir.ui.menu,name:helpdesk.helpdesk_ticket_report_menu_main
@@ -2925,7 +3089,7 @@ msgstr "SLA succes"
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 #, python-format
 msgid "SLA Success Rate"
-msgstr ""
+msgstr "SLA-succesrate"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_sla_report_analysis__sla_status__ongoing
@@ -3049,6 +3213,10 @@ msgid ""
 "team. Automatically send an email to customers when a ticket reaches a "
 "specific stage in a helpdesk team by setting this template on that stage."
 msgstr ""
+"Send kunderne en bekræftelses-e-mail for at informere dem om, at deres "
+"helpdesk-sag er modtaget og i øjeblikket gennemgås af helpdesk-teamet. Send "
+"automatisk en e-mail til kunder, når en sag når et bestemt trin i et "
+"helpdesk-team ved at indstille denne skabelon på den fase."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__sequence
@@ -3065,7 +3233,7 @@ msgstr "Ydelse"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Set an Alias Domain"
-msgstr ""
+msgstr "Indstil et aliasdomæne"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3098,6 +3266,8 @@ msgid ""
 "customers to search your eLearning courses in the help center for answers to"
 " their questions."
 msgstr ""
+"Del præsentationer og videoer, og organiser dem i kurser. Tillad kunder at "
+"søge i dine eLearning-kurser i Hjælp for at få svar på deres spørgsmål."
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_rating
@@ -3107,7 +3277,7 @@ msgstr "Vis kundevurderinger"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__show_knowledge_base
 msgid "Show Knowledge Base"
-msgstr ""
+msgstr "Vis vidensbase"
 
 #. module: helpdesk
 #: model:res.groups,name:helpdesk.group_use_sla
@@ -3115,6 +3285,7 @@ msgid "Show SLA Policies"
 msgstr "Vis SLA politik"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Show all records which has next action date is before today"
 msgstr "Vis alle poster, hvor den næste aktivitetsdato er før i dag"
@@ -3212,7 +3383,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__duration_tracking
 msgid "Status time"
-msgstr ""
+msgstr "Status tid"
 
 #. module: helpdesk
 #. odoo-python
@@ -3365,6 +3536,8 @@ msgid ""
 "The visibility of the team needs to be set as \"Invited portal users and all"
 " internal users\" in order to use the website form."
 msgstr ""
+"Teamets synlighed skal indstilles som \"Inviterede portalbrugere og alle "
+"interne brugere\" for at kunne bruge hjemmesideformularen."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.portal_helpdesk_ticket
@@ -3387,6 +3560,7 @@ msgid ""
 "This SLA Policy will apply to tickets matching ALL of the following "
 "criteria:"
 msgstr ""
+"Denne SLA-politik gælder for sager, der matcher ALLE følgende kriterier"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__campaign_id
@@ -3421,14 +3595,14 @@ msgstr "Dette trin er udført. Klik for at blokere eller sætte igang."
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 #, python-format
 msgid "This ticket was closed %s hours after its SLA deadline."
-msgstr ""
+msgstr "Denne sag var lukket %s timer efter dens SLA deadline."
 
 #. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 #, python-format
 msgid "This ticket was successfully closed %s hours before its SLA deadline."
-msgstr ""
+msgstr "Denne sag blev lukket %s timer før dens SLA deadline."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_confirmation_wizard
@@ -3488,7 +3662,7 @@ msgstr "Sag lukket"
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.solved_ticket_request_email_template
 msgid "Ticket Closed - Reference {{ object.id if object.id else 15 }}"
-msgstr ""
+msgstr "Sag lukket - Reference {{ object.id if object.id else 15 }}"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla__ticket_count
@@ -3538,7 +3712,7 @@ msgstr "Sag SLA status"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.quick_create_ticket_form
 msgid "Ticket Title"
-msgstr ""
+msgstr "Sag titel"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis
@@ -3652,6 +3826,8 @@ msgid ""
 "To get things done, plan activities and use the ticket status.<br>\n"
 "                Collaborate efficiently by chatting in real-time or via email."
 msgstr ""
+"For at få tingene gjort, planlæg aktiviteter og brug sagstatus.<br>\n"
+"                Samarbejd effektivt ved at chatte i realtid eller via e-mail."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3661,6 +3837,7 @@ msgid "Today"
 msgstr "I dag"
 
 #. module: helpdesk
+#: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_search_analysis_closed
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_tickets_view_search
 msgid "Today Activities"
 msgstr "Dagens aktiviteter"
@@ -3675,7 +3852,7 @@ msgstr "Gennemsnitsvurdering i dag"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__total_response_hours
 msgid "Total Exchange Time in Hours"
-msgstr ""
+msgstr "Samlet udvekslingstid i timer"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3694,6 +3871,8 @@ msgid ""
 "Track the performance of your teams, the success rate of your tickets, and "
 "how quickly you reach your service level agreements (SLAs)."
 msgstr ""
+"Spor dine teams præstationer, succesraten for dine sager, og hvor hurtigt du"
+" når dine serviceniveauaftaler (SLA'er)."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3788,7 +3967,7 @@ msgstr "Brug <b>aktiviteter</b> til at organisere dit daglige arbejde."
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_alias
 msgid "Use Alias"
-msgstr ""
+msgstr "Brug Alias"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__use_coupons
@@ -3824,6 +4003,9 @@ msgid ""
 "customers. Add new people to the followers' list to make them aware of the "
 "progress of this ticket."
 msgstr ""
+"Brug chatteren til at <b>sende emails</b> og kommunikere effektivt med dine "
+"kunder. Tilføj nye personer til følgernes liste for at gøre dem opmærksomme "
+"på fremskridtet med denne sag."
 
 #. module: helpdesk
 #: model:ir.model,name:helpdesk.model_res_users
@@ -3863,6 +4045,9 @@ msgid ""
 "We hope to have addressed your request satisfactorily. If you no longer need"
 " our assistance, please close this ticket. Thank you for your collaboration."
 msgstr ""
+"Vi håber at have behandlet din anmodning tilfredsstillende. Hvis du ikke "
+"længere har brug for vores hjælp, bedes du lukke denne sag. Tak for dit "
+"samarbejde."
 
 #. module: helpdesk
 #: model_terms:helpdesk.team,description:helpdesk.helpdesk_team1
@@ -3871,6 +4056,8 @@ msgid ""
 "We provide 24/7 support, Monday through Friday. Ticket responses are usually provided within 2 working days.<br>\n"
 "            Support is mainly provided in English. We can also assist in Spanish, French, and Dutch."
 msgstr ""
+"Vi yder 24/7 support, mandag til fredag. Billetsvar gives normalt inden for 2 hverdage.<br>\n"
+"            Support ydes hovedsageligt på engelsk. Vi kan også hjælpe på spansk, fransk og hollandsk."
 
 #. module: helpdesk
 #: model:helpdesk.tag,name:helpdesk.tag_website
@@ -3931,7 +4118,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__resource_calendar_id
 msgid "Working hours used to determine the deadline of SLA Policies."
-msgstr ""
+msgstr "Arbejdstid brugt til at bestemme deadline for SLA-politikker."
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_unarchive_wizard
@@ -4026,7 +4213,7 @@ msgstr "Søg team"
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 #, python-format
 msgid "tickets"
-msgstr ""
+msgstr "sager"
 
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.rating_ticket_request_email_template
@@ -4034,6 +4221,8 @@ msgid ""
 "{{ object.company_id.name or object.user_id.company_id.name or 'Helpdesk' "
 "}}: Service Rating Request"
 msgstr ""
+"{{ object.company_id.name or object.user_id.company_id.name or 'Helpdesk' "
+"}}: Anmodning om servicevurdering"
 
 #. module: helpdesk
 #: model:mail.template,subject:helpdesk.new_ticket_request_email_template

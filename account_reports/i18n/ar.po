@@ -3,17 +3,17 @@
 # 	* account_reports
 # 
 # Translators:
-# Wil Odoo, 2024
 # Martin Trigaux, 2024
 # Malaz Abuidris <msea@odoo.com>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 14:45+0000\n"
+"POT-Creation-Date: 2024-07-17 13:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -306,6 +306,11 @@ msgid "Accounting Report"
 msgstr "تقرير المحاسبة "
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_report_expression
+msgid "Accounting Report Expression"
+msgstr "تعبير التقرير المحاسبي "
+
+#. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
 msgstr "بند التقرير المحاسبي "
@@ -488,6 +493,15 @@ msgstr "جميع الذمم المدينة"
 #, python-format
 msgid "All Report Variants"
 msgstr "كافة متغيرات التقرير "
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid ""
+"All selected companies or branches do not share the same Tax ID. Please "
+"checkthe Tax ID of the selected companies."
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -779,6 +793,13 @@ msgid "Carryover from %s to %s"
 msgstr "ترحيل من %s إلى %s "
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Carryover lines for: %s"
+msgstr "ترحيل القيود لـ: %s "
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
 msgstr "نقدي"
@@ -902,6 +923,13 @@ msgstr "تغيير التاريخ المتوقع "
 #, python-format
 msgid "Change expected payment date"
 msgstr "تغيير تاريخ السداد المتوقع"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Check them"
+msgstr "تفقدهم "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -3131,6 +3159,13 @@ msgstr "بعض "
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Some journal items appear to point to obsolete report lines."
+msgstr "يبدو أن بعض عناصر دفتر اليومية تشير إلى بنود تقرير قديمة. "
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
@@ -3971,6 +4006,13 @@ msgstr "[Draft]"
 #, python-format
 msgid "addressed to"
 msgstr "موجهة إلى "
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "and correct their tax tags if necessary."
+msgstr "وتصحيح علامات تصنيف الضريبة إذا لزم الأمر. "
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year

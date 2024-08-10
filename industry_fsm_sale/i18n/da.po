@@ -173,7 +173,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.project_task_view_list_fsm_sale_inherit
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.view_task_form2_inherit
 msgid "Create Invoice"
-msgstr "Dan faktura"
+msgstr "Opret faktura"
 
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.project_view_form_inherit
@@ -264,6 +264,14 @@ msgstr "Ugyldig værdi: %s"
 
 #. module: industry_fsm_sale
 #. odoo-python
+#: code:addons/industry_fsm_sale/models/product_template.py:0
+#, python-format
+msgid ""
+"The following products are currently associated with a Field Service "
+"project, you cannot change their Invoicing Policy or Type:%s"
+msgstr ""
+
+#. module: industry_fsm_sale
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
 msgid "Invoice"

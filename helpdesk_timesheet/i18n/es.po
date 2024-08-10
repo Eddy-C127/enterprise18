@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Larissa Manderfeld, 2024
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,7 +54,7 @@ msgstr "Convertir tareas de proyecto en tickets"
 #. module: helpdesk_timesheet
 #: model:ir.model,name:helpdesk_timesheet.model_helpdesk_ticket_create_timesheet
 msgid "Create Timesheet from ticket"
-msgstr "Crear hojas de asistencia desde un ticket"
+msgstr "Crear partes de horas desde un ticket"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket_create_timesheet__create_uid
@@ -139,7 +140,7 @@ msgstr "Mostar botón para detener temporizador "
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__display_timesheet_timer
 msgid "Display Timesheet Time"
-msgstr "Mostar botón de tiempo en hojas de asistencia"
+msgstr "Mostrar tiempo en el parte de horas"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
@@ -251,8 +252,8 @@ msgid ""
 "Project to which the timesheets of this helpdesk team's tickets will be "
 "linked."
 msgstr ""
-"Proyecto al que se vincularán las hojas de asistencia de los tickets de este"
-" equipo de servicio de asistencia."
+"Proyecto al que se vincularán los partes de horas de los tickets de este "
+"equipo de servicio de asistencia."
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.actions.act_window,help:helpdesk_timesheet.act_hr_timesheet_line_helpdesk
@@ -350,8 +351,8 @@ msgid ""
 "Time spent on this ticket. By default, your timesheets will be linked to the sales order item of your ticket.\n"
 "Remove the sales order item to make your timesheet entries non billable."
 msgstr ""
-"Tiempo dedicado a este ticket. Por defecto, sus hojas de asistencia estarán vinculadas al elemento de pedido de venta de su ticket.\n"
-"Elimine el elemento del pedido de venta para que las entradas de su hoja de asistencia no sean facturables."
+"Tiempo dedicado a este ticket. Por defecto, sus partes de horas estarán vinculadas al elemento de pedido de venta de su ticket.\n"
+"Elimine el elemento del pedido de venta para que los partes de horas no sean facturables."
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__timer_pause
@@ -366,12 +367,12 @@ msgstr "Inicio de temporizador"
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
 msgid "Timesheet Activities"
-msgstr "Actividades de la hoja de asistencia"
+msgstr "Actividades de los partes de horas"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_team__timesheet_encode_uom_id
 msgid "Timesheet Encoding Unit"
-msgstr "Unidad de codificación de hoja de asistencia"
+msgstr "Unidad de codificación de los partes de horas"
 
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_ticket__use_helpdesk_timesheet
@@ -386,12 +387,12 @@ msgstr "Hoja de asistencia activas en el equipo"
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.report_timesheet_ticket
 msgid "Timesheets"
-msgstr "Hojas de asistencia"
+msgstr "Partes de horas"
 
 #. module: helpdesk_timesheet
 #: model:ir.model,name:helpdesk_timesheet.model_timesheets_analysis_report
 msgid "Timesheets Analysis Report"
-msgstr "Informe de análisis de hoja de asistencia"
+msgstr "Informe de análisis de partes de horas"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_timesheet.helpdesk_ticket_view_tree_inherit_helpdesk_timesheet
@@ -401,7 +402,7 @@ msgstr "Total"
 #. module: helpdesk_timesheet
 #: model:ir.model.fields,field_description:helpdesk_timesheet.field_helpdesk_team__total_timesheet_time
 msgid "Total Timesheet Time"
-msgstr "Tiempo total de la hoja de asistencia"
+msgstr "Tiempo total del parte de horas"
 
 #. module: helpdesk_timesheet
 #: model_terms:ir.actions.act_window,help:helpdesk_timesheet.act_hr_timesheet_line_helpdesk

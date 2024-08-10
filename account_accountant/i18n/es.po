@@ -5,17 +5,17 @@
 # Translators:
 # Fernanda Alvarez, 2023
 # Lucia Pacheco, 2023
+# Larissa Manderfeld, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-07-19 07:30+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -261,6 +261,20 @@ msgid "Amount"
 msgstr "Importe"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Company Currency)"
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Foreign Currency)"
+msgstr ""
+
+#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Amount Computation"
 msgstr "Cálculo de importe"
@@ -271,8 +285,12 @@ msgid "Amount Currency"
 msgstr "Moneda del importe"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid "Amount Transaction Currency"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Amount in Currency"
@@ -366,7 +384,10 @@ msgid "Bank & Cash Moves"
 msgstr "Movimientos bancarios y de caja"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__bank_account
+#, python-format
 msgid "Bank Account"
 msgstr "Cuenta bancaria"
 
@@ -614,6 +635,11 @@ msgstr "Días"
 #, python-format
 msgid "Debit"
 msgstr "Débito"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__journal_default_account_id
+msgid "Default Account"
+msgstr "Cuenta por defecto"
 
 #. module: account_accountant
 #. odoo-python
@@ -1012,6 +1038,11 @@ msgid "Invoicing Switch Threshold"
 msgstr "Umbral de conmutación de facturación"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
+msgid "Is Multi Currency"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
 msgid "Is Reconciled"
 msgstr "Está conciliado"
@@ -1295,6 +1326,11 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
+msgid "Narration"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
@@ -1351,6 +1387,7 @@ msgid "Not Matched"
 msgstr "No emparejado"
 
 #. module: account_accountant
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
 msgid "Notes"
@@ -1661,6 +1698,18 @@ msgstr "Modelo de conciliación"
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Record cost of goods sold in your journal entries"
 msgstr "Registrar el coste de los bienes vendidos en sus asientos contables"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__ref
+msgid "Ref"
+msgstr "Ref."
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Reference"
+msgstr "Referencia"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -2060,6 +2109,7 @@ msgstr "Transacción"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "Moneda de la transacción"
 
@@ -2162,6 +2212,12 @@ msgstr "Asiento de desajuste"
 
 #. module: account_accountant
 #. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr ""
+
+#. module: account_accountant
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
 msgid ""

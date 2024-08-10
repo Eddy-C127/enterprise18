@@ -10,17 +10,17 @@
 # Ye Ye <vrio.ua@gmail.com>, 2023
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # Alena Vlasova, 2023
-# Martin Trigaux, 2023
 # Сергей Шебанин <sergey@shebanin.ru>, 2024
 # Collex100, 2024
 # Nadia Martynova, 2024
+# Martin Trigaux, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-07-19 07:30+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -266,6 +266,20 @@ msgid "Amount"
 msgstr "Сумма"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Company Currency)"
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Foreign Currency)"
+msgstr ""
+
+#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Amount Computation"
 msgstr "Расчет суммы"
@@ -276,8 +290,12 @@ msgid "Amount Currency"
 msgstr "Сумма Валюты"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid "Amount Transaction Currency"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Amount in Currency"
@@ -370,7 +388,10 @@ msgid "Bank & Cash Moves"
 msgstr "Банковские и кассовые операции"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__bank_account
+#, python-format
 msgid "Bank Account"
 msgstr "Расчётный счет"
 
@@ -615,6 +636,11 @@ msgstr "Дней"
 #, python-format
 msgid "Debit"
 msgstr "Дебет"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__journal_default_account_id
+msgid "Default Account"
+msgstr "Учетная Запись По Умолчанию"
 
 #. module: account_accountant
 #. odoo-python
@@ -1011,6 +1037,11 @@ msgid "Invoicing Switch Threshold"
 msgstr "Порог переключения счетов-фактур"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
+msgid "Is Multi Currency"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
 msgid "Is Reconciled"
 msgstr "Согласован"
@@ -1292,6 +1323,11 @@ msgid "Name"
 msgstr "Имя"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
+msgid "Narration"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
@@ -1349,6 +1385,7 @@ msgid "Not Matched"
 msgstr "Не совпадает"
 
 #. module: account_accountant
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
 msgid "Notes"
@@ -1659,6 +1696,18 @@ msgstr "Модель примирения"
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Record cost of goods sold in your journal entries"
 msgstr "Отразите себестоимость проданных товаров в журнальных записях"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__ref
+msgid "Ref"
+msgstr "Ссылка"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Reference"
+msgstr "Справка"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -2061,6 +2110,7 @@ msgstr "Транзакция"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "Валюта сделки"
 
@@ -2163,6 +2213,12 @@ msgstr "Запись о списании"
 
 #. module: account_accountant
 #. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr ""
+
+#. module: account_accountant
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
 msgid ""

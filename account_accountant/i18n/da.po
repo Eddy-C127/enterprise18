@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-07-19 07:30+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
@@ -85,6 +85,8 @@ msgid ""
 "<i title=\"Run manually\" role=\"img\" aria-label=\"Run manually\" class=\"fa fa-refresh\"/>\n"
 "                            Run manually"
 msgstr ""
+"<i title=\"Run manually\" role=\"img\" aria-label=\"Run manually\" class=\"fa fa-refresh\"/>\n"
+"                            Kør manuelt"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -258,6 +260,20 @@ msgid "Amount"
 msgstr "Beløb"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Company Currency)"
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Amount (Foreign Currency)"
+msgstr ""
+
+#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Amount Computation"
 msgstr ""
@@ -268,8 +284,12 @@ msgid "Amount Currency"
 msgstr "Valutabeløb"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid "Amount Transaction Currency"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
-#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #, python-format
 msgid "Amount in Currency"
@@ -362,7 +382,10 @@ msgid "Bank & Cash Moves"
 msgstr "Bank & kontakthævninger"
 
 #. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__bank_account
+#, python-format
 msgid "Bank Account"
 msgstr "Bankkonto"
 
@@ -606,6 +629,11 @@ msgstr "Dage"
 #, python-format
 msgid "Debit"
 msgstr "Debet"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__journal_default_account_id
+msgid "Default Account"
+msgstr "Standard Konto"
 
 #. module: account_accountant
 #. odoo-python
@@ -996,6 +1024,11 @@ msgid "Invoicing Switch Threshold"
 msgstr "Fakturering Skift Grænse"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
+msgid "Is Multi Currency"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
 msgid "Is Reconciled"
 msgstr "Er afstemt"
@@ -1277,6 +1310,11 @@ msgid "Name"
 msgstr "Navn"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
+msgid "Narration"
+msgstr ""
+
+#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
@@ -1333,6 +1371,7 @@ msgid "Not Matched"
 msgstr ""
 
 #. module: account_accountant
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
 msgid "Notes"
@@ -1631,6 +1670,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Record cost of goods sold in your journal entries"
 msgstr "Registrer kostprisen på solgte varer i dine journalposteringer"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__ref
+msgid "Ref"
+msgstr "Ref"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
+#, python-format
+msgid "Reference"
+msgstr "Reference"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -2022,6 +2073,7 @@ msgstr "Transaktion"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr ""
 
@@ -2124,6 +2176,12 @@ msgstr ""
 
 #. module: account_accountant
 #. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr ""
+
+#. module: account_accountant
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
 msgid ""
@@ -2239,7 +2297,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__auto_balance
 msgid "auto_balance"
-msgstr ""
+msgstr "auto_balance"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
@@ -2254,7 +2312,7 @@ msgstr "early_payment"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__exchange_diff
 msgid "exchange_diff"
-msgstr ""
+msgstr "exchange_diff"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2267,17 +2325,17 @@ msgstr "i"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__liquidity
 msgid "liquidity"
-msgstr ""
+msgstr "likviditet"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__manual
 msgid "manual"
-msgstr ""
+msgstr "manuel"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__new_aml
 msgid "new_aml"
-msgstr ""
+msgstr "new_aml"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2289,7 +2347,7 @@ msgstr "sekunder pr. transaktion."
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__tax_line
 msgid "tax_line"
-msgstr ""
+msgstr "tax_line"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view

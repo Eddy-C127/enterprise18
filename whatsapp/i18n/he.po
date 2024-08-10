@@ -13,9 +13,9 @@
 # Yihya Hugirat <hugirat@gmail.com>, 2023
 # NoaFarkash, 2023
 # Martin Trigaux, 2023
-# yael terner, 2023
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
 # MichaelHadar, 2024
+# yael terner, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: MichaelHadar, 2024\n"
+"Last-Translator: yael terner, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -337,7 +337,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_button__call_number
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_button__button_type__phone_number
 msgid "Call Number"
-msgstr ""
+msgstr "מספר לחיוג"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__callback_url
@@ -1189,21 +1189,21 @@ msgstr "שיווק"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Maximum 1 Call Number button allowed."
-msgstr ""
+msgstr "מותר מקס' מספר חיוג 1 "
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Maximum 10 buttons allowed."
-msgstr ""
+msgstr "מותר מקס' 10 כפתורים "
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 #, python-format
 msgid "Maximum 2 URL buttons allowed."
-msgstr ""
+msgstr "מותר מקס' 2 כפתורי URL"
 
 #. module: whatsapp
 #: model:ir.model,name:whatsapp.model_mail_message
@@ -1303,7 +1303,7 @@ msgstr ""
 #: code:addons/whatsapp/static/src/core/web/channel_selector_patch.js:0
 #, python-format
 msgid "No results found"
-msgstr " נמצאו תוצאות"
+msgstr " לא נמצאו תוצאות"
 
 #. module: whatsapp
 #. odoo-python
@@ -1326,17 +1326,17 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__notify_user_ids
 msgid "Notify User"
-msgstr "הודע למשתמש"
+msgstr "יידע משתמש"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "Notify users"
-msgstr "הודע למשתמשים"
+msgstr "יידע משתמשים"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "Notify users and company where this account can be used"
-msgstr ""
+msgstr "יידע את המשתמשים והחברה היכן ניתן להשתמש בחשבון זה"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__message_needaction_counter
@@ -1570,7 +1570,7 @@ msgstr "התקבל"
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "Receiving messages"
-msgstr ""
+msgstr "קבלת הודעות"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__quality__red
@@ -1639,7 +1639,7 @@ msgstr "שגיאה בשליחת SMS"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_variable__demo_value
 msgid "Sample Value"
-msgstr ""
+msgstr "ערך לדוגמא"
 
 #. module: whatsapp
 #. odoo-javascript
@@ -1685,7 +1685,7 @@ msgstr ""
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "Sending messages"
-msgstr ""
+msgstr "שליחת הודעות"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__state__sent
@@ -1858,7 +1858,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_button_view_form
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_variable_view_form
 msgid "Template Button"
-msgstr ""
+msgstr "תבנית כפתור"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action
@@ -1878,7 +1878,7 @@ msgstr "שם תבנית"
 #. module: whatsapp
 #: model:ir.actions.act_window,name:whatsapp.whatsapp_preview_action_from_template
 msgid "Template Preview"
-msgstr "תצוגה מקדימה לתבנית"
+msgstr "תצוגה מקדימה"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__header_attachment_ids
@@ -1901,6 +1901,13 @@ msgstr "משתני תבנית"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__body
 msgid "Template body"
 msgstr "גוף התבנית"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "Template category is missing"
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template
@@ -2016,7 +2023,7 @@ msgstr "תצורה זו מיועדת לקבלת הודעות WhatsApp."
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
 msgid "This configuration is for sending the WhatsApp"
-msgstr ""
+msgstr "תצורה זו מיועדת לשליחת הודעות WhatsApp."
 
 #. module: whatsapp
 #. odoo-python
@@ -2075,7 +2082,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_button__url_type
 msgid "Url Type"
-msgstr ""
+msgstr "סוג כתובת אתר אינטרנט"
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_mail_mail__message_type
@@ -2155,6 +2162,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
 msgid "Users who can use this template.If empty then public."
 msgstr ""
+"הכנס משתמשים שיוכלו להשתמש בתבנית זו. אם נשאר ריק יתאפשר לכל המשתמשים."
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_message__failure_reason
@@ -2164,7 +2172,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__template_type__utility
 msgid "Utility"
-msgstr ""
+msgstr "שירותים"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__uz

@@ -5,6 +5,7 @@
 # Translators:
 # Heiðar Sigurðsson, 2024
 # jonasyngvi, 2024
+# Sveinn Erlendsson, 2024
 # Kristófer Arnþórsson, 2024
 # 
 msgid ""
@@ -412,6 +413,8 @@ msgid ""
 "A Python dictionary that will be evaluated to provide default values when "
 "creating new records for this alias."
 msgstr ""
+"Python skráarsvæði sem verður notað til að skilgreina sjálfgildi í nýjar "
+"færslur, fyrir þennan alías."
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_workflow_rule
@@ -467,7 +470,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__action
 #, python-format
 msgid "Action"
-msgstr ""
+msgstr "Aðgerð"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__name
@@ -488,7 +491,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_needaction
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Aðgerða þörf"
 
 #. module: documents
 #. odoo-javascript
@@ -569,7 +572,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_action__action__add
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
 msgid "Add"
-msgstr ""
+msgstr "Bæta við"
 
 #. module: documents
 #. odoo-javascript
@@ -801,7 +804,7 @@ msgstr "Viðhengi"
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_attachment_count
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Fjöldi viðhengja"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__description
@@ -948,7 +951,7 @@ msgstr ""
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close"
-msgstr ""
+msgstr "Loka"
 
 #. module: documents
 #. odoo-javascript
@@ -983,7 +986,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model,name:documents.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Stillingarvalkostir"
 
 #. module: documents
 #: model:ir.ui.menu,name:documents.Config
@@ -998,7 +1001,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__criteria_partner_id
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Contact"
-msgstr ""
+msgstr "Hafa samband"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
@@ -1021,7 +1024,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__create_model
 msgid "Create"
-msgstr ""
+msgstr "Búa til"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_share_id
@@ -1050,7 +1053,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__create_uid
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Created by"
-msgstr ""
+msgstr "Búið til af"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_date
@@ -1063,12 +1066,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__create_date
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Búið til þann"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Creation Date"
-msgstr ""
+msgstr "Stofndagur"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_rule__condition_type__criteria
@@ -1162,7 +1165,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_folder__description
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
 msgid "Description"
-msgstr ""
+msgstr "Lýsing"
 
 #. module: documents
 #. odoo-javascript
@@ -1175,7 +1178,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_form
 #, python-format
 msgid "Discard"
-msgstr ""
+msgstr "Hætta við"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__display_name
@@ -1188,7 +1191,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__display_name
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Birtingarnafn"
 
 #. module: documents
 #. odoo-javascript
@@ -1405,7 +1408,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 #, python-format
 msgid "Edit"
-msgstr ""
+msgstr "Breyta"
 
 #. module: documents
 #. odoo-javascript
@@ -1602,13 +1605,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_follower_ids
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Fylgjendur"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_partner_ids
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Fylgjendur (samstarfsaðilar)"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__activity_type_icon
@@ -1636,7 +1639,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 #: model_terms:ir.ui.view,arch_db:documents.facet_view_search
 msgid "Group By"
-msgstr ""
+msgstr "Hópað eftir"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_folder__read_group_ids
@@ -1659,7 +1662,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__has_message
 #: model:ir.model.fields,field_description:documents.field_documents_share__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Hefur skilaboð"
 
 #. module: documents
 #. odoo-javascript
@@ -1680,7 +1683,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__id
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__id
 msgid "ID"
-msgstr ""
+msgstr "Auðkenni (ID)"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_parent_thread_id
@@ -1703,7 +1706,7 @@ msgstr ""
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction
 #: model:ir.model.fields,help:documents.field_documents_share__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Ef hakað er við krefjast ný skilaboð athygli þinnar."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_has_error
@@ -1711,7 +1714,7 @@ msgstr ""
 #: model:ir.model.fields,help:documents.field_documents_share__message_has_error
 #: model:ir.model.fields,help:documents.field_documents_share__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Ef hakað er við hafa sum skilaboð sendingarvillu."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_bounced_content
@@ -1773,7 +1776,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_is_follower
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Er fylgjandi"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__is_shared
@@ -1820,7 +1823,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__write_uid
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Síðast uppfært af"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__write_date
@@ -1833,7 +1836,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__write_date
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Síðast uppfært þann"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -1983,13 +1986,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_error
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Villa við afhendingu skilaboða"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_ids
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Skilaboð"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__mimetype
@@ -2110,7 +2113,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 #, python-format
 msgid "New"
-msgstr ""
+msgstr "Nýtt"
 
 #. module: documents
 #. odoo-javascript
@@ -2213,7 +2216,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_needaction_counter
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Fjöldi aðgerða"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__links_count
@@ -2224,19 +2227,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_error_counter
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Fjöldi villna"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction_counter
 #: model:ir.model.fields,help:documents.field_documents_share__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Fjöldi skeyta sem krefjast aðgerða"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_has_error_counter
 #: model:ir.model.fields,help:documents.field_documents_share__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Fjöldi skeyta með sendingarvillu"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -2324,7 +2327,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__parent_path
 msgid "Parent Path"
-msgstr ""
+msgstr "Foreldraleið"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_parent_thread_id
@@ -2385,7 +2388,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
 #: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Stjörnugjöf"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2436,14 +2439,14 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_action__action__remove
 msgid "Remove"
-msgstr ""
+msgstr "Fjarlægja"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #, python-format
 msgid "Replace"
-msgstr ""
+msgstr "Skipta um"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_workflow_action__action__replace
@@ -2556,12 +2559,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_has_sms_error
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "SMS sendingarvilla"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_internal_knowledge_sales
 msgid "Sales"
-msgstr ""
+msgstr "Sala"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -2647,7 +2650,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_tag__sequence
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Röð"
 
 #. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_finance_2018contracts
@@ -2787,7 +2790,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #, python-format
 msgid "Size"
-msgstr ""
+msgstr "Stærð"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
@@ -2841,7 +2844,7 @@ msgstr ""
 #: model:documents.facet,name:documents.documents_internal_status
 #: model:ir.model.fields,field_description:documents.field_documents_share__state
 msgid "Status"
-msgstr ""
+msgstr "Staða"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__activity_state
@@ -2877,7 +2880,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
 msgid "Tag"
-msgstr ""
+msgstr "Efnisorð"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__facet_ids
@@ -2918,7 +2921,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
 #, python-format
 msgid "Tags"
-msgstr ""
+msgstr "Merki"
 
 #. module: documents
 #: model:documents.facet,name:documents.documents_internal_template
@@ -2928,7 +2931,7 @@ msgstr ""
 #. module: documents
 #: model:documents.tag,name:documents.documents_internal_template_text
 msgid "Text"
-msgstr ""
+msgstr "Texti"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_facet__tooltip
@@ -3192,7 +3195,7 @@ msgstr ""
 #. module: documents
 #: model:documents.tag,name:documents.documents_finance_documents_vat
 msgid "VAT"
-msgstr ""
+msgstr "VSK"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__date_deadline
@@ -3232,13 +3235,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_document__website_message_ids
 #: model:ir.model.fields,field_description:documents.field_documents_share__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Skilaboð á vefsíðu"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__website_message_ids
 #: model:ir.model.fields,help:documents.field_documents_share__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Samskiptasaga vefsíðu"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_request_wizard__activity_date_deadline_range_type__weeks

@@ -8,18 +8,18 @@
 # Martin Aavastik <martin@avalah.ee>, 2023
 # Triine Aavik <triine@avalah.ee>, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
-# Anna, 2023
 # Patrick-Jordan Kiudorv, 2023
 # Eneli Õigus <enelioigus@gmail.com>, 2023
 # Martin Trigaux, 2023
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:22+0000\n"
+"POT-Creation-Date: 2024-01-05 13:47+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +36,8 @@ msgid ""
 ".st0{opacity:0.3;enable-background:new;}\n"
 "                .st1{fill:currentColor;stroke:#1A1919;stroke-width:3;stroke-miterlimit:10;}"
 msgstr ""
+".st0{opacity:0.3;enable-background:new;}\n"
+"                .st1{fill:currentColor;stroke:#1A1919;stroke-width:3;stroke-miterlimit:10;}"
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
@@ -103,7 +105,7 @@ msgstr "rida"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Locating new addresses..."
-msgstr ""
+msgstr "Uute aadresside leidmine..."
 
 #. module: web_map
 #. odoo-javascript
@@ -117,14 +119,14 @@ msgstr "Kaart"
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Map Routes"
-msgstr ""
+msgstr "Kaardi marsruudid"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 #, python-format
 msgid "MapBox servers unreachable"
-msgstr ""
+msgstr "MapBox serverid pole kättesaadavad"
 
 #. module: web_map
 #. odoo-javascript
@@ -138,7 +140,7 @@ msgstr "Nimi"
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Navigate to"
-msgstr ""
+msgstr "Navigeeri sihtkohta"
 
 #. module: web_map
 #: model:ir.model.fields,help:web_map.field_res_config_settings__map_box_token
@@ -172,6 +174,7 @@ msgstr "Avatud"
 #, python-format
 msgid "OpenStreetMap's request limit exceeded, try again later."
 msgstr ""
+"OpenStreetMapi päringute limiit on ületatud, palun proovi hiljem uuesti."
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
@@ -183,7 +186,7 @@ msgstr ""
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 #, python-format
 msgid "Set up token"
-msgstr ""
+msgstr "Määra token"
 
 #. module: web_map
 #. odoo-javascript
@@ -300,8 +303,6 @@ msgstr "Vaade"
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_ir_actions_act_window_view__view_mode
 #: model:ir.model.fields,field_description:web_map.field_ir_ui_view__type
-#: model:ir.model.fields,field_description:web_map.field_website_controller_page__type
-#: model:ir.model.fields,field_description:web_map.field_website_page__type
 msgid "View Type"
 msgstr "Vaate tüüp"
 

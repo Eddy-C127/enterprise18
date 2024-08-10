@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-04 14:45+0000\n"
+"POT-Creation-Date: 2024-07-17 13:32+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Abe Manyo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
@@ -310,6 +310,11 @@ msgid "Accounting Report"
 msgstr "Laporan Akuntansi"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_report_expression
+msgid "Accounting Report Expression"
+msgstr "Accounting Report Expression"
+
+#. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
 msgstr "Accounting Report Line"
@@ -425,7 +430,7 @@ msgstr "Aged Partner Balance Custom Handler"
 #: model:ir.actions.client,name:account_reports.action_account_report_ap
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_payable
 msgid "Aged Payable"
-msgstr "Utang Seusia"
+msgstr "Umur Utang Dagang"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_payable_report_handler
@@ -435,7 +440,7 @@ msgstr "Aged Payable Custom Handler"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Payables"
-msgstr "Utang Seusia"
+msgstr "Umur Utang Dagang"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.aged_receivable_report
@@ -443,7 +448,7 @@ msgstr "Utang Seusia"
 #: model:ir.actions.client,name:account_reports.action_account_report_ar
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_receivable
 msgid "Aged Receivable"
-msgstr "Piutang Seusia"
+msgstr "Umur Piutang"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_receivable_report_handler
@@ -453,7 +458,7 @@ msgstr "Aged Receivable Custom Handler"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Receivables"
-msgstr "Piutang Seusia"
+msgstr "Umur Piutang"
 
 #. module: account_reports
 #. odoo-javascript
@@ -492,6 +497,15 @@ msgstr "Semua Piutang"
 #, python-format
 msgid "All Report Variants"
 msgstr "Semua Varian Laporan"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid ""
+"All selected companies or branches do not share the same Tax ID. Please "
+"checkthe Tax ID of the selected companies."
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -643,7 +657,7 @@ msgstr "Saldo"
 #: model:ir.actions.client,name:account_reports.action_account_report_bs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_balance_sheet
 msgid "Balance Sheet"
-msgstr "Lembar Saldo"
+msgstr "Neraca Keuangan"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
@@ -785,6 +799,13 @@ msgid "Carryover from %s to %s"
 msgstr "Carryover dari %s ke %s"
 
 #. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
+msgid "Carryover lines for: %s"
+msgstr "Baris carryover untuk: %s"
+
+#. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
 msgstr "Kas"
@@ -799,7 +820,7 @@ msgstr "Custom Handler Laporan Arus Kas"
 #: model:ir.actions.client,name:account_reports.action_account_report_cs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_cash_flow
 msgid "Cash Flow Statement"
-msgstr "Pernyataan Aliran Kas"
+msgstr "Laporan Alur Kas"
 
 #. module: account_reports
 #. odoo-python
@@ -908,6 +929,13 @@ msgstr "Ganti tanggal perkiraan"
 #, python-format
 msgid "Change expected payment date"
 msgstr "Ganti tanggal perkiraan pembayaran"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Check them"
+msgstr "Check them"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -3150,6 +3178,15 @@ msgstr "Beberapa"
 
 #. module: account_reports
 #. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "Some journal items appear to point to obsolete report lines."
+msgstr ""
+"Beberapa item jurnal sepertinya menunjuk pada barisan laporan yang sudah "
+"tidak berlaku."
+
+#. module: account_reports
+#. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
@@ -4016,6 +4053,13 @@ msgstr "[Draft]"
 #, python-format
 msgid "addressed to"
 msgstr "ditujukan kepada"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
+#, python-format
+msgid "and correct their tax tags if necessary."
+msgstr "dan betulkan tag pajak mereka bila diperlukan."
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year

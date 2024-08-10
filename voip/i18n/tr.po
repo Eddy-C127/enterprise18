@@ -16,6 +16,7 @@
 # Murat Kaplan <muratk@projetgrup.com>, 2023
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2023
 # Fırat Kaya <firat.kaya@mechsoft.com.tr>, 2023
+# Ömer ABA <omeraba93@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Fırat Kaya <firat.kaya@mechsoft.com.tr>, 2023\n"
+"Last-Translator: Ömer ABA <omeraba93@gmail.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,6 +169,16 @@ msgstr ""
 
 #. module: voip
 #. odoo-javascript
+#: code:addons/voip/static/src/core/user_agent_service.js:0
+#, python-format
+msgid ""
+"An error occurred trying to invite the following number: %(phoneNumber)s\n"
+"\n"
+"Error: %(error)s"
+msgstr ""
+
+#. module: voip
+#. odoo-javascript
 #: code:addons/voip/static/src/softphone/activities_tab.js:0
 #, python-format
 msgid ""
@@ -176,6 +187,7 @@ msgid ""
 msgstr ""
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__ask
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__ask
 msgid "Ask"
 msgstr "Sor"
@@ -212,7 +224,6 @@ msgid "Call from %(phone_number)s"
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_call_from_another_device
 msgid "Call from another device"
 msgstr ""
@@ -297,7 +308,6 @@ msgid "Choose a device:"
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__how_to_call_on_mobile
 #: model:ir.model.fields,help:voip.field_res_users_settings__how_to_call_on_mobile
 msgid ""
 "Choose the method to be used to place a call when using the mobile application:\n"
@@ -398,6 +408,7 @@ msgid "Demo"
 msgstr "Demo"
 
 #. module: voip
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__phone
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__phone
 msgid "Device's phone"
 msgstr ""
@@ -454,6 +465,10 @@ msgstr ""
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__external_device_number
+msgid "External Device Number"
+msgstr ""
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__external_device_number
 msgid "External device number"
 msgstr ""
@@ -484,6 +499,10 @@ msgstr ""
 
 #. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users__how_to_call_on_mobile
+msgid "How To Call On Mobile"
+msgstr ""
+
+#. module: voip
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__how_to_call_on_mobile
 msgid "How to place calls on mobile"
 msgstr ""
@@ -494,13 +513,11 @@ msgid "ID"
 msgstr "ID"
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "If enabled, incoming calls will be automatically declined in Odoo."
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__should_call_from_another_device
 #: model:ir.model.fields,help:voip.field_res_users_settings__should_call_from_another_device
 msgid ""
 "If enabled, placing a call in Odoo will transfer the call to the \"External "
@@ -509,7 +526,6 @@ msgid ""
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__external_device_number
 #: model:ir.model.fields,help:voip.field_res_users_settings__external_device_number
 msgid ""
 "If the \"Call from another device\" option is enabled, calls placed in Odoo "
@@ -644,7 +660,7 @@ msgstr ""
 #. module: voip
 #: model:ir.model.fields.selection,name:voip.selection__voip_call__state__ongoing
 msgid "Ongoing"
-msgstr "Süren"
+msgstr "Devam eden"
 
 #. module: voip
 #. odoo-javascript
@@ -730,7 +746,6 @@ msgid "Registration rejected: %(statusCode)s %(reasonPhrase)s."
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__should_auto_reject_incoming_calls
 msgid "Reject incoming calls"
 msgstr ""
@@ -814,6 +829,16 @@ msgid "Send e-mail"
 msgstr ""
 
 #. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_auto_reject_incoming_calls
+msgid "Should Auto Reject Incoming Calls"
+msgstr ""
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__should_call_from_another_device
+msgid "Should Call From Another Device"
+msgstr ""
+
+#. module: voip
 #. odoo-python
 #: code:addons/voip/models/voip_queue_mixin.py:0
 #, python-format
@@ -856,6 +881,13 @@ msgstr "WebSocket URL Adresiniz"
 
 #. module: voip
 #. odoo-javascript
+#: code:addons/voip/static/src/core/user_agent_service.js:0
+#, python-format
+msgid "The WebSocket connection was lost and couldn't be reestablished."
+msgstr ""
+
+#. module: voip
+#. odoo-javascript
 #: code:addons/voip/static/src/core/registerer.js:0
 #, python-format
 msgid ""
@@ -879,7 +911,6 @@ msgid ""
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_secret
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_secret
 msgid "The password that will be used to register with the PBX server."
 msgstr ""
@@ -912,7 +943,6 @@ msgid ""
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,help:voip.field_res_users__voip_username
 #: model:ir.model.fields,help:voip.field_res_users_settings__voip_username
 msgid ""
 "The username (typically the extension number) that will be used to register "
@@ -924,8 +954,8 @@ msgstr ""
 #: code:addons/voip/static/src/core/user_agent_service.js:0
 #, python-format
 msgid ""
-"The websocket connection with the server has been lost. Please try to "
-"refresh the page."
+"The websocket connection to the server has been lost. Attempting to "
+"reestablish the connection…"
 msgstr ""
 
 #. module: voip
@@ -997,6 +1027,7 @@ msgstr ""
 #. module: voip
 #. odoo-javascript
 #: code:addons/voip/static/src/softphone/softphone.js:0
+#: model:ir.model.fields.selection,name:voip.selection__res_users__how_to_call_on_mobile__voip
 #: model:ir.model.fields.selection,name:voip.selection__res_users_settings__how_to_call_on_mobile__voip
 #: model_terms:ir.ui.view,arch_db:voip.res_user_form
 #: model_terms:ir.ui.view,arch_db:voip.res_users_view_form_preferences
@@ -1015,13 +1046,11 @@ msgid "VoIP Environment"
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_secret
 msgid "VoIP secret"
 msgstr ""
 
 #. module: voip
-#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
 #: model:ir.model.fields,field_description:voip.field_res_users_settings__voip_username
 msgid "VoIP username / Extension number"
 msgstr ""
@@ -1029,6 +1058,16 @@ msgstr ""
 #. module: voip
 #: model:ir.ui.menu,name:voip.menu_voip_call_view
 msgid "Voip / Calls"
+msgstr ""
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_secret
+msgid "Voip Secret"
+msgstr ""
+
+#. module: voip
+#: model:ir.model.fields,field_description:voip.field_res_users__voip_username
+msgid "Voip Username"
 msgstr ""
 
 #. module: voip

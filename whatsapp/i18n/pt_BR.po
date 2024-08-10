@@ -48,7 +48,6 @@ msgstr "%(template_name)s [%(account_name)s]"
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/models.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
 msgstr "'%(field)s' não parece ser um caminho de campo válido"
@@ -138,6 +137,7 @@ msgstr "Token de acesso"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__wa_account_id
+#: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "Account"
 msgstr "Conta"
 
@@ -710,13 +710,6 @@ msgstr "Campo"
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_variable__field_type__field
 msgid "Field of Model"
 msgstr "Campo do modelo"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Field template variables must be associated with a field."
-msgstr "As variáveis de modelo de campo devem estar associadas a um campo."
 
 #. module: whatsapp
 #. odoo-python
@@ -1689,6 +1682,7 @@ msgstr "Amostra de valor"
 #. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#: code:addons/whatsapp/static/src/core/web/messaging_menu_patch.xml:0
 #, python-format
 msgid "Search WhatsApp Channel"
 msgstr "Buscar canal do WhatsApp"
@@ -1950,6 +1944,13 @@ msgstr "Variáveis de modelos"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__body
 msgid "Template body"
 msgstr "Conteúdo do modelo"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "Template category is missing"
+msgstr "Categoria do modelo ausente"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template

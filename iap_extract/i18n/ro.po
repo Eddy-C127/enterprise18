@@ -10,6 +10,7 @@
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
 # Larisa_nexterp, 2024
 # Betty Keresztesi, 2024
+# Alin Miclea, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-05 13:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Betty Keresztesi, 2024\n"
+"Last-Translator: Alin Miclea, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,6 +37,11 @@ msgid ""
 "    <p>Odoo S.A.</p>\n"
 "</div>"
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p>Stimate/Stimată<br></p>Nu mai<p> există credite în contul dvs. IAP OCR.<br>Vă puteți debita contul IAP OCR din pagina de setări.\n"
+"    </p> <p>Cu stimă,\n"
+"    <br></p> <p>Odoo S.A.\n"
+"</p></div>"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction
@@ -68,7 +74,7 @@ msgstr "Număr atașamente"
 #. module: iap_extract
 #: model:ir.model,name:iap_extract.model_extract_mixin
 msgid "Base class to extract data from documents"
-msgstr ""
+msgstr "Clasa de bază pentru a extrage date din documente"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_can_show_send_button
@@ -88,21 +94,21 @@ msgstr "Flux completat"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document is being digitized"
-msgstr ""
+msgstr "Documentul este în curs de digitalizare"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Document sent for digitization"
-msgstr ""
+msgstr "Document trimis spre digitalizare"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Documents sent for digitization"
-msgstr ""
+msgstr "Documente trimise pentru digitalizare"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_error_message
@@ -143,7 +149,7 @@ msgstr "Are mesaj"
 #: model:mail.template,name:iap_extract.iap_extract_no_credit
 #: model:mail.template,subject:iap_extract.iap_extract_no_credit
 msgid "IAP Extract Notification"
-msgstr ""
+msgstr "Notificare Extragere IAP"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__extract_document_uuid
@@ -165,14 +171,14 @@ msgstr "Dacă este bifată, unele mesaje au o eroare de livrare."
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Conversion error)"
-msgstr ""
+msgstr "PDF nevalid (eroare de conversie)"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Invalid PDF (Unable to get page count)"
-msgstr ""
+msgstr "PDF nevalid (nu se poate obține numărul de pagini)"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_is_follower
@@ -213,14 +219,14 @@ msgstr "Nicio extragere solicitată"
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_applicant__extract_state__not_enough_credit
 #: model:ir.model.fields.selection,name:iap_extract.selection__hr_expense__extract_state__not_enough_credit
 msgid "Not enough credits"
-msgstr ""
+msgstr "Credite insuficiente"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Not enough credits for data extraction"
-msgstr ""
+msgstr "Credite insuficiente pentru extragerea datelor"
 
 #. module: iap_extract
 #: model:ir.model.fields,field_description:iap_extract.field_extract_mixin__message_needaction_counter
@@ -267,7 +273,7 @@ msgstr "Serverul nu este disponibil. Vă rugăm să încercați mai târziu"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Some documents were skipped as they were already digitized"
-msgstr ""
+msgstr "Unele documente au fost omise deoarece erau deja digitalizate"
 
 #. module: iap_extract
 #. odoo-python
@@ -277,6 +283,9 @@ msgid ""
 "The 'invoice_ocr' IAP account token is invalid. Please delete it to let Odoo"
 " generate a new one or fill it with a valid token."
 msgstr ""
+"Tokenul contului IAP „invoice_ocr” nu este valid. Vă rugăm să îl ștergeți "
+"pentru a permite Odoo să genereze unul nou sau să îl completați cu un jeton "
+"valid."
 
 #. module: iap_extract
 #. odoo-python
@@ -290,14 +299,14 @@ msgstr "Documentul nu a putut fi găsit"
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The document has been rejected because it is too small"
-msgstr ""
+msgstr "Documentul a fost respins deoarece este prea mic"
 
 #. module: iap_extract
 #. odoo-python
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "The selected documents are already digitized"
-msgstr ""
+msgstr "Documentele selectate sunt deja digitizate"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__to_validate
@@ -344,7 +353,7 @@ msgstr ""
 #: code:addons/iap_extract/models/extract_mixin.py:0
 #, python-format
 msgid "Your document contains too many pages"
-msgstr ""
+msgstr "Documentul conține prea multe pagini"
 
 #. module: iap_extract
 #: model:ir.model.fields.selection,name:iap_extract.selection__account_move__extract_state__extract_not_ready

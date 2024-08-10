@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Larissa Manderfeld, 2024
+# Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Larissa Manderfeld, 2024\n"
+"Last-Translator: Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -371,7 +372,7 @@ msgstr "Un temporizador está en marcha en otra compañía."
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_all_timesheets
 msgid "All Timesheets"
-msgstr "Todas las hojas de asistencia"
+msgstr "Todos los partes de horas"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__amount
@@ -657,7 +658,7 @@ msgstr "Mostrar botón para detener temporizador "
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timesheet_timer
 msgid "Display Timesheet Time"
-msgstr "Mostrar botón de tiempo en hojas de asistencia"
+msgstr "Mostrar tiempo en el parte de horas"
 
 #. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__account_analytic_line__validated_status__draft
@@ -1201,7 +1202,7 @@ msgstr "Inicio de temporizador"
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee_public__timesheet_manager_id
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_users__timesheet_manager_id
 msgid "Timesheet"
-msgstr "Hoja de asistencia"
+msgstr "Parte de horas"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.view_employee_tree_inherit_timesheet
@@ -1248,12 +1249,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
 msgid "Timesheets"
-msgstr "Hojas de asistencia"
+msgstr "Partes de horas"
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_timesheets_analysis_report
 msgid "Timesheets Analysis Report"
-msgstr "Informe de análisis de hoja de asistencia"
+msgstr "Informe de análisis de partes de horas"
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1446,7 +1447,14 @@ msgstr ""
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "You cannot access timesheets that are not yours."
-msgstr "No se puede acceder a hojas de asistencia que no son propias"
+msgstr "No puede acceder a partes de horas que no son propios."
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid "You can't encode numbers with more than six digits."
+msgstr ""
 
 #. module: timesheet_grid
 #. odoo-python
