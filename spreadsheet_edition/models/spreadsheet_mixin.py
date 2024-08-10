@@ -231,7 +231,7 @@ class SpreadsheetMixin(models.AbstractModel):
             return False
         elif snapshot is False:
             return json.loads(self.spreadsheet_data)
-        return json.loads(base64.decodebytes(snapshot))
+        return json.loads(base64.decodebytes(snapshot) or '{}')
 
     def _should_be_snapshotted(self):
         if not self.spreadsheet_revision_ids:
