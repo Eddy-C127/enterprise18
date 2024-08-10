@@ -408,7 +408,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         })
         return vals
 
-    def _get_tax_category_list(self, invoice, taxes):
+    def _get_tax_category_list(self, customer, supplier, taxes):
         # OVERRIDE account.edi.xml.ubl_20
         res = []
         for tax in taxes:
@@ -424,13 +424,15 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
     def _get_tax_grouping_key(self, base_line, tax_values):
         """ Group the taxes by colombian type using the (tax.amount, tax.amount_type, tax.l10n_co_edi_type) """
         # OVERRIDE account.edi.xml.ubl_20
+        customer = base_line['record'].move_id.commercial_partner_id
+        supplier = base_line['record'].move_id.company_id.partner_id.commercial_partner_id
         tax = tax_values['tax_repartition_line'].tax_id
         code_to_filter = ['07', 'ZZ'] if base_line['record'].move_id.move_type in ('in_invoice', 'in_refund') else ['ZZ']
         return {
             'tax_co_type': tax.l10n_co_edi_type.code,
             'tax_co_ret': tax.l10n_co_edi_type.retention or tax.l10n_co_edi_type.code in code_to_filter,
             'tax_amount_type': tax.amount_type,
-            '_tax_category_vals_': self._get_tax_category_list(base_line['record'].move_id, tax)[0],  # used to render the TaxCategory nodes
+            '_tax_category_vals_': self._get_tax_category_list(customer, supplier, tax)[0],  # used to render the TaxCategory nodes
         }
 
     def _get_invoice_tax_totals_vals_list(self, invoice, taxes_vals):
