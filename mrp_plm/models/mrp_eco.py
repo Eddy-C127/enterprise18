@@ -852,6 +852,7 @@ class MrpEcoBomChange(models.Model):
     _description = 'ECO BoM changes'
 
     eco_id = fields.Many2one('mrp.eco', 'Engineering Change', ondelete='cascade')
+    company_id = fields.Many2one(related='eco_id.company_id')
     eco_rebase_id = fields.Many2one('mrp.eco', 'ECO Rebase', ondelete='cascade')
     rebase_id = fields.Many2one('mrp.eco', 'Rebase', ondelete='cascade')
     change_type = fields.Selection([('add', 'Add'), ('remove', 'Remove'), ('update', 'Update')], string='Type', required=True)

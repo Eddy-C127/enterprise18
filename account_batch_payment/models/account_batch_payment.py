@@ -26,6 +26,7 @@ class AccountBatchPayment(models.Model):
         domain=[('type', '=', 'bank')],
         tracking=True,
     )
+    company_id = fields.Many2one('res.company', related='journal_id.company_id', readonly=True)
     payment_ids = fields.One2many('account.payment', 'batch_payment_id', string="Payments", required=True)
     currency_id = fields.Many2one('res.currency', compute='_compute_currency', store=True, readonly=True)
     company_currency_id = fields.Many2one(
