@@ -46,6 +46,7 @@
                             <field name="budget_line_ids" colspan="4"
                                    nolabel="1" readonly="state != 'draft'">
                                 <tree string="Budget Lines" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
                                     <field name="account_id" optional="show"/>
                                     <field name="currency_id" column_invisible="True"/>
                                     <field name="budget_amount" sum="Budget"/>

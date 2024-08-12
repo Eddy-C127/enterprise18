@@ -10,8 +10,10 @@ class BudgetLine(models.Model):
     _name = 'budget.line'
     _inherit = 'analytic.plan.fields.mixin'
     _description = "Budget Line"
+    _order = 'sequence, id'
 
     name = fields.Char(related='budget_analytic_id.name', string='Budget Name')
+    sequence = fields.Integer('Sequence', default=10)
     budget_analytic_id = fields.Many2one('budget.analytic', 'Budget Analytic', ondelete='cascade', index=True, required=True)
     date_from = fields.Date('Start Date', related='budget_analytic_id.date_from', store=True)
     date_to = fields.Date('End Date', related='budget_analytic_id.date_to', store=True)
