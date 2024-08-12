@@ -15,7 +15,7 @@ class TestAccountReportsTaxReminder(TestAccountReportsCommon):
         super().setUp()
 
         self.tax_return_move = self.env['account.move'].search([
-            ('tax_closing_end_date', '!=', False),
+            ('tax_closing_report_id', '!=', False),
             ('state', '=', 'draft'),
             ('company_id', '=', self.company_data['company'].id),
         ])
@@ -25,7 +25,6 @@ class TestAccountReportsTaxReminder(TestAccountReportsCommon):
         closing_date = today + relativedelta(days=-today.day, months=-1)
         self.tax_return_move.write({
             'date': closing_date,
-            'tax_closing_end_date': closing_date,
         })
 
     def test_posting_adds_a_pay_activity(self):
@@ -82,7 +81,7 @@ class TestAccountReportsTaxReminder(TestAccountReportsCommon):
 
         # 0.0 tax returns don't create an activity
         next_tax_return_move = self.env['account.move'].search([
-            ('tax_closing_end_date', '!=', False),
+            ('tax_closing_report_id', '!=', False),
             ('state', '=', 'draft'),
             ('company_id', '=', self.company_data['company'].id),
         ])

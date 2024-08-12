@@ -30,7 +30,7 @@ class DutchReportCustomHandler(models.AbstractModel):
         if report.filter_multi_company != 'tax_units' and len(options['companies']) > 1:
             raise UserError(_('Please select only one company to send the report. If you wish to aggregate multiple companies, please create a tax unit.'))
         date_to = datetime.date.fromisoformat(options['date']['date_to'])
-        closing_date_from, closing_date_to = self.env.company._get_tax_closing_period_boundaries(date_to)
+        closing_date_from, closing_date_to = self.env.company._get_tax_closing_period_boundaries(date_to, report)
         new_options = report.get_options({
             **options,
             'date': {

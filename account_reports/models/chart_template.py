@@ -23,4 +23,13 @@ class AccountChartTemplate(models.AbstractModel):
             'account_tax_periodicity_reminder_day': 7,
         })
         default_misc_journal.show_on_dashboard = True
-        company._get_and_update_tax_closing_moves(fields.Date.today(), include_domestic=True)
+
+        generic_tax_report = self.env.ref('account.generic_tax_report')
+        tax_report = self.env['account.report'].search([
+            ('availability_condition', '=', 'country'),
+            ('country_id', '=', company.country_id.id),
+            ('root_report_id', '=', generic_tax_report.id),
+        ], limit=1)
+        if not tax_report:
+            tax_report = generic_tax_report
+        company._get_and_update_tax_closing_moves(fields.Date.today(), tax_report, include_domestic=True)

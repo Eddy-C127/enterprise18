@@ -494,7 +494,7 @@ class AccountReport(models.Model):
             date_to = date_from + relativedelta(days=periods)
 
         if tax_period:
-            date_from, date_to = self.env.company._get_tax_closing_period_boundaries(date_to)
+            date_from, date_to = self.env.company._get_tax_closing_period_boundaries(date_to, self)
             return self._get_dates_period(date_from, date_to, mode)
         if period_type in ('fiscalyear', 'today'):
             # Don't pass the period_type to _get_dates_period to be able to retrieve the account.fiscal.year record if
@@ -606,7 +606,7 @@ class AccountReport(models.Model):
                 date_from = company_fiscalyear_dates['date_from']
                 date_to = company_fiscalyear_dates['date_to']
             elif 'tax_period' in options_filter:
-                date_from, date_to = self.env.company._get_tax_closing_period_boundaries(fields.Date.context_today(self))
+                date_from, date_to = self.env.company._get_tax_closing_period_boundaries(fields.Date.context_today(self), self)
 
         options['date'] = self._get_dates_period(
             date_from,
@@ -729,7 +729,7 @@ class AccountReport(models.Model):
 
         elif date_scope == 'previous_tax_period':
             eve_of_date_from = fields.Date.from_string(options['date']['date_from']) - relativedelta(days=1)
-            date_from, date_to = self.env.company._get_tax_closing_period_boundaries(eve_of_date_from)
+            date_from, date_to = self.env.company._get_tax_closing_period_boundaries(eve_of_date_from, self)
 
         return date_from, date_to
 

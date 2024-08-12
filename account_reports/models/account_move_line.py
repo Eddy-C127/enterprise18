@@ -20,7 +20,7 @@ class AccountMoveLine(models.Model):
     @api.constrains('tax_ids', 'tax_tag_ids')
     def _check_taxes_on_closing_entries(self):
         for aml in self:
-            if aml.move_id.tax_closing_end_date and (aml.tax_ids or aml.tax_tag_ids):
+            if aml.move_id.tax_closing_report_id and (aml.tax_ids or aml.tax_tag_ids):
                 raise UserError(_("You cannot add taxes on a tax closing move line."))
 
     @api.model

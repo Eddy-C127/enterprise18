@@ -17,24 +17,42 @@ class OSSTaxReportTest(TestAccountReportsCommon):
         cls.env.company.vat = 'BE0477472701'
         cls.env.company.currency_id = cls.env.ref('base.EUR')
 
-        cls.env['account.tax.group'].create({
+        account_payable = cls.env['account.account'].create({
+            'name': "VAT Payable: VAT Current Account (C/A)",
+            'code': "4512",
+            'account_type': 'liability_current',
+        })
+        account_receivable = cls.env['account.account'].create({
+            'name': "VAT Recoverable: VAT Current Account (C/A)",
+            'code': "4112",
+            'account_type': 'asset_current',
+        })
+
+        tax_group = cls.env['account.tax.group'].create({
             'name': 'tax_group',
             'country_id': cls.env.ref('base.be').id,
+            'tax_payable_account_id': account_payable.id,
+            'tax_receivable_account_id': account_receivable.id,
         })
+
         tax_21, tax_06 = cls.env['account.tax'].create([
             {
                 'name': "tax_21",
                 'amount_type': 'percent',
                 'amount': 21.0,
-                'country_id': cls.env.ref('base.be').id
+                'country_id': cls.env.ref('base.be').id,
+                'tax_group_id': tax_group.id,
             },
             {
                 'name': "tax_06",
                 'amount_type': 'percent',
                 'amount': 6.0,
-                'country_id': cls.env.ref('base.be').id
+                'country_id': cls.env.ref('base.be').id,
+                'tax_group_id': tax_group.id,
             },
         ])
+        cls.tax_06 = tax_06
+        cls.tax_21 = tax_21
 
         cls.env.company._map_eu_taxes()
 
@@ -42,12 +60,12 @@ class OSSTaxReportTest(TestAccountReportsCommon):
             {
                 'name': 'product_1',
                 'lst_price': 1000.0,
-                'taxes_id': [Command.set(tax_21.ids)],
+                'taxes_id': [Command.set(cls.tax_21.ids)],
             },
             {
                 'name': 'product_2',
                 'lst_price': 500.0,
-                'taxes_id': [Command.set(tax_06.ids)],
+                'taxes_id': [Command.set(cls.tax_06.ids)],
             },
         ])
 
@@ -80,6 +98,11 @@ class OSSTaxReportTest(TestAccountReportsCommon):
         cls.init_invoice('out_refund', partner=cls.partner_nl, products=cls.product_1, invoice_date=fields.Date.from_string('2021-05-11'), post=True)
         cls.init_invoice('out_refund', partner=cls.partner_gr, products=cls.product_1, invoice_date=fields.Date.from_string('2021-06-26'), post=True)
 
+    def _assert_closing_lines(self, entry, expected_lines_dict):
+        for line, expected_line in zip(entry.line_ids, expected_lines_dict):
+            for key in expected_line:
+                self.assertEqual(line.mapped(key)[0], expected_line[key])
+
     def test_tax_report_oss(self):
         """ Test tax report's content for 'domestic' foreign VAT fiscal position option.
         """
@@ -109,6 +132,24 @@ class OSSTaxReportTest(TestAccountReportsCommon):
                 ("Total Sales",              '',               85),
             ],
             options,
+        )
+
+    def test_tax_report_oss_closing(self):
+        report = self.env.ref('l10n_eu_oss_reports.oss_sales_report')
+        options = self._generate_options(report, '2021-04-01', '2021-06-30')
+        tax_closing_entries = self.env[report.custom_handler_model_name]._generate_tax_closing_entries(report, options)
+        self.assertEqual(len(tax_closing_entries), 1)
+
+        self._assert_closing_lines(
+            tax_closing_entries[0],
+            [
+                {'account_id.code':     '251002',        'debit': 200,       'credit': 0},
+                {'account_id.code':     '251002',        'debit': 0,         'credit': 0},
+                {'account_id.code':     '251002',        'debit': 0,         'credit': 35},
+                {'account_id.code':     '251002',        'debit': 0,         'credit': 240},
+                {'account_id.code':     '251002',        'debit': 160,       'credit': 0},
+                {'account_id.code':     '252000',        'debit': 0,         'credit': 85},
+            ]
         )
 
     def test_generate_oss_xml_be(self):

@@ -143,7 +143,7 @@ class L10nFrSendVatReport(models.TransientModel):
     def _prepare_edi_vals(self, options):
         report = self.env['account.report'].browse(options['report_id'])
         dt_from = fields.Date.to_date(options['date']['date_from'])
-        dt_from, dt_to = self.env.company._get_tax_closing_period_boundaries(dt_from)
+        dt_from, dt_to = self.env.company._get_tax_closing_period_boundaries(dt_from, report)
         options = report.get_options(
             {'no_format': True, 'date': {'date_from': dt_from, 'date_to': dt_to}, 'filter_unfold_all': True})
         lines = report._get_lines(options)

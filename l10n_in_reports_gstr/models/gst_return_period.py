@@ -252,9 +252,10 @@ class L10nInGSTReturnPeriod(models.Model):
     def _compute_gstr3b_closing_entry(self):
         for return_period in self:
             closing_journal_entry = self.env['account.move'].search([
-                ('tax_closing_end_date', '=', return_period.end_date),
                 ('move_type', '=', 'entry'),
-                ('company_id', '=', return_period.company_id.id)
+                ('company_id', '=', return_period.company_id.id),
+                ('tax_closing_report_id', '!=', False),
+                ('date', '=', return_period.end_date),
             ], limit=1)
             return_period.gstr3b_closing_entry = closing_journal_entry
             return_period.gstr3b_status = closing_journal_entry.state == 'posted' and 'filed' or 'not_filed'

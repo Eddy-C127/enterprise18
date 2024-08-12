@@ -64,7 +64,7 @@ class ResCompany(models.Model):
         return companies
 
     def write(self, values):
-        tax_closing_update_dependencies = ('account_tax_periodicity', 'account_tax_periodicity_reminder_day', 'account_tax_periodicity_journal_id.id')
+        tax_closing_update_dependencies = ('account_tax_periodicity', 'account_tax_periodicity_journal_id.id')
         to_update = self.env['res.company']
         for company in self:
             if company.account_tax_periodicity_journal_id:
@@ -78,8 +78,12 @@ class ResCompany(models.Model):
 
         res = super().write(values)
 
-        for update_company in to_update:
-            update_company._update_tax_closing_after_periodicity_change()
+        to_reset_closing_moves = self.env['account.move'].sudo().search([
+            ('company_id', 'in', to_update.ids),
+            ('tax_closing_report_id', '!=', False),
+            ('state', '=', 'draft'),
+        ])
+        to_reset_closing_moves.button_cancel()
 
         hidden_tax_journals = self.account_tax_periodicity_journal_id.sudo().filtered(lambda j: not j.show_on_dashboard)
         if hidden_tax_journals:
@@ -87,17 +91,7 @@ class ResCompany(models.Model):
 
         return res
 
-    def _update_tax_closing_after_periodicity_change(self):
-        self.ensure_one()
-
-        vat_fiscal_positions = self.env['account.fiscal.position'].search([
-            ('company_id', '=', self.id),
-            ('foreign_vat', '!=', False),
-        ])
-
-        self._get_and_update_tax_closing_moves(fields.Date.today(), vat_fiscal_positions, include_domestic=True)
-
-    def _get_and_update_tax_closing_moves(self, in_period_date, fiscal_positions=None, include_domestic=False):
+    def _get_and_update_tax_closing_moves(self, in_period_date, report, fiscal_positions=None, include_domestic=False):
         """ Searches for tax closing moves. If some are missing for the provided parameters,
         they are created in draft state. Also, existing moves get updated in case of configuration changes
         (closing journal or periodicity, for example). Note the content of these moves stays untouched.
@@ -114,21 +108,21 @@ class ResCompany(models.Model):
             fiscal_positions = []
 
         # Compute period dates depending on the date
-        period_start, period_end = self._get_tax_closing_period_boundaries(in_period_date)
+        period_start, period_end = self._get_tax_closing_period_boundaries(in_period_date, report)
+        periodicity = self._get_tax_periodicity(report)
         activity_deadline = period_end + relativedelta(days=self.account_tax_periodicity_reminder_day)
-
         # Search for an existing tax closing move
         tax_closing_activity_type = self.env.ref('account_reports.tax_closing_activity_type', raise_if_not_found=False)
         tax_closing_activity_type_id = tax_closing_activity_type.id if tax_closing_activity_type else False
 
         all_closing_moves = self.env['account.move']
         for fpos in itertools.chain(fiscal_positions, [None] if include_domestic else []):
-
             tax_closing_move = self.env['account.move'].search([
                 ('state', '=', 'draft'),
                 ('company_id', '=', self.id),
-                ('tax_closing_end_date', '>=', period_start),
-                ('tax_closing_end_date', '<=', period_end),
+                ('tax_closing_report_id', '=', report.id),
+                ('date', '>=', period_start),
+                ('date', '<=', period_end),
                 ('fiscal_position_id', '=', fpos.id if fpos else None),
             ])
 
@@ -145,14 +139,14 @@ class ResCompany(models.Model):
                 raise UserError(error)
 
             # Compute tax closing description
-            ref = _("Tax return: %s", self._get_tax_closing_move_description(self.account_tax_periodicity, period_start, period_end, fpos))
+            ref = _("%(report_label)s: %(period)s", report_label=report.display_name, period=self._get_tax_closing_move_description(periodicity, period_start, period_end, fpos))
 
             # Values for update/creation of closing move
             closing_vals = {
                 'company_id': self.id,# Important to specify together with the journal, for branches
                 'journal_id': self.account_tax_periodicity_journal_id.id,
                 'date': period_end,
-                'tax_closing_end_date': period_end,
+                'tax_closing_report_id': report.id,
                 'fiscal_position_id': fpos.id if fpos else None,
                 'ref': ref,
                 'name': '/', # Explicitly set a void name so that we don't set the sequence for the journal and don't consume a sequence number
@@ -168,7 +162,7 @@ class ResCompany(models.Model):
             else:
                 # Create a new, empty, tax closing move
                 tax_closing_move = self.env['account.move'].create(closing_vals)
-                report, tax_closing_options = tax_closing_move._get_report_options_from_tax_closing_entry()
+                _dummy, tax_closing_options = tax_closing_move._get_report_options_from_tax_closing_entry()
 
                 if report._get_sender_company_for_export(tax_closing_options) == tax_closing_move.company_id:
                     # In case of VAT units or branches, only the main company's closing needs to receive the next activity
@@ -241,19 +235,22 @@ class ResCompany(models.Model):
         else:
             return f"{format_date(self.env, period_start)} - {format_date(self.env, period_end)}{region_string}"
 
-    def _get_tax_closing_period_boundaries(self, date):
+    def _get_tax_closing_period_boundaries(self, date, report):
         """ Returns the boundaries of the tax period containing the provided date
         for this company, as a tuple (start, end).
         """
         self.ensure_one()
-        period_months = self._get_tax_periodicity_months_delay()
+        period_months = self._get_tax_periodicity_months_delay(report)
         period_number = (date.month//period_months) + (1 if date.month % period_months != 0 else 0)
         end_date = date_utils.end_of(datetime.date(date.year, period_number * period_months, 1), 'month')
         start_date = end_date + relativedelta(day=1, months=-period_months + 1)
 
         return start_date, end_date
 
-    def _get_tax_periodicity_months_delay(self):
+    def _get_tax_periodicity(self, report):
+        return self.account_tax_periodicity
+
+    def _get_tax_periodicity_months_delay(self, report):
         """ Returns the number of months separating two tax returns with the provided periodicity
         """
         self.ensure_one()
@@ -265,7 +262,7 @@ class ResCompany(models.Model):
             '2_months': 2,
             'monthly': 1,
         }
-        return periodicities[self.account_tax_periodicity]
+        return periodicities[self._get_tax_periodicity(report)]
 
     def  _get_branches_with_same_vat(self, accessible_only=False):
         """ Returns all companies among self and its branch hierachy (considering children and parents) that share the same VAT number

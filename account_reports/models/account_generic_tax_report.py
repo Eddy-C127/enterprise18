@@ -28,7 +28,7 @@ class AccountTaxReportHandler(models.AbstractModel):
             # Recompute the warning 'common_warning_draft_in_period' to not include tax closing entries in the banner of unposted moves
             if not self.env['account.move'].search_count(
                 [('state', '=', 'draft'), ('date', '<=', options['date']['date_to']),
-                 ('tax_closing_end_date', '=', False)],
+                 ('tax_closing_report_id', '=', False)],
                 limit=1,
             ):
                 warnings.pop('account_reports.common_warning_draft_in_period')
@@ -60,7 +60,7 @@ class AccountTaxReportHandler(models.AbstractModel):
             options['integer_rounding_enabled'] = True
 
         # Return action to open form view of newly created entry
-        report = self.env.ref('account.generic_tax_report')
+        report = self.env['account.report'].browse(options['report_id'])
         moves = self.env['account.move']
 
         # Get all companies impacting the report.
@@ -132,7 +132,7 @@ class AccountTaxReportHandler(models.AbstractModel):
 
         for company in companies_without_closing:
             include_domestic, fiscal_positions = self._get_fpos_info_for_tax_closing(company, report, options)
-            company_closing_moves = company._get_and_update_tax_closing_moves(end_date, fiscal_positions=fiscal_positions, include_domestic=include_domestic)
+            company_closing_moves = company._get_and_update_tax_closing_moves(end_date, report, fiscal_positions=fiscal_positions, include_domestic=include_domestic)
             closing_moves_by_company[company] = company_closing_moves
             closing_moves += company_closing_moves
 
@@ -181,16 +181,17 @@ class AccountTaxReportHandler(models.AbstractModel):
         :param companies: a recordset of companies for which the period has already been closed.
         :return: The closing moves.
         """
-        end_date = fields.Date.from_string(options['date']['date_to'])
         closing_moves = self.env['account.move']
         for company in companies:
+            _dummy, period_end = company._get_tax_closing_period_boundaries(fields.Date.from_string(options['date']['date_to']), report)
             include_domestic, fiscal_positions = self._get_fpos_info_for_tax_closing(company, report, options)
             fiscal_position_ids = fiscal_positions.ids + ([False] if include_domestic else [])
             state_domain = ('state', '=', 'posted') if posted_only else ('state', '!=', 'cancel')
             closing_moves += self.env['account.move'].search([
                 ('company_id', '=', company.id),
                 ('fiscal_position_id', 'in', fiscal_position_ids),
-                ('tax_closing_end_date', '=', end_date),
+                ('date', '=', period_end),
+                ('tax_closing_report_id', '=', options['report_id']),
                 state_domain,
             ], limit=1)
 
@@ -217,12 +218,12 @@ class AccountTaxReportHandler(models.AbstractModel):
             'date': dict(options['date']),
         }
 
-        period_start, period_end = company._get_tax_closing_period_boundaries(fields.Date.from_string(options['date']['date_to']))
+        report = self.env['account.report'].browse(options['report_id'])
+        period_start, period_end = company._get_tax_closing_period_boundaries(fields.Date.from_string(options['date']['date_to']), report)
         new_options['date']['date_from'] = fields.Date.to_string(period_start)
         new_options['date']['date_to'] = fields.Date.to_string(period_end)
         new_options['date']['period_type'] = 'custom'
         new_options['date']['filter'] = 'custom'
-        report = self.env['account.report'].browse(options['report_id'])
         new_options = report.with_context(allowed_company_ids=company.ids).get_options(previous_options=new_options)
         # Force the use of the fiscal position from the original options (_get_options sets the fiscal
         # position to 'all' when the report is the generic tax report)
@@ -402,7 +403,7 @@ class AccountTaxReportHandler(models.AbstractModel):
         def _add_line(account, name, company_currency):
             self.env.cr.execute(sql_account, (
                 account,
-                closing_move.tax_closing_end_date,
+                closing_move.date,
                 closing_move.company_id.id,
             ))
             result = self.env.cr.dictfetchone()

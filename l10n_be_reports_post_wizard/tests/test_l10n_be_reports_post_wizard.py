@@ -26,7 +26,7 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
         super().setUp(*args, **kwargs)
 
         self.tax_return_move = self.env['account.move'].search([
-            ('tax_closing_end_date', '!=', False),
+            ('tax_closing_report_id', '!=', False),
             ('state', '=', 'draft'),
             ('company_id', '=', self.company_data['company'].id),
         ])
@@ -36,7 +36,6 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
         self.end_of_last_month = today + timedelta(days=-today.day)
         self.tax_return_move.write({
             'date': self.end_of_last_month,
-            'tax_closing_end_date': self.end_of_last_month,
         })
 
     def test_posting_opens_wizard(self):

@@ -15,6 +15,19 @@ class OSSTaxReportCustomHandlerOss(models.AbstractModel):
     _inherit = 'account.generic.tax.report.handler'
     _description = 'OSS Tax Report Custom Handler'
 
+    def _get_vat_closing_entry_additional_domain(self):
+        return [
+            *self._get_oss_custom_domain(),
+            ('tax_line_id', '!=', False),
+        ]
+
+    def _get_oss_custom_domain(self):
+        """
+        To be overridden by OSS specific reports
+        Return a custom domain for the oss report
+        """
+        return []
+
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
         """ The country for OSS taxes can't easily be guessed from SQL, as it would create JOIN issues.
         So, instead of handling them as a grouping key in the tax report engine, we
@@ -86,7 +99,7 @@ class OSSTaxReportCustomHandlerOss(models.AbstractModel):
                                                                          .mapped('position_id.country_id')
 
                 if not tax_oss_country:
-                    raise UserError(_("OSS tax %s is not mapped in any fiscal position with a country set.", tax.display_name))
+                    raise UserError(_("Tax %s is used on some OSS-tagged journal items in the period, but is not mapped by any fiscal position with a country set.", tax.display_name))
                 elif len(tax_oss_country) > 1:
                     raise UserError(_("Inconsistent setup: OSS tax %s is mapped in fiscal positions from different countries.", tax.display_name))
 
@@ -108,6 +121,10 @@ class OSSTaxReportCustomHandlerOss(models.AbstractModel):
                 'action_param': 'export_to_xml',
                 'file_export_type': _('XML'),
             })
+        options['forced_domain'] = [
+            *options.get('forced_domain', []),
+            *self._get_oss_custom_domain(),
+        ]
 
     def export_to_xml(self, options):
         def get_period():
@@ -249,10 +266,8 @@ class OSSTaxReportCustomHandlerSales(models.AbstractModel):
     _inherit = 'l10n_eu_oss.tax.report.handler'
     _description = 'OSS Tax Report Custom Handler (Sales)'
 
-    def _custom_options_initializer(self, report, options, previous_options):
-        super()._custom_options_initializer(report, options, previous_options=previous_options)
-        options['forced_domain'] = [
-            *options.get('forced_domain', []),
+    def _get_oss_custom_domain(self):
+        return [
             ('tax_tag_ids', 'in', self.env.ref('l10n_eu_oss.tag_oss').ids),
             ('tax_tag_ids', 'not in', self.env.ref('l10n_eu_oss.tag_eu_import').ids),
         ]
@@ -263,10 +278,8 @@ class OSSTaxReportCustomHandlerSalesImports(models.AbstractModel):
     _inherit = 'l10n_eu_oss.tax.report.handler'
     _description = 'OSS Tax Report Custom Handler (Imports)'
 
-    def _custom_options_initializer(self, report, options, previous_options):
-        super()._custom_options_initializer(report, options, previous_options=previous_options)
-        options['forced_domain'] = [
-            *options.get('forced_domain', []),
+    def _get_oss_custom_domain(self):
+        return [
             ('tax_tag_ids', 'in', self.env.ref('l10n_eu_oss.tag_oss').ids),
             ('tax_tag_ids', 'in', self.env.ref('l10n_eu_oss.tag_eu_import').ids),
         ]
