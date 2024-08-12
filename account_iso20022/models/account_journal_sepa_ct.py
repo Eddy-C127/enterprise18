@@ -8,12 +8,12 @@ from odoo.addons.account_batch_payment.models.sepa_mapping import _replace_chara
 class AccountJournal(models.Model):
     _inherit = "account.journal"
 
-    def create_iso20022_credit_transfer(self, payments, payment_method_code, batch_booking=False):
+    def create_iso20022_credit_transfer(self, payments, payment_method_code, batch_booking=False, charge_bearer=None):
         if (payments and payment_method_code == 'sepa_ct'
                 and self.sepa_pain_version == "pain.001.001.09"
                 and any(not payment['iso20022_uetr'] for payment in payments)):
             raise UserError(_("Some payments are missing a value for 'UETR', required for the SEPA Pain.001.001.09 format."))
-        return super().create_iso20022_credit_transfer(payments, payment_method_code, batch_booking)
+        return super().create_iso20022_credit_transfer(payments, payment_method_code, batch_booking=batch_booking, charge_bearer=charge_bearer)
 
     def _get_ReqdExctnDt_content(self, payment_date, payment_method_code):
         ReqdExctnDt = etree.Element("ReqdExctnDt")
@@ -60,12 +60,12 @@ class AccountJournal(models.Model):
             return CdtrAgt
         return CdtrAgt
 
-    def _get_ChrgBr(self, payment_method_code):
-        if payment_method_code == 'sepa_ct' and self.sepa_pain_version in ['pain.001.001.03', 'pain.001.001.09']:
+    def _get_ChrgBr(self, payment_method_code, forced_value):
+        if not forced_value and payment_method_code == 'sepa_ct':
             ChrgBr = etree.Element("ChrgBr")
-            ChrgBr.text = "SHAR"
+            ChrgBr.text = "SLEV"
             return ChrgBr
-        return super()._get_ChrgBr(payment_method_code)
+        return super()._get_ChrgBr(payment_method_code, forced_value)
 
     def _get_PstlAdr(self, partner_id, payment_method_code):
         if payment_method_code == 'sepa_ct' and self.sepa_pain_version == "pain.001.001.09":

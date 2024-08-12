@@ -23,13 +23,6 @@ class AccountJournal(models.Model):
                 Cd.text = schme_nm
         return result
 
-    def _get_ChrgBr(self, payment_method_code):
-        if payment_method_code == 'iso20022_se':
-            ChrgBr = etree.Element("ChrgBr")
-            ChrgBr.text = "SHAR"
-            return ChrgBr
-        return super()._get_ChrgBr(payment_method_code)
-
     def _get_InitgPty(self, payment_method_code):
         if payment_method_code == 'iso20022_se':
             InitgPty = etree.Element("InitgPty")

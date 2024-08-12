@@ -214,7 +214,7 @@ class TestSEPACreditTransfer(TestSEPACreditTransferCommon):
 
 @tagged('external_l10n', 'post_install', '-at_install', '-standard')
 class TestSEPACreditTransferXmlValidity(TestSEPACreditTransferCommon):
-    @test_xsd(path='account_sepa/schemas/pain.001.001.03.xsd')
+    @test_xsd(path='account_iso20022/schemas/pain.001.001.03.xsd')
     def test_standard_sepa(self):
         sct_docs = []
         for bic in ["BBRUBEBB", False]:

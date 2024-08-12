@@ -80,12 +80,12 @@ class AccountJournal(models.Model):
     # DOCUMENT CREATION
     # -------------------------------------------------------------------------
 
-    def create_iso20022_credit_transfer(self, payments, payment_method_code, batch_booking=False):
+    def create_iso20022_credit_transfer(self, payments, payment_method_code, batch_booking=False, charge_bearer=None):
         """Returns the content of the XML file."""
-        Document = self.create_iso20022_credit_transfer_content(payments, payment_method_code, batch_booking)
+        Document = self.create_iso20022_credit_transfer_content(payments, payment_method_code, batch_booking=batch_booking, charge_bearer=charge_bearer)
         return etree.tostring(Document, pretty_print=True, xml_declaration=True, encoding='utf-8')
 
-    def create_iso20022_credit_transfer_content(self, payments, payment_method_code, batch_booking=False):
+    def create_iso20022_credit_transfer_content(self, payments, payment_method_code, batch_booking=False, charge_bearer=None):
         """
             Creates the body of the XML file for the ISO20022 document.
         """
@@ -151,7 +151,7 @@ class AccountJournal(models.Model):
                 Othr = etree.SubElement(FinInstnId, "Othr")
                 Id = etree.SubElement(Othr, "Id")
                 Id.text = "NOTPROVIDED"
-            PmtInf.append(self._get_ChrgBr(payment_method_code))
+            PmtInf.append(self._get_ChrgBr(payment_method_code, charge_bearer))
 
             # One CdtTrfTxInf per transaction
             for payment in payments_list:
@@ -215,9 +215,9 @@ class AccountJournal(models.Model):
         Ccy.text = self.currency_id and self.currency_id.name or self.company_id.currency_id.name
         return DbtrAcct
 
-    def _get_ChrgBr(self, payment_method_code):
+    def _get_ChrgBr(self, payment_method_code, forced_value):
         ChrgBr = etree.Element("ChrgBr")
-        ChrgBr.text = "SLEV"
+        ChrgBr.text = forced_value or "SHAR"
         return ChrgBr
 
     def _get_CdtTrfTxInf(self, PmtInfId, payment, payment_method_code):
