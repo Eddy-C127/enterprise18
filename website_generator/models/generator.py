@@ -430,7 +430,7 @@ class WebsiteGeneratorRequest(models.Model):
             # TODO: return website configurator?
             return {
                 'type': 'ir.actions.act_url',
-                'url': '/web',
+                'url': '/odoo',
                 'target': 'self',
             }
 
@@ -441,10 +441,8 @@ class WebsiteGeneratorRequest(models.Model):
         ICP.set_param('website_generator.iap_ws_uuid', None)
         ICP.set_param('website_generator.iap_ws_target_url', None)
 
-        action_id = self.env.ref('website_generator.website_generator_screen').id
-        action_id = 'website_generator.website_generator_screen'
         return {
             'type': 'ir.actions.act_url',
-            'url': f'/web?reload=true#action={action_id}',
+            'url': "/odoo/action-website_generator.website_generator_screen?reload=true",
             'target': 'self',
         }

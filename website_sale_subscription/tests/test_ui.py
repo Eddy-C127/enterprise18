@@ -9,7 +9,7 @@ from .common import TestWebsiteSaleSubscriptionCommon
 class TestUi(HttpCase, TestWebsiteSaleSubscriptionCommon):
 
     def test_website_sale_subscription_ui(self):
-        self.start_tour("/web", 'shop_buy_subscription_product', login='admin')
+        self.start_tour("/odoo", 'shop_buy_subscription_product', login='admin')
 
     def test_website_sale_subscription_product_variants(self):
         reccuring_product = self.env['product.template'].create({

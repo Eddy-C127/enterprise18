@@ -8,6 +8,7 @@ import {
     onWillUnmount,
 } from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
+import {redirect} from "@web/core/utils/urls";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 class WebsiteGenerator extends Component {
@@ -45,7 +46,7 @@ class WebsiteGenerator extends Component {
         );
         // Safety check, return to backend if no request
         if (!lastScrapRequest) {
-            window.location.href = "/web";
+            redirect("/odoo");
             return;
         }
         // If no real error status but not yet ready, ask server to check for

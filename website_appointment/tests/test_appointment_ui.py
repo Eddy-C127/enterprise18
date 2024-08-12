@@ -36,7 +36,7 @@ class WebsiteAppointmentUITest(AppointmentCommon):
         mail_new_test_user(
             self.env, login='user_portal', groups='base.group_portal', name='Portal User',
             company_id=self.company_admin.id, email='portal@example.com')
-        self.start_tour('/web', 'website_appointment_tour', login='apt_manager')
+        self.start_tour('/odoo', 'website_appointment_tour', login='apt_manager')
         guest_names = [
             'Raoul', 'new_zeadland2@test.example.com', 'def@gmail.example.com', 'test1@gmail.com', 'test2@gmail.com',
             'abc@gmail.com', 'Appointment Manager'

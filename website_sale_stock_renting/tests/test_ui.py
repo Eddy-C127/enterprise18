@@ -48,7 +48,7 @@ class TestUi(HttpCase, TestWebsiteSaleRentingCommon):
         })
         transfer_provider._transfer_ensure_pending_msg_is_set()
 
-        self.start_tour("/web", 'shop_buy_rental_stock_product', login='admin')
+        self.start_tour("/odoo", 'shop_buy_rental_stock_product', login='admin')
 
     @freezegun.freeze_time('2020-01-01')
     def test_visitor_browse_rental_products(self):

@@ -4,7 +4,7 @@ import { registry } from "@web/core/registry";
 import { assertEqual } from "@web_studio/../tests/tours/tour_helpers";
 
 registry.category("web_tour.tours").add("website_studio_listing_and_page", {
-    url: "/web?debug=1#action=studio&mode=home_menu",
+    url: "/odoo/action-studio?debug=1&mode=home_menu",
     test: true,
     steps: () => [
         {
@@ -58,7 +58,7 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
 });
 
 registry.category("web_tour.tours").add("website_studio_listing_without_page", {
-    url: "/web?debug=1#action=studio&mode=home_menu",
+    url: "/odoo/action-studio?debug=1&mode=home_menu",
     test: true,
     steps: () => [
         {
