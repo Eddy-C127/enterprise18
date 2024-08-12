@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
+import { AppointmentTypeActionHelper } from "@appointment/components/appointment_type_action_helper/appointment_type_action_helper";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { user } from "@web/core/user";
 
@@ -28,4 +29,12 @@ export class AppointmentBookingListRenderer extends ListRenderer {
             context: {},
         });
     }
+}
+
+export class AppointmentTypeListRenderer extends ListRenderer {
+    static template = "appointment.AppointmentTypeListRenderer";
+    static components = {
+        ...ListRenderer.components,
+        AppointmentTypeActionHelper,
+    };
 }

@@ -8,4 +8,12 @@
             t-on-click="onClickAddLeave">Add Closing Day(s)</button>
         </xpath>
     </t>
+
+    <t t-name="appointment.AppointmentTypeListRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary">
+        <t t-call="web.ActionHelper" position="replace">
+            <t t-if="showNoContentHelper">
+                <AppointmentTypeActionHelper/>
+            </t>
+        </t>
+    </t>
 </templates>
