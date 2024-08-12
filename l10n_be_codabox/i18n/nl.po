@@ -62,7 +62,6 @@ msgstr "Account: Synchroniseer Soda-bestanden van CodaBox"
 #. module: l10n_be_codabox
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_connection_wizard__fidu_password
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__fidu_password
-#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.validation_wizard_view
 msgid "Accounting Firm Password"
 msgstr "Wachtwoord van het accountantskantoor"
 
@@ -230,6 +229,11 @@ msgid "Confirm new password"
 msgstr "Bevestig nieuw wachtwoord"
 
 #. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.validation_wizard_view
+msgid "Confirm the Accounting Firm Password"
+msgstr "Bevestig het wachtwoord van het accountantskantoor"
+
+#. module: l10n_be_codabox
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__confirmation_url
 msgid "Confirmation Url"
 msgstr "Bevestigings-URL"
@@ -281,6 +285,11 @@ msgstr "Huidig wachtwoord"
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__display_name
 msgid "Display Name"
 msgstr "Weergavenaam"
+
+#. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.account_journal_dashboard_inherit_l10n_be_codabox
+msgid "Drafts to Validate"
+msgstr "Concepten om te valideren"
 
 #. module: l10n_be_codabox
 #. odoo-python
@@ -472,11 +481,22 @@ msgid "Password successfully changed."
 msgstr "Wachtwoord succesvol gewijzigd."
 
 #. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.validation_wizard_view
+msgid "Paste it here"
+msgstr "Plak het hier"
+
+#. module: l10n_be_codabox
+#: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__pasted_password
+msgid "Pasted Password"
+msgstr "Geplakt Wachtwoord"
+
+#. module: l10n_be_codabox
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_change_password_wizard__confirm_fidu_password
 msgid ""
 "Please confirm the new password you want to set for the accounting firm."
 msgstr ""
-"Bevestig het nieuwe wachtwoord dat je wilt instellen voor het boekhoudkantoor."
+"Bevestig het nieuwe wachtwoord dat je wilt instellen voor het "
+"boekhoudkantoor."
 
 #. module: l10n_be_codabox
 #. odoo-python
@@ -609,7 +629,6 @@ msgstr ""
 
 #. module: l10n_be_codabox
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_change_password_wizard__current_fidu_password
-#: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_connection_wizard__fidu_password
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__fidu_password
 msgid ""
 "This is the password you have received from Odoo the first time you "
@@ -617,6 +636,17 @@ msgid ""
 msgstr ""
 "Dit is het wachtwoord dat je de eerste keer van Odoo hebt ontvangen toen je "
 "verbinding maakte met CodaBox."
+
+#. module: l10n_be_codabox
+#: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_connection_wizard__fidu_password
+msgid ""
+"This is the password you have received from Odoo the first time you "
+"connected to CodaBox. Check the documentation if you have forgotten your "
+"password."
+msgstr ""
+"Dit is het wachtwoord dat je de eerste keer van Odoo hebt ontvangen toen je "
+"verbinding maakte met CodaBox. Gelieve de documentatie te controleren als je"
+" je wachtwoord vergeten hebt.
 
 #. module: l10n_be_codabox
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_change_password_wizard__new_fidu_password
@@ -650,3 +680,17 @@ msgid ""
 msgstr ""
 "Valideer de verbinding aan de kant van CodaBox (met je gebruikelijke myCodaBox-inloggegevens).\n"
 "Dit hoeft slechts eenmaal te worden gedaan."
+
+#. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.connection_wizard_view
+msgid "You can access the documentation"
+msgstr "U kunt de documentatie raadplegen"
+
+#. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.connection_wizard_view
+msgid ""
+"by clicking here\n"
+"                        <i class=\"fa fa-external-link\" aria-hidden=\"true\"/>"
+msgstr ""
+"door hier te klikken\n"
+"                        <i class=\"fa fa-external-link\" aria-hidden=\"true\"/>"

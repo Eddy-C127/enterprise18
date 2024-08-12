@@ -24,6 +24,20 @@ class AccountJournal(models.Model):
             journal = self.browse(journal_id)
             dashboard_data[journal_id]["l10n_be_codabox_is_connected"] = journal.company_id.l10n_be_codabox_is_connected
             dashboard_data[journal_id]["l10n_be_codabox_journal_is_soda"] = journal == journal.company_id.l10n_be_codabox_soda_journal
+            if journal == journal.company_id.l10n_be_codabox_soda_journal:
+                dashboard_data[journal_id]["l10n_be_codabox_number_draft"] = self.env['account.move'].search_count([
+                    ('journal_id', '=', journal.id),
+                    ('state', '=', 'draft'),
+                ])
+
+    def l10n_be_codabox_action_open_settings_open_draft_soda_entries(self):
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "account.move",
+            "view_mode": "tree,form",
+            "domain": [("journal_id", "=", self.id), ("state", "=", "draft")],
+            "target": "current",
+        }
 
     def _l10n_be_codabox_fetch_transactions_from_iap(self, session, company, file_type, date_from=None, ibans=None):
         assert file_type in ("codas", "sodas")

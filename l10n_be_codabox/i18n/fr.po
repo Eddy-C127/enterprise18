@@ -62,7 +62,6 @@ msgstr "Comptabilité: Synchroniser les fichiers SODA via CodaBox"
 #. module: l10n_be_codabox
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_connection_wizard__fidu_password
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__fidu_password
-#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.validation_wizard_view
 msgid "Accounting Firm Password"
 msgstr "Mot de Passe de la Fiduciaire"
 
@@ -230,6 +229,11 @@ msgid "Confirm new password"
 msgstr "Confirmez le nouveau mot de passe"
 
 #. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.validation_wizard_view
+msgid "Confirm the Accounting Firm Password"
+msgstr "Confirmez le mot de passde de la fiduciaire"
+
+#. module: l10n_be_codabox
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__confirmation_url
 msgid "Confirmation Url"
 msgstr "Url de confirmation"
@@ -281,6 +285,11 @@ msgstr "Mot de passe actuel"
 #: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__display_name
 msgid "Display Name"
 msgstr "Nom d'affichage"
+
+#. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.account_journal_dashboard_inherit_l10n_be_codabox
+msgid "Drafts to Validate"
+msgstr "Brouillons à Valider"
 
 #. module: l10n_be_codabox
 #. odoo-python
@@ -472,6 +481,16 @@ msgid "Password successfully changed."
 msgstr "Mot de passe changé avec succès."
 
 #. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.validation_wizard_view
+msgid "Paste it here"
+msgstr "Collez le ici"
+
+#. module: l10n_be_codabox
+#: model:ir.model.fields,field_description:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__pasted_password
+msgid "Pasted Password"
+msgstr "Mot de passe collé"
+
+#. module: l10n_be_codabox
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_change_password_wizard__confirm_fidu_password
 msgid ""
 "Please confirm the new password you want to set for the accounting firm."
@@ -606,7 +625,6 @@ msgstr ""
 
 #. module: l10n_be_codabox
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_change_password_wizard__current_fidu_password
-#: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_connection_wizard__fidu_password
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_validation_wizard__fidu_password
 msgid ""
 "This is the password you have received from Odoo the first time you "
@@ -614,6 +632,17 @@ msgid ""
 msgstr ""
 "Mot de passe que vous avez reçu d'Odoo lors de votre première connexion à "
 "CodaBox."
+
+#. module: l10n_be_codabox
+#: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_connection_wizard__fidu_password
+msgid ""
+"This is the password you have received from Odoo the first time you "
+"connected to CodaBox. Check the documentation if you have forgotten your "
+"password."
+msgstr ""
+"Mot de passe que vous avez reçu de Odoo lors de la première connexion à "
+"CodaBox. Veuillez vérifier la documentation si vous avez oublie votre mot "
+"de passe."
 
 #. module: l10n_be_codabox
 #: model:ir.model.fields,help:l10n_be_codabox.field_l10n_be_codabox_change_password_wizard__new_fidu_password
@@ -647,3 +676,18 @@ msgid ""
 msgstr ""
 "Validez la connexion du côté de CodaBox (avec vos identifiants CodaBox habituels)\n"
 "                                Ceci ne devra être fait qu'une seule fois."
+
+#. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.connection_wizard_view
+msgid "You can access the documentation"
+msgstr "Vous pouvez accéder à la documentation"
+
+#. module: l10n_be_codabox
+#: model_terms:ir.ui.view,arch_db:l10n_be_codabox.connection_wizard_view
+msgid ""
+"by clicking here\n"
+"                        <i class=\"fa fa-external-link\" aria-hidden=\"true\"/>"
+msgstr ""
+"en cliquant ici\n"
+"                        <i class=\"fa fa-external-link\" aria-hidden=\"true\"/>"
+
