@@ -1825,7 +1825,7 @@ class L10nInGSTReturnPeriod(models.Model):
             'dbuuid': self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
         })
         try:
-            self.env['iap.account']._l10n_in_connect_to_server(
+            return self.env['iap.account']._l10n_in_connect_to_server(
                 company.sudo().l10n_in_edi_production_env,
                 params,
                 url,
