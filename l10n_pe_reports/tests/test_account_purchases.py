@@ -18,10 +18,11 @@ class TestPePurchase(TestAccountReportsCommon):
 
     @classmethod
     def _get_purchase_taxes(cls):
-        taxes = cls.env["account.tax"]
-        for tax in ["igv_18", "igv_18_included", "exo", "ina", "gra"]:
-            taxes += cls.env.ref(f"account.{cls.env.company.id}_purchase_tax_{tax}")
-
+        AccountChartTemplate = cls.env['account.chart.template']
+        taxes = AccountChartTemplate.ref("purchase_tax_igv_18")
+        taxes += AccountChartTemplate.ref("purchase_tax_igv_18").copy({'name': '18 Included', 'price_include': True})
+        for tax in ["exo", "ina", "gra"]:
+            taxes += AccountChartTemplate.ref(f"purchase_tax_{tax}")
         return taxes
 
     def _prepare_purchase_moves(self, invoice_type=False, refund_type=False):

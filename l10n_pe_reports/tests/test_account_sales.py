@@ -20,11 +20,12 @@ class TestPeSales(TestAccountReportsCommon):
 
     @classmethod
     def _get_sale_taxes(cls):
-        taxes = cls.env["account.tax"]
-        for tax in ["igv_18", "igv_18_included", "exo", "ina", "gra", "exp", "ics_0"]:
-            taxes += cls.env.ref(f"account.{cls.env.company.id}_sale_tax_{tax}")
-        cls.env.ref(f"account.{cls.env.company.id}_sale_tax_ics_0").amount = 10
-
+        AccountChartTemplate = cls.env['account.chart.template']
+        AccountChartTemplate.ref("sale_tax_ics_0").amount = 10
+        taxes = AccountChartTemplate.ref("sale_tax_igv_18")
+        taxes += AccountChartTemplate.ref("sale_tax_igv_18").copy({'name': '18 Included', 'price_include': True})
+        for tax in ["exo", "ina", "gra", "exp", "ics_0"]:
+            taxes += AccountChartTemplate.ref(f"sale_tax_{tax}")
         return taxes
 
     def test_sale_report(self):
