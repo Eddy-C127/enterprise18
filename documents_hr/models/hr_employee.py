@@ -54,6 +54,8 @@ class HrEmployee(models.Model):
         action['context'] = {
             'default_partner_id': self.work_contact_id.id,
             'searchpanel_default_folder_id': hr_folder and hr_folder.id,
+            'default_res_id': self.id,
+            'default_res_model': 'hr.employee',
         }
         action['domain'] = self._get_employee_document_domain()
         return action
