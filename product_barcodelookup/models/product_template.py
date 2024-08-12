@@ -39,6 +39,10 @@ class ProductTemplate(models.Model):
         if images := product_data.get('images'):
             for image in images:
                 img_response = barcode_lookup_service.barcode_lookup_request(image)
+                if isinstance(img_response, dict):
+                    # Response is not 200 when fetching the image so we just ignore it.
+                    continue
+
                 if img_response and not product.image_1920:
                     product.image_1920 = base64.b64encode(img_response.content)
                 elif img_response and 'product_template_image_ids' in self.env['product.template']:
