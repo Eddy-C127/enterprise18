@@ -91,7 +91,7 @@ patch(StreamPostKanbanRecord.prototype, {
 
     async _onTwitterTweetLike() {
         const userLikes = this.record.twitter_user_likes.raw_value;
-        rpc(sprintf('social_twitter/%s/like_tweet', this.record.stream_id.raw_value), {
+        rpc(sprintf('/social_twitter/%s/like_tweet', this.record.stream_id.raw_value), {
             tweet_id: this.record.twitter_tweet_id.raw_value,
             like: !userLikes
         });
@@ -99,7 +99,7 @@ patch(StreamPostKanbanRecord.prototype, {
     },
 
     _onTwitterRetweet(ev) {
-        rpc(sprintf('social_twitter/%s/%s', this.record.stream_id.raw_value,
+        rpc(sprintf('/social_twitter/%s/%s', this.record.stream_id.raw_value,
                  this.record.twitter_can_retweet.raw_value ? 'retweet' : 'unretweet'), {
             tweet_id: this.record.twitter_tweet_id.raw_value,
             stream_id: this.record.stream_id.raw_value,
