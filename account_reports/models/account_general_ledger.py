@@ -217,7 +217,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                         groupby_accounts.setdefault(equity_unaffected_account.id, {col_group_key: {'unaffected_earnings': {}} for col_group_key in options['column_groups']})
 
                         if unaffected_earnings := groupby_company.get(column_group_key):
-                            if groupby_accounts[equity_unaffected_account.id][column_group_key]['unaffected_earnings']:
+                            if groupby_accounts[equity_unaffected_account.id][column_group_key].get('unaffected_earnings'):
                                 for key in ['amount_currency', 'debit', 'credit', 'balance']:
                                     groupby_accounts[equity_unaffected_account.id][column_group_key]['unaffected_earnings'][key] += unaffected_earnings[key]
                             else:
