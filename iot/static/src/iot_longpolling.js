@@ -213,11 +213,12 @@ export class IoTLongpolling {
             .then(function (result) {
                 self._retries = 0;
                 self._listeners[iot_ip].rpc = false;
+                const remainingDevices = Object.keys(self._listeners[iot_ip].devices || {});
                 if (result.result) {
                     if (self._session_id === result.result.session_id) {
                         self._onSuccess(iot_ip, result.result);
                     }
-                } else if (Object.keys(self._listeners[iot_ip].devices || {}).length > 0) {
+                } else if (remainingDevices.length > 0) {
                     self._poll(iot_ip);
                 }
             }).fail(function (jqXHR, textStatus) {

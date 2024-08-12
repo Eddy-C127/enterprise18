@@ -6,10 +6,11 @@
         <field name="arch" type="xml">
             <form js_class="select_printers_wizard" string="Sales Details">
                 <field name="display_device_ids" invisible="1"/>
-                <field name="device_ids" widget="many2many_checkboxes" domain="[('id', 'in', display_device_ids)]" string="Printers"/>
+                <group>
+                    <field name="device_ids" widget="many2many_tags" domain="[('id', 'in', display_device_ids)]" string="Printers"/>
+                </group>
                 <footer>
-                    <button name="select_iot" string="Print" type="object" class="btn-primary"/>
-                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                    <button string="Print" class="btn-primary" special="cancel" />
                 </footer>
             </form>
         </field>
