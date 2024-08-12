@@ -22,13 +22,10 @@ class TestCaseDocumentsBridgeHR(TransactionCase):
         company = self.env.user.company_id
         company.documents_hr_settings = True
         company.documents_hr_folder = self.folder_test.id
-        partner = self.env['res.partner'].create({
-            'name': 'Employee address',
-        })
         self.employee = self.env['hr.employee'].create({
             'name': 'User Empl Employee',
             'user_id': self.documents_user.id,
-            'work_contact_id': partner.id,
+            'work_contact_id': self.documents_user.partner_id.id,
         })
 
     def test_bridge_hr_settings_on_write(self):
@@ -65,3 +62,24 @@ class TestCaseDocumentsBridgeHR(TransactionCase):
             'mimetype': 'text/plain',
         })
         self.assertTrue(document.attachment_id, "An attachment should have been created")
+
+    def test_open_document_from_hr(self):
+        """ Test that opening the document app from an employee (hr app) is opening it in the right context. """
+        action = self.employee.action_open_documents()
+        context = action['context']
+        self.assertTrue(context['searchpanel_default_folder_id'])
+        self.assertEqual(context['default_res_model'], 'hr.employee')
+        self.assertEqual(context['default_res_id'], self.employee.id)
+        self.assertEqual(context['default_partner_id'], self.employee.work_contact_id.id)
+        self.env['documents.document'].create([
+            {'name': 'employee doc1', 'folder_id': self.folder_test.id, 'partner_id': self.employee.work_contact_id.id},
+            {'name': 'employee doc2', 'folder_id': self.folder_test.id, 'owner_id': self.employee.user_id.id},
+            {'name': 'non employee', 'folder_id': self.folder_test.id},
+        ])
+        filtered_documents = self.env['documents.document'].search(action['domain'])
+        self.assertEqual(
+            len(filtered_documents.filtered(
+                lambda doc: doc.owner_id == self.employee.user_id or doc.partner_id == self.employee.work_contact_id)),
+            2,
+            "Employee related documents are visible")
+        self.assertEqual(len(filtered_documents), 2, "Only employee related documents are visible")
