@@ -13,5 +13,10 @@
         'views/appointment_templates_validation.xml',
         'views/appointment_type_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'appointment_google_calendar/static/src/**/*',
+        ],
+    },
     'auto_install': True,
 }

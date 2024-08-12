@@ -187,6 +187,10 @@
                     <button name="action_customer_preview" string="Preview" type="object" class="btn btn-secondary"
                         invisible="not active"/>
                 </header>
+                <div class="o_appointment_cal_sync_alert alert alert-info d-flex flex-wrap gap-2 align-items-center" role="alert"
+                    invisible="not connectors_displayed">
+                    Synchronize your Calendar to avoid double-booking
+                </div>
                 <sheet>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <field name="image_1920" widget="image" class="oe_avatar"/>
