@@ -72,7 +72,7 @@ class BudgetLine(models.Model):
                 aal_amount_condition = SQL('aal.amount > 0')
             else:
                 aal_amount_condition = SQL('TRUE')
-            if budget_type == 'expense':
+            if budget_type != 'revenue':
                 purchase_order_query = SQL(
                     """SELECT (pol.product_qty - pol.qty_invoiced) / po.currency_rate * pol.price_unit::FLOAT * (a.rate)::FLOAT AS committed,
                                0 AS achieved,

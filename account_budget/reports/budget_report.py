@@ -110,7 +110,7 @@ class BudgetReport(models.Model):
  LEFT JOIN LATERAL (
                        SELECT DISTINCT ba.id
                          FROM budget_line bl
-                         JOIN budget_analytic ba ON ba.id = bl.budget_analytic_id AND ba.budget_type = 'expense'
+                         JOIN budget_analytic ba ON ba.id = bl.budget_analytic_id AND ba.budget_type != 'revenue'
                         WHERE po.date_order >= bl.date_from
                           AND po.date_order <= bl.date_to
                           AND po.company_id = bl.company_id

@@ -67,6 +67,11 @@ class TestAccountBudgetCommon(AccountTestInvoicingCommon):
                     'budget_amount': 10000,
                     cls.project_column_name: cls.analytic_account_partner_b.id,
                 }),
+                Command.create({
+                    cls.project_column_name: cls.analytic_account_partner_b.id,
+                    cls.department_column_name: cls.analytic_account_administratif.id,
+                    'budget_amount': 10000.0,
+                }),
             ]
         })
 
@@ -86,22 +91,36 @@ class TestAccountBudgetCommon(AccountTestInvoicingCommon):
                     'budget_amount': 9000,
                     cls.project_column_name: cls.analytic_account_partner_b.id,
                 }),
+                Command.create({
+                    cls.project_column_name: cls.analytic_account_partner_b.id,
+                    cls.department_column_name: cls.analytic_account_administratif.id,
+                    'budget_amount': 10000.0,
+                }),
             ]
         })
 
-        # ==== Budget Lines ====
-
-        cls.env['budget.line'].create({
-            cls.project_column_name: cls.analytic_account_partner_b.id,
-            cls.department_column_name: cls.analytic_account_administratif.id,
-            'budget_amount': 10000.0,
-            'budget_analytic_id': cls.budget_analytic_revenue.id,
-        })
-        cls.env['budget.line'].create({
-            cls.project_column_name: cls.analytic_account_partner_b.id,
-            cls.department_column_name: cls.analytic_account_administratif.id,
-            'budget_amount': 10000.0,
-            'budget_analytic_id': cls.budget_analytic_expense.id,
+        cls.budget_analytic_both = cls.env['budget.analytic'].create({
+            'name': 'Budget 2019: Both',
+            'date_from': '2019-01-01',
+            'date_to': '2019-12-31',
+            'budget_type': 'both',
+            'state': 'draft',
+            'user_id': cls.env.ref('base.user_admin').id,
+            'budget_line_ids': [
+                Command.create({
+                    'budget_amount': 20000,
+                    cls.project_column_name: cls.analytic_account_partner_a.id,
+                }),
+                Command.create({
+                    'budget_amount': 5000,
+                    cls.project_column_name: cls.analytic_account_partner_b.id,
+                }),
+                Command.create({
+                    cls.project_column_name: cls.analytic_account_partner_b.id,
+                    cls.department_column_name: cls.analytic_account_administratif.id,
+                    'budget_amount': 10000.0,
+                }),
+            ]
         })
 
         # ==== Purchase Order ====
