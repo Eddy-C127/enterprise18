@@ -11,7 +11,7 @@
                 <group>
                     <group>
                         <field name="name"/>
-                        <field name="dashboard_group_id" placeholder="Choose a dashboard section..."/>
+                        <field name="dashboard_group_id" options="{'no_open': True, 'no_create_edit': True}" placeholder="Choose a dashboard section..."/>
                     </group>
                     <group>
                         <field name="group_ids" widget="many2many_tags"/>
