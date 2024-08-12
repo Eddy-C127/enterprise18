@@ -20,7 +20,7 @@
                 >
                     <button class="align-self-center h-100 w-100 rounded">
                         <span t-if="institution.default_picture" t-out="institution.name"/>
-                        <img t-else="" class="img-fluid p-3" t-att-src="institution.picture" t-att-title="institution.name"/>
+                        <img t-else="" class="img-fluid p-2" t-att-src="institution.picture" t-att-title="institution.name"/>
                     </button>
                 </div>
             </div>
