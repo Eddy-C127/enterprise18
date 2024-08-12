@@ -8,7 +8,7 @@
                 <group>
                     <group>
                         <field name="name"/>
-                        <field name="dashboard_group_id"/>
+                        <field name="dashboard_group_id" options="{'no_open': True, 'no_create_edit': True}"/>
                     </group>
                     <group>
                         <field name="group_ids" widget="many2many_tags"/>
