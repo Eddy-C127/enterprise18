@@ -3,7 +3,8 @@
 import { browser } from "@web/core/browser/browser";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onWillStart } from "@odoo/owl";
+import { standardActionServiceProps } from "@web/webclient/actions/action_service";
+import { Component, onWillStart, useState } from "@odoo/owl";
 
 export const IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY = "odoo-iot-linked_reports";
 
@@ -22,28 +23,38 @@ export function removeIoTReportIdFromBrowserLocalStorage(report_id) {
     }
 }
 
-class MainComponent extends Component {
+/**
+ * Set the report_id in the browser LocalStorage
+ * @param report_id The report_id to set
+ * @param value The value to set
+ */
+export function setReportIdInBrowserLocalStorage(report_id, value) {
+    let links = JSON.parse(browser.localStorage.getItem(IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY));
+    if (links === null || typeof links !== "object") {
+        links = {};
+    }
+    links[report_id] = value;
+    browser.localStorage.setItem(IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY, JSON.stringify(links));
+}
+
+class IoTReportLocalStorage extends Component {
+    static template = "iot.delete_printer";
+    static props = { ...standardActionServiceProps };
+
     setup() {
-        const links = JSON.parse(
-            browser.localStorage.getItem(IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY)
-        );
-        const report_list = links ? Object.keys(links) : [];
+        const links = JSON.parse(browser.localStorage.getItem(IOT_REPORT_PREFERENCE_LOCAL_STORAGE_KEY));
+        this.state = useState({ reportList: (links ? Object.keys(links) : []) });
         this.orm = useService("orm");
         onWillStart(async () => {
-            const report_ids = await this.orm.searchRead("ir.actions.report", [
-                ["id", "in", report_list],
+            this.state.reportList = await this.orm.searchRead("ir.actions.report", [
+                ["id", "in", this.state.reportList],
             ]);
-            this.report_list = report_ids;
         });
     }
-    removeFromLocal(id) {
+    removeFromLocal(event, id) {
         removeIoTReportIdFromBrowserLocalStorage(id);
-        window.location.reload();
+        this.state.reportList = this.state.reportList.filter((report) => report.id !== id);
     }
 }
 
-MainComponent.template = "iot.delete_printer";
-
-registry.category("actions").add("iot_delete_linked_devices_action", MainComponent);
-
-export default MainComponent;
+registry.category("actions").add("iot_delete_linked_devices_action", IoTReportLocalStorage);

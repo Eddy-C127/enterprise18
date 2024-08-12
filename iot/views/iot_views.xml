@@ -240,7 +240,7 @@
     </record>
 
     <record id="action_iot_delete_linked_devices_menu" model="ir.actions.client">
-        <field name="name">Clear Selected Devices</field>
+        <field name="name">reset.linked.printers</field>
         <field name="tag">iot_delete_linked_devices_action</field>
     </record>
     
@@ -256,10 +256,22 @@
         sequence="2"/>
     <menuitem
         id="view_iot_selected_printer_local_action"
-        name="Clear Selected Devices"
-        action="action_iot_delete_linked_devices_menu"
+        name="Configuration"
         parent="iot_menu_root"
         sequence="3"/>
+
+    <!-- Reports submenu -->
+    <menuitem
+        id="iot_settings_menu_action"
+        name="Reports"
+        parent="view_iot_selected_printer_local_action"
+        sequence="4"/>
+    <menuitem
+        id="iot_clear_selected_devices"
+        name="Reset Linked Printers"
+        sequence="5"
+        parent="iot_settings_menu_action"
+        action="action_iot_delete_linked_devices_menu"/>
 
     <!-- ir.action.report add the device -->
     <record id="act_report_xml_view_iot" model="ir.ui.view">

@@ -13,24 +13,35 @@ class IrActionReport(models.Model):
     device_ids = fields.Many2many('iot.device', string='IoT Devices', domain="[('type', '=', 'printer')]",
                                 help='When setting a device here, the report will be printed through this device on the IoT Box')
 
-    def render_and_send(self, devices, res_ids, data=None, print_id=0):
+    def render_and_send(self, devices, res_ids, data=None, print_id=0, websocket=True):
         """
-            Send the dictionnary in message to the iot_box via websocket.
+            Send the dictionary in message to the iot_box via websocket, or return the data to be sent by longpolling.
         """
         datas = self._render(self.report_name, res_ids, data=data)
         data_bytes = datas[0]
         data_base64 = base64.b64encode(data_bytes)
         iot_identifiers = {device["iotIdentifier"] for device in devices}
+        if not websocket:
+            return [
+                [
+                    self.env["iot.box"].search([("identifier", "=", device["iotIdentifier"])]).ip,
+                    device["identifier"],
+                    device['name'],
+                    data_base64,
+                ]
+                for device in devices
+            ]
+
         self._send_websocket({
-            'iotDevice': {
+            "iotDevice": {
                 "iotIdentifiers": list(iot_identifiers),
                 "identifiers": [{
-                    "identifier" : device["identifier"],
-                    "id" : device["id"]
+                    "identifier": device["identifier"],
+                    "id": device["id"]
                 } for device in devices],
             },
-            'print_id' : print_id,
-            'document': data_base64
+            "print_id": print_id,
+            "document": data_base64
         })
         return print_id
 
@@ -69,12 +80,12 @@ class IrActionReport(models.Model):
                 'res_model': 'select.printers.wizard',
                 'target': 'new',
                 'views': [[False, 'form']],
-                'context' : {
-                    'res_ids' : res_ids,
-                    'data' : data,
-                    'report_id' : self._ids[0],
-                    'print_id' : print_id,
-                    'default_report_id' : self._ids[0]
+                'context': {
+                    'res_ids': res_ids,
+                    'data': data,
+                    'report_id': self._ids[0],
+                    'print_id': print_id,
+                    'default_report_id': self._ids[0]
                 },
         }
 
