@@ -177,7 +177,7 @@ export class PivotAutofillPlugin extends UIPlugin {
         if (isColumn) {
             // LEFT-RIGHT
             rows = currentElement.rows;
-            if (isDate) {
+            if (isDate && currentElement.cols.length > 1) {
                 // Date
                 const group = dataSource.getGroupOfFirstDate("COLUMN");
                 cols = currentElement.cols;
@@ -274,7 +274,9 @@ export class PivotAutofillPlugin extends UIPlugin {
         const table = dataSource.getTableStructure();
         const currentElement = this._getCurrentHeaderElement(pivotId, args);
         const currentColIndex = table.getColMeasureIndex(currentElement.cols);
-        const isDate = dataSource.isGroupedOnlyByOneDate("COLUMN");
+        const isDate =
+            dataSource.isGroupedOnlyByOneDate("COLUMN") &&
+            currentColIndex !== table.getNumberOfDataColumns() - 1;
         if (isColumn) {
             // LEFT-RIGHT
             let groupValues;

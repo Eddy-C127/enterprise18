@@ -845,4 +845,48 @@ QUnit.module("spreadsheet > pivot_autofill", {}, () => {
         assert.equal(model.getters.getCellBorder({ sheetId, col, row: row + 1 }), null);
         assert.equal(filledCell.format, "#,##0.0");
     });
+
+    QUnit.test("Can autofill pivot horizontally with column grouped by date", async (assert) => {
+        const { model } = await createSpreadsheetWithPivot({
+            arch: /*xml*/ `
+                <pivot>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="product_id"  type="row"/>
+                    <field name="probability" type="measure"/>
+                </pivot>`,
+        });
+        // Headers
+        setCellContent(
+            model,
+            "B1",
+            `=ODOO.PIVOT.HEADER(1,"date:month","04/2016","measure","probability")`
+        );
+        assert.strictEqual(
+            getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 }),
+            `=ODOO.PIVOT.HEADER(1,"date:month","05/2016","measure","probability")`
+        );
+
+        setCellContent(model, "B1", `=ODOO.PIVOT.HEADER(1,"measure","probability")`);
+        assert.strictEqual(
+            getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 }),
+            ""
+        );
+
+        // Values
+        setCellContent(
+            model,
+            "B1",
+            `=ODOO.PIVOT(1,"probability","product_id",47,"date:month","04/2016")`
+        );
+        assert.strictEqual(
+            getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 }),
+            `=ODOO.PIVOT(1,"probability","product_id",47,"date:month","05/2016")`
+        );
+
+        setCellContent(model, "B1", `=ODOO.PIVOT(1,"probability","product_id",47)`);
+        assert.strictEqual(
+            getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 }),
+            ""
+        );
+    });
 });
