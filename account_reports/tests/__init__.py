@@ -3,6 +3,7 @@
 
 from . import common
 from . import account_sales_report_common
+from . import test_account_reports_annotations_export
 from . import test_account_reports_filters
 from . import test_account_reports_journal_filter
 from . import test_account_reports_tax_reminder

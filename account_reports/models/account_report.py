@@ -5627,18 +5627,19 @@ class AccountReport(models.Model):
                 x_offset += colspan
                 if header_to_render.get('forced_options', {}).get('compute_budget'):
                     write_cell(sheet, x_offset, y_offset, '%', title_style)
-                    x_offset += colspan
+                    x_offset += colspan + (1 if options['show_horizontal_group_total'] and header_level_index == 0 else 0)
             if options.get('column_percent_comparison') == 'growth':
                 write_cell(sheet, x_offset, y_offset, '%', title_style)
+                x_offset += 1
 
             if options['show_horizontal_group_total'] and header_level_index != 0:
                 horizontal_group_name = next((group['name'] for group in options['available_horizontal_groups'] if group['id'] == options['selected_horizontal_group_id']), None)
                 write_cell(sheet, x_offset, y_offset, horizontal_group_name, title_style)
+                x_offset += 1
             if annotations:
-                # When growth comparison is active, an additional column is present in the xlsx.
-                # The annotations have to be moved by one column so they don't overlap with it.
-                annotations_x_offset = x_offset + 1 if options['show_growth_comparison'] else x_offset
-                write_cell(sheet, annotations_x_offset, y_offset, 'Annotations', title_style, colspan)
+                annotations_x_offset = x_offset
+                write_cell(sheet, annotations_x_offset, y_offset, 'Annotations', title_style)
+                x_offset += 1
             y_offset += 1
             x_offset = original_x_offset + 1
 
