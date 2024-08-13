@@ -9,6 +9,10 @@ from odoo.tests.common import HttpCase
 class TestWebsiteSaleRentingProductConfigurator(HttpCase):
 
     def test_website_sale_renting_product_configurator(self):
+        self.env.company.write({
+            'renting_forbidden_sat': False,
+            'renting_forbidden_sun': False
+        })
         optional_product = self.env['product.template'].create({
             'name': "Optional product",
             'website_published': True,
