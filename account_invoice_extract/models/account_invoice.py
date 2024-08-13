@@ -890,8 +890,8 @@ class AccountMove(models.Model):
     def _get_edi_decoder(self, file_data, new=False):
         # EXTENDS 'account'
         self.ensure_one()
-
-        if file_data['type'] in ('pdf', 'binary') and self._needs_auto_extract(new_document=new):
+        decoder = super()._get_edi_decoder(file_data, new=new)
+        if not decoder and file_data['type'] in ('pdf', 'binary') and self._needs_auto_extract(new_document=new):
             return self._import_invoice_ocr
         return super()._get_edi_decoder(file_data, new=new)
 
