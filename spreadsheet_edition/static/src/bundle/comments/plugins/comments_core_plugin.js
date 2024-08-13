@@ -84,6 +84,9 @@ export class CellThreadsPlugin extends OdooCorePlugin {
             case "CREATE_SHEET":
                 this.history.update("cellThreads", cmd.sheetId, {});
                 break;
+            case "DUPLICATE_SHEET":
+                this.history.update("cellThreads", cmd.sheetIdTo, {});
+                break;
             case "DELETE_SHEET":
                 {
                     const threads = { ...this.cellThreads };

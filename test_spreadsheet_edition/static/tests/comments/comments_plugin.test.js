@@ -97,6 +97,14 @@ test("Thread removed on sheet deletion", () => {
     expect(model.getters.getSpreadsheetThreads(["sh2"])).toEqual([]);
 });
 
+test("can add a column in a duplicated sheet", () => {
+    const model = new Model();
+    const activeSheetId = model.getters.getActiveSheetId();
+    model.dispatch("DUPLICATE_SHEET", { sheetId: activeSheetId, sheetIdTo: "sh2"});
+    addColumns(model, "before", "B", 1, "sh2");
+    expect(model.getters.getSpreadsheetThreads(["sh2"])).toEqual([]);
+});
+
 test("Thread moved on sheet structure change", () => {
     const model = new Model();
     const threadId = 1;
