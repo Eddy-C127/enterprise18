@@ -44,7 +44,7 @@ patch(registry.category("web_tour.tours").get("industry_fsm_tour"), {
                 trigger: '.o_control_panel:not(:has(button[name="action_fsm_worksheet"]))',
             },
             {
-            trigger: '.o_form_sheet div[name] input',
+            trigger: '.o_form_sheet div[name] input, .o_form_sheet .note-editable',
             content: markup(_t('Fill in your <b>worksheet</b> with the details of your intervention.')),
             run: "edit My intervention details",
             tooltipPosition: 'bottom',
