@@ -88,7 +88,7 @@
                     <button t-if="order.delivery_status == 'placed'" class="btn-switchpane w-100 btn btn-primary rounded-0 fw-bolder secondary review-button mt-2" t-on-click="() => this._acceptOrder(order)">
                         <span class="fs-1 d-block">Accept</span>
                     </button>
-                    <button t-if="order.delivery_status == 'acknowledged'" class="btn-switchpane w-100 btn btn-primary rounded-0 fw-bolder secondary review-button mt-2" t-on-click="() => this._acceptOrder(order)">
+                    <button t-if="order.delivery_status == 'acknowledged'" class="btn-switchpane w-100 btn btn-primary rounded-0 fw-bolder secondary review-button mt-2" t-on-click="() => this._doneOrder(order)">
                         <span class="fs-1 d-block">Mark as ready</span>
                     </button>
                 </div>

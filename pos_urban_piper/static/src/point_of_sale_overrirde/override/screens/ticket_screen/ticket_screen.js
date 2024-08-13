@@ -107,13 +107,14 @@ patch(TicketScreen.prototype, {
                 sticky: true,
             });
         }
-        const response = await this._updateOrderStatus(order, "Acknowledged");
-        const status = await this._handleResponse(response, order, "acknowledged");
+        const syncedOrder = this.pos.models["pos.order"].get(order.id);
+        const response = await this._updateOrderStatus(syncedOrder, "Acknowledged");
+        const status = await this._handleResponse(response, syncedOrder, "acknowledged");
         if (status) {
-            await this._updateScreenState(order, "ACTIVE_ORDERS");
+            await this._updateScreenState(syncedOrder, "ACTIVE_ORDERS");
         }
         try {
-            await this.pos.sendOrderInPreparation(order);
+            await this.pos.sendOrderInPreparation(syncedOrder);
         } catch {
             this.pos.notification.add(_t("Error to send in preparation display."), {
                 type: "warning",
