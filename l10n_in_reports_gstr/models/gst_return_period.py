@@ -1833,7 +1833,7 @@ class L10nInGSTReturnPeriod(models.Model):
             params = {}
         params.update({
             "username": company.sudo().l10n_in_gstr_gst_username,
-            'dbuuid': self.env["ir.config_parameter"].sudo().get_param("database.uuid"),
+            'gstin': company.vat,
         })
         try:
             return self.env['iap.account']._l10n_in_connect_to_server(
