@@ -39,6 +39,7 @@ class AccountAsset(models.Model):
             asset.total_depreciable_value = asset.original_value
         super(AccountAsset, (self - l10n_in_records))._compute_total_depreciable_value()
 
+    @api.constrains('depreciation_move_ids')
     def _check_depreciations(self):
         l10n_in_records = self.filtered(lambda asset: asset._check_degressive_special_asset())
         super(AccountAsset, (self - l10n_in_records))._check_depreciations()
