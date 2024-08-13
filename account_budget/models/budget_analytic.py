@@ -3,7 +3,7 @@
 from markupsafe import Markup
 
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class BudgetAnalytic(models.Model):
@@ -57,6 +57,11 @@ class BudgetAnalytic(models.Model):
         for budget in self:
             if budget._has_cycle():
                 raise ValidationError(_('You cannot create recursive revision of budget.'))
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_draft_or_cancel(self):
+        if any(budget.state not in ('draft', 'canceled') for budget in self):
+            raise UserError(_("Deletion is only allowed in the Draft and Canceled stages."))
 
     def action_budget_confirm(self):
         self.parent_id.filtered(lambda b: b.state == 'confirmed').state = 'revised'
