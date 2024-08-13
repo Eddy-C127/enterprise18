@@ -26,5 +26,5 @@ class PurchaseOrder(models.Model):
             for account in account_ids.split(',')
         ]
         action = self.env["ir.actions.actions"]._for_xml_id("account_budget.budget_report_action")
-        action['domain'] = [('auto_account_id', 'in', analytic_account_ids)]
+        action['domain'] = [('auto_account_id', 'in', analytic_account_ids), ('budget_analytic_id.budget_type', '!=', 'revenue')]
         return action

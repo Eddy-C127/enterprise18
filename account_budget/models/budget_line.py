@@ -56,6 +56,9 @@ class BudgetLine(models.Model):
             line.is_above_budget = line.achieved_amount > line.budget_amount
 
     def _compute_all(self):
+        self.env['purchase.order'].flush_model()
+        self.env['purchase.order.line'].flush_model()
+
         def get_line_query(line):
             account_ids = {fname: line[fname].id for fname in account_fname if line[fname]}
             fnames = list(account_ids.keys())

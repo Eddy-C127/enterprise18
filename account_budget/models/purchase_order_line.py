@@ -27,7 +27,10 @@ class PurchaseOrderLine(models.Model):
             if line.analytic_json and line.product_qty - line.qty_received > 0:
                 for json in line.analytic_json:
                     return tuple([
-                        ('budget_analytic_id.state', '=', 'confirmed'),
+                        ('budget_analytic_id', 'any', (
+                            ('budget_type', '!=', 'revenue'),
+                            ('state', '=', 'confirmed'),
+                        )),
                         ('date_from', '<=', line.order_id.date_order),
                         ('date_to', '>=', line.order_id.date_order),
                     ] + [
@@ -42,7 +45,7 @@ class PurchaseOrderLine(models.Model):
     @api.depends('budget_line_ids', 'price_unit', 'product_qty', 'qty_invoiced')
     def _compute_above_budget(self):
         for line in self:
-            line.is_above_budget = any(
-                (budget.committed_amount + line.price_unit * (line.product_qty - line.qty_invoiced)) > budget.budget_amount
-                for budget in line.budget_line_ids
-            )
+            uncommitted_amount = 0
+            if line.order_id.state not in ('purchase', 'done'):
+                uncommitted_amount = line.price_unit * (line.product_qty - line.qty_invoiced)
+            line.is_above_budget = any(budget.committed_amount + uncommitted_amount > budget.budget_amount for budget in line.budget_line_ids)
