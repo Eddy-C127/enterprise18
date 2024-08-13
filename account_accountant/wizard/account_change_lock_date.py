@@ -104,7 +104,7 @@ class AccountChangeLockDate(models.TransientModel):
         string='Exception Reason',
     )
 
-    show_draft_entries_warning = fields.Text(
+    show_draft_entries_warning = fields.Boolean(
         string="Show Draft Entries Warning",
         compute='_compute_show_draft_entries_warning',
     )
