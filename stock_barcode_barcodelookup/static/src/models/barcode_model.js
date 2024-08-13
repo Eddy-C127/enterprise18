@@ -2,6 +2,7 @@ import BarcodeModel from "@stock_barcode/models/barcode_model";
 
 import { patch } from "@web/core/utils/patch";
 import { rpc } from "@web/core/network/rpc";
+import { registry } from "@web/core/registry";
 import { _t } from "@web/core/l10n/translation";
 
 
@@ -42,6 +43,16 @@ patch(BarcodeModel.prototype, {
                         name: _t("Create New Product"),
                         primary: true,
                         onClick: () => {
+                            const notifications = registry
+                                .category("main_components")
+                                .get("NotificationContainer").props.notifications;
+                            for (const id in notifications) {
+                                const notification = notifications[id];
+                                if (notification.onClose) {
+                                    notification.onClose();
+                                }
+                                delete notifications[id];
+                            }
                             return this.openProductForm(barcodeData);
                         },
                     },
