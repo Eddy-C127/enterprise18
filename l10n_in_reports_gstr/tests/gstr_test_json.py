@@ -8,7 +8,7 @@ gstr1_test_json = {
           "ctin": "27DJMPM8965E1ZE",
           "inv": [
               {
-                  "inum": 'INV/2023/00013',
+                  "inum": 'INV/23-24/0013',
                   'idt': TEST_DATE.strftime("%d-%m-%Y"),
                   'val': 2580.0,
                   'pos': '27',
@@ -29,7 +29,7 @@ gstr1_test_json = {
                   ]
               },
               {
-                  'inum': 'INV/2023/00001',
+                  'inum': 'INV/23-24/0001',
                   'idt': TEST_DATE.strftime("%d-%m-%Y"),
                   'val': 1180.0,
                   'pos': '27',
@@ -55,7 +55,7 @@ gstr1_test_json = {
           'ctin': '24ABCPM8965E1ZE',
           'inv': [
               {
-                  'inum': "INV/2023/00011",
+                  'inum': "INV/23-24/0011",
                   "idt": TEST_DATE.strftime("%d-%m-%Y"),
                   "val": 1180.0,
                   "pos": "24",
@@ -81,7 +81,7 @@ gstr1_test_json = {
           "ctin": "24ABCPM8965E1ZE",
           "inv": [
               {
-                  "inum": "INV/2023/00010",
+                  "inum": "INV/23-24/0010",
                   "idt": TEST_DATE.strftime("%d-%m-%Y"),
                   "val": 1180.0,
                   "pos": "24",
@@ -107,7 +107,7 @@ gstr1_test_json = {
           "ctin": "24ABCPM8965E1ZE",
           "inv": [
               {
-                  "inum": "INV/2023/00009",
+                  "inum": "INV/23-24/0009",
                   "idt": TEST_DATE.strftime("%d-%m-%Y"),
                   "val": 1180.0,
                   "pos": "24",
@@ -133,7 +133,7 @@ gstr1_test_json = {
       'ctin': '24ABCPM8965E1ZE',
       'inv': [
         {
-          'inum': 'INV/2023/00002',
+          'inum': 'INV/23-24/0002',
           'idt': TEST_DATE.strftime("%d-%m-%Y"),
           'val': 1180.0,
           'pos': '24',
@@ -161,7 +161,7 @@ gstr1_test_json = {
       'pos': '27',
       'inv': [
         {
-          'inum': 'INV/2023/00004',
+          'inum': 'INV/23-24/0004',
           'idt': TEST_DATE.strftime("%d-%m-%Y"),
           'val': 295000.0,
           'itms': [
@@ -209,7 +209,7 @@ gstr1_test_json = {
           "nt": [
               {
                   "ntty": "C",
-                  "nt_num": "RINV/2023/00011",
+                  "nt_num": "RINV/23-24/0011",
                   "nt_dt": "20-05-2023",
                   "val": 590.0,
                   "pos": "24",
@@ -236,7 +236,7 @@ gstr1_test_json = {
           "nt": [
               {
                   "ntty": "C",
-                  "nt_num": "RINV/2023/00010",
+                  "nt_num": "RINV/23-24/0010",
                   "nt_dt": "20-05-2023",
                   "val": 590.0,
                   "pos": "24",
@@ -263,7 +263,7 @@ gstr1_test_json = {
           "nt": [
               {
                   "ntty": "C",
-                  "nt_num": "RINV/2023/00009",
+                  "nt_num": "RINV/23-24/0009",
                   "nt_dt": "20-05-2023",
                   "val": 590.0,
                   "pos": "24",
@@ -290,7 +290,7 @@ gstr1_test_json = {
       'nt': [
         {
           'ntty': 'C',
-          'nt_num': 'RINV/2023/00002',
+          'nt_num': 'RINV/23-24/0002',
           'nt_dt': TEST_DATE.strftime("%d-%m-%Y"),
           'val': 590.0,
           'pos': '24',
@@ -317,7 +317,7 @@ gstr1_test_json = {
       'nt': [
         {
           'ntty': 'C',
-          'nt_num': 'RINV/2023/00001',
+          'nt_num': 'RINV/23-24/0001',
           'nt_dt': TEST_DATE.strftime("%d-%m-%Y"),
           'val': 590.0,
           'pos': '27',
@@ -343,7 +343,7 @@ gstr1_test_json = {
   'cdnur': [
     {
       'ntty': 'C',
-      'nt_num': 'RINV/2023/00005',
+      'nt_num': 'RINV/23-24/0005',
       'nt_dt': TEST_DATE.strftime("%d-%m-%Y"),
       'val': 590.0,
       'typ': 'EXPWP',
@@ -365,7 +365,7 @@ gstr1_test_json = {
       'exp_typ': 'WPAY',
       'inv': [
         {
-          'inum': 'INV/2023/00005',
+          'inum': 'INV/23-24/0005',
           'idt': TEST_DATE.strftime("%d-%m-%Y"),
           'val': 1180.0,
           'itms': [
@@ -993,7 +993,7 @@ gstr1_debit_note_test_json = {
             "ctin": "27DJMPM8965E1ZE",
             "inv": [
                 {
-                    "inum": "INV/2023/00013",
+                    "inum": "INV/23-24/0013",
                     "idt": "20-05-2023",
                     "val": 2580.0,
                     "pos": "27",
@@ -1014,7 +1014,7 @@ gstr1_debit_note_test_json = {
                     ],
                 },
                 {
-                    "inum": "INV/2023/00001",
+                    "inum": "INV/23-24/0001",
                     "idt": "20-05-2023",
                     "val": 1180.0,
                     "pos": "27",
@@ -1040,7 +1040,7 @@ gstr1_debit_note_test_json = {
             "ctin": "24ABCPM8965E1ZE",
             "inv": [
                 {
-                    "inum": "INV/2023/00011",
+                    "inum": "INV/23-24/0011",
                     "idt": "20-05-2023",
                     "val": 1180.0,
                     "pos": "24",
@@ -1066,7 +1066,7 @@ gstr1_debit_note_test_json = {
             "ctin": "24ABCPM8965E1ZE",
             "inv": [
                 {
-                    "inum": "INV/2023/00010",
+                    "inum": "INV/23-24/0010",
                     "idt": "20-05-2023",
                     "val": 1180.0,
                     "pos": "24",
@@ -1092,7 +1092,7 @@ gstr1_debit_note_test_json = {
             "ctin": "24ABCPM8965E1ZE",
             "inv": [
                 {
-                    "inum": "INV/2023/00009",
+                    "inum": "INV/23-24/0009",
                     "idt": "20-05-2023",
                     "val": 1180.0,
                     "pos": "24",
@@ -1118,7 +1118,7 @@ gstr1_debit_note_test_json = {
             "ctin": "24ABCPM8965E1ZE",
             "inv": [
                 {
-                    "inum": "INV/2023/00002",
+                    "inum": "INV/23-24/0002",
                     "idt":  TEST_DATE.strftime("%d-%m-%Y"),
                     "val": 1180.0,
                     "pos": "24",
@@ -1146,7 +1146,7 @@ gstr1_debit_note_test_json = {
             "pos": "27",
             "inv": [
                 {
-                    "inum": "INV/2023/00004",
+                    "inum": "INV/23-24/0004",
                     "idt":  TEST_DATE.strftime("%d-%m-%Y"),
                     "val": 295000.0,
                     "itms": [
@@ -1194,7 +1194,7 @@ gstr1_debit_note_test_json = {
             "nt": [
                 {
                     "ntty": "D",
-                    "nt_num": "DINV/2023/00011",
+                    "nt_num": "DINV/23-24/0011",
                     "nt_dt": "20-05-2023",
                     "val": 590.0,
                     "pos": "24",
@@ -1221,7 +1221,7 @@ gstr1_debit_note_test_json = {
             "nt": [
                 {
                     "ntty": "D",
-                    "nt_num": "DINV/2023/00010",
+                    "nt_num": "DINV/23-24/0010",
                     "nt_dt": "20-05-2023",
                     "val": 590.0,
                     "pos": "24",
@@ -1248,7 +1248,7 @@ gstr1_debit_note_test_json = {
             "nt": [
                 {
                     "ntty": "D",
-                    "nt_num": "DINV/2023/00009",
+                    "nt_num": "DINV/23-24/0009",
                     "nt_dt": "20-05-2023",
                     "val": 590.0,
                     "pos": "24",
@@ -1275,7 +1275,7 @@ gstr1_debit_note_test_json = {
             "nt": [
                 {
                     "ntty": "D",
-                    "nt_num": "DINV/2023/00002",
+                    "nt_num": "DINV/23-24/0002",
                     "nt_dt":  TEST_DATE.strftime("%d-%m-%Y"),
                     "val": 590.0,
                     "pos": "24",
@@ -1302,7 +1302,7 @@ gstr1_debit_note_test_json = {
             "nt": [
                 {
                     "ntty": "D",
-                    "nt_num": "DINV/2023/00001",
+                    "nt_num": "DINV/23-24/0001",
                     "nt_dt":  TEST_DATE.strftime("%d-%m-%Y"),
                     "val": 590.0,
                     "pos": "27",
@@ -1328,7 +1328,7 @@ gstr1_debit_note_test_json = {
     "cdnur": [
         {
             "ntty": "D",
-            "nt_num": "DINV/2023/00005",
+            "nt_num": "DINV/23-24/0005",
             "nt_dt":  TEST_DATE.strftime("%d-%m-%Y"),
             "val": 590.0,
             "typ": "EXPWP",
@@ -1345,7 +1345,7 @@ gstr1_debit_note_test_json = {
             "exp_typ": "WPAY",
             "inv": [
                 {
-                    "inum": "INV/2023/00005",
+                    "inum": "INV/23-24/0005",
                     "idt":   TEST_DATE.strftime("%d-%m-%Y"),
                     "val": 1180.0,
                     "itms": [
