@@ -90,7 +90,7 @@ class SlspCustomHandler(models.AbstractModel):
                 'name': format_date(self.env, res['taxable_month'], date_format='MMMM y'),
                 'unfoldable': True,
                 'unfolded': line_id in options['unfolded_lines'] or unfold_all,
-                'columns': [{} for _column in options['columns']],
+                'columns': [report._build_column_dict(None, _column) for _column in options['columns']],
                 'level': 0,
                 'expand_function': '_report_expand_unfoldable_line_sls_expand_month',
             })
