@@ -534,6 +534,16 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'payment_id_vals': [invoice.payment_reference or invoice.name],
         }]
 
+    def _get_invoice_period_vals_list(self, invoice):
+        # EXTENDS account.edi.xml.ubl_20
+        vals_list = super()._get_invoice_period_vals_list(invoice)
+        if invoice.l10n_co_edi_operation_type in ['22', '32']:  # 22: Nota Crédito sin referencia a facturas, 32: Nota Débito sin referencia a facturas
+            vals_list.append({
+                'start_date': invoice.invoice_date,
+                'end_date': invoice.invoice_date,
+            })
+        return vals_list
+
     def _export_invoice_vals(self, invoice):
         # EXTENDS account.edi.xml.ubl_21
         vals = super()._export_invoice_vals(invoice)
