@@ -17,7 +17,7 @@ patch(PosStore.prototype, {
         });
     },
     async manageBookings() {
-        this.showScreen("ActionScreen");
+        this.showScreen("ActionScreen", { actionName: "ManageBookings" });
         await this.action.doAction(
             await this.data.call("calendar.event", "action_open_booking_gantt_view", [
                 this.config.raw.appointment_type_id,

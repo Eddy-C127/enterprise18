@@ -3,9 +3,12 @@
 
     <t t-name="pos_restaurant.Navbar" t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
         <xpath expr="//div[hasclass('navbar-menu')]" position="inside">
-            <button t-if="pos.config.module_pos_restaurant_appointment" class="btn btn-lg lh-lg" t-on-click="() => this.pos.manageBookings()">
-                <span class="d-none d-sm-inline">Booking</span>
-                <span class="d-inline-block d-sm-none"><i class="fa fa-lg fa-fw fa-calendar"/></span>
+            <button t-if="pos.config.module_pos_restaurant_appointment"
+                class="btn btn-lg lh-lg"
+                t-att-class="{'btn-primary': screen === 'ActionScreen' and pos.mainScreen.props.actionName === 'ManageBookings'}"
+                t-on-click="() => this.pos.manageBookings()" >
+                <span t-if="!ui.isSmall">Booking</span>
+                <img t-else="" src="/pos_restaurant_appointment/static/src/img/booking.svg" class="navbar-icon" alt="Booking"/>
             </button>
         </xpath>
     </t>
