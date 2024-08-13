@@ -472,6 +472,8 @@ class DataMergeRecord(models.Model):
     ## Manual merge of ir.attachment & mail.activity
     @api.model
     def _merge_additional_models(self, destination, source_ids):
+        if hasattr(destination, 'message_follower_ids'):
+            self._merge_mail_followers(destination, self.env[destination._name].browse(source_ids))
         models_to_adapt = [
             {
                 'table': 'ir_attachment',
@@ -489,10 +491,6 @@ class DataMergeRecord(models.Model):
                 'table': 'mail_message',
                 'id_field': 'res_id',
                 'model_field': 'model',
-            }, {
-                'table': 'mail_followers',
-                'id_field': 'res_id',
-                'model_field': 'res_model',
             }
         ]
         query = """
@@ -539,6 +537,14 @@ AND NOT EXISTS (
      AND _ip2.company_id = _ip1.company_id
 )""", params)
 
+    def _merge_mail_followers(self, destination, source):
+        """ Using the default merge method risks duplicating the SQL key for mail_followers (res_model, res_id, partner_id).
+        Adding a partner as follower to a record twice nullifies the transaction, preventing the merge of followers.
+        This function ensures we don't try unsafe subscriptions.
+        """
+        dest_followers = destination.message_follower_ids.partner_id
+        new_followers = source.message_follower_ids.partner_id - dest_followers
+        destination.message_subscribe(new_followers.ids)
 
     #############
     ### Override
