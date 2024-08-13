@@ -755,3 +755,39 @@ test("Autofill pivot keeps format but neither style nor border", async function 
     expect(model.getters.getCellBorder({ sheetId, col, row: row + 1 })).toBe(null);
     expect(filledCell.format).toBe("#,##0.0");
 });
+
+test("Can autofill pivot horizontally with column grouped by date", async () => {
+    const { model } = await createSpreadsheetWithPivot({
+        arch: /*xml*/ `
+                <pivot>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="product_id"  type="row"/>
+                    <field name="probability" type="measure"/>
+                </pivot>`,
+    });
+    // Headers
+    setCellContent(
+        model,
+        "B1",
+        `=PIVOT.HEADER(1,"date:month","04/2016","measure","probability:avg")`
+    );
+    expect(getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 })).toBe(
+        `=PIVOT.HEADER(1,"date:month","05/2016","measure","probability:avg")`
+    );
+
+    setCellContent(model, "B1", `=PIVOT.HEADER(1,"measure","probability:avg")`);
+    expect(getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 })).toBe("");
+
+    // Values
+    setCellContent(
+        model,
+        "B1",
+        `=PIVOT.VALUE(1,"probability:avg","product_id",47,"date:month","04/2016")`
+    );
+    expect(getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 })).toBe(
+        `=PIVOT.VALUE(1,"probability:avg","product_id",47,"date:month","05/2016")`
+    );
+
+    setCellContent(model, "B1", `=PIVOT.VALUE(1,"probability:avg","product_id",47)`);
+    expect(getPivotAutofillValue(model, "B1", { direction: "right", steps: 1 })).toBe("");
+});
