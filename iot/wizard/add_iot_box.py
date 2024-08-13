@@ -36,6 +36,9 @@ class AddIotBox(models.TransientModel):
     pairing_code = fields.Char(string='Pairing Code')
 
     def box_pairing(self):
+        if not self.pairing_code:
+            raise UserError(_("Please enter a pairing code."))
+
         data = {
             'params': {
                 'pairing_code': self.pairing_code,
@@ -54,12 +57,22 @@ class AddIotBox(models.TransientModel):
 
         if 'error' in response:
             if response['error']['code'] == 404:
-                raise UserError(_("The pairing code you provided was not found in our system. Please check that you entered it correctly."))
+                raise UserError(_(
+                    "The pairing code you provided was not found in our system. Please check that you "
+                    "entered it correctly."
+                ))
             else:
                 raise requests.exceptions.ConnectionError()
         else:
-            time.sleep(12)  # The IoT Box only polls the server every 10 seconds
-            return self.reload_page()
-
-    def reload_page(self):
-        return self.env["ir.actions.actions"]._for_xml_id("iot.iot_box_action")
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'type': 'warning',
+                    'message': _("Connecting to the IoT..."),
+                    'sticky': False,
+                    'params': {
+                        'next': {'type': 'ir.actions.act_window_close'},
+                    }
+                },
+            }

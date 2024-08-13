@@ -4,7 +4,7 @@
         <field name="name">Add IoT box</field>
         <field name="model">add.iot.box</field>
         <field name="arch" type="xml">
-            <form string="Connect an IoT Box">
+            <form string="Connect an IoT Box" js_class="add_iot_box_wizard">
                 <div>
                     0. Power on the IoT Box and connect it to the internet through ethernet
                     <a href="//www.odoo.com/documentation/master/applications/general/iot/config/connect.html#ethernet-connection" target="_blank" class="fa fa-question-circle"/>
@@ -37,7 +37,7 @@
                     </group>
                 </div>
                 <footer>
-                    <button class="btn btn-primary" type="object" name="reload_page" string="Close" data-hotkey="x"/>
+                    <button class="btn btn-secondary" string="Close" data-hotkey="x" name="cancel" special="cancel"/>
                 </footer>
             </form>
         </field>
