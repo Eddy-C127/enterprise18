@@ -180,32 +180,6 @@ class ProductProduct(models.Model):
             if product.type == 'service':
                 product.l10n_ke_product_type_code = '3'
 
-    @api.depends_context('allowed_company_ids')
-    @api.depends(
-        'unspsc_code_id',
-        'l10n_ke_packaging_unit_id',
-        'l10n_ke_packaging_quantity',
-        'standard_price',
-        'l10n_ke_origin_country_id',
-        'l10n_ke_product_type_code',
-        'taxes_id.l10n_ke_tax_type_id',
-    )
-    def _compute_l10n_ke_validation_message(self):
-        for record in self:
-            if self.env.company.account_fiscal_country_id.code != 'KE':
-                record.l10n_ke_validation_message = False
-                continue
-            # If we won't need to report stock, don't check for Cost, Product Type, and Origin Country
-            for_invoice = (record.type in ('service', 'consu'))
-            validation_messages = record._l10n_ke_get_validation_messages(for_invoice=for_invoice)
-
-            # We don't need the 'View Product(s)' actions in the banner
-            for message_dict in validation_messages.values():
-                message_dict.pop('action_text', None)
-                message_dict.pop('action', None)
-
-            record.l10n_ke_validation_message = validation_messages
-
     def _l10n_ke_get_validation_messages(self, for_invoice=False):
         """ Validate the product configuration and generate warning messages.
 
