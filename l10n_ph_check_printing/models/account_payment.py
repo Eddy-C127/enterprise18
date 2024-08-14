@@ -26,6 +26,18 @@ class AccountPayment(models.Model):
                 pay.check_amount_in_words = False
         super(AccountPayment, self - ph_checks_payments)._compute_check_amount_in_words()
 
+    @api.depends('payment_type', 'journal_id')
+    def _compute_payment_method_line_id(self):
+        # OVERRIDE account to be able to set checks by default in the new view.
+        super()._compute_payment_method_line_id()
+        if self.env.context.get('is_check_payment'):
+            for record in self:
+                method_line = record.journal_id.outbound_payment_method_line_ids.filtered(
+                    lambda line: line.payment_method_id.code == 'check_printing'
+                )
+                if record.payment_type == 'outbound' and method_line:
+                    record.payment_method_line_id = method_line[0]
+
     def _check_build_page_info(self, i, p):
         """ Override to add separate value for each part of the date, as well as remove the amount currency symbol """
         info = super()._check_build_page_info(i, p)
