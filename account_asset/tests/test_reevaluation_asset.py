@@ -1,11 +1,11 @@
 from odoo.tests.common import tagged, freeze_time
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.addons.account_asset.tests.common import TestAccountAssetCommon
 from odoo import fields
 
 
 @freeze_time('2022-06-30')
 @tagged('post_install', '-at_install')
-class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
+class TestAccountAssetReevaluation(TestAccountAssetCommon):
 
     @classmethod
     def setUpClass(cls):
@@ -19,7 +19,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             method="degressive",
             method_progress_factor=0.35,
             acquisition_date="2020-07-01",
-            prorata="constant_periods"
+            prorata_computation_type="constant_periods"
         )
         cls.degressive_then_linear_asset = cls.create_asset(
             value=7200,
@@ -28,40 +28,11 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
             method="degressive_then_linear",
             method_progress_factor=0.35,
             acquisition_date="2020-07-01",
-            prorata="constant_periods"
+            prorata_computation_type="constant_periods"
         )
 
-    @classmethod
-    def create_asset(cls, value, periodicity, periods, import_depreciation=0, acquisition_date="2022-02-01", prorata='none', **kwargs):
-        return cls.env['account.asset'].create({
-            'name': 'nice asset',
-            'account_asset_id': cls.company_data['default_account_assets'].id,
-            'account_depreciation_id': cls.account_depreciation_expense.id,
-            'account_depreciation_expense_id': cls.company_data['default_account_expense'].id,
-            'journal_id': cls.company_data['default_journal_misc'].id,
-            'acquisition_date': acquisition_date,
-            'prorata_computation_type': prorata,
-            'original_value': value,
-            'salvage_value': 0,
-            'method_number': periods,
-            'method_period': '12' if periodicity == "yearly" else '1',
-            'method': "linear",
-            'already_depreciated_amount_import': import_depreciation,
-            **kwargs,
-        })
-
-    @classmethod
-    def _get_depreciation_move_values(cls, date, depreciation_value, remaining_value, depreciated_value, state):
-        return {
-            'date': fields.Date.from_string(date),
-            'depreciation_value': depreciation_value,
-            'asset_remaining_value': remaining_value,
-            'asset_depreciated_value': depreciated_value,
-            'state': state,
-        }
-
     def test_linear_start_beginning_month_reevaluation_beginning_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-01", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -88,7 +59,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_beginning_month_reevaluation_middle_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-01", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -115,7 +86,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_beginning_month_reevaluation_end_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-01", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -140,7 +111,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_middle_month_reevaluation_beginning_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-15", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-15", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -168,7 +139,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_middle_month_reevaluation_middle_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-15", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-15", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -196,7 +167,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_middle_month_reevaluation_end_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-15", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-15", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -222,7 +193,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_end_month_reevaluation_beginning_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-28", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-28", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -250,7 +221,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_end_month_reevaluation_middle_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-28", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-28", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -278,7 +249,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_start_end_month_reevaluation_end_month(self):
-        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-28", prorata="constant_periods")
+        asset = self.create_asset(value=7200, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-02-28", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -304,7 +275,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_simple_decrease(self):
-        asset = self.create_asset(value=10000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=10000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -333,7 +304,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_double_decrease(self):
-        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -373,7 +344,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_double_increase(self):
-        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -433,7 +404,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_decrease_then_increase(self):
-        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -481,7 +452,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_increase_then_decrease_in_future(self):
-        asset = self.create_asset(value=10000, periodicity="yearly", periods=5, method="linear", acquisition_date="2018-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=10000, periodicity="yearly", periods=5, method="linear", acquisition_date="2018-01-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -528,7 +499,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
 
     def test_linear_reevaluation_decrease_then_increase_with_lock_date(self):
         self.company_data['company'].fiscalyear_lock_date = fields.Date.to_date('2022-03-01')
-        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -578,7 +549,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_increase_then_decrease(self):
-        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -631,7 +602,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_decrease_then_disposal(self):
-        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=60000, periodicity="monthly", periods=12, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
         self.loss_account_id = self.company_data['default_account_expense'].copy().id
 
@@ -665,7 +636,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_increase_then_disposal(self):
-        asset = self.create_asset(value=36000, periodicity="yearly", periods=3, method="linear", acquisition_date="2022-01-01", prorata="constant_periods")
+        asset = self.create_asset(value=36000, periodicity="yearly", periods=3, method="linear", acquisition_date="2022-01-01", prorata_computation_type="constant_periods")
         asset.validate()
         self.loss_account_id = self.company_data['default_account_expense'].copy().id
         self.asset_counterpart_account_id = self.company_data['default_account_expense'].copy().id
@@ -700,7 +671,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_increase_constant_periods(self):
-        asset = self.create_asset(value=1200, periodicity="monthly", periods=12, method="linear", acquisition_date="2021-10-01", prorata="constant_periods")
+        asset = self.create_asset(value=1200, periodicity="monthly", periods=12, method="linear", acquisition_date="2021-10-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -742,7 +713,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
         ])
 
     def test_linear_reevaluation_increase_daily_computation(self):
-        asset = self.create_asset(value=1200, periodicity="monthly", periods=12, method="linear", acquisition_date="2021-10-01", prorata="daily_computation")
+        asset = self.create_asset(value=1200, periodicity="monthly", periods=12, method="linear", acquisition_date="2021-10-01", prorata_computation_type="daily_computation")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -785,7 +756,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
 
     def test_linear_reevaluation_increase_amount_and_length(self):
         """ After 5 months, extend the lifetime by 3 month and the amount by 200 """
-        asset = self.create_asset(value=1200, periodicity="monthly", periods=10, method="linear", acquisition_date="2022-02-01", prorata="constant_periods")
+        asset = self.create_asset(value=1200, periodicity="monthly", periods=10, method="linear", acquisition_date="2022-02-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
@@ -828,7 +799,7 @@ class TestAccountAssetReevaluation(AccountTestInvoicingCommon):
 
     def test_linear_reevaluation_decrease_amount_and_increase_length(self):
         """ After 5 months, extend the lifetime by 3 month and reduce the amount by 200 """
-        asset = self.create_asset(value=1200, periodicity="monthly", periods=10, method="linear", acquisition_date="2022-02-01", prorata="constant_periods")
+        asset = self.create_asset(value=1200, periodicity="monthly", periods=10, method="linear", acquisition_date="2022-02-01", prorata_computation_type="constant_periods")
         asset.validate()
 
         self.env['asset.modify'].create({
