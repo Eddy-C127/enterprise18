@@ -22,26 +22,26 @@ class TestUi(odoo.tests.HttpCase):
         if not odoo.tests.loaded_demo_data(self.env):
             _logger.warning("This test relies on demo data. To be rewritten independently of demo data for accurate and reliable results.")
             return
-        self.start_tour("/web", 'web_studio_new_app_tour', login="admin")
+        self.start_tour("/odoo", 'web_studio_new_app_tour', login="admin")
 
         # the new submenu tour is based on the result of the new app tour
-        self.start_tour("/web", 'web_studio_new_submenu_tour', login="admin")
+        self.start_tour("/odoo", 'web_studio_new_submenu_tour', login="admin")
 
         # the report tour is based on the result of the new app tour
-        self.start_tour("/web?debug=tests", 'web_studio_new_report_tour', login="admin")
-        self.start_tour("/web?debug=tests", "web_studio_new_report_basic_layout_tour", login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_new_report_tour', login="admin")
+        self.start_tour("/odoo?debug=tests", "web_studio_new_report_basic_layout_tour", login="admin")
 
     def test_optional_fields(self):
-        self.start_tour("/web?debug=tests", 'web_studio_hide_fields_tour', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_hide_fields_tour', login="admin")
 
     def test_model_option_value(self):
-        self.start_tour("/web?debug=tests", 'web_studio_model_option_value_tour', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_model_option_value_tour', login="admin")
 
     def test_rename(self):
-        self.start_tour("/web?debug=tests", 'web_studio_main_and_rename', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_main_and_rename', login="admin", timeout=200)
 
     def test_approval(self):
-        self.start_tour("/web?debug=tests", 'web_studio_approval_tour', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_approval_tour', login="admin")
 
     def test_background(self):
         attachment = self.env['ir.attachment'].create({
@@ -51,10 +51,10 @@ class TestUi(odoo.tests.HttpCase):
             'mimetype': 'image/gif'
         })
         self.env.company.background_image = attachment.datas
-        self.start_tour("/web?debug=tests", 'web_studio_custom_background_tour', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_custom_background_tour', login="admin")
 
     def test_create_app_with_pipeline_and_user_assignment(self):
-        self.start_tour("/web?debug=tests", 'web_studio_create_app_with_pipeline_and_user_assignment', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_create_app_with_pipeline_and_user_assignment', login="admin")
 
     def test_alter_field_existing_in_multiple_views(self):
         created_model_name = None
@@ -66,7 +66,7 @@ class TestUi(odoo.tests.HttpCase):
             return res
 
         self.patch(type(self.env["ir.model"]), "studio_model_create", mock_studio_model_create)
-        self.start_tour("/web?debug=tests", 'web_studio_alter_field_existing_in_multiple_views_tour', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_alter_field_existing_in_multiple_views_tour', login="admin")
 
         # we can't assert xml equality as a lot of stuff in the arch are set randomly
         view = self.env["ir.ui.view"].search([("model", "=", created_model_name), ("type", "=", "form")], limit=1)
@@ -89,7 +89,7 @@ class TestUi(odoo.tests.HttpCase):
         self.assertEqual(fields_of_interest[1].get("column_invisible"), "True")
 
     def test_add_field_into_empty_group_by(self):
-        self.start_tour("/web?debug=tests", 'web_studio_add_field_into_empty_group_by', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_add_field_into_empty_group_by', login="admin")
 
 def _get_studio_view(view):
     domain = [('inherit_id', '=', view.id), ('name', '=', "Odoo Studio: %s customization" % (view.name))]
@@ -224,10 +224,10 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
 
     @mute_logger('odoo.http')
     def test_web_studio_check_method_in_model(self):
-        self.start_tour("/web?debug=tests", 'web_studio_check_method_in_model', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_check_method_in_model', login="admin")
 
     def test_create_action_button_in_form_view(self):
-        self.start_tour("/web?debug=tests", 'web_studio_test_create_action_button_in_form_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_create_action_button_in_form_view', login="admin")
         studioView = _get_studio_view(self.testView)
         model = self.env["ir.model"].search([("model", "=", "res.partner")])
         action1 = self.env["ir.actions.actions"].search([
@@ -244,7 +244,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                     </header>
                 </xpath>
             </data>""".format(action1_Id=action1.xml_id))
-        self.start_tour("/web?debug=tests", 'web_studio_test_create_second_action_button_in_form_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_create_second_action_button_in_form_view', login="admin")
         action2 = self.env["ir.actions.actions"].search([
             ("name", "=", "Download (vCard)"),
             ("type", "=", "ir.actions.server"),
@@ -261,8 +261,8 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                     </header>
                 </xpath>
             </data>""".format(action1_Id=action1.xml_id, action2_Id=action2.xml_id))
-        self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_form_view', login="admin")
-        self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_form_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_remove_action_button_in_form_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_remove_action_button_in_form_view', login="admin")
         arch = """<data>
                 <xpath expr="//form[1]/field[@name='name']" position="before">
                     <header/>
@@ -272,7 +272,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.assertEqual(studioView.arch.replace(" ", ""), arch.replace(" ", ""))
 
     def test_create_action_button_in_list_view(self):
-        self.start_tour("/web?debug=tests", 'web_studio_test_create_action_button_in_list_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_create_action_button_in_list_view', login="admin")
         view = self.env["ir.ui.view"].search([
             ("name", "=", "res.partner.tree"),
         ], limit=1)
@@ -292,7 +292,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                     </header>
                 </xpath>
             </data>""".format(actionId=action.xml_id))
-        self.start_tour("/web?debug=tests", 'web_studio_test_remove_action_button_in_list_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_remove_action_button_in_list_view', login="admin")
         arch = """<data>
                 <xpath expr="//field[@name='complete_name']" position="before">
                     <header/>
@@ -302,7 +302,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.assertEqual(studioView.arch.replace(" ", ""), arch.replace(" ", ""))
 
     def test_form_view_not_altered_by_studio_xml_edition(self):
-        self.start_tour("/web?debug=tests", 'web_studio_test_form_view_not_altered_by_studio_xml_edition', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_form_view_not_altered_by_studio_xml_edition', login="admin", timeout=200)
 
     def test_edit_with_xml_editor(self):
         studioView = self.env["ir.ui.view"].create({
@@ -315,7 +315,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             'name': "Odoo Studio: %s customization" % (self.testView.name)
         })
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_edit_with_xml_editor', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_edit_with_xml_editor', login="admin", timeout=200)
         self.assertEqual(studioView.arch, "<data/>")
 
     def test_enter_x2many_edition_and_add_field(self):
@@ -356,7 +356,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         studioView = _get_studio_view(self.testView)
         self.assertFalse(studioView.exists())
 
-        self.start_tour("/web?debug=tests", 'web_studio_enter_x2many_edition_and_add_field', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_enter_x2many_edition_and_add_field', login="admin", timeout=200)
         studioView = _get_studio_view(self.testView)
 
         assertViewArchEqual(self, studioView.arch, """
@@ -398,7 +398,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         studioView = _get_studio_view(self.testView)
         self.assertFalse(studioView.exists())
 
-        self.start_tour("/web?debug=tests", 'web_studio_enter_x2many_auto_inlined_subview', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_enter_x2many_auto_inlined_subview', login="admin", timeout=200)
         studioView = _get_studio_view(self.testView)
 
         assertViewArchEqual(self, studioView.arch, """
@@ -444,7 +444,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         studio_view = _get_studio_view(self.testView)
         self.assertFalse(studio_view.exists())
 
-        self.start_tour("/web?debug=tests", 'web_studio_enter_x2many_auto_inlined_subview_with_multiple_field_matching',
+        self.start_tour("/odoo?debug=tests", 'web_studio_enter_x2many_auto_inlined_subview_with_multiple_field_matching',
                         login="admin", timeout=200)
         studio_view = _get_studio_view(self.testView)
 
@@ -490,7 +490,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "view_ids": [Command.clear(), Command.create({"view_id": self.testView.id, "view_mode": "tree"})]
         })
 
-        self.start_tour("/web?debug=tests", 'web_studio_field_with_group', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_field_with_group', login="admin", timeout=200)
 
         self.assertEqual(len(operations), 1)
         self.assertEqual(operations[0]["target"]["xpath_info"], [{'tag': 'tree', 'indice': 1}, {'tag': 'field', 'indice': 3}])
@@ -533,7 +533,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             '''
         })
 
-        self.start_tour("/web", 'web_studio_no_fetch_subview', login="admin")
+        self.start_tour("/odoo", 'web_studio_no_fetch_subview', login="admin")
 
     def test_elements_with_groups_form(self):
         operations = []
@@ -576,7 +576,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 </form>
             '''.format(doesnothavegroup=doesNotHaveGroupXmlId.complete_name, hasgroup=hasGroupXmlId.complete_name)
         })
-        self.start_tour("/web", 'web_studio_elements_with_groups_form', login="admin", timeout=600000)
+        self.start_tour("/odoo", 'web_studio_elements_with_groups_form', login="admin", timeout=600000)
         self.assertEqual(len(operations), 1)
         self.assertEqual(operations[0]["target"]["xpath_info"], [{'indice': 1, 'tag': 'form'}, {'indice': 1, 'tag': 'group'}, {'indice': 3, 'tag': 'field'}])
         studioView = _get_studio_view(self.testView)
@@ -607,7 +607,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 </form>
             '''.format(group=groupXmlId.complete_name)
         })
-        self.start_tour("/web?debug=tests", 'test_element_group_in_sidebar', login="admin", timeout=600000)
+        self.start_tour("/odoo?debug=tests", 'test_element_group_in_sidebar', login="admin", timeout=600000)
 
     def test_create_one2many_lines_then_edit_name(self):
         self.testView.arch = '''
@@ -622,7 +622,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             ("state", "=", "manual"),
         ])
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_create_one2many_lines_then_edit_name', login="admin", timeout=30000)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_create_one2many_lines_then_edit_name', login="admin", timeout=30000)
 
         custom_fields = self.env["ir.model.fields"].search_read([
             ("state", "=", "manual"),
@@ -651,7 +651,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             '''
         })
         self.env.company.country_id.address_view_id = self.env.ref('base.view_partner_address_form')
-        self.start_tour("/web?debug=tests", 'web_studio_test_address_view_id_no_edit', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_address_view_id_no_edit', login="admin", timeout=200)
 
     def test_custom_selection_field_edit_values(self):
         self.testView.arch = '''
@@ -662,7 +662,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
              </form>
         '''
 
-        self.start_tour("/web?debug=tests", 'web_studio_custom_selection_field_edit_values', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_custom_selection_field_edit_values', login="admin", timeout=200)
         selection_field = self.env["ir.model.fields"].search(
             [
                 ("state", "=", "manual"),
@@ -690,11 +690,11 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             '''
         })
         self.testAction.view_ids.view_mode = "kanban"
-        self.start_tour("/web?debug=tests", 'web_studio_test_create_new_model_from_existing_view', login="admin",
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_create_new_model_from_existing_view', login="admin",
                         timeout=200)
 
     def test_create_model_with_clickable_stages(self):
-        self.start_tour("/web?debug=tests", 'web_studio_test_create_model_with_clickable_stages', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_create_model_with_clickable_stages', login="admin", timeout=200)
 
     def test_enter_x2many_edition_with_multiple_subviews(self):
         doesNotHaveGroup = self.env["res.groups"].create({
@@ -731,7 +731,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 </field>
             </form>
         '''.format(doesnothavegroup=doesNotHaveGroupXmlId.complete_name, hasgroup=hasGroupXmlId.complete_name)
-        self.start_tour("/web?debug=tests", 'web_studio_test_enter_x2many_edition_with_multiple_subviews',
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_enter_x2many_edition_with_multiple_subviews',
                         login="admin", timeout=200)
 
     def test_enter_x2many_edition_with_multiple_subviews_correct_xpath(self):
@@ -775,7 +775,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                   </field>
               </form>
         '''.format(doesnothavegroup=doesNotHaveGroupXmlId.complete_name, hasgroup=hasGroupXmlId.complete_name)
-        self.start_tour("/web?debug=tests", 'web_studio_test_enter_x2many_edition_with_multiple_subviews_correct_xpath',
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_enter_x2many_edition_with_multiple_subviews_correct_xpath',
                         login="admin", timeout=200)
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, """
@@ -910,7 +910,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 Command.create({"view_id": self.testViewList.id, "view_mode": "tree"}),
             ]
         })
-        self.start_tour("/web?debug=tests", 'web_studio_set_tree_node_conditional_invisibility', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_set_tree_node_conditional_invisibility', login="admin", timeout=200)
         arch = self.env[self.testViewList.model].with_context(studio=True).get_view(self.testViewList.id, self.testViewList.type)["arch"]
         expected = '''
             <tree>
@@ -946,7 +946,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             '''
         })
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_studio_view_is_last', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_studio_view_is_last', login="admin", timeout=200)
         studioView = _get_studio_view(self.testView)
         self.assertEqual(studioView.priority, 1230)
 
@@ -970,7 +970,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             </form>
         '''
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_edit_form_subview_attributes', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_edit_form_subview_attributes', login="admin", timeout=200)
 
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, """
@@ -999,7 +999,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             </field>
         </form>'''
 
-        self.start_tour("/web?debug=tests", 'web_studio_x2many_two_levels_edition', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_x2many_two_levels_edition', login="admin", timeout=200)
 
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, '''
@@ -1065,7 +1065,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 Command.create({"view_id": self.testViewKanban.id, "view_mode": "kanban"}),
             ]
         })
-        self.start_tour("/web?debug=tests", 'web_studio_field_group_studio_no_fetch', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_field_group_studio_no_fetch', login="admin", timeout=200)
 
 
     def test_monetary_create(self):
@@ -1075,7 +1075,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 <field name="x_name"/>
             </group>
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_monetary_create', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_monetary_create', login="admin")
 
         # There is a new currency and there is a new monetary
         fields = self.env[self.newModel.model]._fields
@@ -1118,7 +1118,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 <field name="x_studio_monetary_test"/>
             </group>
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_monetary_change_currency_name', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_monetary_change_currency_name', login="admin")
         self.assertEqual(currency.field_description, "NewCurrency")
 
     def test_related_monetary_creation(self):
@@ -1161,7 +1161,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             </group>
         </form>
         '''
-        self.start_tour("/web?debug=tests", 'web_studio_related_monetary_creation', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_related_monetary_creation', login="admin")
         # There is only one currency and there is a new monetary
         fields = self.env["x_test_model"]._fields
         currency_name_list = list(filter(lambda key: fields[key]._description_type == 'many2one' and fields[key]._description_relation == 'res.currency', fields.keys()))
@@ -1204,7 +1204,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 <field name="x_studio_monetary_test"/>
             </group>
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_monetary_change_currency_field', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_monetary_change_currency_field', login="admin")
 
         # The currency_field in the monetary field changed
         self.assertEqual(monetary.currency_field, 'x_studio_currency_test2')
@@ -1239,7 +1239,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 <field name="x_studio_monetary_test"/>
             </group>
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_monetary_change_currency_not_in_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_monetary_change_currency_not_in_view', login="admin")
 
         # The currency_field in the monetary field changed
         self.assertEqual(monetary.currency_field, 'x_studio_currency_test2')
@@ -1274,7 +1274,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 <field name="x_name"/>
             </group>
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_monetary_add_existing_monetary', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_monetary_add_existing_monetary', login="admin")
 
         # The studio arch contains the monetary and the associated currency
         studioView = _get_studio_view(self.newView)
@@ -1302,7 +1302,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 <field name="x_studio_currency_test"/>
             </group>
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_monetary_create_monetary_with_existing_currency', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_monetary_create_monetary_with_existing_currency', login="admin")
 
         # There is only one currency and there is a new monetary
         fields = self.env[self.newModel.model]._fields
@@ -1340,7 +1340,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             </form>
         '''
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_move_similar_field', login="admin", timeout=400)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_move_similar_field', login="admin", timeout=400)
 
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, '''
@@ -1391,7 +1391,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "state": "manual",
         })
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_related_file', login="admin", timeout=400)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_related_file', login="admin", timeout=400)
 
         studioView = _get_studio_view(self.testView)
         binary_field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('ttype', '=', 'binary'), ('name', 'like', 'x_studio_related')])
@@ -1446,7 +1446,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "related": "category_id.x_new_file_filename"
         })
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_related_file', login="admin", timeout=400)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_related_file', login="admin", timeout=400)
 
         studioView = _get_studio_view(self.testView)
         binary_field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('ttype', '=', 'binary'), ('name', 'like', 'x_studio_related')])
@@ -1474,7 +1474,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "state": "manual",
         })
 
-        self.start_tour("/web?debug=tests", 'web_studio_test_related_file', login="admin", timeout=400)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_related_file', login="admin", timeout=400)
 
         studioView = _get_studio_view(self.testView)
         binary_field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('ttype', '=', 'binary'), ('name', 'like', 'x_studio_related')])
@@ -1497,11 +1497,11 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             </group>
         </form>
         '''
-        self.start_tour("/web?debug=tests", "web_studio_test_undo_new_field", login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", "web_studio_test_undo_new_field", login="admin", timeout=200)
 
     def test_change_lone_attr_modifier_form(self):
         self.testView.arch = """<form><field name='name' required="not context.get('something')"/></form>"""
-        self.start_tour("/web?debug=tests", "web_studio_test_change_lone_attr_modifier_form", login="admin")
+        self.start_tour("/odoo?debug=tests", "web_studio_test_change_lone_attr_modifier_form", login="admin")
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, '''
         <data>
@@ -1520,7 +1520,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
              </form>
         '''
 
-        self.start_tour("/web?debug=tests", 'web_studio_boolean_field_drag_and_drop', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_boolean_field_drag_and_drop', login="admin", timeout=200)
 
         studioView = _get_studio_view(self.testView)
         boolean_field = self.env['ir.model.fields'].search([('name', 'like', 'x_studio_boolean')])[0]
@@ -1542,7 +1542,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
              </form>
         '''
 
-        self.start_tour("/web", "web_studio_test_new_field_rename_description", login="admin")
+        self.start_tour("/odoo", "web_studio_test_new_field_rename_description", login="admin")
         new_field = self.env["ir.model.fields"]._get("res.partner", "x_studio_my_new_field")
         self.assertEqual(new_field.field_description, "my new field")
         studioView = _get_studio_view(self.testView)
@@ -1558,7 +1558,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.testView.arch = '''<form class="test-user-list">
             <field name="partner_latitude" />
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_test_edit_digits_option', login="admin", timeout=200)
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_edit_digits_option', login="admin", timeout=200)
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, """
             <data>
@@ -1570,7 +1570,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
 
     def test_button_rainbow_effect(self):
         self.testView.arch = """<form><button type="object" name="open_commercial_entity">Button</button></form>"""
-        self.start_tour("/web", "web_studio.test_button_rainbow_effect", login="admin")
+        self.start_tour("/odoo", "web_studio.test_button_rainbow_effect", login="admin")
 
         studioView = _get_studio_view(self.testView)
         attachment = self.env["ir.attachment"].search([("name", "=", "my_studio_image.png")])
@@ -1665,7 +1665,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.assertEqual(len(assertable), 2)
 
         action = self.env.ref("base.action_res_users")
-        url = f"/web?debug=1#action=studio&mode=editor&_tab=views&_view_type=list&_action={action.id}"
+        url = f"/odoo/action-studio?mode=editor&_tab=views&_view_type=list&_action={action.id}&debug=1"
         self.start_tour(url, 'web_studio.test_res_users_fake_fields', login="admin")
 
     def test_add_button_xml_id(self):
@@ -1728,7 +1728,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         """)
 
     def test_reload_after_restoring_default_view(self):
-        self.start_tour("/web?debug=tests", 'web_studio_test_reload_after_restoring_default_view', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_reload_after_restoring_default_view', login="admin")
 
     def test_edit_reified_field(self):
         # find some reified field name
@@ -1748,7 +1748,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             ''' % reified_fname
         })
         self.testAction.res_model = "res.users"
-        self.start_tour("/web?debug=tests", 'web_studio_test_edit_reified_field', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_edit_reified_field', login="admin")
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, """
             <data>
@@ -1760,7 +1760,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
 
     def test_add_all_types_fields_related(self):
         self.create_user_view()
-        self.start_tour("/web?debug=tests", 'web_studio_test_add_all_types_fields_related', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_test_add_all_types_fields_related', login="admin")
 
         field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('name', 'like', 'x_studio_related')])
         target_field = self.env["ir.model.fields"].search([('model', '=', 'res.users'), ('name', '=', 'display_name')])
@@ -1778,7 +1778,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
                 <field name="x_name"/>
             </group>
         </form>'''
-        self.start_tour("/web?debug=tests", 'web_studio_add_one2many_no_related_many2one', login="admin")
+        self.start_tour("/odoo?debug=tests", 'web_studio_add_one2many_no_related_many2one', login="admin")
 
         studioView = _get_studio_view(self.newView)
 

@@ -8,7 +8,7 @@
     <template id="request_approval">
         <span>
             <t t-foreach="partner_ids" t-as="partner">
-                <a t-att-href="'/web#model=res.partner&amp;id=%s' % partner.id" t-att-data-oe-id="partner.id" data-oe-model="res.partner" class="o_mail_redirect" target="_blank">@<t t-esc="partner.name"/></a>
+                <a t-att-href="'/odoo/res.partner/%s' % partner.id" t-att-data-oe-id="partner.id" data-oe-model="res.partner" class="o_mail_redirect" target="_blank">@<t t-esc="partner.name"/></a>
             </t>
             <br/>
             <t t-esc="message"/>

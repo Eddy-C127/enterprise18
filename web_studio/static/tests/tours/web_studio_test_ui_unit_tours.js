@@ -7,7 +7,7 @@ registry
     .category("web_tour.tours")
     .add("web_studio_test_form_view_not_altered_by_studio_xml_edition", {
         test: true,
-        url: "/web?debug=1",
+        url: "/odoo?debug=1",
         sequence: 260,
         steps: () => [
             {
@@ -44,7 +44,7 @@ registry
 /* global ace */
 registry.category("web_tour.tours").add("web_studio_test_edit_with_xml_editor", {
     test: true,
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     sequence: 260,
     steps: () => [
         {
@@ -1343,7 +1343,7 @@ registry.category("web_tour.tours").add("web_studio_test_new_field_rename_descri
 
 registry.category("web_tour.tours").add("web_studio_test_edit_digits_option", {
     test: true,
-    url: "/web",
+    url: "/odoo",
     sequence: 260,
     steps: () => [
         {

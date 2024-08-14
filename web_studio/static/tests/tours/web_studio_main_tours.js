@@ -15,7 +15,7 @@ let createdAppString = null;
 let createdMenuString = null;
 
 registry.category("web_tour.tours").add("web_studio_main_and_rename", {
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     test: true,
     steps: () => [
         {
@@ -684,7 +684,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
 });
 
 registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
-    url: "/web?debug=1#action=studio&mode=home_menu",
+    url: "/odoo/action-studio?mode=home_menu&debug=1",
     test: true,
     steps: () => [
         {
@@ -816,7 +816,7 @@ registry.category("web_tour.tours").add("web_studio_hide_fields_tour", {
 });
 
 registry.category("web_tour.tours").add("web_studio_model_option_value_tour", {
-    url: "/web?debug=tests#action=studio&mode=home_menu",
+    url: "/odoo/action-studio?mode=home_menu&debug=tests",
     test: true,
     steps: () => [
         {
@@ -893,7 +893,7 @@ registry.category("web_tour.tours").add("web_studio_model_option_value_tour", {
 });
 
 registry.category("web_tour.tours").add("web_studio_new_submenu_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         {
@@ -950,7 +950,7 @@ registry.category("web_tour.tours").add("web_studio_new_submenu_tour", {
 });
 
 registry.category("web_tour.tours").add("web_studio_new_report_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         {
@@ -1089,7 +1089,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_tour", {
 });
 
 registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         {
@@ -1195,7 +1195,7 @@ registry.category("web_tour.tours").add("web_studio_new_report_basic_layout_tour
 });
 
 registry.category("web_tour.tours").add("web_studio_approval_tour", {
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     test: true,
     steps: () => [
         {
@@ -1329,7 +1329,7 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
 });
 
 registry.category("web_tour.tours").add("web_studio_custom_field_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         {
@@ -1377,7 +1377,7 @@ registry.category("web_tour.tours").add("web_studio_custom_field_tour", {
 });
 
 registry.category("web_tour.tours").add("web_studio_local_storage_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         {
@@ -1425,7 +1425,7 @@ registry.category("web_tour.tours").add("web_studio_local_storage_tour", {
 });
 
 registry.category("web_tour.tours").add("web_studio_custom_background_tour", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         {
@@ -1909,7 +1909,7 @@ registry.category("web_tour.tours").add("web_studio_test_remove_action_button_in
 });
 
 registry.category("web_tour.tours").add("web_studio_monetary_create", {
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     test: true,
     steps: () => [
         // This tour drag&drop a monetary field and verify that a currency is created
@@ -1953,7 +1953,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_create", {
 });
 
 registry.category("web_tour.tours").add("web_studio_monetary_change_currency_name", {
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     test: true,
     steps: () => [
         // Changing currency name also change the currency name in the monetary currency selection
@@ -1998,7 +1998,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_nam
 });
 
 registry.category("web_tour.tours").add("web_studio_related_monetary_creation", {
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     test: true,
     steps: () => [
         {
@@ -2060,7 +2060,7 @@ registry.category("web_tour.tours").add("web_studio_related_monetary_creation", 
 });
 
 registry.category("web_tour.tours").add("web_studio_monetary_change_currency_field", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         // Change currency and verify that the view take the changes into account (the dollar appears)
@@ -2135,7 +2135,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_fie
 });
 
 registry.category("web_tour.tours").add("web_studio_monetary_change_currency_not_in_view", {
-    url: "/web",
+    url: "/odoo",
     test: true,
     steps: () => [
         // Change a currency that is not present in the view insert it in the view
@@ -2191,7 +2191,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_change_currency_not
 });
 
 registry.category("web_tour.tours").add("web_studio_monetary_add_existing_monetary", {
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     test: true,
     steps: () => [
         // Add an existing monetary trough the "existing fields" and verify that the currency
@@ -2246,7 +2246,7 @@ registry.category("web_tour.tours").add("web_studio_monetary_add_existing_moneta
 registry
     .category("web_tour.tours")
     .add("web_studio_monetary_create_monetary_with_existing_currency", {
-        url: "/web?debug=1",
+        url: "/odoo?debug=1",
         test: true,
         steps: () => [
             // Add a new monetary field, since a currency already exists, it should take it instead
@@ -2298,7 +2298,7 @@ registry
     });
 
 registry.category("web_tour.tours").add("web_studio_add_field_into_empty_group_by", {
-    url: "/web?debug=1",
+    url: "/odoo?debug=1",
     test: true,
     steps: () => [
         {
