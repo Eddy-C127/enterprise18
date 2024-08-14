@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
 import socket
 import urllib.parse
 
+import odoo
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.addons.sms.tests.common import SMSCommon
 from odoo.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
@@ -82,6 +84,10 @@ class TestPushNotification(SMSCommon):
 
         cls.group_channel = cls.env['discuss.channel'].channel_create(name='Channel', group_id=None)
         cls.group_channel.add_members((cls.user_email + cls.user_inbox).partner_id.ids)
+
+    def _assert_notification_count_for_cron(self, number_of_notification):
+        notification_count = self.env['mail.notification.web.push'].search_count([])
+        self.assertEqual(notification_count, number_of_notification)
 
     @patch('odoo.addons.mail_mobile.models.mail_thread.iap_tools.iap_jsonrpc')
     def test_push_notifications(self, jsonrpc):
@@ -241,3 +247,26 @@ class TestPushNotification(SMSCommon):
             jsonrpc.call_args[1]['params']['data']['body'],
             'The body must contain the text send by mail'
         )
+
+    @patch('odoo.addons.mail_mobile.models.mail_thread.iap_tools.iap_jsonrpc')
+    @patch.object(odoo.addons.mail.models.mail_thread, 'push_to_end_point')
+    def test_push_notifications_whatsapp(self, push_to_end_point, iap_jsonrpc):
+
+        self.env['mail.partner.device'].get_web_push_vapid_public_key()
+        self.vapid_public_key = self.env['mail.partner.device'].get_web_push_vapid_public_key()
+        self.env['mail.partner.device'].sudo().create([{
+            'endpoint': 'https://test.odoo.com/webpush/user1',
+            'expiration_time': None,
+            'keys': json.dumps({
+                'p256dh': 'BGbhnoP_91U7oR59BaaSx0JnDv2oEooYnJRV2AbY5TBeKGCRCf0HcIJ9bOKchUCDH4cHYWo9SYDz3U-8vSxPL_A',
+                'auth': 'DJFdtAgZwrT6yYkUMgUqow'
+            }),
+            'partner_id': self.user_inbox.partner_id.id,
+        }])
+
+        self.direct_message_channel.with_user(self.user_email).message_post(
+            body=Markup('Hello'),
+            message_type='whatsapp_message', subtype_xmlid="mail.mt_comment"
+        )
+        self._assert_notification_count_for_cron(0)
+        push_to_end_point.assert_called_once()
