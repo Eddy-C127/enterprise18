@@ -105,27 +105,24 @@
                 <field name="origin_order_id" invisible="1"/>
                 <field name="subscription_state" invisible="1"/>
                 <field name="display_late" invisible="1"/>
-                <button class="float-end fs-6 btn"
-                        type="object"
-                        name="subscription_open_related"
-                        invisible="subscription_state not in ['2_renewal', '5_renewed', '7_upsell'] or state not in ['draft', 'sent']">
-                    <field name="subscription_state"
-                           widget="badge"
-                           decoration-info="subscription_state in ['2_renewal']"
-                           decoration-primary="subscription_state in ['7_upsell']"
-                           decoration-secondary="subscription_state in ['5_renewed']"
-                    />
-                </button>
-                <field name="subscription_state" class="float-end fs-6"
+                <field name="subscription_state"
+                        widget="badge"
+                        class="float-end"
+                        invisible="subscription_state not in ['2_renewal', '5_renewed', '7_upsell'] or state not in ['draft', 'sent']"
+                        decoration-info="subscription_state in ['2_renewal']"
+                        decoration-primary="subscription_state in ['7_upsell']"
+                        decoration-secondary="subscription_state in ['5_renewed']"
+                />
+                <field name="subscription_state" class="float-end"
                        invisible="subscription_state not in ['3_progress', '4_paused', '5_renewed', '6_churn'] or state == 'cancel'"
                        widget="badge"
                        decoration-info="subscription_state in ['1_draft']"
                        decoration-success="subscription_state in ['3_progress', '5_renewed']"
                        decoration-warning="subscription_state in ['4_paused']"
                        decoration-danger="subscription_state in ['6_churn']"/>
-                <div name="subscription_quotation_pill" class="float-end fs-6 badge rounded-pill fw-bold text-bg-info"
+                <div name="subscription_quotation_pill" class="float-end badge rounded-pill fw-bold text-bg-info"
                      invisible="subscription_state != '1_draft' or state not in ['draft', 'sent']">Subscription Quotation</div>
-                <div name="subscription_to_renew" class="float-end fs-6 badge rounded-pill fw-bold text-bg-warning"
+                <div name="subscription_to_renew" class="float-end badge rounded-pill fw-bold text-bg-warning"
                      invisible="not display_late">To Renew</div>
             </xpath>
             <field name="pricelist_id" position="attributes">

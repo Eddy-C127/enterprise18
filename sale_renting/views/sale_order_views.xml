@@ -23,15 +23,15 @@
                     invisible="state != 'sale' or not has_returnable_lines or has_returnable_lines and not has_pickable_lines"/>
             </button>
             <xpath expr="//div[@name='button_box']" position="after">
-                <div class="badge rounded-pill text-bg-success float-end fs-6 border-0"
+                <div class="badge rounded-pill text-bg-success float-end border-0"
                     invisible="not has_rented_products or state != 'sale' or rental_status != 'pickup' or is_late">Booked</div>
-                <div class="badge rounded-pill text-bg-danger float-end fs-6 border-0"
+                <div class="badge rounded-pill text-bg-danger float-end border-0"
                     invisible="not has_rented_products or state != 'sale' or rental_status != 'pickup' or not is_late">Late Pickup</div>
-                <div class="badge rounded-pill text-bg-warning float-end fs-6 border-0"
+                <div class="badge rounded-pill text-bg-warning float-end border-0"
                     invisible="not has_rented_products or state != 'sale' or rental_status != 'return' or is_late">Picked-up</div>
-                <div class="badge rounded-pill text-bg-danger float-end fs-6 border-0"
+                <div class="badge rounded-pill text-bg-danger float-end border-0"
                     invisible="not has_rented_products or state != 'sale' or rental_status != 'return' or not is_late">Late Return</div>
-                <div class="badge rounded-pill text-bg-default float-end fs-6 border-0"
+                <div class="badge rounded-pill text-bg-default float-end border-0"
                     invisible="not has_rented_products or state != 'sale' or rental_status != 'returned'">Returned</div>
             </xpath>
             <field name="payment_term_id" position="after">

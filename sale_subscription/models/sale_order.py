@@ -953,18 +953,6 @@ class SaleOrder(models.Model):
                   'quotation_template': self.sale_order_template_id.name} # see if we don't want plan instead
         return self.env['ir.qweb'].with_context(lang=lang)._render(template, values)
 
-    def subscription_open_related(self):
-        self.ensure_one()
-        action = self._get_associated_so_action()
-        action['views'] = [(self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
-        if self.subscription_state == '5_renewed':
-            action['res_id'] = self.subscription_child_ids.filtered(lambda c: c.subscription_state not in ['7_upsell', '2_renewal'])[0].id
-        elif self.subscription_state in ['2_renewal', '7_upsell']:
-            action['res_id'] = self.subscription_id.id
-        else:
-            return
-        return action
-
     def prepare_renewal_order(self):
         self.ensure_one()
         lang = self.partner_id.lang or self.env.user.lang

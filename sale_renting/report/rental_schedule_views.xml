@@ -169,15 +169,15 @@
         <field name="arch" type="xml">
             <form string="Rental Order">
                 <sheet>
-                    <div class="badge rounded-pill text-bg-success float-end fs-6 border-0"
+                    <div class="badge rounded-pill text-bg-success float-end border-0"
                         invisible="state != 'sale' or report_line_status != 'reserved' or late">Booked</div>
-                    <div class="badge rounded-pill text-bg-danger float-end fs-6 border-0"
+                    <div class="badge rounded-pill text-bg-danger float-end border-0"
                         invisible="state != 'sale' or report_line_status != 'reserved' or not late">Late Pickup</div>
-                    <div class="badge rounded-pill text-bg-warning float-end fs-6 border-0"
+                    <div class="badge rounded-pill text-bg-warning float-end border-0"
                         invisible="state != 'sale' or report_line_status != 'pickedup' or late">Picked-up</div>
-                    <div class="badge rounded-pill text-bg-danger float-end fs-6 border-0"
+                    <div class="badge rounded-pill text-bg-danger float-end border-0"
                         invisible="state != 'sale' or report_line_status != 'pickedup' or not late">Late Return</div>
-                    <div class="badge rounded-pill text-bg-default float-end fs-6 border-0"
+                    <div class="badge rounded-pill text-bg-default float-end border-0"
                         invisible="state != 'sale' or report_line_status != 'returned'">Returned</div>
                     <h1>
                         <field name="order_line_id" options="{'no_open':1}"/>
