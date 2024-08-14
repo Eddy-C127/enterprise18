@@ -19,16 +19,15 @@ class SaleSubscriptionProductConfiguratorController(SaleProductConfiguratorContr
     ):
         """ Override of `sale` to append subscription data.
 
-        :param recordset product_or_template: The product for which to seek information, as a
-                                              `product.product` or `product.template` record.
-        :param recordset pricelist: The pricelist to use, as a `product.pricelist` record.
-        :param recordset combination: The combination of the product, as a
-                                      `product.template.attribute.value` recordset.
-        :param recordset|None currency: The currency of the transaction, as a `res.currency` record.
+        :param product.product|product.template product_or_template: The product for which to seek
+            information.
+        :param product.pricelist pricelist: The pricelist to use.
+        :param product.template.attribute.value combination: The combination of the product.
+        :param res.currency|None currency: The currency of the transaction.
         :param datetime|None date: The date of the `sale.order`, to compute the price at the right
-                                   rate.
+            rate.
         :param int subscription_plan_id|None: The subscription plan of the product, as a
-                                              `sale.subscription.plan` id.
+            `sale.subscription.plan` id.
         :param dict kwargs: Locally unused data passed to `super`.
         :rtype: dict
         :return: A dict with the following structure:

@@ -37,12 +37,11 @@ class SaleRentingProductConfiguratorController(SaleProductConfiguratorController
     ):
         """ Override of `sale` to append rental data.
 
-        :param recordset product_or_template: The product for which to seek information, as a
-                                              `product.product` or `product.template` record.
-        :param recordset pricelist: The pricelist to use, as a `product.pricelist` record.
-        :param recordset combination: The combination of the product, as a
-                                      `product.template.attribute.value` recordset.
-        :param recordset|None currency: The currency of the transaction, as a `res.currency` record.
+        :param product.product|product.template product_or_template: The product for which to seek
+            information.
+        :param product.pricelist pricelist: The pricelist to use.
+        :param product.template.attribute.value combination: The combination of the product.
+        :param res.currency|None currency: The currency of the transaction.
         :param datetime|None start_date: The rental start date, to compute the rental duration.
         :param datetime|None end_date: The rental end date, to compute the rental duration.
         :param dict kwargs: Locally unused data passed to `super`.
