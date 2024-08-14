@@ -115,7 +115,6 @@ export class AccountReportController {
             // Preload the first non-loaded section we find amongst this report's sections.
             const cacheKey = this.getCacheKey(this.options['sections_source_id'], section.id);
             if (section.id != this.options['report_id'] && !this.reportInformationMap[cacheKey]) {
-                this.incrementCallNumber(cacheKey);
                 await this.loadReport(section.id, true);
 
                 sectionLoaded = true;
@@ -163,9 +162,10 @@ export class AccountReportController {
         const loadOptions = (ignore_session || !this.hasSessionOptions()) ? (this.action.params?.options || {}) : this.sessionOptions();
         const cacheKey = this.getCacheKey(loadOptions['sections_source_id'] || reportId, reportId);
 
-        if (cacheKey in this.loadingCallNumberByCacheKey) {
-            loadOptions["loading_call_number"] = this.loadingCallNumberByCacheKey[cacheKey];
+        if (!(cacheKey in this.loadingCallNumberByCacheKey)) {
+            this.incrementCallNumber(cacheKey);
         }
+        loadOptions["loading_call_number"] = this.loadingCallNumberByCacheKey[cacheKey];
 
         if (!this.reportOptionsMap[cacheKey]) {
             // The options for this section are not loaded nor loading. Let's load them !
