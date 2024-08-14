@@ -2421,14 +2421,14 @@ class AccountReport(models.Model):
 
                 if not column_dict:
                     continue
-                elif column_dict['blank_if_zero'] and column_dict['is_zero']:
+                elif column_dict.get('is_zero') and column_dict.get('blank_if_zero'):
                     rslt = ''
                 else:
                     rslt = self.format_value(
                         options,
                         column_dict['no_format'],
                         column_dict['figure_type'],
-                        format_params=column_dict['format_params'],
+                        format_params=column_dict.get('format_params'),
                     )
 
                 column_dict['name'] = rslt
