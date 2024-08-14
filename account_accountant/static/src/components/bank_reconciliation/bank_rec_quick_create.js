@@ -7,8 +7,8 @@ export class BankRecQuickCreateController extends KanbanQuickCreateController {
 export class BankRecQuickCreate extends KanbanRecordQuickCreate {
     static template = "account.BankRecQuickCreate";
     static props = {
-        ...Object.entries(KanbanRecordQuickCreate.props).filter(([k, v]) => k !== 'group'),
-        quickCreateView: { type: [String, { value: null }], optional: 1 },
+        ...Object.fromEntries(Object.entries(KanbanRecordQuickCreate.props).filter(([k, v]) => k !== 'group')),
+        globalState: { type: Object, optional: true },
     };
     static components = { BankRecQuickCreateController };
 
