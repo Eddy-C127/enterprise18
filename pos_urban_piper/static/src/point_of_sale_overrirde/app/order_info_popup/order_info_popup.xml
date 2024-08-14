@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-name="pos_urban_piper.orderInfoPopup">
-        <Dialog size="'md'" title="'Details'">
+        <Dialog size="'md'" title.translate="Details">
             <t t-set="order" t-value="this.props.order"/>
             <div t-if="this.deliveryRiderJson">
                 <div class="card rounded">
