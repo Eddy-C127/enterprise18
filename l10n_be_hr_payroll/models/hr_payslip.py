@@ -1,4 +1,3 @@
-#-*- coding:utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from pytz import timezone
@@ -6,6 +5,7 @@ from dateutil.relativedelta import relativedelta, MO, SU
 from dateutil import rrule
 from collections import defaultdict
 from datetime import date, datetime, timedelta
+
 from odoo import api, models, fields, _
 from odoo.tools import float_round, date_utils, ormcache
 from odoo.exceptions import UserError
@@ -1262,10 +1262,12 @@ class Payslip(models.Model):
         self.ensure_one()
         categories = localdict['categories']
         worked_days = localdict['worked_days']
-        contract = self.contract_id
-        if not categories['BASIC']:
-            result = 0
-        else:
+        # Representation fees aren't paid if there's no basic pay or no time worked
+        if categories['BASIC'] and (
+            not all(day.work_entry_type_id.is_leave for day in worked_days.values())
+            or self.env.context.get('salary_simulation')
+        ):
+            contract = self.contract_id
             calendar = contract.resource_calendar_id
             days_per_week = calendar._get_days_per_week()
             incapacity_attendances = calendar.attendance_ids.filtered(lambda a: a.work_entry_type_id.code == 'LEAVE281')
@@ -1310,6 +1312,8 @@ class Payslip(models.Model):
                 result = contract.representation_fees
             else:
                 result = 0
+        else:
+            result = 0
         return float_round(result, precision_digits=2)
 
     def _get_serious_representation_fees(self, localdict):
