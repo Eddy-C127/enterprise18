@@ -1,10 +1,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models
+from odoo import fields, models
 
 
 class EventRegistration(models.Model):
     _inherit = 'event.registration'
+
+    date_tz = fields.Selection(related='event_id.date_tz')
 
     def _whatsapp_get_portal_url(self):
         """ Return website_url if website_event is installed (introspect fields
@@ -25,9 +27,3 @@ class EventRegistration(models.Model):
                 'event_id.user_id.mobile', 'event_id.address_id.city', 'event_id.address_id.name',
                 'event_id.address_id.contact_address_complete', 'event_id.address_id.partner_latitude',
                 'event_id.address_id.partner_longitude'}
-
-    def _whatsapp_get_timezone(self):
-        if self:
-            self.ensure_one()
-            return self.event_id.date_tz
-        return super()._whatsapp_get_timezone()

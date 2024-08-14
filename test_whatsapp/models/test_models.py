@@ -106,10 +106,3 @@ class WhatsAppTestTimezone(models.Model):
     ]
 
     tz = fields.Selection(_tz_get, string='Timezone')
-
-    def _whatsapp_get_timezone(self):
-        if self:
-            self.ensure_one()
-            if self.tz:
-                return self.tz
-        return super()._whatsapp_get_timezone()
