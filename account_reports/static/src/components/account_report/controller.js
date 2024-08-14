@@ -712,8 +712,9 @@ export class AccountReportController {
         const hasVisibleChildren = new Set();
         const reversed_lines = [...lines].reverse()
 
+        const number_figure_types = ['integer', 'float', 'monetary', 'percentage'];
         reversed_lines.forEach((line) => {
-            const isZero = line.columns.every(column => column.is_zero);
+            const isZero = line.columns.every(column => !number_figure_types.includes(column.figure_type) || column.is_zero);
 
             // If the line has no visible children and all the columns are equals to zero then the line needs to be hidden
             if (!hasVisibleChildren.has(line.id) && isZero) {

@@ -1709,3 +1709,37 @@ class TestReportEngines(TestAccountReportsCommon):
             ],
             options_hide,
         )
+
+    def test_column_blank_if_zero(self):
+        """account.report.column's `blank_if_zero` option should only impacts number figure types"""
+        test_line = self._prepare_test_report_line(
+            self._prepare_test_expression_external('most_recent', [], label='monetary', figure_type='monetary'),
+
+            self._prepare_test_expression_external('most_recent', [], label='percentage', figure_type='percentage'),
+
+            self._prepare_test_expression_external('most_recent', [], label='integer', figure_type='integer'),
+
+            self._prepare_test_expression_external('most_recent', [], label='float', figure_type='float'),
+
+            self._prepare_test_expression_external('most_recent', [
+                self._prepare_test_external_values(False, '2024-01-01', figure_type='boolean'),
+            ], label='boolean', figure_type='boolean'),
+
+            self._prepare_test_expression_external('most_recent', [
+                self._prepare_test_external_values('dudu', '2024-01-01', figure_type='string'),
+            ], label='string', figure_type='string'),
+        )
+
+        report = self._create_report([test_line], columns=['monetary', 'percentage', 'integer', 'float', 'boolean', 'string'])
+        report.column_ids.blank_if_zero = True
+
+        options = self._generate_options(report, '2024-01-01', '2024-01-01')
+        self.assertLinesValues(
+            # pylint: disable=bad-whitespace
+            report._get_lines(options),
+            [   0,                          1,  2,   3,  4,      5,       6],
+            [
+                ('test_line_1',            '', '',  '', '',   'No',  'dudu'),
+            ],
+            options,
+        )
