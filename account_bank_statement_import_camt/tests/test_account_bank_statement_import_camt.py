@@ -420,3 +420,18 @@ class TestAccountBankStatementImportCamt(AccountTestInvoicingCommon):
         )
         self.assertEqual(len(imported_statement.line_ids), 1)
         self.assertEqual(imported_statement.line_ids.payment_ref, "entry info")
+
+    def test_import_camt_amounts_with_fees(self):
+        """
+        Ensures that '<AddtlNtryInf>' is used as a fallback for the payment reference
+        """
+        usd_currency = self.env.ref("base.USD")
+        self.assertEqual(self.env.company.currency_id.id, usd_currency.id)
+        self._import_camt_file("camt_053_exchange_fees.xml", usd_currency)
+        imported_statement = self.env["account.bank.statement"].search(
+            [("company_id", "=", self.env.company.id)], order="id desc", limit=1
+        )
+        self.assertEqual(len(imported_statement.line_ids), 1)
+        self.assertRecordValues(imported_statement.line_ids, [{
+            'amount': 1672.98,
+        }])
