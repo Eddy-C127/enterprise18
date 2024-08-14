@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="sale_commission_achievement_view_tree" model="ir.ui.view">
+    <record id="sale_commission_achievement_view_list" model="ir.ui.view">
         <field name="name">sale.commission.achievement.view.list</field>
         <field name="model">sale.commission.achievement</field>
         <field name="arch" type="xml">
             <list editable="bottom">
-                <field name="plan_id"/>
                 <field name="user_id"/>
-                <field name="team_id"/>
-                <field name="achieved"/>
-                <field name="currency_id"/>
+                <field name="team_id" optional="hide"/>
+                <field name="company_id" optional="hide"/>
                 <field name="date"/>
+                <field name="type"/>
+                <field name="amount"/>
+                <field name="currency_id" optional="hide"/>
                 <field name="note"/>
             </list>
         </field>
@@ -21,7 +22,6 @@
         <field name="model">sale.commission.achievement</field>
         <field name="arch" type="xml">
             <search string="Commission Achievement">
-                <field name="plan_id"/>
                 <field name="user_id"/>
                 <field name="team_id"/>
                 <field name="date"/>

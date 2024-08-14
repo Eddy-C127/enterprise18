@@ -101,7 +101,6 @@ export class CommissionGraphField extends Component {
                         }
                     },
                 },
-                maintainAspectRatio: false,
                 elements: {
                     line: {
                         tension: 0.000001,

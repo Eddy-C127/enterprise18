@@ -18,7 +18,6 @@ class TestSaleCommissionManager(TestSaleCommissionCommon):
         })
         self.commission_plan_manager.action_approve()
         (self.commission_user_1 + self.commission_user_2 + self.commission_manager).sale_team_id = self.team_commission
-        self.commission_plan_manager.user_ids.team_id = self.team_commission
 
         self.commission_plan_manager.achievement_ids = self.env['sale.commission.plan.achievement'].create([{
             'type': 'amount_sold',
@@ -123,7 +122,6 @@ class TestSaleCommissionManager(TestSaleCommissionCommon):
             'commission_amount': 2500,
         })
         (self.commission_user_1 + self.commission_user_2 + self.commission_manager).sale_team_id = self.team_commission
-        self.commission_plan_manager.user_ids.team_id = self.team_commission
 
         self.commission_plan_manager.achievement_ids = self.env['sale.commission.plan.achievement'].create([{
             'type': 'amount_sold',
@@ -142,7 +140,7 @@ class TestSaleCommissionManager(TestSaleCommissionCommon):
 
         self.commission_plan_manager.target_ids.amount = 2000
 
-        # There is already a level 0 at 0$ and level 1 at 2500$ by default
+        # There is already a level 0 at 0$, level 0.5 at 0$ and level 1 at 2500$ by default
         self.commission_plan_manager.target_commission_ids += self.env['sale.commission.plan.target.commission'].create([{
             'target_rate': 2,
             'amount': 3500,
@@ -181,7 +179,7 @@ class TestSaleCommissionManager(TestSaleCommissionCommon):
         self.assertEqual(achievements.achieved, 800, '0.4 * 2000 = 800')
         self.assertEqual(len(commissions), 1)
         self.assertEqual(commissions.achieved, 800)
-        self.assertEqual(commissions.commission, 1000, 'Tier 1 Achieved Rate(0.4) * 2500')
+        self.assertEqual(commissions.commission, 0, 'Achieved Rate(0.4) < 0.5')
 
         AM = SO._create_invoices()
         self.env.invalidate_all()

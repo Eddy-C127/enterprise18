@@ -13,27 +13,21 @@ class SaleAchievementReport(models.Model):
 
     @api.model
     def _get_sale_order_log_product(self):
+        # TODO BIG CURRENCY CHANGES 0_0
         return """
             rules.mrr_rate * log.amount_signed
         """
-
-    @api.model
-    def _get_src_info(self, fname):
-        if 'sale_order_log_id' in fname:
-            return f"'sale.order.log' AS related_res_model, {fname['sale_order_log_id']} AS related_res_id"
-        return super()._get_src_info(fname)
 
     def _subscription_lines(self, users=None, teams=None):
         return f"""
 subscription_rules AS (
     SELECT
-        COALESCE(scpu.date_from, scp.date_from) AS date_from,
-        COALESCE(scpu.date_to, scp.date_to) AS date_to,
+        scpu.date_from AS date_from,
+        scpu.date_to AS date_to,
         scpu.user_id AS user_id,
-        scpu.team_id AS team_id,
+        scp.team_id AS team_id,
         scp.id AS plan_id,
-        scpa.product_id,
-        scpa.product_categ_id,
+        scpa.recurring_plan_id,
         scp.company_id,
         scp.currency_id AS currency_to,
         scp.user_type = 'team' AS team_rule,
@@ -44,47 +38,54 @@ subscription_rules AS (
     WHERE scp.state = 'approved'
       AND scpa.type IN ({','.join("'%s'" % r for r in self._get_sale_order_log_rates())})
     {'AND scpu.user_id in (%s)' % ','.join(str(i) for i in users.ids) if users else ''}
-    {'AND scpu.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
+    {'AND scp.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
 ), subscription_commission_lines_team AS (
     SELECT
-        rules.user_id,
-        rules.team_id,
+        MAX(rules.user_id),
+        MAX(rules.team_id),
         rules.plan_id,
-        ({self._get_sale_order_log_product()}) AS achieved,
-        log.currency_id,
-        rules.currency_to,
-        log.event_date AS date,
-        rules.company_id,
-        {self._get_src_info({'sale_order_log_id': 'log.id'})}
+        SUM({self._get_sale_order_log_product()}) AS achieved,
+        MAX(log.currency_id),
+        MAX(log.event_date) AS date,
+        MAX(rules.company_id),
+        log.id AS related_res_id
     FROM subscription_rules rules
     JOIN sale_order_log log
       ON log.company_id = rules.company_id
     WHERE rules.team_rule
+      AND log.event_type != '3_transfer'
+      AND (rules.recurring_plan_id IS NULL OR log.plan_id = rules.recurring_plan_id)
       AND log.team_id = rules.team_id
     {'AND log.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
       AND log.event_date BETWEEN rules.date_from AND rules.date_to
+    GROUP BY
+        log.id,
+        rules.plan_id
 ), subscription_commission_lines_user AS (
     SELECT
-        rules.user_id,
-        rules.team_id,
+        MAX(rules.user_id),
+        MAX(rules.team_id),
         rules.plan_id,
-        ({self._get_sale_order_log_product()}) AS achieved,
-        log.currency_id,
-        rules.currency_to,
-        log.event_date AS date,
-        rules.company_id,
-        {self._get_src_info({'sale_order_log_id': 'log.id'})}
+        SUM({self._get_sale_order_log_product()}) AS achieved,
+        MAX(log.currency_id),
+        MAX(log.event_date) AS date,
+        MAX(rules.company_id),
+        log.id AS related_res_id
     FROM subscription_rules rules
     JOIN sale_order_log log
       ON log.company_id = rules.company_id
     WHERE NOT rules.team_rule
+      AND (rules.recurring_plan_id IS NULL OR log.plan_id = rules.recurring_plan_id)
       AND log.user_id = rules.user_id
     {'AND log.user_id in (%s)' % ','.join(str(i) for i in users.ids) if users else ''}
       AND log.event_date BETWEEN rules.date_from AND rules.date_to
+    GROUP BY
+        log.id,
+        rules.plan_id
 ), subscription_commission_lines AS (
-    (SELECT * FROM subscription_commission_lines_team)
+    (SELECT *, 'sale.order.log' AS related_res_model FROM subscription_commission_lines_team)
     UNION ALL
-    (SELECT * FROM subscription_commission_lines_user)
+    (SELECT *, 'sale.order.log' AS related_res_model FROM subscription_commission_lines_user)
 )""", 'subscription_commission_lines'
 
     def _commission_lines_cte(self, users=None, teams=None):

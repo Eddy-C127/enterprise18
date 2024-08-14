@@ -7,6 +7,7 @@
             <field name="date_to" eval="DateTime.today() + relativedelta(day=31, month=12)"/>
             <field name="type">achieve</field>
             <field name="user_type">team</field>
+            <field name="team_id" ref="sales_team.team_sales_department"/>
             <field name="state">approved</field>
         </record>
 
@@ -60,24 +61,28 @@
         <record id="plan_user_target_commission_3" model="sale.commission.plan.target.commission">
             <field name="target_rate">1</field>
             <field name="amount">1500</field>
+            <field name="amount_rate">1</field>
             <field name="plan_id" ref="plan_user"/>
         </record>
 
         <record id="plan_user_target_commission_4" model="sale.commission.plan.target.commission">
             <field name="target_rate">1.5</field>
             <field name="amount">3000</field>
+            <field name="amount_rate">2</field>
             <field name="plan_id" ref="plan_user"/>
         </record>
 
         <record id="plan_user_target_commission_5" model="sale.commission.plan.target.commission">
             <field name="target_rate">2</field>
             <field name="amount">6000</field>
+            <field name="amount_rate">4</field>
             <field name="plan_id" ref="plan_user"/>
         </record>
 
         <record id="plan_user_target_commission_6" model="sale.commission.plan.target.commission">
             <field name="target_rate">3</field>
             <field name="amount">13500</field>
+            <field name="amount_rate">9</field>
             <field name="plan_id" ref="plan_user"/>
         </record>
     </data>

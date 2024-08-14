@@ -20,4 +20,4 @@ class CommissionPlanAchievement(models.Model):
     product_id = fields.Many2one('product.product', "Product")
     product_categ_id = fields.Many2one('product.category', "Category")
 
-    rate = fields.Float("Rate", default=0.05, required=True)
+    rate = fields.Float("Rate", default=lambda self: 1 if self.plan_id.type == 'target' else 0.05, required=True)

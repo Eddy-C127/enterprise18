@@ -14,13 +14,21 @@ class SaleAchievementReport(models.Model):
     plan_id = fields.Many2one('sale.commission.plan', "Commission Plan", readonly=True)
     user_id = fields.Many2one('res.users', "Sales Person", readonly=True)
     team_id = fields.Many2one('crm.team', "Sales Team", readonly=True)
-    achieved = fields.Float("Achieved", readonly=True)
+    achieved = fields.Monetary("Achieved", readonly=True, currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', "Currency", readonly=True)
     company_id = fields.Many2one('res.company', string='Company', readonly=True)
     date = fields.Date(string="Date", readonly=True)
 
     related_res_model = fields.Char(readonly=True)
     related_res_id = fields.Many2oneReference("Related", model_field='related_res_model', readonly=True)
+
+    def open_related(self):
+        return {
+            'view_mode': 'form',
+            'res_model': self.related_res_model,
+            'res_id': self.related_res_id,
+            'type': 'ir.actions.act_window',
+        }
 
     @property
     def _table_query(self):
@@ -33,26 +41,22 @@ class SaleAchievementReport(models.Model):
         return f"""
 WITH {self._commission_lines_query(users=users, teams=teams)}
 SELECT
-    ROW_NUMBER() OVER (ORDER BY MAX(era.date_from) DESC, MAX(era.id)) AS id,
-    MAX(era.id) AS target_id,
-    MAX(cl.user_id) AS user_id,
-    MAX(cl.team_id) AS team_id,
-    SUM(cl.achieved) AS achieved,
-    MAX(cl.currency_id) AS currency_id,
-    MAX(cl.company_id) AS company_id,
+    ROW_NUMBER() OVER (ORDER BY era.date_from DESC, era.id) AS id,
+    era.id AS target_id,
+    cl.user_id AS user_id,
+    cl.team_id AS team_id,
+    cl.achieved AS achieved,
+    cl.currency_id AS currency_id,
+    cl.company_id AS company_id,
     cl.plan_id,
     cl.related_res_model,
     cl.related_res_id,
-    MAX(cl.date) AS date
+    cl.date AS date
 FROM commission_lines cl
 JOIN sale_commission_plan_target era
-	ON cl.plan_id = era.plan_id
-	AND cl.date >= era.date_from
-	AND cl.date <= era.date_to
-GROUP BY
-    cl.related_res_model,
-    cl.related_res_id,
-    cl.plan_id
+    ON cl.plan_id = era.plan_id
+    AND cl.date >= era.date_from
+    AND cl.date <= era.date_to
 """
 
     @api.model
@@ -71,37 +75,16 @@ GROUP BY
     @api.model
     def _get_sale_rates_product(self):
         return """
-            rules.amount_sold_rate * sol.price_subtotal +
+            rules.amount_sold_rate * sol.price_subtotal / so.currency_rate +
             rules.qty_sold_rate * sol.product_uom_qty
         """
 
     @api.model
     def _get_invoice_rates_product(self):
         return """
-            rules.qty_invoiced_rate * aml.quantity +
-            rules.amount_invoiced_rate * aml.price_subtotal
+            rules.amount_invoiced_rate * aml.price_subtotal / am.invoice_currency_rate +
+            rules.qty_invoiced_rate * aml.quantity
         """
-
-    @api.model
-    def _get_src_info(self, fname):
-        if 'sale_order_id' in fname:
-            return f"'sale.order' AS related_res_model, {fname['sale_order_id']} AS related_res_id"
-        elif 'account_move_id' in fname:
-            return f"'account.move' AS related_res_model, {fname['account_move_id']} AS related_res_id"
-        elif 'achievement_id' in fname:
-            return f"'sale.commission.achievement' AS related_res_model, {fname['achievement_id']} AS related_res_id"
-        return ''
-
-    @api.model
-    def _product_categ_query(self):
-        return """
-product_categ AS (
-    SELECT
-        tmpl.categ_id AS categ_id,
-        p.id AS pid
-    FROM product_product p
-    JOIN product_template tmpl ON p.product_tmpl_id = tmpl.id
-) """
 
     def _achievement_lines(self, users=None, teams=None):
         return f"""
@@ -109,60 +92,69 @@ achievement_commission_lines AS (
     SELECT
         sca.user_id,
         sca.team_id,
-        sca.plan_id,
-        sca.achieved,
-		sca.currency_id,
-		scp.currency_id AS currency_to,
-		sca.date,
-		scp.company_id,
-		{self._get_src_info({'achievement_id': 'sca.id'})}
-	FROM sale_commission_achievement sca
-	JOIN sale_commission_plan scp ON scp.id = sca.plan_id
-	WHERE TRUE
+        scp.id AS plan_id,
+        sca.currency_rate * sca.amount * scpa.rate AS achieved,
+        scp.currency_id,
+        sca.date,
+        scp.company_id,
+        sca.id AS related_res_id,
+        'sale.commission.achievement' AS related_res_model
+    FROM sale_commission_achievement sca
+    JOIN sale_commission_plan scp ON scp.company_id = sca.company_id
+    JOIN sale_commission_plan_achievement scpa ON scpa.plan_id = scp.id
+    JOIN sale_commission_plan_user scpu ON scpu.plan_id = scp.id
+    WHERE scp.active
+      AND scp.state = 'approved'
+      AND sca.type = scpa.type
+      AND CASE WHEN scp.user_type = 'person'
+            THEN sca.user_id = scpu.user_id
+            ELSE sca.team_id = scp.team_id
+      END
     {'AND sca.user_id in (%s)' % ','.join(str(i) for i in users.ids) if users else ''}
-	{'AND sca.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
+    {'AND sca.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
 )""", 'achievement_commission_lines'
 
     def _invoices_lines(self, users=None, teams=None):
         return f"""
 invoices_rules AS (
     SELECT
-		COALESCE(scpu.date_from, scp.date_from) AS date_from,
-		COALESCE(scpu.date_to, scp.date_to) AS date_to,
-		scpu.user_id AS user_id,
-		scpu.team_id AS team_id,
-		scp.id AS plan_id,
-		scpa.product_id,
-		scpa.product_categ_id,
-		scp.company_id,
-		scp.currency_id AS currency_to,
-		scp.user_type = 'team' AS team_rule,
-		{self._rate_to_case(self._get_invoices_rates())}
-	FROM sale_commission_plan_achievement scpa
-	JOIN sale_commission_plan scp ON scp.id = scpa.plan_id
-	JOIN sale_commission_plan_user scpu ON scpa.plan_id = scpu.plan_id
-	WHERE scp.state = 'approved'
+        scpu.date_from AS date_from,
+        COALESCE(scpu.date_to, scp.date_to) AS date_to,
+        scpu.user_id AS user_id,
+        scp.team_id AS team_id,
+        scp.id AS plan_id,
+        scpa.product_id,
+        scpa.product_categ_id,
+        scp.company_id,
+        scp.currency_id,
+        scp.user_type = 'team' AS team_rule,
+        {self._rate_to_case(self._get_invoices_rates())}
+    FROM sale_commission_plan_achievement scpa
+    JOIN sale_commission_plan scp ON scp.id = scpa.plan_id
+    JOIN sale_commission_plan_user scpu ON scpa.plan_id = scpu.plan_id
+    WHERE scp.active
+      AND scp.state = 'approved'
       AND scpa.type IN ({','.join("'%s'" % r for r in self._get_invoices_rates())})
     {'AND scpu.user_id in (%s)' % ','.join(str(i) for i in users.ids) if users else ''}
-    {'AND scpu.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
 ), invoice_commission_lines_team AS (
     SELECT
-        rules.user_id,
-        rules.team_id,
+        MAX(rules.user_id),
+        MAX(rules.team_id),
         rules.plan_id,
-        ({self._get_invoice_rates_product()}) AS achieved,
-		am.currency_id,
-		rules.currency_to,
-		am.date AS date,
-		rules.company_id,
-		{self._get_src_info({'account_move_id': 'am.id'})}
+        SUM({self._get_invoice_rates_product()}) AS achieved,
+        MAX(rules.currency_id),
+        MAX(am.date) AS date,
+        MAX(rules.company_id),
+        am.id AS related_res_id
     FROM invoices_rules rules
     JOIN account_move am
       ON am.company_id = rules.company_id
     JOIN account_move_line aml
       ON aml.move_id = am.id
-    LEFT JOIN product_categ pc
-      ON aml.product_id = pc.pid
+    JOIN product_product pp
+      ON aml.product_id = pp.id
+    JOIN product_template pt
+      ON pp.product_tmpl_id = pt.id
     WHERE aml.display_type = 'product'
       AND am.move_type = 'out_invoice'
       AND rules.team_rule
@@ -170,25 +162,29 @@ invoices_rules AS (
     {'AND am.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
       AND am.date BETWEEN rules.date_from AND rules.date_to
       AND (rules.product_id IS NULL OR rules.product_id = aml.product_id)
-      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pc.categ_id)
+      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pt.categ_id)
+    GROUP BY
+        am.id,
+        rules.plan_id
 ), invoice_commission_lines_user AS (
     SELECT
-        rules.user_id,
-        rules.team_id,
+        MAX(rules.user_id),
+        MAX(am.team_id),
         rules.plan_id,
-        ({self._get_invoice_rates_product()}) AS achieved,
-		am.currency_id,
-		rules.currency_to,
-		am.date AS date,
-		rules.company_id,
-		{self._get_src_info({'account_move_id': 'am.id'})}
+        SUM({self._get_invoice_rates_product()}) AS achieved,
+        MAX(rules.currency_id),
+        MAX(am.date) AS date,
+        MAX(rules.company_id),
+        am.id AS related_res_id
     FROM invoices_rules rules
     JOIN account_move am
       ON am.company_id = rules.company_id
     JOIN account_move_line aml
       ON aml.move_id = am.id
-    LEFT JOIN product_categ pc
-      ON aml.product_id = pc.pid
+    JOIN product_product pp
+      ON aml.product_id = pp.id
+    JOIN product_template pt
+      ON pp.product_tmpl_id = pt.id
     WHERE aml.display_type = 'product'
       AND am.move_type = 'out_invoice'
       AND NOT rules.team_rule
@@ -196,53 +192,57 @@ invoices_rules AS (
     {'AND am.invoice_user_id in (%s)' % ','.join(str(i) for i in users.ids) if users else ''}
       AND am.date BETWEEN rules.date_from AND rules.date_to
       AND (rules.product_id IS NULL OR rules.product_id = aml.product_id)
-      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pc.categ_id)
+      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pt.categ_id)
+    GROUP BY
+        am.id,
+        rules.plan_id
 ), invoice_commission_lines AS (
-    (SELECT * FROM invoice_commission_lines_team)
+    (SELECT *, 'account.move' AS related_res_model FROM invoice_commission_lines_team)
     UNION ALL
-    (SELECT * FROM invoice_commission_lines_user)
+    (SELECT *, 'account.move' AS related_res_model FROM invoice_commission_lines_user)
 )""", 'invoice_commission_lines'
 
     def _sale_lines(self, users=None, teams=None):
         return f"""
 sale_rules AS (
     SELECT
-		COALESCE(scpu.date_from, scp.date_from) AS date_from,
-		COALESCE(scpu.date_to, scp.date_to) AS date_to,
-		scpu.user_id AS user_id,
-		scpu.team_id AS team_id,
-		scp.id AS plan_id,
-		scpa.product_id,
-		scpa.product_categ_id,
-		scp.company_id,
-		scp.currency_id AS currency_to,
-		scp.user_type = 'team' AS team_rule,
-		{self._rate_to_case(self._get_sale_rates())}
-	FROM sale_commission_plan_achievement scpa
-	JOIN sale_commission_plan scp ON scp.id = scpa.plan_id
-	JOIN sale_commission_plan_user scpu ON scpa.plan_id = scpu.plan_id
-	WHERE scp.state = 'approved'
+        scpu.date_from AS date_from,
+        COALESCE(scpu.date_to, scp.date_to) AS date_to,
+        scpu.user_id AS user_id,
+        scp.team_id AS team_id,
+        scp.id AS plan_id,
+        scpa.product_id,
+        scpa.product_categ_id,
+        scp.company_id,
+        scp.currency_id,
+        scp.user_type = 'team' AS team_rule,
+        {self._rate_to_case(self._get_sale_rates())}
+    FROM sale_commission_plan_achievement scpa
+    JOIN sale_commission_plan scp ON scp.id = scpa.plan_id
+    JOIN sale_commission_plan_user scpu ON scpa.plan_id = scpu.plan_id
+    WHERE scp.active
+      AND scp.state = 'approved'
       AND scpa.type IN ({','.join("'%s'" % r for r in self._get_sale_rates())})
     {'AND scpu.user_id in (%s)' % ','.join(str(i) for i in users.ids) if users else ''}
-    {'AND scpu.team_id in (%s)' % ','.join(str(i) for i in teams.ids) if teams else ''}
 ), sale_commission_lines_team AS (
     SELECT
-        rules.user_id,
-        rules.team_id,
+        MAX(rules.user_id),
+        MAX(rules.team_id),
         rules.plan_id,
-        ({self._get_sale_rates_product()}) AS achieved,
-		so.currency_id,
-		rules.currency_to,
-		so.date_order AS date,
-		rules.company_id,
-		{self._get_src_info({'sale_order_id': 'so.id'})}
+        SUM({self._get_sale_rates_product()}) AS achieved,
+        MAX(rules.currency_id),
+        MAX(so.date_order) AS date,
+        MAX(rules.company_id),
+        so.id AS related_res_id
     FROM sale_rules rules
     JOIN sale_order so
       ON so.company_id = rules.company_id
     JOIN sale_order_line sol
       ON sol.order_id = so.id
-    LEFT JOIN product_categ pc
-      ON sol.product_id = pc.pid
+    JOIN product_product pp
+      ON sol.product_id = pp.id
+    JOIN product_template pt
+      ON pp.product_tmpl_id = pt.id
     WHERE sol.display_type IS NULL
       AND rules.team_rule
       AND so.team_id = rules.team_id
@@ -250,27 +250,31 @@ sale_rules AS (
       AND (so.date_order BETWEEN rules.date_from AND rules.date_to)
       AND so.state = 'sale'
       AND (rules.product_id IS NULL OR rules.product_id = sol.product_id)
-      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pc.categ_id)
+      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pt.categ_id)
       AND COALESCE(is_expense, false) = false
       AND COALESCE(is_downpayment, false) = false
+    GROUP BY
+        so.id,
+        rules.plan_id
 ), sale_commission_lines_user AS (
     SELECT
-        rules.user_id,
-        rules.team_id,
+        MAX(rules.user_id),
+        MAX(so.team_id),
         rules.plan_id,
-        ({self._get_sale_rates_product()}) AS achieved,
-		so.currency_id,
-		rules.currency_to,
-		so.date_order AS date,
-		rules.company_id,
-		{self._get_src_info({'sale_order_id': 'so.id'})}
+        SUM({self._get_sale_rates_product()}) AS achieved,
+        MAX(rules.currency_id),
+        MAX(so.date_order) AS date,
+        MAX(rules.company_id),
+        so.id AS related_res_id
     FROM sale_rules rules
     JOIN sale_order so
       ON so.company_id = rules.company_id
     JOIN sale_order_line sol
       ON sol.order_id = so.id
-    LEFT JOIN product_categ pc
-      ON sol.product_id = pc.pid
+    JOIN product_product pp
+      ON sol.product_id = pp.id
+    JOIN product_template pt
+      ON pp.product_tmpl_id = pt.id
     WHERE sol.display_type IS NULL
       AND NOT rules.team_rule
       AND so.user_id = rules.user_id
@@ -278,24 +282,26 @@ sale_rules AS (
       AND (so.date_order BETWEEN rules.date_from AND rules.date_to)
       AND so.state = 'sale'
       AND (rules.product_id IS NULL OR rules.product_id = sol.product_id)
-      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pc.categ_id)
+      AND (rules.product_categ_id IS NULL OR rules.product_categ_id = pt.categ_id)
       AND COALESCE(is_expense, false) = false
       AND COALESCE(is_downpayment, false) = false
+    GROUP BY
+        so.id,
+        rules.plan_id
 ), sale_commission_lines AS (
-    (SELECT * FROM sale_commission_lines_team)
+    (SELECT *, 'sale.order' AS related_res_model FROM sale_commission_lines_team)
     UNION ALL
-    (SELECT * FROM sale_commission_lines_user)
+    (SELECT *, 'sale.order' AS related_res_model FROM sale_commission_lines_user)
 )""", 'sale_commission_lines'
 
     def _commission_lines_cte(self, users=None, teams=None):
-        return [self._sale_lines(users, teams), self._invoices_lines(users, teams), self._achievement_lines(users, teams)]
+        return [self._achievement_lines(users, teams), self._sale_lines(users, teams), self._invoices_lines(users, teams)]
 
     def _commission_lines_query(self, users=None, teams=None):
         ctes = self._commission_lines_cte(users, teams)
         queries = [x[0] for x in ctes]
         table_names = [x[1] for x in ctes]
         return f"""
-{self._product_categ_query()},
 {','.join(queries)},
 commission_lines AS (
     {' UNION ALL '.join(f'(SELECT * FROM {name})' for name in table_names)}

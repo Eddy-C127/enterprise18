@@ -9,6 +9,7 @@
                     <button string="Approve" class="btn-primary" name="action_approve" type="object" invisible="state != 'draft'" data-hotkey="w" />
                     <button string="Cancel" class="btn-secondary" name="action_cancel" type="object" invisible="state != 'draft'" data-hotkey="w"/>
                     <button string="Mark as done" class="btn-secondary" name="action_done" type="object" invisible="state != 'approved'" data-hotkey="w"/>
+                    <button string="Reset to draft" class="btn-secondary" name="action_draft" type="object" invisible="state == 'draft'" data-hotkey="d"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,approved,done"/>
                 </header>
                 <sheet>
@@ -34,6 +35,7 @@
                                 <field name="type" class="oe_inline" readonly="state != 'draft'"/>
                                 per <field name="user_type" class="oe_inline" readonly="state != 'draft'"/>
                             </div>
+                            <field name="team_id" invisible="user_type == 'person'"/>
                             <field name="currency_id" invisible="1"/>   <!-- Needed for monetary widget -->
                             <field name="commission_amount" invisible="type == 'achieve'" readonly="state != 'draft'"
                                    widget="monetary" options="{'currency_field': 'currency_id'}"/>
@@ -60,7 +62,7 @@
                                             <field name="target_rate" widget="percentage"/>
                                             <field name="amount" force_save="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                             <field name="amount_rate" widget="percentage" force_save="1" optional="hide"/>
-                                            <field name="currency_id" optional="hide"/>
+                                            <field name="currency_id" column_invisible="1"/> <!-- For monetary field -->
                                         </list>
                                     </field>
                                 </group>
@@ -76,11 +78,11 @@
                                     <field name="date_from" optional="hide" force_save="1"/>
                                     <field name="date_to" optional="hide" force_save="1"/>
                                     <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                    <field name="currency_id" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/> <!-- For monetary field -->
                                 </list>
                             </field>
                         </page>
-                        <page string="Achievements" invisible="type != 'target'">
+                        <page string="Achievements">
                             <field name="achievement_ids" readonly="state != 'draft'">
                                 <list editable="bottom">
                                     <control>
@@ -89,20 +91,7 @@
                                     <field name="type" required="1"/>
                                     <field name="product_id" placeholder="All products"/>
                                     <field name="product_categ_id" placeholder="All categories"/>
-                                    <field name="rate" widget="percentage" string="Target weighting (%)"/>
-                                </list>
-                            </field>
-                        </page>
-                        <page string="Achievements" invisible="type == 'target'">
-                            <field name="achievement_ids" readonly="state != 'draft'">
-                                <list editable="bottom">
-                                    <control>
-                                        <create string="Add a new achievement"/>
-                                    </control>
-                                    <field name="type" required="1"/>
-                                    <field name="product_id" placeholder="All products"/>
-                                    <field name="product_categ_id" placeholder="All categories"/>
-                                    <field name="rate" widget="percentage" string="Commission rate"/>
+                                    <field name="rate" widget="percentage"/>
                                 </list>
                             </field>
                         </page>
@@ -112,23 +101,24 @@
                                     <field name="name" force_save="1"/>
                                     <field name="date_from" optional="hide" force_save="1"/>
                                     <field name="date_to" optional="hide" force_save="1"/>
+                                    <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/> <!-- For monetary field -->
                                 </list>
                             </field>
                         </page>
                         <page string="Sales People">
-                            <button string="Add Multiple Salespersons" type="action" name="%(sale_commission.sale_subscription_change_customer_wizard_action)d"/>
                             <field name="user_ids">
                                 <list editable="bottom">
                                     <control>
                                         <create string="Add a new Sales Person"/>
                                     </control>
                                     <field name="user_id"/>
-                                    <field name="team_id" string="Team" force_save="1"/>
-                                    <field name="date_from" optional="hide"/>
-                                    <field name="date_to" optional="hide"/>
-                                    <field name="note" string=""/>
+                                    <field name="date_from" optional="visible"/>
+                                    <field name="date_to" optional="visible"/>
+                                    <field name="other_plans" widget="many2many_tags"/>
                                 </list>
                             </field>
+                            <button string="Add Multiple Salespersons" type="action" name="%(sale_commission.sale_subscription_change_customer_wizard_action)d" groups="base.group_no_one"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -137,7 +127,7 @@
         </field>
     </record>
 
-    <record id="sale_commission_plan_view_tree" model="ir.ui.view">
+    <record id="sale_commission_plan_view_list" model="ir.ui.view">
         <field name="name">sale.commission.plan.view.list</field>
         <field name="model">sale.commission.plan</field>
         <field name="arch" type="xml">
@@ -197,14 +187,5 @@
                 Compute commissions of your sales people based on their achievements and targets
             </p>
         </field>
-    </record>
-
-    <record id="sale_commission_action_plan_reset_to_draft" model="ir.actions.server">
-        <field name="name">Reset to draft</field>
-        <field name="model_id" ref="model_sale_commission_plan"/>
-        <field name="binding_model_id" ref="model_sale_commission_plan"/>
-        <field name="binding_view_types">form</field>
-        <field name="state">code</field>
-        <field name="code">records.action_draft()</field>
     </record>
 </odoo>

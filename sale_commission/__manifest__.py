@@ -10,10 +10,12 @@
     'depends': ['sale_management'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
+        'views/sale_commission_settings.xml',
         'wizard/sale_commission_add_multiple_user.xml',
         'views/sale_commission_plan_view.xml',
         'views/sale_commission_achievement_view.xml',
-        'views/sale_team_view.xml',
+        'views/sale_commission_forecast_view.xml',
         'report/commission_report.xml',
         'report/achievement_report.xml',
         'views/sale_commission_menu.xml',

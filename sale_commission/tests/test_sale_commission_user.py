@@ -133,7 +133,7 @@ class TestSaleCommissionUser(TestSaleCommissionCommon):
 
         self.commission_plan_user.target_ids.amount = 2000
 
-        # There is already a level 0 at 0$ and level 1 at 2500$ by default
+        # There is already a level 0 at 0$, level 0.5 at 0$ and level 1 at 2500$ by default
         self.commission_plan_user.target_commission_ids += self.env['sale.commission.plan.target.commission'].create([{
             'target_rate': 2,
             'amount': 3500,
@@ -171,7 +171,7 @@ class TestSaleCommissionUser(TestSaleCommissionCommon):
         self.assertEqual(achievements.achieved, 800, '0.4 * 2000 = 800')
         self.assertEqual(len(commissions), 1)
         self.assertEqual(commissions.achieved, 800)
-        self.assertEqual(commissions.commission, 1000, 'Tier 1 Achieved Rate(0.4) * 2500')
+        self.assertEqual(commissions.commission, 0, 'Achieved Rate(0.4) < 0.5')
 
         AM = SO._create_invoices()
         self.env.invalidate_all()
@@ -266,8 +266,61 @@ class TestSaleCommissionUser(TestSaleCommissionCommon):
         commissions = self.env['sale.commission.report'].search([('plan_id', '=', self.commission_plan_user.id)])
 
         self.assertEqual(len(achievements), 1, 'The one line should count as an achievement')
-        self.assertEqual(achievements.achieved, 2000, '200 * 10')
-        self.assertEqual(achievements.currency_id, new_currency, 'achievement should be in the SO currency')
+        self.assertEqual(achievements.achieved, 1000, '200 * 10 * 0.5')
+        self.assertEqual(achievements.currency_id, self.commission_plan_user.currency_id, 'achievement should be in the SO currency')
         self.assertEqual(achievements.related_res_id, SO.id)
         self.assertEqual(len(commissions), 1)
         self.assertEqual(commissions.commission, 1000, "2000 * 0.5, currency conversion")
+
+    @freeze_time('2024-02-02')
+    def test_edit_forecast(self):
+        self.commission_plan_user.write({
+            'periodicity': 'month',
+            'type': 'achieve',
+            'user_type': 'person',
+        })
+        self.commission_plan_user.action_approve()
+
+        self.commission_plan_user.achievement_ids = self.env['sale.commission.plan.achievement'].create([{
+            'type': 'amount_sold',
+            'rate': 0.04,
+            'plan_id': self.commission_plan_user.id,
+        }, {
+            'type': 'amount_invoiced',
+            'rate': 0.06,
+            'plan_id': self.commission_plan_user.id,
+        }])
+
+        SO = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'user_id': self.commission_user_1.id,
+            'order_line': [Command.create({
+                'product_id': self.commission_product_1.id,
+                'product_uom_qty': 10,
+                'price_unit': 200,
+            })],
+        })
+
+        commissions = self.env['sale.commission.report'].search([('plan_id', '=', self.commission_plan_user.id)])
+
+        self.assertFalse(commissions, 'SO has not been confirmed yet, there should be no commission.')
+
+        SO.action_confirm()
+        self.env.invalidate_all()
+
+        commissions = self.env['sale.commission.report'].search([('plan_id', '=', self.commission_plan_user.id)])
+
+        self.assertEqual(commissions.forecast, 0)
+        commissions.write({'forecast': 100})
+        self.assertEqual(commissions.forecast, 100)
+
+        self.env.invalidate_all()
+        commissions = self.env['sale.commission.report'].search([('plan_id', '=', self.commission_plan_user.id)])
+
+        self.assertEqual(commissions.forecast, 100)
+        commissions.write({'forecast': 200})
+        self.assertEqual(commissions.forecast, 200)
+
+        self.env.invalidate_all()
+        commissions = self.env['sale.commission.report'].search([('plan_id', '=', self.commission_plan_user.id)])
+        self.assertEqual(commissions.forecast, 200)

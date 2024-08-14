@@ -84,6 +84,7 @@ class TestSaleCommissionCommon(TestSaleCommon):
             'periodicity': 'month',
             'type': 'achieve',
             'user_type': 'team',
+            'team_id': cls.team_commission.id,
         }])
 
         cls.commission_plan_manager.user_ids = cls.env['sale.commission.plan.user'].create([{

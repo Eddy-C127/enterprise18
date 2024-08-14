@@ -12,51 +12,42 @@ class CommissionPlanUser(models.Model):
 
     plan_id = fields.Many2one('sale.commission.plan', required=True, ondelete='cascade')
     user_id = fields.Many2one('res.users', "Salesperson", required=True, domain="[('share', '=', False)]")
-    team_id = fields.Many2one('crm.team', compute='_compute_team_id', store=True, readonly=False)
 
-    date_from = fields.Date("From", compute='_compute_date', store=True, readonly=False, required=True, precompute=True)
-    date_to = fields.Date("To", compute='_compute_date', store=True, readonly=False, required=True, precompute=True)
+    date_from = fields.Date("From", compute='_compute_date_from', store=True, readonly=False, required=True, precompute=True)
+    date_to = fields.Date("To")
 
-    note = fields.Char("Note", compute='_compute_note')
+    other_plans = fields.Many2many('sale.commission.plan', string="Other plans", compute='_compute_other_plans')
 
     _sql_constraints = [
-        ('user_uniq', 'unique (plan_id, user_id, team_id)', "The user is already present in the plan"),
+        ('user_uniq', 'unique (plan_id, user_id)', "The user is already present in the plan"),
     ]
 
     @api.constrains('date_from', 'date_to')
     def _date_constraint(self):
         for user in self:
-            if user.date_to < user.date_from:
+            if user.date_to and user.date_to < user.date_from:
                 raise exceptions.UserError(_("From must be before To"))
             if user.date_from < user.plan_id.date_from:
                 raise exceptions.UserError(_("User period cannot start before the plan."))
-            if user.date_to > user.plan_id.date_to:
+            if user.date_to and user.date_to > user.plan_id.date_to:
                 raise exceptions.UserError(_("User period cannot end after the plan."))
 
     @api.depends('user_id')
-    def _compute_team_id(self):
-        for user in self:
-            user.team_id = user.user_id.sale_team_id
-
-    @api.depends('user_id')
-    def _compute_note(self):
+    def _compute_other_plans(self):
         grouped_users = defaultdict(lambda: self.env['sale.commission.plan.user'])
         for user in self | self.search([('user_id', 'in', self.user_id.ids), ('plan_id.state', 'in', ['draft', 'approved'])]):
             grouped_users[user.user_id] += user
 
-        for res_user, plan_user in grouped_users.items():
-            if len(plan_user) > 1:
-                plan_user.note = _("User is currently in multiple plans: %s", ", ".join(plan_user.plan_id.mapped('name')))
-            else:
-                plan_user.note = ''
+        for plan_users in grouped_users.values():
+            for plan_user in plan_users:
+                plan_user.other_plans = plan_users.plan_id - plan_user.plan_id
 
     @api.depends('plan_id')
-    def _compute_date(self):
+    def _compute_date_from(self):
         today = fields.Date.today()
         for user in self:
-            if user.date_from or user.date_to:
+            if user.date_from:
                 return
-            if not user.plan_id.date_from or not user.plan_id.date_to:
+            if not user.plan_id.date_from:
                 return
             user.date_from = max(user.plan_id.date_from, today) if user.plan_id.state != 'draft' else user.plan_id.date_from
-            user.date_to = user.plan_id.date_to

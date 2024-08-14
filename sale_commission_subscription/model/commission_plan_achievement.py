@@ -8,9 +8,12 @@ class CommissionPlanAchievement(models.Model):
     _inherit = 'sale.commission.plan.achievement'
 
     type = fields.Selection(selection_add=[('mrr', "MRR")], ondelete={'mrr': 'cascade'})
+    recurring_plan_id = fields.Many2one('sale.subscription.plan', string="Recurring Plan")
 
     @api.constrains('type', 'product_id', 'product_categ_id')
     def _constrains_type_mrr(self):
-        impossible = self.filtered(lambda pa: pa.type == 'mrr' and (pa.product_id or pa.product_categ_id))
-        if impossible:
-            raise UserError(_("You cannot have Product or Category constraints on MRR achievements. "))
+        for pa in self:
+            if pa.type == 'mrr' and (pa.product_id or pa.product_categ_id):
+                raise UserError(_("You cannot have Product or Category constraints on MRR achievements."))
+            elif pa.type != 'mrr' and pa.recurring_plan_id:
+                raise UserError(_("You cannot have Recurring Plan constraint on non MRR achievements."))

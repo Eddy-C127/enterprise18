@@ -20,6 +20,7 @@ class SaleOrderLog(models.Model):
     )
     user_id = fields.Many2one('res.users', related='order_id.user_id', string='Salesperson', store=True, precompute=True, depends=[])
     team_id = fields.Many2one('crm.team', related='order_id.team_id', string='Sales Team', store=True, precompute=True, depends=[])
+    plan_id = fields.Many2one('sale.subscription.plan', related='order_id.plan_id', string='Recurring Plan', store=True, precompute=True, depends=[])
     company_id = fields.Many2one('res.company', related='order_id.company_id', string='Company', store=True, precompute=True, depends=[])
     currency_id = fields.Many2one('res.currency', related='order_id.currency_id', string='Currency', store=True, precompute=True, depends=[], readonly=False)
     origin_order_id = fields.Many2one('sale.order', string='Origin Contract', store=True, index=True, precompute=True,

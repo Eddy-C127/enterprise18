@@ -11,15 +11,16 @@ class CommissionPlanTargetCommission(models.Model):
     plan_id = fields.Many2one('sale.commission.plan', ondelete='cascade')
 
     target_rate = fields.Float("Target completion (%)", default=1, required=True)
-    amount_rate = fields.Float("OTC %", help='On Target Commission rate', compute='_compute_amount_rate', inverse='_inverse_amount_rate')
+    amount_rate = fields.Float("OTC %", help='On Target Commission rate')
     amount = fields.Monetary("Commission", default=0, required=True, currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', related='plan_id.currency_id')
 
-    @api.depends('amount', 'plan_id.commission_amount')
-    def _compute_amount_rate(self):
+    @api.onchange('amount')
+    def _onchange_amount(self):
         for commission in self:
-            commission.amount_rate = commission.plan_id.commission_amount and (commission.amount / commission.plan_id.commission_amount) or commission.amount
+            commission.amount_rate = commission.plan_id.commission_amount and (commission.amount / commission.plan_id.commission_amount) or 1
 
-    def _inverse_amount_rate(self):
+    @api.onchange('amount_rate')
+    def _onchange_amount_rate(self):
         for commission in self:
             commission.amount = commission.plan_id.commission_amount * commission.amount_rate

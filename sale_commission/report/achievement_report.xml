@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="sale_achievement_report_view_tree" model="ir.ui.view">
+    <record id="sale_achievement_report_view_list" model="ir.ui.view">
         <field name="name">sale.commission.achievement.report.view.list</field>
         <field name="model">sale.commission.achievement.report</field>
         <field name="arch" type="xml">
-            <list create="0" delete="0">
-                <field name="plan_id"/>
+            <list create="0" delete="0" action="open_related" type="object">
+                <field name="plan_id" optional="hide"/>
                 <field name="user_id"/>
-                <field name="team_id"/>
+                <field name="team_id" optional="hide"/>
                 <field name="achieved"/>
-                <field name="currency_id"/>
                 <field name="date" optional="hide"/>
-                <field name="related_res_id" widget="many2one_reference" string="Source"/>
-                <field name="related_res_model" optional="hide"/> <!-- for m2o reference -->
+                <field name="related_res_id" string="Source"/>
                 <field name="target_id"/>
+                <field name="currency_id" optional="hide"/>
             </list>
         </field>
     </record>
