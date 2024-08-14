@@ -5,7 +5,7 @@ from dateutil.rrule import rrule, DAILY
 from datetime import datetime, date, timedelta
 from dateutil.relativedelta import relativedelta
 from odoo.fields import Date
-from odoo.tests import tagged
+from odoo.tests import Form, tagged
 from odoo.addons.hr_payroll.tests.common import TestPayslipContractBase
 
 
@@ -365,6 +365,51 @@ class TestPayslipComputation(TestPayslipContractBase):
         payslip.compute_sheet()
         lines = payslip.line_ids
         self.assertEqual(len(lines.filtered(lambda r: r.code == 'BASIC')), 1)
+
+    def test_payslip_multiple_inputs_and_attachments_same_type(self):
+        self.env['hr.salary.attachment'].create([
+            {
+                'employee_ids': [self.richard_emp.id],
+                'monthly_amount': 100,
+                'paid_amount': 0,
+                'total_amount': 100,
+                'other_input_type_id': self.env.ref('hr_payroll.default_attachment_of_salary_rule').id,
+                'date_start': date(2016, 1, 1),
+                'description': 'Some attachment',
+            },
+            {
+                'employee_ids': [self.richard_emp.id],
+                'monthly_amount': 200,
+                'paid_amount': 0,
+                'total_amount': 200,
+                'other_input_type_id': self.env.ref('hr_payroll.default_attachment_of_salary_rule').id,
+                'date_start': date(2016, 1, 1),
+                'description': 'Another attachment',
+            },
+        ])
+
+        payslip = self.env['hr.payslip'].create({
+            'name': 'Payslip of Richard',
+            'employee_id': self.richard_emp.id,
+            'contract_id': self.contract_cdi.id,
+            'date_from': date(2016, 1, 1),
+            'date_to': date(2016, 1, 31),
+        })
+
+        with Form(payslip) as payslip_form:
+            payslip_form.input_line_ids.remove(0)  # remove merged input of attachments and use 2 inputs instead
+            with payslip_form.input_line_ids.new() as line:
+                line.input_type_id = self.env.ref("hr_payroll.input_assignment_salary")
+                line.amount = 100
+            with payslip_form.input_line_ids.new() as line:
+                line.input_type_id = self.env.ref("hr_payroll.input_assignment_salary")
+                line.amount = 200
+
+        payslip.compute_sheet()
+        payslip.action_payslip_done()
+        payslip.action_payslip_paid()
+
+        self.assertEqual(sum(s.paid_amount for s in payslip.salary_attachment_ids), 100 + 200)
 
     def test_defaultdict_get(self):
         # defaultdict.get(key) returns None if the key doesn't exist instead of default factory value
