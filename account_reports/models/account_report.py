@@ -43,6 +43,8 @@ ACCOUNT_CODES_ENGINE_TAG_ID_PREFIX_REGEX = re.compile(r"tag\(((?P<id>\d+)|(?P<re
 # Performance optimisation: those engines always will receive None as their next_groupby, allowing more efficient batching.
 NO_NEXT_GROUPBY_ENGINES = {'tax_tags', 'account_codes'}
 
+NUMBER_FIGURE_TYPES = ('float', 'integer', 'monetary', 'percentage')
+
 LINE_ID_HIERARCHY_DELIMITER = '|'
 
 CURRENCIES_USING_LAKH = {'AFN', 'BDT', 'INR', 'MMK', 'NPR', 'PKR', 'LKR'}
@@ -1338,7 +1340,7 @@ class AccountReport(models.Model):
         has_visible_children = set()  # contain parent line ids
         # Traverse lines in reverse to keep track of visible parent lines required by children lines
         for line in reversed(lines):
-            is_zero_line = all(col.get('is_zero', True) for col in line['columns'])
+            is_zero_line = all(col.get('figure_type') not in NUMBER_FIGURE_TYPES or col.get('is_zero', True) for col in line['columns'])
             if is_zero_line and line['id'] not in has_visible_children:
                 lines_to_hide.add(line['id'])
             if line.get('parent_id') and line['id'] not in lines_to_hide:
@@ -2720,11 +2722,10 @@ class AccountReport(models.Model):
             'figure_type': figure_type,
             'green_on_positive': column_expression.green_on_positive,
             'has_sublines': has_sublines,
-            'is_zero': (
-                col_value is None
-                or not isinstance(col_value, (int, float))
-                or not figure_type in ('float', 'integer', 'monetary')
-                or self._is_value_zero(col_value, figure_type, format_params)
+            'is_zero': col_value is None or (
+                isinstance(col_value, (int, float))
+                and figure_type in NUMBER_FIGURE_TYPES
+                and self._is_value_zero(col_value, figure_type, format_params)
             ),
             'no_format': col_value,
             'format_params': format_params,
@@ -5323,7 +5324,7 @@ class AccountReport(models.Model):
         if figure_type == 'monetary':
             currency = self.env['res.currency'].browse(format_params['currency_id']) if 'currency_id' in format_params else self.env.company.currency_id
             return currency.is_zero(amount)
-        elif figure_type in ('float', 'integer'):
+        elif figure_type in NUMBER_FIGURE_TYPES:
             return float_is_zero(amount, precision_digits=format_params.get('digits', 0))
         else:
             return False
