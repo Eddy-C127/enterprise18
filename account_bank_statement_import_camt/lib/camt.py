@@ -493,8 +493,8 @@ def _generic_get(*nodes, xpath, namespaces, placeholder=None):
 class CAMT:
     # These are pair of getters: (getter for the amount, getter for the amount's currency)
     _amount_getters = [
-        (partial(_generic_get, xpath='ns:AmtDtls/ns:CntrValAmt/ns:Amt/text()'), partial(_generic_get, xpath='ns:AmtDtls/ns:CntrValAmt/ns:Amt/@Ccy')),
         (partial(_generic_get, xpath='ns:AmtDtls/ns:TxAmt/ns:Amt/text()'), partial(_generic_get, xpath='ns:AmtDtls/ns:TxAmt/ns:Amt/@Ccy')),
+        (partial(_generic_get, xpath='ns:AmtDtls/ns:CntrValAmt/ns:Amt/text()'), partial(_generic_get, xpath='ns:AmtDtls/ns:CntrValAmt/ns:Amt/@Ccy')),
         (partial(_generic_get, xpath='ns:AmtDtls/ns:InstdAmt/ns:Amt/text()'), partial(_generic_get, xpath='ns:AmtDtls/ns:InstdAmt/ns:Amt/@Ccy')),
         (partial(_generic_get, xpath='ns:Amt/text()'), partial(_generic_get, xpath='ns:Amt/@Ccy')),
     ]
