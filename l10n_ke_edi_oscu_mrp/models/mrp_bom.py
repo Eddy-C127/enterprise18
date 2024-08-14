@@ -28,6 +28,9 @@ class MrpBom(models.Model):
     )
     def _compute_l10n_ke_validation_message(self):
         for bom in self:
+            if not self.env.company.l10n_ke_oscu_is_active:
+                bom.l10n_ke_validation_message = False
+                continue
             products = bom.product_id or bom.product_tmpl_id.product_variant_ids
             products |= bom.bom_line_ids.product_id
             bom.l10n_ke_validation_message = products._l10n_ke_get_validation_messages(for_invoice=False)

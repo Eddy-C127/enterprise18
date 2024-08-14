@@ -50,7 +50,7 @@ class AccountMove(models.Model):
 
         # Invoices which have at least one storable product should not be sent to eTIMS until
         # the products have been delivered or received.
-        for move in self.filtered(lambda m: any(l.product_id.type == 'product' for l in m.invoice_line_ids)):
+        for move in self.filtered(lambda m: m.company_id.l10n_ke_oscu_is_active and any(l.product_id.type == 'product' for l in m.invoice_line_ids)):
             if move.is_purchase_document() and (
                 not (purchase_lines_to_check := move.invoice_line_ids.mapped('purchase_line_id'))
                 or any(
