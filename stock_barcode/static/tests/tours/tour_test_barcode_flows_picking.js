@@ -3622,6 +3622,30 @@ registry.category("web_tour.tours").add('test_put_in_pack_from_multiple_pages', 
     ...stepUtils.validateBarcodeOperation('.o_barcode_line:contains("PACK")'),
 ]});
 
+registry.category("web_tour.tours").add('test_put_in_pack_no_freeze', {test: true, steps: () => [
+    { trigger: 'button.o_button_operations', run: 'click' },
+
+    { trigger: '.o_kanban_record:contains(Receipts)', run: 'click' },
+
+    { trigger: '.o_kanban_record_headings:last', run: 'click' },
+
+    { trigger: '.o_edit', run: "click" },
+
+    {
+        trigger: '.o_field_widget[name=qty_done] input',
+        run() {
+            //input type number not supported by tour helpers.
+            this.anchor.value = "5.66";
+        }
+    },
+
+    { trigger: '.o_save', run: 'click' },
+
+    { trigger: '.o_put_in_pack', run: 'click' },
+
+    { trigger: 'button.o_exit', run: 'click' },
+]});
+
 registry.category("web_tour.tours").add('test_reload_flow', {test: true, steps: () => [
     {
         trigger: '.o_stock_barcode_main_menu',

@@ -1638,7 +1638,8 @@ export default class BarcodePickingModel extends BarcodeModel {
         }
         // Before the put in pack, create a new empty move line with the remaining
         // quantity for each uncompleted move line who will be packaged.
-        for (const line of this.pageLines) {
+        const lines = [...this.pageLines];
+        for (const line of lines) {
             if (line.result_package_id || !this.shouldSplitLine(line)) {
                 continue; // Line is already in a package or no quantity to process.
             }
