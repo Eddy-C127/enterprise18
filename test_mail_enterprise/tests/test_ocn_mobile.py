@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
 import socket
 import urllib.parse
 
+import odoo
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.addons.sms.tests.common import SMSCommon
 from odoo.addons.test_mail.data.test_mail_data import MAIL_TEMPLATE
@@ -241,3 +243,52 @@ class TestPushNotification(SMSCommon):
             jsonrpc.call_args[1]['params']['data']['body'],
             'The body must contain the text send by mail'
         )
+
+    @patch('odoo.addons.mail_mobile.models.mail_thread.iap_tools.iap_jsonrpc')
+    @patch.object(odoo.addons.mail.models.mail_thread, 'push_to_end_point')
+    def test_push_notifications_whatsapp(self, push_to_end_point, iap_jsonrpc):
+        """
+            Verifies that the system correctly triggers web push notifications upon posting a WhatsApp message.
+            Notifications can either be sent immediately or scheduled via cron.
+            At the time this test was written, notifications are sent directly if the number of recipient devices is fewer than MAX_DIRECT_PUSH.
+        """
+
+        self.env['mail.push.device'].get_web_push_vapid_public_key()
+        self.vapid_public_key = self.env['mail.push.device'].get_web_push_vapid_public_key()
+        mail_push_device = self.env['mail.push.device'].sudo().create([{
+            'endpoint': 'https://test.odoo.com/webpush/user1',
+            'expiration_time': None,
+            'keys': json.dumps({
+                'p256dh': 'BGbhnoP_91U7oR59BaaSx0JnDv2oEooYnJRV2AbY5TBeKGCRCf0HcIJ9bOKchUCDH4cHYWo9SYDz3U-8vSxPL_A',
+                'auth': 'DJFdtAgZwrT6yYkUMgUqow'
+            }),
+            'partner_id': self.user_inbox.partner_id.id,
+        }])
+
+        self.direct_message_channel.with_user(self.user_email).message_post(
+            body=('This whatsapp message should generate web push notification'),
+            message_type='whatsapp_message', subtype_xmlid='mail.mt_comment'
+        )
+        self.assertEqual(self.env['mail.push'].search_count([]), 0,
+            'Notification scheduled with cron, expected only direct notification')
+        self.assertEqual(push_to_end_point.call_args.kwargs.get('device')['id'], mail_push_device.id,
+            'Web push notification (from whatsapp_message) was not sent to the right device')
+        push_to_end_point.assert_called_once()
+        push_to_end_point.reset_mock()
+
+        self.direct_message_channel.with_user(self.user_email).message_post(
+            body=('This comment message should generate any web push notifications'),
+            message_type='comment', subtype_xmlid='mail.mt_comment'
+        )
+        self.assertEqual(self.env['mail.push'].search_count([]), 0,
+            'Notification scheduled with cron, expected only direct notification')
+        self.assertEqual(push_to_end_point.call_args.kwargs.get('device')['id'], mail_push_device.id,
+            'Web push notification (from comment) was not sent to the right device')
+        push_to_end_point.assert_called_once()
+        push_to_end_point.reset_mock()
+
+        self.direct_message_channel.with_user(self.user_email).message_post(
+            body=('This email message should not generate any web push notifications'),
+            message_type='email', subtype_xmlid='mail.mt_comment'
+        )
+        self.assertFalse(push_to_end_point.called, 'Email message should not generate any web push notifications')
