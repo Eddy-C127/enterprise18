@@ -3,11 +3,12 @@
 
 import logging
 
-from odoo.tests import tagged, HttpCase
+from odoo.tests import tagged, HttpCase, no_retry
 
 _logger = logging.getLogger(__name__)
 
 
+@no_retry
 @tagged('post_install', '-at_install')
 class TestIndustryFsmUi(HttpCase):
     def test_ui(self):
