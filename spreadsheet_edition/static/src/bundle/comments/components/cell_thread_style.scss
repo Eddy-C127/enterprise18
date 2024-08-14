@@ -11,7 +11,7 @@
     }
 
     .o-cell-thread-body {
-        overflow-y: auto; 
+        overflow-y: auto;
     }
 
     .o-mail-Composer {
@@ -47,25 +47,6 @@
     .o-thread-highlight {
         &, .o-cell-thread {
             background-color: #E8EDFF;
-        }
-    }
-}
-
-/** Shame css to counteract dark mode */
-.o-spreadsheet {
-    .o-cell-thread, .o-thread-start-composer {
-        background-color: white;
-    }
-
-    .o-mail-Composer{
-        .border {
-            border-color: $o-gray-300 !important;
-        }
-        .bg_view {
-            background-color: white !important;
-        }
-        .o-mail-Composer-send {
-            color: white !important;
         }
     }
 }
