@@ -11,6 +11,7 @@ class Pricelist(models.Model):
         inverse_name='pricelist_id',
         string="Renting Price Rules",
         domain=['|', ('product_template_id', '=', None), ('product_template_id.active', '=', True)],
+        copy=True,
     )
 
     @api.constrains('product_pricing_ids')
