@@ -396,7 +396,7 @@ class Task(models.Model):
     def _prepare_sale_order_values(self, team):
         vals = {
             'partner_id': self.partner_id.id,
-            'company_id': self.company_id.id,
+            'company_id': self.company_id.id or self.partner_id.company_id.id or self.env.company.id,
             'analytic_account_id': self._get_task_analytic_account_id().id,
             'team_id': team.id if team else False,
             'origin': f'{self.project_id.name} - {self.name}',
