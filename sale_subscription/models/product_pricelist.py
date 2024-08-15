@@ -13,4 +13,5 @@ class Pricelist(models.Model):
         domain=[
             '|', ('product_template_id', '=', None), ('product_template_id.active', '=', True),
         ],
+        copy=True,
     )
