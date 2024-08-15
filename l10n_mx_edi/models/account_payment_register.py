@@ -33,8 +33,7 @@ class AccountPaymentRegister(models.TransientModel):
     def _compute_l10n_mx_edi_payment_method_id(self):
         for wizard in self:
             if wizard.can_edit_wizard:
-                batches = wizard._get_batches()
-                wizard.l10n_mx_edi_payment_method_id = batches[0]['payment_values']['l10n_mx_edi_payment_method_id']
+                wizard.l10n_mx_edi_payment_method_id = wizard.batches[0]['payment_values']['l10n_mx_edi_payment_method_id']
             else:
                 wizard.l10n_mx_edi_payment_method_id = False
 
