@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from odoo import fields
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.addons.account_accountant.wizard.account_change_lock_date import SOFT_LOCK_DATE_FIELDS
@@ -51,7 +53,7 @@ class TestChangeLockDateWizard(AccountTestInvoicingCommon):
                     'company_id': self.env.company.id,
                     'user_id': self.env.user.id,
                     'create_uid': self.env.user.id,
-                    'end_datetime': False,
+                    'end_datetime': self.env.cr.now() + timedelta(minutes=5),
                     'reason': False,
                 }])
 

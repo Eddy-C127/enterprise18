@@ -230,20 +230,15 @@ class AccountChangeLockDate(models.TransientModel):
             'everyone': False,
         }[self.exception_applies_to]
 
-        exception_duration = {
-            'me': 'forever',
-            'everyone': self.exception_duration,
-        }[self.exception_applies_to]
-
         exception_timedelta = {
             '5min': timedelta(minutes=5),
             '15min': timedelta(minutes=15),
             '1h': timedelta(hours=1),
             '24h': timedelta(hours=24),
             'forever': False,
-        }[exception_duration]
+        }[self.exception_duration]
         if exception_timedelta:
-            exception_values['end_datetime'] = fields.Datetime.now() + exception_timedelta
+            exception_values['end_datetime'] = self.env.cr.now() + exception_timedelta
 
         if self.exception_reason:
             exception_values['reason'] = self.exception_reason

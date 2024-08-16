@@ -116,8 +116,8 @@
                                  invisible="not exception_needed">
                                 <span>Exception for</span>
                                 <field name="exception_applies_to" class="oe_inline mx-3"/>
-                                <span invisible="exception_applies_to == 'me'">for</span>
-                                <field name="exception_duration" invisible="exception_applies_to == 'me'" class="oe_inline mx-3"/>
+                                <span>for</span>
+                                <field name="exception_duration" class="oe_inline mx-3"/>
                                 <div invisible="exception_applies_to == 'everyone' and exception_duration == 'forever'">
                                     <span>to</span>
                                     <field name="exception_reason" placeholder="reason..." class="oe_inline mx-3"/>
