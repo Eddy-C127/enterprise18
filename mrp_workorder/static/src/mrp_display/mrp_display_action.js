@@ -124,6 +124,14 @@ export class MrpDisplayAction extends Component {
         };
     }
 
+    get fieldsManuallyFetched() {
+        return {
+            "mrp.workorder": [
+                {"operation_note": "html"},
+            ],
+        };
+    }
+    
     setup() {
         this.viewService = useService("view");
         this.fieldService = useService("field");
@@ -152,6 +160,15 @@ export class MrpDisplayAction extends Component {
                     fields[fName] = { ...defaultActiveField, ...fInfo };
                     delete fields[fName].context;
                 }
+
+                if (this.fieldsManuallyFetched[resModel]) {
+                    this.fieldsManuallyFetched[resModel].forEach(field => {
+                        for (const [fieldName, fieldType] of Object.entries(field)) {
+                            fields[fieldName] = { type : fieldType };
+                        }
+                    });
+                }
+
                 this.models.push({ fields, resModel });
             }
             const searchViews = await this.viewService.loadViews(
