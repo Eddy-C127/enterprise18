@@ -34,6 +34,8 @@ patch(registry.category("web_tour.tours").get("fsm_task_form_tour"), {
             content: 'Click on save and close',
             trigger: 'button[special="save"]',
             run: 'click',
+        }, {
+            trigger: 'body:not(.modal-open)',
         });
         return originalSteps;
     }
