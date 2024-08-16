@@ -3,13 +3,12 @@
 from odoo.addons.test_discuss_full.tests.test_performance import TestDiscussFullPerformance
 
 # Queries for _query_count_init_store:
-# 1: hasDocumentsUserGroup
-# 1: helpdesk_livechat_active
-# 8: voipConfig
-#    3: voip.provider
-#    5: missedCalls
-TestDiscussFullPerformance._query_count_init_store += 10
-TestDiscussFullPerformance._query_count += 0
+#   1: _get_default_voip_provider when creating res.users.settings
+#   5: voipConfig
+#       5: missedCalls
+TestDiscussFullPerformance._query_count_init_store += 6
+TestDiscussFullPerformance._query_count_init_messaging += 0
+TestDiscussFullPerformance._query_count_discuss_channels += 0
 
 old_get_init_store_data_result = TestDiscussFullPerformance._get_init_store_data_result
 
