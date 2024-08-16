@@ -50,21 +50,9 @@
             <field name="arch" type="xml">
                 <kanban>
                     <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
-                                <div class="o_kanban_card_content">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <strong><field name="name"/></strong>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <field name="description"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <t t-name="kanban-card">
+                            <field name="name" class="fw-bold"/>
+                            <field name="description"/>
                         </t>
                     </templates>
                 </kanban>
@@ -124,7 +112,7 @@
             <field name="name">Intrastat Code</field>
             <field name="res_model">account.intrastat.code</field>
             <field name="context">{'search_default_group_by_type': 1, 'search_default_in_use':1}</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
         </record>
 
         <menuitem action="action_report_intrastat_code_tree" id="menu_report_intrastat_code"

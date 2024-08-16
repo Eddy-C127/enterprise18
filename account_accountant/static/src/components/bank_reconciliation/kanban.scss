@@ -47,6 +47,7 @@
 
         .o_bank_rec_st_line{
             margin: 0px var(--KanbanRecord-margin-h) (-$border-width) !important;
+            align-items: center;
 
             &:hover {
                 .statement_separator .btn-sm {
@@ -54,7 +55,7 @@
                }
            }
 
-            &.o_bank_rec_selected_st_line .o_bank_rec_st_line_kanban_card{
+            &.o_bank_rec_selected_st_line {
                 background-color: var(--table-bg);
             }
 
@@ -71,14 +72,9 @@
                     position: relative;
                     padding-top: 0;
                     padding-bottom: 0;
-                    top: -14px;
+                    top: -21px;
                     opacity: 0; // display: none doesn't work with tour
                 }
-            }
-
-            .o_bank_rec_st_line_kanban_card{
-                margin: 0px !important;
-                border-top: 1px solid $border-color;
             }
         }
     }

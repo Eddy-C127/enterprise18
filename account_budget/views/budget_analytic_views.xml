@@ -99,38 +99,23 @@
         <field name="model">budget.analytic</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
-                <field name="name"/>
-                <field name="date_from"/>
-                <field name="date_to"/>
-                <field name="user_id"/>
-                <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click">
-                            <div class="row mb4">
-                                <div class="col-8">
-                                    <strong class="o_kanban_record_title">
-                                        <field name="name" readonly="state == 'done'"/>
-                                    </strong>
-                                </div>
-                                <div class="col-4">
-                                    <span class="float-end">
-                                        <field name="state" widget="label_selection"
-                                               options="{'classes': {'draft': 'default', 'done': 'success'}}"/>
-                                    </span>
-                                </div>
+                    <t t-name="kanban-card">
+                        <div class="row mb4">
+                            <field name="name" class="fw-bold fs-5 col-8" readonly="state == 'done'"/>
+                            <div class="col-4">
+                                <field name="state" class="float-end" widget="label_selection"
+                                        options="{'classes': {'draft': 'default', 'done': 'success'}}"/>
                             </div>
-                            <div class="row">
-                                <div class="col-10">
-                                    <i class="fa fa-clock-o" role="img" aria-label="Period" title="Period"/>
-                                    <t t-out="record.date_from.value"/>-
-                                    <t t-out="record.date_to.value"/>
-                                </div>
-                                <div class="col-2">
-                                    <span class="float-end">
-                                        <field name="user_id" widget="many2one_avatar_user"/>
-                                    </span>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-10">
+                                <i class="fa fa-clock-o me-1" role="img" aria-label="Period" title="Period"/>
+                                <field name="date_from"/> -
+                                <field name="date_to"/>
+                            </div>
+                            <div class="col-2">
+                                <field name="user_id" class="float-end" widget="many2one_avatar_user"/>
                             </div>
                         </div>
                     </t>

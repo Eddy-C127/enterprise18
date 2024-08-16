@@ -148,34 +148,19 @@ if records:
             <field name="model">account.batch.payment</field>
             <field name="arch" type="xml">
                 <kanban class="o_kanban_mobile" sample="1" js_class="account_documents_kanban">
-                    <field name="name"/>
-                    <field name="date"/>
-                    <field name="state"/>
+                    <field name="currency_id"/>
                     <templates>
-                        <t t-name="kanban-box">
-                            <div t-attf-class="oe_kanban_global_click">
-                                <div class="row mb4">
-                                    <div class="col-6 o_kanban_record_headings">
-                                        <strong class="o_kanban_record_title">
-                                            <span>
-                                                <field name="name" readonly="state != 'draft'"/>
-                                            </span>
-                                        </strong>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <strong><i class="fa fa-clock-o" aria-label="Date" role="img" title="Date"/> <t t-out="record.date.value"/></strong>
-                                    </div>
+                        <t t-name="kanban-card">
+                            <div class="row mb4 fw-bold">
+                                <field name="name" class="col-6" readonly="state != 'draft'"/>
+                                <div class="col-6 text-end">
+                                    <i class="fa fa-clock-o" aria-label="Date" role="img" title="Date"/> <field name="date"/>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <span><field name="amount" widget='monetary'/></span>
-                                        <span><field name="currency_id" invisible="1"/></span>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="float-end">
-                                            <field name="state" widget="label_selection" options="{'classes': {'new': 'default', 'sent': 'default', 'reconciled': 'success'}}"/>
-                                        </span>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <field name="amount" class="col-6" widget='monetary'/>
+                                <div class="col-6">
+                                    <field name="state" class="float-end" widget="label_selection" options="{'classes': {'new': 'default', 'sent': 'default', 'reconciled': 'success'}}"/>
                                 </div>
                             </div>
                         </t>

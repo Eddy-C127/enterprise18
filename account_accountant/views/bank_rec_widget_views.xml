@@ -130,18 +130,13 @@
                     <field name="statement_valid"/>
                     <field name="statement_balance_end_real"/>
                     <field name="statement_name"/>
-                    <field name="sequence"/>
-                    <field name="company_id"/>
                     <field name="journal_id"/>
                     <field name="statement_id"/>
                     <field name="is_reconciled"/>
                     <field name="checked"/>
-                    <field name="partner_bank_id"/>
                     <field name="currency_id"/>
-                    <field name="foreign_currency_id"/>
-                    <field name="statement_line_id"/>
                     <templates>
-                        <t t-name="kanban-box">
+                        <t t-name="kanban-card">
                             <div t-if="!record.statement_id.raw_value"
                                  class="statement_separator text-center">
                                 <a role="button" class="btn btn-secondary btn-sm"
@@ -151,8 +146,8 @@
                                     Statement
                                 </a>
                             </div>
-                            <div t-attf-class="oe_kanban_card oe_kanban_global_click o_bank_rec_st_line_kanban_card"
-                                 t-att-st-line-id="record.id.raw_value"
+
+                            <div t-att-st-line-id="record.id.raw_value"
                                  t-att-st-line-todo="!record.is_reconciled.raw_value || !record.checked.raw_value"
                                  style="width:100%">
 
@@ -161,35 +156,20 @@
 
                                 <div class="d-flex">
                                     <!-- Row 1 -->
-                                    <div id="row1_col1">
-                                        <strong>
-                                            <field name="date" readonly="state in ['cancel', 'posted']"/>
-                                        </strong>
-                                    </div>
-                                    <div t-attf-id="row1_col2"
-                                            class="flex-fill text-truncate ms-1">
-                                        <em class="ps-2">
-                                            <field name="partner_id"/>
-                                        </em>
-                                    </div>
-                                    <div id="row1_col3" t-att-class="text_amount_class">
-                                        <strong>
-                                            <field name="amount"/>
-                                        </strong>
+                                    <field name="date" class="fw-bolder" readonly="state in ['cancel', 'posted']"/>
+                                    <field name="partner_id" class="flex-fill text-truncate ms-1 fst-italic ps-2"/>
+                                    <div t-att-class="text_amount_class">
+                                        <field name="amount" class="fw-bolder"/>
                                     </div>
                                 </div>
 
                                     <!-- Row 2 -->
                                 <div class="d-flex">
-                                    <div id="row2_col1" class="text-truncate flex-fill">
-                                        <field name="payment_ref"/>
-                                    </div>
-                                    <div id="row2_col2">
-                                        <div class="o_field_many2many_tags o_field_widget d-flex flex-row flex-nowrap">
-                                            <span t-if="!record.checked.raw_value" class="badge text-bg-warning fw-normal">To check</span>
-                                            <div t-if="record.is_reconciled.raw_value" class="badge text-bg-success fw-normal" title="Matched">
-                                                <i class="fa fa-check"/>
-                                            </div>
+                                    <field name="payment_ref" class="text-truncate flex-fill"/>
+                                    <div class="m-1 d-flex flex-row flex-nowrap">
+                                        <span t-if="!record.checked.raw_value" class="badge text-bg-warning fw-normal">To check</span>
+                                        <div t-if="record.is_reconciled.raw_value" class="badge text-bg-success fw-normal" title="Matched">
+                                            <i class="fa fa-check"/>
                                         </div>
                                     </div>
                                 </div>

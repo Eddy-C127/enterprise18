@@ -37,10 +37,8 @@ QUnit.module('Consolidation Tests', {}, function() {
             arch: `
             <kanban>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <field name="json" widget="consolidation_dashboard_field"/>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="json" widget="consolidation_dashboard_field"/>
                     </t>
                 </templates>
             </kanban>`,
