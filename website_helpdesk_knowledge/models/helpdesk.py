@@ -17,6 +17,7 @@ class HelpdeskTeam(models.Model):
         accessible_articles = self.env['knowledge.article'].search_count([
             ('website_published', '=', True),
             ('name', '!=', False),
+            ('is_article_item', '=', False),
             ('is_template', '=', False),
         ], limit=1) > 0
         for team_sudo in self.sudo():
@@ -26,6 +27,7 @@ class HelpdeskTeam(models.Model):
         latest_articles = self.env['knowledge.article'].search([
             ('website_published', '=', True),
             ('name', '!=', False),
+            ('is_article_item', '=', False),
             ('is_template', '=', False)
         ], limit=5, order='favorite_count desc, write_date desc')
         for team in self:
