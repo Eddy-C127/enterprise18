@@ -13,7 +13,7 @@ import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { View } from "@web/views/view";
-import { BarcodeVideoScanner, isBarcodeScannerSupported } from '@web/webclient/barcode/barcode_video_scanner';
+import { BarcodeVideoScanner, isBarcodeScannerSupported } from '@web/core/barcode/barcode_video_scanner';
 import { url } from '@web/core/utils/urls';
 import { utils as uiUtils } from "@web/core/ui/ui_service";
 import { Component, EventBus, onPatched, onWillStart, useState, useSubEnv } from "@odoo/owl";

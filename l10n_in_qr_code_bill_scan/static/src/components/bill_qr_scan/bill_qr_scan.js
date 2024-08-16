@@ -10,8 +10,8 @@ import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { patch } from "@web/core/utils/patch";
-import { scanBarcode } from "@web/webclient/barcode/barcode_dialog";
-import { isBarcodeScannerSupported } from "@web/webclient/barcode/barcode_video_scanner";
+import { scanBarcode } from "@web/core/barcode/barcode_dialog";
+import { isBarcodeScannerSupported } from "@web/core/barcode/barcode_video_scanner";
 
 
 export class BillQrScan extends Component {

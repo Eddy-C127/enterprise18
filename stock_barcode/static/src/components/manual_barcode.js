@@ -1,4 +1,4 @@
-import { BarcodeDialog } from '@web/webclient/barcode/barcode_dialog';
+import { BarcodeDialog } from '@web/core/barcode/barcode_dialog';
 import { Component, onMounted, useRef, useState } from "@odoo/owl";
 
 export class BarcodeInput extends Component {

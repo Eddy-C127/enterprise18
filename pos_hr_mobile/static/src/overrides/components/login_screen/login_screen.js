@@ -1,8 +1,8 @@
 import { _t } from "@web/core/l10n/translation";
 import { LoginScreen } from "@pos_hr/app/login_screen/login_screen";
 import { patch } from "@web/core/utils/patch";
-import { scanBarcode } from "@web/webclient/barcode/barcode_dialog";
-import { isBarcodeScannerSupported } from "@web/webclient/barcode/barcode_video_scanner";
+import { scanBarcode } from "@web/core/barcode/barcode_dialog";
+import { isBarcodeScannerSupported } from "@web/core/barcode/barcode_video_scanner";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { useService } from "@web/core/utils/hooks";
 

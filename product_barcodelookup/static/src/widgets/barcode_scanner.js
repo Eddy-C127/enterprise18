@@ -1,6 +1,6 @@
 import { registry } from "@web/core/registry";
 import { CharField, charField } from "@web/views/fields/char/char_field";
-import { scanBarcode } from "@web/webclient/barcode/barcode_dialog";
+import { scanBarcode } from "@web/core/barcode/barcode_dialog";
 
 export class BarcodeScannerWidget extends CharField {
     static template = "product_barcodelookup.barcodeformbarcode";
