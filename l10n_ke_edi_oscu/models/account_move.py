@@ -419,7 +419,10 @@ class AccountMove(models.Model):
                     total_value=abs(move.amount_total_in_currency_signed) - excess,
                 ))
 
-        self.filtered(lambda m: not m.l10n_ke_oscu_confirmation_datetime).l10n_ke_oscu_confirmation_datetime = fields.Datetime.now()
+        self\
+            .filtered(lambda m: not m.l10n_ke_oscu_confirmation_datetime)\
+            .with_context(skip_is_manually_modified=True)\
+            .l10n_ke_oscu_confirmation_datetime = fields.Datetime.now()
 
         return super()._post(soft)
 
