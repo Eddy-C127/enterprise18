@@ -75,7 +75,7 @@
 
     <template id="portal_helpdesk_ticket_timesheet" name="Helpdesk Ticket timesheet" inherit_id="helpdesk.portal_helpdesk_ticket">
         <xpath expr="//th[@id='ticket_user_header']" position="after">
-            <t t-set="show_spent_hours" t-value="[ticket.mapped('use_helpdesk_sale_timesheet') for ticket in grouped_tickets][0]"/>
+            <t t-set="show_spent_hours" t-value="[any(ticket.use_helpdesk_sale_timesheet for group in grouped_tickets for ticket in group)]"/>
             <th class="text-end" t-if="any(show_spent_hours)">
                 <t t-esc="display_tickets"/>
                 <t t-if="is_uom_day">Days</t>
