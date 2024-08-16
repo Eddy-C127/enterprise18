@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import datetime
 
-from freezegun import freeze_time
+from odoo.tests import freeze_time
 from .test_common import TestCommon
 
 

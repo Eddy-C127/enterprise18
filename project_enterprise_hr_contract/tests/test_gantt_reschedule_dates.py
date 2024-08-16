@@ -3,8 +3,8 @@
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-from freezegun import freeze_time
 
+from odoo.tests import freeze_time
 from odoo.fields import Command
 from odoo.addons.project_enterprise_hr.tests.auto_shift_dates_hr_common import AutoShiftDatesHRCommon
 from odoo.addons.project_enterprise.tests.gantt_reschedule_dates_common import fake_now

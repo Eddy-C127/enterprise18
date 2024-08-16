@@ -1,13 +1,12 @@
 import datetime
 from dateutil.relativedelta import relativedelta
-from freezegun import freeze_time
 from markupsafe import Markup
 from unittest.mock import patch
 
 from odoo.addons.account_accountant.tests.test_signature import TestInvoiceSignature
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
 from odoo.addons.sale_subscription.models.sale_order import SaleOrder
-from odoo.tests import Form, tagged
+from odoo.tests import Form, tagged, freeze_time
 from odoo.tools import mute_logger
 from odoo import fields, Command
 from odoo.exceptions import AccessError, ValidationError, UserError

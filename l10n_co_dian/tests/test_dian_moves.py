@@ -1,9 +1,8 @@
 from datetime import datetime
-from freezegun import freeze_time
 from lxml import etree
 
 from odoo import Command
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 from .common import TestCoDianCommon
 from odoo.addons.l10n_co_edi.models.account_invoice import L10N_CO_EDI_TYPE
 

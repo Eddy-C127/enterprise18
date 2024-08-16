@@ -4,8 +4,7 @@ from datetime import datetime, date, time
 from dateutil.relativedelta import relativedelta
 
 from markupsafe import Markup
-from freezegun import freeze_time
-
+from odoo.tests import freeze_time
 from .common import TestIndustryFsmCommon
 
 # Time is freezed on a monday

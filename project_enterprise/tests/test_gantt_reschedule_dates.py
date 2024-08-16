@@ -3,10 +3,9 @@
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-from freezegun import freeze_time
 
 from odoo.fields import Command
-from odoo.tests.common import users, tagged
+from odoo.tests.common import users, tagged, freeze_time
 from .gantt_reschedule_dates_common import ProjectEnterpriseGanttRescheduleCommon, fake_now
 
 

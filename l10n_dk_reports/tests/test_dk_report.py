@@ -1,11 +1,10 @@
 import csv
 import io
 
-from freezegun import freeze_time
 
 from odoo import Command, fields, tools
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 from odoo.tests.common import test_xsd
 
 

@@ -1,9 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import datetime
-from freezegun import freeze_time
 
 from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.tests import common
+from odoo.tests import common, freeze_time
 
 
 @freeze_time('2020-01-01')

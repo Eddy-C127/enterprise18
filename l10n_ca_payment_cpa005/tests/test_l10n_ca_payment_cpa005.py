@@ -2,10 +2,9 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 
 import datetime
-from freezegun import freeze_time
 
 
 @tagged("post_install_l10n", "post_install", "-at_install")

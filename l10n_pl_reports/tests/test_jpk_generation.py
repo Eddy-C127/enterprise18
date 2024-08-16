@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 from odoo import Command, fields, tools
 
 import json
-from freezegun import freeze_time
+
 
 @freeze_time('2023-02-10 18:00:00')
 @tagged('post_install_l10n', 'post_install', '-at_install')

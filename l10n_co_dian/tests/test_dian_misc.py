@@ -1,13 +1,12 @@
 import requests
 from cryptography.hazmat.primitives import serialization, hashes
-from freezegun import freeze_time
 from lxml import etree
 
 from base64 import encodebytes, b64encode
 import re
 from unittest.mock import patch, Mock
 
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 from odoo.addons.l10n_co_dian import xml_utils
 from .common import TestCoDianCommon
 

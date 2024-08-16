@@ -2,10 +2,8 @@
 from datetime import date, timedelta
 from unittest.mock import patch
 
-from freezegun import freeze_time
-
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

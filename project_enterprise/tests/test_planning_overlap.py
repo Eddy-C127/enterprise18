@@ -3,11 +3,10 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from markupsafe import Markup
-from freezegun import freeze_time
 
 from odoo.addons.project.tests.test_project_base import TestProjectCommon
 from odoo.fields import Command
-from odoo.tests import Form
+from odoo.tests import Form, freeze_time
 
 # Time is freezed on a monday
 @freeze_time('2100-01-04')

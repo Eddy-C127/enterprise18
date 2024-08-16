@@ -3,9 +3,8 @@
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 from odoo.addons.project.tests.test_project_base import TestProjectCommon
-from freezegun import freeze_time
 
 
 @tagged('-at_install', 'post_install')

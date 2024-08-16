@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
-
-from freezegun import freeze_time
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 from odoo import Command, fields
 from odoo.exceptions import UserError
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')

@@ -1,5 +1,4 @@
-from freezegun import freeze_time
-from odoo.tests.common import tagged
+from odoo.tests.common import tagged, freeze_time
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo import fields
 

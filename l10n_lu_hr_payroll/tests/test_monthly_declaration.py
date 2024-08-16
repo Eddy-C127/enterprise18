@@ -3,10 +3,9 @@
 import base64
 
 from datetime import date
-from freezegun import freeze_time
 
 from odoo.exceptions import UserError
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 
 from .common import TestLuPayrollCommon
 

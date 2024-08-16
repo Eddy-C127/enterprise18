@@ -1,8 +1,7 @@
 from datetime import datetime
-from freezegun import freeze_time
 from unittest.mock import patch
 
-from odoo.tests import tagged
+from odoo.tests import tagged, freeze_time
 from odoo.exceptions import UserError
 from .common import TestCoDianCommon
 
