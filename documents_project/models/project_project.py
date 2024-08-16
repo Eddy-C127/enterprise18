@@ -219,7 +219,11 @@ class ProjectProject(models.Model):
         return self.documents_tag_ids
 
     def _get_document_folder(self):
-        return self.documents_folder_id
+        if self.use_documents:
+            if not self.documents_folder_id:
+                self._create_missing_folders()
+            return self.documents_folder_id
+        return super()._get_document_folder()
 
     def _check_create_documents(self):
         return self.use_documents and super()._check_create_documents()
